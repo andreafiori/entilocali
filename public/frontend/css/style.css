@@ -1,0 +1,4 @@
+.input-error { border: 1px solid red }
+body { /*min-height: 2000px;*/ padding-top: 70px; }
+label input { margin-left: 51px }
+label textarea { margin-left: 25px }
