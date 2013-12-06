@@ -2,15 +2,8 @@
 
 namespace Application;
 
-use Zend\Mvc\ModuleRouteListener;
-use Zend\Mvc\MvcEvent;
-use Zend\Db\ResultSet\ResultSet;
-use Zend\Db\TableGateway\TableGateway;
-
-use Application\Model\Comment,
-	Application\Model\CommentTable;
-use Application\Model\User,
-	Application\Model\UserTable;
+use Zend\Mvc\ModuleRouteListener,
+	Zend\Mvc\MvcEvent;
 
 class Module
 {

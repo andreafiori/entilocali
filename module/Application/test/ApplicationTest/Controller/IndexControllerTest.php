@@ -1,14 +1,17 @@
 <?php
 
-namespace CommentTest\Controller;
+namespace ApplicationTest\Controller;
 
-use CommentTest\Bootstrap;
+/* Main libraries */
 use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
-use Application\Controller\IndexController;
 use Zend\Http\Request;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
+use ApplicationTest\Bootstrap;
 use PHPUnit_Framework_TestCase;
+
+/* Main Object used */
+use Application\Controller\IndexController;
 
 class IndexControllerTest extends \PHPUnit_Framework_TestCase
 {
@@ -25,7 +28,7 @@ class IndexControllerTest extends \PHPUnit_Framework_TestCase
     	$this->routeMatch = new RouteMatch(array('controller' => 'index'));
     	$this->event      = new MvcEvent();
     	
-        $serviceManager = Bootstrap::getServiceManager();
+        $serviceManager = Bootstrap::getServiceManager();        
         $config = $serviceManager->get('Config');
         $routerConfig = isset($config['router']) ? $config['router'] : array();
 

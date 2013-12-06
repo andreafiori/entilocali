@@ -1,4 +1,7 @@
 <?php
+
+ob_start('compressHTMLOutput');
+
 /**
  * This makes our life easier when dealing with paths. Everything is relative
  * to the application root now.
@@ -15,3 +18,14 @@ require 'init_autoloader.php';
 
 // Run the application!
 Zend\Mvc\Application::init(require 'config/application.config.php')->run();
+
+/* compress HTML output */
+ ob_end_flush();
+function compressHTMLOutput($buffer)
+{
+	$bufferout = $buffer;
+	$bufferout = str_replace("\n", "", $bufferout);
+	$bufferout = str_replace("\t", "", $bufferout);
+	$bufferout = preg_replace('/<!--(.|\s)*?-->/', '', $bufferout);
+	return $bufferout;
+}

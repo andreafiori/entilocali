@@ -7,4 +7,5 @@ nbproject
 .project
 .settings
 composer.lock
+zftool.phar
 vendor/bin

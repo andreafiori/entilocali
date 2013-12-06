@@ -4,10 +4,10 @@ namespace EdpModuleLayouts;
 
 class Module
 {
-    public function onBootstrap($e)
-    {
-        $e->getApplication()->getEventManager()->getSharedManager()->attach('Zend\Mvc\Controller\AbstractController', 'dispatch', function($e) {
-            $controller      = $e->getTarget();
+	public function onBootstrap($e)
+	{
+		$e->getApplication()->getEventManager()->getSharedManager()->attach('Zend\Mvc\Controller\AbstractController', 'dispatch', function($e) {
+			$controller      = $e->getTarget();
             $controllerClass = get_class($controller);
             $moduleNamespace = substr($controllerClass, 0, strpos($controllerClass, '\\'));
             $config          = $e->getApplication()->getServiceManager()->get('config');

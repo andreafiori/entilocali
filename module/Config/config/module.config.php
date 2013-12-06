@@ -1,23 +1,22 @@
 <?php
-
 return array(
     'controllers' => array(
         'invokables' => array(
-            'Backend\Controller\Backend' => 'Backend\Controller\BackendController',
+            'Config\Controller\Index' => 'Config\Controller\IndexController',
         ),
     ),
     'router' => array(
         'routes' => array(
-            'backend' => array(
+            'config' => array(
                 'type'    => 'Literal',
                 'options' => array(
                     // Change this to something specific to your module
-                    'route'    => '/backend',
+                    'route'    => '/index',
                     'defaults' => array(
                         // Change this value to reflect the namespace in which
                         // the controllers for your module are found
-                        '__NAMESPACE__' => 'Backend\Controller',
-                        'controller'    => 'Backend',
+                        '__NAMESPACE__' => 'Config\Controller',
+                        'controller'    => 'Index',
                         'action'        => 'index',
                     ),
                 ),
@@ -43,21 +42,9 @@ return array(
             ),
         ),
     ),
-	
     'view_manager' => array(
-    	'template_map' => array(
-    		// 'layout/custom' => __DIR__ . '/../view/backend/backend/backend.phtml',
-    		'layout/custom' => __DIR__ . '/../../../public/backend/templates/default/backend.phtml',
-    		'backend/backend/index' => __DIR__ . '/../../../public/backend/templates/default/login.phtml',
-    	),
         'template_path_stack' => array(
-            'Backend' => __DIR__ . '/../view',
+            'Config' => __DIR__ . '/../view',
         ),
     ),
-	
-	/* Custom layout for this module */
-	'module_layouts' => array(
-		'Backend' => 'layout/custom',
-	),
-	
 );
