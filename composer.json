@@ -17,6 +17,8 @@
     "require": {
         "php": ">=5.3.3",
         "zendframework/zendframework": "2.*",
-        "zendframework/zftool": "dev-master"
+        "doctrine/doctrine-orm-module": "0.*",
+        "zendframework/zftool": "dev-master",
+        "bjyoungblood/BjyProfiler": "dev-master"
     }
 }

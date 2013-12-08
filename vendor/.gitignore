@@ -1,6 +1,10 @@
 !.gitignore
 .composer
 composer
+bjyoungblood
+BjyProfiler
 doctrine
+symfony
+ZendDeveloperTools
 zendframework
 autoload.php

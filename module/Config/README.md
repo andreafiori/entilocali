@@ -1,1 +1,1 @@
-Sample, skeleton module for use with the ZF2 MVC layer.
+Module for the CRUD of the configuration parameters on the database
