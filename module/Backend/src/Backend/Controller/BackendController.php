@@ -14,22 +14,6 @@ class BackendController extends AbstractActionController
 {
     public function indexAction()
     {
-    	/*
-    	$adapter = new \Zend\Db\Adapter\Adapter( array(
-    			'driver'   => 'Mysqli',
-    			'database' => 'fossobandito',
-    			'username' => 'root',
-    			'password' => ''
-    	));
-    	
-    	$isconnected = $adapter->getDriver()->getConnection()->isConnected();
-    	if($isconnected){
-    		$message = 'connected';
-    	} else {
-    		$message = 'not Valid data field';
-    	}
-    	echo $message;
-    	*/
         $this->layout()->setTemplate('backend/backend/index');
     }
 }
