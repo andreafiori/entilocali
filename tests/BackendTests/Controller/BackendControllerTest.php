@@ -1,17 +1,19 @@
 <?php
-
 namespace BackendTest\Controller;
 
-use Backend\Controller\BackendController;
 use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
 use Zend\Http\Request;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 
 use PHPUnit_Framework_TestCase;
-use BackendTests\ServiceManagerGrabber;
 
-class BackendControllerTest // extends PHPUnit_Framework_TestCase
+use Backend\Controller\BackendController;
+
+/* Using the unique service manager grabber on application module test */
+use ApplicationTests\ServiceManagerGrabber;
+
+class BackendControllerTest extends PHPUnit_Framework_TestCase
 {
 	protected $controller;
 	protected $request;

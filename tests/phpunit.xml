@@ -14,10 +14,20 @@
 		<testsuite name="ApplicationTests">
 			<directory suffix=".php">./ApplicationTests</directory>
 		</testsuite>
-	</testsuites>
+	</testsuites> 
 	<testsuites>
 		<testsuite name="BackendTests">
 			<directory suffix=".php">./BackendTests</directory>
+		</testsuite>
+	</testsuites>
+	<testsuites>
+		<testsuite name="ConfigTests">
+			<directory suffix=".php">./ConfigTests</directory>
+		</testsuite>
+	</testsuites>
+	<testsuites>
+		<testsuite name="LanguageTests">
+			<directory suffix=".php">./LanguageTests</directory>
 		</testsuite>
 	</testsuites>
 </phpunit>

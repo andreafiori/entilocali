@@ -1,5 +1,4 @@
 <?php
-
 use ApplicationTests\ServiceManagerGrabber;
 
 error_reporting(E_ALL | E_STRICT);
@@ -10,6 +9,8 @@ chdir(dirname(__DIR__));
 // Assume we use composer
 $loader = require_once  './vendor/autoload.php';
 $loader->add("ApplicationTests\\", $cwd);
+$loader->add("BackendTests\\", $cwd);
+$loader->add("ConfigTests\\", $cwd);
 $loader->register();
 
 ServiceManagerGrabber::setServiceConfig(require_once './config/application.config.php');

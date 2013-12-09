@@ -1,5 +1,4 @@
 <?php
-
 namespace Backend\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
@@ -8,7 +7,6 @@ use Zend\Mvc\Controller\AbstractActionController;
  * Backend controller
  * @author Andrea Fiori
  * @since  05 December 2013
- *
  */
 class BackendController extends AbstractActionController
 {

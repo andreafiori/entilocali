@@ -1,5 +1,4 @@
 <?php
-
 namespace Application;
 
 use Zend\Mvc\ModuleRouteListener,
@@ -24,16 +23,14 @@ class Module
         return array(
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
-                    __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
-                ),
-            ),
+                    __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__
+                )
+            )
         );
     }
     
     public function getServiceConfig()
     {
-    	return array(
-    			'factories' => array(),
-    	);
+    	return array( 'factories' => array() );
     }
 }

@@ -45,6 +45,9 @@ return array(
     ),
 	
     'view_manager' => array(
+    	'display_not_found_reason' => true,
+    	'display_exceptions'       => true,
+    	
     	'template_map' => array(
     		// 'layout/custom' => __DIR__ . '/../view/backend/backend/backend.phtml',
     		'layout/custom' => __DIR__ . '/../../../public/backend/templates/default/backend.phtml',
@@ -59,5 +62,5 @@ return array(
 	'module_layouts' => array(
 		'Backend' => 'layout/custom',
 	),
-	
+
 );
