@@ -2,6 +2,8 @@
 
 ob_start('compressHTMLOutput');
 
+defined('APPLICATION_ENV') || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
+
 /**
  * This makes our life easier when dealing with paths. Everything is relative
  * to the application root now.
@@ -22,7 +24,7 @@ require 'init_autoloader.php';
 Zend\Mvc\Application::init(require 'config/application.config.php')->run();
 
 /* compress HTML output */
- ob_end_flush();
+ob_end_flush();
 function compressHTMLOutput($buffer)
 {
 	$bufferout = $buffer;

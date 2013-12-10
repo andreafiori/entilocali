@@ -32,11 +32,8 @@ $basePath = $this->basePath();
               ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
 ?>
 <!-- Styles -->
-<?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/frontend/projects/fossobandito/templates/default/favicon.ico'))
-	 	        ->prependStylesheet( $basePath. '/frontend/projects/fossobandito/templates/default/css/style.css')
-                ->prependStylesheet( $basePath. '/frontend/projects/fossobandito/templates/default/css/skeleton-responsive.css')
-                ->prependStylesheet( $basePath. '/frontend/projects/fossobandito/templates/default/css/layout-responsive.css')
-                ->prependStylesheet( $basePath. '/frontend/projects/fossobandito/templates/default/css/fancybox/jquery.fancybox.css')
+<?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/frontend/projects/fossobandito/favicon.ico'))
+	 	        ->prependStylesheet( $basePath. '/frontend/projects/fossobandito/templates/default/css/');
 ?>
 
 <!--[if lt IE 9]>
@@ -46,19 +43,6 @@ $basePath = $this->basePath();
 <!--[if IE 7]>
 	<link rel="stylesheet" href="<?php echo $basePath ?>/frontend/projects/fossobandito/templates/default/css/stylesheet/ie7-style.css">
 <![endif]-->
-
-<!-- Fancybox CSS -->
-<link rel="stylesheet" type="text/css" href="<?php echo $basePath ?>/frontend/projects/fossobandito/templates/default/css/style-custom.css?ver=3.4" media="screen">
-<link rel="stylesheet" type="text/css" href="<?php echo $basePath ?>/frontend/projects/fossobandito/templates/default/css/superfish.css?ver=3.4">
-<link rel="stylesheet" type="text/css" href="<?php echo $basePath ?>/frontend/projects/fossobandito/templates/default/css/fancybox/jquery.fancybox-buttons.css?v=1.0.5">
-<link rel="stylesheet" type="text/css" href="<?php echo $basePath ?>/frontend/projects/fossobandito/templates/default/css/fancybox/jquery.fancybox-thumbs.css?v=1.0.7">
-
-<style type="text/css">
-	canvas { -ms-touch-action: double-tap-zoom; }
-	.recentcomments a{ display:inline !important;padding:0 !important;margin:0 !important; }
-	#gdl-contact-form label.error { color: red; }
-	#gdl-contact-form input.error { border: 1px solid red; }
-</style>
 
 <link rel="stylesheet" id="Google-Font-css" href="http://fonts.googleapis.com/css?family=Droid+Sans%3An%2Ci%2Cb%2Cbi%7CDroid+Serif%3An%2Ci%2Cb%2Cbi%7CMerriweather%3An%2Ci%2Cb%2Cbi%7C&amp;ver=3.4" type="text/css" media="all">
 
@@ -102,7 +86,7 @@ $basePath = $this->basePath();
 
 				<div class="social-icon-wrapper">
 					
-					<div class="social-icon"><a href="/it/' ?>" title="Passa alla lingua italiana"><img src="<?php echo $basePath ?>/frontend/projects/fossobandito/templates/default/images/flag_ita.gif" alt="Bandiera italiana"> Italiano</a></div>
+					<div class="social-icon"><a href="/it/" title="Passa alla lingua italiana"><img src="<?php echo $basePath ?>/frontend/projects/fossobandito/templates/default/images/flag_ita.gif" alt="Bandiera italiana"> Italiano</a></div>
 					<div class="social-icon"><a href="/en/" title="Switch to English"><img src="<?php echo $basePath ?>/frontend/projects/fossobandito/templates/default/images/flag_eng.gif" alt="England's flag"> <?php echo $templateData['languageLabels']['ENG_LANGUAGE_NAME'] ?></a></div>
 				
 				</div>

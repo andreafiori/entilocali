@@ -1,4 +1,5 @@
 <?php
+
 namespace Config\Model;
 
 use Zend\InputFilter\Factory as InputFactory;
@@ -19,6 +20,7 @@ class Config implements InputFilterAwareInterface
 		$this->value  = (isset($data['value']))     ? $data['value']     : null;
 		$this->isadmin  = (isset($data['isadmin']))     ? $data['isadmin']     : null;
 		$this->rifmodule  = (isset($data['rifmodule']))     ? $data['rifmodule']     : null;
+		$this->rifchannel  = (isset($data['rifchannel']))     ? $data['rifchannel']     : null;
 		$this->riflanguage  = (isset($data['riflanguage']))     ? $data['riflanguage']     : null;
 	}
 	

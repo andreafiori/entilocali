@@ -1,7 +1,7 @@
 
 /* Background */
 html{ 
-	background-image: url('images/pattern/pattern-1.png');
+	background-image: url('../images/pattern/pattern-1.png');
 	background-repeat: repeat; 
 }
 

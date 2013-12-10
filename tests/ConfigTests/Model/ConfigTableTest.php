@@ -1,11 +1,29 @@
 <?php
-namespace Config\Model;
+
+namespace ConfigTest\Model;
+
+use Config\Model\Config;
+use Config\Model\ConfigTable;
 
 use Zend\Db\ResultSet\ResultSet;
 use PHPUnit_Framework_TestCase;
 
 class ConfigTableTest extends PHPUnit_Framework_TestCase
 {
+	private $arrayRecordSample;
+	
+	protected function setUp()
+	{
+		$this->arrayRecordSample = array(
+				'id' => 123,
+				'value' => 'My value',
+				'isadmin' => 0,
+				'rifmodule' => 1,
+				'rifchannel' => 1,
+				'riflanguage' => 1
+		);
+	}
+	
 	public function testFetchAllReturnsAllConfigs()
 	{
 		$resultSet        = new ResultSet();
@@ -24,13 +42,7 @@ class ConfigTableTest extends PHPUnit_Framework_TestCase
     public function testCanRetrieveAnConfigByItsId()
     {
         $config = new Config();
-        $config->exchangeArray(array('id'     => 123,
-                                    'value' => 'My value',
-                                    'isadmin'  => 0,
-        							'rifmodule' => 1,
-        							'rifchannel' => 1,
-        							'riflanguage' => 1,
-        ));
+        $config->exchangeArray( $this->arrayRecordSample );
 
         $resultSet = new ResultSet();
         $resultSet->setArrayObjectPrototype(new Config());
@@ -57,27 +69,28 @@ class ConfigTableTest extends PHPUnit_Framework_TestCase
         $configTable = new ConfigTable($mockTableGateway);
         $configTable->deleteConfig(123);
     }
-
+    /*
     public function testSaveConfigWillInsertNewConfigsIfTheyDontAlreadyHaveAnId()
     {
-        $configData = array('value' => 'My value', 'isadmin' => 0, 'rifmodule' => 1, 'rifchannel' => 1, 'riflanguage' => 1);
-        $config     = new Config();
-        $config->exchangeArray($configData);
+    	unset( $this->arrayRecordSample['id'] );
+    	$this->arrayRecordSample = array_filter( $this->arrayRecordSample );
+    	
+        $config = new Config();
+        $config->exchangeArray($this->arrayRecordSample);
 
-        $mockTableGateway = $this->getMock('Zend\Db\TableGateway\TableGateway', array('insert'), array(), '', false);
+		$mockTableGateway = $this->getMock('Zend\Db\TableGateway\TableGateway', array('insert'), array(), '', false);
         $mockTableGateway->expects($this->once())
                          ->method('insert')
-                         ->with($configData);
+                         ->with( $this->arrayRecordSample );
 
-        $configTable = new ConfigTable($mockTableGateway);
-        $configTable->saveConfig($config);
+		$configTable = new ConfigTable($mockTableGateway);
+		$configTable->saveConfig($config);
     }
-
+	
     public function testSaveConfigWillUpdateExistingConfigsIfTheyAlreadyHaveAnId()
     {
-        $configData = array('id' => 123, 'value' => 'My value');
         $config     = new Config();
-        $config->exchangeArray($configData);
+        $config->exchangeArray($this->arrayRecordSample);
 
         $resultSet = new ResultSet();
         $resultSet->setArrayObjectPrototype(new Config());
@@ -97,7 +110,7 @@ class ConfigTableTest extends PHPUnit_Framework_TestCase
         $configTable = new ConfigTable($mockTableGateway);
         $configTable->saveConfig($config);
     }
-
+	*/
     public function testExceptionIsThrownWhenGettingNonexistentConfig()
     {
         $resultSet = new ResultSet();

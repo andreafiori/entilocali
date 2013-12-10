@@ -11,6 +11,7 @@ $loader = require_once  './vendor/autoload.php';
 $loader->add("ApplicationTests\\", $cwd);
 $loader->add("BackendTests\\", $cwd);
 $loader->add("ConfigTests\\", $cwd);
+$loader->add("LanguageTests\\", $cwd);
 $loader->register();
 
 ServiceManagerGrabber::setServiceConfig(require_once './config/application.config.php');

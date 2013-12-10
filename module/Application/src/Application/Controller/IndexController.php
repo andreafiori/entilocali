@@ -1,9 +1,11 @@
 <?php
+
 namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 
-use Config\Model\Config;
+use Config\Model\ConfigTable;
+use Language\Model\LanguageTable;
 
 /**
  * 
@@ -17,15 +19,14 @@ use Config\Model\Config;
  */
 class IndexController extends AbstractActionController
 {
-	private $configTable;
+	/* move selects on the new setup module */
+	private $configTable, $languageTable;
 	
     /**
      * @return array with viewModel object lets return an HTTP 200 status on ZfTool
      */
     public function indexAction()
     {
-    	print_r( $this->getResponse() );
-    	
     	$configTable = $this->getConfigTable();
     	$configFromDb = $configTable->fetchAll(
     			array(
@@ -34,6 +35,9 @@ class IndexController extends AbstractActionController
     				'isadmin' => 0
     			)
     	);
+    	
+    	$languageTable = $this->getLanguageTable();
+    	$languageFromDb = $configTable->fetchAll();
     	
     	$this->layout('frontend/projects/fossobandito/templates/default/layout.phtml');
     	return array("config" => $configFromDb);
@@ -48,5 +52,16 @@ class IndexController extends AbstractActionController
     			$this->configTable = $this->getServiceLocator()->get('Config\Model\ConfigTable');
     		}
     		return $this->configTable;
+    	}
+    	
+    	/**
+    	 * @return ConfigTable $configTable
+    	 */
+    	private function getLanguageTable()
+    	{
+    		if (!$this->languageTable) {
+    			$this->languageTable = $this->getServiceLocator()->get('Language\Model\LanguageTable');
+    		}
+    		return $this->languageTable;
     	}
 }

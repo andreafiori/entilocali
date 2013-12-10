@@ -2,7 +2,8 @@
 return array(
     'controllers' => array(
         'invokables' => array(
-            'Language\Controller\Language' => 'Language\Controller\LanguageController',
+            'Language\Model\Language' => 'Language\Model\Language',
+        	'Language\Controller\LanguageController' => 'Language\Controller\LanguageController',
         ),
     ),
     'router' => array(

@@ -28,4 +28,19 @@ return array(
             },
         ),
     ),
+    /* Doctrine */
+    'doctrine' => array(
+    		'connection' => array(
+    				'orm_default' => array(
+    						'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
+    						'params' => array(
+    								'host'     => $dbParams['hostname'],
+    								'port'     => $dbParams['port'],
+    								'user'     => $dbParams['username'],
+    								'password' => $dbParams['password'],
+    								'dbname'   => $dbParams['database'],
+    						)
+    				)
+    		)
+    ),
 );

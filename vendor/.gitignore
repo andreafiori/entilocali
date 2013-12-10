@@ -1,6 +1,7 @@
 !.gitignore
 .composer
 composer
+bin
 bjyoungblood
 BjyProfiler
 doctrine

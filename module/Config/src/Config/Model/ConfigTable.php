@@ -1,7 +1,10 @@
 <?php
+
 namespace Config\Model;
 
 use Zend\Db\TableGateway\TableGateway;
+use Zend\Db\Sql\Select;
+use Zend\Db\Sql\Expression;
 
 class ConfigTable
 {
@@ -18,6 +21,14 @@ class ConfigTable
 		$resultSet = $this->tableGateway->select($arrayWhere);
 		return $resultSet;
     }
+    
+    public function fetchFrontendConfig()
+    {
+    	$resultSet = $this->tableGateway->select(function (Select $select) {
+	        $select->quantifier(new Expression('SQL_CALC_FOUND_ROWS'));
+    	});
+    	return $resultSet;
+    }
 
     public function getConfig($id)
     {
@@ -33,7 +44,7 @@ class ConfigTable
     public function saveConfig(Config $config)
     {
         $data = array(
-            'name' => $config->name,
+        	'id'  => $config->id,
             'value'  => $config->value,
         	'isadmin'  => $config->isadmin,
         	'rifmodule'  => $config->rifmodule,

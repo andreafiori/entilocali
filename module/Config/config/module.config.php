@@ -2,7 +2,7 @@
 return array(
     'controllers' => array(
         'invokables' => array(
-            'Config\Controller\Index' => 'Config\Controller\IndexController',
+            'Config\Controller\Index' => 'Config\Controller\ConfigController',
         ),
     ),
     'router' => array(
