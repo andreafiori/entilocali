@@ -12,6 +12,7 @@ $loader->add("ApplicationTests\\", $cwd);
 $loader->add("BackendTests\\", $cwd);
 $loader->add("ConfigTests\\", $cwd);
 $loader->add("LanguageTests\\", $cwd);
+$loader->add("SetupTests\\", $cwd);
 $loader->register();
 
 ServiceManagerGrabber::setServiceConfig(require_once './config/application.config.php');

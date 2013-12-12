@@ -29,10 +29,11 @@ class LanguageTableTest extends PHPUnit_Framework_TestCase
 		$resultSet        = new ResultSet();
 		$mockTableGateway = $this->getMock('Zend\Db\TableGateway\TableGateway',
 				array('select'), array(), '', false);
+		
 		$mockTableGateway->expects($this->once())
-		->method('select')
-		->with()
-		->will($this->returnValue($resultSet));
+						->method('select')
+						->with()
+						->will($this->returnValue($resultSet));
 
 		$languageTable = new LanguageTable($mockTableGateway);
 
@@ -50,9 +51,9 @@ class LanguageTableTest extends PHPUnit_Framework_TestCase
 
 		$mockTableGateway = $this->getMock('Zend\Db\TableGateway\TableGateway', array('select'), array(), '', false);
 		$mockTableGateway->expects($this->once())
-		->method('select')
-		->with(array('id' => 123))
-		->will($this->returnValue($resultSet));
+						 ->method('select')
+						 ->with(array('id' => 123))
+						 ->will($this->returnValue($resultSet));
 
 		$languageTable = new LanguageTable($mockTableGateway);
 
@@ -63,15 +64,15 @@ class LanguageTableTest extends PHPUnit_Framework_TestCase
 	{
 		$mockTableGateway = $this->getMock('Zend\Db\TableGateway\TableGateway', array('delete'), array(), '', false);
 		$mockTableGateway->expects($this->once())
-		->method('delete')
-		->with(array('id' => 123));
+						 ->method('delete')
+						 ->with(array('id' => 123));
 
 		$languageTable = new LanguageTable($mockTableGateway);
 		$languageTable->deleteLanguage(123);
 	}
 	/*
-	 public function testSaveLanguageWillInsertNewLanguagesIfTheyDontAlreadyHaveAnId()
-	 {
+	public function testSaveLanguageWillInsertNewLanguagesIfTheyDontAlreadyHaveAnId()
+	{
 	unset( $this->arrayRecordSample['id'] );
 	$this->arrayRecordSample = array_filter( $this->arrayRecordSample );
 	 

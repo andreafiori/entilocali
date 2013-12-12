@@ -30,4 +30,9 @@
 			<directory suffix=".php">./LanguageTests</directory>
 		</testsuite>
 	</testsuites>
+	<testsuites>
+		<testsuite name="SetupTests">
+			<directory suffix=".php">./SetupTests</directory>
+		</testsuite>
+	</testsuites>
 </phpunit>

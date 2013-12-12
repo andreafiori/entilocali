@@ -29,8 +29,7 @@ class LanguageTest extends PHPUnit_Framework_TestCase
 		$serviceManagerGrabber   = new ServiceManagerGrabber();
 		$this->serviceManager = $serviceManagerGrabber->getServiceManager();
 	}
-	
-	
+
 	public function testLanguageInitialState()
 	{
 		$this->sayRecordIsNull( new Language() );
