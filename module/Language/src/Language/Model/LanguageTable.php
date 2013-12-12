@@ -15,18 +15,9 @@ class LanguageTable
 		$this->tableGateway = $tableGateway;
 	}
 
-	public function fetchAll($arrayWhere = null)
+	public function fetchAll()
 	{
-		if ($arrayWhere!='' and !is_array($arrayWhere)) return false;
-		$resultSet = $this->tableGateway->select($arrayWhere);
-		return $resultSet;
-	}
-
-	public function fetchFrontendLanguage()
-	{
-		$resultSet = $this->tableGateway->select(function (Select $select) {
-			$select->quantifier(new Expression('SQL_CALC_FOUND_ROWS'));
-		});
+		$resultSet = $this->tableGateway->select();
 		return $resultSet;
 	}
 
