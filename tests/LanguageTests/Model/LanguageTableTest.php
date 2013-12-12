@@ -73,43 +73,43 @@ class LanguageTableTest extends PHPUnit_Framework_TestCase
 	/*
 	public function testSaveLanguageWillInsertNewLanguagesIfTheyDontAlreadyHaveAnId()
 	{
-	unset( $this->arrayRecordSample['id'] );
-	$this->arrayRecordSample = array_filter( $this->arrayRecordSample );
-	 
-	$language = new Language();
-	$language->exchangeArray($this->arrayRecordSample);
-
-	$mockTableGateway = $this->getMock('Zend\Db\TableGateway\TableGateway', array('insert'), array(), '', false);
-	$mockTableGateway->expects($this->once())
-	->method('insert')
-	->with( $this->arrayRecordSample );
-
-	$languageTable = new LanguageTable($mockTableGateway);
-	$languageTable->saveLanguage($language);
+		unset( $this->arrayRecordSample['id'] );
+		$this->arrayRecordSample = array_filter( $this->arrayRecordSample );
+		 
+		$language = new Language();
+		$language->exchangeArray($this->arrayRecordSample);
+	
+		$mockTableGateway = $this->getMock('Zend\Db\TableGateway\TableGateway', array('insert'), array(), '', false);
+		$mockTableGateway->expects($this->once())
+						 ->method('insert')
+						 ->with( $this->arrayRecordSample );
+	
+		$languageTable = new LanguageTable($mockTableGateway);
+		$languageTable->saveLanguage($language);
 	}
-
+	
 	public function testSaveLanguageWillUpdateExistingLanguagesIfTheyAlreadyHaveAnId()
 	{
-	$language     = new Language();
-	$language->exchangeArray($this->arrayRecordSample);
-
-	$resultSet = new ResultSet();
-	$resultSet->setArrayObjectPrototype(new Language());
-	$resultSet->initialize(array($language));
-
-	$mockTableGateway = $this->getMock('Zend\Db\TableGateway\TableGateway',
-			array('select', 'update'), array(), '', false);
-	$mockTableGateway->expects($this->once())
-	->method('select')
-	->with(array('id' => 123))
-	->will($this->returnValue($resultSet));
-	$mockTableGateway->expects($this->once())
-	->method('update')
-	->with(array('value' => 'My value'),
-			array('id' => 123));
-
-	$languageTable = new LanguageTable($mockTableGateway);
-	$languageTable->saveLanguage($language);
+		$language     = new Language();
+		$language->exchangeArray($this->arrayRecordSample);
+	
+		$resultSet = new ResultSet();
+		$resultSet->setArrayObjectPrototype(new Language());
+		$resultSet->initialize(array($language));
+	
+		$mockTableGateway = $this->getMock('Zend\Db\TableGateway\TableGateway',
+				array('select', 'update'), array(), '', false);
+		$mockTableGateway->expects($this->once())
+		->method('select')
+		->with(array('id' => 123))
+		->will($this->returnValue($resultSet));
+		$mockTableGateway->expects($this->once())
+		->method('update')
+		->with(array('value' => 'My value'),
+				array('id' => 123));
+	
+		$languageTable = new LanguageTable($mockTableGateway);
+		$languageTable->saveLanguage($language);
 	}
 	*/
 	public function testExceptionIsThrownWhenGettingNonexistentLanguage()

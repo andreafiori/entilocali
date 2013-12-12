@@ -28,7 +28,7 @@ return array(
             },
         ),
     ),
-    /* Doctrine */
+    /* Doctrine
     'doctrine' => array(
     		'connection' => array(
     				'orm_default' => array(
@@ -42,5 +42,5 @@ return array(
     						)
     				)
     		)
-    ),
+    ), */
 );

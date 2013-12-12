@@ -32,7 +32,9 @@ class LanguageTest extends PHPUnit_Framework_TestCase
 
 	public function testLanguageInitialState()
 	{
-		$this->sayRecordIsNull( new Language() );
+		$language = new Language();
+		$language->id = null;
+		$this->sayRecordIsNull($language);
 	}
 
 	public function testExchangeArraySetsPropertiesCorrectly()

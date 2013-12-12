@@ -12,14 +12,18 @@ use Setup\Controller\SetupController;
  * @since  04 December 2013
  */
 class IndexController extends AbstractActionController
-{	
+{
     /**
      * @return array with viewModel object lets return an HTTP 200 status on ZfTool
      */
     public function indexAction()
     {    	
-		$setup = new SetupController();
+		$setupController = new SetupController();
+    	$setupObjectRecord = $setupController->getSetupRecord();
+		echo $setupObjectRecord->config->remotelink;
+    	
     	$this->layout('frontend/projects/fossobandito/templates/default/layout.phtml');
-    	return array("setupRecord" => $setup->getSetupRecord() );
+    	
+    	return array("setup" => $setupObjectRecord );
     }
 }

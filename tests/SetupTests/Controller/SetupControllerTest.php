@@ -39,9 +39,13 @@ class SetupControllerTest extends PHPUnit_Framework_TestCase
 		$this->controller->setEvent($this->event);
 		$this->controller->setServiceLocator($this->serviceManager);
 	}
-
+	
 	public function testIndexActionCanBeAccessed()
 	{
-		$this->assertTrue( true );
+		$this->routeMatch->setParam('action', 'index');
+		
+		$result = $this->controller->dispatch($this->request);
+		
+		$this->assertEquals(200, $this->controller->getResponse()->getStatusCode());
 	}
 }

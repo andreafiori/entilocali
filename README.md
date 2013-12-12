@@ -1,18 +1,17 @@
-Zend2 Comment System
+Zend2 CMS with API service
 =======================
+
+This web application is work in progress...
 
 Introduction
 ------------
-Zend framework 2 web application with a form to post a comments on a single web page.
-The frontend has <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap 3</a> integrated.
-This is a demo to show the most common Zend features.
+This web application will have a Content Management System to handle contents, blog posts, photo and video. There will be some module to manage documents for an Italian municipality.
 
 
 Installation
 ------------
 
-Get a working copy of this project is to clone the repository
-and use `composer` to install dependencies using the `create-project` command:
+Get a working copy of this project is to clone the repository and use `composer` to install dependencies using the `create-project` command:
 
     php composer.phar self-update
     php composer.phar install

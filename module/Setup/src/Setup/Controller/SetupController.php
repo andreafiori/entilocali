@@ -6,8 +6,8 @@ use Zend\Mvc\Controller\AbstractActionController;
 
 use ServiceLocatorFactory\ServiceLocatorFactory;
 use Config\Model\ConfigTable;
+use MyProject\Proxies\__CG__\OtherProject\Proxies\__CG__\stdClass;
 // use Language\Model\LanguageTable;
-
 
 /**
  * Merge Config and Language selection data to get app configuration setup data
@@ -17,6 +17,7 @@ use Config\Model\ConfigTable;
 class SetupController extends AbstractActionController
 {
 	private $configTable;
+	
 	private $languageTable, $langaugeLabelsTable;
 	
     public function getSetupRecord()
@@ -33,9 +34,10 @@ class SetupController extends AbstractActionController
     	$languageTable = $this->getLanguageTable();
     	$languageFromDb = $languageTable->fetchAll();
     	
-    	$setupRecord = $configFromDb;
-    	$setupRecord->languages = $languageFromDb;
-        return $setupRecord;
+    	$result = new \stdClass();
+    	$result->config = $configFromDb;
+    	$result->language = $languageFromDb;
+        return $result;
     }
 	    
 	    /**
@@ -63,6 +65,9 @@ class SetupController extends AbstractActionController
 	    
 	    private function getLanguageLabelsTable()
 	    {
-	    	
+	    	if (!$this->langaugeLabelsTable) {
+	    		$this->langaugeLabelsTable = ServiceLocatorFactory::getInstance()->get('Language\Model\LangaugeLabelsTable');
+	    	}
+	    	return $this->languageTable;
 	    }
 }
