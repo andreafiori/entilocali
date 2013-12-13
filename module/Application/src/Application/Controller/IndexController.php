@@ -17,11 +17,10 @@ class IndexController extends AbstractActionController
      * @return array with viewModel object lets return an HTTP 200 status on ZfTool
      */
     public function indexAction()
-    {    	
+    {
 		$setupController = new SetupController();
     	$setupObjectRecord = $setupController->getSetupRecord();
-		echo $setupObjectRecord->config->remotelink;
-    	
+
     	$this->layout('frontend/projects/fossobandito/templates/default/layout.phtml');
     	
     	return array("setup" => $setupObjectRecord );
