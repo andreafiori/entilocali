@@ -89,7 +89,7 @@ return array(
             'routes' => array(),
         ),
     ),
-	// Doctrine Object mapping
+	// Doctrine Object Mapping
 	'doctrine' => array(
         'driver' => array(
             'application_entities' => array(
@@ -103,5 +103,5 @@ return array(
                 )
             )
         )
-    ),
+	),
 );
