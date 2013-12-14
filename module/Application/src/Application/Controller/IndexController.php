@@ -18,9 +18,9 @@ class IndexController extends AbstractActionController
      */
     public function indexAction()
     {
-		$setupController = new SetupController();
+    	$setupController = new SetupController();
     	$setupObjectRecord = $setupController->getSetupRecord();
-
+    	
     	$this->layout('frontend/projects/fossobandito/templates/default/layout.phtml');
     	
     	return array("setup" => $setupObjectRecord );

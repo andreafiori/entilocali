@@ -1,4 +1,5 @@
 <?php
+
 namespace Config;
 
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;

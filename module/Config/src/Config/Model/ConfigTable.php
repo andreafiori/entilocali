@@ -47,9 +47,9 @@ class ConfigTable
         	'id'  => $config->id,
             'value'  => $config->value,
         	'isadmin'  => $config->isadmin,
-        	'rifmodule'  => $config->rifmodule,
-        	'rifchannel'  => $config->rifchannel,
-        	'riflanguage'  => $config->riflanguage,
+        	'module_id'  => $config->module_id,
+        	'channel_id'  => $config->channel_id,
+        	'language_id'  => $config->language_id,
         );
 
         $id = (int)$config->id;

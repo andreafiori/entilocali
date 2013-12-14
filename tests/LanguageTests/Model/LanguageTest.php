@@ -18,12 +18,14 @@ class LanguageTest extends PHPUnit_Framework_TestCase
 				'abbrev1' => 'en',
 				'abbrev2' => 'eng',
 				'abbrev3' => 'english',
+				/*
 				'defaultlang' => 1,
 				'defaultlang_admin' => 1,
 				'encoding' => 'UTF-8',
 				'flag' => 'eng.gif',
 				'active' => 1,
-				'rifchannel' => 1
+				'channel_id' => 1
+				*/
 		);
 		
 		$serviceManagerGrabber   = new ServiceManagerGrabber();

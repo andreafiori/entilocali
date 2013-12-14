@@ -25,8 +25,8 @@ class SetupController extends AbstractActionController
     	$configTable = $this->getConfigTable();
     	$configFromDb = $configTable->fetchAll(
     			array(
-    				'rifchannel' => array(1, 0),
-    				'riflanguage' => array(1, 0),
+    				'channel_id' => array(1, 0),
+    				'language_id' => array(1, 0),
     				'isadmin' => 0
     			)
     	);
@@ -37,7 +37,8 @@ class SetupController extends AbstractActionController
     	$result = new \stdClass();
     	$result->config = $configFromDb;
     	$result->language = $languageFromDb;
-        return $result;
+    	
+        return $configFromDb;
     }
 	    
 	    /**

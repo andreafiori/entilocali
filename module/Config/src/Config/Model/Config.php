@@ -19,9 +19,9 @@ class Config implements InputFilterAwareInterface
 		$this->name   = (isset($data['name']))     ? $data['name']     : null;
 		$this->value  = (isset($data['value']))     ? $data['value']     : null;
 		$this->isadmin  = (isset($data['isadmin']))     ? $data['isadmin']     : null;
-		$this->rifmodule  = (isset($data['rifmodule']))     ? $data['rifmodule']     : null;
-		$this->rifchannel  = (isset($data['rifchannel']))     ? $data['rifchannel']     : null;
-		$this->riflanguage  = (isset($data['riflanguage']))     ? $data['riflanguage']     : null;
+		$this->module_id  = (isset($data['module_id']))     ? $data['module_id']     : null;
+		$this->channel_id  = (isset($data['channel_id']))     ? $data['channel_id']     : null;
+		$this->language_id  = (isset($data['language_id']))     ? $data['language_id']     : null;
 	}
 	
 	public function getArrayCopy()
@@ -40,9 +40,9 @@ class Config implements InputFilterAwareInterface
 			$inputFilter = new InputFilter();
 			$inputFilter->add( $this->getFactoryIntInputArray('id') );
 			$inputFilter->add( $this->getFactoryIntInputArray('isadmin') );
-			$inputFilter->add( $this->getFactoryIntInputArray('rifmodule') );
-			$inputFilter->add( $this->getFactoryIntInputArray('rifchannel') );
-			$inputFilter->add( $this->getFactoryIntInputArray('riflanguage') );
+			$inputFilter->add( $this->getFactoryIntInputArray('module_id') );
+			$inputFilter->add( $this->getFactoryIntInputArray('channel_id') );
+			$inputFilter->add( $this->getFactoryIntInputArray('language_id') );
 			$this->inputFilter = $inputFilter;
 		}
 		
