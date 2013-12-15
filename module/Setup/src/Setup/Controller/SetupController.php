@@ -5,9 +5,6 @@ namespace Setup\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 
 use ServiceLocatorFactory\ServiceLocatorFactory;
-use Config\Model\ConfigTable;
-use MyProject\Proxies\__CG__\OtherProject\Proxies\__CG__\stdClass;
-// use Language\Model\LanguageTable;
 
 /**
  * Merge Config and Language selection data to get app configuration setup data
@@ -16,59 +13,52 @@ use MyProject\Proxies\__CG__\OtherProject\Proxies\__CG__\stdClass;
  */
 class SetupController extends AbstractActionController
 {
-	private $configTable;
+
+	private $em;
 	
-	private $languageTable, $langaugeLabelsTable;
+	/**
+	 * set \ get the Doctrine\ORM\EntityManager or doctrine.entitymanager.orm_default EntityManager
+	 */
+	public function __construct()
+	{
+		$this->em = ServiceLocatorFactory::getInstance()->get('doctrine.entitymanager.orm_default');
+	}
 	
     public function getSetupRecord()
     {
-    	$configTable = $this->getConfigTable();
-    	$configFromDb = $configTable->fetchAll(
-    			array(
-    				'channel_id' => array(1, 0),
-    				'language_id' => array(1, 0),
-    				'isadmin' => 0
-    			)
-    	);
-    	
-    	$languageTable = $this->getLanguageTable();
-    	$languageFromDb = $languageTable->fetchAll();
-    	
-    	$result = new \stdClass();
-    	$result->config = $configFromDb;
-    	$result->language = $languageFromDb;
-    	
-        return $configFromDb;
+    	$configRecord = $this->getConfigurations();
+    	$configRecord['languagesLabels'] = $this->getLanguageLabels();
+        return $configRecord;
     }
-	    
+    
 	    /**
-	     * @return ConfigTable $configTable
+	     * set path for the templates (this method can ben moved)
+	     * @return array $configRecord
 	     */
-	    private function getConfigTable()
+	    private function getConfigurations()
 	    {
-	    	if (!$this->configTable) {
-	    		$this->configTable = ServiceLocatorFactory::getInstance()->get('Config\Model\ConfigTable');
-	    	}
 	    	
-	    	return $this->configTable;
+	    	$objectManager = ServiceLocatorFactory::getInstance()->get('');
+	    	$user1 = $this->em->getRepository('Application\Entity\Users')->find(1);
+	    	
+	    	
+	    	$configRepository = $this->em->getRepository('Application\Entity\Config')->findAll();
+	    	$configRecord = array();
+	    	foreach($configRepository as $configData)
+	    	{
+	    		$configRecord[$configData->getName()] = $configData->getValue();
+	    	}
+	    	$configRecord['projectdir'] = 'frontend/projects/'.$configRecord['remotelink'];
+	    	if (!$configRecord['frontendtemplate']) $configRecord['frontendtemplate'] = 'default/';
+	    	$configRecord['basiclayout'] = $configRecord['projectdir'].'templates/'.$configRecord['frontendtemplate'].'/layout.phtml';
+	    	return $configRecord;
 	    }
 	    
 	    /**
-	     * @return ConfigTable $configTable
+	     * @return array $languagesLabels 
 	     */
-	    private function getLanguageTable()
+	    private function getLanguageLabels()
 	    {
-	    	if (!$this->languageTable) {
-	    		$this->languageTable = ServiceLocatorFactory::getInstance()->get('Language\Model\LanguageTable');
-	    	}
-	    	return $this->languageTable;
-	    }
-	    
-	    private function getLanguageLabelsTable()
-	    {
-	    	if (!$this->langaugeLabelsTable) {
-	    		$this->langaugeLabelsTable = ServiceLocatorFactory::getInstance()->get('Language\Model\LangaugeLabelsTable');
-	    	}
-	    	return $this->languageTable;
+	    	return $this->em->getRepository('Application\Entity\LanguagesLabels')->findAll();
 	    }
 }

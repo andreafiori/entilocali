@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'router' => array(
         'routes' => array(
@@ -8,7 +9,7 @@ return array(
                         'route'    => '/',
                         'defaults' => array(
                                 'controller' => 'Application\Controller\Index',
-                               'action'     => 'index',
+                               'action'    	 => 'index',
                         ),
                         'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -16,7 +17,6 @@ return array(
                         ),
                 ),
             ),
-                
             'application' => array( 
                             'type'    => 'segment', 
                             'options' => array( 

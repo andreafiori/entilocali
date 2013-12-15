@@ -5,6 +5,7 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 
 use Setup\Controller\SetupController;
+use Zend\View\Model\ViewModel;
 
 /**
  * Home page controller
@@ -14,6 +15,7 @@ use Setup\Controller\SetupController;
 class IndexController extends AbstractActionController
 {
     /**
+     * TODO: check if layout template exists!
      * @return array with viewModel object lets return an HTTP 200 status on ZfTool
      */
     public function indexAction()
@@ -21,8 +23,9 @@ class IndexController extends AbstractActionController
     	$setupController = new SetupController();
     	$setupObjectRecord = $setupController->getSetupRecord();
     	
-    	$this->layout('frontend/projects/fossobandito/templates/default/layout.phtml');
-    	
-    	return array("setup" => $setupObjectRecord );
+    	$this->layout($setupObjectRecord['basiclayout']);
+    	$this->layout()->setVariable("templateData", $setupObjectRecord);
+
+    	return new ViewModel();
     }
 }

@@ -10,7 +10,7 @@ use PHPUnit_Framework_TestCase;
 use ApplicationTests\ServiceManagerGrabber;
 use Setup\Controller\SetupController;
 
-class SetupControllerTest extends PHPUnit_Framework_TestCase
+class SetupControllerTest // extends PHPUnit_Framework_TestCase
 {
 	protected $controller;
 	protected $request;
@@ -26,7 +26,7 @@ class SetupControllerTest extends PHPUnit_Framework_TestCase
 		$this->serviceManager = $serviceManagerGrabber->getServiceManager();
 		
 		$this->request    = new Request();
-		$this->routeMatch = new RouteMatch(array('controller' => 'index'));
+		$this->routeMatch = new RouteMatch(array('controller' => 'setup'));
 		
 		$config = $this->serviceManager->get('ApplicationConfig');
 		$routerSetup = isset($config['router']) ? $config['router'] : array();
@@ -40,12 +40,12 @@ class SetupControllerTest extends PHPUnit_Framework_TestCase
 		$this->controller->setServiceLocator($this->serviceManager);
 	}
 	
-	public function testIndexActionCanBeAccessed()
+	public function testIndexActionCannotBeAccessed()
 	{
 		$this->routeMatch->setParam('action', 'index');
 		
 		$result = $this->controller->dispatch($this->request);
 		
-		$this->assertEquals(200, $this->controller->getResponse()->getStatusCode());
+		$this->assertEquals(500, $this->controller->getResponse()->getStatusCode());
 	}
 }

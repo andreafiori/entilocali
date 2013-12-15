@@ -7,7 +7,7 @@ return array(
     	'EdpModuleLayouts', 'ServiceLocatorFactory',
     	'DoctrineModule', 'DoctrineORMModule',
     	'ZendDeveloperTools', 'BjyProfiler',
-    	'Setup', 
+    	'Setup','Posts', 
     ),
 
     // These are various options for the listeners attached to the ModuleManager
