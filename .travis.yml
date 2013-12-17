@@ -1,19 +1,22 @@
 language: php
 
 php:
-  - 5.2
+  - 5.3.3
   - 5.3
   - 5.4
+  - 5.5
 
-env:
-  - DB=mysql
+# env: - DB=mysql
+
+before_install:
+  - composer self-update
+  - composer install
 
 before_script:
-  - composer install --prefer-dist --dev
+  - tests
 
-# install: php vendor/vendors.php
-  
-script: phpunit --configuration phpunit.xml --coverage-text
+script:
+   - phpunit
 
 notifications:
   email: a.fiori@cheapnet.it

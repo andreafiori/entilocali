@@ -35,23 +35,7 @@ class Module implements AutoloaderProviderInterface
     
     public function getServiceConfig()
     {
-    	return array(
-    			/*
-    			'factories' => array(
-    					'Config\Model\ConfigTable' =>  function($sm) {
-    						$tableGateway = $sm->get('ConfigTableGateway');
-    						$table = new ConfigTable($tableGateway);
-    						return $table;
-    					},
-    					'ConfigTableGateway' => function ($sm) {
-    						$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-    						$resultSetPrototype = new ResultSet();
-    						$resultSetPrototype->setArrayObjectPrototype(new Config());
-    						return new TableGateway('config', $dbAdapter, null, $resultSetPrototype);
-    					},
-    			),
-    			*/
-    	);
+    	return array();
     }
     
     public function onBootstrap(MvcEvent $e)

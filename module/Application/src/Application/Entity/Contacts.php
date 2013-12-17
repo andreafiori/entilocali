@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Contacts
  *
- * @ORM\Table(name="contacts")
+ * @ORM\Table(name="contacts", indexes={@ORM\Index(name="user_id", columns={"user_id"})})
  * @ORM\Entity
  */
 class Contacts
@@ -83,6 +83,16 @@ class Contacts
      * @ORM\Column(name="fileattached", type="string", length=255, nullable=true)
      */
     private $fileattached;
+
+    /**
+     * @var \Application\Entity\Users
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Users")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * })
+     */
+    private $user;
 
 
 
@@ -301,5 +311,28 @@ class Contacts
     public function getFileattached()
     {
         return $this->fileattached;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Application\Entity\Users $user
+     * @return Contacts
+     */
+    public function setUser(\Application\Entity\Users $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Application\Entity\Users 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

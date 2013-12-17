@@ -50,6 +50,11 @@
 		</testsuite>
 	</testsuites>
 	<testsuites>
+		<testsuite name="PostsTests">
+			<directory suffix=".php">./PostsTests</directory>
+		</testsuite>
+	</testsuites>
+	<testsuites>
 		<testsuite name="SetupTests">
 			<directory suffix=".php">./SetupTests</directory>
 		</testsuite>

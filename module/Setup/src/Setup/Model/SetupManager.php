@@ -1,47 +1,43 @@
 <?php
 
-namespace Setup\Controller;
+namespace Setup\Model;
 
-use Zend\Mvc\Controller\AbstractActionController;
-
-use ServiceLocatorFactory\ServiceLocatorFactory;
+use Doctrine\Common\Persistence\ObjectManager;
 
 /**
+ * 
  * Merge Config and Language selection data to get app configuration setup data
  * @author Andrea Fiori
  * @since  11 December 2013
+ * 
  */
-class SetupController extends AbstractActionController
+class SetupManager
 {
-
 	private $em;
 	
-	/**
-	 * set \ get the Doctrine\ORM\EntityManager or doctrine.entitymanager.orm_default EntityManager
-	 */
-	public function __construct()
+	public function __construct(ObjectManager $objectManager)
 	{
-		$this->em = ServiceLocatorFactory::getInstance()->get('doctrine.entitymanager.orm_default');
+		$this->em = $objectManager;
 	}
 	
+	/**
+	 * Given the input (channel name or vhost and\or language abbreviation), 
+	 * get the setup array with all options  
+	 * @return multitype:
+	 */
     public function getSetupRecord()
     {
     	$configRecord = $this->getConfigurations();
     	$configRecord['languagesLabels'] = $this->getLanguageLabels();
         return $configRecord;
     }
-    
+	
 	    /**
 	     * set path for the templates (this method can ben moved)
 	     * @return array $configRecord
 	     */
 	    private function getConfigurations()
 	    {
-	    	
-	    	$objectManager = ServiceLocatorFactory::getInstance()->get('');
-	    	$user1 = $this->em->getRepository('Application\Entity\Users')->find(1);
-	    	
-	    	
 	    	$configRepository = $this->em->getRepository('Application\Entity\Config')->findAll();
 	    	$configRecord = array();
 	    	foreach($configRepository as $configData)
@@ -49,7 +45,7 @@ class SetupController extends AbstractActionController
 	    		$configRecord[$configData->getName()] = $configData->getValue();
 	    	}
 	    	$configRecord['projectdir'] = 'frontend/projects/'.$configRecord['remotelink'];
-	    	if (!$configRecord['frontendtemplate']) $configRecord['frontendtemplate'] = 'default/';
+	    	if (!isset($configRecord['frontendtemplate'])) $configRecord['frontendtemplate'] = 'default/';
 	    	$configRecord['basiclayout'] = $configRecord['projectdir'].'templates/'.$configRecord['frontendtemplate'].'/layout.phtml';
 	    	return $configRecord;
 	    }
@@ -61,4 +57,5 @@ class SetupController extends AbstractActionController
 	    {
 	    	return $this->em->getRepository('Application\Entity\LanguagesLabels')->findAll();
 	    }
+	    
 }

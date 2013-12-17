@@ -231,17 +231,8 @@ class Users
      */
     private $languageId;
 
-    /**
-     * Set id
-     *
-     * @param string $id
-     * @return Users
-     */
-    public function setId($id)
-    {
-    	$this->id = $id;
-    }
-    
+
+
     /**
      * Get id
      *

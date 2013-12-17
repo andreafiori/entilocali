@@ -25,6 +25,12 @@
 <p>TODO both frontend and backend:</p>
 <ul>
 	<li>Breadcrumbs (see the Abdul's navigation tutorial)</li>
+	<li>
+	IndexController:
+     * 		check if layout template exists!
+     * 		inject language Abbreviation (it/ or en/)
+     * 		inject channel from the URL (create a channel db table to join with config???)
+	</li>
 	<li>Posts module:
 		 inject setup data to any sub module
 		 get all posts on home page?
@@ -35,10 +41,12 @@
 	<li>Load configuration from language and config?!</li>
 	<li>Home page handling with multiple templates...!?</li>
 </ul>
-SELECT id, language, abbrev1, abbrev3 FROM languages WHERE active = '1' 
+SELECT id, language, abbrev1, abbrev3 FROM languages WHERE active = '1' // select active 
 SELECT SQL_CALC_FOUND_ROWS language, abbrev1, abbrev3, l.id, l.id AS idlabel, labelname, labelvalue FROM languages l, languages_labels ll WHERE active = '1' AND l.id = ll.riflang AND abbrev1 = 'it' 
 SELECT name, value FROM config WHERE (rifchannel = 1 OR rifchannel = '0') AND (riflanguage = 1 OR riflanguage = '0') 
 
+New query must be like:
+SELECT l.* FROm languages l INNER JOIN channels c ON (c.id = l.channel_id) AND active = 1 and defaultlang = 1
 <p>TODO (test)</p>
 <ul>
 	<li>Fix PHPUnit errors</li>

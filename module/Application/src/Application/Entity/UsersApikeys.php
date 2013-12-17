@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * UsersApikeys
  *
- * @ORM\Table(name="users_apikeys", uniqueConstraints={@ORM\UniqueConstraint(name="uniqueKeys", columns={"keystring", "keystring_secret", "rifuserid"})})
+ * @ORM\Table(name="users_apikeys", uniqueConstraints={@ORM\UniqueConstraint(name="uniqueKeys", columns={"keystring", "keystring_secret"})})
  * @ORM\Entity
  */
 class UsersApikeys
@@ -36,13 +36,6 @@ class UsersApikeys
     private $keystringSecret;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="rifuserid", type="string", length=80, nullable=true)
-     */
-    private $rifuserid;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="createdate", type="datetime", nullable=true)
@@ -55,6 +48,13 @@ class UsersApikeys
      * @ORM\Column(name="lastupdate", type="datetime", nullable=true)
      */
     private $lastupdate;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="user_id", type="string", length=80, nullable=true)
+     */
+    private $userId;
 
 
 
@@ -115,29 +115,6 @@ class UsersApikeys
     }
 
     /**
-     * Set rifuserid
-     *
-     * @param string $rifuserid
-     * @return UsersApikeys
-     */
-    public function setRifuserid($rifuserid)
-    {
-        $this->rifuserid = $rifuserid;
-
-        return $this;
-    }
-
-    /**
-     * Get rifuserid
-     *
-     * @return string 
-     */
-    public function getRifuserid()
-    {
-        return $this->rifuserid;
-    }
-
-    /**
      * Set createdate
      *
      * @param \DateTime $createdate
@@ -181,5 +158,28 @@ class UsersApikeys
     public function getLastupdate()
     {
         return $this->lastupdate;
+    }
+
+    /**
+     * Set userId
+     *
+     * @param string $userId
+     * @return UsersApikeys
+     */
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+
+        return $this;
+    }
+
+    /**
+     * Get userId
+     *
+     * @return string 
+     */
+    public function getUserId()
+    {
+        return $this->userId;
     }
 }

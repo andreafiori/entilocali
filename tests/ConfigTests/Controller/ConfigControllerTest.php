@@ -1,40 +1,19 @@
 <?php
+
 namespace ConfigTest\Controller;
 
 use Config\Controller\ConfigController;
-use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
-use Zend\Http\Request;
-use Zend\Mvc\MvcEvent;
-use Zend\Mvc\Router\RouteMatch;
+use SetupTests\Model\TestSuite;
 
-use PHPUnit_Framework_TestCase;
-
-use ApplicationTests\ServiceManagerGrabber;
-
-class ConfigControllerTest extends PHPUnit_Framework_TestCase
+class ConfigControllerTest extends TestSuite
 {
 	protected $controller;
-	protected $request;
-	protected $response;
-	protected $routeMatch;
-	protected $event;
 	
 	protected $serviceManager;
 
 	public function setUp()
 	{
-		$serviceManagerGrabber = new ServiceManagerGrabber();
-		$this->serviceManager = $serviceManagerGrabber->getServiceManager();
-		
-		$this->request    = new Request();
-		$this->routeMatch = new RouteMatch(array('controller' => 'index'));
-		
-		$config = $this->serviceManager->get('Config');
-		$routerConfig = isset($config['router']) ? $config['router'] : array();
-		
-		$this->event      = new MvcEvent();
-		$this->event->setRouter( HttpRouter::factory($routerConfig) );
-		$this->event->setRouteMatch($this->routeMatch);
+		$this->setUpService();
 		
 		$this->controller = new ConfigController();
 		$this->controller->setEvent($this->event);

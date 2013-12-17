@@ -10,7 +10,7 @@ $dbParams = array(
 );
 
 return array(
-        'service_manager' => array(
+	'service_manager' => array(
         'factories' => array(
             'Zend\Db\Adapter\Adapter' => function ($sm) use ($dbParams) {
                 $adapter = new BjyProfiler\Db\Adapter\ProfilingAdapter(array(
@@ -26,21 +26,28 @@ return array(
                 $adapter->injectProfilingStatementPrototype();
                 return $adapter;
             },
+            'entityManagerService' => function($sm) {
+            	$objectManager = $sm->get('Doctrine\ORM\EntityManager');
+            	return $objectManager;
+            },
         ),
     ),
     /* Doctrine */
     'doctrine' => array(
-					'connection' => array(
-						'orm_default' => array(
-										'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
-										'params' => array(
-												'host'     => $dbParams['hostname'],
-												'port'     => $dbParams['port'],
-												'user'     => $dbParams['username'],
-												'password' => $dbParams['password'],
-												'dbname'   => $dbParams['database'],
-										)
-						)
-					)
+    		'connection' => array(
+    				'orm_default' => array(
+    						'doctrine_type_mappings' => array(
+    								'enum' => 'string'
+							),
+    						'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
+    						'params' => array(
+    								'host'     => $dbParams['hostname'],
+    								'port'     => $dbParams['port'],
+    								'user'     => $dbParams['username'],
+    								'password' => $dbParams['password'],
+    								'dbname'   => $dbParams['database'],
+    						)
+    				),
+    		)
     ),
 );
