@@ -1,1 +1,1 @@
-Sample, skeleton module for use with the ZF2 MVC layer.
+Module for the backend with a different layout set on public/templates/ directory

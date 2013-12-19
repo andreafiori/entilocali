@@ -13,17 +13,12 @@ use Setup\Model\SetupManager;
  */
 class IndexController extends AbstractActionController
 {
-    /**
-     * @return viewModel object (must return an HTTP 200 status)
-     */
     public function indexAction()
     {
-    	// $this->validateDispatchable($this->params()->fromRoute('controller'), 'index');
-    	$sm = $this->getServiceLocator()->get('entityManagerService');
-    	$setupController = new SetupManager($sm);
-    	
-    	$setupObjectRecord = $setupController->getSetupRecord();
-
+    	$setupController = new SetupManager($this);
+    	$setupController->setObjectManager( $this->getServiceLocator()->get('entityManagerService') );
+		
+    	$setupObjectRecord = $setupController->setSetupRecord();
     	$this->layout($setupObjectRecord['basiclayout']);
     	$this->layout()->setVariable("templateData", $setupObjectRecord);
 
@@ -35,7 +30,7 @@ class IndexController extends AbstractActionController
 	     * @param string $controller
 	     * @param string $action
 	     * @return boolean
-	     */
+	    
 	    private function validateDispatchable($controller, $action)
 	    {
 	    	$loader = $this->getServiceLocator()->get('ControllerLoader');
@@ -51,13 +46,13 @@ class IndexController extends AbstractActionController
 	    	}
 	    
 	    	return true;
-	    }
+	    } $this->validateDispatchable($this->params()->fromRoute('controller'), 'index'); */
 
 	    /**
 	     * Check if template exists
 	     * @param unknown $template
 	     * @return boolean
-	     */
+	    
 	    private function validateTemplate($template)
 	    {
 	    	$resolver = $this->getEvent()
@@ -69,5 +64,5 @@ class IndexController extends AbstractActionController
 	    		return false;
 	    	}
 	    	return true;
-	    }
+	    } */
 }

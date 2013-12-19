@@ -14,9 +14,10 @@
 
 <p>TODO for the frontend:</p>
 <ul>
+	<li>Setup configuration</li>
+	<li>Installation of the application!!!</li>
 	<li>Redirect from home page to /it/ (default language) like fossobandito</li>
 	<li>Load custom controller for the frontend</li>
-	<li>Let the view load language and config options</li>
 	<li>Set post category / content for the backend</li>
 	<li>Work with us form</li>
 	<li>Contact form (sample, Send mail?)</li>
@@ -27,7 +28,6 @@
 	<li>Breadcrumbs (see the Abdul's navigation tutorial)</li>
 	<li>
 	IndexController:
-     * 		check if layout template exists!
      * 		inject language Abbreviation (it/ or en/)
      * 		inject channel from the URL (create a channel db table to join with config???)
 	</li>
@@ -36,19 +36,28 @@
 		 get all posts on home page?
   		 get a single posts with detail
   		 factory to get blog posts, photo, </li>
-	<li>Channel (watch about multi website...)</li>
 	<li>Check if is admin</li>
 	<li>Load configuration from language and config?!</li>
 	<li>Home page handling with multiple templates...!?</li>
 </ul>
-SELECT id, language, abbrev1, abbrev3 FROM languages WHERE active = '1' // select active 
-SELECT SQL_CALC_FOUND_ROWS language, abbrev1, abbrev3, l.id, l.id AS idlabel, labelname, labelvalue FROM languages l, languages_labels ll WHERE active = '1' AND l.id = ll.riflang AND abbrev1 = 'it' 
-SELECT name, value FROM config WHERE (rifchannel = 1 OR rifchannel = '0') AND (riflanguage = 1 OR riflanguage = '0') 
+SELECT id, language, abbrev1, abbrev3 FROM languages WHERE active = '1'
+
+SELECT SQL_CALC_FOUND_ROWS language, abbrev1, abbrev3, l.id, l.id AS idlabel, labelname, labelvalue 
+	FROM languages l, languages_labels ll WHERE active = '1' 
+	AND l.id = ll.riflang AND abbrev1 = $'it'
+	
+SELECT name, value FROM config WHERE (rifchannel = $'1' OR rifchannel = '0') 
+	AND (riflanguage = $'1' OR riflanguage = '0') 
 
 New query must be like:
-SELECT l.* FROm languages l INNER JOIN channels c ON (c.id = l.channel_id) AND active = 1 and defaultlang = 1
+SELECT l.* FROM languages l INNER JOIN channels c ON (c.id = l.channel_id ) 
+	AND active = '1' and defaultlang = '1' 
+	AND channel_id = $'1'
+	AND abbrev1 = $'it'
+
 <p>TODO (test)</p>
 <ul>
-	<li>Fix PHPUnit errors</li>
 	<li>Codeception module?</li>
+	<li>Align tests with production</li>
+	<li>Remove doctrine calls from controllers</li>
 </ul>
