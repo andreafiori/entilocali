@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Languages
  *
- * @ORM\Table(name="languages", uniqueConstraints={@ORM\UniqueConstraint(name="lang", columns={"language"})}, indexes={@ORM\Index(name="channelid", columns={"channel_id"})})
+ * @ORM\Table(name="languages", indexes={@ORM\Index(name="abbrev1", columns={"abbrev1"})})
  * @ORM\Entity
  */
 class Languages

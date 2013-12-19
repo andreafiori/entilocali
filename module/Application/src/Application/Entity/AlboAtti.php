@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * AlboAtti
  *
- * @ORM\Table(name="albo_atti")
+ * @ORM\Table(name="albo_atti", indexes={@ORM\Index(name="srchfields", columns={"sezione_id", "user_id", "settore_id"})})
  * @ORM\Entity
  */
 class AlboAtti
@@ -34,27 +34,6 @@ class AlboAtti
      * @ORM\Column(name="anno", type="integer", nullable=false)
      */
     private $anno;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="rifsezione", type="integer", nullable=false)
-     */
-    private $rifsezione = '0';
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="rifsettore", type="integer", nullable=false)
-     */
-    private $rifsettore;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="rifuser", type="integer", nullable=false)
-     */
-    private $rifuser;
 
     /**
      * @var string
@@ -175,6 +154,27 @@ class AlboAtti
      */
     private $seoDescription;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="settore_id", type="integer", nullable=false)
+     */
+    private $settoreId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="user_id", type="integer", nullable=false)
+     */
+    private $userId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="sezione_id", type="integer", nullable=false)
+     */
+    private $sezioneId = '0';
+
 
 
     /**
@@ -231,75 +231,6 @@ class AlboAtti
     public function getAnno()
     {
         return $this->anno;
-    }
-
-    /**
-     * Set rifsezione
-     *
-     * @param integer $rifsezione
-     * @return AlboAtti
-     */
-    public function setRifsezione($rifsezione)
-    {
-        $this->rifsezione = $rifsezione;
-
-        return $this;
-    }
-
-    /**
-     * Get rifsezione
-     *
-     * @return integer 
-     */
-    public function getRifsezione()
-    {
-        return $this->rifsezione;
-    }
-
-    /**
-     * Set rifsettore
-     *
-     * @param integer $rifsettore
-     * @return AlboAtti
-     */
-    public function setRifsettore($rifsettore)
-    {
-        $this->rifsettore = $rifsettore;
-
-        return $this;
-    }
-
-    /**
-     * Get rifsettore
-     *
-     * @return integer 
-     */
-    public function getRifsettore()
-    {
-        return $this->rifsettore;
-    }
-
-    /**
-     * Set rifuser
-     *
-     * @param integer $rifuser
-     * @return AlboAtti
-     */
-    public function setRifuser($rifuser)
-    {
-        $this->rifuser = $rifuser;
-
-        return $this;
-    }
-
-    /**
-     * Get rifuser
-     *
-     * @return integer 
-     */
-    public function getRifuser()
-    {
-        return $this->rifuser;
     }
 
     /**
@@ -691,5 +622,74 @@ class AlboAtti
     public function getSeoDescription()
     {
         return $this->seoDescription;
+    }
+
+    /**
+     * Set settoreId
+     *
+     * @param integer $settoreId
+     * @return AlboAtti
+     */
+    public function setSettoreId($settoreId)
+    {
+        $this->settoreId = $settoreId;
+
+        return $this;
+    }
+
+    /**
+     * Get settoreId
+     *
+     * @return integer 
+     */
+    public function getSettoreId()
+    {
+        return $this->settoreId;
+    }
+
+    /**
+     * Set userId
+     *
+     * @param integer $userId
+     * @return AlboAtti
+     */
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+
+        return $this;
+    }
+
+    /**
+     * Get userId
+     *
+     * @return integer 
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
+     * Set sezioneId
+     *
+     * @param integer $sezioneId
+     * @return AlboAtti
+     */
+    public function setSezioneId($sezioneId)
+    {
+        $this->sezioneId = $sezioneId;
+
+        return $this;
+    }
+
+    /**
+     * Get sezioneId
+     *
+     * @return integer 
+     */
+    public function getSezioneId()
+    {
+        return $this->sezioneId;
     }
 }

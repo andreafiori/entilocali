@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ProdottiMarche
  *
- * @ORM\Table(name="prodotti_marche")
+ * @ORM\Table(name="prodotti_marche", indexes={@ORM\Index(name="codmarca", columns={"codmarca"})})
  * @ORM\Entity
  */
 class ProdottiMarche
@@ -15,11 +15,11 @@ class ProdottiMarche
     /**
      * @var integer
      *
-     * @ORM\Column(name="idmarca", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idmarca;
+    private $id;
 
     /**
      * @var string
@@ -122,13 +122,13 @@ class ProdottiMarche
 
 
     /**
-     * Get idmarca
+     * Get id
      *
      * @return integer 
      */
-    public function getIdmarca()
+    public function getId()
     {
-        return $this->idmarca;
+        return $this->id;
     }
 
     /**

@@ -38,30 +38,30 @@ class Annunci
     /**
      * @var string
      *
-     * @ORM\Column(name="testoann", type="text", nullable=false)
+     * @ORM\Column(name="testannuncio", type="text", nullable=false)
      */
-    private $testoann;
+    private $testannuncio;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="datainsert", type="datetime", nullable=false)
+     * @ORM\Column(name="date_insert", type="datetime", nullable=false)
      */
-    private $datainsert = '2011-01-01 01:01:01';
+    private $dateInsert = '2011-01-01 01:01:01';
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="datapublish", type="datetime", nullable=false)
+     * @ORM\Column(name="date_publish", type="datetime", nullable=false)
      */
-    private $datapublish;
+    private $datePublish;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="datascadenza", type="datetime", nullable=false)
+     * @ORM\Column(name="expiredate", type="datetime", nullable=false)
      */
-    private $datascadenza = '2011-01-01 01:01:01';
+    private $expiredate = '2011-01-01 01:01:01';
 
     /**
      * @var string
@@ -185,37 +185,37 @@ class Annunci
     /**
      * @var string
      *
-     * @ORM\Column(name="email_ann", type="string", length=80, nullable=false)
+     * @ORM\Column(name="email", type="string", length=80, nullable=false)
      */
-    private $emailAnn = '0';
+    private $email = '0';
 
     /**
      * @var string
      *
-     * @ORM\Column(name="contatto_ann", type="string", length=80, nullable=false)
+     * @ORM\Column(name="contact", type="string", length=80, nullable=false)
      */
-    private $contattoAnn;
+    private $contact;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="noteann", type="string", length=80, nullable=false)
+     * @ORM\Column(name="note", type="string", length=80, nullable=false)
      */
-    private $noteann = '0';
+    private $note = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="visite", type="integer", nullable=false)
+     * @ORM\Column(name="visits", type="integer", nullable=false)
      */
-    private $visite = '0';
+    private $visits = '0';
 
     /**
      * @var string
      *
-     * @ORM\Column(name="statoannuncio", type="string", length=100, nullable=false)
+     * @ORM\Column(name="status", type="string", length=100, nullable=false)
      */
-    private $statoannuncio;
+    private $status;
 
     /**
      * @var integer
@@ -325,95 +325,95 @@ class Annunci
     }
 
     /**
-     * Set testoann
+     * Set testannuncio
      *
-     * @param string $testoann
+     * @param string $testannuncio
      * @return Annunci
      */
-    public function setTestoann($testoann)
+    public function setTestannuncio($testannuncio)
     {
-        $this->testoann = $testoann;
+        $this->testannuncio = $testannuncio;
 
         return $this;
     }
 
     /**
-     * Get testoann
+     * Get testannuncio
      *
      * @return string 
      */
-    public function getTestoann()
+    public function getTestannuncio()
     {
-        return $this->testoann;
+        return $this->testannuncio;
     }
 
     /**
-     * Set datainsert
+     * Set dateInsert
      *
-     * @param \DateTime $datainsert
+     * @param \DateTime $dateInsert
      * @return Annunci
      */
-    public function setDatainsert($datainsert)
+    public function setDateInsert($dateInsert)
     {
-        $this->datainsert = $datainsert;
+        $this->dateInsert = $dateInsert;
 
         return $this;
     }
 
     /**
-     * Get datainsert
+     * Get dateInsert
      *
      * @return \DateTime 
      */
-    public function getDatainsert()
+    public function getDateInsert()
     {
-        return $this->datainsert;
+        return $this->dateInsert;
     }
 
     /**
-     * Set datapublish
+     * Set datePublish
      *
-     * @param \DateTime $datapublish
+     * @param \DateTime $datePublish
      * @return Annunci
      */
-    public function setDatapublish($datapublish)
+    public function setDatePublish($datePublish)
     {
-        $this->datapublish = $datapublish;
+        $this->datePublish = $datePublish;
 
         return $this;
     }
 
     /**
-     * Get datapublish
+     * Get datePublish
      *
      * @return \DateTime 
      */
-    public function getDatapublish()
+    public function getDatePublish()
     {
-        return $this->datapublish;
+        return $this->datePublish;
     }
 
     /**
-     * Set datascadenza
+     * Set expiredate
      *
-     * @param \DateTime $datascadenza
+     * @param \DateTime $expiredate
      * @return Annunci
      */
-    public function setDatascadenza($datascadenza)
+    public function setExpiredate($expiredate)
     {
-        $this->datascadenza = $datascadenza;
+        $this->expiredate = $expiredate;
 
         return $this;
     }
 
     /**
-     * Get datascadenza
+     * Get expiredate
      *
      * @return \DateTime 
      */
-    public function getDatascadenza()
+    public function getExpiredate()
     {
-        return $this->datascadenza;
+        return $this->expiredate;
     }
 
     /**
@@ -808,118 +808,118 @@ class Annunci
     }
 
     /**
-     * Set emailAnn
+     * Set email
      *
-     * @param string $emailAnn
+     * @param string $email
      * @return Annunci
      */
-    public function setEmailAnn($emailAnn)
+    public function setEmail($email)
     {
-        $this->emailAnn = $emailAnn;
+        $this->email = $email;
 
         return $this;
     }
 
     /**
-     * Get emailAnn
+     * Get email
      *
      * @return string 
      */
-    public function getEmailAnn()
+    public function getEmail()
     {
-        return $this->emailAnn;
+        return $this->email;
     }
 
     /**
-     * Set contattoAnn
+     * Set contact
      *
-     * @param string $contattoAnn
+     * @param string $contact
      * @return Annunci
      */
-    public function setContattoAnn($contattoAnn)
+    public function setContact($contact)
     {
-        $this->contattoAnn = $contattoAnn;
+        $this->contact = $contact;
 
         return $this;
     }
 
     /**
-     * Get contattoAnn
+     * Get contact
      *
      * @return string 
      */
-    public function getContattoAnn()
+    public function getContact()
     {
-        return $this->contattoAnn;
+        return $this->contact;
     }
 
     /**
-     * Set noteann
+     * Set note
      *
-     * @param string $noteann
+     * @param string $note
      * @return Annunci
      */
-    public function setNoteann($noteann)
+    public function setNote($note)
     {
-        $this->noteann = $noteann;
+        $this->note = $note;
 
         return $this;
     }
 
     /**
-     * Get noteann
+     * Get note
      *
      * @return string 
      */
-    public function getNoteann()
+    public function getNote()
     {
-        return $this->noteann;
+        return $this->note;
     }
 
     /**
-     * Set visite
+     * Set visits
      *
-     * @param integer $visite
+     * @param integer $visits
      * @return Annunci
      */
-    public function setVisite($visite)
+    public function setVisits($visits)
     {
-        $this->visite = $visite;
+        $this->visits = $visits;
 
         return $this;
     }
 
     /**
-     * Get visite
+     * Get visits
      *
      * @return integer 
      */
-    public function getVisite()
+    public function getVisits()
     {
-        return $this->visite;
+        return $this->visits;
     }
 
     /**
-     * Set statoannuncio
+     * Set status
      *
-     * @param string $statoannuncio
+     * @param string $status
      * @return Annunci
      */
-    public function setStatoannuncio($statoannuncio)
+    public function setStatus($status)
     {
-        $this->statoannuncio = $statoannuncio;
+        $this->status = $status;
 
         return $this;
     }
 
     /**
-     * Get statoannuncio
+     * Get status
      *
      * @return string 
      */
-    public function getStatoannuncio()
+    public function getStatus()
     {
-        return $this->statoannuncio;
+        return $this->status;
     }
 
     /**

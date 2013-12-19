@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ProdottiSpedizioniTipi
  *
- * @ORM\Table(name="prodotti_spedizioni_tipi")
+ * @ORM\Table(name="prodotti_spedizioni_tipi", indexes={@ORM\Index(name="usercompany_id", columns={"usercompany_id"})})
  * @ORM\Entity
  */
 class ProdottiSpedizioniTipi
@@ -15,11 +15,11 @@ class ProdottiSpedizioniTipi
     /**
      * @var integer
      *
-     * @ORM\Column(name="idsped", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idsped;
+    private $id;
 
     /**
      * @var string
@@ -45,20 +45,20 @@ class ProdottiSpedizioniTipi
     /**
      * @var string
      *
-     * @ORM\Column(name="rifutenteazienda", type="string", length=50, nullable=true)
+     * @ORM\Column(name="usercompany_id", type="string", length=50, nullable=true)
      */
-    private $rifutenteazienda;
+    private $usercompanyId;
 
 
 
     /**
-     * Get idsped
+     * Get id
      *
      * @return integer 
      */
-    public function getIdsped()
+    public function getId()
     {
-        return $this->idsped;
+        return $this->id;
     }
 
     /**
@@ -131,25 +131,25 @@ class ProdottiSpedizioniTipi
     }
 
     /**
-     * Set rifutenteazienda
+     * Set usercompanyId
      *
-     * @param string $rifutenteazienda
+     * @param string $usercompanyId
      * @return ProdottiSpedizioniTipi
      */
-    public function setRifutenteazienda($rifutenteazienda)
+    public function setUsercompanyId($usercompanyId)
     {
-        $this->rifutenteazienda = $rifutenteazienda;
+        $this->usercompanyId = $usercompanyId;
 
         return $this;
     }
 
     /**
-     * Get rifutenteazienda
+     * Get usercompanyId
      *
      * @return string 
      */
-    public function getRifutenteazienda()
+    public function getUsercompanyId()
     {
-        return $this->rifutenteazienda;
+        return $this->usercompanyId;
     }
 }

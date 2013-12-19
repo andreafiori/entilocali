@@ -4,8 +4,12 @@ namespace Language\Model;
 
 use Setup\Model\EntityRepositoryAbstract;
 
-class LanguagesRepository extends EntityRepositoryAbstract {
+class LanguagesLabelsRepository extends EntityRepositoryAbstract {
 	
-	private $repository = 'Application\Entity\LanguagesLabels';
-
+	protected $repository = 'Application\Entity\LanguagesLabels';
+	
+	public function setLabelsForActiveLanguage()
+	{
+		
+	}
 }

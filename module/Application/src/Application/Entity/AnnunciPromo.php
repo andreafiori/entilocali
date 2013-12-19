@@ -15,81 +15,81 @@ class AnnunciPromo
     /**
      * @var integer
      *
-     * @ORM\Column(name="idannpromo", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idannpromo;
+    private $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nomepromo", type="string", length=50, nullable=true)
+     * @ORM\Column(name="name", type="string", length=50, nullable=true)
      */
-    private $nomepromo = '0';
+    private $name = '0';
 
     /**
      * @var string
      *
-     * @ORM\Column(name="visibpromo", type="string", nullable=true)
+     * @ORM\Column(name="status", type="string", length=50, nullable=true)
      */
-    private $visibpromo = 'si';
+    private $status;
 
 
 
     /**
-     * Get idannpromo
+     * Get id
      *
      * @return integer 
      */
-    public function getIdannpromo()
+    public function getId()
     {
-        return $this->idannpromo;
+        return $this->id;
     }
 
     /**
-     * Set nomepromo
+     * Set name
      *
-     * @param string $nomepromo
+     * @param string $name
      * @return AnnunciPromo
      */
-    public function setNomepromo($nomepromo)
+    public function setName($name)
     {
-        $this->nomepromo = $nomepromo;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get nomepromo
+     * Get name
      *
      * @return string 
      */
-    public function getNomepromo()
+    public function getName()
     {
-        return $this->nomepromo;
+        return $this->name;
     }
 
     /**
-     * Set visibpromo
+     * Set status
      *
-     * @param string $visibpromo
+     * @param string $status
      * @return AnnunciPromo
      */
-    public function setVisibpromo($visibpromo)
+    public function setStatus($status)
     {
-        $this->visibpromo = $visibpromo;
+        $this->status = $status;
 
         return $this;
     }
 
     /**
-     * Get visibpromo
+     * Get status
      *
      * @return string 
      */
-    public function getVisibpromo()
+    public function getStatus()
     {
-        return $this->visibpromo;
+        return $this->status;
     }
 }

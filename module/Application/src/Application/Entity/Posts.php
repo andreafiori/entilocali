@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Posts
  *
- * @ORM\Table(name="posts")
+ * @ORM\Table(name="posts", indexes={@ORM\Index(name="srchfields", columns={"user_id", "parentid"}), @ORM\Index(name="IDX_885DBAFAA76ED395", columns={"user_id"})})
  * @ORM\Entity
  */
 class Posts
@@ -113,11 +113,14 @@ class Posts
     private $alias;
 
     /**
-     * @var integer
+     * @var \Application\Entity\Users
      *
-     * @ORM\Column(name="user_id", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Users")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * })
      */
-    private $userId = '0';
+    private $user;
 
 
 
@@ -431,25 +434,25 @@ class Posts
     }
 
     /**
-     * Set userId
+     * Set user
      *
-     * @param integer $userId
+     * @param \Application\Entity\Users $user
      * @return Posts
      */
-    public function setUserId($userId)
+    public function setUser(\Application\Entity\Users $user = null)
     {
-        $this->userId = $userId;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Get userId
+     * Get user
      *
-     * @return integer 
+     * @return \Application\Entity\Users 
      */
-    public function getUserId()
+    public function getUser()
     {
-        return $this->userId;
+        return $this->user;
     }
 }

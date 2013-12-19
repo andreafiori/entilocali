@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * LottoProcedure
  *
- * @ORM\Table(name="lotto_procedure", uniqueConstraints={@ORM\UniqueConstraint(name="codiceasta", columns={"codiceasta"})})
+ * @ORM\Table(name="lotto_procedure", uniqueConstraints={@ORM\UniqueConstraint(name="codiceasta", columns={"codiceasta"})}, indexes={@ORM\Index(name="ivg_id", columns={"ivg_id"}), @ORM\Index(name="tribunale_id", columns={"tribunale_id"}), @ORM\Index(name="user_id", columns={"user_id"}), @ORM\Index(name="entesattoriale_id", columns={"entesattoriale_id"})})
  * @ORM\Entity
  */
 class LottoProcedure
@@ -206,51 +206,23 @@ class LottoProcedure
     /**
      * @var string
      *
-     * @ORM\Column(name="riflegale", type="string", length=100, nullable=false)
-     */
-    private $riflegale = '0';
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="rifrefer", type="string", length=100, nullable=false)
-     */
-    private $rifrefer = '0';
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="notegeneriche", type="text", nullable=false)
      */
     private $notegeneriche;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="rifidivg", type="integer", nullable=false)
+     * @ORM\Column(name="datilegale", type="string", length=100, nullable=false)
      */
-    private $rifidivg = '0';
+    private $datilegale = '0';
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="riftribunale", type="integer", nullable=false)
+     * @ORM\Column(name="datireferente", type="string", length=100, nullable=false)
      */
-    private $riftribunale = '0';
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="rif_inserzionist", type="integer", nullable=false)
-     */
-    private $rifInserzionist = '0';
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="rif_entesattoriale", type="integer", nullable=false)
-     */
-    private $rifEntesattoriale = '0';
+    private $datireferente = '0';
 
     /**
      * @var string
@@ -272,6 +244,34 @@ class LottoProcedure
      * @ORM\Column(name="lastupdate", type="datetime", nullable=false)
      */
     private $lastupdate = '2013-01-01 00:00:00';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ivg_id", type="integer", nullable=false)
+     */
+    private $ivgId = '0';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="tribunale_id", type="integer", nullable=false)
+     */
+    private $tribunaleId = '0';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="user_id", type="integer", nullable=false)
+     */
+    private $userId = '0';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="entesattoriale_id", type="integer", nullable=false)
+     */
+    private $entesattorialeId = '0';
 
 
 
@@ -884,52 +884,6 @@ class LottoProcedure
     }
 
     /**
-     * Set riflegale
-     *
-     * @param string $riflegale
-     * @return LottoProcedure
-     */
-    public function setRiflegale($riflegale)
-    {
-        $this->riflegale = $riflegale;
-
-        return $this;
-    }
-
-    /**
-     * Get riflegale
-     *
-     * @return string 
-     */
-    public function getRiflegale()
-    {
-        return $this->riflegale;
-    }
-
-    /**
-     * Set rifrefer
-     *
-     * @param string $rifrefer
-     * @return LottoProcedure
-     */
-    public function setRifrefer($rifrefer)
-    {
-        $this->rifrefer = $rifrefer;
-
-        return $this;
-    }
-
-    /**
-     * Get rifrefer
-     *
-     * @return string 
-     */
-    public function getRifrefer()
-    {
-        return $this->rifrefer;
-    }
-
-    /**
      * Set notegeneriche
      *
      * @param string $notegeneriche
@@ -953,95 +907,49 @@ class LottoProcedure
     }
 
     /**
-     * Set rifidivg
+     * Set datilegale
      *
-     * @param integer $rifidivg
+     * @param string $datilegale
      * @return LottoProcedure
      */
-    public function setRifidivg($rifidivg)
+    public function setDatilegale($datilegale)
     {
-        $this->rifidivg = $rifidivg;
+        $this->datilegale = $datilegale;
 
         return $this;
     }
 
     /**
-     * Get rifidivg
+     * Get datilegale
      *
-     * @return integer 
+     * @return string 
      */
-    public function getRifidivg()
+    public function getDatilegale()
     {
-        return $this->rifidivg;
+        return $this->datilegale;
     }
 
     /**
-     * Set riftribunale
+     * Set datireferente
      *
-     * @param integer $riftribunale
+     * @param string $datireferente
      * @return LottoProcedure
      */
-    public function setRiftribunale($riftribunale)
+    public function setDatireferente($datireferente)
     {
-        $this->riftribunale = $riftribunale;
+        $this->datireferente = $datireferente;
 
         return $this;
     }
 
     /**
-     * Get riftribunale
+     * Get datireferente
      *
-     * @return integer 
+     * @return string 
      */
-    public function getRiftribunale()
+    public function getDatireferente()
     {
-        return $this->riftribunale;
-    }
-
-    /**
-     * Set rifInserzionist
-     *
-     * @param integer $rifInserzionist
-     * @return LottoProcedure
-     */
-    public function setRifInserzionist($rifInserzionist)
-    {
-        $this->rifInserzionist = $rifInserzionist;
-
-        return $this;
-    }
-
-    /**
-     * Get rifInserzionist
-     *
-     * @return integer 
-     */
-    public function getRifInserzionist()
-    {
-        return $this->rifInserzionist;
-    }
-
-    /**
-     * Set rifEntesattoriale
-     *
-     * @param integer $rifEntesattoriale
-     * @return LottoProcedure
-     */
-    public function setRifEntesattoriale($rifEntesattoriale)
-    {
-        $this->rifEntesattoriale = $rifEntesattoriale;
-
-        return $this;
-    }
-
-    /**
-     * Get rifEntesattoriale
-     *
-     * @return integer 
-     */
-    public function getRifEntesattoriale()
-    {
-        return $this->rifEntesattoriale;
+        return $this->datireferente;
     }
 
     /**
@@ -1111,5 +1019,97 @@ class LottoProcedure
     public function getLastupdate()
     {
         return $this->lastupdate;
+    }
+
+    /**
+     * Set ivgId
+     *
+     * @param integer $ivgId
+     * @return LottoProcedure
+     */
+    public function setIvgId($ivgId)
+    {
+        $this->ivgId = $ivgId;
+
+        return $this;
+    }
+
+    /**
+     * Get ivgId
+     *
+     * @return integer 
+     */
+    public function getIvgId()
+    {
+        return $this->ivgId;
+    }
+
+    /**
+     * Set tribunaleId
+     *
+     * @param integer $tribunaleId
+     * @return LottoProcedure
+     */
+    public function setTribunaleId($tribunaleId)
+    {
+        $this->tribunaleId = $tribunaleId;
+
+        return $this;
+    }
+
+    /**
+     * Get tribunaleId
+     *
+     * @return integer 
+     */
+    public function getTribunaleId()
+    {
+        return $this->tribunaleId;
+    }
+
+    /**
+     * Set userId
+     *
+     * @param integer $userId
+     * @return LottoProcedure
+     */
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+
+        return $this;
+    }
+
+    /**
+     * Get userId
+     *
+     * @return integer 
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
+     * Set entesattorialeId
+     *
+     * @param integer $entesattorialeId
+     * @return LottoProcedure
+     */
+    public function setEntesattorialeId($entesattorialeId)
+    {
+        $this->entesattorialeId = $entesattorialeId;
+
+        return $this;
+    }
+
+    /**
+     * Get entesattorialeId
+     *
+     * @return integer 
+     */
+    public function getEntesattorialeId()
+    {
+        return $this->entesattorialeId;
     }
 }

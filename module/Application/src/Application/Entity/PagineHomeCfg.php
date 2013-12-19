@@ -15,11 +15,11 @@ class PagineHomeCfg
     /**
      * @var integer
      *
-     * @ORM\Column(name="idcfghome", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idcfghome;
+    private $id;
 
     /**
      * @var string
@@ -129,13 +129,13 @@ class PagineHomeCfg
 
 
     /**
-     * Get idcfghome
+     * Get id
      *
      * @return integer 
      */
-    public function getIdcfghome()
+    public function getId()
     {
-        return $this->idcfghome;
+        return $this->id;
     }
 
     /**

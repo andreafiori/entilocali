@@ -6,6 +6,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Zend\Mvc\Controller\AbstractActionController;
 use Language\Model\LanguagesRepository;
 use Config\Model\ConfigRepository;
+use Language\Model\LanguagesLabelsRepository;
 
 /**
  * Merge Config and Language selection data to get app configuration setup data
@@ -25,8 +26,10 @@ class SetupManager
 	{
 		$this->controller = $controller;
 		
+		/* set entity manager */
 		$this->em = $this->controller->getServiceLocator()->get('entityManagerService');
 		
+		/* export the input on index controller? */
 		$this->input['channel'] = 1;
 		$this->ismultlanguage = 1;
 		$this->input['isonbackend'] = 0;
@@ -52,22 +55,24 @@ class SetupManager
     public function setSetupRecord()
     {
 		$languageRepository = new LanguagesRepository($this->em);
-		$languageRepository->setInput($this->input);
 		$languageRepository->setIsOnBackend($this->input['isonbackend']);
-		$languageRepository->setRecordFromLanguageAbbreviation( $this->input['languageAbbreviation'] );
-		$languageRepository->setAllAvailableLanguages();
-		$languageRepository->setDefaultLanguage();
+		$languageRepository->setAllAvailableLanguages($this->input['channel']);
+		$defaultLanguage = $languageRepository->setDefaultLanguage( $this->input['languageAbbreviation'] );
 		
-		$configRecord['languagesLabels'] = $this->em->getRepository('Application\Entity\LanguagesLabels')->findAll();
-		
-		// echo "<blockquote><pre style=\"word-wrap:break-word\">".print_r($this->setupRecord['languageDefault'],1)."</pre></blockquote>"; exit;
-		
-		// $languageLabelsRepository = new languageLabels
-		// $this->setupRecord['languagesLabels'] = $this->em->getRepository('Application\Entity\LanguagesLabels')->findAll();
+		$languageLabelsRepository = new LanguagesLabelsRepository($this->em);
+		//$languageLabelsRepository-> $this->em->getRepository('Application\Entity\LanguagesLabels')->findAll();
+		//$this->setupRecord['languagesLabels'] = $this->em->getRepository('Application\Entity\LanguagesLabels')->findAll();
 		
     	// Config values
 		$configRepository = new ConfigRepository($this->em);
-    	$configRepository = $this->em->getRepository('Application\Entity\Config')->findAll();
+    	$configRepository = $this->em->getRepository('Application\Entity\Config')->findBy(
+			array(
+				"channelId"  => $this->input['channel'],
+				//"languageId" => $defaultLanguage['id'],
+				"isadmin" 	   => $this->input['isonbackend'],
+    		)
+    	);
+		
     	$configRecord = array();
     	foreach($configRepository as $configData)
     	{
@@ -80,6 +85,7 @@ class SetupManager
     	
     	$this->setupRecord['channel'] = $this->input['channel'];
 	    $this->setupRecord = array_merge($this->setupRecord, $configRecord);
+	    
     	$this->setupRecord['languageAllAvailable'] = '';
     	$this->setupRecord['languageDefault'] = '';
     	

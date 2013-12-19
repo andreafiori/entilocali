@@ -5,8 +5,8 @@ namespace Setup\Model;
 use Doctrine\Common\Persistence\ObjectManager;
 
 abstract class EntityRepositoryAbstract {
-
-	protected $input, $em, $repository;
+	
+	protected $em, $repository;
 	
 	protected $isOnBackend;
 	
@@ -32,17 +32,6 @@ abstract class EntityRepositoryAbstract {
 	public function getRepository()
 	{
 		return $this->repository;
-	}
-	
-	public function setInput($input)
-	{
-		$this->input = $input;
-		return $this->input;
-	}
-	
-	public function getInput()
-	{
-		return $this->input;
 	}
 
 	public function setIsOnBackend($isOnBackend)

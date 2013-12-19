@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Config
  *
- * @ORM\Table(name="config", indexes={@ORM\Index(name="language_id", columns={"language_id"})})
+ * @ORM\Table(name="config", indexes={@ORM\Index(name="searchfields", columns={"channel_id"}), @ORM\Index(name="language_id", columns={"language_id"})})
  * @ORM\Entity
  */
 class Config
@@ -57,14 +57,11 @@ class Config
     private $channelId = '1';
 
     /**
-     * @var \Application\Entity\Languages
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\Languages")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="language_id", referencedColumnName="id")
-     * })
+     * @ORM\Column(name="language_id", type="integer", nullable=false)
      */
-    private $language;
+    private $languageId = '1';
 
 
 
@@ -194,25 +191,25 @@ class Config
     }
 
     /**
-     * Set language
+     * Set languageId
      *
-     * @param \Application\Entity\Languages $language
+     * @param integer $languageId
      * @return Config
      */
-    public function setLanguage(\Application\Entity\Languages $language = null)
+    public function setLanguageId($languageId)
     {
-        $this->language = $language;
+        $this->languageId = $languageId;
 
         return $this;
     }
 
     /**
-     * Get language
+     * Get languageId
      *
-     * @return \Application\Entity\Languages 
+     * @return integer 
      */
-    public function getLanguage()
+    public function getLanguageId()
     {
-        return $this->language;
+        return $this->languageId;
     }
 }
