@@ -16,7 +16,7 @@
 	</php>
 
 <!-- generate code coverage -->
-<!--
+<!-- 
 	<formatter type="clover" usefile="false"/>
 	<batchtest>
 	<fileset dir="suite">
@@ -28,35 +28,10 @@
 		<log type="coverage-html" target="./reports/" charset="UTF-8" />
 	</logging>
 -->
+	<testsuites>
+		<testsuite name="TestSuite">
+			<directory suffix=".php">./</directory>
+		</testsuite>
+	</testsuites>
 
-	<testsuites>
-		<testsuite name="ApplicationTests">
-			<directory suffix=".php">./ApplicationTests</directory>
-		</testsuite>
-	</testsuites> 
-	<testsuites>
-		<testsuite name="BackendTests">
-			<directory suffix=".php">./BackendTests</directory>
-		</testsuite>
-	</testsuites>
-	<testsuites>
-		<testsuite name="ConfigTests">
-			<directory suffix=".php">./ConfigTests</directory>
-		</testsuite>
-	</testsuites>
-	<testsuites>
-		<testsuite name="LanguageTests">
-			<directory suffix=".php">./LanguageTests</directory>
-		</testsuite>
-	</testsuites>
-	<testsuites>
-		<testsuite name="PostsTests">
-			<directory suffix=".php">./PostsTests</directory>
-		</testsuite>
-	</testsuites>
-	<testsuites>
-		<testsuite name="SetupTests">
-			<directory suffix=".php">./SetupTests</directory>
-		</testsuite>
-	</testsuites>
 </phpunit>

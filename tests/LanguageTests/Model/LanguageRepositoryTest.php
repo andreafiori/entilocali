@@ -1,8 +1,8 @@
 <?php
 
-namespace ConfigTest\Model;
+namespace LanguageTest\Model;
 
-use Language\Model\LanguageRepository;
+use Language\Model\LanguagesRepository;
 use SetupTests\Model\TestSuite;
 
 class LanguageRepositoryTest extends TestSuite
@@ -13,21 +13,31 @@ class LanguageRepositoryTest extends TestSuite
 	{
 		$this->setUpService();
 		
-		$objectManager = $this->serviceManager->get('entityManagerService');
-		$this->languagesRepository = new LanguageRepository($objectManager);
+		$this->languagesRepository = new LanguagesRepository($this->serviceManager->get('entityManagerService'));
 	}
 	
-	/** @test */
-	public function getRecord()
+	public function testSetChannelEntity()
 	{
-		$objLang = $this->languagesRepository->GetRecord();
-		$this->assertEquals($objLang->getId(), 1);
+		$this->languagesRepository->setChannelEntity(1);
+		$this->assertInstanceOf('\Application\Entity\Channels', $this->languagesRepository->getChannelEntity());
+		$this->assertEquals($this->languagesRepository->getChannelEntity()->getId(), 1);
 	}
 	
-	/** @test */
-	public function getRecordFromLanguageAbbreviation()
+	public function testSetAllAvailableLanguages()
 	{
-		$objLang = $this->languagesRepository->GetRecordFromLanguageAbbreviation('it');
-		$this->assertEquals($objLang->getAbbrev1(), 'it');
+		$this->assertTrue( is_array($this->languagesRepository->setAllAvailableLanguages(1)) );
 	}
+	
+	/*
+	public function testSetDefaultLanguage()
+	{
+		$this->assertFalse( $this->languagesRepository->setDefaultLanguage('it') );
+		
+		$this->languagesRepository->setAllAvailableLanguages(1);
+		$this->languagesRepository->setEntitySerializer( new EntitySerializer($this->languagesRepository->getObjectManager()) );
+		
+		$this->assertTrue( is_object($this->languagesRepository->setDefaultLanguage('it')) );
+		$this->assertTrue( is_object($this->languagesRepository->getDefaultLanguage()) );
+	}
+	*/
 }

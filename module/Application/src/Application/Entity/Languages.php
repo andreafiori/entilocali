@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Languages
  *
- * @ORM\Table(name="languages", indexes={@ORM\Index(name="abbrev1", columns={"abbrev1"})})
+ * @ORM\Table(name="languages", indexes={@ORM\Index(name="srchfields", columns={"channel_id", "abbrev1"}), @ORM\Index(name="IDX_A0D1537972F5A1AA", columns={"channel_id"})})
  * @ORM\Entity
  */
 class Languages
@@ -85,11 +85,14 @@ class Languages
     private $active = '1';
 
     /**
-     * @var integer
+     * @var \Application\Entity\Channels
      *
-     * @ORM\Column(name="channel_id", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Channels")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="channel_id", referencedColumnName="id")
+     * })
      */
-    private $channelId = '1';
+    private $channel;
 
 
 
@@ -311,25 +314,25 @@ class Languages
     }
 
     /**
-     * Set channelId
+     * Set channel
      *
-     * @param integer $channelId
+     * @param \Application\Entity\Channels $channel
      * @return Languages
      */
-    public function setChannelId($channelId)
+    public function setChannel(\Application\Entity\Channels $channel = null)
     {
-        $this->channelId = $channelId;
+        $this->channel = $channel;
 
         return $this;
     }
 
     /**
-     * Get channelId
+     * Get channel
      *
-     * @return integer 
+     * @return \Application\Entity\Channels 
      */
-    public function getChannelId()
+    public function getChannel()
     {
-        return $this->channelId;
+        return $this->channel;
     }
 }

@@ -9,7 +9,7 @@ class IndexControllerTest extends TestSuite
 {
 	protected $controller;
 
-	public function setUp()
+	protected function setUp()
 	{
 		$this->setUpService();
 		
@@ -17,10 +17,15 @@ class IndexControllerTest extends TestSuite
 		$this->controller->setEvent($this->event);
 		$this->controller->setServiceLocator($this->serviceManager);
 	}
-
+	
 	public function testIndexActionCanBeAccessed()
 	{
 		$this->routeMatch->setParam('action', 'index');
 		$this->assertEquals(200, $this->controller->getResponse()->getStatusCode());
+	}
+
+	public function testIndexAction()
+	{
+		$this->assertInstanceOf('\Zend\View\Model\ViewModel', $this->controller->indexAction());
 	}
 }

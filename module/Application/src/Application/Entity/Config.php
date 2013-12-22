@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Config
  *
- * @ORM\Table(name="config", indexes={@ORM\Index(name="searchfields", columns={"channel_id"}), @ORM\Index(name="language_id", columns={"language_id"})})
+ * @ORM\Table(name="config", indexes={@ORM\Index(name="channel_id", columns={"channel_id"}), @ORM\Index(name="language_id", columns={"language_id"}), @ORM\Index(name="module_id", columns={"module_id"})})
  * @ORM\Entity
  */
 class Config
@@ -50,18 +50,24 @@ class Config
     private $moduleId = '0';
 
     /**
-     * @var integer
+     * @var \Application\Entity\Channels
      *
-     * @ORM\Column(name="channel_id", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Channels")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="channel_id", referencedColumnName="id")
+     * })
      */
-    private $channelId = '1';
+    private $channel;
 
     /**
-     * @var integer
+     * @var \Application\Entity\Languages
      *
-     * @ORM\Column(name="language_id", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Languages")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="language_id", referencedColumnName="id")
+     * })
      */
-    private $languageId = '1';
+    private $language;
 
 
 
@@ -168,48 +174,48 @@ class Config
     }
 
     /**
-     * Set channelId
+     * Set channel
      *
-     * @param integer $channelId
+     * @param \Application\Entity\Channels $channel
      * @return Config
      */
-    public function setChannelId($channelId)
+    public function setChannel(\Application\Entity\Channels $channel = null)
     {
-        $this->channelId = $channelId;
+        $this->channel = $channel;
 
         return $this;
     }
 
     /**
-     * Get channelId
+     * Get channel
      *
-     * @return integer 
+     * @return \Application\Entity\Channels 
      */
-    public function getChannelId()
+    public function getChannel()
     {
-        return $this->channelId;
+        return $this->channel;
     }
 
     /**
-     * Set languageId
+     * Set language
      *
-     * @param integer $languageId
+     * @param \Application\Entity\Languages $language
      * @return Config
      */
-    public function setLanguageId($languageId)
+    public function setLanguage(\Application\Entity\Languages $language = null)
     {
-        $this->languageId = $languageId;
+        $this->language = $language;
 
         return $this;
     }
 
     /**
-     * Get languageId
+     * Get language
      *
-     * @return integer 
+     * @return \Application\Entity\Languages 
      */
-    public function getLanguageId()
+    public function getLanguage()
     {
-        return $this->languageId;
+        return $this->language;
     }
 }

@@ -3,12 +3,13 @@
 namespace Setup\Model;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Setup\Model\EntitySerializer;
 
 abstract class EntityRepositoryAbstract {
 	
-	protected $em, $repository;
-	
-	protected $isOnBackend;
+	protected $em, $entitySerializer;
+
+	protected $repository, $isOnBackend;
 	
 	public function __construct(ObjectManager $objectManager)
 	{
@@ -33,7 +34,23 @@ abstract class EntityRepositoryAbstract {
 	{
 		return $this->repository;
 	}
-
+	
+	/**
+	 * 
+	 * @param EntitySerializer $entitySerializer
+	 * @return EntitySerializer $this->entitySerializer
+	 */
+	public function setEntitySerializer(EntitySerializer $entitySerializer)
+	{
+		$this->entitySerializer = $entitySerializer;
+		return $this->entitySerializer;
+	}
+	
+	public function getEntitySerializer()
+	{
+		return $this->entitySerializer;
+	}
+	
 	public function setIsOnBackend($isOnBackend)
 	{
 		$this->isOnBackend = $isOnBackend;
@@ -44,27 +61,5 @@ abstract class EntityRepositoryAbstract {
 	{
 		return $this->isOnBackend;
 	}
-	
-		/**
-		 * Convert object entity result (multiple object\s) to multiple array\s
-		 * @param unknown $obj
-		 * @return array
-		 */
-		protected function convertObjectToArray($obj)
-		{
-			$arrayRecord = (array) $obj;
-			$arrayToReturn = array();
-			foreach($arrayRecord as $arrayRecord)
-			{
-				$record = array();
-				$arrayRecord = (array) $arrayRecord;
-				foreach($arrayRecord as $key => $value)
-				{
-					$record[trim(str_replace($this->repository, '', $key))] = $value;
-				}
-				$arrayToReturn[] = $record;
-			}
-			return $arrayToReturn;
-		}
-	
+
 }

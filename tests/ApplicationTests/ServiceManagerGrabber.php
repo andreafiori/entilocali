@@ -8,7 +8,7 @@ use Zend\Mvc\Service\ServiceManagerConfig;
 class ServiceManagerGrabber
 {
     protected static $serviceConfig = null;
-         
+
     public static function setServiceConfig($config)
     {
         static::$serviceConfig = $config;

@@ -66,7 +66,18 @@ class Channels
      */
     private $defaultLanguage;
 
-
+    /**
+     * Set id
+     * 
+     * @param integer $id
+     * @return Channels
+     */
+	public function setId($id)
+	{
+		$this->id = $id;
+		
+		return $this;
+	}
 
     /**
      * Get id

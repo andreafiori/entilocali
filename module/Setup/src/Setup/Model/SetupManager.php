@@ -2,11 +2,12 @@
 
 namespace Setup\Model;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use Zend\Mvc\Controller\AbstractActionController;
-use Language\Model\LanguagesRepository;
-use Config\Model\ConfigRepository;
-use Language\Model\LanguagesLabelsRepository;
+use Doctrine\Common\Persistence\ObjectManager,
+	Zend\Mvc\Controller\AbstractActionController,
+	Language\Model\LanguagesRepository,
+	Config\Model\ConfigRepository,
+	Language\Model\LanguagesLabelsRepository,
+	Setup\Model\EntitySerializer;
 
 /**
  * Merge Config and Language selection data to get app configuration setup data
@@ -26,16 +27,15 @@ class SetupManager
 	{
 		$this->controller = $controller;
 		
-		/* set entity manager */
 		$this->em = $this->controller->getServiceLocator()->get('entityManagerService');
 		
-		/* export the input on index controller? */
+		/* Export the input on index controller? */
 		$this->input['channel'] = 1;
-		$this->ismultlanguage = 1;
+		$this->ismultlanguage = 1; // this option is now on config table
 		$this->input['isonbackend'] = 0;
 		$this->input['controller']  = $this->controller->params()->fromRoute('controller');
 		$this->input['action'] = $this->controller->params()->fromRoute('action');
-		$this->input['languageAbbreviation'] = $this->controller->params()->fromRoute('lang');
+		$this->input['languageAbbreviation'] = strtolower( $this->controller->params()->fromRoute('lang') );
 	}
 	
 	/**
@@ -55,9 +55,10 @@ class SetupManager
     public function setSetupRecord()
     {
 		$languageRepository = new LanguagesRepository($this->em);
+		$languageRepository->setEntitySerializer( new EntitySerializer($this->em) );
 		$languageRepository->setIsOnBackend($this->input['isonbackend']);
-		$languageRepository->setAllAvailableLanguages($this->input['channel']);
-		$defaultLanguage = $languageRepository->setDefaultLanguage( $this->input['languageAbbreviation'] );
+		$allAvailableLanguages = $languageRepository->setAllAvailableLanguages($this->input['channel']);
+		$defaultLanguage = $languageRepository->setDefaultLanguage($this->input['languageAbbreviation']);
 		
 		$languageLabelsRepository = new LanguagesLabelsRepository($this->em);
 		//$languageLabelsRepository-> $this->em->getRepository('Application\Entity\LanguagesLabels')->findAll();
@@ -67,12 +68,11 @@ class SetupManager
 		$configRepository = new ConfigRepository($this->em);
     	$configRepository = $this->em->getRepository('Application\Entity\Config')->findBy(
 			array(
-				"channelId"  => $this->input['channel'],
-				//"languageId" => $defaultLanguage['id'],
+				"channel"  => $defaultLanguage->getChannel(),
 				"isadmin" 	   => $this->input['isonbackend'],
     		)
     	);
-		
+    	
     	$configRecord = array();
     	foreach($configRepository as $configData)
     	{

@@ -8,5 +8,7 @@ nbproject
 .settings
 composer.lock
 zftool.phar
+data
+tests/reports
 vendor/bin
 vendor/zf-commons

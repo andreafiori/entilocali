@@ -11,11 +11,6 @@ use Zend\Mvc\Controller\AbstractActionController;
  */
 class PostsController extends AbstractActionController
 {
-	/**
-	 * TODO:
-	 * 		check if you have to display photo, blog post\s, contents or other...
-	 * 		action to display details
-	 */
     public function indexAction()
     {
         return array();
