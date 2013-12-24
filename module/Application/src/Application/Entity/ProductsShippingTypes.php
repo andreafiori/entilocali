@@ -5,12 +5,12 @@ namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ProdottiSpedizioniTipi
+ * ProductsShippingTypes
  *
- * @ORM\Table(name="prodotti_spedizioni_tipi", indexes={@ORM\Index(name="usercompany_id", columns={"usercompany_id"})})
+ * @ORM\Table(name="products_shipping_types", indexes={@ORM\Index(name="usercompany_id", columns={"usercompany_id"})})
  * @ORM\Entity
  */
-class ProdottiSpedizioniTipi
+class ProductsShippingTypes
 {
     /**
      * @var integer
@@ -65,7 +65,7 @@ class ProdottiSpedizioniTipi
      * Set areadiconsegna
      *
      * @param string $areadiconsegna
-     * @return ProdottiSpedizioniTipi
+     * @return ProductsShippingTypes
      */
     public function setAreadiconsegna($areadiconsegna)
     {
@@ -88,7 +88,7 @@ class ProdottiSpedizioniTipi
      * Set ordineminimo
      *
      * @param string $ordineminimo
-     * @return ProdottiSpedizioniTipi
+     * @return ProductsShippingTypes
      */
     public function setOrdineminimo($ordineminimo)
     {
@@ -111,7 +111,7 @@ class ProdottiSpedizioniTipi
      * Set tempomedioconsegna
      *
      * @param string $tempomedioconsegna
-     * @return ProdottiSpedizioniTipi
+     * @return ProductsShippingTypes
      */
     public function setTempomedioconsegna($tempomedioconsegna)
     {
@@ -134,7 +134,7 @@ class ProdottiSpedizioniTipi
      * Set usercompanyId
      *
      * @param string $usercompanyId
-     * @return ProdottiSpedizioniTipi
+     * @return ProductsShippingTypes
      */
     public function setUsercompanyId($usercompanyId)
     {

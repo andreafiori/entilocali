@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * LottoVendite
  *
- * @ORM\Table(name="lotto_vendite")
+ * @ORM\Table(name="lotto_vendite", indexes={@ORM\Index(name="ivg_id", columns={"ivg_id", "tribunale_id"}), @ORM\Index(name="proc_vendita_id", columns={"proc_vendita_id"})})
  * @ORM\Entity
  */
 class LottoVendite
@@ -15,11 +15,11 @@ class LottoVendite
     /**
      * @var integer
      *
-     * @ORM\Column(name="idvend", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idvend;
+    private $id;
 
     /**
      * @var string
@@ -255,41 +255,41 @@ class LottoVendite
     /**
      * @var integer
      *
-     * @ORM\Column(name="rif_ivg", type="integer", nullable=false)
+     * @ORM\Column(name="ivg_id", type="integer", nullable=false)
      */
-    private $rifIvg = '0';
+    private $ivgId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="rif_tribunale", type="integer", nullable=false)
+     * @ORM\Column(name="tribunale_id", type="integer", nullable=false)
      */
-    private $rifTribunale = '0';
+    private $tribunaleId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="rifproc_vendita", type="integer", nullable=false)
+     * @ORM\Column(name="proc_vendita_id", type="integer", nullable=false)
      */
-    private $rifprocVendita = '0';
+    private $procVenditaId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="riflotto_vendita", type="integer", nullable=false)
+     * @ORM\Column(name="lotto_vendita_id", type="integer", nullable=false)
      */
-    private $riflottoVendita = '0';
+    private $lottoVenditaId = '0';
 
 
 
     /**
-     * Get idvend
+     * Get id
      *
      * @return integer 
      */
-    public function getIdvend()
+    public function getId()
     {
-        return $this->idvend;
+        return $this->id;
     }
 
     /**
@@ -1052,94 +1052,94 @@ class LottoVendite
     }
 
     /**
-     * Set rifIvg
+     * Set ivgId
      *
-     * @param integer $rifIvg
+     * @param integer $ivgId
      * @return LottoVendite
      */
-    public function setRifIvg($rifIvg)
+    public function setIvgId($ivgId)
     {
-        $this->rifIvg = $rifIvg;
+        $this->ivgId = $ivgId;
 
         return $this;
     }
 
     /**
-     * Get rifIvg
+     * Get ivgId
      *
      * @return integer 
      */
-    public function getRifIvg()
+    public function getIvgId()
     {
-        return $this->rifIvg;
+        return $this->ivgId;
     }
 
     /**
-     * Set rifTribunale
+     * Set tribunaleId
      *
-     * @param integer $rifTribunale
+     * @param integer $tribunaleId
      * @return LottoVendite
      */
-    public function setRifTribunale($rifTribunale)
+    public function setTribunaleId($tribunaleId)
     {
-        $this->rifTribunale = $rifTribunale;
+        $this->tribunaleId = $tribunaleId;
 
         return $this;
     }
 
     /**
-     * Get rifTribunale
+     * Get tribunaleId
      *
      * @return integer 
      */
-    public function getRifTribunale()
+    public function getTribunaleId()
     {
-        return $this->rifTribunale;
+        return $this->tribunaleId;
     }
 
     /**
-     * Set rifprocVendita
+     * Set procVenditaId
      *
-     * @param integer $rifprocVendita
+     * @param integer $procVenditaId
      * @return LottoVendite
      */
-    public function setRifprocVendita($rifprocVendita)
+    public function setProcVenditaId($procVenditaId)
     {
-        $this->rifprocVendita = $rifprocVendita;
+        $this->procVenditaId = $procVenditaId;
 
         return $this;
     }
 
     /**
-     * Get rifprocVendita
+     * Get procVenditaId
      *
      * @return integer 
      */
-    public function getRifprocVendita()
+    public function getProcVenditaId()
     {
-        return $this->rifprocVendita;
+        return $this->procVenditaId;
     }
 
     /**
-     * Set riflottoVendita
+     * Set lottoVenditaId
      *
-     * @param integer $riflottoVendita
+     * @param integer $lottoVenditaId
      * @return LottoVendite
      */
-    public function setRiflottoVendita($riflottoVendita)
+    public function setLottoVenditaId($lottoVenditaId)
     {
-        $this->riflottoVendita = $riflottoVendita;
+        $this->lottoVenditaId = $lottoVenditaId;
 
         return $this;
     }
 
     /**
-     * Get riflottoVendita
+     * Get lottoVenditaId
      *
      * @return integer 
      */
-    public function getRiflottoVendita()
+    public function getLottoVenditaId()
     {
-        return $this->riflottoVendita;
+        return $this->lottoVenditaId;
     }
 }

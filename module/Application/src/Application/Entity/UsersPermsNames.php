@@ -52,9 +52,9 @@ class UsersPermsNames
     /**
      * @var integer
      *
-     * @ORM\Column(name="posizperm", type="integer", nullable=false)
+     * @ORM\Column(name="position", type="integer", nullable=false)
      */
-    private $posizperm;
+    private $position;
 
 
 
@@ -161,25 +161,25 @@ class UsersPermsNames
     }
 
     /**
-     * Set posizperm
+     * Set position
      *
-     * @param integer $posizperm
+     * @param integer $position
      * @return UsersPermsNames
      */
-    public function setPosizperm($posizperm)
+    public function setPosition($position)
     {
-        $this->posizperm = $posizperm;
+        $this->position = $position;
 
         return $this;
     }
 
     /**
-     * Get posizperm
+     * Get position
      *
      * @return integer 
      */
-    public function getPosizperm()
+    public function getPosition()
     {
-        return $this->posizperm;
+        return $this->position;
     }
 }

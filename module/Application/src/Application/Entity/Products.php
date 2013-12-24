@@ -5,17 +5,17 @@ namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Prodotti
+ * Products
  *
- * @ORM\Table(name="prodotti", indexes={@ORM\Index(name="searchprodfields", columns={"company_id", "category_id", "model_id", "user_id"})})
+ * @ORM\Table(name="products", indexes={@ORM\Index(name="searchprodfields", columns={"company_id", "category_id", "model_id", "user_id"})})
  * @ORM\Entity
  */
-class Prodotti
+class Products
 {
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -212,7 +212,7 @@ class Prodotti
      * Set codprod
      *
      * @param string $codprod
-     * @return Prodotti
+     * @return Products
      */
     public function setCodprod($codprod)
     {
@@ -235,7 +235,7 @@ class Prodotti
      * Set codfornit
      *
      * @param string $codfornit
-     * @return Prodotti
+     * @return Products
      */
     public function setCodfornit($codfornit)
     {
@@ -258,7 +258,7 @@ class Prodotti
      * Set insertdate
      *
      * @param \DateTime $insertdate
-     * @return Prodotti
+     * @return Products
      */
     public function setInsertdate($insertdate)
     {
@@ -281,7 +281,7 @@ class Prodotti
      * Set expiredate
      *
      * @param \DateTime $expiredate
-     * @return Prodotti
+     * @return Products
      */
     public function setExpiredate($expiredate)
     {
@@ -304,7 +304,7 @@ class Prodotti
      * Set imgbig
      *
      * @param string $imgbig
-     * @return Prodotti
+     * @return Products
      */
     public function setImgbig($imgbig)
     {
@@ -327,7 +327,7 @@ class Prodotti
      * Set imgsmall
      *
      * @param string $imgsmall
-     * @return Prodotti
+     * @return Products
      */
     public function setImgsmall($imgsmall)
     {
@@ -350,7 +350,7 @@ class Prodotti
      * Set nomeprod
      *
      * @param string $nomeprod
-     * @return Prodotti
+     * @return Products
      */
     public function setNomeprod($nomeprod)
     {
@@ -373,7 +373,7 @@ class Prodotti
      * Set descrizione
      *
      * @param string $descrizione
-     * @return Prodotti
+     * @return Products
      */
     public function setDescrizione($descrizione)
     {
@@ -396,7 +396,7 @@ class Prodotti
      * Set amount
      *
      * @param integer $amount
-     * @return Prodotti
+     * @return Products
      */
     public function setAmount($amount)
     {
@@ -419,7 +419,7 @@ class Prodotti
      * Set price
      *
      * @param string $price
-     * @return Prodotti
+     * @return Products
      */
     public function setPrice($price)
     {
@@ -442,7 +442,7 @@ class Prodotti
      * Set disponibilita
      *
      * @param integer $disponibilita
-     * @return Prodotti
+     * @return Products
      */
     public function setDisponibilita($disponibilita)
     {
@@ -465,7 +465,7 @@ class Prodotti
      * Set iva
      *
      * @param string $iva
-     * @return Prodotti
+     * @return Products
      */
     public function setIva($iva)
     {
@@ -488,7 +488,7 @@ class Prodotti
      * Set discount
      *
      * @param string $discount
-     * @return Prodotti
+     * @return Products
      */
     public function setDiscount($discount)
     {
@@ -511,7 +511,7 @@ class Prodotti
      * Set shipping
      *
      * @param string $shipping
-     * @return Prodotti
+     * @return Products
      */
     public function setShipping($shipping)
     {
@@ -534,7 +534,7 @@ class Prodotti
      * Set brand
      *
      * @param integer $brand
-     * @return Prodotti
+     * @return Products
      */
     public function setBrand($brand)
     {
@@ -557,7 +557,7 @@ class Prodotti
      * Set note
      *
      * @param string $note
-     * @return Prodotti
+     * @return Products
      */
     public function setNote($note)
     {
@@ -580,7 +580,7 @@ class Prodotti
      * Set visibility
      *
      * @param string $visibility
-     * @return Prodotti
+     * @return Products
      */
     public function setVisibility($visibility)
     {
@@ -603,7 +603,7 @@ class Prodotti
      * Set posizprod
      *
      * @param integer $posizprod
-     * @return Prodotti
+     * @return Products
      */
     public function setPosizprod($posizprod)
     {
@@ -626,7 +626,7 @@ class Prodotti
      * Set seourl
      *
      * @param string $seourl
-     * @return Prodotti
+     * @return Products
      */
     public function setSeourl($seourl)
     {
@@ -649,7 +649,7 @@ class Prodotti
      * Set seokeyw
      *
      * @param string $seokeyw
-     * @return Prodotti
+     * @return Products
      */
     public function setSeokeyw($seokeyw)
     {
@@ -672,7 +672,7 @@ class Prodotti
      * Set seodescr
      *
      * @param string $seodescr
-     * @return Prodotti
+     * @return Products
      */
     public function setSeodescr($seodescr)
     {
@@ -695,7 +695,7 @@ class Prodotti
      * Set userId
      *
      * @param integer $userId
-     * @return Prodotti
+     * @return Products
      */
     public function setUserId($userId)
     {
@@ -718,7 +718,7 @@ class Prodotti
      * Set companyId
      *
      * @param integer $companyId
-     * @return Prodotti
+     * @return Products
      */
     public function setCompanyId($companyId)
     {
@@ -741,7 +741,7 @@ class Prodotti
      * Set categoryId
      *
      * @param integer $categoryId
-     * @return Prodotti
+     * @return Products
      */
     public function setCategoryId($categoryId)
     {
@@ -764,7 +764,7 @@ class Prodotti
      * Set modelId
      *
      * @param integer $modelId
-     * @return Prodotti
+     * @return Products
      */
     public function setModelId($modelId)
     {

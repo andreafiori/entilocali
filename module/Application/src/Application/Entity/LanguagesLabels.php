@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * LanguagesLabels
  *
- * @ORM\Table(name="languages_labels", indexes={@ORM\Index(name="language", columns={"language_id"})})
+ * @ORM\Table(name="languages_labels", indexes={@ORM\Index(name="language", columns={"language_id"}), @ORM\Index(name="module_id", columns={"module_id"})})
  * @ORM\Entity
  */
 class LanguagesLabels
@@ -24,16 +24,16 @@ class LanguagesLabels
     /**
      * @var string
      *
-     * @ORM\Column(name="labelname", type="string", length=80, nullable=true)
+     * @ORM\Column(name="label_name", type="string", length=80, nullable=true)
      */
-    private $labelname;
+    private $labelName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="labelvalue", type="text", nullable=true)
+     * @ORM\Column(name="label_value", type="text", nullable=true)
      */
-    private $labelvalue;
+    private $labelValue;
 
     /**
      * @var string
@@ -59,9 +59,9 @@ class LanguagesLabels
     /**
      * @var string
      *
-     * @ORM\Column(name="state", type="string", length=50, nullable=true)
+     * @ORM\Column(name="status", type="string", length=50, nullable=true)
      */
-    private $state = '1';
+    private $status = '1';
 
     /**
      * @var integer
@@ -93,49 +93,49 @@ class LanguagesLabels
     }
 
     /**
-     * Set labelname
+     * Set labelName
      *
-     * @param string $labelname
+     * @param string $labelName
      * @return LanguagesLabels
      */
-    public function setLabelname($labelname)
+    public function setLabelName($labelName)
     {
-        $this->labelname = $labelname;
+        $this->labelName = $labelName;
 
         return $this;
     }
 
     /**
-     * Get labelname
+     * Get labelName
      *
      * @return string 
      */
-    public function getLabelname()
+    public function getLabelName()
     {
-        return $this->labelname;
+        return $this->labelName;
     }
 
     /**
-     * Set labelvalue
+     * Set labelValue
      *
-     * @param string $labelvalue
+     * @param string $labelValue
      * @return LanguagesLabels
      */
-    public function setLabelvalue($labelvalue)
+    public function setLabelValue($labelValue)
     {
-        $this->labelvalue = $labelvalue;
+        $this->labelValue = $labelValue;
 
         return $this;
     }
 
     /**
-     * Get labelvalue
+     * Get labelValue
      *
      * @return string 
      */
-    public function getLabelvalue()
+    public function getLabelValue()
     {
-        return $this->labelvalue;
+        return $this->labelValue;
     }
 
     /**
@@ -208,26 +208,26 @@ class LanguagesLabels
     }
 
     /**
-     * Set state
+     * Set status
      *
-     * @param string $state
+     * @param string $status
      * @return LanguagesLabels
      */
-    public function setState($state)
+    public function setStatus($status)
     {
-        $this->state = $state;
+        $this->status = $status;
 
         return $this;
     }
 
     /**
-     * Get state
+     * Get status
      *
      * @return string 
      */
-    public function getState()
+    public function getStatus()
     {
-        return $this->state;
+        return $this->status;
     }
 
     /**

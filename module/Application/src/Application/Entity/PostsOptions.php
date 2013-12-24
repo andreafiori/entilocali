@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * PostsOptions
  *
- * @ORM\Table(name="posts_options", indexes={@ORM\Index(name="postid", columns={"post_id"})})
+ * @ORM\Table(name="posts_options", indexes={@ORM\Index(name="postid", columns={"post_id"}), @ORM\Index(name="language_id", columns={"language_id"}), @ORM\Index(name="title", columns={"title"})})
  * @ORM\Entity
  */
 class PostsOptions
@@ -15,7 +15,7 @@ class PostsOptions
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -80,7 +80,7 @@ class PostsOptions
     /**
      * @var string
      *
-     * @ORM\Column(name="note", type="text", nullable=true)
+     * @ORM\Column(name="note", type="string", length=50, nullable=true)
      */
     private $note;
 

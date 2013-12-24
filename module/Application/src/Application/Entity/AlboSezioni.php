@@ -15,7 +15,7 @@ class AlboSezioni
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -24,9 +24,9 @@ class AlboSezioni
     /**
      * @var string
      *
-     * @ORM\Column(name="nomesezione", type="string", length=100, nullable=false)
+     * @ORM\Column(name="nome", type="string", length=100, nullable=false)
      */
-    private $nomesezione;
+    private $nome;
 
     /**
      * @var string
@@ -62,26 +62,26 @@ class AlboSezioni
     }
 
     /**
-     * Set nomesezione
+     * Set nome
      *
-     * @param string $nomesezione
+     * @param string $nome
      * @return AlboSezioni
      */
-    public function setNomesezione($nomesezione)
+    public function setNome($nome)
     {
-        $this->nomesezione = $nomesezione;
+        $this->nome = $nome;
 
         return $this;
     }
 
     /**
-     * Get nomesezione
+     * Get nome
      *
      * @return string 
      */
-    public function getNomesezione()
+    public function getNome()
     {
-        return $this->nomesezione;
+        return $this->nome;
     }
 
     /**

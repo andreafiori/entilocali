@@ -7,7 +7,9 @@ use Setup\Model\EntitySerializer;
 
 abstract class EntityRepositoryAbstract {
 	
-	protected $em, $entitySerializer;
+	protected $em;
+	
+	protected $entitySerializer;
 
 	protected $repository, $isOnBackend;
 	
@@ -61,5 +63,13 @@ abstract class EntityRepositoryAbstract {
 	{
 		return $this->isOnBackend;
 	}
-
+	
+	public function getFindFromRepository($arraySearch=null)
+	{
+		if (is_array($arraySearch)) {
+			return $this->em->getRepository($this->repository)->findBy($arraySearch);
+		} else {
+			return $this->em->getRepository($this->repository)->findAll();
+		}
+	}
 }

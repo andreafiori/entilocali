@@ -68,16 +68,16 @@ class Channels
 
     /**
      * Set id
-     * 
+     *
      * @param integer $id
      * @return Channels
      */
-	public function setId($id)
-	{
-		$this->id = $id;
-		
-		return $this;
-	}
+    public function setId($id)
+    {
+    	$this->id = $id;
+    
+    	return $this;
+    }
 
     /**
      * Get id

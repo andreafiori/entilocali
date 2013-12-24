@@ -5,12 +5,12 @@ namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * PagineHome
+ * Homepage
  *
- * @ORM\Table(name="pagine_home")
+ * @ORM\Table(name="homepage", indexes={@ORM\Index(name="category_id", columns={"category_id"}), @ORM\Index(name="language_id", columns={"language_id"}), @ORM\Index(name="channel_id", columns={"channel_id"})})
  * @ORM\Entity
  */
-class PagineHome
+class Homepage
 {
     /**
      * @var integer
@@ -101,13 +101,6 @@ class PagineHome
     /**
      * @var integer
      *
-     * @ORM\Column(name="channel_id", type="integer", nullable=false)
-     */
-    private $channelId = '1';
-
-    /**
-     * @var integer
-     *
      * @ORM\Column(name="modulecategory_id", type="integer", nullable=false)
      */
     private $modulecategoryId = '1';
@@ -129,16 +122,26 @@ class PagineHome
     /**
      * @var integer
      *
-     * @ORM\Column(name="language_id", type="integer", nullable=false)
+     * @ORM\Column(name="category_id", type="integer", nullable=false)
      */
-    private $languageId = '1';
+    private $categoryId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="category_id", type="integer", nullable=false)
+     * @ORM\Column(name="channel_id", type="integer", nullable=false)
      */
-    private $categoryId = '0';
+    private $channelId = '1';
+
+    /**
+     * @var \Application\Entity\Languages
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Languages")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="language_id", referencedColumnName="id")
+     * })
+     */
+    private $language;
 
 
 
@@ -156,7 +159,7 @@ class PagineHome
      * Set boxhome
      *
      * @param string $boxhome
-     * @return PagineHome
+     * @return Homepage
      */
     public function setBoxhome($boxhome)
     {
@@ -179,7 +182,7 @@ class PagineHome
      * Set img
      *
      * @param string $img
-     * @return PagineHome
+     * @return Homepage
      */
     public function setImg($img)
     {
@@ -202,7 +205,7 @@ class PagineHome
      * Set titolo
      *
      * @param string $titolo
-     * @return PagineHome
+     * @return Homepage
      */
     public function setTitolo($titolo)
     {
@@ -225,7 +228,7 @@ class PagineHome
      * Set subtitle
      *
      * @param string $subtitle
-     * @return PagineHome
+     * @return Homepage
      */
     public function setSubtitle($subtitle)
     {
@@ -248,7 +251,7 @@ class PagineHome
      * Set sublink
      *
      * @param string $sublink
-     * @return PagineHome
+     * @return Homepage
      */
     public function setSublink($sublink)
     {
@@ -271,7 +274,7 @@ class PagineHome
      * Set txtfooterbox
      *
      * @param string $txtfooterbox
-     * @return PagineHome
+     * @return Homepage
      */
     public function setTxtfooterbox($txtfooterbox)
     {
@@ -294,7 +297,7 @@ class PagineHome
      * Set visitHome
      *
      * @param string $visitHome
-     * @return PagineHome
+     * @return Homepage
      */
     public function setVisitHome($visitHome)
     {
@@ -317,7 +320,7 @@ class PagineHome
      * Set abstract
      *
      * @param string $abstract
-     * @return PagineHome
+     * @return Homepage
      */
     public function setAbstract($abstract)
     {
@@ -340,7 +343,7 @@ class PagineHome
      * Set dataorarif
      *
      * @param \DateTime $dataorarif
-     * @return PagineHome
+     * @return Homepage
      */
     public function setDataorarif($dataorarif)
     {
@@ -363,7 +366,7 @@ class PagineHome
      * Set scadenza
      *
      * @param \DateTime $scadenza
-     * @return PagineHome
+     * @return Homepage
      */
     public function setScadenza($scadenza)
     {
@@ -386,7 +389,7 @@ class PagineHome
      * Set posizBlock
      *
      * @param integer $posizBlock
-     * @return PagineHome
+     * @return Homepage
      */
     public function setPosizBlock($posizBlock)
     {
@@ -406,33 +409,10 @@ class PagineHome
     }
 
     /**
-     * Set channelId
-     *
-     * @param integer $channelId
-     * @return PagineHome
-     */
-    public function setChannelId($channelId)
-    {
-        $this->channelId = $channelId;
-
-        return $this;
-    }
-
-    /**
-     * Get channelId
-     *
-     * @return integer 
-     */
-    public function getChannelId()
-    {
-        return $this->channelId;
-    }
-
-    /**
      * Set modulecategoryId
      *
      * @param integer $modulecategoryId
-     * @return PagineHome
+     * @return Homepage
      */
     public function setModulecategoryId($modulecategoryId)
     {
@@ -455,7 +435,7 @@ class PagineHome
      * Set newsModuleId
      *
      * @param integer $newsModuleId
-     * @return PagineHome
+     * @return Homepage
      */
     public function setNewsModuleId($newsModuleId)
     {
@@ -478,7 +458,7 @@ class PagineHome
      * Set status
      *
      * @param string $status
-     * @return PagineHome
+     * @return Homepage
      */
     public function setStatus($status)
     {
@@ -498,33 +478,10 @@ class PagineHome
     }
 
     /**
-     * Set languageId
-     *
-     * @param integer $languageId
-     * @return PagineHome
-     */
-    public function setLanguageId($languageId)
-    {
-        $this->languageId = $languageId;
-
-        return $this;
-    }
-
-    /**
-     * Get languageId
-     *
-     * @return integer 
-     */
-    public function getLanguageId()
-    {
-        return $this->languageId;
-    }
-
-    /**
      * Set categoryId
      *
      * @param integer $categoryId
-     * @return PagineHome
+     * @return Homepage
      */
     public function setCategoryId($categoryId)
     {
@@ -541,5 +498,51 @@ class PagineHome
     public function getCategoryId()
     {
         return $this->categoryId;
+    }
+
+    /**
+     * Set channelId
+     *
+     * @param integer $channelId
+     * @return Homepage
+     */
+    public function setChannelId($channelId)
+    {
+        $this->channelId = $channelId;
+
+        return $this;
+    }
+
+    /**
+     * Get channelId
+     *
+     * @return integer 
+     */
+    public function getChannelId()
+    {
+        return $this->channelId;
+    }
+
+    /**
+     * Set language
+     *
+     * @param \Application\Entity\Languages $language
+     * @return Homepage
+     */
+    public function setLanguage(\Application\Entity\Languages $language = null)
+    {
+        $this->language = $language;
+
+        return $this;
+    }
+
+    /**
+     * Get language
+     *
+     * @return \Application\Entity\Languages 
+     */
+    public function getLanguage()
+    {
+        return $this->language;
     }
 }

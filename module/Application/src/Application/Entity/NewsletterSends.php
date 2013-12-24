@@ -5,12 +5,12 @@ namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * NewsletterInvii
+ * NewsletterSends
  *
- * @ORM\Table(name="newsletter_invii", indexes={@ORM\Index(name="newsletter_id", columns={"newsletter_id"})})
+ * @ORM\Table(name="newsletter_sends", indexes={@ORM\Index(name="newsletter_id", columns={"newsletter_id"})})
  * @ORM\Entity
  */
-class NewsletterInvii
+class NewsletterSends
 {
     /**
      * @var integer
@@ -58,7 +58,7 @@ class NewsletterInvii
      * Set description
      *
      * @param string $description
-     * @return NewsletterInvii
+     * @return NewsletterSends
      */
     public function setDescription($description)
     {
@@ -81,7 +81,7 @@ class NewsletterInvii
      * Set senddate
      *
      * @param \DateTime $senddate
-     * @return NewsletterInvii
+     * @return NewsletterSends
      */
     public function setSenddate($senddate)
     {
@@ -104,7 +104,7 @@ class NewsletterInvii
      * Set newsletterId
      *
      * @param integer $newsletterId
-     * @return NewsletterInvii
+     * @return NewsletterSends
      */
     public function setNewsletterId($newsletterId)
     {

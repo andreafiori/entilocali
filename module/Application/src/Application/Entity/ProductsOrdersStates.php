@@ -5,12 +5,12 @@ namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ProdottiOrdiniStati
+ * ProductsOrdersStates
  *
- * @ORM\Table(name="prodotti_ordini_stati")
+ * @ORM\Table(name="products_orders_states")
  * @ORM\Entity
  */
-class ProdottiOrdiniStati
+class ProductsOrdersStates
 {
     /**
      * @var integer
@@ -93,7 +93,7 @@ class ProdottiOrdiniStati
      * Set nomestato
      *
      * @param string $nomestato
-     * @return ProdottiOrdiniStati
+     * @return ProductsOrdersStates
      */
     public function setNomestato($nomestato)
     {
@@ -116,7 +116,7 @@ class ProdottiOrdiniStati
      * Set value
      *
      * @param string $value
-     * @return ProdottiOrdiniStati
+     * @return ProductsOrdersStates
      */
     public function setValue($value)
     {
@@ -139,7 +139,7 @@ class ProdottiOrdiniStati
      * Set posizione
      *
      * @param integer $posizione
-     * @return ProdottiOrdiniStati
+     * @return ProductsOrdersStates
      */
     public function setPosizione($posizione)
     {
@@ -162,7 +162,7 @@ class ProdottiOrdiniStati
      * Set active
      *
      * @param string $active
-     * @return ProdottiOrdiniStati
+     * @return ProductsOrdersStates
      */
     public function setActive($active)
     {
@@ -185,7 +185,7 @@ class ProdottiOrdiniStati
      * Set predef
      *
      * @param string $predef
-     * @return ProdottiOrdiniStati
+     * @return ProductsOrdersStates
      */
     public function setPredef($predef)
     {
@@ -208,7 +208,7 @@ class ProdottiOrdiniStati
      * Set rifmodule
      *
      * @param integer $rifmodule
-     * @return ProdottiOrdiniStati
+     * @return ProductsOrdersStates
      */
     public function setRifmodule($rifmodule)
     {
@@ -231,7 +231,7 @@ class ProdottiOrdiniStati
      * Set rifchannel
      *
      * @param integer $rifchannel
-     * @return ProdottiOrdiniStati
+     * @return ProductsOrdersStates
      */
     public function setRifchannel($rifchannel)
     {
@@ -254,7 +254,7 @@ class ProdottiOrdiniStati
      * Set note
      *
      * @param string $note
-     * @return ProdottiOrdiniStati
+     * @return ProductsOrdersStates
      */
     public function setNote($note)
     {

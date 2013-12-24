@@ -13,7 +13,7 @@ class ConfigControllerTest extends TestSuite
 
 	public function setUp()
 	{
-		$this->setUpService();
+		parent::setUp();
 		
 		$this->controller = new ConfigController();
 		$this->controller->setEvent($this->event);

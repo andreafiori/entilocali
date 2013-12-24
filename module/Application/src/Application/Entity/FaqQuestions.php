@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * FaqQuestions
  *
- * @ORM\Table(name="faq_questions", indexes={@ORM\Index(name="user_id", columns={"user_id"})})
+ * @ORM\Table(name="faq_questions", indexes={@ORM\Index(name="user_id", columns={"user_id"}), @ORM\Index(name="language_id", columns={"language_id"}), @ORM\Index(name="channel_id", columns={"channel_id"})})
  * @ORM\Entity
  */
 class FaqQuestions
@@ -50,20 +50,6 @@ class FaqQuestions
     private $rate;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="channel_id", type="integer", nullable=false)
-     */
-    private $channelId = '1';
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="language_id", type="integer", nullable=false)
-     */
-    private $languageId = '1';
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="insertdate", type="datetime", nullable=false)
@@ -76,6 +62,20 @@ class FaqQuestions
      * @ORM\Column(name="lastupdate", type="datetime", nullable=false)
      */
     private $lastupdate;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="channel_id", type="integer", nullable=false)
+     */
+    private $channelId = '1';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="language_id", type="integer", nullable=false)
+     */
+    private $languageId = '1';
 
     /**
      * @var integer
@@ -189,52 +189,6 @@ class FaqQuestions
     }
 
     /**
-     * Set channelId
-     *
-     * @param integer $channelId
-     * @return FaqQuestions
-     */
-    public function setChannelId($channelId)
-    {
-        $this->channelId = $channelId;
-
-        return $this;
-    }
-
-    /**
-     * Get channelId
-     *
-     * @return integer 
-     */
-    public function getChannelId()
-    {
-        return $this->channelId;
-    }
-
-    /**
-     * Set languageId
-     *
-     * @param integer $languageId
-     * @return FaqQuestions
-     */
-    public function setLanguageId($languageId)
-    {
-        $this->languageId = $languageId;
-
-        return $this;
-    }
-
-    /**
-     * Get languageId
-     *
-     * @return integer 
-     */
-    public function getLanguageId()
-    {
-        return $this->languageId;
-    }
-
-    /**
      * Set insertdate
      *
      * @param \DateTime $insertdate
@@ -278,6 +232,52 @@ class FaqQuestions
     public function getLastupdate()
     {
         return $this->lastupdate;
+    }
+
+    /**
+     * Set channelId
+     *
+     * @param integer $channelId
+     * @return FaqQuestions
+     */
+    public function setChannelId($channelId)
+    {
+        $this->channelId = $channelId;
+
+        return $this;
+    }
+
+    /**
+     * Get channelId
+     *
+     * @return integer 
+     */
+    public function getChannelId()
+    {
+        return $this->channelId;
+    }
+
+    /**
+     * Set languageId
+     *
+     * @param integer $languageId
+     * @return FaqQuestions
+     */
+    public function setLanguageId($languageId)
+    {
+        $this->languageId = $languageId;
+
+        return $this;
+    }
+
+    /**
+     * Get languageId
+     *
+     * @return integer 
+     */
+    public function getLanguageId()
+    {
+        return $this->languageId;
     }
 
     /**

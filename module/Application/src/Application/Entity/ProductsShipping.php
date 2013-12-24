@@ -5,12 +5,12 @@ namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ProdottiSpedizioni
+ * ProductsShipping
  *
- * @ORM\Table(name="prodotti_spedizioni")
+ * @ORM\Table(name="products_shipping")
  * @ORM\Entity
  */
-class ProdottiSpedizioni
+class ProductsShipping
 {
     /**
      * @var integer
@@ -72,7 +72,7 @@ class ProdottiSpedizioni
      * Set nomesped
      *
      * @param string $nomesped
-     * @return ProdottiSpedizioni
+     * @return ProductsShipping
      */
     public function setNomesped($nomesped)
     {
@@ -95,7 +95,7 @@ class ProdottiSpedizioni
      * Set costonazionale
      *
      * @param string $costonazionale
-     * @return ProdottiSpedizioni
+     * @return ProductsShipping
      */
     public function setCostonazionale($costonazionale)
     {
@@ -118,7 +118,7 @@ class ProdottiSpedizioni
      * Set costoeur
      *
      * @param string $costoeur
-     * @return ProdottiSpedizioni
+     * @return ProductsShipping
      */
     public function setCostoeur($costoeur)
     {
@@ -141,7 +141,7 @@ class ProdottiSpedizioni
      * Set costointernaz
      *
      * @param string $costointernaz
-     * @return ProdottiSpedizioni
+     * @return ProductsShipping
      */
     public function setCostointernaz($costointernaz)
     {
@@ -164,7 +164,7 @@ class ProdottiSpedizioni
      * Set tempomedio
      *
      * @param string $tempomedio
-     * @return ProdottiSpedizioni
+     * @return ProductsShipping
      */
     public function setTempomedio($tempomedio)
     {

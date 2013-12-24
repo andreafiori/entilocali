@@ -4,56 +4,36 @@ namespace Language\Model;
 
 use Setup\Model\EntityRepositoryAbstract;
 use Application\Entity\Channels;
-use stdClass;
 
 class LanguagesRepository extends EntityRepositoryAbstract {
-	
+
 	protected $repository = 'Application\Entity\Languages';
-	
-	private $defaultLangFieldName;
-	
-	private $defaultLanguage, $allAvailableLanguages;
-	
-	private $channelEntity;
-	
+
+	private $defaultLangFieldName, $defaultLanguage;
+
+	private $allAvailableLanguages;
+
 	/**
 	 * set all available languages 
-	 * @param number $channel
+	 * @param Channels $channel
 	 * @return array $record
 	 */
-	public function setAllAvailableLanguages($channel = 1)
+	public function setAllAvailableLanguages(Channels $channel)
 	{
-		$this->setChannelEntity($channel);
-		
-		$this->allAvailableLanguages = $this->em->getRepository($this->repository)->findBy( array("active" => 1, "channel" => $this->getChannelEntity()) );
-		
+		$this->allAvailableLanguages = $this->em->getRepository($this->repository)->findBy( array("active" => 1, "channel" => $channel) );
 		return $this->allAvailableLanguages;
 	}
 	
 	/**
-	 * set channel entity for the query selection
-	 * @param number $channel
-	 */
-	public function setChannelEntity($channel = 1)
-	{
-		$channelEntity = new Channels();
-		$channelEntity->setId($channel);
-		$this->channelEntity = $channelEntity;
-	}
-	
-	public function getChannelEntity()
-	{
-		return $this->channelEntity;
-	}
-	
-	/**
 	 * @param string $abbreviation
-	 * @return \Application\Entity\Language $
+	 * @return \Application\Entity\Language $abbreviation
 	 */
 	public function setDefaultLanguage($abbreviation)
 	{
-		if (!$this->allAvailableLanguages) return false;
-
+		if ( !$this->allAvailableLanguages ) {
+			return false;
+		}
+		
 		$this->setDefaultLangFieldName();
 		
 		$arrayCompare = array();
@@ -94,4 +74,5 @@ class LanguagesRepository extends EntityRepositoryAbstract {
 	{
 		return $this->defaultLangFieldName;
 	}
+	
 }

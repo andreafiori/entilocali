@@ -5,12 +5,12 @@ namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Config
+ * PostsRelations
  *
- * @ORM\Table(name="config", indexes={@ORM\Index(name="channel_id", columns={"channel_id"}), @ORM\Index(name="language_id", columns={"language_id"}), @ORM\Index(name="module_id", columns={"module_id"})})
+ * @ORM\Table(name="posts_relations", indexes={@ORM\Index(name="channel_id", columns={"channel_id"}), @ORM\Index(name="language_id", columns={"language_id"}), @ORM\Index(name="module_id", columns={"module_id"}), @ORM\Index(name="attachment_id", columns={"attachment_id"})})
  * @ORM\Entity
  */
-class Config
+class PostsRelations
 {
     /**
      * @var integer
@@ -22,25 +22,18 @@ class Config
     private $id;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="name", type="string", length=100, nullable=true)
+     * @ORM\Column(name="category_id", type="integer", nullable=false)
      */
-    private $name;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="value", type="text", nullable=true)
-     */
-    private $value;
+    private $categoryId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="isadmin", type="integer", nullable=false)
+     * @ORM\Column(name="posts_id", type="integer", nullable=false)
      */
-    private $isadmin;
+    private $postsId = '0';
 
     /**
      * @var integer
@@ -48,6 +41,16 @@ class Config
      * @ORM\Column(name="module_id", type="integer", nullable=false)
      */
     private $moduleId = '0';
+
+    /**
+     * @var \Application\Entity\Attachments
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Attachments")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="attachment_id", referencedColumnName="id")
+     * })
+     */
+    private $attachment;
 
     /**
      * @var \Application\Entity\Channels
@@ -82,79 +85,56 @@ class Config
     }
 
     /**
-     * Set name
+     * Set categoryId
      *
-     * @param string $name
-     * @return Config
+     * @param integer $categoryId
+     * @return PostsRelations
      */
-    public function setName($name)
+    public function setCategoryId($categoryId)
     {
-        $this->name = $name;
+        $this->categoryId = $categoryId;
 
         return $this;
     }
 
     /**
-     * Get name
-     *
-     * @return string 
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set value
-     *
-     * @param string $value
-     * @return Config
-     */
-    public function setValue($value)
-    {
-        $this->value = $value;
-
-        return $this;
-    }
-
-    /**
-     * Get value
-     *
-     * @return string 
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
-
-    /**
-     * Set isadmin
-     *
-     * @param integer $isadmin
-     * @return Config
-     */
-    public function setIsadmin($isadmin)
-    {
-        $this->isadmin = $isadmin;
-
-        return $this;
-    }
-
-    /**
-     * Get isadmin
+     * Get categoryId
      *
      * @return integer 
      */
-    public function getIsadmin()
+    public function getCategoryId()
     {
-        return $this->isadmin;
+        return $this->categoryId;
+    }
+
+    /**
+     * Set postsId
+     *
+     * @param integer $postsId
+     * @return PostsRelations
+     */
+    public function setPostsId($postsId)
+    {
+        $this->postsId = $postsId;
+
+        return $this;
+    }
+
+    /**
+     * Get postsId
+     *
+     * @return integer 
+     */
+    public function getPostsId()
+    {
+        return $this->postsId;
     }
 
     /**
      * Set moduleId
      *
      * @param integer $moduleId
-     * @return Config
+     * @return PostsRelations
      */
     public function setModuleId($moduleId)
     {
@@ -174,10 +154,33 @@ class Config
     }
 
     /**
+     * Set attachment
+     *
+     * @param \Application\Entity\Attachments $attachment
+     * @return PostsRelations
+     */
+    public function setAttachment(\Application\Entity\Attachments $attachment = null)
+    {
+        $this->attachment = $attachment;
+
+        return $this;
+    }
+
+    /**
+     * Get attachment
+     *
+     * @return \Application\Entity\Attachments 
+     */
+    public function getAttachment()
+    {
+        return $this->attachment;
+    }
+
+    /**
      * Set channel
      *
      * @param \Application\Entity\Channels $channel
-     * @return Config
+     * @return PostsRelations
      */
     public function setChannel(\Application\Entity\Channels $channel = null)
     {
@@ -200,7 +203,7 @@ class Config
      * Set language
      *
      * @param \Application\Entity\Languages $language
-     * @return Config
+     * @return PostsRelations
      */
     public function setLanguage(\Application\Entity\Languages $language = null)
     {

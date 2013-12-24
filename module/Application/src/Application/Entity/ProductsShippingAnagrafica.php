@@ -5,12 +5,12 @@ namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ProdottiSpedizioniAnagrafica
+ * ProductsShippingAnagrafica
  *
- * @ORM\Table(name="prodotti_spedizioni_anagrafica", indexes={@ORM\Index(name="shippingidsearch", columns={"order_id", "shipping_id", "nation_id", "province_id", "city_id"})})
+ * @ORM\Table(name="products_shipping_anagrafica", indexes={@ORM\Index(name="shippingidsearch", columns={"order_id", "shipping_id", "nation_id", "province_id", "city_id"})})
  * @ORM\Entity
  */
-class ProdottiSpedizioniAnagrafica
+class ProductsShippingAnagrafica
 {
     /**
      * @var integer
@@ -128,7 +128,7 @@ class ProdottiSpedizioniAnagrafica
      * Set name
      *
      * @param string $name
-     * @return ProdottiSpedizioniAnagrafica
+     * @return ProductsShippingAnagrafica
      */
     public function setName($name)
     {
@@ -151,7 +151,7 @@ class ProdottiSpedizioniAnagrafica
      * Set surname
      *
      * @param string $surname
-     * @return ProdottiSpedizioniAnagrafica
+     * @return ProductsShippingAnagrafica
      */
     public function setSurname($surname)
     {
@@ -174,7 +174,7 @@ class ProdottiSpedizioniAnagrafica
      * Set address
      *
      * @param string $address
-     * @return ProdottiSpedizioniAnagrafica
+     * @return ProductsShippingAnagrafica
      */
     public function setAddress($address)
     {
@@ -197,7 +197,7 @@ class ProdottiSpedizioniAnagrafica
      * Set addressNumber
      *
      * @param integer $addressNumber
-     * @return ProdottiSpedizioniAnagrafica
+     * @return ProductsShippingAnagrafica
      */
     public function setAddressNumber($addressNumber)
     {
@@ -220,7 +220,7 @@ class ProdottiSpedizioniAnagrafica
      * Set zip
      *
      * @param string $zip
-     * @return ProdottiSpedizioniAnagrafica
+     * @return ProductsShippingAnagrafica
      */
     public function setZip($zip)
     {
@@ -243,7 +243,7 @@ class ProdottiSpedizioniAnagrafica
      * Set cityId
      *
      * @param integer $cityId
-     * @return ProdottiSpedizioniAnagrafica
+     * @return ProductsShippingAnagrafica
      */
     public function setCityId($cityId)
     {
@@ -266,7 +266,7 @@ class ProdottiSpedizioniAnagrafica
      * Set provinceId
      *
      * @param integer $provinceId
-     * @return ProdottiSpedizioniAnagrafica
+     * @return ProductsShippingAnagrafica
      */
     public function setProvinceId($provinceId)
     {
@@ -289,7 +289,7 @@ class ProdottiSpedizioniAnagrafica
      * Set nationId
      *
      * @param integer $nationId
-     * @return ProdottiSpedizioniAnagrafica
+     * @return ProductsShippingAnagrafica
      */
     public function setNationId($nationId)
     {
@@ -312,7 +312,7 @@ class ProdottiSpedizioniAnagrafica
      * Set phone
      *
      * @param string $phone
-     * @return ProdottiSpedizioniAnagrafica
+     * @return ProductsShippingAnagrafica
      */
     public function setPhone($phone)
     {
@@ -335,7 +335,7 @@ class ProdottiSpedizioniAnagrafica
      * Set email
      *
      * @param string $email
-     * @return ProdottiSpedizioniAnagrafica
+     * @return ProductsShippingAnagrafica
      */
     public function setEmail($email)
     {
@@ -358,7 +358,7 @@ class ProdottiSpedizioniAnagrafica
      * Set message
      *
      * @param string $message
-     * @return ProdottiSpedizioniAnagrafica
+     * @return ProductsShippingAnagrafica
      */
     public function setMessage($message)
     {
@@ -381,7 +381,7 @@ class ProdottiSpedizioniAnagrafica
      * Set orderId
      *
      * @param integer $orderId
-     * @return ProdottiSpedizioniAnagrafica
+     * @return ProductsShippingAnagrafica
      */
     public function setOrderId($orderId)
     {
@@ -404,7 +404,7 @@ class ProdottiSpedizioniAnagrafica
      * Set shippingId
      *
      * @param integer $shippingId
-     * @return ProdottiSpedizioniAnagrafica
+     * @return ProductsShippingAnagrafica
      */
     public function setShippingId($shippingId)
     {

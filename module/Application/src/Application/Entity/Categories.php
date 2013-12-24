@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Categories
  *
- * @ORM\Table(name="categories")
+ * @ORM\Table(name="categories", indexes={@ORM\Index(name="channel_id", columns={"channel_id"}), @ORM\Index(name="module_id", columns={"module_id"})})
  * @ORM\Entity
  */
 class Categories
@@ -45,9 +45,9 @@ class Categories
     /**
      * @var string
      *
-     * @ORM\Column(name="templatecatfile", type="string", length=100, nullable=true)
+     * @ORM\Column(name="templatefile", type="string", length=100, nullable=true)
      */
-    private $templatecatfile;
+    private $templatefile;
 
     /**
      * @var integer
@@ -59,23 +59,26 @@ class Categories
     /**
      * @var integer
      *
-     * @ORM\Column(name="posizione", type="integer", nullable=false)
+     * @ORM\Column(name="position", type="integer", nullable=false)
      */
-    private $posizione = '1';
+    private $position = '1';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="rifchannel", type="integer", nullable=false)
+     * @ORM\Column(name="module_id", type="integer", nullable=false)
      */
-    private $rifchannel = '0';
+    private $moduleId = '0';
 
     /**
-     * @var integer
+     * @var \Application\Entity\Channels
      *
-     * @ORM\Column(name="rifmodule", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Channels")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="channel_id", referencedColumnName="id")
+     * })
      */
-    private $rifmodule = '0';
+    private $channel;
 
 
 
@@ -159,26 +162,26 @@ class Categories
     }
 
     /**
-     * Set templatecatfile
+     * Set templatefile
      *
-     * @param string $templatecatfile
+     * @param string $templatefile
      * @return Categories
      */
-    public function setTemplatecatfile($templatecatfile)
+    public function setTemplatefile($templatefile)
     {
-        $this->templatecatfile = $templatecatfile;
+        $this->templatefile = $templatefile;
 
         return $this;
     }
 
     /**
-     * Get templatecatfile
+     * Get templatefile
      *
      * @return string 
      */
-    public function getTemplatecatfile()
+    public function getTemplatefile()
     {
-        return $this->templatecatfile;
+        return $this->templatefile;
     }
 
     /**
@@ -205,71 +208,71 @@ class Categories
     }
 
     /**
-     * Set posizione
+     * Set position
      *
-     * @param integer $posizione
+     * @param integer $position
      * @return Categories
      */
-    public function setPosizione($posizione)
+    public function setPosition($position)
     {
-        $this->posizione = $posizione;
+        $this->position = $position;
 
         return $this;
     }
 
     /**
-     * Get posizione
+     * Get position
      *
      * @return integer 
      */
-    public function getPosizione()
+    public function getPosition()
     {
-        return $this->posizione;
+        return $this->position;
     }
 
     /**
-     * Set rifchannel
+     * Set moduleId
      *
-     * @param integer $rifchannel
+     * @param integer $moduleId
      * @return Categories
      */
-    public function setRifchannel($rifchannel)
+    public function setModuleId($moduleId)
     {
-        $this->rifchannel = $rifchannel;
+        $this->moduleId = $moduleId;
 
         return $this;
     }
 
     /**
-     * Get rifchannel
+     * Get moduleId
      *
      * @return integer 
      */
-    public function getRifchannel()
+    public function getModuleId()
     {
-        return $this->rifchannel;
+        return $this->moduleId;
     }
 
     /**
-     * Set rifmodule
+     * Set channel
      *
-     * @param integer $rifmodule
+     * @param \Application\Entity\Channels $channel
      * @return Categories
      */
-    public function setRifmodule($rifmodule)
+    public function setChannel(\Application\Entity\Channels $channel = null)
     {
-        $this->rifmodule = $rifmodule;
+        $this->channel = $channel;
 
         return $this;
     }
 
     /**
-     * Get rifmodule
+     * Get channel
      *
-     * @return integer 
+     * @return \Application\Entity\Channels 
      */
-    public function getRifmodule()
+    public function getChannel()
     {
-        return $this->rifmodule;
+        return $this->channel;
     }
 }

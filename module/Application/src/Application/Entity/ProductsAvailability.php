@@ -5,17 +5,17 @@ namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ProdottiDisponibilita
+ * ProductsAvailability
  *
- * @ORM\Table(name="prodotti_disponibilita")
+ * @ORM\Table(name="products_availability")
  * @ORM\Entity
  */
-class ProdottiDisponibilita
+class ProductsAvailability
 {
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -59,16 +59,16 @@ class ProdottiDisponibilita
     /**
      * @var string
      *
-     * @ORM\Column(name="visib", type="string", nullable=false)
+     * @ORM\Column(name="status", type="string", nullable=false)
      */
-    private $visib = 'si';
+    private $status = 'si';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="posiz", type="integer", nullable=false)
+     * @ORM\Column(name="position", type="integer", nullable=false)
      */
-    private $posiz = '0';
+    private $position = '0';
 
 
 
@@ -86,7 +86,7 @@ class ProdottiDisponibilita
      * Set imgdisp
      *
      * @param string $imgdisp
-     * @return ProdottiDisponibilita
+     * @return ProductsAvailability
      */
     public function setImgdisp($imgdisp)
     {
@@ -109,7 +109,7 @@ class ProdottiDisponibilita
      * Set nomedispLang1
      *
      * @param string $nomedispLang1
-     * @return ProdottiDisponibilita
+     * @return ProductsAvailability
      */
     public function setNomedispLang1($nomedispLang1)
     {
@@ -132,7 +132,7 @@ class ProdottiDisponibilita
      * Set nomedispLang2
      *
      * @param string $nomedispLang2
-     * @return ProdottiDisponibilita
+     * @return ProductsAvailability
      */
     public function setNomedispLang2($nomedispLang2)
     {
@@ -155,7 +155,7 @@ class ProdottiDisponibilita
      * Set nomedispLang3
      *
      * @param string $nomedispLang3
-     * @return ProdottiDisponibilita
+     * @return ProductsAvailability
      */
     public function setNomedispLang3($nomedispLang3)
     {
@@ -178,7 +178,7 @@ class ProdottiDisponibilita
      * Set nomedispLang4
      *
      * @param string $nomedispLang4
-     * @return ProdottiDisponibilita
+     * @return ProductsAvailability
      */
     public function setNomedispLang4($nomedispLang4)
     {
@@ -198,48 +198,48 @@ class ProdottiDisponibilita
     }
 
     /**
-     * Set visib
+     * Set status
      *
-     * @param string $visib
-     * @return ProdottiDisponibilita
+     * @param string $status
+     * @return ProductsAvailability
      */
-    public function setVisib($visib)
+    public function setStatus($status)
     {
-        $this->visib = $visib;
+        $this->status = $status;
 
         return $this;
     }
 
     /**
-     * Get visib
+     * Get status
      *
      * @return string 
      */
-    public function getVisib()
+    public function getStatus()
     {
-        return $this->visib;
+        return $this->status;
     }
 
     /**
-     * Set posiz
+     * Set position
      *
-     * @param integer $posiz
-     * @return ProdottiDisponibilita
+     * @param integer $position
+     * @return ProductsAvailability
      */
-    public function setPosiz($posiz)
+    public function setPosition($position)
     {
-        $this->posiz = $posiz;
+        $this->position = $position;
 
         return $this;
     }
 
     /**
-     * Get posiz
+     * Get position
      *
      * @return integer 
      */
-    public function getPosiz()
+    public function getPosition()
     {
-        return $this->posiz;
+        return $this->position;
     }
 }

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * FaqAnswers
  *
- * @ORM\Table(name="faq_answers", indexes={@ORM\Index(name="question_id", columns={"question_id"})})
+ * @ORM\Table(name="faq_answers", indexes={@ORM\Index(name="question_id", columns={"question_id"}), @ORM\Index(name="user_id", columns={"user_id"})})
  * @ORM\Entity
  */
 class FaqAnswers
@@ -15,7 +15,7 @@ class FaqAnswers
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -48,6 +48,13 @@ class FaqAnswers
      * @ORM\Column(name="lastupdate", type="datetime", nullable=false)
      */
     private $lastupdate;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="user_id", type="integer", nullable=false)
+     */
+    private $userId;
 
     /**
      * @var \Application\Entity\FaqQuestions
@@ -161,6 +168,29 @@ class FaqAnswers
     public function getLastupdate()
     {
         return $this->lastupdate;
+    }
+
+    /**
+     * Set userId
+     *
+     * @param integer $userId
+     * @return FaqAnswers
+     */
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+
+        return $this;
+    }
+
+    /**
+     * Get userId
+     *
+     * @return integer 
+     */
+    public function getUserId()
+    {
+        return $this->userId;
     }
 
     /**

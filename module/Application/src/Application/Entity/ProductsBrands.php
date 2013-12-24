@@ -5,17 +5,17 @@ namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ProdottiMarche
+ * ProductsBrands
  *
- * @ORM\Table(name="prodotti_marche", indexes={@ORM\Index(name="codmarca", columns={"codmarca"})})
+ * @ORM\Table(name="products_brands", indexes={@ORM\Index(name="codmarca", columns={"codmarca"})})
  * @ORM\Entity
  */
-class ProdottiMarche
+class ProductsBrands
 {
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -80,9 +80,9 @@ class ProdottiMarche
     /**
      * @var string
      *
-     * @ORM\Column(name="visib", type="string", nullable=false)
+     * @ORM\Column(name="status", type="string", nullable=false)
      */
-    private $visib = 'si';
+    private $status = 'si';
 
     /**
      * @var integer
@@ -135,7 +135,7 @@ class ProdottiMarche
      * Set codmarca
      *
      * @param string $codmarca
-     * @return ProdottiMarche
+     * @return ProductsBrands
      */
     public function setCodmarca($codmarca)
     {
@@ -158,7 +158,7 @@ class ProdottiMarche
      * Set imgtb
      *
      * @param string $imgtb
-     * @return ProdottiMarche
+     * @return ProductsBrands
      */
     public function setImgtb($imgtb)
     {
@@ -181,7 +181,7 @@ class ProdottiMarche
      * Set imgbig
      *
      * @param string $imgbig
-     * @return ProdottiMarche
+     * @return ProductsBrands
      */
     public function setImgbig($imgbig)
     {
@@ -204,7 +204,7 @@ class ProdottiMarche
      * Set nomemarca
      *
      * @param string $nomemarca
-     * @return ProdottiMarche
+     * @return ProductsBrands
      */
     public function setNomemarca($nomemarca)
     {
@@ -227,7 +227,7 @@ class ProdottiMarche
      * Set descrizioneLang1
      *
      * @param string $descrizioneLang1
-     * @return ProdottiMarche
+     * @return ProductsBrands
      */
     public function setDescrizioneLang1($descrizioneLang1)
     {
@@ -250,7 +250,7 @@ class ProdottiMarche
      * Set descrizioneLang2
      *
      * @param string $descrizioneLang2
-     * @return ProdottiMarche
+     * @return ProductsBrands
      */
     public function setDescrizioneLang2($descrizioneLang2)
     {
@@ -273,7 +273,7 @@ class ProdottiMarche
      * Set descrizioneLang3
      *
      * @param string $descrizioneLang3
-     * @return ProdottiMarche
+     * @return ProductsBrands
      */
     public function setDescrizioneLang3($descrizioneLang3)
     {
@@ -296,7 +296,7 @@ class ProdottiMarche
      * Set descrizioneLang4
      *
      * @param string $descrizioneLang4
-     * @return ProdottiMarche
+     * @return ProductsBrands
      */
     public function setDescrizioneLang4($descrizioneLang4)
     {
@@ -316,33 +316,33 @@ class ProdottiMarche
     }
 
     /**
-     * Set visib
+     * Set status
      *
-     * @param string $visib
-     * @return ProdottiMarche
+     * @param string $status
+     * @return ProductsBrands
      */
-    public function setVisib($visib)
+    public function setStatus($status)
     {
-        $this->visib = $visib;
+        $this->status = $status;
 
         return $this;
     }
 
     /**
-     * Get visib
+     * Get status
      *
      * @return string 
      */
-    public function getVisib()
+    public function getStatus()
     {
-        return $this->visib;
+        return $this->status;
     }
 
     /**
      * Set posiz
      *
      * @param integer $posiz
-     * @return ProdottiMarche
+     * @return ProductsBrands
      */
     public function setPosiz($posiz)
     {
@@ -365,7 +365,7 @@ class ProdottiMarche
      * Set urlweb
      *
      * @param string $urlweb
-     * @return ProdottiMarche
+     * @return ProductsBrands
      */
     public function setUrlweb($urlweb)
     {
@@ -388,7 +388,7 @@ class ProdottiMarche
      * Set seourl
      *
      * @param string $seourl
-     * @return ProdottiMarche
+     * @return ProductsBrands
      */
     public function setSeourl($seourl)
     {
@@ -411,7 +411,7 @@ class ProdottiMarche
      * Set seokeyw
      *
      * @param string $seokeyw
-     * @return ProdottiMarche
+     * @return ProductsBrands
      */
     public function setSeokeyw($seokeyw)
     {
@@ -434,7 +434,7 @@ class ProdottiMarche
      * Set seodescr
      *
      * @param string $seodescr
-     * @return ProdottiMarche
+     * @return ProductsBrands
      */
     public function setSeodescr($seodescr)
     {

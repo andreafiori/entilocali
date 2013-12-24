@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Languages
  *
- * @ORM\Table(name="languages", indexes={@ORM\Index(name="srchfields", columns={"channel_id", "abbrev1"}), @ORM\Index(name="IDX_A0D1537972F5A1AA", columns={"channel_id"})})
+ * @ORM\Table(name="languages", indexes={@ORM\Index(name="srchfields", columns={"channel_id", "abbreviation1"}), @ORM\Index(name="active", columns={"active"}), @ORM\Index(name="IDX_A0D1537972F5A1AA", columns={"channel_id"})})
  * @ORM\Entity
  */
 class Languages
@@ -24,44 +24,51 @@ class Languages
     /**
      * @var string
      *
-     * @ORM\Column(name="language", type="string", length=100, nullable=false)
+     * @ORM\Column(name="flag", type="string", length=60, nullable=false)
      */
-    private $language;
+    private $flag;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="abbrev1", type="string", length=60, nullable=false)
+     * @ORM\Column(name="name", type="string", length=60, nullable=false)
      */
-    private $abbrev1;
+    private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="abbrev2", type="string", length=60, nullable=false)
+     * @ORM\Column(name="abbreviation1", type="string", length=60, nullable=false)
      */
-    private $abbrev2;
+    private $abbreviation1;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="abbrev3", type="string", length=60, nullable=false)
+     * @ORM\Column(name="abbreviation2", type="string", length=60, nullable=false)
      */
-    private $abbrev3;
+    private $abbreviation2;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="abbreviation3", type="string", length=60, nullable=false)
+     */
+    private $abbreviation3;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="defaultlang", type="boolean", nullable=false)
+     * @ORM\Column(name="isdefault", type="boolean", nullable=false)
      */
-    private $defaultlang = '0';
+    private $isdefault = '0';
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="defaultlang_admin", type="boolean", nullable=false)
+     * @ORM\Column(name="isdefault_backend", type="boolean", nullable=false)
      */
-    private $defaultlangAdmin = '0';
+    private $isdefaultBackend = '0';
 
     /**
      * @var string
@@ -71,18 +78,11 @@ class Languages
     private $encoding = 'UTF-8';
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="flag", type="string", length=60, nullable=false)
-     */
-    private $flag;
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="active", type="integer", nullable=false)
      */
-    private $active = '1';
+    private $active;
 
     /**
      * @var \Application\Entity\Channels
@@ -107,141 +107,164 @@ class Languages
     }
 
     /**
-     * Set language
+     * Set flag
      *
-     * @param string $language
+     * @param string $flag
      * @return Languages
      */
-    public function setLanguage($language)
+    public function setFlag($flag)
     {
-        $this->language = $language;
+        $this->flag = $flag;
 
         return $this;
     }
 
     /**
-     * Get language
+     * Get flag
      *
      * @return string 
      */
-    public function getLanguage()
+    public function getFlag()
     {
-        return $this->language;
+        return $this->flag;
     }
 
     /**
-     * Set abbrev1
+     * Set name
      *
-     * @param string $abbrev1
+     * @param string $name
      * @return Languages
      */
-    public function setAbbrev1($abbrev1)
+    public function setName($name)
     {
-        $this->abbrev1 = $abbrev1;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get abbrev1
+     * Get name
      *
      * @return string 
      */
-    public function getAbbrev1()
+    public function getName()
     {
-        return $this->abbrev1;
+        return $this->name;
     }
 
     /**
-     * Set abbrev2
+     * Set abbreviation1
      *
-     * @param string $abbrev2
+     * @param string $abbreviation1
      * @return Languages
      */
-    public function setAbbrev2($abbrev2)
+    public function setAbbreviation1($abbreviation1)
     {
-        $this->abbrev2 = $abbrev2;
+        $this->abbreviation1 = $abbreviation1;
 
         return $this;
     }
 
     /**
-     * Get abbrev2
+     * Get abbreviation1
      *
      * @return string 
      */
-    public function getAbbrev2()
+    public function getAbbreviation1()
     {
-        return $this->abbrev2;
+        return $this->abbreviation1;
     }
 
     /**
-     * Set abbrev3
+     * Set abbreviation2
      *
-     * @param string $abbrev3
+     * @param string $abbreviation2
      * @return Languages
      */
-    public function setAbbrev3($abbrev3)
+    public function setAbbreviation2($abbreviation2)
     {
-        $this->abbrev3 = $abbrev3;
+        $this->abbreviation2 = $abbreviation2;
 
         return $this;
     }
 
     /**
-     * Get abbrev3
+     * Get abbreviation2
      *
      * @return string 
      */
-    public function getAbbrev3()
+    public function getAbbreviation2()
     {
-        return $this->abbrev3;
+        return $this->abbreviation2;
     }
 
     /**
-     * Set defaultlang
+     * Set abbreviation3
      *
-     * @param boolean $defaultlang
+     * @param string $abbreviation3
      * @return Languages
      */
-    public function setDefaultlang($defaultlang)
+    public function setAbbreviation3($abbreviation3)
     {
-        $this->defaultlang = $defaultlang;
+        $this->abbreviation3 = $abbreviation3;
 
         return $this;
     }
 
     /**
-     * Get defaultlang
+     * Get abbreviation3
+     *
+     * @return string 
+     */
+    public function getAbbreviation3()
+    {
+        return $this->abbreviation3;
+    }
+
+    /**
+     * Set isdefault
+     *
+     * @param boolean $isdefault
+     * @return Languages
+     */
+    public function setIsdefault($isdefault)
+    {
+        $this->isdefault = $isdefault;
+
+        return $this;
+    }
+
+    /**
+     * Get isdefault
      *
      * @return boolean 
      */
-    public function getDefaultlang()
+    public function getIsdefault()
     {
-        return $this->defaultlang;
+        return $this->isdefault;
     }
 
     /**
-     * Set defaultlangAdmin
+     * Set isdefaultBackend
      *
-     * @param boolean $defaultlangAdmin
+     * @param boolean $isdefaultBackend
      * @return Languages
      */
-    public function setDefaultlangAdmin($defaultlangAdmin)
+    public function setIsdefaultBackend($isdefaultBackend)
     {
-        $this->defaultlangAdmin = $defaultlangAdmin;
+        $this->isdefaultBackend = $isdefaultBackend;
 
         return $this;
     }
 
     /**
-     * Get defaultlangAdmin
+     * Get isdefaultBackend
      *
      * @return boolean 
      */
-    public function getDefaultlangAdmin()
+    public function getIsdefaultBackend()
     {
-        return $this->defaultlangAdmin;
+        return $this->isdefaultBackend;
     }
 
     /**
@@ -265,29 +288,6 @@ class Languages
     public function getEncoding()
     {
         return $this->encoding;
-    }
-
-    /**
-     * Set flag
-     *
-     * @param string $flag
-     * @return Languages
-     */
-    public function setFlag($flag)
-    {
-        $this->flag = $flag;
-
-        return $this;
-    }
-
-    /**
-     * Get flag
-     *
-     * @return string 
-     */
-    public function getFlag()
-    {
-        return $this->flag;
     }
 
     /**

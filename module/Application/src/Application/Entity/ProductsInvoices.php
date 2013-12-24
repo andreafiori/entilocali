@@ -5,21 +5,21 @@ namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ProdottiFatture
+ * ProductsInvoices
  *
- * @ORM\Table(name="prodotti_fatture")
+ * @ORM\Table(name="products_invoices")
  * @ORM\Entity
  */
-class ProdottiFatture
+class ProductsInvoices
 {
     /**
      * @var integer
      *
-     * @ORM\Column(name="idinvoice", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idinvoice;
+    private $id;
 
     /**
      * @var string
@@ -31,20 +31,20 @@ class ProdottiFatture
 
 
     /**
-     * Get idinvoice
+     * Get id
      *
      * @return integer 
      */
-    public function getIdinvoice()
+    public function getId()
     {
-        return $this->idinvoice;
+        return $this->id;
     }
 
     /**
      * Set invoicecause
      *
      * @param string $invoicecause
-     * @return ProdottiFatture
+     * @return ProductsInvoices
      */
     public function setInvoicecause($invoicecause)
     {

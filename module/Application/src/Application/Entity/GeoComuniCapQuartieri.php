@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * GeoComuniCapQuartieri
  *
- * @ORM\Table(name="geo_comuni_cap_quartieri")
+ * @ORM\Table(name="geo_comuni_cap_quartieri", indexes={@ORM\Index(name="quartiere_id", columns={"quartiere_id"}), @ORM\Index(name="cap_quartiere_id", columns={"cap_quartiere_id"})})
  * @ORM\Entity
  */
 class GeoComuniCapQuartieri

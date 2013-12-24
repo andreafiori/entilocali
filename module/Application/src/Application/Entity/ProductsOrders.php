@@ -5,12 +5,12 @@ namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ProdottiOrdini
+ * ProductsOrders
  *
- * @ORM\Table(name="prodotti_ordini")
+ * @ORM\Table(name="products_orders")
  * @ORM\Entity
  */
-class ProdottiOrdini
+class ProductsOrders
 {
     /**
      * @var integer
@@ -107,7 +107,7 @@ class ProdottiOrdini
      * Set numord
      *
      * @param integer $numord
-     * @return ProdottiOrdini
+     * @return ProductsOrders
      */
     public function setNumord($numord)
     {
@@ -130,7 +130,7 @@ class ProdottiOrdini
      * Set qt
      *
      * @param string $qt
-     * @return ProdottiOrdini
+     * @return ProductsOrders
      */
     public function setQt($qt)
     {
@@ -153,7 +153,7 @@ class ProdottiOrdini
      * Set prezzo
      *
      * @param string $prezzo
-     * @return ProdottiOrdini
+     * @return ProductsOrders
      */
     public function setPrezzo($prezzo)
     {
@@ -176,7 +176,7 @@ class ProdottiOrdini
      * Set dataordine
      *
      * @param \DateTime $dataordine
-     * @return ProdottiOrdini
+     * @return ProductsOrders
      */
     public function setDataordine($dataordine)
     {
@@ -199,7 +199,7 @@ class ProdottiOrdini
      * Set rifidprod
      *
      * @param integer $rifidprod
-     * @return ProdottiOrdini
+     * @return ProductsOrders
      */
     public function setRifidprod($rifidprod)
     {
@@ -222,7 +222,7 @@ class ProdottiOrdini
      * Set idcliente
      *
      * @param integer $idcliente
-     * @return ProdottiOrdini
+     * @return ProductsOrders
      */
     public function setIdcliente($idcliente)
     {
@@ -245,7 +245,7 @@ class ProdottiOrdini
      * Set codord
      *
      * @param integer $codord
-     * @return ProdottiOrdini
+     * @return ProductsOrders
      */
     public function setCodord($codord)
     {
@@ -268,7 +268,7 @@ class ProdottiOrdini
      * Set visib
      *
      * @param string $visib
-     * @return ProdottiOrdini
+     * @return ProductsOrders
      */
     public function setVisib($visib)
     {
@@ -291,7 +291,7 @@ class ProdottiOrdini
      * Set status
      *
      * @param string $status
-     * @return ProdottiOrdini
+     * @return ProductsOrders
      */
     public function setStatus($status)
     {
@@ -314,7 +314,7 @@ class ProdottiOrdini
      * Set formapagam
      *
      * @param string $formapagam
-     * @return ProdottiOrdini
+     * @return ProductsOrders
      */
     public function setFormapagam($formapagam)
     {

@@ -5,12 +5,12 @@ namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ProdottiEmails
+ * ProductsEmails
  *
- * @ORM\Table(name="prodotti_emails")
+ * @ORM\Table(name="products_emails")
  * @ORM\Entity
  */
-class ProdottiEmails
+class ProductsEmails
 {
     /**
      * @var integer
@@ -65,7 +65,7 @@ class ProdottiEmails
      * Set contatti
      *
      * @param string $contatti
-     * @return ProdottiEmails
+     * @return ProductsEmails
      */
     public function setContatti($contatti)
     {
@@ -88,7 +88,7 @@ class ProdottiEmails
      * Set consiglia
      *
      * @param string $consiglia
-     * @return ProdottiEmails
+     * @return ProductsEmails
      */
     public function setConsiglia($consiglia)
     {
@@ -111,7 +111,7 @@ class ProdottiEmails
      * Set ricPrezzo
      *
      * @param string $ricPrezzo
-     * @return ProdottiEmails
+     * @return ProductsEmails
      */
     public function setRicPrezzo($ricPrezzo)
     {
@@ -134,7 +134,7 @@ class ProdottiEmails
      * Set ricOrdini
      *
      * @param string $ricOrdini
-     * @return ProdottiEmails
+     * @return ProductsEmails
      */
     public function setRicOrdini($ricOrdini)
     {

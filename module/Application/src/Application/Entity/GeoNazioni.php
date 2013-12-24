@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * GeoNazioni
  *
- * @ORM\Table(name="geo_nazioni", indexes={@ORM\Index(name="name", columns={"nomenazione"})})
+ * @ORM\Table(name="geo_nazioni", indexes={@ORM\Index(name="name", columns={"nome"})})
  * @ORM\Entity
  */
 class GeoNazioni
@@ -24,9 +24,9 @@ class GeoNazioni
     /**
      * @var string
      *
-     * @ORM\Column(name="nomenazione", type="string", length=13, nullable=false)
+     * @ORM\Column(name="nome", type="string", length=13, nullable=false)
      */
-    private $nomenazione;
+    private $nome;
 
     /**
      * @var string
@@ -55,26 +55,26 @@ class GeoNazioni
     }
 
     /**
-     * Set nomenazione
+     * Set nome
      *
-     * @param string $nomenazione
+     * @param string $nome
      * @return GeoNazioni
      */
-    public function setNomenazione($nomenazione)
+    public function setNome($nome)
     {
-        $this->nomenazione = $nomenazione;
+        $this->nome = $nome;
 
         return $this;
     }
 
     /**
-     * Get nomenazione
+     * Get nome
      *
      * @return string 
      */
-    public function getNomenazione()
+    public function getNome()
     {
-        return $this->nomenazione;
+        return $this->nome;
     }
 
     /**

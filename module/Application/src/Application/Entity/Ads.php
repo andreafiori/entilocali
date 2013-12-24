@@ -5,17 +5,17 @@ namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Annunci
+ * Ads
  *
- * @ORM\Table(name="annunci", indexes={@ORM\Index(name="srchid", columns={"category_id", "quartiere_id", "city_id", "province_id", "region_id", "nazione_id", "user_id"})})
+ * @ORM\Table(name="ads", indexes={@ORM\Index(name="srchid", columns={"category_id", "quartiere_id", "city_id", "province_id", "region_id", "nazione_id", "user_id"})})
  * @ORM\Entity
  */
-class Annunci
+class Ads
 {
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -282,7 +282,7 @@ class Annunci
      * Set codeid
      *
      * @param string $codeid
-     * @return Annunci
+     * @return Ads
      */
     public function setCodeid($codeid)
     {
@@ -305,7 +305,7 @@ class Annunci
      * Set titolo
      *
      * @param string $titolo
-     * @return Annunci
+     * @return Ads
      */
     public function setTitolo($titolo)
     {
@@ -328,7 +328,7 @@ class Annunci
      * Set testannuncio
      *
      * @param string $testannuncio
-     * @return Annunci
+     * @return Ads
      */
     public function setTestannuncio($testannuncio)
     {
@@ -351,7 +351,7 @@ class Annunci
      * Set dateInsert
      *
      * @param \DateTime $dateInsert
-     * @return Annunci
+     * @return Ads
      */
     public function setDateInsert($dateInsert)
     {
@@ -374,7 +374,7 @@ class Annunci
      * Set datePublish
      *
      * @param \DateTime $datePublish
-     * @return Annunci
+     * @return Ads
      */
     public function setDatePublish($datePublish)
     {
@@ -397,7 +397,7 @@ class Annunci
      * Set expiredate
      *
      * @param \DateTime $expiredate
-     * @return Annunci
+     * @return Ads
      */
     public function setExpiredate($expiredate)
     {
@@ -420,7 +420,7 @@ class Annunci
      * Set vetrina
      *
      * @param string $vetrina
-     * @return Annunci
+     * @return Ads
      */
     public function setVetrina($vetrina)
     {
@@ -443,7 +443,7 @@ class Annunci
      * Set promo
      *
      * @param string $promo
-     * @return Annunci
+     * @return Ads
      */
     public function setPromo($promo)
     {
@@ -466,7 +466,7 @@ class Annunci
      * Set eliminato
      *
      * @param string $eliminato
-     * @return Annunci
+     * @return Ads
      */
     public function setEliminato($eliminato)
     {
@@ -489,7 +489,7 @@ class Annunci
      * Set ipaddress
      *
      * @param string $ipaddress
-     * @return Annunci
+     * @return Ads
      */
     public function setIpaddress($ipaddress)
     {
@@ -512,7 +512,7 @@ class Annunci
      * Set banned
      *
      * @param string $banned
-     * @return Annunci
+     * @return Ads
      */
     public function setBanned($banned)
     {
@@ -535,7 +535,7 @@ class Annunci
      * Set mapIndirizzo
      *
      * @param string $mapIndirizzo
-     * @return Annunci
+     * @return Ads
      */
     public function setMapIndirizzo($mapIndirizzo)
     {
@@ -558,7 +558,7 @@ class Annunci
      * Set mapNrocivico
      *
      * @param integer $mapNrocivico
-     * @return Annunci
+     * @return Ads
      */
     public function setMapNrocivico($mapNrocivico)
     {
@@ -581,7 +581,7 @@ class Annunci
      * Set mapCap
      *
      * @param string $mapCap
-     * @return Annunci
+     * @return Ads
      */
     public function setMapCap($mapCap)
     {
@@ -604,7 +604,7 @@ class Annunci
      * Set mapProv
      *
      * @param string $mapProv
-     * @return Annunci
+     * @return Ads
      */
     public function setMapProv($mapProv)
     {
@@ -627,7 +627,7 @@ class Annunci
      * Set mapCitta
      *
      * @param string $mapCitta
-     * @return Annunci
+     * @return Ads
      */
     public function setMapCitta($mapCitta)
     {
@@ -650,7 +650,7 @@ class Annunci
      * Set concessionario
      *
      * @param string $concessionario
-     * @return Annunci
+     * @return Ads
      */
     public function setConcessionario($concessionario)
     {
@@ -673,7 +673,7 @@ class Annunci
      * Set privatoAzienda
      *
      * @param string $privatoAzienda
-     * @return Annunci
+     * @return Ads
      */
     public function setPrivatoAzienda($privatoAzienda)
     {
@@ -696,7 +696,7 @@ class Annunci
      * Set prezzo
      *
      * @param string $prezzo
-     * @return Annunci
+     * @return Ads
      */
     public function setPrezzo($prezzo)
     {
@@ -719,7 +719,7 @@ class Annunci
      * Set telefonoAnn
      *
      * @param string $telefonoAnn
-     * @return Annunci
+     * @return Ads
      */
     public function setTelefonoAnn($telefonoAnn)
     {
@@ -742,7 +742,7 @@ class Annunci
      * Set telefonoShow
      *
      * @param string $telefonoShow
-     * @return Annunci
+     * @return Ads
      */
     public function setTelefonoShow($telefonoShow)
     {
@@ -765,7 +765,7 @@ class Annunci
      * Set cercoffro
      *
      * @param string $cercoffro
-     * @return Annunci
+     * @return Ads
      */
     public function setCercoffro($cercoffro)
     {
@@ -788,7 +788,7 @@ class Annunci
      * Set cercoffroOn
      *
      * @param string $cercoffroOn
-     * @return Annunci
+     * @return Ads
      */
     public function setCercoffroOn($cercoffroOn)
     {
@@ -811,7 +811,7 @@ class Annunci
      * Set email
      *
      * @param string $email
-     * @return Annunci
+     * @return Ads
      */
     public function setEmail($email)
     {
@@ -834,7 +834,7 @@ class Annunci
      * Set contact
      *
      * @param string $contact
-     * @return Annunci
+     * @return Ads
      */
     public function setContact($contact)
     {
@@ -857,7 +857,7 @@ class Annunci
      * Set note
      *
      * @param string $note
-     * @return Annunci
+     * @return Ads
      */
     public function setNote($note)
     {
@@ -880,7 +880,7 @@ class Annunci
      * Set visits
      *
      * @param integer $visits
-     * @return Annunci
+     * @return Ads
      */
     public function setVisits($visits)
     {
@@ -903,7 +903,7 @@ class Annunci
      * Set status
      *
      * @param string $status
-     * @return Annunci
+     * @return Ads
      */
     public function setStatus($status)
     {
@@ -926,7 +926,7 @@ class Annunci
      * Set userId
      *
      * @param integer $userId
-     * @return Annunci
+     * @return Ads
      */
     public function setUserId($userId)
     {
@@ -949,7 +949,7 @@ class Annunci
      * Set nazioneId
      *
      * @param integer $nazioneId
-     * @return Annunci
+     * @return Ads
      */
     public function setNazioneId($nazioneId)
     {
@@ -972,7 +972,7 @@ class Annunci
      * Set regionId
      *
      * @param integer $regionId
-     * @return Annunci
+     * @return Ads
      */
     public function setRegionId($regionId)
     {
@@ -995,7 +995,7 @@ class Annunci
      * Set provinceId
      *
      * @param integer $provinceId
-     * @return Annunci
+     * @return Ads
      */
     public function setProvinceId($provinceId)
     {
@@ -1018,7 +1018,7 @@ class Annunci
      * Set cityId
      *
      * @param integer $cityId
-     * @return Annunci
+     * @return Ads
      */
     public function setCityId($cityId)
     {
@@ -1041,7 +1041,7 @@ class Annunci
      * Set quartiereId
      *
      * @param integer $quartiereId
-     * @return Annunci
+     * @return Ads
      */
     public function setQuartiereId($quartiereId)
     {
@@ -1064,7 +1064,7 @@ class Annunci
      * Set categoryId
      *
      * @param integer $categoryId
-     * @return Annunci
+     * @return Ads
      */
     public function setCategoryId($categoryId)
     {

@@ -24,44 +24,23 @@ class Posts
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="insertdate", type="date", nullable=false)
+     * @ORM\Column(name="insertdate", type="datetime", nullable=false)
      */
-    private $insertdate = '2013-01-01';
+    private $insertdate = '2013-01-01 00:00:00';
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="insertdate_time", type="time", nullable=false)
+     * @ORM\Column(name="expiredate", type="datetime", nullable=false)
      */
-    private $insertdateTime = '00:00:00';
+    private $expiredate = '2030-02-10 00:00:00';
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="expiredate", type="date", nullable=false)
+     * @ORM\Column(name="lastupdate", type="datetime", nullable=false)
      */
-    private $expiredate = '2030-02-10';
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="expiretime", type="time", nullable=false)
-     */
-    private $expiretime = '13:30:00';
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="lastupdate", type="date", nullable=false)
-     */
-    private $lastupdate = '2030-02-10';
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="lastupdate_time", type="time", nullable=false)
-     */
-    private $lastupdateTime = '13:30:00';
+    private $lastupdate = '2030-02-10 00:00:00';
 
     /**
      * @var integer
@@ -158,29 +137,6 @@ class Posts
     }
 
     /**
-     * Set insertdateTime
-     *
-     * @param \DateTime $insertdateTime
-     * @return Posts
-     */
-    public function setInsertdateTime($insertdateTime)
-    {
-        $this->insertdateTime = $insertdateTime;
-
-        return $this;
-    }
-
-    /**
-     * Get insertdateTime
-     *
-     * @return \DateTime 
-     */
-    public function getInsertdateTime()
-    {
-        return $this->insertdateTime;
-    }
-
-    /**
      * Set expiredate
      *
      * @param \DateTime $expiredate
@@ -204,29 +160,6 @@ class Posts
     }
 
     /**
-     * Set expiretime
-     *
-     * @param \DateTime $expiretime
-     * @return Posts
-     */
-    public function setExpiretime($expiretime)
-    {
-        $this->expiretime = $expiretime;
-
-        return $this;
-    }
-
-    /**
-     * Get expiretime
-     *
-     * @return \DateTime 
-     */
-    public function getExpiretime()
-    {
-        return $this->expiretime;
-    }
-
-    /**
      * Set lastupdate
      *
      * @param \DateTime $lastupdate
@@ -247,29 +180,6 @@ class Posts
     public function getLastupdate()
     {
         return $this->lastupdate;
-    }
-
-    /**
-     * Set lastupdateTime
-     *
-     * @param \DateTime $lastupdateTime
-     * @return Posts
-     */
-    public function setLastupdateTime($lastupdateTime)
-    {
-        $this->lastupdateTime = $lastupdateTime;
-
-        return $this;
-    }
-
-    /**
-     * Get lastupdateTime
-     *
-     * @return \DateTime 
-     */
-    public function getLastupdateTime()
-    {
-        return $this->lastupdateTime;
     }
 
     /**

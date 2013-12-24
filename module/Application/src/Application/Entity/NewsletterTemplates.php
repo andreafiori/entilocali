@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * NewsletterTemplates
  *
- * @ORM\Table(name="newsletter_templates")
+ * @ORM\Table(name="newsletter_templates", indexes={@ORM\Index(name="channel_id", columns={"channel_id"}), @ORM\Index(name="language_id", columns={"language_id"})})
  * @ORM\Entity
  */
 class NewsletterTemplates
@@ -15,25 +15,25 @@ class NewsletterTemplates
     /**
      * @var integer
      *
-     * @ORM\Column(name="idtmp", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idtmp;
+    private $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nometemp", type="string", length=80, nullable=false)
+     * @ORM\Column(name="templatename", type="string", length=80, nullable=false)
      */
-    private $nometemp;
+    private $templatename;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nomefile", type="string", length=100, nullable=false)
+     * @ORM\Column(name="filename", type="string", length=100, nullable=false)
      */
-    private $nomefile;
+    private $filename;
 
     /**
      * @var string
@@ -45,9 +45,9 @@ class NewsletterTemplates
     /**
      * @var string
      *
-     * @ORM\Column(name="descrizione", type="string", length=150, nullable=false)
+     * @ORM\Column(name="description", type="string", length=150, nullable=false)
      */
-    private $descrizione;
+    private $description;
 
     /**
      * @var string
@@ -59,101 +59,101 @@ class NewsletterTemplates
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="datacreaz", type="datetime", nullable=false)
+     * @ORM\Column(name="createdate", type="datetime", nullable=false)
      */
-    private $datacreaz = '0000-00-00 00:00:00';
+    private $createdate = '0000-00-00 00:00:00';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="posizion", type="integer", nullable=false)
+     * @ORM\Column(name="position", type="integer", nullable=false)
      */
-    private $posizion = '0';
+    private $position = '0';
 
     /**
      * @var string
      *
-     * @ORM\Column(name="visibile", type="string", nullable=false)
+     * @ORM\Column(name="status", type="string", length=150, nullable=false)
      */
-    private $visibile = 'si';
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="predef", type="string", nullable=false)
-     */
-    private $predef = 'no';
+    private $status;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="riflang", type="integer", nullable=false)
+     * @ORM\Column(name="language_id", type="integer", nullable=false)
      */
-    private $riflang = '1';
+    private $languageId = '1';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="rifchannel", type="integer", nullable=false)
+     * @ORM\Column(name="predefined", type="integer", nullable=false)
      */
-    private $rifchannel = '1';
+    private $predefined = '0';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="channel_id", type="integer", nullable=false)
+     */
+    private $channelId = '1';
 
 
 
     /**
-     * Get idtmp
+     * Get id
      *
      * @return integer 
      */
-    public function getIdtmp()
+    public function getId()
     {
-        return $this->idtmp;
+        return $this->id;
     }
 
     /**
-     * Set nometemp
+     * Set templatename
      *
-     * @param string $nometemp
+     * @param string $templatename
      * @return NewsletterTemplates
      */
-    public function setNometemp($nometemp)
+    public function setTemplatename($templatename)
     {
-        $this->nometemp = $nometemp;
+        $this->templatename = $templatename;
 
         return $this;
     }
 
     /**
-     * Get nometemp
+     * Get templatename
      *
      * @return string 
      */
-    public function getNometemp()
+    public function getTemplatename()
     {
-        return $this->nometemp;
+        return $this->templatename;
     }
 
     /**
-     * Set nomefile
+     * Set filename
      *
-     * @param string $nomefile
+     * @param string $filename
      * @return NewsletterTemplates
      */
-    public function setNomefile($nomefile)
+    public function setFilename($filename)
     {
-        $this->nomefile = $nomefile;
+        $this->filename = $filename;
 
         return $this;
     }
 
     /**
-     * Get nomefile
+     * Get filename
      *
      * @return string 
      */
-    public function getNomefile()
+    public function getFilename()
     {
-        return $this->nomefile;
+        return $this->filename;
     }
 
     /**
@@ -180,26 +180,26 @@ class NewsletterTemplates
     }
 
     /**
-     * Set descrizione
+     * Set description
      *
-     * @param string $descrizione
+     * @param string $description
      * @return NewsletterTemplates
      */
-    public function setDescrizione($descrizione)
+    public function setDescription($description)
     {
-        $this->descrizione = $descrizione;
+        $this->description = $description;
 
         return $this;
     }
 
     /**
-     * Get descrizione
+     * Get description
      *
      * @return string 
      */
-    public function getDescrizione()
+    public function getDescription()
     {
-        return $this->descrizione;
+        return $this->description;
     }
 
     /**
@@ -226,140 +226,140 @@ class NewsletterTemplates
     }
 
     /**
-     * Set datacreaz
+     * Set createdate
      *
-     * @param \DateTime $datacreaz
+     * @param \DateTime $createdate
      * @return NewsletterTemplates
      */
-    public function setDatacreaz($datacreaz)
+    public function setCreatedate($createdate)
     {
-        $this->datacreaz = $datacreaz;
+        $this->createdate = $createdate;
 
         return $this;
     }
 
     /**
-     * Get datacreaz
+     * Get createdate
      *
      * @return \DateTime 
      */
-    public function getDatacreaz()
+    public function getCreatedate()
     {
-        return $this->datacreaz;
+        return $this->createdate;
     }
 
     /**
-     * Set posizion
+     * Set position
      *
-     * @param integer $posizion
+     * @param integer $position
      * @return NewsletterTemplates
      */
-    public function setPosizion($posizion)
+    public function setPosition($position)
     {
-        $this->posizion = $posizion;
+        $this->position = $position;
 
         return $this;
     }
 
     /**
-     * Get posizion
+     * Get position
      *
      * @return integer 
      */
-    public function getPosizion()
+    public function getPosition()
     {
-        return $this->posizion;
+        return $this->position;
     }
 
     /**
-     * Set visibile
+     * Set status
      *
-     * @param string $visibile
+     * @param string $status
      * @return NewsletterTemplates
      */
-    public function setVisibile($visibile)
+    public function setStatus($status)
     {
-        $this->visibile = $visibile;
+        $this->status = $status;
 
         return $this;
     }
 
     /**
-     * Get visibile
+     * Get status
      *
      * @return string 
      */
-    public function getVisibile()
+    public function getStatus()
     {
-        return $this->visibile;
+        return $this->status;
     }
 
     /**
-     * Set predef
+     * Set languageId
      *
-     * @param string $predef
+     * @param integer $languageId
      * @return NewsletterTemplates
      */
-    public function setPredef($predef)
+    public function setLanguageId($languageId)
     {
-        $this->predef = $predef;
+        $this->languageId = $languageId;
 
         return $this;
     }
 
     /**
-     * Get predef
-     *
-     * @return string 
-     */
-    public function getPredef()
-    {
-        return $this->predef;
-    }
-
-    /**
-     * Set riflang
-     *
-     * @param integer $riflang
-     * @return NewsletterTemplates
-     */
-    public function setRiflang($riflang)
-    {
-        $this->riflang = $riflang;
-
-        return $this;
-    }
-
-    /**
-     * Get riflang
+     * Get languageId
      *
      * @return integer 
      */
-    public function getRiflang()
+    public function getLanguageId()
     {
-        return $this->riflang;
+        return $this->languageId;
     }
 
     /**
-     * Set rifchannel
+     * Set predefined
      *
-     * @param integer $rifchannel
+     * @param integer $predefined
      * @return NewsletterTemplates
      */
-    public function setRifchannel($rifchannel)
+    public function setPredefined($predefined)
     {
-        $this->rifchannel = $rifchannel;
+        $this->predefined = $predefined;
 
         return $this;
     }
 
     /**
-     * Get rifchannel
+     * Get predefined
      *
      * @return integer 
      */
-    public function getRifchannel()
+    public function getPredefined()
     {
-        return $this->rifchannel;
+        return $this->predefined;
+    }
+
+    /**
+     * Set channelId
+     *
+     * @param integer $channelId
+     * @return NewsletterTemplates
+     */
+    public function setChannelId($channelId)
+    {
+        $this->channelId = $channelId;
+
+        return $this;
+    }
+
+    /**
+     * Get channelId
+     *
+     * @return integer 
+     */
+    public function getChannelId()
+    {
+        return $this->channelId;
     }
 }
