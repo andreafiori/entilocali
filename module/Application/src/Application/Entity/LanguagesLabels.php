@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * LanguagesLabels
  *
- * @ORM\Table(name="languages_labels", indexes={@ORM\Index(name="language", columns={"language_id"}), @ORM\Index(name="module_id", columns={"module_id"})})
+ * @ORM\Table(name="languages_labels", indexes={@ORM\Index(name="language", columns={"language_id"}), @ORM\Index(name="module_id", columns={"module_id"}), @ORM\Index(name="isadmin", columns={"isbackend"}), @ORM\Index(name="isuniversal", columns={"isuniversal"})})
  * @ORM\Entity
  */
 class LanguagesLabels
@@ -45,9 +45,9 @@ class LanguagesLabels
     /**
      * @var integer
      *
-     * @ORM\Column(name="isadmin", type="integer", nullable=true)
+     * @ORM\Column(name="isbackend", type="integer", nullable=true)
      */
-    private $isadmin = '0';
+    private $isbackend = '0';
 
     /**
      * @var integer
@@ -162,26 +162,26 @@ class LanguagesLabels
     }
 
     /**
-     * Set isadmin
+     * Set isbackend
      *
-     * @param integer $isadmin
+     * @param integer $isbackend
      * @return LanguagesLabels
      */
-    public function setIsadmin($isadmin)
+    public function setIsbackend($isbackend)
     {
-        $this->isadmin = $isadmin;
+        $this->isbackend = $isbackend;
 
         return $this;
     }
 
     /**
-     * Get isadmin
+     * Get isbackend
      *
      * @return integer 
      */
-    public function getIsadmin()
+    public function getIsbackend()
     {
-        return $this->isadmin;
+        return $this->isbackend;
     }
 
     /**

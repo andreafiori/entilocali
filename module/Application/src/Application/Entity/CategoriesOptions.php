@@ -45,16 +45,16 @@ class CategoriesOptions
     /**
      * @var string
      *
-     * @ORM\Column(name="seonameslug", type="string", length=80, nullable=true)
+     * @ORM\Column(name="seo_slug", type="string", length=80, nullable=true)
      */
-    private $seonameslug;
+    private $seoSlug;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="titledescription", type="string", length=80, nullable=true)
+     * @ORM\Column(name="seo_title", type="string", length=80, nullable=true)
      */
-    private $titledescription = '1';
+    private $seoTitle = '1';
 
     /**
      * @var \Application\Entity\Categories
@@ -158,49 +158,49 @@ class CategoriesOptions
     }
 
     /**
-     * Set seonameslug
+     * Set seoSlug
      *
-     * @param string $seonameslug
+     * @param string $seoSlug
      * @return CategoriesOptions
      */
-    public function setSeonameslug($seonameslug)
+    public function setSeoSlug($seoSlug)
     {
-        $this->seonameslug = $seonameslug;
+        $this->seoSlug = $seoSlug;
 
         return $this;
     }
 
     /**
-     * Get seonameslug
+     * Get seoSlug
      *
      * @return string 
      */
-    public function getSeonameslug()
+    public function getSeoSlug()
     {
-        return $this->seonameslug;
+        return $this->seoSlug;
     }
 
     /**
-     * Set titledescription
+     * Set seoTitle
      *
-     * @param string $titledescription
+     * @param string $seoTitle
      * @return CategoriesOptions
      */
-    public function setTitledescription($titledescription)
+    public function setSeoTitle($seoTitle)
     {
-        $this->titledescription = $titledescription;
+        $this->seoTitle = $seoTitle;
 
         return $this;
     }
 
     /**
-     * Get titledescription
+     * Get seoTitle
      *
      * @return string 
      */
-    public function getTitledescription()
+    public function getSeoTitle()
     {
-        return $this->titledescription;
+        return $this->seoTitle;
     }
 
     /**

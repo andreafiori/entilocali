@@ -15,39 +15,39 @@ class ProductsShipping
     /**
      * @var integer
      *
-     * @ORM\Column(name="idsped", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idsped;
+    private $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nomesped", type="string", length=100, nullable=true)
+     * @ORM\Column(name="nametype", type="string", length=100, nullable=true)
      */
-    private $nomesped;
+    private $nametype;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="costonazionale", type="decimal", precision=10, scale=2, nullable=true)
+     * @ORM\Column(name="price_national", type="decimal", precision=10, scale=2, nullable=true)
      */
-    private $costonazionale;
+    private $priceNational;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="costoeur", type="decimal", precision=10, scale=2, nullable=true)
+     * @ORM\Column(name="price_euro", type="decimal", precision=10, scale=2, nullable=true)
      */
-    private $costoeur;
+    private $priceEuro;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="costointernaz", type="decimal", precision=10, scale=2, nullable=true)
+     * @ORM\Column(name="price_international", type="decimal", precision=10, scale=2, nullable=true)
      */
-    private $costointernaz;
+    private $priceInternational;
 
     /**
      * @var string
@@ -59,105 +59,105 @@ class ProductsShipping
 
 
     /**
-     * Get idsped
+     * Get id
      *
      * @return integer 
      */
-    public function getIdsped()
+    public function getId()
     {
-        return $this->idsped;
+        return $this->id;
     }
 
     /**
-     * Set nomesped
+     * Set nametype
      *
-     * @param string $nomesped
+     * @param string $nametype
      * @return ProductsShipping
      */
-    public function setNomesped($nomesped)
+    public function setNametype($nametype)
     {
-        $this->nomesped = $nomesped;
+        $this->nametype = $nametype;
 
         return $this;
     }
 
     /**
-     * Get nomesped
+     * Get nametype
      *
      * @return string 
      */
-    public function getNomesped()
+    public function getNametype()
     {
-        return $this->nomesped;
+        return $this->nametype;
     }
 
     /**
-     * Set costonazionale
+     * Set priceNational
      *
-     * @param string $costonazionale
+     * @param string $priceNational
      * @return ProductsShipping
      */
-    public function setCostonazionale($costonazionale)
+    public function setPriceNational($priceNational)
     {
-        $this->costonazionale = $costonazionale;
+        $this->priceNational = $priceNational;
 
         return $this;
     }
 
     /**
-     * Get costonazionale
+     * Get priceNational
      *
      * @return string 
      */
-    public function getCostonazionale()
+    public function getPriceNational()
     {
-        return $this->costonazionale;
+        return $this->priceNational;
     }
 
     /**
-     * Set costoeur
+     * Set priceEuro
      *
-     * @param string $costoeur
+     * @param string $priceEuro
      * @return ProductsShipping
      */
-    public function setCostoeur($costoeur)
+    public function setPriceEuro($priceEuro)
     {
-        $this->costoeur = $costoeur;
+        $this->priceEuro = $priceEuro;
 
         return $this;
     }
 
     /**
-     * Get costoeur
+     * Get priceEuro
      *
      * @return string 
      */
-    public function getCostoeur()
+    public function getPriceEuro()
     {
-        return $this->costoeur;
+        return $this->priceEuro;
     }
 
     /**
-     * Set costointernaz
+     * Set priceInternational
      *
-     * @param string $costointernaz
+     * @param string $priceInternational
      * @return ProductsShipping
      */
-    public function setCostointernaz($costointernaz)
+    public function setPriceInternational($priceInternational)
     {
-        $this->costointernaz = $costointernaz;
+        $this->priceInternational = $priceInternational;
 
         return $this;
     }
 
     /**
-     * Get costointernaz
+     * Get priceInternational
      *
      * @return string 
      */
-    public function getCostointernaz()
+    public function getPriceInternational()
     {
-        return $this->costointernaz;
+        return $this->priceInternational;
     }
 
     /**

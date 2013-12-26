@@ -8,11 +8,11 @@ use Setup\Model\EntitySerializer;
 abstract class EntityRepositoryAbstract {
 	
 	protected $em;
-	
+
 	protected $entitySerializer;
 
 	protected $repository, $isOnBackend;
-	
+
 	public function __construct(ObjectManager $objectManager)
 	{
 		$this->em = $objectManager;
@@ -38,7 +38,7 @@ abstract class EntityRepositoryAbstract {
 	}
 	
 	/**
-	 * 
+	 * Inject the EntitySerializer object
 	 * @param EntitySerializer $entitySerializer
 	 * @return EntitySerializer $this->entitySerializer
 	 */
@@ -50,6 +50,10 @@ abstract class EntityRepositoryAbstract {
 	
 	public function getEntitySerializer()
 	{
+		if (!$this->entitySerializer) {
+			$this->entitySerializer = new EntitySerializer($this->em);
+		}
+		
 		return $this->entitySerializer;
 	}
 	
@@ -64,12 +68,22 @@ abstract class EntityRepositoryAbstract {
 		return $this->isOnBackend;
 	}
 	
-	public function getFindFromRepository($arraySearch=null)
+	public function getFindFromRepository($arraySearch = null)
 	{
 		if (is_array($arraySearch)) {
-			return $this->em->getRepository($this->repository)->findBy($arraySearch);
+			return $this->convertArrayOfObjectToArrayOfArray( $this->em->getRepository($this->repository)->findBy($arraySearch) );
 		} else {
-			return $this->em->getRepository($this->repository)->findAll();
+			return $this->convertArrayOfObjectToArrayOfArray( $this->em->getRepository($this->repository)->findAll() );
 		}
 	}
+		
+		protected function convertArrayOfObjectToArrayOfArray($arrayOfObject)
+		{
+			$arrayToReturn = array();
+			foreach($arrayOfObject as &$arrayOfObject)
+			{
+				$arrayToReturn[] = $this->getEntitySerializer()->toArray($arrayOfObject);
+			}
+			return $arrayToReturn;
+		}
 }

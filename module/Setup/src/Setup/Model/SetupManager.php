@@ -2,13 +2,13 @@
 
 namespace Setup\Model;
 
-use Doctrine\Common\Persistence\ObjectManager,
-	Zend\Mvc\Controller\AbstractActionController,
+use Zend\Mvc\Controller\AbstractActionController,
 	Language\Model\LanguagesRepository,
 	Config\Model\ConfigRepository,
 	Language\Model\LanguagesLabelsRepository,
-	Setup\Model\EntitySerializer;
-use Application\Entity\Channels;
+	Setup\Model\EntitySerializer,
+	Application\Entity\Channels, 
+	Application\Entity\Languages;
 
 /**
  * Merge Config and Language selection data to get app configuration setup data
@@ -19,33 +19,31 @@ class SetupManager
 {
 	private $input = array();
 	private $setupRecord = array();
-	private $controller;
-	private $em;
-
+	private $em, $controller;
+	
+	private $channelEntity, $languageEntity;
+	private $configEntity;
 	private $languageRepository;
+	private $languageLabels;
 	
 	public function __construct(AbstractActionController $controller)
 	{
 		$this->controller = $controller;
-		
 		$this->em = $this->controller->getServiceLocator()->get('entityManagerService');
-		
-		/* Export the input on index controller? */
-		$this->input['channel'] = 1;
-		$this->ismultlanguage = 1;
-		$this->input['isonbackend'] = 0;
-		$this->input['controller']  = $this->controller->params()->fromRoute('controller');
-		$this->input['action'] = $this->controller->params()->fromRoute('action');
-		$this->input['languageAbbreviation'] = strtolower( $this->controller->params()->fromRoute('lang') );
 	}
 	
 	/**
-	 * inject the object manager
-	 * @param ObjectManager $objectManager
+	 * Set input parameters (Frontend or Backend)
+	 * @param array $input
+	 * @return array
 	 */
-	public function setObjectManager(ObjectManager $objectManager)
+	public function setInput($input)
 	{
-		$this->em = $objectManager;
+		$this->input = $input;
+		$this->input['controller']  = $this->controller->params()->fromRoute('controller');
+		$this->input['action'] = $this->controller->params()->fromRoute('action');
+		$this->input['languageAbbreviation'] = strtolower( $this->controller->params()->fromRoute('lang') );
+		return $input;
 	}
 	
 	/**
@@ -55,43 +53,56 @@ class SetupManager
 	 */
     public function setSetupRecord()
     {
-    	$channelEntity = new Channels();
-    	$channelEntity->setId($this->input['channel']);
-    	
-		$languageRepository = new LanguagesRepository($this->em);
-		$languageRepository->setEntitySerializer( new EntitySerializer($this->em) );
-		$languageRepository->setIsOnBackend($this->input['isonbackend']);
-		$allAvailableLanguages = $languageRepository->setAllAvailableLanguages($channelEntity);
-		$defaultLanguage = $languageRepository->setDefaultLanguage($this->input['languageAbbreviation']);
-		
-		$languageLabelsRepository = new LanguagesLabelsRepository($this->em);
-		//$languageLabelsRepository-> $this->em->getRepository('Application\Entity\LanguagesLabels')->findAll();
-		//$this->setupRecord['languagesLabels'] = $this->em->getRepository('Application\Entity\LanguagesLabels')->findAll();
-		
-    	// Config values
-		$configRepository = new ConfigRepository($this->em);
-    	$configRepository = $this->em->getRepository('Application\Entity\Config')->findBy(
-			array(
-				"channel"  => $defaultLanguage->getChannel(),
-				"isadmin"  => $this->input['isonbackend'],
-    		)
-    	);
-    	
-    	$configRecord = array();
-    	foreach($configRepository as $configData)
-    	{
-    		$configRecord[$configData->getName()] = $configData->getValue();
-    	}
-    	$configRecord['projectdir'] = 'frontend/projects/'.$configRecord['remotelink'];
-    	if (!isset($configRecord['frontendtemplate']))
-    			$configRecord['frontendtemplate'] = 'default/';
-    	$configRecord['basiclayout'] = $configRecord['projectdir'].'templates/'.$configRecord['frontendtemplate'].'layout.phtml';
-
-    	$this->setupRecord['channel'] = $this->input['channel'];
-	    $this->setupRecord = array_merge($this->setupRecord, $configRecord);
-    	$this->setupRecord['languageAllAvailable'] = '';
-    	$this->setupRecord['languageDefault'] = '';
-    	
-        return $this->setupRecord;
+    	$this->setChannelEntity();
+    	$this->setLanguageRepository();
+		$this->setLanguageEntity();
+		$this->setLanguageLabels();
+		return $this->getConfigRecord();
     }
+
+    	private function setChannelEntity()
+    	{
+    		$this->channelEntity = new Channels();
+    		$this->channelEntity->setId($this->input['channel']);
+    	}
+    	
+    	private function setLanguageRepository()
+    	{
+    		$this->languageRepository = new LanguagesRepository($this->em);
+    		$this->languageRepository->setEntitySerializer( new EntitySerializer($this->em) );
+    		$this->languageRepository->setIsOnBackend($this->input['isonbackend']);
+    		$this->languageRepository->setAllAvailableLanguages($this->channelEntity);
+    		$this->languageRepository->setDefaultLanguage($this->input['languageAbbreviation']);
+    	}
+    	
+    	private function setLanguageEntity()
+    	{
+    		$this->languageEntity = new Languages();
+    		$this->languageEntity->setId(
+    					$this->languageRepository->getDefaultLanguage()->getId()
+			);
+    	}
+    	
+    	private function setLanguageLabels()
+    	{
+    		$languagesLabelsRepository = new LanguagesLabelsRepository($this->em);
+    		$this->languageLabels = $languagesLabelsRepository->getLabels(array("language" => $this->languageEntity));
+    	}
+    	
+    	private function getConfigRecord()
+    	{
+    		$configRepository = new ConfigRepository($this->em);
+    		$setupRecord = $configRepository->getConfigurations(
+    				array(
+    					"channel" => array($this->languageRepository->getDefaultLanguage()->getChannel(), 0),
+    					"isbackend" => $this->input['isbackend']
+    				)
+    		);
+    		
+    		$setupRecord['languageAllAvailable'] = $this->languageRepository->getAllAvailableLanguages();
+    		$setupRecord['languageDefault'] = $this->languageRepository->getDefaultLanguage();
+    		$setupRecord['languageLabels'] = $this->languageLabels;
+    		
+    		return array_filter($setupRecord);
+    	}
 }

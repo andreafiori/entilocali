@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Config
  *
- * @ORM\Table(name="config", indexes={@ORM\Index(name="channel_id", columns={"channel_id"}), @ORM\Index(name="language_id", columns={"language_id"}), @ORM\Index(name="module_id", columns={"module_id"})})
+ * @ORM\Table(name="config", indexes={@ORM\Index(name="channel_id", columns={"channel_id"}), @ORM\Index(name="language_id", columns={"language_id"}), @ORM\Index(name="module_id", columns={"module_id"}), @ORM\Index(name="isadmin", columns={"isbackend"})})
  * @ORM\Entity
  */
 class Config
@@ -38,9 +38,9 @@ class Config
     /**
      * @var integer
      *
-     * @ORM\Column(name="isadmin", type="integer", nullable=false)
+     * @ORM\Column(name="isbackend", type="integer", nullable=false)
      */
-    private $isadmin;
+    private $isbackend;
 
     /**
      * @var integer
@@ -48,6 +48,13 @@ class Config
      * @ORM\Column(name="module_id", type="integer", nullable=false)
      */
     private $moduleId = '0';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="language_id", type="integer", nullable=false)
+     */
+    private $languageId = '1';
 
     /**
      * @var \Application\Entity\Channels
@@ -58,16 +65,6 @@ class Config
      * })
      */
     private $channel;
-
-    /**
-     * @var \Application\Entity\Languages
-     *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\Languages")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="language_id", referencedColumnName="id")
-     * })
-     */
-    private $language;
 
 
 
@@ -128,26 +125,26 @@ class Config
     }
 
     /**
-     * Set isadmin
+     * Set isbackend
      *
-     * @param integer $isadmin
+     * @param integer $isbackend
      * @return Config
      */
-    public function setIsadmin($isadmin)
+    public function setIsbackend($isbackend)
     {
-        $this->isadmin = $isadmin;
+        $this->isbackend = $isbackend;
 
         return $this;
     }
 
     /**
-     * Get isadmin
+     * Get isbackend
      *
      * @return integer 
      */
-    public function getIsadmin()
+    public function getIsbackend()
     {
-        return $this->isadmin;
+        return $this->isbackend;
     }
 
     /**
@@ -174,6 +171,29 @@ class Config
     }
 
     /**
+     * Set languageId
+     *
+     * @param integer $languageId
+     * @return Config
+     */
+    public function setLanguageId($languageId)
+    {
+        $this->languageId = $languageId;
+
+        return $this;
+    }
+
+    /**
+     * Get languageId
+     *
+     * @return integer 
+     */
+    public function getLanguageId()
+    {
+        return $this->languageId;
+    }
+
+    /**
      * Set channel
      *
      * @param \Application\Entity\Channels $channel
@@ -194,28 +214,5 @@ class Config
     public function getChannel()
     {
         return $this->channel;
-    }
-
-    /**
-     * Set language
-     *
-     * @param \Application\Entity\Languages $language
-     * @return Config
-     */
-    public function setLanguage(\Application\Entity\Languages $language = null)
-    {
-        $this->language = $language;
-
-        return $this;
-    }
-
-    /**
-     * Get language
-     *
-     * @return \Application\Entity\Languages 
-     */
-    public function getLanguage()
-    {
-        return $this->language;
     }
 }

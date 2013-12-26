@@ -52,9 +52,9 @@ class Channels
     /**
      * @var integer
      *
-     * @ORM\Column(name="default", type="integer", nullable=true)
+     * @ORM\Column(name="isdefault", type="integer", nullable=true)
      */
-    private $default;
+    private $isdefault;
 
     /**
      * @var \Application\Entity\Languages
@@ -182,26 +182,26 @@ class Channels
     }
 
     /**
-     * Set default
+     * Set isdefault
      *
-     * @param integer $default
+     * @param integer $isdefault
      * @return Channels
      */
-    public function setDefault($default)
+    public function setIsdefault($isdefault)
     {
-        $this->default = $default;
+        $this->isdefault = $isdefault;
 
         return $this;
     }
 
     /**
-     * Get default
+     * Get isdefault
      *
      * @return integer 
      */
-    public function getDefault()
+    public function getIsdefault()
     {
-        return $this->default;
+        return $this->isdefault;
     }
 
     /**

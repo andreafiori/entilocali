@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Products
  *
- * @ORM\Table(name="products", indexes={@ORM\Index(name="searchprodfields", columns={"company_id", "category_id", "model_id", "user_id"})})
+ * @ORM\Table(name="products", indexes={@ORM\Index(name="searchprodfields", columns={"company_id", "category_id", "model_id", "user_id"}), @ORM\Index(name="codprod", columns={"code"}), @ORM\Index(name="codfornit", columns={"code_fornitore"})})
  * @ORM\Entity
  */
 class Products
@@ -24,16 +24,16 @@ class Products
     /**
      * @var string
      *
-     * @ORM\Column(name="codprod", type="string", length=10, nullable=false)
+     * @ORM\Column(name="code", type="string", length=10, nullable=false)
      */
-    private $codprod;
+    private $code;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="codfornit", type="string", length=100, nullable=false)
+     * @ORM\Column(name="code_fornitore", type="string", length=100, nullable=false)
      */
-    private $codfornit;
+    private $codeFornitore;
 
     /**
      * @var \DateTime
@@ -52,30 +52,30 @@ class Products
     /**
      * @var string
      *
-     * @ORM\Column(name="imgbig", type="string", length=60, nullable=false)
+     * @ORM\Column(name="image_big", type="string", length=60, nullable=false)
      */
-    private $imgbig;
+    private $imageBig;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="imgsmall", type="string", length=60, nullable=false)
+     * @ORM\Column(name="image_thumb", type="string", length=60, nullable=false)
      */
-    private $imgsmall;
+    private $imageThumb;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nomeprod", type="text", nullable=false)
+     * @ORM\Column(name="name", type="text", nullable=false)
      */
-    private $nomeprod;
+    private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="descrizione", type="text", nullable=false)
+     * @ORM\Column(name="descrption", type="text", nullable=false)
      */
-    private $descrizione;
+    private $descrption;
 
     /**
      * @var integer
@@ -94,9 +94,9 @@ class Products
     /**
      * @var integer
      *
-     * @ORM\Column(name="disponibilita", type="integer", nullable=false)
+     * @ORM\Column(name="availability", type="integer", nullable=false)
      */
-    private $disponibilita = '0';
+    private $availability = '0';
 
     /**
      * @var string
@@ -136,37 +136,37 @@ class Products
     /**
      * @var string
      *
-     * @ORM\Column(name="visibility", type="string", nullable=false)
+     * @ORM\Column(name="status", type="string", nullable=false)
      */
-    private $visibility = 'si';
+    private $status = 'si';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="posizprod", type="integer", nullable=false)
+     * @ORM\Column(name="position", type="integer", nullable=false)
      */
-    private $posizprod = '0';
+    private $position = '0';
 
     /**
      * @var string
      *
-     * @ORM\Column(name="seourl", type="string", length=100, nullable=false)
+     * @ORM\Column(name="seo_url", type="string", length=100, nullable=false)
      */
-    private $seourl;
+    private $seoUrl;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="seokeyw", type="text", nullable=false)
+     * @ORM\Column(name="seo_keywords", type="text", nullable=false)
      */
-    private $seokeyw;
+    private $seoKeywords;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="seodescr", type="text", nullable=false)
+     * @ORM\Column(name="seo_description", type="text", nullable=false)
      */
-    private $seodescr;
+    private $seoDescription;
 
     /**
      * @var integer
@@ -209,49 +209,49 @@ class Products
     }
 
     /**
-     * Set codprod
+     * Set code
      *
-     * @param string $codprod
+     * @param string $code
      * @return Products
      */
-    public function setCodprod($codprod)
+    public function setCode($code)
     {
-        $this->codprod = $codprod;
+        $this->code = $code;
 
         return $this;
     }
 
     /**
-     * Get codprod
+     * Get code
      *
      * @return string 
      */
-    public function getCodprod()
+    public function getCode()
     {
-        return $this->codprod;
+        return $this->code;
     }
 
     /**
-     * Set codfornit
+     * Set codeFornitore
      *
-     * @param string $codfornit
+     * @param string $codeFornitore
      * @return Products
      */
-    public function setCodfornit($codfornit)
+    public function setCodeFornitore($codeFornitore)
     {
-        $this->codfornit = $codfornit;
+        $this->codeFornitore = $codeFornitore;
 
         return $this;
     }
 
     /**
-     * Get codfornit
+     * Get codeFornitore
      *
      * @return string 
      */
-    public function getCodfornit()
+    public function getCodeFornitore()
     {
-        return $this->codfornit;
+        return $this->codeFornitore;
     }
 
     /**
@@ -301,95 +301,95 @@ class Products
     }
 
     /**
-     * Set imgbig
+     * Set imageBig
      *
-     * @param string $imgbig
+     * @param string $imageBig
      * @return Products
      */
-    public function setImgbig($imgbig)
+    public function setImageBig($imageBig)
     {
-        $this->imgbig = $imgbig;
+        $this->imageBig = $imageBig;
 
         return $this;
     }
 
     /**
-     * Get imgbig
+     * Get imageBig
      *
      * @return string 
      */
-    public function getImgbig()
+    public function getImageBig()
     {
-        return $this->imgbig;
+        return $this->imageBig;
     }
 
     /**
-     * Set imgsmall
+     * Set imageThumb
      *
-     * @param string $imgsmall
+     * @param string $imageThumb
      * @return Products
      */
-    public function setImgsmall($imgsmall)
+    public function setImageThumb($imageThumb)
     {
-        $this->imgsmall = $imgsmall;
+        $this->imageThumb = $imageThumb;
 
         return $this;
     }
 
     /**
-     * Get imgsmall
+     * Get imageThumb
      *
      * @return string 
      */
-    public function getImgsmall()
+    public function getImageThumb()
     {
-        return $this->imgsmall;
+        return $this->imageThumb;
     }
 
     /**
-     * Set nomeprod
+     * Set name
      *
-     * @param string $nomeprod
+     * @param string $name
      * @return Products
      */
-    public function setNomeprod($nomeprod)
+    public function setName($name)
     {
-        $this->nomeprod = $nomeprod;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get nomeprod
+     * Get name
      *
      * @return string 
      */
-    public function getNomeprod()
+    public function getName()
     {
-        return $this->nomeprod;
+        return $this->name;
     }
 
     /**
-     * Set descrizione
+     * Set descrption
      *
-     * @param string $descrizione
+     * @param string $descrption
      * @return Products
      */
-    public function setDescrizione($descrizione)
+    public function setDescrption($descrption)
     {
-        $this->descrizione = $descrizione;
+        $this->descrption = $descrption;
 
         return $this;
     }
 
     /**
-     * Get descrizione
+     * Get descrption
      *
      * @return string 
      */
-    public function getDescrizione()
+    public function getDescrption()
     {
-        return $this->descrizione;
+        return $this->descrption;
     }
 
     /**
@@ -439,26 +439,26 @@ class Products
     }
 
     /**
-     * Set disponibilita
+     * Set availability
      *
-     * @param integer $disponibilita
+     * @param integer $availability
      * @return Products
      */
-    public function setDisponibilita($disponibilita)
+    public function setAvailability($availability)
     {
-        $this->disponibilita = $disponibilita;
+        $this->availability = $availability;
 
         return $this;
     }
 
     /**
-     * Get disponibilita
+     * Get availability
      *
      * @return integer 
      */
-    public function getDisponibilita()
+    public function getAvailability()
     {
-        return $this->disponibilita;
+        return $this->availability;
     }
 
     /**
@@ -577,118 +577,118 @@ class Products
     }
 
     /**
-     * Set visibility
+     * Set status
      *
-     * @param string $visibility
+     * @param string $status
      * @return Products
      */
-    public function setVisibility($visibility)
+    public function setStatus($status)
     {
-        $this->visibility = $visibility;
+        $this->status = $status;
 
         return $this;
     }
 
     /**
-     * Get visibility
+     * Get status
      *
      * @return string 
      */
-    public function getVisibility()
+    public function getStatus()
     {
-        return $this->visibility;
+        return $this->status;
     }
 
     /**
-     * Set posizprod
+     * Set position
      *
-     * @param integer $posizprod
+     * @param integer $position
      * @return Products
      */
-    public function setPosizprod($posizprod)
+    public function setPosition($position)
     {
-        $this->posizprod = $posizprod;
+        $this->position = $position;
 
         return $this;
     }
 
     /**
-     * Get posizprod
+     * Get position
      *
      * @return integer 
      */
-    public function getPosizprod()
+    public function getPosition()
     {
-        return $this->posizprod;
+        return $this->position;
     }
 
     /**
-     * Set seourl
+     * Set seoUrl
      *
-     * @param string $seourl
+     * @param string $seoUrl
      * @return Products
      */
-    public function setSeourl($seourl)
+    public function setSeoUrl($seoUrl)
     {
-        $this->seourl = $seourl;
+        $this->seoUrl = $seoUrl;
 
         return $this;
     }
 
     /**
-     * Get seourl
+     * Get seoUrl
      *
      * @return string 
      */
-    public function getSeourl()
+    public function getSeoUrl()
     {
-        return $this->seourl;
+        return $this->seoUrl;
     }
 
     /**
-     * Set seokeyw
+     * Set seoKeywords
      *
-     * @param string $seokeyw
+     * @param string $seoKeywords
      * @return Products
      */
-    public function setSeokeyw($seokeyw)
+    public function setSeoKeywords($seoKeywords)
     {
-        $this->seokeyw = $seokeyw;
+        $this->seoKeywords = $seoKeywords;
 
         return $this;
     }
 
     /**
-     * Get seokeyw
+     * Get seoKeywords
      *
      * @return string 
      */
-    public function getSeokeyw()
+    public function getSeoKeywords()
     {
-        return $this->seokeyw;
+        return $this->seoKeywords;
     }
 
     /**
-     * Set seodescr
+     * Set seoDescription
      *
-     * @param string $seodescr
+     * @param string $seoDescription
      * @return Products
      */
-    public function setSeodescr($seodescr)
+    public function setSeoDescription($seoDescription)
     {
-        $this->seodescr = $seodescr;
+        $this->seoDescription = $seoDescription;
 
         return $this;
     }
 
     /**
-     * Get seodescr
+     * Get seoDescription
      *
      * @return string 
      */
-    public function getSeodescr()
+    public function getSeoDescription()
     {
-        return $this->seodescr;
+        return $this->seoDescription;
     }
 
     /**

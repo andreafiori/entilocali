@@ -16,10 +16,10 @@ class IndexController extends AbstractActionController
     public function indexAction()
     {
     	$setupController = new SetupManager($this);
-    	$setupController->setObjectManager( $this->getServiceLocator()->get('entityManagerService') );
-    	$setupObjectRecord = $setupController->setSetupRecord();
-
-    	$this->layout($setupObjectRecord['basiclayout']);
+		$setupController->setInput( array( 'channel' => 1, 'isbackend' => 1 ) );
+		$setupObjectRecord = $setupController->setSetupRecord();
+		// $setupObjectRecord['basiclayout']
+    	$this->layout('frontend/projects/fossobandito/templates/default/layout.phtml');
     	$this->layout()->setVariable("templateData", $setupObjectRecord);
 
     	return new ViewModel();

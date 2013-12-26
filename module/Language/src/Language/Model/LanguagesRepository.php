@@ -4,6 +4,7 @@ namespace Language\Model;
 
 use Setup\Model\EntityRepositoryAbstract;
 use Application\Entity\Channels;
+use Application\Entity\Languages;
 
 class LanguagesRepository extends EntityRepositoryAbstract {
 
@@ -14,7 +15,7 @@ class LanguagesRepository extends EntityRepositoryAbstract {
 	private $allAvailableLanguages;
 
 	/**
-	 * set all available languages 
+	 * Set all available languages 
 	 * @param Channels $channel
 	 * @return array $record
 	 */
@@ -23,7 +24,7 @@ class LanguagesRepository extends EntityRepositoryAbstract {
 		$this->allAvailableLanguages = $this->em->getRepository($this->repository)->findBy( array("active" => 1, "channel" => $channel) );
 		return $this->allAvailableLanguages;
 	}
-	
+
 	/**
 	 * @param string $abbreviation
 	 * @return \Application\Entity\Language $abbreviation
@@ -48,7 +49,8 @@ class LanguagesRepository extends EntityRepositoryAbstract {
 		{
 			$arrayAvailableLanguage = $this->getEntitySerializer()->toArray($allAvailableLanguages);
 			$diff = array_diff($arrayCompare, $arrayAvailableLanguage);
-			if ( empty($diff) ) {
+			if ( empty($diff) )
+			{
 				$this->defaultLanguage = $allAvailableLanguages;
 				return $allAvailableLanguages;
 			}
@@ -57,11 +59,6 @@ class LanguagesRepository extends EntityRepositoryAbstract {
 		return false;
 	}
 
-	public function getDefaultLanguage()
-	{
-		return $this->defaultLanguage;
-	}
-		
 	public function setDefaultLangFieldName()
 	{
 		if ($this->isOnBackend())
@@ -70,6 +67,22 @@ class LanguagesRepository extends EntityRepositoryAbstract {
 			$this->defaultLangFieldName = 'defaultlang';
 	}
 
+	public function getAllAvailableLanguages()
+	{
+		return $this->allAvailableLanguages;
+	}
+	
+	/**
+	 * @return Languages $defaultLanguage
+	 */
+	public function getDefaultLanguage()
+	{
+		return $this->defaultLanguage;
+	}
+	
+	/**
+	 * @return Languages $defaultLangFieldName
+	 */
 	public function getDefaultLangFieldName()
 	{
 		return $this->defaultLangFieldName;

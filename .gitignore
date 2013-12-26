@@ -7,6 +7,7 @@ nbproject
 .project
 .settings
 composer.lock
+generateEntities.bat
 zftool.phar
 data
 tests/reports

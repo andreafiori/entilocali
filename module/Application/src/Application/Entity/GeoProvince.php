@@ -38,9 +38,9 @@ class GeoProvince
     /**
      * @var string
      *
-     * @ORM\Column(name="nomeprovincia", type="string", length=28, nullable=true)
+     * @ORM\Column(name="nome", type="string", length=28, nullable=true)
      */
-    private $nomeprovincia;
+    private $nome;
 
     /**
      * @var string
@@ -115,26 +115,26 @@ class GeoProvince
     }
 
     /**
-     * Set nomeprovincia
+     * Set nome
      *
-     * @param string $nomeprovincia
+     * @param string $nome
      * @return GeoProvince
      */
-    public function setNomeprovincia($nomeprovincia)
+    public function setNome($nome)
     {
-        $this->nomeprovincia = $nomeprovincia;
+        $this->nome = $nome;
 
         return $this;
     }
 
     /**
-     * Get nomeprovincia
+     * Get nome
      *
      * @return string 
      */
-    public function getNomeprovincia()
+    public function getNome()
     {
-        return $this->nomeprovincia;
+        return $this->nome;
     }
 
     /**

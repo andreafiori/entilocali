@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * GeoComuniQuartieri
  *
- * @ORM\Table(name="geo_comuni_quartieri", indexes={@ORM\Index(name="quartierisearch", columns={"nomequartiere"}), @ORM\Index(name="citta_id", columns={"citta_id"})})
+ * @ORM\Table(name="geo_comuni_quartieri", indexes={@ORM\Index(name="quartierisearch", columns={"nome"}), @ORM\Index(name="citta_id", columns={"citta_id"})})
  * @ORM\Entity
  */
 class GeoComuniQuartieri
@@ -24,16 +24,16 @@ class GeoComuniQuartieri
     /**
      * @var string
      *
-     * @ORM\Column(name="nomequartiere", type="string", length=50, nullable=true)
+     * @ORM\Column(name="nome", type="string", length=50, nullable=true)
      */
-    private $nomequartiere;
+    private $nome;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="capmain", type="string", length=5, nullable=true)
+     * @ORM\Column(name="cap_main", type="string", length=5, nullable=true)
      */
-    private $capmain;
+    private $capMain;
 
     /**
      * @var \Application\Entity\GeoComuni
@@ -58,49 +58,49 @@ class GeoComuniQuartieri
     }
 
     /**
-     * Set nomequartiere
+     * Set nome
      *
-     * @param string $nomequartiere
+     * @param string $nome
      * @return GeoComuniQuartieri
      */
-    public function setNomequartiere($nomequartiere)
+    public function setNome($nome)
     {
-        $this->nomequartiere = $nomequartiere;
+        $this->nome = $nome;
 
         return $this;
     }
 
     /**
-     * Get nomequartiere
+     * Get nome
      *
      * @return string 
      */
-    public function getNomequartiere()
+    public function getNome()
     {
-        return $this->nomequartiere;
+        return $this->nome;
     }
 
     /**
-     * Set capmain
+     * Set capMain
      *
-     * @param string $capmain
+     * @param string $capMain
      * @return GeoComuniQuartieri
      */
-    public function setCapmain($capmain)
+    public function setCapMain($capMain)
     {
-        $this->capmain = $capmain;
+        $this->capMain = $capMain;
 
         return $this;
     }
 
     /**
-     * Get capmain
+     * Get capMain
      *
      * @return string 
      */
-    public function getCapmain()
+    public function getCapMain()
     {
-        return $this->capmain;
+        return $this->capMain;
     }
 
     /**

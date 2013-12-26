@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Homepage
  *
- * @ORM\Table(name="homepage", indexes={@ORM\Index(name="category_id", columns={"category_id"}), @ORM\Index(name="language_id", columns={"language_id"}), @ORM\Index(name="channel_id", columns={"channel_id"})})
+ * @ORM\Table(name="homepage", indexes={@ORM\Index(name="language_id", columns={"language_id"}), @ORM\Index(name="channel_id", columns={"channel_id"}), @ORM\Index(name="module_id", columns={"module_id"})})
  * @ORM\Entity
  */
 class Homepage
@@ -59,9 +59,9 @@ class Homepage
     /**
      * @var string
      *
-     * @ORM\Column(name="txtfooterbox", type="string", length=100, nullable=false)
+     * @ORM\Column(name="footer_text", type="string", length=100, nullable=false)
      */
-    private $txtfooterbox;
+    private $footerText;
 
     /**
      * @var string
@@ -73,16 +73,16 @@ class Homepage
     /**
      * @var string
      *
-     * @ORM\Column(name="abstract", type="text", nullable=false)
+     * @ORM\Column(name="abstract_description", type="text", nullable=false)
      */
-    private $abstract;
+    private $abstractDescription;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dataorarif", type="datetime", nullable=false)
+     * @ORM\Column(name="datetime_reference", type="datetime", nullable=false)
      */
-    private $dataorarif = '2007-01-01 01:01:01';
+    private $datetimeReference = '2007-01-01 01:01:01';
 
     /**
      * @var \DateTime
@@ -94,23 +94,9 @@ class Homepage
     /**
      * @var integer
      *
-     * @ORM\Column(name="posiz_block", type="integer", nullable=false)
+     * @ORM\Column(name="posizition_block", type="integer", nullable=false)
      */
-    private $posizBlock = '0';
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="modulecategory_id", type="integer", nullable=false)
-     */
-    private $modulecategoryId = '1';
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="news_module_id", type="integer", nullable=false)
-     */
-    private $newsModuleId = '0';
+    private $posizitionBlock = '0';
 
     /**
      * @var string
@@ -122,9 +108,23 @@ class Homepage
     /**
      * @var integer
      *
+     * @ORM\Column(name="news_module_id", type="integer", nullable=false)
+     */
+    private $newsModuleId = '0';
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="category_id", type="integer", nullable=false)
      */
     private $categoryId = '0';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="module_id", type="integer", nullable=false)
+     */
+    private $moduleId = '1';
 
     /**
      * @var integer
@@ -271,26 +271,26 @@ class Homepage
     }
 
     /**
-     * Set txtfooterbox
+     * Set footerText
      *
-     * @param string $txtfooterbox
+     * @param string $footerText
      * @return Homepage
      */
-    public function setTxtfooterbox($txtfooterbox)
+    public function setFooterText($footerText)
     {
-        $this->txtfooterbox = $txtfooterbox;
+        $this->footerText = $footerText;
 
         return $this;
     }
 
     /**
-     * Get txtfooterbox
+     * Get footerText
      *
      * @return string 
      */
-    public function getTxtfooterbox()
+    public function getFooterText()
     {
-        return $this->txtfooterbox;
+        return $this->footerText;
     }
 
     /**
@@ -317,49 +317,49 @@ class Homepage
     }
 
     /**
-     * Set abstract
+     * Set abstractDescription
      *
-     * @param string $abstract
+     * @param string $abstractDescription
      * @return Homepage
      */
-    public function setAbstract($abstract)
+    public function setAbstractDescription($abstractDescription)
     {
-        $this->abstract = $abstract;
+        $this->abstractDescription = $abstractDescription;
 
         return $this;
     }
 
     /**
-     * Get abstract
+     * Get abstractDescription
      *
      * @return string 
      */
-    public function getAbstract()
+    public function getAbstractDescription()
     {
-        return $this->abstract;
+        return $this->abstractDescription;
     }
 
     /**
-     * Set dataorarif
+     * Set datetimeReference
      *
-     * @param \DateTime $dataorarif
+     * @param \DateTime $datetimeReference
      * @return Homepage
      */
-    public function setDataorarif($dataorarif)
+    public function setDatetimeReference($datetimeReference)
     {
-        $this->dataorarif = $dataorarif;
+        $this->datetimeReference = $datetimeReference;
 
         return $this;
     }
 
     /**
-     * Get dataorarif
+     * Get datetimeReference
      *
      * @return \DateTime 
      */
-    public function getDataorarif()
+    public function getDatetimeReference()
     {
-        return $this->dataorarif;
+        return $this->datetimeReference;
     }
 
     /**
@@ -386,72 +386,26 @@ class Homepage
     }
 
     /**
-     * Set posizBlock
+     * Set posizitionBlock
      *
-     * @param integer $posizBlock
+     * @param integer $posizitionBlock
      * @return Homepage
      */
-    public function setPosizBlock($posizBlock)
+    public function setPosizitionBlock($posizitionBlock)
     {
-        $this->posizBlock = $posizBlock;
+        $this->posizitionBlock = $posizitionBlock;
 
         return $this;
     }
 
     /**
-     * Get posizBlock
+     * Get posizitionBlock
      *
      * @return integer 
      */
-    public function getPosizBlock()
+    public function getPosizitionBlock()
     {
-        return $this->posizBlock;
-    }
-
-    /**
-     * Set modulecategoryId
-     *
-     * @param integer $modulecategoryId
-     * @return Homepage
-     */
-    public function setModulecategoryId($modulecategoryId)
-    {
-        $this->modulecategoryId = $modulecategoryId;
-
-        return $this;
-    }
-
-    /**
-     * Get modulecategoryId
-     *
-     * @return integer 
-     */
-    public function getModulecategoryId()
-    {
-        return $this->modulecategoryId;
-    }
-
-    /**
-     * Set newsModuleId
-     *
-     * @param integer $newsModuleId
-     * @return Homepage
-     */
-    public function setNewsModuleId($newsModuleId)
-    {
-        $this->newsModuleId = $newsModuleId;
-
-        return $this;
-    }
-
-    /**
-     * Get newsModuleId
-     *
-     * @return integer 
-     */
-    public function getNewsModuleId()
-    {
-        return $this->newsModuleId;
+        return $this->posizitionBlock;
     }
 
     /**
@@ -478,6 +432,29 @@ class Homepage
     }
 
     /**
+     * Set newsModuleId
+     *
+     * @param integer $newsModuleId
+     * @return Homepage
+     */
+    public function setNewsModuleId($newsModuleId)
+    {
+        $this->newsModuleId = $newsModuleId;
+
+        return $this;
+    }
+
+    /**
+     * Get newsModuleId
+     *
+     * @return integer 
+     */
+    public function getNewsModuleId()
+    {
+        return $this->newsModuleId;
+    }
+
+    /**
      * Set categoryId
      *
      * @param integer $categoryId
@@ -498,6 +475,29 @@ class Homepage
     public function getCategoryId()
     {
         return $this->categoryId;
+    }
+
+    /**
+     * Set moduleId
+     *
+     * @param integer $moduleId
+     * @return Homepage
+     */
+    public function setModuleId($moduleId)
+    {
+        $this->moduleId = $moduleId;
+
+        return $this;
+    }
+
+    /**
+     * Get moduleId
+     *
+     * @return integer 
+     */
+    public function getModuleId()
+    {
+        return $this->moduleId;
     }
 
     /**

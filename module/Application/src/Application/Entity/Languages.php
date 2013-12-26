@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Languages
  *
- * @ORM\Table(name="languages", indexes={@ORM\Index(name="srchfields", columns={"channel_id", "abbreviation1"}), @ORM\Index(name="active", columns={"active"}), @ORM\Index(name="IDX_A0D1537972F5A1AA", columns={"channel_id"})})
+ * @ORM\Table(name="languages", indexes={@ORM\Index(name="srchfields", columns={"channel_id", "abbreviation1"}), @ORM\Index(name="active", columns={"active"}), @ORM\Index(name="abbreviation2", columns={"abbreviation2"}), @ORM\Index(name="abbreviation3", columns={"abbreviation3"}), @ORM\Index(name="IDX_A0D1537972F5A1AA", columns={"channel_id"})})
  * @ORM\Entity
  */
 class Languages
@@ -94,7 +94,18 @@ class Languages
      */
     private $channel;
 
-
+    /**
+     * Set id
+     *
+     * @param integer $id
+     * @return Languages
+     */
+    public function setId($id)
+    {
+    	$this->id = $id;
+    
+    	return $this;
+    }
 
     /**
      * Get id
