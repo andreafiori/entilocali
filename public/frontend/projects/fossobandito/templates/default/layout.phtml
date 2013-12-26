@@ -58,7 +58,6 @@ $basePath = $this->basePath();
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
-
 </script>
 <?php endif; ?>	
 </head>
@@ -137,10 +136,9 @@ $basePath = $this->basePath();
 		<div class="content-wrapper sidebar-included right-sidebar">
 		
 		<div class="page-wrapper">
-				
+			
 			<?php
-			// echo $this->content;
-			echo $this->partial('frontend/projects/fossobandito/templates/default/homepage.phtml');
+			echo $this->partial($templateData['templatePartial']);
 			?>
 
 			<br class="clear">

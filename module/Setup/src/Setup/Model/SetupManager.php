@@ -15,14 +15,13 @@ use Zend\Mvc\Controller\AbstractActionController,
  * @author Andrea Fiori
  * @since  11 December 2013
  */
-class SetupManager
-{
+class SetupManager {
+
 	private $input = array();
 	private $setupRecord = array();
 	private $em, $controller;
 	
 	private $channelEntity, $languageEntity;
-	private $configEntity;
 	private $languageRepository;
 	private $languageLabels;
 	
@@ -31,7 +30,7 @@ class SetupManager
 		$this->controller = $controller;
 		$this->em = $this->controller->getServiceLocator()->get('entityManagerService');
 	}
-	
+
 	/**
 	 * Set input parameters (Frontend or Backend)
 	 * @param array $input
@@ -40,7 +39,7 @@ class SetupManager
 	public function setInput($input)
 	{
 		$this->input = $input;
-		$this->input['controller']  = $this->controller->params()->fromRoute('controller');
+		$this->input['controller'] = $this->controller->params()->fromRoute('controller');
 		$this->input['action'] = $this->controller->params()->fromRoute('action');
 		$this->input['languageAbbreviation'] = strtolower( $this->controller->params()->fromRoute('lang') );
 		return $input;
@@ -58,6 +57,19 @@ class SetupManager
 		$this->setLanguageEntity();
 		$this->setLanguageLabels();
 		return $this->getConfigRecord();
+    }
+    
+    /**
+     * @return AbstractActionController
+     */
+    public function getController()
+    {
+    	return $this->controller;
+    }
+    
+    public function getInput()
+    {
+    	return $this->input;
     }
 
     	private function setChannelEntity()
