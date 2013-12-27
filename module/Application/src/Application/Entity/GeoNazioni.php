@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * GeoNazioni
  *
- * @ORM\Table(name="geo_nazioni", indexes={@ORM\Index(name="name", columns={"nome"})})
+ * @ORM\Table(name="geo_nazioni", indexes={@ORM\Index(name="name", columns={"name"})})
  * @ORM\Entity
  */
 class GeoNazioni
@@ -24,23 +24,9 @@ class GeoNazioni
     /**
      * @var string
      *
-     * @ORM\Column(name="nome", type="string", length=13, nullable=false)
+     * @ORM\Column(name="name", type="string", length=13, nullable=false)
      */
-    private $nome;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="flag", type="string", length=13, nullable=false)
-     */
-    private $flag;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="iso", type="string", nullable=false)
-     */
-    private $iso;
+    private $name;
 
 
 
@@ -55,71 +41,25 @@ class GeoNazioni
     }
 
     /**
-     * Set nome
+     * Set name
      *
-     * @param string $nome
+     * @param string $name
      * @return GeoNazioni
      */
-    public function setNome($nome)
+    public function setName($name)
     {
-        $this->nome = $nome;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get nome
+     * Get name
      *
      * @return string 
      */
-    public function getNome()
+    public function getName()
     {
-        return $this->nome;
-    }
-
-    /**
-     * Set flag
-     *
-     * @param string $flag
-     * @return GeoNazioni
-     */
-    public function setFlag($flag)
-    {
-        $this->flag = $flag;
-
-        return $this;
-    }
-
-    /**
-     * Get flag
-     *
-     * @return string 
-     */
-    public function getFlag()
-    {
-        return $this->flag;
-    }
-
-    /**
-     * Set iso
-     *
-     * @param string $iso
-     * @return GeoNazioni
-     */
-    public function setIso($iso)
-    {
-        $this->iso = $iso;
-
-        return $this;
-    }
-
-    /**
-     * Get iso
-     *
-     * @return string 
-     */
-    public function getIso()
-    {
-        return $this->iso;
+        return $this->name;
     }
 }

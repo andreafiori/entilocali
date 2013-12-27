@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Channels
  *
- * @ORM\Table(name="channels", indexes={@ORM\Index(name="default_language_id", columns={"default_language_id"})})
+ * @ORM\Table(name="channels", indexes={@ORM\Index(name="default_language_id", columns={"default_language_id"}), @ORM\Index(name="isdefault", columns={"isdefault"}), @ORM\Index(name="ismultilanguage", columns={"ismultilanguage"})})
  * @ORM\Entity
  */
 class Channels

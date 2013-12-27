@@ -62,21 +62,27 @@ abstract class EntityRepositoryAbstract {
 		$this->isOnBackend = $isOnBackend;
 		return $this->isOnBackend;
 	}
-	
+
 	public function isOnBackend()
 	{
 		return $this->isOnBackend;
 	}
-	
-	public function getFindFromRepository($arraySearch = null)
+
+	public function getFindFromRepository($arraySearch = null, $returnObject=null)
 	{
 		if (is_array($arraySearch)) {
-			return $this->convertArrayOfObjectToArrayOfArray( $this->em->getRepository($this->repository)->findBy($arraySearch) );
+			$result = $this->em->getRepository($this->repository)->findBy($arraySearch);
 		} else {
-			return $this->convertArrayOfObjectToArrayOfArray( $this->em->getRepository($this->repository)->findAll() );
+			$result = $this->em->getRepository($this->repository)->findAll();
+		}
+
+		if ($returnObject) {
+			return $result;
+		} else {
+			return $this->convertArrayOfObjectToArrayOfArray($result);
 		}
 	}
-		
+
 		protected function convertArrayOfObjectToArrayOfArray($arrayOfObject)
 		{
 			$arrayToReturn = array();

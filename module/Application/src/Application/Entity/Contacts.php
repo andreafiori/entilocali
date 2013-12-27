@@ -85,14 +85,11 @@ class Contacts
     private $fileattached;
 
     /**
-     * @var \Application\Entity\Users
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\Users")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     * })
+     * @ORM\Column(name="user_id", type="integer", nullable=true)
      */
-    private $user;
+    private $userId;
 
 
 
@@ -314,25 +311,25 @@ class Contacts
     }
 
     /**
-     * Set user
+     * Set userId
      *
-     * @param \Application\Entity\Users $user
+     * @param integer $userId
      * @return Contacts
      */
-    public function setUser(\Application\Entity\Users $user = null)
+    public function setUserId($userId)
     {
-        $this->user = $user;
+        $this->userId = $userId;
 
         return $this;
     }
 
     /**
-     * Get user
+     * Get userId
      *
-     * @return \Application\Entity\Users 
+     * @return integer 
      */
-    public function getUser()
+    public function getUserId()
     {
-        return $this->user;
+        return $this->userId;
     }
 }

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Config
  *
- * @ORM\Table(name="config", indexes={@ORM\Index(name="channel_id", columns={"channel_id"}), @ORM\Index(name="language_id", columns={"language_id"}), @ORM\Index(name="module_id", columns={"module_id"}), @ORM\Index(name="isadmin", columns={"isbackend"})})
+ * @ORM\Table(name="config", indexes={@ORM\Index(name="channel_id", columns={"channel_id"}), @ORM\Index(name="language_id", columns={"language_id"}), @ORM\Index(name="module_id", columns={"module_id"}), @ORM\Index(name="isadmin", columns={"isbackend"}), @ORM\Index(name="isuniversal", columns={"isuniversal"})})
  * @ORM\Entity
  */
 class Config
@@ -41,6 +41,13 @@ class Config
      * @ORM\Column(name="isbackend", type="integer", nullable=false)
      */
     private $isbackend;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="isuniversal", type="integer", nullable=false)
+     */
+    private $isuniversal = '1';
 
     /**
      * @var integer
@@ -145,6 +152,29 @@ class Config
     public function getIsbackend()
     {
         return $this->isbackend;
+    }
+
+    /**
+     * Set isuniversal
+     *
+     * @param integer $isuniversal
+     * @return Config
+     */
+    public function setIsuniversal($isuniversal)
+    {
+        $this->isuniversal = $isuniversal;
+
+        return $this;
+    }
+
+    /**
+     * Get isuniversal
+     *
+     * @return integer 
+     */
+    public function getIsuniversal()
+    {
+        return $this->isuniversal;
     }
 
     /**

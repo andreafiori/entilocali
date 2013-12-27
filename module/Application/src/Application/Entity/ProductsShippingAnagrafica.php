@@ -52,30 +52,9 @@ class ProductsShippingAnagrafica
     /**
      * @var string
      *
-     * @ORM\Column(name="zip", type="string", length=50, nullable=true)
+     * @ORM\Column(name="zip", type="string", length=5, nullable=true)
      */
     private $zip;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="city_id", type="integer", nullable=true)
-     */
-    private $cityId;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="province_id", type="integer", nullable=true)
-     */
-    private $provinceId;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="nation_id", type="integer", nullable=true)
-     */
-    private $nationId;
 
     /**
      * @var string
@@ -97,6 +76,27 @@ class ProductsShippingAnagrafica
      * @ORM\Column(name="message", type="text", nullable=true)
      */
     private $message;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nation_id", type="integer", nullable=true)
+     */
+    private $nationId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="city_id", type="integer", nullable=true)
+     */
+    private $cityId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="province_id", type="integer", nullable=true)
+     */
+    private $provinceId;
 
     /**
      * @var integer
@@ -240,75 +240,6 @@ class ProductsShippingAnagrafica
     }
 
     /**
-     * Set cityId
-     *
-     * @param integer $cityId
-     * @return ProductsShippingAnagrafica
-     */
-    public function setCityId($cityId)
-    {
-        $this->cityId = $cityId;
-
-        return $this;
-    }
-
-    /**
-     * Get cityId
-     *
-     * @return integer 
-     */
-    public function getCityId()
-    {
-        return $this->cityId;
-    }
-
-    /**
-     * Set provinceId
-     *
-     * @param integer $provinceId
-     * @return ProductsShippingAnagrafica
-     */
-    public function setProvinceId($provinceId)
-    {
-        $this->provinceId = $provinceId;
-
-        return $this;
-    }
-
-    /**
-     * Get provinceId
-     *
-     * @return integer 
-     */
-    public function getProvinceId()
-    {
-        return $this->provinceId;
-    }
-
-    /**
-     * Set nationId
-     *
-     * @param integer $nationId
-     * @return ProductsShippingAnagrafica
-     */
-    public function setNationId($nationId)
-    {
-        $this->nationId = $nationId;
-
-        return $this;
-    }
-
-    /**
-     * Get nationId
-     *
-     * @return integer 
-     */
-    public function getNationId()
-    {
-        return $this->nationId;
-    }
-
-    /**
      * Set phone
      *
      * @param string $phone
@@ -375,6 +306,75 @@ class ProductsShippingAnagrafica
     public function getMessage()
     {
         return $this->message;
+    }
+
+    /**
+     * Set nationId
+     *
+     * @param integer $nationId
+     * @return ProductsShippingAnagrafica
+     */
+    public function setNationId($nationId)
+    {
+        $this->nationId = $nationId;
+
+        return $this;
+    }
+
+    /**
+     * Get nationId
+     *
+     * @return integer 
+     */
+    public function getNationId()
+    {
+        return $this->nationId;
+    }
+
+    /**
+     * Set cityId
+     *
+     * @param integer $cityId
+     * @return ProductsShippingAnagrafica
+     */
+    public function setCityId($cityId)
+    {
+        $this->cityId = $cityId;
+
+        return $this;
+    }
+
+    /**
+     * Get cityId
+     *
+     * @return integer 
+     */
+    public function getCityId()
+    {
+        return $this->cityId;
+    }
+
+    /**
+     * Set provinceId
+     *
+     * @param integer $provinceId
+     * @return ProductsShippingAnagrafica
+     */
+    public function setProvinceId($provinceId)
+    {
+        $this->provinceId = $provinceId;
+
+        return $this;
+    }
+
+    /**
+     * Get provinceId
+     *
+     * @return integer 
+     */
+    public function getProvinceId()
+    {
+        return $this->provinceId;
     }
 
     /**

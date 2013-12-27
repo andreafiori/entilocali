@@ -22,18 +22,24 @@ class GeoComuniCapQuartieri
     private $id;
 
     /**
-     * @var integer
+     * @var \Application\Entity\GeoComuniQuartieri
      *
-     * @ORM\Column(name="cap_quartiere_id", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\GeoComuniQuartieri")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="quartiere_id", referencedColumnName="id")
+     * })
      */
-    private $capQuartiereId = '0';
+    private $quartiere;
 
     /**
-     * @var integer
+     * @var \Application\Entity\GeoComuniCap
      *
-     * @ORM\Column(name="quartiere_id", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\GeoComuniCap")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="cap_quartiere_id", referencedColumnName="id")
+     * })
      */
-    private $quartiereId = '0';
+    private $capQuartiere;
 
 
 
@@ -48,48 +54,48 @@ class GeoComuniCapQuartieri
     }
 
     /**
-     * Set capQuartiereId
+     * Set quartiere
      *
-     * @param integer $capQuartiereId
+     * @param \Application\Entity\GeoComuniQuartieri $quartiere
      * @return GeoComuniCapQuartieri
      */
-    public function setCapQuartiereId($capQuartiereId)
+    public function setQuartiere(\Application\Entity\GeoComuniQuartieri $quartiere = null)
     {
-        $this->capQuartiereId = $capQuartiereId;
+        $this->quartiere = $quartiere;
 
         return $this;
     }
 
     /**
-     * Get capQuartiereId
+     * Get quartiere
      *
-     * @return integer 
+     * @return \Application\Entity\GeoComuniQuartieri 
      */
-    public function getCapQuartiereId()
+    public function getQuartiere()
     {
-        return $this->capQuartiereId;
+        return $this->quartiere;
     }
 
     /**
-     * Set quartiereId
+     * Set capQuartiere
      *
-     * @param integer $quartiereId
+     * @param \Application\Entity\GeoComuniCap $capQuartiere
      * @return GeoComuniCapQuartieri
      */
-    public function setQuartiereId($quartiereId)
+    public function setCapQuartiere(\Application\Entity\GeoComuniCap $capQuartiere = null)
     {
-        $this->quartiereId = $quartiereId;
+        $this->capQuartiere = $capQuartiere;
 
         return $this;
     }
 
     /**
-     * Get quartiereId
+     * Get capQuartiere
      *
-     * @return integer 
+     * @return \Application\Entity\GeoComuniCap 
      */
-    public function getQuartiereId()
+    public function getCapQuartiere()
     {
-        return $this->quartiereId;
+        return $this->capQuartiere;
     }
 }

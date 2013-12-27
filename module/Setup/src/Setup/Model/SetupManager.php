@@ -7,7 +7,7 @@ use Zend\Mvc\Controller\AbstractActionController,
 	Config\Model\ConfigRepository,
 	Language\Model\LanguagesLabelsRepository,
 	Setup\Model\EntitySerializer,
-	Application\Entity\Channels, 
+	Application\Entity\Channels,
 	Application\Entity\Languages;
 
 /**
@@ -25,8 +25,11 @@ class SetupManager {
 	private $languageRepository;
 	private $languageLabels;
 	
+	/**
+	 * @param AbstractActionController $controller
+	 */
 	public function __construct(AbstractActionController $controller)
-	{
+	{		
 		$this->controller = $controller;
 		$this->em = $this->controller->getServiceLocator()->get('entityManagerService');
 	}
@@ -70,6 +73,11 @@ class SetupManager {
     public function getInput()
     {
     	return $this->input;
+    }
+    
+    public function getEntityManagerService()
+    {
+    	return $this->em;
     }
 
     	private function setChannelEntity()

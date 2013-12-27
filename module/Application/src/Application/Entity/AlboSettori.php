@@ -43,11 +43,14 @@ class AlboSettori
     private $posizione;
 
     /**
-     * @var integer
+     * @var \Application\Entity\GeoProvince
      *
-     * @ORM\Column(name="provincia_id", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\GeoProvince")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="provincia_id", referencedColumnName="id")
+     * })
      */
-    private $provinciaId;
+    private $provincia;
 
 
 
@@ -131,25 +134,25 @@ class AlboSettori
     }
 
     /**
-     * Set provinciaId
+     * Set provincia
      *
-     * @param integer $provinciaId
+     * @param \Application\Entity\GeoProvince $provincia
      * @return AlboSettori
      */
-    public function setProvinciaId($provinciaId)
+    public function setProvincia(\Application\Entity\GeoProvince $provincia = null)
     {
-        $this->provinciaId = $provinciaId;
+        $this->provincia = $provincia;
 
         return $this;
     }
 
     /**
-     * Get provinciaId
+     * Get provincia
      *
-     * @return integer 
+     * @return \Application\Entity\GeoProvince 
      */
-    public function getProvinciaId()
+    public function getProvincia()
     {
-        return $this->provinciaId;
+        return $this->provincia;
     }
 }

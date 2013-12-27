@@ -66,23 +66,29 @@ class FaqQuestions
     /**
      * @var integer
      *
-     * @ORM\Column(name="channel_id", type="integer", nullable=false)
-     */
-    private $channelId = '1';
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="language_id", type="integer", nullable=false)
-     */
-    private $languageId = '1';
-
-    /**
-     * @var integer
-     *
      * @ORM\Column(name="user_id", type="integer", nullable=false)
      */
     private $userId;
+
+    /**
+     * @var \Application\Entity\Channels
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Channels")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="channel_id", referencedColumnName="id")
+     * })
+     */
+    private $channel;
+
+    /**
+     * @var \Application\Entity\Languages
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Languages")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="language_id", referencedColumnName="id")
+     * })
+     */
+    private $language;
 
 
 
@@ -235,52 +241,6 @@ class FaqQuestions
     }
 
     /**
-     * Set channelId
-     *
-     * @param integer $channelId
-     * @return FaqQuestions
-     */
-    public function setChannelId($channelId)
-    {
-        $this->channelId = $channelId;
-
-        return $this;
-    }
-
-    /**
-     * Get channelId
-     *
-     * @return integer 
-     */
-    public function getChannelId()
-    {
-        return $this->channelId;
-    }
-
-    /**
-     * Set languageId
-     *
-     * @param integer $languageId
-     * @return FaqQuestions
-     */
-    public function setLanguageId($languageId)
-    {
-        $this->languageId = $languageId;
-
-        return $this;
-    }
-
-    /**
-     * Get languageId
-     *
-     * @return integer 
-     */
-    public function getLanguageId()
-    {
-        return $this->languageId;
-    }
-
-    /**
      * Set userId
      *
      * @param integer $userId
@@ -301,5 +261,51 @@ class FaqQuestions
     public function getUserId()
     {
         return $this->userId;
+    }
+
+    /**
+     * Set channel
+     *
+     * @param \Application\Entity\Channels $channel
+     * @return FaqQuestions
+     */
+    public function setChannel(\Application\Entity\Channels $channel = null)
+    {
+        $this->channel = $channel;
+
+        return $this;
+    }
+
+    /**
+     * Get channel
+     *
+     * @return \Application\Entity\Channels 
+     */
+    public function getChannel()
+    {
+        return $this->channel;
+    }
+
+    /**
+     * Set language
+     *
+     * @param \Application\Entity\Languages $language
+     * @return FaqQuestions
+     */
+    public function setLanguage(\Application\Entity\Languages $language = null)
+    {
+        $this->language = $language;
+
+        return $this;
+    }
+
+    /**
+     * Get language
+     *
+     * @return \Application\Entity\Languages 
+     */
+    public function getLanguage()
+    {
+        return $this->language;
     }
 }

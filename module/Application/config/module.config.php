@@ -3,7 +3,7 @@ return array(
     'router' => array(
         'routes' => array(
             'home' => array(
-                'type' => 'Literal',
+             	'type' => 'Literal',
                 'options' => array(
                         'route'    => '/',
                         'defaults' => array(
@@ -16,18 +16,18 @@ return array(
                         ),
                 ),
             ),
-            'application' => array( 
+			'application' => array( 
                             'type'    => 'segment', 
                             'options' => array( 
-                                'route'    => '[/:lang][/][:category][/][:action]', 
+                                'route'    => '[/:lang][/][:category][/][:title]', 
                                 'constraints' => array( 
                                     'lang'       => '[a-z]{2}',
                                     'controller' => '[a-zA-Z][a-zA-Z0-9_-]*', 
-                                    'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',  
-                                ),
+                                    'title'		 =>	'[a-zA-Z][a-zA-Z0-9_-]*', 
+                                ), 
                                 'defaults' => array( 
                                     'controller' => 'Application\Controller\Index',
-                               'action'     => 'index',
+                               		'action'     => 'index',
                                 ), 
                             ),
                             'may_terminate' => true,

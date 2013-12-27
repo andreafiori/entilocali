@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Categories
  *
- * @ORM\Table(name="categories", indexes={@ORM\Index(name="channel_id", columns={"channel_id"}), @ORM\Index(name="module_id", columns={"module_id"})})
+ * @ORM\Table(name="categories", indexes={@ORM\Index(name="category_id", columns={"category_id"}), @ORM\Index(name="catoptionskeys", columns={"language_id", "name"}), @ORM\Index(name="channel_id", columns={"channel_id"}), @ORM\Index(name="module_id", columns={"module_id"}), @ORM\Index(name="code", columns={"code"}), @ORM\Index(name="IDX_3AF3466882F1BAF4", columns={"language_id"})})
  * @ORM\Entity
  */
 class Categories
@@ -24,51 +24,89 @@ class Categories
     /**
      * @var string
      *
-     * @ORM\Column(name="status", type="string", length=50, nullable=true)
+     * @ORM\Column(name="code", type="string", length=30, nullable=true)
+     */
+    private $code;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=80, nullable=true)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=80, nullable=true)
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_slug", type="string", length=80, nullable=true)
+     */
+    private $seoSlug;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_title", type="string", length=80, nullable=true)
+     */
+    private $seoTitle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_description", type="string", length=80, nullable=true)
+     */
+    private $seoDescription;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=80, nullable=true)
      */
     private $status;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="orderfieldname", type="string", length=100, nullable=true)
+     * @ORM\Column(name="orderby_fieldname", type="string", length=80, nullable=true)
      */
-    private $orderfieldname;
+    private $orderbyFieldname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="accesskey", type="string", length=4, nullable=true)
+     * @ORM\Column(name="accesskey", type="string", length=5, nullable=true)
      */
     private $accesskey;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="templatefile", type="string", length=100, nullable=true)
+     * @ORM\Column(name="templatefile", type="string", length=30, nullable=true)
      */
     private $templatefile;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="parentid", type="integer", nullable=false)
+     * @ORM\Column(name="parent_id", type="integer", nullable=true)
      */
-    private $parentid = '0';
+    private $parentId = '0';
 
     /**
-     * @var integer
+     * @var \Application\Entity\Categories
      *
-     * @ORM\Column(name="position", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Categories")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     * })
      */
-    private $position = '1';
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="module_id", type="integer", nullable=false)
-     */
-    private $moduleId = '0';
+    private $category;
 
     /**
      * @var \Application\Entity\Channels
@@ -80,7 +118,38 @@ class Categories
      */
     private $channel;
 
+    /**
+     * @var \Application\Entity\Languages
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Languages")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="language_id", referencedColumnName="id")
+     * })
+     */
+    private $language;
 
+    /**
+     * @var \Application\Entity\Modules
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Modules")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="module_id", referencedColumnName="id")
+     * })
+     */
+    private $module;
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     * @return Categories
+     */
+    public function setId($id)
+    {
+    	$this->id = $id;
+    
+    	return $this;
+    }
 
     /**
      * Get id
@@ -90,6 +159,144 @@ class Categories
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     * @return Categories
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string 
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Categories
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Categories
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set seoSlug
+     *
+     * @param string $seoSlug
+     * @return Categories
+     */
+    public function setSeoSlug($seoSlug)
+    {
+        $this->seoSlug = $seoSlug;
+
+        return $this;
+    }
+
+    /**
+     * Get seoSlug
+     *
+     * @return string 
+     */
+    public function getSeoSlug()
+    {
+        return $this->seoSlug;
+    }
+
+    /**
+     * Set seoTitle
+     *
+     * @param string $seoTitle
+     * @return Categories
+     */
+    public function setSeoTitle($seoTitle)
+    {
+        $this->seoTitle = $seoTitle;
+
+        return $this;
+    }
+
+    /**
+     * Get seoTitle
+     *
+     * @return string 
+     */
+    public function getSeoTitle()
+    {
+        return $this->seoTitle;
+    }
+
+    /**
+     * Set seoDescription
+     *
+     * @param string $seoDescription
+     * @return Categories
+     */
+    public function setSeoDescription($seoDescription)
+    {
+        $this->seoDescription = $seoDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get seoDescription
+     *
+     * @return string 
+     */
+    public function getSeoDescription()
+    {
+        return $this->seoDescription;
     }
 
     /**
@@ -116,26 +323,26 @@ class Categories
     }
 
     /**
-     * Set orderfieldname
+     * Set orderbyFieldname
      *
-     * @param string $orderfieldname
+     * @param string $orderbyFieldname
      * @return Categories
      */
-    public function setOrderfieldname($orderfieldname)
+    public function setOrderbyFieldname($orderbyFieldname)
     {
-        $this->orderfieldname = $orderfieldname;
+        $this->orderbyFieldname = $orderbyFieldname;
 
         return $this;
     }
 
     /**
-     * Get orderfieldname
+     * Get orderbyFieldname
      *
      * @return string 
      */
-    public function getOrderfieldname()
+    public function getOrderbyFieldname()
     {
-        return $this->orderfieldname;
+        return $this->orderbyFieldname;
     }
 
     /**
@@ -185,72 +392,49 @@ class Categories
     }
 
     /**
-     * Set parentid
+     * Set parentId
      *
-     * @param integer $parentid
+     * @param integer $parentId
      * @return Categories
      */
-    public function setParentid($parentid)
+    public function setParentId($parentId)
     {
-        $this->parentid = $parentid;
+        $this->parentId = $parentId;
 
         return $this;
     }
 
     /**
-     * Get parentid
+     * Get parentId
      *
      * @return integer 
      */
-    public function getParentid()
+    public function getParentId()
     {
-        return $this->parentid;
+        return $this->parentId;
     }
 
     /**
-     * Set position
+     * Set category
      *
-     * @param integer $position
+     * @param \Application\Entity\Categories $category
      * @return Categories
      */
-    public function setPosition($position)
+    public function setCategory(\Application\Entity\Categories $category = null)
     {
-        $this->position = $position;
+        $this->category = $category;
 
         return $this;
     }
 
     /**
-     * Get position
+     * Get category
      *
-     * @return integer 
+     * @return \Application\Entity\Categories 
      */
-    public function getPosition()
+    public function getCategory()
     {
-        return $this->position;
-    }
-
-    /**
-     * Set moduleId
-     *
-     * @param integer $moduleId
-     * @return Categories
-     */
-    public function setModuleId($moduleId)
-    {
-        $this->moduleId = $moduleId;
-
-        return $this;
-    }
-
-    /**
-     * Get moduleId
-     *
-     * @return integer 
-     */
-    public function getModuleId()
-    {
-        return $this->moduleId;
+        return $this->category;
     }
 
     /**
@@ -274,5 +458,51 @@ class Categories
     public function getChannel()
     {
         return $this->channel;
+    }
+
+    /**
+     * Set language
+     *
+     * @param \Application\Entity\Languages $language
+     * @return Categories
+     */
+    public function setLanguage(\Application\Entity\Languages $language = null)
+    {
+        $this->language = $language;
+
+        return $this;
+    }
+
+    /**
+     * Get language
+     *
+     * @return \Application\Entity\Languages 
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    /**
+     * Set module
+     *
+     * @param \Application\Entity\Modules $module
+     * @return Categories
+     */
+    public function setModule(\Application\Entity\Modules $module = null)
+    {
+        $this->module = $module;
+
+        return $this;
+    }
+
+    /**
+     * Get module
+     *
+     * @return \Application\Entity\Modules 
+     */
+    public function getModule()
+    {
+        return $this->module;
     }
 }
