@@ -2,16 +2,17 @@
 header('Content-type: text/css');
 ob_start("compress");
 
-include_once('style.css');
-include_once('skeleton-responsive.css');
-include_once('layout-responsive.css');
-include_once('style-custom.css');
-include_once('superfish.css');
+$cssBasePath = '../../assets/css/';
+include_once($cssBasePath.'style.css');
+include_once($cssBasePath.'skeleton-responsive.css');
+include_once($cssBasePath.'layout-responsive.css');
+include_once($cssBasePath.'style-custom.css');
+include_once($cssBasePath.'superfish.css');
 
 /* Fancybox */
-include_once('fancybox/jquery.fancybox.css');
-include_once('fancybox/jquery.fancybox-buttons.css');
-include_once('fancybox/jquery.fancybox-thumbs.css');
+include_once($cssBasePath.'fancybox/jquery.fancybox.css');
+include_once($cssBasePath.'fancybox/jquery.fancybox-buttons.css');
+include_once($cssBasePath.'fancybox/jquery.fancybox-thumbs.css');
 
 ?>
 canvas { -ms-touch-action: double-tap-zoom; }

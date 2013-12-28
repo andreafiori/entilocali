@@ -17,7 +17,7 @@ class TestSuite extends \PHPUnit_Framework_TestCase {
 	protected $event;
 	protected $serviceManager;
 	
-	protected $emMock, $doctrine;
+	protected $entityManagerMock, $doctrine;
 	
 	protected function setUp()
 	{
@@ -51,14 +51,14 @@ class TestSuite extends \PHPUnit_Framework_TestCase {
 		 */
 		protected function setEntityManagerMock()
 		{
-			$this->emMock = $this->getMock('EntityManager', array('persist', 'flush'));
+			$this->entityManagerMock = $this->getMock('EntityManager', array('persist', 'flush'));
 			
-			$this->emMock
+			$this->entityManagerMock
 				->expects($this->any())
 				->method('persist')
 				->will($this->returnValue(true));
 
-			$this->emMock
+			$this->entityManagerMock
 				->expects($this->any())
 				->method('flush')
 				->will($this->returnValue(true));

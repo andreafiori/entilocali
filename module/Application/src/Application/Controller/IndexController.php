@@ -9,6 +9,8 @@ use Application\Entity\Categories;
 use Application\Entity\Posts;
 use Setup\Model\StringRequestDecoder;
 use Posts\Model\PostsRelationsRepository;
+use Categories\Model\CategoriesRepository;
+use Posts\Model\PostsRepository;
 
 /**
  * Frontend main controller
@@ -20,13 +22,21 @@ class IndexController extends AbstractActionController
     public function indexAction()
     {
     	$setupManager = new SetupManager($this);
-		$setupManager->setInput( array( 'channel' => 1, 'isbackend' => 0 ) );
-
-		$input = $setupManager->getInput();
-
+    	$setupManager->setEntityManager( $this->getServiceLocator()->get('entityManagerService') );
+    	$setupManager->setInput( 
+    		array(
+    			'channel' => 1,
+    			'isbackend' => 0,
+    			'controller' => $this->params()->fromRoute('controller'),
+    			'action'	 => $this->params()->fromRoute('action'),
+    			'languageAbbreviation' => strtolower( $this->params()->fromRoute('lang') )
+    		)
+    	);
 		$templateData = $setupManager->setSetupRecord();
-		$templateData['templatePartial'] = 'frontend/projects/'.$templateData['frontendprojectdir'].'templates/'.$templateData['frontendTemplate'].'homepage.phtml';
-
+		
+		$input = $setupManager->getInput();
+			
+		//var_dump($setupManager->getChannelEntity());
 		// Redirect if the lang is not set
 		/*
 		if ( !$this->params()->fromRoute('lang') ) {
@@ -35,23 +45,31 @@ class IndexController extends AbstractActionController
 		*/
 		
 		// Given the category name, get the list of posts OR the post data to show details
-		
 		$stringRequestDecoder = new StringRequestDecoder();
 		$categoryName = $stringRequestDecoder->denormalize( $this->params()->fromRoute('category'));
 		
-		//$categoriesRepository = new CategoriesRepository($setupManager->getEntityManagerService());
-		//var_dump( $categoriesRepository->getFindFromRepository(array("name"=>$categoryName)) );
-		/*
-		$categories = new Categories();
-		$categories->setName($categoryName);
+		$categories = new CategoriesRepository($setupManager->getEntityManager());
+		$categories = $categories->getFindFromRepository(array("name"=>$categoryName));
+			// Se non trova la categoria, stop e rimanda a pagina con messaggio oppure redirect
+		$categoryEntity = new Categories();
+		$categoryEntity->setId($categories[0]['id']);
+			// se non trova nulla fra le relazioni, redirect
+		$postsRelations = new PostsRelationsRepository($setupManager->getEntityManager());
+		$postsList = $postsRelations->getFindFromRepository(array("category"=>$categoryEntity));
+			// posts trovati sulle relazioni possono essere + di uno
+		$postsRepository = new PostsRepository($setupManager->getEntityManager());
+		$postsDetail = $postsRepository->getFindFromRepository(array("id" => $postsList[0]['id']));
 
-		$postsRelations = new PostsRelations();
-		var_dump( $postsRelations->setCategory($categories) );
-		*/
-
-		$postsRelations = new PostsRelationsRepository($setupManager->getEntityManagerService());
-		//var_dump ( $postsRelations->getFindFromRepository() );
-		
+		$templateData['templatedir'] = 'frontend/projects/'.$templateData['frontendprojectdir'].'templates/'.$templateData['frontendTemplate'];
+		$templateData['templatePartial'] = $templateData['templatedir'].'contents/detail.phtml';
+		if (!$templateData['templatePartial']) {
+			$templateData['templatePartial'] = $templateData['templatedir'].'homepage.phtml';
+		}
+		$templateData['imagedir'] = $templateData['templatedir'].'assets/images/';
+		$templateData['cssdir']   = $templateData['templatedir'].'assets/css/';
+ 		$templateData['jsdir'] 	  = $templateData['templatedir'].'assets/js/';
+ 		$templateData['controllerResult'] = $postsDetail[0];
+ 		
     	$this->layout($templateData['basiclayout']);
     	$this->layout()->setVariable("templateData", $templateData);
     	

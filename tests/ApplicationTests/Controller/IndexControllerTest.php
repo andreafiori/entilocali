@@ -23,9 +23,4 @@ class IndexControllerTest extends TestSuite {
 		$this->routeMatch->setParam('action', 'index');
 		$this->assertEquals(200, $this->controller->getResponse()->getStatusCode());
 	}
-
-	public function testIndexActionIsAViewModel()
-	{
-		$this->assertInstanceOf('\Zend\View\Model\ViewModel', $this->controller->indexAction());
-	}
 }

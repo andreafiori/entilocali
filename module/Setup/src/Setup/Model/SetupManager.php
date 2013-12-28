@@ -2,8 +2,7 @@
 
 namespace Setup\Model;
 
-use Zend\Mvc\Controller\AbstractActionController,
-	Language\Model\LanguagesRepository,
+use Language\Model\LanguagesRepository,
 	Config\Model\ConfigRepository,
 	Language\Model\LanguagesLabelsRepository,
 	Setup\Model\EntitySerializer,
@@ -17,21 +16,16 @@ use Zend\Mvc\Controller\AbstractActionController,
  */
 class SetupManager {
 
-	private $input = array();
-	private $setupRecord = array();
-	private $em, $controller;
+	private $input;
+	private $em;
 	
 	private $channelEntity, $languageEntity;
 	private $languageRepository;
 	private $languageLabels;
 	
-	/**
-	 * @param AbstractActionController $controller
-	 */
-	public function __construct(AbstractActionController $controller)
-	{		
-		$this->controller = $controller;
-		$this->em = $this->controller->getServiceLocator()->get('entityManagerService');
+	public function setEntityManager(\Doctrine\ORM\EntityManager $entityManager)
+	{
+		$this->em = $entityManager;
 	}
 
 	/**
@@ -41,13 +35,13 @@ class SetupManager {
 	 */
 	public function setInput($input)
 	{
-		$this->input = $input;
-		$this->input['controller'] = $this->controller->params()->fromRoute('controller');
-		$this->input['action'] = $this->controller->params()->fromRoute('action');
-		$this->input['languageAbbreviation'] = strtolower( $this->controller->params()->fromRoute('lang') );
+		if (is_array($input)) {
+			$this->input = $input;
+		}
+		
 		return $input;
 	}
-	
+
 	/**
 	 * Given the input (channel name or vhost and\or language abbreviation), 
 	 * get the setup array with all options  
@@ -55,19 +49,12 @@ class SetupManager {
 	 */
     public function setSetupRecord()
     {
-    	$this->setChannelEntity();
+    	$this->setChannelEntity($this->input['channel']);
     	$this->setLanguageRepository();
 		$this->setLanguageEntity();
 		$this->setLanguageLabels();
+		
 		return $this->getConfigRecord();
-    }
-    
-    /**
-     * @return AbstractActionController
-     */
-    public function getController()
-    {
-    	return $this->controller;
     }
     
     public function getInput()
@@ -75,15 +62,20 @@ class SetupManager {
     	return $this->input;
     }
     
-    public function getEntityManagerService()
+    public function getEntityManager()
     {
     	return $this->em;
     }
+    
+    public function getChannelEntity()
+    {
+    	return $this->channelEntity;
+    }
 
-    	private function setChannelEntity()
+    	private function setChannelEntity($channelId)
     	{
     		$this->channelEntity = new Channels();
-    		$this->channelEntity->setId($this->input['channel']);
+    		$this->channelEntity->setId($channelId);
     	}
     	
     	private function setLanguageRepository()

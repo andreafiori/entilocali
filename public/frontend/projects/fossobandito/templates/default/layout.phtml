@@ -1,9 +1,5 @@
-<?php
-/*****************************/
-/****** FRONTEND WEBSITE *****/
-/*****************************/
-?>
 <?php echo $this->doctype(); ?>
+
 <!--[if lt IE 7 ]><html class="ie ie6" lang="it"> <![endif]-->
 <!--[if IE 7 ]><html class="ie ie7" lang="it"> <![endif]-->
 <!--[if IE 8 ]><html class="ie ie8" lang="it"> <![endif]-->
@@ -16,7 +12,7 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<title>Fosso Bandito</title>
+<title><?php echo $templateData['sitename'] ?></title>
 
 <meta name="description" content="<?php echo $templateData['description'] ?>">
 <meta name="keywords" content="<?php echo $templateData['keywords'] ?>">
@@ -32,15 +28,15 @@
 ?>
 <!-- Styles -->
 <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/frontend/projects/fossobandito/favicon.ico'))
-	 	        ->prependStylesheet( $this->basePath(). '/frontend/projects/fossobandito/templates/default/css/');
+	 	        ->prependStylesheet( $this->basePath(). '/'.$templateData['cssdir']);
 ?>
 
 <!--[if lt IE 9]>
-	<link rel="stylesheet" href="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/css/stylesheet/ie-style.php" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="<?php echo $this->basePath() ?>/<?php echo $templateData['cssdir'] ?>/ie-style.php" type="text/css" media="screen, projection">
 <![endif]-->
 
 <!--[if IE 7]>
-	<link rel="stylesheet" href="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/css/stylesheet/ie7-style.css">
+	<link rel="stylesheet" href="<?php echo $this->basePath() ?>/<?php echo $templateData['cssdir'] ?>ie7-style.css">
 <![endif]-->
 
 <link rel="stylesheet" id="Google-Font-css" href="http://fonts.googleapis.com/css?family=Droid+Sans%3An%2Ci%2Cb%2Cbi%7CDroid+Serif%3An%2Ci%2Cb%2Cbi%7CMerriweather%3An%2Ci%2Cb%2Cbi%7C&amp;ver=3.4" type="text/css" media="all">
@@ -75,7 +71,7 @@
 		<div class="header-wrapper">
 		
 			<div class="logo-wrapper">
-				<a href="<?php echo $templateData['remotelinkWeb'].$templateData['languageAbbreviation'] ?>/" title="<?=$templateData['sitename']?>"><img src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/images/default-logo.jpg" alt="Logo <?php echo $templateData['sitename'] ?>"></a>
+				<a href="<?php echo $templateData['remotelinkWeb'].$templateData['languageAbbreviation'] ?>/" title="<?=$templateData['sitename']?>"><img src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/assets/images/default-logo.jpg" alt="Logo <?php echo $templateData['sitename'] ?>"></a>
 			</div>
 			
 			<div class="header-right-side-wrapper">
@@ -84,8 +80,8 @@
 
 				<div class="social-icon-wrapper">
 					
-					<div class="social-icon"><a href="/it/" title="Passa alla lingua italiana"><img src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/images/flag_ita.gif" alt="Bandiera italiana"> Italiano</a></div>
-					<div class="social-icon"><a href="/en/" title="Switch to English"><img src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/images/flag_eng.gif" alt="England's flag"> <?php echo $templateData['languageLabels']['ENG_LANGUAGE_NAME'] ?></a></div>
+					<div class="social-icon"><a href="/it/" title="Passa alla lingua italiana"><img src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/assets/images/flag_ita.gif" alt="Bandiera italiana"> Italiano</a></div>
+					<div class="social-icon"><a href="/en/" title="Switch to English"><img src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/assets/images/flag_eng.gif" alt="England's flag"> <?php echo $templateData['languageLabels']['ENG_LANGUAGE_NAME'] ?></a></div>
 				
 				</div>
 
@@ -139,7 +135,7 @@
 			<?php
 			echo $this->partial($templateData['templatePartial']);
 			?>
-
+			
 			<br class="clear">
 		</div>
 		
@@ -159,27 +155,26 @@
 <?php
 /*
 echo $this->headScript()
-          ->prependFile($this->basePath() . '/frontend/js/bootstrap.min.js')
-          ->prependFile($this->basePath() . '/frontend/js/jquery.js')
+          ->prependFile($this->basePath() . '/<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>bootstrap.min.js')
+          ->prependFile($this->basePath() . '/<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>jquery.js')
 */
 ?>
 <!-- jQuery library -->
-<script type="text/javascript" src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/js/jquery.js"></script>
+<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>jquery.js"></script>
 
 <!-- Jquery form -->
-<script type="text/javascript" src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/js/jquery.form.js"></script>
+<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>jquery.form.js"></script>
 
 <!-- Jquery validate -->
-<script type="text/javascript" src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/js/jquery.validate.min.js"></script>
-<script src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/js/jquery.validate.additional-methods.js"></script>
+<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>jquery.validate.min.js"></script>
+<script src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>jquery.validate.additional-methods.js"></script>
 
 <!-- FancyBox -->
-<script type="text/javascript" src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/js/fancybox/jquery.fancybox.js?v=2.1.4"></script>
-<script type="text/javascript" src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/js/fancybox/jquery.mousewheel-3.0.6.pack.js"></script>
-<script type="text/javascript" src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/js/fancybox/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
-<script type="text/javascript" src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/js/fancybox/helpers/jquery.fancybox-media.js?v=1.0.5"></script>
-
-<script type="text/javascript" src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/js/fancybox/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>fancybox/jquery.fancybox.js?v=2.1.4"></script>
+<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>fancybox/jquery.mousewheel-3.0.6.pack.js"></script>
+<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>fancybox/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>fancybox/helpers/jquery.fancybox-media.js?v=1.0.5"></script>
+<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>fancybox/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
 
 <!-- Select menu -->
 <script type="application/javascript">
@@ -344,4 +339,4 @@ jQuery(document).ready(function() {
 <?php echo $this->inlineScript() ?>
 
 </body>
-</html>	
+</html>

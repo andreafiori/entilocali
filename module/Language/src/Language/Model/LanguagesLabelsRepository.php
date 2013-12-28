@@ -9,7 +9,7 @@ use Doctrine\Common\Proxy\Exception\InvalidArgumentException;
 class LanguagesLabelsRepository extends EntityRepositoryAbstract {
 	
 	protected $repository = 'Application\Entity\LanguagesLabels';
-	
+
 	private $languageEntity;
 	
 	/**

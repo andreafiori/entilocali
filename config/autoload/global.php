@@ -27,8 +27,7 @@ return array(
                 return $adapter;
             },
             'entityManagerService' => function($sm) {
-            	$objectManager = $sm->get('Doctrine\ORM\EntityManager');
-            	return $objectManager;
+            	return $sm->get('Doctrine\ORM\EntityManager');
             },
         ),
     ),
