@@ -1,5 +1,4 @@
 <?php
-
 return array(
     'controllers' => array(
         'invokables' => array(
@@ -47,19 +46,20 @@ return array(
     'view_manager' => array(
     	'display_not_found_reason' => true,
     	'display_exceptions'       => true,
-    	
     	'template_map' => array(
-    		//'layout/custom' => __DIR__ . '/../../../public/backend/templates/default/backend.phtml',
-    		//'backend/backend/index' => __DIR__ . '/../../../public/backend/templates/default/login.phtml',
+    		'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
+    		'error/404'               => __DIR__ . '/../view/error/404.phtml',
+    		'error/index'             => __DIR__ . '/../view/error/index.phtml',
     	),
         'template_path_stack' => array(
-            'Backend' => __DIR__ . '/../view',
+            __DIR__ . '/../view',
+        	__DIR__ . '/../../../public'
         ),
     ),
 	
 	/* Custom layout for this module */
 	'module_layouts' => array(
-		'Backend' => 'layout/custom',
+		//'Backend' => 'layout/custom',
 	),
 
 );

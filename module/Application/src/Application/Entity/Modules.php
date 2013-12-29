@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Modules
  *
- * @ORM\Table(name="modules", indexes={@ORM\Index(name="channel_id", columns={"channel_id"}), @ORM\Index(name="id_posts", columns={"id_posts"})})
+ * @ORM\Table(name="modules", indexes={@ORM\Index(name="channel_id", columns={"channel_id"}), @ORM\Index(name="isnews", columns={"isnews"})})
  * @ORM\Entity
  */
 class Modules
@@ -90,13 +90,6 @@ class Modules
      * @ORM\Column(name="isnews", type="string", nullable=false)
      */
     private $isnews = 'no';
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_posts", type="integer", nullable=false)
-     */
-    private $idPosts = '0';
 
     /**
      * @var integer
@@ -345,29 +338,6 @@ class Modules
     public function getIsnews()
     {
         return $this->isnews;
-    }
-
-    /**
-     * Set idPosts
-     *
-     * @param integer $idPosts
-     * @return Modules
-     */
-    public function setIdPosts($idPosts)
-    {
-        $this->idPosts = $idPosts;
-
-        return $this;
-    }
-
-    /**
-     * Get idPosts
-     *
-     * @return integer 
-     */
-    public function getIdPosts()
-    {
-        return $this->idPosts;
     }
 
     /**

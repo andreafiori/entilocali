@@ -1,15 +1,13 @@
 <?php echo $this->doctype(); ?>
 <html lang="<?php echo $templateData['languageAbbreviation'] ?>">
 <head>
-	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
+    
     <title><?php echo $templateData['sitename'] ?></title>
     
 	<?php
-		echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/favicon.ico'))
+		echo $this->headLink( )
              ->prependStylesheet($this->basePath().'/common/bootstrap3/css/bootstrap.min.css')
 	?>
 	
@@ -143,9 +141,10 @@
     </div><!-- /.container -->
 
     <!-- JavaScript -->
-    <script src="js/jquery-1.10.2.js"></script>
-    <script src="js/bootstrap.js"></script>
+    <script src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>jquery-1.10.2.js"></script>
+    <script src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>bootstrap.js"></script>
 
-  </body>
+<?php echo $this->inlineScript() ?>
+</body>
 
 </html>

@@ -14,79 +14,49 @@ use Language\Model\LanguagesRepository,
  * @author Andrea Fiori
  * @since  11 December 2013
  */
-class SetupManager {
+class SetupManager extends SetupManagerAbstract {
 
-	private $input;
-	private $em;
-	
-	private $channelEntity, $languageEntity;
-	private $languageRepository;
-	private $languageLabels;
-	
-	public function setEntityManager(\Doctrine\ORM\EntityManager $entityManager)
-	{
-		$this->em = $entityManager;
-	}
-
-	/**
-	 * Set input parameters (Frontend or Backend)
-	 * @param array $input
-	 * @return array
-	 */
-	public function setInput($input)
-	{
-		if (is_array($input)) {
-			$this->input = $input;
-		}
-		
-		return $input;
-	}
-
-	/**
-	 * Given the input (channel name or vhost and\or language abbreviation), 
-	 * get the setup array with all options  
-	 * @return multitype:
-	 */
     public function setSetupRecord()
     {
     	$this->setChannelEntity($this->input['channel']);
+    	
     	$this->setLanguageRepository();
 		$this->setLanguageEntity();
 		$this->setLanguageLabels();
 		
-		return $this->getConfigRecord();
+		return $this->setConfigRecord();
     }
-    
-    public function getInput()
-    {
-    	return $this->input;
-    }
-    
-    public function getEntityManager()
-    {
-    	return $this->em;
-    }
+	
+	    private function setChannelEntity($channelId)
+	    {
+	    	$this->channelEntity = new Channels();
+	    	$this->channelEntity->setId($channelId);
+	    }
     
     public function getChannelEntity()
     {
     	return $this->channelEntity;
     }
 
-    	private function setChannelEntity($channelId)
-    	{
-    		$this->channelEntity = new Channels();
-    		$this->channelEntity->setId($channelId);
-    	}
-    	
-    	private function setLanguageRepository()
-    	{
-    		$this->languageRepository = new LanguagesRepository($this->em);
-    		$this->languageRepository->setEntitySerializer( new EntitySerializer($this->em) );
-    		$this->languageRepository->setIsOnBackend($this->input['isonbackend']);
-    		$this->languageRepository->setAllAvailableLanguages($this->channelEntity);
-    		$this->languageRepository->setDefaultLanguage($this->input['languageAbbreviation']);
-    	}
-    	
+	    private function setLanguageRepository()
+	    {
+	    	$this->languageRepository = new LanguagesRepository($this->em);
+	    	$this->languageRepository->setEntitySerializer( new EntitySerializer($this->em) );
+	    	$this->languageRepository->setIsOnBackend($this->input['isonbackend']);
+	    	$this->languageRepository->setAllAvailableLanguages($this->channelEntity);
+	    	$this->languageRepository->setDefaultLanguage($this->input['languageAbbreviation']);
+	    }
+
+    public function getLanguageRepository()
+    {
+    	return $this->languageRepository;
+    }
+    
+    public function getSetupRecord()
+    {
+    	return $this->setupRecord;
+    }
+
     	private function setLanguageEntity()
     	{
     		if (!$this->languageRepository->getDefaultLanguage()) {
@@ -94,9 +64,9 @@ class SetupManager {
     		}
     		
     		$this->languageEntity = new Languages();
-    		$this->languageEntity->setId(
-    					$this->languageRepository->getDefaultLanguage()->getId()
-			);
+    		$this->languageEntity->setId( $this->languageRepository->getDefaultLanguage()->getId() );
+    		
+    		return $this->languageEntity;
     	}
     	
     	private function setLanguageLabels()
@@ -105,24 +75,26 @@ class SetupManager {
     		$this->languageLabels = $languagesLabelsRepository->getLabels(array("language" => $this->languageEntity));
     	}
     	
-    	private function getConfigRecord()
+    	private function setConfigRecord()
     	{
-    		if (!$this->languageRepository->getDefaultLanguage()) {
+    		$defaultLanguage = $this->languageRepository->getDefaultLanguage();
+    		if (!$defaultLanguage) {
     			return false;
     		}
     		
     		$configRepository = new ConfigRepository($this->em);
     		$setupRecord = $configRepository->getConfigurations(
     				array(
-    					"channel" => array($this->languageRepository->getDefaultLanguage()->getChannel(), 0),
+    					"channel" => array($defaultLanguage->getChannel(), 0),
     					"isbackend" => $this->input['isbackend']
     				)
     		);
     		
     		$setupRecord['languageAllAvailable'] = $this->languageRepository->getAllAvailableLanguages();
-    		$setupRecord['languageDefault'] = $this->languageRepository->getDefaultLanguage();
+    		$setupRecord['languageDefault'] = $defaultLanguage;
     		$setupRecord['languageLabels'] = $this->languageLabels;
     		
-    		return array_filter($setupRecord);
+    		
+    		return $this->setupRecord = array_filter($setupRecord);
     	}
 }

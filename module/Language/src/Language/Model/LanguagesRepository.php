@@ -88,4 +88,11 @@ class LanguagesRepository extends EntityRepositoryAbstract {
 		return $this->defaultLangFieldName;
 	}
 	
+	public function getLanguageAbbreviationFromDefaultLanguage()
+	{
+		$defaultLanguage = $this->getDefaultLanguage();
+		if (is_object($defaultLanguage)) {
+			return $defaultLanguage->getAbbreviation1();
+		} 
+	}
 }

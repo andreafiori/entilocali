@@ -19,7 +19,7 @@ return array(
 			'application' => array( 
                             'type'    => 'segment', 
                             'options' => array( 
-                                'route'    => '[/:lang][/][:category][/][:title]', 
+                                'route'    => '[/:lang][/][:category][/][:title][/]', 
                                 'constraints' => array( 
                                     'lang'       => '[a-z]{2}',
                                     'controller' => '[a-zA-Z][a-zA-Z0-9_-]*', 

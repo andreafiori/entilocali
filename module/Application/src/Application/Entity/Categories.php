@@ -139,9 +139,9 @@ class Categories
     private $module;
 
     /**
-     * Set code
+     * Set id
      *
-     * @param string $code
+     * @param integer $id
      * @return Categories
      */
     public function setId($id)
@@ -150,6 +150,7 @@ class Categories
     
     	return $this;
     }
+    
 
     /**
      * Get id

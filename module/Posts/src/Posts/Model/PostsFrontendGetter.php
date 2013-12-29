@@ -5,16 +5,16 @@ namespace Posts\Model;
 use Categories\Model\CategoriesRepository;
 use Application\Entity\Categories;
 
-class PostsFronendGetter {
-	
+class PostsFrontendGetter {
+
 	private $entityManager, $title, $categoryName;
 	
 	private $partialLayout = 'contents/detail.phtml';
-			
+	
 	public function setEntityManager($entityManager)
 	{
 		$this->entityManager = $entityManager;
-		
+
 		return $this->entityManager;
 	}
 	

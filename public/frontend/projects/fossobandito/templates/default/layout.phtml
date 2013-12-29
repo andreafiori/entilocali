@@ -1,8 +1,8 @@
 <?php echo $this->doctype(); ?>
 
-<!--[if lt IE 7 ]><html class="ie ie6" lang="it"> <![endif]-->
-<!--[if IE 7 ]><html class="ie ie7" lang="it"> <![endif]-->
-<!--[if IE 8 ]><html class="ie ie8" lang="it"> <![endif]-->
+<!--[if lt IE 7 ]><html class="ie ie6" lang="<?php echo $templateData['languageAbbreviation'] ?>"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="<?php echo $templateData['languageAbbreviation'] ?>"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="<?php echo $templateData['languageAbbreviation'] ?>"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
 
 <html dir="ltr">
@@ -80,8 +80,8 @@
 
 				<div class="social-icon-wrapper">
 					
-					<div class="social-icon"><a href="/it/" title="Passa alla lingua italiana"><img src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/assets/images/flag_ita.gif" alt="Bandiera italiana"> Italiano</a></div>
-					<div class="social-icon"><a href="/en/" title="Switch to English"><img src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/assets/images/flag_eng.gif" alt="England's flag"> <?php echo $templateData['languageLabels']['ENG_LANGUAGE_NAME'] ?></a></div>
+					<div class="social-icon"><a href="<?php echo $templateData['remotelinkWeb'] ?>it/" title="Passa alla lingua italiana"><img src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/assets/images/flag_ita.gif" alt="Bandiera italiana"> Italiano</a></div>
+					<div class="social-icon"><a href="<?php echo $templateData['remotelinkWeb'] ?>en/" title="Switch to English"><img src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/assets/images/flag_eng.gif" alt="England's flag"> <?php echo $templateData['languageLabels']['ENG_LANGUAGE_NAME'] ?></a></div>
 				
 				</div>
 
@@ -152,13 +152,7 @@
 	
 </div>
 
-<?php
-/*
-echo $this->headScript()
-          ->prependFile($this->basePath() . '/<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>bootstrap.min.js')
-          ->prependFile($this->basePath() . '/<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>jquery.js')
-*/
-?>
+
 <!-- jQuery library -->
 <script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>jquery.js"></script>
 

@@ -94,13 +94,6 @@ class Posts
     /**
      * @var string
      *
-     * @ORM\Column(name="typeofpost", type="string", length=35, nullable=true)
-     */
-    private $typeofpost;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="seo_url", type="string", length=150, nullable=true)
      */
     private $seoUrl;
@@ -148,25 +141,41 @@ class Posts
     private $templatefile;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="language_id", type="integer", nullable=true)
+     * @ORM\Column(name="typeofpost", type="string", length=35, nullable=true)
      */
-    private $languageId = '1';
+    private $typeofpost;
 
     /**
-     * @var integer
+     * @var \Application\Entity\Channels
      *
-     * @ORM\Column(name="channel_id", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Channels")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="channel_id", referencedColumnName="id")
+     * })
      */
-    private $channelId = '1';
+    private $channel;
 
     /**
-     * @var integer
+     * @var \Application\Entity\Languages
      *
-     * @ORM\Column(name="user_id", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Languages")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="language_id", referencedColumnName="id")
+     * })
      */
-    private $userId;
+    private $language;
+
+    /**
+     * @var \Application\Entity\Users
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Users")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * })
+     */
+    private $user;
 
 
 
@@ -411,29 +420,6 @@ class Posts
     }
 
     /**
-     * Set typeofpost
-     *
-     * @param string $typeofpost
-     * @return Posts
-     */
-    public function setTypeofpost($typeofpost)
-    {
-        $this->typeofpost = $typeofpost;
-
-        return $this;
-    }
-
-    /**
-     * Get typeofpost
-     *
-     * @return string 
-     */
-    public function getTypeofpost()
-    {
-        return $this->typeofpost;
-    }
-
-    /**
      * Set seoUrl
      *
      * @param string $seoUrl
@@ -595,71 +581,94 @@ class Posts
     }
 
     /**
-     * Set languageId
+     * Set typeofpost
      *
-     * @param integer $languageId
+     * @param string $typeofpost
      * @return Posts
      */
-    public function setLanguageId($languageId)
+    public function setTypeofpost($typeofpost)
     {
-        $this->languageId = $languageId;
+        $this->typeofpost = $typeofpost;
 
         return $this;
     }
 
     /**
-     * Get languageId
+     * Get typeofpost
      *
-     * @return integer 
+     * @return string 
      */
-    public function getLanguageId()
+    public function getTypeofpost()
     {
-        return $this->languageId;
+        return $this->typeofpost;
     }
 
     /**
-     * Set channelId
+     * Set channel
      *
-     * @param integer $channelId
+     * @param \Application\Entity\Channels $channel
      * @return Posts
      */
-    public function setChannelId($channelId)
+    public function setChannel(\Application\Entity\Channels $channel = null)
     {
-        $this->channelId = $channelId;
+        $this->channel = $channel;
 
         return $this;
     }
 
     /**
-     * Get channelId
+     * Get channel
      *
-     * @return integer 
+     * @return \Application\Entity\Channels 
      */
-    public function getChannelId()
+    public function getChannel()
     {
-        return $this->channelId;
+        return $this->channel;
     }
 
     /**
-     * Set userId
+     * Set language
      *
-     * @param integer $userId
+     * @param \Application\Entity\Languages $language
      * @return Posts
      */
-    public function setUserId($userId)
+    public function setLanguage(\Application\Entity\Languages $language = null)
     {
-        $this->userId = $userId;
+        $this->language = $language;
 
         return $this;
     }
 
     /**
-     * Get userId
+     * Get language
      *
-     * @return integer 
+     * @return \Application\Entity\Languages 
      */
-    public function getUserId()
+    public function getLanguage()
     {
-        return $this->userId;
+        return $this->language;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Application\Entity\Users $user
+     * @return Posts
+     */
+    public function setUser(\Application\Entity\Users $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Application\Entity\Users 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

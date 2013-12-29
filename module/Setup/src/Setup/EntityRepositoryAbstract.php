@@ -71,7 +71,7 @@ abstract class EntityRepositoryAbstract {
 	public function getFindFromRepository($arraySearch = null, array $orderBy = null, $limit = null, $offset = null)
 	{
 		if (is_array($arraySearch)) {
-			return $this->em->getRepository($this->repository)->findBy($arraySearch);
+			return $this->em->getRepository($this->repository)->findBy($arraySearch, $orderBy, $limit, $offset);
 		} else {
 			return $this->em->getRepository($this->repository)->findAll();
 		}
@@ -82,8 +82,13 @@ abstract class EntityRepositoryAbstract {
 		$arrayToReturn = array();
 		foreach($arrayOfObject as &$arrayOfObject)
 		{
-			$arrayToReturn[] = $this->getEntitySerializer()->toArray($arrayOfObject);
+			$arrayToReturn[] = $this->convertEntityToArray($arrayOfObject);
 		}
 		return $arrayToReturn;
+	}
+	
+	public function convertEntityToArray($obj)
+	{
+		return $this->getEntitySerializer()->toArray($obj);
 	}
 }

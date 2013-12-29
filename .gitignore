@@ -8,6 +8,7 @@ nbproject
 .settings
 composer.lock
 generateEntities.bat
+generateEntititesSetterGetter.bat
 zftool.phar
 data
 tests/reports

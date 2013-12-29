@@ -3,7 +3,7 @@
 namespace SetupTest\Model;
 
 use SetupTests\Model\TestSuite;
-use Setup\Model\SetupManager;
+use Setup\SetupManager;
 use ServiceLocatorFactory;
 
 class SetupManagerTest extends TestSuite
@@ -15,18 +15,23 @@ class SetupManagerTest extends TestSuite
 	{
 		parent::setUp();
 
-		$this->setupManager = new SetupManager();
+		$this->setupManager = new SetupManager(
+				array('channel'=>1,'isbackend'=>0)
+		);
 	}
 	
-	public function testSetInput()
+	public function testInput()
 	{
-		$this->setupManager->setInput(array('channel'=>1,'isbackend'=>0));
-		$this->assertTrue( is_array($this->setupManager->getInput()) );
+		$input = $this->setupManager->getInput();
+		
+		$this->assertArrayHasKey('channel', $input);
 	}
-
+	
+	/*
 	public function testSetEntityManager()
 	{
 		ServiceLocatorFactory\ServiceLocatorFactory::setInstance( new \Zend\ServiceManager\ServiceManager() );
 		$this->setupManager->setEntityManager( ServiceLocatorFactory\ServiceLocatorFactory::getInstance() );
 	}
+	*/
 }

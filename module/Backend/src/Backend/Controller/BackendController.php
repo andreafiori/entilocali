@@ -4,7 +4,7 @@ namespace Backend\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Setup\Model\SetupManager;
+use Setup\SetupManager;
 
 /**
  * Backend controller
@@ -15,9 +15,7 @@ class BackendController extends AbstractActionController
 {
     public function indexAction()
     {
-    	$setupManager = new SetupManager($this);
-    	$setupManager->setEntityManager( $this->getServiceLocator()->get('entityManagerService') );
-    	$setupManager->setInput( 
+    	$setupManager = new SetupManager(
     		array(
     			'channel'	=> 1,
     			'isbackend' => 0,
@@ -26,16 +24,16 @@ class BackendController extends AbstractActionController
     			'languageAbbreviation' => strtolower( $this->params()->fromRoute('lang') )
     		)
     	);
-		$setupObjectRecord = $templateData = $setupManager->setSetupRecord();
+    	$setupManager->setEntityManager( $this->getServiceLocator()->get('entityManagerService') );
+		$setupManager->setSetupRecord();
 		
 		$templateToRender = 'backend/templates/default/backend.phtml';
-		//$templateToRender = 'backend/templates/default/login.phtml';
+		// $templateToRender = 'backend/templates/default/login.phtml'; // if not logged...
         
-        $this->layout()->setVariable("templateData", $setupObjectRecord);
         $this->layout($templateToRender);
+        $this->layout()->setVariable("templateData", $setupManager->getSetupRecord());
         
         $viewModel = new ViewModel();
-        $viewModel->setTerminal(false);
         return $viewModel;
 	}
 }
