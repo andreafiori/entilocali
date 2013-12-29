@@ -1,1 +1,0 @@
-vendorbindoctrine-module ormgenerate-entities .moduleApplicationsrc --generate-annotations=true
