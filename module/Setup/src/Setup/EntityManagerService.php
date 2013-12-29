@@ -1,6 +1,6 @@
 <?php
 
-namespace Setup\Model;
+namespace Setup;
 
 use Doctrine\Common\Persistence\ObjectManager;
 

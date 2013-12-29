@@ -22,12 +22,12 @@ class Module implements AutoloaderProviderInterface
             ),
         );
     }
-    
+
     public function getServiceConfig()
     {
     	return array( 'factories' => array() );
     }
-    
+
     public function onBootstrap(MvcEvent $e)
     {
         $eventManager        = $e->getApplication()->getEventManager();

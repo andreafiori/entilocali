@@ -19,7 +19,7 @@
 * @see         https://gist.github.com/1034079#file_serializable_entity.php
 */
 
-namespace Setup\Model;
+namespace Setup;
 
 use Doctrine\ORM\Mapping\ClassMetadata,
 Doctrine\Common\Util\Inflector,

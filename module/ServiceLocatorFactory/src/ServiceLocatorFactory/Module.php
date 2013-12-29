@@ -1,4 +1,5 @@
 <?php
+
 namespace ServiceLocatorFactory;
 
 use Zend\Loader\AutoloaderFactory;

@@ -2,7 +2,7 @@
 
 namespace Language\Model;
 
-use Setup\Model\EntityRepositoryAbstract;
+use Setup\EntityRepositoryAbstract;
 use Application\Entity\Channels;
 use Application\Entity\Languages;
 

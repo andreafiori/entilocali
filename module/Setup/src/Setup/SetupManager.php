@@ -1,11 +1,11 @@
 <?php
 
-namespace Setup\Model;
+namespace Setup;
 
 use Language\Model\LanguagesRepository,
 	Config\Model\ConfigRepository,
 	Language\Model\LanguagesLabelsRepository,
-	Setup\Model\EntitySerializer,
+	Setup\EntitySerializer,
 	Application\Entity\Channels,
 	Application\Entity\Languages;
 
@@ -89,6 +89,10 @@ class SetupManager {
     	
     	private function setLanguageEntity()
     	{
+    		if (!$this->languageRepository->getDefaultLanguage()) {
+    			return false;
+    		}
+    		
     		$this->languageEntity = new Languages();
     		$this->languageEntity->setId(
     					$this->languageRepository->getDefaultLanguage()->getId()
@@ -103,6 +107,10 @@ class SetupManager {
     	
     	private function getConfigRecord()
     	{
+    		if (!$this->languageRepository->getDefaultLanguage()) {
+    			return false;
+    		}
+    		
     		$configRepository = new ConfigRepository($this->em);
     		$setupRecord = $configRepository->getConfigurations(
     				array(

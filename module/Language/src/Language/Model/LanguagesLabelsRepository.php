@@ -2,7 +2,7 @@
 
 namespace Language\Model;
 
-use Setup\Model\EntityRepositoryAbstract;
+use Setup\EntityRepositoryAbstract;
 use Application\Entity\Languages;
 use Doctrine\Common\Proxy\Exception\InvalidArgumentException;
 
@@ -27,12 +27,9 @@ class LanguagesLabelsRepository extends EntityRepositoryAbstract {
 	 * @throws InvalidArgumentException
 	 * @return array
 	 */
-	public function getLabels($arraySearch)
+	public function getLabels(array $arraySearch)
 	{
-		if ( !is_array($arraySearch) ) 
-			throw new InvalidArgumentException("ArraySearch is not an array");
-		
-		$labelsObject = $this->getFindFromRepository($arraySearch);
+		$labelsObject = $this->convertArrayOfObjectToArray( $this->getFindFromRepository($arraySearch) );
 		
 		$labels = array();
 		foreach($labelsObject as &$labelsObject)

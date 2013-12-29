@@ -15,13 +15,27 @@ class BackendController extends AbstractActionController
 {
     public function indexAction()
     {
-    	$setupController = new SetupManager($this);
-    	$setupController->setInput( array( 'channel' => 1, 'isbackend' => 1 ) );
-    	$setupObjectRecord = $setupController->setSetupRecord();
+    	$setupManager = new SetupManager($this);
+    	$setupManager->setEntityManager( $this->getServiceLocator()->get('entityManagerService') );
+    	$setupManager->setInput( 
+    		array(
+    			'channel'	=> 1,
+    			'isbackend' => 0,
+    			'controller' => $this->params()->fromRoute('controller'),
+    			'action'	 => $this->params()->fromRoute('action'),
+    			'languageAbbreviation' => strtolower( $this->params()->fromRoute('lang') )
+    		)
+    	);
+		$setupObjectRecord = $templateData = $setupManager->setSetupRecord();
 		
-        $this->layout()->setTemplate('backend/backend/index');
+		$templateToRender = 'backend/templates/default/backend.phtml';
+		//$templateToRender = 'backend/templates/default/login.phtml';
+        
         $this->layout()->setVariable("templateData", $setupObjectRecord);
-
-        return new ViewModel();
-    }
+        $this->layout($templateToRender);
+        
+        $viewModel = new ViewModel();
+        $viewModel->setTerminal(false);
+        return $viewModel;
+	}
 }

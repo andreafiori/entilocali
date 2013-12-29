@@ -2,7 +2,7 @@
 
 namespace Config\Model;
 
-use Setup\Model\EntityRepositoryAbstract;
+use Setup\EntityRepositoryAbstract;
 
 /**
  * Config Entity Reposityory helper
@@ -10,9 +10,9 @@ use Setup\Model\EntityRepositoryAbstract;
  * @since  24 December 2013
  */
 class ConfigRepository extends EntityRepositoryAbstract {
-	
+
 	protected $repository = 'Application\Entity\Config';
-	
+
 	/**
 	 * 
 	 * @param array $arraySearch
@@ -20,7 +20,8 @@ class ConfigRepository extends EntityRepositoryAbstract {
 	 */
 	public function getConfigurations($arraySearch)
 	{
-		$configurations = $this->getFindFromRepository($arraySearch);
+		$configurations = $this->convertArrayOfObjectToArray( $this->getFindFromRepository($arraySearch) );
+		
 		$configRecord = array();
 		foreach($configurations as $configData)
 		{

@@ -4,13 +4,13 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Setup\Model\SetupManager;
 use Application\Entity\Categories;
 use Application\Entity\Posts;
-use Setup\Model\StringRequestDecoder;
+use Setup\StringRequestDecoder;
+use Setup\SetupManager;
 use Posts\Model\PostsRelationsRepository;
-use Categories\Model\CategoriesRepository;
 use Posts\Model\PostsRepository;
+use Categories\Model\CategoriesRepository;
 
 /**
  * Frontend main controller
@@ -29,13 +29,14 @@ class IndexController extends AbstractActionController
     			'isbackend' => 0,
     			'controller' => $this->params()->fromRoute('controller'),
     			'action'	 => $this->params()->fromRoute('action'),
+    				// To set if null..
     			'languageAbbreviation' => strtolower( $this->params()->fromRoute('lang') )
     		)
     	);
 		$templateData = $setupManager->setSetupRecord();
 		
 		$input = $setupManager->getInput();
-			
+
 		//var_dump($setupManager->getChannelEntity());
 		// Redirect if the lang is not set
 		/*
@@ -49,30 +50,37 @@ class IndexController extends AbstractActionController
 		$categoryName = $stringRequestDecoder->denormalize( $this->params()->fromRoute('category'));
 		
 		$categories = new CategoriesRepository($setupManager->getEntityManager());
-		$categories = $categories->getFindFromRepository(array("name"=>$categoryName));
+		$categories = $categories->convertArrayOfObjectToArray( $categories->getFindFromRepository(array("name"=>$categoryName)) );
 			// Se non trova la categoria, stop e rimanda a pagina con messaggio oppure redirect
 		$categoryEntity = new Categories();
 		$categoryEntity->setId($categories[0]['id']);
 			// se non trova nulla fra le relazioni, redirect
 		$postsRelations = new PostsRelationsRepository($setupManager->getEntityManager());
-		$postsList = $postsRelations->getFindFromRepository(array("category"=>$categoryEntity));
+		$postsList = $postsRelations->convertArrayOfObjectToArray( $postsRelations->getFindFromRepository(array("category"=>$categoryEntity)) );
+		
 			// posts trovati sulle relazioni possono essere + di uno
 		$postsRepository = new PostsRepository($setupManager->getEntityManager());
-		$postsDetail = $postsRepository->getFindFromRepository(array("id" => $postsList[0]['id']));
+		$postsDetail = $postsRepository->convertArrayOfObjectToArray( $postsRepository->getFindFromRepository(array("id" => $postsList[0]['id'])) );
 
 		$templateData['templatedir'] = 'frontend/projects/'.$templateData['frontendprojectdir'].'templates/'.$templateData['frontendTemplate'];
-		$templateData['templatePartial'] = $templateData['templatedir'].'contents/detail.phtml';
-		if (!$templateData['templatePartial']) {
+		$templateData['templatePartial'] = $templateData['templatedir'].'contents/detail.phtml'; // the controller must get this...
+		if ( !$templateData['templatePartial'] ) {
 			$templateData['templatePartial'] = $templateData['templatedir'].'homepage.phtml';
 		}
 		$templateData['imagedir'] = $templateData['templatedir'].'assets/images/';
 		$templateData['cssdir']   = $templateData['templatedir'].'assets/css/';
  		$templateData['jsdir'] 	  = $templateData['templatedir'].'assets/js/';
  		$templateData['controllerResult'] = $postsDetail[0];
+ 		$templateData['categoryName'] = $categoryName;
  		
     	$this->layout($templateData['basiclayout']);
     	$this->layout()->setVariable("templateData", $templateData);
     	
     	return new ViewModel();
+    }
+    
+    private function setSetupManager()
+    {
+    	
     }
 }

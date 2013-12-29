@@ -49,9 +49,8 @@ return array(
     	'display_exceptions'       => true,
     	
     	'template_map' => array(
-    		// 'layout/custom' => __DIR__ . '/../view/backend/backend/backend.phtml',
-    		'layout/custom' => __DIR__ . '/../../../public/backend/templates/default/backend.phtml',
-    		'backend/backend/index' => __DIR__ . '/../../../public/backend/templates/default/login.phtml',
+    		//'layout/custom' => __DIR__ . '/../../../public/backend/templates/default/backend.phtml',
+    		//'backend/backend/index' => __DIR__ . '/../../../public/backend/templates/default/login.phtml',
     	),
         'template_path_stack' => array(
             'Backend' => __DIR__ . '/../view',

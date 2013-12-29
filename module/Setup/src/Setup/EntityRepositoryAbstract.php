@@ -1,9 +1,9 @@
 <?php
 
-namespace Setup\Model;
+namespace Setup;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Setup\Model\EntitySerializer;
+use Setup\EntitySerializer;
 
 abstract class EntityRepositoryAbstract {
 	
@@ -68,28 +68,22 @@ abstract class EntityRepositoryAbstract {
 		return $this->isOnBackend;
 	}
 
-	public function getFindFromRepository($arraySearch = null, $returnObject=null)
+	public function getFindFromRepository($arraySearch = null, array $orderBy = null, $limit = null, $offset = null)
 	{
 		if (is_array($arraySearch)) {
-			$result = $this->em->getRepository($this->repository)->findBy($arraySearch);
+			return $this->em->getRepository($this->repository)->findBy($arraySearch);
 		} else {
-			$result = $this->em->getRepository($this->repository)->findAll();
-		}
-
-		if ($returnObject) {
-			return $result;
-		} else {
-			return $this->convertArrayOfObjectToArrayOfArray($result);
+			return $this->em->getRepository($this->repository)->findAll();
 		}
 	}
 
-		protected function convertArrayOfObjectToArrayOfArray($arrayOfObject)
+	public function convertArrayOfObjectToArray(array $arrayOfObject)
+	{
+		$arrayToReturn = array();
+		foreach($arrayOfObject as &$arrayOfObject)
 		{
-			$arrayToReturn = array();
-			foreach($arrayOfObject as &$arrayOfObject)
-			{
-				$arrayToReturn[] = $this->getEntitySerializer()->toArray($arrayOfObject);
-			}
-			return $arrayToReturn;
+			$arrayToReturn[] = $this->getEntitySerializer()->toArray($arrayOfObject);
 		}
+		return $arrayToReturn;
+	}
 }

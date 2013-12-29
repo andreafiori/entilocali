@@ -2,7 +2,7 @@
 
 namespace Categories\Model;
 
-use Setup\Model\EntityRepositoryAbstract;
+use Setup\EntityRepositoryAbstract;
 
 class CategoriesRepository extends EntityRepositoryAbstract {
 

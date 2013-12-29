@@ -8,7 +8,7 @@ return array(
                         'route'    => '/',
                         'defaults' => array(
                                'controller' => 'Application\Controller\Index',
-                               'action'    	 => 'index',
+                               'action'    	=> 'index',
                         ),
                         'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',

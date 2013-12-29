@@ -2,7 +2,7 @@
 
 namespace Posts\Model;
 
-use Setup\Model\EntityRepositoryAbstract;
+use Setup\EntityRepositoryAbstract;
 
 /**
  * @author Andrea Fiori

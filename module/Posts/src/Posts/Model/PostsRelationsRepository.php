@@ -2,10 +2,10 @@
 
 namespace Posts\Model;
 
-use Setup\Model\EntityRepositoryAbstract;
+use Setup\EntityRepositoryAbstract;
 
 /**
- *
+ * 
  * @author Andrea Fiori
  * @since  24 December 2013
  */
