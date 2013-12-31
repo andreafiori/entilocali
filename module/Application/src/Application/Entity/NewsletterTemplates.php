@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * NewsletterTemplates
  *
- * @ORM\Table(name="newsletter_templates", indexes={@ORM\Index(name="channel_id", columns={"channel_id"}), @ORM\Index(name="language_id", columns={"language_id"})})
+ * @ORM\Table(name="newsletter_templates", indexes={@ORM\Index(name="channel_id", columns={"channel_id"}), @ORM\Index(name="language_id", columns={"language_id"}), @ORM\Index(name="predefined", columns={"predefined"}), @ORM\Index(name="status", columns={"status"})})
  * @ORM\Entity
  */
 class NewsletterTemplates
@@ -73,16 +73,9 @@ class NewsletterTemplates
     /**
      * @var string
      *
-     * @ORM\Column(name="status", type="string", length=150, nullable=false)
+     * @ORM\Column(name="status", type="string", length=50, nullable=false)
      */
     private $status;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="language_id", type="integer", nullable=false)
-     */
-    private $languageId = '1';
 
     /**
      * @var integer
@@ -90,6 +83,13 @@ class NewsletterTemplates
      * @ORM\Column(name="predefined", type="integer", nullable=false)
      */
     private $predefined = '0';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="language_id", type="integer", nullable=false)
+     */
+    private $languageId = '1';
 
     /**
      * @var integer
@@ -295,29 +295,6 @@ class NewsletterTemplates
     }
 
     /**
-     * Set languageId
-     *
-     * @param integer $languageId
-     * @return NewsletterTemplates
-     */
-    public function setLanguageId($languageId)
-    {
-        $this->languageId = $languageId;
-
-        return $this;
-    }
-
-    /**
-     * Get languageId
-     *
-     * @return integer 
-     */
-    public function getLanguageId()
-    {
-        return $this->languageId;
-    }
-
-    /**
      * Set predefined
      *
      * @param integer $predefined
@@ -338,6 +315,29 @@ class NewsletterTemplates
     public function getPredefined()
     {
         return $this->predefined;
+    }
+
+    /**
+     * Set languageId
+     *
+     * @param integer $languageId
+     * @return NewsletterTemplates
+     */
+    public function setLanguageId($languageId)
+    {
+        $this->languageId = $languageId;
+
+        return $this;
+    }
+
+    /**
+     * Get languageId
+     *
+     * @return integer 
+     */
+    public function getLanguageId()
+    {
+        return $this->languageId;
     }
 
     /**

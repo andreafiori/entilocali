@@ -31,16 +31,23 @@ class Channels
     /**
      * @var string
      *
-     * @ORM\Column(name="vhost_production", type="string", length=100, nullable=true)
+     * @ORM\Column(name="development", type="string", length=100, nullable=true)
      */
-    private $vhostProduction;
+    private $development = 'localhost';
 
     /**
      * @var string
      *
-     * @ORM\Column(name="vhost_staging", type="string", length=100, nullable=true)
+     * @ORM\Column(name="domain", type="string", length=100, nullable=true)
      */
-    private $vhostStaging;
+    private $domain;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="subdomain", type="string", length=100, nullable=true)
+     */
+    private $subdomain;
 
     /**
      * @var integer
@@ -66,18 +73,7 @@ class Channels
      */
     private $defaultLanguage;
 
-    /**
-     * Set id
-     *
-     * @param integer $id
-     * @return Channels
-     */
-    public function setId($id)
-    {
-    	$this->id = $id;
-    
-    	return $this;
-    }
+
 
     /**
      * Get id
@@ -113,49 +109,72 @@ class Channels
     }
 
     /**
-     * Set vhostProduction
+     * Set development
      *
-     * @param string $vhostProduction
+     * @param string $development
      * @return Channels
      */
-    public function setVhostProduction($vhostProduction)
+    public function setDevelopment($development)
     {
-        $this->vhostProduction = $vhostProduction;
+        $this->development = $development;
 
         return $this;
     }
 
     /**
-     * Get vhostProduction
+     * Get development
      *
      * @return string 
      */
-    public function getVhostProduction()
+    public function getDevelopment()
     {
-        return $this->vhostProduction;
+        return $this->development;
     }
 
     /**
-     * Set vhostStaging
+     * Set domain
      *
-     * @param string $vhostStaging
+     * @param string $domain
      * @return Channels
      */
-    public function setVhostStaging($vhostStaging)
+    public function setDomain($domain)
     {
-        $this->vhostStaging = $vhostStaging;
+        $this->domain = $domain;
 
         return $this;
     }
 
     /**
-     * Get vhostStaging
+     * Get domain
      *
      * @return string 
      */
-    public function getVhostStaging()
+    public function getDomain()
     {
-        return $this->vhostStaging;
+        return $this->domain;
+    }
+
+    /**
+     * Set subdomain
+     *
+     * @param string $subdomain
+     * @return Channels
+     */
+    public function setSubdomain($subdomain)
+    {
+        $this->subdomain = $subdomain;
+
+        return $this;
+    }
+
+    /**
+     * Get subdomain
+     *
+     * @return string 
+     */
+    public function getSubdomain()
+    {
+        return $this->subdomain;
     }
 
     /**

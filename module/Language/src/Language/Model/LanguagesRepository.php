@@ -2,29 +2,30 @@
 
 namespace Language\Model;
 
-use Setup\EntityRepositoryAbstract;
-use Application\Entity\Channels;
+use Setup\QueryMakerAbstract;
 use Application\Entity\Languages;
 
-class LanguagesRepository extends EntityRepositoryAbstract {
+class LanguagesRepository extends QueryMakerAbstract {
 
 	protected $repository = 'Application\Entity\Languages';
-
 	private $defaultLangFieldName, $defaultLanguage;
-
 	private $allAvailableLanguages;
 
 	/**
-	 * Set all available languages 
+	 * Set all available languages
 	 * @param Channels $channel
 	 * @return array $record
 	 */
-	public function setAllAvailableLanguages(Channels $channel)
+	public function setAllAvailableLanguages($channelId = 1)
 	{
-		$this->allAvailableLanguages = $this->em->getRepository($this->repository)->findBy( array("active" => 1, "channel" => $channel) );
+		$query = $this->getEntityManager()->createQuery("SELECT l.id, l.abbreviation1, l.isdefault, l.isdefaultBackend FROM Application\\Entity\\Languages l WHERE l.active = 1 AND l.channel = :channel ");
+		$query->setParameter('channel', $channelId);
+		
+		$this->allAvailableLanguages = $query->getResult();
+		
 		return $this->allAvailableLanguages;
 	}
-
+	
 	/**
 	 * @param string $abbreviation
 	 * @return \Application\Entity\Language $abbreviation
@@ -35,20 +36,23 @@ class LanguagesRepository extends EntityRepositoryAbstract {
 			return false;
 		}
 		
-		$this->setDefaultLangFieldName();
+		if ( $this->isOnBackend() ) {
+			$this->defaultLangFieldName = 'defaultlangAdmin';
+		} else {
+			$this->defaultLangFieldName = 'defaultlang';
+		}
 		
 		$arrayCompare = array();
 		$arrayCompare['active'] = 1;
 		if ($abbreviation) {
 			$arrayCompare['abbrev1'] = $abbreviation;
 		} else {
-			$arrayCompare[$this->getDefaultLangFieldName()] = 1;
+			$arrayCompare[$this->defaultLangFieldName] = 1;
 		}
 		
 		foreach($this->allAvailableLanguages as $allAvailableLanguages)
 		{
-			$arrayAvailableLanguage = $this->getEntitySerializer()->toArray($allAvailableLanguages);
-			$diff = array_diff($arrayCompare, $arrayAvailableLanguage);
+			$diff = array_diff($arrayCompare, $allAvailableLanguages);
 			if ( empty($diff) )
 			{
 				$this->defaultLanguage = $allAvailableLanguages;
@@ -59,33 +63,17 @@ class LanguagesRepository extends EntityRepositoryAbstract {
 		return false;
 	}
 
-	public function setDefaultLangFieldName()
-	{
-		if ($this->isOnBackend())
-			$this->defaultLangFieldName = 'defaultlangAdmin';
-		else
-			$this->defaultLangFieldName = 'defaultlang';
-	}
-
 	public function getAllAvailableLanguages()
 	{
 		return $this->allAvailableLanguages;
 	}
-	
+
 	/**
 	 * @return Languages $defaultLanguage
 	 */
 	public function getDefaultLanguage()
 	{
 		return $this->defaultLanguage;
-	}
-	
-	/**
-	 * @return Languages $defaultLangFieldName
-	 */
-	public function getDefaultLangFieldName()
-	{
-		return $this->defaultLangFieldName;
 	}
 	
 	public function getLanguageAbbreviationFromDefaultLanguage()

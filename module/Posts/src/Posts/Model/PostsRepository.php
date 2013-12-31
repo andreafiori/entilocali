@@ -2,13 +2,13 @@
 
 namespace Posts\Model;
 
-use Setup\EntityRepositoryAbstract;
+use Setup\QueryMakerAbstract;
 
 /**
  * @author Andrea Fiori
  * @since  24 December 2013
  */
-class PostsRepository extends EntityRepositoryAbstract {
+class PostsRepository extends QueryMakerAbstract {
 	
 	protected $repository = 'Application\Entity\Posts';
 	

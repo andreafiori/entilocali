@@ -2,10 +2,11 @@
 
 namespace Application;
 
-use Zend\Mvc\ModuleRouteListener;
-use	Zend\Mvc\MvcEvent;
+use Zend\ModuleManager\Feature\AutoloaderProviderInterface,
+	Zend\Mvc\ModuleRouteListener,
+	Zend\Mvc\MvcEvent;
 
-class Module
+class Module implements AutoloaderProviderInterface
 {
     public function onBootstrap(MvcEvent $e)
     {

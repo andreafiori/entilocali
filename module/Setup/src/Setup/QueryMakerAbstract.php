@@ -3,27 +3,28 @@
 namespace Setup;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Setup\EntitySerializer;
+use Doctrine\ORM\EntityManager;
 
-abstract class EntityRepositoryAbstract {
-	
-	protected $em;
+abstract class QueryMakerAbstract {
 
+	protected $entityManager;
 	protected $entitySerializer;
-
-	protected $repository, $isOnBackend;
+	protected $repository;
+	protected $isOnBackend;
 
 	public function __construct(ObjectManager $objectManager)
 	{
-		$this->em = $objectManager;
+		$this->entityManager = $objectManager;
+		
+		$this->setEntitySerializer( new EntitySerializer($objectManager) );
 	}
 	
 	/**
-	 * @return ObjectManager $em
+	 * @return EntityManager $em
 	 */
-	public function getObjectManager()
+	public function getEntityManager()
 	{
-		return $this->em;
+		return $this->entityManager;
 	}
 	
 	public function setRepository($repo)
@@ -47,33 +48,35 @@ abstract class EntityRepositoryAbstract {
 		$this->entitySerializer = $entitySerializer;
 		return $this->entitySerializer;
 	}
-	
-	public function getEntitySerializer()
-	{
-		if (!$this->entitySerializer) {
-			$this->entitySerializer = new EntitySerializer($this->em);
-		}
-		
-		return $this->entitySerializer;
-	}
-	
+
 	public function setIsOnBackend($isOnBackend)
 	{
 		$this->isOnBackend = $isOnBackend;
-		return $this->isOnBackend;
 	}
-
+	
 	public function isOnBackend()
 	{
 		return $this->isOnBackend;
+	}
+	
+	/**
+	 * @return EntitySerializer, $entitySerializer
+	 */
+	public function getEntitySerializer()
+	{
+		if (!$this->entitySerializer) {
+			$this->entitySerializer = new EntitySerializer($this->getEntityManager());
+		}
+		
+		return $this->entitySerializer;
 	}
 
 	public function getFindFromRepository($arraySearch = null, array $orderBy = null, $limit = null, $offset = null)
 	{
 		if (is_array($arraySearch)) {
-			return $this->em->getRepository($this->repository)->findBy($arraySearch, $orderBy, $limit, $offset);
+			return $this->getEntityManager()->getRepository($this->repository)->findBy($arraySearch, $orderBy, $limit, $offset);
 		} else {
-			return $this->em->getRepository($this->repository)->findAll();
+			return $this->getEntityManager()->getRepository($this->repository)->findAll();
 		}
 	}
 
@@ -82,13 +85,8 @@ abstract class EntityRepositoryAbstract {
 		$arrayToReturn = array();
 		foreach($arrayOfObject as &$arrayOfObject)
 		{
-			$arrayToReturn[] = $this->convertEntityToArray($arrayOfObject);
+			$arrayToReturn[] = $this->getEntitySerializer()->toArray($arrayOfObject);
 		}
 		return $arrayToReturn;
-	}
-	
-	public function convertEntityToArray($obj)
-	{
-		return $this->getEntitySerializer()->toArray($obj);
 	}
 }

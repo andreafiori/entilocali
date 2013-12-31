@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * PostsRelations
  *
- * @ORM\Table(name="posts_relations", indexes={@ORM\Index(name="language_id", columns={"language_id"}), @ORM\Index(name="module_id", columns={"module_id"}), @ORM\Index(name="category_id", columns={"category_id"}), @ORM\Index(name="posts_id", columns={"posts_id"})})
+ * @ORM\Table(name="posts_relations", indexes={@ORM\Index(name="module_id", columns={"module_id"}), @ORM\Index(name="category_id", columns={"category_id"}), @ORM\Index(name="posts_id", columns={"posts_id"}), @ORM\Index(name="channel_id", columns={"channel_id"})})
  * @ORM\Entity
  */
 class PostsRelations
@@ -22,16 +22,6 @@ class PostsRelations
     private $id;
 
     /**
-     * @var \Application\Entity\Languages
-     *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\Languages")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="language_id", referencedColumnName="id")
-     * })
-     */
-    private $language;
-
-    /**
      * @var \Application\Entity\Categories
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\Categories")
@@ -40,6 +30,16 @@ class PostsRelations
      * })
      */
     private $category;
+
+    /**
+     * @var \Application\Entity\Channels
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Channels")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="channel_id", referencedColumnName="id")
+     * })
+     */
+    private $channel;
 
     /**
      * @var \Application\Entity\Modules
@@ -74,29 +74,6 @@ class PostsRelations
     }
 
     /**
-     * Set language
-     *
-     * @param \Application\Entity\Languages $language
-     * @return PostsRelations
-     */
-    public function setLanguage(\Application\Entity\Languages $language = null)
-    {
-        $this->language = $language;
-
-        return $this;
-    }
-
-    /**
-     * Get language
-     *
-     * @return \Application\Entity\Languages 
-     */
-    public function getLanguage()
-    {
-        return $this->language;
-    }
-
-    /**
      * Set category
      *
      * @param \Application\Entity\Categories $category
@@ -117,6 +94,29 @@ class PostsRelations
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * Set channel
+     *
+     * @param \Application\Entity\Channels $channel
+     * @return PostsRelations
+     */
+    public function setChannel(\Application\Entity\Channels $channel = null)
+    {
+        $this->channel = $channel;
+
+        return $this;
+    }
+
+    /**
+     * Get channel
+     *
+     * @return \Application\Entity\Channels 
+     */
+    public function getChannel()
+    {
+        return $this->channel;
     }
 
     /**

@@ -2,37 +2,49 @@
 
 namespace Config\Model;
 
-use Setup\EntityRepositoryAbstract;
+use Setup\QueryMakerAbstract;
 
 /**
  * Config Entity Reposityory helper
  * @author Andrea Fiori
  * @since  24 December 2013
  */
-class ConfigRepository extends EntityRepositoryAbstract {
+class ConfigRepository extends QueryMakerAbstract {
 
 	protected $repository = 'Application\Entity\Config';
-
+	
+	private $configurations;
+	
 	/**
 	 * 
 	 * @param array $arraySearch
 	 * @return array $configRecord
 	 */
-	public function getConfigurations($arraySearch)
+	public function setConfigurations($arraySearch = null, array $orderBy = null, $limit = null, $offset = null)
 	{
-		$configurations = $this->convertArrayOfObjectToArray( $this->getFindFromRepository($arraySearch) );
+		$this->configurations = $this->convertArrayOfObjectToArray( $this->getFindFromRepository($arraySearch, $orderBy, $limit, $offset) );
+		
+		return $this->configurations;
+	}
+	
+	public function getConfigRecord()
+	{
+		if (!$this->getConfigurations()) return false;
 		
 		$configRecord = array();
-		foreach($configurations as $configData)
+		foreach($this->configurations as $configData)
 		{
 			$configRecord[$configData['name']] = $configData['value'];
 		}
-
 		$configRecord['projectdir'] = 'frontend/projects/'.$configRecord['frontendprojectdir'];
-		if (!isset($configRecord['frontendtemplate']))
-			$configRecord['frontendtemplate'] = 'default/';
+		$configRecord['frontendtemplate'] = $configRecord['frontendtemplate'] ? $configRecord['frontendtemplate'] : 'default/';
 		$configRecord['basiclayout'] = $configRecord['projectdir'].'templates/'.$configRecord['frontendtemplate'].'layout.phtml';
 		
 		return $configRecord;
+	}
+	
+	public function getConfigurations()
+	{
+		return $this->configurations;
 	}
 }

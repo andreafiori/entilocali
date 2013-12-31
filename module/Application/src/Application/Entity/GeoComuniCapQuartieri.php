@@ -22,16 +22,6 @@ class GeoComuniCapQuartieri
     private $id;
 
     /**
-     * @var \Application\Entity\GeoComuniQuartieri
-     *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\GeoComuniQuartieri")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="quartiere_id", referencedColumnName="id")
-     * })
-     */
-    private $quartiere;
-
-    /**
      * @var \Application\Entity\GeoComuniCap
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\GeoComuniCap")
@@ -40,6 +30,16 @@ class GeoComuniCapQuartieri
      * })
      */
     private $capQuartiere;
+
+    /**
+     * @var \Application\Entity\GeoComuniQuartieri
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\GeoComuniQuartieri")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="quartiere_id", referencedColumnName="id")
+     * })
+     */
+    private $quartiere;
 
 
 
@@ -51,29 +51,6 @@ class GeoComuniCapQuartieri
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set quartiere
-     *
-     * @param \Application\Entity\GeoComuniQuartieri $quartiere
-     * @return GeoComuniCapQuartieri
-     */
-    public function setQuartiere(\Application\Entity\GeoComuniQuartieri $quartiere = null)
-    {
-        $this->quartiere = $quartiere;
-
-        return $this;
-    }
-
-    /**
-     * Get quartiere
-     *
-     * @return \Application\Entity\GeoComuniQuartieri 
-     */
-    public function getQuartiere()
-    {
-        return $this->quartiere;
     }
 
     /**
@@ -97,5 +74,28 @@ class GeoComuniCapQuartieri
     public function getCapQuartiere()
     {
         return $this->capQuartiere;
+    }
+
+    /**
+     * Set quartiere
+     *
+     * @param \Application\Entity\GeoComuniQuartieri $quartiere
+     * @return GeoComuniCapQuartieri
+     */
+    public function setQuartiere(\Application\Entity\GeoComuniQuartieri $quartiere = null)
+    {
+        $this->quartiere = $quartiere;
+
+        return $this;
+    }
+
+    /**
+     * Get quartiere
+     *
+     * @return \Application\Entity\GeoComuniQuartieri 
+     */
+    public function getQuartiere()
+    {
+        return $this->quartiere;
     }
 }

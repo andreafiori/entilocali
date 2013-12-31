@@ -2,24 +2,15 @@
 
 namespace Language\Model;
 
-use Setup\EntityRepositoryAbstract;
+use Setup\QueryMakerAbstract;
 use Application\Entity\Languages;
 use Doctrine\Common\Proxy\Exception\InvalidArgumentException;
 
-class LanguagesLabelsRepository extends EntityRepositoryAbstract {
+class LanguagesLabelsRepository extends QueryMakerAbstract {
 	
 	protected $repository = 'Application\Entity\LanguagesLabels';
 
 	private $languageEntity;
-	
-	/**
-	 * 
-	 * @param Languages $languageEntity
-	 */
-	public function setLanguagesEntity(Languages $languageEntity)
-	{
-		$this->languageEntity = $languageEntity;
-	}
 	
 	/**
 	 * get the label with name -> key value format

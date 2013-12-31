@@ -22,25 +22,25 @@ class UsersPerms
     private $id;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="rifroleperm", type="integer", nullable=false)
-     */
-    private $rifroleperm;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="rifpermnameid", type="integer", nullable=false)
-     */
-    private $rifpermnameid;
-
-    /**
      * @var string
      *
-     * @ORM\Column(name="valueperm", type="string", length=50, nullable=false)
+     * @ORM\Column(name="value", type="string", length=50, nullable=false)
      */
-    private $valueperm = '0';
+    private $value = '0';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="role_id", type="integer", nullable=false)
+     */
+    private $roleId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="perms_id", type="integer", nullable=false)
+     */
+    private $permsId;
 
 
 
@@ -55,71 +55,71 @@ class UsersPerms
     }
 
     /**
-     * Set rifroleperm
+     * Set value
      *
-     * @param integer $rifroleperm
+     * @param string $value
      * @return UsersPerms
      */
-    public function setRifroleperm($rifroleperm)
+    public function setValue($value)
     {
-        $this->rifroleperm = $rifroleperm;
+        $this->value = $value;
 
         return $this;
     }
 
     /**
-     * Get rifroleperm
-     *
-     * @return integer 
-     */
-    public function getRifroleperm()
-    {
-        return $this->rifroleperm;
-    }
-
-    /**
-     * Set rifpermnameid
-     *
-     * @param integer $rifpermnameid
-     * @return UsersPerms
-     */
-    public function setRifpermnameid($rifpermnameid)
-    {
-        $this->rifpermnameid = $rifpermnameid;
-
-        return $this;
-    }
-
-    /**
-     * Get rifpermnameid
-     *
-     * @return integer 
-     */
-    public function getRifpermnameid()
-    {
-        return $this->rifpermnameid;
-    }
-
-    /**
-     * Set valueperm
-     *
-     * @param string $valueperm
-     * @return UsersPerms
-     */
-    public function setValueperm($valueperm)
-    {
-        $this->valueperm = $valueperm;
-
-        return $this;
-    }
-
-    /**
-     * Get valueperm
+     * Get value
      *
      * @return string 
      */
-    public function getValueperm()
+    public function getValue()
     {
-        return $this->valueperm;
+        return $this->value;
+    }
+
+    /**
+     * Set roleId
+     *
+     * @param integer $roleId
+     * @return UsersPerms
+     */
+    public function setRoleId($roleId)
+    {
+        $this->roleId = $roleId;
+
+        return $this;
+    }
+
+    /**
+     * Get roleId
+     *
+     * @return integer 
+     */
+    public function getRoleId()
+    {
+        return $this->roleId;
+    }
+
+    /**
+     * Set permsId
+     *
+     * @param integer $permsId
+     * @return UsersPerms
+     */
+    public function setPermsId($permsId)
+    {
+        $this->permsId = $permsId;
+
+        return $this;
+    }
+
+    /**
+     * Get permsId
+     *
+     * @return integer 
+     */
+    public function getPermsId()
+    {
+        return $this->permsId;
     }
 }

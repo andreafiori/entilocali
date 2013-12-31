@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Newsletter
  *
- * @ORM\Table(name="newsletter", uniqueConstraints={@ORM\UniqueConstraint(name="titlo", columns={"titolo"})})
+ * @ORM\Table(name="newsletter", uniqueConstraints={@ORM\UniqueConstraint(name="titlo", columns={"title"})}, indexes={@ORM\Index(name="category_id", columns={"category_id"}), @ORM\Index(name="channel_id", columns={"channel_id"})})
  * @ORM\Entity
  */
 class Newsletter
@@ -15,441 +15,261 @@ class Newsletter
     /**
      * @var integer
      *
-     * @ORM\Column(name="idnews", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idnews;
+    private $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="titolo", type="string", length=100, nullable=false)
+     * @ORM\Column(name="title", type="string", length=100, nullable=false)
      */
-    private $titolo;
+    private $title;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="titolo_lang2", type="string", length=100, nullable=false)
+     * @ORM\Column(name="message", type="text", nullable=false)
      */
-    private $titoloLang2;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="titolo_lang3", type="string", length=100, nullable=false)
-     */
-    private $titoloLang3;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="titolo_lang4", type="string", length=100, nullable=false)
-     */
-    private $titoloLang4;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="msgnewsl", type="text", nullable=false)
-     */
-    private $msgnewsl;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="msgnewsl_lang2", type="text", nullable=false)
-     */
-    private $msgnewslLang2;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="msgnewsl_lang3", type="text", nullable=false)
-     */
-    private $msgnewslLang3;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="msgnewsl_lang4", type="text", nullable=false)
-     */
-    private $msgnewslLang4;
+    private $message;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="datacreaz", type="datetime", nullable=false)
+     * @ORM\Column(name="createdate", type="datetime", nullable=false)
      */
-    private $datacreaz = '0000-00-00 00:00:00';
+    private $createdate = '0000-00-00 00:00:00';
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="datainvio", type="datetime", nullable=false)
+     * @ORM\Column(name="sentdate", type="datetime", nullable=false)
      */
-    private $datainvio = '2010-01-01 01:01:00';
+    private $sentdate = '2010-01-01 01:01:00';
 
     /**
      * @var string
      *
-     * @ORM\Column(name="formato", type="string", length=40, nullable=false)
+     * @ORM\Column(name="format", type="string", length=40, nullable=false)
      */
-    private $formato;
+    private $format;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="inviata", type="string", nullable=false)
+     * @ORM\Column(name="status", type="string", length=50, nullable=false)
      */
-    private $inviata = 'no';
+    private $status = 'no';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="rifcat", type="integer", nullable=false)
+     * @ORM\Column(name="category_id", type="integer", nullable=false)
      */
-    private $rifcat = '0';
+    private $categoryId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="rifchannel", type="integer", nullable=false)
+     * @ORM\Column(name="channel_id", type="integer", nullable=false)
      */
-    private $rifchannel = '1';
+    private $channelId = '1';
 
 
 
     /**
-     * Get idnews
+     * Get id
      *
      * @return integer 
      */
-    public function getIdnews()
+    public function getId()
     {
-        return $this->idnews;
+        return $this->id;
     }
 
     /**
-     * Set titolo
+     * Set title
      *
-     * @param string $titolo
+     * @param string $title
      * @return Newsletter
      */
-    public function setTitolo($titolo)
+    public function setTitle($title)
     {
-        $this->titolo = $titolo;
+        $this->title = $title;
 
         return $this;
     }
 
     /**
-     * Get titolo
+     * Get title
      *
      * @return string 
      */
-    public function getTitolo()
+    public function getTitle()
     {
-        return $this->titolo;
+        return $this->title;
     }
 
     /**
-     * Set titoloLang2
+     * Set message
      *
-     * @param string $titoloLang2
+     * @param string $message
      * @return Newsletter
      */
-    public function setTitoloLang2($titoloLang2)
+    public function setMessage($message)
     {
-        $this->titoloLang2 = $titoloLang2;
+        $this->message = $message;
 
         return $this;
     }
 
     /**
-     * Get titoloLang2
+     * Get message
      *
      * @return string 
      */
-    public function getTitoloLang2()
+    public function getMessage()
     {
-        return $this->titoloLang2;
+        return $this->message;
     }
 
     /**
-     * Set titoloLang3
+     * Set createdate
      *
-     * @param string $titoloLang3
+     * @param \DateTime $createdate
      * @return Newsletter
      */
-    public function setTitoloLang3($titoloLang3)
+    public function setCreatedate($createdate)
     {
-        $this->titoloLang3 = $titoloLang3;
+        $this->createdate = $createdate;
 
         return $this;
     }
 
     /**
-     * Get titoloLang3
-     *
-     * @return string 
-     */
-    public function getTitoloLang3()
-    {
-        return $this->titoloLang3;
-    }
-
-    /**
-     * Set titoloLang4
-     *
-     * @param string $titoloLang4
-     * @return Newsletter
-     */
-    public function setTitoloLang4($titoloLang4)
-    {
-        $this->titoloLang4 = $titoloLang4;
-
-        return $this;
-    }
-
-    /**
-     * Get titoloLang4
-     *
-     * @return string 
-     */
-    public function getTitoloLang4()
-    {
-        return $this->titoloLang4;
-    }
-
-    /**
-     * Set msgnewsl
-     *
-     * @param string $msgnewsl
-     * @return Newsletter
-     */
-    public function setMsgnewsl($msgnewsl)
-    {
-        $this->msgnewsl = $msgnewsl;
-
-        return $this;
-    }
-
-    /**
-     * Get msgnewsl
-     *
-     * @return string 
-     */
-    public function getMsgnewsl()
-    {
-        return $this->msgnewsl;
-    }
-
-    /**
-     * Set msgnewslLang2
-     *
-     * @param string $msgnewslLang2
-     * @return Newsletter
-     */
-    public function setMsgnewslLang2($msgnewslLang2)
-    {
-        $this->msgnewslLang2 = $msgnewslLang2;
-
-        return $this;
-    }
-
-    /**
-     * Get msgnewslLang2
-     *
-     * @return string 
-     */
-    public function getMsgnewslLang2()
-    {
-        return $this->msgnewslLang2;
-    }
-
-    /**
-     * Set msgnewslLang3
-     *
-     * @param string $msgnewslLang3
-     * @return Newsletter
-     */
-    public function setMsgnewslLang3($msgnewslLang3)
-    {
-        $this->msgnewslLang3 = $msgnewslLang3;
-
-        return $this;
-    }
-
-    /**
-     * Get msgnewslLang3
-     *
-     * @return string 
-     */
-    public function getMsgnewslLang3()
-    {
-        return $this->msgnewslLang3;
-    }
-
-    /**
-     * Set msgnewslLang4
-     *
-     * @param string $msgnewslLang4
-     * @return Newsletter
-     */
-    public function setMsgnewslLang4($msgnewslLang4)
-    {
-        $this->msgnewslLang4 = $msgnewslLang4;
-
-        return $this;
-    }
-
-    /**
-     * Get msgnewslLang4
-     *
-     * @return string 
-     */
-    public function getMsgnewslLang4()
-    {
-        return $this->msgnewslLang4;
-    }
-
-    /**
-     * Set datacreaz
-     *
-     * @param \DateTime $datacreaz
-     * @return Newsletter
-     */
-    public function setDatacreaz($datacreaz)
-    {
-        $this->datacreaz = $datacreaz;
-
-        return $this;
-    }
-
-    /**
-     * Get datacreaz
+     * Get createdate
      *
      * @return \DateTime 
      */
-    public function getDatacreaz()
+    public function getCreatedate()
     {
-        return $this->datacreaz;
+        return $this->createdate;
     }
 
     /**
-     * Set datainvio
+     * Set sentdate
      *
-     * @param \DateTime $datainvio
+     * @param \DateTime $sentdate
      * @return Newsletter
      */
-    public function setDatainvio($datainvio)
+    public function setSentdate($sentdate)
     {
-        $this->datainvio = $datainvio;
+        $this->sentdate = $sentdate;
 
         return $this;
     }
 
     /**
-     * Get datainvio
+     * Get sentdate
      *
      * @return \DateTime 
      */
-    public function getDatainvio()
+    public function getSentdate()
     {
-        return $this->datainvio;
+        return $this->sentdate;
     }
 
     /**
-     * Set formato
+     * Set format
      *
-     * @param string $formato
+     * @param string $format
      * @return Newsletter
      */
-    public function setFormato($formato)
+    public function setFormat($format)
     {
-        $this->formato = $formato;
+        $this->format = $format;
 
         return $this;
     }
 
     /**
-     * Get formato
+     * Get format
      *
      * @return string 
      */
-    public function getFormato()
+    public function getFormat()
     {
-        return $this->formato;
+        return $this->format;
     }
 
     /**
-     * Set inviata
+     * Set status
      *
-     * @param string $inviata
+     * @param string $status
      * @return Newsletter
      */
-    public function setInviata($inviata)
+    public function setStatus($status)
     {
-        $this->inviata = $inviata;
+        $this->status = $status;
 
         return $this;
     }
 
     /**
-     * Get inviata
+     * Get status
      *
      * @return string 
      */
-    public function getInviata()
+    public function getStatus()
     {
-        return $this->inviata;
+        return $this->status;
     }
 
     /**
-     * Set rifcat
+     * Set categoryId
      *
-     * @param integer $rifcat
+     * @param integer $categoryId
      * @return Newsletter
      */
-    public function setRifcat($rifcat)
+    public function setCategoryId($categoryId)
     {
-        $this->rifcat = $rifcat;
+        $this->categoryId = $categoryId;
 
         return $this;
     }
 
     /**
-     * Get rifcat
+     * Get categoryId
      *
      * @return integer 
      */
-    public function getRifcat()
+    public function getCategoryId()
     {
-        return $this->rifcat;
+        return $this->categoryId;
     }
 
     /**
-     * Set rifchannel
+     * Set channelId
      *
-     * @param integer $rifchannel
+     * @param integer $channelId
      * @return Newsletter
      */
-    public function setRifchannel($rifchannel)
+    public function setChannelId($channelId)
     {
-        $this->rifchannel = $rifchannel;
+        $this->channelId = $channelId;
 
         return $this;
     }
 
     /**
-     * Get rifchannel
+     * Get channelId
      *
      * @return integer 
      */
-    public function getRifchannel()
+    public function getChannelId()
     {
-        return $this->rifchannel;
+        return $this->channelId;
     }
 }

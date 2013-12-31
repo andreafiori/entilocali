@@ -94,18 +94,7 @@ class Languages
      */
     private $channel;
 
-    /**
-     * Set id
-     *
-     * @param integer $id
-     * @return Languages
-     */
-    public function setId($id)
-    {
-    	$this->id = $id;
-    
-    	return $this;
-    }
+
 
     /**
      * Get id
