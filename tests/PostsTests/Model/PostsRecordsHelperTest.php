@@ -25,10 +25,21 @@ class PostsRecordsHelperTest extends TestSuite {
 		$postsQueryBuilder->setQueryBasic();
 	
 		$this->postsRecordsHelper = new PostsRecordsHelper( $postsQueryBuilder->getSelectResult() );
+		$this->postsRecordsHelper->setSetupManager($this->setupManager);
 	}
 
 	public function testSetAdditionalArrayElements()
 	{
-		$this->assertTrue( is_array($this->postsRecordsHelper->setAdditionalArrayElements()) );
+		$this->postsRecordsHelper->setAdditionalArrayElements();
+
+		$records = $this->postsRecordsHelper->getPostsRecords();
+
+		$this->assertTrue( is_array($records) );
+	}
+	
+	public function testSortPostsByAlias()
+	{
+		$this->postsRecordsHelper->sortPostsByAlias();
+		$this->assertTrue( is_array($this->postsRecordsHelper->getPostsRecords()) );
 	}
 }

@@ -17,12 +17,12 @@ abstract class QueryMakerAbstract {
 
 		$this->setEntitySerializer( new EntitySerializer($objectManager) );
 	}
-	
+
 	public function setEntityManager(ObjectManager $objectManager)
 	{
 		$this->entityManager = $objectManager;
 	}
-	
+
 	public function setRepository($repo)
 	{
 		$this->repository = $repo;

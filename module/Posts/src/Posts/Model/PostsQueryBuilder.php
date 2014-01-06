@@ -28,7 +28,7 @@ class PostsQueryBuilder extends DQLQueryHelper {
 	public function setBasicBindParameters()
 	{
 		$this->setBindParameters( array(
-				'language'	=> 1, // TODO: get languageID from setup manager
+				'language'	=> 1, // TODO: get languageID from setup manager!!!
 				'channel'	=> $this->getSetupManager()->getChannelId()
 			)
 		);
@@ -36,6 +36,7 @@ class PostsQueryBuilder extends DQLQueryHelper {
 
 	public function setCategoryName($categoryName)
 	{
+		if (!$categoryName) return false;
 		$this->query .= "AND co.name = :cname ";
 		$this->addToBindParameters('cname', $categoryName);
 	}
@@ -49,6 +50,7 @@ class PostsQueryBuilder extends DQLQueryHelper {
 
 	public function setTitle($title)
 	{
+		if (!$title) return false;
 		$this->query .= "AND po.title = :title ";
 		$this->addToBindParameters('title', $title);
 	}

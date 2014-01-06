@@ -1,16 +1,10 @@
 <?php
 
-namespace Language;
+namespace Languages;
 
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
-
-use Zend\Db\TableGateway\TableGateway;
-use Zend\Db\ResultSet\ResultSet;
-
-use Language\Model\Language;
-use Language\Model\LanguageTable;
 
 class Module implements AutoloaderProviderInterface
 {
@@ -37,19 +31,7 @@ class Module implements AutoloaderProviderInterface
     public function getServiceConfig()
     {
     	return array(
-    			'factories' => array(
-    					'Language\Model\LanguageTable' =>  function($sm) {
-    						$tableGateway = $sm->get('LanguageTableGateway');
-    						$table = new LanguageTable($tableGateway);
-    						return $table;
-    					},
-    					'LanguageTableGateway' => function ($sm) {
-    						$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-    						$resultSetPrototype = new ResultSet();
-    						$resultSetPrototype->setArrayObjectPrototype(new Language());
-    						return new TableGateway('languages', $dbAdapter, null, $resultSetPrototype);
-    					},
-    			),
+    			'factories' => array(),
     	);
     }
     

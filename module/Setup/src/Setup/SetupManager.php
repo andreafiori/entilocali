@@ -2,9 +2,9 @@
 
 namespace Setup;
 
-use Language\Model\LanguagesRepository;
 use	Config\Model\ConfigRepository;
-use	Language\Model\LanguagesLabelsRepository;
+use Languages\Model\LanguagesSetup;
+use	Languages\Model\LanguagesLabelsRepository;
 
 /**
  * Merge Config and Language selection data to get app configuration setup record
@@ -18,7 +18,8 @@ class SetupManager {
 	
 	private $channelId;
 	
-	private $language;
+	private $languagesSetup;
+	private $defaultLanguage;
 	private $languageLabelsRepository;
 	private $setupRecord;
 
@@ -33,42 +34,33 @@ class SetupManager {
 	{
 		$this->entityManager = $entityManager;
 	}
-	
+
 	/**
-	 * TODO: 
-  			detect channel and get the id to language selections
+	 * TODO: detect channel and get the id to language selections
 	 */
 	public function setChannelId()
 	{
 		$this->channelId = 1;
+		
+		return $this->channelId;
 	}
 
 	public function getChannelId()
 	{
-		if ($this->channelId) {
-			return $this->channelId;
-		}
-		return 1;
+		return $this->channelId;;
 	}
 
 	/**
-	 * TODO: move all method calls into a new single class and test them to call 1 by 1
-	 * @return boolean|multitype:
+	 * @return array $setupRecord
 	 */
     public function generateSetupRecord()
     {
-    	$this->language = new LanguagesRepository( $this->getEntityManager() );
-	    $this->language->setAllAvailableLanguages($this->getChannelId());
-	    $this->language->setDefaultLanguage($this->input['languageAbbreviation']);
-
-	    $defaultLanguage = $this->language->getDefaultLanguage();
+    	$defaultLanguage = $this->setDefaultLanguage();
 	    
 		$this->languageLabelsRepository = new LanguagesLabelsRepository($this->getEntityManager());
-   		$this->languageLabels = $this->languageLabelsRepository->getLabels( array("language" => $defaultLanguage['id']) );
-
-		$defaultLanguage = $this->getlanguage()->getDefaultLanguage();
-
-   		if (!$defaultLanguage) return false;
+   		$this->languageLabels = $this->languageLabelsRepository->getLabels(
+   					array("language" => $this->getDefaultLanguage('id')) 
+   		);
 
    		$configRepository = new ConfigRepository($this->getEntityManager());
     	$configRepository->setConfigurations(
@@ -78,11 +70,30 @@ class SetupManager {
     			)
     	);
     	$setupRecord = $configRepository->getConfigRecord();
-    	$setupRecord['languageAllAvailable'] = $this->getLanguage()->getAllAvailableLanguages();
+    	$setupRecord['languageAllAvailable'] = $this->getLanguageSetup()->getAllAvailableLanguages();
     	$setupRecord['languageDefault'] = $defaultLanguage;
     	$setupRecord['languageLabels'] = $this->languageLabels;
     	
     	return $this->setupRecord = array_filter($setupRecord);
+    }
+    
+    public function setDefaultLanguage()
+    {
+    	$this->languagesSetup = new LanguagesSetup( $this->getEntityManager() );
+    	$this->languagesSetup->setAllAvailableLanguages($this->getChannelId());
+    	$this->languagesSetup->setDefaultLanguage($this->getInput('languageAbbreviation'));
+
+    	$this->defaultLanguage = $this->getLanguageSetup()->getDefaultLanguage();
+    	
+    	return $this->defaultLanguage;
+    }
+    
+    public function getDefaultLanguage($key=null)
+    {
+    	if ($key) {
+    		return $this->defaultLanguage[$key];
+    	}
+    	return $this->defaultLanguage;
     }
 
     public function getInput($key = null)
@@ -96,9 +107,9 @@ class SetupManager {
     	return $this->entityManager;
     }
 
-    public function getLanguage()
+    public function getLanguageSetup()
     {
-    	return $this->language;
+    	return $this->languagesSetup;
     }
     
     public function getSetupRecord($key = null)

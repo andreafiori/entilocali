@@ -4,11 +4,10 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-
-use Setup\StringRequestDecoder;
 use Setup\SetupManager;
 use ServiceLocatorFactory;
 use Posts\Model\PostsQueryBuilder;
+use Posts\Model\PostsRecordsHelper;
 
 /**
  * Frontend main controller
@@ -30,10 +29,8 @@ class IndexController extends AbstractActionController
     	$setupManager->setChannelId();
     	$setupManager->setEntityManager( $this->getServiceLocator()->get('entityManagerService') );
 		$setupRecord = $setupManager->generateSetupRecord();
-		
-		$stringRequestDecoder = new StringRequestDecoder();
-		$categoryName = $stringRequestDecoder->denormalize( $this->params()->fromRoute('category') );
 
+		$categoryName = \Setup\StringRequestDecoder::deSlugify( $this->params()->fromRoute('category') );
 		
 		// SINGLE POST SELECTION
 		$postsQueryBuilder = new PostsQueryBuilder();
@@ -55,13 +52,13 @@ class IndexController extends AbstractActionController
 		$postsQueryBuilder->setAliasNotNull();
 
 		$result = $postsQueryBuilder->getSelectResult();
+
+		$postsRecordsHelper = new PostsRecordsHelper($result);
+		$postsRecordsHelper->setSetupManager($setupManager);
+		$postsRecordsHelper->setAdditionalArrayElements();
+		$postsAlias = $postsRecordsHelper->sortPostsByAlias();
 		
-		$postsAlias = array();
-		foreach($result as &$result)
-		{
-			$result['linkDetails'] = $result['seoUrl'];
-			$postsAlias[ $result['alias'] ] = $result;
-		}
+		//echo $postsRecordsHelper->assignLayout($postsAlias['repetti']['typeofpost']);
 		// END ALIAS SELECTION
 		
 		
@@ -85,11 +82,16 @@ class IndexController extends AbstractActionController
  		$templateData['seo_title'] = '';
  		$templateData['seo_description'] = '';
  		$templateData['seo_keywords'] = '';
- 		$templateData['languageAbbreviation'] = $setupManager->getLanguage()->getLanguageAbbreviationFromDefaultLanguage();
+ 		$templateData['languageAbbreviation'] = $setupManager->getLanguageSetup()->getLanguageAbbreviationFromDefaultLanguage();
 
     	$this->layout($templateData['basiclayout']);
     	$this->layout()->setVariable("templateData", $templateData);
 
     	return new ViewModel();
+    }
+    
+    public function contactsAction()
+    {
+    	echo "send message!";
     }
 }

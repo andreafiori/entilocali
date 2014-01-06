@@ -1,11 +1,11 @@
 <?php
 
-namespace LanguageTest\Model;
+namespace LanguagesTest\Model;
 
-use Language\Model\LanguagesRepository;
+use Languages\Model\LanguagesSetup;
 use SetupTests\TestSuite;
 
-class LanguagesTest extends TestSuite
+class LanguagesSetupTest extends TestSuite
 {
 	private $languages;
 
@@ -13,12 +13,9 @@ class LanguagesTest extends TestSuite
 	{
 		parent::setUp();
 
-		$this->languages = new LanguagesRepository($this->serviceManager->get('entityManagerService'));
+		$this->languages = new LanguagesSetup($this->serviceManager->get('entityManagerService'));
 	}
-	
-	/**
-	 * @test
-	 */
+
 	public function testSetAllAvailableLanguages()
 	{
 		$this->assertTrue( is_array($this->languages->setAllAvailableLanguages(1)) );

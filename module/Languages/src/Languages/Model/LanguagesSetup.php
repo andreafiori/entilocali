@@ -1,14 +1,11 @@
 <?php
 
-namespace Language\Model;
+namespace Languages\Model;
 
 use Setup\QueryMakerAbstract;
-use Application\Entity\Languages;
 
-class LanguagesRepository extends QueryMakerAbstract {
+class LanguagesSetup extends QueryMakerAbstract {
 
-	protected $repository = 'Application\Entity\Languages';
-	
 	private $defaultLangFieldName;
 	private $defaultLanguage;
 	private $allAvailableLanguages;
@@ -32,7 +29,7 @@ class LanguagesRepository extends QueryMakerAbstract {
 	 */
 	public function setAllAvailableLanguages($channelId = 1)
 	{
-		$query = $this->getEntityManager()->createQuery("SELECT l.id, l.abbreviation1, l.isdefault, l.isdefaultBackend FROM Application\\Entity\\Languages l WHERE l.active = 1 AND l.channel = :channel ");
+		$query = $this->getEntityManager()->createQuery("SELECT l.id, l.abbreviation1, l.isdefault, l.isdefaultBackend, l.active FROM Application\\Entity\\Languages l WHERE l.active = 1 AND l.channel = :channel ");
 		$query->setParameter('channel', $channelId);
 		
 		$this->allAvailableLanguages = $query->getResult();
@@ -59,7 +56,7 @@ class LanguagesRepository extends QueryMakerAbstract {
 		$arrayCompare = array();
 		$arrayCompare['active'] = 1;
 		if ($abbreviation) {
-			$arrayCompare['abbrev1'] = $abbreviation;
+			$arrayCompare['abbreviation1'] = $abbreviation;
 		} else {
 			$arrayCompare[$this->defaultLangFieldName] = 1;
 		}

@@ -1,9 +1,8 @@
 <?php
 
-namespace Language\Model;
+namespace Languages\Model;
 
 use Setup\QueryMakerAbstract;
-use Doctrine\Common\Proxy\Exception\InvalidArgumentException;
 
 class LanguagesLabelsRepository extends QueryMakerAbstract {
 	
