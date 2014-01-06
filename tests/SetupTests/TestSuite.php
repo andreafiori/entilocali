@@ -1,6 +1,6 @@
 <?php
 
-namespace SetupTests\Model;
+namespace SetupTests;
 
 use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
 use Zend\Http\Request;
@@ -8,8 +8,8 @@ use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 use ApplicationTests\ServiceManagerGrabber;
 
-class TestSuite extends \PHPUnit_Framework_TestCase {
-
+class TestSuite extends \PHPUnit_Framework_TestCase
+{
 	protected $request;
 	protected $response;
 	protected $routeMatch;
@@ -36,18 +36,38 @@ class TestSuite extends \PHPUnit_Framework_TestCase {
 		$this->setEntityManagerMock();
 		$this->setDoctrineMock();
 	}
-
-	public function testServiceManagerIsSet()
+	
+	public function getEntityManagerMock()
 	{
-		$this->assertEquals(1, 1);
+		return $this->entityManagerMock;
 	}
-		
-		/**
-		 * Set Entity Manager Mock object
-		 */
+	
+	/**
+	 * @test
+	 */
+	public function testThisFile()
+	{
+		$this->assertTrue( true );
+	}
+	
+	public function getServiceManager()
+	{
+		return $this->serviceManager;
+	}
+	
 		protected function setEntityManagerMock()
 		{
-			$this->entityManagerMock = $this->getMock('EntityManager', array('persist', 'flush'));
+			$this->entityManagerMock = $this->getMock('\Doctrine\ORM\EntityManager', array('getRepository', 'getClassMetadata', 'persist', 'flush'), array(), '', false);
+			
+			$this->entityManagerMock
+				 ->expects($this->any())
+				 ->method('getRepository')
+				 ->will($this->returnValue(true));
+			
+			$this->entityManagerMock
+				 ->expects($this->any())
+				 ->method('getClassMetadata')
+				 ->will($this->returnValue((object)array('name' => 'aClass')));
 			
 			$this->entityManagerMock
 				->expects($this->any())
@@ -58,17 +78,16 @@ class TestSuite extends \PHPUnit_Framework_TestCase {
 				->expects($this->any())
 				->method('flush')
 				->will($this->returnValue(true));
+
+			return $this->entityManagerMock;
 		}
 		
-		/**
-		 * Set Doctrine Mock object
-		 */
 		protected function setDoctrineMock()
 		{
 			$this->doctrine = $this->getMock('Doctrine', array('getEntityManager'));
 			$this->doctrine
 				->expects($this->any())
 				->method('getEntityManager')
-				->will($this->returnValue($this->emMock));
+				->will($this->returnValue($this->getEntityManagerMock()));
 		}
 }

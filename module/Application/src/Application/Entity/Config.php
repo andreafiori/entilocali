@@ -54,7 +54,7 @@ class Config
      *
      * @ORM\Column(name="module_id", type="integer", nullable=false)
      */
-    private $moduleId = '0';
+    private $moduleId = '4';
 
     /**
      * @var integer

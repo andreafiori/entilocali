@@ -3,7 +3,6 @@
 namespace Language\Model;
 
 use Setup\QueryMakerAbstract;
-use Application\Entity\Languages;
 use Doctrine\Common\Proxy\Exception\InvalidArgumentException;
 
 class LanguagesLabelsRepository extends QueryMakerAbstract {

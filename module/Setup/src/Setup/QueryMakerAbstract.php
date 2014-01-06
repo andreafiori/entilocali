@@ -10,21 +10,17 @@ abstract class QueryMakerAbstract {
 	protected $entityManager;
 	protected $entitySerializer;
 	protected $repository;
-	protected $isOnBackend;
 
 	public function __construct(ObjectManager $objectManager)
 	{
 		$this->entityManager = $objectManager;
-		
+
 		$this->setEntitySerializer( new EntitySerializer($objectManager) );
 	}
 	
-	/**
-	 * @return EntityManager $em
-	 */
-	public function getEntityManager()
+	public function setEntityManager(ObjectManager $objectManager)
 	{
-		return $this->entityManager;
+		$this->entityManager = $objectManager;
 	}
 	
 	public function setRepository($repo)
@@ -32,12 +28,7 @@ abstract class QueryMakerAbstract {
 		$this->repository = $repo;
 		return $this->repository;
 	}
-	
-	public function getRepository()
-	{
-		return $this->repository;
-	}
-	
+
 	/**
 	 * Inject the EntitySerializer object
 	 * @param EntitySerializer $entitySerializer
@@ -49,16 +40,6 @@ abstract class QueryMakerAbstract {
 		return $this->entitySerializer;
 	}
 
-	public function setIsOnBackend($isOnBackend)
-	{
-		$this->isOnBackend = $isOnBackend;
-	}
-	
-	public function isOnBackend()
-	{
-		return $this->isOnBackend;
-	}
-	
 	/**
 	 * @return EntitySerializer, $entitySerializer
 	 */
@@ -67,19 +48,10 @@ abstract class QueryMakerAbstract {
 		if (!$this->entitySerializer) {
 			$this->entitySerializer = new EntitySerializer($this->getEntityManager());
 		}
-		
+	
 		return $this->entitySerializer;
 	}
-
-	public function getFindFromRepository($arraySearch = null, array $orderBy = null, $limit = null, $offset = null)
-	{
-		if (is_array($arraySearch)) {
-			return $this->getEntityManager()->getRepository($this->repository)->findBy($arraySearch, $orderBy, $limit, $offset);
-		} else {
-			return $this->getEntityManager()->getRepository($this->repository)->findAll();
-		}
-	}
-
+	
 	public function convertArrayOfObjectToArray(array $arrayOfObject)
 	{
 		$arrayToReturn = array();
@@ -88,5 +60,27 @@ abstract class QueryMakerAbstract {
 			$arrayToReturn[] = $this->getEntitySerializer()->toArray($arrayOfObject);
 		}
 		return $arrayToReturn;
+	}
+
+	/**
+	 * @return EntityManager $em
+	 */
+	public function getEntityManager()
+	{
+		return $this->entityManager;
+	}
+
+	public function getRepository()
+	{
+		return $this->repository;
+	}
+
+	public function getFindFromRepository($arraySearch = null, array $orderBy = null, $limit = null, $offset = null)
+	{
+		if (is_array($arraySearch)) {
+			return $this->getEntityManager()->getRepository($this->getRepository())->findBy($arraySearch, $orderBy, $limit, $offset);
+		} else {
+			return $this->getEntityManager()->getRepository($this->getRepository())->findAll();
+		}
 	}
 }

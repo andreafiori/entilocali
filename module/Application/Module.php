@@ -10,11 +10,25 @@ class Module implements AutoloaderProviderInterface
 {
     public function onBootstrap(MvcEvent $e)
     {
-        $eventManager        = $e->getApplication()->getEventManager();
+    	$application = $e->getApplication();
+        $eventManager        = $application->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
+        
+        $em = $application->getEventManager();
+        $em->attach(\Zend\Mvc\MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'handleError'));
+        $em->attach(\Zend\Mvc\MvcEvent::EVENT_RENDER_ERROR, array($this, 'handleError'));
     }
-
+    
+    /**
+     * TODO: handle the error
+     * @param MvcEvent $e
+     */
+    public function handleError(MvcEvent $e)
+    {
+    	$exception = $e->getParam('exception');
+    }
+    
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';

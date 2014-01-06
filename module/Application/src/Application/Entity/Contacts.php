@@ -75,7 +75,7 @@ class Contacts
      *
      * @ORM\Column(name="status", type="string", length=50, nullable=true)
      */
-    private $status = 'no';
+    private $status;
 
     /**
      * @var string
@@ -89,7 +89,7 @@ class Contacts
      *
      * @ORM\Column(name="user_id", type="integer", nullable=true)
      */
-    private $userId;
+    private $userId = '1';
 
 
 

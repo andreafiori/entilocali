@@ -1,22 +1,22 @@
 <?php
 
-namespace SetupTest\Model;
+namespace SetupTest;
 
-use SetupTests\Model\TestSuite;
+use SetupTests\TestSuite;
 use Setup\SetupManager;
 use ServiceLocatorFactory;
+use ApplicationTests\ServiceManagerGrabber;
 
 class SetupManagerTest extends TestSuite
 {
 	private $setupManager;
-	private $controller;
-
+	
 	protected function setUp()
 	{
 		parent::setUp();
 
 		$this->setupManager = new SetupManager(
-				array('channel'=>1,'isbackend'=>0)
+				array('channel' => 1,'isbackend' => 0)
 		);
 	}
 	
@@ -27,11 +27,8 @@ class SetupManagerTest extends TestSuite
 		$this->assertArrayHasKey('channel', $input);
 	}
 	
-	/*
 	public function testSetEntityManager()
 	{
-		ServiceLocatorFactory\ServiceLocatorFactory::setInstance( new \Zend\ServiceManager\ServiceManager() );
-		$this->setupManager->setEntityManager( ServiceLocatorFactory\ServiceLocatorFactory::getInstance() );
+		$this->assertNotEmpty( ServiceManagerGrabber::getServiceConfig() );
 	}
-	*/
 }

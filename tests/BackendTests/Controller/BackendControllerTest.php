@@ -4,7 +4,7 @@ namespace BackendTest\Controller;
 
 use Backend\Controller\BackendController;
 
-use SetupTests\Model\TestSuite;
+use SetupTests\TestSuite;
 
 class BackendControllerTest extends TestSuite
 {
@@ -22,7 +22,7 @@ class BackendControllerTest extends TestSuite
 	public function testIndexActionCanBeAccessed()
 	{
 		$this->routeMatch->setParam('action', 'index');
-		// $result = $this->controller->dispatch($this->request);
+		//$result = $this->controller->dispatch($this->request);
 		$this->assertEquals(200, $this->controller->getResponse()->getStatusCode());
 	}
 }

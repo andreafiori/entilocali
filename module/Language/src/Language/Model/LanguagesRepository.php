@@ -8,8 +8,22 @@ use Application\Entity\Languages;
 class LanguagesRepository extends QueryMakerAbstract {
 
 	protected $repository = 'Application\Entity\Languages';
-	private $defaultLangFieldName, $defaultLanguage;
+	
+	private $defaultLangFieldName;
+	private $defaultLanguage;
 	private $allAvailableLanguages;
+	
+	private $isOnBackend;
+
+	public function isOnBackend()
+	{
+		return $this->isOnBackend;
+	}
+
+	public function setIsOnBackend($isOnBackend)
+	{
+		$this->isOnBackend = $isOnBackend;
+	}
 
 	/**
 	 * Set all available languages
@@ -25,14 +39,14 @@ class LanguagesRepository extends QueryMakerAbstract {
 		
 		return $this->allAvailableLanguages;
 	}
-	
+
 	/**
 	 * @param string $abbreviation
 	 * @return \Application\Entity\Language $abbreviation
 	 */
 	public function setDefaultLanguage($abbreviation)
 	{
-		if ( !$this->allAvailableLanguages ) {
+		if ( !$this->getAllAvailableLanguages() ) {
 			return false;
 		}
 		
@@ -50,7 +64,7 @@ class LanguagesRepository extends QueryMakerAbstract {
 			$arrayCompare[$this->defaultLangFieldName] = 1;
 		}
 		
-		foreach($this->allAvailableLanguages as $allAvailableLanguages)
+		foreach($this->getAllAvailableLanguages() as $allAvailableLanguages)
 		{
 			$diff = array_diff($arrayCompare, $allAvailableLanguages);
 			if ( empty($diff) )
@@ -75,12 +89,12 @@ class LanguagesRepository extends QueryMakerAbstract {
 	{
 		return $this->defaultLanguage;
 	}
-	
+
 	public function getLanguageAbbreviationFromDefaultLanguage()
 	{
 		$defaultLanguage = $this->getDefaultLanguage();
 		if (is_object($defaultLanguage)) {
 			return $defaultLanguage->getAbbreviation1();
-		} 
+		}
 	}
 }

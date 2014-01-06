@@ -31,7 +31,7 @@ class AlboSettori
     /**
      * @var string
      *
-     * @ORM\Column(name="status", type="string", length=50, nullable=false)
+     * @ORM\Column(name="status", type="string", length=50, nullable=true)
      */
     private $status;
 

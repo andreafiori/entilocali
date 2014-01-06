@@ -3,7 +3,7 @@
 namespace ApplicationTests\Controller;
 
 use Application\Controller\IndexController;
-use SetupTests\Model\TestSuite;
+use SetupTests\TestSuite;
 
 class IndexControllerTest extends TestSuite {
 
