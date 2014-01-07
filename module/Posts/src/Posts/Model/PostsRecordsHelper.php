@@ -12,15 +12,24 @@ use Setup\SetupManager;
 class PostsRecordsHelper {
 
 	private $postsRecords, $postsRecordsCount;
-	
 	private $setupManager;
-	
 	private $partialLayoutTemplate;
+	private $remotelinkWeb;
 
 	public function __construct(array $postsRecords)
 	{
 		$this->postsRecords = $postsRecords;
 		$this->postsRecordsCount = count($postsRecords);
+	}
+	
+	public function setRemotelinkWeb($remotelinkWeb)
+	{
+		$this->remotelinkWeb = $remotelinkWeb;
+	}
+	
+	public function getRemotelinkWeb()
+	{
+		return $this->remotelinkWeb;
 	}
 	
 	public function getSetupManager()
@@ -57,7 +66,8 @@ class PostsRecordsHelper {
 			} else {
 				$record['seoUrl'] = $record['seoUrl'].'/';
 			}
-			return $this->getSetupManager()->getSetupRecord('remotelinkWeb').'it/'. \Setup\StringRequestDecoder::slugify($record['name']).'/'.$record['seoUrl'];
+			
+			return $this->remotelinkWeb.$this->getSetupManager()->getLanguageAbbreviation().'/'. \Setup\StringRequestDecoder::slugify($record['name']).'/'.$record['seoUrl'];
 		}
 	
 	public function assignLayout($typeOfPost)

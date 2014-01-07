@@ -28,18 +28,13 @@ class ConfigRepository extends QueryMakerAbstract {
 	}
 	
 	public function getConfigRecord()
-	{
-		if (!$this->getConfigurations()) return false;
-		
+	{		
 		$configRecord = array();
 		foreach($this->configurations as $configData)
 		{
 			$configRecord[$configData['name']] = $configData['value'];
 		}
-		$configRecord['projectdir'] = 'frontend/projects/'.$configRecord['frontendprojectdir'];
-		$configRecord['frontendtemplate'] = $configRecord['frontendtemplate'] ? $configRecord['frontendtemplate'] : 'default/';
-		$configRecord['basiclayout'] = $configRecord['projectdir'].'templates/'.$configRecord['frontendtemplate'].'layout.phtml';
-		
+			
 		return $configRecord;
 	}
 	

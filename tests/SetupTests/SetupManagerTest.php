@@ -6,6 +6,7 @@ use SetupTests\TestSuite;
 use Setup\SetupManager;
 use ServiceLocatorFactory;
 use ApplicationTests\ServiceManagerGrabber;
+use Config\Model\ConfigRepository;
 
 class SetupManagerTest extends TestSuite
 {
@@ -18,6 +19,7 @@ class SetupManagerTest extends TestSuite
 		$this->setupManager = new SetupManager(
 				array('channel' => 1,'isbackend' => 0)
 		);
+		
 		$this->setupManager->setEntityManager($this->getServiceManager()->get('\Doctrine\ORM\EntityManager'));
 	}
 	
@@ -38,13 +40,22 @@ class SetupManagerTest extends TestSuite
 		$this->setupManager->setChannelId();
 		$this->assertEquals($this->setupManager->getChannelId(), 1);
 	}
-
-	public function testGenerateSetupRecord()
-	{
-		$setupRecord = $this->setupManager->generateSetupRecord();
 	
-		$this->assertArrayHasKey('languageAllAvailable', $setupRecord);
-		$this->assertArrayHasKey('languageDefault', $setupRecord);
-		$this->assertArrayHasKey('languageLabels', $setupRecord);
+	public function testSetConfigRepository()
+	{
+		$this->setupManager->setConfigRepository( $this->getConfigRepository() );
+		$this->assertTrue( $this->setupManager->getConfigRepository() instanceof ConfigRepository);
 	}
+	
+	public function testSetConfigurations()
+	{
+		$this->assertFalse($this->setupManager->setConfigurations());
+		
+		$this->setupManager->setConfigRepository( $this->getConfigRepository() );
+	}
+		
+		private function getConfigRepository()
+		{
+			return new ConfigRepository($this->getServiceManager()->get('\Doctrine\ORM\EntityManager'));
+		}
 }

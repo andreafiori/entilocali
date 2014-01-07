@@ -28,7 +28,7 @@ class PostsQueryBuilder extends DQLQueryHelper {
 	public function setBasicBindParameters()
 	{
 		$this->setBindParameters( array(
-				'language'	=> 1, // TODO: get languageID from setup manager!!!
+				'language'	=> $this->getSetupManager()->getLanguageId(),
 				'channel'	=> $this->getSetupManager()->getChannelId()
 			)
 		);

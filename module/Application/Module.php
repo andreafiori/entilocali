@@ -2,9 +2,9 @@
 
 namespace Application;
 
-use Zend\ModuleManager\Feature\AutoloaderProviderInterface,
-	Zend\Mvc\ModuleRouteListener,
-	Zend\Mvc\MvcEvent;
+use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
+use	Zend\Mvc\ModuleRouteListener;
+use	Zend\Mvc\MvcEvent;
 
 class Module implements AutoloaderProviderInterface
 {
@@ -21,12 +21,18 @@ class Module implements AutoloaderProviderInterface
     }
     
     /**
-     * TODO: handle the error
+     * TODO: handle errors exceptions and controller not found
      * @param MvcEvent $e
      */
     public function handleError(MvcEvent $e)
     {
     	$exception = $e->getParam('exception');
+    	/* $e->getParam('controller'); ?
+    	if ( $e->getParam('error') ) {
+    		header("Location: /zf2-apicms/");
+    		exit;
+    	}
+    	*/
     }
     
     public function getConfig()

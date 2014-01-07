@@ -5,6 +5,9 @@ namespace Backend\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Setup\SetupManager;
+use ServiceLocatorFactory;
+use Languages\Model\LanguagesLabelsRepository;
+use Config\Model\ConfigRepository;
 
 /**
  * Backend controller
@@ -24,14 +27,22 @@ class BackendController extends AbstractActionController
     			'languageAbbreviation' => strtolower( $this->params()->fromRoute('lang') )
     		)
     	);
+    	$setupManager->setChannelId();
     	$setupManager->setEntityManager( $this->getServiceLocator()->get('entityManagerService') );
-		$setupManager->setSetupRecord();
+    	$setupManager->setLanguagesSetup();
+    	$setupManager->setDefaultLanguage();
+    	$setupManager->setLanguageIdFromDefaultLanguage();
+    	$setupManager->setLanguageAbbreviationFromDefaultLanguage();
+    	$setupManager->setLanguagesLabelsRepository( new LanguagesLabelsRepository($setupManager->getEntityManager()) );
+    	$setupManager->setLanguagesLabels();
+    	$setupManager->setConfigRepository( new ConfigRepository($setupManager->getEntityManager()) );
+    	$setupManager->setConfigurations();
 		
 		$templateToRender = 'backend/templates/default/backend.phtml';
 		// $templateToRender = 'backend/templates/default/login.phtml'; // if not logged...
         
         $this->layout($templateToRender);
-        $this->layout()->setVariable("templateData", $setupManager->getSetupRecord());
+        $this->layout()->setVariable("templateData", $setupManager->getConfigRepository()->getConfigRecord() );
         
         $viewModel = new ViewModel();
         return $viewModel;

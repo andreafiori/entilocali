@@ -77,7 +77,6 @@ abstract class DQLQueryHelper {
 	}
 		
 	/**
-	 * TODO: test exception or separate transaction and commit
 	 * @param string $tableName
 	 * @param array $arrayData
 	 */

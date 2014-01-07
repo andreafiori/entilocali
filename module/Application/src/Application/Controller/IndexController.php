@@ -8,6 +8,8 @@ use Setup\SetupManager;
 use ServiceLocatorFactory;
 use Posts\Model\PostsQueryBuilder;
 use Posts\Model\PostsRecordsHelper;
+use Languages\Model\LanguagesLabelsRepository;
+use Config\Model\ConfigRepository;
 
 /**
  * Frontend main controller
@@ -20,7 +22,7 @@ class IndexController extends AbstractActionController
     {
     	$setupManager = new SetupManager(
     			array(
-    				'isbackend' => 0,
+    				'isbackend'	 => 0,
     				'controller' => $this->params()->fromRoute('controller'),
     				'action'	 => $this->params()->fromRoute('action'),
    					'languageAbbreviation' => strtolower( $this->params()->fromRoute('lang') )
@@ -28,11 +30,21 @@ class IndexController extends AbstractActionController
     	);
     	$setupManager->setChannelId();
     	$setupManager->setEntityManager( $this->getServiceLocator()->get('entityManagerService') );
-		$setupRecord = $setupManager->generateSetupRecord();
+    	$setupManager->setLanguagesSetup();
+    	$setupManager->setDefaultLanguage();
+    	$setupManager->setLanguageIdFromDefaultLanguage();
+    	$setupManager->setLanguageAbbreviationFromDefaultLanguage();
+    	$setupManager->setLanguagesLabelsRepository( new LanguagesLabelsRepository($setupManager->getEntityManager()) );
+    	$setupManager->setLanguagesLabels();
+    	$setupManager->setConfigRepository( new ConfigRepository($setupManager->getEntityManager()) );
+    	$setupManager->setConfigurations();
+    	
+		$configRecord = $setupManager->getConfigRepository()->getConfigRecord();
 
 		$categoryName = \Setup\StringRequestDecoder::deSlugify( $this->params()->fromRoute('category') );
 		
 		// SINGLE POST SELECTION
+		if ($categoryName):
 		$postsQueryBuilder = new PostsQueryBuilder();
 		$postsQueryBuilder->setSetupManager($setupManager);
 
@@ -41,6 +53,7 @@ class IndexController extends AbstractActionController
 		
 		$postsQueryBuilder->setCategoryName($categoryName);
 		$postsDetail = $postsQueryBuilder->getSelectResult();
+		endif;
 		// END SINGLE POST SELECTION
 		
 		
@@ -54,26 +67,34 @@ class IndexController extends AbstractActionController
 		$result = $postsQueryBuilder->getSelectResult();
 
 		$postsRecordsHelper = new PostsRecordsHelper($result);
+		$postsRecordsHelper->setRemotelinkWeb($configRecord['remotelinkWeb']);
 		$postsRecordsHelper->setSetupManager($setupManager);
 		$postsRecordsHelper->setAdditionalArrayElements();
 		$postsAlias = $postsRecordsHelper->sortPostsByAlias();
-		
-		//echo $postsRecordsHelper->assignLayout($postsAlias['repetti']['typeofpost']);
 		// END ALIAS SELECTION
 		
 		
-		// GET TEMPLATE DATA
-		$templateData = array_merge(
-				$postsAlias, 
-				$setupRecord 
-		);
-
-		$templateData['basePath'] = $setupManager->getSetupRecord('remotelinkWeb');
+		// SET TEMPLATE DATA. Some data can be set before this point...
+		$templateData = array_merge($postsAlias, $configRecord);
+		
+		$templateData['projectdir'] = 'frontend/projects/'.$templateData['frontendprojectdir'];
+		$templateData['frontendtemplate'] = $templateData['frontendtemplate'] ? $templateData['frontendtemplate'] : 'default/';
+		$templateData['basiclayout'] = $templateData['projectdir'].'templates/'.$templateData['frontendtemplate'].'layout.phtml';
+		
+		$templateData['languageAllAvailable'] = $setupManager->getLanguageSetup()->getAllAvailableLanguages();
+		$templateData['languageDefault'] = $setupManager->getDefaultLanguage();
+		$templateData['languageLabels'] = $setupManager->getLanguageLabels();
+		
+		$templateData['basePath'] = $templateData['remotelinkWeb'];
+		
 		$templateData['templatedir'] = 'frontend/projects/'.$templateData['frontendprojectdir'].'templates/'.$templateData['frontendTemplate'];
-		$templateData['templatePartial'] = $templateData['templatedir'].'contents/detail.phtml'; // the controller must get this...
-		if ( !$templateData['templatePartial'] ) {
+
+		if ($postsDetail[0]) {
+			$templateData['templatePartial'] = $templateData['templatedir'].'contents/detail.phtml';
+		} else {
 			$templateData['templatePartial'] = $templateData['templatedir'].'homepage.phtml';
 		}
+				
 		$templateData['imagedir'] = $templateData['templatedir'].'assets/images/';
 		$templateData['cssdir']   = $templateData['templatedir'].'assets/css/';
  		$templateData['jsdir'] 	  = $templateData['templatedir'].'assets/js/';
@@ -88,10 +109,11 @@ class IndexController extends AbstractActionController
     	$this->layout()->setVariable("templateData", $templateData);
 
     	return new ViewModel();
-    }
-    
+    }   
+    /*
     public function contactsAction()
     {
     	echo "send message!";
     }
+    */
 }

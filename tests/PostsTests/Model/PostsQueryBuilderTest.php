@@ -33,14 +33,15 @@ class PostsQueryBuilderTest extends TestSuite
 	{
 		$this->postsQueryBuilder->setBasicBindParameters();
 		$this->postsQueryBuilder->setQueryBasic();
-		$this->assertNotEmpty( $this->postsQueryBuilder->getSelectResult() );
+		
+		$this->assertTrue( is_array($this->postsQueryBuilder->getSelectResult()) );
 	}
 
 	public function testSetCategoryName()
 	{
 		$this->postsQueryBuilder->setBasicBindParameters();
 		$this->postsQueryBuilder->setCategoryName("Contatti");
-		$this->assertNotEmpty( $this->postsQueryBuilder->getSelectResult() );
+		
 		$this->assertArrayHasKey('cname', $this->postsQueryBuilder->getBindParameters());
 	}
 	
@@ -89,7 +90,8 @@ class PostsQueryBuilderTest extends TestSuite
 		$this->postsQueryBuilder->setDefaultFieldsSelect('p, po.title');
 		$this->postsQueryBuilder->setBasicBindParameters();
 		$this->postsQueryBuilder->setQueryBasic();
-		$this->assertNotEmpty( $this->postsQueryBuilder->getSelectResult() );
+		
+		$this->assertNotEmpty( $this->postsQueryBuilder->getDefaultFieldsSelect() );
 	}
 	
 	public function testSetSetupManager()

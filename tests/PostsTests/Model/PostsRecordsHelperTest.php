@@ -23,7 +23,7 @@ class PostsRecordsHelperTest extends TestSuite {
 		$postsQueryBuilder->setSetupManager($this->setupManager);
 		$postsQueryBuilder->setBasicBindParameters();
 		$postsQueryBuilder->setQueryBasic();
-	
+
 		$this->postsRecordsHelper = new PostsRecordsHelper( $postsQueryBuilder->getSelectResult() );
 		$this->postsRecordsHelper->setSetupManager($this->setupManager);
 	}
