@@ -13,7 +13,7 @@ class Module
      */
     public function onBootstrap(MvcEvent $e)
     {
-        ServiceLocatorFactory::setInstance($e->getApplication()->getServiceManager());
+		ServiceLocatorFactory::setInstance($e->getApplication()->getServiceManager());
     }
 
     /**
@@ -21,12 +21,12 @@ class Module
      */
     public function getAutoloaderConfig()
     {
-        return array(
+		return array(
             AutoloaderFactory::STANDARD_AUTOLOADER => array(
                 StandardAutoloader::LOAD_NS => array(
                     __NAMESPACE__ => __DIR__,
                 ),
             ),
         );
-    }
+	}
 }

@@ -56,7 +56,7 @@ class PostsRecordsHelper {
 		}
 		$this->postsRecords = $postsRecords;
 		
-		$this->assignLayout($record['typeofpost']);
+		$this->assignLayout($record['typeofpost']); // assgin the last layout type!?
 	}
 	
 		private function getLinkDetails($record)

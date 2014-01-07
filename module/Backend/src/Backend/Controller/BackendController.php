@@ -8,6 +8,7 @@ use Setup\SetupManager;
 use ServiceLocatorFactory;
 use Languages\Model\LanguagesLabelsRepository;
 use Config\Model\ConfigRepository;
+use Setup\SetupManagerWrapper;
 
 /**
  * Backend controller
@@ -18,7 +19,7 @@ class BackendController extends AbstractActionController
 {
     public function indexAction()
     {
-    	$setupManager = new SetupManager(
+    	$setupManagerWrapper = new SetupManagerWrapper( new SetupManager(
     		array(
     			'channel'	=> 1,
     			'isbackend' => 0,
@@ -26,25 +27,18 @@ class BackendController extends AbstractActionController
     			'action'	 => $this->params()->fromRoute('action'),
     			'languageAbbreviation' => strtolower( $this->params()->fromRoute('lang') )
     		)
-    	);
-    	$setupManager->setChannelId();
-    	$setupManager->setEntityManager( $this->getServiceLocator()->get('entityManagerService') );
-    	$setupManager->setLanguagesSetup();
-    	$setupManager->setDefaultLanguage();
-    	$setupManager->setLanguageIdFromDefaultLanguage();
-    	$setupManager->setLanguageAbbreviationFromDefaultLanguage();
-    	$setupManager->setLanguagesLabelsRepository( new LanguagesLabelsRepository($setupManager->getEntityManager()) );
-    	$setupManager->setLanguagesLabels();
-    	$setupManager->setConfigRepository( new ConfigRepository($setupManager->getEntityManager()) );
-    	$setupManager->setConfigurations();
+    	) );
+    	$setupManager = $setupManagerWrapper->initSetup();
 		
 		$templateToRender = 'backend/templates/default/backend.phtml';
-		// $templateToRender = 'backend/templates/default/login.phtml'; // if not logged...
+		$templateToRender = 'backend/templates/default/login.phtml'; // if not logged...
         
+		$templateData['languageAllAvailable'] = $setupManager->getLanguageSetup()->getAllAvailableLanguages();
+		$templateData['languageDefault'] = $setupManager->getDefaultLanguage();
+		$templateData['languageLabels'] = $setupManager->getLanguageLabels();
+		
         $this->layout($templateToRender);
-        $this->layout()->setVariable("templateData", $setupManager->getConfigRepository()->getConfigRecord() );
+        $this->layout()->setVariable("templateData", $templateData );
         
-        $viewModel = new ViewModel();
-        return $viewModel;
 	}
 }

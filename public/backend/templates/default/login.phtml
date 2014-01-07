@@ -1,6 +1,6 @@
 <?php echo $this->doctype(); ?>
 
-<html lang="en">
+<html lang="<?php echo $templateData['languageAbbreviation'] ?>">
   <head>
     <meta charset="utf-8">
         <?php echo $this->headTitle($this->translate($templateData['sitename']))->setSeparator(' - ')->setAutoEscape(false) ?>
@@ -90,18 +90,18 @@
 			<select name="adminLanguage" id="adminLanguage">
 				<option value=""><?php echo $templateData['languageLabels']['ADMIN_LANGUAGE']?></option>
 				<?php foreach($templateData['languageAvailables'] as $availableLanguages): ?>
-				<option value="<?php echo $availableLanguages['abbrev1'] ?>"><?php echo $availableLanguages['abbrev3'] ?></option>
+				<option value="<?php echo $availableLanguages['abbreviation1'] ?>"><?php echo $availableLanguages['abbreviation3'] ?></option>
 				<?php endforeach; ?>
 			</select>
 		</label>
 		<?php endif; ?>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" title="Click to sign in">Accedi</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" title="<?php echo $templateData['languageLabels']['ADMIN_ACCESSBUTTONTITLE']?>"><?php echo $templateData['languageLabels']['ADMIN_ACCESSBUTTON']?></button>
         
         <p>&nbsp;</p>
 
         <p><a href="javascript:void(0)" title="<?php echo $templateData['languageLabels']['ADMIN_RECOVERPASSWORD']?>" onclick="$('#recoverPasswordContainer').show(); $('#frmLogin').hide()"><span class="glyphicon glyphicon-arrow-right"></span> <?php echo $templateData['languageLabels']['ADMIN_RECOVERPASSWORD']?></a></p>		
-		
 		<p><a href="<?php echo $templateData['remotelinkWeb'] ?>" title="<?php echo $templateData['languageLabels']['ADMIN_BACK_TO_WEBSITE'] ?>"><span class="glyphicon glyphicon-arrow-right"></span> <?php echo $templateData['languageLabels']['ADMIN_BACK_TO_WEBSITE'] ?></a></p>
+		
         </div>
 	</form>
 

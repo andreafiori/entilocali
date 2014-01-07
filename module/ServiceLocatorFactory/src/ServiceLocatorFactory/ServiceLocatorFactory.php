@@ -19,7 +19,7 @@ class ServiceLocatorFactory
     public static function getInstance()
     {
         if(null === self::$serviceManager) {
-            throw new NullServiceLocatorException('ServiceLocator is not set');
+			throw new NullServiceLocatorException('ServiceLocator is not set');
         }
         return self::$serviceManager;
     }

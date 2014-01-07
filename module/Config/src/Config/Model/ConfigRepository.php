@@ -3,6 +3,7 @@
 namespace Config\Model;
 
 use Setup\QueryMakerAbstract;
+use Setup\NullException;
 
 /**
  * Config Entity Reposityory helper
@@ -14,6 +15,8 @@ class ConfigRepository extends QueryMakerAbstract {
 	protected $repository = 'Application\Entity\Config';
 	
 	private $configurations;
+	
+	private $configRecord = array();
 	
 	/**
 	 * 
@@ -27,15 +30,30 @@ class ConfigRepository extends QueryMakerAbstract {
 		return $this->configurations;
 	}
 	
-	public function getConfigRecord()
-	{		
-		$configRecord = array();
-		foreach($this->configurations as $configData)
-		{
-			$configRecord[$configData['name']] = $configData['value'];
+	/**
+	 * Set configuration name => value from the record select on db 
+	 * @throws \Setup\NullException
+	 */
+	public function initConfigRecord()
+	{
+		if (!$this->getConfigurations()) {
+			throw new NullException('Configurations are not set');
 		}
-			
-		return $configRecord;
+		
+		foreach($this->getConfigurations() as $configData) {
+			$this->configRecord[$configData['name']] = $configData['value'];
+		}
+		
+		return $this->configRecord;
+	}
+	
+	public function getConfigRecord($key = null)
+	{
+		if ($key) {
+			$this->configRecord[$key];
+		}
+		
+		return $this->configRecord;
 	}
 	
 	public function getConfigurations()

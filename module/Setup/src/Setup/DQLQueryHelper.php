@@ -87,10 +87,10 @@ abstract class DQLQueryHelper {
 			$conn->beginTransaction();
 			$conn->insert($tableName, $arrayData);
 			$conn->commit();
-			return true; // must return last insert id ?!
-		} catch (\Exception $e) {
+			return true; // Must return last insert id!
+		} catch (NullException $e) {
 			$conn->rollback();
-			// echo $e->getMessage();
+			$e->getMessage();
 			return false;
 		}
 	}

@@ -16,7 +16,7 @@
 	</php>
 
 <!-- generate code coverage -->
-<!-- 
+<!--
 	<formatter type="clover" usefile="false"/>
 	<batchtest>
 	<fileset dir="suite">

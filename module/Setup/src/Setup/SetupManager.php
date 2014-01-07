@@ -86,15 +86,18 @@ class SetupManager {
 		return $this->configRepository;
 	}
 	
+	/**
+	 * @throws NullException
+	 */
 	public function setConfigurations()
 	{
-		if (!$this->getConfigRepository()) {
-			return false;
+		if ( !$this->getConfigRepository() ) {
+			throw new NullException('Config Repository is not set');
 		}
 		
 		$this->getConfigRepository()->setConfigurations(
 				array(
-						"channel" => array($this->getChannelId() ? $this->getChannelId() : 1, 0),
+						"channel" 	=> array($this->getChannelId() ? $this->getChannelId() : 1, 0),
 						"isbackend" => $this->getInput('isbackend')
 				)
 		);
@@ -109,7 +112,6 @@ class SetupManager {
 	}
     
 	/**
-	 * 
 	 * @param LanguagesLabelsRepository $languagesLabelsRepository
 	 */
     public function setLanguagesLabelsRepository(LanguagesLabelsRepository $languagesLabelsRepository)
@@ -125,7 +127,7 @@ class SetupManager {
     public function setLanguagesLabels()
     {
     	if (!$this->getLanguageLabelsRepository()) {
-    		return false;
+    		throw new NullException('Language Labels Repository is not set');
     	}
     	
     	$this->languagesLabels = $this->getLanguageLabelsRepository()->getLabels(
@@ -143,14 +145,14 @@ class SetupManager {
     	$this->defaultLanguage = $this->getLanguageSetup()->getDefaultLanguage();
     }
     
-    public function setLanguagesSetup()
+    public function setLanguagesSetup(LanguagesSetup $languagesSetup)
     {
-    	$this->languagesSetup = new LanguagesSetup( $this->getEntityManager() );
+    	$this->languagesSetup = $languagesSetup;
     	$this->languagesSetup->setAllAvailableLanguages($this->getChannelId());
     	$this->languagesSetup->setDefaultLanguage($this->getInput('languageAbbreviation'));
     }
     
-    public function getDefaultLanguage($key=null)
+    public function getDefaultLanguage($key = null)
     {
     	if ($key) {
     		return $this->defaultLanguage[$key];

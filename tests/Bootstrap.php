@@ -1,6 +1,6 @@
 <?php
 
-use ApplicationTests\ServiceManagerGrabber;
+use ApplicationTest\ServiceManagerGrabber;
 
 error_reporting(E_ALL | E_STRICT);
 
@@ -9,12 +9,12 @@ chdir(dirname(__DIR__));
 
 // Assume we use composer
 $loader = require_once  './vendor/autoload.php';
-$loader->add("ApplicationTests\\", $cwd);
-$loader->add("BackendTests\\", $cwd);
-$loader->add("ConfigTests\\", $cwd);
-$loader->add("LanguageTests\\", $cwd);
-$loader->add("PostsTests\\", $cwd);
-$loader->add("SetupTests\\", $cwd);
+$loader->add("ApplicationTest\\", $cwd);
+$loader->add("BackendTest\\", $cwd);
+$loader->add("ConfigTest\\", $cwd);
+$loader->add("LanguageTest\\", $cwd);
+$loader->add("PostsTest\\", $cwd);
+$loader->add("SetupTest\\", $cwd);
 $loader->register();
 
 ServiceManagerGrabber::setServiceConfig(require_once './config/application.config.php');

@@ -3,6 +3,7 @@
 namespace Languages\Model;
 
 use Setup\QueryMakerAbstract;
+use Setup\NullException;
 
 class LanguagesSetup extends QueryMakerAbstract {
 
@@ -38,13 +39,15 @@ class LanguagesSetup extends QueryMakerAbstract {
 	}
 
 	/**
-	 * @param string $abbreviation
-	 * @return \Application\Entity\Language $abbreviation
+	 * 
+	 * @param unknown $abbreviation
+	 * @throws NullException
+	 * @return Ambigous <multitype:, \Doctrine\ORM\mixed, mixed, \Doctrine\DBAL\Driver\Statement, \Doctrine\Common\Cache\mixed>|boolean
 	 */
 	public function setDefaultLanguage($abbreviation)
 	{
 		if ( !$this->getAllAvailableLanguages() ) {
-			return false;
+			throw new NullException('All available languages are not set');
 		}
 		
 		if ( $this->isOnBackend() ) {
@@ -82,16 +85,19 @@ class LanguagesSetup extends QueryMakerAbstract {
 	/**
 	 * @return Languages $defaultLanguage
 	 */
-	public function getDefaultLanguage()
+	public function getDefaultLanguage($key=null)
 	{
+		if ($key) {
+			return $this->defaultLanguage['abbreviation1'];
+		}
+		
 		return $this->defaultLanguage;
 	}
 
 	public function getLanguageAbbreviationFromDefaultLanguage()
 	{
-		$defaultLanguage = $this->getDefaultLanguage();
-		if (is_object($defaultLanguage)) {
-			return $defaultLanguage->getAbbreviation1();
+		if ( is_array($this->getDefaultLanguage()) ) {
+			return $this->getDefaultLanguage('abbreviation1');
 		}
 	}
 }
