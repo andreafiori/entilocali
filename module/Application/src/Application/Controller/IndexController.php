@@ -31,8 +31,6 @@ class IndexController extends AbstractActionController
     	));
     	$setupManager = $setupManagerWrapper->initSetup();
 
-		$categoryName = $setupManager->getInput('category');
-
 		// ALIAS SELECTION given the controller name load data you want to load ALWAYS on the app
 		$postsQueryBuilder = new PostsQueryBuilder();
 		$postsQueryBuilder->setSetupManager($setupManager);
@@ -49,13 +47,13 @@ class IndexController extends AbstractActionController
 		// END ALIAS SELECTION
 		
 		// SINGLE POST SELECTION: given category and\or title, get the post! title only is not allowed!?
-		if ($categoryName):
+		if ($setupManager->getInput('category')):
 		$postsQueryBuilder = new PostsQueryBuilder();
 		$postsQueryBuilder->setSetupManager($setupManager);
 		$postsQueryBuilder->setQueryBasic();
 		$postsQueryBuilder->setBasicBindParameters();
 		$postsQueryBuilder->setLanguage();
-		$postsQueryBuilder->setCategoryName($categoryName);
+		$postsQueryBuilder->setCategoryName($setupManager->getInput('category'));
 		
 		$postsDetail = $postsQueryBuilder->getSelectResult();
 		endif;
@@ -90,7 +88,7 @@ class IndexController extends AbstractActionController
 		
 		// Record data from the controller: to revisit
  		$setupManager->getTemplateDataSetter()->assignToTemplate('controllerResult', $postsDetail[0]);
- 		$setupManager->getTemplateDataSetter()->assignToTemplate('categoryName', $categoryName);
+ 		$setupManager->getTemplateDataSetter()->assignToTemplate('categoryName', $setupManager->getInput('category'));
  		
  		// SEO if not set from main controller...
  		$setupManager->getTemplateDataSetter()->assignToTemplate('seo_title', $setupManager->getTemplateDataSetter()->getTemplateData('sitename'));
