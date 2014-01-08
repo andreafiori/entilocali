@@ -27,6 +27,8 @@ class SetupManager {
 	private $languagesLabels;
 	private $languagesLabelsRepository;
 	
+	private $templateDataSetter;
+	
 	public function __construct(array $input)
 	{
 		$this->input = $input;
@@ -34,7 +36,11 @@ class SetupManager {
 	
 	public function getInput($key = null)
 	{
-		if ($key) return $this->input[$key];
+		if (isset($this->input[$key])) {
+			return $this->input[$key];
+		} elseif (!isset($this->input[$key]) and $key!=null) {
+			return false;
+		}
 		return $this->input;
 	}
 	
@@ -177,7 +183,7 @@ class SetupManager {
     	
     	return $this->languageAbbreviation;
     }
-    
+
     public function getLanguageAbbreviation()
     {
     	return $this->languageAbbreviation;
@@ -186,5 +192,19 @@ class SetupManager {
     public function getEntityManager()
     {
     	return $this->entityManager;
+    }
+    
+    /**
+     * 
+     * @param TemplateDataSetter $templateDataSetter
+     */
+    public function setTemplateDataSetter(TemplateDataSetter $templateDataSetter)
+    {
+    	$this->templateDataSetter = $templateDataSetter;
+    }
+    
+    public function getTemplateDataSetter()
+    {
+    	return $this->templateDataSetter;
     }
 }

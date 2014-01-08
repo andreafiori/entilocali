@@ -3,12 +3,10 @@
 namespace Backend\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
 use Setup\SetupManager;
 use ServiceLocatorFactory;
-use Languages\Model\LanguagesLabelsRepository;
-use Config\Model\ConfigRepository;
 use Setup\SetupManagerWrapper;
+use Zend\View\Model\ViewModel;
 
 /**
  * Backend controller
@@ -29,16 +27,17 @@ class BackendController extends AbstractActionController
     		)
     	) );
     	$setupManager = $setupManagerWrapper->initSetup();
-		
-		$templateToRender = 'backend/templates/default/backend.phtml';
-		$templateToRender = 'backend/templates/default/login.phtml'; // if not logged...
-        
+		        
 		$templateData['languageAllAvailable'] = $setupManager->getLanguageSetup()->getAllAvailableLanguages();
 		$templateData['languageDefault'] = $setupManager->getDefaultLanguage();
 		$templateData['languageLabels'] = $setupManager->getLanguageLabels();
 		
+		$templateToRender = 'backend/templates/default/backend.phtml';
+		$templateToRender = 'backend/templates/default/login.phtml'; // if not logged...
+		
         $this->layout($templateToRender);
         $this->layout()->setVariable("templateData", $templateData );
         
+        return new ViewModel();
 	}
 }

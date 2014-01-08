@@ -1,11 +1,20 @@
 <?php
 
-namespace Categories;
+namespace Frontend;
 
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
+use Zend\Mvc\ModuleRouteListener;
+use Zend\Mvc\MvcEvent;
 
 class Module implements AutoloaderProviderInterface
 {
+	public function onBootstrap(MvcEvent $e)
+	{
+		$eventManager        = $e->getApplication()->getEventManager();
+		$moduleRouteListener = new ModuleRouteListener();
+		$moduleRouteListener->attach($eventManager);
+	}
+	
     public function getAutoloaderConfig()
     {
         return array(
@@ -19,15 +28,4 @@ class Module implements AutoloaderProviderInterface
             ),
         );
     }
-    
-	/*
-		use Zend\Mvc\ModuleRouteListener;
-		use Zend\Mvc\MvcEvent;
-    public function onBootstrap(MvcEvent $e)
-    {
-        $eventManager        = $e->getApplication()->getEventManager();
-        $moduleRouteListener = new ModuleRouteListener();
-        $moduleRouteListener->attach($eventManager);
-    }
-    */
 }

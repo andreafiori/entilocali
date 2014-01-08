@@ -2,9 +2,9 @@
 
 namespace Categories\Model;
 
-use Setup\EntityRepositoryAbstract;
+use Setup\QueryMakerAbstract;
 
-class CategoriesRepository extends EntityRepositoryAbstract {
+class CategoriesRepository extends QueryMakerAbstract {
 
 	protected $repository = 'Application\Entity\Categories';
 

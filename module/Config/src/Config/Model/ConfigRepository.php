@@ -50,7 +50,7 @@ class ConfigRepository extends QueryMakerAbstract {
 	public function getConfigRecord($key = null)
 	{
 		if ($key) {
-			$this->configRecord[$key];
+			return $this->configRecord[$key];
 		}
 		
 		return $this->configRecord;

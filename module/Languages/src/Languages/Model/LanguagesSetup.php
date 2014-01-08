@@ -18,9 +18,15 @@ class LanguagesSetup extends QueryMakerAbstract {
 		return $this->isOnBackend;
 	}
 
-	public function setIsOnBackend($isOnBackend)
+	public function setIsOnBackend($isOnBackend = 0)
 	{
 		$this->isOnBackend = $isOnBackend;
+		
+		if ($this->isOnBackend) {
+			$this->defaultLangFieldName = 'defaultlangAdmin';
+		} else {
+			$this->defaultLangFieldName = 'defaultlang';
+		}
 	}
 
 	/**
@@ -50,10 +56,8 @@ class LanguagesSetup extends QueryMakerAbstract {
 			throw new NullException('All available languages are not set');
 		}
 		
-		if ( $this->isOnBackend() ) {
-			$this->defaultLangFieldName = 'defaultlangAdmin';
-		} else {
-			$this->defaultLangFieldName = 'defaultlang';
+		if (!$this->defaultLangFieldName) {
+			$this->setIsOnBackend();
 		}
 		
 		$arrayCompare = array();
@@ -67,8 +71,7 @@ class LanguagesSetup extends QueryMakerAbstract {
 		foreach($this->getAllAvailableLanguages() as $allAvailableLanguages)
 		{
 			$diff = array_diff($arrayCompare, $allAvailableLanguages);
-			if ( empty($diff) )
-			{
+			if ( empty($diff) ) {
 				$this->defaultLanguage = $allAvailableLanguages;
 				return $allAvailableLanguages;
 			}

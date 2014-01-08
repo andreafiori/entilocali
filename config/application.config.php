@@ -6,7 +6,7 @@ return array(
     	'EdpModuleLayouts', 'ServiceLocatorFactory',
     	'DoctrineModule', 'DoctrineORMModule',
     	'ZendDeveloperTools', 'BjyProfiler',
-    	'Setup','Backend','Config','Languages','Posts','Categories', 
+    	'Setup','Backend','Config','Languages','Posts','Categories','Frontend', 
     ),
 
     'module_listener_options' => array(

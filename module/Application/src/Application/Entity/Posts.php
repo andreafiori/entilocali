@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Posts
  *
- * @ORM\Table(name="posts", indexes={@ORM\Index(name="status", columns={"status"})})
+ * @ORM\Table(name="posts", indexes={@ORM\Index(name="status", columns={"status", "alias", "templatefile"})})
  * @ORM\Entity
  */
 class Posts
@@ -48,13 +48,6 @@ class Posts
      * @ORM\Column(name="parentid", type="integer", nullable=false)
      */
     private $parentid = '0';
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="position", type="integer", nullable=false)
-     */
-    private $position = '0';
 
     /**
      * @var string
@@ -186,29 +179,6 @@ class Posts
     public function getParentid()
     {
         return $this->parentid;
-    }
-
-    /**
-     * Set position
-     *
-     * @param integer $position
-     * @return Posts
-     */
-    public function setPosition($position)
-    {
-        $this->position = $position;
-
-        return $this;
-    }
-
-    /**
-     * Get position
-     *
-     * @return integer 
-     */
-    public function getPosition()
-    {
-        return $this->position;
     }
 
     /**

@@ -85,16 +85,6 @@ class CategoriesOptions
     private $parentId = '1';
 
     /**
-     * @var \Application\Entity\Modules
-     *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\Modules")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="module_id", referencedColumnName="id")
-     * })
-     */
-    private $module;
-
-    /**
      * @var \Application\Entity\Categories
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\Categories")
@@ -113,6 +103,16 @@ class CategoriesOptions
      * })
      */
     private $language;
+
+    /**
+     * @var \Application\Entity\Modules
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Modules")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="module_id", referencedColumnName="id")
+     * })
+     */
+    private $module;
 
 
 
@@ -334,29 +334,6 @@ class CategoriesOptions
     }
 
     /**
-     * Set module
-     *
-     * @param \Application\Entity\Modules $module
-     * @return CategoriesOptions
-     */
-    public function setModule(\Application\Entity\Modules $module = null)
-    {
-        $this->module = $module;
-
-        return $this;
-    }
-
-    /**
-     * Get module
-     *
-     * @return \Application\Entity\Modules 
-     */
-    public function getModule()
-    {
-        return $this->module;
-    }
-
-    /**
      * Set category
      *
      * @param \Application\Entity\Categories $category
@@ -400,5 +377,28 @@ class CategoriesOptions
     public function getLanguage()
     {
         return $this->language;
+    }
+
+    /**
+     * Set module
+     *
+     * @param \Application\Entity\Modules $module
+     * @return CategoriesOptions
+     */
+    public function setModule(\Application\Entity\Modules $module = null)
+    {
+        $this->module = $module;
+
+        return $this;
+    }
+
+    /**
+     * Get module
+     *
+     * @return \Application\Entity\Modules 
+     */
+    public function getModule()
+    {
+        return $this->module;
     }
 }

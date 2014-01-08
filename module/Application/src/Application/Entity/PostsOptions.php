@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * PostsOptions
  *
- * @ORM\Table(name="posts_options", indexes={@ORM\Index(name="post_id", columns={"posts_id"}), @ORM\Index(name="title", columns={"title"}), @ORM\Index(name="typeofpost", columns={"typeofpost"}), @ORM\Index(name="user_id", columns={"users_id"}), @ORM\Index(name="language_id", columns={"language_id"})})
+ * @ORM\Table(name="posts_options", indexes={@ORM\Index(name="post_id", columns={"posts_id"}), @ORM\Index(name="title", columns={"title"}), @ORM\Index(name="user_id", columns={"users_id"}), @ORM\Index(name="language_id", columns={"language_id"})})
  * @ORM\Entity
  */
 class PostsOptions
@@ -85,49 +85,11 @@ class PostsOptions
     private $status;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="alias", type="string", length=50, nullable=true)
-     */
-    private $alias;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="typeofpost", type="string", length=50, nullable=true)
-     */
-    private $typeofpost;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="note", type="text", nullable=true)
-     */
-    private $note;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="parentid", type="integer", nullable=true)
-     */
-    private $parentid = '1';
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="position", type="integer", nullable=true)
      */
     private $position = '1';
-
-    /**
-     * @var \Application\Entity\Users
-     *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\Users")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="users_id", referencedColumnName="id")
-     * })
-     */
-    private $users;
 
     /**
      * @var \Application\Entity\Languages
@@ -148,6 +110,16 @@ class PostsOptions
      * })
      */
     private $posts;
+
+    /**
+     * @var \Application\Entity\Users
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Users")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="users_id", referencedColumnName="id")
+     * })
+     */
+    private $users;
 
 
 
@@ -369,98 +341,6 @@ class PostsOptions
     }
 
     /**
-     * Set alias
-     *
-     * @param string $alias
-     * @return PostsOptions
-     */
-    public function setAlias($alias)
-    {
-        $this->alias = $alias;
-
-        return $this;
-    }
-
-    /**
-     * Get alias
-     *
-     * @return string 
-     */
-    public function getAlias()
-    {
-        return $this->alias;
-    }
-
-    /**
-     * Set typeofpost
-     *
-     * @param string $typeofpost
-     * @return PostsOptions
-     */
-    public function setTypeofpost($typeofpost)
-    {
-        $this->typeofpost = $typeofpost;
-
-        return $this;
-    }
-
-    /**
-     * Get typeofpost
-     *
-     * @return string 
-     */
-    public function getTypeofpost()
-    {
-        return $this->typeofpost;
-    }
-
-    /**
-     * Set note
-     *
-     * @param string $note
-     * @return PostsOptions
-     */
-    public function setNote($note)
-    {
-        $this->note = $note;
-
-        return $this;
-    }
-
-    /**
-     * Get note
-     *
-     * @return string 
-     */
-    public function getNote()
-    {
-        return $this->note;
-    }
-
-    /**
-     * Set parentid
-     *
-     * @param integer $parentid
-     * @return PostsOptions
-     */
-    public function setParentid($parentid)
-    {
-        $this->parentid = $parentid;
-
-        return $this;
-    }
-
-    /**
-     * Get parentid
-     *
-     * @return integer 
-     */
-    public function getParentid()
-    {
-        return $this->parentid;
-    }
-
-    /**
      * Set position
      *
      * @param integer $position
@@ -481,29 +361,6 @@ class PostsOptions
     public function getPosition()
     {
         return $this->position;
-    }
-
-    /**
-     * Set users
-     *
-     * @param \Application\Entity\Users $users
-     * @return PostsOptions
-     */
-    public function setUsers(\Application\Entity\Users $users = null)
-    {
-        $this->users = $users;
-
-        return $this;
-    }
-
-    /**
-     * Get users
-     *
-     * @return \Application\Entity\Users 
-     */
-    public function getUsers()
-    {
-        return $this->users;
     }
 
     /**
@@ -550,5 +407,28 @@ class PostsOptions
     public function getPosts()
     {
         return $this->posts;
+    }
+
+    /**
+     * Set users
+     *
+     * @param \Application\Entity\Users $users
+     * @return PostsOptions
+     */
+    public function setUsers(\Application\Entity\Users $users = null)
+    {
+        $this->users = $users;
+
+        return $this;
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Application\Entity\Users 
+     */
+    public function getUsers()
+    {
+        return $this->users;
     }
 }

@@ -2,10 +2,14 @@
 
 namespace SetupTest;
 
-use SetupTest\TestSuite;
 use Setup\TemplateDataSetter;
 use Setup\SetupManager;
 
+/**
+ * TemplateDataSetter
+ * @author Andrea Fiori
+ * @since  07 January 2014
+ */
 class TemplateDataSetterTest extends TestSuite {
 
 	private $templateDataSetter;
@@ -16,15 +20,7 @@ class TemplateDataSetterTest extends TestSuite {
 		
 		$this->templateDataSetter = new TemplateDataSetter( new SetupManager(array("channel"=>1,"language"=>1)) );
 	}
-	
-	/**
-	 * @expectedException \Setup\NullException
-	 */
-	public function testMergeTemplateDataWithArrayLaunchNullException()
-	{
-		$this->templateDataSetter->mergeTemplateDataWithArray(array("myKey"=>"myValue"));
-	}
-	
+
 	public function testMergeTemplateDataWithArray()
 	{
 		$this->templateDataSetter->setTemplateData(array("backend" => 0,"frontend" => 1));
@@ -37,5 +33,11 @@ class TemplateDataSetterTest extends TestSuite {
 	{
 		$this->templateDataSetter->setTemplateData( array("backend" => 0, "frontend" => 1) );
 		$this->assertEquals($this->templateDataSetter->getTemplateData(), array("backend" => 0, "frontend" => 1));
+	}
+	
+	public function testAssignToTemplate()
+	{
+		$this->templateDataSetter->assignToTemplate('basePath', 'myBasePathDir');
+		$this->assertArrayHasKey('basePath', $this->templateDataSetter->getTemplateData());
 	}
 }
