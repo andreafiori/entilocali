@@ -352,63 +352,63 @@ span.wpcf7-form-control-wrap textarea{
    ================================= */
 
 div.single-port-next-nav a,
-div.single-port-prev-nav a{ background: url('images/icon/dark/port-nav.png') no-repeat; }
+div.single-port-prev-nav a{ background: url('../images/icon/dark/port-nav.png') no-repeat; }
 
 div.single-thumbnail-author,
 div.archive-wrapper .blog-item .blog-thumbnail-author,
-div.blog-item-holder .blog-item2 .blog-thumbnail-author{ background: url('images/icon/dark/author.png') no-repeat 0px 1px; }
+div.blog-item-holder .blog-item2 .blog-thumbnail-author{ background: url('../images/icon/dark/author.png') no-repeat 0px 1px; }
 
 div.single-thumbnail-date,
 div.custom-sidebar .recent-post-widget-date,
 div.archive-wrapper .blog-item .blog-thumbnail-date,
 div.blog-item-holder .blog-item1 .blog-thumbnail-date,
-div.blog-item-holder .blog-item2 .blog-thumbnail-date{ background: url('images/icon/dark/calendar.png') no-repeat 0px 1px; }
+div.blog-item-holder .blog-item2 .blog-thumbnail-date{ background: url('../images/icon/dark/calendar.png') no-repeat 0px 1px; }
 
 div.single-thumbnail-comment,
 div.archive-wrapper .blog-item .blog-thumbnail-comment,
 div.blog-item-holder .blog-item1 .blog-thumbnail-comment,
 div.blog-item-holder .blog-item2 .blog-thumbnail-comment,
-div.custom-sidebar .recent-post-widget-comment-num{ background: url('images/icon/dark/comment.png') no-repeat 0px 1px; }
+div.custom-sidebar .recent-post-widget-comment-num{ background: url('../images/icon/dark/comment.png') no-repeat 0px 1px; }
 
 div.single-thumbnail-tag,
 div.archive-wrapper .blog-item .blog-thumbnail-tag,
-div.blog-item-holder .blog-item2 .blog-thumbnail-tag{ background: url('images/icon/dark/tag.png') no-repeat; }
+div.blog-item-holder .blog-item2 .blog-thumbnail-tag{ background: url('../images/icon/dark/tag.png') no-repeat; }
 
 div.custom-sidebar #searchsubmit,	
-div.search-wrapper input[type="submit"]{ background: url('images/icon/dark/find-17px.png') no-repeat center; }	
+div.search-wrapper input[type="submit"]{ background: url('../images/icon/dark/find-17px.png') no-repeat center; }	
 
-div.single-port-visit-website{ background: url('images/icon/dark/link-small.png') no-repeat 0px 2px; }
+div.single-port-visit-website{ background: url('../images/icon/dark/link-small.png') no-repeat 0px 2px; }
 
 span.accordion-head-image.active,
-span.toggle-box-head-image.active{ /* background: url('images/icon/dark/minus-24px.png'); */ }
+span.toggle-box-head-image.active{ /* background: url('../images/icon/dark/minus-24px.png'); */ }
 span.accordion-head-image,
-span.toggle-box-head-image{ /* background: url('images/icon/dark/plus-24px.png'); */ }
+span.toggle-box-head-image{ /* background: url('../images/icon/dark/plus-24px.png'); */ }
 
 div.jcarousellite-nav .prev, 
-div.jcarousellite-nav .next{ background-image: url('images/icon/dark/navigation-20px.png'); } 
+div.jcarousellite-nav .next{ background-image: url('../images/icon/dark/navigation-20px.png'); } 
 
 div.testimonial-icon{ background: url("images/icon/dark/quotes-18px.png"); }
 
-div.custom-sidebar ul li{ background: url('images/icon/dark/arrow4.png') no-repeat 0px 14px; }
+div.custom-sidebar ul li{ background: url('../images/icon/dark/arrow4.png') no-repeat 0px 14px; }
 
 div.gdl-portfolio-title-wrapper,
 div.gdl-page-title-wrapper{
-	background: url('images/icon/dark/title-bg.png'); 
+	background: url('../images/icon/dark/title-bg.png'); 
 }
 
 div.stunning-text-wrapper{ 
-	background: url('images/icon/dark/stunning-text-bg.png'); 
+	background: url('../images/icon/dark/stunning-text-bg.png'); 
 }
 div.stunning-text-corner{
-	background: url('images/icon/dark/stunning-text-corner.png'); 
+	background: url('../images/icon/dark/stunning-text-corner.png'); 
 }
 
 /* Footer Icon Type
    ================================= */
-div.footer-wrapper div.custom-sidebar ul li { background: url('images/icon/light/arrow4.png') no-repeat 0px 14px; }
-div.footer-wrapper div.custom-sidebar #searchsubmit { background: url('images/icon/light/find-17px.png') no-repeat center; }
-div.footer-wrapper div.custom-sidebar .recent-post-widget-comment-num { background: url('images/icon/light/comment.png') no-repeat 0px 1px; }
-div.footer-wrapper div.custom-sidebar .recent-post-widget-date{ background: url('images/icon/light/calendar.png') no-repeat 0px 1px; }
+div.footer-wrapper div.custom-sidebar ul li { background: url('../images/icon/light/arrow4.png') no-repeat 0px 14px; }
+div.footer-wrapper div.custom-sidebar #searchsubmit { background: url('../images/icon/light/find-17px.png') no-repeat center; }
+div.footer-wrapper div.custom-sidebar .recent-post-widget-comment-num { background: url('../images/icon/light/comment.png') no-repeat 0px 1px; }
+div.footer-wrapper div.custom-sidebar .recent-post-widget-date{ background: url('../images/icon/light/calendar.png') no-repeat 0px 1px; }
 
 /* Elements Shadow
    ================================= */

@@ -2,31 +2,23 @@
 return array(
     'controllers' => array(
         'invokables' => array(
-            'Language\Model\Language' => 'Language\Model\Language',
-        	'Language\Controller\LanguageController' => 'Language\Controller\LanguageController',
+            'Contacts\Controller\Contacts' => 'Contacts\Controller\ContactsController',
         ),
     ),
     'router' => array(
         'routes' => array(
-            'language' => array(
+            'contacts' => array(
                 'type'    => 'Literal',
                 'options' => array(
-                    // Change this to something specific to your module
-                    'route'    => '/language',
+                    'route'    => '/contacts',
                     'defaults' => array(
-                        // Change this value to reflect the namespace in which
-                        // the controllers for your module are found
-                        '__NAMESPACE__' => 'Language\Controller',
-                        'controller'    => 'Language',
+                        '__NAMESPACE__' => 'Contacts\Controller',
+                        'controller'    => 'Contacts',
                         'action'        => 'index',
                     ),
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
-                    // This route is a sane default when developing a module;
-                    // as you solidify the routes for your module, however,
-                    // you may want to remove it and replace it with more
-                    // specific routes.
                     'default' => array(
                         'type'    => 'Segment',
                         'options' => array(
@@ -45,7 +37,8 @@ return array(
     ),
     'view_manager' => array(
         'template_path_stack' => array(
-            'Language' => __DIR__ . '/../view',
+            __DIR__ . '/../view',
+        	__DIR__ . '/../../../public'
         ),
     ),
 );

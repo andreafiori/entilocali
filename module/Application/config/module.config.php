@@ -38,29 +38,7 @@ return array(
 										),
 								),
 						),
-						/*
-						'main_nomultilang' => array(
-								'type'    => 'segment',
-								'options' => array(
-										'route'    => '[:category][/][:title][/]',
-										'constraints' => array(
-												'category'	=> '[a-zA-Z][a-zA-Z0-9_-]*',
-												'title'		=> '[a-zA-Z][a-zA-Z0-9_-]*',
-										),
-										'defaults' => array(
-												'controller' => 'Application\Controller\Index',
-												'action'     => 'index',
-										),
-								),
-								'child_routes' => array(
-										'default' => array(
-												'type'    => 'Wildcard',
-												'options' => array(
-												),
-										),
-								),
-						),
-						*/
+						
 						'main' => array(
 								'type'    => 'segment',
 								'options' => array(

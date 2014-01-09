@@ -30,19 +30,21 @@ class PostsQueryBuilder extends DQLQueryHelper {
 		$this->setBindParameters( array('channel' => $this->getSetupManager()->getChannelId() ) );
 	}
 	
-	public function setLanguage($languageId=null)
+	public function setLanguage($languageId)
 	{
-		$this->query .= "AND co.language = :language AND po.language = :language ";
-		
-		if ( !$languageId ) {
-			$languageId = $this->getSetupManager()->getLanguageId();
+		$languageId = (int) $languageId;
+		if (!$languageId) {
+			return false;
 		}
+		
+		$this->query .= "AND co.language = :language AND po.language = :language ";
 		$this->addToBindParameters('language', $languageId);
 	}
 
 	public function setCategoryName($categoryName)
 	{
 		if (!$categoryName) return false;
+		
 		$this->query .= "AND co.name = :cname ";
 		$this->addToBindParameters('cname', $categoryName);
 	}

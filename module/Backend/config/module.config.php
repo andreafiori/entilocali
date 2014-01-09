@@ -5,15 +5,14 @@ return array(
 			'Backend\Controller\Backend' => 'Backend\Controller\BackendController',
         ),
     ),
+	
     'router' => array(
         'routes' => array(
             'backend' => array(
                 'type'    => 'Literal',
                 'options' => array(
-
                     'route'    => '/backend',
                     'defaults' => array(
-
                         '__NAMESPACE__' => 'Backend\Controller',
                         'controller'    => 'Backend',
                         'action'        => 'index',
@@ -21,7 +20,6 @@ return array(
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
-                    
                     'default' => array(
                         'type'    => 'Segment',
                         'options' => array(
@@ -52,9 +50,4 @@ return array(
         ),
     ),
 	
-	/* Custom layout for this module
-	'module_layouts' => array(
-		'Backend' => 'layout/custom',
-	),
-	*/
 );

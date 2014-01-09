@@ -36,29 +36,28 @@ class IndexController extends AbstractActionController
 		$postsQueryBuilder->setSetupManager($setupManager);
 		$postsQueryBuilder->setQueryBasic();
 		$postsQueryBuilder->setBasicBindParameters();
-		$postsQueryBuilder->setLanguage();
+		$postsQueryBuilder->setLanguage($setupManager->getLanguageId());
 		$postsQueryBuilder->setAliasNotNull();
 
 		$postsRecordsHelper = new PostsRecordsHelper($postsQueryBuilder->getSelectResult());
 		$postsRecordsHelper->setSetupManager($setupManager);
 		$postsRecordsHelper->setRemotelinkWeb($setupManager->getConfigRepository()->getConfigRecord('remotelinkWeb'));
 		$postsRecordsHelper->setAdditionalArrayElements();
-		$postsAlias = $postsRecordsHelper->sortPostsByAlias();
+		$postsAlias = $postsRecordsHelper->sortPostsByAlias(true);
 		// END ALIAS SELECTION
 		
 		// SINGLE POST SELECTION: given category and\or title, get the post! title only is not allowed!?
-		if ($setupManager->getInput('category')):
+		if ($setupManager->getInput('categoryName')):
 		$postsQueryBuilder = new PostsQueryBuilder();
 		$postsQueryBuilder->setSetupManager($setupManager);
 		$postsQueryBuilder->setQueryBasic();
 		$postsQueryBuilder->setBasicBindParameters();
-		$postsQueryBuilder->setLanguage();
-		$postsQueryBuilder->setCategoryName($setupManager->getInput('category'));
+		$postsQueryBuilder->setLanguage($setupManager->getLanguageId());
+		$postsQueryBuilder->setCategoryName($setupManager->getInput('categoryName'));
 		
 		$postsDetail = $postsQueryBuilder->getSelectResult();
 		endif;
-		// END SINGLE POST SELECTION
-		
+		// END SINGLE POST SELECTION		
 
 		// SET TEMPLATE DATA... input: previous controller result, configRecord, controller result
 		$setupManager->getTemplateDataSetter()->mergeTemplateDataWithArray($postsAlias);
@@ -88,13 +87,12 @@ class IndexController extends AbstractActionController
 		
 		// Record data from the controller: to revisit
  		$setupManager->getTemplateDataSetter()->assignToTemplate('controllerResult', $postsDetail[0]);
- 		$setupManager->getTemplateDataSetter()->assignToTemplate('categoryName', $setupManager->getInput('category'));
+ 		$setupManager->getTemplateDataSetter()->assignToTemplate('categoryName', $setupManager->getInput('categoryName'));
  		
  		// SEO if not set from main controller...
  		$setupManager->getTemplateDataSetter()->assignToTemplate('seo_title', $setupManager->getTemplateDataSetter()->getTemplateData('sitename'));
  		$setupManager->getTemplateDataSetter()->assignToTemplate('seo_description', $setupManager->getTemplateDataSetter()->getTemplateData('description'));
  		$setupManager->getTemplateDataSetter()->assignToTemplate('seo_keywords', $setupManager->getTemplateDataSetter()->getTemplateData('keywords'));
- 		
  		
     	$this->layout($setupManager->getTemplateDataSetter()->getTemplateData('basiclayout')); 
     	$this->layout()->setVariable("templateData", $setupManager->getTemplateDataSetter()->getTemplateData());

@@ -100,8 +100,10 @@ class PostsRecordsHelper {
 		return $this->postsRecords;
 	}
 
-	public function sortPostsByAlias()
+	public function sortPostsByAlias($sort = false)
 	{
+		if (!$sort) return false;
+		
 		$postsAlias = array();
 		foreach($this->getPostsRecords() as $posts)
 		{
