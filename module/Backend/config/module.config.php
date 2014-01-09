@@ -5,8 +5,7 @@ return array(
 			'Backend\Controller\Backend' => 'Backend\Controller\BackendController',
         ),
     ),
-	
-    'router' => array(
+	'router' => array(
         'routes' => array(
             'backend' => array(
                 'type'    => 'Literal',
@@ -32,22 +31,62 @@ return array(
                         ),
                     ),
                 ),
-            ),
+			),
+        	'formdata' => array(
+        		'type'    => 'segment',
+        		'options' => array(
+        				'route'    => '/backend/formdata[/][:ctrl]',
+        				'constraints' => array(
+        						'ctrl'	   => '[a-zA-Z][a-zA-Z0-9_-]*',
+        				),
+        				'defaults' => array(
+        					'controller' => 'Backend\Controller\Backend',
+        					'action'     => 'formdata',
+        				),
+        		),
+        		'may_terminate' => true,
+        		'child_routes' => array(
+        				'default' => array(
+        						'type'    => 'Wildcard',
+        						'options' => array(
+        					),
+        			),
+        		),
+        	),
+        	'grid' => array(
+        			'type'    => 'segment',
+        			'options' => array(
+        					'route'    => '/backend/grid[/][:ctrl]',
+        					'constraints' => array(
+        							'ctrl'	   => '[a-zA-Z][a-zA-Z0-9_-]*',
+        					),
+        					'defaults' => array(
+        							'controller' => 'Backend\Controller\Backend',
+        							'action'     => 'grid',
+        					),
+        			),
+        			'may_terminate' => true,
+        			'child_routes' => array(
+        					'default' => array(
+        							'type'    => 'Wildcard',
+        							'options' => array(
+        							),
+        					),
+        			),
+        	),
         ),
+		
     ),
-	
     'view_manager' => array(
     	'display_not_found_reason' => true,
     	'display_exceptions'       => true,
     	'template_map' => array(
-    		'layout/layout'        => __DIR__ . '/../view/layout/layout.phtml',
-    		'error/404'            => __DIR__ . '/../view/error/404.phtml',
-    		'error/index'          => __DIR__ . '/../view/error/index.phtml',
+    		'backend/backend/login' => __DIR__ . '/../../../view/login.phtml',
+    		'backend/backend/index' => __DIR__ . '/../../../view/index.phtml',
     	),
         'template_path_stack' => array(
-            __DIR__ . '/../view',
+        	__DIR__ . '/../../../view',
         	__DIR__ . '/../../../public'
         ),
     ),
-	
 );

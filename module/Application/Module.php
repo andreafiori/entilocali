@@ -11,9 +11,8 @@ class Module implements AutoloaderProviderInterface
     public function onBootstrap(MvcEvent $e)
     {
     	$application = $e->getApplication();
-        $eventManager        = $application->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
-        $moduleRouteListener->attach($eventManager);
+        $moduleRouteListener->attach( $application->getEventManager() );
         
         $em = $application->getEventManager();
         $em->attach(\Zend\Mvc\MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'handleError'));

@@ -40,4 +40,14 @@ class BackendController extends AbstractActionController
         
         return new ViewModel();
 	}
+	
+	public function formdataAction()
+	{
+		return new ViewModel();
+	}
+	
+	public function gridAction()
+	{
+		return new ViewModel();
+	}
 }

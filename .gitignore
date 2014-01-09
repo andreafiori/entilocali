@@ -14,3 +14,4 @@ data
 tests/reports
 vendor/bin
 vendor/zf-commons
+vendor/mockery
