@@ -9,8 +9,8 @@ use Setup\DQLQueryHelper;
  * @author Andrea Fiori
  * @since  03 January 2014
  */
-class PostsQueryBuilder extends DQLQueryHelper {
-
+class PostsQueryBuilder extends DQLQueryHelper
+{
 	public function setQueryBasic()
 	{
 		if (!$this->getDefaultFieldsSelect()) {
@@ -32,8 +32,7 @@ class PostsQueryBuilder extends DQLQueryHelper {
 	
 	public function setLanguage($languageId)
 	{
-		$languageId = (int) $languageId;
-		if (!$languageId) {
+		if (!$languageId or !(int) $languageId) {
 			return false;
 		}
 		
@@ -72,5 +71,17 @@ class PostsQueryBuilder extends DQLQueryHelper {
 	public function setAliasNotNull()
 	{
 		$this->query .= "AND p.alias IS NOT NULL AND p.alias != '' ";
+	}
+	
+	public function setParentId($parentId = 0)
+	{
+		$this->query .= "AND po.parentId = :parentid ";
+		$this->addToBindParameters('parentid', $parentId);
+	}
+	
+	public function setParentIdCategory($parentId = 0)
+	{
+		$this->query .= "AND co.parentId = :parentIdCat ";
+		$this->addToBindParameters('parentIdCat', $parentId);
 	}
 }

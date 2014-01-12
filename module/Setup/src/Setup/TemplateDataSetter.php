@@ -10,6 +10,7 @@ namespace Setup;
 class TemplateDataSetter {
 
 	private $templateData = array();
+	
 	private $setupManager;
 
 	public function __construct(SetupManager $setupManager)

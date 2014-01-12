@@ -7,6 +7,8 @@ use Setup\SetupManager;
 use ServiceLocatorFactory;
 use ApplicationTest\ServiceManagerGrabber;
 use Config\Model\ConfigRepository;
+use Languages\Model\LanguagesSetup;
+use Languages\Model\LanguagesLabelsRepository;
 
 class SetupManagerTest extends TestSuite
 {
@@ -23,7 +25,7 @@ class SetupManagerTest extends TestSuite
 		$this->setupManager->setEntityManager($this->getServiceManager()->get('\Doctrine\ORM\EntityManager'));
 	}
 	
-	public function testInput()
+	public function testgetInput()
 	{
 		$input = $this->setupManager->getInput();
 		
@@ -47,6 +49,23 @@ class SetupManagerTest extends TestSuite
 		$this->assertTrue( $this->setupManager->getConfigRepository() instanceof ConfigRepository);
 	}
 	
+	/*
+	 * TODO: this test is a mess!!!
+	public function testSetLanguageIdFromDefaultLanguage()
+	{
+		$this->setupManager->setLanguagesSetup( new LanguagesSetup($this->setupManager->getEntityManager()) );
+		$this->setupManager->getLanguageSetup()->setAllAvailableLanguages($this->setupManager->getInput('channel'));
+		$this->setupManager->setDefaultLanguage();
+
+		$this->assertEquals($this->setupManager->setLanguageIdFromDefaultLanguage(), 1);
+	}
+	*/
+
+	public function testSetLanguagesLabelsRepository()
+	{
+		$this->assertTrue($this->setupManager->setLanguagesLabelsRepository( new LanguagesLabelsRepository($this->setupManager->getEntityManager()) ) instanceof LanguagesLabelsRepository);
+	}
+
 	/**
 	 * @expectedException \Setup\NullException
 	 */

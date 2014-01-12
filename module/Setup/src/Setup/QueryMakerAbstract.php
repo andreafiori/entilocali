@@ -16,6 +16,7 @@ abstract class QueryMakerAbstract {
 		$this->entityManager = $objectManager;
 
 		$this->setEntitySerializer( new EntitySerializer($objectManager) );
+		$this->setRepository();
 	}
 
 	public function setEntityManager(ObjectManager $objectManager)
@@ -23,9 +24,12 @@ abstract class QueryMakerAbstract {
 		$this->entityManager = $objectManager;
 	}
 
-	public function setRepository($repo)
+	public function setRepository($repo = null)
 	{
-		$this->repository = $repo;
+		if ($repo) {
+			$this->repository = $repo;
+		}
+				
 		return $this->repository;
 	}
 

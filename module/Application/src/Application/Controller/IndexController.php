@@ -30,7 +30,13 @@ class IndexController extends AbstractActionController
     			)
     	));
     	$setupManager = $setupManagerWrapper->initSetup();
-
+    	
+		/**
+		 * TODO: move this on a home page \ frontend model to load before all (inside setup manage!?)
+		 * 		 check posts to load
+		 * 		 get different template \ layout for different posts types (photo, blog etc.)
+		 * 		 try to set up other modules routing for albo
+		 */
 		// ALIAS SELECTION given the controller name load data you want to load ALWAYS on the app
 		$postsQueryBuilder = new PostsQueryBuilder();
 		$postsQueryBuilder->setSetupManager($setupManager);
@@ -38,13 +44,20 @@ class IndexController extends AbstractActionController
 		$postsQueryBuilder->setBasicBindParameters();
 		$postsQueryBuilder->setLanguage($setupManager->getLanguageId());
 		$postsQueryBuilder->setAliasNotNull();
-
+		
 		$postsRecordsHelper = new PostsRecordsHelper($postsQueryBuilder->getSelectResult());
 		$postsRecordsHelper->setSetupManager($setupManager);
 		$postsRecordsHelper->setRemotelinkWeb($setupManager->getConfigRepository()->getConfigRecord('remotelinkWeb'));
 		$postsRecordsHelper->setAdditionalArrayElements();
 		$postsAlias = $postsRecordsHelper->sortPostsByAlias(true);
 		// END ALIAS SELECTION
+		
+		/*
+		$categoriesQueryBuilder = new CategoriesQueryBuilder($setupManager->getEntityManager());
+		$categoriesQueryBuilder->setSetupManager($setupManager);
+		$categoriesQueryBuilder->setParentId();
+		var_dump( $categoriesQueryBuilder->getSelectResult() );
+		*/
 		
 		// SINGLE POST SELECTION: given category and\or title, get the post! title only is not allowed!?
 		if ($setupManager->getInput('categoryName')):
@@ -93,7 +106,7 @@ class IndexController extends AbstractActionController
  		$setupManager->getTemplateDataSetter()->assignToTemplate('seo_title', $setupManager->getTemplateDataSetter()->getTemplateData('sitename'));
  		$setupManager->getTemplateDataSetter()->assignToTemplate('seo_description', $setupManager->getTemplateDataSetter()->getTemplateData('description'));
  		$setupManager->getTemplateDataSetter()->assignToTemplate('seo_keywords', $setupManager->getTemplateDataSetter()->getTemplateData('keywords'));
- 		
+ 		 		
     	$this->layout($setupManager->getTemplateDataSetter()->getTemplateData('basiclayout')); 
     	$this->layout()->setVariable("templateData", $setupManager->getTemplateDataSetter()->getTemplateData());
 

@@ -27,7 +27,7 @@ class BackendController extends AbstractActionController
     		)
     	) );
     	$setupManager = $setupManagerWrapper->initSetup();
-		        
+    	
 		$templateData['languageAllAvailable'] = $setupManager->getLanguageSetup()->getAllAvailableLanguages();
 		$templateData['languageDefault'] = $setupManager->getDefaultLanguage();
 		$templateData['languageLabels'] = $setupManager->getLanguageLabels();

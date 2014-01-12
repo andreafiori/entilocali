@@ -71,6 +71,10 @@ abstract class DQLQueryHelper {
 	
 	public function getSelectResult()
 	{
+		if ( !$this->getSetupManager() ) {
+			throw new NullException('Entity Manager is not set');
+		}
+		
 		$query = $this->getSetupManager()->getEntityManager()->createQuery($this->getSelectQuery());
 		$query->setParameters($this->getBindParameters());
 		return $query->getResult();
@@ -94,7 +98,7 @@ abstract class DQLQueryHelper {
 			return false;
 		}
 	}
-	
+	/*
 	public function getUpdateResult()
 	{
 		return false;
@@ -104,4 +108,5 @@ abstract class DQLQueryHelper {
 	{
 		return false;
 	}
+	*/
 }

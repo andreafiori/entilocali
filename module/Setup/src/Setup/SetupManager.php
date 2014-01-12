@@ -29,6 +29,12 @@ class SetupManager {
 	
 	private $templateDataSetter;
 	
+	/** @var controller to load on home page */
+	private $controllerHomePage;
+	
+	/** @var controller \ class with options to load always (if present) */
+	private $controllerAlwaysToLoad;
+	
 	public function __construct(array $input)
 	{
 		$this->input = $input;
@@ -78,6 +84,8 @@ class SetupManager {
 	public function setLanguageIdFromDefaultLanguage()
 	{
 		$this->languageId = $this->getDefaultLanguage('id');
+		
+		return $this->languageId;
 	}
 	
 	/**
@@ -123,13 +131,19 @@ class SetupManager {
     public function setLanguagesLabelsRepository(LanguagesLabelsRepository $languagesLabelsRepository)
     {
     	$this->languageLabelsRepository = $languagesLabelsRepository;
+    	
+    	return $this->languageLabelsRepository;
     }
-    
+
     public function getLanguageLabelsRepository()
     {
     	return $this->languageLabelsRepository;
     }
-
+    
+	/**
+	 * 
+	 * @throws NullException
+	 */
     public function setLanguagesLabels()
     {
     	if (!$this->getLanguageLabelsRepository()) {
@@ -148,6 +162,10 @@ class SetupManager {
     
     public function setDefaultLanguage()
     {
+    	if ( !$this->getLanguageSetup() ) {
+    		throw new NullException('LanguagesSetup is not set');
+    	}
+    	
     	$this->defaultLanguage = $this->getLanguageSetup()->getDefaultLanguage();
     }
     

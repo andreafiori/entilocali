@@ -28,7 +28,7 @@ class LanguagesSetupTest extends TestSuite
 	{
 		$this->languagesSetup->setDefaultLanguage('it');
 	}
-	
+
 	public function testSetDefaultLanguage()
 	{
 		$this->languagesSetup->setAllAvailableLanguages(1);

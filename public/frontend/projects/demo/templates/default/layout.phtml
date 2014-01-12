@@ -1,0 +1,334 @@
+<?php echo $this->doctype(); ?>
+
+<!--[if lt IE 7 ]><html class="ie ie6" lang="<?php echo $templateData['languageAbbreviation'] ?>"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="<?php echo $templateData['languageAbbreviation'] ?>"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="<?php echo $templateData['languageAbbreviation'] ?>"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+
+<html dir="ltr">
+<!--<![endif]-->
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title><?php echo $templateData['sitename'] ?></title>
+
+<meta name="description" content="<?php echo $templateData['description'] ?>">
+<meta name="keywords" content="<?php echo $templateData['keywords'] ?>">
+
+<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<?php
+	echo $this->headMeta()
+              ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+              ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+?>
+<!-- Styles -->
+<?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/frontend/projects/fossobandito/favicon.ico'))
+	 	        ->prependStylesheet( $this->basePath(). '/'.$templateData['cssdir']);
+?>
+
+<!--[if lt IE 9]>
+	<link rel="stylesheet" href="<?php echo $this->basePath() ?>/<?php echo $templateData['cssdir'] ?>/ie-style.php" type="text/css" media="screen, projection">
+<![endif]-->
+
+<!--[if IE 7]>
+	<link rel="stylesheet" href="<?php echo $this->basePath() ?>/<?php echo $templateData['cssdir'] ?>ie7-style.css">
+<![endif]-->
+
+<link rel="stylesheet" id="Google-Font-css" href="http://fonts.googleapis.com/css?family=Droid+Sans%3An%2Ci%2Cb%2Cbi%7CDroid+Serif%3An%2Ci%2Cb%2Cbi%7CMerriweather%3An%2Ci%2Cb%2Cbi%7C&amp;ver=3.4" type="text/css" media="all">
+
+<?php if ($_SERVER['HTTP_HOST'] == "www.fossobandito.com" or $_SERVER['HTTP_HOST']=="fossobandito.com"): ?>
+<!-- Google Analytics -->
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-42144241-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<?php endif; ?>	
+</head>
+
+<body class="page page-template-default">
+
+<noscript>
+	<div>
+		<h1>Attenzione: javascript disabilitato</h1>
+		<div>&Egrave; stato rilevato che il browser in uso ha javascript disabilitato. Consigliamo di abilitarlo o alcune funzioni del sito non saranno visibili.</div>
+	</div>
+</noscript>
+
+	<div class="body-wrapper">
+	<div class="container">
+		<div class="header-wrapper">
+		
+			<div class="logo-wrapper">
+				<a href="<?php echo $templateData['remotelinkWeb'].$templateData['languageAbbreviation'] ?>/" title="<?=$templateData['sitename']?>"><img src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/assets/images/default-logo.jpg" alt="Logo <?php echo $templateData['sitename'] ?>"></a>
+			</div>
+			
+			<div class="header-right-side-wrapper">
+
+			<div class="social-wrapper">
+
+				<div class="social-icon-wrapper">
+					
+					<div class="social-icon"><a href="<?php echo $templateData['remotelinkWeb'] ?>it/" title="Passa alla lingua italiana"><img src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/assets/images/flag_ita.gif" alt="Bandiera italiana"> Italiano</a></div>
+					<div class="social-icon"><a href="<?php echo $templateData['remotelinkWeb'] ?>en/" title="Switch to English"><img src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/assets/images/flag_eng.gif" alt="England's flag"> <?php echo $templateData['languageLabels']['ENG_LANGUAGE_NAME'] ?></a></div>
+				
+				</div>
+
+			</div>
+
+			<!-- Navigation -->
+			<div class="navigation-wrapper">
+				
+				<div id="main-superfish-wrapper" class="menu-wrapper">
+				
+				<ul id="menu-main" class="sf-menu">
+					
+					<li id="menu-item" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item"><a href="<?php echo $templateData['remotelinkWeb'].$templateData['languageAbbreviation'] ?>/" title="Home page">Home</a></li>
+					
+					<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?=$templateData['press']['linkDetails']?>" title="<?php echo $templateData['languageLabels']['RASSEGNA_STAMPA_MENU'] ?>"><?php echo $templateData['languageLabels']['RASSEGNA_STAMPA_MENU'] ?></a></li>
+					
+					<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $templateData['workwithus']['linkDetails'] ?>" title="<?php echo $templateData['workwithus']['title'] ?>"><?php echo $templateData['workwithus']['title'] ?></a></li>
+					
+					<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $templateData['contacts']['linkDetails'] ?>" title="<?php echo $templateData['contacts']['title'] ?>"><?php echo $templateData['contacts']['title'] ?></a></li>
+					
+				</ul>
+				
+				</div>
+				
+			</div>
+			
+			<!-- Responsive select option -->
+			<div class="responsive-menu-wrapper">
+				<select id="menu-main-1" class="menu dropdown-menu" title="<?php echo $templateData['languageLabels']['RESPONSIVE_SELECTMENU_TITLE'] ?>">
+					<option value="" class="blank">&#8211; Menu &#8211;</option>
+					<option value="<?php echo $templateData['remotelinkWeb']?>" selected="selected">Home</option>
+					<option value="<?=$templateData['press']['linkDetails']?>" title="<?php echo $templateData['languageLabels']['RASSEGNA_STAMPA_MENU'] ?>"><?php echo $templateData['languageLabels']['RASSEGNA_STAMPA_MENU'] ?></option>
+					<option value="<?php echo $templateData['workwithus']['linkDetails'] ?>" title=""><?php echo $templateData['languageLabels']['LAVORA_CON_NOI_MENU'] ?></option>
+					<option value="<?php echo $templateData['contactForm']['linkDetails'] ?>" title=""><?php echo $templateData['languageLabels']['CONTATTI_MENU'] ?></option>
+					<!-- 
+					<option value="<?php echo $templateData['repetti']['linkDetails'] ?>" title="<?php echo $templateData['repetti']['title'] ?>"><?php echo $templateData['repetti']['title'] ?></option>
+					 -->
+				</select>
+			</div>
+
+			<div class="clear"></div>
+			
+			</div>
+
+		</div>
+		
+		<div class="content-wrapper sidebar-included right-sidebar">
+		
+		<div class="page-wrapper">
+
+			<?php echo $this->partial($templateData['templatePartial']); ?>
+			
+			<br class="clear">
+		</div>
+		
+	</div>
+	
+	</div>
+	
+	
+	<div class="footer-wrapper">
+		<div class="copyright-wrapper">
+			<div class="container">&copy; <?php echo date("Y") ?> <a href="<?php echo $templateData['workwithus']['credits'] ?>" title="Credits" class="underline footerlink">Credits</a> - <a href="http://validator.w3.org/check?uri=referer" title="Validate HTML" target="_blank" class="underline footerlink">Valid HTML5</a><!--  - <a href="http://jigsaw.w3.org/css-validator/check/referer" title="Validate CSS" target="_blank" class="underline footerlink">Valid CSS</a> --></div>
+		</div>
+	</div>
+	
+</div>
+
+
+<!-- jQuery library -->
+<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>jquery.js"></script>
+
+<!-- Jquery form -->
+<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>jquery.form.js"></script>
+
+<!-- Jquery validate -->
+<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>jquery.validate.min.js"></script>
+<script src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>jquery.validate.additional-methods.js"></script>
+
+<!-- FancyBox -->
+<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>fancybox/jquery.fancybox.js?v=2.1.4"></script>
+<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>fancybox/jquery.mousewheel-3.0.6.pack.js"></script>
+<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>fancybox/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>fancybox/helpers/jquery.fancybox-media.js?v=1.0.5"></script>
+<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>fancybox/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+
+<!-- Select menu -->
+<script type="application/javascript">
+	var getElementsByClassName=function(a,b,c){if(document.getElementsByClassName){getElementsByClassName=function(a,b,c){c=c||document;var d=c.getElementsByClassName(a),e=b?new RegExp("\\b"+b+"\\b","i"):null,f=[],g;for(var h=0,i=d.length;h<i;h+=1){g=d[h];if(!e||e.test(g.nodeName)){f.push(g)}}return f}}else if(document.evaluate){getElementsByClassName=function(a,b,c){b=b||"*";c=c||document;var d=a.split(" "),e="",f="http://www.w3.org/1999/xhtml",g=document.documentElement.namespaceURI===f?f:null,h=[],i,j;for(var k=0,l=d.length;k<l;k+=1){e+="[contains(concat(' ', @class, ' '), ' "+d[k]+" ')]"}try{i=document.evaluate(".//"+b+e,c,g,0,null)}catch(m){i=document.evaluate(".//"+b+e,c,null,0,null)}while(j=i.iterateNext()){h.push(j)}return h}}else{getElementsByClassName=function(a,b,c){b=b||"*";c=c||document;var d=a.split(" "),e=[],f=b==="*"&&c.all?c.all:c.getElementsByTagName(b),g,h=[],i;for(var j=0,k=d.length;j<k;j+=1){e.push(new RegExp("(^|\\s)"+d[j]+"(\\s|$)"))}for(var l=0,m=f.length;l<m;l+=1){g=f[l];i=false;for(var n=0,o=e.length;n<o;n+=1){i=e[n].test(g.className);if(!i){break}}if(i){h.push(g)}}return h}}return getElementsByClassName(a,b,c)},
+		dropdowns = getElementsByClassName( 'dropdown-menu' );
+	for ( i=0; i<dropdowns.length; i++ )
+		dropdowns[i].onchange = function(){ if ( this.value != '' ) window.location.href = this.value; }
+</script>
+
+<script type="text/javascript">
+
+jQuery(document).ready(function() {
+
+	/* Simple image */
+	$(".fancyboxsingleimage").fancybox({
+		helpers: {
+			title : {
+				type : 'float'
+			}
+		}
+	});
+	
+	/* Accordion */
+	jQuery("ul.gdl-accordion li").each(function() {
+		
+		if(jQuery(this).index() > 0){
+			jQuery(this).children(".accordion-content").css('display','none');
+		}else{
+			jQuery(this).find(".accordion-head-image").addClass('active');
+		}
+		
+		jQuery(this).children(".accordion-head").bind("click", function(){
+			jQuery(this).children().addClass(function(){
+				if(jQuery(this).hasClass("active")) return "";
+				return "active";
+			});
+			jQuery(this).siblings(".accordion-content").slideDown();
+			jQuery(this).parent().siblings("li").children(".accordion-content").slideUp();
+			jQuery(this).parent().siblings("li").find(".active").removeClass("active");
+		});
+		
+	});
+
+	/* Map on iframe */
+	$(".iframexternal").fancybox({
+        width      : '75%',
+        height     : '75%',
+        autoSize   : false,
+        openEffect : 'none',
+        closeEffect: 'none',
+        type       : "iframe",
+        iframe     : {
+           preload : false
+        }
+	});
+		
+	/* Gallery Degrado */
+	$(".gallery_degrado").on('click',function() {
+		$.ajax({
+			type : 'POST',
+			data : {'gal' : $(this).attr('rel')},
+			url : '<?php echo $templateData['remotelinkWeb'] ?>getGallery.php?g=degrado',
+			dataType: 'text',
+			complete: function(data) {
+				var dataX = data.responseText;
+				var dataXsplit = dataX.split(',');
+				var dataXarrayObj = new Array(), i;
+				/* dataXsplit.splice(0,1); */
+				for(i in dataXsplit)
+				{
+					if(dataXsplit[i].length)
+					{
+						dataXarrayObj[i] = $.parseJSON(dataXsplit[i]);
+					}
+				}
+				var opts = {
+					prevEffect : 'none',
+					nextEffect : 'none',
+					helpers : {
+						thumbs : {
+							width: 75,
+							height: 50
+						}
+					}
+				};
+				$.fancybox(dataXarrayObj, opts);
+			}
+		});
+	});
+	
+	/* Work with us form validation */
+	jQuery.validator.setDefaults({
+	  debug: true,
+	  success: "valid"
+	});
+	$.validator.addMethod('filesize', function(value, element, param) {
+		return this.optional(element) || (element.files[0].size <= param)
+	});
+	$("#gdl-contact-form").validate({
+		rules: {
+				name: {
+					required: true
+					},
+				surname: {
+					required: true
+					},
+				phone: {
+					required: true,
+					digits: true
+					},
+				jobrole: {
+					required: true
+					},
+				cvitae: {
+					required: true,
+					extension: "doc,docx,pdf",
+					filesize: 2621440
+					},
+				email: {
+					required: true,
+					email: true
+					},
+				message: {
+					required: true
+					},
+				privacy: {
+					required: true
+				}
+			},
+			messages: {
+				name: "<?php echo $templateData['languageLabels']['INSERISCI_NOME'] ?>",
+				surname: "<?php echo $templateData['languageLabels']['INSERISCI_COGNOME'] ?>",
+				email: {
+					required: "<?php echo $templateData['languageLabels']['INSERISCI_EMAIL'] ?>",
+					email: "<?php echo $templateData['languageLabels']['INSERISCI_EMAIL'] ?>"
+				},
+				phone: "<?php echo $templateData['languageLabels']['INSERISCI_PHONE'] ?>",
+				jobrole: "<?php echo $templateData['languageLabels']['INSERISCI_JOBROLE'] ?>",
+				cvitae: {
+					required: "<?php echo $templateData['languageLabels']['INSERISCI_CURRICULUM'] ?>",
+					accept: "<?php echo $templateData['languageLabels']['CURRICULUM_ALLOWED_FILES'] ?>",
+					filesize: "<?php echo $templateData['languageLabels']['CURRICULUM_FILE_TOO_BIG'] ?>"
+				},
+				message: "<?php echo $templateData['languageLabels']['INSERISCI_MESSAGGIO'] ?>"
+			},
+			submitHandler: function(form) {
+				$("#gdl-contact-form").ajaxSubmit({
+					url: window.location.protocol + "//" + window.location.host + '<?php echo $templateData['remotelinkWeb'] ?>contacts/',
+			        target: '#contactformresponse',
+					type: 'post',
+			        success: function() {
+						$('#gdl-contact-form').hide();
+			            $('#contactformresponse').fadeIn('slow');
+			        }		        
+				});
+			}
+	});
+
+});
+</script>
+
+<?php echo $this->inlineScript() ?>
+
+</body>
+</html>
