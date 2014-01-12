@@ -67,7 +67,7 @@ class PostsRecordsHelper {
 				$record['seoUrl'] = $record['seoUrl'].'/';
 			}
 			
-			return $this->remotelinkWeb.$this->getSetupManager()->getLanguageAbbreviation().'/'. \Setup\StringRequestDecoder::slugify($record['name']).'/'.$record['seoUrl'];
+			return $this->remotelinkWeb.$this->getSetupManager()->getSetupManagerLanguages()->getLanguageAbbreviation().'/'. \Setup\StringRequestDecoder::slugify($record['name']).'/'.$record['seoUrl'];
 		}
 	
 	public function assignLayout($typeOfPost)

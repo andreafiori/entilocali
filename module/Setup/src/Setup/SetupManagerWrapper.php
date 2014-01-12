@@ -36,19 +36,19 @@ class SetupManagerWrapper {
 		$this->setupManager->setChannelId();
 		$this->setupManager->setEntityManager( $this->getEntityManager() );
 		
-		$this->setupManager->setLanguagesSetup( new LanguagesSetup($this->getEntityManager()) );
-		$this->setupManager->setDefaultLanguage();
-		$this->setupManager->setLanguageIdFromDefaultLanguage();
-		$this->setupManager->setLanguageAbbreviationFromDefaultLanguage();
-		$this->setupManager->setLanguagesLabelsRepository( new LanguagesLabelsRepository($this->getEntityManager()) );
-		$this->setupManager->setLanguagesLabels();
+		$this->setupManager->getSetupManagerLanguages()->setLanguagesSetup( new LanguagesSetup($this->getEntityManager()) );
+		$this->setupManager->getSetupManagerLanguages()->setDefaultLanguage();
+		$this->setupManager->getSetupManagerLanguages()->setLanguageIdFromDefaultLanguage();
+		$this->setupManager->getSetupManagerLanguages()->setLanguageAbbreviationFromDefaultLanguage();
+		$this->setupManager->getSetupManagerLanguages()->setLanguagesLabelsRepository( new LanguagesLabelsRepository($this->getEntityManager()) );
+		$this->setupManager->getSetupManagerLanguages()->setLanguagesLabels();
 		
-		$this->setupManager->setConfigRepository( new ConfigRepository($this->getEntityManager()) );
-		$this->setupManager->setConfigurations();
-		$this->setupManager->getConfigRepository()->initConfigRecord();
+		$this->setupManager->getSetupManagerConfigurations()->setConfigRepository( new ConfigRepository($this->getEntityManager()) );
+		$this->setupManager->getSetupManagerConfigurations()->setConfigurations();
+		$this->setupManager->getSetupManagerConfigurations()->getConfigRepository()->initConfigRecord();
 		
 		$this->setupManager->setTemplateDataSetter( new TemplateDataSetter($this->setupManager) );
-		$this->setupManager->getTemplateDataSetter()->mergeTemplateDataWithArray( $this->setupManager->getConfigRepository()->getConfigRecord() );
+		$this->setupManager->getTemplateDataSetter()->mergeTemplateDataWithArray( $this->setupManager->getSetupManagerConfigurations()->getConfigRepository()->getConfigRecord() );
 		
 		return $this->setupManager;
 	}

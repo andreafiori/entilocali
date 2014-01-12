@@ -18,8 +18,8 @@ class PostsGetterWrapperTest extends TestSuite {
 		
 		$this->setupManager = new SetupManager( array('channel' => 1, 'isbackend' => 0) );
 		$this->setupManager->setEntityManager($this->getServiceManager()->get('\Doctrine\ORM\EntityManager'));
-		$this->setupManager->setConfigRepository(new ConfigRepository($this->setupManager->getEntityManager()));
-		$this->setupManager->setConfigurations();
+		$this->setupManager->getSetupManagerConfigurations()->setConfigRepository(new ConfigRepository($this->setupManager->getEntityManager()));
+		$this->setupManager->getSetupManagerConfigurations()->setConfigurations();
 		
 		$this->postsGetterWrapper = new PostsGetterWrapper($this->setupManager);
 	}

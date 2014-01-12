@@ -49,7 +49,7 @@ class PostsGetterWrapper {
 		$this->postsQueryBuilder->setSetupManager($this->setupManager);
 		$this->postsQueryBuilder->setQueryBasic();
 		$this->postsQueryBuilder->setBasicBindParameters();
-		$this->postsQueryBuilder->setLanguage($this->setupManager->getLanguageId());
+		$this->postsQueryBuilder->setLanguage($this->setupManager->getSetupManagerLanguages()->getLanguageId());
 		$this->postsQueryBuilder->setAliasNotNull();
 		
 		if ( !$this->getInput("helpers") ) {
@@ -58,7 +58,7 @@ class PostsGetterWrapper {
 
 		$this->postsRecordsHelper = new PostsRecordsHelper($this->postsQueryBuilder->getSelectResult());
 		$this->postsRecordsHelper->setSetupManager($this->setupManager);
-		$this->postsRecordsHelper->setRemotelinkWeb($this->setupManager->getConfigRepository()->getConfigRecord('remotelinkWeb'));
+		$this->postsRecordsHelper->setRemotelinkWeb($this->setupManager->getgetConfigRepository()->getConfigRecord('remotelinkWeb'));
 		$this->postsRecordsHelper->setAdditionalArrayElements();
 		$this->postsRecordsHelper->sortPostsByAlias( $this->getInput('sortByAlias') );
 		

@@ -45,8 +45,8 @@ class SetupManagerTest extends TestSuite
 	
 	public function testSetConfigRepository()
 	{
-		$this->setupManager->setConfigRepository( $this->getConfigRepository() );
-		$this->assertTrue( $this->setupManager->getConfigRepository() instanceof ConfigRepository);
+		$this->setupManager->getSetupManagerConfigurations()->setConfigRepository( $this->getConfigRepository() );
+		$this->assertTrue( $this->setupManager->getSetupManagerConfigurations()->getConfigRepository() instanceof ConfigRepository);
 	}
 	
 	/*
@@ -63,7 +63,7 @@ class SetupManagerTest extends TestSuite
 
 	public function testSetLanguagesLabelsRepository()
 	{
-		$this->assertTrue($this->setupManager->setLanguagesLabelsRepository( new LanguagesLabelsRepository($this->setupManager->getEntityManager()) ) instanceof LanguagesLabelsRepository);
+		$this->assertTrue($this->setupManager->getSetupManagerLanguages()->setLanguagesLabelsRepository( new LanguagesLabelsRepository($this->setupManager->getEntityManager()) ) instanceof LanguagesLabelsRepository);
 	}
 
 	/**
@@ -71,7 +71,7 @@ class SetupManagerTest extends TestSuite
 	 */
 	public function testSetConfigurationsLaunchException()
 	{
-		$this->assertFalse($this->setupManager->setConfigurations());
+		$this->assertFalse($this->setupManager->getSetupManagerConfigurations()->setConfigurations());
 		
 		$this->setupManager->setConfigRepository( $this->getConfigRepository() );
 	}

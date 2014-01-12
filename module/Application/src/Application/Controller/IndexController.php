@@ -42,12 +42,12 @@ class IndexController extends AbstractActionController
 		$postsQueryBuilder->setSetupManager($setupManager);
 		$postsQueryBuilder->setQueryBasic();
 		$postsQueryBuilder->setBasicBindParameters();
-		$postsQueryBuilder->setLanguage($setupManager->getLanguageId());
+		$postsQueryBuilder->setLanguage($setupManager->getSetupManagerLanguages()->getLanguageId());
 		$postsQueryBuilder->setAliasNotNull();
 		
 		$postsRecordsHelper = new PostsRecordsHelper($postsQueryBuilder->getSelectResult());
 		$postsRecordsHelper->setSetupManager($setupManager);
-		$postsRecordsHelper->setRemotelinkWeb($setupManager->getConfigRepository()->getConfigRecord('remotelinkWeb'));
+		$postsRecordsHelper->setRemotelinkWeb($setupManager->getSetupManagerConfigurations()->getConfigRepository()->getConfigRecord('remotelinkWeb'));
 		$postsRecordsHelper->setAdditionalArrayElements();
 		$postsAlias = $postsRecordsHelper->sortPostsByAlias(true);
 		// END ALIAS SELECTION
@@ -65,7 +65,7 @@ class IndexController extends AbstractActionController
 		$postsQueryBuilder->setSetupManager($setupManager);
 		$postsQueryBuilder->setQueryBasic();
 		$postsQueryBuilder->setBasicBindParameters();
-		$postsQueryBuilder->setLanguage($setupManager->getLanguageId());
+		$postsQueryBuilder->setLanguage($setupManager->getSetupManagerLanguages()->getLanguageId());
 		$postsQueryBuilder->setCategoryName($setupManager->getInput('categoryName'));
 		
 		$postsDetail = $postsQueryBuilder->getSelectResult();
@@ -79,10 +79,10 @@ class IndexController extends AbstractActionController
 		$setupManager->getTemplateDataSetter()->assignToTemplate('frontendtemplate', $setupManager->getTemplateDataSetter()->getTemplateData('frontendtemplate') ? $setupManager->getTemplateDataSetter()->getTemplateData('frontendtemplate') : 'default/');
 		$setupManager->getTemplateDataSetter()->assignToTemplate('basiclayout', $setupManager->getTemplateDataSetter()->getTemplateData('projectdir').'templates/'.$setupManager->getTemplateDataSetter()->getTemplateData('frontendtemplate').'layout.phtml');
 		
-		$setupManager->getTemplateDataSetter()->assignToTemplate('languageAllAvailable', $setupManager->getLanguageSetup()->getAllAvailableLanguages());
-		$setupManager->getTemplateDataSetter()->assignToTemplate('languageDefault', $setupManager->getDefaultLanguage());
-		$setupManager->getTemplateDataSetter()->assignToTemplate('languageLabels', $setupManager->getLanguageLabels());
-		$setupManager->getTemplateDataSetter()->assignToTemplate('languageAbbreviation', $setupManager->getLanguageSetup()->getLanguageAbbreviationFromDefaultLanguage());
+		$setupManager->getTemplateDataSetter()->assignToTemplate('languageAllAvailable', $setupManager->getSetupManagerLanguages()->getLanguageSetup()->getAllAvailableLanguages());
+		$setupManager->getTemplateDataSetter()->assignToTemplate('languageDefault', $setupManager->getSetupManagerLanguages()->getLanguageSetup()->getDefaultLanguage());
+		$setupManager->getTemplateDataSetter()->assignToTemplate('languageLabels', $setupManager->getSetupManagerLanguages()->getLanguageLabels());
+		$setupManager->getTemplateDataSetter()->assignToTemplate('languageAbbreviation', $setupManager->getSetupManagerLanguages()->getLanguageSetup()->getLanguageAbbreviationFromDefaultLanguage());
 		
 		$setupManager->getTemplateDataSetter()->assignToTemplate('basePath', $setupManager->getTemplateDataSetter()->getTemplateData('remotelinkWeb') );
 		$setupManager->getTemplateDataSetter()->assignToTemplate('templatedir', 'frontend/projects/'.$setupManager->getTemplateDataSetter()->getTemplateData('frontendprojectdir').'templates/'.$setupManager->getTemplateDataSetter()->getTemplateData('frontendTemplate'));

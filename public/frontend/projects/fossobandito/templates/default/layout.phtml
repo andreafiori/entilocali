@@ -1,5 +1,5 @@
 <?php echo $this->doctype(); ?>
-
+<?php $templateData = $this->templateData; ?>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="<?php echo $templateData['languageAbbreviation'] ?>"> <![endif]-->
 <!--[if IE 7 ]><html class="ie ie7" lang="<?php echo $templateData['languageAbbreviation'] ?>"> <![endif]-->
 <!--[if IE 8 ]><html class="ie ie8" lang="<?php echo $templateData['languageAbbreviation'] ?>"> <![endif]-->
@@ -152,7 +152,7 @@
 
 
 <!-- jQuery library -->
-<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>jquery.js"></script>
+<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>jquery.min.js"></script>
 
 <!-- Jquery form -->
 <script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>jquery.form.js"></script>
