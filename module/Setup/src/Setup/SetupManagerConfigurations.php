@@ -4,8 +4,8 @@ namespace Setup;
 
 use	Config\Model\ConfigRepository;
 
-class SetupManagerConfigurations extends SetupManagerAbstract {
-
+class SetupManagerConfigurations extends SetupManagerAbstract
+{
 	/**
 	 * 
 	 * @param ConfigRepository $configRepository
@@ -42,4 +42,5 @@ class SetupManagerConfigurations extends SetupManagerAbstract {
 	{
 		return $this->configRepository;
 	}
+	
 }

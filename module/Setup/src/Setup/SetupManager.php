@@ -14,7 +14,9 @@ class SetupManager extends SetupManagerAbstract {
 		$this->input = $input;
 
 		$this->setupManagerLanguages 		= new SetupManagerLanguages();
+		$this->setupManagerLanguagesLabels	= new SetupManagerLanguagesLabels();
 		$this->setupManagerConfigurations 	= new SetupManagerConfigurations();
+		$this->setupManagerAlwaysToLoad		= new SetupManagerAlwaysToLoad();
 	}
 
 	/**

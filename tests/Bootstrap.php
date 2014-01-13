@@ -11,6 +11,7 @@ chdir(dirname(__DIR__));
 $loader = require_once  './vendor/autoload.php';
 $loader->add("ApplicationTest\\", $cwd);
 $loader->add("BackendTest\\", $cwd);
+$loader->add("CategoriesTest\\", $cwd);
 $loader->add("ConfigTest\\", $cwd);
 $loader->add("LanguageTest\\", $cwd);
 $loader->add("PostsTest\\", $cwd);

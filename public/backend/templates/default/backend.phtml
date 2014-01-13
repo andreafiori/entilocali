@@ -2,18 +2,18 @@
 <html lang="<?php echo $templateData['languageAbbreviation'] ?>">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title><?php echo $templateData['sitename'] ?> - Area Riservata</title>
+	<title><?php echo $templateData['sitename'] ?> - <?php echo $templateData['languageLabels']['ADMIN_RESERVED_AREA']?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+	
 	<?php
-		echo $this->headLink( )
-             ->prependStylesheet($this->basePath().'/common/bootstrap3/css/bootstrap.min.css')
+	echo $this->headLink()
+              ->prependStylesheet($this->basePath().'/common/bootstrap3/css/bootstrap.min.css')
+              ->prependStylesheet('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css')
 	?>
-	<!-- <link href="css/style.css" rel="stylesheet"> -->
-
+	
 	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>
-	<script src="js/html5shiv.js"></script>
+	<script src="<?php echo $this->basePath().'/common/js/html5shiv.js'; ?>"></script>
 	<![endif]-->
 
 	<!-- Fav and touch icons
@@ -46,11 +46,11 @@
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
 						<li class="active">
-							<a href="javascript:void(0)" title="Back to the home page"><span class="glyphicon glyphicon-home"></span> Home</a>
+							<a href="javascript:void(0)" title="Back to the home page"><i class="fa fa-home"></i> Home</a>
 						</li>
 						<!-- Preview -->
 						<li>
-							<a href="<?php echo $templateData['remotelinkWeb'] ?>" target="_blank" title="<?php echo $templateData['languageLabels']['ADMIN_PREVIEW_TITLE'] ?>"><span class="glyphicon glyphicon-eye-open"></span> <?php echo $templateData['languageLabels']['ADMIN_PREVIEW'] ?></a>
+							<a href="<?php echo $templateData['remotelinkWeb'] ?>" target="_blank" title="<?php echo $templateData['languageLabels']['ADMIN_PREVIEW_TITLE'] ?>"><i class="fa fa-eye"></i> <?php echo $templateData['languageLabels']['ADMIN_PREVIEW'] ?></a>
 						</li>
 						<?php
 						/*
@@ -71,23 +71,23 @@
 													<li><a href="#">Level 1.1.4</a></li>
 												</ul>
 										</li>
-												</ul>
-											</li>
+										
+									</ul>
+								</li>
 
-											<li><a href="#" title="">Blogs</a></li>
-											<li><a href="#" title="">Foto</a></li>
-											<li><a href="#" title="">Video</a></li>
-											
-											<li><a href="#" title="">E-commerce</a></li>
-											<li><a href="#" title="">Annunci</a></li>
-											<li><a href="#" title="">Takeaway</a></li>
-											
-										</ul>
-									</li>
+								<li><a href="#" title="">Blogs</a></li>
+								<li><a href="#" title="">Foto</a></li>
+								<li><a href="#" title="">Video</a></li>
+								<li><a href="#" title="">E-commerce</a></li>
+								<li><a href="#" title="">Annunci</a></li>
+								<li><a href="#" title="">Takeaway</a></li>
+								
+							</ul>
+						</li>
 						*/
 						?>
 						<!-- Languages -->
-						<li class="dropdown"><a href="javascript:void(0)" title="<?php echo $templateData['languageLabels']['ADMIN_LANGUAGE'] ?>" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-flag"></span> <?php echo $templateData['languageLabels']['ADMIN_LANGUAGE'] ?> <b class="caret"></b></a>
+						<li class="dropdown"><a href="javascript:void(0)" title="<?php echo $templateData['languageLabels']['ADMIN_LANGUAGE'] ?>" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-flag"></i> <?php echo $templateData['languageLabels']['ADMIN_LANGUAGE'] ?> <b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<?php
 								foreach($templateData['languageAvailables'] as $availableLanguages):
@@ -100,27 +100,27 @@
 						</li>
 						<!-- Options -->
 						<li>
-							<a href="?lang=<?php echo $templateData['languageAbbreviation'] ?>" title="<?php echo $templateData['languageLabels']['ADMIN_OPTIONS'] ?>"><span class="glyphicon glyphicon-wrench"></span> <?php echo $templateData['languageLabels']['ADMIN_OPTIONS'] ?></a>
+							<a href="?lang=<?php echo $templateData['languageAbbreviation'] ?>" title="<?php echo $templateData['languageLabels']['ADMIN_OPTIONS'] ?>"><i class="fa fa-wrench"></i> <?php echo $templateData['languageLabels']['ADMIN_OPTIONS'] ?></a>
 						</li>
 						<!-- Assistance \ Ticketing -->
 						<li>
-							<a href="?lang=<?php echo $templateData['languageAbbreviation'] ?>&amp;controller=formDataController&amp;adminObject=ticketFormData" title="<?php echo $templateData['languageLabels']['ADMIN_ASSISTANCE'] ?>"><?php echo $templateData['languageLabels']['ADMIN_ASSISTANCE'] ?></a>
+							<a href="?lang=<?php echo $templateData['languageAbbreviation'] ?>&amp;controller=formDataController&amp;adminObject=ticketFormData" title="<?php echo $templateData['languageLabels']['ADMIN_ASSISTANCE'] ?>"><i class="fa fa-stethoscope"></i> <?php echo $templateData['languageLabels']['ADMIN_ASSISTANCE'] ?></a>
 						</li>
 					</ul>
 					
 					<!-- User Dropdown Menu -->
 					<ul class="nav navbar-nav navbar-right">
 						<li class="dropdown">
-							 <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> Andrea Fiori <strong class="caret"></strong></a>
+							 <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Andrea Fiori <strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
 								<li>
-									<a href="javascript:void(0)" title="">Profilo</a>
+									<a href="javascript:void(0)" title="<?php echo $templateData['languageLabels']['ADMIN_USER_PROFILE'] ?>"><?php echo $templateData['languageLabels']['ADMIN_USER_PROFILE'] ?></a>
 								</li>
 								<li>
-									<a href="javascript:void(0)" title="Documentazione">Documentazione</a>
+									<a href="javascript:void(0)" title="Documentazione"><i class="fa fa-book"></i> Documentazione</a>
 								</li>
 								<li>
-									<a href="javascript:void(0)" title="Application Program Interface">API</a>
+									<a href="javascript:void(0)" title="Application Program Interface"><i class="fa fa-external-link-square"></i> API</a>
 								</li>
 								<li>
 									<a href="javascript:void(0)" title="Database Backup">Database Backup</a>
@@ -128,7 +128,7 @@
 								<li class="divider">
 								</li>
 								<li>
-									<a href="<?php echo $logoutLink ?>" title=""><span class="glyphicon glyphicon-off"></span> <?php echo $templateData['languageLabels']['ADMIN_USER_EXIT'] ?></a>
+									<a href="javascript:void(0)" title="<?php echo $templateData['languageLabels']['ADMIN_USER_EXIT'] ?>"><i class="fa fa-power-off"></i> <?php echo $templateData['languageLabels']['ADMIN_USER_EXIT'] ?></a>
 								</li>
 							</ul>
 						</li>
@@ -150,19 +150,7 @@
 							Panel footer
 						</div>
 					</div>
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							<h3 class="panel-title">
-								Panel title
-							</h3>
-						</div>
-						<div class="panel-body">
-							Panel content
-						</div>
-						<div class="panel-footer">
-							Panel footer
-						</div>
-					</div>
+
 				</div>
 				<div class="col-md-9 column">
 					<ul class="breadcrumb">
@@ -178,212 +166,15 @@
 					</ul>
 					<div class="jumbotron well">
 						<h1>
-							Hello, world!
+							Under construction
 						</h1>
 						<p>
-							This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.
+							Area in fase di costruzione e manutenzione
 						</p>
 						<p>
 							<a class="btn btn-primary btn-large" href="#">Learn more</a>
 						</p>
 					</div>
-					<div class="row">
-						<div class="col-md-4">
-							<div class="thumbnail">
-								<img alt="300x200" src="http://lorempixel.com/600/200/people">
-								<div class="caption">
-									<h3>
-										Thumbnail label
-									</h3>
-									<p>
-										Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-									</p>
-									<p>
-										<a class="btn btn-primary" href="#">Action</a> <a class="btn" href="#">Action</a>
-									</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="thumbnail">
-								<img alt="300x200" src="http://lorempixel.com/600/200/city">
-								<div class="caption">
-									<h3>
-										Thumbnail label
-									</h3>
-									<p>
-										Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-									</p>
-									<p>
-										<a class="btn btn-primary" href="#">Action</a> <a class="btn" href="#">Action</a>
-									</p>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="thumbnail">
-								<img alt="300x200" src="http://lorempixel.com/600/200/sports">
-								<div class="caption">
-									<h3>
-										Thumbnail label
-									</h3>
-									<p>
-										Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
-									</p>
-									<p>
-										<a class="btn btn-primary" href="#">Action</a> <a class="btn" href="#">Action</a>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="page-header">
-						<h1>
-							Example page header <small>Subtext for header</small>
-						</h1>
-					</div>
-					<h2>
-						Heading
-					</h2>
-					<p>
-						Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-					</p>
-					<p>
-						<a class="btn" href="#">View details »</a>
-					</p>
-					<div class="media">
-						 <a href="#" class="pull-left"><img src="http://lorempixel.com/64/64/" class="media-object" alt=""></a>
-						<div class="media-body">
-							<h4 class="media-heading">
-								Nested media heading
-							</h4> Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
-							<div class="media">
-								 <a href="#" class="pull-left"><img src="http://lorempixel.com/64/64/" class="media-object" alt=""></a>
-								<div class="media-body">
-									<h4 class="media-heading">
-										Nested media heading
-									</h4> Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
-								</div>
-							</div>
-						</div>
-					</div>
-					<table class="table table-bordered">
-						<thead>
-							<tr>
-								<th>
-									#
-								</th>
-								<th>
-									Product
-								</th>
-								<th>
-									Payment Taken
-								</th>
-								<th>
-									Status
-								</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>
-									1
-								</td>
-								<td>
-									TB - Monthly
-								</td>
-								<td>
-									01/04/2012
-								</td>
-								<td>
-									Default
-								</td>
-							</tr>
-							<tr class="active">
-								<td>
-									1
-								</td>
-								<td>
-									TB - Monthly
-								</td>
-								<td>
-									01/04/2012
-								</td>
-								<td>
-									Approved
-								</td>
-							</tr>
-							<tr class="success">
-								<td>
-									2
-								</td>
-								<td>
-									TB - Monthly
-								</td>
-								<td>
-									02/04/2012
-								</td>
-								<td>
-									Declined
-								</td>
-							</tr>
-							<tr class="warning">
-								<td>
-									3
-								</td>
-								<td>
-									TB - Monthly
-								</td>
-								<td>
-									03/04/2012
-								</td>
-								<td>
-									Pending
-								</td>
-							</tr>
-							<tr class="danger">
-								<td>
-									4
-								</td>
-								<td>
-									TB - Monthly
-								</td>
-								<td>
-									04/04/2012
-								</td>
-								<td>
-									Call in to confirm
-								</td>
-							</tr>
-						</tbody>
-					</table>
-					
-					<form class="form-horizontal" role="form">
-					<div class="form-group">
-						 <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
-						<div class="col-sm-10">
-							<input type="email" class="form-control" id="inputEmail3">
-						</div>
-					</div>
-					<div class="form-group">
-						 <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
-						<div class="col-sm-10">
-							<input type="password" class="form-control" id="inputPassword3">
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-sm-offset-2 col-sm-10">
-							<div class="checkbox">
-								 <label><input type="checkbox"> Remember me</label>
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-sm-offset-2 col-sm-10">
-							 <button type="submit" class="btn btn-default">Sign in</button>
-						</div>
-					</div>
-				</form>
 				</div>
 			</div>
 			<div class="row clearfix">
@@ -398,10 +189,10 @@
 </div>
 
 <!-- JavaScript -->
+<!-- <script src="<?php echo $this->basePath() ?>/common/angularjs/angualar.js"></script> -->
 <script src="<?php echo $this->basePath() ?>/common/jquery/jquery.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/common/bootstrap3/js/bootstrap.min.js"></script>
 
-<!-- <script type="text/javascript" src="js/scripts.js"></script> -->
 <script>
 $(document).ready(function () {
 

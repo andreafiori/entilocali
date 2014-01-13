@@ -3,11 +3,11 @@
 namespace SetupManagerWrapperTest;
 
 use SetupTest\TestSuite;
-use Setup\SetupManagerWrapper;
 use Setup\SetupManager;
+use Setup\SetupManagerWrapper;
 
 class SetupManagerWrapperTest extends TestSuite
-{	
+{
 	private $setupManagerWrapper;
 	
 	protected function setUp()

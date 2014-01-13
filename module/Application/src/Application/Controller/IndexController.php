@@ -37,6 +37,7 @@ class IndexController extends AbstractActionController
 		 * 		 get different template \ layout for different posts types (photo, blog etc.)
 		 * 		 try to set up other modules routing for albo
 		 */
+    	
 		// ALIAS SELECTION given the controller name load data you want to load ALWAYS on the app
 		$postsQueryBuilder = new PostsQueryBuilder();
 		$postsQueryBuilder->setSetupManager($setupManager);

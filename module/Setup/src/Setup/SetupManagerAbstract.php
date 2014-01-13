@@ -15,15 +15,13 @@ class SetupManagerAbstract
 	protected $channelId;
 	protected $configRepository;
 
-	protected $setupManagerLanguages, $setupManagerConfigurations;
+	protected $setupManagerLanguages, $setupManagerLanguagesLabels;
+	
+	protected $setupManagerConfigurations;
 
 	protected $templateDataSetter;
-
-	/** @var controller to load on home page */
-	protected $controllerHomePage;
-
-	/** @var controller \ class with options to load always (if present) */
-	protected $controllerAlwaysToLoad;
+	
+	protected $setupManagerAlwaysToLoad;
 
 	public function setInput(array $input)
 	{
@@ -40,21 +38,24 @@ class SetupManagerAbstract
 		return $this->input;
 	}
 
-	public function getChannelId()
-	{
-		return $this->channelId;
-	}
-	
 	public function setEntityManager(\Doctrine\ORM\EntityManager $entityManager)
 	{
 		$this->entityManager = $entityManager;
 	}
 
+	public function getChannelId()
+	{
+		return $this->channelId ? $this->channelId : 1;
+	}
+
+	/**
+	 * @return \Doctrine\ORM\EntityManager
+	 */
 	public function getEntityManager()
 	{
 		return $this->entityManager;
 	}
-	
+
 	/**
 	 * @return SetupManagerLanguages
 	 */
@@ -64,10 +65,23 @@ class SetupManagerAbstract
 	}
 
 	/**
+	 * @return SetupManagerLanguagesLabels
+	 */
+	public function getSetupManagerLanguagesLabels()
+	{
+		return $this->setupManagerLanguagesLabels;
+	}
+
+	/**
 	 * @return SetupManagerConfigurations
 	 */
 	public function getSetupManagerConfigurations()
 	{
 		return $this->setupManagerConfigurations;
+	}
+	
+	public function getSetupManagerAlwaysToLoad()
+	{
+		return $this->setupManagerAlwaysToLoad;
 	}
 }

@@ -7,6 +7,7 @@ use Zend\Http\Request;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 use ApplicationTest\ServiceManagerGrabber;
+use Setup\NullException;
 
 class TestSuite extends \PHPUnit_Framework_TestCase
 {
@@ -37,20 +38,21 @@ class TestSuite extends \PHPUnit_Framework_TestCase
 		$this->setDoctrineMock();
 	}
 	
-	public function getEntityManagerMock()
+	protected function getDoctrineEntityManager()
+	{
+		if (!$this->getServiceManager()) {
+			throw new NullException('Service Manager is not set');
+		}
+		
+		return $this->getServiceManager()->get('\Doctrine\ORM\EntityManager');
+	}
+	
+	protected function getEntityManagerMock()
 	{
 		return $this->entityManagerMock;
 	}
-	
-	/**
-	 * @test
-	 */
-	public function testThisFile()
-	{
-		$this->assertTrue( true );
-	}
-	
-	public function getServiceManager()
+		
+	protected function getServiceManager()
 	{
 		return $this->serviceManager;
 	}
@@ -90,4 +92,12 @@ class TestSuite extends \PHPUnit_Framework_TestCase
 				->method('getEntityManager')
 				->will($this->returnValue($this->getEntityManagerMock()));
 		}
+
+	/**
+	 * @test
+	 */
+	public function testThisFile()
+	{
+		$this->assertTrue( true );
+	}
 }

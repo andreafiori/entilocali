@@ -7,6 +7,7 @@ return array(
     ),
 	'router' => array(
         'routes' => array(
+        	/* HomePage */
             'backend' => array(
                 'type'    => 'Literal',
                 'options' => array(
@@ -32,12 +33,36 @@ return array(
                     ),
                 ),
 			),
+        	/* HomePage with language */
+        	'homepage' => array(
+        		'type'    => 'segment',
+        		'options' => array(
+        				'route'    => '/backend[/:lang][/]',
+        				'constraints' => array(
+        					'lang'     => '[a-z]{2}',
+        				),
+        				'defaults' => array(
+        					'controller' => 'Backend\Controller\Backend',
+        					'action'     => 'index',
+        				),
+        		),
+        		'may_terminate' => true,
+        		'child_routes' => array(
+        				'default' => array(
+        						'type'    => 'Wildcard',
+        						'options' => array( ),
+        			),
+        		),
+        	),
+        	/* Forms */
         	'formdata' => array(
         		'type'    => 'segment',
         		'options' => array(
-        				'route'    => '/backend/formdata[/][:ctrl]',
+        				'route'    => '/backend[/:lang]/formdata[/][:ctrl][/][:id]',
         				'constraints' => array(
-        						'ctrl'	   => '[a-zA-Z][a-zA-Z0-9_-]*',
+        						'lang'      => '[a-z]{2}',
+        						'ctrl'	    => '[a-zA-Z][a-zA-Z0-9_-]*',
+        						'id'		=> '[0-9]'
         				),
         				'defaults' => array(
         					'controller' => 'Backend\Controller\Backend',
@@ -48,11 +73,11 @@ return array(
         		'child_routes' => array(
         				'default' => array(
         						'type'    => 'Wildcard',
-        						'options' => array(
-        					),
+        						'options' => array( ),
         			),
         		),
         	),
+        	/* Data Table Grid */
         	'grid' => array(
         			'type'    => 'segment',
         			'options' => array(
@@ -81,6 +106,7 @@ return array(
     	'display_not_found_reason' => true,
     	'display_exceptions'       => true,
     	'template_map' => array(
+    		/* Render empty views to avoid error 500 */
     		'backend/backend/login' => __DIR__ . '/../../../view/login.phtml',
     		'backend/backend/index' => __DIR__ . '/../../../view/index.phtml',
     	),

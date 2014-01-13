@@ -3,18 +3,18 @@
 namespace Setup;
 
 use Languages\Model\LanguagesSetup;
-use	Languages\Model\LanguagesLabelsRepository;
+use Languages\Model\LanguagesLabelsRepository;
 
-class SetupManagerLanguages extends SetupManagerAbstract {
-	
+class SetupManagerLanguages extends SetupManagerAbstract
+{	
 	protected $languageId;
 	protected $languageAbbreviation;
 	protected $defaultLanguage;
-	
+
 	protected $languagesSetup;
 	protected $languagesLabels;
 	protected $languagesLabelsRepository;
-	
+
 	public function setLanguageId($id)
 	{
 		$this->languageId = (int) $id;
@@ -22,52 +22,20 @@ class SetupManagerLanguages extends SetupManagerAbstract {
 	
 	public function getLanguageId()
 	{
-		if (!$this->languageId) return 1;
+		if (!$this->languageId) {
+			return 1;
+		}
+		
 		return $this->languageId;
 	}
-	
+
 	public function setLanguageIdFromDefaultLanguage()
 	{
 		$this->languageId = $this->getDefaultLanguage('id');
-	
+
 		return $this->languageId;
 	}
-	
-	/**
-	 * @param LanguagesLabelsRepository $languagesLabelsRepository
-	 */
-	public function setLanguagesLabelsRepository(LanguagesLabelsRepository $languagesLabelsRepository)
-	{
-		$this->languageLabelsRepository = $languagesLabelsRepository;
-			
-		return $this->languageLabelsRepository;
-	}
-	
-	public function getLanguageLabelsRepository()
-	{
-		return $this->languageLabelsRepository;
-	}
-	
-	/**
-	 *
-	 * @throws NullException
-	 */
-	public function setLanguagesLabels()
-	{
-		if (!$this->getLanguageLabelsRepository()) {
-			throw new NullException('Language Labels Repository is not set');
-		}
-			
-		$this->languagesLabels = $this->getLanguageLabelsRepository()->getLabels(
-				array("language" => $this->getDefaultLanguage('id') ? $this->getDefaultLanguage('id') : 1 )
-		);
-	}
-	
-	public function getLanguageLabels()
-	{
-		return $this->languagesLabels;
-	}
-	
+
 	public function setDefaultLanguage()
 	{
 		if ( !$this->getLanguageSetup() ) {
@@ -80,7 +48,7 @@ class SetupManagerLanguages extends SetupManagerAbstract {
 	public function setLanguagesSetup(LanguagesSetup $languagesSetup)
 	{
 		$this->languagesSetup = $languagesSetup;
-		$this->languagesSetup->setAllAvailableLanguages(1); // $this->getChannelId()
+		$this->languagesSetup->setAllAvailableLanguages($this->getChannelId());
 		$this->languagesSetup->setDefaultLanguage($this->getInput('languageAbbreviation'));
 	}
 	
@@ -89,12 +57,11 @@ class SetupManagerLanguages extends SetupManagerAbstract {
 		if ($key) {
 			return $this->defaultLanguage[$key];
 		}
-			
+		
 		return $this->defaultLanguage;
 	}
 	
 	/**
-	 * 
 	 * @return LanguagesSetup
 	 */
 	public function getLanguageSetup()
@@ -117,5 +84,43 @@ class SetupManagerLanguages extends SetupManagerAbstract {
 	public function getLanguageAbbreviation()
 	{
 		return $this->languageAbbreviation;
+	}
+
+	/**
+	 * @param LanguagesLabelsRepository $languagesLabelsRepository
+	 */
+	public function setLanguagesLabelsRepository(LanguagesLabelsRepository $languagesLabelsRepository)
+	{
+		$this->languageLabelsRepository = $languagesLabelsRepository;
+	
+		return $this->languageLabelsRepository;
+	}
+	
+	public function getLanguageLabelsRepository()
+	{
+		return $this->languageLabelsRepository;
+	}
+	
+	/**
+	 * 
+	 * @throws NullException
+	 * @return LanguagesSetup
+	 */
+	public function setLanguagesLabels()
+	{
+		if (!$this->getLanguageLabelsRepository()) {
+			throw new NullException('Language Labels Repository is not set');
+		}
+		
+		$this->languagesLabels = $this->getLanguageLabelsRepository()->getLabels(
+				array("language" => $this->getDefaultLanguage('id') ? $this->getDefaultLanguage('id') : 1 )
+		);
+	
+		return $this->languagesLabels;
+	}
+	
+	public function getLanguageLabels()
+	{
+		return $this->languagesLabels;
 	}
 }

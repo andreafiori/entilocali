@@ -42,13 +42,17 @@ class SetupManagerWrapper {
 		$this->setupManager->getSetupManagerLanguages()->setLanguageAbbreviationFromDefaultLanguage();
 		$this->setupManager->getSetupManagerLanguages()->setLanguagesLabelsRepository( new LanguagesLabelsRepository($this->getEntityManager()) );
 		$this->setupManager->getSetupManagerLanguages()->setLanguagesLabels();
-		
+
 		$this->setupManager->getSetupManagerConfigurations()->setConfigRepository( new ConfigRepository($this->getEntityManager()) );
 		$this->setupManager->getSetupManagerConfigurations()->setConfigurations();
 		$this->setupManager->getSetupManagerConfigurations()->getConfigRepository()->initConfigRecord();
 		
 		$this->setupManager->setTemplateDataSetter( new TemplateDataSetter($this->setupManager) );
 		$this->setupManager->getTemplateDataSetter()->mergeTemplateDataWithArray( $this->setupManager->getSetupManagerConfigurations()->getConfigRepository()->getConfigRecord() );
+		
+		$this->setupManager->getSetupManagerAlwaysToLoad()->setClassName($this->setupManager->getSetupManagerConfigurations()->getConfigRepository()->getConfigRecord('homepagecontroller'));
+		$this->setupManager->getSetupManagerAlwaysToLoad()->setRecord();
+		$this->setupManager->getTemplateDataSetter()->mergeTemplateDataWithArray($this->setupManager->getSetupManagerAlwaysToLoad()->getRecord(), 'alwaystoload');
 		
 		return $this->setupManager;
 	}
@@ -61,7 +65,7 @@ class SetupManagerWrapper {
 	{
 		return $this->setupManager;
 	}
-		
+
 		/**
 		 * 
 		 * @return \Doctrine\ORM\EntityManager

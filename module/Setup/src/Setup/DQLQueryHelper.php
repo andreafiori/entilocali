@@ -37,6 +37,11 @@ abstract class DQLQueryHelper {
 	}
 
 	abstract public function setQueryBasic();
+	
+	public function getQueryBasic()
+	{
+		return $this->queryBasic;
+	}
 
 	public function setBindParameters(array $parameters)
 	{
