@@ -5,8 +5,13 @@ namespace Setup;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
 
-abstract class QueryMakerAbstract {
-
+/**
+ * 
+ * @author Andrea Fiori
+ * @since  14 January 2014
+ */
+abstract class QueryMakerAbstract
+{
 	protected $entityManager;
 	protected $entitySerializer;
 	protected $repository;

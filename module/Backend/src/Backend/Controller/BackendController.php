@@ -15,15 +15,22 @@ use Zend\View\Model\ViewModel;
  */
 class BackendController extends AbstractActionController
 {
+	private $setupManager;
+	
+	public function __construct()
+	{
+		// TODO: setup and login check timeout and if logged
+	}
+	
     public function indexAction()
     {
     	$setupManagerWrapper = new SetupManagerWrapper( new SetupManager(
     		array(
-    			'channel'	=> 1,
-    			'isbackend' => 0,
-    			'controller' => $this->params()->fromRoute('controller'),
-    			'action'	 => $this->params()->fromRoute('action'),
-    			'languageAbbreviation' => strtolower( $this->params()->fromRoute('lang') )
+    			'channel'				=> 1,
+    			'isbackend' 			=> 0,
+    			'controller'			=> $this->params()->fromRoute('controller'),
+    			'action'				=> $this->params()->fromRoute('action'),
+    			'languageAbbreviation' 	=> strtolower( $this->params()->fromRoute('lang') )
     		)
     	) );
     	$setupManager = $setupManagerWrapper->initSetup();
@@ -49,21 +56,18 @@ class BackendController extends AbstractActionController
  		$setupManager->getTemplateDataSetter()->assignToTemplate('categoryName', $setupManager->getInput('categoryName'));
 		
 		$templateToRender = 'backend/templates/default/backend.phtml';
-		//$templateToRender = 'backend/templates/default/login.phtml'; // if not logged...
-		
-        $this->layout($templateToRender);
+		$templateToRender = 'backend/templates/default/login.phtml';
+				
+		$this->layout($templateToRender);
         $this->layout()->setVariable("templateData", $setupManager->getTemplateDataSetter()->getTemplateData() );
         
 		return new ViewModel();
 	}
-	/*
-	public function login()
-	{
 		
-	}
-	
 	public function formdataAction()
 	{
+		$templateToRender = 'backend/templates/default/backend.phtml';
+		
 		return new ViewModel();
 	}
 	
@@ -71,5 +75,42 @@ class BackendController extends AbstractActionController
 	{
 		return new ViewModel();
 	}
-	*/
+	
+	/**
+	 * TODO: 
+	 * 		validate form 
+	 * 		session login
+	 * 		set user session from db data
+	 * 		set ACL role and compare with db user role
+	 *  	
+	 * @return \Zend\View\Model\ViewModel
+	 */
+	public function loginAction()
+	{
+		$request = $this->getRequest();
+		if ( $request->isPost() ) {
+			//$userLoginAuth = new UserLoginAuth(array $input); $record = setRecord();
+			//$userPost = (array) $request->getPost();
+			
+			//$session = new Container('base');
+			//$session->offsetSet('name', "Andrea");
+			//$session->offsetGet('name');
+			
+			//return $this->redirect()->toRoute("backend", array("action" => "index") );
+			echo "here!";
+		} else {
+			//echo "No auth. Redirect... After 3 fails, show captcha!";
+			return $this->redirect()->toRoute("backend", array("action" => "index") );
+		}
+		
+		$response = $this->getResponse();
+		$response->setStatusCode(200);
+		//$response->setContent('foo');
+		return $response;
+	}
+	
+	public function logoutAction()
+	{
+		
+	}
 }

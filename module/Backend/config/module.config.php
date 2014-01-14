@@ -98,9 +98,9 @@ return array(
         							),
         					),
         			),
+        			/* TODO: login and logout here or on the index controller */
         	),
         ),
-		
     ),
     'view_manager' => array(
     	'display_not_found_reason' => true,

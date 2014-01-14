@@ -19,33 +19,32 @@ class SetupManagerLanguagesLabels extends SetupManagerAbstract
 	public function setLanguagesLabelsRepository(LanguagesLabelsRepository $languagesLabelsRepository)
 	{
 		$this->languageLabelsRepository = $languagesLabelsRepository;
-
+	
 		return $this->languageLabelsRepository;
 	}
-
+	
 	public function getLanguageLabelsRepository()
 	{
 		return $this->languageLabelsRepository;
 	}
 
 	/**
-	 *
 	 * @throws NullException
 	 * @return LanguagesSetup
+	 * @param  int $languageId
 	 */
-	public function setLanguagesLabels()
+	public function setLanguagesLabels($languageId = 1)
 	{
-		if (!$this->getLanguageLabelsRepository()) {
+		$labelsRepository = $this->getLanguageLabelsRepository();
+		if (!$labelsRepository) {
 			throw new NullException('Language Labels Repository is not set');
 		}
-
-		$this->languagesLabels = $this->getLanguageLabelsRepository()->getLabels(
-				array("language" => $this->getDefaultLanguage('id') ? $this->getDefaultLanguage('id') : 1 )
-		);
+	
+		$this->languagesLabels = $labelsRepository->getLabels( array("language" => $languageId ) );
 
 		return $this->languagesLabels;
 	}
-
+	
 	public function getLanguageLabels()
 	{
 		return $this->languagesLabels;

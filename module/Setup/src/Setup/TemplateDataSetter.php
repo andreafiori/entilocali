@@ -25,7 +25,7 @@ class TemplateDataSetter {
 	 */
 	public function mergeTemplateDataWithArray(array $arrayToMerge, $key = null)
 	{
-		if (!is_array($this->templateData)) {
+		if ( !is_array($this->templateData) ) {
 			$this->templateData = $arrayToMerge;
 			return;
 		}

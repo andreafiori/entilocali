@@ -5,8 +5,13 @@ namespace Languages\Model;
 use Setup\QueryMakerAbstract;
 use Setup\NullException;
 
-class LanguagesSetup extends QueryMakerAbstract {
-
+/**
+ * 
+ * @author Andrea Fiori
+ * @since  07 January 2014
+ */
+class LanguagesSetup extends QueryMakerAbstract
+{
 	private $defaultLangFieldName;
 	private $defaultLanguage;
 	private $allAvailableLanguages;
@@ -37,25 +42,20 @@ class LanguagesSetup extends QueryMakerAbstract {
 	public function setAllAvailableLanguages($channelId = 1)
 	{
 		$query = $this->getEntityManager()->createQuery("SELECT l.id, l.abbreviation1, l.isdefault, l.isdefaultBackend, l.active FROM Application\\Entity\\Languages l WHERE l.active = 1 AND l.channel = :channel ");
-		$query->setParameter('channel', $channelId);
+		$query->setParameter('channel', $channelId ? $channelId : 1);
 		
 		$this->allAvailableLanguages = $query->getResult();
-		
+
 		return $this->allAvailableLanguages;
 	}
 
-	/**
-	 * 
-	 * @param unknown $abbreviation
-	 * @throws NullException
-	 * @return Ambigous <multitype:, \Doctrine\ORM\mixed, mixed, \Doctrine\DBAL\Driver\Statement, \Doctrine\Common\Cache\mixed>|boolean
-	 */
 	public function setDefaultLanguage($abbreviation)
 	{
 		if ( !$this->getAllAvailableLanguages() ) {
-			throw new NullException('All available languages are not set');
+			throw new NullException('All Available Languages are not set');
+			return false;
 		}
-		
+
 		if (!$this->defaultLangFieldName) {
 			$this->setIsOnBackend();
 		}
@@ -72,8 +72,10 @@ class LanguagesSetup extends QueryMakerAbstract {
 		{
 			$diff = array_diff($arrayCompare, $allAvailableLanguages);
 			if ( empty($diff) ) {
+				
 				$this->defaultLanguage = $allAvailableLanguages;
-				return $allAvailableLanguages;
+				
+				return $this->defaultLanguage;
 			}
 		}
 
@@ -91,7 +93,7 @@ class LanguagesSetup extends QueryMakerAbstract {
 	public function getDefaultLanguage($key=null)
 	{
 		if ($key) {
-			return $this->defaultLanguage['abbreviation1'];
+			return $this->defaultLanguage[$key];
 		}
 		
 		return $this->defaultLanguage;

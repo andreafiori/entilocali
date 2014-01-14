@@ -7,7 +7,7 @@ return array(
     	'DoctrineModule', 'DoctrineORMModule',
     	'ZendDeveloperTools',
     	'ZfcBase','ZfcUser','BjyProfiler',
-    	'Backend','Categories','Config','Contacts','Languages','Posts','Setup',
+    	'Backend','Categories','Config','Contacts','Languages','Posts','Setup','Users'
     ),
 
     'module_listener_options' => array(
