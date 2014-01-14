@@ -16,6 +16,7 @@ $loader->add("ConfigTest\\", $cwd);
 $loader->add("LanguageTest\\", $cwd);
 $loader->add("PostsTest\\", $cwd);
 $loader->add("SetupTest\\", $cwd);
+$loader->add("UsersTest\\", $cwd);
 $loader->register();
 
 ServiceManagerGrabber::setServiceConfig(require_once './config/application.config.php');

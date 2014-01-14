@@ -5,8 +5,8 @@ namespace SetupTest;
 use Setup\SetupManagerLanguages;
 use Languages\Model\LanguagesSetup;
 
-class SetupManagerLanguagesTest extends TestSuite {
-
+class SetupManagerLanguagesTest extends TestSuite
+{
 	private $setupManagerLanguages;
 
 	protected function setUp()
@@ -17,18 +17,11 @@ class SetupManagerLanguagesTest extends TestSuite {
 		$this->setupManagerLanguages->setEntityManager($this->getEntityManagerMock());
 	}
 
-	protected function tearDown()
-	{
-		parent::tearDown();
-		
-		unset($this->setupManagerLanguages);
-	}
-
 	public function testSetLanguageIdFromDefaultLanguage()
 	{
 		$this->setupManagerLanguages->setLanguagesSetup( new LanguagesSetup($this->getDoctrineEntityManager()) );
 		$this->setupManagerLanguages->getLanguageSetup()->setAllAvailableLanguages($this->setupManagerLanguages->getInput('channel'));
-		$this->setupManagerLanguages->setDefaultLanguage();
+		$this->setupManagerLanguages->setDefaultLanguage('it');
 		
 		$this->assertEquals($this->setupManagerLanguages->setLanguageIdFromDefaultLanguage(), 1);
 	}
@@ -39,5 +32,4 @@ class SetupManagerLanguagesTest extends TestSuite {
 
 		$this->assertTrue( $this->setupManagerLanguages->getLanguageSetup() instanceof LanguagesSetup );
 	}
-	
 }
