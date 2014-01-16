@@ -22,6 +22,20 @@ class PostsOptions
     private $id;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="datefrom", type="datetime", nullable=true)
+     */
+    private $datefrom = '2014-01-01 01:01:01';
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateto", type="datetime", nullable=true)
+     */
+    private $dateto = '2014-01-01 01:01:01';
+
+    /**
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=150, nullable=true)
@@ -131,6 +145,52 @@ class PostsOptions
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set datefrom
+     *
+     * @param \DateTime $datefrom
+     * @return PostsOptions
+     */
+    public function setDatefrom($datefrom)
+    {
+        $this->datefrom = $datefrom;
+
+        return $this;
+    }
+
+    /**
+     * Get datefrom
+     *
+     * @return \DateTime 
+     */
+    public function getDatefrom()
+    {
+        return $this->datefrom;
+    }
+
+    /**
+     * Set dateto
+     *
+     * @param \DateTime $dateto
+     * @return PostsOptions
+     */
+    public function setDateto($dateto)
+    {
+        $this->dateto = $dateto;
+
+        return $this;
+    }
+
+    /**
+     * Get dateto
+     *
+     * @return \DateTime 
+     */
+    public function getDateto()
+    {
+        return $this->dateto;
     }
 
     /**

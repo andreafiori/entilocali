@@ -17,7 +17,6 @@ class SetupManagerConfigurationsTest extends TestSuite {
 		$this->setupManagerConfigurations = new SetupManagerConfigurations();
 	}
 	
-	
 	public function testSetConfigRepository()
 	{
 		$this->setupManagerConfigurations->setConfigRepository( $this->getConfigRepository() );
@@ -26,6 +25,7 @@ class SetupManagerConfigurationsTest extends TestSuite {
 	}
 	
 	/**
+	 * exception to launch: Config Repository is not set
 	 * @expectedException \Setup\NullException
 	 */
 	public function testSetConfigurationsLaunchException()
@@ -34,7 +34,15 @@ class SetupManagerConfigurationsTest extends TestSuite {
 		
 		$this->setupManagerConfigurations->setConfigRepository( $this->getConfigRepository() );
 	}
+
+	public function testSetConfigurations()
+	{
+		$this->setupManagerConfigurations->setConfigRepository( $this->getConfigRepository() );
+		$this->setupManagerConfigurations->setConfigurations();
 		
+		$this->assertNotEmpty( $this->setupManagerConfigurations->getConfigurations() );
+	}
+	
 		private function getConfigRepository()
 		{
 			return new ConfigRepository($this->getServiceManager()->get('\Doctrine\ORM\EntityManager'));

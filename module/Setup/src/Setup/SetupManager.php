@@ -16,7 +16,7 @@ class SetupManager extends SetupManagerAbstract
 		$this->setupManagerLanguages 		= new SetupManagerLanguages();
 		$this->setupManagerLanguagesLabels	= new SetupManagerLanguagesLabels();
 		$this->setupManagerConfigurations 	= new SetupManagerConfigurations();
-		$this->setupManagerAlwaysToLoad		= new SetupManagerAlwaysToLoad();
+		$this->setupManagerPreload			= new SetupManagerPreload();
 	}
 
 	/**
@@ -37,24 +37,12 @@ class SetupManager extends SetupManagerAbstract
     	$this->templateDataSetter = $templateDataSetter;
     }
     
+    /**
+     * @return TemplateDataSetter
+     */
     public function getTemplateDataSetter()
     {
     	return $this->templateDataSetter;
-    }
-
-    /**
-     * class to load before doing actions
-     */
-    public function setControllerAlwaysToLoad($className)
-    {
-		$this->controllerAlwaysToLoad = $className;
-
-		return $this->controllerAlwaysToLoad;
-    }
-
-    public function getControllerAlwaysToLoad()
-    {
-    	return $this->controllerAlwaysToLoad; 
     }
 
     /**

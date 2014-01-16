@@ -64,6 +64,7 @@ class PostsQueryBuilderTest extends TestSuite
 		$this->postsQueryBuilder->setBasicBindParameters();
 		$this->postsQueryBuilder->setQueryBasic();
 		$this->postsQueryBuilder->setAliasNotNull();
+		
 		$this->assertNotEmpty($this->postsQueryBuilder->getSelectQuery());
 	}
 	

@@ -7,7 +7,7 @@ namespace Setup;
  * @author Andrea Fiori
  * @since  13 January 2014
  */
-interface SetupManagerAlwaysToLoadInterface
+interface SetupManagerPreloadInterface
 {
 	public function setRecord();
 	

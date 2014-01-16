@@ -6,7 +6,6 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use ServiceLocatorFactory;
 use Posts\Model\PostsQueryBuilder;
-use Posts\Model\PostsRecordsHelper;
 use Setup\SetupManagerWrapper;
 use Setup\SetupManager;
 
@@ -30,36 +29,15 @@ class IndexController extends AbstractActionController
     			)
     	));
     	$setupManager = $setupManagerWrapper->initSetup();
+    	    	
+    	/* Preload object (ALIASes, to refactor), TODO: cache loaded records! */
+    	$setupManager->getSetupManagerPreload()->setClassName( $setupManager->getTemplateDataSetter()->getTemplateData('preloader_frontend') );
+    	$instance = $setupManager->getSetupManagerPreload()->getClassName();
+    	$instance = new $instance($setupManager);
     	
-		/**
-		 * TODO: move this on a home page \ frontend model to load before all (inside setup manage!?)
-		 * 		 check posts to load
-		 * 		 get different template \ layout for different posts types (photo, blog etc.)
-		 * 		 try to set up other modules routing for albo
-		 */
+    	$setupManager->getTemplateDataSetter()->mergeTemplateDataWithArray($instance->setRecord());
     	
-		// ALIAS SELECTION given the controller name load data you want to load ALWAYS on the app
-		$postsQueryBuilder = new PostsQueryBuilder();
-		$postsQueryBuilder->setSetupManager($setupManager);
-		$postsQueryBuilder->setQueryBasic();
-		$postsQueryBuilder->setBasicBindParameters();
-		$postsQueryBuilder->setLanguage($setupManager->getSetupManagerLanguages()->getLanguageId());
-		$postsQueryBuilder->setAliasNotNull();
-		
-		$postsRecordsHelper = new PostsRecordsHelper($postsQueryBuilder->getSelectResult());
-		$postsRecordsHelper->setSetupManager($setupManager);
-		$postsRecordsHelper->setRemotelinkWeb($setupManager->getSetupManagerConfigurations()->getConfigRepository()->getConfigRecord('remotelinkWeb'));
-		$postsRecordsHelper->setAdditionalArrayElements();
-		$postsAlias = $postsRecordsHelper->sortPostsByAlias(true);
-		// END ALIAS SELECTION
-		
-		/*
-		$categoriesQueryBuilder = new CategoriesQueryBuilder($setupManager->getEntityManager());
-		$categoriesQueryBuilder->setSetupManager($setupManager);
-		$categoriesQueryBuilder->setParentId();
-		var_dump( $categoriesQueryBuilder->getSelectResult() );
-		*/
-		
+    	
 		// SINGLE POST SELECTION: given category and\or title, get the post! title only is not allowed!?
 		if ($setupManager->getInput('categoryName')):
 		$postsQueryBuilder = new PostsQueryBuilder();
@@ -68,47 +46,46 @@ class IndexController extends AbstractActionController
 		$postsQueryBuilder->setBasicBindParameters();
 		$postsQueryBuilder->setLanguage($setupManager->getSetupManagerLanguages()->getLanguageId());
 		$postsQueryBuilder->setCategoryName($setupManager->getInput('categoryName'));
-		
+
 		$postsDetail = $postsQueryBuilder->getSelectResult();
 		endif;
-		// END SINGLE POST SELECTION		
+		
+		// END SINGLE POST SELECTION
 
-		// SET TEMPLATE DATA... input: previous controller result, configRecord, controller result
-		$setupManager->getTemplateDataSetter()->mergeTemplateDataWithArray($postsAlias);
-		
-		$setupManager->getTemplateDataSetter()->assignToTemplate('projectdir', 'frontend/projects/'.$setupManager->getTemplateDataSetter()->getTemplateData('frontendprojectdir'));
-		$setupManager->getTemplateDataSetter()->assignToTemplate('frontendtemplate', $setupManager->getTemplateDataSetter()->getTemplateData('frontendtemplate') ? $setupManager->getTemplateDataSetter()->getTemplateData('frontendtemplate') : 'default/');
-		$setupManager->getTemplateDataSetter()->assignToTemplate('basiclayout', $setupManager->getTemplateDataSetter()->getTemplateData('projectdir').'templates/'.$setupManager->getTemplateDataSetter()->getTemplateData('frontendtemplate').'layout.phtml');
-		
-		$setupManager->getTemplateDataSetter()->assignToTemplate('languageAllAvailable', $setupManager->getSetupManagerLanguages()->getLanguageSetup()->getAllAvailableLanguages());
-		$setupManager->getTemplateDataSetter()->assignToTemplate('languageDefault', $setupManager->getSetupManagerLanguages()->getLanguageSetup()->getDefaultLanguage());
-		$setupManager->getTemplateDataSetter()->assignToTemplate('languageLabels', $setupManager->getSetupManagerLanguagesLabels()->getLanguageLabels());
-		$setupManager->getTemplateDataSetter()->assignToTemplate('languageAbbreviation', $setupManager->getSetupManagerLanguages()->getLanguageSetup()->getLanguageAbbreviationFromDefaultLanguage());
-		
-		$setupManager->getTemplateDataSetter()->assignToTemplate('basePath', $setupManager->getTemplateDataSetter()->getTemplateData('remotelinkWeb') );
-		$setupManager->getTemplateDataSetter()->assignToTemplate('templatedir', 'frontend/projects/'.$setupManager->getTemplateDataSetter()->getTemplateData('frontendprojectdir').'templates/'.$setupManager->getTemplateDataSetter()->getTemplateData('frontendTemplate'));
-
-		// Refactor the partial template inclusion...
-		if ($postsDetail[0]) {
-			$setupManager->getTemplateDataSetter()->assignToTemplate('templatePartial', $setupManager->getTemplateDataSetter()->getTemplateData('templatedir').'contents/detail.phtml');
-		} else {
-			$setupManager->getTemplateDataSetter()->assignToTemplate('templatePartial', $setupManager->getTemplateDataSetter()->getTemplateData('templatedir').'homepage.phtml');
+		/* TEMPLATE DATA
+		if (is_array($postsAlias)) {
+			$setupManager->getTemplateDataSetter()->mergeTemplateDataWithArray($postsAlias);
 		}
 		
-		$setupManager->getTemplateDataSetter()->assignToTemplate('imagedir', $setupManager->getTemplateDataSetter()->getTemplateData('templatedir').'assets/images/');
-		$setupManager->getTemplateDataSetter()->assignToTemplate('cssdir', $setupManager->getTemplateDataSetter()->getTemplateData('templatedir').'assets/css/');
-		$setupManager->getTemplateDataSetter()->assignToTemplate('jsdir', $setupManager->getTemplateDataSetter()->getTemplateData('templatedir').'assets/js/');
+		$setupManager->getTemplateDataSetter()->assignToTemplate('basePath', $setupManager->getTemplateDataSetter()->getTemplateData('remotelinkWeb') );
+		$setupManager->getTemplateDataSetter()->assignToTemplate('templatedir', 'frontend/projects/'.$setupManager->getTemplateDataSetter()->getTemplateData('frontendprojectdir').'templates/'.$setupManager->getTemplateDataSetter()->getTemplateData('frontendTemplate'));	
+		*/
 		
-		// Record data from the controller: to revisit
- 		$setupManager->getTemplateDataSetter()->assignToTemplate('controllerResult', $postsDetail[0]);
- 		$setupManager->getTemplateDataSetter()->assignToTemplate('categoryName', $setupManager->getInput('categoryName'));
- 		
- 		// SEO if not set from main controller...
- 		$setupManager->getTemplateDataSetter()->assignToTemplate('seo_title', $setupManager->getTemplateDataSetter()->getTemplateData('sitename'));
- 		$setupManager->getTemplateDataSetter()->assignToTemplate('seo_description', $setupManager->getTemplateDataSetter()->getTemplateData('description'));
- 		$setupManager->getTemplateDataSetter()->assignToTemplate('seo_keywords', $setupManager->getTemplateDataSetter()->getTemplateData('keywords'));
- 		 		
-    	$this->layout($setupManager->getTemplateDataSetter()->getTemplateData('basiclayout')); 
+		/*
+		
+		//TODO: get main data from the controller and THEN:
+		
+		if ($controllerResult[0]) {
+		$setupManager->getTemplateDataSetter()->assignToTemplate('templatePartial', $setupManager->getTemplateDataSetter()->getTemplateData('template').'contents/detail.phtml');
+		} else {
+		$setupManager->getTemplateDataSetter()->assignToTemplate('templatePartial', $setupManager->getTemplateDataSetter()->getTemplateData('template').'homepage.phtml');
+		}
+		
+		$templateData['controllerResult'] = $controllerResult;
+		$templateData['categoryName'] = $this->setupManager->getInput('categoryName');
+		
+		
+		... if not set get seo options from config ...
+		
+		$this->setupManager->getTemplateDataSetter()->assignToTemplate('seo_title', $this->setupManager->getTemplateDataSetter()->getTemplateData('sitename'));
+		$this->setupManager->getTemplateDataSetter()->assignToTemplate('seo_description', $this->setupManager->getTemplateDataSetter()->getTemplateData('description'));
+		$this->setupManager->getTemplateDataSetter()->assignToTemplate('seo_keywords', $this->setupManager->getTemplateDataSetter()->getTemplateData('keywords'));
+		
+		*/
+		
+		$setupManager->getTemplateDataSetter()->assignToTemplate('templatePartial', 'frontend/projects/fossobandito/templates/default/homepage.phtml');
+		
+    	$this->layout($setupManager->getTemplateDataSetter()->getTemplateData('basiclayout'));
     	$this->layout()->setVariable("templateData", $setupManager->getTemplateDataSetter()->getTemplateData());
 
     	return new ViewModel();

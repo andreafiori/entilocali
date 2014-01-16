@@ -7,7 +7,7 @@ namespace Setup;
  * @author Andrea Fiori
  * @since  14 January 2014
  */
-abstract class SetupManagerAlwaysToLoadAbstract extends SetupManagerAbstract
+abstract class SetupManagerPreloadAbstract extends SetupManagerAbstract
 {
 	protected $record;
 	
@@ -23,7 +23,10 @@ abstract class SetupManagerAlwaysToLoadAbstract extends SetupManagerAbstract
 
 		return $this->className;
 	}
-
+	
+	/**
+	 * @return SetupManagerPreloadAbstract
+	 */
 	public function getClassName()
 	{
 		return $this->className;

@@ -2,33 +2,33 @@
 
 namespace SetupTest;
 
-use Setup\SetupManagerAlwaysToLoad;
+use Setup\SetupManagerPreload;
 
 /**
  * Manage Object with a record to load every time 
  * @author Andrea Fiori
  * @since  13 January 2014
  */
-class SetupManagerAlwaysToLoadTest extends TestSuite
+class SetupManagerPreloadTest extends TestSuite
 {
-	private $setupManagerAlwaysToLoad;
+	private $setupManagerPreload;
 
 	protected function setUp()
 	{
 		parent::setUp();
 		
-		$this->setupManagerAlwaysToLoad = new SetupManagerAlwaysToLoad();
+		$this->setupManagerPreload = new SetupManagerPreload();
 	}
 
 	public function testSetClassName()
 	{
-		$this->assertNotEmpty($this->setupManagerAlwaysToLoad->setClassName("Posts\\Model\\PostsQueryBuilder"));
+		$this->assertNotEmpty($this->setupManagerPreload->setClassName("Posts\\Model\\PostsQueryBuilder"));
 	}
 
 	public function testGetRecord()
 	{
-		$this->setupManagerAlwaysToLoad->setClassName("Posts\\Model\\PostsQueryBuilder");
+		$this->setupManagerPreload->setClassName("Posts\\Model\\PostsQueryBuilder");
 		
-		$this->assertTrue( is_array($this->setupManagerAlwaysToLoad->getRecord() ) );
+		$this->assertTrue( is_array($this->setupManagerPreload->getRecord() ) );
 	}
 }

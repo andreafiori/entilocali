@@ -8,6 +8,7 @@ use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 use ApplicationTest\ServiceManagerGrabber;
 use Setup\NullException;
+use Setup\SetupManager;
 
 class TestSuite extends \PHPUnit_Framework_TestCase
 {
@@ -92,7 +93,15 @@ class TestSuite extends \PHPUnit_Framework_TestCase
 				->method('getEntityManager')
 				->will($this->returnValue($this->getEntityManagerMock()));
 		}
-
+		
+	public function getSetupManager()
+	{
+		$setupManager = new SetupManager( array('channel' => 1, 'isbackend' => 0) );
+		$setupManager->setEntityManager( $this->getDoctrineEntityManager() );
+		
+		return $setupManager;
+	}
+	
 	/**
 	 * @test
 	 */

@@ -4,16 +4,22 @@ namespace UsersTest\Model;
 
 use SetupTest\TestSuite;
 use Users\Model\UsersQueryBuilder;
+use Setup\SetupManager;
 
 class UsersQueryBuilderTest extends TestSuite
 {
+	private $setupManager;
 	private $usersQueryBuilder;
 
 	protected function setUp()
 	{
 		parent::setUp();
+		
+		$this->setupManager = new SetupManager( array('channel' => 1, 'isbackend' => 0) );
+		$this->setupManager->setEntityManager( $this->getServiceManager()->get('\Doctrine\ORM\EntityManager') );
 
 		$this->usersQueryBuilder = new UsersQueryBuilder();
+		$this->usersQueryBuilder->setSetupManager($this->setupManager);
 	}
 
 	public function testSetQueryBasic()
@@ -21,5 +27,12 @@ class UsersQueryBuilderTest extends TestSuite
 		$this->usersQueryBuilder->setQueryBasic();
 
 		$this->assertNotEmpty($this->usersQueryBuilder->getQueryBasic());
+	}
+	
+	public function testGetQueryResult()
+	{
+		$this->usersQueryBuilder->setQueryBasic();
+	
+		$this->assertTrue( is_array($this->usersQueryBuilder->getSelectResult()) );
 	}
 }

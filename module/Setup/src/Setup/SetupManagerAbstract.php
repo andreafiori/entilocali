@@ -10,10 +10,8 @@ namespace Setup;
 class SetupManagerAbstract
 {
 	protected $input;
-	protected $entityManager;
-
 	protected $channelId;
-	protected $configRepository;
+	protected $entityManager;
 
 	protected $setupManagerLanguages, $setupManagerLanguagesLabels;
 	
@@ -21,7 +19,7 @@ class SetupManagerAbstract
 
 	protected $templateDataSetter;
 	
-	protected $setupManagerAlwaysToLoad;
+	protected $setupManagerPreload;
 
 	public function setInput(array $input)
 	{
@@ -35,9 +33,13 @@ class SetupManagerAbstract
 		} elseif (!isset($this->input[$key]) and $key!=null) {
 			return false;
 		}
+		
 		return $this->input;
 	}
-
+	
+	/**
+	 * @param \Doctrine\ORM\EntityManager $entityManager
+	 */
 	public function setEntityManager(\Doctrine\ORM\EntityManager $entityManager)
 	{
 		$this->entityManager = $entityManager;
@@ -80,8 +82,11 @@ class SetupManagerAbstract
 		return $this->setupManagerConfigurations;
 	}
 	
-	public function getSetupManagerAlwaysToLoad()
+	/**
+	 * @return SetupManagerPreload
+	 */
+	public function getSetupManagerPreload()
 	{
-		return $this->setupManagerAlwaysToLoad;
+		return $this->setupManagerPreload;
 	}
 }

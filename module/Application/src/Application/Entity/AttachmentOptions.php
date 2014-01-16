@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * AttachmentOptions
  *
- * @ORM\Table(name="attachment_options")
+ * @ORM\Table(name="attachment_options", indexes={@ORM\Index(name="attachment_id", columns={"attachment_id"})})
  * @ORM\Entity
  */
 class AttachmentOptions
@@ -36,11 +36,14 @@ class AttachmentOptions
     private $filedescription;
 
     /**
-     * @var integer
+     * @var \Application\Entity\Attachments
      *
-     * @ORM\Column(name="rifattachment", type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Attachments")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="attachment_id", referencedColumnName="id")
+     * })
      */
-    private $rifattachment;
+    private $attachment;
 
 
 
@@ -101,25 +104,25 @@ class AttachmentOptions
     }
 
     /**
-     * Set rifattachment
+     * Set attachment
      *
-     * @param integer $rifattachment
+     * @param \Application\Entity\Attachments $attachment
      * @return AttachmentOptions
      */
-    public function setRifattachment($rifattachment)
+    public function setAttachment(\Application\Entity\Attachments $attachment = null)
     {
-        $this->rifattachment = $rifattachment;
+        $this->attachment = $attachment;
 
         return $this;
     }
 
     /**
-     * Get rifattachment
+     * Get attachment
      *
-     * @return integer 
+     * @return \Application\Entity\Attachments 
      */
-    public function getRifattachment()
+    public function getAttachment()
     {
-        return $this->rifattachment;
+        return $this->attachment;
     }
 }

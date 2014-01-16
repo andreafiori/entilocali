@@ -2,22 +2,26 @@
 
 namespace PostsTest\Model;
 
-use Setup\SetupManager;
 use SetupTest\TestSuite;
 use Posts\Model\PostsRecordsHelper;
 use Posts\Model\PostsQueryBuilder;
 
-class PostsRecordsHelperTest extends TestSuite {
-
+/**
+ * 
+ * @author Andrea fiori
+ * @since  05 January 2014
+ */
+class PostsRecordsHelperTest extends TestSuite
+{
 	private $postsRecordsHelper;
+	
 	private $setupManager;
 	
 	protected function setUp()
 	{
 		parent::setUp();
 		
-		$this->setupManager = new SetupManager( array('channel' => 1, 'isbackend' => 0) );
-		$this->setupManager->setEntityManager( $this->getServiceManager()->get('\Doctrine\ORM\EntityManager') );
+		$this->setupManager = $this->getSetupManager();
 		
 		$postsQueryBuilder = new PostsQueryBuilder();
 		$postsQueryBuilder->setSetupManager($this->setupManager);
@@ -36,11 +40,11 @@ class PostsRecordsHelperTest extends TestSuite {
 
 		$this->assertTrue( is_array($records) );
 	}
-	
+
 	public function testSortPostsByAlias()
 	{
 		$this->assertFalse( $this->postsRecordsHelper->sortPostsByAlias() );
-		
+
 		$this->assertTrue( is_array($this->postsRecordsHelper->sortPostsByAlias(true)) );
 	}
 }

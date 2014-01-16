@@ -24,37 +24,23 @@ class Attachments
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=100, nullable=false)
+     * @ORM\Column(name="filename", type="string", length=100, nullable=false)
      */
-    private $name;
+    private $filename;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=100, nullable=false)
+     * @ORM\Column(name="filetype", type="string", length=100, nullable=false)
      */
-    private $title;
+    private $filetype;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text", nullable=false)
+     * @ORM\Column(name="filesize", type="string", length=60, nullable=false)
      */
-    private $description;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="type", type="string", length=100, nullable=false)
-     */
-    private $type;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="size", type="string", length=60, nullable=false)
-     */
-    private $size;
+    private $filesize;
 
     /**
      * @var string
@@ -90,118 +76,72 @@ class Attachments
     }
 
     /**
-     * Set name
+     * Set filename
      *
-     * @param string $name
+     * @param string $filename
      * @return Attachments
      */
-    public function setName($name)
+    public function setFilename($filename)
     {
-        $this->name = $name;
+        $this->filename = $filename;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Get filename
      *
      * @return string 
      */
-    public function getName()
+    public function getFilename()
     {
-        return $this->name;
+        return $this->filename;
     }
 
     /**
-     * Set title
+     * Set filetype
      *
-     * @param string $title
+     * @param string $filetype
      * @return Attachments
      */
-    public function setTitle($title)
+    public function setFiletype($filetype)
     {
-        $this->title = $title;
+        $this->filetype = $filetype;
 
         return $this;
     }
 
     /**
-     * Get title
+     * Get filetype
      *
      * @return string 
      */
-    public function getTitle()
+    public function getFiletype()
     {
-        return $this->title;
+        return $this->filetype;
     }
 
     /**
-     * Set description
+     * Set filesize
      *
-     * @param string $description
+     * @param string $filesize
      * @return Attachments
      */
-    public function setDescription($description)
+    public function setFilesize($filesize)
     {
-        $this->description = $description;
+        $this->filesize = $filesize;
 
         return $this;
     }
 
     /**
-     * Get description
+     * Get filesize
      *
      * @return string 
      */
-    public function getDescription()
+    public function getFilesize()
     {
-        return $this->description;
-    }
-
-    /**
-     * Set type
-     *
-     * @param string $type
-     * @return Attachments
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return string 
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * Set size
-     *
-     * @param string $size
-     * @return Attachments
-     */
-    public function setSize($size)
-    {
-        $this->size = $size;
-
-        return $this;
-    }
-
-    /**
-     * Get size
-     *
-     * @return string 
-     */
-    public function getSize()
-    {
-        return $this->size;
+        return $this->filesize;
     }
 
     /**

@@ -3,14 +3,14 @@
 namespace Posts\Model;
 
 use Setup\SetupManagerAbstract;
-use Setup\SetupManagerAlwaysToLoadInterface;
+use Setup\SetupManagerPreloadInterface;
 
 /**
- * 
+ * get all posts sorted by alias 
  * @author Andrea Fiori
  * @since  14 January 2014
  */
-class PostsAlias implements SetupManagerAlwaysToLoadInterface
+class PostsAlias implements SetupManagerPreloadInterface
 {
 	private $setupManager, $record;
 	
@@ -19,6 +19,9 @@ class PostsAlias implements SetupManagerAlwaysToLoadInterface
 		$this->setupManager = $setupManager;
 	}
 	
+	/**
+	 * TODO: set attachment\s data record
+	 */
 	public function setRecord()
 	{
 		if ( !$this->setupManager->getSetupManagerLanguages() ) {
@@ -38,8 +41,13 @@ class PostsAlias implements SetupManagerAlwaysToLoadInterface
 		$postsRecordsHelper->setAdditionalArrayElements();
 		
 		$this->record = $postsRecordsHelper->sortPostsByAlias(true);
+		
+		return $this->record;
 	}
 	
+	/**
+	 * @return array
+	 */
 	public function getRecord()
 	{
 		return $this->record;

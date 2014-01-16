@@ -3,14 +3,15 @@
 namespace Posts\Model;
 
 use Setup\SetupManager;
+use Setup\NullException;
 
 /**
  * Given postsData, set the additional infos on the arrays...
  * @author Andrea fiori
  * @since  05 January 2014
  */
-class PostsRecordsHelper {
-
+class PostsRecordsHelper
+{
 	private $postsRecords, $postsRecordsCount;
 	private $setupManager;
 	private $partialLayoutTemplate;
@@ -21,7 +22,7 @@ class PostsRecordsHelper {
 		$this->postsRecords = $postsRecords;
 		$this->postsRecordsCount = count($postsRecords);
 	}
-	
+
 	public function setRemotelinkWeb($remotelinkWeb)
 	{
 		$this->remotelinkWeb = $remotelinkWeb;
@@ -44,26 +45,35 @@ class PostsRecordsHelper {
 
 	public function setAdditionalArrayElements()
 	{
-		if (!$this->getSetupManager() or !$this->getPostsRecords() ) {
-			return false;
+		if (!$this->getPostsRecords()) {
+			throw new NullException('Posts Records are not set');
 		}
 		
 		$postsRecords = array();
-		foreach($this->getPostsRecords() as $record)
-		{
+		foreach($this->getPostsRecords() as $record) {
 			$record['linkDetails'] = $this->getLinkDetails($record);
 			$postsRecords[] = $record;
 		}
+		
+		if (isset($postsRecords[0]['typeofpost'])) {
+			$this->assignLayout($postsRecords[0]['typeofpost']);
+		}
+		
 		$this->postsRecords = $postsRecords;
 		
-		$this->assignLayout($record['typeofpost']); // assgin the last layout type!?
+		return $postsRecords;
 	}
 	
+		/**
+		 * 
+		 * @param unknown $record
+		 * @return string
+		 */
 		private function getLinkDetails($record)
 		{
-			if ($record['name'] == $record['title']) {
-				unset($record['seoUrl']);
-			} else {
+			if ($record['name'] == $record['title'] and isset($record['seoUrl']) ) {
+				//unset($record['seoUrl']);
+			} elseif ( isset($record['seoUrl']) ) {
 				$record['seoUrl'] = $record['seoUrl'].'/';
 			}
 			
@@ -102,7 +112,9 @@ class PostsRecordsHelper {
 
 	public function sortPostsByAlias($sort = false)
 	{
-		if (!$sort) return false;
+		if (!$sort) {
+			return false;
+		}
 		
 		$postsAlias = array();
 		foreach($this->getPostsRecords() as $posts)

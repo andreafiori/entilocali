@@ -15,8 +15,8 @@
 		<ini name="memory_limit" value="1024M" />
 	</php>
 
-<!-- generate code coverage -->
-<!--
+<!-- Generate code coverage -->
+<!-- 
 	<formatter type="clover" usefile="false"/>
 	<batchtest>
 	<fileset dir="suite">

@@ -82,7 +82,7 @@ class CategoriesOptions
      *
      * @ORM\Column(name="parent_id", type="integer", nullable=true)
      */
-    private $parentId = '1';
+    private $parentId = '0';
 
     /**
      * @var \Application\Entity\Categories
