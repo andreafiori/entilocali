@@ -43,49 +43,19 @@ class SetupManagerWrapper
 		$this->setupManager->getSetupManagerLanguages()->setDefaultLanguage( $this->setupManager->getInput('languageAbbreviation') );
 		$this->setupManager->getSetupManagerLanguages()->setLanguageIdFromDefaultLanguage();
 		$this->setupManager->getSetupManagerLanguages()->setLanguageAbbreviationFromDefaultLanguage();
-		
+
 		/* Language Labels */
 		$this->setupManager->getSetupManagerLanguagesLabels()->setLanguagesLabelsRepository( new LanguagesLabelsRepository($this->getEntityManager()) );
 		$this->setupManager->getSetupManagerLanguagesLabels()->setLanguagesLabels( $this->setupManager->getSetupManagerLanguages()->getDefaultLanguage('id') );
 
-		/* Configurations */
+		/* Configurations TODO: build a config query builder */
 		$this->setupManager->getSetupManagerConfigurations()->setConfigRepository( new ConfigRepository($this->getEntityManager()) );
 		$this->setupManager->getSetupManagerConfigurations()->setConfigurations();
 		$this->setupManager->getSetupManagerConfigurations()->getConfigRepository()->initConfigRecord();
-				
-		/* TEMPLATE DATA SETTINGS */
-			// Template Data Setter initialization: $this->setupManager->setTemplateDataSetter( new TemplateDataSetter($this->setupManager) );
-		$configRecord 	= $this->setupManager->getSetupManagerConfigurations()->getConfigRepository()->getConfigRecord(); // WRONG PROCEDURE!!!
-		$isBackend 		= $this->setupManager->getInput('backend');
 		
-		$templateData = array();
-		$templateData = array_merge($templateData, $configRecord);
-		
-		if (!$isBackend) {
-			$templateData['project'] = 'frontend/projects/'.$configRecord['project_frontend'];
-			$templateData['template'] = $configRecord['template_frontend'] ? $configRecord['template_frontend'] : 'default/';			
-		} else {
-			$templateData['project'] = 'backend/projects/'.$configRecord['project_backend'];
-			$templateData['template'] = $configRecord['project_backend'] ? $configRecord['backendprojectdir'] : 'default/';
-		}
-		// if set from controller, this can be different...
-		$templateData['basiclayout'] = $templateData['project'].'templates/'.$templateData['template'].'layout.phtml';		
-		
-		$templateData['languageAllAvailable'] = $this->setupManager->getSetupManagerLanguages()->getLanguageSetup()->getAllAvailableLanguages();
-		$templateData['languageDefault'] = $this->setupManager->getSetupManagerLanguages()->getLanguageSetup()->getDefaultLanguage();
-		$templateData['languageLabels'] = $this->setupManager->getSetupManagerLanguagesLabels()->getLanguageLabels();
-		$templateData['languageAbbreviation'] = $this->setupManager->getSetupManagerLanguages()->getLanguageSetup()->getLanguageAbbreviationFromDefaultLanguage();
-		$templateData['languageId'] = $this->setupManager->getSetupManagerLanguages()->getLanguageId();
-		
-		$templateData['imagedir'] = $templateData['project'].'templates/'.$templateData['template'].'assets/images/';
-		$templateData['cssdir']   = $templateData['project'].'templates/'.$templateData['template'].'assets/css/';
-		$templateData['jsdir']    = $templateData['project'].'templates/'.$templateData['template'].'assets/js/';
-		
-		$this->setupManager->setTemplateDataSetter( new TemplateDataSetter($this->setupManager) );
-		$this->setupManager->getTemplateDataSetter()->assignToTemplate('basePath', $this->setupManager->getTemplateDataSetter()->getTemplateData('remotelinkWeb') );
-		$this->setupManager->getTemplateDataSetter()->assignToTemplate('template', 'frontend/projects/'.$this->setupManager->getTemplateDataSetter()->getTemplateData('frontendprojectdir').'templates/'.$this->setupManager->getTemplateDataSetter()->getTemplateData('frontendTemplate'));
-		$this->setupManager->getTemplateDataSetter()->mergeTemplateDataWithArray( array_filter($templateData) );
-		
+		/* Template Records */
+		$this->setTemplateRecords();
+
 		return $this->setupManager;
 	}
 
@@ -97,8 +67,47 @@ class SetupManagerWrapper
 		return $this->setupManager;
 	}
 
+		private function setTemplateRecords()
+		{
+			$configRecord 	= $this->setupManager->getSetupManagerConfigurations()->getConfigRepository()->getConfigRecord(); // WRONG PROCEDURE!!!
+			$isBackend 		= $this->setupManager->getInput('backend');
+			
+			$templateData = array();
+			$templateData = array_merge($templateData, $configRecord);
+			
+			if (!$isBackend) {
+				$templateData['template_project'] = 'frontend/projects/'.$configRecord['project_frontend'];
+				$templateData['template_name']	  = $configRecord['template_frontend'] ? $configRecord['template_frontend'] : 'default/';
+				$templateData['template_path']	  = $templateData['template_project'].'templates/'.$templateData['template_name'];
+			} else {
+				$templateData['template_project'] = 'backend/projects/'.$configRecord['project_backend'];
+				$templateData['template_name'] 	  = $configRecord['project_backend'] ? $configRecord['backendprojectdir'] : 'default/';
+				$templateData['template_path'] 	  = $templateData['template_project'].'templates/';
+			}
+			$templateData['basePath'] = $configRecord['remotelinkWeb'];
+			
+			/* Set language\s vars */
+			$templateData['languageAllAvailable'] = $this->setupManager->getSetupManagerLanguages()->getLanguageSetup()->getAllAvailableLanguages();
+			$templateData['languageDefault'] 	  = $this->setupManager->getSetupManagerLanguages()->getLanguageSetup()->getDefaultLanguage();
+			$templateData['languageLabels'] 	  = $this->setupManager->getSetupManagerLanguagesLabels()->getLanguageLabels();
+			$templateData['languageAbbreviation'] = $this->setupManager->getSetupManagerLanguages()->getLanguageSetup()->getLanguageAbbreviationFromDefaultLanguage();
+			$templateData['languageId'] 		  = $this->setupManager->getSetupManagerLanguages()->getLanguageId();
+			
+			/* Basic layout if not set... */
+			$templateData['basiclayout'] = $templateData['template_path'].'layout.phtml';
+			
+			/* Assets */
+			$templateData['imagedir'] = $templateData['template_project'].'templates/'.$templateData['template_name'].'assets/images/';
+			$templateData['cssdir']   = $templateData['template_project'].'templates/'.$templateData['template_name'].'assets/css/';
+			$templateData['jsdir']    = $templateData['template_project'].'templates/'.$templateData['template_name'].'assets/js/';
+			
+			$this->setupManager->setTemplateDataSetter( new TemplateDataSetter($this->setupManager) );
+			
+			/* Assign final template var */
+			$this->setupManager->getTemplateDataSetter()->mergeTemplateDataWithArray( array_filter($templateData) );
+		}
+
 		/**
-		 * TODO: to remove
 		 * @return \Doctrine\ORM\EntityManager
 		 */
 		private function getEntityManager()

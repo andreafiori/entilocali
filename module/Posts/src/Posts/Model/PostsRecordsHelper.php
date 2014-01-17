@@ -85,9 +85,9 @@ class PostsRecordsHelper
 		if (!$typeOfPost) return false;
 		
 		if ($this->postsRecordsCount == 1) {
-			$this->partialLayoutTemplate = $typeOfPost.'/detail.php';
+			$this->partialLayoutTemplate = $typeOfPost.'/detail.phtml';
 		} elseif ($this->postsRecordsCount > 1) {
-			$this->partialLayoutTemplate = $typeOfPost.'/list.php';
+			$this->partialLayoutTemplate = $typeOfPost.'/list.phtml';
 		}
 		
 		return $this->partialLayoutTemplate;

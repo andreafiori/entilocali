@@ -29,63 +29,45 @@ class IndexController extends AbstractActionController
     			)
     	));
     	$setupManager = $setupManagerWrapper->initSetup();
-    	    	
-    	/* Preload object (ALIASes, to refactor), TODO: cache loaded records! */
+
+    	/* Preload */
     	$setupManager->getSetupManagerPreload()->setClassName( $setupManager->getTemplateDataSetter()->getTemplateData('preloader_frontend') );
-    	$instance = $setupManager->getSetupManagerPreload()->getClassName();
-    	$instance = new $instance($setupManager);
+    	$setupManager->getSetupManagerPreload()->setInstance($setupManager);
+    	$setupManager->getTemplateDataSetter()->mergeTemplateDataWithArray( $setupManager->getSetupManagerPreload()->setRecord() );
     	
-    	$setupManager->getTemplateDataSetter()->mergeTemplateDataWithArray($instance->setRecord());
-    	
-    	
-		// SINGLE POST SELECTION: given category and\or title, get the post! title only is not allowed!?
+		/* SINGLE POST SELECTION */
+    		/**
+    		 * TODO: 
+    		 * 		if templatefile is set, get it as tempaltePartial; PAGING with adapter,
+    		 * 		SEO tags if present, must be set
+    		 * 		
+    		 */
 		if ($setupManager->getInput('categoryName')):
-		$postsQueryBuilder = new PostsQueryBuilder();
-		$postsQueryBuilder->setSetupManager($setupManager);
-		$postsQueryBuilder->setQueryBasic();
-		$postsQueryBuilder->setBasicBindParameters();
-		$postsQueryBuilder->setLanguage($setupManager->getSetupManagerLanguages()->getLanguageId());
-		$postsQueryBuilder->setCategoryName($setupManager->getInput('categoryName'));
+			$postsQueryBuilder = new PostsQueryBuilder();
+			$postsQueryBuilder->setSetupManager($setupManager);
+			$postsQueryBuilder->setQueryBasic();
+			$postsQueryBuilder->setBasicBindParameters();
+			$postsQueryBuilder->setLanguage($setupManager->getSetupManagerLanguages()->getLanguageId());
+			$postsQueryBuilder->setCategoryName($setupManager->getInput('categoryName'));
 
-		$postsDetail = $postsQueryBuilder->getSelectResult();
+			$postsDetail = $postsQueryBuilder->getSelectResult();
+			if ($postsDetail[0]) {
+				$setupManager->getTemplateDataSetter()->assignToTemplate('templatePartial', $setupManager->getTemplateDataSetter()->getTemplateData('template_path').'contents/detail.phtml');
+			} else {
+				$setupManager->getTemplateDataSetter()->assignToTemplate('templatePartial', $setupManager->getTemplateDataSetter()->getTemplateData('template_path').'homepage.phtml');
+			}
 		endif;
-		
-		// END SINGLE POST SELECTION
 
-		/* TEMPLATE DATA
-		if (is_array($postsAlias)) {
-			$setupManager->getTemplateDataSetter()->mergeTemplateDataWithArray($postsAlias);
-		}
+		/* TEMPLATE DATA */
+		$setupManager->getTemplateDataSetter()->assignToTemplate('controllerResult', $postsDetail[0]);
+		$setupManager->getTemplateDataSetter()->assignToTemplate('categoryName', $setupManager->getInput('categoryName') );
 		
-		$setupManager->getTemplateDataSetter()->assignToTemplate('basePath', $setupManager->getTemplateDataSetter()->getTemplateData('remotelinkWeb') );
-		$setupManager->getTemplateDataSetter()->assignToTemplate('templatedir', 'frontend/projects/'.$setupManager->getTemplateDataSetter()->getTemplateData('frontendprojectdir').'templates/'.$setupManager->getTemplateDataSetter()->getTemplateData('frontendTemplate'));	
-		*/
+		/* SEO tags */
+		$setupManager->getTemplateDataSetter()->assignToTemplate('seo_title', 		$setupManager->getTemplateDataSetter()->getTemplateData('sitename'));
+		$setupManager->getTemplateDataSetter()->assignToTemplate('seo_description', $setupManager->getTemplateDataSetter()->getTemplateData('description'));
+		$setupManager->getTemplateDataSetter()->assignToTemplate('seo_keywords', 	$setupManager->getTemplateDataSetter()->getTemplateData('keywords'));
 		
-		/*
-		
-		//TODO: get main data from the controller and THEN:
-		
-		if ($controllerResult[0]) {
-		$setupManager->getTemplateDataSetter()->assignToTemplate('templatePartial', $setupManager->getTemplateDataSetter()->getTemplateData('template').'contents/detail.phtml');
-		} else {
-		$setupManager->getTemplateDataSetter()->assignToTemplate('templatePartial', $setupManager->getTemplateDataSetter()->getTemplateData('template').'homepage.phtml');
-		}
-		
-		$templateData['controllerResult'] = $controllerResult;
-		$templateData['categoryName'] = $this->setupManager->getInput('categoryName');
-		
-		
-		... if not set get seo options from config ...
-		
-		$this->setupManager->getTemplateDataSetter()->assignToTemplate('seo_title', $this->setupManager->getTemplateDataSetter()->getTemplateData('sitename'));
-		$this->setupManager->getTemplateDataSetter()->assignToTemplate('seo_description', $this->setupManager->getTemplateDataSetter()->getTemplateData('description'));
-		$this->setupManager->getTemplateDataSetter()->assignToTemplate('seo_keywords', $this->setupManager->getTemplateDataSetter()->getTemplateData('keywords'));
-		
-		*/
-		
-		$setupManager->getTemplateDataSetter()->assignToTemplate('templatePartial', 'frontend/projects/fossobandito/templates/default/homepage.phtml');
-		
-    	$this->layout($setupManager->getTemplateDataSetter()->getTemplateData('basiclayout'));
+	   	$this->layout( $setupManager->getTemplateDataSetter()->getTemplateData('basiclayout') );
     	$this->layout()->setVariable("templateData", $setupManager->getTemplateDataSetter()->getTemplateData());
 
     	return new ViewModel();
