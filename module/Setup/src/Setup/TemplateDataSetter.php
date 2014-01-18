@@ -7,8 +7,8 @@ namespace Setup;
  * @author Andrea Fiori
  * @since  07 January 2014
  */
-class TemplateDataSetter {
-
+class TemplateDataSetter
+{
 	private $templateData = array();
 	
 	private $setupManager;

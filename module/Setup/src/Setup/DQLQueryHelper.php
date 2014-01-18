@@ -7,8 +7,8 @@ namespace Setup;
  * @author Andrea Fiori
  * @since  03 January 2014
  */
-abstract class DQLQueryHelper {
-
+abstract class DQLQueryHelper
+{
 	protected $queryBasic, $query;
 
 	protected $bindParameters = array();
@@ -16,6 +16,8 @@ abstract class DQLQueryHelper {
 	protected $setupManager;
 	
 	protected $defaultFieldsSelect;
+	
+	protected $queryContainer;
 	
 	public function setDefaultFieldsSelect($fieldList)
 	{
@@ -82,10 +84,22 @@ abstract class DQLQueryHelper {
 		
 		$query = $this->getSetupManager()->getEntityManager()->createQuery($this->getSelectQuery());
 		$query->setParameters($this->getBindParameters());
+		
+		$this->queryContainer[] = $this->getSelectQuery();
+
 		return $query->getResult();
 	}
-		
+	
 	/**
+	 * @return array
+	 */
+	public function getQueryContainer()
+	{
+		return $this->queryContainer;
+	}
+
+	/**
+	 * TODO: Must return last insert id!!!
 	 * @param string $tableName
 	 * @param array $arrayData
 	 */
@@ -96,14 +110,14 @@ abstract class DQLQueryHelper {
 			$conn->beginTransaction();
 			$conn->insert($tableName, $arrayData);
 			$conn->commit();
-			return true; // Must return last insert id!
+			return true;
 		} catch (NullException $e) {
 			$conn->rollback();
 			$e->getMessage();
 			return false;
 		}
 	}
-	/*
+	
 	public function getUpdateResult()
 	{
 		return false;
@@ -113,5 +127,4 @@ abstract class DQLQueryHelper {
 	{
 		return false;
 	}
-	*/
 }

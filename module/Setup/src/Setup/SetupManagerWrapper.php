@@ -100,7 +100,7 @@ class SetupManagerWrapper
 			$templateData['imagedir'] = $templateData['template_project'].'templates/'.$templateData['template_name'].'assets/images/';
 			$templateData['cssdir']   = $templateData['template_project'].'templates/'.$templateData['template_name'].'assets/css/';
 			$templateData['jsdir']    = $templateData['template_project'].'templates/'.$templateData['template_name'].'assets/js/';
-			
+
 			$this->setupManager->setTemplateDataSetter( new TemplateDataSetter($this->setupManager) );
 			
 			/* Assign final template var */

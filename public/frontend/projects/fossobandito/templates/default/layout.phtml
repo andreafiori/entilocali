@@ -1,8 +1,8 @@
 <?php echo $this->doctype(); ?>
-<?php $templateData = $this->templateData; ?>
-<!--[if lt IE 7 ]><html class="ie ie6" lang="<?php echo $templateData['languageAbbreviation'] ?>"> <![endif]-->
-<!--[if IE 7 ]><html class="ie ie7" lang="<?php echo $templateData['languageAbbreviation'] ?>"> <![endif]-->
-<!--[if IE 8 ]><html class="ie ie8" lang="<?php echo $templateData['languageAbbreviation'] ?>"> <![endif]-->
+
+<!--[if lt IE 7 ]><html class="ie ie6" lang="<?php echo $this->templateData['languageAbbreviation'] ?>"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="<?php echo $this->templateData['languageAbbreviation'] ?>"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="<?php echo $this->templateData['languageAbbreviation'] ?>"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
 
 <html dir="ltr">
@@ -12,10 +12,10 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<title><?php echo $templateData['sitename'] ?></title>
+<title><?php echo $this->templateData['seo_title'] ?></title>
 
-<meta name="description" content="<?php echo $templateData['description'] ?>">
-<meta name="keywords" content="<?php echo $templateData['keywords'] ?>">
+<meta name="description" content="<?php echo $this->templateData['seo_description'] ?>">
+<meta name="keywords" content="<?php echo $this->templateData['seo_keywords'] ?>">
 
 <!--[if lt IE 9]>
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -27,16 +27,16 @@
               ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
 ?>
 <!-- Styles -->
-<?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/frontend/projects/fossobandito/favicon.ico'))
-	 	        ->prependStylesheet( $this->basePath(). '/'.$templateData['cssdir']);
+<?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . 'favicon.ico'))
+	 	        ->prependStylesheet( $this->basePath(). '/'.$this->templateData['cssdir']);
 ?>
 
 <!--[if lt IE 9]>
-	<link rel="stylesheet" href="<?php echo $this->basePath() ?>/<?php echo $templateData['cssdir'] ?>/ie-style.php" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>/ie-style.php" type="text/css" media="screen, projection">
 <![endif]-->
 
 <!--[if IE 7]>
-	<link rel="stylesheet" href="<?php echo $this->basePath() ?>/<?php echo $templateData['cssdir'] ?>ie7-style.css">
+	<link rel="stylesheet" href="<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>ie7-style.css">
 <![endif]-->
 
 <link rel="stylesheet" id="Google-Font-css" href="http://fonts.googleapis.com/css?family=Droid+Sans%3An%2Ci%2Cb%2Cbi%7CDroid+Serif%3An%2Ci%2Cb%2Cbi%7CMerriweather%3An%2Ci%2Cb%2Cbi%7C&amp;ver=3.4" type="text/css" media="all">
@@ -71,7 +71,7 @@
 		<div class="header-wrapper">
 		
 			<div class="logo-wrapper">
-				<a href="<?php echo $templateData['remotelinkWeb'].$templateData['languageAbbreviation'] ?>/" title="<?=$templateData['sitename']?>"><img src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/assets/images/default-logo.jpg" alt="Logo <?php echo $templateData['sitename'] ?>"></a>
+				<a href="<?php echo $this->templateData['remotelinkWeb'].$this->templateData['languageAbbreviation'] ?>/" title="<?=$this->templateData['sitename']?>"><img src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/assets/images/default-logo.jpg" alt="Logo <?php echo $this->templateData['sitename'] ?>"></a>
 			</div>
 			
 			<div class="header-right-side-wrapper">
@@ -80,8 +80,8 @@
 
 				<div class="social-icon-wrapper">
 					
-					<div class="social-icon"><a href="<?php echo $templateData['remotelinkWeb'] ?>it/" title="Passa alla lingua italiana"><img src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/assets/images/flag_ita.gif" alt="Bandiera italiana"> Italiano</a></div>
-					<div class="social-icon"><a href="<?php echo $templateData['remotelinkWeb'] ?>en/" title="Switch to English"><img src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/assets/images/flag_eng.gif" alt="England's flag"> <?php echo $templateData['languageLabels']['ENG_LANGUAGE_NAME'] ?></a></div>
+					<div class="social-icon"><a href="<?php echo $this->templateData['remotelinkWeb'] ?>it/" title="Passa alla lingua italiana"><img src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/assets/images/flag_ita.gif" alt="Bandiera italiana"> Italiano</a></div>
+					<div class="social-icon"><a href="<?php echo $this->templateData['remotelinkWeb'] ?>en/" title="Switch to English"><img src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/assets/images/flag_eng.gif" alt="England's flag"> <?php echo $this->templateData['languageLabels']['ENG_LANGUAGE_NAME'] ?></a></div>
 				
 				</div>
 
@@ -94,15 +94,15 @@
 				
 				<ul id="menu-main" class="sf-menu">
 					
-					<li id="menu-item" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item"><a href="<?php echo $templateData['remotelinkWeb'].$templateData['languageAbbreviation'] ?>/" title="Home page">Home</a></li>
+					<li id="menu-item" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item"><a href="<?php echo $this->templateData['remotelinkWeb'].$this->templateData['languageAbbreviation'] ?>/" title="Home page">Home</a></li>
 
-					<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $templateData['project']['linkDetails'] ?>" title="<?php echo $templateData['project']['title'] ?>"><?php echo $templateData['project']['title'] ?></a></li>
+					<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $this->templateData['preloadrecord']['project']['linkDetails'] ?>" title="<?php echo $this->templateData['preloadrecord']['project']['title'] ?>"><?php echo $this->templateData['preloadrecord']['project']['title'] ?></a></li>
 					
-					<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?=$templateData['press']['linkDetails']?>" title="<?php echo $templateData['languageLabels']['RASSEGNA_STAMPA_MENU'] ?>"><?php echo $templateData['languageLabels']['RASSEGNA_STAMPA_MENU'] ?></a></li>
+					<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?=$this->templateData['preloadrecord']['press']['linkDetails']?>" title="<?php echo $this->templateData['languageLabels']['RASSEGNA_STAMPA_MENU'] ?>"><?php echo $this->templateData['languageLabels']['RASSEGNA_STAMPA_MENU'] ?></a></li>
 					
-					<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $templateData['workwithus']['linkDetails'] ?>" title="<?php echo $templateData['workwithus']['title'] ?>"><?php echo $templateData['workwithus']['title'] ?></a></li>
+					<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $this->templateData['preloadrecord']['workwithus']['linkDetails'] ?>" title="<?php echo $this->templateData['preloadrecord']['workwithus']['title'] ?>"><?php echo $this->templateData['preloadrecord']['workwithus']['title'] ?></a></li>
 					
-					<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $templateData['contacts']['linkDetails'] ?>" title="<?php echo $templateData['contacts']['title'] ?>"><?php echo $templateData['contacts']['title'] ?></a></li>
+					<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $this->templateData['preloadrecord']['contacts']['linkDetails'] ?>" title="<?php echo $this->templateData['preloadrecord']['contacts']['title'] ?>"><?php echo $this->templateData['preloadrecord']['contacts']['title'] ?></a></li>
 					
 				</ul>
 				
@@ -112,14 +112,14 @@
 			
 			<!-- Responsive select option -->
 			<div class="responsive-menu-wrapper">
-				<select id="menu-main-1" class="menu dropdown-menu" title="<?php echo $templateData['languageLabels']['RESPONSIVE_SELECTMENU_TITLE'] ?>">
+				<select id="menu-main-1" class="menu dropdown-menu" title="<?php echo $this->templateData['languageLabels']['RESPONSIVE_SELECTMENU_TITLE'] ?>">
 					<option value="" class="blank">&#8211; Menu &#8211;</option>
-					<option value="<?php echo $templateData['remotelinkWeb']?>" selected="selected">Home</option>
-					<option value="<?=$templateData['press']['linkDetails']?>" title="<?php echo $templateData['languageLabels']['RASSEGNA_STAMPA_MENU'] ?>"><?php echo $templateData['languageLabels']['RASSEGNA_STAMPA_MENU'] ?></option>
-					<option value="<?php echo $templateData['workwithus']['linkDetails'] ?>" title=""><?php echo $templateData['languageLabels']['LAVORA_CON_NOI_MENU'] ?></option>
-					<option value="<?php echo $templateData['contactForm']['linkDetails'] ?>" title=""><?php echo $templateData['languageLabels']['CONTATTI_MENU'] ?></option>
+					<option value="<?php echo $this->templateData['remotelinkWeb']?>" selected="selected">Home</option>
+					<option value="<?=$this->templateData['preloadrecord']['press']['linkDetails']?>" title="<?php echo $this->templateData['languageLabels']['RASSEGNA_STAMPA_MENU'] ?>"><?php echo $this->templateData['languageLabels']['RASSEGNA_STAMPA_MENU'] ?></option>
+					<option value="<?php echo $this->templateData['preloadrecord']['workwithus']['linkDetails'] ?>" title=""><?php echo $this->templateData['languageLabels']['LAVORA_CON_NOI_MENU'] ?></option>
+					<option value="<?php echo $this->templateData['preloadrecord']['contactForm']['linkDetails'] ?>" title=""><?php echo $this->templateData['languageLabels']['CONTATTI_MENU'] ?></option>
 					<!-- 
-					<option value="<?php echo $templateData['repetti']['linkDetails'] ?>" title="<?php echo $templateData['repetti']['title'] ?>"><?php echo $templateData['repetti']['title'] ?></option>
+					<option value="<?php echo $this->templateData['preloadrecord']['repetti']['linkDetails'] ?>" title="<?php echo $this->templateData['preloadrecord']['repetti']['title'] ?>"><?php echo $this->templateData['preloadrecord']['repetti']['title'] ?></option>
 					 -->
 				</select>
 			</div>
@@ -134,7 +134,7 @@
 		
 		<div class="page-wrapper">
 
-			<?php echo $this->partial($templateData['templatePartial']); ?>
+			<?php echo $this->partial($this->templateData['templatePartial']); ?>
 			
 			<br class="clear">
 		</div>
@@ -146,29 +146,28 @@
 	
 	<div class="footer-wrapper">
 		<div class="copyright-wrapper">
-			<div class="container">&copy; <?php echo date("Y") ?> <a href="<?php echo $templateData['workwithus']['credits'] ?>" title="Credits" class="underline footerlink">Credits</a> - <a href="http://validator.w3.org/check?uri=referer" title="Validate HTML" target="_blank" class="underline footerlink">Valid HTML5</a><!--  - <a href="http://jigsaw.w3.org/css-validator/check/referer" title="Validate CSS" target="_blank" class="underline footerlink">Valid CSS</a> --></div>
+			<div class="container">&copy; <?php echo date("Y") ?> <a href="<?php echo $this->templateData['workwithus']['credits'] ?>" title="Credits" class="underline footerlink">Credits</a> - <a href="http://validator.w3.org/check?uri=referer" title="Validate HTML" target="_blank" class="underline footerlink">Valid HTML5</a><!--  - <a href="http://jigsaw.w3.org/css-validator/check/referer" title="Validate CSS" target="_blank" class="underline footerlink">Valid CSS</a> --></div>
 		</div>
 	</div>
 	
 </div>
 
-
 <!-- jQuery library -->
-<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>jquery.min.js"></script>
+<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $this->templateData['jsdir'] ?>jquery.min.js"></script>
 
 <!-- Jquery form -->
-<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>jquery.form.js"></script>
+<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $this->templateData['jsdir'] ?>jquery.form.js"></script>
 
 <!-- Jquery validate -->
-<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>jquery.validate.min.js"></script>
-<script src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>jquery.validate.additional-methods.js"></script>
+<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $this->templateData['jsdir'] ?>jquery.validate.min.js"></script>
+<script src="<?php echo $this->basePath() ?>/<?php echo $this->templateData['jsdir'] ?>jquery.validate.additional-methods.js"></script>
 
 <!-- FancyBox -->
-<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>fancybox/jquery.fancybox.js?v=2.1.4"></script>
-<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>fancybox/jquery.mousewheel-3.0.6.pack.js"></script>
-<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>fancybox/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
-<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>fancybox/helpers/jquery.fancybox-media.js?v=1.0.5"></script>
-<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $templateData['jsdir'] ?>fancybox/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $this->templateData['jsdir'] ?>fancybox/jquery.fancybox.js?v=2.1.4"></script>
+<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $this->templateData['jsdir'] ?>fancybox/jquery.mousewheel-3.0.6.pack.js"></script>
+<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $this->templateData['jsdir'] ?>fancybox/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $this->templateData['jsdir'] ?>fancybox/helpers/jquery.fancybox-media.js?v=1.0.5"></script>
+<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $this->templateData['jsdir'] ?>fancybox/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
 
 <!-- Select menu -->
 <script type="application/javascript">
@@ -230,7 +229,7 @@ jQuery(document).ready(function() {
 		$.ajax({
 			type : 'POST',
 			data : {'gal' : $(this).attr('rel')},
-			url : '<?php echo $templateData['remotelinkWeb'] ?>getGallery.php?g=degrado',
+			url : '<?php echo $this->templateData['remotelinkWeb'] ?>getGallery.php?g=degrado',
 			dataType: 'text',
 			complete: function(data) {
 				var dataX = data.responseText;
@@ -299,24 +298,24 @@ jQuery(document).ready(function() {
 				}
 			},
 			messages: {
-				name: "<?php echo $templateData['languageLabels']['INSERISCI_NOME'] ?>",
-				surname: "<?php echo $templateData['languageLabels']['INSERISCI_COGNOME'] ?>",
+				name: "<?php echo $this->templateData['languageLabels']['INSERISCI_NOME'] ?>",
+				surname: "<?php echo $this->templateData['languageLabels']['INSERISCI_COGNOME'] ?>",
 				email: {
-					required: "<?php echo $templateData['languageLabels']['INSERISCI_EMAIL'] ?>",
-					email: "<?php echo $templateData['languageLabels']['INSERISCI_EMAIL'] ?>"
+					required: "<?php echo $this->templateData['languageLabels']['INSERISCI_EMAIL'] ?>",
+					email: "<?php echo $this->templateData['languageLabels']['INSERISCI_EMAIL'] ?>"
 				},
-				phone: "<?php echo $templateData['languageLabels']['INSERISCI_PHONE'] ?>",
-				jobrole: "<?php echo $templateData['languageLabels']['INSERISCI_JOBROLE'] ?>",
+				phone: "<?php echo $this->templateData['languageLabels']['INSERISCI_PHONE'] ?>",
+				jobrole: "<?php echo $this->templateData['languageLabels']['INSERISCI_JOBROLE'] ?>",
 				cvitae: {
-					required: "<?php echo $templateData['languageLabels']['INSERISCI_CURRICULUM'] ?>",
-					accept: "<?php echo $templateData['languageLabels']['CURRICULUM_ALLOWED_FILES'] ?>",
-					filesize: "<?php echo $templateData['languageLabels']['CURRICULUM_FILE_TOO_BIG'] ?>"
+					required: "<?php echo $this->templateData['languageLabels']['INSERISCI_CURRICULUM'] ?>",
+					accept: "<?php echo $this->templateData['languageLabels']['CURRICULUM_ALLOWED_FILES'] ?>",
+					filesize: "<?php echo $this->templateData['languageLabels']['CURRICULUM_FILE_TOO_BIG'] ?>"
 				},
-				message: "<?php echo $templateData['languageLabels']['INSERISCI_MESSAGGIO'] ?>"
+				message: "<?php echo $this->templateData['languageLabels']['INSERISCI_MESSAGGIO'] ?>"
 			},
 			submitHandler: function(form) {
 				$("#gdl-contact-form").ajaxSubmit({
-					url: window.location.protocol + "//" + window.location.host + '<?php echo $templateData['remotelinkWeb'] ?>contacts/',
+					url: window.location.protocol + "//" + window.location.host + '<?php echo $this->templateData['remotelinkWeb'] ?>contacts/',
 			        target: '#contactformresponse',
 					type: 'post',
 			        success: function() {

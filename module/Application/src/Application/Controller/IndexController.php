@@ -5,9 +5,9 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use ServiceLocatorFactory;
-use Posts\Model\PostsQueryBuilder;
 use Setup\SetupManagerWrapper;
 use Setup\SetupManager;
+use Posts\Model\PostsGetter;
 
 /**
  * Frontend main controller
@@ -16,52 +16,46 @@ use Setup\SetupManager;
  */
 class IndexController extends AbstractActionController
 {
+	private $setupManagerInput;
+	
     public function indexAction()
     {
-    	$setupManagerWrapper = new SetupManagerWrapper( new SetupManager(
-    			array(
+    	$this->setupManagerInput = array(
     				'isbackend'				=> 0,
     				'controller' 			=> $this->params()->fromRoute('controller'),
     				'action'	 			=> $this->params()->fromRoute('action'),
    					'languageAbbreviation'  => strtolower( $this->params()->fromRoute('lang') ),
-    				'categoryName' 			=> \Setup\StringRequestDecoder::deSlugify( $this->params()->fromRoute('category') ),
-    				'title'		 			=> \Setup\StringRequestDecoder::deSlugify( $this->params()->fromRoute('title') )
-    			)
-    	));
+    				'categoryName' 			=> \Setup\StringRequestDecoder::slugify( $this->params()->fromRoute('category') ),
+    				'title'		 			=> \Setup\StringRequestDecoder::slugify( $this->params()->fromRoute('title') )
+    			);
+    	
+    	$setupManagerWrapper = new SetupManagerWrapper( new SetupManager( $this->setupManagerInput ));
     	$setupManager = $setupManagerWrapper->initSetup();
-
+    	
     	/* Preload */
     	$setupManager->getSetupManagerPreload()->setClassName( $setupManager->getTemplateDataSetter()->getTemplateData('preloader_frontend') );
     	$setupManager->getSetupManagerPreload()->setInstance($setupManager);
-    	$setupManager->getTemplateDataSetter()->mergeTemplateDataWithArray( $setupManager->getSetupManagerPreload()->setRecord() );
+    	$setupManager->getTemplateDataSetter()->assignToTemplate('preloadrecord', $setupManager->getSetupManagerPreload()->setRecord() );
+		
+    	// TODO: the preload pattern overwrites the original SetupManager input!!!
+    	$setupManager->setInput( $this->setupManagerInput );
     	
 		/* SINGLE POST SELECTION */
-    		/**
-    		 * TODO: 
-    		 * 		if templatefile is set, get it as tempaltePartial; PAGING with adapter,
-    		 * 		SEO tags if present, must be set
-    		 * 		
-    		 */
-		if ($setupManager->getInput('categoryName')):
-			$postsQueryBuilder = new PostsQueryBuilder();
-			$postsQueryBuilder->setSetupManager($setupManager);
-			$postsQueryBuilder->setQueryBasic();
-			$postsQueryBuilder->setBasicBindParameters();
-			$postsQueryBuilder->setLanguage($setupManager->getSetupManagerLanguages()->getLanguageId());
-			$postsQueryBuilder->setCategoryName($setupManager->getInput('categoryName'));
-
-			$postsDetail = $postsQueryBuilder->getSelectResult();
-			if ($postsDetail[0]) {
-				$setupManager->getTemplateDataSetter()->assignToTemplate('templatePartial', $setupManager->getTemplateDataSetter()->getTemplateData('template_path').'contents/detail.phtml');
-			} else {
-				$setupManager->getTemplateDataSetter()->assignToTemplate('templatePartial', $setupManager->getTemplateDataSetter()->getTemplateData('template_path').'homepage.phtml');
-			}
+		if ( $setupManager->getInput('categoryName') ):
+			$postGetter = new PostsGetter($setupManager);
+			$postsDetail = $postGetter->getPost();
 		endif;
 
+		if ( isset($postsDetail[0]) ) {
+			$setupManager->getTemplateDataSetter()->assignToTemplate('templatePartial', $setupManager->getTemplateDataSetter()->getTemplateData('template_path').'contents/detail.phtml');
+		} else {
+			$setupManager->getTemplateDataSetter()->assignToTemplate('templatePartial', $setupManager->getTemplateDataSetter()->getTemplateData('template_path').'homepage.phtml');
+		}
+		
 		/* TEMPLATE DATA */
 		$setupManager->getTemplateDataSetter()->assignToTemplate('controllerResult', $postsDetail[0]);
 		$setupManager->getTemplateDataSetter()->assignToTemplate('categoryName', $setupManager->getInput('categoryName') );
-		
+
 		/* SEO tags */
 		$setupManager->getTemplateDataSetter()->assignToTemplate('seo_title', 		$setupManager->getTemplateDataSetter()->getTemplateData('sitename'));
 		$setupManager->getTemplateDataSetter()->assignToTemplate('seo_description', $setupManager->getTemplateDataSetter()->getTemplateData('description'));
@@ -69,7 +63,7 @@ class IndexController extends AbstractActionController
 		
 	   	$this->layout( $setupManager->getTemplateDataSetter()->getTemplateData('basiclayout') );
     	$this->layout()->setVariable("templateData", $setupManager->getTemplateDataSetter()->getTemplateData());
-
+    	
     	return new ViewModel();
     }
 }

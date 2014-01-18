@@ -48,6 +48,14 @@ class PostsQueryBuilder extends DQLQueryHelper
 		$this->addToBindParameters('cname', $categoryName);
 	}
 
+	public function setCategorySeoUrl($categoryName)
+	{
+		if (!$categoryName) return false;
+	
+		$this->query .= "AND co.seoUrl = :seourlcategory ";
+		$this->addToBindParameters('seourlcategory', $categoryName);
+	}
+	
 	public function setId($postsId)
 	{
 		$postsId = (int) $postsId;
@@ -58,8 +66,24 @@ class PostsQueryBuilder extends DQLQueryHelper
 	public function setTitle($title)
 	{
 		if (!$title) return false;
+		
 		$this->query .= "AND po.title = :title ";
 		$this->addToBindParameters('title', $title);
+	}
+	
+	/**
+	 * pass the same as the title to get the "slugged" title
+	 * @param string $title
+	 * @return boolean
+	 */
+	public function setSeoUrl($seoUrl)
+	{
+		if (!$seoUrl) {
+			return false;
+		}
+	
+		$this->query .= "AND po.seoUrl = :seourl ";
+		$this->addToBindParameters('seourl', $seoUrl);
 	}
 	
 	public function setStatus($status)
@@ -68,14 +92,16 @@ class PostsQueryBuilder extends DQLQueryHelper
 		$this->addToBindParameters('status', $status);
 	}
 	
-	public function setAliasNotNull()
+	public function setAliasNotNull($setAlias = false)
 	{
-		$this->query .= "AND p.alias IS NOT NULL AND p.alias != '' ";
+		if ($setAlias) {
+			$this->query .= "AND p.alias IS NOT NULL AND p.alias != '' ";
+		}
 	}
 	
 	public function setParentId($parentId = 0)
 	{
-		$this->query .= "AND po.parentId = :parentid ";
+		$this->query .= "AND p.parentid = :parentid ";
 		$this->addToBindParameters('parentid', $parentId);
 	}
 	

@@ -12,36 +12,34 @@ use Setup\SetupManagerPreloadInterface;
  */
 class PostsAlias implements SetupManagerPreloadInterface
 {
-	private $setupManager, $record;
+	private $setupManager, $record, $newInput;
 	
 	public function __construct(SetupManagerAbstract $setupManager)
 	{
 		$this->setupManager = $setupManager;
+		
+		$this->newInput = $this->setupManager->getInput();
+		unset($this->newInput['categoryName']);
+		unset($this->newInput['title']);
+		$this->newInput['helpers'] = true;
+		$this->newInput['aliasnotull'] = true;
+		$this->newInput['sortByAlias'] = true;
+		
+		$this->setupManager->setInput($this->newInput);
 	}
 	
-	/**
-	 * TODO: set attachment\s data record
-	 */
 	public function setRecord()
 	{
 		if ( !$this->setupManager->getSetupManagerLanguages() ) {
 			return false;
 		}
 		
-		$postsQueryBuilder = new PostsQueryBuilder();
-		$postsQueryBuilder->setSetupManager($this->setupManager);
-		$postsQueryBuilder->setQueryBasic();
-		$postsQueryBuilder->setBasicBindParameters();
-		$postsQueryBuilder->setLanguage($this->setupManager->getSetupManagerLanguages()->getLanguageId());
-		$postsQueryBuilder->setAliasNotNull();
+		$setupManagerInstance = $this->setupManager;
 		
-		$postsRecordsHelper = new PostsRecordsHelper($postsQueryBuilder->getSelectResult());
-		$postsRecordsHelper->setSetupManager($this->setupManager);
-		$postsRecordsHelper->setRemotelinkWeb($this->setupManager->getSetupManagerConfigurations()->getConfigRepository()->getConfigRecord('remotelinkWeb'));
-		$postsRecordsHelper->setAdditionalArrayElements();
-		
-		$this->record = $postsRecordsHelper->sortPostsByAlias(true);
-		
+		$postGetter = new PostsGetter($setupManagerInstance);
+
+		$this->record = $postGetter->getPost();
+
 		return $this->record;
 	}
 	

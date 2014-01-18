@@ -2,12 +2,12 @@
 
 namespace PostsTest\Model;
 
-use Posts\Model\PostsGetterWrapper;
+use Posts\Model\PostsGetter;
 use Setup\SetupManager;
 use SetupTest\TestSuite;
 use Config\Model\ConfigRepository;
 
-class PostsGetterWrapperTest extends TestSuite {
+class PostsGetterTest extends TestSuite {
 	
 	private $postsGetterWrapper;
 	private $setupManager;
@@ -16,20 +16,17 @@ class PostsGetterWrapperTest extends TestSuite {
 	{
 		parent::setUp();
 		
-		$this->setupManager = new SetupManager( array('channel' => 1, 'isbackend' => 0) );
+		$this->setupManager = new SetupManager( 
+					array('channel' => 1, 'isbackend' => 0, "language" => 1, 
+						"categoryName" => "Contatti","helpers"=>1) 
+		);
 		$this->setupManager->setEntityManager($this->getServiceManager()->get('\Doctrine\ORM\EntityManager'));
 		$this->setupManager->getSetupManagerConfigurations()->setConfigRepository(new ConfigRepository($this->setupManager->getEntityManager()));
 		$this->setupManager->getSetupManagerConfigurations()->setConfigurations();
 		
-		$this->postsGetterWrapper = new PostsGetterWrapper($this->setupManager);
+		$this->postsGetterWrapper = new PostsGetter( $this->setupManager );
 	}
-	
-	public function testSetInput()
-	{
-		$this->postsGetterWrapper->setInput(array("language" => 1, "categoryName" => $this->setupManager->getInput('categoryName'),"helpers"=>1) );
-		$this->assertArrayHasKey("language", $this->postsGetterWrapper->getInput());
-	}
-	
+		
 	public function testGetPost()
 	{
 		$this->assertTrue( is_array($this->postsGetterWrapper->getPost()) );

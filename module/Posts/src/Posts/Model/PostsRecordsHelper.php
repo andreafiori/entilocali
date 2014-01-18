@@ -45,8 +45,9 @@ class PostsRecordsHelper
 
 	public function setAdditionalArrayElements()
 	{
-		if (!$this->getPostsRecords()) {
-			throw new NullException('Posts Records are not set');
+		if ( !$this->getPostsRecords() ) {
+			// throw new NullException('Posts Records are not set');
+			return false;
 		}
 		
 		$postsRecords = array();

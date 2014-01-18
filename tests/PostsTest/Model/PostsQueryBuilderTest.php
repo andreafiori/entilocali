@@ -45,6 +45,13 @@ class PostsQueryBuilderTest extends TestSuite
 		$this->assertArrayHasKey('cname', $this->postsQueryBuilder->getBindParameters());
 	}
 	
+	public function testSetSeoTitle()
+	{
+		$this->postsQueryBuilder->setSeoUrl('Contatti');
+	
+		$this->assertArrayHasKey('seourl', $this->postsQueryBuilder->getBindParameters());
+	}
+	
 	public function testSetTitle()
 	{
 		$this->postsQueryBuilder->setTitle("Credits");
