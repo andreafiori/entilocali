@@ -14,7 +14,7 @@ class PostsQueryBuilder extends DQLQueryHelper
 	public function setQueryBasic()
 	{
 		if (!$this->getDefaultFieldsSelect()) {
-			$this->setDefaultFieldsSelect('DISTINCT(p.id) AS postid, p.typeofpost, p.alias, po.title, p.status, po.description, po.seoUrl, po.seoKeywords, co.name');
+			$this->setDefaultFieldsSelect('DISTINCT(p.id) AS postid, p.typeofpost, p.alias, po.title, p.status, po.description, po.seoUrl, po.seoKeywords, p.templatefile, co.name');
 		}
 		
 		$this->queryBasic = "SELECT ".$this->getDefaultFieldsSelect()." FROM Application\\Entity\\PostsOptions po, Application\\Entity\\Posts p,
@@ -81,7 +81,7 @@ class PostsQueryBuilder extends DQLQueryHelper
 		if (!$seoUrl) {
 			return false;
 		}
-	
+
 		$this->query .= "AND po.seoUrl = :seourl ";
 		$this->addToBindParameters('seourl', $seoUrl);
 	}
@@ -101,7 +101,7 @@ class PostsQueryBuilder extends DQLQueryHelper
 	
 	public function setParentId($parentId = 0)
 	{
-		$this->query .= "AND p.parentid = :parentid ";
+		$this->query .= "AND p.parentId = :parentid ";
 		$this->addToBindParameters('parentid', $parentId);
 	}
 	

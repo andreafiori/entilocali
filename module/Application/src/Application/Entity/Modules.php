@@ -52,13 +52,6 @@ class Modules
     /**
      * @var string
      *
-     * @ORM\Column(name="home_classcsstabletd", type="string", length=80, nullable=false)
-     */
-    private $homeClasscsstabletd;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="status", type="string", length=100, nullable=false)
      */
     private $status;
@@ -200,29 +193,6 @@ class Modules
     public function getHomeCss()
     {
         return $this->homeCss;
-    }
-
-    /**
-     * Set homeClasscsstabletd
-     *
-     * @param string $homeClasscsstabletd
-     * @return Modules
-     */
-    public function setHomeClasscsstabletd($homeClasscsstabletd)
-    {
-        $this->homeClasscsstabletd = $homeClasscsstabletd;
-
-        return $this;
-    }
-
-    /**
-     * Get homeClasscsstabletd
-     *
-     * @return string 
-     */
-    public function getHomeClasscsstabletd()
-    {
-        return $this->homeClasscsstabletd;
     }
 
     /**

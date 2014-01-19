@@ -98,7 +98,8 @@
 
 					<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $this->templateData['preloadrecord']['project']['linkDetails'] ?>" title="<?php echo $this->templateData['preloadrecord']['project']['title'] ?>"><?php echo $this->templateData['preloadrecord']['project']['title'] ?></a></li>
 					
-					<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?=$this->templateData['preloadrecord']['press']['linkDetails']?>" title="<?php echo $this->templateData['languageLabels']['RASSEGNA_STAMPA_MENU'] ?>"><?php echo $this->templateData['languageLabels']['RASSEGNA_STAMPA_MENU'] ?></a></li>
+					<!-- Press -->
+					<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $this->templateData['remotelinkWeb'].$this->templateData['languageAbbreviation'] ?>/<?php echo \Setup\StringRequestDecoder::slugify( $this->templateData['languageLabels']['RASSEGNA_STAMPA_MENU'] )?>" title="<?php echo $this->templateData['languageLabels']['RASSEGNA_STAMPA_MENU'] ?>"><?php echo $this->templateData['languageLabels']['RASSEGNA_STAMPA_MENU'] ?></a></li>
 					
 					<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $this->templateData['preloadrecord']['workwithus']['linkDetails'] ?>" title="<?php echo $this->templateData['preloadrecord']['workwithus']['title'] ?>"><?php echo $this->templateData['preloadrecord']['workwithus']['title'] ?></a></li>
 					

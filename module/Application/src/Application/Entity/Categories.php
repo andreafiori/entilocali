@@ -22,18 +22,25 @@ class Categories
     private $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="note", type="string", length=100, nullable=true)
+     */
+    private $note;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="createdate", type="datetime", nullable=true)
      */
-    private $createdate;
+    private $createdate = '2014-01-01 01:01:01';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="lastupdate", type="datetime", nullable=true)
      */
-    private $lastupdate;
+    private $lastupdate = '2014-01-01 01:01:01';
 
     /**
      * @var string
@@ -66,6 +73,29 @@ class Categories
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set note
+     *
+     * @param string $note
+     * @return Categories
+     */
+    public function setNote($note)
+    {
+        $this->note = $note;
+
+        return $this;
+    }
+
+    /**
+     * Get note
+     *
+     * @return string 
+     */
+    public function getNote()
+    {
+        return $this->note;
     }
 
     /**

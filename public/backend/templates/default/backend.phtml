@@ -138,6 +138,17 @@
 			<!-- sidebar -->
 			<div class="row clearfix">
 				<div class="col-md-3 column">
+			<ul>
+			<?php
+			foreach($this->templateData['preloadrecord'] as $preloadRecord):
+			?>
+			<li>
+				<a href="" title=""><?php echo $preloadRecord['title'] ?></a>
+			</li>
+			<?php
+			endforeach;
+			?>
+			</ul>
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h3 class="panel-title">
@@ -165,17 +176,9 @@
 							Data
 						</li>
 					</ul>
-					<div class="jumbotron well">
-						<h1>
-							Under construction
-						</h1>
-						<p>
-							Area in fase di costruzione e manutenzione
-						</p>
-						<p>
-							<a class="btn btn-primary btn-large" href="#">Learn more</a>
-						</p>
-					</div>
+					<?php
+					echo $this->partial($this->templateData['templatePartial']);
+					?>
 				</div>
 			</div>
 			<div class="row clearfix">

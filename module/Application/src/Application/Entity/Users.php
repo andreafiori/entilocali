@@ -201,14 +201,14 @@ class Users
      *
      * @ORM\Column(name="created", type="datetime", nullable=false)
      */
-    private $created = '2010-01-01 01:01:01';
+    private $created = '2014-01-01 01:01:01';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="lastupdate", type="datetime", nullable=false)
      */
-    private $lastupdate = '2010-01-01 01:01:01';
+    private $lastupdate = '2014-01-01 01:01:01';
 
     /**
      * @var string

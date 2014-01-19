@@ -9,6 +9,15 @@ use Setup\SetupManagerWrapper;
 use Zend\View\Model\ViewModel;
 
 /**
+ * TODO:
+ * 		check login
+ * 		validate form 
+ * 		session login
+ * 		set user session from db data
+ * 		set ACL role and compare with db user role
+ *  	set captcha on login form after 3 fails...
+ *  	
+ *  	backup database
  * Backend controller
  * @author Andrea Fiori
  * @since  05 December 2013
@@ -16,57 +25,53 @@ use Zend\View\Model\ViewModel;
 class BackendController extends AbstractActionController
 {
 	private $setupManager;
-	
+
     public function indexAction()
     {
-    	$setupManagerWrapper = new SetupManagerWrapper( new SetupManager(
-    		array(
-    			'channel'				=> 1,
-    			'isbackend' 			=> 0,
-    			'controller'			=> $this->params()->fromRoute('controller'),
-    			'action'				=> $this->params()->fromRoute('action'),
-    			'languageAbbreviation' 	=> strtolower( $this->params()->fromRoute('lang') )
-    		)
-    	) );
-    	$setupManager = $setupManagerWrapper->initSetup();
-
-    	/* TEMPLATE DATA */
-		$setupManager->getTemplateDataSetter()->assignToTemplate('projectdir', 'frontend/projects/'.$setupManager->getTemplateDataSetter()->getTemplateData('frontendprojectdir'));
-		$setupManager->getTemplateDataSetter()->assignToTemplate('frontendtemplate', $setupManager->getTemplateDataSetter()->getTemplateData('frontendtemplate') ? $setupManager->getTemplateDataSetter()->getTemplateData('frontendtemplate') : 'default/');
-		$setupManager->getTemplateDataSetter()->assignToTemplate('basiclayout', $setupManager->getTemplateDataSetter()->getTemplateData('projectdir').'templates/'.$setupManager->getTemplateDataSetter()->getTemplateData('frontendtemplate').'layout.phtml');
-
-		$setupManager->getTemplateDataSetter()->assignToTemplate('languageAllAvailable', $setupManager->getSetupManagerLanguages()->getLanguageSetup()->getAllAvailableLanguages());
-		$setupManager->getTemplateDataSetter()->assignToTemplate('languageDefault', $setupManager->getSetupManagerLanguages()->getLanguageSetup()->getDefaultLanguage());
-		$setupManager->getTemplateDataSetter()->assignToTemplate('languageLabels', $setupManager->getSetupManagerLanguagesLabels()->getLanguageLabels());
-		$setupManager->getTemplateDataSetter()->assignToTemplate('languageAbbreviation', $setupManager->getSetupManagerLanguages()->getLanguageSetup()->getLanguageAbbreviationFromDefaultLanguage());
-
-		$setupManager->getTemplateDataSetter()->assignToTemplate('basePath', $setupManager->getTemplateDataSetter()->getTemplateData('remotelinkWeb') );
-		$setupManager->getTemplateDataSetter()->assignToTemplate('templatedir', 'frontend/projects/'.$setupManager->getTemplateDataSetter()->getTemplateData('frontendprojectdir').'templates/'.$setupManager->getTemplateDataSetter()->getTemplateData('frontendTemplate'));
-
-		$setupManager->getTemplateDataSetter()->assignToTemplate('imagedir',$setupManager->getTemplateDataSetter()->getTemplateData('templatedir').'assets/images/');
-		$setupManager->getTemplateDataSetter()->assignToTemplate('cssdir',	$setupManager->getTemplateDataSetter()->getTemplateData('templatedir').'assets/css/');
-		$setupManager->getTemplateDataSetter()->assignToTemplate('jsdir', 	$setupManager->getTemplateDataSetter()->getTemplateData('templatedir').'assets/js/');
-		
-		// Record data from the controller: to revisit 		
- 		$setupManager->getTemplateDataSetter()->assignToTemplate('categoryName', $setupManager->getInput('categoryName'));
-		
-		$templateToRender = 'backend/templates/default/backend.phtml';
-		//$templateToRender = 'backend/templates/default/login.phtml';
-
-		$this->layout($templateToRender);
-        $this->layout()->setVariable("templateData", $setupManager->getTemplateDataSetter()->getTemplateData() );
-        
+    	$setupManager = $this->getSetupManager();
+    	
+    	/*
+    	var_dump( $this->params()->fromQuery() );
+    	var_dump( $this->params()->fromRoute('ctrl') );   
+    	*/
+    	
+    	$this->layout('backend/templates/default/backend.phtml');
+    	
+    	/* Template to include */   	
+    	switch($this->params()->fromRoute('ctrl')):
+    	
+	    	default:
+	    		$templatePartial = 'backend/templates/default/dashboard.phtml';
+	    	break;
+	    	
+	    	case("formdata"):
+	    		$templatePartial = 'backend/templates/default/formdata/form.phtml';
+	    	break;
+	    	
+	    	case("grid"):
+	    		$templatePartial = 'backend/templates/default/grid/grid.phtml';
+	    	break;
+	    	
+    	endswitch;
+    	
+    	$setupManager->getTemplateDataSetter()->assignToTemplate('templatePartial', $templatePartial);
+    	
+    	$this->layout()->setVariable("templateData", $setupManager->getTemplateDataSetter()->getTemplateData() );
+    	
 		return new ViewModel();
 	}
 		
 	public function formdataAction()
 	{
-		$templateToRender = 'backend/templates/default/backend.phtml';
+		$setupManager = $this->getSetupManager();  
+    	
+    	$templateToRender = 'backend/templates/default/backend.phtml';
+    	//$templateToRender = 'backend/templates/default/login.phtml';
+    	
+    	$this->layout($templateToRender);
+    	$this->layout()->setVariable("templateData", $setupManager->getTemplateDataSetter()->getTemplateData() );
 		
-		$response = $this->getResponse();
-		$response->setStatusCode(200);
-		$response->setContent('Form data is under construction');
-		return $response;
+		return new ViewModel();
 	}
 	
 	public function gridAction()
@@ -77,26 +82,11 @@ class BackendController extends AbstractActionController
 		return $response;
 	}
 	
-	/**
-	 * TODO: 
-	 * 		validate form 
-	 * 		session login
-	 * 		set user session from db data
-	 * 		set ACL role and compare with db user role
-	 *  	set captcha on login form after 3 fails...
-	 * @return \Zend\View\Model\ViewModel
-	 */
 	public function loginAction()
 	{
 		$request = $this->getRequest();
 		if ( $request->isPost() ) {
-			
-			//$userPost = (array) $request->getPost();
-			
-			//$session = new Container('base');
-			//$session->offsetSet('name', "Andrea");
-			//$session->offsetGet('name');
-			
+			// $userPost = (array) $request->getPost();
 			return $this->redirect()->toRoute("backend", array("action" => "index") );
 		} else {
 			return $this->redirect()->toRoute("backend", array("action" => "index") );
@@ -122,11 +112,43 @@ class BackendController extends AbstractActionController
 		$response->setContent('Logout is under construction');
 		return $response;
 	}
-	/*
-	// TODO: backup database
+	
 	public function backupAction()
 	{
 		
 	}
-	*/
+	
+		/**
+		 * 
+		 * @return SetupManager
+		 */
+		private function getSetupManager()
+		{
+			$setupManagerWrapper = new SetupManagerWrapper( new SetupManager(
+					array(
+							'channel'				=> 1,
+							'isbackend' 			=> 0,
+							'controller'			=> $this->params()->fromRoute('controller'),
+							'action'				=> $this->params()->fromRoute('action'),
+							'languageAbbreviation' 	=> strtolower( $this->params()->fromRoute('lang') )
+					)
+			) );
+			$setupManager = $setupManagerWrapper->initSetup();
+		
+			/* Preload */
+			$setupManager->getSetupManagerPreload()->setClassName( $setupManager->getTemplateDataSetter()->getTemplateData('preloader_frontend') );
+			$setupManager->getSetupManagerPreload()->setInstance($setupManager);
+			$setupManager->getTemplateDataSetter()->assignToTemplate('preloadrecord', $setupManager->getSetupManagerPreload()->setRecord() );
+				
+			/* TEMPLATE DATA */
+			// $setupManager->getTemplateDataSetter()->assignToTemplate('controllerResult', $postsDetail);
+			$setupManager->getTemplateDataSetter()->assignToTemplate('categoryName', $setupManager->getInput('categoryName') );
+		
+			/* SEO Tags */
+			$setupManager->getTemplateDataSetter()->assignToTemplate('seo_title', 		$setupManager->getTemplateDataSetter()->getTemplateData('sitename'));
+			$setupManager->getTemplateDataSetter()->assignToTemplate('seo_description', $setupManager->getTemplateDataSetter()->getTemplateData('description'));
+			$setupManager->getTemplateDataSetter()->assignToTemplate('seo_keywords', 	$setupManager->getTemplateDataSetter()->getTemplateData('keywords'));
+		
+			return $setupManager;
+		}
 }

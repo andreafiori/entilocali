@@ -37,9 +37,10 @@ return array(
         	'homepage' => array(
         		'type'    => 'segment',
         		'options' => array(
-        				'route'    => '/backend[/:lang][/]',
+        				'route'    => '/backend[/:lang][/:ctrl][/]',
         				'constraints' => array(
         					'lang'     => '[a-z]{2}',
+        					'ctrl'     => '[a-zA-Z][a-zA-Z0-9_-]*',
         				),
         				'defaults' => array(
         					'controller' => 'Backend\Controller\Backend',
@@ -48,13 +49,13 @@ return array(
         		),
         		'may_terminate' => true,
         		'child_routes' => array(
-        				'default' => array(
+        			'default' => array(
         						'type'    => 'Wildcard',
         						'options' => array( ),
         			),
         		),
         	),
-        	/* Forms */
+        	/* Forms
         	'formdata' => array(
         		'type'    => 'segment',
         		'options' => array(
@@ -77,7 +78,7 @@ return array(
         			),
         		),
         	),
-        	/* Data Table Grid */
+        	// Data Table Grid
         	'grid' => array(
         			'type'    => 'segment',
         			'options' => array(
@@ -98,17 +99,25 @@ return array(
         							),
         					),
         			),
-        			/* TODO: login and logout here or on the index controller */
+        			// TODO: login and logout here or on the index controller
         	),
+        	*/
         ),
     ),
     'view_manager' => array(
     	'display_not_found_reason' => true,
-    	'display_exceptions'       => true,
+		'display_exceptions'       => true,
+		'doctype'                  => 'HTML5',
+		'not_found_template'       => 'error/404',
+		'exception_template'       => 'error/index',
     	'template_map' => array(
     		/* Render empty views to avoid error 500 */
     		'backend/backend/login' => __DIR__ . '/../../../view/login.phtml',
     		'backend/backend/index' => __DIR__ . '/../../../view/index.phtml',
+    		
+    		'backend/backend/formdata' => __DIR__ . '/../../../view/index.phtml',
+    		'backend/backend/grid' => __DIR__ . '/../../../view/index.phtml',
+    		
     	),
         'template_path_stack' => array(
         	__DIR__ . '/../../../view',

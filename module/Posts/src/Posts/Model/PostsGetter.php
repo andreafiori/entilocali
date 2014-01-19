@@ -36,7 +36,7 @@ class PostsGetter {
     		if templatefile is set, get it as tempaltePartial; PAGING with adapter,
     		SEO tags if present, must be set
    	 
-	 * @return Ambigous <\Setup\unknown, string, array>|Ambigous <unknown, multitype:string , multitype:unknown >
+	 * @return array
 	 */
 	public function getPost()
 	{
@@ -50,11 +50,10 @@ class PostsGetter {
 		$this->postsQueryBuilder->setAliasNotNull( $this->setupManager->getInput('sortByAlias') );
 		$this->postsQueryBuilder->setParentId( $this->setupManager->getInput('parentid') );
 		$this->postsQueryBuilder->setParentIdCategory( $this->setupManager->getInput('parentidcategory') );
-
-		if ( !$this->setupManager->getInput("helpers") ) {
+		/*
+		 * if ( !$this->setupManager->getInput("helpers") )
 			return $this->postsQueryBuilder->getSelectResult();
-		}
-
+		*/
 		$this->postsRecordsHelper = new PostsRecordsHelper($this->postsQueryBuilder->getSelectResult());
 		$this->postsRecordsHelper->setSetupManager($this->setupManager);
 		$this->postsRecordsHelper->setRemotelinkWeb( $this->setupManager->getSetupManagerConfigurations()->getConfigRepository()->getConfigRecord('remotelinkWeb') );

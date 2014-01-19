@@ -86,7 +86,7 @@ abstract class DQLQueryHelper
 		$query->setParameters($this->getBindParameters());
 		
 		$this->queryContainer[] = $this->getSelectQuery();
-
+		//echo $this->getSelectQuery()."<br><br>";
 		return $query->getResult();
 	}
 	

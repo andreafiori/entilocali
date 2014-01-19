@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CategoriesOptions
  *
- * @ORM\Table(name="categories_options", indexes={@ORM\Index(name="category_id", columns={"category_id"}), @ORM\Index(name="language_id", columns={"language_id"}), @ORM\Index(name="name", columns={"name"}), @ORM\Index(name="module_id", columns={"module_id"}), @ORM\Index(name="parent_id", columns={"parent_id"})})
+ * @ORM\Table(name="categories_options", indexes={@ORM\Index(name="category_id", columns={"category_id"}), @ORM\Index(name="language_id", columns={"language_id"}), @ORM\Index(name="name", columns={"name"}), @ORM\Index(name="module_id", columns={"module_id"}), @ORM\Index(name="parent_id", columns={"parent_id"}), @ORM\Index(name="seo_url", columns={"seo_url"})})
  * @ORM\Entity
  */
 class CategoriesOptions

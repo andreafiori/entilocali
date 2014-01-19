@@ -3,7 +3,6 @@
 namespace Posts\Model;
 
 use Setup\SetupManager;
-use Setup\NullException;
 
 /**
  * Given postsData, set the additional infos on the arrays...

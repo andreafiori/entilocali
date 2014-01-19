@@ -36,6 +36,13 @@ class Config
     private $value;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="note", type="string", length=100, nullable=true)
+     */
+    private $note;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="isbackend", type="integer", nullable=false)
@@ -129,6 +136,29 @@ class Config
     public function getValue()
     {
         return $this->value;
+    }
+
+    /**
+     * Set note
+     *
+     * @param string $note
+     * @return Config
+     */
+    public function setNote($note)
+    {
+        $this->note = $note;
+
+        return $this;
+    }
+
+    /**
+     * Get note
+     *
+     * @return string 
+     */
+    public function getNote()
+    {
+        return $this->note;
     }
 
     /**

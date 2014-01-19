@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Posts
  *
- * @ORM\Table(name="posts", indexes={@ORM\Index(name="status", columns={"status", "alias", "templatefile"})})
+ * @ORM\Table(name="posts", indexes={@ORM\Index(name="status", columns={"status", "alias", "templatefile"}), @ORM\Index(name="parent_id", columns={"parent_id"})})
  * @ORM\Entity
  */
 class Posts
@@ -45,9 +45,9 @@ class Posts
     /**
      * @var integer
      *
-     * @ORM\Column(name="parentid", type="integer", nullable=false)
+     * @ORM\Column(name="parent_id", type="integer", nullable=false)
      */
-    private $parentid = '0';
+    private $parentId = '0';
 
     /**
      * @var string
@@ -159,26 +159,26 @@ class Posts
     }
 
     /**
-     * Set parentid
+     * Set parentId
      *
-     * @param integer $parentid
+     * @param integer $parentId
      * @return Posts
      */
-    public function setParentid($parentid)
+    public function setParentId($parentId)
     {
-        $this->parentid = $parentid;
+        $this->parentId = $parentId;
 
         return $this;
     }
 
     /**
-     * Get parentid
+     * Get parentId
      *
      * @return integer 
      */
-    public function getParentid()
+    public function getParentId()
     {
-        return $this->parentid;
+        return $this->parentId;
     }
 
     /**

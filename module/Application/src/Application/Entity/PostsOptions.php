@@ -45,20 +45,6 @@ class PostsOptions
     /**
      * @var string
      *
-     * @ORM\Column(name="subtitle", type="string", length=150, nullable=true)
-     */
-    private $subtitle;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="text", nullable=true)
-     */
-    private $description;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="seo_url", type="string", length=150, nullable=true)
      */
     private $seoUrl;
@@ -69,6 +55,20 @@ class PostsOptions
      * @ORM\Column(name="seo_title", type="string", length=150, nullable=true)
      */
     private $seoTitle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="subtitle", type="string", length=150, nullable=true)
+     */
+    private $subtitle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    private $description;
 
     /**
      * @var string
@@ -217,52 +217,6 @@ class PostsOptions
     }
 
     /**
-     * Set subtitle
-     *
-     * @param string $subtitle
-     * @return PostsOptions
-     */
-    public function setSubtitle($subtitle)
-    {
-        $this->subtitle = $subtitle;
-
-        return $this;
-    }
-
-    /**
-     * Get subtitle
-     *
-     * @return string 
-     */
-    public function getSubtitle()
-    {
-        return $this->subtitle;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return PostsOptions
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string 
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
      * Set seoUrl
      *
      * @param string $seoUrl
@@ -306,6 +260,52 @@ class PostsOptions
     public function getSeoTitle()
     {
         return $this->seoTitle;
+    }
+
+    /**
+     * Set subtitle
+     *
+     * @param string $subtitle
+     * @return PostsOptions
+     */
+    public function setSubtitle($subtitle)
+    {
+        $this->subtitle = $subtitle;
+
+        return $this;
+    }
+
+    /**
+     * Get subtitle
+     *
+     * @return string 
+     */
+    public function getSubtitle()
+    {
+        return $this->subtitle;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return PostsOptions
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 
     /**
