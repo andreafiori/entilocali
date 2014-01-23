@@ -30,9 +30,9 @@ class IndexController extends AbstractActionController
     			);
     	$setupManagerWrapper = new SetupManagerWrapper( new SetupManager( $this->setupManagerInput ));
     	$setupManager = $setupManagerWrapper->initSetup();
-
+    	
     	/* Preload */
-    	$setupManager->getSetupManagerPreload()->setClassName( $setupManager->getTemplateDataSetter()->getTemplateData('preloader_frontend') );
+    	$setupManager->getSetupManagerPreload()->setClassName( $setupManager->getTemplateDataSetter()->getTemplateData('preloader_class') );
     	$setupManager->getSetupManagerPreload()->setInstance($setupManager);
     	$setupManager->getTemplateDataSetter()->assignToTemplate('preloadrecord', $setupManager->getSetupManagerPreload()->setRecord() );
 		

@@ -41,7 +41,7 @@ class LanguagesSetup extends QueryMakerAbstract
 	 */
 	public function setAllAvailableLanguages($channelId = 1)
 	{
-		$query = $this->getEntityManager()->createQuery("SELECT l.id, l.abbreviation1, l.isdefault, l.isdefaultBackend, l.active FROM Application\\Entity\\Languages l WHERE l.active = 1 AND l.channel = :channel ");
+		$query = $this->getEntityManager()->createQuery("SELECT l.id, l.abbreviation1, l.abbreviation3, l.isdefault, l.isdefaultBackend, l.active FROM Application\\Entity\\Languages l WHERE l.active = 1 AND l.channel = :channel ");
 		$query->setParameter('channel', $channelId ? $channelId : 1);
 		
 		$this->allAvailableLanguages = $query->getResult();

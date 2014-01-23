@@ -20,25 +20,14 @@ class SetupManagerConfigurationsTest extends TestSuite {
 	public function testSetConfigRepository()
 	{
 		$this->setupManagerConfigurations->setConfigRepository( $this->getConfigRepository() );
-		
+
 		$this->assertTrue( $this->setupManagerConfigurations->getConfigRepository() instanceof ConfigRepository);
-	}
-	
-	/**
-	 * exception to launch: Config Repository is not set
-	 * @expectedException \Setup\NullException
-	 */
-	public function testSetConfigurationsLaunchException()
-	{
-		$this->assertFalse($this->setupManagerConfigurations->setConfigurations());
-		
-		$this->setupManagerConfigurations->setConfigRepository( $this->getConfigRepository() );
 	}
 
 	public function testSetConfigurations()
 	{
 		$this->setupManagerConfigurations->setConfigRepository( $this->getConfigRepository() );
-		$this->setupManagerConfigurations->setConfigurations();
+		$this->setupManagerConfigurations->setConfigurations( array("isbackend" => 0, "channelId" => array(1,0)) );
 		
 		$this->assertNotEmpty( $this->setupManagerConfigurations->getConfigurations() );
 	}

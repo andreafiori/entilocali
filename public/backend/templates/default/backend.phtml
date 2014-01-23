@@ -1,8 +1,8 @@
 <?php echo $this->doctype(); ?>
-<html lang="<?php echo $templateData['languageAbbreviation'] ?>">
+<html lang="<?php echo $this->templateData['languageAbbreviation'] ?>">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title><?php echo $templateData['sitename'] ?> - <?php echo $templateData['languageLabels']['ADMIN_RESERVED_AREA']?></title>
+	<title><?php echo $this->templateData['sitename'] ?> - <?php echo $this->templateData['languageLabels']['ADMIN_RESERVED_AREA']?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
 	<?php
@@ -30,8 +30,8 @@
 
 <noscript>
 	<div>
-		<h3><?php echo $templateData['languageLabels']['ADMIN_NOJAVSCRPT_TITLE']; ?></h3>
-		<div><?php echo $templateData['languageLabels']['ADMIN_NOJAVSCRPT_DESCRIPTION'] ?></div>
+		<h3><?php echo $this->templateData['languageLabels']['ADMIN_NOJAVSCRPT_TITLE']; ?></h3>
+		<div><?php echo $this->templateData['languageLabels']['ADMIN_NOJAVSCRPT_DESCRIPTION'] ?></div>
 	</div>
 </noscript>
 
@@ -40,7 +40,7 @@
 		<div class="col-md-12 column">
 			<nav class="navbar navbar-default" role="navigation">
 				<div class="navbar-header">
-					 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="javascript:void(0)"><?php echo $templateData['sitename'] ?></a>
+					 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="javascript:void(0)"><?php echo $this->templateData['sitename'] ?></a>
 				</div>
 				
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -50,7 +50,7 @@
 						</li>
 						<!-- Preview -->
 						<li>
-							<a href="<?php echo $templateData['remotelinkWeb'] ?>" target="_blank" title="<?php echo $templateData['languageLabels']['ADMIN_PREVIEW_TITLE'] ?>"><i class="fa fa-eye"></i> <?php echo $templateData['languageLabels']['ADMIN_PREVIEW'] ?></a>
+							<a href="<?php echo $this->templateData['remotelinkWeb'] ?>" target="_blank" title="<?php echo $this->templateData['languageLabels']['ADMIN_PREVIEW_TITLE'] ?>"><i class="fa fa-eye"></i> <?php echo $this->templateData['languageLabels']['ADMIN_PREVIEW'] ?></a>
 						</li>
 						<?php
 						/*
@@ -87,12 +87,12 @@
 						*/
 						?>
 						<!-- Languages -->
-						<li class="dropdown"><a href="javascript:void(0)" title="<?php echo $templateData['languageLabels']['ADMIN_LANGUAGE'] ?>" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-flag"></i> <?php echo $templateData['languageLabels']['ADMIN_LANGUAGE'] ?> <b class="caret"></b></a>
+						<li class="dropdown"><a href="javascript:void(0)" title="<?php echo $this->templateData['languageLabels']['ADMIN_LANGUAGE'] ?>" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-flag"></i> <?php echo $this->templateData['languageLabels']['ADMIN_LANGUAGE'] ?> <b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<?php
-								foreach($templateData['languageAvailables'] as $availableLanguages):
+								foreach($this->templateData['languageAllAvailable'] as $availableLanguages):
 								?>
-								<li><a href="#" title="<?php echo $availableLanguages['abbreviation3'] ?>"><?php echo $availableLanguages['abbreviation3'] ?></a></li>
+								<li><a href="/backend/'<?php echo $availableLanguages['abbreviation1'].'/'; ?>" title="<?php echo $availableLanguages['abbreviation3'] ?>"><?php echo $availableLanguages['abbreviation3'] ?></a></li>
 								<?php
 								endforeach;
 								?>
@@ -100,21 +100,21 @@
 						</li>
 						<!-- Options -->
 						<li>
-							<a href="?lang=<?php echo $templateData['languageAbbreviation'] ?>" title="<?php echo $templateData['languageLabels']['ADMIN_OPTIONS'] ?>"><i class="fa fa-wrench"></i> <?php echo $templateData['languageLabels']['ADMIN_OPTIONS'] ?></a>
+							<a href="?lang=<?php echo $this->templateData['languageAbbreviation'] ?>" title="<?php echo $this->templateData['languageLabels']['ADMIN_OPTIONS'] ?>"><i class="fa fa-wrench"></i> <?php echo $this->templateData['languageLabels']['ADMIN_OPTIONS'] ?></a>
 						</li>
 						<!-- Assistance \ Ticketing -->
 						<li>
-							<a href="?lang=<?php echo $templateData['languageAbbreviation'] ?>&amp;controller=formDataController&amp;adminObject=ticketFormData" title="<?php echo $templateData['languageLabels']['ADMIN_ASSISTANCE'] ?>"><i class="fa fa-stethoscope"></i> <?php echo $templateData['languageLabels']['ADMIN_ASSISTANCE'] ?></a>
+							<a href="?lang=<?php echo $this->templateData['languageAbbreviation'] ?>&amp;controller=formDataController&amp;adminObject=ticketFormData" title="<?php echo $this->templateData['languageLabels']['ADMIN_ASSISTANCE'] ?>"><i class="fa fa-stethoscope"></i> <?php echo $this->templateData['languageLabels']['ADMIN_ASSISTANCE'] ?></a>
 						</li>
 					</ul>
 					
 					<!-- User Dropdown Menu -->
 					<ul class="nav navbar-nav navbar-right">
 						<li class="dropdown">
-							 <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Andrea Fiori <strong class="caret"></strong></a>
+							<a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Andrea Fiori <strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
 								<li>
-									<a href="javascript:void(0)" title="<?php echo $templateData['languageLabels']['ADMIN_USER_PROFILE'] ?>"><?php echo $templateData['languageLabels']['ADMIN_USER_PROFILE'] ?></a>
+									<a href="javascript:void(0)" title="<?php echo $this->templateData['languageLabels']['ADMIN_USER_PROFILE'] ?>"><?php echo $this->templateData['languageLabels']['ADMIN_USER_PROFILE'] ?></a>
 								</li>
 								<li>
 									<a href="javascript:void(0)" title="Documentazione"><i class="fa fa-book"></i> Documentazione</a>
@@ -128,42 +128,18 @@
 								<li class="divider">
 								</li>
 								<li>
-									<a href="javascript:void(0)" title="<?php echo $templateData['languageLabels']['ADMIN_USER_EXIT'] ?>"><i class="fa fa-power-off"></i> <?php echo $templateData['languageLabels']['ADMIN_USER_EXIT'] ?></a>
+									<a href="<?php echo $this->templateData['remotelinkWeb'].$this->templateData['loginaction_backend'] ?>" title="<?php echo $this->templateData['languageLabels']['ADMIN_USER_EXIT'] ?>"><i class="fa fa-power-off"></i> <?php echo $this->templateData['languageLabels']['ADMIN_USER_EXIT'] ?></a>
 								</li>
 							</ul>
 						</li>
 					</ul>
 				</div>
 			</nav>
-			<!-- sidebar -->
 			<div class="row clearfix">
-				<div class="col-md-3 column">
-			<ul>
-			<?php
-			foreach($this->templateData['preloadrecord'] as $preloadRecord):
-			?>
-			<li>
-				<a href="" title=""><?php echo $preloadRecord['title'] ?></a>
-			</li>
-			<?php
-			endforeach;
-			?>
-			</ul>
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h3 class="panel-title">
-								Panel title
-							</h3>
-						</div>
-						<div class="panel-body">
-							Panel content
-						</div>
-						<div class="panel-footer">
-							Panel footer
-						</div>
-					</div>
-
-				</div>
+				<?php
+				/* Sidebar */
+				echo $this->partial($this->templateData['sidebar']);
+				?>
 				<div class="col-md-9 column">
 					<ul class="breadcrumb">
 						<li>
@@ -177,6 +153,7 @@
 						</li>
 					</ul>
 					<?php
+					/* Main Template */
 					echo $this->partial($this->templateData['templatePartial']);
 					?>
 				</div>
@@ -184,7 +161,7 @@
 			<div class="row clearfix">
 				<div class="col-md-12 column">
 					<p class="text-muted">
-						&copy; <?php echo date("Y"); ?> <?php echo $templateData['sitename'] ?>
+						&copy; <?php echo date("Y"); ?> <?php echo $this->templateData['sitename'] ?>
 					</p>
 				</div>
 			</div>
@@ -193,9 +170,13 @@
 </div>
 
 <!-- JavaScript -->
-<!-- <script src="<?php echo $this->basePath() ?>/common/angularjs/angualar.js"></script> -->
 <script src="<?php echo $this->basePath() ?>/common/jquery/jquery.min.js"></script>
+<script src="<?php echo $this->basePath() ?>/common/jquery/form/jquery.form.js"></script>
+<!-- <script src="<?php echo $this->basePath() ?>/common/angularjs/angualar.js"></script> -->
 <script src="<?php echo $this->basePath() ?>/common/bootstrap3/js/bootstrap.min.js"></script>
+
+<script src="<?php echo $this->basePath() ?>/common/jquery/ckeditor/ckeditor.js"></script>
+<script src="<?php echo $this->basePath() ?>/common/ckfinder/ckfinder.js"></script>
 
 <script>
 $(document).ready(function () {

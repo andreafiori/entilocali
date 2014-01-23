@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Config
  *
- * @ORM\Table(name="config", indexes={@ORM\Index(name="channel_id", columns={"channel_id"}), @ORM\Index(name="language_id", columns={"language_id"}), @ORM\Index(name="module_id", columns={"module_id"}), @ORM\Index(name="isadmin", columns={"isbackend"}), @ORM\Index(name="isuniversal", columns={"isuniversal"})})
+ * @ORM\Table(name="config", indexes={@ORM\Index(name="channel_id", columns={"channel_id"}), @ORM\Index(name="language_id", columns={"language_id"}), @ORM\Index(name="module_id", columns={"module_id"}), @ORM\Index(name="isadmin", columns={"isbackend"}), @ORM\Index(name="isalwaysallowed", columns={"isalwaysallowed"})})
  * @ORM\Entity
  */
 class Config
@@ -52,9 +52,9 @@ class Config
     /**
      * @var integer
      *
-     * @ORM\Column(name="isuniversal", type="integer", nullable=false)
+     * @ORM\Column(name="isalwaysallowed", type="integer", nullable=false)
      */
-    private $isuniversal = '1';
+    private $isalwaysallowed = '1';
 
     /**
      * @var integer
@@ -66,19 +66,16 @@ class Config
     /**
      * @var integer
      *
+     * @ORM\Column(name="channel_id", type="integer", nullable=false)
+     */
+    private $channelId = '1';
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="language_id", type="integer", nullable=false)
      */
     private $languageId = '1';
-
-    /**
-     * @var \Application\Entity\Channels
-     *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\Channels")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="channel_id", referencedColumnName="id")
-     * })
-     */
-    private $channel;
 
 
 
@@ -185,26 +182,26 @@ class Config
     }
 
     /**
-     * Set isuniversal
+     * Set isalwaysallowed
      *
-     * @param integer $isuniversal
+     * @param integer $isalwaysallowed
      * @return Config
      */
-    public function setIsuniversal($isuniversal)
+    public function setIsalwaysallowed($isalwaysallowed)
     {
-        $this->isuniversal = $isuniversal;
+        $this->isalwaysallowed = $isalwaysallowed;
 
         return $this;
     }
 
     /**
-     * Get isuniversal
+     * Get isalwaysallowed
      *
      * @return integer 
      */
-    public function getIsuniversal()
+    public function getIsalwaysallowed()
     {
-        return $this->isuniversal;
+        return $this->isalwaysallowed;
     }
 
     /**
@@ -231,6 +228,29 @@ class Config
     }
 
     /**
+     * Set channelId
+     *
+     * @param integer $channelId
+     * @return Config
+     */
+    public function setChannelId($channelId)
+    {
+        $this->channelId = $channelId;
+
+        return $this;
+    }
+
+    /**
+     * Get channelId
+     *
+     * @return integer 
+     */
+    public function getChannelId()
+    {
+        return $this->channelId;
+    }
+
+    /**
      * Set languageId
      *
      * @param integer $languageId
@@ -251,28 +271,5 @@ class Config
     public function getLanguageId()
     {
         return $this->languageId;
-    }
-
-    /**
-     * Set channel
-     *
-     * @param \Application\Entity\Channels $channel
-     * @return Config
-     */
-    public function setChannel(\Application\Entity\Channels $channel = null)
-    {
-        $this->channel = $channel;
-
-        return $this;
-    }
-
-    /**
-     * Get channel
-     *
-     * @return \Application\Entity\Channels 
-     */
-    public function getChannel()
-    {
-        return $this->channel;
     }
 }

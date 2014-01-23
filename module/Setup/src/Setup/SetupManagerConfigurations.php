@@ -21,21 +21,17 @@ class SetupManagerConfigurations extends SetupManagerAbstract
 	}
 	
 	/**
+	 * 
+	 * @param array $input
 	 * @throws NullException
 	 */
-	public function setConfigurations()
+	public function setConfigurations(array $input)
 	{
 		if ( !$this->getConfigRepository() ) {
 			throw new NullException('Config Repository is not set');
 		}
 		
-		// this is input must be injected... 
-		$this->configurations = $this->getConfigRepository()->setConfigurations(
-				array(
-					"channel" 	=> array($this->getChannelId() ? $this->getChannelId() : 1, 0),
-					"isbackend" => $this->getInput('isbackend')
-				)
-		);
+		$this->configurations = $this->getConfigRepository()->setConfigurations( $input );
 	}
 	
 	/**

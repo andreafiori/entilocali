@@ -26,19 +26,26 @@ class Module implements AutoloaderProviderInterface
     public function handleError(MvcEvent $e)
     {
     	$exception = $e->getParam('exception');
-    	/* $e->getParam('controller');
-    	if ( $e->getParam('error') ) {
-    		header("Location: /");
-    		exit;
-    	}
-    	*/
-    	// var_dump( $e->getParam('router') );
     }
     
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
     }
+    
+    /**
+     * Configure plain text and custom form elements
+     * @return multitype:multitype:string
+     */
+    public function getViewHelperConfig()
+    {
+    	return array(
+				'invokables' 	=> array(
+    			'formelement'   => 'Application\Form\View\Helper\FormElement',
+    			'formPlainText' => 'Application\Form\View\Helper\FormPlainText',
+				)
+			);
+	}
 
     public function getAutoloaderConfig()
     {

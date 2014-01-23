@@ -22,6 +22,13 @@ class PostsOptions
     private $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="note", type="string", length=100, nullable=true)
+     */
+    private $note;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="datefrom", type="datetime", nullable=true)
@@ -145,6 +152,29 @@ class PostsOptions
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set note
+     *
+     * @param string $note
+     * @return PostsOptions
+     */
+    public function setNote($note)
+    {
+        $this->note = $note;
+
+        return $this;
+    }
+
+    /**
+     * Get note
+     *
+     * @return string 
+     */
+    public function getNote()
+    {
+        return $this->note;
     }
 
     /**

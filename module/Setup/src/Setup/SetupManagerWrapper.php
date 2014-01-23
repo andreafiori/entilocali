@@ -34,7 +34,7 @@ class SetupManagerWrapper
 	 */
 	public function initSetup()
 	{
-		/* Channel detection */
+		/* Channel Detection */
 		$this->setupManager->setChannelId();
 		
 		/* Language\s */
@@ -47,12 +47,17 @@ class SetupManagerWrapper
 		/* Language Labels */
 		$this->setupManager->getSetupManagerLanguagesLabels()->setLanguagesLabelsRepository( new LanguagesLabelsRepository($this->getEntityManager()) );
 		$this->setupManager->getSetupManagerLanguagesLabels()->setLanguagesLabels( $this->setupManager->getSetupManagerLanguages()->getDefaultLanguage('id') );
-
-		/* Configurations TODO: build a config query builder */
-		$this->setupManager->getSetupManagerConfigurations()->setConfigRepository( new ConfigRepository($this->getEntityManager()) );
-		$this->setupManager->getSetupManagerConfigurations()->setConfigurations();
-		$this->setupManager->getSetupManagerConfigurations()->getConfigRepository()->initConfigRecord();
 		
+		/* Configurations */
+		$this->setupManager->getSetupManagerConfigurations()->setConfigRepository( new ConfigRepository($this->getEntityManager()) );
+		$this->setupManager->getSetupManagerConfigurations()->setConfigurations( 
+				array(
+					"channelId" 	=> array($this->setupManager->getChannelId() ? $this->setupManager->getChannelId() : 1, 0),
+					//"isbackend" => $this->setupManager->getInput('isbackend') ? $this->setupManager->getInput('isbackend') : 0,
+				)
+		);
+		$this->setupManager->getSetupManagerConfigurations()->getConfigRepository()->initConfigRecord();
+
 		/* Template Records */
 		$this->setTemplateRecords();
 
@@ -66,23 +71,32 @@ class SetupManagerWrapper
 	{
 		return $this->setupManager;
 	}
-
+	
+		/**
+		 * TODO: test method checking all elements are set on db
+		 */
 		private function setTemplateRecords()
 		{
-			$configRecord 	= $this->setupManager->getSetupManagerConfigurations()->getConfigRepository()->getConfigRecord(); // WRONG PROCEDURE!!!
-			$isBackend 		= $this->setupManager->getInput('backend');
+			$configRecord 	= $this->setupManager->getSetupManagerConfigurations()->getConfigRepository()->getConfigRecord();
+			$isBackend 		= $this->setupManager->getInput('isbackend');
 			
 			$templateData = array();
 			$templateData = array_merge($templateData, $configRecord);
 			
 			if (!$isBackend) {
-				$templateData['template_project'] = 'frontend/projects/'.$configRecord['project_frontend'];
-				$templateData['template_name']	  = $configRecord['template_frontend'] ? $configRecord['template_frontend'] : 'default/';
-				$templateData['template_path']	  = $templateData['template_project'].'templates/'.$templateData['template_name'];
+				$templateData['template_project'] 	= 'frontend/projects/'.$configRecord['project_frontend'];
+				$templateData['template_name']		= $configRecord['template_frontend'] ? $configRecord['template_frontend'] : 'default/';
+				$templateData['template_path']	 	= $templateData['template_project'].'templates/'.$templateData['template_name'];
+				$templateData['preloader_class']	= $templateData['preloader_frontend'];
 			} else {
-				$templateData['template_project'] = 'backend/projects/'.$configRecord['project_backend'];
-				$templateData['template_name'] 	  = $configRecord['project_backend'] ? $configRecord['backendprojectdir'] : 'default/';
-				$templateData['template_path'] 	  = $templateData['template_project'].'templates/';
+				$templateData['template_project']	= 'backend/';
+				$templateData['template_name']		= $configRecord['template_backend'] ? $configRecord['template_backend'] : 'default/';
+				$templateData['template_path']		= $templateData['template_project'].'templates/'.$templateData['template_name'];
+				$templateData['preloader_class']	= $templateData['preloader_backend'];
+				
+				$templateData['loginActionBackend']		  = $templateData['template_project'].'login/';
+				$templateData['logoutPathBackend']		  = $templateData['template_project'].'logout/';
+				$templateData['loggedSectionPathBackend'] = $templateData['template_project'].'main/';
 			}
 			$templateData['basePath'] = $configRecord['remotelinkWeb'];
 			
@@ -92,7 +106,7 @@ class SetupManagerWrapper
 			$templateData['languageLabels'] 	  = $this->setupManager->getSetupManagerLanguagesLabels()->getLanguageLabels();
 			$templateData['languageAbbreviation'] = $this->setupManager->getSetupManagerLanguages()->getLanguageSetup()->getLanguageAbbreviationFromDefaultLanguage();
 			$templateData['languageId'] 		  = $this->setupManager->getSetupManagerLanguages()->getLanguageId();
-			
+
 			/* Basic layout if not set... */
 			$templateData['basiclayout'] = $templateData['template_path'].'layout.phtml';
 			

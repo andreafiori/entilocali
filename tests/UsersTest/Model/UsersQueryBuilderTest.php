@@ -15,8 +15,7 @@ class UsersQueryBuilderTest extends TestSuite
 	{
 		parent::setUp();
 		
-		$this->setupManager = new SetupManager( array('channel' => 1, 'isbackend' => 0) );
-		$this->setupManager->setEntityManager( $this->getServiceManager()->get('\Doctrine\ORM\EntityManager') );
+		$this->setupManager = new $this->getSetupManager();
 
 		$this->usersQueryBuilder = new UsersQueryBuilder();
 		$this->usersQueryBuilder->setSetupManager($this->setupManager);

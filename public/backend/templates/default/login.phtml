@@ -1,8 +1,8 @@
 <?php echo $this->doctype(); ?>
-<html lang="<?php echo $templateData['languageAbbreviation'] ?>">
+<html lang="<?php echo $this->templateData['languageAbbreviation'] ?>">
 	<head>
 	<meta charset="utf-8">
-	<?php echo $this->headTitle($this->translate($templateData['sitename']))->setSeparator(' - ')->setAutoEscape(false) ?>
+	<?php echo $this->headTitle($this->translate($this->templateData['sitename']))->setSeparator(' - ')->setAutoEscape(false) ?>
 
 	<?php echo $this->headMeta()
 		->appendName('viewport', 'width=device-width, initial-scale=1.0')
@@ -67,40 +67,40 @@
 
 <noscript>
 	<div>
-		<h3><?php echo $templateData['languageLabels']['ADMIN_NOJAVSCRPT_TITLE']; ?></h3>
-		<div><?php echo $templateData['languageLabels']['ADMIN_NOJAVSCRPT_DESCRIPTION'] ?></div>
+		<h3><?php echo $this->templateData['languageLabels']['ADMIN_NOJAVSCRPT_TITLE']; ?></h3>
+		<div><?php echo $this->templateData['languageLabels']['ADMIN_NOJAVSCRPT_DESCRIPTION'] ?></div>
 	</div>
 </noscript>
 
 <div class="container">
 
-<form class="form-signin" action="backend/login" method="post" id="frmlogin" role="form">
+<form class="form-signin" action="<?php echo $this->templateData['remotelinkWeb'].$this->templateData['loginActionBackend'] ?>" method="post" id="frmlogin" role="form">
 	<div>
-	<h2 class="form-signin-heading"><?php echo $templateData['languageLabels']['ADMIN_RESERVED_AREA']?></h2>
-	<input type="text" name="username" id="username" class="form-control" placeholder="<?php echo $templateData['languageLabels']['ADMIN_EMAILUSERPLACEHOLDER']?>" required autofocus>
+	<h2 class="form-signin-heading"><?php echo $this->templateData['languageLabels']['ADMIN_RESERVED_AREA']?></h2>
+	<input type="text" name="username" id="username" class="form-control" placeholder="<?php echo $this->templateData['languageLabels']['ADMIN_EMAILUSERPLACEHOLDER']?>" required autofocus>
 	<div>&nbsp;</div>
-	<input type="password" name="password" class="form-control" placeholder="<?php echo $templateData['languageLabels']['ADMIN_PASSWORDPLACEHOLDER']?>" required>
+	<input type="password" name="password" class="form-control" placeholder="<?php echo $this->templateData['languageLabels']['ADMIN_PASSWORDPLACEHOLDER']?>" required>
 	<label class="checkbox">
-		<input type="checkbox" value="remember-me" title="<?php echo $templateData['languageLabels']['ADMIN_REMEMBERME']?>"> <?php echo $templateData['languageLabels']['ADMIN_REMEMBERME']?>
+		<input type="checkbox" value="remember-me" title="<?php echo $this->templateData['languageLabels']['ADMIN_REMEMBERME']?>"> <?php echo $this->templateData['languageLabels']['ADMIN_REMEMBERME']?>
 	</label>
-	<?php if ($templateData['languageAvailables'] and count($templateData['languageAvailables']) > 1): ?>
+	<?php if ($this->templateData['languageAvailables'] and count($this->templateData['languageAvailables']) > 1): ?>
 	<!-- Language selection -->
 	<label>
 		<select name="adminLanguage" id="adminLanguage">
-			<option value=""><?php echo $templateData['languageLabels']['ADMIN_LANGUAGE']?></option>
-			<?php foreach($templateData['languageAvailables'] as $availableLanguages): ?>
+			<option value=""><?php echo $this->templateData['languageLabels']['ADMIN_LANGUAGE']?></option>
+			<?php foreach($this->templateData['languageAvailables'] as $availableLanguages): ?>
 			<option value="<?php echo $availableLanguages['abbreviation1'] ?>"><?php echo $availableLanguages['abbreviation3'] ?></option>
 			<?php endforeach; ?>
 		</select>
 	</label>
 	<?php endif; ?>
-	<button class="btn btn-lg btn-primary btn-block" type="submit" title="<?php echo $templateData['languageLabels']['ADMIN_ACCESSBUTTONTITLE']?>"><?php echo $templateData['languageLabels']['ADMIN_ACCESSBUTTON']?></button>
+	<button class="btn btn-lg btn-primary btn-block" type="submit" title="<?php echo $this->templateData['languageLabels']['ADMIN_ACCESSBUTTONTITLE']?>"><?php echo $this->templateData['languageLabels']['ADMIN_ACCESSBUTTON']?></button>
 	
 	<p>&nbsp;</p>
 
-	<p><a href="javascript:void(0)" title="<?php echo $templateData['languageLabels']['ADMIN_RECOVERPASSWORD']?>" onclick="$('#recoverPasswordContainer').show(); $('#frmLogin').hide()"><span class="glyphicon glyphicon-arrow-right"></span> <?php echo $templateData['languageLabels']['ADMIN_RECOVERPASSWORD']?></a></p>
+	<p><a href="javascript:void(0)" title="<?php echo $this->templateData['languageLabels']['ADMIN_RECOVERPASSWORD']?>" onclick="$('#recoverPasswordContainer').show(); $('#frmLogin').hide()"><span class="glyphicon glyphicon-arrow-right"></span> <?php echo $this->templateData['languageLabels']['ADMIN_RECOVERPASSWORD']?></a></p>
 	
-	<p><a href="<?php echo $templateData['remotelinkWeb'] ?>" title="<?php echo $templateData['languageLabels']['ADMIN_BACK_TO_WEBSITE'] ?>"><span class="glyphicon glyphicon-arrow-right"></span> <?php echo $templateData['languageLabels']['ADMIN_BACK_TO_WEBSITE'] ?></a></p>
+	<p><a href="<?php echo $this->templateData['remotelinkWeb'] ?>" title="<?php echo $this->templateData['languageLabels']['ADMIN_BACK_TO_WEBSITE'] ?>"><span class="glyphicon glyphicon-arrow-right"></span> <?php echo $this->templateData['languageLabels']['ADMIN_BACK_TO_WEBSITE'] ?></a></p>
 	
 	</div>
 </form>

@@ -23,7 +23,7 @@ return array(
                     'default' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'    => '/[:controller[/:action]]',
+                            'route'    => '/[:action][/]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -33,11 +33,11 @@ return array(
                     ),
                 ),
 			),
-        	/* HomePage with language */
+        	/* Logged backend */
         	'homepage' => array(
         		'type'    => 'segment',
         		'options' => array(
-        				'route'    => '/backend[/:lang][/:ctrl][/]',
+        				'route'    => '/backend/main[/:lang[/:ctrl]][/]',
         				'constraints' => array(
         					'lang'     => '[a-z]{2}',
         					'ctrl'     => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -55,53 +55,6 @@ return array(
         			),
         		),
         	),
-        	/* Forms
-        	'formdata' => array(
-        		'type'    => 'segment',
-        		'options' => array(
-        				'route'    => '/backend[/:lang]/formdata[/][:ctrl][/][:id]',
-        				'constraints' => array(
-        						'lang'      => '[a-z]{2}',
-        						'ctrl'	    => '[a-zA-Z][a-zA-Z0-9_-]*',
-        						'id'		=> '[0-9]'
-        				),
-        				'defaults' => array(
-        					'controller' => 'Backend\Controller\Backend',
-        					'action'     => 'formdata',
-        				),
-        		),
-        		'may_terminate' => true,
-        		'child_routes' => array(
-        				'default' => array(
-        						'type'    => 'Wildcard',
-        						'options' => array( ),
-        			),
-        		),
-        	),
-        	// Data Table Grid
-        	'grid' => array(
-        			'type'    => 'segment',
-        			'options' => array(
-        					'route'    => '/backend/grid[/][:ctrl]',
-        					'constraints' => array(
-        							'ctrl'	   => '[a-zA-Z][a-zA-Z0-9_-]*',
-        					),
-        					'defaults' => array(
-        							'controller' => 'Backend\Controller\Backend',
-        							'action'     => 'grid',
-        					),
-        			),
-        			'may_terminate' => true,
-        			'child_routes' => array(
-        					'default' => array(
-        							'type'    => 'Wildcard',
-        							'options' => array(
-        							),
-        					),
-        			),
-        			// TODO: login and logout here or on the index controller
-        	),
-        	*/
         ),
     ),
     'view_manager' => array(
@@ -112,12 +65,7 @@ return array(
 		'exception_template'       => 'error/index',
     	'template_map' => array(
     		/* Render empty views to avoid error 500 */
-    		'backend/backend/login' => __DIR__ . '/../../../view/login.phtml',
     		'backend/backend/index' => __DIR__ . '/../../../view/index.phtml',
-    		
-    		'backend/backend/formdata' => __DIR__ . '/../../../view/index.phtml',
-    		'backend/backend/grid' => __DIR__ . '/../../../view/index.phtml',
-    		
     	),
         'template_path_stack' => array(
         	__DIR__ . '/../../../view',

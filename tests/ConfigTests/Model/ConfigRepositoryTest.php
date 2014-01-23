@@ -32,7 +32,7 @@ class ConfigRepositoryTest extends TestSuite {
 	
 	public function testGetConfigRecord()
 	{
-		$this->configRepository->setConfigurations( array("isbackend"=>1,"channel"=>1) );
+		$this->configRepository->setConfigurations( array("isbackend"=>1,"channelId"=>array(1,0) ) );
 		$this->configRepository->initConfigRecord();
 		
 		$this->assertTrue( is_array($this->configRepository->getConfigRecord()) );

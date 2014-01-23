@@ -9,6 +9,7 @@ use Zend\Mvc\Router\RouteMatch;
 use ApplicationTest\ServiceManagerGrabber;
 use Setup\NullException;
 use Setup\SetupManager;
+use Config\Model\ConfigRepository;
 
 class TestSuite extends \PHPUnit_Framework_TestCase
 {
@@ -93,11 +94,13 @@ class TestSuite extends \PHPUnit_Framework_TestCase
 				->method('getEntityManager')
 				->will($this->returnValue($this->getEntityManagerMock()));
 		}
-		
-	public function getSetupManager()
+	
+	protected function getSetupManager()
 	{
-		$setupManager = new SetupManager( array('channel' => 1, 'isbackend' => 0) );
+		$setupManager = new SetupManager( array('channelId' => array(1,0), 'isbackend' => 0) );
 		$setupManager->setEntityManager( $this->getDoctrineEntityManager() );
+		$setupManager->getSetupManagerConfigurations()->setConfigRepository(new ConfigRepository( $setupManager->getEntityManager()) );
+		$setupManager->getSetupManagerConfigurations()->setConfigurations( array('channelId' => array(1,0), 'isbackend' => 0) );
 		
 		return $setupManager;
 	}

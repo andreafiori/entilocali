@@ -88,7 +88,11 @@ class PostsQueryBuilder extends DQLQueryHelper
 	
 	public function setStatus($status)
 	{
-		$this->query .= "AND p.status = :status ";
+		if ($status === null) {
+			$this->query .= "AND p.status IS NULL ";
+		} else {
+			$this->query .= "AND p.status = :status ";
+		}
 		$this->addToBindParameters('status', $status);
 	}
 	

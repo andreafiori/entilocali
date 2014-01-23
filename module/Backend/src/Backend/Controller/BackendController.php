@@ -7,141 +7,156 @@ use Setup\SetupManager;
 use ServiceLocatorFactory;
 use Setup\SetupManagerWrapper;
 use Zend\View\Model\ViewModel;
+use Posts\Form\PostsForm;
+use Users\Model\UsersQueryBuilder;
+use Zend\Session\Container;
 
 /**
+ * 
  * TODO:
- * 		check login
- * 		validate form 
- * 		session login
- * 		set user session from db data
- * 		set ACL role and compare with db user role
- *  	set captcha on login form after 3 fails...
+ * 		validate login form
  *  	
  *  	backup database
+ * 
  * Backend controller
  * @author Andrea Fiori
  * @since  05 December 2013
  */
 class BackendController extends AbstractActionController
 {
-	private $setupManager;
-
     public function indexAction()
     {
     	$setupManager = $this->getSetupManager();
     	
-    	/*
-    	var_dump( $this->params()->fromQuery() );
-    	var_dump( $this->params()->fromRoute('ctrl') );   
+    	/* // session destroy (test)
+    	$session = new Container('zf2ApiCms');
+    	$session->getManager()->getStorage()->clear('zf2ApiCms');
     	*/
     	
-    	$this->layout('backend/templates/default/backend.phtml');
+    	/* Check Login and (TODO) if the session is valid! */
+    	$session = new Container('zf2ApiCms');
+    	if ( !$session->offsetGet('userSession') ) {
+	    	$this->layout($setupManager->getTemplateDataSetter()->getTemplateData('template_path').'login.phtml');
+	    	$this->layout()->setVariable("templateData", $setupManager->getTemplateDataSetter()->getTemplateData() );   	
+	    	
+	    	return new ViewModel();
+    	}
     	
-    	/* Template to include */   	
+    	/* Main Template swtich */
     	switch($this->params()->fromRoute('ctrl')):
-    	
-	    	default:
-	    		$templatePartial = 'backend/templates/default/dashboard.phtml';
+
+	    	default: case("dashboard"):
+	    		$templatePartial = 'dashboard/'.$setupManager->getTemplateDataSetter()->getTemplateData('dashboard_backend');
 	    	break;
 	    	
 	    	case("formdata"):
-	    		$templatePartial = 'backend/templates/default/formdata/form.phtml';
+				$templatePartial = 'formdata/form.phtml';
+
+	    		$form =  new PostsForm($setupManager);
+	    		$request = $this->getRequest();
+	    		
+	    		// HYDRATOR: $form->setData( array("title"=>'My default title') );
+	    		if ( $request->isPost() ) {
+	    			$form->setInputFilter($form->getInputFilter());
+	    			$form->setData($request->getPost());
+
+	    			$form->isValid();
+	    		}
 	    	break;
-	    	
+
 	    	case("grid"):
-	    		$templatePartial = 'backend/templates/default/grid/grid.phtml';
+	    		$templatePartial = 'grid/grid.phtml';
 	    	break;
-	    	
+
     	endswitch;
+
+    	$setupManager->getTemplateDataSetter()->assignToTemplate('sidebar', $setupManager->getTemplateDataSetter()->getTemplateData('template_path').'sidebar/'.$setupManager->getTemplateDataSetter()->getTemplateData('sidebar_backend'));
+    	$setupManager->getTemplateDataSetter()->assignToTemplate('templatePartial', $setupManager->getTemplateDataSetter()->getTemplateData('template_path').$templatePartial);
     	
-    	$setupManager->getTemplateDataSetter()->assignToTemplate('templatePartial', $templatePartial);
-    	
+    	$this->layout($setupManager->getTemplateDataSetter()->getTemplateData('template_path').'backend.phtml');
     	$this->layout()->setVariable("templateData", $setupManager->getTemplateDataSetter()->getTemplateData() );
-    	
-		return new ViewModel();
-	}
-		
-	public function formdataAction()
-	{
-		$setupManager = $this->getSetupManager();  
-    	
-    	$templateToRender = 'backend/templates/default/backend.phtml';
-    	//$templateToRender = 'backend/templates/default/login.phtml';
-    	
-    	$this->layout($templateToRender);
-    	$this->layout()->setVariable("templateData", $setupManager->getTemplateDataSetter()->getTemplateData() );
-		
+    	$this->layout()->setVariable("form", $form);
+
 		return new ViewModel();
 	}
 	
-	public function gridAction()
-	{
-		$response = $this->getResponse();
-		$response->setStatusCode(200);
-		$response->setContent('Grid with datatables are under construction');
-		return $response;
-	}
-	
+	/**
+	 * check login
+ 	 * set user session from db data
+ 	 * set ACL role and compare with db user role
+ 	 * set captcha on login form after 3 fails...
+	 */
 	public function loginAction()
 	{
 		$request = $this->getRequest();
 		if ( $request->isPost() ) {
-			// $userPost = (array) $request->getPost();
-			return $this->redirect()->toRoute("backend", array("action" => "index") );
-		} else {
-			return $this->redirect()->toRoute("backend", array("action" => "index") );
+			$userPost = (array) $request->getPost();
+			
+			/* TODO: use the UsersGetter class */
+			$users = new UsersQueryBuilder();
+			$users->setSetupManager($this->getSetupManager());
+			$users->setPassword($userPost['password']);
+			$users->setEmail($userPost['username']);
+			$userRecord = $users->getSelectResult();
+
+			if ( is_array($users->getSelectResult()) ) {
+				$userRecord = $userRecord[0];
+
+				$session = new Container('zf2ApiCms');
+				$session->offsetSet('userSession', $userRecord);
+				$session->offsetSet('createDate', date("Y-m-d H:i:s"));
+				
+				return $this->redirect()->toRoute("homepage", array("action" => "index") );
+			}
+
 		}
 		
-		$response = $this->getResponse();
-		$response->setStatusCode(200);
-		return $response;
+		return $this->redirect()->toRoute("homepage", array("action" => "index") );
 	}
 	
-	public function forgotpasswordAction()
-	{
-		$response = $this->getResponse();
-		$response->setStatusCode(200);
-		$response->setContent('Forgot password form is under construction');
-		return $response;
-	}
-	
+	/**
+	 * destroy the user session
+	 */
 	public function logoutAction()
 	{
-		$response = $this->getResponse();
-		$response->setStatusCode(200);
-		$response->setContent('Logout is under construction');
-		return $response;
+		$session = new Container('zf2ApiCms');
+		$session->getManager()->getStorage()->clear('zf2ApiCms');
+		
+		return $this->redirect()->toRoute("homepage", array("action" => "index") );
 	}
 	
-	public function backupAction()
+	/**
+	 * TODO: if session ok, redirect to main else show recover password form...
+	 * @return \Zend\View\Model\ViewModel
+	 */
+	public function recoverpasswordAction()
 	{
-		
+		return new ViewModel();
 	}
 	
 		/**
-		 * 
 		 * @return SetupManager
 		 */
 		private function getSetupManager()
 		{
-			$setupManagerWrapper = new SetupManagerWrapper( new SetupManager(
-					array(
+			$input = array(
 							'channel'				=> 1,
-							'isbackend' 			=> 0,
+							'isbackend' 			=> 1,
 							'controller'			=> $this->params()->fromRoute('controller'),
 							'action'				=> $this->params()->fromRoute('action'),
 							'languageAbbreviation' 	=> strtolower( $this->params()->fromRoute('lang') )
-					)
-			) );
+					); 
+			$setupManagerWrapper = new SetupManagerWrapper( new SetupManager( $input ) );
 			$setupManager = $setupManagerWrapper->initSetup();
-		
+			
 			/* Preload */
-			$setupManager->getSetupManagerPreload()->setClassName( $setupManager->getTemplateDataSetter()->getTemplateData('preloader_frontend') );
+			$setupManager->getSetupManagerPreload()->setClassName( $setupManager->getTemplateDataSetter()->getTemplateData('preloader_class') );
 			$setupManager->getSetupManagerPreload()->setInstance($setupManager);
 			$setupManager->getTemplateDataSetter()->assignToTemplate('preloadrecord', $setupManager->getSetupManagerPreload()->setRecord() );
-				
+
+			$setupManager->setInput($input);
+			
 			/* TEMPLATE DATA */
-			// $setupManager->getTemplateDataSetter()->assignToTemplate('controllerResult', $postsDetail);
 			$setupManager->getTemplateDataSetter()->assignToTemplate('categoryName', $setupManager->getInput('categoryName') );
 		
 			/* SEO Tags */
@@ -151,4 +166,5 @@ class BackendController extends AbstractActionController
 		
 			return $setupManager;
 		}
+
 }

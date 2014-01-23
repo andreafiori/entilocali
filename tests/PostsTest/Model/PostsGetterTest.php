@@ -2,10 +2,8 @@
 
 namespace PostsTest\Model;
 
-use Posts\Model\PostsGetter;
-use Setup\SetupManager;
 use SetupTest\TestSuite;
-use Config\Model\ConfigRepository;
+use Posts\Model\PostsGetter;
 
 class PostsGetterTest extends TestSuite {
 	
@@ -16,13 +14,7 @@ class PostsGetterTest extends TestSuite {
 	{
 		parent::setUp();
 		
-		$this->setupManager = new SetupManager( 
-					array('channel' => 1, 'isbackend' => 0, "language" => 1, 
-						"categoryName" => "Contatti","helpers"=>1) 
-		);
-		$this->setupManager->setEntityManager($this->getServiceManager()->get('\Doctrine\ORM\EntityManager'));
-		$this->setupManager->getSetupManagerConfigurations()->setConfigRepository(new ConfigRepository($this->setupManager->getEntityManager()));
-		$this->setupManager->getSetupManagerConfigurations()->setConfigurations();
+		$this->setupManager = $this->getSetupManager();
 		
 		$this->postsGetterWrapper = new PostsGetter( $this->setupManager );
 	}

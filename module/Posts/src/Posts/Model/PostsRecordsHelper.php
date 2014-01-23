@@ -9,13 +9,8 @@ use Setup\SetupManager;
  * @author Andrea fiori
  * @since  05 January 2014
  */
-class PostsRecordsHelper
+class PostsRecordsHelper extends PostsRecordHelperAbstract
 {
-	private $postsRecords, $postsRecordsCount;
-	private $setupManager;
-	private $partialLayoutTemplate;
-	private $remotelinkWeb;
-
 	public function __construct(array $postsRecords)
 	{
 		$this->postsRecords = $postsRecords;
@@ -26,17 +21,7 @@ class PostsRecordsHelper
 	{
 		$this->remotelinkWeb = $remotelinkWeb;
 	}
-	
-	public function getRemotelinkWeb()
-	{
-		return $this->remotelinkWeb;
-	}
-	
-	public function getSetupManager()
-	{
-		return $this->setupManager;
-	}
-	
+
 	public function setSetupManager(SetupManager $setupManager)
 	{
 		$this->setupManager = $setupManager;
@@ -45,7 +30,6 @@ class PostsRecordsHelper
 	public function setAdditionalArrayElements()
 	{
 		if ( !$this->getPostsRecords() ) {
-			// throw new NullException('Posts Records are not set');
 			return false;
 		}
 		
@@ -55,18 +39,19 @@ class PostsRecordsHelper
 			$postsRecords[] = $record;
 		}
 		
-		if (isset($postsRecords[0]['typeofpost'])) {
-			$this->assignLayout($postsRecords[0]['typeofpost']);
-		}
-		
 		$this->postsRecords = $postsRecords;
 		
 		return $postsRecords;
 	}
-	
+
+		public function getLinkEdit($record)
+		{
+			return '/backend/formdata/?id='.$record['id'];	
+		}
+		
 		/**
 		 * 
-		 * @param unknown $record
+		 * @param array $record
 		 * @return string
 		 */
 		private function getLinkDetails($record)
@@ -80,34 +65,11 @@ class PostsRecordsHelper
 			return $this->remotelinkWeb.$this->getSetupManager()->getSetupManagerLanguages()->getLanguageAbbreviation().'/'. \Setup\StringRequestDecoder::slugify($record['name']).'/'.$record['seoUrl'];
 		}
 	
-	public function assignLayout($typeOfPost)
-	{
-		if (!$typeOfPost) return false;
-		
-		if ($this->postsRecordsCount == 1) {
-			$this->partialLayoutTemplate = $typeOfPost.'/detail.phtml';
-		} elseif ($this->postsRecordsCount > 1) {
-			$this->partialLayoutTemplate = $typeOfPost.'/list.phtml';
-		}
-		
-		return $this->partialLayoutTemplate;
-	}
-	
 	public function setPartialLayoutTemplate($layout)
 	{
 		$this->partialLayoutTemplate = $layout;
-		
-		return $this->partialLayoutTemplate;
-	}
 
-	public function getPartialLayoutTemplate()
-	{
 		return $this->partialLayoutTemplate;
-	}
-	
-	public function getPostsRecords()
-	{
-		return $this->postsRecords;
 	}
 
 	public function sortPostsByAlias($sort = false)
@@ -124,7 +86,7 @@ class PostsRecordsHelper
 			}
 		}
 		$this->postsRecords = $postsAlias;
-	
+
 		return $this->postsRecords;
 	}
 }
