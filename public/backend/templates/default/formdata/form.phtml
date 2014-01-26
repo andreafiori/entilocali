@@ -1,9 +1,15 @@
+<?php if (!$this->form): ?>
+<div class="alert alert-danger">
+	<h4>Errore verificato:</h4>
+	<div>. Impossibile visualizzare il form: oggetto form non rilevato</div>
+</div>
+<?php else :?>
 <h3>Titolo form</h3>
-<p>Descrizione breve form</p>
-
+<div>Descrizione breve del form</div>
 <?php
 
-$this->form->setAttribute('action', $this->url);
+$formAction = $this->templateData['remotelinkWeb'].'backend/formpost/';
+$this->form->setAttribute('action', $formAction);
 $this->form->prepare();
 
 echo $this->form()->openTag($this->form);
@@ -34,4 +40,6 @@ endforeach;
 
 <?php echo $this->form()->closeTag($this->form); ?>
 
-<div id="result"></div>
+<div id="formDataLoading" class="alert alert-warning" style="display: none"><h4>Attendere: elaborazione dati in corso...</h4></div>
+<div id="formDataResponse"></div>
+<?php endif; ?>

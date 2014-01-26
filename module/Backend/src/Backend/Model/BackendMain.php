@@ -24,11 +24,11 @@ class BackendMain
 	{
 		$this->router = $router;
 
-		return $this->objectRouter;
+		return $this->router;
 	}
 	
 	public function getRouter()
 	{
-		return $this->objectRouter;
+		return $this->router;
 	}
 }

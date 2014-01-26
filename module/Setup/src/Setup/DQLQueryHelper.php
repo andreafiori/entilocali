@@ -19,6 +19,8 @@ abstract class DQLQueryHelper
 	
 	protected $queryContainer;
 	
+	protected $queryBuilder;
+	
 	public function setDefaultFieldsSelect($fieldList)
 	{
 		$this->defaultFieldsSelect = $fieldList;
@@ -61,7 +63,7 @@ abstract class DQLQueryHelper
 	{
 		$this->bindParameters[$key] = $value;
 	}
-	
+		
 	/**
 	 * @return SetupManager
 	 */
@@ -86,7 +88,7 @@ abstract class DQLQueryHelper
 		$query->setParameters($this->getBindParameters());
 		
 		$this->queryContainer[] = $this->getSelectQuery();
-		//echo $this->getSelectQuery()."<br><br>";
+
 		return $query->getResult();
 	}
 	

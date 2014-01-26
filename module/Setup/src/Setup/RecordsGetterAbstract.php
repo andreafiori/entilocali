@@ -3,7 +3,7 @@
 namespace Setup;
 
 /**
- * 
+ * RecordsGetterAbstract
  * @author Andrea Fiori
  * @since  22 January 2014
  */
@@ -12,6 +12,8 @@ abstract class RecordsGetterAbstract
 	protected $input;
 	
 	protected $setupManager;
+	
+	protected $queryBuilder;
 	
 	/**
 	 * 
@@ -36,5 +38,26 @@ abstract class RecordsGetterAbstract
 	public function getSetupManager()
 	{
 		return $this->setupManager;
+	}
+	
+	/**
+	 * 
+	 * @param DQLQueryHelper $queryBuilder
+	 * @return DQLQueryHelper
+	 */
+	public function setQueryBuilder(DQLQueryHelper $queryBuilder)
+	{
+		$this->queryBuilder = $queryBuilder;
+	
+		return $this->queryBuilder;
+	}
+	
+	/**
+	 * 
+	 * @return DQLQueryHelper
+	 */
+	public function getQueryBuilder()
+	{
+		return $this->queryBuilder;
 	}
 }

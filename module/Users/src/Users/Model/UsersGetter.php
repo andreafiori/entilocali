@@ -2,6 +2,7 @@
 
 namespace Users\Model;
 
+use Users\Model\UsersQueryBuilder;
 use Setup\SetupManager;
 use Setup\RecordsGetterAbstract;
 
@@ -21,6 +22,9 @@ class UsersGetter extends RecordsGetterAbstract
 	
 	public function getUser()
 	{
-		return false;
-	} 
+		$usersQueryBuilder = new UsersQueryBuilder();
+		$usersQueryBuilder->setId(1);
+		
+		return $usersQueryBuilder->getSelectResult();
+	}
 }

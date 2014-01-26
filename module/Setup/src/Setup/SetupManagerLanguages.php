@@ -38,6 +38,10 @@ class SetupManagerLanguages extends SetupManagerAbstract
 
 	public function getDefaultLanguage($key = null)
 	{
+		if (!$this->getLanguageSetup()) {
+			throw new NullException('Language Setup is not set');
+		}
+		
 		return $this->getLanguageSetup()->getDefaultLanguage($key);
 	}
 	

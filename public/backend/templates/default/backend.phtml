@@ -23,7 +23,17 @@
 	<link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-57-precomposed.png">
 	<link rel="shortcut icon" href="img/favicon.png">
 	-->
-
+	
+	<style>
+	/* Dropdown menu */
+	.dropdown:hover .dropdown-menu {
+	    display: block;
+	 }
+	label.error {
+		color: red;
+		margin-left: 0.5%;
+	}
+	</style>
 </head>
 
 <body>
@@ -141,6 +151,7 @@
 				echo $this->partial($this->templateData['sidebar']);
 				?>
 				<div class="col-md-9 column">
+					<!--
 					<ul class="breadcrumb">
 						<li>
 							<a href="javascript:void(0)" title="">Home</a> <span class="divider">/</span>
@@ -152,6 +163,7 @@
 							Data
 						</li>
 					</ul>
+					-->
 					<?php
 					/* Main Template */
 					echo $this->partial($this->templateData['templatePartial']);
@@ -172,15 +184,46 @@
 <!-- JavaScript -->
 <script src="<?php echo $this->basePath() ?>/common/jquery/jquery.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/common/jquery/form/jquery.form.js"></script>
-<!-- <script src="<?php echo $this->basePath() ?>/common/angularjs/angualar.js"></script> -->
+<script src="<?php echo $this->basePath() ?>/common/jquery/validate/jquery.validate.min.js"></script>
+
 <script src="<?php echo $this->basePath() ?>/common/bootstrap3/js/bootstrap.min.js"></script>
 
 <script src="<?php echo $this->basePath() ?>/common/jquery/ckeditor/ckeditor.js"></script>
-<script src="<?php echo $this->basePath() ?>/common/ckfinder/ckfinder.js"></script>
+<script src="<?php echo $this->basePath() ?>/common/jquery/ckfinder/ckfinder.js"></script>
 
 <script>
-$(document).ready(function () {
 
+function showLoading()
+{
+	$("#formDataResponse").hide();
+	$("#formDataLoading").show();
+}
+
+function showResponse()
+{
+	$("#formDataResponse").show();
+	$("#formDataLoading").hide();
+}
+					
+$(document).ready(function () {
+	/* validate and form post */
+	var validate = $("#formdata").validate({
+		submitHandler: function(form) {
+			$("#formdata").ajaxSubmit({
+		        target: "#formDataResponse",
+				type: "post",
+				beforeSubmit: showLoading,
+				success: showResponse,
+				onkeyup: false
+			});
+		}
+	});
+	/* FadeOut Div */
+	setTimeout( function() {
+			$("div.formDataResponse").fadeOut("slow", function () {
+				$("div.formDataResponse").remove();
+			});
+		}, 2000);
 });
 </script>
 

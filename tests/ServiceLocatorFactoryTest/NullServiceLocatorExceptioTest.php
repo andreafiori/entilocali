@@ -5,6 +5,11 @@ namespace ServiceLocatorFactoryTest;
 use SetupTest\TestSuite;
 use ServiceLocatorFactory\NullServiceLocatorException;
 
+/**
+ * 
+ * @author Andrea Fiori
+ * @since  07 January 2014
+ */
 class NullServiceLocatorExceptioTest extends TestSuite {
 	
 	private $nullServiceLocatorException;

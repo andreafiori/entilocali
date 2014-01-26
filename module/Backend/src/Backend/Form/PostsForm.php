@@ -1,21 +1,24 @@
 <?php
 
-namespace Posts\Form;
+namespace Backend\Form;
 
 use Zend\Form\Form;
+use Setup\SetupManager;
 
 /**
- * 
  * PostsForm
  * @author Andrea Fiori
  * @since  20 January 2014
- * 
  */
 class PostsForm extends Form
 {
-	public function __construct()
+	private $setupManager;
+
+	public function __construct(SetupManager $setupManager)
 	{
-		parent::__construct('posts');
+		parent::__construct('formdata');
+		
+		$labels = $setupManager->getSetupManagerLanguagesLabels();
 		
 		$this->setAttribute('method', 'post');
 		$this->setAttribute('enctype', 'multipart/form-data');

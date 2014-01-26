@@ -5,9 +5,8 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use ServiceLocatorFactory;
-use Setup\SetupManagerWrapper;
-use Setup\SetupManager;
 use Posts\Model\PostsGetter;
+use Application\Controller\Plugin\SetupManagerPlugin;
 
 /**
  * Frontend main controller
@@ -16,37 +15,25 @@ use Posts\Model\PostsGetter;
  */
 class IndexController extends AbstractActionController
 {
-	private $setupManagerInput;
-	
     public function indexAction()
     {
-    	$this->setupManagerInput = array(
-    				'isbackend'				=> 0,
-    				'controller' 			=> $this->params()->fromRoute('controller'),
-    				'action'	 			=> $this->params()->fromRoute('action'),
-   					'languageAbbreviation'  => strtolower( $this->params()->fromRoute('lang') ),
-    				'categoryName' 			=> \Setup\StringRequestDecoder::slugify( $this->params()->fromRoute('category') ),
-    				'title'		 			=> \Setup\StringRequestDecoder::slugify( $this->params()->fromRoute('title') ),
-    			);
-    	$setupManagerWrapper = new SetupManagerWrapper( new SetupManager( $this->setupManagerInput ));
-    	$setupManager = $setupManagerWrapper->initSetup();
-    	
-    	/* Preload */
-    	$setupManager->getSetupManagerPreload()->setClassName( $setupManager->getTemplateDataSetter()->getTemplateData('preloader_class') );
-    	$setupManager->getSetupManagerPreload()->setInstance($setupManager);
-    	$setupManager->getTemplateDataSetter()->assignToTemplate('preloadrecord', $setupManager->getSetupManagerPreload()->setRecord() );
-		
-    	// TODO: the preload pattern overwrites the original SetupManager input!!!???
-		$setupManager->setInput( $this->setupManagerInput );
+    	$setupManagerPlugin = new SetupManagerPlugin();
+    	$setupManager = $setupManagerPlugin->initialize(array(
+    			'isbackend'				=> 0,
+    			'controller' 			=> $this->params()->fromRoute('controller'),
+    			'action'	 			=> $this->params()->fromRoute('action'),
+    			'languageAbbreviation'  => strtolower( $this->params()->fromRoute('lang') ),
+    			'categoryName' 			=> \Setup\StringRequestDecoder::slugify( $this->params()->fromRoute('category') ),
+    			'title'		 			=> \Setup\StringRequestDecoder::slugify( $this->params()->fromRoute('title') ),
+    	));
 
-		/* SINGLE POST SELECTION */
+		/* SINGLE POST SELECTION (to move and refactor) */
 		if ( $setupManager->getInput('categoryName') ):
 			$postGetter = new PostsGetter($setupManager);
 		
 			$postsDetail = $postGetter->getPost();
 		endif;
 
-		// TODO: refactor!!!
 		if ( isset($postsDetail[0]) ) {
 			if ( count($postsDetail) > 1 ) {
 				$setupManager->getTemplateDataSetter()->assignToTemplate('templatePartial', $setupManager->getTemplateDataSetter()->getTemplateData('template_path').'contents/list.phtml');
@@ -63,7 +50,7 @@ class IndexController extends AbstractActionController
 			
 			/* Set redirect if it's not on home page? not always */
 			if ( $setupManager->getInput('categoryName')!='' ) {
-				//$this->redirect()->toRoute('home');
+				// $this->redirect()->toRoute('home');
 			}
 		}
 
@@ -75,7 +62,7 @@ class IndexController extends AbstractActionController
 		$setupManager->getTemplateDataSetter()->assignToTemplate('seo_title', 		$setupManager->getTemplateDataSetter()->getTemplateData('sitename'));
 		$setupManager->getTemplateDataSetter()->assignToTemplate('seo_description', $setupManager->getTemplateDataSetter()->getTemplateData('description'));
 		$setupManager->getTemplateDataSetter()->assignToTemplate('seo_keywords', 	$setupManager->getTemplateDataSetter()->getTemplateData('keywords'));
-		
+
 	   	$this->layout( $setupManager->getTemplateDataSetter()->getTemplateData('basiclayout') );
     	$this->layout()->setVariable("templateData", $setupManager->getTemplateDataSetter()->getTemplateData());
 

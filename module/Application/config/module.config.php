@@ -64,6 +64,11 @@ return array(
 						),
 				),
 		),
+		'controller_plugins' => array(
+				'invokables' => array(
+					'SetupManagerPlugin' => 'Application\Controller\Plugin\SetupManagerPlugin',
+				),
+		),
 		'service_manager' => array(
 				'abstract_factories' => array(
 						'Zend\Cache\Service\StorageCacheAbstractServiceFactory',

@@ -7,8 +7,8 @@ use Posts\Model\PostsGetter;
 
 class PostsGetterTest extends TestSuite {
 	
-	private $postsGetterWrapper;
 	private $setupManager;
+	private $postsGetterWrapper;
 	
 	public function setUp()
 	{
