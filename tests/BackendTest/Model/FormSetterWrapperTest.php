@@ -3,8 +3,6 @@
 namespace BackendTest\Model;
 
 use SetupTest\TestSuite;
-use Backend\Model\FormSetterAbstract;
-use Posts\Model\PostsFormSetter;
 use Backend\Model\FormSetterWrapper;
 
 /**
@@ -27,17 +25,67 @@ class FormSetterWrapperTest extends TestSuite
 		$this->formSetterWrapper = new FormSetterWrapper($this->setupManager);
 	}
 	
-	public function testSetFormSetter()
+	public function testSetFormSetterClassName()
 	{
-		$this->formSetterWrapper->setFormSetter( new PostsFormSetter($this->setupManager) );
-		
-		$this->assertTrue( $this->formSetterWrapper->getFormSetter() instanceof FormSetterAbstract );
+		$this->assertNotEquals($this->formSetterWrapper->setFormSetterClassName('PostsFormSetter'), 'PostsFormSetter');
+	}
+
+	public function testSetFormSetterInstance()
+	{
+		$this->assertFalse( is_object($this->formSetterWrapper->setFormSetterInstance()) );
+
+		$this->formSetterWrapper->setFormSetterClassName('PostsFormSetter');
+		$this->assertTrue( is_object($this->formSetterWrapper->setFormSetterInstance() ) );
 	}
 	
+	/**
+	 * TODO: mock the request to the db
+	 */
 	public function testSetFormSetterRecord()
 	{
-		$this->formSetterWrapper->getFormSetter()->setRecord(1);
-
-		$this->formSetterWrapper->getFormSetter()->getRecord();
+		$this->setFormSetterWrapperClassNameAndInstance();
+		
+		$this->formSetterWrapper->setFormSetterRecord(1);
+		
+		$this->assertTrue( is_array($this->formSetterWrapper->getFormSetterInstance()->getRecord()) );
 	}
+	
+	/*public function testSetFormSetterTitle()
+	{
+		$this->setFormSetterWrapperClassNameAndInstance();
+		
+		$this->formSetterWrapper->setFormSetterTitle();
+		
+		$this->assertNotEmpty( $this->formSetterWrapper->getFormSetterInstance()->getTitle() );
+	}*/
+	
+	// public function testSetFormSetterDescription();
+	
+	public function testSetZendFormClassName()
+	{
+		$this->setFormSetterWrapperClassNameAndInstance();
+		
+		$this->assertTrue( class_exists($this->formSetterWrapper->setZendFormClassName()) );
+	}
+	
+	public function testSetZendFormInstance()
+	{
+		$this->setFormSetterWrapperClassNameAndInstance();
+		
+		$this->formSetterWrapper->setZendFormClassName();
+		
+		$this->assertTrue( is_object($this->formSetterWrapper->setZendFormInstance()) );
+	}
+	
+	//public function testInitializeForm()
+	
+	//public function setFormAction($action)
+
+	//public function setFormAction($action)
+	
+		private function setFormSetterWrapperClassNameAndInstance()
+		{
+			$this->formSetterWrapper->setFormSetterClassName('PostsFormSetter');
+			$this->formSetterWrapper->setFormSetterInstance();
+		}
 }

@@ -5,8 +5,56 @@ namespace Backend\Form;
 use Zend\Form\Form;
 use Setup\SetupManager;
 
+
+abstract class ZendFormHelper
+{
+	protected $formAction;
+	
+	protected $record;
+	
+	protected $route;
+	
+	protected $setupManager;
+	
+	public function __construct($name='formData')
+	{
+		parent::__construct($name);
+	}
+	
+	public function setSetupManager(SetupManager $setupManager)
+	{
+		$this->setupManager->getSetupManagerLanguagesLabels();
+	}
+	
+	public function setFormAction($action)
+	{
+		$this->formAction = $action;
+	}
+	
+	public function setRoute($route)
+	{
+		$this->route = $route;
+	}
+
+	public function setRecord($record)
+	{
+		$this->record = $record;
+	}
+	
+	abstract public function addFormElements();
+}
+
 /**
  * PostsForm
+ * TODO:
+ * 		set record 
+ * 		set form name
+ * 		set action
+ * 		set data into zend\form object
+ * 		set route
+ * 		add form elements
+ * 		set form data (hydrator)
+ * 
  * @author Andrea Fiori
  * @since  20 January 2014
  */
@@ -19,30 +67,25 @@ class PostsForm extends Form
 		parent::__construct('formdata');
 		
 		$labels = $setupManager->getSetupManagerLanguagesLabels();
-		
-		$this->setAttribute('method', 'post');
-		$this->setAttribute('enctype', 'multipart/form-data');
-		$this->setAttribute('class', 'form-horizontal');
-		$this->setAttribute('role', 'form');
-		
+
 		$this->add(array(
 				'name' => 'title',
-				'id' => 'title',
 				'type' => 'Text',
 				'options' => array( 'label' => 'Titolo' ),
 				'attributes' => array(
 						'required' => 'required',
 						'class' => 'form-control',
 						'title' => 'Inserisci il titolo',
+						'id' => 'title',
 				)
 		));
 
 		$this->add(array(
 				'name' => 'description',
-				'id' => 'description',
 				'type' => 'Textarea',
 				'options' => array( 'label' => 'Descrizione' ),
 				'attributes' => array(
+						'id' => 'description',
 						'required' => 'required',
 						'class' => 'ckeditor',
 				)
@@ -55,28 +98,14 @@ class PostsForm extends Form
 						'id' => 'searchEngines',
 						'value' => '<h3>Motori di ricerca</h3>',
 				),
-				'options' => array(
-						/* 'label' => 'Motori di ricerca', */
-				),
 		));
-		
+
 		$this->add(array(
-				'name' => 'seotitle',
-				'id' => 'seotitle',
-				'type' => 'Text',
-				'options' => array( 'label' => 'Titolo' ),
-				'attributes' => array(
-						'class' => 'form-control',
-						'title' => 'Inserisci titolo per i motori di ricerca',
-				)
-		));
-		
-		$this->add(array(
-				'name' => 'seodescription',
-				'id' => 'seodescription',
+				'name' => 'seoDescription',
 				'type' => 'Textarea',
 				'options' => array( 'label' => 'Descrizione' ),
 				'attributes' => array(
+						'id' => 'seoDescription',
 						'class' => 'form-control',
 						'title' => 'Inserisci descrizione per i motori di ricerca',
 						'rows' => '5',
@@ -84,24 +113,25 @@ class PostsForm extends Form
 		));
 		
 		$this->add(array(
-				'name' => 'seokeywords',
-				'id' => 'seokeywords',
+				'name' => 'seoKeywords',				
 				'type' => 'Textarea',
 				'options' => array( 'label' => 'Parole chiave (separate da virgola)' ),
 				'attributes' => array(
+						'id' => 'seoKeywords',
 						'class' => 'form-control',
 						'title' => 'Parole chiave per i motori di ricerca',
 						'rows' => '5',
 				)
 		));
-		
+
 		$this->add(array(
 				'name' => 'submit',
 				'attributes' => array(
 						'type'  => 'submit',
 						'value' => 'Conferma',
 						'id' => 'submitbutton',
-						'class' => 'btn btn-primary'
+						'class' => 'btn btn-primary',
+						'onclick' => "javascript: $('#formcontainer').hide()"
 				),
 		));
 	}

@@ -3,11 +3,12 @@
 namespace PostsTest\Model;
 
 use SetupTest\TestSuite;
-use Posts\Model\PostsFormSetter;
+use Backend\Form\Setter\PostsFormSetter;
 
 class PostsFormSetterTest extends TestSuite
 {
 	private $setupManager;
+	
 	private $postsFormSetter;
 	
 	protected function setUp()
@@ -21,11 +22,11 @@ class PostsFormSetterTest extends TestSuite
 	
 	public function testSetTitle()
 	{
-		$this->postsFormSetter->setFormTitle();
+		$this->postsFormSetter->setTitle();
 	}
 	
-	public function testSetFormDescription()
+	public function testSetDescription()
 	{
-		$this->postsFormSetter->setFormDescription();
+		$this->postsFormSetter->setDescription();
 	}
 }

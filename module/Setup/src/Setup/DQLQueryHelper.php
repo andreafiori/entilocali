@@ -84,6 +84,10 @@ abstract class DQLQueryHelper
 			throw new NullException('Entity Manager is not set');
 		}
 		
+		$config = $this->getSetupManager()->getEntityManager()->getConfiguration();
+		$config->addCustomDatetimeFunction('DATE_FORMAT', "\\Setup\\DateFormat");
+		\Doctrine\ORM\EntityManager::create($this->getSetupManager()->getEntityManager()->getConnection(), $config);
+		
 		$query = $this->getSetupManager()->getEntityManager()->createQuery($this->getSelectQuery());
 		$query->setParameters($this->getBindParameters());
 		

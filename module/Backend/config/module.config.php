@@ -37,10 +37,9 @@ return array(
         	'homepage' => array(
         		'type'    => 'segment',
         		'options' => array(
-        				'route'    => '/backend/main[/:lang]',
+        				'route'    => '/backend/main[/:lang][/]',
         				'constraints' => array(
         					'lang'     => '[a-z]{2}',
-        					'ctrl'     => '[a-zA-Z][a-zA-Z0-9_-]*',
         				),
         				'defaults' => array(
         					'controller' => 'Backend\Controller\Backend',
@@ -52,7 +51,7 @@ return array(
 						'default' => array(
 								'type'    => 'Segment',
 								'options' => array(
-										'route'    => '/formdata[/][:formsetter][/][:id]',
+										'route'    => '[/]formdata[/][:formsetter][/][:id][/]',
 										'constraints' => array(
 												'formsetter' => '[a-zA-Z][a-zA-Z0-9_-]*',
 												'id' => '[0-9]',
@@ -67,6 +66,11 @@ return array(
         	),
         ),
     ),
+	'controller_plugins' => array(
+			'invokables' => array(
+					'BackendSetupInitializerPlugin' => 'Application\Controller\Plugin\BackendSetupInitializerPlugin',
+			),
+	),
     'view_manager' => array(
     	'display_not_found_reason' => true,
 		'display_exceptions'       => true,
@@ -75,13 +79,15 @@ return array(
 		'exception_template'       => 'error/index',
     	'template_map' => array(
     		/* Render empty views to avoid error 500 */
-    		'backend/backend/index' => __DIR__ . '/../../../view/index.phtml',
-    		'backend/backend/formpost' => __DIR__ . '/../../../view/index.phtml',
-    		'backend/backend/formdata' => __DIR__ . '/../../../view/index.phtml',
+    		'backend/backend/index' => __DIR__ . '../../view/index.phtml',
+    		'backend/backend/formpost' => __DIR__ . '../../view/index.phtml',
+    		'backend/backend/formdata' => __DIR__ . '../../view/index.phtml',
+    		/* Landing page on error 404 */
+    		'error/dbconnection' => __DIR__ . '../../view/error/dbconnection.phtml',
     	),
         'template_path_stack' => array(
-        	__DIR__ . '/../../../view',
-        	__DIR__ . '/../../../public'
+        	__DIR__ . '../../view',
+        	__DIR__ . '../../public'
         ),
     ),
 );

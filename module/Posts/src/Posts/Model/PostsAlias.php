@@ -12,40 +12,43 @@ use Setup\SetupManagerPreloadInterface;
  */
 class PostsAlias implements SetupManagerPreloadInterface
 {
-	private $setupManager, $record, $newInput;
+	private $setupManager;
+
+	private $postsGetterInput;
+
+	private $record;
 	
+	/**
+	 * @param SetupManagerAbstract $setupManager
+	 */
 	public function __construct(SetupManagerAbstract $setupManager)
 	{
 		$this->setupManager = $setupManager;
-		
-		$this->newInput = $this->setupManager->getInput();
-		unset($this->newInput['categoryName']);
-		unset($this->newInput['title']);
-		$this->newInput['helpers'] = true;
-		$this->newInput['aliasnotull'] = true;
-		$this->newInput['sortByAlias'] = true;
-		
-		$this->setupManager->setInput($this->newInput);
 	}
-	
+
 	public function setRecord()
 	{
-		if ( !$this->setupManager->getSetupManagerLanguages() ) {
-			return false;
-		}
-		
-		$setupManagerInstance = $this->setupManager;
-		
-		$postGetter = new PostsGetter($setupManagerInstance);
+		$postGetter = new PostsGetter($this->setupManager);
+		$postGetter->setInput( $this->getPostsGetterInput() );
 
-		$this->record = $postGetter->getPost();
+		$this->record = $postGetter->getCompletePostRecord();
 
 		return $this->record;
 	}
-	
-	/**
-	 * @return array
-	 */
+		
+		private function getPostsGetterInput()
+		{
+			$input = $this->setupManager->getInput();
+			
+			unset($input['categoryName']);
+			unset($input['title']);
+			$input['helpers'] = true;
+			$input['aliasnotull'] = true;
+			$input['sortByAlias'] = true;
+
+			return $input;
+		}
+
 	public function getRecord()
 	{
 		return $this->record;

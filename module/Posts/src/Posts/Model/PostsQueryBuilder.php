@@ -14,15 +14,25 @@ class PostsQueryBuilder extends DQLQueryHelper
 	public function setQueryBasic()
 	{
 		if (!$this->getDefaultFieldsSelect()) {
-			$this->setDefaultFieldsSelect('DISTINCT(p.id) AS postid, p.typeofpost, p.alias, po.title, p.status, po.description, po.seoUrl, po.seoKeywords, p.templatefile, co.name');
+			$this->setDefaultFieldsSelect('DISTINCT(p.id) AS postid, p.typeofpost, p.alias, po.title, p.status, po.description, po.seoUrl, po.seoDescription, po.seoKeywords, p.templatefile, co.name');
 		}
 		
 		$this->queryBasic = "SELECT ".$this->getDefaultFieldsSelect()." FROM Application\\Entity\\PostsOptions po, Application\\Entity\\Posts p,
 					Application\\Entity\\PostsRelations r, Application\\Entity\\Categories c, Application\\Entity\\CategoriesOptions co
 			WHERE (po.posts = p.id AND p.id = r.posts AND c.id = r.category
 					AND co.category = c.id
-			AND r.category = c.id AND r.channel = :channel
+			AND r.category = c.id AND r.channel = :channel AND DATE_FORMAT(po.datefrom, '%Y-%m-%d') < CURRENT_DATE()
 			) ";
+	}
+
+	public function setId($postsId)
+	{
+		if ( !is_numeric($postsId) ) {
+			return false;
+		}
+	
+		$this->query .= "AND p.id = :postsid ";
+		$this->addToBindParameters('postsid', $postsId);
 	}
 	
 	public function setBasicBindParameters()
@@ -54,13 +64,6 @@ class PostsQueryBuilder extends DQLQueryHelper
 	
 		$this->query .= "AND co.seoUrl = :seourlcategory ";
 		$this->addToBindParameters('seourlcategory', $categoryName);
-	}
-	
-	public function setId($postsId)
-	{
-		$postsId = (int) $postsId;
-		$this->query .= "AND p.id = :postsid ";
-		$this->addToBindParameters('postsid', $postsId);
 	}
 
 	public function setTitle($title)
@@ -103,15 +106,15 @@ class PostsQueryBuilder extends DQLQueryHelper
 		}
 	}
 	
-	public function setParentId($parentId = 0)
+	public function setParentId($parentId)
 	{
 		$this->query .= "AND p.parentId = :parentid ";
-		$this->addToBindParameters('parentid', $parentId);
+		$this->addToBindParameters('parentid', $parentId ? $parentId : 0);
 	}
 	
-	public function setParentIdCategory($parentId = 0)
+	public function setParentIdCategory($parentIdCat)
 	{
 		$this->query .= "AND co.parentId = :parentIdCat ";
-		$this->addToBindParameters('parentIdCat', $parentId);
+		$this->addToBindParameters('parentIdCat', $parentIdCat ? $parentIdCat : 0);
 	}
 }

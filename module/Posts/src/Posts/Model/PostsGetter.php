@@ -8,12 +8,8 @@ use Setup\RecordsGetterAbstract;
 
 /**
  * TODO:
- * 		different methods to get only posts data, posts without helpers records or only attachments !!!
- * 		get attachment\s
- * 		get template file as "layout path" when set \ when there is one or more records
- *		if templatefile is set, get it as tempaltePartial; 
- *		PAGING with adapter,
- *		SEO tags if present, must be set
+ * 		get attachment\s 
+ *		PAGING with adapter
  * @author Andrea Fiori
  * @since  08 January 2014
  */
@@ -30,7 +26,7 @@ class PostsGetter extends RecordsGetterAbstract
 		
 		$this->setQueryBuilder( new PostsQueryBuilder() );
 	}
-		
+
 	public function setPostsRecordsHelper(PostsRecordsHelper $postsRecordsHelper)
 	{
 		$this->postsRecordsHelper = $postsRecordsHelper;
@@ -38,33 +34,37 @@ class PostsGetter extends RecordsGetterAbstract
 		return $this->postsRecordsHelper;
 	}
 
-	public function getPostsRecordsHelper()
+	public function getCompletePostRecord()
 	{
-		return $this->postsRecordsHelper;
+		$postsRecord = $this->getPostsRecordOnly($this->getInput());
+		return $this->getPostsRecordsHelper( $postsRecord );
 	}
 	
-	/**
-	 * 
-	 * @return array
-	 */
-	public function getPost()
+	public function getPostsRecordOnly()
 	{
 		$this->getQueryBuilder()->setSetupManager($this->setupManager);
 		$this->getQueryBuilder()->setQueryBasic();
 		$this->getQueryBuilder()->setBasicBindParameters();
+		$this->getQueryBuilder()->setId( $this->getInput('id') );
 		$this->getQueryBuilder()->setLanguage($this->setupManager->getSetupManagerLanguages()->getLanguageId());
-		$this->getQueryBuilder()->setCategorySeoUrl( $this->setupManager->getInput('categoryName') );
-		$this->getQueryBuilder()->setSeoUrl( $this->setupManager->getInput('title') );
-		$this->getQueryBuilder()->setAliasNotNull( $this->setupManager->getInput('sortByAlias') );
-		$this->getQueryBuilder()->setParentId( $this->setupManager->getInput('parentid') );
-		$this->getQueryBuilder()->setParentIdCategory( $this->setupManager->getInput('parentidcategory') );
-
-		$this->postsRecordsHelper = new PostsRecordsHelper( $this->getQueryBuilder()->getSelectResult() );
-		$this->getPostsRecordsHelper()->setSetupManager($this->setupManager);
-		$this->getPostsRecordsHelper()->setRemotelinkWeb( $this->setupManager->getSetupManagerConfigurations()->getConfigRepository()->getConfigRecord('remotelinkWeb') );
-		$this->getPostsRecordsHelper()->setAdditionalArrayElements();
-		$this->getPostsRecordsHelper()->sortPostsByAlias( $this->setupManager->getInput('sortByAlias') );
+		$this->getQueryBuilder()->setCategorySeoUrl( $this->getInput('categoryName') );
+		$this->getQueryBuilder()->setSeoUrl( $this->getInput('title') );
+		$this->getQueryBuilder()->setAliasNotNull( $this->getInput('aliasnotull') );
+		$this->getQueryBuilder()->setParentId( $this->getInput('parentid') );
+		$this->getQueryBuilder()->setParentIdCategory( $this->getInput('parentidcategory') );
+		
+		return $this->getQueryBuilder()->getSelectResult();
+	}
+	
+	public function getPostsRecordsHelper(array $posts)
+	{
+		$this->postsRecordsHelper = new PostsRecordsHelper($posts);
+		$this->postsRecordsHelper->setSetupManager($this->setupManager);
+		$this->postsRecordsHelper->setRemotelinkWeb( $this->setupManager->getSetupManagerConfigurations()->getConfigRepository()->getConfigRecord('remotelinkWeb') );
+		$this->postsRecordsHelper->setAdditionalArrayElements();
+		$this->postsRecordsHelper->sortPostsByAlias( $this->getInput('sortByAlias') );
 
 		return $this->postsRecordsHelper->getPostsRecords();
 	}
+
 }

@@ -30,8 +30,9 @@ class IndexController extends AbstractActionController
 		/* SINGLE POST SELECTION (to move and refactor) */
 		if ( $setupManager->getInput('categoryName') ):
 			$postGetter = new PostsGetter($setupManager);
+			$postGetter->setInput( $setupManager->getInput() );
 		
-			$postsDetail = $postGetter->getPost();
+			$postsDetail = $postGetter->getCompletePostRecord();
 		endif;
 
 		if ( isset($postsDetail[0]) ) {
@@ -68,4 +69,28 @@ class IndexController extends AbstractActionController
 
     	return new ViewModel();
     }
+	
+	    /**
+	     * @return SetupManager
+	     */
+	    private function getSetupManager()
+	    {
+	    	/* TODO: create FrontendSetupInitializerPlugin
+	    	$bsip = new BackendSetupInitializerPlugin();
+	    	$bsip->setRoute( $this->params()->fromRoute() );
+	    	$bsip->initializeSetupManager();
+	    	 */
+	    	$setupManagerPlugin = new SetupManagerPlugin();
+	    	$setupManager = $setupManagerPlugin->initialize(
+	    			array(
+	    				'isbackend'				=> 0,
+			    		'controller' 			=> $this->params()->fromRoute('controller'),
+			    		'action'	 			=> $this->params()->fromRoute('action'),
+			    		'languageAbbreviation'  => strtolower( $this->params()->fromRoute('lang') ),
+			    		'categoryName' 			=> \Setup\StringRequestDecoder::slugify( $this->params()->fromRoute('category') ),
+			    		'title'		 			=> \Setup\StringRequestDecoder::slugify( $this->params()->fromRoute('title') ),
+	    			)
+	    	);
+	    	return $setupManager;
+	    }
 }

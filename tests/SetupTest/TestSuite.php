@@ -97,7 +97,7 @@ class TestSuite extends \PHPUnit_Framework_TestCase
 	
 	protected function getSetupManager()
 	{
-		$setupManager = new SetupManager( array('channelId' => array(1,0), 'isbackend' => 0) );
+		$setupManager = new SetupManager( array('channelId' => array(1, 0), 'isbackend' => 0) );
 		$setupManager->setEntityManager( $this->getDoctrineEntityManager() );
 		$setupManager->getSetupManagerConfigurations()->setConfigRepository(new ConfigRepository( $setupManager->getEntityManager()) );
 		$setupManager->getSetupManagerConfigurations()->setConfigurations( array('channelId' => array(1,0), 'isbackend' => 0) );

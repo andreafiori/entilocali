@@ -27,8 +27,12 @@ abstract class RecordsGetterAbstract
 		return $this->input;
 	}
 	
-	public function getInput()
+	public function getInput($key=null)
 	{
+		if ($key) {
+			return $this->input[$key];
+		}
+		
 		return $this->input;
 	}
 	

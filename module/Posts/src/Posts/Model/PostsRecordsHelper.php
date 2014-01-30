@@ -43,12 +43,6 @@ class PostsRecordsHelper extends PostsRecordHelperAbstract
 		
 		return $postsRecords;
 	}
-
-		public function getLinkEdit($record)
-		{
-			return '/backend/formdata/?id='.$record['id'];	
-		}
-		
 		/**
 		 * 
 		 * @param array $record
@@ -62,7 +56,8 @@ class PostsRecordsHelper extends PostsRecordHelperAbstract
 				$record['seoUrl'] = $record['seoUrl'].'/';
 			}
 			
-			return $this->remotelinkWeb.$this->getSetupManager()->getSetupManagerLanguages()->getLanguageAbbreviation().'/'. \Setup\StringRequestDecoder::slugify($record['name']).'/'.$record['seoUrl'];
+			$link = $this->remotelinkWeb.$this->getSetupManager()->getSetupManagerLanguages()->getLanguageAbbreviation().'/'. \Setup\StringRequestDecoder::slugify($record['name']).'/'.$record['seoUrl'];
+			return $link;
 		}
 	
 	public function setPartialLayoutTemplate($layout)

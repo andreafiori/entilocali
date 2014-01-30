@@ -3,7 +3,6 @@
 namespace BackendTest\Model;
 
 use SetupTest\TestSuite;
-use Backend\Form\PostsForm;
 
 /**
  * FormSetterAbstractTest
@@ -25,10 +24,10 @@ class FormSetterAbstractTest extends TestSuite
 		$this->formSetterAbstract = $this->getMockForAbstractClass('Backend\Model\FormSetterAbstract', array( $this->setupManager ) );
 	}
 
-	public function testSetForm()
+	public function testGetFromAbstractAreNull()
 	{
-		$this->formSetterAbstract->setForm( new PostsForm($this->setupManager) );
-		
-		$this->assertTrue( $this->formSetterAbstract->getForm() instanceof \Zend\Form\Form);
+		$this->assertEmpty( $this->formSetterAbstract->getRecord() );
+		$this->assertEmpty( $this->formSetterAbstract->getTitle() );
+		$this->assertEmpty( $this->formSetterAbstract->getDescription() );
 	}
 }

@@ -2,64 +2,119 @@
 
 namespace Backend\Model;
 
-use Setup\SetupManager;
-use Zend\Form\Form;
-
 /**
- * FormSetterAbstractTest
+ * FormSetterWrapper
  * @author Andrea Fiori
  * @since  26 January 2014
  */
-class FormSetterWrapper
+class FormSetterWrapper extends FormSetterWrapperAbstract
 {
-	private $setupManager;
-
-	private $formSetter;
-
-	public function __construct(SetupManager $setupManager)
+	public function setFormSetterClassName($className)
 	{
-		$this->setupManager = $setupManager;
-	}
-	
-	/**
-	 * check if a form class name isValid
-	 * @param string $name
-	 * @return boolean
-	 */
-	public function isValidFormSetter($name)
-	{
-		$objNamespace = "Posts\\Model\\".$name;
-		if ($objNamespace instanceof FormSetterAbstract) {
-			$this->formSetter = new $objNamespace( $this->setupManager );
-			return true;
-		}
-				
-		return false;
-	}
-	
-	/**
-	 * @param FormSetterAbstract $formSetter
-	 */
-	public function setFormSetter(FormSetterAbstract $formSetter)
-	{
-		$this->formSetter = $formSetter;
+		$this->formSetterClassName = $this->getBackendFormSetterNamespacePrefix().$className;
 		
-		return $this->formSetter;
+		return $this->formSetterClassName;
 	}
-	
+
 	/**
 	 * @return FormSetterAbstract
 	 */
-	public function getFormSetter()
+	public function setFormSetterInstance()
 	{
-		return $this->formSetter;
+		$className = $this->getFormSetterClassName();
+		if ( !class_exists($className) ) {
+			return false;
+		}
+		
+		$instance = new $className( $this->getSetupManager() );
+		if ($instance instanceof FormSetterAbstract) {
+			$this->formSetterInstance = $instance;
+		}
+		
+		return $this->formSetterInstance;
 	}
 	
 	/**
-	 * @param Form $form
+	 * @param int $id
+	 * @return array
 	 */
-	public function setForm(Form $form)
+	public function setFormSetterRecord($id)
 	{
-		$this->formSetter->setForm($form);
+		if ( $this->checkFormSetterInstance() ) {
+			return $this->getFormSetterInstance()->setRecord($id);
+		}
 	}
+
+	public function setFormSetterTitle()
+	{
+		if ( $this->checkFormSetterInstance() ) {
+			return $this->getFormSetterInstance()->setTitle();
+		}
+	}
+	
+	public function setFormSetterDescription()
+	{
+		if ( $this->checkFormSetterInstance() ) {
+			return $this->getFormSetterInstance()->setDescription();
+		}		
+	}
+	
+		private function checkFormSetterInstance()
+		{
+			$formSetter = $this->getFormSetterInstance();
+			if ($formSetter) {
+				return true;
+			}
+		
+			return false;
+		}
+	
+
+	
+	public function setZendFormClassName()
+	{
+		if ( $this->checkFormSetterInstance() ) {
+			$this->zendFormClassName = $this->getZendFormObjectNamespacePrefix().$this->getFormSetterInstance()->getZendFormClassName();
+		}
+		
+		return $this->zendFormClassName;
+	}
+	
+	public function setZendFormInstance()
+	{
+		$className = $this->zendFormClassName;
+		if ( class_exists($className) ) {
+			$this->zendFormInstance = new $className($this->getSetupManager());
+		}
+
+		return $this->zendFormInstance;
+	}
+	
+	public function initializeForm()
+	{
+		if ( !$this->getZendFormInstance() ) {
+			return false;
+		}
+		
+		$this->getZendFormInstance()->setAttribute('method', 'post');
+		$this->getZendFormInstance()->setAttribute('enctype', 'multipart/form-data');
+		$this->getZendFormInstance()->setAttribute('class', 'form-horizontal');
+		$this->getZendFormInstance()->setAttribute('role', 'form');
+	}
+	
+	public function setFormAction($action)
+	{
+		if ( $this->getZendFormInstance() ) {
+			$this->getZendFormInstance()->setAttribute('action', $action);
+		}
+	}
+	
+	public function setFormRecord()
+	{
+		$record = $this->getFormSetterInstance()->getRecord();
+		if ($record) {
+			$this->getZendFormInstance()->setData($record[0]);
+		}
+	}
+
 }

@@ -12,33 +12,31 @@ use Setup\SetupManager;
  */
 abstract class FormSetterAbstract
 {
-	protected $form, $formTitle, $formDescription;
-	protected $record;
 	protected $setupManager;
 	
+	protected $form, $title, $description;
+	
+	protected $record;
+	
+	protected $zendFormObjectClassName;
+
 	abstract public function setRecord($id);
-	abstract public function setFormTitle();
-	abstract public function setFormDescription();
+
+	abstract public function setTitle();
+
+	abstract public function setDescription();
 
 	public function __construct(SetupManager $setupManager)
 	{
 		$this->setupManager = $setupManager;
 	}
-	
+
 	public function getRecord()
 	{
 		return $this->record;
 	}
-	
-	public function setForm(Form $form)
-	{
-		$this->form = $form;
-	
-		return $this->form;
-	}
-	
+
 	/**
-	 *
 	 * @return Form
 	 */
 	public function getForm()
@@ -46,13 +44,18 @@ abstract class FormSetterAbstract
 		return $this->form;
 	}
 	
-	public function getFormTitle()
+	public function getTitle()
 	{
-		return $this->formTitle;
+		return $this->title;
 	}
 	
-	public function getFormDescription()
+	public function getDescription()
 	{
-		return $this->formDescription;
+		return $this->description;
+	}
+
+	public function getZendFormClassName()
+	{
+		return $this->zendFormObjectClassName;
 	}
 }

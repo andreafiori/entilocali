@@ -21,9 +21,8 @@ class PostsQueryBuilderTest extends TestSuite
 	protected function setUp()
 	{
 		parent::setUp();
-		
-		$this->setupManager = new SetupManager( array('channel' => 1, 'isbackend' => 0) );
-		$this->setupManager->setEntityManager( $this->getServiceManager()->get('\Doctrine\ORM\EntityManager') );
+
+		$this->setupManager = $this->getSetupManager();
 
 		$this->postsQueryBuilder = new PostsQueryBuilder();
 		$this->postsQueryBuilder->setSetupManager($this->setupManager);

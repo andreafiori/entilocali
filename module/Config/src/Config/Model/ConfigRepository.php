@@ -32,7 +32,6 @@ class ConfigRepository extends QueryMakerAbstract {
 	
 	/**
 	 * Set configuration name => value from the record select on db
-	 * TODO: to move!
 	 * @throws \Setup\NullException
 	 */
 	public function initConfigRecord()
@@ -50,7 +49,7 @@ class ConfigRepository extends QueryMakerAbstract {
 
 	public function getConfigRecord($key = null)
 	{
-		if ($key) {
+		if ($key and isset($this->configRecord[$key])) {
 			return $this->configRecord[$key];
 		}
 		
