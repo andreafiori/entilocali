@@ -13,18 +13,19 @@ use Zend\InputFilter\InputFilterInterface;
  */
 class PostsFormInputFilter implements InputFilterAwareInterface
 {
-	public $id, $name, $email;
+	public $idpost, $idpostoption, $title, $description, $seoUrl, $seoKeywords, $seoDescription;
 
 	protected $inputFilter;
 
 	public function exchangeArray($data)
 	{
-		$this->id     = (isset($data['id']))     ? $data['id']     : null;
-		$this->title  = (isset($data['title'])) ? $data['title'] : null;
-		$this->description  = (isset($data['description']))  ? $data['description']  : null;
-		$this->seoUrl  = (isset($data['seoUrl']))  ? $data['seoUrl']  : null;
-		$this->seoKeywords  = (isset($data['seoKeywords']))  ? $data['seoKeywords']  : null;
-		$this->seoDescription  = (isset($data['seoDescription']))  ? $data['seoDescription']  : null;
+		$this->idpost    		= (isset($data['idpost'])) ? $data['idpost'] : null;
+		$this->idpostoption    	= (isset($data['idpostoption'])) ? $data['idpostoption'] : null;
+		$this->title 	 		= (isset($data['title'])) ? $data['title'] : null;
+		$this->description  	= (isset($data['description']))  ? $data['description']  : null;
+		$this->seoUrl			= (isset($data['seoUrl']))  ? $data['seoUrl']  : null;
+		$this->seoKeywords  	= (isset($data['seoKeywords']))  ? $data['seoKeywords']  : null;
+		$this->seoDescription  	= (isset($data['seoDescription']))  ? $data['seoDescription']  : null;
 	}
 
 	public function getArrayCopy()

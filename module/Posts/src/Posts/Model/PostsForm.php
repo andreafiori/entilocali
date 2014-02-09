@@ -19,7 +19,8 @@ class PostsForm extends Form
 		
 		$labels = $setupManager->getSetupManagerLanguagesLabels();
 		
-		//if (=='blog' or =='photo'):
+		/*
+		if (=='blog' or =='photo'):
 		$this->add(array(
 				'name' => 'image',
 				'type' => 'Zend\Form\Element\File',
@@ -30,7 +31,8 @@ class PostsForm extends Form
 						'id' => 'image',
 				)
 		));
-		//endif;
+		endif;
+		*/
 		
 		$this->add(array(
 				'name' => 'title',

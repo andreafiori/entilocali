@@ -78,6 +78,6 @@ class BackendController extends BackendControllerAbstract
 		$this->layout()->setVariable("templateData", $setupManager->getTemplateDataSetter()->getTemplateData() );
 
 		return new ViewModel();
-	}*/
-
+	}
+	*/
 }

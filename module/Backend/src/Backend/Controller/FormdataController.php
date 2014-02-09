@@ -62,15 +62,14 @@ class FormdataController extends BackendController
 			if ($formSetterWrapper->getFormSetterInstance()):
 				$action = $setupManager->getTemplateDataSetter()->getTemplateData('loggedSectionPathBackendWithLanguage').'formpost/'.$formSetterWrapper->getFormSetterInstance()->getAction();
 				$formSetterWrapper->initializeForm($action);
-				/*
-				$request = $this->getRequest();	
+				
+				$request = $this->getRequest();
 				if ( $request->isPost() )
 				{
 					$formSetterWrapper->getZendFormInstance()->setInputFilter($formSetterWrapper->getZendFormInstance()->getInputFilter());
 					$formSetterWrapper->getZendFormInstance()->setData($request->getPost());
 					$formSetterWrapper->getZendFormInstance()->isValid();
 				}
-				*/
 			endif;
 			
 			return $formSetterWrapper;
