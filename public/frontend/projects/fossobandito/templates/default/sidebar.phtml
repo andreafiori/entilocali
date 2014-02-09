@@ -1,40 +1,72 @@
-	
-	<!-- PAST -->
 	<div class="custom-sidebar gdl-divider">
 		
-		<div class="sidebar-title-wrapper"><h3 class="custom-sidebar-title sidebar-title-color gdl-title"><?php echo $templateData['languageLabels']['PAST'] ?></h3><div class="sidebar-title-wrapper-line gdl-divider"></div><div class="clear"></div></div>
+		<div class="sidebar-title-wrapper"><h3 class="custom-sidebar-title sidebar-title-color gdl-title">Area Fosso Bandito</h3><div class="sidebar-title-wrapper-line gdl-divider"></div><div class="clear"></div></div>
 		
 		<ul class="xoxo blogroll">		
-			<li><a href="<?php echo $templateData['remotelinkWeb'].$templateData['languageAbbreviation'] ?>/Timeline/" class="iframexternal" title="<?php echo $templateData['languageLabels']['STORIA'] ?>"><?php echo $templateData['languageLabels']['STORIA'] ?></a></li>			
-			<li><a class="gallery_degrado" href="javascript:void(0);" title=""><?php echo $templateData['languageLabels']['DEGRADO']?></a></li>
-			<li><a href="<?php echo $templateData['preloadrecord']['repetti']['linkDetails'] ?>" title="<?php echo $templateData['preloadrecord']['repetti']['title'] ?>"><?php echo $templateData['preloadrecord']['repetti']['title'] ?></a></li>
+			<!-- Ristorante \ Pizzeria -->
+			<li><a href="<?php echo $this->templateData['preloadrecord']['ristorante']['linkDetails'] ?>" title=""><?php echo $this->templateData['preloadrecord']['ristorante']['title'] ?></a></li>
+			<!-- 321 -->
+			<li><a href="<?php echo $this->templateData['preloadrecord']['321']['linkDetails'] ?>" title=""><?php echo $this->templateData['preloadrecord']['321']['title'] ?></a></li>
+			<!-- Griglieria -->
+			<li><a href="<?php echo $this->templateData['preloadrecord']['griglieria']['linkDetails'] ?>" title=""><?php echo $this->templateData['preloadrecord']['griglieria']['title'] ?></a></li>
+			<!-- Bar \ Gelateria -->
+			<li><a href="<?php echo $this->templateData['preloadrecord']['bar']['linkDetails'] ?>" title=""><?php echo $this->templateData['preloadrecord']['bar']['title'] ?></a></li>
+			
+			<!-- Eventi -->
+			<li><a href="#" title="">Eventi</a></li>
+			<!-- Eventi passati -->
+			<!-- Eventi futuri -->
+			
+			<!-- Sport -->
+			<li><a href="<?php echo $this->templateData['preloadrecord']['sport']['linkDetails'] ?>" title=""><?php echo $this->templateData['preloadrecord']['sport']['title'] ?></a></li>
+			<!-- Noleggio -->
+			<li><a href="<?php echo $this->templateData['preloadrecord']['noleggio']['linkDetails'] ?>" title=""><?php echo $this->templateData['preloadrecord']['noleggio']['title'] ?></a></li>
+			<!-- Parcheggio -->
+			<li><a href="<?php echo $this->templateData['preloadrecord']['parcheggio']['linkDetails'] ?>" title=""><?php echo $this->templateData['preloadrecord']['parcheggio']['title'] ?></a></li>
+			<!-- Merchandising -->
+			<li><a href="<?php echo $this->templateData['preloadrecord']['merchandising']['linkDetails'] ?>" title=""><?php echo $this->templateData['preloadrecord']['merchandising']['title'] ?></a></li>
+			<!-- Associazione \ Info -->
+			<li><a href="<?php echo $this->templateData['preloadrecord']['associazione']['linkDetails'] ?>" title=""><?php echo $this->templateData['preloadrecord']['associazione']['title'] ?></a></li>
+
 		</ul>
 		
 	</div>
 	
-	<!-- PRESENT -->
+	<!-- 
 	<div class="custom-sidebar gdl-divider">
 		
-		<div class="sidebar-title-wrapper"><h3 class="custom-sidebar-title sidebar-title-color gdl-title"><?php echo $templateData['languageLabels']['PRESENT'] ?></h3><div class="sidebar-title-wrapper-line gdl-divider"></div>
+		<div class="sidebar-title-wrapper"><h3 class="custom-sidebar-title sidebar-title-color gdl-title"><?php echo $this->templateData['languageLabels']['PAST'] ?></h3><div class="sidebar-title-wrapper-line gdl-divider"></div><div class="clear"></div></div>
+		
+		<ul class="xoxo blogroll">		
+			<li><a href="<?php echo $this->templateData['remotelinkWeb'].$this->templateData['languageAbbreviation'] ?>/Timeline/" class="iframexternal" title="<?php echo $this->templateData['languageLabels']['STORIA'] ?>"><?php echo $this->templateData['languageLabels']['STORIA'] ?></a></li>		
+			<li><a class="gallery_degrado" href="javascript:void(0);" title=""><?php echo $this->templateData['languageLabels']['DEGRADO']?></a></li>
+			<li><a href="<?php echo $this->templateData['preloadrecord']['repetti']['linkDetails'] ?>" title="<?php echo $this->templateData['preloadrecord']['repetti']['title'] ?>"><?php echo $this->templateData['preloadrecord']['repetti']['title'] ?></a></li>
+		</ul>
+		
+	</div>
+	
+	<div class="custom-sidebar gdl-divider">
+		
+		<div class="sidebar-title-wrapper"><h3 class="custom-sidebar-title sidebar-title-color gdl-title"><?php echo $this->templateData['languageLabels']['PRESENT'] ?></h3><div class="sidebar-title-wrapper-line gdl-divider"></div>
 		<div class="clear"></div>
 		</div>
 		
 		<ul class="xoxo blogroll">
-			<li><a href="<?php echo $templateData['preloadrecord']['present']['linkDetails'] ?>" title="<?php echo $templateData['preloadrecord']['present']['title'] ?>"><?php echo $templateData['preloadrecord']['present']['title'] ?></a></li>
-			<li><a href="http://player.vimeo.com/video/70095637" class="iframexternal" title="<?php echo $templateData['languageLabels']['PRESENT_WORK_IN_PROGRESS'] ?>"><?php echo $templateData['languageLabels']['PRESENT_WORK_IN_PROGRESS'] ?></a></li>
+			<li><a href="<?php echo $this->templateData['preloadrecord']['present']['linkDetails'] ?>" title="<?php echo $this->templateData['preloadrecord']['present']['title'] ?>"><?php echo $this->templateData['preloadrecord']['present']['title'] ?></a></li>
+			<li><a href="http://player.vimeo.com/video/70095637" class="iframexternal" title="<?php echo $this->templateData['languageLabels']['PRESENT_WORK_IN_PROGRESS'] ?>"><?php echo $this->templateData['languageLabels']['PRESENT_WORK_IN_PROGRESS'] ?></a></li>
 		</ul>
 		
 	</div>
-	
-	<!-- FUTURE -->
+
 	<div class="custom-sidebar gdl-divider">
 		
-		<div class="sidebar-title-wrapper"><h3 class="custom-sidebar-title sidebar-title-color gdl-title"><?php echo $templateData['languageLabels']['FUTURE'] ?></h3><div class="sidebar-title-wrapper-line gdl-divider"></div><div class="clear"></div></div>
+		<div class="sidebar-title-wrapper"><h3 class="custom-sidebar-title sidebar-title-color gdl-title"><?php echo $this->templateData['languageLabels']['FUTURE'] ?></h3><div class="sidebar-title-wrapper-line gdl-divider"></div><div class="clear"></div></div>
 		
 		<ul class="xoxo blogroll">
-			<li><a href="<?php echo $templateData['preloadrecord']['future']['linkDetails'] ?>" title="<?php echo $templateData['preloadrecord']['future']['title'] ?>"><?php echo $templateData['preloadrecord']['future']['title'] ?></a></li>
-			<li><a href="<?php echo $templateData['preloadrecord']['activities']['linkDetails'] ?>" title="<?php echo $templateData['preloadrecord']['activities']['title'] ?>"><?php echo $templateData['preloadrecord']['activities']['title'] ?></a></li>
-			<li><a href="http://player.vimeo.com/video/69875407" class="iframexternal" title="<?php echo $templateData['languageLabels']['VIDEO'] ?>"><?php echo $templateData['languageLabels']['VIDEO'] ?></a></li>
+			<li><a href="<?php echo $this->templateData['preloadrecord']['future']['linkDetails'] ?>" title="<?php echo $this->templateData['preloadrecord']['future']['title'] ?>"><?php echo $this->templateData['preloadrecord']['future']['title'] ?></a></li>
+			<li><a href="<?php echo $this->templateData['preloadrecord']['activities']['linkDetails'] ?>" title="<?php echo $this->templateData['preloadrecord']['activities']['title'] ?>"><?php echo $this->templateData['preloadrecord']['activities']['title'] ?></a></li>
+			<li><a href="http://player.vimeo.com/video/69875407" class="iframexternal" title="<?php echo $this->templateData['languageLabels']['VIDEO'] ?>"><?php echo $this->templateData['languageLabels']['VIDEO'] ?></a></li>
 		</ul>
 		
 	</div>
+	-->

@@ -14,7 +14,7 @@ class PostsQueryBuilder extends DQLQueryHelper
 	public function setQueryBasic()
 	{
 		if (!$this->getDefaultFieldsSelect()) {
-			$this->setDefaultFieldsSelect('DISTINCT(p.id) AS postid, p.typeofpost, p.alias, po.title, p.status, po.description, po.seoUrl, po.seoDescription, po.seoKeywords, p.templatefile, co.name');
+			$this->setDefaultFieldsSelect('DISTINCT(p.id) AS postid, po.id AS postoptionid, p.typeofpost, p.alias, po.title, p.status, po.description, po.seoUrl, po.seoDescription, po.seoKeywords, p.templatefile, co.name');
 		}
 		
 		$this->queryBasic = "SELECT ".$this->getDefaultFieldsSelect()." FROM Application\\Entity\\PostsOptions po, Application\\Entity\\Posts p,
@@ -68,10 +68,10 @@ class PostsQueryBuilder extends DQLQueryHelper
 
 	public function setTitle($title)
 	{
-		if (!$title) return false;
-		
-		$this->query .= "AND po.title = :title ";
-		$this->addToBindParameters('title', $title);
+		if ( $title ) {
+			$this->query .= "AND po.title = :title ";
+			$this->addToBindParameters('title', $title);
+		}
 	}
 	
 	/**
@@ -81,12 +81,10 @@ class PostsQueryBuilder extends DQLQueryHelper
 	 */
 	public function setSeoUrl($seoUrl)
 	{
-		if (!$seoUrl) {
-			return false;
+		if ( $seoUrl ) {
+			$this->query .= "AND po.seoUrl = :seourl ";
+			$this->addToBindParameters('seourl', $seoUrl);
 		}
-
-		$this->query .= "AND po.seoUrl = :seourl ";
-		$this->addToBindParameters('seourl', $seoUrl);
 	}
 	
 	public function setStatus($status)

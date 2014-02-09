@@ -11,6 +11,7 @@ class SetupManagerLanguages extends SetupManagerAbstract
 	protected $languagesSetup;
 	
 	protected $languagesLabelsRepository;
+	
 	protected $languagesLabels;
 
 	public function setLanguagesSetup(LanguagesSetup $languagesSetup)
@@ -66,8 +67,7 @@ class SetupManagerLanguages extends SetupManagerAbstract
 	}
 	
 	/**
-	 *
-	 * @param unknown $lang
+	 * @param string $lang
 	 */
 	public function setLanguageAbbreviation($lang)
 	{
@@ -77,7 +77,7 @@ class SetupManagerLanguages extends SetupManagerAbstract
 	public function setLanguageAbbreviationFromDefaultLanguage()
 	{
 		$this->languageAbbreviation = $this->getDefaultLanguage('abbreviation1');
-	
+
 		return $this->languageAbbreviation;
 	}
 	

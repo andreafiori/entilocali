@@ -2,36 +2,27 @@
 
 namespace Application\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use ServiceLocatorFactory;
 use Posts\Model\PostsGetter;
-use Application\Controller\Plugin\SetupManagerPlugin;
+use Application\Controller\Plugin\FrontendSetupInitializerPlugin;
 
 /**
  * Frontend main controller
  * @author Andrea Fiori
  * @since  04 December 2013
  */
-class IndexController extends AbstractActionController
+class IndexController extends FrontendControllerAbstract
 {
     public function indexAction()
     {
-    	$setupManagerPlugin = new SetupManagerPlugin();
-    	$setupManager = $setupManagerPlugin->initialize(array(
-    			'isbackend'				=> 0,
-    			'controller' 			=> $this->params()->fromRoute('controller'),
-    			'action'	 			=> $this->params()->fromRoute('action'),
-    			'languageAbbreviation'  => strtolower( $this->params()->fromRoute('lang') ),
-    			'categoryName' 			=> \Setup\StringRequestDecoder::slugify( $this->params()->fromRoute('category') ),
-    			'title'		 			=> \Setup\StringRequestDecoder::slugify( $this->params()->fromRoute('title') ),
-    	));
+    	$setupManager = $this->getSetupManager();
 
-		/* SINGLE POST SELECTION (to move and refactor) */
+		/* SINGLE POST SELECTION; TODO: select data for all languages and set the switch link */
 		if ( $setupManager->getInput('categoryName') ):
 			$postGetter = new PostsGetter($setupManager);
 			$postGetter->setInput( $setupManager->getInput() );
-		
+
 			$postsDetail = $postGetter->getCompletePostRecord();
 		endif;
 
@@ -48,16 +39,11 @@ class IndexController extends AbstractActionController
 			}
 		} else {
 			$setupManager->getTemplateDataSetter()->assignToTemplate('templatePartial', $setupManager->getTemplateDataSetter()->getTemplateData('template_path').'homepage.phtml');
-			
-			/* Set redirect if it's not on home page? not always */
-			if ( $setupManager->getInput('categoryName')!='' ) {
-				// $this->redirect()->toRoute('home');
-			}
 		}
 
 		/* TEMPLATE DATA */
 		$setupManager->getTemplateDataSetter()->assignToTemplate('controllerResult', $postsDetail);
-		$setupManager->getTemplateDataSetter()->assignToTemplate('categoryName', $setupManager->getInput('categoryName') );
+		$setupManager->getTemplateDataSetter()->assignToTemplate('categoryName', ucfirst(\Setup\StringRequestDecoder::deslugify($setupManager->getInput('categoryName'))) );
 
 		/* SEO Tags */
 		$setupManager->getTemplateDataSetter()->assignToTemplate('seo_title', 		$setupManager->getTemplateDataSetter()->getTemplateData('sitename'));
@@ -75,22 +61,9 @@ class IndexController extends AbstractActionController
 	     */
 	    private function getSetupManager()
 	    {
-	    	/* TODO: create FrontendSetupInitializerPlugin
-	    	$bsip = new BackendSetupInitializerPlugin();
-	    	$bsip->setRoute( $this->params()->fromRoute() );
-	    	$bsip->initializeSetupManager();
-	    	 */
-	    	$setupManagerPlugin = new SetupManagerPlugin();
-	    	$setupManager = $setupManagerPlugin->initialize(
-	    			array(
-	    				'isbackend'				=> 0,
-			    		'controller' 			=> $this->params()->fromRoute('controller'),
-			    		'action'	 			=> $this->params()->fromRoute('action'),
-			    		'languageAbbreviation'  => strtolower( $this->params()->fromRoute('lang') ),
-			    		'categoryName' 			=> \Setup\StringRequestDecoder::slugify( $this->params()->fromRoute('category') ),
-			    		'title'		 			=> \Setup\StringRequestDecoder::slugify( $this->params()->fromRoute('title') ),
-	    			)
-	    	);
-	    	return $setupManager;
+	    	$fsip = new FrontendSetupInitializerPlugin();
+	    	$fsip->setRoute( $this->params()->fromRoute() );
+
+	    	return $fsip->initializeSetupManager();
 	    }
 }

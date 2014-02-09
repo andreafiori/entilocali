@@ -22,6 +22,13 @@ class Timeline
     private $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="note", type="string", length=80, nullable=true)
+     */
+    private $note;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="century", type="integer", nullable=true)
@@ -73,20 +80,6 @@ class Timeline
     /**
      * @var string
      *
-     * @ORM\Column(name="description_lang3", type="text", nullable=true)
-     */
-    private $descriptionLang3;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description_lang4", type="text", nullable=true)
-     */
-    private $descriptionLang4;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="status", type="text", nullable=true)
      */
     private $status;
@@ -101,6 +94,29 @@ class Timeline
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set note
+     *
+     * @param string $note
+     * @return Timeline
+     */
+    public function setNote($note)
+    {
+        $this->note = $note;
+
+        return $this;
+    }
+
+    /**
+     * Get note
+     *
+     * @return string 
+     */
+    public function getNote()
+    {
+        return $this->note;
     }
 
     /**
@@ -262,52 +278,6 @@ class Timeline
     public function getDescriptionLang2()
     {
         return $this->descriptionLang2;
-    }
-
-    /**
-     * Set descriptionLang3
-     *
-     * @param string $descriptionLang3
-     * @return Timeline
-     */
-    public function setDescriptionLang3($descriptionLang3)
-    {
-        $this->descriptionLang3 = $descriptionLang3;
-
-        return $this;
-    }
-
-    /**
-     * Get descriptionLang3
-     *
-     * @return string 
-     */
-    public function getDescriptionLang3()
-    {
-        return $this->descriptionLang3;
-    }
-
-    /**
-     * Set descriptionLang4
-     *
-     * @param string $descriptionLang4
-     * @return Timeline
-     */
-    public function setDescriptionLang4($descriptionLang4)
-    {
-        $this->descriptionLang4 = $descriptionLang4;
-
-        return $this;
-    }
-
-    /**
-     * Get descriptionLang4
-     *
-     * @return string 
-     */
-    public function getDescriptionLang4()
-    {
-        return $this->descriptionLang4;
     }
 
     /**

@@ -3,16 +3,17 @@
 namespace Setup;
 
 /**
- * Manage channel, language, config, template settings 
+ * Manage channel, language, config, template settings
  * @author Andrea Fiori
  * @since  11 December 2013
  */
 class SetupManager extends SetupManagerAbstract
-{		
+{
 	public function __construct(array $input)
 	{
 		$this->input = $input;
 		
+		/* Inject these objects after? */
 		$this->setupManagerLanguages 		= new SetupManagerLanguages();
 		$this->setupManagerLanguagesLabels	= new SetupManagerLanguagesLabels();
 		$this->setupManagerConfigurations 	= new SetupManagerConfigurations();
@@ -20,7 +21,7 @@ class SetupManager extends SetupManagerAbstract
 	}
 
 	/**
-	 * TODO: detect channel 
+	 * TODO: channel detection 
 	 */
 	public function setChannelId()
 	{

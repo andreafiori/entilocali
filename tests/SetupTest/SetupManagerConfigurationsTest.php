@@ -19,6 +19,7 @@ class SetupManagerConfigurationsTest extends TestSuite {
 	
 	public function testSetConfigRepository()
 	{
+		$this->setupManagerConfigurations->setEntityManager( $this->getEntityManagerMock() );
 		$this->setupManagerConfigurations->setConfigRepository( $this->getConfigRepository() );
 
 		$this->assertTrue( $this->setupManagerConfigurations->getConfigRepository() instanceof ConfigRepository);

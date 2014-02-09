@@ -3,7 +3,6 @@
 namespace SetupTest;
 
 use Setup\SetupManagerWrapper;
-use Application\Entity\LanguagesLabels;
 use Setup\SetupManagerLanguages;
 use Setup\SetupManagerLanguagesLabels;
 use Setup\SetupManagerConfigurations;

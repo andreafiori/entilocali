@@ -12,7 +12,7 @@ class ContactsController extends AbstractActionController
     	if ($request->isPost()) {
     		var_dump( $this->params()->fromPost() );
     	}
-    	var_dump( $this->params()->fromFiles() );
+    	//var_dump( $this->params()->fromFiles() );
     	
     	$response = $this->getResponse();
         $response->setStatusCode(200);

@@ -230,7 +230,7 @@ jQuery(document).ready(function() {
 		$.ajax({
 			type : 'POST',
 			data : {'gal' : $(this).attr('rel')},
-			url : '<?php echo $this->templateData['remotelinkWeb'] ?>getGallery.php?g=degrado',
+			url : '<?php echo $this->templateData['remotelinkWeb'] ?>posts/photo/galleryjson',
 			dataType: 'text',
 			complete: function(data) {
 				var dataX = data.responseText;

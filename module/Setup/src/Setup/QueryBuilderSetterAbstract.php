@@ -7,7 +7,7 @@ namespace Setup;
  * @author Andrea Fiori
  * @since  22 January 2014
  */
-abstract class RecordsGetterAbstract
+abstract class QueryBuilderSetterAbstract
 {
 	protected $input;
 	
@@ -27,7 +27,7 @@ abstract class RecordsGetterAbstract
 		return $this->input;
 	}
 	
-	public function getInput($key=null)
+	public function getInput($key = null)
 	{
 		if ($key) {
 			return $this->input[$key];

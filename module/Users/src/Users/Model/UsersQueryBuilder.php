@@ -5,7 +5,7 @@ namespace Users\Model;
 use Setup\DQLQueryHelper;
 
 /**
- * User Query Getter
+ * 
  * @author Andrea Fiori
  * @since  14 January 2014
  */

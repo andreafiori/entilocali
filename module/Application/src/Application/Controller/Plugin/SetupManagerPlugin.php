@@ -13,6 +13,8 @@ use Setup\SetupManager;
  */
 class SetupManagerPlugin extends AbstractPlugin
 {
+	protected $setupManager;
+
 	/**
 	 * Common setup and initializations for frontend and backend
 	 * @return SetupManager
@@ -26,7 +28,26 @@ class SetupManagerPlugin extends AbstractPlugin
 		$setupManagerWrapper->setupConfigurations();
 		$setupManagerWrapper->setupTemplateRecords();
 		$setupManagerWrapper->setupPreloadRecord();
+
+		return $this->setSetupManager( $setupManagerWrapper->getSetupManager() );
+	}
+
+	/**
+	 * @param SetupManager $setupManager
+	 * @return SetupManager
+	 */
+	public function setSetupManager(SetupManager $setupManager)
+	{
+		$this->setupManager = $setupManager;
 		
-		return $setupManagerWrapper->getSetupManager();
+		return $this->setupManager;
+	}
+
+	/**
+	 * @return SetupManager
+	 */
+	public function getSetupManager()
+	{
+		return $this->setupManager;
 	}
 }

@@ -6,26 +6,44 @@ use Backend\Model\FormSetterAbstract;
 use Posts\Model\PostsGetter;
 
 /**
- * PostsFormSetter
+ * TODO: 
+ * 		check if you can show the form...
  * @author Andrea Fiori
  * @since  26 January 2014
  */
 class PostsFormSetter extends FormSetterAbstract
 {
-	protected $zendFormObjectClassName = 'PostsForm';
+	protected $zendFormObjectClassName = '\Posts\Model\PostsForm';
 	
+	/**
+	 * set single record using PostsGetter
+	 */
 	public function setRecord($id)
 	{
-		if ( !is_numeric($id) ) {
-			return false;
+		if ( is_numeric($id) ) {
+			$postsFormGetter = new PostsGetter($this->setupManager);
+			$postsFormGetter->setInput( array('id' => $id) );
+
+			$this->record = $postsFormGetter->getPostsRecordOnly();
 		}
 
-		$postsFormGetter = new PostsGetter($this->setupManager);
-		$postsFormGetter->setInput( array('id' => $id) );
-
-		$this->record = $postsFormGetter->getPostsRecordOnly();
+		return $this->record;
+	}
+	
+	public function setAction()
+	{
+		if ( $this->getRecord() ) {
+			$this->action = "PostsFormPosts/edit/";
+		} else {
+			$this->action = "PostsFormPosts/add/";
+		}
+		
+		return $this->action;
 	}
 
+	/**
+	 * TODO: set form title basic on typeofpost
+	 */
 	public function setTitle()
 	{
 		$labels = $this->setupManager->getSetupManagerLanguagesLabels();
@@ -33,7 +51,7 @@ class PostsFormSetter extends FormSetterAbstract
 		if ($record) {
 			$this->title = $record[0]['title'];
 		} else {
-			// TODO: set form title basic on typeofpost
+
 		}
 		
 		return $this->title;
@@ -42,7 +60,7 @@ class PostsFormSetter extends FormSetterAbstract
 	public function setDescription()
 	{
 		$labels = $this->setupManager->getSetupManagerLanguagesLabels();
-
-		$this->formDescription = '';
+		
+		//$this->formDescription = $labels[''];
 	}
 }

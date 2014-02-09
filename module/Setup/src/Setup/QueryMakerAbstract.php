@@ -7,21 +7,26 @@ use Doctrine\ORM\EntityManager;
 
 /**
  * 
+ * TODO: merge this object with DQLQueryHelper to inject a mock on every object to make query
  * @author Andrea Fiori
  * @since  14 January 2014
+ * 
  */
 abstract class QueryMakerAbstract
 {
 	protected $entityManager;
+	
 	protected $entitySerializer;
+	
 	protected $repository;
 
 	public function __construct(ObjectManager $objectManager)
 	{
-		$this->entityManager = $objectManager;
-
+		$this->setEntityManager( $objectManager );
+		/*
 		$this->setEntitySerializer( new EntitySerializer($objectManager) );
 		$this->setRepository();
+		*/
 	}
 
 	public function setEntityManager(ObjectManager $objectManager)
@@ -34,7 +39,7 @@ abstract class QueryMakerAbstract
 		if ($repo) {
 			$this->repository = $repo;
 		}
-				
+
 		return $this->repository;
 	}
 
@@ -57,10 +62,10 @@ abstract class QueryMakerAbstract
 		if (!$this->entitySerializer) {
 			$this->entitySerializer = new EntitySerializer($this->getEntityManager());
 		}
-	
+
 		return $this->entitySerializer;
 	}
-	
+
 	public function convertArrayOfObjectToArray(array $arrayOfObject)
 	{
 		$arrayToReturn = array();
@@ -86,7 +91,11 @@ abstract class QueryMakerAbstract
 
 	public function getFindFromRepository($arraySearch = null, array $orderBy = null, $limit = null, $offset = null)
 	{
-		if (is_array($arraySearch)) {
+		if ( !is_object($this->getEntityManager()->getRepository($this->getRepository())) ) {
+			throw new NullException("Entity Manager Repository is not set on QueryMakerAbstract");
+		}
+		
+		if ( is_array($arraySearch) ) {
 			return $this->getEntityManager()->getRepository($this->getRepository())->findBy($arraySearch, $orderBy, $limit, $offset);
 		} else {
 			return $this->getEntityManager()->getRepository($this->getRepository())->findAll();

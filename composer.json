@@ -9,7 +9,6 @@
 		"bjyoungblood/bjy-authorize": "dev-master"
     },
     "require-dev": {
-		"mockery/mockery": "dev-master@dev",
         "zendframework/zftool": "dev-master",
         "zendframework/zend-developer-tools": "dev-master"
     }

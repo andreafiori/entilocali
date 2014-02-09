@@ -3,6 +3,8 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Posts\Controller\Posts' => 'Posts\Controller\PostsController',
+            'Posts\Controller\Photo' => 'Posts\Controller\PhotoController',
+        	'PostsFormPosts' 		 => 'Posts\Controller\PostsFormPostsController',
         ),
     ),
     'router' => array(
@@ -10,22 +12,15 @@ return array(
             'posts' => array(
                 'type'    => 'Literal',
                 'options' => array(
-                    // Change this to something specific to your module
                     'route'    => '/posts',
                     'defaults' => array(
-                        // Change this value to reflect the namespace in which
-                        // the controllers for your module are found
                         '__NAMESPACE__' => 'Posts\Controller',
                         'controller'    => 'Posts',
                         'action'        => 'index',
-                    ),
+					),
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
-                    // This route is a sane default when developing a module;
-                    // as you solidify the routes for your module, however,
-                    // you may want to remove it and replace it with more
-                    // specific routes.
                     'default' => array(
                         'type'    => 'Segment',
                         'options' => array(

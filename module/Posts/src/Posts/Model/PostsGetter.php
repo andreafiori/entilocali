@@ -4,7 +4,7 @@ namespace Posts\Model;
 
 use Setup\SetupManager;
 use Posts\Model\PostsQueryBuilder;
-use Setup\RecordsGetterAbstract;
+use Setup\QueryBuilderSetterAbstract;
 
 /**
  * TODO:
@@ -13,7 +13,7 @@ use Setup\RecordsGetterAbstract;
  * @author Andrea Fiori
  * @since  08 January 2014
  */
-class PostsGetter extends RecordsGetterAbstract
+class PostsGetter extends QueryBuilderSetterAbstract
 {
 	private $postsQueryBuilder, $postsRecordsHelper;
 	
@@ -23,7 +23,7 @@ class PostsGetter extends RecordsGetterAbstract
 	public function __construct(SetupManager $setupManager)
 	{
 		$this->setupManager = $setupManager;
-		
+
 		$this->setQueryBuilder( new PostsQueryBuilder() );
 	}
 

@@ -33,12 +33,12 @@ return array(
 																'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
 														),
 														'defaults' => array(
+																
 														),
 												),
 										),
 								),
 						),
-						
 						'main' => array(
 								'type'    => 'segment',
 								'options' => array(
@@ -90,7 +90,8 @@ return array(
 		),
 		'controllers' => array(
 				'invokables' => array(
-						'Application\Controller\Index' => 'Application\Controller\IndexController'
+						'Application\Controller\Index' 	  => 'Application\Controller\IndexController',
+						'Application\Controller\Timeline' => 'Application\Controller\TimelineController'
 				),
 		),
 		'view_manager' => array(

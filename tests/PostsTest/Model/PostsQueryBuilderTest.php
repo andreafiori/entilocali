@@ -3,7 +3,6 @@
 namespace PostsTest\Model;
 
 use SetupTest\TestSuite;
-use Setup\SetupManager;
 use Posts\Model\PostsQueryBuilder;
 use ServiceLocatorFactory\ServiceLocatorFactory;
 
@@ -27,7 +26,7 @@ class PostsQueryBuilderTest extends TestSuite
 		$this->postsQueryBuilder = new PostsQueryBuilder();
 		$this->postsQueryBuilder->setSetupManager($this->setupManager);
 	}
-
+	
 	public function testGetQueryResult()
 	{
 		$this->postsQueryBuilder->setBasicBindParameters();
@@ -35,12 +34,12 @@ class PostsQueryBuilderTest extends TestSuite
 		
 		$this->assertTrue( is_array($this->postsQueryBuilder->getSelectResult()) );
 	}
-
+	
 	public function testSetCategoryName()
 	{
 		$this->postsQueryBuilder->setBasicBindParameters();
 		$this->postsQueryBuilder->setCategoryName("Contatti");
-		
+
 		$this->assertArrayHasKey('cname', $this->postsQueryBuilder->getBindParameters());
 	}
 	
@@ -54,6 +53,7 @@ class PostsQueryBuilderTest extends TestSuite
 	public function testSetTitle()
 	{
 		$this->postsQueryBuilder->setTitle("Credits");
+		
 		$this->assertNotEmpty($this->postsQueryBuilder->getSelectQuery());
 		$this->assertArrayHasKey('title', $this->postsQueryBuilder->getBindParameters());
 	}
@@ -61,6 +61,7 @@ class PostsQueryBuilderTest extends TestSuite
 	public function testSetStatus()
 	{
 		$this->postsQueryBuilder->setStatus('DELETED');
+		
 		$this->assertNotEmpty($this->postsQueryBuilder->getSelectQuery());
 		$this->assertArrayHasKey('status', $this->postsQueryBuilder->getBindParameters());
 	}
@@ -73,25 +74,10 @@ class PostsQueryBuilderTest extends TestSuite
 		
 		$this->assertNotEmpty($this->postsQueryBuilder->getSelectQuery());
 	}
+
 	
-	/* TODO: test with mock?!
-	public function testGetInsertResult()
-	{
-		$this->assertFalse($this->postsQueryBuilder->getInsertResult());
-	}
 	
-	public function testGetUpdateResult()
-	{
-		
-	}
-	
-	public function testGetDeleteResult()
-	{
-	
-	}
-	*/
-		
-	/* TESTS DQLQueryHelper abstract class methods */
+	// TESTS DQLQueryHelper abstract class methods
 	public function testsetDefaultFieldsSelect()
 	{
 		$this->postsQueryBuilder->setDefaultFieldsSelect('p, po.title');
@@ -100,9 +86,10 @@ class PostsQueryBuilderTest extends TestSuite
 		
 		$this->assertNotEmpty( $this->postsQueryBuilder->getDefaultFieldsSelect() );
 	}
-	
+	/*
 	public function testSetSetupManager()
 	{
+		$this->postsQueryBuilder->setSetupManager( $this->setupManager );
 		$this->assertTrue( $this->postsQueryBuilder->setSetupManager($this->postsQueryBuilder->getSetupManager()) instanceof SetupManager);
 	}
 	
@@ -117,5 +104,5 @@ class PostsQueryBuilderTest extends TestSuite
 		$this->postsQueryBuilder->setBindParameters( array('language' => 1,'channel' => 1) );
 		$this->assertTrue( is_array($this->postsQueryBuilder->getBindParameters()) );
 	}
-	
+	*/
 }

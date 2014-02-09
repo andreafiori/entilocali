@@ -23,9 +23,10 @@ class SetupManagerWrapper
 	public function __construct(SetupManager $setupManager)
 	{
 		$this->setupManager 	 = $setupManager;
+
 		$this->setupManagerInput = $setupManager->getInput();
 	}
-	
+
 	public function setupEntityManager($em = null)
 	{
 		if ($em) {
@@ -45,8 +46,8 @@ class SetupManagerWrapper
 	public function setupLanguages()
 	{
 		$this->setupManager->getSetupManagerLanguages()->setLanguagesSetup( new LanguagesSetup($this->getEntityManager()) );
-		$this->setupManager->getSetupManagerLanguages()->setAllAvailableLanguages($this->setupManager->getInput('channel'));
-		$this->setupManager->getSetupManagerLanguages()->setDefaultLanguage( $this->setupManager->getInput('languageAbbreviation') );
+		$this->setupManager->getSetupManagerLanguages()->setAllAvailableLanguages($this->getSetupManager()->getInput('channel'));
+		$this->setupManager->getSetupManagerLanguages()->setDefaultLanguage( $this->getSetupManager()->getInput('languageAbbreviation') );
 		$this->setupManager->getSetupManagerLanguages()->setLanguageIdFromDefaultLanguage();
 		$this->setupManager->getSetupManagerLanguages()->setLanguageAbbreviationFromDefaultLanguage();
 	}
@@ -89,6 +90,7 @@ class SetupManagerWrapper
 		$templateData = array();
 		$templateData = array_merge($templateData, $configRecord);
 		
+		$templateData['basePath'] = $configRecord['remotelinkWeb'];
 		if (!$isBackend) {
 			$templateData['template_project'] 	= 'frontend/projects/'.$configRecord['project_frontend'];
 			$templateData['template_name']		= $configRecord['template_frontend'] ? $configRecord['template_frontend'] : 'default/';
@@ -103,10 +105,10 @@ class SetupManagerWrapper
 			$templateData['loginActionBackend']		  = $templateData['template_project'].'login/';
 			$templateData['logoutPathBackend']		  = $templateData['template_project'].'logout/';
 			$templateData['loggedSectionPathBackend'] = $templateData['template_project'].'main/';
+			$templateData['loggedSectionPathBackendWithLanguage'] = $templateData['basePath'].$templateData['loggedSectionPathBackend'].$this->setupManager->getSetupManagerLanguages()->getLanguageSetup()->getLanguageAbbreviationFromDefaultLanguage();
 
 			$templateData['sidebar'] = $templateData['template_path'].'sidebar/'.$configRecord['sidebar_backend'];
 		}
-		$templateData['basePath'] = $configRecord['remotelinkWeb'];
 		
 		/* Set language\s vars */
 		$templateData['languageAllAvailable'] = $this->setupManager->getSetupManagerLanguages()->getLanguageSetup()->getAllAvailableLanguages();

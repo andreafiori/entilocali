@@ -1,6 +1,7 @@
 <?php if (!$this->form): ?>
+<!-- TODO: translate these labels -->
 <div class="alert alert-danger">
-	<h4>Errore verificato:</h4>
+	<h4>Errore verificato</h4>
 	<div>Impossibile visualizzare il form: oggetto form non rilevato</div>
 </div>
 <?php else: ?>
@@ -22,16 +23,18 @@
 		<div class="form-group">
 			<div class="col-sm-12">
 				<label><?php echo $element->getLabel() ?></label>
-		    	<?php echo $this->formElement($element); ?>	      
+		    	<?php echo $this->formElement($element); ?>
 		    </div>
 		</div>
 		<?php
+		elseif ($attributes['class'] == 'hiddenField'):
+			echo $this->formElement($element);
 		else:
 		?>
 		<div class="form-group">
 			<label for="<?php echo $attributes['id'] ?>" class="col-sm-2 control-label"><?php echo $element->getLabel() ?></label>
 			<div class="col-sm-10">
-		      <?php echo $this->formElement($element); ?>	      
+		      <?php echo $this->formElement($element); ?> 
 		    </div>
 		</div>
 		<?php

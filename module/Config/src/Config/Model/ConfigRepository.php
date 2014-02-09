@@ -26,7 +26,7 @@ class ConfigRepository extends QueryMakerAbstract {
 	public function setConfigurations($arraySearch = null, array $orderBy = null, $limit = null, $offset = null)
 	{
 		$this->configurations = $this->convertArrayOfObjectToArray( $this->getFindFromRepository($arraySearch, $orderBy, $limit, $offset) );
-		
+
 		return $this->configurations;
 	}
 	

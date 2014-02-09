@@ -1,7 +1,6 @@
 <?php
 return array(
     'Setup\Module'                     	=> __DIR__ . '/Module.php',
-	'Setup\DQLQueryHelper'				=> __DIR__ . '/src/Setup/DQLQueryHelper.php',
 	'Setup\EntityManagerService' 		=> __DIR__ . '/src/Setup/EntityManagerService.php',
 	'Setup\NullException' 				=> __DIR__ . '/src/Setup/NullException.php',
 	'Setup\QueryMakerAbstract' 			=> __DIR__ . '/src/Setup/QueryMakerAbstract.php',

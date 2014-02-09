@@ -20,14 +20,15 @@ abstract class FormSetterWrapperAbstract
 	protected $zendFormClassName;
 	
 	protected $zendFormInstance;
-	
-	protected $zendFormObjectNamespacePrefix = "Backend\\Form\\";
 
 	public function __construct(SetupManager $setupManager)
 	{
 		$this->setupManager = $setupManager;
 	}
-
+	
+	/**
+	 * @return FormSetterAbstract
+	 */
 	public function getFormSetterClassName()
 	{
 		return $this->formSetterClassName;
@@ -52,11 +53,6 @@ abstract class FormSetterWrapperAbstract
 	protected function getBackendFormSetterNamespacePrefix()
 	{
 		return $this->backendFormSetterNamespacePrefix;
-	}
-	
-	protected function getZendFormObjectNamespacePrefix()
-	{
-		return $this->zendFormObjectNamespacePrefix;
 	}
 	
 	public function getZendFormClassName()

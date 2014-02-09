@@ -21,6 +21,15 @@ abstract class DQLQueryHelper
 	
 	protected $queryBuilder;
 	
+	protected $doctrineConfig;
+
+	public function setSetupManager(SetupManager $setupManager)
+	{
+		$this->setupManager = $setupManager;
+	
+		return $this->setupManager;
+	}
+		
 	public function setDefaultFieldsSelect($fieldList)
 	{
 		$this->defaultFieldsSelect = $fieldList;
@@ -31,13 +40,6 @@ abstract class DQLQueryHelper
 	public function getDefaultFieldsSelect()
 	{
 		return $this->defaultFieldsSelect;
-	}
-
-	public function setSetupManager(SetupManager $setupManager)
-	{
-		$this->setupManager = $setupManager;
-
-		return $this->setupManager;
 	}
 
 	abstract public function setQueryBasic();
@@ -63,7 +65,7 @@ abstract class DQLQueryHelper
 	{
 		$this->bindParameters[$key] = $value;
 	}
-		
+
 	/**
 	 * @return SetupManager
 	 */
@@ -74,28 +76,37 @@ abstract class DQLQueryHelper
 	
 	public function getSelectQuery()
 	{
-		if (!$this->queryBasic) $this->setqueryBasic();
-		return $this->queryBasic.$this->query;
+		if (!$this->queryBasic) {
+			$this->setqueryBasic();
+		}
+		
+		return $this->getQueryBasic().$this->query;
 	}
 	
 	public function getSelectResult()
 	{
 		if ( !$this->getSetupManager() ) {
-			throw new NullException('Entity Manager is not set');
+			throw new NullException('Setup Manager is not set on DQLQueryHelper');
 		}
+
+		$this->doctrineConfig = $this->getSetupManager()->getEntityManager()->getConfiguration();
+		$this->doctrineConfig->addCustomDatetimeFunction('DATE_FORMAT', "\\Setup\\DateFormat");
 		
-		$config = $this->getSetupManager()->getEntityManager()->getConfiguration();
-		$config->addCustomDatetimeFunction('DATE_FORMAT', "\\Setup\\DateFormat");
-		\Doctrine\ORM\EntityManager::create($this->getSetupManager()->getEntityManager()->getConnection(), $config);
-		
+		$this->getSetupManager()->getEntityManager()->create($this->getSetupManager()->getEntityManager()->getConnection(), $this->doctrineConfig);
+
 		$query = $this->getSetupManager()->getEntityManager()->createQuery($this->getSelectQuery());
-		$query->setParameters($this->getBindParameters());
-		
+		$query->setParameters( $this->getBindParameters() );
+
 		$this->queryContainer[] = $this->getSelectQuery();
 
-		return $query->getResult();
+		return $query->getResult();	
 	}
-	
+
+	public function getDoctrineConfig()
+	{
+		return $this->doctrineConfig;
+	}
+
 	/**
 	 * @return array
 	 */

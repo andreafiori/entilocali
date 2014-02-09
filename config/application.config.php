@@ -5,9 +5,9 @@ return array(
         'Application',
     	'EdpModuleLayouts', 'ServiceLocatorFactory',
     	'DoctrineModule', 'DoctrineORMModule',
-    	'ZendDeveloperTools',
+    	//'ZendDeveloperTools',
     	'ZfcBase','ZfcUser','BjyProfiler',
-    	'Backend','Categories','Config','Contacts','Languages','Posts','Setup','Users'
+    	'Backend','Categories','Config','Contacts','Languages','Posts','Setup','Users','Gallery','Timeline'
     ),
 
     'module_listener_options' => array(

@@ -14,10 +14,10 @@ abstract class FormSetterAbstract
 {
 	protected $setupManager;
 	
-	protected $form, $title, $description;
+	protected $form, $action, $title, $description;
 	
 	protected $record;
-	
+
 	protected $zendFormObjectClassName;
 
 	abstract public function setRecord($id);
@@ -25,6 +25,8 @@ abstract class FormSetterAbstract
 	abstract public function setTitle();
 
 	abstract public function setDescription();
+	
+	abstract public function setAction();
 
 	public function __construct(SetupManager $setupManager)
 	{
@@ -58,4 +60,9 @@ abstract class FormSetterAbstract
 	{
 		return $this->zendFormObjectClassName;
 	}
+	
+	public function getAction()
+	{
+		return $this->action;
+	}	
 }
