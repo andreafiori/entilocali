@@ -6,8 +6,8 @@ namespace Setup;
  * @author  Andrea Fiori
  * @since   07 May 2013
  */
-class StringRequestDecoder {
-
+class StringRequestDecoder
+{
 	/**
 	 * @param string $str
 	 */

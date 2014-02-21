@@ -6,7 +6,6 @@ use Setup\SetupManagerAbstract;
 use Setup\SetupManagerPreloadInterface;
 
 /**
- * get all posts sorted by alias 
  * @author Andrea Fiori
  * @since  14 January 2014
  */
@@ -28,10 +27,10 @@ class PostsAlias implements SetupManagerPreloadInterface
 
 	public function setRecord()
 	{
-		$postGetter = new PostsGetter($this->setupManager);
-		$postGetter->setInput( $this->getPostsGetterInput() );
+		$postsGetter = new PostsGetter($this->setupManager);
+		$postsGetter->setInput( $this->getPostsGetterInput() );
 
-		$this->record = $postGetter->getCompletePostRecord();
+		$this->record = $postsGetter->getCompletePostRecord();
 
 		return $this->record;
 	}

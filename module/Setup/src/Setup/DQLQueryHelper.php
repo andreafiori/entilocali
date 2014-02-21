@@ -3,7 +3,6 @@
 namespace Setup;
 
 /**
- * DQL query helper
  * @author Andrea Fiori
  * @since  03 January 2014
  */
@@ -92,7 +91,7 @@ abstract class DQLQueryHelper
 		$this->doctrineConfig = $this->getSetupManager()->getEntityManager()->getConfiguration();
 		$this->doctrineConfig->addCustomDatetimeFunction('DATE_FORMAT', "\\Setup\\DateFormat");
 		
-		$this->getSetupManager()->getEntityManager()->create($this->getSetupManager()->getEntityManager()->getConnection(), $this->doctrineConfig);
+		$this->getSetupManager()->getEntityManager()->create($this->getSetupManager()->getEntityManager()->getConnection(), $this->getDoctrineConfig());
 
 		$query = $this->getSetupManager()->getEntityManager()->createQuery($this->getSelectQuery());
 		$query->setParameters( $this->getBindParameters() );
@@ -134,7 +133,7 @@ abstract class DQLQueryHelper
 			return false;
 		}
 	}
-	
+	/*
 	public function getUpdateResult()
 	{
 		return false;
@@ -144,4 +143,5 @@ abstract class DQLQueryHelper
 	{
 		return false;
 	}
+	*/
 }

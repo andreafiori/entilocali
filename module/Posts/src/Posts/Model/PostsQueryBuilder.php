@@ -5,7 +5,6 @@ namespace Posts\Model;
 use Setup\DQLQueryHelper;
 
 /**
- * Posts Query Builder
  * @author Andrea Fiori
  * @since  03 January 2014
  */
@@ -20,9 +19,10 @@ class PostsQueryBuilder extends DQLQueryHelper
 		$this->queryBasic = "SELECT ".$this->getDefaultFieldsSelect()." FROM Application\\Entity\\PostsOptions po, Application\\Entity\\Posts p,
 					Application\\Entity\\PostsRelations r, Application\\Entity\\Categories c, Application\\Entity\\CategoriesOptions co
 			WHERE (po.posts = p.id AND p.id = r.posts AND c.id = r.category
-					AND co.category = c.id
-			AND r.category = c.id AND r.channel = :channel AND DATE_FORMAT(po.datefrom, '%Y-%m-%d') < CURRENT_DATE()
-			) ";
+					AND co.category = c.id 
+				AND r.category = c.id AND r.channel = :channel 
+				AND po.language = :language 
+			) "; // AND DATE_FORMAT(po.datefrom, '%Y-%m-%d') < CURRENT_DATE()
 	}
 
 	public function setId($postsId)
@@ -37,7 +37,7 @@ class PostsQueryBuilder extends DQLQueryHelper
 	
 	public function setBasicBindParameters()
 	{
-		$this->setBindParameters( array('channel' => $this->getSetupManager()->getChannelId() ) );
+		$this->setBindParameters( array('channel' => $this->getSetupManager()->getChannelId(), 'language' => $this->getSetupManager()->getSetupManagerLanguages()->getLanguageId() ) );
 	}
 	
 	public function setLanguage($languageId)

@@ -5,7 +5,7 @@ return array(
         'Application',
     	'EdpModuleLayouts', 'ServiceLocatorFactory',
     	'DoctrineModule', 'DoctrineORMModule',
-    	'ZendDeveloperTools',
+    	//'ZendDeveloperTools',
     	'ZfcBase','ZfcUser','BjyProfiler',
     	'Backend','Categories','Config','Contacts','Languages','Posts','Setup','Users','Gallery','Timeline'
     ),
@@ -15,7 +15,7 @@ return array(
             './module',
             './vendor',
         ),
-
+    	
         'config_glob_paths' => array(
             'config/autoload/{,*.}{global,local}.php',
         ),

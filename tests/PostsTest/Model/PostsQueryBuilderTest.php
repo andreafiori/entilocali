@@ -35,6 +35,14 @@ class PostsQueryBuilderTest extends TestSuite
 		$this->assertTrue( is_array($this->postsQueryBuilder->getSelectResult()) );
 	}
 	
+	public function testSetId()
+	{
+		$this->postsQueryBuilder->setBasicBindParameters();
+		$this->postsQueryBuilder->setId(1);
+	
+		$this->assertArrayHasKey('postid', $this->postsQueryBuilder->getBindParameters());
+	}
+	
 	public function testSetCategoryName()
 	{
 		$this->postsQueryBuilder->setBasicBindParameters();

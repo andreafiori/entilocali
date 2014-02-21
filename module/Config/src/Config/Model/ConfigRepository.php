@@ -6,12 +6,12 @@ use Setup\QueryMakerAbstract;
 use Setup\NullException;
 
 /**
- * Config Entity Reposityory helper
+ * Config Entity Reposityory Helper
  * @author Andrea Fiori
  * @since  24 December 2013
  */
-class ConfigRepository extends QueryMakerAbstract {
-
+class ConfigRepository extends QueryMakerAbstract
+{
 	protected $repository = 'Application\Entity\Config';
 	
 	private $configurations;
@@ -19,7 +19,6 @@ class ConfigRepository extends QueryMakerAbstract {
 	private $configRecord = array();
 	
 	/**
-	 * 
 	 * @param array $arraySearch
 	 * @return array $configRecord
 	 */

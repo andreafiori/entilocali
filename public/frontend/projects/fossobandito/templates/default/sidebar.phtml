@@ -1,72 +1,98 @@
-	<div class="custom-sidebar gdl-divider">
-		
-		<div class="sidebar-title-wrapper"><h3 class="custom-sidebar-title sidebar-title-color gdl-title">Area Fosso Bandito</h3><div class="sidebar-title-wrapper-line gdl-divider"></div><div class="clear"></div></div>
-		
-		<ul class="xoxo blogroll">		
+	<!-- Search 
+	<aside class="sidebar-widget clearfix">
+	<div id="search">
+	<form method="get" action="http://minimal.skat.tf/">
+		<input class="search-input" name="s" type="text" size="25"  maxlength="128" onblur="this.value = this.value || this.defaultValue; this.style.color = '#d1d1cd';" onfocus="this.value=''; this.style.color = '#929292';" value="looking for something? " />
+		<input class="search-sumbit" type="submit" value="Search" />
+	</form>
+	</div>
+	</aside>
+	-->
+	
+<aside class="sidebar-widget clearfix">
+	<h3>Fosso Bandito</h3>
+	<div class="menu-features-container">
+		<ul id="menu-features" class="menu">
 			<!-- Ristorante \ Pizzeria -->
-			<li><a href="<?php echo $this->templateData['preloadrecord']['ristorante']['linkDetails'] ?>" title=""><?php echo $this->templateData['preloadrecord']['ristorante']['title'] ?></a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $this->templateData['preloadrecord']['ristorante']['linkDetails'] ?>" title=""><?php echo $this->templateData['preloadrecord']['ristorante']['title'] ?></a></li>
 			<!-- 321 -->
-			<li><a href="<?php echo $this->templateData['preloadrecord']['321']['linkDetails'] ?>" title=""><?php echo $this->templateData['preloadrecord']['321']['title'] ?></a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $this->templateData['preloadrecord']['321']['linkDetails'] ?>" title=""><?php echo $this->templateData['preloadrecord']['321']['title'] ?></a></li>
 			<!-- Griglieria -->
-			<li><a href="<?php echo $this->templateData['preloadrecord']['griglieria']['linkDetails'] ?>" title=""><?php echo $this->templateData['preloadrecord']['griglieria']['title'] ?></a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $this->templateData['preloadrecord']['griglieria']['linkDetails'] ?>" title=""><?php echo $this->templateData['preloadrecord']['griglieria']['title'] ?></a></li>
 			<!-- Bar \ Gelateria -->
-			<li><a href="<?php echo $this->templateData['preloadrecord']['bar']['linkDetails'] ?>" title=""><?php echo $this->templateData['preloadrecord']['bar']['title'] ?></a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $this->templateData['preloadrecord']['bar']['linkDetails'] ?>" title=""><?php echo $this->templateData['preloadrecord']['bar']['title'] ?></a></li>
 			
 			<!-- Eventi -->
-			<li><a href="#" title="">Eventi</a></li>
+			<!-- <li><a href="#" title="">Eventi</a></li> -->
 			<!-- Eventi passati -->
 			<!-- Eventi futuri -->
 			
 			<!-- Sport -->
-			<li><a href="<?php echo $this->templateData['preloadrecord']['sport']['linkDetails'] ?>" title=""><?php echo $this->templateData['preloadrecord']['sport']['title'] ?></a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $this->templateData['preloadrecord']['sport']['linkDetails'] ?>" title=""><?php echo $this->templateData['preloadrecord']['sport']['title'] ?></a></li>
 			<!-- Noleggio -->
-			<li><a href="<?php echo $this->templateData['preloadrecord']['noleggio']['linkDetails'] ?>" title=""><?php echo $this->templateData['preloadrecord']['noleggio']['title'] ?></a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $this->templateData['preloadrecord']['noleggio']['linkDetails'] ?>" title=""><?php echo $this->templateData['preloadrecord']['noleggio']['title'] ?></a></li>
 			<!-- Parcheggio -->
-			<li><a href="<?php echo $this->templateData['preloadrecord']['parcheggio']['linkDetails'] ?>" title=""><?php echo $this->templateData['preloadrecord']['parcheggio']['title'] ?></a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $this->templateData['preloadrecord']['parcheggio']['linkDetails'] ?>" title=""><?php echo $this->templateData['preloadrecord']['parcheggio']['title'] ?></a></li>
 			<!-- Merchandising -->
-			<li><a href="<?php echo $this->templateData['preloadrecord']['merchandising']['linkDetails'] ?>" title=""><?php echo $this->templateData['preloadrecord']['merchandising']['title'] ?></a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $this->templateData['preloadrecord']['merchandising']['linkDetails'] ?>" title=""><?php echo $this->templateData['preloadrecord']['merchandising']['title'] ?></a></li>
 			<!-- Associazione \ Info -->
-			<li><a href="<?php echo $this->templateData['preloadrecord']['associazione']['linkDetails'] ?>" title=""><?php echo $this->templateData['preloadrecord']['associazione']['title'] ?></a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $this->templateData['preloadrecord']['associazione']['linkDetails'] ?>" title=""><?php echo $this->templateData['preloadrecord']['associazione']['title'] ?></a></li>
+		</ul>
+	</div>
+</aside>
 
-		</ul>
-		
-	</div>
-	
-	<!-- 
-	<div class="custom-sidebar gdl-divider">
-		
-		<div class="sidebar-title-wrapper"><h3 class="custom-sidebar-title sidebar-title-color gdl-title"><?php echo $this->templateData['languageLabels']['PAST'] ?></h3><div class="sidebar-title-wrapper-line gdl-divider"></div><div class="clear"></div></div>
-		
-		<ul class="xoxo blogroll">		
-			<li><a href="<?php echo $this->templateData['remotelinkWeb'].$this->templateData['languageAbbreviation'] ?>/Timeline/" class="iframexternal" title="<?php echo $this->templateData['languageLabels']['STORIA'] ?>"><?php echo $this->templateData['languageLabels']['STORIA'] ?></a></li>		
-			<li><a class="gallery_degrado" href="javascript:void(0);" title=""><?php echo $this->templateData['languageLabels']['DEGRADO']?></a></li>
-			<li><a href="<?php echo $this->templateData['preloadrecord']['repetti']['linkDetails'] ?>" title="<?php echo $this->templateData['preloadrecord']['repetti']['title'] ?>"><?php echo $this->templateData['preloadrecord']['repetti']['title'] ?></a></li>
-		</ul>
-		
-	</div>
-	
-	<div class="custom-sidebar gdl-divider">
-		
-		<div class="sidebar-title-wrapper"><h3 class="custom-sidebar-title sidebar-title-color gdl-title"><?php echo $this->templateData['languageLabels']['PRESENT'] ?></h3><div class="sidebar-title-wrapper-line gdl-divider"></div>
-		<div class="clear"></div>
-		</div>
-		
-		<ul class="xoxo blogroll">
-			<li><a href="<?php echo $this->templateData['preloadrecord']['present']['linkDetails'] ?>" title="<?php echo $this->templateData['preloadrecord']['present']['title'] ?>"><?php echo $this->templateData['preloadrecord']['present']['title'] ?></a></li>
-			<li><a href="http://player.vimeo.com/video/70095637" class="iframexternal" title="<?php echo $this->templateData['languageLabels']['PRESENT_WORK_IN_PROGRESS'] ?>"><?php echo $this->templateData['languageLabels']['PRESENT_WORK_IN_PROGRESS'] ?></a></li>
-		</ul>
-		
-	</div>
 
-	<div class="custom-sidebar gdl-divider">
+<!--
+<aside class="sidebar-widget clearfix">
+	<h3>Popular Posts</h3>
+	<div class="popular-posts">
+		<ul>
+			<li class="clearfix">
+			<div class="popular-post-thumb">
+			<figure>
+				<img src="<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>uploads/sites/5/2013/08/post-image-1-65x57.jpg" class="attachment-recent-blog wp-post-image" alt="post-image-1" />        </figure>
+			</div>
 		
-		<div class="sidebar-title-wrapper"><h3 class="custom-sidebar-title sidebar-title-color gdl-title"><?php echo $this->templateData['languageLabels']['FUTURE'] ?></h3><div class="sidebar-title-wrapper-line gdl-divider"></div><div class="clear"></div></div>
+			<div class="popular-posts-content">
+			<h4><a href="../a-standard-post-format/index.html" title="A Standard Post Format">A Standard Post Format</a></h4>
+
+			<p>Etiam non arcu nisl, eget fermentum mauris. Vivamus bib</p>
+			
+			<span class="popular-date"> August 15, 2013 </span> <span class="popular-comments">,
+			<a href="../a-standard-post-format/index.html#respond" class="comments-link"  title="Comment on A Standard Post Format">0 comments</a></span>
+			</div>
+			
+		</li>
+		<li class="clearfix">
+			<div class="popular-post-thumb">
+				<figure><img src="<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>uploads/sites/5/2013/08/8098352900_172a8eed8b_h-65x57.jpg" class="attachment-recent-blog wp-post-image" alt="8098352900_172a8eed8b_h"></figure>
+			</div>
+			
+			<div class="popular-posts-content">
+				<h4><a href="#" title="Another Gallery">Another Gallery</a></h4>
+				<p>Mauris ac gravida tellus. Vestibulum adipiscing laoreet</p>
+				<span class="popular-date"> August 15, 2013 </span> <span class="popular-comments">,
+				<a href="../another-gallery/index.html#respond" class="comments-link"  title="Comment on Another Gallery">0 comments</a></span>
+			</div>
+			
+		</li>
+		<li class="clearfix">
 		
-		<ul class="xoxo blogroll">
-			<li><a href="<?php echo $this->templateData['preloadrecord']['future']['linkDetails'] ?>" title="<?php echo $this->templateData['preloadrecord']['future']['title'] ?>"><?php echo $this->templateData['preloadrecord']['future']['title'] ?></a></li>
-			<li><a href="<?php echo $this->templateData['preloadrecord']['activities']['linkDetails'] ?>" title="<?php echo $this->templateData['preloadrecord']['activities']['title'] ?>"><?php echo $this->templateData['preloadrecord']['activities']['title'] ?></a></li>
-			<li><a href="http://player.vimeo.com/video/69875407" class="iframexternal" title="<?php echo $this->templateData['languageLabels']['VIDEO'] ?>"><?php echo $this->templateData['languageLabels']['VIDEO'] ?></a></li>
+			<div class="popular-post-thumb">
+			
+			<figure><img src="<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>uploads/sites/5/2013/08/HTML5_sticker-65x57.png" class="attachment-recent-blog wp-post-image" alt="HTML5_sticker"></figure></div>
+			
+			<div class="popular-posts-content">
+			
+			<h4><a href="../html5-and-the-future-of-the-web/index.html" title="HTML5 and The Future of the Web">HTML5 and The Future of the Web</a></h4>
+			
+			<p>Mauris ac gravida tellus. Vestibulum adipiscing laoreet</p>
+			<span class="popular-date"> August 15, 2013 </span> <span class="popular-comments">,
+			<a href="../html5-and-the-future-of-the-web/index.html#respond" class="comments-link"  title="Comment on HTML5 and The Future of the Web">0 comments</a></span>
+			</div>
+			
+		</li>
 		</ul>
-		
 	</div>
-	-->
+</aside>
+-->

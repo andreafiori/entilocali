@@ -17,7 +17,7 @@ class IndexController extends FrontendControllerAbstract
     public function indexAction()
     {
     	$setupManager = $this->getSetupManager();
-
+		
 		/* SINGLE POST SELECTION; TODO: select data for all languages and set the switch link */
 		if ( $setupManager->getInput('categoryName') ):
 			$postGetter = new PostsGetter($setupManager);
@@ -28,7 +28,7 @@ class IndexController extends FrontendControllerAbstract
 
 		if ( isset($postsDetail[0]) ) {
 			if ( count($postsDetail) > 1 ) {
-				$setupManager->getTemplateDataSetter()->assignToTemplate('templatePartial', $setupManager->getTemplateDataSetter()->getTemplateData('template_path').'contents/list.phtml');
+				$setupManager->getTemplateDataSetter()->assignToTemplate('templatePartial', $setupManager->getTemplateDataSetter()->getTemplateData('template_path').$postsDetail[0]['typeofpost'].'/list.phtml');
 			} else {
 				$postsDetail = $postsDetail[0];
 				if ($postsDetail['templatefile']) {

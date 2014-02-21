@@ -2,15 +2,12 @@
 
 namespace Setup;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
 
 /**
- * 
  * TODO: merge this object with DQLQueryHelper to inject a mock on every object to make query
  * @author Andrea Fiori
  * @since  14 January 2014
- * 
  */
 abstract class QueryMakerAbstract
 {
@@ -20,16 +17,12 @@ abstract class QueryMakerAbstract
 	
 	protected $repository;
 
-	public function __construct(ObjectManager $objectManager)
+	public function __construct(\Doctrine\ORM\EntityManager $objectManager)
 	{
 		$this->setEntityManager( $objectManager );
-		/*
-		$this->setEntitySerializer( new EntitySerializer($objectManager) );
-		$this->setRepository();
-		*/
 	}
 
-	public function setEntityManager(ObjectManager $objectManager)
+	public function setEntityManager(\Doctrine\ORM\EntityManager $objectManager)
 	{
 		$this->entityManager = $objectManager;
 	}

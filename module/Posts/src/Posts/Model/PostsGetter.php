@@ -9,7 +9,10 @@ use Setup\QueryBuilderSetterAbstract;
 /**
  * TODO:
  * 		get attachment\s 
- *		PAGING with adapter
+ *		PAGING with adapter for a frontend website
+ *		WHERE date format
+ *		select all post for all available language and get the switchlink
+ *		Inject the route and $_GET through the input
  * @author Andrea Fiori
  * @since  08 January 2014
  */
@@ -37,9 +40,10 @@ class PostsGetter extends QueryBuilderSetterAbstract
 	public function getCompletePostRecord()
 	{
 		$postsRecord = $this->getPostsRecordOnly($this->getInput());
-		return $this->getPostsRecordsHelper( $postsRecord );
+		
+		return $this->getPostsRecordsHelper($postsRecord);
 	}
-	
+
 	public function getPostsRecordOnly()
 	{
 		$this->getQueryBuilder()->setSetupManager($this->setupManager);
@@ -55,7 +59,7 @@ class PostsGetter extends QueryBuilderSetterAbstract
 		
 		return $this->getQueryBuilder()->getSelectResult();
 	}
-	
+
 	public function getPostsRecordsHelper(array $posts)
 	{
 		$this->postsRecordsHelper = new PostsRecordsHelper($posts);
@@ -66,5 +70,4 @@ class PostsGetter extends QueryBuilderSetterAbstract
 
 		return $this->postsRecordsHelper->getPostsRecords();
 	}
-
 }

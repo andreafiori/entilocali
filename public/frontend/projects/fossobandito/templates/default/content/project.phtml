@@ -1,92 +1,70 @@
-<p class="aligncenter"><?php echo $this->templateData['languageLabels']['HOME_SUBTITLE_1'] ?></p>
+<div class="container content">
+	
+	<p class="aligncenter"><?php echo $this->templateData['languageLabels']['HOME_SUBTITLE_1'] ?></p>
+	
+	<!-- Map -->
+	<p class="aligncenter" style="padding-top: 2%"><strong><a class="iframexternal fancybox.iframe" href="https://maps.google.it/maps?q=Le+Cascine,+Via+delle+Cascine,+.,+50144+Firenze,+Toscana&amp;layer=c&amp;sll=43.783785,11.223199&amp;cbp=13,138.72,,0,1&amp;cbll=43.784027,11.222794&amp;hl=it&amp;gl=it&amp;ie=UTF8&amp;hq=Le+Cascine,+Via+delle+Cascine,+.,+50144+Firenze,+Toscana&amp;t=m&amp;panoid=GsdRTLa1oajN-ivSb75ErQ&amp;source=embed&amp;ll=43.781308,11.224315&amp;spn=0.004865,0.012059&amp;z=16&amp;output=svembed" title="<?php echo $this->templateData['languageLabels']['HOME_SUBTITLE_2'] ?>"><?php echo $this->templateData['languageLabels']['HOME_SUBTITLE_2'] ?></a></strong></p>
 
-<p class="aligncenter" style="padding-top: 2%"><strong><a class="iframexternal fancybox.iframe" href="https://maps.google.it/maps?q=Le+Cascine,+Via+delle+Cascine,+.,+50144+Firenze,+Toscana&amp;layer=c&amp;sll=43.783785,11.223199&amp;cbp=13,138.72,,0,1&amp;cbll=43.784027,11.222794&amp;hl=it&amp;gl=it&amp;ie=UTF8&amp;hq=Le+Cascine,+Via+delle+Cascine,+.,+50144+Firenze,+Toscana&amp;t=m&amp;panoid=GsdRTLa1oajN-ivSb75ErQ&amp;source=embed&amp;ll=43.781308,11.224315&amp;spn=0.004865,0.012059&amp;z=16&amp;output=svembed" title="<?php echo $this->templateData['languageLabels']['HOME_SUBTITLE_2'] ?>"><?php echo $this->templateData['languageLabels']['HOME_SUBTITLE_2'] ?></a></strong></p>
+	<p class="aligncenter"><?php echo $this->templateData['languageLabels']['HOME_SUBTITLE_3'] ?></p>
 
-<p class="aligncenter" style="padding-top: 2%"><?php echo $this->templateData['languageLabels']['HOME_SUBTITLE_3'] ?></p>
-
-<div style="width: 85%; margin: 0 auto">
-	<a href="<?php echo $this->templateData['preloadrecord']['activities']['linkDetails'] ?>" title="<?php echo $this->templateData['preloadrecord']['activities']['title'] ?>"><img src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/assets/images/fosso-bandito-home.jpg" alt="<?php echo $this->templateData['sitename'] ?>" title="<?php echo $this->templateData['sitename'] ?>"></a>
-</div>
-
-<div><?php echo $this->templateData['languageLabels']['HOME_PARAGRAPH_1'] ?></div>
-
-<!-- Past -->
-<div class="one-third column ">
-	<div class="column-service-wrapper">
-	<div class="column-service-title-wrapper">
-	 
-		<div class="column-service-image"><img src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/assets/images/icona-passato.jpg" alt="<?php echo $this->templateData['languageLabels']['PAST'] ?>" title="<?php echo $this->templateData['languageLabels']['PAST'] ?>"></div>
-		
-		<h2 class="column-service-title gdl-title"><?php echo $this->templateData['languageLabels']['PAST'] ?></h2>
-		
-		<div class="clear"></div>
-		
+	<div style="width: 85%; margin: 0 auto">
+		<a href="<?php echo $this->templateData['preloadrecord']['activities']['linkDetails'] ?>" title="<?php echo $this->templateData['preloadrecord']['activities']['title'] ?>"><img src="<?php echo $this->basePath().'/'.$this->templateData['imagedir'] ?>fosso-bandito-home.jpg" alt="<?php echo $this->templateData['sitename'] ?>" title="<?php echo $this->templateData['sitename'] ?>"></a>
 	</div>
 	
-	<ul class="colorgreen">
-		<li><a href="<?php echo $this->templateData['remotelinkWeb'].$this->templateData['languageAbbreviation'] ?>/Timeline/" class="iframexternal underline" title="<?php echo $this->templateData['languageLabels']['STORIA'] ?>"><?php echo $this->templateData['languageLabels']['STORIA'] ?></a></li>
+	<div style="margin-top: 2%; margin-bottom: 2%"><?php echo $this->templateData['languageLabels']['HOME_PARAGRAPH_1'] ?></div>
+
+	<!-- Past -->
+	<div class="entry-content">
+		<div class="one-third ">
+		<h3><img src="<?php echo $this->basePath().'/'.$this->templateData['imagedir'] ?>icona-passato.jpg" alt="<?php echo $this->templateData['languageLabels']['PAST'] ?>" title="<?php echo $this->templateData['languageLabels']['PAST'] ?>"> <?php echo $this->templateData['languageLabels']['PAST'] ?></h3>
+		<ul>
+			<li><a href="<?php echo $this->templateData['remotelinkWeb'].$this->templateData['languageAbbreviation'] ?>/Timeline/" class="iframexternal underline" title="<?php echo $this->templateData['languageLabels']['STORIA'] ?>"><?php echo $this->templateData['languageLabels']['STORIA'] ?></a></li>
+			
+			<li><a class="underline gallery_degrado" href="javascript:void(0);" title="<?php echo $this->templateData['languageLabels']['DEGRADO']?>"><?php echo $this->templateData['languageLabels']['DEGRADO']?></a></li>
+			
+			<li><a href="<?php echo $this->templateData['preloadrecord']['repetti']['linkDetails'] ?>" class="underline" title="<?php echo $this->templateData['preloadrecord']['repetti']['title'] ?>"><?php echo $this->templateData['preloadrecord']['repetti']['title'] ?></a></li>
+		</ul>
+		</div>
 		
-		<li><a class="underline gallery_degrado" href="javascript:void(0);" title="<?php echo $this->templateData['languageLabels']['DEGRADO']?>"><?php echo $this->templateData['languageLabels']['DEGRADO']?></a></li>
-		
-		<li><a href="<?php echo $this->templateData['preloadrecord']['repetti']['linkDetails'] ?>" class="underline" title="<?php echo $this->templateData['preloadrecord']['repetti']['title'] ?>"><?php echo $this->templateData['preloadrecord']['repetti']['title'] ?></a></li>
-	</ul>
-
-</div>
-</div>
-
-<!-- Present -->
-<div class="one-third column">
-	<div class="column-service-wrapper">
-	
-	<div class="column-service-title-wrapper">
-		
-		<div class="column-service-image"><img src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/assets/images/icona-presente.jpg" alt="<?php echo $this->templateData['languageLabels']['PRESENT'] ?>" title="<?php echo $this->templateData['languageLabels']['PRESENT'] ?>"></div>
-
-		<h2 class="column-service-title gdl-title"><?php echo $this->templateData['languageLabels']['PRESENT'] ?></h2>
-
-		<div style="padding-top: 4%"><?php echo $this->templateData['languageLabels']['PRESENT_HOME_PARAGRAPH'] ?></div>
+		<!-- Present -->
+		<div class="one-third">
+			<h3><img src="<?php echo $this->basePath().'/'.$this->templateData['imagedir'] ?>icona-presente.jpg" alt="<?php echo $this->templateData['languageLabels']['PRESENT'] ?>" title="<?php echo $this->templateData['languageLabels']['PRESENT'] ?>"> <?php echo $this->templateData['languageLabels']['PRESENT'] ?></h3>
+			<p style="margin: 0; padding: 0"><?php echo $this->templateData['languageLabels']['PRESENT_HOME_PARAGRAPH'] ?></p>
+			<ul>
+				<li><a href="<?php echo $this->templateData['preloadrecord']['present']['linkDetails'] ?>" title="<?php echo $this->templateData['preloadrecord']['present']['title'] ?>" class="underline"><?php echo $this->templateData['preloadrecord']['present']['title'] ?> (<?php echo $this->templateData['languageLabels']['CONTINUE'] ?>...)</a></li>
 				
-		<div class="clear"></div>
-		
-	</div>
-	
-	<ul class="colorgreen">
-		<li><a href="<?php echo $this->templateData['preloadrecord']['present']['linkDetails'] ?>" title="<?php echo $this->templateData['preloadrecord']['present']['title'] ?>" class="underline"><?php echo $this->templateData['preloadrecord']['present']['title'] ?> (<?php echo $this->templateData['languageLabels']['CONTINUE'] ?>...)</a></li>
-		<li><a href="http://player.vimeo.com/video/70095637" class="iframexternal underline" title="<?php echo $this->templateData['languageLabels']['PRESENT_WORK_IN_PROGRESS'] ?>"><?php echo $this->templateData['languageLabels']['PRESENT_WORK_IN_PROGRESS'] ?></a></li>
-		<!--
-		<li><a href="" class="underline" title="">[foto montate progressive]</a></li>
-		-->
-	</ul>
-	
-	<div style="padding-top: 4%"><?php echo $this->templateData['languageLabels']['PIERATTELLI_STUDIO'] ?></div>
-	
-	</div>
-</div>
+				<li><a href="http://player.vimeo.com/video/70095637" class="iframexternal underline" title="<?php echo $this->templateData['languageLabels']['PRESENT_WORK_IN_PROGRESS'] ?>"><?php echo $this->templateData['languageLabels']['PRESENT_WORK_IN_PROGRESS'] ?></a></li>
+			</ul>
+			
+			<div><?php echo $this->templateData['languageLabels']['PIERATTELLI_STUDIO'] ?></div>
+		</div>
 
-<!-- Future -->
-<div class="one-third column">
-
-	<div class="column-service-wrapper">
-		
-		<div class="column-service-title-wrapper">
-			
-			<div class="column-service-image"><img src="<?php echo $this->basePath() ?>/<?php echo $this->templateData['template_path'] ?>assets/images/icona-futuro.jpg" alt="<?php echo $this->templateData['languageLabels']['FUTURE'] ?>" title="<?php echo $this->templateData['languageLabels']['FUTURE'] ?>"></div>
-			<h2 class="column-service-title gdl-title"><?php echo $this->templateData['languageLabels']['FUTURE'] ?></h2>
-			
-			<p style="padding-top: 4%"><?php echo $this->templateData['languageLabels']['FUTURE_HOME_PARAGRAPH'] ?></p>
-			
-			<ul class="colorgreen">
+		<!-- Future -->
+		<div class="one-third last ">
+			<h3><img src="<?php echo $this->basePath() ?>/<?php echo $this->templateData['template_path'] ?>assets/images/icona-futuro.jpg" alt="<?php echo $this->templateData['languageLabels']['FUTURE'] ?>" title="<?php echo $this->templateData['languageLabels']['FUTURE'] ?>"> <?php echo $this->templateData['languageLabels']['FUTURE'] ?></h3>
+			<p style="margin: 0; padding: 0"><?php echo $this->templateData['languageLabels']['FUTURE_HOME_PARAGRAPH'] ?></p>
+				
+			<ul>
 			
 				<li><a href="<?php echo $this->templateData['preloadrecord']['future']['linkDetails'] ?>" class="underline" title="<?php echo $this->templateData['preloadrecord']['future']['title'] ?>"><?php echo $this->templateData['preloadrecord']['future']['title'] ?>, (<?php echo $this->templateData['languageLabels']['CONTINUE'] ?>...)</a></li>
 				
 				<li><a href="<?=$this->templateData['preloadrecord']['activities']['linkDetails']?>" class="underline" title="<?=$this->templateData['preloadrecord']['activities']['title']?>"><?=$this->templateData['preloadrecord']['activities']['title']?></a></li>
 				
 				<li><a href="http://player.vimeo.com/video/69875407" class="iframexternal underline" title="<?php echo $this->templateData['languageLabels']['VIDEO'] ?>"><?php echo $this->templateData['languageLabels']['VIDEO'] ?></a></li>
-				
+
 			</ul>
+			
 		</div>
 		
-		<div class="clear"></div>
+		<!-- 
+		<div class="clearfix"></div>
+
+		<div style="padding-bottom: 50px; margin-top: 30px;" class="line-divider"></div>
+		
+		-->
 		
 	</div>
 </div>
+
+
+

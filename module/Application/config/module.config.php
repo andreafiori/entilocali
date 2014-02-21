@@ -46,7 +46,7 @@ return array(
 										'constraints' => array(
 												'lang'     => '[a-z]{2}',
 												'category' => '[a-zA-Z][a-zA-Z0-9_-]*',
-												'title'	   => '[a-zA-Z][a-zA-Z0-9_-]*',
+												'title'	   => '[a-zA-Z0-9_-]*',
 										),
 										'defaults' => array(
 												'controller' => 'Application\Controller\Index',

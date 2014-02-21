@@ -13,7 +13,6 @@ class SetupManager extends SetupManagerAbstract
 	{
 		$this->input = $input;
 		
-		/* Inject these objects after? */
 		$this->setupManagerLanguages 		= new SetupManagerLanguages();
 		$this->setupManagerLanguagesLabels	= new SetupManagerLanguagesLabels();
 		$this->setupManagerConfigurations 	= new SetupManagerConfigurations();

@@ -22,7 +22,6 @@ abstract class CommonControllerAbstract extends AbstractActionController
 	}
 	
 	/**
-	 * 
 	 * @return SetupManager
 	 */
 	protected function getSetupManager()

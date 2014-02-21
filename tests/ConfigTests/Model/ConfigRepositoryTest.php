@@ -4,15 +4,19 @@ namespace Config\Model;
 
 use SetupTest\TestSuite;
 
-class ConfigRepositoryTest extends TestSuite {
-	
+/**
+ * @author Andrea Fiori
+ * @since  14 January 2014
+ */
+class ConfigRepositoryTest extends TestSuite
+{
 	private $configRepository;
 	
 	protected function setUp()
 	{
 		parent::setUp();
 		
-		$this->configRepository = new ConfigRepository( $this->getServiceManager()->get('\Doctrine\ORM\EntityManager') );
+		$this->configRepository = new ConfigRepository( $this->getEntityManagerMock() );
 	}
 	
 	public function testSetConfigurations()

@@ -3,11 +3,9 @@ header('Content-type: text/css');
 ob_start("compress");
 
 $cssBasePath = '../../assets/css/';
-include_once($cssBasePath.'style.css');
-include_once($cssBasePath.'skeleton-responsive.css');
-include_once($cssBasePath.'layout-responsive.css');
-include_once($cssBasePath.'style-custom.css');
-include_once($cssBasePath.'superfish.css');
+include_once($cssBasePath.'themes/minimal/framework/css/bootstrap-fontawesome.css');
+// include_once($cssBasePath.'themes/minimal/style.css');
+// include_once($cssBasePath.'themes/minimal/framework/css/flexslider.css');
 
 /* Fancybox */
 include_once($cssBasePath.'fancybox/jquery.fancybox.css');
@@ -15,10 +13,27 @@ include_once($cssBasePath.'fancybox/jquery.fancybox-buttons.css');
 include_once($cssBasePath.'fancybox/jquery.fancybox-thumbs.css');
 
 ?>
-canvas { -ms-touch-action: double-tap-zoom; }
-.recentcomments a{ display:inline !important;padding:0 !important;margin:0 !important; }
-#gdl-contact-form label.error { color: red; }
-#gdl-contact-form input.error { border: 1px solid red; }
+.home_carousel_rollover {
+	width: 95%; margin: auto;
+	text-align: center;
+	vertical-align: top
+}
+.homepage_icon {
+	margin-right: 2%;
+	margin-bottom: 2%;
+	vertical-align: top
+}
+.aligncenter { text-align: center; }
+select {
+	width: 300px;
+	border: 1px solid #e6e6e6;
+	height: 40px;
+	line-height: 40px;
+	padding: 0 10px;
+	color: #5a5a62;
+	margin: 5px 0 5px;
+	max-width: 100%;
+}
 <?php
 ob_end_flush();
 

@@ -1,45 +1,29 @@
 <?php echo $this->doctype(); ?>
 
-<!--[if lt IE 7 ]><html class="ie ie6" lang="<?php echo $this->templateData['languageAbbreviation'] ?>"> <![endif]-->
-<!--[if IE 7 ]><html class="ie ie7" lang="<?php echo $this->templateData['languageAbbreviation'] ?>"> <![endif]-->
-<!--[if IE 8 ]><html class="ie ie8" lang="<?php echo $this->templateData['languageAbbreviation'] ?>"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!-->
-
-<html dir="ltr">
+<!--[if IE 7]>
+<html class="ie ie7" lang="<?php echo $this->templateData['languageAbbreviation'] ?>">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8" lang="<?php echo $this->templateData['languageAbbreviation'] ?>">
+<![endif]-->
+<!--[if !(IE 7) | !(IE 8)  ]><!-->
+<html lang="<?php echo $this->templateData['languageAbbreviation'] ?>">
 <!--<![endif]-->
 
 <head>
-
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
-<title><?php echo $this->templateData['seo_title'] ?></title>
-
-<meta name="description" content="<?php echo $this->templateData['seo_description'] ?>">
-<meta name="keywords" content="<?php echo $this->templateData['seo_keywords'] ?>">
-
-<!--[if lt IE 9]>
-	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
-
+<meta charset="UTF-8" />
 <?php
 	echo $this->headMeta()
               ->appendName('viewport', 'width=device-width, initial-scale=1.0')
               ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
 ?>
-<!-- Styles -->
-<?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . 'favicon.ico'))
-	 	        ->prependStylesheet( $this->basePath(). '/'.$this->templateData['cssdir']);
-?>
+<meta name="description" content="<?php echo $this->templateData['seo_description'] ?>">
+<meta name="keywords" content="<?php echo $this->templateData['seo_keywords'] ?>">
+<title><?php echo $this->templateData['seo_title'] ?></title>
 
 <!--[if lt IE 9]>
-	<link rel="stylesheet" href="<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>/ie-style.php" type="text/css" media="screen, projection">
+<script src="http://minimal.skat.tf/wp-content/themes/minimal/framework/js/html5.js" type="text/javascript"></script>
 <![endif]-->
-
-<!--[if IE 7]>
-	<link rel="stylesheet" href="<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>ie7-style.css">
-<![endif]-->
-
-<link rel="stylesheet" id="Google-Font-css" href="http://fonts.googleapis.com/css?family=Droid+Sans%3An%2Ci%2Cb%2Cbi%7CDroid+Serif%3An%2Ci%2Cb%2Cbi%7CMerriweather%3An%2Ci%2Cb%2Cbi%7C&amp;ver=3.4" type="text/css" media="all">
 
 <?php if ($_SERVER['HTTP_HOST'] == "www.fossobandito.com" or $_SERVER['HTTP_HOST']=="fossobandito.com"): ?>
 <!-- Google Analytics -->
@@ -54,10 +38,51 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-<?php endif; ?>	
+<?php endif; ?>
+
+<!-- Feed -->
+<link rel="alternate" type="application/rss+xml" title="<?php echo $this->templateData['sitename'] ?> &raquo; Feed" href="">
+<!-- Comment Feed -->
+<link rel="alternate" type="application/rss+xml" title="<?php echo $this->templateData['sitename'] ?> &raquo; Comments Feed" href="#">
+<!-- Comment Feed -->
+<link rel="alternate" type="application/rss+xml" title="<?php echo $this->templateData['sitename'] ?> &raquo; Blog Comments Feed" href="#" />
+
+<?php
+	// index.php CSS compressi
+	echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . 'favicon.ico'))
+	 	        ->prependStylesheet( $this->basePath(). '/'.$this->templateData['cssdir'] );
+?>
+
+<link rel="stylesheet" id="stylesheet-css"  href="<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>themes/minimal/style.css?ver=3" type="text/css" media="all">
+
+<!-- <link rel="stylesheet" id="prettyphoto-css"  href="<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>themes/minimal/framework/css/prettyPhoto.css?ver=3.8.1" type="text/css" media="all"> -->
+
+<link rel="stylesheet" id="custom-styles-css" href="<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>themes/minimal/framework/css/custom-styles.css?ver=3.8.1" type="text/css" media="all">
+
+<link rel="stylesheet" id="responsive-css"  href='<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>themes/minimal/framework/css/bootstrap-responsive.css?ver=3.8.1' type='text/css' media="all" />
+
+<link rel="stylesheet" id="contact-form-7-css"  href="<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>plugins/contact-form-7/includes/css/stylesef85.css?ver=3.7" type="text/css" media="all">
+
+<link rel="stylesheet" id="rs-settings-css"  href='<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>plugins/revslider/rs-plugin/css/settings6ee0.css?rev=4.1.4&amp;ver=3.8.1' type='text/css' media="all" />
+
+<link rel="stylesheet" id="rs-plugin-captions-css"  href='<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>plugins/revslider/rs-plugin/css/captions6ee0.css?rev=4.1.4&amp;ver=3.8.1' type='text/css' media="all" />
+
+<link rel="stylesheet" id="shortcodes-styling-css"  href="<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>plugins/sd-shortcodes-busipress/inc/css/shortcodes5152.css?ver=1.0" type='text/css' media="all" />
+
+<!-- <link rel="shortlink" href=""> -->
+
+<!-- <link rel="shortcut icon" href="<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>themes/minimal/framework/images/favicon.ico"> -->
+
+<!--
+<link rel="stylesheet" id='mediaelement-css'  href='<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>mediaelement/mediaelementplayer.min80e2.css?ver=2.13.0' type='text/css' media="all" />
+
+<link rel="stylesheet" id='wp-mediaelement-css'  href='<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>mediaelement/wp-mediaelement.css?ver=3.8.1' type='text/css' media="all" />
+-->
+
+
 </head>
 
-<body class="page page-template-default">
+<body class="page">
 
 <noscript>
 	<div>
@@ -66,100 +91,160 @@
 	</div>
 </noscript>
 
-	<div class="body-wrapper">
+<!-- Header -->
+<header id="header" class="clearfix">
+	
 	<div class="container">
-		<div class="header-wrapper">
 		
-			<div class="logo-wrapper">
-				<a href="<?php echo $this->templateData['remotelinkWeb'].$this->templateData['languageAbbreviation'] ?>/" title="<?=$this->templateData['sitename']?>"><img src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/assets/images/default-logo.jpg" alt="Logo <?php echo $this->templateData['sitename'] ?>"></a>
+		<!--
+		<div class="row">
+			<div class="span3"></div>
+			
+			<div class="span9">
+				<nav id="main-menu" class="main-menu">
+					<ul id="menu-nav" class="sf-menu">
+						<li id="menu-item" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item"><a href="<?php echo $this->templateData['remotelinkWeb'] ?>it/" title="Passa alla lingua italiana"><img src="<?php echo $this->basePath().'/'.$this->templateData['imagedir'] ?>flag_ita.gif" alt="Bandiera italiana"> Italiano</a></li>
+					
+						<li id="menu-item" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item"><a href="<?php echo $this->templateData['remotelinkWeb'] ?>en/" title="Switch to English"><img src="<?php echo $this->basePath().'/'.$this->templateData['imagedir'] ?>flag_eng.gif" alt="England's flag"> <?php echo $this->templateData['languageLabels'
+						]['ENG_LANGUAGE_NAME'] ?></a></li>
+					</ul>
 			</div>
 			
-			<div class="header-right-side-wrapper">
-
-			<div class="social-wrapper">
-
-				<div class="social-icon-wrapper">
-					
-					<div class="social-icon"><a href="<?php echo $this->templateData['remotelinkWeb'] ?>it/" title="Passa alla lingua italiana"><img src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/assets/images/flag_ita.gif" alt="Bandiera italiana"> Italiano</a></div>
-					<div class="social-icon"><a href="<?php echo $this->templateData['remotelinkWeb'] ?>en/" title="Switch to English"><img src="<?php echo $this->basePath() ?>/frontend/projects/fossobandito/templates/default/assets/images/flag_eng.gif" alt="England's flag"> <?php echo $this->templateData['languageLabels']['ENG_LANGUAGE_NAME'] ?></a></div>
-				
-				</div>
-
+		</div>
+		-->
+		
+		<div class="row">
+			<div class="span3">
+				<h1 class="site-title">
+					<a href="<?php echo $this->templateData['remotelinkWeb'].$this->templateData['languageAbbreviation'] ?>/" title="<?=$this->templateData['sitename']?>" rel="home"><img src="<?php echo $this->basePath().'/'.$this->templateData['imagedir'] ?>default-logo.jpg" alt="Logo <?php echo $this->templateData['sitename'] ?>"></a>
+				</h1>
 			</div>
+			
+			<!-- primary menu -->
+			<div class="span9">
+				<nav id="main-menu" class="main-menu">
+					<ul id="menu-nav" class="sf-menu">
+						
+						<li id="menu-item" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item"><a href="<?php echo $this->templateData['remotelinkWeb'].$this->templateData['languageAbbreviation'] ?>/" title="Home page">Home</a></li>
 
-			<!-- Navigation -->
-			<div class="navigation-wrapper">
-				
-				<div id="main-superfish-wrapper" class="menu-wrapper">
-				
-				<ul id="menu-main" class="sf-menu">
-					
-					<li id="menu-item" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item"><a href="<?php echo $this->templateData['remotelinkWeb'].$this->templateData['languageAbbreviation'] ?>/" title="Home page">Home</a></li>
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $this->templateData['preloadrecord']['project']['linkDetails'] ?>" title="<?php echo $this->templateData['preloadrecord']['project']['title'] ?>"><?php echo $this->templateData['preloadrecord']['project']['title'] ?></a></li>
+						
+						<!-- Press -->
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $this->templateData['remotelinkWeb'].$this->templateData['languageAbbreviation'] ?>/<?php echo \Setup\StringRequestDecoder::slugify( $this->templateData['languageLabels']['RASSEGNA_STAMPA_MENU'] )?>" title="<?php echo $this->templateData['languageLabels']['RASSEGNA_STAMPA_MENU'] ?>"><?php echo $this->templateData['languageLabels']['RASSEGNA_STAMPA_MENU'] ?></a></li>
+						
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $this->templateData['preloadrecord']['workwithus']['linkDetails'] ?>" title="<?php echo $this->templateData['preloadrecord']['workwithus']['title'] ?>"><?php echo $this->templateData['preloadrecord']['workwithus']['title'] ?></a></li>
+						
+						<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $this->templateData['preloadrecord']['contacts']['linkDetails'] ?>" title="<?php echo $this->templateData['preloadrecord']['contacts']['title'] ?>"><?php echo $this->templateData['preloadrecord']['contacts']['title'] ?></a></li>
 
-					<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $this->templateData['preloadrecord']['project']['linkDetails'] ?>" title="<?php echo $this->templateData['preloadrecord']['project']['title'] ?>"><?php echo $this->templateData['preloadrecord']['project']['title'] ?></a></li>
-					
-					<!-- Press -->
-					<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $this->templateData['remotelinkWeb'].$this->templateData['languageAbbreviation'] ?>/<?php echo \Setup\StringRequestDecoder::slugify( $this->templateData['languageLabels']['RASSEGNA_STAMPA_MENU'] )?>" title="<?php echo $this->templateData['languageLabels']['RASSEGNA_STAMPA_MENU'] ?>"><?php echo $this->templateData['languageLabels']['RASSEGNA_STAMPA_MENU'] ?></a></li>
-					
-					<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $this->templateData['preloadrecord']['workwithus']['linkDetails'] ?>" title="<?php echo $this->templateData['preloadrecord']['workwithus']['title'] ?>"><?php echo $this->templateData['preloadrecord']['workwithus']['title'] ?></a></li>
-					
-					<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $this->templateData['preloadrecord']['contacts']['linkDetails'] ?>" title="<?php echo $this->templateData['preloadrecord']['contacts']['title'] ?>"><?php echo $this->templateData['preloadrecord']['contacts']['title'] ?></a></li>
-					
+					</ul>
+				</nav>
+			</div>
+			<!-- primary menu end-->
+		</div>
+	</div>
+
+</header>
+<!-- header end -->
+
+
+<div style="clear: both; margin-top: 7%"></div>
+
+<!-- Title \ breadcrumb 
+<div class="page-top clearfix">
+	<div class="container">
+		<h2>Our <strong class="sd-colored-txt">Blog</strong></h2>
+		<span class="sd-subtitle">Ideas and Insights</span>
+	</div>
+</div>
+ -->
+
+<?php
+// main contents
+echo $this->partial($this->templateData['templatePartial']);
+?>
+
+<div style="clear: both; margin-top: 7%"></div>
+
+<div class="copyright clearfix">
+  <div class="container">
+    <div class="row">
+	
+	<div class="span4">
+		<p>&copy; <?php echo date("Y"); ?> - <a href="<?php echo $templateData['remotelinkWeb'] ?>" title="<?php echo $templateData['sitename'] ?>" rel="home"><?php echo $templateData['sitename'] ?></a> - <a href="<?php echo $this->templateData['workwithus']['credits'] ?>" title="Credits" class="underline footerlink">Credits</a> - <a href="http://validator.w3.org/check?uri=referer" title="Validate HTML" target="_blank" class="underline footerlink">Valid HTML5</a><!-- <a href="http://jigsaw.w3.org/css-validator/check/referer" title="Validate CSS" target="_blank" class="underline footerlink">Valid CSS</a> --></p>
+	</div>
+
+		<div class="span8">
+			<div class="footer-menu">
+			<ul id="menu-footer" class="">
+				<!--
+				<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-117"><a href="#">Home</a></li>
+				
+				<li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-10 current_page_item menu-item-116"><a href="index.html">Blog</a></li>
+				-->
+				<li id="menu-item" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item"><a href="<?php echo $this->templateData['remotelinkWeb'].$this->templateData['languageAbbreviation'] ?>/" title="Home page">Home</a></li>
+
+				<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $this->templateData['preloadrecord']['project']['linkDetails'] ?>" title="<?php echo $this->templateData['preloadrecord']['project']['title'] ?>"><?php echo $this->templateData['preloadrecord']['project']['title'] ?></a></li>
+				
+				<!-- Press -->
+				<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $this->templateData['remotelinkWeb'].$this->templateData['languageAbbreviation'] ?>/<?php echo \Setup\StringRequestDecoder::slugify( $this->templateData['languageLabels']['RASSEGNA_STAMPA_MENU'] )?>" title="<?php echo $this->templateData['languageLabels']['RASSEGNA_STAMPA_MENU'] ?>"><?php echo $this->templateData['languageLabels']['RASSEGNA_STAMPA_MENU'] ?></a></li>
+				
+				<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $this->templateData['preloadrecord']['workwithus']['linkDetails'] ?>" title="<?php echo $this->templateData['preloadrecord']['workwithus']['title'] ?>"><?php echo $this->templateData['preloadrecord']['workwithus']['title'] ?></a></li>
+				
+				<li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="<?php echo $this->templateData['preloadrecord']['contacts']['linkDetails'] ?>" title="<?php echo $this->templateData['preloadrecord']['contacts']['title'] ?>"><?php echo $this->templateData['preloadrecord']['contacts']['title'] ?></a></li>
+				
 				</ul>
-				
-				</div>
-				
 			</div>
-			
-			<!-- Responsive select option -->
-			<div class="responsive-menu-wrapper">
-				<select id="menu-main-1" class="menu dropdown-menu" title="<?php echo $this->templateData['languageLabels']['RESPONSIVE_SELECTMENU_TITLE'] ?>">
-					<option value="" class="blank">&#8211; Menu &#8211;</option>
-					<option value="<?php echo $this->templateData['remotelinkWeb']?>" selected="selected">Home</option>
-					<option value="<?=$this->templateData['preloadrecord']['press']['linkDetails']?>" title="<?php echo $this->templateData['languageLabels']['RASSEGNA_STAMPA_MENU'] ?>"><?php echo $this->templateData['languageLabels']['RASSEGNA_STAMPA_MENU'] ?></option>
-					<option value="<?php echo $this->templateData['preloadrecord']['workwithus']['linkDetails'] ?>" title=""><?php echo $this->templateData['languageLabels']['LAVORA_CON_NOI_MENU'] ?></option>
-					<option value="<?php echo $this->templateData['preloadrecord']['contactForm']['linkDetails'] ?>" title=""><?php echo $this->templateData['languageLabels']['CONTATTI_MENU'] ?></option>
-					<!-- 
-					<option value="<?php echo $this->templateData['preloadrecord']['repetti']['linkDetails'] ?>" title="<?php echo $this->templateData['preloadrecord']['repetti']['title'] ?>"><?php echo $this->templateData['preloadrecord']['repetti']['title'] ?></option>
-					 -->
-				</select>
-			</div>
-
-			<div class="clear"></div>
-			
-			</div>
-
 		</div>
-		
-		<div class="content-wrapper sidebar-included right-sidebar">
-		
-		<div class="page-wrapper">
 
-			<?php echo $this->partial($this->templateData['templatePartial']); ?>
-			
-			<br class="clear">
-		</div>
-		
 	</div>
 	
 	</div>
-	
-	
-	<div class="footer-wrapper">
-		<div class="copyright-wrapper">
-			<div class="container">&copy; <?php echo date("Y") ?> <a href="<?php echo $this->templateData['workwithus']['credits'] ?>" title="Credits" class="underline footerlink">Credits</a> - <a href="http://validator.w3.org/check?uri=referer" title="Validate HTML" target="_blank" class="underline footerlink">Valid HTML5</a><!--  - <a href="http://jigsaw.w3.org/css-validator/check/referer" title="Validate CSS" target="_blank" class="underline footerlink">Valid CSS</a> --></div>
-		</div>
-	</div>
-	
 </div>
 
-<!-- jQuery library -->
-<script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $this->templateData['jsdir'] ?>jquery.min.js"></script>
 
-<!-- Jquery form -->
+<!-- jQuery library -->
+<script src="<?php echo $this->basePath() ?>/<?php echo $this->templateData['jsdir'] ?>jquery.min.js"></script>
+
+<script src='<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>plugins/contact-form-7/includes/js/jquery.form.min9ee3.js?ver=3.48.0-2013.12.28'></script>
+
+<script src="<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>plugins/contact-form-7/includes/js/scriptsef85.js?ver=3.7"></script>
+
+<!-- 
+<script src='<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>themes/minimal/framework/js/preloader.js?ver=3.8.1'></script>
+
+<script src="<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>themes/minimal/framework/js/prettyphoto.js?ver=3.8.1"></script>
+
+<script src='<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>themes/minimal/framework/js/superfish.js?ver=3.8.1'></script>
+
+<script src='<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>themes/minimal/framework/js/flexslider.js?ver=3.8.1'></script>
+-->
+
+<script src="<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>themes/minimal/framework/js/mobile-menu.js?ver=3.8.1"></script>
+
+<!-- <script src='<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>themes/minimal/framework/js/custom.js?ver=3.8.1'></script> -->
+
+<script src='<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>jquery/ui/jquery.ui.core.mindb08.js?ver=1.10.3'></script>
+
+<script src='<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>jquery/ui/jquery.ui.widget.mindb08.js?ver=1.10.3'></script>
+
+<script src='<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>jquery/ui/jquery.ui.accordion.mindb08.js?ver=1.10.3'></script>
+
+<script src='<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>jquery/ui/jquery.ui.tabs.mindb08.js?ver=1.10.3'></script>
+
+<!--
+<script src='<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>plugins/sd-shortcodes-busipress/inc/js/shortcodes.js?ver=3.8.1'></script>
+<script src='<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>jquery/ui/jquery.ui.effect.mindb08.js?ver=1.10.3'></script>
+<script src='<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>jquery/ui/jquery.ui.effect-fade.mindb08.js?ver=1.10.3'></script>
+
+<script src='<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>mediaelement/mediaelement-and-player.min80e2.js?ver=2.13.0'></script>
+
+<script src="<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>mediaelement/wp-mediaelement.js?ver=3.8.1"></script>
+ -->
+
+<!-- jQuery form -->
 <script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $this->templateData['jsdir'] ?>jquery.form.js"></script>
 
-<!-- Jquery validate -->
+<!-- jQuery validate -->
 <script type="text/javascript" src="<?php echo $this->basePath() ?>/<?php echo $this->templateData['jsdir'] ?>jquery.validate.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/<?php echo $this->templateData['jsdir'] ?>jquery.validate.additional-methods.js"></script>
 
@@ -181,16 +266,24 @@
 <script type="text/javascript">
 
 jQuery(document).ready(function() {
-
-	/* Simple image */
-	$(".fancyboxsingleimage").fancybox({
-		helpers: {
-			title : {
-				type : 'float'
-			}
-		}
-	});
 	
+	/* Home page rollover */
+	jQuery('img[rel]').each(function(){
+		// Preload rollover
+		var imageEl = jQuery('<img alt="" />');
+		imageEl.attr('src',jQuery(this).attr('rel'));
+
+		jQuery(this).hover(
+			function(){
+				// swap the image
+				var hoverSrc = jQuery(this).attr('rel');
+				var regSrc = jQuery(this).attr('src');
+				jQuery(this).attr('src',hoverSrc);
+				jQuery(this).attr('rel',regSrc);
+			}
+		);
+	});
+
 	/* Accordion */
 	jQuery("ul.gdl-accordion li").each(function() {
 		

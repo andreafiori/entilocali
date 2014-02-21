@@ -44,7 +44,7 @@ class Module implements AutoloaderProviderInterface
     			'formelement'   => 'Application\Form\View\Helper\FormElement',
     			'formPlainText' => 'Application\Form\View\Helper\FormPlainText',
 				)
-			);
+		);
 	}
 
     public function getAutoloaderConfig()

@@ -1,38 +1,80 @@
-<!-- Category Label -->
-<div class="sixteen columns mb0">
-	<div class="gdl-page-title-wrapper">
-		<h1 class="gdl-page-title gdl-title title-color"><?php echo $this->templateData['controllerResult'][0]['name'] ?></h1>
-		<div class="gdl-page-caption"></div>
-		<div class="gdl-page-title-left-bar"></div>
-		<div class="clear"></div>
-	</div>
-</div>
-
-<div class="gdl-page-float-left">
-	<div class='gdl-page-item'>
-		<div class="sixteen columns mt0">
-			<div class="gdl-page-content">
-			
-			<!--  Breadcrumb -->
-			<p><strong><a href="<?=$this->templateData['remotelinkWeb'].$this->templateData['languageAbbreviation']?>" title="Home page">Home</a></strong> &raquo; <?php echo $this->templateData['categoryName'] ?></p>
-			
-			<div></div>
-			<h3>In costruzione</h3>
-			<p>Sezione in costruzione</p>
-			</div>
-			
-			<div style="clear:both; height: 20px"></div>
-			
-			</div>
+<div class="container content">
+	<div class="row"> 
+	
+    <!--left col-->
+    <div id="left-col" class="span8">
+		
+	<!-- Category Label -->
+	<div class="sixteen columns mb0">
+		<div class="gdl-page-title-wrapper">
+			<h1 class="gdl-page-title gdl-title title-color"><?php echo $this->templateData['controllerResult'][0]['name'] ?></h1>
+			<div class="gdl-page-caption"></div>
+			<div class="gdl-page-title-left-bar"></div>
+			<div class="clear"></div>
 		</div>
 	</div>
-</div>
 
-<div class="five columns mt0 gdl-right-sidebar">
-	<div class="right-sidebar-wrapper gdl-divider">
+		<!--  Breadcrumb -->
+		<p><strong><a href="<?=$this->templateData['remotelinkWeb'].$this->templateData['languageAbbreviation']?>" title="Home page">Home</a></strong> &raquo; <?php echo $this->templateData['categoryName'] ?></p>
+		
 		<?php
-		echo $this->partial( $this->templateData['template_path'].'sidebar.phtml');
+		/* post list */
+		foreach($this->templateData['controllerResult'] as $postList):
 		?>
-		<div class="pt30"></div>
+		<article class="post type-post status-publish format-gallery hentry category-gallery category-post-format tag-gallery-post tag-images tag-post blog-entry gallery-entry clearfix">
+
+		<div class="entry-wrapper">		
+			<div class="entry-gallery">
+				<div class="flexslider">
+					<ul class="slides">
+						<!-- IMAGE
+						<li><a href="#" title="Permalink la Gallery Post Format" rel="bookmark">
+							<figure><img width="770" height="293" src="<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>uploads/sites/5/2013/08/8264798618_8aeb7f7f2a_h-770x293.jpg" class="attachment-blog-thumbs" alt="8264798618_8aeb7f7f2a_h" /></figure>
+						</a></li>
+						-->
+					</ul>
+				</div>
+			</div>
+			
+			<header>
+				<h3 class="entry-title"><a href="#" title="Permalink la Gallery Post Format" rel="bookmark"><?php echo $postList['title']; ?></a></h3>
+			</header>
+
+			<aside class="entry-meta clearfix">
+			  <ul>
+				<li class="meta-date">
+				  Posted on:      <span>
+				  August 15, 2013      </span> </li>
+				<li class="meta-author">
+				  by      <span>
+				  skat      </span> </li>
+				<li class="meta-category">
+				  in <a href="" title="View all posts in gallery" >gallery</a>, <a href="" title="View all posts in post format" >post format</a>    </li>
+				<li class="meta-tag">tagged as <a href="../tag/gallery-post/index.html" rel="tag">gallery post</a> , <a href="../tag/images/index.html" rel="tag">images</a> , <a href="../tag/post/index.html" rel="tag">post</a></li>  </ul>
+			</aside>
+			
+			<div class="entry-content">
+				<?php echo $postList['description']; ?>
+				<a href="#" class="more-link">Read More</a>
+			</div>
+
+		</div>
+
+	</article>
+
+	<?php endforeach; ?>
+	
+	</div>
+
+	
+	<div id="right-col" class="span4">
+		<div class="sidebar">
+			<?php
+			echo $this->partial( $this->templateData['template_path'].'sidebar.phtml');
+			?>
+		</div>
+	</div>
+
+	
 	</div>
 </div>

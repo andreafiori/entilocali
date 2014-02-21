@@ -1,0 +1,88 @@
+<div class="container content">
+
+	<h3>Lavora con noi</h3>
+	
+	<!-- <p>Invia</p> -->
+
+	<form action="" method="post" enctype="multipart/form-data" class="wpcf7-form">
+		
+		<!-- Name -->
+		<p><span class="wpcf7-form-control-wrap"><input type="text" name="name" id="name" title="Inserisci il tuo nome" maxlength="80" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Nome"></span></p>
+		
+		<!-- Surname -->
+		<p><span class="wpcf7-form-control-wrap"><input type="text" name="surname" id="surname" title="Inseisci il tuo cognome" maxlength="80" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" placeholder="Cognome"></span></p>
+		
+		<!-- Email -->
+		<p><span class="wpcf7-form-control-wrap"><input type="text" name="email" id="email" maxlength="80" title="Inseisci indirizzo email" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false" placeholder="E-Mail"></span></p>
+		
+		<!-- Telefono  -->
+		<p><span class="wpcf7-form-control-wrap"><input type="text" name="phone" id="phone" maxlength="50" title="Inseisci numero di telefono (solo numeri, senza spazi)" size="40" class="wpcf7-form-control wpcf7-text" aria-invalid="false" placeholder="Telefono"></span></p>
+		
+		<!-- Ruolo -->
+		<p><span class="wpcf7-form-control-wrap">
+			<select name="jobrole" id="jobrole" class="required" title="Seleziona Ruolo">
+				<option value="">Ruolo</option>
+				<option value="Pizzaiolo">Pizzaiolo</option>
+				<option value="Aiuto_cuoco">Aiuto cuoco</option>
+				<option value="Barista">Barista</option>
+				<option value="Cameriere">Cameriere</option>
+				<option value="Lavapiatti">Lavapiatti</option>
+				<option value="Animazione_bambini_eta_prescolare">Animazione bambini et&agrave; prescolare</option>
+				<option value="Animazione_bambini_6-12">Animazione bambini 6-12</option>
+				<option value="Animazione_adulti">Animazione adulti</option>
+			</select>
+			</span>
+		</p>
+		
+		<!-- File -->
+		<p><input type="file" name="cvitae" id="cvitae" title="Seleziona file curriculum" class="wpcf7-form-control wpcf7-text" aria-invalid="false" placeholder="File Curriculum Vitae"> formati consentiti: word (.doc, .docx), pdf.</p>
+
+		<!-- Message -->
+		<p><span class="wpcf7-form-control-wrap your-message"><textarea name="your-message" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea" aria-invalid="false" placeholder="Message"></textarea></span> </p>
+		
+		<p><input type="submit" value="Invia" class="wpcf7-form-control wpcf7-submit" title="Clicca per inviare i dati"></p>
+
+		<p>* Campi obbligatori</p>
+		
+	</form>
+	
+	
+	<!-- lavora con noi -->
+	<div class="sixteen columns ">
+	<div class="contact-form-wrapper">
+		<form id="gdl-contact-form" action="#" enctype="multipart/form-data" method="post">
+			<ol class="forms">
+
+				<li><label for="phone"><strong>Telefono *</strong></label>
+					
+				</li>
+				
+					
+				</li>
+				<li><label for="cv"><strong>Curriculum *</strong></label>
+					
+				</li>
+				<li class="textarea"><label for="message"><strong>Messaggio *</strong></label>
+					<textarea name="message" id="message" title="Inseisci testo del messaggio"></textarea>
+				</li>
+				<li><input type="checkbox" value="" name="privacy" id="privacy" title="Spunta la casella per autorizzare il trattamento ai dati personali"> Autorizzo il trattamento dei miei dati personali, ai sensi del D.lgs. 196 del 30 giugno 2003</li>
+				<li><input type="hidden" name="honeypot" id="honeypot" value=""></li>
+				<li class="buttons">
+					<button type="submit" class="contact-submit button">Invia</button>
+					<input type="hidden" name="language" id="language" value="it">
+				</li>
+				<li>
+
+				<div class="clear"></div>
+				<div>&nbsp;</div>
+				
+				</li>
+			</ol>
+		</form>
+		
+		<div class="clear"></div>
+
+	</div>
+</div>
+<div id="contactformresponse"></div>
+</div>
