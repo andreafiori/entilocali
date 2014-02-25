@@ -8,7 +8,8 @@ use Setup\SetupManager;
 
 class CategoriesQueryBuilderTest extends TestSuite
 {
-	private $setupManager;	
+	private $setupManager;
+	
 	private $categoriesQueryBuilder;
 
 	protected function setUp()

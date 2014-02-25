@@ -3,7 +3,6 @@
 namespace Setup;
 
 /**
- * TODO: cache loaded records!
  * @author Andrea Fiori
  * @since  14 January 2014
  */
@@ -55,7 +54,6 @@ class SetupManagerPreload implements SetupManagerPreloadInterface
 	}
 
 	/**
-	 * 
 	 * @param SetupManager $setupManager
 	 * @return boolean|Ambigous <boolean, \Setup\SetupManagerPreloadInterface>
 	 */

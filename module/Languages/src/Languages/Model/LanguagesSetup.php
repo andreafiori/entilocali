@@ -6,14 +6,15 @@ use Setup\QueryMakerAbstract;
 use Setup\NullException;
 
 /**
- * 
  * @author Andrea Fiori
  * @since  07 January 2014
  */
-class LanguagesSetup extends QueryMakerAbstract
+class LanguagesSetup
 {
 	private $defaultLangFieldName;
+	
 	private $defaultLanguage;
+	
 	private $allAvailableLanguages;
 	
 	private $isOnBackend;
@@ -41,11 +42,12 @@ class LanguagesSetup extends QueryMakerAbstract
 	 */
 	public function setAllAvailableLanguages($channelId = 1)
 	{
+		/*
 		$query = $this->getEntityManager()->createQuery("SELECT l.id, l.abbreviation1, l.abbreviation3, l.isdefault, l.isdefaultBackend, l.active FROM Application\\Entity\\Languages l WHERE l.active = 1 AND l.channel = :channel ");
 		$query->setParameter('channel', $channelId ? $channelId : 1);
 		
 		$this->allAvailableLanguages = $query->getResult();
-
+		*/
 		return $this->allAvailableLanguages;
 	}
 

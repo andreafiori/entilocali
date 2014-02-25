@@ -6,6 +6,7 @@ use Zend\View\Model\ViewModel;
 use ServiceLocatorFactory;
 use Posts\Model\PostsGetter;
 use Application\Controller\Plugin\FrontendSetupInitializerPlugin;
+use Config\Model\ConfigQueryBuilder;
 
 /**
  * Frontend main controller
@@ -40,6 +41,8 @@ class IndexController extends FrontendControllerAbstract
 		} else {
 			$setupManager->getTemplateDataSetter()->assignToTemplate('templatePartial', $setupManager->getTemplateDataSetter()->getTemplateData('template_path').'homepage.phtml');
 		}
+		
+		var_dump( $setupManager->getTemplateDataSetter()->getTemplateData('preloadrecord') );
 
 		/* TEMPLATE DATA */
 		$setupManager->getTemplateDataSetter()->assignToTemplate('controllerResult', $postsDetail);

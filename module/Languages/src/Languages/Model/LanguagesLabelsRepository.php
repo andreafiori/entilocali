@@ -1,5 +1,6 @@
 <?php
 
+/* TODO: TO REMOVE!!!
 namespace Languages\Model;
 
 use Setup\QueryMakerAbstract;
@@ -10,12 +11,6 @@ class LanguagesLabelsRepository extends QueryMakerAbstract
 
 	private $languageEntity;
 	
-	/**
-	 * get the label with name -> key value format
-	 * @param array $arraySearch
-	 * @throws InvalidArgumentException
-	 * @return array
-	 */
 	public function getLabels(array $arraySearch)
 	{
 		$labelsObject = $this->convertArrayOfObjectToArray( $this->getFindFromRepository($arraySearch) );
@@ -28,3 +23,4 @@ class LanguagesLabelsRepository extends QueryMakerAbstract
 		return $labels;
 	}
 }
+*/

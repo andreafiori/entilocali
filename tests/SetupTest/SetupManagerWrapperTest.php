@@ -32,14 +32,14 @@ class SetupManagerWrapperTest extends TestSuite
 		
 		$this->assertEquals($this->getSetupManagerFromWrapper()->getChannelId(), 1);
 	}
-
+	/*
 	public function testSetupLanguages()
 	{
 		$this->setupManagerWrapper->setupLanguages();
 		
 		$this->assertTrue( $this->getSetupManagerFromWrapper()->getSetupManagerLanguages() instanceof SetupManagerLanguages);
 	}
-
+	
 	public function testSetupLanguageLabels()
 	{
 		$this->setupManagerWrapper->setupLanguages();
@@ -54,7 +54,7 @@ class SetupManagerWrapperTest extends TestSuite
 		
 		$this->assertTrue( $this->getSetupManagerFromWrapper()->getSetupManagerConfigurations() instanceof SetupManagerConfigurations);		
 	}
-	
+	*/
 		private function getSetupManagerFromWrapper()
 		{
 			return $this->setupManagerWrapper->getSetupManager();

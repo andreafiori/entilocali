@@ -5,6 +5,10 @@ namespace PostsTest\Model;
 use SetupTest\TestSuite;
 use Backend\Form\Setter\PostsFormSetter;
 
+/**
+ * @author Andrea Fiori
+ * @since  27 January 2014
+ */
 class PostsFormSetterTest extends TestSuite
 {
 	private $setupManager;

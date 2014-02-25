@@ -5,7 +5,7 @@ namespace PostsTest\Model;
 use SetupTest\TestSuite;
 use Posts\Model\PostsGetter;
 
-class PostsGetterTest //extends TestSuite
+class PostsGetterTest extends TestSuite
 {
 	private $setupManager;
 
@@ -18,10 +18,5 @@ class PostsGetterTest //extends TestSuite
 		$this->setupManager = $this->getSetupManager();
 		
 		$this->postsGetterWrapper = new PostsGetter( $this->setupManager );
-	}
-
-	public function testGetPost()
-	{
-		$this->assertTrue( is_array($this->postsGetterWrapper->getPost()) );
 	}
 }

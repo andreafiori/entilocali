@@ -9,13 +9,13 @@ use Config\Model\ConfigRepository;
 use ServiceLocatorFactory\ServiceLocatorFactory;
 
 /**
- * Wrapper around the setup manager operations
  * @author Andrea Fiori
  * @since  07 January 2014
  */
 class SetupManagerWrapper
 {
 	private $setupManager;
+	
 	private $setupManagerInput;
 
 	private $entityManager;
@@ -64,24 +64,24 @@ class SetupManagerWrapper
 		$this->setupManager->getSetupManagerConfigurations()->setConfigurations(
 				array(
 						"channelId"   => array($this->setupManager->getChannelId() ? $this->setupManager->getChannelId() : 1, 0),
-						//"isbackend" => $this->setupManager->getInput('isbackend') ? $this->setupManager->getInput('isbackend') : 0,
+						/* "isbackend" => $this->setupManager->getInput('isbackend') ? $this->setupManager->getInput('isbackend') : 0, */
 				)
 		);
 		$this->setupManager->getSetupManagerConfigurations()->getConfigRepository()->initConfigRecord();
 	}
-	
+
+	/**
+	 * Assign to preloadrecord the default class record\result
+	 */
 	public function setupPreloadRecord()
 	{
 		$this->setupManager->getSetupManagerPreload()->setClassName( $this->setupManager->getTemplateDataSetter()->getTemplateData('preloader_class') );
 		$this->setupManager->getSetupManagerPreload()->setInstance($this->setupManager);
 		$this->setupManager->getTemplateDataSetter()->assignToTemplate('preloadrecord', $this->setupManager->getSetupManagerPreload()->setRecord() );
-		
+
 		$this->setupManager->setInput( $this->setupManagerInput );
 	}
-		
-	/**
-	 * TODO: split these setup var settings
-	 */
+	
 	public function setupTemplateRecords()
 	{
 		$configRecord 	= $this->setupManager->getSetupManagerConfigurations()->getConfigRepository()->getConfigRecord();

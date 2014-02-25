@@ -13,7 +13,7 @@ class CategoriesQueryBuilder extends DQLQueryHelper
 {
 	public function setQueryBasic()
 	{
-		if (!$this->getDefaultFieldsSelect()) {
+		if ( !$this->getDefaultFieldsSelect() ) {
 			$this->setDefaultFieldsSelect('DISTINCT(c.id) AS catid, co.name, c.id');
 		}
 		

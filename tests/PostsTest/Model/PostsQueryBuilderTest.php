@@ -7,7 +7,6 @@ use Posts\Model\PostsQueryBuilder;
 use ServiceLocatorFactory\ServiceLocatorFactory;
 
 /**
- * PostsQueryBuilderTest
  * @author Andrea Fiori
  * @since  03 January 2014
  */
@@ -82,7 +81,6 @@ class PostsQueryBuilderTest extends TestSuite
 		
 		$this->assertNotEmpty($this->postsQueryBuilder->getSelectQuery());
 	}
-
 	
 	
 	// TESTS DQLQueryHelper abstract class methods

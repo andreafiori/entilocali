@@ -55,7 +55,9 @@
 
 <link rel="stylesheet" id="stylesheet-css"  href="<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>themes/minimal/style.css?ver=3" type="text/css" media="all">
 
-<!-- <link rel="stylesheet" id="prettyphoto-css"  href="<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>themes/minimal/framework/css/prettyPhoto.css?ver=3.8.1" type="text/css" media="all"> -->
+<!--
+<link rel="stylesheet" id="prettyphoto-css"  href="<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>themes/minimal/framework/css/prettyPhoto.css?ver=3.8.1" type="text/css" media="all">
+-->
 
 <link rel="stylesheet" id="custom-styles-css" href="<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>themes/minimal/framework/css/custom-styles.css?ver=3.8.1" type="text/css" media="all">
 
@@ -69,16 +71,13 @@
 
 <link rel="stylesheet" id="shortcodes-styling-css"  href="<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>plugins/sd-shortcodes-busipress/inc/css/shortcodes5152.css?ver=1.0" type='text/css' media="all" />
 
-<!-- <link rel="shortlink" href=""> -->
+<!-- 
 
-<!-- <link rel="shortcut icon" href="<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>themes/minimal/framework/images/favicon.ico"> -->
+<link rel="shortlink" href="">
 
-<!--
-<link rel="stylesheet" id='mediaelement-css'  href='<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>mediaelement/mediaelementplayer.min80e2.css?ver=2.13.0' type='text/css' media="all" />
+<link rel="shortcut icon" href="<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>themes/minimal/framework/images/favicon.ico">
 
-<link rel="stylesheet" id='wp-mediaelement-css'  href='<?php echo $this->basePath() ?>/<?php echo $this->templateData['cssdir'] ?>mediaelement/wp-mediaelement.css?ver=3.8.1' type='text/css' media="all" />
 -->
-
 
 </head>
 
@@ -95,6 +94,13 @@
 <header id="header" class="clearfix">
 	
 	<div class="container">
+		
+		<div class="row">
+			<div style="text-align: right">
+				<a href="<?php echo $this->templateData['remotelinkWeb'] ?>it/" title="Passa alla lingua italiana"><img src="<?php echo $this->basePath().'/'.$this->templateData['imagedir'] ?>flag_ita.gif" alt="Bandiera italiana"> Italiano</a> <a href="<?php echo $this->templateData['remotelinkWeb'] ?>en/" title="Switch to English"><img src="<?php echo $this->basePath().'/'.$this->templateData['imagedir'] ?>flag_eng.gif" alt="England's flag"> <?php echo $this->templateData['languageLabels'
+							]['ENG_LANGUAGE_NAME'] ?></a>
+			</div>
+		</div>
 		
 		<!--
 		<div class="row">

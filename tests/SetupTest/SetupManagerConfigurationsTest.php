@@ -6,8 +6,8 @@ use SetupTest\TestSuite;
 use Setup\SetupManagerConfigurations;
 use Config\Model\ConfigRepository;
 
-class SetupManagerConfigurationsTest extends TestSuite {
-	
+class SetupManagerConfigurationsTest //extends TestSuite
+{
 	private $setupManagerConfigurations;
 	
 	protected function setUp()

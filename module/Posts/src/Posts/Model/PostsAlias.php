@@ -4,19 +4,14 @@ namespace Posts\Model;
 
 use Setup\SetupManagerAbstract;
 use Setup\SetupManagerPreloadInterface;
+use Setup\SetupManagerPreloadAbstract;
 
 /**
  * @author Andrea Fiori
  * @since  14 January 2014
  */
-class PostsAlias implements SetupManagerPreloadInterface
+class PostsAlias extends SetupManagerPreloadAbstract implements SetupManagerPreloadInterface
 {
-	private $setupManager;
-
-	private $postsGetterInput;
-
-	private $record;
-	
 	/**
 	 * @param SetupManagerAbstract $setupManager
 	 */
@@ -34,13 +29,14 @@ class PostsAlias implements SetupManagerPreloadInterface
 
 		return $this->record;
 	}
-		
+	
 		private function getPostsGetterInput()
 		{
 			$input = $this->setupManager->getInput();
 			
 			unset($input['categoryName']);
 			unset($input['title']);
+			
 			$input['helpers'] = true;
 			$input['aliasnotull'] = true;
 			$input['sortByAlias'] = true;

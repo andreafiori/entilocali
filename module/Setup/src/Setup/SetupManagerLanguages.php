@@ -4,6 +4,10 @@ namespace Setup;
 
 use Languages\Model\LanguagesSetup;
 
+/**
+ * @author Andrea fiori
+ * @since  24 January 2014
+ */
 class SetupManagerLanguages extends SetupManagerAbstract
 {
 	protected $languageId, $languageAbbreviation, $defaultLanguage;

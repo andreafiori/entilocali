@@ -2,7 +2,7 @@
 
 /* Global Configuration Override */
 $dbParams = array(
-        'database'  => 'fossobandito',
+        'database'  => 'entilocali',
         'username'  => 'root',
         'password'  => '',
         'hostname'  => 'localhost',
@@ -20,6 +20,7 @@ return array(
                     'username'  => $dbParams['username'],
                     'password'  => $dbParams['password'],
                     'hostname'  => $dbParams['hostname'],
+                    'port'  => $dbParams['port'],
                 ));
                 
                 $adapter->setProfiler(new BjyProfiler\Db\Profiler\Profiler);

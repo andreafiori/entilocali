@@ -5,6 +5,10 @@ namespace UsersTest\Model;
 use SetupTest\TestSuite;
 use Users\Model\UsersQueryBuilder;
 
+/**
+ * @author Andrea Fiori
+ * @since  23 January 2014
+ */
 class UsersQueryBuilderTest extends TestSuite
 {
 	private $setupManager;
@@ -15,8 +19,10 @@ class UsersQueryBuilderTest extends TestSuite
 	{
 		parent::setUp();
 		
+		$this->createLoadedMockedDoctrineRepository("Application\\Entity\\Config", "Users", "getUsers", array());
+		
 		$this->setupManager = $this->getSetupManager();
-
+		
 		$this->usersQueryBuilder = new UsersQueryBuilder();
 		$this->usersQueryBuilder->setSetupManager($this->setupManager);
 	}

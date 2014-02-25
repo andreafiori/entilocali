@@ -5,20 +5,24 @@ namespace ApplicationTest;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Mvc\Service\ServiceManagerConfig;
 
-class ServiceManagerGrabber {
-
+/**
+ * @author Andrea Fiori
+ * @since  24 January 2014
+ */
+class ServiceManagerGrabber
+{
 	protected static $serviceConfig = null;
-     
+
     public static function setServiceConfig($config)
     {
         static::$serviceConfig = $config;
     }
-
+    
     public static function getServiceConfig()
     {
     	return static::$serviceConfig;
     }
-    
+
     public function getServiceManager()
     {
     	$configuration = static::$serviceConfig ? : require_once './config/application.config.php';
@@ -31,5 +35,4 @@ class ServiceManagerGrabber {
          
         return $serviceManager;
     }
-    
 }

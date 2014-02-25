@@ -6,7 +6,6 @@ use Backend\Controller\BackendController;
 use SetupTest\TestSuite;
 
 /**
- * TODO: test controllers with the dedicated class object 
  * @author Andrea Fiori
  * @since  07 January 2014
  */

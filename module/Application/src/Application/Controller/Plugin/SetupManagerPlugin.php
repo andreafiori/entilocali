@@ -23,9 +23,12 @@ class SetupManagerPlugin extends AbstractPlugin
 	{
 		$setupManagerWrapper = new SetupManagerWrapper( new SetupManager($input) );
 		$setupManagerWrapper->detectChannel();
+		
 		$setupManagerWrapper->setupLanguages();
 		$setupManagerWrapper->setupLanguagesLabels();
+		/*
 		$setupManagerWrapper->setupConfigurations();
+		*/
 		$setupManagerWrapper->setupTemplateRecords();
 		$setupManagerWrapper->setupPreloadRecord();
 

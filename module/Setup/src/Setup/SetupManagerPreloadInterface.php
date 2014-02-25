@@ -8,7 +8,7 @@ namespace Setup;
  * @since  13 January 2014
  */
 interface SetupManagerPreloadInterface
-{
+{	
 	public function setRecord();
 	
 	public function getRecord();

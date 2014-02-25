@@ -25,14 +25,14 @@ class PostsQueryBuilder extends DQLQueryHelper
 			) "; // AND DATE_FORMAT(po.datefrom, '%Y-%m-%d') < CURRENT_DATE()
 	}
 
-	public function setId($postsId)
+	public function setId($id)
 	{
-		if ( !is_numeric($postsId) ) {
+		if ( !is_numeric($id) ) {
 			return false;
 		}
 	
-		$this->query .= "AND p.id = :postsid ";
-		$this->addToBindParameters('postsid', $postsId);
+		$this->query .= "AND p.id = :postid ";
+		$this->addToBindParameters('postid', $id);
 	}
 	
 	public function setBasicBindParameters()
@@ -52,7 +52,9 @@ class PostsQueryBuilder extends DQLQueryHelper
 
 	public function setCategoryName($categoryName)
 	{
-		if (!$categoryName) return false;
+		if (!$categoryName) {
+			return false;
+		}
 		
 		$this->query .= "AND co.name = :cname ";
 		$this->addToBindParameters('cname', $categoryName);
@@ -60,15 +62,15 @@ class PostsQueryBuilder extends DQLQueryHelper
 
 	public function setCategorySeoUrl($categoryName)
 	{
-		if (!$categoryName) return false;
-	
-		$this->query .= "AND co.seoUrl = :seourlcategory ";
-		$this->addToBindParameters('seourlcategory', $categoryName);
+		if ($categoryName) {
+			$this->query .= "AND co.seoUrl = :seourlcategory ";
+			$this->addToBindParameters('seourlcategory', $categoryName);
+		}		
 	}
 
 	public function setTitle($title)
 	{
-		if ( $title ) {
+		if ($title) {
 			$this->query .= "AND po.title = :title ";
 			$this->addToBindParameters('title', $title);
 		}
@@ -81,7 +83,7 @@ class PostsQueryBuilder extends DQLQueryHelper
 	 */
 	public function setSeoUrl($seoUrl)
 	{
-		if ( $seoUrl ) {
+		if ($seoUrl) {
 			$this->query .= "AND po.seoUrl = :seourl ";
 			$this->addToBindParameters('seourl', $seoUrl);
 		}
@@ -94,6 +96,7 @@ class PostsQueryBuilder extends DQLQueryHelper
 		} else {
 			$this->query .= "AND p.status = :status ";
 		}
+		
 		$this->addToBindParameters('status', $status);
 	}
 	

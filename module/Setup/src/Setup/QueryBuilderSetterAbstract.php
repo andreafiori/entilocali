@@ -29,7 +29,7 @@ abstract class QueryBuilderSetterAbstract
 	
 	public function getInput($key = null)
 	{
-		if ($key) {
+		if ($key and isset($this->input[$key])) {
 			return $this->input[$key];
 		}
 		

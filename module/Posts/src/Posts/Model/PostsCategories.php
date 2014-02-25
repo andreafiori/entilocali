@@ -3,19 +3,16 @@
 namespace Posts\Model;
 
 use Setup\SetupManagerAbstract;
+use Setup\SetupManagerPreloadInterface;
+use Setup\SetupManagerPreloadAbstract;
+
 /**
- * 
- * @author afiori
- *
+ * Get posts ordered by categories
+ * @author Andrea Fiori
+ * @since  23 January 2014
  */
-class PostsCategories
-{
-	private $setupManager;
-	
-	private $postsGetterInput;
-	
-	private $record;
-	
+class PostsCategories extends SetupManagerPreloadAbstract implements SetupManagerPreloadInterface
+{	
 	/**
 	 * @param SetupManagerAbstract $setupManager
 	 */
@@ -26,13 +23,12 @@ class PostsCategories
 	
 	public function setRecord()
 	{
-		$postsGetter = new PostsGetter($this->setupManager);
-				
+		
 		return $this->record;
 	}
-	
+
 	public function getRecord()
 	{
 		return $this->record;
-	}	
+	}
 }

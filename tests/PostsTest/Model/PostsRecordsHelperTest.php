@@ -7,7 +7,6 @@ use Posts\Model\PostsRecordsHelper;
 use Posts\Model\PostsQueryBuilder;
 
 /**
- * 
  * @author Andrea fiori
  * @since  05 January 2014
  */

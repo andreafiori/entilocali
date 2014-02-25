@@ -3,7 +3,6 @@
 namespace Posts\Model;
 
 /**
- * 
  * @author Andrea Fiori
  * @since  21 January 2014
  */

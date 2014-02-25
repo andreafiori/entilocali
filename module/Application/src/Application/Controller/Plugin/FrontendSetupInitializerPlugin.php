@@ -3,11 +3,8 @@
 namespace Application\Controller\Plugin;
 
 /**
- * 
- * FrontendSetupInitializerPlugin
  * @author Andrea Fiori
  * @since  01 February 2014
- * 
  */
 class FrontendSetupInitializerPlugin extends SetupInitializerAbstractPlugin
 {

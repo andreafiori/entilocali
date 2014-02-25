@@ -5,6 +5,10 @@ namespace SetupTest;
 use Setup\SetupManagerLanguages;
 use Languages\Model\LanguagesSetup;
 
+/**
+ * @author Andrea fiori
+ * @since  24 January 2014
+ */
 class SetupManagerLanguagesTest extends TestSuite
 {
 	private $setupManagerLanguages;

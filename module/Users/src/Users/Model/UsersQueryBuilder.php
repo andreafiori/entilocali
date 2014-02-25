@@ -5,7 +5,7 @@ namespace Users\Model;
 use Setup\DQLQueryHelper;
 
 /**
- * 
+ * TODO: encode password with sha256 algorithm or md5 (initially)...
  * @author Andrea Fiori
  * @since  14 January 2014
  */
@@ -34,7 +34,6 @@ class UsersQueryBuilder extends DQLQueryHelper
 		$this->addToBindParameters('email', $email);
 	}
 	
-	// TODO: encode password with sha256 algorithm or md5 (initially)...
 	public function setPassword($password)
 	{
 		$this->query .= "AND u.password = :password ";

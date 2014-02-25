@@ -10,7 +10,10 @@ use ApplicationTest\ServiceManagerGrabber;
 use Setup\NullException;
 use Setup\SetupManager;
 
-
+/**
+ * @author Andrea Fiori
+ * @since  14 January 2014
+ */
 class TestSuite extends \PHPUnit_Framework_TestCase
 {
 	protected $request;
@@ -20,6 +23,10 @@ class TestSuite extends \PHPUnit_Framework_TestCase
 	protected $serviceManager;
 	
 	protected $entityManagerMock, $doctrine;
+	protected $repositoryMock;
+	
+	/* just to set a fake entity repository */
+	/* protected $repository; */
 	
 	protected function setUp()
 	{
@@ -86,11 +93,13 @@ class TestSuite extends \PHPUnit_Framework_TestCase
 		
 		$this->entityManagerMock = $this->getMock('\Doctrine\ORM\EntityManager', array('getRepository', 'getClassMetadata', 'persist', 'flush', 'create', 'createQuery', 'getConnection', 'getConfiguration'), array(), '', false);
 		
+		// TODO: mock the getRepository: http://symfony.com/it/doc/current/cookbook/testing/database.html
+		/*
 		$this->entityManagerMock
 			 ->expects($this->any())
 			 ->method('getRepository')
 			 ->will($this->returnValue(true));
-		
+		*/
 		$this->entityManagerMock
 			 ->expects($this->any())
 			 ->method('getClassMetadata')
@@ -128,19 +137,54 @@ class TestSuite extends \PHPUnit_Framework_TestCase
 
 		return $this->entityManagerMock;
 	}
+	
+	/**
+	 * https://gist.github.com/wowo/1331789
+	 * @param unknown $repository
+	 * @param unknown $repositoryName
+	 * @param unknown $repositoryMethod
+	 * @param unknown $repositoryMethodReturnVal
+	 * @return Ambigous <PHPUnit_Framework_MockObject_MockObject, object, mixed>
+	 */
+	protected function createLoadedMockedDoctrineRepository($repository, $repositoryName, $repositoryMethod, $repositoryMethodReturnVal)
+	{
+		if (!$this->repositoryMock) {
+			$this->repositoryMock = $this->getMock($repository, array($repositoryMethod), array(), '', false);
+		}
+		
+		$this->repositoryMock->expects($this->once())
+					->method($repositoryMethod)
+					->will($this->returnValue($repositoryMethodReturnVal));
+		
+		$this->repositoryMock->expects($this->once())
+							 ->method('find')
+							 ->will($this->returnValue(array("id" => 1, "myField" => "fake field value")));
+		
+		$this->repositoryMock->expects($this->once())
+							 ->method('findBy')
+					 		 ->will($this->returnValue(array("id" => 1, "myField" => "fake field value")));
+	
+		$this->entityManagerMock->expects($this->once())
+					->method('getRepository')
+					->with($repositoryName)
+					->will($this->returnValue($this->repositoryMock));
+	
+		return $this->entityManagerMock;
+	}
 
 	protected function getSetupManager()
 	{
 		$setupManager = new SetupManager( array('channelId' => array(1, 0), 'isbackend' => 0) );
 		$setupManager->setEntityManager($this->getEntityManagerMock());
 
-		//$setupManager->getSetupManagerConfigurations()->setConfigRepository(new ConfigRepository( $setupManager->getEntityManager()) );
+		//$setupManager->getSetupManagerConfigurations()->setConfigRepository( new ConfigRepository( $setupManager->getEntityManager() ) );
 		//$setupManager->getSetupManagerConfigurations()->setConfigurations( array('channelId' => array(1,0), 'isbackend' => 0) );
+		
 		return $setupManager;
 	}
 
 	/**
-	 * @test
+	 * fake test
 	 */
 	public function testThisFile()
 	{

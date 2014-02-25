@@ -59,12 +59,15 @@ class PostsGetter extends QueryBuilderSetterAbstract
 		
 		return $this->getQueryBuilder()->getSelectResult();
 	}
-
-	public function getPostsRecordsHelper(array $posts)
+	
+	public function getPostsRecordsHelper(PostsRecordsHelper $postsRecordsHelper)
 	{
-		$this->postsRecordsHelper = new PostsRecordsHelper($posts);
+		// $this->postsRecordsHelper = new PostsRecordsHelper(array $posts);
+		$this->postsRecordsHelper = $postsRecordsHelper;
 		$this->postsRecordsHelper->setSetupManager($this->setupManager);
-		$this->postsRecordsHelper->setRemotelinkWeb( $this->setupManager->getSetupManagerConfigurations()->getConfigRepository()->getConfigRecord('remotelinkWeb') );
+		
+		// $this->postsRecordsHelper->setRemotelinkWeb( $this->setupManager->getSetupManagerConfigurations()->getConfigRepository()->getConfigRecord('remotelinkWeb') );
+		
 		$this->postsRecordsHelper->setAdditionalArrayElements();
 		$this->postsRecordsHelper->sortPostsByAlias( $this->getInput('sortByAlias') );
 
