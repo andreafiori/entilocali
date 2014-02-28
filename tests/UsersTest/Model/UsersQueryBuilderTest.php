@@ -19,7 +19,9 @@ class UsersQueryBuilderTest extends TestSuite
 	{
 		parent::setUp();
 		
-		$this->createLoadedMockedDoctrineRepository("Application\\Entity\\Config", "Users", "getUsers", array());
+		/*
+		$this->createLoadedMockedDoctrineRepository("Application\\Entity\\User", "Users", "getUsers", array());
+		*/
 		
 		$this->setupManager = $this->getSetupManager();
 		

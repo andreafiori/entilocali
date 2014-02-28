@@ -3,14 +3,15 @@
 namespace Setup;
 
 /**
- * SetupManagerAbstract
  * @author Andrea Fiori
  * @since  12 January 2014
  */
 class SetupManagerAbstract
 {
 	protected $input;
+	
 	protected $channelId;
+	
 	protected $entityManager;
 
 	protected $setupManagerLanguages, $setupManagerLanguagesLabels;
@@ -24,6 +25,8 @@ class SetupManagerAbstract
 	public function setInput(array $input)
 	{
 		$this->input = $input;
+		
+		return $this->input;
 	}
 
 	public function getInput($key = null)

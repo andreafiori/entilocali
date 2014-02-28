@@ -1,29 +1,35 @@
 <?php
 
-namespace Languages\Model;
+namespace LanguagesTest\Model;
 
-use Setup\DQLQueryHelper;
+use SetupTest\TestSuite;
+use Languages\Model\LanguagesLabelsQueryBuilder;
 
-class LanguagesLabelsQueryBuilder extends DQLQueryHelper
+/**
+ * @author Andrea Fiori
+ * @since  25 February 2014
+ */
+class LanguagesLabelsQueryBuilderTest extends TestSuite
 {
-	public function setQueryBasic()
+	private $languagesLabelsQueryBuilder;
+	
+	protected function setUp()
 	{
-		if (!$this->getDefaultFieldsSelect()) {
-			$this->setDefaultFieldsSelect("ll.label_name, ll.label_value, ll.description, ll.isbackend");
-		}
+		parent::setUp();
 		
-		$q = "SELECT ".$this->getDefaultFieldsSelect()." FROM Application\\Entity\\LanguagesLabels ll WHERE 1 ";
+		$this->languagesLabelsQueryBuilder = new LanguagesLabelsQueryBuilder();
+		$this->languagesLabelsQueryBuilder->setSetupManager($this->getSetupManager());
 	}
 	
-	public function setBasicBindParameters()
+	public function testGetSelectResult()
 	{
-		$this->setBindParameters( array('channel' => $this->getSetupManager()->getChannelId() ) );
+		$this->assertNotEmpty( $this->languagesLabelsQueryBuilder->getSelectResult() );
 	}
-	
+
 	public function setId($id)
 	{
 		if ( is_numeric($id) ) {
-			$this->query .= "AND p.id = :id ";
+			$this->query .= "AND ll.id = :id ";
 			$this->addToBindParameters('id', $id);
 		}
 	}

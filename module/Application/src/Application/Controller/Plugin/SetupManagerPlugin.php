@@ -7,7 +7,6 @@ use Setup\SetupManagerWrapper;
 use Setup\SetupManager;
 
 /**
- * SetupManagerPlugin
  * @author Andrea Fiori
  * @since  24 January 2014
  */
@@ -21,17 +20,18 @@ class SetupManagerPlugin extends AbstractPlugin
 	 */
 	public function initialize(array $input)
 	{
-		$setupManagerWrapper = new SetupManagerWrapper( new SetupManager($input) );
-		$setupManagerWrapper->detectChannel();
-		
+		$setupManager = new SetupManager($input);
+
+		$setupManagerWrapper = new SetupManagerWrapper( $setupManager );
+		/* $setupManagerWrapper->detectChannel(); */
+		$setupManagerWrapper->setupEntityManager( $setupManager->getEntityManager() );
 		$setupManagerWrapper->setupLanguages();
 		$setupManagerWrapper->setupLanguagesLabels();
-		/*
 		$setupManagerWrapper->setupConfigurations();
-		*/
 		$setupManagerWrapper->setupTemplateRecords();
+		
 		$setupManagerWrapper->setupPreloadRecord();
-
+		
 		return $this->setSetupManager( $setupManagerWrapper->getSetupManager() );
 	}
 
@@ -47,7 +47,7 @@ class SetupManagerPlugin extends AbstractPlugin
 	}
 
 	/**
-	 * @return SetupManager
+	 * @return SetupManager $this->setupManager
 	 */
 	public function getSetupManager()
 	{

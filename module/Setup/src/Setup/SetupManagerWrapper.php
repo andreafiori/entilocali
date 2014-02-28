@@ -4,9 +4,9 @@ namespace Setup;
 
 use Setup\SetupManager;
 use Languages\Model\LanguagesSetup;
-use Languages\Model\LanguagesLabelsRepository;
-use Config\Model\ConfigRepository;
 use ServiceLocatorFactory\ServiceLocatorFactory;
+use Languages\Model\LanguagesLabelsQueryBuilder;
+use Config\Model\ConfigQueryBuilder;
 
 /**
  * @author Andrea Fiori
@@ -45,7 +45,7 @@ class SetupManagerWrapper
 
 	public function setupLanguages()
 	{
-		$this->setupManager->getSetupManagerLanguages()->setLanguagesSetup( new LanguagesSetup($this->getEntityManager()) );
+		$this->setupManager->getSetupManagerLanguages()->setLanguagesSetup( new LanguagesSetup($this->getSetupManager()) );
 		$this->setupManager->getSetupManagerLanguages()->setAllAvailableLanguages($this->getSetupManager()->getInput('channel'));
 		$this->setupManager->getSetupManagerLanguages()->setDefaultLanguage( $this->getSetupManager()->getInput('languageAbbreviation') );
 		$this->setupManager->getSetupManagerLanguages()->setLanguageIdFromDefaultLanguage();
@@ -54,22 +54,22 @@ class SetupManagerWrapper
 	
 	public function setupLanguagesLabels()
 	{
-		$this->setupManager->getSetupManagerLanguagesLabels()->setLanguagesLabelsRepository( new LanguagesLabelsRepository($this->getEntityManager()) );
-		$this->setupManager->getSetupManagerLanguagesLabels()->setLanguagesLabels( $this->setupManager->getSetupManagerLanguages()->getDefaultLanguage('id') );
+		$languagesLabelsQueryBuilder = new LanguagesLabelsQueryBuilder();
+		$languagesLabelsQueryBuilder->setSetupManager($this->getSetupManager());
+
+		$this->setupManager->getSetupManagerLanguagesLabels()->setLanguagesLabels($languagesLabelsQueryBuilder);
 	}
 	
 	public function setupConfigurations()
 	{
-		$this->setupManager->getSetupManagerConfigurations()->setConfigRepository( new ConfigRepository($this->getEntityManager()) );
-		$this->setupManager->getSetupManagerConfigurations()->setConfigurations(
-				array(
-						"channelId"   => array($this->setupManager->getChannelId() ? $this->setupManager->getChannelId() : 1, 0),
-						/* "isbackend" => $this->setupManager->getInput('isbackend') ? $this->setupManager->getInput('isbackend') : 0, */
-				)
-		);
-		$this->setupManager->getSetupManagerConfigurations()->getConfigRepository()->initConfigRecord();
+		$configQueryBuilder = new ConfigQueryBuilder();
+		$configQueryBuilder->setSetupManager($this->setupManager);
+		$configQueryBuilder->setBasicBindParameters();
+		
+		$this->setupManager->getSetupManagerConfigurations()->setConfigQueryBuilder($configQueryBuilder);
+		$this->setupManager->getSetupManagerConfigurations()->setConfigurations();
 	}
-
+	
 	/**
 	 * Assign to preloadrecord the default class record\result
 	 */
@@ -78,14 +78,21 @@ class SetupManagerWrapper
 		$this->setupManager->getSetupManagerPreload()->setClassName( $this->setupManager->getTemplateDataSetter()->getTemplateData('preloader_class') );
 		$this->setupManager->getSetupManagerPreload()->setInstance($this->setupManager);
 		$this->setupManager->getTemplateDataSetter()->assignToTemplate('preloadrecord', $this->setupManager->getSetupManagerPreload()->setRecord() );
-
 		$this->setupManager->setInput( $this->setupManagerInput );
 	}
 	
+	/**
+	 * TODO: export this method and move on  
+	 * @throws NullException
+	 */
 	public function setupTemplateRecords()
-	{
-		$configRecord 	= $this->setupManager->getSetupManagerConfigurations()->getConfigRepository()->getConfigRecord();
+	{	
+		$configRecord 	= $this->setupManager->getSetupManagerConfigurations()->getConfigurations();
 		$isBackend 		= $this->setupManager->getInput('isbackend');
+		
+		if (!$configRecord) {
+			throw new NullException('No configurations on setup manager wrapper');
+		}
 		
 		$templateData = array();
 		$templateData = array_merge($templateData, $configRecord);
@@ -116,17 +123,17 @@ class SetupManagerWrapper
 		$templateData['languageLabels'] 	  = $this->setupManager->getSetupManagerLanguagesLabels()->getLanguageLabels();
 		$templateData['languageAbbreviation'] = $this->setupManager->getSetupManagerLanguages()->getLanguageSetup()->getLanguageAbbreviationFromDefaultLanguage();
 		$templateData['languageId'] 		  = $this->setupManager->getSetupManagerLanguages()->getLanguageId();
-	
+
 		/* Basic layout if not set... */
 		$templateData['basiclayout'] = $templateData['template_path'].'layout.phtml';
-		
+	
 		/* Assets */
 		$templateData['imagedir'] = $templateData['template_project'].'templates/'.$templateData['template_name'].'assets/images/';
 		$templateData['cssdir']   = $templateData['template_project'].'templates/'.$templateData['template_name'].'assets/css/';
 		$templateData['jsdir']    = $templateData['template_project'].'templates/'.$templateData['template_name'].'assets/js/';
-	
+
 		$this->setupManager->setTemplateDataSetter( new TemplateDataSetter($this->setupManager) );
-		
+	
 		/* Assign final template var */
 		$this->setupManager->getTemplateDataSetter()->mergeTemplateDataWithArray( array_filter($templateData) );
 	}

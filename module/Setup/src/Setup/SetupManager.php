@@ -4,6 +4,7 @@ namespace Setup;
 
 /**
  * Manage channel, language, config, template settings
+ * TODO: channel detection, inject object separately... 
  * @author Andrea Fiori
  * @since  11 December 2013
  */
@@ -19,9 +20,6 @@ class SetupManager extends SetupManagerAbstract
 		$this->setupManagerPreload			= new SetupManagerPreload();
 	}
 
-	/**
-	 * TODO: channel detection 
-	 */
 	public function setChannelId()
 	{
 		$this->channelId = 1;

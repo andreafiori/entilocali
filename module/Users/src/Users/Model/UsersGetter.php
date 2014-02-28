@@ -4,13 +4,12 @@ namespace Users\Model;
 
 use Users\Model\UsersQueryBuilder;
 use Setup\SetupManager;
-use Setup\RecordsGetterAbstract;
 
 /**
  * @author Andrea Fiori
  * @since  22 January 2014
  */
-class UsersGetter extends RecordsGetterAbstract
+class UsersGetter 
 {
 	/**
 	 * @param SetupManager $setupManager
@@ -20,11 +19,14 @@ class UsersGetter extends RecordsGetterAbstract
 		$this->setupManager = $setupManager;
 	}
 	
-	public function getUser()
+	public function getUser($input)
 	{
-		$usersQueryBuilder = new UsersQueryBuilder();
-		$usersQueryBuilder->setId(1);
-		
-		return $usersQueryBuilder->getSelectResult();
+		if (is_array($input)) {
+			$usersQueryBuilder = new UsersQueryBuilder();
+			$usersQueryBuilder->setSetupManager($this->setupManager);
+			$usersQueryBuilder->setId($input['id']);
+			
+			return $usersQueryBuilder->getSelectResult();
+		}
 	}
 }

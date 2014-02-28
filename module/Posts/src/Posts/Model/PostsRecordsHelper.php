@@ -29,13 +29,13 @@ class PostsRecordsHelper extends PostsRecordHelperAbstract
 
 	public function setAdditionalArrayElements()
 	{
-		if ( !$this->getPostsRecords() ) {
+		if ( !is_array($this->getPostsRecords()) ) {
 			return false;
 		}
 		
 		$postsRecords = array();
 		foreach($this->getPostsRecords() as $record) {
-			$record['linkDetails'] = $this->getLinkDetails($record);
+			// $record['linkDetails'] = $this->getLinkDetails($record);
 			$postsRecords[] = $record;
 		}
 		
@@ -43,6 +43,7 @@ class PostsRecordsHelper extends PostsRecordHelperAbstract
 		
 		return $postsRecords;
 	}
+	
 		/**
 		 * 
 		 * @param array $record
@@ -50,14 +51,13 @@ class PostsRecordsHelper extends PostsRecordHelperAbstract
 		 */
 		private function getLinkDetails($record)
 		{
-			if ($record['name'] == $record['title'] and isset($record['seoUrl']) ) {
-				//unset($record['seoUrl']);
+			if ($record['name'] == $record['title'] and $record['seoUrl'] ) {
+				
 			} elseif ( isset($record['seoUrl']) ) {
 				$record['seoUrl'] = $record['seoUrl'].'/';
 			}
 			
-			$link = $this->remotelinkWeb.$this->getSetupManager()->getSetupManagerLanguages()->getLanguageAbbreviation().'/'. \Setup\StringRequestDecoder::slugify($record['name']).'/'.$record['seoUrl'];
-			return $link;
+			return $this->remotelinkWeb.$this->getSetupManager()->getSetupManagerLanguages()->getLanguageAbbreviation().'/'. \Setup\StringRequestDecoder::slugify($record['name']).'/'.$record['seoUrl'];		
 		}
 	
 	public function setPartialLayoutTemplate($layout)

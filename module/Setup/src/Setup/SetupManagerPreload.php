@@ -37,7 +37,7 @@ class SetupManagerPreload implements SetupManagerPreloadInterface
 		if ( !$instance ) {
 			return false;
 		}
-				
+		
 		return $instance->setRecord();
 	}
 	
@@ -55,7 +55,6 @@ class SetupManagerPreload implements SetupManagerPreloadInterface
 
 	/**
 	 * @param SetupManager $setupManager
-	 * @return boolean|Ambigous <boolean, \Setup\SetupManagerPreloadInterface>
 	 */
 	public function setInstance(SetupManager $setupManager)
 	{
@@ -68,7 +67,7 @@ class SetupManagerPreload implements SetupManagerPreloadInterface
 		if ($instance instanceof SetupManagerPreloadInterface) {
 			$this->instance = $instance;
 		}
-		
+
 		return $this->instance ?  $this->instance : false;
 	}
 

@@ -4,7 +4,6 @@ namespace SetupTest;
 
 use SetupTest\TestSuite;
 use Setup\SetupManager;
-use ServiceLocatorFactory;
 use ApplicationTest\ServiceManagerGrabber;
 
 class SetupManagerTest extends TestSuite
@@ -15,11 +14,9 @@ class SetupManagerTest extends TestSuite
 	{
 		parent::setUp();
 
-		$this->setupManager = new SetupManager(
-				array('channel' => 1,'isbackend' => 0)
-		);
+		$this->setupManager = new SetupManager( array('channel' => 1,'isbackend' => 0) );
 		
-		$this->setupManager->setEntityManager($this->getServiceManager()->get('\Doctrine\ORM\EntityManager'));
+		$this->setupManager->setEntityManager( $this->getServiceManager()->get('\Doctrine\ORM\EntityManager') );
 	}
 	
 	public function testGetInput()
@@ -39,5 +36,4 @@ class SetupManagerTest extends TestSuite
 		$this->setupManager->setChannelId();
 		$this->assertEquals($this->setupManager->getChannelId(), 1);
 	}
-
 }

@@ -8,7 +8,6 @@ use Setup\SetupManagerLanguagesLabels;
 use Setup\SetupManagerConfigurations;
 
 /**
- * 
  * @author Andrea Fiori
  * @since  24 January 2014
  */
@@ -22,8 +21,8 @@ class SetupManagerWrapperTest extends TestSuite
 
 		$setupManager = $this->getSetupManager();
 		
-		$this->setupManagerWrapper = new SetupManagerWrapper( $this->getSetupManager() );
-		$this->setupManagerWrapper->setupEntityManager( $setupManager->getEntityManager() );
+		$this->setupManagerWrapper = new SetupManagerWrapper( $setupManager );
+		$this->setupManagerWrapper->setupEntityManager( $this->getEntityManagerMock() );
 	}
 	
 	public function testDetectChannel()
@@ -32,7 +31,7 @@ class SetupManagerWrapperTest extends TestSuite
 		
 		$this->assertEquals($this->getSetupManagerFromWrapper()->getChannelId(), 1);
 	}
-	/*
+
 	public function testSetupLanguages()
 	{
 		$this->setupManagerWrapper->setupLanguages();
@@ -54,7 +53,7 @@ class SetupManagerWrapperTest extends TestSuite
 		
 		$this->assertTrue( $this->getSetupManagerFromWrapper()->getSetupManagerConfigurations() instanceof SetupManagerConfigurations);		
 	}
-	*/
+
 		private function getSetupManagerFromWrapper()
 		{
 			return $this->setupManagerWrapper->getSetupManager();

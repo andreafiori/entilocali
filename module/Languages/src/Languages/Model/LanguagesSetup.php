@@ -2,8 +2,8 @@
 
 namespace Languages\Model;
 
-use Setup\QueryMakerAbstract;
 use Setup\NullException;
+use Setup\SetupManager;
 
 /**
  * @author Andrea Fiori
@@ -18,6 +18,13 @@ class LanguagesSetup
 	private $allAvailableLanguages;
 	
 	private $isOnBackend;
+	
+	private $setupManager;
+	
+	public function __construct(SetupManager $setupManager)
+	{
+		$this->setupManager = $setupManager;
+	}
 
 	public function isOnBackend()
 	{
@@ -36,18 +43,17 @@ class LanguagesSetup
 	}
 
 	/**
-	 * Set all available languages
 	 * @param Channels $channel
 	 * @return array $record
 	 */
-	public function setAllAvailableLanguages($channelId = 1)
+	public function setAllAvailableLanguages()
 	{
-		/*
-		$query = $this->getEntityManager()->createQuery("SELECT l.id, l.abbreviation1, l.abbreviation3, l.isdefault, l.isdefaultBackend, l.active FROM Application\\Entity\\Languages l WHERE l.active = 1 AND l.channel = :channel ");
-		$query->setParameter('channel', $channelId ? $channelId : 1);
+		$languagesQueryBuilder = new LanguagesQueryBuilder();
+		$languagesQueryBuilder->setSetupManager($this->setupManager);
+		$languagesQueryBuilder->setBasicBindParameters();
 		
-		$this->allAvailableLanguages = $query->getResult();
-		*/
+		$this->allAvailableLanguages = $languagesQueryBuilder->getSelectResult();
+		
 		return $this->allAvailableLanguages;
 	}
 
@@ -72,12 +78,13 @@ class LanguagesSetup
 		
 		foreach($this->getAllAvailableLanguages() as $allAvailableLanguages)
 		{
-			$diff = array_diff($arrayCompare, $allAvailableLanguages);
-			if ( empty($diff) ) {
+			if (count($arrayCompare) == count($allAvailableLanguages)) {
+				$diff = array_diff($arrayCompare, $allAvailableLanguages);
 				
-				$this->defaultLanguage = $allAvailableLanguages;
-				
-				return $this->defaultLanguage;
+				if ( empty($diff) ) {
+					$this->defaultLanguage = $allAvailableLanguages;
+					return $this->defaultLanguage;
+				}
 			}
 		}
 

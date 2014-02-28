@@ -30,18 +30,11 @@ class PostsGetter extends QueryBuilderSetterAbstract
 		$this->setQueryBuilder( new PostsQueryBuilder() );
 	}
 
-	public function setPostsRecordsHelper(PostsRecordsHelper $postsRecordsHelper)
-	{
-		$this->postsRecordsHelper = $postsRecordsHelper;
-		
-		return $this->postsRecordsHelper;
-	}
-
 	public function getCompletePostRecord()
 	{
-		$postsRecord = $this->getPostsRecordOnly($this->getInput());
-		
-		return $this->getPostsRecordsHelper($postsRecord);
+		$postsRecords = $this->getPostsRecordOnly( $this->getInput() );
+
+		return $this->getPostsRecordsHelper( new PostsRecordsHelper($postsRecords) );
 	}
 
 	public function getPostsRecordOnly()
@@ -56,21 +49,17 @@ class PostsGetter extends QueryBuilderSetterAbstract
 		$this->getQueryBuilder()->setAliasNotNull( $this->getInput('aliasnotull') );
 		$this->getQueryBuilder()->setParentId( $this->getInput('parentid') );
 		$this->getQueryBuilder()->setParentIdCategory( $this->getInput('parentidcategory') );
-		
+
 		return $this->getQueryBuilder()->getSelectResult();
 	}
 	
 	public function getPostsRecordsHelper(PostsRecordsHelper $postsRecordsHelper)
 	{
-		// $this->postsRecordsHelper = new PostsRecordsHelper(array $posts);
 		$this->postsRecordsHelper = $postsRecordsHelper;
 		$this->postsRecordsHelper->setSetupManager($this->setupManager);
-		
 		// $this->postsRecordsHelper->setRemotelinkWeb( $this->setupManager->getSetupManagerConfigurations()->getConfigRepository()->getConfigRecord('remotelinkWeb') );
-		
 		$this->postsRecordsHelper->setAdditionalArrayElements();
 		$this->postsRecordsHelper->sortPostsByAlias( $this->getInput('sortByAlias') );
-
-		return $this->postsRecordsHelper->getPostsRecords();
+		return $this->postsRecordsHelper->getPostsRecords();	
 	}
 }

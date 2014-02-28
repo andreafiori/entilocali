@@ -18,22 +18,19 @@ class SetupManagerLanguagesTest extends TestSuite
 		parent::setUp();
 		
 		$this->setupManagerLanguages = new SetupManagerLanguages();
-		$this->setupManagerLanguages->setEntityManager($this->getEntityManagerMock());
-	}
-
-	public function testSetLanguageIdFromDefaultLanguage()
-	{
-		$this->setupManagerLanguages->setLanguagesSetup( new LanguagesSetup($this->getDoctrineEntityManager()) );
-		$this->setupManagerLanguages->getLanguageSetup()->setAllAvailableLanguages($this->setupManagerLanguages->getInput('channel'));
-		$this->setupManagerLanguages->setDefaultLanguage('it');
-		
-		$this->assertEquals($this->setupManagerLanguages->setLanguageIdFromDefaultLanguage(), 1);
+		$this->setupManagerLanguages->setEntityManager( $this->getEntityManagerMock() );		
+		$this->setupManagerLanguages->setLanguagesSetup( new LanguagesSetup($this->getSetupManager()) );
 	}
 	
-	public function testSetLanguagesSetup()
+	public function testGetLanguagesSetup()
 	{
-		$this->setupManagerLanguages->setLanguagesSetup( new LanguagesSetup($this->getDoctrineEntityManager()) );
-
-		$this->assertTrue( $this->setupManagerLanguages->getLanguageSetup() instanceof LanguagesSetup );
+		$this->assertInstanceOf('Languages\Model\LanguagesSetup', $this->setupManagerLanguages->getLanguageSetup());
+	}
+	
+	public function testSetAllAvailableLanguages()
+	{
+		$this->setupManagerLanguages->setAllAvailableLanguages(1);
+		
+		$this->assertTrue( is_array($this->setupManagerLanguages->getLanguageSetup()->getAllAvailableLanguages()) );
 	}
 }

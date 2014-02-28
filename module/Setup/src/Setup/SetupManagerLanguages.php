@@ -5,7 +5,7 @@ namespace Setup;
 use Languages\Model\LanguagesSetup;
 
 /**
- * @author Andrea fiori
+ * @author Andrea Fiori
  * @since  24 January 2014
  */
 class SetupManagerLanguages extends SetupManagerAbstract
@@ -30,7 +30,7 @@ class SetupManagerLanguages extends SetupManagerAbstract
 	
 	public function setDefaultLanguage($languageAbbreviation)
 	{
-		$this->getLanguageSetup()->setDefaultLanguage($languageAbbreviation);		
+		$this->getLanguageSetup()->setDefaultLanguage($languageAbbreviation);
 	}
 	
 	/**
@@ -50,8 +50,6 @@ class SetupManagerLanguages extends SetupManagerAbstract
 		return $this->getLanguageSetup()->getDefaultLanguage($key);
 	}
 	
-	
-	// TODO: remove unused methods
 	public function setLanguageId($id)
 	{
 		$this->languageId = (int) $id;
@@ -62,7 +60,6 @@ class SetupManagerLanguages extends SetupManagerAbstract
 		return $this->languageId ? $this->languageId : 1;
 	}
 	
-	// TODO: move this on languages Setup !?
 	public function setLanguageIdFromDefaultLanguage()
 	{
 		$this->languageId = $this->getDefaultLanguage('id');

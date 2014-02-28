@@ -5,7 +5,6 @@ namespace SetupTest;
 use Setup\SetupManagerPreload;
 
 /**
- * Manage Object with a record to load every time 
  * @author Andrea Fiori
  * @since  13 January 2014
  */
@@ -29,6 +28,6 @@ class SetupManagerPreloadTest extends TestSuite
 	{
 		$this->setupManagerPreload->setClassName("Posts\\Model\\PostsQueryBuilder");
 		
-		$this->assertTrue( is_array($this->setupManagerPreload->getRecord() ) );
+		$this->assertTrue( is_array($this->setupManagerPreload->getRecord()) );
 	}
 }

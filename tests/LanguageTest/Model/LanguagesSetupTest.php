@@ -1,11 +1,14 @@
 <?php
 
-/** TODO: TO REMOVE!!!
 namespace LanguagesTest\Model;
 
 use Languages\Model\LanguagesSetup;
 use SetupTest\TestSuite;
 
+/**
+ * @author Andrea Fiori
+ * @since  24 February 2014
+ */
 class LanguagesSetupTest extends TestSuite
 {
 	private $languagesSetup;
@@ -14,7 +17,7 @@ class LanguagesSetupTest extends TestSuite
 	{
 		parent::setUp();
 
-		$this->languagesSetup = new LanguagesSetup($this->serviceManager->get('entityManagerService'));
+		$this->languagesSetup = new LanguagesSetup($this->getSetupManager());
 	}
 
 	public function testSetAllAvailableLanguages()
@@ -22,18 +25,21 @@ class LanguagesSetupTest extends TestSuite
 		$this->assertTrue( is_array($this->languagesSetup->setAllAvailableLanguages(1)) );
 	}
 	
-	public function testSetDefaultLanguageLaunchExceptionAllLanguagesIsNotSet()
+	/**
+	 * @expectedException \Setup\NullException
+	 */
+	public function testSetDefaultLanguageLaunchException()
 	{
 		$this->languagesSetup->setDefaultLanguage('it');
 	}
-
+	
+	/*
 	public function testSetDefaultLanguage()
 	{
 		$this->languagesSetup->setAllAvailableLanguages(1);
 		$this->languagesSetup->setDefaultLanguage('it');
 		
-		$this->assertTrue( is_array($this->languagesSetup->getDefaultLanguage()) );
 		$this->assertEquals('it', $this->languagesSetup->getLanguageAbbreviationFromDefaultLanguage() );
 	}
+	*/
 }
-*/

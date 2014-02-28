@@ -4,7 +4,6 @@ namespace PostsTest\Model;
 
 use SetupTest\TestSuite;
 use Posts\Model\PostsQueryBuilder;
-use ServiceLocatorFactory\ServiceLocatorFactory;
 
 /**
  * @author Andrea Fiori

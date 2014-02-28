@@ -87,6 +87,10 @@ abstract class DQLQueryHelper
 		if ( !$this->getSetupManager() ) {
 			throw new NullException('Setup Manager is not set on DQLQueryHelper');
 		}
+		
+		if ( !$this->getSetupManager()->getEntityManager() ) {
+			throw new NullException('Entity Manager is not set on DQLQueryHelper');
+		}
 
 		$this->doctrineConfig = $this->getSetupManager()->getEntityManager()->getConfiguration();
 		$this->doctrineConfig->addCustomDatetimeFunction('DATE_FORMAT', "\\Setup\\DateFormat");
@@ -115,7 +119,7 @@ abstract class DQLQueryHelper
 	}
 
 	/**
-	 * TODO: Must return last insert id!!!
+	 * TODO: Must return last insert id
 	 * @param string $tableName
 	 * @param array $arrayData
 	 */

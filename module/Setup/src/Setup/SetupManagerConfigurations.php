@@ -2,45 +2,53 @@
 
 namespace Setup;
 
-use	Config\Model\ConfigRepository;
+use Config\Model\ConfigQueryBuilder;
 
+/**
+ * @author Andrea Fiori
+ * @since  07 January 2014
+ */
 class SetupManagerConfigurations extends SetupManagerAbstract
 {
-	private $configurations, $configRepository;
+	private $configQueryBuilder;
+	
+	private $configurations;
 	
 	/**
-	 * 
-	 * @param ConfigRepository $configRepository
-	 * @return ConfigRepository
+	 * @param ConfigQueryBuilder $configRepository
+	 * @return ConfigQueryBuilder
 	 */
-	public function setConfigRepository(ConfigRepository $configRepository)
+	public function setConfigQueryBuilder(ConfigQueryBuilder $configQueryBuilder)
 	{
-		$this->configRepository = $configRepository;
+		$this->configQueryBuilder = $configQueryBuilder;
 	
-		return $this->configRepository;
+		return $this->configQueryBuilder;
 	}
-	
-	/**
-	 * 
-	 * @param array $input
-	 * @throws NullException
-	 */
-	public function setConfigurations(array $input)
+
+	public function setConfigurations()
 	{
-		if ( !$this->getConfigRepository() ) {
-			throw new NullException('Config Repository is not set');
-		}
+		$this->configQueryBuilder->setBasicBindParameters();
 		
-		$this->configurations = $this->getConfigRepository()->setConfigurations( $input );
+		$this->configurations = $this->configQueryBuilder->getSelectResult();
+		
+		$configurations = array();
+		foreach($this->configurations as $config):
+			if ( isset($config['name']) and isset($config['value']) ):
+				$configurations[$config['name']] = $config['value'];
+			endif;
+		endforeach;
+		
+		$this->configurations = $configurations;
+		
+		return $this->configurations;
 	}
 	
 	/**
-	 * 
 	 * @param string $key
 	 */
-	public function getConfigurations($key=null)
+	public function getConfigurations($key = null)
 	{
-		if (isset($this->configurations[$key])) {
+		if ( isset($this->configurations[$key]) ) {
 			return $this->configurations[$key];
 		}
 		
@@ -50,9 +58,8 @@ class SetupManagerConfigurations extends SetupManagerAbstract
 	/**
 	 * @return ConfigRepository
 	 */
-	public function getConfigRepository()
+	public function getConfigQueryBuilder()
 	{
-		return $this->configRepository;
+		return $this->configQueryBuilder;
 	}
-	
 }

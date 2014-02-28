@@ -2,7 +2,7 @@
 
 /* Global Configuration Override */
 $dbParams = array(
-        'database'  => 'entilocali',
+        'database'  => 'fossobandito',
         'username'  => 'root',
         'password'  => '',
         'hostname'  => 'localhost',

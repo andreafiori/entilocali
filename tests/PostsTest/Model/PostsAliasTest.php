@@ -26,8 +26,6 @@ class PostsAliasTest extends TestSuite
 	
 	public function testSetRecord()
 	{
-		$this->postsAlias->setRecord();
-		
-		$this->assertNotEmpty($this->postsAlias->getRecord());
+		$this->assertTrue( is_array($this->postsAlias->setRecord()) );
 	}
 }

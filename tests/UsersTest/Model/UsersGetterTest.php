@@ -6,11 +6,10 @@ use SetupTest\TestSuite;
 use Users\Model\UsersGetter;
 
 /**
- * 
  * @author Andrea Fiori
  * @since  22 January 2014
  */
-class UsersGetterTest //extends TestSuite
+class UsersGetterTest extends TestSuite
 {
 	private $usersGetter;
 
@@ -23,6 +22,6 @@ class UsersGetterTest //extends TestSuite
 	
 	public function testGetUser()
 	{
-		$this->assertTrue( is_array($this->usersGetter->getUser()) );
+		$this->assertTrue( is_array($this->usersGetter->getUser( array("id"=>1) )) );
 	}
 }

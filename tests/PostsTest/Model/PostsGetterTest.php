@@ -4,12 +4,17 @@ namespace PostsTest\Model;
 
 use SetupTest\TestSuite;
 use Posts\Model\PostsGetter;
+use Posts\Model\PostsRecordsHelper;
 
+/**
+ * @author Andrea Fiori
+ * @since  24 January 2014
+ */
 class PostsGetterTest extends TestSuite
 {
 	private $setupManager;
 
-	private $postsGetterWrapper;
+	private $postsGetter;
 
 	public function setUp()
 	{
@@ -17,6 +22,16 @@ class PostsGetterTest extends TestSuite
 
 		$this->setupManager = $this->getSetupManager();
 		
-		$this->postsGetterWrapper = new PostsGetter( $this->setupManager );
+		$this->postsGetter = new PostsGetter( $this->setupManager );
+	}
+	
+	public function testGetCompletePostRecord()
+	{
+		$this->assertTrue( is_array($this->postsGetter->getCompletePostRecord()) );
+	}
+	
+	public function testGetPostsRecordsHelper()
+	{
+		$this->assertTrue( is_array($this->postsGetter->getPostsRecordsHelper(new PostsRecordsHelper(array("id"=>1)))) );
 	}
 }

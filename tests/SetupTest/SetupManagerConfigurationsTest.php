@@ -4,9 +4,13 @@ namespace SetupTest;
 
 use SetupTest\TestSuite;
 use Setup\SetupManagerConfigurations;
-use Config\Model\ConfigRepository;
+use Config\Model\ConfigQueryBuilder;
 
-class SetupManagerConfigurationsTest //extends TestSuite
+/**
+ * @author Andrea Fiori
+ * @since  25 February 2014
+ */
+class SetupManagerConfigurationsTest extends TestSuite
 {
 	private $setupManagerConfigurations;
 	
@@ -14,27 +18,17 @@ class SetupManagerConfigurationsTest //extends TestSuite
 	{
 		parent::setUp();
 		
+		$configQueryBuilder = new ConfigQueryBuilder();
+		$configQueryBuilder->setSetupManager($this->getSetupManager());
+		
 		$this->setupManagerConfigurations = new SetupManagerConfigurations();
+		$this->setupManagerConfigurations->setConfigQueryBuilder($configQueryBuilder);
 	}
 	
-	public function testSetConfigRepository()
-	{
-		$this->setupManagerConfigurations->setEntityManager( $this->getEntityManagerMock() );
-		$this->setupManagerConfigurations->setConfigRepository( $this->getConfigRepository() );
-
-		$this->assertTrue( $this->setupManagerConfigurations->getConfigRepository() instanceof ConfigRepository);
-	}
-
 	public function testSetConfigurations()
 	{
-		$this->setupManagerConfigurations->setConfigRepository( $this->getConfigRepository() );
-		$this->setupManagerConfigurations->setConfigurations( array("isbackend" => 0, "channelId" => array(1,0)) );
+		$this->setupManagerConfigurations->setConfigurations( array("isbackend" => 0, "channelId" => array(1, 0)) );
 		
-		$this->assertNotEmpty( $this->setupManagerConfigurations->getConfigurations() );
+		$this->assertTrue( is_array($this->setupManagerConfigurations->getConfigurations()) );
 	}
-	
-		private function getConfigRepository()
-		{
-			return new ConfigRepository($this->getServiceManager()->get('\Doctrine\ORM\EntityManager'));
-		}
 }

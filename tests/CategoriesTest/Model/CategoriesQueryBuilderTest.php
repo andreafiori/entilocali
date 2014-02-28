@@ -4,7 +4,6 @@ namespace CategoriesTest\Model;
 
 use SetupTest\TestSuite;
 use Categories\Model\CategoriesQueryBuilder;
-use Setup\SetupManager;
 
 class CategoriesQueryBuilderTest extends TestSuite
 {
@@ -16,8 +15,7 @@ class CategoriesQueryBuilderTest extends TestSuite
 	{
 		parent::setUp();
 
-		$this->setupManager = new SetupManager( array('channel' => 1, 'isbackend' => 0) );
-		$this->setupManager->setEntityManager( $this->getServiceManager()->get('\Doctrine\ORM\EntityManager') );
+		$this->setupManager = $this->getSetupManager();
 		
 		$this->categoriesQueryBuilder = new CategoriesQueryBuilder();
 		$this->categoriesQueryBuilder->setSetupManager( $this->setupManager );

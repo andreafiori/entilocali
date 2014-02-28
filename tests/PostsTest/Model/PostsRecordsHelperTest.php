@@ -35,9 +35,7 @@ class PostsRecordsHelperTest extends TestSuite
 	{
 		$this->postsRecordsHelper->setAdditionalArrayElements();
 
-		$records = $this->postsRecordsHelper->getPostsRecords();
-
-		$this->assertTrue( is_array($records) );
+		$this->assertNotEmpty($this->postsRecordsHelper->getPostsRecords());
 	}
 
 	public function testSortPostsByAlias()

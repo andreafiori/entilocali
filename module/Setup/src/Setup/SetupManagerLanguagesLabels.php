@@ -3,47 +3,36 @@
 namespace Setup;
 
 use Setup\SetupManagerAbstract;
-use Languages\Model\LanguagesLabelsRepository;
-use Setup\NullException;
+use Languages\Model\LanguagesLabelsQueryBuilder;
 
 /**
- * 
  * @author Andrea Fiori
  * @since  13 January 2014
  */
 class SetupManagerLanguagesLabels extends SetupManagerAbstract
 {
-	/**
-	 * @param LanguagesLabelsRepository $languagesLabelsRepository
-	 */
-	public function setLanguagesLabelsRepository(LanguagesLabelsRepository $languagesLabelsRepository)
-	{
-		$this->languageLabelsRepository = $languagesLabelsRepository;
+	private $languagesLabels;
 	
-		return $this->languageLabelsRepository;
-	}
-	
-	public function getLanguageLabelsRepository()
+	public function setLanguagesLabels(LanguagesLabelsQueryBuilder $languagesLabelsQueryBuilder)
 	{
-		return $this->languageLabelsRepository;
-	}
+		$languagesLabelsQueryBuilder->setBasicBindParameters();
+		
+		$this->languagesLabels = $languagesLabelsQueryBuilder->getSelectResult();
 
-	/**
-	 * @throws NullException
-	 * @return LanguagesSetup
-	 * @param  int $languageId
-	 */
-	public function setLanguagesLabels($languageId = 1)
-	{
-		$labelsRepository = $this->getLanguageLabelsRepository();
-		if (!$labelsRepository) {
-			throw new NullException('Language Labels Repository is not set');
+		return $this->setLanguagesLabelsAsKeyValue( $this->languagesLabels );
+	}
+		
+		private function setLanguagesLabelsAsKeyValue(array $labelsList)
+		{
+			$labels = array();
+			foreach($labelsList as &$labelsList) {
+				if (isset($labelsList['label_name'])) {
+					$labels[$labelsList['label_name']] = $labelsList['label_value'];
+				}
+			}
+			
+			return $labels;
 		}
-	
-		$this->languagesLabels = $labelsRepository->getLabels( array("language" => $languageId ) );
-
-		return $this->languagesLabels;
-	}
 	
 	public function getLanguageLabels()
 	{

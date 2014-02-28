@@ -3,7 +3,6 @@
 namespace Setup;
 
 /**
- * TemplateDataSetter
  * @author Andrea Fiori
  * @since  07 January 2014
  */

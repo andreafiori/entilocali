@@ -1,10 +1,13 @@
 <?php
-/*
+
 namespace SetupTest;
 
 use Setup\SetupManagerLanguagesLabels;
-use Languages\Model\LanguagesLabelsRepository;
 
+/**
+ * @author Andrea Fiori
+ * @since  13 January 2014
+ */
 class SetupManagerLanguagesLabelsTest extends TestSuite
 {
 	private $setupManagerLanguagesLabels;
@@ -16,9 +19,8 @@ class SetupManagerLanguagesLabelsTest extends TestSuite
 		$this->setupManagerLanguagesLabels = new SetupManagerLanguagesLabels();
 	}
 	
-	public function testSetLanguagesLabelsRepository()
+	public function testSetLanguagesLabelsAsKeyValue()
 	{
-		$this->assertTrue( $this->setupManagerLanguagesLabels->setLanguagesLabelsRepository(new LanguagesLabelsRepository($this->getDoctrineEntityManager())) instanceof LanguagesLabelsRepository );
+		$this->assertTrue( is_array($this->setupManagerLanguagesLabels->setInput( array("id"=>1) )) );
 	}
 }
-*/

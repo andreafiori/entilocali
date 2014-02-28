@@ -12,11 +12,11 @@ class LanguagesQueryBuilder extends DQLQueryHelper
 {
 	public function setQueryBasic()
 	{
-		if (!$this->getDefaultFieldsSelect()) {
-			$this->setDefaultFieldsSelect("");
+		if ( !$this->getDefaultFieldsSelect() ) {
+			$this->setDefaultFieldsSelect("l.id, l.abbreviation1, l.abbreviation3, l.isdefault, l.isdefaultBackend, l.active");
 		}
 		
-		$q = "SELECT ".$this->getDefaultFieldsSelect()." FROM Application\\Entity\\Languages l WHERE 1 ";
+		$this->queryBasic = "SELECT ".$this->getDefaultFieldsSelect()." FROM Application\\Entity\\Languages l WHERE l.channel = :channel ";
 	}
 	
 	public function setBasicBindParameters()
@@ -27,7 +27,7 @@ class LanguagesQueryBuilder extends DQLQueryHelper
 	public function setId($id)
 	{
 		if ( is_numeric($id) ) {
-			$this->query .= "AND p.id = :id ";
+			$this->query .= "AND l.id = :id ";
 			$this->addToBindParameters('id', $id);
 		}
 	}
