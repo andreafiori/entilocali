@@ -35,7 +35,7 @@ class PostsRecordsHelper extends PostsRecordHelperAbstract
 		}
 		
 		for($i=0; $i < count($postsRecords); $i++) {
-			$postsRecords[$i]['linkDetails'] = $this->getLinkDetails($postsRecords[$i]);
+			// $postsRecords[$i]['linkDetails'] = $this->getLinkDetails($postsRecords[$i]);
 		}
 		
 		$this->postsRecords = $postsRecords;

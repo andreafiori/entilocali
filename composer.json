@@ -1,15 +1,27 @@
 {
-    "require": {
-        "php": ">=5.3.3",
+	"name" : "Zend2 API CMS",
+	"description" : "Zend2 CMS",
+	"authors" : [{
+			"name" : "Andrea Fiori",
+			"homepage" : "http://www.andreafiori.net"
+		}
+	],
+	"keywords" : [
+		"CMS",
+		"RESTful"
+	],
+	"require" : {
+	 "php": ">=5.3.3",
         "zendframework/zendframework": "2.*",
         "doctrine/doctrine-module": "dev-master",
-        "doctrine/doctrine-orm-module": "dev-master",
-		"zf-commons/zfc-user": "dev-master",
-        "bjyoungblood/BjyProfiler": "dev-master",
-		"bjyoungblood/bjy-authorize": "dev-master"
-    },
-    "require-dev": {
-        "zendframework/zftool": "dev-master",
-        "zendframework/zend-developer-tools": "dev-master"
-    }
+        "doctrine/doctrine-orm-module" : "0.*"
+	},
+	"require-dev" : {
+		"zendframework/zendservice-flickr" : "dev-develop",
+		"zendframework/zftool": "dev-master",
+        "zendframework/zend-developer-tools": "dev-master",
+		"bjyoungblood/bjy-authorize" : "dev-master",
+		"zf-commons/zfc-user" : "dev-master",
+		"bjyoungblood/BjyProfiler" : "dev-master"
+	}
 }
