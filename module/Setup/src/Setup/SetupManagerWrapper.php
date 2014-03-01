@@ -35,29 +35,29 @@ class SetupManagerWrapper
 			$this->entityManager = ServiceLocatorFactory::getInstance()->get('\Doctrine\ORM\EntityManager');
 		}
 		
-		$this->setupManager->setEntityManager( $this->getEntityManager() );
+		$this->getSetupManager()->setEntityManager( $this->getEntityManager() );
 	}
 
 	public function detectChannel()
 	{
-		$this->setupManager->setChannelId();
+		$this->getSetupManager()->setChannelId();
 	}
 
 	public function setupLanguages()
 	{
-		$this->setupManager->getSetupManagerLanguages()->setLanguagesSetup( new LanguagesSetup($this->getSetupManager()) );
-		$this->setupManager->getSetupManagerLanguages()->setAllAvailableLanguages($this->getSetupManager()->getInput('channel'));
-		$this->setupManager->getSetupManagerLanguages()->setDefaultLanguage( $this->getSetupManager()->getInput('languageAbbreviation') );
-		$this->setupManager->getSetupManagerLanguages()->setLanguageIdFromDefaultLanguage();
-		$this->setupManager->getSetupManagerLanguages()->setLanguageAbbreviationFromDefaultLanguage();
+		$this->getSetupManager()->getSetupManagerLanguages()->setLanguagesSetup( new LanguagesSetup($this->getSetupManager()) );
+		$this->getSetupManager()->getSetupManagerLanguages()->setAllAvailableLanguages( $this->getSetupManager()->getInput('channel') );
+		$this->getSetupManager()->getSetupManagerLanguages()->setDefaultLanguage( $this->getSetupManager()->getInput('languageAbbreviation') );
+		$this->getSetupManager()->getSetupManagerLanguages()->setLanguageIdFromDefaultLanguage();
+		$this->getSetupManager()->getSetupManagerLanguages()->setLanguageAbbreviationFromDefaultLanguage();
 	}
 	
 	public function setupLanguagesLabels()
 	{
 		$languagesLabelsQueryBuilder = new LanguagesLabelsQueryBuilder();
-		$languagesLabelsQueryBuilder->setSetupManager($this->getSetupManager());
+		$languagesLabelsQueryBuilder->setSetupManager( $this->getSetupManager() );
 
-		$this->setupManager->getSetupManagerLanguagesLabels()->setLanguagesLabels($languagesLabelsQueryBuilder);
+		$this->getSetupManager()->getSetupManagerLanguagesLabels()->setLanguagesLabels($languagesLabelsQueryBuilder);
 	}
 	
 	public function setupConfigurations()
@@ -66,8 +66,8 @@ class SetupManagerWrapper
 		$configQueryBuilder->setSetupManager($this->setupManager);
 		$configQueryBuilder->setBasicBindParameters();
 		
-		$this->setupManager->getSetupManagerConfigurations()->setConfigQueryBuilder($configQueryBuilder);
-		$this->setupManager->getSetupManagerConfigurations()->setConfigurations();
+		$this->getSetupManager()->getSetupManagerConfigurations()->setConfigQueryBuilder($configQueryBuilder);
+		$this->getSetupManager()->getSetupManagerConfigurations()->setConfigurations();
 	}
 	
 	/**
@@ -75,20 +75,40 @@ class SetupManagerWrapper
 	 */
 	public function setupPreloadRecord()
 	{
-		$this->setupManager->getSetupManagerPreload()->setClassName( $this->setupManager->getTemplateDataSetter()->getTemplateData('preloader_class') );
-		$this->setupManager->getSetupManagerPreload()->setInstance($this->setupManager);
-		$this->setupManager->getTemplateDataSetter()->assignToTemplate('preloadrecord', $this->setupManager->getSetupManagerPreload()->setRecord() );
-		$this->setupManager->setInput( $this->setupManagerInput );
+		$this->getSetupManager()->getSetupManagerPreload()->setClassName( $this->getSetupManager()->getTemplateDataSetter()->getTemplateData('preloader_class') );
+		$this->getSetupManager()->getSetupManagerPreload()->setInstance($this->setupManager);
+		$this->getSetupManager()->getTemplateDataSetter()->assignToTemplate('preloadrecord', $this->getSetupManager()->getSetupManagerPreload()->setRecord() );
+		$this->getSetupManager()->setInput( $this->setupManagerInput );
 	}
-	
+
+	/**
+	 * @return SetupManager
+	 */
+	public function getSetupManager()
+	{
+		return $this->setupManager;
+	}
+		
+		/**
+		 * @return \Doctrine\ORM\EntityManager
+		 */
+		private function getEntityManager()
+		{
+			if (!$this->entityManager) {
+				$this->setupEntityManager();
+			}
+				
+			return $this->entityManager;
+		}
+		
 	/**
 	 * TODO: export this method and move on  
 	 * @throws NullException
 	 */
 	public function setupTemplateRecords()
 	{	
-		$configRecord 	= $this->setupManager->getSetupManagerConfigurations()->getConfigurations();
-		$isBackend 		= $this->setupManager->getInput('isbackend');
+		$configRecord 	= $this->getSetupManager()->getSetupManagerConfigurations()->getConfigurations();
+		$isBackend 		= $this->getSetupManager()->getInput('isbackend');
 		
 		if (!$configRecord) {
 			throw new NullException('No configurations on setup manager wrapper');
@@ -112,49 +132,30 @@ class SetupManagerWrapper
 			$templateData['loginActionBackend']		  = $templateData['template_project'].'login/';
 			$templateData['logoutPathBackend']		  = $templateData['template_project'].'logout/';
 			$templateData['loggedSectionPathBackend'] = $templateData['template_project'].'main/';
-			$templateData['loggedSectionPathBackendWithLanguage'] = $templateData['basePath'].$templateData['loggedSectionPathBackend'].$this->setupManager->getSetupManagerLanguages()->getLanguageSetup()->getLanguageAbbreviationFromDefaultLanguage();
+			$templateData['loggedSectionPathBackendWithLanguage'] = $templateData['basePath'].$templateData['loggedSectionPathBackend'].$this->getSetupManager()->getSetupManagerLanguages()->getLanguageSetup()->getLanguageAbbreviationFromDefaultLanguage();
 
 			$templateData['sidebar'] = $templateData['template_path'].'sidebar/'.$configRecord['sidebar_backend'];
 		}
 		
 		/* Set language\s vars */
-		$templateData['languageAllAvailable'] = $this->setupManager->getSetupManagerLanguages()->getLanguageSetup()->getAllAvailableLanguages();
-		$templateData['languageDefault'] 	  = $this->setupManager->getSetupManagerLanguages()->getLanguageSetup()->getDefaultLanguage();
-		$templateData['languageLabels'] 	  = $this->setupManager->getSetupManagerLanguagesLabels()->getLanguageLabels();
-		$templateData['languageAbbreviation'] = $this->setupManager->getSetupManagerLanguages()->getLanguageSetup()->getLanguageAbbreviationFromDefaultLanguage();
-		$templateData['languageId'] 		  = $this->setupManager->getSetupManagerLanguages()->getLanguageId();
+		$templateData['languageAllAvailable'] = $this->getSetupManager()->getSetupManagerLanguages()->getLanguageSetup()->getAllAvailableLanguages();
+		$templateData['languageDefault'] 	  = $this->getSetupManager()->getSetupManagerLanguages()->getLanguageSetup()->getDefaultLanguage();
+		$templateData['languageLabels'] 	  = $this->getSetupManager()->getSetupManagerLanguagesLabels()->getLanguageLabels();
+		$templateData['languageAbbreviation'] = $this->getSetupManager()->getSetupManagerLanguages()->getLanguageSetup()->getLanguageAbbreviationFromDefaultLanguage();
+		$templateData['languageId'] 		  = $this->getSetupManager()->getSetupManagerLanguages()->getLanguageId();
 
 		/* Basic layout if not set... */
 		$templateData['basiclayout'] = $templateData['template_path'].'layout.phtml';
-	
+
 		/* Assets */
 		$templateData['imagedir'] = $templateData['template_project'].'templates/'.$templateData['template_name'].'assets/images/';
 		$templateData['cssdir']   = $templateData['template_project'].'templates/'.$templateData['template_name'].'assets/css/';
 		$templateData['jsdir']    = $templateData['template_project'].'templates/'.$templateData['template_name'].'assets/js/';
 
-		$this->setupManager->setTemplateDataSetter( new TemplateDataSetter($this->setupManager) );
-	
+		$this->getSetupManager()->setTemplateDataSetter( new TemplateDataSetter($this->setupManager) );
+
 		/* Assign final template var */
-		$this->setupManager->getTemplateDataSetter()->mergeTemplateDataWithArray( array_filter($templateData) );
+		$this->getSetupManager()->getTemplateDataSetter()->mergeTemplateDataWithArray( array_filter($templateData) );
 	}
 
-	/**
-	 * @return SetupManager
-	 */
-	public function getSetupManager()
-	{
-		return $this->setupManager;
-	}
-
-		/**
-		 * @return \Doctrine\ORM\EntityManager
-		 */
-		private function getEntityManager()
-		{
-			if (!$this->entityManager) {
-				$this->setupEntityManager();
-			}
-			
-			return $this->entityManager;
-		}
 }

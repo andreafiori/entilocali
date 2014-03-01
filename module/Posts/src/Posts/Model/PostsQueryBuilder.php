@@ -62,7 +62,7 @@ class PostsQueryBuilder extends DQLQueryHelper
 
 	public function setCategorySeoUrl($categoryName)
 	{
-		if ($categoryName) {
+		if ( is_string($categoryName) ) {
 			$this->query .= "AND co.seoUrl = :seourlcategory ";
 			$this->addToBindParameters('seourlcategory', $categoryName);
 		}		
@@ -70,7 +70,7 @@ class PostsQueryBuilder extends DQLQueryHelper
 
 	public function setTitle($title)
 	{
-		if ($title) {
+		if ( is_string($title) ) {
 			$this->query .= "AND po.title = :title ";
 			$this->addToBindParameters('title', $title);
 		}
@@ -83,7 +83,7 @@ class PostsQueryBuilder extends DQLQueryHelper
 	 */
 	public function setSeoUrl($seoUrl)
 	{
-		if ($seoUrl) {
+		if ( is_string($seoUrl) ) {
 			$this->query .= "AND po.seoUrl = :seourl ";
 			$this->addToBindParameters('seourl', $seoUrl);
 		}
@@ -110,12 +110,12 @@ class PostsQueryBuilder extends DQLQueryHelper
 	public function setParentId($parentId)
 	{
 		$this->query .= "AND p.parentId = :parentid ";
-		$this->addToBindParameters('parentid', $parentId ? $parentId : 0);
+		$this->addToBindParameters('parentid', is_numeric($parentId) ? $parentId : 0);
 	}
 	
 	public function setParentIdCategory($parentIdCat)
 	{
 		$this->query .= "AND co.parentId = :parentIdCat ";
-		$this->addToBindParameters('parentIdCat', $parentIdCat ? $parentIdCat : 0);
+		$this->addToBindParameters('parentIdCat', is_numeric($parentIdCat) ? $parentIdCat : 0);
 	}
 }

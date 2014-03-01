@@ -26,11 +26,15 @@ class SetupManagerLanguages extends SetupManagerAbstract
 	public function setAllAvailableLanguages($channelId)
 	{
 		$this->getLanguageSetup()->setAllAvailableLanguages($channelId);
+	
+		return ;
 	}
 	
 	public function setDefaultLanguage($languageAbbreviation)
 	{
 		$this->getLanguageSetup()->setDefaultLanguage($languageAbbreviation);
+		
+		return $this->getAllAvailableLanguages();
 	}
 	
 	/**
@@ -40,10 +44,15 @@ class SetupManagerLanguages extends SetupManagerAbstract
 	{
 		return $this->languagesSetup;
 	}
+	
+	public function getAllAvailableLanguages()
+	{
+		return $this->getLanguageSetup()->getAllAvailableLanguages();
+	}
 
 	public function getDefaultLanguage($key = null)
 	{
-		if (!$this->getLanguageSetup()) {
+		if ( !$this->getLanguageSetup() ) {
 			throw new NullException('Language Setup is not set');
 		}
 		

@@ -17,17 +17,17 @@ class SetupManagerLanguagesLabels extends SetupManagerAbstract
 	{
 		$languagesLabelsQueryBuilder->setBasicBindParameters();
 		
-		$this->languagesLabels = $languagesLabelsQueryBuilder->getSelectResult();
-
-		return $this->setLanguagesLabelsAsKeyValue( $this->languagesLabels );
+		$this->languagesLabels = $this->setLanguagesLabelsAsKeyValue( $languagesLabelsQueryBuilder->getSelectResult() );
+		
+		return $this->languagesLabels;
 	}
 		
 		private function setLanguagesLabelsAsKeyValue(array $labelsList)
 		{
 			$labels = array();
 			foreach($labelsList as &$labelsList) {
-				if (isset($labelsList['label_name'])) {
-					$labels[$labelsList['label_name']] = $labelsList['label_value'];
+				if (isset($labelsList['labelName']) and isset($labelsList['labelValue'])) {
+					$labels[$labelsList['labelName']] = $labelsList['labelValue'];
 				}
 			}
 			

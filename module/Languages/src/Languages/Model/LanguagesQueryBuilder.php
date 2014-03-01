@@ -31,4 +31,11 @@ class LanguagesQueryBuilder extends DQLQueryHelper
 			$this->addToBindParameters('id', $id);
 		}
 	}
+	
+	public function setActive($inactive=false)
+	{
+		if ( !$inactive ) {
+			$this->query .= "AND l.active = 1 ";
+		}
+	}
 }

@@ -40,7 +40,7 @@ class IndexController extends FrontendControllerAbstract
 		} else {
 			$setupManager->getTemplateDataSetter()->assignToTemplate('templatePartial', $setupManager->getTemplateDataSetter()->getTemplateData('template_path').'homepage.phtml');
 		}
-		
+
 		
 		/* TEMPLATE DATA */
 		$setupManager->getTemplateDataSetter()->assignToTemplate('controllerResult', $postsDetail);

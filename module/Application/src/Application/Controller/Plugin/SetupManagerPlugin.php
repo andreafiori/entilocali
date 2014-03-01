@@ -29,7 +29,6 @@ class SetupManagerPlugin extends AbstractPlugin
 		$setupManagerWrapper->setupLanguagesLabels();
 		$setupManagerWrapper->setupConfigurations();
 		$setupManagerWrapper->setupTemplateRecords();
-		
 		$setupManagerWrapper->setupPreloadRecord();
 		
 		return $this->setSetupManager( $setupManagerWrapper->getSetupManager() );

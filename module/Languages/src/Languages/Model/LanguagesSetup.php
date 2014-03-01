@@ -50,6 +50,7 @@ class LanguagesSetup
 	{
 		$languagesQueryBuilder = new LanguagesQueryBuilder();
 		$languagesQueryBuilder->setSetupManager($this->setupManager);
+		$languagesQueryBuilder->setActive();
 		$languagesQueryBuilder->setBasicBindParameters();
 		
 		$this->allAvailableLanguages = $languagesQueryBuilder->getSelectResult();
@@ -78,9 +79,8 @@ class LanguagesSetup
 		
 		foreach($this->getAllAvailableLanguages() as $allAvailableLanguages)
 		{
-			if (count($arrayCompare) == count($allAvailableLanguages)) {
+			if ( is_array($arrayCompare) and is_array($allAvailableLanguages) ) {
 				$diff = array_diff($arrayCompare, $allAvailableLanguages);
-				
 				if ( empty($diff) ) {
 					$this->defaultLanguage = $allAvailableLanguages;
 					return $this->defaultLanguage;

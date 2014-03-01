@@ -19,8 +19,8 @@ class FrontendSetupInitializerPlugin extends SetupInitializerAbstractPlugin
 				'controller'			=> $this->getRoute('controller'),
 				'action'				=> $this->getRoute('action'),
 				'languageAbbreviation' 	=> $this->getRoute('lang'),
-				'categoryName' 			=> \Setup\StringRequestDecoder::slugify( $this->getRoute('category') ),
-				'title'		 			=> \Setup\StringRequestDecoder::slugify( $this->getRoute('title') ),
+				'categoryName' 			=> is_string($this->getRoute('category')) ? \Setup\StringRequestDecoder::slugify( $this->getRoute('category') ) : '',
+				'title'		 			=> is_string($this->getRoute('category')) ? \Setup\StringRequestDecoder::slugify( $this->getRoute('title') ) : '',
 		);
 	}
 	

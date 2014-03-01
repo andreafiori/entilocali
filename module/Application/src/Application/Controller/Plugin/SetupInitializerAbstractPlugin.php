@@ -44,7 +44,5 @@ abstract class SetupInitializerAbstractPlugin extends AbstractPlugin
 		if ( isset($this->route[$key]) ) {
 			return $this->route[$key];
 		}
-		
-		return $this->route;
 	}
 }
