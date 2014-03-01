@@ -5,20 +5,12 @@ php:
   - 5.4
   - 5.5
 
-env:
-  - DB=mysql
-
 before_install:
   - composer self-update
   - composer update
   - composer install --dev
 
 before_script:
-  - mysql -e "CREATE DATABASE IF NOT EXISTS fossobandito;" -uroot;
-  - cd sql
-  #- mysql -uroot -p -h localhost fossobandito < dump.sql
-  - mysqldump -p -u root fossobandito > dbname.sql
-  - cd ..
   - cd tests
 
 script:

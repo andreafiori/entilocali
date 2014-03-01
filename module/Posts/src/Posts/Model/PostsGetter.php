@@ -60,7 +60,7 @@ class PostsGetter extends QueryBuilderSetterAbstract
 		$this->postsRecordsHelper->setRemotelinkWeb( $this->setupManager->getSetupManagerConfigurations()->getConfigurations('remotelinkWeb') );
 		$this->postsRecordsHelper->setAdditionalArrayElements();
 		$this->postsRecordsHelper->sortPostsByAlias( $this->getInput('sortByAlias') );
-	
+
 		return $this->postsRecordsHelper->getPostsRecords();	
 	}
 }

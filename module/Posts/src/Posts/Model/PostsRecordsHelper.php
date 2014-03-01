@@ -29,19 +29,18 @@ class PostsRecordsHelper extends PostsRecordHelperAbstract
 
 	public function setAdditionalArrayElements()
 	{
-		if ( !is_array($this->getPostsRecords()) ) {
+		$postsRecords = $this->getPostsRecords();
+		if ( !is_array($postsRecords) ) {
 			return false;
 		}
 		
-		$postsRecords = array();
-		foreach($this->getPostsRecords() as $record) {
-			// $record['linkDetails'] = $this->getLinkDetails($record);
-			$postsRecords[] = $record;
+		for($i=0; $i < count($postsRecords); $i++) {
+			$postsRecords[$i]['linkDetails'] = $this->getLinkDetails($postsRecords[$i]);
 		}
 		
 		$this->postsRecords = $postsRecords;
 		
-		return $postsRecords;
+		return $this->postsRecords;
 	}
 	
 		/**
