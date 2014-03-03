@@ -61,6 +61,6 @@ class PostsGetter extends QueryBuilderSetterAbstract
 		$this->postsRecordsHelper->setAdditionalArrayElements();
 		$this->postsRecordsHelper->sortPostsByAlias( $this->getInput('sortByAlias') );
 
-		return $this->postsRecordsHelper->getPostsRecords();	
+		return $this->postsRecordsHelper->getPostsRecords();
 	}
 }

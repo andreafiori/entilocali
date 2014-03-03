@@ -26,11 +26,19 @@ class LanguagesLabelsQueryBuilderTest extends TestSuite
 		$this->assertNotEmpty( $this->languagesLabelsQueryBuilder->getSelectResult() );
 	}
 
-	public function setId($id)
+	public function testSetId()
 	{
-		if ( is_numeric($id) ) {
-			$this->query .= "AND ll.id = :id ";
-			$this->addToBindParameters('id', $id);
-		}
+		$this->languagesLabelsQueryBuilder->setBasicBindParameters();
+		$this->languagesLabelsQueryBuilder->setId(1);
+	
+		$this->assertArrayHasKey('id', $this->languagesLabelsQueryBuilder->getBindParameters());
+	}
+	
+	public function testSetLanguage()
+	{
+		$this->languagesLabelsQueryBuilder->setBasicBindParameters();
+		$this->languagesLabelsQueryBuilder->setLanguage(1);
+	
+		$this->assertArrayHasKey('languageId', $this->languagesLabelsQueryBuilder->getBindParameters());
 	}
 }

@@ -34,12 +34,12 @@ class PostsQueryBuilder extends DQLQueryHelper
 		$this->query .= "AND p.id = :postid ";
 		$this->addToBindParameters('postid', $id);
 	}
-	
+
 	public function setBasicBindParameters()
 	{
 		$this->setBindParameters( array('channel' => $this->getSetupManager()->getChannelId(), 'language' => $this->getSetupManager()->getSetupManagerLanguages()->getLanguageId() ) );
 	}
-	
+
 	public function setLanguage($languageId)
 	{
 		if (!$languageId or !(int) $languageId) {
@@ -102,7 +102,7 @@ class PostsQueryBuilder extends DQLQueryHelper
 	
 	public function setAliasNotNull($setAlias = false)
 	{
-		if ($setAlias) {
+		if ($setAlias === true) {
 			$this->query .= "AND p.alias IS NOT NULL AND p.alias != '' ";
 		}
 	}

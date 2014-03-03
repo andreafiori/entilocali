@@ -19,7 +19,7 @@ class UsersQueryBuilderTest extends TestSuite
 	{
 		parent::setUp();
 		
-		/*
+		/* TODO: try to test entity mocking an entity repository
 		$this->createLoadedMockedDoctrineRepository("Application\\Entity\\User", "Users", "getUsers", array());
 		*/
 		

@@ -6,9 +6,9 @@ use Zend\View\Model\ViewModel;
 use ServiceLocatorFactory;
 use Posts\Model\PostsGetter;
 use Application\Controller\Plugin\FrontendSetupInitializerPlugin;
+use Posts\Model\PostsFrontendTemplateGetter;
 
 /**
- * Frontend main controller
  * @author Andrea Fiori
  * @since  04 December 2013
  */
@@ -23,27 +23,18 @@ class IndexController extends FrontendControllerAbstract
 			$postGetter = new PostsGetter($setupManager);
 			$postGetter->setInput( $setupManager->getInput() );
 
-			$postsDetail = $postGetter->getCompletePostRecord();
+			$postsRecords = $postGetter->getCompletePostRecord();
 		endif;
-
-		if ( isset($postsDetail[0]) ) {
-			if ( count($postsDetail) > 1 ) {
-				$setupManager->getTemplateDataSetter()->assignToTemplate('templatePartial', $setupManager->getTemplateDataSetter()->getTemplateData('template_path').$postsDetail[0]['typeofpost'].'/list.phtml');
-			} else {
-				$postsDetail = $postsDetail[0];
-				if ($postsDetail['templatefile']) {
-					$setupManager->getTemplateDataSetter()->assignToTemplate('templatePartial', $setupManager->getTemplateDataSetter()->getTemplateData('template_path').$postsDetail['typeofpost'].'/'.$postsDetail['templatefile']);
-				} else {
-					$setupManager->getTemplateDataSetter()->assignToTemplate('templatePartial', $setupManager->getTemplateDataSetter()->getTemplateData('template_path').$postsDetail['typeofpost'].'/detail.phtml');
-				}
-			}
-		} else {
-			$setupManager->getTemplateDataSetter()->assignToTemplate('templatePartial', $setupManager->getTemplateDataSetter()->getTemplateData('template_path').'homepage.phtml');
-		}
-
+		
+	
+		$PostsFrontendTemplateGetter = new PostsFrontendTemplateGetter();
+		$PostsFrontendTemplateGetter->setRecords($postsRecords);
+		
+		$setupManager->getTemplateDataSetter()->assignToTemplate('templatePartial', $setupManager->getTemplateDataSetter()->getTemplateData('template_path').$PostsFrontendTemplateGetter->setTemplate() );
+		
 		
 		/* TEMPLATE DATA */
-		$setupManager->getTemplateDataSetter()->assignToTemplate('controllerResult', $postsDetail);
+		$setupManager->getTemplateDataSetter()->assignToTemplate('controllerResult', $PostsFrontendTemplateGetter->getRecords() );
 		$setupManager->getTemplateDataSetter()->assignToTemplate('categoryName', ucfirst(\Setup\StringRequestDecoder::deslugify($setupManager->getInput('categoryName'))) );
 
 		/* SEO Tags */

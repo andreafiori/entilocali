@@ -38,7 +38,7 @@ class PostsAlias extends SetupManagerPreloadAbstract implements SetupManagerPrel
 			unset($input['title']);
 			
 			$input['helpers'] = true;
-			$input['aliasnotull'] = true;
+			//$input['aliasnotull'] = true;
 			$input['sortByAlias'] = true;
 
 			return $input;

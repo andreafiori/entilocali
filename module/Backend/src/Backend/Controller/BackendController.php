@@ -3,7 +3,6 @@
 namespace Backend\Controller;
 
 use Zend\View\Model\ViewModel;
-use ServiceLocatorFactory;
 use Users\Model\UsersQueryBuilder;
 
 /**
@@ -32,6 +31,7 @@ class BackendController extends BackendControllerAbstract
 	 * 		 use the UsersGetter class
 	 * 		 set ACL role and compare with db user role
 	 * 		 set captcha on login form after 3 fails...
+	 * 		 lets use only query builder and make only 1 query injecting the entity manager
 	*/
 	 public function loginAction()
 	 {
@@ -44,8 +44,8 @@ class BackendController extends BackendControllerAbstract
 			$users->setPassword($userPost['password']);
 			$users->setEmail($userPost['username']);
 			$userRecord = $users->getSelectResult();
-			
-			if ( is_array($users->getSelectResult()) ) {
+
+			if ( !empty($userRecord) and is_array($userRecord) ) {
 				$userRecord = $userRecord[0];
 				
 				$session = new \Zend\Session\Container('zf2ApiCms');

@@ -21,7 +21,7 @@ class LanguagesLabelsQueryBuilder extends DQLQueryHelper
 	
 	public function setBasicBindParameters()
 	{
-		$this->setBindParameters( array() );
+		
 	}
 	
 	public function setId($id)
@@ -29,6 +29,22 @@ class LanguagesLabelsQueryBuilder extends DQLQueryHelper
 		if ( is_numeric($id) ) {
 			$this->query .= "AND ll.id = :id ";
 			$this->addToBindParameters('id', $id);
+		}
+	}
+	
+	public function setLanguage($languageId)
+	{
+		if ( is_numeric($languageId) ) {
+			$this->query .= "AND ll.language = :languageId ";
+			$this->addToBindParameters('languageId', $languageId);
+		}
+	}
+	
+	public function setIsBackend($isBackend)
+	{
+		if ($isBackend) {
+			$this->query .= "AND ll.isBackend = :isbackend ";
+			$this->addToBindParameters('isbackend', $isBackend);
 		}
 	}
 }

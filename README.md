@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/andreafiori/Zend2APICMS.png?branch=master)](https://travis-ci.org/andreafiori/Zend2APICMS)
+
 Zend2 CMS with API service
 =======================
 

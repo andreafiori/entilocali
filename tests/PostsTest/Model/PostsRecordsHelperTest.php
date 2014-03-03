@@ -40,8 +40,6 @@ class PostsRecordsHelperTest extends TestSuite
 
 	public function testSortPostsByAlias()
 	{
-		$this->assertFalse( $this->postsRecordsHelper->sortPostsByAlias() );
-
 		$this->assertTrue( is_array($this->postsRecordsHelper->sortPostsByAlias(true)) );
 	}
 }

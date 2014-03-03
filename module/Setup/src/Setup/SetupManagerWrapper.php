@@ -56,8 +56,10 @@ class SetupManagerWrapper
 	{
 		$languagesLabelsQueryBuilder = new LanguagesLabelsQueryBuilder();
 		$languagesLabelsQueryBuilder->setSetupManager( $this->getSetupManager() );
-
-		$this->getSetupManager()->getSetupManagerLanguagesLabels()->setLanguagesLabels($languagesLabelsQueryBuilder);
+		$languagesLabelsQueryBuilder->setLanguage( $this->getSetupManager()->getSetupManagerLanguages()->getLanguageId() );
+		$languagesLabelsQueryBuilder->setBasicBindParameters();
+		
+		$this->getSetupManager()->getSetupManagerLanguagesLabels()->setLanguagesLabels( $languagesLabelsQueryBuilder->getSelectResult() );
 	}
 	
 	public function setupConfigurations()
@@ -113,13 +115,12 @@ class SetupManagerWrapper
 		if (!$configRecord) {
 			throw new NullException('No configurations on setup manager wrapper');
 		}
-		
-		$templateData = array();
-		$templateData = array_merge($templateData, $configRecord);
+
+		$templateData = $configRecord;
 		
 		$templateData['basePath'] = $configRecord['remotelinkWeb'];
 		if (!$isBackend) {
-			$templateData['template_project'] 	= 'frontend/projects/'.$configRecord['project_frontend'];
+			$templateData['template_project'] 	= 'frontend/projects/'.$configRecord['projectdir_frontend'];
 			$templateData['template_name']		= $configRecord['template_frontend'] ? $configRecord['template_frontend'] : 'default/';
 			$templateData['template_path']	 	= $templateData['template_project'].'templates/'.$templateData['template_name'];
 			$templateData['preloader_class']	= $templateData['preloader_frontend'];

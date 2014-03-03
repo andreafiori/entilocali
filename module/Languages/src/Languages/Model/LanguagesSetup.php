@@ -87,7 +87,7 @@ class LanguagesSetup
 				}
 			}
 		}
-
+		
 		return false;
 	}
 

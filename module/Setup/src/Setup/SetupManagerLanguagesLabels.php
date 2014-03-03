@@ -3,7 +3,6 @@
 namespace Setup;
 
 use Setup\SetupManagerAbstract;
-use Languages\Model\LanguagesLabelsQueryBuilder;
 
 /**
  * @author Andrea Fiori
@@ -13,26 +12,17 @@ class SetupManagerLanguagesLabels extends SetupManagerAbstract
 {
 	private $languagesLabels;
 	
-	public function setLanguagesLabels(LanguagesLabelsQueryBuilder $languagesLabelsQueryBuilder)
-	{
-		$languagesLabelsQueryBuilder->setBasicBindParameters();
-		
-		$this->languagesLabels = $this->setLanguagesLabelsAsKeyValue( $languagesLabelsQueryBuilder->getSelectResult() );
+	public function setLanguagesLabels(array $labelsList)
+	{	
+		$this->languagesLabels = array();
+		foreach($labelsList as &$labelsList) {
+			if ( isset($labelsList['labelName']) and isset($labelsList['labelValue']) ) {
+				$this->languagesLabels[$labelsList['labelName']] = $labelsList['labelValue'];
+			}
+		}
 		
 		return $this->languagesLabels;
 	}
-		
-		private function setLanguagesLabelsAsKeyValue(array $labelsList)
-		{
-			$labels = array();
-			foreach($labelsList as &$labelsList) {
-				if (isset($labelsList['labelName']) and isset($labelsList['labelValue'])) {
-					$labels[$labelsList['labelName']] = $labelsList['labelValue'];
-				}
-			}
-			
-			return $labels;
-		}
 	
 	public function getLanguageLabels()
 	{
