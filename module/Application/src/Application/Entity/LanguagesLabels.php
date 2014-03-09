@@ -15,7 +15,7 @@ class LanguagesLabels
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -45,14 +45,14 @@ class LanguagesLabels
     /**
      * @var integer
      *
-     * @ORM\Column(name="isbackend", type="integer", nullable=true)
+     * @ORM\Column(name="isbackend", type="bigint", nullable=true)
      */
     private $isbackend = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="isuniversal", type="integer", nullable=true)
+     * @ORM\Column(name="isuniversal", type="bigint", nullable=true)
      */
     private $isuniversal = '0';
 
@@ -66,7 +66,7 @@ class LanguagesLabels
     /**
      * @var integer
      *
-     * @ORM\Column(name="module_id", type="integer", nullable=true)
+     * @ORM\Column(name="module_id", type="bigint", nullable=true)
      */
     private $moduleId = '0';
 

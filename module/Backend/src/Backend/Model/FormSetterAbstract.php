@@ -27,7 +27,10 @@ abstract class FormSetterAbstract
 	abstract public function setDescription();
 	
 	abstract public function setAction();
-
+	
+	/**
+	 * @param SetupManager $setupManager
+	 */
 	public function __construct(SetupManager $setupManager)
 	{
 		$this->setupManager = $setupManager;

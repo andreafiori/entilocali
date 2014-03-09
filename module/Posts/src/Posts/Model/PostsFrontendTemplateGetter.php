@@ -37,7 +37,11 @@ class PostsFrontendTemplateGetter
 		$records = $this->getRecords();
 		
 		if ( count($records) > 1 and is_array($records) ) {
-			return $records[0]['typeofpost'].'/list.phtml';
+			if ($records[0]['template']) {
+				return $records[0]['typeofpost'].'/lists/'.$records[0]['template'];
+			} else {
+				return $records[0]['typeofpost'].'/lists/default.phtml';
+			}
 		}
 		
 		if ( isset($records[0]) ) {

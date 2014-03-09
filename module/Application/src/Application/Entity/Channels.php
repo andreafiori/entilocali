@@ -15,7 +15,7 @@ class Channels
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -52,14 +52,14 @@ class Channels
     /**
      * @var integer
      *
-     * @ORM\Column(name="ismultilanguage", type="integer", nullable=true)
+     * @ORM\Column(name="ismultilanguage", type="bigint", nullable=true)
      */
     private $ismultilanguage;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="isdefault", type="integer", nullable=true)
+     * @ORM\Column(name="isdefault", type="bigint", nullable=true)
      */
     private $isdefault;
 

@@ -15,7 +15,7 @@ class NewsletterSends
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -38,7 +38,7 @@ class NewsletterSends
     /**
      * @var integer
      *
-     * @ORM\Column(name="newsletter_id", type="integer", nullable=true)
+     * @ORM\Column(name="newsletter_id", type="bigint", nullable=true)
      */
     private $newsletterId;
 

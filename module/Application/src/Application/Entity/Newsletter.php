@@ -15,7 +15,7 @@ class Newsletter
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -66,14 +66,14 @@ class Newsletter
     /**
      * @var integer
      *
-     * @ORM\Column(name="category_id", type="integer", nullable=false)
+     * @ORM\Column(name="category_id", type="bigint", nullable=false)
      */
     private $categoryId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="channel_id", type="integer", nullable=false)
+     * @ORM\Column(name="channel_id", type="bigint", nullable=false)
      */
     private $channelId = '1';
 

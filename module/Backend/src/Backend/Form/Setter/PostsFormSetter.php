@@ -6,8 +6,6 @@ use Backend\Model\FormSetterAbstract;
 use Posts\Model\PostsGetter;
 
 /**
- * TODO: 
- * 		check if you can show the form...
  * @author Andrea Fiori
  * @since  26 January 2014
  */
@@ -15,13 +13,11 @@ class PostsFormSetter extends FormSetterAbstract
 {
 	protected $zendFormObjectClassName = '\Posts\Model\PostsForm';
 	
-	/**
-	 * set single record using PostsGetter
-	 */
 	public function setRecord($id)
 	{
 		if ( is_numeric($id) ) {
 			$postsFormGetter = new PostsGetter($this->setupManager);
+			
 			$postsFormGetter->setInput( array('id' => $id) );
 
 			$this->record = $postsFormGetter->getPostsRecordOnly();
@@ -41,26 +37,63 @@ class PostsFormSetter extends FormSetterAbstract
 		return $this->action;
 	}
 
-	/**
-	 * TODO: set form title basic on typeofpost
-	 */
-	public function setTitle()
+	public function setTitle($input = null)
 	{
 		$labels = $this->setupManager->getSetupManagerLanguagesLabels();
 		$record = $this->getRecord();
 		if ($record) {
 			$this->title = $record[0]['title'];
 		} else {
-
+			
+			if (!is_array($input)) {
+				return false;
+			}
+			
+			switch($input['typeofpost']) {
+				case("content"):
+					$this->title = "Nuova pagina";
+				break;
+				
+				case("blog"):
+					$this->title = "Nuovo post";
+				break;
+				
+				case("photo"):
+					$this->title = "Nuova foto";
+				break;
+			}
 		}
 		
 		return $this->title;
 	}
-
-	public function setDescription()
+	
+	public function setDescription($input=null)
 	{
 		$labels = $this->setupManager->getSetupManagerLanguagesLabels();
 		
-		//$this->formDescription = $labels[''];
+		if ( $this->getRecord() ) {
+			$this->description = 'Modifica i dati e conferma premendo il pulsante in fondo alla pagina';
+		} else {
+			
+			if (!is_array($input)) {
+				return false;
+			}
+			
+			switch($input['typeofpost']) {
+				case("content"):
+					$this->description = 'Modifica i dati e conferma premendo il pulsante in fondo alla pagina';
+				break;
+				
+				case("blog"):
+					$this->description = 'Modifica i dati e conferma premendo il pulsante in fondo alla pagina';
+				break;
+				
+				case("photo"):
+					$this->description = 'Modifica i dati e conferma premendo il pulsante in fondo alla pagina';
+				break;
+			}
+		}
+		
+		return $this->description;
 	}
 }

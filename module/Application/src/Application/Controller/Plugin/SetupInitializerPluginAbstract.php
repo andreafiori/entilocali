@@ -3,26 +3,33 @@
 namespace Application\Controller\Plugin;
 
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
+use Application\Controller\Plugin\SetupManagerPlugin;
 
 /**
- * SetupInitializerAbstractPlugin
  * @author Andrea Fiori
  * @since  27 December 2013
  */
-abstract class SetupInitializerAbstractPlugin extends AbstractPlugin
+abstract class SetupInitializerPluginAbstract extends AbstractPlugin
 {
 	protected $setupManagerPlugin, $route;
 
 	abstract protected function getInput();
-
-	public function __construct()
+	
+	/**
+	 * @param SetupManagerPlugin $setupManagerPlugin
+	 */
+	public function __construct(SetupManagerPlugin $setupManagerPlugin)
 	{
-		$this->setupManagerPlugin = new SetupManagerPlugin();
+		$this->setupManagerPlugin = $setupManagerPlugin;
 	}
 
-	public function initializeSetupManager()
+	public function initializeSetupManager($input=null)
 	{
-		return $this->setupManagerPlugin->initialize( $this->getInput() );
+		if (!$input) {
+			$input = $this->getInput();
+		}
+		
+		return $this->setupManagerPlugin->initialize($input);
 	}
 	
 	/**

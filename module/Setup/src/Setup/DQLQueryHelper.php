@@ -28,12 +28,19 @@ abstract class DQLQueryHelper
 	
 		return $this->setupManager;
 	}
-		
+
 	public function setDefaultFieldsSelect($fieldList)
 	{
 		$this->defaultFieldsSelect = $fieldList;
 		
 		return $this->defaultFieldsSelect;
+	}
+	
+	public function setOrderBy($orderBy = null)
+	{
+		if ( is_string($orderBy) ) {
+			$this->query .= " ORDER BY $orderBy ";
+		}
 	}
 	
 	public function getDefaultFieldsSelect()
@@ -75,21 +82,21 @@ abstract class DQLQueryHelper
 	
 	public function getSelectQuery()
 	{
-		if (!$this->queryBasic) {
+		if ( !$this->getQueryBasic() ) {
 			$this->setqueryBasic();
 		}
 		
 		return $this->getQueryBasic().$this->query;
 	}
-	
+
 	public function getSelectResult()
 	{
 		if ( !$this->getSetupManager() ) {
-			throw new NullException('Setup Manager is not set on DQLQueryHelper');
+			throw new NullException('Setup Manager is not set on '.__CLASS__);
 		}
 		
 		if ( !$this->getSetupManager()->getEntityManager() ) {
-			throw new NullException('Entity Manager is not set on DQLQueryHelper');
+			throw new NullException('Entity Manager is not set on  '.__CLASS__);
 		}
 
 		$this->doctrineConfig = $this->getSetupManager()->getEntityManager()->getConfiguration();

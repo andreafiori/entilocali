@@ -31,7 +31,7 @@ class FaqAnswers
     /**
      * @var integer
      *
-     * @ORM\Column(name="rate", type="integer", nullable=false)
+     * @ORM\Column(name="rate", type="bigint", nullable=false)
      */
     private $rate;
 
@@ -52,7 +52,7 @@ class FaqAnswers
     /**
      * @var integer
      *
-     * @ORM\Column(name="user_id", type="integer", nullable=false)
+     * @ORM\Column(name="user_id", type="bigint", nullable=false)
      */
     private $userId;
 

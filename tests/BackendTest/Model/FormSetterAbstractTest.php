@@ -5,7 +5,6 @@ namespace BackendTest\Model;
 use SetupTest\TestSuite;
 
 /**
- * FormSetterAbstractTest
  * @author Andrea Fiori
  * @since  26 January 2014
  */

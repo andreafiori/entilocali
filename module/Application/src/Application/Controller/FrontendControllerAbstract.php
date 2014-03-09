@@ -5,13 +5,11 @@ namespace Application\Controller;
 use Setup\SetupManager;
 use Zend\Mvc\Controller\AbstractActionController;
 use Application\Controller\Plugin\FrontendSetupInitializerPlugin;
+use Application\Controller\Plugin\SetupManagerPlugin;
 
 /**
- * 
- * Frontend controller
  * @author Andrea Fiori
  * @since  02 February 2014
- * 
  */
 abstract class FrontendControllerAbstract extends AbstractActionController
 {
@@ -20,9 +18,10 @@ abstract class FrontendControllerAbstract extends AbstractActionController
 	 */
 	protected function generateSetupManagerFromInitializerPlugin()
 	{
-		$fsip = new FrontendSetupInitializerPlugin();
-		$fsip->setRoute( $this->params()->fromRoute() );
-
-		return $fsip->initializeSetupManager();
+    	$fsip = new FrontendSetupInitializerPlugin( new SetupManagerPlugin() );
+    	
+    	$fsip->setRoute( $this->params()->fromRoute() );
+    	
+    	return $fsip->initializeSetupManager();
 	}
 }

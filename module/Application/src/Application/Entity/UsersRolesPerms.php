@@ -15,7 +15,7 @@ class UsersRolesPerms
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -24,14 +24,14 @@ class UsersRolesPerms
     /**
      * @var integer
      *
-     * @ORM\Column(name="roleperm_id", type="integer", nullable=false)
+     * @ORM\Column(name="roleperm_id", type="bigint", nullable=false)
      */
     private $rolepermId;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="permission_id", type="integer", nullable=false)
+     * @ORM\Column(name="permission_id", type="bigint", nullable=false)
      */
     private $permissionId;
 

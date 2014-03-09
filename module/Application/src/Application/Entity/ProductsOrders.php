@@ -15,7 +15,7 @@ class ProductsOrders
     /**
      * @var integer
      *
-     * @ORM\Column(name="idord", type="integer", nullable=false)
+     * @ORM\Column(name="idord", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -24,7 +24,7 @@ class ProductsOrders
     /**
      * @var integer
      *
-     * @ORM\Column(name="numord", type="integer", nullable=false)
+     * @ORM\Column(name="numord", type="bigint", nullable=false)
      */
     private $numord = '0';
 
@@ -52,21 +52,21 @@ class ProductsOrders
     /**
      * @var integer
      *
-     * @ORM\Column(name="rifidprod", type="integer", nullable=false)
+     * @ORM\Column(name="rifidprod", type="bigint", nullable=false)
      */
     private $rifidprod = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="idcliente", type="integer", nullable=false)
+     * @ORM\Column(name="idcliente", type="bigint", nullable=false)
      */
     private $idcliente = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="codord", type="integer", nullable=false)
+     * @ORM\Column(name="codord", type="bigint", nullable=false)
      */
     private $codord = '0';
 

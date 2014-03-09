@@ -15,7 +15,7 @@ class ProductsOrdersStates
     /**
      * @var integer
      *
-     * @ORM\Column(name="idst", type="integer", nullable=false)
+     * @ORM\Column(name="idst", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -38,7 +38,7 @@ class ProductsOrdersStates
     /**
      * @var integer
      *
-     * @ORM\Column(name="posizione", type="integer", nullable=true)
+     * @ORM\Column(name="posizione", type="bigint", nullable=true)
      */
     private $posizione;
 
@@ -59,14 +59,14 @@ class ProductsOrdersStates
     /**
      * @var integer
      *
-     * @ORM\Column(name="rifmodule", type="integer", nullable=true)
+     * @ORM\Column(name="rifmodule", type="bigint", nullable=true)
      */
     private $rifmodule;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="rifchannel", type="integer", nullable=true)
+     * @ORM\Column(name="rifchannel", type="bigint", nullable=true)
      */
     private $rifchannel;
 

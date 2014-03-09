@@ -18,14 +18,6 @@ class ServiceLocatorFactoryTest extends TestSuite {
 		parent::setUp();
 	}
 	
-	/**
-	 * @expectedException ServiceLocatorFactory\NullServiceLocatorException 
-	 */
-	public function testGetInstanceLaunchNullServiceLocatorException()
-	{
-		ServiceLocatorFactory::getInstance();
-	}
-	
 	public function testSetinstance()
 	{
 		ServiceLocatorFactory::setInstance( $this->getServiceManager() );

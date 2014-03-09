@@ -15,7 +15,7 @@ class NewsletterOptions
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -24,7 +24,7 @@ class NewsletterOptions
     /**
      * @var integer
      *
-     * @ORM\Column(name="title", type="integer", nullable=true)
+     * @ORM\Column(name="title", type="bigint", nullable=true)
      */
     private $title;
 
@@ -38,7 +38,7 @@ class NewsletterOptions
     /**
      * @var integer
      *
-     * @ORM\Column(name="language_id", type="integer", nullable=true)
+     * @ORM\Column(name="language_id", type="bigint", nullable=true)
      */
     private $languageId;
 

@@ -16,7 +16,6 @@ abstract class QueryBuilderSetterAbstract
 	protected $queryBuilder;
 	
 	/**
-	 * 
 	 * @param  array $input
 	 * @return array $input
 	 */
@@ -29,7 +28,7 @@ abstract class QueryBuilderSetterAbstract
 	
 	public function getInput($key = null)
 	{
-		if ($key and isset($this->input[$key])) {
+		if ( isset($this->input[$key]) ) {
 			return $this->input[$key];
 		}
 		

@@ -2,14 +2,13 @@
 
 namespace Posts\Model;
 
-use Backend\Model\DataTableInitializerInterface;
-use Backend\Model\DataTableInitializerAbstract;
+use Backend\Model\DataTableAbstract;
 
 /**
  * @author Andrea Fiori
  * @since  09 February 2014
  */
-class PostsDatatable extends DataTableInitializerAbstract implements DataTableInitializerInterface
+class PostsDatatable extends DataTableAbstract
 {
 	public function setTitle()
 	{

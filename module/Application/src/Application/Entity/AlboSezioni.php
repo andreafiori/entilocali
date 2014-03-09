@@ -38,14 +38,14 @@ class AlboSezioni
     /**
      * @var integer
      *
-     * @ORM\Column(name="position", type="integer", nullable=false)
+     * @ORM\Column(name="position", type="bigint", nullable=false)
      */
     private $position;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="subsezione_id", type="integer", nullable=false)
+     * @ORM\Column(name="subsezione_id", type="bigint", nullable=false)
      */
     private $subsezioneId;
 

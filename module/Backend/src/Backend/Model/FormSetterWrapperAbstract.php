@@ -5,22 +5,22 @@ namespace Backend\Model;
 use Setup\SetupManager;
 
 /**
- * FormSetterWrapperAbstract
  * @author Andrea Fiori
  * @since  28 January 2014
  */
 abstract class FormSetterWrapperAbstract
 {
 	protected $setupManager;
-
-	protected $formSetterClassName, $formSetterInstance;
-
+	
 	protected $backendFormSetterNamespacePrefix = "Backend\\Form\\Setter\\";
 	
-	protected $zendFormClassName;
-	
-	protected $zendFormInstance;
+	protected $formSetterClassName, $formSetterInstance;
 
+	protected $zendFormClassName, $zendFormInstance;
+	
+	/**
+	 * @param SetupManager $setupManager
+	 */
 	public function __construct(SetupManager $setupManager)
 	{
 		$this->setupManager = $setupManager;
@@ -61,7 +61,7 @@ abstract class FormSetterWrapperAbstract
 	}
 	
 	/**
-	 * @return \Zend\Form\Form
+	 * @return \Backend\Form\ZendFormSetterAbstract
 	 */
 	public function getZendFormInstance()
 	{

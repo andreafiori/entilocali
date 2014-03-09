@@ -5,7 +5,6 @@ namespace Categories\Model;
 use Setup\DQLQueryHelper;
 
 /**
- * Posts Query Builder
  * @author Andrea Fiori
  * @since  03 January 2014
  */
@@ -26,7 +25,7 @@ WHERE (co.category = c.id ) ";
 		if (!is_int($id)) {
 			return false;
 		}
-		$this->query .= "AND p.id = :id ";
+		$this->query .= "AND c.id = :id ";
 		
 		$this->addToBindParameters('id', $id);
 	}

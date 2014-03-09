@@ -7,19 +7,17 @@
 		}
 	],
 	"keywords" : [
-		"ZEND 2",
-		"API",
+		"Zend2",
 		"CMS",
 		"RESTful"
 	],
 	"homepage" : "http://framework.zend.com/",
-	"require" : {
+    "require" : {
 		"doctrine/doctrine-orm-module" : "0.*",
 		"php" : ">=5.3.3",
 		"zendframework/zendframework" : ">2.1.3"
 	},
 	"require-dev" : {
-		"zendframework/zendservice-flickr" : "dev-develop",
 		"zendframework/zftool" : "dev-master",
 		"bjyoungblood/bjy-authorize" : "dev-master",
 		"zf-commons/zfc-user" : "dev-master",

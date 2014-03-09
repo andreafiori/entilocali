@@ -15,7 +15,7 @@ class SeoMeta
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -45,7 +45,7 @@ class SeoMeta
     /**
      * @var integer
      *
-     * @ORM\Column(name="module_id", type="integer", nullable=true)
+     * @ORM\Column(name="module_id", type="bigint", nullable=true)
      */
     private $moduleId;
 

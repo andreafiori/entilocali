@@ -15,7 +15,7 @@ class LottoProcedure
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -31,14 +31,14 @@ class LottoProcedure
     /**
      * @var integer
      *
-     * @ORM\Column(name="numproc", type="integer", nullable=false)
+     * @ORM\Column(name="numproc", type="bigint", nullable=false)
      */
     private $numproc = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="annoproc", type="integer", nullable=false)
+     * @ORM\Column(name="annoproc", type="bigint", nullable=false)
      */
     private $annoproc = '0';
 
@@ -248,28 +248,28 @@ class LottoProcedure
     /**
      * @var integer
      *
-     * @ORM\Column(name="ivg_id", type="integer", nullable=false)
+     * @ORM\Column(name="ivg_id", type="bigint", nullable=false)
      */
     private $ivgId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="tribunale_id", type="integer", nullable=false)
+     * @ORM\Column(name="tribunale_id", type="bigint", nullable=false)
      */
     private $tribunaleId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="user_id", type="integer", nullable=false)
+     * @ORM\Column(name="user_id", type="bigint", nullable=false)
      */
     private $userId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="entesattoriale_id", type="integer", nullable=false)
+     * @ORM\Column(name="entesattoriale_id", type="bigint", nullable=false)
      */
     private $entesattorialeId = '0';
 

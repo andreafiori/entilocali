@@ -15,7 +15,7 @@ class Modules
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -66,14 +66,14 @@ class Modules
     /**
      * @var integer
      *
-     * @ORM\Column(name="highlited", type="integer", nullable=false)
+     * @ORM\Column(name="highlited", type="bigint", nullable=false)
      */
     private $highlited;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="position", type="integer", nullable=false)
+     * @ORM\Column(name="position", type="bigint", nullable=false)
      */
     private $position = '0';
 
@@ -87,7 +87,7 @@ class Modules
     /**
      * @var integer
      *
-     * @ORM\Column(name="channel_id", type="integer", nullable=false)
+     * @ORM\Column(name="channel_id", type="bigint", nullable=false)
      */
     private $channelId = '1';
 

@@ -87,7 +87,7 @@ class Contacts
     /**
      * @var integer
      *
-     * @ORM\Column(name="user_id", type="integer", nullable=true)
+     * @ORM\Column(name="user_id", type="bigint", nullable=true)
      */
     private $userId = '1';
 

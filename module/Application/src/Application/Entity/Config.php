@@ -45,35 +45,35 @@ class Config
     /**
      * @var integer
      *
-     * @ORM\Column(name="isbackend", type="integer", nullable=false)
+     * @ORM\Column(name="isbackend", type="bigint", nullable=false)
      */
     private $isbackend;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="isalwaysallowed", type="integer", nullable=false)
+     * @ORM\Column(name="isalwaysallowed", type="bigint", nullable=false)
      */
     private $isalwaysallowed = '1';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="module_id", type="integer", nullable=false)
+     * @ORM\Column(name="module_id", type="bigint", nullable=false)
      */
     private $moduleId = '4';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="channel_id", type="integer", nullable=false)
+     * @ORM\Column(name="channel_id", type="bigint", nullable=false)
      */
     private $channelId = '1';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="language_id", type="integer", nullable=false)
+     * @ORM\Column(name="language_id", type="bigint", nullable=false)
      */
     private $languageId = '1';
 

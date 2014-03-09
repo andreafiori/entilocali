@@ -6,7 +6,6 @@ $cssBasePath = '../../assets/css/';
 include_once($cssBasePath.'themes/minimal/framework/css/bootstrap-fontawesome.css');
 // include_once($cssBasePath.'themes/minimal/style.css');
 // include_once($cssBasePath.'themes/minimal/framework/css/flexslider.css');
-
 // include_once($cssBasePath.'mediaelement/mediaelementplayer.min80e2.css');
 // include_once($cssBasePath.'mediaelement/wp-mediaelement.css');
 
@@ -17,16 +16,30 @@ include_once($cssBasePath.'fancybox/jquery.fancybox-thumbs.css');
 
 ?>
 .home_carousel_rollover {
-	width: 95%; margin: auto;
+	width: 95%;
+	margin: auto;
 	text-align: center;
-	vertical-align: top
+	vertical-align: top;
+	min-height: 555px;
 }
 .homepage_icon {
-	margin-right: 2%;
+	margin-right: 0.5em;
 	margin-bottom: 2%;
 	vertical-align: top
 }
-.aligncenter { text-align: center; }
+@media (max-width: 767px) {
+	.home_carousel_rollover img {
+		width: 8%
+	}
+}
+@media (min-width: 768px) and (max-width: 979px) {
+	.home_carousel_rollover img {
+		width: 8%
+	}
+}
+.aligncenter {
+	text-align: center;
+}
 select {
 	width: 300px;
 	border: 1px solid #e6e6e6;
@@ -91,9 +104,48 @@ legend span {
 div label, legend { font-weight: bold; margin-bottom: 7px; }
 div.error{ font-family: 'Droid Serif'; font-style: italic; margin-bottom: 15px; }
 div#contactForm input, div #contactForm textarea { width: 100%;  }
+
+/* form error labels */
+label.error { color: red; }
+input.error { border: 1px solid red; }
+
+/* Accordion */
+ul.gdl-accordion { list-style: none; margin-left: 0px; }
+ul.gdl-accordion li { list-style: none; margin-bottom: 15px; }
+h2.accordion-head { padding: 0px 0px 0px 0px; line-height: 21px; font-size: 16px; cursor: pointer; text-decoration: underline }
+div.accordion-content { padding: 0px 0px 20px 37px; overflow: hidden; border: 0px; }
+span.accordion-head-image { width: 24px; height: 24px; float: left; margin-right: 13px; cursor: pointer; display: block; }
+div.accordion-head p { margin-bottom: 0px; }
+ul.gdl-accordion .accordion-content ul li { list-style: disc; border: 0px; margin-bottom: 5px; }
+
+#calendar
+{
+font-family:verdana;
+font-size:12px;
+border:1px black solid;
+width:175px;
+}
+
+#calendar td
+{
+text-align:center;
+}
+
+.today
+{
+border:1px black solid;
+background-color:#0d6aab;
+color:white;
+}
+
+.days
+{
+border:1px black solid;
+background-color:white;
+}
+
 <?php
 ob_end_flush();
-
 function compress($buffer) {
 	/* Remove comments */
 	$buffer = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $buffer);

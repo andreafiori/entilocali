@@ -2,11 +2,13 @@
 
 namespace Application\Controller\Plugin;
 
+use Application\Controller\Plugin\SetupManagerPlugin;
+
 /**
  * @author Andrea Fiori
  * @since  01 February 2014
  */
-class FrontendSetupInitializerPlugin extends SetupInitializerAbstractPlugin
+class FrontendSetupInitializerPlugin extends SetupInitializerPluginAbstract
 {
 	/**
 	 * @return array

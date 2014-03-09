@@ -15,7 +15,7 @@ class LottoVendite
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -255,28 +255,28 @@ class LottoVendite
     /**
      * @var integer
      *
-     * @ORM\Column(name="ivg_id", type="integer", nullable=false)
+     * @ORM\Column(name="ivg_id", type="bigint", nullable=false)
      */
     private $ivgId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="tribunale_id", type="integer", nullable=false)
+     * @ORM\Column(name="tribunale_id", type="bigint", nullable=false)
      */
     private $tribunaleId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="proc_vendita_id", type="integer", nullable=false)
+     * @ORM\Column(name="proc_vendita_id", type="bigint", nullable=false)
      */
     private $procVenditaId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="lotto_vendita_id", type="integer", nullable=false)
+     * @ORM\Column(name="lotto_vendita_id", type="bigint", nullable=false)
      */
     private $lottoVenditaId = '0';
 

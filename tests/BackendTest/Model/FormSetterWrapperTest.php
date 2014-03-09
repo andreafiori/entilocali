@@ -6,7 +6,6 @@ use SetupTest\TestSuite;
 use Backend\Model\FormSetterWrapper;
 
 /**
- * FormSetterWrapperTest
  * @author Andrea Fiori
  * @since  26 January 2014
  */
@@ -35,12 +34,10 @@ class FormSetterWrapperTest extends TestSuite
 		$this->assertFalse( is_object($this->formSetterWrapper->setFormSetterInstance()) );
 
 		$this->formSetterWrapper->setFormSetterClassName('PostsFormSetter');
+		
 		$this->assertTrue( is_object($this->formSetterWrapper->setFormSetterInstance() ) );
 	}
-	
-	/**
-	 * TODO: mock the request to the db
-	 */
+
 	public function testSetFormSetterRecord()
 	{
 		$this->setFormSetterWrapperClassNameAndInstance();
@@ -50,16 +47,26 @@ class FormSetterWrapperTest extends TestSuite
 		$this->assertTrue( is_array($this->formSetterWrapper->getFormSetterInstance()->getRecord()) );
 	}
 	
-	/*public function testSetFormSetterTitle()
+	/**
+	 * if you set title, it will be null because setTitle is abstract
+	 */
+	public function testSetFormSetterTitle()
 	{
 		$this->setFormSetterWrapperClassNameAndInstance();
 		
-		$this->formSetterWrapper->setFormSetterTitle();
+		$this->formSetterWrapper->setFormSetterTitle('this is my form title');
 		
-		$this->assertNotEmpty( $this->formSetterWrapper->getFormSetterInstance()->getTitle() );
-	}*/
+		$this->assertNull( $this->formSetterWrapper->getFormSetterInstance()->getTitle() );
+	}
 	
-	// public function testSetFormSetterDescription();
+	public function testSetFormSetterDescription()
+	{
+		$this->setFormSetterWrapperClassNameAndInstance();
+		
+		$this->formSetterWrapper->setFormSetterDescription('my form description');
+		
+		$this->assertNull( $this->formSetterWrapper->getFormSetterInstance()->getDescription() );
+	}
 	
 	public function testSetZendFormClassName()
 	{
@@ -76,12 +83,6 @@ class FormSetterWrapperTest extends TestSuite
 		
 		$this->assertTrue( is_object($this->formSetterWrapper->setZendFormInstance()) );
 	}
-	
-	//public function testInitializeForm()
-	
-	//public function setFormAction($action)
-
-	//public function setFormAction($action)
 	
 		private function setFormSetterWrapperClassNameAndInstance()
 		{

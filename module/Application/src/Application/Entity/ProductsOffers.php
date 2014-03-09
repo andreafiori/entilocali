@@ -59,21 +59,21 @@ class ProductsOffers
     /**
      * @var integer
      *
-     * @ORM\Column(name="amount", type="integer", nullable=false)
+     * @ORM\Column(name="amount", type="bigint", nullable=false)
      */
     private $amount = '1';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="company_id", type="integer", nullable=false)
+     * @ORM\Column(name="company_id", type="bigint", nullable=false)
      */
     private $companyId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="product_id", type="integer", nullable=false)
+     * @ORM\Column(name="product_id", type="bigint", nullable=false)
      */
     private $productId = '0';
 

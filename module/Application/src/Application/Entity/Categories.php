@@ -15,7 +15,7 @@ class Categories
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -62,6 +62,13 @@ class Categories
      * @ORM\Column(name="orderby_fieldname", type="string", length=80, nullable=true)
      */
     private $orderbyFieldname;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="template", type="string", length=80, nullable=true)
+     */
+    private $template;
 
 
 
@@ -211,5 +218,28 @@ class Categories
     public function getOrderbyFieldname()
     {
         return $this->orderbyFieldname;
+    }
+
+    /**
+     * Set template
+     *
+     * @param string $template
+     * @return Categories
+     */
+    public function setTemplate($template)
+    {
+        $this->template = $template;
+
+        return $this;
+    }
+
+    /**
+     * Get template
+     *
+     * @return string 
+     */
+    public function getTemplate()
+    {
+        return $this->template;
     }
 }

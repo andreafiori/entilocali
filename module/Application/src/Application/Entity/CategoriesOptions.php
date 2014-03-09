@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CategoriesOptions
  *
- * @ORM\Table(name="categories_options", indexes={@ORM\Index(name="category_id", columns={"category_id"}), @ORM\Index(name="language_id", columns={"language_id"}), @ORM\Index(name="name", columns={"name"}), @ORM\Index(name="module_id", columns={"module_id"}), @ORM\Index(name="parent_id", columns={"parent_id"}), @ORM\Index(name="seo_url", columns={"seo_url"})})
+ * @ORM\Table(name="categories_options", indexes={@ORM\Index(name="catid_catopt", columns={"category_id"}), @ORM\Index(name="langid_catopt", columns={"language_id"}), @ORM\Index(name="moduleid_catopt", columns={"module_id"})})
  * @ORM\Entity
  */
 class CategoriesOptions
@@ -15,7 +15,7 @@ class CategoriesOptions
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -80,7 +80,7 @@ class CategoriesOptions
     /**
      * @var integer
      *
-     * @ORM\Column(name="parent_id", type="integer", nullable=true)
+     * @ORM\Column(name="parent_id", type="bigint", nullable=true)
      */
     private $parentId = '0';
 

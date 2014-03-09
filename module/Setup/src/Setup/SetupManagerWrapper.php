@@ -34,8 +34,8 @@ class SetupManagerWrapper
 		} else {
 			$this->entityManager = ServiceLocatorFactory::getInstance()->get('\Doctrine\ORM\EntityManager');
 		}
-		
-		$this->getSetupManager()->setEntityManager( $this->getEntityManager() );
+
+		$this->getSetupManager()->setEntityManager($this->entityManager);
 	}
 
 	public function detectChannel()
@@ -90,22 +90,9 @@ class SetupManagerWrapper
 	{
 		return $this->setupManager;
 	}
-		
-		/**
-		 * @return \Doctrine\ORM\EntityManager
-		 */
-		private function getEntityManager()
-		{
-			if (!$this->entityManager) {
-				$this->setupEntityManager();
-			}
-				
-			return $this->entityManager;
-		}
-		
+	
 	/**
-	 * TODO: export this method and move on  
-	 * @throws NullException
+	 * @throws NullException No configurations on setup manager wrapper
 	 */
 	public function setupTemplateRecords()
 	{	

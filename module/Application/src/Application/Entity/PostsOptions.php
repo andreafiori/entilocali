@@ -15,7 +15,7 @@ class PostsOptions
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -108,7 +108,7 @@ class PostsOptions
     /**
      * @var integer
      *
-     * @ORM\Column(name="position", type="integer", nullable=true)
+     * @ORM\Column(name="position", type="bigint", nullable=true)
      */
     private $position = '1';
 

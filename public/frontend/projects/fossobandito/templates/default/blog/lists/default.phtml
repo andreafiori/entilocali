@@ -1,0 +1,33 @@
+<div class="container content">
+	
+	<div class="row"> 
+		
+	    <div id="left-col" class="span8">
+		
+		<div class="sixteen columns mb0">
+			<div class="gdl-page-title-wrapper">
+				<h1 class="gdl-page-title gdl-title title-color"><?php echo $this->templateData['controllerResult'][0]['name'] ?></h1>
+				<div class="gdl-page-caption"></div>
+				<div class="gdl-page-title-left-bar"></div>
+				<div class="clear"></div>
+			</div>
+		</div>
+	
+			<!--  Breadcrumb -->
+			<p><strong><a href="<?=$this->templateData['remotelinkWeb'].$this->templateData['languageAbbreviation']?>" title="Home page">Home</a></strong> &raquo; <?php echo $this->templateData['categoryName'] ?></p>
+			
+			<?php echo $this->partial( $this->templateData['template_path'].'blog/lists/article.phtml'); ?>
+		
+		</div>
+		
+		<div id="right-col" class="span4">
+			<div class="sidebar">
+				<?php
+				echo $this->partial( $this->templateData['template_path'].'sidebar.phtml');
+				?>
+			</div>
+		</div>
+
+	</div>
+	
+</div>

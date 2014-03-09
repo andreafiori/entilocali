@@ -2,11 +2,13 @@
 
 namespace Application\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
 use Setup\SetupManager;
+use Backend\Controller\Plugin\BackendSetupInitializerPlugin;
+use Zend\Mvc\Controller\AbstractActionController;
+use Application\Controller\Plugin\SetupManagerPlugin;
 
 /**
- * Common Controller Abstract Both for Frontend and Backend
+ * Common Controller Abstract used both for Frontend and backend
  * @author Andrea Fiori
  * @since  07 February 2014
  */
@@ -14,7 +16,17 @@ abstract class CommonControllerAbstract extends AbstractActionController
 {
 	protected $setupManager;
 	
-	abstract protected function generateSetupManagerFromInitializerPlugin();
+	/**
+	 * @return SetupManager
+	 */
+	protected function generateSetupManagerFromInitializerPlugin()
+	{
+		$bsip = new BackendSetupInitializerPlugin( new SetupManagerPlugin() );
+		
+		$bsip->setRoute( $this->params()->fromRoute() );
+
+		return $bsip->initializeSetupManager();
+	}
 	
 	protected function setSetupManager(SetupManager $setupManager)
 	{

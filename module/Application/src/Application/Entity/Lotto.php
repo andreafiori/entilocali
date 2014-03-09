@@ -15,7 +15,7 @@ class Lotto
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -87,7 +87,7 @@ class Lotto
     /**
      * @var integer
      *
-     * @ORM\Column(name="vani", type="integer", nullable=false)
+     * @ORM\Column(name="vani", type="bigint", nullable=false)
      */
     private $vani = '0';
 
@@ -115,35 +115,35 @@ class Lotto
     /**
      * @var integer
      *
-     * @ORM\Column(name="regione_id", type="integer", nullable=false)
+     * @ORM\Column(name="regione_id", type="bigint", nullable=false)
      */
     private $regioneId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="provincia_id", type="integer", nullable=false)
+     * @ORM\Column(name="provincia_id", type="bigint", nullable=false)
      */
     private $provinciaId;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="comune_id", type="integer", nullable=false)
+     * @ORM\Column(name="comune_id", type="bigint", nullable=false)
      */
     private $comuneId;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="procedura_id", type="integer", nullable=false)
+     * @ORM\Column(name="procedura_id", type="bigint", nullable=false)
      */
     private $proceduraId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="tipobene_id", type="integer", nullable=false)
+     * @ORM\Column(name="tipobene_id", type="bigint", nullable=false)
      */
     private $tipobeneId = '0';
 

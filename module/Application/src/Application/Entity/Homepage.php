@@ -15,7 +15,7 @@ class Homepage
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -94,7 +94,7 @@ class Homepage
     /**
      * @var integer
      *
-     * @ORM\Column(name="posizition_block", type="integer", nullable=false)
+     * @ORM\Column(name="posizition_block", type="bigint", nullable=false)
      */
     private $posizitionBlock = '0';
 
@@ -108,28 +108,28 @@ class Homepage
     /**
      * @var integer
      *
-     * @ORM\Column(name="news_module_id", type="integer", nullable=false)
+     * @ORM\Column(name="news_module_id", type="bigint", nullable=false)
      */
     private $newsModuleId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="category_id", type="integer", nullable=false)
+     * @ORM\Column(name="category_id", type="bigint", nullable=false)
      */
     private $categoryId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="module_id", type="integer", nullable=false)
+     * @ORM\Column(name="module_id", type="bigint", nullable=false)
      */
     private $moduleId = '1';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="channel_id", type="integer", nullable=false)
+     * @ORM\Column(name="channel_id", type="bigint", nullable=false)
      */
     private $channelId = '1';
 

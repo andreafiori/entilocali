@@ -15,7 +15,7 @@ class UsersCorporates
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -38,28 +38,28 @@ class UsersCorporates
     /**
      * @var integer
      *
-     * @ORM\Column(name="piva", type="integer", nullable=true)
+     * @ORM\Column(name="piva", type="bigint", nullable=true)
      */
     private $piva;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="fax", type="integer", nullable=true)
+     * @ORM\Column(name="fax", type="bigint", nullable=true)
      */
     private $fax;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="cell", type="integer", nullable=true)
+     * @ORM\Column(name="cell", type="bigint", nullable=true)
      */
     private $cell;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="telefono", type="integer", nullable=true)
+     * @ORM\Column(name="telefono", type="bigint", nullable=true)
      */
     private $telefono;
 

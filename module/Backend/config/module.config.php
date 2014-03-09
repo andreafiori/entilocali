@@ -78,9 +78,9 @@ return array(
 						'datatable' => array(
 								'type'    => 'Segment',
 								'options' => array(
-										'route'   	  => '[/]datatable[/]',
+										'route'   	  => '[/]datatable[/][:initializer]',
 										'constraints' => array(
-												
+												'initializer' => '[a-zA-Z][a-zA-Z0-9_-]*',
 										),
 										'defaults' => array(
 												'controller' => 'Backend\Controller\Datatable',

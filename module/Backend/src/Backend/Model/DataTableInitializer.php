@@ -2,51 +2,48 @@
 
 namespace Backend\Model;
 
-use Setup\SetupManager;
-
 /**
  * @author Andrea Fiori
  * @since  09 February 2014
  */
-class DataTableInitializer extends DatatableInitializerAbstract implements DataTableInitializerInterface
+class DataTableInitializer extends DataTableAbstract
 {
-	public function __construct(SetupManager $setupManager)
+	/**
+	 * @param string $title
+	 */
+	public function setTitle($title)
 	{
-		$this->setSetupManager($setupManager);
-
-		$this->setLabels($setupManager->getSetupManagerLanguagesLabels()->getLanguageLabels());
-	}
-	
-	public function setTitle()
-	{
-		$this->title = $this->getInitializer()->setTitle();
+		$this->title = $title;
 
 		return $this->title;
 	}
-
-	public function setDescription()
+	
+	/**
+	 * @param string $description
+	 */
+	public function setDescription($description)
 	{
-		$this->description = $this->getInitializer()->setDescription();
+		$this->description = $description;
 		
 		return $this->description;
 	}
 	
 	/**
-	 * @return array
+	 * @return array $columns
 	 */
-	public function setColumns()
+	public function setColumns(array $colums)
 	{
-		$this->columns = $this->getInitializer()->setColumns();
+		$this->columns = $colums;
 		
 		return $this->columns;
 	}
 	
 	/**
-	 * @return array
+	 * @return array $columnValues
 	 */
-	public function setColumnsValues()
+	public function setColumnsValues(array $columnValues)
 	{
-		$this->columnsValues = $this->getInitializer()->getColumnsValues();
+		$this->columnsValues = $columnValues;
 		
 		return $this->columnsValues;
 	}

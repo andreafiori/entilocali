@@ -6,6 +6,11 @@ use Zend\View\Model\ViewModel;
 use Users\Model\UsersQueryBuilder;
 
 /**
+ * TODO: 
+ * 		 use the UsersGetter class
+ * 		 set ACL role and compare with db user role
+ * 		 set captcha on login form after 3 fails...
+ * 		 use only query builder and make only 1 query injecting the entity manager
  * @author Andrea Fiori
  * @since  05 December 2013
  */
@@ -26,15 +31,8 @@ class BackendController extends BackendControllerAbstract
     	return new ViewModel();
 	}
 
-	/**
-	 * TODO: 
-	 * 		 use the UsersGetter class
-	 * 		 set ACL role and compare with db user role
-	 * 		 set captcha on login form after 3 fails...
-	 * 		 lets use only query builder and make only 1 query injecting the entity manager
-	*/
-	 public function loginAction()
-	 {
+	public function loginAction()
+	{
 		$request = $this->getRequest();
 		if ( $request->isPost() ) {
 			$userPost = (array) $request->getPost();
@@ -43,8 +41,8 @@ class BackendController extends BackendControllerAbstract
 			$users->setSetupManager( $this->generateSetupManagerFromInitializerPlugin() );
 			$users->setPassword($userPost['password']);
 			$users->setEmail($userPost['username']);
+			
 			$userRecord = $users->getSelectResult();
-
 			if ( !empty($userRecord) and is_array($userRecord) ) {
 				$userRecord = $userRecord[0];
 				

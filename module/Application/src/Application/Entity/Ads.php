@@ -108,7 +108,7 @@ class Ads
     /**
      * @var integer
      *
-     * @ORM\Column(name="map_nrocivico", type="integer", nullable=false)
+     * @ORM\Column(name="map_nrocivico", type="bigint", nullable=false)
      */
     private $mapNrocivico;
 
@@ -206,7 +206,7 @@ class Ads
     /**
      * @var integer
      *
-     * @ORM\Column(name="visits", type="integer", nullable=false)
+     * @ORM\Column(name="visits", type="bigint", nullable=false)
      */
     private $visits = '0';
 
@@ -220,49 +220,49 @@ class Ads
     /**
      * @var integer
      *
-     * @ORM\Column(name="user_id", type="integer", nullable=false)
+     * @ORM\Column(name="user_id", type="bigint", nullable=false)
      */
     private $userId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="nazione_id", type="integer", nullable=false)
+     * @ORM\Column(name="nazione_id", type="bigint", nullable=false)
      */
     private $nazioneId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="region_id", type="integer", nullable=false)
+     * @ORM\Column(name="region_id", type="bigint", nullable=false)
      */
     private $regionId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="province_id", type="integer", nullable=false)
+     * @ORM\Column(name="province_id", type="bigint", nullable=false)
      */
     private $provinceId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="city_id", type="integer", nullable=false)
+     * @ORM\Column(name="city_id", type="bigint", nullable=false)
      */
     private $cityId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="quartiere_id", type="integer", nullable=false)
+     * @ORM\Column(name="quartiere_id", type="bigint", nullable=false)
      */
     private $quartiereId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="category_id", type="integer", nullable=false)
+     * @ORM\Column(name="category_id", type="bigint", nullable=false)
      */
     private $categoryId = '0';
 

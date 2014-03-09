@@ -2,36 +2,37 @@
 
 namespace Posts\Model;
 
-use Zend\Form\Form;
-use Setup\SetupManager;
+use Backend\Form\ZendFormSetterAbstract;
 
 /**
+ * TODO:
+		image blog: if no record: check $_GET typeofpost
+		image blog: if record OK: check if is isSet typeofpost
+		sub-contents
  * @author Andrea Fiori
  * @since  20 January 2014
  */
-class PostsForm extends Form
+class PostsForm extends ZendFormSetterAbstract
 {
-	private $setupManager;
-
-	public function __construct(SetupManager $setupManager)
+	private $typeofpostsImageAllowedTypes = array('blog', 'photo');
+	
+	public function addFormFields()
 	{
-		parent::__construct('formdata');
-		
-		$labels = $setupManager->getSetupManagerLanguagesLabels();
+		$dictionary = $this->getLanguageLabels();
 		
 		/*
-		if (=='blog' or =='photo'):
-		$this->add(array(
-				'name' => 'image',
-				'type' => 'Zend\Form\Element\File',
-				'options' => array( 'label' => 'Immagine' ),
-				'attributes' => array(
-						'class' => 'form-control',
-						'title' => 'Inserisci file',
-						'id' => 'image',
-				)
-		));
-		endif;
+		if ($this->getRecod('typeofpost') == 'blog' or $this->getRecod('typeofpost') == 'photo') {
+			$this->add(array(
+					'name' => 'image',
+					'type' => 'Zend\Form\Element\File',
+					'options' => array( 'label' => 'Immagine' ),
+					'attributes' => array(
+							'class' => 'form-control',
+							'title' => 'Inserisci file',
+							'id' => 'image',
+					)
+			));
+		}
 		*/
 		
 		$this->add(array(
@@ -51,18 +52,37 @@ class PostsForm extends Form
 				'type' => 'Textarea',
 				'options' => array( 'label' => 'Descrizione' ),
 				'attributes' => array(
-						'id' => 'description',
-						'required' => 'required',
-						'class' => 'ckeditor',
+						'id'		=> 'description',
+						'required' 	=> 'required',
+						'class' 	=> 'ckeditor',
 				)
 		));
-		
+
+		/* Category select */
+		if ( !$this->getInputRecord() ) {
+			$this->add(array(
+					'name'    => 'category',
+					'type'    => 'Zend\Form\Element\Select',
+					'options' => array(
+							'label'         => 'Categoria',
+							'value_options' => $this->getOptionsForSelect(),
+							'empty_option'  => '-- Seleziona --'
+					),
+					"attributes" => array(
+							'class'		=> 'form-control',
+							'required'  => 'required',
+							'id' 		=> 'category',
+							'title' => 'Seleziona la categoria',
+					)
+			));			
+		}
+
 		$this->add(array(
 				'type' => 'Application\Form\Element\PlainText',
 				'name' => 'start_date',
 				'attributes' => array(
 						'id' => 'searchEngines',
-						'value' => '<h3>Motori di ricerca</h3>',
+						'value' => '<h3>'.$dictionary['ADMIN_SEARCH_ENGINES'].'</h3>',
 				),
 		));
 
@@ -73,7 +93,7 @@ class PostsForm extends Form
 				'attributes' => array(
 						'id' => 'seoDescription',
 						'class' => 'form-control',
-						'title' => 'Inserisci descrizione per i motori di ricerca',
+						'title' => $dictionary['ADMIN_DESCRIPTION'],
 						'rows' => '5',
 				)
 		));
@@ -85,7 +105,7 @@ class PostsForm extends Form
 				'attributes' => array(
 						'id' => 'seoKeywords',
 						'class' => 'form-control',
-						'title' => 'Parole chiave per i motori di ricerca',
+						'title' => $dictionary['ADMIN_SEOKEYWORDS_LABEL'],
 						'rows' => '5',
 				)
 		));
@@ -113,5 +133,23 @@ class PostsForm extends Form
 						/* 'onclick' => "javascript: $('#formcontainer').hide()" */
 				),
 		));
+	}
+	
+	public function getOptionsForSelect()
+	{
+		$postsGetter = new PostsGetter( $this->getSetupManager() );
+		$postsGetter->getQueryBuilder()->setDefaultFieldsSelect("DISTINCT(co.name) AS name, c.id AS id");
+		$postsGetter->setInput( array("typeofpost"=>"content", "orderBy" => "co.name") );
+		
+		$result = $postsGetter->getCompletePostRecord();
+		
+		$selectData = array();
+		if ($result) {
+			foreach ($result as $res) {
+				$selectData[$res['id']] = $res['name'];
+			}
+		}
+		
+		return $selectData;
 	}
 }

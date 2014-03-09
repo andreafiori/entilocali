@@ -15,7 +15,7 @@ class ProductsShippingCap
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -24,14 +24,14 @@ class ProductsShippingCap
     /**
      * @var integer
      *
-     * @ORM\Column(name="geocap_id", type="integer", nullable=false)
+     * @ORM\Column(name="geocap_id", type="bigint", nullable=false)
      */
     private $geocapId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="usercompany_id", type="integer", nullable=false)
+     * @ORM\Column(name="usercompany_id", type="bigint", nullable=false)
      */
     private $usercompanyId = '0';
 

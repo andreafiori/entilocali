@@ -47,7 +47,18 @@ class SetupManagerAbstract
 	{
 		$this->entityManager = $entityManager;
 	}
-
+	
+	/**
+	 * @return AdapterInterface
+	 */
+	public function getDbAdapter()
+	{
+		return $this->dbApapter;
+	}
+	
+	/**
+	 * @return number
+	 */
 	public function getChannelId()
 	{
 		return $this->channelId ? $this->channelId : 1;

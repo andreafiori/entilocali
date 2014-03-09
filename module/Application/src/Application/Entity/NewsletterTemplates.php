@@ -15,7 +15,7 @@ class NewsletterTemplates
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -66,7 +66,7 @@ class NewsletterTemplates
     /**
      * @var integer
      *
-     * @ORM\Column(name="position", type="integer", nullable=false)
+     * @ORM\Column(name="position", type="bigint", nullable=false)
      */
     private $position = '0';
 
@@ -80,21 +80,21 @@ class NewsletterTemplates
     /**
      * @var integer
      *
-     * @ORM\Column(name="predefined", type="integer", nullable=false)
+     * @ORM\Column(name="predefined", type="bigint", nullable=false)
      */
     private $predefined = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="language_id", type="integer", nullable=false)
+     * @ORM\Column(name="language_id", type="bigint", nullable=false)
      */
     private $languageId = '1';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="channel_id", type="integer", nullable=false)
+     * @ORM\Column(name="channel_id", type="bigint", nullable=false)
      */
     private $channelId = '1';
 

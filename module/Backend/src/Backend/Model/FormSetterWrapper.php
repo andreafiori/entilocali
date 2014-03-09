@@ -2,6 +2,8 @@
 
 namespace Backend\Model;
 
+use Setup\NullException;
+
 /**
  * @author Andrea Fiori
  * @since  26 January 2014
@@ -39,41 +41,41 @@ class FormSetterWrapper extends FormSetterWrapperAbstract
 	 */
 	public function setFormSetterRecord($id)
 	{
-		if ( $this->checkFormSetterInstance() ) {
+		if ( $this->isSetFormSetterInstance() ) {
 			return $this->getFormSetterInstance()->setRecord($id);
 		}
 	}
 	
 	public function setFormSetterAction()
 	{
-		if ( $this->checkFormSetterInstance() ) {
+		if ( $this->isSetFormSetterInstance() ) {
 			return $this->getFormSetterInstance()->setAction();
 		}
 	}
 	
-	public function setFormSetterTitle()
+	public function setFormSetterTitle($input = null)
 	{
-		if ( $this->checkFormSetterInstance() ) {
-			return $this->getFormSetterInstance()->setTitle();
+		if ( $this->isSetFormSetterInstance() ) {
+			return $this->getFormSetterInstance()->setTitle($input);
 		}
 	}
 	
-	public function setFormSetterDescription()
+	public function setFormSetterDescription($input = null)
 	{
-		if ( $this->checkFormSetterInstance() ) {
-			return $this->getFormSetterInstance()->setDescription();
+		if ( $this->isSetFormSetterInstance() ) {
+			return $this->getFormSetterInstance()->setDescription($input);
 		}		
 	}
 
 	public function setZendFormClassName()
 	{
-		if ( $this->checkFormSetterInstance() ) {
+		if ( $this->isSetFormSetterInstance() ) {
 			$this->zendFormClassName = $this->getFormSetterInstance()->getZendFormClassName();
 		}
 		
 		return $this->zendFormClassName;
 	}
-	
+
 	/**
 	 * @return \Zend\Form\Form
 	 */
@@ -86,37 +88,68 @@ class FormSetterWrapper extends FormSetterWrapperAbstract
 
 		return $this->zendFormInstance;
 	}
-
+	
+	/**
+	 * set HTML form properties without include the form fields
+	 * @param string $action
+	 */
 	public function initializeForm($action = '')
 	{
-		if ( $this->getZendFormInstance() )
-		{
-			$this->getZendFormInstance()->setAttribute('method', 'post');
-			$this->getZendFormInstance()->setAttribute('enctype', 'multipart/form-data');
-			$this->getZendFormInstance()->setAttribute('class', 'form-horizontal');
-			$this->getZendFormInstance()->setAttribute('role', 'form');
-			$this->getZendFormInstance()->setAttribute('action', $action);
+		$this->checkZendFormInstance('Zend Form Instance is not set on '.__METHOD__);
+		
+		$this->getZendFormInstance()->setAttribute('method', 'post');
+		$this->getZendFormInstance()->setAttribute('enctype', 'multipart/form-data');
+		$this->getZendFormInstance()->setAttribute('class', 'form-horizontal');
+		$this->getZendFormInstance()->setAttribute('role', 'form');
+		$this->getZendFormInstance()->setAttribute('action', $action);
+	}
+	
+	/**
+	 * add form field and hydrate it if it has the record
+	 */
+	public function setFormRecord()
+	{
+		$this->checkFormSetterInstance('Form Setter Instance is not set on '.__METHOD__);
+		$this->checkZendFormInstance('Zend Form Instance is not set on '.__METHOD__);
+		
+		$this->getZendFormInstance()->setLanguageLabels();
+		$this->getZendFormInstance()->setInputRecord( $this->getFormSetterInstance()->getRecord() );
+		
+		$record = $this->getFormSetterInstance()->getRecord();
+		if ($record) {
+			$this->getZendFormInstance()->addFormFields();
+			$this->getZendFormInstance()->setData($record[0]);
+		} else {
+			$this->getZendFormInstance()->addFormFields();
 		}
 	}
 	
-	public function setFormRecord()
-	{
-		if ( $this->getZendFormInstance() )
+		private function isSetFormSetterInstance()
 		{
-			$record = $this->getFormSetterInstance()->getRecord();
-			if ($record) {
-				$this->getZendFormInstance()->setData($record[0]);
-			}
-		}
-	}
-		
-		private function checkFormSetterInstance()
-		{
-			$formSetter = $this->getFormSetterInstance();
-			if ($formSetter) {
+			if ( $this->getFormSetterInstance() ) {
 				return true;
 			}
-
+			
 			return false;
+		}
+		
+		/**
+		 * @throws NullException
+		 */
+		private function checkFormSetterInstance($message)
+		{
+			if ( !$this->getFormSetterInstance() ) {
+				throw new NullException($message);
+			}
+		}
+		
+		/**
+		 * @throws NullException
+		 */
+		private function checkZendFormInstance($message)
+		{
+			if ( !$this->getZendFormInstance() ) {
+				throw new NullException($message);
+			}
 		}
 }

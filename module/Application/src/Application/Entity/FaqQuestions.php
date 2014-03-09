@@ -15,7 +15,7 @@ class FaqQuestions
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -31,7 +31,7 @@ class FaqQuestions
     /**
      * @var integer
      *
-     * @ORM\Column(name="position", type="integer", nullable=false)
+     * @ORM\Column(name="position", type="bigint", nullable=false)
      */
     private $position = '0';
 
@@ -45,7 +45,7 @@ class FaqQuestions
     /**
      * @var integer
      *
-     * @ORM\Column(name="rate", type="integer", nullable=false)
+     * @ORM\Column(name="rate", type="bigint", nullable=false)
      */
     private $rate;
 
@@ -66,7 +66,7 @@ class FaqQuestions
     /**
      * @var integer
      *
-     * @ORM\Column(name="user_id", type="integer", nullable=false)
+     * @ORM\Column(name="user_id", type="bigint", nullable=false)
      */
     private $userId;
 

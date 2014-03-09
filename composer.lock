@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "b415855133e2ea8e1227511fc1375f0f",
+    "hash": "8be692fdde84d8ed0a3a5066560f3aec",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -776,20 +776,21 @@
         },
         {
             "name": "zendframework/zendframework",
-            "version": "2.2.5",
+            "version": "2.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zf2.git",
-                "reference": "4a7cf6a4cf791244e14aa0ca49d1f06916b63202"
+                "reference": "5eae447d46b00a280573b94c398b2f46f45a6903"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zf2/zipball/4a7cf6a4cf791244e14aa0ca49d1f06916b63202",
-                "reference": "4a7cf6a4cf791244e14aa0ca49d1f06916b63202",
+                "url": "https://api.github.com/repos/zendframework/zf2/zipball/5eae447d46b00a280573b94c398b2f46f45a6903",
+                "reference": "5eae447d46b00a280573b94c398b2f46f45a6903",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": ">=5.3.3",
+                "zendframework/zendxml": "~1.0-dev"
             },
             "replace": {
                 "zendframework/zend-authentication": "self.version",
@@ -887,7 +888,52 @@
                 "framework",
                 "zf2"
             ],
-            "time": "2013-10-31 15:48:16"
+            "time": "2014-03-06 17:27:03"
+        },
+        {
+            "name": "zendframework/zendxml",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zendframework/ZendXml.git",
+                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/559b34f426d33a11c3db118e00ce14bb8dc64e5f",
+                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "fabpot/php-cs-fixer": "*@dev",
+                "phpunit/phpunit": "~3.7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "ZendXml": "library/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Utility library for XML usage, best practices, and security in PHP",
+            "homepage": "http://packages.zendframework.com/",
+            "keywords": [
+                "security",
+                "xml",
+                "zf2"
+            ],
+            "time": "2014-03-05 22:25:44"
         }
     ],
     "packages-dev": [
@@ -1013,12 +1059,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/ZendDeveloperTools.git",
-                "reference": "99481023c6aa4c276c652a508c0a996f1a954327"
+                "reference": "b577e10f92cb449cf70cfa1b6d069ee8acbe7b21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendDeveloperTools/zipball/99481023c6aa4c276c652a508c0a996f1a954327",
-                "reference": "99481023c6aa4c276c652a508c0a996f1a954327",
+                "url": "https://api.github.com/repos/zendframework/ZendDeveloperTools/zipball/b577e10f92cb449cf70cfa1b6d069ee8acbe7b21",
+                "reference": "b577e10f92cb449cf70cfa1b6d069ee8acbe7b21",
                 "shasum": ""
             },
             "require": {
@@ -1066,50 +1112,7 @@
                 "module",
                 "zf2"
             ],
-            "time": "2014-02-05 16:01:28"
-        },
-        {
-            "name": "zendframework/zendservice-flickr",
-            "version": "dev-develop",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/zendframework/ZendService_Flickr.git",
-                "reference": "3bdb874a324d89b8ac415251db5f1cc14661cf06"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendService_Flickr/zipball/3bdb874a324d89b8ac415251db5f1cc14661cf06",
-                "reference": "3bdb874a324d89b8ac415251db5f1cc14661cf06",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3",
-                "zendframework/zend-http": ">=2.0.0",
-                "zendframework/zend-uri": ">=2.0.0",
-                "zendframework/zend-version": ">=2.0.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "ZendService\\Flickr\\": "library/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "description": "OOP wrapper for the Flickr web service",
-            "homepage": "http://packages.zendframework.com/",
-            "keywords": [
-                "flickr",
-                "zf2"
-            ],
-            "time": "2012-12-11 22:00:53"
+            "time": "2014-02-20 14:58:50"
         },
         {
             "name": "zendframework/zftool",
@@ -1222,12 +1225,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ZF-Commons/ZfcUser.git",
-                "reference": "65dca5c38f23554290c02c985e2c5ca982bc032e"
+                "reference": "a876f5765ea39256cb572048b7f6a425cec5ff13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ZF-Commons/ZfcUser/zipball/65dca5c38f23554290c02c985e2c5ca982bc032e",
-                "reference": "65dca5c38f23554290c02c985e2c5ca982bc032e",
+                "url": "https://api.github.com/repos/ZF-Commons/ZfcUser/zipball/a876f5765ea39256cb572048b7f6a425cec5ff13",
+                "reference": "a876f5765ea39256cb572048b7f6a425cec5ff13",
                 "shasum": ""
             },
             "require": {
@@ -1263,6 +1266,9 @@
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
             "authors": [
                 {
                     "name": "Kyle Spraggs",
@@ -1280,7 +1286,7 @@
             "keywords": [
                 "zf2"
             ],
-            "time": "2014-02-13 22:45:57"
+            "time": "2014-03-07 12:02:08"
         }
     ],
     "aliases": [
@@ -1289,11 +1295,10 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "zendframework/zftool": 20,
-        "zendframework/zend-developer-tools": 20,
-        "zendframework/zendservice-flickr": 20,
+        "bjyoungblood/bjy-authorize": 20,
         "zf-commons/zfc-user": 20,
         "bjyoungblood/bjyprofiler": 20,
-        "bjyoungblood/bjy-authorize": 20
+        "zendframework/zend-developer-tools": 20
     },
     "platform": {
         "php": ">=5.3.3"

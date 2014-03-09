@@ -3,14 +3,14 @@
 namespace Backend\Controller\Plugin;
 
 use Application\Controller\Plugin\SetupManagerPlugin;
-use Application\Controller\Plugin\SetupInitializerAbstractPlugin;
+use Application\Controller\Plugin\SetupInitializerPluginAbstract;
 
 /**
  * Backend SetupInitializer Plugin
  * @author Andrea Fiori
  * @since  27 December 2013
  */
-class BackendSetupInitializerPlugin extends SetupInitializerAbstractPlugin
+class BackendSetupInitializerPlugin extends SetupInitializerPluginAbstract
 {
 	/**
 	 * @return array

@@ -12,8 +12,8 @@ class PostsQueryBuilder extends DQLQueryHelper
 {
 	public function setQueryBasic()
 	{
-		if (!$this->getDefaultFieldsSelect()) {
-			$this->setDefaultFieldsSelect('DISTINCT(p.id) AS postid, po.id AS postoptionid, p.typeofpost, p.alias, po.title, p.status, po.description, po.seoUrl, po.seoDescription, po.seoKeywords, p.templatefile, co.name');
+		if ( !$this->getDefaultFieldsSelect() ) {
+			$this->setDefaultFieldsSelect('DISTINCT(p.id) AS postid, po.id AS postoptionid, p.typeofpost, p.alias, po.title, p.status, po.description, po.seoUrl, po.seoDescription, po.seoKeywords, p.templatefile, co.name, c.template');
 		}
 		
 		$this->queryBasic = "SELECT ".$this->getDefaultFieldsSelect()." FROM Application\\Entity\\PostsOptions po, Application\\Entity\\Posts p,
@@ -30,7 +30,7 @@ class PostsQueryBuilder extends DQLQueryHelper
 		if ( !is_numeric($id) ) {
 			return false;
 		}
-	
+
 		$this->query .= "AND p.id = :postid ";
 		$this->addToBindParameters('postid', $id);
 	}
@@ -77,7 +77,6 @@ class PostsQueryBuilder extends DQLQueryHelper
 	}
 	
 	/**
-	 * pass the same as the title to get the "slugged" title
 	 * @param string $title
 	 * @return boolean
 	 */
@@ -117,5 +116,13 @@ class PostsQueryBuilder extends DQLQueryHelper
 	{
 		$this->query .= "AND co.parentId = :parentIdCat ";
 		$this->addToBindParameters('parentIdCat', is_numeric($parentIdCat) ? $parentIdCat : 0);
+	}
+	
+	public function setTypeofpost($typeofpost)
+	{
+		if ( is_string($typeofpost) ) {
+			$this->query .= "AND p.typeofpost = :typeofpost ";
+			$this->addToBindParameters('typeofpost', $typeofpost);
+		}
 	}
 }

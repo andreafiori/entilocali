@@ -15,7 +15,7 @@ class UsersApirequests
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -38,14 +38,14 @@ class UsersApirequests
     /**
      * @var integer
      *
-     * @ORM\Column(name="rifiduser", type="integer", nullable=true)
+     * @ORM\Column(name="rifiduser", type="bigint", nullable=true)
      */
     private $rifiduser;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="rifidapikey", type="integer", nullable=true)
+     * @ORM\Column(name="rifidapikey", type="bigint", nullable=true)
      */
     private $rifidapikey;
 

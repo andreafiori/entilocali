@@ -15,6 +15,8 @@ class TimelineController extends FrontendControllerAbstract
 	{
 		$setupManager = $this->generateSetupManagerFromInitializerPlugin();
 		
-		return new ViewModel();
+		$viewModel = new ViewModel();
+		
+		return $viewModel;
 	}
 }

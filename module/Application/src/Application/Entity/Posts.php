@@ -15,7 +15,7 @@ class Posts
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -52,7 +52,7 @@ class Posts
     /**
      * @var integer
      *
-     * @ORM\Column(name="parent_id", type="integer", nullable=false)
+     * @ORM\Column(name="parent_id", type="bigint", nullable=false)
      */
     private $parentId = '0';
 

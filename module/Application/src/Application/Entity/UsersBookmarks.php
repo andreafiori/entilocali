@@ -15,7 +15,7 @@ class UsersBookmarks
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -24,28 +24,28 @@ class UsersBookmarks
     /**
      * @var integer
      *
-     * @ORM\Column(name="user_id", type="integer", nullable=false)
+     * @ORM\Column(name="user_id", type="bigint", nullable=false)
      */
     private $userId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="bookmark_id", type="integer", nullable=false)
+     * @ORM\Column(name="bookmark_id", type="bigint", nullable=false)
      */
     private $bookmarkId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="category_id", type="integer", nullable=false)
+     * @ORM\Column(name="category_id", type="bigint", nullable=false)
      */
     private $categoryId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="module_id", type="integer", nullable=false)
+     * @ORM\Column(name="module_id", type="bigint", nullable=false)
      */
     private $moduleId = '0';
 

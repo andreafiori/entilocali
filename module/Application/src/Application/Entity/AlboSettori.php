@@ -38,7 +38,7 @@ class AlboSettori
     /**
      * @var integer
      *
-     * @ORM\Column(name="posizione", type="integer", nullable=false)
+     * @ORM\Column(name="posizione", type="bigint", nullable=false)
      */
     private $posizione;
 

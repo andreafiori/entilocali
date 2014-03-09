@@ -15,7 +15,7 @@ class NewsletterEmails
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -66,7 +66,7 @@ class NewsletterEmails
     /**
      * @var integer
      *
-     * @ORM\Column(name="txtonly", type="integer", nullable=false)
+     * @ORM\Column(name="txtonly", type="bigint", nullable=false)
      */
     private $txtonly;
 

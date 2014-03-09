@@ -4,7 +4,6 @@ namespace Backend\Model;
 
 use Setup\SetupManager;
 
-
 /**
  * @author Andrea Fiori
  * @since  09 February 2014
@@ -13,36 +12,26 @@ abstract class DataTableAbstract
 {
 	protected $input;
 	
-	protected $title, $description, $columns, $columnsValues;
+	protected $title;
+	
+	protected $description;
 
-	protected $initializer;
-
-	protected $labels;
-
-	protected $setupManager;
+	protected $setupManager, $labels;
+	
+	protected $column;
+	
+	protected $columnValues;
 	
 	/**
-	 * 
 	 * @param array $input
 	 */
 	public function setInput(array $input)
 	{
 		$this->input = $input;
-	}
-
-	public function setInitializer(DatatableInitializerAbstract $initializer)
-	{
-		$this->initializer = $initializer;
+		
+		return $this->input;
 	}
 	
-	/**
-	 * @return DataTableInitializerAbstract
-	 */
-	public function getInitializer()
-	{
-		return $this->initializer;
-	}
-
 	public function getTitle()
 	{
 		return $this->title;
@@ -72,12 +61,20 @@ abstract class DataTableAbstract
 	{
 		return $this->labels;
 	}
-
+	
+	/**
+	 * @param SetupManager $setupManager
+	 */
 	public function setSetupManager(SetupManager $setupManager)
 	{
 		$this->setupManager = $setupManager;
+		
+		return $this->setupManager;
 	}
 
+	/**
+	 * @return SetupManager
+	 */
 	public function getSetupManager()
 	{
 		return $this->setupManager;

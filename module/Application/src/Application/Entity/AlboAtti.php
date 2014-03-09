@@ -24,14 +24,14 @@ class AlboAtti
     /**
      * @var integer
      *
-     * @ORM\Column(name="numero", type="integer", nullable=false)
+     * @ORM\Column(name="numero", type="bigint", nullable=false)
      */
     private $numero;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="anno", type="integer", nullable=false)
+     * @ORM\Column(name="anno", type="bigint", nullable=false)
      */
     private $anno;
 
@@ -73,7 +73,7 @@ class AlboAtti
     /**
      * @var integer
      *
-     * @ORM\Column(name="numgiorniscadenza", type="integer", nullable=false)
+     * @ORM\Column(name="numgiorniscadenza", type="bigint", nullable=false)
      */
     private $numgiorniscadenza = '0';
 
@@ -157,21 +157,21 @@ class AlboAtti
     /**
      * @var integer
      *
-     * @ORM\Column(name="settore_id", type="integer", nullable=false)
+     * @ORM\Column(name="settore_id", type="bigint", nullable=false)
      */
     private $settoreId;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="user_id", type="integer", nullable=false)
+     * @ORM\Column(name="user_id", type="bigint", nullable=false)
      */
     private $userId;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="sezione_id", type="integer", nullable=false)
+     * @ORM\Column(name="sezione_id", type="bigint", nullable=false)
      */
     private $sezioneId = '0';
 

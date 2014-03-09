@@ -15,7 +15,7 @@ class Users
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -66,7 +66,7 @@ class Users
     /**
      * @var integer
      *
-     * @ORM\Column(name="province", type="integer", nullable=false)
+     * @ORM\Column(name="province", type="bigint", nullable=false)
      */
     private $province;
 
@@ -87,7 +87,7 @@ class Users
     /**
      * @var integer
      *
-     * @ORM\Column(name="nation", type="integer", nullable=false)
+     * @ORM\Column(name="nation", type="bigint", nullable=false)
      */
     private $nation = '0';
 
@@ -220,14 +220,14 @@ class Users
     /**
      * @var integer
      *
-     * @ORM\Column(name="role_id", type="integer", nullable=false)
+     * @ORM\Column(name="role_id", type="bigint", nullable=false)
      */
     private $roleId;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="language_id", type="integer", nullable=false)
+     * @ORM\Column(name="language_id", type="bigint", nullable=false)
      */
     private $languageId;
 

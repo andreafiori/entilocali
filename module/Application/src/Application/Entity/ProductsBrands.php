@@ -87,7 +87,7 @@ class ProductsBrands
     /**
      * @var integer
      *
-     * @ORM\Column(name="posiz", type="integer", nullable=false)
+     * @ORM\Column(name="posiz", type="bigint", nullable=false)
      */
     private $posiz = '0';
 

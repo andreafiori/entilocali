@@ -15,7 +15,7 @@ class Languages
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -57,16 +57,16 @@ class Languages
     private $abbreviation3;
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(name="isdefault", type="boolean", nullable=false)
+     * @ORM\Column(name="isdefault", type="bigint", nullable=false)
      */
     private $isdefault = '0';
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(name="isdefault_backend", type="boolean", nullable=false)
+     * @ORM\Column(name="isdefault_backend", type="bigint", nullable=false)
      */
     private $isdefaultBackend = '0';
 
@@ -80,7 +80,7 @@ class Languages
     /**
      * @var integer
      *
-     * @ORM\Column(name="active", type="integer", nullable=false)
+     * @ORM\Column(name="active", type="bigint", nullable=false)
      */
     private $active;
 
@@ -224,7 +224,7 @@ class Languages
     /**
      * Set isdefault
      *
-     * @param boolean $isdefault
+     * @param integer $isdefault
      * @return Languages
      */
     public function setIsdefault($isdefault)
@@ -237,7 +237,7 @@ class Languages
     /**
      * Get isdefault
      *
-     * @return boolean 
+     * @return integer 
      */
     public function getIsdefault()
     {
@@ -247,7 +247,7 @@ class Languages
     /**
      * Set isdefaultBackend
      *
-     * @param boolean $isdefaultBackend
+     * @param integer $isdefaultBackend
      * @return Languages
      */
     public function setIsdefaultBackend($isdefaultBackend)
@@ -260,7 +260,7 @@ class Languages
     /**
      * Get isdefaultBackend
      *
-     * @return boolean 
+     * @return integer 
      */
     public function getIsdefaultBackend()
     {

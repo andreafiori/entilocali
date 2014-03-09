@@ -4,6 +4,7 @@ namespace BackendTest\Controller;
 
 use Backend\Controller\BackendController;
 use SetupTest\TestSuite;
+use ServiceLocatorFactory\ServiceLocatorFactory;
 
 /**
  * @author Andrea Fiori
@@ -19,13 +20,21 @@ class BackendControllerTest extends TestSuite
 	{
 		parent::setUp();
 		
+		ServiceLocatorFactory::setInstance( $this->getServiceManager() );
+		
 		$this->controller = new BackendController();
+		$this->controller->setServiceLocator( ServiceLocatorFactory::getInstance() );
+		$this->controller->setEvent($this->event);
+		$this->controller->setServiceLocator($this->serviceManager);
 	}
 
 	public function testIndexActionCanBeAccessed()
 	{
-		$this->routeMatch->setParam('lang', 'it');
-		//$result = $this->controller->dispatch($this->request);
-		$this->assertEquals(200, $this->controller->getResponse()->getStatusCode());
+		$this->routeMatch->setParam('action', 'index');
+
+		$result   = $this->controller->dispatch($this->request);
+		$response = $this->controller->getResponse();
+
+		$this->assertEquals(200, $response->getStatusCode());
 	}
 }

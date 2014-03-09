@@ -15,7 +15,7 @@ class UsersOauthSession
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -87,7 +87,7 @@ class UsersOauthSession
     /**
      * @var integer
      *
-     * @ORM\Column(name="user", type="integer", nullable=false)
+     * @ORM\Column(name="user", type="bigint", nullable=false)
      */
     private $user;
 

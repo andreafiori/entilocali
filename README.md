@@ -7,8 +7,8 @@ This web application is work in progress...
 
 Introduction
 ------------
-This web application will have a Content Management System to handle contents, blog posts, photo and video. There will be some module to manage documents for an Italian municipality.
-
+This web application will have a Content Management System to handle contents, blog posts, photo and video. 
+NOTE: This application is proprietary and still under construction. There will be a demo version on this repository ASAP.
 
 Installation
 ------------

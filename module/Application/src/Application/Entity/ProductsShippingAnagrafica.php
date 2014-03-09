@@ -15,7 +15,7 @@ class ProductsShippingAnagrafica
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -45,7 +45,7 @@ class ProductsShippingAnagrafica
     /**
      * @var integer
      *
-     * @ORM\Column(name="address_number", type="integer", nullable=true)
+     * @ORM\Column(name="address_number", type="bigint", nullable=true)
      */
     private $addressNumber;
 
@@ -80,35 +80,35 @@ class ProductsShippingAnagrafica
     /**
      * @var integer
      *
-     * @ORM\Column(name="nation_id", type="integer", nullable=true)
+     * @ORM\Column(name="nation_id", type="bigint", nullable=true)
      */
     private $nationId;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="city_id", type="integer", nullable=true)
+     * @ORM\Column(name="city_id", type="bigint", nullable=true)
      */
     private $cityId;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="province_id", type="integer", nullable=true)
+     * @ORM\Column(name="province_id", type="bigint", nullable=true)
      */
     private $provinceId;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="order_id", type="integer", nullable=true)
+     * @ORM\Column(name="order_id", type="bigint", nullable=true)
      */
     private $orderId;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="shipping_id", type="integer", nullable=true)
+     * @ORM\Column(name="shipping_id", type="bigint", nullable=true)
      */
     private $shippingId;
 

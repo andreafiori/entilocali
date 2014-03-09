@@ -66,7 +66,7 @@ class ProductsAvailability
     /**
      * @var integer
      *
-     * @ORM\Column(name="position", type="integer", nullable=false)
+     * @ORM\Column(name="position", type="bigint", nullable=false)
      */
     private $position = '0';
 

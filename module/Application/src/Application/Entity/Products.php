@@ -80,7 +80,7 @@ class Products
     /**
      * @var integer
      *
-     * @ORM\Column(name="amount", type="integer", nullable=false)
+     * @ORM\Column(name="amount", type="bigint", nullable=false)
      */
     private $amount = '1';
 
@@ -94,7 +94,7 @@ class Products
     /**
      * @var integer
      *
-     * @ORM\Column(name="availability", type="integer", nullable=false)
+     * @ORM\Column(name="availability", type="bigint", nullable=false)
      */
     private $availability = '0';
 
@@ -122,7 +122,7 @@ class Products
     /**
      * @var integer
      *
-     * @ORM\Column(name="brand", type="integer", nullable=false)
+     * @ORM\Column(name="brand", type="bigint", nullable=false)
      */
     private $brand = '0';
 
@@ -143,7 +143,7 @@ class Products
     /**
      * @var integer
      *
-     * @ORM\Column(name="position", type="integer", nullable=false)
+     * @ORM\Column(name="position", type="bigint", nullable=false)
      */
     private $position = '0';
 
@@ -171,28 +171,28 @@ class Products
     /**
      * @var integer
      *
-     * @ORM\Column(name="user_id", type="integer", nullable=false)
+     * @ORM\Column(name="user_id", type="bigint", nullable=false)
      */
     private $userId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="company_id", type="integer", nullable=false)
+     * @ORM\Column(name="company_id", type="bigint", nullable=false)
      */
     private $companyId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="category_id", type="integer", nullable=false)
+     * @ORM\Column(name="category_id", type="bigint", nullable=false)
      */
     private $categoryId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="model_id", type="integer", nullable=false)
+     * @ORM\Column(name="model_id", type="bigint", nullable=false)
      */
     private $modelId = '0';
 

@@ -21,7 +21,7 @@ class FormdataController extends BackendController
 		$setupManager = $this->generateSetupManagerFromInitializerPlugin();
 		$setupManager->getTemplateDataSetter()->assignToTemplate('templatePartial', $setupManager->getTemplateDataSetter()->getTemplateData('template_path').'formdata/form.phtml');
 		
-		if ( !$this->checkLoginSession($setupManager) ) {
+		if ( !$this->checkLoginSession() ) {
 			return $this->renderLoginForm($setupManager);
 		}
 		
@@ -32,16 +32,14 @@ class FormdataController extends BackendController
 		$this->layout( $setupManager->getTemplateDataSetter()->getTemplateData('template_path').'backend.phtml' );
 		$this->layout()->setVariable("templateData", $setupManager->getTemplateDataSetter()->getTemplateData() );	
 		$this->layout()->setVariable("form", $formSetterWrapper->getZendFormInstance());
-		
-		if ($formSetterWrapper->getFormSetterInstance()):
-			$this->layout()->setVariable("formTitle", $formSetterWrapper->getFormSetterInstance()->getTitle());
-			$this->layout()->setVariable("formDescription", $formSetterWrapper->getFormSetterInstance()->getDescription());
-		endif;
+		$this->layout()->setVariable("formTitle", $formSetterWrapper->getFormSetterInstance()->getTitle());
+		$this->layout()->setVariable("formDescription", $formSetterWrapper->getFormSetterInstance()->getDescription());
 		
 		return new ViewModel();
 	}
 	
 		/**
+		 * 
 		 * @param SetupManager $setupManager
 		 * @return \Backend\Model\FormSetterWrapper
 		 */
@@ -53,25 +51,22 @@ class FormdataController extends BackendController
 			$formSetterWrapper->setFormSetterInstance();
 			$formSetterWrapper->setFormSetterRecord( $this->params()->fromRoute('id') );
 			$formSetterWrapper->setFormSetterAction();
-			$formSetterWrapper->setFormSetterTitle();
-			$formSetterWrapper->setFormSetterDescription();
+			$formSetterWrapper->setFormSetterTitle( $this->params()->fromQuery() );
+			$formSetterWrapper->setFormSetterDescription( $this->params()->fromQuery() );
 			$formSetterWrapper->setZendFormClassName();
 			$formSetterWrapper->setZendFormInstance();
 			$formSetterWrapper->setFormRecord();
+							
+			$formSetterWrapper->initializeForm( $setupManager->getTemplateDataSetter()->getTemplateData('loggedSectionPathBackendWithLanguage').'formpost/'.$formSetterWrapper->getFormSetterInstance()->getAction() );
 			
-			if ($formSetterWrapper->getFormSetterInstance()):
-				$action = $setupManager->getTemplateDataSetter()->getTemplateData('loggedSectionPathBackendWithLanguage').'formpost/'.$formSetterWrapper->getFormSetterInstance()->getAction();
-				$formSetterWrapper->initializeForm($action);
-				
-				$request = $this->getRequest();
-				if ( $request->isPost() )
-				{
-					$formSetterWrapper->getZendFormInstance()->setInputFilter($formSetterWrapper->getZendFormInstance()->getInputFilter());
-					$formSetterWrapper->getZendFormInstance()->setData($request->getPost());
-					$formSetterWrapper->getZendFormInstance()->isValid();
-				}
-			endif;
-			
+			$request = $this->getRequest();
+			if ( $request->isPost() )
+			{
+				$formSetterWrapper->getZendFormInstance()->setInputFilter( $formSetterWrapper->getZendFormInstance()->getInputFilter() );
+				$formSetterWrapper->getZendFormInstance()->setData( $request->getPost() );
+				$formSetterWrapper->getZendFormInstance()->isValid();
+			}
+
 			return $formSetterWrapper;
 		}
 }
