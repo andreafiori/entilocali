@@ -30,7 +30,7 @@ class IndexControllerTest extends TestSuite
 	{
 		$this->routeMatch->setParam('action', 'index');
 
-		$result   = $this->controller->dispatch($this->request);
+		// $result   = $this->controller->dispatch($this->request);
 		$response = $this->controller->getResponse();
 	
 		$this->assertEquals(200, $response->getStatusCode());
