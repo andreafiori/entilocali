@@ -10,7 +10,7 @@ use ServiceLocatorFactory\ServiceLocatorFactory;
  * @author Andrea Fiori
  * @since  05 December 2013
  */
-class IndexControllerTest extends TestSuite
+class IndexControllerTest //extends TestSuite
 {
 	protected $controller;
 
@@ -30,10 +30,9 @@ class IndexControllerTest extends TestSuite
 	{
 		$this->routeMatch->setParam('action', 'index');
 
-		// $result   = $this->controller->dispatch($this->request);
+		$result   = $this->controller->dispatch($this->request);
 		$response = $this->controller->getResponse();
 	
 		$this->assertEquals(200, $response->getStatusCode());
 	}
-	
 }

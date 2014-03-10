@@ -4,7 +4,6 @@ namespace ApplicationTest\Entity;
 
 use Doctrine\Common\Persistence\ObjectManager;
 
-
 class PostsOptionRepository
 {
 	private $entityManager;
@@ -26,7 +25,7 @@ class PostsOptionRepository
 }
 
 
-class SalaryCalculatorTest extends \PHPUnit_Framework_TestCase
+class SalaryCalculatorTest // extends \PHPUnit_Framework_TestCase
 {
 	public function setUp()
 	{

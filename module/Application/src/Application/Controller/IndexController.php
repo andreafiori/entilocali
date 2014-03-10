@@ -8,7 +8,8 @@ use Posts\Model\PostsGetter;
 use Posts\Model\PostsFrontendTemplateGetter;
 
 /**
- * TODO: select data for all languages and set the switch link for SINGLE POST SELECTION
+ * TODO: 
+ * 		select data for all languages and set the switch link for SINGLE POST SELECTION
  * @author Andrea Fiori
  * @since  04 December 2013
  */
