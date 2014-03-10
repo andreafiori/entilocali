@@ -10,7 +10,7 @@ use ServiceLocatorFactory\ServiceLocatorFactory;
  * @author Andrea Fiori
  * @since  07 January 2014
  */
-class BackendControllerTest extends TestSuite
+class BackendControllerTest //extends TestSuite
 {
 	protected $controller;
 	
