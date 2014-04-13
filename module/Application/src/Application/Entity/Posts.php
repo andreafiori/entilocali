@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Posts
  *
- * @ORM\Table(name="posts", indexes={@ORM\Index(name="status", columns={"status", "alias", "templatefile"}), @ORM\Index(name="parent_id", columns={"parent_id"})})
+ * @ORM\Table(name="posts", indexes={@ORM\Index(name="parent_id", columns={"parent_id"}), @ORM\Index(name="stato", columns={"stato"}), @ORM\Index(name="alias", columns={"alias"})})
  * @ORM\Entity
  */
 class Posts
@@ -31,23 +31,23 @@ class Posts
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="insertdate", type="datetime", nullable=false)
+     * @ORM\Column(name="data_inserimento", type="datetime", nullable=false)
      */
-    private $insertdate = '2013-01-01 00:00:00';
+    private $dataInserimento = '2013-01-01 00:00:00';
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="expiredate", type="datetime", nullable=false)
+     * @ORM\Column(name="data_scadenza", type="datetime", nullable=false)
      */
-    private $expiredate = '2030-02-10 00:00:00';
+    private $dataScadenza = '2030-02-10 00:00:00';
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="lastupdate", type="datetime", nullable=false)
+     * @ORM\Column(name="data_ultimo_aggiornamento", type="datetime", nullable=false)
      */
-    private $lastupdate = '2030-02-10 00:00:00';
+    private $dataUltimoAggiornamento = '2030-02-10 00:00:00';
 
     /**
      * @var integer
@@ -59,23 +59,23 @@ class Posts
     /**
      * @var string
      *
-     * @ORM\Column(name="status", type="string", length=80, nullable=true)
+     * @ORM\Column(name="stato", type="string", length=80, nullable=true)
      */
-    private $status;
+    private $stato;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="typeofpost", type="string", length=40, nullable=false)
+     * @ORM\Column(name="tipo", type="string", length=40, nullable=false)
      */
-    private $typeofpost;
+    private $tipo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="templatefile", type="string", length=50, nullable=false)
+     * @ORM\Column(name="template_file", type="string", length=50, nullable=false)
      */
-    private $templatefile;
+    private $templateFile;
 
     /**
      * @var string
@@ -120,72 +120,72 @@ class Posts
     }
 
     /**
-     * Set insertdate
+     * Set dataInserimento
      *
-     * @param \DateTime $insertdate
+     * @param \DateTime $dataInserimento
      * @return Posts
      */
-    public function setInsertdate($insertdate)
+    public function setDataInserimento($dataInserimento)
     {
-        $this->insertdate = $insertdate;
+        $this->dataInserimento = $dataInserimento;
 
         return $this;
     }
 
     /**
-     * Get insertdate
+     * Get dataInserimento
      *
      * @return \DateTime 
      */
-    public function getInsertdate()
+    public function getDataInserimento()
     {
-        return $this->insertdate;
+        return $this->dataInserimento;
     }
 
     /**
-     * Set expiredate
+     * Set dataScadenza
      *
-     * @param \DateTime $expiredate
+     * @param \DateTime $dataScadenza
      * @return Posts
      */
-    public function setExpiredate($expiredate)
+    public function setDataScadenza($dataScadenza)
     {
-        $this->expiredate = $expiredate;
+        $this->dataScadenza = $dataScadenza;
 
         return $this;
     }
 
     /**
-     * Get expiredate
+     * Get dataScadenza
      *
      * @return \DateTime 
      */
-    public function getExpiredate()
+    public function getDataScadenza()
     {
-        return $this->expiredate;
+        return $this->dataScadenza;
     }
 
     /**
-     * Set lastupdate
+     * Set dataUltimoAggiornamento
      *
-     * @param \DateTime $lastupdate
+     * @param \DateTime $dataUltimoAggiornamento
      * @return Posts
      */
-    public function setLastupdate($lastupdate)
+    public function setDataUltimoAggiornamento($dataUltimoAggiornamento)
     {
-        $this->lastupdate = $lastupdate;
+        $this->dataUltimoAggiornamento = $dataUltimoAggiornamento;
 
         return $this;
     }
 
     /**
-     * Get lastupdate
+     * Get dataUltimoAggiornamento
      *
      * @return \DateTime 
      */
-    public function getLastupdate()
+    public function getDataUltimoAggiornamento()
     {
-        return $this->lastupdate;
+        return $this->dataUltimoAggiornamento;
     }
 
     /**
@@ -212,72 +212,72 @@ class Posts
     }
 
     /**
-     * Set status
+     * Set stato
      *
-     * @param string $status
+     * @param string $stato
      * @return Posts
      */
-    public function setStatus($status)
+    public function setStato($stato)
     {
-        $this->status = $status;
+        $this->stato = $stato;
 
         return $this;
     }
 
     /**
-     * Get status
+     * Get stato
      *
      * @return string 
      */
-    public function getStatus()
+    public function getStato()
     {
-        return $this->status;
+        return $this->stato;
     }
 
     /**
-     * Set typeofpost
+     * Set tipo
      *
-     * @param string $typeofpost
+     * @param string $tipo
      * @return Posts
      */
-    public function setTypeofpost($typeofpost)
+    public function setTipo($tipo)
     {
-        $this->typeofpost = $typeofpost;
+        $this->tipo = $tipo;
 
         return $this;
     }
 
     /**
-     * Get typeofpost
+     * Get tipo
      *
      * @return string 
      */
-    public function getTypeofpost()
+    public function getTipo()
     {
-        return $this->typeofpost;
+        return $this->tipo;
     }
 
     /**
-     * Set templatefile
+     * Set templateFile
      *
-     * @param string $templatefile
+     * @param string $templateFile
      * @return Posts
      */
-    public function setTemplatefile($templatefile)
+    public function setTemplateFile($templateFile)
     {
-        $this->templatefile = $templatefile;
+        $this->templateFile = $templateFile;
 
         return $this;
     }
 
     /**
-     * Get templatefile
+     * Get templateFile
      *
      * @return string 
      */
-    public function getTemplatefile()
+    public function getTemplateFile()
     {
-        return $this->templatefile;
+        return $this->templateFile;
     }
 
     /**

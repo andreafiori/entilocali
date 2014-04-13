@@ -2,10 +2,12 @@
 
 namespace ServiceLocatorFactoryTest;
 
-use SetupTest\TestSuite;
 use ServiceLocatorFactory\NullServiceLocatorException;
+use ApplicationTest\TestSuite;
 
 /**
+ * Launch an exception
+ * 
  * @author Andrea Fiori
  * @since  07 January 2014
  */

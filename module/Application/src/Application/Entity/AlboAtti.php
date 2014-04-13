@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * AlboAtti
  *
- * @ORM\Table(name="albo_atti", indexes={@ORM\Index(name="srchfields", columns={"sezione_id", "settore_id"}), @ORM\Index(name="user_id", columns={"user_id"})})
+ * @ORM\Table(name="albo_atti", indexes={@ORM\Index(name="user_id", columns={"utente_id"}), @ORM\Index(name="settore_id", columns={"settore_id"}), @ORM\Index(name="sezione_id", columns={"sezione_id"})})
  * @ORM\Entity
  */
 class AlboAtti
@@ -52,30 +52,30 @@ class AlboAtti
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="datarichiesta", type="datetime", nullable=false)
+     * @ORM\Column(name="data_richiesta", type="datetime", nullable=false)
      */
-    private $datarichiesta = '2012-01-01 01:01:00';
+    private $dataRichiesta = '2012-01-01 01:01:00';
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="datapubblicazione", type="datetime", nullable=false)
+     * @ORM\Column(name="data_pubblicazione", type="datetime", nullable=false)
      */
-    private $datapubblicazione = '2012-01-01 01:01:00';
+    private $dataPubblicazione = '2012-01-01 01:01:00';
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="datascadenza", type="datetime", nullable=false)
+     * @ORM\Column(name="data_scadenza", type="datetime", nullable=false)
      */
-    private $datascadenza = '2012-01-01 01:01:00';
+    private $dataScadenza = '2012-01-01 01:01:00';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="numgiorniscadenza", type="bigint", nullable=false)
+     * @ORM\Column(name="num_giorni_scadenza", type="bigint", nullable=false)
      */
-    private $numgiorniscadenza = '0';
+    private $numGiorniScadenza = '0';
 
     /**
      * @var string
@@ -87,16 +87,16 @@ class AlboAtti
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="datannullamento", type="datetime", nullable=false)
+     * @ORM\Column(name="data_annullamento", type="datetime", nullable=false)
      */
-    private $datannullamento = '2012-01-01 01:01:00';
+    private $dataAnnullamento = '2012-01-01 01:01:00';
 
     /**
      * @var string
      *
-     * @ORM\Column(name="noteannullamento", type="text", nullable=false)
+     * @ORM\Column(name="note_annullamento", type="text", nullable=false)
      */
-    private $noteannullamento;
+    private $noteAnnullamento;
 
     /**
      * @var string
@@ -108,44 +108,51 @@ class AlboAtti
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="datarettifica", type="datetime", nullable=false)
+     * @ORM\Column(name="data_rettifica", type="datetime", nullable=false)
      */
-    private $datarettifica = '2012-01-01 01:01:00';
+    private $dataRettifica = '2012-01-01 01:01:00';
 
     /**
      * @var string
      *
-     * @ORM\Column(name="noterettifica", type="text", nullable=false)
+     * @ORM\Column(name="note_rettifica", type="text", nullable=false)
      */
-    private $noterettifica;
+    private $noteRettifica;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="visibility", type="string", nullable=false)
+     * @ORM\Column(name="stato", type="string", length=50, nullable=false)
      */
-    private $visibility = 'si';
+    private $stato = 'si';
 
     /**
      * @var string
      *
-     * @ORM\Column(name="inviatoregione", type="string", nullable=false)
+     * @ORM\Column(name="inviato_regione", type="string", nullable=false)
      */
-    private $inviatoregione = 'no';
+    private $inviatoRegione = 'no';
 
     /**
      * @var string
      *
-     * @ORM\Column(name="enteterzo", type="string", length=80, nullable=false)
+     * @ORM\Column(name="ente_terzo", type="string", length=80, nullable=false)
      */
-    private $enteterzo;
+    private $enteTerzo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="seo_keys", type="string", length=80, nullable=false)
+     * @ORM\Column(name="seo_title", type="string", length=80, nullable=false)
      */
-    private $seoKeys;
+    private $seoTitle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_keywords", type="string", length=80, nullable=false)
+     */
+    private $seoKeywords;
 
     /**
      * @var string
@@ -155,25 +162,34 @@ class AlboAtti
     private $seoDescription;
 
     /**
-     * @var integer
+     * @var \Application\Entity\AlboSettori
      *
-     * @ORM\Column(name="settore_id", type="bigint", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\AlboSettori")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="settore_id", referencedColumnName="id")
+     * })
      */
-    private $settoreId;
+    private $settore;
 
     /**
-     * @var integer
+     * @var \Application\Entity\AlboSettori
      *
-     * @ORM\Column(name="user_id", type="bigint", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\AlboSettori")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="sezione_id", referencedColumnName="id")
+     * })
      */
-    private $userId;
+    private $sezione;
 
     /**
-     * @var integer
+     * @var \Application\Entity\Utenti
      *
-     * @ORM\Column(name="sezione_id", type="bigint", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Utenti")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="utente_id", referencedColumnName="id")
+     * })
      */
-    private $sezioneId = '0';
+    private $utente;
 
 
 
@@ -280,95 +296,95 @@ class AlboAtti
     }
 
     /**
-     * Set datarichiesta
+     * Set dataRichiesta
      *
-     * @param \DateTime $datarichiesta
+     * @param \DateTime $dataRichiesta
      * @return AlboAtti
      */
-    public function setDatarichiesta($datarichiesta)
+    public function setDataRichiesta($dataRichiesta)
     {
-        $this->datarichiesta = $datarichiesta;
+        $this->dataRichiesta = $dataRichiesta;
 
         return $this;
     }
 
     /**
-     * Get datarichiesta
+     * Get dataRichiesta
      *
      * @return \DateTime 
      */
-    public function getDatarichiesta()
+    public function getDataRichiesta()
     {
-        return $this->datarichiesta;
+        return $this->dataRichiesta;
     }
 
     /**
-     * Set datapubblicazione
+     * Set dataPubblicazione
      *
-     * @param \DateTime $datapubblicazione
+     * @param \DateTime $dataPubblicazione
      * @return AlboAtti
      */
-    public function setDatapubblicazione($datapubblicazione)
+    public function setDataPubblicazione($dataPubblicazione)
     {
-        $this->datapubblicazione = $datapubblicazione;
+        $this->dataPubblicazione = $dataPubblicazione;
 
         return $this;
     }
 
     /**
-     * Get datapubblicazione
+     * Get dataPubblicazione
      *
      * @return \DateTime 
      */
-    public function getDatapubblicazione()
+    public function getDataPubblicazione()
     {
-        return $this->datapubblicazione;
+        return $this->dataPubblicazione;
     }
 
     /**
-     * Set datascadenza
+     * Set dataScadenza
      *
-     * @param \DateTime $datascadenza
+     * @param \DateTime $dataScadenza
      * @return AlboAtti
      */
-    public function setDatascadenza($datascadenza)
+    public function setDataScadenza($dataScadenza)
     {
-        $this->datascadenza = $datascadenza;
+        $this->dataScadenza = $dataScadenza;
 
         return $this;
     }
 
     /**
-     * Get datascadenza
+     * Get dataScadenza
      *
      * @return \DateTime 
      */
-    public function getDatascadenza()
+    public function getDataScadenza()
     {
-        return $this->datascadenza;
+        return $this->dataScadenza;
     }
 
     /**
-     * Set numgiorniscadenza
+     * Set numGiorniScadenza
      *
-     * @param integer $numgiorniscadenza
+     * @param integer $numGiorniScadenza
      * @return AlboAtti
      */
-    public function setNumgiorniscadenza($numgiorniscadenza)
+    public function setNumGiorniScadenza($numGiorniScadenza)
     {
-        $this->numgiorniscadenza = $numgiorniscadenza;
+        $this->numGiorniScadenza = $numGiorniScadenza;
 
         return $this;
     }
 
     /**
-     * Get numgiorniscadenza
+     * Get numGiorniScadenza
      *
      * @return integer 
      */
-    public function getNumgiorniscadenza()
+    public function getNumGiorniScadenza()
     {
-        return $this->numgiorniscadenza;
+        return $this->numGiorniScadenza;
     }
 
     /**
@@ -395,49 +411,49 @@ class AlboAtti
     }
 
     /**
-     * Set datannullamento
+     * Set dataAnnullamento
      *
-     * @param \DateTime $datannullamento
+     * @param \DateTime $dataAnnullamento
      * @return AlboAtti
      */
-    public function setDatannullamento($datannullamento)
+    public function setDataAnnullamento($dataAnnullamento)
     {
-        $this->datannullamento = $datannullamento;
+        $this->dataAnnullamento = $dataAnnullamento;
 
         return $this;
     }
 
     /**
-     * Get datannullamento
+     * Get dataAnnullamento
      *
      * @return \DateTime 
      */
-    public function getDatannullamento()
+    public function getDataAnnullamento()
     {
-        return $this->datannullamento;
+        return $this->dataAnnullamento;
     }
 
     /**
-     * Set noteannullamento
+     * Set noteAnnullamento
      *
-     * @param string $noteannullamento
+     * @param string $noteAnnullamento
      * @return AlboAtti
      */
-    public function setNoteannullamento($noteannullamento)
+    public function setNoteAnnullamento($noteAnnullamento)
     {
-        $this->noteannullamento = $noteannullamento;
+        $this->noteAnnullamento = $noteAnnullamento;
 
         return $this;
     }
 
     /**
-     * Get noteannullamento
+     * Get noteAnnullamento
      *
      * @return string 
      */
-    public function getNoteannullamento()
+    public function getNoteAnnullamento()
     {
-        return $this->noteannullamento;
+        return $this->noteAnnullamento;
     }
 
     /**
@@ -464,141 +480,164 @@ class AlboAtti
     }
 
     /**
-     * Set datarettifica
+     * Set dataRettifica
      *
-     * @param \DateTime $datarettifica
+     * @param \DateTime $dataRettifica
      * @return AlboAtti
      */
-    public function setDatarettifica($datarettifica)
+    public function setDataRettifica($dataRettifica)
     {
-        $this->datarettifica = $datarettifica;
+        $this->dataRettifica = $dataRettifica;
 
         return $this;
     }
 
     /**
-     * Get datarettifica
+     * Get dataRettifica
      *
      * @return \DateTime 
      */
-    public function getDatarettifica()
+    public function getDataRettifica()
     {
-        return $this->datarettifica;
+        return $this->dataRettifica;
     }
 
     /**
-     * Set noterettifica
+     * Set noteRettifica
      *
-     * @param string $noterettifica
+     * @param string $noteRettifica
      * @return AlboAtti
      */
-    public function setNoterettifica($noterettifica)
+    public function setNoteRettifica($noteRettifica)
     {
-        $this->noterettifica = $noterettifica;
+        $this->noteRettifica = $noteRettifica;
 
         return $this;
     }
 
     /**
-     * Get noterettifica
+     * Get noteRettifica
      *
      * @return string 
      */
-    public function getNoterettifica()
+    public function getNoteRettifica()
     {
-        return $this->noterettifica;
+        return $this->noteRettifica;
     }
 
     /**
-     * Set visibility
+     * Set stato
      *
-     * @param string $visibility
+     * @param string $stato
      * @return AlboAtti
      */
-    public function setVisibility($visibility)
+    public function setStato($stato)
     {
-        $this->visibility = $visibility;
+        $this->stato = $stato;
 
         return $this;
     }
 
     /**
-     * Get visibility
+     * Get stato
      *
      * @return string 
      */
-    public function getVisibility()
+    public function getStato()
     {
-        return $this->visibility;
+        return $this->stato;
     }
 
     /**
-     * Set inviatoregione
+     * Set inviatoRegione
      *
-     * @param string $inviatoregione
+     * @param string $inviatoRegione
      * @return AlboAtti
      */
-    public function setInviatoregione($inviatoregione)
+    public function setInviatoRegione($inviatoRegione)
     {
-        $this->inviatoregione = $inviatoregione;
+        $this->inviatoRegione = $inviatoRegione;
 
         return $this;
     }
 
     /**
-     * Get inviatoregione
+     * Get inviatoRegione
      *
      * @return string 
      */
-    public function getInviatoregione()
+    public function getInviatoRegione()
     {
-        return $this->inviatoregione;
+        return $this->inviatoRegione;
     }
 
     /**
-     * Set enteterzo
+     * Set enteTerzo
      *
-     * @param string $enteterzo
+     * @param string $enteTerzo
      * @return AlboAtti
      */
-    public function setEnteterzo($enteterzo)
+    public function setEnteTerzo($enteTerzo)
     {
-        $this->enteterzo = $enteterzo;
+        $this->enteTerzo = $enteTerzo;
 
         return $this;
     }
 
     /**
-     * Get enteterzo
+     * Get enteTerzo
      *
      * @return string 
      */
-    public function getEnteterzo()
+    public function getEnteTerzo()
     {
-        return $this->enteterzo;
+        return $this->enteTerzo;
     }
 
     /**
-     * Set seoKeys
+     * Set seoTitle
      *
-     * @param string $seoKeys
+     * @param string $seoTitle
      * @return AlboAtti
      */
-    public function setSeoKeys($seoKeys)
+    public function setSeoTitle($seoTitle)
     {
-        $this->seoKeys = $seoKeys;
+        $this->seoTitle = $seoTitle;
 
         return $this;
     }
 
     /**
-     * Get seoKeys
+     * Get seoTitle
      *
      * @return string 
      */
-    public function getSeoKeys()
+    public function getSeoTitle()
     {
-        return $this->seoKeys;
+        return $this->seoTitle;
+    }
+
+    /**
+     * Set seoKeywords
+     *
+     * @param string $seoKeywords
+     * @return AlboAtti
+     */
+    public function setSeoKeywords($seoKeywords)
+    {
+        $this->seoKeywords = $seoKeywords;
+
+        return $this;
+    }
+
+    /**
+     * Get seoKeywords
+     *
+     * @return string 
+     */
+    public function getSeoKeywords()
+    {
+        return $this->seoKeywords;
     }
 
     /**
@@ -625,71 +664,71 @@ class AlboAtti
     }
 
     /**
-     * Set settoreId
+     * Set settore
      *
-     * @param integer $settoreId
+     * @param \Application\Entity\AlboSettori $settore
      * @return AlboAtti
      */
-    public function setSettoreId($settoreId)
+    public function setSettore(\Application\Entity\AlboSettori $settore = null)
     {
-        $this->settoreId = $settoreId;
+        $this->settore = $settore;
 
         return $this;
     }
 
     /**
-     * Get settoreId
+     * Get settore
      *
-     * @return integer 
+     * @return \Application\Entity\AlboSettori 
      */
-    public function getSettoreId()
+    public function getSettore()
     {
-        return $this->settoreId;
+        return $this->settore;
     }
 
     /**
-     * Set userId
+     * Set sezione
      *
-     * @param integer $userId
+     * @param \Application\Entity\AlboSettori $sezione
      * @return AlboAtti
      */
-    public function setUserId($userId)
+    public function setSezione(\Application\Entity\AlboSettori $sezione = null)
     {
-        $this->userId = $userId;
+        $this->sezione = $sezione;
 
         return $this;
     }
 
     /**
-     * Get userId
+     * Get sezione
      *
-     * @return integer 
+     * @return \Application\Entity\AlboSettori 
      */
-    public function getUserId()
+    public function getSezione()
     {
-        return $this->userId;
+        return $this->sezione;
     }
 
     /**
-     * Set sezioneId
+     * Set utente
      *
-     * @param integer $sezioneId
+     * @param \Application\Entity\Utenti $utente
      * @return AlboAtti
      */
-    public function setSezioneId($sezioneId)
+    public function setUtente(\Application\Entity\Utenti $utente = null)
     {
-        $this->sezioneId = $sezioneId;
+        $this->utente = $utente;
 
         return $this;
     }
 
     /**
-     * Get sezioneId
+     * Get utente
      *
-     * @return integer 
+     * @return \Application\Entity\Utenti 
      */
-    public function getSezioneId()
+    public function getUtente()
     {
-        return $this->sezioneId;
+        return $this->utente;
     }
 }

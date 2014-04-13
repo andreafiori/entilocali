@@ -1,5 +1,4 @@
 <?php if (!$this->form): ?>
-<!-- TODO: translate these labels -->
 <div class="alert alert-danger">
 	<h4>Errore verificato</h4>
 	<div>Impossibile visualizzare il form: oggetto form non rilevato</div>
@@ -27,7 +26,7 @@
 		    </div>
 		</div>
 		<?php
-		elseif ($attributes['class'] == 'hiddenField'):
+		elseif ($attributes['class'] == 'hiddenField' or $attributes['name'] == 'csrf'):
 			echo $this->formElement($element);
 		else:
 		?>
@@ -45,6 +44,7 @@
 <?php echo $this->form()->closeTag($this->form); ?>
 </div>
 
-<div id="formDataLoading" class="alert alert-warning" style="display: none"><h4>Attendere: elaborazione dati in corso...</h4></div>
+<div id="formDataLoading" class="alert alert-warning" style="display: none">
+	<h4>Attendere: elaborazione dati in corso...</h4></div>
 <div id="formDataResponse"></div>
 <?php endif; ?>

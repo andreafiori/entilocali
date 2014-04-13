@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * GeoRegioni
  *
- * @ORM\Table(name="geo_regioni", indexes={@ORM\Index(name="cod_regione", columns={"cod_regione"})})
+ * @ORM\Table(name="geo_regioni", indexes={@ORM\Index(name="cod_regione", columns={"codice_regione"})})
  * @ORM\Entity
  */
 class GeoRegioni
@@ -24,16 +24,16 @@ class GeoRegioni
     /**
      * @var string
      *
-     * @ORM\Column(name="cod_regione", type="string", length=2, nullable=false)
+     * @ORM\Column(name="codice_regione", type="string", length=2, nullable=false)
      */
-    private $codRegione;
+    private $codiceRegione;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nomeregione", type="string", length=100, nullable=false)
+     * @ORM\Column(name="nome_regione", type="string", length=100, nullable=false)
      */
-    private $nomeregione;
+    private $nomeRegione;
 
 
 
@@ -48,48 +48,48 @@ class GeoRegioni
     }
 
     /**
-     * Set codRegione
+     * Set codiceRegione
      *
-     * @param string $codRegione
+     * @param string $codiceRegione
      * @return GeoRegioni
      */
-    public function setCodRegione($codRegione)
+    public function setCodiceRegione($codiceRegione)
     {
-        $this->codRegione = $codRegione;
+        $this->codiceRegione = $codiceRegione;
 
         return $this;
     }
 
     /**
-     * Get codRegione
+     * Get codiceRegione
      *
      * @return string 
      */
-    public function getCodRegione()
+    public function getCodiceRegione()
     {
-        return $this->codRegione;
+        return $this->codiceRegione;
     }
 
     /**
-     * Set nomeregione
+     * Set nomeRegione
      *
-     * @param string $nomeregione
+     * @param string $nomeRegione
      * @return GeoRegioni
      */
-    public function setNomeregione($nomeregione)
+    public function setNomeRegione($nomeRegione)
     {
-        $this->nomeregione = $nomeregione;
+        $this->nomeRegione = $nomeRegione;
 
         return $this;
     }
 
     /**
-     * Get nomeregione
+     * Get nomeRegione
      *
      * @return string 
      */
-    public function getNomeregione()
+    public function getNomeRegione()
     {
-        return $this->nomeregione;
+        return $this->nomeRegione;
     }
 }

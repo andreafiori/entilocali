@@ -1,1 +1,0 @@
-Module for the backend with a different layout set on public/templates/ directory

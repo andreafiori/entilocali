@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * GeoProvince
  *
- * @ORM\Table(name="geo_province", indexes={@ORM\Index(name="searchprovince", columns={"cod_regione", "cod_provincia"})})
+ * @ORM\Table(name="geo_province", indexes={@ORM\Index(name="codice_provincia", columns={"codice_provincia"}), @ORM\Index(name="codice_regione", columns={"codice_regione"})})
  * @ORM\Entity
  */
 class GeoProvince
@@ -24,16 +24,16 @@ class GeoProvince
     /**
      * @var string
      *
-     * @ORM\Column(name="cod_regione", type="string", length=14, nullable=true)
+     * @ORM\Column(name="codice_regione", type="string", length=14, nullable=true)
      */
-    private $codRegione;
+    private $codiceRegione;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="cod_provincia", type="string", length=16, nullable=true)
+     * @ORM\Column(name="codice_provincia", type="string", length=16, nullable=true)
      */
-    private $codProvincia;
+    private $codiceProvincia;
 
     /**
      * @var string
@@ -69,49 +69,49 @@ class GeoProvince
     }
 
     /**
-     * Set codRegione
+     * Set codiceRegione
      *
-     * @param string $codRegione
+     * @param string $codiceRegione
      * @return GeoProvince
      */
-    public function setCodRegione($codRegione)
+    public function setCodiceRegione($codiceRegione)
     {
-        $this->codRegione = $codRegione;
+        $this->codiceRegione = $codiceRegione;
 
         return $this;
     }
 
     /**
-     * Get codRegione
+     * Get codiceRegione
      *
      * @return string 
      */
-    public function getCodRegione()
+    public function getCodiceRegione()
     {
-        return $this->codRegione;
+        return $this->codiceRegione;
     }
 
     /**
-     * Set codProvincia
+     * Set codiceProvincia
      *
-     * @param string $codProvincia
+     * @param string $codiceProvincia
      * @return GeoProvince
      */
-    public function setCodProvincia($codProvincia)
+    public function setCodiceProvincia($codiceProvincia)
     {
-        $this->codProvincia = $codProvincia;
+        $this->codiceProvincia = $codiceProvincia;
 
         return $this;
     }
 
     /**
-     * Get codProvincia
+     * Get codiceProvincia
      *
      * @return string 
      */
-    public function getCodProvincia()
+    public function getCodiceProvincia()
     {
-        return $this->codProvincia;
+        return $this->codiceProvincia;
     }
 
     /**

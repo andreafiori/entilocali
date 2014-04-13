@@ -31,9 +31,9 @@ class GeoComuniCap
     /**
      * @var string
      *
-     * @ORM\Column(name="quartieremain", type="string", length=80, nullable=false)
+     * @ORM\Column(name="nome", type="string", length=80, nullable=false)
      */
-    private $quartieremain = '0';
+    private $nome = '0';
 
     /**
      * @var \Application\Entity\GeoComuni
@@ -81,26 +81,26 @@ class GeoComuniCap
     }
 
     /**
-     * Set quartieremain
+     * Set nome
      *
-     * @param string $quartieremain
+     * @param string $nome
      * @return GeoComuniCap
      */
-    public function setQuartieremain($quartieremain)
+    public function setNome($nome)
     {
-        $this->quartieremain = $quartieremain;
+        $this->nome = $nome;
 
         return $this;
     }
 
     /**
-     * Get quartieremain
+     * Get nome
      *
      * @return string 
      */
-    public function getQuartieremain()
+    public function getNome()
     {
-        return $this->quartieremain;
+        return $this->nome;
     }
 
     /**

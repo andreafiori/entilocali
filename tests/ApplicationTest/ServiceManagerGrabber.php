@@ -6,6 +6,8 @@ use Zend\ServiceManager\ServiceManager;
 use Zend\Mvc\Service\ServiceManagerConfig;
 
 /**
+ * Load Main Services
+ * 
  * @author Andrea Fiori
  * @since  24 January 2014
  */
@@ -30,9 +32,8 @@ class ServiceManagerGrabber
         $smConfig = isset($configuration['service_manager']) ? $configuration['service_manager'] : array();
         $serviceManager = new ServiceManager(new ServiceManagerConfig($smConfig));
         $serviceManager->setService('ApplicationConfig', $configuration);
-
         $serviceManager->get('ModuleManager')->loadModules();
-         
+        
         return $serviceManager;
     }
 }

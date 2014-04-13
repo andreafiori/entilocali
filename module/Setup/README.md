@@ -1,1 +1,0 @@
-Setup module for the operations to do before loading any controller and information

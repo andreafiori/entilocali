@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Config
  *
- * @ORM\Table(name="config", indexes={@ORM\Index(name="channel_id", columns={"channel_id"}), @ORM\Index(name="language_id", columns={"language_id"}), @ORM\Index(name="module_id", columns={"module_id"}), @ORM\Index(name="isadmin", columns={"isbackend"}), @ORM\Index(name="isalwaysallowed", columns={"isalwaysallowed"})})
+ * @ORM\Table(name="config", indexes={@ORM\Index(name="channel_id", columns={"canale_id"}), @ORM\Index(name="language_id", columns={"lingua_id"}), @ORM\Index(name="module_id", columns={"modulo_id"}), @ORM\Index(name="isadmin", columns={"isbackend"}), @ORM\Index(name="isalwaysallowed", columns={"isalwaysallowed"})})
  * @ORM\Entity
  */
 class Config
@@ -24,16 +24,16 @@ class Config
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=100, nullable=true)
+     * @ORM\Column(name="nome", type="string", length=100, nullable=true)
      */
-    private $name;
+    private $nome;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="value", type="text", nullable=true)
+     * @ORM\Column(name="valore", type="text", nullable=true)
      */
-    private $value;
+    private $valore;
 
     /**
      * @var string
@@ -59,23 +59,23 @@ class Config
     /**
      * @var integer
      *
-     * @ORM\Column(name="module_id", type="bigint", nullable=false)
+     * @ORM\Column(name="modulo_id", type="bigint", nullable=false)
      */
-    private $moduleId = '4';
+    private $moduloId = '4';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="channel_id", type="bigint", nullable=false)
+     * @ORM\Column(name="canale_id", type="bigint", nullable=false)
      */
-    private $channelId = '1';
+    private $canaleId = '1';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="language_id", type="bigint", nullable=false)
+     * @ORM\Column(name="lingua_id", type="bigint", nullable=false)
      */
-    private $languageId = '1';
+    private $linguaId = '1';
 
 
 
@@ -90,49 +90,49 @@ class Config
     }
 
     /**
-     * Set name
+     * Set nome
      *
-     * @param string $name
+     * @param string $nome
      * @return Config
      */
-    public function setName($name)
+    public function setNome($nome)
     {
-        $this->name = $name;
+        $this->nome = $nome;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Get nome
      *
      * @return string 
      */
-    public function getName()
+    public function getNome()
     {
-        return $this->name;
+        return $this->nome;
     }
 
     /**
-     * Set value
+     * Set valore
      *
-     * @param string $value
+     * @param string $valore
      * @return Config
      */
-    public function setValue($value)
+    public function setValore($valore)
     {
-        $this->value = $value;
+        $this->valore = $valore;
 
         return $this;
     }
 
     /**
-     * Get value
+     * Get valore
      *
      * @return string 
      */
-    public function getValue()
+    public function getValore()
     {
-        return $this->value;
+        return $this->valore;
     }
 
     /**
@@ -205,71 +205,71 @@ class Config
     }
 
     /**
-     * Set moduleId
+     * Set moduloId
      *
-     * @param integer $moduleId
+     * @param integer $moduloId
      * @return Config
      */
-    public function setModuleId($moduleId)
+    public function setModuloId($moduloId)
     {
-        $this->moduleId = $moduleId;
+        $this->moduloId = $moduloId;
 
         return $this;
     }
 
     /**
-     * Get moduleId
+     * Get moduloId
      *
      * @return integer 
      */
-    public function getModuleId()
+    public function getModuloId()
     {
-        return $this->moduleId;
+        return $this->moduloId;
     }
 
     /**
-     * Set channelId
+     * Set canaleId
      *
-     * @param integer $channelId
+     * @param integer $canaleId
      * @return Config
      */
-    public function setChannelId($channelId)
+    public function setCanaleId($canaleId)
     {
-        $this->channelId = $channelId;
+        $this->canaleId = $canaleId;
 
         return $this;
     }
 
     /**
-     * Get channelId
+     * Get canaleId
      *
      * @return integer 
      */
-    public function getChannelId()
+    public function getCanaleId()
     {
-        return $this->channelId;
+        return $this->canaleId;
     }
 
     /**
-     * Set languageId
+     * Set linguaId
      *
-     * @param integer $languageId
+     * @param integer $linguaId
      * @return Config
      */
-    public function setLanguageId($languageId)
+    public function setLinguaId($linguaId)
     {
-        $this->languageId = $languageId;
+        $this->linguaId = $linguaId;
 
         return $this;
     }
 
     /**
-     * Get languageId
+     * Get linguaId
      *
      * @return integer 
      */
-    public function getLanguageId()
+    public function getLinguaId()
     {
-        return $this->languageId;
+        return $this->linguaId;
     }
 }

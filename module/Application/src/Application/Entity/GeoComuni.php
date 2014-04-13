@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * GeoComuni
  *
- * @ORM\Table(name="geo_comuni", indexes={@ORM\Index(name="searchfields", columns={"cod_regione", "cod_provincia", "cod_comune", "nomecomune"})})
+ * @ORM\Table(name="geo_comuni", indexes={@ORM\Index(name="searchfields", columns={"cod_regione", "cod_provincia", "cod_comune", "nome_comune"})})
  * @ORM\Entity
  */
 class GeoComuni
@@ -45,23 +45,37 @@ class GeoComuni
     /**
      * @var string
      *
-     * @ORM\Column(name="nomecomune", type="string", length=35, nullable=true)
+     * @ORM\Column(name="nome_comune", type="string", length=35, nullable=true)
      */
-    private $nomecomune;
+    private $nomeComune;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="cod_istat", type="string", length=9, nullable=true)
+     * @ORM\Column(name="codice_istat", type="string", length=9, nullable=true)
      */
-    private $codIstat;
+    private $codiceIstat;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="capzip", type="string", length=9, nullable=true)
+     * @ORM\Column(name="cap_principale", type="string", length=9, nullable=true)
      */
-    private $capzip;
+    private $capPrincipale;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cap_inizio", type="string", length=5, nullable=true)
+     */
+    private $capInizio;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cap_fine", type="string", length=5, nullable=true)
+     */
+    private $capFine;
 
     /**
      * @var string
@@ -73,37 +87,23 @@ class GeoComuni
     /**
      * @var string
      *
-     * @ORM\Column(name="urlweb", type="string", length=50, nullable=true)
+     * @ORM\Column(name="sito_web", type="string", length=50, nullable=true)
      */
-    private $urlweb;
+    private $sitoWeb;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="latitude", type="string", length=18, nullable=true)
+     * @ORM\Column(name="latitudine", type="string", length=18, nullable=true)
      */
-    private $latitude;
+    private $latitudine;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="longitude", type="string", length=18, nullable=true)
+     * @ORM\Column(name="longitudine", type="string", length=18, nullable=true)
      */
-    private $longitude;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="capinizio", type="string", length=5, nullable=true)
-     */
-    private $capinizio;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="capfine", type="string", length=5, nullable=true)
-     */
-    private $capfine;
+    private $longitudine;
 
 
 
@@ -187,72 +187,118 @@ class GeoComuni
     }
 
     /**
-     * Set nomecomune
+     * Set nomeComune
      *
-     * @param string $nomecomune
+     * @param string $nomeComune
      * @return GeoComuni
      */
-    public function setNomecomune($nomecomune)
+    public function setNomeComune($nomeComune)
     {
-        $this->nomecomune = $nomecomune;
+        $this->nomeComune = $nomeComune;
 
         return $this;
     }
 
     /**
-     * Get nomecomune
+     * Get nomeComune
      *
      * @return string 
      */
-    public function getNomecomune()
+    public function getNomeComune()
     {
-        return $this->nomecomune;
+        return $this->nomeComune;
     }
 
     /**
-     * Set codIstat
+     * Set codiceIstat
      *
-     * @param string $codIstat
+     * @param string $codiceIstat
      * @return GeoComuni
      */
-    public function setCodIstat($codIstat)
+    public function setCodiceIstat($codiceIstat)
     {
-        $this->codIstat = $codIstat;
+        $this->codiceIstat = $codiceIstat;
 
         return $this;
     }
 
     /**
-     * Get codIstat
+     * Get codiceIstat
      *
      * @return string 
      */
-    public function getCodIstat()
+    public function getCodiceIstat()
     {
-        return $this->codIstat;
+        return $this->codiceIstat;
     }
 
     /**
-     * Set capzip
+     * Set capPrincipale
      *
-     * @param string $capzip
+     * @param string $capPrincipale
      * @return GeoComuni
      */
-    public function setCapzip($capzip)
+    public function setCapPrincipale($capPrincipale)
     {
-        $this->capzip = $capzip;
+        $this->capPrincipale = $capPrincipale;
 
         return $this;
     }
 
     /**
-     * Get capzip
+     * Get capPrincipale
      *
      * @return string 
      */
-    public function getCapzip()
+    public function getCapPrincipale()
     {
-        return $this->capzip;
+        return $this->capPrincipale;
+    }
+
+    /**
+     * Set capInizio
+     *
+     * @param string $capInizio
+     * @return GeoComuni
+     */
+    public function setCapInizio($capInizio)
+    {
+        $this->capInizio = $capInizio;
+
+        return $this;
+    }
+
+    /**
+     * Get capInizio
+     *
+     * @return string 
+     */
+    public function getCapInizio()
+    {
+        return $this->capInizio;
+    }
+
+    /**
+     * Set capFine
+     *
+     * @param string $capFine
+     * @return GeoComuni
+     */
+    public function setCapFine($capFine)
+    {
+        $this->capFine = $capFine;
+
+        return $this;
+    }
+
+    /**
+     * Get capFine
+     *
+     * @return string 
+     */
+    public function getCapFine()
+    {
+        return $this->capFine;
     }
 
     /**
@@ -279,117 +325,71 @@ class GeoComuni
     }
 
     /**
-     * Set urlweb
+     * Set sitoWeb
      *
-     * @param string $urlweb
+     * @param string $sitoWeb
      * @return GeoComuni
      */
-    public function setUrlweb($urlweb)
+    public function setSitoWeb($sitoWeb)
     {
-        $this->urlweb = $urlweb;
+        $this->sitoWeb = $sitoWeb;
 
         return $this;
     }
 
     /**
-     * Get urlweb
+     * Get sitoWeb
      *
      * @return string 
      */
-    public function getUrlweb()
+    public function getSitoWeb()
     {
-        return $this->urlweb;
+        return $this->sitoWeb;
     }
 
     /**
-     * Set latitude
+     * Set latitudine
      *
-     * @param string $latitude
+     * @param string $latitudine
      * @return GeoComuni
      */
-    public function setLatitude($latitude)
+    public function setLatitudine($latitudine)
     {
-        $this->latitude = $latitude;
+        $this->latitudine = $latitudine;
 
         return $this;
     }
 
     /**
-     * Get latitude
+     * Get latitudine
      *
      * @return string 
      */
-    public function getLatitude()
+    public function getLatitudine()
     {
-        return $this->latitude;
+        return $this->latitudine;
     }
 
     /**
-     * Set longitude
+     * Set longitudine
      *
-     * @param string $longitude
+     * @param string $longitudine
      * @return GeoComuni
      */
-    public function setLongitude($longitude)
+    public function setLongitudine($longitudine)
     {
-        $this->longitude = $longitude;
+        $this->longitudine = $longitudine;
 
         return $this;
     }
 
     /**
-     * Get longitude
+     * Get longitudine
      *
      * @return string 
      */
-    public function getLongitude()
+    public function getLongitudine()
     {
-        return $this->longitude;
-    }
-
-    /**
-     * Set capinizio
-     *
-     * @param string $capinizio
-     * @return GeoComuni
-     */
-    public function setCapinizio($capinizio)
-    {
-        $this->capinizio = $capinizio;
-
-        return $this;
-    }
-
-    /**
-     * Get capinizio
-     *
-     * @return string 
-     */
-    public function getCapinizio()
-    {
-        return $this->capinizio;
-    }
-
-    /**
-     * Set capfine
-     *
-     * @param string $capfine
-     * @return GeoComuni
-     */
-    public function setCapfine($capfine)
-    {
-        $this->capfine = $capfine;
-
-        return $this;
-    }
-
-    /**
-     * Get capfine
-     *
-     * @return string 
-     */
-    public function getCapfine()
-    {
-        return $this->capfine;
+        return $this->longitudine;
     }
 }

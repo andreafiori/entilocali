@@ -28,9 +28,10 @@
 		<log type="coverage-html" target="./reports/" charset="UTF-8" />
 	</logging>
 -->
+
 	<testsuites>
 		<testsuite name="TestSuite">
-			<directory suffix=".php">./</directory>
+			<directory suffix=".php">./ApplicationTest</directory>
 		</testsuite>
 	</testsuites>
 

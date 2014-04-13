@@ -1,27 +1,30 @@
 {
 	"name" : "Zend2 API CMS",
-	"description" : "Zend framework 2 CMS with RESTful API",
+	"description" : "Zend framework 2 CMS app with RESTful APIs",
 	"authors" : [{
 			"name" : "Andrea Fiori",
 			"homepage" : "http://www.andreafiori.net"
 		}
 	],
 	"keywords" : [
-		"Zend2",
+		"Zend framework 2",
 		"CMS",
 		"RESTful"
 	],
 	"homepage" : "http://framework.zend.com/",
-    "require" : {
+	"require" : {
 		"doctrine/doctrine-orm-module" : "0.*",
 		"php" : ">=5.3.3",
 		"zendframework/zendframework" : ">2.1.3"
 	},
 	"require-dev" : {
 		"zendframework/zftool" : "dev-master",
+		"zendframework/zend-developer-tools" : "dev-master",
 		"bjyoungblood/bjy-authorize" : "dev-master",
 		"zf-commons/zfc-user" : "dev-master",
 		"bjyoungblood/BjyProfiler" : "dev-master",
-		"zendframework/zend-developer-tools" : "dev-master"
+		"Mockery/Mockery" : ">=0.7.2",
+		"guzzle/guzzle": "3.8.*@dev",
+                "guzzle/plugin": "3.7.*"
 	}
 }

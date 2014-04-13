@@ -2,17 +2,18 @@
 
 namespace ServiceLocatorFactoryTest;
 
-use SetupTest\TestSuite;
+use ApplicationTest\TestSuite;
 use ServiceLocatorFactory\ServiceLocatorFactory;
 use Zend\ServiceManager\ServiceManager;
 
 /**
  * Test the static class methods of ServiceLocatorFactory
+ * 
  * @author Andrea Fiori
  * @since  07 January 2014
  */
-class ServiceLocatorFactoryTest extends TestSuite {
-
+class ServiceLocatorFactoryTest extends TestSuite
+{
 	protected function setUp()
 	{
 		parent::setUp();

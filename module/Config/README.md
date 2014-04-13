@@ -1,1 +1,0 @@
-Module for the CRUD of the configuration parameters on the database

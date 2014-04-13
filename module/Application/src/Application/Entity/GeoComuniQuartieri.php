@@ -31,9 +31,9 @@ class GeoComuniQuartieri
     /**
      * @var string
      *
-     * @ORM\Column(name="cap_main", type="string", length=5, nullable=true)
+     * @ORM\Column(name="cap_principale", type="string", length=5, nullable=true)
      */
-    private $capMain;
+    private $capPrincipale;
 
     /**
      * @var \Application\Entity\GeoComuni
@@ -81,26 +81,26 @@ class GeoComuniQuartieri
     }
 
     /**
-     * Set capMain
+     * Set capPrincipale
      *
-     * @param string $capMain
+     * @param string $capPrincipale
      * @return GeoComuniQuartieri
      */
-    public function setCapMain($capMain)
+    public function setCapPrincipale($capPrincipale)
     {
-        $this->capMain = $capMain;
+        $this->capPrincipale = $capPrincipale;
 
         return $this;
     }
 
     /**
-     * Get capMain
+     * Get capPrincipale
      *
      * @return string 
      */
-    public function getCapMain()
+    public function getCapPrincipale()
     {
-        return $this->capMain;
+        return $this->capPrincipale;
     }
 
     /**

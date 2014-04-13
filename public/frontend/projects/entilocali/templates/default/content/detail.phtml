@@ -1,0 +1,18 @@
+<ul class="breadcrumb">
+	<li>
+		<a href="<?php echo $this->templateData['remotelinkWeb'].$this->templateData['languageAbbreviation'] ?>" title="Home page">Home</a> <span class="divider"></span>
+	</li>
+	<li>
+		<a href="#" title="<?php echo $this->templateData['categoryName'] ?>"><?php echo $this->templateData['categoryName'] ?></a> <span class="divider"></span>
+	</li>
+	
+	<li class="active"><?php echo $this->templateData['controllerResult']['title'] ?></li>
+</ul>
+
+
+<div>	
+	<div><?php echo $this->templateData['controllerResult']['description'] ?></div>
+</div>
+
+
+<p class="text-right">Esporta: <a href="#">PDF</a> <a href="#">WORD</a> <a href="#">TXT</a></p>

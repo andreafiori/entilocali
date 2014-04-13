@@ -10,6 +10,6 @@ generateEntities.bat
 generateEntititesSetterGetter.bat
 zftool.phar
 data
+docs
 tests/reports
-vendor/bin
-vendor/zf-commons
+vendor/

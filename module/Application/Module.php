@@ -3,8 +3,8 @@
 namespace Application;
 
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
-use	Zend\Mvc\ModuleRouteListener;
-use	Zend\Mvc\MvcEvent;
+use Zend\Mvc\ModuleRouteListener;
+use Zend\Mvc\MvcEvent;
 
 class Module implements AutoloaderProviderInterface
 {
@@ -40,21 +40,25 @@ class Module implements AutoloaderProviderInterface
     public function getViewHelperConfig()
     {
     	return array(
-				'invokables' 	=> array(
-    			'formelement'   => 'Application\Form\View\Helper\FormElement',
-    			'formPlainText' => 'Application\Form\View\Helper\FormPlainText',
-				)
+		'invokables' 	=> array(
+                    'formelement'   => 'Application\Form\View\Helper\FormElement',
+                    'formPlainText' => 'Application\Form\View\Helper\FormPlainText',
+		)
+            
 		);
 	}
 
     public function getAutoloaderConfig()
     {
         return array(
+            'Zend\Loader\ClassMapAutoloader' => array(
+                __DIR__ . '/autoload_classmap.php',
+            ),
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
-                    __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__
-                )
-            )
+                    __NAMESPACE__ => __DIR__ . '/src/' . str_replace('\\', '/' , __NAMESPACE__),
+                ),
+            ),
         );
     }
     

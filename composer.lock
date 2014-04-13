@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "8be692fdde84d8ed0a3a5066560f3aec",
+    "hash": "8dbbb15f002eeab9a74cb8df45c821c8",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -43,7 +43,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan Wage",
+                    "name": "Jonathan H. Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/",
                     "role": "Creator"
@@ -118,7 +118,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan Wage",
+                    "name": "Jonathan H. Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/",
                     "role": "Creator"
@@ -721,17 +721,17 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.4.2",
+            "version": "v2.4.3",
             "target-dir": "Symfony/Component/Console",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "940f217cbc3c8a33e5403e7c595495c4884400fe"
+                "reference": "ef20f1f58d7f693ee888353962bd2db336e3bbcb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/940f217cbc3c8a33e5403e7c595495c4884400fe",
-                "reference": "940f217cbc3c8a33e5403e7c595495c4884400fe",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/ef20f1f58d7f693ee888353962bd2db336e3bbcb",
+                "reference": "ef20f1f58d7f693ee888353962bd2db336e3bbcb",
                 "shasum": ""
             },
             "require": {
@@ -772,24 +772,24 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-11 13:52:09"
+            "time": "2014-03-01 17:35:04"
         },
         {
             "name": "zendframework/zendframework",
-            "version": "2.2.6",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zf2.git",
-                "reference": "5eae447d46b00a280573b94c398b2f46f45a6903"
+                "reference": "5d22cee82f6f7f9218f47f22a145f3e95c39cacf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zf2/zipball/5eae447d46b00a280573b94c398b2f46f45a6903",
-                "reference": "5eae447d46b00a280573b94c398b2f46f45a6903",
+                "url": "https://api.github.com/repos/zendframework/zf2/zipball/5d22cee82f6f7f9218f47f22a145f3e95c39cacf",
+                "reference": "5d22cee82f6f7f9218f47f22a145f3e95c39cacf",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3",
+                "php": ">=5.3.23",
                 "zendframework/zendxml": "~1.0-dev"
             },
             "replace": {
@@ -850,14 +850,16 @@
                 "fabpot/php-cs-fixer": "*@dev",
                 "ircmaxell/random-lib": "dev-master",
                 "ircmaxell/security-lib": "dev-master",
-                "ocramius/proxy-manager": "0.4.*",
-                "phpunit/phpunit": "3.7.*"
+                "mikey179/vfsstream": "1.2.*",
+                "phpunit/phpunit": "3.7.*",
+                "satooshi/php-coveralls": "dev-master",
+                "sebastianbergmann/phpcov": "1.1.0"
             },
             "suggest": {
                 "doctrine/annotations": "Doctrine Annotations >=1.0 for annotation features",
                 "ext-intl": "ext/intl for i18n features (included in default builds of PHP)",
                 "ircmaxell/random-lib": "Fallback random byte generator for Zend\\Math\\Rand if OpenSSL/Mcrypt extensions are unavailable",
-                "ocramius/proxy-manager": "ProxyManager to handle lazy initialization of services",
+                "ocramius/proxy-manager": "ProxyManager 0.5.* to handle lazy initialization of services",
                 "zendframework/zendpdf": "ZendPdf for creating PDF representations of barcodes",
                 "zendframework/zendservice-recaptcha": "ZendService\\ReCaptcha for rendering ReCaptchas in Zend\\Captcha and/or Zend\\Form"
             },
@@ -888,7 +890,7 @@
                 "framework",
                 "zf2"
             ],
-            "time": "2014-03-06 17:27:03"
+            "time": "2014-03-12 16:51:16"
         },
         {
             "name": "zendframework/zendxml",
@@ -943,12 +945,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/bjyoungblood/BjyProfiler.git",
-                "reference": "1ad040a59791bf28eafe4d27d485877d925db43e"
+                "reference": "0acf2340d5875215aadb184a59eaa56e6a462c14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bjyoungblood/BjyProfiler/zipball/1ad040a59791bf28eafe4d27d485877d925db43e",
-                "reference": "1ad040a59791bf28eafe4d27d485877d925db43e",
+                "url": "https://api.github.com/repos/bjyoungblood/BjyProfiler/zipball/0acf2340d5875215aadb184a59eaa56e6a462c14",
+                "reference": "0acf2340d5875215aadb184a59eaa56e6a462c14",
                 "shasum": ""
             },
             "require": {
@@ -965,6 +967,9 @@
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
                     "name": "Ben Youngblood",
@@ -981,7 +986,7 @@
                 "zdt",
                 "zf2"
             ],
-            "time": "2013-07-25 02:55:43"
+            "time": "2014-03-31 19:45:52"
         },
         {
             "name": "bjyoungblood/bjy-authorize",
@@ -989,12 +994,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/bjyoungblood/BjyAuthorize.git",
-                "reference": "d9a40afc81205f83138eebc053dc62ed57694e8e"
+                "reference": "bf31161bf598532cf98dbb0a3a7f7b8efb29bb21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bjyoungblood/BjyAuthorize/zipball/d9a40afc81205f83138eebc053dc62ed57694e8e",
-                "reference": "d9a40afc81205f83138eebc053dc62ed57694e8e",
+                "url": "https://api.github.com/repos/bjyoungblood/BjyAuthorize/zipball/bf31161bf598532cf98dbb0a3a7f7b8efb29bb21",
+                "reference": "bf31161bf598532cf98dbb0a3a7f7b8efb29bb21",
                 "shasum": ""
             },
             "require": {
@@ -1051,7 +1056,312 @@
                 "zf2",
                 "zfc-user"
             ],
-            "time": "2013-12-24 12:23:08"
+            "time": "2014-04-03 17:12:07"
+        },
+        {
+            "name": "guzzle/guzzle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/guzzle3.git",
+                "reference": "840683b88b637a5310aefceac3722c6fd6b4c043"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/guzzle3/zipball/840683b88b637a5310aefceac3722c6fd6b4c043",
+                "reference": "840683b88b637a5310aefceac3722c6fd6b4c043",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3.3",
+                "symfony/event-dispatcher": "~2.1"
+            },
+            "replace": {
+                "guzzle/batch": "self.version",
+                "guzzle/cache": "self.version",
+                "guzzle/common": "self.version",
+                "guzzle/http": "self.version",
+                "guzzle/inflection": "self.version",
+                "guzzle/iterator": "self.version",
+                "guzzle/log": "self.version",
+                "guzzle/parser": "self.version",
+                "guzzle/plugin": "self.version",
+                "guzzle/plugin-async": "self.version",
+                "guzzle/plugin-backoff": "self.version",
+                "guzzle/plugin-cache": "self.version",
+                "guzzle/plugin-cookie": "self.version",
+                "guzzle/plugin-curlauth": "self.version",
+                "guzzle/plugin-error-response": "self.version",
+                "guzzle/plugin-history": "self.version",
+                "guzzle/plugin-log": "self.version",
+                "guzzle/plugin-md5": "self.version",
+                "guzzle/plugin-mock": "self.version",
+                "guzzle/plugin-oauth": "self.version",
+                "guzzle/service": "self.version",
+                "guzzle/stream": "self.version"
+            },
+            "require-dev": {
+                "doctrine/cache": "~1.3",
+                "monolog/monolog": "~1.0",
+                "phpunit/phpunit": "3.7.*",
+                "psr/log": "~1.0",
+                "symfony/class-loader": "~2.1",
+                "zendframework/zend-cache": "2.*,<2.3",
+                "zendframework/zend-log": "2.*,<2.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Guzzle": "src/",
+                    "Guzzle\\Tests": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                },
+                {
+                    "name": "Guzzle Community",
+                    "homepage": "https://github.com/guzzle/guzzle/contributors"
+                }
+            ],
+            "description": "Guzzle is a PHP HTTP client library and framework for building RESTful web service clients",
+            "homepage": "http://guzzlephp.org/",
+            "keywords": [
+                "client",
+                "curl",
+                "framework",
+                "http",
+                "http client",
+                "rest",
+                "web service"
+            ],
+            "time": "2014-04-09 22:38:44"
+        },
+        {
+            "name": "guzzlehttp/guzzle",
+            "version": "v3.7.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/guzzle.git",
+                "reference": "b170b028c6bb5799640e46c8803015b0f9a45ed9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/b170b028c6bb5799640e46c8803015b0f9a45ed9",
+                "reference": "b170b028c6bb5799640e46c8803015b0f9a45ed9",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3.3",
+                "symfony/event-dispatcher": ">=2.1"
+            },
+            "replace": {
+                "guzzle/batch": "self.version",
+                "guzzle/cache": "self.version",
+                "guzzle/common": "self.version",
+                "guzzle/http": "self.version",
+                "guzzle/inflection": "self.version",
+                "guzzle/iterator": "self.version",
+                "guzzle/log": "self.version",
+                "guzzle/parser": "self.version",
+                "guzzle/plugin": "self.version",
+                "guzzle/plugin-async": "self.version",
+                "guzzle/plugin-backoff": "self.version",
+                "guzzle/plugin-cache": "self.version",
+                "guzzle/plugin-cookie": "self.version",
+                "guzzle/plugin-curlauth": "self.version",
+                "guzzle/plugin-error-response": "self.version",
+                "guzzle/plugin-history": "self.version",
+                "guzzle/plugin-log": "self.version",
+                "guzzle/plugin-md5": "self.version",
+                "guzzle/plugin-mock": "self.version",
+                "guzzle/plugin-oauth": "self.version",
+                "guzzle/service": "self.version",
+                "guzzle/stream": "self.version"
+            },
+            "require-dev": {
+                "doctrine/cache": "*",
+                "monolog/monolog": "1.*",
+                "phpunit/phpunit": "3.7.*",
+                "psr/log": "1.0.*",
+                "symfony/class-loader": "*",
+                "zendframework/zend-cache": "2.0.*",
+                "zendframework/zend-log": "2.0.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Guzzle\\Tests": "tests/",
+                    "Guzzle": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                },
+                {
+                    "name": "Guzzle Community",
+                    "homepage": "https://github.com/guzzle/guzzle/contributors"
+                }
+            ],
+            "description": "Guzzle is a PHP HTTP client library and framework for building RESTful web service clients",
+            "homepage": "http://guzzlephp.org/",
+            "keywords": [
+                "client",
+                "curl",
+                "framework",
+                "http",
+                "http client",
+                "rest",
+                "web service"
+            ],
+            "time": "2013-10-02 20:47:00"
+        },
+        {
+            "name": "mockery/mockery",
+            "version": "0.9.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/padraic/mockery.git",
+                "reference": "0fd49fd3f6c984409802004b1dd7b55d0f35ce4a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/0fd49fd3f6c984409802004b1dd7b55d0f35ce4a",
+                "reference": "0fd49fd3f6c984409802004b1dd7b55d0f35ce4a",
+                "shasum": ""
+            },
+            "require": {
+                "lib-pcre": ">=7.0",
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "hamcrest/hamcrest-php": "~1.1",
+                "satooshi/php-coveralls": "dev-master"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.9.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Mockery": "library/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Pádraic Brady",
+                    "email": "padraic.brady@gmail.com",
+                    "homepage": "http://blog.astrumfutura.com"
+                },
+                {
+                    "name": "Dave Marshall",
+                    "email": "dave.marshall@atstsolutions.co.uk",
+                    "homepage": "http://davedevelopment.co.uk"
+                }
+            ],
+            "description": "Mockery is a simple yet flexible PHP mock object framework for use in unit testing with PHPUnit, PHPSpec or any other testing framework. Its core goal is to offer a test double framework with a succint API capable of clearly defining all possible object operations and interactions using a human readable Domain Specific Language (DSL). Designed as a drop in alternative to PHPUnit's phpunit-mock-objects library, Mockery is easy to integrate with PHPUnit and can operate alongside phpunit-mock-objects without the World ending.",
+            "homepage": "http://github.com/padraic/mockery",
+            "keywords": [
+                "BDD",
+                "TDD",
+                "library",
+                "mock",
+                "mock objects",
+                "mockery",
+                "stub",
+                "test",
+                "test double",
+                "testing"
+            ],
+            "time": "2014-02-05 21:30:08"
+        },
+        {
+            "name": "symfony/event-dispatcher",
+            "version": "v2.4.3",
+            "target-dir": "Symfony/Component/EventDispatcher",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/EventDispatcher.git",
+                "reference": "4708b8cd41984a5ba29fe7dd40716f7f761ac501"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/4708b8cd41984a5ba29fe7dd40716f7f761ac501",
+                "reference": "4708b8cd41984a5ba29fe7dd40716f7f761ac501",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "symfony/dependency-injection": "~2.0"
+            },
+            "suggest": {
+                "symfony/dependency-injection": "",
+                "symfony/http-kernel": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\EventDispatcher\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony EventDispatcher Component",
+            "homepage": "http://symfony.com",
+            "time": "2014-02-11 13:52:09"
         },
         {
             "name": "zendframework/zend-developer-tools",
@@ -1059,12 +1369,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/ZendDeveloperTools.git",
-                "reference": "b577e10f92cb449cf70cfa1b6d069ee8acbe7b21"
+                "reference": "763cecf9d68fc0d3765d45847047817a47ecdd4a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendDeveloperTools/zipball/b577e10f92cb449cf70cfa1b6d069ee8acbe7b21",
-                "reference": "b577e10f92cb449cf70cfa1b6d069ee8acbe7b21",
+                "url": "https://api.github.com/repos/zendframework/ZendDeveloperTools/zipball/763cecf9d68fc0d3765d45847047817a47ecdd4a",
+                "reference": "763cecf9d68fc0d3765d45847047817a47ecdd4a",
                 "shasum": ""
             },
             "require": {
@@ -1112,7 +1422,59 @@
                 "module",
                 "zf2"
             ],
-            "time": "2014-02-20 14:58:50"
+            "time": "2014-03-23 05:38:41"
+        },
+        {
+            "name": "zendframework/zenddiagnostics",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zendframework/ZendDiagnostics.git",
+                "reference": "5707316caf6eeceeba79fccf08ad63ac5151e6ab"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zendframework/ZendDiagnostics/zipball/5707316caf6eeceeba79fccf08ad63ac5151e6ab",
+                "reference": "5707316caf6eeceeba79fccf08ad63ac5151e6ab",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "sensiolabs/security-checker": "1.3.*@dev",
+                "symfony/yaml": "v2.3.11",
+                "zendframework/zend-loader": "2.*"
+            },
+            "suggest": {
+                "ext-bcmath": "Required by Check\\CpuPerformance",
+                "sensiolabs/security-checker": "Required by Check\\SecurityAdvisory",
+                "symfony/yaml": "Required by Check\\YamlFile"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "ZendDiagnostics\\": "src/",
+                    "ZendDiagnosticsTest\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "A set of components for performing diagnostic tests in PHP applications",
+            "homepage": "https://github.com/zendframework/ZendDiagnostics",
+            "keywords": [
+                "diagnostics",
+                "php",
+                "test"
+            ],
+            "time": "2014-04-03 07:22:15"
         },
         {
             "name": "zendframework/zftool",
@@ -1120,12 +1482,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/ZFTool.git",
-                "reference": "d73bf6f0ae6ce9b92acc72ecc8f336e2352f3ae0"
+                "reference": "784d29af4e6d967d268ac5e385f49999f85de96a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZFTool/zipball/d73bf6f0ae6ce9b92acc72ecc8f336e2352f3ae0",
-                "reference": "d73bf6f0ae6ce9b92acc72ecc8f336e2352f3ae0",
+                "url": "https://api.github.com/repos/zendframework/ZFTool/zipball/784d29af4e6d967d268ac5e385f49999f85de96a",
+                "reference": "784d29af4e6d967d268ac5e385f49999f85de96a",
                 "shasum": ""
             },
             "require": {
@@ -1135,6 +1497,7 @@
                 "zendframework/zend-console": ">=2.2.2",
                 "zendframework/zend-file": ">=2.2.2",
                 "zendframework/zend-form": ">=2.2.2",
+                "zendframework/zend-http": ">=2.2.2",
                 "zendframework/zend-loader": ">=2.2.2",
                 "zendframework/zend-modulemanager": ">=2.2.2",
                 "zendframework/zend-mvc": ">=2.2.2",
@@ -1143,7 +1506,8 @@
                 "zendframework/zend-stdlib": ">=2.2.2",
                 "zendframework/zend-text": ">=2.2.2",
                 "zendframework/zend-version": ">=2.2.2",
-                "zendframework/zend-view": ">=2.2.2"
+                "zendframework/zend-view": ">=2.2.2",
+                "zendframework/zenddiagnostics": ">=1.0.0"
             },
             "bin": [
                 "zf.php"
@@ -1164,7 +1528,7 @@
                 "tool",
                 "zf2"
             ],
-            "time": "2014-01-02 17:29:50"
+            "time": "2014-03-31 11:52:40"
         },
         {
             "name": "zf-commons/zfc-base",
@@ -1225,12 +1589,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ZF-Commons/ZfcUser.git",
-                "reference": "a876f5765ea39256cb572048b7f6a425cec5ff13"
+                "reference": "8774d3d60d93b5e1c0d537ce6d5633c6f75960d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ZF-Commons/ZfcUser/zipball/a876f5765ea39256cb572048b7f6a425cec5ff13",
-                "reference": "a876f5765ea39256cb572048b7f6a425cec5ff13",
+                "url": "https://api.github.com/repos/ZF-Commons/ZfcUser/zipball/8774d3d60d93b5e1c0d537ce6d5633c6f75960d1",
+                "reference": "8774d3d60d93b5e1c0d537ce6d5633c6f75960d1",
                 "shasum": ""
             },
             "require": {
@@ -1286,7 +1650,7 @@
             "keywords": [
                 "zf2"
             ],
-            "time": "2014-03-07 12:02:08"
+            "time": "2014-04-13 18:39:02"
         }
     ],
     "aliases": [
@@ -1295,10 +1659,11 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "zendframework/zftool": 20,
+        "zendframework/zend-developer-tools": 20,
         "bjyoungblood/bjy-authorize": 20,
         "zf-commons/zfc-user": 20,
         "bjyoungblood/bjyprofiler": 20,
-        "zendframework/zend-developer-tools": 20
+        "guzzle/guzzle": 20
     },
     "platform": {
         "php": ">=5.3.3"

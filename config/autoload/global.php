@@ -50,4 +50,9 @@ return array(
     				),
     		)
     ),
+    /* App custom configurations */
+    'app_configs' => array(
+    		'isMultilanguage' 	=> false,
+    		'api_basic_url' 	=> 'http://www.dominio.com/api/v1/',
+    ),
 );

@@ -1,0 +1,10 @@
+source:
+        - "module/"
+exclude:
+        - "/tests/"
+        - "/DataFixtures/"
+        - "*Test.php"
+destination:
+        "./docs/"
+title: MyProject
+report: "./report/report.xml"

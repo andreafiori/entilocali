@@ -17,4 +17,4 @@ script:
    - phpunit
 
 notifications:
-  email: a.fiori@cheapnet.it
+   email: a.fiori@cheapnet.it
