@@ -40,34 +40,34 @@ return array(
                                                     ),
                                     ),
                                     'main' => array(
-                                        'type'    => 'segment',
-                                        'options' => array(
-                                                        'route'    => '/[:lang][/][:category][/][:title][/]',
-                                                        'constraints' => array(
-                                                                        'lang'     => '[a-z]{2}',
-                                                                        'category' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                                        'title'	   => '[a-zA-Z0-9_-]*',
-                                                        ),
-                                                        'defaults' => array(
-                                                                        'controller' => 'Application\Controller\Index',
-                                                                        'action'     => 'index',
-                                                        ),
-                                        ),
-                                        'may_terminate' => true,
-                                        'child_routes' => array(
-                                                        'default' => array(
-                                                                        'type'    => 'Wildcard',
-                                                                        'options' => array(
-                                                                        ),
-                                                        ),
-                                        ),
+                                                    'type'    => 'segment',
+                                                    'options' => array(
+                                                                    'route'    => '/[:lang][/][:category][/][:title][/]',
+                                                                    'constraints' => array(
+                                                                                    'lang'     => '[a-z]{2}',
+                                                                                    'category' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                                                    'title'	   => '[a-zA-Z0-9_-]*',
+                                                                    ),
+                                                                    'defaults' => array(
+                                                                                    'controller' => 'Application\Controller\Index',
+                                                                                    'action'     => 'index',
+                                                                    ),
+                                                    ),
+                                                    'may_terminate' => true,
+                                                    'child_routes' => array(
+                                                                    'default' => array(
+                                                                                    'type'    => 'Wildcard',
+                                                                                    'options' => array(
+                                                                                    ),
+                                                                    ),
+                                                    ),
                                     ),
                                     'albopretorio' => array(
-                                        'type'    => 'segment',
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
-                                                        'route'    => '/albo-pretorio[/]',
+                                                        'route'    => '/albo-pretorio[/][:slug]',
                                                         'constraints' => array(
-                                                            
+                                                            'slug' => '[a-zA-Z][a-zA-Z0-9_\/-]*'
                                                         ),
                                                         'defaults' => array(
                                                             'controller' => 'Application\Controller\Index',

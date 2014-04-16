@@ -56,7 +56,10 @@
 							<a href="#" title="Home page">Home</a>
 						</li>
 						<li>
-							<a href="<?php echo $this->basePath().'/'.$this->templateData['languageAbbreviation'].'/alboPretorio/'; ?>" title="Albo Pretorio">Albo Pretorio</a>
+							<a href="<?php echo $this->basePath().'/albo-pretorio/'; ?>" title="Albo Pretorio">Albo Pretorio</a>
+						</li>
+                                                <li>
+							<a href="#" title="">Amministrazione trasparente</a>
 						</li>
 						<li>
 							<a href="#" title="">Foto</a>
@@ -132,13 +135,13 @@
 			<div class="row clearfix">
 			
 				<div class="col-md-2 column">
-                                <?php if ($this->postsCategory): ?>
-				<?php foreach($this->postsCategory as $key => $value): ?>
+                                <?php if ($this->preloadResponse): ?>
+				<?php foreach($this->preloadResponse as $key => $value): ?>
 					<div class="list-group">
-						<a href="#" class="list-group-item active"><?php echo $key ?></a>
-							<?php foreach($value as $post): ?>
-							<a href="#" class="list-group-item"><?php echo $post['titolo'] ?></a>
-							<?php endforeach; ?>
+                                            <a href="#" class="list-group-item active"><?php echo $key ?></a>
+                                            <?php foreach($value as $post): ?>
+                                            <a href="<?php echo $this->basepath().$post['linkDetails'] ?>" class="list-group-item"><?php echo $post['titolo'] ?></a>
+                                            <?php endforeach; ?>
 					</div>
 				<?php endforeach; ?>
 				<?php endif; ?>
@@ -179,21 +182,13 @@
 						<li class="list-group-item"><a href="#">Link</a></li>
 					</ul>
 					
-					<div class="list-group">
-						<a href="#" class="list-group-item active">Cras justo odio</a>
-						<a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-						<a href="#" class="list-group-item">Morbi leo risus</a>
-						<a href="#" class="list-group-item">Porta ac consectetur ac</a>
-						<a href="#" class="list-group-item">Vestibulum at eros</a>
-					</div>
-					
 				</div>
 				<div class="col-md-8 column">
 
-					<?php
-					// main contents
-					echo $this->partial($this->templatePartial);
-					?>
+                                <?php
+                                // main contents
+                                echo $this->partial($this->templatePartial);
+                                ?>
 
 				</div>
 				
@@ -277,7 +272,7 @@
 			<div class="row clearfix">
 				<div class="col-md-12 column">
 					<p class="text-muted">
-						&copy; <?php echo date("Y") ?> <a href="<?php echo $this->templateData['workwithus']['credits'] ?>" title="Credits" class="underline footerlink">Credits</a> - <a href="http://validator.w3.org/check?uri=referer" title="Validate HTML" target="_blank" class="underline footerlink">Valid HTML5</a> - <a href="http://jigsaw.w3.org/css-validator/check/referer" title="Validate CSS" target="_blank" class="underline footerlink">Valid CSS</a>
+						&copy; <?php echo date("Y") ?> <a href="#" title="Credits" class="underline footerlink">Credits</a> - <a href="http://validator.w3.org/check?uri=referer" title="Validate HTML" target="_blank" class="underline footerlink">Valid HTML5</a> - <a href="http://jigsaw.w3.org/css-validator/check/referer" title="Validate CSS" target="_blank" class="underline footerlink">Valid CSS</a>
 					</p>
 				</div>
 			</div>
@@ -287,10 +282,8 @@
 
 <!-- JQuery -->
 <script src="<?php echo $this->basePath() ?>/common/jquery/jquery.min.js"></script>
-
 <script src="<?php echo $this->basePath() ?>/common/bootstrap3/js/bootstrap.min.js"></script>
-	
-<script type="text/javascript">
+<script>
 jQuery(document).ready(function() {
 
 });

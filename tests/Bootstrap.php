@@ -9,6 +9,7 @@ chdir(dirname(__DIR__));
 
 // Assume we use composer
 $loader = require_once  './vendor/autoload.php';
+$loader->add("ApiWebServiceTest\\", $cwd);
 $loader->add("ApplicationTest\\", $cwd);
 $loader->register();
 

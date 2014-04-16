@@ -33,7 +33,7 @@ class SetupApiController extends AbstractActionController
         $this->queryBuilder  = $this->entityManager->createQueryBuilder();
 
         /* Set custom configurations */
-        $this->appConfigs 	 = $this->serviceManager->get('config');
+        $this->appConfigs = $this->serviceManager->get('config');
         if ( isset($this->appConfigs['app_configs']) ) {
                 $this->appConfigs = $this->appConfigs['app_configs'];
         }
@@ -42,22 +42,22 @@ class SetupApiController extends AbstractActionController
 
         /* If multi-language, now use model to get language options */
         if ( !empty($this->appConfigs['isMultilanguage']) ) {
-            $languageSetup			= new LanguagesSetup($this->queryBuilder);
-            $languagesLabelsSetup 	= new LanguagesLabelsSetup($this->queryBuilder);
+            $languageSetup = new LanguagesSetup($this->queryBuilder);
+            $languagesLabelsSetup = new LanguagesLabelsSetup($this->queryBuilder);
 
             $languageId = $languageSetup->setLanguageId();
 
             $languageRecord = array(
-                            "availableLanguages" => $languageSetup->setAllAvailableLanguages($channel),
-                            "defaultLanguage"	 => $languageSetup->setDefaultLanguage( $this->params()->fromQuery('languageAbbreviation') ),
-                            "languageId" 		 => $languageId,
-                            "languagesLabels"	 => $languagesLabelsSetup->setLanguagesLabels($languageId),
+                                "availableLanguages" => $languageSetup->setAllAvailableLanguages($channel),
+                                "defaultLanguage"	 => $languageSetup->setDefaultLanguage( $this->params()->fromQuery('languageAbbreviation') ),
+                                "languageId" 		 => $languageId,
+                                "languagesLabels"	 => $languagesLabelsSetup->setLanguagesLabels($languageId),
             );
         } else {
             $languageRecord = array( "languageId" => 1 );
         }
 
-        /* Append configurations */
+        /* Append Configurations */
         $configSetup = new ConfigSetup($this->queryBuilder);
         $configurations = $configSetup->setConfigurations($channel, $languageId);
 
@@ -83,11 +83,11 @@ class SetupApiController extends AbstractActionController
 
 	// Set languages vars
 	if ( isset($config['app_configs']['isMultilanguage']) ) {
-            $configurations['languages']	 = $availableLanguages;
-            $configurations['languageDefault'] 	 = $defaultLanguage;
+            $configurations['languages'] = $availableLanguages;
+            $configurations['languageDefault'] = $defaultLanguage;
             $configurations['languageAbbreviation'] = ''; // from route...
-            $configurations['languageId'] 			= $languageId;
-            $configurations['languageLabels'] 	 	= $languagesLabels;
+            $configurations['languageId'] = $languageId;
+            $configurations['languageLabels'] = $languagesLabels;
 	}
 
 	// Basic layout

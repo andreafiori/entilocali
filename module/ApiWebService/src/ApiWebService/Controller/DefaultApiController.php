@@ -17,8 +17,8 @@ class DefaultApiController extends AbstractActionController
     public function indexAction()
     {
         return new JsonModel(array(
-        	'status' => 200,
-            'data'	 => array('message' => 'This is the main REST API web service'),
+            'status' => 200,
+            'data'   => array('message' => 'Welcome to the main REST API web service'),
         ));
     }
 

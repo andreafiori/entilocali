@@ -24,7 +24,7 @@
 		"zf-commons/zfc-user" : "dev-master",
 		"bjyoungblood/BjyProfiler" : "dev-master",
 		"Mockery/Mockery" : ">=0.7.2",
-		"guzzle/guzzle": "3.8.*@dev",
-                "guzzle/plugin": "3.7.*"
+		"guzzlehttp/guzzle": "4.*",
+		"guzzle/plugin": "3.7.*"
 	}
 }
