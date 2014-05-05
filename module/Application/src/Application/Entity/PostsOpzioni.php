@@ -106,16 +106,6 @@ class PostsOpzioni
     private $seoKeywords;
 
     /**
-     * @var \Application\Entity\Lingue
-     *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\Lingue")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="lingua_id", referencedColumnName="id")
-     * })
-     */
-    private $lingua;
-
-    /**
      * @var \Application\Entity\Posts
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\Posts")
@@ -124,6 +114,16 @@ class PostsOpzioni
      * })
      */
     private $posts;
+
+    /**
+     * @var \Application\Entity\Lingue
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Lingue")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="lingua_id", referencedColumnName="id")
+     * })
+     */
+    private $lingua;
 
 
 
@@ -141,12 +141,13 @@ class PostsOpzioni
      * Set note
      *
      * @param string $note
+     *
      * @return PostsOpzioni
      */
     public function setNote($note)
     {
         $this->note = $note;
-
+    
         return $this;
     }
 
@@ -164,12 +165,13 @@ class PostsOpzioni
      * Set dataDa
      *
      * @param \DateTime $dataDa
+     *
      * @return PostsOpzioni
      */
     public function setDataDa($dataDa)
     {
         $this->dataDa = $dataDa;
-
+    
         return $this;
     }
 
@@ -187,12 +189,13 @@ class PostsOpzioni
      * Set dataA
      *
      * @param \DateTime $dataA
+     *
      * @return PostsOpzioni
      */
     public function setDataA($dataA)
     {
         $this->dataA = $dataA;
-
+    
         return $this;
     }
 
@@ -210,12 +213,13 @@ class PostsOpzioni
      * Set titolo
      *
      * @param string $titolo
+     *
      * @return PostsOpzioni
      */
     public function setTitolo($titolo)
     {
         $this->titolo = $titolo;
-
+    
         return $this;
     }
 
@@ -233,12 +237,13 @@ class PostsOpzioni
      * Set sottotitolo
      *
      * @param string $sottotitolo
+     *
      * @return PostsOpzioni
      */
     public function setSottotitolo($sottotitolo)
     {
         $this->sottotitolo = $sottotitolo;
-
+    
         return $this;
     }
 
@@ -256,12 +261,13 @@ class PostsOpzioni
      * Set descrizione
      *
      * @param string $descrizione
+     *
      * @return PostsOpzioni
      */
     public function setDescrizione($descrizione)
     {
         $this->descrizione = $descrizione;
-
+    
         return $this;
     }
 
@@ -279,12 +285,13 @@ class PostsOpzioni
      * Set stato
      *
      * @param string $stato
+     *
      * @return PostsOpzioni
      */
     public function setStato($stato)
     {
         $this->stato = $stato;
-
+    
         return $this;
     }
 
@@ -302,12 +309,13 @@ class PostsOpzioni
      * Set posizione
      *
      * @param integer $posizione
+     *
      * @return PostsOpzioni
      */
     public function setPosizione($posizione)
     {
         $this->posizione = $posizione;
-
+    
         return $this;
     }
 
@@ -325,12 +333,13 @@ class PostsOpzioni
      * Set seoUrl
      *
      * @param string $seoUrl
+     *
      * @return PostsOpzioni
      */
     public function setSeoUrl($seoUrl)
     {
         $this->seoUrl = $seoUrl;
-
+    
         return $this;
     }
 
@@ -348,12 +357,13 @@ class PostsOpzioni
      * Set seoTitle
      *
      * @param string $seoTitle
+     *
      * @return PostsOpzioni
      */
     public function setSeoTitle($seoTitle)
     {
         $this->seoTitle = $seoTitle;
-
+    
         return $this;
     }
 
@@ -371,12 +381,13 @@ class PostsOpzioni
      * Set seoDescription
      *
      * @param string $seoDescription
+     *
      * @return PostsOpzioni
      */
     public function setSeoDescription($seoDescription)
     {
         $this->seoDescription = $seoDescription;
-
+    
         return $this;
     }
 
@@ -394,12 +405,13 @@ class PostsOpzioni
      * Set seoKeywords
      *
      * @param string $seoKeywords
+     *
      * @return PostsOpzioni
      */
     public function setSeoKeywords($seoKeywords)
     {
         $this->seoKeywords = $seoKeywords;
-
+    
         return $this;
     }
 
@@ -414,38 +426,16 @@ class PostsOpzioni
     }
 
     /**
-     * Set lingua
-     *
-     * @param \Application\Entity\Lingue $lingua
-     * @return PostsOpzioni
-     */
-    public function setLingua(\Application\Entity\Lingue $lingua = null)
-    {
-        $this->lingua = $lingua;
-
-        return $this;
-    }
-
-    /**
-     * Get lingua
-     *
-     * @return \Application\Entity\Lingue 
-     */
-    public function getLingua()
-    {
-        return $this->lingua;
-    }
-
-    /**
      * Set posts
      *
      * @param \Application\Entity\Posts $posts
+     *
      * @return PostsOpzioni
      */
     public function setPosts(\Application\Entity\Posts $posts = null)
     {
         $this->posts = $posts;
-
+    
         return $this;
     }
 
@@ -457,5 +447,29 @@ class PostsOpzioni
     public function getPosts()
     {
         return $this->posts;
+    }
+
+    /**
+     * Set lingua
+     *
+     * @param \Application\Entity\Lingue $lingua
+     *
+     * @return PostsOpzioni
+     */
+    public function setLingua(\Application\Entity\Lingue $lingua = null)
+    {
+        $this->lingua = $lingua;
+    
+        return $this;
+    }
+
+    /**
+     * Get lingua
+     *
+     * @return \Application\Entity\Lingue 
+     */
+    public function getLingua()
+    {
+        return $this->lingua;
     }
 }

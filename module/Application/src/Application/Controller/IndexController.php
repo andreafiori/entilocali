@@ -4,7 +4,6 @@ namespace Application\Controller;
 
 use Zend\View\Model\ViewModel;
 use Zend\Mvc\Controller\AbstractActionController;
-use GuzzleHttp\Client;
 
 /**
  * Frontend Main Controller
@@ -16,63 +15,103 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        $services       = $this->getServiceLocator()->get('servicemanager');
-        $config         = $services->get('config');
-        $router         = $services->get('router');
-        $routeRequest   = $services->get('request');
-        $routeMatch     = $router->match($routeRequest);
-        // $routeMatchName = $routeMatch->getMatchedRouteName();
+        $commonSetupPlugin  = $this->CommonSetupPlugin();
+        $configurations     = $commonSetupPlugin->recoverConfigurationsRecord();
         
-        $client         = new Client();
-        $setupRequest   = $client->createRequest('GET', $config['app_configs']['api_basic_url'].'setup');
-        $setupResponse  = $client->send($setupRequest)->json();
-        
-        $configurations = $setupResponse['data']['config'];
-	foreach($configurations as $key => $value) {
+        switch($configurations['routeMatchName'])
+        {
+           default:
+                if ( trim($this->params()->fromRoute('category')) or trim($this->params()->fromRoute('title')) ) {
+                    
+                    $serviceLocator = $this->getServiceLocator();
+                    $queryBuilder = $serviceLocator->get('Doctrine\ORM\EntityManager');
+ 
+                    $input = array(
+                        'titolo'         => $this->params()->fromRoute('title'),
+                        'nome_categoria' => $this->params()->fromRoute('category')
+                    );
+                    
+                    $postsGetterWrapper = new \Application\Model\Posts\PostsGetterWrapper( new \Application\Model\Posts\PostsGetter($queryBuilder) );
+                    $postsGetterWrapper->setInput($input);
+                    $mainControllerResponse = $postsGetterWrapper->getRecords();
+                    
+                    if ( isset($mainControllerResponse['template']) ) {
+                        $templatePartial = $mainControllerResponse['template'];
+                    }
+                    
+                    $templatePartial = 'content/details.phtml'; // this is a trial, DELETE THIS!!!
+                }
+
+                if ( !isset($templatePartial) ) {
+                   $templatePartial = 'homepage.phtml';
+                }
+            break;
+
+            case("albo-pretorio"):
+                $templatePartial = 'albo-pretorio/index.phtml';
+            break;
+
+            case("foto"):
+                $mainControllerResponse = json_encode( array() );
+                $templatePartial = 'foto/index.phtml';
+            break;
+
+            case("amministrazione-aperta"):
+                $templatePartial = 'amministrazione-aperta/index.phtml';
+            break;
+
+            case("amministrazione-trasparente"):
+                $templatePartial = 'amministrazione-trasparente/index.phtml';
+            break;
+
+            case("stato-civile"):
+                $templatePartial = 'stato-civile/index.phtml';
+            break;
+       
+            case("contatti"):
+                $form    = new \Application\Form\ContactForm();
+                $request = $this->getRequest();
+
+                if ( $request->isPost() ) {
+                    
+                    $form->setInputFilter( new \Application\Form\ContactFormValidator() );
+                    $request = $this->getRequest();
+
+                    if ($request->isPost()) {
+                        $form->setData($request->getPost());
+                        if ($form->isValid()) {
+                           
+                        } else {
+                            foreach ($form->getInputFilter()->getInvalidInput() as $invalidInput) {
+                                //echo $invalidInput->getName() . ': ' . 
+                                //implode(',',$invalidInput->getMessages()) . '<br/>';
+                            }
+                        }
+                    }
+                }
+
+                $this->layout()->setVariable('form', $form);
+                $templatePartial = 'contatti/index.phtml';
+            break;
+            
+            case("form-response"):
+                $templatePartial = 'stato-civile/index.phtml';
+            break;
+        }
+
+        foreach($configurations as $key => $value) {
             $this->layout()->setVariable($key, $value);
-	}
-        
-        /* Preloader */
-        $preloadRequest  = $client->createRequest('GET', $config['app_configs']['api_basic_url'].'posts');
-        $preloadCategories = $client->send($preloadRequest)->json();
-        $preloadResponse = array();
-        foreach($preloadCategories['data'] as $preload) {
-            $preloadResponse[$preload['nomeCategoria']][] = $preload;
         }
         
-        /* Main data */
-        if ( !empty($this->params()->fromRoute('category')) or !empty($this->params()->fromRoute('title')) ) {
-            $query = array( 'query' => array( "title" => $this->params()->fromRoute('title'), "category" => $this->params()->fromRoute('category')) );
-            $mainControllerRequest  = $client->get($config['app_configs']['api_basic_url'].'posts', $query);
-            $mainControllerResponse = $mainControllerRequest->json();
-            $templatePartial = $mainControllerResponse['template'];
-        }
-
-        if ( isset($mainControllerResponse['data']) ) {
-            $this->layout()->setVariable('maindata', $mainControllerResponse['data']);
+        if ( isset($mainControllerResponse) ) {
+            $this->layout()->setVariable('maindata', $mainControllerResponse);
         }
         
-        $this->layout()->setVariable('preloadResponse', $preloadResponse);
-        $this->layout()->setVariable('templatePartial', $this->templateExists($templatePartial) ? $configurations['template_path'].$templatePartial : $configurations['template_path'].'homepage.phtml');
+        $this->layout()->setVariable('preloadResponse', $configurations['preloadResponse']);
+        $this->layout()->setVariable('templatePartial', $configurations['template_path'].$templatePartial);
         $this->layout($configurations['basiclayout']);
-
+        
         return new ViewModel();
     }
     
-        /**
-         * @param string $template
-         */
-        private function templateExists($template)
-        {
-            $resolver = $this->getEvent()
-                            ->getApplication()
-                            ->getServiceManager()
-                            ->get('Zend\View\Resolver\TemplatePathStack');
-
-            if (false === $resolver->resolve($template) or !$template) {
-                return false;
-            }
-            
-            return true;
-        }
 }

@@ -93,12 +93,13 @@ class Config
      * Set nome
      *
      * @param string $nome
+     *
      * @return Config
      */
     public function setNome($nome)
     {
         $this->nome = $nome;
-
+    
         return $this;
     }
 
@@ -116,12 +117,13 @@ class Config
      * Set valore
      *
      * @param string $valore
+     *
      * @return Config
      */
     public function setValore($valore)
     {
         $this->valore = $valore;
-
+    
         return $this;
     }
 
@@ -139,12 +141,13 @@ class Config
      * Set note
      *
      * @param string $note
+     *
      * @return Config
      */
     public function setNote($note)
     {
         $this->note = $note;
-
+    
         return $this;
     }
 
@@ -162,12 +165,13 @@ class Config
      * Set isbackend
      *
      * @param integer $isbackend
+     *
      * @return Config
      */
     public function setIsbackend($isbackend)
     {
         $this->isbackend = $isbackend;
-
+    
         return $this;
     }
 
@@ -185,12 +189,13 @@ class Config
      * Set isalwaysallowed
      *
      * @param integer $isalwaysallowed
+     *
      * @return Config
      */
     public function setIsalwaysallowed($isalwaysallowed)
     {
         $this->isalwaysallowed = $isalwaysallowed;
-
+    
         return $this;
     }
 
@@ -208,12 +213,13 @@ class Config
      * Set moduloId
      *
      * @param integer $moduloId
+     *
      * @return Config
      */
     public function setModuloId($moduloId)
     {
         $this->moduloId = $moduloId;
-
+    
         return $this;
     }
 
@@ -231,12 +237,13 @@ class Config
      * Set canaleId
      *
      * @param integer $canaleId
+     *
      * @return Config
      */
     public function setCanaleId($canaleId)
     {
         $this->canaleId = $canaleId;
-
+    
         return $this;
     }
 
@@ -254,12 +261,13 @@ class Config
      * Set linguaId
      *
      * @param integer $linguaId
+     *
      * @return Config
      */
     public function setLinguaId($linguaId)
     {
         $this->linguaId = $linguaId;
-
+    
         return $this;
     }
 

@@ -4,8 +4,8 @@ namespace ApiWebService\Controller;
 
 use Zend\View\Model\JsonModel;
 use Zend\Mvc\Controller\AbstractActionController;
-use ServiceLocatorFactory\ServiceLocatorFactory;
-use Doctrine\ORM\Tools\Pagination\Paginator;
+use Application\Model\Posts\PostsGetter;
+use Application\Model\Posts\PostsGetterWrapper;
 
 /**
  * Posts API Controller
@@ -17,41 +17,43 @@ class PostsApiController extends AbstractActionController
 {
     /**
      * TODO:
-     *      pagination for big lists
-     *      XML format
-     *      Remove queries from the controller
+     *      pagination
+     *      XML format \ strategy
      *      Append attachments records
-     *      Centralize code on models and test it!
-     * 
-     * @return \Zend\View\Model\JsonModel posts list
      */
     public function indexAction()
     {
-        $postsGetter = new \ApiWebService\Model\PostsGetter( ServiceLocatorFactory::getInstance()->get('\Doctrine\ORM\EntityManager') );
-        $postsGetter->setMainQuery();
-        $postsGetter->setChannelId( $this->params()->fromQuery('channel') );
-        $postsGetter->setLanguageId( $this->params()->fromQuery('language') );
-        $postsGetter->setId( $this->params()->fromQuery('id') );
-        $postsGetter->setNomeCategoria( $this->params()->fromQuery('category') );
-        $postsGetter->setTitolo( $this->params()->fromQuery('title') );
-        $postsGetter->setTipo( $this->params()->fromQuery('tipo') );
-        // TODO: get sorted posts with $this->params()->fromQuery('sort');
-        $posts = $postsGetter->getQueryResult();
+        $input = array(
+            "channel"           => $this->params()->fromQuery('channel'),
+            "language"          => $this->params()->fromQuery('language'),
+            "id"                => $this->params()->fromQuery('id'),
+            "nome_categoria"    => $this->params()->fromQuery('nome_categoria'),
+            "titolo"            => $this->params()->fromQuery('titolo'),
+            "tipo"              => $this->params()->fromQuery('tipo'),
+            "formato"           => $this->params()->fromQuery('formato'),
+        );
+        $doctrineEntityManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+        
+        $postsGetterWrapper = new PostsGetterWrapper( new PostsGetter($doctrineEntityManager) );
+        $postsGetterWrapper->setInput($input);
+        $posts = $postsGetterWrapper->getRecords();
         
         if (!$posts) {
-            // TODO: set error xxx, records not found. In this case, guzzle must catch the error
+            // TODO: set error , not found
+            exit;
         }
         
-        if ($this->params()->fromQuery('format') === 'xml') {
-            // TODO: XML strategy to generalize
+        if ($this->params()->fromQuery('formato') === 'xml') {
+            
         } else {
             return new JsonModel(
                     array(
                         "status" => 200,
                         "data" => $posts,
-                        "template" => ''
+                        "template" => $posts[0]['template']
                     )
-            );           
+            );
         }
     }
+           
 }

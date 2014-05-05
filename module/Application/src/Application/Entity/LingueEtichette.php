@@ -71,14 +71,11 @@ class LingueEtichette
     private $moduloId = '0';
 
     /**
-     * @var \Application\Entity\Lingue
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\Lingue")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="lingua_id", referencedColumnName="id")
-     * })
+     * @ORM\Column(name="lingua_id", type="bigint", nullable=true)
      */
-    private $lingua;
+    private $linguaId = '1';
 
 
 
@@ -96,12 +93,13 @@ class LingueEtichette
      * Set nome
      *
      * @param string $nome
+     *
      * @return LingueEtichette
      */
     public function setNome($nome)
     {
         $this->nome = $nome;
-
+    
         return $this;
     }
 
@@ -119,12 +117,13 @@ class LingueEtichette
      * Set valore
      *
      * @param string $valore
+     *
      * @return LingueEtichette
      */
     public function setValore($valore)
     {
         $this->valore = $valore;
-
+    
         return $this;
     }
 
@@ -142,12 +141,13 @@ class LingueEtichette
      * Set descrizione
      *
      * @param string $descrizione
+     *
      * @return LingueEtichette
      */
     public function setDescrizione($descrizione)
     {
         $this->descrizione = $descrizione;
-
+    
         return $this;
     }
 
@@ -165,12 +165,13 @@ class LingueEtichette
      * Set isbackend
      *
      * @param integer $isbackend
+     *
      * @return LingueEtichette
      */
     public function setIsbackend($isbackend)
     {
         $this->isbackend = $isbackend;
-
+    
         return $this;
     }
 
@@ -188,12 +189,13 @@ class LingueEtichette
      * Set isuniversal
      *
      * @param integer $isuniversal
+     *
      * @return LingueEtichette
      */
     public function setIsuniversal($isuniversal)
     {
         $this->isuniversal = $isuniversal;
-
+    
         return $this;
     }
 
@@ -211,12 +213,13 @@ class LingueEtichette
      * Set status
      *
      * @param string $status
+     *
      * @return LingueEtichette
      */
     public function setStatus($status)
     {
         $this->status = $status;
-
+    
         return $this;
     }
 
@@ -234,12 +237,13 @@ class LingueEtichette
      * Set moduloId
      *
      * @param integer $moduloId
+     *
      * @return LingueEtichette
      */
     public function setModuloId($moduloId)
     {
         $this->moduloId = $moduloId;
-
+    
         return $this;
     }
 
@@ -254,25 +258,26 @@ class LingueEtichette
     }
 
     /**
-     * Set lingua
+     * Set linguaId
      *
-     * @param \Application\Entity\Lingue $lingua
+     * @param integer $linguaId
+     *
      * @return LingueEtichette
      */
-    public function setLingua(\Application\Entity\Lingue $lingua = null)
+    public function setLinguaId($linguaId)
     {
-        $this->lingua = $lingua;
-
+        $this->linguaId = $linguaId;
+    
         return $this;
     }
 
     /**
-     * Get lingua
+     * Get linguaId
      *
-     * @return \Application\Entity\Lingue 
+     * @return integer 
      */
-    public function getLingua()
+    public function getLinguaId()
     {
-        return $this->lingua;
+        return $this->linguaId;
     }
 }

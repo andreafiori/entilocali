@@ -121,12 +121,13 @@ class GeoComuni
      * Set codRegione
      *
      * @param string $codRegione
+     *
      * @return GeoComuni
      */
     public function setCodRegione($codRegione)
     {
         $this->codRegione = $codRegione;
-
+    
         return $this;
     }
 
@@ -144,12 +145,13 @@ class GeoComuni
      * Set codProvincia
      *
      * @param string $codProvincia
+     *
      * @return GeoComuni
      */
     public function setCodProvincia($codProvincia)
     {
         $this->codProvincia = $codProvincia;
-
+    
         return $this;
     }
 
@@ -167,12 +169,13 @@ class GeoComuni
      * Set codComune
      *
      * @param string $codComune
+     *
      * @return GeoComuni
      */
     public function setCodComune($codComune)
     {
         $this->codComune = $codComune;
-
+    
         return $this;
     }
 
@@ -190,12 +193,13 @@ class GeoComuni
      * Set nomeComune
      *
      * @param string $nomeComune
+     *
      * @return GeoComuni
      */
     public function setNomeComune($nomeComune)
     {
         $this->nomeComune = $nomeComune;
-
+    
         return $this;
     }
 
@@ -213,12 +217,13 @@ class GeoComuni
      * Set codiceIstat
      *
      * @param string $codiceIstat
+     *
      * @return GeoComuni
      */
     public function setCodiceIstat($codiceIstat)
     {
         $this->codiceIstat = $codiceIstat;
-
+    
         return $this;
     }
 
@@ -236,12 +241,13 @@ class GeoComuni
      * Set capPrincipale
      *
      * @param string $capPrincipale
+     *
      * @return GeoComuni
      */
     public function setCapPrincipale($capPrincipale)
     {
         $this->capPrincipale = $capPrincipale;
-
+    
         return $this;
     }
 
@@ -259,12 +265,13 @@ class GeoComuni
      * Set capInizio
      *
      * @param string $capInizio
+     *
      * @return GeoComuni
      */
     public function setCapInizio($capInizio)
     {
         $this->capInizio = $capInizio;
-
+    
         return $this;
     }
 
@@ -282,12 +289,13 @@ class GeoComuni
      * Set capFine
      *
      * @param string $capFine
+     *
      * @return GeoComuni
      */
     public function setCapFine($capFine)
     {
         $this->capFine = $capFine;
-
+    
         return $this;
     }
 
@@ -305,12 +313,13 @@ class GeoComuni
      * Set prefisso
      *
      * @param string $prefisso
+     *
      * @return GeoComuni
      */
     public function setPrefisso($prefisso)
     {
         $this->prefisso = $prefisso;
-
+    
         return $this;
     }
 
@@ -328,12 +337,13 @@ class GeoComuni
      * Set sitoWeb
      *
      * @param string $sitoWeb
+     *
      * @return GeoComuni
      */
     public function setSitoWeb($sitoWeb)
     {
         $this->sitoWeb = $sitoWeb;
-
+    
         return $this;
     }
 
@@ -351,12 +361,13 @@ class GeoComuni
      * Set latitudine
      *
      * @param string $latitudine
+     *
      * @return GeoComuni
      */
     public function setLatitudine($latitudine)
     {
         $this->latitudine = $latitudine;
-
+    
         return $this;
     }
 
@@ -374,12 +385,13 @@ class GeoComuni
      * Set longitudine
      *
      * @param string $longitudine
+     *
      * @return GeoComuni
      */
     public function setLongitudine($longitudine)
     {
         $this->longitudine = $longitudine;
-
+    
         return $this;
     }
 

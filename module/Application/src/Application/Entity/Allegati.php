@@ -79,12 +79,13 @@ class Allegati
      * Set nomeFile
      *
      * @param string $nomeFile
+     *
      * @return Allegati
      */
     public function setNomeFile($nomeFile)
     {
         $this->nomeFile = $nomeFile;
-
+    
         return $this;
     }
 
@@ -102,12 +103,13 @@ class Allegati
      * Set tipoFile
      *
      * @param string $tipoFile
+     *
      * @return Allegati
      */
     public function setTipoFile($tipoFile)
     {
         $this->tipoFile = $tipoFile;
-
+    
         return $this;
     }
 
@@ -125,12 +127,13 @@ class Allegati
      * Set dimensioneFile
      *
      * @param string $dimensioneFile
+     *
      * @return Allegati
      */
     public function setDimensioneFile($dimensioneFile)
     {
         $this->dimensioneFile = $dimensioneFile;
-
+    
         return $this;
     }
 
@@ -148,12 +151,13 @@ class Allegati
      * Set stato
      *
      * @param string $stato
+     *
      * @return Allegati
      */
     public function setStato($stato)
     {
         $this->stato = $stato;
-
+    
         return $this;
     }
 
@@ -171,12 +175,13 @@ class Allegati
      * Set dataInserimento
      *
      * @param \DateTime $dataInserimento
+     *
      * @return Allegati
      */
     public function setDataInserimento($dataInserimento)
     {
         $this->dataInserimento = $dataInserimento;
-
+    
         return $this;
     }
 
@@ -194,12 +199,13 @@ class Allegati
      * Set dataUltimoAggiornamento
      *
      * @param \DateTime $dataUltimoAggiornamento
+     *
      * @return Allegati
      */
     public function setDataUltimoAggiornamento($dataUltimoAggiornamento)
     {
         $this->dataUltimoAggiornamento = $dataUltimoAggiornamento;
-
+    
         return $this;
     }
 

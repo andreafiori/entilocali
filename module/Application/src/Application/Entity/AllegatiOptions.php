@@ -61,12 +61,13 @@ class AllegatiOptions
      * Set titolo
      *
      * @param string $titolo
+     *
      * @return AllegatiOptions
      */
     public function setTitolo($titolo)
     {
         $this->titolo = $titolo;
-
+    
         return $this;
     }
 
@@ -84,12 +85,13 @@ class AllegatiOptions
      * Set descrizione
      *
      * @param string $descrizione
+     *
      * @return AllegatiOptions
      */
     public function setDescrizione($descrizione)
     {
         $this->descrizione = $descrizione;
-
+    
         return $this;
     }
 
@@ -107,12 +109,13 @@ class AllegatiOptions
      * Set allegato
      *
      * @param \Application\Entity\Allegati $allegato
+     *
      * @return AllegatiOptions
      */
     public function setAllegato(\Application\Entity\Allegati $allegato = null)
     {
         $this->allegato = $allegato;
-
+    
         return $this;
     }
 

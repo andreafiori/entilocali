@@ -61,12 +61,13 @@ class GeoComuniCap
      * Set capcode
      *
      * @param string $capcode
+     *
      * @return GeoComuniCap
      */
     public function setCapcode($capcode)
     {
         $this->capcode = $capcode;
-
+    
         return $this;
     }
 
@@ -84,12 +85,13 @@ class GeoComuniCap
      * Set nome
      *
      * @param string $nome
+     *
      * @return GeoComuniCap
      */
     public function setNome($nome)
     {
         $this->nome = $nome;
-
+    
         return $this;
     }
 
@@ -107,12 +109,13 @@ class GeoComuniCap
      * Set comune
      *
      * @param \Application\Entity\GeoComuni $comune
+     *
      * @return GeoComuniCap
      */
     public function setComune(\Application\Entity\GeoComuni $comune = null)
     {
         $this->comune = $comune;
-
+    
         return $this;
     }
 

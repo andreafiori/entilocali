@@ -233,12 +233,13 @@ class Utenti
      * Set immagine
      *
      * @param string $immagine
+     *
      * @return Utenti
      */
     public function setImmagine($immagine)
     {
         $this->immagine = $immagine;
-
+    
         return $this;
     }
 
@@ -256,12 +257,13 @@ class Utenti
      * Set nome
      *
      * @param string $nome
+     *
      * @return Utenti
      */
     public function setNome($nome)
     {
         $this->nome = $nome;
-
+    
         return $this;
     }
 
@@ -279,12 +281,13 @@ class Utenti
      * Set cognome
      *
      * @param string $cognome
+     *
      * @return Utenti
      */
     public function setCognome($cognome)
     {
         $this->cognome = $cognome;
-
+    
         return $this;
     }
 
@@ -302,12 +305,13 @@ class Utenti
      * Set indirizzo
      *
      * @param string $indirizzo
+     *
      * @return Utenti
      */
     public function setIndirizzo($indirizzo)
     {
         $this->indirizzo = $indirizzo;
-
+    
         return $this;
     }
 
@@ -325,12 +329,13 @@ class Utenti
      * Set cap
      *
      * @param string $cap
+     *
      * @return Utenti
      */
     public function setCap($cap)
     {
         $this->cap = $cap;
-
+    
         return $this;
     }
 
@@ -348,12 +353,13 @@ class Utenti
      * Set citta
      *
      * @param string $citta
+     *
      * @return Utenti
      */
     public function setCitta($citta)
     {
         $this->citta = $citta;
-
+    
         return $this;
     }
 
@@ -371,12 +377,13 @@ class Utenti
      * Set provincia
      *
      * @param integer $provincia
+     *
      * @return Utenti
      */
     public function setProvincia($provincia)
     {
         $this->provincia = $provincia;
-
+    
         return $this;
     }
 
@@ -394,12 +401,13 @@ class Utenti
      * Set dataNascita
      *
      * @param \DateTime $dataNascita
+     *
      * @return Utenti
      */
     public function setDataNascita($dataNascita)
     {
         $this->dataNascita = $dataNascita;
-
+    
         return $this;
     }
 
@@ -417,12 +425,13 @@ class Utenti
      * Set luogoNascita
      *
      * @param string $luogoNascita
+     *
      * @return Utenti
      */
     public function setLuogoNascita($luogoNascita)
     {
         $this->luogoNascita = $luogoNascita;
-
+    
         return $this;
     }
 
@@ -440,12 +449,13 @@ class Utenti
      * Set nazione
      *
      * @param integer $nazione
+     *
      * @return Utenti
      */
     public function setNazione($nazione)
     {
         $this->nazione = $nazione;
-
+    
         return $this;
     }
 
@@ -463,12 +473,13 @@ class Utenti
      * Set sesso
      *
      * @param string $sesso
+     *
      * @return Utenti
      */
     public function setSesso($sesso)
     {
         $this->sesso = $sesso;
-
+    
         return $this;
     }
 
@@ -486,12 +497,13 @@ class Utenti
      * Set professione
      *
      * @param string $professione
+     *
      * @return Utenti
      */
     public function setProfessione($professione)
     {
         $this->professione = $professione;
-
+    
         return $this;
     }
 
@@ -509,12 +521,13 @@ class Utenti
      * Set email
      *
      * @param string $email
+     *
      * @return Utenti
      */
     public function setEmail($email)
     {
         $this->email = $email;
-
+    
         return $this;
     }
 
@@ -532,12 +545,13 @@ class Utenti
      * Set telefono
      *
      * @param string $telefono
+     *
      * @return Utenti
      */
     public function setTelefono($telefono)
     {
         $this->telefono = $telefono;
-
+    
         return $this;
     }
 
@@ -555,12 +569,13 @@ class Utenti
      * Set cellulare
      *
      * @param string $cellulare
+     *
      * @return Utenti
      */
     public function setCellulare($cellulare)
     {
         $this->cellulare = $cellulare;
-
+    
         return $this;
     }
 
@@ -578,12 +593,13 @@ class Utenti
      * Set fax
      *
      * @param string $fax
+     *
      * @return Utenti
      */
     public function setFax($fax)
     {
         $this->fax = $fax;
-
+    
         return $this;
     }
 
@@ -601,12 +617,13 @@ class Utenti
      * Set sitoWeb
      *
      * @param string $sitoWeb
+     *
      * @return Utenti
      */
     public function setSitoWeb($sitoWeb)
     {
         $this->sitoWeb = $sitoWeb;
-
+    
         return $this;
     }
 
@@ -624,12 +641,13 @@ class Utenti
      * Set codiceFiscale
      *
      * @param string $codiceFiscale
+     *
      * @return Utenti
      */
     public function setCodiceFiscale($codiceFiscale)
     {
         $this->codiceFiscale = $codiceFiscale;
-
+    
         return $this;
     }
 
@@ -647,12 +665,13 @@ class Utenti
      * Set partitaIva
      *
      * @param string $partitaIva
+     *
      * @return Utenti
      */
     public function setPartitaIva($partitaIva)
     {
         $this->partitaIva = $partitaIva;
-
+    
         return $this;
     }
 
@@ -670,12 +689,13 @@ class Utenti
      * Set newsletter
      *
      * @param string $newsletter
+     *
      * @return Utenti
      */
     public function setNewsletter($newsletter)
     {
         $this->newsletter = $newsletter;
-
+    
         return $this;
     }
 
@@ -693,12 +713,13 @@ class Utenti
      * Set newsletterFormato
      *
      * @param string $newsletterFormato
+     *
      * @return Utenti
      */
     public function setNewsletterFormato($newsletterFormato)
     {
         $this->newsletterFormato = $newsletterFormato;
-
+    
         return $this;
     }
 
@@ -716,12 +737,13 @@ class Utenti
      * Set nomeUtente
      *
      * @param string $nomeUtente
+     *
      * @return Utenti
      */
     public function setNomeUtente($nomeUtente)
     {
         $this->nomeUtente = $nomeUtente;
-
+    
         return $this;
     }
 
@@ -739,12 +761,13 @@ class Utenti
      * Set password
      *
      * @param string $password
+     *
      * @return Utenti
      */
     public function setPassword($password)
     {
         $this->password = $password;
-
+    
         return $this;
     }
 
@@ -762,12 +785,13 @@ class Utenti
      * Set stato
      *
      * @param string $stato
+     *
      * @return Utenti
      */
     public function setStato($stato)
     {
         $this->stato = $stato;
-
+    
         return $this;
     }
 
@@ -785,12 +809,13 @@ class Utenti
      * Set dataCreazione
      *
      * @param \DateTime $dataCreazione
+     *
      * @return Utenti
      */
     public function setDataCreazione($dataCreazione)
     {
         $this->dataCreazione = $dataCreazione;
-
+    
         return $this;
     }
 
@@ -808,12 +833,13 @@ class Utenti
      * Set dataUltimoAggiornamento
      *
      * @param \DateTime $dataUltimoAggiornamento
+     *
      * @return Utenti
      */
     public function setDataUltimoAggiornamento($dataUltimoAggiornamento)
     {
         $this->dataUltimoAggiornamento = $dataUltimoAggiornamento;
-
+    
         return $this;
     }
 
@@ -831,12 +857,13 @@ class Utenti
      * Set codiceConferma
      *
      * @param string $codiceConferma
+     *
      * @return Utenti
      */
     public function setCodiceConferma($codiceConferma)
     {
         $this->codiceConferma = $codiceConferma;
-
+    
         return $this;
     }
 
@@ -854,12 +881,13 @@ class Utenti
      * Set ruoloId
      *
      * @param integer $ruoloId
+     *
      * @return Utenti
      */
     public function setRuoloId($ruoloId)
     {
         $this->ruoloId = $ruoloId;
-
+    
         return $this;
     }
 

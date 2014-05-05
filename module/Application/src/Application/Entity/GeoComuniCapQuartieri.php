@@ -57,12 +57,13 @@ class GeoComuniCapQuartieri
      * Set capQuartiere
      *
      * @param \Application\Entity\GeoComuniCap $capQuartiere
+     *
      * @return GeoComuniCapQuartieri
      */
     public function setCapQuartiere(\Application\Entity\GeoComuniCap $capQuartiere = null)
     {
         $this->capQuartiere = $capQuartiere;
-
+    
         return $this;
     }
 
@@ -80,12 +81,13 @@ class GeoComuniCapQuartieri
      * Set quartiere
      *
      * @param \Application\Entity\GeoComuniQuartieri $quartiere
+     *
      * @return GeoComuniCapQuartieri
      */
     public function setQuartiere(\Application\Entity\GeoComuniQuartieri $quartiere = null)
     {
         $this->quartiere = $quartiere;
-
+    
         return $this;
     }
 

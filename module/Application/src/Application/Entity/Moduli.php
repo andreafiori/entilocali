@@ -107,12 +107,13 @@ class Moduli
      * Set nomemod
      *
      * @param string $nomemod
+     *
      * @return Moduli
      */
     public function setNomemod($nomemod)
     {
         $this->nomemod = $nomemod;
-
+    
         return $this;
     }
 
@@ -130,12 +131,13 @@ class Moduli
      * Set homeLabel
      *
      * @param string $homeLabel
+     *
      * @return Moduli
      */
     public function setHomeLabel($homeLabel)
     {
         $this->homeLabel = $homeLabel;
-
+    
         return $this;
     }
 
@@ -153,12 +155,13 @@ class Moduli
      * Set homeCategory
      *
      * @param string $homeCategory
+     *
      * @return Moduli
      */
     public function setHomeCategory($homeCategory)
     {
         $this->homeCategory = $homeCategory;
-
+    
         return $this;
     }
 
@@ -176,12 +179,13 @@ class Moduli
      * Set homeCss
      *
      * @param string $homeCss
+     *
      * @return Moduli
      */
     public function setHomeCss($homeCss)
     {
         $this->homeCss = $homeCss;
-
+    
         return $this;
     }
 
@@ -199,12 +203,13 @@ class Moduli
      * Set status
      *
      * @param string $status
+     *
      * @return Moduli
      */
     public function setStatus($status)
     {
         $this->status = $status;
-
+    
         return $this;
     }
 
@@ -222,12 +227,13 @@ class Moduli
      * Set widthtable
      *
      * @param string $widthtable
+     *
      * @return Moduli
      */
     public function setWidthtable($widthtable)
     {
         $this->widthtable = $widthtable;
-
+    
         return $this;
     }
 
@@ -245,12 +251,13 @@ class Moduli
      * Set highlited
      *
      * @param integer $highlited
+     *
      * @return Moduli
      */
     public function setHighlited($highlited)
     {
         $this->highlited = $highlited;
-
+    
         return $this;
     }
 
@@ -268,12 +275,13 @@ class Moduli
      * Set position
      *
      * @param integer $position
+     *
      * @return Moduli
      */
     public function setPosition($position)
     {
         $this->position = $position;
-
+    
         return $this;
     }
 
@@ -291,12 +299,13 @@ class Moduli
      * Set isnews
      *
      * @param string $isnews
+     *
      * @return Moduli
      */
     public function setIsnews($isnews)
     {
         $this->isnews = $isnews;
-
+    
         return $this;
     }
 
@@ -314,12 +323,13 @@ class Moduli
      * Set channelId
      *
      * @param integer $channelId
+     *
      * @return Moduli
      */
     public function setChannelId($channelId)
     {
         $this->channelId = $channelId;
-
+    
         return $this;
     }
 

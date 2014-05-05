@@ -100,12 +100,13 @@ class FaqDomande
      * Set question
      *
      * @param string $question
+     *
      * @return FaqDomande
      */
     public function setQuestion($question)
     {
         $this->question = $question;
-
+    
         return $this;
     }
 
@@ -123,12 +124,13 @@ class FaqDomande
      * Set position
      *
      * @param integer $position
+     *
      * @return FaqDomande
      */
     public function setPosition($position)
     {
         $this->position = $position;
-
+    
         return $this;
     }
 
@@ -146,12 +148,13 @@ class FaqDomande
      * Set status
      *
      * @param string $status
+     *
      * @return FaqDomande
      */
     public function setStatus($status)
     {
         $this->status = $status;
-
+    
         return $this;
     }
 
@@ -169,12 +172,13 @@ class FaqDomande
      * Set rate
      *
      * @param integer $rate
+     *
      * @return FaqDomande
      */
     public function setRate($rate)
     {
         $this->rate = $rate;
-
+    
         return $this;
     }
 
@@ -192,12 +196,13 @@ class FaqDomande
      * Set insertdate
      *
      * @param \DateTime $insertdate
+     *
      * @return FaqDomande
      */
     public function setInsertdate($insertdate)
     {
         $this->insertdate = $insertdate;
-
+    
         return $this;
     }
 
@@ -215,12 +220,13 @@ class FaqDomande
      * Set lastupdate
      *
      * @param \DateTime $lastupdate
+     *
      * @return FaqDomande
      */
     public function setLastupdate($lastupdate)
     {
         $this->lastupdate = $lastupdate;
-
+    
         return $this;
     }
 
@@ -238,12 +244,13 @@ class FaqDomande
      * Set channelId
      *
      * @param integer $channelId
+     *
      * @return FaqDomande
      */
     public function setChannelId($channelId)
     {
         $this->channelId = $channelId;
-
+    
         return $this;
     }
 
@@ -261,12 +268,13 @@ class FaqDomande
      * Set languageId
      *
      * @param integer $languageId
+     *
      * @return FaqDomande
      */
     public function setLanguageId($languageId)
     {
         $this->languageId = $languageId;
-
+    
         return $this;
     }
 
@@ -284,12 +292,13 @@ class FaqDomande
      * Set userId
      *
      * @param integer $userId
+     *
      * @return FaqDomande
      */
     public function setUserId($userId)
     {
         $this->userId = $userId;
-
+    
         return $this;
     }
 

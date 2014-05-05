@@ -68,12 +68,13 @@ class AlboSettori
      * Set settore
      *
      * @param string $settore
+     *
      * @return AlboSettori
      */
     public function setSettore($settore)
     {
         $this->settore = $settore;
-
+    
         return $this;
     }
 
@@ -91,12 +92,13 @@ class AlboSettori
      * Set status
      *
      * @param string $status
+     *
      * @return AlboSettori
      */
     public function setStatus($status)
     {
         $this->status = $status;
-
+    
         return $this;
     }
 
@@ -114,12 +116,13 @@ class AlboSettori
      * Set posizione
      *
      * @param integer $posizione
+     *
      * @return AlboSettori
      */
     public function setPosizione($posizione)
     {
         $this->posizione = $posizione;
-
+    
         return $this;
     }
 
@@ -137,12 +140,13 @@ class AlboSettori
      * Set provincia
      *
      * @param \Application\Entity\GeoProvince $provincia
+     *
      * @return AlboSettori
      */
     public function setProvincia(\Application\Entity\GeoProvince $provincia = null)
     {
         $this->provincia = $provincia;
-
+    
         return $this;
     }
 

@@ -130,12 +130,13 @@ class CategorieOpzioni
      * Set nome
      *
      * @param string $nome
+     *
      * @return CategorieOpzioni
      */
     public function setNome($nome)
     {
         $this->nome = $nome;
-
+    
         return $this;
     }
 
@@ -153,12 +154,13 @@ class CategorieOpzioni
      * Set descrizione
      *
      * @param string $descrizione
+     *
      * @return CategorieOpzioni
      */
     public function setDescrizione($descrizione)
     {
         $this->descrizione = $descrizione;
-
+    
         return $this;
     }
 
@@ -176,12 +178,13 @@ class CategorieOpzioni
      * Set seoUrl
      *
      * @param string $seoUrl
+     *
      * @return CategorieOpzioni
      */
     public function setSeoUrl($seoUrl)
     {
         $this->seoUrl = $seoUrl;
-
+    
         return $this;
     }
 
@@ -199,12 +202,13 @@ class CategorieOpzioni
      * Set seoTitle
      *
      * @param string $seoTitle
+     *
      * @return CategorieOpzioni
      */
     public function setSeoTitle($seoTitle)
     {
         $this->seoTitle = $seoTitle;
-
+    
         return $this;
     }
 
@@ -222,12 +226,13 @@ class CategorieOpzioni
      * Set seoKeywords
      *
      * @param string $seoKeywords
+     *
      * @return CategorieOpzioni
      */
     public function setSeoKeywords($seoKeywords)
     {
         $this->seoKeywords = $seoKeywords;
-
+    
         return $this;
     }
 
@@ -245,12 +250,13 @@ class CategorieOpzioni
      * Set seoDescription
      *
      * @param string $seoDescription
+     *
      * @return CategorieOpzioni
      */
     public function setSeoDescription($seoDescription)
     {
         $this->seoDescription = $seoDescription;
-
+    
         return $this;
     }
 
@@ -268,12 +274,13 @@ class CategorieOpzioni
      * Set accesskey
      *
      * @param string $accesskey
+     *
      * @return CategorieOpzioni
      */
     public function setAccesskey($accesskey)
     {
         $this->accesskey = $accesskey;
-
+    
         return $this;
     }
 
@@ -291,12 +298,13 @@ class CategorieOpzioni
      * Set templateFile
      *
      * @param string $templateFile
+     *
      * @return CategorieOpzioni
      */
     public function setTemplateFile($templateFile)
     {
         $this->templateFile = $templateFile;
-
+    
         return $this;
     }
 
@@ -314,12 +322,13 @@ class CategorieOpzioni
      * Set parentId
      *
      * @param integer $parentId
+     *
      * @return CategorieOpzioni
      */
     public function setParentId($parentId)
     {
         $this->parentId = $parentId;
-
+    
         return $this;
     }
 
@@ -337,12 +346,13 @@ class CategorieOpzioni
      * Set categoria
      *
      * @param \Application\Entity\Categorie $categoria
+     *
      * @return CategorieOpzioni
      */
     public function setCategoria(\Application\Entity\Categorie $categoria = null)
     {
         $this->categoria = $categoria;
-
+    
         return $this;
     }
 
@@ -360,12 +370,13 @@ class CategorieOpzioni
      * Set lingua
      *
      * @param \Application\Entity\Lingue $lingua
+     *
      * @return CategorieOpzioni
      */
     public function setLingua(\Application\Entity\Lingue $lingua = null)
     {
         $this->lingua = $lingua;
-
+    
         return $this;
     }
 
@@ -383,12 +394,13 @@ class CategorieOpzioni
      * Set modulo
      *
      * @param \Application\Entity\Moduli $modulo
+     *
      * @return CategorieOpzioni
      */
     public function setModulo(\Application\Entity\Moduli $modulo = null)
     {
         $this->modulo = $modulo;
-
+    
         return $this;
     }
 

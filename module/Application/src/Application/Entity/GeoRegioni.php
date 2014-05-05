@@ -51,12 +51,13 @@ class GeoRegioni
      * Set codiceRegione
      *
      * @param string $codiceRegione
+     *
      * @return GeoRegioni
      */
     public function setCodiceRegione($codiceRegione)
     {
         $this->codiceRegione = $codiceRegione;
-
+    
         return $this;
     }
 
@@ -74,12 +75,13 @@ class GeoRegioni
      * Set nomeRegione
      *
      * @param string $nomeRegione
+     *
      * @return GeoRegioni
      */
     public function setNomeRegione($nomeRegione)
     {
         $this->nomeRegione = $nomeRegione;
-
+    
         return $this;
     }
 

@@ -13,6 +13,22 @@ class Module implements AutoloaderProviderInterface
     	$application = $e->getApplication();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach( $application->getEventManager() );
+        $sm = $application->getServiceManager();
+        try {
+            $dbInstance = $sm->get('Zend\Db\Adapter\Adapter');
+            $dbInstance->getDriver()->getConnection()->connect();
+        } catch (\Exception $ex) {
+            $ViewModel = $e->getViewModel();
+            $ViewModel->setTemplate('layout/layout');
+                 
+            $content = new \Zend\View\Model\ViewModel();
+            $content->setTemplate('error/dbconnection');
+
+            $ViewModel->setVariable('content', $sm->get('ViewRenderer')
+                                                  ->render($content));
+             
+            exit( $sm->get('ViewRenderer')->render($ViewModel) );
+        }
         
         $em = $application->getEventManager();
         $em->attach(\Zend\Mvc\MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'handleError'));
@@ -43,8 +59,7 @@ class Module implements AutoloaderProviderInterface
 		'invokables' 	=> array(
                     'formelement'   => 'Application\Form\View\Helper\FormElement',
                     'formPlainText' => 'Application\Form\View\Helper\FormPlainText',
-		)
-            
+                    )
 		);
 	}
 

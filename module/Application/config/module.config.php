@@ -12,41 +12,13 @@ return array(
                                                                     ),
                                                     ),
                                     ),
-                                    'application' => array(
-                                                    'type'    => 'Literal',
-                                                    'options' => array(
-                                                                    'route'    => '/application',
-                                                                    'defaults' => array(
-                                                                                    '__NAMESPACE__' => 'Application\Controller',
-                                                                                    'controller'    => 'Index',
-                                                                                    'action'        => 'index',
-                                                                    ),
-                                                    ),
-                                                    'may_terminate' => true,
-                                                    'child_routes' => array(
-                                                                    'default' => array(
-                                                                                    'type'    => 'Segment',
-                                                                                    'options' => array(
-                                                                                                    'route'    => '/[:controller[/:action]]',
-                                                                                                    'constraints' => array(
-                                                                                                                    'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                                                                                    'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                                                                    ),
-                                                                                                    'defaults' => array(
-
-                                                                                                    ),
-                                                                                    ),
-                                                                    ),
-                                                    ),
-                                    ),
                                     'main' => array(
                                                     'type'    => 'segment',
                                                     'options' => array(
-                                                                    'route'    => '/[:lang][/][:category][/][:title][/]',
+                                                                    'route'    => '/[:category][/][:title][/]',
                                                                     'constraints' => array(
-                                                                                    'lang'     => '[a-z]{2}',
-                                                                                    'category' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                                                    'title'	   => '[a-zA-Z0-9_-]*',
+                                                                            'category'  => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                                            'title'     => '[a-zA-Z0-9_-]*',
                                                                     ),
                                                                     'defaults' => array(
                                                                                     'controller' => 'Application\Controller\Index',
@@ -62,12 +34,75 @@ return array(
                                                                     ),
                                                     ),
                                     ),
-                                    'albopretorio' => array(
+                                    'feed' => array(
+                                                    'type'    => 'segment',
+                                                    'options' => array(
+                                                                    'route'    => '/feed/rss',
+                                                                    'constraints' => array(
+                                                                        
+                                                                    ),
+                                                                    'defaults' => array(
+                                                                                    'controller' => 'Application\Controller\Feed',
+                                                                                    'action'     => 'index',
+                                                                    ),
+                                                    ),
+                                                    'may_terminate' => true,
+                                                    'child_routes' => array(
+                                                                    'default' => array(
+                                                                                    'type'    => 'Wildcard',
+                                                                                    'options' => array(
+                                                                                    ),
+                                                                    ),
+                                                    ),
+                                    ),
+                                    'version' => array(
+                                                    'type'    => 'segment',
+                                                    'options' => array(
+                                                                    'route'    => '/documenti/versione[/][:tipo][/][:categoria][/][:id]',
+                                                                    'constraints' => array(
+                                                                        
+                                                                    ),
+                                                                    'defaults' => array(
+                                                                                    'controller' => 'Application\Controller\DocumentExport',
+                                                                                    'action'     => 'index',
+                                                                    ),
+                                                    ),
+                                                    'may_terminate' => true,
+                                                    'child_routes' => array(
+                                                                    'default' => array(
+                                                                                    'type'    => 'Wildcard',
+                                                                                    'options' => array(
+                                                                                    ),
+                                                                    ),
+                                                    ),
+                                    ),
+                                    'foto' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
-                                                        'route'    => '/albo-pretorio[/][:slug]',
+                                                        'route'    => '/foto[/][:action]',
                                                         'constraints' => array(
-                                                            'slug' => '[a-zA-Z][a-zA-Z0-9_\/-]*'
+                                                            
+                                                        ),
+                                                        'defaults' => array(
+                                                            'controller' => 'Application\Controller\Index',
+                                                            'action'    => 'index',
+                                                        ),
+                                        ),
+                                        'may_terminate' => true,
+                                        'child_routes' => array(
+                                                        'default' => array(
+                                                                        'type'    => 'Wildcard',
+                                                                        'options' => array(
+                                                                        ),
+                                                        ),
+                                        ),
+                                    ),
+                                    'albo-pretorio' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                                        'route'    => '/albo-pretorio[/][:action]',
+                                                        'constraints' => array(
+                                                            
                                                         ),
                                                         'defaults' => array(
                                                             'controller' => 'Application\Controller\Index',
@@ -83,10 +118,90 @@ return array(
                                                         ),
                                         ),
                                     ),
-                    ),
-    ),
-    'controller_plugins' => array(
-                    'invokables' => array(
+                                    'amministrazione-aperta' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                                        'route'    => '/amministrazione-aperta[/][:action]',
+                                                        'constraints' => array(
+                                                            
+                                                        ),
+                                                        'defaults' => array(
+                                                            'controller' => 'Application\Controller\Index',
+                                                            'action'    => 'index', 
+                                                        ),
+                                        ),
+                                        'may_terminate' => true,
+                                        'child_routes' => array(
+                                                        'default' => array(
+                                                                        'type'    => 'Wildcard',
+                                                                        'options' => array(
+                                                                        ),
+                                                        ),
+                                        ),
+                                    ),
+                                    'amministrazione-trasparente' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                                        'route'    => '/amministrazione-trasparente[/][:action]',
+                                                        'constraints' => array(
+                                                            
+                                                        ),
+                                                        'defaults' => array(
+                                                            'controller' => 'Application\Controller\Index',
+                                                            'action'    => 'index', 
+                                                        ),
+                                        ),
+                                        'may_terminate' => true,
+                                        'child_routes' => array(
+                                                        'default' => array(
+                                                                        'type'    => 'Wildcard',
+                                                                        'options' => array(
+                                                                        ),
+                                                        ),
+                                        ),
+                                    ),
+                                    'contatti' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                                        'route'    => '/invia-messaggi/contatti[/][:action]',
+                                                        'constraints' => array(
+                                                            
+                                                        ),
+                                                        'defaults' => array(
+                                                            'controller' => 'Application\Controller\Index',
+                                                            'action'    => 'index',
+                                                        ),
+                                        ),
+                                        'may_terminate' => true,
+                                        'child_routes' => array(
+                                                        'default' => array(
+                                                                        'type'    => 'Wildcard',
+                                                                        'options' => array(
+                                                                        ),
+                                                        ),
+                                        ),
+                                    ),
+                                    'form-response' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                                        'route'    => '/form/response[/][:formname]',
+                                                        'constraints' => array(
+                                                            
+                                                        ),
+                                                        'defaults' => array(
+                                                            'controller' => 'Application\Controller\Index',
+                                                            'action'    => 'index',
+                                                        ),
+                                        ),
+                                        'may_terminate' => true,
+                                        'child_routes' => array(
+                                                        'default' => array(
+                                                                        'type'    => 'Wildcard',
+                                                                        'options' => array(
+                                                                        ),
+                                                        ),
+                                        ),
+                                    ),
                     ),
     ),
     'service_manager' => array(
@@ -102,16 +217,23 @@ return array(
                     'locale' => 'en_US',
                     'translation_file_patterns' => array(
                                     array(
-                                                    'type'     => 'gettext',
-                                                    'base_dir' => __DIR__ . '/../language',
-                                                    'pattern'  => '%s.mo',
+                                        'type'     => 'gettext',
+                                        'base_dir' => __DIR__ . '/../language',
+                                        'pattern'  => '%s.mo',
                                     ),
                     ),
     ),
     'controllers' => array(
                     'invokables' => array(
-                        'Application\Controller\Index'        => 'Application\Controller\IndexController',
+                        'Application\Controller\Index'             => 'Application\Controller\IndexController',
+                        'Application\Controller\DocumentExport'    => 'Application\Controller\DocumentExportController',
+                        'Application\Controller\Feed'              => 'Application\Controller\FeedController',
                     ),
+    ),
+    'controller_plugins' => array(
+        'invokables' => array(
+            'CommonSetupPlugin' => 'Application\Controller\Plugin\CommonSetupPlugin'
+        )
     ),
     'view_manager' => array(
                     'display_not_found_reason' => true,
@@ -122,8 +244,10 @@ return array(
                     'template_map' => array(
                                     'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
                                     'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
+                                    'admin/index'             => __DIR__ . '/../view/',
                                     'error/404'               => __DIR__ . '/../view/error/404.phtml',
                                     'error/index'             => __DIR__ . '/../view/error/index.phtml',
+                                    'error/dbconnection'      => __DIR__ . '/../view/error/dbconnection.phtml',
                     ),
                     'template_path_stack' => array(
                                     __DIR__ . '/../view',
@@ -133,8 +257,7 @@ return array(
     // Placeholder for console routes
     'console' => array(
                     'router' => array(
-                                    'routes' => array(
-                                    ),
+                                'routes' => array(  ),
                     ),
     ),
     // Doctrine

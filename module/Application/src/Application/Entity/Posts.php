@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Posts
  *
- * @ORM\Table(name="posts", indexes={@ORM\Index(name="parent_id", columns={"parent_id"}), @ORM\Index(name="stato", columns={"stato"}), @ORM\Index(name="alias", columns={"alias"})})
+ * @ORM\Table(name="posts", indexes={@ORM\Index(name="parent_id", columns={"parent_id"}), @ORM\Index(name="stato", columns={"stato"}), @ORM\Index(name="alias", columns={"alias"}), @ORM\Index(name="flag_allegati", columns={"flag_allegati"})})
  * @ORM\Entity
  */
 class Posts
@@ -84,6 +84,13 @@ class Posts
      */
     private $alias;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="flag_allegati", type="string", nullable=false)
+     */
+    private $flagAllegati;
+
 
 
     /**
@@ -100,12 +107,13 @@ class Posts
      * Set note
      *
      * @param string $note
+     *
      * @return Posts
      */
     public function setNote($note)
     {
         $this->note = $note;
-
+    
         return $this;
     }
 
@@ -123,12 +131,13 @@ class Posts
      * Set dataInserimento
      *
      * @param \DateTime $dataInserimento
+     *
      * @return Posts
      */
     public function setDataInserimento($dataInserimento)
     {
         $this->dataInserimento = $dataInserimento;
-
+    
         return $this;
     }
 
@@ -146,12 +155,13 @@ class Posts
      * Set dataScadenza
      *
      * @param \DateTime $dataScadenza
+     *
      * @return Posts
      */
     public function setDataScadenza($dataScadenza)
     {
         $this->dataScadenza = $dataScadenza;
-
+    
         return $this;
     }
 
@@ -169,12 +179,13 @@ class Posts
      * Set dataUltimoAggiornamento
      *
      * @param \DateTime $dataUltimoAggiornamento
+     *
      * @return Posts
      */
     public function setDataUltimoAggiornamento($dataUltimoAggiornamento)
     {
         $this->dataUltimoAggiornamento = $dataUltimoAggiornamento;
-
+    
         return $this;
     }
 
@@ -192,12 +203,13 @@ class Posts
      * Set parentId
      *
      * @param integer $parentId
+     *
      * @return Posts
      */
     public function setParentId($parentId)
     {
         $this->parentId = $parentId;
-
+    
         return $this;
     }
 
@@ -215,12 +227,13 @@ class Posts
      * Set stato
      *
      * @param string $stato
+     *
      * @return Posts
      */
     public function setStato($stato)
     {
         $this->stato = $stato;
-
+    
         return $this;
     }
 
@@ -238,12 +251,13 @@ class Posts
      * Set tipo
      *
      * @param string $tipo
+     *
      * @return Posts
      */
     public function setTipo($tipo)
     {
         $this->tipo = $tipo;
-
+    
         return $this;
     }
 
@@ -261,12 +275,13 @@ class Posts
      * Set templateFile
      *
      * @param string $templateFile
+     *
      * @return Posts
      */
     public function setTemplateFile($templateFile)
     {
         $this->templateFile = $templateFile;
-
+    
         return $this;
     }
 
@@ -284,12 +299,13 @@ class Posts
      * Set alias
      *
      * @param string $alias
+     *
      * @return Posts
      */
     public function setAlias($alias)
     {
         $this->alias = $alias;
-
+    
         return $this;
     }
 
@@ -301,5 +317,29 @@ class Posts
     public function getAlias()
     {
         return $this->alias;
+    }
+
+    /**
+     * Set flagAllegati
+     *
+     * @param string $flagAllegati
+     *
+     * @return Posts
+     */
+    public function setFlagAllegati($flagAllegati)
+    {
+        $this->flagAllegati = $flagAllegati;
+    
+        return $this;
+    }
+
+    /**
+     * Get flagAllegati
+     *
+     * @return string 
+     */
+    public function getFlagAllegati()
+    {
+        return $this->flagAllegati;
     }
 }

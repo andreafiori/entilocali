@@ -22,16 +22,6 @@ class PostsRelazioni
     private $id;
 
     /**
-     * @var \Application\Entity\Posts
-     *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\Posts")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="posts_id", referencedColumnName="id")
-     * })
-     */
-    private $posts;
-
-    /**
      * @var \Application\Entity\Categorie
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\Categorie")
@@ -61,6 +51,16 @@ class PostsRelazioni
      */
     private $modulo;
 
+    /**
+     * @var \Application\Entity\Posts
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Posts")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="posts_id", referencedColumnName="id")
+     * })
+     */
+    private $posts;
+
 
 
     /**
@@ -74,38 +74,16 @@ class PostsRelazioni
     }
 
     /**
-     * Set posts
-     *
-     * @param \Application\Entity\Posts $posts
-     * @return PostsRelazioni
-     */
-    public function setPosts(\Application\Entity\Posts $posts = null)
-    {
-        $this->posts = $posts;
-
-        return $this;
-    }
-
-    /**
-     * Get posts
-     *
-     * @return \Application\Entity\Posts 
-     */
-    public function getPosts()
-    {
-        return $this->posts;
-    }
-
-    /**
      * Set categoria
      *
      * @param \Application\Entity\Categorie $categoria
+     *
      * @return PostsRelazioni
      */
     public function setCategoria(\Application\Entity\Categorie $categoria = null)
     {
         $this->categoria = $categoria;
-
+    
         return $this;
     }
 
@@ -123,12 +101,13 @@ class PostsRelazioni
      * Set canale
      *
      * @param \Application\Entity\Canali $canale
+     *
      * @return PostsRelazioni
      */
     public function setCanale(\Application\Entity\Canali $canale = null)
     {
         $this->canale = $canale;
-
+    
         return $this;
     }
 
@@ -146,12 +125,13 @@ class PostsRelazioni
      * Set modulo
      *
      * @param \Application\Entity\Moduli $modulo
+     *
      * @return PostsRelazioni
      */
     public function setModulo(\Application\Entity\Moduli $modulo = null)
     {
         $this->modulo = $modulo;
-
+    
         return $this;
     }
 
@@ -163,5 +143,29 @@ class PostsRelazioni
     public function getModulo()
     {
         return $this->modulo;
+    }
+
+    /**
+     * Set posts
+     *
+     * @param \Application\Entity\Posts $posts
+     *
+     * @return PostsRelazioni
+     */
+    public function setPosts(\Application\Entity\Posts $posts = null)
+    {
+        $this->posts = $posts;
+    
+        return $this;
+    }
+
+    /**
+     * Get posts
+     *
+     * @return \Application\Entity\Posts 
+     */
+    public function getPosts()
+    {
+        return $this->posts;
     }
 }

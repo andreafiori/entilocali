@@ -51,12 +51,13 @@ class UtentiPermessiNomi
      * Set flag
      *
      * @param string $flag
+     *
      * @return UtentiPermessiNomi
      */
     public function setFlag($flag)
     {
         $this->flag = $flag;
-
+    
         return $this;
     }
 
@@ -74,12 +75,13 @@ class UtentiPermessiNomi
      * Set descrizione
      *
      * @param string $descrizione
+     *
      * @return UtentiPermessiNomi
      */
     public function setDescrizione($descrizione)
     {
         $this->descrizione = $descrizione;
-
+    
         return $this;
     }
 

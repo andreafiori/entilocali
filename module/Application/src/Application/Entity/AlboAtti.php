@@ -45,9 +45,9 @@ class AlboAtti
     /**
      * @var string
      *
-     * @ORM\Column(name="maintext", type="text", nullable=false)
+     * @ORM\Column(name="descrizione", type="text", nullable=false)
      */
-    private $maintext;
+    private $descrizione;
 
     /**
      * @var \DateTime
@@ -73,9 +73,9 @@ class AlboAtti
     /**
      * @var integer
      *
-     * @ORM\Column(name="num_giorni_scadenza", type="bigint", nullable=false)
+     * @ORM\Column(name="numero_giorni_scadenza", type="bigint", nullable=false)
      */
-    private $numGiorniScadenza = '0';
+    private $numeroGiorniScadenza = '0';
 
     /**
      * @var string
@@ -207,12 +207,13 @@ class AlboAtti
      * Set numero
      *
      * @param integer $numero
+     *
      * @return AlboAtti
      */
     public function setNumero($numero)
     {
         $this->numero = $numero;
-
+    
         return $this;
     }
 
@@ -230,12 +231,13 @@ class AlboAtti
      * Set anno
      *
      * @param integer $anno
+     *
      * @return AlboAtti
      */
     public function setAnno($anno)
     {
         $this->anno = $anno;
-
+    
         return $this;
     }
 
@@ -253,12 +255,13 @@ class AlboAtti
      * Set oggetto
      *
      * @param string $oggetto
+     *
      * @return AlboAtti
      */
     public function setOggetto($oggetto)
     {
         $this->oggetto = $oggetto;
-
+    
         return $this;
     }
 
@@ -273,38 +276,40 @@ class AlboAtti
     }
 
     /**
-     * Set maintext
+     * Set descrizione
      *
-     * @param string $maintext
+     * @param string $descrizione
+     *
      * @return AlboAtti
      */
-    public function setMaintext($maintext)
+    public function setDescrizione($descrizione)
     {
-        $this->maintext = $maintext;
-
+        $this->descrizione = $descrizione;
+    
         return $this;
     }
 
     /**
-     * Get maintext
+     * Get descrizione
      *
      * @return string 
      */
-    public function getMaintext()
+    public function getDescrizione()
     {
-        return $this->maintext;
+        return $this->descrizione;
     }
 
     /**
      * Set dataRichiesta
      *
      * @param \DateTime $dataRichiesta
+     *
      * @return AlboAtti
      */
     public function setDataRichiesta($dataRichiesta)
     {
         $this->dataRichiesta = $dataRichiesta;
-
+    
         return $this;
     }
 
@@ -322,12 +327,13 @@ class AlboAtti
      * Set dataPubblicazione
      *
      * @param \DateTime $dataPubblicazione
+     *
      * @return AlboAtti
      */
     public function setDataPubblicazione($dataPubblicazione)
     {
         $this->dataPubblicazione = $dataPubblicazione;
-
+    
         return $this;
     }
 
@@ -345,12 +351,13 @@ class AlboAtti
      * Set dataScadenza
      *
      * @param \DateTime $dataScadenza
+     *
      * @return AlboAtti
      */
     public function setDataScadenza($dataScadenza)
     {
         $this->dataScadenza = $dataScadenza;
-
+    
         return $this;
     }
 
@@ -365,38 +372,40 @@ class AlboAtti
     }
 
     /**
-     * Set numGiorniScadenza
+     * Set numeroGiorniScadenza
      *
-     * @param integer $numGiorniScadenza
+     * @param integer $numeroGiorniScadenza
+     *
      * @return AlboAtti
      */
-    public function setNumGiorniScadenza($numGiorniScadenza)
+    public function setNumeroGiorniScadenza($numeroGiorniScadenza)
     {
-        $this->numGiorniScadenza = $numGiorniScadenza;
-
+        $this->numeroGiorniScadenza = $numeroGiorniScadenza;
+    
         return $this;
     }
 
     /**
-     * Get numGiorniScadenza
+     * Get numeroGiorniScadenza
      *
      * @return integer 
      */
-    public function getNumGiorniScadenza()
+    public function getNumeroGiorniScadenza()
     {
-        return $this->numGiorniScadenza;
+        return $this->numeroGiorniScadenza;
     }
 
     /**
      * Set annullato
      *
      * @param string $annullato
+     *
      * @return AlboAtti
      */
     public function setAnnullato($annullato)
     {
         $this->annullato = $annullato;
-
+    
         return $this;
     }
 
@@ -414,12 +423,13 @@ class AlboAtti
      * Set dataAnnullamento
      *
      * @param \DateTime $dataAnnullamento
+     *
      * @return AlboAtti
      */
     public function setDataAnnullamento($dataAnnullamento)
     {
         $this->dataAnnullamento = $dataAnnullamento;
-
+    
         return $this;
     }
 
@@ -437,12 +447,13 @@ class AlboAtti
      * Set noteAnnullamento
      *
      * @param string $noteAnnullamento
+     *
      * @return AlboAtti
      */
     public function setNoteAnnullamento($noteAnnullamento)
     {
         $this->noteAnnullamento = $noteAnnullamento;
-
+    
         return $this;
     }
 
@@ -460,12 +471,13 @@ class AlboAtti
      * Set rettificato
      *
      * @param string $rettificato
+     *
      * @return AlboAtti
      */
     public function setRettificato($rettificato)
     {
         $this->rettificato = $rettificato;
-
+    
         return $this;
     }
 
@@ -483,12 +495,13 @@ class AlboAtti
      * Set dataRettifica
      *
      * @param \DateTime $dataRettifica
+     *
      * @return AlboAtti
      */
     public function setDataRettifica($dataRettifica)
     {
         $this->dataRettifica = $dataRettifica;
-
+    
         return $this;
     }
 
@@ -506,12 +519,13 @@ class AlboAtti
      * Set noteRettifica
      *
      * @param string $noteRettifica
+     *
      * @return AlboAtti
      */
     public function setNoteRettifica($noteRettifica)
     {
         $this->noteRettifica = $noteRettifica;
-
+    
         return $this;
     }
 
@@ -529,12 +543,13 @@ class AlboAtti
      * Set stato
      *
      * @param string $stato
+     *
      * @return AlboAtti
      */
     public function setStato($stato)
     {
         $this->stato = $stato;
-
+    
         return $this;
     }
 
@@ -552,12 +567,13 @@ class AlboAtti
      * Set inviatoRegione
      *
      * @param string $inviatoRegione
+     *
      * @return AlboAtti
      */
     public function setInviatoRegione($inviatoRegione)
     {
         $this->inviatoRegione = $inviatoRegione;
-
+    
         return $this;
     }
 
@@ -575,12 +591,13 @@ class AlboAtti
      * Set enteTerzo
      *
      * @param string $enteTerzo
+     *
      * @return AlboAtti
      */
     public function setEnteTerzo($enteTerzo)
     {
         $this->enteTerzo = $enteTerzo;
-
+    
         return $this;
     }
 
@@ -598,12 +615,13 @@ class AlboAtti
      * Set seoTitle
      *
      * @param string $seoTitle
+     *
      * @return AlboAtti
      */
     public function setSeoTitle($seoTitle)
     {
         $this->seoTitle = $seoTitle;
-
+    
         return $this;
     }
 
@@ -621,12 +639,13 @@ class AlboAtti
      * Set seoKeywords
      *
      * @param string $seoKeywords
+     *
      * @return AlboAtti
      */
     public function setSeoKeywords($seoKeywords)
     {
         $this->seoKeywords = $seoKeywords;
-
+    
         return $this;
     }
 
@@ -644,12 +663,13 @@ class AlboAtti
      * Set seoDescription
      *
      * @param string $seoDescription
+     *
      * @return AlboAtti
      */
     public function setSeoDescription($seoDescription)
     {
         $this->seoDescription = $seoDescription;
-
+    
         return $this;
     }
 
@@ -667,12 +687,13 @@ class AlboAtti
      * Set settore
      *
      * @param \Application\Entity\AlboSettori $settore
+     *
      * @return AlboAtti
      */
     public function setSettore(\Application\Entity\AlboSettori $settore = null)
     {
         $this->settore = $settore;
-
+    
         return $this;
     }
 
@@ -690,12 +711,13 @@ class AlboAtti
      * Set sezione
      *
      * @param \Application\Entity\AlboSettori $sezione
+     *
      * @return AlboAtti
      */
     public function setSezione(\Application\Entity\AlboSettori $sezione = null)
     {
         $this->sezione = $sezione;
-
+    
         return $this;
     }
 
@@ -713,12 +735,13 @@ class AlboAtti
      * Set utente
      *
      * @param \Application\Entity\Utenti $utente
+     *
      * @return AlboAtti
      */
     public function setUtente(\Application\Entity\Utenti $utente = null)
     {
         $this->utente = $utente;
-
+    
         return $this;
     }
 

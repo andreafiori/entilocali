@@ -85,11 +85,14 @@ class Lingue
     private $attivo;
 
     /**
-     * @var integer
+     * @var \Application\Entity\Canali
      *
-     * @ORM\Column(name="canale_id", type="bigint", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Canali")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="canale_id", referencedColumnName="id")
+     * })
      */
-    private $canaleId = '1';
+    private $canale;
 
 
 
@@ -107,12 +110,13 @@ class Lingue
      * Set bandiera
      *
      * @param string $bandiera
+     *
      * @return Lingue
      */
     public function setBandiera($bandiera)
     {
         $this->bandiera = $bandiera;
-
+    
         return $this;
     }
 
@@ -130,12 +134,13 @@ class Lingue
      * Set nome
      *
      * @param string $nome
+     *
      * @return Lingue
      */
     public function setNome($nome)
     {
         $this->nome = $nome;
-
+    
         return $this;
     }
 
@@ -153,12 +158,13 @@ class Lingue
      * Set abbreviazione1
      *
      * @param string $abbreviazione1
+     *
      * @return Lingue
      */
     public function setAbbreviazione1($abbreviazione1)
     {
         $this->abbreviazione1 = $abbreviazione1;
-
+    
         return $this;
     }
 
@@ -176,12 +182,13 @@ class Lingue
      * Set abbreviazione2
      *
      * @param string $abbreviazione2
+     *
      * @return Lingue
      */
     public function setAbbreviazione2($abbreviazione2)
     {
         $this->abbreviazione2 = $abbreviazione2;
-
+    
         return $this;
     }
 
@@ -199,12 +206,13 @@ class Lingue
      * Set abbreviazione3
      *
      * @param string $abbreviazione3
+     *
      * @return Lingue
      */
     public function setAbbreviazione3($abbreviazione3)
     {
         $this->abbreviazione3 = $abbreviazione3;
-
+    
         return $this;
     }
 
@@ -222,12 +230,13 @@ class Lingue
      * Set predefinita
      *
      * @param integer $predefinita
+     *
      * @return Lingue
      */
     public function setPredefinita($predefinita)
     {
         $this->predefinita = $predefinita;
-
+    
         return $this;
     }
 
@@ -245,12 +254,13 @@ class Lingue
      * Set predefinitaBackend
      *
      * @param integer $predefinitaBackend
+     *
      * @return Lingue
      */
     public function setPredefinitaBackend($predefinitaBackend)
     {
         $this->predefinitaBackend = $predefinitaBackend;
-
+    
         return $this;
     }
 
@@ -268,12 +278,13 @@ class Lingue
      * Set encoding
      *
      * @param string $encoding
+     *
      * @return Lingue
      */
     public function setEncoding($encoding)
     {
         $this->encoding = $encoding;
-
+    
         return $this;
     }
 
@@ -291,12 +302,13 @@ class Lingue
      * Set attivo
      *
      * @param integer $attivo
+     *
      * @return Lingue
      */
     public function setAttivo($attivo)
     {
         $this->attivo = $attivo;
-
+    
         return $this;
     }
 
@@ -311,25 +323,26 @@ class Lingue
     }
 
     /**
-     * Set canaleId
+     * Set canale
      *
-     * @param integer $canaleId
+     * @param \Application\Entity\Canali $canale
+     *
      * @return Lingue
      */
-    public function setCanaleId($canaleId)
+    public function setCanale(\Application\Entity\Canali $canale = null)
     {
-        $this->canaleId = $canaleId;
-
+        $this->canale = $canale;
+    
         return $this;
     }
 
     /**
-     * Get canaleId
+     * Get canale
      *
-     * @return integer 
+     * @return \Application\Entity\Canali 
      */
-    public function getCanaleId()
+    public function getCanale()
     {
-        return $this->canaleId;
+        return $this->canale;
     }
 }

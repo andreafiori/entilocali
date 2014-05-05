@@ -8,6 +8,7 @@ use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 use ApplicationTest\ServiceManagerGrabber;
 use Application\Model\NullException;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * Help other test on this centralized test suite to set all main objects and options
@@ -22,7 +23,8 @@ class TestSuite extends \PHPUnit_Framework_TestCase
     protected $routeMatch;
     protected $event;
     protected $serviceManager;
-
+    protected $entityManagerMock;
+    
     protected function setUp()
     {
         $serviceManagerGrabber = new ServiceManagerGrabber();
@@ -42,11 +44,11 @@ class TestSuite extends \PHPUnit_Framework_TestCase
 
     protected function getDoctrineEntityManager()
     {
-        if (!$this->getServiceManager()) {
+        if (! $this->getServiceManager() ) {
             throw new NullException('Service Manager is not set');
         }
 
-        return $this->getServiceManager()->get('\Doctrine\ORM\EntityManager');
+        return $this->getServiceManager()->get('Doctrine\ORM\EntityManager');
     }
 
     protected function getServiceManager()
@@ -56,7 +58,7 @@ class TestSuite extends \PHPUnit_Framework_TestCase
     
     protected function getEntityManagerMock()
     {
-        if (!$this->entityManagerMock) {
+        if ( !$this->entityManagerMock ) {
             $this->entityManagerMock = $this->setEntityManagerMock();
         }
 
@@ -68,60 +70,118 @@ class TestSuite extends \PHPUnit_Framework_TestCase
      */
     protected function setEntityManagerMock()
     {
-            $configuration = $this->getMockBuilder('\Doctrine\ORM\Configuration')->getMock();
+        $configuration = $this->getMockBuilder('\Doctrine\ORM\Configuration')->getMock();
 
-            $connection = $this->getMockBuilder('\Doctrine\DBAL\Connection')
-                                               ->disableOriginalConstructor()
-                                               ->getMock();
+        $connection = $this->getConnectionMock();
 
-            $query = $this->getMock('\Setup\DoctrineQueryForMock', array('setParameters', 'getResult'), array(), '', false);
+        $queryBuilder = $this->getQueryBuilderMock();
 
-            $query->expects($this->any())
-                      ->method('setParameters')
-                      ->will($this->returnValue(true));
+        $this->entityManagerMock = $this->getMock('\Doctrine\ORM\EntityManager', array('getRepository', 'getClassMetadata', 'persist', 'flush', 'create', 'createQuery', 'getConnection', 'getQuery', 'getQueryBuilder', 'getConfiguration'), array(), '', false);
 
-            $query->expects($this->any())
-                      ->method('getResult')
-                      ->will($this->returnValue( array("id"=>1, "myResult" => "here it is!") ));
+        $this->entityManagerMock
+                 ->expects($this->any())
+                 ->method('getClassMetadata')
+                 ->will($this->returnValue( (object)array('name' => 'aClass')) );
 
-            $this->entityManagerMock = $this->getMock('\Doctrine\ORM\EntityManager', array('getRepository', 'getClassMetadata', 'persist', 'flush', 'create', 'createQuery', 'getConnection', 'getConfiguration'), array(), '', false);
+        $this->entityManagerMock
+                ->expects($this->any())
+                ->method('persist')
+                ->will($this->returnValue(true));
 
-            $this->entityManagerMock
-                     ->expects($this->any())
-                     ->method('getClassMetadata')
-                     ->will($this->returnValue((object)array('name' => 'aClass')));
+        $this->entityManagerMock
+                ->expects($this->any())
+                ->method('flush')
+                ->will($this->returnValue(true));
 
-            $this->entityManagerMock
-                    ->expects($this->any())
-                    ->method('persist')
-                    ->will($this->returnValue(true));
+        $this->entityManagerMock
+                 ->expects($this->any())
+                 ->method('getConfiguration')
+                 ->will($this->returnValue($configuration));
 
-            $this->entityManagerMock
-                    ->expects($this->any())
-                    ->method('flush')
-                    ->will($this->returnValue(true));
-
-            $this->entityManagerMock
-                     ->expects($this->any())
-                     ->method('getConfiguration')
-                     ->will($this->returnValue($configuration));
-
-            $this->entityManagerMock
-                     ->expects($this->any())
-                     ->method('createQuery')
-                     ->will($this->returnValue($query));
-
-            $this->entityManagerMock
-                     ->expects($this->any())
-                     ->method('getConnection')
-                     ->will($this->returnValue($connection));
-
-            $this->entityManagerMock
-                     ->expects($this->any())
+        $this->entityManagerMock
+                 ->expects($this->any())
+                 ->method('getConnection')
+                 ->will($this->returnValue($connection));
+        
+        $this->entityManagerMock
+                 ->expects($this->any())
+                 ->method('getQuery')
+                 ->will($this->returnValue($queryBuilder));
+        
+        $this->entityManagerMock
+                 ->expects($this->any())
+                 ->method('getQueryBuilder')
+                 ->will($this->returnValue($queryBuilder));
+        
+        $this->entityManagerMock
+                ->expects($this->any())
+                ->method('createQuery')
+                ->will( $this->returnValue( $this->getQueryBuilderMock()) );
+        
+        return $this->entityManagerMock;
+    }
+    
+    public function getConnectionMock()
+    {
+        $connection = $this->getMock('\Doctrine\DBAL\Connection', 
+                        array('getDQL', 'getResult'), 
+                        array(), '', false);
+        
+        $connection->expects($this->any())
+                     ->method('getDQL')
+                     ->will( $this->returnValue("SELECT * FROM posts") );
+        
+        $connection->expects($this->any())
                      ->method('getResult')
-                     ->will($this->returnValue( array("id" => 1,"myResult" => 'MyResult')) );
+                     ->will( $this->returnValue( array("id"=>1, "titolo" => "Mio titolo")  ) );
 
-            return $this->entityManagerMock;
+        return $connection;
+    }
+    
+    public function getQueryBuilderMock()
+    {
+        $queryBuilderMock = $this->getMock('\Doctrine\ORM\QueryBuilder', 
+                array('setFirstResult', 'setMaxResults', 'add', 'setParameter', 'setParameters', 'where', 'andWhere', 'getQuery', 'getResult'), 
+                array(), '', false);
+        
+        $queryBuilderMock->expects($this->any())
+                     ->method('setFirstResult')
+                     ->will( $this->returnValue( $queryBuilderMock ) );
+        
+        $queryBuilderMock->expects($this->any())
+                     ->method('setMaxResults')
+                     ->will( $this->returnValue( $queryBuilderMock ) );
+        
+        $queryBuilderMock->expects($this->any())
+                         ->method('add')
+                         ->will( $this->returnValue( $queryBuilderMock ) );
+        
+        $queryBuilderMock->expects($this->any())
+                         ->method('setParameter')
+                         ->will( $this->returnValue( $queryBuilderMock ) );
+        
+        $queryBuilderMock->expects($this->any())
+                         ->method('setParameters')
+                         ->will( $this->returnValue( $queryBuilderMock ) );
+
+        $queryBuilderMock->expects($this->any())
+                         ->method('where')
+                         ->will( $this->returnValue( $queryBuilderMock ) );
+        
+        $queryBuilderMock->expects($this->any())
+                         ->method('andWhere')
+                         ->will( $this->returnValue( $queryBuilderMock ) );
+
+        $queryBuilderMock->expects($this->any())
+                         ->method('getQuery')
+                         ->will( $this->returnValue( $queryBuilderMock ) );
+        
+        $queryBuilderMock
+                 ->expects($this->any())
+                 ->method('getResult')
+                 ->will($this->returnValue( array("id" => 1,"myResult" => 'MyResult')) );
+        
+        return $queryBuilderMock;
     }
     
     /**
@@ -131,4 +191,5 @@ class TestSuite extends \PHPUnit_Framework_TestCase
     {
         $this->assertTrue(true);
     }
+    
 }

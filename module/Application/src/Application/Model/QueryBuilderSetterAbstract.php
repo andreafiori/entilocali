@@ -10,23 +10,23 @@ use Doctrine\ORM\QueryBuilder;
  * @author Andrea Fiori
  * @since  02 April 2014
  */
-abstract class QueryBuilderSetterAbstract {
-	
-	protected $queryBuilder;
-	
-	/**
-	 * @param QueryBuilder $queryBuilder
-	 */
-	public function __construct(QueryBuilder $queryBuilder)
-	{
-		$this->queryBuilder = $queryBuilder;
-	}
-	
-	/**
-	 * @return QueryBuilder
-	 */
-	public function getQueryBuilder()
-	{
-		return $this->queryBuilder;
-	}
+abstract class QueryBuilderSetterAbstract
+{
+    protected $queryBuilder;
+
+    /**
+     * @param QueryBuilder $queryBuilder
+     */
+    public function __construct(QueryBuilder $queryBuilder)
+    {
+        $this->queryBuilder = $queryBuilder;
+    }
+
+    /**
+     * @return QueryBuilder
+     */
+    public function getQueryBuilder()
+    {
+        return $this->queryBuilder;
+    }
 }

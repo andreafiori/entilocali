@@ -79,12 +79,13 @@ class Categorie
      * Set note
      *
      * @param string $note
+     *
      * @return Categorie
      */
     public function setNote($note)
     {
         $this->note = $note;
-
+    
         return $this;
     }
 
@@ -102,12 +103,13 @@ class Categorie
      * Set createdate
      *
      * @param \DateTime $createdate
+     *
      * @return Categorie
      */
     public function setCreatedate($createdate)
     {
         $this->createdate = $createdate;
-
+    
         return $this;
     }
 
@@ -125,12 +127,13 @@ class Categorie
      * Set lastupdate
      *
      * @param \DateTime $lastupdate
+     *
      * @return Categorie
      */
     public function setLastupdate($lastupdate)
     {
         $this->lastupdate = $lastupdate;
-
+    
         return $this;
     }
 
@@ -148,12 +151,13 @@ class Categorie
      * Set code
      *
      * @param string $code
+     *
      * @return Categorie
      */
     public function setCode($code)
     {
         $this->code = $code;
-
+    
         return $this;
     }
 
@@ -171,12 +175,13 @@ class Categorie
      * Set status
      *
      * @param string $status
+     *
      * @return Categorie
      */
     public function setStatus($status)
     {
         $this->status = $status;
-
+    
         return $this;
     }
 
@@ -194,12 +199,13 @@ class Categorie
      * Set template
      *
      * @param string $template
+     *
      * @return Categorie
      */
     public function setTemplate($template)
     {
         $this->template = $template;
-
+    
         return $this;
     }
 

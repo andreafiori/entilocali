@@ -65,12 +65,13 @@ class AlboSezioni
      * Set nome
      *
      * @param string $nome
+     *
      * @return AlboSezioni
      */
     public function setNome($nome)
     {
         $this->nome = $nome;
-
+    
         return $this;
     }
 
@@ -88,12 +89,13 @@ class AlboSezioni
      * Set status
      *
      * @param string $status
+     *
      * @return AlboSezioni
      */
     public function setStatus($status)
     {
         $this->status = $status;
-
+    
         return $this;
     }
 
@@ -111,12 +113,13 @@ class AlboSezioni
      * Set position
      *
      * @param integer $position
+     *
      * @return AlboSezioni
      */
     public function setPosition($position)
     {
         $this->position = $position;
-
+    
         return $this;
     }
 
@@ -134,12 +137,13 @@ class AlboSezioni
      * Set subsezioneId
      *
      * @param integer $subsezioneId
+     *
      * @return AlboSezioni
      */
     public function setSubsezioneId($subsezioneId)
     {
         $this->subsezioneId = $subsezioneId;
-
+    
         return $this;
     }
 

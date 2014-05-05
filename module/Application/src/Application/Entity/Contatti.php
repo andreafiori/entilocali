@@ -100,12 +100,13 @@ class Contatti
      * Set nome
      *
      * @param string $nome
+     *
      * @return Contatti
      */
     public function setNome($nome)
     {
         $this->nome = $nome;
-
+    
         return $this;
     }
 
@@ -123,12 +124,13 @@ class Contatti
      * Set cognome
      *
      * @param string $cognome
+     *
      * @return Contatti
      */
     public function setCognome($cognome)
     {
         $this->cognome = $cognome;
-
+    
         return $this;
     }
 
@@ -146,12 +148,13 @@ class Contatti
      * Set email
      *
      * @param string $email
+     *
      * @return Contatti
      */
     public function setEmail($email)
     {
         $this->email = $email;
-
+    
         return $this;
     }
 
@@ -169,12 +172,13 @@ class Contatti
      * Set telefono
      *
      * @param string $telefono
+     *
      * @return Contatti
      */
     public function setTelefono($telefono)
     {
         $this->telefono = $telefono;
-
+    
         return $this;
     }
 
@@ -192,12 +196,13 @@ class Contatti
      * Set messaggio
      *
      * @param string $messaggio
+     *
      * @return Contatti
      */
     public function setMessaggio($messaggio)
     {
         $this->messaggio = $messaggio;
-
+    
         return $this;
     }
 
@@ -215,12 +220,13 @@ class Contatti
      * Set dataInserimento
      *
      * @param \DateTime $dataInserimento
+     *
      * @return Contatti
      */
     public function setDataInserimento($dataInserimento)
     {
         $this->dataInserimento = $dataInserimento;
-
+    
         return $this;
     }
 
@@ -238,12 +244,13 @@ class Contatti
      * Set formato
      *
      * @param string $formato
+     *
      * @return Contatti
      */
     public function setFormato($formato)
     {
         $this->formato = $formato;
-
+    
         return $this;
     }
 
@@ -261,12 +268,13 @@ class Contatti
      * Set stato
      *
      * @param string $stato
+     *
      * @return Contatti
      */
     public function setStato($stato)
     {
         $this->stato = $stato;
-
+    
         return $this;
     }
 
@@ -284,12 +292,13 @@ class Contatti
      * Set utenteId
      *
      * @param integer $utenteId
+     *
      * @return Contatti
      */
     public function setUtenteId($utenteId)
     {
         $this->utenteId = $utenteId;
-
+    
         return $this;
     }
 

@@ -1,0 +1,67 @@
+<?php
+
+if (!$this->form):
+?>
+    <h3>Form Contatti non rilevato</h3>
+    <p>&Egrave; stato rilevato un errore per cui il form contatti non &egrave; presente. Ci scusiamo per il momentaneo disagio.</p>
+<?php
+else:
+    ?>
+    <ul class="breadcrumb">
+        <li><a href="#" title="Home page">Home</a> <span class="divider"></span></li>
+        <li class="active">Contatti</li>
+    </ul>
+
+    <?php
+
+    $form = $this->form;
+    $form->prepare();
+
+    $form->setAttribute('action', ''); // $this->basePath().'/form/response/'
+    $form->setAttribute('method', 'post');
+    $form->setAttribute('role', 'form');
+    $form->setAttribute('class', 'form-horizontal');
+
+    $formLabel = $this->plugin('formLabel');
+
+    echo $this->form()->openTag($this->form);
+    
+    ?>
+    <h3>Invia un messaggio</h3>
+    <p>Compila i campi del form per contattarci. Tutti i campi sono obbligatori.</p>
+    <?php
+
+    foreach ($this->form as $element):
+        $attributes = $element->getAttributes();
+        if ($attributes['name'] == 'csrf'):
+            echo $this->formElement($element);
+        elseif ($attributes['type'] == 'submit'):
+        ?>
+        <div class="form-group">
+            <label for="<?php echo $attributes['id'] ?>" class="col-sm-2 control-label">&nbsp;</label>
+            <div class="col-sm-10">
+            <?php
+            $element->setAttribute('class', 'btn btn-primary');
+            echo $this->formElement($element);
+            ?>
+            </div>
+        </div>
+        <?php
+        else:
+        ?>
+        <div class="form-group">
+            <label for="<?php echo $attributes['id'] ?>" class="col-sm-2 control-label"><?php echo $element->getLabel() ?>:</label>
+            <div class="col-sm-10">
+            <?php
+            $element->setAttribute('class', 'form-control');
+            echo $this->formElement($element);
+            ?>
+            </div>
+        </div>
+        <?php
+        endif;
+    endforeach;
+
+    echo $this->form()->closeTag();
+
+endif;

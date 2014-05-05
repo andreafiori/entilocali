@@ -65,12 +65,13 @@ class UtentiRuoli
      * Set nomeRuolo
      *
      * @param string $nomeRuolo
+     *
      * @return UtentiRuoli
      */
     public function setNomeRuolo($nomeRuolo)
     {
         $this->nomeRuolo = $nomeRuolo;
-
+    
         return $this;
     }
 
@@ -88,12 +89,13 @@ class UtentiRuoli
      * Set dataCreazione
      *
      * @param \DateTime $dataCreazione
+     *
      * @return UtentiRuoli
      */
     public function setDataCreazione($dataCreazione)
     {
         $this->dataCreazione = $dataCreazione;
-
+    
         return $this;
     }
 
@@ -111,12 +113,13 @@ class UtentiRuoli
      * Set dataUltimoAggiornamento
      *
      * @param \DateTime $dataUltimoAggiornamento
+     *
      * @return UtentiRuoli
      */
     public function setDataUltimoAggiornamento($dataUltimoAggiornamento)
     {
         $this->dataUltimoAggiornamento = $dataUltimoAggiornamento;
-
+    
         return $this;
     }
 
@@ -134,12 +137,13 @@ class UtentiRuoli
      * Set posizione
      *
      * @param integer $posizione
+     *
      * @return UtentiRuoli
      */
     public function setPosizione($posizione)
     {
         $this->posizione = $posizione;
-
+    
         return $this;
     }
 

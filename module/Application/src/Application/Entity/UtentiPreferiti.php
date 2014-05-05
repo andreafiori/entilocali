@@ -65,12 +65,13 @@ class UtentiPreferiti
      * Set utenteId
      *
      * @param integer $utenteId
+     *
      * @return UtentiPreferiti
      */
     public function setUtenteId($utenteId)
     {
         $this->utenteId = $utenteId;
-
+    
         return $this;
     }
 
@@ -88,12 +89,13 @@ class UtentiPreferiti
      * Set riferimentoId
      *
      * @param integer $riferimentoId
+     *
      * @return UtentiPreferiti
      */
     public function setRiferimentoId($riferimentoId)
     {
         $this->riferimentoId = $riferimentoId;
-
+    
         return $this;
     }
 
@@ -111,12 +113,13 @@ class UtentiPreferiti
      * Set categoriaId
      *
      * @param integer $categoriaId
+     *
      * @return UtentiPreferiti
      */
     public function setCategoriaId($categoriaId)
     {
         $this->categoriaId = $categoriaId;
-
+    
         return $this;
     }
 
@@ -134,12 +137,13 @@ class UtentiPreferiti
      * Set moduloId
      *
      * @param integer $moduloId
+     *
      * @return UtentiPreferiti
      */
     public function setModuloId($moduloId)
     {
         $this->moduloId = $moduloId;
-
+    
         return $this;
     }
 

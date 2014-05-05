@@ -50,18 +50,24 @@ class FaqRisposte
     private $dataUltimoAggiornamento;
 
     /**
-     * @var integer
+     * @var \Application\Entity\FaqDomande
      *
-     * @ORM\Column(name="domanda_id", type="bigint", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\FaqDomande")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="domanda_id", referencedColumnName="id")
+     * })
      */
-    private $domandaId;
+    private $domanda;
 
     /**
-     * @var integer
+     * @var \Application\Entity\Utenti
      *
-     * @ORM\Column(name="utente_id", type="bigint", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Utenti")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="utente_id", referencedColumnName="id")
+     * })
      */
-    private $utenteId;
+    private $utente;
 
 
 
@@ -79,12 +85,13 @@ class FaqRisposte
      * Set risposta
      *
      * @param string $risposta
+     *
      * @return FaqRisposte
      */
     public function setRisposta($risposta)
     {
         $this->risposta = $risposta;
-
+    
         return $this;
     }
 
@@ -102,12 +109,13 @@ class FaqRisposte
      * Set rate
      *
      * @param integer $rate
+     *
      * @return FaqRisposte
      */
     public function setRate($rate)
     {
         $this->rate = $rate;
-
+    
         return $this;
     }
 
@@ -125,12 +133,13 @@ class FaqRisposte
      * Set dataInserimento
      *
      * @param \DateTime $dataInserimento
+     *
      * @return FaqRisposte
      */
     public function setDataInserimento($dataInserimento)
     {
         $this->dataInserimento = $dataInserimento;
-
+    
         return $this;
     }
 
@@ -148,12 +157,13 @@ class FaqRisposte
      * Set dataUltimoAggiornamento
      *
      * @param \DateTime $dataUltimoAggiornamento
+     *
      * @return FaqRisposte
      */
     public function setDataUltimoAggiornamento($dataUltimoAggiornamento)
     {
         $this->dataUltimoAggiornamento = $dataUltimoAggiornamento;
-
+    
         return $this;
     }
 
@@ -168,48 +178,50 @@ class FaqRisposte
     }
 
     /**
-     * Set domandaId
+     * Set domanda
      *
-     * @param integer $domandaId
+     * @param \Application\Entity\FaqDomande $domanda
+     *
      * @return FaqRisposte
      */
-    public function setDomandaId($domandaId)
+    public function setDomanda(\Application\Entity\FaqDomande $domanda = null)
     {
-        $this->domandaId = $domandaId;
-
+        $this->domanda = $domanda;
+    
         return $this;
     }
 
     /**
-     * Get domandaId
+     * Get domanda
      *
-     * @return integer 
+     * @return \Application\Entity\FaqDomande 
      */
-    public function getDomandaId()
+    public function getDomanda()
     {
-        return $this->domandaId;
+        return $this->domanda;
     }
 
     /**
-     * Set utenteId
+     * Set utente
      *
-     * @param integer $utenteId
+     * @param \Application\Entity\Utenti $utente
+     *
      * @return FaqRisposte
      */
-    public function setUtenteId($utenteId)
+    public function setUtente(\Application\Entity\Utenti $utente = null)
     {
-        $this->utenteId = $utenteId;
-
+        $this->utente = $utente;
+    
         return $this;
     }
 
     /**
-     * Get utenteId
+     * Get utente
      *
-     * @return integer 
+     * @return \Application\Entity\Utenti 
      */
-    public function getUtenteId()
+    public function getUtente()
     {
-        return $this->utenteId;
+        return $this->utente;
     }
 }

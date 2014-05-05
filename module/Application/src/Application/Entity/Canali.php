@@ -57,11 +57,14 @@ class Canali
     private $isdefault;
 
     /**
-     * @var integer
+     * @var \Application\Entity\Lingue
      *
-     * @ORM\Column(name="lingua_id", type="bigint", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Lingue")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="lingua_id", referencedColumnName="id")
+     * })
      */
-    private $linguaId;
+    private $lingua;
 
 
 
@@ -79,12 +82,13 @@ class Canali
      * Set nome
      *
      * @param string $nome
+     *
      * @return Canali
      */
     public function setNome($nome)
     {
         $this->nome = $nome;
-
+    
         return $this;
     }
 
@@ -102,12 +106,13 @@ class Canali
      * Set domain
      *
      * @param string $domain
+     *
      * @return Canali
      */
     public function setDomain($domain)
     {
         $this->domain = $domain;
-
+    
         return $this;
     }
 
@@ -125,12 +130,13 @@ class Canali
      * Set subdomain
      *
      * @param string $subdomain
+     *
      * @return Canali
      */
     public function setSubdomain($subdomain)
     {
         $this->subdomain = $subdomain;
-
+    
         return $this;
     }
 
@@ -148,12 +154,13 @@ class Canali
      * Set ismultilanguage
      *
      * @param integer $ismultilanguage
+     *
      * @return Canali
      */
     public function setIsmultilanguage($ismultilanguage)
     {
         $this->ismultilanguage = $ismultilanguage;
-
+    
         return $this;
     }
 
@@ -171,12 +178,13 @@ class Canali
      * Set isdefault
      *
      * @param integer $isdefault
+     *
      * @return Canali
      */
     public function setIsdefault($isdefault)
     {
         $this->isdefault = $isdefault;
-
+    
         return $this;
     }
 
@@ -191,25 +199,26 @@ class Canali
     }
 
     /**
-     * Set linguaId
+     * Set lingua
      *
-     * @param integer $linguaId
+     * @param \Application\Entity\Lingue $lingua
+     *
      * @return Canali
      */
-    public function setLinguaId($linguaId)
+    public function setLingua(\Application\Entity\Lingue $lingua = null)
     {
-        $this->linguaId = $linguaId;
-
+        $this->lingua = $lingua;
+    
         return $this;
     }
 
     /**
-     * Get linguaId
+     * Get lingua
      *
-     * @return integer 
+     * @return \Application\Entity\Lingue 
      */
-    public function getLinguaId()
+    public function getLingua()
     {
-        return $this->linguaId;
+        return $this->lingua;
     }
 }

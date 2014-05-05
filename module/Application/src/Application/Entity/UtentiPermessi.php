@@ -15,7 +15,7 @@ class UtentiPermessi
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false, options={"unsigned"=true})
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -58,12 +58,13 @@ class UtentiPermessi
      * Set valore
      *
      * @param string $valore
+     *
      * @return UtentiPermessi
      */
     public function setValore($valore)
     {
         $this->valore = $valore;
-
+    
         return $this;
     }
 
@@ -81,12 +82,13 @@ class UtentiPermessi
      * Set ruoloId
      *
      * @param integer $ruoloId
+     *
      * @return UtentiPermessi
      */
     public function setRuoloId($ruoloId)
     {
         $this->ruoloId = $ruoloId;
-
+    
         return $this;
     }
 
@@ -104,12 +106,13 @@ class UtentiPermessi
      * Set permessoId
      *
      * @param integer $permessoId
+     *
      * @return UtentiPermessi
      */
     public function setPermessoId($permessoId)
     {
         $this->permessoId = $permessoId;
-
+    
         return $this;
     }
 

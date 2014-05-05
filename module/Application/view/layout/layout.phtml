@@ -3,7 +3,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <?php echo $this->headTitle('ZF2 '. $this->translate('Errori, eccezioni o avvisi'))->setSeparator(' - ')->setAutoEscape(false) ?>
+        <?php echo $this->headTitle('ZF2 '. $this->translate('Welcome to ZF2'))->setSeparator(' - ')->setAutoEscape(false) ?>
 
         <?php echo $this->headMeta()
             ->appendName('viewport', 'width=device-width, initial-scale=1.0')
@@ -12,10 +12,10 @@
 
         <!-- Le styles -->
         <?php
-		echo $this->headLink()
-              ->prependStylesheet($this->basePath().'/common/bootstrap3/css/bootstrap.min.css')
+	echo $this->headLink()
+              ->prependStylesheet($this->basePath().'/public/common/bootstrap3/css/bootstrap.min.css')
               ->prependStylesheet('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css')
-		?>
+	?>
 	   
         <!-- Scripts -->
 
@@ -34,8 +34,8 @@
     </head>
     <body>
 
-	<!-- Fixed navbar
-	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <!-- Fixed navbar
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">

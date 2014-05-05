@@ -1,0 +1,8 @@
+// Dropdown menu
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+label.error {
+    color: red;
+    margin-left: 0.5%;
+}

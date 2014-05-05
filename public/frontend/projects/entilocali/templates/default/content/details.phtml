@@ -1,9 +1,9 @@
 <ul class="breadcrumb">
     <li>
-        <a href="#" title="Home page">Home</a> <span class="divider"></span>
+        <a href="<?php echo $this->basepath() ?>/" title="Home page">Home</a> <span class="divider"></span>
     </li>
     <li>
-        <a href="#" title=""><?php echo $this->maindata[0]['nomeCategoria'] ?></a> <span class="divider"></span>
+        <a href="<?php echo $this->basepath() ?>/comune" title=""><?php echo $this->maindata[0]['nomeCategoria'] ?></a> <span class="divider"></span>
     </li>
 
     <li class="active"><?php echo $this->maindata[0]['titolo'] ?></li>
@@ -11,8 +11,20 @@
 
 <h3><?php echo $this->maindata[0]['titolo'] ?></h3>
 
+<?php if ( isset($this->maindata[0]['sottotitolo']) ): ?>
+<p><strong><?php echo $this->maindata[0]['sottotitolo'] ?> "<?php echo $this->maindata[0]['titolo'] ?>"</strong></p>
+<?php endif; ?>
+
 <div><?php echo $this->maindata[0]['descrizione'] ?></div>
+
+<h3>Allegati</h3>
+<p>Scarica i file allegati</p>
+<ul>
+    <li><a href="#" title="File 1">File 1</a></li>
+    <li><a href="#" title="File 2">File 2</a></li>
+    <li><a href="#" title="File 3">File 3</a></li>
+</ul>
 
 <hr>
 
-<p class="text-right">Visualizza in versione: <a href="#" title="">PDF</a> <a href="#" title="">WORD</a> <a href="#" title="">TXT</a></p>
+<p class="text-right">Visualizza in versione: <a href="#" title="Visualizza documento in formato PDF">PDF</a> <a href="#" title="Visualizza documento in formato Word">WORD</a> <a href="#" title="Visualizza documento in formato testo">TXT</a> Condividi: <a href="#" title="Condividi pagina su facebook"><i class="fa fa-facebook"></i> Facebook</a> <a href="#" title="Condividi pagina su Twitter"><i class="fa fa-twitter"></i> Twitter</a></p>

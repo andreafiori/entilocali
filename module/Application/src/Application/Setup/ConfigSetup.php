@@ -16,20 +16,29 @@ class ConfigSetup extends QueryBuilderSetterAbstract
 
     public function setConfigurations($channel = 1, $languageId = 1)
     {
-        $this->configurations = $this->getQueryBuilder()->add('select', 'c.nome, c.valore')
+        $onfigurationsFromDb = $this->getQueryBuilder()->add('select', 'c.nome, c.valore')
                                                         ->add('from', 'Application\Entity\Config c ')
                                                         ->add('where', 'c.canaleId IN ( :canale , 0 ) AND c.linguaId IN ( :lingua , 0 )')
                                                         ->setParameter('canale', $channel)
                                                         ->setParameter('lingua', $languageId)
                                                         ->getQuery()->getResult();
 
-        if ($this->configurations) {
+        if ($onfigurationsFromDb) {
             $configurations = array();
-            foreach($this->configurations as $config) {
+            foreach($onfigurationsFromDb as $config) {
+                if ( isset($config['nome']) and isset($config['valore']) ) {
                     $configurations[$config['nome']] = $config['valore'];
+                }
             }
+            $this->configurations = $configurations;
         }
-
-        return $configurations;
+        
+        return $this->configurations;
     }
+    
+    public function getConfigurations()
+    {
+        return $this->configurations;
+    }
+    
 }

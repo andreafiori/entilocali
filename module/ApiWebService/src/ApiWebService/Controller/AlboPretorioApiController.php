@@ -4,24 +4,31 @@ namespace ApiWebService\Controller;
 
 use Zend\View\Model\JsonModel;
 use Zend\Mvc\Controller\AbstractActionController;
-//use Zend\Http\Response;
 
+/**
+ * @author Andrea Fiori
+ * @
+ */
 class AlboPretorioApiController extends AbstractActionController
 {
     /**
-     * Get Albo Pretorio list
+     * Get Albo Pretorio Atti
      * 
      * @return array
      */
     public function indexAction()
     {
-        //$this->getResponse()->getHeaders()->addHeaders(array('Content-type' => 'text/xml'));
+        $entityManager = $this->getServiceLocator()->get('\Doctrine\ORM\EntityManager');
+        
+        $queryBuilder = $entityManager->createQueryBuilder();
+        $queryBuilder->add('select', "numero, anno, oggetto ")
+                     ->add('from', 'Application\Entity\AlboAtti aa, Application\Entity\AlboSettori as, Application\Entity\AlboSezioni asz')
+                     ->add('where', "aa.settore = as.id AND aa.sezione = asz.id ");
+        
         return new JsonModel(
                 array(
                         "status" => 200,
-                        "data" => array(
-                               array("" => ""),
-                        ),
+                        "data" => '',
                         "page" => 1,
                 )			
         );

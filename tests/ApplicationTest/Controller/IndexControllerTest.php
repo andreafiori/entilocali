@@ -8,11 +8,12 @@ use ApplicationTest\TestSuite;
 
 /**
  * Test index frontend controller
+ * TODO: test plugin and controller
  * 
  * @author Andrea Fiori
  * @since  05 December 2013
  */
-class IndexControllerTest extends TestSuite
+class IndexControllerTest // extends TestSuite
 {
     protected $controller;
 

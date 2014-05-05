@@ -1,0 +1,60 @@
+<ul class="breadcrumb">
+    <li><a href="<?php echo $this->basepath() ?>" title="Home page">Home</a> <span class="divider"></span></li>
+    <li class="active">Albo pretorio</li>
+</ul>
+
+<form class="form-horizontal" role="form">
+
+  <div class="form-group">
+    <label for="inputtext" class="col-sm-2 control-label">Testo:</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputtext" placeholder="Testo">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="mese" class="col-sm-2 control-label">Atti inseriti a partire da:</label>
+	
+	<div class="col-xs-2">
+    	<select name="mese" id="mese" class="form-control"><option selected="selected" value="99">Mese</option><option value="1">gennaio</option><option value="2">febbraio</option><option value="3">marzo</option><option value="4">aprile</option><option value="5">maggio</option><option value="6">giugno</option><option value="7">luglio</option><option value="8">agosto</option><option value="9">settembre</option><option value="10">ottobre</option><option value="11">novembre</option><option value="12">dicembre</option>
+      </select>
+	</div>
+	 
+      <div class="col-xs-2">
+	<select name="anno" class="form-control"><option selected="selected" value="AAAA">Anno</option><option value="2010">2010</option><option value="2011">2011</option><option value="2012">2012</option><option value="2013">2013</option><option value="2014">2014</option></select>
+		</div>
+    </div>
+  
+  <div class="form-group">
+    <label for="mese" class="col-sm-2 control-label">Sezione: </label>
+    <div class="col-xs-4">
+    	<select name="sezione" class="form-control"><option></option><option value="1">Bandi</option><option value="2">Delibere di Giunta</option><option value="3">Delibere di Consiglio</option><option value="4">Ordinanze</option><option value="5" selected="selected">Avvisi</option><option value="6">Concorsi</option><option value="7">Determine</option><option value="8">Esiti</option><option value="11">Enti Terzi</option><option value="13">Permessi Costruzioni</option><option value="14">Suap</option></select>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label for="mese" class="col-sm-2 control-label">Settore: </label>
+    <div class="col-xs-4">
+		<select name="settore" class="form-control"><option></option><option value="17">Tecnico</option><option value="22">Servizi Sociali</option><option value="19">Segreteria</option><option value="23">Demografici</option><option value="20">Polizia Municipale</option><option value="21">Ragioneria</option><option value="24">Tecnico </option></select>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" name="scaduti" value="1"> Cerca anche nei documenti scaduti
+        </label>
+      </div>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-primary">Cerca</button>
+    </div>
+  </div>
+  
+</form>
+
+<!-- List atti here or export the search form -->
+

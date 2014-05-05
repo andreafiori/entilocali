@@ -15,7 +15,7 @@ class GeoNazioni
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false, options={"unsigned"=true})
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -44,12 +44,13 @@ class GeoNazioni
      * Set nome
      *
      * @param string $nome
+     *
      * @return GeoNazioni
      */
     public function setNome($nome)
     {
         $this->nome = $nome;
-
+    
         return $this;
     }
 

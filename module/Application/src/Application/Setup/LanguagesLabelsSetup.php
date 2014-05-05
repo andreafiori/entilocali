@@ -12,32 +12,34 @@ use Application\Model\QueryBuilderSetterAbstract;
  */
 class LanguagesLabelsSetup extends QueryBuilderSetterAbstract
 {
-	/**
-	 * 
-	 * @param number $languageId
-	 * @return array
-	 */
-	public function setLanguagesLabels($languageId = 1)
-	{
-		$languageLabelsFromDb = $this->getQueryBuilder()->add('select', 'll.labelName, ll.labelValue, ll.description, ll.isbackend')
-														->add('from', 'Application\Entity\LanguagesLabels ll ')
-														->add('where', 'll.language = :language AND (ll.isbackend = 0 OR ll.isuniversal = 1) ')
-														->getQuery()->getResult();
-		
-		return $this->formatLanguageLabelsFromDb($languageLabelsFromDb);
-	}
-	
-	/**
-	 * @param array $languageLabelsFromDb
-	 * @return array $languageLabels
-	 */
-	private function formatLanguageLabelsFromDb(array $languageLabelsFromDb)
-	{
-		$languageLabels = array();
-		foreach($languageLabelsFromDb as $lLabels) {
-			$languageLabels[$lLabels['labelName']] = $lLabels['labelValue'];
-		}
-		
-		return $languageLabels;
-	}
+    /**
+     * 
+     * @param number $languageId
+     * @return array
+     */
+    public function setLanguagesLabels($languageId = 1)
+    {
+            $languageLabelsFromDb = $this->getQueryBuilder()->add('select', 'll.nome, ll.valore, ll.descrizione, ll.isbackend')
+                                                            ->add('from', 'Application\Entity\LingueEtichette ll ')
+                                                            ->add('where', 'll.linguaId = :language AND (ll.isbackend = 0 OR ll.isuniversal = 1) ')
+                                                            ->getQuery()->getResult();
+
+            return $this->formatLanguageLabelsFromDb($languageLabelsFromDb);
+    }
+
+    /**
+     * @param array $languageLabelsFromDb
+     * @return array $languageLabels
+     */
+    private function formatLanguageLabelsFromDb(array $languageLabelsFromDb)
+    {
+        $languageLabels = array();
+        foreach($languageLabelsFromDb as $lLabels) {
+            if (isset($lLabels['labelName']) and isset($lLabels['labelValue'])) {
+                $languageLabels[$lLabels['labelName']] = $lLabels['labelValue'];
+            }
+        }
+
+        return $languageLabels;
+    }
 }

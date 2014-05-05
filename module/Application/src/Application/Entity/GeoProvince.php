@@ -72,12 +72,13 @@ class GeoProvince
      * Set codiceRegione
      *
      * @param string $codiceRegione
+     *
      * @return GeoProvince
      */
     public function setCodiceRegione($codiceRegione)
     {
         $this->codiceRegione = $codiceRegione;
-
+    
         return $this;
     }
 
@@ -95,12 +96,13 @@ class GeoProvince
      * Set codiceProvincia
      *
      * @param string $codiceProvincia
+     *
      * @return GeoProvince
      */
     public function setCodiceProvincia($codiceProvincia)
     {
         $this->codiceProvincia = $codiceProvincia;
-
+    
         return $this;
     }
 
@@ -118,12 +120,13 @@ class GeoProvince
      * Set nome
      *
      * @param string $nome
+     *
      * @return GeoProvince
      */
     public function setNome($nome)
     {
         $this->nome = $nome;
-
+    
         return $this;
     }
 
@@ -141,12 +144,13 @@ class GeoProvince
      * Set sigla
      *
      * @param string $sigla
+     *
      * @return GeoProvince
      */
     public function setSigla($sigla)
     {
         $this->sigla = $sigla;
-
+    
         return $this;
     }
 
@@ -164,12 +168,13 @@ class GeoProvince
      * Set capoluogo
      *
      * @param string $capoluogo
+     *
      * @return GeoProvince
      */
     public function setCapoluogo($capoluogo)
     {
         $this->capoluogo = $capoluogo;
-
+    
         return $this;
     }
 

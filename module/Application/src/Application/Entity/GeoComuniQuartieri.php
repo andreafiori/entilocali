@@ -61,12 +61,13 @@ class GeoComuniQuartieri
      * Set nome
      *
      * @param string $nome
+     *
      * @return GeoComuniQuartieri
      */
     public function setNome($nome)
     {
         $this->nome = $nome;
-
+    
         return $this;
     }
 
@@ -84,12 +85,13 @@ class GeoComuniQuartieri
      * Set capPrincipale
      *
      * @param string $capPrincipale
+     *
      * @return GeoComuniQuartieri
      */
     public function setCapPrincipale($capPrincipale)
     {
         $this->capPrincipale = $capPrincipale;
-
+    
         return $this;
     }
 
@@ -107,12 +109,13 @@ class GeoComuniQuartieri
      * Set citta
      *
      * @param \Application\Entity\GeoComuni $citta
+     *
      * @return GeoComuniQuartieri
      */
     public function setCitta(\Application\Entity\GeoComuni $citta = null)
     {
         $this->citta = $citta;
-
+    
         return $this;
     }
 
