@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/andreafiori/Zend2APICMS.png?branch=master)](https://travis-ci.org/andreafiori/Zend2APICMS)
+[![Build Status](https://travis-ci.org/andreafiori/zend2-cms-with-restful-api.svg?branch=master)](https://travis-ci.org/andreafiori/zend2-cms-with-restful-api)
 
 Zend2 CMS with API service
 =======================
@@ -6,10 +6,11 @@ Zend2 CMS with API service
 Introduction
 ------------
 
+    The application is still under construction!!!
+
 This web application will have a Content Management System to handle contents, blog posts, photo, video.
-The application must be open to build new modules and use it for companies and public administrations.
+It must be open to build new modules and use it for companies and public administrations.
 All frontend templates must be responsive.
-The application is still under construction.
 
 Installation
 ------------
@@ -21,23 +22,22 @@ Get a working copy of this project is to clone the repository and use `composer`
 
 The MySQL database dump file is on the sql directory.
 
-This index.php file on the root allows to use this application on a shared hosting.
-I've updated the Basepath.php file on vendor\zendframework\zendframework\library\Zend\View\Helper\BasePath.php:
+Update the application using:
+    
+    composer update --optimize-autoloader
 
-    /**
-     * Set the base path.
-     *
-     * @param  string $basePath
-     * @return self
-     */
-    public function setBasePath($basePath)
-    {
-    	if ( RUNNING_FROM_ROOT and !preg_match("/public$/", $basePath)) {
-    		 $this->basePath = $basePath.'/public';
-    	} else {
-    		$this->basePath = rtrim($basePath, '/');
-    	}
-        return $this;
-    }
+I have installed composer using the windows setup.
 
 Rename the a.htaccess file to .htaccess. I've renamed it to use on my local XAMPP.
+
+Documentation
+------------
+
+Source code documentation can be generated with Apigen.
+I have apigen.neon file configuration to generate files on the docs directory.
+
+Notes
+------------
+
+This index.php file on the root allows to use this application on a shared hosting.
+The public directory contains frontend, backend and common assets, views and templates.

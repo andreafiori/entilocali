@@ -1,2 +1,11 @@
-<p>Hello! List contents here!</p>
-<p>This page is under construction!</p>
+<ul class="breadcrumb">
+    <li><a href="<?php echo $this->basepath() ?>/" title="Home page">Home</a> <span class="divider"></span></li>
+    <li class="active"><?php echo $this->maindata[0]['nomeCategoria']; ?></li>
+</ul>
+
+<p>Pagine presenti per la categoria <strong><?php echo $this->maindata[0]['nomeCategoria']; ?></strong>:</p>
+<ul>
+<?php foreach($this->maindata as $content): ?>
+    <li><a href="<?php echo $this->basepath().$content['linkDetails'] ?>" title="<?php echo $content['titolo'] ?>"><?php echo $content['titolo'] ?></a></li>
+<?php endforeach; ?>
+</ul>

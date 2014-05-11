@@ -11,7 +11,7 @@ namespace Application\Model;
 abstract class QueryBuilderHelperAbstract
 {
     protected $entityManager;
-    
+
     protected $queryBuilder;
 
     /**
@@ -24,6 +24,11 @@ abstract class QueryBuilderHelperAbstract
         $this->queryBuilder = $this->entityManager->createQueryBuilder();
     }
     
+    /**
+     * Get DQL query string
+     * 
+     * @return string
+     */
     public function getQuery()
     {
         return $this->getQueryBuilder()->getQuery()->getDQL();
@@ -36,26 +41,14 @@ abstract class QueryBuilderHelperAbstract
         
         return $this->getQueryBuilder()->getQuery()->getResult();
     }
-    
-    protected function getQueryBuilder()
+       
+    /**
+     * Return the QueryBuilder object
+     * 
+     * @return \Doctrine\ORM\QueryBuilder $this->queryBuilder
+     */
+    public function getQueryBuilder()
     {
         return $this->queryBuilder;
     }
-    
-    /**
-     * @param number $channel
-     */
-    public function setChannelId($channel = null)
-    {
-        $this->getQueryBuilder()->setParameter('channel', \is_numeric($channel) ? $channel : 1);
-    }
-    
-    /**
-     * @param number $languageId
-     */
-    public function setLanguageId($languageId = null)
-    {
-        $this->getQueryBuilder()->setParameter('language', \is_numeric($languageId) ? $languageId : 1);
-    }
-    
 }

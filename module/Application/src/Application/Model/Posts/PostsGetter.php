@@ -6,7 +6,7 @@ use Application\Model\QueryBuilderHelperAbstract;
 use Application\Model\Slugifier;
 
 /**
- * Posts Query and Records Getter
+ * Posts Query and Records Getters
  * 
  * @author Andrea Fiori
  * @since  15 April 2014
@@ -15,14 +15,33 @@ class PostsGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->getQueryBuilder()->add('select', "DISTINCT(p.id) AS postid, po.id AS postoptionid, p.tipo, p.alias, po.titolo, p.stato, po.descrizione, po.seoUrl, po.sottotitolo, po.seoDescription, po.seoKeywords, p.templateFile, p.flagAllegati, co.nome AS nomeCategoria, c.template")
+        $this->getQueryBuilder()->add('select', 'DISTINCT(p.id) AS postid, po.id AS postoptionid, p.tipo, p.alias, po.titolo, p.stato, po.descrizione, po.seoUrl, po.sottotitolo, po.seoDescription, po.seoKeywords, p.templateFile, p.flagAllegati, co.nome AS nomeCategoria, c.template')
                                 ->add('from', 'Application\Entity\Posts p, Application\Entity\PostsOpzioni po, Application\Entity\PostsRelazioni r, Application\Entity\Categorie c, Application\Entity\CategorieOpzioni co')
-                                //->addSelect(" ( SELECT COUNT(posts.id) FROM Application\Entity\Posts posts, Application\Entity\PostsRelations pr, Application\Entity\Attachments a WHERE ( posts.id = pr.attachment_id and posts_id.id = pr.posts and a.id = pr.posts ) AND posts.typeofpost = 'attachment' ) AS totattachments ")
                                 ->add('where', 'po.posts = p.id AND p.id = r.posts AND c.id = r.categoria AND co.categoria = c.id AND r.canale = :channel AND co.lingua = :language AND po.lingua = :language');
+        
+        return $this->getQueryBuilder();
     }
 
     /**
+     * @param number $channel
+     */
+    public function setChannelId($channel = null)
+    {
+        $this->getQueryBuilder()->setParameter('channel', is_numeric($channel) ? $channel : 1);
+    }
+    
+    /**
+     * @param number $languageId
+     */
+    public function setLanguageId($languageId = null)
+    {
+        $this->getQueryBuilder()->setParameter('language', is_numeric($languageId) ? $languageId : 1);
+    }
+    
+    /**
+     * 
      * @param number $id
+     * @return type
      */
     public function setId($id)
     {
@@ -30,6 +49,8 @@ class PostsGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere('p.id = :id AND po.id = :id');
             $this->getQueryBuilder()->setParameter('id', $id);
         }
+        
+        return $this->getQueryBuilder();
     }
 
     /**
@@ -73,35 +94,40 @@ class PostsGetter extends QueryBuilderHelperAbstract
     public function getQueryResult()
     {
         $posts = parent::getQueryResult();
-        if (is_array($posts) ) {
+        if ( !is_array($posts) ) {
+            return false;
+        }
+        
+        for($i = 0; $i < count($posts); $i++) {
             
-            for($i = 0; $i < count($posts); $i++) {
-                
-                if ( !isset($posts[$i]) ) {
-                    break;
-                }
-                
-                // get post link to detail
-                $posts[$i]['linkDetails'] = '/'.Slugifier::slugify($posts[$i]['nomeCategoria']).'/'.Slugifier::slugify($posts[$i]['titolo']);
-                                
-                // get template view path
-                if ( isset($posts[$i]['template']) ) {
-                    continue;
-                }
-                if ( count($posts) === 1 ) {
-                    $posts[$i]['template'] = $posts[$i]['tipo'].'/details.phtml';
-                } elseif ( count($posts) > 1 ) {
-                    $posts[$i]['template'] = $posts[$i]['tipo'].'/list.phtml';
-                }
+            if ( !isset($posts[$i]) ) {
+                break;
+            }
+            
+            $posts[$i] = array_filter($posts[$i]);
 
-                if ( $posts[$i]['flagAllegati'] == 'si' ) {
-                    // TODO: get attachment record files
-                }
+            $posts[$i]['linkDetails'] = '/'.Slugifier::slugify($posts[$i]['nomeCategoria']).'/'.Slugifier::slugify($posts[$i]['titolo']);
+            
+            if ( $posts[$i]['flagAllegati'] == 'si' ) {
 
             }
-            return $posts;
+            
+            if ( isset($posts[$i]['template']) ) {
+                continue;
+            }
+
+            if ( count($posts) === 1 ) {
+                if (!isset($posts[$i]['template'])) {
+                    $posts[$i]['template'] = $posts[$i]['tipo'].'/details.phtml';
+                }
+            } elseif ( count($posts) > 1 ) {
+                if (!isset($posts[$i]['template'])) {
+                    $posts[$i]['template'] = $posts[$i]['tipo'].'/list.phtml';
+                }
+            }
+
         }
-        return false;
+        return $posts;
     }
     
 }

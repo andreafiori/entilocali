@@ -158,12 +158,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/collections.git",
-                "reference": "b99c5c46c87126201899afe88ec490a25eedd6a2"
+                "reference": "97475b2761f22cd9817c135283ad1079543a4586"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/collections/zipball/b99c5c46c87126201899afe88ec490a25eedd6a2",
-                "reference": "b99c5c46c87126201899afe88ec490a25eedd6a2",
+                "url": "https://api.github.com/repos/doctrine/collections/zipball/97475b2761f22cd9817c135283ad1079543a4586",
+                "reference": "97475b2761f22cd9817c135283ad1079543a4586",
                 "shasum": ""
             },
             "require": {
@@ -180,7 +180,7 @@
                     "Doctrine\\Common\\Collections\\": "lib/"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -218,7 +218,7 @@
                 "collections",
                 "iterator"
             ],
-            "time": "2014-02-03 23:07:43"
+            "time": "2014-05-07 01:20:20"
         },
         {
             "name": "doctrine/common",
@@ -301,12 +301,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "910be8c9e4cc3b2f50634cf42139f77962dddd12"
+                "reference": "9d6300fd862478f58a526fbcad0a8f630daa60aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/910be8c9e4cc3b2f50634cf42139f77962dddd12",
-                "reference": "910be8c9e4cc3b2f50634cf42139f77962dddd12",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/9d6300fd862478f58a526fbcad0a8f630daa60aa",
+                "reference": "9d6300fd862478f58a526fbcad0a8f630daa60aa",
                 "shasum": ""
             },
             "require": {
@@ -364,7 +364,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2014-05-02 01:25:04"
+            "time": "2014-05-09 13:52:56"
         },
         {
             "name": "doctrine/doctrine-module",
@@ -455,12 +455,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineORMModule.git",
-                "reference": "0aac7bd1a9948418156178977c21cfd4d93aee41"
+                "reference": "89c25f55e19973eedb616d433e19a4d7801b6813"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineORMModule/zipball/0aac7bd1a9948418156178977c21cfd4d93aee41",
-                "reference": "0aac7bd1a9948418156178977c21cfd4d93aee41",
+                "url": "https://api.github.com/repos/doctrine/DoctrineORMModule/zipball/89c25f55e19973eedb616d433e19a4d7801b6813",
+                "reference": "89c25f55e19973eedb616d433e19a4d7801b6813",
                 "shasum": ""
             },
             "require": {
@@ -530,7 +530,7 @@
                 "orm",
                 "zf2"
             ],
-            "time": "2014-03-15 20:38:28"
+            "time": "2014-05-09 06:43:22"
         },
         {
             "name": "doctrine/inflector",
@@ -667,12 +667,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/doctrine2.git",
-                "reference": "7fffba80c304c73b3209cf933803c25dcddf702f"
+                "reference": "08347cf4f74f1f7461ba1005a5fe5bb93f3c2c5c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/7fffba80c304c73b3209cf933803c25dcddf702f",
-                "reference": "7fffba80c304c73b3209cf933803c25dcddf702f",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/08347cf4f74f1f7461ba1005a5fe5bb93f3c2c5c",
+                "reference": "08347cf4f74f1f7461ba1005a5fe5bb93f3c2c5c",
                 "shasum": ""
             },
             "require": {
@@ -736,7 +736,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2014-05-01 12:23:56"
+            "time": "2014-05-11 15:51:23"
         },
         {
             "name": "symfony/console",
@@ -745,12 +745,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "d12686cea4e1155ed93449c0bca9db223f31bb2d"
+                "reference": "ea1e32f8f3c78ca1a31f5a730229b028f1e76431"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/d12686cea4e1155ed93449c0bca9db223f31bb2d",
-                "reference": "d12686cea4e1155ed93449c0bca9db223f31bb2d",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/ea1e32f8f3c78ca1a31f5a730229b028f1e76431",
+                "reference": "ea1e32f8f3c78ca1a31f5a730229b028f1e76431",
                 "shasum": ""
             },
             "require": {
@@ -793,7 +793,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-04-28 13:26:08"
+            "time": "2014-05-09 08:15:02"
         },
         {
             "name": "zendframework/zendframework",
@@ -801,12 +801,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zf2.git",
-                "reference": "a64f716194111f9a4520d8dc74115aa1f89f89c8"
+                "reference": "cc81ee796ffaccadc0ea95debdf61d5d37cbedd9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zf2/zipball/a64f716194111f9a4520d8dc74115aa1f89f89c8",
-                "reference": "a64f716194111f9a4520d8dc74115aa1f89f89c8",
+                "url": "https://api.github.com/repos/zendframework/zf2/zipball/cc81ee796ffaccadc0ea95debdf61d5d37cbedd9",
+                "reference": "cc81ee796ffaccadc0ea95debdf61d5d37cbedd9",
                 "shasum": ""
             },
             "require": {
@@ -911,7 +911,7 @@
                 "framework",
                 "zf2"
             ],
-            "time": "2014-05-01 17:04:23"
+            "time": "2014-05-10 16:27:57"
         },
         {
             "name": "zendframework/zendxml",
@@ -1085,12 +1085,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/padraic/mockery.git",
-                "reference": "09cad223615eac9e229837c9d44792f393529328"
+                "reference": "715721895260a951d9cb9c2b9269d5333fb37a5e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/09cad223615eac9e229837c9d44792f393529328",
-                "reference": "09cad223615eac9e229837c9d44792f393529328",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/715721895260a951d9cb9c2b9269d5333fb37a5e",
+                "reference": "715721895260a951d9cb9c2b9269d5333fb37a5e",
                 "shasum": ""
             },
             "require": {
@@ -1113,7 +1113,7 @@
                     "Mockery": "library/"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -1143,7 +1143,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2014-04-25 09:53:30"
+            "time": "2014-05-02 12:25:43"
         },
         {
             "name": "zendframework/zend-developer-tools",
@@ -1151,12 +1151,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/ZendDeveloperTools.git",
-                "reference": "26af0e670ee7e94bd114b33ce022d5d646fb8117"
+                "reference": "8907edf3a03ae0ac761b43e33b3629ac1b6c3cf3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendDeveloperTools/zipball/26af0e670ee7e94bd114b33ce022d5d646fb8117",
-                "reference": "26af0e670ee7e94bd114b33ce022d5d646fb8117",
+                "url": "https://api.github.com/repos/zendframework/ZendDeveloperTools/zipball/8907edf3a03ae0ac761b43e33b3629ac1b6c3cf3",
+                "reference": "8907edf3a03ae0ac761b43e33b3629ac1b6c3cf3",
                 "shasum": ""
             },
             "require": {
@@ -1204,7 +1204,7 @@
                 "module",
                 "zf2"
             ],
-            "time": "2014-04-28 13:31:11"
+            "time": "2014-05-06 03:29:18"
         },
         {
             "name": "zendframework/zenddiagnostics",
@@ -1420,12 +1420,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ZF-Commons/ZfcUser.git",
-                "reference": "70eb1db55e33e50f17030674e0353247b3e115c4"
+                "reference": "8884829e114ad12c8f51482ba7232929f0c139fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ZF-Commons/ZfcUser/zipball/70eb1db55e33e50f17030674e0353247b3e115c4",
-                "reference": "70eb1db55e33e50f17030674e0353247b3e115c4",
+                "url": "https://api.github.com/repos/ZF-Commons/ZfcUser/zipball/8884829e114ad12c8f51482ba7232929f0c139fb",
+                "reference": "8884829e114ad12c8f51482ba7232929f0c139fb",
                 "shasum": ""
             },
             "require": {
@@ -1468,7 +1468,7 @@
                     "./Module.php"
                 ]
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -1489,7 +1489,7 @@
             "keywords": [
                 "zf2"
             ],
-            "time": "2014-04-23 21:29:54"
+            "time": "2014-05-11 16:08:01"
         }
     ],
     "aliases": [

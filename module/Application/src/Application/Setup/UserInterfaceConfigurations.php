@@ -2,6 +2,9 @@
 
 namespace Application\Setup;
 
+use Application\Model\Posts\PostsGetterWrapper;
+use Application\Model\Posts\PostsGetter;
+
 /**
  * Validate and initialize configuration array
  * 
@@ -39,8 +42,8 @@ class UserInterfaceConfigurations
      */
     public function setPreloadResponse($entityManager)
     {
-        $input = array();
-        $postsGetterWrapper = new \Application\Model\Posts\PostsGetterWrapper( new \Application\Model\Posts\PostsGetter($entityManager) );
+        $input = array('tipo'=>'content');
+        $postsGetterWrapper = new PostsGetterWrapper( new PostsGetter($entityManager) );
         $postsGetterWrapper->setInput($input);
         $postsList = $postsGetterWrapper->getRecords();
         if ($postsList) {
@@ -81,7 +84,7 @@ class UserInterfaceConfigurations
         $this->configurations['template_project']     = 'frontend/projects/'.$this->configurations['projectdir_frontend'];
         $this->configurations['template_name']        = $this->configurations['template_frontend'] ? $this->configurations['template_frontend'] : 'default/';
         $this->configurations['template_path']        = $this->configurations['template_project'].'templates/'.$this->configurations['template_name'];
-        //$this->configurations['preloader_class']      = $this->configurations['preloader_frontend'];
+        //$this->configurations['preloader_class']    = $this->configurations['preloader_frontend'];
     }
     
     private function setBackendConfigurations()

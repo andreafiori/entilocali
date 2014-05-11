@@ -1,19 +1,14 @@
-<?php
-
-if (!$this->form):
-?>
-    <h3>Form Contatti non rilevato</h3>
+<ul class="breadcrumb">
+    <li><a href="<?php echo $this->basepath() ?>" title="Home page">Home</a> <span class="divider"></span></li>
+    <li class="active">Contatti</li>
+</ul>
+<?php if (!$this->form): ?>
+<div class="alert alert-danger">
+    <h1>Form Contatti non rilevato</h1>
     <p>&Egrave; stato rilevato un errore per cui il form contatti non &egrave; presente. Ci scusiamo per il momentaneo disagio.</p>
+</div>
 <?php
 else:
-    ?>
-    <ul class="breadcrumb">
-        <li><a href="#" title="Home page">Home</a> <span class="divider"></span></li>
-        <li class="active">Contatti</li>
-    </ul>
-
-    <?php
-
     $form = $this->form;
     $form->prepare();
 
@@ -27,8 +22,10 @@ else:
     echo $this->form()->openTag($this->form);
     
     ?>
-    <h3>Invia un messaggio</h3>
+    <h1>Invia un messaggio</h1>
     <p>Compila i campi del form per contattarci. Tutti i campi sono obbligatori.</p>
+    <fieldset>
+    <!-- <legend>Form Contatti</legend> -->
     <?php
 
     foreach ($this->form as $element):
@@ -61,7 +58,11 @@ else:
         <?php
         endif;
     endforeach;
-
+    
+    ?>
+    </fieldset>
+    <?php
+    
     echo $this->form()->closeTag();
-
+    
 endif;

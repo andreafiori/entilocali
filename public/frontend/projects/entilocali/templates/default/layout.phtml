@@ -57,22 +57,22 @@
                                         <li class="dropdown">
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-archive"></i> Moduli<strong class="caret"></strong></a>
                                                 <ul class="dropdown-menu">
-                                                        <li><a href="<?php echo $this->basePath().'/albo-pretorio'; ?>">Albo Pretorio</a></li>
-                                                        <li><a href="<?php echo $this->basePath().'/stato-civile'; ?>">Stato Civile</a></li>
-                                                        <li><a href="<?php echo $this->basePath() ?>/amministrazione-aperta" title="">Amministrazione aperta</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="<?php echo $this->basePath() ?>/amministrazione-trasparente">Amministrazione trasparente</a></li>
+                                                    <li><a href="<?php echo $this->basePath().'/albo-pretorio'; ?>">Albo Pretorio</a></li>
+                                                    <li><a href="<?php echo $this->basePath().'/stato-civile'; ?>">Stato Civile</a></li>
+                                                    <!-- <li class="divider"></li> -->
+                                                    <li><a href="<?php echo $this->basePath() ?>/amministrazione-trasparente">Amministrazione trasparente</a></li>
+                                                    <li><a href="<?php echo $this->basePath() ?>/faq/domande">F.A.Q</a></li>
                                                 </ul>
                                         </li>
 
                                         <li>
-                                            <a href="<?php echo $this->basePath() ?>/invia-messaggi/contatti" title="Contatti"><i class="fa fa-envelope"></i> Contatti</a>
+                                            <a href="<?php echo $this->basePath() ?>/contatti/invia-messaggio/" title="Contatti"><i class="fa fa-envelope"></i> Contatti</a>
                                         </li>
 
                                     </ul>
-                                    <form class="navbar-form navbar-left" role="search">
+                                    <form class="navbar-form navbar-left" method="post" action="<?php echo $this->basepath() ?>/ricerca/risultati/" role="search">
                                             <div class="form-group">
-                                                    <input type="text" class="form-control">
+                                                <input type="text" class="form-control" placeholder="Cerca sul sito">
                                             </div> <button type="submit" class="btn btn-default" title="Cerca sul sito">Cerca</button>
                                     </form>
                                     <ul class="nav navbar-nav navbar-right">
@@ -101,7 +101,7 @@
                     <div class="row clearfix">
 
                             <div class="col-md-2 column">
-                                
+
                             <?php if ($this->preloadResponse): ?>
                             <?php foreach($this->preloadResponse as $key => $value): ?>
                                     <div class="list-group">
@@ -122,7 +122,6 @@
                                         <li style="margin-bottom: 0.5em"><a href="#" title="">Notizie</a></li>
                                         <li style="margin-bottom: 0.5em"><a href="#" title="">Albo pretorio</a></li>
                                         <li style="margin-bottom: 0.5em"><a href="#" title="">Stato civile</a></li>
-                                        <li style="margin-bottom: 0.5em"><a href="#" title="">Amministrazione aperta</a></li>
                                         <li style="margin-bottom: 0.5em"><a href="#" title="">Amministrazione trasparente</a></li>
                                     </ul>
                                 </div>
@@ -159,8 +158,8 @@
                                 <div class="panel panel-default">                                  
                                   <!-- <div class="panel-heading">Panel heading</div> -->
                                   <ul class="list-group">
-                                    <li class="list-group-item"><a href="#" title="">Rassegna stampa</a></li>
-                                    <li class="list-group-item"><a href="#" title="">Eventi</a></li>
+                                    <li class="list-group-item"><a href="<?php echo $this->basepath() ?>/rassegna-stampa" title="">Rassegna stampa</a></li>
+                                    <li class="list-group-item"><a href="<?php echo $this->basepath() ?>/eventi" title="">Eventi</a></li>
                                     <li class="list-group-item"><a href="#" title="">Informa giovani</a></li>
                                     <li class="list-group-item"><a href="#" title="">Biblioteca</a></li>
                                   </ul>
@@ -171,7 +170,7 @@
                     <div class="row clearfix">
                             <div class="col-md-12 column">
                                     <p class="text-muted">
-                                            &copy; <?php echo date("Y") ?> <?php echo $this->sitename ?> <a href="http://validator.w3.org/check?uri=referer" title="Validate HTML" target="_blank" class="underline footerlink">Valid HTML5</a> - <a href="http://jigsaw.w3.org/css-validator/check/referer" title="Validate CSS" target="_blank" class="underline footerlink">Valid CSS</a>
+                                        &copy; <?php echo date("Y") ?> <?php echo $this->sitename ?> Sito sviluppato da <a href="http://www.kronoweb.it" target="_blank" title="Kronoweb.it ITC">Kronoweb</a>. <a href="#" title="">Note Legali</a> <a href="#" title="">Accessiblit&agrave;</a> <a href="#" title="">Mobile</a> <a href="#" title="">Feed RSS</a> <a href="http://validator.w3.org/check?uri=referer" title="Validate HTML" target="_blank" class="underline footerlink">Valid HTML5</a> - <a href="http://jigsaw.w3.org/css-validator/check/referer" title="Validate CSS" target="_blank" class="underline footerlink">Valid CSS</a>
                                     </p>
                             </div>
                     </div>

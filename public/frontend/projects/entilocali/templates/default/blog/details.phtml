@@ -1,34 +1,26 @@
 <ul class="breadcrumb">
-    <li>
-        <a href="<?php echo $this->basepath() ?>/" title="Torna all'home page">Home</a> <span class="divider"></span>
-    </li>
-    <li>
-        <a href="<?php echo $this->basepath() ?>/comune" title="<?php echo $this->maindata[0]['nomeCategoria'] ?>"><?php echo $this->maindata[0]['nomeCategoria'] ?></a> <span class="divider"></span>
-    </li>
-
+    <li><a href="<?php echo $this->basepath() ?>/" title="Home page">Home</a> <span class="divider"></span></li>
+    <li><a href="#" title=""><?php echo $this->maindata[0]['nomeCategoria']; ?></a></li>
     <li class="active"><?php echo $this->maindata[0]['titolo'] ?></li>
 </ul>
 
-<div class="content_details">
+<div class="blog_details">
+
     <h1><?php echo $this->maindata[0]['titolo'] ?></h1>
 
-    <?php if ( isset($this->maindata[0]['sottotitolo']) ): ?>
-    <p><strong><?php echo $this->maindata[0]['sottotitolo'] ?> "<?php echo $this->maindata[0]['titolo'] ?>"</strong></p>
-    <?php endif; ?>
-
     <div><?php echo $this->maindata[0]['descrizione'] ?></div>
-
+    
     <?php if ($this->maindata[0]['flagAllegati'] == 'si'): ?>
-    <h3>Allegati</h3>
-    <p>Scarica i file allegati</p>
+    <h2>Allegati</h2>
     <ul>
-        <li><a href="#" title="">File 1</a></li>
-        <li><a href="#" title="">File 2</a></li>
-        <li><a href="#" title="">File 3</a></li>
+        <li>Allegato 1</li>
+        <li>Allegato 2</li>
+        <li>Allegato 3</li>
     </ul>
     <?php endif; ?>
 
     <p class="text-right">Esporta: <a href="#" title="Visualizza documento in formato PDF">PDF</a> <a href="#" title="Visualizza documento in formato Word">WORD</a> <a href="#" title="Visualizza documento in formato testo">TXT</a> Condividi: <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->currentUrl; ?>" title="Condividi pagina su facebook"><i class="fa fa-facebook"></i> Facebook</a> <a href="https://twitter.com/home?status=<?php echo $this->currentUrl; ?>" title="Condividi pagina su Twitter"><i class="fa fa-twitter"></i> Twitter</a> <a href="https://plus.google.com/share?url=<?php echo $this->currentUrl ?>">Google Plus</a> <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=<?php echo $this->currentUrl ?>&amp;title=<?php echo $this->maindata[0]['seoTitle'] ?>">Linkedin</a> <a href="https://pinterest.com/pin/create/button/?url=<?php echo $this->currentUrl ?>">Pinterest</a></p>
     
     <hr>
+    
 </div>

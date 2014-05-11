@@ -2,12 +2,15 @@
 
 namespace Application\Form;
 
+use Zend\Form\Form;
+/*
 use Zend\Captcha;
 use Zend\Form\Element;
 use Zend\Form\Fieldset;
-use Zend\Form\Form;
+
 use Zend\InputFilter\Input;
 use Zend\InputFilter\InputFilter;
+*/
 
 /**
  * Contact Form
@@ -27,9 +30,9 @@ class ContactForm extends Form
             'name' => 'nome', 
             'type' => 'Zend\Form\Element\Text', 
             'attributes' => array( 
-                'placeholder' => 'Inserisci nome...', 
-                'title' => 'Inserisci nome...', 
-                'required' => 'required', 
+                'placeholder' => 'Inserisci nome...',
+                'title' => 'Inserisci nome...',
+                'required' => 'required',
             ), 
             'options' => array( 
                 'label' => 'Nome', 
@@ -57,10 +60,10 @@ class ContactForm extends Form
                 'title' => 'Inserisci indirizzo Email...', 
                 'required' => 'required', 
             ), 
-            'options' => array( 
+            'options' => array(
                 'label' => 'Email', 
-            ), 
-        )); 
+            ),
+        ));
  
         $this->add(array( 
             'name' => 'messaggio', 

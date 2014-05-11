@@ -10,7 +10,7 @@ $dbParams = array(
 );
 
 return array(
-	'service_manager' => array(
+    'service_manager' => array(
         'factories' => array(
             'Zend\Db\Adapter\Adapter' => function ($sm) use ($dbParams) {
                 $adapter = new BjyProfiler\Db\Adapter\ProfilingAdapter(array(

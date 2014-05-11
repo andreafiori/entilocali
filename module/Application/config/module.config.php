@@ -34,6 +34,31 @@ return array(
                                                                     ),
                                                     ),
                                     ),
+                                    'posts' => array(
+                                                    'type'    => 'segment',
+                                                    'options' => array(
+                                                                    'route'    => '/[:category][/]page[/][:page][/]order_by[/][:order_by][/][:order][/]',
+                                                                    'constraints' => array(
+                                                                            'category'  => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                                            'id'        => '[0-9]+',
+                                                                            'page'      => '[0-9]+',
+                                                                            'order_by'  => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                                            'order'     => 'ASC|DESC',
+                                                                    ),
+                                                                    'defaults' => array(
+                                                                                'controller' => 'Application\Controller\Index',
+                                                                                'action'     => 'index',
+                                                                    ),
+                                                    ),
+                                                    'may_terminate' => true,
+                                                    'child_routes' => array(
+                                                                    'default' => array(
+                                                                                    'type'    => 'Wildcard',
+                                                                                    'options' => array(
+                                                                                    ),
+                                                                    ),
+                                                    ),
+                                    ),
                                     'feed' => array(
                                                     'type'    => 'segment',
                                                     'options' => array(
@@ -97,6 +122,27 @@ return array(
                                                         ),
                                         ),
                                     ),
+                                    'faq' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                                        'route'    => '/faq/domande[/][:action]',
+                                                        'constraints' => array(
+                                                            
+                                                        ),
+                                                        'defaults' => array(
+                                                            'controller' => 'Application\Controller\Index',
+                                                            'action'    => 'index',
+                                                        ),
+                                        ),
+                                        'may_terminate' => true,
+                                        'child_routes' => array(
+                                                        'default' => array(
+                                                                        'type'    => 'Wildcard',
+                                                                        'options' => array(
+                                                                        ),
+                                                        ),
+                                        ),
+                                    ),
                                     'albo-pretorio' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
@@ -118,10 +164,10 @@ return array(
                                                         ),
                                         ),
                                     ),
-                                    'amministrazione-aperta' => array(
+                                    'stato-civile' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
-                                                        'route'    => '/amministrazione-aperta[/][:action]',
+                                                        'route'    => '/stato-civile[/][:action]',
                                                         'constraints' => array(
                                                             
                                                         ),
@@ -163,7 +209,7 @@ return array(
                                     'contatti' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
-                                                        'route'    => '/invia-messaggi/contatti[/][:action]',
+                                                        'route'    => '/contatti/invia-messaggio[/][:action][/]',
                                                         'constraints' => array(
                                                             
                                                         ),
@@ -181,10 +227,10 @@ return array(
                                                         ),
                                         ),
                                     ),
-                                    'form-response' => array(
+                                    'ricerca' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
-                                                        'route'    => '/form/response[/][:formname]',
+                                                        'route'    => '/ricerca/risultati[/][:action][/]',
                                                         'constraints' => array(
                                                             
                                                         ),
@@ -214,7 +260,7 @@ return array(
                     ),
     ),
     'translator' => array(
-                    'locale' => 'en_US',
+                    'locale' => 'it_IT',
                     'translation_file_patterns' => array(
                                     array(
                                         'type'     => 'gettext',
@@ -244,6 +290,7 @@ return array(
                     'template_map' => array(
                                     'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
                                     'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
+                                    'application/pagination'  => __DIR__ . '/../view/application/pagination/numbers.phtml',
                                     'admin/index'             => __DIR__ . '/../view/',
                                     'error/404'               => __DIR__ . '/../view/error/404.phtml',
                                     'error/index'             => __DIR__ . '/../view/error/index.phtml',
@@ -275,4 +322,16 @@ return array(
                                 ),
                 ),
     ),
+    // Frontend Router Class Map
+    'fe_router' => array(
+        "default"                       => 'Application\Model\Posts\PostsFrontend',
+        "posts"                         => 'Application\Model\Posts\PostsFrontend',
+        "foto"                          => 'Application\Model\Posts\FotoFrontend',
+        "albo-pretorio"                 => 'Application\Model\AlboPretorio\AlboPretorioFrontend',
+        "stato-civile"                  => 'Application\Model\StatoCivile\StatoCivileFrontend',
+        "amministrazione-trasparente"   => 'Application\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFrontend',
+        "contatti"                      => 'Application\Model\Contatti\ContattiFrontend',
+        "faq"                           => 'Application\Model\Faq\FaqFrontend',
+        "ricerca"                       => 'Application\Model\RicercaFrontend',
+    )
 );

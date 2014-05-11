@@ -16,6 +16,9 @@ class PostsGetterWrapper
     
     private $input;
     
+    /**
+     * @param \Application\Model\Posts\PostsGetter $postsGetter
+     */
     public function __construct(PostsGetter $postsGetter)
     {
         $this->postsGetter = $postsGetter;
@@ -32,8 +35,8 @@ class PostsGetterWrapper
         $this->postsGetter->setChannelId( $this->getInput('channel') );
         $this->postsGetter->setLanguageId( $this->getInput('language') );
         $this->postsGetter->setId( $this->getInput('id') );
-        $this->postsGetter->setNomeCategoria( $this->getInput('nome_categoria') );
-        $this->postsGetter->setTitolo( $this->getInput('titolo') );
+        $this->postsGetter->setNomeCategoria( $this->getInput('category') );
+        $this->postsGetter->setTitolo( $this->getInput('title') );
         $this->postsGetter->setTipo( $this->getInput('tipo') );
 
         return $this->postsGetter->getQueryResult();
@@ -52,7 +55,7 @@ class PostsGetterWrapper
     /**
      * 
      * @param string $key
-     * @param 0 or 1 $noArray
+     * @param 0 or 1 or array
      * @return types
      */
     public function getInput($key = null, $noArray = null)
