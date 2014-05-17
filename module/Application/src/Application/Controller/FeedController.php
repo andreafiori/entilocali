@@ -16,7 +16,6 @@ class FeedController extends AbstractActionController
     {
         return new \Zend\View\Model\JsonModel(
                 array()
-                );
+        );
     }
 }
-

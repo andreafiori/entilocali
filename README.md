@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/andreafiori/zend2-cms-with-restful-api.svg?branch=master)](https://travis-ci.org/andreafiori/zend2-cms-with-restful-api)
 
-Zend2 CMS with API service
+Zend2 CMS with RESTful API
 =======================
 
 Introduction

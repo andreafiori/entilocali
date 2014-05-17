@@ -227,6 +227,48 @@ return array(
                                                         ),
                                         ),
                                     ),
+                                    'newsletter' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                                        'route'    => '/newsletter/form[/]',
+                                                        'constraints' => array(
+                                                            
+                                                        ),
+                                                        'defaults' => array(
+                                                            'controller' => 'Application\Controller\Index',
+                                                            'action'    => 'index',
+                                                        ),
+                                        ),
+                                        'may_terminate' => true,
+                                        'child_routes' => array(
+                                                        'default' => array(
+                                                                        'type'    => 'Wildcard',
+                                                                        'options' => array(
+                                                                        ),
+                                                        ),
+                                        ),
+                                    ),
+                                    'registrati' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                                        'route'    => '/registrazione/form[/]',
+                                                        'constraints' => array(
+                                                            
+                                                        ),
+                                                        'defaults' => array(
+                                                            'controller' => 'Application\Controller\Index',
+                                                            'action'    => 'index',
+                                                        ),
+                                        ),
+                                        'may_terminate' => true,
+                                        'child_routes' => array(
+                                                        'default' => array(
+                                                                        'type'    => 'Wildcard',
+                                                                        'options' => array(
+                                                                        ),
+                                                        ),
+                                        ),
+                                    ),
                                     'ricerca' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
@@ -252,11 +294,11 @@ return array(
     ),
     'service_manager' => array(
                     'abstract_factories' => array(
-                                    'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
-                                    'Zend\Log\LoggerAbstractServiceFactory',
+                               'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
+                               'Zend\Log\LoggerAbstractServiceFactory',
                     ),
                     'aliases' => array(
-                                    'translator' => 'MvcTranslator',
+                                'translator' => 'MvcTranslator',
                     ),
     ),
     'translator' => array(
@@ -332,6 +374,7 @@ return array(
         "amministrazione-trasparente"   => 'Application\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFrontend',
         "contatti"                      => 'Application\Model\Contatti\ContattiFrontend',
         "faq"                           => 'Application\Model\Faq\FaqFrontend',
-        "ricerca"                       => 'Application\Model\RicercaFrontend',
+        "newsletter"                    => 'Application\Model\Newsletter\NewsletterFrontend',
+        "ricerca"                       => 'Application\Model\Ricerca\RicercaFrontend',
     )
 );

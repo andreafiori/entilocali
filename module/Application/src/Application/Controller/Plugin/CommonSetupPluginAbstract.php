@@ -17,6 +17,8 @@ class CommonSetupPluginAbstract extends AbstractPlugin
     protected $config;
     protected $router;
     protected $request;
+    protected $redirect;
+    protected $flashMessenger;
     protected $routeMatch;
     protected $module;
     protected $languageAbbreviation;
@@ -27,20 +29,28 @@ class CommonSetupPluginAbstract extends AbstractPlugin
     protected $languageRecord;
     protected $configurations;
     
-    public function getServiceLocator() {
+    public function getServiceLocator()
+    {
         return $this->serviceLocator;
     }
 
-    public function getServiceManager() {
+    public function getServiceManager()
+    {
         return $this->serviceManager;
     }
 
-    public function getEntityManager() {
+    public function getEntityManager()
+    {
         return $this->entityManager;
     }
 
-    public function getQueryBuilder() {
+    public function getQueryBuilder()
+    {
         return $this->queryBuilder;
     }
     
+    public function isBackend()
+    {
+        return $this->isBackend;
+    }
 }

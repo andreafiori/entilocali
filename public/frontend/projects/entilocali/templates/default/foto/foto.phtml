@@ -1,9 +1,15 @@
 <ul class="breadcrumb">
-    <li><a href="#" title="Home page">Home</a> <span class="divider"></span></li>
+    <li><a href="<?php echo $this->basepath ?>/" title="Home page">Home</a> <span class="divider"></span></li>
     <li class="active">Foto</li>
 </ul>
 
 <h3>Galleria Fotografica (demo)</h3>
+
+<!-- TODO: Selezione Categorie -->
+
+<?php foreach($this->foto as $foto): ?>
+    <!-- <div>&raquo; <?php echo $foto['titolo']; ?></div> -->
+<?php endforeach; ?>
 
 <br>
 <p>Immagini in miniatura</p>

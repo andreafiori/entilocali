@@ -1,44 +1,19 @@
 <?php
 
-namespace Application\Model\FrontendHelpers;
+namespace Application\Model\RouterManagers;
 
 /**
- * Frontend Router Abstraction Object
- * 
  * @author Andrea Fiori
  * @since  05 May 2014
  */
-abstract class FrontendRouterAbstract
+abstract class RouterManagerAbstract
 {
     const defaultTemplate = 'homepage.phtml';
     
     protected $input;
     protected $output = array();
     protected $router;
-    
-    /**
-     * @param array $input
-     */
-    public function setRouter(array $router)
-    {
-        $this->router = $router;
-        
-        return $this->router;
-    }
-    
-    /**
-     * @param string $key
-     * @return string or array
-     */
-    public function getRouter($key = null)
-    {
-        if ( isset($this->router[$key]) ) {
-            return $this->router[$key];
-        }
-        
-        return $this->router;
-    }
-    
+
     /**
      * @param array $input
      */
@@ -66,6 +41,29 @@ abstract class FrontendRouterAbstract
         }
     }
     
+    /**
+     * @param array $input
+     */
+    public function setRouter(array $router)
+    {
+        $this->router = $router;
+        
+        return $this->router;
+    }
+    
+    /**
+     * @param string $key
+     * @return string or array
+     */
+    public function getRouter($key = null)
+    {
+        if ( isset($this->router[$key]) ) {
+            return $this->router[$key];
+        }
+        
+        return $this->router;
+    }
+        
     /**
      * @param string $template
      */
@@ -106,7 +104,7 @@ abstract class FrontendRouterAbstract
      * @param type $key
      * @param type $value
      */
-    public function setFrontendVariable($key, $value)
+    public function setVariable($key, $value)
     {
         if ( !isset($this->output['export']) ) {
             $this->output['export'] = array();

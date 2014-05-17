@@ -37,6 +37,7 @@ class Module implements AutoloaderProviderInterface
     
     /**
      * TODO: handle errors exceptions and controller not found
+     * 
      * @param MvcEvent $e
      */
     public function handleError(MvcEvent $e)
@@ -55,13 +56,13 @@ class Module implements AutoloaderProviderInterface
      */
     public function getViewHelperConfig()
     {
-    	return array(
-		'invokables' 	=> array(
-                    'formelement'   => 'Application\Form\View\Helper\FormElement',
-                    'formPlainText' => 'Application\Form\View\Helper\FormPlainText',
-                    )
-		);
-	}
+        return array(
+            'invokables' 	=> array(
+                'formelement'   => 'Application\Form\View\Helper\FormElement',
+                'formPlainText' => 'Application\Form\View\Helper\FormPlainText',
+                )
+        );
+    }
 
     public function getAutoloaderConfig()
     {

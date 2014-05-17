@@ -1,40 +1,55 @@
 <?php echo $this->doctype(); ?>
 <html lang="it">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title><?php echo $this->sitename ?> - Area riservata</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
-	<?php
-	echo $this->headLink()
-              ->prependStylesheet($this->basePath().'/public/common/bootstrap3/css/bootstrap.min.css')
-              ->prependStylesheet('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css')
-              ->prependStylesheet($this->basePath().'/public/common/jquery/datatable/css/jquery.dataTables.css')
-	?>
-	
-	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-	<!--[if lt IE 9]>
-	<script src="<?php echo $this->basePath().'/public/common/js/html5shiv.js'; ?>"></script>
-	<![endif]-->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title><?php echo $this->sitename ?> - Area riservata</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<!-- Fav and touch icons
-	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/apple-touch-icon-144-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/apple-touch-icon-114-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/apple-touch-icon-72-precomposed.png">
-	<link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-57-precomposed.png">
-	<link rel="shortcut icon" href="img/favicon.png">
-	-->
-	
-	<style>
-	/* Dropdown menu */
-	.dropdown:hover .dropdown-menu {
-	    display: block;
-	 }
-	label.error {
-		color: red;
-		margin-left: 0.5%;
-	}
-	</style>
+    <?php
+    echo $this->headLink()
+          ->prependStylesheet($this->basePath().'/public/common/bootstrap3/css/bootstrap.min.css')
+          ->prependStylesheet('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css')
+          ->prependStylesheet($this->basePath().'/public/common/jquery/datatable/css/jquery.dataTables.css')
+    ?>
+    
+    <style>
+    // Dropdown menu
+    .dropdown:hover .dropdown-menu {
+        display: block;
+     }
+    label.error {
+            color: red;
+            margin-left: 0.5%;
+    }
+    </style>
+    
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="<?php echo $this->basePath().'/public/common/js/html5shiv.js'; ?>"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="img/favicon.png">
+    -->  
+    
+    <!-- JQuery -->
+    <script src="<?php echo $this->basePath() ?>/public/common/jquery/jquery.min.js"></script>
+    <script src="<?php echo $this->basePath() ?>/public/common/jquery/form/jquery.form.js"></script>
+    <script src="<?php echo $this->basePath() ?>/public/common/jquery/validate/jquery.validate.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="<?php echo $this->basePath() ?>/public/common/bootstrap3/js/bootstrap.min.js"></script>
+
+    <!-- CkEditor and CKFinder -->
+    <script src="<?php echo $this->basePath() ?>/public/common/jquery/ckeditor/ckeditor.js"></script>
+    <script src="<?php echo $this->basePath() ?>/public/common/jquery/ckfinder/ckfinder.js"></script>
+
+    <!-- DataTable -->
+    <script src="<?php echo $this->basePath() ?>/public/common/jquery/datatable/js/jquery.dataTables_it.js"></script>
 </head>
 
 <body>
@@ -58,63 +73,60 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li class="active">
-                                <a href="javascript:void(0)" title="Torna alla home page"><i class="fa fa-home"></i> Home</a>
+                            <a href="javascript:void(0)" title="Torna alla home page"><i class="fa fa-home"></i> Home</a>
                         </li>
 
                         <li><a href="<?php echo $this->basepath() ?>" target="_blank" title="Anteprima sito web"><i class="fa fa-eye"></i> Anteprima</a></li>
-
+                        <!--
                         <li class="dropdown">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">Moduli <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                <li class="dropdown submenu">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pagine</a>
-                                </li>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Contenuti</a></li>
                                 <li><a href="#" title="Foto">Foto</a></li>
                                 <li><a href="#" title="Albo pretorio">Albo pretorio</a></li>
-                                <li><a href="#" title="Amministrazione aperta">Amministrazione aperta</a></li>
                                 <li><a href="#" title="Amministrazione trasparente">Amministrazione trasparente</a></li>
                                 <li><a href="#" title="Stato civile">Stato civile</a></li>
                                 <li><a href="#" title="Contatti">Contatti</a></li>
-                                <!--
-                                <li><a href="#" title="">Blogs</a></li>
+                                <li><a href="#" title="Booking">Booking</a></li>
+                                <li><a href="#" title="">E-commerce</a></li>
                                 <li><a href="#" title="">Video</a></li>
                                 <li><a href="#" title="">E-commerce</a></li>
                                 <li><a href="#" title="">Annunci</a></li>
+                                <li><a href="#" title="">Aste</a></li>
                                 <li><a href="#" title="">Takeaway</a></li>
-                                -->
                             </ul>
                         </li>
-
+                        -->
                         <li>
                             <a href="#" title="Opzioni"><i class="fa fa-wrench"></i> Opzioni</a>
                         </li>
 
                         <li>
-                            <a href="<?php echo $this->basepath() ?>/?controller=formDataController&amp;adminObject=ticketFormData" title="Assistenza"><i class="fa fa-stethoscope"></i> Assistenza</a>
+                            <a href="<?php echo $this->basepath() ?>/<?php echo $this->langFromRoute; ?>/formdata/assistenza" title="Assistenza"><i class="fa fa-stethoscope"></i> Assistenza</a>
                         </li>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
-                                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Andrea Fiori <strong class="caret"></strong></a>
-                                    <ul class="dropdown-menu">
-                                            <li>
-                                                <a href="javascript:void(0)" title="Profilo">Profilo</a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:void(0)" title="Documentazione"><i class="fa fa-book"></i> Documentazione</a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:void(0)" title="Application Program Interface"><i class="fa fa-external-link-square"></i> API</a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:void(0)" title="Backup Database">Backup Database</a>
-                                            </li>
-                                            <li class="divider"></li>
-                                            <li>
-                                                <a href="<?php echo $this->basepath() ?>/admin/logout" title="Uscita dall'area riservata"><i class="fa fa-power-off"></i> Uscita</a>
-                                            </li>
-                                    </ul>
+                                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Andrea Fiori <strong class="caret"></strong></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="javascript:void(0)" title="Profilo">Profilo</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" title="Documentazione">Documentazione</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" title="Application Program Interface">API</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" title="Backup Database">Backup Database</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li>
+                                        <a href="<?php echo $this->url('login/process', array('action' => 'logout')); ?>" title="Uscita dall'area riservata"><i class="fa fa-power-off"></i> Uscita</a>
+                                    </li>
+                                </ul>
                             </li>
                     </ul>
             </div>
@@ -122,53 +134,36 @@
         <div class="row clearfix">
             <?php
             // Sidebar
-            echo $this->partial('backend/templates/default/sidebar/sidebar_entilocali.phtml');
+            echo $this->partial('backend/templates/'.$this->template_backend.'sidebar/sidebar_entilocali.phtml');
             ?>
             <div class="col-md-9 column">
                 <?php
                 /* Main Template */
-                echo $this->partial('backend/templates/default/dashboard/dashboard.phtml');
+                echo $this->partial($this->templatePartial);
                 ?>
             </div>
         </div>
         <div class="row clearfix">
-                <div class="col-md-12 column">
-                        <p class="text-muted">
-                                &copy; <?php echo date("Y"); ?> <?php echo $this->sitename ?>
-                        </p>
-                </div>
+            <div class="col-md-12 column">
+                <p class="text-muted">&copy; <?php echo date("Y"); ?> <?php echo $this->sitename ?></p>
             </div>
+        </div>
         </div>
     </div>
 </div>
-
-<!-- JQuery -->
-<script src="<?php echo $this->basePath() ?>/public/common/jquery/jquery.min.js"></script>
-<script src="<?php echo $this->basePath() ?>/public/common/jquery/form/jquery.form.js"></script>
-<script src="<?php echo $this->basePath() ?>/public/common/jquery/validate/jquery.validate.min.js"></script>
-
-<!-- Bootstrap -->
-<script src="<?php echo $this->basePath() ?>/public/common/bootstrap3/js/bootstrap.min.js"></script>
-
-<!-- CkEditor and CKFinder -->
-<script src="<?php echo $this->basePath() ?>/public/common/jquery/ckeditor/ckeditor.js"></script>
-<script src="<?php echo $this->basePath() ?>/public/common/jquery/ckfinder/ckfinder.js"></script>
-
-<!-- DataTable -->
-<script src="<?php echo $this->basePath() ?>/public/common/jquery/datatable/js/jquery.dataTables_it.js"></script>
 
 <script>
 
 function showLoading()
 {
-	$("#formDataResponse").hide();
-	$("#formDataLoading").show();
+    $("#formDataResponse").hide();
+    $("#formDataLoading").show();
 }
 
 function showResponse()
 {
-	$("#formDataResponse").show();
-	$("#formDataLoading").hide();
+    $("#formDataResponse").show();
+    $("#formDataLoading").hide();
 }
 
 $(document).ready(function () {
@@ -180,11 +175,11 @@ $(document).ready(function () {
     var validate = $("#formdata").validate({
         submitHandler: function(form) {
             $("#formdata").ajaxSubmit({
-            target: "#formDataResponse",
-                    type: "post",
-                    beforeSubmit: showLoading,
-                    success: showResponse,
-                    onkeyup: false
+                target: "#formDataResponse",
+                type: "post",
+                beforeSubmit: showLoading,
+                success: showResponse,
+                onkeyup: false
             });
         }
     });
@@ -192,7 +187,7 @@ $(document).ready(function () {
     /* FadeOut Div */
     setTimeout( function() {
         $("div.formDataResponse").fadeOut("slow", function () {
-                $("div.formDataResponse").remove();
+            $("div.formDataResponse").remove();
         });
     }, 2000);
     

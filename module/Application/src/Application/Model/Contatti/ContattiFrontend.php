@@ -3,10 +3,10 @@
 namespace Application\Model\Contatti;
 
 use Zend\Mail;
-use Application\Model\FrontendHelpers\FrontendRouterAbstract;
-use Application\Model\FrontendHelpers\FrontendRouterInterface;
-use Application\Form\ContactForm;
-use Application\Form\ContactFormValidator;
+use Application\Model\RouterManagers\RouterManagerAbstract;
+use Application\Model\RouterManagers\RouterManagerInterface;
+use Application\Form\ContattiForm;
+use Application\Form\ContattiFormValidator;
 
 /**
  * Contact form frontend router
@@ -15,17 +15,24 @@ use Application\Form\ContactFormValidator;
  * @author Andrea Fiori
  * @since  07 May 2014
  */
-class ContattiFrontend extends FrontendRouterAbstract implements FrontendRouterInterface
+class ContattiFrontend extends RouterManagerAbstract implements RouterManagerInterface
 {
-    public function setupFrontendRecord()
-    {  
-        $form    = new ContactForm();
-        $request = $this->getInput('request');
- 
+    public function setupRecord()
+    {
+        $form     = new ContattiForm();
+        $request  = $this->getInput('request');
+        $template = 'contatti/contatti.phtml';
+        
+        if (!is_object($request)) {
+            return false;
+        }
+
         if ( $request->isPost() ) {
-            $form->setInputFilter( new ContactFormValidator() );
+            $form->setInputFilter( new ContattiFormValidator() );
             $form->setData($request->getPost());
             if ($form->isValid()) {
+                
+                //$redirect = $this->getInput('redirect');
                 $formData = $request->getPost();
 
                 $configurations = $this->getInput('configurations', 1);
@@ -39,23 +46,21 @@ class ContattiFrontend extends FrontendRouterAbstract implements FrontendRouterI
                 $transport = new Mail\Transport\Sendmail();
                 $transport->send($mail);
 
-                $this->setFrontendVariable('inviato', 1);
+                $this->setVariable('inviato', 1);
 
-                $this->setTemplate('contatti/ok.phtml');
-                return $this->getOutput();
+                $template = 'contatti/ok.phtml';
 
             } else {
-                foreach ($form->getInputFilter()->getInvalidInput() as $invalidInput) {
-                    $flash   = $this->getInput('flashMessenger');
-                    // $invalidInput->getName() . ': ' . implode(',',$invalidInput->getMessages()) . '<br/>';
-                    $flash->addMessage('My message error');
+                $flashMessenger   = $this->getInput('flashMessenger');
+                foreach ($form->getInputFilter()->getInvalidInput() as $invalidInput) {                    
+                    $flashMessenger->addMessage('My message error');
                 }
-                $this->setFrontendVariable('errors', $flash->getMessages());
+                $this->setVariable('messages', $flashMessenger->getMessages());
             }
         }
         
-        $this->setTemplate('contatti/contatti.phtml');
-        $this->setFrontendVariable('form', $form);
+        $this->setTemplate($template);
+        $this->setVariable('form', $form);
 
         return $this->getOutput();
     }

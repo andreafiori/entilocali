@@ -3,14 +3,6 @@
 namespace Application\Form;
 
 use Zend\Form\Form;
-/*
-use Zend\Captcha;
-use Zend\Form\Element;
-use Zend\Form\Fieldset;
-
-use Zend\InputFilter\Input;
-use Zend\InputFilter\InputFilter;
-*/
 
 /**
  * Contact Form
@@ -18,14 +10,12 @@ use Zend\InputFilter\InputFilter;
  * @author Andrea Fiori
  * @since  20 April 2014
  */
-class ContactForm extends Form 
+class ContattiForm extends Form 
 {
     public function __construct($name = null) 
-    { 
-        parent::__construct('');
-        
-        $this->setAttribute('method', 'post'); 
-        
+    {
+        parent::__construct($name);
+                
         $this->add(array( 
             'name' => 'nome', 
             'type' => 'Zend\Form\Element\Text', 

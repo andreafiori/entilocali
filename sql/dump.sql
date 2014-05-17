@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Versione server:              5.6.16 - MySQL Community Server (GPL)
+-- Versione server:              5.5.36 - MySQL Community Server (GPL)
 -- S.O. server:                  Win32
--- HeidiSQL Versione:            8.3.0.4752
+-- HeidiSQL Versione:            8.3.0.4694
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -11,6 +11,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 -- Dump della struttura di tabella entilocali.albo_atti
+DROP TABLE IF EXISTS `albo_atti`;
 CREATE TABLE IF NOT EXISTS `albo_atti` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `numero` bigint(11) NOT NULL,
@@ -51,6 +52,7 @@ CREATE TABLE IF NOT EXISTS `albo_atti` (
 
 
 -- Dump della struttura di tabella entilocali.albo_settori
+DROP TABLE IF EXISTS `albo_settori`;
 CREATE TABLE IF NOT EXISTS `albo_settori` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `settore` varchar(100) NOT NULL,
@@ -62,14 +64,15 @@ CREATE TABLE IF NOT EXISTS `albo_settori` (
   CONSTRAINT `provinciaid` FOREIGN KEY (`provincia_id`) REFERENCES `geo_province` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dump dei dati della tabella entilocali.albo_settori: ~0 rows (circa)
+-- Dump dei dati della tabella entilocali.albo_settori: ~1 rows (circa)
 /*!40000 ALTER TABLE `albo_settori` DISABLE KEYS */;
-REPLACE INTO `albo_settori` (`id`, `settore`, `status`, `posizione`, `provincia_id`) VALUES
+INSERT INTO `albo_settori` (`id`, `settore`, `status`, `posizione`, `provincia_id`) VALUES
 	(1, 'normale', NULL, 1, 1);
 /*!40000 ALTER TABLE `albo_settori` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.albo_sezioni
+DROP TABLE IF EXISTS `albo_sezioni`;
 CREATE TABLE IF NOT EXISTS `albo_sezioni` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
@@ -82,13 +85,14 @@ CREATE TABLE IF NOT EXISTS `albo_sezioni` (
 
 -- Dump dei dati della tabella entilocali.albo_sezioni: ~2 rows (circa)
 /*!40000 ALTER TABLE `albo_sezioni` DISABLE KEYS */;
-REPLACE INTO `albo_sezioni` (`id`, `nome`, `status`, `position`, `subsezione_id`) VALUES
+INSERT INTO `albo_sezioni` (`id`, `nome`, `status`, `position`, `subsezione_id`) VALUES
 	(2, 'Deliberazioni di Consiglio Direttivo', 'si', 3, 0),
 	(3, 'Atto di disposizione urgente', 'si', 1, 0);
 /*!40000 ALTER TABLE `albo_sezioni` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.allegati
+DROP TABLE IF EXISTS `allegati`;
 CREATE TABLE IF NOT EXISTS `allegati` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nome_file` varchar(100) NOT NULL,
@@ -106,6 +110,7 @@ CREATE TABLE IF NOT EXISTS `allegati` (
 
 
 -- Dump della struttura di tabella entilocali.allegati_options
+DROP TABLE IF EXISTS `allegati_options`;
 CREATE TABLE IF NOT EXISTS `allegati_options` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `titolo` varchar(50) DEFAULT NULL,
@@ -122,15 +127,18 @@ CREATE TABLE IF NOT EXISTS `allegati_options` (
 
 
 -- Dump della struttura di tabella entilocali.allegati_relazioni
+DROP TABLE IF EXISTS `allegati_relazioni`;
 CREATE TABLE IF NOT EXISTS `allegati_relazioni` (
   `id` bigint(20) NOT NULL,
   `allegato_id` bigint(20) NOT NULL,
   `riferimento_id` bigint(20) NOT NULL,
-  `module_id` bigint(20) NOT NULL,
+  `modulo_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `module_id` (`module_id`),
+  KEY `module_id` (`modulo_id`),
   KEY `allegato_id` (`allegato_id`),
-  KEY `riferimento_id` (`riferimento_id`)
+  KEY `riferimento_id` (`riferimento_id`),
+  CONSTRAINT `fk_allegati_id_id` FOREIGN KEY (`allegato_id`) REFERENCES `allegati` (`id`),
+  CONSTRAINT `fk_allegati_relazioni_modulo_id` FOREIGN KEY (`modulo_id`) REFERENCES `moduli` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 -- Dump dei dati della tabella entilocali.allegati_relazioni: ~0 rows (circa)
@@ -139,6 +147,7 @@ CREATE TABLE IF NOT EXISTS `allegati_relazioni` (
 
 
 -- Dump della struttura di tabella entilocali.canali
+DROP TABLE IF EXISTS `canali`;
 CREATE TABLE IF NOT EXISTS `canali` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) DEFAULT NULL,
@@ -150,18 +159,20 @@ CREATE TABLE IF NOT EXISTS `canali` (
   PRIMARY KEY (`id`),
   KEY `default_language_id` (`lingua_id`),
   KEY `isdefault` (`isdefault`),
-  KEY `ismultilanguage` (`ismultilanguage`)
+  KEY `ismultilanguage` (`ismultilanguage`),
+  CONSTRAINT `fk_lingua_id_canali` FOREIGN KEY (`lingua_id`) REFERENCES `lingue` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 -- Dump dei dati della tabella entilocali.canali: ~2 rows (circa)
 /*!40000 ALTER TABLE `canali` DISABLE KEYS */;
-REPLACE INTO `canali` (`id`, `nome`, `domain`, `subdomain`, `ismultilanguage`, `isdefault`, `lingua_id`) VALUES
+INSERT INTO `canali` (`id`, `nome`, `domain`, `subdomain`, `ismultilanguage`, `isdefault`, `lingua_id`) VALUES
 	(1, 'Fosso Bandito', 'fossobandito.com', NULL, 1, 1, 1),
 	(2, 'Backend', 'backend.fossobandito.com', NULL, 1, 1, 1);
 /*!40000 ALTER TABLE `canali` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.categorie
+DROP TABLE IF EXISTS `categorie`;
 CREATE TABLE IF NOT EXISTS `categorie` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `note` varchar(100) DEFAULT NULL,
@@ -171,16 +182,19 @@ CREATE TABLE IF NOT EXISTS `categorie` (
   `status` varchar(80) DEFAULT NULL,
   `template` varchar(80) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Dump dei dati della tabella entilocali.categorie: ~0 rows (circa)
+-- Dump dei dati della tabella entilocali.categorie: ~3 rows (circa)
 /*!40000 ALTER TABLE `categorie` DISABLE KEYS */;
-REPLACE INTO `categorie` (`id`, `note`, `createdate`, `lastupdate`, `code`, `status`, `template`) VALUES
-	(1, 'comune', '2014-01-01 01:01:01', '2014-01-01 01:01:01', NULL, NULL, NULL);
+INSERT INTO `categorie` (`id`, `note`, `createdate`, `lastupdate`, `code`, `status`, `template`) VALUES
+	(1, 'comune', '2014-01-01 01:01:01', '2014-01-01 01:01:01', NULL, NULL, NULL),
+	(2, 'eventi', '2014-01-01 01:01:01', '2014-01-01 01:01:01', NULL, NULL, NULL),
+	(3, 'foto', '2014-01-01 01:01:01', '2014-01-01 01:01:01', NULL, NULL, NULL);
 /*!40000 ALTER TABLE `categorie` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.categorie_opzioni
+DROP TABLE IF EXISTS `categorie_opzioni`;
 CREATE TABLE IF NOT EXISTS `categorie_opzioni` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nome` varchar(80) DEFAULT NULL,
@@ -202,16 +216,19 @@ CREATE TABLE IF NOT EXISTS `categorie_opzioni` (
   CONSTRAINT `fk_categoria_id` FOREIGN KEY (`categoria_id`) REFERENCES `categorie` (`id`),
   CONSTRAINT `fk_lingua_id` FOREIGN KEY (`lingua_id`) REFERENCES `lingue` (`id`),
   CONSTRAINT `fk_modulo_id` FOREIGN KEY (`modulo_id`) REFERENCES `moduli` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
--- Dump dei dati della tabella entilocali.categorie_opzioni: ~0 rows (circa)
+-- Dump dei dati della tabella entilocali.categorie_opzioni: ~3 rows (circa)
 /*!40000 ALTER TABLE `categorie_opzioni` DISABLE KEYS */;
-REPLACE INTO `categorie_opzioni` (`id`, `nome`, `descrizione`, `seo_url`, `seo_title`, `seo_keywords`, `seo_description`, `accesskey`, `template_file`, `parent_id`, `modulo_id`, `lingua_id`, `categoria_id`) VALUES
-	(1, 'Comune', 'Comune', 'comune', NULL, NULL, NULL, NULL, NULL, 0, 1, 1, 1);
+INSERT INTO `categorie_opzioni` (`id`, `nome`, `descrizione`, `seo_url`, `seo_title`, `seo_keywords`, `seo_description`, `accesskey`, `template_file`, `parent_id`, `modulo_id`, `lingua_id`, `categoria_id`) VALUES
+	(1, 'Comune', 'Comune', 'comune', NULL, NULL, NULL, NULL, NULL, 0, 4, 1, 1),
+	(2, 'Eventi', 'Eventi', 'eventi', NULL, NULL, NULL, NULL, NULL, 0, 1, 1, 2),
+	(3, 'Foto', 'Foto gallery categoria 1', 'foto', NULL, NULL, NULL, NULL, NULL, 0, 6, 1, 3);
 /*!40000 ALTER TABLE `categorie_opzioni` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.config
+DROP TABLE IF EXISTS `config`;
 CREATE TABLE IF NOT EXISTS `config` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) DEFAULT NULL,
@@ -232,7 +249,7 @@ CREATE TABLE IF NOT EXISTS `config` (
 
 -- Dump dei dati della tabella entilocali.config: ~30 rows (circa)
 /*!40000 ALTER TABLE `config` DISABLE KEYS */;
-REPLACE INTO `config` (`id`, `nome`, `valore`, `note`, `isbackend`, `isalwaysallowed`, `modulo_id`, `canale_id`, `lingua_id`) VALUES
+INSERT INTO `config` (`id`, `nome`, `valore`, `note`, `isbackend`, `isalwaysallowed`, `modulo_id`, `canale_id`, `lingua_id`) VALUES
 	(1, 'sitename', 'Enti locali', NULL, 0, 1, 0, 0, 0),
 	(2, 'remotelink', 'zf2-apicms/', NULL, 0, 1, 0, 0, 0),
 	(3, 'description', 'enti locali demo', NULL, 0, 0, 0, 0, 1),
@@ -267,6 +284,7 @@ REPLACE INTO `config` (`id`, `nome`, `valore`, `note`, `isbackend`, `isalwaysall
 
 
 -- Dump della struttura di tabella entilocali.contatti
+DROP TABLE IF EXISTS `contatti`;
 CREATE TABLE IF NOT EXISTS `contatti` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nome` varchar(80) DEFAULT NULL,
@@ -284,13 +302,14 @@ CREATE TABLE IF NOT EXISTS `contatti` (
 
 -- Dump dei dati della tabella entilocali.contatti: ~2 rows (circa)
 /*!40000 ALTER TABLE `contatti` DISABLE KEYS */;
-REPLACE INTO `contatti` (`id`, `nome`, `cognome`, `email`, `telefono`, `messaggio`, `data_inserimento`, `formato`, `stato`, `utente_id`) VALUES
+INSERT INTO `contatti` (`id`, `nome`, `cognome`, `email`, `telefono`, `messaggio`, `data_inserimento`, `formato`, `stato`, `utente_id`) VALUES
 	(1, 'Andrea', 'Fiori', 'a.fiori@cheapnet.it', NULL, NULL, NULL, 'contact', 'no', 1),
 	(2, 'Pino', 'Campagna', 'pino@campagna.it', NULL, NULL, NULL, 'contact', 'no', 1);
 /*!40000 ALTER TABLE `contatti` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.faq_domande
+DROP TABLE IF EXISTS `faq_domande`;
 CREATE TABLE IF NOT EXISTS `faq_domande` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `question` text NOT NULL,
@@ -314,6 +333,7 @@ CREATE TABLE IF NOT EXISTS `faq_domande` (
 
 
 -- Dump della struttura di tabella entilocali.faq_risposte
+DROP TABLE IF EXISTS `faq_risposte`;
 CREATE TABLE IF NOT EXISTS `faq_risposte` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `risposta` text NOT NULL,
@@ -324,7 +344,9 @@ CREATE TABLE IF NOT EXISTS `faq_risposte` (
   `utente_id` bigint(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `utente_id` (`utente_id`),
-  KEY `domanda_id` (`domanda_id`)
+  KEY `domanda_id` (`domanda_id`),
+  CONSTRAINT `fk_faq_id_faq_risposte` FOREIGN KEY (`domanda_id`) REFERENCES `faq_domande` (`id`),
+  CONSTRAINT `fk_utente_id_faq_risposte` FOREIGN KEY (`utente_id`) REFERENCES `utenti` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dump dei dati della tabella entilocali.faq_risposte: ~0 rows (circa)
@@ -333,6 +355,7 @@ CREATE TABLE IF NOT EXISTS `faq_risposte` (
 
 
 -- Dump della struttura di tabella entilocali.geo_comuni
+DROP TABLE IF EXISTS `geo_comuni`;
 CREATE TABLE IF NOT EXISTS `geo_comuni` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `cod_regione` varchar(9) DEFAULT NULL,
@@ -351,9 +374,9 @@ CREATE TABLE IF NOT EXISTS `geo_comuni` (
   KEY `searchfields` (`cod_regione`,`cod_provincia`,`cod_comune`,`nome_comune`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8095 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Dump dei dati della tabella entilocali.geo_comuni: ~8.090 rows (circa)
+-- Dump dei dati della tabella entilocali.geo_comuni: ~8.415 rows (circa)
 /*!40000 ALTER TABLE `geo_comuni` DISABLE KEYS */;
-REPLACE INTO `geo_comuni` (`id`, `cod_regione`, `cod_provincia`, `cod_comune`, `nome_comune`, `codice_istat`, `cap_principale`, `cap_inizio`, `cap_fine`, `prefisso`, `sito_web`, `latitudine`, `longitudine`) VALUES
+INSERT INTO `geo_comuni` (`id`, `cod_regione`, `cod_provincia`, `cod_comune`, `nome_comune`, `codice_istat`, `cap_principale`, `cap_inizio`, `cap_fine`, `prefisso`, `sito_web`, `latitudine`, `longitudine`) VALUES
 	(1, '01', '001', ' 001 ', 'Agli', '001001', '10011', NULL, NULL, '0124', NULL, NULL, NULL),
 	(2, '01', '001', ' 002 ', 'Airasca', '001002', '10060', NULL, NULL, '011', NULL, NULL, NULL),
 	(3, '01', '001', ' 003 ', 'Ala di Stura', '001003', '10070', NULL, NULL, '0123', NULL, NULL, NULL),
@@ -8452,6 +8475,7 @@ REPLACE INTO `geo_comuni` (`id`, `cod_regione`, `cod_provincia`, `cod_comune`, `
 
 
 -- Dump della struttura di tabella entilocali.geo_comuni_cap
+DROP TABLE IF EXISTS `geo_comuni_cap`;
 CREATE TABLE IF NOT EXISTS `geo_comuni_cap` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `capcode` varchar(5) NOT NULL DEFAULT '0',
@@ -8465,7 +8489,7 @@ CREATE TABLE IF NOT EXISTS `geo_comuni_cap` (
 
 -- Dump dei dati della tabella entilocali.geo_comuni_cap: ~82 rows (circa)
 /*!40000 ALTER TABLE `geo_comuni_cap` DISABLE KEYS */;
-REPLACE INTO `geo_comuni_cap` (`id`, `capcode`, `nome`, `comune_id`) VALUES
+INSERT INTO `geo_comuni_cap` (`id`, `capcode`, `nome`, `comune_id`) VALUES
 	(1, '00118', 'Morena', 4893),
 	(2, '00119', 'Via del mare-Ostia Antica', 4893),
 	(3, '00120', 'Castel Gandolfo', 4893),
@@ -8552,6 +8576,7 @@ REPLACE INTO `geo_comuni_cap` (`id`, `capcode`, `nome`, `comune_id`) VALUES
 
 
 -- Dump della struttura di tabella entilocali.geo_comuni_cap_quartieri
+DROP TABLE IF EXISTS `geo_comuni_cap_quartieri`;
 CREATE TABLE IF NOT EXISTS `geo_comuni_cap_quartieri` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `cap_quartiere_id` bigint(10) NOT NULL DEFAULT '0',
@@ -8569,6 +8594,7 @@ CREATE TABLE IF NOT EXISTS `geo_comuni_cap_quartieri` (
 
 
 -- Dump della struttura di tabella entilocali.geo_comuni_quartieri
+DROP TABLE IF EXISTS `geo_comuni_quartieri`;
 CREATE TABLE IF NOT EXISTS `geo_comuni_quartieri` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `nome` varchar(50) DEFAULT NULL,
@@ -8586,6 +8612,7 @@ CREATE TABLE IF NOT EXISTS `geo_comuni_quartieri` (
 
 
 -- Dump della struttura di tabella entilocali.geo_nazioni
+DROP TABLE IF EXISTS `geo_nazioni`;
 CREATE TABLE IF NOT EXISTS `geo_nazioni` (
   `id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(13) NOT NULL,
@@ -8595,7 +8622,7 @@ CREATE TABLE IF NOT EXISTS `geo_nazioni` (
 
 -- Dump dei dati della tabella entilocali.geo_nazioni: ~238 rows (circa)
 /*!40000 ALTER TABLE `geo_nazioni` DISABLE KEYS */;
-REPLACE INTO `geo_nazioni` (`id`, `nome`) VALUES
+INSERT INTO `geo_nazioni` (`id`, `nome`) VALUES
 	(1, 'Afghanistan'),
 	(2, 'Albania'),
 	(3, 'Algeria'),
@@ -8838,6 +8865,7 @@ REPLACE INTO `geo_nazioni` (`id`, `nome`) VALUES
 
 
 -- Dump della struttura di tabella entilocali.geo_province
+DROP TABLE IF EXISTS `geo_province`;
 CREATE TABLE IF NOT EXISTS `geo_province` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `codice_regione` varchar(14) DEFAULT NULL,
@@ -8852,7 +8880,7 @@ CREATE TABLE IF NOT EXISTS `geo_province` (
 
 -- Dump dei dati della tabella entilocali.geo_province: ~110 rows (circa)
 /*!40000 ALTER TABLE `geo_province` DISABLE KEYS */;
-REPLACE INTO `geo_province` (`id`, `codice_regione`, `codice_provincia`, `nome`, `sigla`, `capoluogo`) VALUES
+INSERT INTO `geo_province` (`id`, `codice_regione`, `codice_provincia`, `nome`, `sigla`, `capoluogo`) VALUES
 	(1, '01', '001', 'Torino', 'TO', 'si'),
 	(2, '01', '002', 'Vercelli', 'VC', 'no'),
 	(3, '01', '003', 'Novara', 'NO', 'no'),
@@ -8967,6 +8995,7 @@ REPLACE INTO `geo_province` (`id`, `codice_regione`, `codice_provincia`, `nome`,
 
 
 -- Dump della struttura di tabella entilocali.geo_regioni
+DROP TABLE IF EXISTS `geo_regioni`;
 CREATE TABLE IF NOT EXISTS `geo_regioni` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `codice_regione` varchar(2) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
@@ -8977,7 +9006,7 @@ CREATE TABLE IF NOT EXISTS `geo_regioni` (
 
 -- Dump dei dati della tabella entilocali.geo_regioni: ~20 rows (circa)
 /*!40000 ALTER TABLE `geo_regioni` DISABLE KEYS */;
-REPLACE INTO `geo_regioni` (`id`, `codice_regione`, `nome_regione`) VALUES
+INSERT INTO `geo_regioni` (`id`, `codice_regione`, `nome_regione`) VALUES
 	(1, '01', 'PIEMONTE'),
 	(2, '02', 'VALLE D\'AOSTA'),
 	(3, '03', 'LOMBARDIA'),
@@ -9002,8 +9031,10 @@ REPLACE INTO `geo_regioni` (`id`, `codice_regione`, `nome_regione`) VALUES
 
 
 -- Dump della struttura di tabella entilocali.homepage
+DROP TABLE IF EXISTS `homepage`;
 CREATE TABLE IF NOT EXISTS `homepage` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `riferimento_id` int(11) DEFAULT NULL,
   `modulo_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `modulo_id` (`modulo_id`)
@@ -9015,6 +9046,7 @@ CREATE TABLE IF NOT EXISTS `homepage` (
 
 
 -- Dump della struttura di tabella entilocali.lingue
+DROP TABLE IF EXISTS `lingue`;
 CREATE TABLE IF NOT EXISTS `lingue` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `bandiera` varchar(60) NOT NULL,
@@ -9031,12 +9063,13 @@ CREATE TABLE IF NOT EXISTS `lingue` (
   KEY `canale_id` (`canale_id`),
   KEY `abbreviazione3` (`abbreviazione3`),
   KEY `abbreviazione1` (`abbreviazione1`),
-  KEY `abbreviazione2` (`abbreviazione2`)
+  KEY `abbreviazione2` (`abbreviazione2`),
+  CONSTRAINT `fk_lingue_canale` FOREIGN KEY (`canale_id`) REFERENCES `canali` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- Dump dei dati della tabella entilocali.lingue: ~6 rows (circa)
 /*!40000 ALTER TABLE `lingue` DISABLE KEYS */;
-REPLACE INTO `lingue` (`id`, `bandiera`, `nome`, `abbreviazione1`, `abbreviazione2`, `abbreviazione3`, `predefinita`, `predefinita_backend`, `encoding`, `attivo`, `canale_id`) VALUES
+INSERT INTO `lingue` (`id`, `bandiera`, `nome`, `abbreviazione1`, `abbreviazione2`, `abbreviazione3`, `predefinita`, `predefinita_backend`, `encoding`, `attivo`, `canale_id`) VALUES
 	(1, 'ita.gif', 'Italiano', 'it', 'ita', 'Italiano', 1, 1, 'UTF-8', 1, 1),
 	(2, 'eng.gif', 'Inglese', 'en', 'eng', 'English', 0, 0, 'UTF-8', 1, 1),
 	(3, 'spa.gif', 'Spagnolo', 'es', 'spa', 'Spanish', 0, 0, 'UTF-8', 0, 1),
@@ -9047,6 +9080,7 @@ REPLACE INTO `lingue` (`id`, `bandiera`, `nome`, `abbreviazione1`, `abbreviazion
 
 
 -- Dump della struttura di tabella entilocali.lingue_etichette
+DROP TABLE IF EXISTS `lingue_etichette`;
 CREATE TABLE IF NOT EXISTS `lingue_etichette` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `nome` varchar(80) DEFAULT NULL,
@@ -9055,19 +9089,18 @@ CREATE TABLE IF NOT EXISTS `lingue_etichette` (
   `isbackend` bigint(10) DEFAULT '0',
   `isuniversal` bigint(10) DEFAULT '0',
   `status` varchar(50) DEFAULT '1',
-  `modulo_id` bigint(10) DEFAULT '0',
-  `lingua_id` bigint(10) DEFAULT '1',
+  `modulo_id` bigint(10) DEFAULT '0' COMMENT 'Can be 0',
+  `lingua_id` bigint(10) DEFAULT '1' COMMENT 'Can be 0',
   PRIMARY KEY (`id`),
   KEY `language` (`lingua_id`),
   KEY `module_id` (`modulo_id`),
   KEY `isadmin` (`isbackend`),
-  KEY `isuniversal` (`isuniversal`),
-  CONSTRAINT `languageid` FOREIGN KEY (`lingua_id`) REFERENCES `lingue` (`id`)
+  KEY `isuniversal` (`isuniversal`)
 ) ENGINE=InnoDB AUTO_INCREMENT=167 DEFAULT CHARSET=utf8;
 
--- Dump dei dati della tabella entilocali.lingue_etichette: ~166 rows (circa)
+-- Dump dei dati della tabella entilocali.lingue_etichette: ~129 rows (circa)
 /*!40000 ALTER TABLE `lingue_etichette` DISABLE KEYS */;
-REPLACE INTO `lingue_etichette` (`id`, `nome`, `valore`, `descrizione`, `isbackend`, `isuniversal`, `status`, `modulo_id`, `lingua_id`) VALUES
+INSERT INTO `lingue_etichette` (`id`, `nome`, `valore`, `descrizione`, `isbackend`, `isuniversal`, `status`, `modulo_id`, `lingua_id`) VALUES
 	(1, 'ITA_LANGUAGE_NAME', 'Italiano', NULL, 0, 0, '1', 0, 1),
 	(2, 'ENG_LANGUAGE_NAME', 'Inglese', NULL, 0, 0, '1', 0, 1),
 	(3, 'NOTFOUND_WARNING', '<div class="alert alert-block">\r\n	<h4>Pagina non trovata</h4>\r\n	Siamo spiacenti, ma la pagina richiesta non &egrave; stata trovata :(\r\n</div>', NULL, 0, 0, '1', 0, 1),
@@ -9238,6 +9271,7 @@ REPLACE INTO `lingue_etichette` (`id`, `nome`, `valore`, `descrizione`, `isbacke
 
 
 -- Dump della struttura di tabella entilocali.moduli
+DROP TABLE IF EXISTS `moduli`;
 CREATE TABLE IF NOT EXISTS `moduli` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `nomemod` varchar(100) NOT NULL,
@@ -9257,7 +9291,7 @@ CREATE TABLE IF NOT EXISTS `moduli` (
 
 -- Dump dei dati della tabella entilocali.moduli: ~9 rows (circa)
 /*!40000 ALTER TABLE `moduli` DISABLE KEYS */;
-REPLACE INTO `moduli` (`id`, `nomemod`, `home_label`, `home_category`, `home_css`, `status`, `widthtable`, `highlited`, `position`, `isnews`, `channel_id`) VALUES
+INSERT INTO `moduli` (`id`, `nomemod`, `home_label`, `home_category`, `home_css`, `status`, `widthtable`, `highlited`, `position`, `isnews`, `channel_id`) VALUES
 	(1, 'Blogs', 'Blogs', 'blogs', '', '', '98%', 2, 10, 'no', 1),
 	(4, 'Pagine', 'Primo piano', 'rub', '', '', '98%', 1, 3, 'no', 1),
 	(6, 'Foto', 'Foto', 'picday', '', '', '98%', 2, 4, 'no', 1),
@@ -9271,9 +9305,11 @@ REPLACE INTO `moduli` (`id`, `nomemod`, `home_label`, `home_category`, `home_css
 
 
 -- Dump della struttura di tabella entilocali.posts
+DROP TABLE IF EXISTS `posts`;
 CREATE TABLE IF NOT EXISTS `posts` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `note` varchar(80) DEFAULT NULL,
+  `immagine` varchar(80) DEFAULT NULL,
   `data_inserimento` datetime NOT NULL DEFAULT '2013-01-01 00:00:00',
   `data_scadenza` datetime NOT NULL DEFAULT '2030-02-10 00:00:00',
   `data_ultimo_aggiornamento` datetime NOT NULL DEFAULT '2030-02-10 00:00:00',
@@ -9282,26 +9318,33 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `tipo` varchar(40) NOT NULL,
   `template_file` varchar(50) NOT NULL,
   `alias` varchar(40) NOT NULL COMMENT 'for locked content',
+  `flag_allegati` enum('si','no') NOT NULL DEFAULT 'no',
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`),
   KEY `stato` (`stato`),
-  KEY `alias` (`alias`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+  KEY `alias` (`alias`),
+  KEY `flag_allegati` (`flag_allegati`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Dump dei dati della tabella entilocali.posts: ~6 rows (circa)
+-- Dump dei dati della tabella entilocali.posts: ~11 rows (circa)
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-REPLACE INTO `posts` (`id`, `note`, `data_inserimento`, `data_scadenza`, `data_ultimo_aggiornamento`, `parent_id`, `stato`, `tipo`, `template_file`, `alias`) VALUES
-	(1, 'comune', '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, NULL, 'content', '', 'comune'),
-	(2, 'giunta', '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, NULL, 'content', '', 'giunta'),
-	(3, 'consiglio', '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, NULL, 'content', '', 'consiglio'),
-	(4, 'commissioni', '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, NULL, 'content', '', 'consiglio'),
-	(5, 'uffici', '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, NULL, 'content', '', 'consiglio'),
-	(6, 'dovesiamo', '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, NULL, 'content', '', 'consiglio'),
-	(7, 'photo 1', '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, NULL, 'photo', '', 'photone');
+INSERT INTO `posts` (`id`, `note`, `immagine`, `data_inserimento`, `data_scadenza`, `data_ultimo_aggiornamento`, `parent_id`, `stato`, `tipo`, `template_file`, `alias`, `flag_allegati`) VALUES
+	(1, 'comune', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, NULL, 'content', '', 'comune', 'no'),
+	(2, 'giunta', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, NULL, 'content', '', 'giunta', 'no'),
+	(3, 'consiglio', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, NULL, 'content', '', 'consiglio', 'si'),
+	(4, 'commissioni', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, NULL, 'content', '', 'commissioni', 'no'),
+	(5, 'uffici', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, NULL, 'content', '', 'consiglio', 'no'),
+	(6, 'dovesiamo', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, NULL, 'content', '', 'consiglio', 'no'),
+	(7, 'photo 1', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, NULL, 'foto', '', 'photone', 'si'),
+	(8, 'Evento 1', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, NULL, 'blog', '', '', 'no'),
+	(9, 'Evento 2', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, NULL, 'blog', '', '', 'no'),
+	(10, 'Evento 3', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, NULL, 'blog', '', '', 'no'),
+	(11, 'Evento 4', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, NULL, 'blog', '', '', 'no');
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.posts_opzioni
+DROP TABLE IF EXISTS `posts_opzioni`;
 CREATE TABLE IF NOT EXISTS `posts_opzioni` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `note` varchar(100) DEFAULT NULL,
@@ -9326,22 +9369,27 @@ CREATE TABLE IF NOT EXISTS `posts_opzioni` (
   KEY `seo_title` (`seo_title`),
   CONSTRAINT `fk_posts_opzioni_ids` FOREIGN KEY (`posts_id`) REFERENCES `posts` (`id`),
   CONSTRAINT `fk_posts_opzioni_lingua_ids` FOREIGN KEY (`lingua_id`) REFERENCES `lingue` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
--- Dump dei dati della tabella entilocali.posts_opzioni: ~7 rows (circa)
+-- Dump dei dati della tabella entilocali.posts_opzioni: ~11 rows (circa)
 /*!40000 ALTER TABLE `posts_opzioni` DISABLE KEYS */;
-REPLACE INTO `posts_opzioni` (`id`, `note`, `data_da`, `data_a`, `titolo`, `sottotitolo`, `descrizione`, `stato`, `posizione`, `seo_url`, `seo_title`, `seo_description`, `seo_keywords`, `posts_id`, `lingua_id`) VALUES
+INSERT INTO `posts_opzioni` (`id`, `note`, `data_da`, `data_a`, `titolo`, `sottotitolo`, `descrizione`, `stato`, `posizione`, `seo_url`, `seo_title`, `seo_description`, `seo_keywords`, `posts_id`, `lingua_id`) VALUES
 	(1, 'Sindaco', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Sindaco', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', NULL, 1, 'sindaco', 'sindaco', NULL, NULL, 1, 1),
 	(2, 'Giunta', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Giunta', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', NULL, 1, 'giunta', 'giunta', NULL, NULL, 2, 1),
 	(3, 'Consiglio', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Consiglio', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', NULL, 1, 'consiglio', 'consiglio', NULL, NULL, 3, 1),
 	(4, 'Commissioni', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Commissioni', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', NULL, 1, 'commissioni', 'commissioni', NULL, NULL, 4, 1),
 	(5, 'Uffici', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Uffici', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', NULL, 1, 'uffici', 'uffici', NULL, NULL, 5, 1),
 	(6, 'dove siamo', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Dove siamo', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', NULL, 1, 'dove-siamo', 'dove-siamo', NULL, NULL, 6, 1),
-	(7, '', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Photo 1', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', NULL, 1, '', '', NULL, NULL, 7, 1);
+	(7, '', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Photo 1', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', NULL, 1, '', '', NULL, NULL, 7, 1),
+	(8, 'evento 1', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Evento 1', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', NULL, 1, 'evento-1', 'evento 1', NULL, NULL, 8, 1),
+	(9, 'evento 2', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Evento 2', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', NULL, 1, 'evento-2', 'evento 2', NULL, NULL, 9, 1),
+	(10, 'evento 3', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Evento 3', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', NULL, 1, 'evento-3', 'evento 3', NULL, NULL, 10, 1),
+	(11, 'evento 4', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Evento 4', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', NULL, 1, 'evento-4', 'evento 4', NULL, NULL, 11, 1);
 /*!40000 ALTER TABLE `posts_opzioni` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.posts_relazioni
+DROP TABLE IF EXISTS `posts_relazioni`;
 CREATE TABLE IF NOT EXISTS `posts_relazioni` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `posts_id` bigint(11) NOT NULL DEFAULT '0',
@@ -9357,21 +9405,27 @@ CREATE TABLE IF NOT EXISTS `posts_relazioni` (
   CONSTRAINT `fk_posts_rel_canale_id` FOREIGN KEY (`canale_id`) REFERENCES `canali` (`id`),
   CONSTRAINT `fk_posts_rel_modulo_ids` FOREIGN KEY (`modulo_id`) REFERENCES `moduli` (`id`),
   CONSTRAINT `fk_posts_rel_posts_ids` FOREIGN KEY (`posts_id`) REFERENCES `posts` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Dump dei dati della tabella entilocali.posts_relazioni: ~6 rows (circa)
+-- Dump dei dati della tabella entilocali.posts_relazioni: ~11 rows (circa)
 /*!40000 ALTER TABLE `posts_relazioni` DISABLE KEYS */;
-REPLACE INTO `posts_relazioni` (`id`, `posts_id`, `categoria_id`, `modulo_id`, `canale_id`) VALUES
+INSERT INTO `posts_relazioni` (`id`, `posts_id`, `categoria_id`, `modulo_id`, `canale_id`) VALUES
 	(1, 1, 1, 4, 1),
 	(2, 2, 1, 4, 1),
 	(3, 3, 1, 4, 1),
 	(4, 4, 1, 4, 1),
 	(5, 5, 1, 4, 1),
-	(6, 6, 1, 4, 1);
+	(6, 6, 1, 4, 1),
+	(7, 7, 3, 6, 1),
+	(8, 8, 2, 1, 1),
+	(9, 9, 2, 1, 1),
+	(10, 10, 2, 1, 1),
+	(11, 11, 2, 1, 1);
 /*!40000 ALTER TABLE `posts_relazioni` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.utenti
+DROP TABLE IF EXISTS `utenti`;
 CREATE TABLE IF NOT EXISTS `utenti` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `immagine` varchar(80) NOT NULL,
@@ -9409,13 +9463,14 @@ CREATE TABLE IF NOT EXISTS `utenti` (
 
 -- Dump dei dati della tabella entilocali.utenti: ~2 rows (circa)
 /*!40000 ALTER TABLE `utenti` DISABLE KEYS */;
-REPLACE INTO `utenti` (`id`, `immagine`, `nome`, `cognome`, `indirizzo`, `cap`, `citta`, `provincia`, `data_nascita`, `luogo_nascita`, `nazione`, `sesso`, `professione`, `email`, `telefono`, `cellulare`, `fax`, `sito_web`, `codice_fiscale`, `partita_iva`, `newsletter`, `newsletter_formato`, `nome_utente`, `password`, `stato`, `data_creazione`, `data_ultimo_aggiornamento`, `codice_conferma`, `ruolo_id`) VALUES
+INSERT INTO `utenti` (`id`, `immagine`, `nome`, `cognome`, `indirizzo`, `cap`, `citta`, `provincia`, `data_nascita`, `luogo_nascita`, `nazione`, `sesso`, `professione`, `email`, `telefono`, `cellulare`, `fax`, `sito_web`, `codice_fiscale`, `partita_iva`, `newsletter`, `newsletter_formato`, `nome_utente`, `password`, `stato`, `data_creazione`, `data_ultimo_aggiornamento`, `codice_conferma`, `ruolo_id`) VALUES
 	(1, 'noimg.gif', 'Andrea', 'Fiori', 'via Aretina 1', '50126', 'Firenze', 87, '1982-08-10 00:00:00', 'Angera', 107, 'M', 'Web developer', 'a.fiori@cheapnet.it', '', '3295639204', '', '', '', '', '', 'html', 'blackevil', 'c2870721a47988180f6fa53213b546b2', '', '2010-06-03 15:28:29', '2013-05-03 15:28:29', '', 1),
 	(2, 'noimg.gif', 'Luca', 'Sanna', '', '50126', 'Sassari', 87, '1972-08-10 00:00:00', 'Sassari', 107, 'F', '', 'l.sanna@kronoweb.it', '', '', '', '', '', '', '', 'html', 'lsanna', 'cde6328525c49c29cbbc291139c5cc59', '', '2010-06-03 15:28:29', '2013-08-29 15:28:29', '', 2);
 /*!40000 ALTER TABLE `utenti` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.utenti_permessi
+DROP TABLE IF EXISTS `utenti_permessi`;
 CREATE TABLE IF NOT EXISTS `utenti_permessi` (
   `id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
   `valore` varchar(50) NOT NULL DEFAULT '0',
@@ -9428,13 +9483,14 @@ CREATE TABLE IF NOT EXISTS `utenti_permessi` (
 
 -- Dump dei dati della tabella entilocali.utenti_permessi: ~2 rows (circa)
 /*!40000 ALTER TABLE `utenti_permessi` DISABLE KEYS */;
-REPLACE INTO `utenti_permessi` (`id`, `valore`, `ruolo_id`, `permesso_id`) VALUES
+INSERT INTO `utenti_permessi` (`id`, `valore`, `ruolo_id`, `permesso_id`) VALUES
 	(1, 'x', 1, 1),
 	(2, 'x', 1, 2);
 /*!40000 ALTER TABLE `utenti_permessi` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.utenti_permessi_nomi
+DROP TABLE IF EXISTS `utenti_permessi_nomi`;
 CREATE TABLE IF NOT EXISTS `utenti_permessi_nomi` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `flag` varchar(50) DEFAULT '',
@@ -9444,7 +9500,7 @@ CREATE TABLE IF NOT EXISTS `utenti_permessi_nomi` (
 
 -- Dump dei dati della tabella entilocali.utenti_permessi_nomi: ~7 rows (circa)
 /*!40000 ALTER TABLE `utenti_permessi_nomi` DISABLE KEYS */;
-REPLACE INTO `utenti_permessi_nomi` (`id`, `flag`, `descrizione`) VALUES
+INSERT INTO `utenti_permessi_nomi` (`id`, `flag`, `descrizione`) VALUES
 	(1, 'add_news', 'Inserisci news'),
 	(2, 'view_news', 'Visualizza news'),
 	(3, 'delete_news', 'Elimina news'),
@@ -9456,6 +9512,7 @@ REPLACE INTO `utenti_permessi_nomi` (`id`, `flag`, `descrizione`) VALUES
 
 
 -- Dump della struttura di tabella entilocali.utenti_preferiti
+DROP TABLE IF EXISTS `utenti_preferiti`;
 CREATE TABLE IF NOT EXISTS `utenti_preferiti` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `utente_id` bigint(11) NOT NULL DEFAULT '0',
@@ -9475,6 +9532,7 @@ CREATE TABLE IF NOT EXISTS `utenti_preferiti` (
 
 
 -- Dump della struttura di tabella entilocali.utenti_ruoli
+DROP TABLE IF EXISTS `utenti_ruoli`;
 CREATE TABLE IF NOT EXISTS `utenti_ruoli` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `nome_ruolo` varchar(80) NOT NULL,
@@ -9486,7 +9544,7 @@ CREATE TABLE IF NOT EXISTS `utenti_ruoli` (
 
 -- Dump dei dati della tabella entilocali.utenti_ruoli: ~8 rows (circa)
 /*!40000 ALTER TABLE `utenti_ruoli` DISABLE KEYS */;
-REPLACE INTO `utenti_ruoli` (`id`, `nome_ruolo`, `data_creazione`, `data_ultimo_aggiornamento`, `posizione`) VALUES
+INSERT INTO `utenti_ruoli` (`id`, `nome_ruolo`, `data_creazione`, `data_ultimo_aggiornamento`, `posizione`) VALUES
 	(1, 'WebMaster', '2012-08-24 11:12:12', '2012-08-24 11:12:13', 1),
 	(2, 'SuperAdmin', '2012-08-24 11:12:12', '2012-08-24 11:12:12', 2),
 	(3, 'Content Editor', '2012-09-29 00:49:17', '2012-09-29 00:51:58', 3),
@@ -9499,6 +9557,7 @@ REPLACE INTO `utenti_ruoli` (`id`, `nome_ruolo`, `data_creazione`, `data_ultimo_
 
 
 -- Dump della struttura di tabella entilocali.utenti_ruoli_permessi
+DROP TABLE IF EXISTS `utenti_ruoli_permessi`;
 CREATE TABLE IF NOT EXISTS `utenti_ruoli_permessi` (
   `id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
   `ruolo_permesso_id` bigint(11) NOT NULL,
@@ -9508,9 +9567,9 @@ CREATE TABLE IF NOT EXISTS `utenti_ruoli_permessi` (
   KEY `permesso_id` (`permesso_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 ROW_FORMAT=FIXED;
 
--- Dump dei dati della tabella entilocali.utenti_ruoli_permessi: ~0 rows (circa)
+-- Dump dei dati della tabella entilocali.utenti_ruoli_permessi: ~1 rows (circa)
 /*!40000 ALTER TABLE `utenti_ruoli_permessi` DISABLE KEYS */;
-REPLACE INTO `utenti_ruoli_permessi` (`id`, `ruolo_permesso_id`, `permesso_id`) VALUES
+INSERT INTO `utenti_ruoli_permessi` (`id`, `ruolo_permesso_id`, `permesso_id`) VALUES
 	(1, 3, 1);
 /*!40000 ALTER TABLE `utenti_ruoli_permessi` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

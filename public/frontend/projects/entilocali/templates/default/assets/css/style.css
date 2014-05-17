@@ -1,8 +1,3 @@
-// Dropdown menu
-.dropdown:hover .dropdown-menu {
-    display: block;
-}
-label.error {
-    color: red;
-    margin-left: 0.5%;
+.servizionline_list {
+    margin-bottom: 0.5em
 }

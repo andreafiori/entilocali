@@ -4,7 +4,8 @@ namespace Application\Controller;
 
 use Zend\View\Model\ViewModel;
 use Zend\Mvc\Controller\AbstractActionController;
-use Application\Model\FrontendHelpers\FrontendRouter;
+use Application\Model\RouterManagers\RouterManager;
+use Application\Model\RouterManagers\RouterManagerHelper;
 
 /**
  * Frontend Controller
@@ -15,65 +16,43 @@ use Application\Model\FrontendHelpers\FrontendRouter;
 class IndexController extends AbstractActionController
 {
     private $commonSetupPlugin;
-    private $input;
     
     public function indexAction()
-    {     
+    {
         $this->commonSetupPlugin  = $this->CommonSetupPlugin();
         $configurations           = $this->commonSetupPlugin->recoverConfigurationsRecord();
-        $config                   = $this->commonSetupPlugin->getServiceLocator()->get('config');
+        $config                   = $this->getServiceLocator()->get('config');
+        $input = $this->commonSetupPlugin->mergeInput( array_merge($configurations, array(
+                'category'       => trim($this->params()->fromRoute('category')),
+                'title'          => trim($this->params()->fromRoute('title')),
+        )));
+        $this->commonSetupPlugin->setConfigurationsVariables();
         
-        $this->setInput();
+        $routerManager = new RouterManager($configurations);
+        $routerManager->setRouteMatchName($config['fe_router']);
         
-        foreach($configurations as $key => $value) {
-            $this->input['configurations'][$key] = $value;
-            $this->layout()->setVariable($key, $value);
-        }
+        $routerManagerHelper = new RouterManagerHelper($routerManager->setupRouteMatchObjectInstance());
+        $routerManagerHelper->getRouterManger()->setInput($input);
+        $routerManagerHelper->getRouterManger()->setupRecord();
         
-        $frontendRouter = new FrontendRouter($configurations);
-        $frontendRouter->setRouteMatchName($config['fe_router']);
-        
-        $frontendRouterObject = $frontendRouter->setRouteMatchInstance();
-        $frontendRouterObject->setInput($this->input);
-        $frontendRouterObject->setupFrontendRecord();
-        
-        $output = $frontendRouterObject->getOutput();
+        $output = $routerManagerHelper->getRouterManger()->getOutput();
         if ( isset($output['export']) ) {
             foreach($output['export'] as $key => $value) {
                 $this->layout()->setVariable($key, $value);
             }
         }
+
+        $records = $routerManagerHelper->getRouterManger()->getRecords();
+        $templatePartial = $routerManagerHelper->getRouterManger()->getTemplate();
+        $serverVars = $this->getRequest()->getServer();
         
-        $this->layout()->setVariable('maindata', $frontendRouterObject->getRecords());
+        $this->layout()->setVariable('maindata', $records);
         $this->layout()->setVariable('preloadResponse', $configurations['preloadResponse']);
-        $this->layout()->setVariable('currentUrl', "http://".$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]);
+        $this->layout()->setVariable('currentUrl',      "http://".$serverVars["SERVER_NAME"].$serverVars["REQUEST_URI"]);
         $this->layout()->setVariable('currentDateTime', date("Y-m-d H:i:s") );
-        $this->layout()->setVariable('templatePartial', $configurations['template_path'].$frontendRouterObject->getTemplate());
+        $this->layout()->setVariable('templatePartial', $configurations['template_path'].$templatePartial);
         $this->layout($configurations['basiclayout']);
         
         return new ViewModel();
     }
-
-        /**
-         * Get Frontend input with objects and default vars set
-         * 
-         * @param \Application\Controller\Plugin\CommonSetupPlugin $commonSetupPlugin
-         * @return array
-         */
-        private function setInput()
-        {
-            $this->input = array(
-                'serviceLocator' => $this->commonSetupPlugin->getServiceLocator(),
-                'entityManager'  => $this->commonSetupPlugin->getEntityManager(),
-                'queryBuilder'   => $this->commonSetupPlugin->getQueryBuilder(),
-                'redirect'       => $this->redirect(),
-                'request'        => $this->getRequest(),
-                'flashMessenger' => $this->flashMessenger(),
-                
-                'category'       => trim($this->params()->fromRoute('category')),
-                'title'          => trim($this->params()->fromRoute('title')),
-            );
-            
-            return $this->input;
-        }
 }

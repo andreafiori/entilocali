@@ -1,23 +1,28 @@
 <?php
 
-namespace Application\Model;
+namespace Application\Model\Ricerca;
 
-use Application\Model\FrontendHelpers\FrontendRouterAbstract;
-use Application\Model\FrontendHelpers\FrontendRouterInterface;
+use Application\Model\RouterManagers\RouterManagerAbstract;
+use Application\Model\RouterManagers\RouterManagerInterface;
 
 /**
  * Frontend class for the research
+ * TODO: form ricerca avanzata
  * 
  * @author Andrea Fiori
  * @since  11 May 2014
  */
-class RicercaFrontend extends FrontendRouterAbstract implements FrontendRouterInterface
+class RicercaFrontend extends RouterManagerAbstract implements RouterManagerInterface
 {
-    public function setupFrontendRecord()
+    public function setupRecord()
     {
         $request  = $this->getInput('request', 1);
         $redirect = $this->getInput('redirect', 1);
         $formData = $request->getPost();
+        
+        if (!is_object($request)) {
+            return false;
+        }
         
         if ( $request->isPost() ) {
             $this->setTemplate('ricerca/ricerca.phtml');

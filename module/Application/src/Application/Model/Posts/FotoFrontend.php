@@ -2,8 +2,8 @@
 
 namespace Application\Model\Posts;
 
-use Application\Model\FrontendHelpers\FrontendRouterInterface;
-use Application\Model\FrontendHelpers\FrontendRouterAbstract;
+use Application\Model\RouterManagers\RouterManagerInterface;
+use Application\Model\RouterManagers\RouterManagerAbstract;
 use Application\Model\Posts\PostsGetterWrapper;
 use Application\Model\Posts\PostsGetter;
 
@@ -13,13 +13,21 @@ use Application\Model\Posts\PostsGetter;
  * @author Andrea Fiori
  * @since  06 May 2014
  */
-class FotoFrontend extends FrontendRouterAbstract implements FrontendRouterInterface
+class FotoFrontend extends RouterManagerAbstract implements RouterManagerInterface
 {
-    public function setupFrontendRecord()
+    public function setupRecord()
     {
-        $this->output['template']  = 'foto/foto.phtml';
+        $postsGetterWrapper = new PostsGetterWrapper(new PostsGetter($this->getInput('entityManager')));
+        $postsGetterWrapper->setInput( array(
+            'categoria' => '',
+            'tipo'      => 'foto'
+        ));
+        $postsGetterWrapper->setPostsGetterQueryBuilder();
+        $foto = $postsGetterWrapper->getRecords();
         
-        return $this->output;
-    }
-    
+        $this->setTemplate('foto/foto.phtml');
+        $this->setVariable('foto', $foto);
+        
+        return $this->getOutput();
+    }   
 }

@@ -2,7 +2,7 @@
 
 $columnsToPrint = '';
 foreach($this->columns as $columns):
-	$columnsToPrint .= '<th>'.$columns.'</th>';
+    $columnsToPrint .= '<th>'.$columns.'</th>';
 endforeach;
 
 ?>
@@ -10,23 +10,23 @@ endforeach;
 <p><?php echo $this->description ?></p>
 
 <table cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
-	<thead>
-		<tr>
-		<?php echo $columnsToPrint  ?>
-		</tr>
-	</thead>
-	<tbody>
-		<tr class="odd gradeX">
-			<td>Trident</td>
-			<td>Internet
-				 Explorer 4.0</td>
-			<td>Win 95+</td>
-			<td class="center"> 4</td>
-		</tr>
-	</tbody>
-	<tfoot>
-		<tr>
-			<?php echo $columnsToPrint  ?>
-		</tr>
-	</tfoot>
+    <thead>
+        <tr>
+        <?php echo $columnsToPrint  ?>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="odd gradeX">
+            <td>Trident</td>
+            <td>Internet
+                     Explorer 4.0</td>
+            <td>Win 95+</td>
+            <td class="center"> 4</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <?php echo $columnsToPrint  ?>
+        </tr>
+    </tfoot>
 </table>

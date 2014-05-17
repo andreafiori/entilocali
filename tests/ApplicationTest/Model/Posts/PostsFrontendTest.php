@@ -21,18 +21,7 @@ class PostsFrontendTest extends TestSuite
     {
         parent::setUp();
         
-        $this->input = array(
-            'serviceLocator'        => $this->serviceManager,
-            'entityManager'         => $this->getEntityManagerMock(),
-            'queryBuilder'          => $this->getQueryBuilderMock(),
-            
-            'languageId'            => 1,
-            'languageAbbreviation'  => 'it',
-            'channelId'             => 1,
-            
-            'title'          => 'My Title',
-            'category'       => 'My Category Name',
-        );
+        $this->input = $this->getFrontendCommonInput();
         
         $this->postsGetterWrapper = new PostsGetterWrapper( new PostsGetter($this->getEntityManagerMock()) );
         
@@ -50,11 +39,11 @@ class PostsFrontendTest extends TestSuite
         unset($this->input['entityManager']);
         
         $this->postsFrontend->setInput($this->input);
-        $this->postsFrontend->setupFrontendRecord();
+        $this->postsFrontend->setupRecord();
     }
     
-    public function testSetupFrontendRecord()
+    public function testSetupRecord()
     {
-        $this->assertTrue( is_array($this->postsFrontend->setupFrontendRecord($this->postsGetterWrapper)) );
+        $this->assertTrue( is_array($this->postsFrontend->setupRecord($this->postsGetterWrapper)) );
     }
 }

@@ -42,9 +42,12 @@ class UserInterfaceConfigurations
      */
     public function setPreloadResponse($entityManager)
     {
-        $input = array('tipo'=>'content');
+        $input = array(
+                'tipo' => 'content',
+            );
         $postsGetterWrapper = new PostsGetterWrapper( new PostsGetter($entityManager) );
         $postsGetterWrapper->setInput($input);
+        $postsGetterWrapper->setPostsGetterQueryBuilder();
         $postsList = $postsGetterWrapper->getRecords();
         if ($postsList) {
             foreach($postsList as $preload) {
@@ -55,7 +58,7 @@ class UserInterfaceConfigurations
                 $this->configurations['preloadResponse'][$preload['nomeCategoria']][] = $preload;
             }
         }
-
+        
         return $this->configurations;
     }
 

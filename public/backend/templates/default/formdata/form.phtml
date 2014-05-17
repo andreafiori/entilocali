@@ -1,50 +1,73 @@
 <?php if (!$this->form): ?>
 <div class="alert alert-danger">
-	<h4>Errore verificato</h4>
-	<div>Impossibile visualizzare il form: oggetto form non rilevato</div>
+    <h4>Errore verificato</h4>
+    <div>Impossibile visualizzare il form: oggetto form non rilevato</div>
 </div>
 <?php else: ?>
 
 <div id="formcontainer">
 
-	<h3><?php echo $this->formTitle ?></h3>
-	<div><?php echo $this->formDescription ?></div>
-	<?php
+<h3><?php echo $this->formTitle ?></h3>
+<div><?php echo $this->formDescription ?></div>
+<?php
 
-	$this->form->prepare();
-	
-	echo $this->form()->openTag($this->form);
-	
-	foreach ($this->form as $element):
-		$attributes = $element->getAttributes();
-		if ($attributes['class']=='ckeditor'):
-		?>
-		<div class="form-group">
-			<div class="col-sm-12">
-				<label><?php echo $element->getLabel() ?></label>
-		    	<?php echo $this->formElement($element); ?>
-		    </div>
-		</div>
-		<?php
-		elseif ($attributes['class'] == 'hiddenField' or $attributes['name'] == 'csrf'):
-			echo $this->formElement($element);
-		else:
-		?>
-		<div class="form-group">
-			<label for="<?php echo $attributes['id'] ?>" class="col-sm-2 control-label"><?php echo $element->getLabel() ?></label>
-			<div class="col-sm-10">
-		      <?php echo $this->formElement($element); ?> 
-		    </div>
-		</div>
-		<?php
-		endif;
-	endforeach;
-	?>
+$this->form->prepare();
 
-<?php echo $this->form()->closeTag($this->form); ?>
+$form = $this->form;
+$form->prepare();
+
+$form->setAttribute('action',   'formpost/'.$this->formTitle);
+$form->setAttribute('method',   'post');
+$form->setAttribute('enctype',  'multipart/form-data');
+$form->setAttribute('role',     'form');
+$form->setAttribute('class',    'form-horizontal');
+
+$formLabel = $this->plugin('formLabel');
+
+echo $this->form()->openTag($form);
+
+foreach ($this->form as $element):
+    $attributes = $element->getAttributes();
+    if ($attributes['class']=='ckeditor'):
+    ?>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <label><?php echo $element->getLabel() ?></label>
+            <?php echo $this->formElement($element); ?>
+        </div>
+    </div>
+    <?php
+    elseif ($attributes['class'] == 'hiddenField' or $attributes['name'] == 'csrf'):
+        echo $this->formElement($element);
+    elseif ($attributes['type'] == 'submit'):
+        $element->setAttribute('class','btn btn-primary');
+        ?>
+        <div class="form-group">
+            <label for="<?php echo $attributes['id'] ?>" class="col-sm-2 control-label"><?php echo $element->getLabel() ?></label>
+            <div class="col-sm-10">
+                <?php echo $this->formElement($element); ?> 
+            </div>
+        </div>
+        <?php
+    else:
+        $element->setAttribute('class','form-control');
+    ?>
+    <div class="form-group">
+        <label for="<?php echo $attributes['id'] ?>" class="col-sm-2 control-label"><?php echo $element->getLabel() ?></label>
+        <div class="col-sm-10">
+            <?php echo $this->formElement($element); ?> 
+        </div>
+    </div>
+    <?php
+    endif;
+endforeach;
+
+echo $this->form()->closeTag($this->form);
+
+?>
 </div>
 
 <div id="formDataLoading" class="alert alert-warning" style="display: none">
-	<h4>Attendere: elaborazione dati in corso...</h4></div>
+<h4>Attendere: elaborazione dati in corso...</h4></div>
 <div id="formDataResponse"></div>
 <?php endif; ?>

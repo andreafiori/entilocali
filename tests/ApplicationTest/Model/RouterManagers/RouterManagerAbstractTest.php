@@ -1,26 +1,24 @@
 <?php
 
-namespace ApplicationTest\Model;
+namespace ApplicationTest\Model\RouterManagers;
 
 use ApplicationTest\TestSuite;
 
 /**
- * Frontend Router Abstract for the Index Controller
- * 
  * @author Andrea Fiori
  * @since  05 May 2014
  */
-class FrontendRouterAbstractTest extends TestSuite
+class RouterManagerAbstractTest extends TestSuite
 {
-    private $frontendRouter;
+    private $routerManagerAbstract;
     
     protected function setUp()
     {
         parent::setUp();
         
-        $this->frontendRouter = $this->getMockForAbstractClass('Application\Model\FrontendHelpers\FrontendRouterAbstract');
+        $this->routerManagerAbstract = $this->getMockForAbstractClass('Application\Model\RouterManagers\RouterManagerAbstract');
         
-        $this->frontendRouter->setInput(array(
+        $this->routerManagerAbstract->setInput(array(
             'serviceLocator'        => $this->serviceManager,
             'entityManager'         => $this->getEntityManagerMock(),
             'queryBuilder'          => $this->getQueryBuilderMock(),
@@ -33,7 +31,7 @@ class FrontendRouterAbstractTest extends TestSuite
             'posts_nome_categoria'  => 'My Category Name',
         ));
         
-        $this->frontendRouter->setRouter(array(
+        $this->routerManagerAbstract->setRouter(array(
             "default"                       => 'Application\Model\Posts\PostsFrontend',
             "foto"                          => 'Application\Model\Posts\FotoFrontend',
             "albo-pretorio"                 => 'Application\Model\AlboPretorio\AlboPretorioFrontend',
@@ -46,30 +44,30 @@ class FrontendRouterAbstractTest extends TestSuite
     
     public function testSetInput()
     {
-        $this->assertTrue( is_array($this->frontendRouter->getInput()) );
-        $this->assertTrue( is_object($this->frontendRouter->getInput('serviceLocator')) );
+        $this->assertTrue( is_array($this->routerManagerAbstract->getInput()) );
+        $this->assertTrue( is_object($this->routerManagerAbstract->getInput('serviceLocator')) );
     }
     
     public function testSetRouter()
     {
-        $this->assertTrue( is_array($this->frontendRouter->getRouter()) );
-        $this->assertTrue( is_string($this->frontendRouter->getRouter('default')) );
+        $this->assertTrue( is_array($this->routerManagerAbstract->getRouter()) );
+        $this->assertTrue( is_string($this->routerManagerAbstract->getRouter('default')) );
     }
     
     public function testSetRecords()
     {
         $recordsForTest = array( array("id"=>1,"title"=>"my title") );
         
-        $this->frontendRouter->setRecords($recordsForTest);
+        $this->routerManagerAbstract->setRecords($recordsForTest);
         
-        $this->assertEquals($this->frontendRouter->getRecords(), $recordsForTest);
+        $this->assertEquals($this->routerManagerAbstract->getRecords(), $recordsForTest);
     }
     
     public function testSetOutputExportArrayElement()
     {
-        $this->frontendRouter->setFrontendVariable('myKey', 'myValue');
+        $this->routerManagerAbstract->setVariable('myKey', 'myValue');
         
-        $output = $this->frontendRouter->getOutput();
+        $output = $this->routerManagerAbstract->getOutput();
         
         $this->assertEquals($output['export']['myKey'], 'myValue');
     }

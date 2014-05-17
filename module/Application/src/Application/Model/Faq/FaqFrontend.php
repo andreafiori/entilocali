@@ -2,16 +2,16 @@
 
 namespace Application\Model\Faq;
 
-use Application\Model\FrontendHelpers\FrontendRouterAbstract;
-use Application\Model\FrontendHelpers\FrontendRouterInterface;
+use Application\Model\RouterManagers\RouterManagerAbstract;
+use Application\Model\RouterManagers\RouterManagerInterface;
 
 /**
  * @author Andrea Fiori
  * @since  08 May 2014
  */
-class FaqFrontend extends FrontendRouterAbstract implements FrontendRouterInterface
+class FaqFrontend extends RouterManagerAbstract implements RouterManagerInterface
 {
-    public function setupFrontendRecord()
+    public function setupRecord()
     {
         $this->setTemplate('faq/faq.phtml');
 

@@ -11,8 +11,9 @@ namespace Application\Model;
 abstract class QueryBuilderHelperAbstract
 {
     protected $entityManager;
-
     protected $queryBuilder;
+    protected $firstResult = 0;
+    protected $maxResults = 300;
 
     /**
      * @param \Doctrine\ORM\EntityManager $entityManager
@@ -25,23 +26,36 @@ abstract class QueryBuilderHelperAbstract
     }
     
     /**
+     * @return \Doctrine\ORM\Query
+     */
+    public function getQuery()
+    {
+        return $this->getQueryBuilder()->getQuery();
+    }
+    
+    /**
      * Get DQL query string
      * 
      * @return string
      */
-    public function getQuery()
+    public function getDQLQuery()
     {
         return $this->getQueryBuilder()->getQuery()->getDQL();
     }
     
+    /**
+     * Query result recordset
+     * 
+     * @return type
+     */
     public function getQueryResult()
     {
-        $this->getQueryBuilder()->setFirstResult(0);
-        $this->getQueryBuilder()->setMaxResults(300);
+        $this->getQueryBuilder()->setFirstResult($this->firstResult);
+        $this->getQueryBuilder()->setMaxResults($this->maxResults);
         
         return $this->getQueryBuilder()->getQuery()->getResult();
     }
-       
+
     /**
      * Return the QueryBuilder object
      * 
@@ -50,5 +64,13 @@ abstract class QueryBuilderHelperAbstract
     public function getQueryBuilder()
     {
         return $this->queryBuilder;
+    }
+    
+    /**
+     * @return \Doctrine\ORM\EntityManager $entityManager
+     */
+    public function getEntityManager()
+    {
+        return $this->entityManager;
     }
 }

@@ -17,8 +17,8 @@ class PostsGetter extends QueryBuilderHelperAbstract
     {
         $this->getQueryBuilder()->add('select', 'DISTINCT(p.id) AS postid, po.id AS postoptionid, p.tipo, p.alias, po.titolo, p.stato, po.descrizione, po.seoUrl, po.sottotitolo, po.seoDescription, po.seoKeywords, p.templateFile, p.flagAllegati, co.nome AS nomeCategoria, c.template')
                                 ->add('from', 'Application\Entity\Posts p, Application\Entity\PostsOpzioni po, Application\Entity\PostsRelazioni r, Application\Entity\Categorie c, Application\Entity\CategorieOpzioni co')
-                                ->add('where', 'po.posts = p.id AND p.id = r.posts AND c.id = r.categoria AND co.categoria = c.id AND r.canale = :channel AND co.lingua = :language AND po.lingua = :language');
-        
+                                ->add('where', 'po.posts = p.id AND p.id = r.posts AND c.id = r.categoria AND co.categoria = c.id AND r.canale = :channel AND co.lingua = :language AND po.lingua = :language'); 
+
         return $this->getQueryBuilder();
     }
 
@@ -27,7 +27,9 @@ class PostsGetter extends QueryBuilderHelperAbstract
      */
     public function setChannelId($channel = null)
     {
-        $this->getQueryBuilder()->setParameter('channel', is_numeric($channel) ? $channel : 1);
+        if (is_numeric($channel)) {
+            $this->getQueryBuilder()->setParameter('channel', $channel);
+        }
     }
     
     /**
@@ -35,7 +37,9 @@ class PostsGetter extends QueryBuilderHelperAbstract
      */
     public function setLanguageId($languageId = null)
     {
-        $this->getQueryBuilder()->setParameter('language', is_numeric($languageId) ? $languageId : 1);
+        if (is_numeric($languageId)) {
+            $this->getQueryBuilder()->setParameter('language', $languageId);
+        }
     }
     
     /**
@@ -69,7 +73,7 @@ class PostsGetter extends QueryBuilderHelperAbstract
      */
     public function setTitolo($titolo)
     {
-         if ( is_string($titolo) ) {
+        if ( is_string($titolo) ) {
             $this->getQueryBuilder()->andWhere('po.titolo = :titolo');
             $this->getQueryBuilder()->setParameter('titolo', Slugifier::deSlugify($titolo) );
         }
@@ -84,6 +88,27 @@ class PostsGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere('p.tipo = :tipopost');
             $this->getQueryBuilder()->setParameter('tipopost', Slugifier::deSlugify($tipo) );
         }
+    }
+    
+    /**
+     * @param string $orderBy
+     */
+    public function setOrderBy($orderBy = null)
+    {
+        if (!$orderBy) {
+            $orderBy = 'po.posizione';
+        }
+        
+        $this->getQueryBuilder()->add('orderBy', $orderBy);
+    }
+    
+    public function setStato($status = null)
+    {
+        if ( !$status ) {
+            $this->getQueryBuilder()->andWhere('p.stato IS NULL ');
+        } else {
+            $this->getQueryBuilder()->andWhere("p.stato = '$status' ");
+        }        
     }
 
     /**

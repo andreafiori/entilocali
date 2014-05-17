@@ -183,13 +183,25 @@ class TestSuite extends \PHPUnit_Framework_TestCase
         
         return $queryBuilderMock;
     }
+        
+    public function getFrontendCommonInput()
+    {
+        return array(
+            'serviceLocator'        => $this->getServiceManager(),
+            'entityManager'         => $this->getEntityManagerMock(),
+            'queryBuilder'          => $this->getQueryBuilderMock(),
+            
+            'languageId'            => 1,
+            'languageAbbreviation'  => 'it',
+            'channelId'             => 1,
+            
+            'title'          => 'My Title',
+            'category'       => 'My Category Name',
+        );
+    }
     
-    /**
-     * fake test
-     */
-    public function testThisFile()
+    public function testThisFileWithAFakeTest()
     {
         $this->assertTrue(true);
     }
-    
 }

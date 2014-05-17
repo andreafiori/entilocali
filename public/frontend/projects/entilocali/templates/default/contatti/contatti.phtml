@@ -4,7 +4,7 @@
 </ul>
 <?php if (!$this->form): ?>
 <div class="alert alert-danger">
-    <h1>Form Contatti non rilevato</h1>
+    <h1>Form contatti non rilevato</h1>
     <p>&Egrave; stato rilevato un errore per cui il form contatti non &egrave; presente. Ci scusiamo per il momentaneo disagio.</p>
 </div>
 <?php
@@ -12,7 +12,7 @@ else:
     $form = $this->form;
     $form->prepare();
 
-    $form->setAttribute('action', ''); // $this->basePath().'/form/response/'
+    $form->setAttribute('action', '');
     $form->setAttribute('method', 'post');
     $form->setAttribute('role', 'form');
     $form->setAttribute('class', 'form-horizontal');

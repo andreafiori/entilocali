@@ -10,7 +10,7 @@ use Zend\InputFilter\InputFilter;
  * @author Andrea Fiori
  * @since  21 April 2014
  */
-class ContactFormValidator extends InputFilter
+class ContattiFormValidator extends InputFilter
 {
     public function __construct()
     {

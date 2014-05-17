@@ -27,6 +27,7 @@ class DefaultApiController extends AbstractActionController
     	$response = new Response();
     	$response->setStatusCode(Response::STATUS_CODE_403);
     	$response->setContent( json_encode( array("status" => $response->getStatusCode(), "message"=>'Error 403') ) );
+        
     	return $response;
     }
 }

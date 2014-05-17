@@ -5,8 +5,6 @@ namespace Application\Model\Posts;
 use Application\Model\Posts\PostsGetter;
 
 /**
- * Wrapper around PostsGetter
- * 
  * @author Andrea Fiori
  * @since  15 April 2014
  */
@@ -24,6 +22,23 @@ class PostsGetterWrapper
         $this->postsGetter = $postsGetter;
     }
     
+    public function setPostsGetterQueryBuilder()
+    {
+        $language   = $this->getInput('language', 1);
+        $channel    = $this->getInput('channel', 1);
+        
+        $this->postsGetter->setMainQuery();
+        
+        $this->postsGetter->setChannelId($channel ? $channel : 1);
+        $this->postsGetter->setLanguageId($language ? $language : 1);
+        $this->postsGetter->setId( $this->getInput('id', 1) );
+        $this->postsGetter->setNomeCategoria( $this->getInput('category', 1) );
+        $this->postsGetter->setTitolo( $this->getInput('title', 1) );
+        $this->postsGetter->setTipo( $this->getInput('tipo', 1) );
+        $this->postsGetter->setOrderBy( $this->getInput('orderby', 1) );
+        $this->postsGetter->setStato( $this->getInput('stato', 1) );
+    }
+    
     /**
      * Use the postsGetter class to select records
      * 
@@ -31,14 +46,6 @@ class PostsGetterWrapper
      */
     public function getRecords()
     {
-        $this->postsGetter->setMainQuery();
-        $this->postsGetter->setChannelId( $this->getInput('channel') );
-        $this->postsGetter->setLanguageId( $this->getInput('language') );
-        $this->postsGetter->setId( $this->getInput('id') );
-        $this->postsGetter->setNomeCategoria( $this->getInput('category') );
-        $this->postsGetter->setTitolo( $this->getInput('title') );
-        $this->postsGetter->setTipo( $this->getInput('tipo') );
-
         return $this->postsGetter->getQueryResult();
     }
     
@@ -64,7 +71,7 @@ class PostsGetterWrapper
             return $this->input[$key];
         }
         
-        if ( !$noArray ) {
+        if (!$noArray) {
             return $this->input;
         }
     }
@@ -76,5 +83,4 @@ class PostsGetterWrapper
     {
         return $this->postsGetter;
     }
-    
 }
