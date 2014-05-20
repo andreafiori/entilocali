@@ -70,12 +70,12 @@ class ContattiForm extends Form
             ), 
         ));
         
-        /*
         $this->add(array(  
             'name' => 'csrf', 
             'type' => 'Zend\Form\Element\Csrf', 
         ));
         
+        /*
         // CAPTCHA
         $this->add( array( 'type' => 'Zend\Form\Element\Captcha',
             'name' => 'captcha',

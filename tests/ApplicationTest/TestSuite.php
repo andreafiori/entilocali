@@ -183,7 +183,7 @@ class TestSuite extends \PHPUnit_Framework_TestCase
         
         return $queryBuilderMock;
     }
-        
+    
     public function getFrontendCommonInput()
     {
         return array(
@@ -195,8 +195,8 @@ class TestSuite extends \PHPUnit_Framework_TestCase
             'languageAbbreviation'  => 'it',
             'channelId'             => 1,
             
-            'title'          => 'My Title',
-            'category'       => 'My Category Name',
+            'title'                 => 'My Title',
+            'category'              => 'My Category Name',
         );
     }
     

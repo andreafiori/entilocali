@@ -4,14 +4,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title><?php echo $this->sitename ?> - Area riservata</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <?php
     echo $this->headLink()
           ->prependStylesheet($this->basePath().'/public/common/bootstrap3/css/bootstrap.min.css')
           ->prependStylesheet('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css')
-          ->prependStylesheet($this->basePath().'/public/common/jquery/datatable/css/jquery.dataTables.css')
+          ->prependStylesheet('//cdn.datatables.net/1.10.0/css/jquery.dataTables.css');        
     ?>
-    
     <style>
     // Dropdown menu
     .dropdown:hover .dropdown-menu {
@@ -33,23 +31,18 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-57-precomposed.png">
-    <link rel="shortcut icon" href="img/favicon.png">
-    -->  
+    <link rel="shortcut icon" href="img/favicon.png"> -->
     
-    <!-- JQuery -->
     <script src="<?php echo $this->basePath() ?>/public/common/jquery/jquery.min.js"></script>
     <script src="<?php echo $this->basePath() ?>/public/common/jquery/form/jquery.form.js"></script>
     <script src="<?php echo $this->basePath() ?>/public/common/jquery/validate/jquery.validate.min.js"></script>
 
-    <!-- Bootstrap -->
     <script src="<?php echo $this->basePath() ?>/public/common/bootstrap3/js/bootstrap.min.js"></script>
 
-    <!-- CkEditor and CKFinder -->
     <script src="<?php echo $this->basePath() ?>/public/common/jquery/ckeditor/ckeditor.js"></script>
     <script src="<?php echo $this->basePath() ?>/public/common/jquery/ckfinder/ckfinder.js"></script>
 
-    <!-- DataTable -->
-    <script src="<?php echo $this->basePath() ?>/public/common/jquery/datatable/js/jquery.dataTables_it.js"></script>
+    <script src="<?php echo $this->basePath() ?>/public/common/jquery/datatable/js/jquery.dataTables_it.min.js"></script>
 </head>
 
 <body>
@@ -98,17 +91,17 @@
                         </li>
                         -->
                         <li>
-                            <a href="#" title="Opzioni"><i class="fa fa-wrench"></i> Opzioni</a>
+                            <a href="<?php echo $this->baseUrl ?>datatable/assistenza" title="Opzioni"><i class="fa fa-wrench"></i> Opzioni</a>
                         </li>
 
                         <li>
-                            <a href="<?php echo $this->basepath() ?>/<?php echo $this->langFromRoute; ?>/formdata/assistenza" title="Assistenza"><i class="fa fa-stethoscope"></i> Assistenza</a>
+                            <a href="<?php echo $this->baseUrl ?>datatable/assistenza" title="Assistenza"><i class="fa fa-stethoscope"></i> Assistenza</a>
                         </li>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
-                                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Andrea Fiori <strong class="caret"></strong></a>
+                                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Utente<strong class="caret"></strong></a>
                                 <ul class="dropdown-menu">
                                     <li>
                                         <a href="javascript:void(0)" title="Profilo">Profilo</a>
@@ -130,7 +123,7 @@
                             </li>
                     </ul>
             </div>
-        </nav>
+            </nav>
         <div class="row clearfix">
             <?php
             // Sidebar
@@ -168,10 +161,13 @@ function showResponse()
 
 $(document).ready(function () {
 
-    /* Datatable */
-    $('#example').dataTable();
-
-    /* Validate and form post */
+    // Datatable options
+    $('#example').dataTable( {
+        "pagingType": "full_numbers"
+    } );
+    
+    /*
+    // Validate and form post
     var validate = $("#formdata").validate({
         submitHandler: function(form) {
             $("#formdata").ajaxSubmit({
@@ -183,8 +179,9 @@ $(document).ready(function () {
             });
         }
     });
-    
-    /* FadeOut Div */
+    */
+   
+    // FadeOut FormData Div
     setTimeout( function() {
         $("div.formDataResponse").fadeOut("slow", function () {
             $("div.formDataResponse").remove();

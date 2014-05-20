@@ -35,9 +35,9 @@ class IndexController extends AbstractActionController
         $routerManagerHelper->getRouterManger()->setInput($input);
         $routerManagerHelper->getRouterManger()->setupRecord();
         
-        $output = $routerManagerHelper->getRouterManger()->getOutput();
-        if ( isset($output['export']) ) {
-            foreach($output['export'] as $key => $value) {
+        $output = $routerManagerHelper->getRouterManger()->getOutput('export');
+        if ( isset($output) ) {
+            foreach($output as $key => $value) {
                 $this->layout()->setVariable($key, $value);
             }
         }

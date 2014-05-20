@@ -8,7 +8,8 @@ namespace Application\Model\RouterManagers;
  */
 abstract class RouterManagerAbstract
 {
-    const defaultTemplate = 'homepage.phtml';
+    const defaultFrontendTemplate = 'homepage.phtml';
+    const defaultBackendTemplate = 'dashboard/dashboard.phtml';
     
     protected $input;
     protected $output = array();
@@ -72,13 +73,16 @@ abstract class RouterManagerAbstract
         $this->output['template'] = $template;
     }
     
-    public function getTemplate()
+    public function getTemplate($isBackend = null)
     {
         if (isset($this->output['template'])) {
             return $this->output['template'];
         }
         
-        return self::defaultTemplate;
+        if ($isBackend) {
+            return self::defaultBackendTemplate;
+        }
+        return self::defaultFrontendTemplate;
     }
     
     public function setRecords($records)
@@ -93,8 +97,12 @@ abstract class RouterManagerAbstract
         }
     }
     
-    public function getOutput()
+    public function getOutput($key=null)
     {
+        if ( isset($this->output[$key]) ) {
+            return $this->output[$key];
+        }
+        
         return $this->output;
     }
     

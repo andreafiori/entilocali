@@ -14,6 +14,7 @@ abstract class QueryBuilderHelperAbstract
     protected $queryBuilder;
     protected $firstResult = 0;
     protected $maxResults = 300;
+    protected $selectQueryFields;
 
     /**
      * @param \Doctrine\ORM\EntityManager $entityManager
@@ -72,5 +73,24 @@ abstract class QueryBuilderHelperAbstract
     public function getEntityManager()
     {
         return $this->entityManager;
+    }
+    
+    /**
+     * 
+     * @param string $stringFields
+     */
+    public function setSelectQueryFields($stringFields = '')
+    {
+        if (!$this->selectQueryFields) {
+            $this->selectQueryFields = $stringFields;
+        }
+    }
+    
+    /**
+     * @return string or null
+     */
+    public function getSelectQueryFields()
+    {
+        return $this->selectQueryFields;
     }
 }

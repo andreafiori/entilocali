@@ -46,7 +46,7 @@ class CommonSetupPlugin extends CommonSetupPluginAbstract
      */
     public function mergeInput(array $input)
     {
-        return array_merge($this->recoverInput(), $input);
+        return array_merge($this->getInput(), $input);
     }
     
     /**
@@ -81,12 +81,14 @@ class CommonSetupPlugin extends CommonSetupPluginAbstract
             $this->queryBuilder         = $this->entityManager->createQueryBuilder();
             $this->config               = $this->serviceManager->get('config');
             $this->router               = $this->serviceManager->get('router');
+            $this->uri                  = $this->router->getRequestUri();
             $this->request              = $this->serviceManager->get('request');
             $this->redirect             = $this->getController()->redirect();
             $this->flashMessenger       = $this->getController()->flashMessenger();
             $this->routeMatch           = $this->router->match($this->request);
             $this->module               = $this->getController()->getEvent()->getRouteMatch()->getParam('controller');
-            $this->languageAbbreviation = $this->getController()->params()->fromQuery('languageAbbreviation');
+            $this->param                = $this->getController()->params();
+            $this->languageAbbreviation = $this->param->fromQuery('languageAbbreviation');
             $this->isBackend            = $this->detectIsBackend();
             $this->channel              = 1;
 
@@ -99,7 +101,7 @@ class CommonSetupPlugin extends CommonSetupPluginAbstract
         /**
          * @return type
          */
-        private function recoverInput()
+        public function getInput()
         {
             return array(
                     'serviceLocator' => $this->serviceLocator,
@@ -108,6 +110,8 @@ class CommonSetupPlugin extends CommonSetupPluginAbstract
                     'queryBuilder'   => $this->queryBuilder,
                     'redirect'       => $this->redirect,
                     'request'        => $this->request,
+                    'param'          => $this->param,
+                    'uri'            => $this->uri,
                     'flashMessenger' => $this->flashMessenger,
             );
         }

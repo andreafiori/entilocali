@@ -55,7 +55,6 @@ return array(
     'Application\Model\Faq\FaqFrontend'                                               => __DIR__ . '/src/Application/Model/Faq/FaqFrontend.php',
     'Application\Model\Newsletter\NewsletterFrontend'                                 => __DIR__ . '/src/Application/Model/Newsletter/NewsletterFrontend.php',
     'Application\Model\NullException'                                                 => __DIR__ . '/src/Application/Model/NullException.php',
-    'Application\Paginator\DoctrinePaginatorAdapter'                                  => __DIR__ . '/src/Application/Model/Paginator/DoctrinePaginatorAdapter.php',
     'Application\Model\Posts\FotoFrontend'                                            => __DIR__ . '/src/Application/Model/Posts/FotoFrontend.php',
     'Application\Model\Posts\PostsFrontend'                                           => __DIR__ . '/src/Application/Model/Posts/PostsFrontend.php',
     'Application\Model\Posts\PostsGetter'                                             => __DIR__ . '/src/Application/Model/Posts/PostsGetter.php',

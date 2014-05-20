@@ -27,6 +27,8 @@ class PostsGetterWrapper
         $language   = $this->getInput('language', 1);
         $channel    = $this->getInput('channel', 1);
         
+        $this->postsGetter->setSelectQueryFields( $this->getInput('fields', 1) );
+        
         $this->postsGetter->setMainQuery();
         
         $this->postsGetter->setChannelId($channel ? $channel : 1);

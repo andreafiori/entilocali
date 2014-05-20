@@ -10,8 +10,8 @@ use ApplicationTest\TestSuite;
  * @author Andrea Fiori
  * @since  14 May 2014
  */
-class RouterManagerHelperTest extends TestSuite {
-    
+class RouterManagerHelperTest extends TestSuite
+{
     private $routerManagerHelper;
     
     protected function setUp()

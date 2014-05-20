@@ -301,12 +301,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "0df188624892ecc58751b3f7720c364dac99f998"
+                "reference": "6252da0cf1ed04cc790af533f0841bf5c01de44e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/0df188624892ecc58751b3f7720c364dac99f998",
-                "reference": "0df188624892ecc58751b3f7720c364dac99f998",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/6252da0cf1ed04cc790af533f0841bf5c01de44e",
+                "reference": "6252da0cf1ed04cc790af533f0841bf5c01de44e",
                 "shasum": ""
             },
             "require": {
@@ -367,7 +367,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2014-05-13 23:04:38"
+            "time": "2014-05-16 11:43:27"
         },
         {
             "name": "doctrine/doctrine-module",
@@ -671,16 +671,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/doctrine2.git",
-                "reference": "08347cf4f74f1f7461ba1005a5fe5bb93f3c2c5c"
+                "reference": "04aea73a850dad408c068f43c875e52fbd14004e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/08347cf4f74f1f7461ba1005a5fe5bb93f3c2c5c",
-                "reference": "08347cf4f74f1f7461ba1005a5fe5bb93f3c2c5c",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/04aea73a850dad408c068f43c875e52fbd14004e",
+                "reference": "04aea73a850dad408c068f43c875e52fbd14004e",
                 "shasum": ""
             },
             "require": {
-                "doctrine/collections": "~1.1",
+                "doctrine/collections": "~1.2",
                 "doctrine/dbal": ">=2.5-dev,<2.6-dev",
                 "ext-pdo": "*",
                 "php": ">=5.3.2",
@@ -740,7 +740,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2014-05-11 15:51:23"
+            "time": "2014-05-17 17:08:37"
         },
         {
             "name": "symfony/console",
@@ -749,12 +749,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "838bee3213e2b27e4d9fa5dc13464d8f0a65a73b"
+                "reference": "50be4f30d0a93404e5d62b05fd7294492cf64c4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/838bee3213e2b27e4d9fa5dc13464d8f0a65a73b",
-                "reference": "838bee3213e2b27e4d9fa5dc13464d8f0a65a73b",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/50be4f30d0a93404e5d62b05fd7294492cf64c4f",
+                "reference": "50be4f30d0a93404e5d62b05fd7294492cf64c4f",
                 "shasum": ""
             },
             "require": {
@@ -797,7 +797,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-05-14 06:54:00"
+            "time": "2014-05-15 08:56:35"
         },
         {
             "name": "zendframework/zendframework",
@@ -1040,12 +1040,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/padraic/mockery.git",
-                "reference": "715721895260a951d9cb9c2b9269d5333fb37a5e"
+                "reference": "c413ecc8dd730c2637f41073f793721b6cad3e8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/715721895260a951d9cb9c2b9269d5333fb37a5e",
-                "reference": "715721895260a951d9cb9c2b9269d5333fb37a5e",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/c413ecc8dd730c2637f41073f793721b6cad3e8e",
+                "reference": "c413ecc8dd730c2637f41073f793721b6cad3e8e",
                 "shasum": ""
             },
             "require": {
@@ -1098,7 +1098,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2014-05-02 12:25:43"
+            "time": "2014-05-16 19:01:21"
         },
         {
             "name": "zendframework/zend-developer-tools",

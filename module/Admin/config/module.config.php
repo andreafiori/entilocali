@@ -70,8 +70,8 @@ return array(
                                     'options' => array(
                                                 'route'    => '[/]formpost[/][:controller[/:action]][/]',
                                                 'constraints' => array(
-                                                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                            'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                            'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
                                                 ),
                                                 'defaults' => array(
 
@@ -81,13 +81,13 @@ return array(
                     'datatable' => array(
                                     'type'    => 'Segment',
                                     'options' => array(
-                                                'route'   	  => '[/]datatable[/]',
+                                                'route'   	  => '[/]datatable[/][:tablesetter][/]',
                                                 'constraints' => array(
-
+                                                    
                                                 ),
                                                 'defaults' => array(
-                                                                'controller' => 'Admin\Controller\Admin',
-                                                                'action'     => 'index',
+                                                            'controller' => 'Admin\Controller\Admin',
+                                                            'action'     => 'index',
                                                 ),
                                     ),
                     ),
@@ -101,11 +101,17 @@ return array(
         'display_exceptions'       => true,
         'template_map' => array(
             'admin/admin/index' => __DIR__ . '../../view/index.phtml',
-            'admin/' => __DIR__ . '/../view/empty.phtml',
+            'admin/'            => __DIR__ . '/../view/empty.phtml',
         ),
         'template_path_stack' => array(
             __DIR__ . '../../view',
             __DIR__ . '../../public'
         ),
+    ),
+    // Backend Router Class Map
+    'be_router' => array(
+        "admin"                 => 'Admin\Model\AdminDashboard',
+        "admin/formdata"        => 'Admin\Model\FormData\FormDataHandler',
+        "admin/datatable"       => 'Admin\Model\DataTable\DataTableHandler',
     ),
 );

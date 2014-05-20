@@ -5,6 +5,7 @@ namespace Admin\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Model\RouterManagers\RouterManager;
+use Application\Model\RouterManagers\RouterManagerHelper;
 
 /**
  * @author Andrea Fiori
@@ -20,57 +21,54 @@ class AdminController extends AbstractActionController
         }
         
         $commonSetupPlugin  = $this->CommonSetupPlugin();
+        $config             = $this->getServiceLocator()->get('config');
         $configurations     = $commonSetupPlugin->recoverConfigurationsRecord();
-        $commonSetupPlugin->setConfigurationsVariables();
+        $commonSetupPlugin->setConfigurationsVariables();        
+        $input = $commonSetupPlugin->mergeInput( array_merge($configurations, array(
+                'formsetter'   => trim($this->params()->fromRoute('formsetter')),
+                'tablesetter'  => trim($this->params()->fromRoute('tablesetter')),
+        )));
+
+        $baseUrl = sprintf('%s://%s%s', $input['uri']->getScheme(), $input['uri']->getHost(), $input['request']->getBaseUrl()).'/admin/main/'.$this->params()->fromRoute('lang').'/';
+        $input = array_merge($input, array("baseUrl" => $baseUrl));
         
-        // Can use the RouterManager to handle Requests
-        switch($configurations['routeMatchName']):
-            default: case("admin"):
-                // TODO: load dashboard records...
-                
-            break;
+        $routerManager = new RouterManager($configurations);
+        $routerManager->setRouteMatchName($config['be_router']);
         
-            case("admin/formdata"):
-                // TODO:
-                // check if can show form with ACL
-                // check id with data -> hydrate form with data if set
-       
-                if ( $this->params()->fromRoute('formsetter') == 'assistenza' ) {
-                    $assistenzaForm = new \Admin\Model\Assistenza\AssistenzaForm();
-                }
-                
-                $this->layout()->setVariable('form',            $assistenzaForm);
-                // $this->layout()->setVariable('formAction',    '');
-                $this->layout()->setVariable('formTitle',       'Assitenza');
-                $this->layout()->setVariable('formDescription', 'Nuova richiesta di assistenza');
-                //$this->layout()->setVariable('closeFormOnSubmit', 'Assitenza');
-                
-                $templatePartial = 'backend/templates/default/formdata/form.phtml';
-            break;
+        $routerManagerHelper = new RouterManagerHelper($routerManager->setupRouteMatchObjectInstance());
+        $routerManagerHelper->getRouterManger()->setInput($input);
+        $routerManagerHelper->getRouterManger()->setupRecord();
         
-            case("datatable"):
-                // TODO:
-                // check if can show the grid
-                // 
-            break;
-        endswitch;
+        $output = $routerManagerHelper->getRouterManger()->getOutput('export');
+        if ( isset($output) ) {
+            foreach($output as $key => $value) {
+                $this->layout()->setVariable($key, $value);
+            }
+        }
+        
+        $templatePartial = $routerManagerHelper->getRouterManger()->getTemplate(1);
+        $serverVars = $this->getRequest()->getServer();
         
         if ( !isset($templatePartial) ) {
-            $dashboard = 'backend/templates/'.$configurations['template_backend'].'dashboard/dashboard.phtml';
+            $dashboard = 'dashboard/dashboard.phtml';
             $templatePartial = $dashboard;
         }
-
-        $this->layout()->setVariable('langFromRoute', $this->params()->fromRoute('lang') );
+        
+        $this->layout()->setVariable('baseUrl', $baseUrl);
         $this->layout()->setVariable('preloadResponse', $configurations['preloadResponse']);
-        $this->layout()->setVariable('templatePartial', $templatePartial);
+        $this->layout()->setVariable('templatePartial', 'backend/templates/'.$configurations['template_backend'].$templatePartial);
         $this->layout('backend/templates/'.$configurations['template_backend'].'backend.phtml');
         
     	return new ViewModel();
     }
     
+    /**
+     * TODO: 
+     *      routing to fetch form posts
+     */
     public function formpostAction()
     {
-        
+        return false;
     }
     
 }

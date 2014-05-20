@@ -104,7 +104,7 @@ class AuthController extends AbstractActionController
             }
         }
         
-        return $this->redirect()->toRoute($redirect, array("lang"=>'it'));
+        return $this->redirect()->toRoute($redirect, array("lang" => 'it'));
     }
     
     public function logoutAction()
@@ -112,7 +112,7 @@ class AuthController extends AbstractActionController
         if ($this->getAuthService()->hasIdentity()) {
             $this->getSessionStorage()->forgetMe();
             $this->getAuthService()->clearIdentity();
-            $this->flashmessenger()->addMessage("You've been logged out");
+            $this->flashmessenger()->addMessage("Uscita dall'area di amministrazione");
         }
         
         return $this->redirect()->toRoute('login');
