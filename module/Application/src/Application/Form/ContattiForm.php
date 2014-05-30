@@ -3,6 +3,8 @@
 namespace Application\Form;
 
 use Zend\Form\Form;
+use Zend\Captcha;
+use Zend\Form\Element;
 
 /**
  * Contact Form
@@ -14,7 +16,7 @@ class ContattiForm extends Form
 {
     public function __construct($name = null) 
     {
-        parent::__construct($name);
+        parent::__construct('contactForm');
                 
         $this->add(array( 
             'name' => 'nome', 
@@ -23,6 +25,7 @@ class ContattiForm extends Form
                 'placeholder' => 'Inserisci nome...',
                 'title' => 'Inserisci nome...',
                 'required' => 'required',
+                'id' => 'nome'
             ), 
             'options' => array( 
                 'label' => 'Nome', 
@@ -35,7 +38,8 @@ class ContattiForm extends Form
             'attributes' => array( 
                 'placeholder' => 'Inserisci cognome...', 
                 'title' => 'Inserisci cognome...', 
-                'required' => 'required', 
+                'required' => 'required',
+                 'id' => 'cognome'
             ), 
             'options' => array( 
                 'label' => 'Cognome', 
@@ -48,7 +52,8 @@ class ContattiForm extends Form
             'attributes' => array( 
                 'placeholder' => 'Inserisci indirizzo Email...', 
                 'title' => 'Inserisci indirizzo Email...', 
-                'required' => 'required', 
+                'required' => 'required',
+                'id' => 'email'
             ), 
             'options' => array(
                 'label' => 'Email', 
@@ -63,35 +68,28 @@ class ContattiForm extends Form
                 'title' => 'Inserisci il messagio...', 
                 'required' => 'required',
                 'rows' => 8,
-                'cols' => 35
+                'cols' => 35,
+                'id' => 'messaggio'
             ), 
             'options' => array( 
                 'label' => 'Messaggio', 
             ), 
         ));
         
-        $this->add(array(  
-            'name' => 'csrf', 
-            'type' => 'Zend\Form\Element\Csrf', 
+        $this->add(array(
+            'name' => 'csrf',
+            'type' => 'Zend\Form\Element\Csrf',
         ));
         
-        /*
         // CAPTCHA
-        $this->add( array( 'type' => 'Zend\Form\Element\Captcha',
-            'name' => 'captcha',
-            'options' => array(
-                'label' => 'CAPTCHA',
-                'captcha' => array(
-                    'class' => 'Dumb',
-                ),
-            ),
-            'attributes' => array(
-                'type' => 'captcha',
-                'required' => 'required',
-            ),
-         ) );
+        $dumb = new Captcha\Dumb();
+        $dumb->setLabel('Copia e incolla la seguente stringa:');
+        
+        $captcha = new Element\Captcha('captcha');
+        $captcha->setCaptcha($dumb)->setLabel('Captcha');
+
+        $this->add($captcha);
         // END CAPTHCHA
-        */
         
         $this->add(array(
             'name' => 'send',
@@ -99,6 +97,7 @@ class ContattiForm extends Form
             'attributes' => array(
                 'label' => '&nbsp;',
                 'value' => 'Invia',
+                'id' => 'send'
             ))
         );
     }

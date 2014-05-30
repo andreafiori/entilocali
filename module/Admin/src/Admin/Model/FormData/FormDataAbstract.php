@@ -5,9 +5,6 @@ namespace Admin\Model\FormData;
 use Admin\Model\InputSetupAbstract;
 
 /**
- * TODO: 
- *     check if can show form, get Form object (based on input)
- * 
  * @author Andrea Fiori
  * @since  20 May 2014
  */

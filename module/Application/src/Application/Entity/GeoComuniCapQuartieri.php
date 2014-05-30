@@ -46,7 +46,7 @@ class GeoComuniCapQuartieri
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -70,7 +70,7 @@ class GeoComuniCapQuartieri
     /**
      * Get capQuartiere
      *
-     * @return \Application\Entity\GeoComuniCap 
+     * @return \Application\Entity\GeoComuniCap
      */
     public function getCapQuartiere()
     {
@@ -94,7 +94,7 @@ class GeoComuniCapQuartieri
     /**
      * Get quartiere
      *
-     * @return \Application\Entity\GeoComuniQuartieri 
+     * @return \Application\Entity\GeoComuniQuartieri
      */
     public function getQuartiere()
     {

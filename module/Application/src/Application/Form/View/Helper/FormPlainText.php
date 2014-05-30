@@ -6,14 +6,22 @@ use Zend\Form\View\Helper\AbstractHelper;
 use Zend\Form\ElementInterface;
 
 class FormPlainText extends AbstractHelper
-{	
-	public function render(ElementInterface $element)
-	{
-		return $element->getValue();
-	}
-	
-	public function __invoke(ElementInterface $element = null)
-	{
-		return $this->render($element);
-	}
+{
+    /**
+     * @param \Zend\Form\ElementInterface $element
+     * @return type
+     */
+    public function render(ElementInterface $element)
+    {
+        return $element->getValue();
+    }
+
+    /**
+     * @param \Zend\Form\ElementInterface $element
+     * @return type
+     */
+    public function __invoke(ElementInterface $element = null)
+    {
+        return $this->render($element);
+    }
 }

@@ -50,7 +50,7 @@ class AllegatiOptions
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -74,7 +74,7 @@ class AllegatiOptions
     /**
      * Get titolo
      *
-     * @return string 
+     * @return string
      */
     public function getTitolo()
     {
@@ -98,7 +98,7 @@ class AllegatiOptions
     /**
      * Get descrizione
      *
-     * @return string 
+     * @return string
      */
     public function getDescrizione()
     {
@@ -122,7 +122,7 @@ class AllegatiOptions
     /**
      * Get allegato
      *
-     * @return \Application\Entity\Allegati 
+     * @return \Application\Entity\Allegati
      */
     public function getAllegato()
     {

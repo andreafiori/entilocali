@@ -24,6 +24,13 @@
 <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/apple-touch-icon-72-precomposed.png">
 <link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-57-precomposed.png">
 -->
+
+<style>
+.form-horizontal ul {
+    color: #c00;
+}
+</style>
+
 </head>
 
 <body>
@@ -64,7 +71,7 @@
                                     </li>
                                     
                                     <li>
-                                        <a href="<?php echo $this->basePath() ?>/" title="Dove siamo"><i class="fa fa-map-marker"></i> Dove siamo</a>
+                                        <a href="<?php echo $this->url('main', array('category' => 'comune-azienda', 'title' => 'dove-siamo')) ?>" title="Dove siamo"><i class="fa fa-map-marker"></i> Dove siamo</a>
                                     </li>
                                     
                                     <li>
@@ -80,17 +87,13 @@
                                 <!--
                                 <ul class="nav navbar-nav navbar-right">
                                     <li class="dropdown">
-                                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Doe<strong class="caret"></strong></a>
+                                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Accesso <strong class="caret"></strong></a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="javascript:void(0)" title="Profilo">Profilo</a>
+                                                <a href="javascript:void(0)" title="Profilo">Registrati</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:void(0)" title="">Documenti</a>
-                                            </li>
-                                            <li class="divider"></li>
-                                            <li>
-                                                <a href="<?php echo $this->basePath() ?>/admin/logout" title="Uscita dall'area riservata"><i class="fa fa-power-off"></i> Uscita</a>
+                                                <a href="javascript:void(0)" title="">Password dimenticata?</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -139,7 +142,7 @@
                                     <h3 class="panel-title">Accedi</h3>
                                 </div>
                                 <div class="panel-body">
-                                    <form action="<?php echo $this->basepath() ?>/registrazione/form/" method="post" id="frmLogin">
+                                    <form action="<?php echo $this->basepath() ?>/registrati/" method="post" id="frmLogin">
                                         <div class="form-group">
                                             <label for="username">Nome utente</label>
                                             <input type="text" class="form-control" id="username" name="username" placeholder="Nome utente">
@@ -155,7 +158,7 @@
                                         </div>
                                         <button type="submit" class="btn btn-primary">Accedi</button>
                                         <br><br>
-                                        <p>&raquo; <a href="#" title="">Registrati</a></p>
+                                        <p>&raquo; <a href="<?php echo $this->url('registrazione', array()) ?>" title="">Registrati</a></p>
                                         <p>&raquo; <a href="#" title="">Password smarrita?</a></p>
                                          
                                     </form>
@@ -167,7 +170,7 @@
                                     <h3 class="panel-title">Newsletter</h3>
                                 </div>
                                 <div class="panel-body">
-                                    <form action="<?php echo $this->basepath() ?>/newsletter/form" method="post" id="frmNewsletter">
+                                    <form action="<?php echo $this->url('newsletter', array()) ?>" method="post" id="frmNewsletter">
                                         <div class="form-group">
                                             <input type="email" class="form-control" id="inputusername" placeholder="Email">
                                         </div>
@@ -266,16 +269,16 @@
                 
                 <div id="footer">
 			<div class="container">			
-				<div class="row">					
+				<div class="row">			
 					 <div class="col-md-3">   
                                             <h4>Informazioni</h4>
                                             <ul>
-                                                <li><a href="#" title="">Note Legali</a></li>
-                                                <li><a href="#" title="">Accessiblit&agrave;</a></li>
-                                                <li><a href="#" title="">Continuit&agrave; operativa</a></li>
-                                                <li><a href="#" title="">Privacy</a></li>
-                                                <li><a href="#" title="">Credit</a></li>
-                                                <li><a href="#" title="">Mobile</a></li>
+                                                <li><a href="<?php echo $this->url('main', array('category' => 'info', 'title' => 'note-legali')) ?>" title="">Note Legali</a></li>
+                                                <li><a href="<?php echo $this->url('main', array('category' => 'info', 'title' => 'accessibilita')) ?>" title="">Accessiblit&agrave;</a></li>
+                                                <li><a href="<?php echo $this->url('main', array('category' => 'info', 'title' => 'continuita-operativa')) ?>" title="">Continuit&agrave; operativa</a></li>
+                                                <li><a href="<?php echo $this->url('main', array('category' => 'info', 'title' => 'privacy')) ?>" title="">Privacy</a></li>
+                                                <li><a href="<?php echo $this->url('main', array('category' => 'info', 'title' => 'credit')) ?>" title="">Credit</a></li>
+                                                <li><a href="<?php echo $this->url('main', array('category' => 'info', 'title' => 'mobile')) ?>" title="Visualizzazione sito su tutti i dispositivi">Mobile</a></li>
                                             </ul>
 					</div>
 					<div class="col-md-3">

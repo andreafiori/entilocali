@@ -96,7 +96,7 @@ class Moduli
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -120,7 +120,7 @@ class Moduli
     /**
      * Get nomemod
      *
-     * @return string 
+     * @return string
      */
     public function getNomemod()
     {
@@ -144,7 +144,7 @@ class Moduli
     /**
      * Get homeLabel
      *
-     * @return string 
+     * @return string
      */
     public function getHomeLabel()
     {
@@ -168,7 +168,7 @@ class Moduli
     /**
      * Get homeCategory
      *
-     * @return string 
+     * @return string
      */
     public function getHomeCategory()
     {
@@ -192,7 +192,7 @@ class Moduli
     /**
      * Get homeCss
      *
-     * @return string 
+     * @return string
      */
     public function getHomeCss()
     {
@@ -216,7 +216,7 @@ class Moduli
     /**
      * Get status
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
@@ -240,7 +240,7 @@ class Moduli
     /**
      * Get widthtable
      *
-     * @return string 
+     * @return string
      */
     public function getWidthtable()
     {
@@ -264,7 +264,7 @@ class Moduli
     /**
      * Get highlited
      *
-     * @return integer 
+     * @return integer
      */
     public function getHighlited()
     {
@@ -288,7 +288,7 @@ class Moduli
     /**
      * Get position
      *
-     * @return integer 
+     * @return integer
      */
     public function getPosition()
     {
@@ -312,7 +312,7 @@ class Moduli
     /**
      * Get isnews
      *
-     * @return string 
+     * @return string
      */
     public function getIsnews()
     {
@@ -336,7 +336,7 @@ class Moduli
     /**
      * Get channelId
      *
-     * @return integer 
+     * @return integer
      */
     public function getChannelId()
     {

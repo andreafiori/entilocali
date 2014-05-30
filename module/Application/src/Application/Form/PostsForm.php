@@ -67,15 +67,15 @@ class PostsForm extends Form
                             'type' => 'Textarea',
                             'options' => array( 'label' => 'Descrizione' ),
                             'attributes' => array(
-                                            'id' => 'seoDescription',
+                                            'id'    => 'seoDescription',
                                             'class' => 'form-control',
                                             'title' => 'Inserisci descrizione per i motori di ricerca',
-                                            'rows' => '5',
+                                            'rows'  => '5',
                             )
             ));
 
             $this->add(array(
-                            'name' => 'seoKeywords',	
+                            'name' => 'seoKeywords',
                             'type' => 'Textarea',
                             'options' => array( 'label' => 'Parole chiave (separate da virgola)' ),
                             'attributes' => array(

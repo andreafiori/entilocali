@@ -6,6 +6,7 @@ use ApplicationTest\TestSuite;
 use Application\Model\Contatti\ContattiFrontend;
 use Application\Model\Posts\PostsGetterWrapper;
 use Application\Model\Posts\PostsGetter;
+
 /**
  * @author Andrea Fiori
  * @since  15 May 2014

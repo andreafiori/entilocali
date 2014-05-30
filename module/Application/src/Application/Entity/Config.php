@@ -31,7 +31,7 @@ class Config
     /**
      * @var string
      *
-     * @ORM\Column(name="valore", type="text", nullable=true)
+     * @ORM\Column(name="valore", type="text", length=65535, nullable=true)
      */
     private $valore;
 
@@ -82,7 +82,7 @@ class Config
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -106,7 +106,7 @@ class Config
     /**
      * Get nome
      *
-     * @return string 
+     * @return string
      */
     public function getNome()
     {
@@ -130,7 +130,7 @@ class Config
     /**
      * Get valore
      *
-     * @return string 
+     * @return string
      */
     public function getValore()
     {
@@ -154,7 +154,7 @@ class Config
     /**
      * Get note
      *
-     * @return string 
+     * @return string
      */
     public function getNote()
     {
@@ -178,7 +178,7 @@ class Config
     /**
      * Get isbackend
      *
-     * @return integer 
+     * @return integer
      */
     public function getIsbackend()
     {
@@ -202,7 +202,7 @@ class Config
     /**
      * Get isalwaysallowed
      *
-     * @return integer 
+     * @return integer
      */
     public function getIsalwaysallowed()
     {
@@ -226,7 +226,7 @@ class Config
     /**
      * Get moduloId
      *
-     * @return integer 
+     * @return integer
      */
     public function getModuloId()
     {
@@ -250,7 +250,7 @@ class Config
     /**
      * Get canaleId
      *
-     * @return integer 
+     * @return integer
      */
     public function getCanaleId()
     {
@@ -274,7 +274,7 @@ class Config
     /**
      * Get linguaId
      *
-     * @return integer 
+     * @return integer
      */
     public function getLinguaId()
     {

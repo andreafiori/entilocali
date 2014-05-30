@@ -40,7 +40,7 @@ class UtentiPermessiNomi
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -64,7 +64,7 @@ class UtentiPermessiNomi
     /**
      * Get flag
      *
-     * @return string 
+     * @return string
      */
     public function getFlag()
     {
@@ -88,7 +88,7 @@ class UtentiPermessiNomi
     /**
      * Get descrizione
      *
-     * @return string 
+     * @return string
      */
     public function getDescrizione()
     {

@@ -13,7 +13,7 @@ endforeach;
 <h3><?php echo $this->tableTitle ?></h3>
 <p><?php echo $this->tableDescription ?></p>
 
-<table cellpadding="0" cellspacing="0" border="0" class="display" id="example" width="100%">
+<table cellpadding="0" cellspacing="0" border="0" class="display" id="dataTable" width="100%">
     <thead>
         <tr>
         <?php echo $columnsToPrint ?>
@@ -36,3 +36,38 @@ endforeach;
         </tr>
     </tfoot>
 </table>
+
+<div class="modal fade" id="addBookDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel"><strong>Conferma eliminazione?</strong></h4>
+      </div>
+        <form action="" method="post">
+      <div class="modal-body">
+        <p>I dati verranno cancellati definitivamente e non sar&agrave; possibile recuperarli.</p>
+        <input type="hiddens" name="deleteId" id="deleteId" value="" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
+        <button type="submit" class="btn btn-danger">Conferma</button>
+      </div>
+        </form>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).on("click", ".open-AddBookDialog", function (e) {
+
+    e.preventDefault();
+
+    var _self = $(this);
+
+    var deleteId = _self.data('id');
+    $("#deleteId").val(deleteId);
+
+    $(_self.attr('href')).modal('show');
+});
+</script>

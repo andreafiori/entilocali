@@ -50,7 +50,7 @@ class GeoComuniQuartieri
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -74,7 +74,7 @@ class GeoComuniQuartieri
     /**
      * Get nome
      *
-     * @return string 
+     * @return string
      */
     public function getNome()
     {
@@ -98,7 +98,7 @@ class GeoComuniQuartieri
     /**
      * Get capPrincipale
      *
-     * @return string 
+     * @return string
      */
     public function getCapPrincipale()
     {
@@ -122,7 +122,7 @@ class GeoComuniQuartieri
     /**
      * Get citta
      *
-     * @return \Application\Entity\GeoComuni 
+     * @return \Application\Entity\GeoComuni
      */
     public function getCitta()
     {

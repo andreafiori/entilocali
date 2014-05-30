@@ -96,6 +96,7 @@ class CommonSetupPlugin extends CommonSetupPluginAbstract
                 $this->appConfigs       = $this->config['app_configs'];
                 $this->isMultiLanguage  = $this->appConfigs['isMultilanguage'];
             }
+            
         }
 
         /**
@@ -156,6 +157,7 @@ class CommonSetupPlugin extends CommonSetupPluginAbstract
         {
             $ui = new UserInterfaceConfigurations($this->configurations);
             $ui->setConfigurationsArray($this->isBackend);
+            $ui->setModules();
             $ui->setCommonConfigurations();
             $ui->setPreloadResponse($this->entityManager);
 

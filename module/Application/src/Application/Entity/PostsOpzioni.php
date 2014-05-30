@@ -59,7 +59,7 @@ class PostsOpzioni
     /**
      * @var string
      *
-     * @ORM\Column(name="descrizione", type="text", nullable=true)
+     * @ORM\Column(name="descrizione", type="text", length=65535, nullable=true)
      */
     private $descrizione;
 
@@ -130,7 +130,7 @@ class PostsOpzioni
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -154,7 +154,7 @@ class PostsOpzioni
     /**
      * Get note
      *
-     * @return string 
+     * @return string
      */
     public function getNote()
     {
@@ -178,7 +178,7 @@ class PostsOpzioni
     /**
      * Get dataDa
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDataDa()
     {
@@ -202,7 +202,7 @@ class PostsOpzioni
     /**
      * Get dataA
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDataA()
     {
@@ -226,7 +226,7 @@ class PostsOpzioni
     /**
      * Get titolo
      *
-     * @return string 
+     * @return string
      */
     public function getTitolo()
     {
@@ -250,7 +250,7 @@ class PostsOpzioni
     /**
      * Get sottotitolo
      *
-     * @return string 
+     * @return string
      */
     public function getSottotitolo()
     {
@@ -274,7 +274,7 @@ class PostsOpzioni
     /**
      * Get descrizione
      *
-     * @return string 
+     * @return string
      */
     public function getDescrizione()
     {
@@ -298,7 +298,7 @@ class PostsOpzioni
     /**
      * Get stato
      *
-     * @return string 
+     * @return string
      */
     public function getStato()
     {
@@ -322,7 +322,7 @@ class PostsOpzioni
     /**
      * Get posizione
      *
-     * @return integer 
+     * @return integer
      */
     public function getPosizione()
     {
@@ -346,7 +346,7 @@ class PostsOpzioni
     /**
      * Get seoUrl
      *
-     * @return string 
+     * @return string
      */
     public function getSeoUrl()
     {
@@ -370,7 +370,7 @@ class PostsOpzioni
     /**
      * Get seoTitle
      *
-     * @return string 
+     * @return string
      */
     public function getSeoTitle()
     {
@@ -394,7 +394,7 @@ class PostsOpzioni
     /**
      * Get seoDescription
      *
-     * @return string 
+     * @return string
      */
     public function getSeoDescription()
     {
@@ -418,7 +418,7 @@ class PostsOpzioni
     /**
      * Get seoKeywords
      *
-     * @return string 
+     * @return string
      */
     public function getSeoKeywords()
     {
@@ -442,7 +442,7 @@ class PostsOpzioni
     /**
      * Get posts
      *
-     * @return \Application\Entity\Posts 
+     * @return \Application\Entity\Posts
      */
     public function getPosts()
     {
@@ -466,7 +466,7 @@ class PostsOpzioni
     /**
      * Get lingua
      *
-     * @return \Application\Entity\Lingue 
+     * @return \Application\Entity\Lingue
      */
     public function getLingua()
     {

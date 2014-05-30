@@ -8,8 +8,8 @@ namespace Application\Model\RouterManagers;
  */
 abstract class RouterManagerAbstract
 {
-    const defaultFrontendTemplate = 'homepage.phtml';
-    const defaultBackendTemplate = 'dashboard/dashboard.phtml';
+    const defaultFrontendTemplate   = 'notfound.phtml';
+    const defaultBackendTemplate    = 'dashboard/dashboard.phtml';
     
     protected $input;
     protected $output = array();
@@ -73,6 +73,11 @@ abstract class RouterManagerAbstract
         $this->output['template'] = $template;
     }
     
+    /**
+     * 
+     * @param type $isBackend
+     * @return type
+     */
     public function getTemplate($isBackend = null)
     {
         if (isset($this->output['template'])) {
@@ -82,6 +87,7 @@ abstract class RouterManagerAbstract
         if ($isBackend) {
             return self::defaultBackendTemplate;
         }
+        
         return self::defaultFrontendTemplate;
     }
     
@@ -97,13 +103,21 @@ abstract class RouterManagerAbstract
         }
     }
     
-    public function getOutput($key=null)
+    /**
+     * 
+     * @param type $key
+     * @param type $noArray
+     * @return type
+     */
+    public function getOutput($key = null, $noArray=null)
     {
         if ( isset($this->output[$key]) ) {
             return $this->output[$key];
         }
         
-        return $this->output;
+        if ( !$noArray ) {
+            return $this->output;
+        }
     }
     
     /**
@@ -120,4 +134,21 @@ abstract class RouterManagerAbstract
         
         $this->output['export'][$key] = $value;
     }
+        /**
+         * 
+         * @param array $array
+         * @param type $key
+         * @param type $noArray
+         * @return array
+         */
+        private function getArrayValue(array $array, $key = null, $noArray=null)
+        {
+            if ( isset($array[$key]) ) {
+                return $array[$key];
+            }
+
+            if ( !$noArray ) {
+                return $array;
+            }
+        }
 }

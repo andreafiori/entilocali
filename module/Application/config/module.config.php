@@ -3,37 +3,38 @@ return array(
     'router' => array(
                     'routes' => array(
                                     'home' => array(
-                                                    'type' => 'Zend\Mvc\Router\Http\Literal',
-                                                    'options' => array(
-                                                                    'route'    => '/',
-                                                                    'defaults' => array(
-                                                                                    'controller' => 'Application\Controller\Index',
-                                                                                    'action'     => 'index',
-                                                                    ),
-                                                    ),
-                                    ),
-                                    'main' => array(
                                                     'type'    => 'segment',
                                                     'options' => array(
-                                                                    'route'    => '/[:category][/][:title][/]',
+                                                                    'route' => '/',
                                                                     'constraints' => array(
                                                                             'category'  => '[a-zA-Z][a-zA-Z0-9_-]*',
                                                                             'title'     => '[a-zA-Z0-9_-]*',
                                                                     ),
                                                                     'defaults' => array(
-                                                                                    'controller' => 'Application\Controller\Index',
-                                                                                    'action'     => 'index',
+                                                                            'controller' => 'Application\Controller\Index',
+                                                                            'action'     => 'index',
                                                                     ),
                                                     ),
                                                     'may_terminate' => true,
-                                                    'child_routes' => array(
-                                                                    'default' => array(
-                                                                                    'type'    => 'Wildcard',
-                                                                                    'options' => array(
-                                                                                    ),
+                                    ),
+                                    'main' => array(
+                                                    'type'    => 'segment',
+                                                    'options' => array(
+                                                                    'route' => '/[:category][/][:title][/]',
+                                                                    'constraints' => array(
+                                                                            'category'  => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                                            'title'     => '[a-zA-Z0-9_-]*',
+                                                                    ),
+                                                                    'defaults' => array(
+                                                                            'controller' => 'Application\Controller\Index',
+                                                                            'action'     => 'index',
                                                                     ),
                                                     ),
+                                                    'may_terminate' => true,
+                                                    
                                     ),
+                                    /* POSTS PAGING */
+                                    /*
                                     'posts' => array(
                                                     'type'    => 'segment',
                                                     'options' => array(
@@ -51,13 +52,7 @@ return array(
                                                                     ),
                                                     ),
                                                     'may_terminate' => true,
-                                                    'child_routes' => array(
-                                                                    'default' => array(
-                                                                                    'type'    => 'Wildcard',
-                                                                                    'options' => array(
-                                                                                    ),
-                                                                    ),
-                                                    ),
+                                                    
                                     ),
                                     'feed' => array(
                                                     'type'    => 'segment',
@@ -72,14 +67,8 @@ return array(
                                                                     ),
                                                     ),
                                                     'may_terminate' => true,
-                                                    'child_routes' => array(
-                                                                    'default' => array(
-                                                                                    'type'    => 'Wildcard',
-                                                                                    'options' => array(
-                                                                                    ),
-                                                                    ),
-                                                    ),
                                     ),
+                                    */
                                     'version' => array(
                                                     'type'    => 'segment',
                                                     'options' => array(
@@ -116,9 +105,9 @@ return array(
                                         'may_terminate' => true,
                                         'child_routes' => array(
                                                         'default' => array(
-                                                                        'type'    => 'Wildcard',
-                                                                        'options' => array(
-                                                                        ),
+                                                                'type'    => 'Wildcard',
+                                                                'options' => array(
+                                                            ),
                                                         ),
                                         ),
                                     ),
@@ -230,7 +219,28 @@ return array(
                                     'newsletter' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
-                                                        'route'    => '/newsletter/form[/]',
+                                                        'route'    => '/newsletter/[/]',
+                                                        'constraints' => array(
+                                                        
+                                                        ),
+                                                        'defaults' => array(
+                                                            
+                                                        ),
+                                        ),
+                                        'may_terminate' => true,
+                                        'child_routes' => array(
+                                                        'default' => array(
+                                                                        'type'    => 'Wildcard',
+                                                                        'options' => array(
+                                                                            
+                                                                        ),
+                                                        ),
+                                        ),
+                                    ),
+                                    'registrati' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                                        'route'    => '/registrazione/form[/]',
                                                         'constraints' => array(
                                                             
                                                         ),
@@ -248,10 +258,10 @@ return array(
                                                         ),
                                         ),
                                     ),
-                                    'registrati' => array(
+                                    'registrazione' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
-                                                        'route'    => '/registrazione/form[/]',
+                                                        'route'    => '/registrati[/]',
                                                         'constraints' => array(
                                                             
                                                         ),
@@ -331,6 +341,7 @@ return array(
                     'exception_template'       => 'error/index',
                     'template_map' => array(
                                     'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
+                                    'application/feed/index'  => __DIR__ . '/../view/application/index/index.phtml',
                                     'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
                                     'application/pagination'  => __DIR__ . '/../view/application/pagination/numbers.phtml',
                                     'admin/index'             => __DIR__ . '/../view/',
@@ -341,6 +352,11 @@ return array(
                     'template_path_stack' => array(
                                     __DIR__ . '/../view',
                                     __DIR__ . '/../../../public'
+                    ),
+                    'strategies' => array(
+                        
+                        'ViewJsonStrategy',
+                        'ViewFeedStrategy',
                     ),
     ),
     // Placeholder for console routes
@@ -367,14 +383,15 @@ return array(
     // Frontend Router Class Map
     'fe_router' => array(
         "default"                       => 'Application\Model\Posts\PostsFrontend',
-        "posts"                         => 'Application\Model\Posts\PostsFrontend',
-        "foto"                          => 'Application\Model\Posts\FotoFrontend',
+        "home"                          => 'Application\Model\Posts\PostsFrontend',
         "albo-pretorio"                 => 'Application\Model\AlboPretorio\AlboPretorioFrontend',
-        "stato-civile"                  => 'Application\Model\StatoCivile\StatoCivileFrontend',
         "amministrazione-trasparente"   => 'Application\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFrontend',
-        "contatti"                      => 'Application\Model\Contatti\ContattiFrontend',
+        "contatti"                      => 'Application\Model\Contatti\ContattiFrontend',        
         "faq"                           => 'Application\Model\Faq\FaqFrontend',
+        "foto"                          => 'Application\Model\Posts\FotoFrontend',
         "newsletter"                    => 'Application\Model\Newsletter\NewsletterFrontend',
+        "registrazione"                 => 'Application\Model\Utenti\RegistrazioneFrontend',
         "ricerca"                       => 'Application\Model\Ricerca\RicercaFrontend',
+        "stato-civile"                  => 'Application\Model\StatoCivile\StatoCivileFrontend',
     )
 );

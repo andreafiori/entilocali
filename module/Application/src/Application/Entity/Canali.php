@@ -71,7 +71,7 @@ class Canali
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -95,7 +95,7 @@ class Canali
     /**
      * Get nome
      *
-     * @return string 
+     * @return string
      */
     public function getNome()
     {
@@ -119,7 +119,7 @@ class Canali
     /**
      * Get domain
      *
-     * @return string 
+     * @return string
      */
     public function getDomain()
     {
@@ -143,7 +143,7 @@ class Canali
     /**
      * Get subdomain
      *
-     * @return string 
+     * @return string
      */
     public function getSubdomain()
     {
@@ -167,7 +167,7 @@ class Canali
     /**
      * Get ismultilanguage
      *
-     * @return integer 
+     * @return integer
      */
     public function getIsmultilanguage()
     {
@@ -191,7 +191,7 @@ class Canali
     /**
      * Get isdefault
      *
-     * @return integer 
+     * @return integer
      */
     public function getIsdefault()
     {
@@ -215,7 +215,7 @@ class Canali
     /**
      * Get lingua
      *
-     * @return \Application\Entity\Lingue 
+     * @return \Application\Entity\Lingue
      */
     public function getLingua()
     {

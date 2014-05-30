@@ -54,7 +54,7 @@ class AlboSezioni
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -78,7 +78,7 @@ class AlboSezioni
     /**
      * Get nome
      *
-     * @return string 
+     * @return string
      */
     public function getNome()
     {
@@ -102,7 +102,7 @@ class AlboSezioni
     /**
      * Get status
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
@@ -126,7 +126,7 @@ class AlboSezioni
     /**
      * Get position
      *
-     * @return integer 
+     * @return integer
      */
     public function getPosition()
     {
@@ -150,7 +150,7 @@ class AlboSezioni
     /**
      * Get subsezioneId
      *
-     * @return integer 
+     * @return integer
      */
     public function getSubsezioneId()
     {

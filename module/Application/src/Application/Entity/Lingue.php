@@ -99,7 +99,7 @@ class Lingue
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -123,7 +123,7 @@ class Lingue
     /**
      * Get bandiera
      *
-     * @return string 
+     * @return string
      */
     public function getBandiera()
     {
@@ -147,7 +147,7 @@ class Lingue
     /**
      * Get nome
      *
-     * @return string 
+     * @return string
      */
     public function getNome()
     {
@@ -171,7 +171,7 @@ class Lingue
     /**
      * Get abbreviazione1
      *
-     * @return string 
+     * @return string
      */
     public function getAbbreviazione1()
     {
@@ -195,7 +195,7 @@ class Lingue
     /**
      * Get abbreviazione2
      *
-     * @return string 
+     * @return string
      */
     public function getAbbreviazione2()
     {
@@ -219,7 +219,7 @@ class Lingue
     /**
      * Get abbreviazione3
      *
-     * @return string 
+     * @return string
      */
     public function getAbbreviazione3()
     {
@@ -243,7 +243,7 @@ class Lingue
     /**
      * Get predefinita
      *
-     * @return integer 
+     * @return integer
      */
     public function getPredefinita()
     {
@@ -267,7 +267,7 @@ class Lingue
     /**
      * Get predefinitaBackend
      *
-     * @return integer 
+     * @return integer
      */
     public function getPredefinitaBackend()
     {
@@ -291,7 +291,7 @@ class Lingue
     /**
      * Get encoding
      *
-     * @return string 
+     * @return string
      */
     public function getEncoding()
     {
@@ -315,7 +315,7 @@ class Lingue
     /**
      * Get attivo
      *
-     * @return integer 
+     * @return integer
      */
     public function getAttivo()
     {
@@ -339,7 +339,7 @@ class Lingue
     /**
      * Get canale
      *
-     * @return \Application\Entity\Canali 
+     * @return \Application\Entity\Canali
      */
     public function getCanale()
     {

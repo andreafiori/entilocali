@@ -5,16 +5,19 @@
 
 <h1>Area di amministrazione</h1>
 
-<h2>Contenuti online:</h2>
+<div class="btn-group">
+    <a href="#" class="btn btn-default"><i class="fa fa-wrench"></i> Opzioni</a>
+    <a href="#" class="btn btn-default"><i class="fa fa-stethoscope"></i> Assistenza</a>
+    <a href="#" class="btn btn-default"><i class="fa fa-envelope"></i> Contatti</a>
+</div>
 
-<?php if ($this->preloadResponse): ?>
-    <?php foreach($this->preloadResponse as $key => $value): ?>
-    <ul>
-        <strong><?php echo $key ?></strong>
-        <?php foreach($value as $post): ?>
-        <li><a href="#"><?php echo $post['titolo'] ?></a></li>
-        <?php endforeach; ?>
-    </ul>
-    <?php endforeach; ?>
-<?php endif; ?>
+<p>&nbsp;</p>
 
+<div class="alert alert-warning">
+<h2>Consigli:</h2>
+<p>Alcuni consigli per un utilizzo ottimale di quest'area:</p>
+<ul>
+    <li>Utilizzare un browser moderno come Google Chrome, Mozilla Firefox, Opera, Safari o Internet Explorer 10 con supporto Javascript attivo</li>
+    <li>Utilizzare i link dell'applicazione e non i pulsanti indietro \ avanti del browser poich&egrave; potrebbero confondere la navigazione o danneggiare i dati che si stanno manipolando</li>
+</ul>
+</div>

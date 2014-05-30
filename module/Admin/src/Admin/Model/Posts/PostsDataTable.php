@@ -13,8 +13,6 @@ use Application\Model\Posts\PostsGetterWrapper;
  */
 class PostsDataTable extends DataTableAbstract implements DataTableInterface
 {
-    protected $title, $description;
-    
     protected $tipo;
 
     public function __construct(array $input)
@@ -34,11 +32,13 @@ class PostsDataTable extends DataTableAbstract implements DataTableInterface
             case("blog"):
                 $this->title = 'Blog posts';
                 $this->description = 'Gestione posts in archivio';
+                $this->tipo = 'blog';
             break;
 
             case("foto"):
                 $this->title = 'Foto';
                 $this->description = 'Gestione foto in archivio';
+                $this->tipo = 'foto';
             break;
         }
     }
@@ -54,14 +54,14 @@ class PostsDataTable extends DataTableAbstract implements DataTableInterface
     
     public function getColumns()
     {
-        return array("Titolo", "&nbsp;", "&nbsp;", "&nbsp;", "&nbsp;");
+        return array("Titolo", "Sotto titolo", "Data inserimento", "Ultima modifica", "Stato", "&nbsp;", "&nbsp;", "&nbsp;", "&nbsp;");
     }
     
     public function getRecords()
     {
         $postsGetterWrapper = new PostsGetterWrapper( new PostsGetter($this->getInput('entityManager')) );
         $postsGetterWrapper->setInput( array("tipo" => $this->tipo) );
-        $postsGetterWrapper->setPostsGetterQueryBuilder();
+        $postsGetterWrapper->setupQueryBuilder();
         $postsGetterWrapper->getRecords();
         
         $records = $postsGetterWrapper->getRecords();
@@ -70,14 +70,29 @@ class PostsDataTable extends DataTableAbstract implements DataTableInterface
         foreach($records as $record) {
             $recordsToReturn[] = array(
                 $record['titolo'],
-                //'<a href="#" title="Modifica categoria '.$record['nomeCategoria'].'">'.$record['nomeCategoria'].'</a>',
-                '<a href="'.$this->getInput('baseUrl').'formdata/posts/'.$record['postid'].'" title="Modifica"><i class="fa fa-pencil"></i> Modifica</a>', 
-                '<a href="#" title="Elimina"><i class="fa fa-times"></i> Elimina</a>',
-                '<a href="#" title="Gestione allegati"><i class="fa fa-paperclip"></i> Allegati</a>',
-                '<a href="#" title="Gestione allegati">Relazioni</a>'
+                $record['sottotitolo'],
+                $this->convertDateTimeToString($record['dataInserimento']),
+                $this->convertDateTimeToString($record['dataUltimoAggiornamento']),
+                ucfirst($record['stato']),
+                '<a href="'.$this->getInput('baseUrl').'formdata/posts/'.$record['postid'].'" data-toggle="tooltip" data-placement="top" class="btn btn-primary btooltip" title="Modifica"><i class="fa fa-pencil"></i> </a>', 
+                '<a href="#addBookDialog" data-id="'.$record['postoptionid'].'" class="open-AddBookDialog btn btn-danger btooltip" data-toggle="tooltip" data-placement="top" title="Elimina"><i class="fa fa-times"></i> </a>',
+                '<a href="#" data-toggle="tooltip" data-placement="top" class="btn btn-default btooltip" title="Gestione allegati"><i class="fa fa-paperclip"></i> </a>',
+                '<a href="#" data-toggle="tooltip" data-placement="top" class="btn btn-default btooltip" title="Categorie"><i class="fa fa-arrows"></i> </a>'
             );
         }
 
         return $recordsToReturn;
     }
+
+        /**
+         * 
+         * @param \DateTime $dateTime
+         * @return type
+         */
+        private function convertDateTimeToString(\DateTime $dateTime)
+        {
+            if($dateTime instanceof \DateTime){
+                return $dateTime->format('d-m-Y');
+            }
+        }
 }

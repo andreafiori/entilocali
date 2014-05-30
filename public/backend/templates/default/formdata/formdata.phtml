@@ -7,8 +7,13 @@
 
 <div id="formcontainer">
 
-<h3><?php echo $this->formTitle ?></h3>
-<div><?php echo $this->formDescription ?></div>
+<ul class="breadcrumb">
+    <li><a href="<?php echo $this->basepath() ?>" title="Home page">Home</a> <span class="divider"></span></li>
+    <li class="active"><?php echo $this->formTitle ?></li>
+</ul>
+    
+<h2><?php echo $this->formTitle ?></h2>
+<p><?php echo $this->formDescription ?></p>
 <?php
 
 $this->form->prepare();
@@ -16,7 +21,7 @@ $this->form->prepare();
 $form = $this->form;
 $form->prepare();
 
-$form->setAttribute('action',   'formpost/'.$this->formTitle);
+$form->setAttribute('action',   $this->url('admin', array('lang' => 'it')).'formpost/'.$this->formAction );
 $form->setAttribute('method',   'post');
 $form->setAttribute('enctype',  'multipart/form-data');
 $form->setAttribute('role',     'form');
@@ -37,6 +42,15 @@ foreach ($this->form as $element):
         </div>
     </div>
     <?php
+    elseif ($attributes['class']=='DatePicker'):
+    ?>
+    <div class="form-group">
+        <label for="<?php echo $attributes['id'] ?>" class="col-sm-2 control-label"><?php echo $element->getLabel() ?></label>
+        <div class="col-sm-10">
+            <?php echo $this->formDate($element); ?>
+        </div>
+    </div>
+    <?php
     elseif ($attributes['class'] == 'hiddenField' or $attributes['name'] == 'csrf'):
         echo $this->formElement($element);
     elseif ($attributes['type'] == 'submit'):
@@ -50,7 +64,7 @@ foreach ($this->form as $element):
         </div>
         <?php
     else:
-        $element->setAttribute('class','form-control');
+        $element->setAttribute('class', 'form-control');
     ?>
     <div class="form-group">
         <label for="<?php echo $attributes['id'] ?>" class="col-sm-2 control-label"><?php echo $element->getLabel() ?></label>
@@ -61,13 +75,20 @@ foreach ($this->form as $element):
     <?php
     endif;
 endforeach;
-
+    ?>
+    <div class="form-group">
+        <label for="" class="col-sm-2 control-label">&nbsp;</label>
+        <div class="col-sm-10">
+            * Campi obbligatori
+        </div>
+    </div>
+    <?php
 echo $this->form()->closeTag($this->form);
 
 ?>
 </div>
 
 <div id="formDataLoading" class="alert alert-warning" style="display: none">
-<h4>Attendere: elaborazione dati in corso...</h4></div>
+<h1>Attendere: elaborazione dati in corso...</h1></div>
 <div id="formDataResponse"></div>
 <?php endif; ?>

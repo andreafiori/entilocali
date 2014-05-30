@@ -31,14 +31,14 @@ class LingueEtichette
     /**
      * @var string
      *
-     * @ORM\Column(name="valore", type="text", nullable=true)
+     * @ORM\Column(name="valore", type="text", length=65535, nullable=true)
      */
     private $valore;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="descrizione", type="text", nullable=true)
+     * @ORM\Column(name="descrizione", type="text", length=65535, nullable=true)
      */
     private $descrizione;
 
@@ -82,7 +82,7 @@ class LingueEtichette
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -106,7 +106,7 @@ class LingueEtichette
     /**
      * Get nome
      *
-     * @return string 
+     * @return string
      */
     public function getNome()
     {
@@ -130,7 +130,7 @@ class LingueEtichette
     /**
      * Get valore
      *
-     * @return string 
+     * @return string
      */
     public function getValore()
     {
@@ -154,7 +154,7 @@ class LingueEtichette
     /**
      * Get descrizione
      *
-     * @return string 
+     * @return string
      */
     public function getDescrizione()
     {
@@ -178,7 +178,7 @@ class LingueEtichette
     /**
      * Get isbackend
      *
-     * @return integer 
+     * @return integer
      */
     public function getIsbackend()
     {
@@ -202,7 +202,7 @@ class LingueEtichette
     /**
      * Get isuniversal
      *
-     * @return integer 
+     * @return integer
      */
     public function getIsuniversal()
     {
@@ -226,7 +226,7 @@ class LingueEtichette
     /**
      * Get status
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
@@ -250,7 +250,7 @@ class LingueEtichette
     /**
      * Get moduloId
      *
-     * @return integer 
+     * @return integer
      */
     public function getModuloId()
     {
@@ -274,7 +274,7 @@ class LingueEtichette
     /**
      * Get linguaId
      *
-     * @return integer 
+     * @return integer
      */
     public function getLinguaId()
     {

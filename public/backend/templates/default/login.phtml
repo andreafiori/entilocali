@@ -83,64 +83,59 @@ $form->setAttribute('role', 'form');
 $form->prepare();
 
 ?>
-<form class="form-signin" action="<?php echo $this->url(
-    'login/process',
-    array(
-        'action' => 'authenticate',
-    )) ?>" method="post" id="frmlogin" role="form">
-    <div>
-    <h2 class="form-signin-heading">Area Riservata</h2>
+<form class="form-signin" action="<?php echo $this->url('login/process', array('action' => 'authenticate')) ?>" method="post" id="frmlogin" role="form">
+<div>
+<h2 class="form-signin-heading">Area Riservata</h2>
+<?php
+$element = $form->get('username');
+$element->setAttribute('class','form-control');
+$element->setAttribute('autofocus', 'autofocus');
+echo $this->formInput($element);
+?>
+<div>&nbsp;</div>
+
+<?php
+$element = $form->get('password');
+$element->setAttribute('class','form-control');
+echo $this->formInput($element);
+?>
+
+<label class="checkbox">       
     <?php
-    $element = $form->get('username');
-    $element->setAttribute('class','form-control');
-    $element->setAttribute('autofocus', 'autofocus');
+    $element = $form->get('rememberme');
+    $element->setAttribute('class','checkbox');
+    $element->setAttribute('title','Ricordami su questo computer');
     echo $this->formInput($element);
     ?>
-    <div>&nbsp;</div>
-    
-    <?php
-    $element = $form->get('password');
-    $element->setAttribute('class','form-control');
-    echo $this->formInput($element);
-    ?>
-    
-    <label class="checkbox">       
-        <?php
-        $element = $form->get('rememberme');
-        $element->setAttribute('class','checkbox');
-        $element->setAttribute('title','Ricordami su questo computer');
-        echo $this->formInput($element);
-        ?>
-        <!-- Hidden field to let the form be validated -->
-        <input type="hidden" name="rememberme" value="0"> Ricordami su questo computer
-    </label>
+    <!-- Hidden field to let the form be validated -->
+    <input type="hidden" name="rememberme" value="0"> Ricordami su questo computer
+</label>
 
-    <button class="btn btn-lg btn-primary btn-block" type="submit" title="Accedi all'area riservata">Accedi</button>
+<button class="btn btn-lg btn-primary btn-block" type="submit" title="Accedi all'area riservata">Accedi</button>
+  
+<a href="#" class="btn btn-lg btn-warning btn-block" title="Recupero password">Recupero password</a>
+    
+<a href="<?php echo $this->basePath() ?>" class="btn btn-lg btn-default btn-block" title="Torna al sito web">Torna al sito web</a>
 
-    <p>&nbsp;</p>
-    <!--
-    <p><a href="javascript:void(0)" title="Recupero password"><span class="glyphicon glyphicon-arrow-right"></span> Recupero password</a></p>
-    -->
-    <p><a href="<?php echo $this->basePath() ?>" title="Torna al sito web"><span class="glyphicon glyphicon-arrow-right"></span> Torna al sito web</a></p>
-    </div>
+</div>
 </form>
 
+<?php
+if ($this->messages) {
+    ?>
+    <div class="alert alert-info">
+    <ul>
     <?php
-    if ($this->messages) {
-        ?>
-        <div class="alert alert-info">
-        <ul>
-        <?php
-        foreach($this->messages as $message)
-        {
-            echo '<li>'.$message.'</li>';
-        }
-        ?>
-        </ul>
-        </div>
-        <?php
+    foreach($this->messages as $message)
+    {
+        echo '<li>'.$message.'</li>';
     }
     ?>
+    </ul>
+    </div>
+    <?php
+}
+?>
 </div>
 
 <?php echo $this->inlineScript() ?>

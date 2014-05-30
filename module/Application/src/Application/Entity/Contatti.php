@@ -52,7 +52,7 @@ class Contatti
     /**
      * @var string
      *
-     * @ORM\Column(name="messaggio", type="text", nullable=true)
+     * @ORM\Column(name="messaggio", type="text", length=65535, nullable=true)
      */
     private $messaggio;
 
@@ -89,7 +89,7 @@ class Contatti
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -113,7 +113,7 @@ class Contatti
     /**
      * Get nome
      *
-     * @return string 
+     * @return string
      */
     public function getNome()
     {
@@ -137,7 +137,7 @@ class Contatti
     /**
      * Get cognome
      *
-     * @return string 
+     * @return string
      */
     public function getCognome()
     {
@@ -161,7 +161,7 @@ class Contatti
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -185,7 +185,7 @@ class Contatti
     /**
      * Get telefono
      *
-     * @return string 
+     * @return string
      */
     public function getTelefono()
     {
@@ -209,7 +209,7 @@ class Contatti
     /**
      * Get messaggio
      *
-     * @return string 
+     * @return string
      */
     public function getMessaggio()
     {
@@ -233,7 +233,7 @@ class Contatti
     /**
      * Get dataInserimento
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDataInserimento()
     {
@@ -257,7 +257,7 @@ class Contatti
     /**
      * Get formato
      *
-     * @return string 
+     * @return string
      */
     public function getFormato()
     {
@@ -281,7 +281,7 @@ class Contatti
     /**
      * Get stato
      *
-     * @return string 
+     * @return string
      */
     public function getStato()
     {
@@ -305,7 +305,7 @@ class Contatti
     /**
      * Get utenteId
      *
-     * @return integer 
+     * @return integer
      */
     public function getUtenteId()
     {

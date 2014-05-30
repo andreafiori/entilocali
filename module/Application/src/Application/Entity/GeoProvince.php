@@ -61,7 +61,7 @@ class GeoProvince
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -85,7 +85,7 @@ class GeoProvince
     /**
      * Get codiceRegione
      *
-     * @return string 
+     * @return string
      */
     public function getCodiceRegione()
     {
@@ -109,7 +109,7 @@ class GeoProvince
     /**
      * Get codiceProvincia
      *
-     * @return string 
+     * @return string
      */
     public function getCodiceProvincia()
     {
@@ -133,7 +133,7 @@ class GeoProvince
     /**
      * Get nome
      *
-     * @return string 
+     * @return string
      */
     public function getNome()
     {
@@ -157,7 +157,7 @@ class GeoProvince
     /**
      * Get sigla
      *
-     * @return string 
+     * @return string
      */
     public function getSigla()
     {
@@ -181,7 +181,7 @@ class GeoProvince
     /**
      * Get capoluogo
      *
-     * @return string 
+     * @return string
      */
     public function getCapoluogo()
     {

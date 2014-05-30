@@ -29,6 +29,13 @@ class Posts
     private $note;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="immagine", type="string", length=80, nullable=true)
+     */
+    private $immagine;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="data_inserimento", type="datetime", nullable=false)
@@ -89,14 +96,14 @@ class Posts
      *
      * @ORM\Column(name="flag_allegati", type="string", nullable=false)
      */
-    private $flagAllegati;
+    private $flagAllegati = 'no';
 
 
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -120,11 +127,35 @@ class Posts
     /**
      * Get note
      *
-     * @return string 
+     * @return string
      */
     public function getNote()
     {
         return $this->note;
+    }
+
+    /**
+     * Set immagine
+     *
+     * @param string $immagine
+     *
+     * @return Posts
+     */
+    public function setImmagine($immagine)
+    {
+        $this->immagine = $immagine;
+    
+        return $this;
+    }
+
+    /**
+     * Get immagine
+     *
+     * @return string
+     */
+    public function getImmagine()
+    {
+        return $this->immagine;
     }
 
     /**
@@ -144,7 +175,7 @@ class Posts
     /**
      * Get dataInserimento
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDataInserimento()
     {
@@ -168,7 +199,7 @@ class Posts
     /**
      * Get dataScadenza
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDataScadenza()
     {
@@ -192,7 +223,7 @@ class Posts
     /**
      * Get dataUltimoAggiornamento
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDataUltimoAggiornamento()
     {
@@ -216,7 +247,7 @@ class Posts
     /**
      * Get parentId
      *
-     * @return integer 
+     * @return integer
      */
     public function getParentId()
     {
@@ -240,7 +271,7 @@ class Posts
     /**
      * Get stato
      *
-     * @return string 
+     * @return string
      */
     public function getStato()
     {
@@ -264,7 +295,7 @@ class Posts
     /**
      * Get tipo
      *
-     * @return string 
+     * @return string
      */
     public function getTipo()
     {
@@ -288,7 +319,7 @@ class Posts
     /**
      * Get templateFile
      *
-     * @return string 
+     * @return string
      */
     public function getTemplateFile()
     {
@@ -312,7 +343,7 @@ class Posts
     /**
      * Get alias
      *
-     * @return string 
+     * @return string
      */
     public function getAlias()
     {
@@ -336,7 +367,7 @@ class Posts
     /**
      * Get flagAllegati
      *
-     * @return string 
+     * @return string
      */
     public function getFlagAllegati()
     {

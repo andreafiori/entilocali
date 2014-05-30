@@ -9,6 +9,13 @@
 </div>
 <?php
 else:
+    
+    ?>
+    <h1>Invia un messaggio</h1>
+    <p>Compila i campi del form per contattarci. Tutti i campi sono obbligatori.</p>
+    <fieldset>
+    <?php
+    
     $form = $this->form;
     $form->prepare();
 
@@ -18,18 +25,12 @@ else:
     $form->setAttribute('class', 'form-horizontal');
 
     $formLabel = $this->plugin('formLabel');
-
+    
     echo $this->form()->openTag($this->form);
     
-    ?>
-    <h1>Invia un messaggio</h1>
-    <p>Compila i campi del form per contattarci. Tutti i campi sono obbligatori.</p>
-    <fieldset>
-    <!-- <legend>Form Contatti</legend> -->
-    <?php
-
     foreach ($this->form as $element):
         $attributes = $element->getAttributes();
+        echo $this->formElementErrors($element);
         if ($attributes['name'] == 'csrf'):
             echo $this->formElement($element);
         elseif ($attributes['type'] == 'submit'):

@@ -24,7 +24,7 @@ class FaqRisposte
     /**
      * @var string
      *
-     * @ORM\Column(name="risposta", type="text", nullable=false)
+     * @ORM\Column(name="risposta", type="text", length=65535, nullable=false)
      */
     private $risposta;
 
@@ -74,7 +74,7 @@ class FaqRisposte
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -98,7 +98,7 @@ class FaqRisposte
     /**
      * Get risposta
      *
-     * @return string 
+     * @return string
      */
     public function getRisposta()
     {
@@ -122,7 +122,7 @@ class FaqRisposte
     /**
      * Get rate
      *
-     * @return integer 
+     * @return integer
      */
     public function getRate()
     {
@@ -146,7 +146,7 @@ class FaqRisposte
     /**
      * Get dataInserimento
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDataInserimento()
     {
@@ -170,7 +170,7 @@ class FaqRisposte
     /**
      * Get dataUltimoAggiornamento
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDataUltimoAggiornamento()
     {
@@ -194,7 +194,7 @@ class FaqRisposte
     /**
      * Get domanda
      *
-     * @return \Application\Entity\FaqDomande 
+     * @return \Application\Entity\FaqDomande
      */
     public function getDomanda()
     {
@@ -218,7 +218,7 @@ class FaqRisposte
     /**
      * Get utente
      *
-     * @return \Application\Entity\Utenti 
+     * @return \Application\Entity\Utenti
      */
     public function getUtente()
     {

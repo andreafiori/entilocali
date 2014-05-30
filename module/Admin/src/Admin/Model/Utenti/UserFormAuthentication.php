@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Model;
+namespace Admin\Model\Utenti;
 
 use Zend\Form\Annotation;
 
@@ -11,7 +11,7 @@ use Zend\Form\Annotation;
  * @Annotation\Hydrator("Zend\Stdlib\Hydrator\ObjectProperty")
  * @Annotation\Name("User")
  */
-class User
+class UserFormAuthentication
 {
     /**
      * @Annotation\Type("Zend\Form\Element\Text")

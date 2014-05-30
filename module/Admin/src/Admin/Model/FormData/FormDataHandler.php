@@ -7,20 +7,14 @@ use Application\Model\RouterManagers\RouterManagerInterface;
 
 /**
  * @author Andrea Fiori
- * @since  18 May 2013
+ * @since  18 May 2014
  */
 class FormDataHandler extends RouterManagerAbstract implements RouterManagerInterface
 {
     public function setupRecord()
     {
-        $formSetter = $this->getInput('formsetter', 1);
-        $formSetterClassMap = array(
-            'assistenza'        => 'Admin\Model\Assistenza\AssistenzaFormDataHandler',
-            'posts'             => 'Admin\Model\Posts\PostsFormDataHandler',
-            'albo-pretorio'     => 'Admin\Model\AlboPretorio\AlboPretorioFormData',
-            'stato-civile'      => 'Admin\Model\StatoCivile\StatoCivileFormData',
-            'amministrazione-trasparente' => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFormData',
-        );
+        $formSetter         = $this->getInput('formsetter', 1);
+        $formSetterClassMap = $this->getInput('formdata_classmap', 1);
         
         if (isset($formSetterClassMap[$formSetter])) {
             

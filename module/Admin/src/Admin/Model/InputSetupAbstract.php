@@ -3,6 +3,8 @@
 namespace Admin\Model;
 
 /**
+ * Input Setter Abstraction for FormData and DataTables child objects
+ * 
  * @author Andrea Fiori
  * @since  20 May 2014
  */

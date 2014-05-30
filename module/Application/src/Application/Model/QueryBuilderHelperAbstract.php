@@ -76,7 +76,6 @@ abstract class QueryBuilderHelperAbstract
     }
     
     /**
-     * 
      * @param string $stringFields
      */
     public function setSelectQueryFields($stringFields = '')
@@ -84,6 +83,8 @@ abstract class QueryBuilderHelperAbstract
         if (!$this->selectQueryFields) {
             $this->selectQueryFields = $stringFields;
         }
+        
+        return $this->selectQueryFields;
     }
     
     /**
@@ -92,5 +93,17 @@ abstract class QueryBuilderHelperAbstract
     public function getSelectQueryFields()
     {
         return $this->selectQueryFields;
+    }
+    
+    /**
+     * @param number $limit
+     */
+    public function setLimit($limit = null)
+    {
+        if ( is_numeric($limit) ) {
+            $this->maxResults = $limit;
+        }
+        
+        return $this->maxResults;
     }
 }

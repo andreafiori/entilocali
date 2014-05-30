@@ -34,20 +34,19 @@ class Module implements AutoloaderProviderInterface
     {
         return array(
             'factories'=>array(
-                // 'Zend\Db\Adapter\Adapter' => 'Zend\Db\Adapter\AdapterServiceFactory',
-		
+
 		'Admin\Model\MyAuthStorage' => function($sm){
 		    return new \Admin\Model\MyAuthStorage('login');
 		},
 		
 		'AuthService' => function($sm) {
-		    $dbAdapter      = $sm->get('Zend\Db\Adapter\Adapter');
+		    $dbAdapter           = $sm->get('Zend\Db\Adapter\Adapter');
                     $dbTableAuthAdapter  = new DbTableAuthAdapter($dbAdapter, 'utenti','email','password', 'MD5(?)');
 		    
 		    $authService = new AuthenticationService();
 		    $authService->setAdapter($dbTableAuthAdapter);
 		    $authService->setStorage($sm->get('Admin\Model\MyAuthStorage'));
-		     
+		    
 		    return $authService;
 		},
             ),

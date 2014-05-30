@@ -4,8 +4,7 @@ namespace Application\Model\Posts;
 
 use Application\Model\RouterManagers\RouterManagerInterface;
 use Application\Model\RouterManagers\RouterManagerAbstract;
-use Application\Model\Posts\PostsGetterWrapper;
-use Application\Model\Posts\PostsGetter;
+use Application\Model\Posts\PostsFrontendHelper;
 
 /**
  * @author Andrea Fiori
@@ -15,11 +14,6 @@ class PostsFrontend extends RouterManagerAbstract implements RouterManagerInterf
 {
     protected $postsGetterWrapper;
     
-    public function setPostsGetterWrapper(PostsGetterWrapper $postsGetterWrapper)
-    {
-        $this->postsGetterWrapper = $postsGetterWrapper;
-    }
-    
     /**
      * Generate main array record for the index frontend controller
      * 
@@ -28,36 +22,18 @@ class PostsFrontend extends RouterManagerAbstract implements RouterManagerInterf
      */
     public function setupRecord()
     {
-        $frontendPostsInput = array(
-            'title'     => $this->getInput('title', 1),
-            'category'  => $this->getInput('category', 1),
-        );
+        $postsFrontendHelper = new PostsFrontendHelper($this->getInput());
         
-        if ( !$frontendPostsInput['title'] and !$frontendPostsInput['category'] ) {
-            // TODO: redirect !?
-            return false;
+        // if isHomePage, set HomePage data
+        if ( $postsFrontendHelper->isHomePage() ) {
+            $this->setTemplate('homepage/homepage.phtml');
+            
+            return $this->getOutput();
         }
         
-        if (!$this->postsGetterWrapper) {
-            $em = $this->getInput('entityManager');
-            if ( $em instanceof \Doctrine\ORM\EntityManager ) {
-                $this->setPostsGetterWrapper(new PostsGetterWrapper(new PostsGetter($em)) );
-            } else {
-                throw new \Application\Model\NullException('PostsGetterWrapper instance is not set. Check out the Entity Manager input');
-            }
-        }
+        $this->setRecords($postsFrontendHelper->setRecords());
+        $this->setTemplate($postsFrontendHelper->getTemplate());
         
-        $this->postsGetterWrapper->setInput($frontendPostsInput);
-        $this->postsGetterWrapper->setPostsGetterQueryBuilder();
-        
-        $this->setRecords( $this->postsGetterWrapper->getRecords() );
-        
-        $records = $this->getRecords();
-        
-        if ( isset($records[0]) ) {
-            $this->setTemplate($records[0]['template']);
-        }
-
         return $this->getOutput();
     }
 }

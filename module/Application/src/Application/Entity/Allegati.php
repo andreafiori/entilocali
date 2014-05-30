@@ -68,7 +68,7 @@ class Allegati
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -92,7 +92,7 @@ class Allegati
     /**
      * Get nomeFile
      *
-     * @return string 
+     * @return string
      */
     public function getNomeFile()
     {
@@ -116,7 +116,7 @@ class Allegati
     /**
      * Get tipoFile
      *
-     * @return string 
+     * @return string
      */
     public function getTipoFile()
     {
@@ -140,7 +140,7 @@ class Allegati
     /**
      * Get dimensioneFile
      *
-     * @return string 
+     * @return string
      */
     public function getDimensioneFile()
     {
@@ -164,7 +164,7 @@ class Allegati
     /**
      * Get stato
      *
-     * @return string 
+     * @return string
      */
     public function getStato()
     {
@@ -188,7 +188,7 @@ class Allegati
     /**
      * Get dataInserimento
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDataInserimento()
     {
@@ -212,7 +212,7 @@ class Allegati
     /**
      * Get dataUltimoAggiornamento
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDataUltimoAggiornamento()
     {

@@ -6,7 +6,6 @@ use ApplicationTest\TestSuite;
 use Application\Setup\ConfigSetup;
 
 /**
- * 
  * @author Andrea Fiori
  * @since 26 April 2014
  */

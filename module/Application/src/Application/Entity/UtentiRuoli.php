@@ -54,7 +54,7 @@ class UtentiRuoli
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -78,7 +78,7 @@ class UtentiRuoli
     /**
      * Get nomeRuolo
      *
-     * @return string 
+     * @return string
      */
     public function getNomeRuolo()
     {
@@ -102,7 +102,7 @@ class UtentiRuoli
     /**
      * Get dataCreazione
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDataCreazione()
     {
@@ -126,7 +126,7 @@ class UtentiRuoli
     /**
      * Get dataUltimoAggiornamento
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDataUltimoAggiornamento()
     {
@@ -150,7 +150,7 @@ class UtentiRuoli
     /**
      * Get posizione
      *
-     * @return integer 
+     * @return integer
      */
     public function getPosizione()
     {

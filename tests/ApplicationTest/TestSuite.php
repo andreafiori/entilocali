@@ -8,7 +8,6 @@ use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 use ApplicationTest\ServiceManagerGrabber;
 use Application\Model\NullException;
-use Doctrine\ORM\QueryBuilder;
 
 /**
  * Help other test on this centralized test suite to set all main objects and options

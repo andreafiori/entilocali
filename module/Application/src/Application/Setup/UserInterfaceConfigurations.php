@@ -14,7 +14,7 @@ use Application\Model\Posts\PostsGetter;
 class UserInterfaceConfigurations
 {
     private $configurations;
-    
+        
     /**
      * @param array $configurations
      */
@@ -29,25 +29,47 @@ class UserInterfaceConfigurations
     public function setConfigurationsArray($isBackend = false)
     {
         if ($isBackend) {
-            $this->setBackendConfigurations();
+            $this->configurations['template_project']     = 'backend/';
+            $this->configurations['template_name']        = isset($this->configurations['template_backend']) ? $this->configurations['template_backend'] : 'default/';
+            $this->configurations['template_path']        = $this->configurations['template_project'].'templates/'.$this->configurations['template_name'];
+            $this->configurations['preloader_class']      = isset($this->configurations['preloader_backend']) ? $this->configurations['preloader_backend'] : '';
+
+            $this->configurations['loginActionBackend']       = $this->configurations['template_project'].'login/';
+            $this->configurations['logoutPathBackend']        = $this->configurations['template_project'].'logout/';
+            $this->configurations['loggedSectionPathBackend'] = $this->configurations['template_project'].'main/';
+            
         } else {
-            $this->setFrontendConfigurations();
+            $this->configurations['template_project']     = 'frontend/projects/'.$this->configurations['projectdir_frontend'];
+            $this->configurations['template_name']        = $this->configurations['template_frontend'] ? $this->configurations['template_frontend'] : 'default/';
+            $this->configurations['template_path']        = $this->configurations['template_project'].'templates/'.$this->configurations['template_name'];
         }
         
         return $this->configurations;
     }
-
+    
+    /**
+     * TODO: select module on db and add record on configurations array
+     * 
+     * @param type $isBackend
+     */
+    public function setModules($isBackend = false)
+    {
+        if ($isBackend) {
+            
+        }
+    }
+    
     /**
      * @return array
      */
     public function setPreloadResponse($entityManager)
     {
-        $input = array(
-                'tipo' => 'content',
-            );
         $postsGetterWrapper = new PostsGetterWrapper( new PostsGetter($entityManager) );
-        $postsGetterWrapper->setInput($input);
-        $postsGetterWrapper->setPostsGetterQueryBuilder();
+        $postsGetterWrapper->setInput( array(
+                'tipo'   => 'content',
+                'stato'  => \Admin\Model\Posts\PostsStatus::STATE_ACTIVE,
+        ));
+        $postsGetterWrapper->setupQueryBuilder();
         $postsList = $postsGetterWrapper->getRecords();
         if ($postsList) {
             foreach($postsList as $preload) {
@@ -81,27 +103,4 @@ class UserInterfaceConfigurations
     {
         return $this->configurations;
     }
-    
-    private function setFrontendConfigurations()
-    {
-        $this->configurations['template_project']     = 'frontend/projects/'.$this->configurations['projectdir_frontend'];
-        $this->configurations['template_name']        = $this->configurations['template_frontend'] ? $this->configurations['template_frontend'] : 'default/';
-        $this->configurations['template_path']        = $this->configurations['template_project'].'templates/'.$this->configurations['template_name'];
-        //$this->configurations['preloader_class']    = $this->configurations['preloader_frontend'];
-    }
-    
-    private function setBackendConfigurations()
-    {        
-        $this->configurations['template_project']     = 'backend/';
-        $this->configurations['template_name']        = isset($this->configurations['template_backend']) ? $this->configurations['template_backend'] : 'default/';
-        $this->configurations['template_path']        = $this->configurations['template_project'].'templates/'.$this->configurations['template_name'];
-        $this->configurations['preloader_class']      = isset($this->configurations['preloader_backend']) ? $this->configurations['preloader_backend'] : '';
-
-        $this->configurations['loginActionBackend']       = $this->configurations['template_project'].'login/';
-        $this->configurations['logoutPathBackend']        = $this->configurations['template_project'].'logout/';
-        $this->configurations['loggedSectionPathBackend'] = $this->configurations['template_project'].'main/';
-
-        // $this->configurations['sidebar'] = $this->configurations['template_path'].'sidebar/'.$this->configurations['sidebar_backend'];
-    }
- 
 }

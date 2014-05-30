@@ -68,7 +68,7 @@ class Categorie
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -92,7 +92,7 @@ class Categorie
     /**
      * Get note
      *
-     * @return string 
+     * @return string
      */
     public function getNote()
     {
@@ -116,7 +116,7 @@ class Categorie
     /**
      * Get createdate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedate()
     {
@@ -140,7 +140,7 @@ class Categorie
     /**
      * Get lastupdate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getLastupdate()
     {
@@ -164,7 +164,7 @@ class Categorie
     /**
      * Get code
      *
-     * @return string 
+     * @return string
      */
     public function getCode()
     {
@@ -188,7 +188,7 @@ class Categorie
     /**
      * Get status
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
@@ -212,7 +212,7 @@ class Categorie
     /**
      * Get template
      *
-     * @return string 
+     * @return string
      */
     public function getTemplate()
     {

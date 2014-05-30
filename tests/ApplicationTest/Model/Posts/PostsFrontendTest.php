@@ -13,17 +13,15 @@ use Application\Model\Posts\PostsGetter;
  */
 class PostsFrontendTest extends TestSuite
 {
-    private $postsFrontend;
     private $input;
-    private $postsGetterWrapper;
+    
+    private $postsFrontend;
     
     protected function setUp()
     {
         parent::setUp();
         
         $this->input = $this->getFrontendCommonInput();
-        
-        $this->postsGetterWrapper = new PostsGetterWrapper( new PostsGetter($this->getEntityManagerMock()) );
         
         $this->postsFrontend = new PostsFrontend();
         $this->postsFrontend->setInput($this->input);
@@ -44,6 +42,10 @@ class PostsFrontendTest extends TestSuite
     
     public function testSetupRecord()
     {
-        $this->assertTrue( is_array($this->postsFrontend->setupRecord($this->postsGetterWrapper)) );
+        $postsGetterWrapper = new PostsGetterWrapper( new PostsGetter($this->getEntityManagerMock()) );
+        
+        $this->assertTrue( is_array($this->postsFrontend->setupRecord($postsGetterWrapper)) );
+        $this->assertEquals(PostsFrontend::defaultFrontendTemplate, $this->postsFrontend->getTemplate());
+        $this->assertTrue(is_array($this->postsFrontend->getRecords()));
     }
 }

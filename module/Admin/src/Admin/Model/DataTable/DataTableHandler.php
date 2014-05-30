@@ -14,16 +14,7 @@ class DataTableHandler extends RouterManagerAbstract implements RouterManagerInt
     public function setupRecord()
     {
         $tableSetter = $this->getInput('tablesetter', 1);
-        $tableSetterClassMap = array(
-            'albo-pretorio'               => 'Admin\Model\AlboPretorio\AlboPretorioTable',
-            'amministrazione-trasparente' => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteDataTable',
-            'assistenza'                  => 'Admin\Model\Assistenza\AssistenzaDataTable',
-            'contatti'                    => 'Admin\Model\Contatti\ContattiTable',
-            'faq'                         => 'Admin\Model\Faq\FaqTable',
-            'newsletter'                  => 'Admin\Model\Newsletter\NewsletterTable',
-            'posts'                       => 'Admin\Model\Posts\PostsDataTable',
-            'stato-civile'                => 'Admin\Model\StatoCivile\StatoCivileDataTable',
-        );
+        $tableSetterClassMap = $this->getInput('datatables_classmap', 1);
 
         if ( isset($tableSetterClassMap[$tableSetter]) ) {
             if (class_exists($tableSetterClassMap[$tableSetter])) {

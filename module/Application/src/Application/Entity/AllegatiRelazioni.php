@@ -53,7 +53,7 @@ class AllegatiRelazioni
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -77,7 +77,7 @@ class AllegatiRelazioni
     /**
      * Get riferimentoId
      *
-     * @return integer 
+     * @return integer
      */
     public function getRiferimentoId()
     {
@@ -101,7 +101,7 @@ class AllegatiRelazioni
     /**
      * Get allegato
      *
-     * @return \Application\Entity\Allegati 
+     * @return \Application\Entity\Allegati
      */
     public function getAllegato()
     {
@@ -125,7 +125,7 @@ class AllegatiRelazioni
     /**
      * Get modulo
      *
-     * @return \Application\Entity\Moduli 
+     * @return \Application\Entity\Moduli
      */
     public function getModulo()
     {

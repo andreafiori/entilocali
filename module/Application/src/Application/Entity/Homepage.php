@@ -40,7 +40,7 @@ class Homepage
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -64,7 +64,7 @@ class Homepage
     /**
      * Get riferimentoId
      *
-     * @return integer 
+     * @return integer
      */
     public function getRiferimentoId()
     {
@@ -88,7 +88,7 @@ class Homepage
     /**
      * Get moduloId
      *
-     * @return integer 
+     * @return integer
      */
     public function getModuloId()
     {

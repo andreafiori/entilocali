@@ -7,7 +7,7 @@ return array(
             //'ZendDeveloperTools',
             'ZfcBase','ZfcUser','BjyProfiler',
             'ApiWebService',
-            'Admin',
+            'Admin','Feed',
     ),
     'module_listener_options' => array(
         'module_paths' => array(

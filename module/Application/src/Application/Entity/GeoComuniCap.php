@@ -50,7 +50,7 @@ class GeoComuniCap
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -74,7 +74,7 @@ class GeoComuniCap
     /**
      * Get capcode
      *
-     * @return string 
+     * @return string
      */
     public function getCapcode()
     {
@@ -98,7 +98,7 @@ class GeoComuniCap
     /**
      * Get nome
      *
-     * @return string 
+     * @return string
      */
     public function getNome()
     {
@@ -122,7 +122,7 @@ class GeoComuniCap
     /**
      * Get comune
      *
-     * @return \Application\Entity\GeoComuni 
+     * @return \Application\Entity\GeoComuni
      */
     public function getComune()
     {

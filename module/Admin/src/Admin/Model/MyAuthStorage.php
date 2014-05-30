@@ -10,6 +10,10 @@ use Zend\Authentication\Storage;
  */
 class MyAuthStorage extends Storage\Session
 {
+    /**
+     * @param number $rememberMe
+     * @param number $time
+     */
     public function setRememberMe($rememberMe = 0, $time = 1209600)
     {
         if ($rememberMe == 1) {

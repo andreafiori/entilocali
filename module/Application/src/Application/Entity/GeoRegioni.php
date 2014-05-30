@@ -40,7 +40,7 @@ class GeoRegioni
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -64,7 +64,7 @@ class GeoRegioni
     /**
      * Get codiceRegione
      *
-     * @return string 
+     * @return string
      */
     public function getCodiceRegione()
     {
@@ -88,7 +88,7 @@ class GeoRegioni
     /**
      * Get nomeRegione
      *
-     * @return string 
+     * @return string
      */
     public function getNomeRegione()
     {

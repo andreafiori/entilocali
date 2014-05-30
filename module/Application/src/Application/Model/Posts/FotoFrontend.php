@@ -22,7 +22,7 @@ class FotoFrontend extends RouterManagerAbstract implements RouterManagerInterfa
             'categoria' => '',
             'tipo'      => 'foto'
         ));
-        $postsGetterWrapper->setPostsGetterQueryBuilder();
+        $postsGetterWrapper->setupQueryBuilder();
         $foto = $postsGetterWrapper->getRecords();
         
         $this->setTemplate('foto/foto.phtml');

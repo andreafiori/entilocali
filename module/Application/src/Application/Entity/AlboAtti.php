@@ -38,14 +38,14 @@ class AlboAtti
     /**
      * @var string
      *
-     * @ORM\Column(name="oggetto", type="text", nullable=false)
+     * @ORM\Column(name="oggetto", type="text", length=65535, nullable=false)
      */
     private $oggetto;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="descrizione", type="text", nullable=false)
+     * @ORM\Column(name="descrizione", type="text", length=65535, nullable=false)
      */
     private $descrizione;
 
@@ -94,7 +94,7 @@ class AlboAtti
     /**
      * @var string
      *
-     * @ORM\Column(name="note_annullamento", type="text", nullable=false)
+     * @ORM\Column(name="note_annullamento", type="text", length=65535, nullable=false)
      */
     private $noteAnnullamento;
 
@@ -115,7 +115,7 @@ class AlboAtti
     /**
      * @var string
      *
-     * @ORM\Column(name="note_rettifica", type="text", nullable=false)
+     * @ORM\Column(name="note_rettifica", type="text", length=65535, nullable=false)
      */
     private $noteRettifica;
 
@@ -196,7 +196,7 @@ class AlboAtti
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -220,7 +220,7 @@ class AlboAtti
     /**
      * Get numero
      *
-     * @return integer 
+     * @return integer
      */
     public function getNumero()
     {
@@ -244,7 +244,7 @@ class AlboAtti
     /**
      * Get anno
      *
-     * @return integer 
+     * @return integer
      */
     public function getAnno()
     {
@@ -268,7 +268,7 @@ class AlboAtti
     /**
      * Get oggetto
      *
-     * @return string 
+     * @return string
      */
     public function getOggetto()
     {
@@ -292,7 +292,7 @@ class AlboAtti
     /**
      * Get descrizione
      *
-     * @return string 
+     * @return string
      */
     public function getDescrizione()
     {
@@ -316,7 +316,7 @@ class AlboAtti
     /**
      * Get dataRichiesta
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDataRichiesta()
     {
@@ -340,7 +340,7 @@ class AlboAtti
     /**
      * Get dataPubblicazione
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDataPubblicazione()
     {
@@ -364,7 +364,7 @@ class AlboAtti
     /**
      * Get dataScadenza
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDataScadenza()
     {
@@ -388,7 +388,7 @@ class AlboAtti
     /**
      * Get numeroGiorniScadenza
      *
-     * @return integer 
+     * @return integer
      */
     public function getNumeroGiorniScadenza()
     {
@@ -412,7 +412,7 @@ class AlboAtti
     /**
      * Get annullato
      *
-     * @return string 
+     * @return string
      */
     public function getAnnullato()
     {
@@ -436,7 +436,7 @@ class AlboAtti
     /**
      * Get dataAnnullamento
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDataAnnullamento()
     {
@@ -460,7 +460,7 @@ class AlboAtti
     /**
      * Get noteAnnullamento
      *
-     * @return string 
+     * @return string
      */
     public function getNoteAnnullamento()
     {
@@ -484,7 +484,7 @@ class AlboAtti
     /**
      * Get rettificato
      *
-     * @return string 
+     * @return string
      */
     public function getRettificato()
     {
@@ -508,7 +508,7 @@ class AlboAtti
     /**
      * Get dataRettifica
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDataRettifica()
     {
@@ -532,7 +532,7 @@ class AlboAtti
     /**
      * Get noteRettifica
      *
-     * @return string 
+     * @return string
      */
     public function getNoteRettifica()
     {
@@ -556,7 +556,7 @@ class AlboAtti
     /**
      * Get stato
      *
-     * @return string 
+     * @return string
      */
     public function getStato()
     {
@@ -580,7 +580,7 @@ class AlboAtti
     /**
      * Get inviatoRegione
      *
-     * @return string 
+     * @return string
      */
     public function getInviatoRegione()
     {
@@ -604,7 +604,7 @@ class AlboAtti
     /**
      * Get enteTerzo
      *
-     * @return string 
+     * @return string
      */
     public function getEnteTerzo()
     {
@@ -628,7 +628,7 @@ class AlboAtti
     /**
      * Get seoTitle
      *
-     * @return string 
+     * @return string
      */
     public function getSeoTitle()
     {
@@ -652,7 +652,7 @@ class AlboAtti
     /**
      * Get seoKeywords
      *
-     * @return string 
+     * @return string
      */
     public function getSeoKeywords()
     {
@@ -676,7 +676,7 @@ class AlboAtti
     /**
      * Get seoDescription
      *
-     * @return string 
+     * @return string
      */
     public function getSeoDescription()
     {
@@ -700,7 +700,7 @@ class AlboAtti
     /**
      * Get settore
      *
-     * @return \Application\Entity\AlboSettori 
+     * @return \Application\Entity\AlboSettori
      */
     public function getSettore()
     {
@@ -724,7 +724,7 @@ class AlboAtti
     /**
      * Get sezione
      *
-     * @return \Application\Entity\AlboSettori 
+     * @return \Application\Entity\AlboSettori
      */
     public function getSezione()
     {
@@ -748,7 +748,7 @@ class AlboAtti
     /**
      * Get utente
      *
-     * @return \Application\Entity\Utenti 
+     * @return \Application\Entity\Utenti
      */
     public function getUtente()
     {

@@ -4,7 +4,7 @@ namespace Admin\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Form\Annotation\AnnotationBuilder;
-use Admin\Model\User;
+use Admin\Model\Utenti\UserFormAuthentication;
 
 class AuthController extends AbstractActionController
 {
@@ -12,13 +12,15 @@ class AuthController extends AbstractActionController
     protected $storage;
     protected $authservice;
     
+    /**
+     * @return \Zend\Authentication\AuthenticationService
+     */
     public function getAuthService()
     {
-        if (! $this->authservice) {
-            $this->authservice = $this->getServiceLocator()
-                                      ->get('AuthService');
+        if (!$this->authservice) {
+            $this->authservice = $this->getServiceLocator()->get('AuthService');
         }
-        
+
         return $this->authservice;
     }
     
@@ -34,7 +36,7 @@ class AuthController extends AbstractActionController
     public function getForm()
     {
         if (!$this->form) {
-            $user       = new User();
+            $user       = new UserFormAuthentication();
             $builder    = new AnnotationBuilder();
             $this->form = $builder->createForm($user);
         }
@@ -49,7 +51,7 @@ class AuthController extends AbstractActionController
             return $this->redirect()->toRoute('admin');
         }
 
-        $form       = $this->getForm();
+        $form = $this->getForm();
         
         $this->layout()->setVariable('form', $form);
         $this->layout()->setVariable('messages', $this->flashmessenger()->getMessages());
@@ -94,11 +96,10 @@ class AuthController extends AbstractActionController
                     $this->getAuthService()->setStorage($this->getSessionStorage());
                     $this->getAuthService()->getStorage()->write($request->getPost('username'));
                     
-                    // TODO: set session user with nome, cognome, email, ruolo utente, move select data on controller
+                    // TODO: store user data on session, set login timeout, set ACL
                 }
             } else {
-                foreach($form->getMessages() as $message)
-                {
+                foreach($form->getMessages() as $message) {
                     $this->flashmessenger()->addMessage(print_r($message,1));
                 }
             }

@@ -24,7 +24,7 @@ class FaqDomande
     /**
      * @var string
      *
-     * @ORM\Column(name="question", type="text", nullable=false)
+     * @ORM\Column(name="question", type="text", length=65535, nullable=false)
      */
     private $question;
 
@@ -89,7 +89,7 @@ class FaqDomande
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -113,7 +113,7 @@ class FaqDomande
     /**
      * Get question
      *
-     * @return string 
+     * @return string
      */
     public function getQuestion()
     {
@@ -137,7 +137,7 @@ class FaqDomande
     /**
      * Get position
      *
-     * @return integer 
+     * @return integer
      */
     public function getPosition()
     {
@@ -161,7 +161,7 @@ class FaqDomande
     /**
      * Get status
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
@@ -185,7 +185,7 @@ class FaqDomande
     /**
      * Get rate
      *
-     * @return integer 
+     * @return integer
      */
     public function getRate()
     {
@@ -209,7 +209,7 @@ class FaqDomande
     /**
      * Get insertdate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getInsertdate()
     {
@@ -233,7 +233,7 @@ class FaqDomande
     /**
      * Get lastupdate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getLastupdate()
     {
@@ -257,7 +257,7 @@ class FaqDomande
     /**
      * Get channelId
      *
-     * @return integer 
+     * @return integer
      */
     public function getChannelId()
     {
@@ -281,7 +281,7 @@ class FaqDomande
     /**
      * Get languageId
      *
-     * @return integer 
+     * @return integer
      */
     public function getLanguageId()
     {
@@ -305,7 +305,7 @@ class FaqDomande
     /**
      * Get userId
      *
-     * @return integer 
+     * @return integer
      */
     public function getUserId()
     {

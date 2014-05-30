@@ -15,7 +15,6 @@ class UserInterfaceConfigurationsTest extends TestSuite
 {
     private $backendInput;
     private $frontendInput;
-    
     private $isBackend;
     
     protected function setUp()
@@ -89,5 +88,4 @@ class UserInterfaceConfigurationsTest extends TestSuite
             return new UserInterfaceConfigurations($this->backendInput);
         }
     }
-    
 }

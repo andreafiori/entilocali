@@ -110,7 +110,7 @@ class GeoComuni
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -134,7 +134,7 @@ class GeoComuni
     /**
      * Get codRegione
      *
-     * @return string 
+     * @return string
      */
     public function getCodRegione()
     {
@@ -158,7 +158,7 @@ class GeoComuni
     /**
      * Get codProvincia
      *
-     * @return string 
+     * @return string
      */
     public function getCodProvincia()
     {
@@ -182,7 +182,7 @@ class GeoComuni
     /**
      * Get codComune
      *
-     * @return string 
+     * @return string
      */
     public function getCodComune()
     {
@@ -206,7 +206,7 @@ class GeoComuni
     /**
      * Get nomeComune
      *
-     * @return string 
+     * @return string
      */
     public function getNomeComune()
     {
@@ -230,7 +230,7 @@ class GeoComuni
     /**
      * Get codiceIstat
      *
-     * @return string 
+     * @return string
      */
     public function getCodiceIstat()
     {
@@ -254,7 +254,7 @@ class GeoComuni
     /**
      * Get capPrincipale
      *
-     * @return string 
+     * @return string
      */
     public function getCapPrincipale()
     {
@@ -278,7 +278,7 @@ class GeoComuni
     /**
      * Get capInizio
      *
-     * @return string 
+     * @return string
      */
     public function getCapInizio()
     {
@@ -302,7 +302,7 @@ class GeoComuni
     /**
      * Get capFine
      *
-     * @return string 
+     * @return string
      */
     public function getCapFine()
     {
@@ -326,7 +326,7 @@ class GeoComuni
     /**
      * Get prefisso
      *
-     * @return string 
+     * @return string
      */
     public function getPrefisso()
     {
@@ -350,7 +350,7 @@ class GeoComuni
     /**
      * Get sitoWeb
      *
-     * @return string 
+     * @return string
      */
     public function getSitoWeb()
     {
@@ -374,7 +374,7 @@ class GeoComuni
     /**
      * Get latitudine
      *
-     * @return string 
+     * @return string
      */
     public function getLatitudine()
     {
@@ -398,7 +398,7 @@ class GeoComuni
     /**
      * Get longitudine
      *
-     * @return string 
+     * @return string
      */
     public function getLongitudine()
     {

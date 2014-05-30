@@ -66,7 +66,7 @@ class PostsRelazioni
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -90,7 +90,7 @@ class PostsRelazioni
     /**
      * Get categoria
      *
-     * @return \Application\Entity\Categorie 
+     * @return \Application\Entity\Categorie
      */
     public function getCategoria()
     {
@@ -114,7 +114,7 @@ class PostsRelazioni
     /**
      * Get canale
      *
-     * @return \Application\Entity\Canali 
+     * @return \Application\Entity\Canali
      */
     public function getCanale()
     {
@@ -138,7 +138,7 @@ class PostsRelazioni
     /**
      * Get modulo
      *
-     * @return \Application\Entity\Moduli 
+     * @return \Application\Entity\Moduli
      */
     public function getModulo()
     {
@@ -162,7 +162,7 @@ class PostsRelazioni
     /**
      * Get posts
      *
-     * @return \Application\Entity\Posts 
+     * @return \Application\Entity\Posts
      */
     public function getPosts()
     {

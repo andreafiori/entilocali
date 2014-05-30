@@ -57,7 +57,7 @@ class AlboSettori
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -81,7 +81,7 @@ class AlboSettori
     /**
      * Get settore
      *
-     * @return string 
+     * @return string
      */
     public function getSettore()
     {
@@ -105,7 +105,7 @@ class AlboSettori
     /**
      * Get status
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
@@ -129,7 +129,7 @@ class AlboSettori
     /**
      * Get posizione
      *
-     * @return integer 
+     * @return integer
      */
     public function getPosizione()
     {
@@ -153,7 +153,7 @@ class AlboSettori
     /**
      * Get provincia
      *
-     * @return \Application\Entity\GeoProvince 
+     * @return \Application\Entity\GeoProvince
      */
     public function getProvincia()
     {

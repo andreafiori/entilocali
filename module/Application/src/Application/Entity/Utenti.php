@@ -222,7 +222,7 @@ class Utenti
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -246,7 +246,7 @@ class Utenti
     /**
      * Get immagine
      *
-     * @return string 
+     * @return string
      */
     public function getImmagine()
     {
@@ -270,7 +270,7 @@ class Utenti
     /**
      * Get nome
      *
-     * @return string 
+     * @return string
      */
     public function getNome()
     {
@@ -294,7 +294,7 @@ class Utenti
     /**
      * Get cognome
      *
-     * @return string 
+     * @return string
      */
     public function getCognome()
     {
@@ -318,7 +318,7 @@ class Utenti
     /**
      * Get indirizzo
      *
-     * @return string 
+     * @return string
      */
     public function getIndirizzo()
     {
@@ -342,7 +342,7 @@ class Utenti
     /**
      * Get cap
      *
-     * @return string 
+     * @return string
      */
     public function getCap()
     {
@@ -366,7 +366,7 @@ class Utenti
     /**
      * Get citta
      *
-     * @return string 
+     * @return string
      */
     public function getCitta()
     {
@@ -390,7 +390,7 @@ class Utenti
     /**
      * Get provincia
      *
-     * @return integer 
+     * @return integer
      */
     public function getProvincia()
     {
@@ -414,7 +414,7 @@ class Utenti
     /**
      * Get dataNascita
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDataNascita()
     {
@@ -438,7 +438,7 @@ class Utenti
     /**
      * Get luogoNascita
      *
-     * @return string 
+     * @return string
      */
     public function getLuogoNascita()
     {
@@ -462,7 +462,7 @@ class Utenti
     /**
      * Get nazione
      *
-     * @return integer 
+     * @return integer
      */
     public function getNazione()
     {
@@ -486,7 +486,7 @@ class Utenti
     /**
      * Get sesso
      *
-     * @return string 
+     * @return string
      */
     public function getSesso()
     {
@@ -510,7 +510,7 @@ class Utenti
     /**
      * Get professione
      *
-     * @return string 
+     * @return string
      */
     public function getProfessione()
     {
@@ -534,7 +534,7 @@ class Utenti
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -558,7 +558,7 @@ class Utenti
     /**
      * Get telefono
      *
-     * @return string 
+     * @return string
      */
     public function getTelefono()
     {
@@ -582,7 +582,7 @@ class Utenti
     /**
      * Get cellulare
      *
-     * @return string 
+     * @return string
      */
     public function getCellulare()
     {
@@ -606,7 +606,7 @@ class Utenti
     /**
      * Get fax
      *
-     * @return string 
+     * @return string
      */
     public function getFax()
     {
@@ -630,7 +630,7 @@ class Utenti
     /**
      * Get sitoWeb
      *
-     * @return string 
+     * @return string
      */
     public function getSitoWeb()
     {
@@ -654,7 +654,7 @@ class Utenti
     /**
      * Get codiceFiscale
      *
-     * @return string 
+     * @return string
      */
     public function getCodiceFiscale()
     {
@@ -678,7 +678,7 @@ class Utenti
     /**
      * Get partitaIva
      *
-     * @return string 
+     * @return string
      */
     public function getPartitaIva()
     {
@@ -702,7 +702,7 @@ class Utenti
     /**
      * Get newsletter
      *
-     * @return string 
+     * @return string
      */
     public function getNewsletter()
     {
@@ -726,7 +726,7 @@ class Utenti
     /**
      * Get newsletterFormato
      *
-     * @return string 
+     * @return string
      */
     public function getNewsletterFormato()
     {
@@ -750,7 +750,7 @@ class Utenti
     /**
      * Get nomeUtente
      *
-     * @return string 
+     * @return string
      */
     public function getNomeUtente()
     {
@@ -774,7 +774,7 @@ class Utenti
     /**
      * Get password
      *
-     * @return string 
+     * @return string
      */
     public function getPassword()
     {
@@ -798,7 +798,7 @@ class Utenti
     /**
      * Get stato
      *
-     * @return string 
+     * @return string
      */
     public function getStato()
     {
@@ -822,7 +822,7 @@ class Utenti
     /**
      * Get dataCreazione
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDataCreazione()
     {
@@ -846,7 +846,7 @@ class Utenti
     /**
      * Get dataUltimoAggiornamento
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDataUltimoAggiornamento()
     {
@@ -870,7 +870,7 @@ class Utenti
     /**
      * Get codiceConferma
      *
-     * @return string 
+     * @return string
      */
     public function getCodiceConferma()
     {
@@ -894,7 +894,7 @@ class Utenti
     /**
      * Get ruoloId
      *
-     * @return integer 
+     * @return integer
      */
     public function getRuoloId()
     {

@@ -54,7 +54,7 @@ class UtentiPreferiti
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -78,7 +78,7 @@ class UtentiPreferiti
     /**
      * Get utenteId
      *
-     * @return integer 
+     * @return integer
      */
     public function getUtenteId()
     {
@@ -102,7 +102,7 @@ class UtentiPreferiti
     /**
      * Get riferimentoId
      *
-     * @return integer 
+     * @return integer
      */
     public function getRiferimentoId()
     {
@@ -126,7 +126,7 @@ class UtentiPreferiti
     /**
      * Get categoriaId
      *
-     * @return integer 
+     * @return integer
      */
     public function getCategoriaId()
     {
@@ -150,7 +150,7 @@ class UtentiPreferiti
     /**
      * Get moduloId
      *
-     * @return integer 
+     * @return integer
      */
     public function getModuloId()
     {

@@ -9,7 +9,7 @@ use Admin\Model\DataTable\DataTableAbstract;
  * @author Andrea Fiori
  * @since  19 May 2014
  */
-class DataTableAbstractTest extends TestSuite
+class DataTableAbstractTest //extends TestSuite
 {
     private $dataTableAbstract;
     

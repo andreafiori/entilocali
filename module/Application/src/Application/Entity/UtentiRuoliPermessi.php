@@ -40,7 +40,7 @@ class UtentiRuoliPermessi
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -64,7 +64,7 @@ class UtentiRuoliPermessi
     /**
      * Get ruoloPermessoId
      *
-     * @return integer 
+     * @return integer
      */
     public function getRuoloPermessoId()
     {
@@ -88,7 +88,7 @@ class UtentiRuoliPermessi
     /**
      * Get permessoId
      *
-     * @return integer 
+     * @return integer
      */
     public function getPermessoId()
     {

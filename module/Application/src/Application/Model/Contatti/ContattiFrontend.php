@@ -32,7 +32,6 @@ class ContattiFrontend extends RouterManagerAbstract implements RouterManagerInt
             $form->setData($request->getPost());
             if ($form->isValid()) {
                 
-                //$redirect = $this->getInput('redirect');
                 $formData = $request->getPost();
 
                 $configurations = $this->getInput('configurations', 1);
@@ -51,9 +50,9 @@ class ContattiFrontend extends RouterManagerAbstract implements RouterManagerInt
                 $template = 'contatti/ok.phtml';
 
             } else {
-                $flashMessenger   = $this->getInput('flashMessenger');
+                $flashMessenger = $this->getInput('flashMessenger');
                 foreach ($form->getInputFilter()->getInvalidInput() as $invalidInput) {                    
-                    $flashMessenger->addMessage('My message error');
+                    $flashMessenger->addMessage( $form->getMessages() );
                 }
                 $this->setVariable('messages', $flashMessenger->getMessages());
             }

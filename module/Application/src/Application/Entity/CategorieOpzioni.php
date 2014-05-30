@@ -80,6 +80,13 @@ class CategorieOpzioni
     /**
      * @var integer
      *
+     * @ORM\Column(name="posizione", type="bigint", nullable=true)
+     */
+    private $posizione = '0';
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="parent_id", type="bigint", nullable=true)
      */
     private $parentId = '0';
@@ -119,7 +126,7 @@ class CategorieOpzioni
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -143,7 +150,7 @@ class CategorieOpzioni
     /**
      * Get nome
      *
-     * @return string 
+     * @return string
      */
     public function getNome()
     {
@@ -167,7 +174,7 @@ class CategorieOpzioni
     /**
      * Get descrizione
      *
-     * @return string 
+     * @return string
      */
     public function getDescrizione()
     {
@@ -191,7 +198,7 @@ class CategorieOpzioni
     /**
      * Get seoUrl
      *
-     * @return string 
+     * @return string
      */
     public function getSeoUrl()
     {
@@ -215,7 +222,7 @@ class CategorieOpzioni
     /**
      * Get seoTitle
      *
-     * @return string 
+     * @return string
      */
     public function getSeoTitle()
     {
@@ -239,7 +246,7 @@ class CategorieOpzioni
     /**
      * Get seoKeywords
      *
-     * @return string 
+     * @return string
      */
     public function getSeoKeywords()
     {
@@ -263,7 +270,7 @@ class CategorieOpzioni
     /**
      * Get seoDescription
      *
-     * @return string 
+     * @return string
      */
     public function getSeoDescription()
     {
@@ -287,7 +294,7 @@ class CategorieOpzioni
     /**
      * Get accesskey
      *
-     * @return string 
+     * @return string
      */
     public function getAccesskey()
     {
@@ -311,11 +318,35 @@ class CategorieOpzioni
     /**
      * Get templateFile
      *
-     * @return string 
+     * @return string
      */
     public function getTemplateFile()
     {
         return $this->templateFile;
+    }
+
+    /**
+     * Set posizione
+     *
+     * @param integer $posizione
+     *
+     * @return CategorieOpzioni
+     */
+    public function setPosizione($posizione)
+    {
+        $this->posizione = $posizione;
+    
+        return $this;
+    }
+
+    /**
+     * Get posizione
+     *
+     * @return integer
+     */
+    public function getPosizione()
+    {
+        return $this->posizione;
     }
 
     /**
@@ -335,7 +366,7 @@ class CategorieOpzioni
     /**
      * Get parentId
      *
-     * @return integer 
+     * @return integer
      */
     public function getParentId()
     {
@@ -359,7 +390,7 @@ class CategorieOpzioni
     /**
      * Get categoria
      *
-     * @return \Application\Entity\Categorie 
+     * @return \Application\Entity\Categorie
      */
     public function getCategoria()
     {
@@ -383,7 +414,7 @@ class CategorieOpzioni
     /**
      * Get lingua
      *
-     * @return \Application\Entity\Lingue 
+     * @return \Application\Entity\Lingue
      */
     public function getLingua()
     {
@@ -407,7 +438,7 @@ class CategorieOpzioni
     /**
      * Get modulo
      *
-     * @return \Application\Entity\Moduli 
+     * @return \Application\Entity\Moduli
      */
     public function getModulo()
     {

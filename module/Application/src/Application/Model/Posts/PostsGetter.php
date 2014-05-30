@@ -15,7 +15,7 @@ class PostsGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('DISTINCT(p.id) AS postid, po.id AS postoptionid, p.tipo, p.alias, po.titolo, p.stato, po.descrizione, po.seoUrl, po.sottotitolo, po.seoDescription, po.seoKeywords, p.templateFile, p.flagAllegati, co.nome AS nomeCategoria, c.template');
+        $this->setSelectQueryFields('DISTINCT(p.id) AS postid, po.id AS postoptionid, p.dataUltimoAggiornamento, p.dataInserimento, p.dataScadenza, p.tipo, p.alias, po.titolo, p.stato, po.descrizione, po.seoUrl, po.sottotitolo, po.seoDescription, po.seoKeywords, p.templateFile, p.flagAllegati, co.nome AS nomeCategoria, c.template');
 
         $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
                                 ->add('from', 'Application\Entity\Posts p, Application\Entity\PostsOpzioni po, Application\Entity\PostsRelazioni r, Application\Entity\Categorie c, Application\Entity\CategorieOpzioni co')
@@ -45,14 +45,18 @@ class PostsGetter extends QueryBuilderHelperAbstract
     }
     
     /**
-     * 
-     * @param number $id
+     * @param number or array $id
      * @return type
      */
     public function setId($id)
     {
         if ( is_numeric($id) ) {
             $this->getQueryBuilder()->andWhere('p.id = :id AND po.id = :id');
+            $this->getQueryBuilder()->setParameter('id', $id);
+        }
+        
+        if (is_array($id)) {
+            $this->getQueryBuilder()->andWhere('p.id IN ( :id ) AND po.id IN ( :id )');
             $this->getQueryBuilder()->setParameter('id', $id);
         }
         
@@ -91,6 +95,20 @@ class PostsGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->setParameter('tipopost', Slugifier::deSlugify($tipo) );
         }
     }
+       
+    /**
+     * Set posts status
+     * 
+     * @param string or null $status
+     */
+    public function setStato($status = null)
+    {
+        if ($status == 'NULL' or $status == 'null') {
+            $this->getQueryBuilder()->andWhere('p.stato IS NULL ');
+        } elseif ($status != null) {
+            $this->getQueryBuilder()->andWhere("p.stato = '$status' ");
+        }
+    }
     
     /**
      * @param string $orderBy
@@ -104,15 +122,6 @@ class PostsGetter extends QueryBuilderHelperAbstract
         $this->getQueryBuilder()->add('orderBy', $orderBy);
     }
     
-    public function setStato($status = null)
-    {
-        if ( !$status ) {
-            $this->getQueryBuilder()->andWhere('p.stato IS NULL ');
-        } else {
-            $this->getQueryBuilder()->andWhere("p.stato = '$status' ");
-        }        
-    }
-
     /**
      * Return posts records with link to details and attachments
      * 
