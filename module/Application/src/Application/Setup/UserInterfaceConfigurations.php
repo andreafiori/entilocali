@@ -67,7 +67,7 @@ class UserInterfaceConfigurations
         $postsGetterWrapper = new PostsGetterWrapper( new PostsGetter($entityManager) );
         $postsGetterWrapper->setInput( array(
                 'tipo'   => 'content',
-                'stato'  => \Admin\Model\Posts\PostsStatus::STATE_ACTIVE,
+                'stato'  => \Admin\Model\Posts\PostsUtils::STATE_ACTIVE,
         ));
         $postsGetterWrapper->setupQueryBuilder();
         $postsList = $postsGetterWrapper->getRecords();

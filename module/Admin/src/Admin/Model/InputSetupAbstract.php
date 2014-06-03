@@ -3,7 +3,7 @@
 namespace Admin\Model;
 
 /**
- * Input Setter Abstraction for FormData and DataTables child objects
+ * Input Setter Abstraction
  * 
  * @author Andrea Fiori
  * @since  20 May 2014
@@ -11,9 +11,7 @@ namespace Admin\Model;
 abstract class InputSetupAbstract
 {
     protected $input;
-    
-    protected $template;
-    
+
     /**
      * @param array $input
      */
@@ -37,23 +35,5 @@ abstract class InputSetupAbstract
         if (!$noArray) {
             return $this->input;
         }
-    }
-    
-    /**
-     * @param string $template
-     */
-    public function setTemplate($template)
-    {
-        $this->template = $template;
-        
-        return $this->template;
-    }
-
-    /**
-     * @return string $this->template
-     */
-    public function getTemplate()
-    {
-        return $this->template;
     }
 }

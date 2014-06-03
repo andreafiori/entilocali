@@ -61,69 +61,38 @@ class AdminController extends AbstractActionController
             show errors if occured
             initialize class to process posted array\data
             show result
-     * 
+     
      * @return \Zend\View\Model\ViewModel
      */
     public function formpostAction()
     {
-        // Check login
-        if (!$this->getServiceLocator()->get('AuthService')->hasIdentity()) {
-            return $this->redirect()->toRoute('login');
-        }
-        
-        // Check POST request
-        if ( !$this->getServiceLocator()->get('request')->isPost() ) {
+        // Check login and if POST request
+        if (!$this->getServiceLocator()->get('AuthService')->hasIdentity() or 
+            !$this->getServiceLocator()->get('request')->isPost() ) {
             return $this->redirect()->toRoute('login');
         }
         
         $this->initialize();
+
+        $formDataCrudHandler = new \Admin\Model\FormData\FormDataCrudHandler();
+        $formDataCrudHandler->setInput($this->input);
+        $formDataCrudHandler->setFormCrudHandler($this->params()->fromRoute('form_post_handler'));
         
-        $connection     = $this->commonSetupPlugin->getEntityManager()->getConnection();
- 
-        $rawPost = (array) $this->getRequest()->getPost();
-        $formPostHandler = $this->params()->fromRoute('form_post_handler');
-        $operation       = $this->params()->fromRoute('operation');
+        $crudHandler = $formDataCrudHandler->detectCrudHandlerClassMap($this->config['formdata_crud_classmap']);
         
-        if ($formPostHandler == 'posts') {
-            
-            if ($operation=='insert') {
-                // insert posts
-                // insert posts_opzioni
-                // insert posts_relations
-                // upload an image?
-                $messageType = 'warning';
-                $messageTitle = 'In costruzione';
-                $messageText = 'Funzione attualmente in costruzione';
-                
-            } elseif ($operation=='update') {
-                try {
-                    $affectedRows = $connection->update('posts_opzioni', array(
-                        'titolo'            => $rawPost['titolo'],
-                        'descrizione'       => $rawPost['descrizione'],
-                        'seo_description'   => $rawPost['seoDescription'],
-                        'seo_keywords'      => $rawPost['seoKeywords'],
-                    ), array('posts_id' => $rawPost['postoptionid']) );
-                } catch(\Exception $e) {
-                    $error = $e->getMessage();
-                }
-                
-                if ($error) {
-                    $messageType = 'danger';
-                    $messageTitle = 'Errore aggiornamento dati';
-                    $messageText = "Si &egrave; verificato un errore nell'aggiornamento dati in archivio: ".$error;
-                } else {
-                    $messageType = 'success';
-                    $messageTitle = 'Dati aggiornati correttamente';
-                    $messageText = 'Dati in archivio aggiornati correttamente';
-                }
+        $crudHandler = new $crudHandler($this->input);
+        $crudHandler->setConnection($this->commonSetupPlugin->getEntityManager()->getConnection());
+        $crudHandler->setOperation($this->params()->fromRoute('operation'));
+        $crudHandler->performOperation();
+        
+        $output = $crudHandler->getOutput('export');
+        if ( isset($output) ) {
+            foreach($output as $key => $value) {
+                $this->layout()->setVariable($key, $value);
             }
-            
-            $this->layout()->setVariable('messageType', $messageType);
-            $this->layout()->setVariable('messageTitle', $messageTitle);
-            $this->layout()->setVariable('messageText', $messageText);
-            $this->layout('backend/templates/'.$this->configurations['template_backend'].'message.phtml');
-            
         }
+
+        $this->layout('backend/templates/'.$this->configurations['template_backend'].'message.phtml');
         
         return new ViewModel();
     }
@@ -143,8 +112,11 @@ class AdminController extends AbstractActionController
                     'formsetter'            => trim($this->params()->fromRoute('formsetter')),
                     'tablesetter'           => trim($this->params()->fromRoute('tablesetter')),
             ), array('formdata_classmap'     => $this->config['formdata_classmap'],
-                    'formdata_post'         => $this->config['formdata_post'],
-                    'datatables_classmap'   => $this->config['datatables_classmap']) ));
+                    'formdata_crud_classmap' => $this->config['formdata_crud_classmap'],
+                    'datatables_classmap'    => $this->config['datatables_classmap'],
+                    )
+                )
+            );
             $this->baseUrl = sprintf('%s://%s%s', $this->input['uri']->getScheme(), $this->input['uri']->getHost(), $this->input['request']->getBaseUrl()).'/admin/main/'.$this->params()->fromRoute('lang').'/';
             $this->input = array_merge($this->input, array("baseUrl" => $this->baseUrl));
         }

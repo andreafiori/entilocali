@@ -2,8 +2,7 @@
 
 namespace Application\Model\RouterManagers;
 
-/** 
- *
+/**
  * @author Andrea Fiori
  * @since  14 May 2014
  */
@@ -16,7 +15,7 @@ class RouterManagerHelper
      */
     public function __construct(RouterManagerAbstract $routerManager)
     {
-       $this->routerManager = $routerManager; 
+       $this->routerManager = $routerManager;
     }
     
     /**

@@ -20,10 +20,10 @@ class PostsDataTable extends DataTableAbstract implements DataTableInterface
         parent::__construct($input);
         
         $param = $this->getInput('param', 1);
-        $this->tipo = $param->fromQuery('type');
+        $this->tipo = $param['get']['tipo'];
         
         switch($this->tipo) {
-            default: case("contant"):
+            default: case("contenuto"):
                 $this->title = 'Contenuti';
                 $this->description = 'Gestione contenuti in archivio';
                 $this->tipo = 'content';
@@ -42,6 +42,7 @@ class PostsDataTable extends DataTableAbstract implements DataTableInterface
             break;
         }
     }
+    
     public function getTitle()
     {
         return $this->title;

@@ -44,15 +44,5 @@ class AssistenzaForm extends Form
                 'label' => 'Descrizione', 
             ),
         ));
-        /*
-        $this->add(array(
-            'name' => 'send',
-            'type'  => 'submit',
-            'attributes' => array(
-                'label' => '&nbsp;',
-                'value' => 'Invia',
-            ))
-        );
-        */
     }
 }

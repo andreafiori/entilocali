@@ -20,6 +20,12 @@ class FormElement extends BaseFormElement
 
             return $helper($element);
         }
+        
+        if ($element instanceof Element\CheckboxTree) {
+            $helper = $renderer->plugin('form_checkbox_tree');
+            
+            return $helper($element);
+        }
 
         return parent::render($element);
     }

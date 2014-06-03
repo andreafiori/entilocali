@@ -3,7 +3,6 @@
 namespace Application\Model\Categorie;
 
 use Application\Model\QueryBuilderHelperAbstract;
-use Application\Model\Slugifier;
 
 /**
  * @author Andrea Fiori
@@ -13,7 +12,7 @@ class CategorieGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('DISTINCT(c.id), c.status, co.nome ');
+        $this->setSelectQueryFields('DISTINCT(c.id) AS id, c.status, co.nome ');
 
         $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
                                 ->add('from', 'Application\Entity\Categorie c, Application\Entity\CategorieOpzioni co')

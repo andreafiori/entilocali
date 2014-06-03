@@ -75,7 +75,10 @@ class CommonSetupPlugin extends CommonSetupPluginAbstract
 
         private function setApplicationServices()
         {
-            $this->serviceLocator       = $this->getController()->getServiceLocator();
+            $controller = $this->getController();
+            $param = $controller->params();
+            
+            $this->serviceLocator       = $controller->getServiceLocator();
             $this->serviceManager       = $this->serviceLocator->get('servicemanager');
             $this->entityManager        = $this->serviceLocator->get('Doctrine\ORM\EntityManager');
             $this->queryBuilder         = $this->entityManager->createQueryBuilder();
@@ -83,12 +86,17 @@ class CommonSetupPlugin extends CommonSetupPluginAbstract
             $this->router               = $this->serviceManager->get('router');
             $this->uri                  = $this->router->getRequestUri();
             $this->request              = $this->serviceManager->get('request');
-            $this->redirect             = $this->getController()->redirect();
-            $this->flashMessenger       = $this->getController()->flashMessenger();
+            $this->redirect             = $controller->redirect();
+            $this->flashMessenger       = $controller->flashMessenger();
+            $this->param = array_filter( array(
+                "get"    => (array) $param->fromQuery(),
+                "post"   => (array) $param->fromPost(),
+                "route"  => (array) $param->fromRoute(),
+                "header" => (array) $param->fromHeader(),
+                "files"  => (array) $param->fromFiles()
+            ));
             $this->routeMatch           = $this->router->match($this->request);
-            $this->module               = $this->getController()->getEvent()->getRouteMatch()->getParam('controller');
-            $this->param                = $this->getController()->params();
-            $this->languageAbbreviation = $this->param->fromQuery('languageAbbreviation');
+            $this->module               = $controller->getEvent()->getRouteMatch()->getParam('controller');
             $this->isBackend            = $this->detectIsBackend();
             $this->channel              = 1;
 

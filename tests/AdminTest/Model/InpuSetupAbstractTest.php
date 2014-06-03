@@ -24,13 +24,8 @@ class InpuSetupAbstractTest extends TestSuite
         $this->assertNotEmpty( $this->inpuSetupAbstract->getInput('request') );
     }
     
-    public function testDefaultInput()
+    public function testInputWithoutArgument()
     {
         $this->assertTrue( is_array($this->inpuSetupAbstract->getInput()) );
-    }
-    
-    public function testSetTemplate()
-    {
-        $this->assertEquals($this->inpuSetupAbstract->setTemplate('myTemplate.phtml'), $this->inpuSetupAbstract->getTemplate());
     }
 }

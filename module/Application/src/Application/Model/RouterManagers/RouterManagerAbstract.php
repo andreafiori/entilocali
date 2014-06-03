@@ -33,17 +33,11 @@ abstract class RouterManagerAbstract
      */
     public function getInput($key = null, $noArray = 0)
     {
-        if ( isset($this->input[$key]) ) {
-            return $this->input[$key];
-        }
-        
-        if ( !$noArray ) {
-            return $this->input;
-        }
+         return $this->getArrayValue($this->input, $key, $noArray);
     }
     
     /**
-     * @param array $input
+     * @param array $router
      */
     public function setRouter(array $router)
     {
@@ -111,13 +105,7 @@ abstract class RouterManagerAbstract
      */
     public function getOutput($key = null, $noArray=null)
     {
-        if ( isset($this->output[$key]) ) {
-            return $this->output[$key];
-        }
-        
-        if ( !$noArray ) {
-            return $this->output;
-        }
+        return $this->getArrayValue($this->output, $key, $noArray);
     }
     
     /**
@@ -134,6 +122,17 @@ abstract class RouterManagerAbstract
         
         $this->output['export'][$key] = $value;
     }
+    
+    /**
+     * @return type
+     */
+    public function getVariable($key)
+    {
+        if (isset($this->output['export'][$key])) {
+            return $this->output['export'][$key];
+        }
+    }
+    
         /**
          * 
          * @param array $array
@@ -141,7 +140,7 @@ abstract class RouterManagerAbstract
          * @param type $noArray
          * @return array
          */
-        private function getArrayValue(array $array, $key = null, $noArray=null)
+        private function getArrayValue($array, $key = null, $noArray=null)
         {
             if ( isset($array[$key]) ) {
                 return $array[$key];

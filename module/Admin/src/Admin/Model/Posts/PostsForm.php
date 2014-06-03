@@ -5,8 +5,6 @@ namespace Admin\Model\Posts;
 use Zend\Form\Form;
 
 /**
- * Posts Form Admin
- * 
  * @author Andrea Fiori
  * @since  17 May 2014
  */
@@ -14,11 +12,17 @@ class PostsForm extends Form
 {
     private $input;
     
+    /**
+     * @param type $name
+     */
     public function __construct($name = null)
     {
         parent::__construct('formData');
     }
     
+    /**
+     * @param array $input
+     */
     public function setInput(array $input)
     {
         $this->input = $input;
@@ -75,61 +79,79 @@ class PostsForm extends Form
         ));
         
         $this->add(array(
-            'type' => 'Date',
-            'name' => 'dataScadenza',
-            'options' => array(
-                    'label' => 'Scadenza',
-                    'format' => 'Y-m-d'
-            ),
-            'attributes' => array(
-                    'class' => 'form-control DatePicker',
-                    'style' => 'width: 22%',
-                    'id' => 'dataScadenza'
-            )
-        ));
-        
-        /*
-        $this->add(array(
-            'name'=>'Test',
-            'type'=>'Zend\Form\Element\Select',
-            'attributes'=>array('type'=>'select','required'=>'required'),
-            'options'=>array(
-                'label' => 'Categoria',
-                'value_options'=>array('fruits' => array('label' => 'Fruits', 'options' => array('1'=>'Apple','2'=>'Mango')), 
-                        'animals' => array('label'=>'Animals','options'=>array('cat'=>'CAT','dog'=>'DOG') ), 
-                        'attivo' => 'Attivo',
-                    ),
-                'empty_options' => 'Please Select'
-            ),
-
-        ));
-        
-        $this->add(array(
-                        'type' => 'Application\Form\Element\PlainText',
-                        'name' => 'category',
+                        'type' => 'Date',
+                        'name' => 'dataScadenza',
                         'options' => array(
-                            'label' => 'Categoria',
+                                'label' => 'Scadenza',
+                                'format' => 'Y-m-d'
                         ),
                         'attributes' => array(
-                                        'id' => 'category',
-                                        'value' => '&nbsp;',
-                        ),
+                                'class' => 'form-control DatePicker',
+                                'style' => 'width: 22%',
+                                'id' => 'dataScadenza'
+                        )
         ));
-        */
+        
+        $this->add(array(
+                        'type' => 'Zend\Form\Element\Select',
+                        'name' => 'stato',
+                        'options' => array(
+                               'label' => 'Stato',
+                               'value_options' => array(
+                                       '' => 'Seleziona',
+                                       'attivo' => 'Attivo',
+                                       'nascosto' => 'Nascosto',
+                               ),
+                       )
+        ));
+        
+        $this->add(array(
+                        'type' => 'Zend\Form\Element\Hidden',
+                        'name' => 'postid',
+                        'attributes' => array("class" => 'hiddenField')
+        ));
 
         $this->add(array(
-             'type' => 'Zend\Form\Element\Select',
-             'name' => 'stato',
-             'options' => array(
-                    'label' => 'Stato',
-                    'value_options' => array(
-                            '' => 'Seleziona',
-                            'attivo' => 'Attivo',
-                            'nascosto' => 'Nascosto',
-                    ),
-            )
+                        'type' => 'Zend\Form\Element\Hidden',
+                        'name' => 'postoptionid',
+                        'attributes' => array("class"=>'hiddenField')
         ));
-
+        
+        $this->add(array(
+                        'type' => 'Zend\Form\Element\Hidden',
+                        'name' => 'tipo',
+                        'attributes' => array("class" => 'hiddenField')
+        ));
+        
+        $this->add(array(
+                        'type' => 'Zend\Form\Element\Hidden',
+                        'name' => 'moduloid',
+                        'attributes' => array("class"=>'hiddenField')
+        ));
+    }
+    
+    /**
+     * @param array $values
+     * @param type $checkedValues
+     */
+    public function addCategory(array $values, $checkedValues = array())
+    {
+        $this->add(array(
+                        'type' => 'Application\Form\Element\CheckboxTree',
+                        'name' => 'category',
+                        'options' => array( 'label' => 'Categorie', 'checked_value' => $checkedValues ),
+                        'attributes' => array(
+                                    'id' => 'category',
+                                    'value' => $values
+                        ),
+        ));
+    }
+    
+    /**
+     * SEO Fields
+     */
+    public function addSEO()
+    {
         $this->add(array(
                         'type' => 'Application\Form\Element\PlainText',
                         'name' => 'start_date',
@@ -152,7 +174,7 @@ class PostsForm extends Form
         ));
 
         $this->add(array(
-                        'name' => 'seoKeywords',	
+                        'name' => 'seoKeywords',
                         'type' => 'Textarea',
                         'options' => array( 'label' => 'Parole chiave (separate da virgola)' ),
                         'attributes' => array(
@@ -162,39 +184,5 @@ class PostsForm extends Form
                                         'rows'  => '5',
                         )
         ));
-
-        $this->add(array(
-            'type' => 'Zend\Form\Element\Hidden',
-            'name' => 'postid',
-            'attributes' => array("class" => 'hiddenField')
-        ));
-
-        $this->add(array(
-                        'type' => 'Zend\Form\Element\Hidden',
-                        'name' => 'postoptionid',
-                        'attributes' => array("class"=>'hiddenField')
-        ));
-        
-        $this->add(array(
-                        'name' => 'submit',
-                        'attributes' => array(
-                                        'type'  => 'submit',
-                                        'value' => 'Conferma',
-                                        'id' => 'submitbutton',
-                                        'class' => 'btn btn-primary',
-                                        // 'onclick' => "javascript: $('#formcontainer').hide()"
-                        ),
-        ));
     }
-        
-        /**
-         * @param \Application\Model\Categorie\CategorieGetter $categorieGetter
-         * @return array
-        
-        private function getCategories(\Application\Model\Categorie\CategorieGetter  $categorieGetter)
-        {
-            $categorieGetter->setMainQuery();
-
-            return $categorieGetter->getQueryResult();
-        } */
 }

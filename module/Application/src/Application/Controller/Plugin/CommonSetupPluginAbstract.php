@@ -15,6 +15,7 @@ class CommonSetupPluginAbstract extends AbstractPlugin
     protected $entityManager;
     protected $queryBuilder;
     protected $config;
+    protected $configurations;
     protected $router;
     protected $uri;
     protected $request;
@@ -22,14 +23,13 @@ class CommonSetupPluginAbstract extends AbstractPlugin
     protected $redirect;
     protected $flashMessenger;
     protected $routeMatch;
-    protected $module;
-    protected $languageAbbreviation;
+    protected $module; 
     protected $channel;
     protected $isBackend;
-    protected $isMultiLanguage;
     protected $appConfigs;
+    protected $isMultiLanguage;
+    protected $languageAbbreviation;
     protected $languageRecord;
-    protected $configurations;
     
     public function getServiceLocator()
     {

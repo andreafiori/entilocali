@@ -30,8 +30,7 @@ function CheckAuthentication()
 	// user logs in your system. To be able to use session variables don't
 	// forget to add session_start() at the top of this file.
 
-	return true;
-	// return false;
+	return false;
 }
 
 // LicenseKey : Paste your license key here. If left blank, CKFinder will be
@@ -104,7 +103,7 @@ $config['Thumbnails'] = Array(
 Set the maximum size of uploaded images. If an uploaded image is larger, it
 gets scaled down proportionally. Set to 0 to disable this feature.
 */
-$config['Images'] = array(
+$config['Images'] = Array(
 		'maxWidth' => 1600,
 		'maxHeight' => 1200,
 		'quality' => 80);

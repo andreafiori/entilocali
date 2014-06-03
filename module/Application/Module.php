@@ -14,6 +14,7 @@ class Module implements AutoloaderProviderInterface
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach( $application->getEventManager() );
         $sm = $application->getServiceManager();
+        
         try {
             $dbInstance = $sm->get('Zend\Db\Adapter\Adapter');
             $dbInstance->getDriver()->getConnection()->connect();
@@ -60,7 +61,8 @@ class Module implements AutoloaderProviderInterface
             'invokables' 	=> array(
                 'formelement'   => 'Application\Form\View\Helper\FormElement',
                 'formPlainText' => 'Application\Form\View\Helper\FormPlainText',
-                )
+                'formCheckboxTree' => 'Application\Form\View\Helper\FormCheckboxTree',
+            )
         );
     }
 

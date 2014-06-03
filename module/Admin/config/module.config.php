@@ -125,10 +125,17 @@ return array(
         'stato-civile'      => 'Admin\Model\StatoCivile\StatoCivileFormData',
         'amministrazione-trasparente' => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFormData',
     ),
-    // Form POST class map
-    'formdata_post' => array(
-        'default' => 'Admin\Model\Posts\PostsPostHandler',
-        'posts' => 'Admin\Model\Posts\PostsPostHandler'
+    // FormData CRUD Class Map
+    'formdata_crud_classmap' => array( 
+        'albo-pretorio'               => 'Admin\Model\AlboPretorio\ ',
+        'amministrazione-trasparente' => 'Admin\Model\AmministrazioneTrasparente\ ',
+        'assistenza'                  => 'Admin\Model\Assistenza\ ',
+        'categorie'                   => 'Admin\Model\Categorie\ ',
+        'contatti'                    => 'Admin\Model\Contatti\ ',
+        'faq'                         => 'Admin\Model\Faq\ ',
+        'newsletter'                  => 'Admin\Model\Newsletter\ ',
+        'posts'                       => 'Admin\Model\Posts\PostsCrudHandler',
+        'stato-civile'                => 'Admin\Model\StatoCivile\ ',
     ),
     // DataTables Class Map
     'datatables_classmap' => array(

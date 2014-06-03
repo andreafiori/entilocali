@@ -122,6 +122,7 @@ class TestSuite extends \PHPUnit_Framework_TestCase
     
     public function getConnectionMock()
     {
+        /*
         $connection = $this->getMock('\Doctrine\DBAL\Connection', 
                         array('getDQL', 'getResult'), 
                         array(), '', false);
@@ -129,12 +130,34 @@ class TestSuite extends \PHPUnit_Framework_TestCase
         $connection->expects($this->any())
                      ->method('getDQL')
                      ->will( $this->returnValue("SELECT * FROM posts") );
-        
-        $connection->expects($this->any())
-                     ->method('getResult')
-                     ->will( $this->returnValue( array("id"=>1, "titolo" => "Mio titolo")  ) );
-
+       
         return $connection;
+        */
+        $mock = $this->getMockBuilder('Doctrine\DBAL\Connection')
+            ->disableOriginalConstructor()
+            ->setMethods(
+                array(
+                    'beginTransaction',
+                    'commit',
+                    'rollback',
+                    'prepare',
+                    'query',
+                    'executeQuery',
+                    'executeUpdate',
+                    'getDatabasePlatform',
+                )
+            )
+            ->getMock();
+ 
+        $mock->expects($this->any())
+            ->method('prepare')
+            ->will($this->returnValue('A string'));
+ 
+        $mock->expects($this->any())
+            ->method('query')
+            ->will($this->returnValue($this->getQueryBuilderMock()));
+
+        return $mock;
     }
     
     public function getQueryBuilderMock()
@@ -199,8 +222,4 @@ class TestSuite extends \PHPUnit_Framework_TestCase
         );
     }
     
-    public function testThisFileWithAFakeTest()
-    {
-        $this->assertTrue(true);
-    }
 }

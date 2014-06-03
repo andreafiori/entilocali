@@ -5,13 +5,13 @@
 </div>
 <?php else: ?>
 
-<div id="formcontainer">
-
 <ul class="breadcrumb">
     <li><a href="<?php echo $this->basepath() ?>" title="Home page">Home</a> <span class="divider"></span></li>
     <li class="active"><?php echo $this->formTitle ?></li>
 </ul>
-    
+
+<div id="formcontainer">
+
 <h2><?php echo $this->formTitle ?></h2>
 <p><?php echo $this->formDescription ?></p>
 <?php
@@ -78,17 +78,48 @@ endforeach;
     ?>
     <div class="form-group">
         <label for="" class="col-sm-2 control-label">&nbsp;</label>
+        <div class="col-sm-10"><input type="submit" name="submit" id="submit" value="Conferma" class="btn btn-primary"></div>
+    </div>
+    
+    <div class="form-group">
+        <label class="col-sm-2 control-label">&nbsp;</label>
         <div class="col-sm-10">
-            * Campi obbligatori
+            <label>* Campi obbligatori</label>
         </div>
     </div>
     <?php
+    
 echo $this->form()->closeTag($this->form);
 
 ?>
 </div>
 
+<!--
+<a href="#" onclick="document.getElementById('formcontainer').style.display='none'">Nascondi form</a>
+<a href="#" onclick="document.getElementById('formcontainer').style.display='block'">Apri form</a>
+
+<a href="#" onclick="javascript: $('#formcontainer').hide()">Nascondi form</a>
+<a href="#" onclick="javascript: $('#formcontainer').show()">Mostra form</a>
+-->
+    
 <div id="formDataLoading" class="alert alert-warning" style="display: none">
-<h1>Attendere: elaborazione dati in corso...</h1></div>
+    <h1>Attendere: elaborazione dati in corso...</h1>
+</div>
 <div id="formDataResponse"></div>
+<?php endif; ?>
+
+<?php if (isset($this->CKEditorField)): ?>
+<script>
+/* CKEditor and CKFinder integration */
+var editor = CKEDITOR.replace( $this->CKEditorField, {
+    filebrowserBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html',
+    filebrowserImageBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html?type=Images',
+    filebrowserFlashBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html?type=Flash',
+    filebrowserUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+    filebrowserImageUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+    filebrowserFlashUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
+    /*, filebrowserWindowWidth : '1000', filebrowserWindowHeight : '700'*/
+});
+CKFinder.setupCKEditor( editor, '../' );
+</script>
 <?php endif; ?>

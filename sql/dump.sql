@@ -109,21 +109,21 @@ CREATE TABLE IF NOT EXISTS `allegati` (
 /*!40000 ALTER TABLE `allegati` ENABLE KEYS */;
 
 
--- Dump della struttura di tabella entilocali.allegati_options
-DROP TABLE IF EXISTS `allegati_options`;
-CREATE TABLE IF NOT EXISTS `allegati_options` (
+-- Dump della struttura di tabella entilocali.allegati_opzioni
+DROP TABLE IF EXISTS `allegati_opzioni`;
+CREATE TABLE IF NOT EXISTS `allegati_opzioni` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `titolo` varchar(50) DEFAULT NULL,
   `descrizione` varchar(50) DEFAULT NULL,
   `allegato_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `allegato_id` (`allegato_id`),
-  CONSTRAINT `allegati_options_ibfk_1` FOREIGN KEY (`allegato_id`) REFERENCES `allegati` (`id`)
+  CONSTRAINT `allegati_opzioni_ibfk_1` FOREIGN KEY (`allegato_id`) REFERENCES `allegati` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
--- Dump dei dati della tabella entilocali.allegati_options: ~0 rows (circa)
-/*!40000 ALTER TABLE `allegati_options` DISABLE KEYS */;
-/*!40000 ALTER TABLE `allegati_options` ENABLE KEYS */;
+-- Dump dei dati della tabella entilocali.allegati_opzioni: ~0 rows (circa)
+/*!40000 ALTER TABLE `allegati_opzioni` DISABLE KEYS */;
+/*!40000 ALTER TABLE `allegati_opzioni` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.allegati_relazioni
@@ -187,10 +187,10 @@ CREATE TABLE IF NOT EXISTS `categorie` (
 -- Dump dei dati della tabella entilocali.categorie: ~4 rows (circa)
 /*!40000 ALTER TABLE `categorie` DISABLE KEYS */;
 INSERT INTO `categorie` (`id`, `note`, `createdate`, `lastupdate`, `code`, `status`, `template`) VALUES
-	(1, 'comune', '2014-01-01 01:01:01', '2014-01-01 01:01:01', NULL, NULL, NULL),
-	(2, 'eventi', '2014-01-01 01:01:01', '2014-01-01 01:01:01', NULL, NULL, NULL),
-	(3, 'foto', '2014-01-01 01:01:01', '2014-01-01 01:01:01', NULL, NULL, NULL),
-	(4, 'info', '2014-01-01 01:01:01', '2014-01-01 01:01:01', NULL, NULL, NULL);
+	(1, 'comune', '2014-01-01 01:01:01', '2014-01-01 01:01:01', NULL, 'attiva', NULL),
+	(2, 'eventi', '2014-01-01 01:01:01', '2014-01-01 01:01:01', NULL, 'attiva', NULL),
+	(3, 'foto', '2014-01-01 01:01:01', '2014-01-01 01:01:01', NULL, 'attiva', NULL),
+	(4, 'info', '2014-01-01 01:01:01', '2014-01-01 01:01:01', NULL, 'attiva', NULL);
 /*!40000 ALTER TABLE `categorie` ENABLE KEYS */;
 
 
@@ -301,13 +301,10 @@ CREATE TABLE IF NOT EXISTS `contatti` (
   `utente_id` bigint(11) DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `user_id` (`utente_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Dump dei dati della tabella entilocali.contatti: ~2 rows (circa)
+-- Dump dei dati della tabella entilocali.contatti: ~0 rows (circa)
 /*!40000 ALTER TABLE `contatti` DISABLE KEYS */;
-INSERT INTO `contatti` (`id`, `nome`, `cognome`, `email`, `telefono`, `messaggio`, `data_inserimento`, `formato`, `stato`, `utente_id`) VALUES
-	(1, 'Andrea', 'Fiori', 'a.fiori@cheapnet.it', NULL, NULL, NULL, 'contact', 'no', 1),
-	(2, 'Pino', 'Campagna', 'pino@campagna.it', NULL, NULL, NULL, 'contact', 'no', 1);
 /*!40000 ALTER TABLE `contatti` ENABLE KEYS */;
 
 
@@ -9279,33 +9276,27 @@ INSERT INTO `lingue_etichette` (`id`, `nome`, `valore`, `descrizione`, `isbacken
 DROP TABLE IF EXISTS `moduli`;
 CREATE TABLE IF NOT EXISTS `moduli` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
-  `nomemod` varchar(100) NOT NULL,
-  `home_label` varchar(100) NOT NULL,
-  `home_category` varchar(100) NOT NULL,
-  `home_css` varchar(100) NOT NULL,
+  `codice` varchar(50) NOT NULL DEFAULT '0',
+  `nome` varchar(100) NOT NULL,
   `status` varchar(100) NOT NULL,
-  `widthtable` varchar(50) NOT NULL,
-  `highlited` bigint(11) NOT NULL,
-  `position` bigint(11) NOT NULL DEFAULT '0',
-  `isnews` enum('si','no') NOT NULL DEFAULT 'no',
   `channel_id` bigint(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  KEY `channel_id` (`channel_id`),
-  KEY `isnews` (`isnews`)
+  KEY `channel_id` (`channel_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
--- Dump dei dati della tabella entilocali.moduli: ~9 rows (circa)
+-- Dump dei dati della tabella entilocali.moduli: ~10 rows (circa)
 /*!40000 ALTER TABLE `moduli` DISABLE KEYS */;
-INSERT INTO `moduli` (`id`, `nomemod`, `home_label`, `home_category`, `home_css`, `status`, `widthtable`, `highlited`, `position`, `isnews`, `channel_id`) VALUES
-	(1, 'Blogs', 'Blogs', 'blogs', '', '', '98%', 2, 10, 'no', 1),
-	(4, 'Pagine', 'Primo piano', 'rub', '', '', '98%', 1, 3, 'no', 1),
-	(6, 'Foto', 'Foto', 'picday', '', '', '98%', 2, 4, 'no', 1),
-	(7, 'Prodotti', 'Vetrina', 'prodotti', '', '', '98%', 1, 2, 'no', 1),
-	(9, 'Aste e procedure', 'Aste e procedure', 'procedure', '', '', '98%', 2, 6, 'no', 1),
-	(11, 'Box informativi', 'Box informativi', 'boxfree', '', '', '98%', 2, 4, 'no', 1),
-	(12, 'Testo libero', 'Testo libero', 'paginhome', '', '', '98%', 1, 1, 'no', 1),
-	(13, 'FAQ', 'faq', 'faq', '', '', '98%', 2, 8, 'no', 1),
-	(14, 'Newsletter', 'Newsletter', 'newsl', '', '', '98%', 2, 9, 'no', 1);
+INSERT INTO `moduli` (`id`, `codice`, `nome`, `status`, `channel_id`) VALUES
+	(1, 'blogs', 'Blogs', '', 1),
+	(4, 'contenuti', 'Pagine', '', 1),
+	(6, 'foto', 'Foto', '', 1),
+	(7, 'ecommerce', 'Prodotti', '', 1),
+	(9, 'aste', 'Aste e procedure', 'disattivato', 1),
+	(10, 'faq', 'FAQ', 'disattivato', 1),
+	(11, 'newsletter', 'Newsletter', '', 1),
+	(12, 'booking', 'Booking', 'disattivato', 1),
+	(13, 'takeaway', 'Takeaway', 'disattivato', 1),
+	(14, 'video', 'Video', 'disattivato', 1);
 /*!40000 ALTER TABLE `moduli` ENABLE KEYS */;
 
 
@@ -9319,32 +9310,30 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `data_scadenza` datetime NOT NULL DEFAULT '2030-02-10 00:00:00',
   `data_ultimo_aggiornamento` datetime NOT NULL DEFAULT '2030-02-10 00:00:00',
   `parent_id` bigint(11) NOT NULL DEFAULT '0',
-  `stato` varchar(80) DEFAULT NULL,
   `tipo` varchar(40) NOT NULL,
   `template_file` varchar(50) NOT NULL,
   `alias` varchar(40) NOT NULL COMMENT 'for locked content',
   `flag_allegati` enum('si','no') NOT NULL DEFAULT 'no',
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`),
-  KEY `stato` (`stato`),
   KEY `alias` (`alias`),
   KEY `flag_allegati` (`flag_allegati`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- Dump dei dati della tabella entilocali.posts: ~11 rows (circa)
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` (`id`, `note`, `immagine`, `data_inserimento`, `data_scadenza`, `data_ultimo_aggiornamento`, `parent_id`, `stato`, `tipo`, `template_file`, `alias`, `flag_allegati`) VALUES
-	(1, 'comune', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, 'attivo', 'content', '', 'comune', 'no'),
-	(2, 'giunta', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, 'attivo', 'content', '', 'giunta', 'no'),
-	(3, 'consiglio', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, 'attivo', 'content', '', 'consiglio', 'si'),
-	(4, 'atti ufficiali', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, 'attivo', 'content', '', 'atti-ufficiali', 'no'),
-	(5, 'uffici', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, 'attivo', 'content', '', 'consiglio', 'no'),
-	(6, 'dovesiamo', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, 'nascosto', 'content', '', 'dovesiamo', 'no'),
-	(7, 'photo 1', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, 'attivo', 'foto', '', '', 'si'),
-	(8, 'Evento 1', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, 'attivo', 'blog', '', '', 'no'),
-	(9, 'Evento 2', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, 'attivo', 'blog', '', '', 'no'),
-	(10, 'Evento 3', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, 'attivo', 'blog', '', '', 'no'),
-	(11, 'Evento 4', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, 'attivo', 'blog', '', '', 'no');
+INSERT INTO `posts` (`id`, `note`, `immagine`, `data_inserimento`, `data_scadenza`, `data_ultimo_aggiornamento`, `parent_id`, `tipo`, `template_file`, `alias`, `flag_allegati`) VALUES
+	(1, 'comune', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, 'content', '', 'comune', 'no'),
+	(2, 'giunta', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, 'content', '', 'giunta', 'no'),
+	(3, 'consiglio', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, 'content', '', 'consiglio', 'si'),
+	(4, 'atti ufficiali', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, 'content', '', 'atti-ufficiali', 'no'),
+	(5, 'uffici', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, 'content', '', 'consiglio', 'no'),
+	(6, 'dovesiamo', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, 'content', '', 'dovesiamo', 'no'),
+	(7, 'photo 1', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, 'foto', '', '', 'si'),
+	(8, 'Evento 1', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, 'blog', '', '', 'no'),
+	(9, 'Evento 2', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, 'blog', '', '', 'no'),
+	(10, 'Evento 3', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, 'blog', '', '', 'no'),
+	(11, 'Evento 4', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, 'blog', '', '', 'no');
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 
 
@@ -9372,6 +9361,7 @@ CREATE TABLE IF NOT EXISTS `posts_opzioni` (
   KEY `titolo` (`titolo`),
   KEY `seo_url` (`seo_url`),
   KEY `seo_title` (`seo_title`),
+  KEY `stato` (`stato`),
   CONSTRAINT `fk_posts_opzioni_ids` FOREIGN KEY (`posts_id`) REFERENCES `posts` (`id`),
   CONSTRAINT `fk_posts_opzioni_lingua_ids` FOREIGN KEY (`lingua_id`) REFERENCES `lingue` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
@@ -9379,17 +9369,17 @@ CREATE TABLE IF NOT EXISTS `posts_opzioni` (
 -- Dump dei dati della tabella entilocali.posts_opzioni: ~11 rows (circa)
 /*!40000 ALTER TABLE `posts_opzioni` DISABLE KEYS */;
 INSERT INTO `posts_opzioni` (`id`, `note`, `data_da`, `data_a`, `titolo`, `sottotitolo`, `descrizione`, `stato`, `posizione`, `seo_url`, `seo_title`, `seo_description`, `seo_keywords`, `posts_id`, `lingua_id`) VALUES
-	(1, 'Sindaco', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Sindaco', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', NULL, 1, 'sindaco', 'sindaco', NULL, NULL, 1, 1),
-	(2, 'Giunta', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Giunta', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', NULL, 2, 'giunta', 'giunta', NULL, NULL, 2, 1),
-	(3, 'Consiglio', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Consiglio', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', NULL, 3, 'consiglio', 'consiglio', NULL, NULL, 3, 1),
-	(4, 'Atti Ufficiali', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Atti Ufficiali', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>\r\n', NULL, 5, 'atti-ufficiali', 'commissioni', '', 'prova,prova ', 4, 1),
-	(5, 'Uffici', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Uffici', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', NULL, 4, 'uffici', 'uffici', NULL, NULL, 5, 1),
+	(1, 'Sindaco', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Sindaco', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', 'attivo', 1, 'sindaco', 'sindaco', NULL, NULL, 1, 1),
+	(2, 'Giunta', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Giunta', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', 'attivo', 2, 'giunta', 'giunta', NULL, NULL, 2, 1),
+	(3, 'Consiglio', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Consiglio', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', 'attivo', 3, 'consiglio', 'consiglio', NULL, NULL, 3, 1),
+	(4, 'Atti Ufficiali', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Atti Ufficiali', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>\r\n', 'attivo', 5, 'atti-ufficiali', 'commissioni', '', '', 4, 1),
+	(5, 'Uffici', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Uffici', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', 'attivo', 4, 'uffici', 'uffici', NULL, NULL, 5, 1),
 	(6, 'dove siamo', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Dove siamo', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>\r\n<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.8876392677607!2d8.558697520241124!3d40.72048993720872!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12dc61588fb543ad%3A0xd4c58683a8f86abf!2sVia+Sardegna!5e0!3m2!1sit!2sit!4v1400088060385" width="600" height="450" frameborder="0" style="border:0"></iframe>', 'nascosto', 6, 'dove-siamo', 'dove-siamo', NULL, NULL, 6, 1),
-	(7, '', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Photo 1', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', NULL, 1, '', '', '', '', 7, 1),
-	(8, 'evento 1', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Evento 1', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', NULL, 1, 'evento-1', 'evento 1', NULL, NULL, 8, 1),
-	(9, 'evento 2', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Evento 2', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', NULL, 2, 'evento-2', 'evento 2', NULL, NULL, 9, 1),
-	(10, 'evento 3', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Evento 3', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', NULL, 3, 'evento-3', 'evento 3', NULL, NULL, 10, 1),
-	(11, 'evento 4', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Evento 4', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', NULL, 4, 'evento-4', 'evento 4', NULL, NULL, 11, 1);
+	(7, '', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Photo 1', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', 'attivo', 1, '', '', '', '', 7, 1),
+	(8, 'evento 1', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Evento 1', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', 'attivo', 1, 'evento-1', 'evento 1', NULL, NULL, 8, 1),
+	(9, 'evento 2', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Evento 2', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', 'attivo', 2, 'evento-2', 'evento 2', NULL, NULL, 9, 1),
+	(10, 'evento 3', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Evento 3', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', 'attivo', 3, 'evento-3', 'evento 3', NULL, NULL, 10, 1),
+	(11, 'evento 4', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Evento 4', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', 'attivo', 4, 'evento-4', 'evento 4', NULL, NULL, 11, 1);
 /*!40000 ALTER TABLE `posts_opzioni` ENABLE KEYS */;
 
 

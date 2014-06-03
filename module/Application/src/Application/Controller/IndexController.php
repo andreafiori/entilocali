@@ -22,17 +22,22 @@ class IndexController extends AbstractActionController
         $this->commonSetupPlugin  = $this->CommonSetupPlugin();
         $configurations           = $this->commonSetupPlugin->recoverConfigurationsRecord();
         $config                   = $this->getServiceLocator()->get('config');
-        $input = $this->commonSetupPlugin->mergeInput( array_merge($configurations, array(
-                'category'       => trim($this->params()->fromRoute('category')),
-                'title'          => trim($this->params()->fromRoute('title')),
-        )));
         $this->commonSetupPlugin->setConfigurationsVariables();
         
         $routerManager = new RouterManager($configurations);
         $routerManager->setRouteMatchName($config['fe_router']);
         
         $routerManagerHelper = new RouterManagerHelper($routerManager->setupRouteMatchObjectInstance());
-        $routerManagerHelper->getRouterManger()->setInput($input);
+        $routerManagerHelper->getRouterManger()->setInput(
+            $this->commonSetupPlugin->mergeInput( 
+                array_merge($configurations, 
+                    array(
+                        'category'  => trim($this->params()->fromRoute('category')),
+                        'title'     => trim($this->params()->fromRoute('title')),
+                    )
+                )
+            )
+        );
         $routerManagerHelper->getRouterManger()->setupRecord();
         
         $output = $routerManagerHelper->getRouterManger()->getOutput('export');

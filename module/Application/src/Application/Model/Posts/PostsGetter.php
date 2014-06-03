@@ -15,7 +15,7 @@ class PostsGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('DISTINCT(p.id) AS postid, po.id AS postoptionid, p.dataUltimoAggiornamento, p.dataInserimento, p.dataScadenza, p.tipo, p.alias, po.titolo, p.stato, po.descrizione, po.seoUrl, po.sottotitolo, po.seoDescription, po.seoKeywords, p.templateFile, p.flagAllegati, co.nome AS nomeCategoria, c.template');
+        $this->setSelectQueryFields('DISTINCT(p.id) AS postid, po.id AS postoptionid, p.dataUltimoAggiornamento, p.dataInserimento, p.dataScadenza, p.tipo, p.alias, po.titolo, po.stato, po.descrizione, po.seoUrl, po.sottotitolo, po.seoDescription, po.seoKeywords, p.templateFile, p.flagAllegati, co.nome AS nomeCategoria, c.template, IDENTITY(r.modulo) AS modulo');
 
         $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
                                 ->add('from', 'Application\Entity\Posts p, Application\Entity\PostsOpzioni po, Application\Entity\PostsRelazioni r, Application\Entity\Categorie c, Application\Entity\CategorieOpzioni co')
@@ -32,6 +32,8 @@ class PostsGetter extends QueryBuilderHelperAbstract
         if (is_numeric($channel)) {
             $this->getQueryBuilder()->setParameter('channel', $channel);
         }
+        
+        return $this->getQueryBuilder();
     }
     
     /**
@@ -72,6 +74,8 @@ class PostsGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere('co.nome = LOWER( :nome_categoria ) ');
             $this->getQueryBuilder()->setParameter('nome_categoria', Slugifier::deSlugify($category) );
         }
+        
+        return $this->getQueryBuilder();
     }
 
     /**
@@ -83,6 +87,8 @@ class PostsGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere('po.titolo = :titolo');
             $this->getQueryBuilder()->setParameter('titolo', Slugifier::deSlugify($titolo) );
         }
+        
+        return $this->getQueryBuilder();
     }
   
     /**
@@ -94,6 +100,8 @@ class PostsGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere('p.tipo = :tipopost');
             $this->getQueryBuilder()->setParameter('tipopost', Slugifier::deSlugify($tipo) );
         }
+        
+        return $this->getQueryBuilder();
     }
        
     /**
@@ -104,9 +112,9 @@ class PostsGetter extends QueryBuilderHelperAbstract
     public function setStato($status = null)
     {
         if ($status == 'NULL' or $status == 'null') {
-            $this->getQueryBuilder()->andWhere('p.stato IS NULL ');
+            $this->getQueryBuilder()->andWhere('po.stato IS NULL ');
         } elseif ($status != null) {
-            $this->getQueryBuilder()->andWhere("p.stato = '$status' ");
+            $this->getQueryBuilder()->andWhere("po.stato = '$status' ");
         }
     }
     
@@ -120,6 +128,8 @@ class PostsGetter extends QueryBuilderHelperAbstract
         }
         
         $this->getQueryBuilder()->add('orderBy', $orderBy);
+        
+        return $this->getQueryBuilder();
     }
     
     /**
@@ -128,11 +138,13 @@ class PostsGetter extends QueryBuilderHelperAbstract
      * @return string
      */
     public function getQueryResult()
-    {
+    {    
         $posts = parent::getQueryResult();
         if ( !is_array($posts) ) {
             return false;
         }
+        
+        $postsRelazioni = new PostsRelazioniGetter($this->getEntityManager());
         
         for($i = 0; $i < count($posts); $i++) {
             
@@ -144,8 +156,24 @@ class PostsGetter extends QueryBuilderHelperAbstract
 
             $posts[$i]['linkDetails'] = '/'.Slugifier::slugify($posts[$i]['nomeCategoria']).'/'.Slugifier::slugify($posts[$i]['titolo']);
             
+            // TODO: attachments...  
             if ( $posts[$i]['flagAllegati'] == 'si' ) {
 
+            }
+            
+            // TODO: Categories ids from post_relazioni
+            //$language   = $this->getInput('language', 1);
+            //$channel    = $this->getInput('channel', 1);
+            
+            
+            $postsRelazioni->setSelectQueryFields('IDENTITY(r.categoria) AS categorie');
+            $postsRelazioni->setMainQuery();
+            $postsRelazioni->setChannelId(isset($channel) ? $channel : 1);
+            $postsRelazioni->setModuloId($posts[$i]['modulo']);
+            $postsRelazioni->setPostsId($posts[$i]['postoptionid']);
+            $categories = $postsRelazioni->getQueryResult();
+            foreach ($categories as $categoria) {
+                $posts[$i]['categorie'][] = $categoria['categorie'];
             }
             
             if ( isset($posts[$i]['template']) ) {
@@ -163,6 +191,7 @@ class PostsGetter extends QueryBuilderHelperAbstract
             }
 
         }
+        
         return $posts;
     }
     
