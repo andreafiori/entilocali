@@ -92,7 +92,7 @@ directory, no matter the resource type.
 $config['Thumbnails'] = Array(
 		'url' => $baseUrl . '_thumbs',
 		'directory' => $baseDir . '_thumbs',
-		'enabled' => true,
+		'enabled' => false,
 		'directAccess' => false,
 		'maxWidth' => 100,
 		'maxHeight' => 100,

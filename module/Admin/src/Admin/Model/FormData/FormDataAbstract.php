@@ -12,14 +12,39 @@ abstract class FormDataAbstract extends InputSetupAbstract
 {
     protected $form;
     
-    protected $title, $description, $formAction;
+    protected $title;
+    protected $description;
+    protected $formAction;
     
     protected $record;
 
     protected $template = 'formdata/formdata.phtml';
     
     protected $varToExport = array();
-
+    
+    /**
+     * @param \Zend\Form\Form $form
+     */
+    public function setForm(\Zend\Form\Form $form)
+    {
+        $this->form = $form;
+    }
+    
+    public function getForm()
+    {
+        return $this->form;
+    }
+    
+    public function getTitle()
+    {
+        return $this->title;
+    }
+    
+    public function getDescription()
+    {
+        return $this->description;
+    }
+    
     /**
      * Set a variable to export and use on FormDataHandler
      * 
@@ -47,18 +72,35 @@ abstract class FormDataAbstract extends InputSetupAbstract
         }
     }
     
-    public function getForm()
+    /**
+     * @param array or null $record
+     * @return array or null
+     */
+    public function setRecord($record)
     {
-        return $this->form;
+        $this->record = $record;
+        
+        return $this->record;
     }
     
-    public function getTitle()
+    /**
+     * @return array or null
+     */
+    public function getRecord()
     {
-        return $this->title;
+        return $this->record;
     }
-    
-    public function getDescription()
+
+    /**
+     * @param string $propertyName
+     * @return object property or false
+     */
+    public function getProperty($propertyName)
     {
-        return $this->description;
+        if ( isset($this->$propertyName) ) {
+            return $this->$propertyName;
+        }
+        
+        return false;
     }
 }

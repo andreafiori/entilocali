@@ -29,99 +29,26 @@ class PostsFormDataHandler extends FormDataAbstract
     public function __construct(array $input)
     {
         parent::__construct($input);
-        
-        $this->form = new PostsForm();
-        
-        $param = $this->getInput('param', 1);
-        
-        // get Record by Id
-        if ( is_numeric($param['route']['id']) ) {
-            $postsGetterWrapper = new PostsGetterWrapper( new PostsGetter($this->getInput('entityManager')) );
-            $postsGetterWrapper->setInput( array("id" => $param['route']['id']) );
-            $postsGetterWrapper->setupQueryBuilder();
 
-            $this->record = $postsGetterWrapper->getRecords();
-        }
+        $param          = $this->getInput('param', 1);
+        $entityManager  = $this->getInput('entityManager', 1);
+        $tipo           = isset($this->record[0]['tipo']) ? $this->record[0]['tipo'] : $param['get']['tipo'];
         
-        // detect post type
-        $this->tipo = isset($this->record[0]['tipo']) ? $this->record[0]['tipo'] : $param['get']['tipo'];        
+        $postsFormDataObject = $this->getPostsFormDataObjectInstance($tipo);
+        $postsFormDataObject->setForm( new PostsForm() );
+        $postsFormDataObject->setRecord($this->record);
+        $postsFormDataObject->setPostsGetterWrapper( new PostsGetterWrapper(new PostsGetter($entityManager)) );
+        $postsFormDataObject->setRecordById($param['route']['id']);
+        $postsFormDataObject->setProperties();
+        $postsFormDataObject->setCategorieGetterWrapper( new CategorieGetterWrapper( new CategorieGetter($entityManager)) );
+        $postsFormDataObject->setCategorieRecords();
+        $postsFormDataObject->setCategorieCheckboxes();
+        $postsFormDataObject->buildForm();
         
-        // based on record data
-        if ( !empty($this->record) ) {
-            
-            switch($this->tipo):
-                default: case("content"):
-                    $this->tipo = "content"; // rewrite value
-                    $this->moduloId = 4;
-                    $this->description = "Modifica contenuto e conferma le modifiche premendo il pulsante in fondo al form. La pagina non verr&agrave; ricaricata, ma verr&agrave; mostrato l'esito dell'operazione";
-                break;
-
-                case("foto"):
-                    $this->showUploadImage = 1;
-                    $this->moduloId = 6;
-                    $this->description = "Modifica foto  e conferma le modifiche premendo il pulsante in fondo al form. La pagina non verr&agrave; ricaricata, ma verr&agrave; mostrato l'esito dell'operazione";
-                break;
-
-                case("blog"):
-                    $this->showUploadImage = 1;
-                    $this->moduloId = 1;
-                    $this->description = "Modifica post e conferma le modifiche premendo il pulsante in fondo al form. La pagina non verr&agrave; ricaricata, ma verr&agrave; mostrato l'esito dell'operazione";
-                break;
-            endswitch;
-            
-            $this->title = $this->record[0]['titolo'];
-            $this->formAction = 'posts/'.$this->record[0]['id'];
-            
-        } else {
-            switch($this->tipo):
-                default: case("content"):
-                    $this->tipo = "content"; // rewrite value
-                    $this->moduloId = 4;
-                    $this->title = 'Nuovo contenuto';
-                    $this->description = 'Inserisci una nuova pagina web';
-                break;
-
-                case("foto"):
-                    $this->moduloId = 6;
-                    $this->showUploadImage = 1;
-                    $this->title = 'Nuova foto';                    
-                    $this->description = 'Nuova foto nella galleria di immagini';
-                break;
-
-                case("blog"):
-                    $this->showUploadImage = 1;
-                    $this->moduloId = 1;
-                    $this->title = 'Nuovo post';
-                    $this->description = 'Nuovo blog post';
-                break;
-            endswitch;
-        }
-        
-        $categorieWrapper = new CategorieGetterWrapper( new CategorieGetter($this->getInput('entityManager', 1)) );
-        $categorieWrapper->setInput( array('moduloId' => $this->moduloId, 'orderby'=>'co.nome') );
-        $categorieWrapper->setupQueryBuilder();
-        $categoriesRecords = $categorieWrapper->getRecords();
-        
-        $categoriesCheckbox = array();
-        foreach ($categoriesRecords as $categorie) {
-            if (isset($categorie['id']) and isset($categorie['nome']) ) {
-                $categoriesCheckbox[$categorie['id']] = $categorie['nome'];
-            }
-        }
-        
-        if ($this->showUploadImage) {
-            $this->form->addUploadImage();
-        }
-        $this->form->addMainFields();
-        $this->form->addCategory($categoriesCheckbox, $this->record[0]['categorie']);
-        $this->form->addSEO();
-        
-        $record = array('moduloid' => $this->moduloId, 'tipo' => $this->tipo, 'stato' => PostsUtils::STATE_ACTIVE);
-        if (isset($this->record[0])) {
-            $this->form->setData( array_merge($record, $this->record[0]) );
-        } else {
-            $this->form->setData($record);
-        }
+        $this->title        = $postsFormDataObject->getTitle();
+        $this->description  = $postsFormDataObject->getDescription();
+        $this->form         = $postsFormDataObject->getForm();
+        $this->formAction   = $this->getFormAction();
     }
     
     public function getFormAction()
@@ -132,5 +59,30 @@ class PostsFormDataHandler extends FormDataAbstract
         
         return 'posts/insert/?'.$this->tipo;
     }
+    
+        /**
+         * @param string $tipo
+         * @return \Admin\Model\Posts\PostsFormDataAbstract
+         */
+        private function getPostsFormDataObjectInstance($tipo)
+        {
+            $classMap = array(
+                "default" => '\Admin\Model\Posts\PostsFormDataContent',
+                "content" => '\Admin\Model\Posts\PostsFormDataContent',
+                "foto"    => '\Admin\Model\Posts\PostsFormDataFoto',
+                "blog"    => '\Admin\Model\Posts\PostsFormDataBlog',
+            );
 
+            if (isset($classMap[$tipo])) {
+                $objectName = $classMap[$tipo];
+            } else {
+                $objectName = $classMap['default'];
+            }
+            
+            if ( !class_exists($objectName) ) {
+                throw new \Application\Model\NullException($objectName." class doesn't exist");
+            }
+
+            return new $objectName($this->getInput());
+        }
 }

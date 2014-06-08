@@ -15,12 +15,16 @@ class PostsDataTable extends DataTableAbstract implements DataTableInterface
 {
     protected $tipo;
 
+    /**
+     * 
+     * @param array $input
+     */
     public function __construct(array $input)
     {
         parent::__construct($input);
         
         $param = $this->getInput('param', 1);
-        $this->tipo = $param['get']['tipo'];
+        $this->tipo = $param['get']['type'];
         
         switch($this->tipo) {
             default: case("contenuto"):
@@ -53,11 +57,17 @@ class PostsDataTable extends DataTableAbstract implements DataTableInterface
         return $this->description;
     }
     
+    /**
+     * @return array 
+     */
     public function getColumns()
     {
         return array("Titolo", "Sotto titolo", "Data inserimento", "Ultima modifica", "Stato", "&nbsp;", "&nbsp;", "&nbsp;", "&nbsp;");
     }
     
+    /**
+     * @return array 
+     */
     public function getRecords()
     {
         $postsGetterWrapper = new PostsGetterWrapper( new PostsGetter($this->getInput('entityManager')) );
@@ -86,7 +96,6 @@ class PostsDataTable extends DataTableAbstract implements DataTableInterface
     }
 
         /**
-         * 
          * @param \DateTime $dateTime
          * @return type
          */

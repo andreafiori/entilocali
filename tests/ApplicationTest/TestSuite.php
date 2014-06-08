@@ -122,17 +122,6 @@ class TestSuite extends \PHPUnit_Framework_TestCase
     
     public function getConnectionMock()
     {
-        /*
-        $connection = $this->getMock('\Doctrine\DBAL\Connection', 
-                        array('getDQL', 'getResult'), 
-                        array(), '', false);
-        
-        $connection->expects($this->any())
-                     ->method('getDQL')
-                     ->will( $this->returnValue("SELECT * FROM posts") );
-       
-        return $connection;
-        */
         $mock = $this->getMockBuilder('Doctrine\DBAL\Connection')
             ->disableOriginalConstructor()
             ->setMethods(

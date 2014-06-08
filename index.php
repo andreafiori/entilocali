@@ -28,9 +28,9 @@ Zend\Mvc\Application::init(require 'config/application.config.php')->run();
 // ob_end_flush();
 function compressHTMLOutput($buffer)
 {
-	$bufferout = $buffer;
-	$bufferout = str_replace("\n", "", $bufferout);
-	$bufferout = str_replace("\t", "", $bufferout);
-	$bufferout = preg_replace('/<!--(.|\s)*?-->/', '', $bufferout);
-	return $bufferout;
+    $bufferout = $buffer;
+    $bufferout = str_replace("\n", "", $bufferout);
+    $bufferout = str_replace("\t", "", $bufferout);
+    $bufferout = preg_replace('/<!--(.|\s)*?-->/', '', $bufferout);
+    return $bufferout;
 }

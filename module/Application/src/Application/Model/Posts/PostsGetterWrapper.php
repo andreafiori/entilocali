@@ -55,7 +55,7 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
     }
     
     /**
-     * @return PostsGetter
+     * @return \Application\Model\Posts\PostsGetter
      */
     public function getPostsGetter()
     {
