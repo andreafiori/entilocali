@@ -182,9 +182,9 @@ class AlboAtti
     private $sezione;
 
     /**
-     * @var \Application\Entity\Utenti
+     * @var \Application\Entity\Users
      *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\Utenti")
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Users")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="utente_id", referencedColumnName="id")
      * })
@@ -734,11 +734,11 @@ class AlboAtti
     /**
      * Set utente
      *
-     * @param \Application\Entity\Utenti $utente
+     * @param \Application\Entity\Users $utente
      *
      * @return AlboAtti
      */
-    public function setUtente(\Application\Entity\Utenti $utente = null)
+    public function setUtente(\Application\Entity\Users $utente = null)
     {
         $this->utente = $utente;
     
@@ -748,7 +748,7 @@ class AlboAtti
     /**
      * Get utente
      *
-     * @return \Application\Entity\Utenti
+     * @return \Application\Entity\Users
      */
     public function getUtente()
     {

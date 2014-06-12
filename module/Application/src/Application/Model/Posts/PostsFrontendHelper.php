@@ -4,8 +4,8 @@ namespace Application\Model\Posts;
 
 use Admin\Model\InputSetupAbstract;
 use Application\Model\NullException;
-use Application\Model\Posts\PostsGetterWrapper;
-use Application\Model\Posts\PostsGetter;
+use Admin\Model\Posts\PostsGetterWrapper;
+use Admin\Model\Posts\PostsGetter;
 
 /**
  * @author Andrea Fiori

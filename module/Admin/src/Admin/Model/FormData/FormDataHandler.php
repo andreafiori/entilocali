@@ -6,11 +6,6 @@ use Application\Model\RouterManagers\RouterManagerAbstract;
 use Application\Model\RouterManagers\RouterManagerInterface;
 
 /**
- * TODO: 
- *      check if must show the form and get a message template error or warning:
- *          check ACL
- *          check data (categorie, validate record, )
- * 
  * @author Andrea Fiori
  * @since  18 May 2014
  */
@@ -24,15 +19,18 @@ class FormDataHandler extends RouterManagerAbstract implements RouterManagerInte
         if (isset($formSetterClassMap[$formSetter])) {
             
             if ( class_exists($formSetterClassMap[$formSetter]) ) {
+                
                 $objectFormHandlerName = $formSetterClassMap[$formSetter];
                 $objectFormHandler = new $objectFormHandlerName($this->getInput());
                 
-                $this->setVariable('form',              $objectFormHandler->getForm() );
-                $this->setVariable('formAction',        $objectFormHandler->getFormAction() );
-                $this->setVariable('formTitle',         $objectFormHandler->getTitle() );
-                $this->setVariable('formDescription',   $objectFormHandler->getDescription() );
-                
                 $this->setFormDataVariable( $objectFormHandler->getVarToExport() );
+                
+                if ($this->getVariable('error')) {
+                    
+                    $this->setTemplate('message.phtml');
+                    return;
+                }
+                
                 $this->setTemplate('formdata/formdata.phtml');
             }
             

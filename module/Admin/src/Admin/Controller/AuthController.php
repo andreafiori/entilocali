@@ -4,7 +4,7 @@ namespace Admin\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Form\Annotation\AnnotationBuilder;
-use Admin\Model\Utenti\UserFormAuthentication;
+use Admin\Model\Users\UserFormAuthentication;
 
 class AuthController extends AbstractActionController
 {

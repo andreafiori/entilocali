@@ -54,10 +54,10 @@ return array(
                     'formdata' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                                    'route'    => '[/]formdata[/][:formsetter][/][:id][/]',
+                                    'route'    => 'formdata[/][:formsetter][/][:id][/]',
                                     'constraints' => array(
                                                 'formsetter' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                'id'         => '[0-9]',
+                                                'id'         => '[0-9]+',
                                     ),
                                     'defaults' => array(
                                                 'controller' => 'Admin\Controller\Admin',
@@ -68,9 +68,10 @@ return array(
                     'datatable' => array(
                                     'type'    => 'Segment',
                                     'options' => array(
-                                                'route'       => '[/]datatable[/][:tablesetter][/]',
+                                                'route'       => 'datatable[/][:tablesetter][/:option][/]',
                                                 'constraints' => array(
-                                                    
+                                                        'tablesetter' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                        'option'      => '[a-zA-Z][a-zA-Z0-9_-]*',
                                                 ),
                                                 'defaults' => array(
                                                             'controller' => 'Admin\Controller\Admin',
@@ -81,11 +82,11 @@ return array(
                     'formpost' => array(
                                     'type'    => 'Segment',
                                     'options' => array(
-                                                'route'         => '[/]formpost[/][:form_post_handler][/][:operation][/][:id][/]',
+                                                'route'         => 'formpost[/][:form_post_handler][/][:operation][/][:id][/]',
                                                 'constraints'   => array(
                                                     'form_post_handler' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                                     'operation'         => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                    'id'                => '[0-9]',
+                                                    'id'                => '[0-9]+',
                                                 ),
                                                 'defaults' => array(
                                                     'controller' => 'Admin\Controller\Admin',
@@ -95,7 +96,6 @@ return array(
                     ),
                 ),
             ),
-            
         ),
     ),
     'view_manager' => array(
@@ -121,32 +121,33 @@ return array(
     'formdata_classmap' => array(
         'assistenza'        => 'Admin\Model\Assistenza\AssistenzaFormDataHandler',
         'posts'             => 'Admin\Model\Posts\PostsFormDataHandler',
-        'albo-pretorio'     => 'Admin\Model\AlboPretorio\AlboPretorioFormData',
-        'stato-civile'      => 'Admin\Model\StatoCivile\StatoCivileFormData',
-        'amministrazione-trasparente' => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFormData',
+        'categories'         => 'Admin\Model\Categories\CategoriesFormDataHandler',
+        'albo-pretorio'     => 'Admin\Model\AlboPretorio\AlboPretorioFormDataHandler',
+        'stato-civile'      => 'Admin\Model\StatoCivile\StatoCivileFormDataHandler',
+        'amministrazione-trasparente' => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFormDataHandler',
     ),
     // FormData CRUD Class Map
     'formdata_crud_classmap' => array( 
-        'albo-pretorio'               => 'Admin\Model\AlboPretorio\ ',
+        'albo-pretorio'               => 'Admin\Model\AlboPretorio\AlboPretorioCrudHandler',
         'amministrazione-trasparente' => 'Admin\Model\AmministrazioneTrasparente\ ',
-        'assistenza'                  => 'Admin\Model\Assistenza\ ',
-        'categorie'                   => 'Admin\Model\Categorie\ ',
-        'contatti'                    => 'Admin\Model\Contatti\ ',
-        'faq'                         => 'Admin\Model\Faq\ ',
-        'newsletter'                  => 'Admin\Model\Newsletter\ ',
+        'ticketing'                   => 'Admin\Model\Ticketing\TicketingCrudHandler',
+        'categories'                  => 'Admin\Model\Categories\CategoriesCrudHandler',
+        'contatti'                    => 'Admin\Model\Contacts\ContactsCrudHandler',
+        'faq'                         => 'Admin\Model\Faq\FaqCrudHandler',
+        'newsletter'                  => 'Admin\Model\Newsletter\NewsletterCrudHandler',
         'posts'                       => 'Admin\Model\Posts\PostsCrudHandler',
-        'stato-civile'                => 'Admin\Model\StatoCivile\ ',
+        'stato-civile'                => 'Admin\Model\StatoCivile\StatoCivileCrudHandler',
     ),
     // DataTables Class Map
     'datatables_classmap' => array(
+        'assistenza'                  => 'Admin\Model\Ticketing\TicketingDataTable',
+        'categories'                  => 'Admin\Model\Categories\CategoriesDataTable',
+        'contacts'                    => 'Admin\Model\Contacts\ContactsDataTable',
+        'faq'                         => 'Admin\Model\Faq\FaqDataTable',
+        'newsletter'                  => 'Admin\Model\Newsletter\NewsletterDataTable',
+        'posts'                       => 'Admin\Model\Posts\PostsDataTable',
         'albo-pretorio'               => 'Admin\Model\AlboPretorio\AlboPretorioTable',
         'amministrazione-trasparente' => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteDataTable',
-        'assistenza'                  => 'Admin\Model\Assistenza\AssistenzaDataTable',
-        'categorie'                   => 'Admin\Model\Categorie\CategorieDataTable',
-        'contatti'                    => 'Admin\Model\Contatti\ContattiTable',
-        'faq'                         => 'Admin\Model\Faq\FaqTable',
-        'newsletter'                  => 'Admin\Model\Newsletter\NewsletterTable',
-        'posts'                       => 'Admin\Model\Posts\PostsDataTable',
         'stato-civile'                => 'Admin\Model\StatoCivile\StatoCivileDataTable',
     ),
 );

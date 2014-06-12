@@ -3,10 +3,10 @@
 namespace AdminTest\Model\Posts;
 
 use ApplicationTest\TestSuite;
-use Application\Model\Posts\PostsGetter;
-use Application\Model\Posts\PostsGetterWrapper;
-use Application\Model\Categorie\CategorieGetter;
-use Application\Model\Categorie\CategorieGetterWrapper;
+use Admin\Model\Posts\PostsGetter;
+use Admin\Model\Posts\PostsGetterWrapper;
+use Admin\Model\Categories\CategoriesGetter;
+use Admin\Model\Categories\CategoriesGetterWrapper;
 
 /**
  * @author Andrea Fiori
@@ -26,7 +26,7 @@ class PostsFormDataAbstractTest extends TestSuite
     public function testSetPostsGetterWrapper()
     {
         $this->assertInstanceOf(
-            '\Application\Model\Posts\PostsGetterWrapper', 
+            '\Admin\Model\Posts\PostsGetterWrapper', 
             $this->postsFormDataAbstract->setPostsGetterWrapper( new PostsGetterWrapper( new PostsGetter($this->getEntityManagerMock())) )
         );
     }
@@ -34,7 +34,7 @@ class PostsFormDataAbstractTest extends TestSuite
     public function testSetCategorieGetterWrapper()
     {
         $this->assertInstanceOf(
-            '\Application\Model\Categorie\CategorieGetterWrapper', 
+            '\Admin\Model\Categories\CategoriesGetterWrapper', 
             $this->setupCategorieGetterWrapper()
         );
     }
@@ -42,16 +42,16 @@ class PostsFormDataAbstractTest extends TestSuite
     /**
      * @expectedException \Application\Model\NullException
      */
-    public function testSetCategorieRecordsThrowsException()
+    public function testSetCategoriesRecordsThrowsException()
     {
-        $this->postsFormDataAbstract->setCategorieRecords();
+        $this->postsFormDataAbstract->setCategoriesRecords();
     }
     
-    public function testSetCategorieRecords()
+    public function testSetCategoriesRecords()
     {
         $this->setupCategorieGetterWrapper();
         
-        $this->assertTrue(is_array($this->postsFormDataAbstract->setCategorieRecords()) );
+        $this->assertTrue(is_array($this->postsFormDataAbstract->setCategoriesRecords()) );
     }
     
     /**
@@ -72,11 +72,11 @@ class PostsFormDataAbstractTest extends TestSuite
     }
     
         /**
-         * @return \Application\Model\Categorie\CategorieGetterWrapper
+         * @return \Admin\Model\Categories\CategoriesGetterWrapper
          */
         private function setupCategorieGetterWrapper()
         {
-            return $this->postsFormDataAbstract->setCategorieGetterWrapper( new CategorieGetterWrapper( new CategorieGetter($this->getEntityManagerMock())));
+            return $this->postsFormDataAbstract->setCategoriesGetterWrapper( new CategoriesGetterWrapper(new CategoriesGetter($this->getEntityManagerMock())) );
         }
         
         private function setupPostsGetterWrapper()

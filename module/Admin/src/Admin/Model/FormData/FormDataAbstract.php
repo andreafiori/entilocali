@@ -103,4 +103,20 @@ abstract class FormDataAbstract extends InputSetupAbstract
         
         return false;
     }
+    
+    /**
+     * @param string $template
+     * @return string
+     */
+    public function setTemplate($template)
+    {
+        $this->template = $template;
+        
+        return $this->template;
+    }
+    
+    public function getTemplate()
+    {
+        return $this->template; 
+    }
 }

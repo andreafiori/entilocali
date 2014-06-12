@@ -55,13 +55,6 @@ class AdminController extends AbstractActionController
     }
     
     /**
-     * TODO:
-            validate form w jquery validation
-            set inputFilterValidator if needed
-            show errors if occured
-            initialize class to process posted array\data
-            show result
-     
      * @return \Zend\View\Model\ViewModel
      */
     public function formpostAction()

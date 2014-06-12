@@ -14,7 +14,6 @@ class AlboPretorioFrontend extends RouterManagerAbstract implements RouterManage
 {
     public function setupRecord()
     {
-        
         $this->setTemplate('albo-pretorio/index.phtml');
     }
 }

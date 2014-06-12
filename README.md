@@ -4,7 +4,7 @@ Zend2 CMS with RESTful API
 =======================
 
 Introduction
-------------
+--------------
 
     The application is still under construction!!!
 
@@ -13,7 +13,7 @@ It must be open to build new modules and use it for companies and public adminis
 All frontend templates must be responsive.
 
 Installation
-------------
+--------------
 
 Get a working copy of this project is to clone the repository and use `composer` to install dependencies using the `create-project` command:
 
@@ -35,6 +35,13 @@ Documentation
 
 Source code documentation can be generated with Apigen.
 I have apigen.neon file configuration to generate files on the docs directory.
+
+Just another CMS
+-------------------
+
+Why build another CMS? This project is created to have multiple website with shared templates using all the modern
+technologies we want to use. And then we need custom modules to handle websites for the public administrations.
+The accessibility on the frontend will be very important.
 
 Notes
 ------------

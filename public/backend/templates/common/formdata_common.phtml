@@ -1,0 +1,125 @@
+<div id="formcontainer">
+
+<h2><?php echo $this->formTitle ?></h2>
+<p><?php echo $this->formDescription ?></p>
+<?php
+
+$this->form->prepare();
+
+$form = $this->form;
+$form->prepare();
+
+$form->setAttribute('action',   $this->url('admin', array('lang' => 'it')).'formpost/'.$this->formAction );
+$form->setAttribute('method',   'post');
+$form->setAttribute('enctype',  'multipart/form-data');
+$form->setAttribute('role',     'form');
+$form->setAttribute('class',    'form-horizontal');
+
+$formLabel = $this->plugin('formLabel');
+
+echo $this->form()->openTag($form);
+
+foreach ($this->form as $element):
+    $attributes = $element->getAttributes();
+    if ($attributes['class']=='wysiwyg'):
+    ?>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <label><?php echo $element->getLabel() ?></label>
+            <?php echo $this->formElement($element); ?>
+        </div>
+    </div>
+    <?php
+    elseif ($attributes['class']=='DatePicker'):
+    ?>
+    <div class="form-group">
+        <label for="<?php echo $attributes['id'] ?>" class="col-sm-2 control-label"><?php echo $element->getLabel() ?></label>
+        <div class="col-sm-10">
+            <?php echo $this->formDate($element); ?>
+        </div>
+    </div>
+    <?php
+    elseif ($attributes['class'] == 'hiddenField' or $attributes['name'] == 'csrf'):
+        echo $this->formElement($element);
+    elseif ($attributes['type'] == 'submit'):
+        $element->setAttribute('class','btn btn-primary');
+        ?>
+        <div class="form-group">
+            <label for="<?php echo $attributes['id'] ?>" class="col-sm-2 control-label"><?php echo $element->getLabel() ?></label>
+            <div class="col-sm-10">
+                <?php echo $this->formElement($element); ?> 
+            </div>
+        </div>
+        <?php
+    elseif ($attributes['type'] == 'radio'):
+        ?>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><?php echo $element->getLabel() ?></label>
+            <div class="col-sm-10">
+                <?php echo $this->formElement($element) ?>
+            </div>
+        </div>
+        <?php
+    else:
+        $element->setAttribute('class', 'form-control');
+    ?>
+    <div class="form-group">
+        <label for="<?php echo $attributes['id'] ?>" class="col-sm-2 control-label"><?php echo $element->getLabel() ?></label>
+        <div class="col-sm-10">
+            <?php echo $this->formElement($element); ?>
+        </div>
+    </div>
+    <?php
+    endif;
+endforeach;
+    ?>
+    <div class="form-group">
+        <label for="" class="col-sm-2 control-label">&nbsp;</label>
+        <div class="col-sm-10"><input type="submit" name="submit" id="submit" value="Conferma" class="btn btn-primary" onclick="refreshEditor();<?php if ($this->hideOnSubmit): ?>  document.getElementById('formcontainer').style.display='none'<?php endif ?>"></div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label">&nbsp;</label>
+        <div class="col-sm-10">
+            <label>* Campi obbligatori</label>
+        </div>
+    </div>
+    <?php
+
+echo $this->form()->closeTag($this->form);
+
+?>
+</div>
+
+<div id="formDataLoading" class="alert alert-warning" style="display: none">
+    <h1>Attendere: elaborazione dati in corso...</h1>
+</div>
+<div id="formDataResponse"></div>
+
+<script>
+<?php if (isset($this->CKEditorField)): ?>
+
+    <?php if ( is_array($this->CKEditorField) ): ?>
+
+    <?php else: ?>
+    /* CKEditor and CKFinder integration */
+    var editor = CKEDITOR.replace( '<?php echo $this->CKEditorField ?>', {
+        filebrowserBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html',
+        filebrowserImageBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html?type=Images',
+        filebrowserFlashBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html?type=Flash',
+        filebrowserUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+        filebrowserImageUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+        filebrowserFlashUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
+        /*, filebrowserWindowWidth : '1000', filebrowserWindowHeight : '700' */
+    });
+    CKFinder.setupCKEditor( editor, '../' );
+    <?php endif; ?>
+<?php endif; ?>
+    
+    function refreshEditor() {
+        $('textarea.wysiwyg').each(function () {
+            var $textarea = $(this);
+            $textarea.val(CKEDITOR.instances[$textarea.attr('name')].getData());
+        });
+    }
+</script>

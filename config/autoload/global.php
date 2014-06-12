@@ -2,7 +2,7 @@
 
 // Global Configuration Override
 $dbParams = array(
-        'database'  => 'entilocali',
+        'database'  => 'entilocali_eng',
         'username'  => 'root',
         'password'  => '',
         'hostname'  => 'localhost',

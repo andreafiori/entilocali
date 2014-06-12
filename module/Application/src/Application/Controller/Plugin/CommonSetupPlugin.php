@@ -105,6 +105,13 @@ class CommonSetupPlugin extends CommonSetupPluginAbstract
                 $this->isMultiLanguage  = $this->appConfigs['isMultilanguage'];
             }
             
+            if ($this->isBackend) {
+                $this->moduleRecord = array(
+                    1  => 'Blogs',
+                    4  => 'Contenuti',
+                    6  => 'Foto',
+                );
+            }
         }
 
         /**
@@ -117,6 +124,7 @@ class CommonSetupPlugin extends CommonSetupPluginAbstract
                     'serviceManager' => $this->serviceManager,
                     'entityManager'  => $this->entityManager,
                     'queryBuilder'   => $this->queryBuilder,
+                    'moduleRecord'   => $this->moduleRecord,
                     'redirect'       => $this->redirect,
                     'request'        => $this->request,
                     'param'          => $this->param,

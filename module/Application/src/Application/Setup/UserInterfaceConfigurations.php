@@ -2,8 +2,8 @@
 
 namespace Application\Setup;
 
-use Application\Model\Posts\PostsGetterWrapper;
-use Application\Model\Posts\PostsGetter;
+use Admin\Model\Posts\PostsGetter;
+use Admin\Model\Posts\PostsGetterWrapper;
 
 /**
  * Validate and initialize configuration array
@@ -73,11 +73,11 @@ class UserInterfaceConfigurations
         $postsList = $postsGetterWrapper->getRecords();
         if ($postsList) {
             foreach($postsList as $preload) {
-                if ( !isset($preload['nomeCategoria']) ) {
+                if ( !isset($preload['categoryName']) ) {
                     break;
                 }
                 
-                $this->configurations['preloadResponse'][$preload['nomeCategoria']][] = $preload;
+                $this->configurations['preloadResponse'][$preload['categoryName']][] = $preload;
             }
         }
         

@@ -3,8 +3,8 @@
 namespace Admin\Model\Posts;
 
 use Admin\Model\FormData\FormDataAbstract;
-use Application\Model\Posts\PostsGetterWrapper;
-use Application\Model\Categorie\CategorieGetterWrapper;
+use Admin\Model\Posts\PostsGetterWrapper;
+use Admin\Model\Categories\CategoriesGetterWrapper;
 use Application\Model\NullException;
 
 /**
@@ -15,14 +15,14 @@ use Application\Model\NullException;
  */
 abstract class PostsFormDataAbstract extends FormDataAbstract
 {
-    protected $tipo;
-    protected $moduloId;
+    protected $type;
+    protected $moduleId;
     
     protected $postsGetterWrapper;
     
-    protected $categorieGetterWrapper;
-    protected $categorieRecords;
-    protected $categorieCheckboxes = array();
+    protected $categoriesGetterWrapper;
+    protected $categoriesRecords;
+    protected $categoriesCheckboxes = array();
 
     protected $showUploadImage;
     protected $hideSEOFields;
@@ -30,7 +30,6 @@ abstract class PostsFormDataAbstract extends FormDataAbstract
     protected $showAttachmentsManagement;
     
     /**
-     * 
      * @param \Application\Model\Posts\PostsGetterWrapper $postsGetterWrapper
      * @return type
      */
@@ -42,55 +41,60 @@ abstract class PostsFormDataAbstract extends FormDataAbstract
     }
     
     /**
-     * @param \Application\Model\Categorie\CategorieGetterWrapper $categorieGetterWrapper
-     * @return \Application\Model\Categorie\CategorieGetterWrapper $this->categorieGetterWrapper
+     * @param \Admin\Model\Categories\CategoriesGetterWrapper $categoriesGetterWrapper
+     * @return \Admin\Model\Categories\CategoriesGetterWrapper
      */
-    public function setCategorieGetterWrapper(CategorieGetterWrapper $categorieGetterWrapper)
+    public function setCategoriesGetterWrapper(CategoriesGetterWrapper $categoriesGetterWrapper)
     {
-        $this->categorieGetterWrapper = $categorieGetterWrapper;
+        $this->categoriesGetterWrapper = $categoriesGetterWrapper;
         
-        return $this->categorieGetterWrapper;
+        return $this->categoriesGetterWrapper;
     }
-    
-    public function setCategorieRecords()
+       
+    public function setCategoriesRecords()
     {
-        if (!$this->categorieGetterWrapper) {
-            throw new NullException("CategorieGetterWrapper class instance is not set");
+        if (!$this->categoriesGetterWrapper) {
+            throw new NullException("CategoriesGetterWrapper class instance is not set");
         }
 
-        $this->categorieGetterWrapper->setInput( array('moduloId' => $this->moduloId, 'orderby' => 'co.nome') );
-        $this->categorieGetterWrapper->setupQueryBuilder();
+        $this->categoriesGetterWrapper->setInput( array('moduleId' => $this->moduleId, 'orderby' => 'co.name') );
+        $this->categoriesGetterWrapper->setupQueryBuilder();
         
-        $this->categorieRecords = $this->categorieGetterWrapper->getRecords();
+        $this->categoriesRecords = $this->categoriesGetterWrapper->getRecords();
         
-        return $this->categorieRecords;
+        return $this->categoriesRecords;
     }
     
-    public function getCategorieRecords()
+    public function getCategoriesRecords()
     {
-        return $this->categorieRecords;
+        return $this->categoriesRecords;
     }
-
+    
     /**
      * set categorie checkboxes list
      */
-    public function setCategorieCheckboxes()
+    public function setCategoriesCheckboxes()
     {
-        $categorieRecords = $this->getCategorieRecords();
+        $categoriesRecords = $this->getCategoriesRecords();
         
-        if ( !$categorieRecords ) {
+        if ( !$categoriesRecords ) {
             return false;
         }
         
-        foreach ($categorieRecords as $categorie) {
-            if (isset($categorie['id']) and isset($categorie['nome']) ) {
-                $this->categorieCheckboxes[$categorie['id']] = $categorie['nome'];
+        foreach ($categoriesRecords as $category) {
+            if (isset($category['id']) and isset($category['name']) ) {
+                $this->categoriesCheckboxes[$category['id']] = $category['name'];
             }
         }
         
-        return $this->categorieCheckboxes;
+        return $this->categoriesCheckboxes;
     }
-
+    
+    /**
+     * @param type $id
+     * @return boolean
+     * @throws NullException
+     */
     public function setRecordById($id)
     {
         if ( !is_numeric($id) ) {
@@ -125,24 +129,30 @@ abstract class PostsFormDataAbstract extends FormDataAbstract
      * Build form object adding all fields and values
      * 
      * @return \Zend\Form\Form
+     * @throws NullException
      */
     public function buildForm()
     {
-        $form = $this->getForm();
+        if (!$this->getForm()) {
+            throw new NullException("Form is not set");
+        }
         
         if ($this->showUploadImage) {
             $this->form->addUploadImage();
         }
+        
         $this->form->addMainFields();
-        $this->form->addCategory($this->categorieCheckboxes, $this->record[0]['categorie']);
+        $this->form->addCategory($this->categoriesCheckboxes, $this->record[0]['category']);
+        
         if (!$this->hideSEOFields) {
             $this->form->addSEO();
         }
 
-        $additionalFormFieldsValues = array('moduloid' => $this->moduloId, 'tipo' => $this->tipo, 'stato' => PostsUtils::STATE_ACTIVE);
+        $additionalFormFieldsValues = array('moduleId' => $this->moduleId, 'type' => $this->type, 'status' => PostsUtils::STATE_ACTIVE);
+        
         $record = $this->getRecord();
         if ( isset($record[0]) ) {
-            $this->title = $record[0]['titolo'];
+            $this->title = $record[0]['title'];
             $this->form->setData( array_merge($additionalFormFieldsValues, $record[0]) );
             $this->formAction = 'posts/'.$record[0]['id'];
         } else {

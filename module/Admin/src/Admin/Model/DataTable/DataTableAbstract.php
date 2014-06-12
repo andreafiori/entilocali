@@ -13,4 +13,13 @@ abstract class DataTableAbstract extends InputSetupTemplateAbstract
     protected $title;
     protected $description;
     protected $template = 'datatable/datatable.phtml';
+    
+    /**
+     * @param \DateTime $dateTime
+     * @return type
+     */
+    protected function convertDateTimeToString(\DateTime $dateTime)
+    {        
+        return $dateTime->format('d-m-Y');
+    }
 }

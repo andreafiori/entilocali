@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Config
  *
- * @ORM\Table(name="config", indexes={@ORM\Index(name="channel_id", columns={"canale_id"}), @ORM\Index(name="language_id", columns={"lingua_id"}), @ORM\Index(name="module_id", columns={"modulo_id"}), @ORM\Index(name="isadmin", columns={"isbackend"}), @ORM\Index(name="isalwaysallowed", columns={"isalwaysallowed"})})
+ * @ORM\Table(name="config", indexes={@ORM\Index(name="channel_id", columns={"channel_id"}), @ORM\Index(name="language_id", columns={"language_id"}), @ORM\Index(name="module_id", columns={"module_id"}), @ORM\Index(name="isadmin", columns={"is_backend"}), @ORM\Index(name="isalwaysallowed", columns={"is_always_allowed"})})
  * @ORM\Entity
  */
 class Config
@@ -24,16 +24,16 @@ class Config
     /**
      * @var string
      *
-     * @ORM\Column(name="nome", type="string", length=100, nullable=true)
+     * @ORM\Column(name="name", type="string", length=100, nullable=true)
      */
-    private $nome;
+    private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="valore", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="value", type="text", length=65535, nullable=true)
      */
-    private $valore;
+    private $value;
 
     /**
      * @var string
@@ -45,37 +45,37 @@ class Config
     /**
      * @var integer
      *
-     * @ORM\Column(name="isbackend", type="bigint", nullable=false)
+     * @ORM\Column(name="is_backend", type="bigint", nullable=false)
      */
-    private $isbackend;
+    private $isBackend;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="isalwaysallowed", type="bigint", nullable=false)
+     * @ORM\Column(name="is_always_allowed", type="bigint", nullable=false)
      */
-    private $isalwaysallowed = '1';
+    private $isAlwaysAllowed = '1';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="modulo_id", type="bigint", nullable=false)
+     * @ORM\Column(name="module_id", type="bigint", nullable=false)
      */
-    private $moduloId = '4';
+    private $moduleId = '4';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="canale_id", type="bigint", nullable=false)
+     * @ORM\Column(name="channel_id", type="bigint", nullable=false)
      */
-    private $canaleId = '1';
+    private $channelId = '1';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="lingua_id", type="bigint", nullable=false)
+     * @ORM\Column(name="language_id", type="bigint", nullable=false)
      */
-    private $linguaId = '1';
+    private $languageId = '1';
 
 
 
@@ -90,51 +90,51 @@ class Config
     }
 
     /**
-     * Set nome
+     * Set name
      *
-     * @param string $nome
+     * @param string $name
      *
      * @return Config
      */
-    public function setNome($nome)
+    public function setName($name)
     {
-        $this->nome = $nome;
+        $this->name = $name;
     
         return $this;
     }
 
     /**
-     * Get nome
+     * Get name
      *
      * @return string
      */
-    public function getNome()
+    public function getName()
     {
-        return $this->nome;
+        return $this->name;
     }
 
     /**
-     * Set valore
+     * Set value
      *
-     * @param string $valore
+     * @param string $value
      *
      * @return Config
      */
-    public function setValore($valore)
+    public function setValue($value)
     {
-        $this->valore = $valore;
+        $this->value = $value;
     
         return $this;
     }
 
     /**
-     * Get valore
+     * Get value
      *
      * @return string
      */
-    public function getValore()
+    public function getValue()
     {
-        return $this->valore;
+        return $this->value;
     }
 
     /**
@@ -162,122 +162,122 @@ class Config
     }
 
     /**
-     * Set isbackend
+     * Set isBackend
      *
-     * @param integer $isbackend
+     * @param integer $isBackend
      *
      * @return Config
      */
-    public function setIsbackend($isbackend)
+    public function setIsBackend($isBackend)
     {
-        $this->isbackend = $isbackend;
+        $this->isBackend = $isBackend;
     
         return $this;
     }
 
     /**
-     * Get isbackend
+     * Get isBackend
      *
      * @return integer
      */
-    public function getIsbackend()
+    public function getIsBackend()
     {
-        return $this->isbackend;
+        return $this->isBackend;
     }
 
     /**
-     * Set isalwaysallowed
+     * Set isAlwaysAllowed
      *
-     * @param integer $isalwaysallowed
+     * @param integer $isAlwaysAllowed
      *
      * @return Config
      */
-    public function setIsalwaysallowed($isalwaysallowed)
+    public function setIsAlwaysAllowed($isAlwaysAllowed)
     {
-        $this->isalwaysallowed = $isalwaysallowed;
+        $this->isAlwaysAllowed = $isAlwaysAllowed;
     
         return $this;
     }
 
     /**
-     * Get isalwaysallowed
+     * Get isAlwaysAllowed
      *
      * @return integer
      */
-    public function getIsalwaysallowed()
+    public function getIsAlwaysAllowed()
     {
-        return $this->isalwaysallowed;
+        return $this->isAlwaysAllowed;
     }
 
     /**
-     * Set moduloId
+     * Set moduleId
      *
-     * @param integer $moduloId
+     * @param integer $moduleId
      *
      * @return Config
      */
-    public function setModuloId($moduloId)
+    public function setModuleId($moduleId)
     {
-        $this->moduloId = $moduloId;
+        $this->moduleId = $moduleId;
     
         return $this;
     }
 
     /**
-     * Get moduloId
+     * Get moduleId
      *
      * @return integer
      */
-    public function getModuloId()
+    public function getModuleId()
     {
-        return $this->moduloId;
+        return $this->moduleId;
     }
 
     /**
-     * Set canaleId
+     * Set channelId
      *
-     * @param integer $canaleId
+     * @param integer $channelId
      *
      * @return Config
      */
-    public function setCanaleId($canaleId)
+    public function setChannelId($channelId)
     {
-        $this->canaleId = $canaleId;
+        $this->channelId = $channelId;
     
         return $this;
     }
 
     /**
-     * Get canaleId
+     * Get channelId
      *
      * @return integer
      */
-    public function getCanaleId()
+    public function getChannelId()
     {
-        return $this->canaleId;
+        return $this->channelId;
     }
 
     /**
-     * Set linguaId
+     * Set languageId
      *
-     * @param integer $linguaId
+     * @param integer $languageId
      *
      * @return Config
      */
-    public function setLinguaId($linguaId)
+    public function setLanguageId($languageId)
     {
-        $this->linguaId = $linguaId;
+        $this->languageId = $languageId;
     
         return $this;
     }
 
     /**
-     * Get linguaId
+     * Get languageId
      *
      * @return integer
      */
-    public function getLinguaId()
+    public function getLanguageId()
     {
-        return $this->linguaId;
+        return $this->languageId;
     }
 }

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Homepage
  *
- * @ORM\Table(name="homepage", indexes={@ORM\Index(name="modulo_id", columns={"modulo_id"})})
+ * @ORM\Table(name="homepage", indexes={@ORM\Index(name="modulo_id", columns={"module_id"})})
  * @ORM\Entity
  */
 class Homepage
@@ -24,16 +24,16 @@ class Homepage
     /**
      * @var integer
      *
-     * @ORM\Column(name="riferimento_id", type="integer", nullable=true)
+     * @ORM\Column(name="reference_id", type="integer", nullable=true)
      */
-    private $riferimentoId;
+    private $referenceId;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="modulo_id", type="integer", nullable=false)
+     * @ORM\Column(name="module_id", type="integer", nullable=false)
      */
-    private $moduloId = '0';
+    private $moduleId = '0';
 
 
 
@@ -48,50 +48,50 @@ class Homepage
     }
 
     /**
-     * Set riferimentoId
+     * Set referenceId
      *
-     * @param integer $riferimentoId
+     * @param integer $referenceId
      *
      * @return Homepage
      */
-    public function setRiferimentoId($riferimentoId)
+    public function setReferenceId($referenceId)
     {
-        $this->riferimentoId = $riferimentoId;
+        $this->referenceId = $referenceId;
     
         return $this;
     }
 
     /**
-     * Get riferimentoId
+     * Get referenceId
      *
      * @return integer
      */
-    public function getRiferimentoId()
+    public function getReferenceId()
     {
-        return $this->riferimentoId;
+        return $this->referenceId;
     }
 
     /**
-     * Set moduloId
+     * Set moduleId
      *
-     * @param integer $moduloId
+     * @param integer $moduleId
      *
      * @return Homepage
      */
-    public function setModuloId($moduloId)
+    public function setModuleId($moduleId)
     {
-        $this->moduloId = $moduloId;
+        $this->moduleId = $moduleId;
     
         return $this;
     }
 
     /**
-     * Get moduloId
+     * Get moduleId
      *
      * @return integer
      */
-    public function getModuloId()
+    public function getModuleId()
     {
-        return $this->moduloId;
+        return $this->moduleId;
     }
 }

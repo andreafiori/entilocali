@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Posts
  *
- * @ORM\Table(name="posts", indexes={@ORM\Index(name="parent_id", columns={"parent_id"}), @ORM\Index(name="stato", columns={"stato"}), @ORM\Index(name="alias", columns={"alias"}), @ORM\Index(name="flag_allegati", columns={"flag_allegati"})})
+ * @ORM\Table(name="posts", indexes={@ORM\Index(name="parent_id", columns={"parent_id"}), @ORM\Index(name="alias", columns={"alias"}), @ORM\Index(name="flag_allegati", columns={"flag_attachments"})})
  * @ORM\Entity
  */
 class Posts
@@ -31,30 +31,30 @@ class Posts
     /**
      * @var string
      *
-     * @ORM\Column(name="immagine", type="string", length=80, nullable=true)
+     * @ORM\Column(name="image", type="string", length=80, nullable=true)
      */
-    private $immagine;
+    private $image;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="data_inserimento", type="datetime", nullable=false)
+     * @ORM\Column(name="insert_date", type="datetime", nullable=false)
      */
-    private $dataInserimento = '2013-01-01 00:00:00';
+    private $insertDate = '2013-01-01 00:00:00';
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="data_scadenza", type="datetime", nullable=false)
+     * @ORM\Column(name="expire_date", type="datetime", nullable=false)
      */
-    private $dataScadenza = '2030-02-10 00:00:00';
+    private $expireDate = '2030-02-10 00:00:00';
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="data_ultimo_aggiornamento", type="datetime", nullable=false)
+     * @ORM\Column(name="last_update", type="datetime", nullable=false)
      */
-    private $dataUltimoAggiornamento = '2030-02-10 00:00:00';
+    private $lastUpdate = '2030-02-10 00:00:00';
 
     /**
      * @var integer
@@ -66,16 +66,9 @@ class Posts
     /**
      * @var string
      *
-     * @ORM\Column(name="stato", type="string", length=80, nullable=true)
+     * @ORM\Column(name="type", type="string", length=40, nullable=false)
      */
-    private $stato;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="tipo", type="string", length=40, nullable=false)
-     */
-    private $tipo;
+    private $type;
 
     /**
      * @var string
@@ -94,9 +87,9 @@ class Posts
     /**
      * @var string
      *
-     * @ORM\Column(name="flag_allegati", type="string", nullable=false)
+     * @ORM\Column(name="flag_attachments", type="string", nullable=false)
      */
-    private $flagAllegati = 'no';
+    private $flagAttachments = 'no';
 
 
 
@@ -135,99 +128,99 @@ class Posts
     }
 
     /**
-     * Set immagine
+     * Set image
      *
-     * @param string $immagine
+     * @param string $image
      *
      * @return Posts
      */
-    public function setImmagine($immagine)
+    public function setImage($image)
     {
-        $this->immagine = $immagine;
+        $this->image = $image;
     
         return $this;
     }
 
     /**
-     * Get immagine
+     * Get image
      *
      * @return string
      */
-    public function getImmagine()
+    public function getImage()
     {
-        return $this->immagine;
+        return $this->image;
     }
 
     /**
-     * Set dataInserimento
+     * Set insertDate
      *
-     * @param \DateTime $dataInserimento
+     * @param \DateTime $insertDate
      *
      * @return Posts
      */
-    public function setDataInserimento($dataInserimento)
+    public function setInsertDate($insertDate)
     {
-        $this->dataInserimento = $dataInserimento;
+        $this->insertDate = $insertDate;
     
         return $this;
     }
 
     /**
-     * Get dataInserimento
+     * Get insertDate
      *
      * @return \DateTime
      */
-    public function getDataInserimento()
+    public function getInsertDate()
     {
-        return $this->dataInserimento;
+        return $this->insertDate;
     }
 
     /**
-     * Set dataScadenza
+     * Set expireDate
      *
-     * @param \DateTime $dataScadenza
+     * @param \DateTime $expireDate
      *
      * @return Posts
      */
-    public function setDataScadenza($dataScadenza)
+    public function setExpireDate($expireDate)
     {
-        $this->dataScadenza = $dataScadenza;
+        $this->expireDate = $expireDate;
     
         return $this;
     }
 
     /**
-     * Get dataScadenza
+     * Get expireDate
      *
      * @return \DateTime
      */
-    public function getDataScadenza()
+    public function getExpireDate()
     {
-        return $this->dataScadenza;
+        return $this->expireDate;
     }
 
     /**
-     * Set dataUltimoAggiornamento
+     * Set lastUpdate
      *
-     * @param \DateTime $dataUltimoAggiornamento
+     * @param \DateTime $lastUpdate
      *
      * @return Posts
      */
-    public function setDataUltimoAggiornamento($dataUltimoAggiornamento)
+    public function setLastUpdate($lastUpdate)
     {
-        $this->dataUltimoAggiornamento = $dataUltimoAggiornamento;
+        $this->lastUpdate = $lastUpdate;
     
         return $this;
     }
 
     /**
-     * Get dataUltimoAggiornamento
+     * Get lastUpdate
      *
      * @return \DateTime
      */
-    public function getDataUltimoAggiornamento()
+    public function getLastUpdate()
     {
-        return $this->dataUltimoAggiornamento;
+        return $this->lastUpdate;
     }
 
     /**
@@ -255,51 +248,27 @@ class Posts
     }
 
     /**
-     * Set stato
+     * Set type
      *
-     * @param string $stato
+     * @param string $type
      *
      * @return Posts
      */
-    public function setStato($stato)
+    public function setType($type)
     {
-        $this->stato = $stato;
+        $this->type = $type;
     
         return $this;
     }
 
     /**
-     * Get stato
+     * Get type
      *
      * @return string
      */
-    public function getStato()
+    public function getType()
     {
-        return $this->stato;
-    }
-
-    /**
-     * Set tipo
-     *
-     * @param string $tipo
-     *
-     * @return Posts
-     */
-    public function setTipo($tipo)
-    {
-        $this->tipo = $tipo;
-    
-        return $this;
-    }
-
-    /**
-     * Get tipo
-     *
-     * @return string
-     */
-    public function getTipo()
-    {
-        return $this->tipo;
+        return $this->type;
     }
 
     /**
@@ -351,26 +320,26 @@ class Posts
     }
 
     /**
-     * Set flagAllegati
+     * Set flagAttachments
      *
-     * @param string $flagAllegati
+     * @param string $flagAttachments
      *
      * @return Posts
      */
-    public function setFlagAllegati($flagAllegati)
+    public function setFlagAttachments($flagAttachments)
     {
-        $this->flagAllegati = $flagAllegati;
+        $this->flagAttachments = $flagAttachments;
     
         return $this;
     }
 
     /**
-     * Get flagAllegati
+     * Get flagAttachments
      *
      * @return string
      */
-    public function getFlagAllegati()
+    public function getFlagAttachments()
     {
-        return $this->flagAllegati;
+        return $this->flagAttachments;
     }
 }

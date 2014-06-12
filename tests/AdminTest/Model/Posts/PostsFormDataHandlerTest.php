@@ -12,31 +12,31 @@ use Admin\Model\Posts\PostsFormDataHandler;
 class PostsFormDataHandlerTest extends TestSuite
 {
     private $postsFormDataHandler;
-    
+
     protected function setUp()
     {
         parent::setUp();
         
         $this->postsFormDataHandler = new PostsFormDataHandler( $this->getFrontendCommonInput() );
     }
-    
-    public function testGetForm()
-    {
-        $this->assertInstanceOf('\Admin\Model\Posts\PostsForm', $this->postsFormDataHandler->getForm() );
-    }
-    
+
     public function testGetTitle()
     {
-        $this->assertTrue( is_string($this->postsFormDataHandler->getTitle()) );
+        $this->assertTrue( is_string($this->postsFormDataHandler->getPostsFormDataObject()->getTitle()) );
     }
     
     public function testGetDescription()
     {
-        $this->assertTrue( is_string($this->postsFormDataHandler->getDescription()) );
+        $this->assertTrue( is_string($this->postsFormDataHandler->getPostsFormDataObject()->getDescription()) );
     }
     
-    public function testgetFormAction()
+    public function testGetForm()
     {
-        $this->assertTrue( is_string($this->postsFormDataHandler->getFormAction()) );
+        $this->assertInstanceOf('\Admin\Model\Posts\PostsForm', $this->postsFormDataHandler->getPostsFormDataObject()->getForm() );
+    }
+    
+    public function testGetFormAction()
+    {
+        $this->assertTrue( is_string($this->postsFormDataHandler->getFormAction('content')) );
     }
 }

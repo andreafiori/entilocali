@@ -90,10 +90,10 @@ return array(
                                                                     ),
                                                     ),
                                     ),
-                                    'foto' => array(
+                                    'photo' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
-                                                        'route'    => '/foto[/][:action]',
+                                                        'route'    => '/photo[/][:action]',
                                                         'constraints' => array(
                                                             
                                                         ),
@@ -303,6 +303,8 @@ return array(
                     ),
     ),
     'service_manager' => array(
+                    'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',
+                    'navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
                     'abstract_factories' => array(
                                'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
                                'Zend\Log\LoggerAbstractServiceFactory',
@@ -386,9 +388,9 @@ return array(
         "home"                          => 'Application\Model\Posts\PostsFrontend',
         "albo-pretorio"                 => 'Application\Model\AlboPretorio\AlboPretorioFrontend',
         "amministrazione-trasparente"   => 'Application\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFrontend',
-        "contatti"                      => 'Application\Model\Contatti\ContattiFrontend',        
+        "contatti"                      => 'Application\Model\Contacts\ContactsFrontend',        
         "faq"                           => 'Application\Model\Faq\FaqFrontend',
-        "foto"                          => 'Application\Model\Posts\FotoFrontend',
+        "photo"                         => 'Application\Model\Posts\PhotoFrontend',
         "newsletter"                    => 'Application\Model\Newsletter\NewsletterFrontend',
         "registrazione"                 => 'Application\Model\Utenti\RegistrazioneFrontend',
         "ricerca"                       => 'Application\Model\Ricerca\RicercaFrontend',

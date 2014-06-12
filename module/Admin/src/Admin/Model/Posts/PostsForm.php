@@ -74,7 +74,7 @@ class PostsForm extends Form
                         'attributes' => array(
                                         'id' => 'descrizione',
                                         'required' => 'required',
-                                        'class' => 'ckeditor',
+                                        'class' => 'wysiwyg',
                         )
         ));
         
@@ -104,6 +104,21 @@ class PostsForm extends Form
                                ),
                        )
         ));
+
+        /*
+        $this->add(array(
+             'type' => 'Zend\Form\Element\Radio',
+             'name' => 'stato',
+             'options' => array(
+                     'label' => 'Stato',
+                     'value_options' => array(
+                            'attivo'   => 'Attivo',
+                            'nascosto' => 'Nascosto',
+                     ),
+                    'checked_value' => 'attivo',
+             )
+        ));
+        */
         
         $this->add(array(
                         'type' => 'Zend\Form\Element\Hidden',

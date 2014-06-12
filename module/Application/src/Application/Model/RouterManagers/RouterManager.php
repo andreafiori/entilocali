@@ -73,5 +73,10 @@ class RouterManager extends RouterManagerAbstract
         
         throw new \Application\Model\NullException('RouteMatchName '.$classPath.' is not a valid class. It must be an instance of \Application\Model\RouterManagers\RouterManagerInterface');
     }
+    
+    public function getRouteMatchName()
+    {
+        return $this->routeMatchName;
+    }
 
 }

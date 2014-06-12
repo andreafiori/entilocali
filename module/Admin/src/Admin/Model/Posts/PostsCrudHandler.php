@@ -7,6 +7,15 @@ use Admin\Model\FormData\CrudHandlerAbstract;
 use Application\Model\Slugifier;
 
 /**
+ * TODO:
+        upload and create thumb for photo gallery and blogs
+
+        hide form after post (UI)... show link to re-show form if there's an error
+        check at least 1 category is checked (javascript FrontEnd)
+ 
+        validate post before update, use an InputFilter class...
+        updoad \ update image if foto or blog
+  
  * @author Andrea Fiori
  * @since  01 June 2014
  */
@@ -20,14 +29,6 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
         }
     }
 
-        /**
-         *  TODO:
-                upload and create thumb for photo gallery and blogs
-        
-                hide form after post (UI)... show link to re-show form if there's an error
-                check at least 1 category is checked (javascript FrontEnd)
-                
-        */
         private function insert()
         {
             $error = array();
@@ -35,10 +36,10 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
                 $error[] = 'Selezionare almeno una categoria';
             }
             if (!$this->rawPost['moduloid']) {
-                $error[] = "Identificativo modulo non: contattare l'aministrazione";
+                $error[] = "Identificativo modulo non: contattare l'amministrazione";
             }
             
-            if ($error) {
+            if (!empty($error)) {
                 return $this->setErrorMessage($error);
             }
             
@@ -77,72 +78,39 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
                 }    
             }
 
-            
-            $this->setVariable('messageType', 'success');
-            $this->setVariable('messageTitle', 'Dati inseriti correttamente');
-            $this->setVariable('messageText', 'Dati inseriti correttamente in archivio. Controllare la loro integrità');
+            $this->setVariable('messageType',   'success');
+            $this->setVariable('messageTitle',  'Dati inseriti correttamente');
+            $this->setVariable('messageText',   'Dati inseriti correttamente in archivio.');
         }
         
-        /**
-         * TODO: validate post before update, use an InputFilter class...
-         *      updoad \ update image if foto or blog
-         */
         private function update()
         {
             try {
-                $this->setArrayRecordToHandle('titolo', 'titolo');
-                $this->setArrayRecordToHandle('sottotitolo', 'sottotitolo');
-                $this->setArrayRecordToHandle('descrizione', 'descrizione');
-                $this->setArrayRecordToHandle('seo_description', 'seoDescription');
-                $this->setArrayRecordToHandle('seo_keywords', 'seoKeywords');
-
+                $this->setArrayRecordToHandle('titolo',             'titolo');
+                $this->setArrayRecordToHandle('sottotitolo',        'sottotitolo');
+                $this->setArrayRecordToHandle('seo_description',    'seoDescription');
+                $this->setArrayRecordToHandle('seo_keywords',       'seoKeywords');
+                                    
                 $affectedRows = $this->getConnection()->update(
-                            'posts_opzioni', // table
-                            $this->getArrayRecordToHandle(), // records to update
-                            array('posts_id' => $this->rawPost['postoptionid']) // where condition
+                            'posts_opzioni',
+                        
+                            array_merge($this->getArrayRecordToHandle(), array('descrizione' => $this->rawPost['descrizione']) ),
+ 
+                            array('posts_id' => $this->rawPost['postoptionid'])
                 );
                 
-                // TODO: 
+                // TODO:
                 // update last update date
-                    //  update categories
+                   //  update categories
                    // SELECT from posts_relations WHERE categoria_id IN  $this->rawPost['category']; IF id NOT FOUND -> add category
                    // DO NOT DELETE old category\ies to rewrite same record
 
             } catch(\Exception $e) {
-                $error = $e->getMessage();
+                return $this->setErrorMessage("Si &egrave; verificato un errore nell'aggiornamento dati in archivio. <h2>Messaggio:</h2> ".$error);
             }
 
-            if ($error) {
-                return setErrorMessage("Si &egrave; verificato un errore nell'aggiornamento dati in archivio. <h2>Messaggio:</h2> ".$error);
-            } else {
-                $messageType = 'success';
-                $messageTitle = 'Dati aggiornati correttamente';
-                $messageText = 'Dati in archivio aggiornati correttamente';
-            }
-
-            $this->setVariable('messageType', $messageType);
-            $this->setVariable('messageTitle', $messageTitle);
-            $this->setVariable('messageText', $messageText);
+            $this->setVariable('messageType', 'success');
+            $this->setVariable('messageTitle', 'Dati aggiornati correttamente');
+            $this->setVariable('messageText', 'Dati in archivio aggiornati correttamente');
         }
-        
-        private function setErrorMessage($errorMessage, $title = null)
-        {
-            if (!$title) {
-                $title = 'Errore aggiornamento dati';
-            }
-
-            $this->setVariable('messageType', 'danger');
-            $this->setVariable('messageTitle', $title);
-            
-            if (is_array($errorMessage)) {
-                $errorMessageFinal = '';
-                foreach ($errorMessage as $error) {
-                    $errorMessageFinal .= '<p>'.$error.'</p>';
-                }
-                
-                $errorMessage = $errorMessageFinal;
-            }
-            
-            $this->setVariable('messageText', $errorMessage);
-        } 
 }

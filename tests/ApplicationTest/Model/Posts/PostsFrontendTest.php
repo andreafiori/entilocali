@@ -4,8 +4,8 @@ namespace ApplicationTest\Model\Posts;
 
 use ApplicationTest\TestSuite;
 use Application\Model\Posts\PostsFrontend;
-use Application\Model\Posts\PostsGetterWrapper;
-use Application\Model\Posts\PostsGetter;
+use Admin\Model\Posts\PostsGetterWrapper;
+use Admin\Model\Posts\PostsGetter;
 
 /**
  * @author Andrea Fiori

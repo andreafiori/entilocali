@@ -94,4 +94,25 @@ abstract class CrudHandlerAbstract extends RouterManagerAbstract
     {
         return $this->arrayRecordToHandle;
     }
+    
+    protected function setErrorMessage($errorMessage, $title = null)
+    {
+        if (!$title) {
+            $title = 'Errori verificati';
+        }
+
+        $this->setVariable('messageType', 'danger');
+        $this->setVariable('messageTitle', $title);
+
+        if (is_array($errorMessage)) {
+            $errorMessageFinal = '';
+            foreach ($errorMessage as $error) {
+                $errorMessageFinal .= '<p>'.$error.'</p>';
+            }
+
+            $errorMessage = $errorMessageFinal;
+        }
+
+        $this->setVariable('messageText', $errorMessage);
+    }
 }

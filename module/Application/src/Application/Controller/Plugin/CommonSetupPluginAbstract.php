@@ -23,7 +23,8 @@ class CommonSetupPluginAbstract extends AbstractPlugin
     protected $redirect;
     protected $flashMessenger;
     protected $routeMatch;
-    protected $module; 
+    protected $module;
+    protected $moduleRecord;
     protected $channel;
     protected $isBackend;
     protected $appConfigs;

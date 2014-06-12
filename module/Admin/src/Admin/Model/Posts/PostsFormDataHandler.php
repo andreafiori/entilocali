@@ -4,24 +4,19 @@ namespace Admin\Model\Posts;
 
 use Admin\Model\FormData\FormDataAbstract;
 use Admin\Model\Posts\PostsForm;
-use Application\Model\Posts\PostsGetter;
-use Application\Model\Posts\PostsGetterWrapper;
-use Application\Model\Categorie\CategorieGetter;
-use Application\Model\Categorie\CategorieGetterWrapper;
+use Admin\Model\Posts\PostsGetter;
+use Admin\Model\Posts\PostsGetterWrapper;
+use Admin\Model\Categories\CategoriesGetter;
+use Admin\Model\Categories\CategoriesGetterWrapper;
+use Application\Model\NullException;
 
 /**
- * TODO: switch refactoring: use Admin\Model\FormData\FormDataHandlerInterface;
- * 
  * @author Andrea Fiori
  * @since  18 May 2013
  */
 class PostsFormDataHandler extends FormDataAbstract
 {
-    private $showUploadImage;
-
-    private $tipo;
-    
-    private $moduloId;
+    private $postsFormDataObject;
     
     /**
      * @param array $input
@@ -32,32 +27,57 @@ class PostsFormDataHandler extends FormDataAbstract
 
         $param          = $this->getInput('param', 1);
         $entityManager  = $this->getInput('entityManager', 1);
-        $tipo           = isset($this->record[0]['tipo']) ? $this->record[0]['tipo'] : $param['get']['tipo'];
+        //$moduleRecord = $this->getInput("moduleRecord",1);
         
-        $postsFormDataObject = $this->getPostsFormDataObjectInstance($tipo);
-        $postsFormDataObject->setForm( new PostsForm() );
-        $postsFormDataObject->setRecord($this->record);
-        $postsFormDataObject->setPostsGetterWrapper( new PostsGetterWrapper(new PostsGetter($entityManager)) );
-        $postsFormDataObject->setRecordById($param['route']['id']);
-        $postsFormDataObject->setProperties();
-        $postsFormDataObject->setCategorieGetterWrapper( new CategorieGetterWrapper( new CategorieGetter($entityManager)) );
-        $postsFormDataObject->setCategorieRecords();
-        $postsFormDataObject->setCategorieCheckboxes();
-        $postsFormDataObject->buildForm();
-        
-        $this->title        = $postsFormDataObject->getTitle();
-        $this->description  = $postsFormDataObject->getDescription();
-        $this->form         = $postsFormDataObject->getForm();
-        $this->formAction   = $this->getFormAction();
-    }
-    
-    public function getFormAction()
-    {
-        if ($this->record) {
-            return 'posts/update/';
+        // TODO: get module id AFTER it take the records data (Forms for the update)
+        $this->postsFormDataObject = $this->getPostsFormDataObjectInstance($param['get']['tipo']);
+        $this->postsFormDataObject->setPostsGetterWrapper( new PostsGetterWrapper(new PostsGetter($entityManager)) );
+        $this->postsFormDataObject->setRecordById($param['route']['id']);
+        $this->postsFormDataObject->setProperties();
+        $this->postsFormDataObject->setCategoriesGetterWrapper( new CategoriesGetterWrapper( new CategoriesGetter($entityManager)) );
+        $this->postsFormDataObject->setCategoriesRecords();
+        $this->postsFormDataObject->setCategoriesCheckboxes();
+
+        if ( !$this->postsFormDataObject->getCategoriesRecords() ) {
+            $this->setVariable('error', 1);
+            $this->setVariable('messageType',   'warning');
+            $this->setVariable('messageTitle',  'Nessuna categoria');
+            $this->setVariable('messageText',   'Impossibile inserire un nuovo elemento senza categorie in archivio da associare');
+            return;
         }
         
-        return 'posts/insert/?'.$this->tipo;
+        // TODO: check ACL
+        
+        $this->postsFormDataObject->setForm( new PostsForm() );
+        $this->postsFormDataObject->buildForm();
+        
+        $this->setVariable('formTitle',         $this->postsFormDataObject->getTitle());
+        $this->setVariable('formDescription',   $this->postsFormDataObject->getDescription());
+        $this->setVariable('form',              $this->postsFormDataObject->getForm());
+        $this->setVariable('formAction',        $this->getFormAction($param['get']['tipo']));
+       
+        $this->setVariable('CKEditorField', 'descrizione');
+    }
+    
+    /**
+     * @return string
+     */
+    public function getFormAction($tipo = null)
+    {
+        $record = $this->postsFormDataObject->getRecord();
+        if ($record) {
+            
+            $this->setVariable('formBreadCrumbCategory', $record[0]['nome']);
+            
+            return 'posts/update/';
+        }
+       
+        return 'posts/insert/?tipo='.$tipo;
+    }
+  
+    public function getPostsFormDataObject()
+    {
+        return $this->postsFormDataObject;
     }
     
         /**
@@ -67,22 +87,23 @@ class PostsFormDataHandler extends FormDataAbstract
         private function getPostsFormDataObjectInstance($tipo)
         {
             $classMap = array(
-                "default" => '\Admin\Model\Posts\PostsFormDataContent',
                 "content" => '\Admin\Model\Posts\PostsFormDataContent',
                 "foto"    => '\Admin\Model\Posts\PostsFormDataFoto',
                 "blog"    => '\Admin\Model\Posts\PostsFormDataBlog',
+                "video"   => '\Admin\Model\Posts\PostsFormDataVideo',
             );
 
             if (isset($classMap[$tipo])) {
                 $objectName = $classMap[$tipo];
             } else {
-                $objectName = $classMap['default'];
+                $objectName = $classMap['content'];
             }
             
             if ( !class_exists($objectName) ) {
-                throw new \Application\Model\NullException($objectName." class doesn't exist");
+                throw new NullException($objectName." class doesn't exist");
             }
 
             return new $objectName($this->getInput());
         }
+
 }

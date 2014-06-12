@@ -116,29 +116,29 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Moduli <b class="caret"></b></a>
                     <ul class="dropdown-menu multi-level">
                         <li class="dropdown-submenu">
-                            <a href="<?php echo $this->baseUrl ?>datatable/posts/?type=content" class="dropdown-toggle" data-toggle="dropdown">Contenuti</a>
+                            <a href="<?php echo $this->baseUrl ?>datatable/posts/?tipo=content" class="dropdown-toggle" data-toggle="dropdown">Contenuti</a>
                             <ul class="dropdown-menu">
                                 <li><a href="<?php echo $this->baseUrl ?>formdata/posts/" title="">Nuovo</a></li>
-                                <li><a href="<?php echo $this->baseUrl ?>datatable/posts/?type=content" title="Modifica \ elimina contenuti">Modifica \ Elimina</a></li>
+                                <li><a href="<?php echo $this->baseUrl ?>datatable/posts/?tipo=content" title="Modifica \ elimina contenuti">Modifica \ Elimina</a></li>
                                 <li class="dropdown-submenu">
-                                    <a href="<?php echo $this->baseUrl ?>datatable/categorie/?module=4" class="dropdown-toggle" data-toggle="dropdown" title="">Categorie</a>
+                                    <a href="<?php echo $this->baseUrl ?>datatable/categories/?moduleId=4" class="dropdown-toggle" data-toggle="dropdown" title="">Categorie</a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="<?php echo $this->baseUrl ?>formdata/categrie/" title="Nuova categoria contenuti">Nuova</a></li>
-                                        <li><a href="<?php echo $this->baseUrl ?>datatable/categrie/" title="Modifica \ elimina categorie contenuti">Modifica \ Elimina</a></li>
+                                        <li><a href="<?php echo $this->baseUrl ?>formdata/categories/?moduleId=4" title="Nuova categoria contenuti">Nuova</a></li>
+                                        <li><a href="<?php echo $this->baseUrl ?>datatable/categories/?moduloId=4" title="Modifica \ elimina categorie contenuti">Modifica \ Elimina</a></li>
                                     </ul>
                                 </li>
                             </ul>
                         </li>
                         <li class="dropdown-submenu">
-                            <a href="<?php echo $this->baseUrl ?>datatable/posts/?type=foto" class="dropdown-toggle" data-toggle="dropdown">Foto</a>
+                            <a href="<?php echo $this->baseUrl ?>datatable/posts/?tipo=foto" class="dropdown-toggle" data-toggle="dropdown">Foto</a>
                             <ul class="dropdown-menu">
-                                <li><a href="#" title="">Nuovo</a></li>
-                                <li><a href="<?php echo $this->baseUrl ?>datatable/posts/?type=foto" title="">Modifica \ Elimina</a></li>
+                                <li><a href="<?php echo $this->baseUrl ?>formdata/posts/?tipo=foto" title="">Nuova</a></li>
+                                <li><a href="<?php echo $this->baseUrl ?>datatable/posts/?tipo=foto" title="">Modifica \ Elimina</a></li>
                                 <li class="dropdown-submenu">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">Categorie</a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#" title="">Nuovo</a></li>
-                                        <li><a href="#" title="">Modifica \ Elimina</a></li>
+                                        <li><a href="<?php echo $this->baseUrl ?>formdata/categories/?moduloId=6" title="">Nuovo</a></li>
+                                        <li><a href="<?php echo $this->baseUrl ?>datatable/categories/?moduloId=6" title="">Modifica \ Elimina</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -148,7 +148,6 @@
                         <li><a href="<?php echo $this->baseUrl ?>datatable/stato-civile" title="Stato civile">Stato civile</a></li>
                         <li><a href="<?php echo $this->baseUrl ?>datatable/contatti" title="Contatti">Contatti</a></li>
                         <li><a href="#" title="Booking">Booking</a></li>
-                        <li><a href="#" title="F.A.Q">F.A.Q</a></li>
                         <li class="dropdown-submenu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">E-commerce</a>
                             <ul class="dropdown-menu">
@@ -170,15 +169,18 @@
                                 <li><a href="#" title="">Marchi</a></li>
                             </ul>
                         </li>
-                        <!-- <li class="divider"></li> -->
+                        
                         <li class="dropdown-submenu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Utenti</a>
                             <ul class="dropdown-menu">
                                 <li><a href="#" title="">Nuovo</a></li>
                                 <li><a href="#" title="">Modifica \ elimina</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#" title="">Ruoli</a></li>
                             </ul>
                         </li>
                         <!--
+                        <li><a href="#" title="F.A.Q">F.A.Q</a></li>
                         <li><a href="#" title="">Video</a></li>
                         <li><a href="#" title="">Annunci</a></li>
                         <li><a href="#" title="">Aste</a></li>
@@ -191,25 +193,17 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Blogs <b class="caret"></b></a>
                     
                     <ul class="dropdown-menu multi-level">
-                        <li><a href="#" title="">Tutti i posts</a></li>
-                        <li><a href="#" title="">Categorie</a></li>
+                        <li><a href="<?php echo $this->baseUrl ?>datatable/posts/?tipo=blog" title="">Tutti i posts</a></li>
                         <li class="dropdown-submenu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Eventi</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categorie</a>
                             <ul class="dropdown-menu">
-                                <li><a href="#" title="">Nuovo</a></li>
-                                <li><a href="#" title="">Modifica \ Elimina</a></li>
-                                <li class="dropdown-submenu">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">Categorie</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#" title="">Nuovo</a></li>
-                                        <li><a href="#" title="">Modifica \ Elimina</a></li>
-                                    </ul>
-                                </li>
+                                <li><a href="<?php echo $this->baseUrl ?>formdata/categories/?moduloId=1" title="">Nuova</a></li>
+                                <li><a href="<?php echo $this->baseUrl ?>datatable/categories/?moduloId=1" title="">Modifica \ Elimina</a></li>
+                                
                             </ul>
                         </li>
                     </ul>
                 </li>
-                
                         <li>
                             <a href="#" title="Opzioni"><i class="fa fa-wrench"></i> Opzioni</a>
                         </li>
@@ -220,29 +214,29 @@
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                            <li class="dropdown">
-                                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Utente<strong class="caret"></strong></a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="javascript:void(0)" title="Profilo">Profilo</a>
-                                    </li>
-                                    <!--
-                                    <li>
-                                        <a href="javascript:void(0)" title="Documentazione">Documentazione</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)" title="Application Program Interface">API</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)" title="Backup Database">Backup Database</a>
-                                    </li>
-                                    -->
-                                    <li class="divider"></li>
-                                    <li>
-                                        <a href="<?php echo $this->url('login/process', array('action' => 'logout')); ?>" title="Uscita dall'area riservata"><i class="fa fa-power-off"></i> Uscita</a>
-                                    </li>
-                                </ul>
-                            </li>
+                        <li class="dropdown">
+                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Utente<strong class="caret"></strong></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="javascript:void(0)" title="Profilo">Profilo</a>
+                                </li>
+                                <!--
+                                <li>
+                                    <a href="javascript:void(0)" title="Documentazione">Documentazione</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" title="Application Program Interface">API</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)" title="Backup Database">Backup Database</a>
+                                </li>
+                                -->
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="<?php echo $this->url('login/process', array('action' => 'logout')); ?>" title="Uscita dall'area riservata"><i class="fa fa-power-off"></i> Uscita</a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
             </div>
             </nav>
