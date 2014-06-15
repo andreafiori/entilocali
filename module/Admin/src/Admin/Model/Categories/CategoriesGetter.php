@@ -15,7 +15,7 @@ class CategoriesGetter extends QueryBuilderHelperAbstract
         $this->setSelectQueryFields('DISTINCT(c.id) AS id, co.name, c.createDate, c.status, IDENTITY(c.module) AS module');
 
         $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
-                                ->add('from', 'Application\Entity\Categories c, Application\Entity\CategoriesOptions co')
+                                ->add('from', 'Application\Entity\ZfcmsCategories c, Application\Entity\ZfcmsCategoriesOptions co')
                                 ->add('where', 'co.category = c.id ');
 
         return $this->getQueryBuilder();

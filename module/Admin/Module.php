@@ -6,9 +6,6 @@ use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 
-use Zend\Authentication\AuthenticationService;
-use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter;
-
 class Module implements AutoloaderProviderInterface
 {
     public function getAutoloaderConfig()
@@ -32,25 +29,7 @@ class Module implements AutoloaderProviderInterface
     
     public function getServiceConfig()
     {
-        return array(
-            'factories'=>array(
-
-		'Admin\Model\MyAuthStorage' => function($sm){
-		    return new \Admin\Model\MyAuthStorage('login');
-		},
-		
-		'AuthService' => function($sm) {
-		    $dbAdapter           = $sm->get('Zend\Db\Adapter\Adapter');
-                    $dbTableAuthAdapter  = new DbTableAuthAdapter($dbAdapter, 'users','email','password', 'MD5(?)');
-		    
-		    $authService = new AuthenticationService();
-		    $authService->setAdapter($dbTableAuthAdapter);
-		    $authService->setStorage($sm->get('Admin\Model\MyAuthStorage'));
-		    
-		    return $authService;
-		},
-            ),
-        );
+        return array( 'factories' => array() );
     }
     
     public function onBootstrap(MvcEvent $e)

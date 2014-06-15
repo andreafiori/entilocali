@@ -5,24 +5,21 @@ namespace Admin\Model;
 use Zend\Authentication\Storage;
 
 /**
- * @author samsonasik
+ * @author Andrea Fiori
  * @since  13 May 2013
  */
 class MyAuthStorage extends Storage\Session
 {
     /**
-     * @param number $rememberMe
-     * @param number $time
+     * @param type $time
      */
-    public function setRememberMe($rememberMe = 0, $time = 1209600)
+    public function setRememberMe($time = 1209600)
     {
-        if ($rememberMe == 1) {
-            $this->session->getManager()->rememberMe($time);
-        }
+        $this->session->getManager()->rememberMe($time);
     }
     
     public function forgetMe()
     {
         $this->session->getManager()->forgetMe();
-    } 
+    }
 }

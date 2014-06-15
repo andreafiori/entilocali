@@ -86,17 +86,20 @@ class AuthController extends AbstractActionController
                 
                 if ($result->isValid()) {
                     $redirect = 'admin';
-                    //check if it has rememberMe:
-                    if ($request->getPost('rememberme') == 1 ) {
-                        $this->getSessionStorage()
-                             ->setRememberMe(1);
-                        //set storage again
-                        $this->getAuthService()->setStorage($this->getSessionStorage());
-                    }
+                    
+                    // set session timeout
+                    $this->getSessionStorage()
+                         ->setRememberMe();
+                    
+                    //set storage again
+                    $this->getAuthService()->setStorage($this->getSessionStorage());
+                    
                     $this->getAuthService()->setStorage($this->getSessionStorage());
                     $this->getAuthService()->getStorage()->write($request->getPost('username'));
                     
-                    // TODO: store user data on session, set login timeout, set ACL
+                    // TODO: set ACL using session (container)
+                    
+                                        
                 }
             } else {
                 foreach($form->getMessages() as $message) {

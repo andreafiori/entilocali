@@ -2,7 +2,7 @@
 
 // Global Configuration Override
 $dbParams = array(
-        'database'  => 'entilocali_eng',
+        'database'  => 'entilocali',
         'username'  => 'root',
         'password'  => '',
         'hostname'  => 'localhost',
@@ -50,9 +50,11 @@ return array(
     				),
     		)
     ),
-    // App custom configurations
+    /* App custom configurations */
+    /*
     'app_configs' => array(
     		'isMultilanguage' 	=> false,
     		'api_basic_url' 	=> 'http://localhost/zf2-apicms/api/v1/',
     ),
+    */
 );

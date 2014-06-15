@@ -11,7 +11,9 @@ use Admin\Model\InputSetupTemplateAbstract;
 abstract class DataTableAbstract extends InputSetupTemplateAbstract
 {
     protected $title;
+    
     protected $description;
+    
     protected $template = 'datatable/datatable.phtml';
     
     /**
@@ -19,7 +21,21 @@ abstract class DataTableAbstract extends InputSetupTemplateAbstract
      * @return type
      */
     protected function convertDateTimeToString(\DateTime $dateTime)
-    {        
+    {
         return $dateTime->format('d-m-Y');
     }
+    
+    public function getTitle()
+    {
+        return $this->title;
+    }
+    
+    public function getDescription()
+    {
+        return $this->description;
+    }
+    
+    abstract public function getColumns();
+    
+    abstract public function getRecords();
 }

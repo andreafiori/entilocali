@@ -14,7 +14,7 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
     private $postsGetter;
 
     /**
-     * @param \Application\Model\Posts\PostsGetter $postsGetter
+     * @param \Admin\Model\Posts\PostsGetter $postsGetter
      */
     public function __construct(PostsGetter $postsGetter)
     {
@@ -36,17 +36,15 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
         $this->postsGetter->setChannelId($channel ? $channel : 1);
         $this->postsGetter->setLanguageId($language ? $language : 1);
         $this->postsGetter->setId( $this->getInput('id', 1) );
-        $this->postsGetter->setCategoryName( $this->getInput('category', 1) );
+        $this->postsGetter->setCategoryName( $this->getInput('categoryName', 1) );
         $this->postsGetter->setTitle( $this->getInput('title', 1) );
-        $this->postsGetter->setType( $this->getInput('tipo', 1) );
-        $this->postsGetter->setStatus( $this->getInput('stato', 1) );
+        $this->postsGetter->setType( $this->getInput('type', 1) );
+        $this->postsGetter->setStatus( $this->getInput('status', 1) );
         $this->postsGetter->setOrderBy( $this->getInput('orderby', 1) );
         $this->postsGetter->setLimit( $this->getInput('limit', 1) );
     }
     
     /**
-     * Use the postsGetter class to select records
-     * 
      * @return array
      */
     public function getRecords()
@@ -55,7 +53,7 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
     }
     
     /**
-     * @return \Application\Model\Posts\PostsGetter
+     * @return \Admin\Model\Posts\PostsGetter
      */
     public function getPostsGetter()
     {

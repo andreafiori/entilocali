@@ -102,9 +102,9 @@ class AdminController extends AbstractActionController
             $this->config = $this->getServiceLocator()->get('config');
             
             $this->input = $this->commonSetupPlugin->mergeInput( array_merge($this->configurations, array(
-                    'formsetter'            => trim($this->params()->fromRoute('formsetter')),
-                    'tablesetter'           => trim($this->params()->fromRoute('tablesetter')),
-            ), array('formdata_classmap'     => $this->config['formdata_classmap'],
+                        'formsetter'            => trim($this->params()->fromRoute('formsetter')),
+                        'tablesetter'           => trim($this->params()->fromRoute('tablesetter')),
+                    ), array('formdata_classmap'     => $this->config['formdata_classmap'],
                     'formdata_crud_classmap' => $this->config['formdata_crud_classmap'],
                     'datatables_classmap'    => $this->config['datatables_classmap'],
                     )

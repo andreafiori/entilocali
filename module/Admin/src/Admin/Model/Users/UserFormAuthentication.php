@@ -32,12 +32,6 @@ class UserFormAuthentication
     public $password;
     
     /**
-     * @Annotation\Type("Zend\Form\Element\Checkbox")
-     * @Annotation\Options({"label":"Remember Me ?:"})
-     */
-    public $rememberme;
-    
-    /**
      * @Annotation\Type("Zend\Form\Element\Submit")
      * @Annotation\Attributes({"value":"Submit"})
      */

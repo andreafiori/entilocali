@@ -3,7 +3,6 @@
 namespace Admin\Model\Contacts;
 
 use Admin\Model\DataTable\DataTableAbstract;
-use Admin\Model\DataTable\DataTableInterface;
 use Admin\Model\Contacts\ContactsGetter;
 use Admin\Model\Contacts\ContactsGetterWrapper;
 
@@ -11,7 +10,7 @@ use Admin\Model\Contacts\ContactsGetterWrapper;
  * @author Andrea Fiori
  * @since  10 June 2014
  */
-class ContactsDataTable extends DataTableAbstract implements DataTableInterface
+class ContactsDataTable extends DataTableAbstract
 {
     public function getTitle()
     {

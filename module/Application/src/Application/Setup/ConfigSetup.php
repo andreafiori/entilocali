@@ -17,7 +17,7 @@ class ConfigSetup extends QueryBuilderSetterAbstract
     public function setConfigurations($channel = 1, $languageId = 1)
     {
         $onfigurationsFromDb = $this->getQueryBuilder()->add('select', 'c.name, c.value')
-                                                        ->add('from', 'Application\Entity\Config c ')
+                                                        ->add('from', 'Application\Entity\ZfcmsConfig c ')
                                                         ->add('where', 'c.channelId IN ( :channelId , 0 ) AND c.languageId IN ( :languageId , 0 )')
                                                         ->setParameter('channelId', $channel)
                                                         ->setParameter('languageId', $languageId)

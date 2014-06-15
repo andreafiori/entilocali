@@ -3,13 +3,12 @@
 namespace Admin\Model\Ticketing;
 
 use Admin\Model\DataTable\DataTableAbstract;
-use Admin\Model\DataTable\DataTableInterface;
 
 /**
  * @author Andrea Fiori
  * @since  18 May 2013
  */
-class TicketingDataTable extends DataTableAbstract implements DataTableInterface
+class TicketingDataTable extends DataTableAbstract
 {
     public function getTitle()
     {

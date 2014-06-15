@@ -100,19 +100,8 @@ $element->setAttribute('class','form-control');
 echo $this->formInput($element);
 ?>
 
-<label class="checkbox">       
-    <?php
-    $element = $form->get('rememberme');
-    $element->setAttribute('class','checkbox');
-    $element->setAttribute('title','Ricordami su questo computer');
-    echo $this->formInput($element);
-    ?>
-    <!-- Hidden field to let the form be validated -->
-    <input type="hidden" name="rememberme" value="0"> Ricordami su questo computer
-</label>
-
 <button class="btn btn-lg btn-primary btn-block" type="submit" title="Accedi all'area riservata">Accedi</button>
-  
+
 <a href="#" class="btn btn-lg btn-warning btn-block" title="Recupero password">Recupero password</a>
     
 <a href="<?php echo $this->basePath() ?>" class="btn btn-lg btn-default btn-block" title="Torna al sito web">Torna al sito web</a>

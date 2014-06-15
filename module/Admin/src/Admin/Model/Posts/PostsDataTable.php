@@ -3,7 +3,6 @@
 namespace Admin\Model\Posts;
 
 use Admin\Model\DataTable\DataTableAbstract;
-use Admin\Model\DataTable\DataTableInterface;
 use Admin\Model\Posts\PostsGetter;
 use Admin\Model\Posts\PostsGetterWrapper;
 
@@ -11,9 +10,9 @@ use Admin\Model\Posts\PostsGetterWrapper;
  * @author Andrea Fiori
  * @since  18 May 2014
  */
-class PostsDataTable extends DataTableAbstract implements DataTableInterface
+class PostsDataTable extends DataTableAbstract
 {
-    protected $tipo;
+    private $tipo;
 
     /**
      * @param array $input
@@ -46,16 +45,6 @@ class PostsDataTable extends DataTableAbstract implements DataTableInterface
         }
     }
     
-    public function getTitle()
-    {
-        return $this->title;
-    }
-    
-    public function getDescription()
-    {
-        return $this->description;
-    }
-    
     /**
      * @return array 
      */
@@ -70,7 +59,7 @@ class PostsDataTable extends DataTableAbstract implements DataTableInterface
     public function getRecords()
     {
         $postsGetterWrapper = new PostsGetterWrapper( new PostsGetter($this->getInput('entityManager')) );
-        $postsGetterWrapper->setInput( array("tipo" => $this->tipo) );
+        $postsGetterWrapper->setInput( array("type" => $this->tipo) );
         $postsGetterWrapper->setupQueryBuilder();
         $postsGetterWrapper->getRecords();
         

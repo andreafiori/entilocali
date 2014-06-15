@@ -6,6 +6,9 @@ use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 
+use Zend\Authentication\AuthenticationService;
+use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter;
+
 class Module implements AutoloaderProviderInterface
 {
     public function onBootstrap(MvcEvent $e)
@@ -80,8 +83,29 @@ class Module implements AutoloaderProviderInterface
         );
     }
     
+    /**
+     * Share authentication for both frontend and backend
+     * 
+     * @return AuthService object
+     */
     public function getServiceConfig()
     {
-    	return array( 'factories' => array() );
+    	return array(
+            'factories' => array(
+		'Admin\Model\MyAuthStorage' => function($sm) {
+		    return new \Admin\Model\MyAuthStorage('login');
+		},
+		'AuthService' => function($sm) {
+		    $dbAdapter           = $sm->get('Zend\Db\Adapter\Adapter');
+                    $dbTableAuthAdapter  = new DbTableAuthAdapter($dbAdapter, 'zfcms_users', 'username', 'password', 'MD5(?)');
+		    
+		    $authService = new AuthenticationService();
+		    $authService->setAdapter($dbTableAuthAdapter);
+		    $authService->setStorage($sm->get('Admin\Model\MyAuthStorage'));
+		    
+		    return $authService;
+		},
+            ),
+        );
     }
 }

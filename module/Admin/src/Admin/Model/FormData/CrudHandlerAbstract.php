@@ -18,7 +18,7 @@ abstract class CrudHandlerAbstract extends RouterManagerAbstract
     protected $rawPost;
     protected $rawFiles;
 
-    private $arrayRecordToHandle = array();
+    protected $arrayRecordToHandle = array();
 
     /**
      * @param array $input

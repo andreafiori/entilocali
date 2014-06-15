@@ -146,6 +146,7 @@ return array(
         'faq'                         => 'Admin\Model\Faq\FaqDataTable',
         'newsletter'                  => 'Admin\Model\Newsletter\NewsletterDataTable',
         'posts'                       => 'Admin\Model\Posts\PostsDataTable',
+        'users'                       => 'Admin\Model\Users\UsersDataTable',
         'albo-pretorio'               => 'Admin\Model\AlboPretorio\AlboPretorioTable',
         'amministrazione-trasparente' => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteDataTable',
         'stato-civile'                => 'Admin\Model\StatoCivile\StatoCivileDataTable',

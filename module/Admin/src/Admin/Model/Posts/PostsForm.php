@@ -45,34 +45,34 @@ class PostsForm extends Form
     public function addMainFields()
     {
         $this->add(array(
-                        'name' => 'titolo',
+                        'name' => 'title',
                         'type' => 'Text',
                         'options' => array( 'label' => '* Titolo' ),
                         'attributes' => array(
                                         'required' => 'required',
                                         'class' => 'form-control',
                                         'title' => 'Inserisci il titolo',
-                                        'id' => 'titolo',
+                                        'id' => 'title',
                         )
         ));
         
         $this->add(array(
-                        'name' => 'sottotitolo',
+                        'name' => 'subtitle',
                         'type' => 'Text',
                         'options' => array( 'label' => 'Sotto titolo' ),
                         'attributes' => array(
                                         'class' => 'form-control',
                                         'title' => 'Inserisci il sotto titolo',
-                                        'id' => 'sottotitolo',
+                                        'id' => 'subtitle',
                         )
         ));
 
         $this->add(array(
-                        'name' => 'descrizione',
+                        'name' => 'description',
                         'type' => 'Textarea',
                         'options' => array( 'label' => 'Descrizione' ),
                         'attributes' => array(
-                                        'id' => 'descrizione',
+                                        'id' => 'description',
                                         'required' => 'required',
                                         'class' => 'wysiwyg',
                         )
@@ -80,29 +80,32 @@ class PostsForm extends Form
         
         $this->add(array(
                         'type' => 'Date',
-                        'name' => 'dataScadenza',
+                        'name' => 'expireDate',
                         'options' => array(
                                 'label' => 'Scadenza',
-                                'format' => 'Y-m-d'
+                                'format' => 'Y-m-d',
                         ),
                         'attributes' => array(
                                 'class' => 'form-control DatePicker',
                                 'style' => 'width: 22%',
-                                'id' => 'dataScadenza'
+                                'id' => 'expireDate'
                         )
         ));
         
         $this->add(array(
                         'type' => 'Zend\Form\Element\Select',
-                        'name' => 'stato',
+                        'name' => 'status',
                         'options' => array(
                                'label' => 'Stato',
                                'value_options' => array(
                                        '' => 'Seleziona',
-                                       'attivo' => 'Attivo',
+                                       'attivo'   => 'Attivo',
                                        'nascosto' => 'Nascosto',
                                ),
-                       )
+                        ),
+                        'attributes' => array(
+                                'id' => 'status'
+                        )
         ));
 
         /*
@@ -134,13 +137,13 @@ class PostsForm extends Form
         
         $this->add(array(
                         'type' => 'Zend\Form\Element\Hidden',
-                        'name' => 'tipo',
+                        'name' => 'type',
                         'attributes' => array("class" => 'hiddenField')
         ));
         
         $this->add(array(
                         'type' => 'Zend\Form\Element\Hidden',
-                        'name' => 'moduloid',
+                        'name' => 'moduleid',
                         'attributes' => array("class"=>'hiddenField')
         ));
     }

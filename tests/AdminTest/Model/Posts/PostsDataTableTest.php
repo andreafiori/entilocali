@@ -9,7 +9,7 @@ use Admin\Model\Posts\PostsDataTable;
  * @author Andrea Fiori
  * @since  31 May 2014
  */
-class PostsDataTableTest //extends TestSuite
+class PostsDataTableTest extends TestSuite
 {
     private $postsDataTable;
     
@@ -22,6 +22,6 @@ class PostsDataTableTest //extends TestSuite
     
     public function testGetTitle()
     {
-        $this->assertTrue(is_string($this->postsDataTable->getTitle() ) );
+        $this->assertTrue( is_string($this->postsDataTable->getTitle() ) );
     }
 }

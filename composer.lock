@@ -618,12 +618,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/lexer.git",
-                "reference": "f12a5f74e5f4a9e3f558f3288504e121edfad891"
+                "reference": "db77c80d33d72e33a62b80581e9d150af85de556"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/lexer/zipball/f12a5f74e5f4a9e3f558f3288504e121edfad891",
-                "reference": "f12a5f74e5f4a9e3f558f3288504e121edfad891",
+                "url": "https://api.github.com/repos/doctrine/lexer/zipball/db77c80d33d72e33a62b80581e9d150af85de556",
+                "reference": "db77c80d33d72e33a62b80581e9d150af85de556",
                 "shasum": ""
             },
             "require": {
@@ -667,7 +667,7 @@
                 "lexer",
                 "parser"
             ],
-            "time": "2013-12-20 21:39:00"
+            "time": "2014-06-11 23:09:27"
         },
         {
             "name": "doctrine/orm",
@@ -675,12 +675,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/doctrine2.git",
-                "reference": "3ade0cf6a5ea1abc8f59d527e6d1cb2bc996ade9"
+                "reference": "5c447cfb7118e2822a9fe0e01deb575b5e7a8527"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/3ade0cf6a5ea1abc8f59d527e6d1cb2bc996ade9",
-                "reference": "3ade0cf6a5ea1abc8f59d527e6d1cb2bc996ade9",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/5c447cfb7118e2822a9fe0e01deb575b5e7a8527",
+                "reference": "5c447cfb7118e2822a9fe0e01deb575b5e7a8527",
                 "shasum": ""
             },
             "require": {
@@ -744,7 +744,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2014-06-06 02:34:50"
+            "time": "2014-06-07 13:12:09"
         },
         {
             "name": "symfony/console",
@@ -753,12 +753,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "402f7d86b1073498812cfa5466132aa190183575"
+                "reference": "f41913cde27de7073e78d9a41c1299c0315dfe64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/402f7d86b1073498812cfa5466132aa190183575",
-                "reference": "402f7d86b1073498812cfa5466132aa190183575",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/f41913cde27de7073e78d9a41c1299c0315dfe64",
+                "reference": "f41913cde27de7073e78d9a41c1299c0315dfe64",
                 "shasum": ""
             },
             "require": {
@@ -766,11 +766,13 @@
             },
             "require-dev": {
                 "psr/log": "~1.0",
-                "symfony/event-dispatcher": "~2.1"
+                "symfony/event-dispatcher": "~2.1",
+                "symfony/process": "~2.1"
             },
             "suggest": {
                 "psr/log": "For using the console logger",
-                "symfony/event-dispatcher": ""
+                "symfony/event-dispatcher": "",
+                "symfony/process": ""
             },
             "type": "library",
             "extra": {
@@ -801,7 +803,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-05-23 14:36:49"
+            "time": "2014-06-11 06:54:52"
         },
         {
             "name": "zendframework/zendframework",
@@ -1044,12 +1046,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/padraic/mockery.git",
-                "reference": "58e2d1a815802067d267d3a19d068336b7a4b13f"
+                "reference": "096a36f21e7ff0768a8a42d524964f3896acd1c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/58e2d1a815802067d267d3a19d068336b7a4b13f",
-                "reference": "58e2d1a815802067d267d3a19d068336b7a4b13f",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/096a36f21e7ff0768a8a42d524964f3896acd1c6",
+                "reference": "096a36f21e7ff0768a8a42d524964f3896acd1c6",
                 "shasum": ""
             },
             "require": {
@@ -1102,7 +1104,7 @@
                 "test double",
                 "testing"
             ],
-            "time": "2014-06-01 21:22:37"
+            "time": "2014-06-10 19:25:07"
         },
         {
             "name": "zendframework/zend-developer-tools",
@@ -1379,12 +1381,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ZF-Commons/ZfcUser.git",
-                "reference": "2f8b7e244862c99ee61cc65344678bda601f4737"
+                "reference": "74b8abe9cf9b4afa19a31f6374c23b6d1cccc919"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ZF-Commons/ZfcUser/zipball/2f8b7e244862c99ee61cc65344678bda601f4737",
-                "reference": "2f8b7e244862c99ee61cc65344678bda601f4737",
+                "url": "https://api.github.com/repos/ZF-Commons/ZfcUser/zipball/74b8abe9cf9b4afa19a31f6374c23b6d1cccc919",
+                "reference": "74b8abe9cf9b4afa19a31f6374c23b6d1cccc919",
                 "shasum": ""
             },
             "require": {
@@ -1448,7 +1450,7 @@
             "keywords": [
                 "zf2"
             ],
-            "time": "2014-05-30 08:01:51"
+            "time": "2014-06-07 20:17:01"
         }
     ],
     "aliases": [

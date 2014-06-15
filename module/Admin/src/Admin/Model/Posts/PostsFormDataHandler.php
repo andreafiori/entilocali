@@ -56,7 +56,7 @@ class PostsFormDataHandler extends FormDataAbstract
         $this->setVariable('form',              $this->postsFormDataObject->getForm());
         $this->setVariable('formAction',        $this->getFormAction($param['get']['tipo']));
        
-        $this->setVariable('CKEditorField', 'descrizione');
+        $this->setVariable('CKEditorField', 'description');
     }
     
     /**

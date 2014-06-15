@@ -18,7 +18,7 @@ class PostsGetter extends QueryBuilderHelperAbstract
         $this->setSelectQueryFields('DISTINCT(p.id) AS postid, po.id AS postoptionid, p.lastUpdate, p.insertDate, p.expireDate, p.type, p.alias, po.title, po.status, po.description, po.seoUrl, po.subtitle, po.seoDescription, po.seoKeywords, p.templateFile, p.flagAttachments, co.name AS categoryName, c.template, IDENTITY(r.module) AS modulo');
 
         $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
-                                ->add('from', 'Application\Entity\Posts p, Application\Entity\PostsOptions po, Application\Entity\PostsRelations r, Application\Entity\Categories c, Application\Entity\CategoriesOptions co')
+                                ->add('from', 'Application\Entity\ZfcmsPosts p, Application\Entity\ZfcmsPostsOptions po, Application\Entity\ZfcmsPostsRelations r, Application\Entity\ZfcmsCategories c, Application\Entity\ZfcmsCategoriesOptions co')
                                 ->add('where', 'po.posts = p.id AND p.id = r.posts AND c.id = r.category AND co.category = c.id AND r.channel = :channel AND co.language = :language AND po.language = :language'); 
 
         return $this->getQueryBuilder();
@@ -105,8 +105,6 @@ class PostsGetter extends QueryBuilderHelperAbstract
     }
        
     /**
-     * Set posts status
-     * 
      * @param string or null $status
      */
     public function setStatus($status = null)
@@ -144,7 +142,7 @@ class PostsGetter extends QueryBuilderHelperAbstract
             return false;
         }
         
-        $postsRelazioni = new PostsRelazioniGetter($this->getEntityManager());
+        $postsRelazioni = new PostsRelationsGetter($this->getEntityManager());
         
         for($i = 0; $i < count($posts); $i++) {
             

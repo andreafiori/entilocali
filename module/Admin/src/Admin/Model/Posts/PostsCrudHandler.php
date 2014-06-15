@@ -7,15 +7,6 @@ use Admin\Model\FormData\CrudHandlerAbstract;
 use Application\Model\Slugifier;
 
 /**
- * TODO:
-        upload and create thumb for photo gallery and blogs
-
-        hide form after post (UI)... show link to re-show form if there's an error
-        check at least 1 category is checked (javascript FrontEnd)
- 
-        validate post before update, use an InputFilter class...
-        updoad \ update image if foto or blog
-  
  * @author Andrea Fiori
  * @since  01 June 2014
  */
@@ -43,39 +34,46 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
                 return $this->setErrorMessage($error);
             }
             
-            $this->getConnection()->insert('posts', array(
-                'note'                      => Slugifier::slugify($this->rawPost['titolo']),
-                'data_inserimento'          => date("Y-m-d H:i:s"),
-                'data_scadenza'             => isset($this->rawPost['dataScadenza']) ? $this->rawPost['dataScadenza'] : date("2030-m-d H:i:s"),
-                'data_ultimo_aggiornamento' => date("Y-m-d H:i:s"),
-                'parent_id'                 => 0,
-                'tipo'                      => $this->rawPost['tipo'],
-            ));
+            try {
+                $this->getConnection()->insert('zfcms_posts', array(
+                    'note'                 => Slugifier::slugify($this->rawPost['title']),
+                    'insert_date'          => date("Y-m-d H:i:s"),
+                    'expire_date'          => isset($this->rawPost['expireDate']) ? $this->rawPost['expireDate'] : date("2030-m-d H:i:s"),
+                    'last_update'          => date("Y-m-d H:i:s"),
+                    'parent_id'            => 0,
+                    'type'                 => $this->rawPost['type'],
+                ));
+            } catch (\Exception $e) {
+                return $this->setErrorMessage($e->getMessage());
+            }
             $postsId = $this->getConnection()->lastInsertId();
             
-            
-            $this->getConnection()->insert('posts_opzioni', array(
-                'titolo'            => $this->rawPost['titolo'],
-                'sottotitolo'       => $this->rawPost['sottotitolo'],
-                'descrizione'       => $this->rawPost['descrizione'],
-                'stato'             => empty($this->rawPost['stato']) ? PostsUtils::STATE_ACTIVE : $this->rawPost['stato'],
-                'seo_url'           => Slugifier::slugify($this->rawPost['titolo']),
-                'seo_title'         => $this->rawPost['titolo'],
-                'seo_description'   => $this->rawPost['seoDescription'],
-                'seo_keywords'      => $this->rawPost['seoKeywords'],
-                'posts_id'          => $postsId,
-                'lingua_id'         => 1,
-            ));
+            try {
+                $this->getConnection()->insert('zfcms_posts_options', array(
+                    'title'            => $this->rawPost['title'],
+                    'subtitle'          => $this->rawPost['subtitle'],
+                    'description'       => $this->rawPost['description'],
+                    'status'            => empty($this->rawPost['status']) ? PostsUtils::STATE_ACTIVE : $this->rawPost['status'],
+                    'seo_url'           => Slugifier::slugify($this->rawPost['titolo']),
+                    'seo_title'         => $this->rawPost['title'],
+                    'seo_description'   => $this->rawPost['seoDescription'],
+                    'seo_keywords'      => $this->rawPost['seoKeywords'],
+                    'posts_id'          => $postsId,
+                    'language_id'       => 1,
+                ));
+            } catch (\Exception $e) {
+                return $this->setErrorMessage($e->getMessage());
+            }
             
             if (is_array($this->rawPost['category'])) {
                 foreach($this->rawPost['category'] as $category) {
-                    $this->getConnection()->insert('posts_relazioni', array(
+                    $this->getConnection()->insert('posts_relations', array(
                         'posts_id'          => $postsId, // last insert id
-                        'categoria_id'      => $category,
-                        'modulo_id'         => $this->rawPost['moduloid'],
-                        'canale_id'         => 1,
+                        'category_id'       => $category,
+                        'module_id'         => $this->rawPost['moduloid'],
+                        'channel_id'        => 1,
                     ));
-                }    
+                }
             }
 
             $this->setVariable('messageType',   'success');
@@ -86,18 +84,22 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
         private function update()
         {
             try {
-                $this->setArrayRecordToHandle('titolo',             'titolo');
-                $this->setArrayRecordToHandle('sottotitolo',        'sottotitolo');
-                $this->setArrayRecordToHandle('seo_description',    'seoDescription');
-                $this->setArrayRecordToHandle('seo_keywords',       'seoKeywords');
-                                    
+                $this->setArrayRecordToHandle('title',           'title');
+                $this->setArrayRecordToHandle('subtitle',        'subtitle');
+                $this->setArrayRecordToHandle('description',     'description');
+                $this->setArrayRecordToHandle('seo_description', 'seoDescription');
+                $this->setArrayRecordToHandle('seo_keywords',    'seoKeywords');
+                
+                //$this->getConnection()->beginTransaction();
                 $affectedRows = $this->getConnection()->update(
-                            'posts_opzioni',
+                            'zfcms_posts_options',
                         
-                            array_merge($this->getArrayRecordToHandle(), array('descrizione' => $this->rawPost['descrizione']) ),
+                            array_merge($this->getArrayRecordToHandle(), array('description' => $this->rawPost['description']) ),
  
                             array('posts_id' => $this->rawPost['postoptionid'])
                 );
+                //$this->getConnection()->commit();
+                //$this->getConnection()->rollBack();
                 
                 // TODO:
                 // update last update date
@@ -106,7 +108,7 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
                    // DO NOT DELETE old category\ies to rewrite same record
 
             } catch(\Exception $e) {
-                return $this->setErrorMessage("Si &egrave; verificato un errore nell'aggiornamento dati in archivio. <h2>Messaggio:</h2> ".$error);
+                return $this->setErrorMessage("Si &egrave; verificato un errore nell'aggiornamento dati in archivio. <h2>Messaggio:</h2> ".$e->getMessage());
             }
 
             $this->setVariable('messageType', 'success');
