@@ -27,9 +27,7 @@ class PhotoFrontend extends RouterManagerAbstract implements RouterManagerInterf
          */
         private function getPhotoRecords(PostsGetterWrapper $postsGetterWrapper)
         {
-            $postsGetterWrapper->setInput( array(
-                'tipo' => 'foto'
-            ));
+            $postsGetterWrapper->setInput( array( 'type' => 'foto' ));
             $postsGetterWrapper->setupQueryBuilder();
 
             return $postsGetterWrapper->getRecords();

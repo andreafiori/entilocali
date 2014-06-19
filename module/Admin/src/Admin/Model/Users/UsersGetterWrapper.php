@@ -2,7 +2,6 @@
 
 namespace Admin\Model\Users;
 
-use Admin\Model\Users\UsersGetter;
 use Application\Model\RecordsGetterWrapperAbstract;
 
 /**
@@ -30,7 +29,6 @@ class UsersGetterWrapper extends RecordsGetterWrapperAbstract
         $this->usersGetter->setId( $this->getInput('id', 1) );
         $this->usersGetter->setSurname( $this->getInput('surname', 1) );
         $this->usersGetter->setStatus( $this->getInput('status', 1) );
-        //$this->usersGetter->setOrderBy( $this->getInput('orderby', 1) );
         $this->usersGetter->setLimit( $this->getInput('limit', 1) );
     }
     

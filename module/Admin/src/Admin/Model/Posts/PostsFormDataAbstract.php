@@ -23,11 +23,7 @@ abstract class PostsFormDataAbstract extends FormDataAbstract
     protected $categoriesGetterWrapper;
     protected $categoriesRecords;
     protected $categoriesCheckboxes = array();
-
-    protected $showUploadImage;
-    protected $hideSEOFields;
-
-    protected $showAttachmentsManagement;
+    protected $categoriesCheckboxesToSelect;
     
     /**
      * @param \Application\Model\Posts\PostsGetterWrapper $postsGetterWrapper
@@ -50,7 +46,7 @@ abstract class PostsFormDataAbstract extends FormDataAbstract
         
         return $this->categoriesGetterWrapper;
     }
-       
+
     public function setCategoriesRecords()
     {
         if (!$this->categoriesGetterWrapper) {
@@ -71,23 +67,62 @@ abstract class PostsFormDataAbstract extends FormDataAbstract
     }
     
     /**
-     * set categorie checkboxes list
+     * set ALL categories checkboxes list
      */
     public function setCategoriesCheckboxes()
     {
         $categoriesRecords = $this->getCategoriesRecords();
         
-        if ( !$categoriesRecords ) {
-            return false;
-        }
-        
-        foreach ($categoriesRecords as $category) {
-            if (isset($category['id']) and isset($category['name']) ) {
-                $this->categoriesCheckboxes[$category['id']] = $category['name'];
+        if ( $categoriesRecords ) {
+            foreach ($categoriesRecords as $category) {
+                if ( isset($category['id']) and isset($category['name']) ) {
+                    $this->categoriesCheckboxes[$category['id']] = $category['name'];
+                }
             }
         }
-        
+
         return $this->categoriesCheckboxes;
+    }
+    
+    /**
+     * Intersect categories IDs to select used categories for the current record
+     * 
+     * @return array or null
+     * @throws NullException
+     */
+    public function setCategoriesCheckboxesToSelect()
+    {
+        if (!$this->categoriesGetterWrapper) {
+            throw new NullException("CategoriesGetterWrapper class instance is not set");
+        }
+        
+        $record = $this->getRecord();
+        if ($record) {
+            
+            $this->categoriesGetterWrapper->setInput( array('id' => $record[0]['categories'], 'moduleId' => $this->moduleId, 'orderby' => 'co.name') );
+            $this->categoriesGetterWrapper->setupQueryBuilder();
+
+            $this->categoriesCheckboxesToSelect = $this->categoriesGetterWrapper->getRecords();
+            
+            return $this->categoriesCheckboxesToSelect;
+        }
+
+    }
+    
+    /**
+     * Given the ID or post type, get the record data or the module ID
+     */
+    public function detectModuleId($option)
+    {
+        if (is_numeric($option)) {
+            $record = $this->setRecordById($option);
+            
+            $this->moduleId = $record[0]['module'];
+        } else {
+            $this->moduleId = $option;
+        }
+        
+        return $this->moduleId;
     }
     
     /**
@@ -109,20 +144,8 @@ abstract class PostsFormDataAbstract extends FormDataAbstract
         $this->postsGetterWrapper->setupQueryBuilder();
 
         $this->record = $this->postsGetterWrapper->getRecords();
-
-        return $this->record;
-    }
-
-    public function setTipo($tipo)
-    {
-        $this->tipo = $tipo;
         
-        return $this->tipo;
-    }
-
-    public function getTipo()
-    {
-        return $this->tipo;
+        return $this->record;
     }
     
     /**
@@ -142,7 +165,7 @@ abstract class PostsFormDataAbstract extends FormDataAbstract
         }
         
         $this->form->addMainFields();
-        $this->form->addCategory($this->categoriesCheckboxes, $this->record[0]['category']);
+        $this->form->addCategory($this->categoriesCheckboxes, $this->setCategoriesCheckboxesToSelect() );
         
         if (!$this->hideSEOFields) {
             $this->form->addSEO();
@@ -162,7 +185,4 @@ abstract class PostsFormDataAbstract extends FormDataAbstract
         
         return $this->form;
     }
-    
-    abstract public function setProperties();
-    
 }

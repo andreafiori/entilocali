@@ -70,19 +70,19 @@ class CategoriesFormDataHandlerHelper extends FormDataAbstract
      * @param number $moduloId
      * @throws NullException
      */
-    public function setCurrentModule($moduloId = null)
+    public function setCurrentModule($moduleId = null)
     {
         $moduleRecord   = $this->getModuleRecord();
         $record         = $this->getRecord();
         
-        if ( isset($record[0]['modulo']) ) {
-            $this->currentModuleId = $record[0]['modulo'];
+        if ( isset($record[0]['module']) ) {
+            $this->currentModuleId = $record[0]['module'];
             $this->currentModuleName = $moduleRecord[$this->currentModuleId];
         }
         
-        if ( is_numeric($moduloId) ) {
-            $this->currentModuleId = $moduloId;
-            $this->currentModuleName = $moduleRecord[$moduloId];
+        if ( is_numeric($moduleId) ) {
+            $this->currentModuleId = $moduleId;
+            $this->currentModuleName = $moduleRecord[$moduleId];
         }
         
         $this->checkCurrentModuleIdAndName();
@@ -91,24 +91,23 @@ class CategoriesFormDataHandlerHelper extends FormDataAbstract
     public function setProperties()
     {
         $this->checkCurrentModuleIdAndName();
-        
         $record = $this->getRecord();
         
         if ($record) {
             switch($this->getCurrentModuleId()) {
                 case(1):
-                    $this->title = $record[0]['nome'];
+                    $this->title = $record[0]['name'];
                     $this->description = 'Modifica categoria blog';
                 break;
 
                 case(4):
-                    $this->title = $record[0]['nome'];
-                    $this->description = 'Modifica categoria di pagine web';
+                    $this->title = $record[0]['name'];
+                    $this->description = 'Modifica categoria contenuti';
                 break;
 
                 case(6):
-                    $this->title = 'Nuova categoria foto';
-                    $this->description = 'Modifica categoria di foto';
+                    $this->title = $record[0]['name'];
+                    $this->description = 'Modifica categoria foto';
                 break;
             }
         } else {
@@ -145,7 +144,7 @@ class CategoriesFormDataHandlerHelper extends FormDataAbstract
         }
         
         $record = $this->getRecord();
-        if ($record) {
+        if (is_array($record)) {
             $form->setData( array_merge($record[0], array("moduloId" => $this->getCurrentModuleId())) );
         } else {
             $form->setData( array("moduloId" => $this->getCurrentModuleId()) );

@@ -1,14 +1,14 @@
 <ul class="breadcrumb">
     <li><a href="<?php echo $this->basepath() ?>/" title="Home page">Home</a> <span class="divider"></span></li>
-    <li><a href="#" title=""><?php echo $this->maindata[0]['nomeCategoria']; ?></a></li>
-    <li class="active"><?php echo $this->maindata[0]['titolo'] ?></li>
+    <li><a href="#" title=""><?php echo $this->maindata[0]['categoryName']; ?></a></li>
+    <li class="active"><?php echo $this->maindata[0]['title'] ?></li>
 </ul>
 
 <div class="blog_details">
 
-    <h1><?php echo $this->maindata[0]['titolo'] ?></h1>
+    <h1><?php echo $this->maindata[0]['title'] ?></h1>
 
-    <div><?php echo $this->maindata[0]['descrizione'] ?></div>
+    <div><?php echo $this->maindata[0]['description'] ?></div>
     
     <?php if ($this->maindata[0]['flagAllegati'] == 'si'): ?>
     <h2>Allegati</h2>

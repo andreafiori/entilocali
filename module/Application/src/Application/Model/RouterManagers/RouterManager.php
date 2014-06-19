@@ -78,5 +78,4 @@ class RouterManager extends RouterManagerAbstract
     {
         return $this->routeMatchName;
     }
-
 }

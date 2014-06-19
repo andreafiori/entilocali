@@ -3,7 +3,6 @@
 namespace Admin\Model\Categories;
 
 use Admin\Model\DataTable\DataTableAbstract;
-use Admin\Model\DataTable\DataTableInterface;
 use Admin\Model\Categories\CategoriesGetter;
 use Admin\Model\Categories\CategoriesGetterWrapper;
 
@@ -11,18 +10,8 @@ use Admin\Model\Categories\CategoriesGetterWrapper;
  * @author Andrea Fiori
  * @since  18 May 2014
  */
-class CategoriesDataTable extends DataTableAbstract implements DataTableInterface
+class CategoriesDataTable extends DataTableAbstract
 {
-    public function getTitle()
-    {
-        return $this->title;
-    }
-    
-    public function getDescription()
-    {
-        return $this->description;
-    }
-    
     public function getColumns()
     {
         return array("Nome", "Data creazione", "Stato", "&nbsp;", "&nbsp;");
@@ -31,14 +20,14 @@ class CategoriesDataTable extends DataTableAbstract implements DataTableInterfac
     public function getRecords()
     {
         $param = $this->getInput('param',1);
-        $moduloId = $param['get']['moduloId'];
+        $moduleId = $param['route']['option'];
         $moduleRecord = $this->getInput('moduleRecord', 1);
         
-        $this->title        = 'Categorie '.$moduleRecord[$moduloId];
-        $this->description  = 'Modifica dati categorie'.$moduleRecord[$moduloId];
+        $this->title        = 'Categorie '.$moduleRecord[$moduleId];
+        $this->description  = 'Modifica dati categorie '.$moduleRecord[$moduleId];
         
         $categoriesGetterWrapper = new CategoriesGetterWrapper( new CategoriesGetter($this->getInput('entityManager',1)) );
-        $categoriesGetterWrapper->setInput( array("moduloId" => $moduloId) );
+        $categoriesGetterWrapper->setInput( array("moduleId" => $moduleId) );
         $categoriesGetterWrapper->setupQueryBuilder();
         
         $records = $categoriesGetterWrapper->getRecords();
@@ -51,7 +40,7 @@ class CategoriesDataTable extends DataTableAbstract implements DataTableInterfac
                 ucfirst($record['status']),
                 array(
                     'type'      => 'updateButton',
-                    'href'      => $this->getInput('baseUrl').'formdata/categories/'.$record['id'],
+                    'href'      => $this->getInput('baseUrl').'formdata/categories/'.$record['module'].'/'.$record['id'],
                     'tooltip'   => 1,
                     'title'     => 'Modifica'
                 ),

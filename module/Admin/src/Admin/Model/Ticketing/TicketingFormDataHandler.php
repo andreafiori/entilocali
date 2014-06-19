@@ -18,6 +18,8 @@ class AssistenzaFormDataHandler extends FormDataAbstract
     public function __construct(array $input)
     {
         parent::__construct($input);
+        
+        
     }
     
     

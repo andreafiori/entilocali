@@ -675,12 +675,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/doctrine2.git",
-                "reference": "5c447cfb7118e2822a9fe0e01deb575b5e7a8527"
+                "reference": "ca37f87c277a0431286f37ac7107d0bf46f34e92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/5c447cfb7118e2822a9fe0e01deb575b5e7a8527",
-                "reference": "5c447cfb7118e2822a9fe0e01deb575b5e7a8527",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/ca37f87c277a0431286f37ac7107d0bf46f34e92",
+                "reference": "ca37f87c277a0431286f37ac7107d0bf46f34e92",
                 "shasum": ""
             },
             "require": {
@@ -744,7 +744,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2014-06-07 13:12:09"
+            "time": "2014-06-15 10:19:45"
         },
         {
             "name": "symfony/console",

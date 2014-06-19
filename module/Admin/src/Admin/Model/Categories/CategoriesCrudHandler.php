@@ -1,15 +1,12 @@
 <?php
 
-namespace Admin\Model\Categorie;
+namespace Admin\Model\Categories;
 
 use Admin\Model\FormData\CrudHandlerInterface;
 use Admin\Model\FormData\CrudHandlerAbstract;
 use Application\Model\Slugifier;
 
 /**
- * TODO: 
- *      controllo id modulo, categoria last insert id
- * 
  * @author Andrea Fiori
  * @since  08 June 2013
  */
@@ -26,7 +23,7 @@ class CategoriesCrudHandler extends CrudHandlerAbstract implements CrudHandlerIn
         private function insert()
         {
             try {
-                $this->getConnection()->insert('categories', array(
+                $this->getConnection()->insert('zfcms_categories', array(
                     'note'              => Slugifier::slugify($this->rawPost['name']),
                     'create_date'        => date("Y-m-d H:i:s"),
                     'last_update'        => date("Y-m-d H:i:s"),
@@ -36,26 +33,26 @@ class CategoriesCrudHandler extends CrudHandlerAbstract implements CrudHandlerIn
                 ));
                 $categoryId = $this->getConnection()->lastInsertId();
             } catch (\Exception $e) {
-                return $this->setErrorMessage("Si &egrave; verificato un errore nell'aggiornamento dati in archivio. <h2>Messaggio:</h2> ".$error);
+                return $this->setErrorMessage("Si &egrave; verificato un errore nell'aggiornamento dati in archivio. <h2>Messaggio:</h2> ".$e->getMessage());
             }
             
             try {
-                $this->getConnection()->insert('categorie_opzioni', array(
+                $this->getConnection()->insert('zfcms_categories_options', array(
                     'name'              => $this->rawPost['name'],
                     'description'       => $this->rawPost['description'],
-                    'seo_url'           => Slugifier::slugify($this->rawPost['nome']),
-                    'seo_title'         => Slugifier::slugify($this->rawPost['nome']),
+                    'seo_url'           => Slugifier::slugify($this->rawPost['name']),
+                    'seo_title'         => Slugifier::slugify($this->rawPost['name']),
                     'seo_keywords'      => $this->rawPost['seoKeywords'],
                     'seo_description'   => $this->rawPost['seoDescription'],
                     'accesskey'         => $this->rawPost['accesskey'],
                     'template_file'     => $this->rawPost['templateFile'],
-                    'position'          => $this->rawPost['position'],
+                    'position'          => $this->rawPost['position'] ? $this->rawPost['position'] : 0,
                     'parent_id'         => $this->rawPost['parentId'],
                     'language_id'       => isset($this->rawPost['languageId']) ? $this->rawPost['languageId'] : 1,
                     'category_id'       => $categoryId,
                 ));
             } catch (\Exception $e) {
-                return $this->setErrorMessage("Si &egrave; verificato un errore nell'aggiornamento dati in archivio. <h2>Messaggio:</h2> ".$error);
+                return $this->setErrorMessage("Si &egrave; verificato un errore nell'aggiornamento dati in archivio. <h2>Messaggio:</h2> ".$e->getMessage());
             }
             
             $this->setVariable('messageType',   'success');
@@ -63,35 +60,26 @@ class CategoriesCrudHandler extends CrudHandlerAbstract implements CrudHandlerIn
             $this->setVariable('messageText',   'Dati inseriti correttamente in archivio. Controllare la loro integrità');
         }
         
+        /**
+         * Validate form, update category options record
+         */
         private function update()
         {
-            try {
-
-                $this->setArrayRecordToHandle('name', 'name');
-                
-                $affectedRows = $this->getConnection()->update(
-                            'categories_options',
-
-                            $this->getArrayRecordToHandle(),
- 
-                            array('categoria_id' => $this->rawPost['id'])
-                );
-                
+            $form = new CategoriesForm();
+            $form->setData($this->rawPost);
+            if ( !$form->isValid() ) {
+                return $this->setErrorMessage("I valori inviati attraverso il form risultano invalidi. Se l'errore persiste, contattare l'amministrazione", 'Form non valido');
+            }
+            
+            try { 
+                $this->setArrayRecordToHandle("name", 'name');
+                $this->getConnection()->update('zfcms_categories_options', $this->getArrayRecordToHandle(), array('category_id' => $this->rawPost['id']) );
             } catch(\Exception $e) {
-                $error = $e->getMessage();
+                return $this->setErrorMessage("Si &egrave; verificato un errore nell'aggiornamento dati in archivio. <h2>Messaggio:</h2> ".$e->getMessage());
             }
 
-            if (!empty($error)) {
-                return $this->setErrorMessage("Si &egrave; verificato un errore nell'aggiornamento dati in archivio. <h2>Messaggio:</h2> ".$error);
-            } else {
-                $messageType = 'success';
-                $messageTitle = 'Dati aggiornati correttamente';
-                $messageText = 'Dati in archivio aggiornati correttamente';
-            }
-
-            $this->setVariable('messageType', $messageType);
-            $this->setVariable('messageTitle', $messageTitle);
-            $this->setVariable('messageText', $messageText);
+            $this->setVariable('messageType',  'success');
+            $this->setVariable('messageTitle', 'Dati aggiornati correttamente');
+            $this->setVariable('messageText', ' Dati in archivio aggiornati correttamente');
         }
-    
 }

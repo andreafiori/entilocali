@@ -12,7 +12,7 @@ use Admin\Model\Posts\PostsGetterWrapper;
  */
 class PostsDataTable extends DataTableAbstract
 {
-    private $tipo;
+    private $type;
 
     /**
      * @param array $input
@@ -22,25 +22,25 @@ class PostsDataTable extends DataTableAbstract
         parent::__construct($input);
         
         $param = $this->getInput('param', 1);
-        $this->tipo = $param['get']['tipo'];
+        $this->type = $param['route']['option'];
         
-        switch($this->tipo) {
+        switch($this->type) {
             default: case("contenuto"):
                 $this->title        = 'Contenuti';
                 $this->description  = 'Gestione contenuti in archivio';
-                $this->tipo         = 'content';
+                $this->type         = 'content';
             break;
 
             case("blog"):
                 $this->title        = 'Blog posts';
                 $this->description  = 'Gestione posts in archivio';
-                $this->tipo         = 'blog';
+                $this->type         = 'blog';
             break;
 
             case("foto"):
                 $this->title        = 'Foto';
                 $this->description  = 'Gestione foto in archivio';
-                $this->tipo         = 'foto';
+                $this->type         = 'foto';
             break;
         }
     }
@@ -50,7 +50,7 @@ class PostsDataTable extends DataTableAbstract
      */
     public function getColumns()
     {
-        return array("Titolo", "Sotto titolo", "Data inserimento", "Ultima modifica", "Stato", "&nbsp;", "&nbsp;", "&nbsp;");
+        return array("Titolo", "Sotto titolo", "Inserito il", "Ultima modifica", "Stato", "&nbsp;", "&nbsp;", "&nbsp;");
     }
     
     /**
@@ -59,10 +59,9 @@ class PostsDataTable extends DataTableAbstract
     public function getRecords()
     {
         $postsGetterWrapper = new PostsGetterWrapper( new PostsGetter($this->getInput('entityManager')) );
-        $postsGetterWrapper->setInput( array("type" => $this->tipo) );
+        $postsGetterWrapper->setInput( array("type" => $this->type) );
         $postsGetterWrapper->setupQueryBuilder();
-        $postsGetterWrapper->getRecords();
-        
+
         $records = $postsGetterWrapper->getRecords();
         
         $recordsToReturn = array();

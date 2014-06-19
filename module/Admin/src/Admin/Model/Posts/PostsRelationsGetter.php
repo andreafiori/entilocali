@@ -58,11 +58,11 @@ class PostsRelationsGetter extends QueryBuilderHelperAbstract
      * @param number $id
      * @return number
      */
-    public function setModuloId($id = null)
+    public function setModuleId($id = null)
     {
         if ( is_numeric($id) ) {
-            $this->getQueryBuilder()->andWhere('r.modulo = :moduloId');
-            $this->getQueryBuilder()->setParameter('moduloId', $id);
+            $this->getQueryBuilder()->andWhere('r.module = :moduleId');
+            $this->getQueryBuilder()->setParameter('moduleId', $id);
         }
         
         return $this->getQueryBuilder();

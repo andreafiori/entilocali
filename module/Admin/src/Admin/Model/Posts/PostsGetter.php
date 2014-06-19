@@ -15,12 +15,12 @@ class PostsGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('DISTINCT(p.id) AS postid, po.id AS postoptionid, p.lastUpdate, p.insertDate, p.expireDate, p.type, p.alias, po.title, po.status, po.description, po.seoUrl, po.subtitle, po.seoDescription, po.seoKeywords, p.templateFile, p.flagAttachments, co.name AS categoryName, c.template, IDENTITY(r.module) AS modulo');
+        $this->setSelectQueryFields('DISTINCT(p.id) AS postid, po.id AS postoptionid, p.lastUpdate, p.insertDate, p.expireDate, p.type, p.alias, po.title, po.status, po.description, po.seoUrl, po.subtitle, po.seoDescription, po.seoKeywords, p.templateFile, p.flagAttachments, co.name AS categoryName, c.template, IDENTITY(r.module) AS module');
 
         $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
                                 ->add('from', 'Application\Entity\ZfcmsPosts p, Application\Entity\ZfcmsPostsOptions po, Application\Entity\ZfcmsPostsRelations r, Application\Entity\ZfcmsCategories c, Application\Entity\ZfcmsCategoriesOptions co')
-                                ->add('where', 'po.posts = p.id AND p.id = r.posts AND c.id = r.category AND co.category = c.id AND r.channel = :channel AND co.language = :language AND po.language = :language'); 
-
+                                ->add('where', 'po.posts = p.id AND p.id = r.posts AND c.id = r.category AND co.category = c.id AND r.channel = :channel AND co.language = :language AND po.language = :language');
+;
         return $this->getQueryBuilder();
     }
 
@@ -29,7 +29,7 @@ class PostsGetter extends QueryBuilderHelperAbstract
      */
     public function setChannelId($channel = null)
     {
-        if (is_numeric($channel)) {
+        if ( is_numeric($channel) ) {
             $this->getQueryBuilder()->setParameter('channel', $channel);
         }
         
@@ -103,7 +103,7 @@ class PostsGetter extends QueryBuilderHelperAbstract
         
         return $this->getQueryBuilder();
     }
-       
+
     /**
      * @param string or null $status
      */
@@ -112,7 +112,8 @@ class PostsGetter extends QueryBuilderHelperAbstract
         if ($status == 'NULL' or $status == 'null') {
             $this->getQueryBuilder()->andWhere('po.status IS NULL ');
         } elseif ($status != null) {
-            $this->getQueryBuilder()->andWhere("po.status = '$status' ");
+            $this->getQueryBuilder()->andWhere("po.status = :status ");
+            $this->getQueryBuilder()->setParameter('status', $status);
         }
     }
     
@@ -152,22 +153,17 @@ class PostsGetter extends QueryBuilderHelperAbstract
             
             $posts[$i] = array_filter($posts[$i]);
 
-            $posts[$i]['linkDetails'] = '/'.Slugifier::slugify($posts[$i]['nomeCategoria']).'/'.Slugifier::slugify($posts[$i]['titolo']);
+            $posts[$i]['linkDetails'] = '/'.Slugifier::slugify($posts[$i]['categoryName']).'/'.Slugifier::slugify($posts[$i]['title']);
             
             // TODO: attachments...  
             if ( $posts[$i]['flagAllegati'] == 'si' ) {
 
             }
             
-            // TODO: Categories ids from post_relazioni
-            //$language   = $this->getInput('language', 1);
-            //$channel    = $this->getInput('channel', 1);
-            
-            
             $postsRelazioni->setSelectQueryFields('IDENTITY(r.category) AS category');
             $postsRelazioni->setMainQuery();
-            $postsRelazioni->setChannelId(isset($channel) ? $channel : 1);
-            $postsRelazioni->setModuloId($posts[$i]['module']);
+            $postsRelazioni->setChannelId(1);
+            $postsRelazioni->setModuleId($posts[$i]['module']);
             $postsRelazioni->setPostsId($posts[$i]['postoptionid']);
             $categories = $postsRelazioni->getQueryResult();
             foreach ($categories as $categoria) {

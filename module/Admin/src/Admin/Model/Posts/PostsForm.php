@@ -59,11 +59,11 @@ class PostsForm extends Form
         $this->add(array(
                         'name' => 'subtitle',
                         'type' => 'Text',
-                        'options' => array( 'label' => 'Sotto titolo' ),
+                        'options'    => array( 'label' => 'Sotto titolo' ),
                         'attributes' => array(
                                         'class' => 'form-control',
                                         'title' => 'Inserisci il sotto titolo',
-                                        'id' => 'subtitle',
+                                        'id'    => 'subtitle',
                         )
         ));
 
@@ -159,7 +159,7 @@ class PostsForm extends Form
                         'name' => 'category',
                         'options' => array( 'label' => 'Categorie', 'checked_value' => $checkedValues ),
                         'attributes' => array(
-                                    'id' => 'category',
+                                    'id'    => 'category',
                                     'value' => $values
                         ),
         ));

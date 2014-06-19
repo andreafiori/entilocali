@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Model\Categorie;
+namespace Admin\Model\Categories;
 
 use Zend\Form\Form;
 
@@ -15,25 +15,25 @@ class CategoriesForm extends Form
         parent::__construct('formData');
         
         $this->add(array(
-                    'name' => 'nome',
+                    'name' => 'name',
                     'type' => 'Text',
                     'options' => array( 'label' => '* Nome' ),
                     'attributes' => array(
                                     'required' => 'required',
                                     'class' => 'form-control',
                                     'title' => 'Inserisci nome categoria',
-                                    'id' => 'nome',
+                                    'id' => 'name',
                     )
         ));
         
         $this->add(array(
-                        'name' => 'descrizione',
+                        'name' => 'description',
                         'type' => 'Text',
                         'options' => array( 'label' => 'Descrizione' ),
                         'attributes' => array(
                                         'class' => 'form-control',
                                         'title' => 'Inserisci descrizione',
-                                        'id' => 'nome',
+                                        'id'    => 'nome',
                         )
         ));
         
@@ -71,9 +71,9 @@ class CategoriesForm extends Form
         ));
         
         $this->add(array(
-                        'name' => 'moduloId',
+                        'name' => 'moduleId',
                         'type' => 'Hidden',
-                        'attributes' => array( 'id' => 'moduloId', 'class' => 'hiddenField' )
+                        'attributes' => array( 'id' => 'moduleId', 'class' => 'hiddenField' )
         ));
         
         $this->add(array(

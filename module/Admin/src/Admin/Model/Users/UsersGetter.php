@@ -16,7 +16,7 @@ class UsersGetter extends QueryBuilderHelperAbstract
 
         $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
                                 ->add('from', 'Application\Entity\ZfcmsUsers u')
-                                ->add('where', "u.id!='' "); 
+                                ->add('where', "u.id != '' "); 
 
         return $this->getQueryBuilder();
     }
@@ -52,17 +52,19 @@ class UsersGetter extends QueryBuilderHelperAbstract
         
         return $this->getQueryBuilder();
     }
-       
+
     /**
      * @param string or null $status
      */
     public function setStatus($status = null)
     {
-        if ($status == 'NULL' or $status == 'null') {
-            $this->getQueryBuilder()->andWhere("u.status = 'active' ");
-        } elseif ($status != null) {
-            $this->getQueryBuilder()->andWhere("u.status = '$status' ");
+        if (!$status) {
+            $status = 'active';
         }
+        
+        $this->getQueryBuilder()->andWhere("u.status = :status ");
+        $this->getQueryBuilder()->setParameter('status', $status);
     }
+    
 }
 

@@ -26,26 +26,26 @@ class PostsGetterTest extends TestSuite
         
         $this->assertTrue( is_array($this->postsGetter->getQueryResult()) );
     }
-    /*
+    
     public function testSetId()
     {
         $this->postsGetter->setId(1);
         
-        $this->assertTrue( strpos($this->postsGetter->getQuery(), "AND p.id = ")!== false );
+        $this->assertNotEmpty($this->postsGetter->getQueryBuilder()->getParameter('id'));
     }
-    
+
     public function testSetCategoryName()
     {
         $this->postsGetter->setCategoryName('MyPostCategory');
         
-        $this->assertTrue( strpos($this->postsGetter->getQuery(), "AND co.name = ")!== false );
+        $this->assertNotEmpty($this->postsGetter->getQueryBuilder()->getParameter('categoryName'));
     }
-    
+
     public function testSetTitle()
     {
         $this->postsGetter->setTitle('MyPostTitle');
         
-        $this->assertTrue( strpos($this->postsGetter->getQuery(), "AND po.title = ")!== false );
+         $this->assertNotEmpty($this->postsGetter->getQueryBuilder()->getParameter('title'));
     }
-    */
+
 }

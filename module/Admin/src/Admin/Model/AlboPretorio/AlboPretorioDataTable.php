@@ -3,13 +3,12 @@
 namespace Admin\Model\AlboPretorio;
 
 use Admin\Model\DataTable\DataTableAbstract;
-use Admin\Model\DataTable\DataTableInterface;
 
 /**
  * @author Andrea Fiori
  * @since  18 May 2014
  */
-class AlboPretorioDataTable extends DataTableAbstract implements DataTableInterface
+class AlboPretorioDataTable extends DataTableAbstract
 {
     public function getTitle()
     {

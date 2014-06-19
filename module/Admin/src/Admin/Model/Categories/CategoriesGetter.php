@@ -30,7 +30,9 @@ class CategoriesGetter extends QueryBuilderHelperAbstract
         if ( is_numeric($id) ) {
             $this->getQueryBuilder()->andWhere('c.id = :id ');
             $this->getQueryBuilder()->setParameter('id', $id);
-        } elseif (is_array($id)) {
+        }
+        
+        if (is_array($id)) {
             $this->getQueryBuilder()->andWhere('c.id IN ( :id ) ');
             $this->getQueryBuilder()->setParameter('id', $id);
         }
@@ -41,7 +43,7 @@ class CategoriesGetter extends QueryBuilderHelperAbstract
      */
     public function setChannelId($channel = null)
     {
-        if (is_numeric($channel)) {
+        if ( is_numeric($channel) ) {
             $this->getQueryBuilder()->setParameter('channel', $channel);
         }
     }
@@ -49,7 +51,7 @@ class CategoriesGetter extends QueryBuilderHelperAbstract
     /**
      * @param number $moduleId
      */
-    public function setModuloId($moduleId = null)
+    public function setModuleId($moduleId = null)
     {
         if (is_numeric($moduleId)) {
             $this->getQueryBuilder()->andWhere('c.module = :moduleId ');

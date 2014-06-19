@@ -22,17 +22,17 @@ class PostsFormDataHandlerTest extends TestSuite
 
     public function testGetTitle()
     {
-        $this->assertTrue( is_string($this->postsFormDataHandler->getPostsFormDataObject()->getTitle()) );
+        $this->assertTrue( is_string($this->postsFormDataHandler->getPostsFormDataConcrete()->getTitle()) );
     }
     
     public function testGetDescription()
     {
-        $this->assertTrue( is_string($this->postsFormDataHandler->getPostsFormDataObject()->getDescription()) );
+        $this->assertTrue( is_string($this->postsFormDataHandler->getPostsFormDataConcrete()->getDescription()) );
     }
     
     public function testGetForm()
     {
-        $this->assertInstanceOf('\Admin\Model\Posts\PostsForm', $this->postsFormDataHandler->getPostsFormDataObject()->getForm() );
+        $this->assertInstanceOf('\Admin\Model\Posts\PostsForm', $this->postsFormDataHandler->getPostsFormDataConcrete()->getForm() );
     }
     
     public function testGetFormAction()

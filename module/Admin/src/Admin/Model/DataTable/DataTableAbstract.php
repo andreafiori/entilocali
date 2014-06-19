@@ -20,9 +20,11 @@ abstract class DataTableAbstract extends InputSetupTemplateAbstract
      * @param \DateTime $dateTime
      * @return type
      */
-    protected function convertDateTimeToString(\DateTime $dateTime)
+    protected function convertDateTimeToString($dateTime)
     {
-        return $dateTime->format('d-m-Y');
+        if ($dateTime instanceof \DateTime) {
+            return $dateTime->format('d-m-Y');
+        }
     }
     
     public function getTitle()

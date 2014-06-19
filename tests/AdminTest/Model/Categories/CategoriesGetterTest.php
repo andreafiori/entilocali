@@ -26,4 +26,23 @@ class CategoriesGetterTest extends TestSuite
         
         $this->assertTrue( is_array($this->categoriesGetter->getQueryResult()) );
     }
+    
+    public function testSetId()
+    {
+        $this->categoriesGetter->setId('stringIsNotValid');
+        $this->assertEmpty( $this->categoriesGetter->getQueryBuilder()->getParameter('id') );
+        
+        $this->categoriesGetter->setId(1);
+        $this->assertNotEmpty( $this->categoriesGetter->getQueryBuilder()->getParameter('id') );
+        
+        $this->categoriesGetter->setId(array(1,2,3));
+        $this->assertNotEmpty( $this->categoriesGetter->getQueryBuilder()->getParameter('id') );
+    }
+    
+    public function testSetChannelId()
+    {
+        $this->categoriesGetter->setChannelId(1);
+        
+        $this->assertNotEmpty( $this->categoriesGetter->getQueryBuilder()->getParameter('channel') );
+    }
 }

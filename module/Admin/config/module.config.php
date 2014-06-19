@@ -54,9 +54,10 @@ return array(
                     'formdata' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                                    'route'    => 'formdata[/][:formsetter][/][:id][/]',
+                                    'route'    => 'formdata[/][:formsetter][/][:option][/][:id][/]',
                                     'constraints' => array(
                                                 'formsetter' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                'option'     => '[a-zA-Z0-9_-]*',
                                                 'id'         => '[0-9]+',
                                     ),
                                     'defaults' => array(
@@ -71,11 +72,11 @@ return array(
                                                 'route'       => 'datatable[/][:tablesetter][/:option][/]',
                                                 'constraints' => array(
                                                         'tablesetter' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                        'option'      => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                        'option'      => '[a-zA-Z0-9_-]*',
                                                 ),
                                                 'defaults' => array(
-                                                            'controller' => 'Admin\Controller\Admin',
-                                                            'action'     => 'index',
+                                                        'controller' => 'Admin\Controller\Admin',
+                                                        'action'     => 'index',
                                                 ),
                                     ),
                     ),
@@ -119,17 +120,18 @@ return array(
     ),
     // FormData Class Map
     'formdata_classmap' => array(
-        'assistenza'        => 'Admin\Model\Assistenza\AssistenzaFormDataHandler',
-        'posts'             => 'Admin\Model\Posts\PostsFormDataHandler',
-        'categories'         => 'Admin\Model\Categories\CategoriesFormDataHandler',
         'albo-pretorio'     => 'Admin\Model\AlboPretorio\AlboPretorioFormDataHandler',
-        'stato-civile'      => 'Admin\Model\StatoCivile\StatoCivileFormDataHandler',
         'amministrazione-trasparente' => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFormDataHandler',
+        'stato-civile'      => 'Admin\Model\StatoCivile\StatoCivileFormDataHandler',
+        'posts'             => 'Admin\Model\Posts\PostsFormDataHandler',
+        'categories'        => 'Admin\Model\Categories\CategoriesFormDataHandler',
+        'ticketing'         => 'Admin\Model\Assistenza\AssistenzaFormDataHandler',
+        'users'             => 'Admin\Model\Users\UsersFormDataHandler',
     ),
     // FormData CRUD Class Map
     'formdata_crud_classmap' => array( 
         'albo-pretorio'               => 'Admin\Model\AlboPretorio\AlboPretorioCrudHandler',
-        'amministrazione-trasparente' => 'Admin\Model\AmministrazioneTrasparente\ ',
+        'amministrazione-trasparente' => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteCrudHandler',
         'ticketing'                   => 'Admin\Model\Ticketing\TicketingCrudHandler',
         'categories'                  => 'Admin\Model\Categories\CategoriesCrudHandler',
         'contatti'                    => 'Admin\Model\Contacts\ContactsCrudHandler',

@@ -16,17 +16,15 @@ class CategoriesFormDataHandler extends FormDataAbstract
     {
         parent::__construct($input);
         
-        $param          = $this->getInput('param', 1);
-        $entityManager  = $this->getInput('entityManager', 1);
-        $moduloId       = $param['get']['moduloId'];
+        $param = $this->getInput('param', 1);
         
         $this->categorieFormDataHandlerHelper = new CategoriesFormDataHandlerHelper( $this->getInput() );
-        $this->categorieFormDataHandlerHelper->setCategoriesWrapper( new CategoriesGetterWrapper(new CategoriesGetter($entityManager)) );
+        $this->categorieFormDataHandlerHelper->setCategoriesWrapper( new CategoriesGetterWrapper(new CategoriesGetter($this->getInput('entityManager', 1))) );
         $this->categorieFormDataHandlerHelper->setRecordById($param['route']['id']);
         $this->categorieFormDataHandlerHelper->setModuleRecord( $this->getModuleRecord() );
-        $this->categorieFormDataHandlerHelper->setCurrentModule($moduloId);
+        $this->categorieFormDataHandlerHelper->setCurrentModule($param['route']['option']);
         $this->categorieFormDataHandlerHelper->setProperties();
-        $this->categorieFormDataHandlerHelper->setForm( new CategorieForm('categorieForm') );
+        $this->categorieFormDataHandlerHelper->setForm( new CategoriesForm('categorieForm') );
         $this->categorieFormDataHandlerHelper->buildForm();
         
         $this->setVariable('formTitle',         $this->categorieFormDataHandlerHelper->getTitle());
@@ -34,7 +32,7 @@ class CategoriesFormDataHandler extends FormDataAbstract
         $this->setVariable('form',              $this->categorieFormDataHandlerHelper->getForm());
         $this->setVariable('formAction',        $this->getFormAction());
         
-        $this->setVariable('hideOnSubmit', 1);
+        //$this->setVariable('hideOnSubmit', 1);
         $this->setVariable('formBreadCrumbCategory', 'Categorie');
     }
     
@@ -57,9 +55,9 @@ class CategoriesFormDataHandler extends FormDataAbstract
     public function getFormAction()
     {
         if ( $this->categorieFormDataHandlerHelper->getRecord() ) {
-            return 'categorie/update';
+            return 'categories/update';
         }
         
-        return 'categorie/insert';
+        return 'categories/insert';
     }
 }

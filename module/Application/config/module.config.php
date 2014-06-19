@@ -31,7 +31,6 @@ return array(
                                                                     ),
                                                     ),
                                                     'may_terminate' => true,
-                                                    
                                     ),
                                     /* POSTS PAGING */
                                     /*
@@ -90,10 +89,10 @@ return array(
                                                                     ),
                                                     ),
                                     ),
-                                    'photo' => array(
+                                    'foto' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
-                                                        'route'    => '/photo[/][:action]',
+                                                        'route'    => '/foto[/][:action]',
                                                         'constraints' => array(
                                                             
                                                         ),
@@ -390,7 +389,7 @@ return array(
         "amministrazione-trasparente"   => 'Application\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFrontend',
         "contatti"                      => 'Application\Model\Contacts\ContactsFrontend',        
         "faq"                           => 'Application\Model\Faq\FaqFrontend',
-        "photo"                         => 'Application\Model\Posts\PhotoFrontend',
+        "foto"                          => 'Application\Model\Posts\PhotoFrontend',
         "newsletter"                    => 'Application\Model\Newsletter\NewsletterFrontend',
         "registrazione"                 => 'Application\Model\Utenti\RegistrazioneFrontend',
         "ricerca"                       => 'Application\Model\Ricerca\RicercaFrontend',

@@ -15,8 +15,6 @@ class PostsFrontend extends RouterManagerAbstract implements RouterManagerInterf
     protected $postsGetterWrapper;
     
     /**
-     * Generate main array record for the index frontend controller
-     * 
      * @return array
      * @throws \Application\Model\NullException
      */
@@ -24,7 +22,6 @@ class PostsFrontend extends RouterManagerAbstract implements RouterManagerInterf
     {
         $postsFrontendHelper = new PostsFrontendHelper($this->getInput());
         
-        // if isHomePage, set HomePage data
         if ( $postsFrontendHelper->isHomePage() ) {
             $this->setTemplate('homepage/homepage.phtml');
             

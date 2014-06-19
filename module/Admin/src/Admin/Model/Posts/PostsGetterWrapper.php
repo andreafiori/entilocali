@@ -32,7 +32,7 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
         $this->postsGetter->setSelectQueryFields( $this->getInput('fields', 1) );
         
         $this->postsGetter->setMainQuery();
- 
+        
         $this->postsGetter->setChannelId($channel ? $channel : 1);
         $this->postsGetter->setLanguageId($language ? $language : 1);
         $this->postsGetter->setId( $this->getInput('id', 1) );
