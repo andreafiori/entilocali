@@ -2,7 +2,7 @@
 -- Host:                         127.0.0.1
 -- Versione server:              5.5.36 - MySQL Community Server (GPL)
 -- S.O. server:                  Win32
--- HeidiSQL Versione:            8.3.0.4771
+-- HeidiSQL Versione:            8.3.0.4785
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -10,9 +10,9 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Dump della struttura di tabella entilocali.albo_atti
-DROP TABLE IF EXISTS `albo_atti`;
-CREATE TABLE IF NOT EXISTS `albo_atti` (
+-- Dump della struttura di tabella entilocali.zfcms_albo_atti
+DROP TABLE IF EXISTS `zfcms_albo_atti`;
+CREATE TABLE IF NOT EXISTS `zfcms_albo_atti` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `numero` bigint(11) NOT NULL,
   `anno` bigint(11) NOT NULL,
@@ -41,19 +41,19 @@ CREATE TABLE IF NOT EXISTS `albo_atti` (
   KEY `user_id` (`utente_id`),
   KEY `settore_id` (`settore_id`),
   KEY `sezione_id` (`sezione_id`),
-  CONSTRAINT `fk_settore_id` FOREIGN KEY (`settore_id`) REFERENCES `albo_settori` (`id`),
-  CONSTRAINT `fk_sezione_id` FOREIGN KEY (`sezione_id`) REFERENCES `albo_settori` (`id`),
-  CONSTRAINT `fk_utente_id` FOREIGN KEY (`utente_id`) REFERENCES `utenti` (`id`)
+  CONSTRAINT `fk_settore_id` FOREIGN KEY (`settore_id`) REFERENCES `zfcms_albo_settori` (`id`),
+  CONSTRAINT `fk_sezione_id` FOREIGN KEY (`sezione_id`) REFERENCES `zfcms_albo_settori` (`id`),
+  CONSTRAINT `fk_utente_id` FOREIGN KEY (`utente_id`) REFERENCES `zfcms_users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dump dei dati della tabella entilocali.albo_atti: ~0 rows (circa)
-/*!40000 ALTER TABLE `albo_atti` DISABLE KEYS */;
-/*!40000 ALTER TABLE `albo_atti` ENABLE KEYS */;
+-- Dump dei dati della tabella entilocali.zfcms_albo_atti: ~0 rows (circa)
+/*!40000 ALTER TABLE `zfcms_albo_atti` DISABLE KEYS */;
+/*!40000 ALTER TABLE `zfcms_albo_atti` ENABLE KEYS */;
 
 
--- Dump della struttura di tabella entilocali.albo_settori
-DROP TABLE IF EXISTS `albo_settori`;
-CREATE TABLE IF NOT EXISTS `albo_settori` (
+-- Dump della struttura di tabella entilocali.zfcms_albo_settori
+DROP TABLE IF EXISTS `zfcms_albo_settori`;
+CREATE TABLE IF NOT EXISTS `zfcms_albo_settori` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `settore` varchar(100) NOT NULL,
   `status` varchar(50) DEFAULT NULL,
@@ -61,19 +61,19 @@ CREATE TABLE IF NOT EXISTS `albo_settori` (
   `provincia_id` bigint(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `albosettorisearch` (`provincia_id`),
-  CONSTRAINT `provinciaid` FOREIGN KEY (`provincia_id`) REFERENCES `geo_province` (`id`)
+  CONSTRAINT `provinciaid` FOREIGN KEY (`provincia_id`) REFERENCES `zfcms_geo_province` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dump dei dati della tabella entilocali.albo_settori: ~1 rows (circa)
-/*!40000 ALTER TABLE `albo_settori` DISABLE KEYS */;
-INSERT INTO `albo_settori` (`id`, `settore`, `status`, `posizione`, `provincia_id`) VALUES
+-- Dump dei dati della tabella entilocali.zfcms_albo_settori: ~1 rows (circa)
+/*!40000 ALTER TABLE `zfcms_albo_settori` DISABLE KEYS */;
+INSERT INTO `zfcms_albo_settori` (`id`, `settore`, `status`, `posizione`, `provincia_id`) VALUES
 	(1, 'normale', NULL, 1, 1);
-/*!40000 ALTER TABLE `albo_settori` ENABLE KEYS */;
+/*!40000 ALTER TABLE `zfcms_albo_settori` ENABLE KEYS */;
 
 
--- Dump della struttura di tabella entilocali.albo_sezioni
-DROP TABLE IF EXISTS `albo_sezioni`;
-CREATE TABLE IF NOT EXISTS `albo_sezioni` (
+-- Dump della struttura di tabella entilocali.zfcms_albo_sezioni
+DROP TABLE IF EXISTS `zfcms_albo_sezioni`;
+CREATE TABLE IF NOT EXISTS `zfcms_albo_sezioni` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   `status` varchar(50) NOT NULL,
@@ -83,176 +83,178 @@ CREATE TABLE IF NOT EXISTS `albo_sezioni` (
   KEY `subsezione_id` (`subsezione_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Dump dei dati della tabella entilocali.albo_sezioni: ~2 rows (circa)
-/*!40000 ALTER TABLE `albo_sezioni` DISABLE KEYS */;
-INSERT INTO `albo_sezioni` (`id`, `nome`, `status`, `position`, `subsezione_id`) VALUES
+-- Dump dei dati della tabella entilocali.zfcms_albo_sezioni: ~2 rows (circa)
+/*!40000 ALTER TABLE `zfcms_albo_sezioni` DISABLE KEYS */;
+INSERT INTO `zfcms_albo_sezioni` (`id`, `nome`, `status`, `position`, `subsezione_id`) VALUES
 	(2, 'Deliberazioni di Consiglio Direttivo', 'si', 3, 0),
 	(3, 'Atto di disposizione urgente', 'si', 1, 0);
-/*!40000 ALTER TABLE `albo_sezioni` ENABLE KEYS */;
+/*!40000 ALTER TABLE `zfcms_albo_sezioni` ENABLE KEYS */;
 
 
--- Dump della struttura di tabella entilocali.allegati
-DROP TABLE IF EXISTS `allegati`;
-CREATE TABLE IF NOT EXISTS `allegati` (
+-- Dump della struttura di tabella entilocali.zfcms_attachments
+DROP TABLE IF EXISTS `zfcms_attachments`;
+CREATE TABLE IF NOT EXISTS `zfcms_attachments` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `nome_file` varchar(100) NOT NULL,
-  `tipo_file` varchar(100) NOT NULL,
-  `dimensione_file` varchar(60) NOT NULL,
-  `stato` varchar(50) DEFAULT NULL,
-  `data_inserimento` datetime NOT NULL DEFAULT '2013-01-01 01:01:01',
-  `data_ultimo_aggiornamento` datetime NOT NULL DEFAULT '2013-01-01 01:01:01',
+  `name` varchar(100) NOT NULL,
+  `type` varchar(100) NOT NULL,
+  `size` varchar(60) NOT NULL,
+  `state` varchar(50) DEFAULT NULL,
+  `insert_date` datetime NOT NULL DEFAULT '2014-01-01 01:01:01',
+  `last_update` datetime NOT NULL DEFAULT '2014-01-01 01:01:01',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Dump dei dati della tabella entilocali.allegati: ~0 rows (circa)
-/*!40000 ALTER TABLE `allegati` DISABLE KEYS */;
-/*!40000 ALTER TABLE `allegati` ENABLE KEYS */;
+-- Dump dei dati della tabella entilocali.zfcms_attachments: ~0 rows (circa)
+/*!40000 ALTER TABLE `zfcms_attachments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `zfcms_attachments` ENABLE KEYS */;
 
 
--- Dump della struttura di tabella entilocali.allegati_opzioni
-DROP TABLE IF EXISTS `allegati_opzioni`;
-CREATE TABLE IF NOT EXISTS `allegati_opzioni` (
+-- Dump della struttura di tabella entilocali.zfcms_attachments_options
+DROP TABLE IF EXISTS `zfcms_attachments_options`;
+CREATE TABLE IF NOT EXISTS `zfcms_attachments_options` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
-  `titolo` varchar(50) DEFAULT NULL,
-  `descrizione` varchar(50) DEFAULT NULL,
-  `allegato_id` bigint(20) DEFAULT NULL,
+  `title` varchar(50) DEFAULT NULL,
+  `description` varchar(50) DEFAULT NULL,
+  `attachment_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `allegato_id` (`allegato_id`),
-  CONSTRAINT `allegati_opzioni_ibfk_1` FOREIGN KEY (`allegato_id`) REFERENCES `allegati` (`id`)
+  KEY `attachment_id` (`attachment_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
--- Dump dei dati della tabella entilocali.allegati_opzioni: ~0 rows (circa)
-/*!40000 ALTER TABLE `allegati_opzioni` DISABLE KEYS */;
-/*!40000 ALTER TABLE `allegati_opzioni` ENABLE KEYS */;
+-- Dump dei dati della tabella entilocali.zfcms_attachments_options: ~0 rows (circa)
+/*!40000 ALTER TABLE `zfcms_attachments_options` DISABLE KEYS */;
+/*!40000 ALTER TABLE `zfcms_attachments_options` ENABLE KEYS */;
 
 
--- Dump della struttura di tabella entilocali.allegati_relazioni
-DROP TABLE IF EXISTS `allegati_relazioni`;
-CREATE TABLE IF NOT EXISTS `allegati_relazioni` (
-  `id` bigint(20) NOT NULL,
-  `allegato_id` bigint(20) NOT NULL,
-  `riferimento_id` bigint(20) NOT NULL,
-  `modulo_id` bigint(20) NOT NULL,
+-- Dump della struttura di tabella entilocali.zfcms_attachments_relations
+DROP TABLE IF EXISTS `zfcms_attachments_relations`;
+CREATE TABLE IF NOT EXISTS `zfcms_attachments_relations` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `attachment_id` bigint(20) NOT NULL,
+  `reference_id` bigint(20) NOT NULL,
+  `module_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `module_id` (`modulo_id`),
-  KEY `allegato_id` (`allegato_id`),
-  KEY `riferimento_id` (`riferimento_id`),
-  CONSTRAINT `fk_allegati_id_id` FOREIGN KEY (`allegato_id`) REFERENCES `allegati` (`id`),
-  CONSTRAINT `fk_allegati_relazioni_modulo_id` FOREIGN KEY (`modulo_id`) REFERENCES `moduli` (`id`)
+  KEY `module_id` (`module_id`),
+  KEY `reference_id` (`reference_id`),
+  KEY `attachment_id` (`attachment_id`),
+  CONSTRAINT `fk_attachment_rel_id` FOREIGN KEY (`attachment_id`) REFERENCES `zfcms_attachments` (`id`),
+  CONSTRAINT `fk_module_id` FOREIGN KEY (`module_id`) REFERENCES `zfcms_modules` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
--- Dump dei dati della tabella entilocali.allegati_relazioni: ~0 rows (circa)
-/*!40000 ALTER TABLE `allegati_relazioni` DISABLE KEYS */;
-/*!40000 ALTER TABLE `allegati_relazioni` ENABLE KEYS */;
+-- Dump dei dati della tabella entilocali.zfcms_attachments_relations: ~0 rows (circa)
+/*!40000 ALTER TABLE `zfcms_attachments_relations` DISABLE KEYS */;
+/*!40000 ALTER TABLE `zfcms_attachments_relations` ENABLE KEYS */;
 
 
--- Dump della struttura di tabella entilocali.canali
-DROP TABLE IF EXISTS `canali`;
-CREATE TABLE IF NOT EXISTS `canali` (
-  `id` bigint(10) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(100) DEFAULT NULL,
-  `domain` varchar(100) DEFAULT NULL,
-  `subdomain` varchar(100) DEFAULT NULL,
-  `ismultilanguage` bigint(11) DEFAULT NULL,
-  `isdefault` bigint(11) DEFAULT NULL,
-  `lingua_id` bigint(10) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `default_language_id` (`lingua_id`),
-  KEY `isdefault` (`isdefault`),
-  KEY `ismultilanguage` (`ismultilanguage`),
-  CONSTRAINT `fk_lingua_id_canali` FOREIGN KEY (`lingua_id`) REFERENCES `lingue` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
-
--- Dump dei dati della tabella entilocali.canali: ~2 rows (circa)
-/*!40000 ALTER TABLE `canali` DISABLE KEYS */;
-INSERT INTO `canali` (`id`, `nome`, `domain`, `subdomain`, `ismultilanguage`, `isdefault`, `lingua_id`) VALUES
-	(1, 'Fosso Bandito', 'fossobandito.com', NULL, 1, 1, 1),
-	(2, 'Backend', 'backend.fossobandito.com', NULL, 1, 1, 1);
-/*!40000 ALTER TABLE `canali` ENABLE KEYS */;
-
-
--- Dump della struttura di tabella entilocali.categorie
-DROP TABLE IF EXISTS `categorie`;
-CREATE TABLE IF NOT EXISTS `categorie` (
+-- Dump della struttura di tabella entilocali.zfcms_categories
+DROP TABLE IF EXISTS `zfcms_categories`;
+CREATE TABLE IF NOT EXISTS `zfcms_categories` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `note` varchar(100) DEFAULT NULL,
-  `createdate` datetime DEFAULT '2014-01-01 01:01:01',
-  `lastupdate` datetime DEFAULT '2014-01-01 01:01:01',
+  `create_date` datetime DEFAULT '2014-01-01 01:01:01',
+  `last_update` datetime DEFAULT '2014-01-01 01:01:01',
   `code` varchar(30) DEFAULT NULL,
   `status` varchar(80) DEFAULT NULL,
+  `column_position` enum('left','right') DEFAULT 'left',
   `template` varchar(80) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `module_id` bigint(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `module_id` (`module_id`),
+  KEY `status` (`status`),
+  CONSTRAINT `fk_zfcms_categories_module_id` FOREIGN KEY (`module_id`) REFERENCES `zfcms_modules` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Dump dei dati della tabella entilocali.categorie: ~4 rows (circa)
-/*!40000 ALTER TABLE `categorie` DISABLE KEYS */;
-INSERT INTO `categorie` (`id`, `note`, `createdate`, `lastupdate`, `code`, `status`, `template`) VALUES
-	(1, 'comune', '2014-01-01 01:01:01', '2014-01-01 01:01:01', NULL, 'attiva', NULL),
-	(2, 'eventi', '2014-01-01 01:01:01', '2014-01-01 01:01:01', NULL, 'attiva', NULL),
-	(3, 'foto', '2014-01-01 01:01:01', '2014-01-01 01:01:01', NULL, 'attiva', NULL),
-	(4, 'info', '2014-01-01 01:01:01', '2014-01-01 01:01:01', NULL, 'attiva', NULL);
-/*!40000 ALTER TABLE `categorie` ENABLE KEYS */;
+-- Dump dei dati della tabella entilocali.zfcms_categories: ~4 rows (circa)
+/*!40000 ALTER TABLE `zfcms_categories` DISABLE KEYS */;
+INSERT INTO `zfcms_categories` (`id`, `note`, `create_date`, `last_update`, `code`, `status`, `column_position`, `template`, `module_id`) VALUES
+	(1, 'comune', '2014-01-01 01:01:01', '2014-01-01 01:01:01', NULL, 'attiva', 'left', NULL, 4),
+	(2, 'eventi', '2014-01-01 01:01:01', '2014-01-01 01:01:01', NULL, 'attiva', 'left', NULL, 1),
+	(3, 'foto', '2014-01-01 01:01:01', '2014-01-01 01:01:01', NULL, 'attiva', 'left', NULL, 6),
+	(4, 'info', '2014-01-01 01:01:01', '2014-01-01 01:01:01', NULL, 'attiva', 'left', NULL, 4);
+/*!40000 ALTER TABLE `zfcms_categories` ENABLE KEYS */;
 
 
--- Dump della struttura di tabella entilocali.categorie_opzioni
-DROP TABLE IF EXISTS `categorie_opzioni`;
-CREATE TABLE IF NOT EXISTS `categorie_opzioni` (
+-- Dump della struttura di tabella entilocali.zfcms_categories_options
+DROP TABLE IF EXISTS `zfcms_categories_options`;
+CREATE TABLE IF NOT EXISTS `zfcms_categories_options` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(80) DEFAULT NULL,
-  `descrizione` varchar(80) DEFAULT NULL,
+  `name` varchar(80) DEFAULT NULL,
+  `description` varchar(80) DEFAULT NULL,
   `seo_url` varchar(80) DEFAULT NULL,
   `seo_title` varchar(80) DEFAULT NULL,
   `seo_keywords` varchar(80) DEFAULT NULL,
   `seo_description` varchar(120) DEFAULT NULL,
   `accesskey` varchar(10) DEFAULT NULL,
   `template_file` varchar(50) DEFAULT NULL,
-  `posizione` bigint(20) DEFAULT '0',
+  `position` bigint(20) DEFAULT '0',
   `parent_id` bigint(20) DEFAULT '0',
-  `modulo_id` bigint(20) DEFAULT '1',
-  `lingua_id` bigint(20) DEFAULT '1',
-  `categoria_id` bigint(20) DEFAULT NULL,
+  `language_id` bigint(20) DEFAULT '1',
+  `category_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `categoria_id` (`categoria_id`),
-  KEY `lingua_id` (`lingua_id`),
-  KEY `module_id` (`modulo_id`),
-  CONSTRAINT `fk_categoria_id` FOREIGN KEY (`categoria_id`) REFERENCES `categorie` (`id`),
-  CONSTRAINT `fk_lingua_id` FOREIGN KEY (`lingua_id`) REFERENCES `lingue` (`id`),
-  CONSTRAINT `fk_modulo_id` FOREIGN KEY (`modulo_id`) REFERENCES `moduli` (`id`)
+  KEY `category_id` (`category_id`),
+  KEY `language_id` (`language_id`),
+  KEY `name` (`name`),
+  CONSTRAINT `fk_category_category_id` FOREIGN KEY (`category_id`) REFERENCES `zfcms_categories` (`id`),
+  CONSTRAINT `fk_category_language_id` FOREIGN KEY (`language_id`) REFERENCES `zfcms_languages` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
--- Dump dei dati della tabella entilocali.categorie_opzioni: ~4 rows (circa)
-/*!40000 ALTER TABLE `categorie_opzioni` DISABLE KEYS */;
-INSERT INTO `categorie_opzioni` (`id`, `nome`, `descrizione`, `seo_url`, `seo_title`, `seo_keywords`, `seo_description`, `accesskey`, `template_file`, `posizione`, `parent_id`, `modulo_id`, `lingua_id`, `categoria_id`) VALUES
-	(1, 'Comune Azienda', 'Comune, azienda', 'comune-azienda', 'comune-azienda', 'comune, azienda', 'comune, azienda', NULL, NULL, 0, 0, 4, 1, 1),
-	(2, 'Eventi', 'Eventi', 'eventi', NULL, NULL, NULL, NULL, NULL, 0, 0, 1, 1, 2),
-	(3, 'Foto', 'Foto gallery categoria 1', 'foto', NULL, NULL, NULL, NULL, NULL, 0, 0, 6, 1, 3),
-	(4, 'Info', 'info', 'info', 'info', 'info', 'info', NULL, NULL, 0, 0, 4, 1, 4);
-/*!40000 ALTER TABLE `categorie_opzioni` ENABLE KEYS */;
+-- Dump dei dati della tabella entilocali.zfcms_categories_options: ~4 rows (circa)
+/*!40000 ALTER TABLE `zfcms_categories_options` DISABLE KEYS */;
+INSERT INTO `zfcms_categories_options` (`id`, `name`, `description`, `seo_url`, `seo_title`, `seo_keywords`, `seo_description`, `accesskey`, `template_file`, `position`, `parent_id`, `language_id`, `category_id`) VALUES
+	(1, 'Comune Azienda', 'Comune, azienda', 'comune-azienda', 'comune-azienda', 'comune, azienda', 'comune, azienda', NULL, NULL, 1, 0, 1, 1),
+	(2, 'Eventi', 'Eventi', 'eventi', NULL, NULL, NULL, NULL, NULL, 1, 0, 1, 2),
+	(3, 'Foto', 'Foto gallery categoria 1', 'foto', NULL, NULL, NULL, NULL, NULL, 1, 0, 1, 3),
+	(4, 'Info', 'info', 'info', 'info', 'info', 'info', NULL, NULL, 2, 0, 1, 4);
+/*!40000 ALTER TABLE `zfcms_categories_options` ENABLE KEYS */;
 
 
--- Dump della struttura di tabella entilocali.config
-DROP TABLE IF EXISTS `config`;
-CREATE TABLE IF NOT EXISTS `config` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(100) DEFAULT NULL,
-  `valore` text,
-  `note` varchar(100) DEFAULT NULL,
-  `isbackend` bigint(10) NOT NULL,
-  `isalwaysallowed` bigint(10) NOT NULL DEFAULT '1',
-  `modulo_id` bigint(10) NOT NULL DEFAULT '4',
-  `canale_id` bigint(10) NOT NULL DEFAULT '1',
-  `lingua_id` bigint(10) NOT NULL DEFAULT '1',
+-- Dump della struttura di tabella entilocali.zfcms_channels
+DROP TABLE IF EXISTS `zfcms_channels`;
+CREATE TABLE IF NOT EXISTS `zfcms_channels` (
+  `id` bigint(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT NULL,
+  `domain` varchar(100) DEFAULT NULL,
+  `subdomain` varchar(100) DEFAULT NULL,
+  `is_multilanguage` bigint(11) DEFAULT NULL,
+  `is_default` bigint(11) DEFAULT NULL,
+  `language_id` bigint(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `channel_id` (`canale_id`),
-  KEY `language_id` (`lingua_id`),
-  KEY `module_id` (`modulo_id`),
-  KEY `isadmin` (`isbackend`),
-  KEY `isalwaysallowed` (`isalwaysallowed`)
+  KEY `lingua_id` (`language_id`),
+  KEY `is_multilanguage` (`is_multilanguage`),
+  KEY `is_default` (`is_default`),
+  CONSTRAINT `fk_zfcms_channels_language_id` FOREIGN KEY (`language_id`) REFERENCES `zfcms_languages` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+
+-- Dump dei dati della tabella entilocali.zfcms_channels: ~2 rows (circa)
+/*!40000 ALTER TABLE `zfcms_channels` DISABLE KEYS */;
+INSERT INTO `zfcms_channels` (`id`, `name`, `domain`, `subdomain`, `is_multilanguage`, `is_default`, `language_id`) VALUES
+	(1, 'Fosso Bandito', 'fossobandito.com', NULL, 1, 1, 1),
+	(2, 'Backend', 'backend.fossobandito.com', NULL, 1, 1, 1);
+/*!40000 ALTER TABLE `zfcms_channels` ENABLE KEYS */;
+
+
+-- Dump della struttura di tabella entilocali.zfcms_config
+DROP TABLE IF EXISTS `zfcms_config`;
+CREATE TABLE IF NOT EXISTS `zfcms_config` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT NULL,
+  `value` text,
+  `note` varchar(100) DEFAULT NULL,
+  `is_backend` bigint(10) NOT NULL,
+  `is_always_allowed` bigint(10) NOT NULL DEFAULT '1',
+  `module_id` bigint(10) NOT NULL DEFAULT '4',
+  `channel_id` bigint(10) NOT NULL DEFAULT '1',
+  `language_id` bigint(10) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `channel_id` (`channel_id`),
+  KEY `language_id` (`language_id`),
+  KEY `module_id` (`module_id`),
+  KEY `isadmin` (`is_backend`),
+  KEY `isalwaysallowed` (`is_always_allowed`)
 ) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Dump dei dati della tabella entilocali.config: ~30 rows (circa)
-/*!40000 ALTER TABLE `config` DISABLE KEYS */;
-INSERT INTO `config` (`id`, `nome`, `valore`, `note`, `isbackend`, `isalwaysallowed`, `modulo_id`, `canale_id`, `lingua_id`) VALUES
+-- Dump dei dati della tabella entilocali.zfcms_config: ~30 rows (circa)
+/*!40000 ALTER TABLE `zfcms_config` DISABLE KEYS */;
+INSERT INTO `zfcms_config` (`id`, `name`, `value`, `note`, `is_backend`, `is_always_allowed`, `module_id`, `channel_id`, `language_id`) VALUES
 	(1, 'sitename', 'Enti locali - Aziende', NULL, 0, 1, 0, 0, 0),
 	(2, 'remotelink', 'zf2-apicms/', NULL, 0, 1, 0, 0, 0),
 	(3, 'description', 'Enti locali - Aziende demo', NULL, 0, 0, 0, 0, 1),
@@ -279,38 +281,60 @@ INSERT INTO `config` (`id`, `nome`, `valore`, `note`, `isbackend`, `isalwaysallo
 	(35, 'adminPreload', 'fossobandito.php', NULL, 1, 0, 0, 0, 0),
 	(36, 'adminSidebarMenu', 'templates/sidebars/default.php', NULL, 1, 0, 0, 0, 0),
 	(37, 'project_frontend', 'entilocali/', NULL, 0, 0, 0, 0, 1),
-	(38, 'preloader_frontend', 'Posts\\Model\\PostsCategories', NULL, 0, 1, 4, 0, 0),
-	(39, 'preloader_backend', 'Posts\\Model\\PostsCategories', NULL, 1, 1, 4, 0, 0),
+	(38, 'preloader_frontend', 'zfcms_posts\\Model\\zfcms_postsCategories', NULL, 0, 1, 4, 0, 0),
+	(39, 'preloader_backend', 'zfcms_posts\\Model\\zfcms_postsCategories', NULL, 1, 1, 4, 0, 0),
 	(41, 'sidebar_backend', 'fossobandito.phtml', NULL, 1, 0, 0, 0, 0),
 	(42, 'dashboard_backend', 'dashboard.phtml', NULL, 1, 0, 0, 0, 0);
-/*!40000 ALTER TABLE `config` ENABLE KEYS */;
+/*!40000 ALTER TABLE `zfcms_config` ENABLE KEYS */;
 
 
--- Dump della struttura di tabella entilocali.contatti
-DROP TABLE IF EXISTS `contatti`;
-CREATE TABLE IF NOT EXISTS `contatti` (
+-- Dump della struttura di tabella entilocali.zfcms_contacts
+DROP TABLE IF EXISTS `zfcms_contacts`;
+CREATE TABLE IF NOT EXISTS `zfcms_contacts` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(80) DEFAULT NULL,
-  `cognome` varchar(80) DEFAULT NULL,
+  `name` varchar(80) DEFAULT NULL,
+  `surname` varchar(80) DEFAULT NULL,
   `email` varchar(80) DEFAULT NULL,
-  `telefono` varchar(80) DEFAULT NULL,
-  `messaggio` text,
-  `data_inserimento` datetime DEFAULT NULL,
-  `formato` varchar(50) DEFAULT 'contact',
-  `stato` varchar(50) DEFAULT NULL,
-  `utente_id` bigint(11) DEFAULT '1',
+  `phone` varchar(80) DEFAULT NULL,
+  `message` text,
+  `insert_date` datetime DEFAULT NULL,
+  `format` varchar(50) DEFAULT 'contact',
+  `status` varchar(50) DEFAULT NULL,
+  `user_id` bigint(11) DEFAULT '1',
   PRIMARY KEY (`id`),
-  KEY `user_id` (`utente_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Dump dei dati della tabella entilocali.contatti: ~0 rows (circa)
-/*!40000 ALTER TABLE `contatti` DISABLE KEYS */;
-/*!40000 ALTER TABLE `contatti` ENABLE KEYS */;
+-- Dump dei dati della tabella entilocali.zfcms_contacts: ~1 rows (circa)
+/*!40000 ALTER TABLE `zfcms_contacts` DISABLE KEYS */;
+INSERT INTO `zfcms_contacts` (`id`, `name`, `surname`, `email`, `phone`, `message`, `insert_date`, `format`, `status`, `user_id`) VALUES
+	(1, 'Andrea', 'Fiori', 'a.fiori@cheapnet.it', '079239102', NULL, '2014-06-10 22:15:24', 'contact', NULL, 1);
+/*!40000 ALTER TABLE `zfcms_contacts` ENABLE KEYS */;
 
 
--- Dump della struttura di tabella entilocali.faq_domande
-DROP TABLE IF EXISTS `faq_domande`;
-CREATE TABLE IF NOT EXISTS `faq_domande` (
+-- Dump della struttura di tabella entilocali.zfcms_faq_answers
+DROP TABLE IF EXISTS `zfcms_faq_answers`;
+CREATE TABLE IF NOT EXISTS `zfcms_faq_answers` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `answer` text NOT NULL,
+  `rate` bigint(11) NOT NULL,
+  `insert_date` datetime NOT NULL,
+  `last_update` datetime NOT NULL,
+  `question_id` bigint(10) NOT NULL,
+  `user_id` bigint(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `question_id` (`question_id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Dump dei dati della tabella entilocali.zfcms_faq_answers: ~0 rows (circa)
+/*!40000 ALTER TABLE `zfcms_faq_answers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `zfcms_faq_answers` ENABLE KEYS */;
+
+
+-- Dump della struttura di tabella entilocali.zfcms_faq_questions
+DROP TABLE IF EXISTS `zfcms_faq_questions`;
+CREATE TABLE IF NOT EXISTS `zfcms_faq_questions` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `question` text NOT NULL,
   `position` bigint(11) NOT NULL DEFAULT '0',
@@ -324,39 +348,19 @@ CREATE TABLE IF NOT EXISTS `faq_domande` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `language_id` (`language_id`),
-  KEY `channel_id` (`channel_id`)
+  KEY `channel_id` (`channel_id`),
+  CONSTRAINT `fk_faq_channel_id` FOREIGN KEY (`channel_id`) REFERENCES `zfcms_channels` (`id`),
+  CONSTRAINT `fk_faq_language_id` FOREIGN KEY (`language_id`) REFERENCES `zfcms_languages` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dump dei dati della tabella entilocali.faq_domande: ~0 rows (circa)
-/*!40000 ALTER TABLE `faq_domande` DISABLE KEYS */;
-/*!40000 ALTER TABLE `faq_domande` ENABLE KEYS */;
+-- Dump dei dati della tabella entilocali.zfcms_faq_questions: ~0 rows (circa)
+/*!40000 ALTER TABLE `zfcms_faq_questions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `zfcms_faq_questions` ENABLE KEYS */;
 
 
--- Dump della struttura di tabella entilocali.faq_risposte
-DROP TABLE IF EXISTS `faq_risposte`;
-CREATE TABLE IF NOT EXISTS `faq_risposte` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `risposta` text NOT NULL,
-  `rate` bigint(11) NOT NULL,
-  `data_inserimento` datetime NOT NULL,
-  `data_ultimo_aggiornamento` datetime NOT NULL,
-  `domanda_id` bigint(10) NOT NULL,
-  `utente_id` bigint(10) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `utente_id` (`utente_id`),
-  KEY `domanda_id` (`domanda_id`),
-  CONSTRAINT `fk_faq_id_faq_risposte` FOREIGN KEY (`domanda_id`) REFERENCES `faq_domande` (`id`),
-  CONSTRAINT `fk_utente_id_faq_risposte` FOREIGN KEY (`utente_id`) REFERENCES `utenti` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- Dump dei dati della tabella entilocali.faq_risposte: ~0 rows (circa)
-/*!40000 ALTER TABLE `faq_risposte` DISABLE KEYS */;
-/*!40000 ALTER TABLE `faq_risposte` ENABLE KEYS */;
-
-
--- Dump della struttura di tabella entilocali.geo_comuni
-DROP TABLE IF EXISTS `geo_comuni`;
-CREATE TABLE IF NOT EXISTS `geo_comuni` (
+-- Dump della struttura di tabella entilocali.zfcms_geo_comuni
+DROP TABLE IF EXISTS `zfcms_geo_comuni`;
+CREATE TABLE IF NOT EXISTS `zfcms_geo_comuni` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `cod_regione` varchar(9) DEFAULT NULL,
   `cod_provincia` varchar(9) DEFAULT NULL,
@@ -374,9 +378,9 @@ CREATE TABLE IF NOT EXISTS `geo_comuni` (
   KEY `searchfields` (`cod_regione`,`cod_provincia`,`cod_comune`,`nome_comune`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8095 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Dump dei dati della tabella entilocali.geo_comuni: ~7.742 rows (circa)
-/*!40000 ALTER TABLE `geo_comuni` DISABLE KEYS */;
-INSERT INTO `geo_comuni` (`id`, `cod_regione`, `cod_provincia`, `cod_comune`, `nome_comune`, `codice_istat`, `cap_principale`, `cap_inizio`, `cap_fine`, `prefisso`, `sito_web`, `latitudine`, `longitudine`) VALUES
+-- Dump dei dati della tabella entilocali.zfcms_geo_comuni: ~8.361 rows (circa)
+/*!40000 ALTER TABLE `zfcms_geo_comuni` DISABLE KEYS */;
+INSERT INTO `zfcms_geo_comuni` (`id`, `cod_regione`, `cod_provincia`, `cod_comune`, `nome_comune`, `codice_istat`, `cap_principale`, `cap_inizio`, `cap_fine`, `prefisso`, `sito_web`, `latitudine`, `longitudine`) VALUES
 	(1, '01', '001', ' 001 ', 'Agli', '001001', '10011', NULL, NULL, '0124', NULL, NULL, NULL),
 	(2, '01', '001', ' 002 ', 'Airasca', '001002', '10060', NULL, NULL, '011', NULL, NULL, NULL),
 	(3, '01', '001', ' 003 ', 'Ala di Stura', '001003', '10070', NULL, NULL, '0123', NULL, NULL, NULL),
@@ -8471,12 +8475,12 @@ INSERT INTO `geo_comuni` (`id`, `cod_regione`, `cod_provincia`, `cod_comune`, `n
 	(8092, '16', '110', ' 008 ', 'Spinazzola', '110008', '76014', NULL, NULL, '0883', NULL, NULL, NULL),
 	(8093, '16', '110', ' 009 ', 'Trani', '110009', '76125', NULL, NULL, '0883', NULL, NULL, NULL),
 	(8094, '16', '110', ' 010 ', 'Trinitapoli', '110010', '76015', NULL, NULL, '0883', NULL, NULL, NULL);
-/*!40000 ALTER TABLE `geo_comuni` ENABLE KEYS */;
+/*!40000 ALTER TABLE `zfcms_geo_comuni` ENABLE KEYS */;
 
 
--- Dump della struttura di tabella entilocali.geo_comuni_cap
-DROP TABLE IF EXISTS `geo_comuni_cap`;
-CREATE TABLE IF NOT EXISTS `geo_comuni_cap` (
+-- Dump della struttura di tabella entilocali.zfcms_geo_comuni_cap
+DROP TABLE IF EXISTS `zfcms_geo_comuni_cap`;
+CREATE TABLE IF NOT EXISTS `zfcms_geo_comuni_cap` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `capcode` varchar(5) NOT NULL DEFAULT '0',
   `nome` varchar(80) NOT NULL DEFAULT '0',
@@ -8484,12 +8488,12 @@ CREATE TABLE IF NOT EXISTS `geo_comuni_cap` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `capcode` (`capcode`),
   KEY `comune_id` (`comune_id`),
-  CONSTRAINT `idcomune` FOREIGN KEY (`comune_id`) REFERENCES `geo_comuni` (`id`)
+  CONSTRAINT `idcomune` FOREIGN KEY (`comune_id`) REFERENCES `zfcms_geo_comuni` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8;
 
--- Dump dei dati della tabella entilocali.geo_comuni_cap: ~82 rows (circa)
-/*!40000 ALTER TABLE `geo_comuni_cap` DISABLE KEYS */;
-INSERT INTO `geo_comuni_cap` (`id`, `capcode`, `nome`, `comune_id`) VALUES
+-- Dump dei dati della tabella entilocali.zfcms_geo_comuni_cap: ~82 rows (circa)
+/*!40000 ALTER TABLE `zfcms_geo_comuni_cap` DISABLE KEYS */;
+INSERT INTO `zfcms_geo_comuni_cap` (`id`, `capcode`, `nome`, `comune_id`) VALUES
 	(1, '00118', 'Morena', 4893),
 	(2, '00119', 'Via del mare-Ostia Antica', 4893),
 	(3, '00120', 'Castel Gandolfo', 4893),
@@ -8572,30 +8576,30 @@ INSERT INTO `geo_comuni_cap` (`id`, `capcode`, `nome`, `comune_id`) VALUES
 	(80, '00197', 'Pinciano-Parioli', 4893),
 	(81, '00198', 'Salaria-Corso trieste- S.Agnese', 4893),
 	(82, '00199', 'Villa Ada-Viale Libia', 4893);
-/*!40000 ALTER TABLE `geo_comuni_cap` ENABLE KEYS */;
+/*!40000 ALTER TABLE `zfcms_geo_comuni_cap` ENABLE KEYS */;
 
 
--- Dump della struttura di tabella entilocali.geo_comuni_cap_quartieri
-DROP TABLE IF EXISTS `geo_comuni_cap_quartieri`;
-CREATE TABLE IF NOT EXISTS `geo_comuni_cap_quartieri` (
+-- Dump della struttura di tabella entilocali.zfcms_geo_comuni_cap_quartieri
+DROP TABLE IF EXISTS `zfcms_geo_comuni_cap_quartieri`;
+CREATE TABLE IF NOT EXISTS `zfcms_geo_comuni_cap_quartieri` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `cap_quartiere_id` bigint(10) NOT NULL DEFAULT '0',
   `quartiere_id` bigint(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `quartiere_id` (`quartiere_id`),
   KEY `cap_quartiere_id` (`cap_quartiere_id`),
-  CONSTRAINT `capquartierids` FOREIGN KEY (`cap_quartiere_id`) REFERENCES `geo_comuni_cap` (`id`),
-  CONSTRAINT `quartierids` FOREIGN KEY (`quartiere_id`) REFERENCES `geo_comuni_quartieri` (`id`)
+  CONSTRAINT `capquartierids` FOREIGN KEY (`cap_quartiere_id`) REFERENCES `zfcms_geo_comuni_cap` (`id`),
+  CONSTRAINT `quartierids` FOREIGN KEY (`quartiere_id`) REFERENCES `zfcms_geo_comuni_quartieri` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dump dei dati della tabella entilocali.geo_comuni_cap_quartieri: ~0 rows (circa)
-/*!40000 ALTER TABLE `geo_comuni_cap_quartieri` DISABLE KEYS */;
-/*!40000 ALTER TABLE `geo_comuni_cap_quartieri` ENABLE KEYS */;
+-- Dump dei dati della tabella entilocali.zfcms_geo_comuni_cap_quartieri: ~0 rows (circa)
+/*!40000 ALTER TABLE `zfcms_geo_comuni_cap_quartieri` DISABLE KEYS */;
+/*!40000 ALTER TABLE `zfcms_geo_comuni_cap_quartieri` ENABLE KEYS */;
 
 
--- Dump della struttura di tabella entilocali.geo_comuni_quartieri
-DROP TABLE IF EXISTS `geo_comuni_quartieri`;
-CREATE TABLE IF NOT EXISTS `geo_comuni_quartieri` (
+-- Dump della struttura di tabella entilocali.zfcms_geo_comuni_quartieri
+DROP TABLE IF EXISTS `zfcms_geo_comuni_quartieri`;
+CREATE TABLE IF NOT EXISTS `zfcms_geo_comuni_quartieri` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `nome` varchar(50) DEFAULT NULL,
   `cap_principale` varchar(5) DEFAULT NULL,
@@ -8603,26 +8607,26 @@ CREATE TABLE IF NOT EXISTS `geo_comuni_quartieri` (
   PRIMARY KEY (`id`),
   KEY `quartierisearch` (`nome`),
   KEY `citta_id` (`citta_id`),
-  CONSTRAINT `geocittaid` FOREIGN KEY (`citta_id`) REFERENCES `geo_comuni` (`id`)
+  CONSTRAINT `geocittaid` FOREIGN KEY (`citta_id`) REFERENCES `zfcms_geo_comuni` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dump dei dati della tabella entilocali.geo_comuni_quartieri: ~0 rows (circa)
-/*!40000 ALTER TABLE `geo_comuni_quartieri` DISABLE KEYS */;
-/*!40000 ALTER TABLE `geo_comuni_quartieri` ENABLE KEYS */;
+-- Dump dei dati della tabella entilocali.zfcms_geo_comuni_quartieri: ~0 rows (circa)
+/*!40000 ALTER TABLE `zfcms_geo_comuni_quartieri` DISABLE KEYS */;
+/*!40000 ALTER TABLE `zfcms_geo_comuni_quartieri` ENABLE KEYS */;
 
 
--- Dump della struttura di tabella entilocali.geo_nazioni
-DROP TABLE IF EXISTS `geo_nazioni`;
-CREATE TABLE IF NOT EXISTS `geo_nazioni` (
+-- Dump della struttura di tabella entilocali.zfcms_geo_nazioni
+DROP TABLE IF EXISTS `zfcms_geo_nazioni`;
+CREATE TABLE IF NOT EXISTS `zfcms_geo_nazioni` (
   `id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(13) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `nome` (`nome`)
 ) ENGINE=InnoDB AUTO_INCREMENT=240 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Dump dei dati della tabella entilocali.geo_nazioni: ~238 rows (circa)
-/*!40000 ALTER TABLE `geo_nazioni` DISABLE KEYS */;
-INSERT INTO `geo_nazioni` (`id`, `nome`) VALUES
+-- Dump dei dati della tabella entilocali.zfcms_geo_nazioni: ~238 rows (circa)
+/*!40000 ALTER TABLE `zfcms_geo_nazioni` DISABLE KEYS */;
+INSERT INTO `zfcms_geo_nazioni` (`id`, `nome`) VALUES
 	(1, 'Afghanistan'),
 	(2, 'Albania'),
 	(3, 'Algeria'),
@@ -8861,12 +8865,12 @@ INSERT INTO `geo_nazioni` (`id`, `nome`) VALUES
 	(237, 'Yugoslavia'),
 	(238, 'Zambia'),
 	(239, 'Zimbabwe');
-/*!40000 ALTER TABLE `geo_nazioni` ENABLE KEYS */;
+/*!40000 ALTER TABLE `zfcms_geo_nazioni` ENABLE KEYS */;
 
 
--- Dump della struttura di tabella entilocali.geo_province
-DROP TABLE IF EXISTS `geo_province`;
-CREATE TABLE IF NOT EXISTS `geo_province` (
+-- Dump della struttura di tabella entilocali.zfcms_geo_province
+DROP TABLE IF EXISTS `zfcms_geo_province`;
+CREATE TABLE IF NOT EXISTS `zfcms_geo_province` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `codice_regione` varchar(14) DEFAULT NULL,
   `codice_provincia` varchar(16) DEFAULT NULL,
@@ -8878,9 +8882,9 @@ CREATE TABLE IF NOT EXISTS `geo_province` (
   KEY `codice_regione` (`codice_regione`)
 ) ENGINE=InnoDB AUTO_INCREMENT=111 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Dump dei dati della tabella entilocali.geo_province: ~110 rows (circa)
-/*!40000 ALTER TABLE `geo_province` DISABLE KEYS */;
-INSERT INTO `geo_province` (`id`, `codice_regione`, `codice_provincia`, `nome`, `sigla`, `capoluogo`) VALUES
+-- Dump dei dati della tabella entilocali.zfcms_geo_province: ~110 rows (circa)
+/*!40000 ALTER TABLE `zfcms_geo_province` DISABLE KEYS */;
+INSERT INTO `zfcms_geo_province` (`id`, `codice_regione`, `codice_provincia`, `nome`, `sigla`, `capoluogo`) VALUES
 	(1, '01', '001', 'Torino', 'TO', 'si'),
 	(2, '01', '002', 'Vercelli', 'VC', 'no'),
 	(3, '01', '003', 'Novara', 'NO', 'no'),
@@ -8991,12 +8995,12 @@ INSERT INTO `geo_province` (`id`, `codice_regione`, `codice_provincia`, `nome`, 
 	(108, '20', '105', 'Ogliastra', 'OG', 'no'),
 	(109, '20', '106', 'Medio Campidano', 'VS', 'no'),
 	(110, '20', '107', 'Carbonia-Iglesias', 'CI', 'no');
-/*!40000 ALTER TABLE `geo_province` ENABLE KEYS */;
+/*!40000 ALTER TABLE `zfcms_geo_province` ENABLE KEYS */;
 
 
--- Dump della struttura di tabella entilocali.geo_regioni
-DROP TABLE IF EXISTS `geo_regioni`;
-CREATE TABLE IF NOT EXISTS `geo_regioni` (
+-- Dump della struttura di tabella entilocali.zfcms_geo_regioni
+DROP TABLE IF EXISTS `zfcms_geo_regioni`;
+CREATE TABLE IF NOT EXISTS `zfcms_geo_regioni` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `codice_regione` varchar(2) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
   `nome_regione` varchar(100) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
@@ -9004,9 +9008,9 @@ CREATE TABLE IF NOT EXISTS `geo_regioni` (
   KEY `cod_regione` (`codice_regione`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Dump dei dati della tabella entilocali.geo_regioni: ~20 rows (circa)
-/*!40000 ALTER TABLE `geo_regioni` DISABLE KEYS */;
-INSERT INTO `geo_regioni` (`id`, `codice_regione`, `nome_regione`) VALUES
+-- Dump dei dati della tabella entilocali.zfcms_geo_regioni: ~20 rows (circa)
+/*!40000 ALTER TABLE `zfcms_geo_regioni` DISABLE KEYS */;
+INSERT INTO `zfcms_geo_regioni` (`id`, `codice_regione`, `nome_regione`) VALUES
 	(1, '01', 'PIEMONTE'),
 	(2, '02', 'VALLE D\'AOSTA'),
 	(3, '03', 'LOMBARDIA'),
@@ -9027,82 +9031,103 @@ INSERT INTO `geo_regioni` (`id`, `codice_regione`, `nome_regione`) VALUES
 	(18, '18', 'CALABRIA'),
 	(19, '19', 'SICILIA'),
 	(20, '20', 'SARDEGNA');
-/*!40000 ALTER TABLE `geo_regioni` ENABLE KEYS */;
+/*!40000 ALTER TABLE `zfcms_geo_regioni` ENABLE KEYS */;
 
 
--- Dump della struttura di tabella entilocali.homepage
-DROP TABLE IF EXISTS `homepage`;
-CREATE TABLE IF NOT EXISTS `homepage` (
+-- Dump della struttura di tabella entilocali.zfcms_homepage
+DROP TABLE IF EXISTS `zfcms_homepage`;
+CREATE TABLE IF NOT EXISTS `zfcms_homepage` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `riferimento_id` int(11) DEFAULT NULL,
-  `modulo_id` int(11) NOT NULL DEFAULT '0',
+  `position` int(11) DEFAULT NULL,
+  `free_text` text,
+  `reference_id` int(11) DEFAULT NULL,
+  `block_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `modulo_id` (`modulo_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  KEY `reference_id` (`reference_id`),
+  KEY `block_id` (`block_id`),
+  CONSTRAINT `fk_homepage_block_id` FOREIGN KEY (`block_id`) REFERENCES `zfcms_homepage_blocks` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Dump dei dati della tabella entilocali.homepage: ~1 rows (circa)
-/*!40000 ALTER TABLE `homepage` DISABLE KEYS */;
-INSERT INTO `homepage` (`id`, `riferimento_id`, `modulo_id`) VALUES
-	(1, 1, 4);
-/*!40000 ALTER TABLE `homepage` ENABLE KEYS */;
+-- Dump dei dati della tabella entilocali.zfcms_homepage: ~4 rows (circa)
+/*!40000 ALTER TABLE `zfcms_homepage` DISABLE KEYS */;
+INSERT INTO `zfcms_homepage` (`id`, `position`, `free_text`, `reference_id`, `block_id`) VALUES
+	(1, 1, NULL, 8, 1),
+	(2, 1, NULL, 1, 2),
+	(3, 2, NULL, 2, 2),
+	(4, 3, NULL, 3, 2);
+/*!40000 ALTER TABLE `zfcms_homepage` ENABLE KEYS */;
 
 
--- Dump della struttura di tabella entilocali.lingue
-DROP TABLE IF EXISTS `lingue`;
-CREATE TABLE IF NOT EXISTS `lingue` (
+-- Dump della struttura di tabella entilocali.zfcms_homepage_blocks
+DROP TABLE IF EXISTS `zfcms_homepage_blocks`;
+CREATE TABLE IF NOT EXISTS `zfcms_homepage_blocks` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `position` int(11) DEFAULT NULL,
+  `module_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `module_id` (`module_id`),
+  CONSTRAINT `fk_hp_blocks_module_id` FOREIGN KEY (`module_id`) REFERENCES `zfcms_modules` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+-- Dump dei dati della tabella entilocali.zfcms_homepage_blocks: ~3 rows (circa)
+/*!40000 ALTER TABLE `zfcms_homepage_blocks` DISABLE KEYS */;
+INSERT INTO `zfcms_homepage_blocks` (`id`, `position`, `module_id`) VALUES
+	(1, 2, 1),
+	(2, 1, 4),
+	(3, 3, 6);
+/*!40000 ALTER TABLE `zfcms_homepage_blocks` ENABLE KEYS */;
+
+
+-- Dump della struttura di tabella entilocali.zfcms_languages
+DROP TABLE IF EXISTS `zfcms_languages`;
+CREATE TABLE IF NOT EXISTS `zfcms_languages` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
-  `bandiera` varchar(60) NOT NULL,
-  `nome` varchar(60) NOT NULL,
-  `abbreviazione1` varchar(60) NOT NULL,
-  `abbreviazione2` varchar(60) NOT NULL,
-  `abbreviazione3` varchar(60) NOT NULL,
-  `predefinita` bigint(1) NOT NULL DEFAULT '0',
-  `predefinita_backend` bigint(4) NOT NULL DEFAULT '0',
+  `flag` varchar(60) NOT NULL,
+  `name` varchar(60) NOT NULL,
+  `abbreviation1` varchar(60) NOT NULL,
+  `abbreviation2` varchar(60) NOT NULL,
+  `abbreviation3` varchar(60) NOT NULL,
+  `is_default` bigint(1) NOT NULL DEFAULT '0',
+  `is_default_backend` bigint(4) NOT NULL DEFAULT '0',
   `encoding` varchar(50) DEFAULT 'UTF-8',
-  `attivo` bigint(11) NOT NULL,
-  `canale_id` bigint(11) NOT NULL DEFAULT '1',
+  `status` bigint(11) NOT NULL,
+  `channel_id` bigint(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  KEY `canale_id` (`canale_id`),
-  KEY `abbreviazione3` (`abbreviazione3`),
-  KEY `abbreviazione1` (`abbreviazione1`),
-  KEY `abbreviazione2` (`abbreviazione2`),
-  CONSTRAINT `fk_lingue_canale` FOREIGN KEY (`canale_id`) REFERENCES `canali` (`id`)
+  KEY `channel_id` (`channel_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
--- Dump dei dati della tabella entilocali.lingue: ~6 rows (circa)
-/*!40000 ALTER TABLE `lingue` DISABLE KEYS */;
-INSERT INTO `lingue` (`id`, `bandiera`, `nome`, `abbreviazione1`, `abbreviazione2`, `abbreviazione3`, `predefinita`, `predefinita_backend`, `encoding`, `attivo`, `canale_id`) VALUES
+-- Dump dei dati della tabella entilocali.zfcms_languages: ~6 rows (circa)
+/*!40000 ALTER TABLE `zfcms_languages` DISABLE KEYS */;
+INSERT INTO `zfcms_languages` (`id`, `flag`, `name`, `abbreviation1`, `abbreviation2`, `abbreviation3`, `is_default`, `is_default_backend`, `encoding`, `status`, `channel_id`) VALUES
 	(1, 'ita.gif', 'Italiano', 'it', 'ita', 'Italiano', 1, 1, 'UTF-8', 1, 1),
 	(2, 'eng.gif', 'Inglese', 'en', 'eng', 'English', 0, 0, 'UTF-8', 1, 1),
 	(3, 'spa.gif', 'Spagnolo', 'es', 'spa', 'Spanish', 0, 0, 'UTF-8', 0, 1),
 	(4, 'ger.gif', 'Tedesco', 'de', 'deu', 'German', 0, 0, 'UTF-8', 0, 1),
 	(6, 'ita.gif', 'Italiano', 'it', 'ita', 'Italiano', 0, 0, 'UTF-8', 1, 2),
 	(7, 'eng.gif', 'Inglese', 'en', 'eng', 'English', 1, 1, 'UTF-8', 1, 2);
-/*!40000 ALTER TABLE `lingue` ENABLE KEYS */;
+/*!40000 ALTER TABLE `zfcms_languages` ENABLE KEYS */;
 
 
--- Dump della struttura di tabella entilocali.lingue_etichette
-DROP TABLE IF EXISTS `lingue_etichette`;
-CREATE TABLE IF NOT EXISTS `lingue_etichette` (
+-- Dump della struttura di tabella entilocali.zfcms_languages_labels
+DROP TABLE IF EXISTS `zfcms_languages_labels`;
+CREATE TABLE IF NOT EXISTS `zfcms_languages_labels` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(80) DEFAULT NULL,
-  `valore` text,
-  `descrizione` text,
-  `isbackend` bigint(10) DEFAULT '0',
-  `isuniversal` bigint(10) DEFAULT '0',
+  `name` varchar(80) DEFAULT NULL,
+  `value` text,
+  `description` text,
+  `is_backend` bigint(10) DEFAULT '0',
+  `is_universal` bigint(10) DEFAULT '0',
   `status` varchar(50) DEFAULT '1',
-  `modulo_id` bigint(10) DEFAULT '0' COMMENT 'Can be 0',
-  `lingua_id` bigint(10) DEFAULT '1' COMMENT 'Can be 0',
+  `module_id` bigint(10) DEFAULT '0' COMMENT 'Can be 0',
+  `linguage_id` bigint(10) DEFAULT '1' COMMENT 'Can be 0',
   PRIMARY KEY (`id`),
-  KEY `language` (`lingua_id`),
-  KEY `module_id` (`modulo_id`),
-  KEY `isadmin` (`isbackend`),
-  KEY `isuniversal` (`isuniversal`)
+  KEY `linguage_id` (`linguage_id`),
+  KEY `module_id` (`module_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=167 DEFAULT CHARSET=utf8;
 
--- Dump dei dati della tabella entilocali.lingue_etichette: ~205 rows (circa)
-/*!40000 ALTER TABLE `lingue_etichette` DISABLE KEYS */;
-INSERT INTO `lingue_etichette` (`id`, `nome`, `valore`, `descrizione`, `isbackend`, `isuniversal`, `status`, `modulo_id`, `lingua_id`) VALUES
+-- Dump dei dati della tabella entilocali.zfcms_languages_labels: ~129 rows (circa)
+/*!40000 ALTER TABLE `zfcms_languages_labels` DISABLE KEYS */;
+INSERT INTO `zfcms_languages_labels` (`id`, `name`, `value`, `description`, `is_backend`, `is_universal`, `status`, `module_id`, `linguage_id`) VALUES
 	(1, 'ITA_LANGUAGE_NAME', 'Italiano', NULL, 0, 0, '1', 0, 1),
 	(2, 'ENG_LANGUAGE_NAME', 'Inglese', NULL, 0, 0, '1', 0, 1),
 	(3, 'NOTFOUND_WARNING', '<div class="alert alert-block">\r\n	<h4>Pagina non trovata</h4>\r\n	Siamo spiacenti, ma la pagina richiesta non &egrave; stata trovata :(\r\n</div>', NULL, 0, 0, '1', 0, 1),
@@ -9269,60 +9294,143 @@ INSERT INTO `lingue_etichette` (`id`, `nome`, `valore`, `descrizione`, `isbacken
 	(164, 'ADMIN_SEOTITLE_DESC', 'URL title for search engines', NULL, 1, 0, '1', 0, 2),
 	(165, 'ADMIN_WAIT_SAVEFORM', 'Attendere: elaborazione dati in corso...', NULL, 0, 1, '1', 1, 1),
 	(166, 'ADMIN_WAIT_SAVEFORM', 'Loading... please wait', NULL, 0, 1, '1', 1, 2);
-/*!40000 ALTER TABLE `lingue_etichette` ENABLE KEYS */;
+/*!40000 ALTER TABLE `zfcms_languages_labels` ENABLE KEYS */;
 
 
--- Dump della struttura di tabella entilocali.moduli
-DROP TABLE IF EXISTS `moduli`;
-CREATE TABLE IF NOT EXISTS `moduli` (
+-- Dump della struttura di tabella entilocali.zfcms_mimetype
+DROP TABLE IF EXISTS `zfcms_mimetype`;
+CREATE TABLE IF NOT EXISTS `zfcms_mimetype` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `image` text NOT NULL,
+  `mimetype` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- Dump dei dati della tabella entilocali.zfcms_mimetype: 23 rows
+/*!40000 ALTER TABLE `zfcms_mimetype` DISABLE KEYS */;
+INSERT INTO `zfcms_mimetype` (`id`, `image`, `mimetype`) VALUES
+	(1, 'pdf.gif', 'application/pdf'),
+	(2, 'word.gif', 'application/msword'),
+	(3, 'excel.gif', 'application/vnd.ms-excel'),
+	(4, 'foto.gif', 'image/jpeg'),
+	(5, 'foto.gif', 'image/gif'),
+	(6, 'txt.gif', 'text/plain'),
+	(8, 'pdf.gif', 'application/download'),
+	(9, 'zip.gif', 'application/octet-stream'),
+	(10, 'zip.gif', 'application/x-zip-compressed'),
+	(11, 'txt.gif', 'text/plain'),
+	(12, 'pdf.gif', 'text/html'),
+	(13, 'pdf.gif', 'application/octet-finite-length'),
+	(14, 'pdf.gif', 'application/x-download'),
+	(15, 'pdf.gif', 'binary/x-sogei-sister'),
+	(16, 'pdf.gif', 'application/octet'),
+	(17, 'zip.gif', 'application/pkcs7-mime'),
+	(18, 'word.gif', 'application/rtf'),
+	(19, 'word.gif', 'text/rtf'),
+	(20, 'odt.gif', 'application/vnd.oasis.opendocument.text'),
+	(21, 'ods.gif', 'application/vnd.oasis.opendocument.spreadsheet'),
+	(22, 'docx.gif', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'),
+	(23, 'xlsx.gif', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),
+	(24, 'zip.gif', 'application/zip');
+/*!40000 ALTER TABLE `zfcms_mimetype` ENABLE KEYS */;
+
+
+-- Dump della struttura di tabella entilocali.zfcms_modules
+DROP TABLE IF EXISTS `zfcms_modules`;
+CREATE TABLE IF NOT EXISTS `zfcms_modules` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
-  `codice` varchar(50) NOT NULL DEFAULT '0',
-  `nome` varchar(100) NOT NULL,
+  `code` varchar(50) NOT NULL DEFAULT '0',
   `status` varchar(100) NOT NULL,
   `channel_id` bigint(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `channel_id` (`channel_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
--- Dump dei dati della tabella entilocali.moduli: ~10 rows (circa)
-/*!40000 ALTER TABLE `moduli` DISABLE KEYS */;
-INSERT INTO `moduli` (`id`, `codice`, `nome`, `status`, `channel_id`) VALUES
-	(1, 'blogs', 'Blogs', '', 1),
-	(4, 'contenuti', 'Pagine', '', 1),
-	(6, 'foto', 'Foto', '', 1),
-	(7, 'ecommerce', 'Prodotti', '', 1),
-	(9, 'aste', 'Aste e procedure', 'disattivato', 1),
-	(10, 'faq', 'FAQ', 'disattivato', 1),
-	(11, 'newsletter', 'Newsletter', '', 1),
-	(12, 'booking', 'Booking', 'disattivato', 1),
-	(13, 'takeaway', 'Takeaway', 'disattivato', 1),
-	(14, 'video', 'Video', 'disattivato', 1);
-/*!40000 ALTER TABLE `moduli` ENABLE KEYS */;
+-- Dump dei dati della tabella entilocali.zfcms_modules: ~18 rows (circa)
+/*!40000 ALTER TABLE `zfcms_modules` DISABLE KEYS */;
+INSERT INTO `zfcms_modules` (`id`, `code`, `status`, `channel_id`) VALUES
+	(1, 'blogs', 'attivo', 0),
+	(4, 'contenuti', 'attivo', 0),
+	(6, 'foto', 'attivo', 0),
+	(7, 'ecommerce', 'attivo', 0),
+	(9, 'aste', 'disattivato', 0),
+	(10, 'faq', 'disattivato', 0),
+	(11, 'newsletter', 'attivo', 0),
+	(12, 'booking', 'disattivato', 0),
+	(13, 'takeaway', 'disattivato', 0),
+	(14, 'video', 'disattivato', 0),
+	(15, 'Amministrazione Trasparente', 'attivo', 0),
+	(16, 'stato civile', 'attivo', 0),
+	(17, 'Contratti Pubblici', 'attivo', 0),
+	(18, 'Atti di concessione', 'attivo', 0),
+	(19, 'Modulistica', 'attivo', 0),
+	(20, 'Delibere', 'attivo', 0),
+	(21, 'Determine', 'attivo', 0),
+	(22, 'freetexthomepage', 'attivo', 0);
+/*!40000 ALTER TABLE `zfcms_modules` ENABLE KEYS */;
 
 
--- Dump della struttura di tabella entilocali.posts
-DROP TABLE IF EXISTS `posts`;
-CREATE TABLE IF NOT EXISTS `posts` (
+-- Dump della struttura di tabella entilocali.zfcms_modules_options
+DROP TABLE IF EXISTS `zfcms_modules_options`;
+CREATE TABLE IF NOT EXISTS `zfcms_modules_options` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL DEFAULT '0',
+  `module_id` bigint(20) NOT NULL DEFAULT '0',
+  `language_id` bigint(20) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `language_id` (`language_id`),
+  KEY `module_id` (`module_id`),
+  CONSTRAINT `fk_module_language_id` FOREIGN KEY (`language_id`) REFERENCES `zfcms_languages` (`id`),
+  CONSTRAINT `fk_module_module_id` FOREIGN KEY (`module_id`) REFERENCES `zfcms_modules` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+
+-- Dump dei dati della tabella entilocali.zfcms_modules_options: ~18 rows (circa)
+/*!40000 ALTER TABLE `zfcms_modules_options` DISABLE KEYS */;
+INSERT INTO `zfcms_modules_options` (`id`, `name`, `module_id`, `language_id`) VALUES
+	(1, 'Blogs', 1, 1),
+	(2, 'Pagine', 4, 1),
+	(3, 'Foto', 6, 1),
+	(4, 'Prodotti', 7, 1),
+	(5, 'Aste e procedure', 9, 1),
+	(6, 'FAQ', 10, 1),
+	(7, 'Newsletter', 11, 1),
+	(8, 'Booking', 12, 1),
+	(9, 'Takeaway', 13, 1),
+	(10, 'Video', 14, 1),
+	(11, 'Amministrazione Trasparente', 15, 1),
+	(12, 'Stato civile', 16, 1),
+	(13, 'Contratti Pubblici', 17, 1),
+	(14, 'Atti di concessione', 18, 1),
+	(15, 'Modulistica', 19, 1),
+	(16, 'Delibere', 20, 1),
+	(17, 'Determine', 21, 1),
+	(18, 'FreeTextHomePage', 20, 1);
+/*!40000 ALTER TABLE `zfcms_modules_options` ENABLE KEYS */;
+
+
+-- Dump della struttura di tabella entilocali.zfcms_posts
+DROP TABLE IF EXISTS `zfcms_posts`;
+CREATE TABLE IF NOT EXISTS `zfcms_posts` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `note` varchar(80) DEFAULT NULL,
-  `immagine` varchar(80) DEFAULT NULL,
-  `data_inserimento` datetime NOT NULL DEFAULT '2013-01-01 00:00:00',
-  `data_scadenza` datetime NOT NULL DEFAULT '2030-02-10 00:00:00',
-  `data_ultimo_aggiornamento` datetime NOT NULL DEFAULT '2030-02-10 00:00:00',
+  `image` varchar(80) DEFAULT NULL,
+  `insert_date` datetime NOT NULL DEFAULT '2013-01-01 00:00:00',
+  `expire_date` datetime NOT NULL DEFAULT '2030-02-10 00:00:00',
+  `last_update` datetime NOT NULL DEFAULT '2030-02-10 00:00:00',
   `parent_id` bigint(11) NOT NULL DEFAULT '0',
-  `tipo` varchar(40) NOT NULL,
+  `type` varchar(40) NOT NULL,
   `template_file` varchar(50) NOT NULL,
   `alias` varchar(40) NOT NULL COMMENT 'for locked content',
-  `flag_allegati` enum('si','no') NOT NULL DEFAULT 'no',
+  `flag_attachments` enum('si','no') NOT NULL DEFAULT 'no',
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`),
   KEY `alias` (`alias`),
-  KEY `flag_allegati` (`flag_allegati`)
+  KEY `flag_allegati` (`flag_attachments`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Dump dei dati della tabella entilocali.posts: ~11 rows (circa)
-/*!40000 ALTER TABLE `posts` DISABLE KEYS */;
-INSERT INTO `posts` (`id`, `note`, `immagine`, `data_inserimento`, `data_scadenza`, `data_ultimo_aggiornamento`, `parent_id`, `tipo`, `template_file`, `alias`, `flag_allegati`) VALUES
+-- Dump dei dati della tabella entilocali.zfcms_posts: ~11 rows (circa)
+/*!40000 ALTER TABLE `zfcms_posts` DISABLE KEYS */;
+INSERT INTO `zfcms_posts` (`id`, `note`, `image`, `insert_date`, `expire_date`, `last_update`, `parent_id`, `type`, `template_file`, `alias`, `flag_attachments`) VALUES
 	(1, 'comune', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, 'content', '', 'comune', 'no'),
 	(2, 'giunta', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, 'content', '', 'giunta', 'no'),
 	(3, 'consiglio', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, 'content', '', 'consiglio', 'si'),
@@ -9334,77 +9442,75 @@ INSERT INTO `posts` (`id`, `note`, `immagine`, `data_inserimento`, `data_scadenz
 	(9, 'Evento 2', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, 'blog', '', '', 'no'),
 	(10, 'Evento 3', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, 'blog', '', '', 'no'),
 	(11, 'Evento 4', NULL, '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, 'blog', '', '', 'no');
-/*!40000 ALTER TABLE `posts` ENABLE KEYS */;
+/*!40000 ALTER TABLE `zfcms_posts` ENABLE KEYS */;
 
 
--- Dump della struttura di tabella entilocali.posts_opzioni
-DROP TABLE IF EXISTS `posts_opzioni`;
-CREATE TABLE IF NOT EXISTS `posts_opzioni` (
+-- Dump della struttura di tabella entilocali.zfcms_posts_options
+DROP TABLE IF EXISTS `zfcms_posts_options`;
+CREATE TABLE IF NOT EXISTS `zfcms_posts_options` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `note` varchar(100) DEFAULT NULL,
-  `data_da` datetime DEFAULT '2014-01-01 01:01:01',
-  `data_a` datetime DEFAULT '2014-01-01 01:01:01',
-  `titolo` varchar(150) DEFAULT NULL,
-  `sottotitolo` varchar(150) DEFAULT NULL,
-  `descrizione` text,
-  `stato` varchar(50) DEFAULT NULL,
-  `posizione` bigint(10) DEFAULT '1',
+  `date_from` datetime DEFAULT '2014-01-01 01:01:01',
+  `data_to` datetime DEFAULT '2014-01-01 01:01:01',
+  `title` varchar(150) DEFAULT NULL,
+  `subtitle` varchar(150) DEFAULT NULL,
+  `description` text,
+  `status` varchar(50) DEFAULT NULL,
+  `position` bigint(10) DEFAULT '1',
   `seo_url` varchar(150) DEFAULT NULL,
   `seo_title` varchar(150) DEFAULT NULL,
   `seo_description` varchar(150) DEFAULT NULL,
   `seo_keywords` varchar(150) DEFAULT NULL,
   `posts_id` bigint(10) DEFAULT NULL,
-  `lingua_id` bigint(10) DEFAULT '1',
+  `language_id` bigint(10) DEFAULT '1',
   PRIMARY KEY (`id`),
-  KEY `lingua_id` (`lingua_id`),
+  KEY `language_id` (`language_id`),
   KEY `posts_id` (`posts_id`),
-  KEY `titolo` (`titolo`),
-  KEY `seo_url` (`seo_url`),
   KEY `seo_title` (`seo_title`),
-  KEY `stato` (`stato`),
-  CONSTRAINT `fk_posts_opzioni_ids` FOREIGN KEY (`posts_id`) REFERENCES `posts` (`id`),
-  CONSTRAINT `fk_posts_opzioni_lingua_ids` FOREIGN KEY (`lingua_id`) REFERENCES `lingue` (`id`)
+  KEY `title` (`title`),
+  CONSTRAINT `fk_posts_language_id` FOREIGN KEY (`language_id`) REFERENCES `zfcms_languages` (`id`),
+  CONSTRAINT `fk_posts_post_id` FOREIGN KEY (`posts_id`) REFERENCES `zfcms_posts` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
--- Dump dei dati della tabella entilocali.posts_opzioni: ~11 rows (circa)
-/*!40000 ALTER TABLE `posts_opzioni` DISABLE KEYS */;
-INSERT INTO `posts_opzioni` (`id`, `note`, `data_da`, `data_a`, `titolo`, `sottotitolo`, `descrizione`, `stato`, `posizione`, `seo_url`, `seo_title`, `seo_description`, `seo_keywords`, `posts_id`, `lingua_id`) VALUES
-	(1, 'Sindaco', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Sindaco', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', 'attivo', 1, 'sindaco', 'sindaco', NULL, NULL, 1, 1),
-	(2, 'Giunta', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Giunta', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', 'attivo', 2, 'giunta', 'giunta', NULL, NULL, 2, 1),
+-- Dump dei dati della tabella entilocali.zfcms_posts_options: ~11 rows (circa)
+/*!40000 ALTER TABLE `zfcms_posts_options` DISABLE KEYS */;
+INSERT INTO `zfcms_posts_options` (`id`, `note`, `date_from`, `data_to`, `title`, `subtitle`, `description`, `status`, `position`, `seo_url`, `seo_title`, `seo_description`, `seo_keywords`, `posts_id`, `language_id`) VALUES
+	(1, 'Sindaco', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Sindaco', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', 'attivo', 1, 'sindaco', 'sindaco', '', '', 1, 1),
+	(2, 'Giunta', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Giunta', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>\r\n', 'attivo', 2, 'giunta', 'giunta', '', '', 2, 1),
 	(3, 'Consiglio', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Consiglio', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', 'attivo', 3, 'consiglio', 'consiglio', NULL, NULL, 3, 1),
 	(4, 'Atti Ufficiali', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Atti Ufficiali', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>\r\n', 'attivo', 5, 'atti-ufficiali', 'commissioni', '', '', 4, 1),
 	(5, 'Uffici', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Uffici', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', 'attivo', 4, 'uffici', 'uffici', NULL, NULL, 5, 1),
 	(6, 'dove siamo', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Dove siamo', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>\r\n<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.8876392677607!2d8.558697520241124!3d40.72048993720872!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12dc61588fb543ad%3A0xd4c58683a8f86abf!2sVia+Sardegna!5e0!3m2!1sit!2sit!4v1400088060385" width="600" height="450" frameborder="0" style="border:0"></iframe>', 'nascosto', 6, 'dove-siamo', 'dove-siamo', NULL, NULL, 6, 1),
 	(7, '', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Photo 1', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', 'attivo', 1, '', '', '', '', 7, 1),
-	(8, 'evento 1', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Evento 1', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', 'attivo', 1, 'evento-1', 'evento 1', NULL, NULL, 8, 1),
+	(8, 'evento 1', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Evento 1', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>\r\n', 'attivo', 1, 'evento-1', 'evento 1', '', '', 8, 1),
 	(9, 'evento 2', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Evento 2', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', 'attivo', 2, 'evento-2', 'evento 2', NULL, NULL, 9, 1),
 	(10, 'evento 3', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Evento 3', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', 'attivo', 3, 'evento-3', 'evento 3', NULL, NULL, 10, 1),
 	(11, 'evento 4', '2014-01-01 01:01:01', '2014-01-01 01:01:01', 'Evento 4', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>', 'attivo', 4, 'evento-4', 'evento 4', NULL, NULL, 11, 1);
-/*!40000 ALTER TABLE `posts_opzioni` ENABLE KEYS */;
+/*!40000 ALTER TABLE `zfcms_posts_options` ENABLE KEYS */;
 
 
--- Dump della struttura di tabella entilocali.posts_relazioni
-DROP TABLE IF EXISTS `posts_relazioni`;
-CREATE TABLE IF NOT EXISTS `posts_relazioni` (
+-- Dump della struttura di tabella entilocali.zfcms_posts_relations
+DROP TABLE IF EXISTS `zfcms_posts_relations`;
+CREATE TABLE IF NOT EXISTS `zfcms_posts_relations` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `posts_id` bigint(11) NOT NULL DEFAULT '0',
-  `categoria_id` bigint(11) NOT NULL DEFAULT '0',
-  `modulo_id` bigint(11) NOT NULL DEFAULT '0',
-  `canale_id` bigint(11) NOT NULL DEFAULT '1',
+  `category_id` bigint(11) NOT NULL DEFAULT '0',
+  `module_id` bigint(11) NOT NULL DEFAULT '0',
+  `channel_id` bigint(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
+  KEY `channel_id` (`channel_id`),
+  KEY `module_id` (`module_id`),
+  KEY `category_id` (`category_id`),
   KEY `posts_id` (`posts_id`),
-  KEY `canale_id` (`canale_id`),
-  KEY `modulo_id` (`modulo_id`),
-  KEY `categoria_id` (`categoria_id`),
-  CONSTRAINT `fk_categoria_ids` FOREIGN KEY (`categoria_id`) REFERENCES `categorie` (`id`),
-  CONSTRAINT `fk_posts_rel_canale_id` FOREIGN KEY (`canale_id`) REFERENCES `canali` (`id`),
-  CONSTRAINT `fk_posts_rel_modulo_ids` FOREIGN KEY (`modulo_id`) REFERENCES `moduli` (`id`),
-  CONSTRAINT `fk_posts_rel_posts_ids` FOREIGN KEY (`posts_id`) REFERENCES `posts` (`id`)
+  CONSTRAINT `fk_posts_category_id` FOREIGN KEY (`category_id`) REFERENCES `zfcms_categories` (`id`),
+  CONSTRAINT `fk_posts_channel_id` FOREIGN KEY (`channel_id`) REFERENCES `zfcms_channels` (`id`),
+  CONSTRAINT `fk_posts_module_id` FOREIGN KEY (`module_id`) REFERENCES `zfcms_modules` (`id`),
+  CONSTRAINT `fk_posts_relation_id` FOREIGN KEY (`posts_id`) REFERENCES `zfcms_posts` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Dump dei dati della tabella entilocali.posts_relazioni: ~11 rows (circa)
-/*!40000 ALTER TABLE `posts_relazioni` DISABLE KEYS */;
-INSERT INTO `posts_relazioni` (`id`, `posts_id`, `categoria_id`, `modulo_id`, `canale_id`) VALUES
+-- Dump dei dati della tabella entilocali.zfcms_posts_relations: ~11 rows (circa)
+/*!40000 ALTER TABLE `zfcms_posts_relations` DISABLE KEYS */;
+INSERT INTO `zfcms_posts_relations` (`id`, `posts_id`, `category_id`, `module_id`, `channel_id`) VALUES
 	(1, 1, 1, 4, 1),
 	(2, 2, 1, 4, 1),
 	(3, 3, 1, 4, 1),
@@ -9416,88 +9522,144 @@ INSERT INTO `posts_relazioni` (`id`, `posts_id`, `categoria_id`, `modulo_id`, `c
 	(9, 9, 2, 1, 1),
 	(10, 10, 2, 1, 1),
 	(11, 11, 2, 1, 1);
-/*!40000 ALTER TABLE `posts_relazioni` ENABLE KEYS */;
+/*!40000 ALTER TABLE `zfcms_posts_relations` ENABLE KEYS */;
 
 
--- Dump della struttura di tabella entilocali.utenti
-DROP TABLE IF EXISTS `utenti`;
-CREATE TABLE IF NOT EXISTS `utenti` (
+-- Dump della struttura di tabella entilocali.zfcms_tickets
+DROP TABLE IF EXISTS `zfcms_tickets`;
+CREATE TABLE IF NOT EXISTS `zfcms_tickets` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL,
+  `subject` varchar(100) NOT NULL,
+  `priority` varchar(100) NOT NULL,
+  `create_date` datetime NOT NULL DEFAULT '2010-01-01 01:01:00',
+  `email` varchar(100) NOT NULL,
+  `status` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dump dei dati della tabella entilocali.zfcms_tickets: ~0 rows (circa)
+/*!40000 ALTER TABLE `zfcms_tickets` DISABLE KEYS */;
+/*!40000 ALTER TABLE `zfcms_tickets` ENABLE KEYS */;
+
+
+-- Dump della struttura di tabella entilocali.zfcms_tickets_messages
+DROP TABLE IF EXISTS `zfcms_tickets_messages`;
+CREATE TABLE IF NOT EXISTS `zfcms_tickets_messages` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `message` text NOT NULL,
+  `send_date` datetime NOT NULL DEFAULT '2010-01-01 01:01:01',
+  `ticket_id` int(11) NOT NULL DEFAULT '0',
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- Dump dei dati della tabella entilocali.zfcms_tickets_messages: 0 rows
+/*!40000 ALTER TABLE `zfcms_tickets_messages` DISABLE KEYS */;
+/*!40000 ALTER TABLE `zfcms_tickets_messages` ENABLE KEYS */;
+
+
+-- Dump della struttura di tabella entilocali.zfcms_users
+DROP TABLE IF EXISTS `zfcms_users`;
+CREATE TABLE IF NOT EXISTS `zfcms_users` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
-  `immagine` varchar(80) NOT NULL,
-  `nome` varchar(60) NOT NULL,
-  `cognome` varchar(60) NOT NULL,
-  `indirizzo` varchar(60) NOT NULL,
-  `cap` varchar(5) NOT NULL,
-  `citta` varchar(60) NOT NULL,
-  `provincia` bigint(11) NOT NULL,
-  `data_nascita` datetime NOT NULL DEFAULT '1992-01-01 01:01:01',
-  `luogo_nascita` varchar(100) NOT NULL,
-  `nazione` bigint(11) NOT NULL DEFAULT '0',
-  `sesso` enum('M','F') NOT NULL DEFAULT 'M',
-  `professione` varchar(60) NOT NULL,
+  `image` varchar(80) NOT NULL,
+  `name` varchar(60) NOT NULL,
+  `surname` varchar(60) NOT NULL,
+  `address` varchar(60) NOT NULL,
+  `zip` varchar(5) NOT NULL,
+  `city` varchar(60) NOT NULL,
+  `province` bigint(11) NOT NULL,
+  `birth_date` datetime NOT NULL DEFAULT '1992-01-01 01:01:01',
+  `birth_place` varchar(100) NOT NULL,
+  `nation` bigint(11) NOT NULL DEFAULT '0',
+  `sex` enum('M','F') NOT NULL DEFAULT 'M',
+  `job` varchar(60) NOT NULL,
   `email` varchar(60) NOT NULL,
-  `telefono` varchar(60) NOT NULL,
-  `cellulare` varchar(60) NOT NULL,
+  `phone` varchar(60) NOT NULL,
+  `mobile` varchar(60) NOT NULL,
   `fax` varchar(60) NOT NULL,
-  `sito_web` varchar(80) NOT NULL,
-  `codice_fiscale` varchar(80) NOT NULL,
-  `partita_iva` varchar(60) NOT NULL,
+  `website_url` varchar(80) NOT NULL,
+  `fiscal_code` varchar(80) NOT NULL,
+  `vat_code` varchar(60) NOT NULL,
   `newsletter` char(1) NOT NULL DEFAULT '1',
-  `newsletter_formato` enum('text','html') NOT NULL DEFAULT 'html',
-  `nome_utente` varchar(80) NOT NULL,
+  `newsletter_format` enum('text','html') NOT NULL DEFAULT 'html',
+  `username` varchar(80) NOT NULL,
   `password` varchar(80) NOT NULL,
-  `stato` varchar(100) NOT NULL DEFAULT 'no',
-  `data_creazione` datetime NOT NULL DEFAULT '2014-01-01 01:01:01',
-  `data_ultimo_aggiornamento` datetime NOT NULL DEFAULT '2014-01-01 01:01:01',
-  `codice_conferma` varchar(100) NOT NULL,
-  `ruolo_id` bigint(11) NOT NULL,
+  `password_last_update` datetime NOT NULL DEFAULT '2014-01-01 01:01:01',
+  `status` varchar(100) NOT NULL DEFAULT 'no',
+  `create_date` datetime NOT NULL DEFAULT '2014-01-01 01:01:01',
+  `last_update` datetime NOT NULL DEFAULT '2014-01-01 01:01:01',
+  `confirm_code` varchar(100) NOT NULL,
+  `role_id` bigint(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
-  KEY `key_ids` (`ruolo_id`,`nazione`,`provincia`)
+  KEY `key_ids` (`role_id`,`nation`,`province`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- Dump dei dati della tabella entilocali.utenti: ~4 rows (circa)
-/*!40000 ALTER TABLE `utenti` DISABLE KEYS */;
-INSERT INTO `utenti` (`id`, `immagine`, `nome`, `cognome`, `indirizzo`, `cap`, `citta`, `provincia`, `data_nascita`, `luogo_nascita`, `nazione`, `sesso`, `professione`, `email`, `telefono`, `cellulare`, `fax`, `sito_web`, `codice_fiscale`, `partita_iva`, `newsletter`, `newsletter_formato`, `nome_utente`, `password`, `stato`, `data_creazione`, `data_ultimo_aggiornamento`, `codice_conferma`, `ruolo_id`) VALUES
-	(1, 'noimg.gif', 'Andrea', 'Fiori', 'via Aretina 1', '50126', 'Firenze', 87, '1982-08-10 00:00:00', 'Angera', 107, 'M', 'Web developer', 'a.fiori@cheapnet.it', '', '3295639204', '', '', '', '', '', 'html', 'blackevil', 'c2870721a47988180f6fa53213b546b2', '', '2010-06-03 15:28:29', '2013-05-03 15:28:29', '', 1),
-	(2, 'noimg.gif', 'Luca', 'Sanna', '', '07100', 'Sassari', 87, '1969-08-10 00:00:00', 'Sassari', 107, 'M', '', 'l.sanna@kronoweb.it', '', '', '', '', '', '', '', 'html', 'lsanna', 'a86dc00692a485d9b7005c32c7bd9ceb', '', '2010-06-03 15:28:29', '2013-08-29 15:28:29', '', 1),
-	(3, 'noimg.gif', 'prova', 'cliente', '', '07100', 'Sassari', 87, '1989-08-10 00:00:00', 'Sassari', 107, 'M', '', 'prova@gmail.com', '', '', '', '', '', '', '', 'html', 'prova', 'ab7fa2201bbdef6ff261d10ccbd61858', '', '2010-06-03 15:28:29', '2013-08-29 15:28:29', '', 1),
-	(4, 'noimg.gif', 'Massimiliano', 'Fio', '', '07100', 'Sassari', 87, '1976-08-10 00:00:00', 'Sassari', 107, 'M', 'Web developer', 'fio.max@alice.it', '', '', '', '', '', '', '', 'html', 'fiomax', '1f03d8e71e8ebb2c949737852fbc6784', '', '2010-06-03 15:28:29', '2013-08-29 15:28:29', '', 1);
-/*!40000 ALTER TABLE `utenti` ENABLE KEYS */;
+-- Dump dei dati della tabella entilocali.zfcms_users: ~4 rows (circa)
+/*!40000 ALTER TABLE `zfcms_users` DISABLE KEYS */;
+INSERT INTO `zfcms_users` (`id`, `image`, `name`, `surname`, `address`, `zip`, `city`, `province`, `birth_date`, `birth_place`, `nation`, `sex`, `job`, `email`, `phone`, `mobile`, `fax`, `website_url`, `fiscal_code`, `vat_code`, `newsletter`, `newsletter_format`, `username`, `password`, `password_last_update`, `status`, `create_date`, `last_update`, `confirm_code`, `role_id`) VALUES
+	(1, 'noimg.gif', 'Andrea', 'Fiori', 'via Aretina 1', '50126', 'Firenze', 87, '1982-08-10 00:00:00', 'Angera', 107, 'M', 'Web developer', 'a.fiori@cheapnet.it', '', '3295639204', '', '', '', '', '', 'html', 'a.fiori@cheapnet.it', 'c2870721a47988180f6fa53213b546b2', '2014-01-01 01:01:01', 'active', '2010-06-03 15:28:29', '2013-05-03 15:28:29', '', 1),
+	(2, 'noimg.gif', 'Luca', 'Sanna', '', '07100', 'Sassari', 87, '1969-08-10 00:00:00', 'Sassari', 107, 'M', '', 'l.sanna@kronoweb.it', '', '', '', '', '', '', '', 'html', 'lsanna', 'a86dc00692a485d9b7005c32c7bd9ceb', '2014-01-01 01:01:01', 'active', '2010-06-03 15:28:29', '2013-08-29 15:28:29', '', 1),
+	(3, 'noimg.gif', 'prova', 'cliente', '', '07100', 'Sassari', 87, '1989-08-10 00:00:00', 'Sassari', 107, 'M', '', 'prova@gmail.com', '', '', '', '', '', '', '', 'html', 'prova', 'ab7fa2201bbdef6ff261d10ccbd61858', '2014-01-01 01:01:01', 'active', '2010-06-03 15:28:29', '2013-08-29 15:28:29', '', 1),
+	(4, 'noimg.gif', 'Massimiliano', 'Fio', '', '07100', 'Sassari', 87, '1976-08-10 00:00:00', 'Sassari', 107, 'M', 'Web developer', 'fio.max@alice.it', '', '', '', '', '', '', '', 'html', 'fiomax', '1f03d8e71e8ebb2c949737852fbc6784', '2014-01-01 01:01:01', 'active', '2010-06-03 15:28:29', '2013-08-29 15:28:29', '', 1);
+/*!40000 ALTER TABLE `zfcms_users` ENABLE KEYS */;
 
 
--- Dump della struttura di tabella entilocali.utenti_permessi
-DROP TABLE IF EXISTS `utenti_permessi`;
-CREATE TABLE IF NOT EXISTS `utenti_permessi` (
-  `id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
-  `valore` varchar(50) NOT NULL DEFAULT '0',
-  `ruolo_id` bigint(11) NOT NULL,
-  `permesso_id` bigint(11) NOT NULL,
+-- Dump della struttura di tabella entilocali.zfcms_users_bookmarks
+DROP TABLE IF EXISTS `zfcms_users_bookmarks`;
+CREATE TABLE IF NOT EXISTS `zfcms_users_bookmarks` (
+  `id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(11) NOT NULL DEFAULT '0',
+  `reference_id` bigint(11) NOT NULL DEFAULT '0',
+  `category_id` bigint(11) NOT NULL DEFAULT '0',
+  `module_id` bigint(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `ruolo_id` (`ruolo_id`),
-  KEY `permesso_id` (`permesso_id`)
+  KEY `module_id` (`module_id`),
+  KEY `category_id` (`category_id`),
+  KEY `user_id` (`user_id`),
+  KEY `reference_id` (`reference_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+
+-- Dump dei dati della tabella entilocali.zfcms_users_bookmarks: ~0 rows (circa)
+/*!40000 ALTER TABLE `zfcms_users_bookmarks` DISABLE KEYS */;
+/*!40000 ALTER TABLE `zfcms_users_bookmarks` ENABLE KEYS */;
+
+
+-- Dump della struttura di tabella entilocali.zfcms_users_permissions
+DROP TABLE IF EXISTS `zfcms_users_permissions`;
+CREATE TABLE IF NOT EXISTS `zfcms_users_permissions` (
+  `id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
+  `code` varchar(50) NOT NULL DEFAULT '0',
+  `value` varchar(50) NOT NULL DEFAULT '0',
+  `role_id` bigint(11) NOT NULL,
+  `permession_id` bigint(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `ruolo_id` (`role_id`),
+  KEY `permesso_id` (`permession_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 ROW_FORMAT=FIXED;
 
--- Dump dei dati della tabella entilocali.utenti_permessi: ~2 rows (circa)
-/*!40000 ALTER TABLE `utenti_permessi` DISABLE KEYS */;
-INSERT INTO `utenti_permessi` (`id`, `valore`, `ruolo_id`, `permesso_id`) VALUES
-	(1, 'x', 1, 1),
-	(2, 'x', 1, 2);
-/*!40000 ALTER TABLE `utenti_permessi` ENABLE KEYS */;
+-- Dump dei dati della tabella entilocali.zfcms_users_permissions: ~2 rows (circa)
+/*!40000 ALTER TABLE `zfcms_users_permissions` DISABLE KEYS */;
+INSERT INTO `zfcms_users_permissions` (`id`, `code`, `value`, `role_id`, `permession_id`) VALUES
+	(1, '0', 'x', 1, 1),
+	(2, '0', 'x', 1, 2);
+/*!40000 ALTER TABLE `zfcms_users_permissions` ENABLE KEYS */;
 
 
--- Dump della struttura di tabella entilocali.utenti_permessi_nomi
-DROP TABLE IF EXISTS `utenti_permessi_nomi`;
-CREATE TABLE IF NOT EXISTS `utenti_permessi_nomi` (
+-- Dump della struttura di tabella entilocali.zfcms_users_permissions_names
+DROP TABLE IF EXISTS `zfcms_users_permissions_names`;
+CREATE TABLE IF NOT EXISTS `zfcms_users_permissions_names` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `flag` varchar(50) DEFAULT '',
-  `descrizione` varchar(50) DEFAULT '',
+  `description` varchar(50) DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
--- Dump dei dati della tabella entilocali.utenti_permessi_nomi: ~7 rows (circa)
-/*!40000 ALTER TABLE `utenti_permessi_nomi` DISABLE KEYS */;
-INSERT INTO `utenti_permessi_nomi` (`id`, `flag`, `descrizione`) VALUES
+-- Dump dei dati della tabella entilocali.zfcms_users_permissions_names: ~7 rows (circa)
+/*!40000 ALTER TABLE `zfcms_users_permissions_names` DISABLE KEYS */;
+INSERT INTO `zfcms_users_permissions_names` (`id`, `flag`, `description`) VALUES
 	(1, 'add_news', 'Inserisci news'),
 	(2, 'view_news', 'Visualizza news'),
 	(3, 'delete_news', 'Elimina news'),
@@ -9505,43 +9667,23 @@ INSERT INTO `utenti_permessi_nomi` (`id`, `flag`, `descrizione`) VALUES
 	(5, 'edit_content', 'Modifica contenuto'),
 	(6, 'edit_news', 'Modifica news'),
 	(7, 'delete_content', 'Elimina contenuto');
-/*!40000 ALTER TABLE `utenti_permessi_nomi` ENABLE KEYS */;
+/*!40000 ALTER TABLE `zfcms_users_permissions_names` ENABLE KEYS */;
 
 
--- Dump della struttura di tabella entilocali.utenti_preferiti
-DROP TABLE IF EXISTS `utenti_preferiti`;
-CREATE TABLE IF NOT EXISTS `utenti_preferiti` (
-  `id` bigint(11) NOT NULL AUTO_INCREMENT,
-  `utente_id` bigint(11) NOT NULL DEFAULT '0',
-  `riferimento_id` bigint(11) NOT NULL DEFAULT '0',
-  `categoria_id` bigint(11) NOT NULL DEFAULT '0',
-  `modulo_id` bigint(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `utente_id` (`utente_id`),
-  KEY `riferimento_id` (`riferimento_id`),
-  KEY `modulo_id` (`modulo_id`),
-  KEY `categoria_id` (`categoria_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
-
--- Dump dei dati della tabella entilocali.utenti_preferiti: ~0 rows (circa)
-/*!40000 ALTER TABLE `utenti_preferiti` DISABLE KEYS */;
-/*!40000 ALTER TABLE `utenti_preferiti` ENABLE KEYS */;
-
-
--- Dump della struttura di tabella entilocali.utenti_ruoli
-DROP TABLE IF EXISTS `utenti_ruoli`;
-CREATE TABLE IF NOT EXISTS `utenti_ruoli` (
+-- Dump della struttura di tabella entilocali.zfcms_users_roles
+DROP TABLE IF EXISTS `zfcms_users_roles`;
+CREATE TABLE IF NOT EXISTS `zfcms_users_roles` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
-  `nome_ruolo` varchar(80) NOT NULL,
-  `data_creazione` datetime NOT NULL,
-  `data_ultimo_aggiornamento` datetime NOT NULL,
-  `posizione` bigint(10) NOT NULL DEFAULT '0',
+  `name` varchar(80) NOT NULL,
+  `insert_date` datetime NOT NULL,
+  `last_update` datetime NOT NULL,
+  `position` bigint(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
--- Dump dei dati della tabella entilocali.utenti_ruoli: ~8 rows (circa)
-/*!40000 ALTER TABLE `utenti_ruoli` DISABLE KEYS */;
-INSERT INTO `utenti_ruoli` (`id`, `nome_ruolo`, `data_creazione`, `data_ultimo_aggiornamento`, `posizione`) VALUES
+-- Dump dei dati della tabella entilocali.zfcms_users_roles: ~8 rows (circa)
+/*!40000 ALTER TABLE `zfcms_users_roles` DISABLE KEYS */;
+INSERT INTO `zfcms_users_roles` (`id`, `name`, `insert_date`, `last_update`, `position`) VALUES
 	(1, 'WebMaster', '2012-08-24 11:12:12', '2012-08-24 11:12:13', 1),
 	(2, 'SuperAdmin', '2012-08-24 11:12:12', '2012-08-24 11:12:12', 2),
 	(3, 'Content Editor', '2012-09-29 00:49:17', '2012-09-29 00:51:58', 3),
@@ -9550,25 +9692,25 @@ INSERT INTO `utenti_ruoli` (`id`, `nome_ruolo`, `data_creazione`, `data_ultimo_a
 	(6, 'Curatore', '2012-10-01 18:04:00', '2012-10-01 18:04:00', 6),
 	(7, 'Inserzionista aste', '2012-10-01 18:02:00', '2012-10-01 18:02:00', 7),
 	(8, 'Azienda', '2012-10-11 17:52:00', '2012-10-11 17:52:00', 8);
-/*!40000 ALTER TABLE `utenti_ruoli` ENABLE KEYS */;
+/*!40000 ALTER TABLE `zfcms_users_roles` ENABLE KEYS */;
 
 
--- Dump della struttura di tabella entilocali.utenti_ruoli_permessi
-DROP TABLE IF EXISTS `utenti_ruoli_permessi`;
-CREATE TABLE IF NOT EXISTS `utenti_ruoli_permessi` (
+-- Dump della struttura di tabella entilocali.zfcms_users_roles_permissions
+DROP TABLE IF EXISTS `zfcms_users_roles_permissions`;
+CREATE TABLE IF NOT EXISTS `zfcms_users_roles_permissions` (
   `id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
-  `ruolo_permesso_id` bigint(11) NOT NULL,
-  `permesso_id` bigint(11) NOT NULL,
+  `role_permission_id` bigint(11) NOT NULL,
+  `permission_id` bigint(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `ruolo_permesso_id` (`ruolo_permesso_id`),
-  KEY `permesso_id` (`permesso_id`)
+  KEY `ruolo_permesso_id` (`role_permission_id`),
+  KEY `permesso_id` (`permission_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 ROW_FORMAT=FIXED;
 
--- Dump dei dati della tabella entilocali.utenti_ruoli_permessi: ~1 rows (circa)
-/*!40000 ALTER TABLE `utenti_ruoli_permessi` DISABLE KEYS */;
-INSERT INTO `utenti_ruoli_permessi` (`id`, `ruolo_permesso_id`, `permesso_id`) VALUES
+-- Dump dei dati della tabella entilocali.zfcms_users_roles_permissions: ~1 rows (circa)
+/*!40000 ALTER TABLE `zfcms_users_roles_permissions` DISABLE KEYS */;
+INSERT INTO `zfcms_users_roles_permissions` (`id`, `role_permission_id`, `permission_id`) VALUES
 	(1, 3, 1);
-/*!40000 ALTER TABLE `utenti_ruoli_permessi` ENABLE KEYS */;
+/*!40000 ALTER TABLE `zfcms_users_roles_permissions` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

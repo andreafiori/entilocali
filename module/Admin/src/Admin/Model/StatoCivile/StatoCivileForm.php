@@ -42,6 +42,20 @@ class StatoCivileForm extends Form
         
         $this->add(array(
                         'type' => 'Date',
+                        'name' => 'insertDate',
+                        'options' => array(
+                                'label' => 'Data di pubblicazione',
+                                'format' => 'Y-m-d',
+                        ),
+                        'attributes' => array(
+                                'class' => 'form-control DatePicker',
+                                'style' => 'width: 22%',
+                                'id' => 'insertDate'
+                        )
+        ));
+        
+        $this->add(array(
+                        'type' => 'Date',
                         'name' => 'expireDate',
                         'options' => array(
                                 'label' => 'Scadenza',

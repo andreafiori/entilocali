@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "af6cf505a9eab58b5c0734ae0c8108f0",
+    "hash": "5fda2ee219d2338755d2302ebd8a8979",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -159,16 +159,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/collections.git",
-                "reference": "77bc8cc35b33a2bcdaf5bc2c99fdcab8773f02a0"
+                "reference": "bbe35735af4a826c1f86b04f2fd885ff5fc0f82b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/collections/zipball/77bc8cc35b33a2bcdaf5bc2c99fdcab8773f02a0",
-                "reference": "77bc8cc35b33a2bcdaf5bc2c99fdcab8773f02a0",
+                "url": "https://api.github.com/repos/doctrine/collections/zipball/bbe35735af4a826c1f86b04f2fd885ff5fc0f82b",
+                "reference": "bbe35735af4a826c1f86b04f2fd885ff5fc0f82b",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
             },
             "type": "library",
             "extra": {
@@ -219,7 +222,7 @@
                 "collections",
                 "iterator"
             ],
-            "time": "2014-06-05 18:37:07"
+            "time": "2014-06-17 17:31:49"
         },
         {
             "name": "doctrine/common",
@@ -305,12 +308,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "e351fae65807ab46a10e878eddabd499b391cdc9"
+                "reference": "247bd099b8f74eed3d7bdb42a5e0bb1af1925dce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/e351fae65807ab46a10e878eddabd499b391cdc9",
-                "reference": "e351fae65807ab46a10e878eddabd499b391cdc9",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/247bd099b8f74eed3d7bdb42a5e0bb1af1925dce",
+                "reference": "247bd099b8f74eed3d7bdb42a5e0bb1af1925dce",
                 "shasum": ""
             },
             "require": {
@@ -371,7 +374,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2014-06-04 00:56:03"
+            "time": "2014-06-19 21:21:27"
         },
         {
             "name": "doctrine/doctrine-module",
@@ -675,12 +678,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/doctrine2.git",
-                "reference": "ca37f87c277a0431286f37ac7107d0bf46f34e92"
+                "reference": "38187a31d635c7b0a71aabc8e31eeb64b029dbb5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/ca37f87c277a0431286f37ac7107d0bf46f34e92",
-                "reference": "ca37f87c277a0431286f37ac7107d0bf46f34e92",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/38187a31d635c7b0a71aabc8e31eeb64b029dbb5",
+                "reference": "38187a31d635c7b0a71aabc8e31eeb64b029dbb5",
                 "shasum": ""
             },
             "require": {
@@ -744,7 +747,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2014-06-15 10:19:45"
+            "time": "2014-06-21 12:56:47"
         },
         {
             "name": "symfony/console",
@@ -753,12 +756,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "f41913cde27de7073e78d9a41c1299c0315dfe64"
+                "reference": "9a491e7983209bf320d40917291c03e856eee947"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/f41913cde27de7073e78d9a41c1299c0315dfe64",
-                "reference": "f41913cde27de7073e78d9a41c1299c0315dfe64",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/9a491e7983209bf320d40917291c03e856eee947",
+                "reference": "9a491e7983209bf320d40917291c03e856eee947",
                 "shasum": ""
             },
             "require": {
@@ -803,7 +806,68 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-06-11 06:54:52"
+            "time": "2014-06-20 17:41:51"
+        },
+        {
+            "name": "zendframework/zend-developer-tools",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zendframework/ZendDeveloperTools.git",
+                "reference": "da8a8b232b1b43a43c899f9acf4472ef006b8827"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zendframework/ZendDeveloperTools/zipball/da8a8b232b1b43a43c899f9acf4472ef006b8827",
+                "reference": "da8a8b232b1b43a43c899f9acf4472ef006b8827",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "zendframework/zend-debug": "2.*",
+                "zendframework/zend-eventmanager": "2.*",
+                "zendframework/zend-mvc": "2.*",
+                "zendframework/zend-servicemanager": "2.*",
+                "zendframework/zend-stdlib": "2.*",
+                "zendframework/zend-version": "2.*"
+            },
+            "suggest": {
+                "bjyoungblood/bjy-profiler": "Version: dev-master, allows the usage of the (Zend) Db collector.",
+                "ocramius/ocra-service-manager": "OcraServiceManager can help you track dependencies within your application."
+            },
+            "type": "zf-module",
+            "autoload": {
+                "psr-0": {
+                    "ZendDeveloperTools": "src/"
+                },
+                "classmap": [
+                    "./Module.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Evan Coury",
+                    "email": "me@evancoury.com",
+                    "homepage": "http://blog.evan.pro/"
+                },
+                {
+                    "name": "Eric Boh",
+                    "email": "cossish@gmail.com"
+                }
+            ],
+            "description": "Module for developer and debug tools for working with the ZF2 MVC layer.",
+            "homepage": "https://github.com/zendframework/ZendDeveloperTools",
+            "keywords": [
+                "debug",
+                "developer",
+                "module",
+                "zf2"
+            ],
+            "time": "2014-06-18 08:28:36"
         },
         {
             "name": "zendframework/zendframework",
@@ -1041,17 +1105,58 @@
             "time": "2014-04-03 17:12:07"
         },
         {
+            "name": "dompdf/dompdf",
+            "version": "v0.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dompdf/dompdf.git",
+                "reference": "cf7d8a0a27270418850cc7d7ea532159e5eeb3eb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/cf7d8a0a27270418850cc7d7ea532159e5eeb3eb",
+                "reference": "cf7d8a0a27270418850cc7d7ea532159e5eeb3eb",
+                "shasum": ""
+            },
+            "require": {
+                "phenx/php-font-lib": "0.2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "include/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Ménager",
+                    "email": "fabien.menager@gmail.com"
+                },
+                {
+                    "name": "Brian Sweeney",
+                    "email": "eclecticgeek@gmail.com"
+                }
+            ],
+            "description": "DOMPDF is a CSS 2.1 compliant HTML to PDF converter",
+            "homepage": "https://github.com/dompdf/dompdf",
+            "time": "2014-03-11 01:59:52"
+        },
+        {
             "name": "mockery/mockery",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/padraic/mockery.git",
-                "reference": "096a36f21e7ff0768a8a42d524964f3896acd1c6"
+                "reference": "76212f1e56646f972618fa359bee68b9c2feb57a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/padraic/mockery/zipball/096a36f21e7ff0768a8a42d524964f3896acd1c6",
-                "reference": "096a36f21e7ff0768a8a42d524964f3896acd1c6",
+                "url": "https://api.github.com/repos/padraic/mockery/zipball/76212f1e56646f972618fa359bee68b9c2feb57a",
+                "reference": "76212f1e56646f972618fa359bee68b9c2feb57a",
                 "shasum": ""
             },
             "require": {
@@ -1104,68 +1209,41 @@
                 "test double",
                 "testing"
             ],
-            "time": "2014-06-10 19:25:07"
+            "time": "2014-06-17 10:46:23"
         },
         {
-            "name": "zendframework/zend-developer-tools",
-            "version": "dev-master",
+            "name": "phenx/php-font-lib",
+            "version": "0.2.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/zendframework/ZendDeveloperTools.git",
-                "reference": "8907edf3a03ae0ac761b43e33b3629ac1b6c3cf3"
+                "url": "https://github.com/PhenX/php-font-lib.git",
+                "reference": "c30c7fc00a6b0d863e9bb4c5d5dd015298b2dc82"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendDeveloperTools/zipball/8907edf3a03ae0ac761b43e33b3629ac1b6c3cf3",
-                "reference": "8907edf3a03ae0ac761b43e33b3629ac1b6c3cf3",
+                "url": "https://api.github.com/repos/PhenX/php-font-lib/zipball/c30c7fc00a6b0d863e9bb4c5d5dd015298b2dc82",
+                "reference": "c30c7fc00a6b0d863e9bb4c5d5dd015298b2dc82",
                 "shasum": ""
             },
-            "require": {
-                "php": ">=5.3.3",
-                "zendframework/zend-debug": "2.*",
-                "zendframework/zend-eventmanager": "2.*",
-                "zendframework/zend-mvc": "2.*",
-                "zendframework/zend-servicemanager": "2.*",
-                "zendframework/zend-stdlib": "2.*",
-                "zendframework/zend-version": "2.*"
-            },
-            "suggest": {
-                "bjyoungblood/bjy-profiler": "Version: dev-master, allows the usage of the (Zend) Db collector.",
-                "ocramius/ocra-service-manager": "OcraServiceManager can help you track dependencies within your application."
-            },
-            "type": "zf-module",
+            "type": "library",
             "autoload": {
-                "psr-0": {
-                    "ZendDeveloperTools": "src/"
-                },
                 "classmap": [
-                    "./Module.php"
+                    "classes/"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-3-Clause"
+                "LGPL"
             ],
             "authors": [
                 {
-                    "name": "Evan Coury",
-                    "email": "me@evancoury.com",
-                    "homepage": "http://blog.evan.pro/"
-                },
-                {
-                    "name": "Eric Boh",
-                    "email": "cossish@gmail.com"
+                    "name": "Fabien Ménager",
+                    "email": "fabien.menager@gmail.com"
                 }
             ],
-            "description": "Module for developer and debug tools for working with the ZF2 MVC layer.",
-            "homepage": "https://github.com/zendframework/ZendDeveloperTools",
-            "keywords": [
-                "debug",
-                "developer",
-                "module",
-                "zf2"
-            ],
-            "time": "2014-05-06 03:29:18"
+            "description": "A library to read, parse, export and make subsets of different types of font files.",
+            "homepage": "https://github.com/PhenX/php-font-lib",
+            "time": "2014-02-01 15:22:28"
         },
         {
             "name": "zendframework/zenddiagnostics",
@@ -1225,48 +1303,6 @@
                 "test"
             ],
             "time": "2014-06-04 16:27:20"
-        },
-        {
-            "name": "zendframework/zendpdf",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/zendframework/ZendPdf.git",
-                "reference": "6efcb5106569a6060e57da1b8de24e0dfc7ce989"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendPdf/zipball/6efcb5106569a6060e57da1b8de24e0dfc7ce989",
-                "reference": "6efcb5106569a6060e57da1b8de24e0dfc7ce989",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3",
-                "zendframework/zend-memory": ">=2.0.0",
-                "zendframework/zend-stdlib": ">=2.0.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "ZendPdf\\": "library/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "description": "Zend Pdf Component",
-            "homepage": "http://packages.zendframework.com/",
-            "keywords": [
-                "pdf",
-                "zf2"
-            ],
-            "time": "2013-07-12 23:22:59"
         },
         {
             "name": "zendframework/zftool",
@@ -1458,9 +1494,8 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "zendframework/zftool": 20,
         "zendframework/zend-developer-tools": 20,
-        "zendframework/zendpdf": 20,
+        "zendframework/zftool": 20,
         "bjyoungblood/bjy-authorize": 20,
         "zf-commons/zfc-user": 20,
         "bjyoungblood/bjyprofiler": 20,

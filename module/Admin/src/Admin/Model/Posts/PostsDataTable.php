@@ -74,7 +74,7 @@ class PostsDataTable extends DataTableAbstract
                 ucfirst($record['status']),
                 array(
                     'type'      => 'updateButton',
-                    'href'      => $this->getInput('baseUrl').'formdata/posts/'.$record['postid'],
+                    'href'      => $this->getInput('baseUrl',1).'formdata/posts/'.$record['postid'],
                     'tooltip'   => 1,
                     'title'     => 'Modifica'
                 ),

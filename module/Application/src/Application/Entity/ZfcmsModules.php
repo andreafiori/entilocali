@@ -24,9 +24,9 @@ class ZfcmsModules
     /**
      * @var string
      *
-     * @ORM\Column(name="codice", type="string", length=50, nullable=false)
+     * @ORM\Column(name="code", type="string", length=50, nullable=false)
      */
-    private $codice = '0';
+    private $code = '0';
 
     /**
      * @var string
@@ -55,27 +55,27 @@ class ZfcmsModules
     }
 
     /**
-     * Set codice
+     * Set code
      *
-     * @param string $codice
+     * @param string $code
      *
      * @return ZfcmsModules
      */
-    public function setCodice($codice)
+    public function setCode($code)
     {
-        $this->codice = $codice;
+        $this->code = $code;
     
         return $this;
     }
 
     /**
-     * Get codice
+     * Get code
      *
      * @return string
      */
-    public function getCodice()
+    public function getCode()
     {
-        return $this->codice;
+        return $this->code;
     }
 
     /**

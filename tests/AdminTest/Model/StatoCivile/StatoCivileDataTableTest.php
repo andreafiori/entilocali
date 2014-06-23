@@ -22,6 +22,11 @@ class StatoCivileDataTableTest extends TestSuite
     
     public function testGetColumns()
     {
-        $this->assertTrue(is_array($this->statoCivileDataTable->getColumns()) );
+        $this->assertTrue( is_array($this->statoCivileDataTable->getColumns()) );
+    }
+    
+    public function testGetRecords()
+    {
+        $this->assertTrue( is_array($this->statoCivileDataTable->getRecords()) );
     }
 }

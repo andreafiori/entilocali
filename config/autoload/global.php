@@ -20,7 +20,7 @@ return array(
                     'username'  => $dbParams['username'],
                     'password'  => $dbParams['password'],
                     'hostname'  => $dbParams['hostname'],
-                    'port'  => $dbParams['port'],
+                    'port'      => $dbParams['port'],
                 ));
                 
                 $adapter->setProfiler(new BjyProfiler\Db\Profiler\Profiler);
@@ -37,8 +37,8 @@ return array(
     		'connection' => array(
     				'orm_default' => array(
     						'doctrine_type_mappings' => array(
-    								'enum' => 'string'
-							),
+                                                        'enum' => 'string'
+                                                ),
     						'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
     						'params' => array(
     								'host'     => $dbParams['hostname'],

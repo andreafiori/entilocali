@@ -1,6 +1,6 @@
 <?php
 
-namespace ApplicationTest\Model\Posts;
+namespace AdminTest\Model\Posts;
 
 use ApplicationTest\TestSuite;
 use Admin\Model\Posts\PostsGetter;
@@ -47,5 +47,27 @@ class PostsGetterTest extends TestSuite
         
          $this->assertNotEmpty($this->postsGetter->getQueryBuilder()->getParameter('title'));
     }
+    
+    public function testSetType()
+    {
+        $this->postsGetter->setType('content');
 
+        $this->assertNotEmpty($this->postsGetter->getQueryBuilder()->getParameter('postType'));
+    }
+    
+    public function testSetStatus()
+    {
+        $this->postsGetter->setStatus();
+        $this->assertEmpty($this->postsGetter->getQueryBuilder()->getParameter('status'));
+        
+        $this->postsGetter->setStatus('active');
+        $this->assertNotEmpty($this->postsGetter->getQueryBuilder()->getParameter('status'));
+    }
+    
+    public function testSetOrderBy()
+    {
+        $this->postsGetter->setOrderBy('name');
+        
+        $this->assertEmpty($this->postsGetter->getQueryBuilder()->getParameter('orderBy'));
+    }
 }

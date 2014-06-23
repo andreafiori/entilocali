@@ -59,6 +59,13 @@ class ZfcmsCategories
     /**
      * @var string
      *
+     * @ORM\Column(name="column_position", type="string", nullable=true)
+     */
+    private $columnPosition;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="template", type="string", length=80, nullable=true)
      */
     private $template;
@@ -203,6 +210,30 @@ class ZfcmsCategories
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Set columnPosition
+     *
+     * @param string $columnPosition
+     *
+     * @return ZfcmsCategories
+     */
+    public function setColumnPosition($columnPosition)
+    {
+        $this->columnPosition = $columnPosition;
+    
+        return $this;
+    }
+
+    /**
+     * Get columnPosition
+     *
+     * @return string
+     */
+    public function getColumnPosition()
+    {
+        return $this->columnPosition;
     }
 
     /**

@@ -80,7 +80,7 @@ class ZfcmsCategoriesOptions
     /**
      * @var integer
      *
-     * @ORM\Column(name="position", type="bigint", nullable=false)
+     * @ORM\Column(name="position", type="bigint", nullable=true)
      */
     private $position = '0';
 

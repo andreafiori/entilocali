@@ -41,14 +41,9 @@ class AdminController extends AbstractActionController
             }
         }
         
-        $templatePartial = $routerManagerHelper->getRouterManger()->getTemplate(1);
-        if ( !isset($templatePartial) ) {
-            $templatePartial = $dashboard = 'dashboard/dashboard.phtml';
-        }
-        
         $this->layout()->setVariable('baseUrl', $this->baseUrl);
         $this->layout()->setVariable('preloadResponse', $this->configurations['preloadResponse']);
-        $this->layout()->setVariable('templatePartial', 'backend/templates/'.$this->configurations['template_backend'].$templatePartial);
+        $this->layout()->setVariable('templatePartial', 'backend/templates/'.$this->configurations['template_backend'].$routerManagerHelper->getRouterManger()->getTemplate(1));
         $this->layout('backend/templates/'.$this->configurations['template_backend'].'backend.phtml');
         
     	return new ViewModel();
@@ -64,7 +59,7 @@ class AdminController extends AbstractActionController
             !$this->getServiceLocator()->get('request')->isPost() ) {
             return $this->redirect()->toRoute('login');
         }
-        
+
         $this->initialize();
 
         $formDataCrudHandler = new \Admin\Model\FormData\FormDataCrudHandler();
@@ -72,7 +67,6 @@ class AdminController extends AbstractActionController
         $formDataCrudHandler->setFormCrudHandler($this->params()->fromRoute('form_post_handler'));
         
         $crudHandler = $formDataCrudHandler->detectCrudHandlerClassMap($this->config['formdata_crud_classmap']);
-        
         $crudHandler = new $crudHandler($this->input);
         $crudHandler->setConnection($this->commonSetupPlugin->getEntityManager()->getConnection());
         $crudHandler->setOperation($this->params()->fromRoute('operation'));
@@ -104,14 +98,16 @@ class AdminController extends AbstractActionController
             $this->input = $this->commonSetupPlugin->mergeInput( array_merge($this->configurations, array(
                         'formsetter'            => trim($this->params()->fromRoute('formsetter')),
                         'tablesetter'           => trim($this->params()->fromRoute('tablesetter')),
-                    ), array('formdata_classmap'     => $this->config['formdata_classmap'],
-                    'formdata_crud_classmap' => $this->config['formdata_crud_classmap'],
-                    'datatables_classmap'    => $this->config['datatables_classmap'],
+                    ), array(
+                        'formdata_classmap'      => $this->config['formdata_classmap'],
+                        'formdata_crud_classmap' => $this->config['formdata_crud_classmap'],
+                        'datatables_classmap'    => $this->config['datatables_classmap'],
                     )
                 )
             );
+            
             $this->baseUrl = sprintf('%s://%s%s', $this->input['uri']->getScheme(), $this->input['uri']->getHost(), $this->input['request']->getBaseUrl()).'/admin/main/'.$this->params()->fromRoute('lang').'/';
+            
             $this->input = array_merge($this->input, array("baseUrl" => $this->baseUrl));
         }
-
 }

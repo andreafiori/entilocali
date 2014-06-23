@@ -25,7 +25,5 @@ class PostsCrudHandlerTest extends TestSuite
     public function testPerformOperation()
     {
         $this->postsCrudHandler->performOperation();
-        
-        
     }
 }

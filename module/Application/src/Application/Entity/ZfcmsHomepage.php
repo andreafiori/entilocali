@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsHomepage
  *
- * @ORM\Table(name="zfcms_homepage", indexes={@ORM\Index(name="modulo_id", columns={"module_id"})})
+ * @ORM\Table(name="zfcms_homepage", indexes={@ORM\Index(name="reference_id", columns={"reference_id"}), @ORM\Index(name="block_id", columns={"block_id"})})
  * @ORM\Entity
  */
 class ZfcmsHomepage
@@ -24,16 +24,33 @@ class ZfcmsHomepage
     /**
      * @var integer
      *
+     * @ORM\Column(name="position", type="integer", nullable=true)
+     */
+    private $position;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="free_text", type="text", length=65535, nullable=true)
+     */
+    private $freeText;
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="reference_id", type="integer", nullable=true)
      */
     private $referenceId;
 
     /**
-     * @var integer
+     * @var \Application\Entity\ZfcmsHomepageBlocks
      *
-     * @ORM\Column(name="module_id", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsHomepageBlocks")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="block_id", referencedColumnName="id")
+     * })
      */
-    private $moduleId = '0';
+    private $block;
 
 
 
@@ -45,6 +62,54 @@ class ZfcmsHomepage
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set position
+     *
+     * @param integer $position
+     *
+     * @return ZfcmsHomepage
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+    
+        return $this;
+    }
+
+    /**
+     * Get position
+     *
+     * @return integer
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    /**
+     * Set freeText
+     *
+     * @param string $freeText
+     *
+     * @return ZfcmsHomepage
+     */
+    public function setFreeText($freeText)
+    {
+        $this->freeText = $freeText;
+    
+        return $this;
+    }
+
+    /**
+     * Get freeText
+     *
+     * @return string
+     */
+    public function getFreeText()
+    {
+        return $this->freeText;
     }
 
     /**
@@ -72,26 +137,26 @@ class ZfcmsHomepage
     }
 
     /**
-     * Set moduleId
+     * Set block
      *
-     * @param integer $moduleId
+     * @param \Application\Entity\ZfcmsHomepageBlocks $block
      *
      * @return ZfcmsHomepage
      */
-    public function setModuleId($moduleId)
+    public function setBlock(\Application\Entity\ZfcmsHomepageBlocks $block = null)
     {
-        $this->moduleId = $moduleId;
+        $this->block = $block;
     
         return $this;
     }
 
     /**
-     * Get moduleId
+     * Get block
      *
-     * @return integer
+     * @return \Application\Entity\ZfcmsHomepageBlocks
      */
-    public function getModuleId()
+    public function getBlock()
     {
-        return $this->moduleId;
+        return $this->block;
     }
 }

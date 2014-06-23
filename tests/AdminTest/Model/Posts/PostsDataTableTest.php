@@ -24,4 +24,15 @@ class PostsDataTableTest extends TestSuite
     {
         $this->assertTrue( is_string($this->postsDataTable->getTitle() ) );
     }
+    
+    public function testGetDescription()
+    {
+        $this->assertTrue( is_string($this->postsDataTable->getDescription() ) );
+    }
+    /*
+    public function testGetRecords()
+    {
+        $this->assertTrue( is_array($this->postsDataTable->getRecords()) );
+    }   
+    */
 }

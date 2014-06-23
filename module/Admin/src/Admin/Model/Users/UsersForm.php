@@ -5,8 +5,9 @@ namespace Admin\Model\Users;
 use Zend\Form\Form;
 
 /**
- * Backend users form
- * TODO: city, province, ajax post selection
+ * TODO: 
+ *      insert password strength
+ *      insert checkboxes to set permissions
  * 
  * @author Andrea Fiori
  * @since  08 June 2014
@@ -28,6 +29,7 @@ class UsersForm extends Form
                                         'required' => 'required',
                                         'class' => 'form-control',
                                         'title' => 'Inserisci il nome',
+                                        'placeholder' => 'Inserisci il nome',
                                         'id' => 'name',
                         )
         ));
@@ -38,9 +40,10 @@ class UsersForm extends Form
                         'options' => array( 'label' => '* Cognome' ),
                         'attributes' => array(
                                         'required' => 'required',
-                                        'class' => 'form-control',
-                                        'title' => 'Inserisci il cognome',
-                                        'id' => 'surname',
+                                        'class'    => 'form-control',
+                                        'title'    => 'Inserisci il cognome',
+                                        'placeholder' => 'Inserisci il cognome',
+                                        'id'       => 'surname',
                         )
         ));
         
@@ -49,13 +52,16 @@ class UsersForm extends Form
                         'type' => 'Email',
                         'options' => array( 'label' => '* Email' ),
                         'attributes' => array(
-                                        'required' => 'required',
-                                        'class' => 'form-control',
-                                        'title' => 'Inserisci indirizzo email',
-                                        'id' => 'email',
+                                        'required'  => 'required',
+                                        'class'     => 'form-control',
+                                        'title'     => 'Inserisci indirizzo email',
+                                        'placeholder' => 'Inserisci indirizzo email',
+                                        'id'        => 'email',
                         )
         ));
         
+        /* BEGIN GEO */
+        /*
         $this->add(array(
                         'name' => 'address',
                         'type' => 'Text',
@@ -67,7 +73,6 @@ class UsersForm extends Form
                         )
         ));
         
-        /* END GEO */
         $this->add(array(
                         'name' => 'city',
                         'type' => 'Text',
@@ -86,20 +91,21 @@ class UsersForm extends Form
                         'attributes' => array(
                                         'class' => 'form-control',
                                         'title' => 'Inserisci CAP \ ZIP code',
-                                        'id' => 'zip',
+                                        'id'    => 'zip',
                         )
         ));
         
         $this->add(array(
                         'name' => 'nation',
                         'type' => 'Text',
-                        'options' => array( 'label' => 'Citt&agrave;' ),
+                        'options' => array( 'label' => 'Nazione' ),
                         'attributes' => array(
                                         'class' => 'form-control',
-                                        'title' => 'Inserisci Citt&agrave;',
-                                        'id' => 'city',
+                                        'title' => 'Inserisci Nazione',
+                                        'id'    => 'city',
                         )
         ));
+        */
         /* END GEO */
         
         $this->add(array(
@@ -109,7 +115,8 @@ class UsersForm extends Form
                         'attributes' => array(
                                         'class' => 'form-control',
                                         'title' => 'Inserisci nome utente',
-                                        'id' => 'username',
+                                        'placeholder' => 'Inserisci nome utente',
+                                        'id'    => 'username',
                         )
         ));
         
@@ -120,6 +127,7 @@ class UsersForm extends Form
                         'attributes' => array(
                                         'class' => 'form-control',
                                         'title' => 'Inserisci password',
+                                        'placeholder' => 'Inserisci una password',
                                         'id'    => 'password',
                         )
         ));
@@ -130,7 +138,8 @@ class UsersForm extends Form
                         'options' => array( 'label' => 'Conferma password' ),
                         'attributes' => array(
                                         'class' => 'form-control',
-                                        'title' => 'Inserisci password',
+                                        'title' => 'Conferma password',
+                                        'placeholder' => 'Conferma password',
                                         'id'    => 'password-confirm',
                         )
         ));

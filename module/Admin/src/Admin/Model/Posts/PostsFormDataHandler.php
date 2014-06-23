@@ -8,7 +8,6 @@ use Admin\Model\Posts\PostsGetter;
 use Admin\Model\Posts\PostsGetterWrapper;
 use Admin\Model\Categories\CategoriesGetter;
 use Admin\Model\Categories\CategoriesGetterWrapper;
-use Application\Model\NullException;
 
 /**
  * @author Andrea Fiori
@@ -51,24 +50,37 @@ class PostsFormDataHandler extends FormDataAbstract
         $this->setVariable('formDescription',   $this->postsFormDataConcrete->getDescription());
         $this->setVariable('form',              $this->postsFormDataConcrete->getForm());
         $this->setVariable('formAction',        $this->getFormAction($param['route']['option']));
-
+        
         $this->setVariable('CKEditorField', 'description');
+        $this->setVariable('formBreadCrumbCategory', $this->getBreadCrumbCategoryString($param['route']['option']) );
+        $this->setVariable('formBreadCrumbCategoryLink', $this->getInput('baseUrl',1).'datatable/posts/'.$param['route']['option']);
+    }
+    
+    private function getBreadCrumbCategoryString($option)
+    {
+        !is_numeric($option) ? $breadCrumbCategoryString = ucfirst($option) : $breadCrumbCategoryString = null;
+
+        $record = $this->postsFormDataConcrete->getRecord();
+        if ($record) {
+            $breadCrumbCategoryString = ucfirst($record[0]['type']);
+        }
+        
+        return $breadCrumbCategoryString;
     }
     
     /**
      * @return string
      */
-    public function getFormAction($tipo = null)
+    public function getFormAction($type = null)
     {
         $record = $this->postsFormDataConcrete->getRecord();
         if ($record) {
-            
             $this->setVariable('formBreadCrumbCategory', $record[0]['name']);
             
             return 'posts/update/';
         }
        
-        return 'posts/insert/'.$tipo;
+        return 'posts/insert/'.$type;
     }
     
     /**

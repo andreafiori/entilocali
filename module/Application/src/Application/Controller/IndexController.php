@@ -46,16 +46,14 @@ class IndexController extends AbstractActionController
                 $this->layout()->setVariable($key, $value);
             }
         }
-        
-        $records = $routerManagerHelper->getRouterManger()->getRecords();
-        $templatePartial = $routerManagerHelper->getRouterManger()->getTemplate();
+
         $serverVars = $this->getRequest()->getServer();
         
-        $this->layout()->setVariable('maindata',        $records);
+        $this->layout()->setVariable('maindata',        $routerManagerHelper->getRouterManger()->getRecords());
         $this->layout()->setVariable('preloadResponse', $configurations['preloadResponse']);
         $this->layout()->setVariable('currentUrl',      "http://".$serverVars["SERVER_NAME"].$serverVars["REQUEST_URI"]);
         $this->layout()->setVariable('currentDateTime', date("Y-m-d H:i:s") );
-        $this->layout()->setVariable('templatePartial', $configurations['template_path'].$templatePartial);
+        $this->layout()->setVariable('templatePartial', $configurations['template_path'].$routerManagerHelper->getRouterManger()->getTemplate());
         $this->layout($configurations['basiclayout']);
         
         return new ViewModel();

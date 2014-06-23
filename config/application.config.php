@@ -2,12 +2,14 @@
 return array(
     'modules' => array(
             'Application',
-            'EdpModuleLayouts', 'ServiceLocatorFactory',
+            'EdpModuleLayouts',
+            'ServiceLocatorFactory',
             'DoctrineModule', 'DoctrineORMModule',
-            //'ZendDeveloperTools',
+            'ZendDeveloperTools',
             'ZfcBase','ZfcUser','BjyProfiler',
             'ApiWebService',
-            'Admin','Feed',
+            'Admin',
+            'Feed',
     ),
     'module_listener_options' => array(
         'module_paths' => array(

@@ -1,30 +1,31 @@
 {
-    "name" : "Zend2 API CMS",
-    "description" : "Zend framework 2 CMS with RESTful APIs",
-    "authors" : [{
-                    "name" : "Andrea Fiori",
-                    "homepage" : "http://www.andreafiori.net"
-            }
+    "name": "Zend2 API CMS",
+    "description": "Zend framework 2 CMS with RESTful APIs",
+    "authors": [
+        {
+            "name": "Andrea Fiori",
+            "homepage": "http://www.andreafiori.net"
+        }
     ],
-    "keywords" : [
-            "Zend framework 2",
-            "CMS",
-            "RESTful"
+    "keywords": [
+        "Zend framework 2",
+        "CMS",
+        "RESTful"
     ],
-    "homepage" : "http://framework.zend.com/",
-    "require" : {
-            "doctrine/doctrine-orm-module" : "0.*",
-            "php" : ">=5.3.3",
-            "zendframework/zendframework": "2.2.2"
+    "homepage": "http://framework.zend.com/",
+    "require": {
+        "doctrine/doctrine-orm-module": "0.*",
+        "php": ">=5.3.3",
+        "zendframework/zendframework": "2.2.2",
+        "zendframework/zend-developer-tools": "dev-master"
     },
     "minimum-stability": "dev",
-    "require-dev" : {
-            "zendframework/zftool" : "dev-master",
-            "zendframework/zend-developer-tools" : "dev-master",
-            "zendframework/zendpdf": "2.0.*@dev",
-            "bjyoungblood/bjy-authorize" : "dev-master",
-            "zf-commons/zfc-user" : "dev-master",
-            "bjyoungblood/BjyProfiler" : "dev-master",
-            "mockery/mockery" : "0.9.*@dev"
+    "require-dev": {
+        "zendframework/zftool": "dev-master",
+        "dompdf/dompdf": "0.6.*",
+        "bjyoungblood/bjy-authorize": "dev-master",
+        "zf-commons/zfc-user": "dev-master",
+        "bjyoungblood/BjyProfiler": "dev-master",
+        "mockery/mockery": "0.9.*@dev"
     }
 }

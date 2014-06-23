@@ -11,7 +11,7 @@ use Zend\Authentication\Storage;
 class MyAuthStorage extends Storage\Session
 {
     /**
-     * @param type $time
+     * @param number $time
      */
     public function setRememberMe($time = 1209600)
     {

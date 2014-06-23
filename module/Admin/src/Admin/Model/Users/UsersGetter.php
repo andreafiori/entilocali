@@ -12,7 +12,7 @@ class UsersGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('DISTINCT(u.id) AS id, u.name, u.surname, u.email, u.status, u.lastUpdate ');
+        $this->setSelectQueryFields('DISTINCT(u.id) AS id, u.name, u.surname, u.email, u.address, u.status, u.zip, u.city, u.lastUpdate ');
 
         $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
                                 ->add('from', 'Application\Entity\ZfcmsUsers u')

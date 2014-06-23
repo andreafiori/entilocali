@@ -82,6 +82,7 @@ class ContactsForm extends Form
         ));
         
         // CAPTCHA
+        /*
         $dumb = new Captcha\Dumb();
         $dumb->setLabel('Copia e incolla la seguente stringa:');
         
@@ -89,6 +90,7 @@ class ContactsForm extends Form
         $captcha->setCaptcha($dumb)->setLabel('Captcha');
 
         $this->add($captcha);
+        */
         // END CAPTHCHA
         
         $this->add(array(

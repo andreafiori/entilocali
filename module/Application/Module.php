@@ -5,12 +5,15 @@ namespace Application;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
-
 use Zend\Authentication\AuthenticationService;
 use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter;
+use Application\View\Helper\TextShortener;
 
 class Module implements AutoloaderProviderInterface
 {
+    /**
+     * @param \Zend\Mvc\MvcEvent $e
+     */
     public function onBootstrap(MvcEvent $e)
     {
     	$application = $e->getApplication();
@@ -46,7 +49,7 @@ class Module implements AutoloaderProviderInterface
      */
     public function handleError(MvcEvent $e)
     {
-    	$exception = $e->getParam('exception');
+    	//$exception = $e->getParam('exception');
     }
     
     public function getConfig()
@@ -65,7 +68,13 @@ class Module implements AutoloaderProviderInterface
                 'formelement'   => 'Application\Form\View\Helper\FormElement',
                 'formPlainText' => 'Application\Form\View\Helper\FormPlainText',
                 'formCheckboxTree' => 'Application\Form\View\Helper\FormCheckboxTree',
-            )
+            ),
+            'factories' => array(
+                'TextShortener' => function($sm) {
+                    //$locator = $sm->getServiceLocator();
+                    return new TextShortener();
+                },
+            ),
         );
     }
 

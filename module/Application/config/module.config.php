@@ -6,16 +6,12 @@ return array(
                                                     'type'    => 'segment',
                                                     'options' => array(
                                                                     'route' => '/',
-                                                                    'constraints' => array(
-                                                                            'category'  => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                                            'title'     => '[a-zA-Z0-9_-]*',
-                                                                    ),
-                                                                    'defaults' => array(
-                                                                            'controller' => 'Application\Controller\Index',
-                                                                            'action'     => 'index',
-                                                                    ),
                                                     ),
                                                     'may_terminate' => true,
+                                                    'defaults' => array(
+                                                            'controller' => 'Application\Controller\Index',
+                                                            'action'     => 'index',
+                                                    ),
                                     ),
                                     'main' => array(
                                                     'type'    => 'segment',
@@ -32,7 +28,6 @@ return array(
                                                     ),
                                                     'may_terminate' => true,
                                     ),
-                                    /* POSTS PAGING */
                                     /*
                                     'posts' => array(
                                                     'type'    => 'segment',
@@ -218,12 +213,13 @@ return array(
                                     'newsletter' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
-                                                        'route'    => '/newsletter/[/]',
+                                                        'route'    => '/newsletter[/]',
                                                         'constraints' => array(
-                                                        
+                                                            
                                                         ),
                                                         'defaults' => array(
-                                                            
+                                                            'controller' => 'Application\Controller\Index',
+                                                            'action'    => 'index',
                                                         ),
                                         ),
                                         'may_terminate' => true,
@@ -240,6 +236,27 @@ return array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
                                                         'route'    => '/registrazione/form[/]',
+                                                        'constraints' => array(
+                                                            
+                                                        ),
+                                                        'defaults' => array(
+                                                            'controller' => 'Application\Controller\Index',
+                                                            'action'    => 'index',
+                                                        ),
+                                        ),
+                                        'may_terminate' => true,
+                                        'child_routes' => array(
+                                                        'default' => array(
+                                                                        'type'    => 'Wildcard',
+                                                                        'options' => array(
+                                                                        ),
+                                                        ),
+                                        ),
+                                    ),
+                                    'recupero-password' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                                        'route'    => '/recupero-password[/]',
                                                         'constraints' => array(
                                                             
                                                         ),
@@ -381,17 +398,18 @@ return array(
                                 ),
                 ),
     ),
-    // Frontend Router Class Map
+    // Frontend Router Class Map. The PostsFrontend will handle the home page
     'fe_router' => array(
         "default"                       => 'Application\Model\Posts\PostsFrontend',
         "home"                          => 'Application\Model\Posts\PostsFrontend',
         "albo-pretorio"                 => 'Application\Model\AlboPretorio\AlboPretorioFrontend',
         "amministrazione-trasparente"   => 'Application\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFrontend',
-        "contatti"                      => 'Application\Model\Contacts\ContactsFrontend',        
+        "contatti"                      => 'Application\Model\Contacts\ContactsFrontend',     
         "faq"                           => 'Application\Model\Faq\FaqFrontend',
         "foto"                          => 'Application\Model\Posts\PhotoFrontend',
         "newsletter"                    => 'Application\Model\Newsletter\NewsletterFrontend',
-        "registrazione"                 => 'Application\Model\Utenti\RegistrazioneFrontend',
+        "registrazione"                 => 'Application\Model\Users\RegistrationFrontend',
+        "recupero-password"             => 'Application\Model\Users\RecoverPasswordFrontend',
         "ricerca"                       => 'Application\Model\Ricerca\RicercaFrontend',
         "stato-civile"                  => 'Application\Model\StatoCivile\StatoCivileFrontend',
     )

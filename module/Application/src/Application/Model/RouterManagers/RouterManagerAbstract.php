@@ -8,7 +8,7 @@ namespace Application\Model\RouterManagers;
  */
 abstract class RouterManagerAbstract
 {
-    const defaultFrontendTemplate   = 'notfound.phtml';
+    const defaultFrontendTemplate   = 'homepage/homepage.phtml';
     const defaultBackendTemplate    = 'dashboard/dashboard.phtml';
     
     protected $input;
@@ -98,7 +98,6 @@ abstract class RouterManagerAbstract
     }
     
     /**
-     * 
      * @param type $key
      * @param type $noArray
      * @return type

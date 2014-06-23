@@ -3,6 +3,7 @@
 namespace AdminTest\Model\StatoCivile;
 
 use ApplicationTest\TestSuite;
+use Admin\Model\StatoCivile\StatoCivileFormDataHandler;
 
 /**
  * @author Andrea Fiori
@@ -16,6 +17,6 @@ class StatoCivileFormDataHandlerTest //extends TestSuite
     {
         parent::setUp();
         
-        $this->statoCivileFormDataHandler = '';
+        $this->statoCivileFormDataHandler = new StatoCivileFormDataHandler();
     }
 }

@@ -34,6 +34,7 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
                 return $this->setErrorMessage($error);
             }
             
+            $this->getConnection()->beginTransaction();
             try {
                 $this->getConnection()->insert('zfcms_posts', array(
                     'note'                 => Slugifier::slugify($this->rawPost['title']),
@@ -44,6 +45,7 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
                     'type'                 => $this->rawPost['type'],
                 ));
             } catch (\Exception $e) {
+                $this->getConnection()->rollBack();
                 return $this->setErrorMessage($e->getMessage());
             }
             $postsId = $this->getConnection()->lastInsertId();
@@ -62,6 +64,7 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
                     'language_id'       => 1,
                 ));
             } catch (\Exception $e) {
+                $this->getConnection()->rollBack();
                 return $this->setErrorMessage($e->getMessage());
             }
             
@@ -75,6 +78,8 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
                     ));
                 }
             }
+            
+            $this->getConnection()->commit();
 
             $this->setVariable('messageType',   'success');
             $this->setVariable('messageTitle',  'Dati inseriti correttamente');
@@ -83,6 +88,7 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
         
         private function update()
         {
+            $this->getConnection()->beginTransaction();
             try {
                 $this->setArrayRecordToHandle('title',           'title');
                 $this->setArrayRecordToHandle('subtitle',        'subtitle');
@@ -90,7 +96,7 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
                 $this->setArrayRecordToHandle('seo_description', 'seoDescription');
                 $this->setArrayRecordToHandle('seo_keywords',    'seoKeywords');
                 
-                //$this->getConnection()->beginTransaction();
+                
                 $affectedRows = $this->getConnection()->update(
                             'zfcms_posts_options',
                         
@@ -98,8 +104,6 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
  
                             array('posts_id' => $this->rawPost['postoptionid'])
                 );
-                //$this->getConnection()->commit();
-                //$this->getConnection()->rollBack();
                 
                 // TODO:
                 // update last update date
@@ -108,9 +112,12 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
                    // DO NOT DELETE old category\ies to rewrite same record
 
             } catch(\Exception $e) {
+                $this->getConnection()->rollBack();
                 return $this->setErrorMessage("Si &egrave; verificato un errore nell'aggiornamento dati in archivio. <h2>Messaggio:</h2> ".$e->getMessage());
             }
-
+            
+            $this->getConnection()->commit();
+            
             $this->setVariable('messageType', 'success');
             $this->setVariable('messageTitle', 'Dati aggiornati correttamente');
             $this->setVariable('messageText', 'Dati in archivio aggiornati correttamente');

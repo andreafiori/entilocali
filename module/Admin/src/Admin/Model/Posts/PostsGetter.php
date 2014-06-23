@@ -20,7 +20,7 @@ class PostsGetter extends QueryBuilderHelperAbstract
         $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
                                 ->add('from', 'Application\Entity\ZfcmsPosts p, Application\Entity\ZfcmsPostsOptions po, Application\Entity\ZfcmsPostsRelations r, Application\Entity\ZfcmsCategories c, Application\Entity\ZfcmsCategoriesOptions co')
                                 ->add('where', 'po.posts = p.id AND p.id = r.posts AND c.id = r.category AND co.category = c.id AND r.channel = :channel AND co.language = :language AND po.language = :language');
-;
+        
         return $this->getQueryBuilder();
     }
 
@@ -137,7 +137,7 @@ class PostsGetter extends QueryBuilderHelperAbstract
      * @return string
      */
     public function getQueryResult()
-    {    
+    {
         $posts = parent::getQueryResult();
         if ( !is_array($posts) ) {
             return false;

@@ -65,7 +65,7 @@ class PostsFormDataAbstractTest extends TestSuite
     public function testSetRecordById()
     {
         $this->assertFalse( $this->postsFormDataAbstract->setRecordById('invalidNumber') );
-        
+  
         $this->setupPostsGetterWrapper();
 
         $this->assertTrue( is_array($this->postsFormDataAbstract->setRecordById(1)) );

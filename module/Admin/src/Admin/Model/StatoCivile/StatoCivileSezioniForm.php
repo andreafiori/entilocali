@@ -8,11 +8,11 @@ use Zend\Form\Form;
  * @author Andrea Fiori
  * @since  17 June 2014
  */
-class StatoCivileForm extends Form
+class StatoCivileSezioniForm extends Form
 {
-    public function __construct($name = null, $options = array())
+    public function __construct($name = 'formData', $options = array())
     {
-        parent::__construct('formData', $options);
+        parent::__construct($name, $options);
         
         $this->add(array(
                         'name' => 'nome',
@@ -21,6 +21,22 @@ class StatoCivileForm extends Form
                         'attributes' => array(
                                         'id'       => 'nome',
                                         'required' => 'required',
+                        )
+        ));
+        
+        $this->add(array(
+                        'type' => 'Zend\Form\Element\Select',
+                        'name' => 'stato',
+                        'options' => array(
+                               'label' => 'Sezione',
+                               'value_options' => array(
+                                       '' => 'Seleziona',
+                                       'attivo'   => 'Attivo',
+                                       'nascosto' => 'Nascosto',
+                               ),
+                        ),
+                        'attributes' => array(
+                                'id' => 'stato'
                         )
         ));
     }

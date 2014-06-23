@@ -125,7 +125,7 @@ return array(
         'stato-civile'      => 'Admin\Model\StatoCivile\StatoCivileFormDataHandler',
         'posts'             => 'Admin\Model\Posts\PostsFormDataHandler',
         'categories'        => 'Admin\Model\Categories\CategoriesFormDataHandler',
-        'ticketing'         => 'Admin\Model\Assistenza\AssistenzaFormDataHandler',
+        'ticketing'         => 'Admin\Model\Ticketing\TicketingFormDataHandler',
         'users'             => 'Admin\Model\Users\UsersFormDataHandler',
     ),
     // FormData CRUD Class Map
@@ -142,7 +142,7 @@ return array(
     ),
     // DataTables Class Map
     'datatables_classmap' => array(
-        'assistenza'                  => 'Admin\Model\Ticketing\TicketingDataTable',
+        'ticketing'                   => 'Admin\Model\Ticketing\TicketingDataTable',
         'categories'                  => 'Admin\Model\Categories\CategoriesDataTable',
         'contacts'                    => 'Admin\Model\Contacts\ContactsDataTable',
         'faq'                         => 'Admin\Model\Faq\FaqDataTable',

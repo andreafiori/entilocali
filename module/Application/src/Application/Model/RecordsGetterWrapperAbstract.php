@@ -2,6 +2,9 @@
 
 namespace Application\Model;
 
+use Application\Model\NullException;
+use Application\Model\QueryBuilderHelperAbstract;
+
 /**
  * @author Andrea Fiori
  * @since  29 May 2014
@@ -9,6 +12,8 @@ namespace Application\Model;
 abstract class RecordsGetterWrapperAbstract
 {
     protected $input;
+
+    protected $objectGetter;
 
     /**
      * @param array $input
@@ -38,4 +43,35 @@ abstract class RecordsGetterWrapperAbstract
     }
     
     abstract public function setupQueryBuilder();
+    
+    /**
+     * @return type
+     */
+    public function setObjectGetter(QueryBuilderHelperAbstract $objectGetter)
+    {
+        $this->objectGetter = $objectGetter;
+        
+        return $this->objectGetter;
+    }
+    
+    /**
+     * @return type
+     */
+    public function getObjectGetter()
+    {
+        return $this->objectGetter;
+    }
+
+    /**
+     * @return \Application\Model\QueryBuilderHelperAbstract
+     * @throws NullException
+     */
+    public function getRecords()
+    {
+        if (!$this->objectGetter) {
+            throw new NullException("ObjectGetter is not set");
+        }
+        
+        return $this->objectGetter->getQueryResult();
+    }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace ApiWebServiceTest\Model;
+namespace AdminTest\Model\Posts;
 
 use ApplicationTest\TestSuite;
 use Admin\Model\Posts\PostsGetter;
@@ -18,9 +18,7 @@ class PostsGetterWrapperTest extends TestSuite
     {
         parent::setUp();
 
-        $postsGetter = new PostsGetter( $this->getEntityManagerMock() );
-
-        $this->postsGetterWrapper = new PostsGetterWrapper($postsGetter);
+        $this->postsGetterWrapper = new PostsGetterWrapper( new PostsGetter($this->getEntityManagerMock()) );
     }
     
     public function testSetInput()
@@ -41,4 +39,13 @@ class PostsGetterWrapperTest extends TestSuite
         
         $this->assertTrue( is_array($this->postsGetterWrapper->getRecords()) );
     }
+    /*
+    public function testSetupQueryBuilder()
+    {
+        $this->postsGetterWrapper->setupQueryBuilder();
+        
+        $this->assertEquals($this->postsGetterWrapper->getPostsGetter()->getQueryBuilder()->getParameter('language'), 1);
+        $this->assertEquals($this->postsGetterWrapper->getPostsGetter()->getQueryBuilder()->getParameter('channel'), 1);
+    }
+    */
 }
