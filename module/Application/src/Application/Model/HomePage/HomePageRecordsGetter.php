@@ -12,7 +12,7 @@ class HomePageRecordsGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('h.referenceId, h.position, IDENTITY(hb.module) AS moduleId ');
+        $this->setSelectQueryFields('h.referenceId, h.position, h.freeText, IDENTITY(hb.module) AS moduleId ');
 
         $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
                                 ->add('from', 'Application\Entity\ZfcmsHomepage h, Application\Entity\ZfcmsHomepageBlocks hb, Application\Entity\ZfcmsModules m')

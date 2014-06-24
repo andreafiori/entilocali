@@ -30,6 +30,9 @@ class PostsFrontendHelper extends InputSetupAbstract
         }
     }
     
+    /**
+     * @return type
+     */
     public function isHomePage()
     {
         return $this->isHomePage;

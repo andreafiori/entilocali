@@ -69,7 +69,11 @@ class PostsFrontend extends RouterManagerAbstract implements RouterManagerInterf
                         break;
 
                         case(6):
-                            
+                            // photo
+                        break;
+                        
+                        case(2):
+                            $homePageVar['freetext'][] = array( 'freeText' => $value[0]['freeText'] );
                         break;
                     }
                     $this->setVariable('homepage', $homePageVar);

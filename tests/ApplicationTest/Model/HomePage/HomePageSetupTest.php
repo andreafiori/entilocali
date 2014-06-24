@@ -31,14 +31,6 @@ class HomePageSetupTest extends TestSuite
     {
         $this->assertFalse( $this->homePageSetup->setHomePageInput() );
         
-        $this->assertTrue( is_array($this->homePageSetup->setHomePageInput(  )) );
-    }
-    
-    /**
-     * for each grouped record ID, 
-     */
-    public function testSetupHomePage()
-    {
-        
+        $this->assertTrue( is_array($this->homePageSetup->setHomePageInput($this->fakeHomePageInput)) );
     }
 }

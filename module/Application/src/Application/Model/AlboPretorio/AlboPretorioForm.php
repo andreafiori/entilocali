@@ -74,14 +74,13 @@ class AlboPretorioForm extends Form
         );
     }
     
-    private function getArrayYears()
-    {
-        $arrayYears = array();
-        $arrayYears[date("Y")] = date("Y");
-        
-        for($i=$arrayYears[date("Y")]; $i < date("Y")+7; $i++)
+        private function getArrayYears()
         {
-            $arrayYears[$i] = $i;
+            $arrayYears = array();
+            $arrayYears[date("Y")] = date("Y");
+
+            for($i=$arrayYears[date("Y")]; $i < date("Y")+7; $i++) {
+                $arrayYears[$i] = $i;
+            }
         }
-    }
 }

@@ -7,8 +7,6 @@ use Zend\Captcha;
 use Zend\Form\Element;
 
 /**
- * Contact Form
- * 
  * @author Andrea Fiori
  * @since  20 April 2014
  */
@@ -23,7 +21,7 @@ class ContactsForm extends Form
             'type' => 'Zend\Form\Element\Text', 
             'attributes' => array( 
                 'placeholder' => 'Inserisci nome...',
-                'title' => 'Inserisci nome...',
+                'title' => 'Inserisci nome',
                 'required' => 'required',
                 'id' => 'nome'
             ), 
@@ -37,7 +35,7 @@ class ContactsForm extends Form
             'type' => 'Zend\Form\Element\Text', 
             'attributes' => array( 
                 'placeholder' => 'Inserisci cognome...', 
-                'title' => 'Inserisci cognome...', 
+                'title' => 'Inserisci cognome', 
                 'required' => 'required',
                  'id' => 'cognome'
             ), 
@@ -50,8 +48,8 @@ class ContactsForm extends Form
             'name' => 'email', 
             'type' => 'Zend\Form\Element\Email', 
             'attributes' => array( 
-                'placeholder' => 'Inserisci indirizzo Email...', 
-                'title' => 'Inserisci indirizzo Email...', 
+                'placeholder' => 'Inserisci indirizzo email...', 
+                'title' => 'Inserisci indirizzo email', 
                 'required' => 'required',
                 'id' => 'email'
             ), 
@@ -63,16 +61,16 @@ class ContactsForm extends Form
         $this->add(array( 
             'name' => 'messaggio', 
             'type' => 'Zend\Form\Element\Textarea', 
-            'attributes' => array( 
+            'attributes' => array(
                 'placeholder' => 'Inserisci il messagio...',
-                'title' => 'Inserisci il messagio...', 
-                'required' => 'required',
-                'rows' => 8,
-                'cols' => 35,
-                'id' => 'messaggio'
+                'title'       => 'Inserisci il messagio', 
+                'required'    => 'required',
+                'rows'  => 8,
+                'cols'  => 35,
+                'id'    => 'messaggio'
             ), 
-            'options' => array( 
-                'label' => 'Messaggio', 
+            'options' => array(
+                'label' => 'Messaggio',
             ), 
         ));
         
