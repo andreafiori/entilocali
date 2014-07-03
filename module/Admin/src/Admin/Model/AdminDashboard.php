@@ -6,9 +6,6 @@ use Application\Model\RouterManagers\RouterManagerAbstract;
 use Application\Model\RouterManagers\RouterManagerInterface;
 
 /**
- * TODO:
- *      Load dashboard data
- *
  * @author Andrea Fiori
  * @since  18 May 2014
  */

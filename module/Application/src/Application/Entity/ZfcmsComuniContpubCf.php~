@@ -1,0 +1,33 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ZfcmsComuniContpubCf
+ *
+ * @ORM\Table(name="zfcms_comuni_contpub_cf")
+ * @ORM\Entity
+ */
+class ZfcmsComuniContpubCf
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cf_struttura", type="text", length=65535, nullable=false)
+     */
+    private $cfStruttura;
+
+
+}
+

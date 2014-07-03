@@ -21,6 +21,8 @@ class StatoCivileForm extends Form
                         'attributes' => array(
                                         'id'       => 'titolo',
                                         'required' => 'required',
+                                        'palceholder' => 'Inserisci il titolo',
+                                        'title' => 'Inserisci il titolo',
                         )
         ));
         
@@ -36,7 +38,9 @@ class StatoCivileForm extends Form
                                ),
                         ),
                         'attributes' => array(
-                                'id' => 'status'
+                                'id' => 'status',
+                                'required' => 'required',
+                                'title' => 'Seleziona la sezione',
                         )
         ));
         
@@ -50,7 +54,8 @@ class StatoCivileForm extends Form
                         'attributes' => array(
                                 'class' => 'form-control DatePicker',
                                 'style' => 'width: 22%',
-                                'id' => 'insertDate'
+                                'id' => 'insertDate',
+                                'title' => 'Inserisci la data di pubblicazione',
                         )
         ));
         

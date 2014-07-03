@@ -1,0 +1,13 @@
+<ul class="breadcrumb">
+    <li><a href="<?php echo $this->basepath() ?>/" title="Home page">Home</a> <span class="divider"></span></li>
+    <li class="active"><?php echo $this->maindata[0]['nomeCategoria']; ?></li>
+</ul>
+
+<p class="text-right"><a href="#" class="btn btn-warning" title="Visualizza Feed RSS per la categoria blog <?php echo $this->maindata[0]['nomeCategoria']; ?>"><i class="fa fa-rss"></i> Feed RSS <?php echo $this->maindata[0]['nomeCategoria']; ?></a></p>
+
+<?php foreach($this->maindata as $content): ?>
+<h1><?php echo $content['titolo'] ?></h1>
+<div class="blog_list_description">
+    <?php echo $content['descrizione'] ?> <strong>&raquo; <a href="<?php echo $this->basepath().$content['linkDetails'] ?>" title="<?php echo $content['titolo'] ?>">Leggi tutto</a></strong>
+</div>
+<?php endforeach; ?>

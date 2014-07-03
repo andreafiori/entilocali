@@ -6,6 +6,11 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Model\RouterManagers\RouterManager;
 use Application\Model\RouterManagers\RouterManagerHelper;
+use Admin\Model\Users\UserFormAuthentication;
+use Zend\Session\Container;
+use Admin\Model\FormData\FormDataCrudHandler;
+use Admin\Model\Users\UsersGetter;
+use Admin\Model\Users\UsersGetterWrapper;
 
 /**
  * @author Andrea Fiori
@@ -41,7 +46,15 @@ class AdminController extends AbstractActionController
             }
         }
         
+        $session = new Container();
+        
+        $userDetails = new \stdClass();
+        $userDetails->id = $session->offsetGet('id');
+        $userDetails->name = $session->offsetGet('name');
+        $userDetails->surname = $session->offsetGet('surname');
+        
         $this->layout()->setVariable('baseUrl', $this->baseUrl);
+        $this->layout()->setVariable('userDetails', $userDetails);
         $this->layout()->setVariable('preloadResponse', $this->configurations['preloadResponse']);
         $this->layout()->setVariable('templatePartial', 'backend/templates/'.$this->configurations['template_backend'].$routerManagerHelper->getRouterManger()->getTemplate(1));
         $this->layout('backend/templates/'.$this->configurations['template_backend'].'backend.phtml');
@@ -62,7 +75,7 @@ class AdminController extends AbstractActionController
 
         $this->initialize();
 
-        $formDataCrudHandler = new \Admin\Model\FormData\FormDataCrudHandler();
+        $formDataCrudHandler = new FormDataCrudHandler();
         $formDataCrudHandler->setInput($this->input);
         $formDataCrudHandler->setFormCrudHandler($this->params()->fromRoute('form_post_handler'));
         
@@ -98,7 +111,6 @@ class AdminController extends AbstractActionController
             $this->input = $this->commonSetupPlugin->mergeInput( array_merge($this->configurations, array(
                         'formsetter'            => trim($this->params()->fromRoute('formsetter')),
                         'tablesetter'           => trim($this->params()->fromRoute('tablesetter')),
-                    ), array(
                         'formdata_classmap'      => $this->config['formdata_classmap'],
                         'formdata_crud_classmap' => $this->config['formdata_crud_classmap'],
                         'datatables_classmap'    => $this->config['datatables_classmap'],
@@ -109,5 +121,142 @@ class AdminController extends AbstractActionController
             $this->baseUrl = sprintf('%s://%s%s', $this->input['uri']->getScheme(), $this->input['uri']->getHost(), $this->input['request']->getBaseUrl()).'/admin/main/'.$this->params()->fromRoute('lang').'/';
             
             $this->input = array_merge($this->input, array("baseUrl" => $this->baseUrl));
+        }
+
+    
+    public function loginAction()
+    {
+        // if already login, redirect to success page
+        try {
+            if ($this->getAuthService()->hasIdentity()) {
+                return $this->redirect()->toRoute('admin');
+            }
+        } catch (Exception $e) {
+            return $this->redirect()->toRoute('admin');
+        }
+        
+        $form = $this->getForm();
+        
+        $this->layout()->setVariable('form', $form);
+        $this->layout()->setVariable('messages', $this->flashmessenger()->getMessages());
+        $this->layout('backend/templates/default/login.phtml');
+        
+        return new ViewModel();
+    }
+    
+    public function authenticateAction()
+    {
+        $form       = $this->getForm();
+        $redirect   = 'login';
+        
+        $request = $this->getRequest();
+        if ($request->isPost()){
+            $form->setData($request->getPost());
+            if ($form->isValid()) {
+                //check authentication...
+                $this->getAuthService()->getAdapter()
+                                       ->setIdentity($request->getPost('username'))
+                                       ->setCredential($request->getPost('password'));
+         
+                $result = $this->getAuthService()->authenticate();
+                foreach($result->getMessages() as $message)
+                {
+                    //save message temporary into flashmessenger
+                    $this->flashmessenger()->addMessage($message);
+                }
+                
+                if ($result->isValid()) {
+                    $redirect = 'admin';
+                    
+                    // set session timeout
+                    $this->getSessionStorage()
+                         ->setRememberMe();
+                    
+                    //set storage again
+                    $this->getAuthService()->setStorage($this->getSessionStorage());
+                    
+                    $this->getAuthService()->setStorage($this->getSessionStorage());
+                    $this->getAuthService()->getStorage()->write($request->getPost('username'));
+                    
+                    // get user details
+                    $usersGetterWrapper = new UsersGetterWrapper( new UsersGetter($this->getServiceLocator()->get('doctrine.entitymanager.orm_default')) );
+                    $usersGetterWrapper->setInput( array('username' => $request->getPost('username'), 'password' => $request->getPost('password'), 'limit'=>1) );
+                    $usersGetterWrapper->setupQueryBuilder();
+                    
+                    $records = $usersGetterWrapper->getRecords();
+                    if (isset($records)) {
+                        $records = $records[0];
+                        
+                        // set ACL using session container
+                        $sessionContainer = new Container();
+                        $sessionContainer->offsetSet('id', $records['id']);
+                        $sessionContainer->offsetSet('name', $records['name']);
+                        $sessionContainer->offsetSet('surname', $records['surname']);
+                        $sessionContainer->offsetSet('email', $records['email']);
+
+                    } else {
+                        throw new Exception('Cannot get user details after login');
+                    }
+                }
+            } else {
+                // TODO: after 3 failures the login form must show captcha...
+                $sessionContainer = new Container();
+                $loginFailures = $sessionContainer->offsetGet('loginFailures');
+                $sessionContainer->offsetSet('loginFailures', $loginFailures);
+                
+                foreach($form->getMessages() as $message) {
+                    $this->flashmessenger()->addMessage(print_r($message,1));
+                }
+            }
+        }
+        
+        return $this->redirect()->toRoute($redirect, array("lang" => 'it'));
+    }
+    
+    public function logoutAction()
+    {
+        if ($this->getAuthService()->hasIdentity()) {
+            $this->getSessionStorage()->forgetMe();
+            $this->getAuthService()->clearIdentity();
+            $this->flashmessenger()->addMessage("Uscita dall'area di amministrazione");
+        }
+        
+        return $this->redirect()->toRoute('login');
+    }
+    
+        /**
+         * @return \Zend\Authentication\AuthenticationService
+         */
+        private function getAuthService()
+        {
+            if (!$this->authservice) {
+                $this->authservice = $this->getServiceLocator()->get('AuthService');
+            }
+
+            return $this->authservice;
+        }
+
+        /**
+         * @return \Admin\Model\MyAuthStorage
+         */
+        private function getSessionStorage()
+        {
+            if (! $this->storage) {
+                $this->storage = $this->getServiceLocator()->get('Admin\Model\MyAuthStorage');
+            }
+
+            return $this->storage;
+        }
+
+        /**
+         * @return \Admin\Model\Users\UserFormAuthentication
+         */
+        private function getForm()
+        {
+            if (!$this->form) {
+                $this->form = new UserFormAuthentication();
+            }
+
+            return $this->form;
         }
 }

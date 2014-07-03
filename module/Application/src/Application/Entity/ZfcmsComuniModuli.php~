@@ -1,0 +1,61 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ZfcmsComuniModuli
+ *
+ * @ORM\Table(name="zfcms_comuni_moduli")
+ * @ORM\Entity
+ */
+class ZfcmsComuniModuli
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nome", type="text", length=65535, nullable=false)
+     */
+    private $nome;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="attivo", type="integer", nullable=false)
+     */
+    private $attivo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="accesskey", type="string", length=100, nullable=false)
+     */
+    private $accesskey;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="front", type="integer", nullable=false)
+     */
+    private $front = '1';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ordine", type="integer", nullable=false)
+     */
+    private $ordine;
+
+
+}
+

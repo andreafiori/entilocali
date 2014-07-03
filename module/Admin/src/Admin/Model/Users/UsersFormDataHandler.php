@@ -28,14 +28,14 @@ class UsersFormDataHandler  extends FormDataAbstract
         $form = new UsersForm();
         if ($records) {
             $formTitle       = 'Modifica utente';
-            $formDescription = 'Modifica dati utente';
+            $formDescription = 'Modifica dati utente. ';
             
             $form->setData($records[0]);
         } else {
             $formTitle       = 'Nuovo utente';
-            $formDescription = 'Creazione nuovo utente';    
+            $formDescription = 'Creazione nuovo utente. ';    
         }
- 
+
         $this->setVariable('form',              $form);
         $this->setVariable('formTitle',         $formTitle);
         $this->setVariable('formDescription',   $formDescription);

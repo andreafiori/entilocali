@@ -61,7 +61,7 @@ class ZfcmsCategories
      *
      * @ORM\Column(name="column_position", type="string", nullable=true)
      */
-    private $columnPosition;
+    private $columnPosition = 'left';
 
     /**
      * @var string

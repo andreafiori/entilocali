@@ -13,7 +13,7 @@ class MyAuthStorage extends Storage\Session
     /**
      * @param number $time
      */
-    public function setRememberMe($time = 1209600)
+    public function setRememberMe($time = 10800)
     {
         $this->session->getManager()->rememberMe($time);
     }

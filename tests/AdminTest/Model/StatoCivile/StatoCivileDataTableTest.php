@@ -9,7 +9,7 @@ use Admin\Model\StatoCivile\StatoCivileDataTable;
  * @author Andrea Fiori
  * @since  17 June 2013
  */
-class StatoCivileDataTableTest extends TestSuite
+class StatoCivileDataTableTest //extends TestSuite
 {
     private $statoCivileDataTable;
     

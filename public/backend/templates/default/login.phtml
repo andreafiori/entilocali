@@ -90,14 +90,16 @@ $form->prepare();
 $element = $form->get('username');
 $element->setAttribute('class','form-control');
 $element->setAttribute('autofocus', 'autofocus');
-echo $this->formInput($element);
-?>
-<div>&nbsp;</div>
 
-<?php
+echo $this->formInput($element);
+
+?><div>&nbsp;</div><?php
+
 $element = $form->get('password');
 $element->setAttribute('class','form-control');
+
 echo $this->formInput($element);
+
 ?>
 
 <button class="btn btn-lg btn-primary btn-block" type="submit" title="Accedi all'area riservata">Accedi</button>

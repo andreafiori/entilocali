@@ -7,10 +7,16 @@
     <?php
     echo $this->headLink()
           ->prependStylesheet($this->basePath().'/public/common/bootstrap3/css/bootstrap.min.css')
-          ->prependStylesheet('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css')
-          ->prependStylesheet('//cdn.datatables.net/1.10.0/css/jquery.dataTables.css');        
+          ->prependStylesheet($this->basePath().'/public/common/font-awesome/css/font-awesome.min.css')
+          ->prependStylesheet('//cdn.datatables.net/1.10.0/css/jquery.dataTables.css');
     ?>
     <style>
+    /* Dropdown onmouse over */
+    ul.nav li.dropdown:hover ul.dropdown-menu {
+        display: block;
+    }
+
+    /* Multi level menu */
     .dropdown-submenu {
         position: relative;
     }
@@ -58,6 +64,8 @@
         -moz-border-radius: 6px 0 6px 6px;
         border-radius: 6px 0 6px 6px;
     }
+    
+    /* JQuery Validate Label */
     label.error {
         color: red;
         margin-left: 0.5%;
@@ -69,23 +77,19 @@
     <script src="<?php echo $this->basePath().'/public/common/js/html5shiv.js'; ?>"></script>
     <![endif]-->
 
-    <!-- Fav and touch icons
+    <!-- Fav and touch icons -->
+    <!--
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-57-precomposed.png">
-    <link rel="shortcut icon" href="img/favicon.png"> -->
-    
+    <link rel="shortcut icon" href="img/favicon.png">
+    -->
+        
     <script src="<?php echo $this->basePath() ?>/public/common/jquery/jquery.min.js"></script>
     <script src="<?php echo $this->basePath() ?>/public/common/jquery/form/jquery.form.js"></script>
     <script src="<?php echo $this->basePath() ?>/public/common/jquery/validate/jquery.validate.min.js"></script>
 
-    <script src="<?php echo $this->basePath() ?>/public/common/bootstrap3/js/bootstrap.min.js"></script>
-
-    <script src="<?php echo $this->basePath() ?>/public/common/jquery/ckeditor/ckeditor.js"></script>
-    <script src="<?php echo $this->basePath() ?>/public/common/jquery/ckfinder/ckfinder.js"></script>
-
-    <script src="<?php echo $this->basePath() ?>/public/common/jquery/datatable/js/jquery.dataTables_it.min.js"></script>
 </head>
 
 <body>
@@ -129,23 +133,23 @@
                                 </li>
                             </ul>
                         </li>
+
                         <li class="dropdown-submenu">
-                            <a href="<?php echo $this->baseUrl ?>datatable/posts/foto" class="dropdown-toggle" data-toggle="dropdown">Foto</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Albo pretorio">Albo pretorio</a>
                             <ul class="dropdown-menu">
-                                <li><a href="<?php echo $this->baseUrl ?>formdata/posts/foto" title="">Nuova</a></li>
-                                <li><a href="<?php echo $this->baseUrl ?>datatable/posts/foto" title="">Modifica \ Elimina</a></li>
+                                <li><a href="<?php echo $this->baseUrl ?>formdata/albo-pretorio" title="Nuovo atto">Nuovo atto</a></li>
+                                <li><a href="<?php echo $this->baseUrl ?>datatable/albo-pretorio" title="Gestione">Gestione</a></li>
+                                <li><a href="#" title="">Atti ufficiali</a></li>
                                 <li class="dropdown-submenu">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">Categorie</a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">Sezioni</a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="<?php echo $this->baseUrl ?>formdata/categories/6" title="">Nuovo</a></li>
-                                        <li><a href="<?php echo $this->baseUrl ?>datatable/categories/6" title="">Modifica \ Elimina</a></li>
+                                        <li><a href="#" title="">Nuova</a></li>
+                                        <li><a href="#" title="">Modifica \ Elimina</a></li>
                                     </ul>
                                 </li>
                             </ul>
                         </li>
-                        <li><a href="<?php echo $this->baseUrl ?>datatable/albo-pretorio" title="Albo pretorio">Albo pretorio</a></li>
-                        <li><a href="#" title="">Atti ufficiali albo</a></li>
-                        <li><a href="<?php echo $this->baseUrl ?>datatable/amministrazione-trasparente" title="Amministrazione trasparente">Amministrazione trasparente</a></li>
+                        
                         <li class="dropdown-submenu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Stato civile">Stato civile</a>
                             <ul class="dropdown-menu">
@@ -160,15 +164,106 @@
                                 </li>
                             </ul>
                         </li>
-                        <li><a href="#" title="">Modulistica</a></li>
-                        <li><a href="#" title="">Atti di concessione</a></li>
-                        <li><a href="#" title="">Contratti pubblici</a></li>
-                        <li><a href="#" title="">Delibere</a></li>
-                        <li><a href="#" title="">Determine</a></li>
                         
+                        <li class="dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Amministrazione trasparente</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="<?php echo $this->baseUrl ?>formdata/amministrazione-trasparente" title="">Nuovo articolo</a></li>
+                                <li><a href="<?php echo $this->baseUrl ?>datatable/amministrazione-trasparente" title="">Modifica \ Elimina</a></li>
+                                <li class="dropdown-submenu">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">Macro-link</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" title="Nuova">Nuova</a></li>
+                                        <li><a href="#" title="Modifica \ Elimina">Modifica \ Elimina</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown-submenu">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">Sotto-link</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" title="Nuovo">Nuovo</a></li>
+                                        <li><a href="#" title="Modifica \ Elimina">Modifica \ Elimina</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <li class="dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">Atti di concessione</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="<?php echo $this->baseUrl ?>formdata/atti-concessione" title="">Nuovo atto</a></li>
+                                <li><a href="<?php echo $this->baseUrl ?>datatable/atti-concessione" title="">Gestione</a></li>
+                                <li class="dropdown-submenu">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">Settore</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="<?php echo $this->baseUrl ?>formdata/contratti-pubblici-settori" title="">Nuovo</a></li>
+                                        <li><a href="<?php echo $this->baseUrl ?>datatable/contratti-pubblici-settori" title="">Modifica \ Elimina</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown-submenu">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">Responsabile procedimento</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" title="">Nuovo</a></li>
+                                        <li><a href="#" title="">Modifica \ Elimina</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <li class="dropdown-submenu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">Contratti pubblici</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="<?php echo $this->baseUrl ?>formdata/contratti-pubblici-bandi" title="">Nuovo bando</a></li>
+                                <li><a href="<?php echo $this->baseUrl ?>datatable/contratti-pubblici-bandi" title="">Gestione</a></li>
+                                <li class="dropdown-submenu">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">Settore</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="<?php echo $this->baseUrl ?>formdata/contratti-pubblici-settori" title="">Nuovo</a></li>
+                                        <li><a href="<?php echo $this->baseUrl ?>datatable/contratti-pubblici-settori" title="">Modifica \ Elimina</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown-submenu">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">Responsabile procedimento</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" title="">Nuovo</a></li>
+                                        <li><a href="#" title="">Modifica \ Elimina</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown-submenu">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">Voci Scelta del Contraente</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" title="">Nuovo</a></li>
+                                        <li><a href="#" title="">Modifica \ Elimina</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown-submenu">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">Operatore</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" title="">Nuovo</a></li>
+                                        <li><a href="#" title="">Modifica \ Elimina</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <li><a href="<?php echo $this->baseUrl ?>datatable/contacts" title="Contatti">Contatti</a></li>   
+                        
+                        <li class="dropdown-submenu">
+                            <a href="<?php echo $this->baseUrl ?>datatable/posts/foto" class="dropdown-toggle" data-toggle="dropdown">Foto</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="<?php echo $this->baseUrl ?>formdata/posts/foto" title="">Nuova</a></li>
+                                <li><a href="<?php echo $this->baseUrl ?>datatable/posts/foto" title="">Modifica \ Elimina</a></li>
+                                <li class="dropdown-submenu">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">Categorie</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="<?php echo $this->baseUrl ?>formdata/categories/6" title="">Nuovo</a></li>
+                                        <li><a href="<?php echo $this->baseUrl ?>datatable/categories/6" title="">Modifica \ Elimina</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
                         <li><a href="#" title="">Forum</a></li>
                         <li><a href="#" title="">Newsletter</a></li>
-                        <li><a href="<?php echo $this->baseUrl ?>datatable/contacts" title="Contatti">Contatti</a></li>
+                        
                         <li><a href="#" title="Booking">Booking</a></li>
                         <li class="dropdown-submenu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">E-commerce</a>
@@ -251,10 +346,10 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Utente<strong class="caret"></strong></a>
+                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo $this->userDetails->name." ".$this->userDetails->surname ?><strong class="caret"></strong></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="javascript:void(0)" title="Profilo">Profilo</a>
+                            <a href="<?php echo $this->baseUrl ?>formdata/users/<?php echo $this->userDetails->id ?>" title="Profilo">Profilo</a>
                         </li>
                         <!--
                         <li>
@@ -299,6 +394,14 @@
     </div>
 </div>
 
+<script src="<?php echo $this->basePath() ?>/public/common/bootstrap3/js/bootstrap.min.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/common/bootstrap3/js/bootstrap-hover-dropdown.js"></script>
+
+<script src="<?php echo $this->basePath() ?>/public/common/jquery/ckeditor/ckeditor.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/common/jquery/ckfinder/ckfinder.js"></script>
+
+<script src="<?php echo $this->basePath() ?>/public/common/jquery/datatable/js/jquery.dataTables_it.min.js"></script>
+
 <script>
 
 function showLoading()
@@ -315,11 +418,11 @@ function showResponse()
 
 $(document).ready(function () {
 
-    // Datatable options
+    // Datatable
     $('#dataTable').dataTable( {
         "pagingType": "full_numbers"
     } );
- 
+    
     // Validate and form post
     var validate = $("#formData").validate({
         submitHandler: function(form) {
@@ -342,6 +445,9 @@ $(document).ready(function () {
     
     // Bootstrap Tooltip
     $('.btooltip').tooltip();
+    
+    $('.js-activated').dropdownHover().dropdown();
+    
 });
 </script>
 

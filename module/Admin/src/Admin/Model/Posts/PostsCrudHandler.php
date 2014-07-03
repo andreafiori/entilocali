@@ -27,7 +27,7 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
                 $error[] = 'Selezionare almeno una categoria';
             }
             if (!$this->rawPost['moduloid']) {
-                $error[] = "Identificativo modulo non: contattare l'amministrazione";
+                $error[] = "Identificativo modulo non presente: contattare l'amministrazione";
             }
             
             if (!empty($error)) {
@@ -95,8 +95,7 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
                 $this->setArrayRecordToHandle('description',     'description');
                 $this->setArrayRecordToHandle('seo_description', 'seoDescription');
                 $this->setArrayRecordToHandle('seo_keywords',    'seoKeywords');
-                
-                
+   
                 $affectedRows = $this->getConnection()->update(
                             'zfcms_posts_options',
                         

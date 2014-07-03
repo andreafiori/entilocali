@@ -15,9 +15,15 @@ $form->setAttribute('enctype',  'multipart/form-data');
 $form->setAttribute('role',     'form');
 $form->setAttribute('class',    'form-horizontal');
 
-$formLabel = $this->plugin('formLabel');
-
 echo $this->form()->openTag($form);
+
+if (!isset($this->formLabelSpanWidth)):
+    $this->formLabelSpanWidth = 2;
+endif;
+
+if (!isset($this->formControlSpanWidth)):
+    $this->formControlSpanWidth = 10;
+endif;
 
 foreach ($this->form as $element):
     $attributes = $element->getAttributes();
@@ -33,8 +39,8 @@ foreach ($this->form as $element):
     elseif ($attributes['class']=='DatePicker'):
     ?>
     <div class="form-group">
-        <label for="<?php echo $attributes['id'] ?>" class="col-sm-2 control-label"><?php echo $element->getLabel() ?></label>
-        <div class="col-sm-10">
+        <label for="<?php echo $attributes['id'] ?>" class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label"><?php echo $element->getLabel() ?></label>
+        <div class="col-sm-<?php echo $this->formControlSpanWidth ?>">
             <?php echo $this->formDate($element); ?>
         </div>
     </div>
@@ -45,8 +51,8 @@ foreach ($this->form as $element):
         $element->setAttribute('class','btn btn-primary');
         ?>
         <div class="form-group">
-            <label for="<?php echo $attributes['id'] ?>" class="col-sm-2 control-label"><?php echo $element->getLabel() ?></label>
-            <div class="col-sm-10">
+            <label for="<?php echo $attributes['id'] ?>" class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label"><?php echo $element->getLabel() ?></label>
+            <div class="col-sm-<?php echo $this->formControlSpanWidth ?>">
                 <?php echo $this->formElement($element); ?> 
             </div>
         </div>
@@ -54,8 +60,8 @@ foreach ($this->form as $element):
     elseif ($attributes['type'] == 'radio'):
         ?>
         <div class="form-group">
-            <label class="col-sm-2 control-label"><?php echo $element->getLabel() ?></label>
-            <div class="col-sm-10">
+            <label class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label"><?php echo $element->getLabel() ?></label>
+            <div class="col-sm-<?php echo $this->formControlSpanWidth ?>">
                 <?php echo $this->formElement($element) ?>
             </div>
         </div>
@@ -64,8 +70,8 @@ foreach ($this->form as $element):
         $element->setAttribute('class', 'form-control');
     ?>
     <div class="form-group">
-        <label for="<?php echo $attributes['id'] ?>" class="col-sm-2 control-label"><?php echo $element->getLabel() ?></label>
-        <div class="col-sm-10">
+        <label for="<?php echo $attributes['id'] ?>" class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label"><?php echo $element->getLabel() ?></label>
+        <div class="col-sm-<?php echo $this->formControlSpanWidth ?>">
             <?php echo $this->formElement($element); ?>
         </div>
     </div>
@@ -74,13 +80,13 @@ foreach ($this->form as $element):
 endforeach;
     ?>
     <div class="form-group">
-        <label for="" class="col-sm-2 control-label">&nbsp;</label>
-        <div class="col-sm-10"><input type="submit" name="submit" id="submit" value="Conferma" class="btn btn-primary" onclick="refreshEditor();<?php if ($this->hideOnSubmit): ?>  document.getElementById('formcontainer').style.display='none'<?php endif ?>"></div>
+        <label for="" class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label">&nbsp;</label>
+        <div class="col-sm-<?php echo $this->formControlSpanWidth ?>"><input type="submit" name="submit" id="submit" value="Conferma" class="btn btn-primary" onclick="refreshEditor();<?php if ($this->hideOnSubmit): ?>  document.getElementById('formcontainer').style.display='none'<?php endif ?>"></div>
     </div>
 
     <div class="form-group">
-        <label class="col-sm-2 control-label">&nbsp;</label>
-        <div class="col-sm-10">
+        <label class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label">&nbsp;</label>
+        <div class="col-sm-<?php echo $this->formControlSpanWidth ?>">
             <label>* Campi obbligatori</label>
         </div>
     </div>

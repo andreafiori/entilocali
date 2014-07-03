@@ -4,8 +4,8 @@ namespace ApiWebService\Controller;
 
 use Zend\View\Model\JsonModel;
 use Zend\Mvc\Controller\AbstractRestfulController;
-use Application\Model\Posts\PostsGetter;
-use Application\Model\Posts\PostsGetterWrapper;
+use Admin\Model\Posts\PostsGetter;
+use Admin\Model\Posts\PostsGetterWrapper;
 
 /**
  * Posts API Controller
@@ -17,35 +17,50 @@ class PostsApiController extends AbstractRestfulController
 {
     public function getList()
     {
-        // Check authentication login
-        /*
-        if (!$this->getServiceLocator()->get('AuthService')->hasIdentity()) {
-            return new JsonModel(
-                array("error"=>'Not authorized')
-            );
-        }
-        */
+        // TODO: Check authentication login
         
         
         $serviceLocator = $this->getServiceLocator();
         $serviceManager = $serviceLocator->get('servicemanager');
         $entityManager  = $serviceLocator->get('Doctrine\ORM\EntityManager');
         
-        $posts = new PostsGetterWrapper( new PostsGetter($entityManager) );
-        return new JsonModel(
-                array("id"=>1)
-        );
+        $postsGetterWrapper = new PostsGetterWrapper( new PostsGetter($entityManager) );
+        $postsGetterWrapper->setInput( array() );
+        $postsGetterWrapper->setupQueryBuilder();
+        
+        return new JsonModel( $postsGetterWrapper->getRecords() );
     }
     
     /**
+     * Return posts details by ID
      * 
-     * @param type $id
+     * @param number $id
      */
     public function get($id)
     {
+        if ( !is_numeric($id) ) {
+            return new JsonModel(
+                    array(
+                        'error' => 403,
+                        'message' => 'Invalid argument: ID must be a number'
+                    )
+            );
+        }
         
+        $serviceLocator = $this->getServiceLocator();
+        $serviceManager = $serviceLocator->get('servicemanager');
+        $entityManager  = $serviceLocator->get('Doctrine\ORM\EntityManager');
+        
+        $postsGetterWrapper = new PostsGetterWrapper( new PostsGetter($entityManager) );
+        $postsGetterWrapper->setInput( array('id'=>1) );
+        $postsGetterWrapper->setupQueryBuilder();
+        
+        return new JsonModel( $postsGetterWrapper->getRecords() );
     }
     
+    /**
+     * @param type $data
+     */
     public function create($data)
     {
         

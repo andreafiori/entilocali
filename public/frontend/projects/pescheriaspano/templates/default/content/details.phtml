@@ -1,0 +1,41 @@
+<ul class="breadcrumb">
+    <li>
+        <a href="<?php echo $this->basepath() ?>/" title="Torna all'home page">Home</a> <span class="divider"></span>
+    </li>
+    <li>
+        <a href="<?php echo $this->basepath() ?>/comune" title="<?php echo $this->maindata[0]['categoryName'] ?>"><?php echo $this->maindata[0]['categoryName'] ?></a> <span class="divider"></span>
+    </li>
+
+    <li class="active"><?php echo $this->maindata[0]['title'] ?></li>
+</ul>
+
+<div class="content_details">
+    <h1><?php echo $this->maindata[0]['title'] ?></h1>
+
+    <?php if ( isset($this->maindata[0]['subtitle']) ): ?>
+    <p><strong><?php echo $this->maindata[0]['subtitle'] ?> "<?php echo $this->maindata[0]['title'] ?>"</strong></p>
+    <?php endif; ?>
+
+    <div><?php echo $this->maindata[0]['description'] ?></div>
+
+    <?php if ($this->maindata[0]['flagAllegati'] == 'si'): ?>
+    <h3>Allegati</h3>
+    <p>Scarica i file allegati</p>
+    <ul>
+        <li><a href="#" title="">File 1</a></li>
+        <li><a href="#" title="">File 2</a></li>
+        <li><a href="#" title="">File 3</a></li>
+    </ul>
+    <?php endif; ?>
+
+    <p class="text-right">
+        Esporta: <a href="#" title="Visualizza documento in formato PDF">PDF</a> 
+        <a href="#" title="Visualizza documento in formato Word">WORD</a> 
+        <a href="#" title="Visualizza documento in formato testo">TXT</a> 
+        
+        Condividi: <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->currentUrl; ?>" title="Condividi pagina su facebook" target="_blank"><i class="fa fa-facebook"></i> 
+        Facebook</a> <a href="https://twitter.com/home?status=<?php echo $this->currentUrl; ?>" title="Condividi pagina su Twitter"><i class="fa fa-twitter"></i> Twitter</a> 
+        <!-- <a href="https://plus.google.com/share?url=<?php echo $this->currentUrl ?>">Google Plus</a> <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=<?php echo $this->currentUrl ?>&amp;title=<?php echo $this->maindata[0]['seoTitle'] ?>">Linkedin</a> <a href="https://pinterest.com/pin/create/button/?url=<?php echo $this->currentUrl ?>">Pinterest</a>--></p>
+
+    <hr>
+</div>

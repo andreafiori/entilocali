@@ -56,17 +56,21 @@ class PostsFormDataHandler extends FormDataAbstract
         $this->setVariable('formBreadCrumbCategoryLink', $this->getInput('baseUrl',1).'datatable/posts/'.$param['route']['option']);
     }
     
-    private function getBreadCrumbCategoryString($option)
-    {
-        !is_numeric($option) ? $breadCrumbCategoryString = ucfirst($option) : $breadCrumbCategoryString = null;
+        /**
+         * @param type $option
+         * @return type
+         */
+        private function getBreadCrumbCategoryString($option)
+        {
+            !is_numeric($option) ? $breadCrumbCategoryString = ucfirst($option) : $breadCrumbCategoryString = null;
 
-        $record = $this->postsFormDataConcrete->getRecord();
-        if ($record) {
-            $breadCrumbCategoryString = ucfirst($record[0]['type']);
+            $record = $this->postsFormDataConcrete->getRecord();
+            if ($record) {
+                $breadCrumbCategoryString = ucfirst($record[0]['type']);
+            }
+
+            return $breadCrumbCategoryString;
         }
-        
-        return $breadCrumbCategoryString;
-    }
     
     /**
      * @return string
@@ -79,7 +83,7 @@ class PostsFormDataHandler extends FormDataAbstract
             
             return 'posts/update/';
         }
-       
+
         return 'posts/insert/'.$type;
     }
     

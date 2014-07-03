@@ -1,0 +1,96 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ZfcmsPosts
+ *
+ * @ORM\Table(name="zfcms_posts", indexes={@ORM\Index(name="parent_id", columns={"parent_id"}), @ORM\Index(name="alias", columns={"alias"}), @ORM\Index(name="flag_allegati", columns={"flag_attachments"})})
+ * @ORM\Entity
+ */
+class ZfcmsPosts
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="note", type="string", length=80, nullable=true)
+     */
+    private $note;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image", type="string", length=80, nullable=true)
+     */
+    private $image;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="insert_date", type="datetime", nullable=false)
+     */
+    private $insertDate = '2013-01-01 00:00:00';
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="expire_date", type="datetime", nullable=false)
+     */
+    private $expireDate = '2030-02-10 00:00:00';
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="last_update", type="datetime", nullable=false)
+     */
+    private $lastUpdate = '2030-02-10 00:00:00';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="parent_id", type="bigint", nullable=false)
+     */
+    private $parentId = '0';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=40, nullable=false)
+     */
+    private $type;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="template_file", type="string", length=50, nullable=false)
+     */
+    private $templateFile;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="alias", type="string", length=40, nullable=false)
+     */
+    private $alias;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="flag_attachments", type="string", nullable=false)
+     */
+    private $flagAttachments = 'no';
+
+
+}
+

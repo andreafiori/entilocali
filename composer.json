@@ -22,10 +22,8 @@
     "minimum-stability": "dev",
     "require-dev": {
         "zendframework/zftool": "dev-master",
-        "dompdf/dompdf": "0.6.*",
         "bjyoungblood/bjy-authorize": "dev-master",
         "zf-commons/zfc-user": "dev-master",
-        "bjyoungblood/BjyProfiler": "dev-master",
-        "mockery/mockery": "0.9.*@dev"
+        "bjyoungblood/BjyProfiler": "dev-master"
     }
 }

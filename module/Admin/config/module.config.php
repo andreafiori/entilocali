@@ -3,7 +3,6 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Admin\Controller\Admin' => 'Admin\Controller\AdminController',
-            'Admin\Controller\Auth' => 'Admin\Controller\AuthController',
         ),
     ),
     'router' => array(
@@ -15,7 +14,7 @@ return array(
                     'route'    => '/auth',
                     'defaults' => array(
                         '__NAMESPACE__' => 'Admin\Controller',
-                        'controller'    => 'Auth',
+                        'controller'    => 'Admin',
                         'action'        => 'login',
                     ),
                 ),
@@ -99,11 +98,23 @@ return array(
             ),
         ),
     ),
+    'translator' => array(
+        'locale' => 'en_US',
+        'translation_file_patterns' => array(
+            array(
+                'type' => 'gettext',
+                'base_dir' => __DIR__ . '/../language',
+                'pattern' => '%s.mo',
+            ),
+        ),
+    ),
     'view_manager' => array(
+        'template_map' => include __DIR__  .'/../template_map.php',
         'display_not_found_reason' => true,
         'display_exceptions'       => true,
         'template_map' => array(
-            'admin/admin/index'     => __DIR__ . '../../view/index.phtml',
+            'admin/admin/login' => __DIR__ . '../../view/admin/auth/login.phtml',
+            'admin/admin/index'     => __DIR__ . '../../view/admin/index.phtml',
             'admin/admin/formpost'  => __DIR__ . '../../view/admin/formpost-empty.phtml',
             'admin/'                => __DIR__ . '/../view/empty.phtml',
         ),
@@ -123,6 +134,7 @@ return array(
         'albo-pretorio'     => 'Admin\Model\AlboPretorio\AlboPretorioFormDataHandler',
         'amministrazione-trasparente' => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFormDataHandler',
         'stato-civile'      => 'Admin\Model\StatoCivile\StatoCivileFormDataHandler',
+        'contratti-pubblici-bandi' => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciBandiFormDataHandler',
         'posts'             => 'Admin\Model\Posts\PostsFormDataHandler',
         'categories'        => 'Admin\Model\Categories\CategoriesFormDataHandler',
         'ticketing'         => 'Admin\Model\Ticketing\TicketingFormDataHandler',
@@ -139,6 +151,7 @@ return array(
         'newsletter'                  => 'Admin\Model\Newsletter\NewsletterCrudHandler',
         'posts'                       => 'Admin\Model\Posts\PostsCrudHandler',
         'stato-civile'                => 'Admin\Model\StatoCivile\StatoCivileCrudHandler',
+        'users'                       => 'Admin\Model\Users\UsersCrudHandler',
     ),
     // DataTables Class Map
     'datatables_classmap' => array(
@@ -151,6 +164,7 @@ return array(
         'users'                       => 'Admin\Model\Users\UsersDataTable',
         'albo-pretorio'               => 'Admin\Model\AlboPretorio\AlboPretorioTable',
         'amministrazione-trasparente' => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteDataTable',
+        'contratti-pubblici-bandi'    => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciBandiDataTable',
         'stato-civile'                => 'Admin\Model\StatoCivile\StatoCivileDataTable',
     ),
 );

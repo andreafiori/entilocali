@@ -1,12 +1,46 @@
 <?php
 
-namespace AdminTest\Model\StatoCivile;
+namespace Admin\Model\StatoCivile;
+
+use Application\Model\RecordsGetterWrapperAbstract;
+use Admin\Model\StatoCivile\StatoCivileGetter;
 
 /**
  * @author Andrea Fiori
  * @since  17 June 2013
  */
-class StatoCivileGetterWrapper
+class StatoCivileGetterWrapper extends RecordsGetterWrapperAbstract
 {
+    private $statoCivileGetter;
+
+    /**
+     * @param \Admin\Model\StatoCivile\StatoCivileGetter $statoCivileGetter
+     */
+    public function __construct(StatoCivileGetter $statoCivileGetter)
+    {
+        $this->statoCivileGetter = $statoCivileGetter;
+    }
     
+    /**
+     * set StatoCivileGetter query options
+     */
+    public function setupQueryBuilder()
+    { 
+        $this->statoCivileGetter->setSelectQueryFields( $this->getInput('fields', 1) );
+        
+        $this->statoCivileGetter->setMainQuery();
+        
+        //$this->statoCivileGetter->setId( $this->getInput('id', 1) );
+        
+        //$this->statoCivileGetter->setOrderBy( $this->getInput('orderby', 1) );
+        //$this->statoCivileGetter->setLimit( $this->getInput('limit', 1) );
+    }
+    
+    /**
+     * @return array
+     */
+    public function getRecords()
+    {
+        return $this->statoCivileGetter->getQueryResult();
+    }
 }

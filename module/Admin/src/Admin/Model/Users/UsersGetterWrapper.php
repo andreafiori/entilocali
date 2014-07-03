@@ -28,6 +28,9 @@ class UsersGetterWrapper extends RecordsGetterWrapperAbstract
         
         $this->usersGetter->setId( $this->getInput('id', 1) );
         $this->usersGetter->setSurname( $this->getInput('surname', 1) );
+        $this->usersGetter->setEmail( $this->getInput('email', 1) );
+        $this->usersGetter->setUsername( $this->getInput('username', 1) );
+        $this->usersGetter->setPassword( $this->getInput('password', 1) );
         $this->usersGetter->setStatus( $this->getInput('status', 1) );
         $this->usersGetter->setLimit( $this->getInput('limit', 1) );
     }

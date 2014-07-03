@@ -2,7 +2,6 @@
 return array(
     'controllers' => array(
         'invokables' => array(
-            'ApiWebService\Controller\AlboPretorioApi'  => 'ApiWebService\Controller\AlboPretorioApiController',
             'ApiWebService\Controller\PostsApi'         => 'ApiWebService\Controller\PostsApiController',
             'ApiWebService\Controller\UtentiApi'        => 'ApiWebService\Controller\UtentiApiController',
         ),

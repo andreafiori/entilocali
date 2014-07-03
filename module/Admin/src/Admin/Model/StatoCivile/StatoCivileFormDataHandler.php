@@ -5,7 +5,7 @@ namespace Admin\Model\StatoCivile;
 use Admin\Model\FormData\FormDataAbstract;
 
 /**
- * TODO: check if module is active, check ACL, check sezioni
+ * TODO: check if module is active, check ACL, check sezioni, optimize db, check migration
  * 
  * @author Andrea Fiori
  * @since  17 June 2013

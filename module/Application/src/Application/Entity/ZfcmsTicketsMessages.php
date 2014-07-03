@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsTicketsMessages
  *
- * @ORM\Table(name="zfcms_tickets_messages")
+ * @ORM\Table(name="zfcms_tickets_messages", indexes={@ORM\Index(name="user_id", columns={"user_id"}), @ORM\Index(name="ticket_id", columns={"ticket_id"})})
  * @ORM\Entity
  */
 class ZfcmsTicketsMessages
@@ -31,21 +31,21 @@ class ZfcmsTicketsMessages
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="send_date", type="datetime", nullable=false)
+     * @ORM\Column(name="insert_date", type="datetime", nullable=false)
      */
-    private $sendDate = '2010-01-01 01:01:01';
+    private $insertDate = '2014-01-01 01:01:01';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="ticket_id", type="integer", nullable=false)
+     * @ORM\Column(name="ticket_id", type="bigint", nullable=false)
      */
     private $ticketId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="user_id", type="integer", nullable=false)
+     * @ORM\Column(name="user_id", type="bigint", nullable=false)
      */
     private $userId = '0';
 
@@ -86,27 +86,27 @@ class ZfcmsTicketsMessages
     }
 
     /**
-     * Set sendDate
+     * Set insertDate
      *
-     * @param \DateTime $sendDate
+     * @param \DateTime $insertDate
      *
      * @return ZfcmsTicketsMessages
      */
-    public function setSendDate($sendDate)
+    public function setInsertDate($insertDate)
     {
-        $this->sendDate = $sendDate;
+        $this->insertDate = $insertDate;
     
         return $this;
     }
 
     /**
-     * Get sendDate
+     * Get insertDate
      *
      * @return \DateTime
      */
-    public function getSendDate()
+    public function getInsertDate()
     {
-        return $this->sendDate;
+        return $this->insertDate;
     }
 
     /**

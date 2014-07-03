@@ -22,6 +22,8 @@ return array(
     'Application\Model\Faq\FaqFrontend'                                               => __DIR__ . '/src/Application/Model/Faq/FaqFrontend.php',
     'Application\Model\HomePage\HomePageRecordsGetter'                                => __DIR__ . '/src/Application/Model/HomePage/HomePageRecordsGetter.php',
     'Application\Model\HomePage\HomePageRecordsGetterWrapper'                         => __DIR__ . '/src/Application/Model/HomePage/HomePageRecordsGetterWrapper.php',
+    'Application\Model\HomePage\HomePageSetup'                                        => __DIR__ . '/src/Application/Model/HomePage/HomePageSetup.php',
+    'Application\Model\Newsletter\NewsletterForm'                                     => __DIR__ . '/src/Application/Model/Newsletter/NewsletterForm.php',
     'Application\Model\Newsletter\NewsletterFrontend'                                 => __DIR__ . '/src/Application/Model/Newsletter/NewsletterFrontend.php',
     'Application\Model\NullException'                                                 => __DIR__ . '/src/Application/Model/NullException.php',
     'Application\Model\Posts\PhotoFrontend'                                           => __DIR__ . '/src/Application/Model/Posts/PhotoFrontend.php',
@@ -46,4 +48,5 @@ return array(
     'Application\Setup\LanguagesSetup'                                                => __DIR__ . '/src/Application/Setup/LanguagesSetup.php',
     'Application\Setup\LanguagesSetupManager'                                         => __DIR__ . '/src/Application/Setup/LanguagesSetupManager.php',
     'Application\Setup\UserInterfaceConfigurations'                                   => __DIR__ . '/src/Application/Setup/UserInterfaceConfigurations.php',
+    'Application\View\Helper\TextShortener'                                           => __DIR__ . '/src/Application/View/Helper/TextShortener.php',
 );

@@ -5,10 +5,6 @@ namespace Admin\Model\Users;
 use Zend\Form\Form;
 
 /**
- * TODO: 
- *      insert password strength
- *      insert checkboxes to set permissions
- * 
  * @author Andrea Fiori
  * @since  08 June 2014
  */
@@ -43,7 +39,7 @@ class UsersForm extends Form
                                         'class'    => 'form-control',
                                         'title'    => 'Inserisci il cognome',
                                         'placeholder' => 'Inserisci il cognome',
-                                        'id'       => 'surname',
+                                        'id'          => 'surname',
                         )
         ));
         
@@ -59,54 +55,6 @@ class UsersForm extends Form
                                         'id'        => 'email',
                         )
         ));
-        
-        /* BEGIN GEO */
-        /*
-        $this->add(array(
-                        'name' => 'address',
-                        'type' => 'Text',
-                        'options' => array( 'label' => 'Indirizzo' ),
-                        'attributes' => array(
-                                        'class' => 'form-control',
-                                        'title' => 'Inserisci indirizzo email',
-                                        'id' => 'address',
-                        )
-        ));
-        
-        $this->add(array(
-                        'name' => 'city',
-                        'type' => 'Text',
-                        'options' => array( 'label' => 'Citt&agrave;' ),
-                        'attributes' => array(
-                                        'class' => 'form-control',
-                                        'title' => "Inserisci Città",
-                                        'id' => 'city',
-                        )
-        ));
-        
-        $this->add(array(
-                        'name' => 'zip',
-                        'type' => 'Text',
-                        'options' => array( 'label' => 'CAP' ),
-                        'attributes' => array(
-                                        'class' => 'form-control',
-                                        'title' => 'Inserisci CAP \ ZIP code',
-                                        'id'    => 'zip',
-                        )
-        ));
-        
-        $this->add(array(
-                        'name' => 'nation',
-                        'type' => 'Text',
-                        'options' => array( 'label' => 'Nazione' ),
-                        'attributes' => array(
-                                        'class' => 'form-control',
-                                        'title' => 'Inserisci Nazione',
-                                        'id'    => 'city',
-                        )
-        ));
-        */
-        /* END GEO */
         
         $this->add(array(
                         'name' => 'username',
@@ -144,6 +92,17 @@ class UsersForm extends Form
                         )
         ));
         
+        $this->add(array(
+                        'type' => 'Zend\Form\Element\Hidden',
+                        'name' => 'old-password',
+                        'attributes' => array("class" => 'hiddenField')
+        ));
+        
+        $this->add(array(
+                        'type' => 'Zend\Form\Element\Hidden',
+                        'name' => 'id',
+                        'attributes' => array("class" => 'hiddenField')
+        ));
     }
     
     public function addLastUpdatePassword()

@@ -2,38 +2,43 @@
 
 namespace Admin\Model\Users;
 
-use Zend\Form\Annotation;
-
 /**
- * @author samsonasik
- * @since  13 May 2013
- * 
- * @Annotation\Hydrator("Zend\Stdlib\Hydrator\ObjectProperty")
- * @Annotation\Name("User")
+ * @author Andrea Fiori
+ * @since  25 June 2014
  */
-class UserFormAuthentication
+class UserFormAuthentication extends \Zend\Form\Form
 {
     /**
-     * @Annotation\Type("Zend\Form\Element\Text")
-     * @Annotation\Required({"required":"true" })
-     * @Annotation\Filter({"name":"StripTags"})
-     * @Annotation\Options({"label":"Email o nome utente:"})
-     * @Annotation\Attributes({"placeholder":"Email o nome utente"})
+     * @param type $name
+     * @param type $options
      */
-    public $username;
+    public function __construct($name = null, $options = array())
+    {
+        parent::__construct($name, $options);
+        
+        $this->add(array(
+                    'name' => 'username',
+                    'type' => 'Text',
+                    'attributes' => array(
+                                    'required' => 'required',
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Email o nome utente...',
+                                    'title' => 'Inserisci email o nome utente',
+                                    'id' => 'username',
+                    )
+        ));
+        
+        $this->add(array(
+                    'name' => 'password',
+                    'type' => 'Password',
+                    'attributes' => array(
+                                    'required' => 'required',
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Password...',
+                                    'title' => 'Inserisci la password',
+                                    'id' => 'password',
+                    )
+        ));
+    }
     
-    /**
-     * @Annotation\Type("Zend\Form\Element\Password")
-     * @Annotation\Required({"required":"true" })
-     * @Annotation\Filter({"name":"StripTags"})
-     * @Annotation\Options({"label":"Password:"})
-     * @Annotation\Attributes({"placeholder":"Password"})
-     */
-    public $password;
-    
-    /**
-     * @Annotation\Type("Zend\Form\Element\Submit")
-     * @Annotation\Attributes({"value":"Submit"})
-     */
-    public $submit;
 }

@@ -1,0 +1,96 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ZfcmsComuniSezioni
+ *
+ * @ORM\Table(name="zfcms_comuni_sezioni")
+ * @ORM\Entity
+ */
+class ZfcmsComuniSezioni
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nome", type="text", length=65535, nullable=false)
+     */
+    private $nome;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="colonna", type="string", length=100, nullable=false)
+     */
+    private $colonna = 'sx';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="posizione", type="integer", nullable=false)
+     */
+    private $posizione;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="link_macro", type="integer", nullable=false)
+     */
+    private $linkMacro;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lingua", type="string", length=100, nullable=false)
+     */
+    private $lingua;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="blocco", type="integer", nullable=false)
+     */
+    private $blocco;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_modulo", type="integer", nullable=false)
+     */
+    private $idModulo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="attivo", type="integer", nullable=false)
+     */
+    private $attivo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="url", type="text", length=65535, nullable=false)
+     */
+    private $url;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_css", type="integer", nullable=true)
+     */
+    private $idCss;
+
+
+}
+

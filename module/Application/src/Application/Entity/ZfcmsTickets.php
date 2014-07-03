@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsTickets
  *
- * @ORM\Table(name="zfcms_tickets")
+ * @ORM\Table(name="zfcms_tickets", indexes={@ORM\Index(name="created_by", columns={"created_by"})})
  * @ORM\Entity
  */
 class ZfcmsTickets
@@ -47,14 +47,7 @@ class ZfcmsTickets
      *
      * @ORM\Column(name="create_date", type="datetime", nullable=false)
      */
-    private $createDate = '2010-01-01 01:01:00';
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=100, nullable=false)
-     */
-    private $email;
+    private $createDate = '2014-01-01 01:01:00';
 
     /**
      * @var string
@@ -62,6 +55,13 @@ class ZfcmsTickets
      * @ORM\Column(name="status", type="string", length=100, nullable=false)
      */
     private $status;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="created_by", type="bigint", nullable=false)
+     */
+    private $createdBy;
 
 
 
@@ -172,30 +172,6 @@ class ZfcmsTickets
     }
 
     /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return ZfcmsTickets
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
      * Set status
      *
      * @param string $status
@@ -217,5 +193,29 @@ class ZfcmsTickets
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Set createdBy
+     *
+     * @param integer $createdBy
+     *
+     * @return ZfcmsTickets
+     */
+    public function setCreatedBy($createdBy)
+    {
+        $this->createdBy = $createdBy;
+    
+        return $this;
+    }
+
+    /**
+     * Get createdBy
+     *
+     * @return integer
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
     }
 }

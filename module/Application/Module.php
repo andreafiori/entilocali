@@ -71,7 +71,6 @@ class Module implements AutoloaderProviderInterface
             ),
             'factories' => array(
                 'TextShortener' => function($sm) {
-                    //$locator = $sm->getServiceLocator();
                     return new TextShortener();
                 },
             ),
