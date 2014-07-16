@@ -45,6 +45,20 @@ class ZfcmsPostsOptions
     /**
      * @var string
      *
+     * @ORM\Column(name="image", type="string", length=80, nullable=true)
+     */
+    private $image;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image_homepage", type="string", length=80, nullable=true)
+     */
+    private $imageHomepage;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="title", type="string", length=150, nullable=true)
      */
     private $title;
@@ -104,6 +118,13 @@ class ZfcmsPostsOptions
      * @ORM\Column(name="seo_keywords", type="string", length=150, nullable=true)
      */
     private $seoKeywords;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="template", type="string", length=150, nullable=true)
+     */
+    private $template;
 
     /**
      * @var \Application\Entity\ZfcmsLanguages
@@ -207,6 +228,54 @@ class ZfcmsPostsOptions
     public function getDataTo()
     {
         return $this->dataTo;
+    }
+
+    /**
+     * Set image
+     *
+     * @param string $image
+     *
+     * @return ZfcmsPostsOptions
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+    
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set imageHomepage
+     *
+     * @param string $imageHomepage
+     *
+     * @return ZfcmsPostsOptions
+     */
+    public function setImageHomepage($imageHomepage)
+    {
+        $this->imageHomepage = $imageHomepage;
+    
+        return $this;
+    }
+
+    /**
+     * Get imageHomepage
+     *
+     * @return string
+     */
+    public function getImageHomepage()
+    {
+        return $this->imageHomepage;
     }
 
     /**
@@ -423,6 +492,30 @@ class ZfcmsPostsOptions
     public function getSeoKeywords()
     {
         return $this->seoKeywords;
+    }
+
+    /**
+     * Set template
+     *
+     * @param string $template
+     *
+     * @return ZfcmsPostsOptions
+     */
+    public function setTemplate($template)
+    {
+        $this->template = $template;
+    
+        return $this;
+    }
+
+    /**
+     * Get template
+     *
+     * @return string
+     */
+    public function getTemplate()
+    {
+        return $this->template;
     }
 
     /**

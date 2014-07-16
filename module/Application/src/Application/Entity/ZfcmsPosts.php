@@ -29,13 +29,6 @@ class ZfcmsPosts
     private $note;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="image", type="string", length=80, nullable=true)
-     */
-    private $image;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="insert_date", type="datetime", nullable=false)
@@ -69,13 +62,6 @@ class ZfcmsPosts
      * @ORM\Column(name="type", type="string", length=40, nullable=false)
      */
     private $type;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="template_file", type="string", length=50, nullable=false)
-     */
-    private $templateFile;
 
     /**
      * @var string
@@ -125,30 +111,6 @@ class ZfcmsPosts
     public function getNote()
     {
         return $this->note;
-    }
-
-    /**
-     * Set image
-     *
-     * @param string $image
-     *
-     * @return ZfcmsPosts
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
-    
-        return $this;
-    }
-
-    /**
-     * Get image
-     *
-     * @return string
-     */
-    public function getImage()
-    {
-        return $this->image;
     }
 
     /**
@@ -269,30 +231,6 @@ class ZfcmsPosts
     public function getType()
     {
         return $this->type;
-    }
-
-    /**
-     * Set templateFile
-     *
-     * @param string $templateFile
-     *
-     * @return ZfcmsPosts
-     */
-    public function setTemplateFile($templateFile)
-    {
-        $this->templateFile = $templateFile;
-    
-        return $this;
-    }
-
-    /**
-     * Get templateFile
-     *
-     * @return string
-     */
-    public function getTemplateFile()
-    {
-        return $this->templateFile;
     }
 
     /**

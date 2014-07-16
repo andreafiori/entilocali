@@ -1,13 +1,31 @@
 <ul class="breadcrumb">
     <li><a href="<?php echo $this->basepath() ?>/" title="Home page">Home</a> <span class="divider"></span></li>
-    <li class="active"><?php echo $this->maindata[0]['nomeCategoria']; ?></li>
+    <li class="active"><?php echo $this->maindata[0]['categoryName']; ?></li>
 </ul>
 
-<p class="text-right"><a href="#" class="btn btn-warning" title="Visualizza Feed RSS per la categoria blog <?php echo $this->maindata[0]['nomeCategoria']; ?>"><i class="fa fa-rss"></i> Feed RSS <?php echo $this->maindata[0]['nomeCategoria']; ?></a></p>
+<p class="text-right"><a href="#" class="btn btn-warning" title="Visualizza Feed RSS per la categoria blog <?php echo $this->maindata[0]['nomeCategoria']; ?>"><i class="fa fa-rss"></i> Feed RSS <?php echo $this->maindata[0]['categoryName'] ?></a></p>
 
 <?php foreach($this->maindata as $content): ?>
-<h1><?php echo $content['titolo'] ?></h1>
+<h1><?php echo $content['title'] ?></h1>
 <div class="blog_list_description">
-    <?php echo $content['descrizione'] ?> <strong>&raquo; <a href="<?php echo $this->basepath().$content['linkDetails'] ?>" title="<?php echo $content['titolo'] ?>">Leggi tutto</a></strong>
+    <?php echo $content['description'] ?> <strong>&raquo; <a href="<?php echo $this->basepath().$content['linkDetails'] ?>" title="<?php echo $content['titolo'] ?>">Leggi tutto</a></strong>
 </div>
 <?php endforeach; ?>
+
+<!-- Pagination Control -->
+<?php if( $this->paginator ): ?>
+<?php
+echo $this->paginationControl(
+    // the paginator object
+    $this->paginator,
+    // the scrolling style; see http://zf2.readthedocs.org/en/release-2.1.4/modules/zend.paginator.usage.html#rendering-pages-with-view-scripts
+    'sliding',
+    // the partial to use to render the control
+    array('application/pagination/numbers.phtml', 'Album'),
+    // the route to link to when a user clicks a control link
+    array(
+        'route' => 'album'
+    )
+);
+?>
+<?php endif; ?>

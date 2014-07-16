@@ -4,13 +4,7 @@ namespace Admin\Model\StatoCivile;
 
 use Application\Model\QueryBuilderHelperAbstract;
 
-/**
- * 
- *SELECT statocivile_articoli.id, titolo, statocivile_sezioni.nome, data, progressivo, anno, utenti.settore, 
-  scadenza FROM statocivile_articoli, statocivile_sezioni, utenti 
-  WHERE ( (statocivile_articoli.id_sezione = statocivile_sezioni.id) 
-    AND (utenti.id = statocivile_articoli.id_utente)) AND statocivile_articoli.attivo = '1' 
-  
+/** 
  * @author Andrea Fiori
  * @since  17 June 2013
  */
@@ -22,7 +16,7 @@ class StatoCivileGetter extends QueryBuilderHelperAbstract
 
         $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
                                 ->add('from', 'Application\Entity\ZfcmsComuniStatoCivileArticoli sca, Application\Entity\ZfcmsComuniStatoCivileSezioni scs ')
-                                ->add('where', "sca.idSezione = scs.id ");
+                                ->add('where', "sca.sezioneId = scs.id ");
 
         return $this->getQueryBuilder();
     }
@@ -44,5 +38,15 @@ class StatoCivileGetter extends QueryBuilderHelperAbstract
         }
         
         return $this->getQueryBuilder();
+    }
+    
+    /**
+     * @param number or string $scadenza
+     */
+    public function setScadenza($scadenza)
+    {
+        if ($scadenza) {
+            $this->getQueryBuilder()->andWhere('sca.scadenza > NOW() ');
+        }
     }
 }

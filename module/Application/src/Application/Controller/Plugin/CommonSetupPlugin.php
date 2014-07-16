@@ -130,6 +130,7 @@ class CommonSetupPlugin extends CommonSetupPluginAbstract
                     'param'          => $this->param,
                     'uri'            => $this->uri,
                     'flashMessenger' => $this->flashMessenger,
+                    'configurations' => $this->configurations,
             );
         }
 

@@ -73,16 +73,19 @@ class ZfcmsComuniStatoCivileArticoli
     /**
      * @var integer
      *
-     * @ORM\Column(name="utente_id", type="bigint", nullable=false)
-     */
-    private $utenteId;
-
-    /**
-     * @var integer
-     *
      * @ORM\Column(name="sezione_id", type="integer", nullable=false)
      */
     private $sezioneId;
+
+    /**
+     * @var \Application\Entity\ZfcmsUsers
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsers")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="utente_id", referencedColumnName="id")
+     * })
+     */
+    private $utente;
 
 
 
@@ -265,30 +268,6 @@ class ZfcmsComuniStatoCivileArticoli
     }
 
     /**
-     * Set utenteId
-     *
-     * @param integer $utenteId
-     *
-     * @return ZfcmsComuniStatoCivileArticoli
-     */
-    public function setUtenteId($utenteId)
-    {
-        $this->utenteId = $utenteId;
-    
-        return $this;
-    }
-
-    /**
-     * Get utenteId
-     *
-     * @return integer
-     */
-    public function getUtenteId()
-    {
-        return $this->utenteId;
-    }
-
-    /**
      * Set sezioneId
      *
      * @param integer $sezioneId
@@ -310,5 +289,29 @@ class ZfcmsComuniStatoCivileArticoli
     public function getSezioneId()
     {
         return $this->sezioneId;
+    }
+
+    /**
+     * Set utente
+     *
+     * @param \Application\Entity\ZfcmsUsers $utente
+     *
+     * @return ZfcmsComuniStatoCivileArticoli
+     */
+    public function setUtente(\Application\Entity\ZfcmsUsers $utente = null)
+    {
+        $this->utente = $utente;
+    
+        return $this;
+    }
+
+    /**
+     * Get utente
+     *
+     * @return \Application\Entity\ZfcmsUsers
+     */
+    public function getUtente()
+    {
+        return $this->utente;
     }
 }

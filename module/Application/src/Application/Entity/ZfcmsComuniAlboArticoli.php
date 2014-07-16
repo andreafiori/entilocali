@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsComuniAlboArticoli
  *
- * @ORM\Table(name="zfcms_comuni_albo_articoli")
+ * @ORM\Table(name="zfcms_comuni_albo_articoli", indexes={@ORM\Index(name="rettifica_id", columns={"rettifica_id"}), @ORM\Index(name="utente_id", columns={"utente_id"}), @ORM\Index(name="sezione_id", columns={"sezione_id"})})
  * @ORM\Entity
  */
 class ZfcmsComuniAlboArticoli
@@ -24,16 +24,16 @@ class ZfcmsComuniAlboArticoli
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_utente", type="bigint", nullable=false)
+     * @ORM\Column(name="utente_id", type="bigint", nullable=false)
      */
-    private $idUtente;
+    private $utenteId;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_sezione", type="bigint", nullable=false)
+     * @ORM\Column(name="sezione_id", type="bigint", nullable=false)
      */
-    private $idSezione;
+    private $sezioneId;
 
     /**
      * @var integer
@@ -129,9 +129,9 @@ class ZfcmsComuniAlboArticoli
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_rettifica", type="integer", nullable=false)
+     * @ORM\Column(name="rettifica_id", type="integer", nullable=false)
      */
-    private $idRettifica;
+    private $rettificaId;
 
     /**
      * @var \DateTime
@@ -216,51 +216,51 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Set idUtente
+     * Set utenteId
      *
-     * @param integer $idUtente
+     * @param integer $utenteId
      *
      * @return ZfcmsComuniAlboArticoli
      */
-    public function setIdUtente($idUtente)
+    public function setUtenteId($utenteId)
     {
-        $this->idUtente = $idUtente;
+        $this->utenteId = $utenteId;
     
         return $this;
     }
 
     /**
-     * Get idUtente
+     * Get utenteId
      *
      * @return integer
      */
-    public function getIdUtente()
+    public function getUtenteId()
     {
-        return $this->idUtente;
+        return $this->utenteId;
     }
 
     /**
-     * Set idSezione
+     * Set sezioneId
      *
-     * @param integer $idSezione
+     * @param integer $sezioneId
      *
      * @return ZfcmsComuniAlboArticoli
      */
-    public function setIdSezione($idSezione)
+    public function setSezioneId($sezioneId)
     {
-        $this->idSezione = $idSezione;
+        $this->sezioneId = $sezioneId;
     
         return $this;
     }
 
     /**
-     * Get idSezione
+     * Get sezioneId
      *
      * @return integer
      */
-    public function getIdSezione()
+    public function getSezioneId()
     {
-        return $this->idSezione;
+        return $this->sezioneId;
     }
 
     /**
@@ -576,27 +576,27 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Set idRettifica
+     * Set rettificaId
      *
-     * @param integer $idRettifica
+     * @param integer $rettificaId
      *
      * @return ZfcmsComuniAlboArticoli
      */
-    public function setIdRettifica($idRettifica)
+    public function setRettificaId($rettificaId)
     {
-        $this->idRettifica = $idRettifica;
+        $this->rettificaId = $rettificaId;
     
         return $this;
     }
 
     /**
-     * Get idRettifica
+     * Get rettificaId
      *
      * @return integer
      */
-    public function getIdRettifica()
+    public function getRettificaId()
     {
-        return $this->idRettifica;
+        return $this->rettificaId;
     }
 
     /**

@@ -9,10 +9,11 @@ if (file_exists("config.php")) {
     
     /* DB connection test */
     try {
-        R::setup('mysql:host='.$dbConnection['host'].';dbname='.$dbConnection['dbname'].'asasd', $dbConnection['user'], $dbConnection['password']);
+        R::setup('mysql:host='.$dbConnection['host'].';dbname='.$dbConnection['dbname'], $dbConnection['user'], $dbConnection['password']);
     } catch (Exception $ex) {
         $connectionError = $ex->getMessage();
     }
+    
     /*
     try {
         R::getAll('SELECT * FROM config LIMIT 1');
@@ -26,6 +27,7 @@ if (file_exists("config.php")) {
         $connectionError = "Errore selezione sulle tabelle 'nuovo' CMS. ".$ex->getMessage();
     }
     */
+
 } else {
     $connectionError = 'File con i parametri di configurazione al databse non presente';
 }

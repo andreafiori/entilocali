@@ -90,6 +90,9 @@
     <script src="<?php echo $this->basePath() ?>/public/common/jquery/form/jquery.form.js"></script>
     <script src="<?php echo $this->basePath() ?>/public/common/jquery/validate/jquery.validate.min.js"></script>
 
+    <script src="<?php echo $this->basePath() ?>/public/common/jquery/ckeditor/ckeditor.js"></script>
+    <script src="<?php echo $this->basePath() ?>/public/common/jquery/ckfinder/ckfinder.js"></script>
+
 </head>
 
 <body>
@@ -397,9 +400,6 @@
 <script src="<?php echo $this->basePath() ?>/public/common/bootstrap3/js/bootstrap.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/common/bootstrap3/js/bootstrap-hover-dropdown.js"></script>
 
-<script src="<?php echo $this->basePath() ?>/public/common/jquery/ckeditor/ckeditor.js"></script>
-<script src="<?php echo $this->basePath() ?>/public/common/jquery/ckfinder/ckfinder.js"></script>
-
 <script src="<?php echo $this->basePath() ?>/public/common/jquery/datatable/js/jquery.dataTables_it.min.js"></script>
 
 <script>
@@ -417,7 +417,7 @@ function showResponse()
 }
 
 $(document).ready(function () {
-
+    
     // Datatable
     $('#dataTable').dataTable( {
         "pagingType": "full_numbers"

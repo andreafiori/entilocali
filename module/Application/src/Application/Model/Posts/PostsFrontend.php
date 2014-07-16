@@ -9,18 +9,15 @@ use Application\Model\HomePage\HomePageRecordsGetter;
 use Application\Model\HomePage\HomePageRecordsGetterWrapper;
 
 /**
- * TODO: 
- *      homepage:
- *          select home page records
- *          format records,
- *          select records for each module on homepage
- * 
  * @author Andrea Fiori
  * @since  05 May 2014
  */
 class PostsFrontend extends RouterManagerAbstract implements RouterManagerInterface
 {
+    /** @var \Admin\Model\Posts\PostsGetterWrapper **/
     private $postsGetterWrapper;
+    
+    /** @var \Application\Model\Posts\PostsFrontendHelper **/
     private $postsFrontendHelper;
 
     /**
@@ -30,18 +27,29 @@ class PostsFrontend extends RouterManagerAbstract implements RouterManagerInterf
     public function setupRecord()
     {
         $this->postsFrontendHelper = new PostsFrontendHelper($this->getInput());
- 
+
         if ( $this->postsFrontendHelper->isHomePage() ) {
             return $this->setupHomePage();
         }
         
-        return $this->setupPosts();
-    }
+        $this->setRecords($this->postsFrontendHelper->setRecords());
+        $this->setTemplate($this->postsFrontendHelper->getTemplate());
 
+        $setup = $this->getOutput();
+
+        return $setup;
+    }
+    
+        /**
+         * TODO: refactor for this home page setup:
+         *      map array object will have: array( moduleId => object to get keyRecord => ArrayRecords )
+         * 
+         * @return type
+         */
         private function setupHomePage()
         {
             $this->setTemplate(self::defaultFrontendTemplate);
-            
+
             $homePageRecordsGetterWrapper = new HomePageRecordsGetterWrapper(new HomePageRecordsGetter($this->getInput('entityManager',1)));
             $homePageRecordsGetterWrapper->setInput( array('orderBy' => 'hb.position, h.position') );
             $homePageRecordsGetterWrapper->setupQueryBuilder();
@@ -84,8 +92,6 @@ class PostsFrontend extends RouterManagerAbstract implements RouterManagerInterf
         }
         
         /**
-         * gather all referenceIDs
-         * 
          * @param array $records
          */
         private function gatherReferenceIDs(array $records)
@@ -96,13 +102,5 @@ class PostsFrontend extends RouterManagerAbstract implements RouterManagerInterf
             }
             
             return $ids;
-        }
-
-        private function setupPosts()
-        {
-            $this->setRecords($this->postsFrontendHelper->setRecords());
-            $this->setTemplate($this->postsFrontendHelper->getTemplate());
-
-            return $this->getOutput();
         }
 }

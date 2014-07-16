@@ -14,10 +14,16 @@ use Admin\Model\Posts\PostsGetter;
 class PostsFrontendHelper extends InputSetupAbstract
 {
     private $category, $title;
+    
+    /** @var  \Admin\Model\Posts\PostsGetterWrapper **/
     private $postsGetterWrapper;
+    
     private $isHomePage = false;
     private $records;
     
+    /**
+     * @param array $input
+     */
     public function __construct(array $input)
     {
         parent::__construct($input);
@@ -38,27 +44,6 @@ class PostsFrontendHelper extends InputSetupAbstract
         return $this->isHomePage;
     }
     
-    /**
-     * Ensure the PostsGetterWrapper is set
-     * 
-     * @return \Doctrine\ORM\EntityManager
-     * @throws NullException
-     */
-    public function assertPostsGetterWrapper()
-    {
-        $em = $this->getInput('entityManager', 1);
-        if ( isset($em) and !isset($this->postsGetterWrapper) ) {
-            
-            if ( $em instanceof \Doctrine\ORM\EntityManager ) {
-                $this->postsGetterWrapper = new PostsGetterWrapper(new PostsGetter($em));
-                return $this->postsGetterWrapper;
-            }
-
-        }
-        
-        throw new NullException('PostsGetterWrapper instance is not set. Check out the Entity Manager input');
-    }
-    
     public function setRecords()
     {
         $this->assertPostsGetterWrapper();
@@ -69,6 +54,27 @@ class PostsFrontendHelper extends InputSetupAbstract
         $this->records = $this->postsGetterWrapper->getRecords();
         
         return $this->records;
+    }
+
+    /**
+     * Ensure the PostsGetterWrapper is set (public for tests)
+     * 
+     * @return \Doctrine\ORM\EntityManager
+     * @throws NullException
+     */
+    public function assertPostsGetterWrapper()
+    {
+        $em = $this->getInput('entityManager', 1);
+        if ( isset($em) and !isset($this->postsGetterWrapper) ) {
+
+            if ( $em instanceof \Doctrine\ORM\EntityManager ) {
+                $this->postsGetterWrapper = new PostsGetterWrapper(new PostsGetter($em));
+                return $this->postsGetterWrapper;
+            }
+
+        }
+
+        throw new NullException('PostsGetterWrapper instance is not set. Check out the Entity Manager input');
     }
     
     /**
@@ -81,5 +87,7 @@ class PostsFrontendHelper extends InputSetupAbstract
         if ( isset($this->records[0]['template']) ) {
             return $this->records[0]['template'];
         }
+        
+        return 'notfound.phtml';
     }
 }

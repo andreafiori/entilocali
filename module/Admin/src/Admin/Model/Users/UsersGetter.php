@@ -16,7 +16,7 @@ class UsersGetter extends QueryBuilderHelperAbstract
 
         $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
                                 ->add('from', 'Application\Entity\ZfcmsUsers u, Application\Entity\ZfcmsUsersRoles ur')
-                                ->add('where', "(u.roleId = ur.id) ");
+                                ->add('where', "(u.role = ur.id) ");
 
         return $this->getQueryBuilder();
     }

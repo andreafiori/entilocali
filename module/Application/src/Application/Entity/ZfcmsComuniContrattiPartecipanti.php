@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsComuniContrattiPartecipanti
  *
- * @ORM\Table(name="zfcms_comuni_contratti_partecipanti")
+ * @ORM\Table(name="zfcms_comuni_contratti_partecipanti", indexes={@ORM\Index(name="categoria", columns={"categoria"}), @ORM\Index(name="sel", columns={"sel"})})
  * @ORM\Entity
  */
 class ZfcmsComuniContrattiPartecipanti
@@ -15,7 +15,7 @@ class ZfcmsComuniContrattiPartecipanti
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -52,21 +52,21 @@ class ZfcmsComuniContrattiPartecipanti
     /**
      * @var integer
      *
-     * @ORM\Column(name="posizione", type="integer", nullable=true)
+     * @ORM\Column(name="posizione", type="bigint", nullable=true)
      */
     private $posizione = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="categoria", type="integer", nullable=true)
+     * @ORM\Column(name="categoria", type="bigint", nullable=true)
      */
     private $categoria = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="sel", type="integer", nullable=false)
+     * @ORM\Column(name="sel", type="bigint", nullable=false)
      */
     private $sel = '0';
 

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsComuniContratti
  *
- * @ORM\Table(name="zfcms_comuni_contratti")
+ * @ORM\Table(name="zfcms_comuni_contratti", indexes={@ORM\Index(name="utente_id", columns={"utente_id"}), @ORM\Index(name="resp_proc_id", columns={"resp_proc_id"}), @ORM\Index(name="sezione_id", columns={"sezione_id"}), @ORM\Index(name="sc_contr_id", columns={"sc_contr_id"}), @ORM\Index(name="scadenza", columns={"scadenza"})})
  * @ORM\Entity
  */
 class ZfcmsComuniContratti
@@ -129,30 +129,23 @@ class ZfcmsComuniContratti
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_utente", type="bigint", nullable=false)
+     * @ORM\Column(name="sezione_id", type="bigint", nullable=false)
      */
-    private $idUtente;
+    private $sezioneId;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_sezione", type="bigint", nullable=false)
+     * @ORM\Column(name="resp_proc_id", type="bigint", nullable=false)
      */
-    private $idSezione;
+    private $respProcId;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_resp_proc", type="bigint", nullable=false)
+     * @ORM\Column(name="sc_contr_id", type="bigint", nullable=false)
      */
-    private $idRespProc;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id_sc_contr", type="bigint", nullable=false)
-     */
-    private $idScContr;
+    private $scContrId;
 
     /**
      * @var string
@@ -160,6 +153,16 @@ class ZfcmsComuniContratti
      * @ORM\Column(name="cig", type="text", length=65535, nullable=true)
      */
     private $cig;
+
+    /**
+     * @var \Application\Entity\ZfcmsUsers
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsers")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="utente_id", referencedColumnName="id")
+     * })
+     */
+    private $utente;
 
 
 
@@ -534,99 +537,75 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Set idUtente
+     * Set sezioneId
      *
-     * @param integer $idUtente
+     * @param integer $sezioneId
      *
      * @return ZfcmsComuniContratti
      */
-    public function setIdUtente($idUtente)
+    public function setSezioneId($sezioneId)
     {
-        $this->idUtente = $idUtente;
+        $this->sezioneId = $sezioneId;
     
         return $this;
     }
 
     /**
-     * Get idUtente
+     * Get sezioneId
      *
      * @return integer
      */
-    public function getIdUtente()
+    public function getSezioneId()
     {
-        return $this->idUtente;
+        return $this->sezioneId;
     }
 
     /**
-     * Set idSezione
+     * Set respProcId
      *
-     * @param integer $idSezione
+     * @param integer $respProcId
      *
      * @return ZfcmsComuniContratti
      */
-    public function setIdSezione($idSezione)
+    public function setRespProcId($respProcId)
     {
-        $this->idSezione = $idSezione;
+        $this->respProcId = $respProcId;
     
         return $this;
     }
 
     /**
-     * Get idSezione
+     * Get respProcId
      *
      * @return integer
      */
-    public function getIdSezione()
+    public function getRespProcId()
     {
-        return $this->idSezione;
+        return $this->respProcId;
     }
 
     /**
-     * Set idRespProc
+     * Set scContrId
      *
-     * @param integer $idRespProc
+     * @param integer $scContrId
      *
      * @return ZfcmsComuniContratti
      */
-    public function setIdRespProc($idRespProc)
+    public function setScContrId($scContrId)
     {
-        $this->idRespProc = $idRespProc;
+        $this->scContrId = $scContrId;
     
         return $this;
     }
 
     /**
-     * Get idRespProc
+     * Get scContrId
      *
      * @return integer
      */
-    public function getIdRespProc()
+    public function getScContrId()
     {
-        return $this->idRespProc;
-    }
-
-    /**
-     * Set idScContr
-     *
-     * @param integer $idScContr
-     *
-     * @return ZfcmsComuniContratti
-     */
-    public function setIdScContr($idScContr)
-    {
-        $this->idScContr = $idScContr;
-    
-        return $this;
-    }
-
-    /**
-     * Get idScContr
-     *
-     * @return integer
-     */
-    public function getIdScContr()
-    {
-        return $this->idScContr;
+        return $this->scContrId;
     }
 
     /**
@@ -651,5 +630,29 @@ class ZfcmsComuniContratti
     public function getCig()
     {
         return $this->cig;
+    }
+
+    /**
+     * Set utente
+     *
+     * @param \Application\Entity\ZfcmsUsers $utente
+     *
+     * @return ZfcmsComuniContratti
+     */
+    public function setUtente(\Application\Entity\ZfcmsUsers $utente = null)
+    {
+        $this->utente = $utente;
+    
+        return $this;
+    }
+
+    /**
+     * Get utente
+     *
+     * @return \Application\Entity\ZfcmsUsers
+     */
+    public function getUtente()
+    {
+        return $this->utente;
     }
 }

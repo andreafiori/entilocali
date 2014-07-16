@@ -44,7 +44,7 @@ class PostsFrontendHelperTest extends TestSuite
         $postsFrontendHelper = new PostsFrontendHelper( array() );
         $postsFrontendHelper->assertPostsGetterWrapper();
     }
-    
+  
     public function testSetRecords()
     {
         $this->assertNotEmpty( $this->postsFrontendHelper->setRecords() );

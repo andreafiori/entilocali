@@ -35,6 +35,20 @@ class ZfcmsComuniStatoCivileSezioni
      */
     private $attivo;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data_inserimento", type="datetime", nullable=true)
+     */
+    private $dataInserimento;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data_ultimo_aggiornamento", type="datetime", nullable=true)
+     */
+    private $dataUltimoAggiornamento;
+
 
 
     /**
@@ -93,5 +107,53 @@ class ZfcmsComuniStatoCivileSezioni
     public function getAttivo()
     {
         return $this->attivo;
+    }
+
+    /**
+     * Set dataInserimento
+     *
+     * @param \DateTime $dataInserimento
+     *
+     * @return ZfcmsComuniStatoCivileSezioni
+     */
+    public function setDataInserimento($dataInserimento)
+    {
+        $this->dataInserimento = $dataInserimento;
+    
+        return $this;
+    }
+
+    /**
+     * Get dataInserimento
+     *
+     * @return \DateTime
+     */
+    public function getDataInserimento()
+    {
+        return $this->dataInserimento;
+    }
+
+    /**
+     * Set dataUltimoAggiornamento
+     *
+     * @param \DateTime $dataUltimoAggiornamento
+     *
+     * @return ZfcmsComuniStatoCivileSezioni
+     */
+    public function setDataUltimoAggiornamento($dataUltimoAggiornamento)
+    {
+        $this->dataUltimoAggiornamento = $dataUltimoAggiornamento;
+    
+        return $this;
+    }
+
+    /**
+     * Get dataUltimoAggiornamento
+     *
+     * @return \DateTime
+     */
+    public function getDataUltimoAggiornamento()
+    {
+        return $this->dataUltimoAggiornamento;
     }
 }

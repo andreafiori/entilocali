@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsUsers
  *
- * @ORM\Table(name="zfcms_users", uniqueConstraints={@ORM\UniqueConstraint(name="email", columns={"email"})}, indexes={@ORM\Index(name="key_ids", columns={"role_id", "nation", "province"})})
+ * @ORM\Table(name="zfcms_users", uniqueConstraints={@ORM\UniqueConstraint(name="email", columns={"email"})}, indexes={@ORM\Index(name="key_ids", columns={"role_id", "nation", "province"}), @ORM\Index(name="IDX_770AE5C7D60322AC", columns={"role_id"})})
  * @ORM\Entity
  */
 class ZfcmsUsers
@@ -197,6 +197,13 @@ class ZfcmsUsers
     private $status = 'no';
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="area", type="string", length=100, nullable=false)
+     */
+    private $area = 'no';
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="create_date", type="datetime", nullable=false)
@@ -218,11 +225,14 @@ class ZfcmsUsers
     private $confirmCode;
 
     /**
-     * @var integer
+     * @var \Application\Entity\ZfcmsUsersRoles
      *
-     * @ORM\Column(name="role_id", type="bigint", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsersRoles")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="role_id", referencedColumnName="id")
+     * })
      */
-    private $roleId;
+    private $role;
 
 
 
@@ -837,6 +847,30 @@ class ZfcmsUsers
     }
 
     /**
+     * Set area
+     *
+     * @param string $area
+     *
+     * @return ZfcmsUsers
+     */
+    public function setArea($area)
+    {
+        $this->area = $area;
+    
+        return $this;
+    }
+
+    /**
+     * Get area
+     *
+     * @return string
+     */
+    public function getArea()
+    {
+        return $this->area;
+    }
+
+    /**
      * Set createDate
      *
      * @param \DateTime $createDate
@@ -909,26 +943,26 @@ class ZfcmsUsers
     }
 
     /**
-     * Set roleId
+     * Set role
      *
-     * @param integer $roleId
+     * @param \Application\Entity\ZfcmsUsersRoles $role
      *
      * @return ZfcmsUsers
      */
-    public function setRoleId($roleId)
+    public function setRole(\Application\Entity\ZfcmsUsersRoles $role = null)
     {
-        $this->roleId = $roleId;
+        $this->role = $role;
     
         return $this;
     }
 
     /**
-     * Get roleId
+     * Get role
      *
-     * @return integer
+     * @return \Application\Entity\ZfcmsUsersRoles
      */
-    public function getRoleId()
+    public function getRole()
     {
-        return $this->roleId;
+        return $this->role;
     }
 }

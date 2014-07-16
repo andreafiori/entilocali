@@ -33,7 +33,7 @@ abstract class RouterManagerAbstract
      */
     public function getInput($key = null, $noArray = 0)
     {
-         return $this->getArrayValue($this->input, $key, $noArray);
+        return $this->getArrayValue($this->input, $key, $noArray);
     }
     
     /**

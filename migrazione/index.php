@@ -10,125 +10,127 @@
  require_once("setup_database.php");
 
 $migrationButtons = array(
-	
-	'users' => array(
-		'formId'     => 'userFormMigration',
-		'formAction' => '?op=users',
-		'buttonId'   => 'userMigrationButton',
-		'buttonLabel' => 'Utenti',
-	),
-	
-	'config' => array(
-		'formId'      => 'configurationFormMigration',
-		'formAction'  => '?op=config',
-		'buttonId'    => 'configurationMigrationButton',
-		'buttonLabel' => 'Configurazioni',
-	),
 
-	'modules' => array(
-		'formId'      => 'modulesFormMigration',
-		'formAction'  => '?op=modules',
-		'buttonId'    => 'modulesMigrationButton',
-		'buttonLabel' => 'Moduli',
-	),
-	
-	'stato-civile' => array(
-		'formId'      => 'statocivileFormMigration',
-		'formAction'  => '?op=stato-civile',
-		'buttonId'    => 'statocivileMigrationButton',
-		'buttonLabel' => 'Stato Civile',
-	),
-	
-	'contratti-pubblici' => array(
-		'formId'      => 'contrattiPubbliciFormMigration',
-		'formAction'  => '?op=contratti-pubblici',
-		'buttonId'    => 'contrattiPubbliciMigrationButton',
-		'buttonLabel' => 'Contratti Pubblici',
-	),
-	
-	'amministrazione-trasparente' => array(
-		'formId'      => 'amministrazioneTrasparenteFormMigration',
-		'formAction'  => '?op=amministrazione-trasparente',
-		'buttonId'    => 'statocivileMigrationButton',
-		'buttonLabel' => 'Amministrazione trasparente',
-	),
-	
-	'albo-pretorio' => array(
-		'formId'      => 'alboPretorioFormMigration',
-		'formAction'  => '?op=albo-pretorio',
-		'buttonId'    => 'alboPretorioMigrationButton',
-		'buttonLabel' => 'Albo pretorio',
-	),
-	
-	'contenuti' => array(
-		'formId'      => 'contenutiFormMigration',
-		'formAction'  => '?op=contenuti',
-		'buttonId'    => 'contenutiMigrationButton',
-		'buttonLabel' => 'Contenuti',
-	),
-	
-	'foto' => array(
-		'formId'      => 'fotoFormMigration',
-		'formAction'  => '?op=foto',
-		'buttonId'    => 'fotoMigrationButton',
-		'buttonLabel' => 'Foto',
-	),
-	
-	'blogs' => array(
-		'formId'      => 'blogsFormMigration',
-		'formAction'  => '?op=blogs',
-		'buttonId'    => 'blogsMigrationButton',
-		'buttonLabel' => 'Blogs',
-	),
-	
-	'forum' => array(
-		'formId'      => 'forumFormMigration',
-		'formAction'  => '?op=forum',
-		'buttonId'    => 'forumMigrationButton',
-		'buttonLabel' => 'Forum',
-	),
-	
-	'newsletter' => array(
-		'formId'      => 'newsletterFormMigration',
-		'formAction'  => '?op=newsletter',
-		'buttonId'    => 'newsletterMigrationButton',
-		'buttonLabel' => 'Newsletter',
-	),
-	
-	'assistenze' => array(
-		'formId'      => 'assistenzeFormMigration',
-		'formAction'  => '?op=forum',
-		'buttonId'    => 'assistenzeMigrationButton',
-		'buttonLabel' => 'Assistenze',
-	),
+    'users' => array(
+        'formId'     => 'userFormMigration',
+        'formAction' => '?op=users',
+        'buttonId'   => 'userMigrationButton',
+        'buttonLabel' => 'Utenti',
+    ),
+
+    'config' => array(
+        'formId'      => 'configurationFormMigration',
+        'formAction'  => '?op=config',
+        'buttonId'    => 'configurationMigrationButton',
+        'buttonLabel' => 'Configurazioni',
+    ),
+
+    'modules' => array(
+        'formId'      => 'modulesFormMigration',
+        'formAction'  => '?op=modules',
+        'buttonId'    => 'modulesMigrationButton',
+        'buttonLabel' => 'Moduli',
+    ),
+
+    'stato-civile' => array(
+        'formId'      => 'statocivileFormMigration',
+        'formAction'  => '?op=stato-civile',
+        'buttonId'    => 'statocivileMigrationButton',
+        'buttonLabel' => 'Stato Civile',
+    ),
+
+    'contratti-pubblici' => array(
+        'formId'      => 'contrattiPubbliciFormMigration',
+        'formAction'  => '?op=contratti-pubblici',
+        'buttonId'    => 'contrattiPubbliciMigrationButton',
+        'buttonLabel' => 'Contratti Pubblici',
+    ),
+
+    'amministrazione-trasparente' => array(
+        'formId'      => 'amministrazioneTrasparenteFormMigration',
+        'formAction'  => '?op=amministrazione-trasparente',
+        'buttonId'    => 'statocivileMigrationButton',
+        'buttonLabel' => 'Amministrazione trasparente',
+    ),
+
+    'albo-pretorio' => array(
+        'formId'      => 'alboPretorioFormMigration',
+        'formAction'  => '?op=albo-pretorio',
+        'buttonId'    => 'alboPretorioMigrationButton',
+        'buttonLabel' => 'Albo pretorio',
+    ),
+
+    'contenuti' => array(
+        'formId'      => 'contenutiFormMigration',
+        'formAction'  => '?op=contenuti',
+        'buttonId'    => 'contenutiMigrationButton',
+        'buttonLabel' => 'Contenuti',
+    ),
+
+    'foto' => array(
+        'formId'      => 'fotoFormMigration',
+        'formAction'  => '?op=foto',
+        'buttonId'    => 'fotoMigrationButton',
+        'buttonLabel' => 'Foto',
+    ),
+
+    'blogs' => array(
+        'formId'      => 'blogsFormMigration',
+        'formAction'  => '?op=blogs',
+        'buttonId'    => 'blogsMigrationButton',
+        'buttonLabel' => 'Blogs',
+    ),
+
+    'forum' => array(
+        'formId'      => 'forumFormMigration',
+        'formAction'  => '?op=forum',
+        'buttonId'    => 'forumMigrationButton',
+        'buttonLabel' => 'Forum',
+    ),
+
+    'newsletter' => array(
+        'formId'      => 'newsletterFormMigration',
+        'formAction'  => '?op=newsletter',
+        'buttonId'    => 'newsletterMigrationButton',
+        'buttonLabel' => 'Newsletter',
+    ),
+
+    'assistenze' => array(
+        'formId'      => 'assistenzeFormMigration',
+        'formAction'  => '?op=forum',
+        'buttonId'    => 'assistenzeMigrationButton',
+        'buttonLabel' => 'Assistenze',
+    ),
+    
+    'assistenze' => array(
+        'formId'      => 'assistenzeFormMigration',
+        'formAction'  => '?op=forum',
+        'buttonId'    => 'assistenzeMigrationButton',
+        'buttonLabel' => 'Assistenze',
+    ),
+    
+    'delete-old-cms' => array(
+        'formId'      => 'deleteOldCMSFormMigration',
+        'formAction'  => '?op=delete-old-cms',
+        'buttonId'    => 'deleteOldCMSMigrationButton',
+        'buttonLabel' => 'Conferma eliminazione',
+    ),
 );
 
-function displayMigrationButton($key, $cellSpan = 3)
+function displayMigrationButton($key, $cellSpan = 3, $btnClass = 'primary')
 {
-	global $migrationButtons;
+    global $migrationButtons;
 
-	$migrationForm = $migrationButtons[$key];
-	
-	?>
-	<div class="col-md-<?php echo $cellSpan ?>">
-		<form action="post.php<?php echo $migrationForm['formAction'] ?>" method="post" id="<?php echo $migrationForm['formId'] ?>" role="form">
-			<button type="submit" class="btn btn-lg btn-primary"><?php echo $migrationForm['buttonLabel'] ?></button><br><br>
-		</form>
-	</div>
-	<?php
+    $migrationForm = $migrationButtons[$key];
+
+    ?>
+    <div class="col-md-<?php echo $cellSpan ?>">
+        <form action="post.php<?php echo $migrationForm['formAction'] ?>" method="post" id="<?php echo $migrationForm['formId'] ?>" role="form">
+            <button type="submit" class="btn btn-lg btn-<?php echo $btnClass ?>"><?php echo $migrationForm['buttonLabel'] ?></button><br><br>
+        </form>
+    </div>
+    <?php
 }
-
-/*
-    TODO:
-        check if all 2 databases are published...
-        ajax posts button...
-        migrate config
-        migrate utenti to users
-            migrate permessi_utenti to users_permissions
-        migrate stato_civile_articoli
-        migrate stato_civile_sezioni
-        migrate stato_civile_allegati -> 
-*/
 
 ?>
 <!DOCTYPE html>
@@ -160,7 +162,7 @@ function displayMigrationButton($key, $cellSpan = 3)
 
 <body>
 
-	<div class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="navbar navbar-default navbar-static-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -179,8 +181,6 @@ function displayMigrationButton($key, $cellSpan = 3)
         </div><!--/.nav-collapse -->
       </div>
     </div>
-	
-
 
     <?php if ($connectionError): ?>
 	<div class="container">
@@ -232,61 +232,69 @@ function displayMigrationButton($key, $cellSpan = 3)
     
 	</div>
     <?php else: ?>
-	<div class="container">	
+    <div class="container">	
     
 	<div class="jumbotron">
-    
-		<h1>Console migrazione</h1>
-	
-		<p>Migrazione dati database, controllo integrit&agrave; dei dati, setup del CMS realizzato con Zend framework 2. I seguenti pulsanti eseguono operazioni di migrazione dati dal CMS originario. Assicurarsi di aver fatto i backup del sito prima dell'utilizzo di questa console.</p>
-		
-		<div class="row">
-		
-			<h2>Test connessione</h2>
-			
-			<p><button type="button" class="btn btn-warning">Check tabelle vecchio CMS</button></p>
-			
-			<p><button type="button" class="btn btn-warning">Check tabelle CMS Zend</button></p>
-			
-		</div>
-		
-		<div class="row">
-		<h2>Indispensabili</h2>
-		<!--<p>Moduli primari che garantiscono l'effettivo funzionamento</p>-->
-		<?php
-			displayMigrationButton('users',4);
-			displayMigrationButton('config',4);
-			displayMigrationButton('modules',4);
-		?>
-		</div>
-		
-		<div class="row">
-		<h2>Comuni</h2>
-		<?php
-			displayMigrationButton('albo-pretorio');
-			displayMigrationButton('amministrazione-trasparente', 4);
-			displayMigrationButton('stato-civile');
-			displayMigrationButton('contratti-pubblici');
-		?>
-		</div>
-		
-		<div class="row">
-		<h2>Media</h2>
-		<?php
-			displayMigrationButton('contenuti');
-			displayMigrationButton('foto');
-			displayMigrationButton('blogs');
-		?>
-		</div>
-		
-		<div class="row">
-		<h2>Community</h2>
-		<?php
-			displayMigrationButton('forum');
-			displayMigrationButton('newsletter');
-		?>
-		</div>
-	
+
+            <h1>Console migrazione</h1>
+
+            <p>Migrazione dati database, controllo integrit&agrave; dei dati, setup del CMS realizzato con Zend framework 2. I seguenti pulsanti eseguono operazioni di migrazione dati dal CMS originario. Assicurarsi di aver fatto i backup del sito prima dell'utilizzo di questa console.</p>
+
+            <div class="row">
+
+                <h2>Test connessione</h2>
+
+                <p><button type="button" class="btn btn-warning">Check tabelle vecchio CMS</button></p>
+
+                <p><button type="button" class="btn btn-warning">Check tabelle CMS Zend</button></p>
+
+            </div>
+
+            <div class="row">
+            <h2>Indispensabili</h2>
+            <!--<p>Moduli primari che garantiscono l'effettivo funzionamento</p>-->
+            <?php
+                displayMigrationButton('users',4);
+                displayMigrationButton('config',4);
+                displayMigrationButton('modules',4);
+            ?>
+            </div>
+
+            <div class="row">
+            <h2>Comuni</h2>
+            <?php
+                displayMigrationButton('albo-pretorio');
+                displayMigrationButton('amministrazione-trasparente', 4);
+                displayMigrationButton('stato-civile');
+                displayMigrationButton('contratti-pubblici');
+            ?>
+            </div>
+
+            <div class="row">
+            <h2>Media</h2>
+            <?php
+                displayMigrationButton('contenuti');
+                displayMigrationButton('foto');
+                displayMigrationButton('blogs');
+            ?>
+            </div>
+
+            <div class="row">
+            <h2>Community</h2>
+            <?php
+                displayMigrationButton('forum');
+                displayMigrationButton('newsletter');
+            ?>
+            </div>
+
+            <div class="row">
+            <h2>Elimina tabelle database vecchio CMS</h2>
+            <p>ATTENZIONE: prima di procedere con l'eliminazione delle tabelle del vecchio CMS, assicurarsi che TUTTI precedenti siano stati importati.</p>
+            <?php
+                displayMigrationButton('delete-old-cms', 3, 'danger');
+            ?>
+            </div>
+
     </div>
 	
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -294,7 +302,7 @@ function displayMigrationButton($key, $cellSpan = 3)
 		<div class="modal-content">
 		  <div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Chiudi</span></button>
-			<h4 class="modal-title" id="myModalLabel">Risultato migrazione</h4>
+			<h4 class="modal-title" id="myModalLabel">Risultato operazione</h4>
 		  </div>
 		  <div class="modal-body">
 			<div id="migrationResult"></div>
@@ -341,18 +349,18 @@ function displayMigrationButton($key, $cellSpan = 3)
 	
 	<?php foreach($migrationButtons as $migrationForm): ?>
 
-		$('#<?php echo $migrationForm['formId'] ?>').submit(function() {
-			
-			$('#myModal').modal('show');
-			
-			$("#<?php echo $migrationForm['formId'] ?>").ajaxSubmit({
-				target: "#migrationResult",
-				type: "post",
-				onkeyup: false
-			});
- 
-			return false; 
-		}); 
+            $('#<?php echo $migrationForm['formId'] ?>').submit(function() {
+
+                $('#myModal').modal('show');
+
+                $("#<?php echo $migrationForm['formId'] ?>").ajaxSubmit({
+                    target: "#migrationResult",
+                    type: "post",
+                    onkeyup: false
+                });
+
+                return false; 
+            }); 
 
 	<?php endforeach; ?>
 

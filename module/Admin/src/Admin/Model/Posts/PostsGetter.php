@@ -6,8 +6,6 @@ use Application\Model\QueryBuilderHelperAbstract;
 use Application\Model\Slugifier;
 
 /**
- * Posts Query and Records Getters
- * 
  * @author Andrea Fiori
  * @since  15 April 2014
  */
@@ -15,7 +13,7 @@ class PostsGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('DISTINCT(p.id) AS postid, po.id AS postoptionid, p.lastUpdate, p.insertDate, p.expireDate, p.type, p.alias, po.title, po.status, po.description, po.seoUrl, po.subtitle, po.seoDescription, po.seoKeywords, p.templateFile, p.flagAttachments, co.name AS categoryName, c.template, IDENTITY(r.module) AS module');
+        $this->setSelectQueryFields('DISTINCT(p.id) AS postid, po.id AS postoptionid, p.lastUpdate, p.insertDate, p.expireDate, p.type, p.alias, po.title, po.status, po.description, po.seoUrl, po.subtitle, po.seoDescription, po.seoKeywords, p.flagAttachments, co.name AS categoryName, c.template, IDENTITY(r.module) AS module');
 
         $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
                                 ->add('from', 'Application\Entity\ZfcmsPosts p, Application\Entity\ZfcmsPostsOptions po, Application\Entity\ZfcmsPostsRelations r, Application\Entity\ZfcmsCategories c, Application\Entity\ZfcmsCategoriesOptions co')
@@ -67,6 +65,7 @@ class PostsGetter extends QueryBuilderHelperAbstract
 
     /**
      * @param string $category
+     * @return type
      */
     public function setCategoryName($category)
     {
@@ -80,11 +79,12 @@ class PostsGetter extends QueryBuilderHelperAbstract
 
     /**
      * @param string $title post title
+     * @return type
      */
     public function setTitle($title)
     {
         if ( is_string($title) ) {
-            $this->getQueryBuilder()->andWhere('po.title = :title');
+            $this->getQueryBuilder()->andWhere('LOWER( po.title ) =  :title ');
             $this->getQueryBuilder()->setParameter('title', Slugifier::deSlugify($title) );
         }
         
@@ -93,6 +93,7 @@ class PostsGetter extends QueryBuilderHelperAbstract
   
     /**
      * @param string $type post type (content, blog, photo or video)
+     * @return type
      */
     public function setType($type)
     {
@@ -106,6 +107,7 @@ class PostsGetter extends QueryBuilderHelperAbstract
 
     /**
      * @param string or null $status
+     * @return type
      */
     public function setStatus($status = null)
     {
@@ -115,10 +117,13 @@ class PostsGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere("po.status = :status ");
             $this->getQueryBuilder()->setParameter('status', $status);
         }
+        
+        return $this->getQueryBuilder();
     }
     
     /**
      * @param string $orderBy
+     * @return type
      */
     public function setOrderBy($orderBy = null)
     {
@@ -155,11 +160,12 @@ class PostsGetter extends QueryBuilderHelperAbstract
 
             $posts[$i]['linkDetails'] = '/'.Slugifier::slugify($posts[$i]['categoryName']).'/'.Slugifier::slugify($posts[$i]['title']);
             
-            // TODO: attachments...  
+            /*
+             * TODO: get attachments
             if ( $posts[$i]['flagAllegati'] == 'si' ) {
 
             }
-            
+            */
             $postsRelazioni->setSelectQueryFields('IDENTITY(r.category) AS category');
             $postsRelazioni->setMainQuery();
             $postsRelazioni->setChannelId(1);

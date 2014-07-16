@@ -3,8 +3,6 @@
 namespace Admin\Model;
 
 /**
- * Input Setter Abstraction
- * 
  * @author Andrea Fiori
  * @since  20 May 2014
  */
@@ -21,7 +19,6 @@ abstract class InputSetupAbstract
     }
     
     /**
-     * 
      * @param string $key
      * @param 1 or 0 $noArray
      * @return array, null or string

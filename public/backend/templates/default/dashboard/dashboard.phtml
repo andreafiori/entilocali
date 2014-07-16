@@ -10,6 +10,14 @@
     <p>Area in costruzione. Alcune sezioni non sono presenti o sono in fase di sviluppo.</p>
 </div>
 
+<?php if ( file_exists('migrazione/') ): ?>
+<div class="alert alert-danger">
+    <h2>Directory migrazione presente!</h2>
+    <p>ATTENZIONE: &egrave; presente la cartella temporaneaa per la migrazione dati.</p>
+    <p><strong>&raquo; <a href="#" title="">Eliminare la cartella?</a></strong></p>
+</div>
+<?php endif; ?>
+
 <!--
 <div>
     <h2>Consigli:</h2>
