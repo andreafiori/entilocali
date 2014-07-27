@@ -1,0 +1,82 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ZfcmsConfig
+ *
+ * @ORM\Table(name="zfcms_config", indexes={@ORM\Index(name="channel_id", columns={"channel_id"}), @ORM\Index(name="language_id", columns={"language_id"}), @ORM\Index(name="module_id", columns={"module_id"}), @ORM\Index(name="isadmin", columns={"is_backend"}), @ORM\Index(name="isalwaysallowed", columns={"is_always_allowed"})})
+ * @ORM\Entity
+ */
+class ZfcmsConfig
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=100, nullable=true)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="value", type="text", length=65535, nullable=true)
+     */
+    private $value;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="note", type="string", length=100, nullable=true)
+     */
+    private $note;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="is_backend", type="bigint", nullable=false)
+     */
+    private $isBackend;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="is_always_allowed", type="bigint", nullable=false)
+     */
+    private $isAlwaysAllowed = '1';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="module_id", type="bigint", nullable=false)
+     */
+    private $moduleId = '4';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="channel_id", type="bigint", nullable=false)
+     */
+    private $channelId = '1';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="language_id", type="bigint", nullable=false)
+     */
+    private $languageId = '1';
+
+
+}
+

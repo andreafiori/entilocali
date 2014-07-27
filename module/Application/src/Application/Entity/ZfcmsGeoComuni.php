@@ -108,7 +108,8 @@ class ZfcmsGeoComuni
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -118,7 +119,8 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Set codRegione
+     * Set codRegione.
+    
      *
      * @param string $codRegione
      *
@@ -132,7 +134,8 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Get codRegione
+     * Get codRegione.
+    
      *
      * @return string
      */
@@ -142,7 +145,8 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Set codProvincia
+     * Set codProvincia.
+    
      *
      * @param string $codProvincia
      *
@@ -156,7 +160,8 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Get codProvincia
+     * Get codProvincia.
+    
      *
      * @return string
      */
@@ -166,7 +171,8 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Set codComune
+     * Set codComune.
+    
      *
      * @param string $codComune
      *
@@ -180,7 +186,8 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Get codComune
+     * Get codComune.
+    
      *
      * @return string
      */
@@ -190,7 +197,8 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Set nomeComune
+     * Set nomeComune.
+    
      *
      * @param string $nomeComune
      *
@@ -204,7 +212,8 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Get nomeComune
+     * Get nomeComune.
+    
      *
      * @return string
      */
@@ -214,7 +223,8 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Set codiceIstat
+     * Set codiceIstat.
+    
      *
      * @param string $codiceIstat
      *
@@ -228,7 +238,8 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Get codiceIstat
+     * Get codiceIstat.
+    
      *
      * @return string
      */
@@ -238,7 +249,8 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Set capPrincipale
+     * Set capPrincipale.
+    
      *
      * @param string $capPrincipale
      *
@@ -252,7 +264,8 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Get capPrincipale
+     * Get capPrincipale.
+    
      *
      * @return string
      */
@@ -262,7 +275,8 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Set capInizio
+     * Set capInizio.
+    
      *
      * @param string $capInizio
      *
@@ -276,7 +290,8 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Get capInizio
+     * Get capInizio.
+    
      *
      * @return string
      */
@@ -286,7 +301,8 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Set capFine
+     * Set capFine.
+    
      *
      * @param string $capFine
      *
@@ -300,7 +316,8 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Get capFine
+     * Get capFine.
+    
      *
      * @return string
      */
@@ -310,7 +327,8 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Set prefisso
+     * Set prefisso.
+    
      *
      * @param string $prefisso
      *
@@ -324,7 +342,8 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Get prefisso
+     * Get prefisso.
+    
      *
      * @return string
      */
@@ -334,7 +353,8 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Set sitoWeb
+     * Set sitoWeb.
+    
      *
      * @param string $sitoWeb
      *
@@ -348,7 +368,8 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Get sitoWeb
+     * Get sitoWeb.
+    
      *
      * @return string
      */
@@ -358,7 +379,8 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Set latitudine
+     * Set latitudine.
+    
      *
      * @param string $latitudine
      *
@@ -372,7 +394,8 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Get latitudine
+     * Get latitudine.
+    
      *
      * @return string
      */
@@ -382,7 +405,8 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Set longitudine
+     * Set longitudine.
+    
      *
      * @param string $longitudine
      *
@@ -396,7 +420,8 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Get longitudine
+     * Get longitudine.
+    
      *
      * @return string
      */

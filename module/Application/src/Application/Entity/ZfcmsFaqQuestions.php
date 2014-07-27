@@ -93,7 +93,8 @@ class ZfcmsFaqQuestions
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -103,7 +104,8 @@ class ZfcmsFaqQuestions
     }
 
     /**
-     * Set question
+     * Set question.
+    
      *
      * @param string $question
      *
@@ -117,7 +119,8 @@ class ZfcmsFaqQuestions
     }
 
     /**
-     * Get question
+     * Get question.
+    
      *
      * @return string
      */
@@ -127,7 +130,8 @@ class ZfcmsFaqQuestions
     }
 
     /**
-     * Set position
+     * Set position.
+    
      *
      * @param integer $position
      *
@@ -141,7 +145,8 @@ class ZfcmsFaqQuestions
     }
 
     /**
-     * Get position
+     * Get position.
+    
      *
      * @return integer
      */
@@ -151,7 +156,8 @@ class ZfcmsFaqQuestions
     }
 
     /**
-     * Set status
+     * Set status.
+    
      *
      * @param string $status
      *
@@ -165,7 +171,8 @@ class ZfcmsFaqQuestions
     }
 
     /**
-     * Get status
+     * Get status.
+    
      *
      * @return string
      */
@@ -175,7 +182,8 @@ class ZfcmsFaqQuestions
     }
 
     /**
-     * Set rate
+     * Set rate.
+    
      *
      * @param integer $rate
      *
@@ -189,7 +197,8 @@ class ZfcmsFaqQuestions
     }
 
     /**
-     * Get rate
+     * Get rate.
+    
      *
      * @return integer
      */
@@ -199,7 +208,8 @@ class ZfcmsFaqQuestions
     }
 
     /**
-     * Set insertdate
+     * Set insertdate.
+    
      *
      * @param \DateTime $insertdate
      *
@@ -213,7 +223,8 @@ class ZfcmsFaqQuestions
     }
 
     /**
-     * Get insertdate
+     * Get insertdate.
+    
      *
      * @return \DateTime
      */
@@ -223,7 +234,8 @@ class ZfcmsFaqQuestions
     }
 
     /**
-     * Set lastupdate
+     * Set lastupdate.
+    
      *
      * @param \DateTime $lastupdate
      *
@@ -237,7 +249,8 @@ class ZfcmsFaqQuestions
     }
 
     /**
-     * Get lastupdate
+     * Get lastupdate.
+    
      *
      * @return \DateTime
      */
@@ -247,7 +260,8 @@ class ZfcmsFaqQuestions
     }
 
     /**
-     * Set userId
+     * Set userId.
+    
      *
      * @param integer $userId
      *
@@ -261,7 +275,8 @@ class ZfcmsFaqQuestions
     }
 
     /**
-     * Get userId
+     * Get userId.
+    
      *
      * @return integer
      */
@@ -271,7 +286,8 @@ class ZfcmsFaqQuestions
     }
 
     /**
-     * Set channel
+     * Set channel.
+    
      *
      * @param \Application\Entity\ZfcmsChannels $channel
      *
@@ -285,7 +301,8 @@ class ZfcmsFaqQuestions
     }
 
     /**
-     * Get channel
+     * Get channel.
+    
      *
      * @return \Application\Entity\ZfcmsChannels
      */
@@ -295,7 +312,8 @@ class ZfcmsFaqQuestions
     }
 
     /**
-     * Set language
+     * Set language.
+    
      *
      * @param \Application\Entity\ZfcmsLanguages $language
      *
@@ -309,7 +327,8 @@ class ZfcmsFaqQuestions
     }
 
     /**
-     * Get language
+     * Get language.
+    
      *
      * @return \Application\Entity\ZfcmsLanguages
      */

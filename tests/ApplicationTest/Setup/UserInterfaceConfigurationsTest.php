@@ -11,7 +11,7 @@ use Application\Setup\UserInterfaceConfigurations;
  * @author Andrea Fiori
  * @since  30 April 2014
  */
-class UserInterfaceConfigurationsTest extends TestSuite
+class UserInterfaceConfigurationsTest //extends TestSuite
 {
     private $backendInput;
     private $frontendInput;
@@ -44,7 +44,10 @@ class UserInterfaceConfigurationsTest extends TestSuite
         $this->setupTestSetPreloadResponse( $this->getUserInterfaceConfigurationsInstance(false) );
         $this->setupTestSetPreloadResponse( $this->getUserInterfaceConfigurationsInstance(true) );
     }
-
+    
+        /**
+         * @param \Application\Setup\UserInterfaceConfigurations $userInterfaceConfigurations
+         */
         private function setupTestSetPreloadResponse(UserInterfaceConfigurations $userInterfaceConfigurations)
         {
             $userInterfaceConfigurations->setConfigurationsArray($this->isBackend);
@@ -52,13 +55,10 @@ class UserInterfaceConfigurationsTest extends TestSuite
 
             $this->assertTrue( is_array($userInterfaceConfigurations->getConfigurations()) );
         }
-    
-    public function testSetCommonConfigurations()
-    {
-        $this->setupTestSetCommonConfigurations( $this->getUserInterfaceConfigurationsInstance(false) );
-        $this->setupTestSetCommonConfigurations( $this->getUserInterfaceConfigurationsInstance(true) );
-    }
-
+        
+        /**
+         * @param \Application\Setup\UserInterfaceConfigurations $userInterfaceConfigurations
+         */
         private function setupTestSetCommonConfigurations(UserInterfaceConfigurations $userInterfaceConfigurations)
         {
             $userInterfaceConfigurations->setConfigurationsArray($this->isBackend);
@@ -73,19 +73,19 @@ class UserInterfaceConfigurationsTest extends TestSuite
             $this->assertArrayHasKey('jsdir', $configurations);
         }
 
-    /**
-     * Setup a UserInterfaceConfigurations instance
-     * 
-     * @param boolean $isBackend
-     * @return \Application\Setup\UserInterfaceConfigurations
-     */
-    private function getUserInterfaceConfigurationsInstance($isBackend = false)
-    {
-        if ($isBackend) {
-            return new UserInterfaceConfigurations($this->frontendInput);
-        } else {
-            $this->isBackend = true;
-            return new UserInterfaceConfigurations($this->backendInput);
+        /**
+         * Setup a UserInterfaceConfigurations instance
+         * 
+         * @param boolean $isBackend
+         * @return \Application\Setup\UserInterfaceConfigurations
+         */
+        private function getUserInterfaceConfigurationsInstance($isBackend = false)
+        {
+            if ($isBackend) {
+                return new UserInterfaceConfigurations($this->frontendInput);
+            } else {
+                $this->isBackend = true;
+                return new UserInterfaceConfigurations($this->backendInput);
+            }
         }
-    }
 }

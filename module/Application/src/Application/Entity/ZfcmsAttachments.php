@@ -66,7 +66,8 @@ class ZfcmsAttachments
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -76,7 +77,8 @@ class ZfcmsAttachments
     }
 
     /**
-     * Set name
+     * Set name.
+    
      *
      * @param string $name
      *
@@ -90,7 +92,8 @@ class ZfcmsAttachments
     }
 
     /**
-     * Get name
+     * Get name.
+    
      *
      * @return string
      */
@@ -100,7 +103,8 @@ class ZfcmsAttachments
     }
 
     /**
-     * Set type
+     * Set type.
+    
      *
      * @param string $type
      *
@@ -114,7 +118,8 @@ class ZfcmsAttachments
     }
 
     /**
-     * Get type
+     * Get type.
+    
      *
      * @return string
      */
@@ -124,7 +129,8 @@ class ZfcmsAttachments
     }
 
     /**
-     * Set size
+     * Set size.
+    
      *
      * @param string $size
      *
@@ -138,7 +144,8 @@ class ZfcmsAttachments
     }
 
     /**
-     * Get size
+     * Get size.
+    
      *
      * @return string
      */
@@ -148,7 +155,8 @@ class ZfcmsAttachments
     }
 
     /**
-     * Set state
+     * Set state.
+    
      *
      * @param string $state
      *
@@ -162,7 +170,8 @@ class ZfcmsAttachments
     }
 
     /**
-     * Get state
+     * Get state.
+    
      *
      * @return string
      */
@@ -172,7 +181,8 @@ class ZfcmsAttachments
     }
 
     /**
-     * Set insertDate
+     * Set insertDate.
+    
      *
      * @param \DateTime $insertDate
      *
@@ -186,7 +196,8 @@ class ZfcmsAttachments
     }
 
     /**
-     * Get insertDate
+     * Get insertDate.
+    
      *
      * @return \DateTime
      */
@@ -196,7 +207,8 @@ class ZfcmsAttachments
     }
 
     /**
-     * Set lastUpdate
+     * Set lastUpdate.
+    
      *
      * @param \DateTime $lastUpdate
      *
@@ -210,7 +222,8 @@ class ZfcmsAttachments
     }
 
     /**
-     * Get lastUpdate
+     * Get lastUpdate.
+    
      *
      * @return \DateTime
      */

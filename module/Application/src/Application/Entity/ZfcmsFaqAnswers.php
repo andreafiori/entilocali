@@ -66,7 +66,8 @@ class ZfcmsFaqAnswers
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -76,7 +77,8 @@ class ZfcmsFaqAnswers
     }
 
     /**
-     * Set answer
+     * Set answer.
+    
      *
      * @param string $answer
      *
@@ -90,7 +92,8 @@ class ZfcmsFaqAnswers
     }
 
     /**
-     * Get answer
+     * Get answer.
+    
      *
      * @return string
      */
@@ -100,7 +103,8 @@ class ZfcmsFaqAnswers
     }
 
     /**
-     * Set rate
+     * Set rate.
+    
      *
      * @param integer $rate
      *
@@ -114,7 +118,8 @@ class ZfcmsFaqAnswers
     }
 
     /**
-     * Get rate
+     * Get rate.
+    
      *
      * @return integer
      */
@@ -124,7 +129,8 @@ class ZfcmsFaqAnswers
     }
 
     /**
-     * Set insertDate
+     * Set insertDate.
+    
      *
      * @param \DateTime $insertDate
      *
@@ -138,7 +144,8 @@ class ZfcmsFaqAnswers
     }
 
     /**
-     * Get insertDate
+     * Get insertDate.
+    
      *
      * @return \DateTime
      */
@@ -148,7 +155,8 @@ class ZfcmsFaqAnswers
     }
 
     /**
-     * Set lastUpdate
+     * Set lastUpdate.
+    
      *
      * @param \DateTime $lastUpdate
      *
@@ -162,7 +170,8 @@ class ZfcmsFaqAnswers
     }
 
     /**
-     * Get lastUpdate
+     * Get lastUpdate.
+    
      *
      * @return \DateTime
      */
@@ -172,7 +181,8 @@ class ZfcmsFaqAnswers
     }
 
     /**
-     * Set questionId
+     * Set questionId.
+    
      *
      * @param integer $questionId
      *
@@ -186,7 +196,8 @@ class ZfcmsFaqAnswers
     }
 
     /**
-     * Get questionId
+     * Get questionId.
+    
      *
      * @return integer
      */
@@ -196,7 +207,8 @@ class ZfcmsFaqAnswers
     }
 
     /**
-     * Set userId
+     * Set userId.
+    
      *
      * @param integer $userId
      *
@@ -210,7 +222,8 @@ class ZfcmsFaqAnswers
     }
 
     /**
-     * Get userId
+     * Get userId.
+    
      *
      * @return integer
      */

@@ -3,6 +3,7 @@
 namespace Admin\Model\AlboPretorio;
 
 use Application\Model\RecordsGetterWrapperAbstract;
+use Admin\Model\AlboPretorio\AlboPretorioGetter;
 
 /**
  * @author Andrea Fiori
@@ -13,22 +14,34 @@ class AlboPretorioGetterWrapper extends RecordsGetterWrapperAbstract
     private $alboPretorio;
 
     /**
-     * @param \Admin\Model\Posts\PostsGetter $postsGetter
+     * @param \Admin\Model\AlboPretorio\AlboPretorioGetter $alboPretorioGetter
      */
-    public function __construct(PostsGetter $postsGetter)
+    public function __construct(AlboPretorioGetter $alboPretorioGetter)
     {
-        $this->alboPretorioGetter = $postsGetter;
+        $this->setObjectGetter( $alboPretorioGetter );
     }
     
     public function setupQueryBuilder()
     {
-        $this->alboPretorio->setSelectQueryFields( $this->getInput('fields', 1) );
+        $this->objectGetter->setSelectQueryFields( $this->getInput('fields', 1) );
         
-        $this->alboPretorio->setMainQuery();
+        $this->objectGetter->setMainQuery();
         
-        $this->alboPretorio->setId( $this->getInput('id', 1) );
-        //$this->alboPretorio->setOrderBy( $this->getInput('orderby', 1) );
-        //$this->alboPretorio->setLimit( $this->getInput('limit', 1) );
+        $this->objectGetter->setId( $this->getInput('id', 1) );
+    }
+    
+    /**
+     * @param \Doctrine\ORM\EntityManager $entityManager
+     * @return array
+     */
+    public function setupQuery(\Doctrine\ORM\EntityManager $entityManager)
+    {
+        $this->query = $entityManager->createQuery( $this->objectGetter->getDQLQuery() )
+                                ->setFirstResult($this->firstResult)
+                                ->setMaxResults($this->maxResult)
+                                ->setParameters( $this->objectGetter->getQuery()->getParameters() )
+                                ->getScalarResult();
+
+        return $this->query;
     }
 }
-

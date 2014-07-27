@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsComuniContrattiScContr
  *
- * @ORM\Table(name="zfcms_comuni_contratti_sc_contr")
+ * @ORM\Table(name="zfcms_comuni_contratti_sc_contr", indexes={@ORM\Index(name="attivo", columns={"attivo"})})
  * @ORM\Entity
  */
 class ZfcmsComuniContrattiScContr
@@ -38,7 +38,8 @@ class ZfcmsComuniContrattiScContr
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -48,7 +49,8 @@ class ZfcmsComuniContrattiScContr
     }
 
     /**
-     * Set nomeScelta
+     * Set nomeScelta.
+    
      *
      * @param string $nomeScelta
      *
@@ -62,7 +64,8 @@ class ZfcmsComuniContrattiScContr
     }
 
     /**
-     * Get nomeScelta
+     * Get nomeScelta.
+    
      *
      * @return string
      */
@@ -72,7 +75,8 @@ class ZfcmsComuniContrattiScContr
     }
 
     /**
-     * Set attivo
+     * Set attivo.
+    
      *
      * @param integer $attivo
      *
@@ -86,7 +90,8 @@ class ZfcmsComuniContrattiScContr
     }
 
     /**
-     * Get attivo
+     * Get attivo.
+    
      *
      * @return integer
      */

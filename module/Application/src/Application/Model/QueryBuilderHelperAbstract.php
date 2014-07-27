@@ -10,11 +10,13 @@ namespace Application\Model;
  */
 abstract class QueryBuilderHelperAbstract
 {
+    /** @var \Doctrine\ORM\EntityManager **/
     protected $entityManager;
+    
     protected $queryBuilder;
-    protected $firstResult = 0;
-    protected $maxResults = 300;
     protected $selectQueryFields;
+    
+    protected $maxResults = 770;
 
     /**
      * @param \Doctrine\ORM\EntityManager $entityManager
@@ -22,6 +24,9 @@ abstract class QueryBuilderHelperAbstract
     public function __construct(\Doctrine\ORM\EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
+        
+        $config = $this->entityManager->getConfiguration();
+        $config->addCustomDatetimeFunction('DATE_FORMAT', "\\Application\\Model\\Doctrine\\Functions\\DateFormat");
         
         $this->queryBuilder = $this->entityManager->createQueryBuilder();
     }
@@ -51,9 +56,6 @@ abstract class QueryBuilderHelperAbstract
      */
     public function getQueryResult()
     {
-        $this->getQueryBuilder()->setFirstResult($this->firstResult);
-        $this->getQueryBuilder()->setMaxResults($this->maxResults);
-        
         return $this->getQueryBuilder()->getQuery()->getResult();
     }
 

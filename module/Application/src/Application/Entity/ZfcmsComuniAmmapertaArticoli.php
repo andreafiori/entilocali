@@ -122,7 +122,8 @@ class ZfcmsComuniAmmapertaArticoli
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -132,7 +133,8 @@ class ZfcmsComuniAmmapertaArticoli
     }
 
     /**
-     * Set beneficiario
+     * Set beneficiario.
+    
      *
      * @param string $beneficiario
      *
@@ -146,7 +148,8 @@ class ZfcmsComuniAmmapertaArticoli
     }
 
     /**
-     * Get beneficiario
+     * Get beneficiario.
+    
      *
      * @return string
      */
@@ -156,7 +159,8 @@ class ZfcmsComuniAmmapertaArticoli
     }
 
     /**
-     * Set titolo
+     * Set titolo.
+    
      *
      * @param string $titolo
      *
@@ -170,7 +174,8 @@ class ZfcmsComuniAmmapertaArticoli
     }
 
     /**
-     * Get titolo
+     * Get titolo.
+    
      *
      * @return string
      */
@@ -180,7 +185,8 @@ class ZfcmsComuniAmmapertaArticoli
     }
 
     /**
-     * Set importo
+     * Set importo.
+    
      *
      * @param string $importo
      *
@@ -194,7 +200,8 @@ class ZfcmsComuniAmmapertaArticoli
     }
 
     /**
-     * Get importo
+     * Get importo.
+    
      *
      * @return string
      */
@@ -204,7 +211,8 @@ class ZfcmsComuniAmmapertaArticoli
     }
 
     /**
-     * Set ufficioresponsabile
+     * Set ufficioresponsabile.
+    
      *
      * @param string $ufficioresponsabile
      *
@@ -218,7 +226,8 @@ class ZfcmsComuniAmmapertaArticoli
     }
 
     /**
-     * Get ufficioresponsabile
+     * Get ufficioresponsabile.
+    
      *
      * @return string
      */
@@ -228,7 +237,8 @@ class ZfcmsComuniAmmapertaArticoli
     }
 
     /**
-     * Set modassegn
+     * Set modassegn.
+    
      *
      * @param string $modassegn
      *
@@ -242,7 +252,8 @@ class ZfcmsComuniAmmapertaArticoli
     }
 
     /**
-     * Get modassegn
+     * Get modassegn.
+    
      *
      * @return string
      */
@@ -252,7 +263,8 @@ class ZfcmsComuniAmmapertaArticoli
     }
 
     /**
-     * Set progressivo
+     * Set progressivo.
+    
      *
      * @param integer $progressivo
      *
@@ -266,7 +278,8 @@ class ZfcmsComuniAmmapertaArticoli
     }
 
     /**
-     * Get progressivo
+     * Get progressivo.
+    
      *
      * @return integer
      */
@@ -276,7 +289,8 @@ class ZfcmsComuniAmmapertaArticoli
     }
 
     /**
-     * Set anno
+     * Set anno.
+    
      *
      * @param string $anno
      *
@@ -290,7 +304,8 @@ class ZfcmsComuniAmmapertaArticoli
     }
 
     /**
-     * Get anno
+     * Get anno.
+    
      *
      * @return string
      */
@@ -300,7 +315,8 @@ class ZfcmsComuniAmmapertaArticoli
     }
 
     /**
-     * Set data
+     * Set data.
+    
      *
      * @param \DateTime $data
      *
@@ -314,7 +330,8 @@ class ZfcmsComuniAmmapertaArticoli
     }
 
     /**
-     * Get data
+     * Get data.
+    
      *
      * @return \DateTime
      */
@@ -324,7 +341,8 @@ class ZfcmsComuniAmmapertaArticoli
     }
 
     /**
-     * Set ora
+     * Set ora.
+    
      *
      * @param \DateTime $ora
      *
@@ -338,7 +356,8 @@ class ZfcmsComuniAmmapertaArticoli
     }
 
     /**
-     * Get ora
+     * Get ora.
+    
      *
      * @return \DateTime
      */
@@ -348,7 +367,8 @@ class ZfcmsComuniAmmapertaArticoli
     }
 
     /**
-     * Set attivo
+     * Set attivo.
+    
      *
      * @param integer $attivo
      *
@@ -362,7 +382,8 @@ class ZfcmsComuniAmmapertaArticoli
     }
 
     /**
-     * Get attivo
+     * Get attivo.
+    
      *
      * @return integer
      */
@@ -372,7 +393,8 @@ class ZfcmsComuniAmmapertaArticoli
     }
 
     /**
-     * Set scadenza
+     * Set scadenza.
+    
      *
      * @param \DateTime $scadenza
      *
@@ -386,7 +408,8 @@ class ZfcmsComuniAmmapertaArticoli
     }
 
     /**
-     * Get scadenza
+     * Get scadenza.
+    
      *
      * @return \DateTime
      */
@@ -396,7 +419,8 @@ class ZfcmsComuniAmmapertaArticoli
     }
 
     /**
-     * Set utenteId
+     * Set utenteId.
+    
      *
      * @param integer $utenteId
      *
@@ -410,7 +434,8 @@ class ZfcmsComuniAmmapertaArticoli
     }
 
     /**
-     * Get utenteId
+     * Get utenteId.
+    
      *
      * @return integer
      */
@@ -420,7 +445,8 @@ class ZfcmsComuniAmmapertaArticoli
     }
 
     /**
-     * Set sezioneId
+     * Set sezioneId.
+    
      *
      * @param integer $sezioneId
      *
@@ -434,7 +460,8 @@ class ZfcmsComuniAmmapertaArticoli
     }
 
     /**
-     * Get sezioneId
+     * Get sezioneId.
+    
      *
      * @return integer
      */
@@ -444,7 +471,8 @@ class ZfcmsComuniAmmapertaArticoli
     }
 
     /**
-     * Set respProcId
+     * Set respProcId.
+    
      *
      * @param integer $respProcId
      *
@@ -458,7 +486,8 @@ class ZfcmsComuniAmmapertaArticoli
     }
 
     /**
-     * Get respProcId
+     * Get respProcId.
+    
      *
      * @return integer
      */

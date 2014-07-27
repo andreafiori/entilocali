@@ -59,7 +59,8 @@ class ZfcmsComuniAlboSezioni
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -69,7 +70,8 @@ class ZfcmsComuniAlboSezioni
     }
 
     /**
-     * Set nome
+     * Set nome.
+    
      *
      * @param string $nome
      *
@@ -83,7 +85,8 @@ class ZfcmsComuniAlboSezioni
     }
 
     /**
-     * Get nome
+     * Get nome.
+    
      *
      * @return string
      */
@@ -93,7 +96,8 @@ class ZfcmsComuniAlboSezioni
     }
 
     /**
-     * Set attivo
+     * Set attivo.
+    
      *
      * @param integer $attivo
      *
@@ -107,7 +111,8 @@ class ZfcmsComuniAlboSezioni
     }
 
     /**
-     * Get attivo
+     * Get attivo.
+    
      *
      * @return integer
      */
@@ -117,7 +122,8 @@ class ZfcmsComuniAlboSezioni
     }
 
     /**
-     * Set dest
+     * Set dest.
+    
      *
      * @param integer $dest
      *
@@ -131,7 +137,8 @@ class ZfcmsComuniAlboSezioni
     }
 
     /**
-     * Get dest
+     * Get dest.
+    
      *
      * @return integer
      */
@@ -141,7 +148,8 @@ class ZfcmsComuniAlboSezioni
     }
 
     /**
-     * Set del
+     * Set del.
+    
      *
      * @param integer $del
      *
@@ -155,7 +163,8 @@ class ZfcmsComuniAlboSezioni
     }
 
     /**
-     * Get del
+     * Get del.
+    
      *
      * @return integer
      */
@@ -165,7 +174,8 @@ class ZfcmsComuniAlboSezioni
     }
 
     /**
-     * Set det
+     * Set det.
+    
      *
      * @param integer $det
      *
@@ -179,7 +189,8 @@ class ZfcmsComuniAlboSezioni
     }
 
     /**
-     * Get det
+     * Get det.
+    
      *
      * @return integer
      */

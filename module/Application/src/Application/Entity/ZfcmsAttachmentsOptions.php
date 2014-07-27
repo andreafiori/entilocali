@@ -36,16 +36,20 @@ class ZfcmsAttachmentsOptions
     private $description;
 
     /**
-     * @var integer
+     * @var \Application\Entity\ZfcmsAttachments
      *
-     * @ORM\Column(name="attachment_id", type="bigint", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsAttachments")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="attachment_id", referencedColumnName="id")
+     * })
      */
-    private $attachmentId;
+    private $attachment;
 
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -55,7 +59,8 @@ class ZfcmsAttachmentsOptions
     }
 
     /**
-     * Set title
+     * Set title.
+    
      *
      * @param string $title
      *
@@ -69,7 +74,8 @@ class ZfcmsAttachmentsOptions
     }
 
     /**
-     * Get title
+     * Get title.
+    
      *
      * @return string
      */
@@ -79,7 +85,8 @@ class ZfcmsAttachmentsOptions
     }
 
     /**
-     * Set description
+     * Set description.
+    
      *
      * @param string $description
      *
@@ -93,7 +100,8 @@ class ZfcmsAttachmentsOptions
     }
 
     /**
-     * Get description
+     * Get description.
+    
      *
      * @return string
      */
@@ -103,26 +111,28 @@ class ZfcmsAttachmentsOptions
     }
 
     /**
-     * Set attachmentId
+     * Set attachment.
+    
      *
-     * @param integer $attachmentId
+     * @param \Application\Entity\ZfcmsAttachments $attachment
      *
      * @return ZfcmsAttachmentsOptions
      */
-    public function setAttachmentId($attachmentId)
+    public function setAttachment(\Application\Entity\ZfcmsAttachments $attachment = null)
     {
-        $this->attachmentId = $attachmentId;
+        $this->attachment = $attachment;
     
         return $this;
     }
 
     /**
-     * Get attachmentId
+     * Get attachment.
+    
      *
-     * @return integer
+     * @return \Application\Entity\ZfcmsAttachments
      */
-    public function getAttachmentId()
+    public function getAttachment()
     {
-        return $this->attachmentId;
+        return $this->attachment;
     }
 }

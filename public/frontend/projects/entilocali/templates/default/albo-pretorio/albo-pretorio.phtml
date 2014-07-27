@@ -1,0 +1,124 @@
+<ul class="breadcrumb">
+    <li><a href="<?php echo $this->basepath() ?>" title="Home page">Home</a> <span class="divider"></span></li>
+    <li class="active">Albo pretorio</li>
+</ul>
+
+<?php if (count($this->paginator)): ?>
+
+<h1>Albo pretorio</h1>
+
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" title="Ricerca atti nell'albo pretorio">
+          &raquo; Ricerca
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in">
+    <div class="panel-body">
+    <?php
+    
+    $form = $this->form;
+    $form->prepare();
+
+    $form->setAttribute('action', '');
+    $form->setAttribute('method', 'post');
+    $form->setAttribute('role', 'form');
+    $form->setAttribute('class', 'form-horizontal');
+    $form->setAttribute('id', 'albo-pretorio-search-form');
+    
+    echo $this->form()->openTag($this->form);
+    ?>
+    <fieldset>
+        <legend>Ricerca atti nell'albo</legend>
+    <?php
+    foreach ($this->form as $element):
+        $attributes = $element->getAttributes();
+        echo $this->formElementErrors($element);
+        if ($attributes['name'] == 'csrf'):
+            echo $this->formElement($element);
+        elseif ($attributes['type'] == 'submit'):
+        ?>
+        <div class="form-group">
+            <label for="<?php echo $attributes['id'] ?>" class="col-sm-2 control-label">&nbsp;</label>
+            <div class="col-sm-8">
+            <?php
+            $element->setAttribute('class', 'btn btn-primary');
+            echo $this->formElement($element);
+            ?>
+            </div>
+        </div>
+        <?php
+        elseif ($attributes['type'] == 'checkbox'):
+        ?>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">&nbsp;</label>
+            <div class="col-sm-8"><?php
+            echo $this->formElement($element);
+            ?>
+            <label for="<?php echo $attributes['id'] ?>" style="width: 80%"> <?php echo $element->getLabel() ?></label>
+            </div>
+        </div>
+        <?php
+        else:
+        ?>
+        <div class="form-group">
+            <label for="<?php echo $attributes['id'] ?>" class="col-sm-2 control-label"><?php echo $element->getLabel() ?>:</label>
+            <div class="col-sm-8">
+            <?php
+            $element->setAttribute('class', 'form-control');
+            echo $this->formElement($element);
+            ?>
+            </div>
+        </div>
+        <?php
+        endif;
+    endforeach;
+    
+    ?></fieldset><?php
+    
+    echo $this->form()->closeTag();
+    ?>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<?php foreach($this->paginator as $key => $row): ?>
+
+    <h1><?php echo $row['titolo'] ?></h1>
+
+    <p><strong>Rep.:</strong> <?php echo $row['numeroProgressivo'] ?> / <?php echo $row['numeroAtto'] ?></p>
+    <p><strong>Pubblicato il:</strong> <?php echo $row['dataAttivazione'] ?> / <strong>Ore:</strong> <?php echo $row['oraAttivazione'] ?></p>
+    <p><strong>Scadenza:</strong> <?php echo $row['dataScadenza'] ?></p>
+    <p><strong>Sezione:</strong> <?php echo $row['nome'] ?></p>
+    <!-- TODO:
+        <p><strong>Allegati:</strong></p>
+        <p>[PDF] provvedimento_unico n. 1 del 17 04 2014 .pdf (48 KB)</p>
+    -->
+    <hr>
+<?php endforeach; ?>
+
+<?php
+    if ( count($this->paginator) > 1 ):
+        echo $this->paginationControl(
+            $this->paginator,
+            'sliding',
+            'application/pagination/bootstrap.phtml',
+            array(
+                'category' => $category,
+                'route' => 'albo-pretorio'
+            )
+        );
+    endif;
+else:
+    ?>
+    <div class="alert alert-warning">
+        <h1>Nessun articolo in archivio</h1>
+        <p>Nessun articolo dell'albo pretorio risulta presente in archivio</p>
+    </div>
+    <?php
+endif;

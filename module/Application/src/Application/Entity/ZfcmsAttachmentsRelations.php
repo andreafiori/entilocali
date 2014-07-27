@@ -51,7 +51,8 @@ class ZfcmsAttachmentsRelations
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -61,7 +62,8 @@ class ZfcmsAttachmentsRelations
     }
 
     /**
-     * Set referenceId
+     * Set referenceId.
+    
      *
      * @param integer $referenceId
      *
@@ -75,7 +77,8 @@ class ZfcmsAttachmentsRelations
     }
 
     /**
-     * Get referenceId
+     * Get referenceId.
+    
      *
      * @return integer
      */
@@ -85,7 +88,8 @@ class ZfcmsAttachmentsRelations
     }
 
     /**
-     * Set attachment
+     * Set attachment.
+    
      *
      * @param \Application\Entity\ZfcmsAttachments $attachment
      *
@@ -99,7 +103,8 @@ class ZfcmsAttachmentsRelations
     }
 
     /**
-     * Get attachment
+     * Get attachment.
+    
      *
      * @return \Application\Entity\ZfcmsAttachments
      */
@@ -109,7 +114,8 @@ class ZfcmsAttachmentsRelations
     }
 
     /**
-     * Set module
+     * Set module.
+    
      *
      * @param \Application\Entity\ZfcmsModules $module
      *
@@ -123,7 +129,8 @@ class ZfcmsAttachmentsRelations
     }
 
     /**
-     * Get module
+     * Get module.
+    
      *
      * @return \Application\Entity\ZfcmsModules
      */

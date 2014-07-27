@@ -66,7 +66,8 @@ class ZfcmsTickets
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -76,7 +77,8 @@ class ZfcmsTickets
     }
 
     /**
-     * Set title
+     * Set title.
+    
      *
      * @param string $title
      *
@@ -90,7 +92,8 @@ class ZfcmsTickets
     }
 
     /**
-     * Get title
+     * Get title.
+    
      *
      * @return string
      */
@@ -100,7 +103,8 @@ class ZfcmsTickets
     }
 
     /**
-     * Set subject
+     * Set subject.
+    
      *
      * @param string $subject
      *
@@ -114,7 +118,8 @@ class ZfcmsTickets
     }
 
     /**
-     * Get subject
+     * Get subject.
+    
      *
      * @return string
      */
@@ -124,7 +129,8 @@ class ZfcmsTickets
     }
 
     /**
-     * Set priority
+     * Set priority.
+    
      *
      * @param string $priority
      *
@@ -138,7 +144,8 @@ class ZfcmsTickets
     }
 
     /**
-     * Get priority
+     * Get priority.
+    
      *
      * @return string
      */
@@ -148,7 +155,8 @@ class ZfcmsTickets
     }
 
     /**
-     * Set createDate
+     * Set createDate.
+    
      *
      * @param \DateTime $createDate
      *
@@ -162,7 +170,8 @@ class ZfcmsTickets
     }
 
     /**
-     * Get createDate
+     * Get createDate.
+    
      *
      * @return \DateTime
      */
@@ -172,7 +181,8 @@ class ZfcmsTickets
     }
 
     /**
-     * Set status
+     * Set status.
+    
      *
      * @param string $status
      *
@@ -186,7 +196,8 @@ class ZfcmsTickets
     }
 
     /**
-     * Get status
+     * Get status.
+    
      *
      * @return string
      */
@@ -196,7 +207,8 @@ class ZfcmsTickets
     }
 
     /**
-     * Set createdBy
+     * Set createdBy.
+    
      *
      * @param integer $createdBy
      *
@@ -210,7 +222,8 @@ class ZfcmsTickets
     }
 
     /**
-     * Get createdBy
+     * Get createdBy.
+    
      *
      * @return integer
      */

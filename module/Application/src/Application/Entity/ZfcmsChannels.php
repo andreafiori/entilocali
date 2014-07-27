@@ -69,7 +69,8 @@ class ZfcmsChannels
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -79,7 +80,8 @@ class ZfcmsChannels
     }
 
     /**
-     * Set name
+     * Set name.
+    
      *
      * @param string $name
      *
@@ -93,7 +95,8 @@ class ZfcmsChannels
     }
 
     /**
-     * Get name
+     * Get name.
+    
      *
      * @return string
      */
@@ -103,7 +106,8 @@ class ZfcmsChannels
     }
 
     /**
-     * Set domain
+     * Set domain.
+    
      *
      * @param string $domain
      *
@@ -117,7 +121,8 @@ class ZfcmsChannels
     }
 
     /**
-     * Get domain
+     * Get domain.
+    
      *
      * @return string
      */
@@ -127,7 +132,8 @@ class ZfcmsChannels
     }
 
     /**
-     * Set subdomain
+     * Set subdomain.
+    
      *
      * @param string $subdomain
      *
@@ -141,7 +147,8 @@ class ZfcmsChannels
     }
 
     /**
-     * Get subdomain
+     * Get subdomain.
+    
      *
      * @return string
      */
@@ -151,7 +158,8 @@ class ZfcmsChannels
     }
 
     /**
-     * Set isMultilanguage
+     * Set isMultilanguage.
+    
      *
      * @param integer $isMultilanguage
      *
@@ -165,7 +173,8 @@ class ZfcmsChannels
     }
 
     /**
-     * Get isMultilanguage
+     * Get isMultilanguage.
+    
      *
      * @return integer
      */
@@ -175,7 +184,8 @@ class ZfcmsChannels
     }
 
     /**
-     * Set isDefault
+     * Set isDefault.
+    
      *
      * @param integer $isDefault
      *
@@ -189,7 +199,8 @@ class ZfcmsChannels
     }
 
     /**
-     * Get isDefault
+     * Get isDefault.
+    
      *
      * @return integer
      */
@@ -199,7 +210,8 @@ class ZfcmsChannels
     }
 
     /**
-     * Set language
+     * Set language.
+    
      *
      * @param \Application\Entity\ZfcmsLanguages $language
      *
@@ -213,7 +225,8 @@ class ZfcmsChannels
     }
 
     /**
-     * Get language
+     * Get language.
+    
      *
      * @return \Application\Entity\ZfcmsLanguages
      */

@@ -26,6 +26,8 @@ class PostsForm extends Form
     public function setInput(array $input)
     {
         $this->input = $input;
+        
+        return $this->input;
     }
     
     public function addUploadImage()

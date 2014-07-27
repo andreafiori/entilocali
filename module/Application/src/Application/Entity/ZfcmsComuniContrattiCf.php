@@ -31,7 +31,8 @@ class ZfcmsComuniContrattiCf
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -41,7 +42,8 @@ class ZfcmsComuniContrattiCf
     }
 
     /**
-     * Set cfStruttura
+     * Set cfStruttura.
+    
      *
      * @param string $cfStruttura
      *
@@ -55,7 +57,8 @@ class ZfcmsComuniContrattiCf
     }
 
     /**
-     * Get cfStruttura
+     * Get cfStruttura.
+    
      *
      * @return string
      */

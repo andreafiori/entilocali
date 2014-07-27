@@ -28,26 +28,22 @@ return array(
                                                     ),
                                                     'may_terminate' => true,
                                     ),
-                                    /*
                                     'posts' => array(
                                                     'type'    => 'segment',
                                                     'options' => array(
-                                                                    'route'    => '/[:category][/]page[/][:page][/]order_by[/][:order_by][/][:order][/]',
+                                                                    'route'    => '/[:category][/]page[/][:page][/]',
                                                                     'constraints' => array(
                                                                             'category'  => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                                            'id'        => '[0-9]+',
                                                                             'page'      => '[0-9]+',
-                                                                            'order_by'  => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                                            'order'     => 'ASC|DESC',
                                                                     ),
                                                                     'defaults' => array(
-                                                                                'controller' => 'Application\Controller\Index',
-                                                                                'action'     => 'index',
+                                                                            'controller' => 'Application\Controller\Index',
+                                                                            'action'     => 'index',
                                                                     ),
                                                     ),
                                                     'may_terminate' => true,
-                                                    
                                     ),
+                                    /*
                                     'feed' => array(
                                                     'type'    => 'segment',
                                                     'options' => array(
@@ -120,18 +116,17 @@ return array(
                                         'may_terminate' => true,
                                         'child_routes' => array(
                                                         'default' => array(
-                                                                        'type'    => 'Wildcard',
-                                                                        'options' => array(
-                                                                        ),
+                                                            'type'    => 'Wildcard',
+                                                            'options' => array( ),
                                                         ),
                                         ),
                                     ),
                                     'albo-pretorio' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
-                                                        'route'    => '/albo-pretorio[/][:action]',
+                                                        'route'    => '/albo-pretorio[/][page/:page][/]',
                                                         'constraints' => array(
-                                                            
+                                                            'page' => '[0-9]+',
                                                         ),
                                                         'defaults' => array(
                                                             'controller' => 'Application\Controller\Index',
@@ -141,16 +136,15 @@ return array(
                                         'may_terminate' => true,
                                         'child_routes' => array(
                                                         'default' => array(
-                                                                        'type'    => 'Wildcard',
-                                                                        'options' => array(
-                                                                        ),
+                                                            'type'    => 'Wildcard',
+                                                            'options' => array(),
                                                         ),
                                         ),
                                     ),
                                     'stato-civile' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
-                                                        'route'    => '/stato-civile[/][:action]',
+                                                        'route'    => '/stato-civile[/][page/:page][/]',
                                                         'constraints' => array(
                                                             
                                                         ),
@@ -171,7 +165,7 @@ return array(
                                     'amministrazione-trasparente' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
-                                                        'route'    => '/amministrazione-trasparente[/][:action]',
+                                                        'route'    => '/amministrazione-trasparente[/][page/:page][/]',
                                                         'constraints' => array(
                                                             
                                                         ),
@@ -379,9 +373,9 @@ return array(
     ),
     // Placeholder for console routes
     'console' => array(
-                    'router' => array(
-                                'routes' => array(  ),
-                    ),
+                'router' => array(
+                        'routes' => array(  ),
+                ),
     ),
     // Doctrine
     'doctrine' => array(

@@ -41,7 +41,8 @@ class ZfcmsHomepageBlocks
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -51,7 +52,8 @@ class ZfcmsHomepageBlocks
     }
 
     /**
-     * Set position
+     * Set position.
+    
      *
      * @param integer $position
      *
@@ -65,7 +67,8 @@ class ZfcmsHomepageBlocks
     }
 
     /**
-     * Get position
+     * Get position.
+    
      *
      * @return integer
      */
@@ -75,7 +78,8 @@ class ZfcmsHomepageBlocks
     }
 
     /**
-     * Set module
+     * Set module.
+    
      *
      * @param \Application\Entity\ZfcmsModules $module
      *
@@ -89,7 +93,8 @@ class ZfcmsHomepageBlocks
     }
 
     /**
-     * Get module
+     * Get module.
+    
      *
      * @return \Application\Entity\ZfcmsModules
      */

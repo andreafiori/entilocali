@@ -94,7 +94,8 @@ class ZfcmsLanguages
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -104,7 +105,8 @@ class ZfcmsLanguages
     }
 
     /**
-     * Set flag
+     * Set flag.
+    
      *
      * @param string $flag
      *
@@ -118,7 +120,8 @@ class ZfcmsLanguages
     }
 
     /**
-     * Get flag
+     * Get flag.
+    
      *
      * @return string
      */
@@ -128,7 +131,8 @@ class ZfcmsLanguages
     }
 
     /**
-     * Set name
+     * Set name.
+    
      *
      * @param string $name
      *
@@ -142,7 +146,8 @@ class ZfcmsLanguages
     }
 
     /**
-     * Get name
+     * Get name.
+    
      *
      * @return string
      */
@@ -152,7 +157,8 @@ class ZfcmsLanguages
     }
 
     /**
-     * Set abbreviation1
+     * Set abbreviation1.
+    
      *
      * @param string $abbreviation1
      *
@@ -166,7 +172,8 @@ class ZfcmsLanguages
     }
 
     /**
-     * Get abbreviation1
+     * Get abbreviation1.
+    
      *
      * @return string
      */
@@ -176,7 +183,8 @@ class ZfcmsLanguages
     }
 
     /**
-     * Set abbreviation2
+     * Set abbreviation2.
+    
      *
      * @param string $abbreviation2
      *
@@ -190,7 +198,8 @@ class ZfcmsLanguages
     }
 
     /**
-     * Get abbreviation2
+     * Get abbreviation2.
+    
      *
      * @return string
      */
@@ -200,7 +209,8 @@ class ZfcmsLanguages
     }
 
     /**
-     * Set abbreviation3
+     * Set abbreviation3.
+    
      *
      * @param string $abbreviation3
      *
@@ -214,7 +224,8 @@ class ZfcmsLanguages
     }
 
     /**
-     * Get abbreviation3
+     * Get abbreviation3.
+    
      *
      * @return string
      */
@@ -224,7 +235,8 @@ class ZfcmsLanguages
     }
 
     /**
-     * Set isDefault
+     * Set isDefault.
+    
      *
      * @param integer $isDefault
      *
@@ -238,7 +250,8 @@ class ZfcmsLanguages
     }
 
     /**
-     * Get isDefault
+     * Get isDefault.
+    
      *
      * @return integer
      */
@@ -248,7 +261,8 @@ class ZfcmsLanguages
     }
 
     /**
-     * Set isDefaultBackend
+     * Set isDefaultBackend.
+    
      *
      * @param integer $isDefaultBackend
      *
@@ -262,7 +276,8 @@ class ZfcmsLanguages
     }
 
     /**
-     * Get isDefaultBackend
+     * Get isDefaultBackend.
+    
      *
      * @return integer
      */
@@ -272,7 +287,8 @@ class ZfcmsLanguages
     }
 
     /**
-     * Set encoding
+     * Set encoding.
+    
      *
      * @param string $encoding
      *
@@ -286,7 +302,8 @@ class ZfcmsLanguages
     }
 
     /**
-     * Get encoding
+     * Get encoding.
+    
      *
      * @return string
      */
@@ -296,7 +313,8 @@ class ZfcmsLanguages
     }
 
     /**
-     * Set status
+     * Set status.
+    
      *
      * @param integer $status
      *
@@ -310,7 +328,8 @@ class ZfcmsLanguages
     }
 
     /**
-     * Get status
+     * Get status.
+    
      *
      * @return integer
      */
@@ -320,7 +339,8 @@ class ZfcmsLanguages
     }
 
     /**
-     * Set channelId
+     * Set channelId.
+    
      *
      * @param integer $channelId
      *
@@ -334,7 +354,8 @@ class ZfcmsLanguages
     }
 
     /**
-     * Get channelId
+     * Get channelId.
+    
      *
      * @return integer
      */

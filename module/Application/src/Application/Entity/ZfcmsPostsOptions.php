@@ -149,7 +149,8 @@ class ZfcmsPostsOptions
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -159,7 +160,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set note
+     * Set note.
+    
      *
      * @param string $note
      *
@@ -173,7 +175,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get note
+     * Get note.
+    
      *
      * @return string
      */
@@ -183,7 +186,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set dateFrom
+     * Set dateFrom.
+    
      *
      * @param \DateTime $dateFrom
      *
@@ -197,7 +201,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get dateFrom
+     * Get dateFrom.
+    
      *
      * @return \DateTime
      */
@@ -207,7 +212,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set dataTo
+     * Set dataTo.
+    
      *
      * @param \DateTime $dataTo
      *
@@ -221,7 +227,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get dataTo
+     * Get dataTo.
+    
      *
      * @return \DateTime
      */
@@ -231,7 +238,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set image
+     * Set image.
+    
      *
      * @param string $image
      *
@@ -245,7 +253,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get image
+     * Get image.
+    
      *
      * @return string
      */
@@ -255,7 +264,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set imageHomepage
+     * Set imageHomepage.
+    
      *
      * @param string $imageHomepage
      *
@@ -269,7 +279,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get imageHomepage
+     * Get imageHomepage.
+    
      *
      * @return string
      */
@@ -279,7 +290,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set title
+     * Set title.
+    
      *
      * @param string $title
      *
@@ -293,7 +305,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get title
+     * Get title.
+    
      *
      * @return string
      */
@@ -303,7 +316,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set subtitle
+     * Set subtitle.
+    
      *
      * @param string $subtitle
      *
@@ -317,7 +331,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get subtitle
+     * Get subtitle.
+    
      *
      * @return string
      */
@@ -327,7 +342,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set description
+     * Set description.
+    
      *
      * @param string $description
      *
@@ -341,7 +357,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get description
+     * Get description.
+    
      *
      * @return string
      */
@@ -351,7 +368,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set status
+     * Set status.
+    
      *
      * @param string $status
      *
@@ -365,7 +383,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get status
+     * Get status.
+    
      *
      * @return string
      */
@@ -375,7 +394,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set position
+     * Set position.
+    
      *
      * @param integer $position
      *
@@ -389,7 +409,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get position
+     * Get position.
+    
      *
      * @return integer
      */
@@ -399,7 +420,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set seoUrl
+     * Set seoUrl.
+    
      *
      * @param string $seoUrl
      *
@@ -413,7 +435,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get seoUrl
+     * Get seoUrl.
+    
      *
      * @return string
      */
@@ -423,7 +446,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set seoTitle
+     * Set seoTitle.
+    
      *
      * @param string $seoTitle
      *
@@ -437,7 +461,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get seoTitle
+     * Get seoTitle.
+    
      *
      * @return string
      */
@@ -447,7 +472,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set seoDescription
+     * Set seoDescription.
+    
      *
      * @param string $seoDescription
      *
@@ -461,7 +487,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get seoDescription
+     * Get seoDescription.
+    
      *
      * @return string
      */
@@ -471,7 +498,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set seoKeywords
+     * Set seoKeywords.
+    
      *
      * @param string $seoKeywords
      *
@@ -485,7 +513,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get seoKeywords
+     * Get seoKeywords.
+    
      *
      * @return string
      */
@@ -495,7 +524,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set template
+     * Set template.
+    
      *
      * @param string $template
      *
@@ -509,7 +539,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get template
+     * Get template.
+    
      *
      * @return string
      */
@@ -519,7 +550,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set language
+     * Set language.
+    
      *
      * @param \Application\Entity\ZfcmsLanguages $language
      *
@@ -533,7 +565,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get language
+     * Get language.
+    
      *
      * @return \Application\Entity\ZfcmsLanguages
      */
@@ -543,7 +576,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set posts
+     * Set posts.
+    
      *
      * @param \Application\Entity\ZfcmsPosts $posts
      *
@@ -557,7 +591,8 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get posts
+     * Get posts.
+    
      *
      * @return \Application\Entity\ZfcmsPosts
      */

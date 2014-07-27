@@ -51,7 +51,8 @@ class ZfcmsModulesOptions
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -61,7 +62,8 @@ class ZfcmsModulesOptions
     }
 
     /**
-     * Set name
+     * Set name.
+    
      *
      * @param string $name
      *
@@ -75,7 +77,8 @@ class ZfcmsModulesOptions
     }
 
     /**
-     * Get name
+     * Get name.
+    
      *
      * @return string
      */
@@ -85,7 +88,8 @@ class ZfcmsModulesOptions
     }
 
     /**
-     * Set language
+     * Set language.
+    
      *
      * @param \Application\Entity\ZfcmsLanguages $language
      *
@@ -99,7 +103,8 @@ class ZfcmsModulesOptions
     }
 
     /**
-     * Get language
+     * Get language.
+    
      *
      * @return \Application\Entity\ZfcmsLanguages
      */
@@ -109,7 +114,8 @@ class ZfcmsModulesOptions
     }
 
     /**
-     * Set module
+     * Set module.
+    
      *
      * @param \Application\Entity\ZfcmsModules $module
      *
@@ -123,7 +129,8 @@ class ZfcmsModulesOptions
     }
 
     /**
-     * Get module
+     * Get module.
+    
      *
      * @return \Application\Entity\ZfcmsModules
      */

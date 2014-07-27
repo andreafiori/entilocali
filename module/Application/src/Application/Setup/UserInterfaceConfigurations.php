@@ -4,6 +4,7 @@ namespace Application\Setup;
 
 use Admin\Model\Posts\PostsGetter;
 use Admin\Model\Posts\PostsGetterWrapper;
+use Admin\Model\InputSetupAbstract;
 
 /**
  * Validate and initialize configuration array
@@ -11,14 +12,16 @@ use Admin\Model\Posts\PostsGetterWrapper;
  * @author Andrea Fiori
  * @since  30 April 2014
  */
-class UserInterfaceConfigurations
+class UserInterfaceConfigurations extends InputSetupAbstract
 {
     private $configurations;
-        
+    
+    private $postsGetterWrapper;
+            
     /**
      * @param array $configurations
      */
-    public function __construct(array $configurations)
+    public function setConfigurations(array $configurations)
     {
         $this->configurations = $configurations;
         
@@ -64,13 +67,13 @@ class UserInterfaceConfigurations
      */
     public function setPreloadResponse($entityManager)
     {
-        $postsGetterWrapper = new PostsGetterWrapper( new PostsGetter($entityManager) );
-        $postsGetterWrapper->setInput( array(
-                'tipo'   => 'content',
-                'stato'  => \Admin\Model\Posts\PostsUtils::STATE_ACTIVE,
-        ));
-        $postsGetterWrapper->setupQueryBuilder();
-        $postsList = $postsGetterWrapper->getRecords();
+        $this->assertPostsGetterWrapper($entityManager);
+        
+        $this->postsGetterWrapper->setupQueryBuilder();
+        $this->postsGetterWrapper->setupQuery();
+        $this->postsGetterWrapper->setupPaginator(1, 35);
+        
+        $postsList = $this->postsGetterWrapper->setupRecords();
         if ($postsList) {
             foreach($postsList as $preload) {
                 if ( !isset($preload['categoryName']) ) {
@@ -83,6 +86,40 @@ class UserInterfaceConfigurations
         
         return $this->configurations;
     }
+    
+    /**
+     * @param \Admin\Model\Posts\PostsGetterWrapper $postsGetterWrapper
+     * @return \Admin\Model\Posts\PostsGetterWrapper
+     */
+    public function setPostsGetterWrapper(PostsGetterWrapper $postsGetterWrapper)
+    {
+        $this->postsGetterWrapper = $postsGetterWrapper;
+        
+        return $this->postsGetterWrapper;
+    }
+    
+        /**
+         * @param type $entityManager
+         * @return type
+         */
+        private function assertPostsGetterWrapper(\Doctrine\ORM\EntityManager $entityManager)
+        {
+            if ($this->postsGetterWrapper) {
+                return;
+            }
+            
+            $this->postsGetterWrapper = new PostsGetterWrapper( new PostsGetter($entityManager) );
+            $this->postsGetterWrapper->setInput( array_merge(
+                    $this->getInput(),
+                    array(
+                        'type'  => array('content', 'blog'),
+                        'status' => \Admin\Model\Posts\PostsUtils::STATE_ACTIVE 
+                    )
+                )
+            );
+            
+            return $this->postsGetterWrapper;
+        }
 
     /**
      * Set common configurations both for backend and frontend

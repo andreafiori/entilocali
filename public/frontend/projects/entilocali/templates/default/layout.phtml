@@ -10,6 +10,7 @@
 
 <link href="<?php echo $this->basePath(). '/'.$this->cssdir ?>" media="screen" rel="stylesheet" type="text/css">
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
 <link href="<?php echo $this->basePath() . '/public/frontend/projects/favicon.ico' ?>" rel="shortcut icon" type="image/vnd.microsoft.icon">
 
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -26,10 +27,19 @@
 -->
 
 <style>
+/* Custom styles */
 .form-horizontal ul {
     color: #c00;
 }
+#albo-pretorio-search-form label {
+    width: 20%;
+}
+legend {
+    display: none;
+}
 </style>
+
+<script src="<?php echo $this->basePath() ?>/public/common/jquery/jquery.min.js"></script>
 
 </head>
 
@@ -111,7 +121,7 @@
                             <?php if ($this->preloadResponse): ?>
                             <?php foreach($this->preloadResponse as $key => $value): ?>
                                     <div class="list-group">
-                                        <a href="#" class="list-group-item active"><?php echo $key ?></a>
+                                        <a href="<?php echo $this->basePath().$this->preloadResponse[$key][0]['linkCategory'] ?>" class="list-group-item active"><?php echo $key; ?></a>
                                         <?php foreach($value as $post): ?>
                                         <a href="<?php echo $this->basepath().$post['linkDetails'] ?>" class="list-group-item"><?php echo $post['title'] ?></a>
                                         <?php endforeach; ?>
@@ -143,23 +153,26 @@
                                 </div>
                                 <div class="panel-body">
                                     <form action="<?php echo $this->url('registrazione', array()) ?>" method="post" id="frmLogin">
-                                        <div class="form-group">
-                                            <label for="username">Nome utente</label>
-                                            <input type="text" class="form-control" id="username" name="username" placeholder="Nome utente" required="required" title="Inserisci nome utente">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="inputpassword">Password</label>
-                                            <input type="password" name="password" class="form-control" id="inputpassword" placeholder="Password" required="required" title="Inserisci la password">
-                                        </div>
-                                        <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" id="remember-me" value="1"> Ricordami
-                                        </label>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Accedi</button>
-                                        <br><br>
-                                        <p>&raquo; <a href="<?php echo $this->url('registrazione', array()) ?>" title="Registrati come nuovo utente">Registrati</a></p>
-                                        <p>&raquo; <a href="<?php echo $this->url('recupero-password', array()) ?>" title="Recupero password">Password smarrita?</a></p>  
+                                        <fieldset>
+                                            <legend>Accedi all'are riservata</legend>
+                                            <div class="form-group">
+                                                <label for="username">Nome utente</label>
+                                                <input type="text" class="form-control" id="username" name="username" placeholder="Nome utente" required="required" title="Inserisci nome utente">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputpassword">Password</label>
+                                                <input type="password" name="password" class="form-control" id="inputpassword" placeholder="Password" required="required" title="Inserisci la password">
+                                            </div>
+                                            <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" id="remember-me" value="1" title="Ricordami su questo computer"> Ricordami
+                                            </label>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary" title="Clicca per effettuare l'accesso all'area riservata">Accedi</button>
+                                            <br><br>
+                                            <p>&raquo; <a href="<?php echo $this->url('registrazione', array()) ?>" title="Registrati come nuovo utente">Registrati</a></p>
+                                            <p>&raquo; <a href="<?php echo $this->url('recupero-password', array()) ?>" title="Recupero password">Password smarrita?</a></p>
+                                        </fieldset>
                                     </form>
                                 </div>
                             </div>
@@ -170,6 +183,8 @@
                                 </div>
                                 <div class="panel-body">
                                     <form action="<?php echo $this->url('newsletter', array()) ?>" method="post" id="frmNewsletter">
+                                        <fieldset>
+                                            <legend>Iscrizione \ cancellazione newsletter</legend>
                                         <div class="form-group">
                                             <input type="email" class="form-control" id="inputusername" placeholder="Email" required="required" title="Inserisci indirizzo email">
                                         </div>
@@ -187,6 +202,7 @@
                                         </div>
                                         
                                         <button type="submit" class="btn btn-primary">Procedi</button>
+                                        </fieldset>
                                     </form>
                                 </div>
                             </div>
@@ -320,14 +336,10 @@
     </div>
 </div>
 
-<!-- JQuery -->
-<script src="<?php echo $this->basePath() ?>/public/common/jquery/jquery.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/common/bootstrap3/js/bootstrap.min.js"></script>
 <script>
 jQuery(document).ready(function() {
-    // TODO: 
-    //      validate form newsletter
-    //      validate form signin
+
 });
 </script>
 

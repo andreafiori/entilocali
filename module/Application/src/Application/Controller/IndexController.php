@@ -46,7 +46,13 @@ class IndexController extends AbstractActionController
                 $this->layout()->setVariable($key, $value);
             }
         }
-
+        
+        if ($output['basiclayout']) {
+            $basicLayout = $configurations['template_path'].$output['basiclayout'];
+        } else {
+            $basicLayout = $configurations['basiclayout'];
+        }
+        
         $serverVars = $this->getRequest()->getServer();
         
         $this->layout()->setVariable('maindata',        $routerManagerHelper->getRouterManger()->getRecords());
@@ -54,7 +60,7 @@ class IndexController extends AbstractActionController
         $this->layout()->setVariable('currentUrl',      "http://".$serverVars["SERVER_NAME"].$serverVars["REQUEST_URI"]);
         $this->layout()->setVariable('currentDateTime', date("Y-m-d H:i:s") );
         $this->layout()->setVariable('templatePartial', $configurations['template_path'].$routerManagerHelper->getRouterManger()->getTemplate());
-        $this->layout($configurations['basiclayout']);
+        $this->layout($basicLayout);
         
         return new ViewModel();
     }

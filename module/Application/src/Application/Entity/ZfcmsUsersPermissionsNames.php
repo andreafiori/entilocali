@@ -38,7 +38,8 @@ class ZfcmsUsersPermissionsNames
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -48,7 +49,8 @@ class ZfcmsUsersPermissionsNames
     }
 
     /**
-     * Set flag
+     * Set flag.
+    
      *
      * @param string $flag
      *
@@ -62,7 +64,8 @@ class ZfcmsUsersPermissionsNames
     }
 
     /**
-     * Get flag
+     * Get flag.
+    
      *
      * @return string
      */
@@ -72,7 +75,8 @@ class ZfcmsUsersPermissionsNames
     }
 
     /**
-     * Set description
+     * Set description.
+    
      *
      * @param string $description
      *
@@ -86,7 +90,8 @@ class ZfcmsUsersPermissionsNames
     }
 
     /**
-     * Get description
+     * Get description.
+    
      *
      * @return string
      */

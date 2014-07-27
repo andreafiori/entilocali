@@ -6,8 +6,6 @@ use Application\Model\RouterManagers\RouterManagerAbstract;
 use Application\Model\RouterManagers\RouterManagerInterface;
 
 /**
- * Frontend generic search engine
- * 
  * @author Andrea Fiori
  * @since  11 May 2014
  */

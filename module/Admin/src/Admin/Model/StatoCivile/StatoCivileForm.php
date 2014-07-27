@@ -73,4 +73,9 @@ class StatoCivileForm extends Form
                         )
         ));
     }
+    
+    public function addSezioni($sezioni)
+    {
+        
+    }
 }

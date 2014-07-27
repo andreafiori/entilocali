@@ -73,7 +73,6 @@ class PostsGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere('co.name = LOWER( :categoryName ) ');
             $this->getQueryBuilder()->setParameter('categoryName', Slugifier::deSlugify($category) );
         }
-        
         return $this->getQueryBuilder();
     }
 
@@ -87,12 +86,11 @@ class PostsGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere('LOWER( po.title ) =  :title ');
             $this->getQueryBuilder()->setParameter('title', Slugifier::deSlugify($title) );
         }
-        
         return $this->getQueryBuilder();
     }
   
     /**
-     * @param string $type post type (content, blog, photo or video)
+     * @param string|array $type post type (content, blog, photo or video)
      * @return type
      */
     public function setType($type)
@@ -100,6 +98,8 @@ class PostsGetter extends QueryBuilderHelperAbstract
         if ( is_string($type) ) {
             $this->getQueryBuilder()->andWhere('p.type = :postType');
             $this->getQueryBuilder()->setParameter('postType', Slugifier::deSlugify($type) );
+        } elseif ( is_array($type) ) {
+            $this->getQueryBuilder()->andWhere( $this->getQueryBuilder()->expr()->in('p.type', $type));
         }
         
         return $this->getQueryBuilder();
@@ -132,67 +132,7 @@ class PostsGetter extends QueryBuilderHelperAbstract
         }
         
         $this->getQueryBuilder()->add('orderBy', $orderBy);
-        
+
         return $this->getQueryBuilder();
     }
-    
-    /**
-     * Return posts records with link to details and attachments
-     * 
-     * @return string
-     */
-    public function getQueryResult()
-    {
-        $posts = parent::getQueryResult();
-        if ( !is_array($posts) ) {
-            return false;
-        }
-        
-        $postsRelazioni = new PostsRelationsGetter($this->getEntityManager());
-        
-        for($i = 0; $i < count($posts); $i++) {
-            
-            if ( !isset($posts[$i]) ) {
-                break;
-            }
-            
-            $posts[$i] = array_filter($posts[$i]);
-
-            $posts[$i]['linkDetails'] = '/'.Slugifier::slugify($posts[$i]['categoryName']).'/'.Slugifier::slugify($posts[$i]['title']);
-            
-            /*
-             * TODO: get attachments
-            if ( $posts[$i]['flagAllegati'] == 'si' ) {
-
-            }
-            */
-            $postsRelazioni->setSelectQueryFields('IDENTITY(r.category) AS category');
-            $postsRelazioni->setMainQuery();
-            $postsRelazioni->setChannelId(1);
-            $postsRelazioni->setModuleId($posts[$i]['module']);
-            $postsRelazioni->setPostsId($posts[$i]['postoptionid']);
-            $categories = $postsRelazioni->getQueryResult();
-            foreach ($categories as $categoria) {
-                $posts[$i]['categories'][] = $categoria['category'];
-            }
-            
-            if ( isset($posts[$i]['template']) ) {
-                continue;
-            }
-
-            if ( count($posts) === 1 ) {
-                if (!isset($posts[$i]['template'])) {
-                    $posts[$i]['template'] = $posts[$i]['type'].'/details.phtml';
-                }
-            } elseif ( count($posts) > 1 ) {
-                if (!isset($posts[$i]['template'])) {
-                    $posts[$i]['template'] = $posts[$i]['type'].'/list.phtml';
-                }
-            }
-
-        }
-        
-        return $posts;
-    }
-    
 }

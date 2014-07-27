@@ -73,7 +73,8 @@ class ZfcmsComuniContrattiPartecipanti
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -83,7 +84,8 @@ class ZfcmsComuniContrattiPartecipanti
     }
 
     /**
-     * Set cf
+     * Set cf.
+    
      *
      * @param string $cf
      *
@@ -97,7 +99,8 @@ class ZfcmsComuniContrattiPartecipanti
     }
 
     /**
-     * Get cf
+     * Get cf.
+    
      *
      * @return string
      */
@@ -107,7 +110,8 @@ class ZfcmsComuniContrattiPartecipanti
     }
 
     /**
-     * Set ragioneSociale
+     * Set ragioneSociale.
+    
      *
      * @param string $ragioneSociale
      *
@@ -121,7 +125,8 @@ class ZfcmsComuniContrattiPartecipanti
     }
 
     /**
-     * Get ragioneSociale
+     * Get ragioneSociale.
+    
      *
      * @return string
      */
@@ -131,7 +136,8 @@ class ZfcmsComuniContrattiPartecipanti
     }
 
     /**
-     * Set ruolo1
+     * Set ruolo1.
+    
      *
      * @param string $ruolo1
      *
@@ -145,7 +151,8 @@ class ZfcmsComuniContrattiPartecipanti
     }
 
     /**
-     * Get ruolo1
+     * Get ruolo1.
+    
      *
      * @return string
      */
@@ -155,7 +162,8 @@ class ZfcmsComuniContrattiPartecipanti
     }
 
     /**
-     * Set nome
+     * Set nome.
+    
      *
      * @param string $nome
      *
@@ -169,7 +177,8 @@ class ZfcmsComuniContrattiPartecipanti
     }
 
     /**
-     * Get nome
+     * Get nome.
+    
      *
      * @return string
      */
@@ -179,7 +188,8 @@ class ZfcmsComuniContrattiPartecipanti
     }
 
     /**
-     * Set posizione
+     * Set posizione.
+    
      *
      * @param integer $posizione
      *
@@ -193,7 +203,8 @@ class ZfcmsComuniContrattiPartecipanti
     }
 
     /**
-     * Get posizione
+     * Get posizione.
+    
      *
      * @return integer
      */
@@ -203,7 +214,8 @@ class ZfcmsComuniContrattiPartecipanti
     }
 
     /**
-     * Set categoria
+     * Set categoria.
+    
      *
      * @param integer $categoria
      *
@@ -217,7 +229,8 @@ class ZfcmsComuniContrattiPartecipanti
     }
 
     /**
-     * Get categoria
+     * Get categoria.
+    
      *
      * @return integer
      */
@@ -227,7 +240,8 @@ class ZfcmsComuniContrattiPartecipanti
     }
 
     /**
-     * Set sel
+     * Set sel.
+    
      *
      * @param integer $sel
      *
@@ -241,7 +255,8 @@ class ZfcmsComuniContrattiPartecipanti
     }
 
     /**
-     * Get sel
+     * Get sel.
+    
      *
      * @return integer
      */

@@ -52,7 +52,8 @@ class ZfcmsUsersRoles
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -62,7 +63,8 @@ class ZfcmsUsersRoles
     }
 
     /**
-     * Set name
+     * Set name.
+    
      *
      * @param string $name
      *
@@ -76,7 +78,8 @@ class ZfcmsUsersRoles
     }
 
     /**
-     * Get name
+     * Get name.
+    
      *
      * @return string
      */
@@ -86,7 +89,8 @@ class ZfcmsUsersRoles
     }
 
     /**
-     * Set insertDate
+     * Set insertDate.
+    
      *
      * @param \DateTime $insertDate
      *
@@ -100,7 +104,8 @@ class ZfcmsUsersRoles
     }
 
     /**
-     * Get insertDate
+     * Get insertDate.
+    
      *
      * @return \DateTime
      */
@@ -110,7 +115,8 @@ class ZfcmsUsersRoles
     }
 
     /**
-     * Set lastUpdate
+     * Set lastUpdate.
+    
      *
      * @param \DateTime $lastUpdate
      *
@@ -124,7 +130,8 @@ class ZfcmsUsersRoles
     }
 
     /**
-     * Get lastUpdate
+     * Get lastUpdate.
+    
      *
      * @return \DateTime
      */
@@ -134,7 +141,8 @@ class ZfcmsUsersRoles
     }
 
     /**
-     * Set position
+     * Set position.
+    
      *
      * @param integer $position
      *
@@ -148,7 +156,8 @@ class ZfcmsUsersRoles
     }
 
     /**
-     * Get position
+     * Get position.
+    
      *
      * @return integer
      */

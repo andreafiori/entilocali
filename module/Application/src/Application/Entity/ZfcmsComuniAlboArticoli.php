@@ -24,20 +24,6 @@ class ZfcmsComuniAlboArticoli
     /**
      * @var integer
      *
-     * @ORM\Column(name="utente_id", type="bigint", nullable=false)
-     */
-    private $utenteId;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="sezione_id", type="bigint", nullable=false)
-     */
-    private $sezioneId;
-
-    /**
-     * @var integer
-     *
      * @ORM\Column(name="numero_progressivo", type="bigint", nullable=false)
      */
     private $numeroProgressivo;
@@ -50,11 +36,11 @@ class ZfcmsComuniAlboArticoli
     private $numeroAtto;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="anno", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="anno", type="integer", nullable=false)
      */
-    private $anno;
+    private $anno = '2000';
 
     /**
      * @var \DateTime
@@ -203,10 +189,31 @@ class ZfcmsComuniAlboArticoli
      */
     private $checkRettifica;
 
+    /**
+     * @var \Application\Entity\ZfcmsComuniAlboSezioni
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniAlboSezioni")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="sezione_id", referencedColumnName="id")
+     * })
+     */
+    private $sezione;
+
+    /**
+     * @var \Application\Entity\ZfcmsUsers
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsers")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="utente_id", referencedColumnName="id")
+     * })
+     */
+    private $utente;
+
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -216,55 +223,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Set utenteId
-     *
-     * @param integer $utenteId
-     *
-     * @return ZfcmsComuniAlboArticoli
-     */
-    public function setUtenteId($utenteId)
-    {
-        $this->utenteId = $utenteId;
+     * Set numeroProgressivo.
     
-        return $this;
-    }
-
-    /**
-     * Get utenteId
-     *
-     * @return integer
-     */
-    public function getUtenteId()
-    {
-        return $this->utenteId;
-    }
-
-    /**
-     * Set sezioneId
-     *
-     * @param integer $sezioneId
-     *
-     * @return ZfcmsComuniAlboArticoli
-     */
-    public function setSezioneId($sezioneId)
-    {
-        $this->sezioneId = $sezioneId;
-    
-        return $this;
-    }
-
-    /**
-     * Get sezioneId
-     *
-     * @return integer
-     */
-    public function getSezioneId()
-    {
-        return $this->sezioneId;
-    }
-
-    /**
-     * Set numeroProgressivo
      *
      * @param integer $numeroProgressivo
      *
@@ -278,7 +238,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Get numeroProgressivo
+     * Get numeroProgressivo.
+    
      *
      * @return integer
      */
@@ -288,7 +249,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Set numeroAtto
+     * Set numeroAtto.
+    
      *
      * @param integer $numeroAtto
      *
@@ -302,7 +264,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Get numeroAtto
+     * Get numeroAtto.
+    
      *
      * @return integer
      */
@@ -312,9 +275,10 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Set anno
+     * Set anno.
+    
      *
-     * @param string $anno
+     * @param integer $anno
      *
      * @return ZfcmsComuniAlboArticoli
      */
@@ -326,9 +290,10 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Get anno
+     * Get anno.
+    
      *
-     * @return string
+     * @return integer
      */
     public function getAnno()
     {
@@ -336,7 +301,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Set dataAttivazione
+     * Set dataAttivazione.
+    
      *
      * @param \DateTime $dataAttivazione
      *
@@ -350,7 +316,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Get dataAttivazione
+     * Get dataAttivazione.
+    
      *
      * @return \DateTime
      */
@@ -360,7 +327,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Set oraAttivazione
+     * Set oraAttivazione.
+    
      *
      * @param \DateTime $oraAttivazione
      *
@@ -374,7 +342,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Get oraAttivazione
+     * Get oraAttivazione.
+    
      *
      * @return \DateTime
      */
@@ -384,7 +353,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Set dataPubblicare
+     * Set dataPubblicare.
+    
      *
      * @param \DateTime $dataPubblicare
      *
@@ -398,7 +368,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Get dataPubblicare
+     * Get dataPubblicare.
+    
      *
      * @return \DateTime
      */
@@ -408,7 +379,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Set oraPubblicare
+     * Set oraPubblicare.
+    
      *
      * @param \DateTime $oraPubblicare
      *
@@ -422,7 +394,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Get oraPubblicare
+     * Get oraPubblicare.
+    
      *
      * @return \DateTime
      */
@@ -432,7 +405,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Set scadenza
+     * Set scadenza.
+    
      *
      * @param integer $scadenza
      *
@@ -446,7 +420,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Get scadenza
+     * Get scadenza.
+    
      *
      * @return integer
      */
@@ -456,7 +431,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Set dataScadenza
+     * Set dataScadenza.
+    
      *
      * @param \DateTime $dataScadenza
      *
@@ -470,7 +446,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Get dataScadenza
+     * Get dataScadenza.
+    
      *
      * @return \DateTime
      */
@@ -480,7 +457,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Set titolo
+     * Set titolo.
+    
      *
      * @param string $titolo
      *
@@ -494,7 +472,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Get titolo
+     * Get titolo.
+    
      *
      * @return string
      */
@@ -504,7 +483,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Set attivo
+     * Set attivo.
+    
      *
      * @param integer $attivo
      *
@@ -518,7 +498,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Get attivo
+     * Get attivo.
+    
      *
      * @return integer
      */
@@ -528,7 +509,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Set pubblicare
+     * Set pubblicare.
+    
      *
      * @param integer $pubblicare
      *
@@ -542,7 +524,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Get pubblicare
+     * Get pubblicare.
+    
      *
      * @return integer
      */
@@ -552,7 +535,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Set annullato
+     * Set annullato.
+    
      *
      * @param integer $annullato
      *
@@ -566,7 +550,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Get annullato
+     * Get annullato.
+    
      *
      * @return integer
      */
@@ -576,7 +561,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Set rettificaId
+     * Set rettificaId.
+    
      *
      * @param integer $rettificaId
      *
@@ -590,7 +576,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Get rettificaId
+     * Get rettificaId.
+    
      *
      * @return integer
      */
@@ -600,7 +587,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Set dataInvioRegione
+     * Set dataInvioRegione.
+    
      *
      * @param \DateTime $dataInvioRegione
      *
@@ -614,7 +602,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Get dataInvioRegione
+     * Get dataInvioRegione.
+    
      *
      * @return \DateTime
      */
@@ -624,7 +613,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Set numAtt
+     * Set numAtt.
+    
      *
      * @param integer $numAtt
      *
@@ -638,7 +628,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Get numAtt
+     * Get numAtt.
+    
      *
      * @return integer
      */
@@ -648,7 +639,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Set checkInviaRegione
+     * Set checkInviaRegione.
+    
      *
      * @param integer $checkInviaRegione
      *
@@ -662,7 +654,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Get checkInviaRegione
+     * Get checkInviaRegione.
+    
      *
      * @return integer
      */
@@ -672,7 +665,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Set annoAtto
+     * Set annoAtto.
+    
      *
      * @param integer $annoAtto
      *
@@ -686,7 +680,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Get annoAtto
+     * Get annoAtto.
+    
      *
      * @return integer
      */
@@ -696,7 +691,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Set home
+     * Set home.
+    
      *
      * @param integer $home
      *
@@ -710,7 +706,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Get home
+     * Get home.
+    
      *
      * @return integer
      */
@@ -720,7 +717,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Set enteTerzo
+     * Set enteTerzo.
+    
      *
      * @param string $enteTerzo
      *
@@ -734,7 +732,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Get enteTerzo
+     * Get enteTerzo.
+    
      *
      * @return string
      */
@@ -744,7 +743,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Set fonteUrl
+     * Set fonteUrl.
+    
      *
      * @param string $fonteUrl
      *
@@ -758,7 +758,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Get fonteUrl
+     * Get fonteUrl.
+    
      *
      * @return string
      */
@@ -768,7 +769,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Set note
+     * Set note.
+    
      *
      * @param string $note
      *
@@ -782,7 +784,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Get note
+     * Get note.
+    
      *
      * @return string
      */
@@ -792,7 +795,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Set dataRettifica
+     * Set dataRettifica.
+    
      *
      * @param \DateTime $dataRettifica
      *
@@ -806,7 +810,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Get dataRettifica
+     * Get dataRettifica.
+    
      *
      * @return \DateTime
      */
@@ -816,7 +821,8 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Set checkRettifica
+     * Set checkRettifica.
+    
      *
      * @param integer $checkRettifica
      *
@@ -830,12 +836,65 @@ class ZfcmsComuniAlboArticoli
     }
 
     /**
-     * Get checkRettifica
+     * Get checkRettifica.
+    
      *
      * @return integer
      */
     public function getCheckRettifica()
     {
         return $this->checkRettifica;
+    }
+
+    /**
+     * Set sezione.
+    
+     *
+     * @param \Application\Entity\ZfcmsComuniAlboSezioni $sezione
+     *
+     * @return ZfcmsComuniAlboArticoli
+     */
+    public function setSezione(\Application\Entity\ZfcmsComuniAlboSezioni $sezione = null)
+    {
+        $this->sezione = $sezione;
+    
+        return $this;
+    }
+
+    /**
+     * Get sezione.
+    
+     *
+     * @return \Application\Entity\ZfcmsComuniAlboSezioni
+     */
+    public function getSezione()
+    {
+        return $this->sezione;
+    }
+
+    /**
+     * Set utente.
+    
+     *
+     * @param \Application\Entity\ZfcmsUsers $utente
+     *
+     * @return ZfcmsComuniAlboArticoli
+     */
+    public function setUtente(\Application\Entity\ZfcmsUsers $utente = null)
+    {
+        $this->utente = $utente;
+    
+        return $this;
+    }
+
+    /**
+     * Get utente.
+    
+     *
+     * @return \Application\Entity\ZfcmsUsers
+     */
+    public function getUtente()
+    {
+        return $this->utente;
     }
 }

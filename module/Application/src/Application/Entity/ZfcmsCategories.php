@@ -83,7 +83,8 @@ class ZfcmsCategories
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -93,7 +94,8 @@ class ZfcmsCategories
     }
 
     /**
-     * Set note
+     * Set note.
+    
      *
      * @param string $note
      *
@@ -107,7 +109,8 @@ class ZfcmsCategories
     }
 
     /**
-     * Get note
+     * Get note.
+    
      *
      * @return string
      */
@@ -117,7 +120,8 @@ class ZfcmsCategories
     }
 
     /**
-     * Set createDate
+     * Set createDate.
+    
      *
      * @param \DateTime $createDate
      *
@@ -131,7 +135,8 @@ class ZfcmsCategories
     }
 
     /**
-     * Get createDate
+     * Get createDate.
+    
      *
      * @return \DateTime
      */
@@ -141,7 +146,8 @@ class ZfcmsCategories
     }
 
     /**
-     * Set lastUpdate
+     * Set lastUpdate.
+    
      *
      * @param \DateTime $lastUpdate
      *
@@ -155,7 +161,8 @@ class ZfcmsCategories
     }
 
     /**
-     * Get lastUpdate
+     * Get lastUpdate.
+    
      *
      * @return \DateTime
      */
@@ -165,7 +172,8 @@ class ZfcmsCategories
     }
 
     /**
-     * Set code
+     * Set code.
+    
      *
      * @param string $code
      *
@@ -179,7 +187,8 @@ class ZfcmsCategories
     }
 
     /**
-     * Get code
+     * Get code.
+    
      *
      * @return string
      */
@@ -189,7 +198,8 @@ class ZfcmsCategories
     }
 
     /**
-     * Set status
+     * Set status.
+    
      *
      * @param string $status
      *
@@ -203,7 +213,8 @@ class ZfcmsCategories
     }
 
     /**
-     * Get status
+     * Get status.
+    
      *
      * @return string
      */
@@ -213,7 +224,8 @@ class ZfcmsCategories
     }
 
     /**
-     * Set columnPosition
+     * Set columnPosition.
+    
      *
      * @param string $columnPosition
      *
@@ -227,7 +239,8 @@ class ZfcmsCategories
     }
 
     /**
-     * Get columnPosition
+     * Get columnPosition.
+    
      *
      * @return string
      */
@@ -237,7 +250,8 @@ class ZfcmsCategories
     }
 
     /**
-     * Set template
+     * Set template.
+    
      *
      * @param string $template
      *
@@ -251,7 +265,8 @@ class ZfcmsCategories
     }
 
     /**
-     * Get template
+     * Get template.
+    
      *
      * @return string
      */
@@ -261,7 +276,8 @@ class ZfcmsCategories
     }
 
     /**
-     * Set module
+     * Set module.
+    
      *
      * @param \Application\Entity\ZfcmsModules $module
      *
@@ -275,7 +291,8 @@ class ZfcmsCategories
     }
 
     /**
-     * Get module
+     * Get module.
+    
      *
      * @return \Application\Entity\ZfcmsModules
      */

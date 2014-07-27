@@ -167,7 +167,8 @@ class ZfcmsComuniContratti
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -177,7 +178,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Set beneficiario
+     * Set beneficiario.
+    
      *
      * @param string $beneficiario
      *
@@ -191,7 +193,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Get beneficiario
+     * Get beneficiario.
+    
      *
      * @return string
      */
@@ -201,7 +204,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Set titolo
+     * Set titolo.
+    
      *
      * @param string $titolo
      *
@@ -215,7 +219,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Get titolo
+     * Get titolo.
+    
      *
      * @return string
      */
@@ -225,7 +230,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Set importo
+     * Set importo.
+    
      *
      * @param string $importo
      *
@@ -239,7 +245,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Get importo
+     * Get importo.
+    
      *
      * @return string
      */
@@ -249,7 +256,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Set importo2
+     * Set importo2.
+    
      *
      * @param string $importo2
      *
@@ -263,7 +271,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Get importo2
+     * Get importo2.
+    
      *
      * @return string
      */
@@ -273,7 +282,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Set operatori
+     * Set operatori.
+    
      *
      * @param string $operatori
      *
@@ -287,7 +297,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Get operatori
+     * Get operatori.
+    
      *
      * @return string
      */
@@ -297,7 +308,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Set nOfferte
+     * Set nOfferte.
+    
      *
      * @param integer $nOfferte
      *
@@ -311,7 +323,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Get nOfferte
+     * Get nOfferte.
+    
      *
      * @return integer
      */
@@ -321,7 +334,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Set modassegn
+     * Set modassegn.
+    
      *
      * @param string $modassegn
      *
@@ -335,7 +349,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Get modassegn
+     * Get modassegn.
+    
      *
      * @return string
      */
@@ -345,7 +360,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Set dataAgg
+     * Set dataAgg.
+    
      *
      * @param \DateTime $dataAgg
      *
@@ -359,7 +375,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Get dataAgg
+     * Get dataAgg.
+    
      *
      * @return \DateTime
      */
@@ -369,7 +386,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Set dataContratto
+     * Set dataContratto.
+    
      *
      * @param \DateTime $dataContratto
      *
@@ -383,7 +401,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Get dataContratto
+     * Get dataContratto.
+    
      *
      * @return \DateTime
      */
@@ -393,7 +412,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Set progressivo
+     * Set progressivo.
+    
      *
      * @param integer $progressivo
      *
@@ -407,7 +427,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Get progressivo
+     * Get progressivo.
+    
      *
      * @return integer
      */
@@ -417,7 +438,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Set anno
+     * Set anno.
+    
      *
      * @param string $anno
      *
@@ -431,7 +453,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Get anno
+     * Get anno.
+    
      *
      * @return string
      */
@@ -441,7 +464,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Set data
+     * Set data.
+    
      *
      * @param \DateTime $data
      *
@@ -455,7 +479,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Get data
+     * Get data.
+    
      *
      * @return \DateTime
      */
@@ -465,7 +490,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Set ora
+     * Set ora.
+    
      *
      * @param \DateTime $ora
      *
@@ -479,7 +505,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Get ora
+     * Get ora.
+    
      *
      * @return \DateTime
      */
@@ -489,7 +516,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Set attivo
+     * Set attivo.
+    
      *
      * @param integer $attivo
      *
@@ -503,7 +531,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Get attivo
+     * Get attivo.
+    
      *
      * @return integer
      */
@@ -513,7 +542,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Set scadenza
+     * Set scadenza.
+    
      *
      * @param \DateTime $scadenza
      *
@@ -527,7 +557,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Get scadenza
+     * Get scadenza.
+    
      *
      * @return \DateTime
      */
@@ -537,7 +568,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Set sezioneId
+     * Set sezioneId.
+    
      *
      * @param integer $sezioneId
      *
@@ -551,7 +583,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Get sezioneId
+     * Get sezioneId.
+    
      *
      * @return integer
      */
@@ -561,7 +594,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Set respProcId
+     * Set respProcId.
+    
      *
      * @param integer $respProcId
      *
@@ -575,7 +609,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Get respProcId
+     * Get respProcId.
+    
      *
      * @return integer
      */
@@ -585,7 +620,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Set scContrId
+     * Set scContrId.
+    
      *
      * @param integer $scContrId
      *
@@ -599,7 +635,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Get scContrId
+     * Get scContrId.
+    
      *
      * @return integer
      */
@@ -609,7 +646,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Set cig
+     * Set cig.
+    
      *
      * @param string $cig
      *
@@ -623,7 +661,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Get cig
+     * Get cig.
+    
      *
      * @return string
      */
@@ -633,7 +672,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Set utente
+     * Set utente.
+    
      *
      * @param \Application\Entity\ZfcmsUsers $utente
      *
@@ -647,7 +687,8 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Get utente
+     * Get utente.
+    
      *
      * @return \Application\Entity\ZfcmsUsers
      */

@@ -38,7 +38,8 @@ class ZfcmsGeoRegioni
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -48,7 +49,8 @@ class ZfcmsGeoRegioni
     }
 
     /**
-     * Set codiceRegione
+     * Set codiceRegione.
+    
      *
      * @param string $codiceRegione
      *
@@ -62,7 +64,8 @@ class ZfcmsGeoRegioni
     }
 
     /**
-     * Get codiceRegione
+     * Get codiceRegione.
+    
      *
      * @return string
      */
@@ -72,7 +75,8 @@ class ZfcmsGeoRegioni
     }
 
     /**
-     * Set nomeRegione
+     * Set nomeRegione.
+    
      *
      * @param string $nomeRegione
      *
@@ -86,7 +90,8 @@ class ZfcmsGeoRegioni
     }
 
     /**
-     * Get nomeRegione
+     * Get nomeRegione.
+    
      *
      * @return string
      */

@@ -52,7 +52,8 @@ class ZfcmsComuniStatoCivileSezioni
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -62,7 +63,8 @@ class ZfcmsComuniStatoCivileSezioni
     }
 
     /**
-     * Set nome
+     * Set nome.
+    
      *
      * @param string $nome
      *
@@ -76,7 +78,8 @@ class ZfcmsComuniStatoCivileSezioni
     }
 
     /**
-     * Get nome
+     * Get nome.
+    
      *
      * @return string
      */
@@ -86,7 +89,8 @@ class ZfcmsComuniStatoCivileSezioni
     }
 
     /**
-     * Set attivo
+     * Set attivo.
+    
      *
      * @param integer $attivo
      *
@@ -100,7 +104,8 @@ class ZfcmsComuniStatoCivileSezioni
     }
 
     /**
-     * Get attivo
+     * Get attivo.
+    
      *
      * @return integer
      */
@@ -110,7 +115,8 @@ class ZfcmsComuniStatoCivileSezioni
     }
 
     /**
-     * Set dataInserimento
+     * Set dataInserimento.
+    
      *
      * @param \DateTime $dataInserimento
      *
@@ -124,7 +130,8 @@ class ZfcmsComuniStatoCivileSezioni
     }
 
     /**
-     * Get dataInserimento
+     * Get dataInserimento.
+    
      *
      * @return \DateTime
      */
@@ -134,7 +141,8 @@ class ZfcmsComuniStatoCivileSezioni
     }
 
     /**
-     * Set dataUltimoAggiornamento
+     * Set dataUltimoAggiornamento.
+    
      *
      * @param \DateTime $dataUltimoAggiornamento
      *
@@ -148,7 +156,8 @@ class ZfcmsComuniStatoCivileSezioni
     }
 
     /**
-     * Get dataUltimoAggiornamento
+     * Get dataUltimoAggiornamento.
+    
      *
      * @return \DateTime
      */

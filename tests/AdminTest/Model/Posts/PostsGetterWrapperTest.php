@@ -39,6 +39,7 @@ class PostsGetterWrapperTest extends TestSuite
         
         $this->assertTrue( is_array($this->postsGetterWrapper->getRecords()) );
     }
+    
     /*
     public function testSetupQueryBuilder()
     {

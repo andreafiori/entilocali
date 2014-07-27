@@ -30,6 +30,9 @@ abstract class FormDataAbstract extends InputSetupAbstract
         $this->form = $form;
     }
     
+    /**
+     * @return \Zend\Form\Form or null
+     */
     public function getForm()
     {
         return $this->form;

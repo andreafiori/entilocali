@@ -48,7 +48,8 @@ class ZfcmsGeoComuniCap
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -58,7 +59,8 @@ class ZfcmsGeoComuniCap
     }
 
     /**
-     * Set capcode
+     * Set capcode.
+    
      *
      * @param string $capcode
      *
@@ -72,7 +74,8 @@ class ZfcmsGeoComuniCap
     }
 
     /**
-     * Get capcode
+     * Get capcode.
+    
      *
      * @return string
      */
@@ -82,7 +85,8 @@ class ZfcmsGeoComuniCap
     }
 
     /**
-     * Set nome
+     * Set nome.
+    
      *
      * @param string $nome
      *
@@ -96,7 +100,8 @@ class ZfcmsGeoComuniCap
     }
 
     /**
-     * Get nome
+     * Get nome.
+    
      *
      * @return string
      */
@@ -106,7 +111,8 @@ class ZfcmsGeoComuniCap
     }
 
     /**
-     * Set comune
+     * Set comune.
+    
      *
      * @param \Application\Entity\ZfcmsGeoComuni $comune
      *
@@ -120,7 +126,8 @@ class ZfcmsGeoComuniCap
     }
 
     /**
-     * Get comune
+     * Get comune.
+    
      *
      * @return \Application\Entity\ZfcmsGeoComuni
      */

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsComuniContrattiRespProc
  *
- * @ORM\Table(name="zfcms_comuni_contratti_resp_proc")
+ * @ORM\Table(name="zfcms_comuni_contratti_resp_proc", indexes={@ORM\Index(name="attivo", columns={"attivo"})})
  * @ORM\Entity
  */
 class ZfcmsComuniContrattiRespProc
@@ -38,7 +38,8 @@ class ZfcmsComuniContrattiRespProc
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -48,7 +49,8 @@ class ZfcmsComuniContrattiRespProc
     }
 
     /**
-     * Set nomeResp
+     * Set nomeResp.
+    
      *
      * @param string $nomeResp
      *
@@ -62,7 +64,8 @@ class ZfcmsComuniContrattiRespProc
     }
 
     /**
-     * Get nomeResp
+     * Get nomeResp.
+    
      *
      * @return string
      */
@@ -72,7 +75,8 @@ class ZfcmsComuniContrattiRespProc
     }
 
     /**
-     * Set attivo
+     * Set attivo.
+    
      *
      * @param integer $attivo
      *
@@ -86,7 +90,8 @@ class ZfcmsComuniContrattiRespProc
     }
 
     /**
-     * Get attivo
+     * Get attivo.
+    
      *
      * @return integer
      */

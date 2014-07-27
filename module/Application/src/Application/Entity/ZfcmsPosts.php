@@ -80,7 +80,8 @@ class ZfcmsPosts
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -90,7 +91,8 @@ class ZfcmsPosts
     }
 
     /**
-     * Set note
+     * Set note.
+    
      *
      * @param string $note
      *
@@ -104,7 +106,8 @@ class ZfcmsPosts
     }
 
     /**
-     * Get note
+     * Get note.
+    
      *
      * @return string
      */
@@ -114,7 +117,8 @@ class ZfcmsPosts
     }
 
     /**
-     * Set insertDate
+     * Set insertDate.
+    
      *
      * @param \DateTime $insertDate
      *
@@ -128,7 +132,8 @@ class ZfcmsPosts
     }
 
     /**
-     * Get insertDate
+     * Get insertDate.
+    
      *
      * @return \DateTime
      */
@@ -138,7 +143,8 @@ class ZfcmsPosts
     }
 
     /**
-     * Set expireDate
+     * Set expireDate.
+    
      *
      * @param \DateTime $expireDate
      *
@@ -152,7 +158,8 @@ class ZfcmsPosts
     }
 
     /**
-     * Get expireDate
+     * Get expireDate.
+    
      *
      * @return \DateTime
      */
@@ -162,7 +169,8 @@ class ZfcmsPosts
     }
 
     /**
-     * Set lastUpdate
+     * Set lastUpdate.
+    
      *
      * @param \DateTime $lastUpdate
      *
@@ -176,7 +184,8 @@ class ZfcmsPosts
     }
 
     /**
-     * Get lastUpdate
+     * Get lastUpdate.
+    
      *
      * @return \DateTime
      */
@@ -186,7 +195,8 @@ class ZfcmsPosts
     }
 
     /**
-     * Set parentId
+     * Set parentId.
+    
      *
      * @param integer $parentId
      *
@@ -200,7 +210,8 @@ class ZfcmsPosts
     }
 
     /**
-     * Get parentId
+     * Get parentId.
+    
      *
      * @return integer
      */
@@ -210,7 +221,8 @@ class ZfcmsPosts
     }
 
     /**
-     * Set type
+     * Set type.
+    
      *
      * @param string $type
      *
@@ -224,7 +236,8 @@ class ZfcmsPosts
     }
 
     /**
-     * Get type
+     * Get type.
+    
      *
      * @return string
      */
@@ -234,7 +247,8 @@ class ZfcmsPosts
     }
 
     /**
-     * Set alias
+     * Set alias.
+    
      *
      * @param string $alias
      *
@@ -248,7 +262,8 @@ class ZfcmsPosts
     }
 
     /**
-     * Get alias
+     * Get alias.
+    
      *
      * @return string
      */
@@ -258,7 +273,8 @@ class ZfcmsPosts
     }
 
     /**
-     * Set flagAttachments
+     * Set flagAttachments.
+    
      *
      * @param string $flagAttachments
      *
@@ -272,7 +288,8 @@ class ZfcmsPosts
     }
 
     /**
-     * Get flagAttachments
+     * Get flagAttachments.
+    
      *
      * @return string
      */

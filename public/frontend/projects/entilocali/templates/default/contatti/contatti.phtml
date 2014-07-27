@@ -2,17 +2,18 @@
     <li><a href="<?php echo $this->basepath() ?>" title="Home page">Home</a> <span class="divider"></span></li>
     <li class="active">Contatti</li>
 </ul>
+
 <?php if (!$this->form): ?>
 <div class="alert alert-danger">
     <h1>Form contatti non rilevato</h1>
     <p>&Egrave; stato rilevato un errore per cui il form contatti non &egrave; presente. Ci scusiamo per il momentaneo disagio.</p>
 </div>
-<?php
-else:
-    
-    ?>
+<?php else: ?>
+
     <h1>Invia un messaggio</h1>
+    
     <p>Compila i campi del form per contattarci. Tutti i campi sono obbligatori.</p>
+    
     <fieldset>
     <?php
     

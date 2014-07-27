@@ -52,7 +52,8 @@ class ZfcmsUsersBookmarks
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -62,7 +63,8 @@ class ZfcmsUsersBookmarks
     }
 
     /**
-     * Set userId
+     * Set userId.
+    
      *
      * @param integer $userId
      *
@@ -76,7 +78,8 @@ class ZfcmsUsersBookmarks
     }
 
     /**
-     * Get userId
+     * Get userId.
+    
      *
      * @return integer
      */
@@ -86,7 +89,8 @@ class ZfcmsUsersBookmarks
     }
 
     /**
-     * Set referenceId
+     * Set referenceId.
+    
      *
      * @param integer $referenceId
      *
@@ -100,7 +104,8 @@ class ZfcmsUsersBookmarks
     }
 
     /**
-     * Get referenceId
+     * Get referenceId.
+    
      *
      * @return integer
      */
@@ -110,7 +115,8 @@ class ZfcmsUsersBookmarks
     }
 
     /**
-     * Set categoryId
+     * Set categoryId.
+    
      *
      * @param integer $categoryId
      *
@@ -124,7 +130,8 @@ class ZfcmsUsersBookmarks
     }
 
     /**
-     * Get categoryId
+     * Get categoryId.
+    
      *
      * @return integer
      */
@@ -134,7 +141,8 @@ class ZfcmsUsersBookmarks
     }
 
     /**
-     * Set moduleId
+     * Set moduleId.
+    
      *
      * @param integer $moduleId
      *
@@ -148,7 +156,8 @@ class ZfcmsUsersBookmarks
     }
 
     /**
-     * Get moduleId
+     * Get moduleId.
+    
      *
      * @return integer
      */

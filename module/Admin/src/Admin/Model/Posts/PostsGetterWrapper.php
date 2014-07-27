@@ -2,8 +2,13 @@
 
 namespace Admin\Model\Posts;
 
-use Admin\Model\Posts\PostsGetter;
 use Application\Model\RecordsGetterWrapperAbstract;
+use Admin\Model\Posts\PostsGetter;
+use Admin\Model\Attachments\AttachmentsGetter;
+use Admin\Model\Attachments\AttachmentsGetterWrapper;
+use Application\Model\NullException;
+use Application\Model\Slugifier;
+use stdClass;
 
 /**
  * @author Andrea Fiori
@@ -12,6 +17,10 @@ use Application\Model\RecordsGetterWrapperAbstract;
 class PostsGetterWrapper extends RecordsGetterWrapperAbstract
 {
     private $postsGetter;
+    
+    private $category;
+    private $title;
+    private $template;
 
     /**
      * @param \Admin\Model\Posts\PostsGetter $postsGetter
@@ -20,10 +29,7 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
     {
         $this->postsGetter = $postsGetter;
     }
-    
-    /**
-     * set PostsGetter query options
-     */
+
     public function setupQueryBuilder()
     {
         $language   = $this->getInput('language', 1);
@@ -45,18 +51,120 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
     }
     
     /**
+     * Setup query (for paginator)
+     */
+    public function setupQuery()
+    {
+        $entityManager = $this->getInput('entityManager', 1);
+
+        $this->query = $entityManager->createQuery( $this->postsGetter->getDQLQuery() )
+                                ->setFirstResult($this->firstResult)
+                                ->setMaxResults($this->maxResult)
+                                ->setParameters( $this->postsGetter->getQuery()->getParameters() )
+                                ->getScalarResult();
+
+        return $this->query;
+    }
+    
+    public function setupRecords()
+    {
+        if (!$this->paginator) {
+            throw new NullException("Setup paginator before setting additional records");
+        }
+        
+        $paginatorCount = 0;
+        foreach($this->paginator as $key => $row) {
+            $paginatorCount++;
+        }
+        
+        $paginatorToReturn = new stdClass();
+        foreach($this->paginator as $key => $row) {
+            $row['linkDetails'] = '/'.Slugifier::slugify($row['categoryName']).'/'.Slugifier::slugify($row['title']);
+            $row['linkCategory'] = '/'.Slugifier::slugify($row['categoryName']);
+            
+            if ( $row['flagAllegati'] == 'si' ) {
+                
+            }
+            
+            $attachmentsGetterWrapper = new AttachmentsGetterWrapper( new AttachmentsGetter($this->getInput('entityManager',1)) );
+            $attachmentsGetterWrapper->setInput( array() );
+            $attachmentsGetterWrapper->setupQueryBuilder();
+            $attachmentsGetterWrapper->getRecords();
+
+            $categories = $this->getCategoriesFromPostsRelations($row);
+            foreach ($categories as $category) {
+                $row['categories'][] = $category['category'];
+            }
+            
+            if ( isset($row['template']) ) {
+                continue;
+            }
+            
+            if ($paginatorCount == 1) {
+                $row['template'] = $row['type'].'/details.phtml';
+            } elseif ($paginatorCount > 1) {
+                $row['template'] = $row['type'].'/list.phtml';
+            }
+
+            $this->template = $row['template'];
+            $this->title = $row['title'];
+            $this->category = $row['categoryName'];
+            
+            $paginatorToReturn->$key = $row;
+        }
+
+        return $paginatorToReturn;
+    }
+        /**
+         * @param array $row
+         * @return array
+         */
+        private function getCategoriesFromPostsRelations(array $row)
+        {
+            $postsRelationsGetter = new PostsRelationsGetter( $this->getInput('entityManager', 1) );
+            $postsRelationsGetter->setSelectQueryFields('IDENTITY(r.category) AS category');
+            $postsRelationsGetter->setMainQuery();
+            $postsRelationsGetter->setChannelId(1);
+            $postsRelationsGetter->setModuleId($row['module']);
+            $postsRelationsGetter->setPostsId($row['postoptionid']);
+            
+            return $postsRelationsGetter->getQueryResult();
+        }
+    
+    /**
      * @return array
      */
     public function getRecords()
     {
         return $this->postsGetter->getQueryResult();
     }
-    
+        
     /**
      * @return \Admin\Model\Posts\PostsGetter
      */
     public function getPostsGetter()
     {
         return $this->postsGetter;
+    }
+    
+    /**     
+     * @return string
+     */
+    public function getTemplate()
+    {
+        if (!$this->template) {
+            $this->template = 'notfound.phtml';
+        }
+        return $this->template;
+    }
+    
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    public function getTitle()
+    {
+        return $this->title;
     }
 }

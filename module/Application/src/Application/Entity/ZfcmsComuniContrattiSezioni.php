@@ -52,7 +52,8 @@ class ZfcmsComuniContrattiSezioni
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -62,7 +63,8 @@ class ZfcmsComuniContrattiSezioni
     }
 
     /**
-     * Set nome
+     * Set nome.
+    
      *
      * @param string $nome
      *
@@ -76,7 +78,8 @@ class ZfcmsComuniContrattiSezioni
     }
 
     /**
-     * Get nome
+     * Get nome.
+    
      *
      * @return string
      */
@@ -86,7 +89,8 @@ class ZfcmsComuniContrattiSezioni
     }
 
     /**
-     * Set responsabile
+     * Set responsabile.
+    
      *
      * @param string $responsabile
      *
@@ -100,7 +104,8 @@ class ZfcmsComuniContrattiSezioni
     }
 
     /**
-     * Get responsabile
+     * Get responsabile.
+    
      *
      * @return string
      */
@@ -110,7 +115,8 @@ class ZfcmsComuniContrattiSezioni
     }
 
     /**
-     * Set predefinita
+     * Set predefinita.
+    
      *
      * @param integer $predefinita
      *
@@ -124,7 +130,8 @@ class ZfcmsComuniContrattiSezioni
     }
 
     /**
-     * Get predefinita
+     * Get predefinita.
+    
      *
      * @return integer
      */
@@ -134,7 +141,8 @@ class ZfcmsComuniContrattiSezioni
     }
 
     /**
-     * Set attivo
+     * Set attivo.
+    
      *
      * @param integer $attivo
      *
@@ -148,7 +156,8 @@ class ZfcmsComuniContrattiSezioni
     }
 
     /**
-     * Get attivo
+     * Get attivo.
+    
      *
      * @return integer
      */

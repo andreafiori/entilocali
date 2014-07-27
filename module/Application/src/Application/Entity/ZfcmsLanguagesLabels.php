@@ -80,7 +80,8 @@ class ZfcmsLanguagesLabels
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -90,7 +91,8 @@ class ZfcmsLanguagesLabels
     }
 
     /**
-     * Set name
+     * Set name.
+    
      *
      * @param string $name
      *
@@ -104,7 +106,8 @@ class ZfcmsLanguagesLabels
     }
 
     /**
-     * Get name
+     * Get name.
+    
      *
      * @return string
      */
@@ -114,7 +117,8 @@ class ZfcmsLanguagesLabels
     }
 
     /**
-     * Set value
+     * Set value.
+    
      *
      * @param string $value
      *
@@ -128,7 +132,8 @@ class ZfcmsLanguagesLabels
     }
 
     /**
-     * Get value
+     * Get value.
+    
      *
      * @return string
      */
@@ -138,7 +143,8 @@ class ZfcmsLanguagesLabels
     }
 
     /**
-     * Set description
+     * Set description.
+    
      *
      * @param string $description
      *
@@ -152,7 +158,8 @@ class ZfcmsLanguagesLabels
     }
 
     /**
-     * Get description
+     * Get description.
+    
      *
      * @return string
      */
@@ -162,7 +169,8 @@ class ZfcmsLanguagesLabels
     }
 
     /**
-     * Set isBackend
+     * Set isBackend.
+    
      *
      * @param integer $isBackend
      *
@@ -176,7 +184,8 @@ class ZfcmsLanguagesLabels
     }
 
     /**
-     * Get isBackend
+     * Get isBackend.
+    
      *
      * @return integer
      */
@@ -186,7 +195,8 @@ class ZfcmsLanguagesLabels
     }
 
     /**
-     * Set isUniversal
+     * Set isUniversal.
+    
      *
      * @param integer $isUniversal
      *
@@ -200,7 +210,8 @@ class ZfcmsLanguagesLabels
     }
 
     /**
-     * Get isUniversal
+     * Get isUniversal.
+    
      *
      * @return integer
      */
@@ -210,7 +221,8 @@ class ZfcmsLanguagesLabels
     }
 
     /**
-     * Set status
+     * Set status.
+    
      *
      * @param string $status
      *
@@ -224,7 +236,8 @@ class ZfcmsLanguagesLabels
     }
 
     /**
-     * Get status
+     * Get status.
+    
      *
      * @return string
      */
@@ -234,7 +247,8 @@ class ZfcmsLanguagesLabels
     }
 
     /**
-     * Set moduleId
+     * Set moduleId.
+    
      *
      * @param integer $moduleId
      *
@@ -248,7 +262,8 @@ class ZfcmsLanguagesLabels
     }
 
     /**
-     * Get moduleId
+     * Get moduleId.
+    
      *
      * @return integer
      */
@@ -258,7 +273,8 @@ class ZfcmsLanguagesLabels
     }
 
     /**
-     * Set linguageId
+     * Set linguageId.
+    
      *
      * @param integer $linguageId
      *
@@ -272,7 +288,8 @@ class ZfcmsLanguagesLabels
     }
 
     /**
-     * Get linguageId
+     * Get linguageId.
+    
      *
      * @return integer
      */

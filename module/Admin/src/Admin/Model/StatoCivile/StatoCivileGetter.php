@@ -16,7 +16,7 @@ class StatoCivileGetter extends QueryBuilderHelperAbstract
 
         $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
                                 ->add('from', 'Application\Entity\ZfcmsComuniStatoCivileArticoli sca, Application\Entity\ZfcmsComuniStatoCivileSezioni scs ')
-                                ->add('where', "sca.sezioneId = scs.id ");
+                                ->add('where', "sca.sezione = scs.id ");
 
         return $this->getQueryBuilder();
     }

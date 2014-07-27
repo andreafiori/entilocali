@@ -172,7 +172,8 @@ class CommonSetupPlugin extends CommonSetupPluginAbstract
          */
         private function setUserInterfaceConfigurations()
         {
-            $ui = new UserInterfaceConfigurations($this->configurations);
+            $ui = new UserInterfaceConfigurations( $this->getInput() );
+            $ui->setConfigurations($this->configurations);
             $ui->setConfigurationsArray($this->isBackend);
             $ui->setModules();
             $ui->setCommonConfigurations();

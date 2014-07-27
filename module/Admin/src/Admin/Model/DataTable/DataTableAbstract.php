@@ -2,13 +2,13 @@
 
 namespace Admin\Model\DataTable;
 
-use Admin\Model\InputSetupTemplateAbstract;
+use Admin\Model\InputSetupAbstract;
 
 /**
  * @author Andrea Fiori
  * @since  18 May 2014
  */
-abstract class DataTableAbstract extends InputSetupTemplateAbstract
+abstract class DataTableAbstract extends InputSetupAbstract
 {
     protected $title;
     
@@ -35,6 +35,24 @@ abstract class DataTableAbstract extends InputSetupTemplateAbstract
     public function getDescription()
     {
         return $this->description;
+    }
+    
+    /**
+     * @param string $template
+     */
+    public function setTemplate($template)
+    {
+        $this->template = $template;
+        
+        return $this->template;
+    }
+
+    /**
+     * @return string $this->template
+     */
+    public function getTemplate()
+    {
+        return $this->template;
     }
     
     abstract public function getColumns();

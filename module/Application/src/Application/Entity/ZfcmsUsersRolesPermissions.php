@@ -38,7 +38,8 @@ class ZfcmsUsersRolesPermissions
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -48,7 +49,8 @@ class ZfcmsUsersRolesPermissions
     }
 
     /**
-     * Set rolePermissionId
+     * Set rolePermissionId.
+    
      *
      * @param integer $rolePermissionId
      *
@@ -62,7 +64,8 @@ class ZfcmsUsersRolesPermissions
     }
 
     /**
-     * Get rolePermissionId
+     * Get rolePermissionId.
+    
      *
      * @return integer
      */
@@ -72,7 +75,8 @@ class ZfcmsUsersRolesPermissions
     }
 
     /**
-     * Set permissionId
+     * Set permissionId.
+    
      *
      * @param integer $permissionId
      *
@@ -86,7 +90,8 @@ class ZfcmsUsersRolesPermissions
     }
 
     /**
-     * Get permissionId
+     * Get permissionId.
+    
      *
      * @return integer
      */

@@ -66,7 +66,8 @@ class ZfcmsComuniContrattiPartCig
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -76,7 +77,8 @@ class ZfcmsComuniContrattiPartCig
     }
 
     /**
-     * Set stato
+     * Set stato.
+    
      *
      * @param integer $stato
      *
@@ -90,7 +92,8 @@ class ZfcmsComuniContrattiPartCig
     }
 
     /**
-     * Get stato
+     * Get stato.
+    
      *
      * @return integer
      */
@@ -100,7 +103,8 @@ class ZfcmsComuniContrattiPartCig
     }
 
     /**
-     * Set gruppo
+     * Set gruppo.
+    
      *
      * @param integer $gruppo
      *
@@ -114,7 +118,8 @@ class ZfcmsComuniContrattiPartCig
     }
 
     /**
-     * Get gruppo
+     * Get gruppo.
+    
      *
      * @return integer
      */
@@ -124,7 +129,8 @@ class ZfcmsComuniContrattiPartCig
     }
 
     /**
-     * Set aggiudicatario
+     * Set aggiudicatario.
+    
      *
      * @param integer $aggiudicatario
      *
@@ -138,7 +144,8 @@ class ZfcmsComuniContrattiPartCig
     }
 
     /**
-     * Get aggiudicatario
+     * Get aggiudicatario.
+    
      *
      * @return integer
      */
@@ -148,7 +155,8 @@ class ZfcmsComuniContrattiPartCig
     }
 
     /**
-     * Set membro
+     * Set membro.
+    
      *
      * @param integer $membro
      *
@@ -162,7 +170,8 @@ class ZfcmsComuniContrattiPartCig
     }
 
     /**
-     * Get membro
+     * Get membro.
+    
      *
      * @return integer
      */
@@ -172,7 +181,8 @@ class ZfcmsComuniContrattiPartCig
     }
 
     /**
-     * Set contPubPartId
+     * Set contPubPartId.
+    
      *
      * @param integer $contPubPartId
      *
@@ -186,7 +196,8 @@ class ZfcmsComuniContrattiPartCig
     }
 
     /**
-     * Get contPubPartId
+     * Get contPubPartId.
+    
      *
      * @return integer
      */
@@ -196,7 +207,8 @@ class ZfcmsComuniContrattiPartCig
     }
 
     /**
-     * Set contPubId
+     * Set contPubId.
+    
      *
      * @param integer $contPubId
      *
@@ -210,7 +222,8 @@ class ZfcmsComuniContrattiPartCig
     }
 
     /**
-     * Get contPubId
+     * Get contPubId.
+    
      *
      * @return integer
      */

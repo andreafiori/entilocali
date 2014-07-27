@@ -52,7 +52,8 @@ class ZfcmsUsersPermissions
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -62,7 +63,8 @@ class ZfcmsUsersPermissions
     }
 
     /**
-     * Set code
+     * Set code.
+    
      *
      * @param string $code
      *
@@ -76,7 +78,8 @@ class ZfcmsUsersPermissions
     }
 
     /**
-     * Get code
+     * Get code.
+    
      *
      * @return string
      */
@@ -86,7 +89,8 @@ class ZfcmsUsersPermissions
     }
 
     /**
-     * Set value
+     * Set value.
+    
      *
      * @param string $value
      *
@@ -100,7 +104,8 @@ class ZfcmsUsersPermissions
     }
 
     /**
-     * Get value
+     * Get value.
+    
      *
      * @return string
      */
@@ -110,7 +115,8 @@ class ZfcmsUsersPermissions
     }
 
     /**
-     * Set roleId
+     * Set roleId.
+    
      *
      * @param integer $roleId
      *
@@ -124,7 +130,8 @@ class ZfcmsUsersPermissions
     }
 
     /**
-     * Get roleId
+     * Get roleId.
+    
      *
      * @return integer
      */
@@ -134,7 +141,8 @@ class ZfcmsUsersPermissions
     }
 
     /**
-     * Set permessionId
+     * Set permessionId.
+    
      *
      * @param integer $permessionId
      *
@@ -148,7 +156,8 @@ class ZfcmsUsersPermissions
     }
 
     /**
-     * Get permessionId
+     * Get permessionId.
+    
      *
      * @return integer
      */

@@ -73,7 +73,8 @@ class ZfcmsComuniContrattiAllegati
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -83,7 +84,8 @@ class ZfcmsComuniContrattiAllegati
     }
 
     /**
-     * Set idContpub
+     * Set idContpub.
+    
      *
      * @param integer $idContpub
      *
@@ -97,7 +99,8 @@ class ZfcmsComuniContrattiAllegati
     }
 
     /**
-     * Get idContpub
+     * Get idContpub.
+    
      *
      * @return integer
      */
@@ -107,7 +110,8 @@ class ZfcmsComuniContrattiAllegati
     }
 
     /**
-     * Set nome
+     * Set nome.
+    
      *
      * @param string $nome
      *
@@ -121,7 +125,8 @@ class ZfcmsComuniContrattiAllegati
     }
 
     /**
-     * Get nome
+     * Get nome.
+    
      *
      * @return string
      */
@@ -131,7 +136,8 @@ class ZfcmsComuniContrattiAllegati
     }
 
     /**
-     * Set idMime
+     * Set idMime.
+    
      *
      * @param integer $idMime
      *
@@ -145,7 +151,8 @@ class ZfcmsComuniContrattiAllegati
     }
 
     /**
-     * Get idMime
+     * Get idMime.
+    
      *
      * @return integer
      */
@@ -155,7 +162,8 @@ class ZfcmsComuniContrattiAllegati
     }
 
     /**
-     * Set dati
+     * Set dati.
+    
      *
      * @param string $dati
      *
@@ -169,7 +177,8 @@ class ZfcmsComuniContrattiAllegati
     }
 
     /**
-     * Get dati
+     * Get dati.
+    
      *
      * @return string
      */
@@ -179,7 +188,8 @@ class ZfcmsComuniContrattiAllegati
     }
 
     /**
-     * Set posizione
+     * Set posizione.
+    
      *
      * @param integer $posizione
      *
@@ -193,7 +203,8 @@ class ZfcmsComuniContrattiAllegati
     }
 
     /**
-     * Get posizione
+     * Get posizione.
+    
      *
      * @return integer
      */
@@ -203,7 +214,8 @@ class ZfcmsComuniContrattiAllegati
     }
 
     /**
-     * Set size
+     * Set size.
+    
      *
      * @param string $size
      *
@@ -217,7 +229,8 @@ class ZfcmsComuniContrattiAllegati
     }
 
     /**
-     * Get size
+     * Get size.
+    
      *
      * @return string
      */
@@ -227,7 +240,8 @@ class ZfcmsComuniContrattiAllegati
     }
 
     /**
-     * Set categoria
+     * Set categoria.
+    
      *
      * @param integer $categoria
      *
@@ -241,7 +255,8 @@ class ZfcmsComuniContrattiAllegati
     }
 
     /**
-     * Get categoria
+     * Get categoria.
+    
      *
      * @return integer
      */

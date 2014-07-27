@@ -52,7 +52,8 @@ class ZfcmsTicketsMessages
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -62,7 +63,8 @@ class ZfcmsTicketsMessages
     }
 
     /**
-     * Set message
+     * Set message.
+    
      *
      * @param string $message
      *
@@ -76,7 +78,8 @@ class ZfcmsTicketsMessages
     }
 
     /**
-     * Get message
+     * Get message.
+    
      *
      * @return string
      */
@@ -86,7 +89,8 @@ class ZfcmsTicketsMessages
     }
 
     /**
-     * Set insertDate
+     * Set insertDate.
+    
      *
      * @param \DateTime $insertDate
      *
@@ -100,7 +104,8 @@ class ZfcmsTicketsMessages
     }
 
     /**
-     * Get insertDate
+     * Get insertDate.
+    
      *
      * @return \DateTime
      */
@@ -110,7 +115,8 @@ class ZfcmsTicketsMessages
     }
 
     /**
-     * Set ticketId
+     * Set ticketId.
+    
      *
      * @param integer $ticketId
      *
@@ -124,7 +130,8 @@ class ZfcmsTicketsMessages
     }
 
     /**
-     * Get ticketId
+     * Get ticketId.
+    
      *
      * @return integer
      */
@@ -134,7 +141,8 @@ class ZfcmsTicketsMessages
     }
 
     /**
-     * Set userId
+     * Set userId.
+    
      *
      * @param integer $userId
      *
@@ -148,7 +156,8 @@ class ZfcmsTicketsMessages
     }
 
     /**
-     * Get userId
+     * Get userId.
+    
      *
      * @return integer
      */

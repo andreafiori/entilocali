@@ -38,7 +38,8 @@ class ZfcmsComuniAmmapertaRespProc
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -48,7 +49,8 @@ class ZfcmsComuniAmmapertaRespProc
     }
 
     /**
-     * Set nomeResp
+     * Set nomeResp.
+    
      *
      * @param string $nomeResp
      *
@@ -62,7 +64,8 @@ class ZfcmsComuniAmmapertaRespProc
     }
 
     /**
-     * Get nomeResp
+     * Get nomeResp.
+    
      *
      * @return string
      */
@@ -72,7 +75,8 @@ class ZfcmsComuniAmmapertaRespProc
     }
 
     /**
-     * Set attivo
+     * Set attivo.
+    
      *
      * @param integer $attivo
      *
@@ -86,7 +90,8 @@ class ZfcmsComuniAmmapertaRespProc
     }
 
     /**
-     * Get attivo
+     * Get attivo.
+    
      *
      * @return integer
      */

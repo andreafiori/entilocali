@@ -71,11 +71,14 @@ class ZfcmsComuniStatoCivileArticoli
     private $scadenza;
 
     /**
-     * @var integer
+     * @var \Application\Entity\ZfcmsComuniStatoCivileSezioni
      *
-     * @ORM\Column(name="sezione_id", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniStatoCivileSezioni")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="sezione_id", referencedColumnName="id")
+     * })
      */
-    private $sezioneId;
+    private $sezione;
 
     /**
      * @var \Application\Entity\ZfcmsUsers
@@ -90,7 +93,8 @@ class ZfcmsComuniStatoCivileArticoli
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -100,7 +104,8 @@ class ZfcmsComuniStatoCivileArticoli
     }
 
     /**
-     * Set titolo
+     * Set titolo.
+    
      *
      * @param string $titolo
      *
@@ -114,7 +119,8 @@ class ZfcmsComuniStatoCivileArticoli
     }
 
     /**
-     * Get titolo
+     * Get titolo.
+    
      *
      * @return string
      */
@@ -124,7 +130,8 @@ class ZfcmsComuniStatoCivileArticoli
     }
 
     /**
-     * Set progressivo
+     * Set progressivo.
+    
      *
      * @param integer $progressivo
      *
@@ -138,7 +145,8 @@ class ZfcmsComuniStatoCivileArticoli
     }
 
     /**
-     * Get progressivo
+     * Get progressivo.
+    
      *
      * @return integer
      */
@@ -148,7 +156,8 @@ class ZfcmsComuniStatoCivileArticoli
     }
 
     /**
-     * Set anno
+     * Set anno.
+    
      *
      * @param string $anno
      *
@@ -162,7 +171,8 @@ class ZfcmsComuniStatoCivileArticoli
     }
 
     /**
-     * Get anno
+     * Get anno.
+    
      *
      * @return string
      */
@@ -172,7 +182,8 @@ class ZfcmsComuniStatoCivileArticoli
     }
 
     /**
-     * Set data
+     * Set data.
+    
      *
      * @param \DateTime $data
      *
@@ -186,7 +197,8 @@ class ZfcmsComuniStatoCivileArticoli
     }
 
     /**
-     * Get data
+     * Get data.
+    
      *
      * @return \DateTime
      */
@@ -196,7 +208,8 @@ class ZfcmsComuniStatoCivileArticoli
     }
 
     /**
-     * Set ora
+     * Set ora.
+    
      *
      * @param \DateTime $ora
      *
@@ -210,7 +223,8 @@ class ZfcmsComuniStatoCivileArticoli
     }
 
     /**
-     * Get ora
+     * Get ora.
+    
      *
      * @return \DateTime
      */
@@ -220,7 +234,8 @@ class ZfcmsComuniStatoCivileArticoli
     }
 
     /**
-     * Set attivo
+     * Set attivo.
+    
      *
      * @param integer $attivo
      *
@@ -234,7 +249,8 @@ class ZfcmsComuniStatoCivileArticoli
     }
 
     /**
-     * Get attivo
+     * Get attivo.
+    
      *
      * @return integer
      */
@@ -244,7 +260,8 @@ class ZfcmsComuniStatoCivileArticoli
     }
 
     /**
-     * Set scadenza
+     * Set scadenza.
+    
      *
      * @param \DateTime $scadenza
      *
@@ -258,7 +275,8 @@ class ZfcmsComuniStatoCivileArticoli
     }
 
     /**
-     * Get scadenza
+     * Get scadenza.
+    
      *
      * @return \DateTime
      */
@@ -268,31 +286,34 @@ class ZfcmsComuniStatoCivileArticoli
     }
 
     /**
-     * Set sezioneId
+     * Set sezione.
+    
      *
-     * @param integer $sezioneId
+     * @param \Application\Entity\ZfcmsComuniStatoCivileSezioni $sezione
      *
      * @return ZfcmsComuniStatoCivileArticoli
      */
-    public function setSezioneId($sezioneId)
+    public function setSezione(\Application\Entity\ZfcmsComuniStatoCivileSezioni $sezione = null)
     {
-        $this->sezioneId = $sezioneId;
+        $this->sezione = $sezione;
     
         return $this;
     }
 
     /**
-     * Get sezioneId
+     * Get sezione.
+    
      *
-     * @return integer
+     * @return \Application\Entity\ZfcmsComuniStatoCivileSezioni
      */
-    public function getSezioneId()
+    public function getSezione()
     {
-        return $this->sezioneId;
+        return $this->sezione;
     }
 
     /**
-     * Set utente
+     * Set utente.
+    
      *
      * @param \Application\Entity\ZfcmsUsers $utente
      *
@@ -306,7 +327,8 @@ class ZfcmsComuniStatoCivileArticoli
     }
 
     /**
-     * Get utente
+     * Get utente.
+    
      *
      * @return \Application\Entity\ZfcmsUsers
      */

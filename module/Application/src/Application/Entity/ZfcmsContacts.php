@@ -87,7 +87,8 @@ class ZfcmsContacts
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -97,7 +98,8 @@ class ZfcmsContacts
     }
 
     /**
-     * Set name
+     * Set name.
+    
      *
      * @param string $name
      *
@@ -111,7 +113,8 @@ class ZfcmsContacts
     }
 
     /**
-     * Get name
+     * Get name.
+    
      *
      * @return string
      */
@@ -121,7 +124,8 @@ class ZfcmsContacts
     }
 
     /**
-     * Set surname
+     * Set surname.
+    
      *
      * @param string $surname
      *
@@ -135,7 +139,8 @@ class ZfcmsContacts
     }
 
     /**
-     * Get surname
+     * Get surname.
+    
      *
      * @return string
      */
@@ -145,7 +150,8 @@ class ZfcmsContacts
     }
 
     /**
-     * Set email
+     * Set email.
+    
      *
      * @param string $email
      *
@@ -159,7 +165,8 @@ class ZfcmsContacts
     }
 
     /**
-     * Get email
+     * Get email.
+    
      *
      * @return string
      */
@@ -169,7 +176,8 @@ class ZfcmsContacts
     }
 
     /**
-     * Set phone
+     * Set phone.
+    
      *
      * @param string $phone
      *
@@ -183,7 +191,8 @@ class ZfcmsContacts
     }
 
     /**
-     * Get phone
+     * Get phone.
+    
      *
      * @return string
      */
@@ -193,7 +202,8 @@ class ZfcmsContacts
     }
 
     /**
-     * Set message
+     * Set message.
+    
      *
      * @param string $message
      *
@@ -207,7 +217,8 @@ class ZfcmsContacts
     }
 
     /**
-     * Get message
+     * Get message.
+    
      *
      * @return string
      */
@@ -217,7 +228,8 @@ class ZfcmsContacts
     }
 
     /**
-     * Set insertDate
+     * Set insertDate.
+    
      *
      * @param \DateTime $insertDate
      *
@@ -231,7 +243,8 @@ class ZfcmsContacts
     }
 
     /**
-     * Get insertDate
+     * Get insertDate.
+    
      *
      * @return \DateTime
      */
@@ -241,7 +254,8 @@ class ZfcmsContacts
     }
 
     /**
-     * Set format
+     * Set format.
+    
      *
      * @param string $format
      *
@@ -255,7 +269,8 @@ class ZfcmsContacts
     }
 
     /**
-     * Get format
+     * Get format.
+    
      *
      * @return string
      */
@@ -265,7 +280,8 @@ class ZfcmsContacts
     }
 
     /**
-     * Set status
+     * Set status.
+    
      *
      * @param string $status
      *
@@ -279,7 +295,8 @@ class ZfcmsContacts
     }
 
     /**
-     * Get status
+     * Get status.
+    
      *
      * @return string
      */
@@ -289,7 +306,8 @@ class ZfcmsContacts
     }
 
     /**
-     * Set userId
+     * Set userId.
+    
      *
      * @param integer $userId
      *
@@ -303,7 +321,8 @@ class ZfcmsContacts
     }
 
     /**
-     * Get userId
+     * Get userId.
+    
      *
      * @return integer
      */

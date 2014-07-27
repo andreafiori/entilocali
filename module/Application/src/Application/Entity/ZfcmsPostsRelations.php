@@ -64,7 +64,8 @@ class ZfcmsPostsRelations
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -74,7 +75,8 @@ class ZfcmsPostsRelations
     }
 
     /**
-     * Set category
+     * Set category.
+    
      *
      * @param \Application\Entity\ZfcmsCategories $category
      *
@@ -88,7 +90,8 @@ class ZfcmsPostsRelations
     }
 
     /**
-     * Get category
+     * Get category.
+    
      *
      * @return \Application\Entity\ZfcmsCategories
      */
@@ -98,7 +101,8 @@ class ZfcmsPostsRelations
     }
 
     /**
-     * Set channel
+     * Set channel.
+    
      *
      * @param \Application\Entity\ZfcmsChannels $channel
      *
@@ -112,7 +116,8 @@ class ZfcmsPostsRelations
     }
 
     /**
-     * Get channel
+     * Get channel.
+    
      *
      * @return \Application\Entity\ZfcmsChannels
      */
@@ -122,7 +127,8 @@ class ZfcmsPostsRelations
     }
 
     /**
-     * Set module
+     * Set module.
+    
      *
      * @param \Application\Entity\ZfcmsModules $module
      *
@@ -136,7 +142,8 @@ class ZfcmsPostsRelations
     }
 
     /**
-     * Get module
+     * Get module.
+    
      *
      * @return \Application\Entity\ZfcmsModules
      */
@@ -146,7 +153,8 @@ class ZfcmsPostsRelations
     }
 
     /**
-     * Set posts
+     * Set posts.
+    
      *
      * @param \Application\Entity\ZfcmsPosts $posts
      *
@@ -160,7 +168,8 @@ class ZfcmsPostsRelations
     }
 
     /**
-     * Get posts
+     * Get posts.
+    
      *
      * @return \Application\Entity\ZfcmsPosts
      */

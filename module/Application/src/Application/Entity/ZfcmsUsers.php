@@ -237,7 +237,8 @@ class ZfcmsUsers
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -247,7 +248,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Set image
+     * Set image.
+    
      *
      * @param string $image
      *
@@ -261,7 +263,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Get image
+     * Get image.
+    
      *
      * @return string
      */
@@ -271,7 +274,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Set name
+     * Set name.
+    
      *
      * @param string $name
      *
@@ -285,7 +289,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Get name
+     * Get name.
+    
      *
      * @return string
      */
@@ -295,7 +300,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Set surname
+     * Set surname.
+    
      *
      * @param string $surname
      *
@@ -309,7 +315,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Get surname
+     * Get surname.
+    
      *
      * @return string
      */
@@ -319,7 +326,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Set address
+     * Set address.
+    
      *
      * @param string $address
      *
@@ -333,7 +341,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Get address
+     * Get address.
+    
      *
      * @return string
      */
@@ -343,7 +352,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Set zip
+     * Set zip.
+    
      *
      * @param string $zip
      *
@@ -357,7 +367,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Get zip
+     * Get zip.
+    
      *
      * @return string
      */
@@ -367,7 +378,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Set city
+     * Set city.
+    
      *
      * @param string $city
      *
@@ -381,7 +393,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Get city
+     * Get city.
+    
      *
      * @return string
      */
@@ -391,7 +404,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Set province
+     * Set province.
+    
      *
      * @param integer $province
      *
@@ -405,7 +419,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Get province
+     * Get province.
+    
      *
      * @return integer
      */
@@ -415,7 +430,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Set birthDate
+     * Set birthDate.
+    
      *
      * @param \DateTime $birthDate
      *
@@ -429,7 +445,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Get birthDate
+     * Get birthDate.
+    
      *
      * @return \DateTime
      */
@@ -439,7 +456,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Set birthPlace
+     * Set birthPlace.
+    
      *
      * @param string $birthPlace
      *
@@ -453,7 +471,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Get birthPlace
+     * Get birthPlace.
+    
      *
      * @return string
      */
@@ -463,7 +482,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Set nation
+     * Set nation.
+    
      *
      * @param integer $nation
      *
@@ -477,7 +497,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Get nation
+     * Get nation.
+    
      *
      * @return integer
      */
@@ -487,7 +508,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Set sex
+     * Set sex.
+    
      *
      * @param string $sex
      *
@@ -501,7 +523,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Get sex
+     * Get sex.
+    
      *
      * @return string
      */
@@ -511,7 +534,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Set job
+     * Set job.
+    
      *
      * @param string $job
      *
@@ -525,7 +549,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Get job
+     * Get job.
+    
      *
      * @return string
      */
@@ -535,7 +560,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Set email
+     * Set email.
+    
      *
      * @param string $email
      *
@@ -549,7 +575,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Get email
+     * Get email.
+    
      *
      * @return string
      */
@@ -559,7 +586,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Set phone
+     * Set phone.
+    
      *
      * @param string $phone
      *
@@ -573,7 +601,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Get phone
+     * Get phone.
+    
      *
      * @return string
      */
@@ -583,7 +612,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Set mobile
+     * Set mobile.
+    
      *
      * @param string $mobile
      *
@@ -597,7 +627,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Get mobile
+     * Get mobile.
+    
      *
      * @return string
      */
@@ -607,7 +638,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Set fax
+     * Set fax.
+    
      *
      * @param string $fax
      *
@@ -621,7 +653,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Get fax
+     * Get fax.
+    
      *
      * @return string
      */
@@ -631,7 +664,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Set websiteUrl
+     * Set websiteUrl.
+    
      *
      * @param string $websiteUrl
      *
@@ -645,7 +679,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Get websiteUrl
+     * Get websiteUrl.
+    
      *
      * @return string
      */
@@ -655,7 +690,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Set fiscalCode
+     * Set fiscalCode.
+    
      *
      * @param string $fiscalCode
      *
@@ -669,7 +705,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Get fiscalCode
+     * Get fiscalCode.
+    
      *
      * @return string
      */
@@ -679,7 +716,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Set vatCode
+     * Set vatCode.
+    
      *
      * @param string $vatCode
      *
@@ -693,7 +731,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Get vatCode
+     * Get vatCode.
+    
      *
      * @return string
      */
@@ -703,7 +742,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Set newsletter
+     * Set newsletter.
+    
      *
      * @param string $newsletter
      *
@@ -717,7 +757,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Get newsletter
+     * Get newsletter.
+    
      *
      * @return string
      */
@@ -727,7 +768,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Set newsletterFormat
+     * Set newsletterFormat.
+    
      *
      * @param string $newsletterFormat
      *
@@ -741,7 +783,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Get newsletterFormat
+     * Get newsletterFormat.
+    
      *
      * @return string
      */
@@ -751,7 +794,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Set username
+     * Set username.
+    
      *
      * @param string $username
      *
@@ -765,7 +809,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Get username
+     * Get username.
+    
      *
      * @return string
      */
@@ -775,7 +820,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Set password
+     * Set password.
+    
      *
      * @param string $password
      *
@@ -789,7 +835,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Get password
+     * Get password.
+    
      *
      * @return string
      */
@@ -799,7 +846,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Set passwordLastUpdate
+     * Set passwordLastUpdate.
+    
      *
      * @param \DateTime $passwordLastUpdate
      *
@@ -813,7 +861,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Get passwordLastUpdate
+     * Get passwordLastUpdate.
+    
      *
      * @return \DateTime
      */
@@ -823,7 +872,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Set status
+     * Set status.
+    
      *
      * @param string $status
      *
@@ -837,7 +887,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Get status
+     * Get status.
+    
      *
      * @return string
      */
@@ -847,7 +898,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Set area
+     * Set area.
+    
      *
      * @param string $area
      *
@@ -861,7 +913,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Get area
+     * Get area.
+    
      *
      * @return string
      */
@@ -871,7 +924,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Set createDate
+     * Set createDate.
+    
      *
      * @param \DateTime $createDate
      *
@@ -885,7 +939,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Get createDate
+     * Get createDate.
+    
      *
      * @return \DateTime
      */
@@ -895,7 +950,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Set lastUpdate
+     * Set lastUpdate.
+    
      *
      * @param \DateTime $lastUpdate
      *
@@ -909,7 +965,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Get lastUpdate
+     * Get lastUpdate.
+    
      *
      * @return \DateTime
      */
@@ -919,7 +976,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Set confirmCode
+     * Set confirmCode.
+    
      *
      * @param string $confirmCode
      *
@@ -933,7 +991,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Get confirmCode
+     * Get confirmCode.
+    
      *
      * @return string
      */
@@ -943,7 +1002,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Set role
+     * Set role.
+    
      *
      * @param \Application\Entity\ZfcmsUsersRoles $role
      *
@@ -957,7 +1017,8 @@ class ZfcmsUsers
     }
 
     /**
-     * Get role
+     * Get role.
+    
      *
      * @return \Application\Entity\ZfcmsUsersRoles
      */

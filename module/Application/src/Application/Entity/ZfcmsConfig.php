@@ -80,7 +80,8 @@ class ZfcmsConfig
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -90,7 +91,8 @@ class ZfcmsConfig
     }
 
     /**
-     * Set name
+     * Set name.
+    
      *
      * @param string $name
      *
@@ -104,7 +106,8 @@ class ZfcmsConfig
     }
 
     /**
-     * Get name
+     * Get name.
+    
      *
      * @return string
      */
@@ -114,7 +117,8 @@ class ZfcmsConfig
     }
 
     /**
-     * Set value
+     * Set value.
+    
      *
      * @param string $value
      *
@@ -128,7 +132,8 @@ class ZfcmsConfig
     }
 
     /**
-     * Get value
+     * Get value.
+    
      *
      * @return string
      */
@@ -138,7 +143,8 @@ class ZfcmsConfig
     }
 
     /**
-     * Set note
+     * Set note.
+    
      *
      * @param string $note
      *
@@ -152,7 +158,8 @@ class ZfcmsConfig
     }
 
     /**
-     * Get note
+     * Get note.
+    
      *
      * @return string
      */
@@ -162,7 +169,8 @@ class ZfcmsConfig
     }
 
     /**
-     * Set isBackend
+     * Set isBackend.
+    
      *
      * @param integer $isBackend
      *
@@ -176,7 +184,8 @@ class ZfcmsConfig
     }
 
     /**
-     * Get isBackend
+     * Get isBackend.
+    
      *
      * @return integer
      */
@@ -186,7 +195,8 @@ class ZfcmsConfig
     }
 
     /**
-     * Set isAlwaysAllowed
+     * Set isAlwaysAllowed.
+    
      *
      * @param integer $isAlwaysAllowed
      *
@@ -200,7 +210,8 @@ class ZfcmsConfig
     }
 
     /**
-     * Get isAlwaysAllowed
+     * Get isAlwaysAllowed.
+    
      *
      * @return integer
      */
@@ -210,7 +221,8 @@ class ZfcmsConfig
     }
 
     /**
-     * Set moduleId
+     * Set moduleId.
+    
      *
      * @param integer $moduleId
      *
@@ -224,7 +236,8 @@ class ZfcmsConfig
     }
 
     /**
-     * Get moduleId
+     * Get moduleId.
+    
      *
      * @return integer
      */
@@ -234,7 +247,8 @@ class ZfcmsConfig
     }
 
     /**
-     * Set channelId
+     * Set channelId.
+    
      *
      * @param integer $channelId
      *
@@ -248,7 +262,8 @@ class ZfcmsConfig
     }
 
     /**
-     * Get channelId
+     * Get channelId.
+    
      *
      * @return integer
      */
@@ -258,7 +273,8 @@ class ZfcmsConfig
     }
 
     /**
-     * Set languageId
+     * Set languageId.
+    
      *
      * @param integer $languageId
      *
@@ -272,7 +288,8 @@ class ZfcmsConfig
     }
 
     /**
-     * Get languageId
+     * Get languageId.
+    
      *
      * @return integer
      */

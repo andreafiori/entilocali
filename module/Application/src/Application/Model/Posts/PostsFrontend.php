@@ -4,11 +4,16 @@ namespace Application\Model\Posts;
 
 use Application\Model\RouterManagers\RouterManagerInterface;
 use Application\Model\RouterManagers\RouterManagerAbstract;
-use Application\Model\Posts\PostsFrontendHelper;
 use Application\Model\HomePage\HomePageRecordsGetter;
 use Application\Model\HomePage\HomePageRecordsGetterWrapper;
+use Admin\Model\Posts\PostsGetterWrapper;
+use Admin\Model\Posts\PostsGetter;
+use Application\Model\Slugifier;
 
 /**
+ * TODO: refactor for this home page setup:
+         map array object will have: array( moduleId => object to get keyRecord => ArrayRecords )
+
  * @author Andrea Fiori
  * @since  05 May 2014
  */
@@ -26,24 +31,35 @@ class PostsFrontend extends RouterManagerAbstract implements RouterManagerInterf
      */
     public function setupRecord()
     {
-        $this->postsFrontendHelper = new PostsFrontendHelper($this->getInput());
-
-        if ( $this->postsFrontendHelper->isHomePage() ) {
+        $category = $this->getInput('category', 1);
+        $title = $this->getInput('title', 1);
+        
+        if ( !$category and !$title ) {
             return $this->setupHomePage();
         }
         
-        $this->setRecords($this->postsFrontendHelper->setRecords());
-        $this->setTemplate($this->postsFrontendHelper->getTemplate());
+        $param = $this->getInput('param', 1);
+        
+        $postsGetterWrapper = new PostsGetterWrapper(new PostsGetter($this->getInput('entityManager', 1)));
+        $postsGetterWrapper->setInput($this->getInput());
+        $postsGetterWrapper->setupQueryBuilder();
+        $postsGetterWrapper->setupQuery();
+        $postsGetterWrapper->setupPaginator($param['route']['page']);
+        
+        $records = $postsGetterWrapper->setupRecords();
+        
+        $this->setVariable('paginator', $records);
+        $this->setVariable('category', $postsGetterWrapper->getCategory() );
+        $this->setVariable('category_seo', Slugifier::slugify($postsGetterWrapper->getCategory()) );
+        $this->setVariable('title', $postsGetterWrapper->getTitle() );
+        $this->setVariable('title_seo', Slugifier::slugify($postsGetterWrapper->getTitle()) );
+        
+        $this->setRecords($records);
+        $this->setTemplate($postsGetterWrapper->getTemplate());
 
-        $setup = $this->getOutput();
-
-        return $setup;
+        return $this->getOutput();
     }
-    
         /**
-         * TODO: refactor for this home page setup:
-         *      map array object will have: array( moduleId => object to get keyRecord => ArrayRecords )
-         * 
          * @return type
          */
         private function setupHomePage()

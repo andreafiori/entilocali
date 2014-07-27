@@ -58,11 +58,7 @@ class PostsDataTable extends DataTableAbstract
      */
     public function getRecords()
     {
-        $postsGetterWrapper = new PostsGetterWrapper( new PostsGetter($this->getInput('entityManager')) );
-        $postsGetterWrapper->setInput( array("type" => $this->type) );
-        $postsGetterWrapper->setupQueryBuilder();
-
-        $records = $postsGetterWrapper->getRecords();
+        $records = $this->getPostsRecords();
         
         $recordsToReturn = array();
         foreach($records as $record) {
@@ -84,10 +80,22 @@ class PostsDataTable extends DataTableAbstract
                     'title'     => 'Elimina',
                     'data-id'   => $record['postoptionid']
                 ),
-                '<a href="#" data-toggle="tooltip" data-placement="top" class="btn btn-default btooltip" title="Gestione allegati"><i class="fa fa-paperclip"></i> </a>',
+                '<a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" class="btn btn-default btooltip" title="Gestione allegati"><i class="fa fa-paperclip"></i> </a>',
             );
         }
 
         return $recordsToReturn;
     }
+    
+        /**
+         * @return array
+         */
+        private function getPostsRecords()
+        {
+            $postsGetterWrapper = new PostsGetterWrapper( new PostsGetter($this->getInput('entityManager')) );
+            $postsGetterWrapper->setInput( array("type" => $this->type) );
+            $postsGetterWrapper->setupQueryBuilder();
+
+            return $postsGetterWrapper->getRecords();
+        }
 }

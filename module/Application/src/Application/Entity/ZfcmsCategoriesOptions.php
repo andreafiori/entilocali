@@ -114,7 +114,8 @@ class ZfcmsCategoriesOptions
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -124,7 +125,8 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Set name
+     * Set name.
+    
      *
      * @param string $name
      *
@@ -138,7 +140,8 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Get name
+     * Get name.
+    
      *
      * @return string
      */
@@ -148,7 +151,8 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Set description
+     * Set description.
+    
      *
      * @param string $description
      *
@@ -162,7 +166,8 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Get description
+     * Get description.
+    
      *
      * @return string
      */
@@ -172,7 +177,8 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Set seoUrl
+     * Set seoUrl.
+    
      *
      * @param string $seoUrl
      *
@@ -186,7 +192,8 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Get seoUrl
+     * Get seoUrl.
+    
      *
      * @return string
      */
@@ -196,7 +203,8 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Set seoTitle
+     * Set seoTitle.
+    
      *
      * @param string $seoTitle
      *
@@ -210,7 +218,8 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Get seoTitle
+     * Get seoTitle.
+    
      *
      * @return string
      */
@@ -220,7 +229,8 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Set seoKeywords
+     * Set seoKeywords.
+    
      *
      * @param string $seoKeywords
      *
@@ -234,7 +244,8 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Get seoKeywords
+     * Get seoKeywords.
+    
      *
      * @return string
      */
@@ -244,7 +255,8 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Set seoDescription
+     * Set seoDescription.
+    
      *
      * @param string $seoDescription
      *
@@ -258,7 +270,8 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Get seoDescription
+     * Get seoDescription.
+    
      *
      * @return string
      */
@@ -268,7 +281,8 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Set accesskey
+     * Set accesskey.
+    
      *
      * @param string $accesskey
      *
@@ -282,7 +296,8 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Get accesskey
+     * Get accesskey.
+    
      *
      * @return string
      */
@@ -292,7 +307,8 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Set templateFile
+     * Set templateFile.
+    
      *
      * @param string $templateFile
      *
@@ -306,7 +322,8 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Get templateFile
+     * Get templateFile.
+    
      *
      * @return string
      */
@@ -316,7 +333,8 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Set position
+     * Set position.
+    
      *
      * @param integer $position
      *
@@ -330,7 +348,8 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Get position
+     * Get position.
+    
      *
      * @return integer
      */
@@ -340,7 +359,8 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Set parentId
+     * Set parentId.
+    
      *
      * @param integer $parentId
      *
@@ -354,7 +374,8 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Get parentId
+     * Get parentId.
+    
      *
      * @return integer
      */
@@ -364,7 +385,8 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Set category
+     * Set category.
+    
      *
      * @param \Application\Entity\ZfcmsCategories $category
      *
@@ -378,7 +400,8 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Get category
+     * Get category.
+    
      *
      * @return \Application\Entity\ZfcmsCategories
      */
@@ -388,7 +411,8 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Set language
+     * Set language.
+    
      *
      * @param \Application\Entity\ZfcmsLanguages $language
      *
@@ -402,7 +426,8 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Get language
+     * Get language.
+    
      *
      * @return \Application\Entity\ZfcmsLanguages
      */

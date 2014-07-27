@@ -59,7 +59,8 @@ class ZfcmsGeoProvince
 
 
     /**
-     * Get id
+     * Get id.
+    
      *
      * @return integer
      */
@@ -69,7 +70,8 @@ class ZfcmsGeoProvince
     }
 
     /**
-     * Set codiceRegione
+     * Set codiceRegione.
+    
      *
      * @param string $codiceRegione
      *
@@ -83,7 +85,8 @@ class ZfcmsGeoProvince
     }
 
     /**
-     * Get codiceRegione
+     * Get codiceRegione.
+    
      *
      * @return string
      */
@@ -93,7 +96,8 @@ class ZfcmsGeoProvince
     }
 
     /**
-     * Set codiceProvincia
+     * Set codiceProvincia.
+    
      *
      * @param string $codiceProvincia
      *
@@ -107,7 +111,8 @@ class ZfcmsGeoProvince
     }
 
     /**
-     * Get codiceProvincia
+     * Get codiceProvincia.
+    
      *
      * @return string
      */
@@ -117,7 +122,8 @@ class ZfcmsGeoProvince
     }
 
     /**
-     * Set nome
+     * Set nome.
+    
      *
      * @param string $nome
      *
@@ -131,7 +137,8 @@ class ZfcmsGeoProvince
     }
 
     /**
-     * Get nome
+     * Get nome.
+    
      *
      * @return string
      */
@@ -141,7 +148,8 @@ class ZfcmsGeoProvince
     }
 
     /**
-     * Set sigla
+     * Set sigla.
+    
      *
      * @param string $sigla
      *
@@ -155,7 +163,8 @@ class ZfcmsGeoProvince
     }
 
     /**
-     * Get sigla
+     * Get sigla.
+    
      *
      * @return string
      */
@@ -165,7 +174,8 @@ class ZfcmsGeoProvince
     }
 
     /**
-     * Set capoluogo
+     * Set capoluogo.
+    
      *
      * @param string $capoluogo
      *
@@ -179,7 +189,8 @@ class ZfcmsGeoProvince
     }
 
     /**
-     * Get capoluogo
+     * Get capoluogo.
+    
      *
      * @return string
      */

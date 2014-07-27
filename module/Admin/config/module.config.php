@@ -79,6 +79,21 @@ return array(
                                                 ),
                                     ),
                     ),
+                    // lists using responsive tables
+                    'tablelist' => array(
+                                    'type'    => 'Segment',
+                                    'options' => array(
+                                                'route'       => 'tablelist[/][:tablesetter][/:option][/]',
+                                                'constraints' => array(
+                                                        'tablesetter' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                        'option'      => '[a-zA-Z0-9_-]*',
+                                                ),
+                                                'defaults' => array(
+                                                        'controller' => 'Admin\Controller\Admin',
+                                                        'action'     => 'index',
+                                                ),
+                                    ),
+                    ),
                     'formpost' => array(
                                     'type'    => 'Segment',
                                     'options' => array(
@@ -127,18 +142,18 @@ return array(
     'be_router' => array(
         "admin"                 => 'Admin\Model\AdminDashboard',
         "admin/formdata"        => 'Admin\Model\FormData\FormDataHandler',
-        "admin/datatable"       => 'Admin\Model\DataTable\DataTableHandler',
+        "admin/datatable"       => 'Admin\Model\DataTable\DataTableHandler',        
     ),
     // FormData Class Map
     'formdata_classmap' => array(
-        'albo-pretorio'     => 'Admin\Model\AlboPretorio\AlboPretorioFormDataHandler',
-        'amministrazione-trasparente' => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFormDataHandler',
-        'stato-civile'      => 'Admin\Model\StatoCivile\StatoCivileFormDataHandler',
-        'contratti-pubblici-bandi' => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciBandiFormDataHandler',
-        'posts'             => 'Admin\Model\Posts\PostsFormDataHandler',
-        'categories'        => 'Admin\Model\Categories\CategoriesFormDataHandler',
-        'ticketing'         => 'Admin\Model\Ticketing\TicketingFormDataHandler',
-        'users'             => 'Admin\Model\Users\UsersFormDataHandler',
+        'albo-pretorio'                 => 'Admin\Model\AlboPretorio\AlboPretorioFormDataHandler',
+        'amministrazione-trasparente'   => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFormDataHandler',
+        'stato-civile'                  => 'Admin\Model\StatoCivile\StatoCivileFormDataHandler',
+        'contratti-pubblici-bandi'      => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciBandiFormDataHandler',
+        'posts'                         => 'Admin\Model\Posts\PostsFormDataHandler',
+        'categories'                    => 'Admin\Model\Categories\CategoriesFormDataHandler',
+        'ticketing'                     => 'Admin\Model\Ticketing\TicketingFormDataHandler',
+        'users'                         => 'Admin\Model\Users\UsersFormDataHandler',
     ),
     // FormData CRUD Class Map
     'formdata_crud_classmap' => array( 
@@ -162,7 +177,7 @@ return array(
         'newsletter'                  => 'Admin\Model\Newsletter\NewsletterDataTable',
         'posts'                       => 'Admin\Model\Posts\PostsDataTable',
         'users'                       => 'Admin\Model\Users\UsersDataTable',
-        'albo-pretorio'               => 'Admin\Model\AlboPretorio\AlboPretorioTable',
+        'albo-pretorio'               => 'Admin\Model\AlboPretorio\AlboPretorioDataTable',
         'amministrazione-trasparente' => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteDataTable',
         'contratti-pubblici-bandi'    => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciBandiDataTable',
         'stato-civile'                => 'Admin\Model\StatoCivile\StatoCivileDataTable',

@@ -65,10 +65,11 @@ abstract class RouterManagerAbstract
     public function setTemplate($template)
     {
         $this->output['template'] = $template;
+        
+        return $this->output['template'];
     }
     
     /**
-     * 
      * @param type $isBackend
      * @return type
      */
@@ -85,11 +86,19 @@ abstract class RouterManagerAbstract
         return self::defaultFrontendTemplate;
     }
     
+    /**
+     * @param array $records
+     */
     public function setRecords($records)
     {
         $this->output['records'] = $records;
+        
+        return $this->output['records'];
     }
     
+    /**
+     * @return array or null
+     */
     public function getRecords()
     {
         if  (isset($this->output['records'])) {
