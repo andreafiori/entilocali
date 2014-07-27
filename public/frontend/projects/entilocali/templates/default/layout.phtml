@@ -83,16 +83,16 @@ legend {
                                     <li>
                                         <a href="<?php echo $this->url('main', array('category' => 'comune-azienda', 'title' => 'dove-siamo')) ?>" title="Dove siamo"><i class="fa fa-map-marker"></i> Dove siamo</a>
                                     </li>
-                                    
+
                                     <li>
                                         <a href="<?php echo $this->basePath() ?>/contatti/invia-messaggio/" title="Inviaci un messaggio"><i class="fa fa-envelope"></i> Contatti</a>
                                     </li>
 
                                 </ul>
                                 <form class="navbar-form navbar-left" method="post" action="<?php echo $this->basepath() ?>/ricerca/risultati/" role="search">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Cerca sul sito">
-                                        </div> <button type="submit" class="btn btn-default" title="Cerca sul sito">Cerca</button>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Cerca sul sito">
+                                    </div> <button type="submit" class="btn btn-default" title="Cerca sul sito">Cerca</button>
                                 </form>
                                 <!--
                                 <ul class="nav navbar-nav navbar-right">
@@ -286,7 +286,7 @@ legend {
 			<div class="container">			
 				<div class="row">			
 					 <div class="col-md-3">   
-                                            <h4>Informazioni</h4>
+                                            <h4><i class="fa fa-info"></i> Informazioni</h4>
                                             <ul>
                                                 <li><a href="<?php echo $this->url('main', array('category' => 'info', 'title' => 'note-legali')) ?>" title="">Note Legali</a></li>
                                                 <li><a href="<?php echo $this->url('main', array('category' => 'info', 'title' => 'accessibilita')) ?>" title="">Accessiblit&agrave;</a></li>
@@ -297,14 +297,17 @@ legend {
                                             </ul>
 					</div>
 					<div class="col-md-3">
-                                            <h4>Account</h4>
+                                            <h4><i class="fa fa-wheelchair"></i> Accessiblit&agrave;</h4>
                                             <ul>
-                                                <li><a href="#" title="">Profilo</a></li>
-                                                <li><a href="#" title="">Newsletter</a></li>
+                                                <li><a href="#" title="Sito testuale">Sito testuale</a></li>
+                                                <li><a href="#" title="Rosso su nero">Rosso su nero</a></li>
+                                                <li><a href="#" title="Alta visibilit&agrave;">Alta visibilit&agrave;</a></li>
+                                                <li><a href="#" title="Accesso da tastiera">Accesso da tastiera</a></li>
+                                                <li><a href="#" title="Dichiarazione di accessibilit&agrave;">Dichiarazione di accessibilit&agrave;</a></li>
                                             </ul>
 					</div>
 					<div class="col-md-3">
-						<h4>Social</h4>
+						<h4><i class="fa fa-group"></i> Social</h4>
 						<a href="https://www.facebook.com/pages/kronoweb/154267801299932?ref=hl" title="Facebook Kronoweb ITC" target="_blank"><img src="<?php echo $this->basePath() ?>/<?php echo $this->imagedir ?>social-facebook.png" alt="Facebook"></a>
 						<a href="#" title="Twitter"><img src="<?php echo $this->basePath() ?>/<?php echo $this->imagedir ?>social-twitter.png" alt="Twitter"></a>
 						<a href="#" title="RSS"><img src="<?php echo $this->basePath() ?>/<?php echo $this->imagedir ?>social-rss.png" alt="RSS"></a>
@@ -312,7 +315,7 @@ legend {
 					</div>
 					<div class="col-md-3">
 						<div class="company_info">
-                                                    <h4>Kronoweb ITC</h4>
+                                                    <h4><strong>Kronoweb ITC</strong></h4>
                                                     <p>
                                                         Partita IVA 01848120901<br>
                                                         R.E.A 143513 C.C.I.A.A<br><br>

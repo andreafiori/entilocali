@@ -5,9 +5,9 @@ namespace Admin\Model\StatoCivile;
 use Application\Model\RecordsGetterWrapperAbstract;
 use Admin\Model\StatoCivile\StatoCivileSezioniGetter;
 
-/**
+/** 
  * @author Andrea Fiori
- * @since  17 June 2013
+ * @since  26 July 2013
  */
 class StatoCivileSezioniGetterWrapper extends RecordsGetterWrapperAbstract
 {
@@ -23,7 +23,7 @@ class StatoCivileSezioniGetterWrapper extends RecordsGetterWrapperAbstract
     }
     
     public function setupQueryBuilder()
-    { 
+    {
         $this->objectGetter->setSelectQueryFields( $this->getInput('fields', 1) );
 
         $this->objectGetter->setMainQuery();

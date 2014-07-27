@@ -55,7 +55,7 @@ abstract class DataTableAbstract extends InputSetupAbstract
         return $this->template;
     }
     
-    abstract public function getColumns();
+    // abstract public function getColumns();
     
-    abstract public function getRecords();
+    // abstract public function getRecords();
 }

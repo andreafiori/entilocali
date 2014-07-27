@@ -39,7 +39,7 @@ class StatoCivileGetterWrapper extends RecordsGetterWrapperAbstract
     {
         $this->query = $entityManager->createQuery( $this->statoCivileGetter->getDQLQuery() )
                                 ->setFirstResult($this->firstResult)
-                                ->setMaxResults($this->maxResult)
+                                ->setMaxResults($this->maxResults)
                                 ->setParameters( $this->statoCivileGetter->getQuery()->getParameters() )
                                 ->getScalarResult();
 

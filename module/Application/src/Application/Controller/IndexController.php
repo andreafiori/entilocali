@@ -47,7 +47,7 @@ class IndexController extends AbstractActionController
             }
         }
         
-        if ($output['basiclayout']) {
+        if ( isset($output['basiclayout']) ) {
             $basicLayout = $configurations['template_path'].$output['basiclayout'];
         } else {
             $basicLayout = $configurations['basiclayout'];

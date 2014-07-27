@@ -25,25 +25,34 @@ class StatoCivileForm extends Form
                                         'title' => 'Inserisci il titolo',
                         )
         ));
-        
-        $this->add(array(
+    }
+    
+    public function addSezioni($sezioni)
+    {
+        if (is_array($sezioni)) {
+            
+            
+            
+            $this->add(array(
                         'type' => 'Zend\Form\Element\Select',
                         'name' => 'sezioneId',
                         'options' => array(
                                'label' => 'Sezione',
-                               'value_options' => array(
-                                       '' => 'Seleziona',
-                                       'attivo'   => 'Attivo',
-                                       'nascosto' => 'Nascosto',
-                               ),
+                               'empty_option' => 'Seleziona',
+                               'value_options' => $sezioni,
                         ),
                         'attributes' => array(
                                 'id' => 'status',
                                 'required' => 'required',
                                 'title' => 'Seleziona la sezione',
                         )
-        ));
+            ));
+        }
         
+    }
+    
+    public function addDates()
+    {
         $this->add(array(
                         'type' => 'Date',
                         'name' => 'insertDate',
@@ -72,10 +81,20 @@ class StatoCivileForm extends Form
                                 'id' => 'expireDate'
                         )
         ));
-    }
-    
-    public function addSezioni($sezioni)
-    {
         
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Checkbox',
+            'name' => 'checkbox',
+            'attributes' => array(
+                'title'         => 'Inserisci in home page',
+                'id'            => 'home'
+            ),
+            'options' => array(
+                'label' => 'Inserisci in home page',
+                'use_hidden_element' => true,
+                'checked_value'      => '1',
+                'unchecked_value'    => '0'
+            )
+        ));
     }
 }

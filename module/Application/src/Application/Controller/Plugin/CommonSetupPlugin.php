@@ -102,7 +102,7 @@ class CommonSetupPlugin extends CommonSetupPluginAbstract
 
             if ( isset($this->config['app_configs']) ) {
                 $this->appConfigs       = $this->config['app_configs'];
-                $this->isMultiLanguage  = $this->appConfigs['isMultilanguage'];
+                $this->isMultiLanguage  = isset($this->appConfigs['isMultilanguage']) ? $this->appConfigs['isMultilanguage'] : '';
             }
             
             if ($this->isBackend) {

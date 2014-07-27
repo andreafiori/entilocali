@@ -38,7 +38,7 @@ class AlboPretorioGetterWrapper extends RecordsGetterWrapperAbstract
     {
         $this->query = $entityManager->createQuery( $this->objectGetter->getDQLQuery() )
                                 ->setFirstResult($this->firstResult)
-                                ->setMaxResults($this->maxResult)
+                                ->setMaxResults($this->maxResults)
                                 ->setParameters( $this->objectGetter->getQuery()->getParameters() )
                                 ->getScalarResult();
 

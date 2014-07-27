@@ -16,8 +16,6 @@ class AlboPretorioFormSearch extends Form
     {
         parent::__construct('albo-pretorio-search-form');
         
-        $this->setAttribute('method', 'post');
-
         $this->add(array(
             'name' => 'testo',
             'type' => 'Zend\Form\Element\Text',

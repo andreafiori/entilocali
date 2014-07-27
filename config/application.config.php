@@ -5,7 +5,7 @@ return array(
             'EdpModuleLayouts',
             'ServiceLocatorFactory',
             'DoctrineModule', 'DoctrineORMModule',
-            //'ZendDeveloperTools',
+            'ZendDeveloperTools',
             'ZfcBase','ZfcUser','BjyProfiler',
             'ApiWebService',
             'Admin',

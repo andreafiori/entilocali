@@ -27,7 +27,7 @@ endif;
 
 foreach ($this->form as $element):
     $attributes = $element->getAttributes();
-    if ($attributes['class']=='wysiwyg'):
+    if (isset($attributes['class']) and $attributes['class'] == 'wysiwyg'):
     ?>
     <div class="form-group">
         <div class="col-sm-12">
@@ -36,7 +36,7 @@ foreach ($this->form as $element):
         </div>
     </div>
     <?php
-    elseif ($attributes['class']=='DatePicker'):
+    elseif (isset($attributes['class']) and $attributes['class']=='DatePicker'):
     ?>
     <div class="form-group">
         <label for="<?php echo $attributes['id'] ?>" class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label"><?php echo $element->getLabel() ?></label>
@@ -45,7 +45,7 @@ foreach ($this->form as $element):
         </div>
     </div>
     <?php
-    elseif ($attributes['class'] == 'hiddenField' or $attributes['name'] == 'csrf'):
+    elseif ( ( isset($attributes['class']) and $attributes['class'] == 'hiddenField') or $attributes['name'] == 'csrf'):
         echo $this->formElement($element);
     elseif ($attributes['type'] == 'submit'):
         $element->setAttribute('class','btn btn-primary');
@@ -54,6 +54,15 @@ foreach ($this->form as $element):
             <label for="<?php echo $attributes['id'] ?>" class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label"><?php echo $element->getLabel() ?></label>
             <div class="col-sm-<?php echo $this->formControlSpanWidth ?>">
                 <?php echo $this->formElement($element); ?> 
+            </div>
+        </div>
+        <?php
+    elseif ($attributes['type'] == 'checkbox'):
+        ?>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">&nbsp;</label>
+            <div class="col-sm-8"><?php echo $this->formElement($element); ?>
+            <label for="<?php echo $attributes['id'] ?>" style="width: 80%"> <?php echo $element->getLabel() ?></label>
             </div>
         </div>
         <?php

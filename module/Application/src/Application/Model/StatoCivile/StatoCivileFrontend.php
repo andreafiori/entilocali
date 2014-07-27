@@ -43,6 +43,6 @@ class StatoCivileFrontend extends RouterManagerAbstract implements RouterManager
             $statoCivileGetterWrapper->setupQueryBuilder();
             $statoCivileGetterWrapper->setupQuery($this->getInput('entityManager', 1));
 
-            return $statoCivileGetterWrapper->setupPaginator($param['route']['page']);
+            return $statoCivileGetterWrapper->setupPaginator(isset($param['route']['page']) ? $param['route']['page'] : '');
         }
 }

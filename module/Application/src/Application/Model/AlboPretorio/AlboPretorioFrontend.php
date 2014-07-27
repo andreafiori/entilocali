@@ -89,6 +89,6 @@ class AlboPretorioFrontend extends RouterManagerAbstract implements RouterManage
             $alboPretorioGetterWrapper->setupQueryBuilder();
             $alboPretorioGetterWrapper->setupQuery( $this->getInput('entityManager',1) );
 
-            return $alboPretorioGetterWrapper->setupPaginator($param['route']['page']);
+            return $alboPretorioGetterWrapper->setupPaginator(isset($param['route']['page']) ? $param['route']['page'] : '');
         }   
 }

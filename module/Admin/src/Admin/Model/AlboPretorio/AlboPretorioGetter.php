@@ -12,7 +12,7 @@ class AlboPretorioGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('DISTINCT(aa.id) AS id, aa.numeroProgressivo, aa.numeroAtto, aa.anno, aa.titolo, aa.dataAttivazione, aa.oraAttivazione ');
+        $this->setSelectQueryFields('DISTINCT(aa.id) AS id, aa.numeroProgressivo, aa.numeroAtto, aa.anno, aa.titolo, aa.dataAttivazione, aa.oraAttivazione, aa.dataScadenza, aps.nome ');
 
         $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
                                 ->add('from', 'Application\Entity\ZfcmsComuniAlboArticoli aa, Application\Entity\ZfcmsComuniAlboSezioni aps ')

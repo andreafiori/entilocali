@@ -59,7 +59,7 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
 
         $this->query = $entityManager->createQuery( $this->postsGetter->getDQLQuery() )
                                 ->setFirstResult($this->firstResult)
-                                ->setMaxResults($this->maxResult)
+                                ->setMaxResults($this->maxResults)
                                 ->setParameters( $this->postsGetter->getQuery()->getParameters() )
                                 ->getScalarResult();
 
@@ -82,15 +82,13 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
             $row['linkDetails'] = '/'.Slugifier::slugify($row['categoryName']).'/'.Slugifier::slugify($row['title']);
             $row['linkCategory'] = '/'.Slugifier::slugify($row['categoryName']);
             
-            if ( $row['flagAllegati'] == 'si' ) {
-                
+            if ( $row['flagAttachments'] == 'si' ) {
+                $attachmentsGetterWrapper = new AttachmentsGetterWrapper( new AttachmentsGetter($this->getInput('entityManager',1)) );
+                $attachmentsGetterWrapper->setInput( array() );
+                $attachmentsGetterWrapper->setupQueryBuilder();
+                $attachmentsGetterWrapper->getRecords();
             }
             
-            $attachmentsGetterWrapper = new AttachmentsGetterWrapper( new AttachmentsGetter($this->getInput('entityManager',1)) );
-            $attachmentsGetterWrapper->setInput( array() );
-            $attachmentsGetterWrapper->setupQueryBuilder();
-            $attachmentsGetterWrapper->getRecords();
-
             $categories = $this->getCategoriesFromPostsRelations($row);
             foreach ($categories as $category) {
                 $row['categories'][] = $category['category'];

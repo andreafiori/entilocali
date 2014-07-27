@@ -58,7 +58,7 @@ class StatoCivileFormSearch extends Form
             'name' => 'csrf',
             'options' => array(
                     'csrf_options' => array(
-                            'timeout' => 600
+                        'timeout' => 600
                     )
             )
         ));
@@ -69,6 +69,7 @@ class StatoCivileFormSearch extends Form
             'attributes' => array(
                 'label' => '&nbsp;',
                 'value' => 'Cerca',
+                'id' => 'search-stato-civile',
             ))
         );
     }
