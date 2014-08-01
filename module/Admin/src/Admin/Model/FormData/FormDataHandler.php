@@ -23,10 +23,9 @@ class FormDataHandler extends RouterManagerAbstract implements RouterManagerInte
                 $objectFormHandlerName = $formSetterClassMap[$formSetter];
                 $objectFormHandler = new $objectFormHandlerName($this->getInput());
                 
-                $this->setFormDataVariable( $objectFormHandler->getVarToExport() );
+                $this->exportVariableAsGlobal( $objectFormHandler->getVarToExport() );
                 
                 if ($this->getVariable('error')) {
-                    
                     $this->setTemplate('message.phtml');
                     return;
                 }
@@ -38,16 +37,4 @@ class FormDataHandler extends RouterManagerAbstract implements RouterManagerInte
 
         return $this->getOutput();
     }
-
-        /**
-         * @param array $arrayVar
-         */
-        private function setFormDataVariable(array $arrayVar)
-        {
-            if (!empty($arrayVar)) {
-                foreach($arrayVar as $key => $value) {
-                    $this->setVariable($key, $value);
-                }
-            }
-        }
 }

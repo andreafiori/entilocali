@@ -4,10 +4,14 @@ namespace Admin\Model\AlboPretorio;
 
 use Zend\Form\Form;
 
+/**
+ * @author Andrea Fiori
+ * @since  27 July 2014
+ */
 class AlboPretorioForm extends Form
 {
     public function __construct($name = null, $options = array())
-    {    
+    {
         parent::__construct($name, $options);
                 
         $this->add(array(
@@ -65,7 +69,7 @@ class AlboPretorioForm extends Form
                                 'id' => 'ente_terzo',
                                 'placeholder' => 'Ente terzo',
                         )
-        ));        
+        ));
         
         $this->add(array(
                         'type' => 'Text',
@@ -94,7 +98,10 @@ class AlboPretorioForm extends Form
                         'name' => 'id',
                         'attributes' => array("class" => 'hiddenField')
         ));
-        /*
+    }
+    
+    public function addNotes()
+    {
         $this->add(array(
                         'type' => 'Textarea',
                         'name' => 'note',
@@ -107,6 +114,5 @@ class AlboPretorioForm extends Form
                                 'placeholder' => 'Note atto',
                         )
         ));
-        */
     }
 }

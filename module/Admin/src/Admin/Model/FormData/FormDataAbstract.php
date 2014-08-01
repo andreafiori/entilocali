@@ -2,18 +2,16 @@
 
 namespace Admin\Model\FormData;
 
-use Admin\Model\InputSetupAbstract;
+use Admin\Model\VarExporter;
 
 /**
  * @author Andrea Fiori
  * @since  20 May 2014
  */
-abstract class FormDataAbstract extends InputSetupAbstract
+abstract class FormDataAbstract extends VarExporter
 {
     protected $form;
     
-    protected $title;
-    protected $description;
     protected $formAction;
     
     protected $record;
@@ -37,44 +35,7 @@ abstract class FormDataAbstract extends InputSetupAbstract
     {
         return $this->form;
     }
-    
-    public function getTitle()
-    {
-        return $this->title;
-    }
-    
-    public function getDescription()
-    {
-        return $this->description;
-    }
-    
-    /**
-     * Set a variable to export and use on FormDataHandler
-     * 
-     * @param type $key
-     * @param type $value
-     */
-    public function setVariable($key, $value)
-    {
-        $this->varToExport[$key] = $value;
-        
-        return $this->varToExport;
-    }
-    
-    /**
-     * @return array
-     */
-    public function getVarToExport($key = null, $noArray = null)
-    {
-        if (isset($this->varToExport[$key])) {
-            return $this->varToExport[$key];
-        }
-        
-        if (!$noArray) {
-            return $this->varToExport;
-        }
-    }
-    
+
     /**
      * @param array or null $record
      * @return array or null
@@ -105,21 +66,5 @@ abstract class FormDataAbstract extends InputSetupAbstract
         }
         
         return false;
-    }
-    
-    /**
-     * @param string $template
-     * @return string
-     */
-    public function setTemplate($template)
-    {
-        $this->template = $template;
-        
-        return $this->template;
-    }
-    
-    public function getTemplate()
-    {
-        return $this->template; 
     }
 }

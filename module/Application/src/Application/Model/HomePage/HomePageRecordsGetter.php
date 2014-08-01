@@ -20,18 +20,4 @@ class HomePageRecordsGetter extends QueryBuilderHelperAbstract
 
         return $this->getQueryBuilder();
     }
-    
-    /**
-     * @param string $orderBy
-     */
-    public function setOrderBy($orderBy = null)
-    {
-        if (!$orderBy) {
-            $orderBy = 'hb.position';
-        }
-        
-        $this->getQueryBuilder()->add('orderBy', $orderBy);
-        
-        return $this->getQueryBuilder();
-    }
 }

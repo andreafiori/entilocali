@@ -1,14 +1,14 @@
 <?php
 return array(
     'modules' => array(
-            'Application',
             'EdpModuleLayouts',
             'ServiceLocatorFactory',
             'DoctrineModule', 'DoctrineORMModule',
             'ZendDeveloperTools',
-            'ZfcBase','ZfcUser','BjyProfiler',
-            'ApiWebService',
+            //'ZfcBase','ZfcUser','BjyProfiler',
+            'Application',
             'Admin',
+            'ApiWebService',
             'Feed',
     ),
     'module_listener_options' => array(

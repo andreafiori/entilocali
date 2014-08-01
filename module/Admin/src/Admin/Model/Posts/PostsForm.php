@@ -17,7 +17,7 @@ class PostsForm extends Form
      */
     public function __construct($name = null)
     {
-        parent::__construct('formData');
+        parent::__construct($name);
     }
     
     /**
@@ -112,22 +112,7 @@ class PostsForm extends Form
                                 'id' => 'status'
                         )
         ));
-
-        /*
-        $this->add(array(
-             'type' => 'Zend\Form\Element\Radio',
-             'name' => 'stato',
-             'options' => array(
-                     'label' => 'Stato',
-                     'value_options' => array(
-                            'attivo'   => 'Attivo',
-                            'nascosto' => 'Nascosto',
-                     ),
-                    'checked_value' => 'attivo',
-             )
-        ));
-        */
-        
+  
         $this->add(array(
                         'type' => 'Zend\Form\Element\Hidden',
                         'name' => 'postid',

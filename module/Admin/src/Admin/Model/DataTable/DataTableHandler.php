@@ -27,6 +27,8 @@ class DataTableHandler extends RouterManagerAbstract implements RouterManagerInt
                 $this->setVariable('tableDescription',  $object->getDescription());
                 $this->setVariable('columns',           $object->getColumns());
                 
+                $this->exportVariableAsGlobal($object->getVarToExport());
+                
                 $this->setTemplate($object->getTemplate());
             }
             

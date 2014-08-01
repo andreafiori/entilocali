@@ -16,6 +16,7 @@ class CommonSetupPluginAbstract extends AbstractPlugin
     protected $queryBuilder;
     protected $config;
     protected $configurations;
+    protected $translator;
     protected $router;
     protected $uri;
     protected $request;

@@ -29,7 +29,7 @@ class StatoCivileRecordsGetter extends RecordsGetterAbstract
     }
     
     /**
-     * Set Articoli Stato Civile Sezioni as recordset
+     * Set Sezioni Stato Civile Sezioni as recordset
      * 
      * @param type $input
      */

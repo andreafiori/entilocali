@@ -34,7 +34,7 @@ use Application\Model\RecordsGetterWrapperAbstract;
         $this->categoriesGetter->setId($this->getInput('id',1));
         $this->categoriesGetter->setModuleId($this->getInput('moduleId',1));
         $this->categoriesGetter->setStatus($this->getInput('status',1));
-        $this->categoriesGetter->setOrderBy($this->getInput('orderby',1));
+        $this->categoriesGetter->setOrderBy($this->getInput('orderby',1), 'co.position');
         $this->categoriesGetter->setLimit($this->getInput('limit',1));
     }
     

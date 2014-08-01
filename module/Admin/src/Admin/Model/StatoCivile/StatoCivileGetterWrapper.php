@@ -28,8 +28,9 @@ class StatoCivileGetterWrapper extends RecordsGetterWrapperAbstract
         $this->statoCivileGetter->setMainQuery();
         
         $this->statoCivileGetter->setId( $this->getInput('id', 1) );
-        //$this->statoCivileGetter->setOrderBy( $this->getInput('orderby', 1) );
-        //$this->statoCivileGetter->setLimit( $this->getInput('limit', 1) );
+        $this->statoCivileGetter->setTextSearch( $this->getInput('textSearch', 1) );
+        $this->statoCivileGetter->setOrderBy( $this->getInput('orderBy', 1) );
+        $this->statoCivileGetter->setLimit( $this->getInput('limit', 1) );
     }
     
     /**

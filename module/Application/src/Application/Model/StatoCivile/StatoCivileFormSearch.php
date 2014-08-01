@@ -16,15 +16,16 @@ class StatoCivileFormSearch extends Form
      * @param type $name
      * @param type $options
      */
-    public function __construct($name = null, $options = array()) {
-        
+    public function __construct($name = null, $options = array())
+    {    
         parent::__construct($name, $options);
-
+ 
         $this->add(array(
             'type' => 'Text',
             'name' => 'testo',
             'attributes' => array(
-                'title'  => 'Inserisci testo...',
+                'placeholder' => 'Inserisci testo...',
+                'title'  => 'Inserisci testo',
                 'id'     => 'testo'
             ),
             'options' => array(
@@ -33,7 +34,64 @@ class StatoCivileFormSearch extends Form
         ));
     }
     
-    public function addSezioni()
+    public function addMesi()
+    {
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'mese',
+            'attributes' => array(
+                'title' => 'Seleziona mese',
+                'id'    => 'mese'
+            ),
+            'options' => array(
+                    'label' => 'Mese',
+                    'value_options' => array(
+                        ''   => 'Mese',
+                        '1'  => 'Gennaio',
+                        '2'  => 'Febbraio',
+                        '3'  => 'Marzo',
+                        '4'  => 'Aprile',
+                        '5'  => 'Maggio',
+                        '6'  => 'Giugno',
+                        '7'  => 'Luglio',
+                        '8'  => 'Agosto',
+                        '9'  => 'Settembre',
+                        '10' => 'Ottobre',
+                        '11' => 'Novembre',
+                        '12' => 'Dicembre',
+                     ),
+             )
+        ));   
+    }
+    
+    public function addAnni()
+    {
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'anno',
+            'attributes' => array(
+                'title' => 'Seleziona anno',
+                'id' => 'anno'
+            ),
+            'options' => array(
+                'label' => 'Anno',
+                'value_options' => $this->getArrayYears(),
+            )
+        ));
+    }
+    
+        private function getArrayYears()
+        {
+            $arrayYears = array('' => 'Anno');
+
+            for($i=date("Y"); $i < date("Y")+7; $i++) {
+                $arrayYears[$i] = $i;
+            }
+            
+            return $arrayYears;
+        }
+    
+    public function addSezioni($sezioni)
     {
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
@@ -44,9 +102,8 @@ class StatoCivileFormSearch extends Form
             ),
             'options' => array(
                     'label' => 'Sezione',
-                    'value_options' => array(
-                        '' => 'Sezione',
-                    ),
+                    'empty_option' => 'Sezione',
+                    'value_options' => $sezioni
             )
         ));
     }
@@ -69,7 +126,7 @@ class StatoCivileFormSearch extends Form
             'attributes' => array(
                 'label' => '&nbsp;',
                 'value' => 'Cerca',
-                'id' => 'search-stato-civile',
+                'id' => 'search',
             ))
         );
     }

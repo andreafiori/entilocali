@@ -148,7 +148,7 @@ abstract class RouterManagerAbstract
          * @param type $noArray
          * @return array
          */
-        private function getArrayValue($array, $key = null, $noArray=null)
+        protected function getArrayValue($array, $key = null, $noArray=null)
         {
             if ( isset($array[$key]) ) {
                 return $array[$key];
@@ -156,6 +156,18 @@ abstract class RouterManagerAbstract
 
             if ( !$noArray ) {
                 return $array;
+            }
+        }
+        
+        /**
+         * @param array $arrayVar
+         */
+        protected function exportVariableAsGlobal(array $arrayVar)
+        {
+            if (!empty($arrayVar)) {
+                foreach($arrayVar as $key => $value) {
+                    $this->setVariable($key, $value);
+                }
             }
         }
 }

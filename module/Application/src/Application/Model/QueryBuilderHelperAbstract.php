@@ -96,6 +96,47 @@ abstract class QueryBuilderHelperAbstract
     {
         return $this->selectQueryFields;
     }
+
+    /**
+     * 
+     * @param type $orderBy
+     * @param type $defaultField
+     * @return type
+     */
+    public function setOrderBy($orderBy = null, $defaultField = null)
+    {
+        return $this->bindWithDefaultParameter($orderBy, 'orderBy', $defaultField);
+    }
+    
+    /**
+     * 
+     * @param type $groupBy
+     * @param type $defaultField
+     * @return type
+     */
+    public function setGroupBy($groupBy = null, $defaultField = null)
+    {
+        return $this->bindWithDefaultParameter($groupBy, 'groupBy', $defaultField);
+    }
+        /**
+         * 
+         * @param string $parameter
+         * @param string $parameterString
+         * @param string $defaultField
+         * @return type
+         */
+        private function bindWithDefaultParameter($parameter = null, $parameterString = null, $defaultField = null)
+        {
+            if (!$parameter) {
+                $parameter = $defaultField;
+            }
+
+            if ($parameter) {
+                $this->getQueryBuilder()->add($parameterString, $parameter);
+            }
+
+            return $this->getQueryBuilder();
+        }
     
     /**
      * @param number $limit

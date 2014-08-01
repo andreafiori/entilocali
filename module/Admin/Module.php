@@ -5,6 +5,7 @@ namespace Admin;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use Zend\Validator\AbstractValidator;
 
 class Module implements AutoloaderProviderInterface
 {
@@ -39,7 +40,6 @@ class Module implements AutoloaderProviderInterface
         $moduleRouteListener->attach($eventManager);
         
         $translator = $e->getApplication()->getServiceManager()->get('translator');
-        $translator->setLocale( ( isset( $_COOKIE['locale'] ) ? $_COOKIE['locale'] : 'en_US' ) )
-                   ->setFallbackLocale( 'en_US' );
+        AbstractValidator::setDefaultTranslator($translator);
     }
 }

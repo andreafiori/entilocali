@@ -99,7 +99,7 @@ class CommonSetupPlugin extends CommonSetupPluginAbstract
             $this->module               = $controller->getEvent()->getRouteMatch()->getParam('controller');
             $this->isBackend            = $this->detectIsBackend();
             $this->channel              = 1;
-
+            
             if ( isset($this->config['app_configs']) ) {
                 $this->appConfigs       = $this->config['app_configs'];
                 $this->isMultiLanguage  = isset($this->appConfigs['isMultilanguage']) ? $this->appConfigs['isMultilanguage'] : '';
@@ -112,6 +112,8 @@ class CommonSetupPlugin extends CommonSetupPluginAbstract
                     6  => 'Foto',
                 );
             }
+            
+            $this->translator = $this->serviceLocator->get('translator');
         }
 
         /**
@@ -131,6 +133,7 @@ class CommonSetupPlugin extends CommonSetupPluginAbstract
                     'uri'            => $this->uri,
                     'flashMessenger' => $this->flashMessenger,
                     'configurations' => $this->configurations,
+                    'translator'     => $this->translator,
             );
         }
 

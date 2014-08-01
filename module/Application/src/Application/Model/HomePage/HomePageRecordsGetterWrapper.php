@@ -28,7 +28,7 @@ class HomePageRecordsGetterWrapper extends RecordsGetterWrapperAbstract
 
         $this->hompageRecordsGetter->setMainQuery();
         
-        $this->hompageRecordsGetter->setOrderBy( $this->getInput('orderBy', 1) );
+        $this->hompageRecordsGetter->setOrderBy( $this->getInput('orderBy', 1), 'hb.position' );
         $this->hompageRecordsGetter->setLimit( $this->getInput('limit', 1) );
     }
     

@@ -31,4 +31,3 @@ class AlboPretorioSezioniGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setId( $this->getInput('id', 1) );
     }
 }
-

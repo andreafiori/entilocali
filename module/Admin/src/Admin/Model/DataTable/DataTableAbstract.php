@@ -2,60 +2,36 @@
 
 namespace Admin\Model\DataTable;
 
-use Admin\Model\InputSetupAbstract;
+use Admin\Model\VarExporter;
 
 /**
  * @author Andrea Fiori
  * @since  18 May 2014
  */
-abstract class DataTableAbstract extends InputSetupAbstract
+abstract class DataTableAbstract extends VarExporter
 {
-    protected $title;
-    
-    protected $description;
-    
+    protected $columns;
+
     protected $template = 'datatable/datatable.phtml';
     
-    /**
-     * @param \DateTime $dateTime
-     * @return type
-     */
-    protected function convertDateTimeToString($dateTime)
+    public function setColumns($columns)
     {
-        if ($dateTime instanceof \DateTime) {
-            return $dateTime->format('d-m-Y');
-        }
-    }
-    
-    public function getTitle()
-    {
-        return $this->title;
-    }
-    
-    public function getDescription()
-    {
-        return $this->description;
-    }
-    
-    /**
-     * @param string $template
-     */
-    public function setTemplate($template)
-    {
-        $this->template = $template;
-        
-        return $this->template;
+        $this->columns = $columns;
     }
 
-    /**
-     * @return string $this->template
-     */
-    public function getTemplate()
+    public function getColumns()
     {
-        return $this->template;
+        return $this->columns;
     }
-    
-    // abstract public function getColumns();
-    
-    // abstract public function getRecords();
+
+        /**
+         * @param \DateTime $dateTime
+         * @return type
+         */
+        protected function convertDateTimeToString($dateTime)
+        {
+            if ($dateTime instanceof \DateTime) {
+                return $dateTime->format('d-m-Y');
+            }
+        }
 }

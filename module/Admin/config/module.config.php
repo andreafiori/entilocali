@@ -79,14 +79,13 @@ return array(
                                                 ),
                                     ),
                     ),
-                    // lists using responsive tables
-                    'tablelist' => array(
+                    'invio-ente-terzo' => array(
                                     'type'    => 'Segment',
                                     'options' => array(
-                                                'route'       => 'tablelist[/][:tablesetter][/:option][/]',
+                                                'route'       => 'invio-ente-terzo[/][:modulename][/][:id][/]',
                                                 'constraints' => array(
-                                                        'tablesetter' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                        'option'      => '[a-zA-Z0-9_-]*',
+                                                        'modulename' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                        'id'         => '[0-9]+',
                                                 ),
                                                 'defaults' => array(
                                                         'controller' => 'Admin\Controller\Admin',
@@ -117,9 +116,9 @@ return array(
         'locale' => 'en_US',
         'translation_file_patterns' => array(
             array(
-                'type' => 'gettext',
-                'base_dir' => __DIR__ . '/../language',
-                'pattern' => '%s.mo',
+                'type'      => 'gettext',
+                'base_dir'  => __DIR__ . '/../language',
+                'pattern'   => '%s.mo',
             ),
         ),
     ),
@@ -142,11 +141,13 @@ return array(
     'be_router' => array(
         "admin"                 => 'Admin\Model\AdminDashboard',
         "admin/formdata"        => 'Admin\Model\FormData\FormDataHandler',
-        "admin/datatable"       => 'Admin\Model\DataTable\DataTableHandler',        
+        "admin/datatable"       => 'Admin\Model\DataTable\DataTableHandler',
+        "admin/invio-ente-terzo" => 'Admin\Model\InvioEnteTerzoHandler',
     ),
     // FormData Class Map
     'formdata_classmap' => array(
         'albo-pretorio'                 => 'Admin\Model\AlboPretorio\AlboPretorioFormDataHandler',
+        'albo-pretorio-sezioni'         => 'Admin\Model\AlboPretorio\AlboPretorioSezioniFormDataHandler',
         'amministrazione-trasparente'   => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFormDataHandler',
         'stato-civile'                  => 'Admin\Model\StatoCivile\StatoCivileFormDataHandler',
         'contratti-pubblici-bandi'      => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciBandiFormDataHandler',
@@ -158,6 +159,7 @@ return array(
     // FormData CRUD Class Map
     'formdata_crud_classmap' => array( 
         'albo-pretorio'               => 'Admin\Model\AlboPretorio\AlboPretorioCrudHandler',
+        'albo-pretorio-sezioni'       => 'Admin\Model\AlboPretorio\AlboPretorioSezioniCrudHandler',
         'amministrazione-trasparente' => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteCrudHandler',
         'ticketing'                   => 'Admin\Model\Ticketing\TicketingCrudHandler',
         'categories'                  => 'Admin\Model\Categories\CategoriesCrudHandler',
@@ -166,6 +168,7 @@ return array(
         'newsletter'                  => 'Admin\Model\Newsletter\NewsletterCrudHandler',
         'posts'                       => 'Admin\Model\Posts\PostsCrudHandler',
         'stato-civile'                => 'Admin\Model\StatoCivile\StatoCivileCrudHandler',
+        'stato-civile-sezioni'        => 'Admin\Model\StatoCivile\StatoCivileSezioniCrudHandler',
         'users'                       => 'Admin\Model\Users\UsersCrudHandler',
     ),
     // DataTables Class Map
@@ -178,6 +181,7 @@ return array(
         'posts'                       => 'Admin\Model\Posts\PostsDataTable',
         'users'                       => 'Admin\Model\Users\UsersDataTable',
         'albo-pretorio'               => 'Admin\Model\AlboPretorio\AlboPretorioDataTable',
+        'albo-pretorio-sezioni'       => 'Admin\Model\AlboPretorio\AlboPretorioSezioniDataTable',
         'amministrazione-trasparente' => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteDataTable',
         'contratti-pubblici-bandi'    => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciBandiDataTable',
         'stato-civile'                => 'Admin\Model\StatoCivile\StatoCivileDataTable',

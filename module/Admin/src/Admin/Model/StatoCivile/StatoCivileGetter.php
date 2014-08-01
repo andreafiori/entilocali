@@ -49,4 +49,15 @@ class StatoCivileGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere('sca.scadenza > NOW() ');
         }
     }
+    
+    /**
+     * @param string $text
+     */
+    public function setTextSearch($text)
+    {
+        if ($text) {
+            $this->getQueryBuilder()->andWhere('sca.titolo LIKE :textSearch ');
+            $this->getQueryBuilder()->setParameter('textSearch', "%$text%");
+        }
+    }
 }

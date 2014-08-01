@@ -5,6 +5,9 @@ namespace Application\Model\AlboPretorio;
 use Application\Model\RouterManagers\RouterManagerAbstract;
 use Application\Model\RouterManagers\RouterManagerInterface;
 use Application\Model\AlboPretorio\AlboPretorioFormSearch;
+
+use Admin\Model\AlboPretorio\AlboPretorioRecordsGetter;
+
 use Admin\Model\AlboPretorio\AlboPretorioGetter;
 use Admin\Model\AlboPretorio\AlboPretorioGetterWrapper;
 use Admin\Model\AlboPretorio\AlboPretorioSezioniGetter;
@@ -18,9 +21,14 @@ use Admin\Model\Users\UsersSettoriGetterWrapper;
  */
 class AlboPretorioFrontend extends RouterManagerAbstract implements RouterManagerInterface
 {
+    private $alboPretorioRecordsGetter;
+    
     public function setupRecord()
     {
-        $records = $this->getAlboPretorioRecords();
+        $this->alboPretorioRecordsGetter = new AlboPretorioRecordsGetter($this->getInput());
+        
+        $param = $this->getInput('param', 1);
+        $records = $this->getAlboPretorioRecords(array(), isset($param['route']['page']) ? $param['route']['page'] : '');
         
         $this->setVariable('form',      $this->getFormSearch() );
         $this->setVariable('paginator', $records);
@@ -31,64 +39,41 @@ class AlboPretorioFrontend extends RouterManagerAbstract implements RouterManage
         private function getFormSearch()
         {
             $alboPretorioFormSearch = new AlboPretorioFormSearch();
-            $alboPretorioFormSearch->addSezioni( $this->getSezioni() );
-            $alboPretorioFormSearch->addSettori( $this->getSettori() );
+            $alboPretorioFormSearch->addSezioni( $this->getSezioni(array()) );
+            $alboPretorioFormSearch->addSettori( $this->getSettori(array('fields' => 'DISTINCT(u.settore) AS settore, u.id', 'groupBy'=>'settore')) );
             $alboPretorioFormSearch->addCheckExpired();
             $alboPretorioFormSearch->addSubmitButton();
 
             return $alboPretorioFormSearch;
         }
         
-        private function getSezioni()
+        private function getSezioni(array $input)
         {
-            $alboPretorioSezioniGetterWrapper = new AlboPretorioSezioniGetterWrapper( new AlboPretorioSezioniGetter($this->getInput('entityManager',1)) );
-            $alboPretorioSezioniGetterWrapper->setInput( array() );
-            $alboPretorioSezioniGetterWrapper->setupQueryBuilder();
+            $this->alboPretorioRecordsGetter->setSezioni($input);
             
-            $records = $alboPretorioSezioniGetterWrapper->getRecords();
-            
-            if ($records) {
-                $arrayToReturn = array();
-                foreach($records as $record) {
-                    $arrayToReturn[$record['id']] = $record['nome'];
-                }
-            }
-            
-            return $arrayToReturn;
+            return $this->alboPretorioRecordsGetter->formatSezioniForFormSelect('id', 'nome');
         }
         
         /**
-         * get albo settori from users data
+         * Get albo settori from users data
          * 
          * @return type
          */
-        public function getSettori()
+        private function getSettori(array $input)
         {
-            $usersSettoriGetterWrapper = new UsersSettoriGetterWrapper( new UsersSettoriGetter($this->getInput('entityManager', 1)) );
-            $usersSettoriGetterWrapper->setInput( array() );
-            $usersSettoriGetterWrapper->setupQueryBuilder();
-            
-            $records = $usersSettoriGetterWrapper->getRecords();
-            
-            if ($records) {
-                $arrayToReturn = array();
-                foreach($records as $record) {
-                    $arrayToReturn[$record['id']] = $record['name'];
-                }
-            }
-            
-            return $arrayToReturn;
+            $this->alboPretorioRecordsGetter->setSettori($input);
+
+            return $this->alboPretorioRecordsGetter->formatSezioniForFormSelect('id', 'settore');
         }
 
-        private function getAlboPretorioRecords()
+        private function getAlboPretorioRecords($input, $page)
         {
-            $param = $this->getInput('param', 1);
-
             $alboPretorioGetterWrapper = new AlboPretorioGetterWrapper( new AlboPretorioGetter($this->getInput('entityManager',1)) );
-            $alboPretorioGetterWrapper->setInput( array() );
+            $alboPretorioGetterWrapper->setInput($input);
             $alboPretorioGetterWrapper->setupQueryBuilder();
-            $alboPretorioGetterWrapper->setupQuery( $this->getInput('entityManager',1) );
+            $alboPretorioGetterWrapper->setupQuery( $this->getInput('entityManager', 1) );
 
-            return $alboPretorioGetterWrapper->setupPaginator(isset($param['route']['page']) ? $param['route']['page'] : '');
+            return $alboPretorioGetterWrapper->setupPaginator($page);
         }   
 }
+

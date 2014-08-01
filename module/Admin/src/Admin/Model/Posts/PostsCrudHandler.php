@@ -98,7 +98,7 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
    
                 $affectedRows = $this->getConnection()->update(
                             'zfcms_posts_options',
-                        
+
                             array_merge($this->getArrayRecordToHandle(), array('description' => $this->rawPost['description']) ),
  
                             array('posts_id' => $this->rawPost['postoptionid'])

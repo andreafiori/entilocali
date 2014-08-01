@@ -1,0 +1,61 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ZfcmsGeoProvince
+ *
+ * @ORM\Table(name="zfcms_geo_province", indexes={@ORM\Index(name="codice_provincia", columns={"codice_provincia"}), @ORM\Index(name="codice_regione", columns={"codice_regione"})})
+ * @ORM\Entity
+ */
+class ZfcmsGeoProvince
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="codice_regione", type="string", length=14, nullable=true)
+     */
+    private $codiceRegione;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="codice_provincia", type="string", length=16, nullable=true)
+     */
+    private $codiceProvincia;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nome", type="string", length=28, nullable=true)
+     */
+    private $nome;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sigla", type="string", length=21, nullable=true)
+     */
+    private $sigla;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="capoluogo", type="string", nullable=true)
+     */
+    private $capoluogo = 'no';
+
+
+}
+

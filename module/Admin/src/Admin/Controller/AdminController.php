@@ -18,10 +18,12 @@ use Admin\Model\Users\UsersGetterWrapper;
  */
 class AdminController extends AbstractActionController
 {
-    private $commonSetupPlugin;    
+    private $commonSetupPlugin;
     private $configurations;
     private $input;
     private $baseUrl;
+    private $authservice;
+    private $form;
     
     public function indexAction()
     {
@@ -54,6 +56,7 @@ class AdminController extends AbstractActionController
         $userDetails->surname = $session->offsetGet('surname');
         
         $this->layout()->setVariable('baseUrl', $this->baseUrl);
+        $this->layout()->setVariable('translator', $this->input['translator']);
         $this->layout()->setVariable('userDetails', $userDetails);
         $this->layout()->setVariable('preloadResponse', $this->configurations['preloadResponse']);
         $this->layout()->setVariable('templatePartial', 'backend/templates/'.$this->configurations['template_backend'].$routerManagerHelper->getRouterManger()->getTemplate(1));
@@ -109,8 +112,8 @@ class AdminController extends AbstractActionController
             $this->config = $this->getServiceLocator()->get('config');
             
             $this->input = $this->commonSetupPlugin->mergeInput( array_merge($this->configurations, array(
-                        'formsetter'            => trim($this->params()->fromRoute('formsetter')),
-                        'tablesetter'           => trim($this->params()->fromRoute('tablesetter')),
+                        'formsetter'             => trim($this->params()->fromRoute('formsetter')),
+                        'tablesetter'            => trim($this->params()->fromRoute('tablesetter')),
                         'formdata_classmap'      => $this->config['formdata_classmap'],
                         'formdata_crud_classmap' => $this->config['formdata_crud_classmap'],
                         'datatables_classmap'    => $this->config['datatables_classmap'],

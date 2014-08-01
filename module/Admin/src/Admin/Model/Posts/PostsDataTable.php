@@ -13,7 +13,7 @@ use Admin\Model\Posts\PostsGetterWrapper;
 class PostsDataTable extends DataTableAbstract
 {
     private $type;
-
+    
     /**
      * @param array $input
      */
@@ -50,7 +50,7 @@ class PostsDataTable extends DataTableAbstract
      */
     public function getColumns()
     {
-        return array("Titolo", "Sotto titolo", "Inserito il", "Ultima modifica", "Stato", "&nbsp;", "&nbsp;", "&nbsp;");
+        return array("Titolo", "Inserito il", "Ultima modifica", "Stato", "&nbsp;", "&nbsp;", "&nbsp;");
     }
     
     /**
@@ -64,7 +64,6 @@ class PostsDataTable extends DataTableAbstract
         foreach($records as $record) {
             $recordsToReturn[] = array(
                 $record['title'],
-                $record['subtitle'],
                 $this->convertDateTimeToString($record['insertDate']),
                 $this->convertDateTimeToString($record['lastUpdate']),
                 ucfirst($record['status']),
@@ -80,7 +79,11 @@ class PostsDataTable extends DataTableAbstract
                     'title'     => 'Elimina',
                     'data-id'   => $record['postoptionid']
                 ),
-                '<a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" class="btn btn-default btooltip" title="Gestione allegati"><i class="fa fa-paperclip"></i> </a>',
+                array(
+                    'type'      => 'attachButton',
+                    'href'      => '#',
+                    'tooltip'   => 1,
+                ),
             );
         }
 

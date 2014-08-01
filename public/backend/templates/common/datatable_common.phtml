@@ -1,0 +1,90 @@
+<?php if (empty($records)): ?>
+<div class="alert alert-warning">
+    <h1>Nessun dato in archivio</h1>
+    <p>Nessun dato da elencare &egrave; stato trovato.</p>
+</div>
+<?php else: ?>
+
+    <?php
+    $columnsToPrint = '';
+    foreach($this->columns as $columns):
+        $columnsToPrint .= '<th>'.$columns.'</th>';
+    endforeach;
+    ?>
+
+    <h3><?php echo $this->tableTitle ?></h3>
+    <p><?php echo $this->tableDescription ?></p>
+
+    <table cellpadding="0" cellspacing="0" border="0" class="display" id="dataTable" width="100%">
+        <thead>
+            <tr>
+            <?php echo $columnsToPrint ?>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($this->records as $records): ?>
+            <tr class="odd gradeX">
+                <?php foreach($records as $record): ?>
+                    <?php if (is_array($record)): ?>
+                        <?php if ($record['type']=='updateButton'): ?>
+                        <td><a href="<?php echo $record['href'] ?>"<?php if ($record['tooltip']): ?> data-toggle="tooltip"<?php endif; ?> data-placement="top" class="btn btn-primary btooltip" title="<?php echo $record['title'] ?>"><i class="fa fa-pencil"></i> </a></td>
+                        <?php elseif($record['type']=='deleteButton'): ?>
+                        <td><a href="#deleteModal" data-id="<?php echo $record['data-id'] ?>" class="open-deleteModal btn btn-danger btooltip" data-toggle="tooltip" data-placement="top" title="Elimina"><i class="fa fa-times"></i> </a></td>
+                        <?php elseif($record['type']=='attachButton'): ?>
+                        <td><a href="<?php echo $record['href'] ?>" data-toggle="tooltip" data-placement="top" class="btn btn-default btooltip" title="Allegati"><i class="fa fa-paperclip"></i> </a></td>
+                        <?php elseif($record['type']=='relatapdfButton'): ?>
+                        <td><a href="<?php echo $record['href'] ?>)" data-toggle="tooltip" data-placement="top" class="btn btn-danger btooltip" title="Relata di pubblicazione"><i class="fa fa-file-pdf-o"></i> </a></td>
+                        <?php elseif($record['type']=='enteterzoButton'): ?>
+                        <td><a href="<?php echo $record['href'] ?>" data-toggle="tooltip" data-placement="top" class="btn btn-default btooltip" title="Invia ad altro ente"><i class="fa fa-envelope-square"></i></a></td>
+                        <?php endif; ?>
+                    <?php else: ?>
+                    <td><?php echo $record ?></td>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+        <tfoot>
+            <tr>
+                <?php echo $columnsToPrint  ?>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel"><strong>Conferma eliminazione?</strong></h4>
+          </div>
+            <form action="" method="post">
+          <div class="modal-body">
+              <p><strong>Attenzione:</strong> i dati di questo elemento e ad esso collegati verranno cancellati definitivamente e non sar&agrave; possibile recuperarli.</p>
+              <div><strong>ID Record: </strong><span id="recordidtodelete"></span></div>
+              <input type="hidden" name="deleteId" id="deleteId" value="" />
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
+            <button type="submit" class="btn btn-danger">Conferma</button>
+          </div>
+            </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+    $(document).on("click", ".open-deleteModal", function (e) {
+
+        e.preventDefault();
+
+        var _self = $(this);
+
+        var deleteId = _self.data('id');
+        $("#deleteId").val(deleteId);
+        $("#recordidtodelete").html(deleteId);
+
+        $(_self.attr('href')).modal('show');
+    });
+    </script>
+<?php endif; ?>

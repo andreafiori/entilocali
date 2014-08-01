@@ -72,7 +72,7 @@ abstract class PostsFormDataAbstract extends FormDataAbstract
     public function setCategoriesCheckboxes()
     {
         $categoriesRecords = $this->getCategoriesRecords();
-        
+
         if ( $categoriesRecords ) {
             foreach ($categoriesRecords as $category) {
                 if ( isset($category['id']) and isset($category['name']) ) {
@@ -98,8 +98,8 @@ abstract class PostsFormDataAbstract extends FormDataAbstract
         
         $record = $this->getRecord();
         if ($record) {
-            
-            $this->categoriesGetterWrapper->setInput( array('id' => $record[0]['categories'], 'moduleId' => $this->moduleId, 'orderby' => 'co.name') );
+            // $record[0]['categories'] NOT detected...
+            $this->categoriesGetterWrapper->setInput( array('id' => '', 'moduleId' => $this->moduleId, 'orderby' => 'co.name') );
             $this->categoriesGetterWrapper->setupQueryBuilder();
 
             $this->categoriesCheckboxesToSelect = $this->categoriesGetterWrapper->getRecords();
@@ -177,7 +177,7 @@ abstract class PostsFormDataAbstract extends FormDataAbstract
         if ( isset($record[0]) ) {
             $this->title = $record[0]['title'];
             $this->form->setData( array_merge($additionalFormFieldsValues, $record[0]) );
-            $this->formAction = 'posts/'.$record[0]['id'];
+            $this->formAction = 'posts/'.$record[0]['postid'];
         } else {
             $this->form->setData($additionalFormFieldsValues);
             $this->formAction = 'posts/';

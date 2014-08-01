@@ -46,7 +46,7 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
         $this->postsGetter->setTitle( $this->getInput('title', 1) );
         $this->postsGetter->setType( $this->getInput('type', 1) );
         $this->postsGetter->setStatus( $this->getInput('status', 1) );
-        $this->postsGetter->setOrderBy( $this->getInput('orderby', 1) );
+        $this->postsGetter->setOrderBy( $this->getInput('orderBy', 1), 'po.position' );
         $this->postsGetter->setLimit( $this->getInput('limit', 1) );
     }
     
@@ -79,14 +79,15 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
         
         $paginatorToReturn = new stdClass();
         foreach($this->paginator as $key => $row) {
-            $row['linkDetails'] = '/'.Slugifier::slugify($row['categoryName']).'/'.Slugifier::slugify($row['title']);
+            $row['linkDetails'] = '/'.Slugifier::slugify($row['categoryName']).'/'.Slugifier::slugify($row['seoTitle']);
             $row['linkCategory'] = '/'.Slugifier::slugify($row['categoryName']);
             
             if ( $row['flagAttachments'] == 'si' ) {
                 $attachmentsGetterWrapper = new AttachmentsGetterWrapper( new AttachmentsGetter($this->getInput('entityManager',1)) );
                 $attachmentsGetterWrapper->setInput( array() );
                 $attachmentsGetterWrapper->setupQueryBuilder();
-                $attachmentsGetterWrapper->getRecords();
+                
+                $row['attachments'] = $attachmentsGetterWrapper->getRecords();
             }
             
             $categories = $this->getCategoriesFromPostsRelations($row);

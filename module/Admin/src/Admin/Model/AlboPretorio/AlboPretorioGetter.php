@@ -78,17 +78,4 @@ class AlboPretorioGetter extends QueryBuilderHelperAbstract
         
         return $this->getQueryBuilder();
     }
-    
-    /**
-     * if flag is set, do not show expired articoli
-     * 
-     * @param 0 or 1 $flag
-     */
-    public function setDoNotExpired($flag)
-    {
-        if ($flag) {
-            
-        }
-    }
-    
 }

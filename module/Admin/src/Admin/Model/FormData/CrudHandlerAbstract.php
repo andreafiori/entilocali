@@ -12,6 +12,7 @@ abstract class CrudHandlerAbstract extends RouterManagerAbstract
 {
     /** @var \Doctrine\DBAL\Connection */
     protected $connection;
+    
     protected $allowedOperations = array("insert", "update", "update");
     protected $operation;
 
@@ -30,7 +31,9 @@ abstract class CrudHandlerAbstract extends RouterManagerAbstract
         $param = $this->getInput('param', 1);
         
         $this->rawPost  = $param['post'];
-        $this->rawFiles = $param['files'];
+        if (isset($param['files'])) {
+            $this->rawFiles = $param['files'];
+        }
     }
 
     /**
@@ -74,45 +77,53 @@ abstract class CrudHandlerAbstract extends RouterManagerAbstract
     {
         return $this->operation;
     }
-    
-    /**
-     * 
-     * @param type $recordDBField
-     * @param type $rawPostKey
-     * @return array
-     */
-    protected function setArrayRecordToHandle($recordDBField, $rawPostKey)
-    {
-        if ( isset($this->rawPost[$rawPostKey]) ) {
-            $this->arrayRecordToHandle[$recordDBField] = $this->rawPost[$rawPostKey];
-        }
-        
-        return $this->arrayRecordToHandle;
-    }
-    
-    protected function getArrayRecordToHandle()
-    {
-        return $this->arrayRecordToHandle;
-    }
-    
-    protected function setErrorMessage($errorMessage, $title = null)
-    {
-        if (!$title) {
-            $title = 'Errori verificati';
-        }
 
-        $this->setVariable('messageType', 'danger');
-        $this->setVariable('messageTitle', $title);
-
-        if (is_array($errorMessage)) {
-            $errorMessageFinal = '';
-            foreach ($errorMessage as $error) {
-                $errorMessageFinal .= '<p>'.$error.'</p>';
+        /**
+         * 
+         * @param type $recordDBField
+         * @param type $rawPostKey
+         * @return array
+         */
+        protected function setArrayRecordToHandle($recordDBField, $rawPostKey)
+        {
+            if ( isset($this->rawPost[$rawPostKey]) ) {
+                $this->arrayRecordToHandle[$recordDBField] = $this->rawPost[$rawPostKey];
             }
 
-            $errorMessage = $errorMessageFinal;
+            return $this->arrayRecordToHandle;
         }
 
-        $this->setVariable('messageText', $errorMessage);
-    }
+        protected function getArrayRecordToHandle()
+        {
+            return $this->arrayRecordToHandle;
+        }
+
+        protected function setErrorMessage($errorMessage, $title = null)
+        {
+            if (!$title) {
+                $title = 'Errori verificati';
+            }
+
+            $this->setVariable('messageType', 'danger');
+            $this->setVariable('messageTitle', $title);
+
+            if (is_array($errorMessage)) {
+                $errorMessageFinal = '';
+                foreach ($errorMessage as $error) {
+                    $errorMessageFinal .= '<p>'.$error.'</p>';
+                }
+
+                $errorMessage = $errorMessageFinal;
+            }
+
+            $this->setVariable('messageText', $errorMessage);
+        }
+
+        protected function performOperationWithPrivateMethod()
+        {
+            $operation = $this->getOperation();
+            if ($operation) {
+                $this->$operation();
+            }
+        }
 }

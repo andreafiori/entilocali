@@ -22,18 +22,17 @@ class UsersFormDataHandler  extends FormDataAbstract
         
         $param = $this->getInput('param', 1);
 
-        $this->setUsersGetterWrapper( new UsersGetterWrapper( new UsersGetter($this->getInput('entityManager',1)) ));
         $records = $this->getUserRecord($param['route']['option']);
 
         $form = new UsersForm();
         if ($records) {
             $formTitle       = 'Modifica utente';
-            $formDescription = 'Modifica dati utente. ';
-            
+            $formDescription = 'Modifica dati utente.';
+
             $form->setData($records[0]);
         } else {
             $formTitle       = 'Nuovo utente';
-            $formDescription = 'Creazione nuovo utente. ';    
+            $formDescription = 'Creazione nuovo utente.';
         }
 
         $this->setVariable('form',              $form);
@@ -43,19 +42,7 @@ class UsersFormDataHandler  extends FormDataAbstract
         
         $this->setVariable('formBreadCrumbCategory',    'Utenti');
         $this->setVariable('formBreadCrumbCategoryLink', $this->getInput('baseUrl',1).'datatable/users');
-    }
-    
-        /**
-         * @param \Admin\Model\Users\UsersGetterWrapper $usersGetterWrapper
-         * @return type
-         */
-        private function setUsersGetterWrapper(UsersGetterWrapper $usersGetterWrapper)
-        {
-            $this->usersGetterWrapper = $usersGetterWrapper;
-            
-            return $this->usersGetterWrapper;
-        }
-        
+    } 
         /**
          * @param number $idUser
          * @return boolean
@@ -66,11 +53,11 @@ class UsersFormDataHandler  extends FormDataAbstract
                 return false;
             }
             
-            $this->usersGetterWrapper = new UsersGetterWrapper( new UsersGetter($this->getInput('entityManager', 1)) );
-            $this->usersGetterWrapper->setInput( array("id" => $idUser) );
-            $this->usersGetterWrapper->setupQueryBuilder();
+            $usersGetterWrapper = new UsersGetterWrapper( new UsersGetter($this->getInput('entityManager', 1)) );
+            $usersGetterWrapper->setInput( array("id" => $idUser) );
+            $usersGetterWrapper->setupQueryBuilder();
             
-            return $this->usersGetterWrapper->getRecords();
+            return $usersGetterWrapper->getRecords();
         }
 
     /**

@@ -1,0 +1,47 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ZfcmsUsersSettori
+ *
+ * @ORM\Table(name="zfcms_users_settori")
+ * @ORM\Entity
+ */
+class ZfcmsUsersSettori
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=100, nullable=true)
+     */
+    private $name;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="position", type="integer", nullable=false)
+     */
+    private $position = '0';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="active", type="string", nullable=false)
+     */
+    private $active = '1';
+
+
+}
+

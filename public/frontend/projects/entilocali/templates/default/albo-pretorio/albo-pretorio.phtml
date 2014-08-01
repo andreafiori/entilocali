@@ -6,7 +6,7 @@
 <?php if (count($this->paginator)): ?>
 
 <h1>Albo pretorio</h1>
-
+ 
 <div class="panel-group" id="accordion">
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -23,13 +23,14 @@
     $form = $this->form;
     $form->prepare();
 
-    $form->setAttribute('action', '');
-    $form->setAttribute('method', 'post');
-    $form->setAttribute('role', 'form');
-    $form->setAttribute('class', 'form-horizontal');
-    $form->setAttribute('id', 'albo-pretorio-search-form');
+    $form->setAttribute('action',   $this->serverUrl(true));
+    $form->setAttribute('method',   'post');
+    $form->setAttribute('role',     'form');
+    $form->setAttribute('class',    'form-horizontal');
+    $form->setAttribute('id',       'albo-pretorio-search-form');
     
     echo $this->form()->openTag($this->form);
+    
     ?>
     <fieldset>
         <legend>Ricerca atti nell'albo</legend>
@@ -55,9 +56,7 @@
         ?>
         <div class="form-group">
             <label class="col-sm-2 control-label">&nbsp;</label>
-            <div class="col-sm-8"><?php
-            echo $this->formElement($element);
-            ?>
+            <div class="col-sm-8"><?php  echo $this->formElement($element)  ?>
             <label for="<?php echo $attributes['id'] ?>" style="width: 80%"> <?php echo $element->getLabel() ?></label>
             </div>
         </div>
@@ -82,9 +81,23 @@
     echo $this->form()->closeTag();
     ?>
 
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
+    
+    <div>&nbsp;</div>
+
+<div class="alert alert-info">Per aprire i file firmati digitalmente scaricare il software ArubaSign:<br>
+    <ul class="list-unstyled">
+        <li><i class="fa fa-windows"></i> <a href="http://www.kronoweb.it/download/ArubaSign/ArubaSign2_3_5_WINDOWS.exe" title="Software per PC">Versione per PC (17,5MB)</a></li>
+        <li><i class="fa fa-linux"></i> Versione per Linux <a href="#" title="ArubaSign per Linux 32bit">(32 bit)</a> - <a href="#" title="ArubaSign per Linux 64bit">(64 bit)</a></li>
+        <li><i class="fa fa-apple"></i> <a href="http://www.kronoweb.it/download/ArubaSign/ArubaSign2_1_5MAC.zip" title="Software per MAC">Versione per MAC (31,2MB)</a></li>
+    </ul>
+    <br>
+    Si consiglia di visionare l'albo pretorio per tutta la durata della pubblicazione in quanto potrebbero verificarsi modifiche che verranno segnalate tramite rettifiche e/o annullamenti degli atti.
+</div>
+
+    
 </div>
 
 <?php foreach($this->paginator as $key => $row): ?>

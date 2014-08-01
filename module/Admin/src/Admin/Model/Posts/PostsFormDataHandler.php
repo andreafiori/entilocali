@@ -79,7 +79,7 @@ class PostsFormDataHandler extends FormDataAbstract
     {
         $record = $this->postsFormDataConcrete->getRecord();
         if ($record) {
-            $this->setVariable('formBreadCrumbCategory', $record[0]['name']);
+            $this->setVariable('formBreadCrumbCategory', $record[0]['categoryName']);
             
             return 'posts/update/';
         }

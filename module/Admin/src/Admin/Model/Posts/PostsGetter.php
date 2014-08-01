@@ -13,7 +13,7 @@ class PostsGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('DISTINCT(p.id) AS postid, po.id AS postoptionid, p.lastUpdate, p.insertDate, p.expireDate, p.type, p.alias, po.title, po.status, po.description, po.seoUrl, po.subtitle, po.seoDescription, po.seoKeywords, p.flagAttachments, co.name AS categoryName, c.template, IDENTITY(r.module) AS module');
+        $this->setSelectQueryFields('DISTINCT(p.id) AS postid, po.id AS postoptionid, p.lastUpdate, p.insertDate, p.expireDate, p.type, p.alias, po.title, po.subtitle, po.status, po.description, po.seoUrl, po.seoTitle, po.seoDescription, po.seoKeywords, p.flagAttachments, co.name AS categoryName, c.template, IDENTITY(r.module) AS module');
 
         $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
                                 ->add('from', 'Application\Entity\ZfcmsPosts p, Application\Entity\ZfcmsPostsOptions po, Application\Entity\ZfcmsPostsRelations r, Application\Entity\ZfcmsCategories c, Application\Entity\ZfcmsCategoriesOptions co')
@@ -83,7 +83,7 @@ class PostsGetter extends QueryBuilderHelperAbstract
     public function setTitle($title)
     {
         if ( is_string($title) ) {
-            $this->getQueryBuilder()->andWhere('LOWER( po.title ) =  :title ');
+            $this->getQueryBuilder()->andWhere('LOWER( po.seoTitle ) =  :title ');
             $this->getQueryBuilder()->setParameter('title', Slugifier::deSlugify($title) );
         }
         return $this->getQueryBuilder();
@@ -118,21 +118,6 @@ class PostsGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->setParameter('status', $status);
         }
         
-        return $this->getQueryBuilder();
-    }
-    
-    /**
-     * @param string $orderBy
-     * @return type
-     */
-    public function setOrderBy($orderBy = null)
-    {
-        if (!$orderBy) {
-            $orderBy = 'po.position';
-        }
-        
-        $this->getQueryBuilder()->add('orderBy', $orderBy);
-
         return $this->getQueryBuilder();
     }
 }

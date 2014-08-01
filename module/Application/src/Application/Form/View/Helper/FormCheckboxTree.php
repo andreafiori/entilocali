@@ -19,8 +19,9 @@ class FormCheckboxTree extends AbstractHelper
         
         $element = '';
         if (is_array($values)) {
+            $i = 0;
             foreach($values as $key => $value) {
-                $element .= '<div class="checkbox"><label><input type="checkbox" name="'.$name.'[]" id="'.$name.'" value="'.$key.'"';
+                $element .= '<div class="checkbox"><label><input type="checkbox" name="'.$name.'[]" id="'.$name.'_'.$i.'" value="'.$key.'"';
                 foreach($checkedValues as $checkedValue) {
                     if ($checkedValue['id'] == $key) {
                         $element .= ' checked';
@@ -29,6 +30,7 @@ class FormCheckboxTree extends AbstractHelper
                 }
                 
                 $element .= '> '.$value.'</label></div>';
+                $i++;
             }
         }
         

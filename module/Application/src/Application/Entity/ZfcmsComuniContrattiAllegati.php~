@@ -1,0 +1,75 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ZfcmsComuniContrattiAllegati
+ *
+ * @ORM\Table(name="zfcms_comuni_contratti_allegati")
+ * @ORM\Entity
+ */
+class ZfcmsComuniContrattiAllegati
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_contpub", type="integer", nullable=false)
+     */
+    private $idContpub;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nome", type="text", length=65535, nullable=false)
+     */
+    private $nome;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id_mime", type="integer", nullable=false)
+     */
+    private $idMime;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="dati", type="blob", nullable=false)
+     */
+    private $dati;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="posizione", type="integer", nullable=false)
+     */
+    private $posizione;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="size", type="text", length=65535, nullable=false)
+     */
+    private $size;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="categoria", type="integer", nullable=false)
+     */
+    private $categoria = '0';
+
+
+}
+

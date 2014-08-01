@@ -82,16 +82,4 @@ class CategoriesGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere("c.status = '$status' ");
         }
     }
-    
-    /**
-     * @param string $orderBy
-     */
-    public function setOrderBy($orderBy = null)
-    {
-        if (!$orderBy) {
-            $orderBy = 'co.position';
-        }
-        
-        $this->getQueryBuilder()->add('orderBy', $orderBy);
-    }
 }

@@ -2,7 +2,7 @@
 
 namespace Application\Model\AlboPretorio;
 
-use Zend\Form\Form;
+use Admin\Model\AlboPretorio\AlboPretorioFormAbstract;
 
 /**
  * Albo Pretorio Frontend Search Form
@@ -10,11 +10,40 @@ use Zend\Form\Form;
  * @author Andrea Fiori
  * @since  08 May 2014
  */
-class AlboPretorioFormSearch extends Form
+class AlboPretorioFormSearch extends AlboPretorioFormAbstract
 {
+    /**
+     * @param string $name
+     */
     public function __construct($name = null) 
     {
-        parent::__construct('albo-pretorio-search-form');
+        parent::__construct($name);
+        
+        $this->add(array(
+            'type' => 'Text',
+            'name' => 'numero_progressivo',
+            'attributes' => array(
+                'placeholder' => '',
+                'title'  => 'Inserisci numero repertorio',
+                'id'     => 'numero_progressivo'
+            ),
+            'options' => array(
+                'label' => 'Numero repertorio',
+            )
+        ));
+        
+        $this->add(array(
+            'type' => 'Text',
+            'name' => 'numero_atto',
+            'attributes' => array(
+                'placeholder' => '',
+                'title'  => 'Inserisci numero atto',
+                'id'     => 'numero_atto'
+            ),
+            'options' => array(
+                'label' => 'Numero atto',
+            )
+        ));
         
         $this->add(array(
             'name' => 'testo',
@@ -28,7 +57,7 @@ class AlboPretorioFormSearch extends Form
                 'label' => 'Testo',
             ),
         ));
-        // Atti inseriti a partire da: mese \ anno
+        
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
             'name' => 'mese',
@@ -37,87 +66,53 @@ class AlboPretorioFormSearch extends Form
                 'id' => 'testo'
             ),
             'options' => array(
-                    'label' => 'Mese',
-                    'value_options' => array(
-                        ''   => 'Mese',
-                        '1'  => 'Gennaio',
-                        '2'  => 'Febbraio',
-                        '3'  => 'Marzo',
-                        '4'  => 'Aprile',
-                        '5'  => 'Maggio',
-                        '6'  => 'Giugno',
-                        '7'  => 'Luglio',
-                        '8'  => 'Agosto',
-                        '9'  => 'Settembre',
-                        '10' => 'Ottobre',
-                        '11' => 'Novembre',
-                        '12' => 'Dicembre',
-                     ),
+                'label' => 'Mese',
+                'value_options' => array(
+                    ''   => 'Mese',
+                    '1'  => 'Gennaio',
+                    '2'  => 'Febbraio',
+                    '3'  => 'Marzo',
+                    '4'  => 'Aprile',
+                    '5'  => 'Maggio',
+                    '6'  => 'Giugno',
+                    '7'  => 'Luglio',
+                    '8'  => 'Agosto',
+                    '9'  => 'Settembre',
+                    '10' => 'Ottobre',
+                    '11' => 'Novembre',
+                    '12' => 'Dicembre',
+                ),
              )
         ));
         
         $this->add(array(
-             'type' => 'Zend\Form\Element\Select',
-             'name' => 'anno',
-             'options' => array(
-                    'label' => 'Anno',
-                    'value_options' => $this->getArrayYears(),
-             )
-        ));
-    }
-    
-    public function addSezioni($sezioni)
-    {
-        if (is_array($sezioni)) {
-            $sezioni = array_merge( array('' => 'Seleziona'), $sezioni );
-
-            $this->add(array(
-                'type' => 'Zend\Form\Element\Select',
-                'name' => 'sezione',
-                'attributes' => array(
-                    'title'         => 'Seleziona sezione',
-                    'id'            => 'sezione'
-                ),
-                'options' => array(
-                        'label' => 'Sezione',
-                        'value_options' => $sezioni,
-                )
-            ));
-        }
-    }
-    
-    public function addSettori($settori)
-    {
-        $settori = array_merge( array('' => 'Seleziona'), $settori );
-
-        $this->add(array(
             'type' => 'Zend\Form\Element\Select',
-            'name' => 'settore',
+            'name' => 'anno',
             'attributes' => array(
-                'title' => 'Seleziona settore',
-                'id'    => 'sezione'
+                'title' => 'Seleziona anno',
+                'id' => 'anno'
             ),
             'options' => array(
-                'label' => 'Settore',
-                'value_options' => $settori,
+                'label' => 'Anno',
+                'value_options' => $this->getArrayYears(),
             )
         ));
     }
-    
+
     public function addCheckExpired()
     {
         $this->add(array(
             'type' => 'Zend\Form\Element\Checkbox',
             'name' => 'checkbox',
             'attributes' => array(
-                'title'         => 'Spunta casella per cercare fra i documenti scaduti',
-                'id'            => 'expired'
+                'title' => 'Spunta casella per cercare fra i documenti scaduti',
+                'id'    => 'expired'
             ),
             'options' => array(
                 'label' => 'Cerca anche nei documenti scaduti',
                 'use_hidden_element' => true,
-                'checked_value'      => 'good',
-                'unchecked_value'    => 'bad'
+                'checked_value'      => '1',
+                'unchecked_value'    => '0'
             )
         ));
     }
@@ -144,14 +139,4 @@ class AlboPretorioFormSearch extends Form
         );
     }
     
-        private function getArrayYears()
-        {
-            $arrayYears = array('' => 'Anno');
-
-            for($i=date("Y"); $i < date("Y")+7; $i++) {
-                $arrayYears[$i] = $i;
-            }
-            
-            return $arrayYears;
-        }
 }

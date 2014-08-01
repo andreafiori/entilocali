@@ -3,7 +3,6 @@
 namespace ApplicationTest\Model\FormData;
 
 use ApplicationTest\TestSuite;
-use Admin\Model\DataTable\DataTableAbstract;
 
 /**
  * @author Andrea Fiori
@@ -19,4 +18,5 @@ class DataTableAbstractTest //extends TestSuite
         
         $this->dataTableAbstract = $this->getMockForAbstractClass('Admin\Model\DataTable\DataTableAbstract', array( $this->getFrontendCommonInput() ) );
     }
+
 }

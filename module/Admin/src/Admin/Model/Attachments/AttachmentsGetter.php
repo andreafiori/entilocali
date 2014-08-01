@@ -12,7 +12,7 @@ class AttachmentsGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('DISTINCT(a.id) AS id');
+        $this->setSelectQueryFields('DISTINCT(a.id) AS id, a.name, a.size, a.state, a.insertDate, a.expireDate');
 
         $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
                                 ->add('from', 'Application\Entity\ZfcmsAttachments a, Application\Entity\ZfcmsAttachmentsOptions ao, Application\Entity\ZfcmsAttachmentsRelations ar ')
@@ -20,7 +20,7 @@ class AttachmentsGetter extends QueryBuilderHelperAbstract
         
         return $this->getQueryBuilder();
     }
-    
+
     /**
      * @param number or array $id
      */

@@ -5,10 +5,10 @@ ob_start("compress");
 
 $cssBasePath = '../../assets/css/';
 $commonBootstrapBasePath = '../../../../../../../common/bootstrap3/css/';
-//$fontAwesomeBasePath = '../../../../../../../common/font-awesome/css/';
-include_once($commonBootstrapBasePath.'bootstrap.min.css');
-//include_once($fontAwesomeBasePath.'font-awesome.min.css');
-include_once($cssBasePath.'style.css'); // custom styles
+$fontAwesomeBasePath = '../../../../../../../common/font-awesome/css/';
+include_once($commonBootstrapBasePath.'bootstrap.validated.min.css');
+include_once($fontAwesomeBasePath.'font-awesome.min.css');
+include_once($cssBasePath.'style.css');
 
 ob_end_flush();
 function compress($buffer)
