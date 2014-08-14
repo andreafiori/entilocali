@@ -24,6 +24,7 @@ class FotoFrontendTest extends TestSuite
         $this->postsGetterWrapper = new PostsGetterWrapper( new PostsGetter($this->getEntityManagerMock()) );
         
         $this->photoFrontend = new PhotoFrontend();
+        
         $this->photoFrontend->setInput($this->getFrontendCommonInput());
     }
     

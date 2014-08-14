@@ -71,11 +71,10 @@ class VarExporter extends InputSetupAbstract
         return $this->description;
     }
     
-    public function getRecords()
-    {
-        return $this->records;
-    }
-
+    /**
+     * @param array $records
+     * @return array
+     */
     public function setRecords($records)
     {
         $this->records = $records;
@@ -84,6 +83,14 @@ class VarExporter extends InputSetupAbstract
     }
 
     /**
+     * @return array|null
+     */
+    public function getRecords()
+    {
+        return $this->records;
+    }
+    
+    /**
      * @return string $this->template
      */
     public function getTemplate()
@@ -91,11 +98,17 @@ class VarExporter extends InputSetupAbstract
         return $this->template;
     }
     
+    /**
+     * @return array|null
+     */    
     public function getTitle()
     {
         return $this->title;
     }
     
+    /**
+     * @return array|null
+     */
     public function getDescription()
     {
         return $this->description;

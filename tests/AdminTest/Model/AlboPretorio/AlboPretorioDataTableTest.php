@@ -29,10 +29,4 @@ class AlboPretorioDataTableTest extends TestSuite
     {
         $this->assertNotEmpty( $this->alboPretorioDataTable->getDescription() );
     }
-    /*
-    public function testGetRecords()
-    {
-        $this->assertTrue( is_array($this->alboPretorioDataTable->getRecords()) );
-    }   
-    */
 }

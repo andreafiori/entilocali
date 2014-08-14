@@ -31,52 +31,86 @@
     
     echo $this->form()->openTag($this->form);
     
+    $form->get('numero_progressivo')->setAttribute('class','form-control');
+    $form->get('numero_atto')->setAttribute('class','form-control');
+    $form->get('testo')->setAttribute('class','form-control');
+    $form->get('sezione')->setAttribute('class', 'form-control');
+    $form->get('settore')->setAttribute('class', 'form-control');
+    $form->get('mese')->setAttribute('class', 'form-control');
+    $form->get('anno')->setAttribute('class', 'form-control');
+    $form->get('search')->setAttribute('class', 'btn btn-primary');
+    
     ?>
     <fieldset>
         <legend>Ricerca atti nell'albo</legend>
-    <?php
-    foreach ($this->form as $element):
-        $attributes = $element->getAttributes();
-        echo $this->formElementErrors($element);
-        if ($attributes['name'] == 'csrf'):
-            echo $this->formElement($element);
-        elseif ($attributes['type'] == 'submit'):
-        ?>
+        
         <div class="form-group">
-            <label for="<?php echo $attributes['id'] ?>" class="col-sm-2 control-label">&nbsp;</label>
-            <div class="col-sm-8">
-            <?php
-            $element->setAttribute('class', 'btn btn-primary');
-            echo $this->formElement($element);
-            ?>
+            <label for="<?php echo $form->get('numero_progressivo')->getAttribute('id'); ?>" class="col-sm-2 control-label">N.ro repertorio:</label>
+            <div class="col-sm-2">
+                <?php echo $this->formElement($form->get('numero_progressivo')); ?>
+            </div>
+            
+            <div class="col-sm-2">
+                <label for="<?php echo $form->get('numero_atto')->getAttribute('id'); ?>" class="widthAll">N.ro atto:</label>
+            </div>
+            
+            <div class="col-sm-2">
+                <?php echo $this->formElement($form->get('numero_atto')); ?>
+            </div>
+            
+            <div class="col-sm-2">
+                &nbsp;
             </div>
         </div>
-        <?php
-        elseif ($attributes['type'] == 'checkbox'):
-        ?>
+        
+        <div class="form-group">
+            <label for="<?php echo $form->get('testo')->getAttribute('id'); ?>" class="col-sm-2 control-label"><?php echo $this->formLabel($form->get('testo')) ?>:</label>
+            <div class="col-sm-8">
+                <?php echo $this->formElement($form->get('testo')); ?>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="<?php echo $form->get('mese')->getAttribute('id'); ?>" class="col-sm-2 control-label">Atti a partire da:</label>
+            <div class="col-sm-4">
+                <?php echo $this->formElement($form->get('mese')); ?>
+            </div>
+
+            <div class="col-sm-4">
+                <?php echo $this->formElement($form->get('anno')); ?>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="<?php echo $form->get('sezione')->getAttribute('id'); ?>" class="col-sm-2 control-label"><?php echo $this->formLabel($form->get('sezione')) ?>:</label>
+            <div class="col-sm-8">
+                <?php echo $this->formElement($form->get('sezione')); ?>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="<?php echo $form->get('settore')->getAttribute('id'); ?>" class="col-sm-2 control-label"><?php echo $this->formLabel($form->get('settore')) ?>:</label>
+            <div class="col-sm-8">
+                <?php echo $this->formElement($form->get('settore')); ?>
+            </div>
+        </div>
+        
         <div class="form-group">
             <label class="col-sm-2 control-label">&nbsp;</label>
-            <div class="col-sm-8"><?php  echo $this->formElement($element)  ?>
-            <label for="<?php echo $attributes['id'] ?>" style="width: 80%"> <?php echo $element->getLabel() ?></label>
+            <div class="col-sm-8"><?php echo $this->formElement($form->get('expired')); ?>
+            <label for="<?php echo $form->get('expired')->getAttribute('id'); ?>" style="width: 80%"> <?php echo $this->formLabel($form->get('expired')) ?></label>
             </div>
         </div>
-        <?php
-        else:
-        ?>
+        
         <div class="form-group">
-            <label for="<?php echo $attributes['id'] ?>" class="col-sm-2 control-label"><?php echo $element->getLabel() ?>:</label>
-            <div class="col-sm-8">
-            <?php
-            $element->setAttribute('class', 'form-control');
-            echo $this->formElement($element);
-            ?>
+            <label class="col-sm-2 control-label">&nbsp;</label>
+            <div class="col-sm-4">
+                <?php echo $this->formElement($form->get('csrf')); ?>
+                <?php echo $this->formElement($form->get('search')); ?>
             </div>
         </div>
-        <?php
-        endif;
-    endforeach;
-    
-    ?></fieldset><?php
+
+    </fieldset><?php
     
     echo $this->form()->closeTag();
     ?>
@@ -87,17 +121,16 @@
     
     <div>&nbsp;</div>
 
-<div class="alert alert-info">Per aprire i file firmati digitalmente scaricare il software ArubaSign:<br>
-    <ul class="list-unstyled">
-        <li><i class="fa fa-windows"></i> <a href="http://www.kronoweb.it/download/ArubaSign/ArubaSign2_3_5_WINDOWS.exe" title="Software per PC">Versione per PC (17,5MB)</a></li>
-        <li><i class="fa fa-linux"></i> Versione per Linux <a href="#" title="ArubaSign per Linux 32bit">(32 bit)</a> - <a href="#" title="ArubaSign per Linux 64bit">(64 bit)</a></li>
-        <li><i class="fa fa-apple"></i> <a href="http://www.kronoweb.it/download/ArubaSign/ArubaSign2_1_5MAC.zip" title="Software per MAC">Versione per MAC (31,2MB)</a></li>
-    </ul>
-    <br>
-    Si consiglia di visionare l'albo pretorio per tutta la durata della pubblicazione in quanto potrebbero verificarsi modifiche che verranno segnalate tramite rettifiche e/o annullamenti degli atti.
-</div>
+    <div class="alert alert-info">Per aprire i file firmati digitalmente scaricare il software ArubaSign:<br>
+        <ul class="list-unstyled">
+            <li><i class="fa fa-windows"></i> <a href="http://www.kronoweb.it/download/ArubaSign/ArubaSign2_3_5_WINDOWS.exe" title="Software per PC">Versione per PC (17,5MB)</a></li>
+            <li><i class="fa fa-linux"></i> Versione per Linux <a href="#" title="ArubaSign per Linux 32bit">(32 bit)</a> - <a href="#" title="ArubaSign per Linux 64bit">(64 bit)</a></li>
+            <li><i class="fa fa-apple"></i> <a href="http://www.kronoweb.it/download/ArubaSign/ArubaSign2_1_5MAC.zip" title="Software per MAC">Versione per MAC (31,2MB)</a></li>
+        </ul>
+        <br>
+        Si consiglia di visionare l'albo pretorio per tutta la durata della pubblicazione in quanto potrebbero verificarsi modifiche che verranno segnalate tramite rettifiche e/o annullamenti degli atti.
+    </div>
 
-    
 </div>
 
 <?php foreach($this->paginator as $key => $row): ?>

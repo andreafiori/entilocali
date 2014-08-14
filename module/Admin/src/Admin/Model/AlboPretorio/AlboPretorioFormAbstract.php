@@ -4,8 +4,12 @@ namespace Admin\Model\AlboPretorio;
 
 use Zend\Form\Form;
 
+/**
+ * @author Andrea Fiori
+ * @since  30 July 2014
+ */
 abstract class AlboPretorioFormAbstract extends Form
-{   
+{
     /**
      * @param array $sezioni
      */
@@ -29,7 +33,7 @@ abstract class AlboPretorioFormAbstract extends Form
             )
         ));
     }
-    
+        
     /**
      * @param type $settori
      */
@@ -54,14 +58,38 @@ abstract class AlboPretorioFormAbstract extends Form
         ));
     }
     
+    public function addOrderBy()
+    {
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'orderby',
+            'attributes' => array(
+                'title' => 'Ordina per',
+                'id'    => 'orderby'
+            ),
+            'options' => array(
+                'label' => 'Settore',
+                'empty_option' => 'Seleziona',
+                'value_options' => array(
+                    'aa.anno'   => 'Anno',
+                    'aa.numero' => 'Numero Progressivo',
+                    'aa.titolo' => 'Titolo',
+                    'aa.dataAttivazione' => 'Data Attivazione',
+                    'aa.dataScadenza' => 'Data Scadenza',
+                    'aps.nome'  => 'Sezione',
+                ),
+            )
+        ));
+    }
+    
     public function addMonths()
     {
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
             'name' => 'mese',
             'attributes' => array(
-                'title' => 'Seleziona mese',
-                'id'    => 'testo'
+                'title' => 'Seleziona mese di partenza dalla data di pubblicazione',
+                'id'    => 'mese'
             ),
             'options' => array(
                     'label' => 'Mese',
@@ -87,8 +115,12 @@ abstract class AlboPretorioFormAbstract extends Form
     /**
      * @param array $years
      */
-    public function addYears(array $years)
+    public function addYears($years)
     {
+        if (!is_array($years)) {
+            return false;
+        }
+        
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
             'name' => 'anno',
@@ -115,4 +147,29 @@ abstract class AlboPretorioFormAbstract extends Form
 
             return $arrayYears;
         }
+
+    /**
+     * @param type $name
+     * @param type $label
+     */
+    public function addSubmitButton($name = null, $label = null)
+    {
+        if (!$name) {
+            $name = 'search';
+        }
+        
+        if (!$label) {
+            $label = 'Cerca';
+        }
+
+        $this->add(array(
+            'name' => $name,
+            'type' => 'submit',
+            'attributes' => array(
+                'label' => '&nbsp;',
+                'title' => 'Clicca per inviare i dati del form',
+                'value' => $label,
+            ))
+        );
+    }
 }

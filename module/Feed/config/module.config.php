@@ -31,6 +31,32 @@ return array(
                             ),
                         ),
                     ),
+                    'posts' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                                    'route'    => 'posts[/][:category][/]',
+                                    'constraints' => array(
+                                            'category' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                    ),
+                                    'defaults' => array(
+                                                'controller' => 'Admin\Controller\Admin',
+                                                'action'     => 'index',
+                                    ),
+                        ),
+                    ),
+                    'albo-pretorio' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                                    'route'    => 'albo-pretorio[/][:category][/]',
+                                    'constraints' => array(
+                                            'category' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                    ),
+                                    'defaults' => array(
+                                                'controller' => 'Admin\Controller\Admin',
+                                                'action'     => 'index',
+                                    ),
+                        ),
+                    ), 
                 ),
             ),
         ),

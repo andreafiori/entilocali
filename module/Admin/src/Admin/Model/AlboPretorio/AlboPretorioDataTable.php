@@ -3,9 +3,7 @@
 namespace Admin\Model\AlboPretorio;
 
 use Admin\Model\DataTable\DataTableInterface;
-use Admin\Model\AlboPretorio\AlboPretorioRecordsGetter;
 use Admin\Model\DataTable\DataTableAbstract;
-use Admin\Model\AlboPretorio\AlboPretorioSearchFilterForm;
 
 /**
  * @author Andrea Fiori
@@ -22,53 +20,120 @@ class AlboPretorioDataTable extends DataTableAbstract implements DataTableInterf
     {
         parent::__construct($input);
         
-        $this->alboPretorioRecordsGetter = new AlboPretorioRecordsGetter( $this->getInput() );
-        
-        $records = $this->getAlboPretorioRecords(array());
-        $this->setRecords( $this->getFormattedDataTableRecords($records) );
-        
-        $alboPretorioSearchFilterForm = new AlboPretorioSearchFilterForm();
-        $alboPretorioSearchFilterForm->addMonths();
-        $alboPretorioSearchFilterForm->addYears( $this->alboPretorioRecordsGetter->getYears($records) );
-        $alboPretorioSearchFilterForm->addSezioni( $this->getSezioni( array() ) );
-        $alboPretorioSearchFilterForm->addSettori( $this->getSettori( array('fields' => 'DISTINCT(u.settore) AS settore, u.id', 'groupBy'=>'settore') ));
-        $alboPretorioSearchFilterForm->addSubmitButton();
+        $paginatorRecords = $this->setupArticoliPaginatorRecords();
+
+        $this->setRecords( $this->getFormattedDataTableRecords($paginatorRecords) );
+
+        $this->setVariable('tablesetter', 'albo-pretorio');
+        $this->setVariable('paginator', $paginatorRecords);
+        $this->setVariable('formSearch', $this->setupFormSearchAndExport(new AlboPretorioSearchFilterForm()));
+        $this->setVariable('formExport', $this->setupFormSearchAndExport(new AlboPretorioExportForm(), 'export', 'Esporta'));
         
         $this->setTitle('Albo pretorio');
         $this->setDescription('Elenco atti albo pretorio');
-        $this->setColumns(array('Num \ Anno', 'Titolo', 'Settore', 'Scadenza', 'Data attivazione', '&nbsp;', '&nbsp;', '&nbsp;', '&nbsp;' ));
-        
-        $this->setVariable('formSearch', $alboPretorioSearchFilterForm);
+        $this->setColumns(array( 
+                array('label' => 'Num \ Anno','width' => '10%'),
+                array('label' => 'Titolo','width' => '44%'), 
+                'Settore', 
+                'Scadenza', 
+                'Data attivazione', 
+                '&nbsp;', 
+                '&nbsp;', 
+                '&nbsp;', 
+                '&nbsp;'
+            )
+        );
     }
-
+    
         /**
-         * @return array
+         * @return type
          */
-        private function getAlboPretorioRecords(array $input)
+        private function setupArticoliPaginatorRecords()
         {
-            $this->alboPretorioRecordsGetter->setArticoli($input);
+            $param = $this->getParam();
 
-            return $this->alboPretorioRecordsGetter->returnRecordset();
+            $this->alboPretorioRecordsGetter = new AlboPretorioRecordsGetter( $this->getInput() );
+            $this->alboPretorioRecordsGetter->setArticoliInput( array() );
+            $this->alboPretorioRecordsGetter->setArticoliPaginator();
+            $this->alboPretorioRecordsGetter->setArticoliPaginatorCurrentPage(isset($param['route']['page']) ? $param['route']['page'] : null);
+            $this->alboPretorioRecordsGetter->setArticoliPaginatorPerPage(isset($param['route']['perpage']) ? $param['route']['perpage'] : null);
+
+            return $this->alboPretorioRecordsGetter->getPaginatorRecords();
         }
 
+    /**
+     * Overwrite default template
+     * 
+     * @return type
+     */
+    public function getTemplate()
+    {
+        if ( $this->getRecords() ) {
+            return $this->setTemplate('datatable/datatable_albo.phtml');
+        } else {
+            return parent::getTemplate();
+        }
+    }
+    
+        /**
+         * 
+         * @param \AlboPretorioFormAbstract $form
+         * @param string $labelName
+         * @param string $labelValue
+         * @return \Zend\Form\Form
+         */
+        private function setupFormSearchAndExport(AlboPretorioFormAbstract $form, $labelName = null, $labelValue = null)
+        {
+            $form->addMonths();
+            $form->addYears( $this->alboPretorioRecordsGetter->getYears() );
+            $form->addSezioni( $this->getSezioni( array('orderBy' => 'aps.nome') ) );
+            $form->addSettori( $this->getSettori( array('fields' => 'DISTINCT(u.settore) AS settore, u.id', 'groupBy'=>'settore') ));
+            $form->addOrderBy();
+            $form->addSubmitButton($labelName, $labelValue);
+            
+            return $form;
+        }
+ 
+        /**
+         * @param array $input
+         * @return type
+         */
+        private function getSezioni(array $input)
+        {
+            $this->alboPretorioRecordsGetter->setSezioni($input);
+
+            return $this->alboPretorioRecordsGetter->formatSezioniForFormSelect('id','nome');
+        }
+        
+        /**
+         * @param array $input
+         * @return type
+         */
+        private function getSettori(array $input)
+        {
+            $this->alboPretorioRecordsGetter->setSettori($input);
+
+            return $this->alboPretorioRecordsGetter->formatSezioniForFormSelect('id','settore');
+        }
+        
+        /**
+         * @param array $records
+         * @return array
+         */
         private function getFormattedDataTableRecords($records)
         {
-            if (!is_array($records)) {
-                return false;
-            }
-            
             $arrayToReturn = array();
             if ($records) {
-                foreach($records as $record) {
+                foreach($records as $key => $row) {
                     $arrayToReturn[] = array(
-                        $record['numeroAtto']." / ".$record['anno'],
-                        $record['titolo'],
-                        $record['nome'],
-                        $this->convertDateTimeToString($record['dataScadenza']),
-                        $this->convertDateTimeToString($record['dataAttivazione']),
+                        $row['numeroAtto']." / ".$row['anno'],
+                        $row['titolo'],
+                        $row['nome'],
+                        $row['dataScadenza'],
+                        $row['dataAttivazione'],
                         array(
                             'type'      => 'updateButton',
-                            'href'      => $this->getInput('baseUrl',1).'formdata/albo-pretorio/'.$record['id'],
+                            'href'      => $this->getInput('baseUrl',1).'formdata/albo-pretorio/'.$row['id'],
                             'tooltip'   => 1,
                             'title'     => 'Modifica'
                         ),
@@ -93,42 +158,4 @@ class AlboPretorioDataTable extends DataTableAbstract implements DataTableInterf
 
             return $arrayToReturn;
         }
-
-        /**
-         * @param array $input
-         * @return type
-         */
-        private function getSezioni(array $input)
-        {
-            $alboPretorioRecordsGetter = new AlboPretorioRecordsGetter( $this->getInput() );
-            $alboPretorioRecordsGetter->setSezioni($input);
-
-            return $alboPretorioRecordsGetter->formatSezioniForFormSelect('id','nome');
-        }
-        
-        /**
-         * @param array $input
-         * @return type
-         */
-        private function getSettori(array $input)
-        {
-            $alboPretorioRecordsGetter = new AlboPretorioRecordsGetter( $this->getInput() );
-            $alboPretorioRecordsGetter->setSettori($input);
-
-            return $alboPretorioRecordsGetter->formatSezioniForFormSelect('id','settore');
-        }
-
-    /**
-     * Overwrite default template
-     * 
-     * @return type
-     */
-    public function getTemplate()
-    {
-        if ($this->getRecords()) {
-            return $this->setTemplate('datatable/datatable_albo.phtml');
-        } else {
-            return parent::getTemplate();
-        }
-    }
 }

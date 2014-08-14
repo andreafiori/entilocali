@@ -10,15 +10,60 @@ use Admin\Model\VarExporter;
  */
 abstract class DataTableAbstract extends VarExporter
 {
-    protected $columns;
-
-    protected $template = 'datatable/datatable.phtml';
+    protected $param;
     
-    public function setColumns($columns)
+    protected $columns;
+    
+    /**
+     * @param array $input
+     */
+    public function __construct(array $input)
     {
-        $this->columns = $columns;
+        parent::__construct($input);
+        
+        $this->param = $this->getInput('param', 1);
+        
+        $this->setTemplate('datatable/datatable.phtml');
+    }
+    
+    /**
+     * @param array $param
+     */
+    public function setParam($param)
+    {
+        $this->param = $param;
+    }
+    
+    /**
+     * @param string $key
+     * @return array
+     */
+    public function getParam($firstKey = null, $secondKey = null)
+    {
+        if ( isset($this->param[$firstKey]) and !$secondKey) {
+            return $this->param[$firstKey];
+        }
+        
+        if ( isset($this->param[$firstKey][$secondKey]) ) {
+            return $this->param[$firstKey][$secondKey];
+        }
+        
+        return $this->param;
     }
 
+    /**
+     * @param array $columns
+     */
+    public function setColumns(array $columns)
+    {
+        $this->columns = $columns;
+        
+        return $this->columns;
+    }
+
+    /**
+     * @return type
+     */
     public function getColumns()
     {
         return $this->columns;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Model\Ticketing;
+namespace Admin\Model\Tickets;
 
 use Zend\Form\Form;
 
@@ -8,7 +8,7 @@ use Zend\Form\Form;
  * @author Andrea Fiori
  * @since  14 May 2014
  */
-class TicketingForm extends Form
+class TicketsForm extends Form
 {
     /**
      * @param string $name

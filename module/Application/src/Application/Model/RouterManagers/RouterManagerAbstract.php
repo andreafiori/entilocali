@@ -2,40 +2,21 @@
 
 namespace Application\Model\RouterManagers;
 
+use Admin\Model\InputSetterGetterAbstract;
+
 /**
  * @author Andrea Fiori
  * @since  05 May 2014
  */
-abstract class RouterManagerAbstract
+abstract class RouterManagerAbstract extends InputSetterGetterAbstract
 {
     const defaultFrontendTemplate   = 'homepage/homepage.phtml';
     const defaultBackendTemplate    = 'dashboard/dashboard.phtml';
     
-    protected $input;
     protected $output = array();
+    
     protected $router;
 
-    /**
-     * @param array $input
-     */
-    public function setInput(array $input)
-    {
-        $this->input = array_filter($input);
-        
-        return $this->input;
-    }
-    
-    /**
-     * 
-     * @param type $key
-     * @param type $noArray
-     * @return type
-     */
-    public function getInput($key = null, $noArray = 0)
-    {
-        return $this->getArrayValue($this->input, $key, $noArray);
-    }
-    
     /**
      * @param array $router
      */
@@ -140,24 +121,6 @@ abstract class RouterManagerAbstract
             return $this->output['export'][$key];
         }
     }
-    
-        /**
-         * 
-         * @param array $array
-         * @param type $key
-         * @param type $noArray
-         * @return array
-         */
-        protected function getArrayValue($array, $key = null, $noArray=null)
-        {
-            if ( isset($array[$key]) ) {
-                return $array[$key];
-            }
-
-            if ( !$noArray ) {
-                return $array;
-            }
-        }
         
         /**
          * @param array $arrayVar

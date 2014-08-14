@@ -59,6 +59,9 @@ function executeMultipleQuery(array $q)
     }
 }
 
+/* Disable foreign checks */
+executeQuery("SET foreign_key_checks = 0");
+
 /* execute import operations */
 switch($_GET['op'])
 {
@@ -122,6 +125,15 @@ switch($_GET['op'])
     break;
     */
     case("stato-civile"):
+
+        // Clean old data
+        executeQuery("TRUNCATE TABLE zfcms_comuni_stato_civile_articoli ");
+        executeQuery("TRUNCATE TABLE zfcms_comuni_stato_civile_sezioni ");
+        
+        /* Delete attachments (TEMPORARY)... */
+        executeQuery("TRUNCATE TABLE zfcms_attachments ");
+        executeQuery("TRUNCATE TABLE zfcms_attachments_options ");
+        executeQuery("TRUNCATE TABLE zfcms_attachments_relations ");
         
         $resultArticoli = executeQuery("INSERT INTO zfcms_comuni_stato_civile_articoli (SELECT * FROM statocivile_articoli) ");
         
@@ -130,9 +142,10 @@ switch($_GET['op'])
         /* Extract blob files and copy them into the dedicated directory */
         $attachments = getRecord("SELECT sca.id AS id, id_statocivile, nome, id_mime, mimetype, dati, posizione, size FROM statocivile_allegati sca, mimetype m WHERE (sca.id_mime = m.id) ");
         if (is_array($attachments)) {
+            $i=0;
             foreach ($attachments as $attachment) {
                 
-                $insertAttach = executeQuery("INSERT INTO zfcms_attachments (name, size, state, insert_date, last_update) (SELECT nome, size, 'active', NOW(), NOW() FROM statocivile_allegati WHERE id = '".$attachment['id']."' ) ");
+                $insertAttach = executeQuery("INSERT INTO zfcms_attachments (name, size, state, insert_date) (SELECT nome, size, 'active', NOW() FROM statocivile_allegati WHERE id = '".$attachment['id']."' ) ");
                 
                 $lastID = getRecord("SELECT last_insert_id() AS last_insert_id ");
                 
@@ -141,32 +154,54 @@ switch($_GET['op'])
                 $insertAttacRelations = executeQuery("INSERT INTO zfcms_attachments_relations (attachment_id, reference_id, module_id) VALUES ('".$lastID[0]['last_insert_id']."', ".$attachment['id'].", '13' ) ");
 
                 //$pathInfo = pathinfo($attachment['nome']);
+                
                 //$filename = uniqid().'.'.$pathInfo['extension'];
-                /**/
+                
+                /*  */
                 $fp = fopen('../public/frontend/media/stato-civile/'.$attachment['nome'], 'w');
                 fwrite($fp, $attachment['dati']);
                 fclose($fp);
+                $i++;
             }
         }
 
-        showAlertMessage('Stato civile', 'Articoli importati: '.$resultArticoli.'<br>Sezioni: '.$resultSezioni.'<br>', 'success');
+        showAlertMessage('Stato civile', 'Articoli importati: '.$resultArticoli.'<br>Sezioni: '.$resultSezioni.'<br>Allegati: '.$i, 'success');
         
     break;
 
     case("albo-pretorio"):
-        $q = "INSERT INTO zfcms_comuni_albo_articoli ( SELECT * FROM albo_articoli ) ";
+        // clean old data
+        executeQuery("TRUNCATE TABLE zfcms_comuni_albo_articoli ");
+        executeQuery("TRUNCATE TABLE zfcms_comuni_albo_sezioni ");
         
-        $q = "INSERT INTO zfcms_comuni_albo_sezioni ( SELECT * FROM albo_sezioni ) ";
+        // import data
+        $resultArticoli = executeQuery("INSERT INTO zfcms_comuni_albo_articoli ( SELECT * FROM albo_articoli ) ");
         
-        $q = "INSERT INTO zfcms_comuni_attachments ( SELECT * FROM albo_allegati ) ";
+        /* correct HTML specialchars */
+        $result = getRecord("SELECT * FROM zfcms_comuni_albo_articoli");
+        if ( is_array($result) ) {
+            foreach($result as $articolo) {
+                executeQuery("UPDATE zfcms_comuni_albo_articoli SET titolo='". htmlentities(addslashes($articolo['titolo']))."' WHERE id = '".$articolo['id']."' ");
+            }
+        }
         
+        $resultSezioni = executeQuery("INSERT INTO zfcms_comuni_albo_sezioni ( SELECT * FROM albo_sezioni ) ");
+        
+        /* TODO: Extract blob files and copy them into the dedicated directory */
+        
+        
+        showAlertMessage('Albo pretorio', 'Articoli importati: '.$resultArticoli.'<br>Sezioni: '.$resultSezioni.'<br>', 'warning');
     break;
 
     case("amministrazione-trasparente"):
         $q = "ammaperta_allegati";
+        
         $q = "zfcms_comuni_     ammaperta_articoli ";
+        
         $q = " ammaperta_resp_proc ";
+        
         $q = "ammaperta_sezioni ";
+        
     break;
 
     case("contratti-pubblici"):
@@ -230,3 +265,6 @@ switch($_GET['op'])
         
     break;
 }
+
+/* Re-enable foreign checks */
+executeQuery("SET foreign_key_checks = 1");

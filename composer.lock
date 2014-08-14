@@ -80,12 +80,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/cache.git",
-                "reference": "8f8810a67de1e45e1f471c5a93dbd829c4184975"
+                "reference": "72121e68265cd8b37f9b69778308251f6c5133e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/cache/zipball/8f8810a67de1e45e1f471c5a93dbd829c4184975",
-                "reference": "8f8810a67de1e45e1f471c5a93dbd829c4184975",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/72121e68265cd8b37f9b69778308251f6c5133e4",
+                "reference": "72121e68265cd8b37f9b69778308251f6c5133e4",
                 "shasum": ""
             },
             "require": {
@@ -141,7 +141,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2014-07-27 17:14:15"
+            "time": "2014-08-05 12:51:19"
         },
         {
             "name": "doctrine/collections",
@@ -272,7 +272,7 @@
                 {
                     "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -293,12 +293,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "663135d59bd8abb64e3efea3adc53aed9674df74"
+                "reference": "83f92c3f28e927917ddcb7cf214ce99c0b72004b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/663135d59bd8abb64e3efea3adc53aed9674df74",
-                "reference": "663135d59bd8abb64e3efea3adc53aed9674df74",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/83f92c3f28e927917ddcb7cf214ce99c0b72004b",
+                "reference": "83f92c3f28e927917ddcb7cf214ce99c0b72004b",
                 "shasum": ""
             },
             "require": {
@@ -356,7 +356,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2014-07-27 12:25:05"
+            "time": "2014-08-13 07:14:49"
         },
         {
             "name": "doctrine/doctrine-module",
@@ -420,7 +420,7 @@
                 {
                     "name": "Marco Pivetta",
                     "email": "ocramius@gmail.com",
-                    "homepage": "http://marco-pivetta.com/",
+                    "homepage": "http://ocramius.github.com/",
                     "role": "Developer"
                 },
                 {
@@ -430,7 +430,7 @@
                 {
                     "name": "Michaël Gallego",
                     "email": "mic.gallego@gmail.com",
-                    "homepage": "http://www.michaelgallego.fr"
+                    "homepage": "http://michaelgallego.fr"
                 }
             ],
             "description": "Zend Framework 2 Module that provides Doctrine basic functionality required for ORM and ODM modules",
@@ -502,7 +502,7 @@
                 {
                     "name": "Marco Pivetta",
                     "email": "ocramius@gmail.com",
-                    "homepage": "http://marco-pivetta.com/",
+                    "homepage": "http://ocramius.github.com/",
                     "role": "Developer"
                 },
                 {
@@ -583,7 +583,7 @@
                 {
                     "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -642,7 +642,7 @@
                 {
                     "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -660,12 +660,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/doctrine2.git",
-                "reference": "089cca636e0e44a70dd9167b7d813762ea80daca"
+                "reference": "6ac19b04bfbd7a97aad5ed8c2abd6279ff5e0022"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/089cca636e0e44a70dd9167b7d813762ea80daca",
-                "reference": "089cca636e0e44a70dd9167b7d813762ea80daca",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/6ac19b04bfbd7a97aad5ed8c2abd6279ff5e0022",
+                "reference": "6ac19b04bfbd7a97aad5ed8c2abd6279ff5e0022",
                 "shasum": ""
             },
             "require": {
@@ -726,7 +726,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2014-07-24 15:34:21"
+            "time": "2014-08-12 08:16:17"
         },
         {
             "name": "symfony/console",
@@ -735,12 +735,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "a61d4fb086e33c3b45c80b638fb915c62eac58a3"
+                "reference": "0c91f3355f251dc2ac15d9f9c5e04c014c9b729e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/a61d4fb086e33c3b45c80b638fb915c62eac58a3",
-                "reference": "a61d4fb086e33c3b45c80b638fb915c62eac58a3",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/0c91f3355f251dc2ac15d9f9c5e04c014c9b729e",
+                "reference": "0c91f3355f251dc2ac15d9f9c5e04c014c9b729e",
                 "shasum": ""
             },
             "require": {
@@ -783,7 +783,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-07-20 19:24:23"
+            "time": "2014-08-08 14:32:04"
         },
         {
             "name": "zendframework/zend-developer-tools",
@@ -791,12 +791,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/ZendDeveloperTools.git",
-                "reference": "a9244b9cc17861eb36a7c899d450119575d16d41"
+                "reference": "6468ed1c58a65ad797f04ebe794ca85fef0ff142"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendDeveloperTools/zipball/a9244b9cc17861eb36a7c899d450119575d16d41",
-                "reference": "a9244b9cc17861eb36a7c899d450119575d16d41",
+                "url": "https://api.github.com/repos/zendframework/ZendDeveloperTools/zipball/6468ed1c58a65ad797f04ebe794ca85fef0ff142",
+                "reference": "6468ed1c58a65ad797f04ebe794ca85fef0ff142",
                 "shasum": ""
             },
             "require": {
@@ -844,7 +844,7 @@
                 "module",
                 "zf2"
             ],
-            "time": "2014-07-11 19:51:50"
+            "time": "2014-08-13 19:03:31"
         },
         {
             "name": "zendframework/zendframework",
@@ -968,12 +968,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/bjyoungblood/BjyProfiler.git",
-                "reference": "b08b65a479e7fcdbfae9442fbda8e4ec7fb5852b"
+                "reference": "890d8b522d00c7b5e62210e39812d83a6d99bdfb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bjyoungblood/BjyProfiler/zipball/b08b65a479e7fcdbfae9442fbda8e4ec7fb5852b",
-                "reference": "b08b65a479e7fcdbfae9442fbda8e4ec7fb5852b",
+                "url": "https://api.github.com/repos/bjyoungblood/BjyProfiler/zipball/890d8b522d00c7b5e62210e39812d83a6d99bdfb",
+                "reference": "890d8b522d00c7b5e62210e39812d83a6d99bdfb",
                 "shasum": ""
             },
             "require": {
@@ -997,8 +997,7 @@
                 {
                     "name": "Ben Youngblood",
                     "email": "bx.youngblood@gmail.com",
-                    "homepage": "http://bjyoungblood.com/",
-                    "role": "Developer"
+                    "homepage": "http://bjyoungblood.com/"
                 }
             ],
             "description": "Database profiler for Zend\\Db (also plugin for ZendDeveloperTools)",
@@ -1009,7 +1008,7 @@
                 "zdt",
                 "zf2"
             ],
-            "time": "2014-04-17 14:44:15"
+            "time": "2014-08-05 14:38:59"
         },
         {
             "name": "bjyoungblood/bjy-authorize",
@@ -1017,12 +1016,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/bjyoungblood/BjyAuthorize.git",
-                "reference": "84275837821df73ac1b3e8f353c5946c2146f942"
+                "reference": "fb81997c2d904da7b7620da78c0962989ea53dec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bjyoungblood/BjyAuthorize/zipball/84275837821df73ac1b3e8f353c5946c2146f942",
-                "reference": "84275837821df73ac1b3e8f353c5946c2146f942",
+                "url": "https://api.github.com/repos/bjyoungblood/BjyAuthorize/zipball/fb81997c2d904da7b7620da78c0962989ea53dec",
+                "reference": "fb81997c2d904da7b7620da78c0962989ea53dec",
                 "shasum": ""
             },
             "require": {
@@ -1079,7 +1078,7 @@
                 "zf2",
                 "zfc-user"
             ],
-            "time": "2014-07-16 19:15:47"
+            "time": "2014-08-07 11:40:29"
         },
         {
             "name": "zendframework/zenddiagnostics",
@@ -1087,12 +1086,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/ZendDiagnostics.git",
-                "reference": "23998e7e5a54587765f37226323751cfefbb0204"
+                "reference": "0d5ce11ff703fe66b697860515984fcd2c072c02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendDiagnostics/zipball/23998e7e5a54587765f37226323751cfefbb0204",
-                "reference": "23998e7e5a54587765f37226323751cfefbb0204",
+                "url": "https://api.github.com/repos/zendframework/ZendDiagnostics/zipball/0d5ce11ff703fe66b697860515984fcd2c072c02",
+                "reference": "0d5ce11ff703fe66b697860515984fcd2c072c02",
                 "shasum": ""
             },
             "require": {
@@ -1138,7 +1137,7 @@
                 "php",
                 "test"
             ],
-            "time": "2014-06-04 16:27:20"
+            "time": "2014-08-14 08:59:12"
         },
         {
             "name": "zendframework/zftool",

@@ -22,7 +22,7 @@ abstract class RecordsGetterWrapperAbstract
     
     protected $firstResult = 0;
     protected $maxResults = 700;
-    protected $itemsPerPage = 8;
+    protected $perpageDefault = 8;
 
     /**
      * @param array $input
@@ -62,7 +62,7 @@ abstract class RecordsGetterWrapperAbstract
         
         return $this->objectGetter;
     }
- 
+    
     /**
      * @return type
      */
@@ -83,26 +83,87 @@ abstract class RecordsGetterWrapperAbstract
         
         return $this->objectGetter->getQueryResult();
     }
-
+    
     /**
-     * @param number $page
-     * @return \Zend\Paginator\Paginator
-     * @throws NullException
+     * @param array $queryRecords
+     * @return type
      */
-    public function setupPaginator($page = 1, $itemsPerPage = null)
+    public function setupPaginator(array $queryRecords)
     {
+        $this->paginator = new Paginator( new ArrayAdapter($queryRecords) );
+
+        return $this->paginator;
+    }
+    
+    /**
+     * @param int $page
+     * @return type
+     */
+    public function setupPaginatorCurrentPage($page = 1)
+    {
+        $this->assertPaginator();
+        
         if ( !is_numeric($page) ) {
             $page = 1;
         }
         
-        if ( !$itemsPerPage or !is_numeric($itemsPerPage) ) {
-            $itemsPerPage = $this->itemsPerPage;
-        }
-        
-        $this->paginator = new Paginator( new ArrayAdapter($this->query) );
         $this->paginator->setCurrentPageNumber($page);
-        $this->paginator->setItemCountPerPage($itemsPerPage);
         
         return $this->paginator;
+    }
+    
+    /**
+     * @param int $perpage
+     * @return type
+     */
+    public function setupPaginatorItemsPerPage($perpage = null)
+    {
+        $this->assertPaginator();
+        
+        if ( !is_numeric($perpage) ) {
+            $perpage = $this->perpageDefault;
+        }
+        
+        $this->paginator->setItemCountPerPage($perpage);
+        
+        return $this->paginator;
+    }
+    
+        /**
+         * @throws NullException
+         */
+        private function assertPaginator()
+        {
+            if (!$this->paginator) {
+                throw new NullException('Zend Paginator must be set. Use setupPaginator first');
+            }
+        }
+        
+    /**
+     * Query must be set using entity manager and scalarResult on child classes
+     * 
+     * @return array
+     */
+    public function getQuery()
+    {
+        return $this->query;
+    }
+    
+    /**
+     * @return \Zend\Paginator\Paginator $paginator
+     */
+    public function getPaginator()
+    {
+        return $this->paginator;
+    }
+
+    public function getFirstResult()
+    {
+        return $this->firstResult;
+    }
+
+    public function getMaxResults()
+    {
+        return $this->maxResults;
     }
 }

@@ -17,9 +17,9 @@ class DataTableHandlerTest extends TestSuite
     {
         parent::setUp();
         
-        $this->dataTableHandler = new DataTableHandler();
+        $this->dataTableHandler = new DataTableHandler( $this->getFrontendCommonInput() );
     }
-    
+ 
     public function testSetupRecord()
     {
         $this->assertTrue( is_array($this->dataTableHandler->setupRecord()) );

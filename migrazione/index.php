@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Kronoweb Migration Tool
+ * Kronoweb CMS Enti locali \ Aziende. Tool di migrazione dati da precedente CMS
  * 
  * @since  02 July 2014
  * @author Andrea Fiori

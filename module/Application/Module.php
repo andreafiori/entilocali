@@ -49,7 +49,7 @@ class Module implements AutoloaderProviderInterface
      */
     public function handleError(MvcEvent $e)
     {
-    	//$exception = $e->getParam('exception');
+    	
     }
     
     public function getConfig()
@@ -109,8 +109,8 @@ class Module implements AutoloaderProviderInterface
 		    
 		    $authService = new AuthenticationService();
 		    $authService->setAdapter($dbTableAuthAdapter);
-		    $authService->setStorage($sm->get('Admin\Model\MyAuthStorage'));
-		    
+                    $authService->setStorage($sm->get('Admin\Model\MyAuthStorage'));
+                    
 		    return $authService;
 		},
             ),

@@ -18,7 +18,7 @@ class FormDataCrudHandlerTest extends TestSuite
     {
         parent::setUp();
         
-        $this->formDataCrudHandler = new FormDataCrudHandler();
+        $this->formDataCrudHandler = new FormDataCrudHandler( $this->getFrontendCommonInput() );
         
         $this->classMapTest = array(
             'posts' => 'Admin\Posts\PostsCrudHandler'

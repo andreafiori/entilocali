@@ -6,6 +6,10 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Feed\Writer\Feed;
 use Zend\View\Model\FeedModel;
 
+/**
+ * @author Andrea Fiori
+ * @since  20 May 2013
+ */
 class FeedController extends AbstractActionController
 {
     public function indexAction()
@@ -22,7 +26,6 @@ class FeedController extends AbstractActionController
         $feed->setLink('http://ourdomain.com');
         $feed->setDateModified(time());
  
-        //fake data...
         $data = array(
             0 => array('title' => 'my 1st post', 'link' => 'http://ourdomain.com/1stpost',
                        'content'=> 'summary of 1st post',
@@ -41,7 +44,6 @@ class FeedController extends AbstractActionController
  
         foreach($data as $row)
         {
-            //create entry...
             $entry = $feed->createEntry();
             $entry->setTitle($row['title']);
             $entry->setLink($row['link']);
@@ -52,7 +54,7 @@ class FeedController extends AbstractActionController
  
             $feed->addEntry($entry);
         }
- 
+
         $feed->export('rss');
  
         $feedmodel = new FeedModel();

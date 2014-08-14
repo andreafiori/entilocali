@@ -25,6 +25,7 @@ class StatoCivileForm extends Form
                                         'required' => 'required',
                                         'palceholder' => 'Inserisci il titolo',
                                         'title' => 'Inserisci il titolo',
+                                        'rows' => '8',
                         )
         ));
     }

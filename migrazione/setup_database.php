@@ -3,6 +3,7 @@
 // Redbean 3 ORM. The 4th version is only for PHP 5.3.4 or higher
 require_once("libraries/rb.php");
 
+$connectionError = '';
 if (file_exists("config.php")) {
     
     require_once("config.php");

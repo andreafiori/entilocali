@@ -13,6 +13,9 @@ use Admin\Model\DataTable\DataTableAbstract;
  */
 class AlboPretorioSezioniDataTable extends DataTableAbstract implements DataTableInterface
 {
+    /**
+     * @param array $input
+     */
     public function __construct(array $input)
     {
         parent::__construct($input);

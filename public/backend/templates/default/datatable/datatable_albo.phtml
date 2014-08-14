@@ -1,61 +1,5 @@
 <?php echo $this->render('backend/templates/'.$this->template_backend.'datatable/datatable_breadcrumb.phtml'); ?>
 
-<div class="container">
-    <?php
-
-    $form = $this->formSearch;
-
-    $form->setAttribute('action',   $this->serverUrl(true));
-    $form->setAttribute('method',   'post');
-    $form->setAttribute('role',     'form');
-    $form->setAttribute('class',    'form-horizontal');
-    $form->setAttribute('id',       'albo-pretorio-search-form');
-
-    $form->prepare();
-
-    echo $this->form()->openTag($this->formSearch);
-
-    $form->get('mese')->setAttribute('class', 'form-control');
-    $form->get('anno')->setAttribute('class', 'form-control');
-    $form->get('sezione')->setAttribute('class', 'form-control');
-    $form->get('settore')->setAttribute('class', 'form-control');
-    $form->get('search')->setAttribute('class', 'btn btn-primary');
-
-    ?>
-    <div class="form-group">
-        <label for="<?php echo $form->get('mese')->getAttribute('id'); ?>" class="col-sm-2 control-label">Atti a partire da:</label>
-        <div class="col-sm-4">
-            <?php echo $this->formElement($form->get('mese')); ?>
-        </div>
-
-        <div class="col-sm-4">
-            <?php echo $this->formElement($form->get('anno')); ?>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="<?php echo $form->get('sezione')->getAttribute('id'); ?>" class="col-sm-2 control-label"><?php echo $this->formLabel($form->get('sezione')) ?>:</label>
-        <div class="col-sm-8">
-            <?php echo $this->formElement($form->get('sezione')); ?>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="<?php echo $form->get('settore')->getAttribute('id'); ?>" class="col-sm-2 control-label"><?php echo $this->formLabel($form->get('settore')) ?>:</label>
-        <div class="col-sm-8">
-            <?php echo $this->formElement($form->get('settore')); ?>
-        </div>
-    </div>
-    
-    <div class="form-group">
-        <label class="col-sm-2 control-label">&nbsp;</label>
-        <div class="col-sm-8">
-            <?php echo $this->formElement($form->get('search')); ?>
-        </div>
-    </div>
-    <?php echo $this->form()->closeTag(); ?>
-</div>
-
 <ul class="nav nav-tabs" role="tablist">
     <li class="active"><a href="#home" role="tab" data-toggle="tab">Elenco atti</a></li>
     <li><a href="#search" role="tab" data-toggle="tab">Filtro \ Ricerca atti</a></li>
@@ -64,23 +8,146 @@
 
 <div class="tab-content">
     <div class="tab-pane active" id="home">
-        <?php echo $this->render('backend/templates/common/datatable_common.phtml'); ?>
+        <?php echo $this->render('backend/templates/common/datatables_zend_pagination.phtml'); ?>
     </div>
     
     <div class="tab-pane" id="search">
         <h3>Filtra dati</h3>
+        <div class="container">
+        <?php
+
+        $form = $this->formSearch;
+
+        $form->setAttribute('action',   $this->serverUrl(true));
+        $form->setAttribute('method',   'post');
+        $form->setAttribute('role',     'form');
+        $form->setAttribute('class',    'form-horizontal');
+        $form->setAttribute('id',       'albo-pretorio-search-form');
+
+        $form->prepare();
+
+        echo $this->form()->openTag($this->formSearch);
+
+        $form->get('mese')->setAttribute('class', 'form-control');
+        $form->get('anno')->setAttribute('class', 'form-control');
+        $form->get('sezione')->setAttribute('class', 'form-control');
+        $form->get('settore')->setAttribute('class', 'form-control');
+        $form->get('orderby')->setAttribute('class', 'form-control');
+        $form->get('search')->setAttribute('class', 'btn btn-primary');
+
+        ?>
+        <div class="form-group">
+            <label for="<?php echo $form->get('mese')->getAttribute('id'); ?>" class="col-sm-2 control-label">Atti a partire da:</label>
+            <div class="col-sm-4">
+                <?php echo $this->formElement($form->get('mese')); ?>
+            </div>
+
+            <div class="col-sm-4">
+                <?php echo $this->formElement($form->get('anno')); ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="<?php echo $form->get('sezione')->getAttribute('id'); ?>" class="col-sm-2 control-label"><?php echo $this->formLabel($form->get('sezione')) ?>:</label>
+            <div class="col-sm-8">
+                <?php echo $this->formElement($form->get('sezione')); ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="<?php echo $form->get('settore')->getAttribute('id'); ?>" class="col-sm-2 control-label"><?php echo $this->formLabel($form->get('settore')) ?>:</label>
+            <div class="col-sm-8">
+                <?php echo $this->formElement($form->get('settore')); ?>
+            </div>
+        </div>
         
+        <div class="form-group">
+            <label for="<?php echo $form->get('orderby')->getAttribute('id'); ?>" class="col-sm-2 control-label"><?php echo $this->formLabel($form->get('orderby')) ?>:</label>
+            <div class="col-sm-8">
+                <?php echo $this->formElement($form->get('orderby')); ?>
+            </div>
+        </div>
+            
+        <div class="form-group">
+            <label class="col-sm-2 control-label">&nbsp;</label>
+            <div class="col-sm-8">
+                <?php echo $this->formElement($form->get('search')); ?>
+            </div>
+        </div>
+        <?php echo $this->form()->closeTag(); ?>
+        </div>
     </div>
     
     <div class="tab-pane" id="export">
         <h3>Esportazione dati</h3>
+        <div class="container">
+            <?php
+
+            $form = $this->formExport;
+
+            $form->setAttribute('action',   $this->serverUrl(true));
+            $form->setAttribute('method',   'post');
+            $form->setAttribute('role',     'form');
+            $form->setAttribute('class',    'form-horizontal');
+            $form->setAttribute('id',       'albo-pretorio-export-form');
+
+            $form->prepare();
+
+            echo $this->form()->openTag($this->formExport);
+
+            $form->get('mese')->setAttribute('class', 'form-control');
+            $form->get('anno')->setAttribute('class', 'form-control');
+            $form->get('sezione')->setAttribute('class', 'form-control');
+            $form->get('settore')->setAttribute('class', 'form-control');
+            $form->get('export')->setAttribute('class', 'btn btn-primary');
+
+            ?>
+            <div class="form-group">
+                <label for="<?php echo $form->get('mese')->getAttribute('id'); ?>" class="col-sm-2 control-label">Atti a partire da:</label>
+                <div class="col-sm-4">
+                    <?php echo $this->formElement($form->get('mese')); ?>
+                </div>
+
+                <div class="col-sm-4">
+                    <?php echo $this->formElement($form->get('anno')); ?>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="<?php echo $form->get('sezione')->getAttribute('id'); ?>" class="col-sm-2 control-label"><?php echo $this->formLabel($form->get('sezione')) ?>:</label>
+                <div class="col-sm-8">
+                    <?php echo $this->formElement($form->get('sezione')); ?>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="<?php echo $form->get('settore')->getAttribute('id'); ?>" class="col-sm-2 control-label"><?php echo $this->formLabel($form->get('settore')) ?>:</label>
+                <div class="col-sm-8">
+                    <?php echo $this->formElement($form->get('settore')); ?>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">&nbsp;</label>
+                <div class="col-sm-8">
+                    <?php echo $this->formElement($form->get('export')); ?>
+                </div>
+            </div>
+            <?php echo $this->form()->closeTag(); ?>
+        </div>
         
         <h3>Feed RSS</h3>
+        <ul>
+            <li><a href="#" title="Feed albo pretorio" target="_blank">Albo pretorio</a></li>
+            <li><a href="#" title="Feed atti ufficiali" target="_blank">Atti ufficiali</a></li>
+        </ul>
         
+        <!--
         <h3>API</h3>
         <ul>
-            <li><a href="" title="">JSON</a></li>
-            <li><a href="" title="">XML</a></li>
+            <li><a href="#" title="">JSON</a></li>
+            <li><a href="#" title="">XML</a></li>
         </ul>
+        -->
     </div>
 </div>

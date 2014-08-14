@@ -70,8 +70,9 @@ class UserInterfaceConfigurations extends InputSetupAbstract
         $this->assertPostsGetterWrapper($entityManager);
         
         $this->postsGetterWrapper->setupQueryBuilder();
-        $this->postsGetterWrapper->setupQuery();
-        $this->postsGetterWrapper->setupPaginator(1, 35);
+        $this->postsGetterWrapper->setupPaginator( $this->postsGetterWrapper->setupQuery( $this->getInput('entityManager', 1) ) );
+        $this->postsGetterWrapper->setupPaginatorCurrentPage(1);
+        $this->postsGetterWrapper->setupPaginatorItemsPerPage(35);
         
         $postsList = $this->postsGetterWrapper->setupRecords();
         if ($postsList) {

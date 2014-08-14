@@ -1,14 +1,15 @@
 <?php
 
-namespace Admin\Model\Ticketing;
+namespace Admin\Model\Tickets;
 
 use Admin\Model\FormData\FormDataAbstract;
+use Admin\Model\Tickets\TicketsForm;
 
 /**
  * @author Andrea Fiori
  * @since  31 May 2013
  */
-class TicketingFormDataHandler extends FormDataAbstract
+class TicketsFormDataHandler extends FormDataAbstract
 {
     /**
      * @param array $input
@@ -17,7 +18,7 @@ class TicketingFormDataHandler extends FormDataAbstract
     {
         parent::__construct($input);
         
-        $form = new TicketingForm();
+        $form = new TicketsForm();
         
         $this->setVariable('formTitle',         "Nuova richiesta di assistenza");
         $this->setVariable('formDescription',   "A seguito della richiesta, l'amministrazione provveder&agrave; a rispondere non appena possibile");

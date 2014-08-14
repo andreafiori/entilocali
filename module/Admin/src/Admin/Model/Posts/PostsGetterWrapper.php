@@ -66,6 +66,12 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
         return $this->query;
     }
     
+    /**
+     * Add array records to the paginator recordset
+     * 
+     * @return \stdClass
+     * @throws NullException
+     */
     public function setupRecords()
     {
         if (!$this->paginator) {
@@ -147,7 +153,7 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
     }
     
     /**     
-     * @return string
+     * @return string|null
      */
     public function getTemplate()
     {
@@ -157,11 +163,17 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
         return $this->template;
     }
     
+    /**
+     * @return string|null
+     */    
     public function getCategory()
     {
         return $this->category;
     }
-
+    
+    /**
+     * @return string|null
+     */
     public function getTitle()
     {
         return $this->title;

@@ -43,22 +43,6 @@ return array(
                                                     ),
                                                     'may_terminate' => true,
                                     ),
-                                    /*
-                                    'feed' => array(
-                                                    'type'    => 'segment',
-                                                    'options' => array(
-                                                                    'route'    => '/feed/rss',
-                                                                    'constraints' => array(
-                                                                        
-                                                                    ),
-                                                                    'defaults' => array(
-                                                                                    'controller' => 'Application\Controller\Feed',
-                                                                                    'action'     => 'index',
-                                                                    ),
-                                                    ),
-                                                    'may_terminate' => true,
-                                    ),
-                                    */
                                     'version' => array(
                                                     'type'    => 'segment',
                                                     'options' => array(

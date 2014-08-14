@@ -1,0 +1,118 @@
+<?php if (empty($records)): ?>
+<div class="alert alert-warning">
+    <?php if ($this->messageTitle): ?>
+    <h1><?php echo $this->messageTitle ?></h1>
+    <?php else: ?>
+    <h1>Nessun dato in archivio</h1>
+    <?php endif; ?>
+    
+    <?php if ($this->messageDescription): ?>
+     <h1><?php echo $this->messageDescription ?></h1>
+    <?php else: ?>
+    <p>Nessun dato da elencare &egrave; stato trovato.</p>
+    <?php endif; ?>
+</div>
+<?php else: ?>
+
+<h3><?php echo $this->tableTitle ?></h3>
+
+<p><?php echo $this->tableDescription ?></p>
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+
+    <thead>
+        <tr>
+            <?php foreach($this->columns as $column): ?>
+                <?php if ( is_array($column) ): ?>
+                <th style="width: <?php echo $column['width'] ?>"><?php echo $column['label'] ?></th>
+                <?php else: ?>
+                <th><?php echo $column ?></th>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </tr>
+      </thead>
+      
+    <tbody>
+        <?php foreach($this->records as $records): ?>
+        <tr class="odd gradeX">
+            <?php foreach($records as $record): ?>
+                <?php if (is_array($record)): ?>
+                    <?php if ($record['type']=='updateButton'): ?>
+                    <td><a href="<?php echo $record['href'] ?>"<?php if ($record['tooltip']): ?> data-toggle="tooltip"<?php endif; ?> data-placement="top" class="btn btn-primary btooltip" title="<?php echo $record['title'] ?>"><i class="fa fa-pencil"></i> </a></td>
+                    <?php elseif($record['type']=='deleteButton'): ?>
+                    <td><a href="#deleteModal" data-id="<?php echo $record['data-id'] ?>" class="open-deleteModal btn btn-danger btooltip" data-toggle="tooltip" data-placement="top" title="Elimina"><i class="fa fa-times"></i> </a></td>
+                    <?php elseif($record['type']=='attachButton'): ?>
+                    <td><a href="<?php echo $record['href'] ?>" data-toggle="tooltip" data-placement="top" class="btn btn-default btooltip" title="Allegati"><i class="fa fa-paperclip"></i> </a></td>
+                    <?php elseif($record['type']=='relatapdfButton'): ?>
+                    <td><a href="<?php echo $record['href'] ?>)" data-toggle="tooltip" data-placement="top" class="btn btn-danger btooltip" title="Relata di pubblicazione"><i class="fa fa-file-pdf-o"></i> </a></td>
+                    <?php elseif($record['type']=='enteterzoButton'): ?>
+                    <td><a href="<?php echo $record['href'] ?>" data-toggle="tooltip" data-placement="top" class="btn btn-default btooltip" title="Invia ad altro ente"><i class="fa fa-envelope-square"></i></a></td>
+                    <?php endif; ?>
+                <?php else: ?>
+                <td><?php echo $record ?></td>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+
+    </table>
+</div>
+
+    <?php
+
+    if ( count($this->paginator) > 1 ):
+        try {
+            echo $this->paginationControl(
+                $this->paginator,
+                'sliding',
+                'application/pagination/bootstrap.phtml',
+                array(
+                    'route' => $this->route,
+                    'tablesetter' => $this->tablesetter,
+                    'lang'        => $this->lang ? $this->lang : 'it',
+                )
+            );
+        } catch (Exception $e) {
+            ?>
+            <div class="alert alert-danger">
+                <h3>Errore paginazione</h3>
+                <p>Errore nella visualizzazione dei numeri di pagina: <?php echo $e->getMessage() ?></p>
+            </div>
+            <?php
+        }
+    endif;
+
+endif; 
+
+?>
+<script>
+// force scroll for large tables
+function forceResponsiveTables() {
+    var windowSize = $(window).width();
+    if ($('.table-responsive > .table').length > 0) {
+        $.each($('.table-responsive > .table'), function (index, value) {
+            var thisTable = $(value);
+            var tableSize = thisTable.width();
+            var parent = thisTable.parent('.table-responsive');
+            /* 768px is the default for bootstrap 3's responsive-table, modify if needed */
+            if (windowSize <= 768) {
+                parent.css('width', '').css('overflow-x', '').css('overflow-y', '').css('margin-bottom', '').css('border', '');
+            } else {
+                if (tableSize >= windowSize) {
+                    // Change the border color based on the bootstrap theme colors
+                    parent.css('width', '100%').css('overflow-x', 'scroll').css('overflow-y', 'hidden').css('margin-bottom', '15px').css('border', '1px solid #DDDDDD');
+                } else {
+                    parent.css('width', '').css('overflow-x', '').css('overflow-y', '').css('margin-bottom', '').css('border', '');
+                }
+            }
+        });
+    }
+}
+
+$(document).ready(function () {
+    $(window).resize(forceResponsiveTables);
+    forceResponsiveTables();
+});
+</script>

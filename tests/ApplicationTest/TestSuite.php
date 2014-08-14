@@ -152,7 +152,7 @@ class TestSuite extends \PHPUnit_Framework_TestCase
     public function getQueryBuilderMock()
     {
         $queryBuilderMock = $this->getMock('\Doctrine\ORM\QueryBuilder', 
-                array('setFirstResult', 'setMaxResults', 'add', 'setParameter', 'setParameters', 'where', 'andWhere', 'getQuery', 'getResult'), 
+                array('setFirstResult', 'setMaxResults', 'add', 'setParameter', 'setParameters', 'where', 'andWhere', 'getQuery', 'getResult', 'getScalarResult'),
                 array(), '', false);
         
         $queryBuilderMock->expects($this->any())
@@ -195,6 +195,11 @@ class TestSuite extends \PHPUnit_Framework_TestCase
         return $queryBuilderMock;
     }
     
+    /**
+     * Simulate a common request
+     * 
+     * @return array
+     */
     public function getFrontendCommonInput()
     {
         return array(

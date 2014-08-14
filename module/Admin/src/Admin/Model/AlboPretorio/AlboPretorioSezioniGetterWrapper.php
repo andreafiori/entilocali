@@ -29,5 +29,6 @@ class AlboPretorioSezioniGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setMainQuery();
         
         $this->objectGetter->setId( $this->getInput('id', 1) );
+        $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
     }
 }

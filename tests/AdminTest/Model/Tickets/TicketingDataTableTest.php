@@ -3,7 +3,7 @@
 namespace ApplicationTest\Model\Ticketing;
 
 use ApplicationTest\TestSuite;
-use Admin\Model\Ticketing\TicketingDataTable;
+use Admin\Model\Tickets\TicketsDataTable;
 
 /**
  * @author Andrea Fiori
@@ -17,7 +17,7 @@ class TicketingDataTableTest extends TestSuite
     {
         parent::setUp();
         
-        $this->ticketingDataTable = new TicketingDataTable( $this->getFrontendCommonInput() );
+        $this->ticketingDataTable = new TicketsDataTable( $this->getFrontendCommonInput() );
     }
     
     public function testGetTitle()

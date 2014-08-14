@@ -3,7 +3,6 @@
 namespace Admin\Model\AlboPretorio;
 
 use Application\Model\RecordsGetterWrapperAbstract;
-use Admin\Model\AlboPretorio\AlboPretorioGetter;
 
 /**
  * @author Andrea Fiori
@@ -11,7 +10,8 @@ use Admin\Model\AlboPretorio\AlboPretorioGetter;
  */
 class AlboPretorioGetterWrapper extends RecordsGetterWrapperAbstract
 {
-    private $alboPretorio;
+    /** @var \Admin\Model\AlboPretorio\AlboPretorioGetter Description **/
+    protected $objectGetter;
 
     /**
      * @param \Admin\Model\AlboPretorio\AlboPretorioGetter $alboPretorioGetter
@@ -21,16 +21,23 @@ class AlboPretorioGetterWrapper extends RecordsGetterWrapperAbstract
         $this->setObjectGetter( $alboPretorioGetter );
     }
     
+    /**
+     * setup and execute query
+     */
     public function setupQueryBuilder()
-    {
+    {        
         $this->objectGetter->setSelectQueryFields( $this->getInput('fields', 1) );
         
         $this->objectGetter->setMainQuery();
         
         $this->objectGetter->setId( $this->getInput('id', 1) );
+        $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
+        $this->objectGetter->setLimit( $this->getInput('limit', 1) );
     }
     
     /**
+     * Setup and execute query for the pagination
+     * 
      * @param \Doctrine\ORM\EntityManager $entityManager
      * @return array
      */

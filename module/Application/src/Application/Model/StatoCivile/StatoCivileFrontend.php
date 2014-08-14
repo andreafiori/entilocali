@@ -8,6 +8,7 @@ use Admin\Model\StatoCivile\StatoCivileGetter;
 use Admin\Model\StatoCivile\StatoCivileGetterWrapper;
 use Application\Model\StatoCivile\StatoCivileFormSearch;
 use Admin\Model\StatoCivile\StatoCivileRecordsGetter;
+// use Zend\Session\Container as SessionContainer;
 
 /**
  * @author Andrea Fiori
@@ -15,35 +16,32 @@ use Admin\Model\StatoCivile\StatoCivileRecordsGetter;
  */
 class StatoCivileFrontend extends RouterManagerAbstract implements RouterManagerInterface
 {
-    private $param;
-    
     public function setupRecord()
     {
-        $param = $this->getInput('param', 1);
-        
-        $sezioni = $this->getSezioni( array() );
-        
-        /* set form */
         $form = new StatoCivileFormSearch();
-        $form->addSezioni($sezioni);
+        $form->addSezioni( $this->getSezioni( array() ) );
         $form->addMesi();
         $form->addAnni();
         $form->addSubmitButton();
         
-        /* Check post */
+        $param = $this->getInput('param', 1);
         if ( isset($param['post']) ) {
-            $rawPosts = $param['post'];
-            $arraySearch = array( 'textsearch' => $rawPosts['testo'], 'anno' => $rawPosts['anno'], 'mese' => $rawPosts['mese'], 
-                'sezione' => $rawPosts['sezione']
+            $form->setData($param['post']);
+            $arraySearch = array(
+                'textSearch' => $param['post']['testo'],
+                'anno' => $param['post']['anno'],
+                'mese' => $param['post']['mese'],
+                'sezione' => $param['post']['sezione']
             );
             
-            /* TODO: save form data on session */
-            
-            $form->setData($rawPosts);
+            $statoCivileRecordsGetter = new StatoCivileRecordsGetter($this->getInput());
+            $statoCivileRecordsGetter->setArticoli($arraySearch);
+            $statoCivileRecordsGetter->returnRecordset();
+        } else {
+            $arraySearch = array();
         }
-        
-        /* set paginated records */
-        $paginatorRecords = $this->getPaginatorRecords(isset($param['route']['page']) ? $param['route']['page'] : null);
+
+        $paginatorRecords = $this->getPaginatorRecords($arraySearch, isset($param['route']['page']) ? $param['route']['page'] : null);
         
         $this->setVariable('paginator', $paginatorRecords);
         $this->setVariable('form', $form);
@@ -52,14 +50,16 @@ class StatoCivileFrontend extends RouterManagerAbstract implements RouterManager
         
         return $this->getOutput();
     }
+    
         /**
+         * @param array $input
          * @param type $page
          * @return type
          */
-        private function getPaginatorRecords($page = null)
+        private function getPaginatorRecords(array $input, $page = null)
         {
             $statoCivileGetterWrapper = new StatoCivileGetterWrapper( new StatoCivileGetter($this->getInput('entityManager', 1)) );
-            $statoCivileGetterWrapper->setInput( array('orderBy' => 'sca.data DESC') );
+            $statoCivileGetterWrapper->setInput( array_merge($input, array('orderBy' => 'sca.data DESC')) );
             $statoCivileGetterWrapper->setupQueryBuilder();
             $statoCivileGetterWrapper->setupQuery($this->getInput('entityManager', 1));
 
@@ -70,10 +70,10 @@ class StatoCivileFrontend extends RouterManagerAbstract implements RouterManager
          * @param array $input
          * @return type
          */
-        private function getSezioni(array $input)
+        private function getSezioni(array $queryInput)
         {
             $statoCivileRecordsGetter = new StatoCivileRecordsGetter($this->getInput());
-            $statoCivileRecordsGetter->setSezioni($input);
+            $statoCivileRecordsGetter->setSezioni($queryInput);
             
             return $statoCivileRecordsGetter->formatSezioniForFormSelect('id', 'nome');
         }

@@ -18,65 +18,80 @@ class StatoCivileDataTable extends DataTableAbstract
     public function __construct(array $input)
     {
         parent::__construct($input);
-
+        
         $this->setTitle('Stato civile');
         $this->setDescription('Gestione atti stato civile in archivio');
-        $this->setColumns(array("Titolo", "Numero / Anno", "Sezione", "Inserito il", "Scadenza", "Inserito da", "&nbsp;", "&nbsp;", "&nbsp;"));
+        $this->setColumns( array(
+            "Titolo", 
+            "Numero / Anno", 
+            "Sezione", 
+            "Inserito il", 
+            "Scadenza", 
+            "Inserito da", 
+            "&nbsp;", 
+            "&nbsp;", 
+            "&nbsp;"
+            )
+        );
+        
+        $paginatorRecords = $this->getRecordsPaginator();
+        
+        $this->setVariable('paginator', $paginatorRecords);
+        $this->setRecords($this->getFormattedRecords($paginatorRecords));
+
+        $this->setVariable('tablesetter', 'stato-civile');
+        $this->setTemplate('datatable/datatable_statocivile.phtml');
     }
 
-    /**
-     * @return array 
-     */
-    public function getRecords()
-    {
-        $records = $this->getStatoCivileRecords( array() );
-        
-        if (!$records) {
-            return false;
-        }
-        
-        $recordsToReturn = array();
-        foreach($records as $record) {
-            $recordsToReturn[] = array(
-                $record['titolo'],
-                $record['progressivo'].' / '.$record['anno'],
-                $record['nome'],
-                $this->convertDateTimeToString($record['data']),
-                $this->convertDateTimeToString($record['scadenza']),
-                // ucfirst($record['status']),
-                '',
-                array(
-                    'type'      => 'updateButton',
-                    'href'      => $this->getInput('baseUrl',1).'formdata/stato-civile/'.$record['id'],
-                    'tooltip'   => 1,
-                    'title'     => 'Modifica'
-                ),
-                array(
-                    'type'      => 'attachButton',
-                    'href'      => '#',
-                    'tooltip'   => 1,
-                ),
-                array(
-                    'type'      => 'enteterzoButton',
-                    'href'      => '#',
-                    'tooltip'   => 1,
-                    'title'     => 'Modifica'
-                ),
-            );
-        }
-
-        return $recordsToReturn;
-    }
-    
-        /**
-         * @param type $input
-         */
-        private function getStatoCivileRecords($input = array())
+        private function getRecordsPaginator()
         {
-            $statoCivileGetterWrapper = new StatoCivileGetterWrapper( new StatoCivileGetter($this->getInput('entityManager',1)) );
-            $statoCivileGetterWrapper->setInput($input);
-            $statoCivileGetterWrapper->setupQueryBuilder();
+            $param = $this->getInput('param', 1);
 
-            return $statoCivileGetterWrapper->getRecords();
+            $statoCivileGetterWrapper = new StatoCivileGetterWrapper( new StatoCivileGetter($this->getInput('entityManager',1)) );
+            $statoCivileGetterWrapper->setInput( array() );
+            $statoCivileGetterWrapper->setupQueryBuilder();
+            $statoCivileGetterWrapper->setupPaginator( $statoCivileGetterWrapper->setupQuery( $this->getInput('entityManager', 1) ) );
+            $statoCivileGetterWrapper->setupPaginatorCurrentPage(isset($param['route']['page']) ? $param['route']['page'] : null);
+            $statoCivileGetterWrapper->setupPaginatorItemsPerPage(isset($param['route']['perpage']) ? $param['route']['perpage'] : null);
+
+            return $statoCivileGetterWrapper->getPaginator();
+        }
+
+        private function getFormattedRecords($records)
+        {
+            if (!$records) {
+                return false;
+            }
+
+            $recordsToReturn = array();
+            foreach($records as $record) {
+                $recordsToReturn[] = array(
+                    $record['titolo'],
+                    $record['progressivo'].' / '.$record['anno'],
+                    $record['nome'],
+                    $record['data'],
+                    $record['scadenza'],
+                    '',
+                    array(
+                        'type'      => 'updateButton',
+                        'href'      => $this->getInput('baseUrl',1).'formdata/stato-civile/'.$record['id'],
+                        'tooltip'   => 1,
+                        'title'     => 'Modifica'
+                    ),
+                    array(
+                        'type'      => 'attachButton',
+                        'href'      => '#',
+                        'tooltip'   => 1,
+                    ),
+                    array(
+                        'type'      => 'enteterzoButton',
+                        'href'      => '#',
+                        'tooltip'   => 1,
+                        'title'     => 'Modifica'
+                    ),
+                );
+            }
+
+            return $recordsToReturn;
         }
 }

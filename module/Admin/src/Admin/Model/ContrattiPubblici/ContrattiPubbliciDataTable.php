@@ -39,9 +39,11 @@ class ContrattiPubbliciBandiDataTable extends DataTableAbstract
                 "Ora di inserimento",
                 "Data di scadenza",
                 "Inserito da",
-            
                 "Vedi Elenco",
-                "&nbsp;", "&nbsp;", "&nbsp;");
+                "&nbsp;", 
+                "&nbsp;",
+                "&nbsp;"
+            );
     }
     
     /**
@@ -49,6 +51,6 @@ class ContrattiPubbliciBandiDataTable extends DataTableAbstract
      */
     public function getRecords()
     {
-        return array( array("asdasdd", "asdsaasdsd", "asdaasdasdasd") );
+        return ;
     }
 }

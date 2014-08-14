@@ -10,7 +10,19 @@
     <p>Area in costruzione. Alcune sezioni non sono presenti o sono in fase di sviluppo.</p>
 </div>
 
-<?php if ( file_exists('migrazione/') ): ?>
+<!--
+
+TODO:
+    riepilogo contatti (link)
+    opzioni sito (link)
+    moduli \ opzioni per ogni modulo
+        
+    E-commerce:
+        panoramica ordini, prodotti
+
+-->
+
+<?php if ( file_exists('migrazione/index.php') ): ?>
 <div class="alert alert-danger">
     <h2>Directory migrazione presente!</h2>
     <p>ATTENZIONE: &egrave; presente la cartella temporaneaa per la migrazione dati.</p>
@@ -18,13 +30,11 @@
 </div>
 <?php endif; ?>
 
-<!--
-<div>
-    <h2>Consigli:</h2>
+<div class="alert alert-info">
+    <h2>Consigli per l'utilizzo di quest'area:</h2>
     <p>Alcuni consigli per un utilizzo ottimale di quest'area:</p>
     <ul>
         <li>Utilizzare un browser moderno come Google Chrome, Mozilla Firefox, Opera, Safari o Internet Explorer 10 con supporto Javascript attivo</li>
         <li>Utilizzare i link dell'applicazione e non i pulsanti indietro \ avanti del browser poich&egrave; potrebbero confondere la navigazione o danneggiare i dati che si stanno manipolando</li>
     </ul>
 </div>
--->

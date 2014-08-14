@@ -7,7 +7,7 @@ use Zend\View\Model\ViewModel;
 use Application\Model\RouterManagers\RouterManager;
 use Application\Model\RouterManagers\RouterManagerHelper;
 use Admin\Model\Users\UserFormAuthentication;
-use Zend\Session\Container;
+use Zend\Session\Container as SessionContainer;
 use Admin\Model\FormData\FormDataCrudHandler;
 use Admin\Model\Users\UsersGetter;
 use Admin\Model\Users\UsersGetterWrapper;
@@ -27,11 +27,11 @@ class AdminController extends AbstractActionController
     
     public function indexAction()
     {
-        // Check login
+        /* Check login
         if (!$this->getServiceLocator()->get('AuthService')->hasIdentity()) {
             return $this->redirect()->toRoute('login');
         }
-        
+         */
         $this->initialize();
         
         $routerManager = new RouterManager($this->configurations);
@@ -47,17 +47,17 @@ class AdminController extends AbstractActionController
                 $this->layout()->setVariable($key, $value);
             }
         }
-        
-        $session = new Container();
+        /*
+        $session = new SessionContainer();
         
         $userDetails = new \stdClass();
         $userDetails->id = $session->offsetGet('id');
         $userDetails->name = $session->offsetGet('name');
         $userDetails->surname = $session->offsetGet('surname');
-        
+        */
         $this->layout()->setVariable('baseUrl', $this->baseUrl);
         $this->layout()->setVariable('translator', $this->input['translator']);
-        $this->layout()->setVariable('userDetails', $userDetails);
+        //$this->layout()->setVariable('userDetails', $userDetails);
         $this->layout()->setVariable('preloadResponse', $this->configurations['preloadResponse']);
         $this->layout()->setVariable('templatePartial', 'backend/templates/'.$this->configurations['template_backend'].$routerManagerHelper->getRouterManger()->getTemplate(1));
         $this->layout('backend/templates/'.$this->configurations['template_backend'].'backend.phtml');
@@ -126,10 +126,12 @@ class AdminController extends AbstractActionController
             $this->input = array_merge($this->input, array("baseUrl" => $this->baseUrl));
         }
 
-    
+    /**
+     * @return \Zend\View\Model\ViewModel
+     */
     public function loginAction()
     {
-        // if already login, redirect to success page
+        /* if already login, redirect to success page
         try {
             if ($this->getAuthService()->hasIdentity()) {
                 return $this->redirect()->toRoute('admin');
@@ -137,26 +139,28 @@ class AdminController extends AbstractActionController
         } catch (Exception $e) {
             return $this->redirect()->toRoute('admin');
         }
-        
-        $form = $this->getForm();
-        
-        $this->layout()->setVariable('form', $form);
-        $this->layout()->setVariable('messages', $this->flashmessenger()->getMessages());
+         */
+        $this->layout()->setVariable('form',     $this->getUserFormAuthentication());
+        $this->layout()->setVariable('messages', $this->flashMessenger()->getMessages());
         $this->layout('backend/templates/default/login.phtml');
         
         return new ViewModel();
     }
     
+    /**
+     * @return type
+     * @throws Exception
+     */
     public function authenticateAction()
     {
-        $form       = $this->getForm();
+        $form       = $this->getUserFormAuthentication();
         $redirect   = 'login';
         
         $request = $this->getRequest();
         if ($request->isPost()){
             $form->setData($request->getPost());
             if ($form->isValid()) {
-                //check authentication...
+                // check authentication...
                 $this->getAuthService()->getAdapter()
                                        ->setIdentity($request->getPost('username'))
                                        ->setCredential($request->getPost('password'));
@@ -244,7 +248,7 @@ class AdminController extends AbstractActionController
          */
         private function getSessionStorage()
         {
-            if (! $this->storage) {
+            if (!$this->storage) {
                 $this->storage = $this->getServiceLocator()->get('Admin\Model\MyAuthStorage');
             }
 
@@ -254,7 +258,7 @@ class AdminController extends AbstractActionController
         /**
          * @return \Admin\Model\Users\UserFormAuthentication
          */
-        private function getForm()
+        private function getUserFormAuthentication()
         {
             if (!$this->form) {
                 $this->form = new UserFormAuthentication();

@@ -68,10 +68,12 @@ return array(
                     'datatable' => array(
                                     'type'    => 'Segment',
                                     'options' => array(
-                                                'route'       => 'datatable[/][:tablesetter][/:option][/]',
+                                                'route'       => 'datatable[/][:tablesetter][/][page/:page][/][/order_by/:order_by][/:order]',
                                                 'constraints' => array(
                                                         'tablesetter' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                        'option'      => '[a-zA-Z0-9_-]*',
+                                                        'page'        => '[0-9]+',
+                                                        'order_by' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                        'order' => 'ASC|DESC',
                                                 ),
                                                 'defaults' => array(
                                                         'controller' => 'Admin\Controller\Admin',
@@ -137,31 +139,31 @@ return array(
             __DIR__ . '../../public'
         ),
     ),
-    // Backend Router Class Map
+    /* Backend Router Class Map */
     'be_router' => array(
-        "admin"                 => 'Admin\Model\AdminDashboard',
-        "admin/formdata"        => 'Admin\Model\FormData\FormDataHandler',
-        "admin/datatable"       => 'Admin\Model\DataTable\DataTableHandler',
+        "admin"                  => 'Admin\Model\AdminDashboard',
+        "admin/formdata"         => 'Admin\Model\FormData\FormDataHandler',
+        "admin/datatable" => 'Admin\Model\DataTable\DataTableHandler',
         "admin/invio-ente-terzo" => 'Admin\Model\InvioEnteTerzoHandler',
     ),
-    // FormData Class Map
+    /* FormData Class Map */
     'formdata_classmap' => array(
         'albo-pretorio'                 => 'Admin\Model\AlboPretorio\AlboPretorioFormDataHandler',
         'albo-pretorio-sezioni'         => 'Admin\Model\AlboPretorio\AlboPretorioSezioniFormDataHandler',
         'amministrazione-trasparente'   => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFormDataHandler',
         'stato-civile'                  => 'Admin\Model\StatoCivile\StatoCivileFormDataHandler',
-        'contratti-pubblici-bandi'      => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciBandiFormDataHandler',
+        'contratti-pubblici'            => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciFormDataHandler',
         'posts'                         => 'Admin\Model\Posts\PostsFormDataHandler',
         'categories'                    => 'Admin\Model\Categories\CategoriesFormDataHandler',
-        'ticketing'                     => 'Admin\Model\Ticketing\TicketingFormDataHandler',
+        'tickets'                       => 'Admin\Model\Tickets\TicketsFormDataHandler',
         'users'                         => 'Admin\Model\Users\UsersFormDataHandler',
     ),
-    // FormData CRUD Class Map
+    /* FormData CRUD Class Map */
     'formdata_crud_classmap' => array( 
         'albo-pretorio'               => 'Admin\Model\AlboPretorio\AlboPretorioCrudHandler',
         'albo-pretorio-sezioni'       => 'Admin\Model\AlboPretorio\AlboPretorioSezioniCrudHandler',
         'amministrazione-trasparente' => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteCrudHandler',
-        'ticketing'                   => 'Admin\Model\Ticketing\TicketingCrudHandler',
+        'tickets'                     => 'Admin\Model\Tickets\TicketsCrudHandler',
         'categories'                  => 'Admin\Model\Categories\CategoriesCrudHandler',
         'contatti'                    => 'Admin\Model\Contacts\ContactsCrudHandler',
         'faq'                         => 'Admin\Model\Faq\FaqCrudHandler',
@@ -171,9 +173,9 @@ return array(
         'stato-civile-sezioni'        => 'Admin\Model\StatoCivile\StatoCivileSezioniCrudHandler',
         'users'                       => 'Admin\Model\Users\UsersCrudHandler',
     ),
-    // DataTables Class Map
+    /* DataTables Class Map */
     'datatables_classmap' => array(
-        'ticketing'                   => 'Admin\Model\Ticketing\TicketingDataTable',
+        'tickets'                     => 'Admin\Model\Tickets\TicketsDataTable',
         'categories'                  => 'Admin\Model\Categories\CategoriesDataTable',
         'contacts'                    => 'Admin\Model\Contacts\ContactsDataTable',
         'faq'                         => 'Admin\Model\Faq\FaqDataTable',

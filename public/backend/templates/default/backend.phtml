@@ -331,17 +331,8 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Assistenza <b class="caret"></b></a>
                     
                     <ul class="dropdown-menu multi-level">
-                        <li><a href="<?php echo $this->baseUrl ?>formdata/ticketing" title="">Nuova richiesta</a></li>
-                        <li><a href="<?php echo $this->baseUrl ?>datatable/ticketing" title="">Elenco richieste</a></li>
-                        <!--
-                        <li class="dropdown-submenu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categorie</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="<?php echo $this->baseUrl ?>formdata/categories/1" title="">Nuova</a></li>
-                                <li><a href="<?php echo $this->baseUrl ?>datatable/categories/1" title="">Modifica \ Elimina</a></li>   
-                            </ul>
-                        </li>
-                        -->
+                        <li><a href="<?php echo $this->baseUrl ?>formdata/tickets" title="">Nuova richiesta</a></li>
+                        <li><a href="<?php echo $this->baseUrl ?>datatable/tickets" title="">Elenco richieste</a></li>
                     </ul>
                 </li>
                 
@@ -404,42 +395,6 @@
 
 <script>
 //<![CDATA[
-<?php if (isset($this->CKEditorField)): ?>
-    <?php if ( is_array($this->CKEditorField) ): ?>
-        <?php foreach($this->CKEditorField as $ckEditorField): ?>
-        /* CKEditor and CKFinder integration */
-        var editor = CKEDITOR.replace( '<?php echo $ckEditorField ?>', {
-            filebrowserBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html',
-            filebrowserImageBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html?type=Images',
-            filebrowserFlashBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html?type=Flash',
-            filebrowserUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-            filebrowserImageUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-            filebrowserFlashUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
-            /*, filebrowserWindowWidth : '1000', filebrowserWindowHeight : '700' */
-        });
-        CKFinder.setupCKEditor( editor, '../' ); 
-        <?php endforeach; ?>
-    <?php else: ?>
-    /* CKEditor and CKFinder integration */
-    var editor = CKEDITOR.replace( '<?php echo $this->CKEditorField ?>', {
-        filebrowserBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html',
-        filebrowserImageBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html?type=Images',
-        filebrowserFlashBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html?type=Flash',
-        filebrowserUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-        filebrowserImageUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-        filebrowserFlashUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
-        /*, filebrowserWindowWidth : '1000', filebrowserWindowHeight : '700' */
-    });
-    CKFinder.setupCKEditor( editor, '../' );
-    <?php endif; ?>    
-<?php endif; ?>
-
-function refreshEditor() {
-    $('textarea.wysiwyg').each(function () {
-        var $textarea = $(this);
-        $textarea.val(CKEDITOR.instances[$textarea.attr('name')].getData());
-    });
-}
 
 function showLoading()
 {

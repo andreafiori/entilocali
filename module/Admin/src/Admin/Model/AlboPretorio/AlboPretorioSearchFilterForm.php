@@ -2,12 +2,7 @@
 
 namespace Admin\Model\AlboPretorio;
 
-use Zend\Form\Form;
-use Admin\Model\AlboPretorio\AlboPretorioFormAbstract;
-
 /**
- * TODO: ADD: mese, anno, sezione, settore, testo...
- * 
  * @author Andrea Fiori
  * @since  30 July 2014
  */
@@ -47,17 +42,5 @@ class AlboPretorioSearchFilterForm extends AlboPretorioFormAbstract
                 'unchecked_value'    => '0'
             )
         ));
-    }
-    
-    public function addSubmitButton()
-    {
-        $this->add(array(
-            'name' => 'search',
-            'type'  => 'submit',
-            'attributes' => array(
-                'label' => '&nbsp;',
-                'value' => 'Cerca',
-            ))
-        );
     }
 }

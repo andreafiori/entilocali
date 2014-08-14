@@ -52,7 +52,7 @@ abstract class QueryBuilderHelperAbstract
     /**
      * Query result recordset
      * 
-     * @return type
+     * @return array|objects
      */
     public function getQueryResult()
     {
@@ -62,7 +62,7 @@ abstract class QueryBuilderHelperAbstract
     /**
      * Return the QueryBuilder object
      * 
-     * @return \Doctrine\ORM\QueryBuilder $this->queryBuilder
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function getQueryBuilder()
     {
@@ -139,14 +139,17 @@ abstract class QueryBuilderHelperAbstract
         }
     
     /**
-     * @param number $limit
+     * @param  number $limit
+     * @return number
      */
     public function setLimit($limit = null)
     {
         if ( is_numeric($limit) ) {
             $this->maxResults = $limit;
+            
+            $this->getQueryBuilder()->setMaxResults($this->maxResults);
         }
-        
+   
         return $this->maxResults;
     }
 }

@@ -3,8 +3,9 @@
 namespace Application\Model;
 
 use Admin\Model\InputSetupAbstract;
+use Application\Model\RecordsGetterWrapperAbstract;
 
-/** 
+/**
  * @author Andrea Fiori
  * @since  27 July 2013
  */
@@ -15,6 +16,8 @@ class RecordsGetterAbstract extends InputSetupAbstract
     
     protected $records;
     
+    protected $objectGetterWrapper;
+
     /**
      * @return 1
      */
@@ -34,16 +37,17 @@ class RecordsGetterAbstract extends InputSetupAbstract
     {
         $records    = $this->getRecords();
         $firstRow   = $this->getFirstRow();
-        if ($records) {
-            if ( !empty($firstRow) ) {
-                foreach($records as $record){
-                    return $record;
-                }
-            }
-            return $records;
+        
+        if (!$records) {
+            return false;
         }
-
-        return false;
+        
+        if ( !empty($firstRow) ) {
+            foreach($records as $record){
+                return $record;
+            }
+        }
+        return $records;
     }
     
     /**
@@ -61,7 +65,7 @@ class RecordsGetterAbstract extends InputSetupAbstract
     {
         return $this->records;
     }
-
+    
     public function getFirstRow()
     {
         return $this->firstRow;
@@ -78,11 +82,32 @@ class RecordsGetterAbstract extends InputSetupAbstract
         if ($recordset) {
             $arrayToReturn = array();
             foreach($recordset as $record) {
+                
+                if (!isset($record[$idFieldName])) {
+                    break;
+                }
+                
                 $arrayToReturn[$record[$idFieldName]] = $record[$valueFieldName];
             }
             return $arrayToReturn;
         }
         
         return false;
+    }
+    
+    /**
+     * @param \Application\Model\RecordsGetterWrapperAbstract $objectGetterWrapper
+     */
+    public function setObjectGetterWrapper(RecordsGetterWrapperAbstract $objectGetterWrapper)
+    {
+        $this->objectGetterWrapper = $objectGetterWrapper;
+    }
+    
+    /**
+     * @return \Application\Model\RecordsGetterWrapperAbstract $objectGetterWrapper
+     */
+    public function getObjectGetterWrapper()
+    {
+        return $this->objectGetterWrapper;
     }
 }

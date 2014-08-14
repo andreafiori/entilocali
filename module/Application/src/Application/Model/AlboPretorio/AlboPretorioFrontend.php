@@ -4,16 +4,9 @@ namespace Application\Model\AlboPretorio;
 
 use Application\Model\RouterManagers\RouterManagerAbstract;
 use Application\Model\RouterManagers\RouterManagerInterface;
-use Application\Model\AlboPretorio\AlboPretorioFormSearch;
-
 use Admin\Model\AlboPretorio\AlboPretorioRecordsGetter;
-
 use Admin\Model\AlboPretorio\AlboPretorioGetter;
 use Admin\Model\AlboPretorio\AlboPretorioGetterWrapper;
-use Admin\Model\AlboPretorio\AlboPretorioSezioniGetter;
-use Admin\Model\AlboPretorio\AlboPretorioSezioniGetterWrapper;
-use Admin\Model\Users\UsersSettoriGetter;
-use Admin\Model\Users\UsersSettoriGetterWrapper;
 
 /**
  * @author Andrea Fiori
@@ -21,6 +14,7 @@ use Admin\Model\Users\UsersSettoriGetterWrapper;
  */
 class AlboPretorioFrontend extends RouterManagerAbstract implements RouterManagerInterface
 {
+    /** @var Admin\Model\AlboPretorio\AlboPretorioRecordsGetter **/
     private $alboPretorioRecordsGetter;
     
     public function setupRecord()
@@ -35,18 +29,26 @@ class AlboPretorioFrontend extends RouterManagerAbstract implements RouterManage
         $this->setRecords($records);
         $this->setTemplate('albo-pretorio/albo-pretorio.phtml');
     }
-
+    
+        /**
+         * @return \Application\Model\AlboPretorio\AlboPretorioFormSearch
+         */
         private function getFormSearch()
         {
             $alboPretorioFormSearch = new AlboPretorioFormSearch();
             $alboPretorioFormSearch->addSezioni( $this->getSezioni(array()) );
             $alboPretorioFormSearch->addSettori( $this->getSettori(array('fields' => 'DISTINCT(u.settore) AS settore, u.id', 'groupBy'=>'settore')) );
             $alboPretorioFormSearch->addCheckExpired();
-            $alboPretorioFormSearch->addSubmitButton();
+            $alboPretorioFormSearch->addCsrf();
+            $alboPretorioFormSearch->addFrontendSubmitButton();
 
             return $alboPretorioFormSearch;
         }
         
+        /**
+         * @param array $input
+         * @return type
+         */
         private function getSezioni(array $input)
         {
             $this->alboPretorioRecordsGetter->setSezioni($input);
@@ -71,9 +73,10 @@ class AlboPretorioFrontend extends RouterManagerAbstract implements RouterManage
             $alboPretorioGetterWrapper = new AlboPretorioGetterWrapper( new AlboPretorioGetter($this->getInput('entityManager',1)) );
             $alboPretorioGetterWrapper->setInput($input);
             $alboPretorioGetterWrapper->setupQueryBuilder();
-            $alboPretorioGetterWrapper->setupQuery( $this->getInput('entityManager', 1) );
-
-            return $alboPretorioGetterWrapper->setupPaginator($page);
-        }   
+            $alboPretorioGetterWrapper->setupPaginator($alboPretorioGetterWrapper->setupQuery( $this->getInput('entityManager', 1) ));
+            $alboPretorioGetterWrapper->setupPaginatorCurrentPage($page);
+            
+            return $alboPretorioGetterWrapper->getPaginator();
+        }
 }
 

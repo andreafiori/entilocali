@@ -49,8 +49,8 @@ class AlboPretorioFormSearch extends AlboPretorioFormAbstract
             'name' => 'testo',
             'type' => 'Zend\Form\Element\Text',
             'attributes' => array(
-                'placeholder' => 'Inserisci testo...',
-                'title' => 'Inserisci testo',
+                'placeholder' => 'Ricerca...',
+                'title' => "Inserisci testo della ricerca sull'albo",
                 'id' => 'testo'
             ),
             'options' => array(
@@ -62,8 +62,8 @@ class AlboPretorioFormSearch extends AlboPretorioFormAbstract
             'type' => 'Zend\Form\Element\Select',
             'name' => 'mese',
             'attributes' => array(
-                'title' => 'Seleziona mese',
-                'id' => 'testo'
+                'title' => 'Seleziona mese di partenza dalla data di pubblicazione',
+                'id'    => 'mese'
             ),
             'options' => array(
                 'label' => 'Mese',
@@ -89,8 +89,8 @@ class AlboPretorioFormSearch extends AlboPretorioFormAbstract
             'type' => 'Zend\Form\Element\Select',
             'name' => 'anno',
             'attributes' => array(
-                'title' => 'Seleziona anno',
-                'id' => 'anno'
+                'title' => 'Seleziona anno di partenza dalla data di pubblicazione',
+                'id'    => 'anno'
             ),
             'options' => array(
                 'label' => 'Anno',
@@ -103,7 +103,7 @@ class AlboPretorioFormSearch extends AlboPretorioFormAbstract
     {
         $this->add(array(
             'type' => 'Zend\Form\Element\Checkbox',
-            'name' => 'checkbox',
+            'name' => 'expired',
             'attributes' => array(
                 'title' => 'Spunta casella per cercare fra i documenti scaduti',
                 'id'    => 'expired'
@@ -117,7 +117,7 @@ class AlboPretorioFormSearch extends AlboPretorioFormAbstract
         ));
     }
     
-    public function addSubmitButton()
+    public function addCsrf()
     {
         $this->add(array(
             'type' => 'Zend\Form\Element\Csrf',
@@ -128,12 +128,16 @@ class AlboPretorioFormSearch extends AlboPretorioFormAbstract
                     )
             )
         ));
-        
+    }
+    
+    public function addFrontendSubmitButton()
+    {
         $this->add(array(
             'name' => 'search',
             'type'  => 'submit',
             'attributes' => array(
                 'label' => '&nbsp;',
+                'title' => "Premi per avviare la ricerca sull'albo pretorio",
                 'value' => 'Cerca',
             ))
         );

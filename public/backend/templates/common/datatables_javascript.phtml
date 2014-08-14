@@ -1,7 +1,16 @@
 <?php if (empty($records)): ?>
 <div class="alert alert-warning">
+    <?php if ($this->messageTitle): ?>
+    <h1><?php echo $this->messageTitle ?></h1>
+    <?php else: ?>
     <h1>Nessun dato in archivio</h1>
+    <?php endif; ?>
+    
+    <?php if ($this->messageDescription): ?>
+     <h1><?php echo $this->messageDescription ?></h1>
+    <?php else: ?>
     <p>Nessun dato da elencare &egrave; stato trovato.</p>
+    <?php endif; ?>
 </div>
 <?php else: ?>
 
@@ -74,6 +83,44 @@
     </div>
 
     <script>
+    //<![CDATA[ 
+    <?php if (isset($this->CKEditorField)): ?>
+        <?php if ( is_array($this->CKEditorField) ): ?>
+            <?php foreach($this->CKEditorField as $ckEditorField): ?>
+            /* CKEditor and CKFinder integration */
+            var editor = CKEDITOR.replace( '<?php echo $ckEditorField ?>', {
+                filebrowserBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html',
+                filebrowserImageBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html?type=Images',
+                filebrowserFlashBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html?type=Flash',
+                filebrowserUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+                filebrowserImageUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+                filebrowserFlashUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
+                /*, filebrowserWindowWidth : '1000', filebrowserWindowHeight : '700' */
+            });
+            CKFinder.setupCKEditor( editor, '../' ); 
+            <?php endforeach; ?>
+        <?php else: ?>
+        /* CKEditor and CKFinder integration */
+        var editor = CKEDITOR.replace( '<?php echo $this->CKEditorField ?>', {
+            filebrowserBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html',
+            filebrowserImageBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html?type=Images',
+            filebrowserFlashBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html?type=Flash',
+            filebrowserUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+            filebrowserImageUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+            filebrowserFlashUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
+            /*, filebrowserWindowWidth : '1000', filebrowserWindowHeight : '700' */
+        });
+        CKFinder.setupCKEditor( editor, '../' );
+        <?php endif; ?>    
+    <?php endif; ?>
+
+    function refreshEditor() {
+        $('textarea.wysiwyg').each(function () {
+            var $textarea = $(this);
+            $textarea.val(CKEDITOR.instances[$textarea.attr('name')].getData());
+        });
+    }
+    
     $(document).on("click", ".open-deleteModal", function (e) {
 
         e.preventDefault();
@@ -86,5 +133,6 @@
 
         $(_self.attr('href')).modal('show');
     });
+    //]]>
     </script>
 <?php endif; ?>

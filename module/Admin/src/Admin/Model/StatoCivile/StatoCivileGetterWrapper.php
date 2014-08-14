@@ -28,7 +28,10 @@ class StatoCivileGetterWrapper extends RecordsGetterWrapperAbstract
         $this->statoCivileGetter->setMainQuery();
         
         $this->statoCivileGetter->setId( $this->getInput('id', 1) );
+        $this->statoCivileGetter->setProgressivo( $this->getInput('progressivo', 1) );
+        $this->statoCivileGetter->setAnno( $this->getInput('anno', 1) );
         $this->statoCivileGetter->setTextSearch( $this->getInput('textSearch', 1) );
+        $this->statoCivileGetter->setSezioneId( $this->getInput('textSearch', 1) );
         $this->statoCivileGetter->setOrderBy( $this->getInput('orderBy', 1) );
         $this->statoCivileGetter->setLimit( $this->getInput('limit', 1) );
     }
@@ -52,6 +55,12 @@ class StatoCivileGetterWrapper extends RecordsGetterWrapperAbstract
      */
     public function getRecords()
     {
-        return $this->statoCivileGetter->getQueryResult();
+        $records = $this->statoCivileGetter->getQueryResult();
+        if ($records) {
+            foreach($records as $record) {
+                
+            }
+        }
+        return $records;
     }
 }
