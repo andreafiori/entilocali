@@ -48,10 +48,9 @@ class ZfcmsAttachmentsOptions
 
 
     /**
-     * Get id.
-    
+     * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -59,11 +58,9 @@ class ZfcmsAttachmentsOptions
     }
 
     /**
-     * Set title.
-    
+     * Set title
      *
      * @param string $title
-     *
      * @return ZfcmsAttachmentsOptions
      */
     public function setTitle($title)
@@ -74,10 +71,9 @@ class ZfcmsAttachmentsOptions
     }
 
     /**
-     * Get title.
-    
+     * Get title
      *
-     * @return string
+     * @return string 
      */
     public function getTitle()
     {
@@ -85,11 +81,9 @@ class ZfcmsAttachmentsOptions
     }
 
     /**
-     * Set description.
-    
+     * Set description
      *
      * @param string $description
-     *
      * @return ZfcmsAttachmentsOptions
      */
     public function setDescription($description)
@@ -100,10 +94,9 @@ class ZfcmsAttachmentsOptions
     }
 
     /**
-     * Get description.
-    
+     * Get description
      *
-     * @return string
+     * @return string 
      */
     public function getDescription()
     {
@@ -111,11 +104,9 @@ class ZfcmsAttachmentsOptions
     }
 
     /**
-     * Set attachment.
-    
+     * Set attachment
      *
      * @param \Application\Entity\ZfcmsAttachments $attachment
-     *
      * @return ZfcmsAttachmentsOptions
      */
     public function setAttachment(\Application\Entity\ZfcmsAttachments $attachment = null)
@@ -126,10 +117,9 @@ class ZfcmsAttachmentsOptions
     }
 
     /**
-     * Get attachment.
-    
+     * Get attachment
      *
-     * @return \Application\Entity\ZfcmsAttachments
+     * @return \Application\Entity\ZfcmsAttachments 
      */
     public function getAttachment()
     {

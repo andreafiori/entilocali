@@ -52,7 +52,7 @@ class ZfcmsContacts
     /**
      * @var string
      *
-     * @ORM\Column(name="message", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="message", type="text", nullable=true)
      */
     private $message;
 
@@ -87,10 +87,9 @@ class ZfcmsContacts
 
 
     /**
-     * Get id.
-    
+     * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -98,11 +97,9 @@ class ZfcmsContacts
     }
 
     /**
-     * Set name.
-    
+     * Set name
      *
      * @param string $name
-     *
      * @return ZfcmsContacts
      */
     public function setName($name)
@@ -113,10 +110,9 @@ class ZfcmsContacts
     }
 
     /**
-     * Get name.
-    
+     * Get name
      *
-     * @return string
+     * @return string 
      */
     public function getName()
     {
@@ -124,11 +120,9 @@ class ZfcmsContacts
     }
 
     /**
-     * Set surname.
-    
+     * Set surname
      *
      * @param string $surname
-     *
      * @return ZfcmsContacts
      */
     public function setSurname($surname)
@@ -139,10 +133,9 @@ class ZfcmsContacts
     }
 
     /**
-     * Get surname.
-    
+     * Get surname
      *
-     * @return string
+     * @return string 
      */
     public function getSurname()
     {
@@ -150,11 +143,9 @@ class ZfcmsContacts
     }
 
     /**
-     * Set email.
-    
+     * Set email
      *
      * @param string $email
-     *
      * @return ZfcmsContacts
      */
     public function setEmail($email)
@@ -165,10 +156,9 @@ class ZfcmsContacts
     }
 
     /**
-     * Get email.
-    
+     * Get email
      *
-     * @return string
+     * @return string 
      */
     public function getEmail()
     {
@@ -176,11 +166,9 @@ class ZfcmsContacts
     }
 
     /**
-     * Set phone.
-    
+     * Set phone
      *
      * @param string $phone
-     *
      * @return ZfcmsContacts
      */
     public function setPhone($phone)
@@ -191,10 +179,9 @@ class ZfcmsContacts
     }
 
     /**
-     * Get phone.
-    
+     * Get phone
      *
-     * @return string
+     * @return string 
      */
     public function getPhone()
     {
@@ -202,11 +189,9 @@ class ZfcmsContacts
     }
 
     /**
-     * Set message.
-    
+     * Set message
      *
      * @param string $message
-     *
      * @return ZfcmsContacts
      */
     public function setMessage($message)
@@ -217,10 +202,9 @@ class ZfcmsContacts
     }
 
     /**
-     * Get message.
-    
+     * Get message
      *
-     * @return string
+     * @return string 
      */
     public function getMessage()
     {
@@ -228,11 +212,9 @@ class ZfcmsContacts
     }
 
     /**
-     * Set insertDate.
-    
+     * Set insertDate
      *
      * @param \DateTime $insertDate
-     *
      * @return ZfcmsContacts
      */
     public function setInsertDate($insertDate)
@@ -243,10 +225,9 @@ class ZfcmsContacts
     }
 
     /**
-     * Get insertDate.
-    
+     * Get insertDate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getInsertDate()
     {
@@ -254,11 +235,9 @@ class ZfcmsContacts
     }
 
     /**
-     * Set format.
-    
+     * Set format
      *
      * @param string $format
-     *
      * @return ZfcmsContacts
      */
     public function setFormat($format)
@@ -269,10 +248,9 @@ class ZfcmsContacts
     }
 
     /**
-     * Get format.
-    
+     * Get format
      *
-     * @return string
+     * @return string 
      */
     public function getFormat()
     {
@@ -280,11 +258,9 @@ class ZfcmsContacts
     }
 
     /**
-     * Set status.
-    
+     * Set status
      *
      * @param string $status
-     *
      * @return ZfcmsContacts
      */
     public function setStatus($status)
@@ -295,10 +271,9 @@ class ZfcmsContacts
     }
 
     /**
-     * Get status.
-    
+     * Get status
      *
-     * @return string
+     * @return string 
      */
     public function getStatus()
     {
@@ -306,11 +281,9 @@ class ZfcmsContacts
     }
 
     /**
-     * Set userId.
-    
+     * Set userId
      *
      * @param integer $userId
-     *
      * @return ZfcmsContacts
      */
     public function setUserId($userId)
@@ -321,10 +294,9 @@ class ZfcmsContacts
     }
 
     /**
-     * Get userId.
-    
+     * Get userId
      *
-     * @return integer
+     * @return integer 
      */
     public function getUserId()
     {

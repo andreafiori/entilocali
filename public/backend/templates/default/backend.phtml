@@ -8,7 +8,6 @@
     echo $this->headLink()
           ->prependStylesheet($this->basePath().'/public/common/bootstrap3/css/bootstrap.min.css')
           ->prependStylesheet($this->basePath().'/public/common/font-awesome/css/font-awesome.min.css')
-          ->prependStylesheet('//cdn.datatables.net/1.10.0/css/jquery.dataTables.css');
     ?>
     <style>
     /* Dropdown onmouse over */
@@ -123,15 +122,15 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Moduli <b class="caret"></b></a>
                     <ul class="dropdown-menu multi-level">
                         <li class="dropdown-submenu">
-                            <a href="<?php echo $this->baseUrl ?>datatable/posts/content" class="dropdown-toggle" data-toggle="dropdown">Contenuti</a>
+                            <a href="<?php echo $this->baseUrl ?>datatable/contents" class="dropdown-toggle" data-toggle="dropdown">Contenuti</a>
                             <ul class="dropdown-menu">
                                 <li><a href="<?php echo $this->baseUrl ?>formdata/posts/" title="">Nuovo</a></li>
-                                <li><a href="<?php echo $this->baseUrl ?>datatable/posts/content" title="Modifica \ elimina contenuti">Modifica \ Elimina</a></li>
+                                <li><a href="<?php echo $this->baseUrl ?>datatable/contents" title="Modifica \ elimina contenuti">Modifica \ Elimina</a></li>
                                 <li class="dropdown-submenu">
-                                    <a href="<?php echo $this->baseUrl ?>datatable/categories/4" class="dropdown-toggle" data-toggle="dropdown" title="">Categorie</a>
+                                    <a href="<?php echo $this->baseUrl ?>datatable/categories/?moduleId=4" class="dropdown-toggle" data-toggle="dropdown" title="">Categorie</a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="<?php echo $this->baseUrl ?>formdata/categories/4" title="Nuova categoria contenuti">Nuova</a></li>
-                                        <li><a href="<?php echo $this->baseUrl ?>datatable/categories/4" title="Modifica \ elimina categorie contenuti">Modifica \ Elimina</a></li>
+                                        <li><a href="<?php echo $this->baseUrl ?>formdata/categories/?moduleId=4" title="Nuova categoria contenuti">Nuova</a></li>
+                                        <li><a href="<?php echo $this->baseUrl ?>datatable/categories/?moduleId=4" title="Modifica \ elimina categorie contenuti">Modifica \ Elimina</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -215,34 +214,34 @@
                         <li class="dropdown-submenu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">Contratti pubblici</a>
                             <ul class="dropdown-menu">
-                                <li><a href="<?php echo $this->baseUrl ?>formdata/contratti-pubblici-bandi" title="">Nuovo bando</a></li>
-                                <li><a href="<?php echo $this->baseUrl ?>datatable/contratti-pubblici-bandi" title="">Gestione</a></li>
+                                <li><a href="<?php echo $this->baseUrl ?>formdata/contratti-pubblici" title="Nuovo bando contratti pubblici">Nuovo bando</a></li>
+                                <li><a href="<?php echo $this->baseUrl ?>datatable/contratti-pubblici" title="Gestione contratti pubblici">Gestione</a></li>
                                 <li class="dropdown-submenu">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">Settore</a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">Settori</a>
                                     <ul class="dropdown-menu">
                                         <li><a href="<?php echo $this->baseUrl ?>formdata/contratti-pubblici-settori" title="">Nuovo</a></li>
                                         <li><a href="<?php echo $this->baseUrl ?>datatable/contratti-pubblici-settori" title="">Modifica \ Elimina</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown-submenu">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">Responsabile procedimento</a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Responsabile procedimento">Responsabile procedimento</a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#" title="">Nuovo</a></li>
-                                        <li><a href="#" title="">Modifica \ Elimina</a></li>
+                                        <li><a href="#" title="Nuovo responsabile procedimento contratti pubblici">Nuovo</a></li>
+                                        <li><a href="#" title="Gestione responsabili procedimento contratti pubblici">Gestione</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown-submenu">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">Voci Scelta del Contraente</a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Voci Scelta del Contraente">Voci Scelta del Contraente</a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#" title="">Nuovo</a></li>
-                                        <li><a href="#" title="">Modifica \ Elimina</a></li>
+                                        <li><a href="<?php echo $this->baseUrl ?>formdata/contratti-pubblici-scelta-contraente" title="">Nuovo</a></li>
+                                        <li><a href="<?php echo $this->baseUrl ?>datatable/contratti-pubblici-scelta-contraente" title="">Gestione</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown-submenu">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">Operatore</a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#" title="">Nuovo</a></li>
-                                        <li><a href="#" title="">Modifica \ Elimina</a></li>
+                                        <li><a href="<?php echo $this->baseUrl ?>formdata/contratti-pubblici-operatore" title="">Nuovo</a></li>
+                                        <li><a href="<?php echo $this->baseUrl ?>datatable/contratti-pubblici-operatore" title="">Gestione</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -258,8 +257,8 @@
                                 <li class="dropdown-submenu">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">Categorie</a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="<?php echo $this->baseUrl ?>formdata/categories/6" title="">Nuovo</a></li>
-                                        <li><a href="<?php echo $this->baseUrl ?>datatable/categories/6" title="">Modifica \ Elimina</a></li>
+                                        <li><a href="<?php echo $this->baseUrl ?>formdata/categories/?moduleId=6" title="">Nuovo</a></li>
+                                        <li><a href="<?php echo $this->baseUrl ?>datatable/categories/?moduleId=6" title="">Modifica \ Elimina</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -313,12 +312,12 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Blogs <b class="caret"></b></a>
                     
                     <ul class="dropdown-menu multi-level">
-                        <li><a href="<?php echo $this->baseUrl ?>datatable/posts/blog" title="">Tutti i posts</a></li>
+                        <li><a href="<?php echo $this->baseUrl ?>datatable/blog" title="">Tutti i posts</a></li>
                         <li class="dropdown-submenu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categorie</a>
                             <ul class="dropdown-menu">
-                                <li><a href="<?php echo $this->baseUrl ?>formdata/categories/1" title="">Nuova</a></li>
-                                <li><a href="<?php echo $this->baseUrl ?>datatable/categories/1" title="">Modifica \ Elimina</a></li>   
+                                <li><a href="<?php echo $this->baseUrl ?>formdata/categories/?moduleId=1" title="">Nuova</a></li>
+                                <li><a href="<?php echo $this->baseUrl ?>datatable/categories/?moduleId=1" title="">Modifica \ Elimina</a></li>   
                             </ul>
                         </li>
                     </ul>

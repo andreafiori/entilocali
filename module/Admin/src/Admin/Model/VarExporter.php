@@ -23,13 +23,27 @@ class VarExporter extends InputSetupAbstract
     /**
      * Set a variable to export and use on FormDataHandler
      * 
-     * @param type $key
-     * @param type $value
+     * @param string $key, string $value
+     * @param array $value
      */
     public function setVariable($key, $value)
     {
         $this->varToExport[$key] = $value;
         
+        return $this->varToExport;
+    }
+    
+    /**
+     * 
+     * @param array $vars
+     * @return array
+     */
+    public function setVariables(array $vars)
+    {
+        foreach($vars as $key => $value) {
+            $this->setVariable($key, $value);
+        }
+
         return $this->varToExport;
     }
     

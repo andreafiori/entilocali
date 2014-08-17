@@ -24,6 +24,19 @@ class AlboPretorioSearchFilterForm extends AlboPretorioFormAbstract
                 'label' => 'Numero atto',
             )
         ));
+        
+        $this->add(array(
+            'type' => 'Text',
+            'name' => 'titolo',
+            'attributes' => array(
+                'placeholder' => 'Cerca negli articoli...',
+                'title'  => 'Cerca testo negli articoli',
+                'id'     => 'titolo'
+            ),
+            'options' => array(
+                'label' => 'Testo',
+            )
+        ));
     }
     
     public function addExpiredCheckbox()

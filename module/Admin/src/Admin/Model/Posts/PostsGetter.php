@@ -36,17 +36,20 @@ class PostsGetter extends QueryBuilderHelperAbstract
     
     /**
      * @param number $languageId
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setLanguageId($languageId = null)
     {
         if (is_numeric($languageId)) {
             $this->getQueryBuilder()->setParameter('language', $languageId);
         }
+        
+        return $this->getQueryBuilder();
     }
     
     /**
      * @param number or array $id
-     * @return type
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setId($id)
     {
@@ -65,7 +68,7 @@ class PostsGetter extends QueryBuilderHelperAbstract
 
     /**
      * @param string $category
-     * @return type
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setCategoryName($category)
     {
@@ -78,7 +81,7 @@ class PostsGetter extends QueryBuilderHelperAbstract
 
     /**
      * @param string $title post title
-     * @return type
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setTitle($title)
     {
@@ -91,7 +94,7 @@ class PostsGetter extends QueryBuilderHelperAbstract
   
     /**
      * @param string|array $type post type (content, blog, photo or video)
-     * @return type
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setType($type)
     {
@@ -107,7 +110,7 @@ class PostsGetter extends QueryBuilderHelperAbstract
 
     /**
      * @param string or null $status
-     * @return type
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setStatus($status = null)
     {

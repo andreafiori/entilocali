@@ -8,7 +8,7 @@ use Admin\Model\FormData\FormDataAbstract;
  * @author Andrea Fiori
  * @since  26 June 2014
  */
-class ContrattiPubbliciBandiFormDataHandler extends FormDataAbstract
+class ContrattiPubbliciFormDataHandler extends FormDataAbstract
 {
     /**
      * @param array $input
@@ -17,7 +17,7 @@ class ContrattiPubbliciBandiFormDataHandler extends FormDataAbstract
     {
         parent::__construct($input);
         
-        $form = new ContrattiPubbliciBandiForm();
+        $form = new ContrattiPubbliciForm();
         $form->setData( array("insertDate" => date("Y-m-d"), "expireDate" => date("2030-m-d")) );
         
         $this->setVariable('formTitle',         'Nuovo bando');

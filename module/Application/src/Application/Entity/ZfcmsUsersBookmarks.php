@@ -52,10 +52,9 @@ class ZfcmsUsersBookmarks
 
 
     /**
-     * Get id.
-    
+     * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -63,11 +62,9 @@ class ZfcmsUsersBookmarks
     }
 
     /**
-     * Set userId.
-    
+     * Set userId
      *
      * @param integer $userId
-     *
      * @return ZfcmsUsersBookmarks
      */
     public function setUserId($userId)
@@ -78,10 +75,9 @@ class ZfcmsUsersBookmarks
     }
 
     /**
-     * Get userId.
-    
+     * Get userId
      *
-     * @return integer
+     * @return integer 
      */
     public function getUserId()
     {
@@ -89,11 +85,9 @@ class ZfcmsUsersBookmarks
     }
 
     /**
-     * Set referenceId.
-    
+     * Set referenceId
      *
      * @param integer $referenceId
-     *
      * @return ZfcmsUsersBookmarks
      */
     public function setReferenceId($referenceId)
@@ -104,10 +98,9 @@ class ZfcmsUsersBookmarks
     }
 
     /**
-     * Get referenceId.
-    
+     * Get referenceId
      *
-     * @return integer
+     * @return integer 
      */
     public function getReferenceId()
     {
@@ -115,11 +108,9 @@ class ZfcmsUsersBookmarks
     }
 
     /**
-     * Set categoryId.
-    
+     * Set categoryId
      *
      * @param integer $categoryId
-     *
      * @return ZfcmsUsersBookmarks
      */
     public function setCategoryId($categoryId)
@@ -130,10 +121,9 @@ class ZfcmsUsersBookmarks
     }
 
     /**
-     * Get categoryId.
-    
+     * Get categoryId
      *
-     * @return integer
+     * @return integer 
      */
     public function getCategoryId()
     {
@@ -141,11 +131,9 @@ class ZfcmsUsersBookmarks
     }
 
     /**
-     * Set moduleId.
-    
+     * Set moduleId
      *
      * @param integer $moduleId
-     *
      * @return ZfcmsUsersBookmarks
      */
     public function setModuleId($moduleId)
@@ -156,10 +144,9 @@ class ZfcmsUsersBookmarks
     }
 
     /**
-     * Get moduleId.
-    
+     * Get moduleId
      *
-     * @return integer
+     * @return integer 
      */
     public function getModuleId()
     {

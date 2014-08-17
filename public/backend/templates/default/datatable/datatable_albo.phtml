@@ -1,9 +1,9 @@
 <?php echo $this->render('backend/templates/'.$this->template_backend.'datatable/datatable_breadcrumb.phtml'); ?>
 
 <ul class="nav nav-tabs" role="tablist">
-    <li class="active"><a href="#home" role="tab" data-toggle="tab">Elenco atti</a></li>
-    <li><a href="#search" role="tab" data-toggle="tab">Filtro \ Ricerca atti</a></li>
-    <li><a href="#export" role="tab" data-toggle="tab">Esportazione</a></li>
+    <li class="active"><a href="#home" role="tab" data-toggle="tab">Elenco</a></li>
+    <li><a href="#search" role="tab" data-toggle="tab">Ricerca</a></li>
+    <li><a href="#export" role="tab" data-toggle="tab">Esportazione dati</a></li>
 </ul>
 
 <div class="tab-content">
@@ -12,7 +12,7 @@
     </div>
     
     <div class="tab-pane" id="search">
-        <h3>Filtra dati</h3>
+        <h3>Ricerca</h3>
         <div class="container">
         <?php
 
@@ -28,6 +28,7 @@
 
         echo $this->form()->openTag($this->formSearch);
 
+        $form->get('titolo')->setAttribute('class', 'form-control');
         $form->get('mese')->setAttribute('class', 'form-control');
         $form->get('anno')->setAttribute('class', 'form-control');
         $form->get('sezione')->setAttribute('class', 'form-control');
@@ -44,6 +45,13 @@
 
             <div class="col-sm-4">
                 <?php echo $this->formElement($form->get('anno')); ?>
+            </div>
+        </div>
+            
+        <div class="form-group">
+            <label for="<?php echo $form->get('titolo')->getAttribute('id'); ?>" class="col-sm-2 control-label"><?php echo $this->formLabel($form->get('titolo')) ?>:</label>
+            <div class="col-sm-8">
+                <?php echo $this->formElement($form->get('titolo')); ?>
             </div>
         </div>
 
@@ -139,15 +147,13 @@
         <h3>Feed RSS</h3>
         <ul>
             <li><a href="#" title="Feed albo pretorio" target="_blank">Albo pretorio</a></li>
-            <li><a href="#" title="Feed atti ufficiali" target="_blank">Atti ufficiali</a></li>
+        </ul>
+      
+        <h3>APIs Atti Albo pretorio</h3>
+        <ul>
+            <li><a href="#" title="Atti albo pretorio in formato JSON">JSON</a></li>
+            <li><a href="#" title="Atti albo pretorio in formato XML">XML</a></li>
         </ul>
         
-        <!--
-        <h3>API</h3>
-        <ul>
-            <li><a href="#" title="">JSON</a></li>
-            <li><a href="#" title="">XML</a></li>
-        </ul>
-        -->
     </div>
 </div>

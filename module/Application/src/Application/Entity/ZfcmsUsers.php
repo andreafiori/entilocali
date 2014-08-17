@@ -237,10 +237,9 @@ class ZfcmsUsers
 
 
     /**
-     * Get id.
-    
+     * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -248,11 +247,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Set image.
-    
+     * Set image
      *
      * @param string $image
-     *
      * @return ZfcmsUsers
      */
     public function setImage($image)
@@ -263,10 +260,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Get image.
-    
+     * Get image
      *
-     * @return string
+     * @return string 
      */
     public function getImage()
     {
@@ -274,11 +270,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Set name.
-    
+     * Set name
      *
      * @param string $name
-     *
      * @return ZfcmsUsers
      */
     public function setName($name)
@@ -289,10 +283,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Get name.
-    
+     * Get name
      *
-     * @return string
+     * @return string 
      */
     public function getName()
     {
@@ -300,11 +293,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Set surname.
-    
+     * Set surname
      *
      * @param string $surname
-     *
      * @return ZfcmsUsers
      */
     public function setSurname($surname)
@@ -315,10 +306,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Get surname.
-    
+     * Get surname
      *
-     * @return string
+     * @return string 
      */
     public function getSurname()
     {
@@ -326,11 +316,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Set address.
-    
+     * Set address
      *
      * @param string $address
-     *
      * @return ZfcmsUsers
      */
     public function setAddress($address)
@@ -341,10 +329,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Get address.
-    
+     * Get address
      *
-     * @return string
+     * @return string 
      */
     public function getAddress()
     {
@@ -352,11 +339,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Set zip.
-    
+     * Set zip
      *
      * @param string $zip
-     *
      * @return ZfcmsUsers
      */
     public function setZip($zip)
@@ -367,10 +352,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Get zip.
-    
+     * Get zip
      *
-     * @return string
+     * @return string 
      */
     public function getZip()
     {
@@ -378,11 +362,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Set city.
-    
+     * Set city
      *
      * @param string $city
-     *
      * @return ZfcmsUsers
      */
     public function setCity($city)
@@ -393,10 +375,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Get city.
-    
+     * Get city
      *
-     * @return string
+     * @return string 
      */
     public function getCity()
     {
@@ -404,11 +385,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Set province.
-    
+     * Set province
      *
      * @param integer $province
-     *
      * @return ZfcmsUsers
      */
     public function setProvince($province)
@@ -419,10 +398,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Get province.
-    
+     * Get province
      *
-     * @return integer
+     * @return integer 
      */
     public function getProvince()
     {
@@ -430,11 +408,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Set birthDate.
-    
+     * Set birthDate
      *
      * @param \DateTime $birthDate
-     *
      * @return ZfcmsUsers
      */
     public function setBirthDate($birthDate)
@@ -445,10 +421,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Get birthDate.
-    
+     * Get birthDate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getBirthDate()
     {
@@ -456,11 +431,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Set birthPlace.
-    
+     * Set birthPlace
      *
      * @param string $birthPlace
-     *
      * @return ZfcmsUsers
      */
     public function setBirthPlace($birthPlace)
@@ -471,10 +444,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Get birthPlace.
-    
+     * Get birthPlace
      *
-     * @return string
+     * @return string 
      */
     public function getBirthPlace()
     {
@@ -482,11 +454,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Set nation.
-    
+     * Set nation
      *
      * @param integer $nation
-     *
      * @return ZfcmsUsers
      */
     public function setNation($nation)
@@ -497,10 +467,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Get nation.
-    
+     * Get nation
      *
-     * @return integer
+     * @return integer 
      */
     public function getNation()
     {
@@ -508,11 +477,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Set sex.
-    
+     * Set sex
      *
      * @param string $sex
-     *
      * @return ZfcmsUsers
      */
     public function setSex($sex)
@@ -523,10 +490,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Get sex.
-    
+     * Get sex
      *
-     * @return string
+     * @return string 
      */
     public function getSex()
     {
@@ -534,11 +500,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Set job.
-    
+     * Set job
      *
      * @param string $job
-     *
      * @return ZfcmsUsers
      */
     public function setJob($job)
@@ -549,10 +513,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Get job.
-    
+     * Get job
      *
-     * @return string
+     * @return string 
      */
     public function getJob()
     {
@@ -560,11 +523,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Set email.
-    
+     * Set email
      *
      * @param string $email
-     *
      * @return ZfcmsUsers
      */
     public function setEmail($email)
@@ -575,10 +536,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Get email.
-    
+     * Get email
      *
-     * @return string
+     * @return string 
      */
     public function getEmail()
     {
@@ -586,11 +546,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Set phone.
-    
+     * Set phone
      *
      * @param string $phone
-     *
      * @return ZfcmsUsers
      */
     public function setPhone($phone)
@@ -601,10 +559,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Get phone.
-    
+     * Get phone
      *
-     * @return string
+     * @return string 
      */
     public function getPhone()
     {
@@ -612,11 +569,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Set mobile.
-    
+     * Set mobile
      *
      * @param string $mobile
-     *
      * @return ZfcmsUsers
      */
     public function setMobile($mobile)
@@ -627,10 +582,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Get mobile.
-    
+     * Get mobile
      *
-     * @return string
+     * @return string 
      */
     public function getMobile()
     {
@@ -638,11 +592,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Set fax.
-    
+     * Set fax
      *
      * @param string $fax
-     *
      * @return ZfcmsUsers
      */
     public function setFax($fax)
@@ -653,10 +605,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Get fax.
-    
+     * Get fax
      *
-     * @return string
+     * @return string 
      */
     public function getFax()
     {
@@ -664,11 +615,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Set websiteUrl.
-    
+     * Set websiteUrl
      *
      * @param string $websiteUrl
-     *
      * @return ZfcmsUsers
      */
     public function setWebsiteUrl($websiteUrl)
@@ -679,10 +628,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Get websiteUrl.
-    
+     * Get websiteUrl
      *
-     * @return string
+     * @return string 
      */
     public function getWebsiteUrl()
     {
@@ -690,11 +638,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Set fiscalCode.
-    
+     * Set fiscalCode
      *
      * @param string $fiscalCode
-     *
      * @return ZfcmsUsers
      */
     public function setFiscalCode($fiscalCode)
@@ -705,10 +651,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Get fiscalCode.
-    
+     * Get fiscalCode
      *
-     * @return string
+     * @return string 
      */
     public function getFiscalCode()
     {
@@ -716,11 +661,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Set vatCode.
-    
+     * Set vatCode
      *
      * @param string $vatCode
-     *
      * @return ZfcmsUsers
      */
     public function setVatCode($vatCode)
@@ -731,10 +674,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Get vatCode.
-    
+     * Get vatCode
      *
-     * @return string
+     * @return string 
      */
     public function getVatCode()
     {
@@ -742,11 +684,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Set newsletter.
-    
+     * Set newsletter
      *
      * @param string $newsletter
-     *
      * @return ZfcmsUsers
      */
     public function setNewsletter($newsletter)
@@ -757,10 +697,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Get newsletter.
-    
+     * Get newsletter
      *
-     * @return string
+     * @return string 
      */
     public function getNewsletter()
     {
@@ -768,11 +707,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Set newsletterFormat.
-    
+     * Set newsletterFormat
      *
      * @param string $newsletterFormat
-     *
      * @return ZfcmsUsers
      */
     public function setNewsletterFormat($newsletterFormat)
@@ -783,10 +720,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Get newsletterFormat.
-    
+     * Get newsletterFormat
      *
-     * @return string
+     * @return string 
      */
     public function getNewsletterFormat()
     {
@@ -794,11 +730,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Set username.
-    
+     * Set username
      *
      * @param string $username
-     *
      * @return ZfcmsUsers
      */
     public function setUsername($username)
@@ -809,10 +743,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Get username.
-    
+     * Get username
      *
-     * @return string
+     * @return string 
      */
     public function getUsername()
     {
@@ -820,11 +753,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Set password.
-    
+     * Set password
      *
      * @param string $password
-     *
      * @return ZfcmsUsers
      */
     public function setPassword($password)
@@ -835,10 +766,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Get password.
-    
+     * Get password
      *
-     * @return string
+     * @return string 
      */
     public function getPassword()
     {
@@ -846,11 +776,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Set passwordLastUpdate.
-    
+     * Set passwordLastUpdate
      *
      * @param \DateTime $passwordLastUpdate
-     *
      * @return ZfcmsUsers
      */
     public function setPasswordLastUpdate($passwordLastUpdate)
@@ -861,10 +789,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Get passwordLastUpdate.
-    
+     * Get passwordLastUpdate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getPasswordLastUpdate()
     {
@@ -872,11 +799,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Set status.
-    
+     * Set status
      *
      * @param string $status
-     *
      * @return ZfcmsUsers
      */
     public function setStatus($status)
@@ -887,10 +812,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Get status.
-    
+     * Get status
      *
-     * @return string
+     * @return string 
      */
     public function getStatus()
     {
@@ -898,11 +822,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Set settore.
-    
+     * Set settore
      *
      * @param string $settore
-     *
      * @return ZfcmsUsers
      */
     public function setSettore($settore)
@@ -913,10 +835,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Get settore.
-    
+     * Get settore
      *
-     * @return string
+     * @return string 
      */
     public function getSettore()
     {
@@ -924,11 +845,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Set createDate.
-    
+     * Set createDate
      *
      * @param \DateTime $createDate
-     *
      * @return ZfcmsUsers
      */
     public function setCreateDate($createDate)
@@ -939,10 +858,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Get createDate.
-    
+     * Get createDate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getCreateDate()
     {
@@ -950,11 +868,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Set lastUpdate.
-    
+     * Set lastUpdate
      *
      * @param \DateTime $lastUpdate
-     *
      * @return ZfcmsUsers
      */
     public function setLastUpdate($lastUpdate)
@@ -965,10 +881,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Get lastUpdate.
-    
+     * Get lastUpdate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getLastUpdate()
     {
@@ -976,11 +891,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Set confirmCode.
-    
+     * Set confirmCode
      *
      * @param string $confirmCode
-     *
      * @return ZfcmsUsers
      */
     public function setConfirmCode($confirmCode)
@@ -991,10 +904,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Get confirmCode.
-    
+     * Get confirmCode
      *
-     * @return string
+     * @return string 
      */
     public function getConfirmCode()
     {
@@ -1002,11 +914,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Set role.
-    
+     * Set role
      *
      * @param \Application\Entity\ZfcmsUsersRoles $role
-     *
      * @return ZfcmsUsers
      */
     public function setRole(\Application\Entity\ZfcmsUsersRoles $role = null)
@@ -1017,10 +927,9 @@ class ZfcmsUsers
     }
 
     /**
-     * Get role.
-    
+     * Get role
      *
-     * @return \Application\Entity\ZfcmsUsersRoles
+     * @return \Application\Entity\ZfcmsUsersRoles 
      */
     public function getRole()
     {

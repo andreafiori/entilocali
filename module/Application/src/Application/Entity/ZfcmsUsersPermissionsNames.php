@@ -38,10 +38,9 @@ class ZfcmsUsersPermissionsNames
 
 
     /**
-     * Get id.
-    
+     * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -49,11 +48,9 @@ class ZfcmsUsersPermissionsNames
     }
 
     /**
-     * Set flag.
-    
+     * Set flag
      *
      * @param string $flag
-     *
      * @return ZfcmsUsersPermissionsNames
      */
     public function setFlag($flag)
@@ -64,10 +61,9 @@ class ZfcmsUsersPermissionsNames
     }
 
     /**
-     * Get flag.
-    
+     * Get flag
      *
-     * @return string
+     * @return string 
      */
     public function getFlag()
     {
@@ -75,11 +71,9 @@ class ZfcmsUsersPermissionsNames
     }
 
     /**
-     * Set description.
-    
+     * Set description
      *
      * @param string $description
-     *
      * @return ZfcmsUsersPermissionsNames
      */
     public function setDescription($description)
@@ -90,10 +84,9 @@ class ZfcmsUsersPermissionsNames
     }
 
     /**
-     * Get description.
-    
+     * Get description
      *
-     * @return string
+     * @return string 
      */
     public function getDescription()
     {

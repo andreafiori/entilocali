@@ -45,10 +45,9 @@ class ZfcmsModules
 
 
     /**
-     * Get id.
-    
+     * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -56,11 +55,9 @@ class ZfcmsModules
     }
 
     /**
-     * Set code.
-    
+     * Set code
      *
      * @param string $code
-     *
      * @return ZfcmsModules
      */
     public function setCode($code)
@@ -71,10 +68,9 @@ class ZfcmsModules
     }
 
     /**
-     * Get code.
-    
+     * Get code
      *
-     * @return string
+     * @return string 
      */
     public function getCode()
     {
@@ -82,11 +78,9 @@ class ZfcmsModules
     }
 
     /**
-     * Set status.
-    
+     * Set status
      *
      * @param string $status
-     *
      * @return ZfcmsModules
      */
     public function setStatus($status)
@@ -97,10 +91,9 @@ class ZfcmsModules
     }
 
     /**
-     * Get status.
-    
+     * Get status
      *
-     * @return string
+     * @return string 
      */
     public function getStatus()
     {
@@ -108,11 +101,9 @@ class ZfcmsModules
     }
 
     /**
-     * Set channelId.
-    
+     * Set channelId
      *
      * @param integer $channelId
-     *
      * @return ZfcmsModules
      */
     public function setChannelId($channelId)
@@ -123,10 +114,9 @@ class ZfcmsModules
     }
 
     /**
-     * Get channelId.
-    
+     * Get channelId
      *
-     * @return integer
+     * @return integer 
      */
     public function getChannelId()
     {

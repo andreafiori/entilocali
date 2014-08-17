@@ -24,24 +24,23 @@ class ZfcmsAttachmentsMimetype
     /**
      * @var string
      *
-     * @ORM\Column(name="image", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="image", type="text", nullable=false)
      */
     private $image;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="mimetype", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="mimetype", type="text", nullable=false)
      */
     private $mimetype;
 
 
 
     /**
-     * Get id.
-    
+     * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -49,11 +48,9 @@ class ZfcmsAttachmentsMimetype
     }
 
     /**
-     * Set image.
-    
+     * Set image
      *
      * @param string $image
-     *
      * @return ZfcmsAttachmentsMimetype
      */
     public function setImage($image)
@@ -64,10 +61,9 @@ class ZfcmsAttachmentsMimetype
     }
 
     /**
-     * Get image.
-    
+     * Get image
      *
-     * @return string
+     * @return string 
      */
     public function getImage()
     {
@@ -75,11 +71,9 @@ class ZfcmsAttachmentsMimetype
     }
 
     /**
-     * Set mimetype.
-    
+     * Set mimetype
      *
      * @param string $mimetype
-     *
      * @return ZfcmsAttachmentsMimetype
      */
     public function setMimetype($mimetype)
@@ -90,10 +84,9 @@ class ZfcmsAttachmentsMimetype
     }
 
     /**
-     * Get mimetype.
-    
+     * Get mimetype
      *
-     * @return string
+     * @return string 
      */
     public function getMimetype()
     {

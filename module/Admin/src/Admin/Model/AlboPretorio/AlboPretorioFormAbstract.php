@@ -68,15 +68,16 @@ abstract class AlboPretorioFormAbstract extends Form
                 'id'    => 'orderby'
             ),
             'options' => array(
-                'label' => 'Settore',
+                'label' => 'Ordina per',
                 'empty_option' => 'Seleziona',
                 'value_options' => array(
                     'aa.anno'   => 'Anno',
-                    'aa.numero' => 'Numero Progressivo',
+                    'aa.numeroAtto' => 'Numero Progressivo',
                     'aa.titolo' => 'Titolo',
                     'aa.dataAttivazione' => 'Data Attivazione',
                     'aa.dataScadenza' => 'Data Scadenza',
                     'aps.nome'  => 'Sezione',
+                    'aps.nome'  => 'Settore',
                 ),
             )
         ));

@@ -14,6 +14,9 @@ abstract class DataTableAbstract extends VarExporter
     
     protected $columns;
     
+    protected $defaultDataTable = 'datatable/datatable.phtml';
+
+
     /**
      * @param array $input
      */
@@ -23,7 +26,7 @@ abstract class DataTableAbstract extends VarExporter
         
         $this->param = $this->getInput('param', 1);
         
-        $this->setTemplate('datatable/datatable.phtml');
+        $this->setTemplate($this->defaultDataTable);
     }
     
     /**
@@ -67,6 +70,20 @@ abstract class DataTableAbstract extends VarExporter
     public function getColumns()
     {
         return $this->columns;
+    }
+    
+    /**
+     * Overwrite parent getTemplate
+     * 
+     * @return type
+     */
+    public function getTemplate()
+    {
+        if ( !$this->getRecords() ) {
+            return $this->defaultDataTable;
+        }
+        
+        return $this->template;
     }
 
         /**

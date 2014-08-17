@@ -52,10 +52,9 @@ class ZfcmsUsersRoles
 
 
     /**
-     * Get id.
-    
+     * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -63,11 +62,9 @@ class ZfcmsUsersRoles
     }
 
     /**
-     * Set name.
-    
+     * Set name
      *
      * @param string $name
-     *
      * @return ZfcmsUsersRoles
      */
     public function setName($name)
@@ -78,10 +75,9 @@ class ZfcmsUsersRoles
     }
 
     /**
-     * Get name.
-    
+     * Get name
      *
-     * @return string
+     * @return string 
      */
     public function getName()
     {
@@ -89,11 +85,9 @@ class ZfcmsUsersRoles
     }
 
     /**
-     * Set insertDate.
-    
+     * Set insertDate
      *
      * @param \DateTime $insertDate
-     *
      * @return ZfcmsUsersRoles
      */
     public function setInsertDate($insertDate)
@@ -104,10 +98,9 @@ class ZfcmsUsersRoles
     }
 
     /**
-     * Get insertDate.
-    
+     * Get insertDate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getInsertDate()
     {
@@ -115,11 +108,9 @@ class ZfcmsUsersRoles
     }
 
     /**
-     * Set lastUpdate.
-    
+     * Set lastUpdate
      *
      * @param \DateTime $lastUpdate
-     *
      * @return ZfcmsUsersRoles
      */
     public function setLastUpdate($lastUpdate)
@@ -130,10 +121,9 @@ class ZfcmsUsersRoles
     }
 
     /**
-     * Get lastUpdate.
-    
+     * Get lastUpdate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getLastUpdate()
     {
@@ -141,11 +131,9 @@ class ZfcmsUsersRoles
     }
 
     /**
-     * Set position.
-    
+     * Set position
      *
      * @param integer $position
-     *
      * @return ZfcmsUsersRoles
      */
     public function setPosition($position)
@@ -156,10 +144,9 @@ class ZfcmsUsersRoles
     }
 
     /**
-     * Get position.
-    
+     * Get position
      *
-     * @return integer
+     * @return integer 
      */
     public function getPosition()
     {

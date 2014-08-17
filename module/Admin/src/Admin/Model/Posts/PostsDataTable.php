@@ -21,11 +21,10 @@ class PostsDataTable extends DataTableAbstract
     {
         parent::__construct($input);
         
-        $param = $this->getInput('param', 1);
-        $this->type = $param['route']['option'];
+        $param = $this->getParam();
         
-        switch($this->type) {
-            default: case("contenuto"):
+        switch($param['route']['tablesetter']) {
+            default: case("contents"):
                 $this->title        = 'Contenuti';
                 $this->description  = 'Gestione contenuti in archivio';
                 $this->type         = 'content';
@@ -37,35 +36,45 @@ class PostsDataTable extends DataTableAbstract
                 $this->type         = 'blog';
             break;
 
-            case("foto"):
+            case("photo"):
                 $this->title        = 'Foto';
                 $this->description  = 'Gestione foto in archivio';
                 $this->type         = 'foto';
             break;
         }
-    }
-    
-    /**
-     * @return array 
-     */
-    public function getColumns()
-    {
-        return array("Titolo", "Inserito il", "Ultima modifica", "Stato", "&nbsp;", "&nbsp;", "&nbsp;");
-    }
-    
-    /**
-     * @return array 
-     */
-    public function getRecords()
-    {
-        $records = $this->getPostsRecords();
         
+        $this->setColumns( array(
+            "Titolo", 
+            "Inserito il", 
+            "Ultima modifica", 
+            "Stato", 
+            "&nbsp;", 
+            "&nbsp;", 
+            "&nbsp;"
+            ) 
+        );
+        
+        $paginatorRecords = $this->getRecordsPaginator();
+        
+        $this->setVariable('paginator', $paginatorRecords);
+        $this->setVariable('tablesetter', $param['route']['tablesetter']);
+        $this->setTemplate('datatable/datatable_posts.phtml');
+        $this->setRecords($this->getFormattedRecords($paginatorRecords));
+    }
+    
+    /**
+     * 
+     * @param type $records
+     * @return type
+     */
+    public function getFormattedRecords($records)
+    {
         $recordsToReturn = array();
         foreach($records as $record) {
             $recordsToReturn[] = array(
                 $record['title'],
-                $this->convertDateTimeToString($record['insertDate']),
-                $this->convertDateTimeToString($record['lastUpdate']),
+                $record['insertDate'],
+                $record['lastUpdate'],
                 ucfirst($record['status']),
                 array(
                     'type'      => 'updateButton',
@@ -93,12 +102,17 @@ class PostsDataTable extends DataTableAbstract
         /**
          * @return array
          */
-        private function getPostsRecords()
+        private function getRecordsPaginator()
         {
+            $param = $this->getParam();
+            
             $postsGetterWrapper = new PostsGetterWrapper( new PostsGetter($this->getInput('entityManager')) );
             $postsGetterWrapper->setInput( array("type" => $this->type) );
             $postsGetterWrapper->setupQueryBuilder();
+            $postsGetterWrapper->setupPaginator($postsGetterWrapper->setupQuery( $this->getInput('entityManager', 1) ));
+            $postsGetterWrapper->setupPaginatorCurrentPage(isset($param['route']['page']) ? $param['route']['page'] : null);
+            $postsGetterWrapper->setupPaginatorItemsPerPage(isset($param['route']['perpage']) ? $param['route']['perpage'] : null);
 
-            return $postsGetterWrapper->getRecords();
+            return $postsGetterWrapper->getPaginator();
         }
 }

@@ -5,6 +5,7 @@ namespace Admin\Model\AlboPretorio;
 use Admin\Model\FormData\FormDataAbstract;
 use Admin\Model\AlboPretorio\AlboPretorioForm;
 use Admin\Model\AlboPretorio\AlboPretorioRecordsGetter;
+use Admin\Model\AlboPretorio\AlboPretorioRecordsGetterWrapper;
 
 /**
  * @author Andrea Fiori
@@ -20,18 +21,18 @@ class AlboPretorioFormDataHandler extends FormDataAbstract
         parent::__construct($input);
         
         $form = new AlboPretorioForm();
+        //$form->addSezioni();
+        $form->addLastFields();
+        $form->addScadenze();
         
-        $this->setVariable('formTitle',         'Nuovo atto');
-        $this->setVariable('formDescription',   '');
-        $this->setVariable('form',              $form);
-        $this->setVariable('formAction',        '');
-
-        $this->setVariable('formBreadCrumbCategory', 'Albo pretorio');
-        $this->setVariable('formBreadCrumbCategoryLink', $this->getInput('baseUrl', 1).'datatable/albo-pretorio/');
+        $this->setVariables(array(
+            'formTitle' => 'Nuovo atto',
+            'formDescription' => '',
+            'form' => $form,
+            'formAction' =>'',
+            'formBreadCrumbCategory' => 'Albo pretorio',
+            'formBreadCrumbCategoryLink' => $this->getInput('baseUrl', 1).'datatable/albo-pretorio/'
+            )
+        );
     }
-
-        private function getAtti()
-        {
-            
-        }
 }

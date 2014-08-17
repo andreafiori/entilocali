@@ -83,10 +83,9 @@ class ZfcmsCategories
 
 
     /**
-     * Get id.
-    
+     * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -94,11 +93,9 @@ class ZfcmsCategories
     }
 
     /**
-     * Set note.
-    
+     * Set note
      *
      * @param string $note
-     *
      * @return ZfcmsCategories
      */
     public function setNote($note)
@@ -109,10 +106,9 @@ class ZfcmsCategories
     }
 
     /**
-     * Get note.
-    
+     * Get note
      *
-     * @return string
+     * @return string 
      */
     public function getNote()
     {
@@ -120,11 +116,9 @@ class ZfcmsCategories
     }
 
     /**
-     * Set createDate.
-    
+     * Set createDate
      *
      * @param \DateTime $createDate
-     *
      * @return ZfcmsCategories
      */
     public function setCreateDate($createDate)
@@ -135,10 +129,9 @@ class ZfcmsCategories
     }
 
     /**
-     * Get createDate.
-    
+     * Get createDate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getCreateDate()
     {
@@ -146,11 +139,9 @@ class ZfcmsCategories
     }
 
     /**
-     * Set lastUpdate.
-    
+     * Set lastUpdate
      *
      * @param \DateTime $lastUpdate
-     *
      * @return ZfcmsCategories
      */
     public function setLastUpdate($lastUpdate)
@@ -161,10 +152,9 @@ class ZfcmsCategories
     }
 
     /**
-     * Get lastUpdate.
-    
+     * Get lastUpdate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getLastUpdate()
     {
@@ -172,11 +162,9 @@ class ZfcmsCategories
     }
 
     /**
-     * Set code.
-    
+     * Set code
      *
      * @param string $code
-     *
      * @return ZfcmsCategories
      */
     public function setCode($code)
@@ -187,10 +175,9 @@ class ZfcmsCategories
     }
 
     /**
-     * Get code.
-    
+     * Get code
      *
-     * @return string
+     * @return string 
      */
     public function getCode()
     {
@@ -198,11 +185,9 @@ class ZfcmsCategories
     }
 
     /**
-     * Set status.
-    
+     * Set status
      *
      * @param string $status
-     *
      * @return ZfcmsCategories
      */
     public function setStatus($status)
@@ -213,10 +198,9 @@ class ZfcmsCategories
     }
 
     /**
-     * Get status.
-    
+     * Get status
      *
-     * @return string
+     * @return string 
      */
     public function getStatus()
     {
@@ -224,11 +208,9 @@ class ZfcmsCategories
     }
 
     /**
-     * Set columnPosition.
-    
+     * Set columnPosition
      *
      * @param string $columnPosition
-     *
      * @return ZfcmsCategories
      */
     public function setColumnPosition($columnPosition)
@@ -239,10 +221,9 @@ class ZfcmsCategories
     }
 
     /**
-     * Get columnPosition.
-    
+     * Get columnPosition
      *
-     * @return string
+     * @return string 
      */
     public function getColumnPosition()
     {
@@ -250,11 +231,9 @@ class ZfcmsCategories
     }
 
     /**
-     * Set template.
-    
+     * Set template
      *
      * @param string $template
-     *
      * @return ZfcmsCategories
      */
     public function setTemplate($template)
@@ -265,10 +244,9 @@ class ZfcmsCategories
     }
 
     /**
-     * Get template.
-    
+     * Get template
      *
-     * @return string
+     * @return string 
      */
     public function getTemplate()
     {
@@ -276,11 +254,9 @@ class ZfcmsCategories
     }
 
     /**
-     * Set module.
-    
+     * Set module
      *
      * @param \Application\Entity\ZfcmsModules $module
-     *
      * @return ZfcmsCategories
      */
     public function setModule(\Application\Entity\ZfcmsModules $module = null)
@@ -291,10 +267,9 @@ class ZfcmsCategories
     }
 
     /**
-     * Get module.
-    
+     * Get module
      *
-     * @return \Application\Entity\ZfcmsModules
+     * @return \Application\Entity\ZfcmsModules 
      */
     public function getModule()
     {

@@ -24,14 +24,14 @@ class ZfcmsComuniAmmapertaSezioni
     /**
      * @var string
      *
-     * @ORM\Column(name="nome", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="nome", type="text", nullable=false)
      */
     private $nome;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="responsabile", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="responsabile", type="text", nullable=true)
      */
     private $responsabile;
 
@@ -52,10 +52,9 @@ class ZfcmsComuniAmmapertaSezioni
 
 
     /**
-     * Get id.
-    
+     * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -63,11 +62,9 @@ class ZfcmsComuniAmmapertaSezioni
     }
 
     /**
-     * Set nome.
-    
+     * Set nome
      *
      * @param string $nome
-     *
      * @return ZfcmsComuniAmmapertaSezioni
      */
     public function setNome($nome)
@@ -78,10 +75,9 @@ class ZfcmsComuniAmmapertaSezioni
     }
 
     /**
-     * Get nome.
-    
+     * Get nome
      *
-     * @return string
+     * @return string 
      */
     public function getNome()
     {
@@ -89,11 +85,9 @@ class ZfcmsComuniAmmapertaSezioni
     }
 
     /**
-     * Set responsabile.
-    
+     * Set responsabile
      *
      * @param string $responsabile
-     *
      * @return ZfcmsComuniAmmapertaSezioni
      */
     public function setResponsabile($responsabile)
@@ -104,10 +98,9 @@ class ZfcmsComuniAmmapertaSezioni
     }
 
     /**
-     * Get responsabile.
-    
+     * Get responsabile
      *
-     * @return string
+     * @return string 
      */
     public function getResponsabile()
     {
@@ -115,11 +108,9 @@ class ZfcmsComuniAmmapertaSezioni
     }
 
     /**
-     * Set predefinita.
-    
+     * Set predefinita
      *
      * @param integer $predefinita
-     *
      * @return ZfcmsComuniAmmapertaSezioni
      */
     public function setPredefinita($predefinita)
@@ -130,10 +121,9 @@ class ZfcmsComuniAmmapertaSezioni
     }
 
     /**
-     * Get predefinita.
-    
+     * Get predefinita
      *
-     * @return integer
+     * @return integer 
      */
     public function getPredefinita()
     {
@@ -141,11 +131,9 @@ class ZfcmsComuniAmmapertaSezioni
     }
 
     /**
-     * Set attivo.
-    
+     * Set attivo
      *
      * @param integer $attivo
-     *
      * @return ZfcmsComuniAmmapertaSezioni
      */
     public function setAttivo($attivo)
@@ -156,10 +144,9 @@ class ZfcmsComuniAmmapertaSezioni
     }
 
     /**
-     * Get attivo.
-    
+     * Get attivo
      *
-     * @return integer
+     * @return integer 
      */
     public function getAttivo()
     {

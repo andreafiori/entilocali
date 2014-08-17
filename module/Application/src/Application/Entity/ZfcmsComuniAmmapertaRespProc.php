@@ -24,7 +24,7 @@ class ZfcmsComuniAmmapertaRespProc
     /**
      * @var string
      *
-     * @ORM\Column(name="nome_resp", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="nome_resp", type="text", nullable=false)
      */
     private $nomeResp;
 
@@ -38,10 +38,9 @@ class ZfcmsComuniAmmapertaRespProc
 
 
     /**
-     * Get id.
-    
+     * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -49,11 +48,9 @@ class ZfcmsComuniAmmapertaRespProc
     }
 
     /**
-     * Set nomeResp.
-    
+     * Set nomeResp
      *
      * @param string $nomeResp
-     *
      * @return ZfcmsComuniAmmapertaRespProc
      */
     public function setNomeResp($nomeResp)
@@ -64,10 +61,9 @@ class ZfcmsComuniAmmapertaRespProc
     }
 
     /**
-     * Get nomeResp.
-    
+     * Get nomeResp
      *
-     * @return string
+     * @return string 
      */
     public function getNomeResp()
     {
@@ -75,11 +71,9 @@ class ZfcmsComuniAmmapertaRespProc
     }
 
     /**
-     * Set attivo.
-    
+     * Set attivo
      *
      * @param integer $attivo
-     *
      * @return ZfcmsComuniAmmapertaRespProc
      */
     public function setAttivo($attivo)
@@ -90,10 +84,9 @@ class ZfcmsComuniAmmapertaRespProc
     }
 
     /**
-     * Get attivo.
-    
+     * Get attivo
      *
-     * @return integer
+     * @return integer 
      */
     public function getAttivo()
     {

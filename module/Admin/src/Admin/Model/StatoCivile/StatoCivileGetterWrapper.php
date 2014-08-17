@@ -11,43 +11,30 @@ use Admin\Model\StatoCivile\StatoCivileGetter;
  */
 class StatoCivileGetterWrapper extends RecordsGetterWrapperAbstract
 {
-    private $statoCivileGetter;
+    /** @var \Admin\Model\StatoCivile\StatoCivileGetter **/
+    protected $objectGetter;
 
     /**
      * @param \Admin\Model\StatoCivile\StatoCivileGetter $statoCivileGetter
      */
     public function __construct(StatoCivileGetter $statoCivileGetter)
     {
-        $this->statoCivileGetter = $statoCivileGetter;
+        $this->setObjectGetter($statoCivileGetter);
     }
     
     public function setupQueryBuilder()
     { 
-        $this->statoCivileGetter->setSelectQueryFields( $this->getInput('fields', 1) );
+        $this->objectGetter->setSelectQueryFields( $this->getInput('fields', 1) );
 
-        $this->statoCivileGetter->setMainQuery();
+        $this->objectGetter->setMainQuery();
         
-        $this->statoCivileGetter->setId( $this->getInput('id', 1) );
-        $this->statoCivileGetter->setProgressivo( $this->getInput('progressivo', 1) );
-        $this->statoCivileGetter->setAnno( $this->getInput('anno', 1) );
-        $this->statoCivileGetter->setTextSearch( $this->getInput('textSearch', 1) );
-        $this->statoCivileGetter->setSezioneId( $this->getInput('textSearch', 1) );
-        $this->statoCivileGetter->setOrderBy( $this->getInput('orderBy', 1) );
-        $this->statoCivileGetter->setLimit( $this->getInput('limit', 1) );
-    }
-    
-    /**
-     * Setup query (for paginator)
-     */
-    public function setupQuery(\Doctrine\ORM\EntityManager $entityManager)
-    {
-        $this->query = $entityManager->createQuery( $this->statoCivileGetter->getDQLQuery() )
-                                ->setFirstResult($this->firstResult)
-                                ->setMaxResults($this->maxResults)
-                                ->setParameters( $this->statoCivileGetter->getQuery()->getParameters() )
-                                ->getScalarResult();
-
-        return $this->query;
+        $this->objectGetter->setId( $this->getInput('id', 1) );
+        $this->objectGetter->setProgressivo( $this->getInput('progressivo', 1) );
+        $this->objectGetter->setAnno( $this->getInput('anno', 1) );
+        $this->objectGetter->setTextSearch( $this->getInput('textSearch', 1) );
+        $this->objectGetter->setSezioneId( $this->getInput('textSearch', 1) );
+        $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
+        $this->objectGetter->setLimit( $this->getInput('limit', 1) );
     }
     
     /**
@@ -55,7 +42,7 @@ class StatoCivileGetterWrapper extends RecordsGetterWrapperAbstract
      */
     public function getRecords()
     {
-        $records = $this->statoCivileGetter->getQueryResult();
+        $records = $this->objectGetter->getQueryResult();
         if ($records) {
             foreach($records as $record) {
                 

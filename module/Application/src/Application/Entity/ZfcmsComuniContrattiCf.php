@@ -24,17 +24,16 @@ class ZfcmsComuniContrattiCf
     /**
      * @var string
      *
-     * @ORM\Column(name="cf_struttura", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="cf_struttura", type="text", nullable=false)
      */
     private $cfStruttura;
 
 
 
     /**
-     * Get id.
-    
+     * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -42,11 +41,9 @@ class ZfcmsComuniContrattiCf
     }
 
     /**
-     * Set cfStruttura.
-    
+     * Set cfStruttura
      *
      * @param string $cfStruttura
-     *
      * @return ZfcmsComuniContrattiCf
      */
     public function setCfStruttura($cfStruttura)
@@ -57,10 +54,9 @@ class ZfcmsComuniContrattiCf
     }
 
     /**
-     * Get cfStruttura.
-    
+     * Get cfStruttura
      *
-     * @return string
+     * @return string 
      */
     public function getCfStruttura()
     {

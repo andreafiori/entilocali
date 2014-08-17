@@ -24,7 +24,7 @@ class ZfcmsTicketsMessages
     /**
      * @var string
      *
-     * @ORM\Column(name="message", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="message", type="text", nullable=false)
      */
     private $message;
 
@@ -52,10 +52,9 @@ class ZfcmsTicketsMessages
 
 
     /**
-     * Get id.
-    
+     * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -63,11 +62,9 @@ class ZfcmsTicketsMessages
     }
 
     /**
-     * Set message.
-    
+     * Set message
      *
      * @param string $message
-     *
      * @return ZfcmsTicketsMessages
      */
     public function setMessage($message)
@@ -78,10 +75,9 @@ class ZfcmsTicketsMessages
     }
 
     /**
-     * Get message.
-    
+     * Get message
      *
-     * @return string
+     * @return string 
      */
     public function getMessage()
     {
@@ -89,11 +85,9 @@ class ZfcmsTicketsMessages
     }
 
     /**
-     * Set insertDate.
-    
+     * Set insertDate
      *
      * @param \DateTime $insertDate
-     *
      * @return ZfcmsTicketsMessages
      */
     public function setInsertDate($insertDate)
@@ -104,10 +98,9 @@ class ZfcmsTicketsMessages
     }
 
     /**
-     * Get insertDate.
-    
+     * Get insertDate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getInsertDate()
     {
@@ -115,11 +108,9 @@ class ZfcmsTicketsMessages
     }
 
     /**
-     * Set ticketId.
-    
+     * Set ticketId
      *
      * @param integer $ticketId
-     *
      * @return ZfcmsTicketsMessages
      */
     public function setTicketId($ticketId)
@@ -130,10 +121,9 @@ class ZfcmsTicketsMessages
     }
 
     /**
-     * Get ticketId.
-    
+     * Get ticketId
      *
-     * @return integer
+     * @return integer 
      */
     public function getTicketId()
     {
@@ -141,11 +131,9 @@ class ZfcmsTicketsMessages
     }
 
     /**
-     * Set userId.
-    
+     * Set userId
      *
      * @param integer $userId
-     *
      * @return ZfcmsTicketsMessages
      */
     public function setUserId($userId)
@@ -156,10 +144,9 @@ class ZfcmsTicketsMessages
     }
 
     /**
-     * Get userId.
-    
+     * Get userId
      *
-     * @return integer
+     * @return integer 
      */
     public function getUserId()
     {

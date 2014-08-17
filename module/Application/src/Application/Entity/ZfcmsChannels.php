@@ -69,10 +69,9 @@ class ZfcmsChannels
 
 
     /**
-     * Get id.
-    
+     * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -80,11 +79,9 @@ class ZfcmsChannels
     }
 
     /**
-     * Set name.
-    
+     * Set name
      *
      * @param string $name
-     *
      * @return ZfcmsChannels
      */
     public function setName($name)
@@ -95,10 +92,9 @@ class ZfcmsChannels
     }
 
     /**
-     * Get name.
-    
+     * Get name
      *
-     * @return string
+     * @return string 
      */
     public function getName()
     {
@@ -106,11 +102,9 @@ class ZfcmsChannels
     }
 
     /**
-     * Set domain.
-    
+     * Set domain
      *
      * @param string $domain
-     *
      * @return ZfcmsChannels
      */
     public function setDomain($domain)
@@ -121,10 +115,9 @@ class ZfcmsChannels
     }
 
     /**
-     * Get domain.
-    
+     * Get domain
      *
-     * @return string
+     * @return string 
      */
     public function getDomain()
     {
@@ -132,11 +125,9 @@ class ZfcmsChannels
     }
 
     /**
-     * Set subdomain.
-    
+     * Set subdomain
      *
      * @param string $subdomain
-     *
      * @return ZfcmsChannels
      */
     public function setSubdomain($subdomain)
@@ -147,10 +138,9 @@ class ZfcmsChannels
     }
 
     /**
-     * Get subdomain.
-    
+     * Get subdomain
      *
-     * @return string
+     * @return string 
      */
     public function getSubdomain()
     {
@@ -158,11 +148,9 @@ class ZfcmsChannels
     }
 
     /**
-     * Set isMultilanguage.
-    
+     * Set isMultilanguage
      *
      * @param integer $isMultilanguage
-     *
      * @return ZfcmsChannels
      */
     public function setIsMultilanguage($isMultilanguage)
@@ -173,10 +161,9 @@ class ZfcmsChannels
     }
 
     /**
-     * Get isMultilanguage.
-    
+     * Get isMultilanguage
      *
-     * @return integer
+     * @return integer 
      */
     public function getIsMultilanguage()
     {
@@ -184,11 +171,9 @@ class ZfcmsChannels
     }
 
     /**
-     * Set isDefault.
-    
+     * Set isDefault
      *
      * @param integer $isDefault
-     *
      * @return ZfcmsChannels
      */
     public function setIsDefault($isDefault)
@@ -199,10 +184,9 @@ class ZfcmsChannels
     }
 
     /**
-     * Get isDefault.
-    
+     * Get isDefault
      *
-     * @return integer
+     * @return integer 
      */
     public function getIsDefault()
     {
@@ -210,11 +194,9 @@ class ZfcmsChannels
     }
 
     /**
-     * Set language.
-    
+     * Set language
      *
      * @param \Application\Entity\ZfcmsLanguages $language
-     *
      * @return ZfcmsChannels
      */
     public function setLanguage(\Application\Entity\ZfcmsLanguages $language = null)
@@ -225,10 +207,9 @@ class ZfcmsChannels
     }
 
     /**
-     * Get language.
-    
+     * Get language
      *
-     * @return \Application\Entity\ZfcmsLanguages
+     * @return \Application\Entity\ZfcmsLanguages 
      */
     public function getLanguage()
     {

@@ -66,10 +66,9 @@ class ZfcmsComuniContrattiPartCig
 
 
     /**
-     * Get id.
-    
+     * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -77,11 +76,9 @@ class ZfcmsComuniContrattiPartCig
     }
 
     /**
-     * Set stato.
-    
+     * Set stato
      *
      * @param integer $stato
-     *
      * @return ZfcmsComuniContrattiPartCig
      */
     public function setStato($stato)
@@ -92,10 +89,9 @@ class ZfcmsComuniContrattiPartCig
     }
 
     /**
-     * Get stato.
-    
+     * Get stato
      *
-     * @return integer
+     * @return integer 
      */
     public function getStato()
     {
@@ -103,11 +99,9 @@ class ZfcmsComuniContrattiPartCig
     }
 
     /**
-     * Set gruppo.
-    
+     * Set gruppo
      *
      * @param integer $gruppo
-     *
      * @return ZfcmsComuniContrattiPartCig
      */
     public function setGruppo($gruppo)
@@ -118,10 +112,9 @@ class ZfcmsComuniContrattiPartCig
     }
 
     /**
-     * Get gruppo.
-    
+     * Get gruppo
      *
-     * @return integer
+     * @return integer 
      */
     public function getGruppo()
     {
@@ -129,11 +122,9 @@ class ZfcmsComuniContrattiPartCig
     }
 
     /**
-     * Set aggiudicatario.
-    
+     * Set aggiudicatario
      *
      * @param integer $aggiudicatario
-     *
      * @return ZfcmsComuniContrattiPartCig
      */
     public function setAggiudicatario($aggiudicatario)
@@ -144,10 +135,9 @@ class ZfcmsComuniContrattiPartCig
     }
 
     /**
-     * Get aggiudicatario.
-    
+     * Get aggiudicatario
      *
-     * @return integer
+     * @return integer 
      */
     public function getAggiudicatario()
     {
@@ -155,11 +145,9 @@ class ZfcmsComuniContrattiPartCig
     }
 
     /**
-     * Set membro.
-    
+     * Set membro
      *
      * @param integer $membro
-     *
      * @return ZfcmsComuniContrattiPartCig
      */
     public function setMembro($membro)
@@ -170,10 +158,9 @@ class ZfcmsComuniContrattiPartCig
     }
 
     /**
-     * Get membro.
-    
+     * Get membro
      *
-     * @return integer
+     * @return integer 
      */
     public function getMembro()
     {
@@ -181,11 +168,9 @@ class ZfcmsComuniContrattiPartCig
     }
 
     /**
-     * Set contPubPartId.
-    
+     * Set contPubPartId
      *
      * @param integer $contPubPartId
-     *
      * @return ZfcmsComuniContrattiPartCig
      */
     public function setContPubPartId($contPubPartId)
@@ -196,10 +181,9 @@ class ZfcmsComuniContrattiPartCig
     }
 
     /**
-     * Get contPubPartId.
-    
+     * Get contPubPartId
      *
-     * @return integer
+     * @return integer 
      */
     public function getContPubPartId()
     {
@@ -207,11 +191,9 @@ class ZfcmsComuniContrattiPartCig
     }
 
     /**
-     * Set contPubId.
-    
+     * Set contPubId
      *
      * @param integer $contPubId
-     *
      * @return ZfcmsComuniContrattiPartCig
      */
     public function setContPubId($contPubId)
@@ -222,10 +204,9 @@ class ZfcmsComuniContrattiPartCig
     }
 
     /**
-     * Get contPubId.
-    
+     * Get contPubId
      *
-     * @return integer
+     * @return integer 
      */
     public function getContPubId()
     {

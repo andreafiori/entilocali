@@ -15,7 +15,7 @@ class ZfcmsUsersRolesPermissions
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="bigint", nullable=false, options={"unsigned"=true})
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -38,10 +38,9 @@ class ZfcmsUsersRolesPermissions
 
 
     /**
-     * Get id.
-    
+     * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -49,11 +48,9 @@ class ZfcmsUsersRolesPermissions
     }
 
     /**
-     * Set rolePermissionId.
-    
+     * Set rolePermissionId
      *
      * @param integer $rolePermissionId
-     *
      * @return ZfcmsUsersRolesPermissions
      */
     public function setRolePermissionId($rolePermissionId)
@@ -64,10 +61,9 @@ class ZfcmsUsersRolesPermissions
     }
 
     /**
-     * Get rolePermissionId.
-    
+     * Get rolePermissionId
      *
-     * @return integer
+     * @return integer 
      */
     public function getRolePermissionId()
     {
@@ -75,11 +71,9 @@ class ZfcmsUsersRolesPermissions
     }
 
     /**
-     * Set permissionId.
-    
+     * Set permissionId
      *
      * @param integer $permissionId
-     *
      * @return ZfcmsUsersRolesPermissions
      */
     public function setPermissionId($permissionId)
@@ -90,10 +84,9 @@ class ZfcmsUsersRolesPermissions
     }
 
     /**
-     * Get permissionId.
-    
+     * Get permissionId
      *
-     * @return integer
+     * @return integer 
      */
     public function getPermissionId()
     {

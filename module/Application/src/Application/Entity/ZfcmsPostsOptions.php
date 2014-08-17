@@ -73,7 +73,7 @@ class ZfcmsPostsOptions
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
@@ -129,7 +129,7 @@ class ZfcmsPostsOptions
     /**
      * @var string
      *
-     * @ORM\Column(name="href", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="href", type="text", nullable=true)
      */
     private $href;
 
@@ -156,10 +156,9 @@ class ZfcmsPostsOptions
 
 
     /**
-     * Get id.
-    
+     * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -167,11 +166,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set note.
-    
+     * Set note
      *
      * @param string $note
-     *
      * @return ZfcmsPostsOptions
      */
     public function setNote($note)
@@ -182,10 +179,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get note.
-    
+     * Get note
      *
-     * @return string
+     * @return string 
      */
     public function getNote()
     {
@@ -193,11 +189,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set dateFrom.
-    
+     * Set dateFrom
      *
      * @param \DateTime $dateFrom
-     *
      * @return ZfcmsPostsOptions
      */
     public function setDateFrom($dateFrom)
@@ -208,10 +202,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get dateFrom.
-    
+     * Get dateFrom
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getDateFrom()
     {
@@ -219,11 +212,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set dataTo.
-    
+     * Set dataTo
      *
      * @param \DateTime $dataTo
-     *
      * @return ZfcmsPostsOptions
      */
     public function setDataTo($dataTo)
@@ -234,10 +225,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get dataTo.
-    
+     * Get dataTo
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getDataTo()
     {
@@ -245,11 +235,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set image.
-    
+     * Set image
      *
      * @param string $image
-     *
      * @return ZfcmsPostsOptions
      */
     public function setImage($image)
@@ -260,10 +248,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get image.
-    
+     * Get image
      *
-     * @return string
+     * @return string 
      */
     public function getImage()
     {
@@ -271,11 +258,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set imageHomepage.
-    
+     * Set imageHomepage
      *
      * @param string $imageHomepage
-     *
      * @return ZfcmsPostsOptions
      */
     public function setImageHomepage($imageHomepage)
@@ -286,10 +271,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get imageHomepage.
-    
+     * Get imageHomepage
      *
-     * @return string
+     * @return string 
      */
     public function getImageHomepage()
     {
@@ -297,11 +281,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set title.
-    
+     * Set title
      *
      * @param string $title
-     *
      * @return ZfcmsPostsOptions
      */
     public function setTitle($title)
@@ -312,10 +294,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get title.
-    
+     * Get title
      *
-     * @return string
+     * @return string 
      */
     public function getTitle()
     {
@@ -323,11 +304,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set subtitle.
-    
+     * Set subtitle
      *
      * @param string $subtitle
-     *
      * @return ZfcmsPostsOptions
      */
     public function setSubtitle($subtitle)
@@ -338,10 +317,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get subtitle.
-    
+     * Get subtitle
      *
-     * @return string
+     * @return string 
      */
     public function getSubtitle()
     {
@@ -349,11 +327,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set description.
-    
+     * Set description
      *
      * @param string $description
-     *
      * @return ZfcmsPostsOptions
      */
     public function setDescription($description)
@@ -364,10 +340,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get description.
-    
+     * Get description
      *
-     * @return string
+     * @return string 
      */
     public function getDescription()
     {
@@ -375,11 +350,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set status.
-    
+     * Set status
      *
      * @param string $status
-     *
      * @return ZfcmsPostsOptions
      */
     public function setStatus($status)
@@ -390,10 +363,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get status.
-    
+     * Get status
      *
-     * @return string
+     * @return string 
      */
     public function getStatus()
     {
@@ -401,11 +373,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set position.
-    
+     * Set position
      *
      * @param integer $position
-     *
      * @return ZfcmsPostsOptions
      */
     public function setPosition($position)
@@ -416,10 +386,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get position.
-    
+     * Get position
      *
-     * @return integer
+     * @return integer 
      */
     public function getPosition()
     {
@@ -427,11 +396,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set seoUrl.
-    
+     * Set seoUrl
      *
      * @param string $seoUrl
-     *
      * @return ZfcmsPostsOptions
      */
     public function setSeoUrl($seoUrl)
@@ -442,10 +409,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get seoUrl.
-    
+     * Get seoUrl
      *
-     * @return string
+     * @return string 
      */
     public function getSeoUrl()
     {
@@ -453,11 +419,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set seoTitle.
-    
+     * Set seoTitle
      *
      * @param string $seoTitle
-     *
      * @return ZfcmsPostsOptions
      */
     public function setSeoTitle($seoTitle)
@@ -468,10 +432,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get seoTitle.
-    
+     * Get seoTitle
      *
-     * @return string
+     * @return string 
      */
     public function getSeoTitle()
     {
@@ -479,11 +442,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set seoDescription.
-    
+     * Set seoDescription
      *
      * @param string $seoDescription
-     *
      * @return ZfcmsPostsOptions
      */
     public function setSeoDescription($seoDescription)
@@ -494,10 +455,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get seoDescription.
-    
+     * Get seoDescription
      *
-     * @return string
+     * @return string 
      */
     public function getSeoDescription()
     {
@@ -505,11 +465,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set seoKeywords.
-    
+     * Set seoKeywords
      *
      * @param string $seoKeywords
-     *
      * @return ZfcmsPostsOptions
      */
     public function setSeoKeywords($seoKeywords)
@@ -520,10 +478,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get seoKeywords.
-    
+     * Get seoKeywords
      *
-     * @return string
+     * @return string 
      */
     public function getSeoKeywords()
     {
@@ -531,11 +488,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set template.
-    
+     * Set template
      *
      * @param string $template
-     *
      * @return ZfcmsPostsOptions
      */
     public function setTemplate($template)
@@ -546,10 +501,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get template.
-    
+     * Get template
      *
-     * @return string
+     * @return string 
      */
     public function getTemplate()
     {
@@ -557,11 +511,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set href.
-    
+     * Set href
      *
      * @param string $href
-     *
      * @return ZfcmsPostsOptions
      */
     public function setHref($href)
@@ -572,10 +524,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get href.
-    
+     * Get href
      *
-     * @return string
+     * @return string 
      */
     public function getHref()
     {
@@ -583,11 +534,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set language.
-    
+     * Set language
      *
      * @param \Application\Entity\ZfcmsLanguages $language
-     *
      * @return ZfcmsPostsOptions
      */
     public function setLanguage(\Application\Entity\ZfcmsLanguages $language = null)
@@ -598,10 +547,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get language.
-    
+     * Get language
      *
-     * @return \Application\Entity\ZfcmsLanguages
+     * @return \Application\Entity\ZfcmsLanguages 
      */
     public function getLanguage()
     {
@@ -609,11 +557,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Set posts.
-    
+     * Set posts
      *
      * @param \Application\Entity\ZfcmsPosts $posts
-     *
      * @return ZfcmsPostsOptions
      */
     public function setPosts(\Application\Entity\ZfcmsPosts $posts = null)
@@ -624,10 +570,9 @@ class ZfcmsPostsOptions
     }
 
     /**
-     * Get posts.
-    
+     * Get posts
      *
-     * @return \Application\Entity\ZfcmsPosts
+     * @return \Application\Entity\ZfcmsPosts 
      */
     public function getPosts()
     {

@@ -101,8 +101,8 @@ class PostsForm extends Form
                         'name' => 'status',
                         'options' => array(
                                'label' => 'Stato',
+                                'empty_option' => 'Seleziona',
                                'value_options' => array(
-                                       '' => 'Seleziona',
                                        'attivo'   => 'Attivo',
                                        'nascosto' => 'Nascosto',
                                ),

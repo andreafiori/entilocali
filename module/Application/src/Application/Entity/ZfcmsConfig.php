@@ -31,7 +31,7 @@ class ZfcmsConfig
     /**
      * @var string
      *
-     * @ORM\Column(name="value", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="value", type="text", nullable=true)
      */
     private $value;
 
@@ -80,10 +80,9 @@ class ZfcmsConfig
 
 
     /**
-     * Get id.
-    
+     * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -91,11 +90,9 @@ class ZfcmsConfig
     }
 
     /**
-     * Set name.
-    
+     * Set name
      *
      * @param string $name
-     *
      * @return ZfcmsConfig
      */
     public function setName($name)
@@ -106,10 +103,9 @@ class ZfcmsConfig
     }
 
     /**
-     * Get name.
-    
+     * Get name
      *
-     * @return string
+     * @return string 
      */
     public function getName()
     {
@@ -117,11 +113,9 @@ class ZfcmsConfig
     }
 
     /**
-     * Set value.
-    
+     * Set value
      *
      * @param string $value
-     *
      * @return ZfcmsConfig
      */
     public function setValue($value)
@@ -132,10 +126,9 @@ class ZfcmsConfig
     }
 
     /**
-     * Get value.
-    
+     * Get value
      *
-     * @return string
+     * @return string 
      */
     public function getValue()
     {
@@ -143,11 +136,9 @@ class ZfcmsConfig
     }
 
     /**
-     * Set note.
-    
+     * Set note
      *
      * @param string $note
-     *
      * @return ZfcmsConfig
      */
     public function setNote($note)
@@ -158,10 +149,9 @@ class ZfcmsConfig
     }
 
     /**
-     * Get note.
-    
+     * Get note
      *
-     * @return string
+     * @return string 
      */
     public function getNote()
     {
@@ -169,11 +159,9 @@ class ZfcmsConfig
     }
 
     /**
-     * Set isBackend.
-    
+     * Set isBackend
      *
      * @param integer $isBackend
-     *
      * @return ZfcmsConfig
      */
     public function setIsBackend($isBackend)
@@ -184,10 +172,9 @@ class ZfcmsConfig
     }
 
     /**
-     * Get isBackend.
-    
+     * Get isBackend
      *
-     * @return integer
+     * @return integer 
      */
     public function getIsBackend()
     {
@@ -195,11 +182,9 @@ class ZfcmsConfig
     }
 
     /**
-     * Set isAlwaysAllowed.
-    
+     * Set isAlwaysAllowed
      *
      * @param integer $isAlwaysAllowed
-     *
      * @return ZfcmsConfig
      */
     public function setIsAlwaysAllowed($isAlwaysAllowed)
@@ -210,10 +195,9 @@ class ZfcmsConfig
     }
 
     /**
-     * Get isAlwaysAllowed.
-    
+     * Get isAlwaysAllowed
      *
-     * @return integer
+     * @return integer 
      */
     public function getIsAlwaysAllowed()
     {
@@ -221,11 +205,9 @@ class ZfcmsConfig
     }
 
     /**
-     * Set moduleId.
-    
+     * Set moduleId
      *
      * @param integer $moduleId
-     *
      * @return ZfcmsConfig
      */
     public function setModuleId($moduleId)
@@ -236,10 +218,9 @@ class ZfcmsConfig
     }
 
     /**
-     * Get moduleId.
-    
+     * Get moduleId
      *
-     * @return integer
+     * @return integer 
      */
     public function getModuleId()
     {
@@ -247,11 +228,9 @@ class ZfcmsConfig
     }
 
     /**
-     * Set channelId.
-    
+     * Set channelId
      *
      * @param integer $channelId
-     *
      * @return ZfcmsConfig
      */
     public function setChannelId($channelId)
@@ -262,10 +241,9 @@ class ZfcmsConfig
     }
 
     /**
-     * Get channelId.
-    
+     * Get channelId
      *
-     * @return integer
+     * @return integer 
      */
     public function getChannelId()
     {
@@ -273,11 +251,9 @@ class ZfcmsConfig
     }
 
     /**
-     * Set languageId.
-    
+     * Set languageId
      *
      * @param integer $languageId
-     *
      * @return ZfcmsConfig
      */
     public function setLanguageId($languageId)
@@ -288,10 +264,9 @@ class ZfcmsConfig
     }
 
     /**
-     * Get languageId.
-    
+     * Get languageId
      *
-     * @return integer
+     * @return integer 
      */
     public function getLanguageId()
     {

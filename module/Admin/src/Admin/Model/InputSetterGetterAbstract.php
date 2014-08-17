@@ -38,7 +38,7 @@ abstract class InputSetterGetterAbstract
          * @param type $noArray
          * @return array
          */
-        protected function getArrayValue($array, $key = null, $noArray=null)
+        protected function getArrayValue($array, $key = null, $noArray = null)
         {
             if ( isset($array[$key]) ) {
                 return $array[$key];

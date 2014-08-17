@@ -73,6 +73,9 @@ class CategoriesCrudHandler extends CrudHandlerAbstract implements CrudHandlerIn
             
             try { 
                 $this->setArrayRecordToHandle("name", 'name');
+                $this->setArrayRecordToHandle("description", 'description');
+                $this->setArrayRecordToHandle("seo_description", 'seoDescription');
+                $this->setArrayRecordToHandle("seo_keywords", 'seoKeywords');
                 $this->getConnection()->update('zfcms_categories_options', $this->getArrayRecordToHandle(), array('category_id' => $this->rawPost['id']) );
             } catch(\Exception $e) {
                 return $this->setErrorMessage("Si &egrave; verificato un errore nell'aggiornamento dati in archivio. <h2>Messaggio:</h2> ".$e->getMessage());

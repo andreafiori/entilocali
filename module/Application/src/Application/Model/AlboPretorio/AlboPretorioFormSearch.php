@@ -142,5 +142,4 @@ class AlboPretorioFormSearch extends AlboPretorioFormAbstract
             ))
         );
     }
-    
 }

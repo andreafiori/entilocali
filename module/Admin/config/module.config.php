@@ -110,6 +110,19 @@ return array(
                                                 ),
                                     ),
                     ),
+                    'attachments' => array(
+                                    'type'    => 'Segment',
+                                    'options' => array(
+                                                'route'         => 'attachments[/]',
+                                                'constraints'   => array(
+                                                    
+                                                ),
+                                                'defaults' => array(
+                                                    'controller' => 'Admin\Controller\Admin',
+                                                    'action'     => 'index',
+                                                ),
+                                    ),
+                    ),
                 ),
             ),
         ),
@@ -153,6 +166,7 @@ return array(
         'amministrazione-trasparente'   => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFormDataHandler',
         'stato-civile'                  => 'Admin\Model\StatoCivile\StatoCivileFormDataHandler',
         'contratti-pubblici'            => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciFormDataHandler',
+        'contratti-pubblici-scelta-contraente' => 'Admin\Model\ContrattiPubblici\SceltaContraenteFormDataHandler',
         'posts'                         => 'Admin\Model\Posts\PostsFormDataHandler',
         'categories'                    => 'Admin\Model\Categories\CategoriesFormDataHandler',
         'tickets'                       => 'Admin\Model\Tickets\TicketsFormDataHandler',
@@ -180,12 +194,16 @@ return array(
         'contacts'                    => 'Admin\Model\Contacts\ContactsDataTable',
         'faq'                         => 'Admin\Model\Faq\FaqDataTable',
         'newsletter'                  => 'Admin\Model\Newsletter\NewsletterDataTable',
-        'posts'                       => 'Admin\Model\Posts\PostsDataTable',
+        'contents'                    => 'Admin\Model\Posts\PostsDataTable',
+        'photo'                       => 'Admin\Model\Posts\PostsDataTable',
+        'blog'                        => 'Admin\Model\Posts\PostsDataTable',
         'users'                       => 'Admin\Model\Users\UsersDataTable',
         'albo-pretorio'               => 'Admin\Model\AlboPretorio\AlboPretorioDataTable',
         'albo-pretorio-sezioni'       => 'Admin\Model\AlboPretorio\AlboPretorioSezioniDataTable',
         'amministrazione-trasparente' => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteDataTable',
-        'contratti-pubblici-bandi'    => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciBandiDataTable',
+        'contratti-pubblici'          => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciDataTable',
+        'contratti-pubblici-scelta-contraente' => 'Admin\Model\ContrattiPubblici\SceltaContraenteDataTable',
+        'contratti-pubblici-responsabili' => 'Admin\Model\ContrattiPubblici\ResposabiliProcedimentoDataTable',
         'stato-civile'                => 'Admin\Model\StatoCivile\StatoCivileDataTable',
     ),
 );

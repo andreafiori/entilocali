@@ -24,7 +24,7 @@ class ZfcmsComuniContrattiRespProc
     /**
      * @var string
      *
-     * @ORM\Column(name="nome_resp", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="nome_resp", type="text", nullable=false)
      */
     private $nomeResp;
 
@@ -38,10 +38,9 @@ class ZfcmsComuniContrattiRespProc
 
 
     /**
-     * Get id.
-    
+     * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -49,11 +48,9 @@ class ZfcmsComuniContrattiRespProc
     }
 
     /**
-     * Set nomeResp.
-    
+     * Set nomeResp
      *
      * @param string $nomeResp
-     *
      * @return ZfcmsComuniContrattiRespProc
      */
     public function setNomeResp($nomeResp)
@@ -64,10 +61,9 @@ class ZfcmsComuniContrattiRespProc
     }
 
     /**
-     * Get nomeResp.
-    
+     * Get nomeResp
      *
-     * @return string
+     * @return string 
      */
     public function getNomeResp()
     {
@@ -75,11 +71,9 @@ class ZfcmsComuniContrattiRespProc
     }
 
     /**
-     * Set attivo.
-    
+     * Set attivo
      *
      * @param integer $attivo
-     *
      * @return ZfcmsComuniContrattiRespProc
      */
     public function setAttivo($attivo)
@@ -90,10 +84,9 @@ class ZfcmsComuniContrattiRespProc
     }
 
     /**
-     * Get attivo.
-    
+     * Get attivo
      *
-     * @return integer
+     * @return integer 
      */
     public function getAttivo()
     {

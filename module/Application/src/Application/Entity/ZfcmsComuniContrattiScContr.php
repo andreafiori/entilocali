@@ -24,7 +24,7 @@ class ZfcmsComuniContrattiScContr
     /**
      * @var string
      *
-     * @ORM\Column(name="nome_scelta", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="nome_scelta", type="text", nullable=false)
      */
     private $nomeScelta;
 
@@ -38,10 +38,9 @@ class ZfcmsComuniContrattiScContr
 
 
     /**
-     * Get id.
-    
+     * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -49,11 +48,9 @@ class ZfcmsComuniContrattiScContr
     }
 
     /**
-     * Set nomeScelta.
-    
+     * Set nomeScelta
      *
      * @param string $nomeScelta
-     *
      * @return ZfcmsComuniContrattiScContr
      */
     public function setNomeScelta($nomeScelta)
@@ -64,10 +61,9 @@ class ZfcmsComuniContrattiScContr
     }
 
     /**
-     * Get nomeScelta.
-    
+     * Get nomeScelta
      *
-     * @return string
+     * @return string 
      */
     public function getNomeScelta()
     {
@@ -75,11 +71,9 @@ class ZfcmsComuniContrattiScContr
     }
 
     /**
-     * Set attivo.
-    
+     * Set attivo
      *
      * @param integer $attivo
-     *
      * @return ZfcmsComuniContrattiScContr
      */
     public function setAttivo($attivo)
@@ -90,10 +84,9 @@ class ZfcmsComuniContrattiScContr
     }
 
     /**
-     * Get attivo.
-    
+     * Get attivo
      *
-     * @return integer
+     * @return integer 
      */
     public function getAttivo()
     {

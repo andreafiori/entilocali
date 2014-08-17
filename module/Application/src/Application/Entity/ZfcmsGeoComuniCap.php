@@ -48,10 +48,9 @@ class ZfcmsGeoComuniCap
 
 
     /**
-     * Get id.
-    
+     * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -59,11 +58,9 @@ class ZfcmsGeoComuniCap
     }
 
     /**
-     * Set capcode.
-    
+     * Set capcode
      *
      * @param string $capcode
-     *
      * @return ZfcmsGeoComuniCap
      */
     public function setCapcode($capcode)
@@ -74,10 +71,9 @@ class ZfcmsGeoComuniCap
     }
 
     /**
-     * Get capcode.
-    
+     * Get capcode
      *
-     * @return string
+     * @return string 
      */
     public function getCapcode()
     {
@@ -85,11 +81,9 @@ class ZfcmsGeoComuniCap
     }
 
     /**
-     * Set nome.
-    
+     * Set nome
      *
      * @param string $nome
-     *
      * @return ZfcmsGeoComuniCap
      */
     public function setNome($nome)
@@ -100,10 +94,9 @@ class ZfcmsGeoComuniCap
     }
 
     /**
-     * Get nome.
-    
+     * Get nome
      *
-     * @return string
+     * @return string 
      */
     public function getNome()
     {
@@ -111,11 +104,9 @@ class ZfcmsGeoComuniCap
     }
 
     /**
-     * Set comune.
-    
+     * Set comune
      *
      * @param \Application\Entity\ZfcmsGeoComuni $comune
-     *
      * @return ZfcmsGeoComuniCap
      */
     public function setComune(\Application\Entity\ZfcmsGeoComuni $comune = null)
@@ -126,10 +117,9 @@ class ZfcmsGeoComuniCap
     }
 
     /**
-     * Get comune.
-    
+     * Get comune
      *
-     * @return \Application\Entity\ZfcmsGeoComuni
+     * @return \Application\Entity\ZfcmsGeoComuni 
      */
     public function getComune()
     {

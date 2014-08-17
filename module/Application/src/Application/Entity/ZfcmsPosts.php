@@ -80,10 +80,9 @@ class ZfcmsPosts
 
 
     /**
-     * Get id.
-    
+     * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -91,11 +90,9 @@ class ZfcmsPosts
     }
 
     /**
-     * Set note.
-    
+     * Set note
      *
      * @param string $note
-     *
      * @return ZfcmsPosts
      */
     public function setNote($note)
@@ -106,10 +103,9 @@ class ZfcmsPosts
     }
 
     /**
-     * Get note.
-    
+     * Get note
      *
-     * @return string
+     * @return string 
      */
     public function getNote()
     {
@@ -117,11 +113,9 @@ class ZfcmsPosts
     }
 
     /**
-     * Set insertDate.
-    
+     * Set insertDate
      *
      * @param \DateTime $insertDate
-     *
      * @return ZfcmsPosts
      */
     public function setInsertDate($insertDate)
@@ -132,10 +126,9 @@ class ZfcmsPosts
     }
 
     /**
-     * Get insertDate.
-    
+     * Get insertDate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getInsertDate()
     {
@@ -143,11 +136,9 @@ class ZfcmsPosts
     }
 
     /**
-     * Set expireDate.
-    
+     * Set expireDate
      *
      * @param \DateTime $expireDate
-     *
      * @return ZfcmsPosts
      */
     public function setExpireDate($expireDate)
@@ -158,10 +149,9 @@ class ZfcmsPosts
     }
 
     /**
-     * Get expireDate.
-    
+     * Get expireDate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getExpireDate()
     {
@@ -169,11 +159,9 @@ class ZfcmsPosts
     }
 
     /**
-     * Set lastUpdate.
-    
+     * Set lastUpdate
      *
      * @param \DateTime $lastUpdate
-     *
      * @return ZfcmsPosts
      */
     public function setLastUpdate($lastUpdate)
@@ -184,10 +172,9 @@ class ZfcmsPosts
     }
 
     /**
-     * Get lastUpdate.
-    
+     * Get lastUpdate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getLastUpdate()
     {
@@ -195,11 +182,9 @@ class ZfcmsPosts
     }
 
     /**
-     * Set parentId.
-    
+     * Set parentId
      *
      * @param integer $parentId
-     *
      * @return ZfcmsPosts
      */
     public function setParentId($parentId)
@@ -210,10 +195,9 @@ class ZfcmsPosts
     }
 
     /**
-     * Get parentId.
-    
+     * Get parentId
      *
-     * @return integer
+     * @return integer 
      */
     public function getParentId()
     {
@@ -221,11 +205,9 @@ class ZfcmsPosts
     }
 
     /**
-     * Set type.
-    
+     * Set type
      *
      * @param string $type
-     *
      * @return ZfcmsPosts
      */
     public function setType($type)
@@ -236,10 +218,9 @@ class ZfcmsPosts
     }
 
     /**
-     * Get type.
-    
+     * Get type
      *
-     * @return string
+     * @return string 
      */
     public function getType()
     {
@@ -247,11 +228,9 @@ class ZfcmsPosts
     }
 
     /**
-     * Set alias.
-    
+     * Set alias
      *
      * @param string $alias
-     *
      * @return ZfcmsPosts
      */
     public function setAlias($alias)
@@ -262,10 +241,9 @@ class ZfcmsPosts
     }
 
     /**
-     * Get alias.
-    
+     * Get alias
      *
-     * @return string
+     * @return string 
      */
     public function getAlias()
     {
@@ -273,11 +251,9 @@ class ZfcmsPosts
     }
 
     /**
-     * Set flagAttachments.
-    
+     * Set flagAttachments
      *
      * @param string $flagAttachments
-     *
      * @return ZfcmsPosts
      */
     public function setFlagAttachments($flagAttachments)
@@ -288,10 +264,9 @@ class ZfcmsPosts
     }
 
     /**
-     * Get flagAttachments.
-    
+     * Get flagAttachments
      *
-     * @return string
+     * @return string 
      */
     public function getFlagAttachments()
     {

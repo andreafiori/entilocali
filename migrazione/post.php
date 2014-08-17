@@ -170,11 +170,12 @@ switch($_GET['op'])
     break;
 
     case("albo-pretorio"):
-        // clean old data
+        /* Clean old data */
         executeQuery("TRUNCATE TABLE zfcms_comuni_albo_articoli ");
+        
         executeQuery("TRUNCATE TABLE zfcms_comuni_albo_sezioni ");
         
-        // import data
+        /* import data */
         $resultArticoli = executeQuery("INSERT INTO zfcms_comuni_albo_articoli ( SELECT * FROM albo_articoli ) ");
         
         /* correct HTML specialchars */
@@ -196,7 +197,7 @@ switch($_GET['op'])
     case("amministrazione-trasparente"):
         $q = "ammaperta_allegati";
         
-        $q = "zfcms_comuni_     ammaperta_articoli ";
+        $q = "zfcms_comuni_         ammaperta_articoli ";
         
         $q = " ammaperta_resp_proc ";
         
@@ -205,15 +206,24 @@ switch($_GET['op'])
     break;
 
     case("contratti-pubblici"):
+        /* Delete old data to avoid */
+        executeQuery("TRUNCATE TABLE zfcms_comuni_contratti ");
+        executeQuery("TRUNCATE TABLE zfcms_comuni_contratti_partecipanti ");
+        executeQuery("TRUNCATE TABLE zfcms_comuni_contratti_part_cig ");
+        executeQuery("TRUNCATE TABLE zfcms_comuni_contratti_settori ");
+        
         $contrattiPubbliciArticoli = executeQuery("INSERT INTO zfcms_comuni_contratti (SELECT * FROM contpub_data ) ");
         
         $contrattiPubbliciPartecipanti = executeQuery("INSERT INTO zfcms_comuni_contratti_partecipanti ( SELECT * FROM contpub_data ) ");
         
         $contrattiPubbliciPartecCig = executeQuery("INSERT INTO zfcms_comuni_contratti_part_cig ( SELECT * FROM contpub_part_cig ) ");
         
+        $contrattiPubbliciSettori = executeQuery("INSERT INTO zfcms_comuni_contratti_settori ( SELECT * FROM contpub_sezioni ) ");
+
         var_dump($contrattiPubbliciArticoli);
         var_dump($contrattiPubbliciPartecipanti);
         var_dump($contrattiPubbliciPartecCig);
+        var_dump($contrattiPubbliciSettori);
     break;
 
     case("contenuti"):
@@ -227,12 +237,12 @@ switch($_GET['op'])
     case("blogs"):
         // eventi
     break;
-
+    /*
     case("forum"):
         
     break;
 
-    /*
+    
     case("newsletter"):
         
     break;

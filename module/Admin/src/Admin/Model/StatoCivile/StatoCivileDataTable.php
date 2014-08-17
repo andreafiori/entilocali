@@ -40,9 +40,10 @@ class StatoCivileDataTable extends DataTableAbstract
         $this->setRecords($this->getFormattedRecords($paginatorRecords));
 
         $this->setVariable('tablesetter', 'stato-civile');
+        
         $this->setTemplate('datatable/datatable_statocivile.phtml');
     }
-
+    
         private function getRecordsPaginator()
         {
             $param = $this->getInput('param', 1);

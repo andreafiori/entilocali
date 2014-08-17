@@ -27,11 +27,11 @@ class AdminController extends AbstractActionController
     
     public function indexAction()
     {
-        /* Check login
+        /* Check login */
         if (!$this->getServiceLocator()->get('AuthService')->hasIdentity()) {
             return $this->redirect()->toRoute('login');
         }
-         */
+        
         $this->initialize();
         
         $routerManager = new RouterManager($this->configurations);
@@ -47,17 +47,17 @@ class AdminController extends AbstractActionController
                 $this->layout()->setVariable($key, $value);
             }
         }
-        /*
+
         $session = new SessionContainer();
         
         $userDetails = new \stdClass();
         $userDetails->id = $session->offsetGet('id');
         $userDetails->name = $session->offsetGet('name');
         $userDetails->surname = $session->offsetGet('surname');
-        */
+        
         $this->layout()->setVariable('baseUrl', $this->baseUrl);
         $this->layout()->setVariable('translator', $this->input['translator']);
-        //$this->layout()->setVariable('userDetails', $userDetails);
+        $this->layout()->setVariable('userDetails', $userDetails);
         $this->layout()->setVariable('preloadResponse', $this->configurations['preloadResponse']);
         $this->layout()->setVariable('templatePartial', 'backend/templates/'.$this->configurations['template_backend'].$routerManagerHelper->getRouterManger()->getTemplate(1));
         $this->layout('backend/templates/'.$this->configurations['template_backend'].'backend.phtml');
@@ -131,7 +131,7 @@ class AdminController extends AbstractActionController
      */
     public function loginAction()
     {
-        /* if already login, redirect to success page
+        /* if already login, redirect to success page */
         try {
             if ($this->getAuthService()->hasIdentity()) {
                 return $this->redirect()->toRoute('admin');
@@ -139,7 +139,7 @@ class AdminController extends AbstractActionController
         } catch (Exception $e) {
             return $this->redirect()->toRoute('admin');
         }
-         */
+        
         $this->layout()->setVariable('form',     $this->getUserFormAuthentication());
         $this->layout()->setVariable('messages', $this->flashMessenger()->getMessages());
         $this->layout('backend/templates/default/login.phtml');
@@ -195,7 +195,7 @@ class AdminController extends AbstractActionController
                         $records = $records[0];
                         
                         // set ACL using session container
-                        $sessionContainer = new Container();
+                        $sessionContainer = new SessionContainer();
                         $sessionContainer->offsetSet('id', $records['id']);
                         $sessionContainer->offsetSet('name', $records['name']);
                         $sessionContainer->offsetSet('surname', $records['surname']);

@@ -108,10 +108,9 @@ class ZfcmsGeoComuni
 
 
     /**
-     * Get id.
-    
+     * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -119,11 +118,9 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Set codRegione.
-    
+     * Set codRegione
      *
      * @param string $codRegione
-     *
      * @return ZfcmsGeoComuni
      */
     public function setCodRegione($codRegione)
@@ -134,10 +131,9 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Get codRegione.
-    
+     * Get codRegione
      *
-     * @return string
+     * @return string 
      */
     public function getCodRegione()
     {
@@ -145,11 +141,9 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Set codProvincia.
-    
+     * Set codProvincia
      *
      * @param string $codProvincia
-     *
      * @return ZfcmsGeoComuni
      */
     public function setCodProvincia($codProvincia)
@@ -160,10 +154,9 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Get codProvincia.
-    
+     * Get codProvincia
      *
-     * @return string
+     * @return string 
      */
     public function getCodProvincia()
     {
@@ -171,11 +164,9 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Set codComune.
-    
+     * Set codComune
      *
      * @param string $codComune
-     *
      * @return ZfcmsGeoComuni
      */
     public function setCodComune($codComune)
@@ -186,10 +177,9 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Get codComune.
-    
+     * Get codComune
      *
-     * @return string
+     * @return string 
      */
     public function getCodComune()
     {
@@ -197,11 +187,9 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Set nomeComune.
-    
+     * Set nomeComune
      *
      * @param string $nomeComune
-     *
      * @return ZfcmsGeoComuni
      */
     public function setNomeComune($nomeComune)
@@ -212,10 +200,9 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Get nomeComune.
-    
+     * Get nomeComune
      *
-     * @return string
+     * @return string 
      */
     public function getNomeComune()
     {
@@ -223,11 +210,9 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Set codiceIstat.
-    
+     * Set codiceIstat
      *
      * @param string $codiceIstat
-     *
      * @return ZfcmsGeoComuni
      */
     public function setCodiceIstat($codiceIstat)
@@ -238,10 +223,9 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Get codiceIstat.
-    
+     * Get codiceIstat
      *
-     * @return string
+     * @return string 
      */
     public function getCodiceIstat()
     {
@@ -249,11 +233,9 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Set capPrincipale.
-    
+     * Set capPrincipale
      *
      * @param string $capPrincipale
-     *
      * @return ZfcmsGeoComuni
      */
     public function setCapPrincipale($capPrincipale)
@@ -264,10 +246,9 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Get capPrincipale.
-    
+     * Get capPrincipale
      *
-     * @return string
+     * @return string 
      */
     public function getCapPrincipale()
     {
@@ -275,11 +256,9 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Set capInizio.
-    
+     * Set capInizio
      *
      * @param string $capInizio
-     *
      * @return ZfcmsGeoComuni
      */
     public function setCapInizio($capInizio)
@@ -290,10 +269,9 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Get capInizio.
-    
+     * Get capInizio
      *
-     * @return string
+     * @return string 
      */
     public function getCapInizio()
     {
@@ -301,11 +279,9 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Set capFine.
-    
+     * Set capFine
      *
      * @param string $capFine
-     *
      * @return ZfcmsGeoComuni
      */
     public function setCapFine($capFine)
@@ -316,10 +292,9 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Get capFine.
-    
+     * Get capFine
      *
-     * @return string
+     * @return string 
      */
     public function getCapFine()
     {
@@ -327,11 +302,9 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Set prefisso.
-    
+     * Set prefisso
      *
      * @param string $prefisso
-     *
      * @return ZfcmsGeoComuni
      */
     public function setPrefisso($prefisso)
@@ -342,10 +315,9 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Get prefisso.
-    
+     * Get prefisso
      *
-     * @return string
+     * @return string 
      */
     public function getPrefisso()
     {
@@ -353,11 +325,9 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Set sitoWeb.
-    
+     * Set sitoWeb
      *
      * @param string $sitoWeb
-     *
      * @return ZfcmsGeoComuni
      */
     public function setSitoWeb($sitoWeb)
@@ -368,10 +338,9 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Get sitoWeb.
-    
+     * Get sitoWeb
      *
-     * @return string
+     * @return string 
      */
     public function getSitoWeb()
     {
@@ -379,11 +348,9 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Set latitudine.
-    
+     * Set latitudine
      *
      * @param string $latitudine
-     *
      * @return ZfcmsGeoComuni
      */
     public function setLatitudine($latitudine)
@@ -394,10 +361,9 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Get latitudine.
-    
+     * Get latitudine
      *
-     * @return string
+     * @return string 
      */
     public function getLatitudine()
     {
@@ -405,11 +371,9 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Set longitudine.
-    
+     * Set longitudine
      *
      * @param string $longitudine
-     *
      * @return ZfcmsGeoComuni
      */
     public function setLongitudine($longitudine)
@@ -420,10 +384,9 @@ class ZfcmsGeoComuni
     }
 
     /**
-     * Get longitudine.
-    
+     * Get longitudine
      *
-     * @return string
+     * @return string 
      */
     public function getLongitudine()
     {

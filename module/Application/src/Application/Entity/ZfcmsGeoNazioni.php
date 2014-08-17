@@ -15,7 +15,7 @@ class ZfcmsGeoNazioni
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="bigint", nullable=false, options={"unsigned"=true})
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -31,10 +31,9 @@ class ZfcmsGeoNazioni
 
 
     /**
-     * Get id.
-    
+     * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -42,11 +41,9 @@ class ZfcmsGeoNazioni
     }
 
     /**
-     * Set nome.
-    
+     * Set nome
      *
      * @param string $nome
-     *
      * @return ZfcmsGeoNazioni
      */
     public function setNome($nome)
@@ -57,10 +54,9 @@ class ZfcmsGeoNazioni
     }
 
     /**
-     * Get nome.
-    
+     * Get nome
      *
-     * @return string
+     * @return string 
      */
     public function getNome()
     {

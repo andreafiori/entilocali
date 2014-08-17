@@ -20,9 +20,10 @@ class CategoriesDataTable extends DataTableAbstract
     public function getRecords()
     {
         $param = $this->getInput('param',1);
-        $moduleId = $param['route']['option'];
+        $moduleId = $param['get']['moduleId'];
+
         $moduleRecord = $this->getInput('moduleRecord', 1);
-        
+
         $this->title        = 'Categorie '.$moduleRecord[$moduleId];
         $this->description  = 'Modifica dati categorie '.$moduleRecord[$moduleId];
         

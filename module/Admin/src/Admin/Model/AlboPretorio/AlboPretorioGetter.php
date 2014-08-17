@@ -23,7 +23,7 @@ class AlboPretorioGetter extends QueryBuilderHelperAbstract
     
     /**
      * @param number or array $id
-     * @return type
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setId($id)
     {
@@ -42,6 +42,7 @@ class AlboPretorioGetter extends QueryBuilderHelperAbstract
     
     /**
      * @param number $numeroProgressivo
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setNumeroProgressivo($numeroProgressivo)
     {
@@ -54,7 +55,8 @@ class AlboPretorioGetter extends QueryBuilderHelperAbstract
     }
     
     /**
-     * @param number $numeroProgressivo
+     * @param number $numeroAtto
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setNumeroAtto($numeroAtto)
     {
@@ -66,12 +68,28 @@ class AlboPretorioGetter extends QueryBuilderHelperAbstract
         return $this->getQueryBuilder();
     }
     
+    
     /**
-     * @param date $dataScadenza
+     * @param number $anno
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setAnno($anno)
+    {
+        if ( is_numeric($anno) ) {
+            $this->getQueryBuilder()->andWhere('aa.anno = :anno ');
+            $this->getQueryBuilder()->setParameter('anno', $anno);
+        }
+        
+        return $this->getQueryBuilder();
+    }
+    
+    /**
+     * @param date|string $dataScadenza
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setDataScadenza($dataScadenza)
     {
-        if ( is_numeric($dataScadenza) ) {
+        if ($dataScadenza) {
             $this->getQueryBuilder()->andWhere('aa.dataScadenza = :dataScadenza ');
             $this->getQueryBuilder()->setParameter('dataScadenza', $dataScadenza);
         }

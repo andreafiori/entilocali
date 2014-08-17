@@ -114,10 +114,9 @@ class ZfcmsCategoriesOptions
 
 
     /**
-     * Get id.
-    
+     * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -125,11 +124,9 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Set name.
-    
+     * Set name
      *
      * @param string $name
-     *
      * @return ZfcmsCategoriesOptions
      */
     public function setName($name)
@@ -140,10 +137,9 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Get name.
-    
+     * Get name
      *
-     * @return string
+     * @return string 
      */
     public function getName()
     {
@@ -151,11 +147,9 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Set description.
-    
+     * Set description
      *
      * @param string $description
-     *
      * @return ZfcmsCategoriesOptions
      */
     public function setDescription($description)
@@ -166,10 +160,9 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Get description.
-    
+     * Get description
      *
-     * @return string
+     * @return string 
      */
     public function getDescription()
     {
@@ -177,11 +170,9 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Set seoUrl.
-    
+     * Set seoUrl
      *
      * @param string $seoUrl
-     *
      * @return ZfcmsCategoriesOptions
      */
     public function setSeoUrl($seoUrl)
@@ -192,10 +183,9 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Get seoUrl.
-    
+     * Get seoUrl
      *
-     * @return string
+     * @return string 
      */
     public function getSeoUrl()
     {
@@ -203,11 +193,9 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Set seoTitle.
-    
+     * Set seoTitle
      *
      * @param string $seoTitle
-     *
      * @return ZfcmsCategoriesOptions
      */
     public function setSeoTitle($seoTitle)
@@ -218,10 +206,9 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Get seoTitle.
-    
+     * Get seoTitle
      *
-     * @return string
+     * @return string 
      */
     public function getSeoTitle()
     {
@@ -229,11 +216,9 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Set seoKeywords.
-    
+     * Set seoKeywords
      *
      * @param string $seoKeywords
-     *
      * @return ZfcmsCategoriesOptions
      */
     public function setSeoKeywords($seoKeywords)
@@ -244,10 +229,9 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Get seoKeywords.
-    
+     * Get seoKeywords
      *
-     * @return string
+     * @return string 
      */
     public function getSeoKeywords()
     {
@@ -255,11 +239,9 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Set seoDescription.
-    
+     * Set seoDescription
      *
      * @param string $seoDescription
-     *
      * @return ZfcmsCategoriesOptions
      */
     public function setSeoDescription($seoDescription)
@@ -270,10 +252,9 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Get seoDescription.
-    
+     * Get seoDescription
      *
-     * @return string
+     * @return string 
      */
     public function getSeoDescription()
     {
@@ -281,11 +262,9 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Set accesskey.
-    
+     * Set accesskey
      *
      * @param string $accesskey
-     *
      * @return ZfcmsCategoriesOptions
      */
     public function setAccesskey($accesskey)
@@ -296,10 +275,9 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Get accesskey.
-    
+     * Get accesskey
      *
-     * @return string
+     * @return string 
      */
     public function getAccesskey()
     {
@@ -307,11 +285,9 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Set templateFile.
-    
+     * Set templateFile
      *
      * @param string $templateFile
-     *
      * @return ZfcmsCategoriesOptions
      */
     public function setTemplateFile($templateFile)
@@ -322,10 +298,9 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Get templateFile.
-    
+     * Get templateFile
      *
-     * @return string
+     * @return string 
      */
     public function getTemplateFile()
     {
@@ -333,11 +308,9 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Set position.
-    
+     * Set position
      *
      * @param integer $position
-     *
      * @return ZfcmsCategoriesOptions
      */
     public function setPosition($position)
@@ -348,10 +321,9 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Get position.
-    
+     * Get position
      *
-     * @return integer
+     * @return integer 
      */
     public function getPosition()
     {
@@ -359,11 +331,9 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Set parentId.
-    
+     * Set parentId
      *
      * @param integer $parentId
-     *
      * @return ZfcmsCategoriesOptions
      */
     public function setParentId($parentId)
@@ -374,10 +344,9 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Get parentId.
-    
+     * Get parentId
      *
-     * @return integer
+     * @return integer 
      */
     public function getParentId()
     {
@@ -385,11 +354,9 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Set category.
-    
+     * Set category
      *
      * @param \Application\Entity\ZfcmsCategories $category
-     *
      * @return ZfcmsCategoriesOptions
      */
     public function setCategory(\Application\Entity\ZfcmsCategories $category = null)
@@ -400,10 +367,9 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Get category.
-    
+     * Get category
      *
-     * @return \Application\Entity\ZfcmsCategories
+     * @return \Application\Entity\ZfcmsCategories 
      */
     public function getCategory()
     {
@@ -411,11 +377,9 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Set language.
-    
+     * Set language
      *
      * @param \Application\Entity\ZfcmsLanguages $language
-     *
      * @return ZfcmsCategoriesOptions
      */
     public function setLanguage(\Application\Entity\ZfcmsLanguages $language = null)
@@ -426,10 +390,9 @@ class ZfcmsCategoriesOptions
     }
 
     /**
-     * Get language.
-    
+     * Get language
      *
-     * @return \Application\Entity\ZfcmsLanguages
+     * @return \Application\Entity\ZfcmsLanguages 
      */
     public function getLanguage()
     {

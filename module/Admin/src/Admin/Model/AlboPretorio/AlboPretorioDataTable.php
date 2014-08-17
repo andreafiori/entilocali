@@ -4,6 +4,7 @@ namespace Admin\Model\AlboPretorio;
 
 use Admin\Model\DataTable\DataTableInterface;
 use Admin\Model\DataTable\DataTableAbstract;
+use Zend\Session\Container as SessionContainer;
 
 /**
  * @author Andrea Fiori
@@ -11,6 +12,9 @@ use Admin\Model\DataTable\DataTableAbstract;
  */
 class AlboPretorioDataTable extends DataTableAbstract implements DataTableInterface
 {
+    /** session key where it stores post from form **/
+    const sessionPostKey = 'alboPretorioDataTablePost';
+    
     private $alboPretorioRecordsGetter;
 
     /**
@@ -21,45 +25,31 @@ class AlboPretorioDataTable extends DataTableAbstract implements DataTableInterf
         parent::__construct($input);
         
         $paginatorRecords = $this->setupArticoliPaginatorRecords();
-
-        $this->setRecords( $this->getFormattedDataTableRecords($paginatorRecords) );
-
-        $this->setVariable('tablesetter', 'albo-pretorio');
-        $this->setVariable('paginator', $paginatorRecords);
-        $this->setVariable('formSearch', $this->setupFormSearchAndExport(new AlboPretorioSearchFilterForm()));
-        $this->setVariable('formExport', $this->setupFormSearchAndExport(new AlboPretorioExportForm(), 'export', 'Esporta'));
-        
+        $this->setVariables(
+            array(
+                'tablesetter' => 'albo-pretorio',
+                'paginator'   => $paginatorRecords,
+                'formSearch'  => $this->setupFormSearchAndExport(new AlboPretorioSearchFilterForm()),
+                'formExport'  => $this->setupFormSearchAndExport(new AlboPretorioSearchFilterForm(), 'export', 'Esporta'),
+            )
+        );
         $this->setTitle('Albo pretorio');
-        $this->setDescription('Elenco atti albo pretorio');
-        $this->setColumns(array( 
+        $this->setDescription('Elenco atti albo pretorio. Effettuando una ricerca, le informazioni vengono memorizzate.');
+        $this->setColumns(
+            array( 
                 array('label' => 'Num \ Anno','width' => '10%'),
                 array('label' => 'Titolo','width' => '44%'), 
                 'Settore', 
                 'Scadenza', 
                 'Data attivazione', 
-                '&nbsp;', 
+                '&nbsp;',
                 '&nbsp;', 
                 '&nbsp;', 
                 '&nbsp;'
             )
         );
+        $this->setRecords( $this->getFormattedDataTableRecords($paginatorRecords) );
     }
-    
-        /**
-         * @return type
-         */
-        private function setupArticoliPaginatorRecords()
-        {
-            $param = $this->getParam();
-
-            $this->alboPretorioRecordsGetter = new AlboPretorioRecordsGetter( $this->getInput() );
-            $this->alboPretorioRecordsGetter->setArticoliInput( array() );
-            $this->alboPretorioRecordsGetter->setArticoliPaginator();
-            $this->alboPretorioRecordsGetter->setArticoliPaginatorCurrentPage(isset($param['route']['page']) ? $param['route']['page'] : null);
-            $this->alboPretorioRecordsGetter->setArticoliPaginatorPerPage(isset($param['route']['perpage']) ? $param['route']['perpage'] : null);
-
-            return $this->alboPretorioRecordsGetter->getPaginatorRecords();
-        }
 
     /**
      * Overwrite default template
@@ -76,6 +66,38 @@ class AlboPretorioDataTable extends DataTableAbstract implements DataTableInterf
     }
     
         /**
+         * @return type
+         */
+        private function setupArticoliPaginatorRecords()
+        {
+            $articoliInput = array();
+            $sessionPost = new SessionContainer();
+            
+            $param = $this->getParam();
+            if ( isset($param['post']) ) {
+                $articoliInput = array(
+                    'anno'      => $param['post']['anno'],
+                    'search'    => $param['post']['search'],
+                    'orderBy'   => $param['post']['orderby']
+                );
+                $sessionPost->offsetSet(self::sessionPostKey, $articoliInput);
+            } else {
+                $postFromSession = $sessionPost->offsetGet(self::sessionPostKey);
+                if ($postFromSession) {
+                    $articoliInput = $postFromSession;
+                }
+            }
+
+            $this->alboPretorioRecordsGetter = new AlboPretorioRecordsGetter( $this->getInput() );
+            $this->alboPretorioRecordsGetter->setArticoliInput($articoliInput);
+            $this->alboPretorioRecordsGetter->setArticoliPaginator();
+            $this->alboPretorioRecordsGetter->setArticoliPaginatorCurrentPage(isset($param['route']['page']) ? $param['route']['page'] : null);
+            $this->alboPretorioRecordsGetter->setArticoliPaginatorPerPage(isset($param['route']['perpage']) ? $param['route']['perpage'] : null);
+
+            return $this->alboPretorioRecordsGetter->getPaginatorRecords();
+        }
+
+        /**
          * 
          * @param \AlboPretorioFormAbstract $form
          * @param string $labelName
@@ -91,9 +113,14 @@ class AlboPretorioDataTable extends DataTableAbstract implements DataTableInterf
             $form->addOrderBy();
             $form->addSubmitButton($labelName, $labelValue);
             
+            $paramPost = $this->getParam('post');
+            if ( isset($paramPost) ) {
+                $form->setData($paramPost);
+            }
+            
             return $form;
         }
- 
+
         /**
          * @param array $input
          * @return type

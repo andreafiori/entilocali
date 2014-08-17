@@ -16,7 +16,8 @@ use stdClass;
  */
 class PostsGetterWrapper extends RecordsGetterWrapperAbstract
 {
-    private $postsGetter;
+    /** @var \Admin\Model\Posts\PostsGetter **/
+    protected $objectGetter;
     
     private $category;
     private $title;
@@ -27,7 +28,7 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
      */
     public function __construct(PostsGetter $postsGetter)
     {
-        $this->postsGetter = $postsGetter;
+        $this->setObjectGetter($postsGetter);
     }
 
     public function setupQueryBuilder()
@@ -35,37 +36,21 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
         $language   = $this->getInput('language', 1);
         $channel    = $this->getInput('channel', 1);
         
-        $this->postsGetter->setSelectQueryFields( $this->getInput('fields', 1) );
+        $this->objectGetter->setSelectQueryFields( $this->getInput('fields', 1) );
         
-        $this->postsGetter->setMainQuery();
+        $this->objectGetter->setMainQuery();
         
-        $this->postsGetter->setChannelId($channel ? $channel : 1);
-        $this->postsGetter->setLanguageId($language ? $language : 1);
-        $this->postsGetter->setId( $this->getInput('id', 1) );
-        $this->postsGetter->setCategoryName( $this->getInput('category', 1) );
-        $this->postsGetter->setTitle( $this->getInput('title', 1) );
-        $this->postsGetter->setType( $this->getInput('type', 1) );
-        $this->postsGetter->setStatus( $this->getInput('status', 1) );
-        $this->postsGetter->setOrderBy( $this->getInput('orderBy', 1), 'po.position' );
-        $this->postsGetter->setLimit( $this->getInput('limit', 1) );
+        $this->objectGetter->setChannelId($channel ? $channel : 1);
+        $this->objectGetter->setLanguageId($language ? $language : 1);
+        $this->objectGetter->setId( $this->getInput('id', 1) );
+        $this->objectGetter->setCategoryName( $this->getInput('category', 1) );
+        $this->objectGetter->setTitle( $this->getInput('title', 1) );
+        $this->objectGetter->setType( $this->getInput('type', 1) );
+        $this->objectGetter->setStatus( $this->getInput('status', 1) );
+        $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1), 'po.position' );
+        $this->objectGetter->setLimit( $this->getInput('limit', 1) );
     }
-    
-    /**
-     * Setup query (for paginator)
-     */
-    public function setupQuery()
-    {
-        $entityManager = $this->getInput('entityManager', 1);
 
-        $this->query = $entityManager->createQuery( $this->postsGetter->getDQLQuery() )
-                                ->setFirstResult($this->firstResult)
-                                ->setMaxResults($this->maxResults)
-                                ->setParameters( $this->postsGetter->getQuery()->getParameters() )
-                                ->getScalarResult();
-
-        return $this->query;
-    }
-    
     /**
      * Add array records to the paginator recordset
      * 
@@ -141,17 +126,9 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
      */
     public function getRecords()
     {
-        return $this->postsGetter->getQueryResult();
+        return $this->objectGetter->getQueryResult();
     }
-        
-    /**
-     * @return \Admin\Model\Posts\PostsGetter
-     */
-    public function getPostsGetter()
-    {
-        return $this->postsGetter;
-    }
-    
+
     /**     
      * @return string|null
      */

@@ -24,7 +24,7 @@ class ZfcmsComuniRubricaEntiTerzi
     /**
      * @var string
      *
-     * @ORM\Column(name="nome", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="nome", type="text", nullable=false)
      */
     private $nome;
 
@@ -52,10 +52,9 @@ class ZfcmsComuniRubricaEntiTerzi
 
 
     /**
-     * Get id.
-    
+     * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -63,11 +62,9 @@ class ZfcmsComuniRubricaEntiTerzi
     }
 
     /**
-     * Set nome.
-    
+     * Set nome
      *
      * @param string $nome
-     *
      * @return ZfcmsComuniRubricaEntiTerzi
      */
     public function setNome($nome)
@@ -78,10 +75,9 @@ class ZfcmsComuniRubricaEntiTerzi
     }
 
     /**
-     * Get nome.
-    
+     * Get nome
      *
-     * @return string
+     * @return string 
      */
     public function getNome()
     {
@@ -89,11 +85,9 @@ class ZfcmsComuniRubricaEntiTerzi
     }
 
     /**
-     * Set email.
-    
+     * Set email
      *
      * @param string $email
-     *
      * @return ZfcmsComuniRubricaEntiTerzi
      */
     public function setEmail($email)
@@ -104,10 +98,9 @@ class ZfcmsComuniRubricaEntiTerzi
     }
 
     /**
-     * Get email.
-    
+     * Get email
      *
-     * @return string
+     * @return string 
      */
     public function getEmail()
     {
@@ -115,11 +108,9 @@ class ZfcmsComuniRubricaEntiTerzi
     }
 
     /**
-     * Set insertDate.
-    
+     * Set insertDate
      *
      * @param \DateTime $insertDate
-     *
      * @return ZfcmsComuniRubricaEntiTerzi
      */
     public function setInsertDate($insertDate)
@@ -130,10 +121,9 @@ class ZfcmsComuniRubricaEntiTerzi
     }
 
     /**
-     * Get insertDate.
-    
+     * Get insertDate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getInsertDate()
     {
@@ -141,11 +131,9 @@ class ZfcmsComuniRubricaEntiTerzi
     }
 
     /**
-     * Set lastUpdate.
-    
+     * Set lastUpdate
      *
      * @param \DateTime $lastUpdate
-     *
      * @return ZfcmsComuniRubricaEntiTerzi
      */
     public function setLastUpdate($lastUpdate)
@@ -156,10 +144,9 @@ class ZfcmsComuniRubricaEntiTerzi
     }
 
     /**
-     * Get lastUpdate.
-    
+     * Get lastUpdate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getLastUpdate()
     {

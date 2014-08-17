@@ -96,6 +96,20 @@ abstract class RecordsGetterWrapperAbstract
     }
     
     /**
+     * Setup query (for paginator)
+     */
+    public function setupQuery(\Doctrine\ORM\EntityManager $entityManager)
+    {
+        $this->query = $entityManager->createQuery( $this->getObjectGetter()->getDQLQuery() )
+                                ->setFirstResult($this->firstResult)
+                                ->setMaxResults($this->maxResults)
+                                ->setParameters( $this->getObjectGetter()->getQuery()->getParameters() )
+                                ->getScalarResult();
+
+        return $this->query ? $this->query : array();
+    }
+    
+    /**
      * @param int $page
      * @return type
      */
@@ -138,7 +152,23 @@ abstract class RecordsGetterWrapperAbstract
                 throw new NullException('Zend Paginator must be set. Use setupPaginator first');
             }
         }
+
         
+    /**
+     * Add array records to the paginator recordset
+     * 
+     * @return \stdClass
+     * @throws NullException
+     */
+    public function setupRecords()
+    {
+        if (!$this->paginator) {
+            throw new NullException("Setup paginator before setting additional records");
+        }
+        
+        return $this->paginator;
+    }
+    
     /**
      * Query must be set using entity manager and scalarResult on child classes
      * 

@@ -15,7 +15,7 @@ class ZfcmsUsersPermissions
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="bigint", nullable=false, options={"unsigned"=true})
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -52,10 +52,9 @@ class ZfcmsUsersPermissions
 
 
     /**
-     * Get id.
-    
+     * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -63,11 +62,9 @@ class ZfcmsUsersPermissions
     }
 
     /**
-     * Set code.
-    
+     * Set code
      *
      * @param string $code
-     *
      * @return ZfcmsUsersPermissions
      */
     public function setCode($code)
@@ -78,10 +75,9 @@ class ZfcmsUsersPermissions
     }
 
     /**
-     * Get code.
-    
+     * Get code
      *
-     * @return string
+     * @return string 
      */
     public function getCode()
     {
@@ -89,11 +85,9 @@ class ZfcmsUsersPermissions
     }
 
     /**
-     * Set value.
-    
+     * Set value
      *
      * @param string $value
-     *
      * @return ZfcmsUsersPermissions
      */
     public function setValue($value)
@@ -104,10 +98,9 @@ class ZfcmsUsersPermissions
     }
 
     /**
-     * Get value.
-    
+     * Get value
      *
-     * @return string
+     * @return string 
      */
     public function getValue()
     {
@@ -115,11 +108,9 @@ class ZfcmsUsersPermissions
     }
 
     /**
-     * Set roleId.
-    
+     * Set roleId
      *
      * @param integer $roleId
-     *
      * @return ZfcmsUsersPermissions
      */
     public function setRoleId($roleId)
@@ -130,10 +121,9 @@ class ZfcmsUsersPermissions
     }
 
     /**
-     * Get roleId.
-    
+     * Get roleId
      *
-     * @return integer
+     * @return integer 
      */
     public function getRoleId()
     {
@@ -141,11 +131,9 @@ class ZfcmsUsersPermissions
     }
 
     /**
-     * Set permessionId.
-    
+     * Set permessionId
      *
      * @param integer $permessionId
-     *
      * @return ZfcmsUsersPermissions
      */
     public function setPermessionId($permessionId)
@@ -156,10 +144,9 @@ class ZfcmsUsersPermissions
     }
 
     /**
-     * Get permessionId.
-    
+     * Get permessionId
      *
-     * @return integer
+     * @return integer 
      */
     public function getPermessionId()
     {

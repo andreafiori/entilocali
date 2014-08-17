@@ -54,7 +54,7 @@ class ZfcmsAttachments
      *
      * @ORM\Column(name="expire_date", type="datetime", nullable=true)
      */
-    private $expireDate;
+    private $expireDate = '2030-01-01 01:01:01';
 
     /**
      * @var integer
@@ -66,10 +66,9 @@ class ZfcmsAttachments
 
 
     /**
-     * Get id.
-    
+     * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -77,11 +76,9 @@ class ZfcmsAttachments
     }
 
     /**
-     * Set name.
-    
+     * Set name
      *
      * @param string $name
-     *
      * @return ZfcmsAttachments
      */
     public function setName($name)
@@ -92,10 +89,9 @@ class ZfcmsAttachments
     }
 
     /**
-     * Get name.
-    
+     * Get name
      *
-     * @return string
+     * @return string 
      */
     public function getName()
     {
@@ -103,11 +99,9 @@ class ZfcmsAttachments
     }
 
     /**
-     * Set size.
-    
+     * Set size
      *
      * @param string $size
-     *
      * @return ZfcmsAttachments
      */
     public function setSize($size)
@@ -118,10 +112,9 @@ class ZfcmsAttachments
     }
 
     /**
-     * Get size.
-    
+     * Get size
      *
-     * @return string
+     * @return string 
      */
     public function getSize()
     {
@@ -129,11 +122,9 @@ class ZfcmsAttachments
     }
 
     /**
-     * Set state.
-    
+     * Set state
      *
      * @param string $state
-     *
      * @return ZfcmsAttachments
      */
     public function setState($state)
@@ -144,10 +135,9 @@ class ZfcmsAttachments
     }
 
     /**
-     * Get state.
-    
+     * Get state
      *
-     * @return string
+     * @return string 
      */
     public function getState()
     {
@@ -155,11 +145,9 @@ class ZfcmsAttachments
     }
 
     /**
-     * Set insertDate.
-    
+     * Set insertDate
      *
      * @param \DateTime $insertDate
-     *
      * @return ZfcmsAttachments
      */
     public function setInsertDate($insertDate)
@@ -170,10 +158,9 @@ class ZfcmsAttachments
     }
 
     /**
-     * Get insertDate.
-    
+     * Get insertDate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getInsertDate()
     {
@@ -181,11 +168,9 @@ class ZfcmsAttachments
     }
 
     /**
-     * Set expireDate.
-    
+     * Set expireDate
      *
      * @param \DateTime $expireDate
-     *
      * @return ZfcmsAttachments
      */
     public function setExpireDate($expireDate)
@@ -196,10 +181,9 @@ class ZfcmsAttachments
     }
 
     /**
-     * Get expireDate.
-    
+     * Get expireDate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getExpireDate()
     {
@@ -207,11 +191,9 @@ class ZfcmsAttachments
     }
 
     /**
-     * Set mimeId.
-    
+     * Set mimeId
      *
      * @param integer $mimeId
-     *
      * @return ZfcmsAttachments
      */
     public function setMimeId($mimeId)
@@ -222,10 +204,9 @@ class ZfcmsAttachments
     }
 
     /**
-     * Get mimeId.
-    
+     * Get mimeId
      *
-     * @return integer
+     * @return integer 
      */
     public function getMimeId()
     {

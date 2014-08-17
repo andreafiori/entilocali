@@ -28,11 +28,6 @@ class PostsGetterWrapperTest extends TestSuite
         $this->assertTrue( is_array($this->postsGetterWrapper->getInput()) );
     }
 
-    public function testGetPostsGetter()
-    {
-        $this->assertTrue( $this->postsGetterWrapper->getPostsGetter() instanceof PostsGetter );
-    }
-
     public function testGetRecords()
     {
         $this->postsGetterWrapper->setInput( array("id" => 1) );

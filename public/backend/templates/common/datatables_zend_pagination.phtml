@@ -7,7 +7,7 @@
     <?php endif; ?>
     
     <?php if ($this->messageDescription): ?>
-     <h1><?php echo $this->messageDescription ?></h1>
+    <p><?php echo $this->messageDescription ?></p>
     <?php else: ?>
     <p>Nessun dato da elencare &egrave; stato trovato.</p>
     <?php endif; ?>
@@ -19,7 +19,7 @@
 <p><?php echo $this->tableDescription ?></p>
 
 <div class="table-responsive">
-    <table class="table table-bordered">
+    <table class="table table-bordered" id="zf2-pagination-table">
 
     <thead>
         <tr>

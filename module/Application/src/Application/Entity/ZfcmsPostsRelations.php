@@ -64,10 +64,9 @@ class ZfcmsPostsRelations
 
 
     /**
-     * Get id.
-    
+     * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -75,11 +74,9 @@ class ZfcmsPostsRelations
     }
 
     /**
-     * Set category.
-    
+     * Set category
      *
      * @param \Application\Entity\ZfcmsCategories $category
-     *
      * @return ZfcmsPostsRelations
      */
     public function setCategory(\Application\Entity\ZfcmsCategories $category = null)
@@ -90,10 +87,9 @@ class ZfcmsPostsRelations
     }
 
     /**
-     * Get category.
-    
+     * Get category
      *
-     * @return \Application\Entity\ZfcmsCategories
+     * @return \Application\Entity\ZfcmsCategories 
      */
     public function getCategory()
     {
@@ -101,11 +97,9 @@ class ZfcmsPostsRelations
     }
 
     /**
-     * Set channel.
-    
+     * Set channel
      *
      * @param \Application\Entity\ZfcmsChannels $channel
-     *
      * @return ZfcmsPostsRelations
      */
     public function setChannel(\Application\Entity\ZfcmsChannels $channel = null)
@@ -116,10 +110,9 @@ class ZfcmsPostsRelations
     }
 
     /**
-     * Get channel.
-    
+     * Get channel
      *
-     * @return \Application\Entity\ZfcmsChannels
+     * @return \Application\Entity\ZfcmsChannels 
      */
     public function getChannel()
     {
@@ -127,11 +120,9 @@ class ZfcmsPostsRelations
     }
 
     /**
-     * Set module.
-    
+     * Set module
      *
      * @param \Application\Entity\ZfcmsModules $module
-     *
      * @return ZfcmsPostsRelations
      */
     public function setModule(\Application\Entity\ZfcmsModules $module = null)
@@ -142,10 +133,9 @@ class ZfcmsPostsRelations
     }
 
     /**
-     * Get module.
-    
+     * Get module
      *
-     * @return \Application\Entity\ZfcmsModules
+     * @return \Application\Entity\ZfcmsModules 
      */
     public function getModule()
     {
@@ -153,11 +143,9 @@ class ZfcmsPostsRelations
     }
 
     /**
-     * Set posts.
-    
+     * Set posts
      *
      * @param \Application\Entity\ZfcmsPosts $posts
-     *
      * @return ZfcmsPostsRelations
      */
     public function setPosts(\Application\Entity\ZfcmsPosts $posts = null)
@@ -168,10 +156,9 @@ class ZfcmsPostsRelations
     }
 
     /**
-     * Get posts.
-    
+     * Get posts
      *
-     * @return \Application\Entity\ZfcmsPosts
+     * @return \Application\Entity\ZfcmsPosts 
      */
     public function getPosts()
     {

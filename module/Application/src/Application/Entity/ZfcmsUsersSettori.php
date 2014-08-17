@@ -45,10 +45,9 @@ class ZfcmsUsersSettori
 
 
     /**
-     * Get id.
-    
+     * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -56,11 +55,9 @@ class ZfcmsUsersSettori
     }
 
     /**
-     * Set name.
-    
+     * Set name
      *
      * @param string $name
-     *
      * @return ZfcmsUsersSettori
      */
     public function setName($name)
@@ -71,10 +68,9 @@ class ZfcmsUsersSettori
     }
 
     /**
-     * Get name.
-    
+     * Get name
      *
-     * @return string
+     * @return string 
      */
     public function getName()
     {
@@ -82,11 +78,9 @@ class ZfcmsUsersSettori
     }
 
     /**
-     * Set position.
-    
+     * Set position
      *
      * @param integer $position
-     *
      * @return ZfcmsUsersSettori
      */
     public function setPosition($position)
@@ -97,10 +91,9 @@ class ZfcmsUsersSettori
     }
 
     /**
-     * Get position.
-    
+     * Get position
      *
-     * @return integer
+     * @return integer 
      */
     public function getPosition()
     {
@@ -108,11 +101,9 @@ class ZfcmsUsersSettori
     }
 
     /**
-     * Set active.
-    
+     * Set active
      *
      * @param string $active
-     *
      * @return ZfcmsUsersSettori
      */
     public function setActive($active)
@@ -123,10 +114,9 @@ class ZfcmsUsersSettori
     }
 
     /**
-     * Get active.
-    
+     * Get active
      *
-     * @return string
+     * @return string 
      */
     public function getActive()
     {

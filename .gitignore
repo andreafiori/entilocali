@@ -13,3 +13,4 @@ data
 docs
 tests/reports
 vendor/
+vendor_backup/

@@ -27,24 +27,27 @@ class AlboPretorioForm extends Form
                                 'placeholder' => 'Oggetto articolo',
                         )
         ));
-        
+    }
+    
+    public function addSezioni(array $sezioni)
+    {
         $this->add(array(
                         'type' => 'Zend\Form\Element\Select',
                         'name' => 'sezione',
                         'options' => array(
                                'label' => 'Sezione',
-                               'value_options' => array(
-                                       '' => 'Seleziona',
-                                       'attivo'   => 'Attivo',
-                                       'nascosto' => 'Nascosto',
-                               ),
+                                'empty_option' => 'Seleziona',
+                               'value_options' => $sezioni,
                         ),
                         'attributes' => array(
                                 'title' => 'Seleziona sezione',
                                 'id' => 'sezione'
                         )
         ));
-        
+    }
+    
+    public function addLastFields()
+    {
         $this->add(array(
                         'type' => 'Text',
                         'name' => 'numero',
@@ -89,7 +92,7 @@ class AlboPretorioForm extends Form
                         'name' => 'start_date',
                         'attributes' => array(
                                         'id' => 'expireDates',
-                                        'value' => '<h3>Scadenza</h3>',
+                                        'value' => '<h4><strong>Scadenza</strong></h4><p>Indicare un numero di giorni in cui l\'articolo </p>',
                         ),
         ));
         
@@ -98,6 +101,43 @@ class AlboPretorioForm extends Form
                         'name' => 'id',
                         'attributes' => array("class" => 'hiddenField')
         ));
+    }
+    
+    public function addScadenze()
+    {
+        $this->add(array(
+                        'type' => 'Text',
+                        'name' => 'scadenza',
+                        'options' => array(
+                               'label' => 'Numero di giorni in cui questo articolo rester&agrave; visibile (lasciare in bianco per renderlo sempre visibile)',
+                        ),
+                        'attributes' => array(
+                                'title' => '',
+                                'id' => 'scadenza',
+                                'placeholder' => 'Numero di giorni alla scadenza',
+                        )
+        ));
+
+        $this->add(array(
+                        'type' => 'Date',
+                        'name' => 'insertDate',
+                        'options' => array(
+                                'label' => 'Data di scadenza:',
+                                'format' => 'Y-m-d',
+                        ),
+                        'attributes' => array(
+                                'class' => 'form-control DatePicker',
+                                'style' => 'width: 22%',
+                                'id' => 'insertDate',
+                                'title' => 'Inserisci la data di pubblicazione',
+                        )
+        ));
+        
+        // Numero di file allegati a questo articolo
+        // inviato a regione checkbox
+        // inserisci in home checkbox
+        
+        // Associa articolo a utente
     }
     
     public function addNotes()
@@ -110,7 +150,7 @@ class AlboPretorioForm extends Form
                         ),
                         'attributes' => array(
                                 'title' => "Inserisci note atto",
-                                'id' => 'note',
+                                'id' => 's',
                                 'placeholder' => 'Note atto',
                         )
         ));
