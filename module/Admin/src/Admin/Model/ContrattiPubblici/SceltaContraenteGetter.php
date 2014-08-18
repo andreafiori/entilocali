@@ -44,7 +44,7 @@ class SceltaContraenteGetter extends QueryBuilderHelperAbstract
      * @param number or array $id
      * @return type
      */
-    public function setNomeSceltad($nomeScelta)
+    public function setNomeScelta($nomeScelta)
     {
         if ($nomeScelta) {
             $this->getQueryBuilder()->andWhere('csc.$nomeScelta = :nomeScelta ');

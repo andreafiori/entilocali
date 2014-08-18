@@ -29,13 +29,16 @@ class AlboPretorioSezioniFormDataHandler extends FormDataAbstract
             $formAction = 'albo-pretorio-sezioni/insert/';
         }
 
-        $this->setVariable('formTitle',         $formTitle);
-        $this->setVariable('formDescription',   'Inserisci dati nuova sezione albo pretorio');
-        $this->setVariable('form',              $form);
-        $this->setVariable('formAction',        $formAction);
+        $this->setVariables(array(
+                'formTitle' => $formTitle,
+                'formDescription' =>  'Inserisci dati nuova sezione albo pretorio',
+                'form' => $form,
+                'formAction' => $formAction,
+                'formBreadCrumbCategory' => 'Sezioni albo pretorio',
+                'formBreadCrumbCategoryLink' => $this->getInput('baseUrl',1).'datatable/albo-pretorio-sezioni/',
+            )
+        );
 
-        $this->setVariable('formBreadCrumbCategory', 'Sezioni albo pretorio');
-        $this->setVariable('formBreadCrumbCategoryLink', $this->getInput('baseUrl',1).'datatable/albo-pretorio-sezioni/');
     }
     
         /**

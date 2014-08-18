@@ -7,56 +7,34 @@ return array(
     ),
     'router' => array(
         'routes' => array(
-            'feed' => array(
-                'type'    => 'Literal',
+            'feed-prefix' => array(
+                'type'    => 'Segment',
                 'options' => array(
-                    'route'    => '/feed/rss',
+                    'route'    => '/feed/rss[/]',
+                    'constraints' => array(
+                        
+                    ),
                     'defaults' => array(
-                        '__NAMESPACE__' => 'Feed\Controller',
-                        'controller'    => 'Feed',
-                        'action'        => 'index',
+                        'controller' => 'Feed\Controller\Feed',
+                        'action'     => 'index',
                     ),
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
-                    'default' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'    => '/[:controller[/:action]]',
-                            'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            ),
-                            'defaults' => array(
-                            ),
-                        ),
-                    ),
-                    'posts' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                                    'route'    => 'posts[/][:category][/]',
+                    'feed' => array(
+                            'type'    => 'Segment',
+                            'options' => array(
+                                    'route'       => '[/][:resource][/][:id][/]',
                                     'constraints' => array(
-                                            'category' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                            'resource' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                            'id'       => '[0-9]+',
                                     ),
                                     'defaults' => array(
-                                                'controller' => 'Admin\Controller\Admin',
-                                                'action'     => 'index',
+                                        'controller' => 'Feed\Controller\Feed',
+                                        'action'     => 'index',
                                     ),
-                        ),
+                            ),
                     ),
-                    'albo-pretorio' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                                    'route'    => 'albo-pretorio[/][:category][/]',
-                                    'constraints' => array(
-                                            'category' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                    ),
-                                    'defaults' => array(
-                                                'controller' => 'Admin\Controller\Admin',
-                                                'action'     => 'index',
-                                    ),
-                        ),
-                    ), 
                 ),
             ),
         ),

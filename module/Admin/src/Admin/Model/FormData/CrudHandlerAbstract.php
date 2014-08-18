@@ -126,4 +126,12 @@ abstract class CrudHandlerAbstract extends RouterManagerAbstract
                 $this->$operation();
             }
         }
+        
+    public function performOperation()
+    {
+        $operation = $this->getOperation();
+        if ($operation) {
+            $this->$operation();
+        }
+    }
 }

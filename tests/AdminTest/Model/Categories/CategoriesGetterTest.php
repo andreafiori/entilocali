@@ -11,38 +11,38 @@ use Admin\Model\Categories\CategoriesGetter;
  */
 class CategoriesGetterTest extends TestSuite
 {
-    private $categoriesGetter;
+    private $objectGetter;
 
     protected function setUp()
     {
         parent::setUp();
         
-        $this->categoriesGetter = new CategoriesGetter( $this->getEntityManagerMock() );
+        $this->objectGetter = new CategoriesGetter( $this->getEntityManagerMock() );
     }
 
     public function testSetMainQuery()
     {
-        $this->categoriesGetter->setMainQuery();
+        $this->objectGetter->setMainQuery();
         
-        $this->assertTrue( is_array($this->categoriesGetter->getQueryResult()) );
+        $this->assertTrue( is_array($this->objectGetter->getQueryResult()) );
     }
     
     public function testSetId()
     {
-        $this->categoriesGetter->setId('stringIsNotValid');
-        $this->assertEmpty( $this->categoriesGetter->getQueryBuilder()->getParameter('id') );
+        $this->objectGetter->setId('stringIsNotValid');
+        $this->assertEmpty( $this->objectGetter->getQueryBuilder()->getParameter('id') );
         
-        $this->categoriesGetter->setId(1);
-        $this->assertNotEmpty( $this->categoriesGetter->getQueryBuilder()->getParameter('id') );
+        $this->objectGetter->setId(1);
+        $this->assertNotEmpty( $this->objectGetter->getQueryBuilder()->getParameter('id') );
         
-        $this->categoriesGetter->setId(array(1,2,3));
-        $this->assertNotEmpty( $this->categoriesGetter->getQueryBuilder()->getParameter('id') );
+        $this->objectGetter->setId(array(1,2,3));
+        $this->assertNotEmpty( $this->objectGetter->getQueryBuilder()->getParameter('id') );
     }
     
     public function testSetChannelId()
     {
-        $this->categoriesGetter->setChannelId(1);
+        $this->objectGetter->setChannelId(1);
         
-        $this->assertNotEmpty( $this->categoriesGetter->getQueryBuilder()->getParameter('channel') );
+        $this->assertNotEmpty( $this->objectGetter->getQueryBuilder()->getParameter('channel') );
     }
 }

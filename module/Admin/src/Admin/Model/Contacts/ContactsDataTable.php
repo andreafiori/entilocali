@@ -12,33 +12,21 @@ use Admin\Model\Contacts\ContactsGetterWrapper;
  */
 class ContactsDataTable extends DataTableAbstract
 {
-    public function getTitle()
+    public function __construct(array $input)
     {
-        return $this->title;
-    }
-    
-    public function getDescription()
-    {
-        return $this->description;
-    }
-    
-    public function getColumns()
-    {
-        return array("Nome e cognome", "Email", "Data invio", "&nbsp;");
+        parent::__construct($input);
+        
+        $this->setTitle('Contatti');
+        $this->setDescription('Elenco messaggi ricevuti dal modulo contatti');
+        $this->setColumns(array("Nome e cognome", "Email", "Data invio", "&nbsp;"));
     }
     
     public function getRecords()
     {
-        $param = $this->getInput('param', 1);
-
-        $this->title        = 'Contatti';
-        $this->description  = 'Elenco messaggi ricevuto dal modulo contatti';
+        $wrapper = new ContactsGetterWrapper( new ContactsGetter($this->getInput('entityManager',1)) );
+        $wrapper->setupQueryBuilder();
         
-        $contactsGetterWrapper = new ContactsGetterWrapper( new ContactsGetter($this->getInput('entityManager',1)) );
-        
-        $contactsGetterWrapper->setupQueryBuilder();      
-        
-        return $this->buildDataTableRows( $contactsGetterWrapper->getRecords() );
+        return $this->buildDataTableRows( $wrapper->getRecords() );
     }
     
         /**

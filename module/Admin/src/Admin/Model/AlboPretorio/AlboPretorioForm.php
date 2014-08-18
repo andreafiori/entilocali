@@ -10,6 +10,10 @@ use Zend\Form\Form;
  */
 class AlboPretorioForm extends Form
 {
+    /**
+     * @param type $name
+     * @param type $options
+     */
     public function __construct($name = null, $options = array())
     {
         parent::__construct($name, $options);
@@ -136,8 +140,13 @@ class AlboPretorioForm extends Form
         // Numero di file allegati a questo articolo
         // inviato a regione checkbox
         // inserisci in home checkbox
-        
         // Associa articolo a utente
+        
+        $this->add(array(
+                        'type' => 'Zend\Form\Element\Hidden',
+                        'name' => 'id',
+                        'attributes' => array("class" => 'hiddenField')
+        ));
     }
     
     public function addNotes()

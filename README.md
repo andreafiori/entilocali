@@ -1,7 +1,9 @@
 [![Build Status](https://travis-ci.org/andreafiori/zend2-cms-with-restful-api.svg?branch=master)](https://travis-ci.org/andreafiori/zend2-cms-with-restful-api)
 
+[![Coverage Status](https://coveralls.io/repos/andreafiori/zend2-cms-with-restful-api/badge.png)](https://coveralls.io/r/andreafiori/zend2-cms-with-restful-api)
+
 Zend2 CMS with RESTful API
-=======================
+===============================
 
 Introduction
 --------------

@@ -103,10 +103,8 @@ class StatoCivileGetter extends QueryBuilderHelperAbstract
     }
     
     /**
-     * Text search
-     * 
      * @param type $text
-     * @return string $text
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setTextSearch($text)
     {

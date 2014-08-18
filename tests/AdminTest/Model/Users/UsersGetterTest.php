@@ -11,41 +11,48 @@ use Admin\Model\Users\UsersGetter;
  */
 class UsersGetterTest extends TestSuite
 {
-    private $usersGetter;
+    private $objectGetter;
     
     protected function setUp()
     {
         parent::setUp();
         
-        $this->usersGetter = new UsersGetter($this->getEntityManagerMock());
+        $this->objectGetter = new UsersGetter($this->getEntityManagerMock());
     }
     
     public function testSetMainQuery()
     {
-        $this->usersGetter->setMainQuery();
+        $this->objectGetter->setMainQuery();
         
-        $this->assertTrue( is_array($this->usersGetter->getQueryResult()) );
+        $this->assertTrue( is_array($this->objectGetter->getQueryResult()) );
     }
     
     public function testSetId()
     {
-        $this->usersGetter->setId(1);
+        $this->objectGetter->setId(1);
         
-        $this->assertNotEmpty($this->usersGetter->getQueryBuilder()->getParameter('id'));
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('id'));
+    }
+    
+    public function testSetIdWithArrayInInput()
+    {
+        $this->objectGetter->setId( array(1,2,3) );
+        
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('id'));
     }
     
     public function testSetSurname()
     {
-        $this->usersGetter->setSurname('Doe');
+        $this->objectGetter->setSurname('Doe');
         
-        $this->assertNotEmpty($this->usersGetter->getQueryBuilder()->getParameter('surname'));
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('surname'));
     }
     
     public function testSetStatus()
     {
-        $this->usersGetter->setStatus('active');
+        $this->objectGetter->setStatus('active');
  
-        $this->assertNotEmpty( $this->usersGetter->getQueryBuilder()->getParameter('status') );
+        $this->assertNotEmpty( $this->objectGetter->getQueryBuilder()->getParameter('status') );
     }
 }
 

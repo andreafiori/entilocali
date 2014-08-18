@@ -43,7 +43,7 @@ class PostsFrontend extends RouterManagerAbstract implements RouterManagerInterf
         $postsGetterWrapper = new PostsGetterWrapper(new PostsGetter($this->getInput('entityManager', 1)));
         $postsGetterWrapper->setInput($this->getInput());
         $postsGetterWrapper->setupQueryBuilder(); 
-        $postsGetterWrapper->setupPaginator( $postsGetterWrapper->setupQuery() );
+        $postsGetterWrapper->setupPaginator( $postsGetterWrapper->setupQuery($this->getInput('entityManager', 1)) );
         $postsGetterWrapper->setupPaginatorCurrentPage( isset($param['route']['page']) ? $param['route']['page'] : null );
         
         $records = $postsGetterWrapper->setupRecords();

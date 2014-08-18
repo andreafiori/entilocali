@@ -11,61 +11,61 @@ use Admin\Model\AlboPretorio\AlboPretorioGetter;
  */
 class AlboPretorioGetterTest extends TestSuite
 {
-    private $alboPretorioGetter;
+    private $objectGetter;
     
     protected function setUp()
     {
         parent::setUp();
         
-        $this->alboPretorioGetter = new AlboPretorioGetter($this->getEntityManagerMock());
+        $this->objectGetter = new AlboPretorioGetter($this->getEntityManagerMock());
     }
     
     public function testSetMainQuery()
     {
-        $this->alboPretorioGetter->setMainQuery();
+        $this->objectGetter->setMainQuery();
         
-        $this->assertTrue( is_array($this->alboPretorioGetter->getQueryResult()) );
+        $this->assertTrue( is_array($this->objectGetter->getQueryResult()) );
     }
     
     public function testSetId()
     {
-        $this->alboPretorioGetter->setId(1);
+        $this->objectGetter->setId(1);
         
-        $this->assertNotEmpty($this->alboPretorioGetter->getQueryBuilder()->getParameter('id'));
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('id'));
     }
     
     public function testSetIdWithArrayInInput()
     {
-        $this->alboPretorioGetter->setId( array(1,2,3) );
+        $this->objectGetter->setId( array(1,2,3) );
         
-        $this->assertNotEmpty($this->alboPretorioGetter->getQueryBuilder()->getParameter('id'));
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('id'));
     }
     
     public function testSetNumeroProgressivo()
     {
-        $this->alboPretorioGetter->setNumeroProgressivo(22);
+        $this->objectGetter->setNumeroProgressivo(22);
         
-        $this->assertNotEmpty($this->alboPretorioGetter->getQueryBuilder()->getParameter('numeroProgressivo'));
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('numeroProgressivo'));
     }
     
     public function testSetNumeroAtto()
     {
-        $this->alboPretorioGetter->setNumeroAtto(22);
+        $this->objectGetter->setNumeroAtto(22);
         
-        $this->assertNotEmpty($this->alboPretorioGetter->getQueryBuilder()->getParameter('numeroAtto'));
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('numeroAtto'));
     }
     
     public function testSetAnno()
     {
-        $this->alboPretorioGetter->setAnno(2014);
+        $this->objectGetter->setAnno(2014);
         
-        $this->assertNotEmpty($this->alboPretorioGetter->getQueryBuilder()->getParameter('anno'));
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('anno'));
     }
     
     public function testSetDataScadenza()
     {
-        $this->alboPretorioGetter->setDataScadenza('20-10-2014');
+        $this->objectGetter->setDataScadenza('20-10-2014');
         
-        $this->assertNotEmpty($this->alboPretorioGetter->getQueryBuilder()->getParameter('dataScadenza'));
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('dataScadenza'));
     }
 }

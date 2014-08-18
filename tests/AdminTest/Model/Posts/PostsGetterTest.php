@@ -11,63 +11,63 @@ use Admin\Model\Posts\PostsGetter;
  */
 class PostsGetterTest extends TestSuite
 {
-    private $postsGetter;
+    private $objectGetter;
     
     protected function setUp()
     {
         parent::setUp();
         
-        $this->postsGetter = new PostsGetter( $this->getEntityManagerMock() );
+        $this->objectGetter = new PostsGetter( $this->getEntityManagerMock() );
     }
     
     public function testSetMainQuery()
     {
-        $this->postsGetter->setMainQuery();
+        $this->objectGetter->setMainQuery();
         
-        $this->assertTrue( is_array($this->postsGetter->getQueryResult()) );
+        $this->assertTrue( is_array($this->objectGetter->getQueryResult()) );
     }
     
     public function testSetId()
     {
-        $this->postsGetter->setId(1);
+        $this->objectGetter->setId(1);
         
-        $this->assertNotEmpty($this->postsGetter->getQueryBuilder()->getParameter('id'));
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('id'));
     }
 
     public function testSetCategoryName()
     {
-        $this->postsGetter->setCategoryName('MyPostCategory');
+        $this->objectGetter->setCategoryName('MyPostCategory');
         
-        $this->assertNotEmpty($this->postsGetter->getQueryBuilder()->getParameter('categoryName'));
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('categoryName'));
     }
 
     public function testSetTitle()
     {
-        $this->postsGetter->setTitle('MyPostTitle');
+        $this->objectGetter->setTitle('MyPostTitle');
         
-         $this->assertNotEmpty($this->postsGetter->getQueryBuilder()->getParameter('title'));
+         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('title'));
     }
     
     public function testSetType()
     {
-        $this->postsGetter->setType('content');
+        $this->objectGetter->setType('content');
 
-        $this->assertNotEmpty($this->postsGetter->getQueryBuilder()->getParameter('postType'));
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('postType'));
     }
     
     public function testSetStatus()
     {
-        $this->postsGetter->setStatus();
-        $this->assertEmpty($this->postsGetter->getQueryBuilder()->getParameter('status'));
+        $this->objectGetter->setStatus();
+        $this->assertEmpty($this->objectGetter->getQueryBuilder()->getParameter('status'));
         
-        $this->postsGetter->setStatus('active');
-        $this->assertNotEmpty($this->postsGetter->getQueryBuilder()->getParameter('status'));
+        $this->objectGetter->setStatus('active');
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('status'));
     }
     
     public function testSetOrderBy()
     {
-        $this->postsGetter->setOrderBy('name');
+        $this->objectGetter->setOrderBy('name');
         
-        $this->assertEmpty($this->postsGetter->getQueryBuilder()->getParameter('orderBy'));
+        $this->assertEmpty($this->objectGetter->getQueryBuilder()->getParameter('orderBy'));
     }
 }

@@ -59,6 +59,13 @@ $migrationButtons = array(
         'buttonId'    => 'alboPretorioMigrationButton',
         'buttonLabel' => 'Albo pretorio',
     ),
+    
+    'enti-terzi' => array(
+        'formId'      => 'entiTerziFormMigration',
+        'formAction'  => '?op=enti-terzi',
+        'buttonId'    => 'entiTerziMigrationButton',
+        'buttonLabel' => 'Enti terzi',
+    ),
 
     'contenuti' => array(
         'formId'      => 'contenutiFormMigration',
@@ -267,6 +274,7 @@ function displayMigrationButton($key, $cellSpan = 3, $btnClass = 'primary')
                 displayMigrationButton('amministrazione-trasparente', 4);
                 displayMigrationButton('stato-civile');
                 displayMigrationButton('contratti-pubblici');
+                displayMigrationButton('enti-terzi');
             ?>
             </div>
 

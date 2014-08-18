@@ -11,25 +11,25 @@ use Admin\Model\AlboPretorio\AlboPretorioRecordsGetter;
  */
 class AlboPretorioRecordsGetterTest extends TestSuite
 {
-    private $alboPretorioRecordsGetter;
+    private $objectGetter;
     
     protected function setUp()
     {
         parent::setUp();
         
-        $this->alboPretorioRecordsGetter = new AlboPretorioRecordsGetter( $this->getFrontendCommonInput() );
+        $this->objectGetter = new AlboPretorioRecordsGetter( $this->getFrontendCommonInput() );
     }
     
     public function testSetArticoliInput()
     {
-        $this->assertInstanceOf('\Admin\Model\AlboPretorio\AlboPretorioGetterWrapper', $this->alboPretorioRecordsGetter->setArticoliInput(array()));
+        $this->assertInstanceOf('\Admin\Model\AlboPretorio\AlboPretorioGetterWrapper', $this->objectGetter->setArticoliInput(array()));
     }
     
     public function testSetArticoliPaginator()
     {
         $this->setupArticoliWithPaginator();
         
-        $this->assertInstanceOf('\Admin\Model\AlboPretorio\AlboPretorioGetterWrapper', $this->alboPretorioRecordsGetter->setArticoliPaginator(1));
+        $this->assertInstanceOf('\Admin\Model\AlboPretorio\AlboPretorioGetterWrapper', $this->objectGetter->setArticoliPaginator(1));
     }
     
     /**
@@ -37,28 +37,28 @@ class AlboPretorioRecordsGetterTest extends TestSuite
      */
     public function testSetArticoliPaginatorCurrentPageThrowsNullException()
     {
-        $this->alboPretorioRecordsGetter->setArticoliPaginatorCurrentPage(1);
+        $this->objectGetter->setArticoliPaginatorCurrentPage(1);
     }
   
     public function testSetArticoliPaginatorCurrentPage()
     {
         $this->setupArticoliWithPaginator();
         
-        $this->assertInstanceOf('\Admin\Model\AlboPretorio\AlboPretorioGetterWrapper', $this->alboPretorioRecordsGetter->setArticoliPaginatorCurrentPage(1));
+        $this->assertInstanceOf('\Admin\Model\AlboPretorio\AlboPretorioGetterWrapper', $this->objectGetter->setArticoliPaginatorCurrentPage(1));
     }
     
     public function testSetArticoliPaginatorPerPage()
     {
         $this->setupArticoliWithPaginator();
         
-        $this->assertInstanceOf('\Admin\Model\AlboPretorio\AlboPretorioGetterWrapper', $this->alboPretorioRecordsGetter->setArticoliPaginatorPerPage(25));
+        $this->assertInstanceOf('\Admin\Model\AlboPretorio\AlboPretorioGetterWrapper', $this->objectGetter->setArticoliPaginatorPerPage(25));
     }
     
     public function testGetPaginatorRecords()
     {
         $this->setupArticoliWithPaginator();
         
-        $this->assertInstanceOf('\Zend\Paginator\Paginator', $this->alboPretorioRecordsGetter->getPaginatorRecords());
+        $this->assertInstanceOf('\Zend\Paginator\Paginator', $this->objectGetter->getPaginatorRecords());
     }
     
         /**
@@ -68,7 +68,7 @@ class AlboPretorioRecordsGetterTest extends TestSuite
          */
         private function setupArticoliWithPaginator( $input = array() )
         {
-            $this->alboPretorioRecordsGetter->setArticoliInput(array());
-            $this->alboPretorioRecordsGetter->setArticoliPaginator();
+            $this->objectGetter->setArticoliInput($input);
+            $this->objectGetter->setArticoliPaginator();
         }
 }

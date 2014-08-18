@@ -156,8 +156,7 @@ switch($_GET['op'])
                 //$pathInfo = pathinfo($attachment['nome']);
                 
                 //$filename = uniqid().'.'.$pathInfo['extension'];
-                
-                /*  */
+
                 $fp = fopen('../public/frontend/media/stato-civile/'.$attachment['nome'], 'w');
                 fwrite($fp, $attachment['dati']);
                 fclose($fp);
@@ -178,7 +177,7 @@ switch($_GET['op'])
         /* import data */
         $resultArticoli = executeQuery("INSERT INTO zfcms_comuni_albo_articoli ( SELECT * FROM albo_articoli ) ");
         
-        /* correct HTML specialchars */
+        /* Correct HTML specialchars */
         $result = getRecord("SELECT * FROM zfcms_comuni_albo_articoli");
         if ( is_array($result) ) {
             foreach($result as $articolo) {
@@ -190,8 +189,7 @@ switch($_GET['op'])
         
         /* TODO: Extract blob files and copy them into the dedicated directory */
         
-        
-        showAlertMessage('Albo pretorio', 'Articoli importati: '.$resultArticoli.'<br>Sezioni: '.$resultSezioni.'<br>', 'warning');
+        showAlertMessage('Albo pretorio', 'Articoli importati: '.$resultArticoli.'<br>Sezioni: '.$resultSezioni.'<br>', 'success');
     break;
 
     case("amministrazione-trasparente"):
@@ -206,7 +204,7 @@ switch($_GET['op'])
     break;
 
     case("contratti-pubblici"):
-        /* Delete old data to avoid */
+        /* Delete old data */
         executeQuery("TRUNCATE TABLE zfcms_comuni_contratti ");
         executeQuery("TRUNCATE TABLE zfcms_comuni_contratti_partecipanti ");
         executeQuery("TRUNCATE TABLE zfcms_comuni_contratti_part_cig ");
@@ -226,6 +224,14 @@ switch($_GET['op'])
         var_dump($contrattiPubbliciSettori);
     break;
 
+    case("enti-terzi"):
+        executeQuery("TRUNCATE TABLE zfcms_comuni_rubrica_enti_terzi ");
+        
+        $rubrica = executeQuery("INSERT INTO zfcms_comuni_rubrica_enti_terzi ( SELECT *, NOW(), NOW() FROM rubrica_et ) ");
+        
+        showAlertMessage('Rubrica enti terzi', 'Numero contatti importati: '.$rubrica, 'success');
+    break;
+
     case("contenuti"):
         // contents, not ammaperta records...
     break;
@@ -237,6 +243,7 @@ switch($_GET['op'])
     case("blogs"):
         // eventi
     break;
+
     /*
     case("forum"):
         

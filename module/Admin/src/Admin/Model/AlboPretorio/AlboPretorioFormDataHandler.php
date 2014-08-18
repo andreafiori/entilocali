@@ -20,16 +20,22 @@ class AlboPretorioFormDataHandler extends FormDataAbstract
     {
         parent::__construct($input);
         
+        $param = $this->getInput('param',1);
+        
         $form = new AlboPretorioForm();
-        //$form->addSezioni();
+        // $form->addSezioni();
         $form->addLastFields();
         $form->addScadenze();
         
+        if (isset($param['route']['option'])) {
+            $form->setData( array() );
+        }
+        
         $this->setVariables(array(
-            'formTitle' => 'Nuovo atto',
-            'formDescription' => '',
             'form' => $form,
-            'formAction' =>'',
+            'formAction' => '',
+            'formTitle' => 'Nuovo atto',
+            'formDescription' => "Compila i dati relativi all'atto da inserire sull'albo pretorio",
             'formBreadCrumbCategory' => 'Albo pretorio',
             'formBreadCrumbCategoryLink' => $this->getInput('baseUrl', 1).'datatable/albo-pretorio/'
             )

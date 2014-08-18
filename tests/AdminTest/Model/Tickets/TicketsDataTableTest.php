@@ -1,6 +1,6 @@
 <?php
 
-namespace ApplicationTest\Model\Ticketing;
+namespace ApplicationTest\Model\Tickets;
 
 use ApplicationTest\TestSuite;
 use Admin\Model\Tickets\TicketsDataTable;
@@ -9,7 +9,7 @@ use Admin\Model\Tickets\TicketsDataTable;
  * @author Andrea Fiori
  * @since  19 May 2014
  */
-class TicketingDataTableTest extends TestSuite
+class TicketsDataTableTest extends TestSuite
 {
     private $ticketingDataTable;
     

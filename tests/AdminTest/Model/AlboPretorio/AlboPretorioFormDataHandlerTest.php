@@ -11,12 +11,12 @@ use Admin\Model\AlboPretorio\AlboPretorioFormDataHandler;
  */
 class AlboPretorioFormDataHandlerTest //extends TestSuite
 {
-    private $alboPretorioFormDataHandlere;
+    private $alboPretorioFormDataHandlerer;
     
     protected function setUp()
     {
         parent::setUp();
         
-        $this->alboPretorioFormDataHandlere = new AlboPretorioFormDataHandler( $this->getFrontendCommonInput() );
+        $this->alboPretorioFormDataHandlerer = new AlboPretorioFormDataHandler( $this->getFrontendCommonInput() );
     }
 }

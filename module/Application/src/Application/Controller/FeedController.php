@@ -14,7 +14,12 @@ use Zend\View\Model\FeedModel;
  */
 class FeedController extends AbstractActionController
 {
-    public function indexAction()
+    public function indexction()
+    {
+        return $this->sampleFeed();
+    }
+    
+    public function sampleFeed()
     {
         $feed = new Feed();
         $feed->setTitle('Feed Example');
@@ -28,39 +33,42 @@ class FeedController extends AbstractActionController
         $feed->setLink('http://ourdomain.com');
         $feed->setDateModified(time());
  
-        //fake data...
         $data = array(
-            0 => array('title' => 'my 1st post', 'link' => 'http://ourdomain.com/1stpost',
-                       'content'=> 'summary of 1st post',
-                       'date_created' => '2012-01-01 00:00:00',
-                       'date_created' => '2012-01-01 00:00:00'
+            0 => array('title'          => 'my 1st post',
+                       'link'           => 'http://ourdomain.com/1stpost',
+                       'content'        => 'summary of 1st post',
+                       'date_modified'  => '2012-01-01 00:00:00',
+                       'date_created'   => '2012-01-01 00:00:00',
                        ),
-            1 => array('title' => 'my 2nd post', 'link' => 'http://ourdomain.com/2ndpost',
-                       'content'=> 'summary of 2nd post',
-                       'date_created' => '2012-02-01 00:00:00',
-                       'date_created' => '2012-02-01 00:00:00'),
-            2 => array('title' => 'my 3rd post', 'link' => 'http://ourdomain.com/3rdpost',
-                       'content'=>'summary of 3rd post',
-                       'date_created' => '2012-03-01 00:00:00',
-                       'date_created' => '2012-03-01 00:00:00'),
+            1 => array('title'          => 'my 2nd post',
+                       'link'           => 'http://ourdomain.com/2ndpost',
+                       'content'        => 'summary of 2nd post',
+                       'date_modified'  => '2012-02-01 00:00:00',
+                       'date_created'   => '2012-02-01 00:00:00',
+                        ),
+            2 => array('title'          => 'my 3rd post',
+                       'link'           => 'http://ourdomain.com/3rdpost',
+                       'content'        =>'summary of 3rd post',
+                       'date_modified'  => '2012-03-01 00:00:00',
+                       'date_created'   => '2012-03-01 00:00:00',
+                       ),
         );
  
         foreach($data as $row)
         {
-            //create entry...
             $entry = $feed->createEntry();
             $entry->setTitle($row['title']);
             $entry->setLink($row['link']);
             $entry->setDescription($row['content']);
  
-            $entry->setDateModified(strtotime($row['date_created']));
+            $entry->setDateModified(strtotime($row['date_modified']));
             $entry->setDateCreated(strtotime($row['date_created']));
- 
+            
             $feed->addEntry($entry);
         }
- 
+
         $feed->export('rss');
- 
+
         $feedmodel = new FeedModel();
         $feedmodel->setFeed($feed);
 

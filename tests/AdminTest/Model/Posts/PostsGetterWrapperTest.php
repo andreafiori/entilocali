@@ -12,36 +12,31 @@ use Admin\Model\Posts\PostsGetterWrapper;
  */
 class PostsGetterWrapperTest extends TestSuite
 {
-    private $postsGetterWrapper;
+    private $objectWrapper;
     
     protected function setUp()
     {
         parent::setUp();
 
-        $this->postsGetterWrapper = new PostsGetterWrapper( new PostsGetter($this->getEntityManagerMock()) );
+        $this->objectWrapper = new PostsGetterWrapper( new PostsGetter($this->getEntityManagerMock()) );
     }
     
     public function testSetInput()
     {
-        $this->postsGetterWrapper->setInput( array("id" => 1) );
+        $this->objectWrapper->setInput( array("id" => 1) );
         
-        $this->assertTrue( is_array($this->postsGetterWrapper->getInput()) );
+        $this->assertTrue( is_array($this->objectWrapper->getInput()) );
     }
 
     public function testGetRecords()
     {
-        $this->postsGetterWrapper->setInput( array("id" => 1) );
+        $this->objectWrapper->setInput( array("id" => 1) );
         
-        $this->assertTrue( is_array($this->postsGetterWrapper->getRecords()) );
+        $this->assertTrue( is_array($this->objectWrapper->getRecords()) );
     }
     
-    /*
     public function testSetupQueryBuilder()
     {
-        $this->postsGetterWrapper->setupQueryBuilder();
-        
-        $this->assertEquals($this->postsGetterWrapper->getPostsGetter()->getQueryBuilder()->getParameter('language'), 1);
-        $this->assertEquals($this->postsGetterWrapper->getPostsGetter()->getQueryBuilder()->getParameter('channel'), 1);
+        $this->assertNull( $this->objectWrapper->setupQueryBuilder() );
     }
-    */
 }

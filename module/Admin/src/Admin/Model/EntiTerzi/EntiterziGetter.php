@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Model\ContrattiPubblici;
+namespace Admin\Model\Entiterzi;
 
 use Application\Model\QueryBuilderHelperAbstract;
 
@@ -8,35 +8,36 @@ use Application\Model\QueryBuilderHelperAbstract;
  * @author Andrea Fiori
  * @since  17 August 2014
  */
-class ResposabiliProcedimentoGetter extends QueryBuilderHelperAbstract
+class EntiTerziGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('crp.id, crp.nomeResp, crp.attivo');
+        $this->setSelectQueryFields('ret.id, ret.nome, ret.email ');
 
         $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
-                                ->add('from', 'Application\Entity\ZfcmsComuniContrattiRespProc crp ')
-                                ->add('where', 'crp.id != 0 ');
+                                ->add('from', 'Application\Entity\ZfcmsComuniRubricaEntiTerzi ret ')
+                                ->add('where', 'ret.id != 0 '); 
         
         return $this->getQueryBuilder();
     }
-    
+   
     /**
      * @param number or array $id
-     * @return type
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setId($id)
     {
         if ( is_numeric($id) ) {
-            $this->getQueryBuilder()->andWhere('crp.id = :id ');
+            $this->getQueryBuilder()->andWhere('ret.id = :id ');
             $this->getQueryBuilder()->setParameter('id', $id);
         }
         
         if (is_array($id)) {
-            $this->getQueryBuilder()->andWhere('crp.id IN ( :id ) ');
+            $this->getQueryBuilder()->andWhere('ret.id IN ( :id ) ');
             $this->getQueryBuilder()->setParameter('id', $id);
         }
         
         return $this->getQueryBuilder();
     }
 }
+

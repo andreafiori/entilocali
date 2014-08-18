@@ -8,17 +8,17 @@ use Application\Model\RecordsGetterWrapperAbstract;
  * @author Andrea Fiori
  * @since  17 August 2014
  */
-class ResposabiliProcedimentoGetterWrapper extends RecordsGetterWrapperAbstract
+class OperatoriGetterWrapper extends RecordsGetterWrapperAbstract
 {
-    /** @var  \Admin\Model\ContrattiPubblici\ResposabiliProcedimentoGetter **/
+    /** @var  \Admin\Model\ContrattiPubblici\OperatoriGetter **/
     protected $objectGetter;
     
     /**
-     * @param \Admin\Model\ContrattiPubblici\ResposabiliProcedimentoGetter $resposabiliProcedimentoGetterr
+     * @param \Admin\Model\ContrattiPubblici\ResposabiliProcedimentoGetter $operatoriGetter
      */
-    public function __construct(ResposabiliProcedimentoGetter $resposabiliProcedimentoGetterr)
+    public function __construct(OperatoriGetter $operatoriGetter)
     {
-        $this->setObjectGetter($resposabiliProcedimentoGetterr);
+        $this->setObjectGetter($operatoriGetter);
     }
     
     public function setupQueryBuilder()

@@ -12,15 +12,7 @@ use Application\Model\Slugifier;
  */
 class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterface
 {
-    public function performOperation()
-    {
-        $operation = $this->getOperation();
-        if ($operation) {
-            $this->$operation();
-        }
-    }
-
-        private function insert()
+        protected function insert()
         {
             $error = array();
             if (!$this->rawPost['category']) {
@@ -86,7 +78,7 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
             $this->setVariable('messageText',   'Dati inseriti correttamente in archivio.');
         }
         
-        private function update()
+        protected function update()
         {
             $this->getConnection()->beginTransaction();
             try {

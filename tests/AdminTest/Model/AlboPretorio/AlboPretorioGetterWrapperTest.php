@@ -12,17 +12,17 @@ use Admin\Model\AlboPretorio\AlboPretorioGetterWrapper;
  */
 class AlboPretorioGetterWrapperTest extends TestSuite
 {
-    private $alboPretorioGetterWrapper;
-    
+    private $objectWrapper;
+  
     protected function setUp()
     {
         parent::setUp();
         
-        $this->alboPretorioGetterWrapper = new AlboPretorioGetterWrapper( new AlboPretorioGetter($this->getEntityManagerMock()) );
+        $this->objectWrapper = new AlboPretorioGetterWrapper( new AlboPretorioGetter($this->getEntityManagerMock()) );
     }
     
     public function testSetupQueryBuilder()
     {
-        $this->assertNull( $this->alboPretorioGetterWrapper->setupQueryBuilder() );
+        $this->assertNull( $this->objectWrapper->setupQueryBuilder() );
     }
 }

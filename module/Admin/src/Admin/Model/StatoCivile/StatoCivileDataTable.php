@@ -3,8 +3,6 @@
 namespace Admin\Model\StatoCivile;
 
 use Admin\Model\DataTable\DataTableAbstract;
-use Admin\Model\StatoCivile\StatoCivileGetter;
-use Admin\Model\StatoCivile\StatoCivileGetterWrapper;
 
 /**
  * @author Andrea Fiori
@@ -20,7 +18,7 @@ class StatoCivileDataTable extends DataTableAbstract
         parent::__construct($input);
         
         $this->setTitle('Stato civile');
-        $this->setDescription('Gestione atti stato civile in archivio');
+        $this->setDescription('Gestione atti stato civile');
         $this->setColumns( array(
             "Titolo", 
             "Numero / Anno", 
@@ -36,10 +34,13 @@ class StatoCivileDataTable extends DataTableAbstract
         
         $paginatorRecords = $this->getRecordsPaginator();
         
-        $this->setVariable('paginator', $paginatorRecords);
+        $this->setVariables(array(
+            'paginator' => $paginatorRecords,
+            'tablesetter' => 'stato-civile'
+            )
+        );
+        
         $this->setRecords($this->getFormattedRecords($paginatorRecords));
-
-        $this->setVariable('tablesetter', 'stato-civile');
         
         $this->setTemplate('datatable/datatable_statocivile.phtml');
     }

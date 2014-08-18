@@ -10,6 +10,9 @@ use Admin\Model\DataTable\DataTableAbstract;
  */
 class SceltaContraenteDataTable extends DataTableAbstract
 {
+    /**
+     * @param array $input
+     */
     public function __construct(array $input)
     {
         parent::__construct($input);
@@ -24,8 +27,8 @@ class SceltaContraenteDataTable extends DataTableAbstract
         $this->setTitle('Contratti pubblici - scelta del contraente');
         $this->setDescription('Gestione scelta del contraente sui contratti pubblici');
         $this->setColumns(array(
-                "Nome scelta",
-                "Stato",
+                "Nome",
+                "Responsabile",
                 "&nbsp;", 
                 "&nbsp;",
             )
@@ -42,7 +45,7 @@ class SceltaContraenteDataTable extends DataTableAbstract
                         $row['attivo'],
                         array(
                             'type'      => 'updateButton',
-                            'href'      => $this->getInput('baseUrl',1).'formdata/contratti-pubblici-scelta-contraente/'.$row['id'],
+                            'href'      => $this->getInput('baseUrl',1).'formdata/contratti-pubblici-settori/'.$row['id'],
                             'tooltip'   => 1,
                             'title'     => 'Modifica'
                         ),
@@ -50,7 +53,7 @@ class SceltaContraenteDataTable extends DataTableAbstract
                             'type'      => 'deleteButton',
                             'href'      => '#',
                             'tooltip'   => 1,
-                            'title'     => 'Modifica'
+                            'title'     => 'Elimina'
                         ),
                     );
                 }
