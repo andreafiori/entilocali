@@ -6,7 +6,7 @@ namespace Admin\Model\AlboPretorio;
  * @author Andrea Fiori
  * @since  30 July 2014
  */
-class AlboPretorioSearchFilterForm extends AlboPretorioFormAbstract
+class ArticoliSearchFilterForm extends AlboPretorioFormAbstract
 {
     public function __construct($name = null, $options = array()) {
         

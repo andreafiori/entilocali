@@ -6,8 +6,6 @@ use ApplicationTest\TestSuite;
 use Admin\Model\Posts\PostsCrudHandler;
 
 /**
- * TODO: test insert and update to be re-used
- * 
  * @author Andrea Fiori
  * @since  01 June 2014
  */
@@ -25,5 +23,5 @@ class PostsCrudHandlerTest extends TestSuite
     public function testPerformOperation()
     {
         $this->postsCrudHandler->performOperation();
-    }
+    }   
 }

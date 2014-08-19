@@ -1,16 +1,16 @@
 <?php
 
-namespace AdminTest\Model\EntiTerzi;
+namespace AdminTest\Model\ContrattiPubblici;
 
 use ApplicationTest\TestSuite;
-use Admin\Model\Entiterzi\EntiTerziGetter;
-use Admin\Model\Entiterzi\EntiTerziGetterWrapper;
+use Admin\Model\ContrattiPubblici\SettoriGetter;
+use Admin\Model\ContrattiPubblici\SettoriGetterWrapper;
 
 /**
  * @author Andrea Fiori
  * @since  18 August 2014
  */
-class AlboPretorioSezioniGetterWrapperTest extends TestSuite
+class ContrattiPubbliciSettoriGetterWrapperTest extends TestSuite
 {
     private $objectWrapper;
     
@@ -18,7 +18,7 @@ class AlboPretorioSezioniGetterWrapperTest extends TestSuite
     {
         parent::setUp();
         
-        $this->objectWrapper = new EntiTerziGetterWrapper( new EntiTerziGetter($this->getEntityManagerMock()) );
+        $this->objectWrapper = new SettoriGetterWrapper( new SettoriGetter($this->getEntityManagerMock()) );
     }
     
     public function testSetupQueryBuilder()

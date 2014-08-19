@@ -1,15 +1,15 @@
 <?php
 
-namespace AdminTest\Model\AlboPretorio;
+namespace AdminTest\Model\ContrattiPubblici;
 
 use ApplicationTest\TestSuite;
-use Admin\Model\AlboPretorio\AlboPretorioSezioniGetter;
+use Admin\Model\ContrattiPubblici\ResponsabiliProcedimentoGetter;
 
 /**
  * @author Andrea Fiori
- * @since  17 August 2014
+ * @since  19 August 2014
  */
-class AlboPretorioSezioniGetterTest extends TestSuite
+class ContrattiPubbliciResponsabiliProcedimentoGetterTest extends TestSuite
 {
     private $objectGetter;
     
@@ -17,7 +17,7 @@ class AlboPretorioSezioniGetterTest extends TestSuite
     {
         parent::setUp();
         
-        $this->objectGetter = new AlboPretorioSezioniGetter( $this->getEntityManagerMock() );
+        $this->objectGetter = new ResponsabiliProcedimentoGetter( $this->getEntityManagerMock() );
     }
     
     public function testSetMainQuery()
@@ -31,7 +31,7 @@ class AlboPretorioSezioniGetterTest extends TestSuite
     {
         $this->objectGetter->setId(1);
         
-        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('id'));        
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('id'));
     }
     
     public function testSetIdWithArrayInInput()

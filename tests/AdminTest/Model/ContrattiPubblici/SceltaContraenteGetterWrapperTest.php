@@ -3,14 +3,14 @@
 namespace AdminTest\Model\ContrattiPubblici;
 
 use ApplicationTest\TestSuite;
-use Admin\Model\ContrattiPubblici\ContrattiPubbliciGetter;
-use Admin\Model\ContrattiPubblici\ContrattiPubbliciGetterWrapper;
+use Admin\Model\ContrattiPubblici\SceltaContraenteGetter;
+use Admin\Model\ContrattiPubblici\SceltaContraenteGetterWrapper;
 
 /**
  * @author Andrea Fiori
  * @since  18 August 2014
  */
-class ContrattiPubbliciGetterWrapperTest extends TestSuite
+class ContrattiPubbliciSceltaContraenteGetterWrapperTest extends TestSuite
 {
     private $objectWrapper;
     
@@ -18,7 +18,7 @@ class ContrattiPubbliciGetterWrapperTest extends TestSuite
     {
         parent::setUp();
         
-        $this->objectWrapper = new ContrattiPubbliciGetterWrapper( new ContrattiPubbliciGetter($this->getEntityManagerMock()) );
+        $this->objectWrapper = new SceltaContraenteGetterWrapper( new SceltaContraenteGetter($this->getEntityManagerMock()) );
     }
     
     public function testSetupQueryBuilder()

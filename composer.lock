@@ -293,12 +293,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "83f92c3f28e927917ddcb7cf214ce99c0b72004b"
+                "reference": "c1c33531be50ea6d9bf2447149b66ce34d449d7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/83f92c3f28e927917ddcb7cf214ce99c0b72004b",
-                "reference": "83f92c3f28e927917ddcb7cf214ce99c0b72004b",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/c1c33531be50ea6d9bf2447149b66ce34d449d7e",
+                "reference": "c1c33531be50ea6d9bf2447149b66ce34d449d7e",
                 "shasum": ""
             },
             "require": {
@@ -356,7 +356,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2014-08-13 07:14:49"
+            "time": "2014-08-19 08:10:53"
         },
         {
             "name": "doctrine/doctrine-module",
@@ -658,12 +658,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/doctrine2.git",
-                "reference": "5ff67c92ee869841e71d5783f035eee36c85047f"
+                "reference": "ff801879304dfc2bdec34222d4c03fa7bde3e4e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/5ff67c92ee869841e71d5783f035eee36c85047f",
-                "reference": "5ff67c92ee869841e71d5783f035eee36c85047f",
+                "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/ff801879304dfc2bdec34222d4c03fa7bde3e4e4",
+                "reference": "ff801879304dfc2bdec34222d4c03fa7bde3e4e4",
                 "shasum": ""
             },
             "require": {
@@ -724,7 +724,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2014-08-15 14:13:33"
+            "time": "2014-08-18 20:35:52"
         },
         {
             "name": "symfony/console",

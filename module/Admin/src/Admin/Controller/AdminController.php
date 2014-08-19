@@ -24,6 +24,7 @@ class AdminController extends AbstractActionController
     private $baseUrl;
     private $authservice;
     private $form;
+    private $storage;
     
     public function indexAction()
     {

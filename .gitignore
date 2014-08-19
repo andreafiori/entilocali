@@ -14,3 +14,5 @@ docs
 tests/reports
 vendor/
 vendor_backup/
+vendor_backup/
+public/frontend/media/

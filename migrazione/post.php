@@ -42,7 +42,6 @@ function executeQuery($q)
     }
 }
 
-
 function executeMultipleQuery(array $q)
 {
     if ( is_array($q) ) {
@@ -59,10 +58,9 @@ function executeMultipleQuery(array $q)
     }
 }
 
-/* Disable foreign checks */
 executeQuery("SET foreign_key_checks = 0");
 
-/* execute import operations */
+/* Execute import operations */
 switch($_GET['op'])
 {
     default:
@@ -94,6 +92,8 @@ switch($_GET['op'])
     break;
 
     case("users"):
+        executeQuery("TRUNCATE TABLE zfcms_users ");        
+        
         $result = getRecord("SELECT * FROM utenti");
         if ( is_array($result) ) {
             
@@ -135,7 +135,7 @@ switch($_GET['op'])
         executeQuery("TRUNCATE TABLE zfcms_attachments_options ");
         executeQuery("TRUNCATE TABLE zfcms_attachments_relations ");
         
-        $resultArticoli = executeQuery("INSERT INTO zfcms_comuni_stato_civile_articoli (SELECT * FROM statocivile_articoli) ");
+        $resultArticoli = executeQuery("INSERT INTO zfcms_comuni_stato_civile_articoli (id, titolo, progressivo, anno, data, ora, attivo, scadenza, utente_id, sezione_id) (SELECT id, titolo, progressivo, anno, data, ora, attivo, scadenza, id_utente, id_sezione FROM statocivile_articoli) ");
         
         $resultSezioni = executeQuery("INSERT INTO zfcms_comuni_stato_civile_sezioni (nome, attivo, data_inserimento, data_ultimo_aggiornamento) (SELECT nome, attivo, NOW(), NOW() FROM statocivile_sezioni) ");
         
@@ -283,5 +283,4 @@ switch($_GET['op'])
     break;
 }
 
-/* Re-enable foreign checks */
 executeQuery("SET foreign_key_checks = 1");

@@ -8,7 +8,7 @@ use Application\Model\QueryBuilderHelperAbstract;
  * @author Andrea Fiori
  * @since  24 July 2014
  */
-class AlboPretorioSezioniGetter extends QueryBuilderHelperAbstract
+class SezioniGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {

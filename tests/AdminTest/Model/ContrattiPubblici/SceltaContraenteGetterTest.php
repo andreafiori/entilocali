@@ -1,15 +1,15 @@
 <?php
 
-namespace AdminTest\Model\Attachments;
+namespace AdminTest\Model\ContrattiPubblici;
 
 use ApplicationTest\TestSuite;
-use Admin\Model\Attachments\AttachmentsGetter;
+use Admin\Model\ContrattiPubblici\SceltaContraenteGetter;
 
 /**
  * @author Andrea Fiori
- * @since  18 August 2014
+ * @since  19 August 2014
  */
-class AttachmentsGetterTest extends TestSuite
+class ContrattiPubbliciSceltaContraenteGetterTest extends TestSuite
 {
     private $objectGetter;
     
@@ -17,7 +17,7 @@ class AttachmentsGetterTest extends TestSuite
     {
         parent::setUp();
         
-        $this->objectGetter = new AttachmentsGetter( $this->getEntityManagerMock() );
+        $this->objectGetter = new SceltaContraenteGetter( $this->getEntityManagerMock() );
     }
     
     public function testSetMainQuery()
@@ -41,10 +41,10 @@ class AttachmentsGetterTest extends TestSuite
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('id'));
     }
     
-    public function testSetModuleId()
+    public function testSetNomeScelta()
     {
-        $this->objectGetter->setModuleId(6);
+        $this->objectGetter->setNomeScelta('John Doe');
         
-        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('moduleId'));
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('nomeScelta'));
     }
 }

@@ -8,24 +8,24 @@ use Application\Model\RecordsGetterWrapperAbstract;
  * @author Andrea Fiori
  * @since  08 July 2014
  */
-class AlboPretorioGetterWrapper extends RecordsGetterWrapperAbstract
+class ArticoliGetterWrapper extends RecordsGetterWrapperAbstract
 {
-    /** @var \Admin\Model\AlboPretorio\AlboPretorioGetter **/
+    /** @var \Admin\Model\AlboPretorio\ArticoliGetter **/
     protected $objectGetter;
 
     /**
-     * @param \Admin\Model\AlboPretorio\AlboPretorioGetter $alboPretorioGetter
+     * @param \Admin\Model\AlboPretorio\ArticoliGetter $articoliGetter
      */
-    public function __construct(AlboPretorioGetter $alboPretorioGetter)
+    public function __construct(ArticoliGetter $articoliGetter)
     {
-        $this->setObjectGetter( $alboPretorioGetter );
+        $this->setObjectGetter($articoliGetter);
     }
     
     /**
      * setup and execute query
      */
     public function setupQueryBuilder()
-    {       
+    {
         $this->objectGetter->setSelectQueryFields( $this->getInput('fields', 1) );
         
         $this->objectGetter->setMainQuery();        

@@ -26,7 +26,7 @@ class ContrattiPubbliciDataTable extends DataTableAbstract
         $this->setVariable('tablesetter', 'contratti-pubblici');
         $this->setVariable('paginator', $paginatorRecords);
 
-        $this->setTitle('Bandi contratti pubblici');
+        $this->setTitle('Contratti pubblici');
         $this->setDescription('Gestione bandi contratti pubblici');
         $this->setColumns(array(
                 "Bando",
@@ -69,9 +69,9 @@ class ContrattiPubbliciDataTable extends DataTableAbstract
         }
         
     }
-
+    
         /**
-         * @return array 
+         * @return array
          */
         private function setupPaginatorRecords()
         {

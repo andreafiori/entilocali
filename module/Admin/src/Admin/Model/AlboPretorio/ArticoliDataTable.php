@@ -10,12 +10,12 @@ use Zend\Session\Container as SessionContainer;
  * @author Andrea Fiori
  * @since  18 May 2014
  */
-class AlboPretorioDataTable extends DataTableAbstract implements DataTableInterface
+class ArticoliDataTable extends DataTableAbstract implements DataTableInterface
 {
     /** session key where it stores post from form **/
     const sessionPostKey = 'alboPretorioDataTablePost';
     
-    private $alboPretorioRecordsGetter;
+    private $recordsGetter;
 
     /**
      * @param array $input
@@ -29,8 +29,8 @@ class AlboPretorioDataTable extends DataTableAbstract implements DataTableInterf
             array(
                 'tablesetter' => 'albo-pretorio',
                 'paginator'   => $paginatorRecords,
-                'formSearch'  => $this->setupFormSearchAndExport(new AlboPretorioSearchFilterForm()),
-                'formExport'  => $this->setupFormSearchAndExport(new AlboPretorioSearchFilterForm(), 'export', 'Esporta'),
+                'formSearch'  => $this->setupFormSearchAndExport(new ArticoliSearchFilterForm()),
+                'formExport'  => $this->setupFormSearchAndExport(new ArticoliSearchFilterForm(), 'export', 'Esporta'),
             )
         );
         $this->setTitle('Albo pretorio');
@@ -88,13 +88,13 @@ class AlboPretorioDataTable extends DataTableAbstract implements DataTableInterf
                 }
             }
 
-            $this->alboPretorioRecordsGetter = new AlboPretorioRecordsGetter( $this->getInput() );
-            $this->alboPretorioRecordsGetter->setArticoliInput($articoliInput);
-            $this->alboPretorioRecordsGetter->setArticoliPaginator();
-            $this->alboPretorioRecordsGetter->setArticoliPaginatorCurrentPage(isset($param['route']['page']) ? $param['route']['page'] : null);
-            $this->alboPretorioRecordsGetter->setArticoliPaginatorPerPage(isset($param['route']['perpage']) ? $param['route']['perpage'] : null);
+            $this->recordsGetter = new RecordsGetter( $this->getInput() );
+            $this->recordsGetter->setArticoliInput($articoliInput);
+            $this->recordsGetter->setArticoliPaginator();
+            $this->recordsGetter->setArticoliPaginatorCurrentPage(isset($param['route']['page']) ? $param['route']['page'] : null);
+            $this->recordsGetter->setArticoliPaginatorPerPage(isset($param['route']['perpage']) ? $param['route']['perpage'] : null);
 
-            return $this->alboPretorioRecordsGetter->getPaginatorRecords();
+            return $this->recordsGetter->getPaginatorRecords();
         }
 
         /**
@@ -107,7 +107,7 @@ class AlboPretorioDataTable extends DataTableAbstract implements DataTableInterf
         private function setupFormSearchAndExport(AlboPretorioFormAbstract $form, $labelName = null, $labelValue = null)
         {
             $form->addMonths();
-            $form->addYears( $this->alboPretorioRecordsGetter->getYears() );
+            $form->addYears( $this->recordsGetter->getYears() );
             $form->addSezioni( $this->getSezioni( array('orderBy' => 'aps.nome') ) );
             $form->addSettori( $this->getSettori( array('fields' => 'DISTINCT(u.settore) AS settore, u.id', 'groupBy'=>'settore') ));
             $form->addOrderBy();
@@ -127,9 +127,9 @@ class AlboPretorioDataTable extends DataTableAbstract implements DataTableInterf
          */
         private function getSezioni(array $input)
         {
-            $this->alboPretorioRecordsGetter->setSezioni($input);
+            $this->recordsGetter->setSezioni($input);
 
-            return $this->alboPretorioRecordsGetter->formatSezioniForFormSelect('id','nome');
+            return $this->recordsGetter->formatSezioniForFormSelect('id','nome');
         }
         
         /**
@@ -138,9 +138,9 @@ class AlboPretorioDataTable extends DataTableAbstract implements DataTableInterf
          */
         private function getSettori(array $input)
         {
-            $this->alboPretorioRecordsGetter->setSettori($input);
+            $this->recordsGetter->setSettori($input);
 
-            return $this->alboPretorioRecordsGetter->formatSezioniForFormSelect('id','settore');
+            return $this->recordsGetter->formatSezioniForFormSelect('id','settore');
         }
         
         /**

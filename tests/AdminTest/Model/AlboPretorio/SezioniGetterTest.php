@@ -1,15 +1,15 @@
 <?php
 
-namespace AdminTest\Model\Attachments;
+namespace AdminTest\Model\AlboPretorio;
 
 use ApplicationTest\TestSuite;
-use Admin\Model\Attachments\AttachmentsGetter;
+use Admin\Model\AlboPretorio\SezioniGetter;
 
 /**
  * @author Andrea Fiori
- * @since  18 August 2014
+ * @since  17 August 2014
  */
-class AttachmentsGetterTest extends TestSuite
+class SezioniGetterTest extends TestSuite
 {
     private $objectGetter;
     
@@ -17,7 +17,7 @@ class AttachmentsGetterTest extends TestSuite
     {
         parent::setUp();
         
-        $this->objectGetter = new AttachmentsGetter( $this->getEntityManagerMock() );
+        $this->objectGetter = new SezioniGetter( $this->getEntityManagerMock() );
     }
     
     public function testSetMainQuery()
@@ -31,7 +31,7 @@ class AttachmentsGetterTest extends TestSuite
     {
         $this->objectGetter->setId(1);
         
-        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('id'));
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('id'));        
     }
     
     public function testSetIdWithArrayInInput()
@@ -39,12 +39,5 @@ class AttachmentsGetterTest extends TestSuite
         $this->objectGetter->setId( array(1,2,3) );
         
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('id'));
-    }
-    
-    public function testSetModuleId()
-    {
-        $this->objectGetter->setModuleId(6);
-        
-        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('moduleId'));
     }
 }

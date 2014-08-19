@@ -20,11 +20,6 @@ use Application\Model\RecordsGetterWrapperAbstract;
         $this->categoriesGetter = $categoriesGetter;
     }
     
-    public function getCategorieGetter()
-    {
-        return $this->categoriesGetter;
-    }
-    
     public function setupQueryBuilder()
     {
         $this->categoriesGetter->setSelectQueryFields( $this->getInput('fields', 1) );

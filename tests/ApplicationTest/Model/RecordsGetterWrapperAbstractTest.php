@@ -23,4 +23,12 @@ class RecordsGetterWrapperAbstractTest extends TestSuite
     {
         $this->assertTrue( is_array($this->recordsGetterWrapperAbstract->setInput($this->getFrontendCommonInput())) );
     }
+    
+    /**
+     * @expectedException \Application\Model\NullException
+     */
+    public function testGetRecordsThrowsException()
+    {
+        $this->recordsGetterWrapperAbstract->getRecords();
+    }
 }

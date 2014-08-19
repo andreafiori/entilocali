@@ -3,7 +3,7 @@
 namespace AdminTest\Model\AlboPretorio;
 
 use ApplicationTest\TestSuite;
-use Admin\Model\AlboPretorio\AlboPretorioGetter;
+use Admin\Model\AlboPretorio\ArticoliGetter;
 
 /**
  * @author Andrea Fiori
@@ -17,7 +17,7 @@ class AlboPretorioGetterTest extends TestSuite
     {
         parent::setUp();
         
-        $this->objectGetter = new AlboPretorioGetter($this->getEntityManagerMock());
+        $this->objectGetter = new ArticoliGetter($this->getEntityManagerMock());
     }
     
     public function testSetMainQuery()

@@ -36,6 +36,11 @@ class LanguagesSetupManagerTest extends TestSuite
         $this->assertEquals($this->languagesSetupManager->isMultiLanguage(), true);
     }
     
+    public function testSetLanguageAbbreviation()
+    {
+        $this->assertEquals($this->languagesSetupManager->setLanguageAbbreviation('en'), 'en');
+    }
+    
     public function testGenerateLanguageRecordNoMultiLanguage()
     {
         $this->assertArrayHasKey("languageId", $this->languagesSetupManager->generateLanguageRecord() );

@@ -49,6 +49,8 @@ class LanguagesSetupManager
         if (is_string($languageAbbreviation)) {
             $this->languageAbbreviation = $languageAbbreviation;   
         }
+        
+        return $this->languageAbbreviation;
     }
     
     public function getLanguageAbbreviation()

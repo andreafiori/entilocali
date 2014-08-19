@@ -9,17 +9,17 @@ use Admin\Model\AlboPretorio\AlboPretorioSezioniGetter;
  * @author Andrea Fiori
  * @since  24 July 2014
  */
-class AlboPretorioSezioniGetterWrapper extends RecordsGetterWrapperAbstract
+class SezioniGetterWrapper extends RecordsGetterWrapperAbstract
 {
-    /** @var \Admin\Model\AlboPretorio\AlboPretorioSezioniGetter **/
+    /** @var \Admin\Model\AlboPretorio\SezioniGetter **/
     protected $objectGetter;
 
     /**
-     * @param \Admin\Model\AlboPretorio\AlboPretorioSezioniGetter $alboPretorioSezioniGetter
+     * @param \Admin\Model\AlboPretorio\SezioniGetter $sezioniGetter
      */
-    public function __construct(AlboPretorioSezioniGetter $alboPretorioSezioniGetter)
+    public function __construct(SezioniGetter $sezioniGetter)
     {
-        $this->setObjectGetter($alboPretorioSezioniGetter);
+        $this->setObjectGetter($sezioniGetter);
     }
     
     public function setupQueryBuilder()

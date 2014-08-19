@@ -21,7 +21,7 @@ class VarExporterTest extends TestSuite
 
     public function testSetTemplate()
     {
-        $this->assertEmpty( $this->varExporter->setTemplate('') );
+        $this->assertEmpty( $this->varExporter->getTemplate() );
         
         $this->assertEquals($this->varExporter->setTemplate('myTemplateFile.html'), 'myTemplateFile.html');
     }

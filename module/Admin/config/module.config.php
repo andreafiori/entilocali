@@ -162,7 +162,7 @@ return array(
     /* FormData Class Map */
     'formdata_classmap' => array(
         'albo-pretorio'                 => 'Admin\Model\AlboPretorio\AlboPretorioFormDataHandler',
-        'albo-pretorio-sezioni'         => 'Admin\Model\AlboPretorio\AlboPretorioSezioniFormDataHandler',
+        'albo-pretorio-sezioni'         => 'Admin\Model\AlboPretorio\SezioniFormDataHandler',
         'amministrazione-trasparente'   => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFormDataHandler',
         'stato-civile'                  => 'Admin\Model\StatoCivile\StatoCivileFormDataHandler',
         'stato-civile-sezioni'          => 'Admin\Model\StatoCivile\SezioniFormDataHandler',
@@ -205,8 +205,8 @@ return array(
         'photo'                       => 'Admin\Model\Posts\PostsDataTable',
         'blog'                        => 'Admin\Model\Posts\PostsDataTable',
         'users'                       => 'Admin\Model\Users\UsersDataTable',
-        'albo-pretorio'               => 'Admin\Model\AlboPretorio\AlboPretorioDataTable',
-        'albo-pretorio-sezioni'       => 'Admin\Model\AlboPretorio\AlboPretorioSezioniDataTable',
+        'albo-pretorio'               => 'Admin\Model\AlboPretorio\ArticoliDataTable',
+        'albo-pretorio-sezioni'       => 'Admin\Model\AlboPretorio\SezioniDataTable',
         'amministrazione-trasparente' => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteDataTable',
         'contratti-pubblici'          => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciDataTable',
         'contratti-pubblici-scelta-contraente'  => 'Admin\Model\ContrattiPubblici\SceltaContraenteDataTable',
