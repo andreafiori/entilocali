@@ -67,7 +67,7 @@ class StatoCivileFrontend extends RouterManagerAbstract implements RouterManager
         }
         
         /**
-         * @param array $input
+         * @param array $queryInput
          * @return type
          */
         private function getSezioni(array $queryInput)

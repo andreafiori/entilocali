@@ -32,13 +32,18 @@ class StatoCivileDataTable extends DataTableAbstract
             )
         );
         
+        $formSearch = new StatoCivileFormSearch();
+        $formSearch->addSubmitButton();
+        
         $paginatorRecords = $this->getRecordsPaginator();
         
         $this->setVariables(array(
             'paginator' => $paginatorRecords,
-            'tablesetter' => 'stato-civile'
+            'tablesetter' => 'stato-civile',
+            'formSearch' => $formSearch
             )
         );
+        
         
         $this->setRecords($this->getFormattedRecords($paginatorRecords));
         
@@ -87,9 +92,8 @@ class StatoCivileDataTable extends DataTableAbstract
                     ),
                     array(
                         'type'      => 'enteterzoButton',
-                        'href'      => '#',
-                        'tooltip'   => 1,
-                        'title'     => 'Modifica'
+                        'href'      => $this->getInput('baseUrl',1).'invio-ente-terzo/stato-civile/'.$record['id'],                        
+                        'title'     => 'Invia ad ente terzo'
                     ),
                 );
             }

@@ -33,7 +33,7 @@ abstract class AlboPretorioFormAbstract extends Form
             )
         ));
     }
-        
+
     /**
      * @param type $settori
      */

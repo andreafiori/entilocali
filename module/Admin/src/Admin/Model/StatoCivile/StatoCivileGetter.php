@@ -14,7 +14,10 @@ class StatoCivileGetter extends QueryBuilderHelperAbstract
     
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('DISTINCT(sca.id) AS id, sca.titolo, sca.progressivo, sca.anno, sca.data, scs.id AS sezioneId, sca.scadenza, scs.nome ');
+        $this->setSelectQueryFields('DISTINCT(sca.id) AS id, sca.titolo, sca.progressivo, '
+                . 'sca.anno, sca.data, scs.id AS sezioneId, sca.scadenza, scs.nome'
+                //. ', (SELECT COUNT(att) FROM Application\Entity\ZfcmsAttachments att WHERE att.id = sca.id ) AS totattach '
+                );
 
         $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
                                 ->add('from', 'Application\Entity\ZfcmsComuniStatoCivileArticoli sca, Application\Entity\ZfcmsComuniStatoCivileSezioni scs ')

@@ -47,4 +47,11 @@ class AttachmentsGetterTest extends TestSuite
         
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('moduleId'));
     }
+    
+    public function testSetReferenceId()
+    {
+        $this->objectGetter->setReferenceId(11);
+        
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('referenceId'));
+    }
 }

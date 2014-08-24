@@ -17,16 +17,12 @@
         <?php
 
         $form = $this->formSearch;
-
+        
         $form->setAttribute('action',   $this->serverUrl(true));
         $form->setAttribute('method',   'post');
         $form->setAttribute('role',     'form');
         $form->setAttribute('class',    'form-horizontal');
         $form->setAttribute('id',       'albo-pretorio-search-form');
-
-        $form->prepare();
-
-        echo $this->form()->openTag($this->formSearch);
 
         $form->get('titolo')->setAttribute('class', 'form-control');
         $form->get('mese')->setAttribute('class', 'form-control');
@@ -35,6 +31,10 @@
         $form->get('settore')->setAttribute('class', 'form-control');
         $form->get('orderby')->setAttribute('class', 'form-control');
         $form->get('search')->setAttribute('class', 'btn btn-primary');
+        
+        $form->prepare();
+        
+        echo $this->form()->openTag($form);
 
         ?>
         <div class="form-group">

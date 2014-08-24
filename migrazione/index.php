@@ -6,8 +6,8 @@
  * @since  02 July 2014
  * @author Andrea Fiori
  */
- 
- require_once("setup_database.php");
+
+require_once("setup_database.php");
 
 $migrationButtons = array(
 
@@ -245,7 +245,9 @@ function displayMigrationButton($key, $cellSpan = 3, $btnClass = 'primary')
 
             <h1>Console migrazione</h1>
 
-            <p>Migrazione dati database, controllo integrit&agrave; dei dati, setup del CMS realizzato con Zend framework 2. I seguenti pulsanti eseguono operazioni di migrazione dati dal CMS originario. Assicurarsi di aver fatto i backup del sito prima dell'utilizzo di questa console.</p>
+            <p>Tool di migrazione dati dal CMS originario al nuovo software di gestione dati per enti pubblici e aziende. <br>
+                I seguenti pulsanti eseguono operazioni di migrazione dati dal CMS originario. <br>
+                Assicurarsi di aver fatto i backup del sito prima dell'utilizzo di questa console.</p>
 
             <div class="row">
 

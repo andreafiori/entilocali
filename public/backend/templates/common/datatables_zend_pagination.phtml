@@ -39,15 +39,15 @@
             <?php foreach($records as $record): ?>
                 <?php if (is_array($record)): ?>
                     <?php if ($record['type']=='updateButton'): ?>
-                    <td><a href="<?php echo $record['href'] ?>"<?php if ($record['tooltip']): ?> data-toggle="tooltip"<?php endif; ?> data-placement="top" class="btn btn-primary btooltip" title="<?php echo $record['title'] ?>"><i class="fa fa-pencil"></i> </a></td>
+                    <td><a href="<?php echo $record['href'] ?>" class="btn btn-primary" title="<?php echo $record['title'] ?>"><i class="fa fa-pencil"></i> </a></td>
                     <?php elseif($record['type']=='deleteButton'): ?>
-                    <td><a href="#deleteModal" data-id="<?php echo $record['data-id'] ?>" class="open-deleteModal btn btn-danger btooltip" data-toggle="tooltip" data-placement="top" title="Elimina"><i class="fa fa-times"></i> </a></td>
+                    <td><a href="#deleteModal" data-id="<?php echo $record['data-id'] ?>" class="open-deleteModal btn btn-danger" title="Elimina"><i class="fa fa-times"></i> </a></td>
                     <?php elseif($record['type']=='attachButton'): ?>
-                    <td><a href="<?php echo $record['href'] ?>" data-toggle="tooltip" data-placement="top" class="btn btn-default btooltip" title="Allegati"><i class="fa fa-paperclip"></i> </a></td>
+                    <td><a href="<?php echo $record['href'] ?>" class="btn btn-default" title="Gestione allegati"><i class="fa fa-paperclip"></i> </a></td>
                     <?php elseif($record['type']=='relatapdfButton'): ?>
-                    <td><a href="<?php echo $record['href'] ?>)" data-toggle="tooltip" data-placement="top" class="btn btn-danger btooltip" title="Relata di pubblicazione"><i class="fa fa-file-pdf-o"></i> </a></td>
+                    <td><a href="<?php echo $record['href'] ?>)" class="btn btn-danger" title="Genera documento relata di pubblicazione"><i class="fa fa-file-pdf-o"></i> </a></td>
                     <?php elseif($record['type']=='enteterzoButton'): ?>
-                    <td><a href="<?php echo $record['href'] ?>" data-toggle="tooltip" data-placement="top" class="btn btn-default btooltip" title="Invia ad altro ente"><i class="fa fa-envelope-square"></i></a></td>
+                    <td><a href="<?php echo $record['href'] ?>" class="btn btn-default" title="Invia ad ente terzo"><i class="fa fa-envelope-square"></i></a></td>
                     <?php endif; ?>
                 <?php else: ?>
                 <td><?php echo $record ?></td>

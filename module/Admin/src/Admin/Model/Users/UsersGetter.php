@@ -101,4 +101,14 @@ class UsersGetter extends QueryBuilderHelperAbstract
         $this->getQueryBuilder()->setParameter('status', $status);
     }
     
+    /**
+     * @param string $apiKey
+     */
+    public function setApiKey($apiKey)
+    {
+        if ($apiKey) {
+            $this->getQueryBuilder()->andWhere("u.status = :status ");
+            $this->getQueryBuilder()->setParameter('apiKey', $apiKey);
+        }
+    }
 }

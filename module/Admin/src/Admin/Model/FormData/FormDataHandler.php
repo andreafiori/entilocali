@@ -30,7 +30,14 @@ class FormDataHandler extends RouterManagerAbstract implements RouterManagerInte
                     return;
                 }
                 
-                $this->setTemplate('formdata/formdata.phtml');
+                $customTemplate = $objectFormHandler->getTemplate();
+                if ($customTemplate) {
+                    $this->setTemplate($customTemplate);
+                } else {
+                    $this->setTemplate('formdata/formdata.phtml');
+                }
+                
+                $this->setVariable('formDataCommonPath', 'backend/templates/common/');
             }
             
         }

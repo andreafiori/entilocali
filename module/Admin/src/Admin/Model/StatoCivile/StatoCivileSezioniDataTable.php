@@ -46,7 +46,7 @@ class SezioniDataTable extends DataTableAbstract
         {
             $param = $this->getInput('param', 1);
 
-            $objectWrapper = new SezioniGetterWrapper( new SezioniGetter($this->getInput('entityManager',1)) );
+            $objectWrapper = new StatoCivileSezioniGetterWrapper( new StatoCivileSezioniGetter($this->getInput('entityManager',1)) );
             $objectWrapper->setInput( array() );
             $objectWrapper->setupQueryBuilder();
             $objectWrapper->setupPaginator( $objectWrapper->setupQuery( $this->getInput('entityManager', 1) ) );

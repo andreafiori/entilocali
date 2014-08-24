@@ -10,6 +10,9 @@ use Application\Model\QueryBuilderHelperAbstract;
  */
 class StatoCivileSezioniGetter extends QueryBuilderHelperAbstract
 {
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
     public function setMainQuery()
     {
         $this->setSelectQueryFields('scs.id, scs.nome, scs.dataInserimento, scs.dataUltimoAggiornamento ');
@@ -23,7 +26,7 @@ class StatoCivileSezioniGetter extends QueryBuilderHelperAbstract
     
     /**
      * @param number or array $id
-     * @return type
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setId($id)
     {

@@ -11,6 +11,9 @@ use Application\Model\Slugifier;
  */
 class PostsGetter extends QueryBuilderHelperAbstract
 {
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
     public function setMainQuery()
     {
         $this->setSelectQueryFields('DISTINCT(p.id) AS postid, po.id AS postoptionid, p.lastUpdate, p.insertDate, p.expireDate, p.type, p.alias, po.title, po.subtitle, po.status, po.description, po.seoUrl, po.seoTitle, po.seoDescription, po.seoKeywords, p.flagAttachments, co.name AS categoryName, c.template, IDENTITY(r.module) AS module');

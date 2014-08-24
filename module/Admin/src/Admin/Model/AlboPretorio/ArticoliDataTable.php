@@ -171,7 +171,7 @@ class ArticoliDataTable extends DataTableAbstract implements DataTableInterface
                         ),
                         array(
                             'type'      => 'attachButton',
-                            'href'      => '#',
+                            'href'      => $this->getInput('baseUrl',1).'attachments/albo-pretorio/'.$row['id'],
                             'tooltip'   => 1
                         ),
                         array(

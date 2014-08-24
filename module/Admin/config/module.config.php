@@ -161,11 +161,12 @@ return array(
     ),
     /* FormData Class Map */
     'formdata_classmap' => array(
+        'attachments'                   => 'Admin\Model\Attachments\AttachmentsFormDataHandler',
         'albo-pretorio'                 => 'Admin\Model\AlboPretorio\AlboPretorioFormDataHandler',
         'albo-pretorio-sezioni'         => 'Admin\Model\AlboPretorio\SezioniFormDataHandler',
         'amministrazione-trasparente'   => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFormDataHandler',
         'stato-civile'                  => 'Admin\Model\StatoCivile\StatoCivileFormDataHandler',
-        'stato-civile-sezioni'          => 'Admin\Model\StatoCivile\SezioniFormDataHandler',
+        'stato-civile-sezioni'          => 'Admin\Model\StatoCivile\StatoCivileSezioniFormDataHandler',
         'contratti-pubblici'            => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciFormDataHandler',
         'contratti-pubblici-scelta-contraente'  => 'Admin\Model\ContrattiPubblici\SceltaContraenteFormDataHandler',
         'contratti-pubblici-responsabili'       => 'Admin\Model\ContrattiPubblici\ResponsabiliProcedimentoFormDataHandler',

@@ -5,6 +5,8 @@ namespace Admin\Model\StatoCivile;
 use Zend\Form\Form;
 
 /**
+ * Backend form search filter
+ * 
  * @author Andrea Fiori
  * @since  15 August 2014
  */
@@ -65,8 +67,8 @@ class StatoCivileFormSearch extends Form
             ),
             'options' => array(
                 'label' => 'Mese',
+                'empty_option' => 'Mese',
                 'value_options' => array(
-                    ''   => 'Mese',
                     '1'  => 'Gennaio',
                     '2'  => 'Febbraio',
                     '3'  => 'Marzo',
@@ -91,8 +93,8 @@ class StatoCivileFormSearch extends Form
                 'id'    => 'anno'
             ),
             'options' => array(
-                'label' => 'Anno',
-                'value_options' => $this->getArrayYears(),
+                'label'         => 'Anno',
+                'value_options' => array(), //$this->getArrayYears()
             )
         ));
     }
@@ -128,7 +130,7 @@ class StatoCivileFormSearch extends Form
         ));
     }
     
-    public function addFrontendSubmitButton()
+    public function addSubmitButton()
     {
         $this->add(array(
             'name' => 'search',

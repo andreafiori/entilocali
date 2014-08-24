@@ -38,12 +38,4 @@ class UsersGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setGroupBy( $this->getInput('groupBy', 1) );
         $this->objectGetter->setLimit( $this->getInput('limit', 1) );
     }
-    
-    /**
-     * @return array
-     */
-    public function getRecords()
-    {
-        return $this->objectGetter->getQueryResult();
-    }
 }

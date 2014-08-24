@@ -49,4 +49,15 @@ class AttachmentsGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->setParameter('moduleId', $moduleId);
         }
     }
+
+    /**
+     * @param number $referenceId
+     */
+    public function setReferenceId($referenceId)
+    {
+        if ( is_numeric($referenceId) ) {
+            $this->getQueryBuilder()->andWhere('ar.referenceId = ( :referenceId ) ');
+            $this->getQueryBuilder()->setParameter('referenceId', $referenceId);
+        }
+    }
 }

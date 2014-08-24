@@ -43,10 +43,10 @@ class StatoCivileFormSearch extends Form
                 'title' => 'Seleziona mese',
                 'id'    => 'mese'
             ),
+            'empty_option' => 'Mese',
             'options' => array(
                     'label' => 'Mese',
                     'value_options' => array(
-                        ''   => 'Mese',
                         '1'  => 'Gennaio',
                         '2'  => 'Febbraio',
                         '3'  => 'Marzo',

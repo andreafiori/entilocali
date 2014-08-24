@@ -1,24 +1,24 @@
 <?php
 
-namespace Admin\Model\Categories;
+namespace Admin\Model\Modules;
 
 use Application\Model\RecordsGetterWrapperAbstract;
 
 /**
  * @author Andrea Fiori
- * @since  29 May 2014
+ * @since  21 August 2014
  */
-class CategoriesGetterWrapper extends RecordsGetterWrapperAbstract
+class ModulesGetterWrapper extends RecordsGetterWrapperAbstract
 {
     /** @var \Admin\Model\Categories\CategorieGetter **/
     protected $objectGetter;
-    
+ 
     /**
-     * @param \Admin\Model\Categories\CategorieGetter $categoriesGetter
+     * @param \Admin\Model\Modules\ModulesGetter $modulesGetter
      */
-    public function __construct(CategoriesGetter $categoriesGetter)
+    public function __construct(ModulesGetter $modulesGetter)
     {
-        $this->setObjectGetter($categoriesGetter);
+        $this->setObjectGetter($modulesGetter);
     }
     
     public function setupQueryBuilder()

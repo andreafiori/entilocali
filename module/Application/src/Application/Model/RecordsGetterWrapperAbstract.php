@@ -153,7 +153,6 @@ abstract class RecordsGetterWrapperAbstract
             }
         }
 
-        
     /**
      * Add array records to the paginator recordset
      * 
