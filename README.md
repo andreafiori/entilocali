@@ -15,7 +15,7 @@ It must be open to build new modules and use it for companies and public adminis
 All frontend templates must be responsive.
 
 Installation
---------------
+-------------------
 
 Get a working copy of this project is to clone the repository and use `composer` to install dependencies using the `create-project` command:
 
@@ -34,7 +34,7 @@ I have installed composer using the windows setup.
 Rename the a.htaccess file to .htaccess. I've renamed it to use on my local XAMPP.
 
 Documentation
-------------
+-------------------
 
 Source code documentation can be generated with Apigen.
 I have apigen.neon file configuration to generate files on the docs directory.

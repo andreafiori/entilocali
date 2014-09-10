@@ -48,4 +48,9 @@ class ApiSetupAbstractTest extends TestSuite
         $this->assertTrue( is_array($this->apiSetupAbstract->getInput()) );
         $this->assertEquals($this->apiSetupAbstract->getInput('username'), 'myUsername');
     }
+    
+    public function testGetResponseToReturnIsEmpty()
+    {
+        $this->assertEmpty( $this->apiSetupAbstract->getResponseToReturn() );
+    }
 }

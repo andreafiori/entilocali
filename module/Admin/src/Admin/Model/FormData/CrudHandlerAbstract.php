@@ -119,14 +119,9 @@ abstract class CrudHandlerAbstract extends RouterManagerAbstract
             $this->setVariable('messageText', $errorMessage);
         }
 
-        protected function performOperationWithPrivateMethod()
-        {
-            $operation = $this->getOperation();
-            if ($operation) {
-                $this->$operation();
-            }
-        }
-        
+    /**
+     * Get the operation and execute the method with its name
+     */
     public function performOperation()
     {
         $operation = $this->getOperation();

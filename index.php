@@ -25,6 +25,9 @@ require 'init_autoloader.php';
 // disable DOMPDF's internal autoloader if you are using Composer
 define('DOMPDF_ENABLE_AUTOLOAD', false);
 
+// set default timezone to prevent date warning \ error\s
+date_default_timezone_set('Asia/Manila');
+
 // Run the application!
 Zend\Mvc\Application::init(require 'config/application.config.php')->run();
 

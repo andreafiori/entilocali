@@ -13,7 +13,7 @@ use Zend\Session\Container as SessionContainer;
 class ArticoliDataTable extends DataTableAbstract implements DataTableInterface
 {
     /** session key where it stores post from form **/
-    const sessionPostKey = 'alboPretorioDataTablePost';
+    const sessionPostKey = 'alboPretorioDataTable';
     
     private $recordsGetter;
 
@@ -36,15 +36,15 @@ class ArticoliDataTable extends DataTableAbstract implements DataTableInterface
         $this->setTitle('Albo pretorio');
         $this->setDescription('Elenco atti albo pretorio. Effettuando una ricerca, le informazioni vengono memorizzate.');
         $this->setColumns(
-            array( 
+            array(
                 array('label' => 'Num \ Anno','width' => '10%'),
-                array('label' => 'Titolo','width' => '44%'), 
-                'Settore', 
-                'Scadenza', 
-                'Data attivazione', 
+                array('label' => 'Titolo','width' => '44%'),
+                'Settore',
+                'Scadenza',
+                'Data attivazione',
                 '&nbsp;',
-                '&nbsp;', 
-                '&nbsp;', 
+                '&nbsp;',
+                '&nbsp;',
                 '&nbsp;'
             )
         );
@@ -76,9 +76,9 @@ class ArticoliDataTable extends DataTableAbstract implements DataTableInterface
             $param = $this->getParam();
             if ( isset($param['post']) ) {
                 $articoliInput = array(
-                    'anno'      => $param['post']['anno'],
-                    'search'    => $param['post']['search'],
-                    'orderBy'   => $param['post']['orderby']
+                    'anno'      => isset($param['post']['anno']) ? $param['post']['anno'] : null,
+                    'search'    => isset($param['post']['search']) ? $param['post']['search'] : null,
+                    'orderBy'   => isset($param['post']['orderby']) ? $param['post']['orderby'] : null
                 );
                 $sessionPost->offsetSet(self::sessionPostKey, $articoliInput);
             } else {

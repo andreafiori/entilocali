@@ -16,7 +16,6 @@ abstract class DataTableAbstract extends VarExporter
     
     protected $defaultDataTable = 'datatable/datatable.phtml';
 
-
     /**
      * @param array $input
      */
@@ -35,6 +34,8 @@ abstract class DataTableAbstract extends VarExporter
     public function setParam($param)
     {
         $this->param = $param;
+        
+        return $this->param;
     }
     
     /**
@@ -75,7 +76,7 @@ abstract class DataTableAbstract extends VarExporter
     /**
      * Overwrite parent getTemplate
      * 
-     * @return type
+     * @return string
      */
     public function getTemplate()
     {

@@ -21,9 +21,9 @@ abstract class RecordsGetterWrapperAbstract
     protected $paginator;
     
     protected $firstResult = 0;
-    protected $maxResults = 700;
+    protected $maxResults;
     protected $perpageDefault = 8;
-
+    
     /**
      * @param array $input
      */

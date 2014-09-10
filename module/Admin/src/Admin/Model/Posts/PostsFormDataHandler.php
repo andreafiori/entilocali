@@ -26,10 +26,11 @@ class PostsFormDataHandler extends FormDataAbstract
 
         $param          = $this->getInput('param', 1);
         $entityManager  = $this->getInput('entityManager', 1);
+        $routeOption    = isset($param['route']['option']) ? $param['route']['option'] : null;
 
         $this->postsFormDataConcrete = new PostsFormDataConcrete($this->getInput());
         $this->postsFormDataConcrete->setPostsGetterWrapper( new PostsGetterWrapper(new PostsGetter($entityManager)) );
-        $this->postsFormDataConcrete->detectModuleId($param['route']['option']);
+        $this->postsFormDataConcrete->detectModuleId($routeOption);
         $this->postsFormDataConcrete->setProperties();
         $this->postsFormDataConcrete->setCategoriesGetterWrapper( new CategoriesGetterWrapper( new CategoriesGetter($entityManager)) );
         $this->postsFormDataConcrete->setCategoriesRecords();
@@ -55,10 +56,10 @@ class PostsFormDataHandler extends FormDataAbstract
                 'formTitle' => $this->postsFormDataConcrete->getTitle(),
                 'formDescription' => $this->postsFormDataConcrete->getDescription(),
                 'form' => $this->postsFormDataConcrete->getForm(),
-                'formAction' => $this->getFormAction($param['route']['option']),
+                'formAction' => $this->getFormAction($routeOption),
                 'CKEditorField' => 'description',
-                'formBreadCrumbCategory' => $this->getBreadCrumbCategoryString($param['route']['option']),
-                'formBreadCrumbCategoryLink' => $this->getInput('baseUrl',1).'datatable/posts/'.$param['route']['option'],
+                'formBreadCrumbCategory' => $this->getBreadCrumbCategoryString($routeOption),
+                'formBreadCrumbCategoryLink' => $this->getInput('baseUrl',1).'datatable/posts/'.$routeOption,
             )
         );
     }
@@ -69,11 +70,13 @@ class PostsFormDataHandler extends FormDataAbstract
          */
         private function getBreadCrumbCategoryString($option)
         {
-            !is_numeric($option) ? $breadCrumbCategoryString = ucfirst($option) : $breadCrumbCategoryString = null;
+            $breadCrumbCategoryString = !is_numeric($option) ? ucfirst($option) : null;
 
             $record = $this->postsFormDataConcrete->getRecord();
-            if ($record) {
+            if ($record and isset($record[0]['type'])) {
                 $breadCrumbCategoryString = ucfirst($record[0]['type']);
+            } else {
+                $breadCrumbCategoryString = 'Contenuti';
             }
 
             return $breadCrumbCategoryString;

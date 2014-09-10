@@ -48,4 +48,12 @@ return array(
             'ViewFeedStrategy',
         ),
     ),
+    /* Feed class map */
+    'feed_class_map' => array(
+        'contents'                      => 'Feed\Model\ContentsFeedResourece',
+        'blogs'                         => 'Feed\Model\ContentsFeedResourece',
+        'albo-pretorio'                 => 'Feed\Model\AlboPretorioFeedResourece',
+        'stato-civile'                  => 'Feed\Model\StatoCivileFeedResourece',
+        'amministrazione-trasparente'   => '',
+    ),
 );

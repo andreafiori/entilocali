@@ -8,6 +8,7 @@
     echo $this->headLink()
           ->prependStylesheet($this->basePath().'/public/common/bootstrap3/css/bootstrap.min.css')
           ->prependStylesheet($this->basePath().'/public/common/font-awesome/css/font-awesome.min.css')
+          ->prependStylesheet($this->basePath().'/public/common/jquery/datetimepicker/jquery.datetimepicker.css')
     ?>
     <style>
     /* Dropdown onmouse over */
@@ -397,9 +398,9 @@
 
 <script src="<?php echo $this->basePath() ?>/public/common/bootstrap3/js/bootstrap.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/common/bootstrap3/js/bootstrap-hover-dropdown.js"></script>
-
 <script src="<?php echo $this->basePath() ?>/public/common/jquery/datatable/js/jquery.dataTables_it.min.js"></script>
-
+<script src="<?php echo $this->basePath() ?>/public/common/jquery/datetimepicker/jquery.datetimepicker.js"></script>
+    
 <script>
 //<![CDATA[
 
@@ -447,6 +448,11 @@ $(document).ready(function () {
     
     $('.js-activated').dropdownHover().dropdown();
     
+    jQuery('.datetimepicker').datetimepicker({
+        format: 'Y-m-d H:i:s',
+        lang: 'it'
+    });
+
 });
 //]]>
 </script>

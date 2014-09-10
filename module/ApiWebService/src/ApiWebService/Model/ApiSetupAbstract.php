@@ -16,8 +16,10 @@ abstract class ApiSetupAbstract
     protected $input;
     protected $authenticationInput;
     
-    /* Response set in case of error\s */
     protected $responseToReturn;
+    
+    /** @var \Doctrine\ORM\EntityManager **/
+    protected $entityManager;  
 
     /**
      * @param string $method
@@ -90,10 +92,29 @@ abstract class ApiSetupAbstract
     }
     
     /**
-     * @return type
+     * @return array|null
      */
     public function getResponseToReturn()
     {
         return $this->responseToReturn;
+    }
+    
+    /**
+     * @param \Doctrine\ORM\EntityManager $entityManager
+     * @return \Doctrine\ORM\EntityManager $entityManager
+     */
+    public function setEntityManager(\Doctrine\ORM\EntityManager $entityManager)
+    {
+        $this->entityManager = $entityManager;
+        
+        return $this->entityManager;
+    }
+    
+    /**
+     * @return \Doctrine\ORM\EntityManager $entityManager
+     */
+    public function getEntityManager()
+    {
+        return $this->entityManager;
     }
 }

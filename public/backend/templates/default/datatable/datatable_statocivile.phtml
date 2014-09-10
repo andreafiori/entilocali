@@ -21,20 +21,56 @@
             $form->setAttribute('method',   'post');
             $form->setAttribute('role',     'form');
             $form->setAttribute('class',    'form-horizontal');
-            $form->setAttribute('id',       'albo-pretorio-search-form');
+            $form->setAttribute('id',       'search-form');
 
             $form->prepare();
 
             echo $this->form()->openTag($this->formSearch);
 
-            /*$form->get('titolo')->setAttribute('class', 'form-control');
+            //$form->get('titolo')->setAttribute('class', 'form-control');
             $form->get('mese')->setAttribute('class', 'form-control');
-            $form->get('anno')->setAttribute('class', 'form-control');
-            $form->get('sezione')->setAttribute('class', 'form-control');
-            $form->get('orderby')->setAttribute('class', 'form-control'); */
+            //$form->get('anno')->setAttribute('class', 'form-control');
+            //$form->get('sezione')->setAttribute('class', 'form-control');
+            $form->get('numero_atto')->setAttribute('class', 'form-control');
+            $form->get('numero_progressivo')->setAttribute('class', 'form-control');
             $form->get('search')->setAttribute('class', 'btn btn-primary');
-            
+ 
+            $form->prepare();
+        
+            echo $this->form()->openTag($form);
+
             ?>
+            <div class="form-group">
+                <label for="<?php echo $form->get('numero_atto')->getAttribute('id'); ?>" class="col-sm-2 control-label">Num. atto:</label>
+                <div class="col-sm-4">
+                    <?php echo $this->formElement($form->get('numero_atto')); ?>
+                </div>
+
+                <label for="<?php echo $form->get('numero_progressivo')->getAttribute('id'); ?>" class="col-sm-2 control-label">Num. Progressivo:</label>
+                <div class="col-sm-4">
+                    <?php echo $this->formElement($form->get('numero_progressivo')); ?>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="<?php echo $form->get('mese')->getAttribute('id'); ?>" class="col-sm-2 control-label">Atti a partire da:</label>
+                <div class="col-sm-4">
+                    <?php echo $this->formElement($form->get('mese')); ?>
+                </div>
+
+                <div class="col-sm-4">
+                    <?php //echo $this->formElement($form->get('anno')); ?>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-sm-2 control-label">&nbsp;</label>
+                <div class="col-sm-8">
+                    <?php echo $this->formElement($form->get('search')); ?>
+                </div>
+            </div>
+            <?php echo $this->form()->closeTag(); ?>
+            
             </div>
     </div>
     

@@ -23,9 +23,10 @@ class StatoCivileFormSearch extends Form
             'type' => 'Text',
             'name' => 'numero_progressivo',
             'attributes' => array(
-                'placeholder' => '',
-                'title'  => 'Inserisci numero repertorio',
-                'id'     => 'numero_progressivo'
+                'placeholder'   => '',
+                'title'         => 'Inserisci numero repertorio',
+                'id'            => 'numero_progressivo',
+                'maxlength'     => 15
             ),
             'options' => array(
                 'label' => 'Numero repertorio',
@@ -37,8 +38,9 @@ class StatoCivileFormSearch extends Form
             'name' => 'numero_atto',
             'attributes' => array(
                 'placeholder' => '',
-                'title'  => 'Inserisci numero atto',
-                'id'     => 'numero_atto'
+                'title'         => 'Inserisci numero atto',
+                'id'            => 'numero_atto',
+                'maxlength'     => 15
             ),
             'options' => array(
                 'label' => 'Numero atto',
@@ -84,7 +86,10 @@ class StatoCivileFormSearch extends Form
                 ),
              )
         ));
-        
+    }
+    
+    public function addYears(array $years)
+    {
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
             'name' => 'anno',
@@ -94,7 +99,7 @@ class StatoCivileFormSearch extends Form
             ),
             'options' => array(
                 'label'         => 'Anno',
-                'value_options' => array(), //$this->getArrayYears()
+                'value_options' => $years, //$this->getArrayYears()
             )
         ));
     }

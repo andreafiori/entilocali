@@ -17,7 +17,32 @@ class RecordsGetterAbstract extends InputSetupAbstract
     protected $records;
     
     protected $objectGetterWrapper;
-
+    
+    protected $entityManager;
+    
+    /**
+     * @param \Doctrine\ORM\EntityManager $entityManager
+     * @return type
+     */
+    public function setEntityManager(\Doctrine\ORM\EntityManager $entityManager)
+    {
+        $this->entityManager = $entityManager;
+        
+        return $this->entityManager;
+    }
+    
+    /**
+     * @return \Doctrine\ORM\EntityManager|null
+     */
+    public function getEntityManager()
+    {
+        if (!$this->entityManager) {
+            return $this->getInput('entityManager',1);
+        }
+        
+        return $this->entityManager;
+    }
+    
     /**
      * @return 1
      */

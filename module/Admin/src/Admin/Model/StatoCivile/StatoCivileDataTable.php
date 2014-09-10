@@ -25,7 +25,7 @@ class StatoCivileDataTable extends DataTableAbstract
             "Sezione", 
             "Inserito il", 
             "Scadenza", 
-            "Inserito da", 
+            "Inserito da",
             "&nbsp;", 
             "&nbsp;", 
             "&nbsp;"
@@ -50,6 +50,9 @@ class StatoCivileDataTable extends DataTableAbstract
         $this->setTemplate('datatable/datatable_statocivile.phtml');
     }
     
+        /**
+         * @return array 
+         */
         private function getRecordsPaginator()
         {
             $param = $this->getInput('param', 1);
@@ -63,7 +66,12 @@ class StatoCivileDataTable extends DataTableAbstract
 
             return $statoCivileGetterWrapper->getPaginator();
         }
-
+        
+        /**
+         * 
+         * @param type $records
+         * @return boolean|array
+         */
         private function getFormattedRecords($records)
         {
             if (!$records) {

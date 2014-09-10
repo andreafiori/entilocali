@@ -5,6 +5,10 @@ namespace Application\Form\View\Helper;
 use Zend\Form\View\Helper\AbstractHelper;
 use Zend\Form\ElementInterface;
 
+/**
+ * @author Andrea Fiori
+ * @since  19 July 2013
+ */
 class FormCheckboxTree extends AbstractHelper
 {
     /**
@@ -22,10 +26,13 @@ class FormCheckboxTree extends AbstractHelper
             $i = 0;
             foreach($values as $key => $value) {
                 $element .= '<div class="checkbox"><label><input type="checkbox" name="'.$name.'[]" id="'.$name.'_'.$i.'" value="'.$key.'"';
-                foreach($checkedValues as $checkedValue) {
-                    if ($checkedValue['id'] == $key) {
-                        $element .= ' checked';
-                        continue;
+                
+                if (is_array($checkedValues)) {
+                    foreach($checkedValues as $checkedValue) {
+                        if ($checkedValue['id'] == $key) {
+                            $element .= ' checked';
+                            continue;
+                        }
                     }
                 }
                 

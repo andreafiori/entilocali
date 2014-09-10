@@ -15,10 +15,10 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
         protected function insert()
         {
             $error = array();
-            if (!$this->rawPost['category']) {
+            if (!isset($this->rawPost['category'])) {
                 $error[] = 'Selezionare almeno una categoria';
             }
-            if (!$this->rawPost['moduloid']) {
+            if (!isset($this->rawPost['moduloid'])) {
                 $error[] = "Identificativo modulo non presente: contattare l'amministrazione";
             }
             
@@ -44,7 +44,7 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
             
             try {
                 $this->getConnection()->insert('zfcms_posts_options', array(
-                    'title'            => $this->rawPost['title'],
+                    'title'             => $this->rawPost['title'],
                     'subtitle'          => $this->rawPost['subtitle'],
                     'description'       => $this->rawPost['description'],
                     'status'            => empty($this->rawPost['status']) ? PostsUtils::STATE_ACTIVE : $this->rawPost['status'],

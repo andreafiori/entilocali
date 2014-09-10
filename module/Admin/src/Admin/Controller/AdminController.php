@@ -221,6 +221,11 @@ class AdminController extends AbstractActionController
         return $this->redirect()->toRoute($redirect, array("lang" => 'it'));
     }
     
+    /**
+     * Logout and exit
+     * 
+     * @return redirect
+     */
     public function logoutAction()
     {
         if ($this->getAuthService()->hasIdentity()) {

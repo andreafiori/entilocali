@@ -16,7 +16,7 @@ class ArticoliGetter extends QueryBuilderHelperAbstract
 
         $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
                                 ->add('from', 'Application\Entity\ZfcmsComuniAlboArticoli aa, Application\Entity\ZfcmsComuniAlboSezioni aps ')
-                                ->add('where', 'aa.sezione = aps.id '); 
+                                ->add('where', 'aa.sezione = aps.id ');
         
         return $this->getQueryBuilder();
     }

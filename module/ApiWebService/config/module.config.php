@@ -44,4 +44,13 @@ return array(
             'ViewJsonStrategy',
         ),
     ),
+    /* API Resources class map */
+    'resources_class_map' => array(
+        'contents'                      => 'ApiWebService\Model\Resources\PostsApiResource',
+        'blogs'                         => 'ApiWebService\Model\Resources\PostsApiResource',
+        'albo-pretorio'                 => 'ApiWebService\Model\Resources\AlboPretorioApiResource',
+        'atti-ufficiali'                => 'ApiWebService\Model\Resources\AlboPretorioApiResource',
+        'stato-civile'                  => 'ApiWebService\Model\Resources\PostsApiResource',
+        'amministrazione-trasparente'   => 'ApiWebService\Model\Resources\AmministrazioneTrasparenteApiResource',
+    ),
 );

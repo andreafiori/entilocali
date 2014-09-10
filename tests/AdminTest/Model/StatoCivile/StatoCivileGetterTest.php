@@ -61,4 +61,23 @@ class StatoCivileGetterTest extends TestSuite
         
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('anno'));
     }
+    
+    public function testSetScadenza()
+    {
+        $this->assertInstanceOf('\Doctrine\ORM\QueryBuilder', $this->objectGetter->setScadenza('2030-01-01 02:00'));
+    }
+    
+    public function testSetSezioneId()
+    {
+        $this->objectGetter->setSezioneId(11);
+        
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('sezioneId'));
+    }
+    
+    public function testSetTextSearch()
+    {
+        $this->objectGetter->setTextSearch('textToSearch');
+        
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('textSearch'));
+    }
 }

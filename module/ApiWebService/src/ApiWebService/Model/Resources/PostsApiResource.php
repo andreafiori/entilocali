@@ -2,33 +2,36 @@
 
 namespace ApiWebService\Model\Resources;
 
-use ApiWebService\Model\ApiSetupAbstract;
 use Admin\Model\Posts\PostsGetter;
 use Admin\Model\Posts\PostsGetterWrapper;
+use ApiWebService\Model\ApiResultGetterAbstract;
 
 /**
  * @author Andrea Fiori
  * @since  22 August 2014
  */
-class PostsApiResource extends ApiSetupAbstract
+class PostsApiResource extends ApiResultGetterAbstract
 {
-    private $entityManager;
-    
-    public function __construct(\Doctrine\ORM\EntityManager $entityManager)
-    {
-        $this->entityManager = $entityManager;
-    }
-    
     /**
      * @param array $input
      * @return array
      */
     public function getResourceRecords(array $input)
     {
-        $postsGetterWrapper = new PostsGetterWrapper( new PostsGetter($this->entityManager) );
-        $postsGetterWrapper->setInput($input);
-        $postsGetterWrapper->setupQueryBuilder();
+        $wrapper = new PostsGetterWrapper( new PostsGetter($this->getEntityManager()) );
+        $wrapper->setInput($input);
+        $wrapper->setupQueryBuilder();
+        $wrapper->setupPaginator( $wrapper->setupQuery($this->getEntityManager()) );
+        $wrapper->setupPaginatorCurrentPage($this->getPage());
+        $wrapper->setupPaginatorItemsPerPage($this->getPerPage());
         
-        return $postsGetterWrapper->getRecords();
+        $paginator = $wrapper->getPaginator();
+
+        $arrayToReturn = array();
+        foreach($paginator as $row) {
+            $arrayToReturn[] = $row;
+        }
+
+        return $arrayToReturn;
     }
 }

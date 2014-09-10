@@ -24,7 +24,19 @@ class FormDataAbstractTest extends TestSuite
         $this->assertEmpty( $this->formDataAbstract->getVarToExport() );
         
         $this->formDataAbstract->setVariable('myKey', 'myValue');
+        
         $this->assertEquals($this->formDataAbstract->getVarToExport('myKey'), 'myValue');
     }
     
+    public function testSetRecord()
+    {
+        $this->formDataAbstract->setRecord(array(array('id'=>1,'title'=>'myTitle')));
+        
+        $this->assertTrue( is_array($this->formDataAbstract->getRecord()) );
+    }
+    
+    public function testGetProperty()
+    {
+        $this->assertNotEmpty($this->formDataAbstract->getProperty('template'));
+    }
 }

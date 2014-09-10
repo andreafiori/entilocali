@@ -61,9 +61,8 @@ class StatoCivileFrontend extends RouterManagerAbstract implements RouterManager
             $statoCivileGetterWrapper = new StatoCivileGetterWrapper( new StatoCivileGetter($this->getInput('entityManager', 1)) );
             $statoCivileGetterWrapper->setInput( array_merge($input, array('orderBy' => 'sca.data DESC')) );
             $statoCivileGetterWrapper->setupQueryBuilder();
-            $statoCivileGetterWrapper->setupQuery($this->getInput('entityManager', 1));
-
-            return $statoCivileGetterWrapper->setupPaginator($page);
+            
+            return $statoCivileGetterWrapper->setupPaginator( $statoCivileGetterWrapper->setupQuery($this->getInput('entityManager', 1)) );
         }
         
         /**

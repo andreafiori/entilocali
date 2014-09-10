@@ -20,7 +20,7 @@ class RecordsGetter extends RecordsGetterAbstract
      */
     public function setArticoliInput(array $input)
     {
-        $this->articoliWrapper = new ArticoliGetterWrapper( new ArticoliGetter($this->getInput('entityManager',1)) );
+        $this->articoliWrapper = new ArticoliGetterWrapper( new ArticoliGetter($this->getEntityManager()) );
         $this->articoliWrapper->setInput($input);
         $this->articoliWrapper->setupQueryBuilder();
         
@@ -31,13 +31,17 @@ class RecordsGetter extends RecordsGetterAbstract
     {
         $this->assertAlboPretorioGetterWrapper();
         
-        $arrayQuery = $this->articoliWrapper->setupQuery($this->getInput('entityManager', 1));
+        $arrayQuery = $this->articoliWrapper->setupQuery($this->getEntityManager());
         
         $this->articoliWrapper->setupPaginator($arrayQuery ? $arrayQuery : array());
         
         return $this->articoliWrapper;
     }
     
+    /**
+     * @param int $page
+     * @return $this->articoliWrapper
+     */
     public function setArticoliPaginatorCurrentPage($page = null)
     {
         $this->assertAlboPretorioGetterWrapper();
@@ -47,6 +51,10 @@ class RecordsGetter extends RecordsGetterAbstract
         return $this->articoliWrapper;
     }
     
+    /**
+     * @param int $perpage
+     * @return type
+     */
     public function setArticoliPaginatorPerPage($perpage = null)
     {
         $this->assertAlboPretorioGetterWrapper();
@@ -78,7 +86,7 @@ class RecordsGetter extends RecordsGetterAbstract
      */
     public function setSezioni(array $input)
     {
-        $wrapper = new SezioniGetterWrapper( new SezioniGetter($this->getInput('entityManager',1)) );
+        $wrapper = new SezioniGetterWrapper( new SezioniGetter($this->getEntityManager()) );
         $wrapper->setInput($input);
         $wrapper->setupQueryBuilder();
 
@@ -90,7 +98,7 @@ class RecordsGetter extends RecordsGetterAbstract
      */
     public function setSettori(array $input)
     {
-        $wrapper = new UsersGetterWrapper( new UsersGetter($this->getInput('entityManager', 1)) );
+        $wrapper = new UsersGetterWrapper( new UsersGetter($this->getEntityManager()) );
         $wrapper->setInput($input);
         $wrapper->setupQueryBuilder();
 
@@ -102,7 +110,7 @@ class RecordsGetter extends RecordsGetterAbstract
      */
     public function getYears()
     {
-        $this->articoliWrapper = new ArticoliGetterWrapper( new ArticoliGetter($this->getInput('entityManager',1)) );
+        $this->articoliWrapper = new ArticoliGetterWrapper( new ArticoliGetter($this->getEntityManager()) );
         $this->articoliWrapper->setInput( array('fields'=>'DISTINCT(aa.anno) AS anno','orderBy'=>'aa.anno') );
         $this->articoliWrapper->setupQueryBuilder();
         

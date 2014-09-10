@@ -130,7 +130,7 @@ switch($_GET['op'])
         executeQuery("TRUNCATE TABLE zfcms_comuni_stato_civile_articoli ");
         executeQuery("TRUNCATE TABLE zfcms_comuni_stato_civile_sezioni ");
         
-        /* Delete attachments (TEMPORARY)... */
+        /* Delete attachments (TO DELETE) ... */
         executeQuery("TRUNCATE TABLE zfcms_attachments ");
         executeQuery("TRUNCATE TABLE zfcms_attachments_options ");
         executeQuery("TRUNCATE TABLE zfcms_attachments_relations ");
@@ -153,11 +153,11 @@ switch($_GET['op'])
                 
                 $insertAttacRelations = executeQuery("INSERT INTO zfcms_attachments_relations (attachment_id, reference_id, module_id) VALUES ('".$lastID[0]['last_insert_id']."', ".$attachment['id'].", '13' ) ");
 
-                //$pathInfo = pathinfo($attachment['nome']);
+                $pathInfo = pathinfo($attachment['nome']);
                 
-                //$filename = uniqid().'.'.$pathInfo['extension'];
+                $filename = uniqid().'.'.$pathInfo['extension'];
 
-                $fp = fopen('../public/frontend/media/stato-civile/'.$attachment['nome'], 'w');
+                $fp = fopen('../public/frontend/media/stato-civile/'.$filename, 'w');
                 fwrite($fp, $attachment['dati']);
                 fclose($fp);
                 $i++;
@@ -171,8 +171,12 @@ switch($_GET['op'])
     case("albo-pretorio"):
         /* Clean old data */
         executeQuery("TRUNCATE TABLE zfcms_comuni_albo_articoli ");
-        
         executeQuery("TRUNCATE TABLE zfcms_comuni_albo_sezioni ");
+        
+        /* Delete attachments (TO DELETE) ... */
+        executeQuery("TRUNCATE TABLE zfcms_attachments ");
+        executeQuery("TRUNCATE TABLE zfcms_attachments_options ");
+        executeQuery("TRUNCATE TABLE zfcms_attachments_relations ");
         
         /* import data */
         $resultArticoli = executeQuery("INSERT INTO zfcms_comuni_albo_articoli ( SELECT * FROM albo_articoli ) ");
@@ -187,9 +191,39 @@ switch($_GET['op'])
         
         $resultSezioni = executeQuery("INSERT INTO zfcms_comuni_albo_sezioni ( SELECT * FROM albo_sezioni ) ");
         
-        /* TODO: Extract blob files and copy them into the dedicated directory */
-        
-        showAlertMessage('Albo pretorio', 'Articoli importati: '.$resultArticoli.'<br>Sezioni: '.$resultSezioni.'<br>', 'success');
+        /* Extract files one by one (cannot select all because the blob are too big and it exhausts memory), copy files one by one */
+        $attachmentsIds = getRecord("SELECT aa.id AS id FROM albo_allegati aa LIMIT 3");
+        if (is_array($attachmentsIds)) {
+            foreach($attachmentsIds as $attachmentsId) {
+                $attachments = getRecord("SELECT aa.id AS id, id_albo, nome, id_mime, dati, posizione, size FROM albo_allegati aa, mimetype m WHERE (aa.id_mime = m.id) AND aa.id = '".$attachmentsId['id']."' ");
+                if (is_array($attachments)) {
+                    $moduleId = 3;
+                    $i=0;
+                    foreach($attachments as $attachment) {
+
+                        $pathInfo = pathinfo($attachment['nome']);
+                        $filename = uniqid().'.'.$pathInfo['extension'];
+
+                        $fp = fopen('../public/frontend/media/albo-pretorio/'.$filename, 'w');
+                        fwrite($fp, $attachment['dati']);
+                        fclose($fp);
+
+                        $insertAttach = executeQuery("INSERT INTO zfcms_attachments (name, size, state, insert_date) (SELECT '".$filename."', size, 'active', NOW() FROM albo_allegati WHERE id = '".$attachment['id']."' ) ");
+
+                        $lastID = getRecord("SELECT last_insert_id() AS last_insert_id ");
+
+                        $insertAttachOption = executeQuery("INSERT INTO zfcms_attachments_options (title, description, attachment_id) VALUES ('".$filename."', '', '".$lastID[0]['last_insert_id']."') ");
+
+                        $insertAttacRelations = executeQuery("INSERT INTO zfcms_attachments_relations (attachment_id, reference_id, module_id) VALUES ('".$lastID[0]['last_insert_id']."', ".$attachment['id'].", '".$moduleId."' ) ");
+
+                        $i++;
+
+                        // echo "Allegati inseriti: ".$insertAttach."<br> Allegati opzioni: ".$insertAttachOption."<br> Allegati relazioni: ".$insertAttacRelations;
+                    }
+                }
+            }
+        }
+        showAlertMessage('Albo pretorio', 'Articoli importati: '.$resultArticoli.'<br>Sezioni: '.$resultSezioni.'<br> Allegati: '.$i, 'success');
     break;
 
     case("amministrazione-trasparente"):
@@ -209,6 +243,8 @@ switch($_GET['op'])
         executeQuery("TRUNCATE TABLE zfcms_comuni_contratti_partecipanti ");
         executeQuery("TRUNCATE TABLE zfcms_comuni_contratti_part_cig ");
         executeQuery("TRUNCATE TABLE zfcms_comuni_contratti_settori ");
+        
+        /* TODO: import attachments */
         
         $contrattiPubbliciArticoli = executeQuery("INSERT INTO zfcms_comuni_contratti (SELECT * FROM contpub_data ) ");
         
