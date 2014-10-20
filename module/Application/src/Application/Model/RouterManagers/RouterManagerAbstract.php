@@ -110,10 +110,11 @@ abstract class RouterManagerAbstract extends InputSetterGetterAbstract
         }
         
         $this->output['export'][$key] = $value;
+        
+        return $this->output;
     }
 
     /**
-     * 
      * @param array $vars
      * @return array
      */
@@ -122,8 +123,7 @@ abstract class RouterManagerAbstract extends InputSetterGetterAbstract
         foreach($vars as $key => $value) {
             $this->setVariable($key, $value);
         }
-
-        return $this->varToExport;
+        return $this->output;
     }
     
     /**

@@ -20,7 +20,7 @@ class StatoCivileFormSearch extends Form
         parent::__construct($name);
         
         $this->add(array(
-            'type' => 'Text',
+            'type' => 'Zend\Form\Element\Text',
             'name' => 'numero_progressivo',
             'attributes' => array(
                 'placeholder'   => '',
@@ -34,7 +34,7 @@ class StatoCivileFormSearch extends Form
         ));
         
         $this->add(array(
-            'type' => 'Text',
+            'type' => 'Zend\Form\Element\Text',
             'name' => 'numero_atto',
             'attributes' => array(
                 'placeholder' => '',
@@ -88,6 +88,9 @@ class StatoCivileFormSearch extends Form
         ));
     }
     
+    /**
+     * @param array $years
+     */
     public function addYears(array $years)
     {
         $this->add(array(

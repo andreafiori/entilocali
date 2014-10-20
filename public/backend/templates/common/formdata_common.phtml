@@ -3,131 +3,114 @@
     <h4>Errore verificato</h4>
     <div>Impossibile visualizzare il form: oggetto form non rilevato</div>
 </div>
-<?php
-else:
-?>
-    <div id="formcontainer">
+<?php else: ?>
+<div id="formcontainer">
+    <div id="formTitle"><h3><?php echo $this->formTitle ?></h3></div>
+    <p><?php echo $this->formDescription ?></p>
+    <?php
 
-        <div id="formTitle"><h3><?php echo $this->formTitle ?></h3></div>
-        <p><?php echo $this->formDescription ?></p>
+    $this->form->prepare();
+
+    $form = $this->form;
+    $form->prepare();
+
+    $form->setAttribute('action',   $this->url('admin', array('lang' => 'it')).'formpost/'.$this->formAction );
+    $form->setAttribute('method',   'post');
+    $form->setAttribute('enctype',  'multipart/form-data');
+    $form->setAttribute('name',     'formData');
+    $form->setAttribute('id',       'formData');
+    $form->setAttribute('role',     'form');
+    $form->setAttribute('class',    'form-horizontal');
+
+    echo $this->form()->openTag($form);
+
+    if (!isset($this->formLabelSpanWidth)):
+        $this->formLabelSpanWidth = 2;
+    endif;
+
+    if (!isset($this->formControlSpanWidth)):
+        $this->formControlSpanWidth = 10;
+    endif;
+
+    foreach ($this->form as $element):
+        $attributes = $element->getAttributes();
+        echo $this->formElementErrors($element);
+        if (isset($attributes['class']) and $attributes['class'] == 'wysiwyg'):
+        ?>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <label><?php echo $element->getLabel() ?></label>
+                <?php echo $this->formElement($element); ?>
+            </div>
+        </div>
         <?php
-
-        $this->form->prepare();
-
-        $form = $this->form;
-        $form->prepare();
-
-        $form->setAttribute('action',   $this->url('admin', array('lang' => 'it')).'formpost/'.$this->formAction );
-        $form->setAttribute('method',   'post');
-        $form->setAttribute('enctype',  'multipart/form-data');
-        $form->setAttribute('name',     'formData');
-        $form->setAttribute('id',       'formData');
-        $form->setAttribute('role',     'form');
-        $form->setAttribute('class',    'form-horizontal');
-
-        echo $this->form()->openTag($form);
-
-        if (!isset($this->formLabelSpanWidth)):
-            $this->formLabelSpanWidth = 2;
-        endif;
-
-        if (!isset($this->formControlSpanWidth)):
-            $this->formControlSpanWidth = 10;
-        endif;
-
-        foreach ($this->form as $element):
-            $attributes = $element->getAttributes();
-            echo $this->formElementErrors($element);
-            if (isset($attributes['class']) and $attributes['class'] == 'wysiwyg'):
+        elseif ( ( isset($attributes['class']) and $attributes['class'] == 'hiddenField') or $attributes['name'] == 'csrf'):
+            echo $this->formElement($element);
+        elseif ($attributes['type'] == 'checkbox'):
             ?>
             <div class="form-group">
-                <div class="col-sm-12">
-                    <label><?php echo $element->getLabel() ?></label>
-                    <?php echo $this->formElement($element); ?>
+                <label class="col-sm-2 control-label">&nbsp;</label>
+                <div class="col-sm-8"><?php echo $this->formElement($element); ?>
+                <label for="<?php echo $attributes['id'] ?>" style="width: 80%"> <?php echo $element->getLabel() ?></label>
                 </div>
             </div>
             <?php
-            elseif ( ( isset($attributes['class']) and $attributes['class'] == 'hiddenField') or $attributes['name'] == 'csrf'):
-                echo $this->formElement($element);
-            elseif ($attributes['type'] == 'checkbox'):
-                ?>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">&nbsp;</label>
-                    <div class="col-sm-8"><?php echo $this->formElement($element); ?>
-                    <label for="<?php echo $attributes['id'] ?>" style="width: 80%"> <?php echo $element->getLabel() ?></label>
-                    </div>
-                </div>
-                <?php
-            elseif ($attributes['type'] == 'date'):
-                ?>
-                <div class="form-group">
-                    <label class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label"><?php echo $element->getLabel() ?></label>
-                    <div class="col-sm-<?php echo $this->formControlSpanWidth ?>">
-                        <input type="text" name="<?php echo $attributes['name'] ?>" class="form-control datetimepicker" id="<?php echo $attributes['id'] ?>" value="<?php $element->getValue() ?>" readonly="readonly">
-                    </div>
-                </div>
-                <?php
-            elseif ($attributes['type'] == 'radio'):
-                ?>
-                <div class="form-group">
-                    <label class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label"><?php echo $element->getLabel() ?></label>
-                    <div class="col-sm-<?php echo $this->formControlSpanWidth ?>">
-                        <?php echo $this->formElement($element) ?>
-                    </div>
-                </div>
-                <?php
-            else:
-                $element->setAttribute('class', 'form-control');
+        elseif ($attributes['type'] == 'date'):
             ?>
             <div class="form-group">
-                <label for="<?php echo $attributes['id'] ?>" class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label"><?php echo $element->getLabel() ?></label>
+                <label class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label"><?php echo $element->getLabel() ?></label>
                 <div class="col-sm-<?php echo $this->formControlSpanWidth ?>">
-                    <?php echo $this->formElement($element); ?>
+                    <input type="text" name="<?php echo $attributes['name'] ?>" class="form-control datetimepicker" id="<?php echo $attributes['id'] ?>" value="<?php echo $element->getValue() ?>" readonly="readonly">
                 </div>
             </div>
             <?php
-            endif;
-        endforeach;
+        elseif ($attributes['type'] == 'radio'):
             ?>
             <div class="form-group">
-                <label class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label">&nbsp;</label>
-                <div class="col-sm-<?php echo $this->formControlSpanWidth ?>"><input type="submit" name="submit" id="submit" value="<?php echo $this->submitButtonValue ? $this->submitButtonValue : "Conferma"; ?>" class="btn btn-primary" onclick="javascript:refreshEditor();<?php if ($this->hideOnSubmit): ?>  document.getElementById('formcontainer').style.display='none'<?php endif ?>"></div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label">&nbsp;</label>
+                <label class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label"><?php echo $element->getLabel() ?></label>
                 <div class="col-sm-<?php echo $this->formControlSpanWidth ?>">
-                    <label>* Campi obbligatori</label>
+                    <?php echo $this->formElement($element) ?>
                 </div>
             </div>
-            <?php echo $this->form()->closeTag($this->form); ?>
+            <?php
+        else:
+            $element->setAttribute('class', 'form-control');
+        ?>
+        <div class="form-group">
+            <label for="<?php echo $attributes['id'] ?>" class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label"><?php echo $element->getLabel() ?></label>
+            <div class="col-sm-<?php echo $this->formControlSpanWidth ?>">
+                <?php echo $this->formElement($element); ?>
+            </div>
+        </div>
+        <?php
+        endif;
+    endforeach;
+        ?>
+        <div class="form-group">
+            <label class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label">&nbsp;</label>
+            <div class="col-sm-<?php echo $this->formControlSpanWidth ?>"><input type="submit" name="submit" id="submit" value="<?php echo $this->submitButtonValue ? $this->submitButtonValue : "Conferma"; ?>" class="btn btn-primary" onclick="javascript:refreshEditor();<?php if ($this->hideOnSubmit): ?>  document.getElementById('formcontainer').style.display='none'<?php endif ?>"></div>
         </div>
 
-        <div id="formDataLoading" class="alert alert-warning" style="display: none">
-            <h1>Attendere: elaborazione dati in corso...</h1>
+        <div class="form-group">
+            <label class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label">&nbsp;</label>
+            <div class="col-sm-<?php echo $this->formControlSpanWidth ?>">
+                <label>* Campi obbligatori</label>
+            </div>
         </div>
-        <div id="formDataResponse"></div>
+        <?php echo $this->form()->closeTag($this->form); ?>
+    </div>
 
-    <script>
-    <?php if (isset($this->CKEditorField)): ?>
+    <div id="formDataLoading" class="alert alert-warning" style="display: none">
+        <h1>Attendere: elaborazione dati in corso...</h1>
+    </div>
+    <div id="formDataResponse"></div>
 
-        <?php if ( is_array($this->CKEditorField) ): ?>
-            <?php foreach($this->CKEditorField as $ckEditorField): ?>
-            /* CKEditor and CKFinder integration */
-            var editor = CKEDITOR.replace( '<?php echo $ckEditorField ?>', {
-                filebrowserBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html',
-                filebrowserImageBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html?type=Images',
-                filebrowserFlashBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html?type=Flash',
-                filebrowserUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-                filebrowserImageUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-                filebrowserFlashUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
-                /*, filebrowserWindowWidth : '1000', filebrowserWindowHeight : '700' */
-            });
-            CKFinder.setupCKEditor( editor, '../' );
-            <?php endforeach; ?>
-        <?php else: ?>
+<script>
+<?php if (isset($this->CKEditorField)): ?>
+    <?php if ( is_array($this->CKEditorField) ): ?>
+        <?php foreach($this->CKEditorField as $ckEditorField): ?>
         /* CKEditor and CKFinder integration */
-        var editor = CKEDITOR.replace( '<?php echo $this->CKEditorField ?>', {
+        var editor = CKEDITOR.replace( '<?php echo $ckEditorField ?>', {
             filebrowserBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html',
             filebrowserImageBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html?type=Images',
             filebrowserFlashBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html?type=Flash',
@@ -137,15 +120,28 @@ else:
             /*, filebrowserWindowWidth : '1000', filebrowserWindowHeight : '700' */
         });
         CKFinder.setupCKEditor( editor, '../' );
-        <?php endif; ?>
+        <?php endforeach; ?>
+    <?php else: ?>
+    /* CKEditor and CKFinder integration */
+    var editor = CKEDITOR.replace( '<?php echo $this->CKEditorField ?>', {
+        filebrowserBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html',
+        filebrowserImageBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html?type=Images',
+        filebrowserFlashBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html?type=Flash',
+        filebrowserUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+        filebrowserImageUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+        filebrowserFlashUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
+        /*, filebrowserWindowWidth : '1000', filebrowserWindowHeight : '700' */
+    });
+    CKFinder.setupCKEditor( editor, '../' );
     <?php endif; ?>
+<?php endif; ?>
 
-        function refreshEditor() {
-            $('textarea.wysiwyg').each(function () {
-                var $textarea = $(this);
-                $textarea.val(CKEDITOR.instances[$textarea.attr('name')].getData());
-            });
-        }
-    </script>
+    function refreshEditor() {
+        $('textarea.wysiwyg').each(function () {
+            var $textarea = $(this);
+            $textarea.val(CKEDITOR.instances[$textarea.attr('name')].getData());
+        });
+    }
+</script>
 <?php
 endif;

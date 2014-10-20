@@ -24,8 +24,9 @@ return array(
                     'cms' => array(
                             'type'    => 'Segment',
                             'options' => array(
-                                    'route'       => 'cms[/][:resource][/][:id][/]',
+                                    'route'       => 'cms[/][:output_format][/][:resource][/][:id][/]',
                                     'constraints' => array(
+                                            'output_format' => 'xml|json',
                                             'resource' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                             'id'       => '[0-9]+',
                                     ),

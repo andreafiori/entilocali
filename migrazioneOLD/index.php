@@ -154,7 +154,9 @@ function displayMigrationButton($key, $cellSpan = 3, $btnClass = 'primary')
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="css/navbar.css" rel="stylesheet">
+    <style>
+        .navbar-static-top { margin-bottom: 19px }
+    </style>
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="js/ie10-viewport-bug-workaround.js"></script>
@@ -185,6 +187,7 @@ function displayMigrationButton($key, $cellSpan = 3, $btnClass = 'primary')
             <li class="active"><a href="#" title="">Home</a></li>
             <li><a href="#" title="">Torna al sito web</a></li>
             <li><a href="#" title="">Backend</a></li>
+          </ul>
         </div><!--/.nav-collapse -->
       </div>
     </div>

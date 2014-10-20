@@ -3,7 +3,6 @@
 namespace Admin\Model\StatoCivile;
 
 use Admin\Model\FormData\FormDataAbstract;
-use Admin\Model\StatoCivile\StatoCivileRecordsGetter;
 
 /**
  * @author Andrea Fiori
@@ -11,7 +10,7 @@ use Admin\Model\StatoCivile\StatoCivileRecordsGetter;
  */
 class StatoCivileFormDataHandler extends FormDataAbstract
 {
-    protected $param, $entityManager;
+    private $param, $entityManager;
     private $recordsGetter;
 
     /**
@@ -21,26 +20,25 @@ class StatoCivileFormDataHandler extends FormDataAbstract
     {
         parent::__construct($input);
 
-        $this->param = $this->getInput('param', 1);
+        $this->param         = $this->getInput('param', 1);
         $this->entityManager = $this->getInput('entityManager', 1);
+        
         $this->recordsGetter = new StatoCivileRecordsGetter($this->getInput());
+        
         $this->setForm( new StatoCivileForm() );
         $this->getForm()->addSezioni( $this->getSezioni() );
         $this->getForm()->addDates();
 
         if ( isset($this->param['route']['option']) ) {
             $records = $this->getArticoloRecord($this->param['route']['option']);
-        }
-        
-        if ( !empty($records) ) {
-            $formTitle = $records['titolo'];
-            $this->getForm()->setData( $records );
-        } else {
-            $formTitle = 'Nuovo atto stato civile';
+            
+            if ( !empty($records) ) {
+                $this->getForm()->setData($records);
+            }
         }
 
         $this->setVariables(array(
-            'formTitle'                     => $formTitle,
+            'formTitle'                     => isset($records['titolo']) ? $records['titolo'] : 'Nuovo atto stato civile',
             'formDescription'               => '&Egrave; consigliabile inserire testi brevi sul tema trattato, possibilmente in minuscolo',
             'form'                          => $this->getForm(),
             'formAction'                    =>  '',

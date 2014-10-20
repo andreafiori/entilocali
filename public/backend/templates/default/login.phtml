@@ -6,8 +6,9 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/favicon.ico'))
-             ->prependStylesheet($this->basePath().'/public/common/bootstrap3/css/bootstrap.min.css')
+    <?php 
+    echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/favicon.ico'))
+              ->prependStylesheet($this->basePath().'/public/common/bootstrap3/css/bootstrap.min.css')
     ?>
     <style>
     body {
@@ -85,7 +86,7 @@ $form->prepare();
 ?>
 <form class="form-signin" action="<?php echo $this->url('login/process', array('action' => 'authenticate')) ?>" method="post" id="frmlogin" role="form">
 <div>
-<h2 class="form-signin-heading">Area Riservata</h2>
+<h2 class="form-signin-heading">Area riservata</h2>
 <?php
 $element = $form->get('username');
 $element->setAttribute('class','form-control');
@@ -104,23 +105,24 @@ echo $this->formInput($element);
 
 <button class="btn btn-lg btn-primary btn-block" type="submit" title="Accedi all'area riservata">Accedi</button>
 
-<a href="#" class="btn btn-lg btn-warning btn-block" title="Recupero password">Recupero password</a>
+<!-- <a href="#" class="btn btn-lg btn-warning btn-block" title="Recupero password">Recupero password</a> -->
     
 <a href="<?php echo $this->basePath() ?>" class="btn btn-lg btn-default btn-block" title="Torna al sito web">Torna al sito web</a>
 
 </div>
 </form>
-
 <?php
 if ($this->messages) {
     ?>
     <div class="alert alert-info">
     <ul>
     <?php
+    $messageList = '';
     foreach($this->messages as $message)
     {
-        echo '<li>'.$message.'</li>';
+        $messageList .= '<li>'.$message.'</li>';
     }
+    echo $messageList;
     ?>
     </ul>
     </div>

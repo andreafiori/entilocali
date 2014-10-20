@@ -2,18 +2,18 @@
 
 namespace ApiWebService\Controller;
 
-use Zend\Http\Response;
-use Zend\View\Model\JsonModel;
 use Zend\Mvc\Controller\AbstractActionController;
 use Application\Model\NullException;
 use ApiWebService\Model\ApiSetup;
-use ApiWebService\Model\ApiResourceHandler;
+use ApiWebService\Model\ApiOutputManager;
 use Admin\Model\Users\UsersGetter;
 use Admin\Model\Users\UsersGetterWrapper;
 
 /**
  * Main API Controller
- * TODO: differ class method or response per method request (GET,POST,PUT,DELETE) $method
+ * TODO: 
+ *      differ class method or response per method request (GET,POST,PUT,DELETE) $method
+ *      Authentication only with API key
  * 
  * @author Andrea Fiori
  * @since 10 April 2014
@@ -29,10 +29,13 @@ class DefaultApiController extends AbstractActionController
         $entityManager  = $serviceLocator->get('Doctrine\ORM\EntityManager');
         $method         = $this->getRequest()->getMethod();
         $moduleConfig   = $serviceLocator->get('config');
+        $outputFormat   = $this->params()->fromRoute('output_format');
         
-        $apiSetup = new ApiSetup();
+        $apiSetup         = new ApiSetup();
+        
+        $apiOutputManager = new ApiOutputManager($outputFormat);
+        
         try {
-            
             $apiSetup->setMethod($method);
             $apiSetup->setInput( $this->detectInput($method) );
             $apiSetup->setupAuthenticationInput();
@@ -40,46 +43,33 @@ class DefaultApiController extends AbstractActionController
             $apiSetup->setUsersGetterWrapper( new UsersGetterWrapper(new UsersGetter($entityManager) ) );
             $apiSetup->authenticate();
             $apiSetup->setResourceClassMap($moduleConfig['resources_class_map']);
-            $apiSetup->setResourceClassName( $this->params()->fromRoute('resource') );
-            
+            $apiSetup->setResourceClassName( $this->params()->fromRoute('resource') );     
         } catch (NullException $ex) {
-            return $apiSetup->getResponseToReturn();
+            $apiOutputManager->setStatusCode(401);
+            return $apiOutputManager->setupOutput( array(
+                'message'   => $ex->getMessage()
+                )
+            );
         }
 
         $input      = $apiSetup->getInput();
         $className  = $apiSetup->getResourceClassName();
+        
         $classInstance = new $className($entityManager);
         $classInstance->setPage( isset($input['page']) ? $input['page'] : null );
         $classInstance->setPerPage( isset($input['perpage']) ? $input['perpage'] : null );
+        
         $resourceRecords = $classInstance->getResourceRecords($input);
         
         if (!$resourceRecords) {
-            $response = new Response();
-            $response->setStatusCode(Response::STATUS_CODE_401);
-            $response->setContent( json_encode( array_filter( array(
-                        'status'    => $response->getStatusCode(),
-                        'method'    => $method,
-                        'message'   => 'No records found for this recource.'
-                        )
-                    )
+            $apiOutputManager->setStatusCode(401);
+            return $apiOutputManager->setupOutput( array(
+                'message' => 'No records found for this recource'
                 )
             );
-            return $response;
         }
         
-        return new JsonModel( array_filter(
-                /*
-                array(
-                    'method'    => $method,
-                    'totalItemCount' => '', // $paginatorRecords->getTotalItemCount(),
-                    'page'      => $classInstance->getPage(),
-                    'perpage'   => $classInstance->getPerpage(),
-                    'data'      => $resourceRecords,
-                )
-                */
-                $resourceRecords
-            )
-        );
+        return $apiOutputManager->setupOutput($resourceRecords);
     }
     
         /**

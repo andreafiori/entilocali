@@ -17,39 +17,40 @@ class Module implements AutoloaderProviderInterface
     public function onBootstrap(MvcEvent $e)
     {
     	$application = $e->getApplication();
+        $sm          = $application->getServiceManager();
+        
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach( $application->getEventManager() );
-        $sm = $application->getServiceManager();
         
         try {
             $dbInstance = $sm->get('Zend\Db\Adapter\Adapter');
             $dbInstance->getDriver()->getConnection()->connect();
         } catch (\Exception $ex) {
-            $ViewModel = $e->getViewModel();
-            $ViewModel->setTemplate('layout/layout');
-                 
+            $viewModel = $e->getViewModel();
+            $viewModel->setTemplate('layout/layout');
+ 
             $content = new \Zend\View\Model\ViewModel();
             $content->setTemplate('error/dbconnection');
 
-            $ViewModel->setVariable('content', $sm->get('ViewRenderer')
+            $viewModel->setVariable('content', $sm->get('ViewRenderer')
                                                   ->render($content));
-             
-            exit( $sm->get('ViewRenderer')->render($ViewModel) );
+
+            exit( $sm->get('ViewRenderer')->render($viewModel) );
         }
         
         $em = $application->getEventManager();
         $em->attach(\Zend\Mvc\MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'handleError'));
         $em->attach(\Zend\Mvc\MvcEvent::EVENT_RENDER_ERROR, array($this, 'handleError'));
     }
-    
+
     /**
-     * TODO: handle errors exceptions and controller not found
+     * Handle errors exceptions and controller not found
      * 
      * @param MvcEvent $e
      */
     public function handleError(MvcEvent $e)
     {
-    	
+
     }
     
     public function getConfig()
@@ -100,7 +101,7 @@ class Module implements AutoloaderProviderInterface
     {
     	return array(
             'factories' => array(
-		'Admin\Model\MyAuthStorage' => function($sm) {
+		'Admin\Model\MyAuthStorage' => function() {
 		    return new \Admin\Model\MyAuthStorage('login');
 		},
 		'AuthService' => function($sm) {

@@ -59,7 +59,14 @@
                 </div>
 
                 <div class="col-sm-4">
-                    <?php //echo $this->formElement($form->get('anno')); ?>
+                    <?php // echo $this->formElement($form->get('anno')); ?>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-sm-2 control-label">&nbsp;</label>
+                <div class="col-sm-8"><?php echo $this->formElement($form->get('expired')); ?>
+                <label for="<?php echo $form->get('expired')->getAttribute('id') ?>" style="width: 80%"> <?php echo $this->formLabel($form->get('expired')) ?></label>
                 </div>
             </div>
             
@@ -84,12 +91,12 @@
         <ul>
             <li><a href="#" title="Feed Atti stato civile" target="_blank">Atti stato civile</a></li>
         </ul>
-        <!--
+        
         <h3>API</h3>
         <ul>
             <li><a href="#" title="">JSON</a></li>
             <li><a href="#" title="">XML</a></li>
         </ul>
-        -->
+        
     </div>
 </div>

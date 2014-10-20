@@ -178,7 +178,7 @@ switch($_GET['op'])
         executeQuery("TRUNCATE TABLE zfcms_attachments_options ");
         executeQuery("TRUNCATE TABLE zfcms_attachments_relations ");
         
-        /* import data */
+        /* Import data */
         $resultArticoli = executeQuery("INSERT INTO zfcms_comuni_albo_articoli ( SELECT * FROM albo_articoli ) ");
         
         /* Correct HTML specialchars */

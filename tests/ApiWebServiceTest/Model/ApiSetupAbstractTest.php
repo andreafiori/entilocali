@@ -49,8 +49,17 @@ class ApiSetupAbstractTest extends TestSuite
         $this->assertEquals($this->apiSetupAbstract->getInput('username'), 'myUsername');
     }
     
-    public function testGetResponseToReturnIsEmpty()
+    public function testSetStatusCode()
     {
-        $this->assertEmpty( $this->apiSetupAbstract->getResponseToReturn() );
+        $this->apiSetupAbstract->setStatusCode(200);
+        
+        $this->assertEquals($this->apiSetupAbstract->getStatusCode(), 200);
+    }
+    
+    public function testSetEntityManager()
+    {
+        $this->apiSetupAbstract->setEntityManager($this->getEntityManagerMock());
+        
+        $this->assertInstanceOf('\Doctrine\ORM\EntityManager', $this->apiSetupAbstract->getEntityManager());
     }
 }

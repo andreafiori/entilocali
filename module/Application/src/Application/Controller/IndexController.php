@@ -23,7 +23,7 @@ class IndexController extends AbstractActionController
         $configurations           = $this->commonSetupPlugin->recoverConfigurationsRecord();
         $config                   = $this->getServiceLocator()->get('config');
         $this->commonSetupPlugin->setConfigurationsVariables();
-        
+
         $routerManager = new RouterManager($configurations);
         $routerManager->setRouteMatchName($config['fe_router']);
         
@@ -55,11 +55,14 @@ class IndexController extends AbstractActionController
         
         $serverVars = $this->getRequest()->getServer();
         
-        $this->layout()->setVariable('maindata',        $routerManagerHelper->getRouterManger()->getRecords());
-        $this->layout()->setVariable('preloadResponse', $configurations['preloadResponse']);
-        $this->layout()->setVariable('currentUrl',      "http://".$serverVars["SERVER_NAME"].$serverVars["REQUEST_URI"]);
-        $this->layout()->setVariable('currentDateTime', date("Y-m-d H:i:s") );
-        $this->layout()->setVariable('templatePartial', $configurations['template_path'].$routerManagerHelper->getRouterManger()->getTemplate());
+        $this->layout()->setVariables( array(
+            'maindata' =>  $routerManagerHelper->getRouterManger()->getRecords(),
+            'preloadResponse' => $configurations['preloadResponse'],
+            'currentUrl' => "http://".$serverVars["SERVER_NAME"].$serverVars["REQUEST_URI"],
+            'currentDateTime' => date("Y-m-d H:i:s"),
+            'templatePartial' => $configurations['template_path'].$routerManagerHelper->getRouterManger()->getTemplate(),
+        ));
+        
         $this->layout($basicLayout);
         
         return new ViewModel();

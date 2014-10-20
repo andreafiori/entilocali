@@ -14,5 +14,5 @@ docs
 tests/reports
 vendor/
 vendor_backup/
-vendor_backup/
+migrazioneOLD/
 public/frontend/media/

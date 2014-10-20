@@ -3,21 +3,11 @@
     <li class="active">Invio atto ad ente terzo</li>
 </ul>
 
-<!--
 <h1>Invio atto ad ente terzo</h1>
 
-<div><strong>Oggetto atto:</strong> PUBBLICAZIONI DI MATRIMONIO SCANU SEBASTIANO - DEIANA TONELLA</div>
+<div>Articolo da inviare ad altro Ente (Comune o Prefettura) per richiederne la pubblicazione o per inviare la relata:</div>
 
-<div>&nbsp;</div>
+<div><strong><?php echo $this->titolo ?></strong></div>
 
-Articolo da inviare ad altro Ente (Comune o Prefettura) per richiederne la pubblicazione o per inviare la relata.<br> 
- Il sistema non invia il flusso su prenotazione tra 30 giorni: tale funzione è in fase di predisposizione.</b>
-<br /><br />La conferma di invio sar&agrave; recapitata all'indirizzo: {{%indirizzo_email%}}
-<br /><br /><form action="" method="post" enctype="multipart/form-data" >
-
-Inserire indirizzo mail dell'Ente: <input type="text" name="indirizzo"><br><br>
-File verbale di richiesta pubblicazioni in altro Ente: <input type="file" name="file_richiesta"><br>
-<input type="hidden" name="id_statocivile" value="25"><br >
-<input type="submit" value="Invia">
-</form>
--->
+<?php
+// echo $this->render($this->formDataCommonPath.'formdata_common.phtml');

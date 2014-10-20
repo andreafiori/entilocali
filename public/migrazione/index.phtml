@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Setup e migrazione dati CMS Enti locali</title>
+
+    <link href="<?php echo $this->basePath() ?>/public/common/bootstrap3/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .navbar-static-top { margin-bottom: 19px }
+    </style>
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="<?php echo $this->basePath() ?>/public/common/ie10-viewport-bug-workaround.js"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-static-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#" title="">Enti locali - Aziende</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#" title="Home page">Home</a></li>
+        <li><a href="<?php echo $this->url() ?>" title="Torna al sito web pubblico">Torna al sito web</a></li>
+        <li><a href="<?php echo $this->basePath() ?>/auth" title="Vai all'area riservata di gestione del sito">Backend</a></li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</div>
+
+
+<div class="container">	
+
+    <div class="jumbotron">
+
+        <h1>Console migrazione</h1>
+
+        <p>Tool di migrazione dati dal CMS originario al nuovo software di gestione dati per enti pubblici e aziende. <br>
+            I seguenti pulsanti eseguono operazioni di migrazione dati dal CMS originario. <br>
+            Assicurarsi di aver fatto i backup del sito prima dell'utilizzo di questa console.</p>
+
+        <div class="row">
+
+            <h2>Test connessione</h2>
+
+            <p><button type="button" class="btn btn-warning">Check tabelle vecchio CMS</button></p>
+
+            <p><button type="button" class="btn btn-warning">Check tabelle CMS Zend</button></p>
+
+        </div>
+
+        <div class="row">
+            <h2>Indispensabili</h2>
+            <div class="col-md-4">
+                <form action="<?php echo $this->migrationButtons['users']['formAction'] ?>" method="post" id="<?php echo $this->migrationButtons['users']['formId'] ?>" role="form">
+                    <button type="submit" class="btn btn-lg btn-primary"><?php echo $this->migrationButtons['users']['buttonLabel'] ?></button><br><br>
+                </form>
+            </div>
+
+            <div class="col-md-4">
+                <form action="<?php echo $this->migrationButtons['config']['formAction'] ?>" method="post" id="<?php echo $this->migrationButtons['config']['formId'] ?>" role="form">
+                    <button type="submit" class="btn btn-lg btn-primary"><?php echo $this->migrationButtons['config']['buttonLabel'] ?></button><br><br>
+                </form>
+            </div>
+
+            <div class="col-md-4">
+                <form action="<?php echo $this->migrationButtons['modules']['formAction'] ?>" method="post" id="<?php echo $this->migrationButtons['modules']['formId'] ?>" role="form">
+                    <button type="submit" class="btn btn-lg btn-primary"><?php echo $this->migrationButtons['modules']['buttonLabel'] ?></button><br><br>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <h2>Enti locali</h2>
+            <div class="col-md-3">
+                <form action="<?php echo $this->migrationButtons['albo-pretorio']['formAction'] ?>" method="post" id="<?php echo $this->migrationButtons['albo-pretorio']['formId'] ?>" role="form">
+                    <button type="submit" class="btn btn-lg btn-primary"><?php echo $this->migrationButtons['albo-pretorio']['buttonLabel'] ?></button><br><br>
+                </form>
+            </div>
+
+            <div class="col-md-4">
+                <form action="<?php echo $this->migrationButtons['amministrazione-trasparente']['formAction'] ?>" method="post" id="<?php echo $this->migrationButtons['amministrazione-trasparente']['formId'] ?>" role="form">
+                    <button type="submit" class="btn btn-lg btn-primary"><?php echo $this->migrationButtons['amministrazione-trasparente']['buttonLabel'] ?></button><br><br>
+                </form>
+            </div>
+
+            <div class="col-md-3">
+                <form action="<?php echo $this->migrationButtons['stato-civile']['formAction'] ?>" method="post" id="<?php echo $this->migrationButtons['stato-civile']['formId'] ?>" role="form">
+                    <button type="submit" class="btn btn-lg btn-primary"><?php echo $this->migrationButtons['stato-civile']['buttonLabel'] ?></button><br><br>
+                </form>
+            </div>
+
+            <div class="col-md-3">
+                <form action="<?php echo $this->migrationButtons['contratti-pubblici']['formAction'] ?>" method="post" id="<?php echo $this->migrationButtons['contratti-pubblici']['formId'] ?>" role="form">
+                    <button type="submit" class="btn btn-lg btn-primary"><?php echo $this->migrationButtons['contratti-pubblici']['buttonLabel'] ?></button><br><br>
+                </form>
+            </div>
+
+            <div class="col-md-3">
+                <form action="<?php echo $this->migrationButtons['enti-terzi']['formAction'] ?>" method="post" id="<?php echo $this->migrationButtons['enti-terzi']['formId'] ?>" role="form">
+                    <button type="submit" class="btn btn-lg btn-primary"><?php echo $this->migrationButtons['enti-terzi']['buttonLabel'] ?></button><br><br>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <h2>Media</h2>
+            <div class="col-md-3">
+                <form action="<?php echo $this->migrationButtons['contenuti']['formAction'] ?>" method="post" id="<?php echo $this->migrationButtons['contenuti']['formId'] ?>" role="form">
+                    <button type="submit" class="btn btn-lg btn-primary"><?php echo $this->migrationButtons['contenuti']['buttonLabel'] ?></button><br><br>
+                </form>
+            </div>
+
+            <div class="col-md-3">
+                <form action="<?php echo $this->migrationButtons['foto']['formAction'] ?>" method="post" id="<?php echo $this->migrationButtons['foto']['formId'] ?>" role="form">
+                    <button type="submit" class="btn btn-lg btn-primary"><?php echo $this->migrationButtons['foto']['buttonLabel'] ?></button><br><br>
+                </form>
+            </div>
+
+            <div class="col-md-3">
+                <form action="<?php echo $this->migrationButtons['blogs']['formAction'] ?>" method="post" id="<?php echo $this->migrationButtons['blogs']['formId'] ?>" role="form">
+                    <button type="submit" class="btn btn-lg btn-primary"><?php echo $this->migrationButtons['blogs']['buttonLabel'] ?></button><br><br>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <h2>Community</h2>
+
+            <div class="col-md-3">
+                <form action="<?php echo $this->migrationButtons['forum']['formAction'] ?>" method="post" id="<?php echo $this->migrationButtons['forum']['formId'] ?>" role="form">
+                    <button type="submit" class="btn btn-lg btn-primary"><?php echo $this->migrationButtons['forum']['buttonLabel'] ?></button><br><br>
+                </form>
+            </div>
+
+            <div class="col-md-3">
+                <form action="<?php echo $this->migrationButtons['newsletter']['formAction'] ?>" method="post" id="<?php echo $this->migrationButtons['newsletter']['formId'] ?>" role="form">
+                    <button type="submit" class="btn btn-lg btn-primary"><?php echo $this->migrationButtons['newsletter']['buttonLabel'] ?></button><br><br>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <h2>Elimina tabelle database vecchio CMS</h2>
+            <p>ATTENZIONE: prima di procedere con l'eliminazione delle tabelle del vecchio CMS, assicurarsi che TUTTI precedenti siano stati importati.</p>
+            <div class="col-md-3">
+                <form action="<?php echo $this->migrationButtons['delete-old-cms']['formAction'] ?>" method="post" id="<?php echo $this->migrationButtons['delete-old-cms']['formId'] ?>" role="form">
+                    <button type="submit" class="btn btn-lg btn-danger"><?php echo $this->migrationButtons['delete-old-cms']['buttonLabel'] ?></button><br><br>
+                </form>
+            </div>
+        </div>
+    </div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Chiudi</span></button>
+                <h4 class="modal-title" id="myModalLabel">Risultato operazione</h4>
+          </div>
+          <div class="modal-body">
+                <div id="migrationResult"></div>
+          </div>
+          <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Chiudi</button>
+          </div>
+        </div>
+  </div>
+</div>
+    
+<hr>
+
+<footer>
+    <p>&copy; <?php echo date("Y"); ?> <a href="http://www.kronoweb.it" target="_blank" title="Copyright Kronoweb.it">Kronoweb.it</a>.</p>
+</footer>
+
+</div>
+
+
+<script src="<?php echo $this->basePath() ?>/public/common/jquery/jquery.min.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/common/bootstrap3/js/bootstrap.min.js"></script>
+
+<script src="<?php echo $this->basePath() ?>/public/common/jquery/form/jquery.form.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/common/jquery/validate/jquery.validate.min.js"></script>
+
+<script>
+
+function showLoading()
+{
+    $("#migrationResult").hide();
+}
+
+function showResponse()
+{
+    $("#migrationResult").show();
+}
+
+function submitMigration(element) {
+
+    $(element).ajaxSubmit({
+                target: "#migrationResult",
+                type: "post"
+            });
+
+    return false;
+};
+
+
+$(document).ready(function () {
+
+    <?php foreach($migrationButtons as $migrationForm): ?>
+
+        $('#<?php echo $migrationForm['formId'] ?>').submit(function() {
+
+            $('#myModal').modal('show');
+
+            $("#<?php echo $migrationForm['formId'] ?>").ajaxSubmit({
+                target: "#migrationResult",
+                type: "post",
+                onkeyup: false
+            });
+
+            return false; 
+        }); 
+
+    <?php endforeach; ?>
+
+});
+
+</script>
+
+</body>
+</html>

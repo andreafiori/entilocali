@@ -157,7 +157,7 @@ return array(
         "admin"                     => 'Admin\Model\AdminDashboard',
         "admin/formdata"            => 'Admin\Model\FormData\FormDataHandler',
         "admin/datatable"           => 'Admin\Model\DataTable\DataTableHandler',
-        "admin/invio-ente-terzo"    => 'Admin\Model\InvioEnteTerzoHandler',
+        "admin/invio-ente-terzo"    => 'Admin\Model\EntiTerzi\InvioEnteTerzoHandler',
     ),
     /* FormData Class Map */
     'formdata_classmap' => array(

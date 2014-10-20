@@ -2,7 +2,6 @@
 
 namespace ApiWebService\Model;
 
-use Zend\Http\Response;
 use Application\Model\NullException;
 
 /**
@@ -15,11 +14,11 @@ abstract class ApiSetupAbstract
     protected $allowedMethods = array('GET','POST','PUT','DELETE');
     protected $input;
     protected $authenticationInput;
-    
-    protected $responseToReturn;
-    
+        
     /** @var \Doctrine\ORM\EntityManager **/
-    protected $entityManager;  
+    protected $entityManager;
+    
+    protected $statusCode = 200;
 
     /**
      * @param string $method
@@ -28,9 +27,7 @@ abstract class ApiSetupAbstract
     public function setMethod($method)
     {
         if ( !in_array($method, $this->allowedMethods) ) {
-            $this->setupResponseToReturn(Response::STATUS_CODE_405, 'Method not allowed');
-            
-            throw new NullException('Method not allowed');
+            $this->setupNullException('Method not allowed');
         }
 
         $this->method = $method;
@@ -58,7 +55,8 @@ abstract class ApiSetupAbstract
     }
     
     /**
-     * @return null|array
+     * @param null|array $key
+     * @return type
      */
     public function getInput($key = null)
     {
@@ -70,33 +68,22 @@ abstract class ApiSetupAbstract
     }
     
     /**
-     * Setup a Response Object To Return in case of error\s
-     * 
-     * @param int $code
-     * @param string $message
-     * @return \Zend\Http\Response
+     * @param int $statusCode
+     * @return int
      */
-    public function setupResponseToReturn($code, $message)
+    public function setStatusCode($statusCode)
     {
-        $this->responseToReturn = new Response();
-        $this->responseToReturn->setStatusCode($code);
-        $this->responseToReturn->setContent( json_encode( array_filter( array(
-                    'status'    => $this->responseToReturn->getStatusCode(),
-                    'method'    => $this->getMethod(),
-                    'message'   => $message
-                    )
-                )
-            )
-        );
-        return $this->responseToReturn;
+        $this->statusCode = $statusCode;
+        
+        return $this->statusCode;
     }
     
     /**
-     * @return array|null
+     * @return int
      */
-    public function getResponseToReturn()
+    public function getStatusCode()
     {
-        return $this->responseToReturn;
+        return $this->statusCode;
     }
     
     /**
@@ -117,4 +104,18 @@ abstract class ApiSetupAbstract
     {
         return $this->entityManager;
     }
+    
+        /**
+         * Set status code and throw NullException
+         * 
+         * @param string $message
+         * @param int $statusCode
+         * @throws NullException
+         */
+        protected function setupNullException($message, $statusCode = 401)
+        {
+            $this->setStatusCode($statusCode);
+            
+            throw new NullException($message);
+        }
 }

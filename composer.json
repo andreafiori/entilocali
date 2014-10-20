@@ -24,7 +24,6 @@
         "zendframework/zftool": "dev-master",
         "bjyoungblood/bjy-authorize": "dev-master",
         "zf-commons/zfc-user": "dev-master",
-        "bjyoungblood/BjyProfiler": "dev-master",
-		"satooshi/php-coveralls": "dev-master"
+        "bjyoungblood/BjyProfiler": "dev-master"
     }
 }

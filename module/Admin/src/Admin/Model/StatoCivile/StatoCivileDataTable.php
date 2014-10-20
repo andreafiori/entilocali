@@ -34,6 +34,7 @@ class StatoCivileDataTable extends DataTableAbstract
         
         $formSearch = new StatoCivileFormSearch();
         $formSearch->addSubmitButton();
+        $formSearch->addCheckExpired();
         
         $paginatorRecords = $this->getRecordsPaginator();
         
@@ -86,7 +87,7 @@ class StatoCivileDataTable extends DataTableAbstract
                     $record['nome'],
                     $record['data'],
                     $record['scadenza'],
-                    '',
+                    $record['user_name_surname'],
                     array(
                         'type'      => 'updateButton',
                         'href'      => $this->getInput('baseUrl',1).'formdata/stato-civile/'.$record['id'],

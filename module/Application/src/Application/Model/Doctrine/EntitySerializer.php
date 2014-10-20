@@ -19,7 +19,7 @@ use Doctrine\ORM\EntityManager;
  *
  * @category    Bgy
  * @package     Bgy\Doctrine
- * @author      Boris Gu�ry <guery.b@gmail.com>
+ * @author      Boris Gu�ry <guery.b@gmail.com>, Andrea Fiori
  * @license     http://sam.zoy.org/wtfpl/COPYING
  * @link        http://borisguery.github.com/bgylibrary
  * @see         https://gist.github.com/1034079#file_serializable_entity.php
@@ -40,10 +40,13 @@ class EntitySerializer
      * @var int
      */
     protected $_maxRecursionDepth = 0;
-
-    public function __construct($em)
+    
+    /**
+     * @param \Doctrine\ORM\EntityManager $em
+     */
+    public function __construct(EntityManager $em)
     {
-            $this->setEntityManager($em);
+        $this->setEntityManager($em);
     }
 
     /**
@@ -51,16 +54,24 @@ class EntitySerializer
      */
     public function getEntityManager()
     {
-            return $this->_em;
+        return $this->_em;
     }
-
+    
+    /**
+     * @param \Doctrine\ORM\EntityManager $em
+     * @return \Application\Model\Doctrine\EntitySerializer
+     */
     public function setEntityManager(EntityManager $em)
     {
-            $this->_em = $em;
+        $this->_em = $em;
 
-            return $this;
+        return $this;
     }
-
+    
+    /**
+     * @param object $entity
+     * @return array|null
+     */
     protected function _serializeEntity($entity)
     {
         $className = get_class($entity);
@@ -72,12 +83,12 @@ class EntitySerializer
             $value = $metadata->reflFields[$field]->getValue($entity);
             $field = Inflector::tableize($field);
             if ($value instanceof \DateTime) {
-                    // We cast DateTime to array to keep consistency with array result
-                    $data[$field] = (array)$value;
+                // We cast DateTime to array to keep consistency with array result
+                $data[$field] = (array)$value;
             } elseif (is_object($value)) {
-                    $data[$field] = (string)$value;
+                $data[$field] = (string)$value;
             } else {
-                    $data[$field] = $value;
+                $data[$field] = $value;
             }
         }
 
@@ -91,24 +102,24 @@ class EntitySerializer
             } elseif ($mapping['isOwningSide'] && $mapping['type'] & ClassMetadata::TO_ONE) {
                 if (null !== $metadata->reflFields[$field]->getValue($entity)) {
                     if ($this->_recursionDepth < $this->_maxRecursionDepth) {
-                            $this->_recursionDepth++;
-                            $data[$key] = $this->_serializeEntity(
-                                            $metadata->reflFields[$field]
-                                            ->getValue($entity)
-                            );
-                            $this->_recursionDepth--;
+                        $this->_recursionDepth++;
+                        $data[$key] = $this->_serializeEntity(
+                                        $metadata->reflFields[$field]
+                                        ->getValue($entity)
+                        );
+                        $this->_recursionDepth--;
                     } else {
-                            $data[$key] = $this->getEntityManager()
-                            ->getUnitOfWork()
-                            ->getEntityIdentifier(
-                                            $metadata->reflFields[$field]
-                                            ->getValue($entity)
-                            );
+                        $data[$key] = $this->getEntityManager()
+                        ->getUnitOfWork()
+                        ->getEntityIdentifier(
+                                        $metadata->reflFields[$field]
+                                        ->getValue($entity)
+                        );
                     }
                 } else {
-                        // In some case the relationship may not exist, but we want
-                        // to know about it
-                        $data[$key] = null;
+                    // In some case the relationship may not exist, but we want
+                    // to know about it
+                    $data[$key] = null;
                 }
             }
         }
@@ -130,7 +141,7 @@ class EntitySerializer
 
     /**
      * Convert an entity to a JSON object
-     *
+     * 
      * @param The entity $entity
      * @return string
      */

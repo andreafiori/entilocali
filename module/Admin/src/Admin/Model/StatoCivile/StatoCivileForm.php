@@ -14,7 +14,7 @@ class StatoCivileForm extends Form
 {
     public function __construct($name = null, $options = array())
     {
-        parent::__construct('formData', $options);
+        parent::__construct($name, $options);
         
         $this->add(array(
                         'name' => 'titolo',
@@ -30,59 +30,53 @@ class StatoCivileForm extends Form
         ));
     }
     
-    public function addSezioni($sezioni)
+    public function addSezioni(array $sezioni)
     {
-        if (is_array($sezioni)) {
-
-            $this->add(array(
-                        'type' => 'Zend\Form\Element\Select',
-                        'name' => 'sezioneId',
-                        'options' => array(
-                               'label' => 'Sezione',
-                               'empty_option' => 'Seleziona',
-                               'value_options' => $sezioni,
-                        ),
-                        'attributes' => array(
-                                'id' => 'status',
-                                'required' => 'required',
-                                'title' => 'Seleziona la sezione',
-                        )
-            ));
-        }
-        
+        $this->add(array(
+                    'type' => 'Zend\Form\Element\Select',
+                    'name' => 'sezioneId',
+                    'options' => array(
+                           'label' => 'Sezione',
+                           'empty_option' => 'Seleziona',
+                           'value_options' => $sezioni,
+                    ),
+                    'attributes' => array(
+                            'id' => 'status',
+                            'required' => 'required',
+                            'title' => 'Seleziona la sezione',
+                    )
+        ));
     }
     
     public function addDates()
     {
         $this->add(array(
                         'type' => 'Date',
-                        'name' => 'insertDate',
+                        'name' => 'data',
                         'options' => array(
                                 'label' => 'Data di pubblicazione',
-                                'format' => 'Y-m-d',
+                                'format' => 'Y-m-d H:i:s',
                         ),
                         'attributes' => array(
-                                'class' => 'form-control DatePicker',
-                                'style' => 'width: 22%',
-                                'id' => 'insertDate',
+                                'id' => 'data',
                                 'title' => 'Inserisci la data di pubblicazione',
                         )
         ));
         
         $this->add(array(
                         'type' => 'Date',
-                        'name' => 'expireDate',
+                        'name' => 'scadenza',
                         'options' => array(
-                                'label' => 'Scadenza',
-                                'format' => 'Y-m-d',
+                                'label'  => 'Data di scadenza',
+                                'format' => 'Y-m-d H:i:s',
                         ),
                         'attributes' => array(
-                                'class' => 'form-control DatePicker',
-                                'style' => 'width: 22%',
-                                'id' => 'expireDate'
+                                'id'          => 'scadenza',
+                                'title'       => 'Inserisci la data di scadenza',
+                                'placeholder' => 'Data di scadenza',
                         )
         ));
-        
+
         $this->add(array(
             'type' => 'Zend\Form\Element\Checkbox',
             'name' => 'checkbox',

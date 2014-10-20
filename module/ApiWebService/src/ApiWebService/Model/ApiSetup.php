@@ -2,12 +2,13 @@
 
 namespace ApiWebService\Model;
 
-use Zend\Http\Response;
 use Admin\Model\Users\UsersGetterWrapper;
 use ApiWebService\Model\ApiSetupAbstract;
 use Application\Model\NullException;
 
 /**
+ * TODO: refactoring: ApiSetupAuthenticationInput, ApiSetup
+ * 
  * @author Andrea Fiori
  * @since  22 August 2014
  */
@@ -20,12 +21,10 @@ class ApiSetup extends ApiSetupAbstract
     /**
      * @throws NullException
      */
-    public function setupAuthenticationInput()    
+    public function setupAuthenticationInput()  
     {
         if ( !$this->getInput() ) {
-            $this->setupResponseToReturn(Response::STATUS_CODE_401, 'Input is not set');
-            
-            throw new NullException('Input is not set');
+            $this->setupNullException('Input is not set');
         }
         
         $this->authenticationInput = array_filter( array(
@@ -44,17 +43,13 @@ class ApiSetup extends ApiSetupAbstract
         private function validateAuthenticationInput()
         {
             if ( !$this->getAuthenticationInput() ) {
-                $this->setupResponseToReturn(Response::STATUS_CODE_401, 'Unauthorized: no authentication.');
-
-                throw new NullException('Unauthorized: no authentication.');
+                $this->setupNullException('Unauthorized: no authentication.');
             }
             
             if ( is_string($this->getAuthenticationInput('username')) 
                  and !is_string($this->getAuthenticationInput('password')) ) {
-
-                $this->setupResponseToReturn(Response::STATUS_CODE_401, 'Unauthorized: authentication with invalid parameters.');
-
-                throw new NullException('Unauthorized: authentication with invalid parameters.');
+                
+                $this->setupNullException('Unauthorized: authentication with invalid parameters.');
             }
         }
 
@@ -73,7 +68,7 @@ class ApiSetup extends ApiSetupAbstract
 
     /**
      * @param \Admin\Model\Users\UsersGetterWrapper $usersGetterWrapper
-     * @return type
+     * @return \Admin\Model\Users\UsersGetterWrapper
      */
     public function setUsersGetterWrapper(UsersGetterWrapper $usersGetterWrapper)
     {
@@ -91,8 +86,6 @@ class ApiSetup extends ApiSetupAbstract
     }
     
     /**
-     * TODO: refactor usersGetterWrapper set operations
-     * 
      * @param array $authenticationInput
      * @return type
      * @throws NullException
@@ -108,15 +101,14 @@ class ApiSetup extends ApiSetupAbstract
         $this->usersGetterWrapper->setupPaginatorItemsPerPage();
 
         $paginator = $this->usersGetterWrapper->getPaginator();
+        
         $arrayToReturn = array();
         foreach($paginator as $row) {
             $arrayToReturn[] = $row;
         }
 
         if ( count($arrayToReturn) != 1 ) {
-            $this->setupResponseToReturn(Response::STATUS_CODE_403, 'Unauthiorized: bad authentication.');
-
-            throw new NullException('Unauthiorized: bad authentication.');
+            $this->setupNullException('Unauthiorized: bad authentication.');
         }
         
         return $arrayToReturn;
@@ -128,9 +120,7 @@ class ApiSetup extends ApiSetupAbstract
         private function assetUsersGetterWrapper()
         {
             if (!$this->usersGetterWrapper) {
-                $this->setupResponseToReturn(Response::STATUS_CODE_401, 'Error during the request: cannot get user informations.');
-                
-                throw new NullException('Error during the request: cannot get user informations.');
+                $this->setupNullException('Error during the request: cannot get user informations.');
             }
         }
 
@@ -164,18 +154,14 @@ class ApiSetup extends ApiSetupAbstract
         private function validateResource($resource)
         {
             if ( !isset($this->resourceClassMap[$resource])) {
-                $this->setupResponseToReturn(Response::STATUS_CODE_401, 'Invalid resource. Cannot get the result for this resource.');
-                
-                throw new NullException('Invalid resource. Cannot get the result for this resource.');
+                $this->setupNullException('Invalid resource. Cannot get the result for this resource.');
             } elseif (!class_exists($this->resourceClassMap[$resource])) {
-                $this->setupResponseToReturn(Response::STATUS_CODE_401, 'Invalid resource. The related object of this resource doesn\'t exists.');
-
-                throw new NullException('Invalid resource. The related object of this resource doesn\'t exists.');    
+                $this->setupNullException('Invalid resource. The related object of this resource doesn\'t exists.');    
             }
         }
 
     /**
-     * @return string|null
+     * @return \ApiWebService\Model\ApiResultGetterAbstract
      */
     public function getResourceClassName()
     {
