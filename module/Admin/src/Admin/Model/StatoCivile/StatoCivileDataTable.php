@@ -101,7 +101,7 @@ class StatoCivileDataTable extends DataTableAbstract
                     ),
                     array(
                         'type'      => 'enteterzoButton',
-                        'href'      => $this->getInput('baseUrl',1).'invio-ente-terzo/stato-civile/'.$record['id'],                        
+                        'href'      => $this->getInput('baseUrl',1).'invio-ente-terzo/stato-civile/'.$record['id'],
                         'title'     => 'Invia ad ente terzo'
                     ),
                 );

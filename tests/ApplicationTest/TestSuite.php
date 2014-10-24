@@ -216,4 +216,18 @@ class TestSuite extends \PHPUnit_Framework_TestCase
         );
     }
     
+    public function testGetEntityManager()
+    {
+        $this->assertInstanceOf('\Doctrine\ORM\EntityManager', $this->getEntityManagerMock());
+    }
+
+    public function testGetConnection()
+    {   
+        $this->assertInstanceOf('\Doctrine\DBAL\Connection', $this->getConnectionMock());
+    }
+    
+    public function testGetQueryBuilderMock()
+    {
+        $this->assertInstanceOf('\Doctrine\ORM\QueryBuilder', $this->getQueryBuilderMock());
+    }
 }

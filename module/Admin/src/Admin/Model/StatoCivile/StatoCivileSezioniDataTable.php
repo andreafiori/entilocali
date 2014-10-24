@@ -8,7 +8,7 @@ use Admin\Model\DataTable\DataTableAbstract;
  * @author Andrea Fiori
  * @since  17 August 2014
  */
-class SezioniDataTable extends DataTableAbstract
+class StatoCivileSezioniDataTable extends DataTableAbstract
 {
     /**
      * @param array $input
@@ -31,8 +31,8 @@ class SezioniDataTable extends DataTableAbstract
         $paginatorRecords = $this->getRecordsPaginator();
         
         $this->setVariables(array(
-            'paginator' => $paginatorRecords,
-            'tablesetter' => 'stato-civile'
+                'paginator' => $paginatorRecords,
+                'tablesetter' => 'stato-civile'
             )
         );
         
@@ -41,7 +41,9 @@ class SezioniDataTable extends DataTableAbstract
         $this->setVariable('formBreadCrumbCategory', 'Stato civile');
         $this->setVariable('formBreadCrumbCategoryLink', $this->getInput('baseUrl', 1).'datatable/stato-civile');
     }
-    
+        /**
+         * @return StatoCivileSezioniGetterWrapper
+         */
         private function getRecordsPaginator()
         {
             $param = $this->getInput('param', 1);
@@ -55,7 +57,12 @@ class SezioniDataTable extends DataTableAbstract
 
             return $objectWrapper->getPaginator();
         }
-
+        
+        /**
+         * 
+         * @param type $records
+         * @return boolean
+         */
         private function getFormattedRecords($records)
         {
             if (!$records) {

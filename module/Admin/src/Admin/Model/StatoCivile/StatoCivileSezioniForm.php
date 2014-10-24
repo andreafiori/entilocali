@@ -19,8 +19,9 @@ class StatoCivileSezioniForm extends Form
                         'type' => 'Textarea',
                         'options' => array( 'label' => 'Nome' ),
                         'attributes' => array(
-                                        'id'       => 'nome',
-                                        'required' => 'required',
+                                    'id'       => 'nome',
+                                    'required' => 'required',
+                                    'title'    => 'Inserisci nome sezione'
                         )
         ));
         
@@ -28,15 +29,16 @@ class StatoCivileSezioniForm extends Form
                         'type' => 'Zend\Form\Element\Select',
                         'name' => 'stato',
                         'options' => array(
-                               'label' => 'Sezione',
-                               'value_options' => array(
-                                       '' => 'Seleziona',
+                               'label' => 'Stato',
+                                'empty_option' => 'Seleziona',
+                                'value_options' => array(
                                        'attivo'   => 'Attivo',
                                        'nascosto' => 'Nascosto',
                                ),
                         ),
                         'attributes' => array(
-                                'id' => 'stato'
+                                'id' => 'stato',
+                                'title' => 'Seleziona stato'
                         )
         ));
     }

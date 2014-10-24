@@ -3,14 +3,14 @@
 namespace AdminTest\Model\EntiTerzi;
 
 use ApplicationTest\TestSuite;
-use Admin\Model\AlboPretorio\SezioniGetter;
-use Admin\Model\AlboPretorio\SezioniGetterWrapper;
+use Admin\Model\AlboPretorio\AlboPretorioSezioniGetter;
+use Admin\Model\AlboPretorio\AlboPretorioSezioniGetterWrapper;
 
 /**
  * @author Andrea Fiori
  * @since  18 August 2014
  */
-class SezioniGetterWrapperTest extends TestSuite
+class AlboPretorioSezioniGetterWrapperTest extends TestSuite
 {
     private $objectWrapper;
     
@@ -18,7 +18,7 @@ class SezioniGetterWrapperTest extends TestSuite
     {
         parent::setUp();
         
-        $this->objectWrapper = new SezioniGetterWrapper( new SezioniGetter($this->getEntityManagerMock()) );
+        $this->objectWrapper = new AlboPretorioSezioniGetterWrapper( new AlboPretorioSezioniGetter($this->getEntityManagerMock()) );
     }
     
     public function testSetupQueryBuilder()

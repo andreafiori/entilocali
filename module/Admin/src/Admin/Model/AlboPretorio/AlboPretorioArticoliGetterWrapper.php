@@ -8,17 +8,17 @@ use Application\Model\RecordsGetterWrapperAbstract;
  * @author Andrea Fiori
  * @since  08 July 2014
  */
-class ArticoliGetterWrapper extends RecordsGetterWrapperAbstract
+class AlboPretorioArticoliGetterWrapper extends RecordsGetterWrapperAbstract
 {
-    /** @var \Admin\Model\AlboPretorio\ArticoliGetter **/
+    /** @var \Admin\Model\AlboPretorio\AlboPretorioArticoliGetter **/
     protected $objectGetter;
 
     /**
-     * @param \Admin\Model\AlboPretorio\ArticoliGetter $articoliGetter
+     * @param \Admin\Model\AlboPretorio\AlboPretorioArticoliGetter $objectGetter
      */
-    public function __construct(ArticoliGetter $articoliGetter)
+    public function __construct(AlboPretorioArticoliGetter $objectGetter)
     {
-        $this->setObjectGetter($articoliGetter);
+        $this->setObjectGetter($objectGetter);
     }
     
     /**
@@ -27,7 +27,7 @@ class ArticoliGetterWrapper extends RecordsGetterWrapperAbstract
     public function setupQueryBuilder()
     {
         $this->objectGetter->setSelectQueryFields( $this->getInput('fields', 1) );
-        
+
         $this->objectGetter->setMainQuery();        
         $this->objectGetter->setId($this->getInput('id', 1));
         $this->objectGetter->setNumeroProgressivo($this->getInput('numeroProgressivo', 1));

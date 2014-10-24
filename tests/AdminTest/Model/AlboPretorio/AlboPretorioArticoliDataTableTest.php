@@ -3,13 +3,13 @@
 namespace AdminTest\Model\AlboPretorio;
 
 use ApplicationTest\TestSuite;
-use Admin\Model\AlboPretorio\ArticoliDataTable;
+use Admin\Model\AlboPretorio\AlboPretorioArticoliDataTable;
 
 /**
  * @author Andrea Fiori
  * @since  29 May 2014
  */
-class ArticoliDataTableTest extends TestSuite
+class AlboPretorioArticoliDataTableTest extends TestSuite
 {
     private $articoliDataTable;
     
@@ -17,7 +17,7 @@ class ArticoliDataTableTest extends TestSuite
     {
         parent::setUp();
         
-        $this->articoliDataTable = new ArticoliDataTable( $this->getFrontendCommonInput() );
+        $this->articoliDataTable = new AlboPretorioArticoliDataTable( $this->getFrontendCommonInput() );
     }
     
     public function testGetTitle()

@@ -6,6 +6,10 @@ use Admin\Model\FormData\FormDataAbstract;
 use Admin\Model\AlboPretorio\AlboPretorioSezioniForm;
 use Admin\Model\AlboPretorio\AlboPretorioRecordsGetter;
 
+/**
+ * @author Andrea Fiori
+ * @since  17 August 2014
+ */
 class AlboPretorioSezioniFormDataHandler extends FormDataAbstract
 {
     /**
@@ -15,7 +19,7 @@ class AlboPretorioSezioniFormDataHandler extends FormDataAbstract
     {
         parent::__construct($input);
         
-        $param         = $this->getInput('param', 1);
+        $param = $this->getInput('param', 1);
 
         $form = new AlboPretorioSezioniForm();
         

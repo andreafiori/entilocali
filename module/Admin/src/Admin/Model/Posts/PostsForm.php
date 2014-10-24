@@ -102,7 +102,7 @@ class PostsForm extends Form
                         'options' => array(
                                'label' => 'Stato',
                                 'empty_option' => 'Seleziona',
-                               'value_options' => array(
+                                'value_options' => array(
                                        'attivo'   => 'Attivo',
                                        'nascosto' => 'Nascosto',
                                ),

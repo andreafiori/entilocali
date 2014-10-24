@@ -8,10 +8,12 @@ use Admin\Model\Users\UsersGetterWrapper;
 use Application\Model\NullException;
 
 /**
+ * Use wrapper classes to get records from db
+ * 
  * @author Andrea Fiori
  * @since  27 July 2014
  */
-class RecordsGetter extends RecordsGetterAbstract
+class AlboPretorioRecordsGetter extends RecordsGetterAbstract
 {
     private $articoliWrapper;
     
@@ -20,7 +22,7 @@ class RecordsGetter extends RecordsGetterAbstract
      */
     public function setArticoliInput(array $input)
     {
-        $this->articoliWrapper = new ArticoliGetterWrapper( new ArticoliGetter($this->getEntityManager()) );
+        $this->articoliWrapper = new AlboPretorioArticoliGetterWrapper( new AlboPretorioArticoliGetter($this->getEntityManager()) );
         $this->articoliWrapper->setInput($input);
         $this->articoliWrapper->setupQueryBuilder();
         
@@ -86,7 +88,7 @@ class RecordsGetter extends RecordsGetterAbstract
      */
     public function setSezioni(array $input)
     {
-        $wrapper = new SezioniGetterWrapper( new SezioniGetter($this->getEntityManager()) );
+        $wrapper = new AlboPretorioSezioniGetterWrapper( new AlboPretorioSezioniGetter($this->getEntityManager()) );
         $wrapper->setInput($input);
         $wrapper->setupQueryBuilder();
 
@@ -110,7 +112,7 @@ class RecordsGetter extends RecordsGetterAbstract
      */
     public function getYears()
     {
-        $this->articoliWrapper = new ArticoliGetterWrapper( new ArticoliGetter($this->getEntityManager()) );
+        $this->articoliWrapper = new AlboPretorioArticoliGetterWrapper( new AlboPretorioArticoliGetter($this->getEntityManager()) );
         $this->articoliWrapper->setInput( array('fields'=>'DISTINCT(aa.anno) AS anno','orderBy'=>'aa.anno') );
         $this->articoliWrapper->setupQueryBuilder();
         

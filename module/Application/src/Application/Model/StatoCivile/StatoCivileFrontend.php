@@ -29,9 +29,9 @@ class StatoCivileFrontend extends RouterManagerAbstract implements RouterManager
             $form->setData($param['post']);
             $arraySearch = array(
                 'textSearch' => $param['post']['testo'],
-                'anno' => $param['post']['anno'],
-                'mese' => $param['post']['mese'],
-                'sezione' => $param['post']['sezione']
+                'anno'       => $param['post']['anno'],
+                'mese'       => $param['post']['mese'],
+                'sezione'    => $param['post']['sezione']
             );
             
             $statoCivileRecordsGetter = new StatoCivileRecordsGetter($this->getInput());
@@ -62,7 +62,9 @@ class StatoCivileFrontend extends RouterManagerAbstract implements RouterManager
             $statoCivileGetterWrapper->setInput( array_merge($input, array('orderBy' => 'sca.data DESC')) );
             $statoCivileGetterWrapper->setupQueryBuilder();
             
-            return $statoCivileGetterWrapper->setupPaginator( $statoCivileGetterWrapper->setupQuery($this->getInput('entityManager', 1)) );
+            $statoCivileGetterWrapper->setupPaginator( $statoCivileGetterWrapper->setupQuery($this->getInput('entityManager', 1)) );
+            $statoCivileGetterWrapper->setupPaginatorCurrentPage($page);
+            return $statoCivileGetterWrapper->getPaginator();
         }
         
         /**

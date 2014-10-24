@@ -3,13 +3,13 @@
 namespace AdminTest\Model\AlboPretorio;
 
 use ApplicationTest\TestSuite;
-use Admin\Model\AlboPretorio\SezioniGetter;
+use Admin\Model\AlboPretorio\AlboPretorioSezioniGetter;
 
 /**
  * @author Andrea Fiori
  * @since  17 August 2014
  */
-class SezioniGetterTest extends TestSuite
+class AlboPretorioSezioniGetterTest extends TestSuite
 {
     private $objectGetter;
     
@@ -17,7 +17,7 @@ class SezioniGetterTest extends TestSuite
     {
         parent::setUp();
         
-        $this->objectGetter = new SezioniGetter( $this->getEntityManagerMock() );
+        $this->objectGetter = new AlboPretorioSezioniGetter( $this->getEntityManagerMock() );
     }
     
     public function testSetMainQuery()

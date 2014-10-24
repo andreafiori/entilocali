@@ -163,7 +163,7 @@ return array(
     'formdata_classmap' => array(
         'attachments'                   => 'Admin\Model\Attachments\AttachmentsFormDataHandler',
         'albo-pretorio'                 => 'Admin\Model\AlboPretorio\AlboPretorioFormDataHandler',
-        'albo-pretorio-sezioni'         => 'Admin\Model\AlboPretorio\SezioniFormDataHandler',
+        'albo-pretorio-sezioni'         => 'Admin\Model\AlboPretorio\AlboPretorioSezioniFormDataHandler',
         'amministrazione-trasparente'   => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFormDataHandler',
         'stato-civile'                  => 'Admin\Model\StatoCivile\StatoCivileFormDataHandler',
         'stato-civile-sezioni'          => 'Admin\Model\StatoCivile\StatoCivileSezioniFormDataHandler',
@@ -206,8 +206,8 @@ return array(
         'photo'                       => 'Admin\Model\Posts\PostsDataTable',
         'blog'                        => 'Admin\Model\Posts\PostsDataTable',
         'users'                       => 'Admin\Model\Users\UsersDataTable',
-        'albo-pretorio'               => 'Admin\Model\AlboPretorio\ArticoliDataTable',
-        'albo-pretorio-sezioni'       => 'Admin\Model\AlboPretorio\SezioniDataTable',
+        'albo-pretorio'               => 'Admin\Model\AlboPretorio\AlboPretorioArticoliDataTable',
+        'albo-pretorio-sezioni'       => 'Admin\Model\AlboPretorio\AlboPretorioSezioniDataTable',
         'amministrazione-trasparente' => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteDataTable',
         'contratti-pubblici'          => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciDataTable',
         'contratti-pubblici-scelta-contraente'  => 'Admin\Model\ContrattiPubblici\SceltaContraenteDataTable',
@@ -217,6 +217,6 @@ return array(
         'contratti-pubblici-operatori'          => 'Admin\Model\ContrattiPubblici\OperatoriDataTable',
         'enti-terzi'                  => 'Admin\Model\EntiTerzi\EntiTerziDataTable',
         'stato-civile'                => 'Admin\Model\StatoCivile\StatoCivileDataTable',
-        'stato-civile-sezioni'        => 'Admin\Model\StatoCivile\SezioniDataTable',
+        'stato-civile-sezioni'        => 'Admin\Model\StatoCivile\StatoCivileSezioniDataTable',
     ),
 );

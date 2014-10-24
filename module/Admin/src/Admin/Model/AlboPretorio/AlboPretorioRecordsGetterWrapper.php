@@ -8,7 +8,7 @@ use Admin\Model\InputSetupAbstract;
  * @author Andrea Fiori
  * @since  01 August 2014
  */
-class RecordsGetterWrapper extends InputSetupAbstract
+class AlboPretorioRecordsGetterWrapper extends InputSetupAbstract
 {
     private $alboPretorioRecords;
     

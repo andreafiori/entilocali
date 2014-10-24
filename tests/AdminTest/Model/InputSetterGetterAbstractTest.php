@@ -8,7 +8,7 @@ use ApplicationTest\TestSuite;
  * @author Andrea Fiori
  * @since  20 May 2014
  */
-class InpuSetupAbstractTest extends TestSuite
+class InputSetterGetterAbstract extends TestSuite
 {
     private $inpuSetupAbstract;
     
@@ -16,7 +16,7 @@ class InpuSetupAbstractTest extends TestSuite
     {
         parent::setUp();
         
-        $this->inpuSetupAbstract = $this->getMockForAbstractClass('Admin\Model\InputSetupAbstract', array($this->getFrontendCommonInput()) );
+        $this->inpuSetupAbstract = $this->getMockForAbstractClass('Admin\Model\InputSetterGetterAbstract', array($this->getFrontendCommonInput()) );
     }
     
     public function testGetInput()

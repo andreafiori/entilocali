@@ -10,7 +10,7 @@ use Zend\Session\Container as SessionContainer;
  * @author Andrea Fiori
  * @since  18 May 2014
  */
-class ArticoliDataTable extends DataTableAbstract implements DataTableInterface
+class AlboPretorioArticoliDataTable extends DataTableAbstract implements DataTableInterface
 {
     /** session key where it stores post from form **/
     const sessionPostKey = 'alboPretorioDataTable';
@@ -29,8 +29,8 @@ class ArticoliDataTable extends DataTableAbstract implements DataTableInterface
             array(
                 'tablesetter' => 'albo-pretorio',
                 'paginator'   => $paginatorRecords,
-                'formSearch'  => $this->setupFormSearchAndExport(new ArticoliSearchFilterForm()),
-                'formExport'  => $this->setupFormSearchAndExport(new ArticoliSearchFilterForm(), 'export', 'Esporta'),
+                'formSearch'  => $this->setupFormSearchAndExport(new AlboPretorioArticoliSearchFilterForm()),
+                'formExport'  => $this->setupFormSearchAndExport(new AlboPretorioArticoliSearchFilterForm(), 'export', 'Esporta'),
             )
         );
         $this->setTitle('Albo pretorio');
@@ -88,7 +88,7 @@ class ArticoliDataTable extends DataTableAbstract implements DataTableInterface
                 }
             }
 
-            $this->recordsGetter = new RecordsGetter( $this->getInput() );
+            $this->recordsGetter = new AlboPretorioRecordsGetter( $this->getInput() );
             $this->recordsGetter->setArticoliInput($articoliInput);
             $this->recordsGetter->setArticoliPaginator();
             $this->recordsGetter->setArticoliPaginatorCurrentPage(isset($param['route']['page']) ? $param['route']['page'] : null);

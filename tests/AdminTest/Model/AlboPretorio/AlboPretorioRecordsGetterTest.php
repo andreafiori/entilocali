@@ -3,24 +3,25 @@
 namespace AdminTest\Model\AlboPretorio;
 
 use ApplicationTest\TestSuite;
-use Admin\Model\AlboPretorio\RecordsGetter;
+use Admin\Model\AlboPretorio\AlboPretorioRecordsGetter;
 
 /**
  * @author Andrea Fiori
  * @since  16 August 2014
  */
-class RecordsGetterTest extends TestSuite
+class AlboPretorioRecordsGetterTest extends TestSuite
 {
     private $objectGetter;
+    
     private $articoliGetterWrapperNamespace;
     
     protected function setUp()
     {
         parent::setUp();
         
-        $this->objectGetter = new RecordsGetter( $this->getFrontendCommonInput() );
+        $this->objectGetter = new AlboPretorioRecordsGetter( $this->getFrontendCommonInput() );
         
-        $this->articoliGetterWrapperNamespace = '\Admin\Model\AlboPretorio\ArticoliGetterWrapper';
+        $this->articoliGetterWrapperNamespace = '\Admin\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper';
     }
     
     public function testSetArticoliInput()
