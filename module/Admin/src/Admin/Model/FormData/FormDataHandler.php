@@ -6,6 +6,8 @@ use Application\Model\RouterManagers\RouterManagerAbstract;
 use Application\Model\RouterManagers\RouterManagerInterface;
 
 /**
+ * TODO: refactoring and workflow check
+ * 
  * @author Andrea Fiori
  * @since  18 May 2014
  */

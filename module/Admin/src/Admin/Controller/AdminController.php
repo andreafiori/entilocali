@@ -83,8 +83,8 @@ class AdminController extends AbstractActionController
         $formDataCrudHandler->setInput($this->input);
         $formDataCrudHandler->setFormCrudHandler($this->params()->fromRoute('form_post_handler'));
         
-        $crudHandler = $formDataCrudHandler->detectCrudHandlerClassMap($this->config['formdata_crud_classmap']);
-        $crudHandler = new $crudHandler($this->input);
+        $crudHandlerObject = $formDataCrudHandler->detectCrudHandlerClassMap($this->config['formdata_crud_classmap']);
+        $crudHandler = new $crudHandlerObject($this->input);
         $crudHandler->setConnection($this->commonSetupPlugin->getEntityManager()->getConnection());
         $crudHandler->setOperation($this->params()->fromRoute('operation'));
         $crudHandler->performOperation();

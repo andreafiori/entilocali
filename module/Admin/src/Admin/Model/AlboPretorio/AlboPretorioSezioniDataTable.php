@@ -21,20 +21,41 @@ class AlboPretorioSezioniDataTable extends DataTableAbstract implements DataTabl
         parent::__construct($input);
         
         $this->setTitle('Sezioni albo pretorio');
-        $this->setDescription('Elenco sezioni albo pretorio');
+        $this->setDescription('Elenco sezioni albo pretorio.');
         $this->setColumns( array('Nome', '&nbsp;') );
     }
-
+    
+    /**
+     * @return array|null
+     */
     public function getRecords()
+    {   
+        return $this->formatRecords($this->recoverRecords(new AlboPretorioSezioniGetterWrapper(new AlboPretorioSezioniGetter($this->getInput('entityManager',1)))));
+    }
+    
+    /**
+     * Recover albo sezioni records from db
+     * 
+     * @param AlboPretorioSezioniGetterWrapper $alboPretorioGetterWrapper
+     * @param array|null $input
+     */
+    public function recoverRecords(AlboPretorioSezioniGetterWrapper $alboPretorioGetterWrapper, $input = array())
     {
-        $alboPretorioGetterWrapper = new AlboPretorioSezioniGetterWrapper( new AlboPretorioSezioniGetter($this->getInput('entityManager',1)) );
-        $alboPretorioGetterWrapper->setInput( array() );
+        $alboPretorioGetterWrapper->setInput($input);
         $alboPretorioGetterWrapper->setupQueryBuilder();
 
-        $records = $alboPretorioGetterWrapper->getRecords();
-        
-        $arrayToReturn = array();
-        if ($records) {
+        return $alboPretorioGetterWrapper->getRecords();
+    }
+    
+    /**
+     * Format recors to show on the view
+     * 
+     * @return array
+     */
+    public function formatRecords(array $records)
+    {        
+        if (is_array($records)) {
+            $arrayToReturn = array();
             foreach($records as $record) {
                 $arrayToReturn[] = array(
                     $record['nome'],

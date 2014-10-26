@@ -70,6 +70,14 @@
         color: red;
         margin-left: 0.5%;
     }
+    
+    fieldset label {
+        font-weight: normal;
+        cursor: pointer;
+    }
+    fieldset input  {
+        cursor: pointer
+    }
     </style>
     
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -144,10 +152,10 @@
                                 <li><a href="<?php echo $this->baseUrl ?>datatable/albo-pretorio" title="Gestione">Gestione</a></li>
                                 <li><a href="#" title="">Atti ufficiali</a></li>
                                 <li class="dropdown-submenu">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">Sezioni</a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Sezioni albo pretorio">Sezioni</a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#" title="">Nuova</a></li>
-                                        <li><a href="<?php echo $this->baseUrl ?>datatable/albo-pretorio-sezioni" title="">Modifica \ Elimina</a></li>
+                                        <li><a href="<?php echo $this->baseUrl ?>formdata/albo-pretorio-sezioni" title="Nuova sezione albo">Nuova</a></li>
+                                        <li><a href="<?php echo $this->baseUrl ?>datatable/albo-pretorio-sezioni" title="Gestione sezioni albo">Modifica \ Elimina</a></li>
                                     </ul>
                                 </li>
                             </ul>

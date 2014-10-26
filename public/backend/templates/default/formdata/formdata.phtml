@@ -2,4 +2,13 @@
 
 echo $this->render($this->formDataCommonPath.'formdata_breadcrumb.phtml');
 
-echo $this->render($this->formDataCommonPath.'formdata_common.phtml');
+echo $this->partial($this->formDataCommonPath.'formdata_common.phtml', array(
+        'form'              => $this->form,
+        'formAction'        => $this->formAction,
+        'formTitle'         => $this->formTitle,
+        'formDescription'   => $this->formDescription,
+        'formControlSpanWidth' => $this->formControlSpanWidth,
+        'formControlSpanWidth' => $this->formLabelSpanWidth,
+        'CKEditorField'     => $this->CKEditorField,
+    )
+);

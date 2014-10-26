@@ -145,6 +145,7 @@ return array(
             'admin/admin/login'     => __DIR__ . '../../view/admin/auth/login.phtml',
             'admin/admin/index'     => __DIR__ . '../../view/admin/index.phtml',
             'admin/admin/formpost'  => __DIR__ . '../../view/admin/formpost-empty.phtml',
+            'admin/admin/invio-ente-terzo' => __DIR__ . '/../view/invio-ente-terzo-empty.phtml',
             'admin/'                => __DIR__ . '/../view/empty.phtml',
         ),
         'template_path_stack' => array(

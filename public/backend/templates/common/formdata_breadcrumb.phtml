@@ -1,11 +1,23 @@
 <ul class="breadcrumb">
     <li><a href="<?php echo $this->basepath() ?>" title="Home page">Home</a> <span class="divider"></span></li>
-    <?php if (isset($this->formBreadCrumbCategory)): ?>
+    
+    <?php if ( is_array($this->formBreadCrumbCategory) ): ?>
+
+        <?php foreach($this->formBreadCrumbCategory as $breadcrumb): ?>
+            <?php if (isset($this->formBreadCrumbCategoryLink)): ?>
+            <li><a href="<?php echo $this->formBreadCrumbCategoryLink ?>" title="<?php echo $this->formBreadCrumbCategory ?>"><?php echo $this->formBreadCrumbCategory ?></a> <span class="divider"></span></li>
+            <?php else: ?>
+            <li class="active"><?php echo $this->formBreadCrumbCategory ?></li>
+            <?php endif; ?>
+        <?php endforeach; ?>
+
+    <?php elseif( isset($this->formBreadCrumbCategory) ): ?>
         <?php if (isset($this->formBreadCrumbCategoryLink)): ?>
         <li><a href="<?php echo $this->formBreadCrumbCategoryLink ?>" title="<?php echo $this->formBreadCrumbCategory ?>"><?php echo $this->formBreadCrumbCategory ?></a> <span class="divider"></span></li>
         <?php else: ?>
         <li class="active"><?php echo $this->formBreadCrumbCategory ?></li>
         <?php endif; ?>
     <?php endif; ?>
+        
     <li class="active"><?php echo $this->formTitle ?></li>
 </ul>

@@ -10,7 +10,7 @@ return array(
             'migrazione' => array(
                 'type'    => 'Segment',
                 'options' => array(
-                    'route'    => '/migrazione/kronoweb/tool[/]',
+                    'route'    => '/migrazione/tool/kronoweb[/]',
                     'constraints' => array(
                         
                     ),

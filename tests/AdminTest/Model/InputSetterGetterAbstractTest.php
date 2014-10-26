@@ -16,16 +16,11 @@ class InputSetterGetterAbstract extends TestSuite
     {
         parent::setUp();
         
-        $this->inpuSetupAbstract = $this->getMockForAbstractClass('Admin\Model\InputSetterGetterAbstract', array($this->getFrontendCommonInput()) );
+        $this->inpuSetupAbstract = $this->getMockForAbstractClass('Admin\Model\InputSetterGetterAbstract');
     }
     
     public function testGetInput()
     {
-        $this->assertNotEmpty( $this->inpuSetupAbstract->getInput('request') );
-    }
-    
-    public function testInputWithoutArgument()
-    {
-        $this->assertTrue( is_array($this->inpuSetupAbstract->getInput()) );
+        $this->assertEmpty( $this->inpuSetupAbstract->getInput('ThisIsAFakeInputParameter') );
     }
 }

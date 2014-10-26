@@ -33,6 +33,9 @@ class Module implements AutoloaderProviderInterface
         return array( 'factories' => array() );
     }
     
+    /**
+     * @param MvcEvent $e
+     */
     public function onBootstrap(MvcEvent $e)
     {
         $eventManager        = $e->getApplication()->getEventManager();

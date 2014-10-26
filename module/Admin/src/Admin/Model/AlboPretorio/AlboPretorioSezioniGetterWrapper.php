@@ -10,7 +10,7 @@ use Application\Model\RecordsGetterWrapperAbstract;
  */
 class AlboPretorioSezioniGetterWrapper extends RecordsGetterWrapperAbstract
 {
-    /** @var \Admin\Model\AlboPretorio\SezioniGetter **/
+    /** @var \Admin\Model\AlboPretorio\AlboPretorioSezioniGetter **/
     protected $objectGetter;
 
     /**
@@ -27,5 +27,7 @@ class AlboPretorioSezioniGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setMainQuery();
         $this->objectGetter->setId( $this->getInput('id', 1) );
         $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
+        $this->objectGetter->setGroupBy( $this->getInput('groupBy', 1) );
+        $this->objectGetter->setLimit( $this->getInput('limit', 1) );
     }
 }

@@ -21,12 +21,15 @@ class AlboPretorioSezioniFormDataHandler extends FormDataAbstract
         
         $param = $this->getInput('param', 1);
 
-        $form = new AlboPretorioSezioniForm();
+        $sezione = $this->getSezione(
+            new AlboPretorioRecordsGetter($this->getInput()),
+            isset($param['route']['option']) ? $param['route']['option'] : null
+        );
         
-        $sezione = $this->getSezione($param['route']['option']);
+        $form = new AlboPretorioSezioniForm();
         if ($sezione) {
-            $formTitle = $sezione['nome'];
             $form->setData($sezione);
+            $formTitle = $sezione['nome'];
             $formAction = 'albo-pretorio-sezioni/update/'.$sezione['id'];
         } else {
             $formTitle = 'Nuova sezione albo pretorio';
@@ -34,12 +37,12 @@ class AlboPretorioSezioniFormDataHandler extends FormDataAbstract
         }
 
         $this->setVariables(array(
-                'formTitle' => $formTitle,
-                'formDescription' =>  'Inserisci dati nuova sezione albo pretorio',
-                'form' => $form,
-                'formAction' => $formAction,
-                'formBreadCrumbCategory' => 'Sezioni albo pretorio',
-                'formBreadCrumbCategoryLink' => $this->getInput('baseUrl',1).'datatable/albo-pretorio-sezioni/',
+                'formTitle'         => $formTitle,
+                'formDescription'   =>  'Inserisci dati nuova sezione albo pretorio',
+                'form'              => $form,
+                'formAction'        => $formAction,
+                'formBreadCrumbCategory'        => 'Sezioni albo pretorio',
+                'formBreadCrumbCategoryLink'    => $this->getInput('baseUrl',1).'datatable/albo-pretorio-sezioni/',
             )
         );
 
@@ -47,14 +50,15 @@ class AlboPretorioSezioniFormDataHandler extends FormDataAbstract
     
         /**
          * @param number $id
-         * @return array
+         * @return array|null
          */
-        private function getSezione($id)
+        public function getSezione(AlboPretorioRecordsGetter $alboPretorioRecordsGetter, $id)
         {
-            $alboPretorioRecordsGetter = new AlboPretorioRecordsGetter($this->getInput());
-            $alboPretorioRecordsGetter->setSezioni( array("id" => $id) );
-            $alboPretorioRecordsGetter->setFirstRow();
-            
-            return $alboPretorioRecordsGetter->returnRecordset();
+            if (is_numeric($id)) {
+                $alboPretorioRecordsGetter->setSezioni( array("id" => $id) );
+                $alboPretorioRecordsGetter->setFirstRow();
+
+                return $alboPretorioRecordsGetter->returnRecordset();   
+            }
         }
 }

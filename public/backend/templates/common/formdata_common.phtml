@@ -55,6 +55,20 @@
                 </div>
             </div>
             <?php
+        elseif ($attributes['type'] == 'multi_checkbox'):
+            ?>
+            <div class="form-group">
+                <label for="<?php echo $attributes['id'] ?>" class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label"><?php echo $element->getLabel() ?></label>
+                <div class="col-sm-<?php echo $this->formControlSpanWidth ?>">
+                    <fieldset>
+                    <?php foreach ($element->getValueOptions() as $key => $value): ?>
+                        <input type="checkbox" id="<?php echo $element->getName() ?>_<?php echo $key; ?>" name="<?php echo $element->getName() ?>[]" value="<?php echo $value; ?>">
+                        <label for="<?php echo $element->getName() ?>_<?php echo $key; ?>"><?php echo $value ?></label>
+                    <?php endforeach; ?>
+                    </fieldset>
+                </div>
+            </div>
+            <?php
         elseif ($attributes['type'] == 'date'):
             ?>
             <div class="form-group">

@@ -97,7 +97,11 @@ abstract class CrudHandlerAbstract extends RouterManagerAbstract
         {
             return $this->arrayRecordToHandle;
         }
-
+        
+        /**
+         * @param string $errorMessage
+         * @param string $title
+         */
         protected function setErrorMessage($errorMessage, $title = null)
         {
             if (!$title) {

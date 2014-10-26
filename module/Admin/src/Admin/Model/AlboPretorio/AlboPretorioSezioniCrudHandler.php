@@ -40,9 +40,11 @@ class AlboPretorioSezioniCrudHandler extends CrudHandlerAbstract implements Crud
 
             $this->getConnection()->commit();
 
-            $this->setVariable('messageType',   'success');
-            $this->setVariable('messageTitle',  'Dati inseriti correttamente');
-            $this->setVariable('messageText',   'Dati inseriti correttamente in archivio.');
+            $this->setVariables(array(
+                'messageType' => 'success'
+            ));
+            $this->setVariable('messageTitle', 'Dati aggiornati correttamente');
+            $this->setVariable('messageText',  'Dati aggiornati correttamente in archivio.');
         } catch (\Exception $e) {
             $this->getConnection()->rollBack();
             return $this->setErrorMessage($e->getMessage());

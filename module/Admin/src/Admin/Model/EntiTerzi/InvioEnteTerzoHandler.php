@@ -25,8 +25,9 @@ class InvioEnteTerzoHandler extends RouterManagerAbstract implements RouterManag
         $statoCivileRecordsGetter = new StatoCivileRecordsGetter( $this->getInput() );
         $statoCivileRecordsGetter->setArticoli(array("id" => $param['route']['id']));
         $record = $statoCivileRecordsGetter->getRecords();
-        // echo file_exists('public/frontend/prova.txt');
         
+        /*
+        // echo file_exists('public/frontend/prova.txt');
         set_error_handler(function($errno, $errstr, $errfile, $errline, array $errcontext) {
             // error was suppressed with the @-operator
             if (0 === error_reporting()) {
@@ -35,15 +36,16 @@ class InvioEnteTerzoHandler extends RouterManagerAbstract implements RouterManag
 
             throw new \ErrorException($errstr, 0, $errno, $errfile, $errline);
         });
+        
         try {
             $s3 = new S3('AKIAJ2Z3KZLRTMJ3E6LA', '5H6jvvlQg2C06yTPdVOiqWOQDxBdehHZgvIz+ft2ASD');
-            // $s3->putObject(S3::inputFile('public/frontend/prova.txt', false), 'kronoweb', 'prova.txt', S3::ACL_PUBLIC_READ);
+            //$s3->putObject(S3::inputFile('public/frontend/prova.txt', false), 'kronoweb', 'prova.txt', S3::ACL_PUBLIC_READ);
             // echo $s3->putObject('this is the string i want to write on the file...', 'kronoweb', 'prova.txt', S3::ACL_PUBLIC_READ, array(), array('Content-Type' => 'text/plain'));
-            $s3->getObject('kronoweb', 'prova.txt');
+            //$s3->getObject('kronoweb', 'prova.txt');
         } catch (\ErrorException $e) {
-            //echo $e->getMessage();
+            echo $e->getMessage();
         }
-
+        */
         
         $moduleMap = array(
             'albo-pretorio'         => '',
@@ -53,23 +55,23 @@ class InvioEnteTerzoHandler extends RouterManagerAbstract implements RouterManag
             'determine'             => '',
         );
         
+        $entiTerziRecords = $this->getRubricaEntiTerzi();
+        
         $form = new InvioEnteTerzoForm();
+        $form->addContatti($entiTerziRecords);
+        //$form->setData($moduleMap);
 
-        $this->setTemplate('invio-ente-terzo/invio-ente-terzo.phtml');
-        $this->setVariable('formDataCommonPath', 'backend/templates/common/');
         $this->setVariables(array(
-            'form' => $form,
-            'titolo' => '',
-            'rubricaEntiTerzi' => $this->getRubricaEntiTerzi(),
+            'formDataCommonPath' => 'backend/templates/common/',
+            'form'               => $form,
+            'titolo'             => '',
+            'rubricaEntiTerzi'   => $entiTerziRecords,
         ));
+        
+        $this->setTemplate('invio-ente-terzo/invio-ente-terzo.phtml');
         
         return $this->getOutput();
     }
-    
-        private function manageS3Errors($errno, $errstr, $errfile, $errline )
-        {
-            throw new \ErrorException($errstr, 0, $errno, $errfile, $errline);
-        }
     
         /**
          * Get rubrica enti terzi records 

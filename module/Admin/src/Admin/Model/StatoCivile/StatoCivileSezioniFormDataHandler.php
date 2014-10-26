@@ -33,7 +33,7 @@ class StatoCivileSezioniFormDataHandler extends FormDataAbstract
                 'form' => $statoCivileSezioniForm,
                 'formAction' => '',
                 
-                'formBreadCrumbCategory' => 'prova',
+                'formBreadCrumbCategory' => array('Stato civile'),
                 'formBreadCrumbCategoryLink' => $this->getInput('baseUrl',1).'datatable/stao-civile-sezioni',
             )
         );

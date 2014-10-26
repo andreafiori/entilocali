@@ -3,8 +3,8 @@
 namespace AdminTest\Model\AlboPretorio;
 
 use ApplicationTest\TestSuite;
-use Admin\Model\AlboPretorio\ArticoliGetter;
-use Admin\Model\AlboPretorio\ArticoliGetterWrapper;
+use Admin\Model\AlboPretorio\AlboPretorioArticoliGetter;
+use Admin\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
 
 /**
  * @author Andrea Fiori
@@ -18,7 +18,7 @@ class AlboPretorioGetterWrapperTest extends TestSuite
     {
         parent::setUp();
         
-        $this->objectWrapper = new ArticoliGetterWrapper( new ArticoliGetter($this->getEntityManagerMock()) );
+        $this->objectWrapper = new AlboPretorioArticoliGetterWrapper( new AlboPretorioArticoliGetter($this->getEntityManagerMock()) );
     }
     
     public function testSetupQueryBuilder()
