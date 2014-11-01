@@ -1,0 +1,54 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ZfcmsUsersRoles
+ *
+ * @ORM\Table(name="zfcms_users_roles")
+ * @ORM\Entity
+ */
+class ZfcmsUsersRoles
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=80, nullable=false)
+     */
+    private $name;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="insert_date", type="datetime", nullable=false)
+     */
+    private $insertDate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="last_update", type="datetime", nullable=false)
+     */
+    private $lastUpdate;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="position", type="bigint", nullable=false)
+     */
+    private $position;
+
+
+}
+

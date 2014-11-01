@@ -14,23 +14,17 @@
     $form = $this->form;
     $form->prepare();
 
-    $form->setAttribute('action',   $this->url('admin', array('lang' => 'it')).'formpost/'.$this->formAction );
-    $form->setAttribute('method',   'post');
-    $form->setAttribute('enctype',  'multipart/form-data');
-    $form->setAttribute('name',     'formData');
-    $form->setAttribute('id',       'formData');
-    $form->setAttribute('role',     'form');
-    $form->setAttribute('class',    'form-horizontal');
+    $form->setAttributes(array(
+        'action'    => $this->url('admin', array('lang' => 'it')).'formpost/'.$this->formAction,
+        'method'    => 'post',
+        'enctype'   => 'multipart/form-data',
+        'name'      => 'formData',
+        'id'        => 'formData',
+        'role'      => 'form',
+        'class'     => 'form-horizontal'
+    ));
 
     echo $this->form()->openTag($form);
-
-    if (!isset($this->formLabelSpanWidth)):
-        $this->formLabelSpanWidth = 2;
-    endif;
-
-    if (!isset($this->formControlSpanWidth)):
-        $this->formControlSpanWidth = 10;
-    endif;
 
     foreach ($this->form as $element):
         $attributes = $element->getAttributes();
@@ -123,7 +117,7 @@
 <?php if (isset($this->CKEditorField)): ?>
     <?php if ( is_array($this->CKEditorField) ): ?>
         <?php foreach($this->CKEditorField as $ckEditorField): ?>
-        /* CKEditor and CKFinder integration */
+        /* CKEditor and CKFinder integration (multiple) */
         var editor = CKEDITOR.replace( '<?php echo $ckEditorField ?>', {
             filebrowserBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html',
             filebrowserImageBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html?type=Images',
@@ -135,8 +129,8 @@
         });
         CKFinder.setupCKEditor( editor, '../' );
         <?php endforeach; ?>
-    <?php else: ?>
-    /* CKEditor and CKFinder integration */
+    <?php elseif(is_string($this->CKEditorField)): ?>
+    /* CKEditor and CKFinder integration (single) */
     var editor = CKEDITOR.replace( '<?php echo $this->CKEditorField ?>', {
         filebrowserBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html',
         filebrowserImageBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html?type=Images',
@@ -148,14 +142,14 @@
     });
     CKFinder.setupCKEditor( editor, '../' );
     <?php endif; ?>
-<?php endif; ?>
-
+    
     function refreshEditor() {
         $('textarea.wysiwyg').each(function () {
             var $textarea = $(this);
             $textarea.val(CKEDITOR.instances[$textarea.attr('name')].getData());
         });
     }
+<?php endif; ?>
 </script>
 <?php
 endif;

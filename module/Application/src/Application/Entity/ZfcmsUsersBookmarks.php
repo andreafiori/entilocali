@@ -26,35 +26,35 @@ class ZfcmsUsersBookmarks
      *
      * @ORM\Column(name="user_id", type="bigint", nullable=false)
      */
-    private $userId = '0';
+    private $userId;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="reference_id", type="bigint", nullable=false)
      */
-    private $referenceId = '0';
+    private $referenceId;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="category_id", type="bigint", nullable=false)
      */
-    private $categoryId = '0';
+    private $categoryId;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="module_id", type="bigint", nullable=false)
      */
-    private $moduleId = '0';
+    private $moduleId;
 
 
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -65,6 +65,7 @@ class ZfcmsUsersBookmarks
      * Set userId
      *
      * @param integer $userId
+     *
      * @return ZfcmsUsersBookmarks
      */
     public function setUserId($userId)
@@ -77,7 +78,7 @@ class ZfcmsUsersBookmarks
     /**
      * Get userId
      *
-     * @return integer 
+     * @return integer
      */
     public function getUserId()
     {
@@ -88,6 +89,7 @@ class ZfcmsUsersBookmarks
      * Set referenceId
      *
      * @param integer $referenceId
+     *
      * @return ZfcmsUsersBookmarks
      */
     public function setReferenceId($referenceId)
@@ -100,7 +102,7 @@ class ZfcmsUsersBookmarks
     /**
      * Get referenceId
      *
-     * @return integer 
+     * @return integer
      */
     public function getReferenceId()
     {
@@ -111,6 +113,7 @@ class ZfcmsUsersBookmarks
      * Set categoryId
      *
      * @param integer $categoryId
+     *
      * @return ZfcmsUsersBookmarks
      */
     public function setCategoryId($categoryId)
@@ -123,7 +126,7 @@ class ZfcmsUsersBookmarks
     /**
      * Get categoryId
      *
-     * @return integer 
+     * @return integer
      */
     public function getCategoryId()
     {
@@ -134,6 +137,7 @@ class ZfcmsUsersBookmarks
      * Set moduleId
      *
      * @param integer $moduleId
+     *
      * @return ZfcmsUsersBookmarks
      */
     public function setModuleId($moduleId)
@@ -146,7 +150,7 @@ class ZfcmsUsersBookmarks
     /**
      * Get moduleId
      *
-     * @return integer 
+     * @return integer
      */
     public function getModuleId()
     {

@@ -30,11 +30,22 @@ class AttachmentsForm extends Form
         ));
         
         $this->add(array(
+                        'name' => 'title',
+                        'type' => 'Text',
+                        'options' => array( 'label' => 'Titolo' ),
+                        'attributes' => array(
+                                    'id' => 'title',
+                        )
+        ));
+        
+        $this->add(array(
                         'name' => 'description',
                         'type' => 'Textarea',
                         'options' => array( 'label' => 'Descrizione' ),
                         'attributes' => array(
                                     'id' => 'description',
+                                    'rows' => 8,
+                                    'cols' => 35
                         )
         ));
         

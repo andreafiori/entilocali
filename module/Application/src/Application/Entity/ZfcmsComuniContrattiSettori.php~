@@ -1,0 +1,54 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ZfcmsComuniContrattiSettori
+ *
+ * @ORM\Table(name="zfcms_comuni_contratti_settori")
+ * @ORM\Entity
+ */
+class ZfcmsComuniContrattiSettori
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nome", type="text", length=65535, nullable=false)
+     */
+    private $nome;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="responsabile", type="text", length=65535, nullable=true)
+     */
+    private $responsabile;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="predefinita", type="integer", nullable=true)
+     */
+    private $predefinita;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="attivo", type="integer", nullable=false)
+     */
+    private $attivo;
+
+
+}
+

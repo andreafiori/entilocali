@@ -3,7 +3,7 @@
 namespace ApiWebService\Model\Resources;
 
 use ApiWebService\Model\ApiResultGetterAbstract;
-use Admin\Model\AlboPretorio\RecordsGetter;
+use Admin\Model\AlboPretorio\AlboPretorioRecordsGetter;
 
 /**
  * TODO: set paginator, set formatted contents (returns array)
@@ -19,7 +19,7 @@ class AlboPretorioApiResource extends ApiResultGetterAbstract
      */
     public function getResourceRecords(array $input)
     {
-        $recordsGetter = new RecordsGetter($input);
+        $recordsGetter = new AlboPretorioRecordsGetter($input);
         $recordsGetter->setEntityManager($this->getEntityManager());
         $recordsGetter->setArticoliInput($input);
         $recordsGetter->setArticoliPaginator();

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsComuniContrattiPartCig
  *
- * @ORM\Table(name="zfcms_comuni_contratti_part_cig", indexes={@ORM\Index(name="cont_pub_data_id", columns={"cont_pub_id"}), @ORM\Index(name="cont_pub_part_id", columns={"cont_pub_part_id"})})
+ * @ORM\Table(name="zfcms_comuni_contratti_part_cig", indexes={@ORM\Index(name="cont_pub_data_id", columns={"cont_pub_id"}), @ORM\Index(name="cont_pub_part_id", columns={"cont_pub_part_id"}), @ORM\Index(name="aggiudicatario", columns={"aggiudicatario"})})
  * @ORM\Entity
  */
 class ZfcmsComuniContrattiPartCig
@@ -26,28 +26,28 @@ class ZfcmsComuniContrattiPartCig
      *
      * @ORM\Column(name="stato", type="integer", nullable=false)
      */
-    private $stato = '0';
+    private $stato;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="gruppo", type="integer", nullable=false)
      */
-    private $gruppo = '0';
+    private $gruppo;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="aggiudicatario", type="bigint", nullable=false)
      */
-    private $aggiudicatario = '0';
+    private $aggiudicatario;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="membro", type="bigint", nullable=false)
      */
-    private $membro = '0';
+    private $membro;
 
     /**
      * @var integer
@@ -68,7 +68,7 @@ class ZfcmsComuniContrattiPartCig
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -79,6 +79,7 @@ class ZfcmsComuniContrattiPartCig
      * Set stato
      *
      * @param integer $stato
+     *
      * @return ZfcmsComuniContrattiPartCig
      */
     public function setStato($stato)
@@ -91,7 +92,7 @@ class ZfcmsComuniContrattiPartCig
     /**
      * Get stato
      *
-     * @return integer 
+     * @return integer
      */
     public function getStato()
     {
@@ -102,6 +103,7 @@ class ZfcmsComuniContrattiPartCig
      * Set gruppo
      *
      * @param integer $gruppo
+     *
      * @return ZfcmsComuniContrattiPartCig
      */
     public function setGruppo($gruppo)
@@ -114,7 +116,7 @@ class ZfcmsComuniContrattiPartCig
     /**
      * Get gruppo
      *
-     * @return integer 
+     * @return integer
      */
     public function getGruppo()
     {
@@ -125,6 +127,7 @@ class ZfcmsComuniContrattiPartCig
      * Set aggiudicatario
      *
      * @param integer $aggiudicatario
+     *
      * @return ZfcmsComuniContrattiPartCig
      */
     public function setAggiudicatario($aggiudicatario)
@@ -137,7 +140,7 @@ class ZfcmsComuniContrattiPartCig
     /**
      * Get aggiudicatario
      *
-     * @return integer 
+     * @return integer
      */
     public function getAggiudicatario()
     {
@@ -148,6 +151,7 @@ class ZfcmsComuniContrattiPartCig
      * Set membro
      *
      * @param integer $membro
+     *
      * @return ZfcmsComuniContrattiPartCig
      */
     public function setMembro($membro)
@@ -160,7 +164,7 @@ class ZfcmsComuniContrattiPartCig
     /**
      * Get membro
      *
-     * @return integer 
+     * @return integer
      */
     public function getMembro()
     {
@@ -171,6 +175,7 @@ class ZfcmsComuniContrattiPartCig
      * Set contPubPartId
      *
      * @param integer $contPubPartId
+     *
      * @return ZfcmsComuniContrattiPartCig
      */
     public function setContPubPartId($contPubPartId)
@@ -183,7 +188,7 @@ class ZfcmsComuniContrattiPartCig
     /**
      * Get contPubPartId
      *
-     * @return integer 
+     * @return integer
      */
     public function getContPubPartId()
     {
@@ -194,6 +199,7 @@ class ZfcmsComuniContrattiPartCig
      * Set contPubId
      *
      * @param integer $contPubId
+     *
      * @return ZfcmsComuniContrattiPartCig
      */
     public function setContPubId($contPubId)
@@ -206,7 +212,7 @@ class ZfcmsComuniContrattiPartCig
     /**
      * Get contPubId
      *
-     * @return integer 
+     * @return integer
      */
     public function getContPubId()
     {

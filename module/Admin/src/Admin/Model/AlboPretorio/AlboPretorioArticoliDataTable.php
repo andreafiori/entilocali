@@ -16,6 +16,7 @@ class AlboPretorioArticoliDataTable extends DataTableAbstract implements DataTab
     const sessionPostKey = 'alboPretorioDataTable';
     
     private $recordsGetter;
+    protected $param;
 
     /**
      * @param array $input
@@ -24,7 +25,10 @@ class AlboPretorioArticoliDataTable extends DataTableAbstract implements DataTab
     {
         parent::__construct($input);
         
-        $paginatorRecords = $this->setupArticoliPaginatorRecords();
+        $this->param = $this->getParam();
+        
+        $paginatorRecords = $this->setupRecordsGetter( new AlboPretorioRecordsGetter($this->getInput()), $this->setupArticoliInput());
+        
         $this->setVariables(
             array(
                 'tablesetter' => 'albo-pretorio',
@@ -37,8 +41,8 @@ class AlboPretorioArticoliDataTable extends DataTableAbstract implements DataTab
         $this->setDescription('Elenco atti albo pretorio. Effettuando una ricerca, le informazioni vengono memorizzate.');
         $this->setColumns(
             array(
-                array('label' => 'Num \ Anno','width' => '10%'),
-                array('label' => 'Titolo','width' => '44%'),
+                array('label' => 'Num \ Anno', 'width' => '10%'),
+                array('label' => 'Titolo', 'width' => '44%'),
                 'Settore',
                 'Scadenza',
                 'Data attivazione',
@@ -49,36 +53,24 @@ class AlboPretorioArticoliDataTable extends DataTableAbstract implements DataTab
             )
         );
         $this->setRecords( $this->getFormattedDataTableRecords($paginatorRecords) );
+        
+        $this->setTemplate('datatable/datatable_albo_pretorio.phtml');
     }
 
-    /**
-     * Overwrite default template
-     * 
-     * @return type
-     */
-    public function getTemplate()
-    {
-        if ( $this->getRecords() ) {
-            return $this->setTemplate('datatable/datatable_albo.phtml');
-        } else {
-            return parent::getTemplate();
-        }
-    }
-    
         /**
          * @return type
          */
-        private function setupArticoliPaginatorRecords()
+        private function setupArticoliInput()
         {
             $articoliInput = array();
+            
             $sessionPost = new SessionContainer();
             
-            $param = $this->getParam();
-            if ( isset($param['post']) ) {
+            if ( isset($this->param['post']) ) {
                 $articoliInput = array(
-                    'anno'      => isset($param['post']['anno']) ? $param['post']['anno'] : null,
-                    'search'    => isset($param['post']['search']) ? $param['post']['search'] : null,
-                    'orderBy'   => isset($param['post']['orderby']) ? $param['post']['orderby'] : null
+                    'anno'      => isset($this->param['post']['anno']) ? $this->param['post']['anno'] : null,
+                    'search'    => isset($this->param['post']['search']) ? $this->param['post']['search'] : null,
+                    'orderBy'   => isset($this->param['post']['orderby']) ? $this->param['post']['orderby'] : null
                 );
                 $sessionPost->offsetSet(self::sessionPostKey, $articoliInput);
             } else {
@@ -88,11 +80,22 @@ class AlboPretorioArticoliDataTable extends DataTableAbstract implements DataTab
                 }
             }
 
-            $this->recordsGetter = new AlboPretorioRecordsGetter( $this->getInput() );
-            $this->recordsGetter->setArticoliInput($articoliInput);
+            return $articoliInput;
+        }
+        
+        /**
+         * 
+         * @param \Admin\Model\AlboPretorio\AlboPretorioRecordsGetter $recordsGetter
+         * @param array $input
+         * @return Paginator
+         */
+        private function setupRecordsGetter(AlboPretorioRecordsGetter $recordsGetter, array $input)
+        {
+            $this->recordsGetter = $recordsGetter;
+            $this->recordsGetter->setArticoliInput($input);
             $this->recordsGetter->setArticoliPaginator();
-            $this->recordsGetter->setArticoliPaginatorCurrentPage(isset($param['route']['page']) ? $param['route']['page'] : null);
-            $this->recordsGetter->setArticoliPaginatorPerPage(isset($param['route']['perpage']) ? $param['route']['perpage'] : null);
+            $this->recordsGetter->setArticoliPaginatorCurrentPage(isset($this->param['route']['page']) ? $this->param['route']['page'] : null);
+            $this->recordsGetter->setArticoliPaginatorPerPage(isset($this->param['route']['perpage']) ? $this->param['route']['perpage'] : null);
 
             return $this->recordsGetter->getPaginatorRecords();
         }
@@ -145,7 +148,7 @@ class AlboPretorioArticoliDataTable extends DataTableAbstract implements DataTab
         
         /**
          * @param array $records
-         * @return array
+         * @return array|null
          */
         private function getFormattedDataTableRecords($records)
         {
@@ -161,23 +164,19 @@ class AlboPretorioArticoliDataTable extends DataTableAbstract implements DataTab
                         array(
                             'type'      => 'updateButton',
                             'href'      => $this->getInput('baseUrl',1).'formdata/albo-pretorio/'.$row['id'],
-                            'tooltip'   => 1,
-                            'title'     => 'Modifica'
+                            'title'     => 'Modifica articolo'
                         ),
                         array(
                             'type'      => 'relatapdfButton',
                             'href'      => '#',
-                            'tooltip'   => 1,
                         ),
                         array(
                             'type'      => 'attachButton',
-                            'href'      => $this->getInput('baseUrl',1).'attachments/albo-pretorio/'.$row['id'],
-                            'tooltip'   => 1
+                            'href'      => $this->getInput('baseUrl',1).'formdata/attachments/albo-pretorio/'.$row['id'],
                         ),
                         array(
                             'type'      => 'enteterzoButton',
-                            'href'      => '#',
-                            'tooltip'   => 1,
+                            'href'      => $this->getInput('baseUrl',1).'invio-ente-terzo/albo-pretorio/'.$row['id'],
                         ),
                     );
                 }

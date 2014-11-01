@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsAttachmentsOptions
  *
- * @ORM\Table(name="zfcms_attachments_options", indexes={@ORM\Index(name="attachment_id", columns={"attachment_id"})})
+ * @ORM\Table(name="zfcms_attachments_options", indexes={@ORM\Index(name="attachment_id", columns={"attachment_id"}), @ORM\Index(name="fk_attachments_options_lang", columns={"language_id"})})
  * @ORM\Entity
  */
 class ZfcmsAttachmentsOptions
@@ -45,12 +45,22 @@ class ZfcmsAttachmentsOptions
      */
     private $attachment;
 
+    /**
+     * @var \Application\Entity\ZfcmsLanguages
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsLanguages")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="language_id", referencedColumnName="id")
+     * })
+     */
+    private $language;
+
 
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -61,6 +71,7 @@ class ZfcmsAttachmentsOptions
      * Set title
      *
      * @param string $title
+     *
      * @return ZfcmsAttachmentsOptions
      */
     public function setTitle($title)
@@ -73,7 +84,7 @@ class ZfcmsAttachmentsOptions
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -84,6 +95,7 @@ class ZfcmsAttachmentsOptions
      * Set description
      *
      * @param string $description
+     *
      * @return ZfcmsAttachmentsOptions
      */
     public function setDescription($description)
@@ -96,7 +108,7 @@ class ZfcmsAttachmentsOptions
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -107,6 +119,7 @@ class ZfcmsAttachmentsOptions
      * Set attachment
      *
      * @param \Application\Entity\ZfcmsAttachments $attachment
+     *
      * @return ZfcmsAttachmentsOptions
      */
     public function setAttachment(\Application\Entity\ZfcmsAttachments $attachment = null)
@@ -119,10 +132,34 @@ class ZfcmsAttachmentsOptions
     /**
      * Get attachment
      *
-     * @return \Application\Entity\ZfcmsAttachments 
+     * @return \Application\Entity\ZfcmsAttachments
      */
     public function getAttachment()
     {
         return $this->attachment;
+    }
+
+    /**
+     * Set language
+     *
+     * @param \Application\Entity\ZfcmsLanguages $language
+     *
+     * @return ZfcmsAttachmentsOptions
+     */
+    public function setLanguage(\Application\Entity\ZfcmsLanguages $language = null)
+    {
+        $this->language = $language;
+    
+        return $this;
+    }
+
+    /**
+     * Get language
+     *
+     * @return \Application\Entity\ZfcmsLanguages
+     */
+    public function getLanguage()
+    {
+        return $this->language;
     }
 }

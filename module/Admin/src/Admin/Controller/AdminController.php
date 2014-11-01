@@ -18,7 +18,9 @@ use Admin\Model\Users\UsersGetterWrapper;
  */
 class AdminController extends AbstractActionController
 {
+    /** @var Application\Controller\Plugin\CommonSetupPlugin **/
     private $commonSetupPlugin;
+    
     private $configurations;
     private $input;
     private $baseUrl;
@@ -26,6 +28,9 @@ class AdminController extends AbstractActionController
     private $form;
     private $storage;
     
+    /**
+     * @return ViewModel
+     */
     public function indexAction()
     {
         /* Check login */
@@ -41,14 +46,14 @@ class AdminController extends AbstractActionController
         $routerManagerHelper = new RouterManagerHelper($routerManager->setupRouteMatchObjectInstance());
         $routerManagerHelper->getRouterManger()->setInput($this->input);
         $routerManagerHelper->getRouterManger()->setupRecord();
-        
+
         $output = $routerManagerHelper->getRouterManger()->getOutput('export');
         if ( isset($output) ) {
             foreach($output as $key => $value) {
                 $this->layout()->setVariable($key, $value);
             }
         }
-
+        
         $session = new SessionContainer();
         
         $userDetails = new \stdClass();
@@ -71,9 +76,13 @@ class AdminController extends AbstractActionController
      */
     public function formpostAction()
     {
-        // Check login and if POST request
-        if (!$this->getServiceLocator()->get('AuthService')->hasIdentity() or 
-            !$this->getServiceLocator()->get('request')->isPost() ) {
+        /* Check login */
+        if (!$this->getServiceLocator()->get('AuthService')->hasIdentity() ) {
+            return $this->redirect()->toRoute('login');
+        }
+        
+        /* Must be a POST request */
+        if (!$this->getServiceLocator()->get('request')->isPost()) {
             return $this->redirect()->toRoute('login');
         }
 
@@ -110,7 +119,7 @@ class AdminController extends AbstractActionController
             $this->configurations     = $this->commonSetupPlugin->recoverConfigurationsRecord();
             $this->commonSetupPlugin->setConfigurationsVariables();
             
-            $this->config = $this->getServiceLocator()->get('config');
+            $this->config = $this->commonSetupPlugin->getConfig();
             
             $this->input = $this->commonSetupPlugin->mergeInput( array_merge($this->configurations, array(
                         'formsetter'             => trim($this->params()->fromRoute('formsetter')),
@@ -141,9 +150,11 @@ class AdminController extends AbstractActionController
             return $this->redirect()->toRoute('admin');
         }
         
+        $this->initialize();
+        
         $this->layout()->setVariable('form',     $this->getUserFormAuthentication());
         $this->layout()->setVariable('messages', $this->flashMessenger()->getMessages());
-        $this->layout('backend/templates/default/login.phtml');
+        $this->layout('backend/templates/'.$this->configurations['template_backend'].'login.phtml');
         
         return new ViewModel();
     }
@@ -207,7 +218,7 @@ class AdminController extends AbstractActionController
                     }
                 }
             } else {
-                // TODO: after 3 failures the login form must show captcha...
+                // TODO: after 3 failures the login form must show a captcha...
                 $sessionContainer = new Container();
                 $loginFailures = $sessionContainer->offsetGet('loginFailures');
                 $sessionContainer->offsetSet('loginFailures', $loginFailures);
@@ -242,11 +253,14 @@ class AdminController extends AbstractActionController
          */
         private function getAuthService()
         {
-            if (!$this->authservice) {
-                $this->authservice = $this->getServiceLocator()->get('AuthService');
+            try {
+                if (!$this->authservice) {
+                    $this->authservice = $this->getServiceLocator()->get('AuthService');
+                }
+                return $this->authservice;
+            } catch (Exception $ex) {
+                
             }
-
-            return $this->authservice;
         }
 
         /**
@@ -267,9 +281,13 @@ class AdminController extends AbstractActionController
         private function getUserFormAuthentication()
         {
             if (!$this->form) {
-                $this->form = new UserFormAuthentication();
+                try {
+                    $this->form = new UserFormAuthentication();
+                    
+                    return $this->form;
+                } catch (Exception $ex) {
+                    
+                }
             }
-
-            return $this->form;
         }
 }

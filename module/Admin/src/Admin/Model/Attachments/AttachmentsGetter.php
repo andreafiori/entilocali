@@ -60,4 +60,15 @@ class AttachmentsGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->setParameter('referenceId', $referenceId);
         }
     }
+    
+    /**
+     * @param number $attachmentId
+     */
+    public function setAttachmentId($attachmentId)
+    {
+        if ( is_numeric($attachmentId) ) {
+            $this->getQueryBuilder()->andWhere('ar.attachment = ( :attachmentId ) ');
+            $this->getQueryBuilder()->setParameter('attachmentId', $attachmentId);
+        }
+    }
 }

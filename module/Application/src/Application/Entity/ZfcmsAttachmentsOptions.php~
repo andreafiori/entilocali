@@ -1,0 +1,60 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ZfcmsAttachmentsOptions
+ *
+ * @ORM\Table(name="zfcms_attachments_options", indexes={@ORM\Index(name="attachment_id", columns={"attachment_id"}), @ORM\Index(name="fk_attachments_options_lang", columns={"language_id"})})
+ * @ORM\Entity
+ */
+class ZfcmsAttachmentsOptions
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=50, nullable=true)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=50, nullable=true)
+     */
+    private $description;
+
+    /**
+     * @var \Application\Entity\ZfcmsAttachments
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsAttachments")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="attachment_id", referencedColumnName="id")
+     * })
+     */
+    private $attachment;
+
+    /**
+     * @var \Application\Entity\ZfcmsLanguages
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsLanguages")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="language_id", referencedColumnName="id")
+     * })
+     */
+    private $language;
+
+
+}
+

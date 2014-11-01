@@ -47,14 +47,14 @@ class ZfcmsUsersRoles
      *
      * @ORM\Column(name="position", type="bigint", nullable=false)
      */
-    private $position = '0';
+    private $position;
 
 
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -65,6 +65,7 @@ class ZfcmsUsersRoles
      * Set name
      *
      * @param string $name
+     *
      * @return ZfcmsUsersRoles
      */
     public function setName($name)
@@ -77,7 +78,7 @@ class ZfcmsUsersRoles
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -88,6 +89,7 @@ class ZfcmsUsersRoles
      * Set insertDate
      *
      * @param \DateTime $insertDate
+     *
      * @return ZfcmsUsersRoles
      */
     public function setInsertDate($insertDate)
@@ -100,7 +102,7 @@ class ZfcmsUsersRoles
     /**
      * Get insertDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getInsertDate()
     {
@@ -111,6 +113,7 @@ class ZfcmsUsersRoles
      * Set lastUpdate
      *
      * @param \DateTime $lastUpdate
+     *
      * @return ZfcmsUsersRoles
      */
     public function setLastUpdate($lastUpdate)
@@ -123,7 +126,7 @@ class ZfcmsUsersRoles
     /**
      * Get lastUpdate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getLastUpdate()
     {
@@ -134,6 +137,7 @@ class ZfcmsUsersRoles
      * Set position
      *
      * @param integer $position
+     *
      * @return ZfcmsUsersRoles
      */
     public function setPosition($position)
@@ -146,7 +150,7 @@ class ZfcmsUsersRoles
     /**
      * Get position
      *
-     * @return integer 
+     * @return integer
      */
     public function getPosition()
     {

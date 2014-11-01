@@ -13,7 +13,6 @@ use Application\Model\QueryBuilderSetterAbstract;
 class LanguagesLabelsSetup extends QueryBuilderSetterAbstract
 {
     /**
-     * 
      * @param number $languageId
      * @return array
      */

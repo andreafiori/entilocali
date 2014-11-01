@@ -22,11 +22,25 @@ class ZfcmsModules
     private $id;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="reference_id", type="bigint", nullable=false)
+     */
+    private $referenceId;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="code", type="string", length=50, nullable=false)
      */
-    private $code = '0';
+    private $code;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=50, nullable=false)
+     */
+    private $name;
 
     /**
      * @var string
@@ -40,14 +54,14 @@ class ZfcmsModules
      *
      * @ORM\Column(name="channel_id", type="bigint", nullable=false)
      */
-    private $channelId = '1';
+    private $channelId;
 
 
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -55,9 +69,34 @@ class ZfcmsModules
     }
 
     /**
+     * Set referenceId
+     *
+     * @param integer $referenceId
+     *
+     * @return ZfcmsModules
+     */
+    public function setReferenceId($referenceId)
+    {
+        $this->referenceId = $referenceId;
+    
+        return $this;
+    }
+
+    /**
+     * Get referenceId
+     *
+     * @return integer
+     */
+    public function getReferenceId()
+    {
+        return $this->referenceId;
+    }
+
+    /**
      * Set code
      *
      * @param string $code
+     *
      * @return ZfcmsModules
      */
     public function setCode($code)
@@ -70,7 +109,7 @@ class ZfcmsModules
     /**
      * Get code
      *
-     * @return string 
+     * @return string
      */
     public function getCode()
     {
@@ -78,9 +117,34 @@ class ZfcmsModules
     }
 
     /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return ZfcmsModules
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
      * Set status
      *
      * @param string $status
+     *
      * @return ZfcmsModules
      */
     public function setStatus($status)
@@ -93,7 +157,7 @@ class ZfcmsModules
     /**
      * Get status
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
@@ -104,6 +168,7 @@ class ZfcmsModules
      * Set channelId
      *
      * @param integer $channelId
+     *
      * @return ZfcmsModules
      */
     public function setChannelId($channelId)
@@ -116,7 +181,7 @@ class ZfcmsModules
     /**
      * Get channelId
      *
-     * @return integer 
+     * @return integer
      */
     public function getChannelId()
     {

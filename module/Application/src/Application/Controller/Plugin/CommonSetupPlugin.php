@@ -50,6 +50,8 @@ class CommonSetupPlugin extends CommonSetupPluginAbstract
     }
     
     /**
+     * Set main configurations given from database
+     * 
      * @throws \Application\Model\NullException
      */
     public function setConfigurationsVariables()
@@ -57,27 +59,35 @@ class CommonSetupPlugin extends CommonSetupPluginAbstract
         $this->setArrayAsVariables($this->configurations);
     }
     
+    /**
+     * Set layout variables for the view
+     * 
+     * @param multi $var
+     */
     public function setLayoutVars($var)
     {
         $this->setArrayAsVariables($var);
     }
     
-        private function setArrayAsVariables($arrayVar)
+        /**
+         * Set array elemens (key => value) as a var for the view
+         * 
+         * @param array $arrayVar
+         */
+        private function setArrayAsVariables(array $arrayVar)
         {
-            if ( !is_array($arrayVar) ) {
-                throw new \Application\Model\NullException("Array Must Be passed to setArrayAsVariables on CommonSetupPlugin");
-            }
-
             foreach($arrayVar as $key => $value) {
                 $this->getController()->layout()->setVariable($key, $value);
             }
         }
-
+        
+        /**
+         * Set application services and configurations
+         */
         private function setApplicationServices()
         {
             $controller = $this->getController();
-            $param = $controller->params();
-            
+
             $this->serviceLocator       = $controller->getServiceLocator();
             $this->serviceManager       = $this->serviceLocator->get('servicemanager');
             $this->entityManager        = $this->serviceLocator->get('Doctrine\ORM\EntityManager');
@@ -88,6 +98,12 @@ class CommonSetupPlugin extends CommonSetupPluginAbstract
             $this->request              = $this->serviceManager->get('request');
             $this->redirect             = $controller->redirect();
             $this->flashMessenger       = $controller->flashMessenger();
+            $this->routeMatch           = $this->router->match($this->request);
+            $this->module               = $controller->getEvent()->getRouteMatch()->getParam('controller');
+            $this->isBackend            = $this->detectIsBackend();
+            $this->channel              = 1;
+            
+            $param = $controller->params();
             $this->param = array_filter( array(
                 "get"    => (array) $param->fromQuery(),
                 "post"   => (array) $param->fromPost(),
@@ -95,48 +111,41 @@ class CommonSetupPlugin extends CommonSetupPluginAbstract
                 "header" => (array) $param->fromHeader(),
                 "files"  => (array) $param->fromFiles()
             ));
-            $this->routeMatch           = $this->router->match($this->request);
-            $this->module               = $controller->getEvent()->getRouteMatch()->getParam('controller');
-            $this->isBackend            = $this->detectIsBackend();
-            $this->channel              = 1;
             
+            /* App configurations from module.config */
             if ( isset($this->config['app_configs']) ) {
                 $this->appConfigs       = $this->config['app_configs'];
                 $this->isMultiLanguage  = isset($this->appConfigs['isMultilanguage']) ? $this->appConfigs['isMultilanguage'] : '';
             }
-            
-            if ($this->isBackend) {
-                $this->moduleRecord = array(
-                    1  => 'Blogs',
-                    4  => 'Contenuti',
-                    6  => 'Foto',
-                );
-            }
-            
+
             $this->translator = $this->serviceLocator->get('translator');
+            
         }
 
+    /**
+     * @return array
+     */
+    public function getInput()
+    {
+        return array(
+                'serviceLocator' => $this->serviceLocator,
+                'serviceManager' => $this->serviceManager,
+                'entityManager'  => $this->entityManager,
+                'queryBuilder'   => $this->queryBuilder,
+                'moduleRecord'   => $this->moduleRecord,
+                'redirect'       => $this->redirect,
+                'request'        => $this->request,
+                'param'          => $this->param,
+                'uri'            => $this->uri,
+                'flashMessenger' => $this->flashMessenger,
+                'configurations' => $this->configurations,
+                'translator'     => $this->translator,
+        );
+    }
+        
         /**
-         * @return type
+         * @return boolean
          */
-        public function getInput()
-        {
-            return array(
-                    'serviceLocator' => $this->serviceLocator,
-                    'serviceManager' => $this->serviceManager,
-                    'entityManager'  => $this->entityManager,
-                    'queryBuilder'   => $this->queryBuilder,
-                    'moduleRecord'   => $this->moduleRecord,
-                    'redirect'       => $this->redirect,
-                    'request'        => $this->request,
-                    'param'          => $this->param,
-                    'uri'            => $this->uri,
-                    'flashMessenger' => $this->flashMessenger,
-                    'configurations' => $this->configurations,
-                    'translator'     => $this->translator,
-            );
-        }
-
         private function detectIsBackend()
         {
             if ($this->module == 'Application\Controller\Index') {
@@ -171,7 +180,7 @@ class CommonSetupPlugin extends CommonSetupPluginAbstract
         }
 
         /**
-         * Set configurations using the UserInterfaceConfigurations Object
+         * Set configurations options from dbs using UserInterfaceConfigurations
          */
         private function setUserInterfaceConfigurations()
         {
@@ -184,5 +193,4 @@ class CommonSetupPlugin extends CommonSetupPluginAbstract
 
             $this->configurations = array_merge($ui->getConfigurations());
         }
-    
 }

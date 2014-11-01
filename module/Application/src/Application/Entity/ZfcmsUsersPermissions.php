@@ -26,14 +26,14 @@ class ZfcmsUsersPermissions
      *
      * @ORM\Column(name="code", type="string", length=50, nullable=false)
      */
-    private $code = '0';
+    private $code;
 
     /**
      * @var string
      *
      * @ORM\Column(name="value", type="string", length=50, nullable=false)
      */
-    private $value = '0';
+    private $value;
 
     /**
      * @var integer
@@ -54,7 +54,7 @@ class ZfcmsUsersPermissions
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -65,6 +65,7 @@ class ZfcmsUsersPermissions
      * Set code
      *
      * @param string $code
+     *
      * @return ZfcmsUsersPermissions
      */
     public function setCode($code)
@@ -77,7 +78,7 @@ class ZfcmsUsersPermissions
     /**
      * Get code
      *
-     * @return string 
+     * @return string
      */
     public function getCode()
     {
@@ -88,6 +89,7 @@ class ZfcmsUsersPermissions
      * Set value
      *
      * @param string $value
+     *
      * @return ZfcmsUsersPermissions
      */
     public function setValue($value)
@@ -100,7 +102,7 @@ class ZfcmsUsersPermissions
     /**
      * Get value
      *
-     * @return string 
+     * @return string
      */
     public function getValue()
     {
@@ -111,6 +113,7 @@ class ZfcmsUsersPermissions
      * Set roleId
      *
      * @param integer $roleId
+     *
      * @return ZfcmsUsersPermissions
      */
     public function setRoleId($roleId)
@@ -123,7 +126,7 @@ class ZfcmsUsersPermissions
     /**
      * Get roleId
      *
-     * @return integer 
+     * @return integer
      */
     public function getRoleId()
     {
@@ -134,6 +137,7 @@ class ZfcmsUsersPermissions
      * Set permessionId
      *
      * @param integer $permessionId
+     *
      * @return ZfcmsUsersPermissions
      */
     public function setPermessionId($permessionId)
@@ -146,7 +150,7 @@ class ZfcmsUsersPermissions
     /**
      * Get permessionId
      *
-     * @return integer 
+     * @return integer
      */
     public function getPermessionId()
     {

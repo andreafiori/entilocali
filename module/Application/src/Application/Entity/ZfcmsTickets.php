@@ -47,7 +47,7 @@ class ZfcmsTickets
      *
      * @ORM\Column(name="create_date", type="datetime", nullable=false)
      */
-    private $createDate = '2014-01-01 01:01:00';
+    private $createDate;
 
     /**
      * @var string
@@ -68,7 +68,7 @@ class ZfcmsTickets
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -79,6 +79,7 @@ class ZfcmsTickets
      * Set title
      *
      * @param string $title
+     *
      * @return ZfcmsTickets
      */
     public function setTitle($title)
@@ -91,7 +92,7 @@ class ZfcmsTickets
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -102,6 +103,7 @@ class ZfcmsTickets
      * Set subject
      *
      * @param string $subject
+     *
      * @return ZfcmsTickets
      */
     public function setSubject($subject)
@@ -114,7 +116,7 @@ class ZfcmsTickets
     /**
      * Get subject
      *
-     * @return string 
+     * @return string
      */
     public function getSubject()
     {
@@ -125,6 +127,7 @@ class ZfcmsTickets
      * Set priority
      *
      * @param string $priority
+     *
      * @return ZfcmsTickets
      */
     public function setPriority($priority)
@@ -137,7 +140,7 @@ class ZfcmsTickets
     /**
      * Get priority
      *
-     * @return string 
+     * @return string
      */
     public function getPriority()
     {
@@ -148,6 +151,7 @@ class ZfcmsTickets
      * Set createDate
      *
      * @param \DateTime $createDate
+     *
      * @return ZfcmsTickets
      */
     public function setCreateDate($createDate)
@@ -160,7 +164,7 @@ class ZfcmsTickets
     /**
      * Get createDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreateDate()
     {
@@ -171,6 +175,7 @@ class ZfcmsTickets
      * Set status
      *
      * @param string $status
+     *
      * @return ZfcmsTickets
      */
     public function setStatus($status)
@@ -183,7 +188,7 @@ class ZfcmsTickets
     /**
      * Get status
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
@@ -194,6 +199,7 @@ class ZfcmsTickets
      * Set createdBy
      *
      * @param integer $createdBy
+     *
      * @return ZfcmsTickets
      */
     public function setCreatedBy($createdBy)
@@ -206,7 +212,7 @@ class ZfcmsTickets
     /**
      * Get createdBy
      *
-     * @return integer 
+     * @return integer
      */
     public function getCreatedBy()
     {

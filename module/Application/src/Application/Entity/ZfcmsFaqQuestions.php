@@ -24,7 +24,7 @@ class ZfcmsFaqQuestions
     /**
      * @var string
      *
-     * @ORM\Column(name="question", type="text", nullable=false)
+     * @ORM\Column(name="question", type="text", length=65535, nullable=false)
      */
     private $question;
 
@@ -33,7 +33,7 @@ class ZfcmsFaqQuestions
      *
      * @ORM\Column(name="position", type="bigint", nullable=false)
      */
-    private $position = '0';
+    private $position;
 
     /**
      * @var string
@@ -95,7 +95,7 @@ class ZfcmsFaqQuestions
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -106,6 +106,7 @@ class ZfcmsFaqQuestions
      * Set question
      *
      * @param string $question
+     *
      * @return ZfcmsFaqQuestions
      */
     public function setQuestion($question)
@@ -118,7 +119,7 @@ class ZfcmsFaqQuestions
     /**
      * Get question
      *
-     * @return string 
+     * @return string
      */
     public function getQuestion()
     {
@@ -129,6 +130,7 @@ class ZfcmsFaqQuestions
      * Set position
      *
      * @param integer $position
+     *
      * @return ZfcmsFaqQuestions
      */
     public function setPosition($position)
@@ -141,7 +143,7 @@ class ZfcmsFaqQuestions
     /**
      * Get position
      *
-     * @return integer 
+     * @return integer
      */
     public function getPosition()
     {
@@ -152,6 +154,7 @@ class ZfcmsFaqQuestions
      * Set status
      *
      * @param string $status
+     *
      * @return ZfcmsFaqQuestions
      */
     public function setStatus($status)
@@ -164,7 +167,7 @@ class ZfcmsFaqQuestions
     /**
      * Get status
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
@@ -175,6 +178,7 @@ class ZfcmsFaqQuestions
      * Set rate
      *
      * @param integer $rate
+     *
      * @return ZfcmsFaqQuestions
      */
     public function setRate($rate)
@@ -187,7 +191,7 @@ class ZfcmsFaqQuestions
     /**
      * Get rate
      *
-     * @return integer 
+     * @return integer
      */
     public function getRate()
     {
@@ -198,6 +202,7 @@ class ZfcmsFaqQuestions
      * Set insertdate
      *
      * @param \DateTime $insertdate
+     *
      * @return ZfcmsFaqQuestions
      */
     public function setInsertdate($insertdate)
@@ -210,7 +215,7 @@ class ZfcmsFaqQuestions
     /**
      * Get insertdate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getInsertdate()
     {
@@ -221,6 +226,7 @@ class ZfcmsFaqQuestions
      * Set lastupdate
      *
      * @param \DateTime $lastupdate
+     *
      * @return ZfcmsFaqQuestions
      */
     public function setLastupdate($lastupdate)
@@ -233,7 +239,7 @@ class ZfcmsFaqQuestions
     /**
      * Get lastupdate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getLastupdate()
     {
@@ -244,6 +250,7 @@ class ZfcmsFaqQuestions
      * Set userId
      *
      * @param integer $userId
+     *
      * @return ZfcmsFaqQuestions
      */
     public function setUserId($userId)
@@ -256,7 +263,7 @@ class ZfcmsFaqQuestions
     /**
      * Get userId
      *
-     * @return integer 
+     * @return integer
      */
     public function getUserId()
     {
@@ -267,6 +274,7 @@ class ZfcmsFaqQuestions
      * Set channel
      *
      * @param \Application\Entity\ZfcmsChannels $channel
+     *
      * @return ZfcmsFaqQuestions
      */
     public function setChannel(\Application\Entity\ZfcmsChannels $channel = null)
@@ -279,7 +287,7 @@ class ZfcmsFaqQuestions
     /**
      * Get channel
      *
-     * @return \Application\Entity\ZfcmsChannels 
+     * @return \Application\Entity\ZfcmsChannels
      */
     public function getChannel()
     {
@@ -290,6 +298,7 @@ class ZfcmsFaqQuestions
      * Set language
      *
      * @param \Application\Entity\ZfcmsLanguages $language
+     *
      * @return ZfcmsFaqQuestions
      */
     public function setLanguage(\Application\Entity\ZfcmsLanguages $language = null)
@@ -302,7 +311,7 @@ class ZfcmsFaqQuestions
     /**
      * Get language
      *
-     * @return \Application\Entity\ZfcmsLanguages 
+     * @return \Application\Entity\ZfcmsLanguages
      */
     public function getLanguage()
     {

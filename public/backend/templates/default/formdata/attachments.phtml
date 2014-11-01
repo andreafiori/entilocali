@@ -1,7 +1,64 @@
 <?php echo $this->render($this->formDataCommonPath.'formdata_breadcrumb.phtml'); ?>
 
-<h3>Allegati presenti:</h3>
+<h3><?php echo $this->articleTitle ?></h3>
 
-<?php
+<p>Gestione file allegati.</p>
 
-echo $this->render($this->formDataCommonPath.'formdata_common.phtml');
+<ul class="nav nav-tabs" role="tablist">
+    <li class="active"><a href="#attachmentSummary" role="tab" data-toggle="tab">Elenco allegati</a></li>
+    <li><a href="#attachmentNew" role="tab" data-toggle="tab">Inserisci nuovo file allegato</a></li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="attachmentSummary">
+    <?php if (!isset($this->attachmentsList)): ?>
+
+        <div class="alert alert-info">
+            <h4>Nessun allegato</h4>
+            <div>Nessun allegato presente per l'articolo corrente. Inserisci un nuovo allegato.</div>
+        </div>
+        
+    <?php else: ?>
+    <div>&nbsp;</div>
+    <form action="#" method="post" enctype="multipart/form-data">
+    <div class="table-responsive">
+        <table border="0" class="table table-bordered" width="100%">
+        <thead>
+        <tr>
+            <th>&nbsp;</th>
+            <th>Nome file</th>
+            <th>Descrizione</th>
+            <th>Data inserimento</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach($this->attachmentsList as $record): ?>
+        <tr>
+            <td><input type="checkbox" id="chk<?php echo $record['id'] ?>" name="attachmentId[]" value="<?php echo $record['id'] ?>"></td>
+            <td><label for="chk<?php echo $record['id'] ?>"><?php echo $record['name'] ?> (<?php echo $record['size'] ?> Kb)</label></td>
+            <td><?php echo isset($record['description']) ? $record['description'] : null ?></td>
+            <td><?php echo $record['insertDate']->format('Y-m-d H:i:s') ?></td>
+            <td><a href="#" class="btn btn-default" title="Modifica file allegato"><i class="fa fa-pencil"></i></a></td>
+            <td><a href="#" class="btn btn-primary" title="Scarica file allegato"><i class="fa fa-download"></i> Scarica</a></td>
+        </tr>
+        <?php endforeach; ?>
+        <tr>
+            <td colspan="6">
+                <a href="#" class="btn btn-danger" title="Elimina files selezionati"><i class="fa fa-trash-o"></i> Elimina files selezionati</a>
+                <a href="#" class="btn btn-primary" title="Scarica allegati in formato zip"><i class="fa fa-download"></i> Scarica allegati in formato zip</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+    </form>
+    <?php endif; ?>
+    </div>
+    <div class="tab-pane" id="attachmentNew">
+        <?php echo $this->render($this->formDataCommonPath.'formdata_common.phtml'); ?>
+    </div>
+</div>
+
+<!-- Modal confirm delete -->

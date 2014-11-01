@@ -15,11 +15,11 @@ class AttachmentsGetterWrapper extends RecordsGetterWrapperAbstract
     protected $objectGetter;
     
     /**
-     * @param \Admin\Model\Attachments\AttachmentsGetter $attachmentsGetter
+     * @param \Admin\Model\Attachments\AttachmentsGetter $objectGetter
      */
-    public function __construct(AttachmentsGetter $attachmentsGetter)
+    public function __construct(AttachmentsGetter $objectGetter)
     {
-        $this->setObjectGetter($attachmentsGetter);
+        $this->setObjectGetter($objectGetter);
     }
     
     public function setupQueryBuilder()
@@ -29,6 +29,7 @@ class AttachmentsGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setMainQuery();
         $this->objectGetter->setId( $this->getInput('id', 1) );
         $this->objectGetter->setReferenceId( $this->getInput('referenceId', 1) );
+        $this->objectGetter->setAttachmentId( $this->getInput('attachmentId', 1) );
         $this->objectGetter->setModuleId( $this->getInput('id', 1) );
         $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
         $this->objectGetter->setLimit( $this->getInput('limit', 1) );

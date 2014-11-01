@@ -110,19 +110,6 @@ return array(
                                                 ),
                                     ),
                     ),
-                    'attachments' => array(
-                                    'type'    => 'Segment',
-                                    'options' => array(
-                                                'route'         => 'attachments[/]',
-                                                'constraints'   => array(
-                                                    
-                                                ),
-                                                'defaults' => array(
-                                                    'controller' => 'Admin\Controller\Admin',
-                                                    'action'     => 'index',
-                                                ),
-                                    ),
-                    ),
                 ),
             ),
         ),
@@ -141,7 +128,7 @@ return array(
         'template_map' => include __DIR__  .'/../template_map.php',
         'display_not_found_reason' => true,
         'display_exceptions'       => true,
-        'template_map' => array(
+        'template_map' => array(            
             'admin/admin/login'     => __DIR__ . '../../view/admin/auth/login.phtml',
             'admin/admin/index'     => __DIR__ . '../../view/admin/index.phtml',
             'admin/admin/formpost'  => __DIR__ . '../../view/admin/formpost-empty.phtml',
@@ -158,7 +145,7 @@ return array(
         "admin"                     => 'Admin\Model\AdminDashboard',
         "admin/formdata"            => 'Admin\Model\FormData\FormDataHandler',
         "admin/datatable"           => 'Admin\Model\DataTable\DataTableHandler',
-        "admin/invio-ente-terzo"    => 'Admin\Model\EntiTerzi\InvioEnteTerzoHandler',
+        "admin/invio-ente-terzo"    => 'Admin\Model\EntiTerzi\InvioEnteTerzoHandler',        
     ),
     /* FormData Class Map */
     'formdata_classmap' => array(
@@ -182,7 +169,7 @@ return array(
     ),
     /* FormData CRUD Class Map */
     'formdata_crud_classmap' => array( 
-        'albo-pretorio'               => 'Admin\Model\AlboPretorio\AlboPretorioCrudHandler',
+        'albo-pretorio'               => 'Admin\Model\AlboPretorio\AlboPretorioArticoliCrudHandler',
         'albo-pretorio-sezioni'       => 'Admin\Model\AlboPretorio\AlboPretorioSezioniCrudHandler',
         'amministrazione-trasparente' => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteCrudHandler',
         'tickets'                     => 'Admin\Model\Tickets\TicketsCrudHandler',
@@ -191,7 +178,7 @@ return array(
         'faq'                         => 'Admin\Model\Faq\FaqCrudHandler',
         'newsletter'                  => 'Admin\Model\Newsletter\NewsletterCrudHandler',
         'posts'                       => 'Admin\Model\Posts\PostsCrudHandler',
-        'enti-terzi'                  => 'Admin\Model\EntiTerzi\EntiTerziCrudHandler',
+        'enti-terzi'                  => 'Admin\Model\EntiTerzi\InvioEnteTerzoHandlerCrudHandler',
         'stato-civile'                => 'Admin\Model\StatoCivile\StatoCivileCrudHandler',
         'stato-civile-sezioni'        => 'Admin\Model\StatoCivile\StatoCivileSezioniCrudHandler',
         'users'                       => 'Admin\Model\Users\UsersCrudHandler',
@@ -220,4 +207,57 @@ return array(
         'stato-civile'                => 'Admin\Model\StatoCivile\StatoCivileDataTable',
         'stato-civile-sezioni'        => 'Admin\Model\StatoCivile\StatoCivileSezioniDataTable',
     ),
+    /* Attachments setup class map */
+    'attachments_setup_classmap' => array(
+        
+    ),
+    /* Admin utils with modules ID and views */
+    'utils' => array(
+        'albo-pretorio' => array(
+            'moduleId' => 10,
+            'formdata' => array(
+                'href' => 'formdata/albo-pretorio/',
+                'title_update' => 'Gestione articoli albo pretorio',
+                'title_insert' => 'Nuovo articolo albo'
+            ),
+            'datatable' => array(
+                'href' => 'datatable/albo-pretorio/',
+                'title' => 'Articoli albo pretorio'
+            ),
+            'moduleName' => 'Albo pretorio'
+        ),
+        'albo-pretorio-sezioni' => array(
+            'formdata' => array(
+                'href' => 'formdata/albo-pretorio-sezioni/',
+                'title_update' => 'Gestione sezioni albo pretorio',
+                'title_insert' => 'Nuova sezione albo albo'
+            ),
+            'datatable' => array(
+                'href' => 'datatable/albo-pretorio-sezioni/',
+                'title' => 'Sezioni albo pretorio'
+            ),
+            'moduleName' => 'Albo pretorio'
+        ),
+        'stato-civile' => array(
+            'moduleId' => 11,
+            'formdata' => array(
+                'href' => 'formdata/albo-pretorio/',
+            ),
+            'datatable' => array(
+                'href' => 'datatable/albo-pretorio/',
+                'title' => ''
+            ),
+            'moduleName' => 'Stato civile'
+        ),
+        'amministrazione-trasparente' => array(
+            'moduleId' => 13,
+            'formdata' => array(
+                'href' => 'formdata/amministrazione-trasparente/',
+            ),
+            'datatable' => array(
+                'href' => 'datatable/amministrazione-trasparente/'
+            ),
+            'moduleName' => 'Amministrazione trasparente'
+        ),
+    )
 );

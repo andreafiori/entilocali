@@ -31,14 +31,14 @@ class ZfcmsLanguagesLabels
     /**
      * @var string
      *
-     * @ORM\Column(name="value", type="text", nullable=true)
+     * @ORM\Column(name="value", type="text", length=65535, nullable=true)
      */
     private $value;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text", nullable=true)
+     * @ORM\Column(name="description", type="text", length=65535, nullable=true)
      */
     private $description;
 
@@ -47,42 +47,42 @@ class ZfcmsLanguagesLabels
      *
      * @ORM\Column(name="is_backend", type="bigint", nullable=true)
      */
-    private $isBackend = '0';
+    private $isBackend;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="is_universal", type="bigint", nullable=true)
      */
-    private $isUniversal = '0';
+    private $isUniversal;
 
     /**
      * @var string
      *
      * @ORM\Column(name="status", type="string", length=50, nullable=true)
      */
-    private $status = '1';
+    private $status;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="module_id", type="bigint", nullable=true)
      */
-    private $moduleId = '0';
+    private $moduleId;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="linguage_id", type="bigint", nullable=true)
      */
-    private $linguageId = '1';
+    private $linguageId;
 
 
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -93,6 +93,7 @@ class ZfcmsLanguagesLabels
      * Set name
      *
      * @param string $name
+     *
      * @return ZfcmsLanguagesLabels
      */
     public function setName($name)
@@ -105,7 +106,7 @@ class ZfcmsLanguagesLabels
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -116,6 +117,7 @@ class ZfcmsLanguagesLabels
      * Set value
      *
      * @param string $value
+     *
      * @return ZfcmsLanguagesLabels
      */
     public function setValue($value)
@@ -128,7 +130,7 @@ class ZfcmsLanguagesLabels
     /**
      * Get value
      *
-     * @return string 
+     * @return string
      */
     public function getValue()
     {
@@ -139,6 +141,7 @@ class ZfcmsLanguagesLabels
      * Set description
      *
      * @param string $description
+     *
      * @return ZfcmsLanguagesLabels
      */
     public function setDescription($description)
@@ -151,7 +154,7 @@ class ZfcmsLanguagesLabels
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -162,6 +165,7 @@ class ZfcmsLanguagesLabels
      * Set isBackend
      *
      * @param integer $isBackend
+     *
      * @return ZfcmsLanguagesLabels
      */
     public function setIsBackend($isBackend)
@@ -174,7 +178,7 @@ class ZfcmsLanguagesLabels
     /**
      * Get isBackend
      *
-     * @return integer 
+     * @return integer
      */
     public function getIsBackend()
     {
@@ -185,6 +189,7 @@ class ZfcmsLanguagesLabels
      * Set isUniversal
      *
      * @param integer $isUniversal
+     *
      * @return ZfcmsLanguagesLabels
      */
     public function setIsUniversal($isUniversal)
@@ -197,7 +202,7 @@ class ZfcmsLanguagesLabels
     /**
      * Get isUniversal
      *
-     * @return integer 
+     * @return integer
      */
     public function getIsUniversal()
     {
@@ -208,6 +213,7 @@ class ZfcmsLanguagesLabels
      * Set status
      *
      * @param string $status
+     *
      * @return ZfcmsLanguagesLabels
      */
     public function setStatus($status)
@@ -220,7 +226,7 @@ class ZfcmsLanguagesLabels
     /**
      * Get status
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
@@ -231,6 +237,7 @@ class ZfcmsLanguagesLabels
      * Set moduleId
      *
      * @param integer $moduleId
+     *
      * @return ZfcmsLanguagesLabels
      */
     public function setModuleId($moduleId)
@@ -243,7 +250,7 @@ class ZfcmsLanguagesLabels
     /**
      * Get moduleId
      *
-     * @return integer 
+     * @return integer
      */
     public function getModuleId()
     {
@@ -254,6 +261,7 @@ class ZfcmsLanguagesLabels
      * Set linguageId
      *
      * @param integer $linguageId
+     *
      * @return ZfcmsLanguagesLabels
      */
     public function setLinguageId($linguageId)
@@ -266,7 +274,7 @@ class ZfcmsLanguagesLabels
     /**
      * Get linguageId
      *
-     * @return integer 
+     * @return integer
      */
     public function getLinguageId()
     {

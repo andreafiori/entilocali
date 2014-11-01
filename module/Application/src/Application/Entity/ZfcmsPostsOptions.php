@@ -33,14 +33,14 @@ class ZfcmsPostsOptions
      *
      * @ORM\Column(name="date_from", type="datetime", nullable=true)
      */
-    private $dateFrom = '2014-01-01 01:01:01';
+    private $dateFrom;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="data_to", type="datetime", nullable=true)
      */
-    private $dataTo = '2014-01-01 01:01:01';
+    private $dataTo;
 
     /**
      * @var string
@@ -73,7 +73,7 @@ class ZfcmsPostsOptions
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text", nullable=true)
+     * @ORM\Column(name="description", type="text", length=65535, nullable=true)
      */
     private $description;
 
@@ -89,7 +89,7 @@ class ZfcmsPostsOptions
      *
      * @ORM\Column(name="position", type="bigint", nullable=true)
      */
-    private $position = '1';
+    private $position;
 
     /**
      * @var string
@@ -129,7 +129,7 @@ class ZfcmsPostsOptions
     /**
      * @var string
      *
-     * @ORM\Column(name="href", type="text", nullable=true)
+     * @ORM\Column(name="href", type="text", length=65535, nullable=true)
      */
     private $href;
 
@@ -158,7 +158,7 @@ class ZfcmsPostsOptions
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -169,6 +169,7 @@ class ZfcmsPostsOptions
      * Set note
      *
      * @param string $note
+     *
      * @return ZfcmsPostsOptions
      */
     public function setNote($note)
@@ -181,7 +182,7 @@ class ZfcmsPostsOptions
     /**
      * Get note
      *
-     * @return string 
+     * @return string
      */
     public function getNote()
     {
@@ -192,6 +193,7 @@ class ZfcmsPostsOptions
      * Set dateFrom
      *
      * @param \DateTime $dateFrom
+     *
      * @return ZfcmsPostsOptions
      */
     public function setDateFrom($dateFrom)
@@ -204,7 +206,7 @@ class ZfcmsPostsOptions
     /**
      * Get dateFrom
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateFrom()
     {
@@ -215,6 +217,7 @@ class ZfcmsPostsOptions
      * Set dataTo
      *
      * @param \DateTime $dataTo
+     *
      * @return ZfcmsPostsOptions
      */
     public function setDataTo($dataTo)
@@ -227,7 +230,7 @@ class ZfcmsPostsOptions
     /**
      * Get dataTo
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDataTo()
     {
@@ -238,6 +241,7 @@ class ZfcmsPostsOptions
      * Set image
      *
      * @param string $image
+     *
      * @return ZfcmsPostsOptions
      */
     public function setImage($image)
@@ -250,7 +254,7 @@ class ZfcmsPostsOptions
     /**
      * Get image
      *
-     * @return string 
+     * @return string
      */
     public function getImage()
     {
@@ -261,6 +265,7 @@ class ZfcmsPostsOptions
      * Set imageHomepage
      *
      * @param string $imageHomepage
+     *
      * @return ZfcmsPostsOptions
      */
     public function setImageHomepage($imageHomepage)
@@ -273,7 +278,7 @@ class ZfcmsPostsOptions
     /**
      * Get imageHomepage
      *
-     * @return string 
+     * @return string
      */
     public function getImageHomepage()
     {
@@ -284,6 +289,7 @@ class ZfcmsPostsOptions
      * Set title
      *
      * @param string $title
+     *
      * @return ZfcmsPostsOptions
      */
     public function setTitle($title)
@@ -296,7 +302,7 @@ class ZfcmsPostsOptions
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -307,6 +313,7 @@ class ZfcmsPostsOptions
      * Set subtitle
      *
      * @param string $subtitle
+     *
      * @return ZfcmsPostsOptions
      */
     public function setSubtitle($subtitle)
@@ -319,7 +326,7 @@ class ZfcmsPostsOptions
     /**
      * Get subtitle
      *
-     * @return string 
+     * @return string
      */
     public function getSubtitle()
     {
@@ -330,6 +337,7 @@ class ZfcmsPostsOptions
      * Set description
      *
      * @param string $description
+     *
      * @return ZfcmsPostsOptions
      */
     public function setDescription($description)
@@ -342,7 +350,7 @@ class ZfcmsPostsOptions
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -353,6 +361,7 @@ class ZfcmsPostsOptions
      * Set status
      *
      * @param string $status
+     *
      * @return ZfcmsPostsOptions
      */
     public function setStatus($status)
@@ -365,7 +374,7 @@ class ZfcmsPostsOptions
     /**
      * Get status
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
@@ -376,6 +385,7 @@ class ZfcmsPostsOptions
      * Set position
      *
      * @param integer $position
+     *
      * @return ZfcmsPostsOptions
      */
     public function setPosition($position)
@@ -388,7 +398,7 @@ class ZfcmsPostsOptions
     /**
      * Get position
      *
-     * @return integer 
+     * @return integer
      */
     public function getPosition()
     {
@@ -399,6 +409,7 @@ class ZfcmsPostsOptions
      * Set seoUrl
      *
      * @param string $seoUrl
+     *
      * @return ZfcmsPostsOptions
      */
     public function setSeoUrl($seoUrl)
@@ -411,7 +422,7 @@ class ZfcmsPostsOptions
     /**
      * Get seoUrl
      *
-     * @return string 
+     * @return string
      */
     public function getSeoUrl()
     {
@@ -422,6 +433,7 @@ class ZfcmsPostsOptions
      * Set seoTitle
      *
      * @param string $seoTitle
+     *
      * @return ZfcmsPostsOptions
      */
     public function setSeoTitle($seoTitle)
@@ -434,7 +446,7 @@ class ZfcmsPostsOptions
     /**
      * Get seoTitle
      *
-     * @return string 
+     * @return string
      */
     public function getSeoTitle()
     {
@@ -445,6 +457,7 @@ class ZfcmsPostsOptions
      * Set seoDescription
      *
      * @param string $seoDescription
+     *
      * @return ZfcmsPostsOptions
      */
     public function setSeoDescription($seoDescription)
@@ -457,7 +470,7 @@ class ZfcmsPostsOptions
     /**
      * Get seoDescription
      *
-     * @return string 
+     * @return string
      */
     public function getSeoDescription()
     {
@@ -468,6 +481,7 @@ class ZfcmsPostsOptions
      * Set seoKeywords
      *
      * @param string $seoKeywords
+     *
      * @return ZfcmsPostsOptions
      */
     public function setSeoKeywords($seoKeywords)
@@ -480,7 +494,7 @@ class ZfcmsPostsOptions
     /**
      * Get seoKeywords
      *
-     * @return string 
+     * @return string
      */
     public function getSeoKeywords()
     {
@@ -491,6 +505,7 @@ class ZfcmsPostsOptions
      * Set template
      *
      * @param string $template
+     *
      * @return ZfcmsPostsOptions
      */
     public function setTemplate($template)
@@ -503,7 +518,7 @@ class ZfcmsPostsOptions
     /**
      * Get template
      *
-     * @return string 
+     * @return string
      */
     public function getTemplate()
     {
@@ -514,6 +529,7 @@ class ZfcmsPostsOptions
      * Set href
      *
      * @param string $href
+     *
      * @return ZfcmsPostsOptions
      */
     public function setHref($href)
@@ -526,7 +542,7 @@ class ZfcmsPostsOptions
     /**
      * Get href
      *
-     * @return string 
+     * @return string
      */
     public function getHref()
     {
@@ -537,6 +553,7 @@ class ZfcmsPostsOptions
      * Set language
      *
      * @param \Application\Entity\ZfcmsLanguages $language
+     *
      * @return ZfcmsPostsOptions
      */
     public function setLanguage(\Application\Entity\ZfcmsLanguages $language = null)
@@ -549,7 +566,7 @@ class ZfcmsPostsOptions
     /**
      * Get language
      *
-     * @return \Application\Entity\ZfcmsLanguages 
+     * @return \Application\Entity\ZfcmsLanguages
      */
     public function getLanguage()
     {
@@ -560,6 +577,7 @@ class ZfcmsPostsOptions
      * Set posts
      *
      * @param \Application\Entity\ZfcmsPosts $posts
+     *
      * @return ZfcmsPostsOptions
      */
     public function setPosts(\Application\Entity\ZfcmsPosts $posts = null)
@@ -572,7 +590,7 @@ class ZfcmsPostsOptions
     /**
      * Get posts
      *
-     * @return \Application\Entity\ZfcmsPosts 
+     * @return \Application\Entity\ZfcmsPosts
      */
     public function getPosts()
     {

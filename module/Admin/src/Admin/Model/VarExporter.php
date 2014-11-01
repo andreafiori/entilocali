@@ -71,13 +71,21 @@ class VarExporter extends InputSetupAbstract
         return $this->template;
     }
     
+    /**
+     * @param string $title
+     * @return string
+     */
     public function setTitle($title)
     {
         $this->title = $title;
         
         return $this->title;
     }
-
+    
+    /**
+     * @param string $description
+     * @return string
+     */
     public function setDescription($description)
     {
         $this->description = $description;

@@ -102,7 +102,7 @@ class StatoCivileFormSearch extends Form
             ),
             'options' => array(
                 'label'         => 'Anno',
-                'value_options' => $years, //$this->getArrayYears()
+                'value_options' => $years,
             )
         ));
     }

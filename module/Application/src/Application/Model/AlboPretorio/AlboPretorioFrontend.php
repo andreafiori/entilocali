@@ -4,9 +4,9 @@ namespace Application\Model\AlboPretorio;
 
 use Application\Model\RouterManagers\RouterManagerAbstract;
 use Application\Model\RouterManagers\RouterManagerInterface;
-use Admin\Model\AlboPretorio\RecordsGetter;
-use Admin\Model\AlboPretorio\ArticoliGetter;
-use Admin\Model\AlboPretorio\ArticoliGetterWrapper;
+use Admin\Model\AlboPretorio\AlboPretorioRecordsGetter;
+use Admin\Model\AlboPretorio\AlboPretorioArticoliGetter;
+use Admin\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
 
 /**
  * @author Andrea Fiori
@@ -19,7 +19,7 @@ class AlboPretorioFrontend extends RouterManagerAbstract implements RouterManage
     
     public function setupRecord()
     {
-        $this->alboPretorioRecordsGetter = new RecordsGetter($this->getInput());
+        $this->alboPretorioRecordsGetter = new AlboPretorioRecordsGetter($this->getInput());
         
         $param = $this->getInput('param', 1);
         $records = $this->getAlboPretorioRecords(array(), isset($param['route']['page']) ? $param['route']['page'] : '');
@@ -70,7 +70,7 @@ class AlboPretorioFrontend extends RouterManagerAbstract implements RouterManage
 
         private function getAlboPretorioRecords($input, $page)
         {
-            $alboPretorioGetterWrapper = new ArticoliGetterWrapper( new ArticoliGetter($this->getInput('entityManager',1)) );
+            $alboPretorioGetterWrapper = new AlboPretorioArticoliGetterWrapper( new AlboPretorioArticoliGetter($this->getInput('entityManager',1)) );
             $alboPretorioGetterWrapper->setInput($input);
             $alboPretorioGetterWrapper->setupQueryBuilder();
             $alboPretorioGetterWrapper->setupPaginator($alboPretorioGetterWrapper->setupQuery( $this->getInput('entityManager', 1) ));

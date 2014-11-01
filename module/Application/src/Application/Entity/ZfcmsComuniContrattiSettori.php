@@ -24,14 +24,14 @@ class ZfcmsComuniContrattiSettori
     /**
      * @var string
      *
-     * @ORM\Column(name="nome", type="text", nullable=false)
+     * @ORM\Column(name="nome", type="text", length=65535, nullable=false)
      */
     private $nome;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="responsabile", type="text", nullable=true)
+     * @ORM\Column(name="responsabile", type="text", length=65535, nullable=true)
      */
     private $responsabile;
 
@@ -54,7 +54,7 @@ class ZfcmsComuniContrattiSettori
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -65,6 +65,7 @@ class ZfcmsComuniContrattiSettori
      * Set nome
      *
      * @param string $nome
+     *
      * @return ZfcmsComuniContrattiSettori
      */
     public function setNome($nome)
@@ -77,7 +78,7 @@ class ZfcmsComuniContrattiSettori
     /**
      * Get nome
      *
-     * @return string 
+     * @return string
      */
     public function getNome()
     {
@@ -88,6 +89,7 @@ class ZfcmsComuniContrattiSettori
      * Set responsabile
      *
      * @param string $responsabile
+     *
      * @return ZfcmsComuniContrattiSettori
      */
     public function setResponsabile($responsabile)
@@ -100,7 +102,7 @@ class ZfcmsComuniContrattiSettori
     /**
      * Get responsabile
      *
-     * @return string 
+     * @return string
      */
     public function getResponsabile()
     {
@@ -111,6 +113,7 @@ class ZfcmsComuniContrattiSettori
      * Set predefinita
      *
      * @param integer $predefinita
+     *
      * @return ZfcmsComuniContrattiSettori
      */
     public function setPredefinita($predefinita)
@@ -123,7 +126,7 @@ class ZfcmsComuniContrattiSettori
     /**
      * Get predefinita
      *
-     * @return integer 
+     * @return integer
      */
     public function getPredefinita()
     {
@@ -134,6 +137,7 @@ class ZfcmsComuniContrattiSettori
      * Set attivo
      *
      * @param integer $attivo
+     *
      * @return ZfcmsComuniContrattiSettori
      */
     public function setAttivo($attivo)
@@ -146,7 +150,7 @@ class ZfcmsComuniContrattiSettori
     /**
      * Get attivo
      *
-     * @return integer 
+     * @return integer
      */
     public function getAttivo()
     {

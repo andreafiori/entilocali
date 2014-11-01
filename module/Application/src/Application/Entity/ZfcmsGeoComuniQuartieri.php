@@ -50,7 +50,7 @@ class ZfcmsGeoComuniQuartieri
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -61,6 +61,7 @@ class ZfcmsGeoComuniQuartieri
      * Set nome
      *
      * @param string $nome
+     *
      * @return ZfcmsGeoComuniQuartieri
      */
     public function setNome($nome)
@@ -73,7 +74,7 @@ class ZfcmsGeoComuniQuartieri
     /**
      * Get nome
      *
-     * @return string 
+     * @return string
      */
     public function getNome()
     {
@@ -84,6 +85,7 @@ class ZfcmsGeoComuniQuartieri
      * Set capPrincipale
      *
      * @param string $capPrincipale
+     *
      * @return ZfcmsGeoComuniQuartieri
      */
     public function setCapPrincipale($capPrincipale)
@@ -96,7 +98,7 @@ class ZfcmsGeoComuniQuartieri
     /**
      * Get capPrincipale
      *
-     * @return string 
+     * @return string
      */
     public function getCapPrincipale()
     {
@@ -107,6 +109,7 @@ class ZfcmsGeoComuniQuartieri
      * Set citta
      *
      * @param \Application\Entity\ZfcmsGeoComuni $citta
+     *
      * @return ZfcmsGeoComuniQuartieri
      */
     public function setCitta(\Application\Entity\ZfcmsGeoComuni $citta = null)
@@ -119,7 +122,7 @@ class ZfcmsGeoComuniQuartieri
     /**
      * Get citta
      *
-     * @return \Application\Entity\ZfcmsGeoComuni 
+     * @return \Application\Entity\ZfcmsGeoComuni
      */
     public function getCitta()
     {

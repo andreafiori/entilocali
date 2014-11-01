@@ -7,54 +7,112 @@ use Admin\Model\Attachments\AttachmentsGetter;
 use Admin\Model\Attachments\AttachmentsGetterWrapper;
 
 /**
- * TODO:
- *      must select attachments
- *      must select record of the module to associate
+ * Form attachments with files list
  * 
  * @author Andrea Fiori
  * @since  20 August 2014
  */
 class AttachmentsFormDataHandler extends FormDataAbstract
 {
-    private $categorieFormDataHandlerHelper;
+    private $pages = array();
     
+    /**
+     * @param array $input
+     */
     public function __construct(array $input)
     {
         parent::__construct($input);
         
         $param = $this->getInput('param', 1);
+
+        if (!isset($param['get']['module'])) {
+            $this->setVariables(array(
+                'messageType'   => 'danger',
+                'messageTitle'  => 'Modulo non rilevato',
+                'messageText'   => 'Modulo non rilevato. Impossibile mostrare gli allegati ed il relativo form'
+            ));
+            
+            $this->setTemplate('message.phtml');
+            
+            return;
+        }
         
-        $form = new AttachmentsForm();
-        
-        $associatedElementRecord = array();
-        
-        $attachmentsRecords = $this->getAttachmentsRecords(array(
-                'moduleId'      => null,
-                'referenceId'   => isset($param['route']['id']) ? $param['route']['id'] : null,
+        $attachmentsRecords = $this->getAttachmentsRecords(new AttachmentsGetterWrapper(new AttachmentsGetter($this->getInput("entityManager",1))), array(
+                'moduleId'      => $param['get']['module'],
+                'referenceId'   => $param['route']['id'],
             )
         );
         
+        $form = new AttachmentsForm();
+        
+        /**
+         * TODO:
+         *      set $param['route']['option']
+         *      set module ID (must be a number...)
+         *      check if $param['route']['option'] is on a class map
+         *      check if $param['route']['option'] on the class map is an existent class name...
+         *      ...
+         *      NOW the class on $param['route']['option']:
+         *          set records: count(records) must be == 1 or error...
+         *          set articolo records
+         *          
+         */
+        switch($param['route']['option']) {
+            default:
+                // error...
+            break;
+
+            case("albo-pretorio"):
+                $wrapper = new \Admin\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper(new \Admin\Model\AlboPretorio\AlboPretorioArticoliGetter($this->getInput("entityManager",1)));
+                $wrapper->setInput(array('id' => $param['get']['module'], 'fields' => 'aa.titolo'));
+                $wrapper->setupQueryBuilder();
+                
+                $relatedRecord = $wrapper->getRecords();
+                
+                if (count($relatedRecord)!=1) {
+                    // error...
+                }
+
+                $articleTitle = stripslashes($relatedRecord[0]['titolo']);
+            break;
+        
+            case("stato-civile"):
+                $wrapper = new \Admin\Model\StatoCivile\StatoCivileGetterWrapper(new \Admin\Model\StatoCivile\StatoCivileGetter($this->getInput("entityManager",1)));
+                $wrapper->setInput();
+                $wrapper->setupQueryBuilder();
+                
+                $relatedRecord = $wrapper->getRecords();
+            break;
+        }
+        
         $this->setVariables(array(
-                'formTitle'                 => 'Allegati',
-                'formDescription'           => '',
                 'form'                      => $form,
+                'formTitle'                 => 'Nuovo allegato',
+                'formDescription'           => "Inserisci un nuovo allegato per l'articolo corrente",
                 'formAction'                => '',
-                'formBreadCrumbCategory'    => 'Allegati',
-                '$associatedElementRecord'  => '',
-                'attachmentsRecords'        => '',
+                'attachmentsList'           => $attachmentsRecords,
+                'articleTitle'              => $articleTitle,
+                'pages'                     => $this->pages,
+                'formBreadCrumbCategory'    => '[modulo]', '[articolo]',
             )
         );
         
         $this->setTemplate('formdata/attachments.phtml');
     }
     
-    private function getAttachmentsRecords(array $input)
-    {
-        $wrapper = new AttachmentsGetterWrapper(new AttachmentsGetter($this->getInput("entityManager",1)));
-        $wrapper->setInput($input);
-        $wrapper->setupQueryBuilder();
-        
-        return $wrapper->getRecords();
-    }
+        /**
+         * Get attachments records
+         * 
+         * @param AttachmentsGetterWrapper $wrapper
+         * @param array $input
+         * @return array
+         */
+        private function getAttachmentsRecords(AttachmentsGetterWrapper $wrapper, array $input)
+        {
+            $wrapper->setInput($input);
+            $wrapper->setupQueryBuilder();
+
+            return $wrapper->getRecords();
+        }
 }
 

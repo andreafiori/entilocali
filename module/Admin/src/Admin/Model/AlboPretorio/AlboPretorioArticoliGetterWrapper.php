@@ -21,9 +21,6 @@ class AlboPretorioArticoliGetterWrapper extends RecordsGetterWrapperAbstract
         $this->setObjectGetter($objectGetter);
     }
     
-    /**
-     * setup and execute query
-     */
     public function setupQueryBuilder()
     {
         $this->objectGetter->setSelectQueryFields( $this->getInput('fields', 1) );
@@ -34,6 +31,8 @@ class AlboPretorioArticoliGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setNumeroAtto($this->getInput('numeroAtto', 1));
         $this->objectGetter->setAnno($this->getInput('anno', 1));
         $this->objectGetter->setDataScadenza($this->getInput('dataScadenza', 1));
+        $this->objectGetter->setSezioneId($this->getInput('sezioneId', 1));
+        $this->objectGetter->setUtenteId($this->getInput('utenteId', 1));
         $this->objectGetter->setOrderBy($this->getInput('orderBy', 1));
         $this->objectGetter->setLimit($this->getInput('limit', 1));
     }

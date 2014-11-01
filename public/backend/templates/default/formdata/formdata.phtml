@@ -3,12 +3,12 @@
 echo $this->render($this->formDataCommonPath.'formdata_breadcrumb.phtml');
 
 echo $this->partial($this->formDataCommonPath.'formdata_common.phtml', array(
-        'form'              => $this->form,
-        'formAction'        => $this->formAction,
-        'formTitle'         => $this->formTitle,
-        'formDescription'   => $this->formDescription,
-        'formControlSpanWidth' => $this->formControlSpanWidth,
-        'formControlSpanWidth' => $this->formLabelSpanWidth,
-        'CKEditorField'     => $this->CKEditorField,
+        'form'                  => $this->form,
+        'formAction'            => $this->formAction,
+        'formTitle'             => $this->formTitle,
+        'formDescription'       => $this->formDescription,
+        'formControlSpanWidth'  => isset($this->formControlSpanWidth) ? $this->formControlSpanWidth : 10,
+        'formLabelSpanWidth'    => isset($this->formLabelSpanWidth) ? $this->formLabelSpanWidth : 2,
+        'CKEditorField'         => $this->CKEditorField,
     )
 );

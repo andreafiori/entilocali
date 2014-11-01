@@ -18,7 +18,6 @@ class InvioEnteTerzoForm extends Form
     {
         parent::__construct($name, $options);
         
-        
         $this->add(array(
                         'name' => 'image',
                         'type' => 'Zend\Form\Element\File',
@@ -32,7 +31,7 @@ class InvioEnteTerzoForm extends Form
         
         $this->add(array(
                         'name' => 'title',
-                        'type' => 'Text',
+                        'type' => 'Email',
                         'options' => array( 'label' => "* Indirizzo email ente" ),
                         'attributes' => array(
                                         'required' => 'required',

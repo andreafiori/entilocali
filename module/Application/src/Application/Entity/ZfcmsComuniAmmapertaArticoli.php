@@ -24,35 +24,35 @@ class ZfcmsComuniAmmapertaArticoli
     /**
      * @var string
      *
-     * @ORM\Column(name="beneficiario", type="text", nullable=false)
+     * @ORM\Column(name="beneficiario", type="text", length=65535, nullable=false)
      */
     private $beneficiario;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="titolo", type="text", nullable=false)
+     * @ORM\Column(name="titolo", type="text", length=65535, nullable=false)
      */
     private $titolo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="importo", type="text", nullable=true)
+     * @ORM\Column(name="importo", type="text", length=65535, nullable=true)
      */
     private $importo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="ufficioresponsabile", type="text", nullable=false)
+     * @ORM\Column(name="ufficioresponsabile", type="text", length=65535, nullable=false)
      */
     private $ufficioresponsabile;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="modassegn", type="text", nullable=false)
+     * @ORM\Column(name="modassegn", type="text", length=65535, nullable=false)
      */
     private $modassegn;
 
@@ -66,7 +66,7 @@ class ZfcmsComuniAmmapertaArticoli
     /**
      * @var string
      *
-     * @ORM\Column(name="anno", type="text", nullable=false)
+     * @ORM\Column(name="anno", type="text", length=65535, nullable=false)
      */
     private $anno;
 
@@ -124,7 +124,7 @@ class ZfcmsComuniAmmapertaArticoli
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -135,6 +135,7 @@ class ZfcmsComuniAmmapertaArticoli
      * Set beneficiario
      *
      * @param string $beneficiario
+     *
      * @return ZfcmsComuniAmmapertaArticoli
      */
     public function setBeneficiario($beneficiario)
@@ -147,7 +148,7 @@ class ZfcmsComuniAmmapertaArticoli
     /**
      * Get beneficiario
      *
-     * @return string 
+     * @return string
      */
     public function getBeneficiario()
     {
@@ -158,6 +159,7 @@ class ZfcmsComuniAmmapertaArticoli
      * Set titolo
      *
      * @param string $titolo
+     *
      * @return ZfcmsComuniAmmapertaArticoli
      */
     public function setTitolo($titolo)
@@ -170,7 +172,7 @@ class ZfcmsComuniAmmapertaArticoli
     /**
      * Get titolo
      *
-     * @return string 
+     * @return string
      */
     public function getTitolo()
     {
@@ -181,6 +183,7 @@ class ZfcmsComuniAmmapertaArticoli
      * Set importo
      *
      * @param string $importo
+     *
      * @return ZfcmsComuniAmmapertaArticoli
      */
     public function setImporto($importo)
@@ -193,7 +196,7 @@ class ZfcmsComuniAmmapertaArticoli
     /**
      * Get importo
      *
-     * @return string 
+     * @return string
      */
     public function getImporto()
     {
@@ -204,6 +207,7 @@ class ZfcmsComuniAmmapertaArticoli
      * Set ufficioresponsabile
      *
      * @param string $ufficioresponsabile
+     *
      * @return ZfcmsComuniAmmapertaArticoli
      */
     public function setUfficioresponsabile($ufficioresponsabile)
@@ -216,7 +220,7 @@ class ZfcmsComuniAmmapertaArticoli
     /**
      * Get ufficioresponsabile
      *
-     * @return string 
+     * @return string
      */
     public function getUfficioresponsabile()
     {
@@ -227,6 +231,7 @@ class ZfcmsComuniAmmapertaArticoli
      * Set modassegn
      *
      * @param string $modassegn
+     *
      * @return ZfcmsComuniAmmapertaArticoli
      */
     public function setModassegn($modassegn)
@@ -239,7 +244,7 @@ class ZfcmsComuniAmmapertaArticoli
     /**
      * Get modassegn
      *
-     * @return string 
+     * @return string
      */
     public function getModassegn()
     {
@@ -250,6 +255,7 @@ class ZfcmsComuniAmmapertaArticoli
      * Set progressivo
      *
      * @param integer $progressivo
+     *
      * @return ZfcmsComuniAmmapertaArticoli
      */
     public function setProgressivo($progressivo)
@@ -262,7 +268,7 @@ class ZfcmsComuniAmmapertaArticoli
     /**
      * Get progressivo
      *
-     * @return integer 
+     * @return integer
      */
     public function getProgressivo()
     {
@@ -273,6 +279,7 @@ class ZfcmsComuniAmmapertaArticoli
      * Set anno
      *
      * @param string $anno
+     *
      * @return ZfcmsComuniAmmapertaArticoli
      */
     public function setAnno($anno)
@@ -285,7 +292,7 @@ class ZfcmsComuniAmmapertaArticoli
     /**
      * Get anno
      *
-     * @return string 
+     * @return string
      */
     public function getAnno()
     {
@@ -296,6 +303,7 @@ class ZfcmsComuniAmmapertaArticoli
      * Set data
      *
      * @param \DateTime $data
+     *
      * @return ZfcmsComuniAmmapertaArticoli
      */
     public function setData($data)
@@ -308,7 +316,7 @@ class ZfcmsComuniAmmapertaArticoli
     /**
      * Get data
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getData()
     {
@@ -319,6 +327,7 @@ class ZfcmsComuniAmmapertaArticoli
      * Set ora
      *
      * @param \DateTime $ora
+     *
      * @return ZfcmsComuniAmmapertaArticoli
      */
     public function setOra($ora)
@@ -331,7 +340,7 @@ class ZfcmsComuniAmmapertaArticoli
     /**
      * Get ora
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getOra()
     {
@@ -342,6 +351,7 @@ class ZfcmsComuniAmmapertaArticoli
      * Set attivo
      *
      * @param integer $attivo
+     *
      * @return ZfcmsComuniAmmapertaArticoli
      */
     public function setAttivo($attivo)
@@ -354,7 +364,7 @@ class ZfcmsComuniAmmapertaArticoli
     /**
      * Get attivo
      *
-     * @return integer 
+     * @return integer
      */
     public function getAttivo()
     {
@@ -365,6 +375,7 @@ class ZfcmsComuniAmmapertaArticoli
      * Set scadenza
      *
      * @param \DateTime $scadenza
+     *
      * @return ZfcmsComuniAmmapertaArticoli
      */
     public function setScadenza($scadenza)
@@ -377,7 +388,7 @@ class ZfcmsComuniAmmapertaArticoli
     /**
      * Get scadenza
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getScadenza()
     {
@@ -388,6 +399,7 @@ class ZfcmsComuniAmmapertaArticoli
      * Set utenteId
      *
      * @param integer $utenteId
+     *
      * @return ZfcmsComuniAmmapertaArticoli
      */
     public function setUtenteId($utenteId)
@@ -400,7 +412,7 @@ class ZfcmsComuniAmmapertaArticoli
     /**
      * Get utenteId
      *
-     * @return integer 
+     * @return integer
      */
     public function getUtenteId()
     {
@@ -411,6 +423,7 @@ class ZfcmsComuniAmmapertaArticoli
      * Set sezioneId
      *
      * @param integer $sezioneId
+     *
      * @return ZfcmsComuniAmmapertaArticoli
      */
     public function setSezioneId($sezioneId)
@@ -423,7 +436,7 @@ class ZfcmsComuniAmmapertaArticoli
     /**
      * Get sezioneId
      *
-     * @return integer 
+     * @return integer
      */
     public function getSezioneId()
     {
@@ -434,6 +447,7 @@ class ZfcmsComuniAmmapertaArticoli
      * Set respProcId
      *
      * @param integer $respProcId
+     *
      * @return ZfcmsComuniAmmapertaArticoli
      */
     public function setRespProcId($respProcId)
@@ -446,7 +460,7 @@ class ZfcmsComuniAmmapertaArticoli
     /**
      * Get respProcId
      *
-     * @return integer 
+     * @return integer
      */
     public function getRespProcId()
     {

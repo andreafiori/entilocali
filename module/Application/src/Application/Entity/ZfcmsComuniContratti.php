@@ -24,14 +24,14 @@ class ZfcmsComuniContratti
     /**
      * @var string
      *
-     * @ORM\Column(name="beneficiario", type="text", nullable=false)
+     * @ORM\Column(name="beneficiario", type="text", length=65535, nullable=false)
      */
     private $beneficiario;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="titolo", type="text", nullable=false)
+     * @ORM\Column(name="titolo", type="text", length=65535, nullable=false)
      */
     private $titolo;
 
@@ -40,19 +40,19 @@ class ZfcmsComuniContratti
      *
      * @ORM\Column(name="importo", type="decimal", precision=12, scale=2, nullable=true)
      */
-    private $importo = '0.00';
+    private $importo;
 
     /**
      * @var string
      *
      * @ORM\Column(name="importo2", type="decimal", precision=12, scale=2, nullable=true)
      */
-    private $importo2 = '0.00';
+    private $importo2;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="operatori", type="text", nullable=true)
+     * @ORM\Column(name="operatori", type="text", length=65535, nullable=true)
      */
     private $operatori;
 
@@ -61,12 +61,12 @@ class ZfcmsComuniContratti
      *
      * @ORM\Column(name="n_offerte", type="integer", nullable=true)
      */
-    private $nOfferte = '0';
+    private $nOfferte;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="modassegn", type="text", nullable=false)
+     * @ORM\Column(name="modassegn", type="text", length=65535, nullable=false)
      */
     private $modassegn;
 
@@ -94,7 +94,7 @@ class ZfcmsComuniContratti
     /**
      * @var string
      *
-     * @ORM\Column(name="anno", type="text", nullable=false)
+     * @ORM\Column(name="anno", type="text", length=65535, nullable=false)
      */
     private $anno;
 
@@ -129,7 +129,7 @@ class ZfcmsComuniContratti
     /**
      * @var string
      *
-     * @ORM\Column(name="cig", type="text", nullable=true)
+     * @ORM\Column(name="cig", type="text", length=65535, nullable=true)
      */
     private $cig;
 
@@ -178,7 +178,7 @@ class ZfcmsComuniContratti
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -189,6 +189,7 @@ class ZfcmsComuniContratti
      * Set beneficiario
      *
      * @param string $beneficiario
+     *
      * @return ZfcmsComuniContratti
      */
     public function setBeneficiario($beneficiario)
@@ -201,7 +202,7 @@ class ZfcmsComuniContratti
     /**
      * Get beneficiario
      *
-     * @return string 
+     * @return string
      */
     public function getBeneficiario()
     {
@@ -212,6 +213,7 @@ class ZfcmsComuniContratti
      * Set titolo
      *
      * @param string $titolo
+     *
      * @return ZfcmsComuniContratti
      */
     public function setTitolo($titolo)
@@ -224,7 +226,7 @@ class ZfcmsComuniContratti
     /**
      * Get titolo
      *
-     * @return string 
+     * @return string
      */
     public function getTitolo()
     {
@@ -235,6 +237,7 @@ class ZfcmsComuniContratti
      * Set importo
      *
      * @param string $importo
+     *
      * @return ZfcmsComuniContratti
      */
     public function setImporto($importo)
@@ -247,7 +250,7 @@ class ZfcmsComuniContratti
     /**
      * Get importo
      *
-     * @return string 
+     * @return string
      */
     public function getImporto()
     {
@@ -258,6 +261,7 @@ class ZfcmsComuniContratti
      * Set importo2
      *
      * @param string $importo2
+     *
      * @return ZfcmsComuniContratti
      */
     public function setImporto2($importo2)
@@ -270,7 +274,7 @@ class ZfcmsComuniContratti
     /**
      * Get importo2
      *
-     * @return string 
+     * @return string
      */
     public function getImporto2()
     {
@@ -281,6 +285,7 @@ class ZfcmsComuniContratti
      * Set operatori
      *
      * @param string $operatori
+     *
      * @return ZfcmsComuniContratti
      */
     public function setOperatori($operatori)
@@ -293,7 +298,7 @@ class ZfcmsComuniContratti
     /**
      * Get operatori
      *
-     * @return string 
+     * @return string
      */
     public function getOperatori()
     {
@@ -304,6 +309,7 @@ class ZfcmsComuniContratti
      * Set nOfferte
      *
      * @param integer $nOfferte
+     *
      * @return ZfcmsComuniContratti
      */
     public function setNOfferte($nOfferte)
@@ -316,7 +322,7 @@ class ZfcmsComuniContratti
     /**
      * Get nOfferte
      *
-     * @return integer 
+     * @return integer
      */
     public function getNOfferte()
     {
@@ -327,6 +333,7 @@ class ZfcmsComuniContratti
      * Set modassegn
      *
      * @param string $modassegn
+     *
      * @return ZfcmsComuniContratti
      */
     public function setModassegn($modassegn)
@@ -339,7 +346,7 @@ class ZfcmsComuniContratti
     /**
      * Get modassegn
      *
-     * @return string 
+     * @return string
      */
     public function getModassegn()
     {
@@ -350,6 +357,7 @@ class ZfcmsComuniContratti
      * Set dataAgg
      *
      * @param \DateTime $dataAgg
+     *
      * @return ZfcmsComuniContratti
      */
     public function setDataAgg($dataAgg)
@@ -362,7 +370,7 @@ class ZfcmsComuniContratti
     /**
      * Get dataAgg
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDataAgg()
     {
@@ -373,6 +381,7 @@ class ZfcmsComuniContratti
      * Set dataContratto
      *
      * @param \DateTime $dataContratto
+     *
      * @return ZfcmsComuniContratti
      */
     public function setDataContratto($dataContratto)
@@ -385,7 +394,7 @@ class ZfcmsComuniContratti
     /**
      * Get dataContratto
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDataContratto()
     {
@@ -396,6 +405,7 @@ class ZfcmsComuniContratti
      * Set progressivo
      *
      * @param integer $progressivo
+     *
      * @return ZfcmsComuniContratti
      */
     public function setProgressivo($progressivo)
@@ -408,7 +418,7 @@ class ZfcmsComuniContratti
     /**
      * Get progressivo
      *
-     * @return integer 
+     * @return integer
      */
     public function getProgressivo()
     {
@@ -419,6 +429,7 @@ class ZfcmsComuniContratti
      * Set anno
      *
      * @param string $anno
+     *
      * @return ZfcmsComuniContratti
      */
     public function setAnno($anno)
@@ -431,7 +442,7 @@ class ZfcmsComuniContratti
     /**
      * Get anno
      *
-     * @return string 
+     * @return string
      */
     public function getAnno()
     {
@@ -442,6 +453,7 @@ class ZfcmsComuniContratti
      * Set data
      *
      * @param \DateTime $data
+     *
      * @return ZfcmsComuniContratti
      */
     public function setData($data)
@@ -454,7 +466,7 @@ class ZfcmsComuniContratti
     /**
      * Get data
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getData()
     {
@@ -465,6 +477,7 @@ class ZfcmsComuniContratti
      * Set ora
      *
      * @param \DateTime $ora
+     *
      * @return ZfcmsComuniContratti
      */
     public function setOra($ora)
@@ -477,7 +490,7 @@ class ZfcmsComuniContratti
     /**
      * Get ora
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getOra()
     {
@@ -488,6 +501,7 @@ class ZfcmsComuniContratti
      * Set attivo
      *
      * @param integer $attivo
+     *
      * @return ZfcmsComuniContratti
      */
     public function setAttivo($attivo)
@@ -500,7 +514,7 @@ class ZfcmsComuniContratti
     /**
      * Get attivo
      *
-     * @return integer 
+     * @return integer
      */
     public function getAttivo()
     {
@@ -511,6 +525,7 @@ class ZfcmsComuniContratti
      * Set scadenza
      *
      * @param \DateTime $scadenza
+     *
      * @return ZfcmsComuniContratti
      */
     public function setScadenza($scadenza)
@@ -523,7 +538,7 @@ class ZfcmsComuniContratti
     /**
      * Get scadenza
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getScadenza()
     {
@@ -534,6 +549,7 @@ class ZfcmsComuniContratti
      * Set cig
      *
      * @param string $cig
+     *
      * @return ZfcmsComuniContratti
      */
     public function setCig($cig)
@@ -546,7 +562,7 @@ class ZfcmsComuniContratti
     /**
      * Get cig
      *
-     * @return string 
+     * @return string
      */
     public function getCig()
     {
@@ -557,6 +573,7 @@ class ZfcmsComuniContratti
      * Set respProc
      *
      * @param \Application\Entity\ZfcmsComuniContrattiRespProc $respProc
+     *
      * @return ZfcmsComuniContratti
      */
     public function setRespProc(\Application\Entity\ZfcmsComuniContrattiRespProc $respProc = null)
@@ -569,7 +586,7 @@ class ZfcmsComuniContratti
     /**
      * Get respProc
      *
-     * @return \Application\Entity\ZfcmsComuniContrattiRespProc 
+     * @return \Application\Entity\ZfcmsComuniContrattiRespProc
      */
     public function getRespProc()
     {
@@ -580,6 +597,7 @@ class ZfcmsComuniContratti
      * Set scContr
      *
      * @param \Application\Entity\ZfcmsComuniContrattiScContr $scContr
+     *
      * @return ZfcmsComuniContratti
      */
     public function setScContr(\Application\Entity\ZfcmsComuniContrattiScContr $scContr = null)
@@ -592,7 +610,7 @@ class ZfcmsComuniContratti
     /**
      * Get scContr
      *
-     * @return \Application\Entity\ZfcmsComuniContrattiScContr 
+     * @return \Application\Entity\ZfcmsComuniContrattiScContr
      */
     public function getScContr()
     {
@@ -603,6 +621,7 @@ class ZfcmsComuniContratti
      * Set settore
      *
      * @param \Application\Entity\ZfcmsComuniContrattiSettori $settore
+     *
      * @return ZfcmsComuniContratti
      */
     public function setSettore(\Application\Entity\ZfcmsComuniContrattiSettori $settore = null)
@@ -615,7 +634,7 @@ class ZfcmsComuniContratti
     /**
      * Get settore
      *
-     * @return \Application\Entity\ZfcmsComuniContrattiSettori 
+     * @return \Application\Entity\ZfcmsComuniContrattiSettori
      */
     public function getSettore()
     {
@@ -626,6 +645,7 @@ class ZfcmsComuniContratti
      * Set utente
      *
      * @param \Application\Entity\ZfcmsUsers $utente
+     *
      * @return ZfcmsComuniContratti
      */
     public function setUtente(\Application\Entity\ZfcmsUsers $utente = null)
@@ -638,7 +658,7 @@ class ZfcmsComuniContratti
     /**
      * Get utente
      *
-     * @return \Application\Entity\ZfcmsUsers 
+     * @return \Application\Entity\ZfcmsUsers
      */
     public function getUtente()
     {

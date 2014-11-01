@@ -14,6 +14,13 @@ class ConfigSetup extends QueryBuilderSetterAbstract
 {
     private $configurations;
 
+    /**
+     * 
+     * 
+     * @param type $channel
+     * @param type $languageId
+     * @return type
+     */
     public function setConfigurations($channel = 1, $languageId = 1)
     {
         $onfigurationsFromDb = $this->getQueryBuilder()->add('select', 'c.name, c.value')
@@ -40,5 +47,4 @@ class ConfigSetup extends QueryBuilderSetterAbstract
     {
         return $this->configurations;
     }
-    
 }

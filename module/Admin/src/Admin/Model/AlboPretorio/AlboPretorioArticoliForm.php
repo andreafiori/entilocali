@@ -8,7 +8,7 @@ use Zend\Form\Form;
  * @author Andrea Fiori
  * @since  27 July 2014
  */
-class AlboPretorioForm extends Form
+class AlboPretorioArticoliForm extends Form
 {
     /**
      * @param type $name
@@ -20,9 +20,9 @@ class AlboPretorioForm extends Form
                 
         $this->add(array(
                         'type' => 'Text',
-                        'name' => 'oggetto',
+                        'name' => 'titolo',
                         'options' => array(
-                               'label' => 'Oggetto',
+                               'label' => '* Oggetto',
                         ),
                         'attributes' => array(
                                 'title' => 'Inserisci oggetto articolo',
@@ -33,48 +33,86 @@ class AlboPretorioForm extends Form
         ));
     }
     
-    public function addSezioni(array $sezioni)
+    /**
+     * Given sezioni from db, set the array for the select
+     * 
+     * @param array $sezioni
+     */
+    public function addSezioni($sezioni)
     {
-        $this->add(array(
-                        'type' => 'Zend\Form\Element\Select',
-                        'name' => 'sezione',
-                        'options' => array(
-                               'label' => 'Sezione',
-                                'empty_option' => 'Seleziona',
-                               'value_options' => $sezioni,
-                        ),
-                        'attributes' => array(
-                                'title' => 'Seleziona sezione',
-                                'id' => 'sezione'
-                        )
-        ));
+        if (is_array($sezioni)) {
+    
+            $sezioniRecords = array();
+            foreach($sezioni as $sezione) {
+                $sezioniRecords[$sezione['id']] = $sezione['nome'];
+            }
+
+            $this->add(array(
+                            'type' => 'Zend\Form\Element\Select',
+                            'name' => 'sezione',
+                            'options' => array(
+                                    'label' => '* Sezione',
+                                    'empty_option' => 'Seleziona',
+                                    'value_options' => $sezioniRecords,
+                            ),
+                            'attributes' => array(
+                                    'title' => 'Seleziona sezione',
+                                    'id' => 'sezione',
+                                    'required' => 'required',
+                            )
+            ));
+        }
     }
     
     public function addLastFields()
     {
         $this->add(array(
                         'type' => 'Text',
-                        'name' => 'numero',
+                        'name' => 'numeroAtto',
                         'options' => array(
-                               'label' => 'Numero interno atto per sezione (formato N-AAAA es.: 1-2011)',
+                               'label' => '* Numero',
                         ),
                         'attributes' => array(
-                                'title' => 'Inserisci titolo',
+                                'title' => 'Inserisci numero atto sezione',
                                 'id' => 'numero',
-                                'placeholder' => 'Numero atto sezione',
+                                'required' => 'required',
+                                'placeholder' => 'Numero atto',
                         )
         ));
         
         $this->add(array(
                         'type' => 'Text',
-                        'name' => 'ente_terzo',
+                        'name' => 'anno',
                         'options' => array(
-                               'label' => 'Ente terzo',
+                                'label' => '* Anno',
+                        ),
+                        'attributes' => array(
+                                'title' => 'Inserisci anno',
+                                'id' => 'numero',
+                                'required' => 'required',
+                                'placeholder' => 'Anno atto',
+                        )
+        ));
+        
+        $this->add(array(
+                        'type' => 'Application\Form\Element\PlainText',
+                        'name' => 'ente_terzo_label',
+                        'attributes' => array(
+                                        'id' => 'ente_terzo_label',
+                                        'value' => '<h4><strong>Ente terzo</strong></h4>',
+                        ),
+        ));
+        
+        $this->add(array(
+                        'type' => 'Text',
+                        'name' => 'enteTerzo',
+                        'options' => array(
+                               'label' => 'Nome ente',
                         ),
                         'attributes' => array(
                                 'title' => 'Inserisci nome ente terzo',
                                 'id' => 'ente_terzo',
-                                'placeholder' => 'Ente terzo',
+                                'placeholder' => 'Nome ente terzo',
                         )
         ));
         
@@ -93,10 +131,10 @@ class AlboPretorioForm extends Form
         
         $this->add(array(
                         'type' => 'Application\Form\Element\PlainText',
-                        'name' => 'start_date',
+                        'name' => 'start_date_label',
                         'attributes' => array(
                                         'id' => 'expireDates',
-                                        'value' => '<h4><strong>Scadenza</strong></h4><p>Indicare un numero di giorni in cui l\'articolo </p>',
+                                        'value' => '<h4><strong>Scadenza</strong></h4><p>Numero di giorni in cui questo articolo resterà visibile (lasciare in bianco per renderlo sempre visibile) e la data di scadenza.</p>',
                         ),
         ));
         
@@ -113,7 +151,7 @@ class AlboPretorioForm extends Form
                         'type' => 'Text',
                         'name' => 'scadenza',
                         'options' => array(
-                               'label' => 'Numero di giorni in cui questo articolo rester&agrave; visibile (lasciare in bianco per renderlo sempre visibile)',
+                               'label' => 'Numero di giorni',
                         ),
                         'attributes' => array(
                                 'title' => '',
@@ -124,23 +162,23 @@ class AlboPretorioForm extends Form
 
         $this->add(array(
                         'type' => 'Date',
-                        'name' => 'insertDate',
+                        'name' => 'dataScadenza',
                         'options' => array(
-                                'label' => 'Data di scadenza:',
+                                'label' => 'Data di scadenza',
                                 'format' => 'Y-m-d',
                         ),
                         'attributes' => array(
                                 'class' => 'form-control DatePicker',
-                                'style' => 'width: 22%',
                                 'id' => 'insertDate',
                                 'title' => 'Inserisci la data di pubblicazione',
                         )
         ));
         
         // Numero di file allegati a questo articolo
-        // inviato a regione checkbox
-        // inserisci in home checkbox
+        // Inviato a regione checkbox
+        // Inserisci in home checkbox
         // Associa articolo a utente
+        // Note in caso di articolo già inviato...
         
         $this->add(array(
                         'type' => 'Zend\Form\Element\Hidden',

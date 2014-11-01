@@ -26,7 +26,7 @@ class ZfcmsModulesOptions
      *
      * @ORM\Column(name="name", type="string", length=100, nullable=false)
      */
-    private $name = '0';
+    private $name;
 
     /**
      * @var \Application\Entity\ZfcmsLanguages
@@ -53,7 +53,7 @@ class ZfcmsModulesOptions
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -64,6 +64,7 @@ class ZfcmsModulesOptions
      * Set name
      *
      * @param string $name
+     *
      * @return ZfcmsModulesOptions
      */
     public function setName($name)
@@ -76,7 +77,7 @@ class ZfcmsModulesOptions
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -87,6 +88,7 @@ class ZfcmsModulesOptions
      * Set language
      *
      * @param \Application\Entity\ZfcmsLanguages $language
+     *
      * @return ZfcmsModulesOptions
      */
     public function setLanguage(\Application\Entity\ZfcmsLanguages $language = null)
@@ -99,7 +101,7 @@ class ZfcmsModulesOptions
     /**
      * Get language
      *
-     * @return \Application\Entity\ZfcmsLanguages 
+     * @return \Application\Entity\ZfcmsLanguages
      */
     public function getLanguage()
     {
@@ -110,6 +112,7 @@ class ZfcmsModulesOptions
      * Set module
      *
      * @param \Application\Entity\ZfcmsModules $module
+     *
      * @return ZfcmsModulesOptions
      */
     public function setModule(\Application\Entity\ZfcmsModules $module = null)
@@ -122,7 +125,7 @@ class ZfcmsModulesOptions
     /**
      * Get module
      *
-     * @return \Application\Entity\ZfcmsModules 
+     * @return \Application\Entity\ZfcmsModules
      */
     public function getModule()
     {

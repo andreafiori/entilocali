@@ -57,4 +57,90 @@ class CommonSetupPluginAbstract extends AbstractPlugin
     {
         return $this->isBackend;
     }
+    
+    public function getConfig()
+    {
+        return $this->config;
+    }
+
+    public function getConfigurations()
+    {
+        return $this->configurations;
+    }
+
+    public function getTranslator()
+    {
+        return $this->translator;
+    }
+
+    public function getRouter()
+    {
+        return $this->router;
+    }
+
+    public function getUri()
+    {
+        return $this->uri;
+    }
+
+    public function getRequest()
+    {
+        return $this->request;
+    }
+
+    public function getParam()
+    {
+        return $this->param;
+    }
+
+    public function getRedirect()
+    {
+        return $this->redirect;
+    }
+
+    public function getFlashMessenger()
+    {
+        return $this->flashMessenger;
+    }
+
+    public function getRouteMatch()
+    {
+        return $this->routeMatch;
+    }
+
+    public function getModule()
+    {
+        return $this->module;
+    }
+
+    public function getModuleRecord() {
+        return $this->moduleRecord;
+    }
+
+    public function getChannel() {
+        return $this->channel;
+    }
+
+    public function getIsBackend() {
+        return $this->isBackend;
+    }
+
+    public function getAppConfigs() {
+        return $this->appConfigs;
+    }
+
+    public function getIsMultiLanguage()
+    {
+        return $this->isMultiLanguage;
+    }
+
+    public function getLanguageAbbreviation()
+    {
+        return $this->languageAbbreviation;
+    }
+
+    public function getLanguageRecord()
+    {
+        return $this->languageRecord;
+    }
 }

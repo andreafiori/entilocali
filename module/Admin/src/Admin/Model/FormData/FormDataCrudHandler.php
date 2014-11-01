@@ -13,7 +13,7 @@ use Application\Model\RouterManagers\RouterManagerAbstract;
 class FormDataCrudHandler extends RouterManagerAbstract
 {
     private $formCrudHandler;
-    private $crudHandler; 
+    private $crudHandler;
     
     /**
      * @param string $formCrudHandler

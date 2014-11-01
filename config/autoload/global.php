@@ -1,6 +1,6 @@
 <?php
 
-// Global Configuration Override
+/* Global Configuration Override */
 $dbParams = array(
         'database'  => 'entilocali',
         'username'  => 'root',
@@ -50,11 +50,4 @@ return array(
     				),
     		)
     ),
-    /* App custom configurations */
-    /*
-    'app_configs' => array(
-    		'isMultilanguage' 	=> false,
-    		'api_basic_url' 	=> 'http://localhost/zf2-apicms/api/v1/',
-    ),
-    */
 );

@@ -26,21 +26,21 @@ class ZfcmsUsersPermissionsNames
      *
      * @ORM\Column(name="flag", type="string", length=50, nullable=true)
      */
-    private $flag = '';
+    private $flag;
 
     /**
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=50, nullable=true)
      */
-    private $description = '';
+    private $description;
 
 
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -51,6 +51,7 @@ class ZfcmsUsersPermissionsNames
      * Set flag
      *
      * @param string $flag
+     *
      * @return ZfcmsUsersPermissionsNames
      */
     public function setFlag($flag)
@@ -63,7 +64,7 @@ class ZfcmsUsersPermissionsNames
     /**
      * Get flag
      *
-     * @return string 
+     * @return string
      */
     public function getFlag()
     {
@@ -74,6 +75,7 @@ class ZfcmsUsersPermissionsNames
      * Set description
      *
      * @param string $description
+     *
      * @return ZfcmsUsersPermissionsNames
      */
     public function setDescription($description)
@@ -86,7 +88,7 @@ class ZfcmsUsersPermissionsNames
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {

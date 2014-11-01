@@ -23,19 +23,27 @@ class RouterManager extends RouterManagerAbstract
         $this->configurations = $configurations;
     }
     
+    /**
+     * @param boolean $backend
+     */
     public function setIsBackend($backend = null)
     {
         if ($backend) {
             $this->isBackend = $backend;
         }
     }
-    
+     
+    /**
+     * @return string
+     */   
     public function isBackend()
     {
         return $this->isBackend;
     }
     
     /**
+     * Given the module configurations, 
+     * 
      * @param array $router
      */
     public function setRouteMatchName(array $router)
@@ -47,9 +55,9 @@ class RouterManager extends RouterManagerAbstract
         }
         
         if ( $this->isBackend() ) {
-            $this->routeMatchName = $router['admin'];
+            $this->routeMatchName = isset($router['admin']) ? $router['admin'] : null;
         } else {
-            $this->routeMatchName = $router['default'];
+            $this->routeMatchName = isset($router['default']) ? $router['default'] : null;
         }
         
         return $this->routeMatchName;
@@ -74,6 +82,9 @@ class RouterManager extends RouterManagerAbstract
         throw new \Application\Model\NullException('RouteMatchName '.$classPath.' is not a valid class. It must be an instance of \Application\Model\RouterManagers\RouterManagerInterface');
     }
     
+    /**
+     * @return string
+     */
     public function getRouteMatchName()
     {
         return $this->routeMatchName;

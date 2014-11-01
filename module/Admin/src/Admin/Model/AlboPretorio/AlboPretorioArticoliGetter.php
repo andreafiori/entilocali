@@ -12,13 +12,24 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('DISTINCT(aa.id) AS id, aa.numeroProgressivo, aa.numeroAtto, aa.anno, aa.titolo, aa.dataAttivazione, aa.oraAttivazione, aa.dataScadenza, aps.nome ');
+        $this->setSelectQueryFields("DISTINCT(aa.id) AS id, aa.numeroProgressivo, aa.numeroAtto, 
+                aa.anno, aa.titolo, aa.dataAttivazione, aa.oraAttivazione, aa.dataScadenza, 
+                aa.enteTerzo, 
+                IDENTITY(aa.sezione) AS sezione, IDENTITY(aa.utente) AS utente, aps.nome 
+                ");
 
         $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
-                                ->add('from', 'Application\Entity\ZfcmsComuniAlboArticoli aa, Application\Entity\ZfcmsComuniAlboSezioni aps ')
+                                ->from('Application\Entity\ZfcmsComuniAlboArticoli', 'aa')
+                                ->join('aa.sezione', 'aps')
+                                ->join('aa.utente', 'u')
                                 ->add('where', 'aa.sezione = aps.id ');
         
         return $this->getQueryBuilder();
+    }
+    
+    private function getDefaultFields()
+    {
+        return ;
     }
     
     /**
@@ -68,7 +79,6 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
         return $this->getQueryBuilder();
     }
     
-    
     /**
      * @param number $anno
      * @return \Doctrine\ORM\QueryBuilder
@@ -92,6 +102,34 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
         if ($dataScadenza) {
             $this->getQueryBuilder()->andWhere('aa.dataScadenza = :dataScadenza ');
             $this->getQueryBuilder()->setParameter('dataScadenza', $dataScadenza);
+        }
+        
+        return $this->getQueryBuilder();
+    }
+    
+    /**
+     * @param int $id
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setSezioneId($id)
+    {
+        if ( is_numeric($id) ) {
+            $this->getQueryBuilder()->andWhere('aa.sezione = :sezioneId ');
+            $this->getQueryBuilder()->setParameter('sezioneId', $id);
+        }
+        
+        return $this->getQueryBuilder();
+    }
+    
+    /**
+     * @param int $id
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setUtenteId($id)
+    {
+        if ( is_numeric($id) ) {
+            $this->getQueryBuilder()->andWhere('aa.utente = :utenteId ');
+            $this->getQueryBuilder()->setParameter('utenteId', $id);
         }
         
         return $this->getQueryBuilder();

@@ -54,14 +54,14 @@ class ZfcmsGeoProvince
      *
      * @ORM\Column(name="capoluogo", type="string", nullable=true)
      */
-    private $capoluogo = 'no';
+    private $capoluogo;
 
 
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -72,6 +72,7 @@ class ZfcmsGeoProvince
      * Set codiceRegione
      *
      * @param string $codiceRegione
+     *
      * @return ZfcmsGeoProvince
      */
     public function setCodiceRegione($codiceRegione)
@@ -84,7 +85,7 @@ class ZfcmsGeoProvince
     /**
      * Get codiceRegione
      *
-     * @return string 
+     * @return string
      */
     public function getCodiceRegione()
     {
@@ -95,6 +96,7 @@ class ZfcmsGeoProvince
      * Set codiceProvincia
      *
      * @param string $codiceProvincia
+     *
      * @return ZfcmsGeoProvince
      */
     public function setCodiceProvincia($codiceProvincia)
@@ -107,7 +109,7 @@ class ZfcmsGeoProvince
     /**
      * Get codiceProvincia
      *
-     * @return string 
+     * @return string
      */
     public function getCodiceProvincia()
     {
@@ -118,6 +120,7 @@ class ZfcmsGeoProvince
      * Set nome
      *
      * @param string $nome
+     *
      * @return ZfcmsGeoProvince
      */
     public function setNome($nome)
@@ -130,7 +133,7 @@ class ZfcmsGeoProvince
     /**
      * Get nome
      *
-     * @return string 
+     * @return string
      */
     public function getNome()
     {
@@ -141,6 +144,7 @@ class ZfcmsGeoProvince
      * Set sigla
      *
      * @param string $sigla
+     *
      * @return ZfcmsGeoProvince
      */
     public function setSigla($sigla)
@@ -153,7 +157,7 @@ class ZfcmsGeoProvince
     /**
      * Get sigla
      *
-     * @return string 
+     * @return string
      */
     public function getSigla()
     {
@@ -164,6 +168,7 @@ class ZfcmsGeoProvince
      * Set capoluogo
      *
      * @param string $capoluogo
+     *
      * @return ZfcmsGeoProvince
      */
     public function setCapoluogo($capoluogo)
@@ -176,7 +181,7 @@ class ZfcmsGeoProvince
     /**
      * Get capoluogo
      *
-     * @return string 
+     * @return string
      */
     public function getCapoluogo()
     {
