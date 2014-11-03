@@ -3,12 +3,27 @@
 namespace Admin;
 
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
+use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\Validator\AbstractValidator;
 
-class Module implements AutoloaderProviderInterface
+class Module implements AutoloaderProviderInterface, ConfigProviderInterface
 {
+    /**
+     * @param MvcEvent $e
+     */
+    public function onBootstrap(MvcEvent $e)
+    {
+        $eventManager        = $e->getApplication()->getEventManager();
+
+        $moduleRouteListener = new ModuleRouteListener();
+        $moduleRouteListener->attach($eventManager);
+        
+        $translator = $e->getApplication()->getServiceManager()->get('translator');
+        AbstractValidator::setDefaultTranslator($translator);
+    }
+
     public function getAutoloaderConfig()
     {
         return array(
@@ -31,18 +46,5 @@ class Module implements AutoloaderProviderInterface
     public function getServiceConfig()
     {
         return array( 'factories' => array() );
-    }
-    
-    /**
-     * @param MvcEvent $e
-     */
-    public function onBootstrap(MvcEvent $e)
-    {
-        $eventManager        = $e->getApplication()->getEventManager();
-        $moduleRouteListener = new ModuleRouteListener();
-        $moduleRouteListener->attach($eventManager);
-        
-        $translator = $e->getApplication()->getServiceManager()->get('translator');
-        AbstractValidator::setDefaultTranslator($translator);
-    }
+    }    
 }

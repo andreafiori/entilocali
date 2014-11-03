@@ -1,0 +1,90 @@
+<?php
+/* Print only form elements witout any additional elements */
+$this->form->prepare();
+
+$form = $this->form;
+$form->prepare();
+
+$form->setAttributes(array(
+    'action'    => $this->url('admin', array('lang' => 'it')).'formpost/'.$this->formAction,
+    'method'    => 'post',
+    'enctype'   => 'multipart/form-data',
+    'name'      => 'formData',
+    'id'        => 'formData',
+    'role'      => 'form',
+    'class'     => 'form-horizontal'
+));
+
+echo $this->form()->openTag($form);
+
+foreach ($this->form as $element):
+    $attributes = $element->getAttributes();
+    echo $this->formElementErrors($element);
+    if (isset($attributes['class']) and $attributes['class'] == 'wysiwyg'):
+    ?>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <label><?php echo $element->getLabel() ?></label>
+            <?php echo $this->formElement($element); ?>
+        </div>
+    </div>
+    <?php
+    elseif ( ( isset($attributes['class']) and $attributes['class'] == 'hiddenField') or $attributes['name'] == 'csrf'):
+        echo $this->formElement($element);
+    elseif ($attributes['type'] == 'checkbox'):
+        ?>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">&nbsp;</label>
+            <div class="col-sm-8"><?php echo $this->formElement($element); ?>
+            <label for="<?php echo $attributes['id'] ?>" style="width: 80%"> <?php echo $element->getLabel() ?></label>
+            </div>
+        </div>
+        <?php
+    elseif ($attributes['type'] == 'multi_checkbox'):
+        ?>
+        <div class="form-group">
+            <label for="<?php echo $attributes['id'] ?>" class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label"><?php echo $element->getLabel() ?></label>
+            <div class="col-sm-<?php echo $this->formControlSpanWidth ?>">
+                <fieldset>
+                <?php foreach ($element->getValueOptions() as $key => $value): ?>
+                    <input type="checkbox" id="<?php echo $element->getName() ?>_<?php echo $key; ?>" name="<?php echo $element->getName() ?>[]" value="<?php echo $value; ?>">
+                    <label for="<?php echo $element->getName() ?>_<?php echo $key; ?>"><?php echo $value ?></label>
+                <?php endforeach; ?>
+                </fieldset>
+            </div>
+        </div>
+        <?php
+    elseif ($attributes['type'] == 'date'):
+        ?>
+        <div class="form-group">
+            <label class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label"><?php echo $element->getLabel() ?></label>
+            <div class="col-sm-<?php echo $this->formControlSpanWidth ?>">
+                <input type="text" name="<?php echo $attributes['name'] ?>" class="form-control datetimepicker" id="<?php echo $attributes['id'] ?>" value="<?php echo $element->getValue() ?>" readonly="readonly">
+            </div>
+        </div>
+        <?php
+    elseif ($attributes['type'] == 'radio'):
+        ?>
+        <div class="form-group">
+            <label class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label"><?php echo $element->getLabel() ?></label>
+            <div class="col-sm-<?php echo $this->formControlSpanWidth ?>">
+                <?php echo $this->formElement($element) ?>
+            </div>
+        </div>
+        <?php
+    else:
+        $element->setAttribute('class', 'form-control');
+    ?>
+    <div class="form-group">
+        <label for="<?php echo $attributes['id'] ?>" class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label"><?php echo $element->getLabel() ?></label>
+        <div class="col-sm-<?php echo $this->formControlSpanWidth ?>">
+            <?php echo $this->formElement($element); ?>
+        </div>
+    </div>
+    <?php
+    endif;
+endforeach;
+
+if ($this->closeForm):
+    echo $this->form()->closeTag();
+endif;

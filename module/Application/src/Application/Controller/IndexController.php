@@ -6,6 +6,8 @@ use Zend\View\Model\ViewModel;
 use Zend\Mvc\Controller\AbstractActionController;
 use Application\Model\RouterManagers\RouterManager;
 use Application\Model\RouterManagers\RouterManagerHelper;
+use Admin\Model\Config\ConfigGetter;
+use Admin\Model\Config\ConfigGetterWrapper;
 
 /**
  * Frontend Controller
@@ -15,17 +17,24 @@ use Application\Model\RouterManagers\RouterManagerHelper;
  */
 class IndexController extends AbstractActionController
 {
+    /** @var \Application\Controller\Plugin\CommonSetupPlugin **/
     private $commonSetupPlugin;
     
     public function indexAction()
     {
         $this->commonSetupPlugin  = $this->CommonSetupPlugin();
-        $configurations           = $this->commonSetupPlugin->recoverConfigurationsRecord();
-        $config                   = $this->getServiceLocator()->get('config');
+        $this->commonSetupPlugin->setApplicationServices();
+        $this->commonSetupPlugin->setupConfigsFromDb( new ConfigGetterWrapper(new ConfigGetter($this->commonSetupPlugin->getEntityManager())));
+        $this->commonSetupPlugin->setRouteMatchName();
+        $this->commonSetupPlugin->setUserInterfaceConfigurations();
+        
+        $configurations           = $this->commonSetupPlugin->getConfigurations();
+        $moduleConfig             = $this->commonSetupPlugin->getModuleConfigs();
+        
         $this->commonSetupPlugin->setConfigurationsVariables();
 
         $routerManager = new RouterManager($configurations);
-        $routerManager->setRouteMatchName($config['fe_router']);
+        $routerManager->setRouteMatchName($moduleConfig['fe_router']);
         
         $routerManagerHelper = new RouterManagerHelper($routerManager->setupRouteMatchObjectInstance());
         $routerManagerHelper->getRouterManger()->setInput(

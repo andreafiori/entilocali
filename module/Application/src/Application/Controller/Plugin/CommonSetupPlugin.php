@@ -3,7 +3,7 @@
 namespace Application\Controller\Plugin;
 
 use Application\Controller\Plugin\CommonSetupPluginAbstract;
-use Application\Setup\ConfigSetup;
+use Admin\Model\Config\ConfigGetterWrapper;
 use Application\Setup\LanguagesSetupManager;
 use Application\Setup\LanguagesSetup;
 use Application\Setup\LanguagesLabelsSetup;
@@ -17,15 +17,44 @@ use Application\Setup\UserInterfaceConfigurations;
  */
 class CommonSetupPlugin extends CommonSetupPluginAbstract
 {
-    public function recoverConfigurationsRecord()
+    /**
+     * Set application services and configurations
+     */
+    public function setApplicationServices()
     {
-        $this->setApplicationServices();
-        $this->setLanguageRecord( new LanguagesSetupManager() );
-        $this->initializeConfigurations( new ConfigSetup($this->queryBuilder) );
-        $this->setRouteMatchName();
-        $this->setUserInterfaceConfigurations();
-        
-        return $this->configurations;
+        $controller = $this->getController();
+
+        $this->serviceLocator       = $controller->getServiceLocator();
+        $this->serviceManager       = $this->serviceLocator->get('servicemanager');
+        $this->entityManager        = $this->serviceLocator->get('Doctrine\ORM\EntityManager');
+        $this->queryBuilder         = $this->entityManager->createQueryBuilder();
+        $this->moduleConfigs        = $this->serviceManager->get('config');
+        $this->router               = $this->serviceManager->get('router');
+        $this->uri                  = $this->router->getRequestUri();
+        $this->request              = $this->serviceManager->get('request');
+        $this->redirect             = $controller->redirect();
+        $this->flashMessenger       = $controller->flashMessenger();
+        $this->routeMatch           = $this->router->match($this->request);
+        $this->module               = $controller->getEvent()->getRouteMatch()->getParam('controller');
+        $this->isBackend            = $this->detectIsBackend();
+        $this->channel              = 1;
+
+        $param = $controller->params();
+        $this->param = array_filter( array(
+            "get"    => (array) $param->fromQuery(),
+            "post"   => (array) $param->fromPost(),
+            "route"  => (array) $param->fromRoute(),
+            "header" => (array) $param->fromHeader(),
+            "files"  => (array) $param->fromFiles()
+        ));
+
+        /* App configurations from module.config */
+        if ( isset($this->moduleConfigs['app_configs']) ) {
+            $this->appConfigs       = $this->moduleConfigs['app_configs'];
+            $this->isMultiLanguage  = isset($this->appConfigs['isMultilanguage']) ? $this->appConfigs['isMultilanguage'] : '';
+        }
+
+        $this->translator = $this->serviceLocator->get('translator');
     }
     
     /**
@@ -35,8 +64,6 @@ class CommonSetupPlugin extends CommonSetupPluginAbstract
     {
         if ( is_object($this->routeMatch) ) {
             $this->configurations['routeMatchName'] = $this->routeMatch->getMatchedRouteName();
-        } else {
-            $this->configurations['routeMatchName'] = '';
         }
     }
 
@@ -50,7 +77,7 @@ class CommonSetupPlugin extends CommonSetupPluginAbstract
     }
     
     /**
-     * Set main configurations given from database
+     * Set main configurations given from database as variables for the layout
      * 
      * @throws \Application\Model\NullException
      */
@@ -79,47 +106,6 @@ class CommonSetupPlugin extends CommonSetupPluginAbstract
             foreach($arrayVar as $key => $value) {
                 $this->getController()->layout()->setVariable($key, $value);
             }
-        }
-        
-        /**
-         * Set application services and configurations
-         */
-        private function setApplicationServices()
-        {
-            $controller = $this->getController();
-
-            $this->serviceLocator       = $controller->getServiceLocator();
-            $this->serviceManager       = $this->serviceLocator->get('servicemanager');
-            $this->entityManager        = $this->serviceLocator->get('Doctrine\ORM\EntityManager');
-            $this->queryBuilder         = $this->entityManager->createQueryBuilder();
-            $this->config               = $this->serviceManager->get('config');
-            $this->router               = $this->serviceManager->get('router');
-            $this->uri                  = $this->router->getRequestUri();
-            $this->request              = $this->serviceManager->get('request');
-            $this->redirect             = $controller->redirect();
-            $this->flashMessenger       = $controller->flashMessenger();
-            $this->routeMatch           = $this->router->match($this->request);
-            $this->module               = $controller->getEvent()->getRouteMatch()->getParam('controller');
-            $this->isBackend            = $this->detectIsBackend();
-            $this->channel              = 1;
-            
-            $param = $controller->params();
-            $this->param = array_filter( array(
-                "get"    => (array) $param->fromQuery(),
-                "post"   => (array) $param->fromPost(),
-                "route"  => (array) $param->fromRoute(),
-                "header" => (array) $param->fromHeader(),
-                "files"  => (array) $param->fromFiles()
-            ));
-            
-            /* App configurations from module.config */
-            if ( isset($this->config['app_configs']) ) {
-                $this->appConfigs       = $this->config['app_configs'];
-                $this->isMultiLanguage  = isset($this->appConfigs['isMultilanguage']) ? $this->appConfigs['isMultilanguage'] : '';
-            }
-
-            $this->translator = $this->serviceLocator->get('translator');
-            
         }
 
     /**
@@ -155,42 +141,44 @@ class CommonSetupPlugin extends CommonSetupPluginAbstract
             }
         }
 
-        /**
-         * @param \Application\Setup\LanguagesSetupManager $languagesSetupManager
-         */
-        private function setLanguageRecord(LanguagesSetupManager $languagesSetupManager)
-        {
-            $languagesSetupManager->setIsMultiLanguage(isset($this->isMultiLanguage) ? $this->isMultiLanguage : 0);
-            $languagesSetupManager->setLanguageAbbreviation($this->languageAbbreviation);
-            $languagesSetupManager->setLanguagesSetup( new LanguagesSetup($this->queryBuilder) );
-            $languagesSetupManager->setLanguagesLabelsSetup( new LanguagesLabelsSetup($this->queryBuilder) );
+    /**
+     * @param \Application\Setup\LanguagesSetupManager $languagesSetupManager
+     */
+    public function setLanguageRecord(LanguagesSetupManager $languagesSetupManager)
+    {
+        $languagesSetupManager->setIsMultiLanguage(isset($this->isMultiLanguage) ? $this->isMultiLanguage : 0);
+        $languagesSetupManager->setLanguageAbbreviation($this->languageAbbreviation);
+        $languagesSetupManager->setLanguagesSetup( new LanguagesSetup($this->queryBuilder) );
+        $languagesSetupManager->setLanguagesLabelsSetup( new LanguagesLabelsSetup($this->queryBuilder) );
 
-            $this->languageRecord = $languagesSetupManager->generateLanguageRecord($this->channel);
-        }
+        $this->languageRecord = $languagesSetupManager->generateLanguageRecord($this->channel);
+    }
 
-        /**
-         * @param \Application\Setup\ConfigSetup $configSetup
-         */
-        private function initializeConfigurations(ConfigSetup $configSetup)
-        {
-            $this->configurations = array_merge(
-                    $configSetup->setConfigurations($this->channel, $this->languageRecord['languageId']),
-                    $this->languageRecord
-            );
-        }
+    /**
+     * @param ConfigGetterWrapper $configGetterWrapper
+     */
+    public function setupConfigsFromDb(ConfigGetterWrapper $configGetterWrapper)
+    {
+        $configGetterWrapper->setInput(array(
+            'channel'   => $this->getChannel(),
+            'language'  => isset($this->languageRecord['languageId']) ? $this->languageRecord['languageId'] : 1
+        ));
+        $configGetterWrapper->setupQueryBuilder();
+        
+        $this->configurations = $configGetterWrapper->formatNameAndValue( $configGetterWrapper->getRecords() );
+    }
 
-        /**
-         * Set configurations options from dbs using UserInterfaceConfigurations
-         */
-        private function setUserInterfaceConfigurations()
-        {
-            $ui = new UserInterfaceConfigurations( $this->getInput() );
-            $ui->setConfigurations($this->configurations);
-            $ui->setConfigurationsArray($this->isBackend);
-            $ui->setModules();
-            $ui->setCommonConfigurations();
-            $ui->setPreloadResponse($this->entityManager);
+    /**
+     * Set configurations options from dbs using UserInterfaceConfigurations
+     */
+    public function setUserInterfaceConfigurations()
+    {
+        $ui = new UserInterfaceConfigurations( $this->getInput() );
+        $ui->setConfigurations($this->configurations);
+        $ui->setConfigurationsArray($this->isBackend);
+        $ui->setCommonConfigurations();
+        $ui->setPreloadResponse($this->entityManager);
 
-            $this->configurations = array_merge($ui->getConfigurations());
-        }
+        $this->configurations = array_merge($ui->getConfigurations());
+    }
 }

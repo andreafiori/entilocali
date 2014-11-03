@@ -8,8 +8,12 @@ namespace Admin\Model\AlboPretorio;
  */
 class AlboPretorioArticoliSearchFilterForm extends AlboPretorioFormAbstract
 {
-    public function __construct($name = null, $options = array()) {
-        
+    /**
+     * @param type $name
+     * @param type $options
+     */
+    public function __construct($name = null, $options = array())
+    {
         parent::__construct($name, $options);
         
         $this->add(array(
@@ -29,9 +33,9 @@ class AlboPretorioArticoliSearchFilterForm extends AlboPretorioFormAbstract
             'type' => 'Text',
             'name' => 'titolo',
             'attributes' => array(
-                'placeholder' => 'Cerca negli articoli...',
-                'title'  => 'Cerca testo negli articoli',
-                'id'     => 'titolo'
+                'id'            => 'titolo',
+                'title'         => 'Cerca testo negli articoli',
+                'placeholder'   => 'Cerca negli articoli...'
             ),
             'options' => array(
                 'label' => 'Testo',

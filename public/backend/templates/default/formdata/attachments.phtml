@@ -6,15 +6,15 @@
 
 <ul class="nav nav-tabs" role="tablist">
     <li class="active"><a href="#attachmentSummary" role="tab" data-toggle="tab">Elenco allegati</a></li>
-    <li><a href="#attachmentNew" role="tab" data-toggle="tab">Inserisci nuovo file allegato</a></li>
+    <li><a href="#attachmentNew" role="tab" data-toggle="tab">Nuovo file allegato</a></li>
 </ul>
 
 <div class="tab-content">
     <div class="tab-pane active" id="attachmentSummary">
-    <?php if (!isset($this->attachmentsList)): ?>
-
-        <div class="alert alert-info">
-            <h4>Nessun allegato</h4>
+    <?php if (!isset($this->attachmentsList) or empty($this->attachmentsList)): ?>
+        <div>&nbsp;</div>
+        <div class="alert alert-warning">
+            <h3>Nessun allegato presente</h3>
             <div>Nessun allegato presente per l'articolo corrente. Inserisci un nuovo allegato.</div>
         </div>
         
@@ -57,8 +57,6 @@
     <?php endif; ?>
     </div>
     <div class="tab-pane" id="attachmentNew">
-        <?php echo $this->render($this->formDataCommonPath.'formdata_common.phtml'); ?>
+        <?php echo $this->render('backend/templates/default/formdata/formdata.phtml'); ?>
     </div>
 </div>
-
-<!-- Modal confirm delete -->

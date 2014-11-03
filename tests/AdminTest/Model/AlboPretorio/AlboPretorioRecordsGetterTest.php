@@ -19,7 +19,7 @@ class AlboPretorioRecordsGetterTest extends TestSuite
     {
         parent::setUp();
         
-        $this->objectGetter = new AlboPretorioRecordsGetter( $this->getFrontendCommonInput() );
+        $this->objectGetter = new AlboPretorioRecordsGetter($this->getFrontendCommonInput());
         
         $this->articoliGetterWrapperNamespace = '\Admin\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper';
     }

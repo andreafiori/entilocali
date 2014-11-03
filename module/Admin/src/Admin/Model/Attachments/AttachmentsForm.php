@@ -32,9 +32,12 @@ class AttachmentsForm extends Form
         $this->add(array(
                         'name' => 'title',
                         'type' => 'Text',
-                        'options' => array( 'label' => 'Titolo' ),
+                        'options' => array( 'label' => '* Titolo' ),
                         'attributes' => array(
                                     'id' => 'title',
+                                    'title' => 'Titolo allegato',
+                                    'placeholder' => 'Titolo allegato',
+                                    'required' => 'required',
                         )
         ));
         

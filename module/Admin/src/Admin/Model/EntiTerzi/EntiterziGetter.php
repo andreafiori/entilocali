@@ -22,7 +22,7 @@ class EntiTerziGetter extends QueryBuilderHelperAbstract
     }
    
     /**
-     * @param number or array $id
+     * @param number|array $id
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function setId($id)

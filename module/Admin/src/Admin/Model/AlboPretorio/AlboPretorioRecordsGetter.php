@@ -8,8 +8,6 @@ use Admin\Model\Users\UsersGetterWrapper;
 use Application\Model\NullException;
 
 /**
- * Use wrapper classes to get records from db
- * 
  * @author Andrea Fiori
  * @since  27 July 2014
  */

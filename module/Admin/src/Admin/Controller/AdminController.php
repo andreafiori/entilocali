@@ -11,6 +11,8 @@ use Zend\Session\Container as SessionContainer;
 use Admin\Model\FormData\FormDataCrudHandler;
 use Admin\Model\Users\UsersGetter;
 use Admin\Model\Users\UsersGetterWrapper;
+use Admin\Model\Config\ConfigGetter;
+use Admin\Model\Config\ConfigGetterWrapper;
 
 /**
  * @author Andrea Fiori
@@ -21,6 +23,7 @@ class AdminController extends AbstractActionController
     /** @var Application\Controller\Plugin\CommonSetupPlugin **/
     private $commonSetupPlugin;
     
+    private $moduleConfigs;
     private $configurations;
     private $input;
     private $baseUrl;
@@ -41,7 +44,7 @@ class AdminController extends AbstractActionController
         $this->initialize();
         
         $routerManager = new RouterManager($this->configurations);
-        $routerManager->setRouteMatchName($this->config['be_router']);
+        $routerManager->setRouteMatchName($this->moduleConfigs['be_router']);
         
         $routerManagerHelper = new RouterManagerHelper($routerManager->setupRouteMatchObjectInstance());
         $routerManagerHelper->getRouterManger()->setInput($this->input);
@@ -92,7 +95,7 @@ class AdminController extends AbstractActionController
         $formDataCrudHandler->setInput($this->input);
         $formDataCrudHandler->setFormCrudHandler($this->params()->fromRoute('form_post_handler'));
         
-        $crudHandlerObject = $formDataCrudHandler->detectCrudHandlerClassMap($this->config['formdata_crud_classmap']);
+        $crudHandlerObject = $formDataCrudHandler->detectCrudHandlerClassMap($this->moduleConfigs['formdata_crud_classmap']);
         $crudHandler = new $crudHandlerObject($this->input);
         $crudHandler->setConnection($this->commonSetupPlugin->getEntityManager()->getConnection());
         $crudHandler->setOperation($this->params()->fromRoute('operation'));
@@ -116,17 +119,24 @@ class AdminController extends AbstractActionController
         private function initialize()
         {
             $this->commonSetupPlugin  = $this->CommonSetupPlugin();
-            $this->configurations     = $this->commonSetupPlugin->recoverConfigurationsRecord();
+            $this->commonSetupPlugin->setApplicationServices();
+            /* The language is not included: $this->commonSetupPlugin->setLanguageRecord( new LanguagesSetupManager() ); */
+            $this->commonSetupPlugin->setupConfigsFromDb( new ConfigGetterWrapper(new ConfigGetter($this->commonSetupPlugin->getEntityManager())));
+            $this->commonSetupPlugin->setRouteMatchName();
+            $this->commonSetupPlugin->setUserInterfaceConfigurations();
+
+            $this->configurations = $this->commonSetupPlugin->getConfigurations();
+            
             $this->commonSetupPlugin->setConfigurationsVariables();
             
-            $this->config = $this->commonSetupPlugin->getConfig();
+            $this->moduleConfigs = $this->commonSetupPlugin->getModuleConfigs();
             
             $this->input = $this->commonSetupPlugin->mergeInput( array_merge($this->configurations, array(
                         'formsetter'             => trim($this->params()->fromRoute('formsetter')),
                         'tablesetter'            => trim($this->params()->fromRoute('tablesetter')),
-                        'formdata_classmap'      => $this->config['formdata_classmap'],
-                        'formdata_crud_classmap' => $this->config['formdata_crud_classmap'],
-                        'datatables_classmap'    => $this->config['datatables_classmap'],
+                        'formdata_classmap'      => $this->moduleConfigs['formdata_classmap'],
+                        'formdata_crud_classmap' => $this->moduleConfigs['formdata_crud_classmap'],
+                        'datatables_classmap'    => $this->moduleConfigs['datatables_classmap'],
                     )
                 )
             );

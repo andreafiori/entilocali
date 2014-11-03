@@ -195,6 +195,7 @@ return array(
         'blog'                        => 'Admin\Model\Posts\PostsDataTable',
         'users'                       => 'Admin\Model\Users\UsersDataTable',
         'albo-pretorio'               => 'Admin\Model\AlboPretorio\AlboPretorioArticoliDataTable',
+        'atti-ufficiali'              => 'Admin\Model\AlboPretorio\AttiUfficialiDataTable',
         'albo-pretorio-sezioni'       => 'Admin\Model\AlboPretorio\AlboPretorioSezioniDataTable',
         'amministrazione-trasparente' => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteDataTable',
         'contratti-pubblici'          => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciDataTable',

@@ -35,21 +35,52 @@ class StatoCivileDataTable extends DataTableAbstract
         $formSearch = new StatoCivileFormSearch();
         $formSearch->addSubmitButton();
         $formSearch->addCheckExpired();
+        $formSearch->addYears($this->getYears());
         
         $paginatorRecords = $this->getRecordsPaginator();
         
         $this->setVariables(array(
-            'paginator' => $paginatorRecords,
-            'tablesetter' => 'stato-civile',
-            'formSearch' => $formSearch
+            'paginator'     => $paginatorRecords,
+            'tablesetter'   => 'stato-civile',
+            'formSearch'    => $formSearch,
+            'formExport'    => $formSearch
             )
         );
-        
-        
+
         $this->setRecords($this->getFormattedRecords($paginatorRecords));
         
         $this->setTemplate('datatable/datatable_statocivile.phtml');
     }
+    
+        /**
+         * @return array|null
+         */
+        private function getYears()
+        {
+            $statoCivileGetterWrapper = new StatoCivileGetterWrapper( new StatoCivileGetter($this->getInput('entityManager',1)) );
+            $statoCivileGetterWrapper->setInput( array('fields'=>'DISTINCT(sca.anno) AS anno') );
+            $statoCivileGetterWrapper->setupQueryBuilder();
+            
+            $years = $statoCivileGetterWrapper->getRecords();
+            if ($years) {
+                $yearsList = array();
+                foreach($years as $year) {
+                    $yearsList[$year['anno']] = $year['anno'];
+                }
+            }
+            
+            return $yearsList;
+        }
+        
+        private function getSezioni()
+        {
+            
+        }
+        
+        private function getSettori()
+        {
+            
+        }
     
         /**
          * @return array 

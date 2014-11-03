@@ -4,9 +4,9 @@ namespace Admin\Model\AlboPretorio;
 
 /**
  * @author Andrea Fiori
- * @since  18 May 2014
+ * @since  02 November 2014
  */
-class AlboPretorioArticoliDataTable extends AlboPretorioDataTableAbstract
+class AttiUfficialiDataTable extends AlboPretorioDataTableAbstract
 {
     /**
      * @param array $input
@@ -27,7 +27,7 @@ class AlboPretorioArticoliDataTable extends AlboPretorioDataTableAbstract
         
         $this->setVariables(
             array(
-                'tableTitle'        => 'Albo pretorio',
+                'tableTitle'        => 'Atti ufficiali',
                 'tableDescription'  => 'Elenco atti albo pretorio. Effettuando una ricerca, le informazioni vengono memorizzate.',
                 'tablesetter'       => 'albo-pretorio',
                 'columns' => array(

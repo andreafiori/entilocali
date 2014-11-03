@@ -7,8 +7,6 @@ use Admin\Model\Attachments\AttachmentsGetter;
 use Admin\Model\Attachments\AttachmentsGetterWrapper;
 
 /**
- * Form attachments with files list
- * 
  * @author Andrea Fiori
  * @since  20 August 2014
  */
@@ -55,7 +53,7 @@ class AttachmentsFormDataHandler extends FormDataAbstract
          *      NOW the class on $param['route']['option']:
          *          set records: count(records) must be == 1 or error...
          *          set articolo records
-         *          
+         *     REMOVE THIS HORRIBLE COMMENT!
          */
         switch($param['route']['option']) {
             default:
@@ -93,6 +91,8 @@ class AttachmentsFormDataHandler extends FormDataAbstract
                 'attachmentsList'           => $attachmentsRecords,
                 'articleTitle'              => $articleTitle,
                 'pages'                     => $this->pages,
+            
+                'hideBreadcrumb'            => 1,
                 'formBreadCrumbCategory'    => '[modulo]', '[articolo]',
             )
         );
@@ -115,4 +115,3 @@ class AttachmentsFormDataHandler extends FormDataAbstract
             return $wrapper->getRecords();
         }
 }
-

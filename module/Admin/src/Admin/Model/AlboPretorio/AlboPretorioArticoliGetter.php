@@ -15,7 +15,9 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
         $this->setSelectQueryFields("DISTINCT(aa.id) AS id, aa.numeroProgressivo, aa.numeroAtto, 
                 aa.anno, aa.titolo, aa.dataAttivazione, aa.oraAttivazione, aa.dataScadenza, 
                 aa.enteTerzo, 
-                IDENTITY(aa.sezione) AS sezione, IDENTITY(aa.utente) AS utente, aps.nome 
+                aps.nome,
+                IDENTITY(aa.sezione) AS sezione, IDENTITY(aa.utente) AS iduser,
+                u.name AS userName, u.surname AS userSurname
                 ");
 
         $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())

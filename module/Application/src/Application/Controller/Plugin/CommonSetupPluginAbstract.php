@@ -14,7 +14,7 @@ class CommonSetupPluginAbstract extends AbstractPlugin
     protected $serviceManager;
     protected $entityManager;
     protected $queryBuilder;
-    protected $config;
+    protected $moduleConfigs;
     protected $configurations;
     protected $translator;
     protected $router;
@@ -58,9 +58,9 @@ class CommonSetupPluginAbstract extends AbstractPlugin
         return $this->isBackend;
     }
     
-    public function getConfig()
+    public function getModuleConfigs()
     {
-        return $this->config;
+        return $this->moduleConfigs;
     }
 
     public function getConfigurations()

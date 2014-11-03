@@ -5,8 +5,6 @@ namespace Application\Setup;
 use Application\Model\NullException;
 
 /**
- * Help to set language parameters on the setup
- * 
  * @author Andrea Fiori
  * @since  26 April 2014
  */
@@ -102,10 +100,9 @@ class LanguagesSetupManager
                     "languageId"         => $languageId,
                     "languagesLabels"    => $this->getLanguagesLabelsSetup()->setLanguagesLabels($languageId),
                 );
-            
+
         } else {
             return array( "languageId" => 1 );
         }
     }
-
 }

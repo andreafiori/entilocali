@@ -6,8 +6,6 @@ use Application\Model\QueryBuilderSetterAbstract;
 use Application\Model\NullException;
 
 /**
- * Set main language properties
- * 
  * @author Andrea Fiori
  * @since  02 April 2014
  */
@@ -16,7 +14,7 @@ class LanguagesSetup extends QueryBuilderSetterAbstract
     private $allAvailableLanguages;
     private $languageId;
     private $defaultLanguage;
- 
+
     /**
      * @param  number $channel
      * @return array

@@ -29,6 +29,11 @@ class UserInterfaceConfigurations extends InputSetupAbstract
         $this->backendKeysToCheck   = array("template_backend", "template_project");
     }
     
+    /**
+     * 
+     * @param type $isBackend
+     * @return type
+     */
     public function setConfigurationsArray($isBackend = false)
     {
         if ($isBackend) {
@@ -48,18 +53,6 @@ class UserInterfaceConfigurations extends InputSetupAbstract
         }
         
         return $this->configurations;
-    }
-    
-    /**
-     * TODO: select module on db and add record on configurations array
-     * 
-     * @param type $isBackend
-     */
-    public function setModules($isBackend = false)
-    {
-        if ($isBackend) {
-            
-        }
     }
     
     /**

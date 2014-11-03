@@ -38,7 +38,7 @@ class ZfcmsComuniStatoCivileArticoli
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="anno", type="date", nullable=false)
+     * @ORM\Column(name="anno", columnDefinition="YEAR", nullable=false)
      */
     private $anno;
 
