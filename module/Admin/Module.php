@@ -24,6 +24,9 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
         AbstractValidator::setDefaultTranslator($translator);
     }
 
+    /**
+     * @return array
+     */
     public function getAutoloaderConfig()
     {
         return array(
@@ -37,12 +40,18 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
             ),
         );
     }
-
+    
+    /**
+     * @return array
+     */
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
     }
 
+    /**
+     * @return array
+     */
     public function getServiceConfig()
     {
         return array( 'factories' => array() );

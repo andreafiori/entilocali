@@ -154,7 +154,7 @@ class AlboPretorioArticoliForm extends Form
                                'label' => 'Numero di giorni',
                         ),
                         'attributes' => array(
-                                'title' => '',
+                                'title' => 'Numero di giorni alla scadenza',
                                 'id' => 'scadenza',
                                 'placeholder' => 'Numero di giorni alla scadenza',
                         )
@@ -174,10 +174,21 @@ class AlboPretorioArticoliForm extends Form
                         )
         ));
         
-        // Numero di file allegati a questo articolo
-        // Inviato a regione checkbox
-        // Inserisci in home checkbox
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Checkbox',
+            'name' => 'homepage',
+            'options' => array(
+                    'label' => 'Inserisci in home page',
+                    'use_hidden_element' => true,
+                    'checked_value' => '1',
+                    'unchecked_value' => '',
+            ),
+            'attributes' => array('id' => 'homepage')
+        ));
+        
         // Associa articolo a utente
+        
+        
         // Note in caso di articolo già inviato...
         
         $this->add(array(

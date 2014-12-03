@@ -24,7 +24,7 @@ class AlboPretorioArticoliDataTable extends AlboPretorioDataTableAbstract
         $this->recordsGetter->setArticoliPaginatorPerPage(isset($this->param['route']['perpage']) ? $this->param['route']['perpage'] : null);
 
         $paginatorRecords = $this->recordsGetter->getPaginatorRecords();
-        
+        //var_dump($this->getInput('moduleRecord'));
         $this->setVariables(
             array(
                 'tableTitle'        => 'Albo pretorio',
@@ -32,7 +32,7 @@ class AlboPretorioArticoliDataTable extends AlboPretorioDataTableAbstract
                 'tablesetter'       => 'albo-pretorio',
                 'columns' => array(
                     array('label' => 'Num \ Anno', 'width' => '10%'),
-                    array('label' => 'Titolo', 'width' => '44%'),
+                    array('label' => 'Titolo', 'width' => '35%'),
                     'Settore',
                     'Scadenza',
                     'Data attivazione',

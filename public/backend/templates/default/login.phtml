@@ -2,7 +2,7 @@
 <html lang="it">
     <head>
     <meta charset="utf-8">
-    <title><?php echo $this->sitename ?> Area riservata</title>
+    <title><?php echo $this->sitename ?> <?php echo $this->translate('Area riservata'); ?></title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -68,8 +68,8 @@
 
 <noscript>
     <div>
-        <h3>Attenzione: Javascript disattivato</h3>
-        <div>&Egrave; stato rilevato che Javascript risulta disattivato nel browser in uso. Abilitare il browser all'utilizzo di Javascript o la presente area risulter&agrave; inutilizzabile.</div>
+        <h3><?php echo $this->translate('Attenzione: Javascript disattivato'); ?></h3>
+        <div><?php echo $this->translate("&Egrave; stato rilevato che Javascript risulta disattivato nel browser in uso. Abilitare il browser all'utilizzo di Javascript o la presente area risulter&agrave; inutilizzabile."); ?></div>
     </div>
 </noscript>
 

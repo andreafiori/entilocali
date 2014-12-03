@@ -67,7 +67,13 @@ class AlboPretorioFrontend extends RouterManagerAbstract implements RouterManage
 
             return $this->alboPretorioRecordsGetter->formatSezioniForFormSelect('id', 'settore');
         }
-
+        
+        /**
+         * 
+         * @param type $input
+         * @param type $page
+         * @return type
+         */
         private function getAlboPretorioRecords($input, $page)
         {
             $alboPretorioGetterWrapper = new AlboPretorioArticoliGetterWrapper( new AlboPretorioArticoliGetter($this->getInput('entityManager',1)) );

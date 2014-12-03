@@ -1,9 +1,9 @@
 <?php echo $this->render('backend/templates/'.$this->template_backend.'datatable/datatable_breadcrumb.phtml'); ?>
 
 <ul class="nav nav-tabs" role="tablist">
-    <li class="active"><a href="#home" role="tab" data-toggle="tab">Elenco atti</a></li>
-    <li><a href="#search" role="tab" data-toggle="tab">Ricerca</a></li>
-    <li><a href="#export" role="tab" data-toggle="tab">Esportazione dati</a></li>
+    <li class="active"><a href="#home" role="tab" data-toggle="tab"><i class="fa fa-list"></i> <?php echo $this->translate('Elenco articoli'); ?></a></li>
+    <li><a href="#search" role="tab" data-toggle="tab"><i class="fa fa-search"></i> <?php echo $this->translate('Ricerca'); ?></a></li>
+    <li><a href="#export" role="tab" data-toggle="tab"><i class="fa fa-external-link-square"></i> <?php echo $this->translate('Esportazione dati'); ?></a></li>
 </ul>
 
 <div class="tab-content">
@@ -25,11 +25,8 @@
 
             $form->prepare();
 
-            //$form->get('titolo')->setAttribute('class', 'form-control');
             $form->get('mese')->setAttribute('class', 'form-control');
             $form->get('anno')->setAttribute('class', 'form-control');
-            //$form->get('settore')->setAttribute('class', 'form-control');
-            //$form->get('sezione')->setAttribute('class', 'form-control');
             $form->get('numero_atto')->setAttribute('class', 'form-control');
             $form->get('numero_progressivo')->setAttribute('class', 'form-control');
             $form->get('search')->setAttribute('class', 'btn btn-primary');

@@ -5,9 +5,7 @@ if ($this->homepage):
         if ($key == 'blogs'):
             ?>
             <div class="row">
-            <?php
-            foreach($value[0] as $content):
-            ?>
+            <?php foreach($value[0] as $content): ?>
             <div class="col-sm-12">
                 <div class="media">
                   <a class="pull-left" href="#">
@@ -15,21 +13,18 @@ if ($this->homepage):
                   </a>
                   <div class="media-body">
                     <h4 class="media-heading"><?php echo $content['title']; ?></h4>
-                    <?php echo $this->TextShortener($content['description'], 30, 30); ?>
+                    <div><?php echo $this->TextShortener($content['description'], 30, 30); ?></div>
+                    <div><a href="<?php echo $this->basepath().$content['linkDetails'] ?>" class="btn btn-primary" role="button">Leggi</a></div>
                   </div>
                 </div>
             </div>
-            <?php
-            endforeach;
-            ?>
+            <?php  endforeach; ?>
             </div>
             <?php
         elseif ($key == 'contents'):
             ?>
             <div class="row">
-            <?php
-            foreach($value[0] as $content):
-            ?>    
+            <?php foreach($value[0] as $content): ?>
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
                     <img data-src="holder.js/300x200" alt="300x200" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSI+PC9yZWN0Pjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjE1MCIgeT0iMTAwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjE5cHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MzAweDIwMDwvdGV4dD48L3N2Zz4=" style="width: 300px; height: 200px;">
@@ -40,9 +35,7 @@ if ($this->homepage):
                     </div>
                 </div>
             </div>
-            <?php
-            endforeach;
-            ?>
+            <?php endforeach; ?>
             </div>
             <?php
         elseif ($key == 'freetext'):

@@ -24,6 +24,9 @@
         "zendframework/zftool": "dev-master",
         "bjyoungblood/bjy-authorize": "dev-master",
         "zf-commons/zfc-user": "dev-master",
-        "bjyoungblood/BjyProfiler": "dev-master"
+        "bjyoungblood/BjyProfiler": "dev-master",
+        "phpunit/phpunit": "4.3.*",
+        "phpunit/phpunit-skeleton-generator": "*",
+        "phpunit/phpunit-selenium": ">=1.2"
     }
 }

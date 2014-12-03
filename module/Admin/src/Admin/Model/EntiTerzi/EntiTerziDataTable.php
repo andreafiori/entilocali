@@ -21,18 +21,20 @@ class EntiterziDataTable extends DataTableAbstract
 
         $this->setRecords( $this->formatRecordsToShowOnTable($paginatorRecords) );
 
-        $this->setVariable('tablesetter', 'enti-terzi');
-        $this->setVariable('paginator', $paginatorRecords);
+        $this->setVariables(array(
+                'tablesetter' => 'enti-terzi',
+                'paginator'   => $paginatorRecords,
+                'columns'     => array(
+                                    "Nome",
+                                    "Email",
+                                    "&nbsp;", 
+                                    "&nbsp;",
+                                ),
+                ''
+        ));
 
         $this->setTitle('Rubrica enti terzi');
         $this->setDescription('Gestione rubrica contatti enti terzi');
-        $this->setColumns(array(
-                "Nome",
-                "Email",
-                "&nbsp;", 
-                "&nbsp;",
-            )
-        );
     }
     
         private function formatRecordsToShowOnTable($records)

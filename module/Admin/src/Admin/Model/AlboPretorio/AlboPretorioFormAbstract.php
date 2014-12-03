@@ -167,6 +167,7 @@ abstract class AlboPretorioFormAbstract extends Form
             'name' => $name,
             'type' => 'submit',
             'attributes' => array(
+                'id'    => $name,
                 'label' => '&nbsp;',
                 'title' => 'Clicca per inviare i dati del form',
                 'value' => $label,

@@ -24,14 +24,9 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
                                 ->from('Application\Entity\ZfcmsComuniAlboArticoli', 'aa')
                                 ->join('aa.sezione', 'aps')
                                 ->join('aa.utente', 'u')
-                                ->add('where', 'aa.sezione = aps.id ');
+                                ->where('aa.sezione = aps.id ');
         
         return $this->getQueryBuilder();
-    }
-    
-    private function getDefaultFields()
-    {
-        return ;
     }
     
     /**

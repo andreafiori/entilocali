@@ -2,19 +2,19 @@
 return array(
     'controllers' => array(
         'invokables' => array(
+            'Admin\Controller\Auth' => 'Admin\Controller\AuthController',
             'Admin\Controller\Admin' => 'Admin\Controller\AdminController',
         ),
     ),
     'router' => array(
         'routes' => array(
-            /* Login and logout */
             'login' => array(
                 'type'    => 'Literal',
                 'options' => array(
                     'route'    => '/auth',
                     'defaults' => array(
                         '__NAMESPACE__' => 'Admin\Controller',
-                        'controller'    => 'Admin',
+                        'controller'    => 'Auth',
                         'action'        => 'login',
                     ),
                 ),
@@ -34,7 +34,6 @@ return array(
                     ),
                 ),
             ),
-            /* Backend when logged */
             'admin' => array(
                 'type'    => 'Segment',
                 'options' => array(
@@ -142,10 +141,10 @@ return array(
     ),
     /* Backend Router Class Map */
     'be_router' => array(
-        "admin"                     => 'Admin\Model\AdminDashboard',
-        "admin/formdata"            => 'Admin\Model\FormData\FormDataHandler',
-        "admin/datatable"           => 'Admin\Model\DataTable\DataTableHandler',
-        "admin/invio-ente-terzo"    => 'Admin\Model\EntiTerzi\InvioEnteTerzoHandler',        
+        "admin"                     => '\Admin\Model\AdminDashboard',
+        "admin/formdata"            => '\Admin\Model\FormData\FormDataHandler',
+        "admin/datatable"           => '\Admin\Model\DataTable\DataTableHandler',
+        "admin/invio-ente-terzo"    => '\Admin\Model\EntiTerzi\InvioEnteTerzoHandler',      
     ),
     /* FormData Class Map */
     'formdata_classmap' => array(
@@ -260,5 +259,5 @@ return array(
             ),
             'moduleName' => 'Amministrazione trasparente'
         ),
-    )
+    ),
 );

@@ -96,7 +96,6 @@ return array(
   'Application\Model\Users\RecoverPasswordFrontend'                                 => __DIR__ . '/src/Application/Model/Users/RecoverPasswordFrontend.php',
   'Application\Model\Users\RegistrationForm'                                        => __DIR__ . '/src/Application/Model/Users/RegistrationForm.php',
   'Application\Model\Users\RegistrationFrontend'                                    => __DIR__ . '/src/Application/Model/Users/RegistrationFrontend.php',
-  'Application\Setup\ConfigSetup'                                                   => __DIR__ . '/src/Application/Setup/ConfigSetup.php',
   'Application\Setup\LanguagesLabelsSetup'                                          => __DIR__ . '/src/Application/Setup/LanguagesLabelsSetup.php',
   'Application\Setup\LanguagesSetup'                                                => __DIR__ . '/src/Application/Setup/LanguagesSetup.php',
   'Application\Setup\LanguagesSetupManager'                                         => __DIR__ . '/src/Application/Setup/LanguagesSetupManager.php',

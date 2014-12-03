@@ -28,7 +28,7 @@ class AttiUfficialiDataTable extends AlboPretorioDataTableAbstract
         $this->setVariables(
             array(
                 'tableTitle'        => 'Atti ufficiali',
-                'tableDescription'  => 'Elenco atti albo pretorio. Effettuando una ricerca, le informazioni vengono memorizzate.',
+                'tableDescription'  => 'Elenco atti. Effettuando una ricerca, le informazioni vengono memorizzate in sessione.',
                 'tablesetter'       => 'albo-pretorio',
                 'columns' => array(
                     array('label' => 'Num \ Anno', 'width' => '10%'),

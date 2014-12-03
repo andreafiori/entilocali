@@ -306,6 +306,9 @@ return array(
                     'aliases' => array(
                                 'translator' => 'MvcTranslator',
                     ),
+                    'factories' => array(
+                        'PluginManagerFactory' => 'Admin\Factory\PluginManagerFactory',
+                    ),
     ),
     'translator' => array(
                     'locale' => 'it_IT',
@@ -326,7 +329,7 @@ return array(
     ),
     'controller_plugins' => array(
         'invokables' => array(
-            'CommonSetupPlugin' => 'Application\Controller\Plugin\CommonSetupPlugin'
+            
         )
     ),
     'view_manager' => array(

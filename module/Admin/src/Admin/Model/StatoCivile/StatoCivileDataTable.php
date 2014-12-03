@@ -100,7 +100,6 @@ class StatoCivileDataTable extends DataTableAbstract
         }
         
         /**
-         * 
          * @param type $records
          * @return boolean|array
          */

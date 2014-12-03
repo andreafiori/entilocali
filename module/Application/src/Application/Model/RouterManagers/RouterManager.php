@@ -3,6 +3,7 @@
 namespace Application\Model\RouterManagers;
 
 use Application\Model\RouterManagers\RouterManagerAbstract;
+use Application\Model\NullException;
 
 /**
  * @author Andrea Fiori
@@ -28,7 +29,7 @@ class RouterManager extends RouterManagerAbstract
      */
     public function setIsBackend($backend = null)
     {
-        if ($backend) {
+        if (is_numeric($backend)) {
             $this->isBackend = $backend;
         }
     }
@@ -42,19 +43,18 @@ class RouterManager extends RouterManagerAbstract
     }
     
     /**
-     * Given the module configurations, 
-     * 
      * @param array $router
+     * @return type
      */
     public function setRouteMatchName(array $router)
     {
         if ( isset($router[$this->configurations['routeMatchName']]) ) {
-            $this->routeMatchName = $router[$this->configurations['routeMatchName']];
+            $this->routeMatchName = isset($router[$this->configurations['routeMatchName']]) ? $router[$this->configurations['routeMatchName']] : null;
             
             return $this->routeMatchName;
         }
-        
-        if ( $this->isBackend() ) {
+ 
+        if ($this->isBackend()) {
             $this->routeMatchName = isset($router['admin']) ? $router['admin'] : null;
         } else {
             $this->routeMatchName = isset($router['default']) ? $router['default'] : null;
@@ -71,7 +71,7 @@ class RouterManager extends RouterManagerAbstract
      */
     public function setupRouteMatchObjectInstance()
     {
-        $classPath = $this->routeMatchName;
+        $classPath = $this->getRouteMatchName();
         if ( class_exists($classPath) ) {
             $objectInstance = new $classPath();
             if ($objectInstance instanceof RouterManagerAbstract) {
@@ -79,7 +79,7 @@ class RouterManager extends RouterManagerAbstract
             }
         }
         
-        throw new \Application\Model\NullException('RouteMatchName '.$classPath.' is not a valid class. It must be an instance of \Application\Model\RouterManagers\RouterManagerInterface');
+        throw new NullException('RouteMatchName '.$classPath.' is not a valid class. It must be an instance of \Application\Model\RouterManagers\RouterManagerInterface');
     }
     
     /**

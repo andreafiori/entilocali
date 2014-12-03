@@ -7,15 +7,12 @@ use ServiceLocatorFactory\ServiceLocatorFactory;
 use ApplicationTest\TestSuite;
 
 /**
- * Test index frontend controller
- * TODO: test plugin and controller
- * 
  * @author Andrea Fiori
  * @since  05 December 2013
  */
-class IndexControllerTest // extends TestSuite
+class IndexControllerTest //extends TestSuite
 {
-    protected $controller;
+    private $controller;
 
     protected function setUp()
     {
@@ -27,6 +24,8 @@ class IndexControllerTest // extends TestSuite
         $this->controller->setServiceLocator( ServiceLocatorFactory::getInstance() );
         $this->controller->setEvent($this->event);
         $this->controller->setServiceLocator($this->serviceManager);
+        $this->controller->getPluginManager()
+                         ->setInvokableClass('CommonSetupPlugin', '\Application\Controller\Plugin\CommonSetupPlugin');
     }
 
     public function testIndexActionCanBeAccessed()

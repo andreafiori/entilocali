@@ -91,7 +91,7 @@ class AttachmentsFormDataHandler extends FormDataAbstract
                 'attachmentsList'           => $attachmentsRecords,
                 'articleTitle'              => $articleTitle,
                 'pages'                     => $this->pages,
-            
+
                 'hideBreadcrumb'            => 1,
                 'formBreadCrumbCategory'    => '[modulo]', '[articolo]',
             )
@@ -101,8 +101,6 @@ class AttachmentsFormDataHandler extends FormDataAbstract
     }
     
         /**
-         * Get attachments records
-         * 
          * @param AttachmentsGetterWrapper $wrapper
          * @param array $input
          * @return array

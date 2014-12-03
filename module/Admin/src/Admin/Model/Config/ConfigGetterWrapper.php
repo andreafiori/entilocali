@@ -29,6 +29,7 @@ class ConfigGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setLanguage($this->getInput('language', 1));
         $this->objectGetter->setName($this->getInput('name', 1));
         $this->objectGetter->setValue($this->getInput('value', 1));
+        $this->objectGetter->setIsBackend($this->getInput('isBackend', 1));
         $this->objectGetter->setOrderBy($this->getInput('orderBy', 1));
         $this->objectGetter->setGroupBy($this->getInput('groupBy', 1));
         $this->objectGetter->setLimit($this->getInput('limit', 1));

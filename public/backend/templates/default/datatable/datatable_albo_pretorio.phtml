@@ -1,9 +1,9 @@
 <?php echo $this->render('backend/templates/'.$this->template_backend.'datatable/datatable_breadcrumb.phtml'); ?>
 
 <ul class="nav nav-tabs" role="tablist">
-    <li class="active"><a href="#home" role="tab" data-toggle="tab">Elenco articoli</a></li>
-    <li><a href="#search" role="tab" data-toggle="tab">Ricerca</a></li>
-    <li><a href="#export" role="tab" data-toggle="tab">Esportazione dati</a></li>
+    <li class="active"><a href="#home" role="tab" data-toggle="tab"><i class="fa fa-list"></i> Elenco articoli</a></li>
+    <li><a href="#search" role="tab" data-toggle="tab"><i class="fa fa-search"></i> Ricerca</a></li>
+    <li><a href="#export" role="tab" data-toggle="tab"><i class="fa fa-external-link-square"></i> Esportazione dati</a></li>
 </ul>
 
 <div class="tab-content">
@@ -49,6 +49,12 @@
             $form->get('export')->setAttribute('class', 'btn btn-primary');
 
             $form->prepare();
+            
+            /* Rename IDs for the export form */
+            $form->get('mese')->setAttribute('id', 'mese_export');
+            $form->get('anno')->setAttribute('id', 'anno_export');
+            $form->get('settore')->setAttribute('id', 'settore_export');
+            $form->get('sezione')->setAttribute('id', 'sezione_export');
         
             echo $this->form()->openTag($form);
 
@@ -66,10 +72,10 @@
             </div>
             
             <div class="form-group">
-                <label class="col-sm-2 control-label"><?php echo $this->formLabel($form->get('sezione')) ?></label>
+                <label for="<?php echo $form->get('sezione')->getAttribute('id'); ?>" class="col-sm-2 control-label"><?php echo $this->formLabel($form->get('sezione')) ?></label>
                 <div class="col-sm-4"><?php echo $this->formElement($form->get('sezione')); ?></div>
                 
-                <label class="col-sm-2 control-label"><?php echo $this->formLabel($form->get('settore')) ?></label>
+                <label for="<?php echo $form->get('settore')->getAttribute('id'); ?>" class="col-sm-2 control-label"><?php echo $this->formLabel($form->get('settore')) ?></label>
                 <div class="col-sm-4"><?php echo $this->formElement($form->get('settore')); ?></div>
             </div>
             

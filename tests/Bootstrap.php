@@ -12,6 +12,8 @@ $loader = require_once  './vendor/autoload.php';
 $loader->add("AdminTest\\", $cwd);
 $loader->add("ApiWebServiceTest\\", $cwd);
 $loader->add("ApplicationTest\\", $cwd);
+$loader->add("ServiceLocatorFactoryTest\\", $cwd);
+$loader->add("SuiteTest\\", $cwd);
 $loader->register();
 
 ServiceManagerGrabber::setServiceConfig(require_once './config/application.config.php');

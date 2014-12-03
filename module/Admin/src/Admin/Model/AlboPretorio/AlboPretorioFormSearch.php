@@ -5,7 +5,7 @@ namespace Admin\Model\AlboPretorio;
 use Zend\Form\Form;
 
 /**
- * Backend form search filter
+ * Backend form search
  * 
  * @author Andrea Fiori
  * @since  31 October 2014

@@ -13,7 +13,7 @@ class HomePageRecordsGetterWrapper extends RecordsGetterWrapperAbstract
     private $hompageRecordsGetter;
     
     /**
-     * @param Application\Model\HompageRecordsGetter $postsGetter
+     * @param HompageRecordsGetter $hompageRecordsGetter
      */
     public function __construct(HomePageRecordsGetter $hompageRecordsGetter)
     {

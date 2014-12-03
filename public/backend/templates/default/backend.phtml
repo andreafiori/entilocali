@@ -78,6 +78,9 @@
     fieldset input  {
         cursor: pointer
     }
+    /* Icon colors */
+    .icon-red, .icon-red:hover { color: #d9534f; }
+    .icon-black, .icon-black:hover { color: #333333; }
     </style>
     
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -107,8 +110,8 @@
 
 <noscript>
     <div>
-        <h3>Attenzione: Javascript disattivato</h3>
-        <div>&Egrave; stato rilevato che Javascript risulta disattivato nel browser in uso. Abilitare il browser all'utilizzo di Javascript o la presente area risulter&agrave; inutilizzabile.</div>
+        <h3><?php echo $this->translate('Attenzione: Javascript disattivato'); ?></h3>
+        <div><?php echo $this->translate("&Egrave; stato rilevato che Javascript risulta disattivato nel browser in uso. Abilitare il browser all'utilizzo di Javascript o la presente area risulter&agrave; inutilizzabile."); ?></div>
     </div>
 </noscript>
 
@@ -126,7 +129,7 @@
                         <li class="active">
                             <a href="<?php echo $this->url('admin', array('lang' => 'it')); ?>" title="Torna alla home page"><i class="fa fa-home"></i> Home</a>
                         </li>
-                        <li><a href="<?php echo $this->basepath() ?>" target="_blank" title="Anteprima sito web"><i class="fa fa-eye"></i> Anteprima</a></li>
+                        <li><a href="<?php echo $this->basepath() ?>" target="_blank" title="<?php echo $this->translate('Anteprima sito web') ?>"><i class="fa fa-eye"></i> <?php echo $this->translate('Anteprima') ?></a></li>
                     <li>
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Moduli <b class="caret"></b></a>
                     <ul class="dropdown-menu multi-level">

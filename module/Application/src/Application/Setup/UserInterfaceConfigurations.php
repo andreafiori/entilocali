@@ -7,8 +7,6 @@ use Admin\Model\Posts\PostsGetterWrapper;
 use Admin\Model\InputSetupAbstract;
 
 /**
- * Validate and initialize configuration array
- * 
  * @author Andrea Fiori
  * @since  30 April 2014
  */
@@ -17,7 +15,7 @@ class UserInterfaceConfigurations extends InputSetupAbstract
     private $configurations;
     
     private $postsGetterWrapper;
-            
+
     /**
      * @param array $configurations
      */
@@ -45,7 +43,6 @@ class UserInterfaceConfigurations extends InputSetupAbstract
             $this->configurations['loginActionBackend']       = $this->configurations['template_project'].'login/';
             $this->configurations['logoutPathBackend']        = $this->configurations['template_project'].'logout/';
             $this->configurations['loggedSectionPathBackend'] = $this->configurations['template_project'].'main/';
-            
         } else {
             $this->configurations['template_project']     = 'frontend/projects/'.$this->configurations['projectdir_frontend'];
             $this->configurations['template_name']        = $this->configurations['template_frontend'] ? $this->configurations['template_frontend'] : 'default/';
@@ -121,10 +118,9 @@ class UserInterfaceConfigurations extends InputSetupAbstract
     public function setCommonConfigurations()
     {
         $this->configurations['basiclayout'] = $this->configurations['template_path'].'layout.phtml';
-        
-	$this->configurations['imagedir'] = 'public/'.$this->configurations['template_project'].'templates/'.$this->configurations['template_name'].'assets/images/';
-	$this->configurations['cssdir']   = 'public/'.$this->configurations['template_project'].'templates/'.$this->configurations['template_name'].'assets/css/';
-	$this->configurations['jsdir']    = 'public/'.$this->configurations['template_project'].'templates/'.$this->configurations['template_name'].'assets/js/';
+        $this->configurations['imagedir']    = 'public/'.$this->configurations['template_project'].'templates/'.$this->configurations['template_name'].'assets/images/';
+        $this->configurations['cssdir']      = 'public/'.$this->configurations['template_project'].'templates/'.$this->configurations['template_name'].'assets/css/';
+        $this->configurations['jsdir']       = 'public/'.$this->configurations['template_project'].'templates/'.$this->configurations['template_name'].'assets/js/';
     }
 
     /**

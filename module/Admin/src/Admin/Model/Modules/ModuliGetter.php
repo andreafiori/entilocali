@@ -15,9 +15,13 @@ class ModulesGetter extends QueryBuilderHelperAbstract
      */
     public function setMainQuery()
     {
-        $this->getQueryBuilder()->add('select', 'm.code, m.name, m.status')
-                                ->add('from', 'Application\Entity\ZfcmsModules m')
-                                ->add('where', 'm.id != 0');
+        $this->setSelectQueryFields('m.code, m.name, m.status');
+        
+        $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
+                                ->from('Application\Entity\ZfcmsModules', 'm')
+                                ->join('module', 'mo')
+                                ->join('language', 'l')
+                                ->where('m.id != 0');
 
         return $this->getQueryBuilder();
     }

@@ -16,7 +16,7 @@ use stdClass;
  */
 class PostsGetterWrapper extends RecordsGetterWrapperAbstract
 {
-    /** @var \Admin\Model\Posts\PostsGetter **/
+    /** @var PostsGetter **/
     protected $objectGetter;
     
     private $category;
@@ -52,7 +52,7 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
     }
 
     /**
-     * Add array records to the paginator recordset
+     * Add array additional records to the paginator recordset
      * 
      * @return \stdClass
      * @throws NullException
@@ -74,7 +74,7 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
             $row['linkCategory'] = '/'.Slugifier::slugify($row['categoryName']);
             
             if ( $row['flagAttachments'] == 'si' ) {
-                $attachmentsGetterWrapper = new AttachmentsGetterWrapper( new AttachmentsGetter($this->getInput('entityManager',1)) );
+                $attachmentsGetterWrapper = new AttachmentsGetterWrapper( new AttachmentsGetter($this->getObjectGetter()->getEntityManager()) );
                 $attachmentsGetterWrapper->setInput( array() );
                 $attachmentsGetterWrapper->setupQueryBuilder();
                 
@@ -102,7 +102,7 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
             
             $paginatorToReturn->$key = $row;
         }
-
+        
         return $paginatorToReturn;
     }
         /**
@@ -111,7 +111,7 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
          */
         private function getCategoriesFromPostsRelations(array $row)
         {
-            $postsRelationsGetter = new PostsRelationsGetter( $this->getInput('entityManager', 1) );
+            $postsRelationsGetter = new PostsRelationsGetter( $this->getObjectGetter()->getEntityManager() );
             $postsRelationsGetter->setSelectQueryFields('IDENTITY(r.category) AS category');
             $postsRelationsGetter->setMainQuery();
             $postsRelationsGetter->setChannelId(1);
@@ -121,14 +121,6 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
             return $postsRelationsGetter->getQueryResult();
         }
     
-    /**
-     * @return array
-     */
-    public function getRecords()
-    {
-        return $this->objectGetter->getQueryResult();
-    }
-
     /**     
      * @return string|null
      */

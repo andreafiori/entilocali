@@ -19,6 +19,7 @@ class TestSuite extends \PHPUnit_Framework_TestCase
 {
     protected $request;
     protected $response;
+    protected $router;
     protected $routeMatch;
     protected $event;
     protected $serviceManager;
@@ -27,20 +28,25 @@ class TestSuite extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $serviceManagerGrabber = new ServiceManagerGrabber();
+        
         $this->serviceManager = $serviceManagerGrabber->getServiceManager();
-
-        $this->request    = new Request();
-
+        
         $config = $this->serviceManager->get('Config');
-        $routerConfig = isset($config['router']) ? $config['router'] : array();
-
+        
+        $this->request = new Request();
+        
+        $this->router = HttpRouter::factory(isset($config['router']) ? $config['router'] : array());
         $this->routeMatch = new RouteMatch(array('controller' => 'index'));
         
         $this->event = new MvcEvent();
-        $this->event->setRouter( HttpRouter::factory($routerConfig) );
+        $this->event->setRouter($this->router);
         $this->event->setRouteMatch($this->routeMatch);
     }
 
+    /**
+     * @return Doctrine\ORM\EntityManager
+     * @throws NullException
+     */
     protected function getDoctrineEntityManager()
     {
         if (! $this->getServiceManager() ) {
@@ -50,11 +56,17 @@ class TestSuite extends \PHPUnit_Framework_TestCase
         return $this->getServiceManager()->get('Doctrine\ORM\EntityManager');
     }
 
+    /**
+     * @return Zend\ServiceManager\ServiceManager
+     */
     protected function getServiceManager()
     {
         return $this->serviceManager;
     }
     
+    /**
+     * @return Doctrine\ORM\EntityManager
+     */
     protected function getEntityManagerMock()
     {
         if ( !$this->entityManagerMock ) {
@@ -69,10 +81,6 @@ class TestSuite extends \PHPUnit_Framework_TestCase
      */
     protected function setEntityManagerMock()
     {
-        $configuration = $this->getMockBuilder('\Doctrine\ORM\Configuration')->getMock();
-
-        $connection = $this->getConnectionMock();
-
         $queryBuilder = $this->getQueryBuilderMock();
 
         $this->entityManagerMock = $this->getMock('\Doctrine\ORM\EntityManager', array('getRepository', 'getClassMetadata', 'persist', 'flush', 'create', 'createQuery', 'getConnection', 'getQuery', 'getQueryBuilder', 'getConfiguration'), array(), '', false);
@@ -95,12 +103,12 @@ class TestSuite extends \PHPUnit_Framework_TestCase
         $this->entityManagerMock
                  ->expects($this->any())
                  ->method('getConfiguration')
-                 ->will($this->returnValue($configuration));
+                 ->will($this->returnValue( $this->getMockBuilder('\Doctrine\ORM\Configuration')->getMock() ));
 
         $this->entityManagerMock
                  ->expects($this->any())
                  ->method('getConnection')
-                 ->will($this->returnValue($connection));
+                 ->will($this->returnValue($this->getConnectionMock()));
         
         $this->entityManagerMock
                  ->expects($this->any())
@@ -120,31 +128,31 @@ class TestSuite extends \PHPUnit_Framework_TestCase
         return $this->entityManagerMock;
     }
     
-    public function getConnectionMock()
+    protected function getConnectionMock()
     {
         $mock = $this->getMockBuilder('Doctrine\DBAL\Connection')
-            ->disableOriginalConstructor()
-            ->setMethods(
-                array(
-                    'beginTransaction',
-                    'commit',
-                    'rollback',
-                    'prepare',
-                    'query',
-                    'executeQuery',
-                    'executeUpdate',
-                    'getDatabasePlatform',
-                )
-            )
-            ->getMock();
+                                    ->disableOriginalConstructor()
+                                    ->setMethods(
+                                        array(
+                                            'beginTransaction',
+                                            'commit',
+                                            'rollback',
+                                            'prepare',
+                                            'query',
+                                            'executeQuery',
+                                            'executeUpdate',
+                                            'getDatabasePlatform'
+                                        )
+                                    )
+                                    ->getMock();
  
         $mock->expects($this->any())
-            ->method('prepare')
-            ->will($this->returnValue('A string'));
+             ->method('prepare')
+             ->will($this->returnValue('A string'));
  
         $mock->expects($this->any())
-            ->method('query')
-            ->will($this->returnValue($this->getQueryBuilderMock()));
+             ->method('query')
+             ->will($this->returnValue($this->getQueryBuilderMock()));
 
         return $mock;
     }
@@ -188,9 +196,9 @@ class TestSuite extends \PHPUnit_Framework_TestCase
                          ->will( $this->returnValue( $queryBuilderMock ) );
         
         $queryBuilderMock
-                 ->expects($this->any())
-                 ->method('getResult')
-                 ->will($this->returnValue( array("id" => 1,"myResult" => 'MyResult')) );
+                        ->expects($this->any())
+                        ->method('getResult')
+                        ->will($this->returnValue( array("id" => 1,"myResult" => 'MyResult')) );
         
         return $queryBuilderMock;
     }

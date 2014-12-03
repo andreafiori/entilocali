@@ -11,18 +11,15 @@ use Admin\Model\Posts\PostsGetter;
 use Application\Model\Slugifier;
 
 /**
- * TODO: refactor for this home page setup:
-         map array object will have: array( moduleId => object to get keyRecord => ArrayRecords )
-
  * @author Andrea Fiori
  * @since  05 May 2014
  */
 class PostsFrontend extends RouterManagerAbstract implements RouterManagerInterface
 {
-    /** @var \Admin\Model\Posts\PostsGetterWrapper **/
+    /** @var PostsGetterWrapper **/
     private $postsGetterWrapper;
     
-    /** @var \Application\Model\Posts\PostsFrontendHelper **/
+    /** @var PostsFrontendHelper **/
     private $postsFrontendHelper;
 
     /**
@@ -59,6 +56,7 @@ class PostsFrontend extends RouterManagerAbstract implements RouterManagerInterf
 
         return $this->getOutput();
     }
+    
         /**
          * @return type
          */
@@ -77,23 +75,29 @@ class PostsFrontend extends RouterManagerAbstract implements RouterManagerInterf
                 foreach($homePageRecords as $key => $value) {
                     switch($key) {
                         case(1):
-                            $postsGetterWrapper = new \Admin\Model\Posts\PostsGetterWrapper( new \Admin\Model\Posts\PostsGetter($this->getInput('entityManager',1)) );
+                            $postsGetterWrapper = new PostsGetterWrapper( new PostsGetter($this->getInput('entityManager',1)) );
                             $postsGetterWrapper->setInput( array('id' => $this->gatherReferenceIDs($value)) );
                             $postsGetterWrapper->setupQueryBuilder();
+                            $postsGetterWrapper->setupPaginator( $postsGetterWrapper->setupQuery( $this->getInput('entityManager', 1) ) );
+                            $postsGetterWrapper->setupPaginatorCurrentPage(1);
+                            $postsGetterWrapper->setupPaginatorItemsPerPage(35);
                             
-                            $homePageVar['blogs'][] = $postsGetterWrapper->getRecords();
+                            $homePageVar['blogs'][] = $postsGetterWrapper->setupRecords();
                         break;
 
                         case(4):
-                            $postsGetterWrapper = new \Admin\Model\Posts\PostsGetterWrapper( new \Admin\Model\Posts\PostsGetter($this->getInput('entityManager',1)) );
+                            $postsGetterWrapper = new PostsGetterWrapper( new PostsGetter($this->getInput('entityManager',1)) );
                             $postsGetterWrapper->setInput( array('id' => $this->gatherReferenceIDs($value)) );
                             $postsGetterWrapper->setupQueryBuilder();
+                            $postsGetterWrapper->setupPaginator( $postsGetterWrapper->setupQuery( $this->getInput('entityManager', 1) ) );
+                            $postsGetterWrapper->setupPaginatorCurrentPage(1);
+                            $postsGetterWrapper->setupPaginatorItemsPerPage(35);
                             
-                            $homePageVar['contents'][] = $postsGetterWrapper->getRecords();
+                            $homePageVar['contents'][] = $postsGetterWrapper->setupRecords();
                         break;
 
                         case(6):
-                            // photo
+                            // Photo
                         break;
                         
                         case(2):

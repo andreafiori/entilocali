@@ -114,6 +114,19 @@ class Module implements AutoloaderProviderInterface
                     
 		    return $authService;
 		},
+                'ServiceContainer' => function($sl) {
+                    $em = $sl->get('Doctrine\ORM\EntityManager');
+                    $sm = $sl->get('servicemanager');
+		    return array(
+                        'serviceLocator'    => $sl,
+                        'serviceManager'    => $sm,
+                        'entityManager'     => $em,
+                        'queryBuilder'      => $em->createQueryBuilder(),
+                        'translator'        => $sm->get('translator'),
+                        'moduleConfigs'     => $sm->get('config'),
+                        'request'           => $sm->get('request'),
+                    );
+		},
             ),
         );
     }

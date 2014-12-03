@@ -12,8 +12,11 @@ use Application\Model\Slugifier;
  */
 class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterface
 {
+    private $postsTableName = 'zfcms_posts';
+    
         protected function insert()
         {
+            /* Validate input data */
             $error = array();
             if (!isset($this->rawPost['category'])) {
                 $error[] = 'Selezionare almeno una categoria';
@@ -26,9 +29,10 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
                 return $this->setErrorMessage($error);
             }
             
+            /* Write on db checking error */
             $this->getConnection()->beginTransaction();
             try {
-                $this->getConnection()->insert('zfcms_posts', array(
+                $this->getConnection()->insert($this->postsTableName, array(
                     'note'                 => Slugifier::slugify($this->rawPost['title']),
                     'insert_date'          => date("Y-m-d H:i:s"),
                     'expire_date'          => isset($this->rawPost['expireDate']) ? $this->rawPost['expireDate'] : date("2030-m-d H:i:s"),
@@ -40,7 +44,7 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
                 $this->getConnection()->rollBack();
                 return $this->setErrorMessage($e->getMessage());
             }
-            $postsId = $this->getConnection()->lastInsertId();
+            $postsLastInsertId = $this->getConnection()->lastInsertId();
             
             try {
                 $this->getConnection()->insert('zfcms_posts_options', array(
@@ -52,7 +56,7 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
                     'seo_title'         => $this->rawPost['title'],
                     'seo_description'   => $this->rawPost['seoDescription'],
                     'seo_keywords'      => $this->rawPost['seoKeywords'],
-                    'posts_id'          => $postsId,
+                    'posts_id'          => $postsLastInsertId,
                     'language_id'       => 1,
                 ));
             } catch (\Exception $e) {
@@ -62,20 +66,24 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
             
             if (is_array($this->rawPost['category'])) {
                 foreach($this->rawPost['category'] as $category) {
-                    $this->getConnection()->insert('posts_relations', array(
-                        'posts_id'          => $postsId, // last insert id
+                    $this->getConnection()->insert('zfcms_posts_relations', array(
+                        'posts_id'          => $postsLastInsertId, // last insert id
                         'category_id'       => $category,
                         'module_id'         => $this->rawPost['moduloid'],
                         'channel_id'        => 1,
                     ));
                 }
             }
-            
             $this->getConnection()->commit();
-
-            $this->setVariable('messageType',   'success');
-            $this->setVariable('messageTitle',  'Dati inseriti correttamente');
-            $this->setVariable('messageText',   'Dati inseriti correttamente in archivio.');
+            
+            /* TODO: log event Insert post (type?) */
+            
+            /* Show success message */
+            $this->setVariables(array(
+                'messageType'   => 'success',
+                'messageTitle'  => 'Dati inseriti correttamente',
+                'messageText'   => 'Dati inseriti correttamente in archivio.'
+            ));
         }
         
         protected function update()
@@ -90,27 +98,23 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
    
                 $affectedRows = $this->getConnection()->update(
                             'zfcms_posts_options',
-
                             array_merge($this->getArrayRecordToHandle(), array('description' => $this->rawPost['description']) ),
- 
                             array('posts_id' => $this->rawPost['postoptionid'])
                 );
                 
-                // TODO:
-                // update last update date
-                   //  update categories
-                   // SELECT from posts_relations WHERE categoria_id IN  $this->rawPost['category']; IF id NOT FOUND -> add category
-                   // DO NOT DELETE old category\ies to rewrite same record
-
             } catch(\Exception $e) {
                 $this->getConnection()->rollBack();
                 return $this->setErrorMessage("Si &egrave; verificato un errore nell'aggiornamento dati in archivio. <h2>Messaggio:</h2> ".$e->getMessage());
             }
-            
             $this->getConnection()->commit();
             
-            $this->setVariable('messageType', 'success');
-            $this->setVariable('messageTitle', 'Dati aggiornati correttamente');
-            $this->setVariable('messageText', 'Dati in archivio aggiornati correttamente');
+            /* TODO: log event Insert post (type?) */
+            
+            /* Show success message */
+            $this->setVariables(array(
+                'messageType'   => 'success',
+                'messageTitle'  => 'Dati aggiornati correttamente',
+                'messageText'   => 'Dati aggiornati correttamente in archivio.'
+            ));
         }
 }

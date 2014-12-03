@@ -78,4 +78,18 @@ class ConfigGetter extends QueryBuilderHelperAbstract
         
         return $this->getQueryBuilder();
     }
+    
+    /**     
+     * @param type $isBackend
+     * @return type
+     */
+    public function setIsBackend($isBackend)
+    {
+        if (is_numeric($isBackend)) {
+            $this->getQueryBuilder()->andWhere('c.isBackend = :isBackend ');
+            $this->getQueryBuilder()->setParameter('isBackend', $isBackend);
+        }
+        
+        return $this->getQueryBuilder();
+    }
 }

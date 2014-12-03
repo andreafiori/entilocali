@@ -60,7 +60,11 @@ class LanguagesSetupManager
     {
         return $this->isMultiLanguage ? $this->isMultiLanguage : false;
     }
-
+    
+    /**
+     * @param \Application\Setup\LanguagesSetup $languagesSetup
+     * @return type
+     */
     public function setLanguagesSetup(LanguagesSetup $languagesSetup)
     {
         $this->languagesSetup = $languagesSetup;

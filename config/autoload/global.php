@@ -1,13 +1,6 @@
 <?php
 
-/* Global Configuration Override */
-$dbParams = array(
-        'database'  => 'entilocali',
-        'username'  => 'root',
-        'password'  => '',
-        'hostname'  => 'localhost',
-        'port'      => '3306'
-);
+$dbParams = require('dbParams.php');
 
 return array(
     'service_manager' => array(
@@ -31,8 +24,10 @@ return array(
             	return $sm->get('Doctrine\ORM\EntityManager');
             },
         ),
+        'abstract_factories' => array(
+            'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
+        )
     ),
-    /* Doctrine */
     'doctrine' => array(
     		'connection' => array(
     				'orm_default' => array(

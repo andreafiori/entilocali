@@ -81,5 +81,4 @@ class LanguagesSetup extends QueryBuilderSetterAbstract
     {
         return $this->allAvailableLanguages;
     }
-    
 }

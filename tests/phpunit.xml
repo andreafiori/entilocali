@@ -11,29 +11,28 @@
  
          bootstrap="Bootstrap.php">
 
-	<php>
-		<ini name="memory_limit" value="1024M" />
-	</php>
+    <php>
+        <ini name="memory_limit" value="1024M" />
+    </php>
 
-	<!-- Code coverage -->
-	<!--
-	<formatter type="clover" usefile="false"/>
-	<batchtest>
-	<fileset dir="suite">
-		<include name="**/*Test*.php"/>
-	</fileset>
-	</batchtest>
+    <!-- Code coverage -->
+    <!--
+    <formatter type="clover" usefile="false"/>
+    <batchtest>
+    <fileset dir="suite">
+        <include name="**/*Test*.php"/>
+    </fileset>
+    </batchtest>
 
-	<logging>
-		<log type="coverage-html" target="./report/" charset="UTF-8" />
-	</logging>
-	-->
-	<!-- End Code coverage -->
-	
-	<testsuites>
-		<testsuite name="TestSuite">
-			<directory suffix=".php">./</directory>
-		</testsuite>
-	</testsuites>
-        
+    <logging>
+        <log type="coverage-html" target="./report/" charset="UTF-8" />
+    </logging>
+    -->
+    <!-- End Code coverage -->
+
+    <testsuites>
+        <testsuite name="TestSuite">
+            <directory>./</directory>
+        </testsuite>
+    </testsuites>
 </phpunit>

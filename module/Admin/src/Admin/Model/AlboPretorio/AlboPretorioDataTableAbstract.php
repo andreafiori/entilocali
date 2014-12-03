@@ -22,7 +22,7 @@ abstract class AlboPretorioDataTableAbstract extends DataTableAbstract implement
     /**
      * @return array
      */
-    protected function setupArticoliInput($attiUfficiali=0)
+    protected function setupArticoliInput($attiUfficiali = 0)
     {
         $articoliInput = array();
 
@@ -95,7 +95,7 @@ abstract class AlboPretorioDataTableAbstract extends DataTableAbstract implement
      * @param array $records
      * @return array|null
      */
-    protected function getFormattedDataTableRecords($records)
+    protected function getFormattedDataTableRecords($records, $modulePrefixLink = 'albo-pretorio')
     {
         $arrayToReturn = array();
         if ($records) {
@@ -109,7 +109,7 @@ abstract class AlboPretorioDataTableAbstract extends DataTableAbstract implement
                     $row['userName'].' '.$row['userSurname'],
                     array(
                         'type'      => 'updateButton',
-                        'href'      => $this->getInput('baseUrl',1).'formdata/albo-pretorio/'.$row['id'],
+                        'href'      => $this->getInput('baseUrl',1).'formdata/'.$modulePrefixLink.'/'.$row['id'],
                         'title'     => 'Modifica articolo'
                     ),
                     array(
@@ -118,11 +118,11 @@ abstract class AlboPretorioDataTableAbstract extends DataTableAbstract implement
                     ),
                     array(
                         'type'      => 'attachButton',
-                        'href'      => $this->getInput('baseUrl',1).'formdata/attachments/albo-pretorio/'.$row['id'],
+                        'href'      => $this->getInput('baseUrl',1).'formdata/attachments/'.$modulePrefixLink.'/'.$row['id'],
                     ),
                     array(
                         'type'      => 'enteterzoButton',
-                        'href'      => $this->getInput('baseUrl',1).'invio-ente-terzo/albo-pretorio/'.$row['id'],
+                        'href'      => $this->getInput('baseUrl',1).'invio-ente-terzo/'.$modulePrefixLink.'/'.$row['id'],
                     ),
                 );
             }
