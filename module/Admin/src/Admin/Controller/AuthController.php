@@ -2,31 +2,21 @@
 
 namespace Admin\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
+use Application\Controller\SetupAbstractController;
 use Zend\View\Model\ViewModel;
 use Admin\Model\Users\UserFormAuthentication;
 use Zend\Session\Container as SessionContainer;
 use Admin\Model\Users\UsersGetter;
 use Admin\Model\Users\UsersGetterWrapper;
-use Admin\Model\Config\ConfigGetter;
-use Admin\Model\Config\ConfigGetterWrapper;
-use Application\Setup\UserInterfaceConfigurations;
+use Zend\Permissions\Acl\Acl;
+use Zend\Permissions\Acl\Role\GenericRole as Role;
 
 /**
  * @author Andrea Fiori
  * @since  20 April 2014
  */
-class AuthController extends AbstractActionController
+class AuthController extends SetupAbstractController
 {
-    /**
-     * @var Application\Controller\Plugin\CommonSetupPlugin
-     */
-    private $commonSetupPlugin;
-    
-    private $moduleConfigs;
-    private $configurations;
-    private $input;
-    private $baseUrl;
     private $authservice;
     private $form;
     private $storage;
@@ -34,11 +24,11 @@ class AuthController extends AbstractActionController
     /**
      * @return \Zend\View\Model\ViewModel
      */
-    public function loginAction()
+    public function showFormLoginAction()
     {
         if ($this->getAuthService()->hasIdentity()) {
             return $this->redirect()->toRoute('admin');
-        }            
+        }          
 
         $appServiceLoader = $this->recoverAppServiceLoader();
 
@@ -96,16 +86,25 @@ class AuthController extends AbstractActionController
                     if ( isset($records) and count($records)==1 ) {
                         $records = $records[0];
                         
+                        /* Set ACL */
+                        $acl = new Acl();
+                        $userRole = new Role('administrator');
+                        $acl->addRole($userRole);
+                        $acl->allow($userRole);
+                        // $acl->isAllowed($userRole, null, 'view');                 
+                        
                         $sessionContainer = new SessionContainer();
                         $sessionContainer->offsetSet('id', $records['id']);
                         $sessionContainer->offsetSet('name', $records['name']);
                         $sessionContainer->offsetSet('surname', $records['surname']);
                         $sessionContainer->offsetSet('email', $records['email']);
+                        $sessionContainer->offsetSet('role', $userRole);
+                        $sessionContainer->offsetSet('acl', $acl);
                         
                         /* Regenerate Session ID after log in */
                         $manager = new \Zend\Session\SessionManager;
                         $manager->regenerateId();
-                        
+                                                
                     } else {
                         throw new Exception('Cannot get user details after login');
                     }
@@ -117,7 +116,7 @@ class AuthController extends AbstractActionController
                 $sessionContainer->offsetSet('loginFailures', $loginFailures);
                 
                 foreach($form->getMessages() as $message) {
-                    $this->flashmessenger()->addMessage(print_r($message,1));
+                    $this->flashmessenger()->addMessage( print_r($message,1) );
                 }
             }
         }
@@ -171,39 +170,10 @@ class AuthController extends AbstractActionController
          */
         private function getUserFormAuthentication()
         {
-            if (!$this->form) {  
+            if (!$this->form) {
                 $this->form = new UserFormAuthentication();
 
                 return $this->form;
             }
-        }
-
-        /**
-         * @return AppServiceLoader
-         */
-        private function recoverAppServiceLoader()
-        {
-            $appServiceLoader = $this->getServiceLocator()->get('PluginManagerFactory')->get(
-                'appserviceloader',
-                array('')
-            );
-            
-            $appServiceLoader->setService('serviceLocator',  $this->getServiceLocator());
-            $appServiceLoader->setService('serviceManager',  $this->getServiceLocator()->get('servicemanager'));
-            $appServiceLoader->setService('entityManager',   $this->getServiceLocator()->get('Doctrine\ORM\EntityManager'));
-            $appServiceLoader->setService('translator',      $this->getServiceLocator()->get('translator'));
-            $appServiceLoader->setService('queryBuilder',    $appServiceLoader->recoverService('entityManager')->createQueryBuilder());
-            $appServiceLoader->setService('moduleConfigs',   $appServiceLoader->recoverService('serviceManager')->get('config'));
-            $appServiceLoader->setService('request',         $appServiceLoader->recoverService('serviceManager')->get('request'));
-            $appServiceLoader->setService('router',          $appServiceLoader->recoverRouter());
-            $appServiceLoader->setService('routeMatch',      $appServiceLoader->recoverRouteMatch() );
-            $appServiceLoader->setService('channel', 1);
-            $appServiceLoader->setController($this);
-            $appServiceLoader->setupParams();
-            $appServiceLoader->setupRedirect();
-            $appServiceLoader->setupConfigurations(new ConfigGetterWrapper(new ConfigGetter($this->getServiceLocator()->get('Doctrine\ORM\EntityManager'))));
-            $appServiceLoader->setupUserInterfaceConfigurations(new UserInterfaceConfigurations($appServiceLoader->getProperties()));
-            
-            return $appServiceLoader;
         }
 }

@@ -92,4 +92,13 @@ class StatoCivileForm extends Form
             )
         ));
     }
+    
+    public function addId()
+    {
+        $this->add(array(
+                        'type' => 'Zend\Form\Element\Hidden',
+                        'name' => 'id',
+                        'attributes' => array("class" => 'hiddenField')
+        ));
+    }
 }

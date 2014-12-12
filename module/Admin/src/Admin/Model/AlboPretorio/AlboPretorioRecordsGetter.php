@@ -111,7 +111,7 @@ class AlboPretorioRecordsGetter extends RecordsGetterAbstract
     public function getYears()
     {
         $this->articoliWrapper = new AlboPretorioArticoliGetterWrapper( new AlboPretorioArticoliGetter($this->getEntityManager()) );
-        $this->articoliWrapper->setInput( array('fields'=>'DISTINCT(aa.anno) AS anno','orderBy'=>'aa.anno') );
+        $this->articoliWrapper->setInput( array('fields' => 'DISTINCT(aa.anno) AS anno', 'orderBy'=>'aa.anno') );
         $this->articoliWrapper->setupQueryBuilder();
         
         $records = $this->articoliWrapper->getRecords();

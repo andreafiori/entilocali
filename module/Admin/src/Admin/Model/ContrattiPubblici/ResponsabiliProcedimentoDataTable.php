@@ -21,10 +21,10 @@ class ResponsabiliProcedimentoDataTable extends DataTableAbstract
         
         $this->setRecords( $this->getFormattedDataTableRecords($paginatorRecords) );
 
-        $this->setVariable('tablesetter', 'contratti-pubblici');
+        $this->setVariable('tablesetter', 'contratti-pubblici-responsabili');
         $this->setVariable('paginator', $paginatorRecords);
 
-        $this->setTitle('Responsabile procedimento - contratti pubblici');
+        $this->setTitle('Contratti pubblici: responsabili procedimenti');
         $this->setDescription('Gestione responsabile di procedimento contratti pubblici');
         $this->setColumns(array(
                 "Nome",
@@ -37,7 +37,6 @@ class ResponsabiliProcedimentoDataTable extends DataTableAbstract
             $this->setVariable('messageTitle', 'Nessun responsabile procedimento in archivio');
             $this->setVariable('messageDescription', 'Nessun nome responsabile procedimento in archivio');
         }
-        
     }
 
         /**
@@ -48,7 +47,7 @@ class ResponsabiliProcedimentoDataTable extends DataTableAbstract
             $param = $this->getParam();
 
             $contrattiPubbliciGetterWrapper = new ResponsabiliProcedimentoGetterWrapper(new ResponsabiliProcedimentoGetter($this->getInput('entityManager',1)) );
-            $contrattiPubbliciGetterWrapper->setInput($this->getInput());
+            $contrattiPubbliciGetterWrapper->setInput(array('orderBy'=>'crp.id DESC'));
             $contrattiPubbliciGetterWrapper->setupQueryBuilder(); 
             $contrattiPubbliciGetterWrapper->setupPaginator( $contrattiPubbliciGetterWrapper->setupQuery($this->getInput('entityManager', 1)) );
             $contrattiPubbliciGetterWrapper->setupPaginatorCurrentPage( isset($param['route']['page']) ? $param['route']['page'] : null );
@@ -70,20 +69,17 @@ class ResponsabiliProcedimentoDataTable extends DataTableAbstract
                         array(
                             'type'      => 'updateButton',
                             'href'      => $this->getInput('baseUrl',1).'formdata/contratti-pubblici-responsabili/'.$row['id'],
-                            'tooltip'   => 1,
                             'title'     => 'Modifica'
                         ),
                         array(
                             'type'      => 'deleteButton',
-                            'href'      => $this->getInput('baseUrl',1).'formdata/contratti-pubblici/'.$row['id'],
-                            'tooltip'   => 1,
-                            'title'     => 'Elimina'
+                            'href'      => $this->getInput('baseUrl',1).'formdata/contratti-pubblici-responsabili/'.$row['id'],
+                            'title'     => 'Elimina',
+                            'data-id'   => $row['id']
                         ),
-                        
                     );
                 }
             }
-
             return $arrayToReturn;
         }
 }

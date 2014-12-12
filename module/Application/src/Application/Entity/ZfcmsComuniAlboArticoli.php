@@ -36,8 +36,8 @@ class ZfcmsComuniAlboArticoli
     private $numeroAtto;
 
     /**
-     * @var \DateTime
-     *
+     * @var \Year
+     * 
      * @ORM\Column(name="anno", columnDefinition="YEAR", nullable=false)
      */
     private $anno;
@@ -99,16 +99,16 @@ class ZfcmsComuniAlboArticoli
     private $attivo;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="pubblicare", type="integer", nullable=false)
+     * @ORM\Column(name="pubblicare", type="string", nullable=false)
      */
     private $pubblicare;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="annullato", type="integer", nullable=false)
+     * @ORM\Column(name="annullato", type="string", nullable=false)
      */
     private $annullato;
 
@@ -141,9 +141,9 @@ class ZfcmsComuniAlboArticoli
     private $checkInviaRegione;
 
     /**
-     * @var integer
+     * @var \DateTime
      *
-     * @ORM\Column(name="anno_atto", type="integer", nullable=false)
+     * @ORM\Column(name="anno_atto", type="date", nullable=false)
      */
     private $annoAtto;
 
@@ -488,7 +488,7 @@ class ZfcmsComuniAlboArticoli
     /**
      * Set pubblicare
      *
-     * @param integer $pubblicare
+     * @param string $pubblicare
      *
      * @return ZfcmsComuniAlboArticoli
      */
@@ -502,7 +502,7 @@ class ZfcmsComuniAlboArticoli
     /**
      * Get pubblicare
      *
-     * @return integer
+     * @return string
      */
     public function getPubblicare()
     {
@@ -512,7 +512,7 @@ class ZfcmsComuniAlboArticoli
     /**
      * Set annullato
      *
-     * @param integer $annullato
+     * @param string $annullato
      *
      * @return ZfcmsComuniAlboArticoli
      */
@@ -526,7 +526,7 @@ class ZfcmsComuniAlboArticoli
     /**
      * Get annullato
      *
-     * @return integer
+     * @return string
      */
     public function getAnnullato()
     {
@@ -632,7 +632,7 @@ class ZfcmsComuniAlboArticoli
     /**
      * Set annoAtto
      *
-     * @param integer $annoAtto
+     * @param \DateTime $annoAtto
      *
      * @return ZfcmsComuniAlboArticoli
      */
@@ -646,7 +646,7 @@ class ZfcmsComuniAlboArticoli
     /**
      * Get annoAtto
      *
-     * @return integer
+     * @return \DateTime
      */
     public function getAnnoAtto()
     {

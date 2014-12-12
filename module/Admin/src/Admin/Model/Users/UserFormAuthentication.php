@@ -40,5 +40,4 @@ class UserFormAuthentication extends \Zend\Form\Form
                     )
         ));
     }
-    
 }

@@ -33,6 +33,13 @@ class PostsGetterTest extends TestSuite
         
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('id'));
     }
+    
+    public function testSetIdWithArrayParameter()
+    {
+        $this->objectGetter->setId(array(1,2,3));
+        
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('id'));
+    }
 
     public function testSetCategoryName()
     {

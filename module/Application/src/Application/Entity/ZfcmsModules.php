@@ -24,9 +24,9 @@ class ZfcmsModules
     /**
      * @var integer
      *
-     * @ORM\Column(name="reference_id", type="bigint", nullable=false)
+     * @ORM\Column(name="module_id", type="integer", nullable=false)
      */
-    private $referenceId;
+    private $moduleId;
 
     /**
      * @var string
@@ -34,13 +34,6 @@ class ZfcmsModules
      * @ORM\Column(name="code", type="string", length=50, nullable=false)
      */
     private $code;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=50, nullable=false)
-     */
-    private $name;
 
     /**
      * @var string
@@ -69,27 +62,27 @@ class ZfcmsModules
     }
 
     /**
-     * Set referenceId
+     * Set moduleId
      *
-     * @param integer $referenceId
+     * @param integer $moduleId
      *
      * @return ZfcmsModules
      */
-    public function setReferenceId($referenceId)
+    public function setModuleId($moduleId)
     {
-        $this->referenceId = $referenceId;
+        $this->moduleId = $moduleId;
     
         return $this;
     }
 
     /**
-     * Get referenceId
+     * Get moduleId
      *
      * @return integer
      */
-    public function getReferenceId()
+    public function getModuleId()
     {
-        return $this->referenceId;
+        return $this->moduleId;
     }
 
     /**
@@ -114,30 +107,6 @@ class ZfcmsModules
     public function getCode()
     {
         return $this->code;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return ZfcmsModules
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 
     /**

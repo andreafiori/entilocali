@@ -10,7 +10,9 @@ use Application\Model\RecordsGetterWrapperAbstract;
  */
 class OperatoriGetterWrapper extends RecordsGetterWrapperAbstract
 {
-    /** @var  \Admin\Model\ContrattiPubblici\OperatoriGetter **/
+    /**
+     * @var \Admin\Model\ContrattiPubblici\OperatoriGetter 
+     */
     protected $objectGetter;
     
     /**

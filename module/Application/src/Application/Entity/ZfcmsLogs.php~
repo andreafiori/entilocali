@@ -1,0 +1,47 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ZfcmsLogs
+ *
+ * @ORM\Table(name="zfcms_logs")
+ * @ORM\Entity
+ */
+class ZfcmsLogs
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="utente_id", type="bigint", nullable=false)
+     */
+    private $utenteId;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="datetime", type="datetime", nullable=false)
+     */
+    private $datetime;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="azione", type="text", length=65535, nullable=false)
+     */
+    private $azione;
+
+
+}
+

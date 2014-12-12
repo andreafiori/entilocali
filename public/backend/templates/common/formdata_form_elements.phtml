@@ -15,6 +15,9 @@ $form->setAttributes(array(
     'class'     => 'form-horizontal'
 ));
 
+if (!isset($this->formControlSpanWidth)): $this->formControlSpanWidth = 10; endif;
+if (!isset($this->formLabelSpanWidth)): $this->formLabelSpanWidth = 2; endif;
+
 echo $this->form()->openTag($form);
 
 foreach ($this->form as $element):

@@ -38,6 +38,18 @@
                 <?php if (is_array($record)): ?>
                     <?php if ($record['type']=='updateButton'): ?>
                     <td><a href="<?php echo $record['href'] ?>" class="btn btn-lg" title="<?php echo $record['title'] ?>"><i class="fa fa-pencil"></i> </a></td>
+                    <?php elseif($record['type']=='alboRettificaButton'): ?>
+                    <td><a href="#alboRevisionModal" data-id="<?php echo $record['data-id'] ?>" class="open-deleteModal btn btn-lg" title="Rettifica articolo"><i class="fa fa-edit"></i> </a></td>
+                    <?php elseif($record['type']=='alboAnnulledButton'): ?>
+                    <td colspan="4" valign="middle" class="text-center"><h4>ARTICOLO ANNULLATO</h4></td>
+                    <?php elseif($record['type']=='alboAnnullButton'): ?>
+                    <td><a href="#alboAnnullModal" data-id="<?php echo $record['data-id'] ?>" class="open-deleteModal btn btn-lg icon-red" title="Annulla articolo"><i class="fa fa-power-off"></i> </a></td>
+                    <?php elseif($record['type']=='activeButton'): ?>
+                    <td><a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-green" title="<?php echo (isset($record['title'])) ? $record['title'] : 'Attiva' ?>"><i class="fa fa-toggle-on"></i> </a></td>
+                    <?php elseif($record['type']=='disableButton'): ?>
+                    <td><a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-red" title="<?php echo (isset($record['title'])) ? $record['title'] : 'Disattiva' ?>"><i class="fa fa-toggle-on"></i> </a></td>
+                    <?php elseif($record['type']=='ignore'): ?>
+                    <!-- No content -->
                     <?php elseif($record['type']=='noButton'): ?>
                     <td>&nbsp;</td>
                     <?php elseif($record['type']=='deleteButton'): ?>
@@ -59,7 +71,88 @@
     </table>
 </div>
 
-    <?php
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="ConfirmDeleteModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel"><strong>Conferma eliminazione?</strong></h4>
+            </div>
+            
+            <form action="" method="post">
+                <div class="modal-body">
+                    <p><strong>Attenzione:</strong> i dati di questo elemento e ad esso collegati verranno cancellati definitivamente e non sar&agrave; possibile recuperarli.</p>
+                    <div><strong>ID Record: </strong><span id="recordidtodelete"></span></div>
+                    <input type="hidden" name="deleteId" id="deleteId" value="" />
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
+                    <button type="submit" class="btn btn-danger">Conferma</button>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+</div>
+
+<!-- Modale revisione articolo albo -->
+<div class="modal fade" id="alboRevisionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="alboRevisionModalLabel"><strong>Conferma revisione?</strong></h4>
+            </div>
+            
+            <form action="" method="post">
+                <div class="modal-body">
+                    <p><strong>Attenzione:</strong> L'articolo &egrave; gi&agrave; stato pubblicato. Passare alla modalit&agrave; di revisione?</p>
+                    <p>Una volta confermata la revisione, l'articolo non sar&grave; visibile sul sito web pubblico per permettere di aggiungere o eliminare allegati e dovr&agrave; essere riattivato in questa sezione</p>
+
+                    <input type="hidden" name="deleteId" id="deleteId" value="" />
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
+                    <a href="#" class="btn btn-primary">Conferma</a>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+</div>
+
+<!-- Modale annullamento articolo albo -->
+<div class="modal fade" id="alboAnnullModal" tabindex="-1" role="dialog" aria-labelledby="DisableArticleAlboPretorio" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="alboAnnullModalLabel"><strong>Annulla articolo?</strong></h4>
+            </div>
+            
+            <form action="" method="post">
+                <div class="modal-body">
+                    <p><strong>Attenzione:</strong> una volta annullato l'articolo non potr&agrave; pi&ugrave; essere ripristinato.</p>
+
+                    <input type="hidden" name="alboAnnullModalId" id="alboAnnullModalId" value="" />
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
+                    <a href="#" class="btn btn-danger">Conferma</a>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+</div>
+
+<?php
 
     if ( count($this->paginator) > 1 ):
         try {
@@ -113,5 +206,17 @@ function forceResponsiveTables() {
 $(document).ready(function () {
     $(window).resize(forceResponsiveTables);
     forceResponsiveTables();
+    
+    $( ".open-deleteModal" ).click(function(e) {
+        e.preventDefault();
+
+        var _self = $(this);
+
+        var deleteId = _self.data('id');
+        $("#deleteId").val(deleteId);
+        $("#recordidtodelete").html(deleteId);
+
+        $(_self.attr('href')).modal('show');
+    });
 });
 </script>

@@ -1,0 +1,214 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ZfcmsComuniAlboArticoli
+ *
+ * @ORM\Table(name="zfcms_comuni_albo_articoli", indexes={@ORM\Index(name="rettifica_id", columns={"rettifica_id"}), @ORM\Index(name="utente_id", columns={"utente_id"}), @ORM\Index(name="sezione_id", columns={"sezione_id"})})
+ * @ORM\Entity
+ */
+class ZfcmsComuniAlboArticoli
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="numero_progressivo", type="bigint", nullable=false)
+     */
+    private $numeroProgressivo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="numero_atto", type="bigint", nullable=false)
+     */
+    private $numeroAtto;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="anno", type="date", nullable=false)
+     */
+    private $anno;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data_attivazione", type="date", nullable=false)
+     */
+    private $dataAttivazione;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="ora_attivazione", type="time", nullable=false)
+     */
+    private $oraAttivazione;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data_pubblicare", type="date", nullable=false)
+     */
+    private $dataPubblicare;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="ora_pubblicare", type="time", nullable=false)
+     */
+    private $oraPubblicare;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="scadenza", type="integer", nullable=false)
+     */
+    private $scadenza;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data_scadenza", type="date", nullable=false)
+     */
+    private $dataScadenza;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="titolo", type="text", length=65535, nullable=false)
+     */
+    private $titolo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="attivo", type="integer", nullable=false)
+     */
+    private $attivo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pubblicare", type="string", nullable=false)
+     */
+    private $pubblicare;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="annullato", type="string", nullable=false)
+     */
+    private $annullato;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="rettifica_id", type="integer", nullable=false)
+     */
+    private $rettificaId;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data_invio_regione", type="date", nullable=false)
+     */
+    private $dataInvioRegione;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="num_att", type="integer", nullable=false)
+     */
+    private $numAtt;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="check_invia_regione", type="integer", nullable=false)
+     */
+    private $checkInviaRegione;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="anno_atto", type="date", nullable=false)
+     */
+    private $annoAtto;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="home", type="integer", nullable=false)
+     */
+    private $home;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ente_terzo", type="text", length=65535, nullable=false)
+     */
+    private $enteTerzo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fonte_url", type="text", length=65535, nullable=true)
+     */
+    private $fonteUrl;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="note", type="text", length=65535, nullable=false)
+     */
+    private $note;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data_rettifica", type="date", nullable=false)
+     */
+    private $dataRettifica;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="check_rettifica", type="integer", nullable=false)
+     */
+    private $checkRettifica;
+
+    /**
+     * @var \Application\Entity\ZfcmsComuniAlboSezioni
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniAlboSezioni")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="sezione_id", referencedColumnName="id")
+     * })
+     */
+    private $sezione;
+
+    /**
+     * @var \Application\Entity\ZfcmsUsers
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsers")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="utente_id", referencedColumnName="id")
+     * })
+     */
+    private $utente;
+
+
+}
+

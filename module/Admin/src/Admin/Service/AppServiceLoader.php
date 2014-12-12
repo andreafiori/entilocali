@@ -9,18 +9,8 @@ use Application\Setup\UserInterfaceConfigurations;
  * @author Andrea Fiori
  * @since  26 November 2014
  */
-class AppServiceLoader extends AppServiceLoaderAbstract implements PluginInterface
+class AppServiceLoader extends AppServiceLoaderAbstract
 {
-    private $factoryInput;
-
-    /**
-     * @param array $factoryInput
-     */
-    public function __construct(array $factoryInput)
-    {
-        $this->factoryInput = $factoryInput;
-    }
-    
     /**
      * @throws \Exception
      */

@@ -106,25 +106,33 @@ abstract class CrudHandlerAbstract extends RouterManagerAbstract
          * @param string $errorMessage
          * @param string $title
          */
-        protected function setErrorMessage($errorMessage, $title = null)
+        protected function setErrorMessage($errorMessage, $title = 'Errori verificati')
         {
-            if (!$title) {
-                $title = 'Errori verificati';
-            }
-
             $this->setVariable('messageType', 'danger');
             $this->setVariable('messageTitle', $title);
-
+            $this->setVariable('messageShowFormLink', 1);
+            
             if (is_array($errorMessage)) {
-                $errorMessageFinal = '';
-                foreach ($errorMessage as $error) {
-                    $errorMessageFinal .= '<p>'.$error.'</p>';
-                }
-
-                $errorMessage = $errorMessageFinal;
+                $this->setVariable('messageText', 'Si sono verificati i seguenti errori: ');
+                $this->setVariable('messageList', $errorMessage);
+            } else {
+                $this->setVariable('messageText', $errorMessage);
             }
-
-            $this->setVariable('messageText', $errorMessage);
+        }
+        
+        /**
+         * @param string $title
+         * @param string $message
+         */
+        protected function setSuccessMessage($title = 'Operazione effettuata con successo', $message = 'I dati sono stati elaborati correttamente')
+        {
+            $this->setVariables(array(
+                'messageType' => 'success',
+                'messageTitle' => $title,
+                'messageText' => $message,
+                'messageShowFormLink' => 1
+                )
+            );
         }
 
     /**

@@ -7,8 +7,29 @@
 
 <div>Articolo da inviare ad altro Ente (Comune o Prefettura) per richiederne la pubblicazione o per inviare la relata:</div>
 
+<div>&nbsp;</div>
+
 <div><strong><?php echo $this->titolo ?></strong></div>
 
 <?php
 
-echo $this->render($this->formDataCommonPath.'formdata_common.phtml');
+// $form->setAttribute('action', $this->url('contact/process'));
+$this->form->setAttribute('method', 'post');
+$this->form->setAttribute('role', 'form');
+$this->form->setAttribute('class', 'form-horizontal');
+$this->form->prepare();
+
+echo $this->form()->openTag($this->form);
+
+echo $this->render($this->formDataCommonPath.'formdata_form_elements.phtml');
+
+?>
+<div class="form-group">
+    <label for="submit" class="col-sm-2 control-label"></label>
+    <div class="col-sm-10">
+        <input name="submit" type="submit" id="submit" class="btn btn-primary" value="Invia">
+    </div>
+</div>
+<?php
+
+echo $this->form()->closeTag();

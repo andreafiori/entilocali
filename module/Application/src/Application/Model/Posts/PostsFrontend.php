@@ -16,10 +16,14 @@ use Application\Model\Slugifier;
  */
 class PostsFrontend extends RouterManagerAbstract implements RouterManagerInterface
 {
-    /** @var PostsGetterWrapper **/
+    /**
+     * @var PostsGetterWrapper
+     */
     private $postsGetterWrapper;
     
-    /** @var PostsFrontendHelper **/
+    /**
+     * @var PostsFrontendHelper
+     */
     private $postsFrontendHelper;
 
     /**
@@ -67,7 +71,7 @@ class PostsFrontend extends RouterManagerAbstract implements RouterManagerInterf
             $homePageRecordsGetterWrapper = new HomePageRecordsGetterWrapper(new HomePageRecordsGetter($this->getInput('entityManager',1)));
             $homePageRecordsGetterWrapper->setInput( array('orderBy' => 'hb.position, h.position') );
             $homePageRecordsGetterWrapper->setupQueryBuilder();
-            
+                        
             $homePageRecords = $homePageRecordsGetterWrapper->getRecords();
             
             if ($homePageRecords) {

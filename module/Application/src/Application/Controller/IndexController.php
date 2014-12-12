@@ -2,19 +2,16 @@
 
 namespace Application\Controller;
 
+use Application\Controller\SetupAbstractController;
 use Zend\View\Model\ViewModel;
-use Zend\Mvc\Controller\AbstractActionController;
 use Application\Model\RouterManagers\RouterManager;
 use Application\Model\RouterManagers\RouterManagerHelper;
-use Admin\Model\Config\ConfigGetter;
-use Admin\Model\Config\ConfigGetterWrapper;
-use Application\Setup\UserInterfaceConfigurations;
 
 /**
  * @author Andrea Fiori
  * @since  04 December 2013
  */
-class IndexController extends AbstractActionController
+class IndexController extends SetupAbstractController
 {
     /**
      * @var \Application\Controller\Plugin\CommonSetupPlugin
@@ -23,28 +20,17 @@ class IndexController extends AbstractActionController
     
     public function indexAction()
     {
-        $appServiceLoader = $this->getServiceLocator()->get('PluginManagerFactory')->get(
-            'appserviceloader',
-            array('')
-        );
-
-        $appServiceLoader->setProperties($this->getServiceLocator()->get('ServiceContainer'));
-
-        $appServiceLoader->setService('router',     $appServiceLoader->recoverRouter());
-        $appServiceLoader->setService('routeMatch', $appServiceLoader->recoverRouteMatch() );
-        $appServiceLoader->setService('channel', 1);
-        $appServiceLoader->setController($this);
-        $appServiceLoader->setupParams();
-        $appServiceLoader->setupRedirect();
-        $appServiceLoader->setupConfigurations(new ConfigGetterWrapper(new ConfigGetter($appServiceLoader->recoverService('entityManager'))));
-        $ui = $appServiceLoader->setupUserInterfaceConfigurations(new UserInterfaceConfigurations($appServiceLoader->getProperties()));
+        $appServiceLoader = $this->recoverAppServiceLoader();
 
         $configurations = $appServiceLoader->recoverService('configurations');
         foreach($configurations as $key => $value) {
             $this->layout()->setVariable($key, $value);
         }
         
-        $input = array_merge($configurations, $ui->getConfigurations(), $appServiceLoader->getProperties(),
+        $input = array_merge(
+            $configurations, 
+            $this->getUserInterfaceConfigurationsArray(),
+            $appServiceLoader->getProperties(),
             array(
                 'category'  => trim($this->params()->fromRoute('category')),
                 'title'     => trim($this->params()->fromRoute('title')),

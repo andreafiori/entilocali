@@ -28,12 +28,14 @@ class StatoCivileFormDataHandler extends FormDataAbstract
         $this->setForm( new StatoCivileForm() );
         $this->getForm()->addSezioni( $this->getSezioni() );
         $this->getForm()->addDates();
+        $this->getForm()->addId();
 
         if ( isset($this->param['route']['option']) ) {
             $records = $this->getArticoloRecord($this->param['route']['option']);
-            
             if ( !empty($records) ) {
                 $this->getForm()->setData($records);
+                
+                $formAction = 'stato-civile/update/';
             }
         }
 
@@ -41,7 +43,7 @@ class StatoCivileFormDataHandler extends FormDataAbstract
             'formTitle'                     => isset($records['titolo']) ? $records['titolo'] : 'Nuovo atto stato civile',
             'formDescription'               => '&Egrave; consigliabile inserire testi brevi sul tema trattato, possibilmente in minuscolo',
             'form'                          => $this->getForm(),
-            'formAction'                    =>  '',
+            'formAction'                    => isset($formAction) ? $formAction : $formAction = 'stato-civile/insert/',
             'formBreadCrumbCategory'        => 'Stato civile',
             'formBreadCrumbCategoryLink'    => $this->getInput('baseUrl',1).'datatable/stato-civile/',
             )

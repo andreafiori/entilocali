@@ -36,7 +36,11 @@ class EntiterziDataTable extends DataTableAbstract
         $this->setTitle('Rubrica enti terzi');
         $this->setDescription('Gestione rubrica contatti enti terzi');
     }
-    
+        
+        /**
+         * @param type $records
+         * @return type
+         */
         private function formatRecordsToShowOnTable($records)
         {
             $arrayToReturn = array();
@@ -48,13 +52,12 @@ class EntiterziDataTable extends DataTableAbstract
                         array(
                             'type'      => 'updateButton',
                             'href'      => $this->getInput('baseUrl',1).'formdata/enti-terzi/'.$row['id'],
-                            'tooltip'   => 1,
                             'title'     => 'Modifica'
                         ),
                         array(
                             'type'      => 'deleteButton',
                             'href'      => '#',
-                            'tooltip'   => 1,
+                            'data-id'   => $row['id'],
                             'title'     => 'Elimina'
                         ),
                     );

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsAttachments
  *
- * @ORM\Table(name="zfcms_attachments", indexes={@ORM\Index(name="mime_id", columns={"mime_id"})})
+ * @ORM\Table(name="zfcms_attachments", indexes={@ORM\Index(name="mime_id", columns={"mime_id"}), @ORM\Index(name="user_id", columns={"user_id"})})
  * @ORM\Entity
  */
 class ZfcmsAttachments
@@ -65,6 +65,16 @@ class ZfcmsAttachments
      * })
      */
     private $mime;
+
+    /**
+     * @var \Application\Entity\ZfcmsUsers
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsers")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * })
+     */
+    private $user;
 
 
 
@@ -220,5 +230,29 @@ class ZfcmsAttachments
     public function getMime()
     {
         return $this->mime;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Application\Entity\ZfcmsUsers $user
+     *
+     * @return ZfcmsAttachments
+     */
+    public function setUser(\Application\Entity\ZfcmsUsers $user = null)
+    {
+        $this->user = $user;
+    
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Application\Entity\ZfcmsUsers
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

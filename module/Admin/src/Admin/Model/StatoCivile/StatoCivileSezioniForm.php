@@ -17,8 +17,9 @@ class StatoCivileSezioniForm extends Form
         $this->add(array(
                         'name' => 'nome',
                         'type' => 'Textarea',
-                        'options' => array( 'label' => 'Nome' ),
+                        'options' => array('label' => '* Nome'),
                         'attributes' => array(
+                                    'required' => 'required',
                                     'id'       => 'nome',
                                     'required' => 'required',
                                     'title'    => 'Inserisci nome sezione'
@@ -27,19 +28,26 @@ class StatoCivileSezioniForm extends Form
         
         $this->add(array(
                         'type' => 'Zend\Form\Element\Select',
-                        'name' => 'stato',
+                        'name' => 'attivo',
                         'options' => array(
-                               'label' => 'Stato',
+                                'label' => '* Stato',
                                 'empty_option' => 'Seleziona',
                                 'value_options' => array(
-                                       'attivo'   => 'Attivo',
-                                       'nascosto' => 'Nascosto',
+                                       '1'   => 'Attivo',
+                                       '0' => 'Nascosto',
                                ),
                         ),
                         'attributes' => array(
-                                'id' => 'stato',
-                                'title' => 'Seleziona stato'
+                                'required' => 'required',
+                                'id' => 'attivo',
+                                'title' => 'Seleziona stato',
                         )
+        ));
+        
+        $this->add(array(
+                        'type' => 'Zend\Form\Element\Hidden',
+                        'name' => 'id',
+                        'attributes' => array("class" => 'hiddenField')
         ));
     }
 }

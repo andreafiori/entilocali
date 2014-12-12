@@ -41,6 +41,7 @@ class StatoCivileSezioniDataTable extends DataTableAbstract
         $this->setVariable('formBreadCrumbCategory', 'Stato civile');
         $this->setVariable('formBreadCrumbCategoryLink', $this->getInput('baseUrl', 1).'datatable/stato-civile');
     }
+    
         /**
          * @return StatoCivileSezioniGetterWrapper
          */
@@ -78,13 +79,12 @@ class StatoCivileSezioniDataTable extends DataTableAbstract
                     array(
                         'type'      => 'updateButton',
                         'href'      => $this->getInput('baseUrl',1).'formdata/stato-civile-sezioni/'.$record['id'],
-                        'tooltip'   => 1,
                         'title'     => 'Modifica'
                     ),
                     array(
                         'type'      => 'deleteButton',
                         'href'      => '#',
-                        'tooltip'   => 1,
+                        'data-id'   => $record['id'],
                         'title'     => 'Elimina'
                     ),
                 );

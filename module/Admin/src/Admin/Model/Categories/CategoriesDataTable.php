@@ -21,7 +21,6 @@ class CategoriesDataTable extends DataTableAbstract
     {
         $param = $this->getInput('param',1);
         $moduleId = $param['get']['moduleId'];
-
         $moduleRecord = $this->getInput('moduleRecord', 1);
 
         $this->title        = 'Categorie '.$moduleRecord[$moduleId];
@@ -53,7 +52,6 @@ class CategoriesDataTable extends DataTableAbstract
                 ),
             );
         }
-
         return $recordsToReturn;
     }
 }

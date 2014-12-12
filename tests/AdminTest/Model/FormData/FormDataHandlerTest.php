@@ -20,11 +20,13 @@ class FormDataHandlerTest extends TestSuite
     
     public function testSetupRecord()
     {
-       $this->formDataHandler = new FormDataHandler();
-       $this->assertTrue( is_array($this->formDataHandler->setupRecord()) );
-       
-       $input = array('formsetter' => 'MyFormSetterClassMap', 'formdata_classmap' => 'MyFormDataClassMap');
-       $this->formDataHandler = new FormDataHandler($input);
-       $this->assertTrue( is_array($this->formDataHandler->setupRecord()) );
+        $this->formDataHandler = new FormDataHandler();
+        $this->assertTrue( is_array($this->formDataHandler->setupRecord()) );
+
+        $this->formDataHandler = new FormDataHandler(array(
+           'formsetter' => 'MyFormSetterClassMap',
+           'formdata_classmap' => 'MyFormDataClassMap')
+        );
+        $this->assertTrue( is_array($this->formDataHandler->setupRecord()) );
     }
 }

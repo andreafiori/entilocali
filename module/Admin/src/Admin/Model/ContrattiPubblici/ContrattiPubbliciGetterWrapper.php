@@ -10,7 +10,9 @@ use Application\Model\RecordsGetterWrapperAbstract;
  */
 class ContrattiPubbliciGetterWrapper extends RecordsGetterWrapperAbstract
 {
-    /** @var  \Admin\Model\ContrattiPubblici\ContrattiPubbliciGetter **/
+    /**
+     * @var \Admin\Model\ContrattiPubblici\ContrattiPubbliciGetter
+     */
     protected $objectGetter;
     
     public function __construct(ContrattiPubbliciGetter $contrattiPubbliciGetter)
@@ -26,6 +28,7 @@ class ContrattiPubbliciGetterWrapper extends RecordsGetterWrapperAbstract
         
         $this->objectGetter->setId( $this->getInput('id', 1) );
         $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
+        $this->objectGetter->setGroupBy( $this->getInput('groupBy', 1) );
         $this->objectGetter->setLimit( $this->getInput('limit', 1) );
     }
 }

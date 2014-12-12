@@ -2,21 +2,18 @@
 
 namespace Admin\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
+use Application\Controller\SetupAbstractController;
 use Zend\View\Model\ViewModel;
 use Zend\Session\Container as SessionContainer;
 use Application\Model\RouterManagers\RouterManager;
 use Application\Model\RouterManagers\RouterManagerHelper;
 use Admin\Model\FormData\FormDataCrudHandler;
-use Admin\Model\Config\ConfigGetter;
-use Admin\Model\Config\ConfigGetterWrapper;
-use Application\Setup\UserInterfaceConfigurations;
 
 /**
  * @author Andrea Fiori
  * @since  20 April 2014
  */
-class AdminController extends AbstractActionController
+class AdminController extends SetupAbstractController
 {
     /**
      * @return ViewModel
@@ -29,22 +26,33 @@ class AdminController extends AbstractActionController
         }
 
         $appServiceLoader = $this->recoverAppServiceLoader();
-
+        
         $configurations = $appServiceLoader->recoverService('configurations');
         foreach($configurations as $key => $value) {
             $this->layout()->setVariable($key, $value);
         }
         
+        $session = new SessionContainer();
+        $userDetails            = new \stdClass();
+        $userDetails->id        = $session->offsetGet('id');
+        $userDetails->name      = $session->offsetGet('name');
+        $userDetails->surname   = $session->offsetGet('surname');
+        $userDetails->role   = $session->offsetGet('role');
+        $userDetails->acl   = $session->offsetGet('acl');
+        
         $uri = $this->getRequest()->getUri();
         $baseUrl = sprintf('%s://%s%s', $uri->getScheme(), $uri->getHost(), $appServiceLoader->recoverService('request')->getBaseUrl()).'/admin/main/'.$this->params()->fromRoute('lang').'/';
-        $input = array_merge($appServiceLoader->getProperties(), array_merge($appServiceLoader->recoverService('configurations'), array(
-                    'formsetter'             => trim($this->params()->fromRoute('formsetter')),
-                    'tablesetter'            => trim($this->params()->fromRoute('tablesetter')),
-                    'formdata_classmap'      => $appServiceLoader->recoverServiceKey('moduleConfigs', 'formdata_classmap'),
-                    'formdata_crud_classmap' => $appServiceLoader->recoverServiceKey('moduleConfigs', 'formdata_crud_classmap'),
-                    'datatables_classmap'    => $appServiceLoader->recoverServiceKey('moduleConfigs', 'datatables_classmap'),
-                    'baseUrl' => $baseUrl
-                )
+        $input = array_merge(
+            $appServiceLoader->getProperties(),
+            $appServiceLoader->recoverService('configurations'),
+            array(
+                'formsetter'             => trim($this->params()->fromRoute('formsetter')),
+                'tablesetter'            => trim($this->params()->fromRoute('tablesetter')),
+                'formdata_classmap'      => $appServiceLoader->recoverServiceKey('moduleConfigs', 'formdata_classmap'),
+                'formdata_crud_classmap' => $appServiceLoader->recoverServiceKey('moduleConfigs', 'formdata_crud_classmap'),
+                'datatables_classmap'    => $appServiceLoader->recoverServiceKey('moduleConfigs', 'datatables_classmap'),
+                'baseUrl'                => $baseUrl,
+                'userDetails'            => $userDetails
             )
         );
 
@@ -62,13 +70,6 @@ class AdminController extends AbstractActionController
                 $this->layout()->setVariable($key, $value);
             }
         }
-        
-        $session = new SessionContainer();
-        
-        $userDetails            = new \stdClass();
-        $userDetails->id        = $session->offsetGet('id');
-        $userDetails->name      = $session->offsetGet('name');
-        $userDetails->surname   = $session->offsetGet('surname');
         
         $this->layout()->setVariables(array(
                 'baseUrl'           => $baseUrl,
@@ -119,29 +120,5 @@ class AdminController extends AbstractActionController
         $this->layout('backend/templates/'.$appServiceLoader->recoverServiceKey('configurations', 'template_backend').'message.phtml');
         
         return new ViewModel();
-    }
-
-        /**
-         * @return AppServiceLoader
-         */
-        private function recoverAppServiceLoader()
-        {
-            $appServiceLoader = $this->getServiceLocator()->get('PluginManagerFactory')->get(
-                'appserviceloader',
-                array('')
-            );
-
-            $appServiceLoader->setProperties($this->getServiceLocator()->get('ServiceContainer'));
-            
-            $appServiceLoader->setService('router',     $appServiceLoader->recoverRouter());
-            $appServiceLoader->setService('routeMatch', $appServiceLoader->recoverRouteMatch() );
-            $appServiceLoader->setService('channel', 1);
-            $appServiceLoader->setController($this);
-            $appServiceLoader->setupParams();
-            $appServiceLoader->setupRedirect();
-            $appServiceLoader->setupConfigurations(new ConfigGetterWrapper(new ConfigGetter($appServiceLoader->recoverService('entityManager'))));
-            $appServiceLoader->setupUserInterfaceConfigurations(new UserInterfaceConfigurations($appServiceLoader->getProperties()));
-            
-            return $appServiceLoader;
-        }
+    }        
 }

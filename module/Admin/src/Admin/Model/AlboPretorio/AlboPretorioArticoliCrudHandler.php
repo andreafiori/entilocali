@@ -15,41 +15,61 @@ class AlboPretorioArticoliCrudHandler extends CrudHandlerAbstract implements Cru
     
     protected function insert()
     {
-        $this->getConnection()->beginTransaction();
         try {
-            $this->getConnection()->insert($this->tableName, array(
-                'utente_id'             => $this->rawPost['utente'],
-                'sezione_id'            => $this->rawPost['sezione'],
-                'numero_progressivo'    => $this->rawPost['numeroProgressivo'],
-                'numero_atto'           => $this->rawPost['numeroAtto'],
-                'anno'                  => $this->rawPost['anno'],
-                'data_attivazione'      => date("Y-m-d H:i:s"),
-                'ora_attivazione'       => date("H:i:s"),
-                'data_pubblicare'       => date("Y-m-d H:i:s"),
-                'ora_pubblicare'        => date("H:i:s"),
-                'scadenza'              => $this->rawPost['scadenza'],
-                'data_pubblicare'       => date("Y-m-d H:i:s"),
-                'titolo'                => $this->rawPost['titolo'],
-                'pubblicare'            => $this->rawPost['pubblicare'],
-                'annullato'             => $this->rawPost['annullato'],
-                'rettifica_id'          => $this->rawPost['rettificaId'],
-                'data_invio_regione'    => date("Y-m-d H:i:s"),
-                'num_att'               => $this->rawPost['num_att'],
-                'check_invia_regione'   => $this->rawPost['check_invia_regione'],
-                'anno_atto'             => $this->rawPost['anno_atto'],
-                'home'                  => $this->rawPost['home'],
-                'ente_terzo'            => $this->rawPost['ente_terzo'],
-                'fonte_url'             => $this->rawPost['fonte_url'],
-                'note'                  => $this->rawPost['note'],
-                'data_rettifica'        => $this->rawPost['data_rettifica'],
-                'check_rettifica'       => $this->rawPost['check_rettifica'],
-            ));
+            $error = array();
+            
+            $varsToCheck = array('userId', 'sezione', 'numeroAtto', 'anno', 'dataScadenza', 'titolo');
+            foreach($varsToCheck as $var) {
+                if ( !isset($this->rawPost[$var]) or empty($this->rawPost[$var]) ) {
+                    $error[] = 'Campo <strong>'.$var.'</strong> non settato fra i campi del form';
+                }
+            }
+            
+            if (!empty($error)) {
+                $this->setErrorMessage($error);
+                return;
+            }
+            
+            if (!$this->rawPost['numeroAtto']) {
+                $error[] = 'Numero atto non &egrave; un numero';
+            }
+            
+            if ( (int)$this->rawPost['anno'] > 2030 or (int)$this->rawPost['anno'] < 1954 ) {
+                $error[] = 'Anno atto deve essere un anno valido.';
+            }
+            
+            if ($error) {
+                $this->setErrorMessage($error);
+            } else {
+                $this->getConnection()->beginTransaction();
+                $this->getConnection()->insert($this->tableName, array(
+                    'utente_id'             => $this->rawPost['userId'],
+                    'sezione_id'            => $this->rawPost['sezione'],
+                    //'numero_progressivo'    => $this->rawPost['numeroProgressivo'],
+                    'numero_atto'           => $this->rawPost['numeroAtto'],
+                    'anno'                  => $this->rawPost['anno'],
+                    'data_attivazione'      => date("Y-m-d H:i:s"),
+                    'ora_attivazione'       => date("H:i:s"),
+                    'data_pubblicare'       => date("Y-m-d H:i:s"),
+                    'ora_pubblicare'        => date("H:i:s"),
+                    'data_scadenza'         => $this->rawPost['dataScadenza'],
+                    'data_pubblicare'       => date("Y-m-d H:i:s"),
+                    'titolo'                => $this->rawPost['titolo'],
+                    'pubblicare'            => 0,
+                    'annullato'             => 0,
+                    'check_invia_regione'   => isset($this->rawPost['checkInviaRegione']) ? $this->rawPost['checkInviaRegione'] : 0,
+                    'anno_atto'             => date("Y"),
+                    'ente_terzo'            => $this->rawPost['enteTerzo'],
+                    'fonte_url'             => $this->rawPost['fonteUrl'],
+                ));
 
-            $this->getConnection()->commit();
+                $this->getConnection()->commit();
 
-            $this->setVariable('messageType',   'success');
-            $this->setVariable('messageTitle',  'Dati inseriti correttamente');
-            $this->setVariable('messageText',   'Dati inseriti correttamente in archivio.');
+                $this->setVariable('redirectRoute', 1);
+                $this->setVariable('redirectRouteTableSetter', 'albo-pretorio');
+                
+                $this->setSuccessMessage('Atto inserito correttamente');
+            }
         } catch (\Exception $e) {
             $this->getConnection()->rollBack();
             return $this->setErrorMessage($e->getMessage());
@@ -58,7 +78,6 @@ class AlboPretorioArticoliCrudHandler extends CrudHandlerAbstract implements Cru
     
     protected function update()
     {
-        $this->getConnection()->beginTransaction();
         try {
             $this->setArrayRecordToHandle('titolo', 'titolo');
             $this->setArrayRecordToHandle('utente_id', 'utente');
@@ -86,7 +105,8 @@ class AlboPretorioArticoliCrudHandler extends CrudHandlerAbstract implements Cru
             $this->setArrayRecordToHandle('note', 'note');
             $this->setArrayRecordToHandle('data_rettifica', 'dataRettifica');
             $this->setArrayRecordToHandle('check_rettifica', 'checkRettifica');
-
+            
+            $this->getConnection()->beginTransaction();
             $this->getConnection()->update($this->tableName, 
                     $this->getArrayRecordToHandle(),
                     array('id' => $this->rawPost['id'])
@@ -94,11 +114,8 @@ class AlboPretorioArticoliCrudHandler extends CrudHandlerAbstract implements Cru
 
             $this->getConnection()->commit();
 
-            $this->setVariables(array(
-                'messageType' => 'success'
-            ));
-            $this->setVariable('messageTitle', 'Dati aggiornati correttamente');
-            $this->setVariable('messageText',  'Dati aggiornati correttamente in archivio.');
+            $this->setSuccessMessage('Atto aggiornato correttamente');
+            
         } catch (\Exception $e) {
             $this->getConnection()->rollBack();
             return $this->setErrorMessage($e->getMessage());
@@ -107,7 +124,7 @@ class AlboPretorioArticoliCrudHandler extends CrudHandlerAbstract implements Cru
     
     protected function delete()
     {
-        
+        // TODO: delete article, delete attachments, delete from home
     }
 }
 

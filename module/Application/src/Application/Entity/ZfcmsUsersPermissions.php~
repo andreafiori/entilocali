@@ -1,0 +1,40 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ZfcmsUsersPermissions
+ *
+ * @ORM\Table(name="zfcms_users_permissions", indexes={@ORM\Index(name="ruolo_id", columns={"role_id"}), @ORM\Index(name="permesso_id", columns={"permession_id"})})
+ * @ORM\Entity
+ */
+class ZfcmsUsersPermissions
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="role_id", type="bigint", nullable=false)
+     */
+    private $roleId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="permession_id", type="bigint", nullable=false)
+     */
+    private $permessionId;
+
+
+}
+

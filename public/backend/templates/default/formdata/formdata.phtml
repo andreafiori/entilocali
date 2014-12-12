@@ -6,7 +6,7 @@ endif;
 
 if (!isset($this->formControlSpanWidth)): $this->formControlSpanWidth = 10; endif;
 if (!isset($this->formLabelSpanWidth)): $this->formLabelSpanWidth = 2; endif;
-      
+
 if (!$this->form):
 ?>
 <div class="alert alert-danger">
@@ -17,18 +17,20 @@ if (!$this->form):
 <div id="formcontainer">
     <div id="formTitle"><h3><?php echo $this->formTitle ?></h3></div>
     <p><?php echo $this->formDescription ?></p>
-<?php
-    echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', array(
-            'form'                  => $this->form,
-            'formAction'            => $this->formAction,
-            'formTitle'             => $this->formTitle,
-            'formDescription'       => $this->formDescription,
-            'formControlSpanWidth'  => $this->formControlSpanWidth,
-            'formLabelSpanWidth'    => $this->formLabelSpanWidth,
-            'CKEditorField'         => $this->CKEditorField,
-        )
-    );
-?>
+
+    <?php
+        echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', array(
+                'form'                  => $this->form,
+                'formAction'            => $this->formAction,
+                'formTitle'             => $this->formTitle,
+                'formDescription'       => $this->formDescription,
+                'formControlSpanWidth'  => $this->formControlSpanWidth,
+                'formLabelSpanWidth'    => $this->formLabelSpanWidth,
+                'CKEditorField'         => $this->CKEditorField,
+            )
+        );
+    ?>
+
     <div class="form-group">
         <label class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label">&nbsp;</label>
         <div class="col-sm-<?php echo $this->formControlSpanWidth ?>"><input type="submit" name="submit" id="submit" value="<?php echo $this->submitButtonValue ? $this->submitButtonValue : "Conferma"; ?>" class="btn btn-primary" onclick="javascript:refreshEditor();<?php if ($this->hideOnSubmit): ?>  document.getElementById('formcontainer').style.display='none'<?php endif ?>"></div>
@@ -46,6 +48,7 @@ if (!$this->form):
 <div id="formDataLoading" class="alert alert-warning" style="display: none">
     <h1>Attendere: elaborazione dati in corso...</h1>
 </div>
+
 <div id="formDataResponse"></div>
 
 <script>

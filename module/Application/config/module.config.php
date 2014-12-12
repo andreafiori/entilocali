@@ -307,7 +307,7 @@ return array(
                                 'translator' => 'MvcTranslator',
                     ),
                     'factories' => array(
-                        'PluginManagerFactory' => 'Admin\Factory\PluginManagerFactory',
+                        
                     ),
     ),
     'translator' => array(

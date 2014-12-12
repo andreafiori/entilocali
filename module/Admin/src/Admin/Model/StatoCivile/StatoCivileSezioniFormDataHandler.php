@@ -20,20 +20,41 @@ class StatoCivileSezioniFormDataHandler extends FormDataAbstract
     {
         parent::__construct($input);
         
-        $param          = $this->getInput('param', 1);
-        $entityManager  = $this->getInput('entityManager', 1);
+        $param = $this->getInput('param', 1);
+   
+        $form = new StatoCivileSezioniForm();
         
-        $statoCivileSezioniForm = new StatoCivileSezioniForm();
-        
-        $statoCivileSezioniGetterWrapper = new StatoCivileSezioniGetterWrapper( new StatoCivileSezioniGetter($entityManager) );
+        if (isset($param['route']['option'])) {
+            
+            if (is_numeric($param['route']['option'])) {
+                $statoCivileSezioniGetterWrapper = new StatoCivileSezioniGetterWrapper( new StatoCivileSezioniGetter($this->getInput('entityManager', 1)) );
+                $statoCivileSezioniGetterWrapper->setInput(array('scs.id' => $param['route']['option']));
+                $statoCivileSezioniGetterWrapper->setupQueryBuilder();
+
+                $record = $statoCivileSezioniGetterWrapper->getRecords();
+
+                if ($record) {
+                    
+                    $form->setData($record[0]);
+                    $formAction = 'stato-civile-sezioni/update';
+                    $formTitle = 'Modifica sezione stato civile';
+                    
+                } else {
+                    $formAction = 'stato-civile-sezioni/insert';
+                    $formTitle = 'Nuova sezione stato civile';
+                }
+
+            } else {
+                $formAction = '';
+            }
+        }
         
         $this->setVariables(array(
-                'formTitle' => 'Nuova sezione stato civile',
-                'formDescription' => 'Inserisci i dati e premi il pulsante per confermare',
-                'form' => $statoCivileSezioniForm,
-                'formAction' => '',
-                
-                'formBreadCrumbCategory' => array('Stato civile'),
+                'form'                       => $form,
+                'formAction'                 => $formAction,
+                'formTitle'                  => $formTitle,
+                'formDescription'            => 'Compila il form e premi il pulsante per confermare',
+                'formBreadCrumbCategory'     => 'Stato civile',
                 'formBreadCrumbCategoryLink' => $this->getInput('baseUrl',1).'datatable/stao-civile-sezioni',
             )
         );

@@ -8,7 +8,6 @@ use Admin\Model\StatoCivile\StatoCivileGetter;
 use Admin\Model\StatoCivile\StatoCivileGetterWrapper;
 use Application\Model\StatoCivile\StatoCivileFormSearch;
 use Admin\Model\StatoCivile\StatoCivileRecordsGetter;
-// use Zend\Session\Container as SessionContainer;
 
 /**
  * @author Andrea Fiori

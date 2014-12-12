@@ -28,16 +28,22 @@ class SceltaContraenteFormDataHandler extends FormDataAbstract
         $form = new SceltaContraenteForm();
         if ($recordFromDb) {
             $form->setData($recordFromDb[0]);
-        } else {
             
+            $formAction = 'contratti-pubblici-scelta-contraente/update';
+            $formTitle = 'Modifica voce scelta del contraente';
+            $formDescription = 'Modifica scelta contraente';
+        } else {
+            $formAction = 'contratti-pubblici-scelta-contraente/insert';
+            $formTitle = 'Nuova voce scelta del contraente';
+            $formDescription = 'Inserisci voce scelta contraente';
         }
         
         $this->setVariables( array(
-                'formTitle'              => 'Scelta del contraente',
-                'formDescription'        => '',
                 'form'                   => $form,
-                'formAction'             => '',
-                'submitButtonValue'      => 'Inserisci',
+                'formAction'             => $formAction,
+                'formTitle'              => $formTitle,
+                'formDescription'        => $formDescription,
+                'submitButtonValue'      => 'Conferma',
                 'formBreadCrumbCategory' => 'Contratti pubblici',
                 'formBreadCrumbCategoryLink' => $this->getInput('baseUrl', 1).'datatable/albo-pretorio/',
             )
@@ -48,7 +54,7 @@ class SceltaContraenteFormDataHandler extends FormDataAbstract
     {
         if (is_numeric($id)) {
             $sceltaContraenteGetterWrapper = new SceltaContraenteGetterWrapper( new SceltaContraenteGetter($this->getInput('entityManager',1)) );
-            $sceltaContraenteGetterWrapper->setInput( array('id'=>$id) );
+            $sceltaContraenteGetterWrapper->setInput( array('csc.id' => $id) );
             $sceltaContraenteGetterWrapper->setupQueryBuilder();
             
             return $sceltaContraenteGetterWrapper->getRecords();

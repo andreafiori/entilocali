@@ -37,17 +37,4 @@ class StatoCivileGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setLimit( $this->getInput('limit', 1) );
     }
     
-    /**
-     * @return array
-     */
-    public function getRecords()
-    {
-        $records = $this->objectGetter->getQueryResult();
-        if ($records) {
-            foreach($records as $record) {
-                
-            }
-        }
-        return $records;
-    }
 }

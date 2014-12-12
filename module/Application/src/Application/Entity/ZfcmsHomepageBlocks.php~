@@ -1,0 +1,43 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ZfcmsHomepageBlocks
+ *
+ * @ORM\Table(name="zfcms_homepage_blocks", indexes={@ORM\Index(name="module_id", columns={"module_id"})})
+ * @ORM\Entity
+ */
+class ZfcmsHomepageBlocks
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="position", type="integer", nullable=true)
+     */
+    private $position;
+
+    /**
+     * @var \Application\Entity\ZfcmsModules
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsModules")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="module_id", referencedColumnName="id")
+     * })
+     */
+    private $module;
+
+
+}
+

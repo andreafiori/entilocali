@@ -13,37 +13,69 @@ use Application\Model\RouterManagers\RouterManagerInterface;
  */
 class FormDataHandler extends RouterManagerAbstract implements RouterManagerInterface
 {
+    private $formSetter;
+    
     public function setupRecord()
     {
-        $formSetter         = $this->getInput('formsetter', 1);
+        $formSetterInput    = $this->getInput('formsetter', 1);
         $formSetterClassMap = $this->getInput('formdata_classmap', 1);
         
-        if (isset($formSetterClassMap[$formSetter])) {
+        $this->setFormSetter(isset($formSetterClassMap[$formSetterInput]) ? $formSetterClassMap[$formSetterInput] : null);
+        $this->checkFormSetterClassExists();
             
-            if ( class_exists($formSetterClassMap[$formSetter]) ) {
-                
-                $objectFormHandlerName = $formSetterClassMap[$formSetter];
-                $objectFormHandler = new $objectFormHandlerName($this->getInput());
-                
-                $this->exportVariableAsGlobal( $objectFormHandler->getVarToExport() );
-                
-                if ($this->getVariable('error')) {
-                    $this->setTemplate('message.phtml');
-                    return;
-                }
-                
-                $customTemplate = $objectFormHandler->getTemplate();
-                if ($customTemplate) {
-                    $this->setTemplate($customTemplate);
-                } else {
-                    $this->setTemplate('formdata/formdata.phtml');
-                }
-                
-                $this->setVariable('formDataCommonPath', 'backend/templates/common/');
+        $formSetter = $this->getFormSetter();
+        if ($formSetter) {
+
+            $objectFormHandler = new $formSetter($this->getInput());
+
+            $this->exportVariableAsGlobal( $objectFormHandler->getVarToExport() );
+
+            if ($this->getVariable('error')) {
+                $this->setTemplate('message.phtml');
+                return false;
             }
-            
+
+            $customTemplate = $objectFormHandler->getTemplate();
+            if ($customTemplate) {
+                $this->setTemplate($customTemplate);
+            } else {
+                $this->setTemplate('formdata/formdata.phtml');
+            }
+
+            $this->setVariable('formDataCommonPath', 'backend/templates/common/');
         }
 
         return $this->getOutput();
+    }
+    
+    /**
+     * @param type $formSetterClassMap
+     */
+    public function setFormSetter($formSetterClassMap)
+    {
+        if ($formSetterClassMap) {
+            $this->formSetter = $formSetterClassMap;
+        }
+    }
+    
+    /**
+     * @return string
+     */
+    public function getFormSetter()
+    {
+        return $this->formSetter;
+    }
+    
+    /**
+     * @return string|null
+     */
+    public function checkFormSetterClassExists()
+    {
+        $formSetter = $this->getFormSetter();
+        if (class_exists($formSetter)) {
+            return $formSetter;
+        } else {
+            unset($this->formSetter);
+        }
     }
 }

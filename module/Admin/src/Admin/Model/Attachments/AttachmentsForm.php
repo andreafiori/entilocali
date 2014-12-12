@@ -59,6 +59,18 @@ class AttachmentsForm extends Form
         ));
         
         $this->add(array(
+                        'type'       => 'Zend\Form\Element\Hidden',
+                        'name'       => 'moduleId',
+                        'attributes' => array("class" => 'hiddenField')
+        ));
+        
+        $this->add(array(
+                        'type'       => 'Zend\Form\Element\Hidden',
+                        'name'       => 'UserId',
+                        'attributes' => array("class" => 'hiddenField')
+        ));
+        
+        $this->add(array(
                         'type'          => 'Zend\Form\Element\Hidden',
                         'name'          => 'attachment',
                         'attributes'    => array("class"=>'hiddenField')

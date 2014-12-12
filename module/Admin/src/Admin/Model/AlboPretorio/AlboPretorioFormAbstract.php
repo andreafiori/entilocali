@@ -112,7 +112,7 @@ abstract class AlboPretorioFormAbstract extends Form
              )
         ));
     }
-    
+
     /**
      * @param array $years
      */

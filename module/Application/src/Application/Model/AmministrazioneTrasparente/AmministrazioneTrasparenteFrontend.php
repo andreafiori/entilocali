@@ -12,7 +12,7 @@ use Application\Model\RouterManagers\RouterManagerInterface;
 class AmministrazioneTrasparenteFrontend extends RouterManagerAbstract implements RouterManagerInterface
 {
     public function setupRecord()
-    {        
+    {    
         $this->setTemplate('amministrazione-trasparente/amministrazione-trasparente.phtml');
         
         return $this->getOutput();

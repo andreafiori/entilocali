@@ -22,20 +22,6 @@ class ZfcmsUsersPermissions
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="code", type="string", length=50, nullable=false)
-     */
-    private $code;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="value", type="string", length=50, nullable=false)
-     */
-    private $value;
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="role_id", type="bigint", nullable=false)
@@ -59,54 +45,6 @@ class ZfcmsUsersPermissions
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set code
-     *
-     * @param string $code
-     *
-     * @return ZfcmsUsersPermissions
-     */
-    public function setCode($code)
-    {
-        $this->code = $code;
-    
-        return $this;
-    }
-
-    /**
-     * Get code
-     *
-     * @return string
-     */
-    public function getCode()
-    {
-        return $this->code;
-    }
-
-    /**
-     * Set value
-     *
-     * @param string $value
-     *
-     * @return ZfcmsUsersPermissions
-     */
-    public function setValue($value)
-    {
-        $this->value = $value;
-    
-        return $this;
-    }
-
-    /**
-     * Get value
-     *
-     * @return string
-     */
-    public function getValue()
-    {
-        return $this->value;
     }
 
     /**

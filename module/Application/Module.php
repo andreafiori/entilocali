@@ -8,6 +8,7 @@ use Zend\Mvc\MvcEvent;
 use Zend\Authentication\AuthenticationService;
 use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter;
 use Application\View\Helper\TextShortener;
+use Admin\Service\AppServiceLoader;
 
 class Module implements AutoloaderProviderInterface
 {
@@ -74,6 +75,10 @@ class Module implements AutoloaderProviderInterface
                 'TextShortener' => function($sm) {
                     return new TextShortener();
                 },
+                'Params' => function($sl) {
+                    $app = $sl->getServiceLocator()->get('Application');
+                    return new View\Helper\Params($app->getRequest(), $app->getMvcEvent());
+                },
             ),
         );
     }
@@ -114,10 +119,12 @@ class Module implements AutoloaderProviderInterface
                     
 		    return $authService;
 		},
-                'ServiceContainer' => function($sl) {
+                'AppServiceLoader' => function($sl) {
+                    $appServiceLoader = new AppServiceLoader();
+                    
                     $em = $sl->get('Doctrine\ORM\EntityManager');
                     $sm = $sl->get('servicemanager');
-		    return array(
+		    $appServiceLoader->setProperties( array(
                         'serviceLocator'    => $sl,
                         'serviceManager'    => $sm,
                         'entityManager'     => $em,
@@ -125,7 +132,13 @@ class Module implements AutoloaderProviderInterface
                         'translator'        => $sm->get('translator'),
                         'moduleConfigs'     => $sm->get('config'),
                         'request'           => $sm->get('request'),
-                    );
+                        'router'            => $sm->get('request'),
+                    ));
+                    
+                    $appServiceLoader->recoverRouter();
+                    $appServiceLoader->recoverRouteMatch();
+                    
+                    return $appServiceLoader;
 		},
             ),
         );

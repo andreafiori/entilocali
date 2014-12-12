@@ -20,39 +20,48 @@ class AlboPretorioFormDataHandler extends FormDataAbstract
         parent::__construct($input);
         
         $param = $this->getInput('param',1);
+        /*
+        $em = $this->getInput('entityManager',1);
+        $em->getConnection()->insert('zfcms_contacts', array(
+            'name'=>'pino',
+            'surname'=>'campagna',
+            'email' => 'pino@campagna@gmail.com',
+        ));
+        */     
+        $records = $this->getArticolo(
+                new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter($this->getInput('entityManager'))),
+                isset($param['route']['option']) ? $param['route']['option'] : null
+        );
         
         $form = new AlboPretorioArticoliForm();
         $form->addSezioni($this->getSezioni(new AlboPretorioSezioniGetterWrapper(new AlboPretorioSezioniGetter($this->getInput('entityManager')))));
         $form->addLastFields();
         $form->addScadenze();
         
-        /* Get Albo pretorio Article by ID */
-        $records = $this->getArticolo(
-                new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter($this->getInput('entityManager'))),
-                isset($param['route']['option']) ? $param['route']['option'] : null
-        );
-        
         if (is_array($records) and count($records)==1)
         {
+            $records[0]['userId'] = $this->getInput('userDetails',1)->id;
             $form->setData($records[0]);
-   
+
             $formAction = 'albo-pretorio/update/'.$records[0]['id'];
             $formTitle = $records[0]['titolo'];
             
         } else {
+            $form->setData(array('userId'=>$this->getInput('userDetails',1)->id));
             $formAction = 'albo-pretorio/insert/';
             $formTitle = 'Nuovo atto';
         }
         
         /* Get users list */
         $records = $this->getUsers(
-                new UsersGetterWrapper(new UsersGetter($this->getInput('entityManager')))
+            new UsersGetterWrapper(new UsersGetter($this->getInput('entityManager')))
         );
  
         $this->setVariables(array(
                 'form' => $form,
                 'formAction'        => $formAction,
                 'formTitle'         => $formTitle,
+                'rettificaWarning'  => '',
                 'formDescription'   => "Compila i dati relativi all'atto da inserire sull'albo pretorio",
                 'formBreadCrumbCategory'     => 'Albo pretorio',
                 'formBreadCrumbCategoryLink' => $this->getInput('baseUrl', 1).'datatable/albo-pretorio/'
@@ -75,6 +84,10 @@ class AlboPretorioFormDataHandler extends FormDataAbstract
         }
     }
     
+    /**
+     * @param UsersGetterWrapper $recodsGetter
+     * @return type
+     */
     public function getUsers(UsersGetterWrapper $recodsGetter)
     {
         $recodsGetter->setInput(array('fields'=>'u.id,u.name,u.surname'));

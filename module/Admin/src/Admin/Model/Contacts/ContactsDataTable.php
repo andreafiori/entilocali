@@ -20,7 +20,7 @@ class ContactsDataTable extends DataTableAbstract
         $this->setDescription('Elenco messaggi ricevuti dal modulo contatti');
         $this->setColumns(array("Nome e cognome", "Email", "Data invio", "&nbsp;"));
     }
-    
+
     public function getRecords()
     {
         $wrapper = new ContactsGetterWrapper( new ContactsGetter($this->getInput('entityManager',1)) );
@@ -28,7 +28,7 @@ class ContactsDataTable extends DataTableAbstract
         
         return $this->buildDataTableRows( $wrapper->getRecords() );
     }
-    
+
         /**
          * @param array $records
          * @return array
@@ -38,7 +38,7 @@ class ContactsDataTable extends DataTableAbstract
             if (empty($records)) {
                 return false;
             }
-            
+
             $recordsToReturn = array();
             foreach($records as $record) {
                 $recordsToReturn[] = array(

@@ -64,6 +64,22 @@ class AlboPretorioArticoliForm extends Form
         }
     }
     
+    public function addRettifica()
+    {
+        $this->add(array(
+                        'type' => 'Textarea',
+                        'name' => 'note',
+                        'options' => array(
+                               'label' => 'Note',
+                        ),
+                        'attributes' => array(
+                                'title' => 'Note rettifica',
+                                'id' => 'note',
+                                'placeholder' => 'Note rettifica',
+                        )
+        ));
+    }
+    
     public function addLastFields()
     {
         $this->add(array(
@@ -118,13 +134,13 @@ class AlboPretorioArticoliForm extends Form
         
         $this->add(array(
                         'type' => 'Text',
-                        'name' => 'fonte_url',
+                        'name' => 'fonteUrl',
                         'options' => array(
                                'label' => 'Url (per link esterni inserire http://)',
                         ),
                         'attributes' => array(
                                 'title' => 'Inserisci Url',
-                                'id' => 'fonte_url',
+                                'id' => 'fonteUrl',
                                 'placeholder' => 'URL',
                         )
         ));
@@ -137,7 +153,7 @@ class AlboPretorioArticoliForm extends Form
                                         'value' => '<h4><strong>Scadenza</strong></h4><p>Numero di giorni in cui questo articolo resterà visibile (lasciare in bianco per renderlo sempre visibile) e la data di scadenza.</p>',
                         ),
         ));
-        
+
         $this->add(array(
                         'type' => 'Zend\Form\Element\Hidden',
                         'name' => 'id',
@@ -186,31 +202,16 @@ class AlboPretorioArticoliForm extends Form
             'attributes' => array('id' => 'homepage')
         ));
         
-        // Associa articolo a utente
-        
-        
-        // Note in caso di articolo già inviato...
-        
         $this->add(array(
                         'type' => 'Zend\Form\Element\Hidden',
                         'name' => 'id',
                         'attributes' => array("class" => 'hiddenField')
         ));
-    }
-    
-    public function addNotes()
-    {
+        
         $this->add(array(
-                        'type' => 'Textarea',
-                        'name' => 'note',
-                        'options' => array(
-                               'label' => 'Note',
-                        ),
-                        'attributes' => array(
-                                'title' => "Inserisci note atto",
-                                'id' => 's',
-                                'placeholder' => 'Note atto',
-                        )
+                        'type' => 'Zend\Form\Element\Hidden',
+                        'name' => 'userId',
+                        'attributes' => array("class" => 'hiddenField')
         ));
     }
 }

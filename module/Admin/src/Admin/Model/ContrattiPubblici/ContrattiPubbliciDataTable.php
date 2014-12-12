@@ -112,13 +112,12 @@ class ContrattiPubbliciDataTable extends DataTableAbstract
                         array(
                             'type'      => 'deleteButton',
                             'href'      => $this->getInput('baseUrl',1).'formdata/contratti-pubblici/'.$row['id'],
-                            'tooltip'   => 1,
-                            'title'     => 'Elimina'
+                            'title'     => 'Elimina',
+                            'data-id'   => $row['id']
                         ),
                         array(
                             'type'      => 'attachButton',
                             'href'      => $this->getInput('baseUrl',1).'formdata/contratti-pubblici/'.$row['id'],
-                            'tooltip'   => 1,
                             'title'     => 'Elimina'
                         ),
                     );

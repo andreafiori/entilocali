@@ -16,7 +16,7 @@ class EntiTerziGetter extends QueryBuilderHelperAbstract
 
         $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
                                 ->add('from', 'Application\Entity\ZfcmsComuniRubricaEntiTerzi ret ')
-                                ->add('where', 'ret.id != 0 '); 
+                                ->add('where', 'ret.id != 0 ');
         
         return $this->getQueryBuilder();
     }

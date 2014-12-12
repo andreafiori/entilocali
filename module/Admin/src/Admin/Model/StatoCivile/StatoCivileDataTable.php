@@ -37,6 +37,8 @@ class StatoCivileDataTable extends DataTableAbstract
         $formSearch->addCheckExpired();
         $formSearch->addYears($this->getYears());
         
+        $this->checkActiveDisable();
+        
         $paginatorRecords = $this->getRecordsPaginator();
         
         $this->setVariables(array(
@@ -72,16 +74,6 @@ class StatoCivileDataTable extends DataTableAbstract
             return $yearsList;
         }
         
-        private function getSezioni()
-        {
-            
-        }
-        
-        private function getSettori()
-        {
-            
-        }
-    
         /**
          * @return array 
          */
@@ -90,7 +82,7 @@ class StatoCivileDataTable extends DataTableAbstract
             $param = $this->getInput('param', 1);
 
             $statoCivileGetterWrapper = new StatoCivileGetterWrapper( new StatoCivileGetter($this->getInput('entityManager',1)) );
-            $statoCivileGetterWrapper->setInput( array() );
+            $statoCivileGetterWrapper->setInput( array('orderBy' => 'sca.id DESC') );
             $statoCivileGetterWrapper->setupQueryBuilder();
             $statoCivileGetterWrapper->setupPaginator( $statoCivileGetterWrapper->setupQuery( $this->getInput('entityManager', 1) ) );
             $statoCivileGetterWrapper->setupPaginatorCurrentPage(isset($param['route']['page']) ? $param['route']['page'] : null);
@@ -111,6 +103,7 @@ class StatoCivileDataTable extends DataTableAbstract
 
             $recordsToReturn = array();
             foreach($records as $record) {
+                $activeDisableButtonValue = ($record['attivo']!=0) ? 'toDisable' : 'toActive';
                 $recordsToReturn[] = array(
                     $record['titolo'],
                     $record['progressivo'].' / '.$record['anno'],
@@ -119,15 +112,19 @@ class StatoCivileDataTable extends DataTableAbstract
                     $record['scadenza'],
                     $record['user_name_surname'],
                     array(
+                        'type'      => $record['attivo']!=0 ? 'activeButton' : 'disableButton',
+                        'href'      => '?active='.$activeDisableButtonValue.'&amp;id='.$record['id'],
+                        'value'     => $record['attivo'],
+                        'title'     => 'Attiva \ Disattiva'
+                    ),
+                    array(
                         'type'      => 'updateButton',
                         'href'      => $this->getInput('baseUrl',1).'formdata/stato-civile/'.$record['id'],
-                        'tooltip'   => 1,
                         'title'     => 'Modifica'
                     ),
                     array(
                         'type'      => 'attachButton',
-                        'href'      => '#',
-                        'tooltip'   => 1,
+                        'href'      => $this->getInput('baseUrl',1).'formdata/attachments/stato-civile/'.$record['id'],
                     ),
                     array(
                         'type'      => 'enteterzoButton',
@@ -138,5 +135,34 @@ class StatoCivileDataTable extends DataTableAbstract
             }
 
             return $recordsToReturn;
+        }
+        
+        /**
+        * Check if the user has requested to enable or disable the article
+        */
+        private function checkActiveDisable()
+        {
+            if (isset($this->param['get']['active']) and isset($this->param['get']['id'])) {
+
+                if ($this->param['get']['active']=='toActive') {
+                    $activeStatusValue = 1;
+                } elseif ($this->param['get']['active']=='toDisable') {
+                    $activeStatusValue = 0;
+                }
+
+                try {
+                    $connection = $this->getInput('entityManager',1)->getConnection();
+                    $connection->beginTransaction();
+                    $connection->update('zfcms_comuni_stato_civile_articoli', array(
+                            'attivo' => $activeStatusValue
+                        ),
+                        array('id' => $this->param['get']['id'])
+                    );
+                    $connection->commit();
+                } catch (\Exception $e) {
+                    $this->getConnection()->rollBack();
+                    return $this->setErrorMessage($e->getMessage());
+                }
+            }
         }
 }

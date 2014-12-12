@@ -48,15 +48,14 @@ class SettoriDataTable extends DataTableAbstract
                         $row['responsabile'],
                         array(
                             'type'      => 'updateButton',
-                            'href'      => $this->getInput('baseUrl',1).'formdata/contratti-pubblici-scelta-contraente/'.$row['id'],
-                            'tooltip'   => 1,
+                            'href'      => $this->getInput('baseUrl',1).'formdata/contratti-pubblici-settori/'.$row['id'],
                             'title'     => 'Modifica'
                         ),
                         array(
                             'type'      => 'deleteButton',
                             'href'      => '#',
-                            'tooltip'   => 1,
-                            'title'     => 'Modifica'
+                            'title'     => 'Modifica',
+                            'data-id'   => $row['id']
                         ),
                     );
                 }

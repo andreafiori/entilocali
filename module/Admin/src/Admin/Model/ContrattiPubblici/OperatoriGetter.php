@@ -16,7 +16,7 @@ class OperatoriGetter  extends QueryBuilderHelperAbstract
 
         $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
                                 ->add('from', 'Application\Entity\ZfcmsComuniContrattiRespProc crp ')
-                                ->add('where', ' ');
+                                ->add('where', 'crp.id != 0');
         
         return $this->getQueryBuilder();
     }

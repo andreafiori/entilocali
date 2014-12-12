@@ -22,6 +22,8 @@ class CategoriesDataTableTest extends TestSuite
     
     public function testGetColumns()
     {
-        $this->assertTrue(is_array($this->categoriesDataTable->getColumns()) );
+        $this->assertTrue( is_array($this->categoriesDataTable->getColumns()) );
     }
+    
+    
 }

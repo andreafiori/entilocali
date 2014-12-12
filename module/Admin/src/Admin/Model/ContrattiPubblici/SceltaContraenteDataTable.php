@@ -28,13 +28,17 @@ class SceltaContraenteDataTable extends DataTableAbstract
         $this->setDescription('Gestione scelta del contraente sui contratti pubblici');
         $this->setColumns(array(
                 "Nome",
-                "Responsabile",
+                "Stato",
                 "&nbsp;", 
                 "&nbsp;",
             )
         );
     }
     
+        /**
+         * @param type $records
+         * @return type
+         */
         private function formatRecordsToShowOnTable($records)
         {
             $arrayToReturn = array();
@@ -45,15 +49,14 @@ class SceltaContraenteDataTable extends DataTableAbstract
                         $row['attivo'],
                         array(
                             'type'      => 'updateButton',
-                            'href'      => $this->getInput('baseUrl',1).'formdata/contratti-pubblici-settori/'.$row['id'],
-                            'tooltip'   => 1,
+                            'href'      => $this->getInput('baseUrl',1).'formdata/contratti-pubblici-scelta-contraente/'.$row['id'],
                             'title'     => 'Modifica'
                         ),
                         array(
                             'type'      => 'deleteButton',
                             'href'      => '#',
-                            'tooltip'   => 1,
-                            'title'     => 'Elimina'
+                            'title'     => 'Elimina',
+                            'data-id'   => $row['id']
                         ),
                     );
                 }

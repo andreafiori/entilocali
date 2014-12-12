@@ -17,7 +17,7 @@ class InvioEnteTerzoForm extends Form
     public function __construct($name = null, $options = array())
     {
         parent::__construct($name, $options);
-        
+
         $this->add(array(
                         'name' => 'image',
                         'type' => 'Zend\Form\Element\File',
@@ -40,7 +40,6 @@ class InvioEnteTerzoForm extends Form
                                         'id' => 'title',
                         )
         ));
-        
     }
     
     /**
@@ -51,7 +50,7 @@ class InvioEnteTerzoForm extends Form
     public function addContatti($records)
     {
         if (is_array($records)) {
-            
+
             $optionsValue = array();
             foreach($records as $record) {
                 $optionsValue[] = $record['nome'].' ('.$record['email'].')';
@@ -63,9 +62,11 @@ class InvioEnteTerzoForm extends Form
                 'options' => array(
                     'label' => 'Ente',
                     'value_options' => $optionsValue,
-                )
+                ),
+                'attributes' => array(
+                    'id' => 'entiterzi',
+                ),
             ));
         }
-        
     }
 }

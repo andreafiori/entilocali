@@ -7,8 +7,6 @@ use Application\Model\RouterManagers\RouterManagerInterface;
 use Admin\Model\StatoCivile\StatoCivileRecordsGetter;
 
 /**
- * Form invio enti terzi
- * 
  * @author Andrea Fiori
  * @since  30 July 2014
  */
@@ -20,9 +18,9 @@ class InvioEnteTerzoHandler extends RouterManagerAbstract implements RouterManag
         $moduleName = $param['route']['modulename'];
         
         $statoCivileRecordsGetter = new StatoCivileRecordsGetter( $this->getInput() );
-        $statoCivileRecordsGetter->setArticoli(array("id" => $param['route']['id']));
+        $statoCivileRecordsGetter->setArticoli( array("id" => $param['route']['id']) );
         $record = $statoCivileRecordsGetter->getRecords();
-                
+
         $moduleMap = array(
             'albo-pretorio'         => '',
             'atti-ufficiali'        => '',
@@ -35,7 +33,6 @@ class InvioEnteTerzoHandler extends RouterManagerAbstract implements RouterManag
         
         $form = new InvioEnteTerzoForm();
         $form->addContatti($entiTerziRecords);
-        //$form->setData($moduleMap);
 
         $this->setVariables(array(
             'formDataCommonPath' => 'backend/templates/common/',
@@ -50,8 +47,6 @@ class InvioEnteTerzoHandler extends RouterManagerAbstract implements RouterManag
     }
     
         /**
-         * Get rubrica enti terzi records 
-         * 
          * @return EntiTerziGetterWrapper
          */
         private function getRubricaEntiTerzi(EntiTerziGetterWrapper $entiTerziGetterWrapper)

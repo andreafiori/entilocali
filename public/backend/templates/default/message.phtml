@@ -1,6 +1,47 @@
+<?php if ($this->redirectRoute and $this->redirectRouteTableSetter): ?>
+    <?php
+    $routeParams = $this->params()->fromRoute('admin/datatable', array('lang'=>'it','tablesetter' => $this->redirectRouteTableSetter) );
+    $urlRedirect = str_replace('//', '/', $this->url('admin/datatable', array('lang' => $routeParams['lang'], 'tablesetter' => $routeParams['tablesetter'])));
+    ?>
+    <script>
+    window.location = '<?php echo $urlRedirect ?>';
+    </script>
+<?php endif; ?>
+
 <div style="padding: 1%; margin: 0" class="alert alert-<?php if ($this->messageType) echo $this->messageType; else echo "info"; ?>" id="formdataresultmessage">
     <h1><?php echo $this->messageTitle ?></h1>
     <div><?php echo $this->messageText ?></div>
+    <div>&nbsp;</div>
+
+    <?php if (isset($this->messageList)): ?>
+    <div><ul>
+        <?php foreach($this->messageList as $message): ?>
+        <li><?php echo $message ?></li>
+        <?php endforeach; ?>
+    </ul></div>
+    <?php endif; ?>
+
+    <?php if ($this->messageShowFormLink): ?>
+    <div id="showFormContainer">
+        &raquo; <a href="javascript:void(0)" id="reShowForm">Mostra form</a>
+    </div>
+    <?php endif; ?>
+
+    <?php if ($this->redirectRoute and $this->redirectRouteTableSetter): ?>
+    <div><h2>Attendere: redirect in corso...</h2></div>
+    <?php endif; ?>
 </div>
 
 <div>&nbsp;</div>
+
+<script>
+$('#reShowForm').click(function() {
+    $('#formcontainer').show();
+    $('input:submit').attr('disabled', false);
+    $('#showFormContainer').hide();
+    
+    $("#formdataresultmessage").fadeOut("slow", function () {
+        $("#formdataresultmessage").remove();
+    });
+});
+</script>

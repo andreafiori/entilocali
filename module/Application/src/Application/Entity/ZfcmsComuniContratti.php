@@ -92,9 +92,9 @@ class ZfcmsComuniContratti
     private $progressivo;
 
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="anno", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="anno", type="date", nullable=false)
      */
     private $anno;
 
@@ -428,7 +428,7 @@ class ZfcmsComuniContratti
     /**
      * Set anno
      *
-     * @param string $anno
+     * @param \DateTime $anno
      *
      * @return ZfcmsComuniContratti
      */
@@ -442,7 +442,7 @@ class ZfcmsComuniContratti
     /**
      * Get anno
      *
-     * @return string
+     * @return \DateTime
      */
     public function getAnno()
     {

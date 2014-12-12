@@ -26,27 +26,7 @@ class AttiUfficialiDataTable extends AlboPretorioDataTableAbstract
         $paginatorRecords = $this->recordsGetter->getPaginatorRecords();
         
         $this->setVariables(
-            array(
-                'tableTitle'        => 'Atti ufficiali',
-                'tableDescription'  => 'Elenco atti. Effettuando una ricerca, le informazioni vengono memorizzate in sessione.',
-                'tablesetter'       => 'albo-pretorio',
-                'columns' => array(
-                    array('label' => 'Num \ Anno', 'width' => '10%'),
-                    array('label' => 'Titolo', 'width' => '44%'),
-                    'Settore',
-                    'Scadenza',
-                    'Data attivazione',
-                    'Inserito da',
-                    '&nbsp;',
-                    '&nbsp;',
-                    '&nbsp;',
-                    '&nbsp;'
-                ),
-                
-                'paginator'   => $paginatorRecords,
-                'formSearch'  => $this->setupFormSearchAndExport(new AlboPretorioArticoliSearchFilterForm()),
-                'formExport'  => $this->setupFormSearchAndExport(new AlboPretorioArticoliSearchFilterForm(), 'export', 'Esporta'),
-            )
+            $this->recoverCommonColumnsAndProperties($paginatorRecords, 'Atti Ufficiali')
         );
 
         $this->setRecords( $this->getFormattedDataTableRecords($paginatorRecords) );

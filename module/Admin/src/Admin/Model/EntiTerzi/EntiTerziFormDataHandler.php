@@ -27,11 +27,11 @@ class EntiTerziFormDataHandler extends FormDataAbstract
             $form->setData($recordFromDb[0]);
             $submitButtonValue = 'Modifica';
             $formTitle = $recordFromDb[0]['nome'];
-            $formAction = 'enti-terzi/insert/';
+            $formAction = 'enti-terzi/update/';
         } else {
             $formTitle = 'Nuovo ente terzo';
             $submitButtonValue = 'Inserisci';
-            $formAction = 'enti-terzi/update/';
+            $formAction = 'enti-terzi/insert/';
         }
         
         $this->setVariables( array(

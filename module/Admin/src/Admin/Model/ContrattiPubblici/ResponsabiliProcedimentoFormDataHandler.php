@@ -16,24 +16,51 @@ class ResponsabiliProcedimentoFormDataHandler extends FormDataAbstract
     public function __construct(array $input)
     {
         parent::__construct($input);
+
+        $form = new ResponsabiliProcedimentoForm();              
         
-        $form = new ResponsabiliProcedimentoForm();
-        $form->setData( array() );
+        $param = $this->getInput('param',1);
         
-        $this->setVariable('formTitle',         'Nuovo responsabile procedimento');
-        $this->setVariable('formDescription',   '');
+        if ((isset($param['route']['option']))) {
+            $records = $this->getResponsabiliRecord($param['route']['option']);
+            
+            if ($records) {
+                $form->setData($records[0]);
+                
+                $formAction = 'contratti-pubblici-responsabili/update';
+                $formTitle = 'Modifica responsabile procedimento';
+                $formDescription = 'Modifica nome responsabile procedimenti per i contratti pubblici';
+            }
+            
+        } else {
+            $formAction = 'contratti-pubblici-responsabili/insert';
+            $formTitle = 'Nuovo responsabile procedimento';
+            $formDescription = 'Inserisci un nome responsabile procedimenti per i contratti pubblici';
+        }
+        
         $this->setVariable('form',              $form);
-        $this->setVariable('formAction',        $this->getFormAction());
+        $this->setVariable('formAction',        $formAction);
+        $this->setVariable('formTitle',         $formTitle);
+        $this->setVariable('formDescription',   $formDescription);       
         $this->setVariable('formBreadCrumbCategory', 'Contratti pubblici');
         $this->setVariable('formLabelSpanWidth', 3);
         $this->setVariable('formControlSpanWidth', 9);
     }
     
         /**
-         * @return string
+         * @param number $id
+         * @return array|null
          */
-        private function getFormAction()
+        private function getResponsabiliRecord($id)
         {
-            return '#';
+            if (!is_numeric($id)) {
+                return false;
+            }
+ 
+            $responsabili = new ResponsabiliProcedimentoGetterWrapper(new ResponsabiliProcedimentoGetter($this->getInput('entityManager',1)) );
+            $responsabili->setInput(array('id' => $id));
+            $responsabili->setupQueryBuilder();
+            
+            return  $responsabili->getRecords();
         }
 }

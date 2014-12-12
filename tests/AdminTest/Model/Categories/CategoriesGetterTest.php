@@ -45,4 +45,18 @@ class CategoriesGetterTest extends TestSuite
         
         $this->assertNotEmpty( $this->objectGetter->getQueryBuilder()->getParameter('channel') );
     }
+    
+    public function testSetLanguageId()
+    {
+        $this->objectGetter->setLanguageId(1);
+        
+        $this->assertNotEmpty( $this->objectGetter->getQueryBuilder()->getParameter('language') );
+    }
+    
+    public function testSetStatus()
+    {
+        $this->objectGetter->setStatus('active');
+        
+        $this->assertNotEmpty( $this->objectGetter->getQueryBuilder()->getParameter('status') );
+    }
 }
