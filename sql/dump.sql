@@ -2,16 +2,15 @@
 -- Host:                         127.0.0.1
 -- Versione server:              5.5.36 - MySQL Community Server (GPL)
 -- S.O. server:                  Win32
--- HeidiSQL Versione:            8.3.0.4821
+-- HeidiSQL Versione:            9.1.0.4882
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 -- Dump della struttura di tabella entilocali.zfcms_attachments
-DROP TABLE IF EXISTS `zfcms_attachments`;
 CREATE TABLE IF NOT EXISTS `zfcms_attachments` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
@@ -20,18 +19,23 @@ CREATE TABLE IF NOT EXISTS `zfcms_attachments` (
   `insert_date` datetime NOT NULL DEFAULT '2014-01-01 01:01:01',
   `expire_date` datetime DEFAULT '2030-01-01 01:01:01',
   `mime_id` int(11) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `mime_id` (`mime_id`),
-  CONSTRAINT `fk_attach_mime` FOREIGN KEY (`mime_id`) REFERENCES `zfcms_attachments_mimetype` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `fk_attach_mime` FOREIGN KEY (`mime_id`) REFERENCES `zfcms_attachments_mimetype` (`id`),
+  CONSTRAINT `fk_attach_userid` FOREIGN KEY (`user_id`) REFERENCES `zfcms_users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Dump dei dati della tabella entilocali.zfcms_attachments: ~0 rows (circa)
+-- Dump dei dati della tabella entilocali.zfcms_attachments: ~1 rows (circa)
+DELETE FROM `zfcms_attachments`;
 /*!40000 ALTER TABLE `zfcms_attachments` DISABLE KEYS */;
+INSERT INTO `zfcms_attachments` (`id`, `name`, `size`, `state`, `insert_date`, `expire_date`, `mime_id`, `user_id`) VALUES
+	(1, 'prova.pdf', '1231232', NULL, '2014-01-01 01:01:01', '2030-01-01 01:01:01', 1, 1);
 /*!40000 ALTER TABLE `zfcms_attachments` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_attachments_mimetype
-DROP TABLE IF EXISTS `zfcms_attachments_mimetype`;
 CREATE TABLE IF NOT EXISTS `zfcms_attachments_mimetype` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `image` text NOT NULL,
@@ -40,6 +44,7 @@ CREATE TABLE IF NOT EXISTS `zfcms_attachments_mimetype` (
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- Dump dei dati della tabella entilocali.zfcms_attachments_mimetype: ~23 rows (circa)
+DELETE FROM `zfcms_attachments_mimetype`;
 /*!40000 ALTER TABLE `zfcms_attachments_mimetype` DISABLE KEYS */;
 INSERT INTO `zfcms_attachments_mimetype` (`id`, `image`, `mimetype`) VALUES
 	(1, 'pdf.gif', 'application/pdf'),
@@ -69,7 +74,6 @@ INSERT INTO `zfcms_attachments_mimetype` (`id`, `image`, `mimetype`) VALUES
 
 
 -- Dump della struttura di tabella entilocali.zfcms_attachments_options
-DROP TABLE IF EXISTS `zfcms_attachments_options`;
 CREATE TABLE IF NOT EXISTS `zfcms_attachments_options` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `title` varchar(50) DEFAULT NULL,
@@ -81,15 +85,17 @@ CREATE TABLE IF NOT EXISTS `zfcms_attachments_options` (
   KEY `fk_attachments_options_lang` (`language_id`),
   CONSTRAINT `fk_attachments_options` FOREIGN KEY (`attachment_id`) REFERENCES `zfcms_attachments` (`id`),
   CONSTRAINT `fk_attachments_options_lang` FOREIGN KEY (`language_id`) REFERENCES `zfcms_languages` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
--- Dump dei dati della tabella entilocali.zfcms_attachments_options: ~0 rows (circa)
+-- Dump dei dati della tabella entilocali.zfcms_attachments_options: ~1 rows (circa)
+DELETE FROM `zfcms_attachments_options`;
 /*!40000 ALTER TABLE `zfcms_attachments_options` DISABLE KEYS */;
+INSERT INTO `zfcms_attachments_options` (`id`, `title`, `description`, `attachment_id`, `language_id`) VALUES
+	(1, 'prova.pdf', NULL, 1, 1);
 /*!40000 ALTER TABLE `zfcms_attachments_options` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_attachments_relations
-DROP TABLE IF EXISTS `zfcms_attachments_relations`;
 CREATE TABLE IF NOT EXISTS `zfcms_attachments_relations` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `attachment_id` bigint(20) NOT NULL,
@@ -101,15 +107,17 @@ CREATE TABLE IF NOT EXISTS `zfcms_attachments_relations` (
   KEY `attachment_id` (`attachment_id`),
   CONSTRAINT `fk_attachment_rel_id` FOREIGN KEY (`attachment_id`) REFERENCES `zfcms_attachments` (`id`),
   CONSTRAINT `fk_module_id` FOREIGN KEY (`module_id`) REFERENCES `zfcms_modules` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
--- Dump dei dati della tabella entilocali.zfcms_attachments_relations: ~0 rows (circa)
+-- Dump dei dati della tabella entilocali.zfcms_attachments_relations: ~1 rows (circa)
+DELETE FROM `zfcms_attachments_relations`;
 /*!40000 ALTER TABLE `zfcms_attachments_relations` DISABLE KEYS */;
+INSERT INTO `zfcms_attachments_relations` (`id`, `attachment_id`, `reference_id`, `module_id`) VALUES
+	(1, 1, 1, 1);
 /*!40000 ALTER TABLE `zfcms_attachments_relations` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_categories
-DROP TABLE IF EXISTS `zfcms_categories`;
 CREATE TABLE IF NOT EXISTS `zfcms_categories` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `note` varchar(100) DEFAULT NULL,
@@ -127,6 +135,7 @@ CREATE TABLE IF NOT EXISTS `zfcms_categories` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 -- Dump dei dati della tabella entilocali.zfcms_categories: ~4 rows (circa)
+DELETE FROM `zfcms_categories`;
 /*!40000 ALTER TABLE `zfcms_categories` DISABLE KEYS */;
 INSERT INTO `zfcms_categories` (`id`, `note`, `create_date`, `last_update`, `code`, `status`, `column_position`, `template`, `module_id`) VALUES
 	(1, 'comune', '2014-01-01 01:01:01', '2014-01-01 01:01:01', NULL, 'attiva', 'left', NULL, 4),
@@ -137,7 +146,6 @@ INSERT INTO `zfcms_categories` (`id`, `note`, `create_date`, `last_update`, `cod
 
 
 -- Dump della struttura di tabella entilocali.zfcms_categories_options
-DROP TABLE IF EXISTS `zfcms_categories_options`;
 CREATE TABLE IF NOT EXISTS `zfcms_categories_options` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(80) DEFAULT NULL,
@@ -161,6 +169,7 @@ CREATE TABLE IF NOT EXISTS `zfcms_categories_options` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 -- Dump dei dati della tabella entilocali.zfcms_categories_options: ~4 rows (circa)
+DELETE FROM `zfcms_categories_options`;
 /*!40000 ALTER TABLE `zfcms_categories_options` DISABLE KEYS */;
 INSERT INTO `zfcms_categories_options` (`id`, `name`, `description`, `seo_url`, `seo_title`, `seo_keywords`, `seo_description`, `accesskey`, `template_file`, `position`, `parent_id`, `language_id`, `category_id`) VALUES
 	(1, 'Comune Azienda', 'Comune, azienda', 'comune-azienda', 'comune-azienda', 'comune, azienda', 'comune, azienda', NULL, NULL, 1, 0, 1, 1),
@@ -171,7 +180,6 @@ INSERT INTO `zfcms_categories_options` (`id`, `name`, `description`, `seo_url`, 
 
 
 -- Dump della struttura di tabella entilocali.zfcms_channels
-DROP TABLE IF EXISTS `zfcms_channels`;
 CREATE TABLE IF NOT EXISTS `zfcms_channels` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
@@ -188,6 +196,7 @@ CREATE TABLE IF NOT EXISTS `zfcms_channels` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 -- Dump dei dati della tabella entilocali.zfcms_channels: ~1 rows (circa)
+DELETE FROM `zfcms_channels`;
 /*!40000 ALTER TABLE `zfcms_channels` DISABLE KEYS */;
 INSERT INTO `zfcms_channels` (`id`, `name`, `domain`, `subdomain`, `is_multilanguage`, `is_default`, `language_id`) VALUES
 	(1, 'entilocali', 'cms.kronoweb.it', NULL, 1, 1, 1);
@@ -195,34 +204,33 @@ INSERT INTO `zfcms_channels` (`id`, `name`, `domain`, `subdomain`, `is_multilang
 
 
 -- Dump della struttura di tabella entilocali.zfcms_comuni_albo_articoli
-DROP TABLE IF EXISTS `zfcms_comuni_albo_articoli`;
 CREATE TABLE IF NOT EXISTS `zfcms_comuni_albo_articoli` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `utente_id` bigint(20) NOT NULL,
   `sezione_id` bigint(20) NOT NULL,
   `numero_progressivo` bigint(20) NOT NULL,
   `numero_atto` bigint(20) NOT NULL,
-  `anno` year(4) NOT NULL DEFAULT '2000',
-  `data_attivazione` date NOT NULL DEFAULT '0000-00-00',
+  `anno` year(4) NOT NULL,
+  `data_attivazione` date NOT NULL DEFAULT '2015-01-01',
   `ora_attivazione` time NOT NULL,
-  `data_pubblicare` date NOT NULL DEFAULT '0000-00-00',
+  `data_pubblicare` date NOT NULL DEFAULT '2015-01-01',
   `ora_pubblicare` time NOT NULL DEFAULT '00:00:00',
   `scadenza` int(11) NOT NULL,
   `data_scadenza` date NOT NULL,
   `titolo` text NOT NULL,
   `attivo` int(11) NOT NULL,
-  `pubblicare` int(11) NOT NULL,
-  `annullato` int(11) NOT NULL DEFAULT '0',
+  `pubblicare` enum('0','1') NOT NULL DEFAULT '0',
+  `annullato` enum('0','1') NOT NULL DEFAULT '0',
   `rettifica_id` int(11) NOT NULL,
-  `data_invio_regione` date NOT NULL DEFAULT '0000-00-00',
+  `data_invio_regione` date NOT NULL DEFAULT '2015-01-01',
   `num_att` int(11) NOT NULL DEFAULT '0',
   `check_invia_regione` int(11) NOT NULL DEFAULT '0',
-  `anno_atto` int(11) NOT NULL,
+  `anno_atto` year(4) NOT NULL,
   `home` int(11) NOT NULL,
   `ente_terzo` text CHARACTER SET utf8 NOT NULL,
   `fonte_url` text,
   `note` text CHARACTER SET utf8 NOT NULL,
-  `data_rettifica` date NOT NULL DEFAULT '0000-00-00',
+  `data_rettifica` date NOT NULL DEFAULT '2015-01-01',
   `check_rettifica` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `rettifica_id` (`rettifica_id`),
@@ -230,32 +238,36 @@ CREATE TABLE IF NOT EXISTS `zfcms_comuni_albo_articoli` (
   KEY `sezione_id` (`sezione_id`),
   CONSTRAINT `fk_sezione_id_albo` FOREIGN KEY (`sezione_id`) REFERENCES `zfcms_comuni_albo_sezioni` (`id`),
   CONSTRAINT `fk_user_id_albo` FOREIGN KEY (`utente_id`) REFERENCES `zfcms_users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
--- Dump dei dati della tabella entilocali.zfcms_comuni_albo_articoli: ~16 rows (circa)
+-- Dump dei dati della tabella entilocali.zfcms_comuni_albo_articoli: ~20 rows (circa)
+DELETE FROM `zfcms_comuni_albo_articoli`;
 /*!40000 ALTER TABLE `zfcms_comuni_albo_articoli` DISABLE KEYS */;
 INSERT INTO `zfcms_comuni_albo_articoli` (`id`, `utente_id`, `sezione_id`, `numero_progressivo`, `numero_atto`, `anno`, `data_attivazione`, `ora_attivazione`, `data_pubblicare`, `ora_pubblicare`, `scadenza`, `data_scadenza`, `titolo`, `attivo`, `pubblicare`, `annullato`, `rettifica_id`, `data_invio_regione`, `num_att`, `check_invia_regione`, `anno_atto`, `home`, `ente_terzo`, `fonte_url`, `note`, `data_rettifica`, `check_rettifica`) VALUES
-	(1, 1, 1, 1, 1, '2001', '1958-05-01', '17:39:10', '1958-05-01', '17:39:10', 1, '1958-05-01', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 1, 1, 1, 1, '1958-05-01', 1, 1, 1, 1, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', '1958-05-01', 1),
-	(2, 1, 1, 1, 1, '2001', '2013-02-25', '17:29:36', '2013-02-25', '17:29:36', 1, '2013-02-25', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 1, 1, 1, 1, '2013-02-25', 1, 1, 1, 1, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', '2013-02-25', 1),
-	(3, 1, 1, 1, 1, '2001', '1952-01-12', '03:56:25', '1952-01-12', '03:56:25', 1, '1952-01-12', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 1, 1, 1, 1, '1952-01-12', 1, 1, 1, 1, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', '1952-01-12', 1),
-	(4, 1, 1, 1, 1, '2001', '2009-01-10', '02:42:15', '2009-01-10', '02:42:15', 1, '2009-01-10', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 1, 1, 1, 1, '2009-01-10', 1, 1, 1, 1, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', '2009-01-10', 1),
-	(5, 1, 1, 1, 1, '2001', '1991-02-26', '03:14:28', '1991-02-26', '03:14:28', 1, '1991-02-26', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 1, 1, 1, 1, '1991-02-26', 1, 1, 1, 1, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', '1991-02-26', 1),
-	(6, 2, 2, 2, 2, '2001', '1993-04-05', '00:56:58', '1993-04-05', '00:56:58', 2, '1993-04-05', 'Sed molestie semper purus non pellentesque.', 2, 2, 2, 2, '1993-04-05', 2, 2, 2, 2, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', '1993-04-05', 2),
-	(7, 1, 1, 1, 1, '2001', '2004-03-13', '10:49:19', '2004-03-13', '10:49:19', 1, '2004-03-13', 'Sed molestie semper purus non pellentesque.', 1, 1, 1, 1, '2004-03-13', 1, 1, 1, 1, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', '2004-03-13', 1),
-	(8, 1, 1, 1, 1, '2000', '1969-09-23', '03:16:14', '1969-09-23', '03:16:14', 1, '1969-09-23', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 1, 1, 1, 1, '1969-09-23', 1, 1, 1, 1, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', '1969-09-23', 1),
-	(9, 2, 2, 2, 2, '2001', '1966-01-23', '20:46:04', '1966-01-23', '20:46:04', 2, '1966-01-23', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 2, 2, 2, 2, '1966-01-23', 2, 2, 2, 2, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', '1966-01-23', 2),
-	(10, 2, 2, 2, 2, '2001', '2002-02-07', '14:53:09', '2002-02-07', '14:53:09', 2, '2002-02-07', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 2, 2, 2, 2, '2002-02-07', 2, 2, 2, 2, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', '2002-02-07', 2),
-	(11, 1, 1, 1, 1, '2000', '1985-09-18', '07:31:30', '1985-09-18', '07:31:30', 1, '1985-09-18', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 1, 1, 1, 1, '1985-09-18', 1, 1, 1, 1, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', '1985-09-18', 1),
-	(12, 1, 1, 1, 1, '2000', '1948-08-18', '09:00:52', '1948-08-18', '09:00:52', 1, '1948-08-18', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 1, 1, 1, 1, '1948-08-18', 1, 1, 1, 1, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', '1948-08-18', 1),
-	(13, 1, 1, 1, 1, '2000', '1973-05-27', '12:53:05', '1973-05-27', '12:53:05', 1, '1973-05-27', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 1, 1, 1, 1, '1973-05-27', 1, 1, 1, 1, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', '1973-05-27', 1),
-	(14, 1, 1, 1, 1, '2001', '1959-03-05', '18:28:35', '1959-03-05', '18:28:35', 1, '1959-03-05', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 1, 1, 1, 1, '1959-03-05', 1, 1, 1, 1, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', '1959-03-05', 1),
-	(15, 2, 2, 2, 2, '2000', '1938-02-03', '22:35:17', '1938-02-03', '22:35:17', 2, '1938-02-03', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 2, 2, 2, 2, '1938-02-03', 2, 2, 2, 2, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', '1938-02-03', 2),
-	(16, 2, 2, 2, 2, '2000', '1958-04-23', '14:02:21', '1958-04-23', '14:02:21', 2, '1958-04-23', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 2, 2, 2, 2, '1958-04-23', 2, 2, 2, 2, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', '1958-04-23', 2);
+	(1, 1, 1, 1, 1, '2001', '1958-05-01', '17:39:10', '1958-05-01', '17:39:10', 1, '1958-05-01', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 1, '1', '1', 1, '1958-05-01', 1, 1, '2001', 1, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', '', '1958-05-01', 1),
+	(2, 1, 1, 1, 1, '2001', '2013-02-25', '17:29:36', '2013-02-25', '17:29:36', 1, '2013-02-25', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 1, '1', '1', 1, '2013-02-25', 1, 1, '2001', 1, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', '', '2013-02-25', 1),
+	(3, 1, 1, 1, 1, '2001', '1952-01-12', '03:56:25', '1952-01-12', '03:56:25', 1, '1952-01-12', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 0, '1', '0', 1, '1952-01-12', 1, 1, '2001', 1, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', '', '1952-01-12', 1),
+	(4, 1, 1, 1, 1, '2001', '2009-01-10', '02:42:15', '2009-01-10', '02:42:15', 1, '2009-01-10', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 1, '1', '1', 1, '2009-01-10', 1, 1, '2001', 1, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', '', '2009-01-10', 1),
+	(5, 1, 1, 1, 1, '2001', '1991-02-26', '03:14:28', '1991-02-26', '03:14:28', 1, '1991-02-26', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 1, '1', '1', 1, '1991-02-26', 1, 1, '2001', 1, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', '', '1991-02-26', 1),
+	(6, 2, 2, 2, 2, '2001', '1993-04-05', '00:56:58', '1993-04-05', '00:56:58', 2, '1993-04-05', 'Sed molestie semper purus non pellentesque.', 0, '0', '0', 0, '1993-04-05', 0, 0, '2002', 0, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', '', '1993-04-05', 0),
+	(7, 1, 1, 1, 1, '2001', '2004-03-13', '10:49:19', '2004-03-13', '10:49:19', 1, '2004-03-13', 'Sed molestie semper purus non pellentesque.', 1, '1', '1', 1, '2004-03-13', 1, 1, '2001', 1, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', '', '2004-03-13', 1),
+	(8, 1, 1, 1, 1, '2000', '1969-09-23', '03:16:14', '1969-09-23', '03:16:14', 1, '1969-09-23', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 1, '1', '1', 1, '1969-09-23', 1, 1, '2001', 1, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', '', '1969-09-23', 1),
+	(9, 2, 2, 2, 2, '2001', '1966-01-23', '20:46:04', '1966-01-23', '20:46:04', 2, '1966-01-23', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 0, '0', '0', 0, '1966-01-23', 0, 0, '2002', 0, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', '', '1966-01-23', 0),
+	(10, 2, 2, 2, 2, '2001', '2002-02-07', '14:53:09', '2002-02-07', '14:53:09', 2, '2002-02-07', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 0, '0', '0', 0, '2002-02-07', 0, 0, '2002', 0, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', '', '2002-02-07', 0),
+	(11, 1, 1, 1, 1, '2000', '1985-09-18', '07:31:30', '1985-09-18', '07:31:30', 1, '1985-09-18', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 1, '1', '1', 1, '1985-09-18', 1, 1, '2001', 1, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', '', '1985-09-18', 1),
+	(12, 1, 1, 1, 1, '2000', '1948-08-18', '09:00:52', '1948-08-18', '09:00:52', 1, '1948-08-18', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 1, '1', '1', 1, '1948-08-18', 1, 1, '2001', 1, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', '', '1948-08-18', 1),
+	(13, 1, 1, 1, 1, '2000', '1973-05-27', '12:53:05', '1973-05-27', '12:53:05', 1, '1973-05-27', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 1, '1', '0', 1, '1973-05-27', 1, 1, '2001', 1, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', '', '1973-05-27', 1),
+	(14, 1, 1, 1, 1, '2001', '1959-03-05', '18:28:35', '1959-03-05', '18:28:35', 1, '1959-03-05', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 1, '1', '1', 1, '1959-03-05', 1, 1, '2001', 1, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', '', '1959-03-05', 1),
+	(15, 2, 2, 2, 2, '2000', '1938-02-03', '22:35:17', '1938-02-03', '22:35:17', 2, '1938-02-03', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 0, '0', '0', 0, '1938-02-03', 2, 0, '2002', 0, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', '', '1938-02-03', 0),
+	(16, 2, 2, 2, 2, '2000', '1958-04-23', '14:02:21', '1958-04-23', '14:02:21', 2, '1958-04-23', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 0, '0', '0', 0, '1958-04-23', 2, 0, '2002', 0, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', '', '1958-04-23', 0),
+	(17, 2, 1, 0, 0, '1982', '2014-12-12', '03:51:50', '2014-12-12', '03:51:50', 2014, '0000-00-00', 'prova33', 0, '0', '0', 0, '2015-01-01', 0, 0, '0000', 0, '', '', '', '2015-01-01', 0),
+	(18, 2, 1, 0, 1, '1992', '2014-12-12', '04:28:00', '2014-12-12', '04:28:00', 0, '2014-12-30', 'qwe213', 0, '0', '0', 0, '2015-01-01', 0, 0, '2014', 0, 'wqeewqwe', 'sssasdsdsassdsassdasda', '', '2015-01-01', 0),
+	(19, 2, 1, 0, 1, '2011', '2014-12-12', '04:32:40', '2014-12-12', '04:32:40', 0, '2014-12-30', 'qwe213', 1, '0', '0', 0, '2015-01-01', 0, 0, '2014', 0, '', '', '', '2015-01-01', 0),
+	(20, 2, 1, 0, 1, '2013', '2014-12-12', '04:36:42', '2014-12-12', '04:36:42', 0, '2014-12-31', 'qwe213', 0, '0', '0', 0, '2015-01-01', 0, 0, '2014', 0, '', '', '', '2015-01-01', 0);
 /*!40000 ALTER TABLE `zfcms_comuni_albo_articoli` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_comuni_albo_sezioni
-DROP TABLE IF EXISTS `zfcms_comuni_albo_sezioni`;
 CREATE TABLE IF NOT EXISTS `zfcms_comuni_albo_sezioni` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nome` text NOT NULL,
@@ -265,9 +277,10 @@ CREATE TABLE IF NOT EXISTS `zfcms_comuni_albo_sezioni` (
   `del` int(11) DEFAULT '0',
   `det` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
 
--- Dump dei dati della tabella entilocali.zfcms_comuni_albo_sezioni: ~12 rows (circa)
+-- Dump dei dati della tabella entilocali.zfcms_comuni_albo_sezioni: ~42 rows (circa)
+DELETE FROM `zfcms_comuni_albo_sezioni`;
 /*!40000 ALTER TABLE `zfcms_comuni_albo_sezioni` DISABLE KEYS */;
 INSERT INTO `zfcms_comuni_albo_sezioni` (`id`, `nome`, `descrizione`, `attivo`, `dest`, `del`, `det`) VALUES
 	(1, 'Bandi', '', 1, 1, 0, 0),
@@ -281,12 +294,41 @@ INSERT INTO `zfcms_comuni_albo_sezioni` (`id`, `nome`, `descrizione`, `attivo`, 
 	(11, 'Enti Terzi', '', 1, 1, 0, 0),
 	(12, 'Concessioni Edilizie', '', 1, 1, 0, 0),
 	(13, 'Decreti', '', 1, 1, 0, 0),
-	(14, 'Prova', '', 0, 1, 0, 0);
+	(14, 'Prova', '', 0, 1, 0, 0),
+	(15, 'Howard Cooper', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 87, 87, 87, 87),
+	(16, 'Gandalf Cooper', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 156, 156, 156, 156),
+	(17, 'John Schwarzenegger', 'Sed molestie semper purus non pellentesque.', 45, 45, 45, 45),
+	(18, 'Leonard Doe', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 98, 98, 98, 98),
+	(19, 'Paul Koothrappali', 'Sed molestie semper purus non pellentesque.', 71, 71, 71, 71),
+	(20, 'Alexia Cooper', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 142, 142, 142, 142),
+	(21, 'Gandalf Schwarzenegger', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 168, 168, 168, 168),
+	(22, 'Paul Redfield', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 79, 79, 79, 79),
+	(23, 'Ken Cooper', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 228, 228, 228, 228),
+	(24, 'Goku Bar', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 119, 119, 119, 119),
+	(25, 'Rajesh Uzumaki', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 173, 173, 173, 173),
+	(26, 'Sub-zero Hofstadter', 'Sed molestie semper purus non pellentesque.', 10, 10, 10, 10),
+	(27, 'Ronaldinho Stanley', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 17, 17, 17, 17),
+	(28, 'Jane Redfield', 'Sed molestie semper purus non pellentesque.', 130, 130, 130, 130),
+	(29, 'Leonard Spielberg', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 164, 164, 164, 164),
+	(30, 'Sheldon Doe', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 229, 229, 229, 229),
+	(31, 'Howard Urameshi', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 232, 232, 232, 232),
+	(32, 'Goku Spielberg', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 149, 149, 149, 149),
+	(33, 'Sheldon Wolowitz', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 147, 147, 147, 147),
+	(34, 'Mr. Foo Uzumaki', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 125, 125, 125, 125),
+	(35, 'Chris Schwarzenegger', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 233, 233, 233, 233),
+	(36, 'Sub-zero Urameshi', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 126, 126, 126, 126),
+	(37, 'Seiya Hofstadter', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 27, 27, 27, 27),
+	(38, 'Sheldon Schwarzenegger', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 184, 184, 184, 184),
+	(39, 'Ronaldinho Urameshi', 'Sed molestie semper purus non pellentesque.', 243, 243, 243, 243),
+	(40, 'Vegetta Spielberg', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 138, 138, 138, 138),
+	(41, 'Claire Uzumaki', 'Sed molestie semper purus non pellentesque.', 152, 152, 152, 152),
+	(42, 'Seiya Doe', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 110, 110, 110, 110),
+	(43, 'Vegetta Redfield', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 203, 203, 203, 203),
+	(44, 'Sub-zero Cooper', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 135, 135, 135, 135);
 /*!40000 ALTER TABLE `zfcms_comuni_albo_sezioni` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_comuni_ammaperta_articoli
-DROP TABLE IF EXISTS `zfcms_comuni_ammaperta_articoli`;
 CREATE TABLE IF NOT EXISTS `zfcms_comuni_ammaperta_articoli` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `beneficiario` text NOT NULL,
@@ -298,54 +340,57 @@ CREATE TABLE IF NOT EXISTS `zfcms_comuni_ammaperta_articoli` (
   `anno` text NOT NULL,
   `data` date NOT NULL,
   `ora` time NOT NULL,
-  `attivo` int(11) NOT NULL,
+  `attivo` int(11) NOT NULL DEFAULT '0',
   `scadenza` date NOT NULL,
   `utente_id` bigint(20) NOT NULL,
-  `sezione_id` int(11) NOT NULL,
+  `sezione_id` bigint(20) NOT NULL,
   `resp_proc_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `utente_id` (`utente_id`),
   KEY `sezione_id` (`sezione_id`),
-  KEY `resp_proc_id` (`resp_proc_id`)
+  KEY `resp_proc_id` (`resp_proc_id`),
+  CONSTRAINT `ammaperta_fk_resp_proc` FOREIGN KEY (`resp_proc_id`) REFERENCES `zfcms_comuni_ammaperta_resp_proc` (`id`),
+  CONSTRAINT `ammaperta_fk_sezione` FOREIGN KEY (`sezione_id`) REFERENCES `zfcms_comuni_ammaperta_sezioni` (`id`),
+  CONSTRAINT `ammaperta_fk_users` FOREIGN KEY (`utente_id`) REFERENCES `zfcms_users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dump dei dati della tabella entilocali.zfcms_comuni_ammaperta_articoli: ~0 rows (circa)
+DELETE FROM `zfcms_comuni_ammaperta_articoli`;
 /*!40000 ALTER TABLE `zfcms_comuni_ammaperta_articoli` DISABLE KEYS */;
 /*!40000 ALTER TABLE `zfcms_comuni_ammaperta_articoli` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_comuni_ammaperta_resp_proc
-DROP TABLE IF EXISTS `zfcms_comuni_ammaperta_resp_proc`;
 CREATE TABLE IF NOT EXISTS `zfcms_comuni_ammaperta_resp_proc` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nome_resp` text CHARACTER SET latin1 NOT NULL,
   `attivo` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dump dei dati della tabella entilocali.zfcms_comuni_ammaperta_resp_proc: ~0 rows (circa)
+DELETE FROM `zfcms_comuni_ammaperta_resp_proc`;
 /*!40000 ALTER TABLE `zfcms_comuni_ammaperta_resp_proc` DISABLE KEYS */;
 /*!40000 ALTER TABLE `zfcms_comuni_ammaperta_resp_proc` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_comuni_ammaperta_sezioni
-DROP TABLE IF EXISTS `zfcms_comuni_ammaperta_sezioni`;
 CREATE TABLE IF NOT EXISTS `zfcms_comuni_ammaperta_sezioni` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nome` text NOT NULL,
   `responsabile` text,
   `predefinita` int(11) DEFAULT NULL,
-  `attivo` int(11) NOT NULL,
+  `attivo` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dump dei dati della tabella entilocali.zfcms_comuni_ammaperta_sezioni: ~0 rows (circa)
+DELETE FROM `zfcms_comuni_ammaperta_sezioni`;
 /*!40000 ALTER TABLE `zfcms_comuni_ammaperta_sezioni` DISABLE KEYS */;
 /*!40000 ALTER TABLE `zfcms_comuni_ammaperta_sezioni` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_comuni_contratti
-DROP TABLE IF EXISTS `zfcms_comuni_contratti`;
 CREATE TABLE IF NOT EXISTS `zfcms_comuni_contratti` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `beneficiario` text NOT NULL,
@@ -358,7 +403,7 @@ CREATE TABLE IF NOT EXISTS `zfcms_comuni_contratti` (
   `data_agg` date NOT NULL,
   `data_contratto` date NOT NULL,
   `progressivo` bigint(20) NOT NULL,
-  `anno` text NOT NULL,
+  `anno` year(4) NOT NULL,
   `data` date NOT NULL,
   `ora` time NOT NULL,
   `attivo` int(11) NOT NULL,
@@ -379,28 +424,38 @@ CREATE TABLE IF NOT EXISTS `zfcms_comuni_contratti` (
   CONSTRAINT `fk_contpub_sccontr` FOREIGN KEY (`sc_contr_id`) REFERENCES `zfcms_comuni_contratti_sc_contr` (`id`),
   CONSTRAINT `fk_contpub_settori` FOREIGN KEY (`settore_id`) REFERENCES `zfcms_comuni_contratti_settori` (`id`),
   CONSTRAINT `fk_contpub_users` FOREIGN KEY (`utente_id`) REFERENCES `zfcms_users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=2006 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Dump dei dati della tabella entilocali.zfcms_comuni_contratti: ~0 rows (circa)
+-- Dump dei dati della tabella entilocali.zfcms_comuni_contratti: ~7 rows (circa)
+DELETE FROM `zfcms_comuni_contratti`;
 /*!40000 ALTER TABLE `zfcms_comuni_contratti` DISABLE KEYS */;
+INSERT INTO `zfcms_comuni_contratti` (`id`, `beneficiario`, `titolo`, `importo`, `importo2`, `operatori`, `n_offerte`, `modassegn`, `data_agg`, `data_contratto`, `progressivo`, `anno`, `data`, `ora`, `attivo`, `scadenza`, `utente_id`, `settore_id`, `resp_proc_id`, `sc_contr_id`, `cig`) VALUES
+	(138, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 5.68, 5.68, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', '1930-11-06', '1930-11-06', 1, '2001', '1930-11-06', '22:05:25', 1, '1930-11-06', 1, 1, 1, 1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'),
+	(215, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 93.36, 93.36, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 1, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', '1978-07-09', '1978-07-09', 1, '2001', '1978-07-09', '22:31:18', 1, '1978-07-09', 1, 1, 1, 1, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.'),
+	(1219, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 28.70, 28.70, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 1, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', '2014-01-04', '2014-01-04', 1, '2001', '2014-01-04', '09:28:56', 1, '2014-01-04', 1, 1, 1, 1, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.'),
+	(1547, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 11.52, 11.52, 'Sed molestie semper purus non pellentesque.', 1, 'Sed molestie semper purus non pellentesque.', '1946-02-12', '1946-02-12', 1, '2000', '1946-02-12', '01:41:40', 1, '1946-02-12', 1, 1, 1, 1, 'Sed molestie semper purus non pellentesque.'),
+	(1603, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 85.03, 85.03, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 1, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', '1977-03-05', '1977-03-05', 1, '2001', '1977-03-05', '16:47:19', 1, '1977-03-05', 1, 1, 1, 1, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.'),
+	(1656, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 32.57, 32.57, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 1, 'Ut nisi felis, lacinia in ornare at, congue a elit.', '1942-01-18', '1942-01-18', 1, '2001', '1942-01-18', '09:20:25', 1, '1942-01-18', 1, 1, 1, 1, 'Ut nisi felis, lacinia in ornare at, congue a elit.'),
+	(2005, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 82.22, 82.22, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 1, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', '1997-04-04', '1997-04-04', 1, '2000', '1997-04-04', '20:07:39', 1, '1997-04-04', 1, 1, 1, 1, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.');
 /*!40000 ALTER TABLE `zfcms_comuni_contratti` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_comuni_contratti_cf
-DROP TABLE IF EXISTS `zfcms_comuni_contratti_cf`;
 CREATE TABLE IF NOT EXISTS `zfcms_comuni_contratti_cf` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cf_struttura` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Dump dei dati della tabella entilocali.zfcms_comuni_contratti_cf: ~0 rows (circa)
+-- Dump dei dati della tabella entilocali.zfcms_comuni_contratti_cf: ~1 rows (circa)
+DELETE FROM `zfcms_comuni_contratti_cf`;
 /*!40000 ALTER TABLE `zfcms_comuni_contratti_cf` DISABLE KEYS */;
+INSERT INTO `zfcms_comuni_contratti_cf` (`id`, `cf_struttura`) VALUES
+	(1, 'asdjqwo4iu09wursdjklj405');
 /*!40000 ALTER TABLE `zfcms_comuni_contratti_cf` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_comuni_contratti_partecipanti
-DROP TABLE IF EXISTS `zfcms_comuni_contratti_partecipanti`;
 CREATE TABLE IF NOT EXISTS `zfcms_comuni_contratti_partecipanti` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `cf` text NOT NULL,
@@ -413,15 +468,216 @@ CREATE TABLE IF NOT EXISTS `zfcms_comuni_contratti_partecipanti` (
   PRIMARY KEY (`id`),
   KEY `categoria` (`categoria`),
   KEY `sel` (`sel`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=201 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Dump dei dati della tabella entilocali.zfcms_comuni_contratti_partecipanti: ~0 rows (circa)
+-- Dump dei dati della tabella entilocali.zfcms_comuni_contratti_partecipanti: ~180 rows (circa)
+DELETE FROM `zfcms_comuni_contratti_partecipanti`;
 /*!40000 ALTER TABLE `zfcms_comuni_contratti_partecipanti` DISABLE KEYS */;
+INSERT INTO `zfcms_comuni_contratti_partecipanti` (`id`, `cf`, `ragione_sociale`, `ruolo1`, `nome`, `posizione`, `categoria`, `sel`) VALUES
+	(1, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Claire Wolowitz', 214, 214, 214),
+	(2, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Alfred Stanley', 53, 53, 53),
+	(3, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Goku Ashford', 206, 206, 206),
+	(4, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Chris Koothrappali', 208, 208, 208),
+	(5, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Alfred Uzumaki', 73, 73, 73),
+	(6, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Ken Urameshi', 28, 28, 28),
+	(7, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Vegetta Spielberg', 166, 166, 166),
+	(8, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Gandalf Redfield', 121, 121, 121),
+	(9, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Michelangelo Koothrappali', 49, 49, 49),
+	(10, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Claire Schwarzenegger', 158, 158, 158),
+	(11, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Gandalf Spielberg', 10, 10, 10),
+	(12, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Don Juan Uzumaki', 96, 96, 96),
+	(13, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Claire Stardust', 11, 11, 11),
+	(14, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Seiya Bar', 19, 19, 19),
+	(15, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Paul Cooper', 175, 175, 175),
+	(16, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Ikki Bar', 98, 98, 98),
+	(17, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Michelangelo Spielberg', 73, 73, 73),
+	(18, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Alfred Cooper', 95, 95, 95),
+	(19, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Howard Cooper', 15, 15, 15),
+	(20, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Sheldon Stanley', 133, 133, 133),
+	(21, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Claire Ashford', 235, 235, 235),
+	(22, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Claire Uzumaki', 171, 171, 171),
+	(23, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Alexia Bar', 11, 11, 11),
+	(24, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Ronaldinho Stardust', 94, 94, 94),
+	(25, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Mr. Foo Koothrappali', 53, 53, 53),
+	(26, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Jane Bar', 51, 51, 51),
+	(27, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Goku Urameshi', 0, 0, 0),
+	(28, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Howard Stanley', 114, 114, 114),
+	(29, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Yusuke Bar', 214, 214, 214),
+	(30, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Alfred Koothrappali', 224, 224, 224),
+	(31, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Goku Bar', 78, 78, 78),
+	(32, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Howard Redfield', 184, 184, 184),
+	(33, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Rajesh Urameshi', 11, 11, 11),
+	(34, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Goku Redfield', 207, 207, 207),
+	(35, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Michelangelo Redfield', 220, 220, 220),
+	(36, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'John Schwarzenegger', 72, 72, 72),
+	(37, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Sauron Doe', 61, 61, 61),
+	(38, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Goku DeMarco', 215, 215, 215),
+	(39, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ronaldinho Schwarzenegger', 174, 174, 174),
+	(40, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Sauron Koothrappali', 71, 71, 71),
+	(41, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Ken Redfield', 33, 33, 33),
+	(42, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Rajesh Redfield', 86, 86, 86),
+	(43, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Goku Ashford', 177, 177, 177),
+	(44, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Ken Stardust', 250, 250, 250),
+	(45, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Howard Redfield', 237, 237, 237),
+	(46, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Alexia Cooper', 234, 234, 234),
+	(47, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Chris Urameshi', 144, 144, 144),
+	(48, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Alexia Napalm', 171, 171, 171),
+	(49, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Mr. Foo Urameshi', 167, 167, 167),
+	(50, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Don Juan Hofstadter', 29, 29, 29),
+	(51, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Sheldon Bar', 34, 34, 34),
+	(52, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Gandalf Redfield', 139, 139, 139),
+	(53, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'John Ashford', 110, 110, 110),
+	(54, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Ikki Koothrappali', 246, 246, 246),
+	(55, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Gandalf Wolowitz', 13, 13, 13),
+	(56, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Gandalf Spielberg', 24, 24, 24),
+	(57, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Jane Redfield', 198, 198, 198),
+	(58, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ronaldinho Ashford', 142, 142, 142),
+	(59, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Jane Urameshi', 236, 236, 236),
+	(60, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Gandalf Uzumaki', 218, 218, 218),
+	(61, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Leonard DeMarco', 38, 38, 38),
+	(62, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Ikki Cooper', 200, 200, 200),
+	(63, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vegetta Cooper', 18, 18, 18),
+	(64, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Seiya Cooper', 146, 146, 146),
+	(65, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Howard Stanley', 256, 256, 256),
+	(66, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Leonard Doe', 23, 23, 23),
+	(67, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Sub-zero Redfield', 119, 119, 119),
+	(68, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Chris Napalm', 32, 32, 32),
+	(69, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Chris Napalm', 204, 204, 204),
+	(70, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Howard Doe', 194, 194, 194),
+	(71, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Vegetta Napalm', 125, 125, 125),
+	(72, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Rajesh Doe', 93, 93, 93),
+	(73, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Ronaldinho Uzumaki', 227, 227, 227),
+	(74, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'John Redfield', 200, 200, 200),
+	(75, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Seiya Doe', 178, 178, 178),
+	(76, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Seiya Schwarzenegger', 225, 225, 225),
+	(77, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Paul Bar', 242, 242, 242),
+	(78, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Paul Doe', 88, 88, 88),
+	(79, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Ronaldinho Koothrappali', 131, 131, 131),
+	(80, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Alfred DeMarco', 59, 59, 59),
+	(81, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'John Wolowitz', 76, 76, 76),
+	(82, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Ikki Spielberg', 27, 27, 27),
+	(83, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Jane Doe', 53, 53, 53),
+	(84, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Ronaldinho Doe', 79, 79, 79),
+	(85, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Sheldon Ashford', 189, 189, 189),
+	(86, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Sauron Napalm', 213, 213, 213),
+	(87, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Yusuke Hofstadter', 32, 32, 32),
+	(88, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Goku Cooper', 65, 65, 65),
+	(89, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Yusuke DeMarco', 140, 140, 140),
+	(90, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Ronaldinho Bar', 253, 253, 253),
+	(91, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Ikki Wolowitz', 205, 205, 205),
+	(92, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Claire Uzumaki', 45, 45, 45),
+	(93, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Jane Koothrappali', 49, 49, 49),
+	(94, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Chris Koothrappali', 180, 180, 180),
+	(95, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Gandalf Spielberg', 228, 228, 228),
+	(96, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Ryu DeMarco', 175, 175, 175),
+	(97, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Sheldon Wolowitz', 174, 174, 174),
+	(98, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Sauron Bar', 101, 101, 101),
+	(99, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Claire Cooper', 78, 78, 78),
+	(100, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Howard Napalm', 37, 37, 37),
+	(101, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Leonard Uzumaki', 65, 65, 65),
+	(102, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Yusuke Cooper', 222, 222, 222),
+	(103, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Alexia Hofstadter', 85, 85, 85),
+	(104, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Sub-zero Hofstadter', 79, 79, 79),
+	(105, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Chris DeMarco', 119, 119, 119),
+	(106, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Alfred Doe', 255, 255, 255),
+	(107, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Ikki Cooper', 47, 47, 47),
+	(108, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Rajesh Ashford', 92, 92, 92),
+	(109, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Vegetta Spielberg', 154, 154, 154),
+	(110, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'John Redfield', 253, 253, 253),
+	(111, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Chris Ashford', 242, 242, 242),
+	(112, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Seiya Stardust', 112, 112, 112),
+	(113, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Gandalf Cooper', 181, 181, 181),
+	(114, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Gandalf Spielberg', 105, 105, 105),
+	(115, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Ryu Napalm', 11, 11, 11),
+	(116, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Claire Hofstadter', 245, 245, 245),
+	(117, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Naruto Napalm', 238, 238, 238),
+	(118, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Ken Koothrappali', 137, 137, 137),
+	(119, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Jane Doe', 160, 160, 160),
+	(120, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Vegetta Doe', 47, 47, 47),
+	(121, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Yusuke Wolowitz', 195, 195, 195),
+	(122, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Alfred Koothrappali', 62, 62, 62),
+	(123, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Alfred Hofstadter', 233, 233, 233),
+	(124, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Chris Napalm', 203, 203, 203),
+	(125, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Rajesh Stanley', 54, 54, 54),
+	(126, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Yusuke DeMarco', 27, 27, 27),
+	(127, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Gandalf DeMarco', 253, 253, 253),
+	(128, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Ronaldinho Uzumaki', 168, 168, 168),
+	(129, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Paul Spielberg', 154, 154, 154),
+	(130, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Alexia Stardust', 15, 15, 15),
+	(131, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Leonard Doe', 173, 173, 173),
+	(132, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Rajesh Stanley', 155, 155, 155),
+	(133, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Sauron Doe', 47, 47, 47),
+	(134, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Paul Doe', 128, 128, 128),
+	(135, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Seiya Napalm', 136, 136, 136),
+	(136, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Sauron Urameshi', 200, 200, 200),
+	(137, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Paul Ashford', 1, 1, 1),
+	(138, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Don Juan Spielberg', 167, 167, 167),
+	(139, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Yusuke Hofstadter', 107, 107, 107),
+	(140, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Sub-zero Koothrappali', 244, 244, 244),
+	(141, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Chris Napalm', 116, 116, 116),
+	(142, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Don Juan Wolowitz', 6, 6, 6),
+	(143, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Yusuke Ashford', 25, 25, 25),
+	(144, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Claire Spielberg', 188, 188, 188),
+	(145, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Rajesh Urameshi', 7, 7, 7),
+	(146, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Sauron Wolowitz', 222, 222, 222),
+	(147, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Seiya Uzumaki', 195, 195, 195),
+	(148, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Rajesh Wolowitz', 140, 140, 140),
+	(149, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Vegetta DeMarco', 199, 199, 199),
+	(150, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Vegetta Spielberg', 63, 63, 63),
+	(151, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Don Juan Redfield', 171, 171, 171),
+	(152, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Gandalf Stardust', 16, 16, 16),
+	(153, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Michelangelo Stanley', 114, 114, 114),
+	(154, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Goku Uzumaki', 218, 218, 218),
+	(155, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Michelangelo Cooper', 157, 157, 157),
+	(156, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Leonard Koothrappali', 19, 19, 19),
+	(157, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Claire DeMarco', 191, 191, 191),
+	(158, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Ken Uzumaki', 131, 131, 131),
+	(159, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Gandalf Redfield', 112, 112, 112),
+	(160, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vegetta Cooper', 223, 223, 223),
+	(161, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Seiya Ashford', 255, 255, 255),
+	(162, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Michelangelo Wolowitz', 187, 187, 187),
+	(163, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Vegetta Cooper', 3, 3, 3),
+	(164, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Alfred Redfield', 50, 50, 50),
+	(165, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Claire Doe', 16, 16, 16),
+	(166, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Mr. Foo Cooper', 86, 86, 86),
+	(167, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Gandalf Uzumaki', 38, 38, 38),
+	(168, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Alfred Wolowitz', 81, 81, 81),
+	(169, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Howard Stardust', 89, 89, 89),
+	(170, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Alfred Wolowitz', 20, 20, 20),
+	(171, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Rajesh Uzumaki', 205, 205, 205),
+	(172, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Sauron Wolowitz', 237, 237, 237),
+	(173, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'John Napalm', 123, 123, 123),
+	(174, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Ken Napalm', 206, 206, 206),
+	(175, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Vegetta Ashford', 108, 108, 108),
+	(176, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Ronaldinho Uzumaki', 208, 208, 208),
+	(177, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Leonard Spielberg', 163, 163, 163),
+	(178, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'John Doe', 58, 58, 58),
+	(179, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Rajesh Stardust', 35, 35, 35),
+	(180, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Sauron Uzumaki', 225, 225, 225),
+	(181, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Ikki DeMarco', 24, 24, 24),
+	(182, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Don Juan Wolowitz', 29, 29, 29),
+	(183, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Michelangelo Ashford', 207, 207, 207),
+	(184, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Michelangelo Wolowitz', 253, 253, 253),
+	(185, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Alexia Urameshi', 227, 227, 227),
+	(186, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Sheldon Cooper', 68, 68, 68),
+	(187, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Howard Koothrappali', 0, 0, 0),
+	(188, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Goku Ashford', 75, 75, 75),
+	(189, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Gandalf Hofstadter', 72, 72, 72),
+	(190, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Sub-zero Stanley', 214, 214, 214),
+	(191, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Ronaldinho Ashford', 108, 108, 108),
+	(192, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Don Juan Stardust', 51, 51, 51),
+	(193, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Yusuke Stardust', 9, 9, 9),
+	(194, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Sub-zero Schwarzenegger', 32, 32, 32),
+	(195, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Ronaldinho Stardust', 0, 0, 0),
+	(196, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'John Wolowitz', 174, 174, 174),
+	(197, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Ryu Stardust', 46, 46, 46),
+	(198, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Ken Wolowitz', 168, 168, 168),
+	(199, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Rajesh Ashford', 172, 172, 172),
+	(200, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Sauron Urameshi', 193, 193, 193);
 /*!40000 ALTER TABLE `zfcms_comuni_contratti_partecipanti` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_comuni_contratti_part_cig
-DROP TABLE IF EXISTS `zfcms_comuni_contratti_part_cig`;
 CREATE TABLE IF NOT EXISTS `zfcms_comuni_contratti_part_cig` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `stato` int(11) NOT NULL DEFAULT '0',
@@ -434,47 +690,77 @@ CREATE TABLE IF NOT EXISTS `zfcms_comuni_contratti_part_cig` (
   KEY `cont_pub_data_id` (`cont_pub_id`),
   KEY `cont_pub_part_id` (`cont_pub_part_id`),
   KEY `aggiudicatario` (`aggiudicatario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Dump dei dati della tabella entilocali.zfcms_comuni_contratti_part_cig: ~0 rows (circa)
+-- Dump dei dati della tabella entilocali.zfcms_comuni_contratti_part_cig: ~8 rows (circa)
+DELETE FROM `zfcms_comuni_contratti_part_cig`;
 /*!40000 ALTER TABLE `zfcms_comuni_contratti_part_cig` DISABLE KEYS */;
+INSERT INTO `zfcms_comuni_contratti_part_cig` (`id`, `stato`, `gruppo`, `aggiudicatario`, `membro`, `cont_pub_part_id`, `cont_pub_id`) VALUES
+	(1, 51, 51, 51, 51, 51, 51),
+	(2, 64, 64, 64, 64, 64, 64),
+	(3, 185, 185, 185, 185, 185, 185),
+	(4, 96, 96, 96, 96, 96, 96),
+	(5, 256, 256, 256, 256, 256, 256),
+	(6, 205, 205, 205, 205, 205, 205),
+	(7, 131, 131, 131, 131, 131, 131),
+	(8, 243, 243, 243, 243, 243, 243);
 /*!40000 ALTER TABLE `zfcms_comuni_contratti_part_cig` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_comuni_contratti_resp_proc
-DROP TABLE IF EXISTS `zfcms_comuni_contratti_resp_proc`;
 CREATE TABLE IF NOT EXISTS `zfcms_comuni_contratti_resp_proc` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nome_resp` text NOT NULL,
   `attivo` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `attivo` (`attivo`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Dump dei dati della tabella entilocali.zfcms_comuni_contratti_resp_proc: ~1 rows (circa)
+-- Dump dei dati della tabella entilocali.zfcms_comuni_contratti_resp_proc: ~13 rows (circa)
+DELETE FROM `zfcms_comuni_contratti_resp_proc`;
 /*!40000 ALTER TABLE `zfcms_comuni_contratti_resp_proc` DISABLE KEYS */;
 INSERT INTO `zfcms_comuni_contratti_resp_proc` (`id`, `nome_resp`, `attivo`) VALUES
-	(1, 'prova', 0);
+	(1, 'prova', 1),
+	(2, 'Sed molestie semper purus non pellentesque.', 1),
+	(3, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 1),
+	(4, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 1),
+	(5, 'Sed molestie semper purus non pellentesque.', 1),
+	(6, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 1),
+	(7, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 1),
+	(8, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 1),
+	(9, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 1),
+	(10, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 0),
+	(11, 'sdasdas dasd asd as', 0),
+	(12, 'prova', 0),
+	(13, 'provare', 0);
 /*!40000 ALTER TABLE `zfcms_comuni_contratti_resp_proc` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_comuni_contratti_sc_contr
-DROP TABLE IF EXISTS `zfcms_comuni_contratti_sc_contr`;
 CREATE TABLE IF NOT EXISTS `zfcms_comuni_contratti_sc_contr` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nome_scelta` text NOT NULL,
   `attivo` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `attivo` (`attivo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
--- Dump dei dati della tabella entilocali.zfcms_comuni_contratti_sc_contr: ~0 rows (circa)
+-- Dump dei dati della tabella entilocali.zfcms_comuni_contratti_sc_contr: ~8 rows (circa)
+DELETE FROM `zfcms_comuni_contratti_sc_contr`;
 /*!40000 ALTER TABLE `zfcms_comuni_contratti_sc_contr` DISABLE KEYS */;
+INSERT INTO `zfcms_comuni_contratti_sc_contr` (`id`, `nome_scelta`, `attivo`) VALUES
+	(1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 1),
+	(2, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 1),
+	(3, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 1),
+	(4, 'Sed molestie semper purus non pellentesque.', 1),
+	(5, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 1),
+	(6, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 1),
+	(7, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 1),
+	(8, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 1);
 /*!40000 ALTER TABLE `zfcms_comuni_contratti_sc_contr` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_comuni_contratti_settori
-DROP TABLE IF EXISTS `zfcms_comuni_contratti_settori`;
 CREATE TABLE IF NOT EXISTS `zfcms_comuni_contratti_settori` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nome` text NOT NULL,
@@ -485,6 +771,7 @@ CREATE TABLE IF NOT EXISTS `zfcms_comuni_contratti_settori` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- Dump dei dati della tabella entilocali.zfcms_comuni_contratti_settori: ~1 rows (circa)
+DELETE FROM `zfcms_comuni_contratti_settori`;
 /*!40000 ALTER TABLE `zfcms_comuni_contratti_settori` DISABLE KEYS */;
 INSERT INTO `zfcms_comuni_contratti_settori` (`id`, `nome`, `responsabile`, `predefinita`, `attivo`) VALUES
 	(1, 'prova', 'asdasdasd', NULL, 0);
@@ -492,7 +779,6 @@ INSERT INTO `zfcms_comuni_contratti_settori` (`id`, `nome`, `responsabile`, `pre
 
 
 -- Dump della struttura di tabella entilocali.zfcms_comuni_rubrica_enti_terzi
-DROP TABLE IF EXISTS `zfcms_comuni_rubrica_enti_terzi`;
 CREATE TABLE IF NOT EXISTS `zfcms_comuni_rubrica_enti_terzi` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` text NOT NULL,
@@ -503,16 +789,16 @@ CREATE TABLE IF NOT EXISTS `zfcms_comuni_rubrica_enti_terzi` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 -- Dump dei dati della tabella entilocali.zfcms_comuni_rubrica_enti_terzi: ~3 rows (circa)
+DELETE FROM `zfcms_comuni_rubrica_enti_terzi`;
 /*!40000 ALTER TABLE `zfcms_comuni_rubrica_enti_terzi` DISABLE KEYS */;
 INSERT INTO `zfcms_comuni_rubrica_enti_terzi` (`id`, `nome`, `email`, `insert_date`, `last_update`) VALUES
-	(1, 'Andrea', 'prova@gmail.com', '2014-08-18 10:34:23', '2014-08-18 10:34:23'),
-	(2, 'Max', 'max@gmail.com', '2014-08-18 10:34:23', '2014-08-18 10:34:23'),
-	(3, 'Luca', 'luca@gmail.com', '2014-08-18 10:34:23', '2014-08-18 10:34:23');
+	(1, 'Tribunale', 'prova@gmail.com', '2014-08-18 10:34:23', '2014-08-18 10:34:23'),
+	(2, 'Regione', 'max@gmail.com', '2014-08-18 10:34:23', '2014-08-18 10:34:23'),
+	(3, 'Provincia', 'luca@gmail.com', '2014-08-18 10:34:23', '2014-08-18 10:34:23');
 /*!40000 ALTER TABLE `zfcms_comuni_rubrica_enti_terzi` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_comuni_stato_civile_articoli
-DROP TABLE IF EXISTS `zfcms_comuni_stato_civile_articoli`;
 CREATE TABLE IF NOT EXISTS `zfcms_comuni_stato_civile_articoli` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `titolo` text NOT NULL,
@@ -533,32 +819,32 @@ CREATE TABLE IF NOT EXISTS `zfcms_comuni_stato_civile_articoli` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1982 DEFAULT CHARSET=latin1;
 
 -- Dump dei dati della tabella entilocali.zfcms_comuni_stato_civile_articoli: ~19 rows (circa)
+DELETE FROM `zfcms_comuni_stato_civile_articoli`;
 /*!40000 ALTER TABLE `zfcms_comuni_stato_civile_articoli` DISABLE KEYS */;
 INSERT INTO `zfcms_comuni_stato_civile_articoli` (`id`, `titolo`, `progressivo`, `anno`, `data`, `ora`, `attivo`, `scadenza`, `flag_allegati`, `utente_id`, `sezione_id`) VALUES
-	(13, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 2, '2001', '2012-12-07', '08:02:40', 2, '2012-12-07', '', 2, 2),
-	(464, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 2, '2001', '1931-03-12', '23:34:01', 2, '1931-03-12', '', 2, 2),
-	(473, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 2, '2001', '1967-03-13', '21:43:57', 2, '1967-03-13', '', 2, 2),
-	(476, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 1, '2001', '2002-05-10', '14:14:00', 1, '2002-05-10', '', 1, 1),
-	(480, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 2, '2000', '1949-03-21', '05:16:12', 2, '1949-03-21', '', 2, 2),
-	(616, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 2, '2001', '1940-07-10', '18:55:44', 2, '1940-07-10', '', 2, 2),
-	(729, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 2, '2001', '1942-06-02', '22:28:58', 2, '1942-06-02', '', 2, 2),
-	(882, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 1, '2000', '1996-09-08', '21:32:20', 1, '1996-09-08', '', 1, 1),
-	(888, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 1, '2001', '1977-09-16', '16:36:40', 1, '1977-09-16', '', 1, 1),
-	(1118, 'Sed molestie semper purus non pellentesque.', 1, '2001', '2006-09-18', '16:45:23', 1, '2006-09-18', '', 1, 1),
-	(1123, 'Sed molestie semper purus non pellentesque.', 1, '2000', '1997-07-09', '00:09:09', 1, '1997-07-09', '', 1, 1),
-	(1168, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 1, '2001', '1930-04-19', '12:47:41', 1, '1930-04-19', '', 1, 1),
-	(1220, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 1, '2000', '1986-10-16', '15:00:29', 1, '1986-10-16', '', 1, 1),
-	(1420, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 2, '2000', '2007-08-26', '02:45:28', 2, '2007-08-26', '', 2, 2),
-	(1446, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 1, '2000', '1973-04-12', '14:29:01', 1, '1973-04-12', '', 1, 1),
-	(1460, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 2, '2001', '1932-07-14', '20:10:21', 2, '1932-07-14', '', 2, 2),
-	(1691, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 1, '2001', '2003-04-06', '20:41:03', 1, '2003-04-06', '', 1, 1),
-	(1951, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 1, '2001', '2002-12-20', '18:59:55', 1, '2002-12-20', '', 1, 1),
-	(1981, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 1, '2001', '2014-01-15', '13:03:13', 1, '2014-01-15', '', 1, 1);
+	(1, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 2, '2001', '2012-12-07', '08:02:40', 1, '2012-12-07', '', 2, 2),
+	(2, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 2, '2001', '1931-03-12', '23:34:01', 0, '1931-03-12', '', 2, 2),
+	(3, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 2, '2001', '1967-03-13', '21:43:57', 1, '1967-03-13', '', 2, 2),
+	(4, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 1, '2001', '2002-05-10', '14:14:00', 0, '2002-05-10', '', 1, 1),
+	(5, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 2, '2000', '1949-03-21', '05:16:12', 0, '1949-03-21', '', 2, 2),
+	(6, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 2, '2001', '1940-07-10', '18:55:44', 0, '1940-07-10', '', 2, 2),
+	(7, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 2, '2001', '1942-06-02', '22:28:58', 0, '1942-06-02', '', 2, 2),
+	(8, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 1, '2000', '1996-09-08', '21:32:20', 1, '1996-09-08', '', 1, 1),
+	(9, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 1, '2001', '1977-09-16', '16:36:40', 1, '1977-09-16', '', 1, 1),
+	(10, 'Sed molestie semper purus non pellentesque.', 1, '2001', '2006-09-18', '16:45:23', 1, '2006-09-18', '', 1, 1),
+	(11, 'Sed molestie semper purus non pellentesque.', 1, '2000', '1997-07-09', '00:09:09', 0, '1997-07-09', '', 1, 1),
+	(12, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 1, '2001', '1930-04-19', '12:47:41', 1, '1930-04-19', '', 1, 1),
+	(13, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 1, '2000', '1986-10-16', '15:00:29', 1, '1986-10-16', '', 1, 1),
+	(14, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 2, '2000', '2007-08-26', '02:45:28', 0, '2007-08-26', '', 2, 2),
+	(15, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 1, '2000', '1973-04-12', '14:29:01', 1, '1973-04-12', '', 1, 1),
+	(16, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 2, '2001', '1932-07-14', '20:10:21', 0, '1932-07-14', '', 2, 2),
+	(17, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 1, '2001', '2003-04-06', '20:41:03', 1, '2003-04-06', '', 1, 1),
+	(18, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 1, '2001', '2002-12-20', '18:59:55', 0, '2002-12-20', '', 1, 1),
+	(19, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 1, '2001', '2014-01-15', '13:03:13', 1, '2014-01-15', '', 1, 1);
 /*!40000 ALTER TABLE `zfcms_comuni_stato_civile_articoli` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_comuni_stato_civile_sezioni
-DROP TABLE IF EXISTS `zfcms_comuni_stato_civile_sezioni`;
 CREATE TABLE IF NOT EXISTS `zfcms_comuni_stato_civile_sezioni` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` text NOT NULL,
@@ -570,6 +856,7 @@ CREATE TABLE IF NOT EXISTS `zfcms_comuni_stato_civile_sezioni` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- Dump dei dati della tabella entilocali.zfcms_comuni_stato_civile_sezioni: ~2 rows (circa)
+DELETE FROM `zfcms_comuni_stato_civile_sezioni`;
 /*!40000 ALTER TABLE `zfcms_comuni_stato_civile_sezioni` DISABLE KEYS */;
 INSERT INTO `zfcms_comuni_stato_civile_sezioni` (`id`, `nome`, `attivo`, `data_inserimento`, `data_ultimo_aggiornamento`) VALUES
 	(1, 'Pubblicazioni di matrimonio', 1, '2014-08-18 21:44:24', '2014-08-18 21:44:24'),
@@ -578,7 +865,6 @@ INSERT INTO `zfcms_comuni_stato_civile_sezioni` (`id`, `nome`, `attivo`, `data_i
 
 
 -- Dump della struttura di tabella entilocali.zfcms_config
-DROP TABLE IF EXISTS `zfcms_config`;
 CREATE TABLE IF NOT EXISTS `zfcms_config` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
@@ -586,18 +872,19 @@ CREATE TABLE IF NOT EXISTS `zfcms_config` (
   `note` varchar(100) DEFAULT NULL,
   `is_backend` bigint(10) NOT NULL,
   `is_always_allowed` bigint(10) NOT NULL DEFAULT '1',
-  `module_id` bigint(10) NOT NULL DEFAULT '4',
-  `channel_id` bigint(10) NOT NULL DEFAULT '1',
-  `language_id` bigint(10) NOT NULL DEFAULT '1',
+  `module_id` bigint(20) NOT NULL DEFAULT '4',
+  `channel_id` bigint(20) NOT NULL DEFAULT '1',
+  `language_id` bigint(20) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `channel_id` (`channel_id`),
   KEY `language_id` (`language_id`),
   KEY `module_id` (`module_id`),
   KEY `isadmin` (`is_backend`),
   KEY `isalwaysallowed` (`is_always_allowed`)
-) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Dump dei dati della tabella entilocali.zfcms_config: ~79 rows (circa)
+-- Dump dei dati della tabella entilocali.zfcms_config: ~30 rows (circa)
+DELETE FROM `zfcms_config`;
 /*!40000 ALTER TABLE `zfcms_config` DISABLE KEYS */;
 INSERT INTO `zfcms_config` (`id`, `name`, `value`, `note`, `is_backend`, `is_always_allowed`, `module_id`, `channel_id`, `language_id`) VALUES
 	(1, 'sitename', 'Enti locali - Aziende', NULL, 0, 1, 0, 0, 0),
@@ -629,61 +916,11 @@ INSERT INTO `zfcms_config` (`id`, `name`, `value`, `note`, `is_backend`, `is_alw
 	(42, 'dashboard_backend', 'dashboard.phtml', NULL, 1, 0, 0, 0, 0),
 	(47, 'sitename', 'Entil locali - Aziende', NULL, 0, 1, 4, 1, 1),
 	(48, 'keywords', 'enti,locali,aziende', NULL, 0, 1, 4, 1, 1),
-	(49, 'Alexia Urameshi', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 191, 191, 191, 191, 191),
-	(50, 'Gandalf Stanley', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 11, 11, 11, 11, 11),
-	(51, 'Ikki Stardust', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet ', 36, 36, 36, 36, 36),
-	(52, 'Ken Redfield', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 218, 218, 218, 218, 218),
-	(53, 'Paul DeMarco', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 141, 141, 141, 141, 141),
-	(54, 'Sub-zero Bar', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 122, 122, 122, 122, 122),
-	(55, 'Paul Stardust', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 93, 93, 93, 93, 93),
-	(56, 'Vegetta Bar', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 4, 4, 4, 4, 4),
-	(57, 'Howard DeMarco', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 239, 239, 239, 239, 239),
-	(58, 'Claire Schwarzenegger', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 44, 44, 44, 44, 44),
-	(59, 'Ikki Schwarzenegger', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 89, 89, 89, 89, 89),
-	(60, 'Rajesh Spielberg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 103, 103, 103, 103, 103),
-	(61, 'Claire Hofstadter', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 135, 135, 135, 135, 135),
-	(62, 'Claire Redfield', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 112, 112, 112, 112, 112),
-	(63, 'Gandalf Napalm', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augu', 108, 108, 108, 108, 108),
-	(64, 'Ikki Hofstadter', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet ', 102, 102, 102, 102, 102),
-	(65, 'Sub-zero Doe', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augu', 124, 124, 124, 124, 124),
-	(66, 'Chris Uzumaki', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 217, 217, 217, 217, 217),
-	(67, 'Ronaldinho Schwarzenegger', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 95, 95, 95, 95, 95),
-	(68, 'Naruto Napalm', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augu', 89, 89, 89, 89, 89),
-	(69, 'Howard Hofstadter', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 24, 24, 24, 24, 24),
-	(70, 'Mr. Foo Spielberg', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 114, 114, 114, 114, 114),
-	(71, 'Michelangelo Bar', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 224, 224, 224, 224, 224),
-	(72, 'Claire Bar', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 89, 89, 89, 89, 89),
-	(73, 'Claire Redfield', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet ', 190, 190, 190, 190, 190),
-	(74, 'Alexia Koothrappali', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augu', 12, 12, 12, 12, 12),
-	(75, 'Don Juan Cooper', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 233, 233, 233, 233, 233),
-	(76, 'Yusuke Urameshi', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 85, 85, 85, 85, 85),
-	(77, 'Goku Koothrappali', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet ', 174, 174, 174, 174, 174),
-	(78, 'Claire Wolowitz', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 162, 162, 162, 162, 162),
-	(79, 'Rajesh Redfield', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augu', 4, 4, 4, 4, 4),
-	(80, 'Don Juan Uzumaki', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 233, 233, 233, 233, 233),
-	(81, 'Ryu Stardust', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet ', 26, 26, 26, 26, 26),
-	(82, 'Alexia Stanley', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 115, 115, 115, 115, 115),
-	(83, 'Alexia Doe', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet ', 84, 84, 84, 84, 84),
-	(84, 'Seiya Doe', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 98, 98, 98, 98, 98),
-	(85, 'Naruto Koothrappali', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 27, 27, 27, 27, 27),
-	(86, 'Paul Ashford', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 214, 214, 214, 214, 214),
-	(87, 'Vegetta Bar', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augu', 36, 36, 36, 36, 36),
-	(88, 'Seiya Schwarzenegger', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 125, 125, 125, 125, 125),
-	(89, 'Yusuke Stanley', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 3, 3, 3, 3, 3),
-	(90, 'Paul Uzumaki', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 11, 11, 11, 11, 11),
-	(91, 'Seiya Schwarzenegger', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augu', 168, 168, 168, 168, 168),
-	(92, 'Ikki Uzumaki', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 165, 165, 165, 165, 165),
-	(93, 'Goku Redfield', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 78, 78, 78, 78, 78),
-	(94, 'Howard Hofstadter', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 3, 3, 3, 3, 3),
-	(95, 'Chris Doe', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 189, 189, 189, 189, 189),
-	(96, 'Vegetta Urameshi', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 24, 24, 24, 24, 24),
-	(97, 'Rajesh Hofstadter', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 255, 255, 255, 255, 255),
-	(98, 'Chris Schwarzenegger', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 119, 119, 119, 119, 119);
+	(49, 'amazon_s3_bucket', 'entilocali', NULL, 1, 0, 0, 0, 0);
 /*!40000 ALTER TABLE `zfcms_config` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_contacts
-DROP TABLE IF EXISTS `zfcms_contacts`;
 CREATE TABLE IF NOT EXISTS `zfcms_contacts` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(80) DEFAULT NULL,
@@ -697,9 +934,10 @@ CREATE TABLE IF NOT EXISTS `zfcms_contacts` (
   `user_id` bigint(11) DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- Dump dei dati della tabella entilocali.zfcms_contacts: ~1 rows (circa)
+DELETE FROM `zfcms_contacts`;
 /*!40000 ALTER TABLE `zfcms_contacts` DISABLE KEYS */;
 INSERT INTO `zfcms_contacts` (`id`, `name`, `surname`, `email`, `phone`, `message`, `insert_date`, `format`, `status`, `user_id`) VALUES
 	(1, 'prova', 'contatti', 'a.fiori@cheapnet.it', '079448668', 'askldjaslkdjask', '2014-09-09 09:43:09', 'contact', NULL, 0);
@@ -707,7 +945,6 @@ INSERT INTO `zfcms_contacts` (`id`, `name`, `surname`, `email`, `phone`, `messag
 
 
 -- Dump della struttura di tabella entilocali.zfcms_faq_answers
-DROP TABLE IF EXISTS `zfcms_faq_answers`;
 CREATE TABLE IF NOT EXISTS `zfcms_faq_answers` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `answer` text NOT NULL,
@@ -722,12 +959,12 @@ CREATE TABLE IF NOT EXISTS `zfcms_faq_answers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dump dei dati della tabella entilocali.zfcms_faq_answers: ~0 rows (circa)
+DELETE FROM `zfcms_faq_answers`;
 /*!40000 ALTER TABLE `zfcms_faq_answers` DISABLE KEYS */;
 /*!40000 ALTER TABLE `zfcms_faq_answers` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_faq_questions
-DROP TABLE IF EXISTS `zfcms_faq_questions`;
 CREATE TABLE IF NOT EXISTS `zfcms_faq_questions` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `question` text NOT NULL,
@@ -748,12 +985,12 @@ CREATE TABLE IF NOT EXISTS `zfcms_faq_questions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dump dei dati della tabella entilocali.zfcms_faq_questions: ~0 rows (circa)
+DELETE FROM `zfcms_faq_questions`;
 /*!40000 ALTER TABLE `zfcms_faq_questions` DISABLE KEYS */;
 /*!40000 ALTER TABLE `zfcms_faq_questions` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_geo_comuni
-DROP TABLE IF EXISTS `zfcms_geo_comuni`;
 CREATE TABLE IF NOT EXISTS `zfcms_geo_comuni` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `cod_regione` varchar(9) DEFAULT NULL,
@@ -772,7 +1009,8 @@ CREATE TABLE IF NOT EXISTS `zfcms_geo_comuni` (
   KEY `searchfields` (`cod_regione`,`cod_provincia`,`cod_comune`,`nome_comune`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8145 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Dump dei dati della tabella entilocali.zfcms_geo_comuni: ~8.576 rows (circa)
+-- Dump dei dati della tabella entilocali.zfcms_geo_comuni: ~8.526 rows (circa)
+DELETE FROM `zfcms_geo_comuni`;
 /*!40000 ALTER TABLE `zfcms_geo_comuni` DISABLE KEYS */;
 INSERT INTO `zfcms_geo_comuni` (`id`, `cod_regione`, `cod_provincia`, `cod_comune`, `nome_comune`, `codice_istat`, `cap_principale`, `cap_inizio`, `cap_fine`, `prefisso`, `sito_web`, `latitudine`, `longitudine`) VALUES
 	(1, '01', '001', ' 001 ', 'Agli', '001001', '10011', NULL, NULL, '0124', NULL, NULL, NULL),
@@ -8923,7 +9161,6 @@ INSERT INTO `zfcms_geo_comuni` (`id`, `cod_regione`, `cod_provincia`, `cod_comun
 
 
 -- Dump della struttura di tabella entilocali.zfcms_geo_comuni_cap
-DROP TABLE IF EXISTS `zfcms_geo_comuni_cap`;
 CREATE TABLE IF NOT EXISTS `zfcms_geo_comuni_cap` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `capcode` varchar(5) NOT NULL DEFAULT '0',
@@ -8936,6 +9173,7 @@ CREATE TABLE IF NOT EXISTS `zfcms_geo_comuni_cap` (
 ) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8;
 
 -- Dump dei dati della tabella entilocali.zfcms_geo_comuni_cap: ~82 rows (circa)
+DELETE FROM `zfcms_geo_comuni_cap`;
 /*!40000 ALTER TABLE `zfcms_geo_comuni_cap` DISABLE KEYS */;
 INSERT INTO `zfcms_geo_comuni_cap` (`id`, `capcode`, `nome`, `comune_id`) VALUES
 	(1, '00118', 'Morena', 4893),
@@ -9024,7 +9262,6 @@ INSERT INTO `zfcms_geo_comuni_cap` (`id`, `capcode`, `nome`, `comune_id`) VALUES
 
 
 -- Dump della struttura di tabella entilocali.zfcms_geo_comuni_cap_quartieri
-DROP TABLE IF EXISTS `zfcms_geo_comuni_cap_quartieri`;
 CREATE TABLE IF NOT EXISTS `zfcms_geo_comuni_cap_quartieri` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `cap_quartiere_id` bigint(10) NOT NULL DEFAULT '0',
@@ -9037,12 +9274,12 @@ CREATE TABLE IF NOT EXISTS `zfcms_geo_comuni_cap_quartieri` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dump dei dati della tabella entilocali.zfcms_geo_comuni_cap_quartieri: ~0 rows (circa)
+DELETE FROM `zfcms_geo_comuni_cap_quartieri`;
 /*!40000 ALTER TABLE `zfcms_geo_comuni_cap_quartieri` DISABLE KEYS */;
 /*!40000 ALTER TABLE `zfcms_geo_comuni_cap_quartieri` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_geo_comuni_quartieri
-DROP TABLE IF EXISTS `zfcms_geo_comuni_quartieri`;
 CREATE TABLE IF NOT EXISTS `zfcms_geo_comuni_quartieri` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `nome` varchar(50) DEFAULT NULL,
@@ -9055,12 +9292,12 @@ CREATE TABLE IF NOT EXISTS `zfcms_geo_comuni_quartieri` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dump dei dati della tabella entilocali.zfcms_geo_comuni_quartieri: ~0 rows (circa)
+DELETE FROM `zfcms_geo_comuni_quartieri`;
 /*!40000 ALTER TABLE `zfcms_geo_comuni_quartieri` DISABLE KEYS */;
 /*!40000 ALTER TABLE `zfcms_geo_comuni_quartieri` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_geo_nazioni
-DROP TABLE IF EXISTS `zfcms_geo_nazioni`;
 CREATE TABLE IF NOT EXISTS `zfcms_geo_nazioni` (
   `id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(13) NOT NULL,
@@ -9069,6 +9306,7 @@ CREATE TABLE IF NOT EXISTS `zfcms_geo_nazioni` (
 ) ENGINE=InnoDB AUTO_INCREMENT=290 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- Dump dei dati della tabella entilocali.zfcms_geo_nazioni: ~288 rows (circa)
+DELETE FROM `zfcms_geo_nazioni`;
 /*!40000 ALTER TABLE `zfcms_geo_nazioni` DISABLE KEYS */;
 INSERT INTO `zfcms_geo_nazioni` (`id`, `nome`) VALUES
 	(1, 'Afghanistan'),
@@ -9363,7 +9601,6 @@ INSERT INTO `zfcms_geo_nazioni` (`id`, `nome`) VALUES
 
 
 -- Dump della struttura di tabella entilocali.zfcms_geo_province
-DROP TABLE IF EXISTS `zfcms_geo_province`;
 CREATE TABLE IF NOT EXISTS `zfcms_geo_province` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `codice_regione` varchar(14) DEFAULT NULL,
@@ -9377,6 +9614,7 @@ CREATE TABLE IF NOT EXISTS `zfcms_geo_province` (
 ) ENGINE=InnoDB AUTO_INCREMENT=161 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- Dump dei dati della tabella entilocali.zfcms_geo_province: ~160 rows (circa)
+DELETE FROM `zfcms_geo_province`;
 /*!40000 ALTER TABLE `zfcms_geo_province` DISABLE KEYS */;
 INSERT INTO `zfcms_geo_province` (`id`, `codice_regione`, `codice_provincia`, `nome`, `sigla`, `capoluogo`) VALUES
 	(1, '01', '001', 'Torino', 'TO', 'si'),
@@ -9543,7 +9781,6 @@ INSERT INTO `zfcms_geo_province` (`id`, `codice_regione`, `codice_provincia`, `n
 
 
 -- Dump della struttura di tabella entilocali.zfcms_geo_regioni
-DROP TABLE IF EXISTS `zfcms_geo_regioni`;
 CREATE TABLE IF NOT EXISTS `zfcms_geo_regioni` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `codice_regione` varchar(2) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
@@ -9553,6 +9790,7 @@ CREATE TABLE IF NOT EXISTS `zfcms_geo_regioni` (
 ) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- Dump dei dati della tabella entilocali.zfcms_geo_regioni: ~70 rows (circa)
+DELETE FROM `zfcms_geo_regioni`;
 /*!40000 ALTER TABLE `zfcms_geo_regioni` DISABLE KEYS */;
 INSERT INTO `zfcms_geo_regioni` (`id`, `codice_regione`, `nome_regione`) VALUES
 	(1, '01', 'PIEMONTE'),
@@ -9629,7 +9867,6 @@ INSERT INTO `zfcms_geo_regioni` (`id`, `codice_regione`, `nome_regione`) VALUES
 
 
 -- Dump della struttura di tabella entilocali.zfcms_homepage
-DROP TABLE IF EXISTS `zfcms_homepage`;
 CREATE TABLE IF NOT EXISTS `zfcms_homepage` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `position` int(11) DEFAULT NULL,
@@ -9643,6 +9880,7 @@ CREATE TABLE IF NOT EXISTS `zfcms_homepage` (
 ) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
 
 -- Dump dei dati della tabella entilocali.zfcms_homepage: ~7 rows (circa)
+DELETE FROM `zfcms_homepage`;
 /*!40000 ALTER TABLE `zfcms_homepage` DISABLE KEYS */;
 INSERT INTO `zfcms_homepage` (`id`, `position`, `free_text`, `reference_id`, `block_id`) VALUES
 	(1, 1, NULL, 8, 1),
@@ -9656,7 +9894,6 @@ INSERT INTO `zfcms_homepage` (`id`, `position`, `free_text`, `reference_id`, `bl
 
 
 -- Dump della struttura di tabella entilocali.zfcms_homepage_blocks
-DROP TABLE IF EXISTS `zfcms_homepage_blocks`;
 CREATE TABLE IF NOT EXISTS `zfcms_homepage_blocks` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `position` int(11) DEFAULT NULL,
@@ -9667,6 +9904,7 @@ CREATE TABLE IF NOT EXISTS `zfcms_homepage_blocks` (
 ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
 
 -- Dump dei dati della tabella entilocali.zfcms_homepage_blocks: ~8 rows (circa)
+DELETE FROM `zfcms_homepage_blocks`;
 /*!40000 ALTER TABLE `zfcms_homepage_blocks` DISABLE KEYS */;
 INSERT INTO `zfcms_homepage_blocks` (`id`, `position`, `module_id`) VALUES
 	(1, 3, 1),
@@ -9681,7 +9919,6 @@ INSERT INTO `zfcms_homepage_blocks` (`id`, `position`, `module_id`) VALUES
 
 
 -- Dump della struttura di tabella entilocali.zfcms_languages
-DROP TABLE IF EXISTS `zfcms_languages`;
 CREATE TABLE IF NOT EXISTS `zfcms_languages` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `flag` varchar(60) NOT NULL,
@@ -9699,6 +9936,7 @@ CREATE TABLE IF NOT EXISTS `zfcms_languages` (
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- Dump dei dati della tabella entilocali.zfcms_languages: ~6 rows (circa)
+DELETE FROM `zfcms_languages`;
 /*!40000 ALTER TABLE `zfcms_languages` DISABLE KEYS */;
 INSERT INTO `zfcms_languages` (`id`, `flag`, `name`, `abbreviation1`, `abbreviation2`, `abbreviation3`, `is_default`, `is_default_backend`, `encoding`, `status`, `channel_id`) VALUES
 	(1, 'ita.gif', 'Italiano', 'it', 'ita', 'Italiano', 1, 1, 'UTF-8', 1, 1),
@@ -9711,7 +9949,6 @@ INSERT INTO `zfcms_languages` (`id`, `flag`, `name`, `abbreviation1`, `abbreviat
 
 
 -- Dump della struttura di tabella entilocali.zfcms_languages_labels
-DROP TABLE IF EXISTS `zfcms_languages_labels`;
 CREATE TABLE IF NOT EXISTS `zfcms_languages_labels` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(80) DEFAULT NULL,
@@ -9727,7 +9964,8 @@ CREATE TABLE IF NOT EXISTS `zfcms_languages_labels` (
   KEY `module_id` (`module_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=167 DEFAULT CHARSET=utf8;
 
--- Dump dei dati della tabella entilocali.zfcms_languages_labels: ~205 rows (circa)
+-- Dump dei dati della tabella entilocali.zfcms_languages_labels: ~129 rows (circa)
+DELETE FROM `zfcms_languages_labels`;
 /*!40000 ALTER TABLE `zfcms_languages_labels` DISABLE KEYS */;
 INSERT INTO `zfcms_languages_labels` (`id`, `name`, `value`, `description`, `is_backend`, `is_universal`, `status`, `module_id`, `linguage_id`) VALUES
 	(1, 'ITA_LANGUAGE_NAME', 'Italiano', NULL, 0, 0, '1', 0, 1),
@@ -9899,13 +10137,26 @@ INSERT INTO `zfcms_languages_labels` (`id`, `name`, `value`, `description`, `is_
 /*!40000 ALTER TABLE `zfcms_languages_labels` ENABLE KEYS */;
 
 
+-- Dump della struttura di tabella entilocali.zfcms_logs
+CREATE TABLE IF NOT EXISTS `zfcms_logs` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `utente_id` bigint(20) NOT NULL,
+  `datetime` datetime NOT NULL DEFAULT '2015-01-01 01:00:00',
+  `azione` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+-- Dump dei dati della tabella entilocali.zfcms_logs: 0 rows
+DELETE FROM `zfcms_logs`;
+/*!40000 ALTER TABLE `zfcms_logs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `zfcms_logs` ENABLE KEYS */;
+
+
 -- Dump della struttura di tabella entilocali.zfcms_modules
-DROP TABLE IF EXISTS `zfcms_modules`;
 CREATE TABLE IF NOT EXISTS `zfcms_modules` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
-  `reference_id` bigint(20) NOT NULL DEFAULT '0',
+  `module_id` int(11) NOT NULL DEFAULT '0',
   `code` varchar(50) NOT NULL DEFAULT '0',
-  `name` varchar(50) NOT NULL DEFAULT '0',
   `status` varchar(100) NOT NULL,
   `channel_id` bigint(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
@@ -9913,31 +10164,31 @@ CREATE TABLE IF NOT EXISTS `zfcms_modules` (
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 -- Dump dei dati della tabella entilocali.zfcms_modules: ~18 rows (circa)
+DELETE FROM `zfcms_modules`;
 /*!40000 ALTER TABLE `zfcms_modules` DISABLE KEYS */;
-INSERT INTO `zfcms_modules` (`id`, `reference_id`, `code`, `name`, `status`, `channel_id`) VALUES
-	(1, 0, 'blogs', '0', 'attivo', 0),
-	(2, 0, 'freetext', '0', 'attivo', 0),
-	(4, 0, 'contenuti', '0', 'attivo', 0),
-	(6, 0, 'foto', '0', 'attivo', 0),
-	(7, 0, 'ecommerce', '0', 'attivo', 0),
-	(9, 0, 'aste', '0', 'disattivato', 0),
-	(10, 0, 'faq', '0', 'disattivato', 0),
-	(11, 0, 'newsletter', '0', 'attivo', 0),
-	(12, 0, 'booking', '0', 'disattivato', 0),
-	(13, 0, 'takeaway', '0', 'disattivato', 0),
-	(14, 0, 'video', '0', 'disattivato', 0),
-	(15, 0, 'Amministrazione Trasparente', '0', 'attivo', 0),
-	(16, 0, 'Stato Civile', '0', 'attivo', 0),
-	(17, 0, 'Contratti Pubblici', '0', 'attivo', 0),
-	(18, 0, 'Atti di concessione', '0', 'attivo', 0),
-	(19, 0, 'Modulistica', '0', 'attivo', 0),
-	(20, 0, 'Delibere', '0', 'attivo', 0),
-	(21, 0, 'Determine', '0', 'attivo', 0);
+INSERT INTO `zfcms_modules` (`id`, `module_id`, `code`, `status`, `channel_id`) VALUES
+	(1, 0, 'blogs', 'attivo', 0),
+	(2, 0, 'freetext', 'attivo', 0),
+	(4, 0, 'contenuti', 'attivo', 0),
+	(6, 0, 'foto', 'attivo', 0),
+	(7, 0, 'ecommerce', 'attivo', 0),
+	(9, 0, 'aste', 'disattivato', 0),
+	(10, 0, 'faq', 'disattivato', 0),
+	(11, 0, 'newsletter', 'attivo', 0),
+	(12, 0, 'booking', 'disattivato', 0),
+	(13, 0, 'takeaway', 'disattivato', 0),
+	(14, 0, 'video', 'disattivato', 0),
+	(15, 0, 'amministrazione-trasparente', 'attivo', 0),
+	(16, 0, 'stato-civile', 'attivo', 0),
+	(17, 0, 'Contratti Pubblici', 'attivo', 0),
+	(18, 0, 'Atti di concessione', 'attivo', 0),
+	(19, 0, 'Modulistica', 'attivo', 0),
+	(20, 0, 'Delibere', 'attivo', 0),
+	(21, 0, 'Determine', 'attivo', 0);
 /*!40000 ALTER TABLE `zfcms_modules` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_modules_options
-DROP TABLE IF EXISTS `zfcms_modules_options`;
 CREATE TABLE IF NOT EXISTS `zfcms_modules_options` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL DEFAULT '0',
@@ -9951,6 +10202,7 @@ CREATE TABLE IF NOT EXISTS `zfcms_modules_options` (
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 -- Dump dei dati della tabella entilocali.zfcms_modules_options: ~18 rows (circa)
+DELETE FROM `zfcms_modules_options`;
 /*!40000 ALTER TABLE `zfcms_modules_options` DISABLE KEYS */;
 INSERT INTO `zfcms_modules_options` (`id`, `name`, `module_id`, `language_id`) VALUES
 	(1, 'Blogs', 1, 1),
@@ -9975,7 +10227,6 @@ INSERT INTO `zfcms_modules_options` (`id`, `name`, `module_id`, `language_id`) V
 
 
 -- Dump della struttura di tabella entilocali.zfcms_posts
-DROP TABLE IF EXISTS `zfcms_posts`;
 CREATE TABLE IF NOT EXISTS `zfcms_posts` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `note` varchar(80) DEFAULT NULL,
@@ -9993,6 +10244,7 @@ CREATE TABLE IF NOT EXISTS `zfcms_posts` (
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- Dump dei dati della tabella entilocali.zfcms_posts: ~17 rows (circa)
+DELETE FROM `zfcms_posts`;
 /*!40000 ALTER TABLE `zfcms_posts` DISABLE KEYS */;
 INSERT INTO `zfcms_posts` (`id`, `note`, `insert_date`, `expire_date`, `last_update`, `parent_id`, `type`, `alias`, `flag_attachments`) VALUES
 	(1, 'comune', '2013-01-01 00:00:00', '2030-02-10 00:00:00', '2030-02-10 00:00:00', 0, 'content', 'comune', 'no'),
@@ -10016,7 +10268,6 @@ INSERT INTO `zfcms_posts` (`id`, `note`, `insert_date`, `expire_date`, `last_upd
 
 
 -- Dump della struttura di tabella entilocali.zfcms_posts_options
-DROP TABLE IF EXISTS `zfcms_posts_options`;
 CREATE TABLE IF NOT EXISTS `zfcms_posts_options` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `note` varchar(100) DEFAULT NULL,
@@ -10046,7 +10297,8 @@ CREATE TABLE IF NOT EXISTS `zfcms_posts_options` (
   CONSTRAINT `fk_posts_post_id` FOREIGN KEY (`posts_id`) REFERENCES `zfcms_posts` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
--- Dump dei dati della tabella entilocali.zfcms_posts_options: ~17 rows (circa)
+-- Dump dei dati della tabella entilocali.zfcms_posts_options: ~19 rows (circa)
+DELETE FROM `zfcms_posts_options`;
 /*!40000 ALTER TABLE `zfcms_posts_options` DISABLE KEYS */;
 INSERT INTO `zfcms_posts_options` (`id`, `note`, `date_from`, `data_to`, `image`, `image_homepage`, `title`, `subtitle`, `description`, `status`, `position`, `seo_url`, `seo_title`, `seo_description`, `seo_keywords`, `template`, `href`, `posts_id`, `language_id`) VALUES
 	(1, 'Sindaco', '2014-01-01 01:01:01', '2014-01-01 01:01:01', NULL, NULL, 'Sindaco', '', '<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>\r\n', 'attivo', 1, 'sindaco', 'sindaco', '', '', NULL, NULL, 1, 1),
@@ -10070,7 +10322,6 @@ INSERT INTO `zfcms_posts_options` (`id`, `note`, `date_from`, `data_to`, `image`
 
 
 -- Dump della struttura di tabella entilocali.zfcms_posts_relations
-DROP TABLE IF EXISTS `zfcms_posts_relations`;
 CREATE TABLE IF NOT EXISTS `zfcms_posts_relations` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `posts_id` bigint(11) NOT NULL DEFAULT '0',
@@ -10089,6 +10340,7 @@ CREATE TABLE IF NOT EXISTS `zfcms_posts_relations` (
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- Dump dei dati della tabella entilocali.zfcms_posts_relations: ~18 rows (circa)
+DELETE FROM `zfcms_posts_relations`;
 /*!40000 ALTER TABLE `zfcms_posts_relations` DISABLE KEYS */;
 INSERT INTO `zfcms_posts_relations` (`id`, `posts_id`, `category_id`, `module_id`, `channel_id`) VALUES
 	(1, 1, 1, 4, 1),
@@ -10113,7 +10365,6 @@ INSERT INTO `zfcms_posts_relations` (`id`, `posts_id`, `category_id`, `module_id
 
 
 -- Dump della struttura di tabella entilocali.zfcms_tickets
-DROP TABLE IF EXISTS `zfcms_tickets`;
 CREATE TABLE IF NOT EXISTS `zfcms_tickets` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL,
@@ -10126,7 +10377,8 @@ CREATE TABLE IF NOT EXISTS `zfcms_tickets` (
   KEY `created_by` (`created_by`)
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
 
--- Dump dei dati della tabella entilocali.zfcms_tickets: ~57 rows (circa)
+-- Dump dei dati della tabella entilocali.zfcms_tickets: ~45 rows (circa)
+DELETE FROM `zfcms_tickets`;
 /*!40000 ALTER TABLE `zfcms_tickets` DISABLE KEYS */;
 INSERT INTO `zfcms_tickets` (`id`, `title`, `subject`, `priority`, `create_date`, `status`, `created_by`) VALUES
 	(1, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', '1967-07-19 15:20:16', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 36),
@@ -10183,7 +10435,6 @@ INSERT INTO `zfcms_tickets` (`id`, `title`, `subject`, `priority`, `create_date`
 
 
 -- Dump della struttura di tabella entilocali.zfcms_tickets_messages
-DROP TABLE IF EXISTS `zfcms_tickets_messages`;
 CREATE TABLE IF NOT EXISTS `zfcms_tickets_messages` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `message` text NOT NULL,
@@ -10196,6 +10447,7 @@ CREATE TABLE IF NOT EXISTS `zfcms_tickets_messages` (
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
 
 -- Dump dei dati della tabella entilocali.zfcms_tickets_messages: ~50 rows (circa)
+DELETE FROM `zfcms_tickets_messages`;
 /*!40000 ALTER TABLE `zfcms_tickets_messages` DISABLE KEYS */;
 INSERT INTO `zfcms_tickets_messages` (`id`, `message`, `insert_date`, `ticket_id`, `user_id`) VALUES
 	(1, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', '1965-06-15 04:09:57', 15, 15),
@@ -10252,7 +10504,6 @@ INSERT INTO `zfcms_tickets_messages` (`id`, `message`, `insert_date`, `ticket_id
 
 
 -- Dump della struttura di tabella entilocali.zfcms_users
-DROP TABLE IF EXISTS `zfcms_users`;
 CREATE TABLE IF NOT EXISTS `zfcms_users` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `image` varchar(80) NOT NULL,
@@ -10289,18 +10540,20 @@ CREATE TABLE IF NOT EXISTS `zfcms_users` (
   UNIQUE KEY `email` (`email`),
   KEY `key_ids` (`role_id`,`nation`,`province`),
   CONSTRAINT `fk_users_role` FOREIGN KEY (`role_id`) REFERENCES `zfcms_users_roles` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- Dump dei dati della tabella entilocali.zfcms_users: ~2 rows (circa)
+-- Dump dei dati della tabella entilocali.zfcms_users: ~4 rows (circa)
+DELETE FROM `zfcms_users`;
 /*!40000 ALTER TABLE `zfcms_users` DISABLE KEYS */;
 INSERT INTO `zfcms_users` (`id`, `image`, `name`, `surname`, `address`, `zip`, `city`, `province`, `birth_date`, `birth_place`, `nation`, `sex`, `job`, `email`, `phone`, `mobile`, `fax`, `website_url`, `fiscal_code`, `vat_code`, `newsletter`, `newsletter_format`, `username`, `password`, `password_last_update`, `status`, `settore`, `create_date`, `last_update`, `confirm_code`, `role_id`) VALUES
-	(1, 'noimg.gif', 'Luca ', 'Sanna', '', '', '', 0, '1992-01-01 01:01:01', '', 0, 'M', '', 'l.sanna@kronoweb.it', '', '', '', '', '', '', '0', 'html', 'lsanna', 'a86dc00692a485d9b7005c32c7bd9ceb', '2014-01-01 01:01:01', 'active', 'Amministrazione Sito', '2014-01-01 01:01:01', '2014-01-01 01:01:01', '', 1),
-	(2, 'noimg.gif', 'Andrea', 'Fiori', 'via Aretina 1', '50126', 'Firenze', 87, '1982-08-10 00:00:00', 'Angera', 107, 'M', 'Web developer', 'a.fiori@cheapnet.it', '', '3295639204', '', '', '', '', '', 'html', 'a.fiori@cheapnet.it', 'c2870721a47988180f6fa53213b546b2', '2014-01-01 01:01:01', 'active', 'Amministrazione Sito', '2010-06-03 15:28:29', '2013-05-03 15:28:29', '', 1);
+	(1, 'noimg.gif', 'Luca ', 'Sanna', '', '', 'Sassari', 87, '1992-01-01 01:01:01', '', 107, 'M', '', 'l.sanna@kronoweb.it', '', '', '', '', '', '', '0', 'html', 'lsanna', 'a86dc00692a485d9b7005c32c7bd9ceb', '2014-01-01 01:01:01', 'active', 'Amministrazione Sito', '2014-01-01 01:01:01', '2014-01-01 01:01:01', '', 1),
+	(2, 'noimg.gif', 'Andrea', 'Fiori', 'via Aretina 1', '50126', 'Firenze', 87, '1982-08-10 00:00:00', 'Angera', 107, 'M', 'Web developer', 'a.fiori@cheapnet.it', '', '3295639204', '', '', '', '', '', 'html', 'a.fiori@cheapnet.it', 'c2870721a47988180f6fa53213b546b2', '2014-01-01 01:01:01', 'active', 'Amministrazione Sito', '2010-06-03 15:28:29', '2013-05-03 15:28:29', '', 1),
+	(3, 'noimg.gif', 'Max', 'Fio', '', '', 'Sassari', 87, '1992-01-01 01:01:01', '', 107, 'M', '', 'max.fio@gmail.com', '', '', '', '', '', '', '0', 'html', 'MaxFio', '21caf6f3a3528b5402c8a7d9546b14f4', '2014-01-01 01:01:01', 'active', 'Amministrazione Sito', '2014-01-01 01:01:01', '2014-01-01 01:01:01', '', 1),
+	(4, 'noimg.gif', 'Matteo', 'Caccioni', '', '', 'Sassari', 87, '1992-01-01 01:01:01', '', 107, 'M', '', 'matteo.caccioni@gmail.com', '', '', '', '', '', '', '0', 'html', 'MatteoCaccioni', 'dc37ca1d257e52b2b08ebb7272be8fe1', '2014-01-01 01:01:01', 'active', 'Amministrazione Sito', '2014-01-01 01:01:01', '2014-01-01 01:01:01', '', 1);
 /*!40000 ALTER TABLE `zfcms_users` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_users_bookmarks
-DROP TABLE IF EXISTS `zfcms_users_bookmarks`;
 CREATE TABLE IF NOT EXISTS `zfcms_users_bookmarks` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(11) NOT NULL DEFAULT '0',
@@ -10311,146 +10564,42 @@ CREATE TABLE IF NOT EXISTS `zfcms_users_bookmarks` (
   KEY `module_id` (`module_id`),
   KEY `category_id` (`category_id`),
   KEY `user_id` (`user_id`),
-  KEY `reference_id` (`reference_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+  KEY `reference_id` (`reference_id`),
+  CONSTRAINT `fk_bookmarks_users` FOREIGN KEY (`user_id`) REFERENCES `zfcms_users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
 
--- Dump dei dati della tabella entilocali.zfcms_users_bookmarks: ~50 rows (circa)
+-- Dump dei dati della tabella entilocali.zfcms_users_bookmarks: ~0 rows (circa)
+DELETE FROM `zfcms_users_bookmarks`;
 /*!40000 ALTER TABLE `zfcms_users_bookmarks` DISABLE KEYS */;
-INSERT INTO `zfcms_users_bookmarks` (`id`, `user_id`, `reference_id`, `category_id`, `module_id`) VALUES
-	(1, 8, 8, 8, 8),
-	(2, 188, 188, 188, 188),
-	(3, 199, 199, 199, 199),
-	(4, 70, 70, 70, 70),
-	(5, 217, 217, 217, 217),
-	(6, 130, 130, 130, 130),
-	(7, 162, 162, 162, 162),
-	(8, 63, 63, 63, 63),
-	(9, 188, 188, 188, 188),
-	(10, 61, 61, 61, 61),
-	(11, 169, 169, 169, 169),
-	(12, 63, 63, 63, 63),
-	(13, 10, 10, 10, 10),
-	(14, 195, 195, 195, 195),
-	(15, 7, 7, 7, 7),
-	(16, 183, 183, 183, 183),
-	(17, 127, 127, 127, 127),
-	(18, 97, 97, 97, 97),
-	(19, 1, 1, 1, 1),
-	(20, 222, 222, 222, 222),
-	(21, 80, 80, 80, 80),
-	(22, 242, 242, 242, 242),
-	(23, 254, 254, 254, 254),
-	(24, 201, 201, 201, 201),
-	(25, 14, 14, 14, 14),
-	(26, 46, 46, 46, 46),
-	(27, 72, 72, 72, 72),
-	(28, 101, 101, 101, 101),
-	(29, 227, 227, 227, 227),
-	(30, 162, 162, 162, 162),
-	(31, 28, 28, 28, 28),
-	(32, 173, 173, 173, 173),
-	(33, 237, 237, 237, 237),
-	(34, 8, 8, 8, 8),
-	(35, 176, 176, 176, 176),
-	(36, 251, 251, 251, 251),
-	(37, 58, 58, 58, 58),
-	(38, 205, 205, 205, 205),
-	(39, 43, 43, 43, 43),
-	(40, 229, 229, 229, 229),
-	(41, 150, 150, 150, 150),
-	(42, 109, 109, 109, 109),
-	(43, 199, 199, 199, 199),
-	(44, 83, 83, 83, 83),
-	(45, 51, 51, 51, 51),
-	(46, 216, 216, 216, 216),
-	(47, 180, 180, 180, 180),
-	(48, 114, 114, 114, 114),
-	(49, 128, 128, 128, 128),
-	(50, 41, 41, 41, 41);
 /*!40000 ALTER TABLE `zfcms_users_bookmarks` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_users_permissions
-DROP TABLE IF EXISTS `zfcms_users_permissions`;
 CREATE TABLE IF NOT EXISTS `zfcms_users_permissions` (
   `id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
-  `code` varchar(50) NOT NULL DEFAULT '0',
-  `value` varchar(50) NOT NULL DEFAULT '0',
   `role_id` bigint(11) NOT NULL,
   `permession_id` bigint(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `ruolo_id` (`role_id`),
   KEY `permesso_id` (`permession_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1 ROW_FORMAT=FIXED;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=FIXED;
 
--- Dump dei dati della tabella entilocali.zfcms_users_permissions: ~52 rows (circa)
+-- Dump dei dati della tabella entilocali.zfcms_users_permissions: ~0 rows (circa)
+DELETE FROM `zfcms_users_permissions`;
 /*!40000 ALTER TABLE `zfcms_users_permissions` DISABLE KEYS */;
-INSERT INTO `zfcms_users_permissions` (`id`, `code`, `value`, `role_id`, `permession_id`) VALUES
-	(1, '0', 'x', 1, 1),
-	(2, '0', 'x', 1, 2),
-	(3, 'Vestibulum velit lacus, lacinia sit amet laoreet v', 'Vestibulum velit lacus, lacinia sit amet laoreet v', 147, 147),
-	(4, 'Vestibulum velit lacus, lacinia sit amet laoreet v', 'Vestibulum velit lacus, lacinia sit amet laoreet v', 171, 171),
-	(5, 'Suspendisse rhoncus tortor ac tortor molestie nec ', 'Suspendisse rhoncus tortor ac tortor molestie nec ', 43, 43),
-	(6, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 252, 252),
-	(7, 'Lorem ipsum dolor sit amet, consectetur adipiscing', 'Lorem ipsum dolor sit amet, consectetur adipiscing', 153, 153),
-	(8, 'Ut nisi felis, lacinia in ornare at, congue a elit', 'Ut nisi felis, lacinia in ornare at, congue a elit', 86, 86),
-	(9, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 106, 106),
-	(10, 'Suspendisse rhoncus tortor ac tortor molestie nec ', 'Suspendisse rhoncus tortor ac tortor molestie nec ', 127, 127),
-	(11, 'Lorem ipsum dolor sit amet, consectetur adipiscing', 'Lorem ipsum dolor sit amet, consectetur adipiscing', 79, 79),
-	(12, 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve', 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve', 220, 220),
-	(13, 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve', 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve', 191, 191),
-	(14, 'Aliquam viverra, dui id rhoncus iaculis, enim metu', 'Aliquam viverra, dui id rhoncus iaculis, enim metu', 112, 112),
-	(15, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 45, 45),
-	(16, 'Vestibulum velit lacus, lacinia sit amet laoreet v', 'Vestibulum velit lacus, lacinia sit amet laoreet v', 160, 160),
-	(17, 'Lorem ipsum dolor sit amet, consectetur adipiscing', 'Lorem ipsum dolor sit amet, consectetur adipiscing', 64, 64),
-	(18, 'Suspendisse rhoncus tortor ac tortor molestie nec ', 'Suspendisse rhoncus tortor ac tortor molestie nec ', 58, 58),
-	(19, 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve', 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve', 86, 86),
-	(20, 'Ut nisi felis, lacinia in ornare at, congue a elit', 'Ut nisi felis, lacinia in ornare at, congue a elit', 202, 202),
-	(21, 'Aliquam viverra, dui id rhoncus iaculis, enim metu', 'Aliquam viverra, dui id rhoncus iaculis, enim metu', 116, 116),
-	(22, 'Suspendisse rhoncus tortor ac tortor molestie nec ', 'Suspendisse rhoncus tortor ac tortor molestie nec ', 94, 94),
-	(23, 'Ut nisi felis, lacinia in ornare at, congue a elit', 'Ut nisi felis, lacinia in ornare at, congue a elit', 147, 147),
-	(24, 'Lorem ipsum dolor sit amet, consectetur adipiscing', 'Lorem ipsum dolor sit amet, consectetur adipiscing', 1, 1),
-	(25, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 69, 69),
-	(26, 'Aliquam viverra, dui id rhoncus iaculis, enim metu', 'Aliquam viverra, dui id rhoncus iaculis, enim metu', 185, 185),
-	(27, 'Vestibulum velit lacus, lacinia sit amet laoreet v', 'Vestibulum velit lacus, lacinia sit amet laoreet v', 199, 199),
-	(28, 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve', 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve', 178, 178),
-	(29, 'Suspendisse rhoncus tortor ac tortor molestie nec ', 'Suspendisse rhoncus tortor ac tortor molestie nec ', 148, 148),
-	(30, 'Aliquam viverra, dui id rhoncus iaculis, enim metu', 'Aliquam viverra, dui id rhoncus iaculis, enim metu', 54, 54),
-	(31, 'Aliquam viverra, dui id rhoncus iaculis, enim metu', 'Aliquam viverra, dui id rhoncus iaculis, enim metu', 210, 210),
-	(32, 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve', 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve', 75, 75),
-	(33, 'Ut nisi felis, lacinia in ornare at, congue a elit', 'Ut nisi felis, lacinia in ornare at, congue a elit', 111, 111),
-	(34, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 14, 14),
-	(35, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 28, 28),
-	(36, 'Vestibulum velit lacus, lacinia sit amet laoreet v', 'Vestibulum velit lacus, lacinia sit amet laoreet v', 66, 66),
-	(37, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 105, 105),
-	(38, 'Vestibulum velit lacus, lacinia sit amet laoreet v', 'Vestibulum velit lacus, lacinia sit amet laoreet v', 198, 198),
-	(39, 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve', 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve', 39, 39),
-	(40, 'Vestibulum velit lacus, lacinia sit amet laoreet v', 'Vestibulum velit lacus, lacinia sit amet laoreet v', 252, 252),
-	(41, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 87, 87),
-	(42, 'Suspendisse rhoncus tortor ac tortor molestie nec ', 'Suspendisse rhoncus tortor ac tortor molestie nec ', 17, 17),
-	(43, 'Lorem ipsum dolor sit amet, consectetur adipiscing', 'Lorem ipsum dolor sit amet, consectetur adipiscing', 40, 40),
-	(44, 'Ut nisi felis, lacinia in ornare at, congue a elit', 'Ut nisi felis, lacinia in ornare at, congue a elit', 85, 85),
-	(45, 'Vestibulum velit lacus, lacinia sit amet laoreet v', 'Vestibulum velit lacus, lacinia sit amet laoreet v', 10, 10),
-	(46, 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve', 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve', 194, 194),
-	(47, 'Suspendisse rhoncus tortor ac tortor molestie nec ', 'Suspendisse rhoncus tortor ac tortor molestie nec ', 129, 129),
-	(48, 'Ut nisi felis, lacinia in ornare at, congue a elit', 'Ut nisi felis, lacinia in ornare at, congue a elit', 37, 37),
-	(49, 'Vestibulum velit lacus, lacinia sit amet laoreet v', 'Vestibulum velit lacus, lacinia sit amet laoreet v', 110, 110),
-	(50, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 94, 94),
-	(51, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 79, 79),
-	(52, 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve', 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve', 23, 23);
 /*!40000 ALTER TABLE `zfcms_users_permissions` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_users_permissions_names
-DROP TABLE IF EXISTS `zfcms_users_permissions_names`;
 CREATE TABLE IF NOT EXISTS `zfcms_users_permissions_names` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `flag` varchar(50) DEFAULT '',
   `description` varchar(50) DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
--- Dump dei dati della tabella entilocali.zfcms_users_permissions_names: ~57 rows (circa)
+-- Dump dei dati della tabella entilocali.zfcms_users_permissions_names: ~7 rows (circa)
+DELETE FROM `zfcms_users_permissions_names`;
 /*!40000 ALTER TABLE `zfcms_users_permissions_names` DISABLE KEYS */;
 INSERT INTO `zfcms_users_permissions_names` (`id`, `flag`, `description`) VALUES
 	(1, 'add_news', 'Inserisci news'),
@@ -10459,62 +10608,11 @@ INSERT INTO `zfcms_users_permissions_names` (`id`, `flag`, `description`) VALUES
 	(4, 'add_content', 'Inserisci contenuto'),
 	(5, 'edit_content', 'Modifica contenuto'),
 	(6, 'edit_news', 'Modifica news'),
-	(7, 'delete_content', 'Elimina contenuto'),
-	(8, 'Aliquam viverra, dui id rhoncus iaculis, enim metu', 'Aliquam viverra, dui id rhoncus iaculis, enim metu'),
-	(9, 'Ut nisi felis, lacinia in ornare at, congue a elit', 'Ut nisi felis, lacinia in ornare at, congue a elit'),
-	(10, 'Aliquam viverra, dui id rhoncus iaculis, enim metu', 'Aliquam viverra, dui id rhoncus iaculis, enim metu'),
-	(11, 'Ut nisi felis, lacinia in ornare at, congue a elit', 'Ut nisi felis, lacinia in ornare at, congue a elit'),
-	(12, 'Ut nisi felis, lacinia in ornare at, congue a elit', 'Ut nisi felis, lacinia in ornare at, congue a elit'),
-	(13, 'Vestibulum velit lacus, lacinia sit amet laoreet v', 'Vestibulum velit lacus, lacinia sit amet laoreet v'),
-	(14, 'Suspendisse rhoncus tortor ac tortor molestie nec ', 'Suspendisse rhoncus tortor ac tortor molestie nec '),
-	(15, 'Aliquam viverra, dui id rhoncus iaculis, enim metu', 'Aliquam viverra, dui id rhoncus iaculis, enim metu'),
-	(16, 'Aliquam viverra, dui id rhoncus iaculis, enim metu', 'Aliquam viverra, dui id rhoncus iaculis, enim metu'),
-	(17, 'Ut nisi felis, lacinia in ornare at, congue a elit', 'Ut nisi felis, lacinia in ornare at, congue a elit'),
-	(18, 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve', 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve'),
-	(19, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.'),
-	(20, 'Lorem ipsum dolor sit amet, consectetur adipiscing', 'Lorem ipsum dolor sit amet, consectetur adipiscing'),
-	(21, 'Vestibulum velit lacus, lacinia sit amet laoreet v', 'Vestibulum velit lacus, lacinia sit amet laoreet v'),
-	(22, 'Lorem ipsum dolor sit amet, consectetur adipiscing', 'Lorem ipsum dolor sit amet, consectetur adipiscing'),
-	(23, 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve', 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve'),
-	(24, 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve', 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve'),
-	(25, 'Ut nisi felis, lacinia in ornare at, congue a elit', 'Ut nisi felis, lacinia in ornare at, congue a elit'),
-	(26, 'Lorem ipsum dolor sit amet, consectetur adipiscing', 'Lorem ipsum dolor sit amet, consectetur adipiscing'),
-	(27, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.'),
-	(28, 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve', 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve'),
-	(29, 'Lorem ipsum dolor sit amet, consectetur adipiscing', 'Lorem ipsum dolor sit amet, consectetur adipiscing'),
-	(30, 'Vestibulum velit lacus, lacinia sit amet laoreet v', 'Vestibulum velit lacus, lacinia sit amet laoreet v'),
-	(31, 'Aliquam viverra, dui id rhoncus iaculis, enim metu', 'Aliquam viverra, dui id rhoncus iaculis, enim metu'),
-	(32, 'Suspendisse rhoncus tortor ac tortor molestie nec ', 'Suspendisse rhoncus tortor ac tortor molestie nec '),
-	(33, 'Ut nisi felis, lacinia in ornare at, congue a elit', 'Ut nisi felis, lacinia in ornare at, congue a elit'),
-	(34, 'Lorem ipsum dolor sit amet, consectetur adipiscing', 'Lorem ipsum dolor sit amet, consectetur adipiscing'),
-	(35, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.'),
-	(36, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.'),
-	(37, 'Lorem ipsum dolor sit amet, consectetur adipiscing', 'Lorem ipsum dolor sit amet, consectetur adipiscing'),
-	(38, 'Suspendisse rhoncus tortor ac tortor molestie nec ', 'Suspendisse rhoncus tortor ac tortor molestie nec '),
-	(39, 'Suspendisse rhoncus tortor ac tortor molestie nec ', 'Suspendisse rhoncus tortor ac tortor molestie nec '),
-	(40, 'Ut nisi felis, lacinia in ornare at, congue a elit', 'Ut nisi felis, lacinia in ornare at, congue a elit'),
-	(41, 'Suspendisse rhoncus tortor ac tortor molestie nec ', 'Suspendisse rhoncus tortor ac tortor molestie nec '),
-	(42, 'Lorem ipsum dolor sit amet, consectetur adipiscing', 'Lorem ipsum dolor sit amet, consectetur adipiscing'),
-	(43, 'Aliquam viverra, dui id rhoncus iaculis, enim metu', 'Aliquam viverra, dui id rhoncus iaculis, enim metu'),
-	(44, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.'),
-	(45, 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve', 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve'),
-	(46, 'Vestibulum velit lacus, lacinia sit amet laoreet v', 'Vestibulum velit lacus, lacinia sit amet laoreet v'),
-	(47, 'Aliquam viverra, dui id rhoncus iaculis, enim metu', 'Aliquam viverra, dui id rhoncus iaculis, enim metu'),
-	(48, 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve', 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve'),
-	(49, 'Suspendisse rhoncus tortor ac tortor molestie nec ', 'Suspendisse rhoncus tortor ac tortor molestie nec '),
-	(50, 'Ut nisi felis, lacinia in ornare at, congue a elit', 'Ut nisi felis, lacinia in ornare at, congue a elit'),
-	(51, 'Ut nisi felis, lacinia in ornare at, congue a elit', 'Ut nisi felis, lacinia in ornare at, congue a elit'),
-	(52, 'Lorem ipsum dolor sit amet, consectetur adipiscing', 'Lorem ipsum dolor sit amet, consectetur adipiscing'),
-	(53, 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve', 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve'),
-	(54, 'Ut nisi felis, lacinia in ornare at, congue a elit', 'Ut nisi felis, lacinia in ornare at, congue a elit'),
-	(55, 'Aliquam viverra, dui id rhoncus iaculis, enim metu', 'Aliquam viverra, dui id rhoncus iaculis, enim metu'),
-	(56, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.'),
-	(57, 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve', 'Vestibulum ac orci ipsum. Vivamus dolor libero, ve');
+	(7, 'delete_content', 'Elimina contenuto');
 /*!40000 ALTER TABLE `zfcms_users_permissions_names` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_users_roles
-DROP TABLE IF EXISTS `zfcms_users_roles`;
 CREATE TABLE IF NOT EXISTS `zfcms_users_roles` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(80) NOT NULL,
@@ -10522,9 +10620,10 @@ CREATE TABLE IF NOT EXISTS `zfcms_users_roles` (
   `last_update` datetime NOT NULL,
   `position` bigint(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
--- Dump dei dati della tabella entilocali.zfcms_users_roles: ~58 rows (circa)
+-- Dump dei dati della tabella entilocali.zfcms_users_roles: ~8 rows (circa)
+DELETE FROM `zfcms_users_roles`;
 /*!40000 ALTER TABLE `zfcms_users_roles` DISABLE KEYS */;
 INSERT INTO `zfcms_users_roles` (`id`, `name`, `insert_date`, `last_update`, `position`) VALUES
 	(1, 'WebMaster', '2012-08-24 11:12:12', '2012-08-24 11:12:13', 1),
@@ -10534,62 +10633,11 @@ INSERT INTO `zfcms_users_roles` (`id`, `name`, `insert_date`, `last_update`, `po
 	(5, 'Avvocato', '2012-10-01 18:01:00', '2012-10-01 18:01:00', 5),
 	(6, 'Curatore', '2012-10-01 18:04:00', '2012-10-01 18:04:00', 6),
 	(7, 'Inserzionista aste', '2012-10-01 18:02:00', '2012-10-01 18:02:00', 7),
-	(8, 'Azienda', '2012-10-11 17:52:00', '2012-10-11 17:52:00', 8),
-	(9, 'Jane Bar', '1978-03-03 05:35:04', '1978-03-03 05:35:04', 29),
-	(10, 'Alexia Koothrappali', '1957-11-22 17:11:34', '1957-11-22 17:11:34', 31),
-	(11, 'Ken Stanley', '1956-10-25 02:42:01', '1956-10-25 02:42:01', 20),
-	(12, 'Ikki Bar', '1979-11-16 16:08:34', '1979-11-16 16:08:34', 248),
-	(13, 'Ken DeMarco', '1963-09-15 00:33:21', '1963-09-15 00:33:21', 88),
-	(14, 'Alfred Koothrappali', '1943-10-26 04:17:33', '1943-10-26 04:17:33', 167),
-	(15, 'Ikki Bar', '1978-10-28 10:58:01', '1978-10-28 10:58:01', 206),
-	(16, 'Chris Napalm', '1972-06-25 07:36:28', '1972-06-25 07:36:28', 153),
-	(17, 'Seiya Spielberg', '1988-02-08 02:17:04', '1988-02-08 02:17:04', 1),
-	(18, 'John Stanley', '1968-04-23 13:46:49', '1968-04-23 13:46:49', 136),
-	(19, 'Paul Ashford', '1936-06-18 12:34:14', '1936-06-18 12:34:14', 149),
-	(20, 'Alfred Doe', '1953-01-20 22:26:18', '1953-01-20 22:26:18', 181),
-	(21, 'Paul Schwarzenegger', '1987-07-04 16:56:17', '1987-07-04 16:56:17', 59),
-	(22, 'Howard Schwarzenegger', '1966-08-09 01:25:08', '1966-08-09 01:25:08', 182),
-	(23, 'Sub-zero Stardust', '2012-10-26 10:00:50', '2012-10-26 10:00:50', 154),
-	(24, 'Naruto Napalm', '1942-07-24 10:55:08', '1942-07-24 10:55:08', 7),
-	(25, 'Don Juan Uzumaki', '1955-08-16 19:10:26', '1955-08-16 19:10:26', 81),
-	(26, 'Paul Spielberg', '2006-09-01 20:38:06', '2006-09-01 20:38:06', 235),
-	(27, 'Rajesh Cooper', '1934-02-19 00:30:59', '1934-02-19 00:30:59', 164),
-	(28, 'Ryu Bar', '1991-11-25 16:33:01', '1991-11-25 16:33:01', 78),
-	(29, 'Mr. Foo Hofstadter', '1967-04-20 16:18:07', '1967-04-20 16:18:07', 131),
-	(30, 'Seiya Wolowitz', '1949-05-09 11:44:53', '1949-05-09 11:44:53', 201),
-	(31, 'Ikki Koothrappali', '1976-10-27 13:26:13', '1976-10-27 13:26:13', 192),
-	(32, 'Vegetta Bar', '1932-05-01 06:09:37', '1932-05-01 06:09:37', 144),
-	(33, 'Alexia Napalm', '2005-12-21 10:13:33', '2005-12-21 10:13:33', 182),
-	(34, 'Yusuke Uzumaki', '1943-03-06 06:44:21', '1943-03-06 06:44:21', 256),
-	(35, 'Michelangelo Cooper', '1993-02-11 02:37:33', '1993-02-11 02:37:33', 173),
-	(36, 'Sub-zero Bar', '1988-11-07 06:49:38', '1988-11-07 06:49:38', 185),
-	(37, 'Yusuke Schwarzenegger', '1935-03-19 03:03:18', '1935-03-19 03:03:18', 92),
-	(38, 'Howard Bar', '1982-11-01 15:43:34', '1982-11-01 15:43:34', 157),
-	(39, 'Sub-zero Koothrappali', '1949-04-25 11:58:16', '1949-04-25 11:58:16', 65),
-	(40, 'Howard Spielberg', '2004-04-01 01:57:01', '2004-04-01 01:57:01', 75),
-	(41, 'Ken Doe', '1942-07-01 07:54:08', '1942-07-01 07:54:08', 39),
-	(42, 'Sheldon Cooper', '1972-09-25 05:53:49', '1972-09-25 05:53:49', 239),
-	(43, 'Leonard Urameshi', '1937-07-16 01:14:12', '1937-07-16 01:14:12', 96),
-	(44, 'Don Juan Schwarzenegger', '1937-02-11 08:07:36', '1937-02-11 08:07:36', 199),
-	(45, 'Chris Bar', '2010-11-17 14:29:06', '2010-11-17 14:29:06', 187),
-	(46, 'Leonard Stardust', '1991-01-25 22:06:37', '1991-01-25 22:06:37', 111),
-	(47, 'Sheldon Cooper', '2009-01-09 14:21:49', '2009-01-09 14:21:49', 97),
-	(48, 'Yusuke Ashford', '1963-02-19 12:53:58', '1963-02-19 12:53:58', 206),
-	(49, 'Claire Cooper', '1999-10-08 23:45:15', '1999-10-08 23:45:15', 176),
-	(50, 'Ikki Uzumaki', '1981-01-14 11:11:44', '1981-01-14 11:11:44', 42),
-	(51, 'Ikki Stardust', '1991-09-23 16:53:50', '1991-09-23 16:53:50', 67),
-	(52, 'Sub-zero Stardust', '1939-03-18 19:27:34', '1939-03-18 19:27:34', 119),
-	(53, 'Chris Uzumaki', '1973-06-14 21:46:43', '1973-06-14 21:46:43', 138),
-	(54, 'Yusuke Bar', '1933-05-15 23:11:38', '1933-05-15 23:11:38', 131),
-	(55, 'Rajesh Spielberg', '1974-08-01 22:43:30', '1974-08-01 22:43:30', 7),
-	(56, 'John Doe', '2008-12-27 23:18:42', '2008-12-27 23:18:42', 167),
-	(57, 'Michelangelo Stardust', '1996-02-04 12:23:42', '1996-02-04 12:23:42', 141),
-	(58, 'Howard Bar', '2007-12-16 07:37:25', '2007-12-16 07:37:25', 166);
+	(8, 'Azienda', '2012-10-11 17:52:00', '2012-10-11 17:52:00', 8);
 /*!40000 ALTER TABLE `zfcms_users_roles` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_users_roles_permissions
-DROP TABLE IF EXISTS `zfcms_users_roles_permissions`;
 CREATE TABLE IF NOT EXISTS `zfcms_users_roles_permissions` (
   `id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
   `role_permission_id` bigint(11) NOT NULL,
@@ -10600,6 +10648,7 @@ CREATE TABLE IF NOT EXISTS `zfcms_users_roles_permissions` (
 ) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1 ROW_FORMAT=FIXED;
 
 -- Dump dei dati della tabella entilocali.zfcms_users_roles_permissions: ~51 rows (circa)
+DELETE FROM `zfcms_users_roles_permissions`;
 /*!40000 ALTER TABLE `zfcms_users_roles_permissions` DISABLE KEYS */;
 INSERT INTO `zfcms_users_roles_permissions` (`id`, `role_permission_id`, `permission_id`) VALUES
 	(1, 3, 1),
@@ -10657,7 +10706,6 @@ INSERT INTO `zfcms_users_roles_permissions` (`id`, `role_permission_id`, `permis
 
 
 -- Dump della struttura di tabella entilocali.zfcms_users_settori
-DROP TABLE IF EXISTS `zfcms_users_settori`;
 CREATE TABLE IF NOT EXISTS `zfcms_users_settori` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
@@ -10667,6 +10715,7 @@ CREATE TABLE IF NOT EXISTS `zfcms_users_settori` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- Dump dei dati della tabella entilocali.zfcms_users_settori: ~1 rows (circa)
+DELETE FROM `zfcms_users_settori`;
 /*!40000 ALTER TABLE `zfcms_users_settori` DISABLE KEYS */;
 INSERT INTO `zfcms_users_settori` (`id`, `name`, `position`, `active`) VALUES
 	(1, 'Amministratore sito', 0, '1');

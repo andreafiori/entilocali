@@ -5,8 +5,6 @@ namespace Admin\Model\AmministrazioneTrasparente;
 use Zend\Form\Form;
 
 /**
- * TODO: check category \ sezioni, add sezioni records
- * 
  * @author Andrea Fiori
  * @since  17 June 2013
  */
@@ -61,8 +59,8 @@ class AmministrazioneTrasparenteForm extends Form
                         'name' => 'sezione',
                         'options' => array(
                                'label' => 'Sezione',
+                               'empty_option' => 'Seleziona',
                                'value_options' => array(
-                                       '' => 'Seleziona',
                                        'attivo'   => 'Attivo',
                                        'nascosto' => 'Nascosto',
                                ),

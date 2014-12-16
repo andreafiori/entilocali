@@ -24,7 +24,7 @@ class ContrattiPubbliciForm extends Form
                         'options' => array( 'label' => 'CIG (Codice Identificativo di Gara)' ),
                         'attributes' => array(
                                         'id' => 'cig',
-                                        'class' => 'form-control',
+                                        
                                         'title' => 'Inserisci Codice Identificativo di Gara',
                         ),
         ));
@@ -34,8 +34,7 @@ class ContrattiPubbliciForm extends Form
                         'type' => 'Text',
                         'options' => array( 'label' => 'Oggetto del bando' ),
                         'attributes' => array(
-                                        'id' => 'titolo',
-                                        'class' => 'form-control',
+                                        'id'    => 'titolo',
                                         'title' => "Inserisci l'oggetto del bando",
                         ),
         ));
@@ -56,7 +55,6 @@ class ContrattiPubbliciForm extends Form
                         'options' => array( 'label' => 'Importo aggiudicazione (Euro): &euro;' ),
                         'attributes' => array(
                                         'id' => 'importo',
-                                        'class' => 'form-control',
                                         'title' => "Inserisci l'importo aggiudicazione",
                         ),
         ));
@@ -67,7 +65,6 @@ class ContrattiPubbliciForm extends Form
                         'options' => array( 'label' => 'Importo delle somme liquidate (Euro): &euro;' ),
                         'attributes' => array(
                                         'id' => 'importo2',
-                                        'class' => 'form-control',
                                         'title' => "Inserisci l'oggetto del bando",
                         ),
         ));
@@ -132,7 +129,6 @@ class ContrattiPubbliciForm extends Form
                         'options' => array( 'label' => 'Numero di offerte ammesse' ),
                         'attributes' => array(
                                         'id'    => 'importo',
-                                        'class' => 'form-control',
                                         'title' => "Inserisci numero di offerte ammesse",
                         ),
         ));
@@ -228,7 +224,7 @@ class ContrattiPubbliciForm extends Form
     
     public function addUsersSelect(array $usersRecords)
     {
-        if (isset($usersRecords)) {            
+        if (isset($usersRecords)) {          
             $this->add(array(
                             'type' => 'Application\Form\Element\PlainText',
                             'name' => 'struttura_label',

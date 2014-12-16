@@ -152,6 +152,9 @@ return array(
         'albo-pretorio'                 => 'Admin\Model\AlboPretorio\AlboPretorioFormDataHandler',
         'albo-pretorio-sezioni'         => 'Admin\Model\AlboPretorio\AlboPretorioSezioniFormDataHandler',
         'amministrazione-trasparente'   => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFormDataHandler',
+        'atti-concessione'              => 'Admin\Model\AttiConcessione\AttiConcessioneFormDataHandler',
+        'atti-concessione-settori'      => 'Admin\Model\AttiConcessione\AttiConcessioneSettoriFormDataHandler',
+        'atti-concessione-resp'         => 'Admin\Model\AttiConcessione\AttiConcessioneRespFormDataHandler',
         'stato-civile'                  => 'Admin\Model\StatoCivile\StatoCivileFormDataHandler',
         'stato-civile-sezioni'          => 'Admin\Model\StatoCivile\StatoCivileSezioniFormDataHandler',
         'contratti-pubblici'            => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciFormDataHandler',
@@ -172,6 +175,9 @@ return array(
         'albo-pretorio-sezioni'       => 'Admin\Model\AlboPretorio\AlboPretorioSezioniCrudHandler',
         'amministrazione-trasparente' => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteCrudHandler',
         'attachments'                 => 'Admin\Model\Attachments\AttachmentsCrudHandler',
+        'atti-concessione'            => 'Admin\Model\AttiConcessione\AttiConcessioneCrudHandler',
+        'atti-concessione-settori'    => 'Admin\Model\AttiConcessione\AttiConcessioneSezioniCrudHandler',
+        'atti-concessione-resp'       => 'Admin\Model\AttiConcessione\AttiConcessioneRespProcCrudHandler',
         'categories'                  => 'Admin\Model\Categories\CategoriesCrudHandler',
         'contratti-pubblici'          => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciCrudHandler',
         'contratti-pubblici-scelta-contraente'  => 'Admin\Model\ContrattiPubblici\SceltaContraenteCrudHandler',
@@ -205,7 +211,9 @@ return array(
         'atti-ufficiali'              => 'Admin\Model\AlboPretorio\AttiUfficialiDataTable',
         'albo-pretorio-sezioni'       => 'Admin\Model\AlboPretorio\AlboPretorioSezioniDataTable',
         'amministrazione-trasparente' => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteDataTable',
-        'atti-concessione'            => 'Admin\Model\AmministrazioneTrasparente\AttiConcessioneDataTable',
+        'atti-concessione'            => 'Admin\Model\AttiConcessione\AttiConcessioneDataTable',
+        'atti-concessione-settori'    => 'Admin\Model\AttiConcessione\AttiConcessioneSettoriDataTable',
+        'atti-concessione-resp'       => 'Admin\Model\AttiConcessione\AttiConcessioneRespProcDataTable',
         'contratti-pubblici'          => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciDataTable',
         'contratti-pubblici-scelta-contraente'  => 'Admin\Model\ContrattiPubblici\SceltaContraenteDataTable',
         'contratti-pubblici-responsabili'       => 'Admin\Model\ContrattiPubblici\ResponsabiliProcedimentoDataTable',
@@ -216,11 +224,11 @@ return array(
         'stato-civile'                => 'Admin\Model\StatoCivile\StatoCivileDataTable',
         'stato-civile-sezioni'        => 'Admin\Model\StatoCivile\StatoCivileSezioniDataTable',
     ),
-    /* Attachments setup class map */
+    /* Attachments setup class map
     'attachments_setup_classmap' => array(
         
-    ),
-    /* Admin utils with modules ID and views */
+    ), */
+    /* Admin utils with modules ID and views
     'utils' => array(
         'albo-pretorio' => array(
             'moduleId' => 10,
@@ -269,4 +277,5 @@ return array(
             'moduleName' => 'Amministrazione trasparente'
         ),
     ),
+    */
 );

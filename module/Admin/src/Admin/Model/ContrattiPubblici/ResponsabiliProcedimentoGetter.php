@@ -14,9 +14,9 @@ class ResponsabiliProcedimentoGetter extends QueryBuilderHelperAbstract
     {
         $this->setSelectQueryFields('crp.id, crp.nomeResp, crp.attivo');
 
-        $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
-                                ->add('from', 'Application\Entity\ZfcmsComuniContrattiRespProc crp ')
-                                ->add('where', 'crp.id != 0 ');
+        $this->getQueryBuilder()->select($this->getSelectQueryFields())
+                                ->from('Application\Entity\ZfcmsComuniContrattiRespProc', 'crp')
+                                ->where('crp.id != 0 ');
         
         return $this->getQueryBuilder();
     }

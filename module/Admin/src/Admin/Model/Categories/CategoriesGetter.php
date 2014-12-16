@@ -14,8 +14,9 @@ class CategoriesGetter extends QueryBuilderHelperAbstract
     {
         $this->setSelectQueryFields('DISTINCT(c.id) AS id, co.name, co.description, co.seoKeywords, co.seoDescription, c.createDate, c.status, IDENTITY(c.module) AS module');
 
-        $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
-                                ->add('from', 'Application\Entity\ZfcmsCategories c, Application\Entity\ZfcmsCategoriesOptions co')
+        $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
+                                ->from('Application\Entity\ZfcmsCategoriesOptions', 'co')
+                                ->join('co.category', 'c')
                                 ->add('where', 'co.category = c.id ');
 
         return $this->getQueryBuilder();
@@ -70,8 +71,6 @@ class CategoriesGetter extends QueryBuilderHelperAbstract
     }
     
     /**
-     * Set posts status
-     * 
      * @param string or null $status
      */
     public function setStatus($status = null)
@@ -79,7 +78,8 @@ class CategoriesGetter extends QueryBuilderHelperAbstract
         if ($status == 'NULL' or $status == 'null') {
             $this->getQueryBuilder()->andWhere('c.status IS NULL ');
         } elseif ($status != null) {
-            $this->getQueryBuilder()->andWhere("c.status = '$status' ");
+            $this->getQueryBuilder()->andWhere("c.status = :status ");
+            $this->getQueryBuilder()->setParameter('status', $status);
         }
     }
 }

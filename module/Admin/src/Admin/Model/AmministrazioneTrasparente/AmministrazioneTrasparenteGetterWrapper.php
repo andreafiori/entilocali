@@ -15,6 +15,9 @@ class AmministrazioneTrasparenteGetterWrapper extends RecordsGetterWrapperAbstra
      */
     protected $objectGetter;
     
+    /**
+     * @param \Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteGetter $amministrazioneTrasparenteGetter
+     */
     public function __construct(AmministrazioneTrasparenteGetter $amministrazioneTrasparenteGetter)
     {
         $this->setObjectGetter($amministrazioneTrasparenteGetter);

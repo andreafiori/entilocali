@@ -18,6 +18,8 @@ class AlboPretorioArticoliDataTable extends AlboPretorioDataTableAbstract
         $this->param = $this->getParam();
 
         $this->checkActiveDisable();
+        $this->checkPublish();
+        $this->checkRevision();
 
         $this->recordsGetter = new AlboPretorioRecordsGetter($this->getInput());
         $this->recordsGetter->setArticoliInput($this->setupArticoliInput());

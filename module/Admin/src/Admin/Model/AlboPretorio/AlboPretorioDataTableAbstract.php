@@ -26,7 +26,7 @@ abstract class AlboPretorioDataTableAbstract extends DataTableAbstract implement
      */
     protected function setupArticoliInput($attiUfficiali = 0)
     {
-        $articoliInput = array('orderBy'=>'aa.id DESC');
+        $articoliInput = array('orderBy' => 'aa.id DESC');
 
         $sessionPost = new SessionContainer();
 
@@ -121,8 +121,7 @@ abstract class AlboPretorioDataTableAbstract extends DataTableAbstract implement
                         'type' => 'alboAnnulledButton',
                     );
                 } else {
-   
-                    if ($record['pubblicare']==1) {
+                    if ($record['pubblicare']==1) {                        
                         $arrayLine[] = array(
                             'type'      => 'alboRettificaButton',
                             'href'      => $this->getInput('baseUrl',1).'formdata/'.$modulePrefixLink.'/'.$record['id'].'/?rettifica=1',
@@ -130,6 +129,8 @@ abstract class AlboPretorioDataTableAbstract extends DataTableAbstract implement
                             'data-id'   => $record['id']
                         );
                     } else {
+                        // Note: quando l'articolo non è pubblicato, non è possibile modificarlo!?
+                        /*
                         $activeDisableButtonValue = ($record['attivo']!=0) ? 'toDisable' : 'toActive';
                         $arrayLine[] = array(
                             'type'      => $record['attivo']!=0 ? 'activeButton' : 'disableButton',
@@ -137,7 +138,14 @@ abstract class AlboPretorioDataTableAbstract extends DataTableAbstract implement
                             'value'     => $record['attivo'],
                             'title'     => 'Attiva \ Disattiva'
                         );
-
+                        */
+                        $arrayLine[] = array(
+                            'type'      => 'alboPublishButton',
+                            'href'      => '?publish='.$record['id'],
+                            'data-id'   => $record['id'],
+                            'title'     => 'Pubblica articolo'
+                        );
+                        
                         $arrayLine[] = array(
                             'type'      => 'updateButton',
                             'href'      => $this->getInput('baseUrl',1).'formdata/'.$modulePrefixLink.'/'.$record['id'],
@@ -223,6 +231,55 @@ abstract class AlboPretorioDataTableAbstract extends DataTableAbstract implement
                         'attivo' => $activeStatusValue
                     ),
                     array('id' => $this->param['get']['id'])
+                );
+                $connection->commit();
+            } catch (\Exception $e) {
+                $this->getConnection()->rollBack();
+                return $this->setErrorMessage($e->getMessage());
+            }
+        }
+    }
+    
+    public function checkPublish()
+    {
+        if ( isset($this->param['post']['publishId']) ) {
+            
+            try {
+                $connection = $this->getInput('entityManager',1)->getConnection();
+                $connection->beginTransaction();
+                $connection->update('zfcms_comuni_albo_articoli', array(
+                        'pubblicare' => 1
+                    ),
+                    array('id' => $this->param['post']['publishId'])
+                );
+                $connection->commit();
+            } catch (\Exception $e) {
+                $this->getConnection()->rollBack();
+                return $this->setErrorMessage($e->getMessage());
+            }
+            
+        }
+    }
+    
+    public function checkRevision()
+    {
+        if ( isset($this->param['post']['revisionId']) ) {
+            $redirect = $this->getInput('redirect', 1);
+            $redirect->toUrl( $this->getInput('baseUrl',1).'formdata/albo-pretorio/'.$this->param['post']['revisionId'].'/?revision=1');
+        }
+    }
+    
+    public function checkAnnull()
+    {
+        $id = isset($this->param['post']['revisionId']) ? $this->param['post']['revisionId'] : null;
+        if ($id) {
+            try {
+                $connection = $this->getInput('entityManager',1)->getConnection();
+                $connection->beginTransaction();
+                $connection->update('zfcms_comuni_albo_articoli', array(
+                        'annullato' => 1
+                    ),
+                    array('id' => $id)
                 );
                 $connection->commit();
             } catch (\Exception $e) {

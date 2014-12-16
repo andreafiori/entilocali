@@ -289,12 +289,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "71140662c0a954602e81271667b6e03d9f53ea34"
+                "reference": "505fa3145f2a9e042ccd4744bfaa0ccaed8356de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/71140662c0a954602e81271667b6e03d9f53ea34",
-                "reference": "71140662c0a954602e81271667b6e03d9f53ea34",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/505fa3145f2a9e042ccd4744bfaa0ccaed8356de",
+                "reference": "505fa3145f2a9e042ccd4744bfaa0ccaed8356de",
                 "shasum": ""
             },
             "require": {
@@ -352,7 +352,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2014-12-04 21:57:15"
+            "time": "2014-12-12 15:20:03"
         },
         {
             "name": "doctrine/doctrine-module",
@@ -592,12 +592,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/instantiator.git",
-                "reference": "f976e5de371104877ebc89bd8fecb0019ed9c119"
+                "reference": "40efa2d8c9e2948b29fdf5d782babaacb08d0c86"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/f976e5de371104877ebc89bd8fecb0019ed9c119",
-                "reference": "f976e5de371104877ebc89bd8fecb0019ed9c119",
+                "url": "https://api.github.com/repos/doctrine/instantiator/zipball/40efa2d8c9e2948b29fdf5d782babaacb08d0c86",
+                "reference": "40efa2d8c9e2948b29fdf5d782babaacb08d0c86",
                 "shasum": ""
             },
             "require": {
@@ -608,7 +608,7 @@
                 "ext-pdo": "*",
                 "ext-phar": "*",
                 "phpunit/phpunit": "~4.0",
-                "squizlabs/php_codesniffer": "2.0.*@ALPHA"
+                "squizlabs/php_codesniffer": "~2.0"
             },
             "type": "library",
             "extra": {
@@ -617,8 +617,8 @@
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Doctrine\\Instantiator\\": "src"
+                "psr-4": {
+                    "Doctrine\\Instantiator\\": "src/Doctrine/Instantiator/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -638,7 +638,7 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2014-10-13 12:58:55"
+            "time": "2014-12-12 16:47:07"
         },
         {
             "name": "doctrine/lexer",
@@ -776,12 +776,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "3b5676fd6209f27fdea897895fdb3048c5e422f1"
+                "reference": "edd4b2ff8c3b4eab7b1063d234be6104c7353947"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/3b5676fd6209f27fdea897895fdb3048c5e422f1",
-                "reference": "3b5676fd6209f27fdea897895fdb3048c5e422f1",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/edd4b2ff8c3b4eab7b1063d234be6104c7353947",
+                "reference": "edd4b2ff8c3b4eab7b1063d234be6104c7353947",
                 "shasum": ""
             },
             "require": {
@@ -824,7 +824,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-12-08 08:43:57"
+            "time": "2014-12-12 16:23:01"
         },
         {
             "name": "zendframework/zend-developer-tools",
@@ -893,12 +893,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zf2.git",
-                "reference": "93190bf73bcf49c6648cd29898cdc7d9307dd23d"
+                "reference": "efc69cb0e09bbd67196b7974a5e4a2661e32e15b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zf2/zipball/93190bf73bcf49c6648cd29898cdc7d9307dd23d",
-                "reference": "93190bf73bcf49c6648cd29898cdc7d9307dd23d",
+                "url": "https://api.github.com/repos/zendframework/zf2/zipball/efc69cb0e09bbd67196b7974a5e4a2661e32e15b",
+                "reference": "efc69cb0e09bbd67196b7974a5e4a2661e32e15b",
                 "shasum": ""
             },
             "require": {
@@ -1003,7 +1003,7 @@
                 "framework",
                 "zf2"
             ],
-            "time": "2014-12-11 04:37:15"
+            "time": "2014-12-16 13:13:13"
         },
         {
             "name": "zendframework/zendxml",
@@ -1342,12 +1342,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ZF-Commons/ZfcUser.git",
-                "reference": "2878fae85b969071fb08a6ae5c9a9a325e5c386b"
+                "reference": "0fa1bbaae8a6a2ec1bfb4d8a83cb8b898f6ffa02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ZF-Commons/ZfcUser/zipball/2878fae85b969071fb08a6ae5c9a9a325e5c386b",
-                "reference": "2878fae85b969071fb08a6ae5c9a9a325e5c386b",
+                "url": "https://api.github.com/repos/ZF-Commons/ZfcUser/zipball/0fa1bbaae8a6a2ec1bfb4d8a83cb8b898f6ffa02",
+                "reference": "0fa1bbaae8a6a2ec1bfb4d8a83cb8b898f6ffa02",
                 "shasum": ""
             },
             "require": {
@@ -1412,7 +1412,7 @@
                 "Authentication",
                 "zf2"
             ],
-            "time": "2014-11-24 12:58:30"
+            "time": "2014-12-12 11:51:00"
         }
     ],
     "aliases": [],
@@ -1425,6 +1425,7 @@
         "bjyoungblood/bjyprofiler": 20
     },
     "prefer-stable": false,
+    "prefer-lowest": false,
     "platform": {
         "php": ">=5.3.3"
     },

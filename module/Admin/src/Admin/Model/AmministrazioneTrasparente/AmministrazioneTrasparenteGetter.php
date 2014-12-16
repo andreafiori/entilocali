@@ -12,29 +12,21 @@ class AmministrazioneTrasparenteGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        // SELECT id, beneficiario, titolo, importo, ufficioresponsabile, modassegn, 
-        //  
-        // data, progressivo, anno, utenti.settore, scadenza, ammaperta_resp_proc.nome_resp 
-        // 
-        // ammaperta_sezioni.nome, ammaperta_sezioni.responsabile,
-        // 
-        // FROM ammaperta_articoli, ammaperta_sezioni, ammaperta_resp_proc, utenti
-        // 
-        //   WHERE ((ammaperta_articoli.id_sezione = ammaperta_sezioni.id 
-        //   AND ammaperta_resp_proc.id = ammaperta_articoli.id_resp_proc) 
-        //   AND (utenti.id = ammaperta_articoli.id_utente)) 
-        //   AND (scadenza >= '".date('Y-m-d-')."' OR scadenza = '0000-00-00') 
-        //   AND ammaperta_articoli.attivo = '1'
-        
-        $this->setSelectQueryFields('ret.id, ret.nome, ret.email ');
+        $this->setSelectQueryFields("aa.id, aa.beneficiario, aa.titolo, aa.importo, 
+                aa.ufficioresponsabile, aa.modassegn, aa.data, aa.ora, aa.progressivo, aa.anno, aa.scadenza, 
+                u.settore,
+                rp.nomeResp,
+                asez.nome AS nomeSezione, asez.responsabile,
+                u.id, u.name, u.surname
+        ");
 
-        $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
-                                ->add('from', 'Application\Entity\ZfcmsComuniAmmapertaArticoli aa')
+        $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
+                                ->from('Application\Entity\ZfcmsComuniAmmapertaArticoli', 'aa')
                                 ->join('aa.utente', 'u')
+                                ->join('aa.sezione', 'asez')
                                 ->join('aa.respProc', 'rp')
-                                ->where(' (aa.utente = u.id) AND (aa.resp_proc = rp.id) ')
-                                ->andWhere("AND (aa.scadenza >= '".date('Y-m-d-')."' OR aa.scadenza = '0000-00-00') ")
-                                ->andWhere("AND as.attivo = '1' ");
+                                ->where(' (aa.utente = u.id) AND (aa.respProc = rp.id) ')
+                                ->andWhere(" (aa.scadenza >= '".date('Y-m-d-')."' OR aa.scadenza = '0000-00-00') AND (aa.utente = u.id) ");
         
         return $this->getQueryBuilder();
     }

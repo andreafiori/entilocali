@@ -20,14 +20,7 @@ class AlboPretorioFormDataHandler extends FormDataAbstract
         parent::__construct($input);
         
         $param = $this->getInput('param',1);
-        /*
-        $em = $this->getInput('entityManager',1);
-        $em->getConnection()->insert('zfcms_contacts', array(
-            'name'=>'pino',
-            'surname'=>'campagna',
-            'email' => 'pino@campagna@gmail.com',
-        ));
-        */     
+             
         $records = $this->getArticolo(
                 new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter($this->getInput('entityManager'))),
                 isset($param['route']['option']) ? $param['route']['option'] : null
@@ -38,13 +31,24 @@ class AlboPretorioFormDataHandler extends FormDataAbstract
         $form->addLastFields();
         $form->addScadenze();
         
-        if (is_array($records) and count($records)==1)
-        {
+        if (is_array($records) and count($records)==1) {
             $records[0]['userId'] = $this->getInput('userDetails',1)->id;
             $form->setData($records[0]);
 
             $formAction = 'albo-pretorio/update/'.$records[0]['id'];
             $formTitle = $records[0]['titolo'];
+            
+            if ($records[0]['annullato']==1) {
+                $this->setTemplate('message.phtml');
+                $this->setVariables(array(
+                    'messageType'   => 'danger',
+                    'messageTitle'  => 'Articolo annullato',
+                    'messageText'   => "Articolo annullato. Impossibile modificare l'articolo."
+                ));
+                return false;
+            }
+            
+            // TODO: check se articolo già revisionato
             
         } else {
             $form->setData(array('userId'=>$this->getInput('userDetails',1)->id));

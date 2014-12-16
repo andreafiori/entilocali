@@ -14,9 +14,9 @@ class SceltaContraenteGetter extends QueryBuilderHelperAbstract
     {
         $this->setSelectQueryFields('csc.id, csc.nomeScelta, csc.attivo ');
 
-        $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
-                                ->add('from', 'Application\Entity\ZfcmsComuniContrattiScContr csc ')
-                                ->add('where', 'csc.id != 0');
+        $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
+                                ->from('Application\Entity\ZfcmsComuniContrattiScContr ', 'csc')
+                                ->where('csc.id != 0 ');
         
         return $this->getQueryBuilder();
     }

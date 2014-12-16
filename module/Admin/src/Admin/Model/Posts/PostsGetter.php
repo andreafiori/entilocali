@@ -18,9 +18,9 @@ class PostsGetter extends QueryBuilderHelperAbstract
     {
         $this->setSelectQueryFields('DISTINCT(p.id) AS postid, po.id AS postoptionid, p.lastUpdate, p.insertDate, p.expireDate, p.type, p.alias, po.title, po.subtitle, po.status, po.description, po.seoUrl, po.seoTitle, po.seoDescription, po.seoKeywords, p.flagAttachments, co.name AS categoryName, c.template, IDENTITY(r.module) AS module');
 
-        $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
+        $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
                                 ->add('from', 'Application\Entity\ZfcmsPosts p, Application\Entity\ZfcmsPostsOptions po, Application\Entity\ZfcmsPostsRelations r, Application\Entity\ZfcmsCategories c, Application\Entity\ZfcmsCategoriesOptions co')
-                                ->add('where', 'po.posts = p.id AND p.id = r.posts AND c.id = r.category AND co.category = c.id AND r.channel = :channel AND co.language = :language AND po.language = :language');
+                                ->where('po.posts = p.id AND p.id = r.posts AND c.id = r.category AND co.category = c.id AND r.channel = :channel AND co.language = :language AND po.language = :language');
         
         return $this->getQueryBuilder();
     }

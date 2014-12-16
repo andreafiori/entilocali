@@ -14,9 +14,9 @@ class LogsGetter extends QueryBuilderHelperAbstract
     {
         $this->setSelectQueryFields('l.utente, l.datetime, l.azione');
 
-        $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
-                                ->add('from', 'Application\Entity\ZfcmsLogs l')
-                                ->add('where', 'l.id != 0 ');
+        $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
+                                ->from('Application\Entity\ZfcmsLogs', 'l')
+                                ->where('l.id != 0 ');
         
         return $this->getQueryBuilder();
     }

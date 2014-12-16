@@ -6,8 +6,6 @@ use Application\Model\RouterManagers\RouterManagerAbstract;
 use Application\Model\RouterManagers\RouterManagerInterface;
 
 /**
- * TODO: refactoring and workflow check
- * 
  * @author Andrea Fiori
  * @since  18 May 2014
  */
@@ -24,7 +22,7 @@ class FormDataHandler extends RouterManagerAbstract implements RouterManagerInte
         $this->checkFormSetterClassExists();
             
         $formSetter = $this->getFormSetter();
-        if ($formSetter) {
+        if (isset($formSetter)) {
 
             $objectFormHandler = new $formSetter($this->getInput());
 
@@ -59,11 +57,13 @@ class FormDataHandler extends RouterManagerAbstract implements RouterManagerInte
     }
     
     /**
-     * @return string
+     * @return string|null
      */
     public function getFormSetter()
     {
-        return $this->formSetter;
+		if (isset($this->formSetter)) {
+			return $this->formSetter;
+		}
     }
     
     /**

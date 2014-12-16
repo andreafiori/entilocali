@@ -14,7 +14,7 @@ class UsersGetter extends QueryBuilderHelperAbstract
     {
         $this->setSelectQueryFields('DISTINCT(u.id) AS id, u.name, u.surname, u.email, u.address, u.status, u.zip, u.city, u.username, u.lastUpdate, u.settore ');
 
-        $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
+        $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
                                 ->add('from', 'Application\Entity\ZfcmsUsers u')
                                 ->join('u.role', 'ur')
                                 ->where("(u.role = ur.id) ");

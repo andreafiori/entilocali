@@ -58,7 +58,7 @@ class StatoCivileFrontend extends RouterManagerAbstract implements RouterManager
         private function getPaginatorRecords(array $input, $page = null)
         {
             $statoCivileGetterWrapper = new StatoCivileGetterWrapper( new StatoCivileGetter($this->getInput('entityManager', 1)) );
-            $statoCivileGetterWrapper->setInput( array_merge($input, array('orderBy' => 'sca.data DESC')) );
+            $statoCivileGetterWrapper->setInput( array_merge($input, array('orderBy' => 'sca.data DESC', 'sca.attivo' => 1)) );
             $statoCivileGetterWrapper->setupQueryBuilder();
             
             $statoCivileGetterWrapper->setupPaginator( $statoCivileGetterWrapper->setupQuery($this->getInput('entityManager', 1)) );

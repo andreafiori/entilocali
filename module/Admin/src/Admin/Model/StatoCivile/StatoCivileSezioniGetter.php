@@ -17,9 +17,9 @@ class StatoCivileSezioniGetter extends QueryBuilderHelperAbstract
     {
         $this->setSelectQueryFields('scs.id, scs.nome, scs.attivo, scs.dataInserimento, scs.dataUltimoAggiornamento ');
 
-        $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
-                                ->add('from', ' Application\Entity\ZfcmsComuniStatoCivileSezioni scs ')
-                                ->add('where', "scs.id != '0' ");
+        $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
+                                ->from('Application\Entity\ZfcmsComuniStatoCivileSezioni ', 'scs')
+                                ->where("scs.id != '0' ");
 
         return $this->getQueryBuilder();
     }

@@ -1,9 +1,15 @@
 <?php
 
-namespace Admin\Model\AmministrazioneTrasparente;
+namespace Admin\Model\AttiConcessione;
 
 use Admin\Model\DataTable\DataTableAbstract;
+use Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteGetter;
+use Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteGetterWrapper;
 
+/**
+ * @author Andrea Fiori
+ * @since  12 December 2014
+ */
 class AttiConcessioneDataTable extends DataTableAbstract
 {
     /**
@@ -13,71 +19,60 @@ class AttiConcessioneDataTable extends DataTableAbstract
     {
         parent::__construct($input);
 
-        $paginatorRecords = $this->setupPaginatorRecords();
+        $wrapper = $this->setupPaginatorRecords();
+        $paginatorRecords = $wrapper->setupRecords();
         
         $this->setRecords( $this->getFormattedDataTableRecords($paginatorRecords) );
 
-        $this->setVariable('tablesetter', 'contratti-pubblici');
-        $this->setVariable('paginator', $paginatorRecords);
-
-        $this->setTitle('Contratti pubblici');
-        $this->setDescription('Gestione bandi contratti pubblici');
+        $this->setTitle('Atti di concessione');
+        $this->setDescription('Gestione atti di concessione - amministrazione trapsarente');
         $this->setColumns(array(
-                "Bando",
-                "Struttura Proponente",
-                "Procedura di scelta del contraente",
-                "Operatori invitati a presentare le offerte",
-                "Aggiudicatario",
-                "Importi",
-                "Tempi di completamento",
-                /*
-                "Id",
-                "Anno",
-                "CIG",
-                "Struttura proponente \ Responsabile del Servizio \ Responsabile del Procedimento",
-                "Aggiudicatario",
-                "Data Aggiudicazione",
-                "Data Contratto",
-                "Scelta del Contraente",
-                "Importo di aggiudicazione (Euro)",
-                "Elenco degli Operatori invitati a presentare offerte",
-                "Numero di offerte ammesse",
-                "Oggetto del bando",
-                "Importo somme liquidate Euro",
-                "Data di inserimento",
-                "Ora di inserimento",
-                "Data di scadenza",
+                // "key_imp",
+                "Codice",
+                "Ufficio-Responsabile del Servizio - Responsabile del Procedimento",
+                "Num / Anno",
+                "CF / P. IVA Beneficiario",
+                "Modalità Assegnazione",
+                "Importo",
+                "Norma o Titolo a base dell'attribuzione",
+                "Data \ Ora inserimento",
+                "Data scadenza",
                 "Inserito da",
-                "Vedi Elenco",
-                */
-                "&nbsp;", 
-                "&nbsp;",
-                "&nbsp;"
+                "",
+                "",
+                "",
+                ""
+            )
+        );
+
+        $this->setVariables(array(
+                'tablesetter' => 'atti-concessione',
+                'paginator' => $paginatorRecords,
+                'paginatorItemCount' => $wrapper->getPaginator()->getTotalItemCount()
             )
         );
         
-        $this->setTemplate('datatable/datatable_contratti_pubblici.phtml');
+        $this->setTemplate('datatable/datatable_atti_concessione.phtml');
         if (!$this->getRecords()) {
-            $this->setVariable('messageTitle', 'Nessun bando di contratto presente');
-            $this->setVariable('messageDescription', 'Nessun articolo o bando di contratto presente in archivio');
+            $this->setVariable('messageTitle', 'Nessun atto di concessione presente');
+            $this->setVariable('messageDescription', 'Nessun atto di concessione presente in archivio');
         }
-        
     }
     
         /**
-         * @return array
+         * @return AmministrazioneTrasparenteGetterWrapper
          */
         private function setupPaginatorRecords()
         {
             $param = $this->getParam();
 
-            $contrattiPubbliciGetterWrapper = new ContrattiPubbliciGetterWrapper(new ContrattiPubbliciGetter($this->getInput('entityManager',1)) );
-            $contrattiPubbliciGetterWrapper->setInput($this->getInput());
-            $contrattiPubbliciGetterWrapper->setupQueryBuilder(); 
-            $contrattiPubbliciGetterWrapper->setupPaginator( $contrattiPubbliciGetterWrapper->setupQuery($this->getInput('entityManager', 1)) );
-            $contrattiPubbliciGetterWrapper->setupPaginatorCurrentPage( isset($param['route']['page']) ? $param['route']['page'] : null );
+            $wrapper = new AmministrazioneTrasparenteGetterWrapper(new AmministrazioneTrasparenteGetter($this->getInput('entityManager',1)) );
+            $wrapper->setInput($this->getInput());
+            $wrapper->setupQueryBuilder();
+            $wrapper->setupPaginator( $wrapper->setupQuery($this->getInput('entityManager', 1)) );
+            $wrapper->setupPaginatorCurrentPage( isset($param['route']['page']) ? $param['route']['page'] : null );
 
-            return $contrattiPubbliciGetterWrapper->setupRecords();
+            return $wrapper;
         }
         
         /**
@@ -87,31 +82,52 @@ class AttiConcessioneDataTable extends DataTableAbstract
         private function getFormattedDataTableRecords($records)
         {
             $arrayToReturn = array();
+            
             if ($records) {
                 foreach($records as $key => $row) {
+            
+                    if(isset($row['responsabile'])) {
+                        $responsabile = $row['responsabile'];
+                    } elseif (isset($row['nomeResp'])) {
+                        $responsabile = $row['nomeResp'];
+                    }
+
+                    if (!isset($responsabile)) {
+                        $responsabile = null;
+                    }
+
                     $arrayToReturn[] = array(
-                        "<strong>CIG:</strong> ".$row['cig']."<br><br><strong>Oggetto del bando</strong>: ".$row['titolo']."<br><br><strong>Anno:</strong> ".$row['anno']."",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
+                        // (isset($row['keyImp'])) ? $row['keyImp'] : '',
+                        
+                        $row['id'],
+                        
+                        (isset($responsabile))  ?
+                            $row['nomeSezione'].'. <br><br>'.$responsabile
+                            :
+                            $row['nomeSezione'],
+                        
+                        $row['progressivo']." / ".$row['anno'],
+                        $row['beneficiario'],
+                        $row['modassegn'],
+                        $row['importo'],
+                        $row['titolo'],
+                        $row['data'].' <br><br>'.$row['ora'],
+                        $row['scadenza'],
+                        $row['name'].' '.$row['surname'],
                         array(
                             'type'      => 'updateButton',
-                            'href'      => $this->getInput('baseUrl',1).'formdata/contratti-pubblici/'.$row['id'],
-                            'tooltip'   => 1,
+                            'href'      => $this->getInput('baseUrl',1).'formdata/atti-concessione/'.$row['id'],
                             'title'     => 'Modifica'
                         ),
                         array(
                             'type'      => 'deleteButton',
-                            'href'      => $this->getInput('baseUrl',1).'formdata/contratti-pubblici/'.$row['id'],
+                            'href'      => $this->getInput('baseUrl',1).'formdata/atti-concessione/'.$row['id'],
                             'title'     => 'Elimina',
                             'data-id'   => $row['id']
                         ),
                         array(
                             'type'      => 'attachButton',
-                            'href'      => $this->getInput('baseUrl',1).'formdata/contratti-pubblici/'.$row['id'],
+                            'href'      => $this->getInput('baseUrl',1).'formdata/atti-concessione/'.$row['id'],
                             'title'     => 'Elimina'
                         ),
                     );

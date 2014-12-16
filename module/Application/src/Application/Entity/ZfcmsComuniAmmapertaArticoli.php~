@@ -24,6 +24,13 @@ class ZfcmsComuniAmmapertaArticoli
     /**
      * @var string
      *
+     * @ORM\Column(name="key_imp", type="string", length=80, nullable=false)
+     */
+    private $keyImp;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="beneficiario", type="text", length=65535, nullable=false)
      */
     private $beneficiario;
@@ -64,9 +71,9 @@ class ZfcmsComuniAmmapertaArticoli
     private $progressivo;
 
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="anno", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="anno", type="date", nullable=false)
      */
     private $anno;
 
@@ -99,25 +106,34 @@ class ZfcmsComuniAmmapertaArticoli
     private $scadenza;
 
     /**
-     * @var integer
+     * @var \Application\Entity\ZfcmsComuniAmmapertaRespProc
      *
-     * @ORM\Column(name="utente_id", type="bigint", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniAmmapertaRespProc")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="resp_proc_id", referencedColumnName="id")
+     * })
      */
-    private $utenteId;
+    private $respProc;
 
     /**
-     * @var integer
+     * @var \Application\Entity\ZfcmsComuniAmmapertaSezioni
      *
-     * @ORM\Column(name="sezione_id", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniAmmapertaSezioni")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="sezione_id", referencedColumnName="id")
+     * })
      */
-    private $sezioneId;
+    private $sezione;
 
     /**
-     * @var integer
+     * @var \Application\Entity\ZfcmsUsers
      *
-     * @ORM\Column(name="resp_proc_id", type="bigint", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsers")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="utente_id", referencedColumnName="id")
+     * })
      */
-    private $respProcId;
+    private $utente;
 
 
 }

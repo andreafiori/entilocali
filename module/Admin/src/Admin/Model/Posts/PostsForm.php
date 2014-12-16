@@ -37,7 +37,6 @@ class PostsForm extends Form
                         'type' => 'Zend\Form\Element\File',
                         'options' => array( 'label' => 'Immagine' ),
                         'attributes' => array(
-                                        'class' => 'form-control',
                                         'title' => 'Inserisci file',
                                         'id' => 'image',
                         )
@@ -52,7 +51,6 @@ class PostsForm extends Form
                         'options' => array( 'label' => '* Titolo' ),
                         'attributes' => array(
                                         'required' => 'required',
-                                        'class' => 'form-control',
                                         'placeholder' => 'Inserisci il titolo',
                                         'title' => 'Inserisci il titolo',
                                         'id' => 'title',
@@ -64,7 +62,6 @@ class PostsForm extends Form
                         'type' => 'Text',
                         'options'    => array( 'label' => 'Sotto titolo' ),
                         'attributes' => array(
-                                        'class' => 'form-control',
                                         'title' => 'Inserisci il sotto titolo',
                                         'placeholder' => 'Inserisci il sotto titolo',
                                         'id'    => 'subtitle',
@@ -77,8 +74,8 @@ class PostsForm extends Form
                         'options' => array( 'label' => 'Descrizione' ),
                         'attributes' => array(
                                         'id' => 'description',
-                                        'required' => 'required',
-                                        'class' => 'wysiwyg',
+                                        'required'  => 'required',
+                                        'class'     => 'wysiwyg',
                         )
         ));
         
@@ -92,7 +89,7 @@ class PostsForm extends Form
                         'attributes' => array(
                                 'class' => 'form-control DatePicker',
                                 'style' => 'width: 22%',
-                                'id' => 'expireDate'
+                                'id'    => 'expireDate'
                         )
         ));
         
@@ -109,7 +106,7 @@ class PostsForm extends Form
                         ),
                         'attributes' => array(
                                 'title' => 'Seleziona stato',
-                                'id' => 'status'
+                                'id'    => 'status'
                         )
         ));
   

@@ -16,9 +16,10 @@ class ContrattiPubbliciGetter extends QueryBuilderHelperAbstract
                 . 'cc.titolo, cc.importo, cc.importo2, cc.dataAgg, cc.dataContratto, '
                 . 'cc.progressivo, cc.anno, cc.data, cc.ora, cc.attivo, cc.scadenza, cc.cig ');
 
-        $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
-                                ->add('from', 'Application\Entity\ZfcmsComuniContratti cc, Application\Entity\ZfcmsComuniContrattiScContr csc ')
-                                ->add('where', 'cc.scContr = csc.id ');
+        $this->getQueryBuilder()->select($this->getSelectQueryFields())
+                                ->from('Application\Entity\ZfcmsComuniContratti', 'cc')
+                                ->join('cc.scContr', 'csc')
+                                ->add('where', ' (cc.scContr = csc.id) ');
         
         return $this->getQueryBuilder();
     }

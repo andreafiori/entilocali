@@ -14,9 +14,9 @@ class SettoriGetter extends QueryBuilderHelperAbstract
     {
         $this->setSelectQueryFields('cs.id, cs.nome, cs.responsabile ');
 
-        $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
-                                ->add('from', 'Application\Entity\ZfcmsComuniContrattiSettori cs ')
-                                ->add('where', 'cs.id != 0 ');
+        $this->getQueryBuilder()->select($this->getSelectQueryFields())
+                                ->from('Application\Entity\ZfcmsComuniContrattiSettori ', 'cs')
+                                ->where('cs.id != 0 ');
         
         return $this->getQueryBuilder();
     }
