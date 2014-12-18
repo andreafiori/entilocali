@@ -106,6 +106,13 @@ class ZfcmsComuniAmmapertaArticoli
     private $scadenza;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="flag_allegati", type="integer", nullable=false)
+     */
+    private $flagAllegati;
+
+    /**
      * @var \Application\Entity\ZfcmsComuniAmmapertaRespProc
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniAmmapertaRespProc")
@@ -433,6 +440,30 @@ class ZfcmsComuniAmmapertaArticoli
     public function getScadenza()
     {
         return $this->scadenza;
+    }
+
+    /**
+     * Set flagAllegati
+     *
+     * @param integer $flagAllegati
+     *
+     * @return ZfcmsComuniAmmapertaArticoli
+     */
+    public function setFlagAllegati($flagAllegati)
+    {
+        $this->flagAllegati = $flagAllegati;
+    
+        return $this;
+    }
+
+    /**
+     * Get flagAllegati
+     *
+     * @return integer
+     */
+    public function getFlagAllegati()
+    {
+        return $this->flagAllegati;
     }
 
     /**

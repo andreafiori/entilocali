@@ -107,6 +107,11 @@ class PostsFrontend extends RouterManagerAbstract implements RouterManagerInterf
                         case(2):
                             $homePageVar['freetext'][] = array( 'freeText' => $value[0]['freeText'] );
                         break;
+                    
+                        // albo pretorio
+                        // stato civile
+                        // amministrazione trasparente
+                        
                     }
                     $this->setVariable('homepage', $homePageVar);
                 }

@@ -36,9 +36,9 @@ class ZfcmsComuniAlboArticoli
     private $numeroAtto;
 
     /**
-     * @var \DateTime
+     * @var integer
      *
-     * @ORM\Column(name="anno", type="date", nullable=false)
+     * @ORM\Column(name="anno", type="integer", nullable=false)
      */
     private $anno;
 
@@ -99,16 +99,16 @@ class ZfcmsComuniAlboArticoli
     private $attivo;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="pubblicare", type="string", nullable=false)
+     * @ORM\Column(name="pubblicare", type="integer", nullable=false)
      */
     private $pubblicare;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="annullato", type="string", nullable=false)
+     * @ORM\Column(name="annullato", type="integer", nullable=false)
      */
     private $annullato;
 
@@ -188,6 +188,13 @@ class ZfcmsComuniAlboArticoli
      * @ORM\Column(name="check_rettifica", type="integer", nullable=false)
      */
     private $checkRettifica;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="flag_allegati", type="integer", nullable=false)
+     */
+    private $flagAllegati;
 
     /**
      * @var \Application\Entity\ZfcmsComuniAlboSezioni

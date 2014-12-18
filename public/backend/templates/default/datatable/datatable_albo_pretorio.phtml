@@ -15,9 +15,15 @@
         <h3>Ricerca</h3>
         <div class="container">
             <?php
+
+            $formAlboSearch = $this->formSearch;
+            $formAlboSearch->get('search')->setAttribute('class', 'btn btn-primary');
+            $formAlboSearch->get('reset-form-search')->setAttribute('class', 'btn btn-default');
+
             echo $this->partial('backend/templates/common/formdata_form_elements.phtml', array(
-                    'form'                  => $this->formSearch,
-                    'formAction'            => $this->formAction,
+                    'form'                  => $formAlboSearch,
+                    'formAction'            => null,
+                    'formId'                => 'alboPretorioSearch',
                     'formTitle'             => $this->formTitle,
                     'formDescription'       => $this->formDescription,
                     'closeForm'             => 1,
@@ -46,8 +52,8 @@
             $form->get('anno')->setAttribute('class', 'form-control');
             $form->get('settore')->setAttribute('class', 'form-control');
             $form->get('sezione')->setAttribute('class', 'form-control');
-            $form->get('export')->setAttribute('class', 'btn btn-primary');
-
+            $form->get('export')->setAttribute('class', 'btn btn-primary');            
+            
             $form->prepare();
             
             /* Rename IDs for the export form */

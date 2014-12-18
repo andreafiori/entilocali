@@ -42,8 +42,8 @@ class StatoCivileSezioniCrudHandler extends CrudHandlerAbstract implements CrudH
             $this->setArrayRecordToHandle('nome', 'nome');
             $this->setArrayRecordToHandle('attivo', 'attivo');
             $this->setArrayRecordToHandle('data_ultimo_aggiornamento', date("Y-m-d H:i:s"));
-
-            $this->getConnection()->update($this->tableName, 
+            
+            $this->getConnection()->update($this->tableName,
                     $this->getArrayRecordToHandle(),
                     array('id' => $this->rawPost['id'])
             );

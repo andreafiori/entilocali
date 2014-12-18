@@ -3,8 +3,6 @@
 namespace Admin\Model\ContrattiPubblici;
 
 use Admin\Model\DataTable\DataTableAbstract;
-use Admin\Model\ContrattiPubblici\ContrattiPubbliciGetter;
-use Admin\Model\ContrattiPubblici\ContrattiPubbliciGetterWrapper;
 
 /**
  * @author Andrea Fiori

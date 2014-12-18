@@ -11,6 +11,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 -- Dump della struttura di tabella entilocali.zfcms_attachments
+DROP TABLE IF EXISTS `zfcms_attachments`;
 CREATE TABLE IF NOT EXISTS `zfcms_attachments` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
@@ -36,6 +37,7 @@ INSERT INTO `zfcms_attachments` (`id`, `name`, `size`, `state`, `insert_date`, `
 
 
 -- Dump della struttura di tabella entilocali.zfcms_attachments_mimetype
+DROP TABLE IF EXISTS `zfcms_attachments_mimetype`;
 CREATE TABLE IF NOT EXISTS `zfcms_attachments_mimetype` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `image` text NOT NULL,
@@ -74,6 +76,7 @@ INSERT INTO `zfcms_attachments_mimetype` (`id`, `image`, `mimetype`) VALUES
 
 
 -- Dump della struttura di tabella entilocali.zfcms_attachments_options
+DROP TABLE IF EXISTS `zfcms_attachments_options`;
 CREATE TABLE IF NOT EXISTS `zfcms_attachments_options` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `title` varchar(50) DEFAULT NULL,
@@ -96,6 +99,7 @@ INSERT INTO `zfcms_attachments_options` (`id`, `title`, `description`, `attachme
 
 
 -- Dump della struttura di tabella entilocali.zfcms_attachments_relations
+DROP TABLE IF EXISTS `zfcms_attachments_relations`;
 CREATE TABLE IF NOT EXISTS `zfcms_attachments_relations` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `attachment_id` bigint(20) NOT NULL,
@@ -118,6 +122,7 @@ INSERT INTO `zfcms_attachments_relations` (`id`, `attachment_id`, `reference_id`
 
 
 -- Dump della struttura di tabella entilocali.zfcms_categories
+DROP TABLE IF EXISTS `zfcms_categories`;
 CREATE TABLE IF NOT EXISTS `zfcms_categories` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `note` varchar(100) DEFAULT NULL,
@@ -146,6 +151,7 @@ INSERT INTO `zfcms_categories` (`id`, `note`, `create_date`, `last_update`, `cod
 
 
 -- Dump della struttura di tabella entilocali.zfcms_categories_options
+DROP TABLE IF EXISTS `zfcms_categories_options`;
 CREATE TABLE IF NOT EXISTS `zfcms_categories_options` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(80) DEFAULT NULL,
@@ -180,6 +186,7 @@ INSERT INTO `zfcms_categories_options` (`id`, `name`, `description`, `seo_url`, 
 
 
 -- Dump della struttura di tabella entilocali.zfcms_channels
+DROP TABLE IF EXISTS `zfcms_channels`;
 CREATE TABLE IF NOT EXISTS `zfcms_channels` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
@@ -204,13 +211,14 @@ INSERT INTO `zfcms_channels` (`id`, `name`, `domain`, `subdomain`, `is_multilang
 
 
 -- Dump della struttura di tabella entilocali.zfcms_comuni_albo_articoli
+DROP TABLE IF EXISTS `zfcms_comuni_albo_articoli`;
 CREATE TABLE IF NOT EXISTS `zfcms_comuni_albo_articoli` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `utente_id` bigint(20) NOT NULL,
   `sezione_id` bigint(20) NOT NULL,
   `numero_progressivo` bigint(20) NOT NULL,
   `numero_atto` bigint(20) NOT NULL,
-  `anno` year(4) NOT NULL,
+  `anno` int(11) NOT NULL,
   `data_attivazione` date NOT NULL DEFAULT '2015-01-01',
   `ora_attivazione` time NOT NULL,
   `data_pubblicare` date NOT NULL DEFAULT '2015-01-01',
@@ -219,8 +227,8 @@ CREATE TABLE IF NOT EXISTS `zfcms_comuni_albo_articoli` (
   `data_scadenza` date NOT NULL,
   `titolo` text NOT NULL,
   `attivo` int(11) NOT NULL,
-  `pubblicare` enum('0','1') NOT NULL DEFAULT '0',
-  `annullato` enum('0','1') NOT NULL DEFAULT '0',
+  `pubblicare` int(11) NOT NULL DEFAULT '0',
+  `annullato` int(11) NOT NULL DEFAULT '0',
   `rettifica_id` int(11) NOT NULL,
   `data_invio_regione` date NOT NULL DEFAULT '2015-01-01',
   `num_att` int(11) NOT NULL DEFAULT '0',
@@ -232,6 +240,7 @@ CREATE TABLE IF NOT EXISTS `zfcms_comuni_albo_articoli` (
   `note` text CHARACTER SET utf8 NOT NULL,
   `data_rettifica` date NOT NULL DEFAULT '2015-01-01',
   `check_rettifica` int(11) NOT NULL,
+  `flag_allegati` int(2) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `rettifica_id` (`rettifica_id`),
   KEY `utente_id` (`utente_id`),
@@ -243,31 +252,32 @@ CREATE TABLE IF NOT EXISTS `zfcms_comuni_albo_articoli` (
 -- Dump dei dati della tabella entilocali.zfcms_comuni_albo_articoli: ~20 rows (circa)
 DELETE FROM `zfcms_comuni_albo_articoli`;
 /*!40000 ALTER TABLE `zfcms_comuni_albo_articoli` DISABLE KEYS */;
-INSERT INTO `zfcms_comuni_albo_articoli` (`id`, `utente_id`, `sezione_id`, `numero_progressivo`, `numero_atto`, `anno`, `data_attivazione`, `ora_attivazione`, `data_pubblicare`, `ora_pubblicare`, `scadenza`, `data_scadenza`, `titolo`, `attivo`, `pubblicare`, `annullato`, `rettifica_id`, `data_invio_regione`, `num_att`, `check_invia_regione`, `anno_atto`, `home`, `ente_terzo`, `fonte_url`, `note`, `data_rettifica`, `check_rettifica`) VALUES
-	(1, 1, 1, 1, 1, '2001', '1958-05-01', '17:39:10', '1958-05-01', '17:39:10', 1, '1958-05-01', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 1, '1', '1', 1, '1958-05-01', 1, 1, '2001', 1, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', '', '1958-05-01', 1),
-	(2, 1, 1, 1, 1, '2001', '2013-02-25', '17:29:36', '2013-02-25', '17:29:36', 1, '2013-02-25', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 1, '1', '1', 1, '2013-02-25', 1, 1, '2001', 1, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', '', '2013-02-25', 1),
-	(3, 1, 1, 1, 1, '2001', '1952-01-12', '03:56:25', '1952-01-12', '03:56:25', 1, '1952-01-12', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 0, '1', '0', 1, '1952-01-12', 1, 1, '2001', 1, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', '', '1952-01-12', 1),
-	(4, 1, 1, 1, 1, '2001', '2009-01-10', '02:42:15', '2009-01-10', '02:42:15', 1, '2009-01-10', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 1, '1', '1', 1, '2009-01-10', 1, 1, '2001', 1, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', '', '2009-01-10', 1),
-	(5, 1, 1, 1, 1, '2001', '1991-02-26', '03:14:28', '1991-02-26', '03:14:28', 1, '1991-02-26', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 1, '1', '1', 1, '1991-02-26', 1, 1, '2001', 1, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', '', '1991-02-26', 1),
-	(6, 2, 2, 2, 2, '2001', '1993-04-05', '00:56:58', '1993-04-05', '00:56:58', 2, '1993-04-05', 'Sed molestie semper purus non pellentesque.', 0, '0', '0', 0, '1993-04-05', 0, 0, '2002', 0, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', '', '1993-04-05', 0),
-	(7, 1, 1, 1, 1, '2001', '2004-03-13', '10:49:19', '2004-03-13', '10:49:19', 1, '2004-03-13', 'Sed molestie semper purus non pellentesque.', 1, '1', '1', 1, '2004-03-13', 1, 1, '2001', 1, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', '', '2004-03-13', 1),
-	(8, 1, 1, 1, 1, '2000', '1969-09-23', '03:16:14', '1969-09-23', '03:16:14', 1, '1969-09-23', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 1, '1', '1', 1, '1969-09-23', 1, 1, '2001', 1, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', '', '1969-09-23', 1),
-	(9, 2, 2, 2, 2, '2001', '1966-01-23', '20:46:04', '1966-01-23', '20:46:04', 2, '1966-01-23', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 0, '0', '0', 0, '1966-01-23', 0, 0, '2002', 0, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', '', '1966-01-23', 0),
-	(10, 2, 2, 2, 2, '2001', '2002-02-07', '14:53:09', '2002-02-07', '14:53:09', 2, '2002-02-07', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 0, '0', '0', 0, '2002-02-07', 0, 0, '2002', 0, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', '', '2002-02-07', 0),
-	(11, 1, 1, 1, 1, '2000', '1985-09-18', '07:31:30', '1985-09-18', '07:31:30', 1, '1985-09-18', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 1, '1', '1', 1, '1985-09-18', 1, 1, '2001', 1, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', '', '1985-09-18', 1),
-	(12, 1, 1, 1, 1, '2000', '1948-08-18', '09:00:52', '1948-08-18', '09:00:52', 1, '1948-08-18', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 1, '1', '1', 1, '1948-08-18', 1, 1, '2001', 1, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', '', '1948-08-18', 1),
-	(13, 1, 1, 1, 1, '2000', '1973-05-27', '12:53:05', '1973-05-27', '12:53:05', 1, '1973-05-27', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 1, '1', '0', 1, '1973-05-27', 1, 1, '2001', 1, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', '', '1973-05-27', 1),
-	(14, 1, 1, 1, 1, '2001', '1959-03-05', '18:28:35', '1959-03-05', '18:28:35', 1, '1959-03-05', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 1, '1', '1', 1, '1959-03-05', 1, 1, '2001', 1, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', '', '1959-03-05', 1),
-	(15, 2, 2, 2, 2, '2000', '1938-02-03', '22:35:17', '1938-02-03', '22:35:17', 2, '1938-02-03', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 0, '0', '0', 0, '1938-02-03', 2, 0, '2002', 0, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', '', '1938-02-03', 0),
-	(16, 2, 2, 2, 2, '2000', '1958-04-23', '14:02:21', '1958-04-23', '14:02:21', 2, '1958-04-23', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 0, '0', '0', 0, '1958-04-23', 2, 0, '2002', 0, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', '', '1958-04-23', 0),
-	(17, 2, 1, 0, 0, '1982', '2014-12-12', '03:51:50', '2014-12-12', '03:51:50', 2014, '0000-00-00', 'prova33', 0, '0', '0', 0, '2015-01-01', 0, 0, '0000', 0, '', '', '', '2015-01-01', 0),
-	(18, 2, 1, 0, 1, '1992', '2014-12-12', '04:28:00', '2014-12-12', '04:28:00', 0, '2014-12-30', 'qwe213', 0, '0', '0', 0, '2015-01-01', 0, 0, '2014', 0, 'wqeewqwe', 'sssasdsdsassdsassdasda', '', '2015-01-01', 0),
-	(19, 2, 1, 0, 1, '2011', '2014-12-12', '04:32:40', '2014-12-12', '04:32:40', 0, '2014-12-30', 'qwe213', 1, '0', '0', 0, '2015-01-01', 0, 0, '2014', 0, '', '', '', '2015-01-01', 0),
-	(20, 2, 1, 0, 1, '2013', '2014-12-12', '04:36:42', '2014-12-12', '04:36:42', 0, '2014-12-31', 'qwe213', 0, '0', '0', 0, '2015-01-01', 0, 0, '2014', 0, '', '', '', '2015-01-01', 0);
+INSERT INTO `zfcms_comuni_albo_articoli` (`id`, `utente_id`, `sezione_id`, `numero_progressivo`, `numero_atto`, `anno`, `data_attivazione`, `ora_attivazione`, `data_pubblicare`, `ora_pubblicare`, `scadenza`, `data_scadenza`, `titolo`, `attivo`, `pubblicare`, `annullato`, `rettifica_id`, `data_invio_regione`, `num_att`, `check_invia_regione`, `anno_atto`, `home`, `ente_terzo`, `fonte_url`, `note`, `data_rettifica`, `check_rettifica`, `flag_allegati`) VALUES
+	(1, 1, 1, 1, 1, 2001, '1958-05-01', '17:39:10', '1958-05-01', '17:39:10', 1, '1958-05-01', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 1, 0, 0, 1, '1958-05-01', 1, 1, '2001', 1, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', '', '1958-05-01', 1, 0),
+	(2, 1, 1, 1, 1, 2001, '2013-02-25', '17:29:36', '2013-02-25', '17:29:36', 1, '2013-02-25', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 1, 1, 0, 1, '2013-02-25', 1, 1, '2001', 1, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', '', '2013-02-25', 1, 0),
+	(3, 1, 1, 1, 1, 2001, '1952-01-12', '03:56:25', '1952-01-12', '03:56:25', 1939, '1952-01-12', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 0, 0, 1, 1, '1952-01-12', 1, 1, '2001', 1, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', '', '1952-01-12', 1, 0),
+	(4, 1, 1, 1, 1, 2001, '2009-01-10', '02:42:15', '2009-01-10', '02:42:15', 1, '2009-01-10', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 1, 0, 0, 1, '2009-01-10', 1, 1, '2001', 1, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', '', '2009-01-10', 1, 0),
+	(5, 1, 1, 1, 1, 2001, '1991-02-26', '03:14:28', '1991-02-26', '03:14:28', 1, '1991-02-26', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 1, 0, 0, 1, '1991-02-26', 1, 1, '2001', 1, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', '', '1991-02-26', 1, 0),
+	(6, 2, 2, 2, 2, 2001, '1993-04-05', '00:56:58', '1993-04-05', '00:56:58', 2, '1993-04-05', 'Sed molestie semper purus non pellentesque.', 0, 1, 1, 0, '1993-04-05', 0, 0, '2002', 0, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', '', '1993-04-05', 0, 0),
+	(7, 1, 1, 1, 1, 2001, '2004-03-13', '10:49:19', '2004-03-13', '10:49:19', 1, '2004-03-13', 'Sed molestie semper purus non pellentesque.', 1, 0, 0, 1, '2004-03-13', 1, 1, '2001', 1, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', '', '2004-03-13', 1, 0),
+	(8, 1, 1, 1, 1, 2000, '1969-09-23', '03:16:14', '1969-09-23', '03:16:14', 1, '1969-09-23', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 1, 0, 0, 1, '1969-09-23', 1, 1, '2001', 1, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', '', '1969-09-23', 1, 0),
+	(9, 2, 2, 2, 2, 2001, '1966-01-23', '20:46:04', '1966-01-23', '20:46:04', 2, '1966-01-23', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 0, 0, 1, 0, '1966-01-23', 0, 0, '2002', 0, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', '', '1966-01-23', 0, 0),
+	(10, 2, 2, 2, 2, 2001, '2002-02-07', '14:53:09', '2002-02-07', '14:53:09', 2, '2002-02-07', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 0, 0, 1, 0, '2002-02-07', 0, 0, '2002', 0, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', '', '2002-02-07', 0, 0),
+	(11, 1, 1, 1, 1, 2000, '1985-09-18', '07:31:30', '1985-09-18', '07:31:30', 1, '1985-09-18', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 1, 0, 0, 1, '1985-09-18', 1, 1, '2001', 1, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', '', '1985-09-18', 1, 0),
+	(12, 1, 1, 1, 1, 2000, '1948-08-18', '09:00:52', '1948-08-18', '09:00:52', 1, '1948-08-18', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 1, 0, 0, 1, '1948-08-18', 1, 1, '2001', 1, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', '', '1948-08-18', 1, 0),
+	(13, 1, 1, 1, 1, 2000, '1973-05-27', '12:53:05', '1973-05-27', '12:53:05', 1, '1973-05-27', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 1, 0, 1, 1, '1973-05-27', 1, 1, '2001', 1, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', '', '1973-05-27', 1, 0),
+	(14, 1, 1, 1, 1, 2001, '1959-03-05', '18:28:35', '1959-03-05', '18:28:35', 1, '1959-03-05', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 1, 0, 0, 1, '1959-03-05', 1, 1, '2001', 1, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', '', '1959-03-05', 1, 0),
+	(15, 2, 2, 2, 2, 2000, '1938-02-03', '22:35:17', '1938-02-03', '22:35:17', 2, '1938-02-03', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 0, 1, 1, 0, '1938-02-03', 2, 0, '2002', 0, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', '', '1938-02-03', 0, 0),
+	(16, 2, 2, 2, 2, 2000, '1958-04-23', '14:02:21', '1958-04-23', '14:02:21', 2, '1958-04-23', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 0, 1, 1, 0, '1958-04-23', 2, 0, '2002', 0, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', '', '1958-04-23', 0, 0),
+	(17, 2, 1, 0, 0, 1982, '2014-12-12', '03:51:50', '2014-12-12', '03:51:50', 2014, '0000-00-00', 'prova33', 0, 1, 0, 0, '2015-01-01', 0, 0, '0000', 0, '', '', '', '2015-01-01', 0, 0),
+	(18, 2, 1, 0, 1, 1992, '2014-12-12', '04:28:00', '2014-12-12', '04:28:00', 0, '2014-12-30', 'qwe213', 0, 1, 0, 0, '2015-01-01', 0, 0, '2014', 0, 'wqeewqwe', '', '', '2015-01-01', 0, 0),
+	(19, 2, 1, 0, 1, 2011, '2014-12-12', '04:32:40', '2014-12-12', '04:32:40', 0, '2014-12-30', 'qwe213', 1, 1, 0, 0, '2015-01-01', 0, 0, '2014', 0, '', '', '', '2015-01-01', 0, 0),
+	(20, 2, 1, 0, 1, 2013, '2014-12-12', '04:36:42', '2014-12-12', '04:36:42', 0, '2014-12-31', 'qwe213', 1, 1, 0, 0, '2015-01-01', 0, 0, '2014', 0, '', '', '', '2015-01-01', 0, 0);
 /*!40000 ALTER TABLE `zfcms_comuni_albo_articoli` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_comuni_albo_sezioni
+DROP TABLE IF EXISTS `zfcms_comuni_albo_sezioni`;
 CREATE TABLE IF NOT EXISTS `zfcms_comuni_albo_sezioni` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nome` text NOT NULL,
@@ -277,9 +287,9 @@ CREATE TABLE IF NOT EXISTS `zfcms_comuni_albo_sezioni` (
   `del` int(11) DEFAULT '0',
   `det` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
--- Dump dei dati della tabella entilocali.zfcms_comuni_albo_sezioni: ~42 rows (circa)
+-- Dump dei dati della tabella entilocali.zfcms_comuni_albo_sezioni: ~11 rows (circa)
 DELETE FROM `zfcms_comuni_albo_sezioni`;
 /*!40000 ALTER TABLE `zfcms_comuni_albo_sezioni` DISABLE KEYS */;
 INSERT INTO `zfcms_comuni_albo_sezioni` (`id`, `nome`, `descrizione`, `attivo`, `dest`, `del`, `det`) VALUES
@@ -293,55 +303,27 @@ INSERT INTO `zfcms_comuni_albo_sezioni` (`id`, `nome`, `descrizione`, `attivo`, 
 	(8, 'Esiti', '', 1, 1, 0, 0),
 	(11, 'Enti Terzi', '', 1, 1, 0, 0),
 	(12, 'Concessioni Edilizie', '', 1, 1, 0, 0),
-	(13, 'Decreti', '', 1, 1, 0, 0),
-	(14, 'Prova', '', 0, 1, 0, 0),
-	(15, 'Howard Cooper', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 87, 87, 87, 87),
-	(16, 'Gandalf Cooper', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 156, 156, 156, 156),
-	(17, 'John Schwarzenegger', 'Sed molestie semper purus non pellentesque.', 45, 45, 45, 45),
-	(18, 'Leonard Doe', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 98, 98, 98, 98),
-	(19, 'Paul Koothrappali', 'Sed molestie semper purus non pellentesque.', 71, 71, 71, 71),
-	(20, 'Alexia Cooper', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 142, 142, 142, 142),
-	(21, 'Gandalf Schwarzenegger', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 168, 168, 168, 168),
-	(22, 'Paul Redfield', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 79, 79, 79, 79),
-	(23, 'Ken Cooper', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 228, 228, 228, 228),
-	(24, 'Goku Bar', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 119, 119, 119, 119),
-	(25, 'Rajesh Uzumaki', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 173, 173, 173, 173),
-	(26, 'Sub-zero Hofstadter', 'Sed molestie semper purus non pellentesque.', 10, 10, 10, 10),
-	(27, 'Ronaldinho Stanley', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 17, 17, 17, 17),
-	(28, 'Jane Redfield', 'Sed molestie semper purus non pellentesque.', 130, 130, 130, 130),
-	(29, 'Leonard Spielberg', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 164, 164, 164, 164),
-	(30, 'Sheldon Doe', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 229, 229, 229, 229),
-	(31, 'Howard Urameshi', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 232, 232, 232, 232),
-	(32, 'Goku Spielberg', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 149, 149, 149, 149),
-	(33, 'Sheldon Wolowitz', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 147, 147, 147, 147),
-	(34, 'Mr. Foo Uzumaki', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 125, 125, 125, 125),
-	(35, 'Chris Schwarzenegger', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 233, 233, 233, 233),
-	(36, 'Sub-zero Urameshi', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 126, 126, 126, 126),
-	(37, 'Seiya Hofstadter', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 27, 27, 27, 27),
-	(38, 'Sheldon Schwarzenegger', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 184, 184, 184, 184),
-	(39, 'Ronaldinho Urameshi', 'Sed molestie semper purus non pellentesque.', 243, 243, 243, 243),
-	(40, 'Vegetta Spielberg', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 138, 138, 138, 138),
-	(41, 'Claire Uzumaki', 'Sed molestie semper purus non pellentesque.', 152, 152, 152, 152),
-	(42, 'Seiya Doe', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 110, 110, 110, 110),
-	(43, 'Vegetta Redfield', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 203, 203, 203, 203),
-	(44, 'Sub-zero Cooper', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 135, 135, 135, 135);
+	(13, 'Decreti', '', 1, 1, 0, 0);
 /*!40000 ALTER TABLE `zfcms_comuni_albo_sezioni` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_comuni_ammaperta_articoli
+DROP TABLE IF EXISTS `zfcms_comuni_ammaperta_articoli`;
 CREATE TABLE IF NOT EXISTS `zfcms_comuni_ammaperta_articoli` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `key_imp` varchar(80) NOT NULL,
   `beneficiario` text NOT NULL,
   `titolo` text NOT NULL,
   `importo` text,
   `ufficioresponsabile` text NOT NULL,
   `modassegn` text NOT NULL,
   `progressivo` bigint(20) NOT NULL,
-  `anno` text NOT NULL,
+  `anno` year(4) NOT NULL,
   `data` date NOT NULL,
   `ora` time NOT NULL,
   `attivo` int(11) NOT NULL DEFAULT '0',
   `scadenza` date NOT NULL,
+  `flag_allegati` int(2) NOT NULL,
   `utente_id` bigint(20) NOT NULL,
   `sezione_id` bigint(20) NOT NULL,
   `resp_proc_id` bigint(20) DEFAULT NULL,
@@ -352,29 +334,105 @@ CREATE TABLE IF NOT EXISTS `zfcms_comuni_ammaperta_articoli` (
   CONSTRAINT `ammaperta_fk_resp_proc` FOREIGN KEY (`resp_proc_id`) REFERENCES `zfcms_comuni_ammaperta_resp_proc` (`id`),
   CONSTRAINT `ammaperta_fk_sezione` FOREIGN KEY (`sezione_id`) REFERENCES `zfcms_comuni_ammaperta_sezioni` (`id`),
   CONSTRAINT `ammaperta_fk_users` FOREIGN KEY (`utente_id`) REFERENCES `zfcms_users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2277 DEFAULT CHARSET=latin1;
 
--- Dump dei dati della tabella entilocali.zfcms_comuni_ammaperta_articoli: ~0 rows (circa)
+-- Dump dei dati della tabella entilocali.zfcms_comuni_ammaperta_articoli: ~37 rows (circa)
 DELETE FROM `zfcms_comuni_ammaperta_articoli`;
 /*!40000 ALTER TABLE `zfcms_comuni_ammaperta_articoli` DISABLE KEYS */;
+INSERT INTO `zfcms_comuni_ammaperta_articoli` (`id`, `key_imp`, `beneficiario`, `titolo`, `importo`, `ufficioresponsabile`, `modassegn`, `progressivo`, `anno`, `data`, `ora`, `attivo`, `scadenza`, `flag_allegati`, `utente_id`, `sezione_id`, `resp_proc_id`) VALUES
+	(108, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 3, '2014', '1955-11-13', '11:34:32', 1, '2015-01-15', 0, 3, 3, 3),
+	(188, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 3, '2014', '1990-05-14', '03:12:37', 1, '2015-01-15', 0, 3, 3, 3),
+	(344, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 2, '2014', '1963-06-18', '08:52:48', 1, '2015-01-15', 0, 2, 2, 2),
+	(351, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 3, '2014', '1961-10-06', '21:35:57', 1, '2015-01-15', 0, 3, 3, 3),
+	(450, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 3, '2014', '2011-07-22', '06:15:18', 1, '2015-01-15', 0, 3, 3, 3),
+	(469, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 4, '2014', '1974-07-27', '18:53:26', 1, '2015-01-15', 0, 4, 4, 4),
+	(572, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec,', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 3, '2014', '1959-11-18', '22:20:24', 1, '2015-01-15', 0, 3, 3, 3),
+	(599, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 1, '2014', '1991-03-15', '19:47:22', 1, '2015-01-15', 0, 1, 1, 1),
+	(634, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 2, '2014', '1998-09-12', '09:50:46', 1, '2015-01-15', 0, 2, 2, 2),
+	(679, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida ', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 4, '2014', '1938-01-08', '22:49:00', 1, '1938-01-08', 0, 4, 4, 4),
+	(741, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 4, '2014', '1947-05-21', '06:31:04', 1, '1947-05-21', 0, 4, 4, 4),
+	(830, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 1, '2014', '1988-08-08', '08:25:20', 1, '1988-08-08', 0, 1, 1, 1),
+	(910, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec,', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 1, '2014', '1966-08-19', '22:06:35', 1, '1966-08-19', 0, 1, 1, 1),
+	(1287, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 1, '2014', '1950-08-13', '14:54:43', 1, '1950-08-13', 0, 1, 1, 1),
+	(1309, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida ', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 4, '2014', '1938-12-21', '05:21:02', 1, '1938-12-21', 0, 4, 4, 4),
+	(1387, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida ', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 1, '2014', '1956-08-13', '17:41:48', 1, '1956-08-13', 0, 1, 1, 1),
+	(1413, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec,', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 4, '2014', '1947-03-04', '06:45:14', 1, '1947-03-04', 0, 4, 4, 4),
+	(1456, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 1, '2014', '1976-09-28', '18:31:35', 1, '1976-09-28', 0, 1, 1, 1),
+	(1494, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec,', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 4, '2014', '2011-10-09', '15:06:12', 1, '2011-10-09', 0, 4, 4, 4),
+	(1621, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 4, '2014', '1966-07-16', '04:31:30', 1, '1966-07-16', 0, 4, 4, 4),
+	(1743, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 3, '2014', '2014-01-05', '17:22:24', 1, '2014-01-05', 0, 3, 3, 3),
+	(1751, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec,', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 3, '2014', '1954-11-20', '22:22:57', 1, '1954-11-20', 0, 3, 3, 3),
+	(1926, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 3, '2014', '2005-04-17', '03:55:33', 1, '2005-04-17', 0, 3, 3, 3),
+	(1967, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 2, '2014', '1943-03-18', '12:05:23', 1, '1943-03-18', 0, 2, 2, 2),
+	(1969, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 3, '2014', '1946-11-12', '17:21:47', 1, '1946-11-12', 0, 3, 3, 3),
+	(2000, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 1, '2014', '1931-12-13', '15:05:59', 1, '1931-12-13', 0, 1, 1, 1),
+	(2034, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec,', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 1, '2014', '1953-03-28', '00:35:41', 1, '1953-03-28', 0, 1, 1, 1),
+	(2088, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec,', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 1, '2014', '1952-10-20', '05:06:27', 1, '1952-10-20', 0, 1, 1, 1),
+	(2145, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 1, '2014', '2013-11-20', '06:18:10', 1, '2013-11-20', 0, 1, 1, 1),
+	(2152, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 2, '2014', '1940-07-26', '12:00:33', 1, '1940-07-26', 0, 2, 2, 2),
+	(2166, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 1, '2014', '1992-09-17', '15:46:32', 1, '1992-09-17', 0, 1, 1, 1),
+	(2276, 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 'Sed molestie semper purus non pellentesque.', 2, '2014', '1942-10-12', '15:12:43', 1, '1942-10-12', 0, 2, 2, 2);
 /*!40000 ALTER TABLE `zfcms_comuni_ammaperta_articoli` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_comuni_ammaperta_resp_proc
+DROP TABLE IF EXISTS `zfcms_comuni_ammaperta_resp_proc`;
 CREATE TABLE IF NOT EXISTS `zfcms_comuni_ammaperta_resp_proc` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nome_resp` text CHARACTER SET latin1 NOT NULL,
   `attivo` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
--- Dump dei dati della tabella entilocali.zfcms_comuni_ammaperta_resp_proc: ~0 rows (circa)
+-- Dump dei dati della tabella entilocali.zfcms_comuni_ammaperta_resp_proc: ~40 rows (circa)
 DELETE FROM `zfcms_comuni_ammaperta_resp_proc`;
 /*!40000 ALTER TABLE `zfcms_comuni_ammaperta_resp_proc` DISABLE KEYS */;
+INSERT INTO `zfcms_comuni_ammaperta_resp_proc` (`id`, `nome_resp`, `attivo`) VALUES
+	(1, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 47),
+	(2, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 119),
+	(3, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 159),
+	(4, 'Sed molestie semper purus non pellentesque.', 88),
+	(5, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 129),
+	(6, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 162),
+	(7, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 5),
+	(8, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 226),
+	(9, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 250),
+	(10, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 186),
+	(11, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 96),
+	(12, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 250),
+	(13, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 35),
+	(14, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 1),
+	(15, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 177),
+	(16, 'Sed molestie semper purus non pellentesque.', 46),
+	(17, 'Sed molestie semper purus non pellentesque.', 157),
+	(18, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 251),
+	(19, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 101),
+	(20, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 3),
+	(21, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 128),
+	(22, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 120),
+	(23, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 197),
+	(24, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 93),
+	(25, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 160),
+	(26, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 231),
+	(27, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 84),
+	(28, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 150),
+	(29, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 236),
+	(30, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 79),
+	(31, 'Sed molestie semper purus non pellentesque.', 17),
+	(32, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 139),
+	(33, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 80),
+	(34, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 120),
+	(35, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 140),
+	(36, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 111),
+	(37, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 117),
+	(38, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 29),
+	(39, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 214),
+	(40, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 61);
 /*!40000 ALTER TABLE `zfcms_comuni_ammaperta_resp_proc` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_comuni_ammaperta_sezioni
+DROP TABLE IF EXISTS `zfcms_comuni_ammaperta_sezioni`;
 CREATE TABLE IF NOT EXISTS `zfcms_comuni_ammaperta_sezioni` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nome` text NOT NULL,
@@ -382,15 +440,29 @@ CREATE TABLE IF NOT EXISTS `zfcms_comuni_ammaperta_sezioni` (
   `predefinita` int(11) DEFAULT NULL,
   `attivo` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
--- Dump dei dati della tabella entilocali.zfcms_comuni_ammaperta_sezioni: ~0 rows (circa)
+-- Dump dei dati della tabella entilocali.zfcms_comuni_ammaperta_sezioni: ~12 rows (circa)
 DELETE FROM `zfcms_comuni_ammaperta_sezioni`;
 /*!40000 ALTER TABLE `zfcms_comuni_ammaperta_sezioni` DISABLE KEYS */;
+INSERT INTO `zfcms_comuni_ammaperta_sezioni` (`id`, `nome`, `responsabile`, `predefinita`, `attivo`) VALUES
+	(1, 'Ronaldinho Napalm', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 16, 16),
+	(2, 'Sauron Hofstadter', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 173, 173),
+	(3, 'Don Juan Stanley', 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 154, 154),
+	(4, 'Howard Napalm', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 95, 95),
+	(5, 'Claire DeMarco', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 40, 40),
+	(6, 'Ronaldinho Uzumaki', 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 58, 58),
+	(7, 'Sauron DeMarco', 'Ut nisi felis, lacinia in ornare at, congue a elit.', 56, 56),
+	(8, 'John Hofstadter', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 81, 81),
+	(9, 'Jane DeMarco', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 233, 233),
+	(10, 'Vegetta DeMarco', 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 59, 59),
+	(11, 'Goku Cooper', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 97, 97),
+	(12, 'Gandalf Doe', 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 246, 246);
 /*!40000 ALTER TABLE `zfcms_comuni_ammaperta_sezioni` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_comuni_contratti
+DROP TABLE IF EXISTS `zfcms_comuni_contratti`;
 CREATE TABLE IF NOT EXISTS `zfcms_comuni_contratti` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `beneficiario` text NOT NULL,
@@ -441,6 +513,7 @@ INSERT INTO `zfcms_comuni_contratti` (`id`, `beneficiario`, `titolo`, `importo`,
 
 
 -- Dump della struttura di tabella entilocali.zfcms_comuni_contratti_cf
+DROP TABLE IF EXISTS `zfcms_comuni_contratti_cf`;
 CREATE TABLE IF NOT EXISTS `zfcms_comuni_contratti_cf` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cf_struttura` text NOT NULL,
@@ -456,6 +529,7 @@ INSERT INTO `zfcms_comuni_contratti_cf` (`id`, `cf_struttura`) VALUES
 
 
 -- Dump della struttura di tabella entilocali.zfcms_comuni_contratti_partecipanti
+DROP TABLE IF EXISTS `zfcms_comuni_contratti_partecipanti`;
 CREATE TABLE IF NOT EXISTS `zfcms_comuni_contratti_partecipanti` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `cf` text NOT NULL,
@@ -678,6 +752,7 @@ INSERT INTO `zfcms_comuni_contratti_partecipanti` (`id`, `cf`, `ragione_sociale`
 
 
 -- Dump della struttura di tabella entilocali.zfcms_comuni_contratti_part_cig
+DROP TABLE IF EXISTS `zfcms_comuni_contratti_part_cig`;
 CREATE TABLE IF NOT EXISTS `zfcms_comuni_contratti_part_cig` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `stato` int(11) NOT NULL DEFAULT '0',
@@ -708,6 +783,7 @@ INSERT INTO `zfcms_comuni_contratti_part_cig` (`id`, `stato`, `gruppo`, `aggiudi
 
 
 -- Dump della struttura di tabella entilocali.zfcms_comuni_contratti_resp_proc
+DROP TABLE IF EXISTS `zfcms_comuni_contratti_resp_proc`;
 CREATE TABLE IF NOT EXISTS `zfcms_comuni_contratti_resp_proc` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nome_resp` text NOT NULL,
@@ -737,6 +813,7 @@ INSERT INTO `zfcms_comuni_contratti_resp_proc` (`id`, `nome_resp`, `attivo`) VAL
 
 
 -- Dump della struttura di tabella entilocali.zfcms_comuni_contratti_sc_contr
+DROP TABLE IF EXISTS `zfcms_comuni_contratti_sc_contr`;
 CREATE TABLE IF NOT EXISTS `zfcms_comuni_contratti_sc_contr` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nome_scelta` text NOT NULL,
@@ -761,6 +838,7 @@ INSERT INTO `zfcms_comuni_contratti_sc_contr` (`id`, `nome_scelta`, `attivo`) VA
 
 
 -- Dump della struttura di tabella entilocali.zfcms_comuni_contratti_settori
+DROP TABLE IF EXISTS `zfcms_comuni_contratti_settori`;
 CREATE TABLE IF NOT EXISTS `zfcms_comuni_contratti_settori` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nome` text NOT NULL,
@@ -779,6 +857,7 @@ INSERT INTO `zfcms_comuni_contratti_settori` (`id`, `nome`, `responsabile`, `pre
 
 
 -- Dump della struttura di tabella entilocali.zfcms_comuni_rubrica_enti_terzi
+DROP TABLE IF EXISTS `zfcms_comuni_rubrica_enti_terzi`;
 CREATE TABLE IF NOT EXISTS `zfcms_comuni_rubrica_enti_terzi` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` text NOT NULL,
@@ -786,24 +865,251 @@ CREATE TABLE IF NOT EXISTS `zfcms_comuni_rubrica_enti_terzi` (
   `insert_date` datetime NOT NULL,
   `last_update` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
--- Dump dei dati della tabella entilocali.zfcms_comuni_rubrica_enti_terzi: ~3 rows (circa)
+-- Dump dei dati della tabella entilocali.zfcms_comuni_rubrica_enti_terzi: ~4 rows (circa)
 DELETE FROM `zfcms_comuni_rubrica_enti_terzi`;
 /*!40000 ALTER TABLE `zfcms_comuni_rubrica_enti_terzi` DISABLE KEYS */;
 INSERT INTO `zfcms_comuni_rubrica_enti_terzi` (`id`, `nome`, `email`, `insert_date`, `last_update`) VALUES
 	(1, 'Tribunale', 'prova@gmail.com', '2014-08-18 10:34:23', '2014-08-18 10:34:23'),
 	(2, 'Regione', 'max@gmail.com', '2014-08-18 10:34:23', '2014-08-18 10:34:23'),
-	(3, 'Provincia', 'luca@gmail.com', '2014-08-18 10:34:23', '2014-08-18 10:34:23');
+	(3, 'Provincia', 'luca@gmail.com', '2014-08-18 10:34:23', '2014-08-18 10:34:23'),
+	(4, 'nuovo ente', 'prova@gmail.com', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `zfcms_comuni_rubrica_enti_terzi` ENABLE KEYS */;
 
 
+-- Dump della struttura di tabella entilocali.zfcms_comuni_sezioni
+DROP TABLE IF EXISTS `zfcms_comuni_sezioni`;
+CREATE TABLE IF NOT EXISTS `zfcms_comuni_sezioni` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` text NOT NULL,
+  `colonna` varchar(100) NOT NULL DEFAULT 'sx',
+  `posizione` int(11) NOT NULL,
+  `link_macro` int(11) NOT NULL,
+  `lingua` varchar(100) NOT NULL,
+  `blocco` int(11) NOT NULL,
+  `id_modulo` int(11) NOT NULL,
+  `attivo` int(11) NOT NULL,
+  `url` text NOT NULL,
+  `id_css` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+-- Dump dei dati della tabella entilocali.zfcms_comuni_sezioni: 20 rows
+DELETE FROM `zfcms_comuni_sezioni`;
+/*!40000 ALTER TABLE `zfcms_comuni_sezioni` DISABLE KEYS */;
+INSERT INTO `zfcms_comuni_sezioni` (`id`, `nome`, `colonna`, `posizione`, `link_macro`, `lingua`, `blocco`, `id_modulo`, `attivo`, `url`, `id_css`) VALUES
+	(1, 'Comune', 'sx', 1, 0, 'it', 1, 2, 1, '', 1),
+	(2, 'Il Paese', 'dx', 3, 0, 'it', 1, 2, 1, '', 13),
+	(3, 'Avvisi-Scadenze', 'sx', 4, 0, 'it', 1, 2, 1, '', 11),
+	(4, 'Albo Pretorio', 'sx', 6, 1, 'it', 1, 3, 1, '?modulo=albo', 6),
+	(6, 'Eventi', 'dx', 1, 1, 'it', 1, 10, 1, '', 8),
+	(7, 'In Evidenza', 'dx', 2, 0, 'it', 1, 2, 1, '', 0),
+	(8, 'Modulistica', 'sx', 9, 0, 'it', 1, 2, 1, '', 10),
+	(9, 'Community', 'dx', 4, 0, 'it', 1, 7, 1, '', 3),
+	(11, 'Servizi', 'dx', 3, 0, 'it', 1, 2, 1, '', 4),
+	(12, 'Cerca', 'dx', 0, 0, 'it', 1, 12, 0, '', 0),
+	(13, 'Lavoro', 'sx', 8, 0, 'it', 1, 2, 0, '', 0),
+	(15, 'Albo Pretorio 2010', 'sx', 7, 0, 'it', 1, 2, 0, '', 0),
+	(17, 'SUAP', 'sx', 5, 0, 'it', 1, 2, 1, 'http://www.sardegnasuap.it', 12),
+	(18, 'Albi', 'sx', 11, 0, 'it', 1, 2, 1, 'BENEFICIARI CONTRIBUTI ECONOMICI', 6),
+	(19, 'Albo beneficiari contributi economici', 'sx', 3, 0, 'it', 1, 2, 1, '', 14),
+	(20, 'NOVITA\'', 'dx', 1, 0, 'it', 1, 14, 1, '', 7),
+	(21, 'Egovernment', 'sx', 6, 0, 'it', 1, 2, 1, '', 15),
+	(22, 'Pubblicazioni', 'sx', 2, 0, 'it', 1, 2, 1, '', 9),
+	(24, 'I.U.C. (TARI, TASI E IMU) 2014 ', 'sx', 3, 0, 'it', 1, 2, 1, '', 16),
+	(23, 'IMU 2014', 'dx', 0, 0, 'it', 1, 2, 1, '', 1);
+/*!40000 ALTER TABLE `zfcms_comuni_sezioni` ENABLE KEYS */;
+
+
+-- Dump della struttura di tabella entilocali.zfcms_comuni_sottosezioni
+DROP TABLE IF EXISTS `zfcms_comuni_sottosezioni`;
+CREATE TABLE IF NOT EXISTS `zfcms_comuni_sottosezioni` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `sezione_id` bigint(20) NOT NULL,
+  `nome` text NOT NULL,
+  `immagine` text,
+  `url` text,
+  `posizione` int(11) NOT NULL,
+  `attivo` int(11) NOT NULL,
+  `profondita_a` varchar(100) NOT NULL,
+  `profondita_da` int(11) NOT NULL,
+  `is_ss` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `sezione_id` (`sezione_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=277 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+-- Dump dei dati della tabella entilocali.zfcms_comuni_sottosezioni: 157 rows
+DELETE FROM `zfcms_comuni_sottosezioni`;
+/*!40000 ALTER TABLE `zfcms_comuni_sottosezioni` DISABLE KEYS */;
+INSERT INTO `zfcms_comuni_sottosezioni` (`id`, `sezione_id`, `nome`, `immagine`, `url`, `posizione`, `attivo`, `profondita_a`, `profondita_da`, `is_ss`) VALUES
+	(1, 1, 'Sindaco', '', '', 0, 1, '', 0, 0),
+	(2, 1, 'Giunta', '', '', 1, 1, '', 0, 0),
+	(3, 1, 'Consiglio', '', '', 2, 1, '', 0, 0),
+	(47, 2, 'Numeri utili', '', '', 2, 1, '', 0, 0),
+	(6, 2, 'Autodromo di Mores', '', '', 6, 1, '', 0, 0),
+	(8, 2, 'Cenni', '', '', 0, 1, '', 0, 0),
+	(9, 3, 'Affari Generali', '', '', 0, 1, '', 0, 0),
+	(12, 3, 'Pubblica Istruzione', '', '', 1, 1, '', 0, 0),
+	(14, 4, 'Esiti di Bandi Concorsi', '', '', 2, 1, '', 0, 0),
+	(16, 4, 'Bandi', '', '', 0, 1, '', 0, 0),
+	(22, 6, '01/01 - Evento 1', '', '', 0, 1, '', 0, 0),
+	(23, 6, '14/01 - Evento 2', '', '', 0, 0, '', 0, 0),
+	(24, 6, '03/02 - Evento 3', '', '', 0, 0, '', 0, 0),
+	(25, 6, '14/02 - Evento 4', '', '', 0, 0, '', 0, 0),
+	(45, 7, 'Servizi al Cittadino', '', 'http://www.comunas.it/mores/cittadini.html', 3, 1, '', 0, 0),
+	(28, 4, 'Ordinanze', '', '', 4, 1, '', 0, 0),
+	(29, 8, 'Servizi Sociali', '', '', 0, 1, '', 0, 0),
+	(30, 8, 'Ufficio Tecnico', '', '', 0, 1, '', 0, 0),
+	(38, 4, 'Concorsi', '', '', 1, 1, '', 0, 0),
+	(32, 8, 'Tributi', '', '', 0, 1, '', 0, 0),
+	(33, 8, 'Demografici', '', '', 0, 1, '', 0, 0),
+	(143, 1, 'Uffici', '', NULL, 5, 1, '', 0, 0),
+	(39, 11, 'Biblioteca', '', '', 1, 1, '', 0, 0),
+	(44, 7, 'Servizio alle Imprese', '', 'http://www.comunas.it/mores/imprese.html', 4, 1, '', 0, 0),
+	(46, 3, 'Tributi', '', '', 3, 1, '', 0, 0),
+	(48, 13, 'Concorsi', '', '', 1, 1, '', 0, 0),
+	(50, 1, 'Dove siamo, Contatti', '', '?modulo=contatti', 11, 1, '', 0, 0),
+	(51, 11, 'Links Utili', '', '?modulo=link', 2, 1, '', 0, 0),
+	(52, 2, 'Pro Loco [sito esterno]', '', 'http://www.prolocomores.it', 4, 1, '', 0, 0),
+	(53, 7, 'Comunicati Stampa', '', '', 2, 1, '', 0, 0),
+	(54, 7, 'News', '', '', 1, 1, '', 0, 0),
+	(55, 13, 'Imprese', '', '', 2, 1, '', 0, 0),
+	(56, 2, 'Attività Commerciali', '', NULL, 1, 1, '', 0, 0),
+	(58, 2, 'Mangiare e Dormire', '', NULL, 3, 1, '', 0, 0),
+	(129, 11, 'Elenco Siti tematici', '', NULL, 3, 1, '', 0, 0),
+	(134, 21, 'Servizi di egovernment di futura attivazione', '', NULL, 2, 1, '', 0, 0),
+	(135, 1, 'Ufficio Relazioni con il Pubblico', '', NULL, 8, 1, '', 0, 0),
+	(67, 15, 'Atti Pubblicati', '', NULL, 1, 1, '', 0, 0),
+	(71, 2, 'Biblioteca [sito esterno]', NULL, 'http://www.bibliotecamores.it', 5, 1, '', 0, 0),
+	(69, 1, 'Albo Pretorio', NULL, '?modulo=albo', 6, 1, '', 0, 0),
+	(70, 1, 'Atti Stato Civile', NULL, '?modulo=statocivile', 7, 1, '', 0, 0),
+	(72, 17, 'Modulistica', NULL, 'http://www.sardegnasuap.it/j/v/297?s=8&amp;v=9&amp;c=2867&amp;na=1&amp;n=10&amp;nodesc=1', 1, 1, '', 0, 0),
+	(73, 18, 'Albo professionisti', '', NULL, 2, 1, '75-76', 0, 0),
+	(74, 18, 'Albo imprese', '', NULL, 3, 1, '77-78', 0, 0),
+	(75, 18, 'Elenco professionisti', '', NULL, 1, 1, '', 73, 1),
+	(76, 18, 'Documentazione', '', NULL, 2, 1, '', 73, 1),
+	(77, 18, 'Elenco imprese', '', NULL, 1, 1, '', 74, 1),
+	(78, 18, 'Documentazione', '', NULL, 2, 1, '', 74, 1),
+	(81, 17, 'Diritti Suap', '', '?modulo=contenuti&amp;id=46&amp;pag=174', 2, 1, '', 0, 0),
+	(87, 20, 'Ultime notizie', NULL, NULL, 2, 1, '', 0, 0),
+	(86, 19, 'Albo', '', NULL, 2, 1, '', 0, 0),
+	(213, 23, 'Istruzioni 2014', '', NULL, 1, 1, '', 0, 0),
+	(133, 21, 'Servizi di egovernment attivi', '', NULL, 1, 1, '', 0, 0),
+	(223, 22, 'Finanziario', '', NULL, 8, 1, '', 196, 1),
+	(224, 22, 'Tributi', '', NULL, 9, 1, '', 196, 1),
+	(272, 22, 'Scadenzario dei nuovi obblighi amministrativi', '', NULL, 1, 1, '', 170, 1),
+	(217, 22, 'Demografici', '', NULL, 2, 1, '', 196, 1),
+	(218, 22, 'Scolastico e culturale', '', NULL, 3, 1, '', 196, 1),
+	(219, 22, 'Servizi sociali', '', NULL, 4, 1, '', 196, 1),
+	(220, 22, 'Suap', '', NULL, 5, 1, '', 196, 1),
+	(221, 22, 'Tecnico', '', NULL, 6, 1, '', 196, 1),
+	(136, 1, 'Posta Elettronica Certificata ', '', NULL, 9, 1, '', 0, 0),
+	(138, 1, 'Come fare per', '', NULL, 10, 1, '', 0, 0),
+	(222, 22, 'Polizia municipale', '', NULL, 7, 1, '', 196, 1),
+	(216, 22, 'Amministrativo', '', NULL, 1, 1, '', 196, 1),
+	(215, 24, 'IMU 2014 - ACCONTO GIUGNO 2014', '', NULL, 2, 1, '', 0, 0),
+	(142, 19, 'SERVIZIO FINANZIARIO', '', NULL, 2, 1, '', 0, 0),
+	(144, 22, 'Amministrazione trasparente', '', NULL, 1, 1, '145-146-147-148-149-150-151-152-153-154-155-156-157-158-159-160-161-162-163-164-165-166-167', 0, 0),
+	(145, 22, 'Disposizioni generali', '', NULL, 1, 1, '168-169-170-254-255-256', 144, 1),
+	(146, 22, 'Organizzazione', '', NULL, 2, 1, '171-172-173-174-175', 144, 1),
+	(147, 22, 'Consulenti e collaboratori', '', NULL, 3, 1, '', 144, 1),
+	(148, 22, 'Personale', '', NULL, 4, 1, '176-177-178-179-180-181-182-183-184-185-276', 144, 1),
+	(149, 22, 'Bandi di concorso', '', NULL, 5, 1, '', 144, 1),
+	(150, 22, 'Performance', '', NULL, 6, 1, '186-187-188-189-190-260-261-262', 144, 1),
+	(151, 22, 'Enti controllati', '', NULL, 7, 1, '191-192-193-194', 144, 1),
+	(152, 22, 'Attivita\' e procedimenti', '', NULL, 8, 1, '195-196-197-198', 144, 1),
+	(153, 22, 'Provvedimenti', '', NULL, 9, 1, '199-200', 144, 1),
+	(154, 22, 'Controlli sulle imprese', '', NULL, 10, 1, '', 144, 1),
+	(155, 22, 'Bandi di gara e contratti', '', NULL, 11, 1, '273', 144, 1),
+	(156, 22, 'Sovvenzioni, contributi, sussidi, vantaggi economici', '', NULL, 12, 1, '274', 144, 1),
+	(157, 22, 'Bilanci', '', NULL, 13, 1, '203-204', 144, 1),
+	(158, 22, 'Beni immobili e gestione patrimonio', '', NULL, 14, 1, '205-206', 144, 1),
+	(159, 22, ' Controlli e rilievi sull\'amministrazione', '', NULL, 15, 1, '', 144, 1),
+	(160, 22, 'Servizi erogati', '', NULL, 16, 1, '207-208-209-210-263', 144, 1),
+	(161, 22, 'Pagamenti dell\'amministrazione', '', NULL, 17, 1, '211-212-264-265-266', 144, 1),
+	(162, 22, 'Opere pubbliche', '', NULL, 18, 1, '', 144, 1),
+	(163, 22, 'Pianificazione e governo del territorio ', '', NULL, 19, 1, '', 144, 1),
+	(164, 22, 'Informazioni ambientali', '', NULL, 20, 1, '', 144, 1),
+	(165, 22, 'Strutture sanitarie private accreditate', '', NULL, 21, 1, '', 144, 1),
+	(166, 22, 'Interventi straordinari e di emergenza', '', NULL, 22, 1, '', 144, 1),
+	(167, 22, 'Altri contenuti', '', NULL, 23, 1, '267-268-269-270', 144, 1),
+	(168, 22, 'Programma per la Trasparenza e l\'Integrita\'', '', NULL, 1, 1, '', 145, 1),
+	(169, 22, 'Atti generali', '', NULL, 2, 1, '', 145, 1),
+	(170, 22, 'Oneri informativi per cittadini e imprese', '', NULL, 3, 1, '272', 145, 1),
+	(171, 22, 'Organi di indirizzo politico-amministrativo', '', NULL, 1, 1, '257-258-259', 146, 1),
+	(172, 22, 'Sanzioni per mancata comunicazione dei dati', '', NULL, 2, 1, '', 146, 1),
+	(173, 22, 'Rendiconti gruppi consiliari regionali/provinciali', '', NULL, 3, 1, '', 146, 1),
+	(174, 22, 'Articolazione degli uffici', '', NULL, 4, 1, '', 146, 1),
+	(175, 22, 'Telefono e posta elettronica', '', NULL, 5, 1, '', 146, 1),
+	(176, 22, 'Incarichi amministrativi di vertice', '', NULL, 1, 1, '', 148, 1),
+	(177, 22, 'Dirigenti ', '', NULL, 2, 1, '', 148, 1),
+	(178, 22, 'Posizioni organizzative ', '', NULL, 3, 1, '', 148, 1),
+	(179, 22, 'Dotazione organica ', '', NULL, 4, 1, '', 148, 1),
+	(180, 22, 'Personale non a tempo indeterminato', '', NULL, 5, 1, '', 148, 1),
+	(181, 22, 'Tassi di assenza', '', NULL, 6, 1, '', 148, 1),
+	(182, 22, 'Incarichi conferiti e autorizzati dai dipendenti', '', NULL, 7, 1, '', 148, 1),
+	(183, 22, 'Contrattazione collettiva', '', NULL, 8, 1, '', 148, 1),
+	(184, 22, 'Contrattazione integrativa', '', NULL, 9, 1, '', 148, 1),
+	(185, 22, 'OIV', '', NULL, 10, 1, '', 148, 1),
+	(186, 22, 'Piano della Performance', '', NULL, 1, 1, '', 150, 1),
+	(187, 22, 'Relazione sulla Performance', '', NULL, 2, 1, '', 150, 1),
+	(188, 22, 'Ammontare complessivo dei premi', '', NULL, 3, 1, '', 150, 1),
+	(189, 22, 'Dati relativi ai premi ', '', NULL, 4, 1, '', 150, 1),
+	(190, 22, 'Benessere organizzativo', '', NULL, 5, 1, '', 150, 1),
+	(191, 22, 'Enti pubblici vigilati', '', NULL, 1, 1, '', 151, 1),
+	(192, 22, 'Società partecipate', '', NULL, 2, 1, '', 151, 1),
+	(193, 22, 'Enti di diritto privato controllati', '', NULL, 3, 1, '', 151, 1),
+	(194, 22, 'Rappresentazione grafica', '', NULL, 4, 1, '', 151, 1),
+	(195, 22, 'Dati aggregati attivita\' amministrativa', '', NULL, 1, 1, '', 152, 1),
+	(196, 22, 'Tipologie di procedimento', '', NULL, 2, 1, '216-217-218-219-220-221-222-223-224', 152, 1),
+	(197, 22, 'Monitoraggio tempi procedimentali', '', NULL, 3, 1, '', 152, 1),
+	(198, 22, 'Dichiarazioni sostitutive e acquisizione d\'ufficio dei dati', '', NULL, 4, 1, '', 152, 1),
+	(199, 22, 'Provvedimenti organi indirizzo-politico', '', NULL, 1, 1, '', 153, 1),
+	(200, 22, 'Provvedimenti dirigenti', '', NULL, 2, 1, '', 153, 1),
+	(201, 22, 'Criteri e modalità', '', NULL, 1, 1, '', 156, 1),
+	(203, 22, 'Bilancio preventivo e consuntivo ', '', NULL, 1, 1, '', 157, 1),
+	(204, 22, 'Piano degli indicatori e risultati attesi dal bilancio', '', NULL, 2, 1, '', 157, 1),
+	(205, 22, 'Patrimonio immobiliare', '', NULL, 1, 1, '', 158, 1),
+	(206, 22, 'Canoni di locazione o affitto', '', NULL, 2, 1, '', 158, 1),
+	(207, 22, 'Carta dei servizi e standard di qualità', '', NULL, 1, 1, '', 160, 1),
+	(208, 22, 'Costi contabilizzati ', '', NULL, 2, 1, '', 160, 1),
+	(209, 22, 'Tempi medi di erogazione dei servizi', '', NULL, 3, 1, '', 160, 1),
+	(210, 22, 'Liste di attesa', '', NULL, 4, 1, '', 160, 1),
+	(211, 22, 'Indicatore di tempestività dei pagamenti', '', NULL, 1, 1, '', 161, 1),
+	(212, 22, 'IBAN e pagamenti informatici', '', NULL, 2, 1, '', 161, 1),
+	(254, 22, 'Scadenzario obblighi amministrativi', '', NULL, 4, 1, '', 145, 1),
+	(255, 22, 'Burocrazia zero', '', NULL, 5, 1, '', 145, 1),
+	(256, 22, 'Attestazioni OIV o struttura analoga', '', NULL, 6, 1, '', 145, 1),
+	(257, 22, 'Sindaco', '', NULL, 1, 1, '', 171, 1),
+	(258, 22, 'Giunta', '', NULL, 2, 1, '', 171, 1),
+	(259, 22, 'Consiglio', '', NULL, 3, 1, '', 171, 1),
+	(260, 22, 'Sistema di misurazione e valutazione delle performance', '', NULL, 6, 1, '', 150, 1),
+	(261, 22, 'Documento dell\'OIV di validazione della relazione sulle performance', '', NULL, 7, 1, '', 150, 1),
+	(262, 22, 'Relazione dell\'OIV sul funzionamento complessivo del sistema di valutazione, trasparenza e integrità dei controlli interni', '', NULL, 8, 1, '', 150, 1),
+	(263, 22, 'Class action', '', NULL, 5, 1, '', 160, 1),
+	(264, 22, 'Elenco debiti scaduti', '', NULL, 3, 1, '', 161, 1),
+	(265, 22, 'Piano dei pagamenti', '', NULL, 4, 1, '', 161, 1),
+	(266, 22, 'Debiti comunicati ai creditori', '', NULL, 5, 1, '', 161, 1),
+	(267, 22, 'Corruzione', '', NULL, 1, 1, '', 167, 1),
+	(268, 22, 'Accesso civico', '', NULL, 2, 1, '', 167, 1),
+	(269, 22, 'Accessibilità e catalogo dei dati, metadati e bance dati', '', NULL, 3, 1, '', 167, 1),
+	(270, 22, 'Altri', '', NULL, 4, 1, '', 167, 1),
+	(271, 8, 'Modulistica on-line', NULL, '?modulo=modulistica', 1, 1, '', 0, 0),
+	(273, 22, 'Contratti Pubblici', NULL, '?modulo=contrattipubblici', 1, 1, '', 155, 1),
+	(274, 22, 'Atti di Concessione', NULL, '?modulo=attidiconcessione', 0, 1, '', 156, 1),
+	(275, 24, 'Link il Calcolo IMU 2014 (AGGIORNATO)', '', '', 1, 1, '', 0, 0),
+	(276, 22, 'Codici di comportamento', '', NULL, 11, 1, '', 148, 1);
+/*!40000 ALTER TABLE `zfcms_comuni_sottosezioni` ENABLE KEYS */;
+
+
 -- Dump della struttura di tabella entilocali.zfcms_comuni_stato_civile_articoli
+DROP TABLE IF EXISTS `zfcms_comuni_stato_civile_articoli`;
 CREATE TABLE IF NOT EXISTS `zfcms_comuni_stato_civile_articoli` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `titolo` text NOT NULL,
   `progressivo` int(11) NOT NULL,
-  `anno` year(4) NOT NULL,
+  `anno` int(4) NOT NULL,
   `data` date NOT NULL,
   `ora` time NOT NULL,
   `attivo` int(11) NOT NULL,
@@ -816,35 +1122,36 @@ CREATE TABLE IF NOT EXISTS `zfcms_comuni_stato_civile_articoli` (
   KEY `sezione_id` (`sezione_id`),
   CONSTRAINT `fk_sezione_id_statocivile` FOREIGN KEY (`sezione_id`) REFERENCES `zfcms_comuni_stato_civile_sezioni` (`id`),
   CONSTRAINT `fk_utente_id_statocivile` FOREIGN KEY (`utente_id`) REFERENCES `zfcms_users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1982 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 -- Dump dei dati della tabella entilocali.zfcms_comuni_stato_civile_articoli: ~19 rows (circa)
 DELETE FROM `zfcms_comuni_stato_civile_articoli`;
 /*!40000 ALTER TABLE `zfcms_comuni_stato_civile_articoli` DISABLE KEYS */;
 INSERT INTO `zfcms_comuni_stato_civile_articoli` (`id`, `titolo`, `progressivo`, `anno`, `data`, `ora`, `attivo`, `scadenza`, `flag_allegati`, `utente_id`, `sezione_id`) VALUES
-	(1, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 2, '2001', '2012-12-07', '08:02:40', 1, '2012-12-07', '', 2, 2),
-	(2, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 2, '2001', '1931-03-12', '23:34:01', 0, '1931-03-12', '', 2, 2),
-	(3, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 2, '2001', '1967-03-13', '21:43:57', 1, '1967-03-13', '', 2, 2),
-	(4, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 1, '2001', '2002-05-10', '14:14:00', 0, '2002-05-10', '', 1, 1),
-	(5, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 2, '2000', '1949-03-21', '05:16:12', 0, '1949-03-21', '', 2, 2),
-	(6, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 2, '2001', '1940-07-10', '18:55:44', 0, '1940-07-10', '', 2, 2),
-	(7, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 2, '2001', '1942-06-02', '22:28:58', 0, '1942-06-02', '', 2, 2),
-	(8, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 1, '2000', '1996-09-08', '21:32:20', 1, '1996-09-08', '', 1, 1),
-	(9, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 1, '2001', '1977-09-16', '16:36:40', 1, '1977-09-16', '', 1, 1),
-	(10, 'Sed molestie semper purus non pellentesque.', 1, '2001', '2006-09-18', '16:45:23', 1, '2006-09-18', '', 1, 1),
-	(11, 'Sed molestie semper purus non pellentesque.', 1, '2000', '1997-07-09', '00:09:09', 0, '1997-07-09', '', 1, 1),
-	(12, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 1, '2001', '1930-04-19', '12:47:41', 1, '1930-04-19', '', 1, 1),
-	(13, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 1, '2000', '1986-10-16', '15:00:29', 1, '1986-10-16', '', 1, 1),
-	(14, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 2, '2000', '2007-08-26', '02:45:28', 0, '2007-08-26', '', 2, 2),
-	(15, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 1, '2000', '1973-04-12', '14:29:01', 1, '1973-04-12', '', 1, 1),
-	(16, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 2, '2001', '1932-07-14', '20:10:21', 0, '1932-07-14', '', 2, 2),
-	(17, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 1, '2001', '2003-04-06', '20:41:03', 1, '2003-04-06', '', 1, 1),
-	(18, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 1, '2001', '2002-12-20', '18:59:55', 0, '2002-12-20', '', 1, 1),
-	(19, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 1, '2001', '2014-01-15', '13:03:13', 1, '2014-01-15', '', 1, 1);
+	(1, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 2, 2001, '2012-12-07', '08:02:40', 1, '2012-12-07', '', 2, 2),
+	(2, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 2, 2001, '1931-03-12', '23:34:01', 0, '1931-03-12', '', 2, 2),
+	(3, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 2, 2001, '1967-03-13', '21:43:57', 1, '1967-03-13', '', 2, 2),
+	(4, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 1, 2001, '2002-05-10', '14:14:00', 0, '2002-05-10', '', 1, 1),
+	(5, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 2, 2000, '1949-03-21', '05:16:12', 0, '1949-03-21', '', 2, 2),
+	(6, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 2, 2001, '1940-07-10', '18:55:44', 0, '1940-07-10', '', 2, 2),
+	(7, 'Suspendisse rhoncus tortor ac tortor molestie nec rhoncus purus pretium.', 2, 2001, '1942-06-02', '22:28:58', 0, '1942-06-02', '', 2, 2),
+	(8, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 1, 2000, '1996-09-08', '21:32:20', 1, '1996-09-08', '', 1, 1),
+	(9, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 1, 2001, '1977-09-16', '16:36:40', 1, '1977-09-16', '', 1, 1),
+	(10, 'Sed molestie semper purus non pellentesque.', 1, 2001, '2006-09-18', '16:45:23', 1, '2006-09-18', '', 1, 1),
+	(11, 'Sed molestie semper purus non pellentesque.', 1, 2000, '1997-07-09', '00:09:09', 0, '1997-07-09', '', 1, 1),
+	(12, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 1, 2001, '1930-04-19', '12:47:41', 1, '1930-04-19', '', 1, 1),
+	(13, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 1, 2000, '1986-10-16', '15:00:29', 1, '1986-10-16', '', 1, 1),
+	(14, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 2, 2000, '2007-08-26', '02:45:28', 0, '2007-08-26', '', 2, 2),
+	(15, 'Ut nisi felis, lacinia in ornare at, congue a elit.', 1, 2000, '1973-04-12', '14:29:01', 1, '1973-04-12', '', 1, 1),
+	(16, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 2, 2001, '1932-07-14', '20:10:21', 0, '1932-07-14', '', 2, 2),
+	(17, 'Aliquam viverra, dui id rhoncus iaculis, enim metus ultrices velit, non gravida nulla nibh sit amet eros.', 1, 2001, '2003-04-06', '20:41:03', 1, '2003-04-06', '', 1, 1),
+	(18, 'Vestibulum ac orci ipsum. Vivamus dolor libero, vehicula vitae pellentesque nec, consectetur et augue.', 1, 2001, '2002-12-20', '18:59:55', 0, '2002-12-20', '', 1, 1),
+	(19, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 1, 2001, '2014-01-15', '13:03:13', 1, '2014-01-15', '', 1, 1);
 /*!40000 ALTER TABLE `zfcms_comuni_stato_civile_articoli` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_comuni_stato_civile_sezioni
+DROP TABLE IF EXISTS `zfcms_comuni_stato_civile_sezioni`;
 CREATE TABLE IF NOT EXISTS `zfcms_comuni_stato_civile_sezioni` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` text NOT NULL,
@@ -859,12 +1166,13 @@ CREATE TABLE IF NOT EXISTS `zfcms_comuni_stato_civile_sezioni` (
 DELETE FROM `zfcms_comuni_stato_civile_sezioni`;
 /*!40000 ALTER TABLE `zfcms_comuni_stato_civile_sezioni` DISABLE KEYS */;
 INSERT INTO `zfcms_comuni_stato_civile_sezioni` (`id`, `nome`, `attivo`, `data_inserimento`, `data_ultimo_aggiornamento`) VALUES
-	(1, 'Pubblicazioni di matrimonio', 1, '2014-08-18 21:44:24', '2014-08-18 21:44:24'),
+	(1, 'Pubblicazioni di matrimonio ', 1, '2014-08-18 21:44:24', '2014-08-18 21:44:24'),
 	(2, 'Istanze di cambio nome o cognome', 1, '2014-08-18 21:44:24', '2014-08-18 21:44:24');
 /*!40000 ALTER TABLE `zfcms_comuni_stato_civile_sezioni` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_config
+DROP TABLE IF EXISTS `zfcms_config`;
 CREATE TABLE IF NOT EXISTS `zfcms_config` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
@@ -921,6 +1229,7 @@ INSERT INTO `zfcms_config` (`id`, `name`, `value`, `note`, `is_backend`, `is_alw
 
 
 -- Dump della struttura di tabella entilocali.zfcms_contacts
+DROP TABLE IF EXISTS `zfcms_contacts`;
 CREATE TABLE IF NOT EXISTS `zfcms_contacts` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(80) DEFAULT NULL,
@@ -934,7 +1243,7 @@ CREATE TABLE IF NOT EXISTS `zfcms_contacts` (
   `user_id` bigint(11) DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- Dump dei dati della tabella entilocali.zfcms_contacts: ~1 rows (circa)
 DELETE FROM `zfcms_contacts`;
@@ -945,6 +1254,7 @@ INSERT INTO `zfcms_contacts` (`id`, `name`, `surname`, `email`, `phone`, `messag
 
 
 -- Dump della struttura di tabella entilocali.zfcms_faq_answers
+DROP TABLE IF EXISTS `zfcms_faq_answers`;
 CREATE TABLE IF NOT EXISTS `zfcms_faq_answers` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `answer` text NOT NULL,
@@ -965,6 +1275,7 @@ DELETE FROM `zfcms_faq_answers`;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_faq_questions
+DROP TABLE IF EXISTS `zfcms_faq_questions`;
 CREATE TABLE IF NOT EXISTS `zfcms_faq_questions` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `question` text NOT NULL,
@@ -991,6 +1302,7 @@ DELETE FROM `zfcms_faq_questions`;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_geo_comuni
+DROP TABLE IF EXISTS `zfcms_geo_comuni`;
 CREATE TABLE IF NOT EXISTS `zfcms_geo_comuni` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `cod_regione` varchar(9) DEFAULT NULL,
@@ -1009,7 +1321,7 @@ CREATE TABLE IF NOT EXISTS `zfcms_geo_comuni` (
   KEY `searchfields` (`cod_regione`,`cod_provincia`,`cod_comune`,`nome_comune`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8145 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Dump dei dati della tabella entilocali.zfcms_geo_comuni: ~8.526 rows (circa)
+-- Dump dei dati della tabella entilocali.zfcms_geo_comuni: ~8.511 rows (circa)
 DELETE FROM `zfcms_geo_comuni`;
 /*!40000 ALTER TABLE `zfcms_geo_comuni` DISABLE KEYS */;
 INSERT INTO `zfcms_geo_comuni` (`id`, `cod_regione`, `cod_provincia`, `cod_comune`, `nome_comune`, `codice_istat`, `cap_principale`, `cap_inizio`, `cap_fine`, `prefisso`, `sito_web`, `latitudine`, `longitudine`) VALUES
@@ -9161,6 +9473,7 @@ INSERT INTO `zfcms_geo_comuni` (`id`, `cod_regione`, `cod_provincia`, `cod_comun
 
 
 -- Dump della struttura di tabella entilocali.zfcms_geo_comuni_cap
+DROP TABLE IF EXISTS `zfcms_geo_comuni_cap`;
 CREATE TABLE IF NOT EXISTS `zfcms_geo_comuni_cap` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `capcode` varchar(5) NOT NULL DEFAULT '0',
@@ -9262,6 +9575,7 @@ INSERT INTO `zfcms_geo_comuni_cap` (`id`, `capcode`, `nome`, `comune_id`) VALUES
 
 
 -- Dump della struttura di tabella entilocali.zfcms_geo_comuni_cap_quartieri
+DROP TABLE IF EXISTS `zfcms_geo_comuni_cap_quartieri`;
 CREATE TABLE IF NOT EXISTS `zfcms_geo_comuni_cap_quartieri` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `cap_quartiere_id` bigint(10) NOT NULL DEFAULT '0',
@@ -9280,6 +9594,7 @@ DELETE FROM `zfcms_geo_comuni_cap_quartieri`;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_geo_comuni_quartieri
+DROP TABLE IF EXISTS `zfcms_geo_comuni_quartieri`;
 CREATE TABLE IF NOT EXISTS `zfcms_geo_comuni_quartieri` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `nome` varchar(50) DEFAULT NULL,
@@ -9298,6 +9613,7 @@ DELETE FROM `zfcms_geo_comuni_quartieri`;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_geo_nazioni
+DROP TABLE IF EXISTS `zfcms_geo_nazioni`;
 CREATE TABLE IF NOT EXISTS `zfcms_geo_nazioni` (
   `id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(13) NOT NULL,
@@ -9601,6 +9917,7 @@ INSERT INTO `zfcms_geo_nazioni` (`id`, `nome`) VALUES
 
 
 -- Dump della struttura di tabella entilocali.zfcms_geo_province
+DROP TABLE IF EXISTS `zfcms_geo_province`;
 CREATE TABLE IF NOT EXISTS `zfcms_geo_province` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `codice_regione` varchar(14) DEFAULT NULL,
@@ -9781,6 +10098,7 @@ INSERT INTO `zfcms_geo_province` (`id`, `codice_regione`, `codice_provincia`, `n
 
 
 -- Dump della struttura di tabella entilocali.zfcms_geo_regioni
+DROP TABLE IF EXISTS `zfcms_geo_regioni`;
 CREATE TABLE IF NOT EXISTS `zfcms_geo_regioni` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `codice_regione` varchar(2) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
@@ -9867,6 +10185,7 @@ INSERT INTO `zfcms_geo_regioni` (`id`, `codice_regione`, `nome_regione`) VALUES
 
 
 -- Dump della struttura di tabella entilocali.zfcms_homepage
+DROP TABLE IF EXISTS `zfcms_homepage`;
 CREATE TABLE IF NOT EXISTS `zfcms_homepage` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `position` int(11) DEFAULT NULL,
@@ -9877,9 +10196,9 @@ CREATE TABLE IF NOT EXISTS `zfcms_homepage` (
   KEY `reference_id` (`reference_id`),
   KEY `block_id` (`block_id`),
   CONSTRAINT `fk_homepage_block_id` FOREIGN KEY (`block_id`) REFERENCES `zfcms_homepage_blocks` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
--- Dump dei dati della tabella entilocali.zfcms_homepage: ~7 rows (circa)
+-- Dump dei dati della tabella entilocali.zfcms_homepage: ~5 rows (circa)
 DELETE FROM `zfcms_homepage`;
 /*!40000 ALTER TABLE `zfcms_homepage` DISABLE KEYS */;
 INSERT INTO `zfcms_homepage` (`id`, `position`, `free_text`, `reference_id`, `block_id`) VALUES
@@ -9887,13 +10206,12 @@ INSERT INTO `zfcms_homepage` (`id`, `position`, `free_text`, `reference_id`, `bl
 	(2, 1, NULL, 1, 2),
 	(3, 2, NULL, 2, 2),
 	(4, 3, NULL, 3, 2),
-	(5, 1, '<div class="jumbotron">\r\n    <h1>Enti locali - Aziende</h1>\r\n    <p>Applicazione demo attualmente in costruzione per enti locali e aziende di Kronoweb.it</p>\r\n   <p>I dati presenti in quest\'area sono falsi e hanno il solo scopo di mostrare l\'interfaccia.</p>\r\n</div>', 0, 4),
-	(20, 2, 'Vestibulum velit lacus, lacinia sit amet laoreet vel, pretium vitae diam.', 2, 2),
-	(43, 4, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', 4, 4);
+	(5, 1, '<div class="jumbotron">\r\n    <h1>Enti locali - Aziende</h1>\r\n    <p>Applicazione demo attualmente in costruzione per enti locali e aziende di Kronoweb.it</p>\r\n   <p>I dati presenti in quest\'area sono falsi e hanno il solo scopo di mostrare l\'interfaccia.</p>\r\n</div>', 0, 4);
 /*!40000 ALTER TABLE `zfcms_homepage` ENABLE KEYS */;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_homepage_blocks
+DROP TABLE IF EXISTS `zfcms_homepage_blocks`;
 CREATE TABLE IF NOT EXISTS `zfcms_homepage_blocks` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `position` int(11) DEFAULT NULL,
@@ -9919,6 +10237,7 @@ INSERT INTO `zfcms_homepage_blocks` (`id`, `position`, `module_id`) VALUES
 
 
 -- Dump della struttura di tabella entilocali.zfcms_languages
+DROP TABLE IF EXISTS `zfcms_languages`;
 CREATE TABLE IF NOT EXISTS `zfcms_languages` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `flag` varchar(60) NOT NULL,
@@ -9949,6 +10268,7 @@ INSERT INTO `zfcms_languages` (`id`, `flag`, `name`, `abbreviation1`, `abbreviat
 
 
 -- Dump della struttura di tabella entilocali.zfcms_languages_labels
+DROP TABLE IF EXISTS `zfcms_languages_labels`;
 CREATE TABLE IF NOT EXISTS `zfcms_languages_labels` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(80) DEFAULT NULL,
@@ -10138,6 +10458,7 @@ INSERT INTO `zfcms_languages_labels` (`id`, `name`, `value`, `description`, `is_
 
 
 -- Dump della struttura di tabella entilocali.zfcms_logs
+DROP TABLE IF EXISTS `zfcms_logs`;
 CREATE TABLE IF NOT EXISTS `zfcms_logs` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `utente_id` bigint(20) NOT NULL,
@@ -10153,6 +10474,7 @@ DELETE FROM `zfcms_logs`;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_modules
+DROP TABLE IF EXISTS `zfcms_modules`;
 CREATE TABLE IF NOT EXISTS `zfcms_modules` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `module_id` int(11) NOT NULL DEFAULT '0',
@@ -10189,6 +10511,7 @@ INSERT INTO `zfcms_modules` (`id`, `module_id`, `code`, `status`, `channel_id`) 
 
 
 -- Dump della struttura di tabella entilocali.zfcms_modules_options
+DROP TABLE IF EXISTS `zfcms_modules_options`;
 CREATE TABLE IF NOT EXISTS `zfcms_modules_options` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL DEFAULT '0',
@@ -10227,6 +10550,7 @@ INSERT INTO `zfcms_modules_options` (`id`, `name`, `module_id`, `language_id`) V
 
 
 -- Dump della struttura di tabella entilocali.zfcms_posts
+DROP TABLE IF EXISTS `zfcms_posts`;
 CREATE TABLE IF NOT EXISTS `zfcms_posts` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `note` varchar(80) DEFAULT NULL,
@@ -10268,6 +10592,7 @@ INSERT INTO `zfcms_posts` (`id`, `note`, `insert_date`, `expire_date`, `last_upd
 
 
 -- Dump della struttura di tabella entilocali.zfcms_posts_options
+DROP TABLE IF EXISTS `zfcms_posts_options`;
 CREATE TABLE IF NOT EXISTS `zfcms_posts_options` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `note` varchar(100) DEFAULT NULL,
@@ -10322,6 +10647,7 @@ INSERT INTO `zfcms_posts_options` (`id`, `note`, `date_from`, `data_to`, `image`
 
 
 -- Dump della struttura di tabella entilocali.zfcms_posts_relations
+DROP TABLE IF EXISTS `zfcms_posts_relations`;
 CREATE TABLE IF NOT EXISTS `zfcms_posts_relations` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `posts_id` bigint(11) NOT NULL DEFAULT '0',
@@ -10365,6 +10691,7 @@ INSERT INTO `zfcms_posts_relations` (`id`, `posts_id`, `category_id`, `module_id
 
 
 -- Dump della struttura di tabella entilocali.zfcms_tickets
+DROP TABLE IF EXISTS `zfcms_tickets`;
 CREATE TABLE IF NOT EXISTS `zfcms_tickets` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL,
@@ -10435,6 +10762,7 @@ INSERT INTO `zfcms_tickets` (`id`, `title`, `subject`, `priority`, `create_date`
 
 
 -- Dump della struttura di tabella entilocali.zfcms_tickets_messages
+DROP TABLE IF EXISTS `zfcms_tickets_messages`;
 CREATE TABLE IF NOT EXISTS `zfcms_tickets_messages` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `message` text NOT NULL,
@@ -10504,6 +10832,7 @@ INSERT INTO `zfcms_tickets_messages` (`id`, `message`, `insert_date`, `ticket_id
 
 
 -- Dump della struttura di tabella entilocali.zfcms_users
+DROP TABLE IF EXISTS `zfcms_users`;
 CREATE TABLE IF NOT EXISTS `zfcms_users` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `image` varchar(80) NOT NULL,
@@ -10554,6 +10883,7 @@ INSERT INTO `zfcms_users` (`id`, `image`, `name`, `surname`, `address`, `zip`, `
 
 
 -- Dump della struttura di tabella entilocali.zfcms_users_bookmarks
+DROP TABLE IF EXISTS `zfcms_users_bookmarks`;
 CREATE TABLE IF NOT EXISTS `zfcms_users_bookmarks` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(11) NOT NULL DEFAULT '0',
@@ -10575,6 +10905,7 @@ DELETE FROM `zfcms_users_bookmarks`;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_users_permissions
+DROP TABLE IF EXISTS `zfcms_users_permissions`;
 CREATE TABLE IF NOT EXISTS `zfcms_users_permissions` (
   `id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
   `role_id` bigint(11) NOT NULL,
@@ -10591,6 +10922,7 @@ DELETE FROM `zfcms_users_permissions`;
 
 
 -- Dump della struttura di tabella entilocali.zfcms_users_permissions_names
+DROP TABLE IF EXISTS `zfcms_users_permissions_names`;
 CREATE TABLE IF NOT EXISTS `zfcms_users_permissions_names` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `flag` varchar(50) DEFAULT '',
@@ -10613,6 +10945,7 @@ INSERT INTO `zfcms_users_permissions_names` (`id`, `flag`, `description`) VALUES
 
 
 -- Dump della struttura di tabella entilocali.zfcms_users_roles
+DROP TABLE IF EXISTS `zfcms_users_roles`;
 CREATE TABLE IF NOT EXISTS `zfcms_users_roles` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(80) NOT NULL,
@@ -10638,6 +10971,7 @@ INSERT INTO `zfcms_users_roles` (`id`, `name`, `insert_date`, `last_update`, `po
 
 
 -- Dump della struttura di tabella entilocali.zfcms_users_roles_permissions
+DROP TABLE IF EXISTS `zfcms_users_roles_permissions`;
 CREATE TABLE IF NOT EXISTS `zfcms_users_roles_permissions` (
   `id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
   `role_permission_id` bigint(11) NOT NULL,
@@ -10706,6 +11040,7 @@ INSERT INTO `zfcms_users_roles_permissions` (`id`, `role_permission_id`, `permis
 
 
 -- Dump della struttura di tabella entilocali.zfcms_users_settori
+DROP TABLE IF EXISTS `zfcms_users_settori`;
 CREATE TABLE IF NOT EXISTS `zfcms_users_settori` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,

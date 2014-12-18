@@ -21,29 +21,33 @@ abstract class AlboPretorioDataTableAbstract extends DataTableAbstract implement
     
     protected $recordsGetter;
     
-    /**
-     * @return array
-     */
-    protected function setupArticoliInput($attiUfficiali = 0)
+    protected function setupArticoliInput()
     {
         $articoliInput = array('orderBy' => 'aa.id DESC');
 
         $sessionPost = new SessionContainer();
-
-        if ( isset($this->param['post']) ) {
-            $articoliInput = array(
+        // $sessionPost->offsetUnset(self::sessionPostKey); // unset session search
+        
+        if ( isset($this->param['post']['search']) or isset($this->param['post']['hidden-search-field']) ) {
+            $sessionPost->offsetSet(self::sessionPostKey, array(
+                'numeroAtto' => isset($this->param['post']['numero_atto']) ? $this->param['post']['numero_atto'] : null,
+                'sezioneId' => isset($this->param['post']['sezione']) ? $this->param['post']['sezione'] : null,
+                'mese'      => isset($this->param['post']['mese']) ? $this->param['post']['mese'] : null,
                 'anno'      => isset($this->param['post']['anno']) ? $this->param['post']['anno'] : null,
                 'search'    => isset($this->param['post']['search']) ? $this->param['post']['search'] : null,
                 'orderBy'   => isset($this->param['post']['orderby']) ? $this->param['post']['orderby'] : 'aa.id DESC'
-            );
-            $sessionPost->offsetSet(self::sessionPostKey, $articoliInput);
-        } else {
-            $postFromSession = $sessionPost->offsetGet(self::sessionPostKey);
-            if ($postFromSession) {
-                $articoliInput = $postFromSession;
-            }
+            ));
         }
-
+        
+        $postFromSession = $sessionPost->offsetGet(self::sessionPostKey);
+        if ($postFromSession) {
+            $articoliInput = $postFromSession;
+        }
+        
+        if (!isset($articoliInput['orderBy']) or $articoliInput['orderBy']=='') {
+            $articoliInput['orderBy'] = 'aa.id DESC';
+        }
+        
         return $articoliInput;
     }
 
@@ -181,7 +185,6 @@ abstract class AlboPretorioDataTableAbstract extends DataTableAbstract implement
     }
     
     /**
-     * 
      * @param type $paginatorRecords
      * @param type $title
      * @return type
@@ -190,7 +193,7 @@ abstract class AlboPretorioDataTableAbstract extends DataTableAbstract implement
     {
         return array(
             'tableTitle'        => $title,
-            'tableDescription'  => 'Elenco atti.',
+            'tableDescription'  => 'Elenco atti albo. <strong>Attenzione:</strong> se viene effettuata una ricerca sui dati, gli stessi vengono memorizzati in sessione. Occorre resettare i dati dal form di ricerca se si vuole tornare alla visualizzazione predefinita.',
             'tablesetter'       => 'albo-pretorio',
             'columns' => array(
                 array('label' => 'Num \ Anno', 'width' => '10%'),

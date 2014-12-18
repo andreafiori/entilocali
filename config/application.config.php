@@ -6,6 +6,7 @@ return array(
             'DoctrineModule', 'DoctrineORMModule',
             //'ZendDeveloperTools',
             //'ZfcBase','ZfcUser','BjyProfiler',
+            'DOMPDFModule',
             'Application',
             'Admin',
             'ApiWebService',

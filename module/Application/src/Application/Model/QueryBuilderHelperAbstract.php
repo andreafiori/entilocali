@@ -27,7 +27,8 @@ abstract class QueryBuilderHelperAbstract
         
         $config = $this->entityManager->getConfiguration();
         $config->addCustomDatetimeFunction('DATE_FORMAT', "\\Application\\Model\\Doctrine\\Functions\\DateFormat");
-        
+        $config->addCustomDatetimeFunction('MONTH', "\\Application\\Model\\Doctrine\\Functions\\Month");
+
         $this->queryBuilder = $this->entityManager->createQueryBuilder();
     }
     
@@ -118,8 +119,8 @@ abstract class QueryBuilderHelperAbstract
     {
         return $this->bindWithDefaultParameter($groupBy, 'groupBy', $defaultField);
     }
+    
         /**
-         * 
          * @param string $parameter
          * @param string $parameterString
          * @param string $defaultField

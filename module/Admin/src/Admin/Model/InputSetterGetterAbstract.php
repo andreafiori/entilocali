@@ -21,7 +21,6 @@ abstract class InputSetterGetterAbstract
     }
 
     /**
-     * 
      * @param type $key
      * @param type $noArray
      * @return type
@@ -32,7 +31,6 @@ abstract class InputSetterGetterAbstract
     }
     
         /**
-         * 
          * @param array $array
          * @param type $key
          * @param type $noArray

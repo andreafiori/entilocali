@@ -41,6 +41,17 @@ class AlboPretorioArticoliSearchFilterForm extends AlboPretorioFormAbstract
                 'label' => 'Testo',
             )
         ));
+        
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'hidden-search-field',
+            'attributes' => array(
+                    'value' => '1',
+                    'id' => 'hidden-search-field',
+                    'class' => 'hiddenField'
+                )
+            )
+        );
     }
     
     public function addExpiredCheckbox()
@@ -49,11 +60,11 @@ class AlboPretorioArticoliSearchFilterForm extends AlboPretorioFormAbstract
             'type' => 'Zend\Form\Element\Checkbox',
             'name' => 'checkbox',
             'attributes' => array(
-                'title' => "Barra l'opzione per cercare solo atti non scaduti",
-                'id'    => 'expired'
+                'title'  => "Barra l'opzione per cercare solo atti non scaduti",
+                'id'     => 'expired'
             ),
             'options' => array(
-                'label' => 'Cerca solo atti non scaduti',
+                'label'              => 'Cerca solo atti non scaduti',
                 'use_hidden_element' => true,
                 'checked_value'      => '1',
                 'unchecked_value'    => '0'

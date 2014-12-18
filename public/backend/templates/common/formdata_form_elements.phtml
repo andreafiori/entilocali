@@ -1,16 +1,18 @@
 <?php
-/* Print only form elements witout any additional elements */
 $this->form->prepare();
 
 $form = $this->form;
 $form->prepare();
 
+$formAction = isset($this->formAction) ? $this->url('admin', array('lang' => 'it')).'formpost/'.$this->formAction : '';
+$formId = isset($this->formId) ? $this->formId : 'formData';
+
 $form->setAttributes(array(
-    'action'    => $this->url('admin', array('lang' => 'it')).'formpost/'.$this->formAction,
+    'action'    => $formAction,
     'method'    => 'post',
     'enctype'   => 'multipart/form-data',
-    'name'      => 'formData',
-    'id'        => 'formData',
+    'name'      => $formId,
+    'id'        => $formId,
     'role'      => 'form',
     'class'     => 'form-horizontal'
 ));
@@ -75,8 +77,20 @@ foreach ($this->form as $element):
             </div>
         </div>
         <?php
+    elseif ($attributes['type'] == 'reset'):
+    ?>
+    <div class="form-group">
+        <label for="<?php echo $attributes['id'] ?>" class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label"><?php echo $element->getLabel() ?></label>
+        <div class="col-sm-<?php echo $this->formControlSpanWidth ?>">
+            <?php // echo $this->formReset($element); print a reset form element ?>
+            <input value="<?php echo $element->getValue() ?>" type="button" class="btn btn-default" name="<?php echo $attributes['name'] ?>" onclick="resetCurrentForm('<?php echo $formId ?>');<?php if (isset($attributes['submit'])) echo ' submit()'; ?>">
+        </div>
+    </div>
+    <?php
     else:
-        $element->setAttribute('class', 'form-control');
+        if ($attributes['type'] != 'submit') {
+            $element->setAttribute('class', 'form-control');
+        }
     ?>
     <div class="form-group">
         <label for="<?php echo $attributes['id'] ?>" class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label"><?php echo $element->getLabel() ?></label>

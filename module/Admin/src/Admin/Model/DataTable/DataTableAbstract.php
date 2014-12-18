@@ -80,10 +80,11 @@ abstract class DataTableAbstract extends VarExporter
      */
     public function getTemplate()
     {
+		/*
         if ( !$this->getRecords() ) {
             return $this->defaultDataTable;
         }
-        
+        */
         return $this->template;
     }
 

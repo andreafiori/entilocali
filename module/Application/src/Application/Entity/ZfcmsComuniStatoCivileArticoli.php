@@ -36,9 +36,9 @@ class ZfcmsComuniStatoCivileArticoli
     private $progressivo;
 
     /**
-     * @var \Year
+     * @var integer
      *
-     * @ORM\Column(name="anno", columnDefinition="YEAR", nullable=false)
+     * @ORM\Column(name="anno", type="integer", nullable=false)
      */
     private $anno;
 
@@ -160,7 +160,7 @@ class ZfcmsComuniStatoCivileArticoli
     /**
      * Set anno
      *
-     * @param \Year $anno
+     * @param integer $anno
      *
      * @return ZfcmsComuniStatoCivileArticoli
      */
@@ -174,7 +174,7 @@ class ZfcmsComuniStatoCivileArticoli
     /**
      * Get anno
      *
-     * @return \Year
+     * @return integer
      */
     public function getAnno()
     {

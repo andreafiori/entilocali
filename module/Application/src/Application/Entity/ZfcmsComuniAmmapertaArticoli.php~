@@ -106,6 +106,13 @@ class ZfcmsComuniAmmapertaArticoli
     private $scadenza;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="flag_allegati", type="integer", nullable=false)
+     */
+    private $flagAllegati;
+
+    /**
      * @var \Application\Entity\ZfcmsComuniAmmapertaRespProc
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniAmmapertaRespProc")

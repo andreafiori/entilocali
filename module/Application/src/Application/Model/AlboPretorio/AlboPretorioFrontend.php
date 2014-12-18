@@ -14,7 +14,9 @@ use Admin\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
  */
 class AlboPretorioFrontend extends RouterManagerAbstract implements RouterManagerInterface
 {
-    /** @var Admin\Model\AlboPretorio\AlboPretorioRecordsGetter **/
+    /**
+     * @var AlboPretorioRecordsGetter
+     */
     private $alboPretorioRecordsGetter;
     
     public function setupRecord()
@@ -22,16 +24,26 @@ class AlboPretorioFrontend extends RouterManagerAbstract implements RouterManage
         $this->alboPretorioRecordsGetter = new AlboPretorioRecordsGetter($this->getInput());
         
         $param = $this->getInput('param', 1);
-        $records = $this->getAlboPretorioRecords(array(), isset($param['route']['page']) ? $param['route']['page'] : '');
-        
-        $this->setVariable('form',      $this->getFormSearch() );
-        $this->setVariable('paginator', $records);
-        $this->setRecords($records);
+        $paginatorRecords = $this->getAlboPretorioRecords(
+            array(
+                'annullato' => '0',
+                'pubblicare' => 1,
+                'attivo' => 1,
+            ),
+            isset($param['route']['page']) ? $param['route']['page'] : ''
+        );
+
+        $this->setRecords($paginatorRecords);
         $this->setTemplate('albo-pretorio/albo-pretorio.phtml');
+        
+        $this->setVariables(array(
+            'form' => $this->getFormSearch(),
+            'paginator' => $paginatorRecords
+        ));
     }
     
         /**
-         * @return \Application\Model\AlboPretorio\AlboPretorioFormSearch
+         * @return AlboPretorioFormSearch
          */
         private function getFormSearch()
         {
@@ -69,20 +81,19 @@ class AlboPretorioFrontend extends RouterManagerAbstract implements RouterManage
         }
         
         /**
-         * 
          * @param type $input
          * @param type $page
          * @return type
          */
         private function getAlboPretorioRecords($input, $page)
         {
-            $alboPretorioGetterWrapper = new AlboPretorioArticoliGetterWrapper( new AlboPretorioArticoliGetter($this->getInput('entityManager',1)) );
-            $alboPretorioGetterWrapper->setInput($input);
-            $alboPretorioGetterWrapper->setupQueryBuilder();
-            $alboPretorioGetterWrapper->setupPaginator($alboPretorioGetterWrapper->setupQuery( $this->getInput('entityManager', 1) ));
-            $alboPretorioGetterWrapper->setupPaginatorCurrentPage($page);
+            $wrapper = new AlboPretorioArticoliGetterWrapper( new AlboPretorioArticoliGetter($this->getInput('entityManager',1)) );
+            $wrapper->setInput($input);
+            $wrapper->setupQueryBuilder();
+            $wrapper->setupPaginator( $wrapper->setupQuery( $this->getInput('entityManager', 1) ));
+            $wrapper->setupPaginatorCurrentPage($page);
             
-            return $alboPretorioGetterWrapper->getPaginator();
+            return $wrapper->getPaginator();
         }
 }
 

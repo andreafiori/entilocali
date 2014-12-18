@@ -81,6 +81,20 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
     }
     
     /**
+     * @param string $mese
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setMese($mese)
+    {
+        if ( is_numeric($mese) ) {
+            $this->getQueryBuilder()->andWhere('MONTH(aa.dataPubblicare) = :mese ');
+            $this->getQueryBuilder()->setParameter('mese', $mese);
+        }
+        
+        return $this->getQueryBuilder();
+    }
+    
+    /**
      * @param number $anno
      * @return \Doctrine\ORM\QueryBuilder
      */
@@ -123,6 +137,20 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
     }
     
     /**
+     * @param int $name
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setSettore($name)
+    {
+        if ($name) {
+            $this->getQueryBuilder()->andWhere('u.settoreId = :settoreId ');
+            $this->getQueryBuilder()->setParameter('settoreId', $id);
+        }
+        
+        return $this->getQueryBuilder();
+    }
+    
+    /**
      * @param int $id
      * @return \Doctrine\ORM\QueryBuilder
      */
@@ -131,6 +159,48 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
         if ( is_numeric($id) ) {
             $this->getQueryBuilder()->andWhere('aa.utente = :utenteId ');
             $this->getQueryBuilder()->setParameter('utenteId', $id);
+        }
+        
+        return $this->getQueryBuilder();
+    }
+    
+    /**
+     * @param string $annulled
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setAnnullato($annulled)
+    {
+        if ( isset($annulled) ) {
+            $this->getQueryBuilder()->andWhere('aa.annullato = :annullato ');
+            $this->getQueryBuilder()->setParameter('annullato', $annulled);
+        }
+        
+        return $this->getQueryBuilder();
+    }
+    
+    /**
+     * @param int $pubblicare
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setPubblicare($pubblicare)
+    {
+        if ( is_numeric($pubblicare) ) {
+            $this->getQueryBuilder()->andWhere('aa.pubblicare = :pubblicare ');
+            $this->getQueryBuilder()->setParameter('pubblicare', $pubblicare);
+        }
+        
+        return $this->getQueryBuilder();
+    }
+    
+    /**
+     * @param int $attivo
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setAttivo($attivo)
+    {
+        if ( is_numeric($attivo) ) {
+            $this->getQueryBuilder()->andWhere('aa.attivo = :attivo ');
+            $this->getQueryBuilder()->setParameter('attivo', $attivo);
         }
         
         return $this->getQueryBuilder();

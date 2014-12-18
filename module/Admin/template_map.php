@@ -7,5 +7,7 @@ return array(
     'admin/formpost-empty'         => __DIR__ . '/view/admin/formpost-empty.phtml',
     'admin/index/index'            => __DIR__ . '/view/admin/index/index.phtml',
     'admin/invio-ente-terzo-empty' => __DIR__ . '/view/admin/invio-ente-terzo-empty.phtml',
+    'admin/pdf/generatepdf'        => __DIR__ . '/view/admin/pdf/generatepdf.phtml',
+    'admin/pdf/prova'              => __DIR__ . '/view/admin/pdf/prova.phtml',
     'admin/success/index'          => __DIR__ . '/view/admin/success/index.phtml',
 );

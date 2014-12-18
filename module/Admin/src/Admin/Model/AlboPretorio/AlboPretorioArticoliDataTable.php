@@ -20,7 +20,7 @@ class AlboPretorioArticoliDataTable extends AlboPretorioDataTableAbstract
         $this->checkActiveDisable();
         $this->checkPublish();
         $this->checkRevision();
-
+        
         $this->recordsGetter = new AlboPretorioRecordsGetter($this->getInput());
         $this->recordsGetter->setArticoliInput($this->setupArticoliInput());
         $this->recordsGetter->setArticoliPaginator();
@@ -34,7 +34,7 @@ class AlboPretorioArticoliDataTable extends AlboPretorioDataTableAbstract
         );
 
         $this->setRecords( $this->getFormattedDataTableRecords($paginatorRecords) );
-        
+
         $this->setTemplate('datatable/datatable_albo_pretorio.phtml');
     }
 }

@@ -36,9 +36,9 @@ class ZfcmsComuniAlboArticoli
     private $numeroAtto;
 
     /**
-     * @var \Year
+     * @var integer
      *
-     * @ORM\Column(name="anno", columnDefinition="YEAR", nullable=false)
+     * @ORM\Column(name="anno", type="integer", nullable=false)
      */
     private $anno;
 
@@ -99,16 +99,16 @@ class ZfcmsComuniAlboArticoli
     private $attivo;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="pubblicare", type="string", nullable=false)
+     * @ORM\Column(name="pubblicare", type="integer", nullable=false)
      */
     private $pubblicare;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="annullato", type="string", nullable=false)
+     * @ORM\Column(name="annullato", type="integer", nullable=false)
      */
     private $annullato;
 
@@ -141,9 +141,9 @@ class ZfcmsComuniAlboArticoli
     private $checkInviaRegione;
 
     /**
-     * @var \Year
-     *     
-     * @ORM\Column(name="anno_atto", columnDefinition="YEAR", nullable=false)
+     * @var \DateTime
+     *
+     * @ORM\Column(name="anno_atto", type="date", nullable=false)
      */
     private $annoAtto;
 
@@ -188,6 +188,13 @@ class ZfcmsComuniAlboArticoli
      * @ORM\Column(name="check_rettifica", type="integer", nullable=false)
      */
     private $checkRettifica;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="flag_allegati", type="integer", nullable=false)
+     */
+    private $flagAllegati;
 
     /**
      * @var \Application\Entity\ZfcmsComuniAlboSezioni
@@ -272,7 +279,7 @@ class ZfcmsComuniAlboArticoli
     /**
      * Set anno
      *
-     * @param \Year $anno
+     * @param integer $anno
      *
      * @return ZfcmsComuniAlboArticoli
      */
@@ -286,7 +293,7 @@ class ZfcmsComuniAlboArticoli
     /**
      * Get anno
      *
-     * @return \Year
+     * @return integer
      */
     public function getAnno()
     {
@@ -488,7 +495,7 @@ class ZfcmsComuniAlboArticoli
     /**
      * Set pubblicare
      *
-     * @param string $pubblicare
+     * @param integer $pubblicare
      *
      * @return ZfcmsComuniAlboArticoli
      */
@@ -502,7 +509,7 @@ class ZfcmsComuniAlboArticoli
     /**
      * Get pubblicare
      *
-     * @return string
+     * @return integer
      */
     public function getPubblicare()
     {
@@ -512,7 +519,7 @@ class ZfcmsComuniAlboArticoli
     /**
      * Set annullato
      *
-     * @param string $annullato
+     * @param integer $annullato
      *
      * @return ZfcmsComuniAlboArticoli
      */
@@ -526,7 +533,7 @@ class ZfcmsComuniAlboArticoli
     /**
      * Get annullato
      *
-     * @return string
+     * @return integer
      */
     public function getAnnullato()
     {
@@ -632,7 +639,7 @@ class ZfcmsComuniAlboArticoli
     /**
      * Set annoAtto
      *
-     * @param \Year $annoAtto
+     * @param \DateTime $annoAtto
      *
      * @return ZfcmsComuniAlboArticoli
      */
@@ -646,7 +653,7 @@ class ZfcmsComuniAlboArticoli
     /**
      * Get annoAtto
      *
-     * @return \Year
+     * @return \DateTime
      */
     public function getAnnoAtto()
     {
@@ -795,6 +802,30 @@ class ZfcmsComuniAlboArticoli
     public function getCheckRettifica()
     {
         return $this->checkRettifica;
+    }
+
+    /**
+     * Set flagAllegati
+     *
+     * @param integer $flagAllegati
+     *
+     * @return ZfcmsComuniAlboArticoli
+     */
+    public function setFlagAllegati($flagAllegati)
+    {
+        $this->flagAllegati = $flagAllegati;
+    
+        return $this;
+    }
+
+    /**
+     * Get flagAllegati
+     *
+     * @return integer
+     */
+    public function getFlagAllegati()
+    {
+        return $this->flagAllegati;
     }
 
     /**

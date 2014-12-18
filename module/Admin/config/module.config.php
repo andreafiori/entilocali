@@ -4,6 +4,7 @@ return array(
         'invokables' => array(
             'Admin\Controller\Auth' => 'Admin\Controller\AuthController',
             'Admin\Controller\Admin' => 'Admin\Controller\AdminController',
+            'Admin\Controller\Pdf' => 'Admin\Controller\PdfController',
         ),
     ),
     'router' => array(
@@ -106,6 +107,19 @@ return array(
                                                 'defaults' => array(
                                                     'controller' => 'Admin\Controller\Admin',
                                                     'action'     => 'formpost',
+                                                ),
+                                    ),
+                    ),
+                    'pdf' => array(
+                                    'type'    => 'Segment',
+                                    'options' => array(
+                                                'route'         => 'pdf/generate/example',
+                                                'constraints'   => array(
+                                                    
+                                                ),
+                                                'defaults' => array(
+                                                    'controller' => 'Admin\Controller\Pdf',
+                                                    'action'     => 'generatepdf',
                                                 ),
                                     ),
                     ),

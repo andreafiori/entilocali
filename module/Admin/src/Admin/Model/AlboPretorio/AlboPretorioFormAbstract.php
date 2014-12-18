@@ -158,14 +158,27 @@ abstract class AlboPretorioFormAbstract extends Form
         if (!$name) {
             $name = 'search';
         }
-        
+
         if (!$label) {
             $label = 'Cerca';
         }
 
         $this->add(array(
+            'name' => 'reset-form-search',
+            'type' => '\Zend\Form\Element',
+            'attributes' => array(
+                'id'    => 'resetForm',
+                'type'  => 'reset',
+                'label' => '&nbsp;',
+                'title' => 'Reset dati form',
+                'submit' => 1,
+                'value' => 'Reset dati di ricerca',
+            ))
+        );
+        
+        $this->add(array(
             'name' => $name,
-            'type' => 'submit',
+            'type' => 'Submit',
             'attributes' => array(
                 'id'    => $name,
                 'label' => '&nbsp;',

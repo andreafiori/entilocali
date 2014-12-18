@@ -115,7 +115,7 @@
 
     <script src="<?php echo $this->basePath() ?>/public/common/jquery/ckeditor/ckeditor.js"></script>
     <script src="<?php echo $this->basePath() ?>/public/common/jquery/ckfinder/ckfinder.js"></script>
-
+    
 </head>
 
 <body>
@@ -264,8 +264,8 @@
                                 <li class="dropdown-submenu">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">Operatori</a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="<?php echo $this->baseUrl ?>formdata/contratti-pubblici-operatore" title="Nuovo operatore">Nuovo</a></li>
-                                        <li><a href="<?php echo $this->baseUrl ?>datatable/contratti-pubblici-operatore" title="Gestione operatori">Gestione</a></li>
+                                        <li><a href="<?php echo $this->baseUrl ?>formdata/contratti-pubblici-operatori" title="Nuovo operatore">Nuovo</a></li>
+                                        <li><a href="<?php echo $this->baseUrl ?>datatable/contratti-pubblici-operatori" title="Gestione operatori">Gestione</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -439,13 +439,19 @@ function showResponse()
     $("#formDataLoading").hide();
 }
 
+function resetCurrentForm(id)
+{
+    $(':text, :password, :file', '#'+id).val('');
+    $(':input,select option', '#'+id).removeAttr('checked').removeAttr('selected');
+    $('select option:first', '#'+id).attr('selected',true);
+}
+
 $(document).ready(function () {
     
     /* Datatable */
     $('#dataTable').dataTable({
         "pagingType": "full_numbers"
     });
-        
 
     /* Validate and submit formData */
     var validate = $("#formData").validate({

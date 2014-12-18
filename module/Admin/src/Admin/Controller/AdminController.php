@@ -51,8 +51,8 @@ class AdminController extends SetupAbstractController
                 'formdata_classmap'      => $appServiceLoader->recoverServiceKey('moduleConfigs', 'formdata_classmap'),
                 'formdata_crud_classmap' => $appServiceLoader->recoverServiceKey('moduleConfigs', 'formdata_crud_classmap'),
                 'datatables_classmap'    => $appServiceLoader->recoverServiceKey('moduleConfigs', 'datatables_classmap'),
+                'userDetails'            => $userDetails,
                 'baseUrl'                => $baseUrl,
-                'userDetails'            => $userDetails
             )
         );
 

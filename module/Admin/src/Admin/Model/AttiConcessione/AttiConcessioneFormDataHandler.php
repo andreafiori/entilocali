@@ -5,8 +5,6 @@ namespace Admin\Model\AttiConcessione;
 use Admin\Model\FormData\FormDataAbstract;
 use Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteGetter;
 use Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteGetterWrapper;
-use Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteSezioniGetter;
-use Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteSezioniGetterWrapper;
 
 /**
  * @author Andrea Fiori
@@ -24,14 +22,26 @@ class AttiConcessioneFormDataHandler extends FormDataAbstract
         $param = $this->getInput('param', 1);
         
         $form = new AttiConcessioneForm();
-        $this->getAttiRecords($param['route']['option']);
         $form->addUfficioResponsabile($this->getSezioni());
-
-        $this->setVariable('formTitle',         'Nuovo atto di concessione');
-        $this->setVariable('formDescription',   'Inserisci nuovo atto di concessione');
+        
+        $records = $this->getAttiRecords($param['route']['option']);
+        if ($records) {
+            $formAction = 'atti-concessione/update';
+            $formTitle = 'Modifica atto di concessione';
+            $formDescription = 'Modifica nuovo atto di concessione';
+            
+            $form->setData($records[0]);
+        } else {
+            $formAction = 'atti-concessione/insert';
+            $formTitle = 'Nuovo atto di concessione';
+            $formDescription = 'Inserisci nuovo atto di concessione';
+        }
+        
         $this->setVariable('form',              $form);
-        $this->setVariable('formAction',        '');
-        $this->setVariable('formBreadCrumbCategory', 'Amministrazione Trasparente');
+        $this->setVariable('formAction',        $formAction);
+        $this->setVariable('formTitle',         $formTitle);
+        $this->setVariable('formDescription',   $formDescription);        
+        $this->setVariable('formBreadCrumbCategory', 'Atti di concessione');
         $this->setVariable('CKEditorField', array('sottotitolo','testo'));
     }
     
@@ -50,7 +60,7 @@ class AttiConcessioneFormDataHandler extends FormDataAbstract
         
         private function getSezioni()
         {
-            $wrapper = new AmministrazioneTrasparenteSezioniGetterWrapper( new AmministrazioneTrasparenteSezioniGetter($this->getInput('entityManager',1)) );
+            $wrapper = new AttiConcessioneSezioniGetterWrapper( new AttiConcessioneSezioniGetter($this->getInput('entityManager',1)) );
             $wrapper->setInput( array() );
             $wrapper->setupQueryBuilder();
             

@@ -12,11 +12,11 @@ class OperatoriGetter  extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('');
+        $this->setSelectQueryFields('operatori.id, operatori.cf, operatori.ragioneSociale, operatori.ruolo1, operatori.nome');
 
-        $this->getQueryBuilder()->select($this->getSelectQueryFields())
-                                ->from('Application\Entity\ZfcmsComuniContrattiRespProc', 'crp')
-                                ->where('crp.id != 0');
+        $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
+                                ->from('Application\Entity\ZfcmsComuniContrattiPartecipanti', 'operatori')
+                                ->where('operatori.id != 0');
         
         return $this->getQueryBuilder();
     }
