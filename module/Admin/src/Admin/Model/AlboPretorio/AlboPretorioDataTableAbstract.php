@@ -251,7 +251,9 @@ abstract class AlboPretorioDataTableAbstract extends DataTableAbstract implement
                 $connection = $this->getInput('entityManager',1)->getConnection();
                 $connection->beginTransaction();
                 $connection->update('zfcms_comuni_albo_articoli', array(
-                        'pubblicare' => 1
+                        'pubblicare' => 1,
+                        'attivo'     => 1,
+                        'annullato'  => 0,
                     ),
                     array('id' => $this->param['post']['publishId'])
                 );
@@ -274,7 +276,7 @@ abstract class AlboPretorioDataTableAbstract extends DataTableAbstract implement
     
     public function checkAnnull()
     {
-        $id = isset($this->param['post']['revisionId']) ? $this->param['post']['revisionId'] : null;
+        $id = isset($this->param['post']['annullId']) ? $this->param['post']['annullId'] : null;
         if ($id) {
             try {
                 $connection = $this->getInput('entityManager',1)->getConnection();

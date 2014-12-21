@@ -20,7 +20,7 @@ class LogsGetter extends QueryBuilderHelperAbstract
         
         return $this->getQueryBuilder();
     }
-   
+
     /**
      * @param number|array $id
      * @return \Doctrine\ORM\QueryBuilder

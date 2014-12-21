@@ -92,9 +92,9 @@ class ZfcmsComuniContratti
     private $progressivo;
 
     /**
-     * @var \DateTime
+     * @var integer
      *
-     * @ORM\Column(name="anno", type="date", nullable=false)
+     * @ORM\Column(name="anno", type="integer", nullable=false)
      */
     private $anno;
 

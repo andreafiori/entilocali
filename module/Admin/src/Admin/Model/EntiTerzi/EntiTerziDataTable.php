@@ -36,7 +36,7 @@ class EntiterziDataTable extends DataTableAbstract
         $this->setTitle('Rubrica enti terzi');
         $this->setDescription('Gestione rubrica contatti enti terzi');
     }
-        
+
         /**
          * @param type $records
          * @return type
@@ -75,7 +75,7 @@ class EntiterziDataTable extends DataTableAbstract
             $param = $this->getParam();
 
             $wrapper = new EntiTerziGetterWrapper(new EntiTerziGetter($this->getInput('entityManager',1)) );
-            $wrapper->setInput( array() );
+            $wrapper->setInput( array('orderBy' => 'ret.id DESC') );
             $wrapper->setupQueryBuilder();
             $wrapper->setupPaginator( $wrapper->setupQuery($this->getInput('entityManager', 1)) );
             $wrapper->setupPaginatorCurrentPage( isset($param['route']['page']) ? $param['route']['page'] : null );

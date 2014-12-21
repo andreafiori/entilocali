@@ -24,9 +24,7 @@ class EntiTerziCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
 
             $this->getConnection()->commit();
 
-            $this->setVariable('messageType',   'success');
-            $this->setVariable('messageTitle',  'Dati inseriti correttamente');
-            $this->setVariable('messageText',   'Dati inseriti correttamente in archivio.');
+            $this->setSuccessMessage();
             
         } catch (\Exception $e) {
             $this->getConnection()->rollBack();
@@ -57,12 +55,7 @@ class EntiTerziCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
 
             $this->getConnection()->commit();
 
-            $this->setVariables(array(
-                'messageType' => 'success'
-            ));
-            $this->setVariable('messageTitle', 'Dati aggiornati correttamente');
-            $this->setVariable('messageText',  'Dati aggiornati correttamente in archivio.');
-            $this->setVariable('messageShowFormLink', 1);
+            $this->setSuccessMessage();
             
         } catch (\Exception $e) {
             $this->getConnection()->rollBack();

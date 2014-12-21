@@ -5,10 +5,7 @@
 -- HeidiSQL Versione:            9.1.0.4882
 -- --------------------------------------------------------
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8mb4 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+set foreign_key_checks=0;
 
 -- Dump della struttura di tabella entilocali.zfcms_attachments
 DROP TABLE IF EXISTS `zfcms_attachments`;
@@ -11057,4 +11054,3 @@ INSERT INTO `zfcms_users_settori` (`id`, `name`, `position`, `active`) VALUES
 /*!40000 ALTER TABLE `zfcms_users_settori` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

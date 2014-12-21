@@ -81,7 +81,7 @@ class AlboPretorioFormDataHandler extends FormDataAbstract
     public function getArticolo(AlboPretorioArticoliGetterWrapper $recodsGetter, $id)
     {
         if (is_numeric($id)) {
-            $recodsGetter->setInput( array('id' => $id) );
+            $recodsGetter->setInput( array('id' => $id, 'limit' => 1) );
             $recodsGetter->setupQueryBuilder();
 
             return $recodsGetter->getRecords();

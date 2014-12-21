@@ -141,9 +141,9 @@ class ZfcmsComuniAlboArticoli
     private $checkInviaRegione;
 
     /**
-     * @var \DateTime
+     * @var integer
      *
-     * @ORM\Column(name="anno_atto", type="date", nullable=false)
+     * @ORM\Column(name="anno_atto", type="integer", nullable=false)
      */
     private $annoAtto;
 

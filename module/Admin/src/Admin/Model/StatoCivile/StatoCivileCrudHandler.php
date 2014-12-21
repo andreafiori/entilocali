@@ -15,8 +15,8 @@ class StatoCivileCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
     
     protected function insert()
     {
+        $this->getConnection()->beginTransaction();
         try {
-            $this->getConnection()->beginTransaction();
             $this->getConnection()->insert($this->tableName, array(
                 'utente_id'             => $this->rawPost['utente'],
                 'sezione_id'            => $this->rawPost['sezione'],
@@ -47,9 +47,8 @@ class StatoCivileCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
 
             $this->getConnection()->commit();
 
-            $this->setVariable('messageType',   'success');
-            $this->setVariable('messageTitle',  'Dati inseriti correttamente');
-            $this->setVariable('messageText',   'Dati inseriti correttamente in archivio.');
+            $this->setSuccessMessage();
+            
         } catch (\Exception $e) {
             $this->getConnection()->rollBack();
             return $this->setErrorMessage($e->getMessage());
@@ -58,8 +57,8 @@ class StatoCivileCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
     
     protected function update()
     {
+        $this->getConnection()->beginTransaction();
         try {
-            $this->getConnection()->beginTransaction();
             $this->setArrayRecordToHandle('titolo', 'titolo');
 
             $this->getConnection()->update($this->tableName, 
@@ -69,11 +68,8 @@ class StatoCivileCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
 
             $this->getConnection()->commit();
 
-            $this->setVariables(array(
-                'messageType' => 'success'
-            ));
-            $this->setVariable('messageTitle', 'Dati aggiornati correttamente');
-            $this->setVariable('messageText',  'Dati aggiornati correttamente in archivio.');
+            $this->setSuccessMessage();
+            
         } catch (\Exception $e) {
             $this->getConnection()->rollBack();
             return $this->setErrorMessage($e->getMessage());

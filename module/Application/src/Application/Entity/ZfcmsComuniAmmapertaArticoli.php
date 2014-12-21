@@ -71,9 +71,9 @@ class ZfcmsComuniAmmapertaArticoli
     private $progressivo;
 
     /**
-     * @var \DateTime
+     * @var integer
      *
-     * @ORM\Column(name="anno", type="date", nullable=false)
+     * @ORM\Column(name="anno", type="integer", nullable=false)
      */
     private $anno;
 
@@ -325,7 +325,7 @@ class ZfcmsComuniAmmapertaArticoli
     /**
      * Set anno
      *
-     * @param \DateTime $anno
+     * @param integer $anno
      *
      * @return ZfcmsComuniAmmapertaArticoli
      */
@@ -339,7 +339,7 @@ class ZfcmsComuniAmmapertaArticoli
     /**
      * Get anno
      *
-     * @return \DateTime
+     * @return integer
      */
     public function getAnno()
     {

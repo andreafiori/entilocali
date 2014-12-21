@@ -28,8 +28,8 @@ class AuthController extends SetupAbstractController
     {
         if ($this->getAuthService()->hasIdentity()) {
             return $this->redirect()->toRoute('admin');
-        }          
-
+        }
+        
         $appServiceLoader = $this->recoverAppServiceLoader();
 
         $this->layout()->setVariable('form',     $this->getUserFormAuthentication());
@@ -79,7 +79,7 @@ class AuthController extends SetupAbstractController
                     
                     // get user data
                     $usersGetterWrapper = new UsersGetterWrapper( new UsersGetter($this->getServiceLocator()->get('doctrine.entitymanager.orm_default')) );
-                    $usersGetterWrapper->setInput( array('username' => $request->getPost('username'), 'password' => $request->getPost('password'), 'limit'=>1) );
+                    $usersGetterWrapper->setInput( array('username' => $request->getPost('username'), 'password' => $request->getPost('password'), 'limit' => 1) );
                     $usersGetterWrapper->setupQueryBuilder();
                     
                     $records = $usersGetterWrapper->getRecords();
@@ -143,14 +143,10 @@ class AuthController extends SetupAbstractController
          */
         private function getAuthService()
         {
-            try {
-                if (!$this->authservice) {
-                    $this->authservice = $this->getServiceLocator()->get('AuthService');
-                }
-                return $this->authservice;
-            } catch (Exception $ex) {
-                
+            if (!$this->authservice) {
+                $this->authservice = $this->getServiceLocator()->get('AuthService');
             }
+            return $this->authservice;
         }
 
         /**

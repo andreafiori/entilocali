@@ -11,15 +11,17 @@ use Admin\Model\Users\UsersGetter;
  */
 class UsersGetterWrapper extends RecordsGetterWrapperAbstract
 {
-    /** @var \Admin\Model\Users\UsersGetter **/
+    /**
+     * @var UsersGetter 
+     */
     protected $objectGetter;
 
     /**
-     * @param \Admin\Model\Users\UsersGetter $usersGetter
+     * @param UsersGetter $usersGetter
      */
-    public function __construct(UsersGetter $usersGetter)
+    public function __construct(UsersGetter $objectGetter)
     {
-        $this->setObjectGetter($usersGetter);
+        $this->setObjectGetter($objectGetter);
     }
     
     public function setupQueryBuilder()

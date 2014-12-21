@@ -11,11 +11,13 @@ use Admin\Model\Attachments\AttachmentsGetter;
  */
 class AttachmentsGetterWrapper extends RecordsGetterWrapperAbstract
 {
-    /** @var \Admin\Model\Attachments\AttachmentsGetter $attachmentsGetter **/
+    /**
+     * @var AttachmentsGetter
+     */
     protected $objectGetter;
     
     /**
-     * @param \Admin\Model\Attachments\AttachmentsGetter $objectGetter
+     * @param AttachmentsGetter $objectGetter
      */
     public function __construct(AttachmentsGetter $objectGetter)
     {

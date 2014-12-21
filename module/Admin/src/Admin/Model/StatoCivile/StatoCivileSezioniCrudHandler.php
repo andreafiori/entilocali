@@ -15,8 +15,9 @@ class StatoCivileSezioniCrudHandler extends CrudHandlerAbstract implements CrudH
     
     protected function insert()
     {
+        $this->getConnection()->beginTransaction();
         try {
-            $this->getConnection()->beginTransaction();
+            
             $this->getConnection()->insert($this->tableName, array(
                 'nome' => $this->rawPost['nome'],
                 'attivo' => $this->rawPost['attivo'],
@@ -24,9 +25,7 @@ class StatoCivileSezioniCrudHandler extends CrudHandlerAbstract implements CrudH
 
             $this->getConnection()->commit();
 
-            $this->setVariable('messageType',   'success');
-            $this->setVariable('messageTitle',  'Dati inseriti correttamente');
-            $this->setVariable('messageText',   'Dati inseriti correttamente in archivio.');
+            $this->setSuccessMessage();
             
         } catch (\Exception $e) {
             $this->getConnection()->rollBack();
@@ -36,8 +35,8 @@ class StatoCivileSezioniCrudHandler extends CrudHandlerAbstract implements CrudH
     
     protected function update()
     {
+        $this->getConnection()->beginTransaction();
         try {
-            $this->getConnection()->beginTransaction();
             
             $this->setArrayRecordToHandle('nome', 'nome');
             $this->setArrayRecordToHandle('attivo', 'attivo');

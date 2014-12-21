@@ -12,12 +12,21 @@ class AttachmentsGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('DISTINCT(a.id) AS id, a.name, a.size, a.state, a.insertDate, a.expireDate');
-
-        $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
-                                ->add('from', 'Application\Entity\ZfcmsAttachments a, Application\Entity\ZfcmsAttachmentsOptions ao, Application\Entity\ZfcmsAttachmentsRelations ar ')
-                                ->add('where', 'ao.attachment = a.id AND ar.attachment = a.id ');
+        $this->setSelectQueryFields('DISTINCT(a.id) AS id, a.name, a.size, a.state, a.insertDate, 
+                                      a.expireDate,
+                                      ao.title, ao.description,
+                                      u.name AS username, u.surname
+                                    ');
         
+        $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
+                                ->add('from', '
+                                       Application\Entity\ZfcmsAttachments a, 
+                                       Application\Entity\ZfcmsAttachmentsOptions ao, 
+                                       Application\Entity\ZfcmsAttachmentsRelations ar,
+                                       Application\Entity\ZfcmsUsers u
+                                       ')
+                                ->where(' ao.attachment = a.id AND ar.attachment = a.id AND a.user = u.id ');
+
         return $this->getQueryBuilder();
     }
 

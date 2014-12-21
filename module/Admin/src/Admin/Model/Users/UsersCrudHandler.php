@@ -30,9 +30,7 @@ class UsersCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
             $this->setArrayRecordToHandle('surname', 'surname');
 
             if ($this->rawPost['password'] != $this->rawPost['password-confirm']) {
-                $this->setVariable('messageType', 'danger');
-                $this->setVariable('messageTitle', 'Errore');
-                $this->setVariable('messageText', 'Le due password non coincidono');
+                $this->setErrorMessage('Le due password non coincidono');
                 return;
             }
             
@@ -41,9 +39,8 @@ class UsersCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
                 $affectedRows = $this->getConnection()->update(
                     'zfcms_users', $this->getArrayRecordToHandle(), array('id' => $this->rawPost['id'])
                 );
-            $this->setVariable('messageType', 'success');
-            $this->setVariable('messageTitle', 'Dati aggiornati correttamente');
-            $this->setVariable('messageText', 'Dati in archivio aggiornati correttamente');
+            
+            $this->setSuccessMessage();
             
             } catch(\Exception $e) {
                 $this->getConnection()->rollBack();

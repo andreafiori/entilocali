@@ -33,7 +33,7 @@ if (!$this->form):
 
     <div class="form-group">
         <label class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label">&nbsp;</label>
-        <div class="col-sm-<?php echo $this->formControlSpanWidth ?>"><input type="submit" name="submit" id="submit" value="<?php echo $this->submitButtonValue ? $this->submitButtonValue : "Conferma"; ?>" class="btn btn-primary" onclick="javascript:refreshEditor();<?php if ($this->hideOnSubmit): ?>  document.getElementById('formcontainer').style.display='none'<?php endif ?>"></div>
+        <div class="col-sm-<?php echo $this->formControlSpanWidth ?>"><input type="submit" name="submit" id="submit" title="Clicca per inviare i dati del form" value="<?php echo $this->submitButtonValue ? $this->submitButtonValue : "Conferma"; ?>" class="btn btn-primary" onclick="javascript:refreshEditor();<?php if ($this->hideOnSubmit): ?>  document.getElementById('formcontainer').style.display='none'<?php endif ?>"></div>
     </div>
 
     <div class="form-group">

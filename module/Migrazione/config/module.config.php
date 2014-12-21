@@ -10,7 +10,7 @@ return array(
             'migrazione' => array(
                 'type'    => 'Segment',
                 'options' => array(
-                    'route'    => '/migrazione/tool/kronoweb[/]',
+                    'route'    => '/migrations/tool/kronoweb[/]',
                     'constraints' => array(
                         
                     ),
@@ -18,16 +18,15 @@ return array(
                         'controller' => 'Migrazione\Controller\Migrazione',
                         'action'     => 'index'
                     ),
-                    
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
-                    'cms' => array(
+                    'operation' => array(
                             'type'    => 'Segment',
                             'options' => array(
-                                    'route'       => '[/]operation[/]',
+                                    'route'       => '[/]operation[/][:subject][/]',
                                     'constraints' => array(
-                                        
+                                        'subject' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                     ),
                                     'defaults' => array(
                                         'controller' => 'Migrazione\Controller\Migrazione',

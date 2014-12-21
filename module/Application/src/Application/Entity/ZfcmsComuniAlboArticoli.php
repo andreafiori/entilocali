@@ -141,9 +141,9 @@ class ZfcmsComuniAlboArticoli
     private $checkInviaRegione;
 
     /**
-     * @var \DateTime
+     * @var integer
      *
-     * @ORM\Column(name="anno_atto", type="date", nullable=false)
+     * @ORM\Column(name="anno_atto", type="integer", nullable=false)
      */
     private $annoAtto;
 
@@ -639,7 +639,7 @@ class ZfcmsComuniAlboArticoli
     /**
      * Set annoAtto
      *
-     * @param \DateTime $annoAtto
+     * @param integer $annoAtto
      *
      * @return ZfcmsComuniAlboArticoli
      */
@@ -653,7 +653,7 @@ class ZfcmsComuniAlboArticoli
     /**
      * Get annoAtto
      *
-     * @return \DateTime
+     * @return integer
      */
     public function getAnnoAtto()
     {

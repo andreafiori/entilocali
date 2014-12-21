@@ -52,7 +52,7 @@ class AttiConcessioneFormDataHandler extends FormDataAbstract
         private function getAttiRecords($id)
         {
             $wrapper = new AmministrazioneTrasparenteGetterWrapper(new AmministrazioneTrasparenteGetter($this->getInput('entityManager',1)));
-            $wrapper->setInput( array('aa.id' => $id) );
+            $wrapper->setInput( array('aa.id' => $id, 'limit' => 1) );
             $wrapper->setupQueryBuilder();
             
             return $wrapper->getRecords();

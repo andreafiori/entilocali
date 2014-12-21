@@ -15,6 +15,7 @@ class AlboPretorioArticoliCrudHandler extends CrudHandlerAbstract implements Cru
     
     protected function insert()
     {
+        $this->getConnection()->beginTransaction();
         try {
             $error = array();
             
@@ -41,7 +42,7 @@ class AlboPretorioArticoliCrudHandler extends CrudHandlerAbstract implements Cru
             if ($error) {
                 $this->setErrorMessage($error);
             } else {
-                $this->getConnection()->beginTransaction();
+                
                 $this->getConnection()->insert($this->tableName, array(
                     'utente_id'             => $this->rawPost['userId'],
                     'sezione_id'            => $this->rawPost['sezione'],

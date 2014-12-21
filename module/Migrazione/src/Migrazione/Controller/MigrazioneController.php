@@ -7,8 +7,6 @@ use Migrazione\Model\Redbean\R;
 use Zend\View\Model\ViewModel;
 
 /**
- * Tool to migrate data and attachment files from the old CMS to this ZF2 app
- * 
  * @author Andrea Fiori
  * @since  26 September 2014
  */
@@ -22,7 +20,8 @@ class MigrazioneController extends AbstractActionController
 
         R::setup('mysql:host='.$connectionParams['host'].';dbname='.$connectionParams['dbname'], $connectionParams['user'], $connectionParams['password']);
 
-        $this->layout()->setVariables( array(
+        $viewModel = new ViewModel();
+        $viewModel->setVariables(array(
             'migrationButtons' => array(
 
                 'users' => array(
@@ -137,11 +136,9 @@ class MigrazioneController extends AbstractActionController
                     'buttonLabel' => 'Conferma eliminazione',
                 ),
             )
-        ));
+        ) );
         
-        $this->layout('migrazione/index.phtml');
-        
-        return new ViewModel();
+        return $viewModel;
     }
     
     /**

@@ -55,7 +55,7 @@ class AlboPretorioSezioniFormDataHandler extends FormDataAbstract
         public function getSezione(AlboPretorioRecordsGetter $alboPretorioRecordsGetter, $id)
         {
             if (is_numeric($id)) {
-                $alboPretorioRecordsGetter->setSezioni( array("id" => $id) );
+                $alboPretorioRecordsGetter->setSezioni( array("id" => $id, 'limit'=>1) );
                 $alboPretorioRecordsGetter->setFirstRow();
 
                 return $alboPretorioRecordsGetter->returnRecordset();   

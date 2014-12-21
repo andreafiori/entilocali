@@ -87,7 +87,6 @@ class PostsForm extends Form
                                 'format' => 'Y-m-d',
                         ),
                         'attributes' => array(
-                                'class' => 'form-control DatePicker',
                                 'style' => 'width: 22%',
                                 'id'    => 'expireDate'
                         )

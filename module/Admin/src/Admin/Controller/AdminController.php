@@ -37,8 +37,8 @@ class AdminController extends SetupAbstractController
         $userDetails->id        = $session->offsetGet('id');
         $userDetails->name      = $session->offsetGet('name');
         $userDetails->surname   = $session->offsetGet('surname');
-        $userDetails->role   = $session->offsetGet('role');
-        $userDetails->acl   = $session->offsetGet('acl');
+        $userDetails->role      = $session->offsetGet('role');
+        $userDetails->acl       = $session->offsetGet('acl');
         
         $uri = $this->getRequest()->getUri();
         $baseUrl = sprintf('%s://%s%s', $uri->getScheme(), $uri->getHost(), $appServiceLoader->recoverService('request')->getBaseUrl()).'/admin/main/'.$this->params()->fromRoute('lang').'/';
@@ -72,10 +72,10 @@ class AdminController extends SetupAbstractController
         }
         
         $this->layout()->setVariables(array(
-                'baseUrl'           => $baseUrl,
-                'userDetails'       => $userDetails,
-                'preloadResponse'   => $appServiceLoader->recoverServiceKey('configurations', 'preloadResponse'),
-                'templatePartial'   => 'backend/templates/'.$appServiceLoader->recoverServiceKey('configurations', 'template_backend').$routerManagerHelper->getRouterManger()->getTemplate(1),
+            'baseUrl'           => $baseUrl,
+            'userDetails'       => $userDetails,
+            'preloadResponse'   => $appServiceLoader->recoverServiceKey('configurations', 'preloadResponse'),
+            'templatePartial'   => 'backend/templates/'.$appServiceLoader->recoverServiceKey('configurations', 'template_backend').$routerManagerHelper->getRouterManger()->getTemplate(1),
         ));
         $this->layout('backend/templates/'.$appServiceLoader->recoverServiceKey('configurations', 'template_backend').'backend.phtml');
         

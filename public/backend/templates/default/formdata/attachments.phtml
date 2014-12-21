@@ -27,6 +27,7 @@
         <tr>
             <th>&nbsp;</th>
             <th><?php echo $this->translate('Nome file') ?></th>
+            <th><?php echo $this->translate('Titolo') ?></th>
             <th><?php echo $this->translate('Descrizione') ?></th>
             <th><?php echo $this->translate('Data inserimento') ?></th>
             <th><?php echo $this->translate('Inserito da') ?></th>
@@ -39,15 +40,17 @@
         <tr>
             <td><input type="checkbox" id="chk<?php echo $record['id'] ?>" name="attachmentId[]" value="<?php echo $record['id'] ?>"></td>
             <td><label for="chk<?php echo $record['id'] ?>"><?php echo $record['name'] ?> (<?php echo $record['size'] ?> Kb)</label></td>
+            <td><?php echo isset($record['title']) ? $record['title'] : null ?></td>
             <td><?php echo isset($record['description']) ? $record['description'] : null ?></td>
             <td><?php echo $record['insertDate']->format('Y-m-d H:i:s') ?></td>
+            <td><?php echo $record['username'].' '.$record['surname'] ?></td>
             <td>&nbsp;</td>
             <td><a href="#" class="btn btn-primary" title="<?php echo $this->translate('Modifica file allegato') ?>"><i class="fa fa-pencil"></i></a></td>
             <td><a href="#" class="btn btn-default" title="<?php echo $this->translate('Scarica file allegato') ?>"><i class="fa fa-download"></i> Scarica</a></td>
         </tr>
         <?php endforeach; ?>
         <tr>
-            <td colspan="7">
+            <td colspan="8">
                 <a href="#" class="btn btn-danger" title="<?php echo $this->translate('Elimina file\s selezionato\i') ?>"><i class="fa fa-trash-o"></i> <?php echo $this->translate('Elimina file\s selezionato\i') ?></a>
                 <a href="#" class="btn btn-primary" title="<?php echo $this->translate('Scarica tutti gli allegati') ?>"><i class="fa fa-download"></i> <?php echo $this->translate('Scarica tutti gli allegati') ?></a>
             </td>
