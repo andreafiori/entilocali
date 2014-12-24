@@ -13,7 +13,8 @@ class AmministrazioneTrasparenteGetter extends QueryBuilderHelperAbstract
     public function setMainQuery()
     {
         $this->setSelectQueryFields("aa.id, aa.beneficiario, aa.titolo, aa.importo, 
-                aa.ufficioresponsabile, aa.modassegn, aa.data, aa.ora, aa.progressivo, aa.anno, aa.scadenza, 
+                aa.ufficioresponsabile, aa.modassegn, aa.data, aa.ora, aa.progressivo, aa.anno, 
+                aa.scadenza, aa.attivo,
                 u.settore,
                 rp.nomeResp,
                 asez.nome AS nomeSezione, asez.responsabile,

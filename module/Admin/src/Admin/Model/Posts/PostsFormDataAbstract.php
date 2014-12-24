@@ -8,8 +8,6 @@ use Admin\Model\Categories\CategoriesGetterWrapper;
 use Application\Model\NullException;
 
 /**
- * Extends FormDataAbstract to set additional properties for the posts form
- * 
  * @author Andrea Fiori
  * @since  08 June 2014
  */
@@ -53,7 +51,11 @@ abstract class PostsFormDataAbstract extends FormDataAbstract
             throw new NullException("CategoriesGetterWrapper class instance is not set");
         }
 
-        $this->categoriesGetterWrapper->setInput( array('moduleId' => $this->moduleId, 'orderby' => 'co.name') );
+        $this->categoriesGetterWrapper->setInput( array(
+                'moduleId' => $this->moduleId, 
+                'orderby' => 'co.name'
+            ) 
+        );
         $this->categoriesGetterWrapper->setupQueryBuilder();
         
         $this->categoriesRecords = $this->categoriesGetterWrapper->getRecords();
@@ -109,6 +111,12 @@ abstract class PostsFormDataAbstract extends FormDataAbstract
 
     }
     
+    public function getCategoriesCheckboxesToSelect()
+    {
+        return $this->categoriesCheckboxesToSelect;
+    }
+
+        
     /**
      * Given the ID or post type, get the record data or the module ID
      */
@@ -165,7 +173,10 @@ abstract class PostsFormDataAbstract extends FormDataAbstract
         }
         
         $this->form->addMainFields();
-        $this->form->addCategory($this->categoriesCheckboxes, $this->setCategoriesCheckboxesToSelect() );
+        $this->form->addCategory(
+            $this->categoriesCheckboxes, 
+            $this->getCategoriesCheckboxesToSelect()
+        );
         
         if (!$this->hideSEOFields) {
             $this->form->addSEO();

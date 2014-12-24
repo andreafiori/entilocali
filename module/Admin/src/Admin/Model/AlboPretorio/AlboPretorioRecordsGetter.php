@@ -17,6 +17,7 @@ class AlboPretorioRecordsGetter extends RecordsGetterAbstract
     
     /**
      * @param array $input
+     * @return AlboPretorioArticoliGetterWrapper
      */
     public function setArticoliInput(array $input)
     {
@@ -27,6 +28,9 @@ class AlboPretorioRecordsGetter extends RecordsGetterAbstract
         return $this->articoliWrapper;
     }
     
+    /**
+     * @return AlboPretorioArticoliGetterWrapper
+     */
     public function setArticoliPaginator()
     {
         $this->assertAlboPretorioGetterWrapper();

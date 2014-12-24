@@ -1,7 +1,6 @@
 <?php
-
 return array(
-        'database'  => 'entilocali',
+        'database'  => 'pescheriaspano',
         'username'  => 'root',
         'password'  => '',
         'hostname'  => 'localhost',

@@ -5,6 +5,8 @@ namespace Admin\Model\Entiterzi;
 use Application\Model\RouterManagers\RouterManagerAbstract;
 use Application\Model\RouterManagers\RouterManagerInterface;
 use Admin\Model\StatoCivile\StatoCivileRecordsGetter;
+use Admin\Model\AlboPretorio\AlboPretorioArticoliGetter;
+use Admin\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
 
 /**
  * @author Andrea Fiori
@@ -17,19 +19,40 @@ class InvioEnteTerzoHandler extends RouterManagerAbstract implements RouterManag
         $param      = $this->getInput('param', 1);
         $moduleName = $param['route']['modulename'];
         
-        $statoCivileRecordsGetter = new StatoCivileRecordsGetter( $this->getInput() );
-        $statoCivileRecordsGetter->setArticoli( array("id" => $param['route']['id']) );
-        $record = $statoCivileRecordsGetter->getRecords();
-
-        $moduleMap = array(
-            'albo-pretorio'         => '',
-            'atti-ufficiali'        => '',
-            'stato-civile'          => '',
-            'contratti-pubblici'    => '',
-            'determine'             => '',
-        );
+        switch($moduleName) {
+            default:
+                // error
+            break;
+            
+            case("albo-pretorio"):
+                $recordsGetter = new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter( $this->getInput('entityManager',1) ));
+                $recordsGetter->setInput( array('id' => $param['route']['id'], 'limit' => 1) );
+                $recordsGetter->setupQueryBuilder();
+                
+                $record = $recordsGetter->getRecords();
+                $titolo = $record[0]['titolo'];
+            break;
         
-        $entiTerziRecords = $this->getRubricaEntiTerzi(new EntiTerziGetterWrapper(new EntiTerziGetter($this->getInput('entityManager', 1))));
+            case("stato-civile"):
+                $recordsGetter = new StatoCivileRecordsGetter( $this->getInput() );
+                $recordsGetter->setArticoli( array("id" => $param['route']['id'], 'limit' => 1) );
+                
+                $record = $recordsGetter->getRecords();
+                $titolo = $record[0]['titolo'];
+            break;
+        
+            case("contratti-pubblici"):
+                
+            break;
+        
+            case("amministrazione-trasparente"):
+                
+            break;
+        }
+
+        $wrapper = new EntiTerziGetterWrapper(new EntiTerziGetter($this->getInput('entityManager', 1)));
+        $wrapper->setupQueryBuilder();
+        $entiTerziRecords = $wrapper->getRecords();
         
         $form = new InvioEnteTerzoForm();
         $form->addContatti($entiTerziRecords);
@@ -37,7 +60,7 @@ class InvioEnteTerzoHandler extends RouterManagerAbstract implements RouterManag
         $this->setVariables(array(
             'formDataCommonPath' => 'backend/templates/common/',
             'form'               => $form,
-            'titolo'             => '',
+            'titolo'             => $titolo,
             'rubricaEntiTerzi'   => $entiTerziRecords,
         ));
         
@@ -45,14 +68,4 @@ class InvioEnteTerzoHandler extends RouterManagerAbstract implements RouterManag
         
         return $this->getOutput();
     }
-    
-        /**
-         * @return EntiTerziGetterWrapper
-         */
-        private function getRubricaEntiTerzi(EntiTerziGetterWrapper $entiTerziGetterWrapper)
-        {
-            $entiTerziGetterWrapper->setupQueryBuilder();
-            
-            return $entiTerziGetterWrapper->getRecords();
-        }
 }

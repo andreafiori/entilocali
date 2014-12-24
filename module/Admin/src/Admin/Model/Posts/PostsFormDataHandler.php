@@ -35,31 +35,32 @@ class PostsFormDataHandler extends FormDataAbstract
         $this->postsFormDataConcrete->setCategoriesGetterWrapper( new CategoriesGetterWrapper( new CategoriesGetter($entityManager)) );
         $this->postsFormDataConcrete->setCategoriesRecords();
         $this->postsFormDataConcrete->setCategoriesCheckboxes();
-        
+ 
         if ( !$this->postsFormDataConcrete->getCategoriesRecords() ) {
 
             $this->setVariables(array(
-                'error' => 1,
-                'messageType' => 'warning',
-                'messageTitle' => 'Nessuna categoria',
-                'messageText' => 'Impossibile inserire un nuovo elemento senza categorie in archivio da associare',
+                'error'             => 1,
+                'messageType'       => 'warning',
+                'messageTitle'      => 'Nessuna categoria',
+                'messageText'       => 'Impossibile inserire un nuovo elemento senza categorie in archivio da associare',
                 )
             );
 
             return false;
         }
 
-        $this->postsFormDataConcrete->setForm( new PostsForm() );
+        $this->postsFormDataConcrete->setForm( new PostsForm() );        
         $this->postsFormDataConcrete->buildForm();
-        
+
         $this->setVariables(array(
-                'formTitle' => $this->postsFormDataConcrete->getTitle(),
-                'formDescription' => $this->postsFormDataConcrete->getDescription(),
-                'form' => $this->postsFormDataConcrete->getForm(),
-                'formAction' => $this->getFormAction($routeOption),
-                'CKEditorField' => 'description',
-                'formBreadCrumbCategory' => $this->getBreadCrumbCategoryString($routeOption),
-                'formBreadCrumbCategoryLink' => $this->getInput('baseUrl',1).'datatable/posts/'.$routeOption,
+                'formTitle'         => $this->postsFormDataConcrete->getTitle(),
+                'formDescription'   => $this->postsFormDataConcrete->getDescription(),
+                'form'              => $this->postsFormDataConcrete->getForm(),
+                'formAction'        => $this->getFormAction($routeOption),
+                'CKEditorField'     => 'description',
+
+                'formBreadCrumbCategory'        => $this->getBreadCrumbCategoryString($routeOption),
+                'formBreadCrumbCategoryLink'    => $this->getInput('baseUrl',1).'datatable/posts/'.$routeOption,
             )
         );
     }

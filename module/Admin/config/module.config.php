@@ -4,7 +4,8 @@ return array(
         'invokables' => array(
             'Admin\Controller\Auth' => 'Admin\Controller\AuthController',
             'Admin\Controller\Admin' => 'Admin\Controller\AdminController',
-            'Admin\Controller\Pdf' => 'Admin\Controller\PdfController',
+            //'Admin\Controller\Pdf' => 'Admin\Controller\PdfController',
+            'Admin\Controller\Pdf\AlboPretorioPdf' => 'Admin\Controller\Pdf\AlboPretorioPdfController',
         ),
     ),
     'router' => array(
@@ -110,16 +111,16 @@ return array(
                                                 ),
                                     ),
                     ),
-                    'pdf' => array(
+                    'pdf-albo-pretorio' => array(
                                     'type'    => 'Segment',
                                     'options' => array(
-                                                'route'         => 'pdf/generate/example',
+                                                'route'         => 'pdf/albo-pretorio/:id',
                                                 'constraints'   => array(
-                                                    
+                                                    'id' => '[0-9]+',
                                                 ),
                                                 'defaults' => array(
-                                                    'controller' => 'Admin\Controller\Pdf',
-                                                    'action'     => 'generatepdf',
+                                                    'controller' => 'Admin\Controller\Pdf\AlboPretorioPdf',
+                                                    'action'     => 'relata',
                                                 ),
                                     ),
                     ),

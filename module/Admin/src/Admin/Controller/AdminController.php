@@ -102,14 +102,14 @@ class AdminController extends SetupAbstractController
         $formDataCrudHandler = new FormDataCrudHandler();
         $formDataCrudHandler->setInput($appServiceLoader->getProperties());
         $formDataCrudHandler->setFormCrudHandler($this->params()->fromRoute('form_post_handler'));
-        
+
         $crudHandlerObject = $formDataCrudHandler->detectCrudHandlerClassMap($appServiceLoader->recoverServiceKey('moduleConfigs', 'formdata_crud_classmap'));
 
         $crudHandler = new $crudHandlerObject($appServiceLoader->getProperties());
         $crudHandler->setConnection($appServiceLoader->recoverService('entityManager')->getConnection());
         $crudHandler->setOperation($this->params()->fromRoute('operation'));
         $crudHandler->performOperation();
-        
+
         $output = $crudHandler->getOutput('export');
         if ( isset($output) ) {
             foreach($output as $key => $value) {

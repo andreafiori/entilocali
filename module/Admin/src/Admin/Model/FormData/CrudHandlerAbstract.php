@@ -92,6 +92,11 @@ abstract class CrudHandlerAbstract extends RouterManagerAbstract
 
             return $this->arrayRecordToHandle;
         }
+        
+        protected function cleanArrayRecordToHandle()
+        {
+            $this->arrayRecordToHandle = array();
+        }
 
         protected function getArrayRecordToHandle()
         {

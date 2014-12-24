@@ -79,17 +79,23 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
             /* TODO: log event Insert post (type?) */
             
             /* Show success message */
-            $this->setVariables(array(
-                'messageType'   => 'success',
-                'messageTitle'  => 'Dati inseriti correttamente',
-                'messageText'   => 'Dati inseriti correttamente in archivio.'
-            ));
+            $this->setSuccessMessage('Dati inseriti correttamente', 'Dati inseriti correttamente in archivio.');
         }
         
         protected function update()
         {
             $this->getConnection()->beginTransaction();
             try {
+                
+                $this->setArrayRecordToHandle('expire_date',     'expireDate');
+                
+                $affectedRows = $this->getConnection()->update(
+                            'zfcms_posts',
+                            $this->getArrayRecordToHandle(),
+                            array('id' => $this->rawPost['postoptionid'])
+                );
+                
+                $this->cleanArrayRecordToHandle();
                 $this->setArrayRecordToHandle('title',           'title');
                 $this->setArrayRecordToHandle('subtitle',        'subtitle');
                 $this->setArrayRecordToHandle('description',     'description');
@@ -111,10 +117,6 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
             /* TODO: log event Insert post (type?) */
             
             /* Show success message */
-            $this->setVariables(array(
-                'messageType'   => 'success',
-                'messageTitle'  => 'Dati aggiornati correttamente',
-                'messageText'   => 'Dati aggiornati correttamente in archivio.'
-            ));
+            $this->setSuccessMessage('Dati aggiornati correttamente', 'Dati aggiornati correttamente in archivio.');
         }
 }

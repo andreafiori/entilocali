@@ -1,4 +1,9 @@
-<?php echo $this->render($this->formDataCommonPath.'formdata_breadcrumb.phtml'); ?>
+<?php
+if (!isset($this->template_backend)) {
+    $this->template_backend = 'default/';
+}
+echo $this->render($this->formDataCommonPath.'formdata_breadcrumb.phtml');
+?>
 
 <h3><?php echo $this->articleTitle ?></h3>
 
@@ -50,7 +55,7 @@
         </tr>
         <?php endforeach; ?>
         <tr>
-            <td colspan="8">
+            <td colspan="10">
                 <a href="#" class="btn btn-danger" title="<?php echo $this->translate('Elimina file\s selezionato\i') ?>"><i class="fa fa-trash-o"></i> <?php echo $this->translate('Elimina file\s selezionato\i') ?></a>
                 <a href="#" class="btn btn-primary" title="<?php echo $this->translate('Scarica tutti gli allegati') ?>"><i class="fa fa-download"></i> <?php echo $this->translate('Scarica tutti gli allegati') ?></a>
             </td>
@@ -62,6 +67,6 @@
     <?php endif; ?>
     </div>
     <div class="tab-pane" id="attachmentNew">
-        <?php echo $this->render('backend/templates/default/formdata/formdata.phtml'); ?>
+        <?php echo $this->render('backend/templates/'.$this->template_backend.'formdata/formdata.phtml'); ?>
     </div>
 </div>

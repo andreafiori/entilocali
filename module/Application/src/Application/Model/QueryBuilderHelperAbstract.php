@@ -10,7 +10,9 @@ namespace Application\Model;
  */
 abstract class QueryBuilderHelperAbstract
 {
-    /** @var \Doctrine\ORM\EntityManager **/
+    /**
+     * @var \Doctrine\ORM\EntityManager  
+     */
     protected $entityManager;
     
     protected $queryBuilder;
@@ -150,7 +152,7 @@ abstract class QueryBuilderHelperAbstract
             
             $this->getQueryBuilder()->setMaxResults($this->maxResults);
         }
-   
+
         return $this->maxResults;
     }
 }

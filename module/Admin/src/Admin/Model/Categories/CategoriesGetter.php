@@ -12,12 +12,16 @@ class CategoriesGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('DISTINCT(c.id) AS id, co.name, co.description, co.seoKeywords, co.seoDescription, c.createDate, c.status, IDENTITY(c.module) AS module');
+        $this->setSelectQueryFields('DISTINCT(category.id) AS id, co.name, co.description, 
+                co.seoKeywords, co.seoDescription,
+                category.createDate, category.status, 
+                IDENTITY(category.module) AS module
+                ');
 
         $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
                                 ->from('Application\Entity\ZfcmsCategoriesOptions', 'co')
-                                ->join('co.category', 'c')
-                                ->add('where', 'co.category = c.id ');
+                                ->join('co.category', 'category')
+                                ->where('co.category = category.id ');
 
         return $this->getQueryBuilder();
     }
@@ -29,12 +33,12 @@ class CategoriesGetter extends QueryBuilderHelperAbstract
     public function setId($id)
     {
         if ( is_numeric($id) ) {
-            $this->getQueryBuilder()->andWhere('c.id = :id ');
+            $this->getQueryBuilder()->andWhere('category.id = :id ');
             $this->getQueryBuilder()->setParameter('id', $id);
         }
         
         if (is_array($id)) {
-            $this->getQueryBuilder()->andWhere('c.id IN ( :id ) ');
+            $this->getQueryBuilder()->andWhere('category.id IN ( :id ) ');
             $this->getQueryBuilder()->setParameter('id', $id);
         }
     }
@@ -45,6 +49,7 @@ class CategoriesGetter extends QueryBuilderHelperAbstract
     public function setChannelId($channel = null)
     {
         if ( is_numeric($channel) ) {
+            $this->getQueryBuilder()->andWhere('category.module = :moduleId ');
             $this->getQueryBuilder()->setParameter('channel', $channel);
         }
     }
@@ -55,7 +60,7 @@ class CategoriesGetter extends QueryBuilderHelperAbstract
     public function setModuleId($moduleId = null)
     {
         if (is_numeric($moduleId)) {
-            $this->getQueryBuilder()->andWhere('c.module = :moduleId ');
+            $this->getQueryBuilder()->andWhere('category.module = :moduleId ');
             $this->getQueryBuilder()->setParameter('moduleId', $moduleId);
         }
     }
@@ -76,9 +81,9 @@ class CategoriesGetter extends QueryBuilderHelperAbstract
     public function setStatus($status = null)
     {
         if ($status == 'NULL' or $status == 'null') {
-            $this->getQueryBuilder()->andWhere('c.status IS NULL ');
+            $this->getQueryBuilder()->andWhere('category.status IS NULL ');
         } elseif ($status != null) {
-            $this->getQueryBuilder()->andWhere("c.status = :status ");
+            $this->getQueryBuilder()->andWhere("category.status = :status ");
             $this->getQueryBuilder()->setParameter('status', $status);
         }
     }

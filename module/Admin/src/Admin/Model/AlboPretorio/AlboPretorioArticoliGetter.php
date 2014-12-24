@@ -13,18 +13,18 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
     public function setMainQuery()
     {
         $this->setSelectQueryFields("DISTINCT(aa.id) AS id, aa.numeroProgressivo, aa.numeroAtto, 
-                aa.anno, aa.titolo, aa.dataAttivazione, aa.oraAttivazione, aa.dataScadenza, 
+                aa.anno, aa.titolo, 
+                aa.dataPubblicare, aa.dataAttivazione, aa.oraAttivazione, aa.dataScadenza, 
                 aa.enteTerzo, 
                 aa.attivo,
                 aa.checkRettifica,
-                aps.nome,
-                IDENTITY(aa.sezione) AS sezione, IDENTITY(aa.utente) AS iduser,
+                aps.id AS idSezione, aps.nome AS nomeSezione,
                 aa.pubblicare,
                 aa.annullato,
-                u.name AS userName, u.surname AS userSurname
+                u.id AS iduser, u.name AS userName, u.surname AS userSurname, u.settore
                 ");
 
-        $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
+        $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
                                 ->from('Application\Entity\ZfcmsComuniAlboArticoli', 'aa')
                                 ->join('aa.sezione', 'aps')
                                 ->join('aa.utente', 'u')

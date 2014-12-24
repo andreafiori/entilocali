@@ -56,7 +56,7 @@ class IndexController extends SetupAbstractController
         
         $this->layout()->setVariables( array(
             'maindata'          =>  $routerManagerHelper->getRouterManger()->getRecords(),
-            'preloadResponse'   => $input['preloadResponse'],
+            'preloadResponse'   => isset($input['preloadResponse']) ? $input['preloadResponse'] : null,
             'currentUrl'        => "http://".$serverVars["SERVER_NAME"].$serverVars["REQUEST_URI"],
             'currentDateTime'   => date("Y-m-d H:i:s"),
             'templatePartial'   => $input['template_path'].$routerManagerHelper->getRouterManger()->getTemplate(),

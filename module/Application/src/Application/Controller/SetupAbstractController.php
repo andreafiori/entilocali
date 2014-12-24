@@ -29,6 +29,7 @@ abstract class SetupAbstractController extends AbstractActionController
         $appServiceLoader->setupParams();
         $appServiceLoader->setupRedirect();
         $appServiceLoader->setupConfigurations(new ConfigGetterWrapper(new ConfigGetter($appServiceLoader->recoverService('entityManager'))));
+        
         $this->userInterfaceConfigurations = $appServiceLoader->setupUserInterfaceConfigurations(new UserInterfaceConfigurations($appServiceLoader->getProperties()));
 
         return $appServiceLoader;
@@ -40,5 +41,14 @@ abstract class SetupAbstractController extends AbstractActionController
     protected function getUserInterfaceConfigurationsArray()
     {
         return $this->userInterfaceConfigurations->getConfigurations();
+    }
+    
+    public function checkLogin()
+    { 
+        if (!$this->getServiceLocator()->get('AuthService')->hasIdentity()) {
+            return false;
+        }
+        
+        return true;
     }
 }

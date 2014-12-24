@@ -57,14 +57,18 @@ class UserInterfaceConfigurations extends InputSetupAbstract
      */
     public function setPreloadResponse($entityManager)
     {
-        $this->assertPostsGetterWrapper($entityManager);
+        $wrapper = new PostsGetterWrapper(new PostsGetter($entityManager));
+        $wrapper->setInput(array(
+				'limit' => '50',
+				'type'  => array('content', 'blog'),
+				'status' => \Admin\Model\Posts\PostsUtils::STATE_ACTIVE 
+			)
+		);
+        $wrapper->setupQueryBuilder();
+        $wrapper->setupPaginator( $wrapper->setupQuery($entityManager) );
         
-        $this->postsGetterWrapper->setupQueryBuilder();
-        $this->postsGetterWrapper->setupPaginator( $this->postsGetterWrapper->setupQuery( $this->getInput('entityManager', 1) ) );
-        $this->postsGetterWrapper->setupPaginatorCurrentPage(1);
-        $this->postsGetterWrapper->setupPaginatorItemsPerPage(35);
+        $postsList = $wrapper->setupRecords();
         
-        $postsList = $this->postsGetterWrapper->setupRecords();
         if ($postsList) {
             foreach($postsList as $preload) {
                 if ( !isset($preload['categoryName']) ) {
@@ -89,29 +93,6 @@ class UserInterfaceConfigurations extends InputSetupAbstract
         return $this->postsGetterWrapper;
     }
     
-        /**
-         * @param type $entityManager
-         * @return type
-         */
-        private function assertPostsGetterWrapper(\Doctrine\ORM\EntityManager $entityManager)
-        {
-            if ($this->postsGetterWrapper) {
-                return;
-            }
-            
-            $this->postsGetterWrapper = new PostsGetterWrapper( new PostsGetter($entityManager) );
-            $this->postsGetterWrapper->setInput( array_merge(
-                    $this->getInput(),
-                    array(
-                        'type'  => array('content', 'blog'),
-                        'status' => \Admin\Model\Posts\PostsUtils::STATE_ACTIVE 
-                    )
-                )
-            );
-            
-            return $this->postsGetterWrapper;
-        }
-
     /**
      * Set common configurations both for backend and frontend
      */

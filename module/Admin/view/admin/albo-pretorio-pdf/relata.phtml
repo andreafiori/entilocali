@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+        h1,h2 { margin-bottom: 50px; text-align: center; }
+        p { margin-bottom: 10px }
+        text-center { text-align: center }
+    </style>
+    <body>
+
+        <h1>CERTIFICATO DI PUBBLICAZIONE</h1>
+        
+        <p>Si attesta che l'atto avente oggetto: </p>
+        
+        <h2><?php echo $this->record['titolo'] ?></h2>
+                    
+        <p><strong>Richiesto da:</strong> <?php echo $this->record['userName']." ".$this->record['userSurname'] ?></p>
+        
+        <p class="text-center">&Egrave; stato pubblicato sull'albo pretorio online del sito istituzionale di questo Ente con i seguenti dati:</p>
+
+        <p><strong>Numero rep.:</strong> /</p>
+        
+        <p><strong>Pubblicato il:</strong> <?php //echo $this->record['dataPubblicare'] ?></p>
+        
+        <p><strong>Scadenza:</strong> <?php //echo $this->record['dataPubblicare'] ?></p>
+        
+        <p><strong>Sezione:</strong> <?php echo $this->record['nomeSezione'] ?></p>
+
+        <p><strong>Settore:</strong> <?php echo $this->record['settore'] ?></p>
+
+    </body>
+</html>

@@ -44,8 +44,7 @@ class AttachmentsCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
 
             $formFilter = new AttachmentsFormFilter();
             $form->setInputFilter($formFilter->getInputFilter());                        
-            
-        
+
             // Validate extension
             
             // Validate size
@@ -137,7 +136,7 @@ class AttachmentsCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
     
     protected function delete()
     {
-        
+        // TODO
     }
 }
 

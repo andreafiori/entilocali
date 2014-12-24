@@ -16,7 +16,9 @@ use stdClass;
  */
 class PostsGetterWrapper extends RecordsGetterWrapperAbstract
 {
-    /** @var PostsGetter **/
+    /**
+     * @var PostsGetter
+     */
     protected $objectGetter;
     
     private $category;
@@ -24,7 +26,7 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
     private $template;
 
     /**
-     * @param \Admin\Model\Posts\PostsGetter $postsGetter
+     * @param PostsGetter $postsGetter
      */
     public function __construct(PostsGetter $postsGetter)
     {
@@ -105,6 +107,7 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
         
         return $paginatorToReturn;
     }
+    
         /**
          * @param array $row
          * @return array
@@ -129,6 +132,7 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
         if (!$this->template) {
             $this->template = 'notfound.phtml';
         }
+        
         return $this->template;
     }
     

@@ -47,7 +47,7 @@ class AttachmentsFormDataHandler extends FormDataAbstract
 
                 $this->setTemplate('message.phtml');
 
-                return;
+                return false;
             break;
 
             case("albo-pretorio"):
@@ -79,11 +79,11 @@ class AttachmentsFormDataHandler extends FormDataAbstract
                 $moduleId = 12;
                 $s3_directory = 'stato-civile';
             break;
-        
+
             case("contratti-pubblici"):
                 $s3_directory = 'contratti-pubblici';
             break;
-        
+
             case("amministrazione-trasparente"):
                 $s3_directory = 'amministrazione-trasparente';
             break;

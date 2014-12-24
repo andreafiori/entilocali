@@ -109,7 +109,7 @@ abstract class AlboPretorioDataTableAbstract extends DataTableAbstract implement
                 $arrayLine = array(
                     $record['numeroAtto']." / ".$record['anno'],
                     $record['titolo'],
-                    $record['nome'],
+                    $record['nomeSezione'],
                     $record['dataScadenza'],
                     ($record['pubblicare']==1) ? $record['dataAttivazione'] : 'Non ancora pubblicato',
                     $record['userName'].' '.$record['userSurname'],
@@ -159,7 +159,7 @@ abstract class AlboPretorioDataTableAbstract extends DataTableAbstract implement
 
                     $arrayLine[] = array(
                         'type'      => 'relatapdfButton',
-                        'href'      => '#',
+                        'href'      => $this->getInput('baseUrl',1).'pdf/albo-pretorio/'.$record['id'],
                     );
 
                     $arrayLine[] = array(
@@ -247,9 +247,9 @@ abstract class AlboPretorioDataTableAbstract extends DataTableAbstract implement
     {
         if ( isset($this->param['post']['publishId']) ) {
             
+            $connection = $this->getInput('entityManager',1)->getConnection();
+            $connection->beginTransaction();
             try {
-                $connection = $this->getInput('entityManager',1)->getConnection();
-                $connection->beginTransaction();
                 $connection->update('zfcms_comuni_albo_articoli', array(
                         'pubblicare' => 1,
                         'attivo'     => 1,
@@ -259,7 +259,7 @@ abstract class AlboPretorioDataTableAbstract extends DataTableAbstract implement
                 );
                 $connection->commit();
             } catch (\Exception $e) {
-                $this->getConnection()->rollBack();
+                $connection->rollBack();
                 return $this->setErrorMessage($e->getMessage());
             }
             
@@ -278,9 +278,9 @@ abstract class AlboPretorioDataTableAbstract extends DataTableAbstract implement
     {
         $id = isset($this->param['post']['annullId']) ? $this->param['post']['annullId'] : null;
         if ($id) {
+            $connection = $this->getInput('entityManager',1)->getConnection();
+            $connection->beginTransaction();
             try {
-                $connection = $this->getInput('entityManager',1)->getConnection();
-                $connection->beginTransaction();
                 $connection->update('zfcms_comuni_albo_articoli', array(
                         'annullato' => 1
                     ),
@@ -288,7 +288,7 @@ abstract class AlboPretorioDataTableAbstract extends DataTableAbstract implement
                 );
                 $connection->commit();
             } catch (\Exception $e) {
-                $this->getConnection()->rollBack();
+                $connection->rollBack();
                 return $this->setErrorMessage($e->getMessage());
             }
         }

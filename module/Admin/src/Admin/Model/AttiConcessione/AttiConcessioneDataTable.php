@@ -85,6 +85,8 @@ class AttiConcessioneDataTable extends DataTableAbstract
             
             if ($records) {
                 foreach($records as $key => $row) {
+                    
+                    $activeDisableButtonValue = ($row['attivo']!=0) ? 'toDisable' : 'toActive';
             
                     if(isset($row['responsabile'])) {
                         $responsabile = $row['responsabile'];
@@ -98,7 +100,6 @@ class AttiConcessioneDataTable extends DataTableAbstract
 
                     $arrayToReturn[] = array(
                         // (isset($row['keyImp'])) ? $row['keyImp'] : '',
-                        
                         $row['id'],
                         
                         (isset($responsabile))  ?
@@ -114,6 +115,12 @@ class AttiConcessioneDataTable extends DataTableAbstract
                         $row['data'].' <br><br>'.$row['ora'],
                         $row['scadenza'],
                         $row['name'].' '.$row['surname'],
+                        array(
+                            'type'      => $row['attivo']!=0 ? 'activeButton' : 'disableButton',
+                            'href'      => '?active=&amp;id='.$row['id'],
+                            'value'     => $row['attivo'],
+                            'title'     => 'Attiva \ Disattiva'
+                        ),
                         array(
                             'type'      => 'updateButton',
                             'href'      => $this->getInput('baseUrl',1).'formdata/atti-concessione/'.$row['id'],

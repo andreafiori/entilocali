@@ -10,15 +10,17 @@ use Application\Model\RecordsGetterWrapperAbstract;
  */
 class CategoriesGetterWrapper extends RecordsGetterWrapperAbstract
 {
-    /** @var \Admin\Model\Categories\CategorieGetter **/
+    /**
+     * @var CategoriesGetter 
+     */
     protected $objectGetter;
     
     /**
-     * @param \Admin\Model\Categories\CategorieGetter $categoriesGetter
+     * @param CategoriesGetter $objectGetter
      */
-    public function __construct(CategoriesGetter $categoriesGetter)
+    public function __construct(CategoriesGetter $objectGetter)
     {
-        $this->setObjectGetter($categoriesGetter);
+        $this->setObjectGetter($objectGetter);
     }
     
     public function setupQueryBuilder()
@@ -30,7 +32,8 @@ class CategoriesGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setId($this->getInput('id',1));
         $this->objectGetter->setModuleId($this->getInput('moduleId',1));
         $this->objectGetter->setStatus($this->getInput('status',1));
-        $this->objectGetter->setOrderBy($this->getInput('orderby',1), 'co.position');
-        $this->objectGetter->setLimit($this->getInput('limit',1));
+        $this->objectGetter->setOrderBy($this->getInput('orderBy', 1), 'co.position');
+        $this->objectGetter->setGroupBy($this->getInput('groupBy', 1), 'co.position');
+        $this->objectGetter->setLimit($this->getInput('limit', 1));
     }
 }
