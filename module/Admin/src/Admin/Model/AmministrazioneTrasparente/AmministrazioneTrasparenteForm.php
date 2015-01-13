@@ -10,10 +10,27 @@ use Zend\Form\Form;
  */
 class AmministrazioneTrasparenteForm extends Form
 {
-    public function __construct($name = null, $options = array())
+    /**
+     * @param array $sezioni
+     */
+    public function addSezione(array $sezioni)
     {
-        parent::__construct($name, $options);
-
+        $this->add(array(
+                        'type' => 'Zend\Form\Element\Select',
+                        'name' => 'sezione',
+                        'options' => array(
+                               'label' => 'Sezione',
+                               'empty_option' => 'Seleziona',
+                               'value_options' => $sezioni,
+                        ),
+                        'attributes' => array(
+                               'id' => 'sezione'
+                        )
+        ));
+    }
+    
+    public function addEndForm()
+    {
         $this->add(array(
                         'name' => 'titolo',
                         'type' => 'Textarea',
@@ -27,59 +44,80 @@ class AmministrazioneTrasparenteForm extends Form
         ));
         
         $this->add(array(
-                        'name' => 'sottotitolo',
+                        'name' => 'sommario',
                         'type' => 'Textarea',
-                        'options' => array( 'label' => 'Sottotitolo' ),
+                        'options' => array( 'label' => 'Sotto titolo' ),
                         'attributes' => array(
-                                        'class' => 'form-control',
-                                        'title' => 'Inserisci il titolo',
+                                        'title' => 'Inserisci il sottotitolo',
                                         'class' => 'wysiwyg',
-                                        'id' => 'sottotitolo',
+                                        'id' => 'sommario',
                         )
         ));
         
         $this->add(array(
                         'name' => 'testo',
-                        'type' => 'Text',
+                        'type' => 'Textarea',
                         'options' => array( 'label' => '* Testo' ),
                         'attributes' => array(
                                         'required' => 'required',
                                         'class' => 'wysiwyg',
                                         'title' => 'Inserisci il testo',
-                                        'id' => 'testo',
+                                        'id'    => 'testo',
                         )
         ));
         
-    }
-    
-    public function addSezione()
-    {
         $this->add(array(
-                        'type' => 'Zend\Form\Element\Select',
-                        'name' => 'sezione',
-                        'options' => array(
-                               'label' => 'Sezione',
-                               'empty_option' => 'Seleziona',
-                               'value_options' => array(
-                                       'attivo'   => 'Attivo',
-                                       'nascosto' => 'Nascosto',
-                               ),
-                        ),
+                        'name' => 'anno',
+                        'type' => 'Text',
+                        'options' => array( 'label' => '* Anno' ),
                         'attributes' => array(
-                                'id' => 'sezione'
+                                        'required' => 'required',                                        
+                                        'title' => 'Anno di riferimento',
+                                        'id'    => 'anno',
                         )
         ));
-    }
-    
-    public function addEndForm()
-    {
+        
+        $this->add(array(
+                        'name' => 'numero',
+                        'type' => 'Text',
+                        'options' => array( 'label' => 'Numero' ),
+                        'attributes' => array(
+                                        'title' => 'Numero',
+                                        'id'    => 'numero',
+                        )
+        ));
+        
+        $this->add(array(
+                        'type' => 'Date',
+                        'name' => 'dataInserimento',
+                        'options' => array(
+                                'label' => 'Data pubblicazione',
+                                'format' => 'Y-m-d H:i:s',
+                        ),
+                        'attributes' => array(
+                                'id'    => 'numero'
+                        )
+        ));
+        
+        $this->add(array(
+                        'type' => 'Date',
+                        'name' => 'dataScadenza',
+                        'options' => array(
+                                'label' => 'Data scadenza',
+                                'format' => 'Y-m-d H:i:s',
+                        ),
+                        'attributes' => array(
+                                'id'    => 'numero'
+                        )
+        ));
+        
         $this->add(array(
                         'type' => 'Zend\Form\Element\Select',
                         'name' => 'status',
                         'options' => array(
                                'label' => 'Stato',
+                                'empty_option' => 'Seleziona',
                                'value_options' => array(
-                                       '' => 'Seleziona',
                                        'attivo'   => 'Attivo',
                                        'nascosto' => 'Nascosto',
                                ),
@@ -103,23 +141,7 @@ class AmministrazioneTrasparenteForm extends Form
                                 'id' => 'home'
                         )
         ));
-        
-        $this->add(array(
-                        'type' => 'Zend\Form\Element\Select',
-                        'name' => 'modulo',
-                        'options' => array(
-                               'label' => 'Modulo',
-                               'value_options' => array(
-                                       '' => 'Seleziona',
-                                       'attivo'   => 'Attivo',
-                                       'nascosto' => 'Nascosto',
-                               ),
-                        ),
-                        'attributes' => array(
-                                'id' => 'status'
-                        )
-        ));
-        
+                
         $this->add(array(
                         'type' => 'Zend\Form\Element\Radio',
                         'name' => 'home',

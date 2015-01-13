@@ -11,8 +11,8 @@ use Admin\Model\FormData\CrudHandlerAbstract;
  */
 class AttiConcessioneCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterface
 {
-    private $tableName = 'zfcms_comuni_ammaperta_articoli';
-    
+    private $tableName = 'zfcms_comuni_concessione';
+
     public function insert()
     {
         try {

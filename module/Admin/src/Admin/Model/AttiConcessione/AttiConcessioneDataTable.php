@@ -3,8 +3,6 @@
 namespace Admin\Model\AttiConcessione;
 
 use Admin\Model\DataTable\DataTableAbstract;
-use Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteGetter;
-use Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteGetterWrapper;
 
 /**
  * @author Andrea Fiori
@@ -66,7 +64,7 @@ class AttiConcessioneDataTable extends DataTableAbstract
         {
             $param = $this->getParam();
 
-            $wrapper = new AmministrazioneTrasparenteGetterWrapper(new AmministrazioneTrasparenteGetter($this->getInput('entityManager',1)) );
+            $wrapper = new AttiConcessioneGetterWrapper(new AttiConcessioneGetter($this->getInput('entityManager',1)) );
             $wrapper->setInput($this->getInput());
             $wrapper->setupQueryBuilder();
             $wrapper->setupPaginator( $wrapper->setupQuery($this->getInput('entityManager', 1)) );

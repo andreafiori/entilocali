@@ -4,7 +4,6 @@ return array(
         'invokables' => array(
             'Admin\Controller\Auth' => 'Admin\Controller\AuthController',
             'Admin\Controller\Admin' => 'Admin\Controller\AdminController',
-            //'Admin\Controller\Pdf' => 'Admin\Controller\PdfController',
             'Admin\Controller\Pdf\AlboPretorioPdf' => 'Admin\Controller\Pdf\AlboPretorioPdfController',
         ),
     ),
@@ -159,7 +158,8 @@ return array(
         "admin"                     => '\Admin\Model\AdminDashboard',
         "admin/formdata"            => '\Admin\Model\FormData\FormDataHandler',
         "admin/datatable"           => '\Admin\Model\DataTable\DataTableHandler',
-        "admin/invio-ente-terzo"    => '\Admin\Model\EntiTerzi\InvioEnteTerzoHandler',      
+        "admin/invio-ente-terzo"    => '\Admin\Model\EntiTerzi\InvioEnteTerzoHandler',
+        "admin/sezioni"             => '\Admin\Model\Sezioni\SezioniHandler',
     ),
     /* FormData Class Map */
     'formdata_classmap' => array(
@@ -191,7 +191,7 @@ return array(
         'amministrazione-trasparente' => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteCrudHandler',
         'attachments'                 => 'Admin\Model\Attachments\AttachmentsCrudHandler',
         'atti-concessione'            => 'Admin\Model\AttiConcessione\AttiConcessioneCrudHandler',
-        'atti-concessione-settori'    => 'Admin\Model\AttiConcessione\AttiConcessioneSezioniCrudHandler',
+        'atti-concessione-settori'    => 'Admin\Model\AttiConcessione\AttiConcessioneSettoriCrudHandler',
         'atti-concessione-resp'       => 'Admin\Model\AttiConcessione\AttiConcessioneRespProcCrudHandler',
         'categories'                  => 'Admin\Model\Categories\CategoriesCrudHandler',
         'contratti-pubblici'          => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciCrudHandler',
@@ -200,16 +200,16 @@ return array(
         'contratti-pubblici-settori'            => 'Admin\Model\ContrattiPubblici\SettoriCrudHandler',
         'contratti-pubblici-partecipanti'       => 'Admin\Model\ContrattiPubblici\PartecipantiCrudHandler',
         'contratti-pubblici-operatori'          => 'Admin\Model\ContrattiPubblici\OperatoriCrudHandler',
-        'contatti'                    => 'Admin\Model\Contacts\ContactsCrudHandler',
-        'faq'                         => 'Admin\Model\Faq\FaqCrudHandler',
-        'newsletter'                  => 'Admin\Model\Newsletter\NewsletterCrudHandler',
-        'posts'                       => 'Admin\Model\Posts\PostsCrudHandler',
-        'enti-terzi'                  => 'Admin\Model\EntiTerzi\EntiTerziCrudHandler',
-        'invio-ente-terzo'            => 'Admin\Model\EntiTerzi\InvioEnteTerzoCrudHandler',
-        'stato-civile'                => 'Admin\Model\StatoCivile\StatoCivileCrudHandler',
-        'stato-civile-sezioni'        => 'Admin\Model\StatoCivile\StatoCivileSezioniCrudHandler',
-        'tickets'                     => 'Admin\Model\Tickets\TicketsCrudHandler',
-        'users'                       => 'Admin\Model\Users\UsersCrudHandler',
+        'contatti'              => 'Admin\Model\Contacts\ContactsCrudHandler',
+        'faq'                   => 'Admin\Model\Faq\FaqCrudHandler',
+        'newsletter'            => 'Admin\Model\Newsletter\NewsletterCrudHandler',
+        'posts'                 => 'Admin\Model\Posts\PostsCrudHandler',
+        'enti-terzi'            => 'Admin\Model\EntiTerzi\EntiTerziCrudHandler',
+        'invio-ente-terzo'      => 'Admin\Model\EntiTerzi\InvioEnteTerzoCrudHandler',
+        'stato-civile'          => 'Admin\Model\StatoCivile\StatoCivileCrudHandler',
+        'stato-civile-sezioni'  => 'Admin\Model\StatoCivile\StatoCivileSezioniCrudHandler',
+        'tickets'               => 'Admin\Model\Tickets\TicketsCrudHandler',
+        'users'                 => 'Admin\Model\Users\UsersCrudHandler',
     ),
     /* DataTables Class Map */
     'datatables_classmap' => array(
@@ -239,58 +239,4 @@ return array(
         'stato-civile'                => 'Admin\Model\StatoCivile\StatoCivileDataTable',
         'stato-civile-sezioni'        => 'Admin\Model\StatoCivile\StatoCivileSezioniDataTable',
     ),
-    /* Attachments setup class map
-    'attachments_setup_classmap' => array(
-        
-    ), */
-    /* Admin utils with modules ID and views
-    'utils' => array(
-        'albo-pretorio' => array(
-            'moduleId' => 10,
-            'formdata' => array(
-                'href' => 'formdata/albo-pretorio/',
-                'title_update' => 'Gestione articoli albo pretorio',
-                'title_insert' => 'Nuovo articolo albo'
-            ),
-            'datatable' => array(
-                'href' => 'datatable/albo-pretorio/',
-                'title' => 'Articoli albo pretorio'
-            ),
-            'moduleName' => 'Albo pretorio'
-        ),
-        'albo-pretorio-sezioni' => array(
-            'formdata' => array(
-                'href' => 'formdata/albo-pretorio-sezioni/',
-                'title_update' => 'Gestione sezioni albo pretorio',
-                'title_insert' => 'Nuova sezione albo albo'
-            ),
-            'datatable' => array(
-                'href' => 'datatable/albo-pretorio-sezioni/',
-                'title' => 'Sezioni albo pretorio'
-            ),
-            'moduleName' => 'Albo pretorio'
-        ),
-        'stato-civile' => array(
-            'moduleId' => 11,
-            'formdata' => array(
-                'href' => 'formdata/albo-pretorio/',
-            ),
-            'datatable' => array(
-                'href' => 'datatable/albo-pretorio/',
-                'title' => ''
-            ),
-            'moduleName' => 'Stato civile'
-        ),
-        'amministrazione-trasparente' => array(
-            'moduleId' => 13,
-            'formdata' => array(
-                'href' => 'formdata/amministrazione-trasparente/',
-            ),
-            'datatable' => array(
-                'href' => 'datatable/amministrazione-trasparente/'
-            ),
-            'moduleName' => 'Amministrazione trasparente'
-        ),
-    ),
-    */
 );

@@ -1,8 +1,8 @@
 <?php
 return array(
-        'database'  => 'pescheriaspano',
-        'username'  => 'root',
-        'password'  => '',
-        'hostname'  => 'localhost',
-        'port'      => '3306'
+	'database'  => 'entilocali',
+	'username'  => 'root',
+	'password'  => '',
+	'hostname'  => 'localhost',
+	'port'      => '3306'
 );

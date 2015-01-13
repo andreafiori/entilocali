@@ -121,7 +121,7 @@ class RecordsGetterAbstract extends InputSetupAbstract
     }
     
     /**
-     * @param \Application\Model\RecordsGetterWrapperAbstract $objectGetterWrapper
+     * @param RecordsGetterWrapperAbstract $objectGetterWrapper
      */
     public function setObjectGetterWrapper(RecordsGetterWrapperAbstract $objectGetterWrapper)
     {
@@ -129,7 +129,7 @@ class RecordsGetterAbstract extends InputSetupAbstract
     }
     
     /**
-     * @return \Application\Model\RecordsGetterWrapperAbstract $objectGetterWrapper
+     * @return RecordsGetterWrapperAbstract $objectGetterWrapper
      */
     public function getObjectGetterWrapper()
     {

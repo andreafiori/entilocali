@@ -134,6 +134,13 @@ class ZfcmsPostsOptions
     private $href;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="always_in_home", type="integer", nullable=true)
+     */
+    private $alwaysInHome;
+
+    /**
      * @var \Application\Entity\ZfcmsLanguages
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsLanguages")
@@ -547,6 +554,30 @@ class ZfcmsPostsOptions
     public function getHref()
     {
         return $this->href;
+    }
+
+    /**
+     * Set alwaysInHome
+     *
+     * @param integer $alwaysInHome
+     *
+     * @return ZfcmsPostsOptions
+     */
+    public function setAlwaysInHome($alwaysInHome)
+    {
+        $this->alwaysInHome = $alwaysInHome;
+    
+        return $this;
+    }
+
+    /**
+     * Get alwaysInHome
+     *
+     * @return integer
+     */
+    public function getAlwaysInHome()
+    {
+        return $this->alwaysInHome;
     }
 
     /**

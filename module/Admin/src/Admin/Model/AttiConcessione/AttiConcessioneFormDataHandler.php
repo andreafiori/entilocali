@@ -3,8 +3,6 @@
 namespace Admin\Model\AttiConcessione;
 
 use Admin\Model\FormData\FormDataAbstract;
-use Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteGetter;
-use Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteGetterWrapper;
 
 /**
  * @author Andrea Fiori
@@ -20,11 +18,11 @@ class AttiConcessioneFormDataHandler extends FormDataAbstract
         parent::__construct($input);
         
         $param = $this->getInput('param', 1);
-        
+
         $form = new AttiConcessioneForm();
         $form->addUfficioResponsabile($this->getSezioni());
         
-        $records = $this->getAttiRecords($param['route']['option']);
+        $records = $this->getAttiRecords(isset($param['route']['option']) ? $param['route']['option'] : null);
         if ($records) {
             $formAction = 'atti-concessione/update';
             $formTitle = 'Modifica atto di concessione';
@@ -51,7 +49,7 @@ class AttiConcessioneFormDataHandler extends FormDataAbstract
          */
         private function getAttiRecords($id)
         {
-            $wrapper = new AmministrazioneTrasparenteGetterWrapper(new AmministrazioneTrasparenteGetter($this->getInput('entityManager',1)));
+            $wrapper = new AttiConcessioneGetterWrapper(new AttiConcessioneGetter($this->getInput('entityManager',1)));
             $wrapper->setInput( array('aa.id' => $id, 'limit' => 1) );
             $wrapper->setupQueryBuilder();
             
@@ -60,7 +58,7 @@ class AttiConcessioneFormDataHandler extends FormDataAbstract
         
         private function getSezioni()
         {
-            $wrapper = new AttiConcessioneSezioniGetterWrapper( new AttiConcessioneSezioniGetter($this->getInput('entityManager',1)) );
+            $wrapper = new AttiConcessioneSettoriGetterWrapper( new AttiConcessioneSettoriGetter($this->getInput('entityManager',1)) );
             $wrapper->setInput( array() );
             $wrapper->setupQueryBuilder();
             

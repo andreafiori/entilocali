@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsComuniSottosezioni
  *
- * @ORM\Table(name="zfcms_comuni_sottosezioni", indexes={@ORM\Index(name="sezione_id", columns={"sezione_id"})})
+ * @ORM\Table(name="zfcms_comuni_sottosezioni", indexes={@ORM\Index(name="zf_comuni_sottosezioni_sezioni", columns={"sezione_id"})})
  * @ORM\Entity
  */
 class ZfcmsComuniSottosezioni
@@ -20,13 +20,6 @@ class ZfcmsComuniSottosezioni
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="sezione_id", type="bigint", nullable=false)
-     */
-    private $sezioneId;
 
     /**
      * @var string
@@ -48,6 +41,13 @@ class ZfcmsComuniSottosezioni
      * @ORM\Column(name="url", type="text", length=65535, nullable=true)
      */
     private $url;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="url_title", type="string", length=100, nullable=true)
+     */
+    private $urlTitle;
 
     /**
      * @var integer
@@ -73,7 +73,7 @@ class ZfcmsComuniSottosezioni
     /**
      * @var integer
      *
-     * @ORM\Column(name="profondita_da", type="integer", nullable=false)
+     * @ORM\Column(name="profondita_da", type="bigint", nullable=false)
      */
     private $profonditaDa;
 
@@ -83,6 +83,44 @@ class ZfcmsComuniSottosezioni
      * @ORM\Column(name="is_ss", type="integer", nullable=false)
      */
     private $isSs;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=80, nullable=false)
+     */
+    private $slug;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_title", type="string", length=100, nullable=false)
+     */
+    private $seoTitle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_keywords", type="string", length=100, nullable=false)
+     */
+    private $seoKeywords;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_description", type="text", length=65535, nullable=false)
+     */
+    private $seoDescription;
+
+    /**
+     * @var \Application\Entity\ZfcmsComuniSezioni
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniSezioni")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="sezione_id", referencedColumnName="id")
+     * })
+     */
+    private $sezione;
 
 
 
@@ -94,30 +132,6 @@ class ZfcmsComuniSottosezioni
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set sezioneId
-     *
-     * @param integer $sezioneId
-     *
-     * @return ZfcmsComuniSottosezioni
-     */
-    public function setSezioneId($sezioneId)
-    {
-        $this->sezioneId = $sezioneId;
-    
-        return $this;
-    }
-
-    /**
-     * Get sezioneId
-     *
-     * @return integer
-     */
-    public function getSezioneId()
-    {
-        return $this->sezioneId;
     }
 
     /**
@@ -190,6 +204,30 @@ class ZfcmsComuniSottosezioni
     public function getUrl()
     {
         return $this->url;
+    }
+
+    /**
+     * Set urlTitle
+     *
+     * @param string $urlTitle
+     *
+     * @return ZfcmsComuniSottosezioni
+     */
+    public function setUrlTitle($urlTitle)
+    {
+        $this->urlTitle = $urlTitle;
+    
+        return $this;
+    }
+
+    /**
+     * Get urlTitle
+     *
+     * @return string
+     */
+    public function getUrlTitle()
+    {
+        return $this->urlTitle;
     }
 
     /**
@@ -310,5 +348,125 @@ class ZfcmsComuniSottosezioni
     public function getIsSs()
     {
         return $this->isSs;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return ZfcmsComuniSottosezioni
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set seoTitle
+     *
+     * @param string $seoTitle
+     *
+     * @return ZfcmsComuniSottosezioni
+     */
+    public function setSeoTitle($seoTitle)
+    {
+        $this->seoTitle = $seoTitle;
+    
+        return $this;
+    }
+
+    /**
+     * Get seoTitle
+     *
+     * @return string
+     */
+    public function getSeoTitle()
+    {
+        return $this->seoTitle;
+    }
+
+    /**
+     * Set seoKeywords
+     *
+     * @param string $seoKeywords
+     *
+     * @return ZfcmsComuniSottosezioni
+     */
+    public function setSeoKeywords($seoKeywords)
+    {
+        $this->seoKeywords = $seoKeywords;
+    
+        return $this;
+    }
+
+    /**
+     * Get seoKeywords
+     *
+     * @return string
+     */
+    public function getSeoKeywords()
+    {
+        return $this->seoKeywords;
+    }
+
+    /**
+     * Set seoDescription
+     *
+     * @param string $seoDescription
+     *
+     * @return ZfcmsComuniSottosezioni
+     */
+    public function setSeoDescription($seoDescription)
+    {
+        $this->seoDescription = $seoDescription;
+    
+        return $this;
+    }
+
+    /**
+     * Get seoDescription
+     *
+     * @return string
+     */
+    public function getSeoDescription()
+    {
+        return $this->seoDescription;
+    }
+
+    /**
+     * Set sezione
+     *
+     * @param \Application\Entity\ZfcmsComuniSezioni $sezione
+     *
+     * @return ZfcmsComuniSottosezioni
+     */
+    public function setSezione(\Application\Entity\ZfcmsComuniSezioni $sezione = null)
+    {
+        $this->sezione = $sezione;
+    
+        return $this;
+    }
+
+    /**
+     * Get sezione
+     *
+     * @return \Application\Entity\ZfcmsComuniSezioni
+     */
+    public function getSezione()
+    {
+        return $this->sezione;
     }
 }

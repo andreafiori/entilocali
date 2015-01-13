@@ -5,7 +5,7 @@
     <?php else: ?>
     <h1>Nessun dato in archivio</h1>
     <?php endif; ?>
-    
+
     <?php if ($this->messageDescription): ?>
     <p><?php echo $this->messageDescription ?></p>
     <?php else: ?>
@@ -56,6 +56,12 @@
                     <td>&nbsp;</td>
                     <?php elseif($record['type']=='deleteButton'): ?>
                     <td><a href="#deleteModal" data-id="<?php echo $record['data-id'] ?>" class="open-deleteModal btn btn-lg icon-red" title="Elimina"><i class="fa fa-times"></i> </a></td>
+                    <?php elseif($record['type']=='homepagePutButton'): ?>
+                    <td><a href="#" class="btn btn-lg icon-red" title="Metti in home page"><i class="fa fa-home icon-red"></i> </a></td>
+                    <?php elseif($record['type']=='homepageDelButton'): ?>
+                    <td><a href="#" class="btn btn-lg icon-green" title="Metti in home page"><i class="fa fa-home icon-green"></i> </a></td>
+                    <?php elseif($record['type']=='tableButton'): ?>
+                    <td><a href="#" class="btn btn-lg" title=""><i class="fa fa-table"></i> </a></td>
                     <?php elseif($record['type']=='attachButton'): ?>
                     <td><a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-black" title="Gestione allegati"><i class="fa fa-paperclip"></i> </a></td>
                     <?php elseif($record['type']=='relatapdfButton'): ?>

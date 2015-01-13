@@ -1,12 +1,12 @@
-<ul class="breadcrumb">
+<ul class="breadcrumbs">
     <li>
-        <a href="<?php echo $this->basepath() ?>/" title="Torna all'home page">Home</a> <span class="divider"></span>
+        <a href="<?php echo $this->basepath() ?>/" title="Torna all'home page">Home</a>
     </li>
     <li>
         <a href="<?php echo $this->basepath()."/".$this->category_seo ?>" title="<?php echo $this->category ?>"><?php echo $this->category ?></a> <span class="divider"></span>
     </li>
 
-    <li class="active"><?php echo $this->title ?></li>
+    <li class="current"><?php echo $this->title ?></li>
 </ul>
 
 <?php foreach($this->paginator as $key => $row): ?>
@@ -34,8 +34,7 @@
         <a href="#" title="Visualizza documento in formato Word">WORD</a> 
         <a href="#" title="Visualizza documento in formato testo">TXT</a> 
         
-        Condividi: <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->currentUrl; ?>" title="Condividi pagina su facebook" target="_blank"><i class="fa fa-facebook"></i> 
-        Facebook</a> <a href="https://twitter.com/home?status=<?php echo $this->currentUrl; ?>" title="Condividi pagina su Twitter"><i class="fa fa-twitter"></i> Twitter</a> 
+        Condividi: <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->currentUrl; ?>" title="Condividi pagina su facebook" target="_blank">Facebook</a> <a href="https://twitter.com/home?status=<?php echo $this->currentUrl; ?>" title="Condividi pagina su Twitter">Twitter</a> 
         <!-- <a href="https://plus.google.com/share?url=<?php echo $this->currentUrl ?>">Google Plus</a> <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=<?php echo $this->currentUrl ?>&amp;title=<?php echo $row['seoTitle'] ?>">Linkedin</a> <a href="https://pinterest.com/pin/create/button/?url=<?php echo $this->currentUrl ?>">Pinterest</a>-->
     </p>
 

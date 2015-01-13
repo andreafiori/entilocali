@@ -11,7 +11,7 @@ use Admin\Model\DataTable\DataTableAbstract;
 class StatoCivileDataTable extends DataTableAbstract
 {
     /**
-     * @param array $input
+     * {@inheritdoc}
      */
     public function __construct(array $input)
     {

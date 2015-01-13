@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsLogs
  *
- * @ORM\Table(name="zfcms_logs")
+ * @ORM\Table(name="zfcms_logs", indexes={@ORM\Index(name="user_id", columns={"user_id"})})
  * @ORM\Entity
  */
 class ZfcmsLogs
@@ -24,9 +24,9 @@ class ZfcmsLogs
     /**
      * @var integer
      *
-     * @ORM\Column(name="utente_id", type="bigint", nullable=false)
+     * @ORM\Column(name="user_id", type="bigint", nullable=false)
      */
-    private $utenteId;
+    private $userId;
 
     /**
      * @var \DateTime
@@ -38,9 +38,23 @@ class ZfcmsLogs
     /**
      * @var string
      *
-     * @ORM\Column(name="azione", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="message", type="text", length=65535, nullable=false)
      */
-    private $azione;
+    private $message;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=50, nullable=false)
+     */
+    private $type;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="backend", type="smallint", nullable=false)
+     */
+    private $backend;
 
 
 }

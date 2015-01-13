@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * Given the sezioni value with the column index, print a column
+ */
+foreach($this->sezioni as $sezione)
+{
+    ?><h1 style="font-size: 180%"><?php echo $sezione['nome']; ?></h1><?php
+    if (is_array($sezione['sottosezioni'])) {
+        ?><ul class="side-nav"><?php
+        foreach($sezione['sottosezioni'] as $sottoSezione) {
+            ?><li><a href="#" title="<?php echo isset($sottoSezione['urlTitle']) ? utf8_encode($sottoSezione['urlTitle']) : 'Vai alla sezione '.utf8_encode($sottoSezione['nome']) ?>"><?php echo utf8_encode($sottoSezione['nome']) ?></a></li><?php
+        }
+        ?></ul><?php
+    }
+}

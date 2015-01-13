@@ -29,16 +29,6 @@ class ZfcmsAttachmentsRelations
     private $referenceId;
 
     /**
-     * @var \Application\Entity\ZfcmsAttachments
-     *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsAttachments")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="attachment_id", referencedColumnName="id")
-     * })
-     */
-    private $attachment;
-
-    /**
      * @var \Application\Entity\ZfcmsModules
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsModules")
@@ -47,6 +37,16 @@ class ZfcmsAttachmentsRelations
      * })
      */
     private $module;
+
+    /**
+     * @var \Application\Entity\ZfcmsAttachments
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsAttachments")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="attachment_id", referencedColumnName="id")
+     * })
+     */
+    private $attachment;
 
 
 }

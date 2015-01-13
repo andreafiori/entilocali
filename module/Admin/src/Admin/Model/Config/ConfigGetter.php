@@ -14,9 +14,9 @@ class ConfigGetter extends QueryBuilderHelperAbstract
     {
         $this->setSelectQueryFields('c.name, c.value ');
 
-        $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
-                                ->add('from', 'Application\Entity\ZfcmsConfig c')
-                                ->add('where', 'c.channelId IN ( :channel , 0 ) AND c.languageId IN ( :language , 0 )');
+        $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
+                                ->from('Application\Entity\ZfcmsConfig', 'c')
+                                ->where('c.channelId IN ( :channel , 0 ) AND c.languageId IN ( :language , 0 )');
         
         return $this->getQueryBuilder();
     }

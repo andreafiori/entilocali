@@ -77,7 +77,7 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
             
             if ( $row['flagAttachments'] == 'si' ) {
                 $attachmentsGetterWrapper = new AttachmentsGetterWrapper( new AttachmentsGetter($this->getObjectGetter()->getEntityManager()) );
-                $attachmentsGetterWrapper->setInput( array() );
+                $attachmentsGetterWrapper->setInput( array('referenceId'=>$row['id']) );
                 $attachmentsGetterWrapper->setupQueryBuilder();
                 
                 $row['attachments'] = $attachmentsGetterWrapper->getRecords();
@@ -99,7 +99,7 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
             }
 
             $this->template = $row['template'];
-            $this->title = $row['title'];
+            $this->title    = $row['title'];
             $this->category = $row['categoryName'];
             
             $paginatorToReturn->$key = $row;

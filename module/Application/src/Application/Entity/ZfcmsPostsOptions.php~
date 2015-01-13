@@ -134,6 +134,13 @@ class ZfcmsPostsOptions
     private $href;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="always_in_home", type="integer", nullable=true)
+     */
+    private $alwaysInHome;
+
+    /**
      * @var \Application\Entity\ZfcmsLanguages
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsLanguages")

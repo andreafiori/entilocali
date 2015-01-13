@@ -1,6 +1,6 @@
 <?php
 
-namespace AdminTest\Model\ContrattiPubblici;
+namespace AdminTest\Model\Contacts;
 
 use ApplicationTest\TestSuite;
 use Admin\Model\Contacts\ContactsGetter;

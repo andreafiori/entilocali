@@ -1,6 +1,6 @@
 <?php
 
-namespace ApplicationTest\Model\Categories;
+namespace AdminTest\Model\Categories;
 
 use ApplicationTest\TestSuite;
 use Admin\Model\Categories\CategoriesDataTable;

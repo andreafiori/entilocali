@@ -1,23 +1,14 @@
-<ul class="breadcrumb">
-    <li><a href="<?php echo $this->basepath() ?>" title="Home page">Home</a> <span class="divider"></span></li>
-    <li class="active">Albo pretorio</li>
+<ul class="breadcrumbs">
+    <li><a href="<?php echo $this->basepath() ?>" title="Home page">Home</a></li>
+    <li class="current">Albo pretorio</li>
 </ul>
 
 <?php if (count($this->paginator)): ?>
 
 <h1>Albo pretorio</h1>
  
-<div class="panel-group" id="accordion">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" title="Ricerca atti nell'albo pretorio">
-          &raquo; Ricerca
-        </a>
-      </h4>
-    </div>
-    <div id="collapseOne" class="panel-collapse collapse in">
-    <div class="panel-body">
+<div>
+    <div>
     <?php
     
     $form = $this->form;
@@ -26,39 +17,39 @@
     $form->setAttribute('action',   $this->serverUrl(true));
     $form->setAttribute('method',   'post');
     $form->setAttribute('role',     'form');
-    $form->setAttribute('class',    'form-horizontal');
     $form->setAttribute('id',       'albo-pretorio-search-form');
+        
+    $form->get('search')->setAttribute('class', 'button button-tiny');
     
-    echo $this->form()->openTag($this->form);
-    
-    $form->get('numero_progressivo')->setAttribute('class','form-control');
-    $form->get('numero_atto')->setAttribute('class','form-control');
-    $form->get('testo')->setAttribute('class','form-control');
-    $form->get('sezione')->setAttribute('class', 'form-control');
-    $form->get('settore')->setAttribute('class', 'form-control');
-    $form->get('mese')->setAttribute('class', 'form-control');
-    $form->get('anno')->setAttribute('class', 'form-control');
-    $form->get('search')->setAttribute('class', 'btn btn-primary');
+    echo $this->form()->openTag($form);
     
     ?>
     <fieldset>
         <legend>Ricerca atti nell'albo</legend>
         
-        <div class="form-group">
-            <label for="<?php echo $form->get('numero_progressivo')->getAttribute('id'); ?>" class="col-sm-2 control-label">N.ro repertorio:</label>
-            <div class="col-sm-2">
+        <div class="row">
+            
+            <div class="large-2 columns">
+                <label for="<?php echo $form->get('numero_progressivo')->getAttribute('id'); ?>">
+                    N.ro repertorio:
+                </label>
+            </div>
+            
+            <div class="large-2 columns">
                 <?php echo $this->formElement($form->get('numero_progressivo')); ?>
             </div>
             
-            <div class="col-sm-2">
-                <label for="<?php echo $form->get('numero_atto')->getAttribute('id'); ?>" class="widthAll">N.ro atto:</label>
+            <div class="large-2 columns">
+                <label for="<?php echo $form->get('numero_atto')->getAttribute('id'); ?>">
+                    N.ro atto:
+                </label>
             </div>
             
-            <div class="col-sm-2">
+            <div class="large-2 columns">
                 <?php echo $this->formElement($form->get('numero_atto')); ?>
             </div>
             
-            <div class="col-sm-2">
+            <div class="large-2 columns">
                 &nbsp;
             </div>
         </div>
@@ -110,19 +101,17 @@
             </div>
         </div>
 
-    </fieldset><?php
+    </fieldset>
+    <?php
     
     echo $this->form()->closeTag();
     ?>
 
-            </div>
-        </div>
     </div>
-    
-    <div>&nbsp;</div>
 
-    <div class="alert alert-info">Per aprire i file firmati digitalmente scaricare il software ArubaSign:<br>
-        <ul class="list-unstyled">
+
+    <div class="panel callout">Per aprire i file firmati digitalmente scaricare il software ArubaSign:<br>
+        <ul class="unstyled">
             <li><i class="fa fa-windows"></i> <a href="http://www.kronoweb.it/download/ArubaSign/ArubaSign2_3_5_WINDOWS.exe" title="Software per PC">Versione per PC (17,5MB)</a></li>
             <li><i class="fa fa-linux"></i> Versione per Linux <a href="#" title="ArubaSign per Linux 32bit">(32 bit)</a> - <a href="#" title="ArubaSign per Linux 64bit">(64 bit)</a></li>
             <li><i class="fa fa-apple"></i> <a href="http://www.kronoweb.it/download/ArubaSign/ArubaSign2_1_5MAC.zip" title="Software per MAC">Versione per MAC (31,2MB)</a></li>
@@ -140,7 +129,7 @@
     <p><strong>Rep.:</strong> <?php echo $row['numeroProgressivo'] ?> / <?php echo $row['numeroAtto'] ?></p>
     <p><strong>Pubblicato il:</strong> <?php echo $row['dataAttivazione'] ?> / <strong>Ore:</strong> <?php echo $row['oraAttivazione'] ?></p>
     <p><strong>Scadenza:</strong> <?php echo $row['dataScadenza'] ?></p>
-    <p><strong>Sezione:</strong> <?php echo $row['nome'] ?></p>
+    <p><strong>Sezione:</strong> <?php echo $row['nomeSezione'] ?></p>
     <!-- TODO:
         <p><strong>Allegati:</strong></p>
         <p>[PDF] provvedimento_unico n. 1 del 17 04 2014 .pdf (48 KB)</p>

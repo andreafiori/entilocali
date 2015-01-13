@@ -11,7 +11,7 @@ use Admin\Model\StatoCivile\StatoCivileGetter;
  */
 class StatoCivileGetterWrapper extends RecordsGetterWrapperAbstract
 {
-    /** @var \Admin\Model\StatoCivile\StatoCivileGetter **/
+    /** @var StatoCivileGetter **/
     protected $objectGetter;
 
     /**
@@ -36,5 +36,4 @@ class StatoCivileGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
         $this->objectGetter->setLimit( $this->getInput('limit', 1) );
     }
-    
 }

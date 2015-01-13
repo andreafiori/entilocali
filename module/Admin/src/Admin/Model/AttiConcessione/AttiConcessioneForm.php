@@ -10,9 +10,8 @@ use Zend\Form\Form;
  */
 class AttiConcessioneForm extends Form
 {
-    /**
-     * @param type $name
-     * @param type $options
+    /**   
+     * {@inheritDoc}
      */
     public function __construct($name = null, $options = array())
     {
@@ -50,7 +49,8 @@ class AttiConcessioneForm extends Form
                                'value_options' => $records,
                         ),
                         'attributes' => array(
-                                'id' => 'sezione'
+                                'id' => 'sezione',
+                                'title' => 'Seleziona Ufficio Responsabile'
                         )
         ));
     }

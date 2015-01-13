@@ -15,7 +15,7 @@ class AttiConcessioneRespProcGetter extends QueryBuilderHelperAbstract
         $this->setSelectQueryFields("arp.id, arp.nomeResp, arp.attivo");
 
         $this->getQueryBuilder()->select($this->getSelectQueryFields())
-                                ->from('Application\Entity\ZfcmsComuniAmmapertaRespProc', 'arp')
+                                ->from('Application\Entity\ZfcmsComuniAmmtraspRespProc', 'arp')
                                 ->where('arp.id != 0 ');
 
         return $this->getQueryBuilder();

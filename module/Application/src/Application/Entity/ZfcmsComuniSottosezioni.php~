@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsComuniSottosezioni
  *
- * @ORM\Table(name="zfcms_comuni_sottosezioni", indexes={@ORM\Index(name="sezione_id", columns={"sezione_id"})})
+ * @ORM\Table(name="zfcms_comuni_sottosezioni", indexes={@ORM\Index(name="zf_comuni_sottosezioni_sezioni", columns={"sezione_id"})})
  * @ORM\Entity
  */
 class ZfcmsComuniSottosezioni
@@ -20,13 +20,6 @@ class ZfcmsComuniSottosezioni
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="sezione_id", type="bigint", nullable=false)
-     */
-    private $sezioneId;
 
     /**
      * @var string
@@ -48,6 +41,13 @@ class ZfcmsComuniSottosezioni
      * @ORM\Column(name="url", type="text", length=65535, nullable=true)
      */
     private $url;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="url_title", type="string", length=100, nullable=true)
+     */
+    private $urlTitle;
 
     /**
      * @var integer
@@ -73,7 +73,7 @@ class ZfcmsComuniSottosezioni
     /**
      * @var integer
      *
-     * @ORM\Column(name="profondita_da", type="integer", nullable=false)
+     * @ORM\Column(name="profondita_da", type="bigint", nullable=false)
      */
     private $profonditaDa;
 
@@ -83,6 +83,44 @@ class ZfcmsComuniSottosezioni
      * @ORM\Column(name="is_ss", type="integer", nullable=false)
      */
     private $isSs;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=80, nullable=false)
+     */
+    private $slug;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_title", type="string", length=100, nullable=false)
+     */
+    private $seoTitle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_keywords", type="string", length=100, nullable=false)
+     */
+    private $seoKeywords;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_description", type="text", length=65535, nullable=false)
+     */
+    private $seoDescription;
+
+    /**
+     * @var \Application\Entity\ZfcmsComuniSezioni
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniSezioni")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="sezione_id", referencedColumnName="id")
+     * })
+     */
+    private $sezione;
 
 
 }

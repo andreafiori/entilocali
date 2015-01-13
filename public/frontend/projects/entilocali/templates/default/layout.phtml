@@ -1,17 +1,17 @@
 <?php echo $this->doctype(); ?>
 
-<html lang="it">
+<html lang="it" class="no-js">
 <head>
 <meta charset="utf-8">
 <title><?php echo $this->sitename ?></title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="description" content="<?php echo $this->description ?>">
 <meta name="keywords" content="<?php echo $this->keywords ?>">
 
-<link href="<?php echo $this->basePath(). '/'.$this->cssdir ?>" media="screen" rel="stylesheet" type="text/css">
-<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+<link href="<?php echo $this->basePath() ?>/public/common/foundation/css/foundation.min.css" media="screen" rel="stylesheet" type="text/css">
 
 <link href="<?php echo $this->basePath() . '/public/frontend/projects/favicon.ico' ?>" rel="shortcut icon" type="image/vnd.microsoft.icon">
+<script src="<?php echo $this->basePath() ?>/public/common/foundation/js/vendor/modernizr.js"></script>
 
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
@@ -58,6 +58,178 @@ legend {
     </div>
 </noscript>
 
+       
+    <nav class="top-bar" data-topbar>
+        <ul class="title-area">
+
+            <li class="name">
+                <h1>
+                    <a href="<?php echo $this->basepath() ?>/" title="Torna all'home page">
+                        <?php echo $this->sitename ?>
+                    </a>
+                </h1>
+            </li>
+            <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
+        </ul>
+
+        <section class="top-bar-section">
+
+            <ul class="right">
+                <li class="divider"></li>
+                <li><a href="#" title="">Albo pretorio</a></li>
+                <li class="divider"></li>
+                <li><a href="#" title="">Stato civile</a></li>
+                <li class="divider"></li>
+                <li><a href="#" title="">Amministrazione trasparente</a></li>
+                <li class="divider"></li>
+                <li><a href="#" title="">Dove siamo</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Contatti</a></li>
+                <!--
+                <li><a href="#">Azienda</a></li>
+                <li><a href="#">Booking</a></li>
+                <li><a href="#">E-commerce</a></li>
+                -->
+            </ul>
+        </section>
+    </nav>
+
+
+
+    <div>
+        <div class="large-12 columns">
+
+            <br>
+
+                <div class="large-12 columns">
+                    
+                        <div class="large-2 small-12 columns">
+                            <aside>
+                                <?php
+                                echo $this->partial($this->templateDir.'_column', array(
+                                    'sezioni' => $this->sezioni['sx']
+                                ));
+                                ?>
+                            </aside>
+                        </div>
+                        
+
+                        <div class="large-8 small-12 columns">
+
+                            <!--
+                            <h1>Lorem ipsum</h1>
+                            <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
+                            <br>
+                            <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
+                            -->
+                            
+                            <?php 
+                            if (!empty($this->templatePartial)) {
+                                echo $this->partial($this->templatePartial);
+                            }
+                            ?>
+                        </div>
+
+
+
+                        <div class="large-2 small-12 columns">
+                            
+                            <aside>
+                                <?php
+                                echo $this->partial($this->templateDir.'_column', array(
+                                    'sezioni' => $this->sezioni['dx']
+                                ));
+                                ?>
+                            </aside>
+                            
+                            <h4>Blog</h4><hr>
+                            <div class="panel">
+                                <h5><a href="#">Post Title 1</a></h5>
+
+                                <h6 class="subheader">
+                                    Risus ligula, aliquam nec fermentum vitae, sollicitudin eget urna. Suspendisse ultrices ornare tempor...
+                                </h6>
+
+                                <h6><a href="#">Read More »</a></h6>
+                            </div>
+
+                            <div class="panel hide-for-small">
+                                <h5><a href="#">Post Title 2 »</a></h5>
+                            </div>
+
+                            <div class="panel hide-for-small">
+                                <h5><a href="#">Post Title 3 »</a></h5>
+                            </div>
+
+                            <a href="#" class="right">Go To Blog »</a>
+
+                        </div>
+
+                </div>
+
+            <hr>
+
+            <div class="row">
+                <div class="large-12 columns">
+                    <h2>Tertiary Header</h2>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="medium-4 large-4 columns text-center">
+                <img src="http://placehold.it/300x250&amp;text=[things]">
+                <p class="text-left">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate dicta hic ut suscipit molestias numquam ab unde nulla repellendus incidunt, magnam reiciendis odio, dolorum labore asperiores odit assumenda ex delectus.</p>
+                </div>
+                <div class="medium-4 large-4 columns text-center">
+                <img src="http://placehold.it/300x250&amp;text=[things]">
+                <p class="text-left">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate dicta hic ut suscipit molestias numquam ab unde nulla repellendus incidunt, magnam reiciendis odio, dolorum labore asperiores odit assumenda ex delectus.</p>
+                </div>
+                <div class="medium-4 large-4 columns text-center">
+                <img src="http://placehold.it/300x250&amp;text=[things]">
+                <p class="text-left">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate dicta hic ut suscipit molestias numquam ab unde nulla repellendus incidunt, magnam reiciendis odio, dolorum labore asperiores odit assumenda ex delectus.</p>
+                </div>
+            </div>
+
+
+            <footer>
+                <div class="large-12 columns"><hr>
+                    <div>
+
+                        <div class="large-6 columns">
+                            <p>&copy; <?php echo date("Y") ?> <?php echo $this->sitename ?></p>
+                        </div>
+
+                        <div class="large-6 small-12 columns">
+                            <ul class="inline-list right">
+                                <li><a href="http://www.kronoweb.it" target="_blank" title="Kronoweb.it ITC">Kronoweb ITC</a></li>
+                                <li><a href="http://validator.w3.org/check?uri=referer" title="Validate HTML" target="_blank">Valid HTML5</a></li>
+                                <li><a href="http://jigsaw.w3.org/css-validator/check/referer" title="Validate CSS" target="_blank">Valid CSS</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </footer>
+
+
+        </div>
+    </div>
+
+    <script src="public/common/jquery/jquery.min.js"></script>
+    <script src="public/common/foundation/js/foundation.min.js"></script>
+    <script src="public/common/foundation/js/foundation/foundation.topbar.js"></script>
+    <script>
+        $(document).foundation();
+    </script>
+
+<?php // echo $this->inlineScript() ?>
+</body>
+</html>
+
+<?php
+// echo $this->partial($this->templatePartial);
+exit;
+?>
 <div class="container">
     <div class="row clearfix">
             <div class="col-md-12 column">
@@ -75,14 +247,7 @@ legend {
                                     <li class="dropdown">
                                         <a href="<?php echo $this->basePath() ?>/" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-archive"></i> Moduli<strong class="caret"></strong></a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="<?php echo $this->basePath().'/albo-pretorio'; ?>" title="Consulta l'Albo Pretorio">Albo Pretorio</a></li>
-                                            <li><a href="<?php echo $this->basePath().'/stato-civile'; ?>" title="Stato Civile">Stato Civile</a></li>
-                                            <li><a href="<?php echo $this->basePath() ?>/amministrazione-trasparente">Amministrazione trasparente</a></li>
-                                            <!-- <li><a href="<?php echo $this->basePath() ?>/faq/domande" title="F.A.Q">F.A.Q</a></li> -->
-                                            <li><a href="<?php echo $this->basePath() ?>/autocertificazioni" title="Autocertificazioni">Autocertificazioni</a></li>
-                                            <li><a href="<?php echo $this->basePath() ?>/booking" title="Azienda">Azienda</a></li>
-                                            <li><a href="<?php echo $this->basePath() ?>/booking" title="Hotel booking">Booking</a></li>
-                                            <li><a href="<?php echo $this->basePath() ?>/e-commerce" title="E-commerce">E-commerce</a></li>
+                                            
                                         </ul>
                                     </li>
                                     
@@ -129,7 +294,7 @@ legend {
                                     <div class="list-group">
                                         <a href="<?php echo $this->basePath().$this->preloadResponse[$key][0]['linkCategory'] ?>" class="list-group-item active"><?php echo $key; ?></a>
                                         <?php foreach($value as $post): ?>
-                                        <a href="<?php echo $this->basepath().$post['linkDetails'] ?>" class="list-group-item"><?php echo $post['title'] ?></a>
+                                        <a href="<?php echo $this->basepath().$post['linkDetails'] ?>" class="list-group-item" title="Consulta la pagina <?php echo $post['title'] ?>"><?php echo $post['title'] ?></a>
                                         <?php endforeach; ?>
                                     </div>
                             <?php endforeach; ?>
@@ -142,7 +307,7 @@ legend {
                                 <div class="panel-body">
                                     <ul style="list-style-type: none; padding: 0">
                                         <li class="servizionline_list"><a href="#" title="">Notizie</a></li>
-                                        <li class="servizionline_list"><a href="<?php echo $this->basePath().'/albo-pretorio'; ?>" title="Albo pretorio">Albo pretorio</a></li>
+                                        <li class="servizionline_list"><a href="<?php echo $this->basePath().'/albo-pretorio'; ?>" title="Consulta albo pretorio">Albo pretorio</a></li>
                                         <li class="servizionline_list"><a href="<?php echo $this->basePath().'/stato-civile'; ?>" title="Stato civile">Stato civile</a></li>
                                         <li class="servizionline_list"><a href="<?php echo $this->basePath().'/amministrazione-trasparente'; ?>" title="Amministrazione trasparente">Amministrazione trasparente</a></li>
                                         <li class="servizionline_list"><a href="<?php echo $this->basePath() ?>/autocertificazioni" title="Autocertificazioni">Autocertificazioni</a></li>
@@ -218,7 +383,7 @@ legend {
                             <div class="col-md-8 column">
                             <?php
                             // main contents
-                            echo $this->partial($this->templatePartial);
+                            
                             ?>
                             </div>
 
@@ -334,24 +499,15 @@ legend {
 			</div>
 		</div>
                 
-                    <div class="row clearfix">
-                        <div class="col-md-12 column">
-                            <p class="text-muted">
-                                &copy; <?php echo date("Y") ?> <?php echo $this->sitename ?> Sito sviluppato da <a href="http://www.kronoweb.it" target="_blank" title="Kronoweb.it ITC">Kronoweb</a>. <a href="http://validator.w3.org/check?uri=referer" title="Validate HTML" target="_blank" class="underline footerlink">Valid HTML5</a> - <a href="http://jigsaw.w3.org/css-validator/check/referer" title="Validate CSS" target="_blank" class="underline footerlink">Valid CSS</a>
-                            </p>
-                        </div>
+                                
+                <div class="row clearfix">
+                    <div class="col-md-12 column">
+                        <p class="text-muted">
+                            
+                        </p>
                     </div>
+                </div>
+                
             </div>
     </div>
 </div>
-
-<script src="<?php echo $this->basePath() ?>/public/common/bootstrap3/js/bootstrap.min.js"></script>
-<script>
-jQuery(document).ready(function() {
-
-});
-</script>
-
-<?php echo $this->inlineScript() ?>
-</body>
-</html>

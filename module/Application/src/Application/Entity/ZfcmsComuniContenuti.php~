@@ -1,0 +1,200 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ZfcmsComuniContenuti
+ *
+ * @ORM\Table(name="zfcms_comuni_contenuti", indexes={@ORM\Index(name="fk_contenuti_sottosezioni", columns={"sottosezione_id"}), @ORM\Index(name="fk_contenuti_users", columns={"utente_id"})})
+ * @ORM\Entity
+ */
+class ZfcmsComuniContenuti
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="anno", type="integer", nullable=false)
+     */
+    private $anno;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="numero", type="bigint", nullable=false)
+     */
+    private $numero;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="titolo", type="text", length=65535, nullable=false)
+     */
+    private $titolo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sommario", type="text", length=65535, nullable=false)
+     */
+    private $sommario;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="testo", type="text", nullable=false)
+     */
+    private $testo;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data_inserimento", type="datetime", nullable=false)
+     */
+    private $dataInserimento;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data_scadenza", type="datetime", nullable=false)
+     */
+    private $dataScadenza;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data_invio_regione", type="datetime", nullable=false)
+     */
+    private $dataInvioRegione;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="attivo", type="integer", nullable=false)
+     */
+    private $attivo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="home", type="integer", nullable=false)
+     */
+    private $home;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="evidenza", type="integer", nullable=false)
+     */
+    private $evidenza;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="rss", type="integer", nullable=false)
+     */
+    private $rss;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="pub_albo_comune", type="datetime", nullable=false)
+     */
+    private $pubAlboComune;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data_rettifica", type="datetime", nullable=false)
+     */
+    private $dataRettifica;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="path", type="text", length=65535, nullable=true)
+     */
+    private $path;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tabella", type="text", length=65535, nullable=true)
+     */
+    private $tabella;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="check_atti", type="integer", nullable=true)
+     */
+    private $checkAtti;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="annoammtrasp", type="integer", nullable=false)
+     */
+    private $annoammtrasp;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=50, nullable=false)
+     */
+    private $slug;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_title", type="string", length=80, nullable=false)
+     */
+    private $seoTitle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_description", type="string", length=100, nullable=false)
+     */
+    private $seoDescription;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_keywords", type="string", length=100, nullable=false)
+     */
+    private $seoKeywords;
+
+    /**
+     * @var \Application\Entity\ZfcmsComuniSottosezioni
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniSottosezioni")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="sottosezione_id", referencedColumnName="id")
+     * })
+     */
+    private $sottosezione;
+
+    /**
+     * @var \Application\Entity\ZfcmsUsers
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsers")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="utente_id", referencedColumnName="id")
+     * })
+     */
+    private $utente;
+
+
+}
+

@@ -10,7 +10,7 @@ use Application\Model\RecordsGetterWrapperAbstract;
  */
 class ConfigGetterWrapper extends RecordsGetterWrapperAbstract
 {
-    /** @var \Admin\Model\Config\ConfigGetter **/
+    /** @var ConfigGetter **/
     protected $objectGetter;
 
     /**

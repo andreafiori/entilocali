@@ -45,7 +45,7 @@ class ZfcmsComuniAlboArticoli
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="data_attivazione", type="date", nullable=false)
+     * @ORM\Column(name="data_attivazione", type="datetime", nullable=false)
      */
     private $dataAttivazione;
 
@@ -59,7 +59,7 @@ class ZfcmsComuniAlboArticoli
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="data_pubblicare", type="date", nullable=false)
+     * @ORM\Column(name="data_pubblicare", type="datetime", nullable=false)
      */
     private $dataPubblicare;
 
@@ -80,7 +80,7 @@ class ZfcmsComuniAlboArticoli
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="data_scadenza", type="date", nullable=false)
+     * @ORM\Column(name="data_scadenza", type="datetime", nullable=false)
      */
     private $dataScadenza;
 
@@ -122,7 +122,7 @@ class ZfcmsComuniAlboArticoli
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="data_invio_regione", type="date", nullable=false)
+     * @ORM\Column(name="data_invio_regione", type="datetime", nullable=false)
      */
     private $dataInvioRegione;
 
@@ -178,9 +178,16 @@ class ZfcmsComuniAlboArticoli
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="data_rettifica", type="date", nullable=false)
+     * @ORM\Column(name="data_rettifica", type="datetime", nullable=false)
      */
     private $dataRettifica;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data_annullamento", type="datetime", nullable=false)
+     */
+    private $dataAnnullamento;
 
     /**
      * @var integer
@@ -778,6 +785,30 @@ class ZfcmsComuniAlboArticoli
     public function getDataRettifica()
     {
         return $this->dataRettifica;
+    }
+
+    /**
+     * Set dataAnnullamento
+     *
+     * @param \DateTime $dataAnnullamento
+     *
+     * @return ZfcmsComuniAlboArticoli
+     */
+    public function setDataAnnullamento($dataAnnullamento)
+    {
+        $this->dataAnnullamento = $dataAnnullamento;
+    
+        return $this;
+    }
+
+    /**
+     * Get dataAnnullamento
+     *
+     * @return \DateTime
+     */
+    public function getDataAnnullamento()
+    {
+        return $this->dataAnnullamento;
     }
 
     /**

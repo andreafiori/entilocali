@@ -21,7 +21,7 @@ class AttiConcessioneSettoriDataTable extends DataTableAbstract
         
         $this->setRecords( $this->getFormattedDataTableRecords($paginatorRecords) );
 
-        $this->setTitle('Sezioni atti di concessione');
+        $this->setTitle('Settori atti di concessione');
         $this->setDescription('Gestione settori atti di concessione');
         $this->setColumns(array(
                 "Nome",
@@ -50,7 +50,7 @@ class AttiConcessioneSettoriDataTable extends DataTableAbstract
         {
             $param = $this->getParam();
 
-            $wrapper = new AttiConcessioneSezioniGetterWrapper(new AttiConcessioneSezioniGetter($this->getInput('entityManager',1)) );
+            $wrapper = new AttiConcessioneSettoriGetterWrapper(new AttiConcessioneSettoriGetter($this->getInput('entityManager',1)) );
             $wrapper->setInput($this->getInput());
             $wrapper->setupQueryBuilder();
             $wrapper->setupPaginator( $wrapper->setupQuery($this->getInput('entityManager', 1)) );

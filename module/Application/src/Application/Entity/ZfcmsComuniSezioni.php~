@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsComuniSezioni
  *
- * @ORM\Table(name="zfcms_comuni_sezioni")
+ * @ORM\Table(name="zfcms_comuni_sezioni", indexes={@ORM\Index(name="zf_sezioni_modulo_id", columns={"modulo_id"})})
  * @ORM\Entity
  */
 class ZfcmsComuniSezioni
@@ -66,13 +66,6 @@ class ZfcmsComuniSezioni
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_modulo", type="integer", nullable=false)
-     */
-    private $idModulo;
-
-    /**
-     * @var integer
-     *
      * @ORM\Column(name="attivo", type="integer", nullable=false)
      */
     private $attivo;
@@ -87,9 +80,54 @@ class ZfcmsComuniSezioni
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_css", type="integer", nullable=true)
+     * @ORM\Column(name="css_id", type="integer", nullable=true)
      */
-    private $idCss;
+    private $cssId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=80, nullable=true)
+     */
+    private $slug;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=80, nullable=true)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_title", type="string", length=80, nullable=true)
+     */
+    private $seoTitle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_description", type="string", length=80, nullable=true)
+     */
+    private $seoDescription;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_keywords", type="string", length=80, nullable=true)
+     */
+    private $seoKeywords;
+
+    /**
+     * @var \Application\Entity\ZfcmsModules
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsModules")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="modulo_id", referencedColumnName="id")
+     * })
+     */
+    private $modulo;
 
 
 }

@@ -34,7 +34,7 @@ abstract class SetupAbstractController extends AbstractActionController
 
         return $appServiceLoader;
     }
-    
+
     /**
      * @return \Application\Setup\UserInterfaceConfigurations
      */

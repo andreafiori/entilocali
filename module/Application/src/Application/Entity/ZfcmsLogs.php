@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsLogs
  *
- * @ORM\Table(name="zfcms_logs")
+ * @ORM\Table(name="zfcms_logs", indexes={@ORM\Index(name="user_id", columns={"user_id"})})
  * @ORM\Entity
  */
 class ZfcmsLogs
@@ -24,9 +24,9 @@ class ZfcmsLogs
     /**
      * @var integer
      *
-     * @ORM\Column(name="utente_id", type="bigint", nullable=false)
+     * @ORM\Column(name="user_id", type="bigint", nullable=false)
      */
-    private $utenteId;
+    private $userId;
 
     /**
      * @var \DateTime
@@ -38,9 +38,23 @@ class ZfcmsLogs
     /**
      * @var string
      *
-     * @ORM\Column(name="azione", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="message", type="text", length=65535, nullable=false)
      */
-    private $azione;
+    private $message;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=50, nullable=false)
+     */
+    private $type;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="backend", type="smallint", nullable=false)
+     */
+    private $backend;
 
 
 
@@ -55,27 +69,27 @@ class ZfcmsLogs
     }
 
     /**
-     * Set utenteId
+     * Set userId
      *
-     * @param integer $utenteId
+     * @param integer $userId
      *
      * @return ZfcmsLogs
      */
-    public function setUtenteId($utenteId)
+    public function setUserId($userId)
     {
-        $this->utenteId = $utenteId;
+        $this->userId = $userId;
     
         return $this;
     }
 
     /**
-     * Get utenteId
+     * Get userId
      *
      * @return integer
      */
-    public function getUtenteId()
+    public function getUserId()
     {
-        return $this->utenteId;
+        return $this->userId;
     }
 
     /**
@@ -103,26 +117,74 @@ class ZfcmsLogs
     }
 
     /**
-     * Set azione
+     * Set message
      *
-     * @param string $azione
+     * @param string $message
      *
      * @return ZfcmsLogs
      */
-    public function setAzione($azione)
+    public function setMessage($message)
     {
-        $this->azione = $azione;
+        $this->message = $message;
     
         return $this;
     }
 
     /**
-     * Get azione
+     * Get message
      *
      * @return string
      */
-    public function getAzione()
+    public function getMessage()
     {
-        return $this->azione;
+        return $this->message;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return ZfcmsLogs
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set backend
+     *
+     * @param integer $backend
+     *
+     * @return ZfcmsLogs
+     */
+    public function setBackend($backend)
+    {
+        $this->backend = $backend;
+    
+        return $this;
+    }
+
+    /**
+     * Get backend
+     *
+     * @return integer
+     */
+    public function getBackend()
+    {
+        return $this->backend;
     }
 }

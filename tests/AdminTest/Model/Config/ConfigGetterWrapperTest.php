@@ -1,6 +1,6 @@
 <?php
 
-namespace AdminTest\Model\Attachments;
+namespace AdminTest\Model\Config;
 
 use ApplicationTest\TestSuite;
 use Admin\Model\Config\ConfigGetter;

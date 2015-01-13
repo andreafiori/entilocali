@@ -22,13 +22,6 @@ class ZfcmsModules
     private $id;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="module_id", type="integer", nullable=false)
-     */
-    private $moduleId;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="code", type="string", length=50, nullable=false)
@@ -38,9 +31,37 @@ class ZfcmsModules
     /**
      * @var string
      *
+     * @ORM\Column(name="name", type="string", length=50, nullable=false)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="status", type="string", length=100, nullable=false)
      */
     private $status;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="accesskey", type="string", length=100, nullable=false)
+     */
+    private $accesskey;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="front", type="smallint", nullable=false)
+     */
+    private $front;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ordine", type="integer", nullable=false)
+     */
+    private $ordine;
 
     /**
      * @var integer

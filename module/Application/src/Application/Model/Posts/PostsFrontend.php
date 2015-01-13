@@ -43,7 +43,7 @@ class PostsFrontend extends RouterManagerAbstract implements RouterManagerInterf
         
         $postsGetterWrapper = new PostsGetterWrapper(new PostsGetter($this->getInput('entityManager', 1)));
         $postsGetterWrapper->setInput($this->getInput());
-        $postsGetterWrapper->setupQueryBuilder(); 
+        $postsGetterWrapper->setupQueryBuilder();
         $postsGetterWrapper->setupPaginator( $postsGetterWrapper->setupQuery($this->getInput('entityManager', 1)) );
         $postsGetterWrapper->setupPaginatorCurrentPage( isset($param['route']['page']) ? $param['route']['page'] : null );
         
@@ -57,7 +57,7 @@ class PostsFrontend extends RouterManagerAbstract implements RouterManagerInterf
         
         $this->setRecords($records);
         $this->setTemplate($postsGetterWrapper->getTemplate());
-
+        
         return $this->getOutput();
     }
     
@@ -71,7 +71,7 @@ class PostsFrontend extends RouterManagerAbstract implements RouterManagerInterf
             $homePageRecordsGetterWrapper = new HomePageRecordsGetterWrapper(new HomePageRecordsGetter($this->getInput('entityManager',1)));
             $homePageRecordsGetterWrapper->setInput( array('orderBy' => 'hb.position, h.position') );
             $homePageRecordsGetterWrapper->setupQueryBuilder();
-                        
+
             $homePageRecords = $homePageRecordsGetterWrapper->getRecords();
             
             if ($homePageRecords) {
@@ -85,7 +85,7 @@ class PostsFrontend extends RouterManagerAbstract implements RouterManagerInterf
                             $postsGetterWrapper->setupPaginator( $postsGetterWrapper->setupQuery( $this->getInput('entityManager', 1) ) );
                             $postsGetterWrapper->setupPaginatorCurrentPage(1);
                             $postsGetterWrapper->setupPaginatorItemsPerPage(35);
-                            
+
                             $homePageVar['blogs'][] = $postsGetterWrapper->setupRecords();
                         break;
 
@@ -102,16 +102,20 @@ class PostsFrontend extends RouterManagerAbstract implements RouterManagerInterf
 
                         case(6):
                             // Photo
+                            
                         break;
                         
                         case(2):
                             $homePageVar['freetext'][] = array( 'freeText' => $value[0]['freeText'] );
+                            
                         break;
                     
-                        // albo pretorio
-                        // stato civile
-                        // amministrazione trasparente
-                        
+                        // Albo pretorio
+
+                        // Stato civile
+
+                        // Amministrazione trasparente
+
                     }
                     $this->setVariable('homepage', $homePageVar);
                 }

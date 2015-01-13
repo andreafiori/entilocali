@@ -12,13 +12,21 @@ class ContrattiPubbliciGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('DISTINCT(cc.id) AS id, cc.beneficiario, '
-                . 'cc.titolo, cc.importo, cc.importo2, cc.dataAgg, cc.dataContratto, '
-                . 'cc.progressivo, cc.anno, cc.data, cc.ora, cc.attivo, cc.scadenza, cc.cig ');
+        $this->setSelectQueryFields('DISTINCT(cc.id) AS id, cc.beneficiario,
+                cc.titolo, cc.importo, cc.importo2, cc.dataAgg, cc.dataContratto,
+                cc.progressivo, cc.anno, cc.data, cc.ora, cc.attivo, cc.scadenza, cc.cig,
+                
+                user.name, user.surname,
+                settore.nome AS nomeSettore,
+                responsabile.nomeResp
+                ');
 
         $this->getQueryBuilder()->select($this->getSelectQueryFields())
                                 ->from('Application\Entity\ZfcmsComuniContratti', 'cc')
                                 ->join('cc.scContr', 'csc')
+                                ->join('cc.utente', 'user')
+                                ->join('cc.settore', 'settore')
+                                ->join('cc.respProc', 'responsabile')
                                 ->add('where', ' (cc.scContr = csc.id) ');
         
         return $this->getQueryBuilder();

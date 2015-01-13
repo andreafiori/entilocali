@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsComuniSezioni
  *
- * @ORM\Table(name="zfcms_comuni_sezioni")
+ * @ORM\Table(name="zfcms_comuni_sezioni", indexes={@ORM\Index(name="zf_sezioni_modulo_id", columns={"modulo_id"})})
  * @ORM\Entity
  */
 class ZfcmsComuniSezioni
@@ -66,13 +66,6 @@ class ZfcmsComuniSezioni
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_modulo", type="integer", nullable=false)
-     */
-    private $idModulo;
-
-    /**
-     * @var integer
-     *
      * @ORM\Column(name="attivo", type="integer", nullable=false)
      */
     private $attivo;
@@ -87,9 +80,54 @@ class ZfcmsComuniSezioni
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_css", type="integer", nullable=true)
+     * @ORM\Column(name="css_id", type="integer", nullable=true)
      */
-    private $idCss;
+    private $cssId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=80, nullable=true)
+     */
+    private $slug;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=80, nullable=true)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_title", type="string", length=80, nullable=true)
+     */
+    private $seoTitle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_description", type="string", length=80, nullable=true)
+     */
+    private $seoDescription;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_keywords", type="string", length=80, nullable=true)
+     */
+    private $seoKeywords;
+
+    /**
+     * @var \Application\Entity\ZfcmsModules
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsModules")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="modulo_id", referencedColumnName="id")
+     * })
+     */
+    private $modulo;
 
 
 
@@ -248,30 +286,6 @@ class ZfcmsComuniSezioni
     }
 
     /**
-     * Set idModulo
-     *
-     * @param integer $idModulo
-     *
-     * @return ZfcmsComuniSezioni
-     */
-    public function setIdModulo($idModulo)
-    {
-        $this->idModulo = $idModulo;
-    
-        return $this;
-    }
-
-    /**
-     * Get idModulo
-     *
-     * @return integer
-     */
-    public function getIdModulo()
-    {
-        return $this->idModulo;
-    }
-
-    /**
      * Set attivo
      *
      * @param integer $attivo
@@ -320,26 +334,170 @@ class ZfcmsComuniSezioni
     }
 
     /**
-     * Set idCss
+     * Set cssId
      *
-     * @param integer $idCss
+     * @param integer $cssId
      *
      * @return ZfcmsComuniSezioni
      */
-    public function setIdCss($idCss)
+    public function setCssId($cssId)
     {
-        $this->idCss = $idCss;
+        $this->cssId = $cssId;
     
         return $this;
     }
 
     /**
-     * Get idCss
+     * Get cssId
      *
      * @return integer
      */
-    public function getIdCss()
+    public function getCssId()
     {
-        return $this->idCss;
+        return $this->cssId;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return ZfcmsComuniSezioni
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return ZfcmsComuniSezioni
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set seoTitle
+     *
+     * @param string $seoTitle
+     *
+     * @return ZfcmsComuniSezioni
+     */
+    public function setSeoTitle($seoTitle)
+    {
+        $this->seoTitle = $seoTitle;
+    
+        return $this;
+    }
+
+    /**
+     * Get seoTitle
+     *
+     * @return string
+     */
+    public function getSeoTitle()
+    {
+        return $this->seoTitle;
+    }
+
+    /**
+     * Set seoDescription
+     *
+     * @param string $seoDescription
+     *
+     * @return ZfcmsComuniSezioni
+     */
+    public function setSeoDescription($seoDescription)
+    {
+        $this->seoDescription = $seoDescription;
+    
+        return $this;
+    }
+
+    /**
+     * Get seoDescription
+     *
+     * @return string
+     */
+    public function getSeoDescription()
+    {
+        return $this->seoDescription;
+    }
+
+    /**
+     * Set seoKeywords
+     *
+     * @param string $seoKeywords
+     *
+     * @return ZfcmsComuniSezioni
+     */
+    public function setSeoKeywords($seoKeywords)
+    {
+        $this->seoKeywords = $seoKeywords;
+    
+        return $this;
+    }
+
+    /**
+     * Get seoKeywords
+     *
+     * @return string
+     */
+    public function getSeoKeywords()
+    {
+        return $this->seoKeywords;
+    }
+
+    /**
+     * Set modulo
+     *
+     * @param \Application\Entity\ZfcmsModules $modulo
+     *
+     * @return ZfcmsComuniSezioni
+     */
+    public function setModulo(\Application\Entity\ZfcmsModules $modulo = null)
+    {
+        $this->modulo = $modulo;
+    
+        return $this;
+    }
+
+    /**
+     * Get modulo
+     *
+     * @return \Application\Entity\ZfcmsModules
+     */
+    public function getModulo()
+    {
+        return $this->modulo;
     }
 }

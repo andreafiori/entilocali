@@ -1,0 +1,147 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ZfcmsComuniConcessione
+ *
+ * @ORM\Table(name="zfcms_comuni_concessione", indexes={@ORM\Index(name="utente_id", columns={"utente_id"}), @ORM\Index(name="sezione_id", columns={"settore_id"}), @ORM\Index(name="resp_proc_id", columns={"resp_proc_id"})})
+ * @ORM\Entity
+ */
+class ZfcmsComuniConcessione
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="key_imp", type="string", length=80, nullable=false)
+     */
+    private $keyImp;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="beneficiario", type="text", length=65535, nullable=false)
+     */
+    private $beneficiario;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="titolo", type="text", length=65535, nullable=false)
+     */
+    private $titolo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="importo", type="text", length=65535, nullable=true)
+     */
+    private $importo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ufficioresponsabile", type="text", length=65535, nullable=false)
+     */
+    private $ufficioresponsabile;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="modassegn", type="text", length=65535, nullable=false)
+     */
+    private $modassegn;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="progressivo", type="bigint", nullable=false)
+     */
+    private $progressivo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="anno", type="integer", nullable=false)
+     */
+    private $anno;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data", type="date", nullable=false)
+     */
+    private $data;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="ora", type="time", nullable=false)
+     */
+    private $ora;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="attivo", type="integer", nullable=false)
+     */
+    private $attivo;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="scadenza", type="date", nullable=false)
+     */
+    private $scadenza;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="flag_allegati", type="integer", nullable=false)
+     */
+    private $flagAllegati;
+
+    /**
+     * @var \Application\Entity\ZfcmsComuniConcessioneSettori
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniConcessioneSettori")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="settore_id", referencedColumnName="id")
+     * })
+     */
+    private $settore;
+
+    /**
+     * @var \Application\Entity\ZfcmsComuniConcessioneRespProc
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniConcessioneRespProc")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="resp_proc_id", referencedColumnName="id")
+     * })
+     */
+    private $respProc;
+
+    /**
+     * @var \Application\Entity\ZfcmsUsers
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsers")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="utente_id", referencedColumnName="id")
+     * })
+     */
+    private $utente;
+
+
+}
+

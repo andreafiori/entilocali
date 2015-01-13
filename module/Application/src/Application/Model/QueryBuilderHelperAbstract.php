@@ -26,7 +26,7 @@ abstract class QueryBuilderHelperAbstract
     public function __construct(\Doctrine\ORM\EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
-        
+
         $config = $this->entityManager->getConfiguration();
         $config->addCustomDatetimeFunction('DATE_FORMAT', "\\Application\\Model\\Doctrine\\Functions\\DateFormat");
         $config->addCustomDatetimeFunction('MONTH', "\\Application\\Model\\Doctrine\\Functions\\Month");

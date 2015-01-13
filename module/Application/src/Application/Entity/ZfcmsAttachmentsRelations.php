@@ -29,16 +29,6 @@ class ZfcmsAttachmentsRelations
     private $referenceId;
 
     /**
-     * @var \Application\Entity\ZfcmsAttachments
-     *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsAttachments")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="attachment_id", referencedColumnName="id")
-     * })
-     */
-    private $attachment;
-
-    /**
      * @var \Application\Entity\ZfcmsModules
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsModules")
@@ -47,6 +37,16 @@ class ZfcmsAttachmentsRelations
      * })
      */
     private $module;
+
+    /**
+     * @var \Application\Entity\ZfcmsAttachments
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsAttachments")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="attachment_id", referencedColumnName="id")
+     * })
+     */
+    private $attachment;
 
 
 
@@ -85,30 +85,6 @@ class ZfcmsAttachmentsRelations
     }
 
     /**
-     * Set attachment
-     *
-     * @param \Application\Entity\ZfcmsAttachments $attachment
-     *
-     * @return ZfcmsAttachmentsRelations
-     */
-    public function setAttachment(\Application\Entity\ZfcmsAttachments $attachment = null)
-    {
-        $this->attachment = $attachment;
-    
-        return $this;
-    }
-
-    /**
-     * Get attachment
-     *
-     * @return \Application\Entity\ZfcmsAttachments
-     */
-    public function getAttachment()
-    {
-        return $this->attachment;
-    }
-
-    /**
      * Set module
      *
      * @param \Application\Entity\ZfcmsModules $module
@@ -130,5 +106,29 @@ class ZfcmsAttachmentsRelations
     public function getModule()
     {
         return $this->module;
+    }
+
+    /**
+     * Set attachment
+     *
+     * @param \Application\Entity\ZfcmsAttachments $attachment
+     *
+     * @return ZfcmsAttachmentsRelations
+     */
+    public function setAttachment(\Application\Entity\ZfcmsAttachments $attachment = null)
+    {
+        $this->attachment = $attachment;
+    
+        return $this;
+    }
+
+    /**
+     * Get attachment
+     *
+     * @return \Application\Entity\ZfcmsAttachments
+     */
+    public function getAttachment()
+    {
+        return $this->attachment;
     }
 }

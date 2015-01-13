@@ -10,8 +10,13 @@ use Zend\Form\Form;
  */
 class AttiConcessioneRespProcForm extends Form
 {
+    /**
+     * 
+     * @param string $name
+     * @param string $options
+     */
     public function __construct($name = null, $options = array())
-    {    
+    {
         parent::__construct($name, $options);
         
         $this->add(array(
@@ -19,10 +24,10 @@ class AttiConcessioneRespProcForm extends Form
                         'type' => 'Text',
                         'options' => array( 'label' => '* Nome' ),
                         'attributes' => array(
-                                        'title'         => 'Inserisci il nome',
+                                        'title'         => 'Inserisci il nome responsabile',
                                         'required'      => 'required',
                                         'placeholder'   => 'Nome...',
-                                        'id'            => 'nome',
+                                        'id'            => 'nomeResp',
                         )
         ));
         
@@ -32,11 +37,10 @@ class AttiConcessioneRespProcForm extends Form
                         'options' => array(
                                'label' => '* Stato',
                                'empty_option' => 'Seleziona',
-                               'value_options' => $records,
-                        ),
-                        'value_options' => array(
-                                '1'     => 'Attivo',
-                                '0'     => 'Nascosto',
+                               'value_options' => array(
+                                    '1'     => 'Attivo',
+                                    '0'     => 'Nascosto',
+                                ),
                         ),
                         'attributes' => array(
                                 'title'         => 'Seleziona stato',

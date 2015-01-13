@@ -27,17 +27,10 @@ class ContrattiPubbliciDataTable extends DataTableAbstract
         $this->setTitle('Contratti pubblici');
         $this->setDescription('Gestione bandi contratti pubblici');
         $this->setColumns(array(
-                "Bando",
-                "Struttura Proponente",
-                "Procedura di scelta del contraente",
-                "Operatori invitati a presentare le offerte",
-                "Aggiudicatario",
-                "Importi",
-                "Tempi di completamento",
-                /*
-                "Id",
-                "Anno",
-                "CIG",
+                //"Id",
+                //"Anno",
+                //"CIG",
+                "Oggetto del bando",
                 "Struttura proponente \ Responsabile del Servizio \ Responsabile del Procedimento",
                 "Aggiudicatario",
                 "Data Aggiudicazione",
@@ -45,15 +38,20 @@ class ContrattiPubbliciDataTable extends DataTableAbstract
                 "Scelta del Contraente",
                 "Importo di aggiudicazione (Euro)",
                 "Elenco degli Operatori invitati a presentare offerte",
+                    // "Vedi elenco" (posizione precednete)
                 "Numero di offerte ammesse",
-                "Oggetto del bando",
+                    // "Oggetto del bando", (posizione precednete)
                 "Importo somme liquidate Euro",
                 "Data di inserimento",
                 "Ora di inserimento",
                 "Data di scadenza",
                 "Inserito da",
-                "Vedi Elenco",
-                */
+                    // "Vedi Elenco", (pulsante, posizione precedente)
+                "Procedura di scelta del contraente",
+                "Operatori invitati a presentare le offerte",
+                "Aggiudicatario",
+                "Importi",
+                "Tempi di completamento",
                 "&nbsp;", 
                 "&nbsp;",
                 "&nbsp;"
@@ -95,6 +93,20 @@ class ContrattiPubbliciDataTable extends DataTableAbstract
                 foreach($records as $key => $row) {
                     $arrayToReturn[] = array(
                         "<strong>CIG:</strong> ".$row['cig']."<br><br><strong>Oggetto del bando</strong>: ".$row['titolo']."<br><br><strong>Anno:</strong> ".$row['anno']."",
+                        "<strong>CF:</strong> <br><strong>Str. prop.:</strong> ".$row['nomeSettore']."<br> <strong>Resp. Proc.:</strong> ".$row['nomeResp'],
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
+                        "",
                         "",
                         "",
                         "",

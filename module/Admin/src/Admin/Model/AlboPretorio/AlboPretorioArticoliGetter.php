@@ -18,11 +18,12 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
                 aa.enteTerzo, 
                 aa.attivo,
                 aa.checkRettifica,
+                IDENTITY(aa.sezione) AS sezione,
                 aps.id AS idSezione, aps.nome AS nomeSezione,
                 aa.pubblicare,
                 aa.annullato,
                 u.id AS iduser, u.name AS userName, u.surname AS userSurname, u.settore
-                ");
+        ");
 
         $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
                                 ->from('Application\Entity\ZfcmsComuniAlboArticoli', 'aa')

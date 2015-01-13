@@ -197,7 +197,7 @@ abstract class AlboPretorioDataTableAbstract extends DataTableAbstract implement
             'tablesetter'       => 'albo-pretorio',
             'columns' => array(
                 array('label' => 'Num \ Anno', 'width' => '10%'),
-                array('label' => 'Titolo', 'width' => '33%'),
+                array('label' => 'Titolo', 'width' => '20%'),
                 'Settore',
                 'Scadenza',
                 'Data attivazione',
