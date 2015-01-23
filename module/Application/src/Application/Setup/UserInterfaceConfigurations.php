@@ -102,6 +102,7 @@ class UserInterfaceConfigurations extends InputSetupAbstract
         $this->configurations['imagedir']    = 'public/'.$this->configurations['template_project'].'templates/'.$this->configurations['template_name'].'assets/images/';
         $this->configurations['cssdir']      = 'public/'.$this->configurations['template_project'].'templates/'.$this->configurations['template_name'].'assets/css/';
         $this->configurations['jsdir']       = 'public/'.$this->configurations['template_project'].'templates/'.$this->configurations['template_name'].'assets/js/';
+        $this->configurations['templatedir'] = 'public/'.$this->configurations['template_project'].'templates/'.$this->configurations['template_name'];
     }
 
     /**

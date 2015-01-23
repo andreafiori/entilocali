@@ -38,16 +38,16 @@ class ZfcmsComuniContratti
     /**
      * @var string
      *
-     * @ORM\Column(name="importo", type="decimal", precision=12, scale=2, nullable=true)
+     * @ORM\Column(name="importo_aggiudicazione", type="decimal", precision=12, scale=2, nullable=true)
      */
-    private $importo;
+    private $importoAggiudicazione;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="importo2", type="decimal", precision=12, scale=2, nullable=true)
+     * @ORM\Column(name="importo_liquidato", type="decimal", precision=12, scale=2, nullable=true)
      */
-    private $importo2;
+    private $importoLiquidato;
 
     /**
      * @var string
@@ -59,9 +59,9 @@ class ZfcmsComuniContratti
     /**
      * @var integer
      *
-     * @ORM\Column(name="n_offerte", type="integer", nullable=true)
+     * @ORM\Column(name="numero_offerte", type="integer", nullable=true)
      */
-    private $nOfferte;
+    private $numeroOfferte;
 
     /**
      * @var string
@@ -73,16 +73,16 @@ class ZfcmsComuniContratti
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="data_agg", type="date", nullable=false)
+     * @ORM\Column(name="data_inizio_lavori", type="date", nullable=false)
      */
-    private $dataAgg;
+    private $dataInizioLavori;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="data_contratto", type="date", nullable=false)
+     * @ORM\Column(name="data_fine_lavori", type="date", nullable=false)
      */
-    private $dataContratto;
+    private $dataFineLavori;
 
     /**
      * @var integer
@@ -234,51 +234,51 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Set importo
+     * Set importoAggiudicazione
      *
-     * @param string $importo
+     * @param string $importoAggiudicazione
      *
      * @return ZfcmsComuniContratti
      */
-    public function setImporto($importo)
+    public function setImportoAggiudicazione($importoAggiudicazione)
     {
-        $this->importo = $importo;
+        $this->importoAggiudicazione = $importoAggiudicazione;
     
         return $this;
     }
 
     /**
-     * Get importo
+     * Get importoAggiudicazione
      *
      * @return string
      */
-    public function getImporto()
+    public function getImportoAggiudicazione()
     {
-        return $this->importo;
+        return $this->importoAggiudicazione;
     }
 
     /**
-     * Set importo2
+     * Set importoLiquidato
      *
-     * @param string $importo2
+     * @param string $importoLiquidato
      *
      * @return ZfcmsComuniContratti
      */
-    public function setImporto2($importo2)
+    public function setImportoLiquidato($importoLiquidato)
     {
-        $this->importo2 = $importo2;
+        $this->importoLiquidato = $importoLiquidato;
     
         return $this;
     }
 
     /**
-     * Get importo2
+     * Get importoLiquidato
      *
      * @return string
      */
-    public function getImporto2()
+    public function getImportoLiquidato()
     {
-        return $this->importo2;
+        return $this->importoLiquidato;
     }
 
     /**
@@ -306,27 +306,27 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Set nOfferte
+     * Set numeroOfferte
      *
-     * @param integer $nOfferte
+     * @param integer $numeroOfferte
      *
      * @return ZfcmsComuniContratti
      */
-    public function setNOfferte($nOfferte)
+    public function setNumeroOfferte($numeroOfferte)
     {
-        $this->nOfferte = $nOfferte;
+        $this->numeroOfferte = $numeroOfferte;
     
         return $this;
     }
 
     /**
-     * Get nOfferte
+     * Get numeroOfferte
      *
      * @return integer
      */
-    public function getNOfferte()
+    public function getNumeroOfferte()
     {
-        return $this->nOfferte;
+        return $this->numeroOfferte;
     }
 
     /**
@@ -354,51 +354,51 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Set dataAgg
+     * Set dataInizioLavori
      *
-     * @param \DateTime $dataAgg
+     * @param \DateTime $dataInizioLavori
      *
      * @return ZfcmsComuniContratti
      */
-    public function setDataAgg($dataAgg)
+    public function setDataInizioLavori($dataInizioLavori)
     {
-        $this->dataAgg = $dataAgg;
+        $this->dataInizioLavori = $dataInizioLavori;
     
         return $this;
     }
 
     /**
-     * Get dataAgg
+     * Get dataInizioLavori
      *
      * @return \DateTime
      */
-    public function getDataAgg()
+    public function getDataInizioLavori()
     {
-        return $this->dataAgg;
+        return $this->dataInizioLavori;
     }
 
     /**
-     * Set dataContratto
+     * Set dataFineLavori
      *
-     * @param \DateTime $dataContratto
+     * @param \DateTime $dataFineLavori
      *
      * @return ZfcmsComuniContratti
      */
-    public function setDataContratto($dataContratto)
+    public function setDataFineLavori($dataFineLavori)
     {
-        $this->dataContratto = $dataContratto;
+        $this->dataFineLavori = $dataFineLavori;
     
         return $this;
     }
 
     /**
-     * Get dataContratto
+     * Get dataFineLavori
      *
      * @return \DateTime
      */
-    public function getDataContratto()
+    public function getDataFineLavori()
     {
-        return $this->dataContratto;
+        return $this->dataFineLavori;
     }
 
     /**

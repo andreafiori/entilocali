@@ -1,0 +1,13 @@
+html,body {
+	height: 100%;
+}
+
+body { font-size: 1.2em; background: #000000; color: #ff0000 }
+a:link { color: #ff0000; padding: 2px }
+a:visited { color: #ff0000; padding: 2px }
+a:active { color: #ff0000; padding: 2px }
+a:hover { color: #000000; background-color: #ff0000; padding: 2px;	text-decoration: none }
+
+h3 {
+	color: #fff;
+}

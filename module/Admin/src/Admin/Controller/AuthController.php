@@ -10,6 +10,7 @@ use Admin\Model\Users\UsersGetter;
 use Admin\Model\Users\UsersGetterWrapper;
 use Zend\Permissions\Acl\Acl;
 use Zend\Permissions\Acl\Role\GenericRole as Role;
+use \Exception;
 
 /**
  * @author Andrea Fiori
@@ -81,8 +82,9 @@ class AuthController extends SetupAbstractController
                     $usersGetterWrapper = new UsersGetterWrapper( new UsersGetter($this->getServiceLocator()->get('doctrine.entitymanager.orm_default')) );
                     $usersGetterWrapper->setInput( array('username' => $request->getPost('username'), 'password' => $request->getPost('password'), 'limit' => 1) );
                     $usersGetterWrapper->setupQueryBuilder();
-                    
+
                     $records = $usersGetterWrapper->getRecords();
+                    
                     if ( isset($records) and count($records)==1 ) {
                         $records = $records[0];
                         

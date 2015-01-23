@@ -1,513 +1,75 @@
-<?php echo $this->doctype(); ?>
-
-<html lang="it" class="no-js">
-<head>
-<meta charset="utf-8">
-<title><?php echo $this->sitename ?></title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="<?php echo $this->description ?>">
-<meta name="keywords" content="<?php echo $this->keywords ?>">
-
-<link href="<?php echo $this->basePath() ?>/public/common/foundation/css/foundation.min.css" media="screen" rel="stylesheet" type="text/css">
-
-<link href="<?php echo $this->basePath() . '/public/frontend/projects/favicon.ico' ?>" rel="shortcut icon" type="image/vnd.microsoft.icon">
-<script src="<?php echo $this->basePath() ?>/public/common/foundation/js/vendor/modernizr.js"></script>
-
-<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-<!--[if lt IE 9]>
-<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
-
-<!-- Fav and touch icons -->
-<!--
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/apple-touch-icon-144-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/apple-touch-icon-114-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/apple-touch-icon-72-precomposed.png">
-<link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-57-precomposed.png">
--->
-
-<style>
-/* Custom styles */
-.form-horizontal ul {
-    color: #c00;
-}
-
-#albo-pretorio-search-form .control-label {
-    width: 20%
-}
-
-#albo-pretorio-search-form .widthAll {
-    width: 100%;
-}
-
-legend {
-    display: none;
-}
-</style>
-
-<script src="<?php echo $this->basePath() ?>/public/common/jquery/jquery.min.js"></script>
-
-</head>
-
-<body>
-
-<noscript>
-    <div>
-	<h1>Attenzione: javascript disabilitato</h1>
-	<div>&Egrave; stato rilevato che il browser in uso ha javascript disabilitato. Consigliamo di abilitarlo o alcune funzioni del sito non saranno visibili.</div>
-    </div>
-</noscript>
-
-       
-    <nav class="top-bar" data-topbar>
-        <ul class="title-area">
-
-            <li class="name">
-                <h1>
-                    <a href="<?php echo $this->basepath() ?>/" title="Torna all'home page">
-                        <?php echo $this->sitename ?>
-                    </a>
-                </h1>
-            </li>
-            <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
-        </ul>
-
-        <section class="top-bar-section">
-
-            <ul class="right">
-                <li class="divider"></li>
-                <li><a href="#" title="">Albo pretorio</a></li>
-                <li class="divider"></li>
-                <li><a href="#" title="">Stato civile</a></li>
-                <li class="divider"></li>
-                <li><a href="#" title="">Amministrazione trasparente</a></li>
-                <li class="divider"></li>
-                <li><a href="#" title="">Dove siamo</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Contatti</a></li>
-                <!--
-                <li><a href="#">Azienda</a></li>
-                <li><a href="#">Booking</a></li>
-                <li><a href="#">E-commerce</a></li>
-                -->
-            </ul>
-        </section>
-    </nav>
-
-
-
-    <div>
-        <div class="large-12 columns">
-
-            <br>
-
-                <div class="large-12 columns">
-                    
-                        <div class="large-2 small-12 columns">
-                            <aside>
-                                <?php
-                                echo $this->partial($this->templateDir.'_column', array(
-                                    'sezioni' => $this->sezioni['sx']
-                                ));
-                                ?>
-                            </aside>
-                        </div>
-                        
-
-                        <div class="large-8 small-12 columns">
-
-                            <!--
-                            <h1>Lorem ipsum</h1>
-                            <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
-                            <br>
-                            <p>"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
-                            -->
-                            
-                            <?php 
-                            if (!empty($this->templatePartial)) {
-                                echo $this->partial($this->templatePartial);
-                            }
-                            ?>
-                        </div>
-
-
-
-                        <div class="large-2 small-12 columns">
-                            
-                            <aside>
-                                <?php
-                                echo $this->partial($this->templateDir.'_column', array(
-                                    'sezioni' => $this->sezioni['dx']
-                                ));
-                                ?>
-                            </aside>
-                            
-                            <h4>Blog</h4><hr>
-                            <div class="panel">
-                                <h5><a href="#">Post Title 1</a></h5>
-
-                                <h6 class="subheader">
-                                    Risus ligula, aliquam nec fermentum vitae, sollicitudin eget urna. Suspendisse ultrices ornare tempor...
-                                </h6>
-
-                                <h6><a href="#">Read More »</a></h6>
-                            </div>
-
-                            <div class="panel hide-for-small">
-                                <h5><a href="#">Post Title 2 »</a></h5>
-                            </div>
-
-                            <div class="panel hide-for-small">
-                                <h5><a href="#">Post Title 3 »</a></h5>
-                            </div>
-
-                            <a href="#" class="right">Go To Blog »</a>
-
-                        </div>
-
-                </div>
-
-            <hr>
-
-            <div class="row">
-                <div class="large-12 columns">
-                    <h2>Tertiary Header</h2>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="medium-4 large-4 columns text-center">
-                <img src="http://placehold.it/300x250&amp;text=[things]">
-                <p class="text-left">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate dicta hic ut suscipit molestias numquam ab unde nulla repellendus incidunt, magnam reiciendis odio, dolorum labore asperiores odit assumenda ex delectus.</p>
-                </div>
-                <div class="medium-4 large-4 columns text-center">
-                <img src="http://placehold.it/300x250&amp;text=[things]">
-                <p class="text-left">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate dicta hic ut suscipit molestias numquam ab unde nulla repellendus incidunt, magnam reiciendis odio, dolorum labore asperiores odit assumenda ex delectus.</p>
-                </div>
-                <div class="medium-4 large-4 columns text-center">
-                <img src="http://placehold.it/300x250&amp;text=[things]">
-                <p class="text-left">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate dicta hic ut suscipit molestias numquam ab unde nulla repellendus incidunt, magnam reiciendis odio, dolorum labore asperiores odit assumenda ex delectus.</p>
-                </div>
-            </div>
-
-
-            <footer>
-                <div class="large-12 columns"><hr>
-                    <div>
-
-                        <div class="large-6 columns">
-                            <p>&copy; <?php echo date("Y") ?> <?php echo $this->sitename ?></p>
-                        </div>
-
-                        <div class="large-6 small-12 columns">
-                            <ul class="inline-list right">
-                                <li><a href="http://www.kronoweb.it" target="_blank" title="Kronoweb.it ITC">Kronoweb ITC</a></li>
-                                <li><a href="http://validator.w3.org/check?uri=referer" title="Validate HTML" target="_blank">Valid HTML5</a></li>
-                                <li><a href="http://jigsaw.w3.org/css-validator/check/referer" title="Validate CSS" target="_blank">Valid CSS</a></li>
-                            </ul>
-                        </div>
-
-                    </div>
-                </div>
-            </footer>
-
-
-        </div>
-    </div>
-
-    <script src="public/common/jquery/jquery.min.js"></script>
-    <script src="public/common/foundation/js/foundation.min.js"></script>
-    <script src="public/common/foundation/js/foundation/foundation.topbar.js"></script>
-    <script>
-        $(document).foundation();
-    </script>
-
-<?php // echo $this->inlineScript() ?>
-</body>
-</html>
 
 <?php
-// echo $this->partial($this->templatePartial);
-exit;
+    echo $this->partial($this->templateDir.'_header');
+    
+    echo $this->partial($this->templateDir.'_navigation');
 ?>
-<div class="container">
-    <div class="row clearfix">
-            <div class="col-md-12 column">
-                    <nav class="navbar navbar-default" role="navigation">
-                        <div class="navbar-header">
-                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="<?php echo $this->basepath() ?>/" accesskey="h" title="Torna all'home page di <?php echo $this->sitename ?>"><?php echo $this->sitename ?></a>
-                        </div>
+<div class="large-12 columns">
 
-                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                                <ul class="nav navbar-nav">
-                                    <li class="active">
-                                        <a href="<?php echo $this->basePath() ?>" title="Home page"><i class="fa fa-home"></i> Home</a>
-                                    </li>
+    <br>
+        <hr class="hidden">
 
-                                    <li class="dropdown">
-                                        <a href="<?php echo $this->basePath() ?>/" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-archive"></i> Moduli<strong class="caret"></strong></a>
-                                        <ul class="dropdown-menu">
-                                            
-                                        </ul>
-                                    </li>
-                                    
-                                    <li>
-                                        <a href="<?php echo $this->url('main', array('category' => 'comune-azienda', 'title' => 'dove-siamo')) ?>" title="Dove siamo"><i class="fa fa-map-marker"></i> Dove siamo</a>
-                                    </li>
+        <div class="large-12 columns">
 
-                                    <li>
-                                        <a href="<?php echo $this->basePath() ?>/contatti/invia-messaggio/" title="Inviaci un messaggio"><i class="fa fa-envelope"></i> Contatti</a>
-                                    </li>
-
-                                </ul>
-                                <form class="navbar-form navbar-left" method="post" action="<?php echo $this->basepath() ?>/ricerca/risultati/" role="search">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Cerca sul sito">
-                                    </div> <button type="submit" class="btn btn-default" title="Cerca sul sito">Cerca</button>
-                                </form>
-                                <!--
-                                <ul class="nav navbar-nav navbar-right">
-                                    <li class="dropdown">
-                                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Accesso <strong class="caret"></strong></a>
-                                        <ul class="dropdown-menu">
-                                            <li>
-                                                <a href="javascript:void(0)" title="Profilo">Registrati</a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:void(0)" title="">Password dimenticata?</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                                -->
-                        </div>
-                    </nav>
-                    <div class="row clearfix">
-                        <div class="col-md-12 column"></div>
-                    </div>
-                    <div class="row clearfix">
-
-                            <div class="col-md-2 column">
-
-                            <?php if ($this->preloadResponse): ?>
-                            <?php foreach($this->preloadResponse as $key => $value): ?>
-                                    <div class="list-group">
-                                        <a href="<?php echo $this->basePath().$this->preloadResponse[$key][0]['linkCategory'] ?>" class="list-group-item active"><?php echo $key; ?></a>
-                                        <?php foreach($value as $post): ?>
-                                        <a href="<?php echo $this->basepath().$post['linkDetails'] ?>" class="list-group-item" title="Consulta la pagina <?php echo $post['title'] ?>"><?php echo $post['title'] ?></a>
-                                        <?php endforeach; ?>
-                                    </div>
-                            <?php endforeach; ?>
-                            <?php endif; ?>
-
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Servizi on-line</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <ul style="list-style-type: none; padding: 0">
-                                        <li class="servizionline_list"><a href="#" title="">Notizie</a></li>
-                                        <li class="servizionline_list"><a href="<?php echo $this->basePath().'/albo-pretorio'; ?>" title="Consulta albo pretorio">Albo pretorio</a></li>
-                                        <li class="servizionline_list"><a href="<?php echo $this->basePath().'/stato-civile'; ?>" title="Stato civile">Stato civile</a></li>
-                                        <li class="servizionline_list"><a href="<?php echo $this->basePath().'/amministrazione-trasparente'; ?>" title="Amministrazione trasparente">Amministrazione trasparente</a></li>
-                                        <li class="servizionline_list"><a href="<?php echo $this->basePath() ?>/autocertificazioni" title="Autocertificazioni">Autocertificazioni</a></li>
-                                        <li class="servizionline_list"><a href="#" title="">Azienda</a></li>
-                                        <li class="servizionline_list"><a href="#" title="">Booking</a></li>
-                                        <li class="servizionline_list"><a href="#" title="">E-commerce</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                     
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Accedi</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <form action="<?php echo $this->url('registrazione', array()) ?>" method="post" id="frmLogin">
-                                        <fieldset>
-                                            <legend>Accedi all'are riservata</legend>
-                                            <div class="form-group">
-                                                <label for="username">Nome utente</label>
-                                                <input type="text" class="form-control" id="username" name="username" placeholder="Nome utente" required="required" title="Inserisci nome utente">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="inputpassword">Password</label>
-                                                <input type="password" name="password" class="form-control" id="inputpassword" placeholder="Password" required="required" title="Inserisci la password">
-                                            </div>
-                                            <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" id="remember-me" value="1" title="Ricordami su questo computer"> Ricordami
-                                            </label>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary" title="Clicca per effettuare l'accesso all'area riservata">Accedi</button>
-                                            <br><br>
-                                            <p>&raquo; <a href="<?php echo $this->url('registrazione', array()) ?>" title="Registrati come nuovo utente">Registrati</a></p>
-                                            <p>&raquo; <a href="<?php echo $this->url('recupero-password', array()) ?>" title="Recupero password">Password smarrita?</a></p>
-                                        </fieldset>
-                                    </form>
-                                </div>
-                            </div>
-
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Newsletter</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <form action="<?php echo $this->url('newsletter', array()) ?>" method="post" id="frmNewsletter">
-                                        <fieldset>
-                                            <legend>Iscrizione \ cancellazione newsletter</legend>
-                                        <div class="form-group">
-                                            <input type="email" class="form-control" id="inputusername" placeholder="Email" required="required" title="Inserisci indirizzo email">
-                                        </div>
-                                        <div class="radio">
-                                            <label>
-                                            <input type="radio" name="newletter_option" value="signin" checked>
-                                            Iscriviti
-                                            </label>
-                                        </div>
-                                        <div class="radio">
-                                            <label>
-                                            <input type="radio" name="newletter_option" value="remove">
-                                            Cancellati
-                                            </label>
-                                        </div>
-                                        
-                                        <button type="submit" class="btn btn-primary">Procedi</button>
-                                        </fieldset>
-                                    </form>
-                                </div>
-                            </div>
-                            
-                            </div> 
-
-                            <div class="col-md-8 column">
-                            <?php
-                            // main contents
-                            
+                <div class="large-2 small-12 columns">
+                    <aside>
+                        <?php
+                        if (!empty($this->sezioni['sx'])):
+                            echo $this->partial($this->templateDir.'_column', array(
+                                'sezioni' => $this->sezioni['sx']
+                            ));
+                        else:
                             ?>
-                            </div>
-
-                            <div class="col-md-2 column">
-                                
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">NOVIT&Agrave;</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <label>Testo notizia</label>
-                                    <div>13:30</div>
-                                    <label>Testo notizia</label>
-                                    <div>14:30</div>
-                                    <label>Testo notizia</label>
-                                    <div>12:30</div>
-                                    <label>Testo notizia</label>
-                                    <div>11:30</div>
-                                </div>
-                                <div class="panel-footer">
-                                    <a href="#" title="">Leggi tutte</a>
-                                </div>
-                            </div>
-                                
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Foto</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <a href="<?php echo $this->basepath() ?>/foto" title=""><img src="<?php echo $this->basePath() ?>/<?php echo $this->imagedir ?>san-nicola.jpg" alt="Foto dalla galleria"></a>
-                                </div>
-                                <div class="panel-footer">
-                                    <a href="<?php echo $this->basepath() ?>/foto" title="Visualizza tutte le foto">Visualizza tutte</a>
-                                </div>
-                            </div>
-                            <!--
-                            <p><a href="<?php echo $this->basePath() ?>/amministrazione-trasparente"><img src="<?php echo $this->basePath() ?>/<?php echo $this->imagedir ?>amministrazione-trasparente.jpg" alt="Amministrazione trasparente"></a></p>
-                            -->
-                            <div class="panel panel-default">                                  
-                                <ul class="list-group">
-                                    <li class="list-group-item"><a href="<?php echo $this->basepath() ?>/rassegna-stampa" title="">Rassegna stampa</a></li>
-                                    <li class="list-group-item"><a href="<?php echo $this->basepath() ?>/eventi" title="">Eventi</a></li>
-                                    <li class="list-group-item"><a href="#" title="">Turismo</a></li>
-                                    <li class="list-group-item"><a href="#" title="">Informa giovani</a></li>
-                                    <li class="list-group-item"><a href="#" title="">Biblioteca</a></li>
-                                </ul>
-                            </div>
-
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Meteo</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <a href="<?php echo $this->basepath() ?>/meteo" title="">Previsioni</a>
-                                </div>
-                            </div>
-
-                            <div class="panel panel-info">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Servizio SMS</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <a href="<?php echo $this->basepath() ?>/servizio-sms" title="">Dettagli</a>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                
-                <div id="footer">
-			<div class="container">			
-				<div class="row">			
-					 <div class="col-md-3">   
-                                            <h4><i class="fa fa-info"></i> Informazioni</h4>
-                                            <ul>
-                                                <li><a href="<?php echo $this->url('main', array('category' => 'info', 'title' => 'note-legali')) ?>" title="">Note Legali</a></li>
-                                                <li><a href="<?php echo $this->url('main', array('category' => 'info', 'title' => 'accessibilita')) ?>" title="">Accessiblit&agrave;</a></li>
-                                                <li><a href="<?php echo $this->url('main', array('category' => 'info', 'title' => 'continuita-operativa')) ?>" title="">Continuit&agrave; operativa</a></li>
-                                                <li><a href="<?php echo $this->url('main', array('category' => 'info', 'title' => 'privacy')) ?>" title="">Privacy</a></li>
-                                                <li><a href="<?php echo $this->url('main', array('category' => 'info', 'title' => 'credit')) ?>" title="">Credit</a></li>
-                                                <li><a href="<?php echo $this->url('main', array('category' => 'info', 'title' => 'mobile')) ?>" title="Visualizzazione sito su tutti i dispositivi">Mobile</a></li>
-                                            </ul>
-					</div>
-					<div class="col-md-3">
-                                            <h4><i class="fa fa-wheelchair"></i> Accessiblit&agrave;</h4>
-                                            <ul>
-                                                <li><a href="#" title="Sito testuale">Sito testuale</a></li>
-                                                <li><a href="#" title="Rosso su nero">Rosso su nero</a></li>
-                                                <li><a href="#" title="Alta visibilit&agrave;">Alta visibilit&agrave;</a></li>
-                                                <li><a href="#" title="Accesso da tastiera">Accesso da tastiera</a></li>
-                                                <li><a href="#" title="Dichiarazione di accessibilit&agrave;">Dichiarazione di accessibilit&agrave;</a></li>
-                                            </ul>
-					</div>
-					<div class="col-md-3">
-						<h4><i class="fa fa-group"></i> Social</h4>
-						<a href="https://www.facebook.com/pages/kronoweb/154267801299932?ref=hl" title="Facebook Kronoweb ITC" target="_blank"><img src="<?php echo $this->basePath() ?>/<?php echo $this->imagedir ?>social-facebook.png" alt="Facebook"></a>
-						<a href="#" title="Twitter"><img src="<?php echo $this->basePath() ?>/<?php echo $this->imagedir ?>social-twitter.png" alt="Twitter"></a>
-						<a href="#" title="RSS"><img src="<?php echo $this->basePath() ?>/<?php echo $this->imagedir ?>social-rss.png" alt="RSS"></a>
-						<a href="#" title="Flickr"><img src="<?php echo $this->basePath() ?>/<?php echo $this->imagedir ?>social-flickr.png" alt="Flickr"></a>
-					</div>
-					<div class="col-md-3">
-						<div class="company_info">
-                                                    <h4><strong>Kronoweb ITC</strong></h4>
-                                                    <p>
-                                                        Partita IVA 01848120901<br>
-                                                        R.E.A 143513 C.C.I.A.A<br><br>
-                                                        <strong>Sede Legale</strong>: Via IV Novembre, 28 - 07100 Sassari (SS)<br>
-                                                        Tel: 079 272120 - Cell: 3465753065
-                                                    </p>
-						</div>
-					</div>					
-				</div>	
-			</div>
-		</div>
-                
-                                
-                <div class="row clearfix">
-                    <div class="col-md-12 column">
-                        <p class="text-muted">
-                            
-                        </p>
-                    </div>
+                            <h1>Nessuna sezione</h1>
+                            <?php
+                        endif;
+                        ?>
+                    </aside>
                 </div>
-                
-            </div>
-    </div>
+
+
+                <div class="large-8 small-12 columns">
+                    <div id="mainContents"></div>
+                    <?php
+                    if (!empty($this->templatePartial)) {
+                        echo $this->partial($this->templatePartial);
+                    }
+                    ?>
+                </div>
+
+
+                <div class="large-2 small-12 columns">
+
+                    <aside>
+                        <?php
+                        if (!empty($this->sezioni['dx'])):
+                            echo $this->partial($this->templateDir.'_column', array(
+                                'sezioni' => $this->sezioni['dx']
+                            ));
+                        else:
+                            ?>
+                            <h1>Nessuna sezione</h1>
+                            <?php
+                        endif;
+                        ?>
+                    </aside>
+                    
+                </div>
+
+        </div>
+
+    <hr>
+
+    <?php echo $this->partial($this->templateDir.'_footer'); ?>
+
 </div>
+
+<script src="<?php echo $this->basePath() ?>/public/common/jquery/jquery.min.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/common/foundation/js/foundation.min.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/common/foundation/js/foundation/foundation.topbar.js"></script>
+<script>
+    $(document).foundation();
+</script>
+
+</body>
+</html>

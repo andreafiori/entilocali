@@ -1,0 +1,43 @@
+
+<?php
+    echo $this->partial($this->templateDir.'_header');
+    
+    echo $this->partial($this->templateDir.'_navigation');
+?>
+
+<div>
+    <div class="large-12 columns">
+
+        <br>
+
+            <div class="large-12 columns">
+                    
+                    <div class="large-12 small-12 columns">
+                        <div id="mainContents"></div>
+                        <?php
+                        if (!empty($this->templatePartial)) {
+                            echo $this->partial($this->templatePartial);
+                        }
+                        ?>
+                    </div>
+
+            </div>
+
+        <hr>
+        
+        <?php
+            echo $this->partial($this->templateDir.'_footer');
+        ?>
+        
+    </div>
+</div>
+
+<script src="<?php echo $this->basePath() ?>/public/common/jquery/jquery.min.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/common/foundation/js/foundation.min.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/common/foundation/js/foundation/foundation.topbar.js"></script>
+<script>
+    $(document).foundation();
+</script>
+
+</body>
+</html>

@@ -5,8 +5,9 @@ namespace Admin\Model\AmministrazioneTrasparente;
 use Admin\Model\FormData\FormDataAbstract;
 use Admin\Model\Contenuti\ContenutiGetter;
 use Admin\Model\Contenuti\ContenutiGetterWrapper;
-use Admin\Model\Sezioni\SezioniGetter;
-use Admin\Model\Sezioni\SezioniGetterWrapper;
+use Admin\Model\Sezioni\SottoSezioniGetter;
+use Admin\Model\Sezioni\SottoSezioniGetterWrapper;
+use Admin\Model\Sezioni\SezioniTreeGetter;
 
 /**
  * @author Andrea Fiori
@@ -20,33 +21,33 @@ class AmministrazioneTrasparenteFormDataHandler extends FormDataAbstract
     public function __construct(array $input)
     {
         parent::__construct($input);
-        
+
         $param = $this->getInput('param', 1);
-        
+
         $form = new AmministrazioneTrasparenteForm();
         $form->addSezione( array() );
         $form->addEndForm();
-
-        if (isset($param['route']['option'])) {
-            $record = $this->getArticoloRecord($param['route']['option']);            
-        }
         
         // check sezioni
-
+        
         // check sottosezioni
         
+        if (isset($param['route']['option'])) {
+            $record = $this->getArticoloRecord($param['route']['option']);
+        }
+        
         if (isset($record)) {
-            $formAction = 'amministrazione-trasparente/update';
-            $formTitle = 'Modifica articolo';
+            $formAction      = 'amministrazione-trasparente/update';
+            $formTitle       = 'Modifica articolo';
             $formDescription = 'Modifica articolo. &Egrave; consigliabile inserire dei testi brevi sul tema trattato, possibilmente in minuscolo';
 
             $form->setData($record[0]);
         } else {
-            $formAction = 'amministrazione-trasparente/insert';
-            $formTitle = 'Nuovo articolo';
+            $formAction      = 'amministrazione-trasparente/insert';
+            $formTitle       = 'Nuovo articolo';
             $formDescription = 'Inserisci nuovo articolo. &Egrave; consigliabile inserire dei testi brevi sul tema trattato, possibilmente in minuscolo';
         }
-        
+
         $this->setVariables(array(
             'formTitle'       => $formTitle,
             'formDescription' => $formDescription,
@@ -68,16 +69,5 @@ class AmministrazioneTrasparenteFormDataHandler extends FormDataAbstract
             $wrapper->setupQueryBuilder();
             
             return $wrapper->getRecords();
-        }
-        
-        /**
-         * @return array|null
-         */
-        private function getSezioni()
-        {
-            $this->recordsGetter = new SezioniGetterWrapper( SezioniGetter($this->getInput('entityManager',1)) );
-            $this->recordsGetter->setSezioni( array() );
- 
-            return $this->recordsGetter->formatSezioniForFormSelect('id','nome');
         }
 }

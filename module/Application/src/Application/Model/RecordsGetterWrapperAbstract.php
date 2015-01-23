@@ -37,7 +37,7 @@ abstract class RecordsGetterWrapperAbstract
     /**
      * 
      * @param string $key
-     * @param 0 or 1 or array
+     * @param bool|array
      * @return types
      */
     public function getInput($key = null, $noArray = null)
@@ -54,7 +54,7 @@ abstract class RecordsGetterWrapperAbstract
     abstract public function setupQueryBuilder();
     
     /**
-     * @return type
+     * @return \Application\Model\QueryBuilderHelperAbstract
      */
     public function setObjectGetter(QueryBuilderHelperAbstract $objectGetter)
     {
@@ -64,7 +64,7 @@ abstract class RecordsGetterWrapperAbstract
     }
     
     /**
-     * @return type
+     * @return QueryBuilderHelperAbstract
      */
     public function getObjectGetter()
     {
@@ -72,7 +72,7 @@ abstract class RecordsGetterWrapperAbstract
     }
 
     /**
-     * @return \Application\Model\QueryBuilderHelperAbstract
+     * @return QueryBuilderHelperAbstract
      * @throws NullException
      */
     public function getRecords()

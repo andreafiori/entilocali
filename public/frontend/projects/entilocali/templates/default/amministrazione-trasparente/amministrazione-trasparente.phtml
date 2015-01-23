@@ -1,13 +1,105 @@
-<ul class="breadcrumb">
-    <li><a href="<?php echo $this->basepath() ?>" title="Home page">Home</a> <span class="divider"></span></li>
-    <li class="active">Amministrazione trasparente</li>
+<ul class="breadcrumbs">
+    <li><a href="<?php echo $this->basepath() ?>" title="Torna all'home page">Home</a></li>
+    <li class="current">Amministrazione trasparente</li>
 </ul>
 
 <div class="text-center"><h1>Amministrazione trasparente</h1></div>
 
-<p>La presente sezione &egrave; stata costruita nel rispetto delle indicazioni normative contenute nel Decreto Legislativo 14 marzo 2013, n. 33: "La trasparenza è intesa come accessibilità totale delle informazioni concernenti l'organizzazione e l'attività delle pubbliche amministrazioni, allo scopo di favorire forme diffuse di controllo sul perseguimento delle funzioni istituzionali e sull'utilizzo delle risorse pubbliche. La trasparenza, nel rispetto delle disposizioni in materia di segreto di Stato, di segreto d'ufficio, di segreto statistico e di protezione dei dati personali, concorre ad attuare il principio democratico e i principi costituzionali di eguaglianza, di imparzialità, buon andamento, responsabilità, efficacia ed efficienza nell'utilizzo di risorse pubbliche, integrità e lealtà nel servizio alla nazione. Essa è condizione di garanzia delle libertà individuali e collettive, nonché dei diritti civili, politici e sociali, integra il diritto ad una buona amministrazione e concorre alla realizzazione di una amministrazione aperta, al servizio del cittadino."</p>
+<fieldset>
+        <legend>Ricerca</legend>
+    <?php
+    
+    $form = $this->form;
+    $form->prepare();
 
-<div class="alert alert-warning">
-    <h1>In costruzione</h1>
-    <p>Area in fase di costruzione</p>
-</div>
+    $form->setAttribute('action', $this->basepath());
+    $form->setAttribute('method', 'post');
+    $form->setAttribute('role', 'form');
+
+    $formLabel = $this->plugin('formLabel');
+
+    echo $this->form()->openTag($this->form);
+    
+    foreach ($this->form as $element):
+        $attributes = $element->getAttributes();
+        echo $this->formElementErrors($element);
+        if ($attributes['name'] == 'csrf'):
+            echo $this->formElement($element);
+        elseif ($attributes['type'] == 'submit'):
+        ?>
+        <div class="row">
+            <div class="small-8 columns">
+                <div class="row">
+                    <div class="small-3 columns">
+                        <label for="<?php echo $attributes['id'] ?>">&nbsp;</label>
+                    </div>
+                    <div class="small-9 columns">
+                        <?php
+                        $element->setAttribute('class', 'button small');
+                        echo $this->formElement($element);
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+        elseif ($attributes['type'] == 'checkbox'):
+        ?>
+        <div class="row">
+            <div class="small-8 columns">
+                <div class="row">
+                    <div class="small-3 columns">
+                        &nbsp;
+                    </div>
+                    <div class="small-9 columns">
+                        <label for="<?php echo $attributes['id'] ?>"> <?php echo $this->formElement($element); ?> <?php echo $element->getLabel() ?></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php else: ?>
+        <div class="row">
+            <div class="small-8 columns">
+                <div class="row">
+                    <div class="small-3 columns">
+                        <label for="<?php echo $attributes['id'] ?>"><?php echo $element->getLabel() ?>:</label>
+                    </div>
+                    <div class="small-9 columns">
+                        <?php echo $this->formElement($element); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+        endif;
+    endforeach;
+
+    echo $this->form()->closeTag();
+    
+    ?>
+</fieldset>
+
+<!-- Articolo -->
+
+<!-- Sezioni -->
+
+
+<blockquote>
+    <p>La presente sezione &egrave; stata costruita nel rispetto delle indicazioni normative 
+        contenute nel Decreto Legislativo 14 marzo 2013, n. 33:
+        "La trasparenza &egrave; intesa come accessibilit&agrave; totale delle informazioni concernenti 
+        l'organizzazione e l'attivit&agrave; delle pubbliche amministrazioni, allo scopo 
+        di favorire forme diffuse di controllo sul perseguimento delle funzioni istituzionali e 
+        sull'utilizzo delle risorse pubbliche. La trasparenza, nel rispetto delle disposizioni 
+        in materia di segreto di Stato, di segreto d'ufficio, di segreto statistico e di 
+        protezione dei dati personali, concorre ad attuare il principio democratico 
+        e i principi costituzionali di eguaglianza, di imparzialit&agrave;, buon andamento, 
+        responsabilit&agrave;, efficacia ed efficienza nell'utilizzo di risorse pubbliche, 
+        integrit&agrave; e lealt&agrave; nel servizio alla nazione. Essa &egrave; condizione di garanzia delle libert&agrave; 
+        individuali e collettive, nonch&egrave; dei diritti civili, politici e sociali, 
+        integra il diritto ad una buona amministrazione e concorre alla realizzazione 
+        di una amministrazione aperta, al servizio del cittadino."</p>
+    
+    <p><a href="http://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2013-03-14;33" title="Normativa completa amministrazione trasparente [apre in un'altra finestra]" target="_blank">Leggi tutta la normativa</a></p>
+    
+</blockquote>

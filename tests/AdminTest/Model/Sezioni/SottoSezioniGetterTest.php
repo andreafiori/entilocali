@@ -47,4 +47,11 @@ class SottoSezioniGetterTest extends TestSuite
 
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('isSs'));
     }
+    
+    public function testSetProfonditaDa()
+    {
+        $this->objectGetter->setProfonditaDa(21);
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('profonditaDa'));
+    }
 }

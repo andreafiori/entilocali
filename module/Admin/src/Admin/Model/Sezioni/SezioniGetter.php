@@ -14,8 +14,10 @@ class SezioniGetter extends QueryBuilderHelperAbstract
     {
         $this->setSelectQueryFields("sezioni.id, sezioni.nome, sezioni.colonna, sezioni.posizione,
                                      IDENTITY(sezioni.modulo) AS moduloId, sezioni.attivo, 
-                                     sezioni.url, sezioni.title
-                                    ");
+                                     sezioni.url, sezioni.title,
+                                     
+                                    modulo.code AS moduleCode
+        ");
 
         $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
                                 ->from('Application\Entity\ZfcmsComuniSezioni', 'sezioni')

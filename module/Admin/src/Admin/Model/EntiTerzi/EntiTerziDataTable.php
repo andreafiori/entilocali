@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Model\Entiterzi;
+namespace Admin\Model\EntiTerzi;
 
 use Admin\Model\DataTable\DataTableAbstract;
 
@@ -8,7 +8,7 @@ use Admin\Model\DataTable\DataTableAbstract;
  * @author Andrea Fiori
  * @since  17 August 2014
  */
-class EntiterziDataTable extends DataTableAbstract
+class EntiTerziDataTable extends DataTableAbstract
 {
     /**
      * @param array $input

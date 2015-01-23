@@ -25,7 +25,11 @@ class AlboPretorioFormSearch extends AlboPretorioFormAbstract
             'attributes' => array(
                 'placeholder' => '',
                 'title'  => 'Inserisci numero repertorio',
-                'id'     => 'numero_progressivo'
+                'id'     => 'numero_progressivo',
+                'type'   => 'number',
+                //'min'  => '0',
+                //'max'  => '10',
+                //'step' => '1',
             ),
             'options' => array(
                 'label' => 'Numero repertorio',
@@ -38,7 +42,8 @@ class AlboPretorioFormSearch extends AlboPretorioFormAbstract
             'attributes' => array(
                 'placeholder' => '',
                 'title'  => 'Inserisci numero atto',
-                'id'     => 'numero_atto'
+                'id'     => 'numero_atto',
+                'type'   => 'number',
             ),
             'options' => array(
                 'label' => 'Numero atto',
@@ -105,14 +110,14 @@ class AlboPretorioFormSearch extends AlboPretorioFormAbstract
             'type' => 'Zend\Form\Element\Checkbox',
             'name' => 'expired',
             'attributes' => array(
-                'title' => 'Spunta casella per cercare fra i documenti scaduti',
-                'id'    => 'expired'
+                'title'  => 'Spunta casella per cercare fra i documenti scaduti',
+                'id'     => 'expired'
             ),
             'options' => array(
-                'label' => 'Cerca anche nei documenti scaduti',
-                'use_hidden_element' => true,
-                'checked_value'      => '1',
-                'unchecked_value'    => '0'
+                'label'              => 'Cerca anche nei documenti scaduti',
+                'use_hidden_element' => false,
+                'checked_value'      => 1,
+                'unchecked_value'    => 0
             )
         ));
     }

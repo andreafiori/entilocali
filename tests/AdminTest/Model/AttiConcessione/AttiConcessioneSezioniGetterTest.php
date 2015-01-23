@@ -2,7 +2,8 @@
 
 namespace AdminTest\Model\Atticoncessione;
 
-use Admin\Model\AttiConcessione\AttiConcessioneSezioniGetter;
+use ApplicationTest\TestSuite;
+use Admin\Model\AttiConcessione\AttiConcessioneSettoriGetter;
 
 /**
  * @author Andrea Fiori
@@ -16,7 +17,7 @@ class AttiConcessioneSettoriGetterTest extends TestSuite
     {
         parent::setUp();
         
-        $this->objectGetter = new AttiConcessioneSezioniGetter( $this->getEntityManagerMock() );
+        $this->objectGetter = new AttiConcessioneSettoriGetter( $this->getEntityManagerMock() );
     }
     
     public function testSetMainQuery()

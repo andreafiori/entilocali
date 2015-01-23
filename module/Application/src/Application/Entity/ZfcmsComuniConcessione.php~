@@ -113,16 +113,6 @@ class ZfcmsComuniConcessione
     private $flagAllegati;
 
     /**
-     * @var \Application\Entity\ZfcmsComuniConcessioneSettori
-     *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniConcessioneSettori")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="settore_id", referencedColumnName="id")
-     * })
-     */
-    private $settore;
-
-    /**
      * @var \Application\Entity\ZfcmsComuniConcessioneRespProc
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniConcessioneRespProc")
@@ -131,6 +121,16 @@ class ZfcmsComuniConcessione
      * })
      */
     private $respProc;
+
+    /**
+     * @var \Application\Entity\ZfcmsComuniConcessioneSettori
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniConcessioneSettori")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="settore_id", referencedColumnName="id")
+     * })
+     */
+    private $settore;
 
     /**
      * @var \Application\Entity\ZfcmsUsers

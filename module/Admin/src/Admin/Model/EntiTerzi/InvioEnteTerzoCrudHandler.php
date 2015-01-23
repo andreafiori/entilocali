@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Model\Entiterzi;
+namespace Admin\Model\EntiTerzi;
 
 /**
  * @author Andrea Fiori

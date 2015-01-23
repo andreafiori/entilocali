@@ -8,6 +8,7 @@ use Application\Model\RouterManagers\RouterManager;
 use Application\Model\RouterManagers\RouterManagerHelper;
 use Admin\Model\Sezioni\SezioniGetter;
 use Admin\Model\Sezioni\SezioniGetterWrapper;
+use Zend\Session\Container as SessionContainer;
 
 /**
  * Frontend main controller
@@ -17,8 +18,6 @@ use Admin\Model\Sezioni\SezioniGetterWrapper;
  */
 class IndexController extends SetupAbstractController
 {
-        
-
     public function indexAction()
     {
         $appServiceLoader = $this->recoverAppServiceLoader();
@@ -36,6 +35,7 @@ class IndexController extends SetupAbstractController
         );
         $sezioniWrapper->setupQueryBuilder();
         $sezioniRecords = $sezioniWrapper->addSottoSezioni( $sezioniWrapper->getRecords() );
+        
         $sezioni = array();
         foreach($sezioniRecords as $sezione) {
             $sezioni[$sezione['colonna']][] = $sezione;
@@ -58,16 +58,26 @@ class IndexController extends SetupAbstractController
         $routerManagerHelper = new RouterManagerHelper($routerManager->setupRouteMatchObjectInstance());
         $routerManagerHelper->getRouterManger()->setInput($input);
         $routerManagerHelper->getRouterManger()->setupRecord();
+        
+        $varsFromModel = $routerManagerHelper->getRouterManger()->getOutput('export');
+        $varsToExport = array_merge(
+                $varsFromModel,
+                $input
+        );
 
-        $varsToExport = array_merge($routerManagerHelper->getRouterManger()->getOutput('export'), $input);
-        if ( isset($varsToExport) ) {
-            $this->layout()->setVariables($varsToExport);
-        }
+        $this->layout()->setVariables($varsToExport);
 
         $serverVars = $this->getRequest()->getServer();
 
         $templateDir = 'frontend/projects/'.$configurations['project_frontend'].'templates/'.$configurations['template_frontend'];
+        if (isset($varsFromModel['basiclayout'])) {
+            $basicLayout = $templateDir.$varsFromModel['basiclayout'];
+        } else {
+            $basicLayout = $input['basiclayout'];
+        }
         
+        $sessionContainer = new SessionContainer();
+
         $this->layout()->setVariables($configurations);
         $this->layout()->setVariables( array(
             'sezioni'           => $sezioni,
@@ -77,9 +87,10 @@ class IndexController extends SetupAbstractController
             'currentUrl'        => "http://".$serverVars["SERVER_NAME"].$serverVars["REQUEST_URI"],
             'currentDateTime'   => date("Y-m-d H:i:s"),
             'templatePartial'   => $input['template_path'].$routerManagerHelper->getRouterManger()->getTemplate(),
+            'cssName'           => $sessionContainer->offSetGet('cssName')
         ));
 
-        $this->layout($input['basiclayout']);
+        $this->layout($basicLayout);
         
         return new ViewModel();
     }

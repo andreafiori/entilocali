@@ -5,12 +5,12 @@ namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ZfcmsComuniContrattiPartCig
+ * ZfcmsComuniContrattiRelations
  *
- * @ORM\Table(name="zfcms_comuni_contratti_part_cig", indexes={@ORM\Index(name="cont_pub_data_id", columns={"cont_pub_id"}), @ORM\Index(name="cont_pub_part_id", columns={"cont_pub_part_id"}), @ORM\Index(name="aggiudicatario", columns={"aggiudicatario"})})
+ * @ORM\Table(name="zfcms_comuni_contratti_relations", indexes={@ORM\Index(name="cont_pub_data_id", columns={"contratto_id"}), @ORM\Index(name="cont_pub_part_id", columns={"partecipante_id"})})
  * @ORM\Entity
  */
-class ZfcmsComuniContrattiPartCig
+class ZfcmsComuniContrattiRelations
 {
     /**
      * @var integer
@@ -38,7 +38,7 @@ class ZfcmsComuniContrattiPartCig
     /**
      * @var integer
      *
-     * @ORM\Column(name="aggiudicatario", type="bigint", nullable=false)
+     * @ORM\Column(name="aggiudicatario", type="integer", nullable=false)
      */
     private $aggiudicatario;
 
@@ -50,18 +50,24 @@ class ZfcmsComuniContrattiPartCig
     private $membro;
 
     /**
-     * @var integer
+     * @var \Application\Entity\ZfcmsComuniContratti
      *
-     * @ORM\Column(name="cont_pub_part_id", type="bigint", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniContratti")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="contratto_id", referencedColumnName="id")
+     * })
      */
-    private $contPubPartId;
+    private $contratto;
 
     /**
-     * @var integer
+     * @var \Application\Entity\ZfcmsComuniContrattiPartecipanti
      *
-     * @ORM\Column(name="cont_pub_id", type="bigint", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniContrattiPartecipanti")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="partecipante_id", referencedColumnName="id")
+     * })
      */
-    private $contPubId;
+    private $partecipante;
 
 
 
@@ -80,7 +86,7 @@ class ZfcmsComuniContrattiPartCig
      *
      * @param integer $stato
      *
-     * @return ZfcmsComuniContrattiPartCig
+     * @return ZfcmsComuniContrattiRelations
      */
     public function setStato($stato)
     {
@@ -104,7 +110,7 @@ class ZfcmsComuniContrattiPartCig
      *
      * @param integer $gruppo
      *
-     * @return ZfcmsComuniContrattiPartCig
+     * @return ZfcmsComuniContrattiRelations
      */
     public function setGruppo($gruppo)
     {
@@ -128,7 +134,7 @@ class ZfcmsComuniContrattiPartCig
      *
      * @param integer $aggiudicatario
      *
-     * @return ZfcmsComuniContrattiPartCig
+     * @return ZfcmsComuniContrattiRelations
      */
     public function setAggiudicatario($aggiudicatario)
     {
@@ -152,7 +158,7 @@ class ZfcmsComuniContrattiPartCig
      *
      * @param integer $membro
      *
-     * @return ZfcmsComuniContrattiPartCig
+     * @return ZfcmsComuniContrattiRelations
      */
     public function setMembro($membro)
     {
@@ -172,50 +178,50 @@ class ZfcmsComuniContrattiPartCig
     }
 
     /**
-     * Set contPubPartId
+     * Set contratto
      *
-     * @param integer $contPubPartId
+     * @param \Application\Entity\ZfcmsComuniContratti $contratto
      *
-     * @return ZfcmsComuniContrattiPartCig
+     * @return ZfcmsComuniContrattiRelations
      */
-    public function setContPubPartId($contPubPartId)
+    public function setContratto(\Application\Entity\ZfcmsComuniContratti $contratto = null)
     {
-        $this->contPubPartId = $contPubPartId;
+        $this->contratto = $contratto;
     
         return $this;
     }
 
     /**
-     * Get contPubPartId
+     * Get contratto
      *
-     * @return integer
+     * @return \Application\Entity\ZfcmsComuniContratti
      */
-    public function getContPubPartId()
+    public function getContratto()
     {
-        return $this->contPubPartId;
+        return $this->contratto;
     }
 
     /**
-     * Set contPubId
+     * Set partecipante
      *
-     * @param integer $contPubId
+     * @param \Application\Entity\ZfcmsComuniContrattiPartecipanti $partecipante
      *
-     * @return ZfcmsComuniContrattiPartCig
+     * @return ZfcmsComuniContrattiRelations
      */
-    public function setContPubId($contPubId)
+    public function setPartecipante(\Application\Entity\ZfcmsComuniContrattiPartecipanti $partecipante = null)
     {
-        $this->contPubId = $contPubId;
+        $this->partecipante = $partecipante;
     
         return $this;
     }
 
     /**
-     * Get contPubId
+     * Get partecipante
      *
-     * @return integer
+     * @return \Application\Entity\ZfcmsComuniContrattiPartecipanti
      */
-    public function getContPubId()
+    public function getPartecipante()
     {
-        return $this->contPubId;
+        return $this->partecipante;
     }
 }

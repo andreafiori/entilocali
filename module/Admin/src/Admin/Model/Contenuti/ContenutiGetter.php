@@ -15,16 +15,14 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
         $this->setSelectQueryFields("contenuti.id, contenuti.anno, contenuti.numero, 
             contenuti.titolo, contenuti.sommario, contenuti.testo, 
             contenuti.dataInserimento, contenuti.dataScadenza,
-                                
             contenuti.attivo, contenuti.home, 
 
             sezione.nome AS nomeSezione,
 
-            sottosezione.nome AS nomeSottosezione,
-            
-            u.name, u.surname
-            
-            ");
+            sottosezione.nome AS nomeSottosezione,            
+
+            u.name, u.surname            
+        ");
 
         $this->getQueryBuilder()->select($this->getSelectQueryFields())
                                 ->from('Application\Entity\ZfcmsComuniContenuti', 'contenuti')
@@ -32,11 +30,16 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
                                 ->join('contenuti.utente', 'u')
                                 ->join('sottosezione.sezione', 'sezione')
                                 ->join('sezione.modulo', 'modulo')
-                                ->where('( contenuti.sottosezione = sottosezione.id AND contenuti.utente = u.id AND sottosezione.sezione = sezione.id AND sezione.modulo = modulo.id) ');
+                                ->where('( contenuti.sottosezione = sottosezione.id 
+                                        AND contenuti.utente = u.id 
+                                        AND sottosezione.sezione = sezione.id 
+                                        AND sezione.modulo = modulo.id
+                                        ) 
+                                        ');
 
         return $this->getQueryBuilder();
     }
-    
+
     /**
      * @param number|array $id
      * @return \Doctrine\ORM\QueryBuilder
@@ -56,6 +59,10 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
         return $this->getQueryBuilder();
     }
     
+    /**
+     * @param type $id
+     * @return type
+     */
     public function setSottosezione($id)
     {
         if ( is_numeric($id) ) {
@@ -101,6 +108,49 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
         if ( isset($dataScadenza) ) {
             $this->getQueryBuilder()->andWhere('contenuti.dataScadenza = :scadenza ');
             $this->getQueryBuilder()->setParameter('scadenza', $dataScadenza);
+        }
+    }
+    
+    /**
+     * @param int $noScaduti
+     */
+    public function setNoScaduti($noScaduti)
+    {
+        if ($noScaduti === 1) {
+            $this->getQueryBuilder()->andWhere("( contenuti.dataScadenza > '".date("Y-m-d H:i:s")."' OR contenuti.dataScadenza = '0000-00-00 00:00:00') ");
+        }
+    }
+    
+    /**
+     * @param int $id
+     */
+    public function setUserId($id)
+    {
+        if ( is_numeric($id) ) {
+            $this->getQueryBuilder()->andWhere('contenuti.utente = :userid ');
+            $this->getQueryBuilder()->setParameter('userid', $id);
+        }
+    }
+    
+    /**
+     * @param int $id
+     */
+    public function setModulo($id)
+    {
+        if ( is_numeric($id) ) {
+            $this->getQueryBuilder()->andWhere('sezione.modulo = :moduloId ');
+            $this->getQueryBuilder()->setParameter('moduloId', $id);
+        }
+    }
+    
+    /**
+     * @param int $id
+     */
+    public function setAttivo($id)
+    {
+        if ( is_numeric($id) ) {
+            $this->getQueryBuilder()->andWhere('contenuti.attivo = :attivo ');
+            $this->getQueryBuilder()->setParameter('attivo', $id);
         }
     }
 }

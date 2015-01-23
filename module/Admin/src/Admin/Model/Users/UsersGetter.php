@@ -15,13 +15,12 @@ class UsersGetter extends QueryBuilderHelperAbstract
         $this->setSelectQueryFields('DISTINCT(u.id) AS id, u.name, u.surname, u.email, u.address, u.status, u.zip, u.city, u.username, u.lastUpdate, u.settore ');
 
         $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
-                                ->add('from', 'Application\Entity\ZfcmsUsers u')
-                                ->join('u.role', 'ur')
-                                ->where("(u.role = ur.id) ");
+                                ->from('Application\Entity\ZfcmsUsers', 'u')
+                                ->where("u.id != 0 ");
 
         return $this->getQueryBuilder();
     }
-    
+
     /**
      * @param number or array $id
      * @return type
@@ -37,7 +36,7 @@ class UsersGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere('u.id IN ( :id ) ');
             $this->getQueryBuilder()->setParameter('id', $id);
         }
-        
+
         return $this->getQueryBuilder();
     }
 
@@ -50,7 +49,7 @@ class UsersGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere('u.surname = :surname ');
             $this->getQueryBuilder()->setParameter('surname', $surname);
         }
-        
+
         return $this->getQueryBuilder();
     }
     
@@ -68,22 +67,22 @@ class UsersGetter extends QueryBuilderHelperAbstract
     /**
      * @param string $username
      */
-    public function setUsername($username = null)
+    public function setUsername($username)
     {
-        if ( $username ) {
+        if (isset($username)) {
             $this->getQueryBuilder()->andWhere("u.username = :username ");
             $this->getQueryBuilder()->setParameter('username', $username);
         }
     }
 
     /**
-     * Set password (encoded)
+     * Set encoded password (md5)
      * 
      * @param string $password
      */
     public function setPassword($password = null)
     {
-        if ($password) {
+        if (isset($password)) {
             $this->getQueryBuilder()->andWhere("u.password = :password ");
             $this->getQueryBuilder()->setParameter('password', md5($password) );
         }
@@ -94,22 +93,9 @@ class UsersGetter extends QueryBuilderHelperAbstract
      */
     public function setStatus($status = null)
     {
-        if (!$status) {
-            $status = 'active';
-        }
-        
-        $this->getQueryBuilder()->andWhere("u.status = :status ");
-        $this->getQueryBuilder()->setParameter('status', $status);
-    }
-    
-    /**
-     * @param string $apiKey
-     */
-    public function setApiKey($apiKey)
-    {
-        if ($apiKey) {
+        if (isset($status)) {
             $this->getQueryBuilder()->andWhere("u.status = :status ");
-            $this->getQueryBuilder()->setParameter('apiKey', $apiKey);
+            $this->getQueryBuilder()->setParameter('status', $status);
         }
     }
 }

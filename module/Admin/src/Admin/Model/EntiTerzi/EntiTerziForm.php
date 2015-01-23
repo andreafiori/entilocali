@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Model\Entiterzi;
+namespace Admin\Model\EntiTerzi;
 
 use Zend\Form\Form;
 
@@ -8,7 +8,7 @@ use Zend\Form\Form;
  * @author Andrea Fiori
  * @since  17 August 2014
  */
-class EntiterziForm extends Form
+class EntiTerziForm extends Form
 {
     /**
      * @param string $name

@@ -204,6 +204,13 @@ class ZfcmsComuniAlboArticoli
     private $flagAllegati;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="spesa_prevista", type="decimal", precision=10, scale=2, nullable=false)
+     */
+    private $spesaPrevista;
+
+    /**
      * @var \Application\Entity\ZfcmsComuniAlboSezioni
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniAlboSezioni")
@@ -857,6 +864,30 @@ class ZfcmsComuniAlboArticoli
     public function getFlagAllegati()
     {
         return $this->flagAllegati;
+    }
+
+    /**
+     * Set spesaPrevista
+     *
+     * @param string $spesaPrevista
+     *
+     * @return ZfcmsComuniAlboArticoli
+     */
+    public function setSpesaPrevista($spesaPrevista)
+    {
+        $this->spesaPrevista = $spesaPrevista;
+    
+        return $this;
+    }
+
+    /**
+     * Get spesaPrevista
+     *
+     * @return string
+     */
+    public function getSpesaPrevista()
+    {
+        return $this->spesaPrevista;
     }
 
     /**

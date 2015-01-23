@@ -38,16 +38,16 @@ class ZfcmsComuniContratti
     /**
      * @var string
      *
-     * @ORM\Column(name="importo", type="decimal", precision=12, scale=2, nullable=true)
+     * @ORM\Column(name="importo_aggiudicazione", type="decimal", precision=12, scale=2, nullable=true)
      */
-    private $importo;
+    private $importoAggiudicazione;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="importo2", type="decimal", precision=12, scale=2, nullable=true)
+     * @ORM\Column(name="importo_liquidato", type="decimal", precision=12, scale=2, nullable=true)
      */
-    private $importo2;
+    private $importoLiquidato;
 
     /**
      * @var string
@@ -59,9 +59,9 @@ class ZfcmsComuniContratti
     /**
      * @var integer
      *
-     * @ORM\Column(name="n_offerte", type="integer", nullable=true)
+     * @ORM\Column(name="numero_offerte", type="integer", nullable=true)
      */
-    private $nOfferte;
+    private $numeroOfferte;
 
     /**
      * @var string
@@ -73,16 +73,16 @@ class ZfcmsComuniContratti
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="data_agg", type="date", nullable=false)
+     * @ORM\Column(name="data_inizio_lavori", type="date", nullable=false)
      */
-    private $dataAgg;
+    private $dataInizioLavori;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="data_contratto", type="date", nullable=false)
+     * @ORM\Column(name="data_fine_lavori", type="date", nullable=false)
      */
-    private $dataContratto;
+    private $dataFineLavori;
 
     /**
      * @var integer

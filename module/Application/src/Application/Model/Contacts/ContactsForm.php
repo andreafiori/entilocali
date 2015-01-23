@@ -46,12 +46,12 @@ class ContactsForm extends Form
         
         $this->add(array( 
             'name' => 'email', 
-            'type' => 'Zend\Form\Element\Email', 
+            'type' => 'Zend\Form\Element\Email',
             'attributes' => array( 
-                'placeholder' => 'Inserisci indirizzo email...', 
-                'title' => 'Inserisci indirizzo email', 
-                'required' => 'required',
-                'id' => 'email'
+                'placeholder'   => 'Inserisci indirizzo email...', 
+                'title'         => 'Inserisci indirizzo email', 
+                'required'      => 'required',
+                'id'            => 'email'
             ), 
             'options' => array(
                 'label' => 'Email', 
@@ -62,12 +62,12 @@ class ContactsForm extends Form
             'name' => 'messaggio', 
             'type' => 'Zend\Form\Element\Textarea', 
             'attributes' => array(
-                'placeholder' => 'Inserisci il messagio...',
-                'title'       => 'Inserisci il messagio', 
-                'required'    => 'required',
-                'rows'  => 8,
-                'cols'  => 35,
-                'id'    => 'messaggio'
+                'placeholder'   => 'Inserisci il messagio...',
+                'title'         => 'Inserisci il messagio', 
+                'required'      => 'required',
+                'rows'          => 8,
+                'cols'          => 35,
+                'id'            => 'messaggio'
             ), 
             'options' => array(
                 'label' => 'Messaggio',

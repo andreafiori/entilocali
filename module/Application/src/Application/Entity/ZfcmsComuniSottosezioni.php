@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsComuniSottosezioni
  *
- * @ORM\Table(name="zfcms_comuni_sottosezioni", indexes={@ORM\Index(name="zf_comuni_sottosezioni_sezioni", columns={"sezione_id"})})
+ * @ORM\Table(name="zfcms_comuni_sottosezioni", indexes={@ORM\Index(name="zf_comuni_sottosezioni_sezioni", columns={"sezione_id"}), @ORM\Index(name="zf_comuni_sottosezioni_profondita_da_self", columns={"profondita_da"})})
  * @ORM\Entity
  */
 class ZfcmsComuniSottosezioni
@@ -73,13 +73,6 @@ class ZfcmsComuniSottosezioni
     /**
      * @var integer
      *
-     * @ORM\Column(name="profondita_da", type="bigint", nullable=false)
-     */
-    private $profonditaDa;
-
-    /**
-     * @var integer
-     *
      * @ORM\Column(name="is_ss", type="integer", nullable=false)
      */
     private $isSs;
@@ -111,6 +104,16 @@ class ZfcmsComuniSottosezioni
      * @ORM\Column(name="seo_description", type="text", length=65535, nullable=false)
      */
     private $seoDescription;
+
+    /**
+     * @var \Application\Entity\ZfcmsComuniSottosezioni
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniSottosezioni")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="profondita_da", referencedColumnName="id")
+     * })
+     */
+    private $profonditaDa;
 
     /**
      * @var \Application\Entity\ZfcmsComuniSezioni
@@ -303,30 +306,6 @@ class ZfcmsComuniSottosezioni
     }
 
     /**
-     * Set profonditaDa
-     *
-     * @param integer $profonditaDa
-     *
-     * @return ZfcmsComuniSottosezioni
-     */
-    public function setProfonditaDa($profonditaDa)
-    {
-        $this->profonditaDa = $profonditaDa;
-    
-        return $this;
-    }
-
-    /**
-     * Get profonditaDa
-     *
-     * @return integer
-     */
-    public function getProfonditaDa()
-    {
-        return $this->profonditaDa;
-    }
-
-    /**
      * Set isSs
      *
      * @param integer $isSs
@@ -444,6 +423,30 @@ class ZfcmsComuniSottosezioni
     public function getSeoDescription()
     {
         return $this->seoDescription;
+    }
+
+    /**
+     * Set profonditaDa
+     *
+     * @param \Application\Entity\ZfcmsComuniSottosezioni $profonditaDa
+     *
+     * @return ZfcmsComuniSottosezioni
+     */
+    public function setProfonditaDa(\Application\Entity\ZfcmsComuniSottosezioni $profonditaDa = null)
+    {
+        $this->profonditaDa = $profonditaDa;
+    
+        return $this;
+    }
+
+    /**
+     * Get profonditaDa
+     *
+     * @return \Application\Entity\ZfcmsComuniSottosezioni
+     */
+    public function getProfonditaDa()
+    {
+        return $this->profonditaDa;
     }
 
     /**

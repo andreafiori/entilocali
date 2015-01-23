@@ -17,8 +17,10 @@ class StatoCivileFrontend extends RouterManagerAbstract implements RouterManager
 {
     public function setupRecord()
     {
+        $sezioni = $this->getSezioni(array());
+        
         $form = new StatoCivileFormSearch();
-        $form->addSezioni( $this->getSezioni( array() ) );
+        $form->addSezioni( !empty($sezioni) ? $sezioni : array() );
         $form->addMesi();
         $form->addAnni();
         $form->addSubmitButton();

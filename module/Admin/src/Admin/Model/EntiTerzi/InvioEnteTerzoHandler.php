@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Model\Entiterzi;
+namespace Admin\Model\EntiTerzi;
 
 use Application\Model\RouterManagers\RouterManagerAbstract;
 use Application\Model\RouterManagers\RouterManagerInterface;

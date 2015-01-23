@@ -1,0 +1,74 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ZfcmsComuniContrattiRelations
+ *
+ * @ORM\Table(name="zfcms_comuni_contratti_relations", indexes={@ORM\Index(name="cont_pub_data_id", columns={"contratto_id"}), @ORM\Index(name="cont_pub_part_id", columns={"partecipante_id"})})
+ * @ORM\Entity
+ */
+class ZfcmsComuniContrattiRelations
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="stato", type="integer", nullable=false)
+     */
+    private $stato;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="gruppo", type="integer", nullable=false)
+     */
+    private $gruppo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="aggiudicatario", type="integer", nullable=false)
+     */
+    private $aggiudicatario;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="membro", type="bigint", nullable=false)
+     */
+    private $membro;
+
+    /**
+     * @var \Application\Entity\ZfcmsComuniContratti
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniContratti")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="contratto_id", referencedColumnName="id")
+     * })
+     */
+    private $contratto;
+
+    /**
+     * @var \Application\Entity\ZfcmsComuniContrattiPartecipanti
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniContrattiPartecipanti")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="partecipante_id", referencedColumnName="id")
+     * })
+     */
+    private $partecipante;
+
+
+}
+

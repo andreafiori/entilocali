@@ -13,28 +13,32 @@ class ContrattiPubbliciGetter extends QueryBuilderHelperAbstract
     public function setMainQuery()
     {
         $this->setSelectQueryFields('DISTINCT(cc.id) AS id, cc.beneficiario,
-                cc.titolo, cc.importo, cc.importo2, cc.dataAgg, cc.dataContratto,
+                cc.titolo, cc.importoAggiudicazione, cc.importoLiquidato, cc.dataInizioLavori, cc.dataFineLavori,
                 cc.progressivo, cc.anno, cc.data, cc.ora, cc.attivo, cc.scadenza, cc.cig,
                 
-                user.name, user.surname,
+                csc.nomeScelta,
+                settore.responsabile,
+                
+                users.name, users.surname,
                 settore.nome AS nomeSettore,
+                
                 responsabile.nomeResp
                 ');
 
         $this->getQueryBuilder()->select($this->getSelectQueryFields())
                                 ->from('Application\Entity\ZfcmsComuniContratti', 'cc')
                                 ->join('cc.scContr', 'csc')
-                                ->join('cc.utente', 'user')
+                                ->join('cc.utente', 'users')
                                 ->join('cc.settore', 'settore')
                                 ->join('cc.respProc', 'responsabile')
-                                ->add('where', ' (cc.scContr = csc.id) ');
+                                ->where(' (cc.scContr = csc.id AND cc.utente = users.id) ');
         
         return $this->getQueryBuilder();
     }
-    
+
     /**
-     * @param number or array $id
-     * @return type
+     * @param number|array $id
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setId($id)
     {
@@ -46,6 +50,20 @@ class ContrattiPubbliciGetter extends QueryBuilderHelperAbstract
         if (is_array($id)) {
             $this->getQueryBuilder()->andWhere('cc.id IN ( :id ) ');
             $this->getQueryBuilder()->setParameter('id', $id);
+        }
+        
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param number|array $id
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setUtente($id)
+    {
+        if ( is_numeric($id) ) {
+            $this->getQueryBuilder()->andWhere('cc.utente = :utente ');
+            $this->getQueryBuilder()->setParameter('utente', $id);
         }
         
         return $this->getQueryBuilder();

@@ -26,7 +26,7 @@ class AlboPretorioFormSearch extends Form
                 'placeholder'   => '',
                 'title'         => 'Inserisci numero repertorio',
                 'id'            => 'numero_progressivo',
-                'maxlength'     => 15
+                'maxlength'     => 12
             ),
             'options' => array(
                 'label' => 'Numero repertorio',
@@ -40,7 +40,7 @@ class AlboPretorioFormSearch extends Form
                 'placeholder' => '',
                 'title'         => 'Inserisci numero atto',
                 'id'            => 'numero_atto',
-                'maxlength'     => 15
+                'maxlength'     => 12
             ),
             'options' => array(
                 'label' => 'Numero atto',

@@ -26,18 +26,17 @@ class AlboPretorioFrontend extends RouterManagerAbstract implements RouterManage
         $param = $this->getInput('param', 1);
         $paginatorRecords = $this->getAlboPretorioRecords(
             array(
-                'annullato' => '0',
+                'annullato'  => 0,
                 'pubblicare' => 1,
-                'attivo' => 1,
+                'attivo'     => 1,
             ),
             isset($param['route']['page']) ? $param['route']['page'] : ''
         );
 
         $this->setRecords($paginatorRecords);
         $this->setTemplate('albo-pretorio/albo-pretorio.phtml');
-        
         $this->setVariables(array(
-            'form' => $this->getFormSearch(),
+            'form'      => $this->getFormSearch(),
             'paginator' => $paginatorRecords
         ));
     }
@@ -81,11 +80,11 @@ class AlboPretorioFrontend extends RouterManagerAbstract implements RouterManage
         }
         
         /**
-         * @param type $input
-         * @param type $page
+         * @param array $input
+         * @param int $page
          * @return type
          */
-        private function getAlboPretorioRecords($input, $page)
+        private function getAlboPretorioRecords(array $input, $page)
         {
             $wrapper = new AlboPretorioArticoliGetterWrapper( new AlboPretorioArticoliGetter($this->getInput('entityManager',1)) );
             $wrapper->setInput($input);

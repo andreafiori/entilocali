@@ -10,16 +10,18 @@ use Application\Model\QueryBuilderHelperAbstract;
  */
 class SottoSezioniGetter extends QueryBuilderHelperAbstract
 {
-    const moduleId = 13;
-    
     public function setMainQuery()
     {
-        $this->setSelectQueryFields("subs.id, subs.nome, subs.posizione, subs.urlTitle ");
+        $this->setSelectQueryFields("sottosezioni.id AS idSottosezione, 
+            sottosezioni.nome AS nomeSottosezione, sezioni.id AS idSezione, sezioni.nome AS nomeSezione, 
+            IDENTITY(sottosezioni.profonditaDa) AS profonditaDa, sottosezioni.profonditaA, sottosezioni.url
+        ");
 
         $this->getQueryBuilder()->select($this->getSelectQueryFields())
-                                ->from('Application\Entity\ZfcmsComuniSottosezioni', 'subs')
-                                ->join('subs.sezione', 'sezione')
-                                ->where("subs.sezione = sezione.id ");
+                                ->from('Application\Entity\ZfcmsComuniSottosezioni', 'sottosezioni')
+                                ->join('sottosezioni.sezione', 'sezioni')
+                                ->join('sezioni.modulo', 'modulo')
+                                ->where("sottosezioni.sezione = sezioni.id ");
 
         return $this->getQueryBuilder();
     }
@@ -31,12 +33,12 @@ class SottoSezioniGetter extends QueryBuilderHelperAbstract
     public function setId($id)
     {
         if ( is_numeric($id) ) {
-            $this->getQueryBuilder()->andWhere('subs.id = :id ');
+            $this->getQueryBuilder()->andWhere('sottosezioni.id = :id ');
             $this->getQueryBuilder()->setParameter('id', $id);
         }
         
         if (is_array($id)) {
-            $this->getQueryBuilder()->andWhere('subs.id IN ( :id ) ');
+            $this->getQueryBuilder()->andWhere('sottosezioni.id IN ( :id ) ');
             $this->getQueryBuilder()->setParameter('id', $id);
         }
         
@@ -49,8 +51,8 @@ class SottoSezioniGetter extends QueryBuilderHelperAbstract
      */
     public function setSlug($slug)
     {
-        if ( isset($sezioneId) ) {
-            $this->getQueryBuilder()->andWhere('subs.slug = :slug ');
+        if ( isset($slug) ) {
+            $this->getQueryBuilder()->andWhere('sottosezioni.slug = :slug ');
             $this->getQueryBuilder()->setParameter('slug', $slug);
         }
 
@@ -64,7 +66,7 @@ class SottoSezioniGetter extends QueryBuilderHelperAbstract
     public function setSezioneId($sezioneId)
     {
         if (is_numeric($sezioneId) ) {
-            $this->getQueryBuilder()->andWhere('subs.sezione = :sezioneId ');
+            $this->getQueryBuilder()->andWhere('sottosezioni.sezione = :sezioneId ');
             $this->getQueryBuilder()->setParameter('sezioneId', $sezioneId);
         }
 
@@ -78,10 +80,38 @@ class SottoSezioniGetter extends QueryBuilderHelperAbstract
     public function setIsSs($isSottoSezione)
     {
         if (is_numeric($isSottoSezione) ) {
-            $this->getQueryBuilder()->andWhere('subs.isSs = :isSs ');
+            $this->getQueryBuilder()->andWhere('sottosezioni.isSs = :isSs ');
             $this->getQueryBuilder()->setParameter('isSs', $isSottoSezione);
         }
 
+        return $this->getQueryBuilder();
+    }
+    
+    /**    
+     * @param int $profonditaDa
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setProfonditaDa($profonditaDa)
+    {
+        if (is_numeric($profonditaDa) ) {
+            $this->getQueryBuilder()->andWhere('sottosezioni.profonditaDa = :profonditaDa ');
+            $this->getQueryBuilder()->setParameter('profonditaDa', $profonditaDa);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**    
+     * @param int $id
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setModulo($id)
+    {
+        if ( is_numeric($id) ) {
+            $this->getQueryBuilder()->andWhere('sezioni.modulo = :moduloId ');
+            $this->getQueryBuilder()->setParameter('moduloId', $id);
+        }
+        
         return $this->getQueryBuilder();
     }
 }

@@ -28,6 +28,34 @@ return array(
                                                     ),
                                                     'may_terminate' => true,
                                     ),
+                                    'contents' => array(
+                                                    'type'    => 'segment',
+                                                    'options' => array(
+                                                                    'route' => '/contents/node/[:subsectionid[/]]',
+                                                                    'constraints' => array(
+                                                                            'subsectionid' => '[0-9]+',
+                                                                    ),
+                                                                    'defaults' => array(
+                                                                            'controller' => 'Application\Controller\Index',
+                                                                            'action'     => 'index',
+                                                                    ),
+                                                    ),
+                                                    'may_terminate' => true,
+                                    ),
+                                    'css' => array(
+                                                    'type'    => 'segment',
+                                                    'options' => array(
+                                                                    'route'    => '/css/styeleswitch/[:cssname[/]]',
+                                                                    'constraints' => array(
+                                                                            'cssname'  => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                                    ),
+                                                                    'defaults' => array(
+                                                                            'controller' => 'Application\Controller\Index',
+                                                                            'action'     => 'index',
+                                                                    ),
+                                                    ),
+                                                    'may_terminate' => true,
+                                    ),
                                     'posts' => array(
                                                     'type'    => 'segment',
                                                     'options' => array(
@@ -108,7 +136,7 @@ return array(
                                     'albo-pretorio' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
-                                                        'route'    => '/albo-pretorio[/][page/:page][/]',
+                                                        'route'    => '/albo-pretorio/atti/elenco[/][page/:page[/]]',
                                                         'constraints' => array(
                                                             'page' => '[0-9]+',
                                                         ),
@@ -128,7 +156,7 @@ return array(
                                     'stato-civile' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
-                                                        'route'    => '/stato-civile[/][page/:page][/]',
+                                                        'route'    => '/stato-civile/pubblicazioni/elenco[/][page/:page[/]]',
                                                         'constraints' => array(
                                                             
                                                         ),
@@ -149,7 +177,28 @@ return array(
                                     'amministrazione-trasparente' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
-                                                        'route'    => '/amministrazione-trasparente[/][page/:page][/]',
+                                                        'route'    => '/amministrazione-trasparente/articoli/elenco[/][page/:page[/]]',
+                                                        'constraints' => array(
+                                                            
+                                                        ),
+                                                        'defaults' => array(
+                                                            'controller' => 'Application\Controller\Index',
+                                                            'action'    => 'index', 
+                                                        ),
+                                        ),
+                                        'may_terminate' => true,
+                                        'child_routes' => array(
+                                                        'default' => array(
+                                                                        'type'    => 'Wildcard',
+                                                                        'options' => array(
+                                                                        ),
+                                                        ),
+                                        ),
+                                    ),
+                                    'contratti-pubblici' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                                        'route'    => '/contratti-pubblici/bandi-e-contratti/elenco[/][page/:page[/]]',
                                                         'constraints' => array(
                                                             
                                                         ),
@@ -170,7 +219,7 @@ return array(
                                     'contatti' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
-                                                        'route'    => '/contatti/invia-messaggio[/][:action][/]',
+                                                        'route'    => '/contatti/invia-messaggio[/][:action[/]]',
                                                         'constraints' => array(
                                                             
                                                         ),
@@ -383,9 +432,12 @@ return array(
     'fe_router' => array(
         "default"                       => 'Application\Model\Posts\PostsFrontend',
         "home"                          => 'Application\Model\Posts\PostsFrontend',
+        "contents"                      => 'Application\Model\Contenuti\ContenutiFrontend',
+        "css"                           => 'Application\Model\CssStyleSwitch\CssStyleSwitchFrontend',
         "albo-pretorio"                 => 'Application\Model\AlboPretorio\AlboPretorioFrontend',
         "amministrazione-trasparente"   => 'Application\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFrontend',
-        "contatti"                      => 'Application\Model\Contacts\ContactsFrontend',     
+        "contatti"                      => 'Application\Model\Contacts\ContactsFrontend',
+        "contratti-pubblici"            => 'Application\Model\ContrattiPubblici\ContrattiPubbliciFrontend',
         "faq"                           => 'Application\Model\Faq\FaqFrontend',
         "foto"                          => 'Application\Model\Posts\PhotoFrontend',
         "newsletter"                    => 'Application\Model\Newsletter\NewsletterFrontend',

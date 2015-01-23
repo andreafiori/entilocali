@@ -31,4 +31,26 @@ class ContrattiPubbliciGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setGroupBy( $this->getInput('groupBy', 1) );
         $this->objectGetter->setLimit( $this->getInput('limit', 1) );
     }
+    
+    /**
+     * Add lista partecipanti and aggiudicatario
+     * 
+     * @param array $records
+     */
+    public function addListaPartecipanti(array $records)
+    {        
+        foreach($records as &$record) {
+            $wrapper = '';
+            
+            $record['partecipanti'][] = array();
+        }
+    }
+
+    /**
+     * @param array $records
+     */
+    public function addAttachments(array $records)
+    {
+        // TODO: add attachments to records array
+    }
 }

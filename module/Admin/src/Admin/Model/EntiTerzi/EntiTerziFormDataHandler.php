@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Model\Entiterzi;
+namespace Admin\Model\EntiTerzi;
 
 use Admin\Model\FormData\FormDataAbstract;
 
@@ -22,7 +22,7 @@ class EntiTerziFormDataHandler extends FormDataAbstract
         $recordFromDb = $this->getFormRecord(isset($param['route']['option']) ? $param['route']['option'] : null);
         $this->setRecord($recordFromDb);
         
-        $form = new EntiterziForm();
+        $form = new EntiTerziForm();
         if ($recordFromDb) {
             $form->setData($recordFromDb[0]);
             $submitButtonValue = 'Modifica';

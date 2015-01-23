@@ -113,16 +113,6 @@ class ZfcmsComuniConcessione
     private $flagAllegati;
 
     /**
-     * @var \Application\Entity\ZfcmsComuniConcessioneSettori
-     *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniConcessioneSettori")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="settore_id", referencedColumnName="id")
-     * })
-     */
-    private $settore;
-
-    /**
      * @var \Application\Entity\ZfcmsComuniConcessioneRespProc
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniConcessioneRespProc")
@@ -131,6 +121,16 @@ class ZfcmsComuniConcessione
      * })
      */
     private $respProc;
+
+    /**
+     * @var \Application\Entity\ZfcmsComuniConcessioneSettori
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniConcessioneSettori")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="settore_id", referencedColumnName="id")
+     * })
+     */
+    private $settore;
 
     /**
      * @var \Application\Entity\ZfcmsUsers
@@ -467,30 +467,6 @@ class ZfcmsComuniConcessione
     }
 
     /**
-     * Set settore
-     *
-     * @param \Application\Entity\ZfcmsComuniConcessioneSettori $settore
-     *
-     * @return ZfcmsComuniConcessione
-     */
-    public function setSettore(\Application\Entity\ZfcmsComuniConcessioneSettori $settore = null)
-    {
-        $this->settore = $settore;
-    
-        return $this;
-    }
-
-    /**
-     * Get settore
-     *
-     * @return \Application\Entity\ZfcmsComuniConcessioneSettori
-     */
-    public function getSettore()
-    {
-        return $this->settore;
-    }
-
-    /**
      * Set respProc
      *
      * @param \Application\Entity\ZfcmsComuniConcessioneRespProc $respProc
@@ -512,6 +488,30 @@ class ZfcmsComuniConcessione
     public function getRespProc()
     {
         return $this->respProc;
+    }
+
+    /**
+     * Set settore
+     *
+     * @param \Application\Entity\ZfcmsComuniConcessioneSettori $settore
+     *
+     * @return ZfcmsComuniConcessione
+     */
+    public function setSettore(\Application\Entity\ZfcmsComuniConcessioneSettori $settore = null)
+    {
+        $this->settore = $settore;
+    
+        return $this;
+    }
+
+    /**
+     * Get settore
+     *
+     * @return \Application\Entity\ZfcmsComuniConcessioneSettori
+     */
+    public function getSettore()
+    {
+        return $this->settore;
     }
 
     /**

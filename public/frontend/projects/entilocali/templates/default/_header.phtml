@@ -1,0 +1,48 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="it" class="no-js">
+<head>
+<meta charset="utf-8">
+<title><?php echo $this->sitename ?></title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="<?php echo $this->description ?>">
+<meta name="keywords" content="<?php echo $this->keywords ?>">
+
+<?php if (!$this->cssName or $this->cssName == 'default'): ?>
+<link href="<?php echo $this->basePath() ?>/public/common/foundation/css/foundation.min.css" media="screen" rel="stylesheet" type="text/css">
+<?php elseif($this->cssName=='rosso-su-nero'): ?>
+<link href="<?php echo $this->basePath() ?>/public/common/css/red_on_black.css" media="screen" rel="stylesheet" type="text/css">
+<?php elseif($this->cssName=='high-visibility'): ?>
+<link href="<?php echo $this->basePath() ?>/public/common/css/high_visibility.css" media="screen" rel="stylesheet" type="text/css">
+<?php elseif($this->cssName=='text'): ?>
+
+<?php endif; ?>
+
+<link href="<?php echo $this->basePath() . '/public/frontend/projects/favicon.ico' ?>" rel="shortcut icon" type="image/vnd.microsoft.icon">
+<script src="<?php echo $this->basePath() ?>/public/common/foundation/js/vendor/modernizr.js"></script>
+
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<?php if (!$this->cssName or $this->cssName == 'default'): ?>
+<style>
+.hidden {
+    display: none;
+}
+
+td {
+    vertical-align: top;
+}
+.templateColumn h1 {
+    font-size: 120%;
+}
+</style>
+<?php endif; ?>
+
+<script src="<?php echo $this->basePath() ?>/public/common/jquery/jquery.min.js"></script>
+
+</head>
+
+<body>

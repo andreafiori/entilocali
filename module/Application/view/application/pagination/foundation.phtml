@@ -1,0 +1,51 @@
+<?php if ($this->pageCount): ?>
+    <?php
+    $paginationParameters = array_filter( array(
+        'lang'          => $this->lang,
+        'tablesetter'   => $this->tablesetter,
+        'pageCount'     => $this->current,
+        'category'      => $this->category,
+        'order_by'      => $this->order_by,
+        'order'         => $this->order
+        )
+    );
+    ?>
+<!--
+<div class="pagination-centered">
+    <ul class="pagination">
+      <li class=""><a href="">&laquo;</a></li>
+      <li class=""><a href="">1</a></li>
+      <li><a href="">2</a></li>
+      <li><a href="">3</a></li>
+      <li><a href="">4</a></li>
+      <li class="unavailable"><a href="">&hellip;</a></li>
+      <li><a href="">12</a></li>
+      <li><a href="">13</a></li>
+      <li class="arrow"><a href="">&raquo;</a></li>
+    </ul>
+    </div>
+-->
+    <div class="pagination-centered">
+        <ul class="pagination">
+            <li<?php echo !isset($this->previous) ? ' class="arrow unavailable"' : ''; ?>>
+                <a href="<?php echo $this->url($this->route, array_merge($paginationParameters, array('page'=> $this->first))); ?>" title="Prima pagina">&laquo;</a></li>
+            <li<?php echo !isset($this->previous) ? ' class="arrow unavailable"' : ''; ?>>
+                <a href="<?php echo $this->url($this->route, array_merge($paginationParameters, array('page'=> $this->previous))); ?>" title="Pagina precedente">&lsaquo;</a></li>
+
+            <!-- Numbered page links -->
+            <?php foreach ($this->pagesInRange as $page): ?>
+                <li<?php echo $page == $this->current ? ' class="current"' : ''; ?>><a href="<?php echo $this->url($this->route, array_merge($paginationParameters, array('page'=>$page))); ?>" title="Vai a pagina <?php echo $page; ?>">
+                    <?php echo $page; ?>
+                </a></li>
+            <?php endforeach; ?>
+
+            <!-- Next page link -->
+            <li<?php echo !isset($this->next) ? ' class="current"' : ''; ?>>
+                <a href="<?php echo $this->url($this->route, array_merge($paginationParameters, array('page'=>$this->next))); ?>" title="Pagina successiva">&rsaquo;</a></li>
+            <!-- Last page link -->
+            <li<?php echo !isset($this->next) ? ' class="unavailable"' : ''; ?>>
+                <a href="<?php echo $this->url($this->route, array_merge($paginationParameters, array('page'=> $this->last))); ?>" title="Ultima pagina">&raquo;</a>
+            </li>
+        </ul>
+    </div>
+<?php endif; ?>

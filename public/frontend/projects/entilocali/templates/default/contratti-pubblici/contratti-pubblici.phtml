@@ -1,0 +1,133 @@
+<ul class="breadcrumbs">
+    <li><a href="<?php echo $this->basepath() ?>" title="Torna all'home page">Home</a></li>
+    <li class="current">Bandi di gara e contratti</li>
+</ul>
+
+<?php if (count($this->paginator)): ?>
+<div class="text-center"><h1>Bandi di gara e contratti</h1></div>
+
+<fieldset>
+        <legend>Ricerca</legend>
+    <?php
+    
+    $form = $this->form;
+    $form->prepare();
+
+    $form->setAttribute('action', $this->basepath());
+    $form->setAttribute('method', 'post');
+    $form->setAttribute('role', 'form');
+
+    $formLabel = $this->plugin('formLabel');
+
+    echo $this->form()->openTag($this->form);
+
+    foreach ($this->form as $element):
+        $attributes = $element->getAttributes();
+        echo $this->formElementErrors($element);
+        if ($attributes['name'] == 'csrf'):
+            echo $this->formElement($element);
+        elseif ($attributes['type'] == 'submit'):
+        ?>
+        <div class="large-12 small-12 columns">
+            <div class="large-4 small-12 columns">
+                <label for="<?php echo $attributes['id'] ?>">&nbsp;</label>
+            </div>
+            <div class="large-8 small-12 columns">
+                <?php
+                $element->setAttribute('class', 'button small');
+                echo $this->formElement($element);
+                ?>
+            </div>
+        </div>
+        <?php else: ?>
+        <div class="large-12 small-12 columns">
+            <div class="large-4 small-12 columns">
+                <label for="<?php echo $attributes['id'] ?>"><?php echo $element->getLabel() ?>:</label>
+            </div>
+            <div class="large-8 small-12 columns">
+                <?php echo $this->formElement($element); ?>
+            </div>
+        </div>
+        <?php
+        endif;
+    endforeach;
+
+    echo $this->form()->closeTag();
+    
+    ?>
+</fieldset>
+
+<div>
+    <table role="grid">
+        <caption>Elenco bandi di gara e contratti. <?php echo $this->paginator_total_item_count ?> bandi presenti</caption>
+        <thead>
+            <tr>
+                <th scope="col">Bando</th>
+                <th scope="col">Struttura Proponente</th>
+                <th scope="col">Procedura di <br>scelta del contraente</th>
+                <th scope="col">Operatori invitati a<br>presentare le offerte</th>
+                <th scope="col">Aggiudicatario</th>
+                <th scope="col">Importi (Euro)</th>
+                <th scope="col">Tempi di completamento</th>
+                <th scope="col">Allegati</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($this->paginator as $key => $row): ?>
+            <tr>
+                <td>
+                    <strong>Oggetto del bando:</strong> <?php echo $row['titolo'] ?><br><br>
+                    <strong>CIG:</strong> <?php echo $row['cig'] ?><br><br>
+                    <strong>Anno:</strong> <?php echo $row['anno'] ?>
+                </td>
+                <td>
+                    <strong>CF:</strong> <br><br>
+                    <strong>Str. prop:</strong> <?php echo $row['nomeSettore'] ?><br><br>
+                    <strong>Resp.</strong> <?php echo $row['responsabile'] ?><br><br>
+                    <strong>Resp. Proc.</strong> <?php echo $row['nomeResp'] ?>
+                </td>
+                <td><?php echo $row['nomeScelta'] ?></td>
+                <td>
+                    <strong>CF-PI:</strong> <br><br>
+                    <strong>Nome e Ragione sociale:</strong> <?php echo $row['nomeResp'] ?>
+                </td>
+                <td>
+                    <strong>CF-PI:</strong> <br><br>
+                    <strong>Nome e Ragione sociale:</strong>
+                </td>
+                <td>
+                    <strong>Importo di aggiudicazione:</strong> <?php echo $row['importoAggiudicazione'] ?> &euro;<br><br>
+                    <strong>Importo liquidato:</strong> <?php echo $row['importoLiquidato'] ?> &euro;
+                </td>
+                <td>
+                    <strong>Inizio lavori:</strong> <?php $temp2 = explode("-", $row['dataInizioLavori']); echo $temp2[2]."-".$temp2[1]."-".$temp2[0]; ?><br><br>
+                    <strong>Fine lavori:</strong> <?php echo $row['dataFineLavori'] ?>
+                </td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="8"><hr></td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+<?php
+    if (count($this->paginator) > 1):
+        echo $this->paginationControl(
+            $this->paginator,
+            'sliding',
+            'application/pagination/foundation.phtml',
+            array(
+                'route' => 'contratti-pubblici'
+            )
+        );
+    endif;
+else:
+    ?>
+    <div>
+        <h1>Nessun bando in archivio</h1>
+        <p>Nessun bando in archivio</p>
+    </div>
+    <?php
+endif;

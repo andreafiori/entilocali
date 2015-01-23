@@ -77,16 +77,7 @@ class AmministrazioneTrasparenteForm extends Form
                         )
         ));
         
-        $this->add(array(
-                        'name' => 'numero',
-                        'type' => 'Text',
-                        'options' => array( 'label' => 'Numero' ),
-                        'attributes' => array(
-                                        'title' => 'Numero',
-                                        'id'    => 'numero',
-                        )
-        ));
-        
+        /*
         $this->add(array(
                         'type' => 'Date',
                         'name' => 'dataInserimento',
@@ -95,9 +86,10 @@ class AmministrazioneTrasparenteForm extends Form
                                 'format' => 'Y-m-d H:i:s',
                         ),
                         'attributes' => array(
-                                'id'    => 'numero'
+                                'id'    => 'dataInserimento'
                         )
         ));
+        */
         
         $this->add(array(
                         'type' => 'Date',
@@ -113,48 +105,69 @@ class AmministrazioneTrasparenteForm extends Form
         
         $this->add(array(
                         'type' => 'Zend\Form\Element\Select',
-                        'name' => 'status',
+                        'name' => 'attivo',
                         'options' => array(
                                'label' => 'Stato',
-                                'empty_option' => 'Seleziona',
+                               'empty_option' => 'Seleziona',
                                'value_options' => array(
-                                       'attivo'   => 'Attivo',
-                                       'nascosto' => 'Nascosto',
+                                       '1' => 'Attivo',
+                                       '0' => 'Nascosto',
                                ),
                         ),
                         'attributes' => array(
-                                'id' => 'status'
+                                'id' => 'attivo'
+                        )
+        ));
+
+        $this->add(array(
+                        'type' => 'Zend\Form\Element\Checkbox',
+                        'name' => 'rss',
+                        'options' => array(
+                                'label' => 'Sempre visibile sul sito pubblico',
+                                'use_hidden_element' => true,
+                                'checked_value'     => 1,
+                                'unchecked_value'   => 0
+                        ),
+                        'attributes' => array(
+                                'id' => 'rss'
                         )
         ));
         
         $this->add(array(
-                        'type' => 'Zend\Form\Element\Radio',
+                        'type' => 'Zend\Form\Element\Checkbox',
                         'name' => 'home',
                         'options' => array(
-                               'label' => 'Inserisci in Home Page',
-                               'value_options' => array(
-                                       '1' => 'Si',
-                                       '0' => 'No',
-                               ),
+                                'label' => 'Inserisci in Home Page',
+                                'use_hidden_element' => true,
+                                'checked_value'     => 1,
+                                'unchecked_value'   => 0
                         ),
                         'attributes' => array(
                                 'id' => 'home'
                         )
         ));
-                
+        
         $this->add(array(
-                        'type' => 'Zend\Form\Element\Radio',
-                        'name' => 'home',
-                        'options' => array(
-                               'label' => 'Inserisci nel box "Notizie"',
-                               'value_options' => array(
-                                       '1' => 'Si',
-                                       '0' => 'No',
-                               ),
-                        ),
-                        'attributes' => array(
-                                'id' => 'home'
-                        )
+                        'type' => 'Zend\Form\Element\Hidden',
+                        'name' => 'id',
+                        'attributes' => array("class" => 'hiddenField')
         ));
+        
+        $this->add(array(
+                        'type' => 'Zend\Form\Element\Hidden',
+                        'name' => 'moduloId',
+                        'attributes' => array("class" => 'hiddenField')
+        ));
+        
+        $this->add(array(
+                        'type' => 'Zend\Form\Element\Hidden',
+                        'name' => 'userId',
+                        'attributes' => array("class" => 'hiddenField')
+        ));
+        
+        // Abilita la visibilità a un Gruppo di Atti Ufficiali:
+        // Nessuno 2 - Delibere (in generale) 3 - Determine (in generale) 4 - Esiti (in generale)5 - Bandi (in generale)6 - Concorsi (in generale)
+        
+        // Utente SELECT
     }
 }

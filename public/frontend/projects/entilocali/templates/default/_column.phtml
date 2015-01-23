@@ -1,3 +1,4 @@
+<div class="templateColumn">
 <?php
 
 /**
@@ -5,12 +6,15 @@
  */
 foreach($this->sezioni as $sezione)
 {
-    ?><h1 style="font-size: 180%"><?php echo $sezione['nome']; ?></h1><?php
+    ?><h1><?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') )."[".$sezione['moduleCode']."]"; ?></h1><?php
     if (is_array($sezione['sottosezioni'])) {
         ?><ul class="side-nav"><?php
         foreach($sezione['sottosezioni'] as $sottoSezione) {
-            ?><li><a href="#" title="<?php echo isset($sottoSezione['urlTitle']) ? utf8_encode($sottoSezione['urlTitle']) : 'Vai alla sezione '.utf8_encode($sottoSezione['nome']) ?>"><?php echo utf8_encode($sottoSezione['nome']) ?></a></li><?php
+            ?><li><a href="<?php echo $this->url('contents', array('subsectionid' => $sottoSezione['idSottosezione'])) ?>" title="<?php echo isset($sottoSezione['urlTitle']) ? utf8_encode($sottoSezione['urlTitle']) : 'Vai alla sezione '.utf8_encode($sottoSezione['nomeSottosezione']) ?>"><?php echo utf8_encode($sottoSezione['nomeSottosezione']) ?></a></li><?php
         }
         ?></ul><?php
     }
 }
+
+?>
+</div>

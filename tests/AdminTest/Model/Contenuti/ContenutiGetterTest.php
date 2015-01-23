@@ -73,6 +73,13 @@ class ContenutiGetterTest extends TestSuite
     {
         $this->objectGetter->setDataScadenza(2015);
 
-        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('scadenza'));        
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('scadenza'));
+    }
+    
+    public function testSetUserId()
+    {
+        $this->objectGetter->setUserId('43');
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('userid'));
     }
 }

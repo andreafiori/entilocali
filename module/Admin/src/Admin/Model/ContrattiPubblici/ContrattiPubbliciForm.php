@@ -84,8 +84,8 @@ class ContrattiPubbliciForm extends Form
                         'name' => 'id_sezione',
                         'options' => array(
                                'label' => 'Struttura proponente - Responsabile',
+                               'empty_option' => 'Seleziona',
                                'value_options' => array(
-                                       '' => 'Seleziona',
                                        'attivo'   => 'Attivo',
                                        'nascosto' => 'Nascosto',
                                ),

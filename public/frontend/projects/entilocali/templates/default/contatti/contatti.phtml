@@ -1,6 +1,6 @@
-<ul class="breadcrumb">
-    <li><a href="<?php echo $this->basepath() ?>" title="Home page">Home</a> <span class="divider"></span></li>
-    <li class="active">Contatti</li>
+<ul class="breadcrumbs">
+    <li><a href="<?php echo $this->basepath() ?>" title="Home page">Home</a></li>
+    <li class="current">Contatti</li>
 </ul>
 
 <?php if (!$this->form): ?>
@@ -15,6 +15,7 @@
     <p>Compila i campi del form per contattarci. Tutti i campi sono obbligatori.</p>
     
     <fieldset>
+        <legend>Inviaci un messaggio</legend>
     <?php
     
     $form = $this->form;
@@ -22,8 +23,7 @@
 
     $form->setAttribute('action', $this->basepath().'/contatti/invia-messaggio/');
     $form->setAttribute('method', 'post');
-    $form->setAttribute('role', 'form');
-    $form->setAttribute('class', 'form-horizontal');
+    $form->setAttribute('role', 'form');   
 
     $formLabel = $this->plugin('formLabel');
     
@@ -36,11 +36,12 @@
             echo $this->formElement($element);
         elseif ($attributes['type'] == 'submit'):
         ?>
-        <div class="form-group">
-            <label for="<?php echo $attributes['id'] ?>" class="col-sm-2 control-label">&nbsp;</label>
-            <div class="col-sm-10">
+        <div class="row">
+            <label for="<?php echo $attributes['id'] ?>">&nbsp;</label>
+            <div>
             <?php
-            $element->setAttribute('class', 'btn btn-primary');
+            $element->setAttribute('class', 'button');
+            $element->setAttribute('title', 'Clicca per inviare il messaggio');
             echo $this->formElement($element);
             ?>
             </div>
@@ -49,10 +50,9 @@
         else:
         ?>
         <div class="form-group">
-            <label for="<?php echo $attributes['id'] ?>" class="col-sm-2 control-label"><?php echo $element->getLabel() ?>:</label>
+            <label for="<?php echo $attributes['id'] ?>"><?php echo $element->getLabel() ?>:</label>
             <div class="col-sm-10">
             <?php
-            $element->setAttribute('class', 'form-control');
             echo $this->formElement($element);
             ?>
             </div>
