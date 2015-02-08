@@ -75,7 +75,7 @@ class IndexController extends SetupAbstractController
         } else {
             $basicLayout = $input['basiclayout'];
         }
-        
+
         $sessionContainer = new SessionContainer();
 
         $this->layout()->setVariables($configurations);

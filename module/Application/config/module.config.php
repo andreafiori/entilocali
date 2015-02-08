@@ -158,7 +158,7 @@ return array(
                                         'options' => array(
                                                         'route'    => '/stato-civile/pubblicazioni/elenco[/][page/:page[/]]',
                                                         'constraints' => array(
-                                                            
+                                                            'page'      => '[0-9]+',
                                                         ),
                                                         'defaults' => array(
                                                             'controller' => 'Application\Controller\Index',
@@ -177,13 +177,34 @@ return array(
                                     'amministrazione-trasparente' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
-                                                        'route'    => '/amministrazione-trasparente/articoli/elenco[/][page/:page[/]]',
+                                                        'route'    => '/amministrazione-trasparente/articoli/elenco/[:profondita[/]]',
                                                         'constraints' => array(
-                                                            
+                                                            'profondita'  => '[0-9]+',
                                                         ),
                                                         'defaults' => array(
                                                             'controller' => 'Application\Controller\Index',
                                                             'action'    => 'index', 
+                                                        ),
+                                        ),
+                                        'may_terminate' => true,
+                                        'child_routes' => array(
+                                                        'default' => array(
+                                                                        'type'    => 'Wildcard',
+                                                                        'options' => array(
+                                                                        ),
+                                                        ),
+                                        ),
+                                    ),
+                                    'atti-concessione' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                                        'route'    => '/atti-concessione/atti/elenco[/][page/:page[/]]',
+                                                        'constraints' => array(
+                                                            'page'      => '[0-9]+',
+                                                        ),
+                                                        'defaults' => array(
+                                                            'controller' => 'Application\Controller\Index',
+                                                            'action'     => 'index', 
                                                         ),
                                         ),
                                         'may_terminate' => true,
@@ -436,6 +457,7 @@ return array(
         "css"                           => 'Application\Model\CssStyleSwitch\CssStyleSwitchFrontend',
         "albo-pretorio"                 => 'Application\Model\AlboPretorio\AlboPretorioFrontend',
         "amministrazione-trasparente"   => 'Application\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFrontend',
+        "atti-concessione"              => 'Application\Model\AttiConcessione\AttiConcessioneFrontend',
         "contatti"                      => 'Application\Model\Contacts\ContactsFrontend',
         "contratti-pubblici"            => 'Application\Model\ContrattiPubblici\ContrattiPubbliciFrontend',
         "faq"                           => 'Application\Model\Faq\FaqFrontend',

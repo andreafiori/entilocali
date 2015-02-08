@@ -1,20 +1,64 @@
 <div class="templateColumn">
 <?php
 
-/**
- * Given the sezioni value with the column index, print a column
- */
-foreach($this->sezioni as $sezione)
-{
-    ?><h1><?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') )."[".$sezione['moduleCode']."]"; ?></h1><?php
-    if (is_array($sezione['sottosezioni'])) {
-        ?><ul class="side-nav"><?php
-        foreach($sezione['sottosezioni'] as $sottoSezione) {
-            ?><li><a href="<?php echo $this->url('contents', array('subsectionid' => $sottoSezione['idSottosezione'])) ?>" title="<?php echo isset($sottoSezione['urlTitle']) ? utf8_encode($sottoSezione['urlTitle']) : 'Vai alla sezione '.utf8_encode($sottoSezione['nomeSottosezione']) ?>"><?php echo utf8_encode($sottoSezione['nomeSottosezione']) ?></a></li><?php
-        }
-        ?></ul><?php
-    }
-}
+foreach($this->sezioni as $sezione):
+
+    switch($sezione['moduleCode']):
+        case("contenuti"):
+            if (isset($sezione['sottosezioni'])):
+            ?>
+            <h1><?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?></h1>
+
+            <ul class="side-nav">
+            <?php
+            foreach($sezione['sottosezioni'] as $sottoSezione):
+                ?><li><a href="<?php echo $this->url('contents', array('subsectionid' => $sottoSezione['idSottosezione'])) ?>" title="<?php echo isset($sottoSezione['urlTitle']) ? utf8_encode($sottoSezione['urlTitle']) : 'Vai alla sezione '.utf8_encode($sottoSezione['nomeSottosezione']) ?>"><?php echo utf8_encode($sottoSezione['nomeSottosezione']) ?></a></li><?php
+            endforeach;
+            ?>
+            </ul>
+            <?php
+            endif;
+        break;
+        
+        case('albo'):
+            ?>
+            <h1><?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?></h1>
+
+            <?php
+        break;
+    
+        case('community'):
+            ?>
+            <h1><?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?></h1>
+
+            <div class="panel info">
+                In costruzione
+            </div>
+            <?php    
+        break;
+    
+        case('community'):
+            
+        break;
+    
+        case('eventi'):
+            
+        break;
+    
+        case('atti-concessione'):
+            
+        break;
+    
+        case('contratti-pubblici'):
+            
+        break;
+    
+        case('amministrazione-trasparente'):
+            
+        break;
+    endswitch;
+
+endforeach;
 
 ?>
 </div>

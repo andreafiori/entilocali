@@ -15,7 +15,7 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
         $this->setSelectQueryFields("contenuti.id, contenuti.anno, contenuti.numero, 
             contenuti.titolo, contenuti.sommario, contenuti.testo, 
             contenuti.dataInserimento, contenuti.dataScadenza,
-            contenuti.attivo, contenuti.home, 
+            contenuti.attivo, contenuti.home, contenuti.annoammtrasp, 
 
             sezione.nome AS nomeSezione,
 

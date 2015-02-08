@@ -15,10 +15,12 @@ class AttiConcessioneGetter extends QueryBuilderHelperAbstract
         $this->setSelectQueryFields("aa.id, aa.beneficiario, aa.titolo, aa.importo, 
                 aa.ufficioresponsabile, aa.modassegn, aa.data, aa.ora, aa.progressivo, aa.anno, 
                 aa.scadenza, aa.attivo,
-                u.settore,
+                
+                u.id, u.name, u.surname, u.settore,
+                
                 rp.nomeResp,
-                asettori.nome AS nomeSezione, asettori.responsabile,
-                u.id, u.name, u.surname
+                
+                asettori.nome AS nomeSezione, asettori.responsabile
         ");
 
         $this->getQueryBuilder()->select( $this->getSelectQueryFields() )

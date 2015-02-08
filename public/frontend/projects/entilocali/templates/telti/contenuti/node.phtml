@@ -1,0 +1,26 @@
+<?php if (!empty($this->records)): ?>
+
+    <?php foreach($this->records as $record): ?>
+        <ul class="breadcrumbs">
+            <li><a href="<?php echo $this->basepath() ?>" title="Torna all'home page">Home</a></li>
+            <li class="current"><?php echo $record['nomeSezione'] ?></li>
+            <li class="current"><?php echo html_entity_decode($record['titolo'], ENT_COMPAT, 'UTF-8') ?></li>
+        </ul>
+        
+        <div class="contentTitle">
+            <h2><?php echo html_entity_decode($record['titolo'], ENT_COMPAT, 'UTF-8') ?></h2>
+        </div>
+
+        <?php if (isset($record['sommario'])): ?>
+        <div><?php echo utf8_encode($record['sommario']) ?></div>
+        <?php endif; ?>
+
+        <div><?php echo utf8_encode($record['testo']); ?></div>
+        
+    <?php endforeach; ?>
+        
+<?php else: ?>
+    <div class="panel callout">
+        <h2>Nessun contenuto presente</h2>
+    </div>
+<?php endif; ?>

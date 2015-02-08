@@ -4,6 +4,8 @@ namespace Admin\Model\Sezioni;
 
 use Application\Model\RecordsGetterWrapperAbstract;
 use Admin\Model\Sezioni\SezioniGetter;
+use Admin\Model\AlboPretorio\AlboPretorioArticoliGetter;
+use Admin\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
 
 /**
  * @author Andrea Fiori
@@ -11,7 +13,9 @@ use Admin\Model\Sezioni\SezioniGetter;
  */
 class SezioniGetterWrapper extends RecordsGetterWrapperAbstract
 {
-    /** @var SezioniGetter **/
+    /**
+     *@var SezioniGetter
+     */
     protected $objectGetter;
 
     /**
@@ -41,16 +45,49 @@ class SezioniGetterWrapper extends RecordsGetterWrapperAbstract
     public function addSottoSezioni(array $records)
     {
         foreach($records as &$record) {
-            $wrapper = new SottoSezioniGetterWrapper( new SottoSezioniGetter($this->objectGetter->getEntityManager()) );
-            $wrapper->setInput( array(
-                    'sezioneId' => $record['id'],
-                    'orderBy'   => 'sottosezioni.posizione',
-                    'isSs'      => 0
-                )
-            );
-            $wrapper->setupQueryBuilder();
+            switch($record['moduleCode']) {
+                default:
+                    $wrapper = new SottoSezioniGetterWrapper( new SottoSezioniGetter($this->objectGetter->getEntityManager()) );
+                    $wrapper->setInput( array(
+                            'sezioneId' => $record['id'],
+                            'orderBy'   => 'sottosezioni.posizione',
+                            'isSs'      => 0
+                        )
+                    );
+                    $wrapper->setupQueryBuilder();
+
+                    $record['sottosezioni'] = is_array($wrapper->getRecords()) ? $wrapper->getRecords() : null;
+                break;
+                
+                case("eventi"):
+                    
+                break;
+
+                /* 
+                case("albo"): case("albo-pretorio"):
+                    $wrapper = new AlboPretorioArticoliGetterWrapper( new AlboPretorioArticoliGetter($this->objectGetter->getEntityManager()) );
+                    $wrapper->setInput( array(
+                            'fields'    => 'DISTINCT(aps.id) AS idSezione, aps.nome',
+                            'annullato' => 0,
+                            'attivo'    => 1,
+                            'pubblicare'=> 1,
+                        )
+                    );
+                    $wrapper->setupQueryBuilder();
+                    $records = $wrapper->getRecords();
+                break;
+                
+                
             
-            $record['sottosezioni'] = is_array($wrapper->getRecords()) ? $wrapper->getRecords() : null;
+                case("contratti-pubblici"):
+                    
+                break;
+                
+                case("community"):
+                    
+                break;
+                */
+            }
         }
 
         return $records;

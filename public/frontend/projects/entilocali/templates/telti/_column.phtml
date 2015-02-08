@@ -1,0 +1,89 @@
+<div class="templateColumn">
+<?php
+
+foreach($this->sezioni as $sezione):
+    
+    switch($sezione['moduleCode']):
+    
+        default: case("contenuti"):
+            // echo $sezione['moduleCode'];
+            if (isset($sezione['sottosezioni'])):
+            ?>
+            <h1><?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?></h1>
+
+            <ul class="side-nav">
+            <?php
+            foreach($sezione['sottosezioni'] as $sottoSezione):
+                if ( \preg_match("/^http/i", $sottoSezione['url']) ):
+                    $target = "_blank";
+                endif;
+                
+                if ($sottoSezione['url']):
+                    ?>
+                    <li><a href="<?php echo $sottoSezione['url'] ?>"<?php if (isset($target)): ?> target="<?php echo $target ?>"<?php endif ?> title="<?php echo isset($sottoSezione['urlTitle']) ? utf8_encode($sottoSezione['urlTitle']) : 'Vai alla sezione '.utf8_encode($sottoSezione['nomeSottosezione']) ?>"><?php if (isset($target)): ?><img src="<?php echo $this->basepath() ?>/public/frontend/projects/entilocali/templates/telti/assets/images/external-link-icon.gif" alt="Apre in un'altra finestra"> <?php endif ?><?php echo utf8_encode($sottoSezione['nomeSottosezione']) ?></a></li>
+                    <?php
+                else:
+                    ?>
+                    <li><a href="<?php echo $this->url('contents', array('subsectionid' => $sottoSezione['idSottosezione'])) ?>" title="<?php echo isset($sottoSezione['urlTitle']) ? utf8_encode($sottoSezione['urlTitle']) : 'Vai alla sezione '.utf8_encode($sottoSezione['nomeSottosezione']) ?>"><?php echo utf8_encode($sottoSezione['nomeSottosezione']) ?></a></li>
+                    <?php
+                endif;
+                
+            endforeach;
+            ?>
+            </ul>
+            <?php
+            endif;
+        break;
+        
+        case('atti-concessione'):
+        ?>
+        <h1><?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?></h1>
+        <ul class="side-nav">
+            <li><a href="<?php echo $this->url('amministrazione-trasparente', array('profondita' => 200)) ?>">Amministrazione trasparente</a></li>
+        </ul>
+        <?php
+        break;
+
+/*
+        case('amministrazione-trasparente'): case('amministrazionetrasparente'):
+            
+        break;
+    
+        case('eventi'):
+            
+        break;
+
+        case('albo'):
+            ?>
+            <h1><?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?></h1>
+            
+            <div class="panel info">
+                In costruzione
+            </div>
+            <?php
+        break;
+
+        
+    
+        case('contratti-pubblici'):
+            
+        break;
+    
+        
+    
+        case('community'):
+            ?>
+            <h1><?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?></h1>
+
+            <div class="panel info">
+                In costruzione
+            </div>
+            <?php    
+        break;
+*/
+    endswitch;
+
+endforeach;
+
+?>
+</div>
