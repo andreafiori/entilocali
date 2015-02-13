@@ -12,15 +12,18 @@ use Application\Model\RouterManagers\RouterManagerInterface;
 class FormDataHandler extends RouterManagerAbstract implements RouterManagerInterface
 {
     private $formSetter;
-    
+
+    /**
+     * @return \Application\Model\RouterManagers\type|bool
+     */
     public function setupRecord()
     {
         $formSetterInput    = $this->getInput('formsetter', 1);
         $formSetterClassMap = $this->getInput('formdata_classmap', 1);
-        
+
         $this->setFormSetter(isset($formSetterClassMap[$formSetterInput]) ? $formSetterClassMap[$formSetterInput] : null);
         $this->checkFormSetterClassExists();
-            
+
         $formSetter = $this->getFormSetter();
         if (isset($formSetter)) {
 

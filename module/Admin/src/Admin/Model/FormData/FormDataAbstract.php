@@ -37,8 +37,8 @@ abstract class FormDataAbstract extends VarExporter
     }
 
     /**
-     * @param array or null $record
-     * @return array or null
+     * @param array|null $record
+     * @return array|null
      */
     public function setRecord($record)
     {
@@ -48,7 +48,7 @@ abstract class FormDataAbstract extends VarExporter
     }
     
     /**
-     * @return array or null
+     * @return array|null
      */
     public function getRecord()
     {
@@ -57,7 +57,7 @@ abstract class FormDataAbstract extends VarExporter
 
     /**
      * @param string $propertyName
-     * @return object property or false
+     * @return string|bool
      */
     public function getProperty($propertyName)
     {

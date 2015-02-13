@@ -10,20 +10,21 @@ use Zend\Form\Form;
  */
 class AttiConcessioneForm extends Form
 {
-    /**   
+    /**
      * {@inheritDoc}
      */
     public function __construct($name = null, $options = array())
     {
         parent::__construct($name, $options);
-        
+
         $this->add(array(
                         'name' => 'beneficiario',
                         'type' => 'Textarea',
-                        'options' => array( 'label' => 'Beneficiario CF/PIVA' ),
+                        'options' => array( 'label' => '* Beneficiario CF/PIVA' ),
                         'attributes' => array(
                                         'title' => 'Beneficiario CF/PIVA',
                                         'id'    => 'beneficiario',
+                                        'required' => 'required',
                         )
         ));
         
@@ -34,30 +35,45 @@ class AttiConcessioneForm extends Form
                         'attributes' => array(
                                         'title' => 'Importo (Euro)',
                                         'id'    => 'importo',
+                                        'required' => 'required',
                         )
         ));
     }
-    
+
+    /**
+     * @param $records
+     */
     public function addUfficioResponsabile($records)
     {
         $this->add(array(
                         'type' => 'Zend\Form\Element\Select',
-                        'name' => 'sezione',
+                        'name' => 'settore',
                         'options' => array(
-                               'label' => 'Ufficio - Responsabile',
+                               'label' => '* Ufficio Responsabile',
                                'empty_option' => 'Seleziona',
                                'value_options' => $records,
                         ),
                         'attributes' => array(
-                                'id' => 'sezione',
-                                'title' => 'Seleziona Ufficio Responsabile'
+                                'id'    => 'settore',
+                                'title' => 'Seleziona Ufficio Responsabile',
+                                'required' => 'required',
                         )
         ));
     }
     
     public function addResponsabileProcedimento()
     {
-        // Responsabile del Procedimento
+        /* TODO: respProc
+        $this->add(array(
+            'name' => 'respProc',
+            'type' => 'Text',
+            'options' => array( 'label' => 'Responsabile del procedimento' ),
+            'attributes' => array(
+                'title' => 'Responsabile del procedimento',
+                'id'    => 'respProc',
+            )
+        ));
+        */
     }
     
     public function addModalitaAssegnazione()
@@ -65,22 +81,66 @@ class AttiConcessioneForm extends Form
         $this->add(array(
                         'name' => 'modassegn',
                         'type' => 'Text',
-                        'options' => array( 'label' => 'Modalità Assegnazione' ),
+                        'options' => array( 'label' => 'Modalit&agrave; assegnazione' ),
                         'attributes' => array(
-                                        'title' => 'Modalità Assegnazione',
+                                        'title' => 'Modalit&agrave; assegnazione',
                                         'id'    => 'modassegn',
                         )
         ));
-        
-        // Norma o Titolo a base dell'attribuzione
-        
-        // Data inserimento: (inserire data in formato GG-MM-AAAA). l'articolo sarà visibile in front-end a partire da questa data
-        
-        // Anno del Bando: 2014 (la modifica avviene dopo il salvataggio)
+
+        $this->add(array(
+                        'name' => 'titolo',
+                        'type' => 'Text',
+                        'options' => array( 'label' => "Norma o Titolo a base dell'attribuzione" ),
+                        'attributes' => array(
+                            'title' => "* Norma o Titolo a base dell'attribuzione",
+                            'id'    => 'titolo',
+                            'required' => 'required',
+                        )
+        ));
+
+        $this->add(array(
+            'type' => 'Date',
+            'name' => 'data',
+            'options' => array(
+                'label' => "Data inserimento: (inserire data in formato GG-MM-AAAA). l'articolo sarà visibile in front-end a partire da questa data",
+                'format' => 'Y-m-d',
+            ),
+            'attributes' => array(
+                'id'    => 'data',
+                'required' => 'required',
+                'type' => 'date',
+            )
+        ));
+
+        $this->add(array(
+            'name' => 'anno',
+            'type' => 'Text',
+            'options' => array( 'label' => "Anno del Bando" ),
+            'attributes' => array(
+                'title' => "Anno del Bando",
+                'id'    => 'anno',
+                'type' => 'number',
+                'min' => '1954',
+                'max' => '2054',
+            )
+        ));
         
         // Data scadenza: 5 Anni a partire dall'anno successivo a quello di inserimento
         
         // Associa articolo a utente: se utente non admin visualizza id campo nascosto, altrimenti select area
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'id',
+            'attributes' => array("class"=>'hiddenField')
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'userId',
+            'attributes' => array("class"=>'hiddenField')
+        ));
     }
     
 }

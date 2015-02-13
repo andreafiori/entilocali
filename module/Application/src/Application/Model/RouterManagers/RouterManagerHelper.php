@@ -11,7 +11,7 @@ class RouterManagerHelper
     private $routerManager;
     
     /**
-     * @param \Application\Model\RouterManagers\RouterManagerAbstract $routerManager
+     * @param RouterManagerAbstract $routerManager
      */
     public function __construct(RouterManagerAbstract $routerManager)
     {
@@ -19,7 +19,7 @@ class RouterManagerHelper
     }
     
     /**
-     * @return \Application\Model\RouterManagers\RouterManagerAbstract $routerManager
+     * @return RouterManagerAbstract $routerManager
      */
     public function getRouterManger()
     {

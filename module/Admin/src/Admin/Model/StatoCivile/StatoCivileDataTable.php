@@ -69,9 +69,11 @@ class StatoCivileDataTable extends DataTableAbstract
                 foreach($years as $year) {
                     $yearsList[$year['anno']] = $year['anno'];
                 }
+
+                return $yearsList;
             }
-            
-            return $yearsList;
+
+            return false;
         }
         
         /**

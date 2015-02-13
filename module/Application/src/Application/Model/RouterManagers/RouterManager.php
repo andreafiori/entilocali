@@ -13,7 +13,6 @@ class RouterManager extends RouterManagerAbstract
 {
     private $configurations;
     private $routeMatchName;
-    private $routeMatchObjectInstance;
     private $isBackend;
 
     /**
@@ -66,8 +65,8 @@ class RouterManager extends RouterManagerAbstract
     /**
      * Setup the Frontend Object to use on the index controller
      * 
-     * @return \Application\Model\RouterManagers\RouterManagerAbstract
-     * @throws \Application\Model\NullException
+     * @return RouterManagerAbstract
+     * @throws NullException
      */
     public function setupRouteMatchObjectInstance()
     {

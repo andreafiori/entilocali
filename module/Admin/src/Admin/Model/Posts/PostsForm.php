@@ -13,7 +13,7 @@ class PostsForm extends Form
     private $input;
     
     /**
-     * @param type $name
+     * @param string $name
      */
     public function __construct($name = null)
     {

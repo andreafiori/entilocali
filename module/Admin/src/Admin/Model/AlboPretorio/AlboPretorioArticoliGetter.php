@@ -35,7 +35,7 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
     }
     
     /**
-     * @param number or array $id
+     * @param int|array $id
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function setId($id)
@@ -54,7 +54,7 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
     }
     
     /**
-     * @param number $numeroProgressivo
+     * @param int $numeroProgressivo
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function setNumeroProgressivo($numeroProgressivo)
@@ -68,7 +68,7 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
     }
     
     /**
-     * @param number $numeroAtto
+     * @param int $numeroAtto
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function setNumeroAtto($numeroAtto)
@@ -96,7 +96,7 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
     }
     
     /**
-     * @param number $anno
+     * @param int $anno
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function setAnno($anno)
@@ -110,7 +110,7 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
     }
     
     /**
-     * @param date|string $dataScadenza
+     * @param \DateTime|string $dataScadenza
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function setDataScadenza($dataScadenza)
@@ -145,7 +145,7 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
     {
         if ($name) {
             $this->getQueryBuilder()->andWhere('u.settoreId = :settoreId ');
-            $this->getQueryBuilder()->setParameter('settoreId', $id);
+            $this->getQueryBuilder()->setParameter('settoreId', $name);
         }
         
         return $this->getQueryBuilder();

@@ -21,17 +21,23 @@ class AttiConcessioneFormDataHandler extends FormDataAbstract
 
         $form = new AttiConcessioneForm();
         $form->addUfficioResponsabile($this->getSezioni());
-        
-        $records = $this->getAttiRecords(isset($param['route']['option']) ? $param['route']['option'] : null);
-        if ($records) {
-            $formAction = 'atti-concessione/update';
-            $formTitle = 'Modifica atto di concessione';
-            $formDescription = 'Modifica nuovo atto di concessione';
+        $form->addResponsabileProcedimento();
+        $form->addModalitaAssegnazione();
+
+        $routeOptionId = isset($param['route']['option']) ? $param['route']['option'] : null;
+        if ($routeOptionId) {
+            $records = $this->getAttiRecords($routeOptionId);
+        }
+
+        if (!empty($records)) {
+            $formAction         = 'atti-concessione/update';
+            $formTitle          = 'Modifica atto di concessione';
+            $formDescription    = 'Modifica nuovo atto di concessione';
             
             $form->setData($records[0]);
         } else {
-            $formAction = 'atti-concessione/insert';
-            $formTitle = 'Nuovo atto di concessione';
+            $formAction      = 'atti-concessione/insert';
+            $formTitle       = 'Nuovo atto di concessione';
             $formDescription = 'Inserisci nuovo atto di concessione';
         }
         
@@ -40,12 +46,12 @@ class AttiConcessioneFormDataHandler extends FormDataAbstract
         $this->setVariable('formTitle',         $formTitle);
         $this->setVariable('formDescription',   $formDescription);        
         $this->setVariable('formBreadCrumbCategory', 'Atti di concessione');
-        $this->setVariable('CKEditorField', array('sottotitolo','testo'));
+        $this->setVariable('CKEditorField', array('sottotitolo', 'testo'));
     }
     
         /**
-         * @param type $id
-         * @return type
+         * @param int $id
+         * @return array
          */
         private function getAttiRecords($id)
         {
@@ -55,7 +61,10 @@ class AttiConcessioneFormDataHandler extends FormDataAbstract
             
             return $wrapper->getRecords();
         }
-        
+
+        /**
+         * @return array
+         */
         private function getSezioni()
         {
             $wrapper = new AttiConcessioneSettoriGetterWrapper( new AttiConcessioneSettoriGetter($this->getInput('entityManager',1)) );

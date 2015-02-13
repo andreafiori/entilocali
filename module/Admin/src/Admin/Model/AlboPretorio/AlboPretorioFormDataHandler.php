@@ -19,8 +19,8 @@ class AlboPretorioFormDataHandler extends FormDataAbstract
     {
         parent::__construct($input);
         
-        $param = $this->getInput('param',1);
-             
+        $param = $this->getInput('param', 1);
+
         $records = $this->getArticolo(
                 new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter($this->getInput('entityManager'))),
                 isset($param['route']['option']) ? $param['route']['option'] : null
@@ -56,11 +56,11 @@ class AlboPretorioFormDataHandler extends FormDataAbstract
             $formTitle = 'Nuovo atto';
         }
         
-        /* Get users list */
+        /* Get users list
         $records = $this->getUsers(
             new UsersGetterWrapper(new UsersGetter($this->getInput('entityManager')))
         );
- 
+        */
         $this->setVariables(array(
                 'form' => $form,
                 'formAction'        => $formAction,
@@ -90,7 +90,7 @@ class AlboPretorioFormDataHandler extends FormDataAbstract
     
     /**
      * @param UsersGetterWrapper $recodsGetter
-     * @return type
+     * @return array
      */
     public function getUsers(UsersGetterWrapper $recodsGetter)
     {
@@ -102,7 +102,7 @@ class AlboPretorioFormDataHandler extends FormDataAbstract
     
     /**
      * @param \Admin\Model\AlboPretorio\AlboPretorioSezioniGetterWrapper $recodsGetter
-     * @return type
+     * @return array
      */
     public function getSezioni(AlboPretorioSezioniGetterWrapper $recodsGetter)
     {

@@ -66,7 +66,7 @@ abstract class DataTableAbstract extends VarExporter
     }
 
     /**
-     * @return type
+     * @return int|null
      */
     public function getColumns()
     {
@@ -80,22 +80,19 @@ abstract class DataTableAbstract extends VarExporter
      */
     public function getTemplate()
     {
-		/*
-        if ( !$this->getRecords() ) {
-            return $this->defaultDataTable;
-        }
-        */
         return $this->template;
     }
 
         /**
-         * @param \DateTime $dateTime
-         * @return type
+         * @param \DateTime|mixed $dateTime
+         * @return string
          */
         protected function convertDateTimeToString($dateTime)
         {
             if ($dateTime instanceof \DateTime) {
                 return $dateTime->format('d-m-Y');
             }
+
+            return null;
         }
 }

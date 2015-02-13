@@ -91,22 +91,27 @@ class StatoCivileFormSearch extends Form
     /**
      * @param array $years
      */
-    public function addYears(array $years)
+    public function addYears($years = null)
     {
-        if (!empty($years)) {
-            $this->add(array(
-                'type' => 'Zend\Form\Element\Select',
-                'name' => 'anno',
-                'attributes' => array(
-                    'title' => 'Seleziona anno di partenza dalla data di pubblicazione',
-                    'id'    => 'anno'
-                ),
-                'options' => array(
-                    'label'         => 'Anno',
-                    'value_options' => $years
-                )
-            ));
+        if (empty($years)) {
+            $years = array();
+            for($i = date("Y"); $i<date("Y")+5; $i++) {
+                $years[] = $i;
+            }
         }
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'anno',
+            'attributes' => array(
+                'title' => 'Seleziona anno di partenza dalla data di pubblicazione',
+                'id'    => 'anno'
+            ),
+            'options' => array(
+                'label'         => 'Anno',
+                'value_options' => $years
+            )
+        ));
     }
 
     public function addCheckExpired()

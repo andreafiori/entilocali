@@ -116,10 +116,13 @@ abstract class AlboPretorioFormAbstract extends Form
     /**
      * @param array $years
      */
-    public function addYears($years)
+    public function addYears($years = null)
     {
         if (!is_array($years)) {
-            return false;
+            $years = array();
+            for($i = date("Y"); $i < date("Y")+5; $i++) {
+                $years[] = $i;
+            }
         }
         
         $this->add(array(

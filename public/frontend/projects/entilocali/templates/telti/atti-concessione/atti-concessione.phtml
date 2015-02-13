@@ -52,14 +52,14 @@
     <tbody>
     <?php foreach($this->paginator as $key => $row): ?>
     <tr>
-        <td><?php echo $row['progressivo'] ?></td>
-        <td><?php echo $row['anno'] ?></td>
-        <td><?php echo $row['beneficiario'] ?></td>
-        <td><?php echo $row['importo'] ?></td>
-        <td><?php echo $row['modassegn'] ?></td>
-        <td><?php echo $row['nomeSezione'].'<br><br>'.$row['responsabile'] ?></td>
-        <td><?php echo $row['titolo'] ?></td>
-        <td><?php echo '' ?></td>
+        <td><?php echo utf8_encode($row['progressivo']) ?></td>
+        <td><?php echo utf8_encode($row['anno']) ?></td>
+        <td><?php echo utf8_encode($row['beneficiario']) ?></td>
+        <td><?php echo utf8_encode($row['importo']) ?></td>
+        <td><?php echo utf8_encode($row['modassegn']) ?></td>
+        <td><?php echo utf8_encode($row['nomeSezione']).'<br><br>'.utf8_encode($row['responsabile']) ?></td>
+        <td><?php echo utf8_encode($row['titolo']) ?></td>
+        <td>&nbsp;</td>
     </tr>
     <tr>
         <td colspan="8"><hr></td>

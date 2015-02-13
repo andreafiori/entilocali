@@ -13,6 +13,7 @@
                 'href' => $this->basePath() . '/favicon.ico'
                 )
             )->prependStylesheet($this->basePath().'/public/common/bootstrap3/css/bootstrap.min.css')
+             ->prependStylesheet($this->basePath().'/public/common/font-awesome/css/font-awesome.min.css')
     ?>
     <style>
     body {
@@ -109,12 +110,47 @@ echo $this->formInput($element);
 
 <button class="btn btn-lg btn-primary btn-block" type="submit" title="Accedi all'area riservata">Accedi</button>
 
-<!-- <a href="#" class="btn btn-lg btn-warning btn-block" title="Recupero password">Recupero password</a> -->
-    
-<a href="<?php echo $this->basePath() ?>" class="btn btn-lg btn-default btn-block" title="Torna al sito web">Torna al sito web</a>
-
 </div>
 </form>
+
+<p>&nbsp;</p>
+
+<div class="row">
+    <div class="col-md-6">&nbsp;</div>
+    <div class="col-md-2"><a href="#" class="btn btn btn-warning btn-block" title="Recupero password">Recupero password</a></div>
+    <div class="col-md-2"><a href="#" class="btn btn btn-info btn-block" data-toggle="modal" data-target="#infoModal" title=""><i class="fa fa-info"></i> Informazioni</a></div>
+    <div class="col-md-2"><a href="<?php echo $this->basePath() ?>" class="btn btn btn-default btn-block" title="Torna al sito web">Torna al sito web</a></div>
+</div>
+
+<p>&nbsp;</p>
+
+<!-- Modal info -->
+<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="Information about this area" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Informazioni per l'utilizzo dell'area</h4>
+            </div>
+            <div class="modal-body">
+                <h3>Browsers consigliati</h3>
+                <ul>
+                    <li>Chrome</li>
+                    <li>Firefox</li>
+                    <li>Safari</li>
+                    <li>Internet Explorer, versione dalla 10 in poi</li>
+                </ul>
+
+                <p>Si consiglia di abilitare l'utilizzo di <strong>Javascript</strong>. L'area non fa uso di cookies.</p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Chiudi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?php
 if ($this->messages) {
     ?>
@@ -135,6 +171,8 @@ if ($this->messages) {
 ?>
 </div>
 
+<script src="<?php echo $this->basePath() ?>/public/common/jquery/jquery.min.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/common/bootstrap3/js/bootstrap.min.js"></script>
 <?php echo $this->inlineScript() ?>
 </body>
 </html>

@@ -66,8 +66,8 @@ class PostsFormDataHandler extends FormDataAbstract
     }
     
         /**
-         * @param type $option
-         * @return type
+         * @param mixed $option
+         * @return string
          */
         private function getBreadCrumbCategoryString($option)
         {
@@ -99,7 +99,7 @@ class PostsFormDataHandler extends FormDataAbstract
     }
     
     /**
-     * @return type
+     * @return string
      */
     public function getPostsFormDataConcrete()
     {

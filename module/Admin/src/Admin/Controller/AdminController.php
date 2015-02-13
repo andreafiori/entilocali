@@ -59,7 +59,7 @@ class AdminController extends SetupAbstractController
         $routerManager = new RouterManager($appServiceLoader->recoverService('configurations'));
         $routerManager->setIsBackend(1);
         $routerManager->setRouteMatchName($appServiceLoader->recoverServiceKey('moduleConfigs', 'be_router'));
-        
+
         $routerManagerHelper = new RouterManagerHelper($routerManager->setupRouteMatchObjectInstance());
         $routerManagerHelper->getRouterManger()->setInput($input);
         $routerManagerHelper->getRouterManger()->setupRecord();
@@ -91,7 +91,7 @@ class AdminController extends SetupAbstractController
         if (!$this->getServiceLocator()->get('AuthService')->hasIdentity() ) {
             return $this->redirect()->toRoute('login');
         }
-        
+
         /* Must be a POST request */
         if (!$this->getServiceLocator()->get('request')->isPost()) {
             return $this->redirect()->toRoute('login');

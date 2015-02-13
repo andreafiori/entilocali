@@ -31,11 +31,11 @@ abstract class AlboPretorioDataTableAbstract extends DataTableAbstract implement
         if ( isset($this->param['post']['search']) or isset($this->param['post']['hidden-search-field']) ) {
             $sessionPost->offsetSet(self::sessionPostKey, array(
                 'numeroAtto' => isset($this->param['post']['numero_atto']) ? $this->param['post']['numero_atto'] : null,
-                'sezioneId' => isset($this->param['post']['sezione']) ? $this->param['post']['sezione'] : null,
-                'mese'      => isset($this->param['post']['mese']) ? $this->param['post']['mese'] : null,
-                'anno'      => isset($this->param['post']['anno']) ? $this->param['post']['anno'] : null,
-                'search'    => isset($this->param['post']['search']) ? $this->param['post']['search'] : null,
-                'orderBy'   => isset($this->param['post']['orderby']) ? $this->param['post']['orderby'] : 'aa.id DESC'
+                'sezioneId'  => isset($this->param['post']['sezione']) ? $this->param['post']['sezione'] : null,
+                'mese'       => isset($this->param['post']['mese']) ? $this->param['post']['mese'] : null,
+                'anno'       => isset($this->param['post']['anno']) ? $this->param['post']['anno'] : null,
+                'search'     => isset($this->param['post']['search']) ? $this->param['post']['search'] : null,
+                'orderBy'    => isset($this->param['post']['orderby']) ? $this->param['post']['orderby'] : 'aa.id DESC'
             ));
         }
         
@@ -76,7 +76,7 @@ abstract class AlboPretorioDataTableAbstract extends DataTableAbstract implement
 
     /**
      * @param array $input
-     * @return type
+     * @return mixed
      */
     protected function getSezioni(array $input)
     {
@@ -87,7 +87,7 @@ abstract class AlboPretorioDataTableAbstract extends DataTableAbstract implement
 
     /**
      * @param array $input
-     * @return type
+     * @return mixed
      */
     protected function getSettori(array $input)
     {
@@ -185,9 +185,9 @@ abstract class AlboPretorioDataTableAbstract extends DataTableAbstract implement
     }
     
     /**
-     * @param type $paginatorRecords
-     * @param type $title
-     * @return type
+     * @param mixed $paginatorRecords
+     * @param string $title
+     * @return array
      */
     protected function recoverCommonColumnsAndProperties($paginatorRecords, $title = 'Albo pretorio')
     {

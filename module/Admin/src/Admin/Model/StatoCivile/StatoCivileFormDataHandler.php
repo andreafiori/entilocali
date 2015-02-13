@@ -24,9 +24,21 @@ class StatoCivileFormDataHandler extends FormDataAbstract
         $this->entityManager = $this->getInput('entityManager', 1);
         
         $this->recordsGetter = new StatoCivileRecordsGetter($this->getInput());
-        
+
+        $sezioniRecords = $this->getSezioni();
+
+        /* Errore nessuna sezione */
+        if (empty($sezioniRecords)) {
+            $this->setTemplate('message.phtml');
+            $this->setVariables(array(
+                'messageType'   => 'warning',
+                'messageTitle'  => 'Nessuna sezione presente',
+                'messageText'   => "Non &egrave; possibile inserire un nuovo articolo se non esiste almeno una sezione."
+            ));
+        }
+
         $this->setForm( new StatoCivileForm() );
-        $this->getForm()->addSezioni( $this->getSezioni() );
+        $this->getForm()->addSezioni( $sezioniRecords ? $sezioniRecords : array() );
         $this->getForm()->addDates();
         $this->getForm()->addId();
 

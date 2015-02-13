@@ -17,7 +17,7 @@ class StatoCivileSezioniDataTable extends DataTableAbstract
     {
         parent::__construct($input);
         
-        $this->setTitle('Sezioni stato civile');
+        $this->setTitle('Sezioni');
         $this->setDescription('Gestione sezioni stato civile');
         $this->setColumns( array(
             "Nome",

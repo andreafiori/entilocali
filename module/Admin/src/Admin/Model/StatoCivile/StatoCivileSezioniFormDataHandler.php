@@ -23,7 +23,7 @@ class StatoCivileSezioniFormDataHandler extends FormDataAbstract
         $param = $this->getInput('param', 1);
    
         $form = new StatoCivileSezioniForm();
-        
+
         if (isset($param['route']['option'])) {
             
             if (is_numeric($param['route']['option'])) {
@@ -32,30 +32,25 @@ class StatoCivileSezioniFormDataHandler extends FormDataAbstract
                 $statoCivileSezioniGetterWrapper->setupQueryBuilder();
 
                 $record = $statoCivileSezioniGetterWrapper->getRecords();
-
-                if ($record) {
-                    
-                    $form->setData($record[0]);
-                    $formAction = 'stato-civile-sezioni/update';
-                    $formTitle = 'Modifica sezione stato civile';
-                    
-                } else {
-                    $formAction = 'stato-civile-sezioni/insert';
-                    $formTitle = 'Nuova sezione stato civile';
-                }
-
-            } else {
-                $formAction = '';
             }
         }
-        
+
+        if ($record) {
+            $form->setData($record[0]);
+            $formAction = 'stato-civile-sezioni/update';
+            $formTitle = 'Modifica sezione stato civile';
+        } else {
+            $formAction = 'stato-civile-sezioni/insert';
+            $formTitle = 'Nuova sezione stato civile';
+        }
+
         $this->setVariables(array(
                 'form'                       => $form,
                 'formAction'                 => $formAction,
                 'formTitle'                  => $formTitle,
                 'formDescription'            => 'Compila il form e premi il pulsante per confermare',
-                'formBreadCrumbCategory'     => 'Stato civile',
-                'formBreadCrumbCategoryLink' => $this->getInput('baseUrl',1).'datatable/stao-civile-sezioni',
+                'formBreadCrumbCategory'     => 'Sezioni stato civile',
+                'formBreadCrumbCategoryLink' => $this->getInput('baseUrl',1).'datatable/stato-civile-sezioni',
             )
         );
     }

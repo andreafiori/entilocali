@@ -81,7 +81,10 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
             /* Show success message */
             $this->setSuccessMessage('Dati inseriti correttamente', 'Dati inseriti correttamente in archivio.');
         }
-        
+
+        /**
+         * @throws \Doctrine\DBAL\ConnectionException
+         */
         protected function update()
         {
             $this->getConnection()->beginTransaction();

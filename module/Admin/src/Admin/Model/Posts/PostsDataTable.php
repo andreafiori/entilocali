@@ -56,16 +56,15 @@ class PostsDataTable extends DataTableAbstract
         
         $paginatorRecords = $this->getRecordsPaginator();
         
-        $this->setVariable('paginator', $paginatorRecords);
-        $this->setVariable('tablesetter', $param['route']['tablesetter']);
+        $this->setVariable('paginator',     $paginatorRecords);
+        $this->setVariable('tablesetter',   $param['route']['tablesetter']);
         $this->setTemplate('datatable/datatable_posts.phtml');
         $this->setRecords($this->getFormattedRecords($paginatorRecords));
     }
     
     /**
-     * 
-     * @param type $records
-     * @return type
+     * @param array $records
+     * @return array
      */
     public function getFormattedRecords($records)
     {

@@ -54,10 +54,10 @@ class AlboPretorioRecordsGetter extends RecordsGetterAbstract
         
         return $this->articoliWrapper;
     }
-    
+
     /**
      * @param int $perpage
-     * @return type
+     * @return mixed
      */
     public function setArticoliPaginatorPerPage($perpage = null)
     {
@@ -67,7 +67,10 @@ class AlboPretorioRecordsGetter extends RecordsGetterAbstract
         
         return $this->articoliWrapper;
     }
-    
+
+    /**
+     * @return mixed
+     */
     public function getPaginatorRecords()
     {
         $this->assertAlboPretorioGetterWrapper();
@@ -86,7 +89,7 @@ class AlboPretorioRecordsGetter extends RecordsGetterAbstract
         }
     
     /**
-     * @param type $input
+     * @param array $input
      */
     public function setSezioni(array $input)
     {

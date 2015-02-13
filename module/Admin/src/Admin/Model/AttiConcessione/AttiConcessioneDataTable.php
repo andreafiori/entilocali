@@ -84,7 +84,7 @@ class AttiConcessioneDataTable extends DataTableAbstract
             if ($records) {
                 foreach($records as $key => $row) {
                     
-                    $activeDisableButtonValue = ($row['attivo']!=0) ? 'toDisable' : 'toActive';
+                    //$activeDisableButtonValue = ($row['attivo']!=0) ? 'toDisable' : 'toActive';
             
                     if(isset($row['responsabile'])) {
                         $responsabile = $row['responsabile'];

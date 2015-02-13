@@ -11,8 +11,8 @@ use Zend\Form\Form;
 class AlboPretorioArticoliForm extends Form
 {
     /**
-     * @param type $name
-     * @param type $options
+     * @param string $name
+     * @param string $options
      */
     public function __construct($name = null, $options = array())
     {
@@ -90,9 +90,10 @@ class AlboPretorioArticoliForm extends Form
                         ),
                         'attributes' => array(
                                 'title' => 'Inserisci numero atto sezione',
-                                'id' => 'numero',
+                                'id' => 'numeroAtto',
                                 'required' => 'required',
                                 'placeholder' => 'Numero atto',
+                                'type' => 'number',
                         )
         ));
         
@@ -104,9 +105,10 @@ class AlboPretorioArticoliForm extends Form
                         ),
                         'attributes' => array(
                                 'title' => 'Inserisci anno',
-                                'id' => 'numero',
+                                'id' => 'anno',
                                 'required' => 'required',
                                 'placeholder' => 'Anno atto',
+                                'type' => 'number',
                         )
         ));
         
@@ -140,7 +142,7 @@ class AlboPretorioArticoliForm extends Form
                         ),
                         'attributes' => array(
                                 'title' => 'Inserisci Url',
-                                'id' => 'fonteUrl',
+                                'id'    => 'fonteUrl',
                                 'placeholder' => 'URL',
                         )
         ));
@@ -149,7 +151,7 @@ class AlboPretorioArticoliForm extends Form
                         'type' => 'Application\Form\Element\PlainText',
                         'name' => 'start_date_label',
                         'attributes' => array(
-                                        'id' => 'expireDates',
+                                        'id'    => 'expireDates',
                                         'value' => '<h4><strong>Scadenza</strong></h4><p>Numero di giorni in cui questo articolo resterà visibile (lasciare in bianco per renderlo sempre visibile) e la data di scadenza.</p>',
                         ),
         ));
@@ -173,6 +175,7 @@ class AlboPretorioArticoliForm extends Form
                                 'title' => 'Numero di giorni alla scadenza',
                                 'id' => 'scadenza',
                                 'placeholder' => 'Numero di giorni alla scadenza',
+                                'type' => 'number'
                         )
         ));
 

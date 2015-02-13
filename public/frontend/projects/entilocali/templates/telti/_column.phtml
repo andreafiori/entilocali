@@ -6,7 +6,7 @@ foreach($this->sezioni as $sezione):
     switch($sezione['moduleCode']):
     
         default: case("contenuti"):
-            // echo $sezione['moduleCode'];
+
             if (isset($sezione['sottosezioni'])):
             ?>
             <h1><?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?></h1>
@@ -50,10 +50,10 @@ foreach($this->sezioni as $sezione):
         break;
     
         case('eventi'):
-            
+            // select from posts?!
         break;
 
-        case('albo'):
+        case('albo'): // atti di Telti presi da contenuti???!!!
             ?>
             <h1><?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?></h1>
             
@@ -63,24 +63,20 @@ foreach($this->sezioni as $sezione):
             <?php
         break;
 
-        
-    
         case('contratti-pubblici'):
-            
+
         break;
-    
-        
-    
+
+*/
         case('community'):
             ?>
             <h1><?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?></h1>
+            <div>
 
-            <div class="panel info">
-                In costruzione
             </div>
-            <?php    
+            <?php
         break;
-*/
+
     endswitch;
 
 endforeach;

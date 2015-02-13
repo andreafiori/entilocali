@@ -42,8 +42,8 @@ class StatoCivileForm extends Form
                     ),
                     'attributes' => array(
                             'id' => 'status',
-                            'required' => 'required',
                             'title' => 'Seleziona la sezione',
+                            'required' => 'required',
                     )
         ));
     }

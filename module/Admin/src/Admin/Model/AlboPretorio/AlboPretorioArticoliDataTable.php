@@ -21,7 +21,7 @@ class AlboPretorioArticoliDataTable extends AlboPretorioDataTableAbstract
         $this->checkPublish();
         $this->checkRevision();
         $this->checkAnnull();
-        
+
         $this->recordsGetter = new AlboPretorioRecordsGetter($this->getInput());
         $this->recordsGetter->setArticoliInput($this->setupArticoliInput());
         $this->recordsGetter->setArticoliPaginator();
@@ -29,10 +29,8 @@ class AlboPretorioArticoliDataTable extends AlboPretorioDataTableAbstract
         $this->recordsGetter->setArticoliPaginatorPerPage(isset($this->param['route']['perpage']) ? $this->param['route']['perpage'] : null);
 
         $paginatorRecords = $this->recordsGetter->getPaginatorRecords();
-        
-        $this->setVariables(
-            $this->recoverCommonColumnsAndProperties($paginatorRecords)
-        );
+
+        $this->setVariables( $this->recoverCommonColumnsAndProperties($paginatorRecords) );
 
         $this->setRecords( $this->getFormattedDataTableRecords($paginatorRecords) );
 
