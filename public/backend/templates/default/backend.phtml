@@ -78,6 +78,7 @@
     fieldset input  {
         cursor: pointer
     }
+
     /* Icon colors */
     .icon-black, .icon-black:hover, .icon-black:active, .icon-black:focus { color: #333333; }
     .icon-red, .icon-red:hover, .icon-red:active, .icon-red:focus { color: #d9534f; }
@@ -146,7 +147,8 @@
                     <li>
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Moduli <b class="caret"></b></a>
                     <ul class="dropdown-menu multi-level">
-                        <!-- Contenuti POST
+                        <!-- Contenuti POST -->
+                        <!--
                         <li class="dropdown-submenu">
                             <a href="<?php echo $this->baseUrl ?>datatable/contents" class="dropdown-toggle" data-toggle="dropdown">Contenuti</a>
                             <ul class="dropdown-menu">
@@ -164,22 +166,22 @@
                         -->
 
                         <li class="dropdown-submenu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Stato civile">Contenuti</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">Contenuti</a>
                             <ul class="dropdown-menu">
-                                <li><a href="#" title="Nuovo contenuto">Nuovo</a></li>
-                                <li><a href="#" title="Gestione contenuti">Modifica \ Elimina</a></li>
+                                <li><a href="<?php echo $this->baseUrl ?>formdata/contenuti" title="Nuovo contenuto">Nuovo</a></li>
+                                <li><a href="<?php echo $this->baseUrl ?>datatable/contenuti" title="Gestione contenuti">Modifica \ Elimina</a></li>
                                 <li class="dropdown-submenu">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Gestione sezioni contenuti">Sezioni</a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="<?php echo $this->baseUrl ?>formdata/enti-terzi" title="Nuovo ente terzo">Nuova</a></li>
-                                        <li><a href="<?php echo $this->baseUrl ?>datatable/enti-terzi" title="Gestione rubrica enti terzi">Modifica \ Elimina</a></li>
+                                        <li><a href="<?php echo $this->baseUrl ?>formdata/sezioni-contenuti" title="Nuova sezione contenuti">Nuova</a></li>
+                                        <li><a href="<?php echo $this->baseUrl ?>datatable/sezioni-contenuti" title="Gestione sezioni contenuti">Gestione</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown-submenu">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="">Sotto sezioni</a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="<?php echo $this->baseUrl ?>formdata/enti-terzi" title="Nuovo ente terzo">Nuova</a></li>
-                                        <li><a href="<?php echo $this->baseUrl ?>datatable/enti-terzi" title="Gestione rubrica enti terzi">Modifica \ Elimina</a></li>
+                                        <li><a href="<?php echo $this->baseUrl ?>formdata/sottosezioni-contenuti" title="">Nuova</a></li>
+                                        <li><a href="<?php echo $this->baseUrl ?>datatable/sottosezioni-contenuti" title="Gestione">Gestione</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -207,7 +209,7 @@
                                 </li>
                             </ul>
                         </li>
-                        
+
                         <li class="dropdown-submenu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Stato civile">Stato civile</a>
                             <ul class="dropdown-menu">
@@ -417,7 +419,7 @@
                             <a href="javascript:void(0)" title="Application Program Interface">API</a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)" title="Backup Database">Backup Database</a>
+                            <a href="javascript:void(0)" title="Backup database">Backup Database</a>
                         </li>
                         -->
                         <li class="divider"></li>
@@ -430,12 +432,7 @@
             </div>
             </nav>
         <div class="row clearfix">
-            
-            <?php
-            // Sidebar
-            // echo $this->partial('backend/templates/'.$this->template_backend.'sidebar/sidebar_entilocali.phtml');
-            ?>
-            
+
             <div class="col-md-12 column">
                 <?php
                 // Main Template
@@ -456,7 +453,7 @@
 <script src="<?php echo $this->basePath() ?>/public/common/bootstrap3/js/bootstrap-hover-dropdown.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/common/jquery/datatable/js/jquery.dataTables_it.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/common/jquery/datetimepicker/jquery.datetimepicker.js"></script>
-    
+
 <script>
 //<![CDATA[
 
@@ -480,7 +477,7 @@ function resetCurrentForm(id)
 }
 
 $(document).ready(function () {
-    
+
     /* Datatable */
     $('#dataTable').dataTable({
         "pagingType": "full_numbers"
@@ -496,22 +493,23 @@ $(document).ready(function () {
                 success: showResponse,
                 onkeyup: false
             });
-            
+
             $("#formcontainer").hide();
             // $("#showFormContainer").show();
         }
     });
-    
+
     /* Dropdown menu */
     $('.js-activated').dropdownHover().dropdown();
-    
+
     /* Datetime picker */
     $('.datetimepicker').datetimepicker({
         format: 'Y-m-d H:i:s',
         lang: 'it'
     });
-    
+
 });
+
 //]]>
 </script>
 

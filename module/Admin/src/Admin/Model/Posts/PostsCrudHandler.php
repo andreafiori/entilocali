@@ -40,10 +40,12 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
                     'parent_id'            => 0,
                     'type'                 => $this->rawPost['type'],
                 ));
+
             } catch (\Exception $e) {
                 $this->getConnection()->rollBack();
                 return $this->setErrorMessage($e->getMessage());
             }
+
             $postsLastInsertId = $this->getConnection()->lastInsertId();
             
             try {

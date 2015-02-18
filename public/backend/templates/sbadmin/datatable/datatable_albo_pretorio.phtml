@@ -1,0 +1,98 @@
+<?php echo $this->render('backend/templates/'.$this->template_backend.'datatable/datatable_breadcrumb.phtml'); ?>
+
+<ul class="nav nav-tabs" role="tablist">
+    <li class="active"><a href="#home" role="tab" data-toggle="tab"><i class="fa fa-list"></i> Elenco articoli</a></li>
+    <li><a href="#search" role="tab" data-toggle="tab"><i class="fa fa-search"></i> Ricerca</a></li>
+    <li><a href="#export" role="tab" data-toggle="tab"><i class="fa fa-external-link-square"></i> Esportazione dati</a></li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="home">
+        <?php echo $this->render('backend/templates/common/datatables_zend_pagination.phtml'); ?>
+    </div>
+    
+    <div class="tab-pane" id="search">
+        <h3>Ricerca</h3>
+        <div class="container">
+            <?php
+
+            $formAlboSearch = $this->formSearch;
+            $formAlboSearch->get('search')->setAttribute('class', 'btn btn-primary');
+            $formAlboSearch->get('reset-form-search')->setAttribute('class', 'btn btn-default');
+
+            echo $this->partial('backend/templates/common/formdata_form_elements.phtml', array(
+                    'form'                  => $formAlboSearch,
+                    'formAction'            => null,
+                    'formId'                => 'alboPretorioSearch',
+                    'formTitle'             => $this->formTitle,
+                    'formDescription'       => $this->formDescription,
+                    'closeForm'             => 1,
+                    'formControlSpanWidth'  => isset($this->formControlSpanWidth) ? $this->formControlSpanWidth : 10,
+                    'formLabelSpanWidth'    => isset($this->formLabelSpanWidth) ? $this->formLabelSpanWidth : 2,
+                )
+            );
+            ?>
+        </div>
+    </div>
+    
+    <div class="tab-pane" id="export">
+
+        <h3>Esportazione dati</h3>
+        <div class="container">
+            <?php
+            $form = $this->formExport;
+
+            $form->setAttribute('action',   $this->serverUrl(true));
+            $form->setAttribute('method',   'post');
+            $form->setAttribute('role',     'form');
+            $form->setAttribute('class',    'form-horizontal');
+            $form->setAttribute('id',       'export-form');
+
+            $form->get('mese')->setAttribute('class', 'form-control');
+            $form->get('anno')->setAttribute('class', 'form-control');
+            $form->get('settore')->setAttribute('class', 'form-control');
+            $form->get('sezione')->setAttribute('class', 'form-control');
+            $form->get('export')->setAttribute('class', 'btn btn-primary');            
+            
+            $form->prepare();
+            
+            /* Rename IDs for the export form */
+            $form->get('mese')->setAttribute('id', 'mese_export');
+            $form->get('anno')->setAttribute('id', 'anno_export');
+            $form->get('settore')->setAttribute('id', 'settore_export');
+            $form->get('sezione')->setAttribute('id', 'sezione_export');
+
+            echo $this->form()->openTag($form);
+
+            ?>
+            <div class="form-group">
+                <label for="<?php echo $form->get('mese')->getAttribute('id'); ?>" class="col-sm-2 control-label">Atti a partire da:</label>
+                <div class="col-sm-4">
+                    <?php echo $this->formElement($form->get('mese')); ?>
+                </div>
+
+                <label for="<?php echo $form->get('anno')->getAttribute('id'); ?>" class="col-sm-2 control-label"><?php echo $this->formLabel($form->get('anno')) ?></label>
+                <div class="col-sm-4">
+                    <?php echo $this->formElement($form->get('anno')); ?>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="<?php echo $form->get('sezione')->getAttribute('id'); ?>" class="col-sm-2 control-label"><?php echo $this->formLabel($form->get('sezione')) ?></label>
+                <div class="col-sm-4"><?php echo $this->formElement($form->get('sezione')); ?></div>
+                
+                <label for="<?php echo $form->get('settore')->getAttribute('id'); ?>" class="col-sm-2 control-label"><?php echo $this->formLabel($form->get('settore')) ?></label>
+                <div class="col-sm-4"><?php echo $this->formElement($form->get('settore')); ?></div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-sm-2 control-label">&nbsp;</label>
+                <div class="col-sm-8">
+                    <?php echo $this->formElement($form->get('export')); ?>
+                </div>
+            </div>
+            <?php echo $this->form()->closeTag(); ?>
+        </div>
+
+    </div>
+</div>

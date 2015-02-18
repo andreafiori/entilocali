@@ -12,11 +12,11 @@ class SezioniGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields("sezioni.id, sezioni.nome, sezioni.colonna, sezioni.posizione,
+        $this->setSelectQueryFields("sezioni.id, sezioni.nome, sezioni.colonna, sezioni.lingua, sezioni.url,
                                      IDENTITY(sezioni.modulo) AS moduloId, sezioni.attivo, 
-                                     sezioni.url, sezioni.title,
-                                     
-                                    modulo.code AS moduleCode
+                                     sezioni.colonna, sezioni.title,
+
+                                     modulo.code AS moduleCode
         ");
 
         $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
@@ -28,7 +28,7 @@ class SezioniGetter extends QueryBuilderHelperAbstract
     }
 
     /**
-     * @param number or array $id
+     * @param int|array $id
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function setId($id)
@@ -61,7 +61,7 @@ class SezioniGetter extends QueryBuilderHelperAbstract
     }
     
     /**
-     * @param int attivo
+     * @param int $attivo
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function setAttivo($attivo)

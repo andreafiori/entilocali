@@ -35,6 +35,7 @@ class AttiConcessioneForm extends Form
                         'attributes' => array(
                                         'title' => 'Importo (Euro)',
                                         'id'    => 'importo',
+                                        'placeholder' => 'Importo...',
                                         'required' => 'required',
                         )
         ));
@@ -84,6 +85,7 @@ class AttiConcessioneForm extends Form
                         'options' => array( 'label' => 'Modalit&agrave; assegnazione' ),
                         'attributes' => array(
                                         'title' => 'Modalit&agrave; assegnazione',
+                                        'placeholder' => 'Modalit&agrave; assegnazione...',
                                         'id'    => 'modassegn',
                         )
         ));
@@ -95,6 +97,7 @@ class AttiConcessioneForm extends Form
                         'attributes' => array(
                             'title' => "* Norma o Titolo a base dell'attribuzione",
                             'id'    => 'titolo',
+                            'placeholder' => 'Norma o Titolo...',
                             'required' => 'required',
                         )
         ));
@@ -107,9 +110,10 @@ class AttiConcessioneForm extends Form
                 'format' => 'Y-m-d',
             ),
             'attributes' => array(
-                'id'    => 'data',
-                'required' => 'required',
-                'type' => 'date',
+                'id'            => 'data',
+                'required'      => 'required',
+                'type'          => 'date',
+                'placeholder'   => 'Data inserimento...',
             )
         ));
 
@@ -123,6 +127,7 @@ class AttiConcessioneForm extends Form
                 'type' => 'number',
                 'min' => '1954',
                 'max' => '2054',
+                'placeholder' => 'Anno...',
             )
         ));
         
@@ -142,5 +147,4 @@ class AttiConcessioneForm extends Form
             'attributes' => array("class"=>'hiddenField')
         ));
     }
-    
 }

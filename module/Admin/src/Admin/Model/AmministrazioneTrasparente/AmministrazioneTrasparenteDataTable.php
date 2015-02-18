@@ -82,11 +82,12 @@ class AmministrazioneTrasparenteDataTable extends DataTableAbstract
 
             $recordsToReturn = array();
             foreach($records as $record) {
+                $record = array_map('utf8_encode', $record);
                 $activeDisableButtonValue = ($record['attivo']!=0) ? 'toDisable' : 'toActive';
                 $recordsToReturn[] = array(
-                    utf8_encode($record['nomeSezione']),
-                    utf8_encode($record['nomeSottosezione']),
-                    utf8_encode($record['titolo']),
+                    $record['nomeSezione'],
+                    $record['nomeSottosezione'],
+                    $record['titolo'],
                     $record['anno'],
                     $record['dataInserimento'],
                     $record['dataScadenza'],

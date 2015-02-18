@@ -79,6 +79,35 @@
     </table>
 </div>
 
+<?php
+
+if ( count($this->paginator) > 1 ):
+    try {
+        echo $this->paginationControl(
+            $this->paginator,
+            'sliding',
+            'application/pagination/bootstrap.phtml',
+            array(
+                'route' => $this->route,
+                'tablesetter' => $this->tablesetter,
+                'lang'        => $this->lang ? $this->lang : 'it',
+            )
+        );
+    } catch (Exception $e) {
+        ?>
+        <div class="alert alert-danger">
+            <h3>Errore paginazione</h3>
+            <p>Errore nella visualizzazione dei numeri di pagina: <?php echo $e->getMessage() ?></p>
+        </div>
+    <?php
+    }
+endif;
+
+endif;
+
+?>
+
+
 <!-- Delete Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="ConfirmDeleteModal" aria-hidden="true">
     <div class="modal-dialog">
@@ -188,33 +217,6 @@
     </div>
 </div>
 
-<?php
-
-    if ( count($this->paginator) > 1 ):
-        try {
-            echo $this->paginationControl(
-                $this->paginator,
-                'sliding',
-                'application/pagination/bootstrap.phtml',
-                array(
-                    'route' => $this->route,
-                    'tablesetter' => $this->tablesetter,
-                    'lang'        => $this->lang ? $this->lang : 'it',
-                )
-            );
-        } catch (Exception $e) {
-            ?>
-            <div class="alert alert-danger">
-                <h3>Errore paginazione</h3>
-                <p>Errore nella visualizzazione dei numeri di pagina: <?php echo $e->getMessage() ?></p>
-            </div>
-            <?php
-        }
-    endif;
-
-endif; 
-
-?>
 <script>
 /* Force scroll for large tables */
 function forceResponsiveTables() {

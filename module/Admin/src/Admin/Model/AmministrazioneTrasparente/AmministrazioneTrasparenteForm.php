@@ -24,7 +24,8 @@ class AmministrazioneTrasparenteForm extends Form
                                'value_options' => $sezioni,
                         ),
                         'attributes' => array(
-                               'id' => 'sezione'
+                               'id'         => 'sezione',
+                                'required'  => 'required',
                         )
         ));
     }
@@ -76,21 +77,7 @@ class AmministrazioneTrasparenteForm extends Form
                                         'id'    => 'anno',
                         )
         ));
-        
-        /*
-        $this->add(array(
-                        'type' => 'Date',
-                        'name' => 'dataInserimento',
-                        'options' => array(
-                                'label' => 'Data pubblicazione',
-                                'format' => 'Y-m-d H:i:s',
-                        ),
-                        'attributes' => array(
-                                'id'    => 'dataInserimento'
-                        )
-        ));
-        */
-        
+
         $this->add(array(
                         'type' => 'Date',
                         'name' => 'dataScadenza',
@@ -99,7 +86,7 @@ class AmministrazioneTrasparenteForm extends Form
                                 'format' => 'Y-m-d H:i:s',
                         ),
                         'attributes' => array(
-                                'id'    => 'numero'
+                                'id'    => 'dataScadenza'
                         )
         ));
         
@@ -115,7 +102,8 @@ class AmministrazioneTrasparenteForm extends Form
                                ),
                         ),
                         'attributes' => array(
-                                'id' => 'attivo'
+                                'id' => 'attivo',
+                                'required' => 'required'
                         )
         ));
 
@@ -166,6 +154,7 @@ class AmministrazioneTrasparenteForm extends Form
         ));
         
         // Abilita la visibilità a un Gruppo di Atti Ufficiali:
+
         // Nessuno 2 - Delibere (in generale) 3 - Determine (in generale) 4 - Esiti (in generale)5 - Bandi (in generale)6 - Concorsi (in generale)
         
         // Utente SELECT

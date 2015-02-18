@@ -80,9 +80,4 @@ class ResponsabiliProcedimentoCrudHandler extends CrudHandlerAbstract implements
             return $this->setErrorMessage($e->getMessage());
         }
     }
-    
-    public function delete()
-    {
-        
-    }
 }

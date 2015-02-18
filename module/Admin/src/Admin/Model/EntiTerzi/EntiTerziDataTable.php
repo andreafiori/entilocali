@@ -11,7 +11,7 @@ use Admin\Model\DataTable\DataTableAbstract;
 class EntiTerziDataTable extends DataTableAbstract
 {
     /**
-     * @param array $input
+     * {@inheritdoc}
      */
     public function __construct(array $input)
     {
@@ -38,8 +38,8 @@ class EntiTerziDataTable extends DataTableAbstract
     }
 
         /**
-         * @param type $records
-         * @return type
+         * @param mixed $records
+         * @return array
          */
         private function formatRecordsToShowOnTable($records)
         {

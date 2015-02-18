@@ -17,11 +17,6 @@ use Application\Model\Slugifier;
 class PostsFrontend extends RouterManagerAbstract implements RouterManagerInterface
 {
     /**
-     * @var PostsGetterWrapper
-     */
-    private $postsGetterWrapper;
-    
-    /**
      * @var PostsFrontendHelper
      */
     private $postsFrontendHelper;
@@ -62,7 +57,7 @@ class PostsFrontend extends RouterManagerAbstract implements RouterManagerInterf
     }
     
         /**
-         * @return type
+         * @return array
          */
         private function setupHomePage()
         {

@@ -1,0 +1,29 @@
+<?php echo $this->render('backend/templates/'.$this->template_backend.'datatable/datatable_breadcrumb.phtml'); ?>
+
+<ul class="nav nav-tabs" role="tablist">
+    <li class="active"><a href="#home" role="tab" data-toggle="tab"><i class="fa fa-list"></i> Elenco articoli</a></li>
+    <li><a href="#search" role="tab" data-toggle="tab"><i class="fa fa-search"></i> Ricerca</a></li>
+    <li><a href="#export" role="tab" data-toggle="tab"><i class="fa fa-external-link-square"></i> Esportazione dati</a></li>
+</ul>
+
+<div class="tab-content">
+
+    <div class="tab-pane active" id="home">
+        <?php echo $this->render('backend/templates/common/datatables_zend_pagination.phtml'); ?>
+    </div>
+    
+    <div class="tab-pane" id="search">
+        <h3>Ricerca contratti</h3>
+
+        <div class="alert alert-warning"><h4>In costruzione</h4><p>Form ricerca dati in costruzione</p></div>
+
+    </div>
+
+    <div class="tab-pane" id="export">
+        <h3>Esportazione dati</h3>
+
+        <div class="alert alert-warning"><h4>In costruzione</h4><p>Form esportazione dati in costruzione</p></div>
+
+    </div>
+
+</div>

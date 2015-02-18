@@ -5,6 +5,8 @@ namespace Admin\Model\AmministrazioneTrasparente;
 use Admin\Model\FormData\FormDataAbstract;
 use Admin\Model\Contenuti\ContenutiGetter;
 use Admin\Model\Contenuti\ContenutiGetterWrapper;
+use Admin\Model\Sezioni\SezioniGetter;
+use Admin\Model\Sezioni\SezioniGetterWrapper;
 use Admin\Model\Sezioni\SottoSezioniGetter;
 use Admin\Model\Sezioni\SottoSezioniGetterWrapper;
 use Admin\Model\Sezioni\SezioniTreeGetter;
@@ -28,9 +30,16 @@ class AmministrazioneTrasparenteFormDataHandler extends FormDataAbstract
         $form->addSezione( array() );
         $form->addEndForm();
         
-        // check sezioni
+        // check Sezioni
+        $wrapper = new SezioniGetterWrapper( new SezioniGetter($this->getInput('entityManager',1)) );
+        $wrapper->setInput(array());
+        $wrapper->setupQueryBuilder();
         
-        // check sottosezioni
+        // check Sotto-sezioni
+        $wrapper = new SottoSezioniGetterWrapper( new SottoSezioniGetter($this->getInput('entityManager',1)) );
+        $wrapper->setInput(array());
+        $wrapper->setupQueryBuilder();
+        // $sottosezioniRecords = $wrapper->getRecords();
         
         if (isset($param['route']['option'])) {
             $record = $this->getArticoloRecord($param['route']['option']);
@@ -59,7 +68,7 @@ class AmministrazioneTrasparenteFormDataHandler extends FormDataAbstract
     }
     
         /**
-         * @param number $id
+         * @param int $id
          * @return array|null
          */
         private function getArticoloRecord($id)

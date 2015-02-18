@@ -5,13 +5,16 @@ namespace Admin\Model\StatoCivile;
 use Zend\Form\Form;
 
 /**
- * Stato Civile atti Backend Form
+ * Stato Civile atti, backend Form
  * 
  * @author Andrea Fiori
  * @since  17 June 2014
  */
 class StatoCivileForm extends Form
 {
+    /**
+     * @inheritdoc
+     */
     public function __construct($name = null, $options = array())
     {
         parent::__construct($name, $options);
@@ -19,7 +22,7 @@ class StatoCivileForm extends Form
         $this->add(array(
                         'name' => 'titolo',
                         'type' => 'Textarea',
-                        'options' => array( 'label' => 'Titolo' ),
+                        'options' => array( 'label' => '* Titolo' ),
                         'attributes' => array(
                                         'id'       => 'titolo',
                                         'required' => 'required',
@@ -29,14 +32,17 @@ class StatoCivileForm extends Form
                         )
         ));
     }
-    
+
+    /**
+     * @param array $sezioni
+     */
     public function addSezioni(array $sezioni)
     {
         $this->add(array(
                     'type' => 'Zend\Form\Element\Select',
                     'name' => 'sezioneId',
                     'options' => array(
-                           'label' => 'Sezione',
+                           'label' => '* Sezione',
                            'empty_option' => 'Seleziona',
                            'value_options' => $sezioni,
                     ),
@@ -54,12 +60,13 @@ class StatoCivileForm extends Form
                         'type' => 'Date',
                         'name' => 'data',
                         'options' => array(
-                                'label' => 'Data di pubblicazione',
+                                'label' => '* Data di pubblicazione',
                                 'format' => 'Y-m-d H:i:s',
                         ),
                         'attributes' => array(
                                 'id' => 'data',
                                 'title' => 'Inserisci la data di pubblicazione',
+                                    'placeholder' => 'Data di pubblicazione...',
                         )
         ));
         
@@ -67,13 +74,13 @@ class StatoCivileForm extends Form
                         'type' => 'Date',
                         'name' => 'scadenza',
                         'options' => array(
-                                'label'  => 'Data di scadenza',
+                                'label'  => '* Data di scadenza',
                                 'format' => 'Y-m-d H:i:s',
                         ),
                         'attributes' => array(
                                 'id'          => 'scadenza',
                                 'title'       => 'Inserisci la data di scadenza',
-                                'placeholder' => 'Data di scadenza',
+                                'placeholder' => 'Data di scadenza...',
                         )
         ));
 

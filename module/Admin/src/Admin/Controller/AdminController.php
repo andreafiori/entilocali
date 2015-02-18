@@ -70,12 +70,15 @@ class AdminController extends SetupAbstractController
                 $this->layout()->setVariable($key, $value);
             }
         }
-        
+
+        $templateBackendDir = 'backend/templates/'.$appServiceLoader->recoverServiceKey('configurations', 'template_backend');
+
         $this->layout()->setVariables(array(
             'baseUrl'           => $baseUrl,
             'userDetails'       => $userDetails,
             'preloadResponse'   => $appServiceLoader->recoverServiceKey('configurations', 'preloadResponse'),
-            'templatePartial'   => 'backend/templates/'.$appServiceLoader->recoverServiceKey('configurations', 'template_backend').$routerManagerHelper->getRouterManger()->getTemplate(1),
+            'templateBackendDir' => $templateBackendDir,
+            'templatePartial'   => $templateBackendDir.$routerManagerHelper->getRouterManger()->getTemplate(1),
         ));
         $this->layout('backend/templates/'.$appServiceLoader->recoverServiceKey('configurations', 'template_backend').'backend.phtml');
         
@@ -103,7 +106,9 @@ class AdminController extends SetupAbstractController
         $formDataCrudHandler->setInput($appServiceLoader->getProperties());
         $formDataCrudHandler->setFormCrudHandler($this->params()->fromRoute('form_post_handler'));
 
-        $crudHandlerObject = $formDataCrudHandler->detectCrudHandlerClassMap($appServiceLoader->recoverServiceKey('moduleConfigs', 'formdata_crud_classmap'));
+        $crudHandlerObject = $formDataCrudHandler->detectCrudHandlerClassMap(
+            $appServiceLoader->recoverServiceKey('moduleConfigs', 'formdata_crud_classmap')
+        );
 
         $crudHandler = new $crudHandlerObject($appServiceLoader->getProperties());
         $crudHandler->setConnection($appServiceLoader->recoverService('entityManager')->getConnection());

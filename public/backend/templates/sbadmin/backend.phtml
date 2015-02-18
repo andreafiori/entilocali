@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title><?php echo $this->sitename ?> - Area riservata</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="<?php echo $this->basePath() ?>/public/<?php echo $this->templateBackendDir ?>bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="<?php echo $this->basePath() ?>/public/<?php echo $this->templateBackendDir ?>bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- DataTables CSS -->
+    <link href="<?php echo $this->basePath() ?>/public/<?php echo $this->templateBackendDir ?>bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="<?php echo $this->basePath() ?>/public/<?php echo $this->templateBackendDir ?>bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="<?php echo $this->basePath() ?>/public/<?php echo $this->templateBackendDir ?>dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="<?php echo $this->basePath() ?>/public/<?php echo $this->templateBackendDir ?>bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <?php
+    echo $this->headLink()
+        ->prependStylesheet($this->basePath().'/public/common/jquery/datetimepicker/jquery.datetimepicker.css')
+    ?>
+
+    <script src="<?php echo $this->basePath() ?>/public/common/jquery/jquery.min.js"></script>
+
+    <script src="<?php echo $this->basePath() ?>/public/common/jquery/form/jquery.form.js"></script>
+    <script src="<?php echo $this->basePath() ?>/public/common/jquery/validate/jquery.validate.min.js"></script>
+
+    <script src="<?php echo $this->basePath() ?>/public/common/jquery/ckeditor/ckeditor.js"></script>
+    <script src="<?php echo $this->basePath() ?>/public/common/jquery/ckfinder/ckfinder.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style>
+        /* JQuery Validate Label */
+        label.error {
+            color: red;
+            margin-left: 0.5%;
+        }
+
+        fieldset label {
+            font-weight: normal;
+            cursor: pointer;
+        }
+        fieldset input  {
+            cursor: pointer
+        }
+
+        /* Icon colors */
+        .icon-black, .icon-black:hover, .icon-black:active, .icon-black:focus { color: #333333; }
+        .icon-red, .icon-red:hover, .icon-red:active, .icon-red:focus { color: #d9534f; }
+        .icon-green, .icon-green:hover, .icon-green:active, .icon-green:focus { color: #3E6544; }
+        .icon-green-light, .icon-green-light:hover, .icon-green-light:active, .icon-green-light:focus { color: #3Eaa00; }
+
+        /* Force table scroll */
+        .table-responsive {
+            width: 100%;
+            margin-bottom: 15px;
+            overflow-y: hidden;
+            overflow-x: scroll;
+            -ms-overflow-style: -ms-autohiding-scrollbar;
+            border: 1px solid #DDD;
+            -webkit-overflow-scrolling: touch;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div id="pageLoading"></div>
+
+<header>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="<?php echo $this->url('admin', array('lang' => 'it')); ?>" title="<?php echo $this->sitename ?> - area riservata"><?php echo $this->sitename ?></a>
+
+            <div class="menu-toggler sidebar-toggler" title="Riduci \ espandi men&ugrave;">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </div>
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li><a href="<?php echo $this->basepath() ?>" target="_blank" title="<?php echo $this->translate('Anteprima sito web') ?>"><i class="fa fa-eye"></i> <?php echo $this->translate('Anteprima') ?></a></li>
+                <li><a href="#"><i class="fa fa-gear fa-fw"></i> Opzioni</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench fa-fw"></i> Assistenza&nbsp; <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="<?php echo $this->baseUrl ?>formdata/tickets" title="">Nuova richiesta</a></li>
+                        <li><a href="<?php echo $this->baseUrl ?>datatable/tickets" title="">Elenco richieste</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <?php echo $this->userDetails->name." ".$this->userDetails->surname ?>&nbsp; <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="<?php echo $this->baseUrl ?>formdata/users/<?php echo $this->userDetails->id ?>" title="Modifica dati utente"><i class="fa fa-user fa-fw"></i> Profilo</a></li>
+                        <li class="divider"></li>
+                        <li><a href="<?php echo $this->url('login/process', array('action' => 'logout')); ?>" title="Uscita dall'area riservata"><i class="fa fa-sign-out fa-fw"></i> Uscita</a>
+                        </li>
+                    </ul>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+        </div>
+
+    </nav>
+</header>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav role="navigation" style="margin-bottom: 0; margin-top: -1px;">
+
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse" id="sidebar-area">
+                <ul class="nav" id="sidebar">
+                    <li class="sidebar-search">
+                        <form action="" method="post" enctype="multipart/form-data">
+                        <div class="input-group custom-search-form">
+                            <input type="text" class="form-control" placeholder="Cerca...">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                        </form>
+                        <div  class="search-icon">
+                            <a href="#"><i class="fa fa fa-search fa-fw"></i></a>
+                        </div>
+                        <!-- /input-group -->
+                    </li>
+                    <li>
+                        <a href="<?php echo $this->url('admin', array('lang' => 'it')); ?>"><i class="fa fa-dashboard fa-fw"></i> <span class="side-menu-title">Dashboard</span></a>
+                    </li>
+
+                    <!-- Contenuti POST -->
+                    <!--
+                        <li class="dropdown-submenu">
+                            <a href="<?php echo $this->baseUrl ?>datatable/contents" class="dropdown-toggle" data-toggle="dropdown">Contenuti</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="<?php echo $this->baseUrl ?>formdata/posts/" title="">Nuovo</a></li>
+                                <li><a href="<?php echo $this->baseUrl ?>datatable/contents" title="Modifica \ elimina contenuti">Modifica \ Elimina</a></li>
+                                <li class="dropdown-submenu">
+                                    <a href="<?php echo $this->baseUrl ?>datatable/categories/?moduleId=4" class="dropdown-toggle" data-toggle="dropdown" title="">Categorie</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="<?php echo $this->baseUrl ?>formdata/categories/?moduleId=4" title="Nuova categoria contenuti">Nuova</a></li>
+                                        <li><a href="<?php echo $this->baseUrl ?>datatable/categories/?moduleId=4" title="Modifica \ elimina categorie contenuti">Modifica \ Elimina</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    -->
+
+                    <!-- Contenuti (OLD CMS) -->
+                    <li>
+                        <a href="#" class="dropdown-collapse"><i class="fa fa-newspaper-o fa-fw"></i> <span class="side-menu-title">Contenuti</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="<?php echo $this->baseUrl ?>formdata/contenuti" title="Nuovo contenuto">Nuovo</a></li>
+                            <li><a href="<?php echo $this->baseUrl ?>datatable/contenuti" title="Gestione contenuti">Modifica \ Elimina</a></li>
+                            <li>
+                                <a href="#" class="dropdown-collapse" title="Gestione sezioni contenuti">Sezioni <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li><a href="<?php echo $this->baseUrl ?>formdata/sezioni-contenuti" title="Nuova sezione contenuti">Nuova</a></li>
+                                    <li><a href="<?php echo $this->baseUrl ?>datatable/sezioni-contenuti" title="Gestione sezioni contenuti">Gestione</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="dropdown-collapse" title="Gestione sezioni contenuti">Sotto-Sezioni <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li><a href="<?php echo $this->baseUrl ?>formdata/sottosezioni-contenuti" title="">Nuova</a></li>
+                                    <li><a href="<?php echo $this->baseUrl ?>datatable/sottosezioni-contenuti" title="Gestione">Gestione</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Albo pretorio -->
+                    <li>
+                        <a href="#" class="dropdown-collapse"><i class="fa fa-table fa-fw"></i> <span class="side-menu-title">Albo pretorio</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="<?php echo $this->baseUrl ?>formdata/albo-pretorio" title="Nuovo atto">Nuovo atto</a></li>
+                            <li><a href="<?php echo $this->baseUrl ?>datatable/albo-pretorio" title="Gestione">Gestione</a></li>
+                            <li><a href="<?php echo $this->baseUrl ?>datatable/atti-ufficiali" title="">Atti ufficiali</a></li>
+                            <li>
+                                <a href="#" class="dropdown-collapse" title="Sezioni albo pretorio">Sezioni <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li><a href="<?php echo $this->baseUrl ?>formdata/albo-pretorio-sezioni" title="Nuova sezione albo">Nuova</a></li>
+                                    <li><a href="<?php echo $this->baseUrl ?>datatable/albo-pretorio-sezioni" title="Gestione sezioni albo">Modifica \ Elimina</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="dropdown-collapse" title="Gestione sezioni contenuti">Enti terzi <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li><a href="<?php echo $this->baseUrl ?>formdata/enti-terzi" title="Nuovo ente terzo">Nuovo indirizzo</a></li>
+                                    <li><a href="<?php echo $this->baseUrl ?>datatable/enti-terzi" title="Gestione rubrica enti terzi">Gestione</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Stato civile -->
+                    <li>
+                        <a href="#" class="dropdown-collapse"><i class="fa fa-institution fa-fw"></i> <span class="side-menu-title">Stato civile</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="<?php echo $this->baseUrl ?>formdata/stato-civile" title="Nuovo atto">Nuovo atto</a></li>
+                            <li><a href="<?php echo $this->baseUrl ?>datatable/stato-civile" title="Gestione">Gestione</a></li>
+                            <li>
+                                <a href="#" class="dropdown-collapse" title="Sezioni stato civile">Sezioni <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li><a href="<?php echo $this->baseUrl ?>formdata/stato-civile-sezioni" title="Nuova sezione albo">Nuova</a></li>
+                                    <li><a href="<?php echo $this->baseUrl ?>datatable/stato-civile-sezioni" title="Gestione sezioni">Gestione</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="dropdown-collapse" title="Gestione sezioni contenuti">Enti terzi <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li><a href="<?php echo $this->baseUrl ?>formdata/enti-terzi" title="Nuovo ente terzo">Nuovo indirizzo</a></li>
+                                    <li><a href="<?php echo $this->baseUrl ?>datatable/enti-terzi" title="Gestione rubrica enti terzi">Gestione</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Amm. trasparente -->
+                    <li>
+                        <a href="#" class="dropdown-collapse"><i class="fa fa-laptop fa-fw"></i> <span class="side-menu-title">Amm. trasparente</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="<?php echo $this->baseUrl ?>formdata/amministrazione-trasparente" title="Nuovo articolo">Nuovo articolo</a></li>
+                            <li><a href="<?php echo $this->baseUrl ?>datatable/amministrazione-trasparente" title="Gestione">Gestione</a></li>
+                            <li>
+                                <a href="#" class="dropdown-collapse" title="Sezioni amministrazione trasparente">Sezioni <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li><a href="#" title="Nuova sezione">Nuova</a></li>
+                                    <li><a href="#" title="Gestione sezioni">Gestione</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="dropdown-collapse" title="Gestione sezioni contenuti">Sotto-sezioni <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li><a href="<?php echo $this->baseUrl ?>formdata/enti-terzi" title="">Nuova</a></li>
+                                    <li><a href="<?php echo $this->baseUrl ?>datatable/enti-terzi" title="Gestionei">Gestione</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Atti di concessione -->
+                    <li>
+                        <a href="#" class="dropdown-collapse"><i class="fa fa-list-alt fa-fw"></i> <span class="side-menu-title">Atti di concessione</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="<?php echo $this->baseUrl ?>formdata/atti-concessione" title="Nuovo articolo">Nuovo atto</a></li>
+                            <li><a href="<?php echo $this->baseUrl ?>datatable/atti-concessione" title="Gestione">Gestione</a></li>
+                            <li>
+                                <a href="#" class="dropdown-collapse" title="Sezioni amministrazione trasparente">Settori <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li><a href="<?php echo $this->baseUrl ?>formdata/atti-concessione-settori" title="Nuovo settore atti concessione">Nuovo</a></li>
+                                    <li><a href="<?php echo $this->baseUrl ?>datatable/atti-concessione" title="Gestione settori atti concessione">Gestione</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="dropdown-collapse" title="Gestione sezioni contenuti">Resp. procedimento <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li><a href="<?php echo $this->baseUrl ?>formdata/atti-concessione-resp" title="">Nuova</a></li>
+                                    <li><a href="<?php echo $this->baseUrl ?>datatable/atti-concessione-resp" title="Gestionei">Gestione</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Contratti pubblici -->
+                    <li>
+                        <a href="#" class="dropdown-collapse"><i class="fa fa-edit fa-fw"></i> <span class="side-menu-title">Contratti pubblici</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="<?php echo $this->baseUrl ?>formdata/contratti-pubblici" title="Nuovo bando contratto">Nuovo bando</a></li>
+                            <li><a href="<?php echo $this->baseUrl ?>datatable/contratti-pubblici" title="Gestione contratti pubblici">Gestione</a></li>
+                            <li>
+                                <a href="#" class="dropdown-collapse" title="Settori contratti pubblici">Settori <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li><a href="<?php echo $this->baseUrl ?>formdata/contratti-pubblici-settori" title="Nuova sezione">Nuovo</a></li>
+                                    <li><a href="<?php echo $this->baseUrl ?>datatable/contratti-pubblici-settori" title="Gestione settori">Gestione</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="dropdown-collapse" title="Gestione resp. procedimento">Resp. procedimento <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li><a href="<?php echo $this->baseUrl ?>formdata/contratti-pubblici-responsabili" title="">Nuovo</a></li>
+                                    <li><a href="<?php echo $this->baseUrl ?>datatable/contratti-pubblici-responsabili" title="Gestione resp. procedimento">Gestione</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="dropdown-collapse" title="Gestione resp. procedimento">Voci scelta contraente <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li><a href="<?php echo $this->baseUrl ?>formdata/contratti-pubblici-scelta-contraente" title="Nuova voce scelta contraente">Nuova</a></li>
+                                    <li><a href="<?php echo $this->baseUrl ?>datatable/contratti-pubblici-scelta-contraente" title="Gestione scelta contraente">Gestione</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="dropdown-collapse" title="Gestione resp. procedimento">Operatori <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li><a href="<?php echo $this->baseUrl ?>formdata/contratti-pubblici-operatori" title="Nuovo operatore">Nuovo</a></li>
+                                    <li><a href="<?php echo $this->baseUrl ?>datatable/contratti-pubblici-operatori" title="Gestione operatori">Gestione</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Foto -->
+                    <li>
+                        <a href="#" class="dropdown-collapse"><i class="fa fa-list-alt fa-fw"></i> <span class="side-menu-title">Foto</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="<?php echo $this->baseUrl ?>formdata/photo" title="Aggiungi nuova foto">Nuova</a></li>
+                            <li><a href="<?php echo $this->baseUrl ?>datatable/photo" title="Gestione gallerie fotografice">Gestione</a></li>
+                            <li>
+                                <a href="#" class="dropdown-collapse" title="">Categorie <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li><a href="<?php echo $this->baseUrl ?>formdata/categories/?moduleId=6" title="">Nuovo</a></li>
+                                    <li><a href="<?php echo $this->baseUrl ?>datatable/categories/?moduleId=6" title="">Modifica \ Elimina</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="forms.html"><i class="fa fa-newspaper-o fa-fw"></i> <span class="side-menu-title">Newsletter</span></a>
+                    </li>
+
+                    <!--
+                    <li>
+                        <a href="forms.html"><i class="fa fa-newspaper-o fa-fw"></i> <span class="side-menu-title">FAQ</span></a>
+                    </li>
+                    <li>
+                        <a href="forms.html"><i class="fa fa-newspaper-o fa-fw"></i> <span class="side-menu-title">Video</span></a>
+                    </li>
+                    -->
+
+                    <li>
+                        <a href="#" class="dropdown-collapse"><i class="fa fa-list-alt fa-fw"></i> <span class="side-menu-title">Utenti</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="<?php echo $this->baseUrl ?>formdata/users" title="Aggiungi nuova foto">Nuovo</a></li>
+                            <li><a href="<?php echo $this->baseUrl ?>datatable/users" title="Gestione gallerie fotografice">Gestione</a></li>
+                            <li>
+                                <a href="#" class="dropdown-collapse" title="">Categorie <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li><a href="<?php echo $this->baseUrl ?>formdata/categories/?moduleId=6" title="">Nuovo</a></li>
+                                    <li><a href="<?php echo $this->baseUrl ?>datatable/categories/?moduleId=6" title="">Modifica \ Elimina</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <!--
+                    <li class="dropdown-submenu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Utenti</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php echo $this->baseUrl ?>formdata/users" title="">Nuovo</a></li>
+                            <li><a href="<?php echo $this->baseUrl ?>datatable/users" title="">Modifica \ elimina</a></li>
+                            <li class="divider"></li>
+                            <li><a href="<?php echo $this->baseUrl ?>datatable/contacts" title="Contatti">Contatti</a></li>
+                            <li><a href="<?php echo $this->baseUrl ?>datatable/usersRoles" title="">Ruoli</a></li>
+                        </ul>
+                    </li>
+                    -->
+
+                </ul>
+            </div>
+            <!-- /.sidebar-collapse -->
+        </div>
+        <!-- /.navbar-static-side -->
+    </nav>
+
+    <div id="page-wrapper">
+        <br>
+        <?php
+        // Main Template
+        echo $this->partial($this->templatePartial);
+        ?>
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+<script src="<?php echo $this->basePath() ?>/public/<?php echo $this->templateBackendDir ?>bower_components/jquery-cookie-master/src/jquery.cookie.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="<?php echo $this->basePath() ?>/public/<?php echo $this->templateBackendDir ?>bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="<?php echo $this->basePath() ?>/public/<?php echo $this->templateBackendDir ?>bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+<!-- DataTables JavaScript -->
+<script src="<?php echo $this->basePath() ?>/public/<?php echo $this->templateBackendDir ?>bower_components/DataTables/media/js/jquery.dataTables.min.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/<?php echo $this->templateBackendDir ?>bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="<?php echo $this->basePath() ?>/public/<?php echo $this->templateBackendDir ?>dist/js/sb-admin-2.js"></script>
+
+<!-- Datepicker -->
+<script src="<?php echo $this->basePath() ?>/public/common/jquery/datetimepicker/jquery.datetimepicker.js"></script>
+
+<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+<script>
+
+    function showLoading()
+    {
+        $("#formDataResponse").hide();
+        $("#formDataLoading").show();
+    }
+
+    function showResponse()
+    {
+        $("#formDataResponse").show();
+        $("#formDataLoading").hide();
+    }
+
+    function resetCurrentForm(id)
+    {
+        $(':text, :password, :file', '#'+id).val('');
+        $(':input,select option', '#'+id).removeAttr('checked').removeAttr('selected');
+        $('select option:first', '#'+id).attr('selected',true);
+    }
+
+    $(document).ready(function () {
+
+        /* Datatable */
+        $('#dataTable').dataTable({
+            "pagingType": "full_numbers"
+        });
+
+        $('#zf2-pagination-table').DataTable({
+            responsive: true,
+            bPaginate: false,
+            "info": false
+        });
+
+        /* Validate and submit formData */
+        var validate = $("#formData").validate({
+            submitHandler: function(form) {
+                $("#formData").ajaxSubmit({
+                    target: "#formDataResponse",
+                    type: "post",
+                    beforeSubmit: showLoading,
+                    success: showResponse,
+                    onkeyup: false
+                });
+
+                $("#formcontainer").hide();
+                // $("#showFormContainer").show();
+            }
+        });
+
+        /* Datetime picker */
+        $('.datetimepicker').datetimepicker({
+            format: 'Y-m-d H:i:s',
+            lang: 'it'
+        });
+
+    });
+</script>
+
+</body>
+
+</html>

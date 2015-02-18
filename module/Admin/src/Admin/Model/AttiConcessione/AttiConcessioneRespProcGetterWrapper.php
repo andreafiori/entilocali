@@ -14,7 +14,10 @@ class AttiConcessioneRespProcGetterWrapper extends RecordsGetterWrapperAbstract
      * @var AttiConcessioneRespProcGetter
      */
     protected $objectGetter;
-    
+
+    /**
+     * @param AttiConcessioneRespProcGetter $objectGetter
+     */
     public function __construct(AttiConcessioneRespProcGetter $objectGetter)
     {
         $this->setObjectGetter($objectGetter);

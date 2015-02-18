@@ -4,7 +4,7 @@ namespace AdminTest\Model\EntiTerzi;
 
 use ApplicationTest\TestSuite;
 use Admin\Model\Entiterzi\EntiTerziGetter;
-use Admin\Model\Entiterzi\EntiTerziGetterWrapper;
+use Admin\Model\EntiTerzi\EntiTerziGetterWrapper;
 
 /**
  * @author Andrea Fiori

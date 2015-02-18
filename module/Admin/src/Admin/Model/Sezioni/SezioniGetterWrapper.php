@@ -3,9 +3,6 @@
 namespace Admin\Model\Sezioni;
 
 use Application\Model\RecordsGetterWrapperAbstract;
-use Admin\Model\Sezioni\SezioniGetter;
-use Admin\Model\AlboPretorio\AlboPretorioArticoliGetter;
-use Admin\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
 
 /**
  * @author Andrea Fiori
@@ -63,7 +60,7 @@ class SezioniGetterWrapper extends RecordsGetterWrapperAbstract
                     
                 break;
 
-                /* 
+                /*
                 case("albo"): case("albo-pretorio"):
                     $wrapper = new AlboPretorioArticoliGetterWrapper( new AlboPretorioArticoliGetter($this->objectGetter->getEntityManager()) );
                     $wrapper->setInput( array(

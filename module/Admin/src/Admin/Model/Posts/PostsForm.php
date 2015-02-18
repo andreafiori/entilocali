@@ -11,22 +11,14 @@ use Zend\Form\Form;
 class PostsForm extends Form
 {
     private $input;
-    
-    /**
-     * @param string $name
-     */
-    public function __construct($name = null)
-    {
-        parent::__construct($name);
-    }
-    
+
     /**
      * @param array $input
      */
     public function setInput(array $input)
     {
         $this->input = $input;
-        
+
         return $this->input;
     }
     
@@ -96,7 +88,7 @@ class PostsForm extends Form
                         'type' => 'Zend\Form\Element\Select',
                         'name' => 'status',
                         'options' => array(
-                               'label' => 'Stato',
+                               'label' => '* Stato',
                                 'empty_option' => 'Seleziona',
                                 'value_options' => array(
                                        'attivo'   => 'Attivo',
@@ -136,7 +128,7 @@ class PostsForm extends Form
     
     /**
      * @param array $values
-     * @param type $checkedValues
+     * @param array $checkedValues
      */
     public function addCategory(array $values, $checkedValues = array())
     {

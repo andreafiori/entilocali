@@ -3,11 +3,10 @@
 namespace Admin\Model\ContrattiPubblici;
 
 use Admin\Model\FormData\FormDataAbstract;
-use Admin\Model\ContrattiPubblici\SceltaContraenteForm;
-use Admin\Model\ContrattiPubblici\SceltaContraenteGetter;
-use Admin\Model\ContrattiPubblici\SceltaContraenteGetterWrapper;
 
 /**
+ * Scelta contraente contratti pubblici, gestore form
+ *
  * @author Andrea Fiori
  * @since  14 August 2014
  */
@@ -22,7 +21,7 @@ class SceltaContraenteFormDataHandler extends FormDataAbstract
         
         $param = $this->getInput('param', 1);
         
-        $recordFromDb = $this->getFormRecord($param['route']['option']);
+        $recordFromDb = isset($param['route']['option']) ? $this->getFormRecord($param['route']['option']) : null;
         $this->setRecord($recordFromDb);
         
         $form = new SceltaContraenteForm();
@@ -49,7 +48,12 @@ class SceltaContraenteFormDataHandler extends FormDataAbstract
             )
         );
     }
-    
+
+    /**
+     * @param $id
+     *
+     * @return \Application\Model\QueryBuilderHelperAbstract
+     */
     public function getFormRecord($id)
     {
         if (is_numeric($id)) {

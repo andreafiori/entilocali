@@ -34,7 +34,6 @@ class VarExporter extends InputSetupAbstract
     }
     
     /**
-     * 
      * @param array $vars
      * @return array
      */

@@ -11,8 +11,7 @@ use Zend\Form\Form;
 class SceltaContraenteForm extends Form
 {
     /**
-     * @param string $name
-     * @param string $options
+     * @inheritdoc
      */
     public function __construct($name = null, $options = array())
     {
@@ -25,6 +24,7 @@ class SceltaContraenteForm extends Form
                         'attributes' => array(
                                         'id' => 'nome_scelta',
                                         'title' => 'Inserisci nuova scelta contraente',
+                                        'required' => 'required'
                         ),
         ));
     }

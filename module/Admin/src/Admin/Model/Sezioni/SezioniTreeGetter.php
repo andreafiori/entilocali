@@ -2,7 +2,10 @@
 
 namespace Admin\Model\Sezioni;
 
-
+/**
+ * @author Andrea Fiori
+ * @since  17 June 2013
+ */
 class SezioniTreeGetter
 {
     private $wrapper;
@@ -67,6 +70,5 @@ class SezioniTreeGetter
             
             return $this->percorso;
         }
-        
 }
 

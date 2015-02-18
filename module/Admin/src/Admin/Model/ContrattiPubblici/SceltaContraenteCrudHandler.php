@@ -43,6 +43,7 @@ class SceltaContraenteCrudHandler extends CrudHandlerAbstract implements CrudHan
             $this->setVariables(array(
                 'messageType' => 'success'
             ));
+
             $this->setVariable('messageTitle', 'Dati aggiornati correttamente');
             $this->setVariable('messageText',  'Dati aggiornati correttamente in archivio.');
             $this->setVariable('messageShowFormLink', 1);
@@ -51,10 +52,5 @@ class SceltaContraenteCrudHandler extends CrudHandlerAbstract implements CrudHan
             $this->getConnection()->rollBack();
             return $this->setErrorMessage($e->getMessage());
         }
-    }
-    
-    public function delete()
-    {
-        
     }
 }

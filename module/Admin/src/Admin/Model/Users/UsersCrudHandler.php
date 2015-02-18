@@ -11,42 +11,39 @@ use Admin\Model\FormData\CrudHandlerAbstract;
  */
 class UsersCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterface
 {
-    public function performOperation()
+    private $usersTable = 'zfcms_users';
+
+    public function insert()
     {
-        $operation = $this->getOperation();
-        if ($operation) {
-            $this->$operation();
+
+    }
+
+    public function update()
+    {
+        $this->setArrayRecordToHandle('name', 'name');
+        $this->setArrayRecordToHandle('surname', 'surname');
+        $this->setArrayRecordToHandle('password', 'password');
+        $this->setArrayRecordToHandle('password-confirm', 'password-confirm');
+
+        if ($this->rawPost['password'] != $this->rawPost['password-confirm']) {
+            $this->setErrorMessage('Le due password non coincidono');
+            return false;
+        }
+
+        $this->getConnection()->beginTransaction();
+        try {
+            $affectedRows = $this->getConnection()->update(
+                $this->usersTable, $this->getArrayRecordToHandle(), array('id' => $this->rawPost['id'])
+            );
+
+            $this->getConnection()->commit();
+
+            $this->setSuccessMessage();
+
+        } catch(\Exception $e) {
+            $this->getConnection()->rollBack();
+
+            return $this->setErrorMessage("Si &egrave; verificato un errore nell'aggiornamento dati in archivio. <h2>Messaggio:</h2> ".$e->getMessage());
         }
     }
-    
-        private function insert()
-        {
-            
-        }
-        
-        private function update()
-        {
-            $this->setArrayRecordToHandle('name', 'name');
-            $this->setArrayRecordToHandle('surname', 'surname');
-
-            if ($this->rawPost['password'] != $this->rawPost['password-confirm']) {
-                $this->setErrorMessage('Le due password non coincidono');
-                return;
-            }
-            
-            $this->getConnection()->beginTransaction();
-            try {
-                $affectedRows = $this->getConnection()->update(
-                    'zfcms_users', $this->getArrayRecordToHandle(), array('id' => $this->rawPost['id'])
-                );
-            
-            $this->setSuccessMessage();
-            
-            } catch(\Exception $e) {
-                $this->getConnection()->rollBack();
-                return $this->setErrorMessage("Si &egrave; verificato un errore nell'aggiornamento dati in archivio. <h2>Messaggio:</h2> ".$e->getMessage());
-            }
-            
-            $this->getConnection()->commit();
-        }
 }

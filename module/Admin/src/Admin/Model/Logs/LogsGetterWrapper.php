@@ -2,11 +2,13 @@
 
 namespace Admin\Model\Logs;
 
+use Application\Model\RecordsGetterWrapperAbstract;
+
 /**
  * @author Andrea Fiori
  * @since  12 December 2014
  */
-class LogsGetterWrapper
+class LogsGetterWrapper extends RecordsGetterWrapperAbstract
 {
     /**
      * @var LogsGetter 

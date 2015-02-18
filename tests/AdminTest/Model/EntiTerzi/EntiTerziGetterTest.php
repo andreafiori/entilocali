@@ -3,7 +3,7 @@
 namespace AdminTest\Model\EntiTerzi;
 
 use ApplicationTest\TestSuite;
-use Admin\Model\Entiterzi\EntiTerziGetter;
+use Admin\Model\EntiTerzi\EntiTerziGetter;
 
 /**
  * @author Andrea Fiori

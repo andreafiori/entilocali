@@ -79,9 +79,9 @@ abstract class CrudHandlerAbstract extends RouterManagerAbstract
     }
 
         /**
-         * 
-         * @param type $recordDBField
-         * @param type $rawPostKey
+         * @param string $recordDBField
+         * @param string $rawPostKey
+         *
          * @return array
          */
         protected function setArrayRecordToHandle($recordDBField, $rawPostKey)
@@ -92,7 +92,7 @@ abstract class CrudHandlerAbstract extends RouterManagerAbstract
 
             return $this->arrayRecordToHandle;
         }
-        
+
         protected function cleanArrayRecordToHandle()
         {
             $this->arrayRecordToHandle = array();

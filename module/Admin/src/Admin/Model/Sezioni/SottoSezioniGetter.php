@@ -13,7 +13,7 @@ class SottoSezioniGetter extends QueryBuilderHelperAbstract
     public function setMainQuery()
     {
         $this->setSelectQueryFields("sottosezioni.id AS idSottosezione, 
-            sottosezioni.nome AS nomeSottosezione, sezioni.id AS idSezione, sezioni.nome AS nomeSezione, 
+            sottosezioni.nome AS nomeSottosezione, sottosezioni.immagine, sezioni.id AS idSezione, sezioni.nome AS nomeSezione,
             IDENTITY(sottosezioni.profonditaDa) AS profonditaDa, sottosezioni.profonditaA, sottosezioni.url
         ");
 
@@ -72,7 +72,7 @@ class SottoSezioniGetter extends QueryBuilderHelperAbstract
 
         return $this->getQueryBuilder();
     }
-    
+
     /**
      * @param int $isSottoSezione
      * @return \Doctrine\ORM\QueryBuilder

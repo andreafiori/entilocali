@@ -12,7 +12,10 @@ use Admin\Model\FormData\CrudHandlerAbstract;
 class StatoCivileCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterface
 {
     private $tableName = 'zfcms_comuni_stato_civile_articoli';
-    
+
+    /**
+     * @throws \Doctrine\DBAL\ConnectionException
+     */
     protected function insert()
     {
         $this->getConnection()->beginTransaction();
@@ -54,7 +57,10 @@ class StatoCivileCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
             return $this->setErrorMessage($e->getMessage());
         }
     }
-    
+
+    /**
+     * @throws \Doctrine\DBAL\ConnectionException
+     */
     protected function update()
     {
         $this->getConnection()->beginTransaction();
@@ -74,10 +80,5 @@ class StatoCivileCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
             $this->getConnection()->rollBack();
             return $this->setErrorMessage($e->getMessage());
         }
-    }
-    
-    protected function delete()
-    {
-        
     }
 }

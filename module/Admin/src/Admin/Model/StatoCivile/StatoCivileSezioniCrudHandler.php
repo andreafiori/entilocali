@@ -19,8 +19,8 @@ class StatoCivileSezioniCrudHandler extends CrudHandlerAbstract implements CrudH
         try {
             
             $this->getConnection()->insert($this->tableName, array(
-                'nome' => $this->rawPost['nome'],
-                'attivo' => $this->rawPost['attivo'],
+                'nome'      => $this->rawPost['nome'],
+                'attivo'    => $this->rawPost['attivo'],
             ));
 
             $this->getConnection()->commit();
@@ -55,10 +55,5 @@ class StatoCivileSezioniCrudHandler extends CrudHandlerAbstract implements CrudH
             $this->getConnection()->rollBack();
             return $this->setErrorMessage($e->getMessage());
         }
-    }
-    
-    protected function delete()
-    {
-        // TODO
     }
 }

@@ -15,24 +15,25 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
         $this->setSelectQueryFields("contenuti.id, contenuti.anno, contenuti.numero, 
             contenuti.titolo, contenuti.sommario, contenuti.testo, 
             contenuti.dataInserimento, contenuti.dataScadenza,
-            contenuti.attivo, contenuti.home, contenuti.annoammtrasp, 
+            contenuti.attivo, contenuti.home, contenuti.annoammtrasp,
+            IDENTITY(contenuti.sottosezione) AS sottosezione,
 
             sezione.nome AS nomeSezione,
 
-            sottosezione.nome AS nomeSottosezione,            
+            sottosez.nome AS nomeSottosezione,
 
-            u.name, u.surname            
+            u.name, u.surname
         ");
 
         $this->getQueryBuilder()->select($this->getSelectQueryFields())
                                 ->from('Application\Entity\ZfcmsComuniContenuti', 'contenuti')
-                                ->join('contenuti.sottosezione', 'sottosezione')
+                                ->join('contenuti.sottosezione', 'sottosez')
                                 ->join('contenuti.utente', 'u')
-                                ->join('sottosezione.sezione', 'sezione')
+                                ->join('sottosez.sezione', 'sezione')
                                 ->join('sezione.modulo', 'modulo')
-                                ->where('( contenuti.sottosezione = sottosezione.id 
+                                ->where('( contenuti.sottosezione = sottosez.id
                                         AND contenuti.utente = u.id 
-                                        AND sottosezione.sezione = sezione.id 
+                                        AND sottosez.sezione = sezione.id
                                         AND sezione.modulo = modulo.id
                                         ) 
                                         ');
@@ -60,8 +61,8 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
     }
     
     /**
-     * @param type $id
-     * @return type
+     * @param int $id
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setSottosezione($id)
     {
@@ -101,7 +102,7 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
     }
     
     /**
-     * @param date $dataScadenza
+     * @param \Datetime $dataScadenza
      */
     public function setDataScadenza($dataScadenza)
     {

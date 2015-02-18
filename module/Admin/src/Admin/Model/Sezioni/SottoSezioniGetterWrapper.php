@@ -3,7 +3,6 @@
 namespace Admin\Model\Sezioni;
 
 use Application\Model\RecordsGetterWrapperAbstract;
-use Admin\Model\Sezioni\SottoSezioniGetter;
 
 /**
  * @author Andrea Fiori
@@ -11,7 +10,9 @@ use Admin\Model\Sezioni\SottoSezioniGetter;
  */
 class SottoSezioniGetterWrapper extends RecordsGetterWrapperAbstract
 {
-    /** @var SottoSezioniGetter **/
+    /**
+     * @var SottoSezioniGetter
+     */
     protected $objectGetter;
 
     /**
