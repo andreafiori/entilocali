@@ -70,7 +70,9 @@
                     <td><a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-black" title="Invia ad ente terzo"><i class="fa fa-envelope-square"></i></a></td>
                     <?php endif; ?>
                 <?php else: ?>
-                <td><?php echo utf8_encode($record) ?></td>
+                <td>
+                    <?php echo utf8_encode($record) ?>
+                </td>
                 <?php endif; ?>
             <?php endforeach; ?>
         </tr>

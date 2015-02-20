@@ -30,6 +30,9 @@ class SezioniForm extends Form
         ));
     }
 
+    /**
+     * @param array $languages
+     */
     public function addLingue(array $languages)
     {
         $this->add(array(
@@ -44,6 +47,7 @@ class SezioniForm extends Form
                 ),
             ),
             'attributes' => array(
+                'required' => 'required',
                 'title' => 'Seleziona lingua',
                 'id'    => 'lingua'
             )
@@ -77,6 +81,7 @@ class SezioniForm extends Form
                 ),
             ),
             'attributes' => array(
+                'required' => 'required',
                 'title' => 'Seleziona colonna',
                 'id'    => 'colonna'
             )
@@ -84,7 +89,7 @@ class SezioniForm extends Form
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
-            'name' => 'status',
+            'name' => 'attivo',
             'options' => array(
                 'label' => '* Stato',
                 'empty_option' => 'Seleziona',
@@ -94,8 +99,9 @@ class SezioniForm extends Form
                 ),
             ),
             'attributes' => array(
-                'title' => 'Seleziona stato',
-                'id'    => 'status'
+                'required' => 'required',
+                'title'    => 'Seleziona stato',
+                'id'       => 'attivo'
             )
         ));
 
@@ -115,9 +121,19 @@ class SezioniForm extends Form
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'posizione',
+            'attributes' => array(
+                "class" => 'hiddenField',
+                'id' => 'posizione'
+            )
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Hidden',
             'name' => 'id',
             'attributes' => array(
-                "class" => 'hiddenField'
+                "class" => 'hiddenField',
+                'id' => 'id'
             )
         ));
     }

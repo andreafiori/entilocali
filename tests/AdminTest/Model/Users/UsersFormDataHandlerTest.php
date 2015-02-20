@@ -11,19 +11,20 @@ use Admin\Model\Users\UsersFormDataHandler;
  */
 class UsersFormDataHandlerTest extends TestSuite
 {
-    private $usersFormDataHandler;
+    private $formDataHandler;
     
     protected function setUp()
     {
         parent::setUp();
         
-        $this->usersFormDataHandler = new UsersFormDataHandler( $this->getFrontendCommonInput() );
+        $this->formDataHandler = new UsersFormDataHandler( $this->getFrontendCommonInput() );
     }
-    
-    public function testGetFormAction()
+
+    public function testFormVars()
     {
-        $this->assertTrue( is_string($this->usersFormDataHandler->getFormAction()) );
-        
-        $this->assertTrue( is_string($this->usersFormDataHandler->getFormAction(array( array('id'=>'1') ))) );
+        $this->assertNotEmpty( $this->formDataHandler->getVarToExport('form') );
+        $this->assertNotEmpty( $this->formDataHandler->getVarToExport('formAction') );
+        $this->assertNotEmpty( $this->formDataHandler->getVarToExport('formTitle') );
+        $this->assertNotEmpty( $this->formDataHandler->getVarToExport('formDescription') );
     }
 }

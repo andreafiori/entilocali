@@ -13,7 +13,7 @@ class AlboPretorioArticoliCrudHandler extends CrudHandlerAbstract implements Cru
 {
     private $tableName = 'zfcms_comuni_albo_articoli';
     
-    protected function insert()
+    public function insert()
     {
         $this->getConnection()->beginTransaction();
         try {
@@ -76,8 +76,8 @@ class AlboPretorioArticoliCrudHandler extends CrudHandlerAbstract implements Cru
             return $this->setErrorMessage($e->getMessage());
         }
     }
-    
-    protected function update()
+
+    public function update()
     {
         try {
             $this->setArrayRecordToHandle('titolo', 'titolo');

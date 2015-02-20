@@ -3,7 +3,6 @@
 namespace Admin\Model\Users;
 
 use Admin\Model\FormData\FormDataAbstract;
-use Admin\Model\Users\UsersForm;
 
 /**
  * @author Andrea Fiori
@@ -11,10 +10,8 @@ use Admin\Model\Users\UsersForm;
  */
 class UsersFormDataHandler  extends FormDataAbstract
 {
-    private $usersGetterWrapper;
-    
     /**
-     * @param array $input
+     * @inheritdoc
      */
     public function __construct(array $input)
     {
@@ -22,10 +19,13 @@ class UsersFormDataHandler  extends FormDataAbstract
         
         $param = $this->getInput('param', 1);
 
-        $records = $this->getUserRecord($param['route']['option']);
+        if (isset($param['route']['option'])) {
+            $records = $this->getUserRecord($param['route']['option']);
+        }
 
         $form = new UsersForm();
-        if ($records) {
+        if (!empty($records)) {
+            $formAction      = 'users/update/'.$records[0]['id'];
             $formTitle       = 'Modifica utente';
             $formDescription = 'Modifica dati utente.';
 
@@ -33,16 +33,18 @@ class UsersFormDataHandler  extends FormDataAbstract
         } else {
             $formTitle       = 'Nuovo utente';
             $formDescription = 'Creazione nuovo utente.';
+            $formAction      = 'users/insert/';
         }
 
         $this->setVariable('form',              $form);
         $this->setVariable('formTitle',         $formTitle);
         $this->setVariable('formDescription',   $formDescription);
-        $this->setVariable('formAction',        $this->getFormAction($records));
+        $this->setVariable('formAction',        $formAction);
         
         $this->setVariable('formBreadCrumbCategory',    'Utenti');
         $this->setVariable('formBreadCrumbCategoryLink', $this->getInput('baseUrl',1).'datatable/users');
-    } 
+    }
+
         /**
          * @param number $idUser
          * @return boolean
@@ -59,16 +61,4 @@ class UsersFormDataHandler  extends FormDataAbstract
             
             return $usersGetterWrapper->getRecords();
         }
-
-    /**
-     * @return string
-     */
-    public function getFormAction($record = null)
-    {
-        if (isset($record[0]['id'])) {
-            return 'users/update/'.$record[0]['id'];
-        }
-        
-        return 'users/insert/';
-    }
 }

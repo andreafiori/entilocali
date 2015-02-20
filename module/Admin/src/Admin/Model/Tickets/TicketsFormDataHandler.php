@@ -12,7 +12,7 @@ use Admin\Model\Tickets\TicketsForm;
 class TicketsFormDataHandler extends FormDataAbstract
 {
     /**
-     * @param array $input
+     * @inheritdoc
      */
     public function __construct(array $input)
     {
@@ -23,7 +23,7 @@ class TicketsFormDataHandler extends FormDataAbstract
         $this->setVariable('formTitle',         "Nuova richiesta di assistenza");
         $this->setVariable('formDescription',   "A seguito della richiesta, l'amministrazione provveder&agrave; a rispondere non appena possibile");
         $this->setVariable('form',              $form);
-        $this->setVariable('formAction',        "");
+        $this->setVariable('formAction',        "tickets/insert");
         
         $this->setVariable('formBreadCrumbCategory', "Assistenza");
         $this->setVariable('formBreadCrumbCategoryLink', $this->getInput('baseUrl',1).'datatable/ticketing');

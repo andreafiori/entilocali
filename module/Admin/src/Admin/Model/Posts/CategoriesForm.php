@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Model\Categories;
+namespace Admin\Model\Posts;
 
 use Zend\Form\Form;
 

@@ -24,7 +24,7 @@ class SottoSezioniGetterWrapper extends RecordsGetterWrapperAbstract
     }
     
     public function setupQueryBuilder()
-    { 
+    {
         $this->objectGetter->setSelectQueryFields( $this->getInput('fields', 1) );
 
         $this->objectGetter->setMainQuery();

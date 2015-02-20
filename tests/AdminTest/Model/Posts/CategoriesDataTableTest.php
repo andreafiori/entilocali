@@ -1,9 +1,9 @@
 <?php
 
-namespace AdminTest\Model\Categories;
+namespace AdminTest\Model\Posts;
 
 use ApplicationTest\TestSuite;
-use Admin\Model\Categories\CategoriesDataTable;
+use Admin\Model\Posts\CategoriesDataTable;
 
 /**
  * @author Andrea Fiori

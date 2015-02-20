@@ -11,7 +11,7 @@ use Admin\Model\FormData\FormDataAbstract;
 class SottoSezioniFormDataHandler extends FormDataAbstract
 {
     /**
-     * @param array $input
+     * @inheritdoc
      */
     public function __construct(array $input)
     {
@@ -37,30 +37,32 @@ class SottoSezioniFormDataHandler extends FormDataAbstract
             $formAction = 'sottosezioni-contenuti/insert/';
         }
 
+        $baseUrl = $this->getInput('baseUrl', 1);
+
         $this->setVariables( array(
-                'formTitle'              => $formTitle,
-                'formDescription'        => 'Dati relativi alle sotto sezioni',
                 'form'                   => $form,
                 'formAction'             => $formAction,
+                'formTitle'              => $formTitle,
+                'formDescription'        => 'Dati relativi alle sotto sezioni',
                 'submitButtonValue'      => $submitButtonValue,
                 'formBreadCrumbCategory' => 'Sotto sezioni',
-                'formBreadCrumbCategoryLink' => $this->getInput('baseUrl', 1).'datatable/sottosezioni-contenuti/',
+                'formBreadCrumbCategoryLink' => $baseUrl.'datatable/sottosezioni-contenuti/',
             )
         );
     }
 
-    /**
-     * @param int|null $id
-     * @return array|null
-     */
-    private function getFormRecord($id)
-    {
-        if (is_numeric($id)) {
-            $wrapper = new SottoSezioniGetterWrapper( new SottoSezioniGetter($this->getInput('entityManager',1)) );
-            $wrapper->setInput( array('id' => $id, 'limit' => 1) );
-            $wrapper->setupQueryBuilder();
+        /**
+         * @param int|null $id
+         * @return array|null
+         */
+        private function getFormRecord($id)
+        {
+            if (is_numeric($id)) {
+                $wrapper = new SottoSezioniGetterWrapper( new SottoSezioniGetter($this->getInput('entityManager',1)) );
+                $wrapper->setInput( array('id' => $id, 'limit' => 1) );
+                $wrapper->setupQueryBuilder();
 
-            return $wrapper->getRecords();
+                return $wrapper->getRecords();
+            }
         }
-    }
 }

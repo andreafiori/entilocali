@@ -5,8 +5,8 @@ namespace AdminTest\Model\Posts;
 use ApplicationTest\TestSuite;
 use Admin\Model\Posts\PostsGetter;
 use Admin\Model\Posts\PostsGetterWrapper;
-use Admin\Model\Categories\CategoriesGetter;
-use Admin\Model\Categories\CategoriesGetterWrapper;
+use Admin\Model\Posts\CategoriesGetter;
+use Admin\Model\Posts\CategoriesGetterWrapper;
 
 /**
  * @author Andrea Fiori
@@ -34,7 +34,7 @@ class PostsFormDataAbstractTest extends TestSuite
     public function testSetCategorieGetterWrapper()
     {
         $this->assertInstanceOf(
-            '\Admin\Model\Categories\CategoriesGetterWrapper', 
+            '\Admin\Model\Posts\CategoriesGetterWrapper',
             $this->setupCategorieGetterWrapper()
         );
     }
@@ -72,7 +72,7 @@ class PostsFormDataAbstractTest extends TestSuite
     }
     
         /**
-         * @return \Admin\Model\Categories\CategoriesGetterWrapper
+         * @return \Admin\Model\Posts\CategoriesGetterWrapper
          */
         private function setupCategorieGetterWrapper()
         {

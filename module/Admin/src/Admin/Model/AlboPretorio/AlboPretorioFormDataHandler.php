@@ -13,7 +13,7 @@ use Admin\Model\Users\UsersGetterWrapper;
 class AlboPretorioFormDataHandler extends FormDataAbstract
 {
     /**
-     * @param array $input
+     * @inheritdoc
      */
     public function __construct(array $input)
     {

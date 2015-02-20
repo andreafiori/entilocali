@@ -14,8 +14,10 @@ class ContenutiCrudHandler extends CrudHandlerAbstract
 
     protected function insert()
     {
+        $userDetails  = $this->getInput('userDetails', 1);
+
+        $this->getConnection()->beginTransaction();
         try {
-            $this->getConnection()->beginTransaction();
             $this->getConnection()->insert($this->tableName, array(
                 'titolo'           => $this->rawPost['titolo'],
                 'anno'             => date("Y"),
@@ -27,8 +29,8 @@ class ContenutiCrudHandler extends CrudHandlerAbstract
                 'attivo'           => $this->rawPost['attivo'],
                 'sottosezione_id'  => $this->rawPost['sottosezione'],
                 'home' => isset($this->rawPost['home']) ? $this->rawPost['home'] : 0,
-                'evidenza'         => $this->rawPost['evidenza'],
-                'utente_id'        => $this->rawPost['user'],
+                'evidenza'         => isset($this->rawPost['evidenza']) ? $this->rawPost['evidenza'] : 0,
+                'utente_id'        => $userDetails->id,
                 /*
                 'rss' => $this->rawPost['rss'],
                 'slug' => $this->rawPost['titolo'],
@@ -44,12 +46,26 @@ class ContenutiCrudHandler extends CrudHandlerAbstract
 
         } catch (\Exception $e) {
             $this->getConnection()->rollBack();
-            return $this->setErrorMessage($e->getMessage());
+
+            // Log
+            $errorMessage = $e->getMessage();
+
+            $logsWriter = $this->getLogsWriter();
+            $logResult = $logsWriter->writeLog(array(
+                'user_id'   => $userDetails->id,
+                'module_id' => '2',
+                'message'   => $userDetails->name.' '.$userDetails->surname."', errore durante l'inserimento della sezione ".$this->rawPost['nome'].' Messaggio: '.$errorMessage,
+                'type'      => 'error',
+                'backend'   => 1,
+            ));
+
+            return $this->setErrorMessage($errorMessage);
         }
     }
 
     protected function update()
     {
+        $this->getConnection()->beginTransaction();
         try {
             $error = array();
 
@@ -60,6 +76,11 @@ class ContenutiCrudHandler extends CrudHandlerAbstract
                 }
             }
 
+            if (!empty($error)) {
+                $this->setErrorMessage($error);
+                return;
+            }
+
             $this->setArrayRecordToHandle('sottosezione_id', 'sottosezione');
             $this->setArrayRecordToHandle('titolo', 'titolo');
             $this->setArrayRecordToHandle('sommario', 'sommario');
@@ -68,7 +89,6 @@ class ContenutiCrudHandler extends CrudHandlerAbstract
             $this->setArrayRecordToHandle('data_scadenza', 'dataScadenza');
             $this->setArrayRecordToHandle('attivo', 'attivo');
 
-            $this->getConnection()->beginTransaction();
             $this->getConnection()->update($this->tableName,
                 $this->getArrayRecordToHandle(),
                 array('id' => $this->rawPost['id'])

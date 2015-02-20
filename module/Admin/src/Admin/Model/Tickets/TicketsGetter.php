@@ -22,8 +22,8 @@ class TicketsGetter extends QueryBuilderHelperAbstract
     }
     
     /**
-     * @param number or array $id
-     * @return type
+     * @param int|array $id
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setId($id)
     {

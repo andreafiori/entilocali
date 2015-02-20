@@ -33,6 +33,10 @@ class SezioniFormDataHandler extends FormDataAbstract
             $formTitle = $recordFromDb[0]['nome'];
             $formAction = 'sezioni-contenuti/update/';
         } else {
+            $form->setData(array(
+                'posizione' => 1,
+            ));
+
             $formTitle = 'Nuova sezione';
             $submitButtonValue = 'Inserisci';
             $formAction = 'sezioni-contenuti/insert/';

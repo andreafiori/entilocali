@@ -18,14 +18,46 @@ class SottoSezioniForm extends Form
         parent::__construct($name, $options);
 
         $this->add(array(
-            'name' => 'nome',
+            'name' => 'immagine',
+            'type' => 'File',
+            'options' => array( 'label' => 'Immagine' ),
+            'attributes' => array(
+                'placeholder'   => 'Immagine...',
+                'title'         => 'Inserisci immagine',
+                'id'            => 'immagine',
+            )
+        ));
+
+        $this->add(array(
+            'name' => 'nomeSezione',
             'type' => 'Text',
             'options' => array( 'label' => '* Nome' ),
             'attributes' => array(
-                'required' => 'required',
-                'placeholder' => 'Nome...',
-                'title' => 'Inserisci nome sotto sezione',
-                'id' => 'nome',
+                'required'      => 'required',
+                'placeholder'   => 'Nome...',
+                'title'         => 'Inserisci nome sotto sezione',
+                'id'            => 'nomeSezione',
+            )
+        ));
+
+        $this->add(array(
+            'name' => 'posizione',
+            'type' => 'Text',
+            'options' => array( 'label' => '* Posizione' ),
+            'attributes' => array(
+                'required'      => 'required',
+                'type'          => 'number',
+                'placeholder'   => 'Posizione...',
+                'title'         => 'Inserisci numero posizione',
+                'id'            => 'posizione',
+            )
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'id',
+            'attributes' => array(
+                "class" => 'hiddenField'
             )
         ));
     }

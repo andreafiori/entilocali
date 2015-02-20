@@ -3,11 +3,6 @@
 namespace Admin\Model\Posts;
 
 use Admin\Model\FormData\FormDataAbstract;
-use Admin\Model\Posts\PostsForm;
-use Admin\Model\Posts\PostsGetter;
-use Admin\Model\Posts\PostsGetterWrapper;
-use Admin\Model\Categories\CategoriesGetter;
-use Admin\Model\Categories\CategoriesGetterWrapper;
 
 /**
  * @author Andrea Fiori

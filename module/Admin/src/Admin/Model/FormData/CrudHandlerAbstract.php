@@ -3,6 +3,7 @@
 namespace Admin\Model\FormData;
 
 use Application\Model\RouterManagers\RouterManagerAbstract;
+use Admin\Model\Logs\LogsWriter;
 
 /**
  * @author Andrea Fiori
@@ -10,7 +11,9 @@ use Application\Model\RouterManagers\RouterManagerAbstract;
  */
 abstract class CrudHandlerAbstract extends RouterManagerAbstract
 {
-    /** @var \Doctrine\DBAL\Connection */
+    /**
+     * @var \Doctrine\DBAL\Connection
+     */
     protected $connection;
     
     protected $allowedOperations = array("insert", "update", "update");
@@ -20,6 +23,8 @@ abstract class CrudHandlerAbstract extends RouterManagerAbstract
     protected $rawFiles;
 
     protected $arrayRecordToHandle = array();
+
+    protected $logsWriter;
 
     /**
      * @param array $input
@@ -81,16 +86,32 @@ abstract class CrudHandlerAbstract extends RouterManagerAbstract
         /**
          * @param string $recordDBField
          * @param string $rawPostKey
+         * @param int $notNull
          *
-         * @return array
+         * @return array|bool
          */
-        protected function setArrayRecordToHandle($recordDBField, $rawPostKey)
+        protected function setArrayRecordToHandle($recordDBField, $rawPostKey, $notNull=0)
         {
+            if ($notNull) {
+                if ( empty($this->rawPost[$rawPostKey]) ) {
+                    return false;
+                }
+            }
+
             if ( isset($this->rawPost[$rawPostKey]) ) {
                 $this->arrayRecordToHandle[$recordDBField] = $this->rawPost[$rawPostKey];
             }
 
             return $this->arrayRecordToHandle;
+        }
+
+        /**
+         * @param string $key
+         * @param string $value
+         */
+        protected function setArrayRecordElement($key, $value)
+        {
+            $this->arrayRecordToHandle[$key] = $value;
         }
 
         protected function cleanArrayRecordToHandle()
@@ -111,9 +132,9 @@ abstract class CrudHandlerAbstract extends RouterManagerAbstract
          * @param string $errorMessage
          * @param string $title
          */
-        protected function setErrorMessage($errorMessage, $title = 'Errori verificati')
+        protected function setErrorMessage($errorMessage, $title = 'Errori verificati', $type = 'danger')
         {
-            $this->setVariable('messageType', 'danger');
+            $this->setVariable('messageType', $type);
             $this->setVariable('messageTitle', $title);
             $this->setVariable('messageShowFormLink', 1);
             
@@ -124,17 +145,21 @@ abstract class CrudHandlerAbstract extends RouterManagerAbstract
                 $this->setVariable('messageText', $errorMessage);
             }
         }
-        
+
         /**
          * @param string $title
          * @param string $message
+         * @param string $type
          */
-        protected function setSuccessMessage($title = 'Operazione effettuata con successo', $message = 'I dati sono stati elaborati correttamente')
+        protected function setSuccessMessage(
+            $title = 'Operazione effettuata con successo',
+            $message = 'I dati sono stati elaborati correttamente',
+            $type = 'success')
         {
             $this->setVariables(array(
-                'messageType' => 'success',
-                'messageTitle' => $title,
-                'messageText' => $message,
+                'messageType'   => $type,
+                'messageTitle'  => $title,
+                'messageText'   => $message,
                 'messageShowFormLink' => 1
                 )
             );
@@ -149,5 +174,21 @@ abstract class CrudHandlerAbstract extends RouterManagerAbstract
         if ($operation) {
             $this->$operation();
         }
+    }
+
+    /**
+     * @return LogsWriter
+     */
+    public function getLogsWriter()
+    {
+        return $this->logsWriter;
+    }
+
+    /**
+     * @param LogsWriter $logsWriter
+     */
+    public function setLogsWriter(LogsWriter $logsWriter)
+    {
+        $this->logsWriter = $logsWriter;
     }
 }

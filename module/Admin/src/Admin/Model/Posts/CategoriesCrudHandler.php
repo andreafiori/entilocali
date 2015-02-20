@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Model\Categories;
+namespace Admin\Model\Posts;
 
 use Admin\Model\FormData\CrudHandlerInterface;
 use Admin\Model\FormData\CrudHandlerAbstract;

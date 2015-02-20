@@ -153,8 +153,8 @@ abstract class AlboPretorioFormAbstract extends Form
         }
 
     /**
-     * @param type $name
-     * @param type $label
+     * @param string $name
+     * @param string $label
      */
     public function addSubmitButton($name = null, $label = null)
     {

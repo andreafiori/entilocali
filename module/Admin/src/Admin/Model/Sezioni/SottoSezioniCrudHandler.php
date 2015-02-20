@@ -10,9 +10,32 @@ use Admin\Model\FormData\CrudHandlerAbstract;
  */
 class SottoSezioniCrudHandler extends CrudHandlerAbstract
 {
+    private $tableName = 'zfcms_comuni_sottosezioni';
+
     public function insert()
     {
+        $this->getConnection()->beginTransaction();
+        try {
 
+            $this->getConnection()->insert($this->tableName, array(
+                'nome' => $this->rawPost['nome'],
+                //'immagine' => $this->rawPost['immagine'],
+                'url' => $this->rawPost['url'],
+                'posizione' => $this->rawPost['posizione'],
+                'attivo' => $this->rawPost['attivo'],
+                //'profondita_da' => $this->rawPost['profondita_da'],
+                //'profondita_a' => $this->rawPost['profondita_a'],
+                //'slug' => $this->rawPost['slug'],
+            ));
+
+            $this->getConnection()->commit();
+
+            $this->setSuccessMessage();
+
+        } catch (\Exception $e) {
+            $this->getConnection()->rollBack();
+            return $this->setErrorMessage($e->getMessage());
+        }
     }
 
     public function update()
@@ -21,14 +44,13 @@ class SottoSezioniCrudHandler extends CrudHandlerAbstract
 
         $this->getConnection()->beginTransaction();
         try {
-            /*
+
             $affectedRows = $this->getConnection()->update(
-                $this->usersTable, $this->getArrayRecordToHandle(), array('id' => $this->rawPost['id'])
+                $this->tableName, $this->getArrayRecordToHandle(), array('id' => $this->rawPost['id'])
             );
 
             $this->getConnection()->commit();
 
-            */
             $this->setSuccessMessage();
         } catch(\Exception $e) {
             $this->getConnection()->rollBack();

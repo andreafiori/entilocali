@@ -3,8 +3,8 @@
 namespace AdminTest\Model\Categories;
 
 use ApplicationTest\TestSuite;
-use Admin\Model\Categories\CategoriesGetter;
-use Admin\Model\Categories\CategoriesGetterWrapper;
+use Admin\Model\Posts\CategoriesGetter;
+use Admin\Model\Posts\CategoriesGetterWrapper;
 
 /**
  * @author Andrea Fiori

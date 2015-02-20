@@ -1,6 +1,7 @@
 <?php
 
 namespace Admin\Model\Logs;
+use Application\Model\NullException;
 
 /**
  * @author Andrea Fiori
@@ -23,7 +24,8 @@ class LogsWriter
 
     /**
      * @param array $arrayValues
-     * @return mixed
+     *
+     * @return bool|string
      *
      * @throws \Doctrine\DBAL\ConnectionException
      */
@@ -31,20 +33,53 @@ class LogsWriter
     {
         $this->getConnection()->beginTransaction();
         try {
+            $arrayValues = $this->validateValues($arrayValues);
+
             $this->getConnection()->insert('zfcms_logs', $arrayValues);
-        } catch (\Exception $e) {
+
+            $this->getConnection()->commit();
+
+        } catch (NullException $e) {
             $this->getConnection()->rollBack();
 
             return $e->getMessage();
         }
+
+        return true;
     }
 
         /**
          * @param array $arrayValues
+         *
+         * @return array
+         *
+         * @throws NullException
          */
         private function validateValues(array $arrayValues)
         {
+            if (!isset($arrayValues['user_id'])) {
+                throw new NullException('User ID is not set');
+            }
 
+            if (!isset($arrayValues['module_id'])) {
+                throw new NullException('Module ID is not set');
+            }
+
+            if (!isset($arrayValues['message'])) {
+                throw new NullException('Message text is not set');
+            }
+
+            if (!isset($arrayValues['type'])) {
+                $arrayValues['backend'] = 1;
+            }
+
+            if (!isset($arrayValues['backend'])) {
+                $arrayValues['backend'] = 0;
+            }
+
+            $arrayValues['datetime'] = date("Y-m-d H:i:s");
+
+            return $arrayValues;
         }
 
         /**

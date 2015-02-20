@@ -1,10 +1,8 @@
 <?php
 
-namespace Admin\Model\Categories;
+namespace Admin\Model\Posts;
 
 use Admin\Model\DataTable\DataTableAbstract;
-use Admin\Model\Categories\CategoriesGetter;
-use Admin\Model\Categories\CategoriesGetterWrapper;
 
 /**
  * @author Andrea Fiori

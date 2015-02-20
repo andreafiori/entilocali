@@ -6,6 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Admin\Model\Config\ConfigGetter;
 use Admin\Model\Config\ConfigGetterWrapper;
 use Application\Setup\UserInterfaceConfigurations;
+use Zend\Session\Container as SessionContainer;
 
 /**
  * @author Andrea Fiori
@@ -42,13 +43,33 @@ abstract class SetupAbstractController extends AbstractActionController
     {
         return $this->userInterfaceConfigurations->getConfigurations();
     }
-    
+
+    /**
+     * @return bool
+     */
     public function checkLogin()
-    { 
+    {
         if (!$this->getServiceLocator()->get('AuthService')->hasIdentity()) {
             return false;
         }
         
         return true;
+    }
+
+    /**
+     * @return \stdClass
+     */
+    protected function recoverUserDetails()
+    {
+        $session = new SessionContainer();
+
+        $userDetails            = new \stdClass();
+        $userDetails->id        = $session->offsetGet('id');
+        $userDetails->name      = $session->offsetGet('name');
+        $userDetails->surname   = $session->offsetGet('surname');
+        $userDetails->role      = $session->offsetGet('role');
+        $userDetails->acl       = $session->offsetGet('acl');
+
+        return $userDetails;
     }
 }

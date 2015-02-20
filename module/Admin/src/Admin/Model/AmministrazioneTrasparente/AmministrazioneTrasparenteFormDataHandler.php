@@ -9,7 +9,6 @@ use Admin\Model\Sezioni\SezioniGetter;
 use Admin\Model\Sezioni\SezioniGetterWrapper;
 use Admin\Model\Sezioni\SottoSezioniGetter;
 use Admin\Model\Sezioni\SottoSezioniGetterWrapper;
-use Admin\Model\Sezioni\SezioniTreeGetter;
 
 /**
  * @author Andrea Fiori

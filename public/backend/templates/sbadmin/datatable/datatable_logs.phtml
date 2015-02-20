@@ -1,0 +1,34 @@
+<?php echo $this->render('backend/templates/'.$this->template_backend.'datatable/datatable_breadcrumb.phtml'); ?>
+
+<p>
+    <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#modalDeleteAllLogs">Elimina tutti i logs</a>
+</p>
+
+<?php echo $this->render('backend/templates/common/datatables_zend_pagination.phtml'); ?>
+
+<!-- Modal Delete All logs -->
+<div class="modal fade" id="modalDeleteAllLogs" tabindex="-1" role="dialog" aria-labelledby="ConfirmDeleteModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content panel-danger">
+
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="deleteModalLabel"><strong>Conferma eliminazione?</strong></h4>
+            </div>
+
+            <form action="" method="post">
+                <div class="modal-body">
+                    <p><strong>Attenzione:</strong> TUTTI i log relativi alle attivit&agrave; precedenti verranno definitivamente eliminati.</p>
+
+                    <input type="hidden" value="1" name="deleteAllLogs">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
+                    <button type="submit" class="btn btn-danger">Conferma</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

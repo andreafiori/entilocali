@@ -12,7 +12,7 @@ class LogsGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('l.utente, l.datetime, l.azione');
+        $this->setSelectQueryFields('l.id, l.userId, l.datetime, l.message, l.type, l.backend');
 
         $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
                                 ->from('Application\Entity\ZfcmsLogs', 'l')
@@ -22,7 +22,7 @@ class LogsGetter extends QueryBuilderHelperAbstract
     }
 
     /**
-     * @param number|array $id
+     * @param int|array $id
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function setId($id)

@@ -22,18 +22,22 @@ class UsersCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
     {
         $this->setArrayRecordToHandle('name', 'name');
         $this->setArrayRecordToHandle('surname', 'surname');
-        $this->setArrayRecordToHandle('password', 'password');
-        $this->setArrayRecordToHandle('password-confirm', 'password-confirm');
+        $this->setArrayRecordToHandle('password', 'password', 1);
 
         if ($this->rawPost['password'] != $this->rawPost['password-confirm']) {
             $this->setErrorMessage('Le due password non coincidono');
             return false;
+        } else {
+            // encrypt md5 pass (temporary)
+            $this->setArrayRecordElement('password', md5($this->rawPost['password']));
         }
 
         $this->getConnection()->beginTransaction();
         try {
             $affectedRows = $this->getConnection()->update(
-                $this->usersTable, $this->getArrayRecordToHandle(), array('id' => $this->rawPost['id'])
+                $this->usersTable,
+                $this->getArrayRecordToHandle(),
+                array('id' => $this->rawPost['id'])
             );
 
             $this->getConnection()->commit();

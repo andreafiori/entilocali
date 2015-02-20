@@ -21,10 +21,11 @@ class TicketsForm extends Form
             'name' => 'oggetto', 
             'type' => 'Zend\Form\Element\Text', 
             'attributes' => array( 
-                'placeholder' => 'Oggetto del problema',
+                'placeholder' => 'Oggetto...',
                 'title' => "Inserisci l'oggetto del problema",
                 'required' => 'required',
-            ), 
+                'id' => 'oggetto'
+            ),
             'options' => array( 
                 'label' => 'Oggetto', 
             ), 
@@ -39,6 +40,7 @@ class TicketsForm extends Form
                 'required' => 'required',
                 'rows' => 8,
                 'cols' => 35,
+                'id' => 'descrizione'
             ),
             'options' => array( 
                 'label' => 'Descrizione',

@@ -11,7 +11,7 @@ use Zend\Form\Form;
 class UsersForm extends Form
 {
     /**
-     * @param type $name
+     * @inheritdoc
      */
     public function __construct($name = null)
     {
@@ -23,7 +23,6 @@ class UsersForm extends Form
                         'options' => array( 'label' => '* Nome' ),
                         'attributes' => array(
                                         'required' => 'required',
-                                        'class' => 'form-control',
                                         'title' => 'Inserisci il nome',
                                         'placeholder' => 'Inserisci il nome',
                                         'id' => 'name',
@@ -36,7 +35,6 @@ class UsersForm extends Form
                         'options' => array( 'label' => '* Cognome' ),
                         'attributes' => array(
                                         'required' => 'required',
-                                        'class'    => 'form-control',
                                         'title'    => 'Inserisci il cognome',
                                         'placeholder' => 'Inserisci il cognome',
                                         'id'          => 'surname',
@@ -49,7 +47,6 @@ class UsersForm extends Form
                         'options' => array( 'label' => '* Email' ),
                         'attributes' => array(
                                         'required'  => 'required',
-                                        'class'     => 'form-control',
                                         'title'     => 'Inserisci indirizzo email',
                                         'placeholder' => 'Inserisci indirizzo email',
                                         'id'        => 'email',
@@ -59,9 +56,9 @@ class UsersForm extends Form
         $this->add(array(
                         'name' => 'username',
                         'type' => 'Text',
-                        'options' => array( 'label' => 'Nome utente' ),
+                        'options' => array( 'label' => '* Nome utente' ),
                         'attributes' => array(
-                                        'class' => 'form-control',
+                                    'required'  => 'required',
                                         'title' => 'Inserisci nome utente',
                                         'placeholder' => 'Inserisci nome utente',
                                         'id'    => 'username',
@@ -73,7 +70,6 @@ class UsersForm extends Form
                         'type' => 'Password',
                         'options' => array( 'label' => 'Password' ),
                         'attributes' => array(
-                                        'class' => 'form-control',
                                         'title' => 'Inserisci password',
                                         'placeholder' => 'Inserisci una password',
                                         'id'    => 'password',

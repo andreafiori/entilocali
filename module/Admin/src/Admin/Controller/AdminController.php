@@ -2,9 +2,9 @@
 
 namespace Admin\Controller;
 
+use Admin\Model\Logs\LogsWriter;
 use Application\Controller\SetupAbstractController;
 use Zend\View\Model\ViewModel;
-use Zend\Session\Container as SessionContainer;
 use Application\Model\RouterManagers\RouterManager;
 use Application\Model\RouterManagers\RouterManagerHelper;
 use Admin\Model\FormData\FormDataCrudHandler;
@@ -31,15 +31,9 @@ class AdminController extends SetupAbstractController
         foreach($configurations as $key => $value) {
             $this->layout()->setVariable($key, $value);
         }
-        
-        $session = new SessionContainer();
-        $userDetails            = new \stdClass();
-        $userDetails->id        = $session->offsetGet('id');
-        $userDetails->name      = $session->offsetGet('name');
-        $userDetails->surname   = $session->offsetGet('surname');
-        $userDetails->role      = $session->offsetGet('role');
-        $userDetails->acl       = $session->offsetGet('acl');
-        
+
+        $userDetails = $this->recoverUserDetails();
+
         $uri = $this->getRequest()->getUri();
         $baseUrl = sprintf('%s://%s%s', $uri->getScheme(), $uri->getHost(), $appServiceLoader->recoverService('request')->getBaseUrl()).'/admin/main/'.$this->params()->fromRoute('lang').'/';
         $input = array_merge(
@@ -102,17 +96,30 @@ class AdminController extends SetupAbstractController
 
         $appServiceLoader = $this->recoverAppServiceLoader();
 
+        $input = array_merge(
+            $appServiceLoader->getProperties(),
+            $appServiceLoader->recoverService('configurations'),
+            array(
+                'userDetails'  => $this->recoverUserDetails(),
+            )
+        );
+
         $formDataCrudHandler = new FormDataCrudHandler();
-        $formDataCrudHandler->setInput($appServiceLoader->getProperties());
+        $formDataCrudHandler->setInput($input);
         $formDataCrudHandler->setFormCrudHandler($this->params()->fromRoute('form_post_handler'));
 
         $crudHandlerObject = $formDataCrudHandler->detectCrudHandlerClassMap(
             $appServiceLoader->recoverServiceKey('moduleConfigs', 'formdata_crud_classmap')
         );
 
+        /**
+         * @var \Admin\Model\FormData\CrudHandlerAbstract $crudHandler
+         */
         $crudHandler = new $crudHandlerObject($appServiceLoader->getProperties());
+        $crudHandler->setInput($input);
         $crudHandler->setConnection($appServiceLoader->recoverService('entityManager')->getConnection());
         $crudHandler->setOperation($this->params()->fromRoute('operation'));
+        $crudHandler->setLogsWriter( new LogsWriter($crudHandler->getConnection()) );
         $crudHandler->performOperation();
 
         $output = $crudHandler->getOutput('export');
@@ -125,5 +132,5 @@ class AdminController extends SetupAbstractController
         $this->layout('backend/templates/'.$appServiceLoader->recoverServiceKey('configurations', 'template_backend').'message.phtml');
         
         return new ViewModel();
-    }        
+    }
 }

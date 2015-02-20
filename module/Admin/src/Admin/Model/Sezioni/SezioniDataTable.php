@@ -27,6 +27,7 @@ class SezioniDataTable extends DataTableAbstract
             'columns'     => array(
                 "Nome",
                 "Colonna",
+                "URL",
                 "&nbsp;",
                 "&nbsp;",
             ),
@@ -49,6 +50,7 @@ class SezioniDataTable extends DataTableAbstract
                     $arrayToReturn[] = array(
                         $row['nome'],
                         $row['colonna'],
+                        $row['url'],
                         array(
                             'type'      => 'updateButton',
                             'href'      => $this->getInput('baseUrl',1).'formdata/sezioni-contenuti/'.$row['id'],

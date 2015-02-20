@@ -11,8 +11,7 @@ use Zend\Form\Form;
 class EntiTerziForm extends Form
 {
     /**
-     * @param string $name
-     * @param string $options
+     * @inheritdoc
      */
     public function __construct($name = null, $options = array())
     {
@@ -21,29 +20,29 @@ class EntiTerziForm extends Form
         $this->add(array(
                         'name' => 'nome',
                         'type' => 'Text',
-                        'options' => array( 'label' => '* Nome' ),
+                        'options' => array('label' => '* Nome'),
                         'attributes' => array(
-                                        'required' => 'required',
-                                        'class' => 'form-control',
-                                        'placeholder' => 'Nome...',
-                                        'title' => 'Inserisci il nome',
-                                        'id' => 'nome',
+                                    'required' => 'required',
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Nome...',
+                                    'title' => 'Inserisci il nome',
+                                    'id' => 'nome',
                         )
         ));
-        
+
         $this->add(array(
                         'name' => 'email',
                         'type' => 'Email',
                         'options' => array( 'label' => '* Email' ),
                         'attributes' => array(
-                                        'required'      => 'required',
-                                        'class'         => 'form-control',
-                                        'placeholder'   => 'Email...',
-                                        'title'         => 'Inserisci email ente terzo',
-                                        'id'            => 'email',
+                                    'required'      => 'required',
+                                    'class'         => 'form-control',
+                                    'placeholder'   => 'Email...',
+                                    'title'         => 'Inserisci email ente terzo',
+                                    'id'            => 'email',
                         )
         ));
-        
+
         $this->add(array(
                         'type' => 'Zend\Form\Element\Hidden',
                         'name' => 'id',

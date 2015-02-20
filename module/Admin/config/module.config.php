@@ -81,6 +81,19 @@ return array(
                                                 ),
                                     ),
                     ),
+                    'config-edit' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'       => 'config-edit[/]',
+                            'constraints' => array(
+
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Admin',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
                     'invio-ente-terzo' => array(
                                     'type'    => 'Segment',
                                     'options' => array(
@@ -145,6 +158,7 @@ return array(
             'admin/admin/index'             => __DIR__ . '../../view/admin/index.phtml',
             'admin/admin/formpost'          => __DIR__ . '../../view/admin/formpost-empty.phtml',
             'admin/admin/invio-ente-terzo'  => __DIR__ . '/../view/invio-ente-terzo-empty.phtml',
+            'admin/admin/invio-ente-terzo'  => __DIR__ . '/../view/config-edit-empty.phtml',
             'admin/'                        => __DIR__ . '/../view/empty.phtml',
         ),
         'template_path_stack' => array(
@@ -156,6 +170,7 @@ return array(
     'be_router' => array(
         "admin"                     => '\Admin\Model\AdminDashboard',
         "admin/formdata"            => '\Admin\Model\FormData\FormDataHandler',
+        "admin/config-edit"         => '\Admin\Model\Config\ConfigEditHandler',
         "admin/datatable"           => '\Admin\Model\DataTable\DataTableHandler',
         "admin/invio-ente-terzo"    => '\Admin\Model\EntiTerzi\InvioEnteTerzoHandler',
         "admin/sezioni"             => '\Admin\Model\Sezioni\SezioniHandler',
@@ -182,7 +197,7 @@ return array(
         'contratti-pubblici-operatori'          => 'Admin\Model\ContrattiPubblici\OperatoriFormDataHandler',
         'enti-terzi'                    => 'Admin\Model\EntiTerzi\EntiTerziFormDataHandler',
         'posts'                         => 'Admin\Model\Posts\PostsFormDataHandler',
-        'categories'                    => 'Admin\Model\Categories\CategoriesFormDataHandler',
+        'categories'                    => 'Admin\Model\Posts\CategoriesFormDataHandler',
         'tickets'                       => 'Admin\Model\Tickets\TicketsFormDataHandler',
         'users'                         => 'Admin\Model\Users\UsersFormDataHandler',
     ),
@@ -195,7 +210,7 @@ return array(
         'atti-concessione'            => 'Admin\Model\AttiConcessione\AttiConcessioneCrudHandler',
         'atti-concessione-settori'    => 'Admin\Model\AttiConcessione\AttiConcessioneSettoriCrudHandler',
         'atti-concessione-resp'       => 'Admin\Model\AttiConcessione\AttiConcessioneRespProcCrudHandler',
-        'categories'                  => 'Admin\Model\Categories\CategoriesCrudHandler',
+        'categories'                  => 'Admin\Model\Posts\CategoriesCrudHandler',
         'contenuti'                   => 'Admin\Model\Contenuti\ContenutiCrudHandler',
         'sezioni-contenuti'           => 'Admin\Model\Sezioni\SezioniCrudHandler',
         'contratti-pubblici'          => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciCrudHandler',
@@ -218,7 +233,7 @@ return array(
     /* DataTables Class Map */
     'datatables_classmap' => array(
         'tickets'                     => 'Admin\Model\Tickets\TicketsDataTable',
-        'categories'                  => 'Admin\Model\Categories\CategoriesDataTable',
+        'categories'                  => 'Admin\Model\Posts\CategoriesDataTable',
         'contacts'                    => 'Admin\Model\Contacts\ContactsDataTable',
         'faq'                         => 'Admin\Model\Faq\FaqDataTable',
         'newsletter'                  => 'Admin\Model\Newsletter\NewsletterDataTable',
@@ -228,7 +243,6 @@ return array(
         'contents'                    => 'Admin\Model\Posts\PostsDataTable',
         'photo'                       => 'Admin\Model\Posts\PostsDataTable',
         'blog'                        => 'Admin\Model\Posts\PostsDataTable',
-        'users'                       => 'Admin\Model\Users\UsersDataTable',
         'albo-pretorio'               => 'Admin\Model\AlboPretorio\AlboPretorioArticoliDataTable',
         'atti-ufficiali'              => 'Admin\Model\AlboPretorio\AttiUfficialiDataTable',
         'albo-pretorio-sezioni'       => 'Admin\Model\AlboPretorio\AlboPretorioSezioniDataTable',
@@ -243,7 +257,9 @@ return array(
         'contratti-pubblici-partecipanti'       => 'Admin\Model\ContrattiPubblici\PartecipantiDataTable',
         'contratti-pubblici-operatori'          => 'Admin\Model\ContrattiPubblici\OperatoriDataTable',
         'enti-terzi'                  => 'Admin\Model\EntiTerzi\EntiTerziDataTable',
+        'logs'                        => 'Admin\Model\Logs\LogsDataTable',
         'stato-civile'                => 'Admin\Model\StatoCivile\StatoCivileDataTable',
         'stato-civile-sezioni'        => 'Admin\Model\StatoCivile\StatoCivileSezioniDataTable',
+        'users'                       => 'Admin\Model\Users\UsersDataTable',
     ),
 );
