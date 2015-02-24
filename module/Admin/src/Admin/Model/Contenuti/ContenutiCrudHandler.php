@@ -51,10 +51,10 @@ class ContenutiCrudHandler extends CrudHandlerAbstract
             $errorMessage = $e->getMessage();
 
             $logsWriter = $this->getLogsWriter();
-            $logResult = $logsWriter->writeLog(array(
+            $logsWriter->writeLog(array(
                 'user_id'   => $userDetails->id,
                 'module_id' => '2',
-                'message'   => $userDetails->name.' '.$userDetails->surname."', errore durante l'inserimento della sezione ".$this->rawPost['nome'].' Messaggio: '.$errorMessage,
+                'message'   => $userDetails->name.' '.$userDetails->surname."', errore durante l'inserimento del contento ".$this->rawPost['nome'].' Messaggio: '.$errorMessage,
                 'type'      => 'error',
                 'backend'   => 1,
             ));
@@ -65,6 +65,8 @@ class ContenutiCrudHandler extends CrudHandlerAbstract
 
     protected function update()
     {
+        $userDetails  = $this->getInput('userDetails', 1);
+
         $this->getConnection()->beginTransaction();
         try {
             $error = array();
@@ -81,13 +83,13 @@ class ContenutiCrudHandler extends CrudHandlerAbstract
                 return;
             }
 
-            $this->setArrayRecordToHandle('sottosezione_id', 'sottosezione');
-            $this->setArrayRecordToHandle('titolo', 'titolo');
-            $this->setArrayRecordToHandle('sommario', 'sommario');
-            $this->setArrayRecordToHandle('testo', 'testo');
+            $this->setArrayRecordToHandle('sottosezione_id',  'sottosezione');
+            $this->setArrayRecordToHandle('titolo',           'titolo');
+            $this->setArrayRecordToHandle('sommario',         'sommario');
+            $this->setArrayRecordToHandle('testo',            'testo');
             $this->setArrayRecordToHandle('data_inserimento', 'dataInserimento');
-            $this->setArrayRecordToHandle('data_scadenza', 'dataScadenza');
-            $this->setArrayRecordToHandle('attivo', 'attivo');
+            $this->setArrayRecordToHandle('data_scadenza',    'dataScadenza');
+            $this->setArrayRecordToHandle('attivo',           'attivo');
 
             $this->getConnection()->update($this->tableName,
                 $this->getArrayRecordToHandle(),
@@ -100,7 +102,62 @@ class ContenutiCrudHandler extends CrudHandlerAbstract
 
         } catch (\Exception $e) {
             $this->getConnection()->rollBack();
-            return $this->setErrorMessage($e->getMessage());
+
+            // Log
+            $errorMessage = $e->getMessage();
+
+            $logsWriter = $this->getLogsWriter();
+            $logsWriter->writeLog(array(
+                'user_id'   => $userDetails->id,
+                'module_id' => 2,
+                'message'   => $userDetails->name.' '.$userDetails->surname."', errore durante l'inserimento del contenuto ".$this->rawPost['nome'].' Messaggio: '.$errorMessage,
+                'type'      => 'error',
+                'backend'   => 1,
+            ));
+
+            return $this->setErrorMessage($errorMessage);
+        }
+    }
+
+    public function delete($id, array $recordDataDeleted)
+    {
+        $userDetails  = $this->getInput('userDetails', 1);
+
+        $this->getConnection()->beginTransaction();
+        try {
+
+            $this->getConnection()->delete( $this->tableName, array('id' => $id) );
+
+            $this->getConnection()->commit();
+
+            // Log
+            $logsWriter = $this->getLogsWriter();
+            $logsWriter->writeLog(array(
+                'user_id'   => $userDetails->id,
+                'module_id' => 2,
+                'message'   => $userDetails->name.' '.$userDetails->surname."', ha cancellato il contenuto ".$id,
+                'type'      => 'error',
+                'backend'   => 1,
+            ));
+
+            $this->setSuccessMessage();
+
+        } catch (\Exception $e) {
+            $this->getConnection()->rollBack();
+
+            // Log
+            $errorMessage = $e->getMessage();
+
+            $logsWriter = $this->getLogsWriter();
+            $logsWriter->writeLog(array(
+                'user_id'   => $userDetails->id,
+                'module_id' => '2',
+                'message'   => $userDetails->name.' '.$userDetails->surname."', errore durante la cancellazione del contenuto ".$this->rawPost['nome'].' Messaggio: '.$errorMessage,
+                'type'      => 'error',
+                'backend'   => 1,
+            ));
+
+            return $this->setErrorMessage($errorMessage);
         }
     }
 }

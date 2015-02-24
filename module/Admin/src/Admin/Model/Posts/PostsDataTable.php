@@ -3,8 +3,6 @@
 namespace Admin\Model\Posts;
 
 use Admin\Model\DataTable\DataTableAbstract;
-use Admin\Model\Posts\PostsGetter;
-use Admin\Model\Posts\PostsGetterWrapper;
 
 /**
  * @author Andrea Fiori
@@ -78,13 +76,13 @@ class PostsDataTable extends DataTableAbstract
                 array(
                     'type'      => 'updateButton',
                     'href'      => $this->getInput('baseUrl',1).'formdata/posts/'.$record['postid'],
-                    'tooltip'   => 1,
                     'title'     => 'Modifica'
                 ),
                 array(
                     'type'      => 'deleteButton',
                     'tooltip'   => 1,
                     'title'     => 'Elimina',
+                    'href'      => '#',
                     'data-id'   => $record['postoptionid']
                 ),
                 array(

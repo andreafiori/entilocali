@@ -3,7 +3,6 @@
 namespace Admin\Model\Posts;
 
 use Admin\Model\FormData\FormDataAbstract;
-use Admin\Model\Categories\CategoriesGetterWrapper;
 use Application\Model\NullException;
 
 /**

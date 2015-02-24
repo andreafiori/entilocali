@@ -12,14 +12,27 @@
             </div>
 
             <div class="medium-4 large-4 columns">
-            <h2>Accessibilit&agrave;</h2>
-            <ul>
-                <li><a href="<?php echo $this->url('css', array('cssname' => 'text')) ?>" title="Passa alla visualizzazione solo testo">Sito testuale</a></li>
-                <li><a href="#" title="Passa alla visualizzazione rosso su nero">Rosso su nero</a></li>
-                <li><a href="#" title="Passa alla visualizzazione ad alta visibilit&agrave;">Alta visibilit&agrave;</a></li>
-                <li><a href="#" title="Accesso da tastiera">Accesso da tastiera</a></li>
-                <li><a href="#" title="Dichiarazione di accessibilit&agrave;">Dichiarazione di accessibilit&agrave;</a></li>
-            </ul>
+                <h2>Accessibilit&agrave;</h2>
+                <ul>
+                    <?php if ($this->cssName!='default' and $this->cssName!=''): ?>
+                        <li><a href="<?php echo $this->url('css', array('cssname' => 'default')) ?>" title="Torna alla visualizzazione del sito grafico">Sito grafico</a></li>
+                    <?php endif; ?>
+
+                    <?php if ($this->cssName!='text'): ?>
+                        <li><a href="<?php echo $this->url('css', array('cssname' => 'text')) ?>" title="Passa alla visualizzazione solo testo">Sito testuale</a></li>
+                    <?php endif; ?>
+
+                    <?php if ($this->cssName!='rosso-su-nero'): ?>
+                        <li><a href="<?php echo $this->url('css', array('cssname' => 'rosso-su-nero')) ?>" title="Passa alla visualizzazione rosso su nero">Rosso su nero</a></li>
+                    <?php endif; ?>
+
+                    <?php if ($this->cssName!='high-visibility'): ?>
+                        <li><a href="<?php echo $this->url('css', array('cssname' => 'high-visibility')) ?>" title="Passa alla visualizzazione ad alta visibilit&agrave;">Alta visibilit&agrave;</a></li>
+                    <?php endif; ?>
+
+                    <li><a href="#" title="Accesso da tastiera">Accesso da tastiera</a></li>
+                    <li><a href="#" title="Dichiarazione di accessibilit&agrave;">Dichiarazione di accessibilit&agrave;</a></li>
+                </ul>
             </div>
 
             <div class="medium-4 large-4 columns">

@@ -58,10 +58,10 @@ class UsersForm extends Form
                         'type' => 'Text',
                         'options' => array( 'label' => '* Nome utente' ),
                         'attributes' => array(
-                                    'required'  => 'required',
-                                        'title' => 'Inserisci nome utente',
-                                        'placeholder' => 'Inserisci nome utente',
-                                        'id'    => 'username',
+                                        'required'      => 'required',
+                                        'title'         => 'Inserisci nome utente',
+                                        'placeholder'   => 'Nome utente',
+                                        'id'            => 'username',
                         )
         ));
         
@@ -81,7 +81,6 @@ class UsersForm extends Form
                         'type' => 'Password',
                         'options' => array( 'label' => 'Conferma password' ),
                         'attributes' => array(
-                                        'class' => 'form-control',
                                         'title' => 'Conferma password',
                                         'placeholder' => 'Conferma password',
                                         'id'    => 'password-confirm',

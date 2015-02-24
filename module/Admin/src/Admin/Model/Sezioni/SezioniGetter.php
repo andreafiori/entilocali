@@ -10,11 +10,14 @@ use Application\Model\QueryBuilderHelperAbstract;
  */
 class SezioniGetter extends QueryBuilderHelperAbstract
 {
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
     public function setMainQuery()
     {
         $this->setSelectQueryFields("sezioni.id, sezioni.nome, sezioni.colonna, sezioni.lingua, sezioni.url,
-                                     IDENTITY(sezioni.modulo) AS moduloId, sezioni.attivo, 
-                                     sezioni.colonna, sezioni.title,
+                                     IDENTITY(sezioni.modulo) AS moduloId, sezioni.attivo,
+                                     sezioni.colonna, sezioni.title, sezioni.image,
 
                                      modulo.code AS moduleCode
         ");
@@ -69,6 +72,34 @@ class SezioniGetter extends QueryBuilderHelperAbstract
         if (is_numeric($attivo) ) {
             $this->getQueryBuilder()->andWhere('sezioni.attivo = :attivo ');
             $this->getQueryBuilder()->setParameter('attivo', $attivo);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param int $moduloId
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setModuloId($moduloId)
+    {
+        if (is_numeric($moduloId) ) {
+            $this->getQueryBuilder()->andWhere('sezioni.modulo = :moduloId ');
+            $this->getQueryBuilder()->setParameter('moduloId', $moduloId);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param int $slug
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setSlug($slug)
+    {
+        if (is_numeric($moduloId) ) {
+            $this->getQueryBuilder()->andWhere('sezioni.slug = :slug ');
+            $this->getQueryBuilder()->setParameter('slug', $slug);
         }
 
         return $this->getQueryBuilder();

@@ -2,9 +2,13 @@
 SET foreign_key_checks = 0;
 
 
--- Migrazione sezioni
+-- Sezioni
 TRUNCATE table zfcms_comuni_sezioni;
-INSERT INTO zfcms_comuni_sezioni (id,nome,colonna,posizione,link_macro,lingua,blocco,modulo_id,attivo,url,css_id) (SELECT * FROM sezioni);
+INSERT INTO zfcms_comuni_sezioni (id, nome, colonna, posizione, link_macro, lingua, blocco, modulo_id
+, attivo, url, css_id
+-- , image, slug, title, utente_id, seo_title, seo_description, seo_keywords
+)
+  (SELECT * FROM sezioni);
 /*
 UPDATE zfcms_comuni_sezioni SET nome = REPLACE(nome, 'à', '&agrave;') WHERE nome LIKE '%à%';
 UPDATE zfcms_comuni_sezioni SET nome = REPLACE(nome, 'ò', '&ograve;') WHERE nome LIKE '%ò%';
@@ -12,8 +16,7 @@ UPDATE zfcms_comuni_sezioni SET nome = REPLACE(nome, 'ì', '&igrave;') WHERE nom
 */
 
 
-
--- Migrazione sottosezioni
+-- Sottosezioni
 TRUNCATE table zfcms_comuni_sottosezioni;
 INSERT INTO zfcms_comuni_sottosezioni 
 (id, sezione_id, nome, immagine, url, posizione, attivo, profondita_a, profondita_da, is_ss)
@@ -21,8 +24,7 @@ INSERT INTO zfcms_comuni_sottosezioni
 
 
 
-
--- Migrazione contenuti
+-- Contenuti
 TRUNCATE table zfcms_comuni_contenuti;
 INSERT INTO zfcms_comuni_contenuti 
 (id, sottosezione_id, anno, numero, titolo, sommario, testo, 
@@ -34,7 +36,7 @@ rss, pub_albo_comune, data_rettifica, path, tabella, check_atti, annoammtrasp)
 
 
 
--- Migrazione utenti
+-- Utenti
 TRUNCATE table zfcms_users;
 INSERT INTO zfcms_users (id, name, email, username, password, settore)
 (SELECT id, nome, mail, username, password, settore FROM utenti);
@@ -51,8 +53,6 @@ INSERT INTO zfcms_users (id, name, email, username, password, settore)
 	-- Sezioni
 	TRUNCATE table zfcms_comuni_albo_sezioni;
 	INSERT INTO zfcms_comuni_albo_sezioni (SELECT * FROM albo_sezioni);
-	
-
 
 
 -- Migrazione contratti pubblici
@@ -113,11 +113,9 @@ INSERT INTO zfcms_users (id, name, email, username, password, settore)
 	-- Articoli
 
 	
-	-- Sezioni
-	
-	
-	-- TODO: allegati
-	
+
+
+
 
 -- Migrazione eventi
 	
@@ -127,6 +125,9 @@ INSERT INTO zfcms_users (id, name, email, username, password, settore)
 
 -- Migrazione link esterni ?!
 	
-	
+
+-- Delete OLD tables
+-- DROP TABLE IF EXISTS `albo_allegati`, `albo_articoli`, `albo_sezioni`, `ammaperta_allegati`, `ammaperta_articoli`, `ammaperta_resp_proc`, `ammaperta_sezioni`, `backup`, `categorie_link`, `categorie_photo`, `config`, `contatti`, `contatti_dett`, `contenuti`, `contenuti_allegati`, `contpub_allegati`, `contpub_cf`, `contpub_data`, `contpub_partecipanti`, `contpub_part_cig`, `contpub_resp_proc`, `contpub_sc_contr`, `contpub_sezioni`, `eventi`, `eventi_allegati`, `forum`, `forum_mex`, `forum_topic`, `lingue`, `link`, `log`, `mimetype`, `moduli`, `permessi_utente`, `photogallery`, `rubrica_et`, `sezioni`, `sottosezioni`, `statocivile_allegati`, `statocivile_articoli`, `statocivile_sezioni`, `temi`, `ticket`, `ticket_allegati`, `ticket_impostazioni`, `ticket_mex`, `ticket_topic`, `utenti`;
+
 -- Enable foreign checks
 SET foreign_key_checks = 1;

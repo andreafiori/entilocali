@@ -17,8 +17,8 @@ class CategoriesDataTable extends DataTableAbstract
     
     public function getRecords()
     {
-        $param = $this->getInput('param',1);
-        $moduleId = $param['get']['moduleId'];
+        $param = $this->getInput('param', 1);
+        $moduleId = isset($param['get']['moduleId']) ? $param['get']['moduleId'] : null;
         $moduleRecord = $this->getInput('moduleRecord', 1);
 
         $this->title        = 'Categorie '.$moduleRecord[$moduleId];
@@ -45,6 +45,7 @@ class CategoriesDataTable extends DataTableAbstract
                 array(
                     'type'      => 'deleteButton',
                     'tooltip'   => 1,
+                    'href'      => '#',
                     'title'     => 'Elimina',
                     'data-id'   => $record['id']
                 ),

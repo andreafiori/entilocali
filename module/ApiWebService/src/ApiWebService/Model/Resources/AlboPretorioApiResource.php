@@ -30,8 +30,9 @@ class AlboPretorioApiResource extends ApiResultGetterAbstract
         
         $toReturn = array();
         foreach($paginator as $row) {
-            $toReturn[] = $row;
+            $toReturn[] = array_filter($row);
         }
+
         return $toReturn;
     }
 }

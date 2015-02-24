@@ -13,7 +13,7 @@ use Zend\Session\Container as SessionContainer;
 class CssStyleSwitchFrontend extends RouterManagerAbstract implements RouterManagerInterface
 {
     public function setupRecord()
-    {        
+    {
         $param = $this->getInput('param', 1);
 
         $sessionContainer = new SessionContainer();
@@ -26,13 +26,13 @@ class CssStyleSwitchFrontend extends RouterManagerAbstract implements RouterMana
             case("high-visibility"):
                 $sessionContainer->offsetSet('cssName', "high-visibility");
             break;
-        
+
             case("rosso-su-nero"):
                 $sessionContainer->offsetSet('cssName', "rosso-su-nero");
             break;
         
             case("text"):
-                $sessionContainer->offsetSet('cssName', "txt");
+                $sessionContainer->offsetSet('cssName', "text");
             break;
         }
 

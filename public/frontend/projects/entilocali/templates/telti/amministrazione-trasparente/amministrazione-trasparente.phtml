@@ -94,6 +94,17 @@ foreach($this->contenuti as $contenuto):
     <div><?php echo utf8_encode($contenuto['sommario']) ?></div>
 
     <div><?php echo utf8_encode($contenuto['testo']) ?></div>
+
+    <br>
+    <br>
+    <p class="text-right">Esporta: <a href="#" title="Esporta in formato testo">TXT</a>,
+        <a href="#" title="Esporta in formato word">PDF</a>,
+        <a href="#" title="Esporta in formato word">Word</a>.
+        Condividi: <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->currentUrl; ?>" title="Condividi su facebook" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;">Facebook</a>,
+        <a href="http://twitter.com/share?text=<?php echo urlencode($contenuto['titolo']) ?>&amp;url=<?php echo $this->currentUrl; ?>">Twitter</a>,
+        <a href="https://plus.google.com/share?url=<?php echo $this->currentUrl; ?>" title="Condividi su google plus">Gplus</a>
+    </p>
+
     <?php
 endforeach;
 

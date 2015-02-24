@@ -67,7 +67,7 @@
         /* Icon colors */
         .icon-black, .icon-black:hover, .icon-black:active, .icon-black:focus { color: #333333; }
         .icon-red, .icon-red:hover, .icon-red:active, .icon-red:focus { color: #d9534f; }
-        .icon-green, .icon-green:hover, .icon-green:active, .icon-green:focus { color: #3E6544; }
+        .icon-green, .icon-green:hover, .icon-green:active, .icon-green:focus { color: #00bb00; }
         .icon-green-light, .icon-green-light:hover, .icon-green-light:active, .icon-green-light:focus { color: #3Eaa00; }
 
         /* Force table scroll */
@@ -114,7 +114,8 @@
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="<?php echo $this->url('admin/config-edit', array('lang'=>'it')); ?>" title="Configurazioni applicazione">Configurazioni</a></li>
-                        <li><a href="<?php echo $this->baseUrl ?>datatable/logs" title="Logs applicazione">Logs</a></li>
+                        <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'logs')); ?>" title="Logs applicazione">Logs</a></li>
+                        <li><a href="<?php echo $this->url('admin/migrazione', array('lang'=>'it')); ?>" title="e">Migrazione dati</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -172,8 +173,9 @@
                         </div>
                         <!-- /input-group -->
                     </li>
+
                     <li>
-                        <a href="<?php echo $this->url('admin', array('lang' => 'it')); ?>"><i class="fa fa-dashboard fa-fw"></i> <span class="side-menu-title">Dashboard</span></a>
+                        <a href="<?php echo $this->url('admin', array('lang' => 'it')); ?>"><i class="fa fa-dashboard fa-fw"></i> <span class="side-menu-title">Home</span></a>
                     </li>
 
                     <!-- Contenuti POST -->
@@ -199,19 +201,19 @@
                         <a href="#" class="dropdown-collapse"><i class="fa fa-newspaper-o fa-fw"></i> <span class="side-menu-title">Contenuti</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="<?php echo $this->baseUrl ?>formdata/contenuti" title="Nuovo contenuto">Nuovo</a></li>
-                            <li><a href="<?php echo $this->baseUrl ?>datatable/contenuti" title="Gestione contenuti">Modifica \ Elimina</a></li>
+                            <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'contenuti')); ?>" title="Gestione contenuti">Modifica \ Elimina</a></li>
                             <li>
                                 <a href="#" class="dropdown-collapse" title="Gestione sezioni contenuti">Sezioni <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li><a href="<?php echo $this->baseUrl ?>formdata/sezioni-contenuti" title="Nuova sezione contenuti">Nuova</a></li>
-                                    <li><a href="<?php echo $this->baseUrl ?>datatable/sezioni-contenuti" title="Gestione sezioni contenuti">Gestione</a></li>
+                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'sezioni-contenuti')); ?>" title="Gestione sezioni contenuti">Gestione</a></li>
                                 </ul>
                             </li>
                             <li>
                                 <a href="#" class="dropdown-collapse" title="Gestione sezioni contenuti">Sotto-Sezioni <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li><a href="<?php echo $this->baseUrl ?>formdata/sottosezioni-contenuti" title="">Nuova</a></li>
-                                    <li><a href="<?php echo $this->baseUrl ?>datatable/sottosezioni-contenuti" title="Gestione">Gestione</a></li>
+                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'sottosezioni-contenuti')); ?>" title="Gestione">Gestione</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -222,20 +224,20 @@
                         <a href="#" class="dropdown-collapse"><i class="fa fa-table fa-fw"></i> <span class="side-menu-title">Albo pretorio</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="<?php echo $this->baseUrl ?>formdata/albo-pretorio" title="Nuovo atto">Nuovo atto</a></li>
-                            <li><a href="<?php echo $this->baseUrl ?>datatable/albo-pretorio" title="Gestione">Gestione</a></li>
-                            <li><a href="<?php echo $this->baseUrl ?>datatable/atti-ufficiali" title="">Atti ufficiali</a></li>
+                            <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'albo-pretorio')); ?>" title="Gestione">Gestione</a></li>
+                            <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'atti-ufficiali')); ?>" title="">Atti ufficiali</a></li>
                             <li>
                                 <a href="#" class="dropdown-collapse" title="Sezioni albo pretorio">Sezioni <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li><a href="<?php echo $this->baseUrl ?>formdata/albo-pretorio-sezioni" title="Nuova sezione albo">Nuova</a></li>
-                                    <li><a href="<?php echo $this->baseUrl ?>datatable/albo-pretorio-sezioni" title="Gestione sezioni albo">Modifica \ Elimina</a></li>
+                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'albo-pretorio-sezioni')); ?>" title="Gestione sezioni albo">Modifica \ Elimina</a></li>
                                 </ul>
                             </li>
                             <li>
                                 <a href="#" class="dropdown-collapse" title="Gestione sezioni contenuti">Enti terzi <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li><a href="<?php echo $this->baseUrl ?>formdata/enti-terzi" title="Nuovo ente terzo">Nuovo indirizzo</a></li>
-                                    <li><a href="<?php echo $this->baseUrl ?>datatable/enti-terzi" title="Gestione rubrica enti terzi">Gestione</a></li>
+                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'enti-terzi')); ?>" title="Gestione rubrica enti terzi">Gestione</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -246,19 +248,19 @@
                         <a href="#" class="dropdown-collapse"><i class="fa fa-institution fa-fw"></i> <span class="side-menu-title">Stato civile</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="<?php echo $this->baseUrl ?>formdata/stato-civile" title="Nuovo atto">Nuovo atto</a></li>
-                            <li><a href="<?php echo $this->baseUrl ?>datatable/stato-civile" title="Gestione">Gestione</a></li>
+                            <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'stato-civile')); ?>" title="Gestione">Gestione</a></li>
                             <li>
                                 <a href="#" class="dropdown-collapse" title="Sezioni stato civile">Sezioni <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li><a href="<?php echo $this->baseUrl ?>formdata/stato-civile-sezioni" title="Nuova sezione albo">Nuova</a></li>
-                                    <li><a href="<?php echo $this->baseUrl ?>datatable/stato-civile-sezioni" title="Gestione sezioni">Gestione</a></li>
+                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'stato-civile-sezioni')); ?>" title="Gestione sezioni">Gestione</a></li>
                                 </ul>
                             </li>
                             <li>
                                 <a href="#" class="dropdown-collapse" title="Gestione sezioni contenuti">Enti terzi <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li><a href="<?php echo $this->baseUrl ?>formdata/enti-terzi" title="Nuovo ente terzo">Nuovo indirizzo</a></li>
-                                    <li><a href="<?php echo $this->baseUrl ?>datatable/enti-terzi" title="Gestione rubrica enti terzi">Gestione</a></li>
+                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'enti-terzi')); ?>" title="Gestione rubrica enti terzi">Gestione</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -269,19 +271,19 @@
                         <a href="#" class="dropdown-collapse"><i class="fa fa-laptop fa-fw"></i> <span class="side-menu-title">Amm. trasparente</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="<?php echo $this->baseUrl ?>formdata/amministrazione-trasparente" title="Nuovo articolo">Nuovo articolo</a></li>
-                            <li><a href="<?php echo $this->baseUrl ?>datatable/amministrazione-trasparente" title="Gestione">Gestione</a></li>
+                            <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'amministrazione-trasparente')); ?>" title="Gestione">Gestione</a></li>
                             <li>
                                 <a href="#" class="dropdown-collapse" title="Sezioni amministrazione trasparente">Sezioni <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li><a href="#" title="Nuova sezione">Nuova</a></li>
-                                    <li><a href="#" title="Gestione sezioni">Gestione</a></li>
+                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'amministrazione-trasparente-sezioni')); ?>" title="Gestione sezioni">Gestione</a></li>
                                 </ul>
                             </li>
                             <li>
                                 <a href="#" class="dropdown-collapse" title="Gestione sezioni contenuti">Sotto-sezioni <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li><a href="<?php echo $this->baseUrl ?>formdata/enti-terzi" title="">Nuova</a></li>
-                                    <li><a href="<?php echo $this->baseUrl ?>datatable/enti-terzi" title="Gestionei">Gestione</a></li>
+                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'enti-terzi')); ?>" title="Gestionei">Gestione</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -292,19 +294,19 @@
                         <a href="#" class="dropdown-collapse"><i class="fa fa-list-alt fa-fw"></i> <span class="side-menu-title">Atti di concessione</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="<?php echo $this->baseUrl ?>formdata/atti-concessione" title="Nuovo articolo">Nuovo atto</a></li>
-                            <li><a href="<?php echo $this->baseUrl ?>datatable/atti-concessione" title="Gestione">Gestione</a></li>
+                            <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'atti-concessione')); ?>" title="Gestione">Gestione</a></li>
                             <li>
-                                <a href="#" class="dropdown-collapse" title="Sezioni amministrazione trasparente">Settori <span class="fa arrow"></span></a>
+                                <a href="#" class="dropdown-collapse" title="Settori">Settori <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li><a href="<?php echo $this->baseUrl ?>formdata/atti-concessione-settori" title="Nuovo settore atti concessione">Nuovo</a></li>
-                                    <li><a href="<?php echo $this->baseUrl ?>datatable/atti-concessione" title="Gestione settori atti concessione">Gestione</a></li>
+                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'atti-concessione-settori')); ?>" title="Gestione settori atti concessione">Gestione</a></li>
                                 </ul>
                             </li>
                             <li>
                                 <a href="#" class="dropdown-collapse" title="Gestione sezioni contenuti">Resp. procedimento <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li><a href="<?php echo $this->baseUrl ?>formdata/atti-concessione-resp" title="">Nuova</a></li>
-                                    <li><a href="<?php echo $this->baseUrl ?>datatable/atti-concessione-resp" title="Gestionei">Gestione</a></li>
+                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'atti-concessione-resp')); ?>" title="Gestionei">Gestione</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -320,28 +322,28 @@
                                 <a href="#" class="dropdown-collapse" title="Settori contratti pubblici">Settori <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li><a href="<?php echo $this->baseUrl ?>formdata/contratti-pubblici-settori" title="Nuova sezione">Nuovo</a></li>
-                                    <li><a href="<?php echo $this->baseUrl ?>datatable/contratti-pubblici-settori" title="Gestione settori">Gestione</a></li>
+                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'contratti-pubblici-settori')); ?>" title="Gestione settori">Gestione</a></li>
                                 </ul>
                             </li>
                             <li>
                                 <a href="#" class="dropdown-collapse" title="Gestione resp. procedimento">Resp. procedimento <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li><a href="<?php echo $this->baseUrl ?>formdata/contratti-pubblici-responsabili" title="">Nuovo</a></li>
-                                    <li><a href="<?php echo $this->baseUrl ?>datatable/contratti-pubblici-responsabili" title="Gestione resp. procedimento">Gestione</a></li>
+                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'contratti-pubblici-responsabili')); ?>" title="Gestione resp. procedimento">Gestione</a></li>
                                 </ul>
                             </li>
                             <li>
                                 <a href="#" class="dropdown-collapse" title="Gestione resp. procedimento">Voci scelta contraente <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li><a href="<?php echo $this->baseUrl ?>formdata/contratti-pubblici-scelta-contraente" title="Nuova voce scelta contraente">Nuova</a></li>
-                                    <li><a href="<?php echo $this->baseUrl ?>datatable/contratti-pubblici-scelta-contraente" title="Gestione scelta contraente">Gestione</a></li>
+                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'contratti-pubblici-scelta-contraente')); ?>" title="Gestione scelta contraente">Gestione</a></li>
                                 </ul>
                             </li>
                             <li>
                                 <a href="#" class="dropdown-collapse" title="Gestione resp. procedimento">Operatori <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li><a href="<?php echo $this->baseUrl ?>formdata/contratti-pubblici-operatori" title="Nuovo operatore">Nuovo</a></li>
-                                    <li><a href="<?php echo $this->baseUrl ?>datatable/contratti-pubblici-operatori" title="Gestione operatori">Gestione</a></li>
+                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'contratti-pubblici-operatori')); ?>" title="Gestione operatori">Gestione</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -352,56 +354,47 @@
                         <a href="#" class="dropdown-collapse"><i class="fa fa-list-alt fa-fw"></i> <span class="side-menu-title">Foto</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="<?php echo $this->baseUrl ?>formdata/photo" title="Aggiungi nuova foto">Nuova</a></li>
-                            <li><a href="<?php echo $this->baseUrl ?>datatable/photo" title="Gestione gallerie fotografice">Gestione</a></li>
+                            <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'photo')); ?>" title="Gestione gallerie fotografice">Gestione</a></li>
                             <li>
                                 <a href="#" class="dropdown-collapse" title="">Categorie <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li><a href="<?php echo $this->baseUrl ?>formdata/categories/?moduleId=6" title="">Nuovo</a></li>
-                                    <li><a href="<?php echo $this->baseUrl ?>datatable/categories/?moduleId=6" title="">Modifica \ Elimina</a></li>
+                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'categories', array('moduleId'=>6))); ?>" title="Gestione foto">Modifica \ Elimina</a></li>
                                 </ul>
                             </li>
                         </ul>
                     </li>
 
                     <li>
-                        <a href="forms.html"><i class="fa fa-newspaper-o fa-fw"></i> <span class="side-menu-title">Newsletter</span></a>
+                        <a href="#" title="Newsletter"><i class="fa fa-newspaper-o fa-fw"></i> <span class="side-menu-title">Newsletter</span></a>
                     </li>
 
                     <!--
                     <li>
                         <a href="forms.html"><i class="fa fa-newspaper-o fa-fw"></i> <span class="side-menu-title">FAQ</span></a>
                     </li>
+
                     <li>
                         <a href="forms.html"><i class="fa fa-newspaper-o fa-fw"></i> <span class="side-menu-title">Video</span></a>
                     </li>
                     -->
 
                     <li>
-                        <a href="#" class="dropdown-collapse"><i class="fa fa-list-alt fa-fw"></i> <span class="side-menu-title">Utenti</span><span class="fa arrow"></span></a>
+                        <a href="#" class="dropdown-collapse"><i class="fa fa-list-alt fa-users"></i> <span class="side-menu-title">Utenti</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="<?php echo $this->baseUrl ?>formdata/users" title="Aggiungi nuova foto">Nuovo</a></li>
-                            <li><a href="<?php echo $this->baseUrl ?>datatable/users" title="Gestione gallerie fotografice">Gestione</a></li>
+                            <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'users')); ?>" title="Gestione gallerie fotografice">Gestione</a></li>
+                            <!--
                             <li>
                                 <a href="#" class="dropdown-collapse" title="">Categorie <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li><a href="<?php echo $this->baseUrl ?>formdata/categories/?moduleId=6" title="">Nuovo</a></li>
-                                    <li><a href="<?php echo $this->baseUrl ?>datatable/categories/?moduleId=6" title="">Modifica \ Elimina</a></li>
+                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'users')); ?>" title="">Modifica \ Elimina</a></li>
                                 </ul>
                             </li>
+                            -->
                         </ul>
                     </li>
-                    <!--
-                    <li class="dropdown-submenu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Utenti</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="<?php echo $this->baseUrl ?>formdata/users" title="">Nuovo</a></li>
-                            <li><a href="<?php echo $this->baseUrl ?>datatable/users" title="">Modifica \ elimina</a></li>
-                            <li class="divider"></li>
-                            <li><a href="<?php echo $this->baseUrl ?>datatable/contacts" title="Contatti">Contatti</a></li>
-                            <li><a href="<?php echo $this->baseUrl ?>datatable/usersRoles" title="">Ruoli</a></li>
-                        </ul>
-                    </li>
-                    -->
 
                 </ul>
             </div>

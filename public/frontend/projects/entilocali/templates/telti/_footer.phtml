@@ -2,11 +2,11 @@
             <div class="medium-4 large-4 columns">
             <h2>Informazioni</h2>
             <ul>
-                <li><a href="<?php echo $this->url('main', array('category' => 'info', 'title' => 'note-legali')) ?>" title="">Note Legali</a></li>
+                <li><a href="<?php echo $this->url('main', array('category' => 'info', 'title' => 'note-legali')) ?>" title="Note Legali <?php $this->sitename ?>">Note Legali</a></li>
                 <li><a href="<?php echo $this->url('main', array('category' => 'info', 'title' => 'accessibilita')) ?>" title="">Accessiblit&agrave;</a></li>
-                <li><a href="<?php echo $this->url('main', array('category' => 'info', 'title' => 'continuita-operativa')) ?>" title="">Continuit&agrave; operativa</a></li>
-                <li><a href="<?php echo $this->url('main', array('category' => 'info', 'title' => 'privacy')) ?>" title="">Privacy</a></li>
-                <li><a href="<?php echo $this->url('main', array('category' => 'info', 'title' => 'credit')) ?>" title="">Credit</a></li>
+                <li><a href="http://104.245.33.210/~serviziokronoweb/co/cms_co/?comune=telti" target="_blank" title="Continuit&agrave; operativa <?php echo $this->sitename ?>">Continuit&agrave; operativa</a></li>
+                <li><a href="<?php echo $this->url('main', array('category' => 'info', 'title' => 'privacy')) ?>" title="Privacy informativa">Privacy</a></li>
+                <li><a href="<?php echo $this->url('main', array('category' => 'info', 'title' => 'credit')) ?>" title="Credits del progetto">Credit</a></li>
                 <li><a href="<?php echo $this->url('main', array('category' => 'info', 'title' => 'mobile')) ?>" title="Visualizzazione sito su tutti i dispositivi">Mobile</a></li>
             </ul>
             </div>
@@ -14,9 +14,22 @@
             <div class="medium-4 large-4 columns">
             <h2>Accessibilit&agrave;</h2>
             <ul>
+                <?php if ($this->cssName!='default' and $this->cssName!=''): ?>
+                <li><a href="<?php echo $this->url('css', array('cssname' => 'default')) ?>" title="Torna alla visualizzazione del sito grafico">Sito grafico</a></li>
+                <?php endif; ?>
+
+                <?php if ($this->cssName!='text'): ?>
                 <li><a href="<?php echo $this->url('css', array('cssname' => 'text')) ?>" title="Passa alla visualizzazione solo testo">Sito testuale</a></li>
-                <li><a href="#" title="Passa alla visualizzazione rosso su nero">Rosso su nero</a></li>
-                <li><a href="#" title="Passa alla visualizzazione ad alta visibilit&agrave;">Alta visibilit&agrave;</a></li>
+                <?php endif; ?>
+
+                <?php if ($this->cssName!='rosso-su-nero'): ?>
+                <li><a href="<?php echo $this->url('css', array('cssname' => 'rosso-su-nero')) ?>" title="Passa alla visualizzazione rosso su nero">Rosso su nero</a></li>
+                <?php endif; ?>
+
+                <?php if ($this->cssName!='high-visibility'): ?>
+                <li><a href="<?php echo $this->url('css', array('cssname' => 'high-visibility')) ?>" title="Passa alla visualizzazione ad alta visibilit&agrave;">Alta visibilit&agrave;</a></li>
+                <?php endif; ?>
+
                 <li><a href="#" title="Accesso da tastiera">Accesso da tastiera</a></li>
                 <li><a href="#" title="Dichiarazione di accessibilit&agrave;">Dichiarazione di accessibilit&agrave;</a></li>
             </ul>
@@ -31,7 +44,6 @@
                 <strong>Codice catastale:</strong> L088                
             </p>
             </div>
-
         </div>
 
 

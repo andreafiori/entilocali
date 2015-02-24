@@ -9,7 +9,7 @@ namespace Admin\Model\AlboPretorio;
 class AlboPretorioArticoliDataTable extends AlboPretorioDataTableAbstract
 {
     /**
-     * @param array $input
+     * @inheritdoc
      */
     public function __construct(array $input)
     {

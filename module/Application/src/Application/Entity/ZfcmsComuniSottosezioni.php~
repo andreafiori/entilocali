@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsComuniSottosezioni
  *
- * @ORM\Table(name="zfcms_comuni_sottosezioni", indexes={@ORM\Index(name="zf_comuni_sottosezioni_sezioni", columns={"sezione_id"}), @ORM\Index(name="zf_comuni_sottosezioni_profondita_da_self", columns={"profondita_da"})})
+ * @ORM\Table(name="zfcms_comuni_sottosezioni", indexes={@ORM\Index(name="zf_comuni_sottosezioni_profondita_da_self", columns={"profondita_da"}), @ORM\Index(name="profondita_a", columns={"profondita_a"}), @ORM\Index(name="fk_comuni_sottosezioni_users", columns={"utente_id"}), @ORM\Index(name="fk_comuni_sottosezioni_sezioni", columns={"sezione_id"})})
  * @ORM\Entity
  */
 class ZfcmsComuniSottosezioni
@@ -73,6 +73,13 @@ class ZfcmsComuniSottosezioni
     /**
      * @var integer
      *
+     * @ORM\Column(name="profondita_da", type="bigint", nullable=false)
+     */
+    private $profonditaDa;
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="is_ss", type="integer", nullable=false)
      */
     private $isSs;
@@ -106,16 +113,6 @@ class ZfcmsComuniSottosezioni
     private $seoDescription;
 
     /**
-     * @var \Application\Entity\ZfcmsComuniSottosezioni
-     *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniSottosezioni")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="profondita_da", referencedColumnName="id")
-     * })
-     */
-    private $profonditaDa;
-
-    /**
      * @var \Application\Entity\ZfcmsComuniSezioni
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniSezioni")
@@ -124,6 +121,16 @@ class ZfcmsComuniSottosezioni
      * })
      */
     private $sezione;
+
+    /**
+     * @var \Application\Entity\ZfcmsUsers
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsers")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="utente_id", referencedColumnName="id")
+     * })
+     */
+    private $utente;
 
 
 }

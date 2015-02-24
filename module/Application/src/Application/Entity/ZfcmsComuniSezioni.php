@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsComuniSezioni
  *
- * @ORM\Table(name="zfcms_comuni_sezioni", indexes={@ORM\Index(name="zf_sezioni_modulo_id", columns={"modulo_id"})})
+ * @ORM\Table(name="zfcms_comuni_sezioni", indexes={@ORM\Index(name="fk_sezioni_modulo_id", columns={"modulo_id"}), @ORM\Index(name="fk_sezioni_user_id", columns={"utente_id"})})
  * @ORM\Entity
  */
 class ZfcmsComuniSezioni
@@ -87,6 +87,13 @@ class ZfcmsComuniSezioni
     /**
      * @var string
      *
+     * @ORM\Column(name="image", type="string", length=80, nullable=true)
+     */
+    private $image;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="slug", type="string", length=80, nullable=true)
      */
     private $slug;
@@ -128,6 +135,16 @@ class ZfcmsComuniSezioni
      * })
      */
     private $modulo;
+
+    /**
+     * @var \Application\Entity\ZfcmsUsers
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsers")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="utente_id", referencedColumnName="id")
+     * })
+     */
+    private $utente;
 
 
 
@@ -358,6 +375,30 @@ class ZfcmsComuniSezioni
     }
 
     /**
+     * Set image
+     *
+     * @param string $image
+     *
+     * @return ZfcmsComuniSezioni
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+    
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
      * Set slug
      *
      * @param string $slug
@@ -499,5 +540,29 @@ class ZfcmsComuniSezioni
     public function getModulo()
     {
         return $this->modulo;
+    }
+
+    /**
+     * Set utente
+     *
+     * @param \Application\Entity\ZfcmsUsers $utente
+     *
+     * @return ZfcmsComuniSezioni
+     */
+    public function setUtente(\Application\Entity\ZfcmsUsers $utente = null)
+    {
+        $this->utente = $utente;
+    
+        return $this;
+    }
+
+    /**
+     * Get utente
+     *
+     * @return \Application\Entity\ZfcmsUsers
+     */
+    public function getUtente()
+    {
+        return $this->utente;
     }
 }

@@ -150,6 +150,23 @@ class ContenutiForm extends Form
         ));
     }
 
+    public function addSocial()
+    {
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Checkbox',
+            'name' => 'facebook',
+            'options' => array(
+                'label'             => 'Inserisci su facebook',
+                'checked_value'     => 1,
+                'unchecked_value'   => 0
+            ),
+            'attributes' => array(
+                'id'    => 'homepage',
+                'title' => "Spunta la casella per postare l'articolo su facebook"
+            )
+        ));
+    }
+
     public function addUsers()
     {
         $this->add(array(

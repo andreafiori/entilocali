@@ -74,12 +74,11 @@ class UsersDataTable extends DataTableAbstract
                     array(
                         'type'      => 'updateButton',
                         'href'      => $this->getInput('baseUrl',1).'formdata/users/'.$record['id'],
-                        'tooltip'   => 1,
                         'title'     => 'Modifica utente'
                     ),
                     array(
                         'type'      => 'deleteButton',
-                        'tooltip'   => 1,
+                        'href'      => '#',
                         'title'     => 'Elimina utente',
                         'data-id'   => $record['id']
                     ),

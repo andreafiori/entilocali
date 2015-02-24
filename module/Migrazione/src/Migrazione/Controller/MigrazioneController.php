@@ -3,7 +3,7 @@
 namespace Migrazione\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Migrazione\Model\Redbean\R;
+use Application\Model\Database\Redbean\R;
 use Zend\View\Model\ViewModel;
 
 /**

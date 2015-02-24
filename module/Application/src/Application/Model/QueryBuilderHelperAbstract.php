@@ -55,7 +55,7 @@ abstract class QueryBuilderHelperAbstract
     /**
      * Query result recordset
      * 
-     * @return array|objects
+     * @return mixed
      */
     public function getQueryResult()
     {
@@ -101,10 +101,9 @@ abstract class QueryBuilderHelperAbstract
     }
 
     /**
-     * 
-     * @param type $orderBy
-     * @param type $defaultField
-     * @return type
+     * @param string $orderBy
+     * @param string $defaultField
+     * @return string
      */
     public function setOrderBy($orderBy = null, $defaultField = null)
     {
@@ -113,9 +112,9 @@ abstract class QueryBuilderHelperAbstract
     
     /**
      * 
-     * @param type $groupBy
-     * @param type $defaultField
-     * @return type
+     * @param string $groupBy
+     * @param string $defaultField
+     * @return string
      */
     public function setGroupBy($groupBy = null, $defaultField = null)
     {
@@ -126,7 +125,7 @@ abstract class QueryBuilderHelperAbstract
          * @param string $parameter
          * @param string $parameterString
          * @param string $defaultField
-         * @return type
+         * @return string
          */
         private function bindWithDefaultParameter($parameter = null, $parameterString = null, $defaultField = null)
         {

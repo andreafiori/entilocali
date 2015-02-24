@@ -57,22 +57,26 @@ class ApiSetupTest extends TestSuite
     /**
      * @expectedException \Application\Model\NullException
      */
+	 /*
     public function testValidateAuthenticationInputThrowsException()
     {
         $this->apiSetup->setInput(array('unuselessKey'=>'noGoValue'));
         
         $this->apiSetup->setupAuthenticationInput();
     }
-
+	*/
+	
     /**
      * @expectedException \Application\Model\NullException
      */
+	 /*
     public function testValidateAuthenticationInputThrowsSecondException()
     {
         $this->apiSetup->setInput(array('username' => 'myUsername'));
         
         $this->apiSetup->setupAuthenticationInput();
     }
+	
     
     public function testSetEntityManager()
     {
@@ -81,6 +85,7 @@ class ApiSetupTest extends TestSuite
         $this->assertInstanceOf('\Doctrine\ORM\EntityManager', $this->apiSetup->getEntityManager());
     }
     
+	
     public function testSetUsersGetterWrapper()
     {
         $this->apiSetup->setUsersGetterWrapper(
@@ -89,14 +94,15 @@ class ApiSetupTest extends TestSuite
         
         $this->assertInstanceOf('Admin\Model\Users\UsersGetterWrapper', $this->apiSetup->getUsersGetterWrapper());
     }
-    
+    */
+	
     /*
     public function testAuthenticate()
     {
         $this->apiSetup->setUsersGetterWrapper( new UsersGetterWrapper(new UsersGetter($this->getEntityManagerMock()) ) );
         $this->apiSetup->authenticate($this->authenticationInput);
     }
-    */
+    
     
     public function testSetResourceClassName()
     {
@@ -107,13 +113,15 @@ class ApiSetupTest extends TestSuite
         $this->assertNotEmpty($this->apiSetup->getResourceClassName());
     }
     
+	
     public function testSetResourceClassMap()
     {
         $this->apiSetup->setResourceClassMap($this->resouceClassMapSample);
         
         $this->assertTrue( is_array($this->apiSetup->getResourceClassMap()) );
     }
-    
+    */
+	
     /**
      * @expectedException \Application\Model\NullException
      */

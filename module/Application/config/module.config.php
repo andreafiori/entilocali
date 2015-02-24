@@ -240,7 +240,7 @@ return array(
                                     'contatti' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
-                                                        'route'    => '/contatti/invia-messaggio[/][:action[/]]',
+                                                        'route'    => '/contatti/form/invia-messaggio[/][:action[/]]',
                                                         'constraints' => array(
                                                             
                                                         ),

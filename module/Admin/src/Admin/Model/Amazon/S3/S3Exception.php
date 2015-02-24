@@ -8,8 +8,8 @@ namespace Admin\Model\Amazon\S3;
  * @link http://undesigned.org.za/2007/10/22/amazon-s3-php-class
  * @version 0.5.0-dev
  */
-class S3Exception extends Exception {
-    
+class S3Exception extends \Exception
+{
     /**
      * Class constructor
      *

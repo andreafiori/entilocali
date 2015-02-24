@@ -14,7 +14,7 @@ use Admin\Model\StatoCivile\StatoCivileSezioniGetterWrapper;
 class StatoCivileSezioniFormDataHandler extends FormDataAbstract
 {
     /**
-     * @param array $input
+     * @inheritdoc
      */
     public function __construct(array $input)
     {
@@ -35,7 +35,7 @@ class StatoCivileSezioniFormDataHandler extends FormDataAbstract
             }
         }
 
-        if ($record) {
+        if (!empty($record)) {
             $form->setData($record[0]);
             $formAction = 'stato-civile-sezioni/update';
             $formTitle = 'Modifica sezione stato civile';

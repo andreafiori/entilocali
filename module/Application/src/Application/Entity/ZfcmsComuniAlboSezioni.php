@@ -29,13 +29,6 @@ class ZfcmsComuniAlboSezioni
     private $nome;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="descrizione", type="text", length=65535, nullable=false)
-     */
-    private $descrizione;
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="attivo", type="integer", nullable=false)
@@ -62,6 +55,27 @@ class ZfcmsComuniAlboSezioni
      * @ORM\Column(name="det", type="integer", nullable=true)
      */
     private $det;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="esi", type="integer", nullable=true)
+     */
+    private $esi;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ban", type="integer", nullable=true)
+     */
+    private $ban;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="con", type="integer", nullable=true)
+     */
+    private $con;
 
 
 
@@ -97,30 +111,6 @@ class ZfcmsComuniAlboSezioni
     public function getNome()
     {
         return $this->nome;
-    }
-
-    /**
-     * Set descrizione
-     *
-     * @param string $descrizione
-     *
-     * @return ZfcmsComuniAlboSezioni
-     */
-    public function setDescrizione($descrizione)
-    {
-        $this->descrizione = $descrizione;
-    
-        return $this;
-    }
-
-    /**
-     * Get descrizione
-     *
-     * @return string
-     */
-    public function getDescrizione()
-    {
-        return $this->descrizione;
     }
 
     /**
@@ -217,5 +207,77 @@ class ZfcmsComuniAlboSezioni
     public function getDet()
     {
         return $this->det;
+    }
+
+    /**
+     * Set esi
+     *
+     * @param integer $esi
+     *
+     * @return ZfcmsComuniAlboSezioni
+     */
+    public function setEsi($esi)
+    {
+        $this->esi = $esi;
+    
+        return $this;
+    }
+
+    /**
+     * Get esi
+     *
+     * @return integer
+     */
+    public function getEsi()
+    {
+        return $this->esi;
+    }
+
+    /**
+     * Set ban
+     *
+     * @param integer $ban
+     *
+     * @return ZfcmsComuniAlboSezioni
+     */
+    public function setBan($ban)
+    {
+        $this->ban = $ban;
+    
+        return $this;
+    }
+
+    /**
+     * Get ban
+     *
+     * @return integer
+     */
+    public function getBan()
+    {
+        return $this->ban;
+    }
+
+    /**
+     * Set con
+     *
+     * @param integer $con
+     *
+     * @return ZfcmsComuniAlboSezioni
+     */
+    public function setCon($con)
+    {
+        $this->con = $con;
+    
+        return $this;
+    }
+
+    /**
+     * Get con
+     *
+     * @return integer
+     */
+    public function getCon()
+    {
+        return $this->con;
     }
 }

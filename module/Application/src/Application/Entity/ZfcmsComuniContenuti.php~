@@ -38,21 +38,21 @@ class ZfcmsComuniContenuti
     /**
      * @var string
      *
-     * @ORM\Column(name="titolo", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="titolo", type="text", length=16777215, nullable=false)
      */
     private $titolo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="sommario", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="sommario", type="text", length=16777215, nullable=false)
      */
     private $sommario;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="testo", type="text", nullable=false)
+     * @ORM\Column(name="testo", type="text", length=65535, nullable=true)
      */
     private $testo;
 
@@ -122,14 +122,14 @@ class ZfcmsComuniContenuti
     /**
      * @var string
      *
-     * @ORM\Column(name="path", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="path", type="text", length=16777215, nullable=true)
      */
     private $path;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="tabella", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="tabella", type="text", length=16777215, nullable=true)
      */
     private $tabella;
 

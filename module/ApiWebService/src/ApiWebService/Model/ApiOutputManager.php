@@ -61,13 +61,15 @@ class ApiOutputManager
             case("json"):
                 return new JsonModel($content);
 
-            case("xml"):
+            case("xml"): case("rdf"):
                 $response = new Response();
                 $response->setStatusCode($this->getStatusCode());
                 $response->getHeaders()->addHeaderLine('Content-Type', 'text/xml; charset=utf-8');
                 $response->setContent($this->array2xml($content));
                 return $response;
         }
+
+        return false;
     }
     
         /**

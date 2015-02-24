@@ -1,6 +1,6 @@
 {
-    "name": "Zend2 API CMS",
-    "description": "Zend framework 2 CMS with RESTful APIs",
+    "name": "Kronoweb ITC, Entilocali",
+    "description": "Kronoweb ITC entilocali",
     "authors": [
         {
             "name": "Andrea Fiori",
@@ -14,7 +14,7 @@
     "require": {
         "doctrine/doctrine-orm-module": "0.*",
         "php": ">=5.3.3",
-        "zendframework/zendframework": "2.2.2"
+        "zendframework/zendframework": "2.3.*"
     },
     "minimum-stability": "dev",
     "require-dev": {
@@ -23,6 +23,7 @@
         "bjyoungblood/bjy-authorize": "dev-master",
         "zf-commons/zfc-user": "dev-master",
         "bjyoungblood/BjyProfiler": "dev-master",
-        "dino/dompdf-module": "dev-master"
+        "dino/dompdf-module": "dev-master",
+        "facebook/php-sdk-v4": "4.1.*@dev"
     }
 }

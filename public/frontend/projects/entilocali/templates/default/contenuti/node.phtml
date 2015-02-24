@@ -1,21 +1,33 @@
 <?php if (!empty($this->records)): ?>
-   
+
+    <ul class="breadcrumbs">
+        <li><a href="<?php echo $this->basepath() ?>" title="Torna all'home page">Home</a></li>
+        <li class="current"><?php echo $this->records[0]['nomeSezione'] ?></li>
+        <li class="current"><?php echo html_entity_decode($this->records[0]['nomeSottosezione'], ENT_COMPAT, 'UTF-8') ?></li>
+    </ul>
+
     <?php foreach($this->records as $record): ?>
-        <ul class="breadcrumbs">
-            <li><a href="<?php echo $this->basepath() ?>" title="Torna all'home page">Home</a></li>
-            <li class="current"><?php echo $record['nomeSezione'] ?></li>
-            <li class="current"><?php echo $record['titolo'] ?></li>
-        </ul>
-        
+
         <div class="contentTitle">
-            <h2><?php echo $record['titolo'] ?></h2>
+            <h2><?php echo html_entity_decode($record['titolo'], ENT_COMPAT, 'UTF-8') ?></h2>
         </div>
 
         <?php if (isset($record['sommario'])): ?>
-        <p><?php echo $record['sommario'] ?></p>
+            <div><?php echo utf8_encode($record['sommario']) ?></div>
         <?php endif; ?>
 
-        <p><?php echo html_entity_decode($record['testo'], ENT_COMPAT, 'UTF-8'); ?></p>
+        <div><?php echo utf8_encode($record['testo']); ?></div>
+
+        <br>
+        <br>
+        <p class="text-right">Esporta: <a href="#" title="Esporta in formato testo">TXT</a>,
+            <a href="#" title="Esporta in formato word">PDF</a>,
+            <a href="#" title="Esporta in formato word">Word</a>.
+            Condividi: <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->currentUrl; ?>" title="Condividi su facebook" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;">Facebook</a>,
+            <a href="http://twitter.com/share?text=<?php echo urlencode($record['titolo']) ?>&amp;url=<?php echo $this->currentUrl; ?>">Twitter</a>,
+            <a href="https://plus.google.com/share?url=<?php echo $this->currentUrl; ?>" title="Condividi su google plus">Gplus</a>
+        </p>
+        <hr>
     <?php endforeach; ?>
 
 <?php else: ?>

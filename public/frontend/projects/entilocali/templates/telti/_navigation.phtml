@@ -1,15 +1,20 @@
+
+<?php if ($this->cssName!='default' and $this->cssName!=''): ?>
+    <div>&raquo; <a href="<?php echo $this->url('css', array('cssname' => 'default')) ?>" title="Torna alla visualizzazione del sito grafico">Sito grafico</a></div>
+<?php endif; ?>
+
 <div class="large-12 columns">
     
     <div class="large-12 columns">
         
         <ul class="inline-list right">
-            <li><a href="#mainContents" class="button small">Vai ai contenuti</a></li>
+            <li><a href="#mainContents" accesskey="x" class="button small">Vai ai contenuti</a></li>
         </ul>
         
         <h1>
-        <a href="<?php echo $this->basepath() ?>/" title="<?php echo $this->sitename ?>">
-            <img src="<?php echo $this->basepath() ?>/public/frontend/projects/entilocali/templates/telti/assets/images/telti_logo.jpg" alt="">
-        </a>
+            <a href="<?php echo $this->basepath() ?>/" title="<?php echo $this->sitename ?>">
+                <img src="<?php echo $this->basepath() ?>/public/frontend/projects/entilocali/templates/telti/assets/images/telti_logo.jpg" alt="">
+            </a>
         </h1>
         
     </div>
@@ -21,7 +26,7 @@
     <nav class="top-bar" data-topbar role="navigation">
         <ul class="title-area">
             <li class="name">
-                <h1><a href="<?php echo $this->basepath() ?>/" title="Torna all'home page">Home</a></h1>
+                <h1><a href="<?php echo $this->basepath() ?>/" title="Torna all'home page" accesskey="h">Home</a></h1>
             </li>
 
             <li class="toggle-topbar menu-icon"><a href="#" title="Menu navigazione"><span>Menu</span></a></li>

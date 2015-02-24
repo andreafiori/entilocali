@@ -26,10 +26,10 @@ class LogsDataTable extends DataTableAbstract
         $this->setRecords( $this->formatRecordsToShowOnTable($paginatorRecords) );
 
         $this->setVariables(array(
-            'tablesetter' => 'contenuti',
+            'tablesetter' => 'logs',
             'paginator'   => $paginatorRecords,
             'columns'     => array(
-                "Data \ Ora",
+                "Data \ ora",
                 "Messaggio",
                 "Utente",
                 "Tipo",
@@ -39,7 +39,7 @@ class LogsDataTable extends DataTableAbstract
             ''
         ));
 
-        $this->setTitle('Log');
+        $this->setTitle('Logs');
 
         $this->setDescription('Visualizzazione logs');
 
@@ -66,12 +66,8 @@ class LogsDataTable extends DataTableAbstract
                         'type'      => 'deleteButton',
                         'href'      => '#',
                         'data-id'   => $row['id'],
-                        'title'     => 'Elimina contenuto'
+                        'title'     => 'Elimina log'
                     ),
-                    array(
-                        'type' => 'rowType',
-                        'rowType' => $row['type'],
-                    )
                 );
             }
         }

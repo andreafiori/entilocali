@@ -16,7 +16,7 @@ abstract class CrudHandlerAbstract extends RouterManagerAbstract
      */
     protected $connection;
     
-    protected $allowedOperations = array("insert", "update", "update");
+    protected $allowedOperations = array("insert", "update", "delete");
     protected $operation;
 
     protected $rawPost;
@@ -34,8 +34,11 @@ abstract class CrudHandlerAbstract extends RouterManagerAbstract
         $this->setInput($input);
         
         $param = $this->getInput('param', 1);
-        
-        $this->rawPost  = $param['post'];
+
+        if (isset($param['post'])) {
+            $this->rawPost  = $param['post'];
+        }
+
         if (isset($param['files'])) {
             $this->rawFiles = $param['files'];
         }

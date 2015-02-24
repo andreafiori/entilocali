@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsComuniSezioni
  *
- * @ORM\Table(name="zfcms_comuni_sezioni", indexes={@ORM\Index(name="zf_sezioni_modulo_id", columns={"modulo_id"})})
+ * @ORM\Table(name="zfcms_comuni_sezioni", indexes={@ORM\Index(name="fk_sezioni_modulo_id", columns={"modulo_id"}), @ORM\Index(name="fk_sezioni_user_id", columns={"utente_id"})})
  * @ORM\Entity
  */
 class ZfcmsComuniSezioni
@@ -87,6 +87,13 @@ class ZfcmsComuniSezioni
     /**
      * @var string
      *
+     * @ORM\Column(name="image", type="string", length=80, nullable=true)
+     */
+    private $image;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="slug", type="string", length=80, nullable=true)
      */
     private $slug;
@@ -128,6 +135,16 @@ class ZfcmsComuniSezioni
      * })
      */
     private $modulo;
+
+    /**
+     * @var \Application\Entity\ZfcmsUsers
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsers")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="utente_id", referencedColumnName="id")
+     * })
+     */
+    private $utente;
 
 
 }

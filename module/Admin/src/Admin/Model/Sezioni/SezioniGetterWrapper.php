@@ -28,10 +28,11 @@ class SezioniGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setSelectQueryFields( $this->getInput('fields', 1) );
 
         $this->objectGetter->setMainQuery();
-        
+
         $this->objectGetter->setId( $this->getInput('id', 1) );
         $this->objectGetter->setColonna( $this->getInput('colonna', 1) );
         $this->objectGetter->setAttivo( $this->getInput('attivo', 1) );
+        $this->objectGetter->setModuloId( $this->getInput('moduloId', 1) );
         $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
         $this->objectGetter->setLimit( $this->getInput('limit', 1) );
     }

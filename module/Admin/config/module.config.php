@@ -68,7 +68,7 @@ return array(
                     'datatable' => array(
                                     'type'    => 'Segment',
                                     'options' => array(
-                                                'route'       => 'datatable[/][:tablesetter][/][page/:page][/][/order_by/:order_by][/:order]',
+                                                'route'       => 'datatable[/][:tablesetter[/]][page/:page[/]][/order_by/:order_by][/:order[/]]',
                                                 'constraints' => array(
                                                         'tablesetter' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                                         'page'        => '[0-9]+',
@@ -85,6 +85,33 @@ return array(
                         'type'    => 'Segment',
                         'options' => array(
                             'route'       => 'config-edit[/]',
+                            'constraints' => array(
+
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Admin',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'delete-element' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'       => 'delete-element/[:type]/[:id[/]]',
+                            'constraints' => array(
+                                'type' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id'   => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Admin',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'migrazione' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'       => 'migrazione/tool[/]',
                             'constraints' => array(
 
                             ),
@@ -153,12 +180,14 @@ return array(
     'view_manager' => array(
         'display_not_found_reason' => true,
         'display_exceptions'       => true,
-        'template_map' => array(            
+        'template_map' => array(
             'admin/admin/login'             => __DIR__ . '../../view/admin/auth/login.phtml',
             'admin/admin/index'             => __DIR__ . '../../view/admin/index.phtml',
             'admin/admin/formpost'          => __DIR__ . '../../view/admin/formpost-empty.phtml',
             'admin/admin/invio-ente-terzo'  => __DIR__ . '/../view/invio-ente-terzo-empty.phtml',
             'admin/admin/invio-ente-terzo'  => __DIR__ . '/../view/config-edit-empty.phtml',
+            'admin/admin/delete-element'    => __DIR__ . '/../view/delete-element.phtml',
+            'admin/admin/migrazione'        => __DIR__ . '/../view/migrazione.phtml',
             'admin/'                        => __DIR__ . '/../view/empty.phtml',
         ),
         'template_path_stack' => array(
@@ -171,8 +200,10 @@ return array(
         "admin"                     => '\Admin\Model\AdminDashboard',
         "admin/formdata"            => '\Admin\Model\FormData\FormDataHandler',
         "admin/config-edit"         => '\Admin\Model\Config\ConfigEditHandler',
+        "admin/delete-element"      => '\Admin\Model\Delete\DeleteElementHandler',
         "admin/datatable"           => '\Admin\Model\DataTable\DataTableHandler',
         "admin/invio-ente-terzo"    => '\Admin\Model\EntiTerzi\InvioEnteTerzoHandler',
+        "admin/migrazione"          => '\Admin\Model\Migrazione\MigrazioneHandler',
         "admin/sezioni"             => '\Admin\Model\Sezioni\SezioniHandler',
     ),
     /* FormData Class Map */
@@ -213,6 +244,7 @@ return array(
         'categories'                  => 'Admin\Model\Posts\CategoriesCrudHandler',
         'contenuti'                   => 'Admin\Model\Contenuti\ContenutiCrudHandler',
         'sezioni-contenuti'           => 'Admin\Model\Sezioni\SezioniCrudHandler',
+        'sottosezioni-contenuti'      => 'Admin\Model\Sezioni\SottoSezioniCrudHandler',
         'contratti-pubblici'          => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciCrudHandler',
         'contratti-pubblici-scelta-contraente'  => 'Admin\Model\ContrattiPubblici\SceltaContraenteCrudHandler',
         'contratti-pubblici-responsabili'       => 'Admin\Model\ContrattiPubblici\ResponsabiliProcedimentoCrudHandler',

@@ -126,13 +126,13 @@ class AttiConcessioneDataTable extends DataTableAbstract
                         ),
                         array(
                             'type'      => 'deleteButton',
-                            'href'      => $this->getInput('baseUrl',1).'formdata/atti-concessione/'.$row['id'],
+                            'href'      => '#',
                             'title'     => 'Elimina',
                             'data-id'   => $row['id']
                         ),
                         array(
                             'type'      => 'attachButton',
-                            'href'      => $this->getInput('baseUrl',1).'formdata/atti-concessione/'.$row['id'],
+                            'href'      => '#',
                             'title'     => 'Elimina'
                         ),
                     );

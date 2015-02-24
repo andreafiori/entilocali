@@ -49,11 +49,36 @@ abstract class SetupAbstractController extends AbstractActionController
      */
     public function checkLogin()
     {
-        if (!$this->getServiceLocator()->get('AuthService')->hasIdentity()) {
+        $session = new SessionContainer();
+
+        if ( !$this->getServiceLocator()->get('AuthService')->hasIdentity() or $session->offsetGet('sitename') != $this->recoverSitename()) {
             return false;
         }
-        
+
         return true;
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function recoverSitename()
+    {
+        $configGetterWrapper = new ConfigGetterWrapper(new ConfigGetter($this->getServiceLocator()->get('doctrine.entitymanager.orm_default')));
+        $configGetterWrapper->setInput(array(
+            'name'      => 'sitename',
+            'channel'   => 1,
+            'language'  => 1,
+            'limit'     => 1
+        ));
+        $configGetterWrapper->setupQueryBuilder();
+
+        $records = $configGetterWrapper->getRecords();
+
+        if (empty($records)) {
+            return false;
+        }
+
+        return $records[0]['value'];
     }
 
     /**

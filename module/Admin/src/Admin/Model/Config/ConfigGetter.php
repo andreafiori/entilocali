@@ -80,8 +80,8 @@ class ConfigGetter extends QueryBuilderHelperAbstract
     }
     
     /**     
-     * @param type $isBackend
-     * @return type
+     * @param int $isBackend
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setIsBackend($isBackend)
     {

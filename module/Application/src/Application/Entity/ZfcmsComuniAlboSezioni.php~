@@ -29,13 +29,6 @@ class ZfcmsComuniAlboSezioni
     private $nome;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="descrizione", type="text", length=65535, nullable=false)
-     */
-    private $descrizione;
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="attivo", type="integer", nullable=false)
@@ -62,6 +55,27 @@ class ZfcmsComuniAlboSezioni
      * @ORM\Column(name="det", type="integer", nullable=true)
      */
     private $det;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="esi", type="integer", nullable=true)
+     */
+    private $esi;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ban", type="integer", nullable=true)
+     */
+    private $ban;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="con", type="integer", nullable=true)
+     */
+    private $con;
 
 
 }

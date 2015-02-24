@@ -47,7 +47,7 @@ class AttiConcessioneCrudHandler extends CrudHandlerAbstract implements CrudHand
                     'data'          => $this->rawPost['data'],
                     'ora'           => date("H:i:s"),
                     'resp_proc_id'  => $this->rawPost['respProc'],
-                    'settore_id'    => $this->rawPost['settore'],
+                    'settore_id'    => $this->rawPost['ufficioResponsabile'],
                     'utente_id'    => $this->rawPost['utente_id'],
                 ));
 
@@ -75,6 +75,7 @@ class AttiConcessioneCrudHandler extends CrudHandlerAbstract implements CrudHand
             $this->setArrayRecordToHandle('modassegn', 'modassegn');
             $this->setArrayRecordToHandle('data', 'data');
             $this->setArrayRecordToHandle('anno', 'anno');
+            $this->setArrayRecordToHandle('settore', 'ufficioResponsabile');
 
             $affectedRows = $this->getConnection()->update(
                 $this->tableName,
@@ -90,9 +91,5 @@ class AttiConcessioneCrudHandler extends CrudHandlerAbstract implements CrudHand
             return $this->setErrorMessage($e->getMessage());
         }
     }
-    
-    public function delete()
-    {
-        
-    }
+
 }

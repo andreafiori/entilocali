@@ -22,7 +22,7 @@ class UsersCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
     {
         $this->setArrayRecordToHandle('name', 'name');
         $this->setArrayRecordToHandle('surname', 'surname');
-        $this->setArrayRecordToHandle('password', 'password', 1);
+        $this->setArrayRecordToHandle('username', 'username', 1);
 
         if ($this->rawPost['password'] != $this->rawPost['password-confirm']) {
             $this->setErrorMessage('Le due password non coincidono');

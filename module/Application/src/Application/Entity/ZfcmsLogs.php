@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsLogs
  *
- * @ORM\Table(name="zfcms_logs", indexes={@ORM\Index(name="user_id", columns={"user_id"})})
+ * @ORM\Table(name="zfcms_logs", indexes={@ORM\Index(name="user_id", columns={"user_id"}), @ORM\Index(name="fk_logs_module_id", columns={"module_id"})})
  * @ORM\Entity
  */
 class ZfcmsLogs
@@ -55,6 +55,16 @@ class ZfcmsLogs
      * @ORM\Column(name="backend", type="smallint", nullable=false)
      */
     private $backend;
+
+    /**
+     * @var \Application\Entity\ZfcmsModules
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsModules")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="module_id", referencedColumnName="id")
+     * })
+     */
+    private $module;
 
 
 
@@ -186,5 +196,29 @@ class ZfcmsLogs
     public function getBackend()
     {
         return $this->backend;
+    }
+
+    /**
+     * Set module
+     *
+     * @param \Application\Entity\ZfcmsModules $module
+     *
+     * @return ZfcmsLogs
+     */
+    public function setModule(\Application\Entity\ZfcmsModules $module = null)
+    {
+        $this->module = $module;
+    
+        return $this;
+    }
+
+    /**
+     * Get module
+     *
+     * @return \Application\Entity\ZfcmsModules
+     */
+    public function getModule()
+    {
+        return $this->module;
     }
 }

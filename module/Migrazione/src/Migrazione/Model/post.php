@@ -92,7 +92,7 @@ switch($_GET['op'])
     break;
 
     case("users"):
-        executeQuery("TRUNCATE TABLE zfcms_users ");        
+        executeQuery("TRUNCATE TABLE zfcms_users ");
         
         $result = getRecord("SELECT * FROM utenti");
         if ( is_array($result) ) {

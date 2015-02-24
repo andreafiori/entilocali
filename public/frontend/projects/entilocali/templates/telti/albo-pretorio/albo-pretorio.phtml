@@ -140,6 +140,16 @@
     <p><strong>Pubblicato il:</strong> <?php echo $row['dataAttivazione'] ?> / <strong>Ore:</strong> <?php echo $row['oraAttivazione'] ?></p>
     <p><strong>Scadenza:</strong> <?php echo $row['dataScadenza'] ?></p>
     <p><strong>Sezione:</strong> <?php echo $row['nomeSezione'] ?></p>
+
+    <br>
+    <br>
+    <p class="text-right">Esporta: <a href="#" title="Esporta in formato testo">TXT</a>,
+        <a href="#" title="Esporta in formato word">PDF</a>,
+        <a href="#" title="Esporta in formato word">Word</a>.
+        Condividi: <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->currentUrl; ?>" title="Condividi su facebook" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;">Facebook</a>,
+        <a href="http://twitter.com/share?text=<?php echo urlencode($row['titolo']) ?>&amp;url=<?php echo $this->currentUrl; ?>">Twitter</a>,
+        <a href="https://plus.google.com/share?url=<?php echo $this->currentUrl; ?>" title="Condividi su google plus">Gplus</a>
+    </p>
     <!-- TODO:
         <p><strong>Allegati:</strong></p>
         <p>[PDF] provvedimento_unico n. 1 del 17 04 2014 .pdf (48 KB)</p>

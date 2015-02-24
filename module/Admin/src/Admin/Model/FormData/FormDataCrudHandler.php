@@ -36,7 +36,9 @@ class FormDataCrudHandler extends RouterManagerAbstract
             throw new \Application\Model\NullException('Form Crud Handler is not set');
         }
 
-        $this->crudHandler = $classMap[$this->formCrudHandler];
+        if (isset($classMap[$this->formCrudHandler])) {
+            $this->crudHandler = $classMap[$this->formCrudHandler];
+        }
 
         return $this->crudHandler;
     }

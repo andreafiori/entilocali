@@ -11,12 +11,28 @@ use Zend\Form\Form;
 class SottoSezioniForm extends Form
 {
     /**
-     * @inheritdoc
+     * @param array $sezioni
      */
-    public function __construct($name = null, $options = array())
+    public function addSezioni(array $sezioni)
     {
-        parent::__construct($name, $options);
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'sezione',
+            'options' => array(
+                'label' => '* Sezione',
+                'empty_option' => 'Seleziona',
+                'value_options' => $sezioni
+            ),
+            'attributes' => array(
+                'required'  => 'required',
+                'title'     => 'Seleziona sezione',
+                'id'        => 'sezione'
+            )
+        ));
+    }
 
+    public function addFormOptions()
+    {
         $this->add(array(
             'name' => 'immagine',
             'type' => 'File',
@@ -41,6 +57,28 @@ class SottoSezioniForm extends Form
         ));
 
         $this->add(array(
+            'name' => 'url',
+            'type' => 'Text',
+            'options' => array( 'label' => 'URL' ),
+            'attributes' => array(
+                'placeholder'   => 'URL...',
+                'title'         => 'Inserisci URL',
+                'id'            => 'url',
+            )
+        ));
+
+        $this->add(array(
+            'name' => 'urlTitle',
+            'type' => 'Text',
+            'options' => array( 'label' => 'Descrizione URL' ),
+            'attributes' => array(
+                'placeholder'   => 'Descrizione URL...',
+                'title'         => 'Inserisci descrizione URL',
+                'id'            => 'urlTitle',
+            )
+        ));
+
+        $this->add(array(
             'name' => 'posizione',
             'type' => 'Text',
             'options' => array( 'label' => '* Posizione' ),
@@ -50,6 +88,24 @@ class SottoSezioniForm extends Form
                 'placeholder'   => 'Posizione...',
                 'title'         => 'Inserisci numero posizione',
                 'id'            => 'posizione',
+            )
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'attivo',
+            'options' => array(
+                'label' => '* Stato',
+                'empty_option' => 'Seleziona',
+                'value_options' => array(
+                    1   => 'Attivo',
+                    0   => 'Nascosto',
+                ),
+            ),
+            'attributes' => array(
+                'title'     => 'Seleziona stato',
+                'id'        => 'attivo',
+                'required'  => 'required'
             )
         ));
 

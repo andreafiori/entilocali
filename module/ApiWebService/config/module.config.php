@@ -26,7 +26,7 @@ return array(
                             'options' => array(
                                     'route'       => 'cms[/][:output_format][/][:resource][/][:id][/]',
                                     'constraints' => array(
-                                            'output_format' => 'xml|json',
+                                            'output_format' => 'xml|json|rdf',
                                             'resource' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                             'id'       => '[0-9]+',
                                     ),

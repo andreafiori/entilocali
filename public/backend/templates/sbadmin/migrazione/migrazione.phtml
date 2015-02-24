@@ -1,0 +1,112 @@
+<ul class="breadcrumb">
+    <li><a href="<?php echo $this->basepath() ?>" title="Home page">Home</a> <span class="divider"></span></li>
+    <li class="active">Migrazione</li>
+</ul>
+
+<?php if (isset($this->msg)): ?>
+<div class="alert alert-<?php echo isset($this->msgType) ? $this->msgType : 'info' ?>">
+    <div><?php echo $this->msg ?></div>
+</div>
+<?php endif; ?>
+
+<h1>Tool di migrazione dati</h1>
+
+<p>Migrazione dati dalla <strong>versione precedente</strong> del database.</p>
+
+<p>&Egrave; possibile selezionare pi&ugrave; moduli tenendo premuto il <strong>tasto Ctrl</strong>.</p>
+
+<p><strong>Attenzione: i dati attualmente presenti nei moduli verranno eliminati.</strong></p>
+
+<form role="form" action="" method="post" class="form-horizontal">
+    <div>
+        <select name="migrationoldcms[]" multiple="multiple" class="form-control" size="12">
+            <option value="albo-pretorio">Albo pretorio</option>
+            <option value="amministrazione-trasparente">Amministrazione trasparente</option>
+            <option value="atti-concessione">Atti di concessione</option>
+            <option value="contratti-pubblici">Contratti pubblici</option>
+            <option value="contratti-pubblici-allegati">Contratti pubblici (Allegati)</option>
+            <option value="configurazioni">Configurazioni</option>
+            <option value="contenuti">Contenuti</option>
+            <option value="contenuti-allegati">Contenuti (Allegati)</option>
+            <option value="enti-terzi">Enti terzi</option>
+            <option value="eventi">Eventi (blogs)</option>
+            <option value="foto">Foto</option>
+            <option value="moduli">Moduli (elenco)</option>
+            <option value="event">Newsletter</option>
+            <option value="sezioni">Sezioni</option>
+            <option value="sotto-sezioni">Sotto-sezioni</option>
+            <option value="stato-civile">Stato civile</option>
+            <option value="stato-civile-allegati">Stato civile (Allegati)</option>
+            <option value="utenti">Utenti</option>
+        </select>
+    </div>
+    <br>
+    <div>
+        <input type="submit" name="migrateoldcmsbutton" value="Procedi" class="btn btn-primary">
+    </div>
+</form>
+
+<h3>Elimina tabelle database versione precedente</h3>
+<p>Attenzione: prima di procedere con l'eliminazione delle tabelle del vecchio CMS, assicurarsi che TUTTI precedenti siano stati importati.</p>
+
+<!-- Button trigger modal -->
+<a href="#myModal" class="btn btn-danger" data-toggle="modal">
+    Conferma cancellazione
+</a>
+
+<br>
+<br>
+
+<!--
+<h1>Popolamento database</h1>
+
+<p>Popolamento tabelle database con dati di prova (classico testo latino).</p>
+
+<p>&Egrave; possibile selezionare pi&ugrave; moduli tenendo premuto il <strong>tasto Ctrl</strong>.</p>
+
+<p>Seleziona moduli da popolare</p>
+
+<p><strong>Attenzione: i dati attulmente presenti nei moduli verranno eliminati.</strong></p>
+
+<form role="form" action="" method="post" class="form-horizontal">
+    <div>
+        <select name="populatemodules[]" multiple="multiple" class="form-control" size="12">
+
+        </select>
+    </div>
+
+    <br>
+
+    <div>
+        <input type="submit" name="populatedbok" value="Procedi" class="btn btn-primary">
+    </div>
+</form>
+-->
+
+
+<!-- Modal Delete old CMS db tables -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content panel-danger">
+
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="deleteModalLabel"><strong>Conferma eliminazione?</strong></h4>
+            </div>
+
+            <form action="" method="post" id="deleteOldCMSFormMigration" role="form">
+                <div class="modal-body">
+                    <p><strong>Attenzione:</strong> le tabelle della versione precedente del database verranno eliminate definitivamente.</p>
+
+                    <input type="hidden" name="deleteId" id="deleteId" value="" />
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
+                    <button type="submit" name="btnconfirmdeleteoldcmstables" class="btn btn-danger">Conferma</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

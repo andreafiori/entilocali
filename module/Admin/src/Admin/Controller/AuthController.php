@@ -2,7 +2,10 @@
 
 namespace Admin\Controller;
 
+use Admin\Model\Config\ConfigGetter;
+use Admin\Model\Config\ConfigGetterWrapper;
 use Application\Controller\SetupAbstractController;
+use Application\Model\NullException;
 use Zend\View\Model\ViewModel;
 use Admin\Model\Users\UserFormAuthentication;
 use Zend\Session\Container as SessionContainer;
@@ -27,7 +30,7 @@ class AuthController extends SetupAbstractController
      */
     public function showFormLoginAction()
     {
-        if ($this->getAuthService()->hasIdentity()) {
+        if ( $this->checkLogin() ) {
             return $this->redirect()->toRoute('admin');
         }
         
@@ -57,7 +60,7 @@ class AuthController extends SetupAbstractController
                 $this->getAuthService()->getAdapter()
                                        ->setIdentity($request->getPost('username'))
                                        ->setCredential($request->getPost('password'));
-         
+
                 $result = $this->getAuthService()->authenticate();
                 foreach($result->getMessages() as $message)
                 {
@@ -74,39 +77,51 @@ class AuthController extends SetupAbstractController
                     
                     // set storage again
                     $this->getAuthService()->setStorage($this->getSessionStorage());
-                    
-                    $this->getAuthService()->setStorage($this->getSessionStorage());
                     $this->getAuthService()->getStorage()->write($request->getPost('username'));
                     
-                    // get user data
+                    // Get user data
                     $usersGetterWrapper = new UsersGetterWrapper( new UsersGetter($this->getServiceLocator()->get('doctrine.entitymanager.orm_default')) );
-                    $usersGetterWrapper->setInput( array('username' => $request->getPost('username'), 'password' => $request->getPost('password'), 'limit' => 1) );
+                    $usersGetterWrapper->setInput( array(
+                        'username'  => $request->getPost('username'),
+                        'password'  => $request->getPost('password'),
+                        'limit'     => 1,
+                    ));
                     $usersGetterWrapper->setupQueryBuilder();
 
                     $records = $usersGetterWrapper->getRecords();
-                    
+
                     if ( isset($records) and count($records)==1 ) {
                         $records = $records[0];
-                        
+
                         /* Set ACL */
                         $acl = new Acl();
                         $userRole = new Role('administrator');
                         $acl->addRole($userRole);
                         $acl->allow($userRole);
-                        // $acl->isAllowed($userRole, null, 'view');                 
-                        
+                        // $acl->isAllowed($userRole, null, 'view');
+
+                        $sitename = $this->recoverSitename();
+
+                        if (!$sitename) {
+                            throw new NullException('Site name is not set. Cannot complete the login');
+                        }
+
                         $sessionContainer = new SessionContainer();
-                        $sessionContainer->offsetSet('id', $records['id']);
-                        $sessionContainer->offsetSet('name', $records['name']);
+                        $sessionContainer->offsetSet('sitename', $sitename);
+                        $sessionContainer->offsetSet('id',      $records['id']);
+                        $sessionContainer->offsetSet('name',    $records['name']);
                         $sessionContainer->offsetSet('surname', $records['surname']);
-                        $sessionContainer->offsetSet('email', $records['email']);
-                        $sessionContainer->offsetSet('role', $userRole);
-                        $sessionContainer->offsetSet('acl', $acl);
+                        $sessionContainer->offsetSet('email',   $records['email']);
+                        $sessionContainer->offsetSet('role',    $userRole);
+                        $sessionContainer->offsetSet('acl',     $acl);
+
+                        // $sessionContainer->offsetSet('userDetails_$sitename', $acl);
+                        // $sessionContainer->offsetSet('currentSitename', $sitename);
                         
-                        /* Regenerate Session ID after log in */
+                        /* Regenerate Session ID after login */
                         $manager = new \Zend\Session\SessionManager;
                         $manager->regenerateId();
-                                                
+
                     } else {
                         throw new Exception('Cannot get user details after login');
                     }

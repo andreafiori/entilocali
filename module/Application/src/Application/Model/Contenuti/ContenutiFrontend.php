@@ -38,6 +38,7 @@ class ContenutiFrontend extends RouterManagerAbstract implements RouterManagerIn
         }
         
         $this->setTemplate('contenuti/node.phtml');
+
         $this->setVariables(array(
             'records'  => isset($records) ? $records : null,
             'recordsCount' => $recordsCount,

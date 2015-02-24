@@ -46,6 +46,10 @@
     margin-right: auto;
     max-width: initial;
 }
+
+.sezioniTitle {
+    font-size: 120%;
+}
 </style>
 <?php endif; ?>
 
@@ -54,3 +58,7 @@
 </head>
 
 <body>
+
+<?php if ($this->cssName!='default' and $this->cssName!=''): ?>
+    <div>&raquo; <a href="<?php echo $this->url('css', array('cssname' => 'default')) ?>" title="Torna alla visualizzazione del sito grafico">Sito grafico</a></div>
+<?php endif; ?>

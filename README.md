@@ -29,17 +29,6 @@ Update third part scripts using:
 
 Rename the a.htaccess file to .htaccess. I've renamed it to use on my localhost with XAMPP.
 
-Documentation
--------------------
-
-Source code documentation can be generated with Apigen.
-I have apigen.neon file configuration to generate files on the docs directory.
-
-Migration tool
--------------------
-
-A migration tool will 
-
 Notes
 ------------
 

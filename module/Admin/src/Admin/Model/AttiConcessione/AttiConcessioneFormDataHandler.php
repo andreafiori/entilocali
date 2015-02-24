@@ -33,7 +33,9 @@ class AttiConcessioneFormDataHandler extends FormDataAbstract
             $formAction         = 'atti-concessione/update';
             $formTitle          = 'Modifica atto di concessione';
             $formDescription    = 'Modifica nuovo atto di concessione';
-            
+
+
+            $records[0]['importo'] = utf8_encode($records[0]['importo']);
             $form->setData($records[0]);
         } else {
             $formAction      = 'atti-concessione/insert';
@@ -44,7 +46,7 @@ class AttiConcessioneFormDataHandler extends FormDataAbstract
         $this->setVariable('form',              $form);
         $this->setVariable('formAction',        $formAction);
         $this->setVariable('formTitle',         $formTitle);
-        $this->setVariable('formDescription',   $formDescription);        
+        $this->setVariable('formDescription',   $formDescription);
         $this->setVariable('formBreadCrumbCategory', 'Atti di concessione');
         $this->setVariable('CKEditorField', array('sottotitolo', 'testo'));
     }

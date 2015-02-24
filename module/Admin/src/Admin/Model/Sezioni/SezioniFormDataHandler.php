@@ -42,6 +42,7 @@ class SezioniFormDataHandler extends FormDataAbstract
             $formAction = 'sezioni-contenuti/insert/';
         }
 
+        $baseUrl = $this->getInput('baseUrl', 1);
         $this->setVariables( array(
                 'formTitle'              => $formTitle,
                 'formDescription'        => 'Le sezioni rappresentano i blocchi principali sui quali costruire le basi dei contenuti',
@@ -49,7 +50,7 @@ class SezioniFormDataHandler extends FormDataAbstract
                 'formAction'             => $formAction,
                 'submitButtonValue'      => $submitButtonValue,
                 'formBreadCrumbCategory' => 'Sezioni',
-                'formBreadCrumbCategoryLink' => $this->getInput('baseUrl', 1).'datatable/sezioni-contenuti/',
+                'formBreadCrumbCategoryLink' => $baseUrl.'datatable/sezioni-contenuti/',
             )
         );
     }
@@ -67,5 +68,7 @@ class SezioniFormDataHandler extends FormDataAbstract
 
             return $wrapper->getRecords();
         }
+
+        return null;
     }
 }

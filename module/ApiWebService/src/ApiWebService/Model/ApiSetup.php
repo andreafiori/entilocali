@@ -3,17 +3,17 @@
 namespace ApiWebService\Model;
 
 use Admin\Model\Users\UsersGetterWrapper;
-use ApiWebService\Model\ApiSetupAbstract;
 use Application\Model\NullException;
 
 /**
- * TODO: refactoring: ApiSetupAuthenticationInput, ApiSetup
- * 
  * @author Andrea Fiori
  * @since  22 August 2014
  */
 class ApiSetup extends ApiSetupAbstract
 {
+    /**
+     * @var \Admin\Model\Users\UsersGetterWrapper
+     */
     private $usersGetterWrapper;
     private $resourceClassMap;
     private $resourceClassName;
@@ -23,7 +23,8 @@ class ApiSetup extends ApiSetupAbstract
      */
     public function setupAuthenticationInput()  
     {
-        if ( !$this->getInput() ) {
+        $input = $this->getInput();
+        if ( !isset($input) ) {
             $this->setupNullException('Input is not set');
         }
         
@@ -34,7 +35,7 @@ class ApiSetup extends ApiSetupAbstract
             )
         );
         
-        $this->validateAuthenticationInput();
+        // $this->validateAuthenticationInput();
     }
         
         /**
@@ -86,15 +87,14 @@ class ApiSetup extends ApiSetupAbstract
     }
     
     /**
-     * @param array $authenticationInput
-     * @return type
+     * @return array
      * @throws NullException
      */
     public function authenticate()
     {
         $this->assetUsersGetterWrapper();
 
-        $this->usersGetterWrapper->setInput($this->getInput());
+        $this->usersGetterWrapper->setInput( $this->getInput() );
         $this->usersGetterWrapper->setupQueryBuilder();
         $this->usersGetterWrapper->setupPaginator( $this->usersGetterWrapper->setupQuery($this->getEntityManager()) );
         $this->usersGetterWrapper->setupPaginatorCurrentPage();
@@ -106,11 +106,11 @@ class ApiSetup extends ApiSetupAbstract
         foreach($paginator as $row) {
             $arrayToReturn[] = $row;
         }
-
+        /*
         if ( count($arrayToReturn) != 1 ) {
             $this->setupNullException('Unauthiorized: bad authentication.');
         }
-        
+        */
         return $arrayToReturn;
     }
     

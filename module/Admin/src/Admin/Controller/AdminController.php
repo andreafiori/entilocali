@@ -21,7 +21,7 @@ class AdminController extends SetupAbstractController
     public function indexAction()
     {
         /* Check login */
-        if (!$this->getServiceLocator()->get('AuthService')->hasIdentity()) {
+        if (!$this->checkLogin()) {
             return $this->redirect()->toRoute('login');
         }
 
@@ -85,7 +85,7 @@ class AdminController extends SetupAbstractController
     public function formpostAction()
     {
         /* Check login */
-        if (!$this->getServiceLocator()->get('AuthService')->hasIdentity() ) {
+        if (!$this->checkLogin()) {
             return $this->redirect()->toRoute('login');
         }
 
@@ -115,8 +115,7 @@ class AdminController extends SetupAbstractController
         /**
          * @var \Admin\Model\FormData\CrudHandlerAbstract $crudHandler
          */
-        $crudHandler = new $crudHandlerObject($appServiceLoader->getProperties());
-        $crudHandler->setInput($input);
+        $crudHandler = new $crudHandlerObject($input);
         $crudHandler->setConnection($appServiceLoader->recoverService('entityManager')->getConnection());
         $crudHandler->setOperation($this->params()->fromRoute('operation'));
         $crudHandler->setLogsWriter( new LogsWriter($crudHandler->getConnection()) );

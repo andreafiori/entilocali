@@ -1,6 +1,6 @@
 <?php
 
-namespace Migrazione\Model\Redbean;
+namespace Application\Model\Database\Redbean;
 
 use IteratorAggregate;
 use ArrayAccess;

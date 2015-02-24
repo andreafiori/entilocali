@@ -63,10 +63,10 @@ class ContenutiDataTable extends DataTableAbstract
                         $row['dataInserimento'],
                         $row['dataScadenza'],
                         array(
-                            'type'      => $row['attivo']!=0 ? 'activeButton' : 'disableButton',
-                            'href'      => '?active='.$activeDisableButtonValue.'&amp;id='.$row['id'],
+                            'type'      => $row['attivo']==1 ? 'disableButton' : 'activeButton',
+                            'href'      => '',
                             'value'     => $row['attivo'],
-                            'title'     => 'Attiva \ Disattiva'
+                            'title'     => $row['attivo']==1 ? 'Nascondi contenuto' : 'Attiva contenuto',
                         ),
                         array(
                             'type'      => 'updateButton',
@@ -75,15 +75,20 @@ class ContenutiDataTable extends DataTableAbstract
                         ),
                         array(
                             'type'      => 'deleteButton',
-                            'href'      => '#',
+                            'href'      => $this->getInput('serviceLocator', 1)
+                                            ->get('ViewHelperManager')
+                                            ->get('url')
+                                            ->__invoke('admin/delete-element', array(
+                                                'lang' => 'it',
+                                                'type' => 'contenuti'
+                                            )),
                             'data-id'   => $row['id'],
                             'title'     => 'Elimina contenuto'
                         ),
                         array(
-                            'type'      => $row['home']!=0 ? 'homepagePutButton' : 'homepageDelButton',
-                            'href'      => '?homepage='.$activeDisableButtonValue.'&amp;id='.$row['id'],
-                            'value'     => $row['attivo'],
-                            'title'     => 'Homepage'
+                            'type'      => $row['home']==1 ? 'homepageDelButton' : 'homepagePutButton',
+                            'href'      => '#',
+                            'value'     => $row['home']==1 ? 'homepageDelButton' : 'homepagePutButton',
                         ),
                         array(
                             'type'      => 'attachButton',

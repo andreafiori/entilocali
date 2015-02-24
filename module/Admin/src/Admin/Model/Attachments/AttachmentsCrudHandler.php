@@ -15,7 +15,8 @@ class AttachmentsCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
     private $tableName              = 'zfcms_attachments';
     private $tableName_options      = 'zfcms_attachments_options';
     private $tableName_relations    = 'zfcms_attachments_relations';
-    private $validExtensions = array('txt','doc','docx','xls','xlsx','pdf','jpg','rtf','ods','zip');
+
+    //private $validExtensions = array('txt','doc','docx','xls','xlsx','pdf','jpg','rtf','ods','zip');
     
     protected function insert()
     {
@@ -96,7 +97,12 @@ class AttachmentsCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
             // Upload on S3
             $filename = $post['attachmentFile']['name'];
             $s3 = new S3($appConfigurationsFromDb['amazon_s3_accesskey'], $appConfigurationsFromDb['amazon_s3_secretkey']);
-            $s3->putObject(S3::inputFile($post['attachmentFile']['tmp_name'], false), $appConfigurationsFromDb['amazon_s3_bucket'], $post['s3_directory'].'/'.$filename, S3::ACL_PUBLIC_READ);
+            $s3->putObject(
+                S3::inputFile($post['attachmentFile']['tmp_name'], false),
+                $appConfigurationsFromDb['amazon_s3_bucket'],
+                $post['s3_directory'].'/'.$filename,
+                S3::ACL_PUBLIC_READ
+            );
   
             $this->getConnection()->commit();
 

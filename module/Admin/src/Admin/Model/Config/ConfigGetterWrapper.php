@@ -10,11 +10,13 @@ use Application\Model\RecordsGetterWrapperAbstract;
  */
 class ConfigGetterWrapper extends RecordsGetterWrapperAbstract
 {
-    /** @var ConfigGetter **/
+    /**
+     * @var ConfigGetter
+     */
     protected $objectGetter;
 
     /**
-     * @param \Admin\Model\Entiterzi\ConfigGetter $objectGetter
+     * @param ConfigGetter $objectGetter
      */
     public function __construct(ConfigGetter $objectGetter)
     {

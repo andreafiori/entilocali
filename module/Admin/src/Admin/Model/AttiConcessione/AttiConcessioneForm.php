@@ -20,23 +20,24 @@ class AttiConcessioneForm extends Form
         $this->add(array(
                         'name' => 'beneficiario',
                         'type' => 'Textarea',
-                        'options' => array( 'label' => '* Beneficiario CF/PIVA' ),
+                        'options' => array( 'label' => '* Beneficiario CF / P.IVA' ),
                         'attributes' => array(
-                                        'title' => 'Beneficiario CF/PIVA',
-                                        'id'    => 'beneficiario',
-                                        'required' => 'required',
+                                        'title'     => 'Beneficiario CF / P.IVA',
+                                        'id'        => 'beneficiario',
+                                        'required'  => 'required',
+                                        'rows'      => '8',
                         )
         ));
-        
+
         $this->add(array(
                         'name' => 'importo',
                         'type' => 'Text',
                         'options' => array( 'label' => 'Importo (Euro)' ),
                         'attributes' => array(
-                                        'title' => 'Importo (Euro)',
-                                        'id'    => 'importo',
-                                        'placeholder' => 'Importo...',
-                                        'required' => 'required',
+                                        'title'         => 'Inserisci importo (Euro)',
+                                        'id'            => 'importo',
+                                        'placeholder'   => 'Importo...',
+                                        'required'      => 'required',
                         )
         ));
     }
@@ -48,20 +49,20 @@ class AttiConcessioneForm extends Form
     {
         $this->add(array(
                         'type' => 'Zend\Form\Element\Select',
-                        'name' => 'settore',
+                        'name' => 'ufficioResponsabile',
                         'options' => array(
                                'label' => '* Ufficio Responsabile',
                                'empty_option' => 'Seleziona',
                                'value_options' => $records,
                         ),
                         'attributes' => array(
-                                'id'    => 'settore',
+                                'id'    => 'ufficioResponsabile',
                                 'title' => 'Seleziona Ufficio Responsabile',
                                 'required' => 'required',
                         )
         ));
     }
-    
+
     public function addResponsabileProcedimento()
     {
         /* TODO: respProc
@@ -76,17 +77,18 @@ class AttiConcessioneForm extends Form
         ));
         */
     }
-    
+
     public function addModalitaAssegnazione()
-    {        
+    {
         $this->add(array(
                         'name' => 'modassegn',
                         'type' => 'Text',
                         'options' => array( 'label' => 'Modalit&agrave; assegnazione' ),
                         'attributes' => array(
-                                        'title' => 'Modalit&agrave; assegnazione',
-                                        'placeholder' => 'Modalit&agrave; assegnazione...',
-                                        'id'    => 'modassegn',
+                                        'title'         => 'Modalit&agrave; assegnazione',
+                                        'placeholder'   => 'Modalit&agrave; assegnazione...',
+                                        'id'            => 'modassegn',
+                                        'required'      => 'required',
                         )
         ));
 
@@ -95,18 +97,17 @@ class AttiConcessioneForm extends Form
                         'type' => 'Text',
                         'options' => array( 'label' => "Norma o Titolo a base dell'attribuzione" ),
                         'attributes' => array(
-                            'title' => "* Norma o Titolo a base dell'attribuzione",
-                            'id'    => 'titolo',
-                            'placeholder' => 'Norma o Titolo...',
-                            'required' => 'required',
+                            'title'         => "* Norma o Titolo a base dell'attribuzione",
+                            'id'            => 'titolo',
+                            'placeholder'   => 'Norma o titolo...',
                         )
         ));
 
         $this->add(array(
             'type' => 'Date',
-            'name' => 'data',
+            'name' => 'dataInserimento',
             'options' => array(
-                'label' => "Data inserimento: (inserire data in formato GG-MM-AAAA). l'articolo sarà visibile in front-end a partire da questa data",
+                'label' => "Data inserimento:",
                 'format' => 'Y-m-d',
             ),
             'attributes' => array(
@@ -130,9 +131,9 @@ class AttiConcessioneForm extends Form
                 'placeholder' => 'Anno...',
             )
         ));
-        
+
         // Data scadenza: 5 Anni a partire dall'anno successivo a quello di inserimento
-        
+
         // Associa articolo a utente: se utente non admin visualizza id campo nascosto, altrimenti select area
 
         $this->add(array(
@@ -146,5 +147,17 @@ class AttiConcessioneForm extends Form
             'name' => 'userId',
             'attributes' => array("class"=>'hiddenField')
         ));
+    }
+
+    /**
+     * Set a single option for an element
+     *
+     * @param  string $key
+     * @param  mixed $value
+     * @return self
+     */
+    public function setOption($key, $value)
+    {
+        // TODO: Implement setOption() method.
     }
 }

@@ -13,7 +13,7 @@ use Admin\Model\Sezioni\SottoSezioniGetterWrapper;
 class ContenutiFormDataHandler extends FormDataAbstract
 {
     /**
-     * @param array $input
+     * @inheritdoc
      */
     public function __construct(array $input)
     {
@@ -27,7 +27,7 @@ class ContenutiFormDataHandler extends FormDataAbstract
         $form = new ContenutiForm();
         $form->addSottoSezioni($this->getSezioniRecords());
         $form->addForm();
-        $form->addUsers();
+        // $form->addUsers();
 
         if ($recordFromDb) {
             $form->setData($recordFromDb[0]);
@@ -36,9 +36,8 @@ class ContenutiFormDataHandler extends FormDataAbstract
             $formTitle = $recordFromDb[0]['titolo'];
             $formAction = 'contenuti/update/';
         } else {
-            $form->setData(array(
-                'user' => $this->getInput('userDetails',1)->id,
-            ));
+            $form->addSocial();
+
             $formTitle = 'Nuovo contenuto';
             $submitButtonValue = 'Inserisci';
             $formAction = 'contenuti/insert/';
