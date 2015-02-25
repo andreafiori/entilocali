@@ -47,7 +47,7 @@ class ZfcmsComuniAlboArticoli
      *
      * @ORM\Column(name="data_attivazione", type="datetime", nullable=false)
      */
-    private $dataAttivazione;
+    private $dataAttivazione = '2015-01-01 00:00:00';
 
     /**
      * @var \DateTime
@@ -61,14 +61,14 @@ class ZfcmsComuniAlboArticoli
      *
      * @ORM\Column(name="data_pubblicare", type="datetime", nullable=false)
      */
-    private $dataPubblicare;
+    private $dataPubblicare = '2015-01-01 00:00:00';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="ora_pubblicare", type="time", nullable=false)
      */
-    private $oraPubblicare;
+    private $oraPubblicare = '00:00:00';
 
     /**
      * @var integer
@@ -103,14 +103,14 @@ class ZfcmsComuniAlboArticoli
      *
      * @ORM\Column(name="pubblicare", type="integer", nullable=false)
      */
-    private $pubblicare;
+    private $pubblicare = '0';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="annullato", type="integer", nullable=false)
      */
-    private $annullato;
+    private $annullato = '0';
 
     /**
      * @var integer
@@ -124,21 +124,21 @@ class ZfcmsComuniAlboArticoli
      *
      * @ORM\Column(name="data_invio_regione", type="datetime", nullable=false)
      */
-    private $dataInvioRegione;
+    private $dataInvioRegione = '2015-01-01 00:00:00';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="num_att", type="integer", nullable=false)
      */
-    private $numAtt;
+    private $numAtt = '0';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="check_invia_regione", type="integer", nullable=false)
      */
-    private $checkInviaRegione;
+    private $checkInviaRegione = '0';
 
     /**
      * @var integer
@@ -180,14 +180,14 @@ class ZfcmsComuniAlboArticoli
      *
      * @ORM\Column(name="data_rettifica", type="datetime", nullable=false)
      */
-    private $dataRettifica;
+    private $dataRettifica = '2015-01-01 00:00:00';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="data_annullamento", type="datetime", nullable=false)
      */
-    private $dataAnnullamento;
+    private $dataAnnullamento = '2015-01-01 00:00:00';
 
     /**
      * @var integer
@@ -201,14 +201,14 @@ class ZfcmsComuniAlboArticoli
      *
      * @ORM\Column(name="flag_allegati", type="integer", nullable=false)
      */
-    private $flagAllegati;
+    private $flagAllegati = '0';
 
     /**
      * @var string
      *
      * @ORM\Column(name="spesa_prevista", type="decimal", precision=10, scale=2, nullable=false)
      */
-    private $spesaPrevista;
+    private $spesaPrevista = '0.00';
 
     /**
      * @var \Application\Entity\ZfcmsComuniAlboSezioni
@@ -232,4 +232,3 @@ class ZfcmsComuniAlboArticoli
 
 
 }
-

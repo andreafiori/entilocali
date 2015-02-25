@@ -40,49 +40,49 @@ class ZfcmsComuniAlboSezioni
      *
      * @ORM\Column(name="dest", type="integer", nullable=true)
      */
-    private $dest;
+    private $dest = '1';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="del", type="integer", nullable=true)
      */
-    private $del;
+    private $del = '0';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="det", type="integer", nullable=true)
      */
-    private $det;
+    private $det = '0';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="esi", type="integer", nullable=true)
      */
-    private $esi;
+    private $esi = '0';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="ban", type="integer", nullable=true)
      */
-    private $ban;
+    private $ban = '0';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="con", type="integer", nullable=true)
      */
-    private $con;
+    private $con = '0';
 
 
 
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -93,7 +93,6 @@ class ZfcmsComuniAlboSezioni
      * Set nome
      *
      * @param string $nome
-     *
      * @return ZfcmsComuniAlboSezioni
      */
     public function setNome($nome)
@@ -106,7 +105,7 @@ class ZfcmsComuniAlboSezioni
     /**
      * Get nome
      *
-     * @return string
+     * @return string 
      */
     public function getNome()
     {
@@ -117,7 +116,6 @@ class ZfcmsComuniAlboSezioni
      * Set attivo
      *
      * @param integer $attivo
-     *
      * @return ZfcmsComuniAlboSezioni
      */
     public function setAttivo($attivo)
@@ -130,7 +128,7 @@ class ZfcmsComuniAlboSezioni
     /**
      * Get attivo
      *
-     * @return integer
+     * @return integer 
      */
     public function getAttivo()
     {
@@ -141,7 +139,6 @@ class ZfcmsComuniAlboSezioni
      * Set dest
      *
      * @param integer $dest
-     *
      * @return ZfcmsComuniAlboSezioni
      */
     public function setDest($dest)
@@ -154,7 +151,7 @@ class ZfcmsComuniAlboSezioni
     /**
      * Get dest
      *
-     * @return integer
+     * @return integer 
      */
     public function getDest()
     {
@@ -165,7 +162,6 @@ class ZfcmsComuniAlboSezioni
      * Set del
      *
      * @param integer $del
-     *
      * @return ZfcmsComuniAlboSezioni
      */
     public function setDel($del)
@@ -178,7 +174,7 @@ class ZfcmsComuniAlboSezioni
     /**
      * Get del
      *
-     * @return integer
+     * @return integer 
      */
     public function getDel()
     {
@@ -189,7 +185,6 @@ class ZfcmsComuniAlboSezioni
      * Set det
      *
      * @param integer $det
-     *
      * @return ZfcmsComuniAlboSezioni
      */
     public function setDet($det)
@@ -202,7 +197,7 @@ class ZfcmsComuniAlboSezioni
     /**
      * Get det
      *
-     * @return integer
+     * @return integer 
      */
     public function getDet()
     {
@@ -213,7 +208,6 @@ class ZfcmsComuniAlboSezioni
      * Set esi
      *
      * @param integer $esi
-     *
      * @return ZfcmsComuniAlboSezioni
      */
     public function setEsi($esi)
@@ -226,7 +220,7 @@ class ZfcmsComuniAlboSezioni
     /**
      * Get esi
      *
-     * @return integer
+     * @return integer 
      */
     public function getEsi()
     {
@@ -237,7 +231,6 @@ class ZfcmsComuniAlboSezioni
      * Set ban
      *
      * @param integer $ban
-     *
      * @return ZfcmsComuniAlboSezioni
      */
     public function setBan($ban)
@@ -250,7 +243,7 @@ class ZfcmsComuniAlboSezioni
     /**
      * Get ban
      *
-     * @return integer
+     * @return integer 
      */
     public function getBan()
     {
@@ -261,7 +254,6 @@ class ZfcmsComuniAlboSezioni
      * Set con
      *
      * @param integer $con
-     *
      * @return ZfcmsComuniAlboSezioni
      */
     public function setCon($con)
@@ -274,7 +266,7 @@ class ZfcmsComuniAlboSezioni
     /**
      * Get con
      *
-     * @return integer
+     * @return integer 
      */
     public function getCon()
     {

@@ -136,8 +136,8 @@ class MigrazioneController extends AbstractActionController
                     'buttonLabel' => 'Conferma eliminazione',
                 ),
             )
-        ) );
-        
+        ));
+
         return $viewModel;
     }
     

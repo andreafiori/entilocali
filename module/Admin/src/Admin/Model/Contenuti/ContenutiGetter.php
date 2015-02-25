@@ -15,7 +15,7 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
         $this->setSelectQueryFields("contenuti.id, contenuti.anno, contenuti.numero, 
             contenuti.titolo, contenuti.sommario, contenuti.testo, 
             contenuti.dataInserimento, contenuti.dataScadenza,
-            contenuti.attivo, contenuti.home, contenuti.annoammtrasp,
+            contenuti.attivo, contenuti.home, contenuti.annoammtrasp, contenuti.slug,
             IDENTITY(contenuti.sottosezione) AS sottosezione,
 
             sezione.nome AS nomeSezione,
@@ -36,7 +36,7 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
                                         AND sottosez.sezione = sezione.id
                                         AND sezione.modulo = modulo.id
                                         ) 
-                                        ');
+                                ');
 
         return $this->getQueryBuilder();
     }

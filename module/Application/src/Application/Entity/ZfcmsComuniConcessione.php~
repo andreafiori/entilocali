@@ -96,7 +96,7 @@ class ZfcmsComuniConcessione
      *
      * @ORM\Column(name="attivo", type="integer", nullable=false)
      */
-    private $attivo;
+    private $attivo = '0';
 
     /**
      * @var \DateTime
@@ -144,4 +144,3 @@ class ZfcmsComuniConcessione
 
 
 }
-

@@ -33,14 +33,14 @@ class ZfcmsCategories
      *
      * @ORM\Column(name="create_date", type="datetime", nullable=true)
      */
-    private $createDate;
+    private $createDate = '2014-01-01 01:01:01';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="last_update", type="datetime", nullable=true)
      */
-    private $lastUpdate;
+    private $lastUpdate = '2014-01-01 01:01:01';
 
     /**
      * @var string
@@ -61,7 +61,7 @@ class ZfcmsCategories
      *
      * @ORM\Column(name="column_position", type="string", nullable=true)
      */
-    private $columnPosition;
+    private $columnPosition = 'left';
 
     /**
      * @var string
@@ -85,7 +85,7 @@ class ZfcmsCategories
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -96,7 +96,6 @@ class ZfcmsCategories
      * Set note
      *
      * @param string $note
-     *
      * @return ZfcmsCategories
      */
     public function setNote($note)
@@ -109,7 +108,7 @@ class ZfcmsCategories
     /**
      * Get note
      *
-     * @return string
+     * @return string 
      */
     public function getNote()
     {
@@ -120,7 +119,6 @@ class ZfcmsCategories
      * Set createDate
      *
      * @param \DateTime $createDate
-     *
      * @return ZfcmsCategories
      */
     public function setCreateDate($createDate)
@@ -133,7 +131,7 @@ class ZfcmsCategories
     /**
      * Get createDate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getCreateDate()
     {
@@ -144,7 +142,6 @@ class ZfcmsCategories
      * Set lastUpdate
      *
      * @param \DateTime $lastUpdate
-     *
      * @return ZfcmsCategories
      */
     public function setLastUpdate($lastUpdate)
@@ -157,7 +154,7 @@ class ZfcmsCategories
     /**
      * Get lastUpdate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getLastUpdate()
     {
@@ -168,7 +165,6 @@ class ZfcmsCategories
      * Set code
      *
      * @param string $code
-     *
      * @return ZfcmsCategories
      */
     public function setCode($code)
@@ -181,7 +177,7 @@ class ZfcmsCategories
     /**
      * Get code
      *
-     * @return string
+     * @return string 
      */
     public function getCode()
     {
@@ -192,7 +188,6 @@ class ZfcmsCategories
      * Set status
      *
      * @param string $status
-     *
      * @return ZfcmsCategories
      */
     public function setStatus($status)
@@ -205,7 +200,7 @@ class ZfcmsCategories
     /**
      * Get status
      *
-     * @return string
+     * @return string 
      */
     public function getStatus()
     {
@@ -216,7 +211,6 @@ class ZfcmsCategories
      * Set columnPosition
      *
      * @param string $columnPosition
-     *
      * @return ZfcmsCategories
      */
     public function setColumnPosition($columnPosition)
@@ -229,7 +223,7 @@ class ZfcmsCategories
     /**
      * Get columnPosition
      *
-     * @return string
+     * @return string 
      */
     public function getColumnPosition()
     {
@@ -240,7 +234,6 @@ class ZfcmsCategories
      * Set template
      *
      * @param string $template
-     *
      * @return ZfcmsCategories
      */
     public function setTemplate($template)
@@ -253,7 +246,7 @@ class ZfcmsCategories
     /**
      * Get template
      *
-     * @return string
+     * @return string 
      */
     public function getTemplate()
     {
@@ -264,7 +257,6 @@ class ZfcmsCategories
      * Set module
      *
      * @param \Application\Entity\ZfcmsModules $module
-     *
      * @return ZfcmsCategories
      */
     public function setModule(\Application\Entity\ZfcmsModules $module = null)
@@ -277,7 +269,7 @@ class ZfcmsCategories
     /**
      * Get module
      *
-     * @return \Application\Entity\ZfcmsModules
+     * @return \Application\Entity\ZfcmsModules 
      */
     public function getModule()
     {

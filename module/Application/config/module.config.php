@@ -71,12 +71,27 @@ return array(
                                                     ),
                                                     'may_terminate' => true,
                                     ),
+                                    'attachments-sthree-download' => array(
+                                        'type'    => 'segment',
+                                        'options' => array(
+                                            'route'    => '/attachments/download/single/[:type]/[:id[/]]',
+                                            'constraints' => array(
+                                                'type'  => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                'id'      => '[0-9]+',
+                                            ),
+                                            'defaults' => array(
+                                                'controller' => 'Application\Controller\AttachmentsSThreeDownloaderController',
+                                                'action'     => 'index',
+                                            ),
+                                        ),
+                                        'may_terminate' => true,
+                                    ),
                                     'version' => array(
                                                     'type'    => 'segment',
                                                     'options' => array(
-                                                                    'route'    => '/documenti/versione[/][:tipo][/][:categoria][/][:id]',
+                                                                    'route'       => '/document/[:subject][/][:filetype][/][:id[/]]',
                                                                     'constraints' => array(
-                                                                        
+
                                                                     ),
                                                                     'defaults' => array(
                                                                                     'controller' => 'Application\Controller\DocumentExport',
@@ -395,6 +410,7 @@ return array(
                         'Application\Controller\Index'             => 'Application\Controller\IndexController',
                         'Application\Controller\DocumentExport'    => 'Application\Controller\DocumentExportController',
                         'Application\Controller\Feed'              => 'Application\Controller\FeedController',
+                        'Application\Controller\AttachmentsSThreeDownloaderController'  => 'Application\Controller\AttachmentsSThreeDownloaderController',
                     ),
     ),
     'controller_plugins' => array(

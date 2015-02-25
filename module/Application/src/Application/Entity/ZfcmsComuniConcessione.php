@@ -96,7 +96,7 @@ class ZfcmsComuniConcessione
      *
      * @ORM\Column(name="attivo", type="integer", nullable=false)
      */
-    private $attivo;
+    private $attivo = '0';
 
     /**
      * @var \DateTime
@@ -147,7 +147,7 @@ class ZfcmsComuniConcessione
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -158,7 +158,6 @@ class ZfcmsComuniConcessione
      * Set keyImp
      *
      * @param string $keyImp
-     *
      * @return ZfcmsComuniConcessione
      */
     public function setKeyImp($keyImp)
@@ -171,7 +170,7 @@ class ZfcmsComuniConcessione
     /**
      * Get keyImp
      *
-     * @return string
+     * @return string 
      */
     public function getKeyImp()
     {
@@ -182,7 +181,6 @@ class ZfcmsComuniConcessione
      * Set beneficiario
      *
      * @param string $beneficiario
-     *
      * @return ZfcmsComuniConcessione
      */
     public function setBeneficiario($beneficiario)
@@ -195,7 +193,7 @@ class ZfcmsComuniConcessione
     /**
      * Get beneficiario
      *
-     * @return string
+     * @return string 
      */
     public function getBeneficiario()
     {
@@ -206,7 +204,6 @@ class ZfcmsComuniConcessione
      * Set titolo
      *
      * @param string $titolo
-     *
      * @return ZfcmsComuniConcessione
      */
     public function setTitolo($titolo)
@@ -219,7 +216,7 @@ class ZfcmsComuniConcessione
     /**
      * Get titolo
      *
-     * @return string
+     * @return string 
      */
     public function getTitolo()
     {
@@ -230,7 +227,6 @@ class ZfcmsComuniConcessione
      * Set importo
      *
      * @param string $importo
-     *
      * @return ZfcmsComuniConcessione
      */
     public function setImporto($importo)
@@ -243,7 +239,7 @@ class ZfcmsComuniConcessione
     /**
      * Get importo
      *
-     * @return string
+     * @return string 
      */
     public function getImporto()
     {
@@ -254,7 +250,6 @@ class ZfcmsComuniConcessione
      * Set ufficioresponsabile
      *
      * @param string $ufficioresponsabile
-     *
      * @return ZfcmsComuniConcessione
      */
     public function setUfficioresponsabile($ufficioresponsabile)
@@ -267,7 +262,7 @@ class ZfcmsComuniConcessione
     /**
      * Get ufficioresponsabile
      *
-     * @return string
+     * @return string 
      */
     public function getUfficioresponsabile()
     {
@@ -278,7 +273,6 @@ class ZfcmsComuniConcessione
      * Set modassegn
      *
      * @param string $modassegn
-     *
      * @return ZfcmsComuniConcessione
      */
     public function setModassegn($modassegn)
@@ -291,7 +285,7 @@ class ZfcmsComuniConcessione
     /**
      * Get modassegn
      *
-     * @return string
+     * @return string 
      */
     public function getModassegn()
     {
@@ -302,7 +296,6 @@ class ZfcmsComuniConcessione
      * Set progressivo
      *
      * @param integer $progressivo
-     *
      * @return ZfcmsComuniConcessione
      */
     public function setProgressivo($progressivo)
@@ -315,7 +308,7 @@ class ZfcmsComuniConcessione
     /**
      * Get progressivo
      *
-     * @return integer
+     * @return integer 
      */
     public function getProgressivo()
     {
@@ -326,7 +319,6 @@ class ZfcmsComuniConcessione
      * Set anno
      *
      * @param integer $anno
-     *
      * @return ZfcmsComuniConcessione
      */
     public function setAnno($anno)
@@ -339,7 +331,7 @@ class ZfcmsComuniConcessione
     /**
      * Get anno
      *
-     * @return integer
+     * @return integer 
      */
     public function getAnno()
     {
@@ -350,7 +342,6 @@ class ZfcmsComuniConcessione
      * Set data
      *
      * @param \DateTime $data
-     *
      * @return ZfcmsComuniConcessione
      */
     public function setData($data)
@@ -363,7 +354,7 @@ class ZfcmsComuniConcessione
     /**
      * Get data
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getData()
     {
@@ -374,7 +365,6 @@ class ZfcmsComuniConcessione
      * Set ora
      *
      * @param \DateTime $ora
-     *
      * @return ZfcmsComuniConcessione
      */
     public function setOra($ora)
@@ -387,7 +377,7 @@ class ZfcmsComuniConcessione
     /**
      * Get ora
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getOra()
     {
@@ -398,7 +388,6 @@ class ZfcmsComuniConcessione
      * Set attivo
      *
      * @param integer $attivo
-     *
      * @return ZfcmsComuniConcessione
      */
     public function setAttivo($attivo)
@@ -411,7 +400,7 @@ class ZfcmsComuniConcessione
     /**
      * Get attivo
      *
-     * @return integer
+     * @return integer 
      */
     public function getAttivo()
     {
@@ -422,7 +411,6 @@ class ZfcmsComuniConcessione
      * Set scadenza
      *
      * @param \DateTime $scadenza
-     *
      * @return ZfcmsComuniConcessione
      */
     public function setScadenza($scadenza)
@@ -435,7 +423,7 @@ class ZfcmsComuniConcessione
     /**
      * Get scadenza
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getScadenza()
     {
@@ -446,7 +434,6 @@ class ZfcmsComuniConcessione
      * Set flagAllegati
      *
      * @param integer $flagAllegati
-     *
      * @return ZfcmsComuniConcessione
      */
     public function setFlagAllegati($flagAllegati)
@@ -459,7 +446,7 @@ class ZfcmsComuniConcessione
     /**
      * Get flagAllegati
      *
-     * @return integer
+     * @return integer 
      */
     public function getFlagAllegati()
     {
@@ -470,7 +457,6 @@ class ZfcmsComuniConcessione
      * Set respProc
      *
      * @param \Application\Entity\ZfcmsComuniConcessioneRespProc $respProc
-     *
      * @return ZfcmsComuniConcessione
      */
     public function setRespProc(\Application\Entity\ZfcmsComuniConcessioneRespProc $respProc = null)
@@ -483,7 +469,7 @@ class ZfcmsComuniConcessione
     /**
      * Get respProc
      *
-     * @return \Application\Entity\ZfcmsComuniConcessioneRespProc
+     * @return \Application\Entity\ZfcmsComuniConcessioneRespProc 
      */
     public function getRespProc()
     {
@@ -494,7 +480,6 @@ class ZfcmsComuniConcessione
      * Set settore
      *
      * @param \Application\Entity\ZfcmsComuniConcessioneSettori $settore
-     *
      * @return ZfcmsComuniConcessione
      */
     public function setSettore(\Application\Entity\ZfcmsComuniConcessioneSettori $settore = null)
@@ -507,7 +492,7 @@ class ZfcmsComuniConcessione
     /**
      * Get settore
      *
-     * @return \Application\Entity\ZfcmsComuniConcessioneSettori
+     * @return \Application\Entity\ZfcmsComuniConcessioneSettori 
      */
     public function getSettore()
     {
@@ -518,7 +503,6 @@ class ZfcmsComuniConcessione
      * Set utente
      *
      * @param \Application\Entity\ZfcmsUsers $utente
-     *
      * @return ZfcmsComuniConcessione
      */
     public function setUtente(\Application\Entity\ZfcmsUsers $utente = null)
@@ -531,7 +515,7 @@ class ZfcmsComuniConcessione
     /**
      * Get utente
      *
-     * @return \Application\Entity\ZfcmsUsers
+     * @return \Application\Entity\ZfcmsUsers 
      */
     public function getUtente()
     {

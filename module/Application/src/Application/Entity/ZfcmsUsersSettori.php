@@ -33,21 +33,21 @@ class ZfcmsUsersSettori
      *
      * @ORM\Column(name="position", type="bigint", nullable=false)
      */
-    private $position;
+    private $position = '0';
 
     /**
      * @var string
      *
      * @ORM\Column(name="active", type="string", nullable=false)
      */
-    private $active;
+    private $active = '1';
 
 
 
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -58,7 +58,6 @@ class ZfcmsUsersSettori
      * Set name
      *
      * @param string $name
-     *
      * @return ZfcmsUsersSettori
      */
     public function setName($name)
@@ -71,7 +70,7 @@ class ZfcmsUsersSettori
     /**
      * Get name
      *
-     * @return string
+     * @return string 
      */
     public function getName()
     {
@@ -82,7 +81,6 @@ class ZfcmsUsersSettori
      * Set position
      *
      * @param integer $position
-     *
      * @return ZfcmsUsersSettori
      */
     public function setPosition($position)
@@ -95,7 +93,7 @@ class ZfcmsUsersSettori
     /**
      * Get position
      *
-     * @return integer
+     * @return integer 
      */
     public function getPosition()
     {
@@ -106,7 +104,6 @@ class ZfcmsUsersSettori
      * Set active
      *
      * @param string $active
-     *
      * @return ZfcmsUsersSettori
      */
     public function setActive($active)
@@ -119,7 +116,7 @@ class ZfcmsUsersSettori
     /**
      * Get active
      *
-     * @return string
+     * @return string 
      */
     public function getActive()
     {

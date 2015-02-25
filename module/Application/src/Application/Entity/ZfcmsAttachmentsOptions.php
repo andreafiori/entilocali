@@ -24,16 +24,37 @@ class ZfcmsAttachmentsOptions
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=50, nullable=true)
+     * @ORM\Column(name="title", type="text", length=65535, nullable=true)
      */
     private $title;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=50, nullable=true)
+     * @ORM\Column(name="description", type="text", length=65535, nullable=true)
      */
     private $description;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="expire_date", type="datetime", nullable=true)
+     */
+    private $expireDate;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="position", type="bigint", nullable=true)
+     */
+    private $position;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=50, nullable=true)
+     */
+    private $status;
 
     /**
      * @var \Application\Entity\ZfcmsAttachments
@@ -60,7 +81,7 @@ class ZfcmsAttachmentsOptions
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -71,7 +92,6 @@ class ZfcmsAttachmentsOptions
      * Set title
      *
      * @param string $title
-     *
      * @return ZfcmsAttachmentsOptions
      */
     public function setTitle($title)
@@ -84,7 +104,7 @@ class ZfcmsAttachmentsOptions
     /**
      * Get title
      *
-     * @return string
+     * @return string 
      */
     public function getTitle()
     {
@@ -95,7 +115,6 @@ class ZfcmsAttachmentsOptions
      * Set description
      *
      * @param string $description
-     *
      * @return ZfcmsAttachmentsOptions
      */
     public function setDescription($description)
@@ -108,7 +127,7 @@ class ZfcmsAttachmentsOptions
     /**
      * Get description
      *
-     * @return string
+     * @return string 
      */
     public function getDescription()
     {
@@ -116,10 +135,78 @@ class ZfcmsAttachmentsOptions
     }
 
     /**
+     * Set expireDate
+     *
+     * @param \DateTime $expireDate
+     * @return ZfcmsAttachmentsOptions
+     */
+    public function setExpireDate($expireDate)
+    {
+        $this->expireDate = $expireDate;
+    
+        return $this;
+    }
+
+    /**
+     * Get expireDate
+     *
+     * @return \DateTime 
+     */
+    public function getExpireDate()
+    {
+        return $this->expireDate;
+    }
+
+    /**
+     * Set position
+     *
+     * @param integer $position
+     * @return ZfcmsAttachmentsOptions
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+    
+        return $this;
+    }
+
+    /**
+     * Get position
+     *
+     * @return integer 
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     * @return ZfcmsAttachmentsOptions
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
      * Set attachment
      *
      * @param \Application\Entity\ZfcmsAttachments $attachment
-     *
      * @return ZfcmsAttachmentsOptions
      */
     public function setAttachment(\Application\Entity\ZfcmsAttachments $attachment = null)
@@ -132,7 +219,7 @@ class ZfcmsAttachmentsOptions
     /**
      * Get attachment
      *
-     * @return \Application\Entity\ZfcmsAttachments
+     * @return \Application\Entity\ZfcmsAttachments 
      */
     public function getAttachment()
     {
@@ -143,7 +230,6 @@ class ZfcmsAttachmentsOptions
      * Set language
      *
      * @param \Application\Entity\ZfcmsLanguages $language
-     *
      * @return ZfcmsAttachmentsOptions
      */
     public function setLanguage(\Application\Entity\ZfcmsLanguages $language = null)
@@ -156,7 +242,7 @@ class ZfcmsAttachmentsOptions
     /**
      * Get language
      *
-     * @return \Application\Entity\ZfcmsLanguages
+     * @return \Application\Entity\ZfcmsLanguages 
      */
     public function getLanguage()
     {

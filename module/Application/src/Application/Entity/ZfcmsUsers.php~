@@ -75,7 +75,7 @@ class ZfcmsUsers
      *
      * @ORM\Column(name="birth_date", type="datetime", nullable=false)
      */
-    private $birthDate;
+    private $birthDate = '1992-01-01 01:01:01';
 
     /**
      * @var string
@@ -89,14 +89,14 @@ class ZfcmsUsers
      *
      * @ORM\Column(name="nation", type="bigint", nullable=false)
      */
-    private $nation;
+    private $nation = '0';
 
     /**
      * @var string
      *
      * @ORM\Column(name="sex", type="string", nullable=false)
      */
-    private $sex;
+    private $sex = 'M';
 
     /**
      * @var string
@@ -159,14 +159,14 @@ class ZfcmsUsers
      *
      * @ORM\Column(name="newsletter", type="string", length=1, nullable=false)
      */
-    private $newsletter;
+    private $newsletter = '1';
 
     /**
      * @var string
      *
      * @ORM\Column(name="newsletter_format", type="string", nullable=false)
      */
-    private $newsletterFormat;
+    private $newsletterFormat = 'html';
 
     /**
      * @var string
@@ -187,35 +187,35 @@ class ZfcmsUsers
      *
      * @ORM\Column(name="password_last_update", type="datetime", nullable=false)
      */
-    private $passwordLastUpdate;
+    private $passwordLastUpdate = '2014-01-01 01:01:01';
 
     /**
      * @var string
      *
      * @ORM\Column(name="status", type="string", length=100, nullable=false)
      */
-    private $status;
+    private $status = 'no';
 
     /**
      * @var string
      *
      * @ORM\Column(name="settore", type="string", length=100, nullable=false)
      */
-    private $settore;
+    private $settore = 'no';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="create_date", type="datetime", nullable=false)
      */
-    private $createDate;
+    private $createDate = '2014-01-01 01:01:01';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="last_update", type="datetime", nullable=false)
      */
-    private $lastUpdate;
+    private $lastUpdate = '2014-01-01 01:01:01';
 
     /**
      * @var string
@@ -236,4 +236,3 @@ class ZfcmsUsers
 
 
 }
-

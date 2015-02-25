@@ -26,28 +26,28 @@ class ZfcmsComuniContrattiRelations
      *
      * @ORM\Column(name="stato", type="integer", nullable=false)
      */
-    private $stato;
+    private $stato = '0';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="gruppo", type="integer", nullable=false)
      */
-    private $gruppo;
+    private $gruppo = '0';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="aggiudicatario", type="integer", nullable=false)
      */
-    private $aggiudicatario;
+    private $aggiudicatario = '0';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="membro", type="bigint", nullable=false)
      */
-    private $membro;
+    private $membro = '0';
 
     /**
      * @var \Application\Entity\ZfcmsComuniContratti
@@ -74,7 +74,7 @@ class ZfcmsComuniContrattiRelations
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -85,7 +85,6 @@ class ZfcmsComuniContrattiRelations
      * Set stato
      *
      * @param integer $stato
-     *
      * @return ZfcmsComuniContrattiRelations
      */
     public function setStato($stato)
@@ -98,7 +97,7 @@ class ZfcmsComuniContrattiRelations
     /**
      * Get stato
      *
-     * @return integer
+     * @return integer 
      */
     public function getStato()
     {
@@ -109,7 +108,6 @@ class ZfcmsComuniContrattiRelations
      * Set gruppo
      *
      * @param integer $gruppo
-     *
      * @return ZfcmsComuniContrattiRelations
      */
     public function setGruppo($gruppo)
@@ -122,7 +120,7 @@ class ZfcmsComuniContrattiRelations
     /**
      * Get gruppo
      *
-     * @return integer
+     * @return integer 
      */
     public function getGruppo()
     {
@@ -133,7 +131,6 @@ class ZfcmsComuniContrattiRelations
      * Set aggiudicatario
      *
      * @param integer $aggiudicatario
-     *
      * @return ZfcmsComuniContrattiRelations
      */
     public function setAggiudicatario($aggiudicatario)
@@ -146,7 +143,7 @@ class ZfcmsComuniContrattiRelations
     /**
      * Get aggiudicatario
      *
-     * @return integer
+     * @return integer 
      */
     public function getAggiudicatario()
     {
@@ -157,7 +154,6 @@ class ZfcmsComuniContrattiRelations
      * Set membro
      *
      * @param integer $membro
-     *
      * @return ZfcmsComuniContrattiRelations
      */
     public function setMembro($membro)
@@ -170,7 +166,7 @@ class ZfcmsComuniContrattiRelations
     /**
      * Get membro
      *
-     * @return integer
+     * @return integer 
      */
     public function getMembro()
     {
@@ -181,7 +177,6 @@ class ZfcmsComuniContrattiRelations
      * Set contratto
      *
      * @param \Application\Entity\ZfcmsComuniContratti $contratto
-     *
      * @return ZfcmsComuniContrattiRelations
      */
     public function setContratto(\Application\Entity\ZfcmsComuniContratti $contratto = null)
@@ -194,7 +189,7 @@ class ZfcmsComuniContrattiRelations
     /**
      * Get contratto
      *
-     * @return \Application\Entity\ZfcmsComuniContratti
+     * @return \Application\Entity\ZfcmsComuniContratti 
      */
     public function getContratto()
     {
@@ -205,7 +200,6 @@ class ZfcmsComuniContrattiRelations
      * Set partecipante
      *
      * @param \Application\Entity\ZfcmsComuniContrattiPartecipanti $partecipante
-     *
      * @return ZfcmsComuniContrattiRelations
      */
     public function setPartecipante(\Application\Entity\ZfcmsComuniContrattiPartecipanti $partecipante = null)
@@ -218,7 +212,7 @@ class ZfcmsComuniContrattiRelations
     /**
      * Get partecipante
      *
-     * @return \Application\Entity\ZfcmsComuniContrattiPartecipanti
+     * @return \Application\Entity\ZfcmsComuniContrattiPartecipanti 
      */
     public function getPartecipante()
     {

@@ -33,22 +33,21 @@ class ZfcmsTicketsMessages
      *
      * @ORM\Column(name="insert_date", type="datetime", nullable=false)
      */
-    private $insertDate;
+    private $insertDate = '2014-01-01 01:01:01';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="ticket_id", type="bigint", nullable=false)
      */
-    private $ticketId;
+    private $ticketId = '0';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="user_id", type="bigint", nullable=false)
      */
-    private $userId;
+    private $userId = '0';
 
 
 }
-

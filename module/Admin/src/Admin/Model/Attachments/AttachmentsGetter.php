@@ -12,9 +12,10 @@ class AttachmentsGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('DISTINCT(a.id) AS id, a.name, a.size, a.state, a.insertDate, 
-                                      a.expireDate,
+        $this->setSelectQueryFields('DISTINCT(a.id) AS id, a.name, a.size, a.state, a.insertDate,
                                       ao.title, ao.description,
+                                      am.image, am.mimetype,
+
                                       u.name AS username, u.surname
                                     ');
         
@@ -23,15 +24,16 @@ class AttachmentsGetter extends QueryBuilderHelperAbstract
                                        Application\Entity\ZfcmsAttachments a, 
                                        Application\Entity\ZfcmsAttachmentsOptions ao, 
                                        Application\Entity\ZfcmsAttachmentsRelations ar,
+                                       Application\Entity\ZfcmsAttachmentsMimeType am,
                                        Application\Entity\ZfcmsUsers u
-                                       ')
-                                ->where(' ao.attachment = a.id AND ar.attachment = a.id AND a.user = u.id ');
+                                ')
+                                ->where(' ao.attachment = a.id AND ar.attachment = a.id AND a.user = u.id AND a.mime = am.id ');
 
         return $this->getQueryBuilder();
     }
 
     /**
-     * @param number or array $id
+     * @param number|array $id
      */
     public function setId($id)
     {
@@ -47,9 +49,10 @@ class AttachmentsGetter extends QueryBuilderHelperAbstract
         
         return $this->getQueryBuilder();
     }
-    
+
     /**
-     * @param number $moduleId
+     * @param int $moduleId
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setModuleId($moduleId)
     {
@@ -57,10 +60,13 @@ class AttachmentsGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere('ar.module = ( :moduleId ) ');
             $this->getQueryBuilder()->setParameter('moduleId', $moduleId);
         }
+
+        return $this->getQueryBuilder();
     }
 
     /**
-     * @param number $referenceId
+     * @param int $referenceId
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setReferenceId($referenceId)
     {
@@ -68,10 +74,13 @@ class AttachmentsGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere('ar.referenceId = ( :referenceId ) ');
             $this->getQueryBuilder()->setParameter('referenceId', $referenceId);
         }
+
+        return $this->getQueryBuilder();
     }
-    
+
     /**
-     * @param number $attachmentId
+     * @param int $attachmentId
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setAttachmentId($attachmentId)
     {
@@ -79,5 +88,7 @@ class AttachmentsGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere('ar.attachment = ( :attachmentId ) ');
             $this->getQueryBuilder()->setParameter('attachmentId', $attachmentId);
         }
+
+        return $this->getQueryBuilder();
     }
 }

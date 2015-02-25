@@ -33,7 +33,7 @@ class ZfcmsComuniContrattiCf
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -44,7 +44,6 @@ class ZfcmsComuniContrattiCf
      * Set cfStruttura
      *
      * @param string $cfStruttura
-     *
      * @return ZfcmsComuniContrattiCf
      */
     public function setCfStruttura($cfStruttura)
@@ -57,7 +56,7 @@ class ZfcmsComuniContrattiCf
     /**
      * Get cfStruttura
      *
-     * @return string
+     * @return string 
      */
     public function getCfStruttura()
     {

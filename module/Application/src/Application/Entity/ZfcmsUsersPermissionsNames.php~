@@ -26,15 +26,14 @@ class ZfcmsUsersPermissionsNames
      *
      * @ORM\Column(name="flag", type="string", length=50, nullable=true)
      */
-    private $flag;
+    private $flag = '';
 
     /**
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=50, nullable=true)
      */
-    private $description;
+    private $description = '';
 
 
 }
-

@@ -33,7 +33,7 @@ class ZfcmsComuniSezioni
      *
      * @ORM\Column(name="colonna", type="string", length=100, nullable=false)
      */
-    private $colonna;
+    private $colonna = 'sx';
 
     /**
      * @var integer
@@ -148,4 +148,3 @@ class ZfcmsComuniSezioni
 
 
 }
-

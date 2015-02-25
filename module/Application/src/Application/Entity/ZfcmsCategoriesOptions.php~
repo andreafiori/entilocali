@@ -82,14 +82,14 @@ class ZfcmsCategoriesOptions
      *
      * @ORM\Column(name="position", type="bigint", nullable=true)
      */
-    private $position;
+    private $position = '0';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="parent_id", type="bigint", nullable=true)
      */
-    private $parentId;
+    private $parentId = '0';
 
     /**
      * @var \Application\Entity\ZfcmsCategories
@@ -113,4 +113,3 @@ class ZfcmsCategoriesOptions
 
 
 }
-

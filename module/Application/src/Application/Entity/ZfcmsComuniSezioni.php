@@ -33,7 +33,7 @@ class ZfcmsComuniSezioni
      *
      * @ORM\Column(name="colonna", type="string", length=100, nullable=false)
      */
-    private $colonna;
+    private $colonna = 'sx';
 
     /**
      * @var integer
@@ -151,7 +151,7 @@ class ZfcmsComuniSezioni
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -162,7 +162,6 @@ class ZfcmsComuniSezioni
      * Set nome
      *
      * @param string $nome
-     *
      * @return ZfcmsComuniSezioni
      */
     public function setNome($nome)
@@ -175,7 +174,7 @@ class ZfcmsComuniSezioni
     /**
      * Get nome
      *
-     * @return string
+     * @return string 
      */
     public function getNome()
     {
@@ -186,7 +185,6 @@ class ZfcmsComuniSezioni
      * Set colonna
      *
      * @param string $colonna
-     *
      * @return ZfcmsComuniSezioni
      */
     public function setColonna($colonna)
@@ -199,7 +197,7 @@ class ZfcmsComuniSezioni
     /**
      * Get colonna
      *
-     * @return string
+     * @return string 
      */
     public function getColonna()
     {
@@ -210,7 +208,6 @@ class ZfcmsComuniSezioni
      * Set posizione
      *
      * @param integer $posizione
-     *
      * @return ZfcmsComuniSezioni
      */
     public function setPosizione($posizione)
@@ -223,7 +220,7 @@ class ZfcmsComuniSezioni
     /**
      * Get posizione
      *
-     * @return integer
+     * @return integer 
      */
     public function getPosizione()
     {
@@ -234,7 +231,6 @@ class ZfcmsComuniSezioni
      * Set linkMacro
      *
      * @param integer $linkMacro
-     *
      * @return ZfcmsComuniSezioni
      */
     public function setLinkMacro($linkMacro)
@@ -247,7 +243,7 @@ class ZfcmsComuniSezioni
     /**
      * Get linkMacro
      *
-     * @return integer
+     * @return integer 
      */
     public function getLinkMacro()
     {
@@ -258,7 +254,6 @@ class ZfcmsComuniSezioni
      * Set lingua
      *
      * @param string $lingua
-     *
      * @return ZfcmsComuniSezioni
      */
     public function setLingua($lingua)
@@ -271,7 +266,7 @@ class ZfcmsComuniSezioni
     /**
      * Get lingua
      *
-     * @return string
+     * @return string 
      */
     public function getLingua()
     {
@@ -282,7 +277,6 @@ class ZfcmsComuniSezioni
      * Set blocco
      *
      * @param integer $blocco
-     *
      * @return ZfcmsComuniSezioni
      */
     public function setBlocco($blocco)
@@ -295,7 +289,7 @@ class ZfcmsComuniSezioni
     /**
      * Get blocco
      *
-     * @return integer
+     * @return integer 
      */
     public function getBlocco()
     {
@@ -306,7 +300,6 @@ class ZfcmsComuniSezioni
      * Set attivo
      *
      * @param integer $attivo
-     *
      * @return ZfcmsComuniSezioni
      */
     public function setAttivo($attivo)
@@ -319,7 +312,7 @@ class ZfcmsComuniSezioni
     /**
      * Get attivo
      *
-     * @return integer
+     * @return integer 
      */
     public function getAttivo()
     {
@@ -330,7 +323,6 @@ class ZfcmsComuniSezioni
      * Set url
      *
      * @param string $url
-     *
      * @return ZfcmsComuniSezioni
      */
     public function setUrl($url)
@@ -343,7 +335,7 @@ class ZfcmsComuniSezioni
     /**
      * Get url
      *
-     * @return string
+     * @return string 
      */
     public function getUrl()
     {
@@ -354,7 +346,6 @@ class ZfcmsComuniSezioni
      * Set cssId
      *
      * @param integer $cssId
-     *
      * @return ZfcmsComuniSezioni
      */
     public function setCssId($cssId)
@@ -367,7 +358,7 @@ class ZfcmsComuniSezioni
     /**
      * Get cssId
      *
-     * @return integer
+     * @return integer 
      */
     public function getCssId()
     {
@@ -378,7 +369,6 @@ class ZfcmsComuniSezioni
      * Set image
      *
      * @param string $image
-     *
      * @return ZfcmsComuniSezioni
      */
     public function setImage($image)
@@ -391,7 +381,7 @@ class ZfcmsComuniSezioni
     /**
      * Get image
      *
-     * @return string
+     * @return string 
      */
     public function getImage()
     {
@@ -402,7 +392,6 @@ class ZfcmsComuniSezioni
      * Set slug
      *
      * @param string $slug
-     *
      * @return ZfcmsComuniSezioni
      */
     public function setSlug($slug)
@@ -415,7 +404,7 @@ class ZfcmsComuniSezioni
     /**
      * Get slug
      *
-     * @return string
+     * @return string 
      */
     public function getSlug()
     {
@@ -426,7 +415,6 @@ class ZfcmsComuniSezioni
      * Set title
      *
      * @param string $title
-     *
      * @return ZfcmsComuniSezioni
      */
     public function setTitle($title)
@@ -439,7 +427,7 @@ class ZfcmsComuniSezioni
     /**
      * Get title
      *
-     * @return string
+     * @return string 
      */
     public function getTitle()
     {
@@ -450,7 +438,6 @@ class ZfcmsComuniSezioni
      * Set seoTitle
      *
      * @param string $seoTitle
-     *
      * @return ZfcmsComuniSezioni
      */
     public function setSeoTitle($seoTitle)
@@ -463,7 +450,7 @@ class ZfcmsComuniSezioni
     /**
      * Get seoTitle
      *
-     * @return string
+     * @return string 
      */
     public function getSeoTitle()
     {
@@ -474,7 +461,6 @@ class ZfcmsComuniSezioni
      * Set seoDescription
      *
      * @param string $seoDescription
-     *
      * @return ZfcmsComuniSezioni
      */
     public function setSeoDescription($seoDescription)
@@ -487,7 +473,7 @@ class ZfcmsComuniSezioni
     /**
      * Get seoDescription
      *
-     * @return string
+     * @return string 
      */
     public function getSeoDescription()
     {
@@ -498,7 +484,6 @@ class ZfcmsComuniSezioni
      * Set seoKeywords
      *
      * @param string $seoKeywords
-     *
      * @return ZfcmsComuniSezioni
      */
     public function setSeoKeywords($seoKeywords)
@@ -511,7 +496,7 @@ class ZfcmsComuniSezioni
     /**
      * Get seoKeywords
      *
-     * @return string
+     * @return string 
      */
     public function getSeoKeywords()
     {
@@ -522,7 +507,6 @@ class ZfcmsComuniSezioni
      * Set modulo
      *
      * @param \Application\Entity\ZfcmsModules $modulo
-     *
      * @return ZfcmsComuniSezioni
      */
     public function setModulo(\Application\Entity\ZfcmsModules $modulo = null)
@@ -535,7 +519,7 @@ class ZfcmsComuniSezioni
     /**
      * Get modulo
      *
-     * @return \Application\Entity\ZfcmsModules
+     * @return \Application\Entity\ZfcmsModules 
      */
     public function getModulo()
     {
@@ -546,7 +530,6 @@ class ZfcmsComuniSezioni
      * Set utente
      *
      * @param \Application\Entity\ZfcmsUsers $utente
-     *
      * @return ZfcmsComuniSezioni
      */
     public function setUtente(\Application\Entity\ZfcmsUsers $utente = null)
@@ -559,7 +542,7 @@ class ZfcmsComuniSezioni
     /**
      * Get utente
      *
-     * @return \Application\Entity\ZfcmsUsers
+     * @return \Application\Entity\ZfcmsUsers 
      */
     public function getUtente()
     {

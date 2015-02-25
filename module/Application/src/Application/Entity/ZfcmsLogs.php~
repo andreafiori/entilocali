@@ -33,7 +33,7 @@ class ZfcmsLogs
      *
      * @ORM\Column(name="datetime", type="datetime", nullable=false)
      */
-    private $datetime;
+    private $datetime = '2015-01-01 01:00:00';
 
     /**
      * @var string
@@ -68,4 +68,3 @@ class ZfcmsLogs
 
 
 }
-

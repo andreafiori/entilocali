@@ -24,14 +24,14 @@ class ZfcmsAttachments
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=100, nullable=false)
+     * @ORM\Column(name="name", type="text", length=65535, nullable=false)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="size", type="string", length=60, nullable=false)
+     * @ORM\Column(name="size", type="text", length=65535, nullable=false)
      */
     private $size;
 
@@ -47,14 +47,7 @@ class ZfcmsAttachments
      *
      * @ORM\Column(name="insert_date", type="datetime", nullable=false)
      */
-    private $insertDate;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="expire_date", type="datetime", nullable=true)
-     */
-    private $expireDate;
+    private $insertDate = '2014-01-01 01:01:01';
 
     /**
      * @var \Application\Entity\ZfcmsAttachmentsMimetype
@@ -78,4 +71,3 @@ class ZfcmsAttachments
 
 
 }
-

@@ -22,7 +22,9 @@ class IndexController extends SetupAbstractController
     {
         $appServiceLoader = $this->recoverAppServiceLoader();
         
-        /** @var \Doctrine\ORM\EntityManager $entityManager **/
+        /**
+         * @var \Doctrine\ORM\EntityManager $entityManager
+         */
         $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
         $configurations = $appServiceLoader->recoverService('configurations');

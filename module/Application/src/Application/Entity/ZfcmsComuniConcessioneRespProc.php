@@ -40,7 +40,7 @@ class ZfcmsComuniConcessioneRespProc
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -51,7 +51,6 @@ class ZfcmsComuniConcessioneRespProc
      * Set nomeResp
      *
      * @param string $nomeResp
-     *
      * @return ZfcmsComuniConcessioneRespProc
      */
     public function setNomeResp($nomeResp)
@@ -64,7 +63,7 @@ class ZfcmsComuniConcessioneRespProc
     /**
      * Get nomeResp
      *
-     * @return string
+     * @return string 
      */
     public function getNomeResp()
     {
@@ -75,7 +74,6 @@ class ZfcmsComuniConcessioneRespProc
      * Set attivo
      *
      * @param integer $attivo
-     *
      * @return ZfcmsComuniConcessioneRespProc
      */
     public function setAttivo($attivo)
@@ -88,7 +86,7 @@ class ZfcmsComuniConcessioneRespProc
     /**
      * Get attivo
      *
-     * @return integer
+     * @return integer 
      */
     public function getAttivo()
     {

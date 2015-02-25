@@ -33,14 +33,14 @@ class ZfcmsPostsOptions
      *
      * @ORM\Column(name="date_from", type="datetime", nullable=true)
      */
-    private $dateFrom;
+    private $dateFrom = '2014-01-01 01:01:01';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="data_to", type="datetime", nullable=true)
      */
-    private $dataTo;
+    private $dataTo = '2014-01-01 01:01:01';
 
     /**
      * @var string
@@ -89,7 +89,7 @@ class ZfcmsPostsOptions
      *
      * @ORM\Column(name="position", type="bigint", nullable=true)
      */
-    private $position;
+    private $position = '1';
 
     /**
      * @var string
@@ -162,4 +162,3 @@ class ZfcmsPostsOptions
 
 
 }
-

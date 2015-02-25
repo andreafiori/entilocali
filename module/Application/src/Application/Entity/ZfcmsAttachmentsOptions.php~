@@ -24,16 +24,37 @@ class ZfcmsAttachmentsOptions
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=50, nullable=true)
+     * @ORM\Column(name="title", type="text", length=65535, nullable=true)
      */
     private $title;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=50, nullable=true)
+     * @ORM\Column(name="description", type="text", length=65535, nullable=true)
      */
     private $description;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="expire_date", type="datetime", nullable=true)
+     */
+    private $expireDate;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="position", type="bigint", nullable=true)
+     */
+    private $position;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=50, nullable=true)
+     */
+    private $status;
 
     /**
      * @var \Application\Entity\ZfcmsAttachments
@@ -57,4 +78,3 @@ class ZfcmsAttachmentsOptions
 
 
 }
-

@@ -40,7 +40,7 @@ class ZfcmsComuniContrattiScContr
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -51,7 +51,6 @@ class ZfcmsComuniContrattiScContr
      * Set nomeScelta
      *
      * @param string $nomeScelta
-     *
      * @return ZfcmsComuniContrattiScContr
      */
     public function setNomeScelta($nomeScelta)
@@ -64,7 +63,7 @@ class ZfcmsComuniContrattiScContr
     /**
      * Get nomeScelta
      *
-     * @return string
+     * @return string 
      */
     public function getNomeScelta()
     {
@@ -75,7 +74,6 @@ class ZfcmsComuniContrattiScContr
      * Set attivo
      *
      * @param integer $attivo
-     *
      * @return ZfcmsComuniContrattiScContr
      */
     public function setAttivo($attivo)
@@ -88,7 +86,7 @@ class ZfcmsComuniContrattiScContr
     /**
      * Get attivo
      *
-     * @return integer
+     * @return integer 
      */
     public function getAttivo()
     {

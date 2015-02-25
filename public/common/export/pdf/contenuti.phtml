@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style>
+    h1,h2 { margin-bottom: 50px; text-align: center; }
+    p { margin-bottom: 10px }
+    .text-center { text-align: center }
+    .text-right { text-align: right }
+</style>
+<body>
+
+<div class="text-right">Generato il <?php echo date("d-m-Y") ?></div>
+
+<!--
+    <div>Home &raquo; <?php echo $this->record['nomeSezione'] ?> &raquo; <?php echo $this->record['nomeSottosezione'] ?> &raquo; <?php echo $this->record['titolo'] ?></div>
+-->
+
+<h3><?php echo $this->record['titolo'] ?></h3>
+
+<div>
+    <?php echo $this->record['sommario'] ?>
+</div>
+
+<br>
+<br>
+
+<div>
+    <?php echo $this->record['testo'] ?>
+</div>
+
+<br>
+<br>
+
+<!--
+    <div>&copy; Nome sito</div>
+-->
+
+</body>
+</html>

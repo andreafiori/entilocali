@@ -68,7 +68,7 @@ class ZfcmsFaqAnswers
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -79,7 +79,6 @@ class ZfcmsFaqAnswers
      * Set answer
      *
      * @param string $answer
-     *
      * @return ZfcmsFaqAnswers
      */
     public function setAnswer($answer)
@@ -92,7 +91,7 @@ class ZfcmsFaqAnswers
     /**
      * Get answer
      *
-     * @return string
+     * @return string 
      */
     public function getAnswer()
     {
@@ -103,7 +102,6 @@ class ZfcmsFaqAnswers
      * Set rate
      *
      * @param integer $rate
-     *
      * @return ZfcmsFaqAnswers
      */
     public function setRate($rate)
@@ -116,7 +114,7 @@ class ZfcmsFaqAnswers
     /**
      * Get rate
      *
-     * @return integer
+     * @return integer 
      */
     public function getRate()
     {
@@ -127,7 +125,6 @@ class ZfcmsFaqAnswers
      * Set insertDate
      *
      * @param \DateTime $insertDate
-     *
      * @return ZfcmsFaqAnswers
      */
     public function setInsertDate($insertDate)
@@ -140,7 +137,7 @@ class ZfcmsFaqAnswers
     /**
      * Get insertDate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getInsertDate()
     {
@@ -151,7 +148,6 @@ class ZfcmsFaqAnswers
      * Set lastUpdate
      *
      * @param \DateTime $lastUpdate
-     *
      * @return ZfcmsFaqAnswers
      */
     public function setLastUpdate($lastUpdate)
@@ -164,7 +160,7 @@ class ZfcmsFaqAnswers
     /**
      * Get lastUpdate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getLastUpdate()
     {
@@ -175,7 +171,6 @@ class ZfcmsFaqAnswers
      * Set questionId
      *
      * @param integer $questionId
-     *
      * @return ZfcmsFaqAnswers
      */
     public function setQuestionId($questionId)
@@ -188,7 +183,7 @@ class ZfcmsFaqAnswers
     /**
      * Get questionId
      *
-     * @return integer
+     * @return integer 
      */
     public function getQuestionId()
     {
@@ -199,7 +194,6 @@ class ZfcmsFaqAnswers
      * Set userId
      *
      * @param integer $userId
-     *
      * @return ZfcmsFaqAnswers
      */
     public function setUserId($userId)
@@ -212,7 +206,7 @@ class ZfcmsFaqAnswers
     /**
      * Get userId
      *
-     * @return integer
+     * @return integer 
      */
     public function getUserId()
     {

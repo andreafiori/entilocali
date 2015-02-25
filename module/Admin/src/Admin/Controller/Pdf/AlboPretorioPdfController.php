@@ -15,12 +15,14 @@ use Admin\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
 class AlboPretorioPdfController extends SetupAbstractController
 {
     /**
-     * TODO: check login, check if ID is a number and record exists
+     * TODO: check if ID is a number and its related record exists
      * 
      * @return PdfModel
      */
     public function relataAction()
     {
+        $this->checkLogin();
+
         $pdf = new PdfModel();
         $pdf->setOption('filename', 'albo-pretorio-relata');
         $pdf->setOption('paperSize', 'a4');
@@ -32,11 +34,7 @@ class AlboPretorioPdfController extends SetupAbstractController
         $pdf->setVariables(array(
             'record' => $records[0]
         ));
-        /*
-        $viewModel = new ViewModel();
-        $viewModel->setVariables( array('record' => $records[0]) );
-        $viewModel->setTerminal(true);
-        */
+
         return $pdf;
     }
     
@@ -46,7 +44,9 @@ class AlboPretorioPdfController extends SetupAbstractController
      */
     private function getArticle($id)
     {
-        $wrapper = new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter( $this->getServiceLocator()->get('doctrine.entitymanager.orm_default') ));
+        $wrapper = new AlboPretorioArticoliGetterWrapper(
+            new AlboPretorioArticoliGetter($this->getServiceLocator()->get('doctrine.entitymanager.orm_default'))
+        );
         $wrapper->setInput(array('id' => $id, 'limit' => 1));
         $wrapper->setupQueryBuilder();
         

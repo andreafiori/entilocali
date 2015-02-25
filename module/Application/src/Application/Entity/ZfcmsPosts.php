@@ -33,28 +33,28 @@ class ZfcmsPosts
      *
      * @ORM\Column(name="insert_date", type="datetime", nullable=false)
      */
-    private $insertDate;
+    private $insertDate = '2013-01-01 00:00:00';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="expire_date", type="datetime", nullable=false)
      */
-    private $expireDate;
+    private $expireDate = '2030-02-10 00:00:00';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="last_update", type="datetime", nullable=false)
      */
-    private $lastUpdate;
+    private $lastUpdate = '2030-02-10 00:00:00';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="parent_id", type="bigint", nullable=false)
      */
-    private $parentId;
+    private $parentId = '0';
 
     /**
      * @var string
@@ -75,14 +75,14 @@ class ZfcmsPosts
      *
      * @ORM\Column(name="flag_attachments", type="string", nullable=false)
      */
-    private $flagAttachments;
+    private $flagAttachments = 'no';
 
 
 
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -93,7 +93,6 @@ class ZfcmsPosts
      * Set note
      *
      * @param string $note
-     *
      * @return ZfcmsPosts
      */
     public function setNote($note)
@@ -106,7 +105,7 @@ class ZfcmsPosts
     /**
      * Get note
      *
-     * @return string
+     * @return string 
      */
     public function getNote()
     {
@@ -117,7 +116,6 @@ class ZfcmsPosts
      * Set insertDate
      *
      * @param \DateTime $insertDate
-     *
      * @return ZfcmsPosts
      */
     public function setInsertDate($insertDate)
@@ -130,7 +128,7 @@ class ZfcmsPosts
     /**
      * Get insertDate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getInsertDate()
     {
@@ -141,7 +139,6 @@ class ZfcmsPosts
      * Set expireDate
      *
      * @param \DateTime $expireDate
-     *
      * @return ZfcmsPosts
      */
     public function setExpireDate($expireDate)
@@ -154,7 +151,7 @@ class ZfcmsPosts
     /**
      * Get expireDate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getExpireDate()
     {
@@ -165,7 +162,6 @@ class ZfcmsPosts
      * Set lastUpdate
      *
      * @param \DateTime $lastUpdate
-     *
      * @return ZfcmsPosts
      */
     public function setLastUpdate($lastUpdate)
@@ -178,7 +174,7 @@ class ZfcmsPosts
     /**
      * Get lastUpdate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getLastUpdate()
     {
@@ -189,7 +185,6 @@ class ZfcmsPosts
      * Set parentId
      *
      * @param integer $parentId
-     *
      * @return ZfcmsPosts
      */
     public function setParentId($parentId)
@@ -202,7 +197,7 @@ class ZfcmsPosts
     /**
      * Get parentId
      *
-     * @return integer
+     * @return integer 
      */
     public function getParentId()
     {
@@ -213,7 +208,6 @@ class ZfcmsPosts
      * Set type
      *
      * @param string $type
-     *
      * @return ZfcmsPosts
      */
     public function setType($type)
@@ -226,7 +220,7 @@ class ZfcmsPosts
     /**
      * Get type
      *
-     * @return string
+     * @return string 
      */
     public function getType()
     {
@@ -237,7 +231,6 @@ class ZfcmsPosts
      * Set alias
      *
      * @param string $alias
-     *
      * @return ZfcmsPosts
      */
     public function setAlias($alias)
@@ -250,7 +243,7 @@ class ZfcmsPosts
     /**
      * Get alias
      *
-     * @return string
+     * @return string 
      */
     public function getAlias()
     {
@@ -261,7 +254,6 @@ class ZfcmsPosts
      * Set flagAttachments
      *
      * @param string $flagAttachments
-     *
      * @return ZfcmsPosts
      */
     public function setFlagAttachments($flagAttachments)
@@ -274,7 +266,7 @@ class ZfcmsPosts
     /**
      * Get flagAttachments
      *
-     * @return string
+     * @return string 
      */
     public function getFlagAttachments()
     {

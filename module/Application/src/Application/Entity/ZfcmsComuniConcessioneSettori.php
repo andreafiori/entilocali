@@ -47,7 +47,7 @@ class ZfcmsComuniConcessioneSettori
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -58,7 +58,6 @@ class ZfcmsComuniConcessioneSettori
      * Set nome
      *
      * @param string $nome
-     *
      * @return ZfcmsComuniConcessioneSettori
      */
     public function setNome($nome)
@@ -71,7 +70,7 @@ class ZfcmsComuniConcessioneSettori
     /**
      * Get nome
      *
-     * @return string
+     * @return string 
      */
     public function getNome()
     {
@@ -82,7 +81,6 @@ class ZfcmsComuniConcessioneSettori
      * Set responsabile
      *
      * @param string $responsabile
-     *
      * @return ZfcmsComuniConcessioneSettori
      */
     public function setResponsabile($responsabile)
@@ -95,7 +93,7 @@ class ZfcmsComuniConcessioneSettori
     /**
      * Get responsabile
      *
-     * @return string
+     * @return string 
      */
     public function getResponsabile()
     {
@@ -106,7 +104,6 @@ class ZfcmsComuniConcessioneSettori
      * Set attivo
      *
      * @param integer $attivo
-     *
      * @return ZfcmsComuniConcessioneSettori
      */
     public function setAttivo($attivo)
@@ -119,7 +116,7 @@ class ZfcmsComuniConcessioneSettori
     /**
      * Get attivo
      *
-     * @return integer
+     * @return integer 
      */
     public function getAttivo()
     {

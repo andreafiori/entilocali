@@ -33,15 +33,14 @@ class ZfcmsUsersSettori
      *
      * @ORM\Column(name="position", type="bigint", nullable=false)
      */
-    private $position;
+    private $position = '0';
 
     /**
      * @var string
      *
      * @ORM\Column(name="active", type="string", nullable=false)
      */
-    private $active;
+    private $active = '1';
 
 
 }
-

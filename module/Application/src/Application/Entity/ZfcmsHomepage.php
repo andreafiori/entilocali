@@ -57,7 +57,7 @@ class ZfcmsHomepage
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -68,7 +68,6 @@ class ZfcmsHomepage
      * Set position
      *
      * @param integer $position
-     *
      * @return ZfcmsHomepage
      */
     public function setPosition($position)
@@ -81,7 +80,7 @@ class ZfcmsHomepage
     /**
      * Get position
      *
-     * @return integer
+     * @return integer 
      */
     public function getPosition()
     {
@@ -92,7 +91,6 @@ class ZfcmsHomepage
      * Set freeText
      *
      * @param string $freeText
-     *
      * @return ZfcmsHomepage
      */
     public function setFreeText($freeText)
@@ -105,7 +103,7 @@ class ZfcmsHomepage
     /**
      * Get freeText
      *
-     * @return string
+     * @return string 
      */
     public function getFreeText()
     {
@@ -116,7 +114,6 @@ class ZfcmsHomepage
      * Set referenceId
      *
      * @param integer $referenceId
-     *
      * @return ZfcmsHomepage
      */
     public function setReferenceId($referenceId)
@@ -129,7 +126,7 @@ class ZfcmsHomepage
     /**
      * Get referenceId
      *
-     * @return integer
+     * @return integer 
      */
     public function getReferenceId()
     {
@@ -140,7 +137,6 @@ class ZfcmsHomepage
      * Set block
      *
      * @param \Application\Entity\ZfcmsHomepageBlocks $block
-     *
      * @return ZfcmsHomepage
      */
     public function setBlock(\Application\Entity\ZfcmsHomepageBlocks $block = null)
@@ -153,7 +149,7 @@ class ZfcmsHomepage
     /**
      * Get block
      *
-     * @return \Application\Entity\ZfcmsHomepageBlocks
+     * @return \Application\Entity\ZfcmsHomepageBlocks 
      */
     public function getBlock()
     {

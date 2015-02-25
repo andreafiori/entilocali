@@ -40,43 +40,42 @@ class ZfcmsComuniAlboSezioni
      *
      * @ORM\Column(name="dest", type="integer", nullable=true)
      */
-    private $dest;
+    private $dest = '1';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="del", type="integer", nullable=true)
      */
-    private $del;
+    private $del = '0';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="det", type="integer", nullable=true)
      */
-    private $det;
+    private $det = '0';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="esi", type="integer", nullable=true)
      */
-    private $esi;
+    private $esi = '0';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="ban", type="integer", nullable=true)
      */
-    private $ban;
+    private $ban = '0';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="con", type="integer", nullable=true)
      */
-    private $con;
+    private $con = '0';
 
 
 }
-

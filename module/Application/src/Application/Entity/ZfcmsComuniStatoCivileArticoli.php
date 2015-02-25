@@ -102,7 +102,7 @@ class ZfcmsComuniStatoCivileArticoli
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -113,7 +113,6 @@ class ZfcmsComuniStatoCivileArticoli
      * Set titolo
      *
      * @param string $titolo
-     *
      * @return ZfcmsComuniStatoCivileArticoli
      */
     public function setTitolo($titolo)
@@ -126,7 +125,7 @@ class ZfcmsComuniStatoCivileArticoli
     /**
      * Get titolo
      *
-     * @return string
+     * @return string 
      */
     public function getTitolo()
     {
@@ -137,7 +136,6 @@ class ZfcmsComuniStatoCivileArticoli
      * Set progressivo
      *
      * @param integer $progressivo
-     *
      * @return ZfcmsComuniStatoCivileArticoli
      */
     public function setProgressivo($progressivo)
@@ -150,7 +148,7 @@ class ZfcmsComuniStatoCivileArticoli
     /**
      * Get progressivo
      *
-     * @return integer
+     * @return integer 
      */
     public function getProgressivo()
     {
@@ -161,7 +159,6 @@ class ZfcmsComuniStatoCivileArticoli
      * Set anno
      *
      * @param integer $anno
-     *
      * @return ZfcmsComuniStatoCivileArticoli
      */
     public function setAnno($anno)
@@ -174,7 +171,7 @@ class ZfcmsComuniStatoCivileArticoli
     /**
      * Get anno
      *
-     * @return integer
+     * @return integer 
      */
     public function getAnno()
     {
@@ -185,7 +182,6 @@ class ZfcmsComuniStatoCivileArticoli
      * Set data
      *
      * @param \DateTime $data
-     *
      * @return ZfcmsComuniStatoCivileArticoli
      */
     public function setData($data)
@@ -198,7 +194,7 @@ class ZfcmsComuniStatoCivileArticoli
     /**
      * Get data
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getData()
     {
@@ -209,7 +205,6 @@ class ZfcmsComuniStatoCivileArticoli
      * Set ora
      *
      * @param \DateTime $ora
-     *
      * @return ZfcmsComuniStatoCivileArticoli
      */
     public function setOra($ora)
@@ -222,7 +217,7 @@ class ZfcmsComuniStatoCivileArticoli
     /**
      * Get ora
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getOra()
     {
@@ -233,7 +228,6 @@ class ZfcmsComuniStatoCivileArticoli
      * Set attivo
      *
      * @param integer $attivo
-     *
      * @return ZfcmsComuniStatoCivileArticoli
      */
     public function setAttivo($attivo)
@@ -246,7 +240,7 @@ class ZfcmsComuniStatoCivileArticoli
     /**
      * Get attivo
      *
-     * @return integer
+     * @return integer 
      */
     public function getAttivo()
     {
@@ -257,7 +251,6 @@ class ZfcmsComuniStatoCivileArticoli
      * Set scadenza
      *
      * @param \DateTime $scadenza
-     *
      * @return ZfcmsComuniStatoCivileArticoli
      */
     public function setScadenza($scadenza)
@@ -270,7 +263,7 @@ class ZfcmsComuniStatoCivileArticoli
     /**
      * Get scadenza
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getScadenza()
     {
@@ -281,7 +274,6 @@ class ZfcmsComuniStatoCivileArticoli
      * Set flagAllegati
      *
      * @param string $flagAllegati
-     *
      * @return ZfcmsComuniStatoCivileArticoli
      */
     public function setFlagAllegati($flagAllegati)
@@ -294,7 +286,7 @@ class ZfcmsComuniStatoCivileArticoli
     /**
      * Get flagAllegati
      *
-     * @return string
+     * @return string 
      */
     public function getFlagAllegati()
     {
@@ -305,7 +297,6 @@ class ZfcmsComuniStatoCivileArticoli
      * Set sezione
      *
      * @param \Application\Entity\ZfcmsComuniStatoCivileSezioni $sezione
-     *
      * @return ZfcmsComuniStatoCivileArticoli
      */
     public function setSezione(\Application\Entity\ZfcmsComuniStatoCivileSezioni $sezione = null)
@@ -318,7 +309,7 @@ class ZfcmsComuniStatoCivileArticoli
     /**
      * Get sezione
      *
-     * @return \Application\Entity\ZfcmsComuniStatoCivileSezioni
+     * @return \Application\Entity\ZfcmsComuniStatoCivileSezioni 
      */
     public function getSezione()
     {
@@ -329,7 +320,6 @@ class ZfcmsComuniStatoCivileArticoli
      * Set utente
      *
      * @param \Application\Entity\ZfcmsUsers $utente
-     *
      * @return ZfcmsComuniStatoCivileArticoli
      */
     public function setUtente(\Application\Entity\ZfcmsUsers $utente = null)
@@ -342,7 +332,7 @@ class ZfcmsComuniStatoCivileArticoli
     /**
      * Get utente
      *
-     * @return \Application\Entity\ZfcmsUsers
+     * @return \Application\Entity\ZfcmsUsers 
      */
     public function getUtente()
     {
