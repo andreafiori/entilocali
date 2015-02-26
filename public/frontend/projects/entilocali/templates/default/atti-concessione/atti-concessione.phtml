@@ -35,6 +35,11 @@
 
 </div>
 
+<?php
+    echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
+        'twitterShareText' => $this->sitename.' - Atti di concessione',
+    ));
+?>
 
 <table class="responsive" role="grid">
     <thead>
@@ -52,14 +57,14 @@
     <tbody>
     <?php foreach($this->paginator as $key => $row): ?>
     <tr>
-        <td><?php echo $row['progressivo'] ?></td>
-        <td><?php echo $row['anno'] ?></td>
-        <td><?php echo $row['beneficiario'] ?></td>
-        <td><?php echo $row['importo'] ?></td>
-        <td><?php echo $row['modassegn'] ?></td>
-        <td><?php echo $row['nomeSezione'].'<br><br>'.$row['responsabile'] ?></td>
-        <td><?php echo $row['titolo'] ?></td>
-        <td><?php echo '' ?></td>
+        <td><?php echo utf8_encode($row['progressivo']) ?></td>
+        <td><?php echo utf8_encode($row['anno']) ?></td>
+        <td><?php echo utf8_encode($row['beneficiario']) ?></td>
+        <td><?php echo utf8_encode($row['importo']) ?></td>
+        <td><?php echo utf8_encode($row['modassegn']) ?></td>
+        <td><?php echo utf8_encode($row['nomeSezione']).'<br><br>'.utf8_encode($row['responsabile']) ?></td>
+        <td><?php echo utf8_encode($row['titolo']) ?></td>
+        <td>&nbsp;</td>
     </tr>
     <tr>
         <td colspan="8"><hr></td>
@@ -67,6 +72,13 @@
     <?php endforeach; ?>
     </tbody>
 </table>
+
+<?php
+echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
+    'twitterShareText' => $this->sitename.' - Atti di concessione',
+));
+?>
+
 <?php
     if ( count($this->paginator) > 1 ):
         echo $this->paginationControl(

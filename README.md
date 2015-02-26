@@ -30,7 +30,11 @@ Update third part scripts using:
 Rename the a.htaccess file to .htaccess. I've renamed it to use on my localhost with XAMPP.
 
 Notes
-------------
+-------------------
 
 This index.php file on the root allows to use this application on a shared hosting.
+
 The public directory contains frontend, backend and common assets, views and templates.
+
+Amazon S3 class: https://github.com/tpyo/amazon-s3-php-class
+

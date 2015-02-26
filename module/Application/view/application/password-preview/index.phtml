@@ -1,0 +1,52 @@
+
+<br><?php
+
+$form = $this->form;
+$form->prepare();
+
+
+$form->setAttribute('method', 'post');
+$form->setAttribute('action', $this->url('password-preview'));
+$form->setAttribute('role',  'form');
+$form->setAttribute('class', 'form-horizontal');
+
+$formLabel = $this->plugin('formLabel');
+
+echo $this->form()->openTag($form);
+
+?>
+<?php if (isset($this->errorMessage)): ?>
+    <div class="alert alert-danger">
+        <?php echo $this->errorMessage ?>
+    </div>
+<?php endif; ?>
+
+<div class="row">
+    <div class="col-md-2">&nbsp;</div>
+    <div class="col-md-8">
+        <h1>Area riservata</h1>
+
+        <p>&Egrave; necessaria una password per poter utilizzare l'applicazione.</p>
+
+        <div class="form-group">
+            <?php
+            $name = $form->get('password');
+            $name->setAttribute('class','form-control');
+            ?>
+            <label for="password" class="col-sm-2 control-label"><?php echo $name->getOption('label') ?></label>
+            <div class="col-sm-10">
+                <?php
+                echo $this->formInput($name);
+                echo $this->formElementErrors($name);
+                ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Accedi</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">&nbsp;</div>
+</div>

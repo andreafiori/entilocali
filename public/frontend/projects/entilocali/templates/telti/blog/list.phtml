@@ -3,7 +3,9 @@
     <li class="active"><?php echo $this->category; ?></li>
 </ul>
 
-<p class="text-right"><a href="#" class="btn btn-warning" title="Visualizza Feed RSS per la categoria blog <?php //echo $this->maindata[0]['nomeCategoria']; ?>"><i class="fa fa-rss"></i> Feed RSS <?php echo $this->category; ?></a></p>
+<p class="text-right">
+    <a href="#" class="btn btn-warning" title="Visualizza Feed RSS per la categoria blog"><i class="fa fa-rss"></i> Feed RSS <?php echo $this->category; ?></a>
+</p>
 
 <?php foreach($this->paginator as $key => $row): ?>
     <h1><?php echo $row['title'] ?></h1>

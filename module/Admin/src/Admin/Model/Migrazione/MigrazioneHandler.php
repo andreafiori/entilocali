@@ -58,8 +58,8 @@ class MigrazioneHandler  extends RouterManagerAbstract implements RouterManagerI
                     $migrator->setForeignKeyChecks(1);
                     $migrator->log();
 
-                    $this->setVariable('msgType', 'success');
-                    $this->setVariable('msg', 'Migrazione dati effettuata correttamente');
+                    $this->setVariable('msgType',   'success');
+                    $this->setVariable('msg',       'Migrazione dati effettuata correttamente');
                 }
             }
         }

@@ -57,6 +57,13 @@
     ?>
 </fieldset>
 
+<?php
+// sharing
+echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
+    'twitterShareText' => $this->sitename.' - Bandi e contratti pubblici',
+));
+?>
+
 <div>
     <table class="responsive" role="grid">
         <caption>Elenco bandi di gara e contratti. <?php echo $this->paginator_total_item_count ?> bandi presenti</caption>
@@ -76,28 +83,28 @@
             <?php foreach($this->paginator as $key => $row): ?>
             <tr>
                 <td>
-                    <strong>Oggetto del bando:</strong> <?php echo $row['titolo'] ?><br><br>
+                    <strong>Oggetto del bando:</strong> <?php echo utf8_encode($row['titolo']) ?><br><br>
                     <strong>CIG:</strong> <?php echo $row['cig'] ?><br><br>
                     <strong>Anno:</strong> <?php echo $row['anno'] ?>
                 </td>
                 <td>
                     <strong>CF:</strong> <br><br>
-                    <strong>Str. prop:</strong> <?php echo $row['nomeSettore'] ?><br><br>
-                    <strong>Resp.</strong> <?php echo $row['responsabile'] ?><br><br>
-                    <strong>Resp. Proc.</strong> <?php echo $row['nomeResp'] ?>
+                    <strong>Str. prop:</strong> <?php echo utf8_encode($row['nomeSettore']) ?><br><br>
+                    <strong>Resp.</strong> <?php echo utf8_encode($row['responsabile']) ?><br><br>
+                    <strong>Resp. Proc.</strong> <?php echo utf8_encode($row['nomeResp']) ?>
                 </td>
-                <td><?php echo $row['nomeScelta'] ?></td>
+                <td><?php echo utf8_encode($row['nomeScelta']) ?></td>
                 <td>
                     <strong>CF-PI:</strong> <br><br>
-                    <strong>Nome e Ragione sociale:</strong> <?php echo $row['nomeResp'] ?>
+                    <strong>Nome e Ragione sociale:</strong> <?php echo utf8_encode($row['nomeResp']) ?>
                 </td>
                 <td>
                     <strong>CF-PI:</strong> <br><br>
                     <strong>Nome e Ragione sociale:</strong>
                 </td>
                 <td>
-                    <strong>Importo di aggiudicazione:</strong> <?php echo $row['importoAggiudicazione'] ?> &euro;<br><br>
-                    <strong>Importo liquidato:</strong> <?php echo $row['importoLiquidato'] ?> &euro;
+                    <strong>Importo di aggiudicazione:</strong> <?php echo utf8_encode($row['importoAggiudicazione']) ?> &euro;<br><br>
+                    <strong>Importo liquidato:</strong> <?php echo utf8_encode($row['importoLiquidato']) ?> &euro;
                 </td>
                 <td>
                     <strong>Inizio lavori:</strong> <?php $temp2 = explode("-", $row['dataInizioLavori']); echo $temp2[2]."-".$temp2[1]."-".$temp2[0]; ?><br><br>
@@ -113,6 +120,7 @@
     </table>
 </div>
 <?php
+    // pagination
     if (count($this->paginator) > 1):
         echo $this->paginationControl(
             $this->paginator,
@@ -123,6 +131,11 @@
             )
         );
     endif;
+
+    // sharing
+    echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
+        'twitterShareText' => $this->sitename.' - Bandi e contratti pubblici',
+    ));
 else:
     ?>
     <div>

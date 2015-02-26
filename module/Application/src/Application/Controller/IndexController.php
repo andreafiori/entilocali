@@ -2,7 +2,6 @@
 
 namespace Application\Controller;
 
-use Application\Controller\SetupAbstractController;
 use Zend\View\Model\ViewModel;
 use Application\Model\RouterManagers\RouterManager;
 use Application\Model\RouterManagers\RouterManagerHelper;
@@ -29,6 +28,12 @@ class IndexController extends SetupAbstractController
 
         $configurations = $appServiceLoader->recoverService('configurations');
 
+        $sessionContainer = new SessionContainer();
+
+        if (!$this->checkPasswordPreviewArea($configurations, $sessionContainer)) {
+            return $this->redirect()->toRoute('password-preview'); // login to preview form
+        }
+
         $sezioniWrapper = new SezioniGetterWrapper( new SezioniGetter($entityManager) );
         $sezioniWrapper->setInput( array(
                 'orderBy'   => 'sezioni.posizione ASC',
@@ -36,7 +41,10 @@ class IndexController extends SetupAbstractController
             )
         );
         $sezioniWrapper->setupQueryBuilder();
-        $sezioniRecords = $sezioniWrapper->addSottoSezioni( $sezioniWrapper->getRecords() );
+        $sezioniRecords = $sezioniWrapper->addSottoSezioni(
+            $sezioniWrapper->getRecords(),
+            array('attivo' => 1)
+        );
         
         $sezioni = array();
         foreach($sezioniRecords as $sezione) {
@@ -78,8 +86,6 @@ class IndexController extends SetupAbstractController
             $basicLayout = $input['basiclayout'];
         }
 
-        $sessionContainer = new SessionContainer();
-
         $this->layout()->setVariables($configurations);
         $this->layout()->setVariables( array(
             'sezioni'           => $sezioni,
@@ -89,7 +95,8 @@ class IndexController extends SetupAbstractController
             'currentUrl'        => "http://".$serverVars["SERVER_NAME"].$serverVars["REQUEST_URI"],
             'currentDateTime'   => date("Y-m-d H:i:s"),
             'templatePartial'   => $input['template_path'].$routerManagerHelper->getRouterManger()->getTemplate(),
-            'cssName'           => $sessionContainer->offSetGet('cssName')
+            'cssName'           => $sessionContainer->offSetGet('cssName'),
+            'passwordPreviewArea' => $this->hasPasswordPreviewArea($configurations),
         ));
 
         $this->layout($basicLayout);

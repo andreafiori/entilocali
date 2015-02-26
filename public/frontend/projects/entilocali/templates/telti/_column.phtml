@@ -10,7 +10,6 @@ foreach($this->sezioni as $sezione):
             if (isset($sezione['sottosezioni'])):
             ?>
             <h2 class="sezioniTitle">
-
                 <?php if ($sezione['image']!=''): ?>
                 <img src="<?php echo $this->basepath() ?>/public/common/icons/<?php echo $sezione['image'] ?>" alt="Icona per <?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?>">
                 <?php endif; ?>
@@ -31,7 +30,7 @@ foreach($this->sezioni as $sezione):
                 if ( \preg_match("/^http/i", $sottoSezione['url']) ):
                     $target = "_blank";
                 endif;
-                
+
                 if ($sottoSezione['url']):
                     ?>
                     <li><a href="<?php echo htmlentities($sottoSezione['url']) ?>"<?php if (isset($target)): ?> target="<?php echo $target ?>"<?php endif ?> title="<?php echo isset($sottoSezione['urlTitle']) ? utf8_encode($sottoSezione['urlTitle']) : 'Vai alla sezione '.utf8_encode($sottoSezione['nomeSottosezione']) ?>"><?php if (isset($target)): ?><img src="<?php echo $this->basepath() ?>/public/frontend/projects/entilocali/templates/telti/assets/images/external-link-icon.gif" alt="Apre in un'altra finestra"> <?php endif ?><?php echo utf8_encode($sottoSezione['nomeSottosezione']) ?></a></li>
@@ -66,25 +65,11 @@ foreach($this->sezioni as $sezione):
 
         case('eventi'):
             ?>
-            <h2 class="sezioniTitle">EVENTI</h2>
-            <ul class="side-nav">
-                <li><a href="#">Evento 1</a></li>
-                <li><a href="#">Evento 2</a></li>
-                <li><a href="#">Evento 3</a></li>
-            </ul>
-
-            <h2 class="sezioniTitle">RASSEGNA STAMPA</h2>
-            <ul class="side-nav">
-                <li><a href="#">Rassegna 1</a></li>
-                <li><a href="#">Rassegna 2</a></li>
-                <li><a href="#">Rassegna 3</a></li>
-            </ul>
-
             <h2 class="sezioniTitle">NEWS</h2>
             <ul class="side-nav">
-                <li><a href="#">News 1</a></li>
-                <li><a href="#">News 2</a></li>
-                <li><a href="#">News 3</a></li>
+                <li><a href="#" title="Leggi articolo Mews 1">News 1</a></li>
+                <li><a href="#" title="Leggi articolo Mews 2">News 2</a></li>
+                <li><a href="#" title="Leggi articolo Mews 3">News 3</a></li>
             </ul>
             <?php
         break;
@@ -107,7 +92,7 @@ foreach($this->sezioni as $sezione):
                         <input type="submit" name="login" value="Accedi" title="Clicca per accedere all'area riservata" class="button tiny">
                     </label>
 
-                    <div>&raquo; <a href="#" title="Recupero password area riservata">Registrati</a></div>
+                    <div>&raquo; <a href="<?php echo $this->url('registrazione', array()); ?>" title="Recupero password area riservata">Registrati</a></div>
                     <div>&raquo; <a href="#" title="Recupero password area riservata">Recupero password</a></div>
                 </fieldset>
             </form>

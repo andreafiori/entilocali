@@ -27,7 +27,7 @@ class TicketsForm extends Form
                 'id' => 'oggetto'
             ),
             'options' => array( 
-                'label' => 'Oggetto', 
+                'label' => 'Oggetto',
             ), 
         ));
         
@@ -36,15 +36,33 @@ class TicketsForm extends Form
             'type' => 'Zend\Form\Element\Textarea',
             'attributes' => array(
                 'placeholder' => 'Inserisci descrizione...',
-                'title' => 'Inserisci descrizione...', 
+                'title' => 'Inserisci descrizione',
                 'required' => 'required',
                 'rows' => 8,
-                'cols' => 35,
                 'id' => 'descrizione'
             ),
             'options' => array( 
                 'label' => 'Descrizione',
             ),
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'priority',
+            'options' => array(
+                'label' => "* Priorit&agrave;",
+                'empty_option' => 'Seleziona',
+                'value_options' => array(
+                    'alta'   => 'Alta',
+                    'media'  => 'Media',
+                    'bassa'  => 'Bassa',
+                ),
+            ),
+            'attributes' => array(
+                'required' => 'required',
+                'title'    => 'Seleziona piorita',
+                'id'       => 'priority'
+            )
         ));
     }
 }

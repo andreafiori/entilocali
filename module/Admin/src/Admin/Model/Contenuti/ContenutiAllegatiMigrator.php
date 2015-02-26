@@ -54,11 +54,11 @@ class ContenutiAllegatiMigrator extends MigratorAbstract
             );
             */
 
-            /* Save file on file system
+            /* Save file on file system */
             $fp = fopen('public/frontend/media/contenuti/'.$newAttachmentFilename, 'w');
             fwrite($fp, $singleAttachment[0]['dati']);
             fclose($fp);
-            */
+
         }
     }
 

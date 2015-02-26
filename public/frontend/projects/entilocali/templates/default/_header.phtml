@@ -59,6 +59,16 @@
 
 <body>
 
+<?php if ($this->passwordPreviewArea): ?>
+    <div class="alert-box info text-center" id="previewAreaAlert">
+        Area riservata <strong><?php echo $this->sitename ?></strong> -
+        <strong>
+            <a href="<?php echo $this->url('password-preview-logout', array('action' => 'logout')); ?>" title="Uscita area risevata">Uscita</a>
+        </strong>
+        <a href="#" class="close" onclick="$('#previewAreaAlert').hide();">&times;</a>
+    </div>
+<?php endif; ?>
+
 <?php if ($this->cssName!='default' and $this->cssName!=''): ?>
     <div>&raquo; <a href="<?php echo $this->url('css', array('cssname' => 'default')) ?>" title="Torna alla visualizzazione del sito grafico">Sito grafico</a></div>
 <?php endif; ?>

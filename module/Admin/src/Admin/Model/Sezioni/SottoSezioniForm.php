@@ -29,10 +29,19 @@ class SottoSezioniForm extends Form
                 'id'        => 'sezione'
             )
         ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'idSottosezione',
+            'attributes' => array(
+                "class" => 'hiddenField'
+            )
+        ));
     }
 
     public function addFormOptions()
     {
+        /*
         $this->add(array(
             'name' => 'immagine',
             'type' => 'File',
@@ -43,16 +52,16 @@ class SottoSezioniForm extends Form
                 'id'            => 'immagine',
             )
         ));
-
+        */
         $this->add(array(
-            'name' => 'nomeSezione',
+            'name' => 'nomeSottosezione',
             'type' => 'Text',
             'options' => array( 'label' => '* Nome' ),
             'attributes' => array(
                 'required'      => 'required',
                 'placeholder'   => 'Nome...',
                 'title'         => 'Inserisci nome sotto sezione',
-                'id'            => 'nomeSezione',
+                'id'            => 'nomeSottosezione',
             )
         ));
 
@@ -106,14 +115,6 @@ class SottoSezioniForm extends Form
                 'title'     => 'Seleziona stato',
                 'id'        => 'attivo',
                 'required'  => 'required'
-            )
-        ));
-
-        $this->add(array(
-            'type' => 'Zend\Form\Element\Hidden',
-            'name' => 'id',
-            'attributes' => array(
-                "class" => 'hiddenField'
             )
         ));
     }

@@ -67,7 +67,7 @@ class EntiTerziCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
             $logsWriter = $this->getLogsWriter();
             $logResult = $logsWriter->writeLog(array(
                 'user_id'   => $userDetails->id,
-                'module_id' => '12',
+                'module_id' => 12,
                 'message'   => $userDetails->name.' '.$userDetails->surname."', errore durante l'aggiornamento dell'ente terzo ".$this->rawPost['nome'].' Messaggio: '.$errorMessage,
                 'type'      => 'error',
                 'backend'   => 1,
@@ -110,7 +110,7 @@ class EntiTerziCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
             $logsWriter = $this->getLogsWriter();
             $logResult = $logsWriter->writeLog(array(
                 'user_id'   => $userDetails->id,
-                'module_id' => '12',
+                'module_id' => 12,
                 'message'   => $userDetails->name.' '.$userDetails->surname."' ha aggiornato l'ente terzo ".$this->rawPost['nome'],
                 'type'      => 'info',
                 'backend'   => 1,
@@ -128,5 +128,47 @@ class EntiTerziCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
         }
 
         return true;
+    }
+
+    public function delete($id, array $recordDataDeleted)
+    {
+        $userDetails  = $this->getInput('userDetails', 1);
+
+        $this->getConnection()->beginTransaction();
+        try {
+
+            $this->getConnection()->delete( $this->tableName, array('id' => $id) );
+
+            $this->getConnection()->commit();
+
+            // Log
+            $logsWriter = $this->getLogsWriter();
+            $logsWriter->writeLog(array(
+                'user_id'   => $userDetails->id,
+                'module_id' => 2,
+                'message'   => $userDetails->name.' '.$userDetails->surname."', ha cancellato il contenuto ".$id,
+                'type'      => 'error',
+                'backend'   => 1,
+            ));
+
+            $this->setSuccessMessage();
+
+        } catch (\Exception $e) {
+            $this->getConnection()->rollBack();
+
+            // Log
+            $errorMessage = $e->getMessage();
+
+            $logsWriter = $this->getLogsWriter();
+            $logsWriter->writeLog(array(
+                'user_id'   => $userDetails->id,
+                'module_id' => '2',
+                'message'   => $userDetails->name.' '.$userDetails->surname."', errore durante la cancellazione del contenuto ".$this->rawPost['nome'].' Messaggio: '.$errorMessage,
+                'type'      => 'error',
+                'backend'   => 1,
+            ));
+
+            return $this->setErrorMessage($errorMessage);
+        }
     }
 }

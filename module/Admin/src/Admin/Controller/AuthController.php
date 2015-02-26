@@ -51,7 +51,7 @@ class AuthController extends SetupAbstractController
     {
         $form       = $this->getUserFormAuthentication();
         $redirect   = 'login';
-        $request = $this->getRequest();
+        $request    = $this->getRequest();
         
         if ($request->isPost()) {
             $form->setData($request->getPost());
@@ -98,7 +98,7 @@ class AuthController extends SetupAbstractController
                         $userRole = new Role('administrator');
                         $acl->addRole($userRole);
                         $acl->allow($userRole);
-                        // $acl->isAllowed($userRole, null, 'view');
+                        $acl->isAllowed($userRole, null, 'view');
 
                         $sitename = $this->recoverSitename();
 

@@ -23,7 +23,6 @@ class SottoSezioniCrudHandler extends CrudHandlerAbstract
             $this->getConnection()->insert($this->tableName, array(
                 'nome'              => $this->rawPost['nomeSezione'],
                 'sezione_id'        => $this->rawPost['sezione'],
-                //'immagine'        => $this->rawPost['immagine'],
                 'url'               => $this->rawPost['url'],
                 'url_title'         => $this->rawPost['urlTitle'],
                 'posizione'         => $this->rawPost['posizione'],
@@ -59,14 +58,14 @@ class SottoSezioniCrudHandler extends CrudHandlerAbstract
 
     public function update()
     {
-        $this->setArrayRecordToHandle('nome', 'nomeSezione');
-        $this->setArrayRecordToHandle('posizione', 'posizione');
-        $this->setArrayRecordToHandle('attivo', 'attivo');
+        $this->setArrayRecordToHandle('nome',       'nomeSottosezione');
+        $this->setArrayRecordToHandle('posizione',  'posizione');
+        $this->setArrayRecordToHandle('attivo',     'attivo');
         $this->setArrayRecordToHandle('sezione_id', 'sezione');
-        $this->setArrayRecordToHandle('url', 'url');
-        $this->setArrayRecordToHandle('url_title', 'urlTitle');
+        $this->setArrayRecordToHandle('url',        'url');
+        $this->setArrayRecordToHandle('url_title',  'urlTitle');
 
-        $this->setArrayRecordElement('slug', Slugifier::slugify($this->rawPost['nomeSezione']));
+        $this->setArrayRecordElement('slug', Slugifier::slugify($this->rawPost['nomeSottosezione']));
 
         $userDetails  = $this->getInput('userDetails', 1);
 
@@ -74,7 +73,7 @@ class SottoSezioniCrudHandler extends CrudHandlerAbstract
         try {
 
             $affectedRows = $this->getConnection()->update(
-                $this->tableName, $this->getArrayRecordToHandle(), array('id' => $this->rawPost['id'])
+                $this->tableName, $this->getArrayRecordToHandle(), array('id' => $this->rawPost['idSottosezione'])
             );
 
             $this->getConnection()->commit();
@@ -86,7 +85,7 @@ class SottoSezioniCrudHandler extends CrudHandlerAbstract
             $logResult = $logsWriter->writeLog(array(
                 'user_id'   => $userDetails->id,
                 'module_id' => 2,
-                'message'   => $userDetails->name.' '.$userDetails->surname."', ha aggiornato la sotto-sezione ".$this->rawPost['nomeSezione'],
+                'message'   => $userDetails->name.' '.$userDetails->surname."', ha aggiornato la sotto-sezione ".$this->rawPost['nomeSottosezione'],
                 'type'      => 'info',
                 'backend'   => 1,
             ));

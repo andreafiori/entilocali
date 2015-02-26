@@ -43,7 +43,7 @@
     <script src="<?php echo $this->basePath() ?>/public/common/jquery/ckfinder/ckfinder.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file: -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -137,14 +137,10 @@
                         <li><a href="<?php echo $this->url('login/process', array('action' => 'logout')); ?>" title="Uscita dall'area riservata"><i class="fa fa-sign-out fa-fw"></i> Uscita</a>
                         </li>
                     </ul>
-
                 </li>
-
             </ul>
-
         </div>
-
-        </div>
+    </div>
 
     </nav>
 </header>
@@ -384,15 +380,13 @@
                         <ul class="nav nav-second-level">
                             <li><a href="<?php echo $this->baseUrl ?>formdata/users" title="Aggiungi nuova foto">Nuovo</a></li>
                             <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'users')); ?>" title="Gestione gallerie fotografice">Gestione</a></li>
-                            <!--
                             <li>
-                                <a href="#" class="dropdown-collapse" title="">Categorie <span class="fa arrow"></span></a>
+                                <a href="#" class="dropdown-collapse" title="">Ruoli <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
-                                    <li><a href="<?php echo $this->baseUrl ?>formdata/categories/?moduleId=6" title="">Nuovo</a></li>
-                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'users')); ?>" title="">Modifica \ Elimina</a></li>
+                                    <li><a href="#" title="Nuovo ruolo">Nuovo</a></li>
+                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'user-roles')); ?>" title="">Modifica \ Elimina</a></li>
                                 </ul>
                             </li>
-                            -->
                         </ul>
                     </li>
 
@@ -409,9 +403,7 @@
         // Main Template
         echo $this->partial($this->templatePartial);
         ?>
-
     </div>
-    <!-- /#page-wrapper -->
 
 </div>
 <!-- /#wrapper -->
@@ -435,7 +427,6 @@
 <!-- Datepicker -->
 <script src="<?php echo $this->basePath() ?>/public/common/jquery/datetimepicker/jquery.datetimepicker.js"></script>
 
-<!-- Page-Level Demo Scripts - Tables - Use for reference -->
 <script>
 
     function showLoading()
@@ -482,7 +473,7 @@
                 });
 
                 $("#formcontainer").hide();
-                // $("#showFormContainer").show();
+                /* $("#showFormContainer").show(); */
             }
         });
 
@@ -496,5 +487,4 @@
 </script>
 
 </body>
-
 </html>

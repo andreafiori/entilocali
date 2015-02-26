@@ -35,6 +35,7 @@ class SottoSezioniGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setSezioneId( $this->getInput('sezioneId', 1) );
         $this->objectGetter->setProfonditaDa( $this->getInput('profonditaDa', 1) );
         $this->objectGetter->setModulo( $this->getInput('modulo', 1) );
+        $this->objectGetter->setAttivo( $this->getInput('attivo', 1) );
         $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
         $this->objectGetter->setLimit( $this->getInput('limit', 1) );
     }

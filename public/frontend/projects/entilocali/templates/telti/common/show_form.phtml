@@ -19,29 +19,20 @@ foreach ($this->form as $element):
         echo $this->formElement($element);
     elseif ($attributes['type'] == 'submit'):
     ?>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">&nbsp;</label>
-        <div class="col-sm-10">
+    <label for="<?php echo $attributes['id'] ?>">
         <?php
-        $element->setAttribute('class', 'btn btn-primary');
+        $element->setAttribute('class', 'button primary tiny');
         echo $this->formElement($element);
         ?>
-        </div>
-    </div>
-    <?php
-    else:
-    ?>
-    <div class="form-group">
-        <label for="<?php echo $attributes['id'] ?>" class="col-sm-2 control-label"><?php echo $element->getLabel() ?>:</label>
-        <div class="col-sm-10">
-        <?php
-        $element->setAttribute('class', 'form-control');
-        echo $this->formElement($element);
-        ?>
-        </div>
-    </div>
+    </label>
+    <?php else: ?>
+        <label for="<?php echo $attributes['id'] ?>"><?php echo $element->getLabel() ?>: <?php  echo $this->formElement($element); ?></label>
     <?php
     endif;
 endforeach;
+
+?>
+<label>* Campi obbligatori</label>
+<?php
 
 echo $this->form()->closeTag();

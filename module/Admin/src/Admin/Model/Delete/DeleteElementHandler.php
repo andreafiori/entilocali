@@ -28,7 +28,6 @@ class DeleteElementHandler extends RouterManagerAbstract implements RouterManage
                 $crudHandler->delete();
 
                 $output = $crudHandler->getOutput('export');
-
             break;
 
             case("sezioni"):
@@ -36,6 +35,10 @@ class DeleteElementHandler extends RouterManagerAbstract implements RouterManage
             break;
 
             case("sottosezioni"):
+
+            break;
+
+            case("enti-terzi"):
 
             break;
         }
@@ -47,9 +50,6 @@ class DeleteElementHandler extends RouterManagerAbstract implements RouterManage
          * redirect to list
          */
 
-        $this->setVariables(array(
-
-        ));
         $this->setTemplate('delete/delete-element.phtml');
 
         return $this->getOutput();

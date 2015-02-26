@@ -1,9 +1,14 @@
 <ul class="breadcrumbs">
     <li><a href="<?php echo $this->basepath() ?>" title="Torna all'home page">Home</a></li>
-    <li class="current">Amministrazione trasparente</li>
+    <li><a href="<?php echo $this->url('amministrazione-trasparente', array('profondita' => 200)) ?>" title="Vai all'indice di amministrazione trasparente">Amministrazione trasparente</a></li>
+    <?php if (isset($this->contenuti[0]['titolo'])): ?>
+    <li class="current"><?php echo utf8_encode($this->contenuti[0]['titolo']) ?></li>
+    <?php endif ?>
 </ul>
 
-<div class="text-center"><h1>Amministrazione trasparente</h1></div>
+<div class="text-center">
+    <h1>Amministrazione trasparente</h1>
+</div>
 
 <fieldset>
         <legend>Ricerca</legend>
@@ -79,27 +84,46 @@
     ?>
 </fieldset>
 
-<!-- Articolo -->
+<!-- Contenuti -->
+<?php
+
+foreach($this->contenuti as $contenuto):
+    ?>
+    <h3><?php echo utf8_encode($contenuto['titolo']) ?> (Anno <?php echo $contenuto['annoammtrasp'] ?>)</h3>
+
+    <div><?php echo utf8_encode($contenuto['sommario']) ?></div>
+
+    <div><?php echo utf8_encode($contenuto['testo']) ?></div>
+
+    <br>
+    <?php
+    // sharing
+    echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
+        'twitterShareText' => utf8_encode($contenuto['titolo']),
+    ));
+    ?>
+
+    <?php
+endforeach;
+
+?>
 
 <!-- Sezioni -->
+<?php
+if ($this->sottoSezioni):
+    ?>
+    <h4>Sotto sezioni</h4>
+    <ul>
+    <?php
+    foreach($this->sottoSezioni as $sottoSezione):
+        ?>
+        <li>
+            <a href="<?php echo $this->url('amministrazione-trasparente', array('profondita' => $sottoSezione['idSottosezione'])) ?>" title="Vai alla sezione <?php echo utf8_encode($sottoSezione['nomeSottosezione']); ?>"><?php echo utf8_encode($sottoSezione['nomeSottosezione']); ?></a>
+        </li>    
+        <?php
+    endforeach;
+    ?>
+    </ul>
+    <?php
+endif;
 
-
-<blockquote>
-    <p>La presente sezione &egrave; stata costruita nel rispetto delle indicazioni normative 
-        contenute nel Decreto Legislativo 14 marzo 2013, n. 33:
-        "La trasparenza &egrave; intesa come accessibilit&agrave; totale delle informazioni concernenti 
-        l'organizzazione e l'attivit&agrave; delle pubbliche amministrazioni, allo scopo 
-        di favorire forme diffuse di controllo sul perseguimento delle funzioni istituzionali e 
-        sull'utilizzo delle risorse pubbliche. La trasparenza, nel rispetto delle disposizioni 
-        in materia di segreto di Stato, di segreto d'ufficio, di segreto statistico e di 
-        protezione dei dati personali, concorre ad attuare il principio democratico 
-        e i principi costituzionali di eguaglianza, di imparzialit&agrave;, buon andamento, 
-        responsabilit&agrave;, efficacia ed efficienza nell'utilizzo di risorse pubbliche, 
-        integrit&agrave; e lealt&agrave; nel servizio alla nazione. Essa &egrave; condizione di garanzia delle libert&agrave; 
-        individuali e collettive, nonch&egrave; dei diritti civili, politici e sociali, 
-        integra il diritto ad una buona amministrazione e concorre alla realizzazione 
-        di una amministrazione aperta, al servizio del cittadino."</p>
-    
-    <p><a href="http://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2013-03-14;33" title="Normativa completa amministrazione trasparente [apre in un'altra finestra]" target="_blank">Leggi tutta la normativa</a></p>
-    
-</blockquote>

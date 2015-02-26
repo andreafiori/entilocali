@@ -59,6 +59,50 @@ abstract class SetupAbstractController extends AbstractActionController
     }
 
     /**
+     * Check parameters for the password preview area
+     *
+     * @param array $configurations
+     * @param SessionContainer $sessionContainer
+     * @return bool
+     */
+    public function checkPasswordPreviewArea(array $configurations, SessionContainer $sessionContainer)
+    {
+        if (!$this->hasPasswordPreviewArea($configurations)) {
+            return true;
+        }
+
+        if ( isset($configurations['preview_password_area']) and $sessionContainer->offsetGet('preview_area_ok')!==1) {
+            return false;
+        } else {
+            $dateDiff = date_diff( date_create($sessionContainer->offsetGet('preview_area_logintimeout')), date_create(date("Y-m-d H:i:s")) );
+            if ($dateDiff->i > 80) {
+
+                $sessionContainer->offsetUnset('preview_area_ok');
+                $sessionContainer->offsetUnset('preview_area_logintimeout');
+
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Check if the password preview area is activated
+     *
+     * @param array $configurations
+     * @return bool
+     */
+    public function hasPasswordPreviewArea(array $configurations)
+    {
+        if ( isset($configurations['preview_password_area']) and $configurations['preview_password_area']==1) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * @return mixed
      */
     protected function recoverSitename()

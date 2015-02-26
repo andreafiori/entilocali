@@ -115,4 +115,18 @@ class SottoSezioniGetter extends QueryBuilderHelperAbstract
         
         return $this->getQueryBuilder();
     }
+
+    /**
+     * @param int $attivo
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setAttivo($attivo)
+    {
+        if ( is_numeric($attivo) ) {
+            $this->getQueryBuilder()->andWhere('sottosezioni.attivo = :attivo ');
+            $this->getQueryBuilder()->setParameter('attivo', $attivo);
+        }
+
+        return $this->getQueryBuilder();
+    }
 }

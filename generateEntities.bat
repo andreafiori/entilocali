@@ -1,0 +1,1 @@
+vendor\bin\doctrine-module orm:convert-mapping --namespace="Application\Entity\\" --force --from-database annotation .\module\Application\src\

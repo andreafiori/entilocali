@@ -36,9 +36,10 @@ class UsersDataTable extends DataTableAbstract
     {
         return $this->getDataTableRowsFromUserRecords( $this->getUserRecords(new UsersGetterWrapper( new UsersGetter($this->getInput('entityManager')) )) );
     }
-    
+
         /**
-         * @param \Admin\Model\Users\UsersGetterWrapper $usersGetterWrapper
+         * @param UsersGetterWrapper $usersGetterWrapper
+         * @return \Application\Model\QueryBuilderHelperAbstract
          */
         public function getUserRecords(UsersGetterWrapper $usersGetterWrapper)
         {
@@ -50,7 +51,8 @@ class UsersDataTable extends DataTableAbstract
         
         /**
          * @param array $records
-         * @return array or boolean
+         *
+         * @return array|boolean
          */
         private function getDataTableRowsFromUserRecords($records)
         {
@@ -70,7 +72,7 @@ class UsersDataTable extends DataTableAbstract
                     '<a href="mailto:'.$record['email'].'" title="Scrivi a '.$record['name'].' '.$record['surname'].'">'.$record['email'].'</a>',
                     $this->convertDateTimeToString($record['lastUpdate']),
                     ucfirst($record['status']),
-                    '',
+                    $record['roleName'],
                     array(
                         'type'      => 'updateButton',
                         'href'      => $this->getInput('baseUrl',1).'formdata/users/'.$record['id'],

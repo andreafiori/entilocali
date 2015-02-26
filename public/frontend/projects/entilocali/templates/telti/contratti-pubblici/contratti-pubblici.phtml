@@ -57,6 +57,13 @@
     ?>
 </fieldset>
 
+<?php
+// sharing
+echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
+    'twitterShareText' => $this->sitename.' - Bandi e contratti pubblici',
+));
+?>
+
 <div>
     <table class="responsive" role="grid">
         <caption>Elenco bandi di gara e contratti. <?php echo $this->paginator_total_item_count ?> bandi presenti</caption>
@@ -113,6 +120,7 @@
     </table>
 </div>
 <?php
+    // pagination
     if (count($this->paginator) > 1):
         echo $this->paginationControl(
             $this->paginator,
@@ -123,6 +131,11 @@
             )
         );
     endif;
+
+    // sharing
+    echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
+        'twitterShareText' => $this->sitename.' - Bandi e contratti pubblici',
+    ));
 else:
     ?>
     <div>

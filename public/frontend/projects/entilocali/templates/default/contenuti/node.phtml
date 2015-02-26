@@ -13,20 +13,31 @@
         </div>
 
         <?php if (isset($record['sommario'])): ?>
-            <div><?php echo utf8_encode($record['sommario']) ?></div>
+        <div><?php echo utf8_encode($record['sommario']) ?></div>
         <?php endif; ?>
 
         <div><?php echo utf8_encode($record['testo']); ?></div>
 
+        <?php if (!empty($record['attachments'])): ?>
+            <h3>Allegati</h3>
+            <?php foreach($record['attachments'] as $attachment): ?>
+            <div>
+                <a href="<?php echo $this->url('attachments-sthree-download', array(
+                    'type' => 'contenuti',
+                    'id' => $attachment['id'])); ?>" title="Scarica allegato <?php echo $attachment['name'] ?>">
+                    <img src="<?php echo $this->basepath() ?>/public/common/icons/attachments/<?php echo $attachment['image']; ?>" alt="Icon tipo file per <?php echo $attachment['name'] ?>">
+                    <?php echo $attachment['name'] ?>
+                </a> (<?php echo $attachment['size'] ?> Kb)
+            </div>
+            <?php endforeach ?>
+        <?php endif; ?>
+
         <br>
-        <br>
-        <p class="text-right">Esporta: <a href="#" title="Esporta in formato testo">TXT</a>,
-            <a href="#" title="Esporta in formato word">PDF</a>,
-            <a href="#" title="Esporta in formato word">Word</a>.
-            Condividi: <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->currentUrl; ?>" title="Condividi su facebook" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;">Facebook</a>,
-            <a href="http://twitter.com/share?text=<?php echo urlencode($record['titolo']) ?>&amp;url=<?php echo $this->currentUrl; ?>">Twitter</a>,
-            <a href="https://plus.google.com/share?url=<?php echo $this->currentUrl; ?>" title="Condividi su google plus">Gplus</a>
-        </p>
+        <?php
+        echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
+            'twitterShareText' => urlencode($record['titolo']),
+        ));
+        ?>
         <hr>
     <?php endforeach; ?>
 

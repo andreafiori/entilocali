@@ -17,7 +17,7 @@ class SezioniGetter extends QueryBuilderHelperAbstract
     {
         $this->setSelectQueryFields("sezioni.id, sezioni.nome, sezioni.colonna, sezioni.lingua, sezioni.url,
                                      IDENTITY(sezioni.modulo) AS moduloId, sezioni.attivo,
-                                     sezioni.colonna, sezioni.title, sezioni.image,
+                                     sezioni.colonna, sezioni.title, sezioni.image, sezioni.blocco,
 
                                      modulo.code AS moduleCode
         ");
@@ -92,14 +92,28 @@ class SezioniGetter extends QueryBuilderHelperAbstract
     }
 
     /**
-     * @param int $slug
-     * @return \Doctrine\ORM\QueryBuilder
-     */
+ * @param int $slug
+ * @return \Doctrine\ORM\QueryBuilder
+ */
     public function setSlug($slug)
     {
-        if (is_numeric($moduloId) ) {
+        if (is_numeric($slug) ) {
             $this->getQueryBuilder()->andWhere('sezioni.slug = :slug ');
             $this->getQueryBuilder()->setParameter('slug', $slug);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param bool $blocco
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setBlocco($blocco)
+    {
+        if (is_numeric($blocco) ) {
+            $this->getQueryBuilder()->andWhere('sezioni.blocco = :blocco ');
+            $this->getQueryBuilder()->setParameter('blocco', $blocco);
         }
 
         return $this->getQueryBuilder();

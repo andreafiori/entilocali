@@ -110,7 +110,7 @@ class AttiConcessioneDataTable extends DataTableAbstract
                         $row['modassegn'],
                         $row['importo'],
                         $row['titolo'],
-                        $row['data'].' <br><br>'.$row['ora'],
+                        $row['dataInserimento'].' <br><br>'.$row['ora'],
                         $row['scadenza'],
                         $row['name'].' '.$row['surname'],
                         array(

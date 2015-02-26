@@ -2,12 +2,13 @@
 
 namespace Admin\Controller;
 
-use Admin\Model\Logs\LogsWriter;
 use Application\Controller\SetupAbstractController;
+use Admin\Model\Logs\LogsWriter;
 use Zend\View\Model\ViewModel;
 use Application\Model\RouterManagers\RouterManager;
 use Application\Model\RouterManagers\RouterManagerHelper;
 use Admin\Model\FormData\FormDataCrudHandler;
+use Zend\Session\Container as SessionContainer;
 
 /**
  * @author Andrea Fiori
@@ -28,6 +29,13 @@ class AdminController extends SetupAbstractController
         $appServiceLoader = $this->recoverAppServiceLoader();
         
         $configurations = $appServiceLoader->recoverService('configurations');
+
+        $sessionContainer = new SessionContainer();
+
+        if (!$this->checkPasswordPreviewArea($configurations, $sessionContainer)) {
+            return $this->redirect()->toRoute('password-preview'); // login to preview form
+        }
+
         foreach($configurations as $key => $value) {
             $this->layout()->setVariable($key, $value);
         }
@@ -73,6 +81,7 @@ class AdminController extends SetupAbstractController
             'preloadResponse'   => $appServiceLoader->recoverServiceKey('configurations', 'preloadResponse'),
             'templateBackendDir' => $templateBackendDir,
             'templatePartial'   => $templateBackendDir.$routerManagerHelper->getRouterManger()->getTemplate(1),
+            'passwordPreviewArea' => $this->hasPasswordPreviewArea($configurations),
         ));
         $this->layout('backend/templates/'.$appServiceLoader->recoverServiceKey('configurations', 'template_backend').'backend.phtml');
         

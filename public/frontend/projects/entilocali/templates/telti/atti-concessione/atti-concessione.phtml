@@ -35,6 +35,11 @@
 
 </div>
 
+<?php
+    echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
+        'twitterShareText' => $this->sitename.' - Atti di concessione',
+    ));
+?>
 
 <table class="responsive" role="grid">
     <thead>
@@ -67,6 +72,13 @@
     <?php endforeach; ?>
     </tbody>
 </table>
+
+<?php
+echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
+    'twitterShareText' => $this->sitename.' - Atti di concessione',
+));
+?>
+
 <?php
     if ( count($this->paginator) > 1 ):
         echo $this->paginationControl(

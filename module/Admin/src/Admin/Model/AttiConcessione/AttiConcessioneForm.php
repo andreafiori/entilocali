@@ -51,14 +51,14 @@ class AttiConcessioneForm extends Form
                         'type' => 'Zend\Form\Element\Select',
                         'name' => 'ufficioResponsabile',
                         'options' => array(
-                               'label' => '* Ufficio Responsabile',
-                               'empty_option' => 'Seleziona',
-                               'value_options' => $records,
+                               'label'          => '* Ufficio Responsabile',
+                               'empty_option'   => 'Seleziona',
+                               'value_options'  => $records,
                         ),
                         'attributes' => array(
-                                'id'    => 'ufficioResponsabile',
-                                'title' => 'Seleziona Ufficio Responsabile',
-                                'required' => 'required',
+                                'id'        => 'ufficioResponsabile',
+                                'title'     => 'Seleziona Ufficio Responsabile',
+                                'required'  => 'required',
                         )
         ));
     }

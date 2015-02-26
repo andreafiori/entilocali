@@ -3,6 +3,7 @@
 namespace Admin\Model\Sezioni;
 
 use Admin\Model\FormData\CrudHandlerAbstract;
+use Application\Model\Slugifier;
 
 /**
  * @author Andrea Fiori
@@ -37,14 +38,14 @@ class SezioniCrudHandler extends CrudHandlerAbstract
                 'colonna'               => $this->rawPost['colonna'],
                 'posizione'             => $this->rawPost['posizione'],
                 //'link_macro'          => $this->rawPost['link_macro'],
-                'lingua'              => $this->rawPost['lingua'],
-                'blocco'              => $this->rawPost['blocco'],
+                'lingua'                => $this->rawPost['lingua'],
+                'blocco'                => $this->rawPost['blocco'],
                 'modulo_id'             => isset($this->rawPost['modulo']) ? $this->rawPost['modulo'] : 2,
                 'attivo'                => $this->rawPost['attivo'],
                 'url'                   => $this->rawPost['url'],
                 //'css_id'              => $this->rawPost['css_id'],
                 //'image'               => $this->rawPost['image'],
-                //'slug'                => $this->rawPost['slug'],
+                'slug'                  => Slugifier::slugify($this->rawPost['nome'])
                 //'seo_title'           => $this->rawPost['seoTitle'],
                 //'seo_description'     => $this->rawPost['seoDescription'],
                 //'seo_keywords'        => $this->rawPost['seoKeywords'],

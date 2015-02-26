@@ -15,7 +15,7 @@ class AttiConcessioneGetter extends QueryBuilderHelperAbstract
         $this->setSelectQueryFields("aa.id, aa.beneficiario, aa.titolo, aa.importo, 
                 aa.ufficioresponsabile, aa.modassegn, aa.data AS dataInserimento, aa.ora, aa.progressivo, aa.anno,
                 aa.scadenza, aa.attivo, IDENTITY(aa.settore) AS ufficioResponsabile,
-                
+
                 u.id, u.name, u.surname, u.settore,
                 
                 rp.nomeResp,

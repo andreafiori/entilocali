@@ -12,18 +12,23 @@ class UsersGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('DISTINCT(u.id) AS id, u.name, u.surname, u.email, u.address, u.status, u.zip, u.city, u.username, u.lastUpdate, u.settore ');
+        $this->setSelectQueryFields('DISTINCT(u.id) AS id, u.name, u.surname, u.email, u.address, u.status, u.zip,
+                                      u.city, u.username, u.lastUpdate, u.settore,
+
+                                    role.name AS roleName
+                                    ');
 
         $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
                                 ->from('Application\Entity\ZfcmsUsers', 'u')
-                                ->where("u.id != 0 ");
+                                ->join('u.role', 'role')
+                                ->where("u.role = role.id ");
 
         return $this->getQueryBuilder();
     }
 
     /**
-     * @param number or array $id
-     * @return type
+     * @param number|array $id
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setId($id)
     {
@@ -42,6 +47,7 @@ class UsersGetter extends QueryBuilderHelperAbstract
 
     /**
      * @param string $surname
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setSurname($surname)
     {
@@ -52,20 +58,24 @@ class UsersGetter extends QueryBuilderHelperAbstract
 
         return $this->getQueryBuilder();
     }
-    
+
     /**
      * @param string $email
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setEmail($email = null)
     {
-        if ($email) {
+        if (isset($email) and preg_match("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", $email )) {
             $this->getQueryBuilder()->andWhere("u.email = :email ");
             $this->getQueryBuilder()->setParameter('email', $email);
         }
+
+        return $this->getQueryBuilder();
     }
-    
+
     /**
      * @param string $username
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setUsername($username)
     {
@@ -73,29 +83,37 @@ class UsersGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere("u.username = :username ");
             $this->getQueryBuilder()->setParameter('username', $username);
         }
+
+        return $this->getQueryBuilder();
     }
 
     /**
      * Set encoded password (md5)
-     * 
+     *
      * @param string $password
+     * @return \Doctrine\ORM\QueryBuilder
      */
-    public function setPassword($password = null)
+    public function setPassword($password)
     {
         if (isset($password)) {
             $this->getQueryBuilder()->andWhere("u.password = :password ");
             $this->getQueryBuilder()->setParameter('password', md5($password) );
         }
+
+        return $this->getQueryBuilder();
     }
-    
+
     /**
-     * @param string or null $status
+     * @param string $status
+     * @return \Doctrine\ORM\QueryBuilder
      */
-    public function setStatus($status = null)
+    public function setStatus($status)
     {
         if (isset($status)) {
             $this->getQueryBuilder()->andWhere("u.status = :status ");
             $this->getQueryBuilder()->setParameter('status', $status);
         }
+
+        return $this->getQueryBuilder();
     }
 }

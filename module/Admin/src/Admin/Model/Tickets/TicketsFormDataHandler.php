@@ -20,12 +20,14 @@ class TicketsFormDataHandler extends FormDataAbstract
         
         $form = new TicketsForm();
         
-        $this->setVariable('formTitle',         "Nuova richiesta di assistenza");
-        $this->setVariable('formDescription',   "A seguito della richiesta, l'amministrazione provveder&agrave; a rispondere non appena possibile");
-        $this->setVariable('form',              $form);
-        $this->setVariable('formAction',        "tickets/insert");
-        
-        $this->setVariable('formBreadCrumbCategory', "Assistenza");
-        $this->setVariable('formBreadCrumbCategoryLink', $this->getInput('baseUrl',1).'datatable/ticketing');
+        $this->setVariables(array(
+            'form'  => $form,
+            'formTitle' => "Nuova richiesta di assistenza",
+            'formDescription' => "A seguito della richiesta, l'amministrazione provveder&agrave; a rispondere non appena possibile",
+            'formAction' => "tickets/insert",
+            'submitButtonValue' => 'Procedi',
+            'formBreadCrumbCategory' => "Assistenza",
+            'formBreadCrumbCategoryLink' => $this->getInput('baseUrl',1).'datatable/ticketing'
+        ));
     }
 }

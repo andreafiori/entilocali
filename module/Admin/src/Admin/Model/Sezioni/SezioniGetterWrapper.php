@@ -33,6 +33,8 @@ class SezioniGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setColonna( $this->getInput('colonna', 1) );
         $this->objectGetter->setAttivo( $this->getInput('attivo', 1) );
         $this->objectGetter->setModuloId( $this->getInput('moduloId', 1) );
+        $this->objectGetter->setSlug( $this->getInput('slug', 1) );
+        $this->objectGetter->setBlocco( $this->getInput('blocco', 1) );
         $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
         $this->objectGetter->setLimit( $this->getInput('limit', 1) );
     }
@@ -40,18 +42,19 @@ class SezioniGetterWrapper extends RecordsGetterWrapperAbstract
     /**
      * @param array $records
      */
-    public function addSottoSezioni(array $records)
+    public function addSottoSezioni(array $records, $inputToMerge = array())
     {
         foreach($records as &$record) {
             switch($record['moduleCode']) {
                 default:
                     $wrapper = new SottoSezioniGetterWrapper( new SottoSezioniGetter($this->objectGetter->getEntityManager()) );
-                    $wrapper->setInput( array(
+                    $wrapper->setInput( array_merge( array(
                             'sezioneId' => $record['id'],
                             'orderBy'   => 'sottosezioni.posizione',
                             'isSs'      => 0
-                        )
-                    );
+                        ),
+                        $inputToMerge
+                    ));
                     $wrapper->setupQueryBuilder();
 
                     $record['sottosezioni'] = is_array($wrapper->getRecords()) ? $wrapper->getRecords() : null;
@@ -89,15 +92,5 @@ class SezioniGetterWrapper extends RecordsGetterWrapperAbstract
         }
 
         return $records;
-    }
-    
-    /**
-     * Setup column sezioni
-     * 
-     * @param array $records
-     */
-    public function setupColumn(array $records)
-    {
-        
     }
 }

@@ -86,6 +86,34 @@ return array(
                                         ),
                                         'may_terminate' => true,
                                     ),
+                                    'password-preview' => array(
+                                        'type'    => 'segment',
+                                        'options' => array(
+                                            'route'    => '/password/preview/form[/]',
+                                            'constraints' => array(
+
+                                            ),
+                                            'defaults' => array(
+                                                'controller' => 'Application\Controller\PasswordPreviewController',
+                                                'action'     => 'index',
+                                            ),
+                                        ),
+                                        'may_terminate' => true,
+                                    ),
+                                    'password-preview-logout' => array(
+                                        'type'    => 'segment',
+                                        'options' => array(
+                                            'route'    => '/password/preview/logout[/]',
+                                            'constraints' => array(
+
+                                            ),
+                                            'defaults' => array(
+                                                'controller' => 'Application\Controller\PasswordPreviewController',
+                                                'action'     => 'logout',
+                                            ),
+                                        ),
+                                        'may_terminate' => true,
+                                    ),
                                     'version' => array(
                                                     'type'    => 'segment',
                                                     'options' => array(
@@ -295,27 +323,6 @@ return array(
                                                         ),
                                         ),
                                     ),
-                                    'registrati' => array(
-                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
-                                        'options' => array(
-                                                        'route'    => '/registrazione/form[/]',
-                                                        'constraints' => array(
-                                                            
-                                                        ),
-                                                        'defaults' => array(
-                                                            'controller' => 'Application\Controller\Index',
-                                                            'action'    => 'index',
-                                                        ),
-                                        ),
-                                        'may_terminate' => true,
-                                        'child_routes' => array(
-                                                        'default' => array(
-                                                                        'type'    => 'Wildcard',
-                                                                        'options' => array(
-                                                                        ),
-                                                        ),
-                                        ),
-                                    ),
                                     'recupero-password' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
@@ -340,7 +347,7 @@ return array(
                                     'registrazione' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
-                                                        'route'    => '/registrati[/]',
+                                                        'route'    => '/form/registrazione[/]',
                                                         'constraints' => array(
                                                             
                                                         ),
@@ -406,12 +413,13 @@ return array(
                     ),
     ),
     'controllers' => array(
-                    'invokables' => array(
-                        'Application\Controller\Index'             => 'Application\Controller\IndexController',
-                        'Application\Controller\DocumentExport'    => 'Application\Controller\DocumentExportController',
-                        'Application\Controller\Feed'              => 'Application\Controller\FeedController',
-                        'Application\Controller\AttachmentsSThreeDownloaderController'  => 'Application\Controller\AttachmentsSThreeDownloaderController',
-                    ),
+        'invokables' => array(
+            'Application\Controller\Index'             => 'Application\Controller\IndexController',
+            'Application\Controller\DocumentExport'    => 'Application\Controller\DocumentExportController',
+            'Application\Controller\Feed'              => 'Application\Controller\FeedController',
+            'Application\Controller\AttachmentsSThreeDownloaderController'  => 'Application\Controller\AttachmentsSThreeDownloaderController',
+            'Application\Controller\PasswordPreviewController' => 'Application\Controller\PasswordPreviewController',
+        ),
     ),
     'controller_plugins' => array(
         'invokables' => array(

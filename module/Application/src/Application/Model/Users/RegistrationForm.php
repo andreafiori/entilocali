@@ -11,8 +11,7 @@ use Zend\Form\Form;
 class RegistrationForm extends Form
 {
     /**
-     * @param type $name
-     * @param type $options
+     * @inheritdoc
      */
     public function __construct($name = null, $options = array())
     {
@@ -22,10 +21,11 @@ class RegistrationForm extends Form
             'name' => 'email', 
             'type' => 'Zend\Form\Element\Email', 
             'attributes' => array( 
-                'placeholder'   => 'Inserisci email...',
+                'placeholder'   => 'Email...',
                 'title'         => 'Inserisci email',
                 'required'      => 'required',
-                'id'            => 'email'
+                'id'            => 'email',
+                'type'          => 'email'
             ), 
             'options' => array( 
                 'label' => 'E-mail', 
@@ -36,10 +36,11 @@ class RegistrationForm extends Form
             'name' => 'password', 
             'type' => 'Zend\Form\Element\Password', 
             'attributes' => array( 
-                'placeholder' => 'Inserisci password...',
-                'title' => 'Inserisci password',
-                'required' => 'required',
-                'id' => 'password'
+                'placeholder'   => 'Password...',
+                'title'         => 'Inserisci password',
+                'required'      => 'required',
+                'id'            => 'password',
+                'maxlength'     => '50'
             ), 
             'options' => array( 
                 'label' => 'Password', 

@@ -19,7 +19,7 @@ class TicketsDataTable extends DataTableAbstract
                 
         $this->setTitle('Assistenza');
         $this->setDescription('Consulta le assistenze in archivio');
-        $this->setColumns(array("title", "subject", "priority", ""));
+        $this->setColumns(array("Oggetto", "Priorit&agrave;", ""));
     }
     
     public function getRecords()
@@ -32,15 +32,11 @@ class TicketsDataTable extends DataTableAbstract
         if ($records) {
             $arrayToReturn = array();
             foreach($records as $record) {
-                
-                if (!isset($record['title'])) {
-                    break;
-                }
-                
+
                 $arrayToReturn[] = array(
-                    $record['title'],
                     $record['subject'],
                     $record['priority'],
+                    $record['status'],
                     ''
                 );
             }
@@ -49,10 +45,4 @@ class TicketsDataTable extends DataTableAbstract
         
         return false;
     }
-
-        private function setNotFoundDataVars()
-        {
-            $this->setVariable('messageTitle', 'Nessuna richiesta di assistenza in archivio');
-            $this->setVariable('messageDescription', 'Nessuna richiesta di assistenza &egrave; stata aperta e gestita');
-        }
 }
