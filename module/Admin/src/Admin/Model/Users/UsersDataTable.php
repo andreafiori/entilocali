@@ -11,82 +11,83 @@ use Admin\Model\DataTable\DataTableAbstract;
 class UsersDataTable extends DataTableAbstract
 {
     /**
-     * @param array $input
+     * {@inheritdoc}
      */
     public function __construct(array $input)
     {
         parent::__construct($input);
-        
-        $this->title       = 'Utenti';
-        $this->description = 'Gestione elenco utenti';
-    }
-    
-    /**
-     * @return array 
-     */
-    public function getColumns()
-    {
-        return array("Nome e cognome", "Email", "Ultima modifica", "Stato", "Ruolo", "&nbsp;", "&nbsp;");
-    }
-    
-    /**
-     * @return array 
-     */
-    public function getRecords()
-    {
-        return $this->getDataTableRowsFromUserRecords( $this->getUserRecords(new UsersGetterWrapper( new UsersGetter($this->getInput('entityManager')) )) );
+
+        $paginatorRecords = $this->setupPaginatorRecords();
+
+        $this->setRecords( $this->formatRecordsToShowOnTable($paginatorRecords) );
+
+        $this->setVariables(array(
+            'tablesetter' => 'users',
+            'paginator'   => $paginatorRecords,
+            'columns'     => array(
+                "Nome e Cognome",
+                "Email",
+                "Ultima modifica",
+                "Ultima modifica password",
+                "Stato",
+                "Ruolo",
+                "&nbsp;",
+                "&nbsp;",
+            ),
+            ''
+        ));
+
+        $this->setTitle('Utenti');
+        $this->setDescription('Gestione utenti');
     }
 
-        /**
-         * @param UsersGetterWrapper $usersGetterWrapper
-         * @return \Application\Model\QueryBuilderHelperAbstract
-         */
-        public function getUserRecords(UsersGetterWrapper $usersGetterWrapper)
-        {
-            $usersGetterWrapper->setInput( array() );
-            $usersGetterWrapper->setupQueryBuilder();
-            
-            return $usersGetterWrapper->getRecords();
-        }
-        
-        /**
-         * @param array $records
-         *
-         * @return array|boolean
-         */
-        private function getDataTableRowsFromUserRecords($records)
-        {
-            if (!is_array($records)) {
-                return false;
-            }
-            
-            $recordsToReturn = array();
-            foreach($records as $record) {
-                
-                if (!isset($record['name'])) {
-                    continue;
-                }
-                
-                $recordsToReturn[] = array(
-                    $record['name'].' '.$record['surname'],
-                    '<a href="mailto:'.$record['email'].'" title="Scrivi a '.$record['name'].' '.$record['surname'].'">'.$record['email'].'</a>',
-                    $this->convertDateTimeToString($record['lastUpdate']),
-                    ucfirst($record['status']),
-                    $record['roleName'],
+    /**
+     * @param mixed $records
+     * @return array
+     */
+    private function formatRecordsToShowOnTable($records)
+    {
+        $arrayToReturn = array();
+        if ($records) {
+            foreach($records as $key => $row) {
+                $arrayToReturn[] = array(
+                    $row['name'],
+                    '<a href="mailto:'.$row['email'].'" title="Scrivi a '.$row['name'].' '.$row['surname'].'">'.$row['email'].'</a>',
+                    $row['lastUpdate'],
+                    $row['passwordLastUpdate'],
+                    $row['status'],
+                    $row['roleName'],
                     array(
                         'type'      => 'updateButton',
-                        'href'      => $this->getInput('baseUrl',1).'formdata/users/'.$record['id'],
+                        'href'      => $this->getInput('baseUrl',1).'formdata/users/'.$row['id'],
                         'title'     => 'Modifica utente'
                     ),
                     array(
                         'type'      => 'deleteButton',
                         'href'      => '#',
                         'title'     => 'Elimina utente',
-                        'data-id'   => $record['id']
+                        'data-id'   => $row['id']
                     ),
                 );
             }
-            
-            return $recordsToReturn;
+        }
+
+        return $arrayToReturn;
+    }
+
+        /**
+         * @return array
+         */
+        private function setupPaginatorRecords()
+        {
+            $param = $this->getParam();
+
+            $wrapper = new UsersGetterWrapper(new UsersGetter($this->getInput('entityManager',1)) );
+            $wrapper->setInput( array('orderBy' => 'u.id DESC') );
+            $wrapper->setupQueryBuilder();
+            $wrapper->setupPaginator( $wrapper->setupQuery($this->getInput('entityManager', 1)) );
+            $wrapper->setupPaginatorCurrentPage( isset($param['route']['page']) ? $param['route']['page'] : null );
+
+            return $wrapper->setupRecords();
         }
 }

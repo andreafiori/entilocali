@@ -8,8 +8,11 @@ use Application\Model\QueryBuilderHelperAbstract;
  * @author Andrea Fiori
  * @since  17 August 2014
  */
-class OperatoriGetter  extends QueryBuilderHelperAbstract
+class OperatoriGetter extends QueryBuilderHelperAbstract
 {
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
     public function setMainQuery()
     {
         $this->setSelectQueryFields('operatori.id, operatori.cf, operatori.ragioneSociale, operatori.ruolo1, operatori.nome');
@@ -20,23 +23,42 @@ class OperatoriGetter  extends QueryBuilderHelperAbstract
         
         return $this->getQueryBuilder();
     }
-    
+
     /**
-     * @param number or array $id
-     * @return type
+     * @param number|array $id
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setId($id)
     {
         if ( is_numeric($id) ) {
-            $this->getQueryBuilder()->andWhere('crp.id = :id ');
+            $this->getQueryBuilder()->andWhere('operatori.id = :id ');
             $this->getQueryBuilder()->setParameter('id', $id);
         }
         
         if (is_array($id)) {
-            $this->getQueryBuilder()->andWhere('crp.id IN ( :id ) ');
+            $this->getQueryBuilder()->andWhere('operatori.id IN ( :id ) ');
             $this->getQueryBuilder()->setParameter('id', $id);
         }
         
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param number|array $id
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setExcludeId($id)
+    {
+        if ( is_numeric($id) ) {
+            $this->getQueryBuilder()->andWhere('operatori.id != :notInId ');
+            $this->getQueryBuilder()->setParameter('notInId', $id);
+        }
+
+        if (is_array($id)) {
+            $this->getQueryBuilder()->andWhere('operatori.id NOT IN ( :notInId ) ');
+            $this->getQueryBuilder()->setParameter('notInId', $id);
+        }
+
         return $this->getQueryBuilder();
     }
 }

@@ -9,7 +9,7 @@ use ApplicationTest\TestSuite;
  * @author Andrea Fiori
  * @since  05 December 2013
  */
-class AuthControllerTest // extends TestSuite
+class AuthControllerTest extends TestSuite
 {
     private $controller;
 
@@ -30,10 +30,4 @@ class AuthControllerTest // extends TestSuite
 
         $this->assertEquals(200, $this->controller->getResponse()->getStatusCode());
     }
-    /*
-    public function testAuthenticateAction()
-    {
-        
-    }
-    */
 }

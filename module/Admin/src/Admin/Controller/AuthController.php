@@ -62,8 +62,7 @@ class AuthController extends SetupAbstractController
                                        ->setCredential($request->getPost('password'));
 
                 $result = $this->getAuthService()->authenticate();
-                foreach($result->getMessages() as $message)
-                {
+                foreach($result->getMessages() as $message) {
                     // save message temporary into flashmessenger
                     $this->flashmessenger()->addMessage($message);
                 }

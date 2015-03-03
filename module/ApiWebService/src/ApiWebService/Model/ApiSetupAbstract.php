@@ -14,8 +14,10 @@ abstract class ApiSetupAbstract
     protected $allowedMethods = array('GET','POST','PUT','DELETE');
     protected $input;
     protected $authenticationInput;
-        
-    /** @var \Doctrine\ORM\EntityManager **/
+
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
     protected $entityManager;
     
     protected $statusCode = 200;
@@ -56,7 +58,7 @@ abstract class ApiSetupAbstract
     
     /**
      * @param null|array $key
-     * @return type
+     * @return string
      */
     public function getInput($key = null)
     {

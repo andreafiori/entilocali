@@ -10,6 +10,9 @@ use Zend\Form\Form;
  */
 class StatoCivileSezioniForm extends Form
 {
+    /**
+     * @inheritdoc
+     */
     public function __construct($name = 'formData', $options = array())
     {
         parent::__construct($name, $options);
@@ -34,13 +37,13 @@ class StatoCivileSezioniForm extends Form
                                 'empty_option' => 'Seleziona',
                                 'value_options' => array(
                                        '1'   => 'Attivo',
-                                       '0' => 'Nascosto',
+                                       '0'   => 'Nascosto',
                                ),
                         ),
                         'attributes' => array(
                                 'required' => 'required',
-                                'id' => 'attivo',
-                                'title' => 'Seleziona stato',
+                                'id'       => 'attivo',
+                                'title'    => 'Seleziona stato',
                         )
         ));
         

@@ -206,4 +206,14 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
         
         return $this->getQueryBuilder();
     }
+
+    /**
+     * @param int $noScaduti
+     */
+    public function setNoScaduti($noScaduti)
+    {
+        if ($noScaduti == 1) {
+            $this->getQueryBuilder()->andWhere("( aa.dataScadenza > '".date("Y-m-d H:i:s")."' OR aa.dataScadenza = '0000-00-00 00:00:00') ");
+        }
+    }
 }

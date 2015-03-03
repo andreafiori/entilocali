@@ -61,6 +61,7 @@ class AlboPretorioFormDataHandler extends FormDataAbstract
             new UsersGetterWrapper(new UsersGetter($this->getInput('entityManager')))
         );
         */
+
         $this->setVariables(array(
                 'form' => $form,
                 'formAction'        => $formAction,

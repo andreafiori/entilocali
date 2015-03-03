@@ -35,22 +35,20 @@ rss, pub_albo_comune, data_rettifica, path, tabella, check_atti, annoammtrasp)
 -- UPDATE zfcms_comuni_contenuti SET sommario = REPLACE(sommario, '<p> </p>', '<br>') WHERE sommario LIKE '%<p> </p>%';
 
 
-
 -- Utenti
 TRUNCATE table zfcms_users;
-INSERT INTO zfcms_users (id, name, email, username, password, settore)
-(SELECT id, nome, mail, username, password, settore FROM utenti);
+INSERT INTO zfcms_users (id, name, email, username, password, settore, livello)
+(SELECT id, nome, mail, username, password, settore, role_id FROM utenti);
 
--- Migrazione albo pretorio
-	-- Allegati
-	-- TODO: delete bucket directory, add new directory, migrate all files
+-- Albo pretorio
+
 	
-	-- Articoli
+	-- Albo pretorio Articoli
 	TRUNCATE table zfcms_comuni_albo_articoli;
 	INSERT INTO zfcms_comuni_albo_articoli (id, utente_id, sezione_id, numero_progressivo, numero_atto, anno, data_attivazione, ora_attivazione, data_pubblicare, ora_pubblicare, scadenza, data_scadenza, titolo, attivo, pubblicare, annullato, rettifica_id, data_invio_regione, anno_atto, home, ente_terzo, fonte_url, note, data_rettifica, check_rettifica)
 	 (SELECT * FROM albo_articoli);
 
-	-- Sezioni
+	-- Albo pretorio Sezioni
 	TRUNCATE table zfcms_comuni_albo_sezioni;
 	INSERT INTO zfcms_comuni_albo_sezioni (SELECT * FROM albo_sezioni);
 
@@ -113,8 +111,6 @@ INSERT INTO zfcms_users (id, name, email, username, password, settore)
 	-- Articoli
 
 	
-
-
 
 
 -- Migrazione eventi

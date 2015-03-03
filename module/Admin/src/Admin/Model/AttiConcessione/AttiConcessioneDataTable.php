@@ -58,7 +58,7 @@ class AttiConcessioneDataTable extends DataTableAbstract
     }
     
         /**
-         * @return AmministrazioneTrasparenteGetterWrapper
+         * @return AttiConcessioneGetterWrapper
          */
         private function setupPaginatorRecords()
         {

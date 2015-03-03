@@ -2,12 +2,12 @@
 
 namespace ApiWebService\Model\Resources;
 
+use Admin\Model\AlboPretorio\AlboPretorioArticoliGetter;
+use Admin\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
 use ApiWebService\Model\ApiResultGetterAbstract;
 use Admin\Model\AlboPretorio\AlboPretorioRecordsGetter;
 
 /**
- * TODO: set paginator, set formatted contents (returns array)
- * 
  * @author Andrea Fiori
  * @since  24 August 2014
  */
@@ -25,9 +25,9 @@ class AlboPretorioApiResource extends ApiResultGetterAbstract
         $recordsGetter->setArticoliPaginator();
         $recordsGetter->setArticoliPaginatorCurrentPage(isset($input['page']) ? $input['page'] : null);
         $recordsGetter->setArticoliPaginatorPerPage(isset($input['perpage']) ? $input['perpage'] : null);
-        
+
         $paginator = $recordsGetter->getPaginatorRecords();
-        
+
         $toReturn = array();
         foreach($paginator as $row) {
             $toReturn[] = array_filter($row);

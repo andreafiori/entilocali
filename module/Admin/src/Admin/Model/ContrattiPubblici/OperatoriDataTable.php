@@ -4,10 +4,13 @@ namespace Admin\Model\ContrattiPubblici;
 
 use Admin\Model\DataTable\DataTableAbstract;
 
+/**
+ *
+ */
 class OperatoriDataTable extends DataTableAbstract
 {
     /**
-     * @param array $input
+     * @inheritdoc
      */
     public function __construct(array $input)
     {
@@ -72,7 +75,6 @@ class OperatoriDataTable extends DataTableAbstract
                         array(
                             'type'      => 'updateButton',
                             'href'      => $this->getInput('baseUrl',1).'formdata/contratti-pubblici-operatori/'.$row['id'],
-                            'tooltip'   => 1,
                             'title'     => 'Modifica'
                         ),
                         array(

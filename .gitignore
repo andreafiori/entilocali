@@ -12,3 +12,9 @@ data
 docs
 tests/reports
 vendor/
+config/development.config.php
+config/autoload/local.php
+config/autoload/*.local.php
+!vendor/README.md
+data/cache/*
+!data/cache/.gitkeep

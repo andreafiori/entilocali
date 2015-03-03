@@ -1,0 +1,133 @@
+<?php if (empty($this->error)): ?>
+    <ul class="breadcrumb">
+        <li><a href="#" title="Home page">Home</a> <span class="divider"></span></li>
+        <li class="active">Contratti pubblici</li>
+    </ul>
+
+    <h2><?php echo $this->contratto[0]['titolo'] ?></h2>
+
+    <br>
+
+    <!-- Operatori aggiudicatari -->
+    <h3>Operatori aggiudicatari</h3>
+    <p>Elenco operatori aggiudicatari</p>
+    <?php if (!empty($this->operatoriAggiudicatari)): ?>
+    <table width="100%" class="table table-bordered">
+        <tr>
+            <th><abbr title="Codice fiscale">C.F</abbr></th>
+            <th>Ragione Sociale</th>
+            <th>Nome</th>
+            <th>Gruppo</th>
+            <th>Ruolo</th>
+            <th>Membro</th>
+            <th>Aggiudicatario</th>
+        </tr>
+    <?php foreach($this->operatoriAggiudicatari as $partecipante): ?>
+        <tr>
+            <td><?php echo $partecipante['cf'] ?></td>
+            <td><?php echo $partecipante['ragioneSociale'] ?></td>
+            <td><?php echo $partecipante['nome'] ?></td>
+            <td><?php echo $partecipante['gruppo'] ?></td>
+            <td>&nbsp;</td>
+            <td><?php echo $partecipante['membro'] ?></td>
+            <td>
+                <form role="form" action="<?php $this->currentUrl ?>" method="post">
+                    <input type="hidden" value="<?php echo $partecipante['idPartecipante'] ?>" name="removeAggiudicatario">
+                    <input type="hidden" value="<?php echo $partecipante['id'] ?>" name="idContratto">
+                    <input type="hidden" value="<?php echo $partecipante['idRelation'] ?>" name="idRelation">
+                    <button type="submit" class="btn btn-danger" title="Elimina aggiudicatario dalla lista"><i class="fa fa-times"></i></button>
+                </form>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </table>
+    <?php else: ?>
+    <div class="alert alert-warning"><strong><i class="fa fa-warning"></i> Nessun operatore aggiudicatario</strong></div>
+    <?php endif; ?>
+
+    <!-- Operatori ammessi alla gara -->
+    <h3>Elenco degli operatori invitati a presentare offerte</h3>
+    <?php if (!empty($this->operatoriPartecipanti)): ?>
+        <table width="100%" class="table table-bordered">
+            <tr>
+                <th><abbr title="Codice fiscale">C.F</abbr></th>
+                <th>Ragione Sociale</th>
+                <th>Nome</th>
+                <th>Gruppo</th>
+                <th>Ruolo</th>
+                <th>Membro</th>
+                <th>&nbsp;</th>
+            </tr>
+        <?php foreach($this->operatoriPartecipanti as $partecipante): ?>
+            <tr>
+                <td><?php echo $partecipante['cf'] ?></td>
+                <td><?php echo $partecipante['ragioneSociale'] ?></td>
+                <td><?php echo $partecipante['nome'] ?></td>
+                <td><?php echo $partecipante['gruppo'] ?></td>
+                <td>&nbsp;</td>
+                <td><?php echo $partecipante['membro'] ?></td>
+                <td>
+                    <form role="form" action="<?php $this->currentUrl ?>" method="post">
+                        <input type="hidden" value="<?php echo $partecipante['idPartecipante'] ?>" name="removePartecipante">
+                        <input type="hidden" value="<?php echo $partecipante['id'] ?>" name="idContratto">
+                        <input type="hidden" value="<?php echo $partecipante['idRelation'] ?>" name="idRelation">
+                        <button type="submit" class="btn btn-danger" title="Elimina partecipante"><i class="fa fa-times"></i></button>
+                    </form>
+                </td>
+                <td>
+                    <form role="form" action="<?php $this->currentUrl ?>" method="post">
+                        <input type="hidden" value="<?php echo $partecipante['idPartecipante'] ?>" name="addAggiudicatario">
+                        <input type="hidden" value="<?php echo $partecipante['id'] ?>" name="idContratto">
+                        <input type="hidden" value="<?php echo $partecipante['idRelation'] ?>" name="idRelation">
+                        <button type="submit" class="btn btn-info" title="Aggiungi all'elenco degli aggiudicatari"><i class="fa fa-plus"></i></button>
+                    </form>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        </table>
+    <?php else: ?>
+        <div class="alert alert-warning">
+            <strong><i class="fa fa-warning"></i> Nessun operatore invitato a presentare offerte</strong>
+        </div>
+    <?php endif; ?>
+
+    <!-- Elenco completo operatori -->
+    <h3>Elenco operatori</h3>
+    <p>Seleziona e aggiungi operatori all'elenco partecipanti:</p>
+    <?php if (!empty($this->operatori)): ?>
+        <form action="" method="post" id="frmaddoperatore">
+        <table class="table table-bordered dataTable" id="contratti-opeartori-rubrica-table">
+            <thead>
+            <tr>
+                <th>&nbsp;</th>
+                <th><abbr title="Codice fiscale">C.F</abbr> o <abbr title="Partita IVA">P.I</abbr></th>
+                <th>Nome e Ragione Sociale</th>
+            </tr>
+            </thead>
+        <?php foreach($this->operatori as $operatore): ?>
+            <tr>
+                <td><input type="checkbox" name="operatorerubrica[]" value="<?php echo $operatore['id'] ?>" class="editor-active" title="Seleziona operatore <?php echo utf8_encode($operatore['nome']) ?>"></td>
+                <td><?php echo $operatore['cf'] ?></td>
+                <td><?php echo !empty($operatore['nome']) ? utf8_encode($operatore['nome']) : utf8_encode($operatore['ragioneSociale']) ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </table>
+            <div>
+                <input type="submit" name="addOperatoreButton" value="Aggiungi operaori all'elenco partecipanti" class="btn btn-lg btn-primary">
+            </div>
+        </form>
+    <?php else: ?>
+    <div class="alert alert-warning">Nessun operatore</div>
+    <?php endif; ?>
+
+<?php else: ?>
+    <ul class="breadcrumb">
+        <li><a href="#" title="Home page">Home</a> <span class="divider"></span></li>
+        <li class="active">Contratti pubblici</li>
+    </ul>
+
+    <div class="alert alert-danger">
+        <h2><?php echo $this->error ?></h2>
+        <p><?php echo $this->errorMesssage ?></p>
+    </div>
+<?php endif; ?>

@@ -24,11 +24,11 @@ return array(
                     'cms' => array(
                             'type'    => 'Segment',
                             'options' => array(
-                                    'route'       => 'cms[/][:output_format][/][:resource][/][:id][/]',
+                                    'route'       => 'application[/][:output_format][/][:resource][/][:id][/]',
                                     'constraints' => array(
                                             'output_format' => 'xml|json|rdf',
-                                            'resource' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                            'id'       => '[0-9]+',
+                                            'resource'      => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                            'id'            => '[0-9]+',
                                     ),
                                     'defaults' => array(
                                         'controller' => 'ApiWebService\Controller\DefaultApi',
@@ -51,6 +51,7 @@ return array(
         'blogs'                         => 'ApiWebService\Model\Resources\PostsApiResource',
         'albo-pretorio'                 => 'ApiWebService\Model\Resources\AlboPretorioApiResource',
         'atti-ufficiali'                => 'ApiWebService\Model\Resources\AlboPretorioApiResource',
+        'contratti-pubblici'            => 'ApiWebService\Model\Resources\ContrattiPubbliciApiResource',
         'stato-civile'                  => 'ApiWebService\Model\Resources\PostsApiResource',
         'amministrazione-trasparente'   => 'ApiWebService\Model\Resources\AmministrazioneTrasparenteApiResource',
     ),

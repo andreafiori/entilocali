@@ -3,8 +3,6 @@
 namespace Admin\Model\Contacts;
 
 use Admin\Model\DataTable\DataTableAbstract;
-use Admin\Model\Contacts\ContactsGetter;
-use Admin\Model\Contacts\ContactsGetterWrapper;
 
 /**
  * @author Andrea Fiori
@@ -12,6 +10,9 @@ use Admin\Model\Contacts\ContactsGetterWrapper;
  */
 class ContactsDataTable extends DataTableAbstract
 {
+    /**
+     * @inheritdoc
+     */
     public function __construct(array $input)
     {
         parent::__construct($input);
@@ -46,10 +47,11 @@ class ContactsDataTable extends DataTableAbstract
                     $record['email'],
                     $this->convertDateTimeToString($record['insertDate']),
                     array(
+                        'id' => 'deleteButton',
                         'type'      => 'deleteButton',
-                        'tooltip'   => 1,
                         'title'     => 'Elimina',
-                        'data-id'   => $record['id']
+                        'href'      => '#',
+                        'data-id'   => $record['id'],
                     ),
                 );
             }

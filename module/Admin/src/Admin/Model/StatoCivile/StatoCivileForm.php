@@ -28,7 +28,7 @@ class StatoCivileForm extends Form
                                         'required' => 'required',
                                         'palceholder' => 'Inserisci il titolo',
                                         'title' => 'Inserisci il titolo',
-                                        'rows' => '8',
+                                        'rows' => '5',
                         )
         ));
     }
@@ -40,14 +40,14 @@ class StatoCivileForm extends Form
     {
         $this->add(array(
                     'type' => 'Zend\Form\Element\Select',
-                    'name' => 'sezioneId',
+                    'name' => 'sezione',
                     'options' => array(
                            'label' => '* Sezione',
                            'empty_option' => 'Seleziona',
                            'value_options' => $sezioni,
                     ),
                     'attributes' => array(
-                            'id' => 'status',
+                            'id' => 'sezione',
                             'title' => 'Seleziona la sezione',
                             'required' => 'required',
                     )
@@ -57,6 +57,24 @@ class StatoCivileForm extends Form
     public function addDates()
     {
         $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'attivo',
+            'options' => array(
+                'label' => '* Stato',
+                'empty_option' => 'Seleziona',
+                'value_options' => array(
+                    '1'   => 'Attivo',
+                    '0'   => 'Nascosto',
+                ),
+            ),
+            'attributes' => array(
+                'required' => 'required',
+                'id'       => 'attivo',
+                'title'    => 'Seleziona stato',
+            )
+        ));
+
+        $this->add(array(
                         'type' => 'Date',
                         'name' => 'data',
                         'options' => array(
@@ -64,9 +82,10 @@ class StatoCivileForm extends Form
                                 'format' => 'Y-m-d H:i:s',
                         ),
                         'attributes' => array(
-                                'id' => 'data',
-                                'title' => 'Inserisci la data di pubblicazione',
-                                    'placeholder' => 'Data di pubblicazione...',
+                                'id'            => 'data',
+                                'title'         => 'Inserisci la data di pubblicazione',
+                                'placeholder'   => 'Data di pubblicazione...',
+                                'required'      => 'required',
                         )
         ));
         
@@ -81,6 +100,7 @@ class StatoCivileForm extends Form
                                 'id'          => 'scadenza',
                                 'title'       => 'Inserisci la data di scadenza',
                                 'placeholder' => 'Data di scadenza...',
+                                'required'    => 'required',
                         )
         ));
 

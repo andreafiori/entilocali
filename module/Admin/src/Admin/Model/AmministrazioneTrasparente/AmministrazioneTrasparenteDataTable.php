@@ -13,7 +13,7 @@ use Admin\Model\Contenuti\ContenutiGetterWrapper;
 class AmministrazioneTrasparenteDataTable extends DataTableAbstract
 {
     /**
-     * @param array $input
+     * @inheritdoc
      */
     public function __construct(array $input)
     {
@@ -122,7 +122,7 @@ class AmministrazioneTrasparenteDataTable extends DataTableAbstract
                     array(
                         'type'      => 'tableButton',
                         'href'      => $this->getInput('baseUrl',1).'formdata/amministrazione-trasparente/'.$record['id'],
-                        'title'     => ''
+                        'title'     => 'Visualizza tabelle articolo'
                     ),
                 );
             }

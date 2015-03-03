@@ -20,6 +20,7 @@ class ContrattiPubbliciGetter extends QueryBuilderHelperAbstract
                 settore.responsabile,
                 
                 users.name, users.surname,
+
                 settore.nome AS nomeSettore,
                 
                 responsabile.nomeResp

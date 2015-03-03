@@ -94,7 +94,7 @@ class StatoCivileDataTable extends DataTableAbstract
         }
         
         /**
-         * @param type $records
+         * @param array|null $records
          * @return boolean|array
          */
         private function getFormattedRecords($records)

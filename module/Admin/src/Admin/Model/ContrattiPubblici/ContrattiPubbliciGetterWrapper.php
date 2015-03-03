@@ -11,13 +11,16 @@ use Application\Model\RecordsGetterWrapperAbstract;
 class ContrattiPubbliciGetterWrapper extends RecordsGetterWrapperAbstract
 {
     /**
-     * @var \Admin\Model\ContrattiPubblici\ContrattiPubbliciGetter
+     * @var ContrattiPubbliciGetter
      */
     protected $objectGetter;
-    
-    public function __construct(ContrattiPubbliciGetter $contrattiPubbliciGetter)
+
+    /**
+     * @param ContrattiPubbliciGetter $objectGetter
+     */
+    public function __construct(ContrattiPubbliciGetter $objectGetter)
     {
-        $this->setObjectGetter($contrattiPubbliciGetter);
+        $this->setObjectGetter($objectGetter);
     }
     
     public function setupQueryBuilder()
@@ -25,7 +28,7 @@ class ContrattiPubbliciGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setSelectQueryFields( $this->getInput('fields', 1) );
         
         $this->objectGetter->setMainQuery();
-        
+
         $this->objectGetter->setId( $this->getInput('id', 1) );
         $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
         $this->objectGetter->setGroupBy( $this->getInput('groupBy', 1) );
@@ -33,20 +36,21 @@ class ContrattiPubbliciGetterWrapper extends RecordsGetterWrapperAbstract
     }
     
     /**
-     * Add lista partecipanti and aggiudicatario
+     * TODO: Add lista partecipanti and aggiudicatario
      * 
      * @param array $records
      */
     public function addListaPartecipanti(array $records)
-    {        
+    {
         foreach($records as &$record) {
-            $wrapper = '';
-            
+
             $record['partecipanti'][] = array();
         }
     }
 
     /**
+     * TODO: add attachment files selection
+     *
      * @param array $records
      */
     public function addAttachments(array $records)

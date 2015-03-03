@@ -10,11 +10,8 @@ use Admin\Model\Users\UsersGetter;
 use Admin\Model\Users\UsersGetterWrapper;
 
 /**
- * Main API Controller
- * TODO: 
- *      differ class method or response per method request (GET,POST,PUT,DELETE) $method
- *      Authentication only with API key
- * 
+ * TODO: allow method\s for every single resource of the classMap
+ *
  * @author Andrea Fiori
  * @since 10 April 2014
  */
@@ -31,19 +28,21 @@ class DefaultApiController extends AbstractActionController
         $moduleConfig   = $serviceLocator->get('config');
         $outputFormat   = $this->params()->fromRoute('output_format');
         
-        $apiSetup         = new ApiSetup();
+        $apiSetup = new ApiSetup();
         
         $apiOutputManager = new ApiOutputManager($outputFormat);
         
         try {
+
             $apiSetup->setMethod($method);
             $apiSetup->setInput( $this->detectInput($method) );
-            $apiSetup->setupAuthenticationInput();
             $apiSetup->setEntityManager($entityManager);
-            $apiSetup->setUsersGetterWrapper( new UsersGetterWrapper(new UsersGetter($entityManager) ) );
-            $apiSetup->authenticate();
+            // setup API Key here...
             $apiSetup->setResourceClassMap($moduleConfig['resources_class_map']);
-            $apiSetup->setResourceClassName( $this->params()->fromRoute('resource') );     
+            $apiSetup->setResourceClassName( $this->params()->fromRoute('resource') );
+            // validate input: tipo di richiesta, risorsa e formato richiesto va visto se vanno bene
+            // set error and status code for the final response...
+
         } catch (NullException $ex) {
             $apiOutputManager->setStatusCode(401);
             return $apiOutputManager->setupOutput( array(
@@ -60,7 +59,6 @@ class DefaultApiController extends AbstractActionController
         $classInstance->setPerPage( isset($input['perpage']) ? $input['perpage'] : null );
         
         $resourceRecords = $classInstance->getResourceRecords($input);
-        
         if (!$resourceRecords) {
             $apiOutputManager->setStatusCode(401);
             return $apiOutputManager->setupOutput( array(
@@ -68,7 +66,7 @@ class DefaultApiController extends AbstractActionController
                 )
             );
         }
-        
+
         return $apiOutputManager->setupOutput($resourceRecords);
     }
     

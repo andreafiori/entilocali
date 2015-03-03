@@ -65,7 +65,7 @@
                     <?php elseif($record['type']=='homepageDelButton'): ?>
                     <td><a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-red" title="Togli dalla home page"><i class="fa fa-home"></i> </a></td>
                     <?php elseif($record['type']=='tableButton'): ?>
-                    <td><a href="#" class="btn btn-lg" title=""><i class="fa fa-table"></i> </a></td>
+                    <td><a href="<?php echo $record['href'] ?>" class="btn btn-lg" title="<?php echo $record['title'] ?>"><i class="fa fa-table"></i> </a></td>
                     <?php elseif($record['type']=='attachButton'): ?>
                     <td><a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-black" title="Gestione allegati"><i class="fa fa-paperclip"></i> </a></td>
                     <?php elseif($record['type']=='relatapdfButton'): ?>

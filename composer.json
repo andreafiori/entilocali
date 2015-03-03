@@ -14,8 +14,7 @@
     "require": {
         "doctrine/doctrine-orm-module": "0.*",
         "php": ">=5.3.3",
-        "zendframework/zendframework": "2.3.*",
-        "zfcampus/zf-apigility": "~1.0"
+        "zendframework/zendframework": "2.3.*"
     },
     "minimum-stability": "dev",
     "require-dev": {
@@ -25,8 +24,6 @@
         "zf-commons/zfc-user": "dev-master",
         "bjyoungblood/BjyProfiler": "dev-master",
         "dino/dompdf-module": "dev-master",
-        "facebook/php-sdk-v4": "4.1.*@dev",
-        "zfcampus/zf-apigility-admin": "~1.0",
-        "zfcampus/zf-development-mode": "~2.0"
+        "facebook/php-sdk-v4": "4.1.*@dev"
     }
 }

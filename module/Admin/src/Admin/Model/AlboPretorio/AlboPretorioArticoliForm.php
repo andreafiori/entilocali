@@ -11,8 +11,7 @@ use Zend\Form\Form;
 class AlboPretorioArticoliForm extends Form
 {
     /**
-     * @param string $name
-     * @param string $options
+     * @inheritdoc
      */
     public function __construct($name = null, $options = array())
     {

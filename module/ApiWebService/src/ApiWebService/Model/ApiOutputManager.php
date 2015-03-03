@@ -59,7 +59,12 @@ class ApiOutputManager
         switch($this->outputFormat)
         {
             case("json"):
-                return new JsonModel($content);
+                if ( $this->getStatusCode() == 200) {
+
+                } else {
+                    $jsonModel = new JsonModel($content);
+                    return $jsonModel;
+                }
 
             case("xml"): case("rdf"):
                 $response = new Response();

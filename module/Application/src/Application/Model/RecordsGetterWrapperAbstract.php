@@ -2,8 +2,6 @@
 
 namespace Application\Model;
 
-use Application\Model\NullException;
-use Application\Model\QueryBuilderHelperAbstract;
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\ArrayAdapter;
 
@@ -35,10 +33,9 @@ abstract class RecordsGetterWrapperAbstract
     }
     
     /**
-     * 
      * @param string $key
      * @param bool|array
-     * @return types
+     * @return mixed
      */
     public function getInput($key = null, $noArray = null)
     {
@@ -49,6 +46,8 @@ abstract class RecordsGetterWrapperAbstract
         if (!$noArray) {
             return $this->input;
         }
+
+        return false;
     }
     
     abstract public function setupQueryBuilder();
@@ -86,7 +85,7 @@ abstract class RecordsGetterWrapperAbstract
     
     /**
      * @param array $queryRecords
-     * @return type
+     * @return \Zend\Paginator\Paginator
      */
     public function setupPaginator(array $queryRecords)
     {
@@ -111,7 +110,7 @@ abstract class RecordsGetterWrapperAbstract
     
     /**
      * @param int $page
-     * @return type
+     * @return \Zend\Paginator\Paginator
      */
     public function setupPaginatorCurrentPage($page = 1)
     {
@@ -128,7 +127,7 @@ abstract class RecordsGetterWrapperAbstract
     
     /**
      * @param int $perpage
-     * @return type
+     * @return \Zend\Paginator\Paginator
      */
     public function setupPaginatorItemsPerPage($perpage = null)
     {

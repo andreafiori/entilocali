@@ -8,7 +8,7 @@ use Admin\Model\FormData\FormDataAbstract;
  * @author Andrea Fiori
  * @since  15 June 2013
  */
-class UsersFormDataHandler  extends FormDataAbstract
+class UsersFormDataHandler extends FormDataAbstract
 {
     /**
      * @inheritdoc
@@ -40,7 +40,6 @@ class UsersFormDataHandler  extends FormDataAbstract
         $this->setVariable('formTitle',         $formTitle);
         $this->setVariable('formDescription',   $formDescription);
         $this->setVariable('formAction',        $formAction);
-        
         $this->setVariable('formBreadCrumbCategory',    'Utenti');
         $this->setVariable('formBreadCrumbCategoryLink', $this->getInput('baseUrl',1).'datatable/users');
     }

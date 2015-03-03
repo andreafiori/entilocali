@@ -19,10 +19,11 @@ class Module implements AutoloaderProviderInterface
     {
     	$application = $e->getApplication();
         $sm          = $application->getServiceManager();
-        
+
+        $eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
-        $moduleRouteListener->attach( $application->getEventManager() );
-        
+        $moduleRouteListener->attach($eventManager);
+
         try {
             $dbInstance = $sm->get('Zend\Db\Adapter\Adapter');
             $dbInstance->getDriver()->getConnection()->connect();

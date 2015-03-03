@@ -11,48 +11,9 @@ use Application\Model\NullException;
  */
 class ApiSetup extends ApiSetupAbstract
 {
-    /**
-     * @var \Admin\Model\Users\UsersGetterWrapper
-     */
-    private $usersGetterWrapper;
     private $resourceClassMap;
-    private $resourceClassName;
 
-    /**
-     * @throws NullException
-     */
-    public function setupAuthenticationInput()  
-    {
-        $input = $this->getInput();
-        if ( !isset($input) ) {
-            $this->setupNullException('Input is not set');
-        }
-        
-        $this->authenticationInput = array_filter( array(
-            'apiKey'    => isset($this->input['key']) ? $this->input['key'] : null,
-            'username'  => isset($this->input['username']) ? $this->input['username'] : null,
-            'password'  => isset($this->input['password']) ? $this->input['password'] : null,
-            )
-        );
-        
-        // $this->validateAuthenticationInput();
-    }
-        
-        /**
-         * @throws NullException
-         */
-        private function validateAuthenticationInput()
-        {
-            if ( !$this->getAuthenticationInput() ) {
-                $this->setupNullException('Unauthorized: no authentication.');
-            }
-            
-            if ( is_string($this->getAuthenticationInput('username')) 
-                 and !is_string($this->getAuthenticationInput('password')) ) {
-                
-                $this->setupNullException('Unauthorized: authentication with invalid parameters.');
-            }
-        }
+    private $resourceClassName;
 
     /**
      * @param array|null $key
@@ -66,63 +27,6 @@ class ApiSetup extends ApiSetupAbstract
         
         return $this->authenticationInput;
     }
-
-    /**
-     * @param \Admin\Model\Users\UsersGetterWrapper $usersGetterWrapper
-     * @return \Admin\Model\Users\UsersGetterWrapper
-     */
-    public function setUsersGetterWrapper(UsersGetterWrapper $usersGetterWrapper)
-    {
-        $this->usersGetterWrapper = $usersGetterWrapper;
-        
-        return $this->usersGetterWrapper;
-    }
-    
-    /**
-     * @return \Admin\Model\Users\UsersGetterWrapper
-     */
-    public function getUsersGetterWrapper()
-    {
-        return $this->usersGetterWrapper;
-    }
-    
-    /**
-     * @return array
-     * @throws NullException
-     */
-    public function authenticate()
-    {
-        $this->assetUsersGetterWrapper();
-
-        $this->usersGetterWrapper->setInput( $this->getInput() );
-        $this->usersGetterWrapper->setupQueryBuilder();
-        $this->usersGetterWrapper->setupPaginator( $this->usersGetterWrapper->setupQuery($this->getEntityManager()) );
-        $this->usersGetterWrapper->setupPaginatorCurrentPage();
-        $this->usersGetterWrapper->setupPaginatorItemsPerPage();
-
-        $paginator = $this->usersGetterWrapper->getPaginator();
-        
-        $arrayToReturn = array();
-        foreach($paginator as $row) {
-            $arrayToReturn[] = $row;
-        }
-        /*
-        if ( count($arrayToReturn) != 1 ) {
-            $this->setupNullException('Unauthiorized: bad authentication.');
-        }
-        */
-        return $arrayToReturn;
-    }
-    
-        /**
-         * @throws NullException
-         */
-        private function assetUsersGetterWrapper()
-        {
-            if (!$this->usersGetterWrapper) {
-                $this->setupNullException('Error during the request: cannot get user informations.');
-            }
-        }
 
     /**
      * @param array $resourceClassMap

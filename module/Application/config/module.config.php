@@ -140,7 +140,7 @@ return array(
                                         'options' => array(
                                                         'route'    => '/foto[/][:action]',
                                                         'constraints' => array(
-                                                            
+
                                                         ),
                                                         'defaults' => array(
                                                             'controller' => 'Application\Controller\Index',
@@ -161,7 +161,7 @@ return array(
                                         'options' => array(
                                                         'route'    => '/faq/domande[/][:action]',
                                                         'constraints' => array(
-                                                            
+
                                                         ),
                                                         'defaults' => array(
                                                             'controller' => 'Application\Controller\Index',
@@ -185,7 +185,7 @@ return array(
                                                         ),
                                                         'defaults' => array(
                                                             'controller' => 'Application\Controller\Index',
-                                                            'action'    => 'index', 
+                                                            'action'    => 'index',
                                                         ),
                                         ),
                                         'may_terminate' => true,
@@ -205,7 +205,7 @@ return array(
                                                         ),
                                                         'defaults' => array(
                                                             'controller' => 'Application\Controller\Index',
-                                                            'action'    => 'index', 
+                                                            'action'    => 'index',
                                                         ),
                                         ),
                                         'may_terminate' => true,
@@ -226,7 +226,7 @@ return array(
                                                         ),
                                                         'defaults' => array(
                                                             'controller' => 'Application\Controller\Index',
-                                                            'action'    => 'index', 
+                                                            'action'    => 'index',
                                                         ),
                                         ),
                                         'may_terminate' => true,
@@ -247,7 +247,7 @@ return array(
                                                         ),
                                                         'defaults' => array(
                                                             'controller' => 'Application\Controller\Index',
-                                                            'action'     => 'index', 
+                                                            'action'     => 'index',
                                                         ),
                                         ),
                                         'may_terminate' => true,
@@ -264,11 +264,11 @@ return array(
                                         'options' => array(
                                                         'route'    => '/contratti-pubblici/bandi-e-contratti/elenco[/][page/:page[/]]',
                                                         'constraints' => array(
-                                                            
+
                                                         ),
                                                         'defaults' => array(
                                                             'controller' => 'Application\Controller\Index',
-                                                            'action'    => 'index', 
+                                                            'action'    => 'index',
                                                         ),
                                         ),
                                         'may_terminate' => true,
@@ -285,7 +285,7 @@ return array(
                                         'options' => array(
                                                         'route'    => '/contatti/form/invia-messaggio[/][:action[/]]',
                                                         'constraints' => array(
-                                                            
+
                                                         ),
                                                         'defaults' => array(
                                                             'controller' => 'Application\Controller\Index',
@@ -306,7 +306,7 @@ return array(
                                         'options' => array(
                                                         'route'    => '/newsletter[/]',
                                                         'constraints' => array(
-                                                            
+
                                                         ),
                                                         'defaults' => array(
                                                             'controller' => 'Application\Controller\Index',
@@ -318,7 +318,7 @@ return array(
                                                         'default' => array(
                                                                         'type'    => 'Wildcard',
                                                                         'options' => array(
-                                                                            
+
                                                                         ),
                                                         ),
                                         ),
@@ -328,7 +328,7 @@ return array(
                                         'options' => array(
                                                         'route'    => '/recupero-password[/]',
                                                         'constraints' => array(
-                                                            
+
                                                         ),
                                                         'defaults' => array(
                                                             'controller' => 'Application\Controller\Index',
@@ -349,7 +349,7 @@ return array(
                                         'options' => array(
                                                         'route'    => '/form/registrazione[/]',
                                                         'constraints' => array(
-                                                            
+
                                                         ),
                                                         'defaults' => array(
                                                             'controller' => 'Application\Controller\Index',
@@ -370,7 +370,7 @@ return array(
                                         'options' => array(
                                                         'route'    => '/ricerca/risultati[/][:action][/]',
                                                         'constraints' => array(
-                                                            
+
                                                         ),
                                                         'defaults' => array(
                                                             'controller' => 'Application\Controller\Index',
@@ -399,7 +399,7 @@ return array(
                                 'translator' => 'MvcTranslator',
                     ),
                     'factories' => array(
-                        
+
                     ),
     ),
     'translator' => array(
@@ -423,7 +423,7 @@ return array(
     ),
     'controller_plugins' => array(
         'invokables' => array(
-            
+
         )
     ),
     'view_manager' => array(
@@ -447,7 +447,6 @@ return array(
                                     __DIR__ . '/../../../public'
                     ),
                     'strategies' => array(
-                        
                         'ViewJsonStrategy',
                         'ViewFeedStrategy',
                     ),
@@ -455,7 +454,7 @@ return array(
     // Placeholder for console routes
     'console' => array(
                 'router' => array(
-                        'routes' => array(  ),
+                        'routes' => array(),
                 ),
     ),
     // Doctrine

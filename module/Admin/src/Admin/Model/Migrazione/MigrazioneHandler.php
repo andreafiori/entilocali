@@ -13,7 +13,7 @@ use Application\Model\Database\Redbean\R;
  * @author Andrea Fiori
  * @since  21 February 2015
  */
-class MigrazioneHandler  extends RouterManagerAbstract implements RouterManagerInterface
+class MigrazioneHandler extends RouterManagerAbstract implements RouterManagerInterface
 {
     private $arrayMap = array(
         'sezioni'                     => 'Admin\Model\Sezioni\SezioniMigrator',

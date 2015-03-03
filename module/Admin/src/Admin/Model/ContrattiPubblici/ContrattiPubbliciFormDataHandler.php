@@ -23,17 +23,9 @@ class ContrattiPubbliciFormDataHandler extends FormDataAbstract
         $this->setVariable('formTitle',         'Nuovo bando');
         $this->setVariable('formDescription',   'Inserisci nuovo bando. &Egrave; consigliabile inserire testi brevi sul tema trattato, possibilmente in minuscolo.');
         $this->setVariable('form',              $form);
-        $this->setVariable('formAction',        $this->getFormAction());
+        $this->setVariable('formAction',        '');
         $this->setVariable('formBreadCrumbCategory', 'Contratti pubblici');
         $this->setVariable('formLabelSpanWidth', 3);
         $this->setVariable('formControlSpanWidth', 9);
     }
-    
-        /**
-         * @return string
-         */
-        private function getFormAction()
-        {
-            return '#';
-        }
 }

@@ -34,6 +34,7 @@ class PasswordPreviewController extends SetupAbstractController
 
         $model = new ViewModel();
         $model->setVariable('form', $form);
+        $model->setVariable('sitename', isset($configurations['sitename']) ? $configurations['sitename'] : null);
 
         $request = $this->getRequest();
         if ($request->isPost()) {

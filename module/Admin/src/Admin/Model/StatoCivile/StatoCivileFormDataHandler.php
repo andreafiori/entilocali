@@ -15,7 +15,7 @@ class StatoCivileFormDataHandler extends FormDataAbstract
     private $recordsGetter;
 
     /**
-     * @param array $input
+     * @inheritdoc
      */
     public function __construct(array $input)
     {
@@ -28,7 +28,6 @@ class StatoCivileFormDataHandler extends FormDataAbstract
 
         $sezioniRecords = $this->getSezioni();
 
-        /* Errore nessuna sezione */
         if (empty($sezioniRecords)) {
             $this->setTemplate('message.phtml');
             $this->setVariables(array(

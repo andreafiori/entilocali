@@ -39,6 +39,7 @@ class AlboPretorioArticoliGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setAnnullato($this->getInput('annullato', 1));
         $this->objectGetter->setPubblicare($this->getInput('pubblicare', 1));
         $this->objectGetter->setAttivo($this->getInput('attivo', 1));
+        $this->objectGetter->setNoScaduti($this->getInput('noScaduti', 1));
         $this->objectGetter->setOrderBy($this->getInput('orderBy', 1));
         $this->objectGetter->setGroupBy($this->getInput('groupBy', 1));
         $this->objectGetter->setLimit($this->getInput('limit', 1));

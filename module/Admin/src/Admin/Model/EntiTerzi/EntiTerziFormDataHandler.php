@@ -54,7 +54,7 @@ class EntiTerziFormDataHandler extends FormDataAbstract
         {
             if (is_numeric($id)) {
                 $wrapper = new EntiTerziGetterWrapper( new EntiTerziGetter($this->getInput('entityManager',1)) );
-                $wrapper->setInput( array('id' => $id) );
+                $wrapper->setInput( array('id' => $id, 'limit' => 1) );
                 $wrapper->setupQueryBuilder();
 
                 return $wrapper->getRecords();

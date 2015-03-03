@@ -88,19 +88,19 @@ class IndexController extends SetupAbstractController
 
         $this->layout()->setVariables($configurations);
         $this->layout()->setVariables( array(
-            'sezioni'           => $sezioni,
-            'templateDir'       => $templateDir,
-            'maindata'          => $routerManagerHelper->getRouterManger()->getRecords(),
-            'preloadResponse'   => isset($input['preloadResponse']) ? $input['preloadResponse'] : null,
-            'currentUrl'        => "http://".$serverVars["SERVER_NAME"].$serverVars["REQUEST_URI"],
-            'currentDateTime'   => date("Y-m-d H:i:s"),
-            'templatePartial'   => $input['template_path'].$routerManagerHelper->getRouterManger()->getTemplate(),
-            'cssName'           => $sessionContainer->offSetGet('cssName'),
-            'passwordPreviewArea' => $this->hasPasswordPreviewArea($configurations),
+            'sezioni'               => $sezioni,
+            'templateDir'           => $templateDir,
+            'maindata'              => $routerManagerHelper->getRouterManger()->getRecords(),
+            'preloadResponse'       => isset($input['preloadResponse']) ? $input['preloadResponse'] : null,
+            'currentUrl'            => "http://".$serverVars["SERVER_NAME"].$serverVars["REQUEST_URI"],
+            'currentDateTime'       => date("Y-m-d H:i:s"),
+            'templatePartial'       => $input['template_path'].$routerManagerHelper->getRouterManger()->getTemplate(),
+            'cssName'               => $sessionContainer->offSetGet('cssName'),
+            'passwordPreviewArea'   => $this->hasPasswordPreviewArea($configurations),
+            'renderer'              => $this->getServiceLocator()->get('Zend\View\Renderer\PhpRenderer')
         ));
-
         $this->layout($basicLayout);
-        
+
         return new ViewModel();
     }
 }

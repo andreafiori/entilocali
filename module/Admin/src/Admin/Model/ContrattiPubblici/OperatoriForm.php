@@ -10,6 +10,9 @@ use Zend\Form\Form;
  */
 class OperatoriForm extends Form
 {
+    /**
+     * @inheritdoc
+     */
     public function __construct($name = null, $options = array())
     {        
         parent::__construct($name, $options);
@@ -20,30 +23,40 @@ class OperatoriForm extends Form
                         'options' => array( 'label' => '* Nome' ),
                         'attributes' => array(
                                         'id' => 'nome',
-                                        'title' => 'Inserisci nuova scelta contraente',
+                                        'placeholder' => 'Nome...',
+                                        'title' => 'Inserisci nuova operatore',
+                                        'required' => 'required'
                         ),
         ));
         
         $this->add(array(
                         'name' => 'cf',
                         'type' => 'Text',
-                        'options' => array( 'label' => 'Codice fiscale' ),
+                        'options' => array( 'label' => '* Codice fiscale' ),
                         'attributes' => array(
                                         'id' => 'cf',
                                         'placeholder' => 'Codice fiscale...',
-                                        'title' => 'Inserisci codice fiscale operatore',
+                                        'title'       => 'Inserisci codice fiscale operatore',
+                                        'required'    => 'required'
                         ),
         ));
         
         $this->add(array(
                         'name' => 'ragioneSociale',
                         'type' => 'Text',
-                        'options' => array( 'label' => 'Ragione sociale' ),
+                        'options' => array( 'label' => '* Ragione sociale' ),
                         'attributes' => array(
-                                        'id' => 'cf',
-                                        'placeholder' => 'Ragione sociale...',
-                                        'title' => 'Inserisci ragione sociale operatore',
+                                        'id'            => 'ragioneSociale',
+                                        'placeholder'   => 'Ragione sociale...',
+                                        'title'         => 'Inserisci ragione sociale operatore',
+                                        'required'      => 'required'
                         ),
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'id',
+            'attributes' => array("class" => 'hiddenField')
         ));
     }
 }

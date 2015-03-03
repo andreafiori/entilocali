@@ -128,7 +128,9 @@ class AdminController extends SetupAbstractController
         $crudHandler->setConnection($appServiceLoader->recoverService('entityManager')->getConnection());
         $crudHandler->setOperation($this->params()->fromRoute('operation'));
         $crudHandler->setLogsWriter( new LogsWriter($crudHandler->getConnection()) );
-        $crudHandler->performOperation();
+        // TODO: validate input
+        $crudHandler->performOperation(); // TODO: pass raw post and raw files
+        // TODO: log operation
 
         $output = $crudHandler->getOutput('export');
         if ( isset($output) ) {

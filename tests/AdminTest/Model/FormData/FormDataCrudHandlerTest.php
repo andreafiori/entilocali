@@ -12,6 +12,7 @@ use Admin\Model\FormData\FormDataCrudHandler;
 class FormDataCrudHandlerTest extends TestSuite
 {
     private $formDataCrudHandler;
+
     private $classMapTest;
     
     protected function setUp()
@@ -44,5 +45,4 @@ class FormDataCrudHandlerTest extends TestSuite
         
         $this->assertTrue(is_string($this->formDataCrudHandler->detectCrudHandlerClassMap($this->classMapTest)) );
     }
-    
 }

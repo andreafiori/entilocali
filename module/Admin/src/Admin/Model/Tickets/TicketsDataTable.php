@@ -29,14 +29,15 @@ class TicketsDataTable extends DataTableAbstract
         $ticketsGetterWrapper->setupQueryBuilder();
         
         $records = $ticketsGetterWrapper->getRecords();
-        if ($records) {
+
+        if ( is_array($records) ) {
             $arrayToReturn = array();
             foreach($records as $record) {
 
                 $arrayToReturn[] = array(
-                    $record['subject'],
-                    $record['priority'],
-                    $record['status'],
+                    isset($record['subject']) ? $record['subject'] : null,
+                    isset($record['priority']) ? $record['priority'] : null,
+                    isset($record['status']) ? $record['status'] : null,
                     ''
                 );
             }

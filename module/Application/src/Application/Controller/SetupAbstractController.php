@@ -71,11 +71,11 @@ abstract class SetupAbstractController extends AbstractActionController
             return true;
         }
 
-        if ( isset($configurations['preview_password_area']) and $sessionContainer->offsetGet('preview_area_ok')!==1) {
+        if ( isset($configurations['preview_password_area']) and $sessionContainer->offsetGet('preview_area_ok')!=1) {
             return false;
         } else {
             $dateDiff = date_diff( date_create($sessionContainer->offsetGet('preview_area_logintimeout')), date_create(date("Y-m-d H:i:s")) );
-            if ($dateDiff->i > 80) {
+            if ($dateDiff->i > 60) {
 
                 $sessionContainer->offsetUnset('preview_area_ok');
                 $sessionContainer->offsetUnset('preview_area_logintimeout');

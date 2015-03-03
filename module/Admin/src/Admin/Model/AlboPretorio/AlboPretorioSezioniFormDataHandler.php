@@ -13,7 +13,7 @@ use Admin\Model\AlboPretorio\AlboPretorioRecordsGetter;
 class AlboPretorioSezioniFormDataHandler extends FormDataAbstract
 {
     /**
-     * @param array $input
+     * @inheritdoc
      */
     public function __construct(array $input)
     {

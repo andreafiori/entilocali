@@ -11,22 +11,27 @@ use Admin\Model\Users\UsersDataTable;
  */
 class UsersDataTableTest extends TestSuite
 {
-    private $usersDataTable;
+    private $dataTableObject;
     
     protected function setUp()
     {    
         parent::setUp();
         
-        $this->usersDataTable = new UsersDataTable( $this->getFrontendCommonInput() );
+        $this->dataTableObject = new UsersDataTable( $this->getFrontendCommonInput() );
     }
-    
-    public function testGetColumns()
+
+    public function testGetTitle()
     {
-        $this->assertTrue( is_array($this->usersDataTable->getColumns()) );
+        $this->assertNotEmpty( $this->dataTableObject->getTitle() );
     }
-    
+
+    public function testGetDescription()
+    {
+        $this->assertNotEmpty( $this->dataTableObject->getDescription() );
+    }
+
     public function testGetRecords()
     {
-        $this->assertTrue( is_array($this->usersDataTable->getRecords()) );
+        $this->assertTrue( is_array($this->dataTableObject->getRecords()) );
     }
 }

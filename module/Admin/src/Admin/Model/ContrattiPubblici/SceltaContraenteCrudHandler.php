@@ -20,6 +20,7 @@ class SceltaContraenteCrudHandler extends CrudHandlerAbstract implements CrudHan
     
     public function update()
     {
+        $this->getConnection()->beginTransaction();
         try {
             $error = array();
 
@@ -32,7 +33,6 @@ class SceltaContraenteCrudHandler extends CrudHandlerAbstract implements CrudHan
         
             $this->setArrayRecordToHandle('nome_scelta', 'nomeScelta');
 
-            $this->getConnection()->beginTransaction();
             $this->getConnection()->update($this->tableName, 
                     $this->getArrayRecordToHandle(),
                     array('id' => $this->rawPost['id'])

@@ -124,7 +124,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="<?php echo $this->baseUrl ?>formdata/tickets" title="">Nuova richiesta</a></li>
-                        <li><a href="<?php echo $this->baseUrl ?>datatable/tickets" title="">Elenco richieste</a></li>
+                        <li><a href="<?php echo $this->url('admin/datatable', array('lang' => 'it', 'tablesetter'  => 'tickets')); ?>" title="">Elenco richieste</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -383,8 +383,8 @@
                             <li>
                                 <a href="#" class="dropdown-collapse" title="">Ruoli <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
-                                    <li><a href="#" title="Nuovo ruolo">Nuovo</a></li>
-                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'user-roles')); ?>" title="">Modifica \ Elimina</a></li>
+                                    <li><a href="<?php echo $this->baseUrl ?>formdata/users-roles/" title="Nuovo ruolo utente">Nuovo</a></li>
+                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'users-roles')); ?>" title="">Modifica \ Elimina</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -459,6 +459,16 @@
             responsive: true,
             bPaginate: false,
             "info": false
+        });
+
+        $('#contratti-opeartori-rubrica-table').DataTable({
+            responsive: true,
+            bPaginate: false,
+            //"pagingType": "full_numbers",
+            searching: false,
+            "info": false,
+            "pageLength": 10,
+            "multipleSelection": true
         });
 
         /* Validate and submit formData */

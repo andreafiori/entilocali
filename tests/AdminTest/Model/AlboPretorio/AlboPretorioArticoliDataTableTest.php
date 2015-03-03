@@ -19,4 +19,9 @@ class AlboPretorioArticoliDataTableTest // extends TestSuite
         
         $this->articoliDataTable = new AlboPretorioArticoliDataTable( $this->getFrontendCommonInput() );
     }
+
+    public function testGetRecords()
+    {
+        $this->assertTrue( is_array($this->usersDataTable->getRecords()) );
+    }
 }

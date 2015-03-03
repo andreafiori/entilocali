@@ -51,8 +51,8 @@ abstract class RouterManagerAbstract extends InputSetterGetterAbstract
     }
     
     /**
-     * @param type $isBackend
-     * @return type
+     * @param bool $isBackend
+     * @return string
      */
     public function getTemplate($isBackend = null)
     {
@@ -85,12 +85,14 @@ abstract class RouterManagerAbstract extends InputSetterGetterAbstract
         if  (isset($this->output['records'])) {
             return $this->output['records'];
         }
+
+        return null;
     }
     
     /**
-     * @param type $key
-     * @param type $noArray
-     * @return type
+     * @param string $key
+     * @param bool $noArray
+     * @return mixed
      */
     public function getOutput($key = null, $noArray=null)
     {
@@ -100,8 +102,8 @@ abstract class RouterManagerAbstract extends InputSetterGetterAbstract
     /**
      * Set a variable that will be exported and set on the index controller
      * 
-     * @param type $key
-     * @param type $value
+     * @param mixed $key
+     * @param mixed $value
      */
     public function setVariable($key, $value)
     {
@@ -127,13 +129,15 @@ abstract class RouterManagerAbstract extends InputSetterGetterAbstract
     }
     
     /**
-     * @return type
+     * @return mixed
      */
     public function getVariable($key)
     {
         if (isset($this->output['export'][$key])) {
             return $this->output['export'][$key];
         }
+
+        return null;
     }
         
         /**

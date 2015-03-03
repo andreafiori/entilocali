@@ -32,11 +32,11 @@ abstract class CrudHandlerAbstract extends RouterManagerAbstract
     public function __construct(array $input)
     {
         $this->setInput($input);
-        
+
         $param = $this->getInput('param', 1);
 
         if (isset($param['post'])) {
-            $this->rawPost  = $param['post'];
+            $this->rawPost = $param['post'];
         }
 
         if (isset($param['files'])) {

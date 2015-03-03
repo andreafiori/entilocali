@@ -11,7 +11,7 @@ use Admin\Model\DataTable\DataTableAbstract;
 class ContrattiPubbliciDataTable extends DataTableAbstract
 {
     /**
-     * @param array $input
+     * @inheritdoc
      */
     public function __construct(array $input)
     {
@@ -27,61 +27,37 @@ class ContrattiPubbliciDataTable extends DataTableAbstract
         $this->setTitle('Contratti pubblici');
         $this->setDescription('Gestione bandi contratti pubblici');
         $this->setColumns(array(
-                //"Id",
-                //"Anno",
-                //"CIG",
                 "Oggetto del bando",
-                "Struttura proponente \ Responsabile del Servizio \ Responsabile del Procedimento",
+                "Struttura proponente \ responsabili",
                 "Aggiudicatario",
-                "Data Aggiudicazione",
-                "Data Contratto",
                 "Scelta del Contraente",
-                "Importo di aggiudicazione (Euro)",
-                "Elenco degli Operatori invitati a presentare offerte",
+                // "Elenco degli Operatori invitati a presentare offerte",
                     // "Vedi elenco" (posizione precednete)
                 "Numero di offerte ammesse",
                     // "Oggetto del bando", (posizione precednete)
                 "Importo somme liquidate Euro",
-                "Data di inserimento",
-                "Ora di inserimento",
                 "Data di scadenza",
                 "Inserito da",
                     // "Vedi Elenco", (pulsante, posizione precedente)
-                "Procedura di scelta del contraente",
                 "Operatori invitati a presentare le offerte",
-                "Aggiudicatario",
-                "Importi",
                 "Tempi di completamento",
                 "&nbsp;", 
+                "&nbsp;",
+                "&nbsp;",
                 "&nbsp;",
                 "&nbsp;"
             )
         );
         
         $this->setTemplate('datatable/datatable_contratti_pubblici.phtml');
+
         if (!$this->getRecords()) {
             $this->setVariable('messageTitle', 'Nessun bando di contratto presente');
             $this->setVariable('messageDescription', 'Nessun articolo o bando di contratto presente in archivio');
         }
         
     }
-    
-        /**
-         * @return array
-         */
-        private function setupPaginatorRecords()
-        {
-            $param = $this->getParam();
 
-            $contrattiPubbliciGetterWrapper = new ContrattiPubbliciGetterWrapper(new ContrattiPubbliciGetter($this->getInput('entityManager',1)) );
-            $contrattiPubbliciGetterWrapper->setInput($this->getInput());
-            $contrattiPubbliciGetterWrapper->setupQueryBuilder(); 
-            $contrattiPubbliciGetterWrapper->setupPaginator( $contrattiPubbliciGetterWrapper->setupQuery($this->getInput('entityManager', 1)) );
-            $contrattiPubbliciGetterWrapper->setupPaginatorCurrentPage( isset($param['route']['page']) ? $param['route']['page'] : null );
-
-            return $contrattiPubbliciGetterWrapper->setupRecords();
-        }
-        
         /**
          * @param array $records
          * @return array
@@ -92,31 +68,30 @@ class ContrattiPubbliciDataTable extends DataTableAbstract
             if ($records) {
                 foreach($records as $key => $row) {
                     $arrayToReturn[] = array(
-                        "<strong>CIG:</strong> ".$row['cig']."<br><br><strong>Oggetto del bando</strong>: ".$row['titolo']."<br><br><strong>Anno:</strong> ".$row['anno']."",
-                        "<strong>CF:</strong> <br><strong>Str. prop.:</strong> ".$row['nomeSettore']."<br> <strong>Resp. Proc.:</strong> ".$row['nomeResp'],
+                        "<strong>CIG:</strong> ".$row['cig']."<br><br><strong>Oggetto del bando</strong>: ".$row['titolo']."<br><br><strong>Anno:</strong> ".$row['anno']."<br><br> <strong>Data Contratto:</strong> ",
+                        "<strong>CF:</strong> <br><br><strong>Str. prop.:</strong> ".$row['nomeSettore']."<br><br> <strong>Resp. Proc.:</strong> ".$row['nomeResp'],
+                        "<br><strong>Data aggiudicazione:</strong> <br><br> <strong>Importo di aggiudicazione (Euro):</strong> ".$row['importoAggiudicazione'],
+                        "",
+                        "<strong>Procedura di scelta del contraente:</strong>",
                         "",
                         "",
+                        $row['name'].' '.$row['surname']." <br><br><strong>Data \ ora di inserimento</strong>: ",
                         "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
+                        "<strong>Inizio lavori:</strong> <br><br> <strong>Fine lavori:</strong> ",
+                        array(
+                            'type'      => 'tableButton',
+                            'href'      => $this->getInput('baseUrl',1).'contratti-pubblici-aggiudicatari/elenco/'.$row['id'],
+                            'title'     => 'Elenco aggiudicatari \ partecipanti'
+                        ),
+                        array(
+                            'type'      => $row['attivo']!=0 ? 'activeButton' : 'disableButton',
+                            'href'      => '#',
+                            'value'     => $row['attivo'],
+                            'title'     => 'Attiva \ Disattiva'
+                        ),
                         array(
                             'type'      => 'updateButton',
                             'href'      => $this->getInput('baseUrl',1).'formdata/contratti-pubblici/'.$row['id'],
-                            'tooltip'   => 1,
                             'title'     => 'Modifica'
                         ),
                         array(
@@ -135,5 +110,21 @@ class ContrattiPubbliciDataTable extends DataTableAbstract
             }
 
             return $arrayToReturn;
+        }
+
+        /**
+         * @return array
+         */
+        private function setupPaginatorRecords()
+        {
+            $param = $this->getParam();
+
+            $wrapper = new ContrattiPubbliciGetterWrapper(new ContrattiPubbliciGetter($this->getInput('entityManager',1)) );
+            $wrapper->setInput( array('orderBy'=> 'cc.id DESC') );
+            $wrapper->setupQueryBuilder();
+            $wrapper->setupPaginator( $wrapper->setupQuery($this->getInput('entityManager', 1)) );
+            $wrapper->setupPaginatorCurrentPage( isset($param['route']['page']) ? $param['route']['page'] : null );
+
+            return $wrapper->setupRecords();
         }
 }

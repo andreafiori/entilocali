@@ -13,9 +13,9 @@ class UsersGetter extends QueryBuilderHelperAbstract
     public function setMainQuery()
     {
         $this->setSelectQueryFields('DISTINCT(u.id) AS id, u.name, u.surname, u.email, u.address, u.status, u.zip,
-                                      u.city, u.username, u.lastUpdate, u.settore,
+                                      u.city, u.username, u.lastUpdate, u.passwordLastUpdate, u.settore,
 
-                                    role.name AS roleName
+                                      role.name AS roleName
                                     ');
 
         $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
@@ -51,7 +51,7 @@ class UsersGetter extends QueryBuilderHelperAbstract
      */
     public function setSurname($surname)
     {
-        if ( is_string($surname) ) {
+        if ( is_string($surname) and !empty($surname) ) {
             $this->getQueryBuilder()->andWhere('u.surname = :surname ');
             $this->getQueryBuilder()->setParameter('surname', $surname);
         }
@@ -65,7 +65,7 @@ class UsersGetter extends QueryBuilderHelperAbstract
      */
     public function setEmail($email = null)
     {
-        if (isset($email) and preg_match("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", $email )) {
+        if (!empty($email)) {
             $this->getQueryBuilder()->andWhere("u.email = :email ");
             $this->getQueryBuilder()->setParameter('email', $email);
         }
@@ -79,7 +79,7 @@ class UsersGetter extends QueryBuilderHelperAbstract
      */
     public function setUsername($username)
     {
-        if (isset($username)) {
+        if (!empty($username)) {
             $this->getQueryBuilder()->andWhere("u.username = :username ");
             $this->getQueryBuilder()->setParameter('username', $username);
         }
@@ -95,7 +95,7 @@ class UsersGetter extends QueryBuilderHelperAbstract
      */
     public function setPassword($password)
     {
-        if (isset($password)) {
+        if (!empty($password)) {
             $this->getQueryBuilder()->andWhere("u.password = :password ");
             $this->getQueryBuilder()->setParameter('password', md5($password) );
         }
@@ -109,7 +109,7 @@ class UsersGetter extends QueryBuilderHelperAbstract
      */
     public function setStatus($status)
     {
-        if (isset($status)) {
+        if (!empty($status)) {
             $this->getQueryBuilder()->andWhere("u.status = :status ");
             $this->getQueryBuilder()->setParameter('status', $status);
         }

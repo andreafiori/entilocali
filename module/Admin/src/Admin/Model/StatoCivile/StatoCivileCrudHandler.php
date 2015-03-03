@@ -18,34 +18,21 @@ class StatoCivileCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
      */
     protected function insert()
     {
+        $userDetails = $this->getInput('userDetails',1);
+
         $this->getConnection()->beginTransaction();
         try {
             $this->getConnection()->insert($this->tableName, array(
-                'utente_id'             => $this->rawPost['utente'],
-                'sezione_id'            => $this->rawPost['sezione'],
-                'numero_progressivo'    => $this->rawPost['numeroProgressivo'],
-                'numero_atto'           => $this->rawPost['numeroAtto'],
-                'anno'                  => $this->rawPost['anno'],
-                'data_attivazione'      => date("Y-m-d H:i:s"),
-                'ora_attivazione'       => date("H:i:s"),
-                'data_pubblicare'       => date("Y-m-d H:i:s"),
-                'ora_pubblicare'        => date("H:i:s"),
-                'scadenza'              => $this->rawPost['scadenza'],
-                'data_pubblicare'       => date("Y-m-d H:i:s"),
                 'titolo'                => $this->rawPost['titolo'],
-                'pubblicare'            => $this->rawPost['pubblicare'],
-                'annullato'             => $this->rawPost['annullato'],
-                'rettifica_id'          => $this->rawPost['rettificaId'],
-                'data_invio_regione'    => date("Y-m-d H:i:s"),
-                'num_att'               => $this->rawPost['num_att'],
-                'check_invia_regione'   => $this->rawPost['check_invia_regione'],
-                'anno_atto'             => $this->rawPost['anno_atto'],
-                'home'                  => $this->rawPost['home'],
-                'ente_terzo'            => $this->rawPost['ente_terzo'],
-                'fonte_url'             => $this->rawPost['fonte_url'],
-                'note'                  => $this->rawPost['note'],
-                'data_rettifica'        => $this->rawPost['data_rettifica'],
-                'check_rettifica'       => $this->rawPost['check_rettifica'],
+                'progressivo'           => (isset($this->rawPost['numeroProgressivo'])) ? $this->rawPost['numeroProgressivo'] : 0,
+                'anno'                  => date("Y"),
+                'data'                  => date("Y-m-d"),
+                'ora'                   => date("H:i:s"),
+                'attivo'                => $this->rawPost['attivo'],
+                'scadenza'              => $this->rawPost['scadenza'],
+                'flag_allegati'         => 0,
+                'utente_id'             => $userDetails->id,
+                'sezione_id'            => $this->rawPost['sezione'],
             ));
 
             $this->getConnection()->commit();
@@ -65,7 +52,7 @@ class StatoCivileCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
     {
         $this->getConnection()->beginTransaction();
         try {
-            $this->setArrayRecordToHandle('titolo', 'titolo');
+            $this->setArrayRecordToHandle('titolo', 'utente', 'sezione');
 
             $this->getConnection()->update($this->tableName, 
                     $this->getArrayRecordToHandle(),

@@ -19,7 +19,7 @@ class TicketsDataTableTest extends TestSuite
         
         $this->ticketingDataTable = new TicketsDataTable( $this->getFrontendCommonInput() );
     }
-    
+
     public function testGetTitle()
     {
         $this->assertNotEmpty( $this->ticketingDataTable->getTitle() );
@@ -34,7 +34,7 @@ class TicketsDataTableTest extends TestSuite
     {
         $this->assertTrue(is_array($this->ticketingDataTable->getColumns()) );
     }
-    
+
     public function testGetRecords()
     {
         $this->assertTrue(is_array($this->ticketingDataTable->getRecords()) );

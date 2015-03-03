@@ -24,10 +24,9 @@ return array(
                     'feed' => array(
                             'type'    => 'Segment',
                             'options' => array(
-                                    'route'       => '[/][:resource][/][:id][/]',
+                                    'route'       => '[/][:resource[/]]',
                                     'constraints' => array(
                                             'resource' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                            'id'       => '[0-9]+',
                                     ),
                                     'defaults' => array(
                                         'controller' => 'Feed\Controller\Feed',
@@ -50,10 +49,10 @@ return array(
     ),
     /* Feed class map */
     'feed_class_map' => array(
-        'contents'                      => 'Feed\Model\ContentsFeedResourece',
-        'blogs'                         => 'Feed\Model\ContentsFeedResourece',
-        'albo-pretorio'                 => 'Feed\Model\AlboPretorioFeedResourece',
-        'stato-civile'                  => 'Feed\Model\StatoCivileFeedResourece',
-        'amministrazione-trasparente'   => '',
+        'contents'                      => 'Feed\Model\ContentsFeedResource',
+        'blogs'                         => 'Feed\Model\ContentsFeedResource',
+        'albo-pretorio'                 => 'Feed\Model\AlboPretorioFeedResource',
+        'stato-civile'                  => 'Feed\Model\StatoCivileFeedResource',
+        'amministrazione-trasparente'   => 'Feed\Model\AmministrazioneTrasparenteFeedResource',
     ),
 );

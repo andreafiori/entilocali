@@ -1,0 +1,8 @@
+<?php
+return array(
+	'database'  => 'entilocali',
+	'username'  => 'travis',
+	'password'  => '',
+	'hostname'  => 'localhost',
+	'port'      => '3306'
+);

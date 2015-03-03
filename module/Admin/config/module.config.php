@@ -135,6 +135,19 @@ return array(
                                                 ),
                                     ),
                     ),
+                    'contratti-pubblici-aggiudicatari' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'       => 'contratti-pubblici-aggiudicatari/elenco[[/]:id[/]]',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Admin',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
                     'formpost' => array(
                                     'type'    => 'Segment',
                                     'options' => array(
@@ -205,6 +218,7 @@ return array(
         "admin/invio-ente-terzo"    => '\Admin\Model\EntiTerzi\InvioEnteTerzoHandler',
         "admin/migrazione"          => '\Admin\Model\Migrazione\MigrazioneHandler',
         "admin/sezioni"             => '\Admin\Model\Sezioni\SezioniHandler',
+        "admin/contratti-pubblici-aggiudicatari" => '\Admin\Model\ContrattiPubblici\ContrattiAggiudicatariHandler',
     ),
     /* FormData Class Map */
     'formdata_classmap' => array(
@@ -293,5 +307,6 @@ return array(
         'stato-civile'                => 'Admin\Model\StatoCivile\StatoCivileDataTable',
         'stato-civile-sezioni'        => 'Admin\Model\StatoCivile\StatoCivileSezioniDataTable',
         'users'                       => 'Admin\Model\Users\UsersDataTable',
+        'users-roles'                 => 'Admin\Model\Users\Roles\UsersRolesDataTable',
     ),
 );

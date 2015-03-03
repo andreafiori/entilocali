@@ -12,10 +12,7 @@ defined('APPLICATION_ENV') || define('APPLICATION_ENV', (getenv('APPLICATION_ENV
 chdir( __DIR__ );
 
 define('REQUEST_MICROTIME', microtime(true));
-ini_set("display_errors",true);
-
-// increase max execution time for some operation (i.e: )
-ini_set('max_execution_time', 3600);
+// ini_set("display_errors",true);
 
 // Decline static file requests back to the PHP built-in webserver
 if (php_sapi_name() === 'cli-server' && is_file(__DIR__ . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))) {
@@ -35,7 +32,7 @@ date_default_timezone_set('Asia/Manila');
 Zend\Mvc\Application::init(require 'config/application.config.php')->run();
 
 /* compress HTML output */
-//ob_end_flush();
+// ob_end_flush();
 function compressHTMLOutput($buffer)
 {
     $bufferout = $buffer;

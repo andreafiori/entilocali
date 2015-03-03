@@ -1,9 +1,11 @@
+<br>
 
-<br><?php
+<?php
+
+$this->headTitle($this->sitename);
 
 $form = $this->form;
 $form->prepare();
-
 
 $form->setAttribute('method', 'post');
 $form->setAttribute('action', $this->url('password-preview'));
@@ -22,7 +24,9 @@ echo $this->form()->openTag($form);
 <?php endif; ?>
 
 <div class="row">
+
     <div class="col-md-2">&nbsp;</div>
+
     <div class="col-md-8">
         <h1>Area riservata</h1>
 
@@ -48,5 +52,9 @@ echo $this->form()->openTag($form);
             </div>
         </div>
     </div>
+
     <div class="col-md-2">&nbsp;</div>
+
 </div>
+
+<?php echo $this->form()->closeTag($form); ?>

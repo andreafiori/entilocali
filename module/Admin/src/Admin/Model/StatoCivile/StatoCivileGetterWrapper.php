@@ -11,17 +11,19 @@ use Admin\Model\StatoCivile\StatoCivileGetter;
  */
 class StatoCivileGetterWrapper extends RecordsGetterWrapperAbstract
 {
-    /** @var StatoCivileGetter **/
+    /**
+     * @var StatoCivileGetter
+     */
     protected $objectGetter;
 
     /**
-     * @param \Admin\Model\StatoCivile\StatoCivileGetter $statoCivileGetter
+     * @param StatoCivileGetter $statoCivileGetter
      */
     public function __construct(StatoCivileGetter $statoCivileGetter)
     {
         $this->setObjectGetter($statoCivileGetter);
     }
-    
+
     public function setupQueryBuilder()
     { 
         $this->objectGetter->setSelectQueryFields( $this->getInput('fields', 1) );
@@ -34,6 +36,7 @@ class StatoCivileGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setTextSearch( $this->getInput('textSearch', 1) );
         $this->objectGetter->setSezioneId( $this->getInput('textSearch', 1) );
         $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
+        $this->objectGetter->setGroupBy( $this->getInput('groupBy', 1) );
         $this->objectGetter->setLimit( $this->getInput('limit', 1) );
     }
 }
