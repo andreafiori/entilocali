@@ -7,6 +7,7 @@ use Application\Model\RouterManagers\RouterManager;
 use Application\Model\RouterManagers\RouterManagerHelper;
 use Admin\Model\Sezioni\SezioniGetter;
 use Admin\Model\Sezioni\SezioniGetterWrapper;
+use Application\Model\FrontendControllerSetup;
 use Zend\Session\Container as SessionContainer;
 
 /**
@@ -20,7 +21,7 @@ class IndexController extends SetupAbstractController
     public function indexAction()
     {
         $appServiceLoader = $this->recoverAppServiceLoader();
-        
+
         /**
          * @var \Doctrine\ORM\EntityManager $entityManager
          */
@@ -34,26 +35,27 @@ class IndexController extends SetupAbstractController
             return $this->redirect()->toRoute('password-preview'); // login to preview form
         }
 
-        $sezioniWrapper = new SezioniGetterWrapper( new SezioniGetter($entityManager) );
-        $sezioniWrapper->setInput( array(
+        $setup = new FrontendControllerSetup();
+        $setup->setupSezioniGetterWrapper( new SezioniGetterWrapper( new SezioniGetter($entityManager) ));
+
+        $sezioniRecords = $setup->setupSezioniRecords(
+            array(
                 'orderBy'   => 'sezioni.posizione ASC',
                 'attivo'    => 1,
             )
         );
-        $sezioniWrapper->setupQueryBuilder();
-        $sezioniRecords = $sezioniWrapper->addSottoSezioni(
-            $sezioniWrapper->getRecords(),
-            array('attivo' => 1)
+
+        $sezioni = $setup->sortByColumn($setup->setupSottoSezioniRecords(
+            $sezioniRecords,
+            array(
+                    'attivo' => 1,
+                )
+            )
         );
-        
-        $sezioni = array();
-        foreach($sezioniRecords as $sezione) {
-            $sezioni[$sezione['colonna']][] = $sezione;
-        }
 
         $routerManager = new RouterManager($configurations);
         $routerManager->setIsBackend(0);
-        $routerManager->setRouteMatchName($appServiceLoader->recoverServiceKey('moduleConfigs', 'fe_router'));
+        $routerManager->setRouteMatchName( $appServiceLoader->recoverServiceKey('moduleConfigs', 'fe_router') );
 
         $input = array_merge(
             $configurations,
@@ -64,18 +66,12 @@ class IndexController extends SetupAbstractController
                 'title'     => trim($this->params()->fromRoute('title')),
             )
         );
-        
+
         $routerManagerHelper = new RouterManagerHelper($routerManager->setupRouteMatchObjectInstance());
         $routerManagerHelper->getRouterManger()->setInput($input);
         $routerManagerHelper->getRouterManger()->setupRecord();
-        
-        $varsFromModel = $routerManagerHelper->getRouterManger()->getOutput('export');
-        $varsToExport = array_merge(
-                $varsFromModel,
-                $input
-        );
 
-        $this->layout()->setVariables($varsToExport);
+        $varsFromModel = $routerManagerHelper->getRouterManger()->getOutput('export');
 
         $serverVars = $this->getRequest()->getServer();
 
@@ -86,7 +82,7 @@ class IndexController extends SetupAbstractController
             $basicLayout = $input['basiclayout'];
         }
 
-        $this->layout()->setVariables($configurations);
+        $this->layout()->setVariables( array_merge($varsFromModel, $input) );
         $this->layout()->setVariables( array(
             'sezioni'               => $sezioni,
             'templateDir'           => $templateDir,

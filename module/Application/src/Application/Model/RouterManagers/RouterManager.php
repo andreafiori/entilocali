@@ -2,7 +2,6 @@
 
 namespace Application\Model\RouterManagers;
 
-use Application\Model\RouterManagers\RouterManagerAbstract;
 use Application\Model\NullException;
 
 /**
@@ -32,7 +31,7 @@ class RouterManager extends RouterManagerAbstract
             $this->isBackend = $backend;
         }
     }
-     
+
     /**
      * @return string
      */   
@@ -43,12 +42,14 @@ class RouterManager extends RouterManagerAbstract
     
     /**
      * @param array $router
-     * @return type
+     * @return string
      */
     public function setRouteMatchName(array $router)
     {
         if ( isset($router[$this->configurations['routeMatchName']]) ) {
-            $this->routeMatchName = isset($router[$this->configurations['routeMatchName']]) ? $router[$this->configurations['routeMatchName']] : null;
+            $this->routeMatchName = isset($router[$this->configurations['routeMatchName']]) ?
+            $router[$this->configurations['routeMatchName']] :
+            null;
             
             return $this->routeMatchName;
         }
@@ -80,7 +81,7 @@ class RouterManager extends RouterManagerAbstract
         
         throw new NullException('RouteMatchName '.$classPath.' is not a valid class. It must be an instance of \Application\Model\RouterManagers\RouterManagerInterface');
     }
-    
+
     /**
      * @return string
      */

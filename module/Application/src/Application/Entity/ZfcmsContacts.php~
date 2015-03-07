@@ -78,6 +78,13 @@ class ZfcmsContacts
     private $status;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="ip_address", type="string", length=20, nullable=true)
+     */
+    private $ipAddress;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="user_id", type="bigint", nullable=true)

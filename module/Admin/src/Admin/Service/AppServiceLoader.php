@@ -3,6 +3,7 @@
 namespace Admin\Service;
 
 use Admin\Model\Config\ConfigGetterWrapper;
+use Admin\Model\Modules\ModulesGetterWrapper;
 use Application\Setup\UserInterfaceConfigurations;
 
 /**
@@ -33,14 +34,20 @@ class AppServiceLoader extends AppServiceLoaderAbstract
         
         $this->setService('redirect', $this->getController()->redirect());
     }
-    
+
+    /**
+     * Setup Flash Messenger object
+     */
     public function setupFlashMessenger()
     {
         $this->assertController();
         
         $this->setService('flashMessenger', $this->getController()->flashMessenger());
     }
-    
+
+    /**
+     * Setup current Zend Module Name
+     */
     public function setupCurrentModuleName()
     {
         $this->assertController();
@@ -80,33 +87,54 @@ class AppServiceLoader extends AppServiceLoaderAbstract
     }
     
     /**
+     * Select configurations from db
+     *
      * @param ConfigGetterWrapper $configGetterWrapper
      * @param number $channel
      * @param number $languageId
+     *
      * @throws Exception
      */
-    public function setupConfigurations(ConfigGetterWrapper $configGetterWrapper, $channel = 1, $languageId = 1)
+    public function setupConfigurations(ConfigGetterWrapper $wrapper, $channel = 1, $languageId = 1)
     {
         if (!is_object($this->recoverService('routeMatch'))) {
             throw new \Exception("RouteMatch is not set");
         }
-        
-        $configGetterWrapper->setInput(array(
+
+        $wrapper->setInput(array(
             'channel'   => $channel,
             'language'  => $languageId,
             'isBackend' => $this->recoverService('isBackend')
         ));
-        $configGetterWrapper->setupQueryBuilder();
+        $wrapper->setupQueryBuilder();
 
-        $configurations = $configGetterWrapper->formatNameAndValue( $configGetterWrapper->getRecords() );
-        
+        $configurations = $wrapper->formatNameAndValue( $wrapper->getRecords() );
+
         $configurations['routeMatchName'] = $this->recoverService('routeMatch')->getMatchedRouteName();
 
         $this->setService('configurations', $configurations);
+
+        return $configurations;
     }
-    
+
+    /**
+     * @param ModulesGetterWrapper $wrapper
+     */
+    public function setupModules(ModulesGetterWrapper $wrapper, $input = array())
+    {
+        $wrapper->setInput($input);
+        $wrapper->setupQueryBuilder();
+
+        $records = $wrapper->getRecords();
+
+        $this->setService('modules', $records);
+
+        return $records;
+    }
+
     /**
      * @param UserInterfaceConfigurations $ui
+     *
      * @return UserInterfaceConfigurations
      */
     public function setupUserInterfaceConfigurations(UserInterfaceConfigurations $ui)

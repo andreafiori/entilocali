@@ -127,6 +127,13 @@ class ZfcmsComuniSezioni
     private $seoKeywords;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="is_amm_trasparente", type="integer", nullable=true)
+     */
+    private $isAmmTrasparente;
+
+    /**
      * @var \Application\Entity\ZfcmsModules
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsModules")
@@ -501,6 +508,29 @@ class ZfcmsComuniSezioni
     public function getSeoKeywords()
     {
         return $this->seoKeywords;
+    }
+
+    /**
+     * Set isAmmTrasparente
+     *
+     * @param integer $isAmmTrasparente
+     * @return ZfcmsComuniSezioni
+     */
+    public function setIsAmmTrasparente($isAmmTrasparente)
+    {
+        $this->isAmmTrasparente = $isAmmTrasparente;
+    
+        return $this;
+    }
+
+    /**
+     * Get isAmmTrasparente
+     *
+     * @return integer 
+     */
+    public function getIsAmmTrasparente()
+    {
+        return $this->isAmmTrasparente;
     }
 
     /**

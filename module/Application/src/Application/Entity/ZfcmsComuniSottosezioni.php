@@ -50,6 +50,13 @@ class ZfcmsComuniSottosezioni
     private $urlTitle;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="url_target_blank", type="string", length=5, nullable=true)
+     */
+    private $urlTargetBlank;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="posizione", type="integer", nullable=false)
@@ -111,6 +118,13 @@ class ZfcmsComuniSottosezioni
      * @ORM\Column(name="seo_description", type="text", length=65535, nullable=false)
      */
     private $seoDescription;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="is_amm_trasparente", type="integer", nullable=false)
+     */
+    private $isAmmTrasparente;
 
     /**
      * @var \Application\Entity\ZfcmsComuniSezioni
@@ -234,6 +248,29 @@ class ZfcmsComuniSottosezioni
     public function getUrlTitle()
     {
         return $this->urlTitle;
+    }
+
+    /**
+     * Set urlTargetBlank
+     *
+     * @param string $urlTargetBlank
+     * @return ZfcmsComuniSottosezioni
+     */
+    public function setUrlTargetBlank($urlTargetBlank)
+    {
+        $this->urlTargetBlank = $urlTargetBlank;
+    
+        return $this;
+    }
+
+    /**
+     * Get urlTargetBlank
+     *
+     * @return string 
+     */
+    public function getUrlTargetBlank()
+    {
+        return $this->urlTargetBlank;
     }
 
     /**
@@ -441,6 +478,29 @@ class ZfcmsComuniSottosezioni
     public function getSeoDescription()
     {
         return $this->seoDescription;
+    }
+
+    /**
+     * Set isAmmTrasparente
+     *
+     * @param integer $isAmmTrasparente
+     * @return ZfcmsComuniSottosezioni
+     */
+    public function setIsAmmTrasparente($isAmmTrasparente)
+    {
+        $this->isAmmTrasparente = $isAmmTrasparente;
+    
+        return $this;
+    }
+
+    /**
+     * Get isAmmTrasparente
+     *
+     * @return integer 
+     */
+    public function getIsAmmTrasparente()
+    {
+        return $this->isAmmTrasparente;
     }
 
     /**

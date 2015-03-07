@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsUsersPermissionsNames
  *
- * @ORM\Table(name="zfcms_users_permissions_names")
+ * @ORM\Table(name="zfcms_users_permissions_names", indexes={@ORM\Index(name="flag", columns={"flag"})})
  * @ORM\Entity
  */
 class ZfcmsUsersPermissionsNames

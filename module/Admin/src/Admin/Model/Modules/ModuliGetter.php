@@ -15,12 +15,10 @@ class ModulesGetter extends QueryBuilderHelperAbstract
      */
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('m.code, m.name, m.status');
+        $this->setSelectQueryFields('m.id, m.code, m.name, m.status');
         
         $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
                                 ->from('Application\Entity\ZfcmsModules', 'm')
-                                ->join('module', 'mo')
-                                ->join('language', 'l')
                                 ->where('m.id != 0');
 
         return $this->getQueryBuilder();
@@ -40,6 +38,20 @@ class ModulesGetter extends QueryBuilderHelperAbstract
         if (is_array($id)) {
             $this->getQueryBuilder()->andWhere('m.id IN ( :id ) ');
             $this->getQueryBuilder()->setParameter('id', $id);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param bool $status
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setStatus($status)
+    {
+        if ( is_numeric($status) ) {
+            $this->getQueryBuilder()->andWhere('m.status = :status ');
+            $this->getQueryBuilder()->setParameter('status', $status);
         }
 
         return $this->getQueryBuilder();

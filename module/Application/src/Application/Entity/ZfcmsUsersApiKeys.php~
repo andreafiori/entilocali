@@ -1,0 +1,60 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ZfcmsUsersApiKeys
+ *
+ * @ORM\Table(name="zfcms_users_api_keys", indexes={@ORM\Index(name="key", columns={"key"}), @ORM\Index(name="user_id", columns={"user_id"})})
+ * @ORM\Entity
+ */
+class ZfcmsUsersApiKeys
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="key", type="string", length=150, nullable=false)
+     */
+    private $key = '0';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=150, nullable=false)
+     */
+    private $email = '0';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="user_id", type="bigint", nullable=false)
+     */
+    private $userId;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created", type="datetime", nullable=false)
+     */
+    private $created;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="confirmed", type="integer", nullable=false)
+     */
+    private $confirmed;
+
+
+}

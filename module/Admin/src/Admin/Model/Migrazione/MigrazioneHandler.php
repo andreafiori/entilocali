@@ -24,6 +24,7 @@ class MigrazioneHandler extends RouterManagerAbstract implements RouterManagerIn
         'stato-civile'                => 'Admin\Model\StatoCivile\StatoCivileMigrator',
         'atti-concessione'            => 'Admin\Model\AttiConcessione\AttiConcessioneMigrator',
         'contratti-pubblici'          => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciMigrator',
+        'contratti-pubblici-allegati' => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciAllegatiMigrator',
         'users'                       => 'Admin\Model\Users\UsersMigrator',
     );
 

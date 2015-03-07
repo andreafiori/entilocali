@@ -23,7 +23,7 @@ class AlboPretorioSezioniGetter extends QueryBuilderHelperAbstract
     
     /**
      * @param number $id
-     * @return type
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setId($id)
     {

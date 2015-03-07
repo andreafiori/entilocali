@@ -1,0 +1,67 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ZfcmsNewsletterEmails
+ *
+ * @ORM\Table(name="zfcms_newsletter_emails", uniqueConstraints={@ORM\UniqueConstraint(name="mails", columns={"email"})}, indexes={@ORM\Index(name="status", columns={"status"})})
+ * @ORM\Entity
+ */
+class ZfcmsNewsletterEmails
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nickname", type="string", length=80, nullable=false)
+     */
+    private $nickname;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=50, nullable=false)
+     */
+    private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="format", type="string", length=100, nullable=false)
+     */
+    private $format;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="insert_date", type="datetime", nullable=false)
+     */
+    private $insertDate = '2008-01-01 01:01:01';
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="activation_date", type="datetime", nullable=false)
+     */
+    private $activationDate = '2008-01-01 01:01:01';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=50, nullable=false)
+     */
+    private $status = '0';
+
+
+}

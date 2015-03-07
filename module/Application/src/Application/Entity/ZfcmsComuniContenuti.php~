@@ -176,6 +176,13 @@ class ZfcmsComuniContenuti
     private $seoKeywords;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="is_amm_trasparente", type="integer", nullable=false)
+     */
+    private $isAmmTrasparente;
+
+    /**
      * @var \Application\Entity\ZfcmsComuniSottosezioni
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniSottosezioni")

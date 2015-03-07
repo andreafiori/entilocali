@@ -10,6 +10,9 @@ use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter;
 use Application\View\Helper\TextShortener;
 use Admin\Service\AppServiceLoader;
 
+/**
+ * Appliacation Module
+ */
 class Module implements AutoloaderProviderInterface
 {
     /**
@@ -54,7 +57,10 @@ class Module implements AutoloaderProviderInterface
     {
 
     }
-    
+
+    /**
+     * @return mixed
+     */
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
@@ -62,6 +68,7 @@ class Module implements AutoloaderProviderInterface
     
     /**
      * Configure plain text and custom form elements
+     *
      * @return multitype:multitype:string
      */
     public function getViewHelperConfig()
@@ -84,6 +91,9 @@ class Module implements AutoloaderProviderInterface
         );
     }
 
+    /**
+     * @return array
+     */
     public function getAutoloaderConfig()
     {
         return array(
@@ -107,25 +117,26 @@ class Module implements AutoloaderProviderInterface
     {
     	return array(
             'factories' => array(
-		'Admin\Model\MyAuthStorage' => function() {
-		    return new \Admin\Model\MyAuthStorage('login');
-		},
-		'AuthService' => function($sm) {
-		    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $dbTableAuthAdapter  = new DbTableAuthAdapter($dbAdapter, 'zfcms_users', 'username', 'password', 'MD5(?)');
-		    
-		    $authService = new AuthenticationService();
-		    $authService->setAdapter($dbTableAuthAdapter);
-                    $authService->setStorage($sm->get('Admin\Model\MyAuthStorage'));
-                    
-		    return $authService;
-		},
+                'Admin\Model\MyAuthStorage' => function() {
+                    return new \Admin\Model\MyAuthStorage('login');
+                },
+                'AuthService' => function($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                            $dbTableAuthAdapter  = new DbTableAuthAdapter($dbAdapter, 'zfcms_users', 'username', 'password', 'MD5(?)');
+
+                    $authService = new AuthenticationService();
+                    $authService->setAdapter($dbTableAuthAdapter);
+                            $authService->setStorage($sm->get('Admin\Model\MyAuthStorage'));
+
+                    return $authService;
+                },
                 'AppServiceLoader' => function($sl) {
                     $appServiceLoader = new AppServiceLoader();
                     
                     $em = $sl->get('Doctrine\ORM\EntityManager');
                     $sm = $sl->get('servicemanager');
-		    $appServiceLoader->setProperties( array(
+
+		            $appServiceLoader->setProperties( array(
                         'serviceLocator'    => $sl,
                         'serviceManager'    => $sm,
                         'entityManager'     => $em,
@@ -140,7 +151,7 @@ class Module implements AutoloaderProviderInterface
                     $appServiceLoader->recoverRouteMatch();
                     
                     return $appServiceLoader;
-		},
+		        },
             ),
         );
     }

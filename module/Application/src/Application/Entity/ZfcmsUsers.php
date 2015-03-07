@@ -183,6 +183,13 @@ class ZfcmsUsers
     private $password;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="salt", type="string", length=80, nullable=false)
+     */
+    private $salt;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="password_last_update", type="datetime", nullable=false)
@@ -773,6 +780,29 @@ class ZfcmsUsers
     public function getPassword()
     {
         return $this->password;
+    }
+
+    /**
+     * Set salt
+     *
+     * @param string $salt
+     * @return ZfcmsUsers
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+    
+        return $this;
+    }
+
+    /**
+     * Get salt
+     *
+     * @return string 
+     */
+    public function getSalt()
+    {
+        return $this->salt;
     }
 
     /**

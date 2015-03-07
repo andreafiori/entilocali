@@ -21,20 +21,26 @@ class SezioniDataTable extends DataTableAbstract
 
         $this->setRecords( $this->formatRecordsToShowOnTable($paginatorRecords) );
 
+        $columns = array(
+            "Nome",
+            "Colonna",
+            "URL",
+            "Immagine",
+            "&nbsp;",
+        );
+
+        if ($this->isRole('WebMaster')) {
+            $columns[] = "&nbsp;";
+        }
+
         $this->setVariables(array(
             'tablesetter' => 'sezioni-contenuti',
             'paginator'   => $paginatorRecords,
-            'columns'     => array(
-                "Nome",
-                "Colonna",
-                "URL",
-                "&nbsp;",
-                "&nbsp;",
-            ),
-            ''
+            'columns'     => $columns,
         ));
 
         $this->setTitle('Sezioni');
+
         $this->setDescription('Gestione sezioni');
     }
 
@@ -47,22 +53,31 @@ class SezioniDataTable extends DataTableAbstract
             $arrayToReturn = array();
             if ($records) {
                 foreach($records as $key => $row) {
-                    $arrayToReturn[] = array(
+
+                    $rowToAdd = array(
                         $row['nome'],
                         $row['colonna'],
                         $row['url'],
+                        !empty($row['image']) ?
+                            '<img src="'.$this->getInput('basePath',1).'public/common/icons/'.$row['image'].'" alt="">'
+                            : '&nbsp;',
                         array(
                             'type'      => 'updateButton',
                             'href'      => $this->getInput('baseUrl',1).'formdata/sezioni-contenuti/'.$row['id'],
                             'title'     => 'Modifica'
                         ),
-                        array(
+                    );
+
+                    if ($this->isRole('WebMaster')) {
+                        $rowToAdd[] = array(
                             'type'      => 'deleteButton',
                             'href'      => '#',
                             'data-id'   => $row['id'],
-                            'title'     => 'Elimina'
-                        ),
-                    );
+                            'title'     => 'Elimina sezione'
+                        );
+                    }
+
+                    $arrayToReturn[] = $rowToAdd;
                 }
             }
 
@@ -72,12 +87,12 @@ class SezioniDataTable extends DataTableAbstract
         /**
          * @return array
          */
-        private function setupPaginatorRecords()
+        private function setupPaginatorRecords($input = array())
         {
             $param = $this->getParam();
 
             $wrapper = new SezioniGetterWrapper(new SezioniGetter($this->getInput('entityManager',1)) );
-            $wrapper->setInput( array() );
+            $wrapper->setInput($input);
             $wrapper->setupQueryBuilder();
             $wrapper->setupPaginator( $wrapper->setupQuery($this->getInput('entityManager', 1)) );
             $wrapper->setupPaginatorCurrentPage( isset($param['route']['page']) ? $param['route']['page'] : null );

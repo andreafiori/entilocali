@@ -2,10 +2,8 @@
 
 namespace Admin\Model;
 
-use Admin\Model\InputSetupAbstract;
-
 /**
- * Common var exporter for datatables and formData
+ * Common var exporter for dataTables and formData
  * 
  * @since  30 July 2014
  * @author Andrea Fiori
@@ -58,6 +56,8 @@ class VarExporter extends InputSetupAbstract
         if (!$noArray) {
             return $this->varToExport;
         }
+
+        return null;
     }
     
     /**
@@ -133,5 +133,45 @@ class VarExporter extends InputSetupAbstract
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserDetails()
+    {
+        return $this->getInput('userDetails', 1);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAcl()
+    {
+        $userDetails = $this->getUserDetails();
+
+        return $userDetails->acl;
+    }
+
+    /**
+     * @param string|array $roleName
+     */
+    protected function isRole($roleName)
+    {
+        $userRole = $this->getInput('userDetails',1)->role;
+
+        if (is_array($roleName)) {
+            foreach($roleName as $role) {
+                if ($role==$userRole) {
+                    return true;
+                }
+            }
+        }
+
+        if ($userRole == $roleName) {
+            return true;
+        }
+
+        return false;
     }
 }

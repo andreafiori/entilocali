@@ -6,7 +6,6 @@ use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
 use Zend\Http\Request;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
-use ApplicationTest\ServiceManagerGrabber;
 use Application\Model\NullException;
 
 /**
@@ -44,7 +43,7 @@ class TestSuite extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return Doctrine\ORM\EntityManager
+     * @return \Doctrine\ORM\EntityManager
      * @throws NullException
      */
     protected function getDoctrineEntityManager()
@@ -57,7 +56,7 @@ class TestSuite extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return Zend\ServiceManager\ServiceManager
+     * @return \Zend\ServiceManager\ServiceManager
      */
     protected function getServiceManager()
     {
@@ -65,7 +64,7 @@ class TestSuite extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @return Doctrine\ORM\EntityManager
+     * @return \Doctrine\ORM\EntityManager
      */
     protected function getEntityManagerMock()
     {

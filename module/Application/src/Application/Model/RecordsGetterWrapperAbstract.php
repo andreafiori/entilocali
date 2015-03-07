@@ -16,6 +16,10 @@ abstract class RecordsGetterWrapperAbstract
     protected $objectGetter;
     
     protected $query;
+
+    /**
+     * @var \Zend\Paginator\Paginator
+     */
     protected $paginator;
     
     protected $firstResult = 0;
@@ -93,9 +97,12 @@ abstract class RecordsGetterWrapperAbstract
 
         return $this->paginator;
     }
-    
+
     /**
      * Setup query (for paginator)
+     *
+     * @param \Doctrine\ORM\EntityManager $entityManager
+     * @return string|array
      */
     public function setupQuery(\Doctrine\ORM\EntityManager $entityManager)
     {
@@ -121,7 +128,7 @@ abstract class RecordsGetterWrapperAbstract
         }
         
         $this->paginator->setCurrentPageNumber($page);
-        
+
         return $this->paginator;
     }
     
@@ -185,11 +192,17 @@ abstract class RecordsGetterWrapperAbstract
         return $this->paginator;
     }
 
+    /**
+     * @return int
+     */
     public function getFirstResult()
     {
         return $this->firstResult;
     }
 
+    /**
+     * @return int
+     */
     public function getMaxResults()
     {
         return $this->maxResults;

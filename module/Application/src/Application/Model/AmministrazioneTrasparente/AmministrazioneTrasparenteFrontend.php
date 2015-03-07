@@ -25,8 +25,8 @@ class AmministrazioneTrasparenteFrontend extends RouterManagerAbstract implement
         
         $sottoSezioni = new SottoSezioniGetterWrapper( new SottoSezioniGetter($this->getInput('entityManager', 1)) );
         $sottoSezioni->setInput(array(
-            'attivo'        => 1,
-            'profonditaDa'  => $param['route']['profondita']
+                'attivo'        => 1,
+                'profonditaDa'  => $param['route']['profondita']
             )
         );
         $sottoSezioni->setupQueryBuilder();
@@ -35,9 +35,9 @@ class AmministrazioneTrasparenteFrontend extends RouterManagerAbstract implement
         
         $wrapper = new ContenutiGetterWrapper( new ContenutiGetter($this->getInput('entityManager',1)) );
         $wrapper->setInput( array(
-            'sottosezione'  => $param['route']['profondita'],
-            'attivo'        => 1,
-            'noscaduti'     => 1,
+                'sottosezione'  => $param['route']['profondita'],
+                'attivo'        => 1,
+                'noscaduti'     => 1,
             )
         );
         $wrapper->setupQueryBuilder();

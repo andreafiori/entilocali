@@ -24,6 +24,13 @@ class ZfcmsUsersRoles
     /**
      * @var string
      *
+     * @ORM\Column(name="code", type="string", length=80, nullable=false)
+     */
+    private $code;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="name", type="string", length=80, nullable=false)
      */
     private $name;
@@ -43,11 +50,11 @@ class ZfcmsUsersRoles
     private $lastUpdate;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="position", type="bigint", nullable=false)
+     * @ORM\Column(name="status", type="string", length=15, nullable=false)
      */
-    private $position = '0';
+    private $status;
 
 
 }

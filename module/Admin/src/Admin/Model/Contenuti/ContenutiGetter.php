@@ -17,6 +17,7 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
             contenuti.dataInserimento, contenuti.dataScadenza,
             contenuti.attivo, contenuti.home, contenuti.annoammtrasp, contenuti.slug,
             IDENTITY(contenuti.sottosezione) AS sottosezione,
+            IDENTITY(contenuti.utente) AS utente,
 
             sezione.nome AS nomeSezione,
 
@@ -78,9 +79,10 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
         
         return $this->getQueryBuilder();
     }
-    
+
     /**
      * @param int $id
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setNumero($id)
     {
@@ -88,10 +90,13 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere('contenuti.numero = :numero ');
             $this->getQueryBuilder()->setParameter('numero', $id);
         }
+
+        return $this->getQueryBuilder();
     }
-    
+
     /**
      * @param int $anno
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setAnno($anno)
     {
@@ -99,10 +104,13 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere('contenuti.anno = :anno ');
             $this->getQueryBuilder()->setParameter('anno', $anno);
         }
+
+        return $this->getQueryBuilder();
     }
-    
+
     /**
-     * @param \Datetime $dataScadenza
+     * @param string $dataScadenza
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setDataScadenza($dataScadenza)
     {
@@ -110,8 +118,10 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere('contenuti.dataScadenza = :scadenza ');
             $this->getQueryBuilder()->setParameter('scadenza', $dataScadenza);
         }
+
+        return $this->getQueryBuilder();
     }
-    
+
     /**
      * @param int $noScaduti
      */
@@ -121,20 +131,10 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere("( contenuti.dataScadenza > '".date("Y-m-d H:i:s")."' OR contenuti.dataScadenza = '0000-00-00 00:00:00') ");
         }
     }
-    
+
     /**
      * @param int $id
-     */
-    public function setUserId($id)
-    {
-        if ( is_numeric($id) ) {
-            $this->getQueryBuilder()->andWhere('contenuti.utente = :userid ');
-            $this->getQueryBuilder()->setParameter('userid', $id);
-        }
-    }
-    
-    /**
-     * @param int $id
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setModulo($id)
     {
@@ -142,10 +142,13 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere('sezione.modulo = :moduloId ');
             $this->getQueryBuilder()->setParameter('moduloId', $id);
         }
+
+        return $this->getQueryBuilder();
     }
-    
+
     /**
      * @param int $id
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setAttivo($id)
     {
@@ -153,5 +156,21 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere('contenuti.attivo = :attivo ');
             $this->getQueryBuilder()->setParameter('attivo', $id);
         }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param int $id
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setUtente($id)
+    {
+        if ( is_numeric($id) ) {
+            $this->getQueryBuilder()->andWhere('contenuti.utente = :utenteId ');
+            $this->getQueryBuilder()->setParameter('utenteId', $id);
+        }
+
+        return $this->getQueryBuilder();
     }
 }

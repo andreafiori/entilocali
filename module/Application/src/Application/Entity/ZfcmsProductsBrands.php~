@@ -1,0 +1,102 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ZfcmsProductsBrands
+ *
+ * @ORM\Table(name="zfcms_products_brands")
+ * @ORM\Entity
+ */
+class ZfcmsProductsBrands
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="code", type="string", length=30, nullable=false)
+     */
+    private $code;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image_thumb", type="string", length=100, nullable=false)
+     */
+    private $imageThumb;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image_big", type="string", length=100, nullable=false)
+     */
+    private $imageBig;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=100, nullable=false)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", length=65535, nullable=false)
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=50, nullable=false)
+     */
+    private $status = 'si';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="position", type="integer", nullable=false)
+     */
+    private $position = '0';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="url_web", type="string", length=100, nullable=false)
+     */
+    private $urlWeb;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_url", type="string", length=100, nullable=false)
+     */
+    private $seoUrl;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_keyw", type="text", length=65535, nullable=false)
+     */
+    private $seoKeyw;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_description", type="text", length=65535, nullable=false)
+     */
+    private $seoDescription;
+
+
+}

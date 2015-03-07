@@ -17,7 +17,7 @@ use Admin\Model\Sezioni\SottoSezioniGetterWrapper;
 class AmministrazioneTrasparenteFormDataHandler extends FormDataAbstract
 {
     /**
-     * @param array $input
+     * @inheritdoc
      */
     public function __construct(array $input)
     {

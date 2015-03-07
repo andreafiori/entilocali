@@ -2,7 +2,8 @@
 
 namespace Admin\Model\AmministrazioneTrasparente;
 
-use Zend\Form\Form;
+use Zend\Form\ElementInterface;
+use Zend\Form\Form as Form;
 
 /**
  * @author Andrea Fiori
@@ -41,6 +42,7 @@ class AmministrazioneTrasparenteForm extends Form
                                         'class' => 'form-control',
                                         'title' => 'Inserisci il titolo',
                                         'id'    => 'titolo',
+                                        'rows'  => 5
                         )
         ));
         
@@ -75,6 +77,7 @@ class AmministrazioneTrasparenteForm extends Form
                                         'required' => 'required',                                        
                                         'title' => 'Anno di riferimento',
                                         'id'    => 'anno',
+                                        'type'  => 'number',
                         )
         ));
 
@@ -86,7 +89,8 @@ class AmministrazioneTrasparenteForm extends Form
                                 'format' => 'Y-m-d H:i:s',
                         ),
                         'attributes' => array(
-                                'id'    => 'dataScadenza'
+                                'id'    => 'dataScadenza',
+                                'required' => 'required',
                         )
         ));
         
@@ -146,7 +150,8 @@ class AmministrazioneTrasparenteForm extends Form
                         'name' => 'moduloId',
                         'attributes' => array("class" => 'hiddenField')
         ));
-        
+
+        // Utente SELECT o HiddenField
         $this->add(array(
                         'type' => 'Zend\Form\Element\Hidden',
                         'name' => 'userId',
@@ -156,7 +161,5 @@ class AmministrazioneTrasparenteForm extends Form
         // Abilita la visibilità a un Gruppo di Atti Ufficiali:
 
         // Nessuno 2 - Delibere (in generale) 3 - Determine (in generale) 4 - Esiti (in generale)5 - Bandi (in generale)6 - Concorsi (in generale)
-        
-        // Utente SELECT
     }
 }

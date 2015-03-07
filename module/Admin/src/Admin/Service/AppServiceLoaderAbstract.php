@@ -33,13 +33,22 @@ abstract class AppServiceLoaderAbstract
         if (isset($this->properties[$key])) {
             return $this->properties[$key];
         }
+
+        return null;
     }
-    
+
+    /**
+     * @param string $key
+     * @param string $value
+     * @return null
+     */
     public function recoverServiceKey($key, $value)
     {
         if (isset($this->properties[$key][$value])) {
             return $this->properties[$key][$value];
         }
+
+        return null;
     }
     
     /**
@@ -84,7 +93,7 @@ abstract class AppServiceLoaderAbstract
         }
 
     /**
-     * @return type
+     * @return mixed
      */
     public function recoverRouter()
     {
@@ -96,7 +105,6 @@ abstract class AppServiceLoaderAbstract
         
         return $this->recoverService('router');
     }
-    
 
     /**
      * @return RouteMatch

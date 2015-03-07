@@ -9,7 +9,7 @@ class FormPlainText extends AbstractHelper
 {
     /**
      * @param \Zend\Form\ElementInterface $element
-     * @return type
+     * @return string
      */
     public function render(ElementInterface $element)
     {
@@ -17,8 +17,8 @@ class FormPlainText extends AbstractHelper
     }
 
     /**
-     * @param \Zend\Form\ElementInterface $element
-     * @return type
+     * @param ElementInterface $element
+     * @return mixed
      */
     public function __invoke(ElementInterface $element = null)
     {

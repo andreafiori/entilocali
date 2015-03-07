@@ -76,7 +76,7 @@ foreach($this->sezioni as $sezione):
 
         case('community'):
             ?>
-            <form action="#" method="post">
+            <form action="<?php echo $this->currentUrl ?>" method="post">
                 <fieldset>
                     <legend><img src="<?php echo $this->basepath() ?>/public/common/icons/<?php echo $sezione['image'] ?>" alt="Icona per <?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?>"> <?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?></legend>
 
@@ -89,7 +89,7 @@ foreach($this->sezioni as $sezione):
                     </label>
 
                     <label>
-                        <input type="submit" name="login" value="Accedi" title="Clicca per accedere all'area riservata" class="button tiny">
+                        <input type="submit" id="loginButton" name="login" value="Accedi" title="Clicca per accedere all'area riservata" class="button tiny">
                     </label>
 
                     <div>&raquo; <a href="<?php echo $this->url('registrazione', array()); ?>" title="Recupero password area riservata">Registrati</a></div>

@@ -24,6 +24,13 @@ class ZfcmsUsersRoles
     /**
      * @var string
      *
+     * @ORM\Column(name="code", type="string", length=80, nullable=false)
+     */
+    private $code;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="name", type="string", length=80, nullable=false)
      */
     private $name;
@@ -43,11 +50,11 @@ class ZfcmsUsersRoles
     private $lastUpdate;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="position", type="bigint", nullable=false)
+     * @ORM\Column(name="status", type="string", length=15, nullable=false)
      */
-    private $position = '0';
+    private $status;
 
 
 
@@ -59,6 +66,29 @@ class ZfcmsUsersRoles
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     * @return ZfcmsUsersRoles
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+    
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string 
+     */
+    public function getCode()
+    {
+        return $this->code;
     }
 
     /**
@@ -131,25 +161,25 @@ class ZfcmsUsersRoles
     }
 
     /**
-     * Set position
+     * Set status
      *
-     * @param integer $position
+     * @param string $status
      * @return ZfcmsUsersRoles
      */
-    public function setPosition($position)
+    public function setStatus($status)
     {
-        $this->position = $position;
+        $this->status = $status;
     
         return $this;
     }
 
     /**
-     * Get position
+     * Get status
      *
-     * @return integer 
+     * @return string 
      */
-    public function getPosition()
+    public function getStatus()
     {
-        return $this->position;
+        return $this->status;
     }
 }

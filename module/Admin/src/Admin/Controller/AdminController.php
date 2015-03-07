@@ -2,6 +2,8 @@
 
 namespace Admin\Controller;
 
+use Admin\Model\Modules\ModulesGetter;
+use Admin\Model\Modules\ModulesGetterWrapper;
 use Application\Controller\SetupAbstractController;
 use Admin\Model\Logs\LogsWriter;
 use Zend\View\Model\ViewModel;
@@ -21,7 +23,6 @@ class AdminController extends SetupAbstractController
      */
     public function indexAction()
     {
-        /* Check login */
         if (!$this->checkLogin()) {
             return $this->redirect()->toRoute('login');
         }
@@ -32,29 +33,37 @@ class AdminController extends SetupAbstractController
 
         $sessionContainer = new SessionContainer();
 
+        /* Preview password Area */
         if (!$this->checkPasswordPreviewArea($configurations, $sessionContainer)) {
-            return $this->redirect()->toRoute('password-preview'); // login to preview form
+            return $this->redirect()->toRoute('password-preview');
         }
 
-        foreach($configurations as $key => $value) {
-            $this->layout()->setVariable($key, $value);
-        }
+        /*
+        $modules = $appServiceLoader->setupModules(new ModulesGetterWrapper(
+            new ModulesGetter($appServiceLoader->recoverService('entityManager'))
+        ));
+        */
+
+        $moduleConfigs = $appServiceLoader->recoverService('moduleConfigs');
 
         $userDetails = $this->recoverUserDetails();
 
         $uri = $this->getRequest()->getUri();
-        $baseUrl = sprintf('%s://%s%s', $uri->getScheme(), $uri->getHost(), $appServiceLoader->recoverService('request')->getBaseUrl()).'/admin/main/'.$this->params()->fromRoute('lang').'/';
+
+        $basePath = sprintf('%s://%s%s', $uri->getScheme(), $uri->getHost(), $appServiceLoader->recoverService('request')->getBaseUrl().'/');
+        $baseUrl = sprintf($basePath.'admin/main/'.$this->params()->fromRoute('lang').'/');
+
         $input = array_merge(
             $appServiceLoader->getProperties(),
-            $appServiceLoader->recoverService('configurations'),
             array(
                 'formsetter'             => trim($this->params()->fromRoute('formsetter')),
                 'tablesetter'            => trim($this->params()->fromRoute('tablesetter')),
-                'formdata_classmap'      => $appServiceLoader->recoverServiceKey('moduleConfigs', 'formdata_classmap'),
-                'formdata_crud_classmap' => $appServiceLoader->recoverServiceKey('moduleConfigs', 'formdata_crud_classmap'),
-                'datatables_classmap'    => $appServiceLoader->recoverServiceKey('moduleConfigs', 'datatables_classmap'),
+                'formdata_classmap'      => $moduleConfigs['formdata_classmap'],
+                'formdata_crud_classmap' => $moduleConfigs['formdata_crud_classmap'],
+                'datatables_classmap'    => $moduleConfigs['datatables_classmap'],
                 'userDetails'            => $userDetails,
                 'baseUrl'                => $baseUrl,
+                'basePath'               => $basePath,
             )
         );
 
@@ -66,22 +75,19 @@ class AdminController extends SetupAbstractController
         $routerManagerHelper->getRouterManger()->setInput($input);
         $routerManagerHelper->getRouterManger()->setupRecord();
 
-        $output = $routerManagerHelper->getRouterManger()->getOutput('export');
-        if ( isset($output) ) {
-            foreach($output as $key => $value) {
-                $this->layout()->setVariable($key, $value);
-            }
-        }
+        $templateDir = 'backend/templates/'.$appServiceLoader->recoverServiceKey('configurations', 'template_backend');
 
-        $templateBackendDir = 'backend/templates/'.$appServiceLoader->recoverServiceKey('configurations', 'template_backend');
-
+        $this->layout()->setVariables($configurations);
+        $this->layout()->setVariables($routerManagerHelper->getRouterManger()->getOutput('export'));
         $this->layout()->setVariables(array(
-            'baseUrl'           => $baseUrl,
-            'userDetails'       => $userDetails,
-            'preloadResponse'   => $appServiceLoader->recoverServiceKey('configurations', 'preloadResponse'),
-            'templateBackendDir' => $templateBackendDir,
-            'templatePartial'   => $templateBackendDir.$routerManagerHelper->getRouterManger()->getTemplate(1),
-            'passwordPreviewArea' => $this->hasPasswordPreviewArea($configurations),
+            'baseUrl'               => $baseUrl,
+            'basePath'              => $basePath,
+            'userDetails'           => $userDetails,
+            'userRole'              => $userDetails->role,
+            'preloadResponse'       => $appServiceLoader->recoverServiceKey('configurations', 'preloadResponse'),
+            'templateBackendDir'    => $templateDir,
+            'templatePartial'       => $templateDir.$routerManagerHelper->getRouterManger()->getTemplate(1),
+            'passwordPreviewArea'   => $this->hasPasswordPreviewArea($configurations),
         ));
         $this->layout('backend/templates/'.$appServiceLoader->recoverServiceKey('configurations', 'template_backend').'backend.phtml');
         
@@ -107,7 +113,6 @@ class AdminController extends SetupAbstractController
 
         $input = array_merge(
             $appServiceLoader->getProperties(),
-            $appServiceLoader->recoverService('configurations'),
             array(
                 'userDetails'  => $this->recoverUserDetails(),
             )
@@ -132,13 +137,7 @@ class AdminController extends SetupAbstractController
         $crudHandler->performOperation(); // TODO: pass raw post and raw files
         // TODO: log operation
 
-        $output = $crudHandler->getOutput('export');
-        if ( isset($output) ) {
-            foreach($output as $key => $value) {
-                $this->layout()->setVariable($key, $value);
-            }
-        }
-
+        $this->layout()->setVariables($crudHandler->getOutput('export'));
         $this->layout('backend/templates/'.$appServiceLoader->recoverServiceKey('configurations', 'template_backend').'message.phtml');
         
         return new ViewModel();

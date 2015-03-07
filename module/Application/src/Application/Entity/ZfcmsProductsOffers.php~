@@ -1,0 +1,74 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ZfcmsProductsOffers
+ *
+ * @ORM\Table(name="zfcms_products_offers")
+ * @ORM\Entity
+ */
+class ZfcmsProductsOffers
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="offer_date", type="datetime", nullable=false)
+     */
+    private $offerDate = '2008-01-01 01:01:01';
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="expire_date", type="datetime", nullable=false)
+     */
+    private $expireDate = '2008-01-01 01:01:01';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=50, nullable=false)
+     */
+    private $status = 'si';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="company_id", type="integer", nullable=false)
+     */
+    private $companyId = '0';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="price_offer", type="decimal", precision=10, scale=2, nullable=false)
+     */
+    private $priceOffer = '0.00';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="qt", type="integer", nullable=false)
+     */
+    private $qt = '1';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="product_id", type="bigint", nullable=false)
+     */
+    private $productId = '0';
+
+
+}

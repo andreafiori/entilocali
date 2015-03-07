@@ -24,14 +24,23 @@ abstract class SetupAbstractController extends AbstractActionController
      */
     protected function recoverAppServiceLoader($channel = 1)
     {
+        /**
+         * @var \Admin\Service\AppServiceLoader $appServiceLoader
+         */
         $appServiceLoader = $this->getServiceLocator()->get('AppServiceLoader');
         $appServiceLoader->setService('channel', $channel);
         $appServiceLoader->setController($this);
         $appServiceLoader->setupParams();
         $appServiceLoader->setupRedirect();
-        $appServiceLoader->setupConfigurations(new ConfigGetterWrapper(new ConfigGetter($appServiceLoader->recoverService('entityManager'))));
-        
-        $this->userInterfaceConfigurations = $appServiceLoader->setupUserInterfaceConfigurations(new UserInterfaceConfigurations($appServiceLoader->getProperties()));
+        $appServiceLoader->setupConfigurations(
+            new ConfigGetterWrapper(
+                new ConfigGetter($appServiceLoader->recoverService('entityManager'))
+            )
+        );
+
+        $this->userInterfaceConfigurations = $appServiceLoader->setupUserInterfaceConfigurations(
+            new UserInterfaceConfigurations($appServiceLoader->getProperties())
+        );
 
         return $appServiceLoader;
     }
@@ -51,7 +60,8 @@ abstract class SetupAbstractController extends AbstractActionController
     {
         $session = new SessionContainer();
 
-        if ( !$this->getServiceLocator()->get('AuthService')->hasIdentity() or $session->offsetGet('sitename') != $this->recoverSitename()) {
+        if ( !$this->getServiceLocator()->get('AuthService')->hasIdentity() or
+             $session->offsetGet('sitename') != $this->recoverSitename()) {
             return false;
         }
 
@@ -63,6 +73,7 @@ abstract class SetupAbstractController extends AbstractActionController
      *
      * @param array $configurations
      * @param SessionContainer $sessionContainer
+     *
      * @return bool
      */
     public function checkPasswordPreviewArea(array $configurations, SessionContainer $sessionContainer)
@@ -74,7 +85,11 @@ abstract class SetupAbstractController extends AbstractActionController
         if ( isset($configurations['preview_password_area']) and $sessionContainer->offsetGet('preview_area_ok')!=1) {
             return false;
         } else {
-            $dateDiff = date_diff( date_create($sessionContainer->offsetGet('preview_area_logintimeout')), date_create(date("Y-m-d H:i:s")) );
+            $dateDiff = date_diff(
+                date_create($sessionContainer->offsetGet('preview_area_logintimeout')),
+                date_create(date("Y-m-d H:i:s"))
+            );
+
             if ($dateDiff->i > 60) {
 
                 $sessionContainer->offsetUnset('preview_area_ok');
@@ -107,7 +122,10 @@ abstract class SetupAbstractController extends AbstractActionController
      */
     protected function recoverSitename()
     {
-        $configGetterWrapper = new ConfigGetterWrapper(new ConfigGetter($this->getServiceLocator()->get('doctrine.entitymanager.orm_default')));
+        $configGetterWrapper = new ConfigGetterWrapper(new ConfigGetter(
+                $this->getServiceLocator()->get('doctrine.entitymanager.orm_default')
+            )
+        );
         $configGetterWrapper->setInput(array(
             'name'      => 'sitename',
             'channel'   => 1,

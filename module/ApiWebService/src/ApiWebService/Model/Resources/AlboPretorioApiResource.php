@@ -2,8 +2,6 @@
 
 namespace ApiWebService\Model\Resources;
 
-use Admin\Model\AlboPretorio\AlboPretorioArticoliGetter;
-use Admin\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
 use ApiWebService\Model\ApiResultGetterAbstract;
 use Admin\Model\AlboPretorio\AlboPretorioRecordsGetter;
 

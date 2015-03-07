@@ -37,22 +37,16 @@ class SottoSezioniForm extends Form
                 "class" => 'hiddenField'
             )
         ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'id',
+            'attributes' => array("class" => 'hiddenField')
+        ));
     }
 
     public function addFormOptions()
     {
-        /*
-        $this->add(array(
-            'name' => 'immagine',
-            'type' => 'File',
-            'options' => array( 'label' => 'Immagine' ),
-            'attributes' => array(
-                'placeholder'   => 'Immagine...',
-                'title'         => 'Inserisci immagine',
-                'id'            => 'immagine',
-            )
-        ));
-        */
         $this->add(array(
             'name' => 'nomeSottosezione',
             'type' => 'Text',

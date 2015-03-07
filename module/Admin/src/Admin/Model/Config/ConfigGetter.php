@@ -42,7 +42,7 @@ class ConfigGetter extends QueryBuilderHelperAbstract
      */
     public function setLanguage($languageId)
     {
-        if ( !isset($languageId) or !  is_numeric($languageId) ) {
+        if ( !empty($languageId) or !is_numeric($languageId) ) {
             $languageId = 1;
         }
         
@@ -57,7 +57,7 @@ class ConfigGetter extends QueryBuilderHelperAbstract
      */
     public function setName($name)
     {
-        if (isset($name)) {
+        if (!empty($name)) {
             $this->getQueryBuilder()->andWhere('c.name = :name ');
             $this->getQueryBuilder()->setParameter('name', $name);
         }
@@ -71,7 +71,7 @@ class ConfigGetter extends QueryBuilderHelperAbstract
      */
     public function setValue($value)
     {
-        if (isset($value)) {
+        if (!empty($value)) {
             $this->getQueryBuilder()->andWhere('c.value = :value ');
             $this->getQueryBuilder()->setParameter('value', $value);
         }

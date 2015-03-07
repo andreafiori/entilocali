@@ -10,27 +10,28 @@ use Application\Model\RecordsGetterWrapperAbstract;
  */
 class ModulesGetterWrapper extends RecordsGetterWrapperAbstract
 {
-    /** @var \Admin\Model\Categories\CategorieGetter **/
+    /**
+     * @var ModulesGetter
+     */
     protected $objectGetter;
  
     /**
-     * @param \Admin\Model\Modules\ModulesGetter $modulesGetter
+     * @param ModulesGetter $objectGetter
      */
-    public function __construct(ModulesGetter $modulesGetter)
+    public function __construct(ModulesGetter $objectGetter)
     {
-        $this->setObjectGetter($modulesGetter);
+        $this->setObjectGetter($objectGetter);
     }
-    
+
     public function setupQueryBuilder()
     {
         $this->objectGetter->setSelectQueryFields( $this->getInput('fields', 1) );
         
         $this->objectGetter->setMainQuery();
         
-        $this->objectGetter->setId($this->getInput('id',1));
-        $this->objectGetter->setModuleId($this->getInput('moduleId',1));
-        $this->objectGetter->setStatus($this->getInput('status',1));
-        $this->objectGetter->setOrderBy($this->getInput('orderby',1), 'co.position');
+        $this->objectGetter->setId($this->getInput('id', 1));
+        $this->objectGetter->setOrderBy($this->getInput('orderBy',1));
+        $this->objectGetter->setGroupBy($this->getInput('grouoBy',1));
         $this->objectGetter->setLimit($this->getInput('limit',1));
     }
 }

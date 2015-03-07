@@ -23,9 +23,9 @@ class ContenutiFrontend extends RouterManagerAbstract implements RouterManagerIn
         if (isset($param['route']['subsectionid'])) {
             $wrapper = new ContenutiGetterWrapper( new ContenutiGetter($this->getInput('entityManager', 1)) );
             $wrapper->setInput(array(
-                'noscaduti' => 1,
+                //'noscaduti' => 1,
                 'attivo'    => 1,
-                /* 'modulo'    => 2, */
+                'modulo'    => 2,
                 'sottosezione' => $param['route']['subsectionid'])
             );
             $wrapper->setupQueryBuilder();

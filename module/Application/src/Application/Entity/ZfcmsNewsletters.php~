@@ -1,0 +1,60 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ZfcmsNewsletters
+ *
+ * @ORM\Table(name="zfcms_newsletters", uniqueConstraints={@ORM\UniqueConstraint(name="titlo", columns={"title"})}, indexes={@ORM\Index(name="sent", columns={"sent"})})
+ * @ORM\Entity
+ */
+class ZfcmsNewsletters
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=100, nullable=false)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="message_text", type="text", length=65535, nullable=false)
+     */
+    private $messageText;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="create_date", type="datetime", nullable=false)
+     */
+    private $createDate = '0000-00-00 00:00:00';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="format", type="string", length=40, nullable=false)
+     */
+    private $format;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sent", type="string", length=25, nullable=false)
+     */
+    private $sent;
+
+
+}

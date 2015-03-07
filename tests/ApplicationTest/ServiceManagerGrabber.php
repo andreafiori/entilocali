@@ -15,16 +15,25 @@ class ServiceManagerGrabber
 {
 	protected static $serviceConfig = null;
 
+    /**
+     * @param $config
+     */
     public static function setServiceConfig($config)
     {
         static::$serviceConfig = $config;
     }
-    
+
+    /**
+     * @return null
+     */
     public static function getServiceConfig()
     {
     	return static::$serviceConfig;
     }
 
+    /**
+     * @return ServiceManager
+     */
     public function getServiceManager()
     {
     	$configuration = static::$serviceConfig ? : require_once './config/application.config.php';

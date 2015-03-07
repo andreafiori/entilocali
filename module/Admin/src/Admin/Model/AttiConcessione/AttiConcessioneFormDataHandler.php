@@ -11,7 +11,7 @@ use Admin\Model\FormData\FormDataAbstract;
 class AttiConcessioneFormDataHandler extends FormDataAbstract
 {
     /**
-     * @param array $input
+     * @inheritdoc
      */
     public function __construct(array $input)
     {
@@ -34,7 +34,6 @@ class AttiConcessioneFormDataHandler extends FormDataAbstract
             $formTitle          = 'Modifica atto di concessione';
             $formDescription    = 'Modifica nuovo atto di concessione';
 
-
             $records[0]['importo'] = utf8_encode($records[0]['importo']);
             $form->setData($records[0]);
         } else {
@@ -42,13 +41,19 @@ class AttiConcessioneFormDataHandler extends FormDataAbstract
             $formTitle       = 'Nuovo atto di concessione';
             $formDescription = 'Inserisci nuovo atto di concessione';
         }
-        
-        $this->setVariable('form',              $form);
-        $this->setVariable('formAction',        $formAction);
-        $this->setVariable('formTitle',         $formTitle);
-        $this->setVariable('formDescription',   $formDescription);
-        $this->setVariable('formBreadCrumbCategory', 'Atti di concessione');
-        $this->setVariable('CKEditorField', array('sottotitolo', 'testo'));
+
+        $baseUrl = $this->getInput('baseUrl', 1);
+
+        $this->setVariables(array(
+                'form'                       => $form,
+                'formAction'                 => $formAction,
+                'formTitle'                  => $formTitle,
+                'formDescription'            => $formDescription,
+                'formBreadCrumbCategory'     => 'Atti di concessione',
+                'formBreadCrumbCategoryLink' => $baseUrl.'datatable/contenuti/',
+                'CKEditorField'              => array('sottotitolo', 'testo')
+            )
+        );
     }
     
         /**
@@ -67,10 +72,12 @@ class AttiConcessioneFormDataHandler extends FormDataAbstract
         /**
          * @return array
          */
-        private function getSezioni()
+        private function getSezioni($input = array())
         {
-            $wrapper = new AttiConcessioneSettoriGetterWrapper( new AttiConcessioneSettoriGetter($this->getInput('entityManager',1)) );
-            $wrapper->setInput( array() );
+            $wrapper = new AttiConcessioneSettoriGetterWrapper(
+                new AttiConcessioneSettoriGetter($this->getInput('entityManager',1))
+            );
+            $wrapper->setInput($input);
             $wrapper->setupQueryBuilder();
             
             $records = $wrapper->getRecords();

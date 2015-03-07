@@ -26,7 +26,9 @@ class ConfigGetterWrapper extends RecordsGetterWrapperAbstract
     public function setupQueryBuilder()
     {
         $this->objectGetter->setSelectQueryFields( $this->getInput('fields', 1) );
+
         $this->objectGetter->setMainQuery();
+
         $this->objectGetter->setChannel($this->getInput('channel', 1));
         $this->objectGetter->setLanguage($this->getInput('language', 1));
         $this->objectGetter->setName($this->getInput('name', 1));

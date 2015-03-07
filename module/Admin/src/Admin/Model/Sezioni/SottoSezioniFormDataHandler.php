@@ -20,6 +20,7 @@ class SottoSezioniFormDataHandler extends FormDataAbstract
         $param = $this->getInput('param', 1);
 
         $recordFromDb = $this->getFormRecord(isset($param['route']['option']) ? $param['route']['option'] : null);
+
         $this->setRecord($recordFromDb);
 
         $sezioniOptions = $this->getSezioniRecords(array(
@@ -29,7 +30,7 @@ class SottoSezioniFormDataHandler extends FormDataAbstract
         ));
 
         if (empty($sezioniOptions)) {
-            // error
+            // error...
             return;
         }
 

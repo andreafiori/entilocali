@@ -39,6 +39,7 @@ class AlboPretorioSezioniCrudHandler extends CrudHandlerAbstract implements Crud
             
             $this->getConnection()->update($this->tableName, array(
                 'nome'  => $this->rawPost['nome'],
+                'attivo'  => $this->rawPost['attivo'],
             ),  array('id' => $this->rawPost['id']) );
 
             $this->getConnection()->commit();

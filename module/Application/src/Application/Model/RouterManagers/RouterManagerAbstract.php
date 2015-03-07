@@ -29,7 +29,7 @@ abstract class RouterManagerAbstract extends InputSetterGetterAbstract
     
     /**
      * @param string $key
-     * @return string or array
+     * @return string|array
      */
     public function getRouter($key = null)
     {
@@ -39,7 +39,7 @@ abstract class RouterManagerAbstract extends InputSetterGetterAbstract
         
         return $this->router;
     }
-        
+
     /**
      * @param string $template
      */
@@ -139,7 +139,7 @@ abstract class RouterManagerAbstract extends InputSetterGetterAbstract
 
         return null;
     }
-        
+
         /**
          * @param array $arrayVar
          */

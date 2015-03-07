@@ -3,8 +3,6 @@
 namespace Admin\Model\AlboPretorio;
 
 use Admin\Model\DataTable\DataTableInterface;
-use Admin\Model\AlboPretorio\AlboPretorioSezioniGetter;
-use Admin\Model\AlboPretorio\AlboPretorioSezioniGetterWrapper;
 use Admin\Model\DataTable\DataTableAbstract;
 
 /**
@@ -14,7 +12,7 @@ use Admin\Model\DataTable\DataTableAbstract;
 class AlboPretorioSezioniDataTable extends DataTableAbstract implements DataTableInterface
 {
     /**
-     * @param array $input
+     * @inheritdoc
      */
     public function __construct(array $input)
     {
@@ -22,22 +20,39 @@ class AlboPretorioSezioniDataTable extends DataTableAbstract implements DataTabl
         
         $this->setTitle('Sezioni albo pretorio');
         $this->setDescription('Elenco sezioni albo pretorio.');
-        $this->setColumns( array('Nome', '&nbsp;') );
+
+        $this->setVariables(array(
+            'tablesetter' => 'albo-pretorio-sezioni',
+            'columns'     => array(
+                "Nome",
+                "Stato",
+                "&nbsp;",
+                "&nbsp;",
+            ),
+        ));
     }
     
     /**
      * @return array|null
      */
     public function getRecords()
-    {   
-        return $this->formatRecords($this->recoverRecords(new AlboPretorioSezioniGetterWrapper(new AlboPretorioSezioniGetter($this->getInput('entityManager',1)))));
+    {
+        return $this->formatRecords(
+            $this->recoverRecords(
+                new AlboPretorioSezioniGetterWrapper(
+                    new AlboPretorioSezioniGetter($this->getInput('entityManager',1))
+                )
+            )
+        );
     }
-    
+
     /**
      * Recover albo sezioni records from db
-     * 
+     *
      * @param AlboPretorioSezioniGetterWrapper $alboPretorioGetterWrapper
-     * @param array|null $input
+     * @param array $input
+     *
+     * @return \Application\Model\QueryBuilderHelperAbstract
      */
     public function recoverRecords(AlboPretorioSezioniGetterWrapper $alboPretorioGetterWrapper, $input = array())
     {
@@ -46,24 +61,31 @@ class AlboPretorioSezioniDataTable extends DataTableAbstract implements DataTabl
 
         return $alboPretorioGetterWrapper->getRecords();
     }
-    
+
     /**
      * Format recors to show on the view
-     * 
+     *
+     * @param array $records
      * @return array
      */
     public function formatRecords(array $records)
-    {        
+    {
         if (is_array($records)) {
             $arrayToReturn = array();
             foreach($records as $record) {
                 $arrayToReturn[] = array(
                     $record['nome'],
+                    ($record['attivo']==1) ? 'Attivo' : 'Nascosto',
                     array(
                         'type'      => 'updateButton',
                         'href'      => $this->getInput('baseUrl',1).'formdata/albo-pretorio-sezioni/'.$record['id'],
-                        'tooltip'   => 1,
                         'title'     => 'Modifica'
+                    ),
+                    array(
+                        'type'      => 'deleteButton',
+                        'href'      => '#',
+                        'data-id'   => $record['id'],
+                        'title'     => 'Elimina'
                     ),
                 );
             }

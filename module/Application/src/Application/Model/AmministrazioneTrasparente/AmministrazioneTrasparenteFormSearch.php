@@ -36,6 +36,7 @@ class AmministrazioneTrasparenteFormSearch extends Form
                         'attributes' => array(
                                         'title' => 'Inserisci il testo',
                                         'id'    => 'testo',
+                                        'placeholder' => 'Testo...'
                         )
         ));
         
@@ -45,8 +46,8 @@ class AmministrazioneTrasparenteFormSearch extends Form
                         'options' => array(
                                 'label' => 'Cerca nelle sottosezioni',
                                 'use_hidden_element' => false,
-                                'checked_value'     => 1,
-                                'unchecked_value'   => 0
+                                'checked_value'      => 1,
+                                'unchecked_value'    => 0
                         ),
                         'attributes' => array(
                                 'id' => 'subsection'

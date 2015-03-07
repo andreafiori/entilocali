@@ -1,0 +1,116 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ZfcmsProductsShipmentsRegistry
+ *
+ * @ORM\Table(name="zfcms_products_shipments_registry")
+ * @ORM\Entity
+ */
+class ZfcmsProductsShipmentsRegistry
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=50, nullable=true)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="surname", type="string", length=50, nullable=true)
+     */
+    private $surname;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="address", type="string", length=50, nullable=true)
+     */
+    private $address;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="address_number", type="integer", nullable=true)
+     */
+    private $addressNumber;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cap", type="string", length=50, nullable=true)
+     */
+    private $cap;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="citta_id", type="integer", nullable=true)
+     */
+    private $cittaId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="provincia_id", type="integer", nullable=true)
+     */
+    private $provinciaId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nazione_id", type="integer", nullable=true)
+     */
+    private $nazioneId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ordine_id", type="integer", nullable=true)
+     */
+    private $ordineId;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="phone_number", type="string", length=50, nullable=true)
+     */
+    private $phoneNumber;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=50, nullable=true)
+     */
+    private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="message", type="text", length=65535, nullable=true)
+     */
+    private $message;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="spedizione_id", type="integer", nullable=true)
+     */
+    private $spedizioneId;
+
+
+}

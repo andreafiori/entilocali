@@ -60,12 +60,30 @@ foreach ($this->form as $element):
             </div>
         </div>
         <?php
+    elseif ($attributes['type'] == 'PlainTextTitle'):
+        ?>
+        <div class="form-group">
+            <label for="<?php echo $attributes['id'] ?>" class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label">&nbsp;</label>
+            <div class="col-sm-<?php echo $this->formControlSpanWidth ?>">
+                <h4><strong><?php echo strtoupper($element->getValue()) ?></strong></h4>
+            </div>
+        </div>
+        <?php
+    elseif ($attributes['type'] == 'PlainText'):
+        ?>
+        <div class="form-group">
+            <label for="<?php echo $attributes['id'] ?>" class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label">&nbsp;</label>
+            <div class="col-sm-<?php echo $this->formControlSpanWidth ?>">
+                <p><strong><?php echo strtoupper($element->getValue()) ?></strong></p>
+            </div>
+        </div>
+        <?php
     elseif ($attributes['type'] == 'date'):
         ?>
         <div class="form-group">
-            <label class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label"><?php echo $element->getLabel() ?></label>
+            <label for="<?php echo $attributes['id'] ?>" class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label"><?php echo $element->getLabel() ?></label>
             <div class="col-sm-<?php echo $this->formControlSpanWidth ?>">
-                <input type="text" style="width: 30%; " name="<?php echo $attributes['name'] ?>" class="  datetimepicker" placeholder="<?php echo (isset($attributes['placeholder'])) ? $attributes['placeholder'] : null ?>" title="<?php echo (isset($attributes['title'])) ? $attributes['title'] : null ?>" id="<?php echo $attributes['id'] ?>" value="<?php echo $element->getValue() ?>" readonly="readonly"<?php if (isset($attributes['required'])): ?> required="required"<?php endif; ?>>
+                <input type="text" style="width: 30%; " name="<?php echo $attributes['name'] ?>" class="datetimepicker" placeholder="<?php echo (isset($attributes['placeholder'])) ? $attributes['placeholder'] : 'Seleziona data...' ?>" title="<?php echo (isset($attributes['title'])) ? $attributes['title'] : null ?>" id="<?php echo $attributes['id'] ?>" value="<?php echo $element->getValue() ?>" readonly="readonly"<?php if (isset($attributes['required'])): ?> required="required"<?php endif; ?>>
                 <input type="button" class="btn btn-danger" onclick="$('#<?php echo $attributes['id'] ?>').val(''); " value="Elimina valore">
                 <input type="button" class="btn btn-info" onclick="$('#<?php echo $attributes['id'] ?>').val('0000-00-00 00:00:00'); " value="Setta &quot;data zero&quot;">
             </div>

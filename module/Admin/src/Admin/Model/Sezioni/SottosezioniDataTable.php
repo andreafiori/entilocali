@@ -17,24 +17,31 @@ class SottosezioniDataTable extends DataTableAbstract
     {
         parent::__construct($input);
 
+        $param = $this->getParam();
+
         $paginatorRecords = $this->setupPaginatorRecords();
 
         $this->setRecords( $this->formatRecordsToShowOnTable($paginatorRecords) );
 
+        $columns = array(
+            // "Immagine",
+            "Nome",
+            "Sezione",
+            "&nbsp;",
+        );
+
+        if ($this->isRole('WebMaster')) {
+            $columns[] = "&nbsp;";
+        }
+
         $this->setVariables(array(
-            'tablesetter' => 'sottosezioni-contenuti',
+            'tablesetter' => $param['route']['tablesetter'],
             'paginator'   => $paginatorRecords,
-            'columns'     => array(
-                "Immagine",
-                "Nome",
-                "Sezione",
-                "&nbsp;",
-                "&nbsp;",
-            ),
-            ''
+            'columns'     => $columns
         ));
 
         $this->setTitle('Sotto sezioni');
+
         $this->setDescription('Gestione sotto sezioni');
     }
 
@@ -47,8 +54,8 @@ class SottosezioniDataTable extends DataTableAbstract
         $arrayToReturn = array();
         if ($records) {
             foreach($records as $key => $row) {
-                $arrayToReturn[] = array(
-                    $row['immagine'],
+                $rowToAdd = array(
+                    // $row['immagine'],
                     $row['nomeSottosezione'],
                     $row['nomeSezione'],
                     array(
@@ -56,13 +63,18 @@ class SottosezioniDataTable extends DataTableAbstract
                         'href'      => $this->getInput('baseUrl',1).'formdata/sottosezioni-contenuti/'.$row['idSottosezione'],
                         'title'     => 'Modifica'
                     ),
-                    array(
+                );
+
+                if ($this->isRole('WebMaster')) {
+                    $rowToAdd[] = array(
                         'type'      => 'deleteButton',
                         'href'      => '#',
                         'data-id'   => $row['idSottosezione'],
                         'title'     => 'Elimina'
-                    ),
-                );
+                    );
+                }
+
+                $arrayToReturn[] = $rowToAdd;
             }
         }
 
@@ -72,12 +84,12 @@ class SottosezioniDataTable extends DataTableAbstract
     /**
      * @return array
      */
-    private function setupPaginatorRecords()
+    private function setupPaginatorRecords($input = array())
     {
         $param = $this->getParam();
 
         $wrapper = new SottoSezioniGetterWrapper(new SottoSezioniGetter($this->getInput('entityManager',1)) );
-        $wrapper->setInput( array() );
+        $wrapper->setInput($input);
         $wrapper->setupQueryBuilder();
         $wrapper->setupPaginator( $wrapper->setupQuery($this->getInput('entityManager', 1)) );
         $wrapper->setupPaginatorCurrentPage( isset($param['route']['page']) ? $param['route']['page'] : null );

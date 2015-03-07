@@ -30,36 +30,36 @@ class ContenutiForm extends Form
     public function addForm()
     {
         $this->add(array(
-            'name'    => 'titolo',
-            'type'    => 'Text',
-            'options' => array( 'label' => '* Titolo' ),
+            'name' => 'titolo',
+            'type' => 'Text',
+            'options' => array('label' => '* Titolo'),
             'attributes' => array(
-                'required'      => 'required',
-                'placeholder'   => 'Titolo',
-                'title'         => 'Inserisci il titolo',
-                'id'            => 'titolo',
+                'required' => 'required',
+                'placeholder' => 'Titolo',
+                'title' => 'Inserisci il titolo',
+                'id' => 'titolo',
             )
         ));
 
         $this->add(array(
-            'name'       => 'sommario',
-            'type'       => 'Textarea',
-            'options'    => array( 'label' => 'Sotto titolo' ),
+            'name' => 'sommario',
+            'type' => 'Textarea',
+            'options' => array('label' => 'Sotto titolo'),
             'attributes' => array(
-                'id'        => 'sommario',
-                'required'  => 'required',
-                'class'     => 'wysiwyg',
+                'id' => 'sommario',
+                'required' => 'required',
+                'class' => 'wysiwyg',
             )
         ));
 
         $this->add(array(
             'name' => 'testo',
             'type' => 'Textarea',
-            'options' => array( 'label' => 'Testo' ),
+            'options' => array('label' => 'Testo'),
             'attributes' => array(
                 'id' => 'testo',
-                'required'  => 'required',
-                'class'     => 'wysiwyg',
+                'required' => 'required',
+                'class' => 'wysiwyg',
             )
         ));
 
@@ -71,11 +71,11 @@ class ContenutiForm extends Form
                 'format' => 'Y-m-d H:i:s',
             ),
             'attributes' => array(
-                'style'         => 'width: 22%',
-                'id'            => 'dataInserimento',
-                'title'         => 'Seleziona data inserimento',
-                'required'      => 'required',
-                'placeholder'   => 'Data inserimento...',
+                'style' => 'width: 22%',
+                'id' => 'dataInserimento',
+                'title' => 'Seleziona data inserimento',
+                'required' => 'required',
+                'placeholder' => 'Data inserimento...',
             )
         ));
 
@@ -87,11 +87,11 @@ class ContenutiForm extends Form
                 'format' => 'Y-m-d H:i:s',
             ),
             'attributes' => array(
-                'style'         => 'width: 22%',
-                'id'            => 'dataScadenza',
-                'title'         => 'Seleziona data scadenza',
-                'required'      => 'required',
-                'placeholder'   => 'Data scadenza...',
+                'style' => 'width: 22%',
+                'id' => 'dataScadenza',
+                'title' => 'Seleziona data scadenza',
+                'required' => 'required',
+                'placeholder' => 'Data scadenza...',
             )
         ));
 
@@ -102,17 +102,20 @@ class ContenutiForm extends Form
                 'label' => '* Stato',
                 'empty_option' => 'Seleziona',
                 'value_options' => array(
-                    1   => 'Attivo',
-                    0   => 'Nascosto',
+                    1 => 'Attivo',
+                    0 => 'Nascosto',
                 ),
             ),
             'attributes' => array(
-                'title'     => 'Seleziona stato',
-                'id'        => 'attivo',
-                'required'  => 'required'
+                'title' => 'Seleziona stato',
+                'id' => 'attivo',
+                'required' => 'required'
             )
         ));
+    }
 
+    public function addHomeBox()
+    {
         $this->add(array(
             'type' => 'Zend\Form\Element\Checkbox',
             'name' => 'homepage',
@@ -158,7 +161,7 @@ class ContenutiForm extends Form
             'options' => array(
                 'label'             => 'Inserisci su facebook',
                 'checked_value'     => 1,
-                'unchecked_value'   => 0
+                'unchecked_value'   => 0,
             ),
             'attributes' => array(
                 'id'    => 'homepage',
@@ -167,12 +170,24 @@ class ContenutiForm extends Form
         ));
     }
 
-    public function addUsers()
+    /**
+     * @param array $userRecords
+     */
+    public function addUsers(array $userRecords)
     {
         $this->add(array(
-            'type' => 'Zend\Form\Element\Hidden',
-            'name' => 'user',
-            'attributes' => array("class" => 'hiddenField')
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'utente',
+            'options' => array(
+                'label' => '* Utente',
+                'empty_option' => 'Seleziona',
+                'value_options' => $userRecords,
+            ),
+            'attributes' => array(
+                'title'     => 'Seleziona utente',
+                'id'        => 'utente',
+                'required'  => 'required'
+            )
         ));
     }
 }

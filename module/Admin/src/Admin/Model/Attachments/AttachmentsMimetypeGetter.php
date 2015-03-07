@@ -40,11 +40,11 @@ class AttachmentsMimetypeGetter extends QueryBuilderHelperAbstract
     }
     
     /**
-     * @param number $mimetype
+     * @param string $mimetype
      */
     public function setMimeType($mimetype)
     {
-        if ( isset($mimetype) ) {
+        if ( !empty($mimetype) ) {
             $this->getQueryBuilder()->andWhere('a.mimetype = :mimetype ');
             $this->getQueryBuilder()->setParameter('mimetype', $mimetype);
         }

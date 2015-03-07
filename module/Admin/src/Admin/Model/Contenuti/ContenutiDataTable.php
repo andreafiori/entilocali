@@ -5,7 +5,7 @@ namespace Admin\Model\Contenuti;
 use Admin\Model\DataTable\DataTableAbstract;
 
 /**
- * Contents from the old CMS
+ * Contenuti from the old CMS
  *
  * @author Andrea Fiori
  * @since  15 February 2015
@@ -13,13 +13,15 @@ use Admin\Model\DataTable\DataTableAbstract;
 class ContenutiDataTable extends DataTableAbstract
 {
     /**
-     * @param array $input
+     * @inheritdoc
      */
     public function __construct(array $input)
     {
         parent::__construct($input);
 
-        $paginatorRecords = $this->setupPaginatorRecords();
+        $paginatorRecords = $this->setupPaginatorRecords(array(
+            'utente' => in_array( $this->getUserDetails()->role, array('WebMaster', 'SuperAdmin')) ? null : $this->getUserDetails()->id
+        ));
 
         $this->setRecords( $this->formatRecordsToShowOnTable($paginatorRecords) );
 
@@ -32,6 +34,7 @@ class ContenutiDataTable extends DataTableAbstract
                 "Sotto sezione",
                 'Data inserimento',
                 'Data scadenza',
+                'Inserito da',
                 "&nbsp;",
                 "&nbsp;",
                 "&nbsp;",
@@ -43,6 +46,7 @@ class ContenutiDataTable extends DataTableAbstract
 
         $this->setTitle('Contenuti');
         $this->setDescription('Gestione contenuti');
+
         // $this->setTemplate('datatable/contenuti/datatable_contenuti.phtml');
     }
 
@@ -55,13 +59,14 @@ class ContenutiDataTable extends DataTableAbstract
             $arrayToReturn = array();
             if ($records) {
                 foreach($records as $key => $row) {
-                    $activeDisableButtonValue = ($row['attivo']!=0) ? 'toDisable' : 'toActive';
+                    // $activeDisableButtonValue = ($row['attivo']!=0) ? 'toDisable' : 'toActive';
                     $arrayToReturn[] = array(
                         $row['titolo'],
                         $row['nomeSezione'],
                         $row['nomeSottosezione'],
                         $row['dataInserimento'],
                         $row['dataScadenza'],
+                        $row['name'].' '.$row['surname'],
                         array(
                             'type'      => $row['attivo']==1 ? 'disableButton' : 'activeButton',
                             'href'      => '',
@@ -102,14 +107,15 @@ class ContenutiDataTable extends DataTableAbstract
         }
 
         /**
-         * @return array
+         * @param array $input
+         * @return \stdClass
          */
-        private function setupPaginatorRecords()
+        private function setupPaginatorRecords($input = array())
         {
             $param = $this->getParam();
 
             $wrapper = new ContenutiGetterWrapper( new ContenutiGetter($this->getInput('entityManager',1)) );
-            $wrapper->setInput(array());
+            $wrapper->setInput($input);
             $wrapper->setupQueryBuilder();
             $wrapper->setupPaginator( $wrapper->setupQuery($this->getInput('entityManager', 1)) );
             $wrapper->setupPaginatorCurrentPage( isset($param['route']['page']) ? $param['route']['page'] : null );

@@ -5,6 +5,8 @@ namespace Admin\Model\Contenuti;
 use Admin\Model\FormData\FormDataAbstract;
 use Admin\Model\Sezioni\SottoSezioniGetter;
 use Admin\Model\Sezioni\SottoSezioniGetterWrapper;
+use Admin\Model\Users\UsersGetter;
+use Admin\Model\Users\UsersGetterWrapper;
 
 /**
  * @author Andrea Fiori
@@ -27,7 +29,15 @@ class ContenutiFormDataHandler extends FormDataAbstract
         $form = new ContenutiForm();
         $form->addSottoSezioni($this->getSezioniRecords());
         $form->addForm();
-        // $form->addUsers();
+
+        /* ACL Check */
+        if ( in_array( $this->getUserDetails()->role, array('WebMaster', 'SuperAdmin')) ) {
+            $form->addUsers($this->getUsersRecords(array(
+                'orderBy' => 'u.name'
+            )));
+        }
+
+        $form->addHomeBox();
 
         if ($recordFromDb) {
             $form->setData($recordFromDb[0]);
@@ -66,20 +76,27 @@ class ContenutiFormDataHandler extends FormDataAbstract
         {
             if (is_numeric($id)) {
                 $wrapper = new ContenutiGetterWrapper( new ContenutiGetter($this->getInput('entityManager',1)) );
-                $wrapper->setInput( array('id' => $id) );
+                $wrapper->setInput( array(
+                        'id'     => $id,
+                        'limit'  => 1,
+                        'utente' => in_array( $this->getUserDetails()->role, array('WebMaster', 'SuperAdmin')) ? null : $this->getUserDetails()->id
+                    )
+                );
                 $wrapper->setupQueryBuilder();
 
                 return $wrapper->getRecords();
             }
+
+            return null;
         }
 
         /**
          * @return array
          */
-        private function getSezioniRecords()
+        private function getSezioniRecords($input = array())
         {
             $wrapper = new SottoSezioniGetterWrapper( new SottoSezioniGetter($this->getInput('entityManager',1)) );
-            $wrapper->setInput( array() );
+            $wrapper->setInput($input);
             $wrapper->setupQueryBuilder();
 
             $sezioniRecords = $wrapper->getRecords();
@@ -88,6 +105,27 @@ class ContenutiFormDataHandler extends FormDataAbstract
             if (!empty($sezioniRecords)) {
                 foreach($sezioniRecords as $sezioniRecord) {
                     $arrayToReturn[$sezioniRecord['idSottosezione']] = utf8_encode($sezioniRecord['nomeSezione']). ' - '.utf8_encode($sezioniRecord['nomeSottosezione']);
+                }
+            }
+
+            return $arrayToReturn;
+        }
+
+        /**
+         * @return array
+         */
+        private function getUsersRecords($input = array())
+        {
+            $wrapper = new UsersGetterWrapper( new UsersGetter($this->getInput('entityManager',1)) );
+            $wrapper->setInput($input);
+            $wrapper->setupQueryBuilder();
+
+            $records = $wrapper->getRecords();
+
+            $arrayToReturn = array();
+            if (!empty($records)) {
+                foreach($records as $record) {
+                    $arrayToReturn[$record['id']] = utf8_encode($record['name']). ' '.utf8_encode($record['surname']);
                 }
             }
 

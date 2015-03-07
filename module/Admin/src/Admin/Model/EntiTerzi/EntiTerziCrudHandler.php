@@ -46,7 +46,7 @@ class EntiTerziCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
             $logResult = $logsWriter->writeLog(array(
                 'user_id'   => $userDetails->id,
                 'module_id' => '12',
-                'message'   => $userDetails->name.' '.$userDetails->surname."' ha aggiornato l'ente terzo ".$this->rawPost['nome'],
+                'message'   => $userDetails->name.' '.$userDetails->surname."' ha inserito l'ente terzo ".$this->rawPost['nome'],
                 'type'      => 'info',
                 'backend'   => 1,
             ));

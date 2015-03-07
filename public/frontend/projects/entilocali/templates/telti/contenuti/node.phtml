@@ -16,7 +16,9 @@
         <div><?php echo utf8_encode($record['sommario']) ?></div>
         <?php endif; ?>
 
-        <div><?php echo utf8_encode($record['testo']); ?></div>
+        <div>
+            <?php echo utf8_encode($record['testo']); ?>
+        </div>
 
         <?php if (!empty($record['attachments'])): ?>
             <h3>Allegati</h3>
@@ -43,6 +45,7 @@
 
 <?php else: ?>
     <div class="panel callout">
-        <h2>Nessun contenuto presente</h2>
+        <h2>Nessun testo presente in questa pagina</h2>
+        <p>La pagina corrente &egrave; attualmente in costruzione</p>
     </div>
 <?php endif; ?>

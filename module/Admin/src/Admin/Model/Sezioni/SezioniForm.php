@@ -70,6 +70,17 @@ class SezioniForm extends Form
         ));
 
         $this->add(array(
+            'name' => 'image',
+            'type' => 'File',
+            'options' => array( 'label' => 'Immagine' ),
+            'attributes' => array(
+                'placeholder'   => 'Immagine...',
+                'title'         => 'Inserisci immagine',
+                'id'            => 'image',
+            )
+        ));
+
+        $this->add(array(
             'type' => 'Zend\Form\Element\Select',
             'name' => 'colonna',
             'options' => array(

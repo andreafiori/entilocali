@@ -78,6 +78,13 @@ class ZfcmsContacts
     private $status;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="ip_address", type="string", length=20, nullable=true)
+     */
+    private $ipAddress;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="user_id", type="bigint", nullable=true)
@@ -278,6 +285,29 @@ class ZfcmsContacts
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Set ipAddress
+     *
+     * @param string $ipAddress
+     * @return ZfcmsContacts
+     */
+    public function setIpAddress($ipAddress)
+    {
+        $this->ipAddress = $ipAddress;
+    
+        return $this;
+    }
+
+    /**
+     * Get ipAddress
+     *
+     * @return string 
+     */
+    public function getIpAddress()
+    {
+        return $this->ipAddress;
     }
 
     /**

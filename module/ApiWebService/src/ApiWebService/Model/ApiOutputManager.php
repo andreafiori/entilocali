@@ -59,9 +59,7 @@ class ApiOutputManager
         switch($this->outputFormat)
         {
             case("json"):
-                if ( $this->getStatusCode() == 200) {
-
-                } else {
+                if ( $this->getStatusCode() != 200) {
                     $jsonModel = new JsonModel($content);
                     return $jsonModel;
                 }
@@ -89,6 +87,7 @@ class ApiOutputManager
             if ($xml === false) {
                 $xml = new \SimpleXMLElement('<root/>');
             }
+
             foreach($array as $key => $value) {
                 if (is_array($value)) {
                     $this->array2xml($value, $xml->addChild('element'));
@@ -96,6 +95,7 @@ class ApiOutputManager
                     $xml->addChild($key, htmlspecialchars($value));
                 }
             }
+
             return $xml->asXML();
         }
 }

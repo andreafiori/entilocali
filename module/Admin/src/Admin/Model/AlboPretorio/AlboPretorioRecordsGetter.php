@@ -120,9 +120,9 @@ class AlboPretorioRecordsGetter extends RecordsGetterAbstract
         $this->articoliWrapper = new AlboPretorioArticoliGetterWrapper( new AlboPretorioArticoliGetter($this->getEntityManager()) );
         $this->articoliWrapper->setInput( array('fields' => 'DISTINCT(aa.anno) AS anno', 'orderBy'=>'aa.anno') );
         $this->articoliWrapper->setupQueryBuilder();
-        
+
         $records = $this->articoliWrapper->getRecords();
-        
+
         if (!$records) {
             return false;
         }

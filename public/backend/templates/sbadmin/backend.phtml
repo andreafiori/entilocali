@@ -6,8 +6,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="<?php echo $this->sitename ?> - Area riservata">
+    <meta name="author" content="Kronoweb ITC">
 
     <title><?php echo $this->sitename ?> - Area riservata</title>
 
@@ -108,6 +108,7 @@
 
             <ul class="nav navbar-top-links navbar-right">
                 <li><a href="<?php echo $this->basepath() ?>" target="_blank" title="<?php echo $this->translate('Anteprima sito web') ?>"><i class="fa fa-eye"></i> <?php echo $this->translate('Anteprima') ?></a></li>
+                <?php if (in_array($this->userRole, array('WebMaster', 'SuperAdmin'))): ?>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-gear fa-fw"></i> Opzioni&nbsp; <i class="fa fa-caret-down"></i>
@@ -115,9 +116,12 @@
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="<?php echo $this->url('admin/config-edit', array('lang'=>'it')); ?>" title="Configurazioni applicazione">Configurazioni</a></li>
                         <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'logs')); ?>" title="Logs applicazione">Logs</a></li>
+                        <?php if (in_array($this->userRole, array('WebMaster'))): ?>
                         <li><a href="<?php echo $this->url('admin/migrazione', array('lang'=>'it')); ?>" title="Tool migrazione dati">Migrazione dati</a></li>
+                        <?php endif; ?>
                     </ul>
                 </li>
+                <?php endif; ?>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-wrench fa-fw"></i> Assistenza&nbsp; <i class="fa fa-caret-down"></i>
@@ -380,6 +384,7 @@
                         <ul class="nav nav-second-level">
                             <li><a href="<?php echo $this->baseUrl ?>formdata/users" title="Aggiungi nuova foto">Nuovo</a></li>
                             <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'users')); ?>" title="Gestione gallerie fotografice">Gestione</a></li>
+                            <?php if (in_array($this->userRole, array('WebMaster', 'SuperAdmin'))): ?>
                             <li>
                                 <a href="#" class="dropdown-collapse" title="">Ruoli <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
@@ -387,6 +392,7 @@
                                     <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'users-roles')); ?>" title="">Modifica \ Elimina</a></li>
                                 </ul>
                             </li>
+                            <?php endif; ?>
                         </ul>
                     </li>
 
@@ -464,7 +470,7 @@
         $('#contratti-opeartori-rubrica-table').DataTable({
             responsive: true,
             bPaginate: false,
-            //"pagingType": "full_numbers",
+            // "pagingType": "full_numbers",
             searching: false,
             "info": false,
             "pageLength": 10,

@@ -3,7 +3,6 @@
 namespace Admin\Model\Users;
 
 use Application\Model\RecordsGetterWrapperAbstract;
-use Admin\Model\Users\UsersGetter;
 
 /**
  * @author Andrea Fiori

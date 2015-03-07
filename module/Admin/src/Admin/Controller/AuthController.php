@@ -2,17 +2,16 @@
 
 namespace Admin\Controller;
 
-use Admin\Model\Config\ConfigGetter;
-use Admin\Model\Config\ConfigGetterWrapper;
+use Zend\View\Model\ViewModel;
+use Zend\Session\Container as SessionContainer;
+use Zend\Permissions\Acl\Acl;
+use Zend\Permissions\Acl\Resource\GenericResource as Resource;
 use Application\Controller\SetupAbstractController;
 use Application\Model\NullException;
-use Zend\View\Model\ViewModel;
 use Admin\Model\Users\UserFormAuthentication;
-use Zend\Session\Container as SessionContainer;
 use Admin\Model\Users\UsersGetter;
 use Admin\Model\Users\UsersGetterWrapper;
-use Zend\Permissions\Acl\Acl;
-use Zend\Permissions\Acl\Role\GenericRole as Role;
+use Admin\Model\Users\AclSetter;
 use \Exception;
 
 /**
@@ -33,11 +32,25 @@ class AuthController extends SetupAbstractController
         if ( $this->checkLogin() ) {
             return $this->redirect()->toRoute('admin');
         }
-        
+
         $appServiceLoader = $this->recoverAppServiceLoader();
 
-        $this->layout()->setVariable('form',     $this->getUserFormAuthentication());
-        $this->layout()->setVariable('messages', $this->flashMessenger()->getMessages());
+        $configurations = $appServiceLoader->recoverService('configurations');
+
+        $sessionContainer = new SessionContainer();
+
+        /* Preview password area */
+        if (!$this->checkPasswordPreviewArea($configurations, $sessionContainer)) {
+            return $this->redirect()->toRoute('password-preview');
+        }
+
+        $this->layout()->setVariables($configurations);
+        $this->layout()->setVariables(
+            array(
+                'form'      => $this->getUserFormAuthentication(),
+                'messages'  => $this->flashMessenger()->getMessages(),
+            )
+        );
         $this->layout('backend/templates/'.$appServiceLoader->recoverServiceKey('configurations', 'template_backend').'login.phtml');
 
         return new ViewModel();
@@ -93,11 +106,10 @@ class AuthController extends SetupAbstractController
                         $records = $records[0];
 
                         /* Set ACL */
-                        $acl = new Acl();
-                        $userRole = new Role('administrator');
-                        $acl->addRole($userRole);
-                        $acl->allow($userRole);
-                        $acl->isAllowed($userRole, null, 'view');
+                        $aclSetter = new AclSetter(new Acl());
+                        $aclSetter->addRoles();
+                        $aclSetter->addResources();
+                        $aclSetter->setupPermissions();
 
                         $sitename = $this->recoverSitename();
 
@@ -111,12 +123,9 @@ class AuthController extends SetupAbstractController
                         $sessionContainer->offsetSet('name',    $records['name']);
                         $sessionContainer->offsetSet('surname', $records['surname']);
                         $sessionContainer->offsetSet('email',   $records['email']);
-                        $sessionContainer->offsetSet('role',    $userRole);
-                        $sessionContainer->offsetSet('acl',     $acl);
+                        $sessionContainer->offsetSet('acl',     $aclSetter->getAcl());
+                        $sessionContainer->offsetSet('role',    $records['roleName']);
 
-                        // $sessionContainer->offsetSet('userDetails_$sitename', $acl);
-                        // $sessionContainer->offsetSet('currentSitename', $sitename);
-                        
                         /* Regenerate Session ID after login */
                         $manager = new \Zend\Session\SessionManager;
                         $manager->regenerateId();

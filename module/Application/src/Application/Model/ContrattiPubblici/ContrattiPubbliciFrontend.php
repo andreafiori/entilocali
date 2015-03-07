@@ -6,8 +6,8 @@ use Application\Model\RouterManagers\RouterManagerAbstract;
 use Application\Model\RouterManagers\RouterManagerInterface;
 use Admin\Model\ContrattiPubblici\ContrattiPubbliciGetter;
 use Admin\Model\ContrattiPubblici\ContrattiPubbliciGetterWrapper;
-use Admin\Model\ContrattiPubblici\SettoriGetter;
-use Admin\Model\ContrattiPubblici\SettoriGetterWrapper;
+use Admin\Model\ContrattiPubblici\Settori\SettoriGetter;
+use Admin\Model\ContrattiPubblici\Settori\SettoriGetterWrapper;
 
 /**
  * @author Andrea Fiori

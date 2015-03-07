@@ -1,0 +1,39 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ZfcmsProductsInvoices
+ *
+ * @ORM\Table(name="zfcms_products_invoices")
+ * @ORM\Entity
+ */
+class ZfcmsProductsInvoices
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=100, nullable=false)
+     */
+    private $description = '0';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="note", type="string", length=100, nullable=false)
+     */
+    private $note = '0';
+
+
+}

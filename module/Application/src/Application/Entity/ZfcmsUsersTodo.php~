@@ -1,0 +1,67 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ZfcmsUsersTodo
+ *
+ * @ORM\Table(name="zfcms_users_todo")
+ * @ORM\Entity
+ */
+class ZfcmsUsersTodo
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idtodo", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idtodo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="taskname", type="string", length=50, nullable=true)
+     */
+    private $taskname = '0';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", length=65535, nullable=true)
+     */
+    private $description;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="rifuser", type="integer", nullable=true)
+     */
+    private $rifuser = '0';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="state", type="string", length=50, nullable=true)
+     */
+    private $state = '0';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="timelapsed", type="string", length=50, nullable=true)
+     */
+    private $timelapsed = '0';
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="expiredate", type="datetime", nullable=true)
+     */
+    private $expiredate = '2013-01-01 01:01:01';
+
+
+}

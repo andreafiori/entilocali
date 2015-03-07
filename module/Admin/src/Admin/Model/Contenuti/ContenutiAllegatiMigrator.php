@@ -6,6 +6,10 @@ use Admin\Model\Migrazione\MigratorAbstract;
 use Admin\Model\Amazon\S3\S3;
 use Application\Model\Slugifier;
 
+/**
+ * @author Andrea Fiori
+ * @since  05 March 2015
+ */
 class ContenutiAllegatiMigrator extends MigratorAbstract
 {
     /**
