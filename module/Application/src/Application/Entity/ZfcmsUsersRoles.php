@@ -36,6 +36,13 @@ class ZfcmsUsersRoles
     private $name;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="descritpion", type="text", length=65535, nullable=false)
+     */
+    private $descritpion;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="insert_date", type="datetime", nullable=false)
@@ -55,6 +62,13 @@ class ZfcmsUsersRoles
      * @ORM\Column(name="status", type="string", length=15, nullable=false)
      */
     private $status;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="admin_access", type="integer", nullable=false)
+     */
+    private $adminAccess;
 
 
 
@@ -112,6 +126,29 @@ class ZfcmsUsersRoles
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set descritpion
+     *
+     * @param string $descritpion
+     * @return ZfcmsUsersRoles
+     */
+    public function setDescritpion($descritpion)
+    {
+        $this->descritpion = $descritpion;
+    
+        return $this;
+    }
+
+    /**
+     * Get descritpion
+     *
+     * @return string 
+     */
+    public function getDescritpion()
+    {
+        return $this->descritpion;
     }
 
     /**
@@ -181,5 +218,28 @@ class ZfcmsUsersRoles
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Set adminAccess
+     *
+     * @param integer $adminAccess
+     * @return ZfcmsUsersRoles
+     */
+    public function setAdminAccess($adminAccess)
+    {
+        $this->adminAccess = $adminAccess;
+    
+        return $this;
+    }
+
+    /**
+     * Get adminAccess
+     *
+     * @return integer 
+     */
+    public function getAdminAccess()
+    {
+        return $this->adminAccess;
     }
 }

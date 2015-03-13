@@ -20,7 +20,9 @@ class ContenutiDataTable extends DataTableAbstract
         parent::__construct($input);
 
         $paginatorRecords = $this->setupPaginatorRecords(array(
-            'utente' => in_array( $this->getUserDetails()->role, array('WebMaster', 'SuperAdmin')) ? null : $this->getUserDetails()->id
+            'orderBy' => 'contenuti.id DESC',
+            'utente' => in_array( $this->getUserDetails()->role,
+            array('WebMaster', 'SuperAdmin')) ? null : $this->getUserDetails()->id
         ));
 
         $this->setRecords( $this->formatRecordsToShowOnTable($paginatorRecords) );

@@ -1,6 +1,6 @@
 <?php
 
-namespace AdminTest\Model\Users;
+namespace AdminTest\Model\Users\Roles;
 
 use ApplicationTest\TestSuite;
 use Admin\Model\Users\Roles\UsersRolesGetter;

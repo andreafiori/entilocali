@@ -59,8 +59,8 @@ class StatoCivileDataTable extends DataTableAbstract
          */
         private function getYears()
         {
-            $statoCivileGetterWrapper = new StatoCivileGetterWrapper( new StatoCivileGetter($this->getInput('entityManager',1)) );
-            $statoCivileGetterWrapper->setInput( array('fields'=>'DISTINCT(sca.anno) AS anno') );
+            $statoCivileGetterWrapper = new StatoCivileGetterWrapper( new StatoCivileGetter($this->getInput('entityManager', 1)) );
+            $statoCivileGetterWrapper->setInput( array('fields' => 'DISTINCT(sca.anno) AS anno') );
             $statoCivileGetterWrapper->setupQueryBuilder();
             
             $years = $statoCivileGetterWrapper->getRecords();

@@ -32,7 +32,7 @@ class AttiConcessioneForm extends Form
         $this->add(array(
                         'name' => 'importo',
                         'type' => 'Text',
-                        'options' => array( 'label' => 'Importo (Euro)' ),
+                        'options' => array( 'label' => '* Importo (Euro)' ),
                         'attributes' => array(
                                         'title'         => 'Inserisci importo (Euro)',
                                         'id'            => 'importo',
@@ -43,7 +43,7 @@ class AttiConcessioneForm extends Form
     }
 
     /**
-     * @param $records
+     * @param array|null $records
      */
     public function addUfficioResponsabile($records)
     {
@@ -63,19 +63,25 @@ class AttiConcessioneForm extends Form
         ));
     }
 
-    public function addResponsabileProcedimento()
+    /**
+     * @param array $records
+     */
+    public function addResponsabileProcedimento($records)
     {
-        /* TODO: respProc
         $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
             'name' => 'respProc',
-            'type' => 'Text',
-            'options' => array( 'label' => 'Responsabile del procedimento' ),
+            'options' => array(
+                'label'          => '* Responsabile del procedimento',
+                'empty_option'   => 'Seleziona',
+                'value_options'  => $records,
+            ),
             'attributes' => array(
-                'title' => 'Responsabile del procedimento',
-                'id'    => 'respProc',
+                'id'        => 'respProc',
+                'title'     => 'Seleziona Responsabile del procedimento',
+                'required'  => 'required',
             )
         ));
-        */
     }
 
     public function addModalitaAssegnazione()
@@ -83,7 +89,7 @@ class AttiConcessioneForm extends Form
         $this->add(array(
                         'name' => 'modassegn',
                         'type' => 'Text',
-                        'options' => array( 'label' => 'Modalit&agrave; assegnazione' ),
+                        'options' => array( 'label' => '* Modalit&agrave; assegnazione' ),
                         'attributes' => array(
                                         'title'         => 'Modalit&agrave; assegnazione',
                                         'placeholder'   => 'Modalit&agrave; assegnazione...',
@@ -107,7 +113,7 @@ class AttiConcessioneForm extends Form
             'type' => 'Date',
             'name' => 'dataInserimento',
             'options' => array(
-                'label' => "Data inserimento:",
+                'label' => "* Data inserimento:",
                 'format' => 'Y-m-d',
             ),
             'attributes' => array(
@@ -121,20 +127,17 @@ class AttiConcessioneForm extends Form
         $this->add(array(
             'name' => 'anno',
             'type' => 'Text',
-            'options' => array( 'label' => "Anno del Bando" ),
+            'options' => array( 'label' => "* Anno del Bando" ),
             'attributes' => array(
-                'title' => "Anno del Bando",
-                'id'    => 'anno',
-                'type' => 'number',
-                'min' => '1954',
-                'max' => '2054',
-                'placeholder' => 'Anno...',
+                'title'         => "Anno del Bando",
+                'id'            => 'anno',
+                'type'          => 'number',
+                'min'           => '1954',
+                'max'           => '2054',
+                'placeholder'   => 'Anno...',
+                'required'      => 'required',
             )
         ));
-
-        // Data scadenza: 5 Anni a partire dall'anno successivo a quello di inserimento
-
-        // Associa articolo a utente: se utente non admin visualizza id campo nascosto, altrimenti select area
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Hidden',
@@ -147,17 +150,9 @@ class AttiConcessioneForm extends Form
             'name' => 'userId',
             'attributes' => array("class"=>'hiddenField')
         ));
-    }
 
-    /**
-     * Set a single option for an element
-     *
-     * @param  string $key
-     * @param  mixed $value
-     * @return self
-     */
-    public function setOption($key, $value)
-    {
-        // TODO: Implement setOption() method.
+        // Data scadenza: 5 Anni a partire dall'anno successivo a quello di inserimento
+
+        // Associa articolo a utente: se utente non admin visualizza id campo nascosto, altrimenti select area
     }
 }

@@ -349,9 +349,25 @@
                         </ul>
                     </li>
 
+                    <!-- Blogs -->
+                    <li>
+                        <a href="#" class="dropdown-collapse"><i class="fa fa-list-alt fa-fw"></i> <span class="side-menu-title">Blogs</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="#<?php echo $this->baseUrl ?>formdata/photo" title="Aggiungi nuova foto">Nuovo</a></li>
+                            <li><a href="#<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'photo')); ?>" title="Gestione gallerie fotografice">Modifica \ Elimina</a></li>
+                            <li>
+                                <a href="#" class="dropdown-collapse" title="">Categorie <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li><a href="#<?php echo $this->baseUrl ?>formdata/blogs/" title="">Nuova</a></li>
+                                    <li><a href="#<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'categories', array('moduleId' => 6, 'type'=>'blogs'))); ?>" title="Gestione categorie blogs">Modifica \ Elimina</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
                     <!-- Foto -->
                     <li>
-                        <a href="#" class="dropdown-collapse"><i class="fa fa-list-alt fa-fw"></i> <span class="side-menu-title">Foto</span><span class="fa arrow"></span></a>
+                        <a href="#" class="dropdown-collapse"><i class="fa fa-camera fa-fw"></i> <span class="side-menu-title">Foto</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="<?php echo $this->baseUrl ?>formdata/photo" title="Aggiungi nuova foto">Nuova</a></li>
                             <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'photo')); ?>" title="Gestione gallerie fotografice">Gestione</a></li>
@@ -359,7 +375,7 @@
                                 <a href="#" class="dropdown-collapse" title="">Categorie <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li><a href="<?php echo $this->baseUrl ?>formdata/categories/?moduleId=6" title="">Nuovo</a></li>
-                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'categories', array('moduleId'=>6))); ?>" title="Gestione foto">Modifica \ Elimina</a></li>
+                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang' => 'it', 'tablesetter' => 'categories', array('moduleId'=>6))); ?>" title="Gestione foto">Modifica \ Elimina</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -371,18 +387,20 @@
 
                     <!--
                     <li>
-                        <a href="forms.html"><i class="fa fa-newspaper-o fa-fw"></i> <span class="side-menu-title">FAQ</span></a>
+                        <a href="forms.html"><i class="fa fa-newspaper-o fa-fw"></i> <span class="side-menu-title">Video</span></a>
                     </li>
 
                     <li>
-                        <a href="forms.html"><i class="fa fa-newspaper-o fa-fw"></i> <span class="side-menu-title">Video</span></a>
+                        <a href="forms.html"><i class="fa fa-newspaper-o fa-fw"></i> <span class="side-menu-title">FAQ</span></a>
                     </li>
                     -->
 
                     <li>
                         <a href="#" class="dropdown-collapse"><i class="fa fa-list-alt fa-users"></i> <span class="side-menu-title">Utenti</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
+                            <?php if (in_array($this->userRole, array('WebMaster', 'SuperAdmin'))): ?>
                             <li><a href="<?php echo $this->baseUrl ?>formdata/users" title="Aggiungi nuova foto">Nuovo</a></li>
+                            <?php endif; ?>
                             <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'users')); ?>" title="Gestione gallerie fotografice">Gestione</a></li>
                             <?php if (in_array($this->userRole, array('WebMaster', 'SuperAdmin'))): ?>
                             <li>
@@ -424,7 +442,7 @@
 <script src="<?php echo $this->basePath() ?>/public/<?php echo $this->templateBackendDir ?>bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
 <!-- DataTables JavaScript -->
-<script src="<?php echo $this->basePath() ?>/public/<?php echo $this->templateBackendDir ?>bower_components/DataTables/media/js/jquery.dataTables.min.js"></script>
+<script src="<?php echo $this->basePath() ?>/public/<?php echo $this->templateBackendDir ?>bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo $this->basePath() ?>/public/<?php echo $this->templateBackendDir ?>bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 
 <!-- Custom Theme JavaScript -->
@@ -454,17 +472,24 @@
         $('select option:first', '#'+id).attr('selected',true);
     }
 
+    function reloadPage()
+    {
+        window.location.reload();
+    }
+
     $(document).ready(function () {
 
         /* Datatable */
         $('#dataTable').dataTable({
-            "pagingType": "full_numbers"
+            "pagingType": "full_numbers",
+            "aaSorting": []
         });
 
         $('#zf2-pagination-table').DataTable({
             responsive: true,
             bPaginate: false,
-            "info": false
+            "info": false,
+            "aaSorting": []
         });
 
         $('#contratti-opeartori-rubrica-table').DataTable({
@@ -489,7 +514,6 @@
                 });
 
                 $("#formcontainer").hide();
-                /* $("#showFormContainer").show(); */
             }
         });
 

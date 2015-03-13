@@ -14,7 +14,7 @@ class FormDataHandler extends RouterManagerAbstract implements RouterManagerInte
     private $formSetter;
 
     /**
-     * @return \Application\Model\RouterManagers\type|bool
+     * @return bool|mixed
      */
     public function setupRecord()
     {
@@ -50,7 +50,7 @@ class FormDataHandler extends RouterManagerAbstract implements RouterManagerInte
     }
     
     /**
-     * @param type $formSetterClassMap
+     * @param string $formSetterClassMap
      */
     public function setFormSetter($formSetterClassMap)
     {

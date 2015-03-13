@@ -67,11 +67,13 @@
                     <?php elseif($record['type']=='tableButton'): ?>
                     <td><a href="<?php echo $record['href'] ?>" class="btn btn-lg" title="<?php echo $record['title'] ?>"><i class="fa fa-table"></i> </a></td>
                     <?php elseif($record['type']=='attachButton'): ?>
-                    <td><a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-black" title="Gestione allegati"><i class="fa fa-paperclip"></i> </a></td>
+                    <td><a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-black" title="<?php echo isset($record['title']) ? $record['title'] : 'Gestione allegati'; ?>"><i class="fa fa-paperclip"></i> </a></td>
                     <?php elseif($record['type']=='relatapdfButton'): ?>
                     <td><a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-red" title="Genera documento relata di pubblicazione"><i class="fa fa-file-pdf-o"></i> </a></td>
                     <?php elseif($record['type']=='enteterzoButton'): ?>
                     <td><a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-black" title="Invia ad ente terzo"><i class="fa fa-envelope-square"></i></a></td>
+                    <?php elseif($record['type']=='squareIconButton'): ?>
+                    <td><a href="<?php echo $record['href'] ?>" class="btn btn-lg" title="<?php echo isset($record['title']) ? $record['title'] : null ?>"><i class="fa fa-check-square-o"></i> </a></td>
                     <?php endif; ?>
                 <?php else: ?>
                 <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>

@@ -11,7 +11,7 @@ use Admin\Model\FormData\FormDataAbstract;
 class ResponsabiliProcedimentoFormDataHandler extends FormDataAbstract
 {
     /**
-     * @param array $input
+     * @inheritdoc
      */
     public function __construct(array $input)
     {
@@ -38,13 +38,17 @@ class ResponsabiliProcedimentoFormDataHandler extends FormDataAbstract
             $formDescription = 'Inserisci un nome responsabile procedimenti per i contratti pubblici';
         }
         
-        $this->setVariable('form',              $form);
-        $this->setVariable('formAction',        $formAction);
-        $this->setVariable('formTitle',         $formTitle);
-        $this->setVariable('formDescription',   $formDescription);       
-        $this->setVariable('formBreadCrumbCategory', 'Contratti pubblici');
-        $this->setVariable('formLabelSpanWidth', 3);
-        $this->setVariable('formControlSpanWidth', 9);
+        $this->setVariables(array(
+                'form' => $form,
+                'formAction'                 => $formAction,
+                'formTitle'                  => $formTitle,
+                'formDescription'            => $formDescription,
+                'formBreadCrumbCategory'     => 'Responsabili procedimento contratti pubblici',
+                'formBreadCrumbCategoryLink' => $this->getInput('baseUrl', 1).'datatable/'.$param['route']['formsetter'],
+                'formLabelSpanWidth'         => 3,
+                'formControlSpanWidth'       => 9,
+            )
+        );
     }
     
         /**

@@ -4,7 +4,7 @@
     $urlRedirect = str_replace('//', '/', $this->url('admin/datatable', array('lang' => $routeParams['lang'], 'tablesetter' => $routeParams['tablesetter'])));
     ?>
     <script>
-    window.location = '<?php echo $urlRedirect ?>';
+        top.location = '<?php echo $urlRedirect ?>';
     </script>
 <?php endif; ?>
 
@@ -49,10 +49,10 @@
     </ul></div>
     <?php endif; ?>
 
-    <?php if ($this->messageShowFormLink): ?>
-    <div id="showFormContainer">
-        &raquo; <a href="javascript:void(0)" id="reShowForm">Mostra form</a>
-    </div>
+    <?php if ($this->messageShowFormLink and !$this->reloadPage and !$this->redirectRoute and !$this->redirectRouteTableSetter): ?>
+        <div id="showFormContainer">
+            &raquo; <a href="javascript:void(0)" id="reShowForm">Mostra form</a>
+        </div>
     <?php endif; ?>
 
     <?php if ($this->redirectRoute and $this->redirectRouteTableSetter): ?>
@@ -62,7 +62,13 @@
 
 <div>&nbsp;</div>
 
+
 <script>
+
+<?php if ($this->reloadPage): ?>
+    top.location.reload();
+<?php endif; ?>
+
 $('#reShowForm').click(function() {
     $('#formcontainer').show();
     $('input:submit').attr('disabled', false);

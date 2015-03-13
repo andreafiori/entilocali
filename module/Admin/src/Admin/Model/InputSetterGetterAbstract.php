@@ -23,6 +23,7 @@ abstract class InputSetterGetterAbstract
     /**
      * @param array $key
      * @param int $noArray
+     *
      * @return mixed
      */
     public function getInput($key = null, $noArray = 0)
@@ -34,6 +35,7 @@ abstract class InputSetterGetterAbstract
      * @param array $array
      * @param string $key
      * @param int $noArray
+     *
      * @return array
      */
     protected function getArrayValue($array, $key = null, $noArray = null)

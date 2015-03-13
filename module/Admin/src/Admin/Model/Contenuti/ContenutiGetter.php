@@ -173,4 +173,18 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
 
         return $this->getQueryBuilder();
     }
+
+    /**
+     * @param int $id
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setIsAmmTrasparente($bool)
+    {
+        if ( is_numeric($bool) ) {
+            $this->getQueryBuilder()->andWhere('contenuti.isAmmTrasparente = :isammtrasp ');
+            $this->getQueryBuilder()->setParameter('isammtrasp', $bool);
+        }
+
+        return $this->getQueryBuilder();
+    }
 }

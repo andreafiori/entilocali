@@ -4,6 +4,8 @@ namespace Admin\Model\ContrattiPubblici\Operatori;
 
 use Application\Model\RouterManagers\RouterManagerAbstract;
 use Application\Model\RouterManagers\RouterManagerInterface;
+use Admin\Model\ContrattiPubblici\ContrattiPubbliciGetter;
+use Admin\Model\ContrattiPubblici\ContrattiPubbliciGetterWrapper;
 
 /**
  * @author Andrea Fiori

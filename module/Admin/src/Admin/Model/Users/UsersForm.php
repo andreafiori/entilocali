@@ -11,21 +11,21 @@ use Zend\Form\Form;
 class UsersForm extends Form
 {
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
-    public function __construct($name = null)
+    public function __construct($name = null, $options = array())
     {
-        parent::__construct('formData');
+        parent::__construct($name, $options);
         
         $this->add(array(
                         'name' => 'name',
                         'type' => 'Text',
                         'options' => array( 'label' => '* Nome' ),
                         'attributes' => array(
-                                        'required' => 'required',
-                                        'title' => 'Inserisci il nome',
-                                        'placeholder' => 'Inserisci il nome',
-                                        'id' => 'name',
+                                        'required'      => 'required',
+                                        'title'         => 'Inserisci il nome',
+                                        'placeholder'   => 'Nome...',
+                                        'id'            => 'name',
                         )
         ));
         
@@ -35,9 +35,9 @@ class UsersForm extends Form
                         'options' => array( 'label' => '* Cognome' ),
                         'attributes' => array(
                                         'required' => 'required',
-                                        'title'    => 'Inserisci il cognome',
-                                        'placeholder' => 'Inserisci il cognome',
-                                        'id'          => 'surname',
+                                        'title'         => 'Inserisci il cognome',
+                                        'placeholder'   => 'Cognome...',
+                                        'id'            => 'surname',
                         )
         ));
         
@@ -46,10 +46,10 @@ class UsersForm extends Form
                         'type' => 'Email',
                         'options' => array( 'label' => '* Email' ),
                         'attributes' => array(
-                                        'required'  => 'required',
-                                        'title'     => 'Inserisci indirizzo email',
-                                        'placeholder' => 'Inserisci indirizzo email',
-                                        'id'        => 'email',
+                                        'required'      => 'required',
+                                        'title'         => 'Inserisci indirizzo email',
+                                        'placeholder'   => 'Inserisci indirizzo email',
+                                        'id'            => 'email',
                         )
         ));
         
@@ -70,9 +70,9 @@ class UsersForm extends Form
                         'type' => 'Password',
                         'options' => array( 'label' => 'Password' ),
                         'attributes' => array(
-                                        'title' => 'Inserisci password',
-                                        'placeholder' => 'Inserisci una password',
-                                        'id'    => 'password',
+                                        'title'         => 'Inserisci password',
+                                        'placeholder'   => 'Inserisci una password',
+                                        'id'            => 'password',
                         )
         ));
         
@@ -81,9 +81,9 @@ class UsersForm extends Form
                         'type' => 'Password',
                         'options' => array( 'label' => 'Conferma password' ),
                         'attributes' => array(
-                                        'title' => 'Conferma password',
-                                        'placeholder' => 'Conferma password',
-                                        'id'    => 'password-confirm',
+                                        'title'         => 'Conferma password',
+                                        'placeholder'   => 'Conferma password',
+                                        'id'            => 'password-confirm',
                         )
         ));
         
@@ -99,16 +99,49 @@ class UsersForm extends Form
                         'attributes' => array("class" => 'hiddenField')
         ));
     }
-    
-    public function addLastUpdatePassword()
+
+    /**
+     * @param array $records
+     */
+    public function addRoles(array $records)
     {
         $this->add(array(
-                        'type' => 'Application\Form\Element\PlainText',
-                        'name' => 'lastUpdatePassword',
-                        'attributes' => array(
-                                        'id'    => 'lastUpdatePassword',
-                                        'value' => 'Ultimo aggiornamento password: '.$this->getValue('lastUpdatePassword'),
-                        ),
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'role',
+            'options' => array(
+                'label'         => '* Ruolo',
+                'empty_option'  => 'Seleziona',
+                'value_options' => $records,
+            ),
+            'attributes' => array(
+                'title'     => 'Seleziona ruolo utente',
+                'id'        => 'role',
+                'required'  => 'required'
+            )
+        ));
+    }
+
+    /**
+     * @param array $records
+     */
+    public function addSettori(array $records)
+    {
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'status',
+            'options' => array(
+                'label' => '* Ruolo',
+                'empty_option' => 'Seleziona',
+                'value_options' => array(
+                    'attivo'    => 'Attivo',
+                    'nascosto'  => 'Nascosto',
+                ),
+            ),
+            'attributes' => array(
+                'title'     => 'Seleziona settore',
+                'id'        => 'settore',
+                'required'  => 'required'
+            )
         ));
     }
 }

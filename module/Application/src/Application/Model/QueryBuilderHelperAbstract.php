@@ -30,6 +30,7 @@ abstract class QueryBuilderHelperAbstract
         $config = $this->entityManager->getConfiguration();
         $config->addCustomDatetimeFunction('DATE_FORMAT', "\\Application\\Model\\Doctrine\\Functions\\DateFormat");
         $config->addCustomDatetimeFunction('MONTH', "\\Application\\Model\\Doctrine\\Functions\\Month");
+        $config->addCustomDatetimeFunction('MD5', "\\Application\\Model\\Doctrine\\Functions\\Md5");
 
         $this->queryBuilder = $this->entityManager->createQueryBuilder();
     }

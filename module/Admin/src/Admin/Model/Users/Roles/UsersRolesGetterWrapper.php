@@ -11,12 +11,12 @@ use Application\Model\RecordsGetterWrapperAbstract;
 class UsersRolesGetterWrapper extends RecordsGetterWrapperAbstract
 {
     /**
-     * @var UsersRoles
+     * @var UsersRolesGetter
      */
     protected $objectGetter;
 
     /**
-     * @param UsersRoles $usersGetter
+     * @param UsersRolesGetter $objectGetter
      */
     public function __construct(UsersRolesGetter $objectGetter)
     {

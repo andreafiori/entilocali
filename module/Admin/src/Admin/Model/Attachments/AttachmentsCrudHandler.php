@@ -16,7 +16,7 @@ class AttachmentsCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
     private $tableName_options      = 'zfcms_attachments_options';
     private $tableName_relations    = 'zfcms_attachments_relations';
 
-    //private $validExtensions = array('txt','doc','docx','xls','xlsx','pdf','jpg','rtf','ods','zip');
+    private $allowedExtensions = array('txt','doc','docx','xls','xlsx','pdf','jpg','rtf','ods','zip');
     
     protected function insert()
     {
@@ -24,21 +24,25 @@ class AttachmentsCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
         try {
             $request = $this->getInput('request', 1);
 
-            $post = array_merge_recursive(
+            $formPost = array_merge_recursive(
                 $request->getPost()->toArray(),
                 $request->getFiles()->toArray()
             );
-            
+
             $form = new AttachmentsForm();
             $form->addInputFile();
             $form->addSecondaryFields();
-            $form->setData($post);
+            $form->setData($formPost);
+
+            /*
+             * why the form is INVALID ?????????????????????????????
             if ( !$form->isValid() ) {
                 $this->setErrorMessage('Dati inseriti nel form non validi');
                 return false;
             }
-            
-            if (!isset($post['s3_directory'])) {
+            */
+
+            if (!isset($formPost['s3_directory'])) {
                 $this->setErrorMessage('Nome cartella di destinazione file non presente');
                 return false;
             }
@@ -46,17 +50,13 @@ class AttachmentsCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
             $formFilter = new AttachmentsFormFilter();
             $form->setInputFilter($formFilter->getInputFilter());                        
 
-            // Validate extension
+            // Validate file extension...
             
-            // Validate size
-            
-            // Rename file extension before store it
-            
-            $fileExtension = pathinfo($post['attachmentFile']['name'], PATHINFO_EXTENSION);
-            
-            // select MIME
+            // Validate file size...
+
+            // Select MIME
             $wrapper = new AttachmentsMimetypeGetterWrapper(new AttachmentsMimetypeGetter($this->getInput('entityManager',1)));
-            $wrapper->setInput(array('mimetype' => $post['attachmentFile']['type']));
+            $wrapper->setInput(array('mimetype' => $formPost['attachmentFile']['type']));
             $wrapper->setupQueryBuilder();
             $mimeRecords = $wrapper->getRecords();
             if (!$mimeRecords) {
@@ -64,43 +64,50 @@ class AttachmentsCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
                 return false;
             }
             
-            // insert on attachments
+            // Insert on attachments
             $this->getConnection()->insert($this->tableName, array(
-                'name'          => $post['attachmentFile']['name'],
-                'size'          => $post['attachmentFile']['size'],
+                'name'          => $formPost['attachmentFile']['name'],
+                'size'          => $formPost['attachmentFile']['size'],
                 'state'         => null,
                 'insert_date'   => date("Y-m-d H:i:s"),
-                'expire_date'   => date("Y-m-d H:i:s"),
                 'mime_id'       => $mimeRecords[0]['id'],
-                'user_id'       => $post['userId'],
+                'user_id'       => $formPost['userId'],
             ));
             
             $attachmentLastId = $this->getConnection()->lastInsertId();
             
-            // insert attachment options
+            // Insert attachment options
+            $lastId = $this->getConnection()->lastInsertId();
             $this->getConnection()->insert($this->tableName_options, array(
-                'title'         => $post['title'],
-                'description'   => $post['description'],
+                'title'         => $formPost['title'],
+                'description'   => $formPost['description'],
+                'expire_date'   => date("Y-m-d H:i:s"),
                 'attachment_id' => $this->getConnection()->lastInsertId(),
                 'language_id'   => 1,
             ));
-            
-            // insert relations
+
+            $this->getConnection()->update($this->tableName, array(
+                    'name' => AttachmentsContainer::assignFileName($formPost['attachmentFile']['name'], $lastId)
+                ),
+                array('id' => $lastId)
+            );
+
+            // Insert relations
             $this->getConnection()->insert($this->tableName_relations, array(
                 'attachment_id' => $attachmentLastId,
-                'reference_id'  => $post['referenceId'],
-                'module_id'     => $post['moduleId'],
+                'reference_id'  => $formPost['referenceId'],
+                'module_id'     => $formPost['moduleId'],
             ));
             
             $appConfigurationsFromDb = $this->getInput('configurations',1);
 
             // Upload on S3
-            $filename = $post['attachmentFile']['name'];
+            $filename = AttachmentsContainer::assignFileName($formPost['attachmentFile']['name'], $lastId);
             $s3 = new S3($appConfigurationsFromDb['amazon_s3_accesskey'], $appConfigurationsFromDb['amazon_s3_secretkey']);
             $s3->putObject(
-                S3::inputFile($post['attachmentFile']['tmp_name'], false),
+                S3::inputFile($formPost['attachmentFile']['tmp_name'], false),
                 $appConfigurationsFromDb['amazon_s3_bucket'],
-                $post['s3_directory'].'/'.$filename,
+                $formPost['s3_directory'].'/'.$filename,
                 S3::ACL_PUBLIC_READ
             );
   
@@ -108,9 +115,11 @@ class AttachmentsCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
 
             $this->setSuccessMessage();
             
-            // Redirect
-            // $redirect = $this->getInput('redirect', 1);
-            // $redirect->toRoute('admin/formdata', array("lang"=> 'it', 'formsetter' => ''));
+            // Reload page using Javascript
+            $this->setVariables(array(
+                    'reloadPage' => 1
+                )
+            );
 
         } catch (\Exception $e) {
             $this->getConnection()->rollBack();
@@ -120,10 +129,9 @@ class AttachmentsCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
     
     protected function update()
     {
-        $appConfigurationsFromDb = $this->getInput('configurations',1);
-        
+        $this->getConnection()->beginTransaction();
         try {
-            $this->setArrayRecordToHandle('titolo', 'titolo');
+            $this->setArrayRecordToHandle('titolo', 'expireDate');
 
             $this->getConnection()->update($this->tableName, 
                     $this->getArrayRecordToHandle(),
@@ -139,10 +147,44 @@ class AttachmentsCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
             return $this->setErrorMessage($e->getMessage());
         }
     }
-    
-    protected function delete()
+
+    /**
+     * DELETE attachment file from database and S3 storage
+     *
+     * @param $id
+     */
+    protected function delete($id)
     {
-        // TODO
+        $this->getConnection()->beginTransaction();
+        try {
+            // delete relation record
+            $this->getConnection()->delete($this->tableName_relations,
+                array('attachment_id' => $id)
+            );
+
+            // delete option record
+            $this->getConnection()->delete($this->tableName_options,
+                array('attachment_id' => $id)
+            );
+
+            // delete attachment record
+            $this->getConnection()->delete($this->tableName,
+                array('id' => $id)
+            );
+
+            $this->getConnection()->commit();
+
+            return true;
+
+        } catch (\Exception $e) {
+            $this->getConnection()->rollBack();
+            return $this->setErrorMessage($e->getMessage());
+        }
+    }
+
+    public function deleteFromS3($id, $filename)
+    {
+
     }
 }
 

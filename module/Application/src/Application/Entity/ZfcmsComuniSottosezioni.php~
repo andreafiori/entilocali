@@ -80,13 +80,6 @@ class ZfcmsComuniSottosezioni
     /**
      * @var integer
      *
-     * @ORM\Column(name="profondita_da", type="bigint", nullable=false)
-     */
-    private $profonditaDa;
-
-    /**
-     * @var integer
-     *
      * @ORM\Column(name="is_ss", type="integer", nullable=false)
      */
     private $isSs;
@@ -125,6 +118,16 @@ class ZfcmsComuniSottosezioni
      * @ORM\Column(name="is_amm_trasparente", type="integer", nullable=false)
      */
     private $isAmmTrasparente;
+
+    /**
+     * @var \Application\Entity\ZfcmsComuniSottosezioni
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniSottosezioni")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="profondita_da", referencedColumnName="id")
+     * })
+     */
+    private $profonditaDa;
 
     /**
      * @var \Application\Entity\ZfcmsComuniSezioni

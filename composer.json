@@ -1,6 +1,6 @@
 {
-    "name": "Kronoweb ITC, Entilocali",
-    "description": "Kronoweb ITC entilocali",
+    "name": "Kronoweb ITC, Enti locali",
+    "description": "Kronoweb ITC Enti locali",
     "authors": [
         {
             "name": "Andrea Fiori",
@@ -12,9 +12,11 @@
     ],
     "homepage": "http://framework.zend.com/",
     "require": {
+        "doctrine/doctrine-module": "0.*",
         "doctrine/doctrine-orm-module": "0.*",
         "php": ">=5.3.3",
-        "zendframework/zendframework": "2.3.*"
+        "zendframework/zendframework": "2.3.*",
+        "gedmo/doctrine-extensions": "2.3.*"
     },
     "minimum-stability": "dev",
     "require-dev": {

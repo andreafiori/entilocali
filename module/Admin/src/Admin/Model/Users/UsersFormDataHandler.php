@@ -3,6 +3,8 @@
 namespace Admin\Model\Users;
 
 use Admin\Model\FormData\FormDataAbstract;
+use Admin\Model\Users\Roles\UsersRolesGetter;
+use Admin\Model\Users\Roles\UsersRolesGetterWrapper;
 
 /**
  * @author Andrea Fiori
@@ -16,33 +18,58 @@ class UsersFormDataHandler extends FormDataAbstract
     public function __construct(array $input)
     {
         parent::__construct($input);
-        
+
         $param = $this->getInput('param', 1);
 
         if (isset($param['route']['option'])) {
             $records = $this->getUserRecord($param['route']['option']);
         }
 
-        $form = new UsersForm();
+        $form = $this->buildForm();
+
         if (!empty($records)) {
             $formAction      = 'users/update/'.$records[0]['id'];
             $formTitle       = 'Modifica utente';
-            $formDescription = 'Modifica dati utente.';
+            $formDescription = 'Modifica dati utente';
 
             $form->setData($records[0]);
         } else {
+
+            // Check ACL
+            if( !$this->isRole(array('SuperAdmin','WebMaster')) ) {
+                $redirect = $this->getInput('redirect',1);
+                return $redirect->toRoute('admin', array('lang' => 'it'));
+            }
+
             $formTitle       = 'Nuovo utente';
             $formDescription = 'Creazione nuovo utente.';
             $formAction      = 'users/insert/';
         }
 
-        $this->setVariable('form',              $form);
-        $this->setVariable('formTitle',         $formTitle);
-        $this->setVariable('formDescription',   $formDescription);
-        $this->setVariable('formAction',        $formAction);
-        $this->setVariable('formBreadCrumbCategory',    'Utenti');
-        $this->setVariable('formBreadCrumbCategoryLink', $this->getInput('baseUrl',1).'datatable/users');
+        $this->setVariables(array(
+                'form'              => $form,
+                'formTitle'         => $formTitle,
+                'formDescription'   => $formDescription,
+                'formAction'        => $formAction,
+                'formBreadCrumbCategory' => 'Utenti',
+                'formBreadCrumbCategoryLink' => $this->getInput('baseUrl',1).'datatable/users',
+            )
+        );
     }
+
+        /**
+         * @return UsersForm
+         */
+        private function buildForm()
+        {
+            $form = new UsersForm();
+
+            if( $this->isRole(array('SuperAdmin','WebMaster')) ) {
+                $form->addRoles($this->getRolesRecords());
+            }
+
+            return $form;
+        }
 
         /**
          * @param number $idUser
@@ -54,10 +81,31 @@ class UsersFormDataHandler extends FormDataAbstract
                 return false;
             }
             
-            $usersGetterWrapper = new UsersGetterWrapper( new UsersGetter($this->getInput('entityManager', 1)) );
-            $usersGetterWrapper->setInput( array("id" => $idUser) );
-            $usersGetterWrapper->setupQueryBuilder();
+            $wrapper = new UsersGetterWrapper( new UsersGetter($this->getInput('entityManager', 1)) );
+            $wrapper->setInput( array("id" => $idUser) );
+            $wrapper->setupQueryBuilder();
             
-            return $usersGetterWrapper->getRecords();
+            return $wrapper->getRecords();
+        }
+
+        /**
+         * @return array
+         */
+        private function getRolesRecords()
+        {
+            $wrapper = new UsersRolesGetterWrapper( new UsersRolesGetter($this->getInput('entityManager', 1)) );
+            $wrapper->setInput( array() );
+            $wrapper->setupQueryBuilder();
+
+            $rolesRecords = $wrapper->getRecords();
+            if (!empty($rolesRecords)) {
+                $toReturn = array();
+                foreach($rolesRecords as $rolesRecord) {
+                    $toReturn[$rolesRecord['id']] = $rolesRecord['name'];
+                }
+                return $toReturn;
+            }
+
+            return false;
         }
 }

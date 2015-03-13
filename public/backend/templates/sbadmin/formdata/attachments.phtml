@@ -30,7 +30,7 @@ echo $this->render($this->formDataCommonPath.'formdata_breadcrumb.phtml');
         <table border="0" class="table table-bordered" width="100%">
         <thead>
         <tr>
-            <th>&nbsp;</th>
+            <!-- <th>&nbsp;</th> -->
             <th><?php echo $this->translate('Nome file') ?></th>
             <th><?php echo $this->translate('Titolo') ?></th>
             <th><?php echo $this->translate('Descrizione') ?></th>
@@ -43,23 +43,27 @@ echo $this->render($this->formDataCommonPath.'formdata_breadcrumb.phtml');
         <tbody>
         <?php foreach($this->attachmentsList as $record): ?>
         <tr>
+            <!--
             <td><input type="checkbox" id="chk<?php echo $record['id'] ?>" name="attachmentId[]" value="<?php echo $record['id'] ?>"></td>
+            -->
             <td><label for="chk<?php echo $record['id'] ?>"><?php echo $record['name'] ?> (<?php echo $record['size'] ?> Kb)</label></td>
             <td><?php echo isset($record['title']) ? $record['title'] : null ?></td>
             <td><?php echo isset($record['description']) ? $record['description'] : null ?></td>
             <td><?php echo $record['insertDate']->format('Y-m-d H:i:s') ?></td>
             <td><?php echo $record['username'].' '.$record['surname'] ?></td>
-            <td>&nbsp;</td>
             <td><a href="#" class="btn btn-primary" title="<?php echo $this->translate('Modifica file allegato') ?>"><i class="fa fa-pencil"></i></a></td>
-            <td><a href="#" class="btn btn-default" title="<?php echo $this->translate('Scarica file allegato') ?>"><i class="fa fa-download"></i> Scarica</a></td>
+            <td><a href="#deleteModal" data-action="<?php echo $this->currentUrl ?>" class="open-deleteModal btn btn-danger" data-id="<?php echo $record['id'] ?>" title="<?php echo $this->translate('Elimina file allegato') ?>"><i class="fa fa-remove"></i> </a></td>
+            <td><a href="<?php echo $this->url('attachments-sthree-download', array('lang' => 'it', 'type' => $this->attachmentType, 'id' => $record['id']) ); ?>" class="btn btn-default" title="<?php echo $this->translate('Scarica file allegato') ?>"><i class="fa fa-download"></i> Scarica</a></td>
         </tr>
         <?php endforeach; ?>
+        <!--
         <tr>
             <td colspan="10">
-                <a href="#" class="btn btn-danger" title="<?php echo $this->translate('Elimina file\s selezionato\i') ?>"><i class="fa fa-trash-o"></i> <?php echo $this->translate('Elimina file\s selezionato\i') ?></a>
+                <a href="#" class="open-deleteModal btn btn-danger" title="<?php echo $this->translate('Elimina file selezionati') ?>"><i class="fa fa-trash-o"></i> <?php echo $this->translate('Elimina file\s selezionato\i') ?></a>
                 <a href="#" class="btn btn-primary" title="<?php echo $this->translate('Scarica tutti gli allegati') ?>"><i class="fa fa-download"></i> <?php echo $this->translate('Scarica tutti gli allegati') ?></a>
             </td>
         </tr>
+        -->
         </tbody>
     </table>
     </div>
@@ -70,3 +74,52 @@ echo $this->render($this->formDataCommonPath.'formdata_breadcrumb.phtml');
         <?php echo $this->render('backend/templates/'.$this->template_backend.'formdata/formdata.phtml'); ?>
     </div>
 </div>
+
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="ConfirmDeleteModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content panel-danger">
+
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="deleteModalLabel"><strong>Conferma eliminazione?</strong></h4>
+            </div>
+
+            <form action="" method="post" id="frmDeleteModal">
+                <div class="modal-body">
+                    <p><strong>Attenzione:</strong> l'allegato e i dati relativi ad esso associati verranno eliminati definitivamente.</p>
+
+                    <input type="hidden" name="deleteId" id="deleteId" value="" />
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
+                    <button type="submit" class="btn btn-danger">Conferma</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+$(document).ready(function () {
+
+    $(".open-deleteModal").click(function(e) {
+        e.preventDefault();
+
+        var _self = $(this);
+
+        var dataId = _self.data('id');
+        var dataAction = _self.data('action');
+
+        $("#deleteId").val(dataId);
+        $('#frmDeleteModal').attr('action', dataAction);
+
+        $(_self.attr('href')).modal('show');
+    });
+
+});
+</script>

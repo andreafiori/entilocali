@@ -11,13 +11,13 @@ use Zend\Form\Form;
 class InvioEnteTerzoForm extends Form
 {
     /**
-     * @param string $name
-     * @param string $options
+     * @inheritdoc
      */
     public function __construct($name = null, $options = array())
     {
         parent::__construct($name, $options);
 
+        /*
         $this->add(array(
                         'name' => 'image',
                         'type' => 'Zend\Form\Element\File',
@@ -28,6 +28,7 @@ class InvioEnteTerzoForm extends Form
                                         'title' => 'File verbale di richiesta pubblicazioni in altro ente'
                         )
         ));
+        */
         
         $this->add(array(
                         'name' => 'title',

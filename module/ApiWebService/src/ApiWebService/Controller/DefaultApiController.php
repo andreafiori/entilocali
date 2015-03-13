@@ -62,7 +62,7 @@ class DefaultApiController extends AbstractActionController
         if (!$resourceRecords) {
             $apiOutputManager->setStatusCode(401);
             return $apiOutputManager->setupOutput( array(
-                'message' => 'No records found for this recource'
+                    'message' => 'No records found for this recource'
                 )
             );
         }

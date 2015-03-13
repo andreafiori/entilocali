@@ -21,7 +21,7 @@ class AttiConcessioneFormDataHandler extends FormDataAbstract
 
         $form = new AttiConcessioneForm();
         $form->addUfficioResponsabile($this->getSezioni());
-        $form->addResponsabileProcedimento();
+        $form->addResponsabileProcedimento($this->getResposabiliProcedimento(array()));
         $form->addModalitaAssegnazione();
 
         $routeOptionId = isset($param['route']['option']) ? $param['route']['option'] : null;
@@ -91,6 +91,24 @@ class AttiConcessioneFormDataHandler extends FormDataAbstract
                 $recordForSelectArea[$record['id']] = $valueToPush;
             }
             
+            return $recordForSelectArea;
+        }
+
+        private function getResposabiliProcedimento($input = array())
+        {
+            $wrapper = new AttiConcessioneRespProcGetterWrapper(
+                new AttiConcessioneRespProcGetter($this->getInput('entityManager',1))
+            );
+            $wrapper->setInput($input);
+            $wrapper->setupQueryBuilder();
+
+            $records = $wrapper->getRecords();
+
+            $recordForSelectArea = array();
+            foreach($records as $record) {
+                $recordForSelectArea[$record['id']] = $record['nomeResp'];
+            }
+
             return $recordForSelectArea;
         }
 }

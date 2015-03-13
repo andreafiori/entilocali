@@ -6,25 +6,6 @@ return array(
             'DoctrineModule', 'DoctrineORMModule',
             //'ZendDeveloperTools',
             //'ZfcBase','ZfcUser','BjyProfiler',
-
-            /* Apigility modules  */
-            /*
-            'ZF\Apigility',
-            'ZF\Apigility\Provider',
-            'AssetManager',
-            'ZF\ApiProblem',
-            'ZF\MvcAuth',
-            'ZF\OAuth2',
-            'ZF\Hal',
-            'ZF\Configuration',
-            'ZF\ContentNegotiation',
-            'ZF\ContentValidation',
-            'ZF\Rest',
-            'ZF\Rpc',
-            'ZF\Versioning',
-            'ZF\DevelopmentMode',
-            */
-
             'DOMPDFModule',
             'Application',
             'Admin',

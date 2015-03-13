@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsUsersRolesPermissions
  *
- * @ORM\Table(name="zfcms_users_roles_permissions", indexes={@ORM\Index(name="ruolo_permesso_id", columns={"role_permission_id"}), @ORM\Index(name="permesso_id", columns={"permission_id"})})
+ * @ORM\Table(name="zfcms_users_roles_permissions", uniqueConstraints={@ORM\UniqueConstraint(name="flag", columns={"flag"})})
  * @ORM\Entity
  */
 class ZfcmsUsersRolesPermissions
@@ -22,18 +22,32 @@ class ZfcmsUsersRolesPermissions
     private $id;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="role_permission_id", type="bigint", nullable=false)
+     * @ORM\Column(name="flag", type="string", length=50, nullable=true)
      */
-    private $rolePermissionId;
+    private $flag = '';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=50, nullable=true)
+     */
+    private $description = '';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="group", type="string", length=50, nullable=true)
+     */
+    private $group = '';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="permission_id", type="bigint", nullable=false)
+     * @ORM\Column(name="position", type="integer", nullable=true)
      */
-    private $permissionId;
+    private $position;
 
 
 }

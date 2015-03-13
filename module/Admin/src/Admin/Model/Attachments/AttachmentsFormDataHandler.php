@@ -3,39 +3,76 @@
 namespace Admin\Model\Attachments;
 
 use Admin\Model\FormData\FormDataAbstract;
-use Admin\Model\Attachments\AttachmentsGetter;
-use Admin\Model\Attachments\AttachmentsGetterWrapper;
- 
+use Admin\Model\Modules\ModulesGetter;
+use Admin\Model\Modules\ModulesGetterWrapper;
+
 /**
+ * TODO:
+ *      pass the module via GET $param['get']['module']?
+ *      select ID module per module code!!!
+ *
  * @author Andrea Fiori
  * @since  20 August 2014
  */
 class AttachmentsFormDataHandler extends FormDataAbstract
 {
     private $pages = array();
+
+    private $classMap = array(
+        ''
+    );
     
     /**
-     * @param array $input
+     * @inheritdoc
      */
     public function __construct(array $input)
     {
         parent::__construct($input);
         
         $param = $this->getInput('param', 1);
-        
-        // get attachments records
+
+        $moduleWrapper = new ModulesGetterWrapper( new ModulesGetter($this->getInput("entityManager", 1)) );
+        $moduleWrapper->setInput(array(
+                'code' => $param['route']['option'],
+                'limit' => 1
+            )
+        );
+        $moduleWrapper->setupQueryBuilder();
+        $moduleRecords = $moduleWrapper->getRecords();
+        if (empty($moduleRecords)) {
+            $this->setTemplate('message.phtml');
+            $this->setVariables(array(
+                'messageType'   => 'warning',
+                'messageTitle'  => 'Modulo non trovato',
+                'messageText'   => "Il presente modulo non &egrave; stato trovato. Contattare l'amministrazione per un aggiornamento dei dati relativi al modulo",
+            ));
+            return false;
+        } else {
+            $moduleId = $moduleRecords[0]['id'];
+        }
+
+        // Get Attachments Records
         $wrapper = new AttachmentsGetterWrapper(new AttachmentsGetter($this->getInput("entityManager",1)));
         $wrapper->setInput(array(
-            'moduleId'      => $param['route']['option'], // TODO: passe the module via GET $param['get']['module']
+            'moduleId'      => $param['route']['option'],
+            'status'        => 1,
             'referenceId'   => $param['route']['id'],
         ));
         $wrapper->setupQueryBuilder();
         $attachmentsRecords = $wrapper->getRecords();
+        if ( empty($attachmentsRecords) ) {
+
+        }
         
-        // setup attachment form
+        // Setup Attachment Form
         $form = new AttachmentsForm();
         $form->addInputFile();
         $form->addSecondaryFields();
+
+        // TODO: DELETE selected file
+        if (isset($param['post']['deleteId'])) {
+
+        }
 
         switch($param['route']['option']) {
             default:
@@ -51,7 +88,9 @@ class AttachmentsFormDataHandler extends FormDataAbstract
             break;
 
             case("albo-pretorio"):
-                $wrapper = new \Admin\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper(new \Admin\Model\AlboPretorio\AlboPretorioArticoliGetter($this->getInput("entityManager",1)));
+                $wrapper = new \Admin\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper(
+                    new \Admin\Model\AlboPretorio\AlboPretorioArticoliGetter($this->getInput("entityManager",1))
+                );
                 $wrapper->setInput(array('id' => $param['route']['option'], 'fields' => 'aa.id, aa.titolo'));
                 $wrapper->setupQueryBuilder();
                 
@@ -63,12 +102,12 @@ class AttachmentsFormDataHandler extends FormDataAbstract
 
                 $articleTitle = stripslashes($relatedRecord[0]['titolo']);
                 $breadCrumbModule = 'Albo pretorio';
-                $moduleId = 13;
-                $s3_directory = 'albo-pretorio';
             break;
 
             case("stato-civile"):
-                $wrapper = new \Admin\Model\StatoCivile\StatoCivileGetterWrapper(new \Admin\Model\StatoCivile\StatoCivileGetter($this->getInput("entityManager",1)));
+                $wrapper = new \Admin\Model\StatoCivile\StatoCivileGetterWrapper(
+                    new \Admin\Model\StatoCivile\StatoCivileGetter($this->getInput("entityManager",1))
+                );
                 $wrapper->setInput(array('id' => $param['route']['option']));
                 $wrapper->setupQueryBuilder();
                 
@@ -76,16 +115,32 @@ class AttachmentsFormDataHandler extends FormDataAbstract
                 
                 $articleTitle = stripslashes($relatedRecord[0]['titolo']);
                 $breadCrumbModule = 'Stato civile';
-                $moduleId = 12;
-                $s3_directory = 'stato-civile';
             break;
 
             case("contratti-pubblici"):
-                $s3_directory = 'contratti-pubblici';
+                $wrapper = new \Admin\Model\ContrattiPubblici\ContrattiPubbliciGetterWrapper(
+                    new \Admin\Model\ContrattiPubblici\ContrattiPubbliciGetter($this->getInput("entityManager",1))
+                );
+                $wrapper->setInput(array('id' => $param['route']['option']));
+                $wrapper->setupQueryBuilder();
+
+                $relatedRecord = $wrapper->getRecords();
+
+                $articleTitle = stripslashes($relatedRecord[0]['titolo']);
+                $breadCrumbModule = 'Contratti pubblici';
             break;
 
-            case("amministrazione-trasparente"):
-                $s3_directory = 'amministrazione-trasparente';
+            case("contenuti"): case("amministrazione-trasparente"):
+                $wrapper = new \Admin\Model\Contenuti\ContenutiGetterWrapper(
+                    new \Admin\Model\Contenuti\ContenutiGetter($this->getInput("entityManager",1))
+                );
+                $wrapper->setInput(array('id' => $param['route']['option']));
+                $wrapper->setupQueryBuilder();
+
+                $relatedRecord = $wrapper->getRecords();
+
+                $articleTitle = stripslashes($relatedRecord[0]['titolo']);
+                $breadCrumbModule = 'Contenuti';
             break;
         }
         
@@ -93,20 +148,22 @@ class AttachmentsFormDataHandler extends FormDataAbstract
                 'userId'                => $this->getInput('userDetails',1)->id,
                 'referenceId'           => $param['route']['id'],
                 'moduleId'              => $moduleId,
-                's3_directory'          => $s3_directory
+                's3_directory'          => $param['route']['option']
             )
         );
         
         $this->setVariables(array(
-                'form'                      => $form,
-                'formTitle'                 => 'Nuovo allegato',
-                'formDescription'           => "Inserisci un nuovo allegato per l'articolo corrente",
-                'formAction'                => 'attachments/insert',
-                'attachmentsList'           => $attachmentsRecords,
-                'articleTitle'              => $articleTitle,
-                'pages'                     => $this->pages,
-                'hideBreadcrumb'            => 1,
-                'formBreadCrumbCategory'    => $breadCrumbModule, $articleTitle,
+                'form'                       => $form,
+                'formTitle'                  => 'Nuovo allegato',
+                'formDescription'            => "Inserisci un nuovo allegato per l'articolo corrente. Il sistema effettuer&agrave; il caricamento della pagina per aggiornare l'elenco",
+                'formAction'                 => 'attachments/insert',
+                'attachmentsList'            => $attachmentsRecords,
+                'articleTitle'               => $articleTitle,
+                'pages'                      => $this->pages,
+                'hideBreadcrumb'             => 1,
+                'formBreadCrumbCategory'     => $breadCrumbModule, $articleTitle,
+                'formBreadCrumbCategoryLink' => $this->getInput('baseUrl',1).'datatable/'.$param['route']['option'],
+                'attachmentType'             => $param['route']['option']
             )
         );
         

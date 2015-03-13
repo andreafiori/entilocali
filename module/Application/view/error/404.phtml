@@ -1,5 +1,8 @@
-<h1><?php echo $this->translate('A 404 error occurred') ?></h1>
-<h2><?php echo $this->message ?></h2>
+<br><br>
+<div class="alert alert-warning">
+<h1><?php echo $this->translate('Pagina non trovata') ?></h1>
+
+<!-- <h2><?php echo $this->message ?></h2> -->
 
 <?php if (isset($this->reason) && $this->reason): ?>
 
@@ -24,7 +27,8 @@ switch ($this->reason) {
 }
 ?>
 
-<p><?php echo $reasonMessage ?></p>
+<!-- <p><?php echo $reasonMessage ?></p> -->
+<p>URL errato o risorsa non disponibile</p>
 
 <?php endif ?>
 
@@ -68,7 +72,7 @@ if (isset($this->controller_class)
 </dl>
 <?php
     $e = $this->exception->getPrevious();
-    if ($e) :
+    if ($e):
 ?>
 <hr/>
 <h2><?php echo $this->translate('Previous exceptions') ?>:</h2>
@@ -100,8 +104,9 @@ if (isset($this->controller_class)
 
 <?php else: ?>
 
-<h3><?php echo $this->translate('No Exception available') ?></h3>
+<!-- <h3><?php echo $this->translate('No Exception available') ?></h3> -->
 
 <?php endif ?>
 
 <?php endif ?>
+</div>

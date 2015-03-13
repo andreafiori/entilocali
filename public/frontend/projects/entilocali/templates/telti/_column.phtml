@@ -15,7 +15,7 @@ foreach($this->sezioni as $sezione):
                 <?php endif; ?>
 
                 <?php if ($sezione['url']!=''): ?>
-                    <a href="<?php echo htmlentities($sezione['url']) ?>" title="<?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?>" target="_blank">
+                    <a href="<?php echo htmlentities($sezione['url']) ?>" title="<?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?> [apre in un'altra pagina]" target="_blank">
                         <img src="<?php echo $this->basepath() ?>/public/frontend/projects/entilocali/templates/telti/assets/images/external-link-icon.gif" alt="Apre in un'altra finestra">
                         <?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?>
                     </a>
@@ -84,7 +84,7 @@ foreach($this->sezioni as $sezione):
                         <input type="text" placeholder="Nome utente..." id="username" required="required" title="Inserisci nome utente">
                     </label>
 
-                    <label for="password">Nome utente
+                    <label for="password">Password
                         <input type="password" placeholder="Password..." id="password" required="required" title="Inserisci password">
                     </label>
 
@@ -92,7 +92,7 @@ foreach($this->sezioni as $sezione):
                         <input type="submit" id="loginButton" name="login" value="Accedi" title="Clicca per accedere all'area riservata" class="button tiny">
                     </label>
 
-                    <div>&raquo; <a href="<?php echo $this->url('registrazione', array()); ?>" title="Recupero password area riservata">Registrati</a></div>
+                    <div>&raquo; <a href="<?php echo $this->url('registrazione', array()); ?>" title="Registrati come nuovo utente">Registrati</a></div>
                     <div>&raquo; <a href="#" title="Recupero password area riservata">Recupero password</a></div>
                 </fieldset>
             </form>

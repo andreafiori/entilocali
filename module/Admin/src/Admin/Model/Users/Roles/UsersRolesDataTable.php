@@ -30,6 +30,7 @@ class UsersRolesDataTable extends DataTableAbstract
                 "Ultimo aggiornamento",
                 "&nbsp;",
                 "&nbsp;",
+                "&nbsp;",
             ),
             ''
         ));
@@ -62,6 +63,13 @@ class UsersRolesDataTable extends DataTableAbstract
                             'data-id'   => $row['id'],
                             'title'     => 'Elimina ruolo utente'
                         ),
+                        ($row['name']=='WebMaster') ? '&nbsp;' :
+                        array(
+                            'type'      => 'squareIconButton',
+                            'href'      => $this->getInput('baseUrl',1).'users/roles/permissions/'.$row['id'],
+                            'data-id'   => $row['id'],
+                            'title'     => 'Permessi ruolo utente'
+                        ),
                     );
                 }
             }
@@ -77,7 +85,7 @@ class UsersRolesDataTable extends DataTableAbstract
             $param = $this->getParam();
 
             $wrapper = new UsersRolesGetterWrapper(new UsersRolesGetter($this->getInput('entityManager',1)) );
-            $wrapper->setInput( array('orderBy' => 'role.id DESC') );
+            $wrapper->setInput( array() );
             $wrapper->setupQueryBuilder();
             $wrapper->setupPaginator( $wrapper->setupQuery($this->getInput('entityManager', 1)) );
             $wrapper->setupPaginatorCurrentPage( isset($param['route']['page']) ? $param['route']['page'] : null );

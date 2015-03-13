@@ -18,7 +18,7 @@ class AttachmentsSThreeDownloaderController extends SetupAbstractController
         $id = $this->params()->fromRoute('id');
 
         if (!isset($type) or !isset($id)) {
-            // error
+            return false;
         }
 
         $appServiceLoader = $this->recoverAppServiceLoader();
@@ -28,35 +28,27 @@ class AttachmentsSThreeDownloaderController extends SetupAbstractController
             $this->getServiceLocator()->get('doctrine.entitymanager.orm_default')
         ));
         $wrapper->setInput(array(
-            'id' => $id,
+            'id'    => $id,
             'limit' => 1,
         ));
         $wrapper->setupQueryBuilder();
         $attachmentRecord = $wrapper->getRecords();
 
-        if (!empty($attachmentRecord)) {
-            // error
+        if ( empty($attachmentRecord) ) {
+            return false;
         }
 
-        switch($type) {
-            case("contenuti"):
-                $bucketDir = 'contenuti/';
-            break;
-
-            case("albo-pretorio"):
-
-            break;
-
-            case("stato-civile"):
-
-            break;
-        }
+        $bucketDir = $type.'/';
 
         $filename = $attachmentRecord[0]['name'];
         $mimetype = $attachmentRecord[0]['mimetype'];
 
         $s3 = new S3($configurations['amazon_s3_accesskey'], $configurations['amazon_s3_secretkey']);
         $sthreeFile = $s3->getObject($configurations['amazon_s3_bucket'], $bucketDir.$filename);
+
+        if ( empty($sthreeFile->body) ) {
+            return false;
+        }
 
         $response = $this->getResponse();
         $response->setContent($sthreeFile->body);

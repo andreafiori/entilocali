@@ -2,6 +2,7 @@
 
 namespace Admin\Model\Users;
 
+use Application\Model\NullException;
 use Zend\Permissions\Acl\Acl;
 use Zend\Permissions\Acl\Resource\GenericResource as Resource;
 
@@ -14,6 +15,11 @@ class AclSetter
     private $acl;
 
     /**
+     * @var Roles\UsersRolesGetterWrapper
+     */
+    private $usersRolesGetterWrapper;
+
+    /**
      * @param Acl $acl
      */
     public function __construct(Acl $acl)
@@ -21,33 +27,62 @@ class AclSetter
         $this->acl = $acl;
     }
 
-    public function addRoles()
+    /**
+     * @param Roles\UsersRolesGetterWrapper $usersRolesGetterWrapper
+     */
+    public function setUsersRolesGetterWrapper(Roles\UsersRolesGetterWrapper $usersRolesGetterWrapper)
     {
-        $this->acl->addRole('WebMaster');
-        $this->acl->addRole('SuperAdmin');
-        $this->acl->addRole('Dipendente');
-        $this->acl->addRole('Community');
-        $this->acl->addRole('Delegato');
+        $this->usersRolesGetterWrapper = $usersRolesGetterWrapper;
     }
 
     /**
-     * Add Resources (permission names) to ACL
+     * @return Roles\UsersRolesGetterWrapper
      */
-    public function addResources()
+    public function getUsersRolesGetterWrapper()
     {
-        $this->acl->addResource(new Resource('UpdateUsersOnModules'));
-        $this->acl->addResource(new Resource('WebMasterTools'));
+        return $this->usersRolesGetterWrapper;
+    }
+
+        /**
+         * @throws NullException
+         */
+        private function assertUsersRolesGetterWrapper()
+        {
+            if (!$this->getUsersRolesGetterWrapper()) {
+                throw new NullException("UsersRolesGetterWrapper is not set");
+            }
+        }
+
+    /**
+     * @param array $input
+     *
+     * @return \Application\Model\QueryBuilderHelperAbstract
+     *
+     * @throws NullException
+     */
+    public function recoverRoles($input = array())
+    {
+        $this->assertUsersRolesGetterWrapper();
+
+        $this->getUsersRolesGetterWrapper()->setInput($input);
+        $this->getUsersRolesGetterWrapper()->setupQueryBuilder();
+
+        return $this->getUsersRolesGetterWrapper()->getRecords();
     }
 
     /**
-     * Set permission (based on resources)
+     * @param array $records
+     * @throws NullException
      */
-    public function setupPermissions()
+    public function addRoles(array $records)
     {
-        $this->acl->allow('WebMaster');
-        $this->acl->allow('SuperAdmin');
+        if (empty($records)) {
+            throw new NullException("Error: no Users Roles on database");
+        }
 
-        $this->acl->deny('SuperAdmin', 'WebMasterTools');
+        foreach($records as $record) {
+            $this->acl->addRole($record['name']);
+        }
     }
 
     /**

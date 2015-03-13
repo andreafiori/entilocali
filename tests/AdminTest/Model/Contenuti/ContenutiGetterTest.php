@@ -76,10 +76,17 @@ class ContenutiGetterTest extends TestSuite
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('scadenza'));
     }
     
-    public function testSetUserId()
+    public function testSetUtente()
     {
-        $this->objectGetter->setUserId('43');
+        $this->objectGetter->setUtente('43');
 
-        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('userid'));
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('utenteId'));
+    }
+
+    public function testIsAmmTrasparente()
+    {
+        $this->objectGetter->setIsAmmTrasparente('1');
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('isammtrasp'));
     }
 }

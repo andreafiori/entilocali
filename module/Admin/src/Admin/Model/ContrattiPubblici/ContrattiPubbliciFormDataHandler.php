@@ -2,6 +2,10 @@
 
 namespace Admin\Model\ContrattiPubblici;
 
+use Admin\Model\ContrattiPubblici\ResponsabiliProcedimento\ResponsabiliProcedimentoGetter;
+use Admin\Model\ContrattiPubblici\ResponsabiliProcedimento\ResponsabiliProcedimentoGetterWrapper;
+use Admin\Model\ContrattiPubblici\SceltaContraente\SceltaContraenteGetter;
+use Admin\Model\ContrattiPubblici\SceltaContraente\SceltaContraenteGetterWrapper;
 use Admin\Model\FormData\FormDataAbstract;
 
 /**
@@ -20,11 +24,10 @@ class ContrattiPubbliciFormDataHandler extends FormDataAbstract
         $param = $this->getInput('param', 1);
 
         $form = new ContrattiPubbliciForm();
-        $form->addSceltaContraente(array());
-
+        $form->addSceltaContraente($this->getSceltaContraente());
+        $form->addResponsabili($this-> getResponsabiliProcedimento());
         $form->addDatePubblicazione();
         $form->addNumeroOfferteEDate();
-        $form->addResponsabili(array());
 
         $routeOptionId = isset($param['route']['option']) ? $param['route']['option'] : null;
         if ($routeOptionId) {
@@ -51,7 +54,7 @@ class ContrattiPubbliciFormDataHandler extends FormDataAbstract
             'formTitle'                  => $formTitle,
             'formDescription'            => '&Egrave; consigliabile inserire testi brevi sul tema trattato, possibilmente in minuscolo.',
             'formBreadCrumbCategory'     => 'Contratti pubblici',
-            'formBreadCrumbCategoryLink' => $baseUrl.'datatable/contenuti/',
+            'formBreadCrumbCategoryLink' => $baseUrl.'datatable/contratti-pubblici/',
             'formLabelSpanWidth'         => 3,
             'formControlSpanWidth'       => 9,
         ));
@@ -59,6 +62,7 @@ class ContrattiPubbliciFormDataHandler extends FormDataAbstract
 
         /**
          * @param number|null $id
+         *
          * @return array|null
          */
         private function getFormRecord($id)
@@ -70,5 +74,46 @@ class ContrattiPubbliciFormDataHandler extends FormDataAbstract
 
                 return $wrapper->getRecords();
             }
+        }
+
+        /**
+         * @param array $input
+         *
+         * @return array|bool
+         */
+        private function getSceltaContraente($input = array())
+        {
+            $wrapper = new SceltaContraenteGetterWrapper( new SceltaContraenteGetter($this->getInput('entityManager',1)) );
+            $wrapper->setInput($input);
+            $wrapper->setupQueryBuilder();
+
+            $records = $wrapper->getRecords();
+            if (!empty($records)) {
+                $toReturn = array();
+                foreach($records as $record) {
+                    $toReturn[$record['id']] = $record['nomeScelta'];
+                }
+                return $toReturn;
+            }
+
+            return false;
+        }
+
+        private function getResponsabiliProcedimento($input = array())
+        {
+            $wrapper = new ResponsabiliProcedimentoGetterWrapper( new ResponsabiliProcedimentoGetter($this->getInput('entityManager',1)) );
+            $wrapper->setInput($input);
+            $wrapper->setupQueryBuilder();
+
+            $records = $wrapper->getRecords();
+            if (!empty($records)) {
+                $toReturn = array();
+                foreach($records as $record) {
+                    $toReturn[$record['id']] = $record['nomeResp'];
+                }
+                return $toReturn;
+            }
+
+            return false;
         }
 }

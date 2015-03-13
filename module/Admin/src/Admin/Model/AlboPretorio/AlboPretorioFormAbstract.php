@@ -35,7 +35,7 @@ abstract class AlboPretorioFormAbstract extends Form
     }
 
     /**
-     * @param type $settori
+     * @param array $settori
      */
     public function addSettori($settori)
     {
@@ -170,12 +170,12 @@ abstract class AlboPretorioFormAbstract extends Form
             'name' => 'reset-form-search',
             'type' => '\Zend\Form\Element',
             'attributes' => array(
-                'id'    => 'resetForm',
-                'type'  => 'reset',
-                'label' => '&nbsp;',
-                'title' => 'Reset dati form',
-                'submit' => 1,
-                'value' => 'Reset dati di ricerca',
+                'id'        => 'resetForm',
+                'type'      => 'reset',
+                'label'     => '&nbsp;',
+                'title'     => 'Reset dati form',
+                'submit'    => 1,
+                'value'     => 'Reset dati di ricerca',
             ))
         );
         

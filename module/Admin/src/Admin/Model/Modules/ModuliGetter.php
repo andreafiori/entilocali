@@ -15,30 +15,14 @@ class ModulesGetter extends QueryBuilderHelperAbstract
      */
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('m.id, m.code, m.name, m.status');
+        $this->setSelectQueryFields('module.id, module.code, module.name, module.status');
         
         $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
-                                ->from('Application\Entity\ZfcmsModules', 'm')
-                                ->where('m.id != 0');
-
-        return $this->getQueryBuilder();
-    }
-
-    /**
-     * @param number|array $id
-     * @return \Doctrine\ORM\QueryBuilder
-     */
-    public function setId($id)
-    {
-        if ( is_numeric($id) ) {
-            $this->getQueryBuilder()->andWhere('m.id = :id ');
-            $this->getQueryBuilder()->setParameter('id', $id);
-        }
-        
-        if (is_array($id)) {
-            $this->getQueryBuilder()->andWhere('m.id IN ( :id ) ');
-            $this->getQueryBuilder()->setParameter('id', $id);
-        }
+                                ->from('Application\Entity\ZfcmsModules', 'module')
+                                ->where('module.id != 0 ');
+                                //->from('Application\Entity\ZfcmsModulesOptions', 'modulesOption')
+                                //->join('modulesOption.module', 'module')
+                                //->where('modulesOption.module = module.id ');
 
         return $this->getQueryBuilder();
     }
@@ -52,6 +36,20 @@ class ModulesGetter extends QueryBuilderHelperAbstract
         if ( is_numeric($status) ) {
             $this->getQueryBuilder()->andWhere('m.status = :status ');
             $this->getQueryBuilder()->setParameter('status', $status);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param bool $code
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setCode($code)
+    {
+        if ( !empty($code) ) {
+            $this->getQueryBuilder()->andWhere('module.code = :code ');
+            $this->getQueryBuilder()->setParameter('code', $code);
         }
 
         return $this->getQueryBuilder();

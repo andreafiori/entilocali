@@ -28,15 +28,15 @@ class ContenutiCrudHandler extends CrudHandlerAbstract
                 'data_scadenza'    => $this->rawPost['dataScadenza'],
                 'attivo'           => $this->rawPost['attivo'],
                 'sottosezione_id'  => $this->rawPost['sottosezione'],
-                'home' => isset($this->rawPost['home']) ? $this->rawPost['home'] : 0,
+                'home'             => isset($this->rawPost['home']) ? $this->rawPost['home'] : 0,
                 'evidenza'         => isset($this->rawPost['evidenza']) ? $this->rawPost['evidenza'] : 0,
                 'utente_id'        => $userDetails->id,
                 /*
-                'rss' => $this->rawPost['rss'],
-                'slug' => $this->rawPost['titolo'],
-                'seo_title' => $this->rawPost['seoTitle'],
-                'seo_description' => $this->rawPost['seoDescription'],
-                'seo_keywords' => $this->rawPost['seo_keywords'],
+                'rss'              => $this->rawPost['rss'],
+                'slug'             => $this->rawPost['titolo'],
+                'seo_title'        => $this->rawPost['seoTitle'],
+                'seo_description'  => $this->rawPost['seoDescription'],
+                'seo_keywords'     => $this->rawPost['seo_keywords'],
                 */
             ));
 
@@ -119,6 +119,10 @@ class ContenutiCrudHandler extends CrudHandlerAbstract
         }
     }
 
+    /**
+     * @param $id
+     * @param array $recordDataDeleted
+     */
     public function delete($id, array $recordDataDeleted)
     {
         $userDetails  = $this->getInput('userDetails', 1);

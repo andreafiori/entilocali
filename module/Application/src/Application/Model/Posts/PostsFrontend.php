@@ -63,7 +63,9 @@ class PostsFrontend extends RouterManagerAbstract implements RouterManagerInterf
         {
             $this->setTemplate(self::defaultFrontendTemplate);
 
-            $homePageRecordsGetterWrapper = new HomePageRecordsGetterWrapper(new HomePageRecordsGetter($this->getInput('entityManager',1)));
+            $homePageRecordsGetterWrapper = new HomePageRecordsGetterWrapper(
+                new HomePageRecordsGetter($this->getInput('entityManager',1))
+            );
             $homePageRecordsGetterWrapper->setInput( array('orderBy' => 'hb.position, h.position') );
             $homePageRecordsGetterWrapper->setupQueryBuilder();
 

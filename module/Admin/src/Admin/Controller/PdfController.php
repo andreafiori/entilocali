@@ -5,6 +5,9 @@ namespace Admin\Controller;
 use Application\Controller\SetupAbstractController;
 use DOMPDFModule\View\Model\PdfModel;
 
+/**
+ *
+ */
 class PdfController extends SetupAbstractController
 {
     public function generatepdfAction()

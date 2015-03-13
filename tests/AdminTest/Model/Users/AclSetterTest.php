@@ -3,6 +3,8 @@
 namespace AdminTest\Model\Users;
 
 use Admin\Model\Users\AclSetter;
+use Admin\Model\Users\Roles\UsersRolesGetter;
+use Admin\Model\Users\Roles\UsersRolesGetterWrapper;
 use Zend\Permissions\Acl\Acl;
 use ApplicationTest\TestSuite;
 
@@ -21,27 +23,56 @@ class AclSetterTest extends TestSuite
         $this->aclSetter = new AclSetter(new Acl());
     }
 
+    public function testRecoverRoles()
+    {
+        $this->setupUsersRolesGetterWrapper();
+
+        $this->assertTrue(is_array($this->aclSetter->recoverRoles()));
+    }
+
     public function testAddRoles()
     {
-        $this->aclSetter->addRoles();
+        $this->setupRoles();
 
         $this->assertTrue(is_array($this->aclSetter->getAcl()->getRoles()));
     }
 
-    public function testAddResources()
+    /**
+     * @expectedException \Application\Model\NullException
+     */
+    public function testRecoverRolesThrowsException()
     {
-        $this->aclSetter->addResources();
-
-        $this->assertTrue(is_array($this->aclSetter->getAcl()->getResources()));
+        $this->aclSetter->recoverRoles();
     }
 
-    public function testSetupPermissions()
-    {
-        $this->aclSetter->addRoles();
-        $this->aclSetter->addResources();
-        $this->aclSetter->setupPermissions();
+        private function setupUsersRolesGetterWrapper()
+        {
+            $this->aclSetter->setUsersRolesGetterWrapper(new UsersRolesGetterWrapper(
+                    new UsersRolesGetter($this->getEntityManagerMock())
+                )
+            );
+        }
 
-        $this->assertTrue($this->aclSetter->getAcl()->isAllowed('WebMaster', 'UpdateUsersOnModules'));
-        $this->assertFalse($this->aclSetter->getAcl()->isAllowed('SuperAdmin', 'WebMasterTools'));
-    }
+        private function setupRoles()
+        {
+            $this->aclSetter->addRoles(array(
+                    array(
+                        'id' => 1,
+                        'name' => 'WebMaster',
+                    ),
+                    array(
+                        'id' => 2,
+                        'name' => 'SuperAdmin',
+                    ),
+                    array(
+                        'id' => 2,
+                        'name' => 'Community',
+                    ),
+                    array(
+                        'id' => 2,
+                        'name' => 'Delegato',
+                    ),
+                )
+            );
+        }
 }

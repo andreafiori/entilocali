@@ -55,6 +55,7 @@ abstract class AlboPretorioDataTableAbstract extends DataTableAbstract implement
      * @param \AlboPretorioFormAbstract $form
      * @param string $labelName
      * @param string $labelValue
+     *
      * @return \Zend\Form\Form
      */
     protected function setupFormSearchAndExport(AlboPretorioFormAbstract $form, $labelName = null, $labelValue = null)

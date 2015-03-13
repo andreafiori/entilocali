@@ -11,8 +11,7 @@ use Zend\Form\Form;
 class ContrattiPubbliciForm extends Form
 {
     /**
-     * @param string $name
-     * @param string $options
+     * @inheritdoc
      */
     public function __construct($name = null, $options = array())
     {
@@ -198,9 +197,10 @@ class ContrattiPubbliciForm extends Form
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
-            'name' => 'sc_contr_id',
+            'name' => 'scContr',
             'options' => array(
                 'label' => '* Scelta del contraente',
+                'empty_option' => 'Seleziona',
                 'value_options' => $records,
             ),
             'attributes' => array(

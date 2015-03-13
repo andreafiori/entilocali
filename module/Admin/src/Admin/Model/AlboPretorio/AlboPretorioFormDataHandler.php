@@ -3,7 +3,6 @@
 namespace Admin\Model\AlboPretorio;
 
 use Admin\Model\FormData\FormDataAbstract;
-use Admin\Model\Users\UsersGetter;
 use Admin\Model\Users\UsersGetterWrapper;
 
 /**
@@ -52,6 +51,8 @@ class AlboPretorioFormDataHandler extends FormDataAbstract
             
         } else {
             $form->setData(array('userId'=>$this->getInput('userDetails',1)->id));
+            $form->addFacebook();
+
             $formAction = 'albo-pretorio/insert/';
             $formTitle = 'Nuovo atto';
         }

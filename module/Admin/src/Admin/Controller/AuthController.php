@@ -5,13 +5,18 @@ namespace Admin\Controller;
 use Zend\View\Model\ViewModel;
 use Zend\Session\Container as SessionContainer;
 use Zend\Permissions\Acl\Acl;
-use Zend\Permissions\Acl\Resource\GenericResource as Resource;
 use Application\Controller\SetupAbstractController;
-use Application\Model\NullException;
 use Admin\Model\Users\UserFormAuthentication;
 use Admin\Model\Users\UsersGetter;
 use Admin\Model\Users\UsersGetterWrapper;
 use Admin\Model\Users\AclSetter;
+use Admin\Model\Users\Roles\UsersRolesGetter;
+use Admin\Model\Users\Roles\UsersRolesGetterWrapper;
+use Admin\Model\Users\Roles\UsersRolesPermissionsGetter;
+use Admin\Model\Users\Roles\UsersRolesPermissionsGetterWrapper;
+use Admin\Model\Users\Roles\UsersRolesPermissionsRelationsGetter;
+use Admin\Model\Users\Roles\UsersRolesPermissionsRelationsGetterWrapper;
+use Application\Model\NullException;
 use \Exception;
 
 /**
@@ -65,6 +70,7 @@ class AuthController extends SetupAbstractController
         $form       = $this->getUserFormAuthentication();
         $redirect   = 'login';
         $request    = $this->getRequest();
+        $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
         
         if ($request->isPost()) {
             $form->setData($request->getPost());
@@ -92,7 +98,9 @@ class AuthController extends SetupAbstractController
                     $this->getAuthService()->getStorage()->write($request->getPost('username'));
                     
                     // Get user data
-                    $usersGetterWrapper = new UsersGetterWrapper( new UsersGetter($this->getServiceLocator()->get('doctrine.entitymanager.orm_default')) );
+                    $usersGetterWrapper = new UsersGetterWrapper(
+                        new UsersGetter($entityManager)
+                    );
                     $usersGetterWrapper->setInput( array(
                         'username'  => $request->getPost('username'),
                         'password'  => $request->getPost('password'),
@@ -107,9 +115,47 @@ class AuthController extends SetupAbstractController
 
                         /* Set ACL */
                         $aclSetter = new AclSetter(new Acl());
-                        $aclSetter->addRoles();
-                        $aclSetter->addResources();
-                        $aclSetter->setupPermissions();
+                        $aclSetter->setUsersRolesGetterWrapper(new UsersRolesGetterWrapper(
+                                new UsersRolesGetter($entityManager)
+                            )
+                        );
+                        $aclSetter->addRoles($aclSetter->recoverRoles(array()));
+
+                        if ($records['roleName']==='WebMaster') {
+                            // Assign all permissions...
+                            $wrapper = new UsersRolesPermissionsGetterWrapper(
+                                new UsersRolesPermissionsGetter($entityManager)
+                            );
+                            $wrapper->setInput(array());
+                            $wrapper->setupQueryBuilder();
+
+                            $permissionsRecords = $wrapper->getRecords();
+                            if (empty($permissionsRecords)) {
+                                throw new NullException("Error: No permissions stored on database!");
+                            }
+
+                            foreach($permissionsRecords as $permissionsRecord) {
+                                $aclSetter->getAcl()->addResource($permissionsRecord['flag']);
+                                $aclSetter->getAcl()->allow($records['roleName'], $permissionsRecord['flag']);
+                            }
+
+                        } else {
+                            $wrapper = new UsersRolesPermissionsRelationsGetterWrapper(
+                                new UsersRolesPermissionsRelationsGetter($entityManager)
+                            );
+                            $wrapper->setInput(array('roleId' => $records['roleId']));
+                            $wrapper->setupQueryBuilder();
+
+                            $permissionsRecords = $wrapper->getRecords();
+                            if (empty($permissionsRecords)) {
+                                throw new NullException("Error: No permissions stored on database!");
+                            }
+
+                            foreach($permissionsRecords as $permissionsRecord) {
+                                $aclSetter->getAcl()->addResource($permissionsRecord['flag']);
+                                $aclSetter->getAcl()->allow($records['roleName'], $permissionsRecord['flag']);
+                            }
+                        }
 
                         $sitename = $this->recoverSitename();
 
@@ -117,6 +163,7 @@ class AuthController extends SetupAbstractController
                             throw new NullException('Site name is not set. Cannot complete the login');
                         }
 
+                        /* Set user session values */
                         $sessionContainer = new SessionContainer();
                         $sessionContainer->offsetSet('sitename', $sitename);
                         $sessionContainer->offsetSet('id',      $records['id']);
@@ -131,13 +178,16 @@ class AuthController extends SetupAbstractController
                         $manager->regenerateId();
 
                     } else {
-                        throw new Exception('Cannot get user details after login');
+                        // throw new Exception('Cannot get user details after login');
+                        $this->flashmessenger()->addMessage( print_r("Nome utente e\o password non validi", 1) );
                     }
                 }
             } else {
                 // TODO: after 3 failures the login form must show a captcha...
                 $sessionContainer = new Container();
+
                 $loginFailures = $sessionContainer->offsetGet('loginFailures');
+
                 $sessionContainer->offsetSet('loginFailures', $loginFailures);
                 
                 foreach($form->getMessages() as $message) {
@@ -157,6 +207,7 @@ class AuthController extends SetupAbstractController
         if ($this->getAuthService()->hasIdentity()) {
             $this->getSessionStorage()->forgetMe();
             $this->getAuthService()->clearIdentity();
+
             $this->flashmessenger()->addMessage("Uscita dall'area di amministrazione");
         }
         

@@ -9,8 +9,7 @@ namespace Admin\Model\AlboPretorio;
 class AlboPretorioArticoliSearchFilterForm extends AlboPretorioFormAbstract
 {
     /**
-     * @param type $name
-     * @param type $options
+     * @inheritdoc
      */
     public function __construct($name = null, $options = array())
     {

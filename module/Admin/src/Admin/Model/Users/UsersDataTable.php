@@ -29,7 +29,7 @@ class UsersDataTable extends DataTableAbstract
                 "Email",
                 "Ultima modifica",
                 "Ultima modifica password",
-                "Stato",
+                //"Stato",
                 "Ruolo",
                 "&nbsp;",
                 "&nbsp;",
@@ -55,7 +55,7 @@ class UsersDataTable extends DataTableAbstract
                     '<a href="mailto:'.$row['email'].'" title="Scrivi a '.$row['name'].' '.$row['surname'].'">'.$row['email'].'</a>',
                     $row['lastUpdate'],
                     $row['passwordLastUpdate'],
-                    $row['status'],
+                    //$row['status'],
                     $row['roleName'],
                     array(
                         'type'      => 'updateButton',

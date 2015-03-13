@@ -43,12 +43,14 @@ class ContenutiFormDataHandler extends FormDataAbstract
             $form->setData($recordFromDb[0]);
 
             $submitButtonValue = 'Modifica';
-            $formTitle = $recordFromDb[0]['titolo'];
+            $formTitle = 'Modifica contenuto';
+            $formDescription = null;
             $formAction = 'contenuti/update/';
         } else {
             $form->addSocial();
 
             $formTitle = 'Nuovo contenuto';
+            $formDescription = 'Inserisci i dati relativi al contenuto';
             $submitButtonValue = 'Inserisci';
             $formAction = 'contenuti/insert/';
         }
@@ -59,7 +61,7 @@ class ContenutiFormDataHandler extends FormDataAbstract
                 'form'                   => $form,
                 'formAction'             => $formAction,
                 'formTitle'              => $formTitle,
-                'formDescription'        => 'Compila i dati relativi al contenuto',
+                'formDescription'        => $formDescription,
                 'submitButtonValue'      => $submitButtonValue,
                 'CKEditorField'          => array('sommario', 'testo'),
                 'formBreadCrumbCategory'     => 'Contenuti',

@@ -15,8 +15,13 @@ if (!$this->form):
 </div>
 <?php else: ?>
 <div id="formcontainer">
-    <div id="formTitle"><h3><?php echo $this->formTitle ?></h3></div>
+    <div id="formTitle">
+        <h3><?php echo $this->formTitle ?></h3>
+    </div>
+
+    <?php if (!empty($this->formDescription)): ?>
     <p><?php echo $this->formDescription ?></p>
+    <?php endif; ?>
 
     <?php
         echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', array(
@@ -42,6 +47,7 @@ if (!$this->form):
             <label>* Campi obbligatori</label>
         </div>
     </div>
+
     <?php echo $this->form()->closeTag($this->form); ?>
 </div>
 

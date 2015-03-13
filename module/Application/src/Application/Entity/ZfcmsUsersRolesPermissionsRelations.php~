@@ -1,0 +1,45 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ZfcmsUsersRolesPermissionsRelations
+ *
+ * @ORM\Table(name="zfcms_users_roles_permissions_relations", indexes={@ORM\Index(name="fk_users_role_id", columns={"role_id"}), @ORM\Index(name="fk_users_roles_permissions_id", columns={"permission_id"})})
+ * @ORM\Entity
+ */
+class ZfcmsUsersRolesPermissionsRelations
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var \Application\Entity\ZfcmsUsersRolesPermissions
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsersRolesPermissions")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="permission_id", referencedColumnName="id")
+     * })
+     */
+    private $permission;
+
+    /**
+     * @var \Application\Entity\ZfcmsUsersRoles
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsersRoles")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="role_id", referencedColumnName="id")
+     * })
+     */
+    private $role;
+
+
+}

@@ -144,7 +144,7 @@ class VarExporter extends InputSetupAbstract
     }
 
     /**
-     * @return mixed
+     * @return \Zend\Permissions\Acl\Acl
      */
     public function getAcl()
     {
@@ -155,6 +155,7 @@ class VarExporter extends InputSetupAbstract
 
     /**
      * @param string|array $roleName
+     * @return bool
      */
     protected function isRole($roleName)
     {

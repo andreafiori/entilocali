@@ -28,12 +28,12 @@ class SceltaContraenteFormDataHandler extends FormDataAbstract
         if ($recordFromDb) {
             $form->setData($recordFromDb[0]);
             
-            $formAction = 'contratti-pubblici-scelta-contraente/update';
-            $formTitle = 'Modifica voce scelta del contraente';
+            $formAction      = 'contratti-pubblici-scelta-contraente/update';
+            $formTitle       = 'Modifica voce scelta del contraente';
             $formDescription = 'Modifica scelta contraente';
         } else {
-            $formAction = 'contratti-pubblici-scelta-contraente/insert';
-            $formTitle = 'Nuova voce scelta del contraente';
+            $formAction      = 'contratti-pubblici-scelta-contraente/insert';
+            $formTitle       = 'Nuova voce scelta del contraente';
             $formDescription = 'Inserisci voce scelta contraente';
         }
         
@@ -43,8 +43,8 @@ class SceltaContraenteFormDataHandler extends FormDataAbstract
                 'formTitle'              => $formTitle,
                 'formDescription'        => $formDescription,
                 'submitButtonValue'      => 'Conferma',
-                'formBreadCrumbCategory' => 'Contratti pubblici',
-                'formBreadCrumbCategoryLink' => $this->getInput('baseUrl', 1).'datatable/albo-pretorio/',
+                'formBreadCrumbCategory' => 'Scelta contraente',
+                'formBreadCrumbCategoryLink' => $this->getInput('baseUrl', 1).'datatable/contratti-pubblici-scelta-contraente/',
             )
         );
     }

@@ -17,6 +17,7 @@ class InvioEnteTerzoHandler extends RouterManagerAbstract implements RouterManag
     public function setupRecord()
     {
         $param      = $this->getInput('param', 1);
+
         $moduleName = $param['route']['modulename'];
         
         switch($moduleName) {

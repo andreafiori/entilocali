@@ -4,6 +4,8 @@ namespace Application\Model;
 
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\ArrayAdapter;
+use Admin\Model\Attachments\AttachmentsGetter;
+use Admin\Model\Attachments\AttachmentsGetterWrapper;
 
 /**
  * @author Andrea Fiori
@@ -13,6 +15,9 @@ abstract class RecordsGetterWrapperAbstract
 {
     protected $input;
 
+    /**
+     * @var QueryBuilderHelperAbstract
+     */
     protected $objectGetter;
     
     protected $query;
@@ -25,7 +30,9 @@ abstract class RecordsGetterWrapperAbstract
     protected $firstResult = 0;
     protected $maxResults;
     protected $perpageDefault = 8;
-    
+
+    protected $entityManager;
+
     /**
      * @param array $input
      */
@@ -206,5 +213,54 @@ abstract class RecordsGetterWrapperAbstract
     public function getMaxResults()
     {
         return $this->maxResults;
+    }
+
+    /**
+     * Add attachments records to an existing recordset
+     *
+     * @param array $records
+     * @param array $input
+     *
+     * @return array|bool
+     */
+    public function addAttachmentsFromRecords(array $records, $input = array())
+    {
+        if ( empty($records) ) {
+            return false;
+        }
+
+        if (!$this->getEntityManager()) {
+            throw new NullException("Set EntityManager on Wrapper Input to select attachment files");
+        }
+
+        foreach($records as &$record) {
+            $attachments = new AttachmentsGetterWrapper( new AttachmentsGetter($this->getEntityManager()) );
+            $attachments->setInput(array_merge($input, array('referenceId' => $record['id'])));
+            $attachments->setupQueryBuilder();
+
+            $attachmentsRecords = $attachments->getRecords();
+
+            if (!empty($attachmentsRecords)) {
+                $record['attachments'] = $attachmentsRecords;
+            }
+        }
+
+        return $records;
+    }
+
+    /**
+     * @param \Doctrine\ORM\EntityManager $entityManager
+     */
+    public function setEntityManager(\Doctrine\ORM\EntityManager $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
+    /**
+     * @return \Doctrine\ORM\EntityManager
+     */
+    public function getEntityManager()
+    {
+        return $this->entityManager;
     }
 }

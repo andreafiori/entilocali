@@ -37,6 +37,7 @@ class ContenutiGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setNoScaduti( $this->getInput('noscaduti', 1) );
         $this->objectGetter->setAttivo( $this->getInput('attivo', 1) );
         $this->objectGetter->setUtente( $this->getInput('utente', 1) );
+        $this->objectGetter->setIsAmmTrasparente( $this->getInput('isAmmTrasparente', 1) );
         $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
         $this->objectGetter->setGroupBy( $this->getInput('groupBy', 1) );
         $this->objectGetter->setLimit( $this->getInput('limit', 1) );

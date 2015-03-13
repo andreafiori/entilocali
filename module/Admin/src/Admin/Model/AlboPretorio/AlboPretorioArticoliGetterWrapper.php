@@ -44,4 +44,12 @@ class AlboPretorioArticoliGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setGroupBy($this->getInput('groupBy', 1));
         $this->objectGetter->setLimit($this->getInput('limit', 1));
     }
+
+    /**
+     * @param array $records
+     */
+    public function addAttachmentsToRecords(array $records)
+    {
+
+    }
 }

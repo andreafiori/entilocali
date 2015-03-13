@@ -15,7 +15,7 @@ class UsersGetter extends QueryBuilderHelperAbstract
         $this->setSelectQueryFields('DISTINCT(u.id) AS id, u.name, u.surname, u.email, u.address, u.status, u.zip,
                                       u.city, u.username, u.lastUpdate, u.passwordLastUpdate, u.settore,
 
-                                      role.name AS roleName
+                                      role.id AS roleId, role.name AS roleName
                                     ');
 
         $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
@@ -96,8 +96,8 @@ class UsersGetter extends QueryBuilderHelperAbstract
     public function setPassword($password)
     {
         if (!empty($password)) {
-            $this->getQueryBuilder()->andWhere("u.password = :password ");
-            $this->getQueryBuilder()->setParameter('password', md5($password) );
+            $this->getQueryBuilder()->andWhere("u.password = MD5( :password ) ");
+            $this->getQueryBuilder()->setParameter('password', $password);
         }
 
         return $this->getQueryBuilder();
@@ -112,6 +112,20 @@ class UsersGetter extends QueryBuilderHelperAbstract
         if (!empty($status)) {
             $this->getQueryBuilder()->andWhere("u.status = :status ");
             $this->getQueryBuilder()->setParameter('status', $status);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param string $status
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setSalt($salt)
+    {
+        if (!empty($salt)) {
+            $this->getQueryBuilder()->andWhere("u.salt = :salt ");
+            $this->getQueryBuilder()->setParameter('salt', $salt);
         }
 
         return $this->getQueryBuilder();

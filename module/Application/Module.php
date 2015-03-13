@@ -75,9 +75,9 @@ class Module implements AutoloaderProviderInterface
     {
         return array(
             'invokables' 	=> array(
-                'formelement'   => 'Application\Form\View\Helper\FormElement',
-                'formPlainText' => 'Application\Form\View\Helper\FormPlainText',
-                'formCheckboxTree' => 'Application\Form\View\Helper\FormCheckboxTree',
+                'formelement'       => 'Application\Form\View\Helper\FormElement',
+                'formPlainText'     => 'Application\Form\View\Helper\FormPlainText',
+                'formCheckboxTree'  => 'Application\Form\View\Helper\FormCheckboxTree',
             ),
             'factories' => array(
                 'TextShortener' => function($sm) {
@@ -146,7 +146,7 @@ class Module implements AutoloaderProviderInterface
                         'request'           => $sm->get('request'),
                         'router'            => $sm->get('request'),
                     ));
-                    
+
                     $appServiceLoader->recoverRouter();
                     $appServiceLoader->recoverRouteMatch();
                     

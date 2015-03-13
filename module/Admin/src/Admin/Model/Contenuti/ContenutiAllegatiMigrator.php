@@ -2,9 +2,9 @@
 
 namespace Admin\Model\Contenuti;
 
+use Admin\Model\Attachments\AttachnmetsContainer;
 use Admin\Model\Migrazione\MigratorAbstract;
 use Admin\Model\Amazon\S3\S3;
-use Application\Model\Slugifier;
 
 /**
  * @author Andrea Fiori
@@ -28,11 +28,15 @@ class ContenutiAllegatiMigrator extends MigratorAbstract
 
         foreach($attachmentRecords as $attachment) {
 
+            /*
             $newAttachmentFilename = str_replace(" ", "-", trim(strtolower($attachment['nome'])) );
             $newAttachmentFilename = str_replace("'", "", $newAttachmentFilename);
             $newAttachmentFilename = str_replace("+", "-", $newAttachmentFilename);
             $newAttachmentFilename = str_replace("à", "a", $newAttachmentFilename);
             $newAttachmentFilename = $attachment['id'].'_'.$newAttachmentFilename;
+            */
+
+            $newAttachmentFilename = AttachnmetsContainer::assignFileName($attachment['nome'], $attachment['id']);
 
             $insertAttach = $this->getRedbeanHelper()->executeQuery("INSERT INTO zfcms_attachments
 (name, size, state, insert_date, mime_id, user_id) (SELECT '$newAttachmentFilename', size, 'active', NOW(), id_mime, 1 FROM contenuti_allegati WHERE id = '".$attachment['id']."' ) ");
@@ -44,7 +48,7 @@ class ContenutiAllegatiMigrator extends MigratorAbstract
 
             $this->getRedbeanHelper()->executeQuery("INSERT INTO zfcms_attachments_relations (attachment_id, reference_id, module_id) VALUES ('".$lastID[0]['last_insert_id']."', ".$attachment['id_contenuti'].", '2' ) ");
 
-            $this->getRedbeanHelper()->getRecord("SELECT contenuti_allegati.id, nome, contenuti_allegati.dati, mimetype FROM contenuti_allegati, mimetype WHERE (id_mime = mimetype.id) AND contenuti_allegati.id = '".$attachment['id']."' ");
+            $singleAttachment = $this->getRedbeanHelper()->getRecord("SELECT contenuti_allegati.id, nome, contenuti_allegati.dati, mimetype FROM contenuti_allegati, mimetype WHERE (id_mime = mimetype.id) AND contenuti_allegati.id = '".$attachment['id']."' ");
 
             /* Upload to S3
             $s3 = new S3($appConfigurationsFromDb['amazon_s3_accesskey'], $appConfigurationsFromDb['amazon_s3_secretkey']);

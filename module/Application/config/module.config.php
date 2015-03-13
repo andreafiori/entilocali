@@ -74,7 +74,7 @@ return array(
                                     'attachments-sthree-download' => array(
                                         'type'    => 'segment',
                                         'options' => array(
-                                            'route'    => '/attachments/download/single/[:type]/[:id[/]]',
+                                            'route'    => '/attachments/download/single/:type/:id/',
                                             'constraints' => array(
                                                 'type'  => '[a-zA-Z][a-zA-Z0-9_-]*',
                                                 'id'      => '[0-9]+',
@@ -459,6 +459,17 @@ return array(
     ),
     // Doctrine
     'doctrine' => array(
+                'eventmanager' => array(
+                    'orm_default' => array(
+                        'subscribers' => array(
+                            'Gedmo\Tree\TreeListener',
+                            'Gedmo\Timestampable\TimestampableListener',
+                            'Gedmo\Sluggable\SluggableListener',
+                            'Gedmo\Loggable\LoggableListener',
+                            'Gedmo\Sortable\SortableListener'
+                        ),
+                    ),
+                ),
                 'driver' => array(
                                 'Application_driver' => array(
                                                 'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',

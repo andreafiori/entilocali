@@ -9,7 +9,7 @@ use Admin\Model\Users\UsersFormDataHandler;
  * @author Andrea Fiori
  * @since  15 June 2013
  */
-class UsersFormDataHandlerTest extends TestSuite
+class UsersFormDataHandlerTest // extends TestSuite
 {
     private $formDataHandler;
     

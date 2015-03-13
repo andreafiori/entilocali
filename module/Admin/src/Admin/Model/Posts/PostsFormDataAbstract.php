@@ -22,8 +22,8 @@ abstract class PostsFormDataAbstract extends FormDataAbstract
     protected $categoriesCheckboxesToSelect;
     
     /**
-     * @param \Application\Model\Posts\PostsGetterWrapper $postsGetterWrapper
-     * @return type
+     * @param PostsGetterWrapper $postsGetterWrapper
+     * @return PostsGetterWrapper
      */
     public function setPostsGetterWrapper(PostsGetterWrapper $postsGetterWrapper)
     {
@@ -33,8 +33,8 @@ abstract class PostsFormDataAbstract extends FormDataAbstract
     }
     
     /**
-     * @param \Admin\Model\Categories\CategoriesGetterWrapper $categoriesGetterWrapper
-     * @return \Admin\Model\Categories\CategoriesGetterWrapper
+     * @param CategoriesGetterWrapper $categoriesGetterWrapper
+     * @return CategoriesGetterWrapper
      */
     public function setCategoriesGetterWrapper(CategoriesGetterWrapper $categoriesGetterWrapper)
     {
@@ -113,7 +113,6 @@ abstract class PostsFormDataAbstract extends FormDataAbstract
     {
         return $this->categoriesCheckboxesToSelect;
     }
-
         
     /**
      * Given the ID or post type, get the record data or the module ID
@@ -134,6 +133,7 @@ abstract class PostsFormDataAbstract extends FormDataAbstract
     /**
      * @param type $id
      * @return boolean
+     *
      * @throws NullException
      */
     public function setRecordById($id)

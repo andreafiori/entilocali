@@ -43,11 +43,11 @@ class AttachmentsForm extends Form
                         'type' => 'Textarea',
                         'options' => array( 'label' => 'Descrizione' ),
                         'attributes' => array(
-                                    'id' => 'description',
-                                    'placeholder' => 'Descrizione...',
-                                    'title' => 'Inserisci descrizione file allegato',
-                                    'rows' => 8,
-                                    'cols' => 35
+                                    'id'            => 'description',
+                                    'placeholder'   => 'Descrizione...',
+                                    'title'         => 'Inserisci descrizione file allegato',
+                                    'rows'          => 8,
+                                    'cols'          => 35
                         )
         ));
         

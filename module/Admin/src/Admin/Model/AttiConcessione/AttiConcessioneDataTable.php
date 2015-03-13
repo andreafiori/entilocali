@@ -26,16 +26,16 @@ class AttiConcessioneDataTable extends DataTableAbstract
         $this->setDescription('Gestione atti di concessione - amministrazione trapsarente');
         $this->setColumns(array(
                 // "key_imp",
-                "Codice",
+                //"Codice",
                 "Ufficio-Responsabile del Servizio - Responsabile del Procedimento",
                 "Num / Anno",
                 "CF / P. IVA Beneficiario",
                 "Modalità Assegnazione",
                 "Importo",
                 "Norma o Titolo a base dell'attribuzione",
-                "Data \ Ora inserimento",
-                "Data scadenza",
-                "Inserito da",
+                //"Data \ Ora inserimento",
+                //"Data scadenza",
+                //"Inserito da",
                 "",
                 "",
                 "",
@@ -98,8 +98,7 @@ class AttiConcessioneDataTable extends DataTableAbstract
 
                     $arrayToReturn[] = array(
                         // (isset($row['keyImp'])) ? $row['keyImp'] : '',
-                        $row['id'],
-                        
+                        //$row['id'],
                         (isset($responsabile))  ?
                             $row['nomeSezione'].'. <br><br>'.$responsabile
                             :
@@ -110,9 +109,9 @@ class AttiConcessioneDataTable extends DataTableAbstract
                         $row['modassegn'],
                         $row['importo'],
                         $row['titolo'],
-                        $row['dataInserimento'].' <br><br>'.$row['ora'],
-                        $row['scadenza'],
-                        $row['name'].' '.$row['surname'],
+                        //$row['dataInserimento'].' <br><br>'.$row['ora'],
+                        //$row['scadenza'],
+                        //$row['name'].' '.$row['surname'],
                         array(
                             'type'      => $row['attivo']!=0 ? 'activeButton' : 'disableButton',
                             'href'      => '?active=&amp;id='.$row['id'],
@@ -132,8 +131,8 @@ class AttiConcessioneDataTable extends DataTableAbstract
                         ),
                         array(
                             'type'      => 'attachButton',
-                            'href'      => '#',
-                            'title'     => 'Elimina'
+                            'href'      => $this->getInput('baseUrl',1).'formdata/attachments/atti-concessione/'.$row['id'],
+                            'title'     => 'Gestione allegati'
                         ),
                     );
                 }

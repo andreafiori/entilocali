@@ -203,17 +203,32 @@ class AlboPretorioArticoliForm extends Form
             ),
             'attributes' => array('id' => 'homepage')
         ));
-        
+
         $this->add(array(
                         'type' => 'Zend\Form\Element\Hidden',
                         'name' => 'id',
                         'attributes' => array("class" => 'hiddenField')
         ));
-        
+
         $this->add(array(
                         'type' => 'Zend\Form\Element\Hidden',
                         'name' => 'userId',
                         'attributes' => array("class" => 'hiddenField')
+        ));
+    }
+
+    public function addFacebook()
+    {
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Checkbox',
+            'name' => 'facebook',
+            'options' => array(
+                'label'                 => 'Inserisci su facebook',
+                'use_hidden_element'    => true,
+                'checked_value'         => 1,
+                'unchecked_value'       => '',
+            ),
+            'attributes' => array('id' => 'facebook')
         ));
     }
 }
