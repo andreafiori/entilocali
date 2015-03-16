@@ -44,7 +44,7 @@ class AuthController extends SetupAbstractController
 
         $sessionContainer = new SessionContainer();
 
-        /* Preview password area */
+        /* Preview Password Area */
         if (!$this->checkPasswordPreviewArea($configurations, $sessionContainer)) {
             return $this->redirect()->toRoute('password-preview');
         }
@@ -198,7 +198,7 @@ class AuthController extends SetupAbstractController
         
         return $this->redirect()->toRoute($redirect, array("lang" => 'it'));
     }
-    
+
     /**
      * @return redirect
      */

@@ -15,7 +15,7 @@ class ZfcmsProductsOrders
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -24,9 +24,16 @@ class ZfcmsProductsOrders
     /**
      * @var integer
      *
-     * @ORM\Column(name="numord", type="integer", nullable=false)
+     * @ORM\Column(name="number", type="integer", nullable=false)
      */
-    private $numord = '0';
+    private $number = '0';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="code", type="string", length=50, nullable=false)
+     */
+    private $code = '0';
 
     /**
      * @var string
@@ -38,44 +45,30 @@ class ZfcmsProductsOrders
     /**
      * @var string
      *
-     * @ORM\Column(name="prezzo", type="decimal", precision=60, scale=2, nullable=false)
+     * @ORM\Column(name="price", type="decimal", precision=60, scale=2, nullable=false)
      */
-    private $prezzo = '0.00';
+    private $price = '0.00';
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dataordine", type="datetime", nullable=false)
+     * @ORM\Column(name="order_date", type="datetime", nullable=false)
      */
-    private $dataordine = '0000-00-00 00:00:00';
+    private $orderDate = '0000-00-00 00:00:00';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="rifidprod", type="integer", nullable=false)
+     * @ORM\Column(name="product_id", type="integer", nullable=false)
      */
-    private $rifidprod = '0';
+    private $productId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="idcliente", type="integer", nullable=false)
+     * @ORM\Column(name="user_id", type="integer", nullable=false)
      */
-    private $idcliente = '0';
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="codord", type="integer", nullable=false)
-     */
-    private $codord = '0';
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="visib", type="string", nullable=false)
-     */
-    private $visib = 'si';
+    private $userId = '0';
 
     /**
      * @var string
@@ -87,9 +80,9 @@ class ZfcmsProductsOrders
     /**
      * @var string
      *
-     * @ORM\Column(name="formapagam", type="string", length=100, nullable=false)
+     * @ORM\Column(name="payment_format", type="string", length=100, nullable=false)
      */
-    private $formapagam = 'no';
+    private $paymentFormat = 'no';
 
 
 
@@ -104,26 +97,49 @@ class ZfcmsProductsOrders
     }
 
     /**
-     * Set numord
+     * Set number
      *
-     * @param integer $numord
+     * @param integer $number
      * @return ZfcmsProductsOrders
      */
-    public function setNumord($numord)
+    public function setNumber($number)
     {
-        $this->numord = $numord;
+        $this->number = $number;
     
         return $this;
     }
 
     /**
-     * Get numord
+     * Get number
      *
      * @return integer 
      */
-    public function getNumord()
+    public function getNumber()
     {
-        return $this->numord;
+        return $this->number;
+    }
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     * @return ZfcmsProductsOrders
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+    
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string 
+     */
+    public function getCode()
+    {
+        return $this->code;
     }
 
     /**
@@ -150,141 +166,95 @@ class ZfcmsProductsOrders
     }
 
     /**
-     * Set prezzo
+     * Set price
      *
-     * @param string $prezzo
+     * @param string $price
      * @return ZfcmsProductsOrders
      */
-    public function setPrezzo($prezzo)
+    public function setPrice($price)
     {
-        $this->prezzo = $prezzo;
+        $this->price = $price;
     
         return $this;
     }
 
     /**
-     * Get prezzo
+     * Get price
      *
      * @return string 
      */
-    public function getPrezzo()
+    public function getPrice()
     {
-        return $this->prezzo;
+        return $this->price;
     }
 
     /**
-     * Set dataordine
+     * Set orderDate
      *
-     * @param \DateTime $dataordine
+     * @param \DateTime $orderDate
      * @return ZfcmsProductsOrders
      */
-    public function setDataordine($dataordine)
+    public function setOrderDate($orderDate)
     {
-        $this->dataordine = $dataordine;
+        $this->orderDate = $orderDate;
     
         return $this;
     }
 
     /**
-     * Get dataordine
+     * Get orderDate
      *
      * @return \DateTime 
      */
-    public function getDataordine()
+    public function getOrderDate()
     {
-        return $this->dataordine;
+        return $this->orderDate;
     }
 
     /**
-     * Set rifidprod
+     * Set productId
      *
-     * @param integer $rifidprod
+     * @param integer $productId
      * @return ZfcmsProductsOrders
      */
-    public function setRifidprod($rifidprod)
+    public function setProductId($productId)
     {
-        $this->rifidprod = $rifidprod;
+        $this->productId = $productId;
     
         return $this;
     }
 
     /**
-     * Get rifidprod
+     * Get productId
      *
      * @return integer 
      */
-    public function getRifidprod()
+    public function getProductId()
     {
-        return $this->rifidprod;
+        return $this->productId;
     }
 
     /**
-     * Set idcliente
+     * Set userId
      *
-     * @param integer $idcliente
+     * @param integer $userId
      * @return ZfcmsProductsOrders
      */
-    public function setIdcliente($idcliente)
+    public function setUserId($userId)
     {
-        $this->idcliente = $idcliente;
+        $this->userId = $userId;
     
         return $this;
     }
 
     /**
-     * Get idcliente
+     * Get userId
      *
      * @return integer 
      */
-    public function getIdcliente()
+    public function getUserId()
     {
-        return $this->idcliente;
-    }
-
-    /**
-     * Set codord
-     *
-     * @param integer $codord
-     * @return ZfcmsProductsOrders
-     */
-    public function setCodord($codord)
-    {
-        $this->codord = $codord;
-    
-        return $this;
-    }
-
-    /**
-     * Get codord
-     *
-     * @return integer 
-     */
-    public function getCodord()
-    {
-        return $this->codord;
-    }
-
-    /**
-     * Set visib
-     *
-     * @param string $visib
-     * @return ZfcmsProductsOrders
-     */
-    public function setVisib($visib)
-    {
-        $this->visib = $visib;
-    
-        return $this;
-    }
-
-    /**
-     * Get visib
-     *
-     * @return string 
-     */
-    public function getVisib()
-    {
-        return $this->visib;
+        return $this->userId;
     }
 
     /**
@@ -311,25 +281,25 @@ class ZfcmsProductsOrders
     }
 
     /**
-     * Set formapagam
+     * Set paymentFormat
      *
-     * @param string $formapagam
+     * @param string $paymentFormat
      * @return ZfcmsProductsOrders
      */
-    public function setFormapagam($formapagam)
+    public function setPaymentFormat($paymentFormat)
     {
-        $this->formapagam = $formapagam;
+        $this->paymentFormat = $paymentFormat;
     
         return $this;
     }
 
     /**
-     * Get formapagam
+     * Get paymentFormat
      *
      * @return string 
      */
-    public function getFormapagam()
+    public function getPaymentFormat()
     {
-        return $this->formapagam;
+        return $this->paymentFormat;
     }
 }

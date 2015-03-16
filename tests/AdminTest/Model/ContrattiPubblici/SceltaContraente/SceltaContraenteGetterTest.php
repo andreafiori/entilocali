@@ -11,6 +11,9 @@ use Admin\Model\ContrattiPubblici\SceltaContraente\SceltaContraenteGetter;
  */
 class ContrattiPubbliciSceltaContraenteGetterTest extends TestSuite
 {
+    /**
+     * @var SceltaContraenteGetter
+     */
     private $objectGetter;
     
     protected function setUp()

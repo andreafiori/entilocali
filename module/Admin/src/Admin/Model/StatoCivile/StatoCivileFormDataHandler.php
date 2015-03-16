@@ -37,24 +37,29 @@ class StatoCivileFormDataHandler extends FormDataAbstract
             ));
         }
 
-        $this->setForm( new StatoCivileForm() );
-        $this->getForm()->addSezioni( $sezioniRecords ? $sezioniRecords : array() );
-        $this->getForm()->addDates();
-        $this->getForm()->addId();
+        $form = new StatoCivileForm();
+        $form->addSezioni( $sezioniRecords ? $sezioniRecords : array() );
+        $form->addDates();
+        $form->addId();
 
         if ( isset($this->param['route']['option']) ) {
             $records = $this->getArticoloRecord($this->param['route']['option']);
-            if ( !empty($records) ) {
-                $this->getForm()->setData($records);
-                
-                $formAction = 'stato-civile/update/';
-            }
+        }
+
+        if ( !empty($records) ) {
+            $form->setData($records);
+
+            $formAction = 'stato-civile/update/';
+        } else {
+            $form->setData(array(
+                'scadenza'=> date('Y-m-d H:i:s', strtotime(date("Y-m-d H:i:s"). ' + 8 days')),
+            ));
         }
 
         $this->setVariables(array(
             'formTitle'                     => isset($records['titolo']) ? $records['titolo'] : 'Nuovo atto stato civile',
             'formDescription'               => '&Egrave; consigliabile inserire testi brevi sul tema trattato, possibilmente in minuscolo',
-            'form'                          => $this->getForm(),
+            'form'                          => $form,
             'formAction'                    => isset($formAction) ? $formAction : $formAction = 'stato-civile/insert/',
             'formBreadCrumbCategory'        => 'Stato civile',
             'formBreadCrumbCategoryLink'    => $this->getInput('baseUrl',1).'datatable/stato-civile/',

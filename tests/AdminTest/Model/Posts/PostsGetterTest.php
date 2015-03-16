@@ -11,6 +11,9 @@ use Admin\Model\Posts\PostsGetter;
  */
 class PostsGetterTest extends TestSuite
 {
+    /**
+     * @var PostsGetter
+     */
     private $objectGetter;
     
     protected function setUp()

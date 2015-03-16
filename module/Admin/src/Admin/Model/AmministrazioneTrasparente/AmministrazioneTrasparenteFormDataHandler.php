@@ -51,16 +51,20 @@ class AmministrazioneTrasparenteFormDataHandler extends FormDataAbstract
 
             $form->setData($record[0]);
         } else {
+            $form->setData(array(
+                'dataScadenza' => date('Y-m-d', strtotime('+5 years')),
+            ));
+
             $formAction      = 'amministrazione-trasparente/insert';
             $formTitle       = 'Nuovo articolo';
             $formDescription = 'Inserisci nuovo articolo. &Egrave; consigliabile inserire dei testi brevi sul tema trattato, possibilmente in minuscolo';
         }
 
         $this->setVariables(array(
-            'formTitle'       => $formTitle,
-            'formDescription' => $formDescription,
-            'form'            => $form,
-            'formAction'      => $formAction,
+            'formTitle'              => $formTitle,
+            'formDescription'        => $formDescription,
+            'form'                   => $form,
+            'formAction'             => $formAction,
             'formBreadCrumbCategory' => 'Amministrazione Trasparente',
             'CKEditorField'          => array('sommario', 'testo'),
         ));

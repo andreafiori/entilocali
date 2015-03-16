@@ -11,9 +11,10 @@ use Admin\Model\StatoCivile\StatoCivileRecordsGetter;
  */
 class StatoCivileRecordsGetterTest extends TestSuite
 {
+    /**
+     * @var StatoCivileRecordsGetter
+     */
     private $recordsGetter;
- 
-    private $articoliGetterWrapperNamespace;
     
     protected function setUp()
     {

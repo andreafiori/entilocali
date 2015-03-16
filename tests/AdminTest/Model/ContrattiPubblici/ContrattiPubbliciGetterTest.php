@@ -11,6 +11,9 @@ use Admin\Model\ContrattiPubblici\ContrattiPubbliciGetter;
  */
 class ContrattiPubbliciGetterTest extends TestSuite
 {
+    /**
+     * @var ContrattiPubbliciGetter
+     */
     private $objectGetter;
     
     protected function setUp()
@@ -39,5 +42,12 @@ class ContrattiPubbliciGetterTest extends TestSuite
         $this->objectGetter->setId( array(1,2,3) );
         
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('id'));
+    }
+
+    public function testSetUtente()
+    {
+        $this->objectGetter->setUtente(11);
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('utente'));
     }
 }

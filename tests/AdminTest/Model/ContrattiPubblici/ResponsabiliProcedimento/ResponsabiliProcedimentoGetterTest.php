@@ -11,6 +11,9 @@ use Admin\Model\ContrattiPubblici\ResponsabiliProcedimento\ResponsabiliProcedime
  */
 class ContrattiPubbliciResponsabiliProcedimentoGetterTest extends TestSuite
 {
+    /**
+     * @var ResponsabiliProcedimentoGetter
+     */
     private $objectGetter;
     
     protected function setUp()

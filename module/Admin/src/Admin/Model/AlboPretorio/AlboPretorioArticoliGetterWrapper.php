@@ -27,7 +27,7 @@ class AlboPretorioArticoliGetterWrapper extends RecordsGetterWrapperAbstract
     {
         $this->objectGetter->setSelectQueryFields( $this->getInput('fields', 1) );
 
-        $this->objectGetter->setMainQuery();        
+        $this->objectGetter->setMainQuery();
         $this->objectGetter->setId($this->getInput('id', 1));
         $this->objectGetter->setNumeroProgressivo($this->getInput('numeroProgressivo', 1));
         $this->objectGetter->setNumeroAtto($this->getInput('numeroAtto', 1));
@@ -45,9 +45,6 @@ class AlboPretorioArticoliGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setLimit($this->getInput('limit', 1));
     }
 
-    /**
-     * @param array $records
-     */
     public function addAttachmentsToRecords(array $records)
     {
 

@@ -10,11 +10,13 @@ use Application\Model\RecordsGetterWrapperAbstract;
  */
 class AlboPretorioSezioniGetterWrapper extends RecordsGetterWrapperAbstract
 {
-    /** @var \Admin\Model\AlboPretorio\AlboPretorioSezioniGetter **/
+    /**
+     * @var AlboPretorioSezioniGetter
+     */
     protected $objectGetter;
 
     /**
-     * @param \Admin\Model\AlboPretorio\AlboPretorioSezioniGetter $objectGetter
+     * @param AlboPretorioSezioniGetter $objectGetter
      */
     public function __construct(AlboPretorioSezioniGetter $objectGetter)
     {
@@ -24,7 +26,9 @@ class AlboPretorioSezioniGetterWrapper extends RecordsGetterWrapperAbstract
     public function setupQueryBuilder()
     {
         $this->objectGetter->setSelectQueryFields( $this->getInput('fields', 1) );
+
         $this->objectGetter->setMainQuery();
+
         $this->objectGetter->setId( $this->getInput('id', 1) );
         $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
         $this->objectGetter->setGroupBy( $this->getInput('groupBy', 1) );

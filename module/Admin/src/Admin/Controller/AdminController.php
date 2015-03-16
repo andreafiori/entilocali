@@ -38,12 +38,6 @@ class AdminController extends SetupAbstractController
             return $this->redirect()->toRoute('password-preview');
         }
 
-        /*
-        $modules = $appServiceLoader->setupModules(new ModulesGetterWrapper(
-            new ModulesGetter($appServiceLoader->recoverService('entityManager'))
-        ));
-        */
-
         $moduleConfigs = $appServiceLoader->recoverService('moduleConfigs');
 
         $userDetails = $this->recoverUserDetails();

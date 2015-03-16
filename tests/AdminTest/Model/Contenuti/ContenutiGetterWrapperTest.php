@@ -12,6 +12,9 @@ use Admin\Model\Contenuti\ContenutiGetterWrapper;
  */
 class ContenutiGetterWrapperTest extends TestSuite
 {
+    /**
+     * @var ContenutiGetterWrapper
+     */
     private $objectWrapper;
     
     protected function setUp()

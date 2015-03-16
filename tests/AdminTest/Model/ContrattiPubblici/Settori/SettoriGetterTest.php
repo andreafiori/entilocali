@@ -11,6 +11,9 @@ use Admin\Model\ContrattiPubblici\Settori\SettoriGetter;
  */
 class ContrattiPubbliciSettoriGetterTest extends TestSuite
 {
+    /**
+     * @var SettoriGetter
+     */
     private $objectGetter;
     
     protected function setUp()

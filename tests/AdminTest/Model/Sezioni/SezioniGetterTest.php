@@ -11,6 +11,9 @@ use Admin\Model\Sezioni\SezioniGetter;
  */
 class SezioniGetterTest extends TestSuite
 {
+    /**
+     * @var SezioniGetter
+     */
     private $objectGetter;
     
     protected function setUp()
@@ -53,5 +56,12 @@ class SezioniGetterTest extends TestSuite
         $this->objectGetter->setAttivo(1);
         
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('attivo'));
+    }
+
+    public function testBlocco()
+    {
+        $this->objectGetter->setBlocco(1);
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('blocco'));
     }
 }

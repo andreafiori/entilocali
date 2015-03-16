@@ -11,6 +11,9 @@ use Application\Model\HomePage\HomePageRecordsGetter;
  */
 class HomePageRecordsGetterTest extends TestSuite
 {
+    /**
+     * @var HomePageRecordsGetter
+     */
     private $homePageRecordsGetter;
     
     protected function setUp()

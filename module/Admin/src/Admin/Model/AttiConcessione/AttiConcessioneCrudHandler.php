@@ -15,6 +15,7 @@ class AttiConcessioneCrudHandler extends CrudHandlerAbstract implements CrudHand
 
     public function insert()
     {
+        $this->getConnection()->beginTransaction();
         try {
 
             $error = array();
@@ -38,7 +39,7 @@ class AttiConcessioneCrudHandler extends CrudHandlerAbstract implements CrudHand
                 $this->setErrorMessage($error);
                 return;
             } else {
-                $this->getConnection()->beginTransaction();
+
                 $this->getConnection()->insert($this->tableName, array(
                     'titolo'        => $this->rawPost['titolo'],
                     'beneficiario'  => $this->rawPost['beneficiario'],
@@ -67,6 +68,7 @@ class AttiConcessioneCrudHandler extends CrudHandlerAbstract implements CrudHand
     
     public function update()
     {
+        $this->getConnection()->beginTransaction();
         try {
             $this->cleanArrayRecordToHandle();
             $this->setArrayRecordToHandle('titolo', 'titolo');
@@ -75,7 +77,8 @@ class AttiConcessioneCrudHandler extends CrudHandlerAbstract implements CrudHand
             $this->setArrayRecordToHandle('modassegn', 'modassegn');
             $this->setArrayRecordToHandle('data', 'data');
             $this->setArrayRecordToHandle('anno', 'anno');
-            $this->setArrayRecordToHandle('settore', 'ufficioResponsabile');
+            $this->setArrayRecordToHandle('settore_id', 'ufficioResponsabile');
+            $this->setArrayRecordToHandle('resp_proc_id', 'respProc');
 
             $affectedRows = $this->getConnection()->update(
                 $this->tableName,
@@ -91,5 +94,4 @@ class AttiConcessioneCrudHandler extends CrudHandlerAbstract implements CrudHand
             return $this->setErrorMessage($e->getMessage());
         }
     }
-
 }

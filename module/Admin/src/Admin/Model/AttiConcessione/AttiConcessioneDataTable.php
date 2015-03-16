@@ -23,7 +23,7 @@ class AttiConcessioneDataTable extends DataTableAbstract
         $this->setRecords( $this->getFormattedDataTableRecords($paginatorRecords) );
 
         $this->setTitle('Atti di concessione');
-        $this->setDescription('Gestione atti di concessione - amministrazione trapsarente');
+        $this->setDescription('Gestione atti di concessione');
         $this->setColumns(array(
                 // "key_imp",
                 //"Codice",

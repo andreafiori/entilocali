@@ -12,6 +12,9 @@ use Admin\Model\EntiTerzi\EntiTerziGetterWrapper;
  */
 class EntiTerziGetterWrapperTest extends TestSuite
 {
+    /**
+     * @var EntiTerziGetterWrapper
+     */
     private $objectWrapper;
     
     protected function setUp()

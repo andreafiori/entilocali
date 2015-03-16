@@ -48,6 +48,25 @@ class SezioniGetter extends QueryBuilderHelperAbstract
         
         return $this->getQueryBuilder();
     }
+
+    /**
+     * @param number|array $id
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setExcludeId($id)
+    {
+        if ( is_numeric($id) ) {
+            $this->getQueryBuilder()->andWhere('sezioni.id != :excludeId ');
+            $this->getQueryBuilder()->setParameter('excludeId', $id);
+        }
+
+        if (is_array($id)) {
+            $this->getQueryBuilder()->andWhere('sezioni.id NOT IN ( :excludeId ) ');
+            $this->getQueryBuilder()->setParameter('excludeId', $id);
+        }
+
+        return $this->getQueryBuilder();
+    }
     
     /**
      * @param string $colonna

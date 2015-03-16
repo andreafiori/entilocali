@@ -12,7 +12,7 @@ class UsersRolesGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('role.id, role.name, role.insertDate, role.lastUpdate, role.adminAccess');
+        $this->setSelectQueryFields('role.id, role.name, role.description, role.insertDate, role.lastUpdate, role.adminAccess');
 
         $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
                                 ->from('Application\Entity\ZfcmsUsersRoles', 'role')

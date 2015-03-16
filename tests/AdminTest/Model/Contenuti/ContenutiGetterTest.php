@@ -11,6 +11,9 @@ use Admin\Model\Contenuti\ContenutiGetter;
  */
 class ContenutiGetterTest extends TestSuite
 {
+    /**
+     * @var ContenutiGetter
+     */
     private $objectGetter;
     
     protected function setUp()
@@ -36,9 +39,23 @@ class ContenutiGetterTest extends TestSuite
     
     public function testSetIdWithArrayInInput()
     {
-        $this->objectGetter->setId( array(1,2,3) );
+        $this->objectGetter->setId(array(1,2,3));
         
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('id'));
+    }
+
+    public function testSetExcludeSezioneId()
+    {
+        $this->objectGetter->setExcludeSezioneId(11);
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('excludeSottoSezioneId'));
+    }
+
+    public function testSetExcludeSezioneIdWithArrayInput()
+    {
+        $this->objectGetter->setExcludeSezioneId(array(1,2,3));
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('excludeSottoSezioneId'));
     }
     
     public function testSetSottosezione()
@@ -75,7 +92,26 @@ class ContenutiGetterTest extends TestSuite
 
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('scadenza'));
     }
-    
+
+    public function testSetNoScaduti()
+    {
+        $this->assertInstanceOf('\Doctrine\ORM\QueryBuilder', $this->objectGetter->setNoScaduti(1));
+    }
+
+    public function testSetModulo()
+    {
+        $this->objectGetter->setModulo(11);
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('moduloId'));
+    }
+
+    public function testAttivo()
+    {
+        $this->objectGetter->setAttivo(1);
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('attivo'));
+    }
+
     public function testSetUtente()
     {
         $this->objectGetter->setUtente('43');
@@ -88,5 +124,12 @@ class ContenutiGetterTest extends TestSuite
         $this->objectGetter->setIsAmmTrasparente('1');
 
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('isammtrasp'));
+    }
+
+    public function testSetShowToAll()
+    {
+        $this->objectGetter->setShowToAll('1');
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('showToAll'));
     }
 }

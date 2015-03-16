@@ -11,6 +11,9 @@ use Admin\Model\AlboPretorio\AlboPretorioSezioniGetter;
  */
 class AlboPretorioSezioniGetterTest extends TestSuite
 {
+    /**
+     * @var AlboPretorioSezioniGetter
+     */
     private $objectGetter;
     
     protected function setUp()

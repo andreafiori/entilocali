@@ -11,6 +11,9 @@ use Admin\Model\Tickets\TicketsGetter;
  */
 class TicketsGetterTest extends TestSuite
 {
+    /**
+     * @var TicketsGetter
+     */
     private $objectGetter;
     
     protected function setUp()

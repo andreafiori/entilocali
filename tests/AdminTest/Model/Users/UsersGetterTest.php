@@ -11,6 +11,9 @@ use Admin\Model\Users\UsersGetter;
  */
 class UsersGetterTest extends TestSuite
 {
+    /**
+     * @var UsersGetter
+     */
     private $objectGetter;
     
     protected function setUp()
@@ -47,7 +50,35 @@ class UsersGetterTest extends TestSuite
         
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('surname'));
     }
-    
+
+    public function testSetEmail()
+    {
+        $this->objectGetter->setEmail('john@doe.com');
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('email'));
+    }
+
+    public function testSetUsername()
+    {
+        $this->objectGetter->setUsername('MyUsername');
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('username'));
+    }
+
+    public function testPassword()
+    {
+        $this->objectGetter->setPassword('MyEasyPassword');
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('password'));
+    }
+
+    public function testSalt()
+    {
+        $this->objectGetter->setSalt('SaltString');
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('salt'));
+    }
+
     public function testSetStatus()
     {
         $this->objectGetter->setStatus('active');
@@ -55,4 +86,3 @@ class UsersGetterTest extends TestSuite
         $this->assertNotEmpty( $this->objectGetter->getQueryBuilder()->getParameter('status') );
     }
 }
-

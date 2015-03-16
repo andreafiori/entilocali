@@ -11,6 +11,9 @@ use Admin\Model\Sezioni\SottoSezioniGetter;
  */
 class SottoSezioniGetterTest extends TestSuite
 {
+    /**
+     * @var SottoSezioniGetter
+     */
     private $objectGetter;
     
     protected function setUp()
@@ -39,6 +42,20 @@ class SottoSezioniGetterTest extends TestSuite
         $this->objectGetter->setId( array(1,2,3) );
         
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('id'));
+    }
+
+    public function testSetExcludeId()
+    {
+        $this->objectGetter->setExcludeId(1);
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('excludeId'));
+    }
+
+    public function testSetExcludeIdWithArrayInput()
+    {
+        $this->objectGetter->setExcludeId(array(1,2,3));
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('excludeId'));
     }
     
     public function testSetIsSs()

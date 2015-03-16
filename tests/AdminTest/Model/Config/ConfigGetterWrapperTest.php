@@ -12,6 +12,9 @@ use Admin\Model\Config\ConfigGetterWrapper;
  */
 class ConfigGetterWrapperTest extends TestSuite
 {
+    /**
+     * @var ConfigGetterWrapper
+     */
     private $objectWrapper;
     
     protected function setUp()

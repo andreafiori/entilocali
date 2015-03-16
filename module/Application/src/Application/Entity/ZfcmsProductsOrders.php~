@@ -15,7 +15,7 @@ class ZfcmsProductsOrders
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -24,9 +24,16 @@ class ZfcmsProductsOrders
     /**
      * @var integer
      *
-     * @ORM\Column(name="numord", type="integer", nullable=false)
+     * @ORM\Column(name="number", type="integer", nullable=false)
      */
-    private $numord = '0';
+    private $number = '0';
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="code", type="string", length=50, nullable=false)
+     */
+    private $code = '0';
 
     /**
      * @var string
@@ -38,44 +45,30 @@ class ZfcmsProductsOrders
     /**
      * @var string
      *
-     * @ORM\Column(name="prezzo", type="decimal", precision=60, scale=2, nullable=false)
+     * @ORM\Column(name="price", type="decimal", precision=60, scale=2, nullable=false)
      */
-    private $prezzo = '0.00';
+    private $price = '0.00';
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dataordine", type="datetime", nullable=false)
+     * @ORM\Column(name="order_date", type="datetime", nullable=false)
      */
-    private $dataordine = '0000-00-00 00:00:00';
+    private $orderDate = '0000-00-00 00:00:00';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="rifidprod", type="integer", nullable=false)
+     * @ORM\Column(name="product_id", type="integer", nullable=false)
      */
-    private $rifidprod = '0';
+    private $productId = '0';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="idcliente", type="integer", nullable=false)
+     * @ORM\Column(name="user_id", type="integer", nullable=false)
      */
-    private $idcliente = '0';
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="codord", type="integer", nullable=false)
-     */
-    private $codord = '0';
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="visib", type="string", nullable=false)
-     */
-    private $visib = 'si';
+    private $userId = '0';
 
     /**
      * @var string
@@ -87,9 +80,9 @@ class ZfcmsProductsOrders
     /**
      * @var string
      *
-     * @ORM\Column(name="formapagam", type="string", length=100, nullable=false)
+     * @ORM\Column(name="payment_format", type="string", length=100, nullable=false)
      */
-    private $formapagam = 'no';
+    private $paymentFormat = 'no';
 
 
 }

@@ -11,6 +11,9 @@ use Admin\Model\Logs\LogsGetter;
  */
 class LogsGetterTest extends TestSuite
 {
+    /**
+     * @var LogsGetter
+     */
     private $objectGetter;
 
     protected function setUp()

@@ -19,9 +19,34 @@ class AttiConcessioneFormDataHandler extends FormDataAbstract
         
         $param = $this->getInput('param', 1);
 
+        $responsabiliProcedimento = $this->getResposabiliProcedimento(array());
+        $sezioniRecords = $this->getSezioni();
+
+        if (empty($sezioniRecords)) {
+            $this->setTemplate('message.phtml');
+            $this->setVariables(array(
+                'messageType'   => 'warning',
+                'messageTitle'  => 'Nessuna sezione',
+                'messageText'   => "Non &egrave; possibile inserire un nuovo atto. Inserire almeno una sezione."
+            ));
+
+            return false;
+        }
+
+        if (empty($responsabiliProcedimento)) {
+            $this->setTemplate('message.phtml');
+            $this->setVariables(array(
+                'messageType'   => 'warning',
+                'messageTitle'  => 'Nessun responsabile procedimento',
+                'messageText'   => "Non &egrave; possibile inserire un nuovo atto. Inserire almeno un responsabile procedimento"
+            ));
+
+            return false;
+        }
+
         $form = new AttiConcessioneForm();
-        $form->addUfficioResponsabile($this->getSezioni());
-        $form->addResponsabileProcedimento($this->getResposabiliProcedimento(array()));
+        $form->addUfficioResponsabile($sezioniRecords);
+        $form->addResponsabileProcedimento($responsabiliProcedimento);
         $form->addModalitaAssegnazione();
 
         $routeOptionId = isset($param['route']['option']) ? $param['route']['option'] : null;
@@ -37,6 +62,10 @@ class AttiConcessioneFormDataHandler extends FormDataAbstract
             $records[0]['importo'] = utf8_encode($records[0]['importo']);
             $form->setData($records[0]);
         } else {
+            $form->setData(array(
+                'dataScadenza' => date('Y-m-d', strtotime('+5 years')),
+            ));
+
             $formAction      = 'atti-concessione/insert';
             $formTitle       = 'Nuovo atto di concessione';
             $formDescription = 'Inserisci nuovo atto di concessione';

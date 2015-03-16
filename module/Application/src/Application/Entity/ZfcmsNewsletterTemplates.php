@@ -38,9 +38,9 @@ class ZfcmsNewsletterTemplates
     /**
      * @var string
      *
-     * @ORM\Column(name="descriziption", type="string", length=150, nullable=false)
+     * @ORM\Column(name="description", type="string", length=150, nullable=false)
      */
-    private $descriziption;
+    private $description;
 
     /**
      * @var string
@@ -52,9 +52,9 @@ class ZfcmsNewsletterTemplates
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="creationdate", type="datetime", nullable=false)
+     * @ORM\Column(name="creation_date", type="datetime", nullable=false)
      */
-    private $creationdate = '0000-00-00 00:00:00';
+    private $creationDate = '0000-00-00 00:00:00';
 
     /**
      * @var integer
@@ -66,14 +66,14 @@ class ZfcmsNewsletterTemplates
     /**
      * @var integer
      *
-     * @ORM\Column(name="language_id", type="integer", nullable=false)
+     * @ORM\Column(name="language_id", type="bigint", nullable=false)
      */
     private $languageId = '1';
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="channel_id", type="integer", nullable=false)
+     * @ORM\Column(name="channel_id", type="bigint", nullable=false)
      */
     private $channelId = '1';
 
@@ -136,26 +136,26 @@ class ZfcmsNewsletterTemplates
     }
 
     /**
-     * Set descriziption
+     * Set description
      *
-     * @param string $descriziption
+     * @param string $description
      * @return ZfcmsNewsletterTemplates
      */
-    public function setDescriziption($descriziption)
+    public function setDescription($description)
     {
-        $this->descriziption = $descriziption;
+        $this->description = $description;
     
         return $this;
     }
 
     /**
-     * Get descriziption
+     * Get description
      *
      * @return string 
      */
-    public function getDescriziption()
+    public function getDescription()
     {
-        return $this->descriziption;
+        return $this->description;
     }
 
     /**
@@ -182,26 +182,26 @@ class ZfcmsNewsletterTemplates
     }
 
     /**
-     * Set creationdate
+     * Set creationDate
      *
-     * @param \DateTime $creationdate
+     * @param \DateTime $creationDate
      * @return ZfcmsNewsletterTemplates
      */
-    public function setCreationdate($creationdate)
+    public function setCreationDate($creationDate)
     {
-        $this->creationdate = $creationdate;
+        $this->creationDate = $creationDate;
     
         return $this;
     }
 
     /**
-     * Get creationdate
+     * Get creationDate
      *
      * @return \DateTime 
      */
-    public function getCreationdate()
+    public function getCreationDate()
     {
-        return $this->creationdate;
+        return $this->creationDate;
     }
 
     /**

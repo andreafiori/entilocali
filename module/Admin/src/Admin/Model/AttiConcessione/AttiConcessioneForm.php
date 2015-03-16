@@ -91,8 +91,8 @@ class AttiConcessioneForm extends Form
                         'type' => 'Text',
                         'options' => array( 'label' => '* Modalit&agrave; assegnazione' ),
                         'attributes' => array(
-                                        'title'         => 'Modalit&agrave; assegnazione',
-                                        'placeholder'   => 'Modalit&agrave; assegnazione...',
+                                        'title'         => 'Modalita assegnazione',
+                                        'placeholder'   => 'Modalita assegnazione...',
                                         'id'            => 'modassegn',
                                         'required'      => 'required',
                         )

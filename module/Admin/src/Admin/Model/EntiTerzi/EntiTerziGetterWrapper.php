@@ -10,19 +10,21 @@ use Application\Model\RecordsGetterWrapperAbstract;
  */
 class EntiTerziGetterWrapper extends RecordsGetterWrapperAbstract
 {
-    /** @var \Admin\Model\Entiterzi\EntiTerziGetter **/
+    /**
+     * @var EntiTerziGetter
+     */
     protected $objectGetter;
 
     /**
-     * @param \Admin\Model\Entiterzi\EntiTerziGetter $entiTerziGetter
+     * @param EntiTerziGetter $objectGetter
      */
-    public function __construct(EntiTerziGetter $entiTerziGetter)
+    public function __construct(EntiTerziGetter $objectGetter)
     {
-        $this->setObjectGetter($entiTerziGetter);
+        $this->setObjectGetter($objectGetter);
     }
-    
+
     /**
-     * setup and execute query
+     * @return null
      */
     public function setupQueryBuilder()
     {
@@ -31,5 +33,7 @@ class EntiTerziGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setId($this->getInput('id', 1));
         $this->objectGetter->setOrderBy($this->getInput('orderBy', 1));
         $this->objectGetter->setLimit($this->getInput('limit', 1));
+
+        return null;
     }
 }

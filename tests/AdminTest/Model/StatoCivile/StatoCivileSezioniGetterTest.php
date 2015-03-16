@@ -11,6 +11,9 @@ use Admin\Model\StatoCivile\StatoCivileSezioniGetter;
  */
 class StatoCivileSezioniGetterTest extends TestSuite
 {
+    /**
+     * @var StatoCivileSezioniGetter
+     */
     private $objectGetter;
     
     protected function setUp()

@@ -28,7 +28,8 @@ class StatoCivileDataTable extends DataTableAbstract
             "Inserito da",
             "&nbsp;", 
             "&nbsp;", 
-            "&nbsp;"
+            "&nbsp;",
+            "&nbsp;",
             )
         );
         
@@ -40,7 +41,7 @@ class StatoCivileDataTable extends DataTableAbstract
         $this->checkActiveDisable();
         
         $paginatorRecords = $this->getRecordsPaginator();
-        
+
         $this->setVariables(array(
             'paginator'     => $paginatorRecords,
             'tablesetter'   => 'stato-civile',
@@ -53,9 +54,9 @@ class StatoCivileDataTable extends DataTableAbstract
         
         $this->setTemplate('datatable/datatable_statocivile.phtml');
     }
-    
+
         /**
-         * @return array|null
+         * @return array|bool
          */
         private function getYears()
         {

@@ -11,6 +11,9 @@ use Admin\Model\FormData\FormDataCrudHandler;
  */
 class FormDataCrudHandlerTest extends TestSuite
 {
+    /**
+     * @var FormDataCrudHandler
+     */
     private $formDataCrudHandler;
 
     private $classMapTest;

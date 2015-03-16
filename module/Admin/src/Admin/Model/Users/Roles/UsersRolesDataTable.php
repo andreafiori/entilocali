@@ -30,7 +30,6 @@ class UsersRolesDataTable extends DataTableAbstract
                 "Ultimo aggiornamento",
                 "&nbsp;",
                 "&nbsp;",
-                "&nbsp;",
             ),
             ''
         ));
@@ -52,23 +51,19 @@ class UsersRolesDataTable extends DataTableAbstract
                         $row['name'],
                         $row['insertDate'],
                         $row['lastUpdate'],
-                        array(
-                            'type'      => 'updateButton',
-                            'href'      => $this->getInput('baseUrl',1).'formdata/users-roles/'.$row['id'],
-                            'title'     => 'Modifica ruolo utente'
-                        ),
+                        ($row['name']=='WebMaster') ? '&nbsp;' :
+                            array(
+                                'type'      => 'updateButton',
+                                'href'      => $this->getInput('baseUrl',1).'users/roles/permissions/'.$row['id'],
+                                'data-id'   => $row['id'],
+                                'title'     => 'Modifica ruolo utente'
+                            ),
+                        ($row['name']=='WebMaster') ? '&nbsp;' :
                         array(
                             'type'      => 'deleteButton',
                             'href'      => '#',
                             'data-id'   => $row['id'],
                             'title'     => 'Elimina ruolo utente'
-                        ),
-                        ($row['name']=='WebMaster') ? '&nbsp;' :
-                        array(
-                            'type'      => 'squareIconButton',
-                            'href'      => $this->getInput('baseUrl',1).'users/roles/permissions/'.$row['id'],
-                            'data-id'   => $row['id'],
-                            'title'     => 'Permessi ruolo utente'
                         ),
                     );
                 }

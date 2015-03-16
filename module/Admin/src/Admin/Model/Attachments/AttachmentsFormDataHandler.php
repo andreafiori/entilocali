@@ -7,20 +7,12 @@ use Admin\Model\Modules\ModulesGetter;
 use Admin\Model\Modules\ModulesGetterWrapper;
 
 /**
- * TODO:
- *      pass the module via GET $param['get']['module']?
- *      select ID module per module code!!!
- *
  * @author Andrea Fiori
  * @since  20 August 2014
  */
 class AttachmentsFormDataHandler extends FormDataAbstract
 {
     private $pages = array();
-
-    private $classMap = array(
-        ''
-    );
     
     /**
      * @inheritdoc
@@ -155,7 +147,7 @@ class AttachmentsFormDataHandler extends FormDataAbstract
         $this->setVariables(array(
                 'form'                       => $form,
                 'formTitle'                  => 'Nuovo allegato',
-                'formDescription'            => "Inserisci un nuovo allegato per l'articolo corrente. Il sistema effettuer&agrave; il caricamento della pagina per aggiornare l'elenco",
+                'formDescription'            => "La dimensione del file non deve superare i <strong>10MB</strong>.",
                 'formAction'                 => 'attachments/insert',
                 'attachmentsList'            => $attachmentsRecords,
                 'articleTitle'               => $articleTitle,

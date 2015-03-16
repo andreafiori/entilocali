@@ -11,6 +11,9 @@ use Admin\Model\Config\ConfigGetter;
  */
 class ConfigGetterTest extends TestSuite
 {
+    /**
+     * @var ConfigGetter
+     */
     private $objectGetter;
     
     protected function setUp()

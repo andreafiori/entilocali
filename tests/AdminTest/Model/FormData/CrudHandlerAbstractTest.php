@@ -10,13 +10,16 @@ use ApplicationTest\TestSuite;
  */
 class CrudHandlerAbstractTest extends TestSuite
 {
+    /**
+     * @var \Admin\Model\FormData\CrudHandlerAbstract
+     */
     private $crudHandlerAbstract;
     
     protected function setUp()
     {
         parent::setUp();
         
-        $this->crudHandlerAbstract = $this->getMockForAbstractClass('Admin\Model\FormData\CrudHandlerAbstract', array($this->getFrontendCommonInput()) );
+        $this->crudHandlerAbstract = $this->getMockForAbstractClass('\Admin\Model\FormData\CrudHandlerAbstract', array($this->getFrontendCommonInput()) );
     }
 
     public function testSetConnection()

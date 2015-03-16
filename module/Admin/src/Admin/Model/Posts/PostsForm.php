@@ -162,10 +162,10 @@ class PostsForm extends Form
                         'type' => 'Textarea',
                         'options' => array( 'label' => 'Descrizione' ),
                         'attributes' => array(
-                                        'id' => 'seoDescription',
+                                        'id'    => 'seoDescription',
                                         'class' => 'form-control',
                                         'title' => 'Inserisci descrizione per i motori di ricerca',
-                                        'rows' => 5,
+                                        'rows'  => 5,
                         ),
         ));
 

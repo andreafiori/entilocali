@@ -12,6 +12,9 @@ use Admin\Model\Contacts\ContactsGetterWrapper;
  */
 class ContactsGetterWrapperTest extends TestSuite
 {
+    /**
+     * @var ContactsGetterWrapper
+     */
     private $objectWrapper;
     
     protected function setUp()

@@ -11,6 +11,9 @@ use Admin\Model\AttiConcessione\AttiConcessioneRespProcGetter;
  */
 class AttiConcessioneRespProcGetterTest extends TestSuite
 {
+    /**
+     * @var AttiConcessioneRespProcGetter
+     */
     private $objectGetter;
     
     protected function setUp()

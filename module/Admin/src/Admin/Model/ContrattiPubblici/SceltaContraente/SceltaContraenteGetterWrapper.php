@@ -10,17 +10,22 @@ use Application\Model\RecordsGetterWrapperAbstract;
  */
 class SceltaContraenteGetterWrapper extends RecordsGetterWrapperAbstract
 {
-    /** @var  \Admin\Model\ContrattiPubblici\SceltaContraenteGetter **/
+    /**
+     * @var SceltaContraenteGetter
+     */
     protected $objectGetter;
     
     /**
-     * @param \Admin\Model\ContrattiPubblici\SceltaContraenteGetter $sceltaContraenteGetter
+     * @param SceltaContraenteGetter $sceltaContraenteGetter
      */
-    public function __construct(SceltaContraenteGetter $sceltaContraenteGetter)
+    public function __construct(SceltaContraenteGetter $objectGetter)
     {
-        $this->setObjectGetter($sceltaContraenteGetter);
+        $this->setObjectGetter($objectGetter);
     }
-    
+
+    /**
+     * @return null
+     */
     public function setupQueryBuilder()
     {
         $this->objectGetter->setSelectQueryFields( $this->getInput('fields', 1) );
@@ -30,5 +35,7 @@ class SceltaContraenteGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setId( $this->getInput('id', 1) );
         $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
         $this->objectGetter->setLimit( $this->getInput('limit', 1) );
+
+        return null;
     }
 }

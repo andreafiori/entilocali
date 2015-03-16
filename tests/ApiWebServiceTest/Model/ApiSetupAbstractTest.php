@@ -10,14 +10,18 @@ use ApplicationTest\TestSuite;
  */
 class ApiSetupAbstractTest extends TestSuite
 {
+    /**
+     * @var \ApiWebService\Model\ApiSetupAbstract
+     */
     private $apiSetupAbstract;
+
     private $validInputSample;
     
     protected function setUp()
     {
         parent::setUp();
         
-        $this->apiSetupAbstract = $this->getMockForAbstractClass('ApiWebService\Model\ApiSetupAbstract');
+        $this->apiSetupAbstract = $this->getMockForAbstractClass('\ApiWebService\Model\ApiSetupAbstract');
         
         $this->validInputSample = array(
             'key'       => 'myApiKey',
@@ -28,7 +32,9 @@ class ApiSetupAbstractTest extends TestSuite
     
     public function testSetMethod()
     {
-        $this->assertEquals($this->apiSetupAbstract->setMethod('GET'), 'GET');
+        $this->apiSetupAbstract->setMethod('GET');
+
+        $this->assertEquals($this->apiSetupAbstract->getMethod(), 'GET');
     }
     
     /**
@@ -37,8 +43,6 @@ class ApiSetupAbstractTest extends TestSuite
     public function testSetUnvalidMethod()
     {
         $this->apiSetupAbstract->setMethod('UNLINK');
-        
-        $this->assertInstanceOf('\Zend\Http\Response', $this->apiSetupAbstract->getResponseToReturn());
     }
     
     public function testSetInput()

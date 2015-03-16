@@ -3,10 +3,6 @@
 namespace Admin\Model\StatoCivile;
 
 use Application\Model\RecordsGetterAbstract;
-use Admin\Model\StatoCivile\StatoCivileGetter;
-use Admin\Model\StatoCivile\StatoCivileGetterWrapper;
-use Admin\Model\StatoCivile\StatoCivileSezioniGetter;
-use Admin\Model\StatoCivile\StatoCivileSezioniGetterWrapper;
 
 /**
  * @author Andrea Fiori
@@ -16,8 +12,8 @@ class StatoCivileRecordsGetter extends RecordsGetterAbstract
 {
     /**
      * Set Recordset Articoli Stato Civile
-     * 
-     * @param type $input
+     *
+     * @param array $input
      */
     public function setArticoli(array $input)
     {
@@ -30,8 +26,8 @@ class StatoCivileRecordsGetter extends RecordsGetterAbstract
     
     /**
      * Set Sezioni Stato Civile Sezioni as recordset
-     * 
-     * @param type $input
+     *
+     * @param array $input
      */
     public function setSezioni(array $input)
     {
@@ -44,7 +40,7 @@ class StatoCivileRecordsGetter extends RecordsGetterAbstract
     
     public function getYears()
     {
-        $articoliWrapper = new ArticoliGetterWrapper( new ArticoliGetter($this->getEntityManager()) );
+        $articoliWrapper = new StatoCivileGetterWrapper( new StatoCivileGetter($this->getEntityManager()) );
         $articoliWrapper->setInput( array('fields' => 'DISTINCT(sca.anno) AS anno ','orderBy' => 'sca.anno') );
         $articoliWrapper->setupQueryBuilder();
         

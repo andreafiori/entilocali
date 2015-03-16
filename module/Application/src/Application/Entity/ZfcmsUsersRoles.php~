@@ -38,9 +38,9 @@ class ZfcmsUsersRoles
     /**
      * @var string
      *
-     * @ORM\Column(name="descritpion", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="description", type="text", length=65535, nullable=false)
      */
-    private $descritpion;
+    private $description;
 
     /**
      * @var \DateTime

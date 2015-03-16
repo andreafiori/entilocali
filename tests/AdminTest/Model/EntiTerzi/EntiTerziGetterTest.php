@@ -11,6 +11,9 @@ use Admin\Model\EntiTerzi\EntiTerziGetter;
  */
 class EntiTerziGetterTest extends TestSuite
 {
+    /**
+     * @var EntiTerziGetter
+     */
     private $objectGetter;
     
     protected function setUp()

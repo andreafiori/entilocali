@@ -22,4 +22,12 @@ class ServiceLocatorFactoryTest extends TestSuite
         ServiceLocatorFactory::setInstance( $this->getServiceManager() );
         $this->assertTrue( ServiceLocatorFactory::getInstance() instanceof ServiceManager);
     }
+
+    /**
+     * @throws \ServiceLocatorFactory\NullServiceLocatorException
+     */
+    public function testGetinstance()
+    {
+        ServiceLocatorFactory::getInstance();
+    }
 }

@@ -34,6 +34,7 @@ class AttachmentsGetter extends QueryBuilderHelperAbstract
 
     /**
      * @param number|array $id
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setId($id)
     {

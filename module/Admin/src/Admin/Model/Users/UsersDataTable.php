@@ -29,7 +29,7 @@ class UsersDataTable extends DataTableAbstract
                 "Email",
                 "Ultima modifica",
                 "Ultima modifica password",
-                //"Stato",
+                // "Stato",
                 "Ruolo",
                 "&nbsp;",
                 "&nbsp;",
@@ -55,8 +55,10 @@ class UsersDataTable extends DataTableAbstract
                     '<a href="mailto:'.$row['email'].'" title="Scrivi a '.$row['name'].' '.$row['surname'].'">'.$row['email'].'</a>',
                     $row['lastUpdate'],
                     $row['passwordLastUpdate'],
-                    //$row['status'],
-                    $row['roleName'],
+                    // $row['status'],
+                    ($row['roleName']!='WebMaster') ?
+                        '<a href="'.$this->getInput('baseUrl',1).'users/roles/permissions/'.$row['roleId'].'" title="">'.$row['roleName'].'</a>'
+                    : $row['roleName'],
                     array(
                         'type'      => 'updateButton',
                         'href'      => $this->getInput('baseUrl',1).'formdata/users/'.$row['id'],

@@ -11,6 +11,9 @@ use Admin\Model\Users\Roles\UsersRolesPermissionsGetter;
  */
 class UsersRolesPermissionsGetterTest extends TestSuite
 {
+    /**
+     * @var UsersRolesPermissionsGetter
+     */
     private $objectGetter;
 
     protected function setUp()

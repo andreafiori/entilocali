@@ -43,14 +43,10 @@ class AmministrazioneTrasparenteDataTable extends DataTableAbstract
         $this->setVariables(array(
             'paginator'     => $paginatorRecords,
             'tablesetter'   => 'amministrazione-trasparente',
-            //'formSearch'    => $formSearch,
-            //'formExport'    => $formSearch
             )
         );
 
         $this->setRecords($this->getFormattedRecords($paginatorRecords));
-        
-        //$this->setTemplate('datatable/datatable_amministrazione_trasparente.phtml');
     }
     
         /**
@@ -60,8 +56,14 @@ class AmministrazioneTrasparenteDataTable extends DataTableAbstract
         {
             $param = $this->getInput('param', 1);
 
+            $configurations = $this->getInput('configurations',1);
+
             $wrapper = new ContenutiGetterWrapper( new ContenutiGetter($this->getInput('entityManager',1)) );
-            $wrapper->setInput( array('orderBy' => 'contenuti.id DESC') );
+            $wrapper->setInput( array(
+                    'orderBy'    => 'contenuti.id DESC',
+                    'sezioneId'  => isset($configurations['amministrazione_trasparente_sezione_id']) ? $configurations['amministrazione_trasparente_sezione_id'] : null,
+                )
+            );
             $wrapper->setupQueryBuilder();
             $wrapper->setupPaginator( $wrapper->setupQuery( $this->getInput('entityManager', 1) ) );
             $wrapper->setupPaginatorCurrentPage(isset($param['route']['page']) ? $param['route']['page'] : null);
@@ -71,7 +73,7 @@ class AmministrazioneTrasparenteDataTable extends DataTableAbstract
         }
 
         /**
-         * @param type $records
+         * @param array|null $records
          * @return boolean|array
          */
         private function getFormattedRecords($records)
@@ -86,8 +88,8 @@ class AmministrazioneTrasparenteDataTable extends DataTableAbstract
                 $activeDisableButtonValue = ($record['attivo']!=0) ? 'toDisable' : 'toActive';
                 $recordsToReturn[] = array(
                     $record['nomeSezione'],
-                    $record['nomeSottosezione'],
-                    $record['titolo'],
+                    utf8_encode($record['nomeSottosezione']),
+                    utf8_encode($record['titolo']),
                     $record['anno'],
                     $record['dataInserimento'],
                     $record['dataScadenza'],

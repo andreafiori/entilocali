@@ -16,6 +16,8 @@ class UsersRolesPermissionsHandler extends RouterManagerAbstract implements Rout
     {
         $param = $this->getInput('param', 1);
 
+        $this->checkFormPost(isset($param['post']) ? $param['post'] : null);
+
         $roleRecord = $this->recoverRoleRecords(isset($param['route']['roleId']) ? $param['route']['roleId'] : null);
 
         $permissionsWrapper = $this->recoverPermissionsWrapper(array());
@@ -27,14 +29,26 @@ class UsersRolesPermissionsHandler extends RouterManagerAbstract implements Rout
 
         if ( !empty($roleRecord) ) {
 
-            if ($roleRecord[0]['name']==='WebMaster') {
+            if ($roleRecord[0]['name'] === 'WebMaster') {
                 $redirect = $this->getInput('redirect', 1);
-                return $redirect->toRoute('admin', array('lang'=>'it'));
+                return $redirect->toRoute('admin', array('lang' => 'it'));
             }
 
             $acl->addRole($roleRecord[0]['name']);
-            foreach($permissionsRecords as $record) {
-                $acl->addResource($record['flag']);
+
+            $permissionsCurrentRoles = new UsersRolesPermissionsRelationsGetterWrapper(
+                new UsersRolesPermissionsRelationsGetter($this->getInput('entityManager',1))
+            );
+            $permissionsCurrentRoles->setInput(array(
+                    'roleId' => $roleRecord[0]['id'],
+                )
+            );
+            $permissionsCurrentRoles->setupQueryBuilder();
+
+            $permissionsCurrentRolesRecords = $permissionsCurrentRoles->getRecords();
+            foreach($permissionsCurrentRolesRecords as $currentRolesRecord) {
+                $acl->addResource($currentRolesRecord['flag']);
+                $acl->allow($roleRecord[0]['name'], $currentRolesRecord['flag']);
             }
 
             $formAction      = 'users-roles/update/'.$roleRecord[0]['id'];
@@ -95,5 +109,29 @@ class UsersRolesPermissionsHandler extends RouterManagerAbstract implements Rout
             $wrapper->setupQueryBuilder();
 
             return $wrapper;
+        }
+
+        /**
+         * @param array|null $formPost
+         * @return bool
+         */
+        private function checkFormPost($formPost)
+        {
+            $crudHandler =  new UsersRolesPermissionsCrudHandler($this->getInput());
+            $crudHandler->setConnection($this->getInput('entityManager')->getConnection());
+
+            if (!empty($formPost['id'])) {
+
+                $crudHandler->setOperation('update');
+
+                $crudHandler->update();
+
+            } else {
+
+                $crudHandler->setOperation('insert');
+
+                $crudHandler->insert();
+
+            }
         }
 }

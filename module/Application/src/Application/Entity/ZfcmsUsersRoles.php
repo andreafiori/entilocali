@@ -38,9 +38,9 @@ class ZfcmsUsersRoles
     /**
      * @var string
      *
-     * @ORM\Column(name="descritpion", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="description", type="text", length=65535, nullable=false)
      */
-    private $descritpion;
+    private $description;
 
     /**
      * @var \DateTime
@@ -129,26 +129,26 @@ class ZfcmsUsersRoles
     }
 
     /**
-     * Set descritpion
+     * Set description
      *
-     * @param string $descritpion
+     * @param string $description
      * @return ZfcmsUsersRoles
      */
-    public function setDescritpion($descritpion)
+    public function setDescription($description)
     {
-        $this->descritpion = $descritpion;
+        $this->description = $description;
     
         return $this;
     }
 
     /**
-     * Get descritpion
+     * Get description
      *
      * @return string 
      */
-    public function getDescritpion()
+    public function getDescription()
     {
-        return $this->descritpion;
+        return $this->description;
     }
 
     /**

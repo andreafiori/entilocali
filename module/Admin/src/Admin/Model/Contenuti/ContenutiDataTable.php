@@ -7,6 +7,8 @@ use Admin\Model\DataTable\DataTableAbstract;
 /**
  * Contenuti from the old CMS
  *
+ * TODO: check ACL
+ *
  * @author Andrea Fiori
  * @since  15 February 2015
  */
@@ -19,10 +21,14 @@ class ContenutiDataTable extends DataTableAbstract
     {
         parent::__construct($input);
 
+        $configurations = $this->getInput('configurations', 1);
+
         $paginatorRecords = $this->setupPaginatorRecords(array(
-            'orderBy' => 'contenuti.id DESC',
-            'utente' => in_array( $this->getUserDetails()->role,
-            array('WebMaster', 'SuperAdmin')) ? null : $this->getUserDetails()->id
+            'orderBy'               => 'contenuti.id DESC',
+            'excludeSottosezioneId' => isset($configurations['amministrazione_trasparente_sottosezione_id']) ? $configurations['amministrazione_trasparente_sottosezione_id'] : null,
+            'excludeSezioneId'      => isset($configurations['amministrazione_trasparente_sezione_id']) ? $configurations['amministrazione_trasparente_sezione_id'] : null,
+            'showToAll'             => ($this->isRole(array('WebMaster'))) ? null : 1,
+            'utente'                => ($this->isRole(array('WebMaster'))) ? null : $this->getUserDetails()->id
         ));
 
         $this->setRecords( $this->formatRecordsToShowOnTable($paginatorRecords) );

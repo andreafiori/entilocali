@@ -11,6 +11,9 @@ use Admin\Model\ContrattiPubblici\Operatori\OperatoriGetter;
  */
 class ContrattiPubbliciOperatoriGetterTest extends TestSuite
 {
+    /**
+     * @var OperatoriGetter
+     */
     private $objectGetter;
     
     protected function setUp()

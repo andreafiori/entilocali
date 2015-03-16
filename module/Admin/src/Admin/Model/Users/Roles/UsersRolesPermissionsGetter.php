@@ -23,4 +23,23 @@ class UsersRolesPermissionsGetter extends QueryBuilderHelperAbstract
 
         return $this->getQueryBuilder();
     }
+
+    /**
+     * @param number|array $id
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setId($id)
+    {
+        if ( is_numeric($id) ) {
+            $this->getQueryBuilder()->andWhere('permission.id = :id ');
+            $this->getQueryBuilder()->setParameter('id', $id);
+        }
+
+        if (is_array($id)) {
+            $this->getQueryBuilder()->andWhere('permission.id IN ( :id ) ');
+            $this->getQueryBuilder()->setParameter('id', $id);
+        }
+
+        return $this->getQueryBuilder();
+    }
 }

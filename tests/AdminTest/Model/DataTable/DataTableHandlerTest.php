@@ -11,6 +11,9 @@ use Admin\Model\DataTable\DataTableHandler;
  */
 class DataTableHandlerTest extends TestSuite
 {
+    /**
+     * @var DataTableHandler
+     */
     private $dataTableHandler;
     
     protected function setUp()

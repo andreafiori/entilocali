@@ -47,6 +47,44 @@ class SottoSezioniGetter extends QueryBuilderHelperAbstract
     }
 
     /**
+     * @param number|array $id
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setExcludeId($id)
+    {
+        if ( is_numeric($id) ) {
+            $this->getQueryBuilder()->andWhere('sezioni.id != :excludeId ');
+            $this->getQueryBuilder()->setParameter('excludeId', $id);
+        }
+
+        if (is_array($id)) {
+            $this->getQueryBuilder()->andWhere('sezioni.id NOT IN ( :excludeId ) ');
+            $this->getQueryBuilder()->setParameter('excludeId', $id);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param number|array $id
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setExcludeSezioneId($id)
+    {
+        if ( is_numeric($id) ) {
+            $this->getQueryBuilder()->andWhere('sezioni.id != :excludeSezioneId ');
+            $this->getQueryBuilder()->setParameter('excludeSezioneId', $id);
+        }
+
+        if (is_array($id)) {
+            $this->getQueryBuilder()->andWhere('sezioni.id NOT IN ( :excludeSezioneId ) ');
+            $this->getQueryBuilder()->setParameter('excludeSezioneId', $id);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
      * @param string $slug
      * @return \Doctrine\ORM\QueryBuilder
      */

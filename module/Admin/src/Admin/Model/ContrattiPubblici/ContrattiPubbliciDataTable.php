@@ -97,13 +97,13 @@ class ContrattiPubbliciDataTable extends DataTableAbstract
                         array(
                             'type'      => 'deleteButton',
                             'href'      => $this->getInput('baseUrl',1).'formdata/contratti-pubblici/'.$row['id'],
-                            'title'     => 'Elimina',
+                            'title'     => 'Elimina bando \ contratto',
                             'data-id'   => $row['id']
                         ),
                         array(
                             'type'      => 'attachButton',
-                            'href'      => $this->getInput('baseUrl',1).'formdata/contratti-pubblici/'.$row['id'],
-                            'title'     => 'Elimina'
+                            'href'      => $this->getInput('baseUrl',1).'formdata/attachments/contratti-pubblici/'.$row['id'],
+                            'title'     => 'Gestione allegati'
                         ),
                     );
                 }

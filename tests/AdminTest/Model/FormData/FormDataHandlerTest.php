@@ -11,6 +11,9 @@ use Admin\Model\FormData\FormDataHandler;
  */
 class FormDataHandlerTest extends TestSuite
 {
+    /**
+     * @var FormDataHandler
+     */
     private $formDataHandler;
     
     protected function setUp()

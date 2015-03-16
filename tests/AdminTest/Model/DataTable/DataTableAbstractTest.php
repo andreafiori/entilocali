@@ -10,6 +10,9 @@ use ApplicationTest\TestSuite;
  */
 class DataTableAbstractTest extends TestSuite
 {
+    /**
+     * @var \Admin\Model\DataTable\DataTableAbstract
+     */
     private $dataTableAbstract;
     
     protected function setUp()

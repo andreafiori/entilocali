@@ -23,14 +23,20 @@ class ContenutiFormDataHandler extends FormDataAbstract
 
         $param = $this->getInput('param', 1);
 
+        $configurations = $this->getInput('configurations', 1);
+
         $recordFromDb = $this->getContenutiRecord(isset($param['route']['option']) ? $param['route']['option'] : null);
         $this->setRecord($recordFromDb);
 
         $form = new ContenutiForm();
-        $form->addSottoSezioni($this->getSezioniRecords());
+        $form->addSottoSezioni($this->getSottoSezioniRecords(array(
+            'excludeId'             => isset($configurations['amministrazione_trasparente_sottosezione_id']) ? $configurations['amministrazione_trasparente_sottosezione_id'] : null,
+            'excludeSezioneId'      => isset($configurations['amministrazione_trasparente_sezione_id']) ? $configurations['amministrazione_trasparente_sezione_id'] : null,
+            'showToAll'             => ($this->isRole(array('WebMaster'))) ? null : 1,
+        )));
         $form->addForm();
 
-        /* ACL Check */
+        /* ACL Check to show user select box or not */
         if ( in_array( $this->getUserDetails()->role, array('WebMaster', 'SuperAdmin')) ) {
             $form->addUsers($this->getUsersRecords(array(
                 'orderBy' => 'u.name'
@@ -93,9 +99,10 @@ class ContenutiFormDataHandler extends FormDataAbstract
         }
 
         /**
+         * @param array $input
          * @return array
          */
-        private function getSezioniRecords($input = array())
+        private function getSottoSezioniRecords($input = array())
         {
             $wrapper = new SottoSezioniGetterWrapper( new SottoSezioniGetter($this->getInput('entityManager',1)) );
             $wrapper->setInput($input);
@@ -114,6 +121,7 @@ class ContenutiFormDataHandler extends FormDataAbstract
         }
 
         /**
+         * @param array $input
          * @return array
          */
         private function getUsersRecords($input = array())

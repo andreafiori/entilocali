@@ -12,6 +12,9 @@ use Admin\Model\ContrattiPubblici\Settori\SettoriGetterWrapper;
  */
 class ContrattiPubbliciSettoriGetterWrapperTest extends TestSuite
 {
+    /**
+     * @var SettoriGetterWrapper
+     */
     private $objectWrapper;
     
     protected function setUp()

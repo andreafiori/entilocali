@@ -12,6 +12,9 @@ use Admin\Model\ContrattiPubblici\SceltaContraente\SceltaContraenteGetterWrapper
  */
 class ContrattiPubbliciSceltaContraenteGetterWrapperTest extends TestSuite
 {
+    /**
+     * @var SceltaContraenteGetterWrapper
+     */
     private $objectWrapper;
     
     protected function setUp()

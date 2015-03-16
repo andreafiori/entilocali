@@ -68,7 +68,7 @@ return array(
                     'formdata' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                                    'route'    => 'formdata[/][:formsetter][/][:option][/][:id[/]]',
+                                    'route'    => 'formdata[/][:formsetter][/][:option[/]][:id[/]]',
                                     'constraints' => array(
                                                 'formsetter' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                                 'option'     => '[a-zA-Z0-9_-]*',
@@ -95,19 +95,6 @@ return array(
                                                         'action'     => 'index',
                                                 ),
                                     ),
-                    ),
-                    'config-edit' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'       => 'config-edit[/]',
-                            'constraints' => array(
-
-                            ),
-                            'defaults' => array(
-                                'controller' => 'Admin\Controller\Admin',
-                                'action'     => 'index',
-                            ),
-                        ),
                     ),
                     'delete-element' => array(
                         'type'    => 'Segment',
@@ -238,16 +225,15 @@ return array(
     ),
     /* Backend Router Class Map */
     'be_router' => array(
-        "admin"                     => '\Admin\Model\AdminDashboard',
-        "admin/formdata"            => '\Admin\Model\FormData\FormDataHandler',
-        "admin/config-edit"         => '\Admin\Model\Config\ConfigEditHandler',
-        "admin/delete-element"      => '\Admin\Model\Delete\DeleteElementHandler',
-        "admin/datatable"           => '\Admin\Model\DataTable\DataTableHandler',
-        "admin/invio-ente-terzo"    => '\Admin\Model\EntiTerzi\InvioEnteTerzoHandler',
-        "admin/migrazione"          => '\Admin\Model\Migrazione\MigrazioneHandler',
-        "admin/sezioni"             => '\Admin\Model\Sezioni\SezioniHandler',
+        "admin"                                  => '\Admin\Model\AdminDashboard',
+        "admin/formdata"                         => '\Admin\Model\FormData\FormDataHandler',
+        "admin/delete-element"                   => '\Admin\Model\Delete\DeleteElementHandler',
+        "admin/datatable"                        => '\Admin\Model\DataTable\DataTableHandler',
+        "admin/invio-ente-terzo"                 => '\Admin\Model\EntiTerzi\InvioEnteTerzoHandler',
+        "admin/migrazione"                       => '\Admin\Model\Migrazione\MigrazioneHandler',
+        "admin/sezioni"                          => '\Admin\Model\Sezioni\SezioniHandler',
         "admin/contratti-pubblici-aggiudicatari" => '\Admin\Model\ContrattiPubblici\Operatori\OperatoriAggiudicatariHandler',
-        "admin/users-roles-permissions"   => '\Admin\Model\Users\Roles\UsersRolesPermissionsHandler',
+        "admin/users-roles-permissions"          => '\Admin\Model\Users\Roles\UsersRolesPermissionsHandler',
     ),
     /* FormData Class Map */
     'formdata_classmap' => array(
@@ -259,6 +245,7 @@ return array(
         'atti-concessione-settori'      => 'Admin\Model\AttiConcessione\AttiConcessioneSettoriFormDataHandler',
         'atti-concessione-resp'         => 'Admin\Model\AttiConcessione\AttiConcessioneRespFormDataHandler',
         'contenuti'                     => 'Admin\Model\Contenuti\ContenutiFormDataHandler',
+        'configurations'                => 'Admin\Model\Config\ConfigFormDataHandler',
         'sezioni-contenuti'             => 'Admin\Model\Sezioni\SezioniFormDataHandler',
         'sottosezioni-contenuti'        => 'Admin\Model\Sezioni\SottoSezioniFormDataHandler',
         'stato-civile'                  => 'Admin\Model\StatoCivile\StatoCivileFormDataHandler',
@@ -271,7 +258,6 @@ return array(
         'enti-terzi'                    => 'Admin\Model\EntiTerzi\EntiTerziFormDataHandler',
         'tickets'                       => 'Admin\Model\Tickets\TicketsFormDataHandler',
         'users'                         => 'Admin\Model\Users\UsersFormDataHandler',
-        'users-roles'                   => 'Admin\Model\Users\Roles\UsersRolesFormDataHandler',
         'categories'                    => 'Admin\Model\Posts\CategoriesFormDataHandler',
         'contents'                      => 'Admin\Model\Posts\PostsFormDataHandler',
         'photo'                         => 'Admin\Model\Posts\PostsFormDataHandler',
@@ -288,6 +274,7 @@ return array(
         'atti-concessione-resp'       => 'Admin\Model\AttiConcessione\AttiConcessioneRespProcCrudHandler',
         'categories'                  => 'Admin\Model\Posts\CategoriesCrudHandler',
         'contenuti'                   => 'Admin\Model\Contenuti\ContenutiCrudHandler',
+        'configurations'              => 'Admin\Model\Config\ConfigCrudHandler',
         'sezioni-contenuti'           => 'Admin\Model\Sezioni\SezioniCrudHandler',
         'sottosezioni-contenuti'      => 'Admin\Model\Sezioni\SottoSezioniCrudHandler',
         'contratti-pubblici'                    => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciCrudHandler',
@@ -315,7 +302,8 @@ return array(
         'newsletter'                            => 'Admin\Model\Newsletter\NewsletterDataTable',
         'contenuti'                             => 'Admin\Model\Contenuti\ContenutiDataTable',
         'sezioni-contenuti'                     => 'Admin\Model\Sezioni\SezioniDataTable',
-        'sottosezioni-contenuti'                => 'Admin\Model\Sezioni\SottoSezioniDataTable',
+        'sottosezioni-contenuti'                => 'Admin\Model\Sezioni\SottosezioniContenutiDataTable',
+        'sottosezioni-amm-trasparente'          => 'Admin\Model\Sezioni\SottosezioniAmmTrasparenteDataTable',
         'contents'                              => 'Admin\Model\Posts\PostsDataTable',
         'photo'                                 => 'Admin\Model\Posts\PostsDataTable',
         'blog'                                  => 'Admin\Model\Posts\PostsDataTable',

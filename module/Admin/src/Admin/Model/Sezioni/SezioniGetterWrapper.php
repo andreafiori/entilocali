@@ -30,6 +30,7 @@ class SezioniGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setMainQuery();
 
         $this->objectGetter->setId( $this->getInput('id', 1) );
+        $this->objectGetter->setExcludeId( $this->getInput('excludeId', 1) );
         $this->objectGetter->setColonna( $this->getInput('colonna', 1) );
         $this->objectGetter->setAttivo( $this->getInput('attivo', 1) );
         $this->objectGetter->setModuloId( $this->getInput('moduloId', 1) );
@@ -77,9 +78,7 @@ class SezioniGetterWrapper extends RecordsGetterWrapperAbstract
                     $wrapper->setupQueryBuilder();
                     $records = $wrapper->getRecords();
                 break;
-                
-                
-            
+
                 case("contratti-pubblici"):
                     
                 break;

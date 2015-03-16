@@ -60,6 +60,58 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
         
         return $this->getQueryBuilder();
     }
+
+    /**
+     * @param number|array $id
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setExcludeSezioneId($id)
+    {
+        if ( is_numeric($id) ) {
+            $this->getQueryBuilder()->andWhere('sezione.id != :excludeSottoSezioneId ');
+            $this->getQueryBuilder()->setParameter('excludeSottoSezioneId', $id);
+        }
+
+        if (is_array($id)) {
+            $this->getQueryBuilder()->andWhere('sezione.id NOT IN ( :excludeSottoSezioneId ) ');
+            $this->getQueryBuilder()->setParameter('excludeSottoSezioneId', $id);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param int $id
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setSezioneId($id)
+    {
+        if ( is_numeric($id) ) {
+            $this->getQueryBuilder()->andWhere('sezione.id = :sezioneId ');
+            $this->getQueryBuilder()->setParameter('sezioneId', $id);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param int|array $id
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setExcludeSottoSezioneId($id)
+    {
+        if ( is_numeric($id) ) {
+            $this->getQueryBuilder()->andWhere('sottosez.id != :excludeSottoSezioneId ');
+            $this->getQueryBuilder()->setParameter('excludeSottoSezioneId', $id);
+        }
+
+        if (is_array($id)) {
+            $this->getQueryBuilder()->andWhere('sottosez.id NOT IN ( :excludeSottoSezioneId ) ');
+            $this->getQueryBuilder()->setParameter('excludeSottoSezioneId', $id);
+        }
+
+        return $this->getQueryBuilder();
+    }
     
     /**
      * @param int $id
@@ -130,6 +182,8 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
         if ($noScaduti === 1) {
             $this->getQueryBuilder()->andWhere("( contenuti.dataScadenza > '".date("Y-m-d H:i:s")."' OR contenuti.dataScadenza = '0000-00-00 00:00:00') ");
         }
+
+        return $this->getQueryBuilder();
     }
 
     /**
@@ -183,6 +237,20 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
         if ( is_numeric($bool) ) {
             $this->getQueryBuilder()->andWhere('contenuti.isAmmTrasparente = :isammtrasp ');
             $this->getQueryBuilder()->setParameter('isammtrasp', $bool);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param int $id
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setShowToAll($bool)
+    {
+        if ( is_numeric($bool) ) {
+            $this->getQueryBuilder()->andWhere('sezioni.showToAll = :showToAll ');
+            $this->getQueryBuilder()->setParameter('showToAll', $bool);
         }
 
         return $this->getQueryBuilder();

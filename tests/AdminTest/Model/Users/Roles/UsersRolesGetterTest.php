@@ -11,6 +11,9 @@ use Admin\Model\Users\Roles\UsersRolesGetter;
  */
 class UsersRolesGetterTest extends TestSuite
 {
+    /**
+     * @var UsersRolesGetter
+     */
     private $objectGetter;
 
     protected function setUp()
@@ -30,6 +33,13 @@ class UsersRolesGetterTest extends TestSuite
     public function testSetId()
     {
         $this->objectGetter->setId(1);
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('id'));
+    }
+
+    public function testSetIdWithArrayInput()
+    {
+        $this->objectGetter->setId(array(1,2,3));
 
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('id'));
     }

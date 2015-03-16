@@ -31,9 +31,9 @@ class ZfcmsNewsletterMailings
     /**
      * @var string
      *
-     * @ORM\Column(name="description_text", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="description", type="text", length=65535, nullable=true)
      */
-    private $descriptionText;
+    private $description;
 
     /**
      * @var \DateTime
@@ -88,26 +88,26 @@ class ZfcmsNewsletterMailings
     }
 
     /**
-     * Set descriptionText
+     * Set description
      *
-     * @param string $descriptionText
+     * @param string $description
      * @return ZfcmsNewsletterMailings
      */
-    public function setDescriptionText($descriptionText)
+    public function setDescription($description)
     {
-        $this->descriptionText = $descriptionText;
+        $this->description = $description;
     
         return $this;
     }
 
     /**
-     * Get descriptionText
+     * Get description
      *
      * @return string 
      */
-    public function getDescriptionText()
+    public function getDescription()
     {
-        return $this->descriptionText;
+        return $this->description;
     }
 
     /**

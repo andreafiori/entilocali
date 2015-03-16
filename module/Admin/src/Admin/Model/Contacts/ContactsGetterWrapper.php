@@ -3,7 +3,6 @@
 namespace Admin\Model\Contacts;
 
 use Application\Model\RecordsGetterWrapperAbstract;
-use Admin\Model\Contacts\ContactsGetter;
 
 /**
  * @author Andrea Fiori
@@ -14,13 +13,16 @@ class ContactsGetterWrapper extends RecordsGetterWrapperAbstract
     private $contactsGetter;
 
     /**
-     * @param \Admin\Model\Contacts\ContactsGetter $contattiGetter
+     * @param ContactsGetter $objectGetter
      */
-    public function __construct(ContactsGetter $contattiGetter)
+    public function __construct(ContactsGetter $objectGetter)
     {
-        $this->contactsGetter = $contattiGetter;
+        $this->contactsGetter = $objectGetter;
     }
-    
+
+    /**
+     * @return null
+     */
     public function setupQueryBuilder()
     {
         $this->contactsGetter->setSelectQueryFields( $this->getInput('fields', 1) );
@@ -30,6 +32,8 @@ class ContactsGetterWrapper extends RecordsGetterWrapperAbstract
         $this->contactsGetter->setSurname( $this->getInput('cognome', 1) );
         $this->contactsGetter->setEmail( $this->getInput('email', 1) );        
         $this->contactsGetter->setLimit( $this->getInput('limit', 1) );
+
+        return null;
     }
     
     /**
@@ -41,7 +45,7 @@ class ContactsGetterWrapper extends RecordsGetterWrapperAbstract
     }
     
     /**
-     * @return type
+     * @return ContactsGetter
      */
     public function getContactsGetter()
     {

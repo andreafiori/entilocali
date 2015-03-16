@@ -11,18 +11,21 @@ use Application\Model\RecordsGetterWrapperAbstract;
 class ResponsabiliProcedimentoGetterWrapper extends RecordsGetterWrapperAbstract
 {
     /**
-     * @var \Admin\Model\ContrattiPubblici\ResposabiliProcedimentoGetter
+     * @var ResposabiliProcedimentoGetter
      */
     protected $objectGetter;
     
     /**
-     * @param \Admin\Model\ContrattiPubblici\ResposabiliProcedimentoGetter $resposabiliProcedimentoGetter
+     * @param ResposabiliProcedimentoGetter $objectGetter
      */
-    public function __construct(ResponsabiliProcedimentoGetter $resposabiliProcedimentoGetter)
+    public function __construct(ResponsabiliProcedimentoGetter $objectGetter)
     {
-        $this->setObjectGetter($resposabiliProcedimentoGetter);
+        $this->setObjectGetter($objectGetter);
     }
-    
+
+    /**
+     * @return null
+     */
     public function setupQueryBuilder()
     {
         $this->objectGetter->setSelectQueryFields( $this->getInput('fields', 1) );
@@ -32,5 +35,7 @@ class ResponsabiliProcedimentoGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setId( $this->getInput('id', 1) );
         $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
         $this->objectGetter->setLimit( $this->getInput('limit', 1) );
+
+        return null;
     }
 }

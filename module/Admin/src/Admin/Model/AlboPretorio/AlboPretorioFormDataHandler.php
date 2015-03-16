@@ -67,7 +67,6 @@ class AlboPretorioFormDataHandler extends FormDataAbstract
                 'form' => $form,
                 'formAction'        => $formAction,
                 'formTitle'         => $formTitle,
-                'rettificaWarning'  => '',
                 'formDescription'   => "Compila i dati relativi all'atto da inserire sull'albo pretorio",
                 'formBreadCrumbCategory'     => 'Albo pretorio',
                 'formBreadCrumbCategoryLink' => $this->getInput('baseUrl', 1).'datatable/albo-pretorio/'

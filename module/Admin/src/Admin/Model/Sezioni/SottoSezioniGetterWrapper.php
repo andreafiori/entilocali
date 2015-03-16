@@ -30,6 +30,8 @@ class SottoSezioniGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setMainQuery();
 
         $this->objectGetter->setId( $this->getInput('id', 1) );
+        $this->objectGetter->setExcludeId( $this->getInput('excludeId', 1) );
+        $this->objectGetter->setExcludeSezioneId( $this->getInput('excludeSezioneId', 1) );
         $this->objectGetter->setSlug( $this->getInput('slug', 1) );
         $this->objectGetter->setIsSs( $this->getInput('isSs', 1) );
         $this->objectGetter->setSezioneId( $this->getInput('sezioneId', 1) );

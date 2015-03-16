@@ -2,6 +2,7 @@
 
 namespace Admin\Model\FormData;
 
+use Application\Model\NullException;
 use Application\Model\RouterManagers\RouterManagerAbstract;
 use Admin\Model\Logs\LogsWriter;
 
@@ -54,7 +55,17 @@ abstract class CrudHandlerAbstract extends RouterManagerAbstract
         
         return $this->connection;
     }
-    
+
+    /**
+     * @throws NullException
+     */
+    protected function asssertConnection()
+    {
+        if ($this->getConnection()) {
+            throw new NullException("Doctrine connection instance is not set on this object");
+        }
+    }
+
     /**
      * @return \Doctrine\DBAL\Connection
      */
@@ -77,7 +88,7 @@ abstract class CrudHandlerAbstract extends RouterManagerAbstract
 
         return $this->operation;
     }
-    
+
     /**
      * @return string
      */
@@ -133,7 +144,7 @@ abstract class CrudHandlerAbstract extends RouterManagerAbstract
             
             return $this->arrayRecordToHandle;
         }
-        
+
         /**
          * @param string $errorMessage
          * @param string $title

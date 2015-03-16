@@ -12,6 +12,9 @@ use Admin\Model\ContrattiPubblici\ResponsabiliProcedimento\ResponsabiliProcedime
  */
 class ResponsabiliProcedimentoGetterWrapperTest extends TestSuite
 {
+    /**
+     * @var ResponsabiliProcedimentoGetterWrapper
+     */
     private $objectWrapper;
 
     protected function setUp()

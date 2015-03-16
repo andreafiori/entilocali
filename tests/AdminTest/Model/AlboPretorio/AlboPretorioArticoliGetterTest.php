@@ -11,6 +11,9 @@ use Admin\Model\AlboPretorio\AlboPretorioArticoliGetter;
  */
 class AlboPretorioArticoliGetterTest extends TestSuite
 {
+    /**
+     * @var AlboPretorioArticoliGetter
+     */
     private $objectGetter;
     
     protected function setUp()

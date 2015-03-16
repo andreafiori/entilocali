@@ -10,6 +10,9 @@ use ApplicationTest\TestSuite;
  */
 class FormDataAbstractTest extends TestSuite
 {
+    /**
+     * @var \Admin\Model\FormData\FormDataAbstract
+     */
     private $formDataAbstract;
     
     protected function setUp()

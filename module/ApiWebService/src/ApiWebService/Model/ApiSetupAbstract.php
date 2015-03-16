@@ -112,6 +112,7 @@ abstract class ApiSetupAbstract
          * 
          * @param string $message
          * @param int $statusCode
+         *
          * @throws NullException
          */
         protected function setupNullException($message, $statusCode = 401)

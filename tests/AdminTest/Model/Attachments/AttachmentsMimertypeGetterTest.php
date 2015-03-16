@@ -11,6 +11,9 @@ use Admin\Model\Attachments\AttachmentsMimetypeGetter;
  */
 class AttachmentsMimertypeGetterTest extends TestSuite
 {
+    /**
+     * @var AttachmentsMimetypeGetter
+     */
     private $objectGetter;
     
     protected function setUp()
@@ -33,11 +36,18 @@ class AttachmentsMimertypeGetterTest extends TestSuite
         
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('id'));
     }
-    
+
     public function testSetIdWithArrayInInput()
     {
         $this->objectGetter->setId( array(1,2,3) );
         
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('id'));
+    }
+
+    public function testSetMimeType()
+    {
+        $this->objectGetter->setMimeType('text/plain');
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('mimetype'));
     }
 }

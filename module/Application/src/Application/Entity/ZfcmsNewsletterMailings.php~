@@ -31,9 +31,9 @@ class ZfcmsNewsletterMailings
     /**
      * @var string
      *
-     * @ORM\Column(name="description_text", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="description", type="text", length=65535, nullable=true)
      */
-    private $descriptionText;
+    private $description;
 
     /**
      * @var \DateTime

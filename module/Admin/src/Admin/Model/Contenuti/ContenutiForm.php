@@ -38,10 +38,11 @@ class ContenutiForm extends Form
             'type' => 'Text',
             'options' => array('label' => '* Titolo'),
             'attributes' => array(
-                'required' => 'required',
-                'placeholder' => 'Titolo',
-                'title' => 'Inserisci il titolo',
-                'id' => 'titolo',
+                'required'      => 'required',
+                'placeholder'   => 'Titolo',
+                'title'         => 'Inserisci il titolo',
+                'id'            => 'titolo',
+                'maxlength'     => '250'
             )
         ));
 
@@ -50,9 +51,9 @@ class ContenutiForm extends Form
             'type' => 'Textarea',
             'options' => array('label' => 'Sotto titolo'),
             'attributes' => array(
-                'id' => 'sommario',
-                'required' => 'required',
-                'class' => 'wysiwyg',
+                'id'        => 'sommario',
+                'required'  => 'required',
+                'class'     => 'wysiwyg',
             )
         ));
 
@@ -61,9 +62,9 @@ class ContenutiForm extends Form
             'type' => 'Textarea',
             'options' => array('label' => 'Testo'),
             'attributes' => array(
-                'id' => 'testo',
-                'required' => 'required',
-                'class' => 'wysiwyg',
+                'id'        => 'testo',
+                'required'  => 'required',
+                'class'     => 'wysiwyg',
             )
         ));
 
