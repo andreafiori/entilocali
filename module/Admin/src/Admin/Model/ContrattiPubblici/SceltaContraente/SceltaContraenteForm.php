@@ -29,6 +29,24 @@ class SceltaContraenteForm extends Form
         ));
 
         $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'attivo',
+            'options' => array(
+                'label' => '* Stato',
+                'empty_option' => 'Seleziona',
+                'value_options' => array(
+                    1   => 'Attivo',
+                    0   => 'Nascosto',
+                ),
+            ),
+            'attributes' => array(
+                'required' => 'required',
+                'title'    => 'Seleziona stato',
+                'id'       => 'attivo'
+            )
+        ));
+
+        $this->add(array(
             'type' => 'Zend\Form\Element\Hidden',
             'name' => 'id',
             'attributes' => array("class" => 'hiddenField')

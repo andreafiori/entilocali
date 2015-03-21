@@ -48,28 +48,28 @@ class ContenutiFormDataHandler extends FormDataAbstract
         if ($recordFromDb) {
             $form->setData($recordFromDb[0]);
 
-            $submitButtonValue = 'Modifica';
-            $formTitle = 'Modifica contenuto';
-            $formDescription = null;
-            $formAction = 'contenuti/update/';
+            $submitButtonValue  = 'Modifica';
+            $formTitle          = 'Modifica contenuto';
+            $formDescription    = null;
+            $formAction         = 'contenuti/update/';
         } else {
             $form->addSocial();
 
-            $formTitle = 'Nuovo contenuto';
-            $formDescription = 'Inserisci i dati relativi al contenuto';
-            $submitButtonValue = 'Inserisci';
-            $formAction = 'contenuti/insert/';
+            $formTitle          = 'Nuovo contenuto';
+            $formDescription    = 'Inserisci i dati relativi al contenuto';
+            $submitButtonValue  = 'Inserisci';
+            $formAction         = 'contenuti/insert/';
         }
 
         $baseUrl = $this->getInput('baseUrl', 1);
 
         $this->setVariables( array(
-                'form'                   => $form,
-                'formAction'             => $formAction,
-                'formTitle'              => $formTitle,
-                'formDescription'        => $formDescription,
-                'submitButtonValue'      => $submitButtonValue,
-                'CKEditorField'          => array('sommario', 'testo'),
+                'form'                       => $form,
+                'formAction'                 => $formAction,
+                'formTitle'                  => $formTitle,
+                'formDescription'            => $formDescription,
+                'submitButtonValue'          => $submitButtonValue,
+                'CKEditorField'              => array('sommario', 'testo'),
                 'formBreadCrumbCategory'     => 'Contenuti',
                 'formBreadCrumbCategoryLink' => $baseUrl.'datatable/contenuti/',
             )

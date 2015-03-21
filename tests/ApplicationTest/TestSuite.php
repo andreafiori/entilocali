@@ -14,7 +14,7 @@ use Application\Model\NullException;
  * @author Andrea Fiori
  * @since  14 January 2014
  */
-class TestSuite extends \PHPUnit_Framework_TestCase
+abstract class TestSuite extends \PHPUnit_Framework_TestCase
 {
     protected $request;
     protected $response;
@@ -46,7 +46,7 @@ class TestSuite extends \PHPUnit_Framework_TestCase
      * @return \Doctrine\ORM\EntityManager
      * @throws NullException
      */
-    protected function getDoctrineEntityManager()
+    public function getDoctrineEntityManager()
     {
         if (! $this->getServiceManager() ) {
             throw new NullException('Service Manager is not set');
@@ -58,7 +58,7 @@ class TestSuite extends \PHPUnit_Framework_TestCase
     /**
      * @return \Zend\ServiceManager\ServiceManager
      */
-    protected function getServiceManager()
+    public function getServiceManager()
     {
         return $this->serviceManager;
     }
@@ -66,7 +66,7 @@ class TestSuite extends \PHPUnit_Framework_TestCase
     /**
      * @return \Doctrine\ORM\EntityManager
      */
-    protected function getEntityManagerMock()
+    public function getEntityManagerMock()
     {
         if ( !$this->entityManagerMock ) {
             $this->entityManagerMock = $this->setEntityManagerMock();
@@ -78,7 +78,7 @@ class TestSuite extends \PHPUnit_Framework_TestCase
     /**
      * Mock Entity Manager Repository main methods
      */
-    protected function setEntityManagerMock()
+    public function setEntityManagerMock()
     {
         $queryBuilder = $this->getQueryBuilderMock();
 
@@ -126,8 +126,8 @@ class TestSuite extends \PHPUnit_Framework_TestCase
         
         return $this->entityManagerMock;
     }
-    
-    protected function getConnectionMock()
+
+    public function getConnectionMock()
     {
         $mock = $this->getMockBuilder('Doctrine\DBAL\Connection')
                                     ->disableOriginalConstructor()
@@ -222,19 +222,5 @@ class TestSuite extends \PHPUnit_Framework_TestCase
             'category'              => 'My Category Name',
         );
     }
-    
-    public function testGetEntityManager()
-    {
-        $this->assertInstanceOf('\Doctrine\ORM\EntityManager', $this->getEntityManagerMock());
-    }
 
-    public function testGetConnection()
-    {   
-        $this->assertInstanceOf('\Doctrine\DBAL\Connection', $this->getConnectionMock());
-    }
-    
-    public function testGetQueryBuilderMock()
-    {
-        $this->assertInstanceOf('\Doctrine\ORM\QueryBuilder', $this->getQueryBuilderMock());
-    }
 }

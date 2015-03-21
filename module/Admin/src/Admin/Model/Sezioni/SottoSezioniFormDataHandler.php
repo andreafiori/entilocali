@@ -19,13 +19,16 @@ class SottoSezioniFormDataHandler extends FormDataAbstract
 
         $param = $this->getInput('param', 1);
 
-        $recordFromDb = $this->getFormRecord(isset($param['route']['option']) ? $param['route']['option'] : null);
+        $configurations = $this->getInput('configurations', 1);
+
+        $recordFromDb = $this->getSottoSezioniFormRecord(isset($param['route']['option']) ? $param['route']['option'] : null);
 
         $this->setRecord($recordFromDb);
 
         $sezioniOptions = $this->getSezioniRecords(array(
             'fields'    => 'sezioni.id, sezioni.nome',
-            'moduloId'  => 2,
+            'id' => ($param['route']['formsetter']=='sottosezioni-amm-trasparente') ? $configurations['amministrazione_trasparente_sezione_id'] : null,
+            'excludeId' => ($param['route']['formsetter']=='sottosezioni-contenuti') ? $configurations['amministrazione_trasparente_sezione_id'] : null,
             'orderBy'   => 'sezioni.nome'
         ));
 
@@ -41,14 +44,13 @@ class SottoSezioniFormDataHandler extends FormDataAbstract
         if ($recordFromDb) {
             $form->setData($recordFromDb[0]);
 
-            $submitButtonValue = 'Modifica';
-
-            $formTitle = $recordFromDb[0]['nomeSottosezione'];
+            $formTitle  = $recordFromDb[0]['nomeSottosezione'];
             $formAction = 'sottosezioni-contenuti/update/';
+            $submitButtonValue = 'Modifica';
         } else {
-            $formTitle = 'Nuova sotto sezione';
-            $submitButtonValue = 'Inserisci';
-            $formAction = 'sottosezioni-contenuti/insert/';
+            $formTitle          = 'Nuova sotto sezione';
+            $submitButtonValue  = 'Inserisci';
+            $formAction         = 'sottosezioni-contenuti/insert/';
         }
 
         $baseUrl = $this->getInput('baseUrl', 1);
@@ -69,7 +71,7 @@ class SottoSezioniFormDataHandler extends FormDataAbstract
          * @param int|null $id
          * @return array|null
          */
-        private function getFormRecord($id)
+        private function getSottoSezioniFormRecord($id)
         {
             if (is_numeric($id)) {
                 $wrapper = new SottoSezioniGetterWrapper( new SottoSezioniGetter($this->getInput('entityManager',1)) );
@@ -81,6 +83,8 @@ class SottoSezioniFormDataHandler extends FormDataAbstract
         }
 
         /**
+         * @param array $input
+         *
          * @return array
          */
         private function getSezioniRecords(array $input)
@@ -94,6 +98,7 @@ class SottoSezioniFormDataHandler extends FormDataAbstract
 
         /**
          * @param array $records
+         *
          * @return array
          */
         private function formatSezioniRecordsForFormSelect(array $records)

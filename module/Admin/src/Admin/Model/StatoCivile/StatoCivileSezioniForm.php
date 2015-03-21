@@ -19,13 +19,13 @@ class StatoCivileSezioniForm extends Form
         
         $this->add(array(
                         'name' => 'nome',
-                        'type' => 'Textarea',
+                        'type' => 'Text',
                         'options' => array('label' => '* Nome'),
                         'attributes' => array(
                                     'required' => 'required',
                                     'id'       => 'nome',
-                                    'required' => 'required',
-                                    'title'    => 'Inserisci nome sezione'
+                                    'title'    => 'Inserisci nome sezione',
+                                    'maxlength'=> 250
                         )
         ));
         

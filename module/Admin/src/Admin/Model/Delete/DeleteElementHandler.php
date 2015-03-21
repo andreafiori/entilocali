@@ -25,7 +25,7 @@ class DeleteElementHandler extends RouterManagerAbstract implements RouterManage
                 $crudHandler->setConnection($this->getInput('entityManager',1)->getConnection());
                 $crudHandler->setOperation('delete');
                 $crudHandler->setLogsWriter( new LogsWriter($crudHandler->getConnection()) );
-                $crudHandler->delete();
+                // $crudHandler->delete();
 
                 $output = $crudHandler->getOutput('export');
             break;

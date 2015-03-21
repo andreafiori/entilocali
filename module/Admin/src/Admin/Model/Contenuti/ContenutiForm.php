@@ -53,7 +53,6 @@ class ContenutiForm extends Form
             'attributes' => array(
                 'id'        => 'sommario',
                 'required'  => 'required',
-                'class'     => 'wysiwyg',
             )
         ));
 
@@ -64,7 +63,6 @@ class ContenutiForm extends Form
             'attributes' => array(
                 'id'        => 'testo',
                 'required'  => 'required',
-                'class'     => 'wysiwyg',
             )
         ));
 

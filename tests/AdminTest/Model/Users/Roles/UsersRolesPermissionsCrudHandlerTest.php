@@ -23,7 +23,7 @@ class UsersRolesPermissionsCrudHandlerTest // extends TestSuite
         $this->usersRolesPermissionsCrudHandler = new UsersRolesPermissionsCrudHandler(
             $this->getFrontendCommonInput()
         );
-        // $this->usersRolesPermissionsCrudHandler->setInput();
+
         $this->usersRolesPermissionsCrudHandler->setConnection($this->getEntityManagerMock()->getConnection());
     }
 

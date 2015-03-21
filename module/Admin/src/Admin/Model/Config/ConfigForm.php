@@ -128,9 +128,21 @@ class ConfigForm extends Form
             'type' => 'Text',
             'options' => array('label' => '* Nome cartella progetto sito pubblico'),
             'attributes' => array(
-                'title'         => 'Bucket',
+                'title'         => 'Frontend',
                 'id'            => 'project_frontend',
                 'placeholder'   => 'Nome cartella progetto sito pubblico...',
+                'required'      => 'required',
+            )
+        ));
+
+        $this->add(array(
+            'name' => 'project_backend',
+            'type' => 'Text',
+            'options' => array('label' => '* Nome cartella progetto admin area'),
+            'attributes' => array(
+                'title'         => 'Inserisci nome cartella progetto admin area',
+                'id'            => 'project_backend',
+                'placeholder'   => 'Backend...',
                 'required'      => 'required',
             )
         ));
@@ -140,19 +152,7 @@ class ConfigForm extends Form
         // atti_concessione_basiclayout     atti_concessione_basiclayout
         // contratti_pubblici_basiclayout
         // amministrazione_trasparente_basiclayout  amministrazione_trasparente_sezione_id
-        //  amministrazione_trasparente_sottosezione_id
-
-        $this->add(array(
-            'name' => 'project_backend',
-            'type' => 'Text',
-            'options' => array('label' => '* Nome cartella progetto admin area'),
-            'attributes' => array(
-                'title'         => 'Inserisci nome cartella progetto admin area',
-                'id'            => 'project_backend',
-                'placeholder'   => 'Bucket...',
-                'required'      => 'required',
-            )
-        ));
+        // amministrazione_trasparente_sottosezione_id
     }
 
     public function addTemplates()

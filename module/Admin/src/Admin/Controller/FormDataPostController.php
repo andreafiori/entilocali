@@ -1,0 +1,164 @@
+<?php
+
+namespace Admin\Controller;
+
+use Admin\Model\Logs\LogsWriter;
+use Application\Controller\SetupAbstractController;
+use Admin\Model\FormData\FormDataCrudHandler;
+use Zend\View\Model\ViewModel;
+
+/**
+ * @author Andrea Fiori
+ * @since  19 March 2015
+ */
+class FormDataPostController extends SetupAbstractController
+{
+    /**
+     * Form post checkpoint for insert and update operations on database
+     *
+     * @return \Zend\View\Model\ViewModel
+     */
+    public function indexAction()
+    {
+        /* Check login */
+        if (!$this->checkLogin()) {
+            return $this->redirect()->toRoute('login');
+        }
+
+        /* Must be a POST request */
+        if (!$this->getServiceLocator()->get('request')->isPost()) {
+            return $this->redirect()->toRoute('login');
+        }
+
+        $appServiceLoader = $this->recoverAppServiceLoader();
+
+        $input = array_merge(
+            $appServiceLoader->getProperties(),
+            array(
+                'userDetails'  => $this->recoverUserDetails(),
+            )
+        );
+
+        $formDataCrudHandler = new FormDataCrudHandler();
+        $formDataCrudHandler->setInput($input);
+        $formDataCrudHandler->setFormCrudHandler($this->params()->fromRoute('form_post_handler'));
+
+        $crudHandlerObject = $formDataCrudHandler->detectCrudHandlerClassMap(
+            $appServiceLoader->recoverServiceKey('moduleConfigs', 'formdata_crud_classmap')
+        );
+
+        /**
+         * @var \Admin\Model\FormData\CrudHandlerAbstract $crudHandler
+         */
+        $crudHandler = new $crudHandlerObject();
+        try {
+
+            /* POST and FILES */
+            $request = $this->getRequest();
+            $post = array_merge_recursive(
+                $request->getPost()->toArray(),
+                $request->getFiles()->toArray()
+            );
+
+            $crudHandler->getForm()->setInputFilter($crudHandler->getFormInputFilter()->getInputFilter());
+
+            $crudHandler->getForm()->setData($post);
+
+            if ( !$crudHandler->getForm()->isValid() ) {
+                throw new \Exception('Form non valido. Verificare i dati inseriti');
+            }
+
+            $crudHandler->getFormInputFilter()->exchangeArray( $crudHandler->getForm()->getData() );
+            $crudHandler->setConnection($appServiceLoader->recoverService('entityManager')->getConnection());
+            $crudHandler->setUserDetails($this->recoverUserDetails());
+
+            /* Validate submitted form data (2nd level validation) */
+            $formDataValidationError = $crudHandler->validateFormData( $crudHandler->getFormInputFilter() );
+            if ( !empty($formDataValidationError) ) {
+
+                $this->layout()->setVariables(
+                    $crudHandler->setupErrorMessage($formDataValidationError)
+                );
+
+                return $this->renderMessageTemplate($appServiceLoader->recoverServiceKey('configurations', 'template_backend'));
+            }
+
+            $operation = $this->params()->fromRoute('operation');
+
+            $crudHandler->getConnection()->beginTransaction();
+
+            if (!method_exists($crudHandler, $operation)) {
+                throw new \Exception('The method '.$operation.' does not exist on '.get_class($crudHandler));
+            }
+
+            /* Insert or Update */
+            try {
+                $crudHandler->$operation( $crudHandler->getFormInputFilter() );
+
+                /* Log OK */
+                $crudHandler->setupLogMethodToExecute($operation, true);
+
+                $crudHandler->getConnection()->commit();
+
+                $this->layout()->setVariables(
+                    array_merge(
+                        $crudHandler->setupSuccessMessage(),
+                        $crudHandler->setupVariablesForTheView($operation, 1)
+                    )
+                );
+                /* Log operation OK */
+                $crudHandler->setupLogMethodToExecute($operation, false);
+
+                $crudHandler->setLogsWriter(new LogsWriter($crudHandler->getConnection()));
+
+                $crudHandler->getLogsWriter()->getConnection()->beginTransaction();
+
+                $crudHandler->log();
+
+                $crudHandler->getLogsWriter()->getConnection()->commit();
+
+            } catch(\Exception $e) {
+                $crudHandler->getConnection()->rollBack();
+
+                $this->layout()->setVariables(
+                    $crudHandler->setupErrorMessage($e->getMessage())
+                );
+
+                /* Log KO for database query failure */
+                $crudHandler->setupLogMethodToExecute($operation, false);
+
+                $crudHandler->setLogsWriter(new LogsWriter($crudHandler->getConnection()));
+
+                $crudHandler->getLogsWriter()->getConnection()->beginTransaction();
+
+                $crudHandler->log($e->getMessage());
+
+                $crudHandler->getLogsWriter()->getConnection()->commit();
+            }
+
+        } catch(\Exception $e) {
+
+            if ($crudHandler->getConnection()) {
+                $crudHandler->getConnection()->rollBack();
+
+                /* Log KO */
+            }
+
+            $this->layout()->setVariables(
+                array_merge(
+                    $crudHandler->setupErrorMessage($e->getMessage()),
+                    $crudHandler->setupVariablesForTheView($operation, false)
+                )
+            );
+        }
+
+        return $this->renderMessageTemplate($appServiceLoader->recoverServiceKey('configurations', 'template_backend'));
+    }
+
+        private function renderMessageTemplate($template)
+        {
+            $this->layout('backend/templates/'.$template.'message.phtml');
+
+            return new ViewModel();
+        }
+}

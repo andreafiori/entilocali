@@ -27,7 +27,7 @@ use Doctrine\ORM\EntityManager;
 class EntitySerializer
 {
     /**
-     * @var Doctrine\ORM\EntityManager
+     * @var \Doctrine\ORM\EntityManager
      */
     protected $_em;
 
@@ -50,7 +50,7 @@ class EntitySerializer
     }
 
     /**
-     * @return Doctrine\ORM\EntityManager
+     * @return \Doctrine\ORM\EntityManager
      */
     public function getEntityManager()
     {
@@ -130,7 +130,7 @@ class EntitySerializer
     /**
      * Serialize an entity to an array
      *
-     * @param The entity $entity
+     * @param object $entity
      * @return array
      */
     public function toArray($entity)
@@ -142,7 +142,7 @@ class EntitySerializer
     /**
      * Convert an entity to a JSON object
      * 
-     * @param The entity $entity
+     * @param object $entity
      * @return string
      */
     public function toJson($entity)
@@ -153,8 +153,8 @@ class EntitySerializer
     /**
      * Convert an entity to XML representation
      *
-     * @param The entity $entity
-     * @throws Exception
+     * @param object $entity
+     * @throws \Exception
      */
     public function toXml($entity)
     {

@@ -15,7 +15,8 @@ class ContrattiPubbliciGetter extends QueryBuilderHelperAbstract
         $this->setSelectQueryFields('DISTINCT(cc.id) AS id, cc.beneficiario,
                 cc.titolo, cc.importoAggiudicazione, cc.importoLiquidato, cc.dataInizioLavori, cc.dataFineLavori,
                 cc.progressivo, cc.anno, cc.data, cc.ora, cc.attivo, cc.scadenza, cc.cig,
-                
+                cc.numeroOfferte,
+
                 csc.nomeScelta,
                 settore.responsabile,
                 

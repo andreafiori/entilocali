@@ -10,6 +10,9 @@ use Application\Model\QueryBuilderHelperAbstract;
  */
 class UsersRolesGetter extends QueryBuilderHelperAbstract
 {
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
     public function setMainQuery()
     {
         $this->setSelectQueryFields('role.id, role.name, role.description, role.insertDate, role.lastUpdate, role.adminAccess');
@@ -35,6 +38,20 @@ class UsersRolesGetter extends QueryBuilderHelperAbstract
         if (is_array($id)) {
             $this->getQueryBuilder()->andWhere('role.id IN ( :id ) ');
             $this->getQueryBuilder()->setParameter('id', $id);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param string $roleName
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setName($roleName)
+    {
+        if ( is_string($roleName) ) {
+            $this->getQueryBuilder()->andWhere('role.name = :roleName ');
+            $this->getQueryBuilder()->setParameter('roleName', $roleName);
         }
 
         return $this->getQueryBuilder();

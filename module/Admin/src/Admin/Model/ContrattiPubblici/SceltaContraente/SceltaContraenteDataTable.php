@@ -17,12 +17,16 @@ class SceltaContraenteDataTable extends DataTableAbstract
     {
         parent::__construct($input);
         
-        $paginatorRecords = $this->setupPaginatorRecords();
+        $paginatorRecords = $this->setupPaginatorRecords(array(
+            'orderBy' => 'csc.id DESC',
+        ));
 
         $this->setRecords( $this->formatRecordsToShowOnTable($paginatorRecords) );
 
-        $this->setVariable('tablesetter', 'contratti-pubblici-scelta-contraente');
-        $this->setVariable('paginator', $paginatorRecords);
+        $this->setVariables(array(
+            'tablesetter' => 'contratti-pubblici-scelta-contraente',
+            'paginator'   => $paginatorRecords,
+        ));
 
         $this->setTitle('Contratti pubblici - scelta del contraente');
         $this->setDescription('Gestione scelta del contraente sui contratti pubblici');
@@ -68,12 +72,14 @@ class SceltaContraenteDataTable extends DataTableAbstract
         /**
          * @return mixed
          */
-        private function setupPaginatorRecords()
+        private function setupPaginatorRecords($input = array())
         {
             $param = $this->getParam();
 
-            $sceltaContraenteGetterWrapper = new SceltaContraenteGetterWrapper(new SceltaContraenteGetter($this->getInput('entityManager',1)) );
-            $sceltaContraenteGetterWrapper->setInput( array() );
+            $sceltaContraenteGetterWrapper = new SceltaContraenteGetterWrapper(
+                new SceltaContraenteGetter($this->getInput('entityManager',1))
+            );
+            $sceltaContraenteGetterWrapper->setInput($input);
             $sceltaContraenteGetterWrapper->setupQueryBuilder();
             $sceltaContraenteGetterWrapper->setupPaginator( $sceltaContraenteGetterWrapper->setupQuery($this->getInput('entityManager', 1)) );
             $sceltaContraenteGetterWrapper->setupPaginatorCurrentPage( isset($param['route']['page']) ? $param['route']['page'] : null );

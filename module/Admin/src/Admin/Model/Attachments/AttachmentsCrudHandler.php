@@ -16,8 +16,6 @@ class AttachmentsCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
     private $tableName_options      = 'zfcms_attachments_options';
     private $tableName_relations    = 'zfcms_attachments_relations';
 
-    private $allowedExtensions = array('txt','doc','docx','xls','xlsx','pdf','jpg','rtf','ods','zip');
-    
     protected function insert()
     {
         $this->getConnection()->beginTransaction();

@@ -19,7 +19,10 @@ class FormDataAbstractTest extends TestSuite
     {
         parent::setUp();
         
-        $this->formDataAbstract = $this->getMockForAbstractClass('\Admin\Model\FormData\FormDataAbstract', array($this->getFrontendCommonInput()) );
+        $this->formDataAbstract = $this->getMockForAbstractClass(
+            '\Admin\Model\FormData\FormDataAbstract',
+            array($this->getFrontendCommonInput())
+        );
     }
     
     public function testSetVariable()

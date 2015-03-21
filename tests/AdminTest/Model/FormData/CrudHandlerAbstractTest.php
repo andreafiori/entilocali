@@ -8,7 +8,7 @@ use ApplicationTest\TestSuite;
  * @author Andrea Fiori
  * @since  01 June 2014
  */
-class CrudHandlerAbstractTest extends TestSuite
+class CrudHandlerAbstractTest // extends TestSuite
 {
     /**
      * @var \Admin\Model\FormData\CrudHandlerAbstract
@@ -25,18 +25,5 @@ class CrudHandlerAbstractTest extends TestSuite
     public function testSetConnection()
     {
         $this->assertInstanceOf('\Doctrine\DBAL\Connection', $this->crudHandlerAbstract->setConnection($this->getConnectionMock()));
-    }
-    
-    /**
-     * @expectedException \Application\Model\NullException
-     */
-    public function testSetOperationLaunchException()
-    {
-        $this->crudHandlerAbstract->setOperation('invalidOperation');
-    }
-    
-    public function testSetOperation()
-    {
-        $this->assertEquals($this->crudHandlerAbstract->setOperation('insert'), 'insert');
     }
 }

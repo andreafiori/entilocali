@@ -23,7 +23,7 @@ class StatoCivileSezioniDataTable extends DataTableAbstract
             "Nome",
             "Data inserimento",
             "Data ultimo aggiornamento",
-            "&nbsp;", 
+            "&nbsp;",
             "&nbsp;",
             )
         );
@@ -41,16 +41,17 @@ class StatoCivileSezioniDataTable extends DataTableAbstract
         $this->setVariable('formBreadCrumbCategory', 'Stato civile');
         $this->setVariable('formBreadCrumbCategoryLink', $this->getInput('baseUrl', 1).'datatable/stato-civile');
     }
-    
+
         /**
-         * @return StatoCivileSezioniGetterWrapper
+         * @param array $input
+         * @return \Zend\Paginator\Paginator
          */
-        private function getRecordsPaginator()
+        private function getRecordsPaginator($input = array())
         {
             $param = $this->getInput('param', 1);
 
             $objectWrapper = new StatoCivileSezioniGetterWrapper( new StatoCivileSezioniGetter($this->getInput('entityManager',1)) );
-            $objectWrapper->setInput( array() );
+            $objectWrapper->setInput($input);
             $objectWrapper->setupQueryBuilder();
             $objectWrapper->setupPaginator( $objectWrapper->setupQuery( $this->getInput('entityManager', 1) ) );
             $objectWrapper->setupPaginatorCurrentPage(isset($param['route']['page']) ? $param['route']['page'] : null);
@@ -60,8 +61,7 @@ class StatoCivileSezioniDataTable extends DataTableAbstract
         }
         
         /**
-         * 
-         * @param type $records
+         * @param array!null $records
          * @return boolean
          */
         private function getFormattedRecords($records)

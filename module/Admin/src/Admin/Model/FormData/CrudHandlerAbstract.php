@@ -3,47 +3,37 @@
 namespace Admin\Model\FormData;
 
 use Application\Model\NullException;
-use Application\Model\RouterManagers\RouterManagerAbstract;
+use Zend\InputFilter\InputFilterInterface;
+use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\InputFilterAwareInterface;
 use Admin\Model\Logs\LogsWriter;
 
 /**
  * @author Andrea Fiori
  * @since  01 June 2014
  */
-abstract class CrudHandlerAbstract extends RouterManagerAbstract
+abstract class CrudHandlerAbstract
 {
+    /**
+     * @var \Zend\Form\Form
+     */
+    protected $form;
+
+    /**
+     * @var InputFilterAwareInterface
+     */
+    protected $formInputFilter;
+    
     /**
      * @var \Doctrine\DBAL\Connection
      */
     protected $connection;
-    
-    protected $allowedOperations = array("insert", "update", "delete");
-    protected $operation;
 
-    protected $rawPost;
-    protected $rawFiles;
+    protected $userDetails;
 
-    protected $arrayRecordToHandle = array();
+    protected $logMethodToExecute;
 
     protected $logsWriter;
-
-    /**
-     * @param array $input
-     */
-    public function __construct(array $input)
-    {
-        $this->setInput($input);
-
-        $param = $this->getInput('param', 1);
-
-        if (isset($param['post'])) {
-            $this->rawPost = $param['post'];
-        }
-
-        if (isset($param['files'])) {
-            $this->rawFiles = $param['files'];
-        }
-    }
 
     /**
      * @param \Doctrine\DBAL\Connection $connection
@@ -61,8 +51,8 @@ abstract class CrudHandlerAbstract extends RouterManagerAbstract
      */
     protected function asssertConnection()
     {
-        if ($this->getConnection()) {
-            throw new NullException("Doctrine connection instance is not set on this object");
+        if (!$this->getConnection()) {
+            throw new NullException("Doctrine connection instance is not set");
         }
     }
 
@@ -75,122 +65,162 @@ abstract class CrudHandlerAbstract extends RouterManagerAbstract
     }
 
     /**
-     * @param string $operation
-     * @return string
+     * @param $errorMessage
+     * @param string $title
+     * @param string $type
+     * @return array
      */
-    public function setOperation($operation)
+    public function setupErrorMessage($errorMessage, $title = 'Errori verificati', $type = 'danger')
     {
-        if ( !in_array($operation, $this->allowedOperations) ) {
-            throw new \Application\Model\NullException('Operazione non consentita');
+        $message = array(
+            'messageType'           => $type,
+            'messageTitle'          => $title,
+        );
+
+        if (is_array($errorMessage)) {
+            $message['messageText'] = 'Si sono verificati i seguenti errori:';
+            $message['messageList'] = $errorMessage;
+        } else {
+            $message['messageText'] = $errorMessage;
         }
 
-        $this->operation = $operation;
+        return $message;
+    }
 
-        return $this->operation;
+    /**
+     * @param string $title
+     * @param string $message
+     * @param string $type
+     * @return array|string
+     */
+    public function setupSuccessMessage(
+        $title = 'Operazione effettuata con successo',
+        $message = 'I dati sono stati elaborati correttamente',
+        $type = 'success')
+    {
+
+        $message = array(
+            'messageType'           => $type,
+            'messageTitle'          => $title,
+            'messageText'           => $message,
+        );
+
+        return $message;
+    }
+
+    /**
+     * @param mixed $userDetails
+     */
+    public function setUserDetails($userDetails)
+    {
+        $this->userDetails = $userDetails;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserDetails()
+    {
+        return $this->userDetails;
+    }
+
+    /**
+     * @throws NullException
+     */
+    protected function assertUserDetails()
+    {
+        if ( !$this->getUserDetails() ) {
+            throw new NullException("User details are not set");
+        }
+    }
+
+    /**
+     * @param $operation
+     * @param $ok
+     * @return string
+     * @throws NullException
+     */
+    public function setupLogMethodToExecute($operation, $ok)
+    {
+        if ($operation == 'insert') {
+
+            $this->logMethodToExecute = ($ok) ? 'logInsertOk' : 'logInsertKo';
+
+        } elseif ($operation == 'update') {
+
+            $this->logMethodToExecute = ($ok) ? 'logUpdateOk' : 'logUpdateKo';
+
+        } elseif ($operation == 'delete') {
+
+            $this->logMethodToExecute = ($ok) ? 'logDeleteOk' : 'logDeleteKo';
+
+        } else {
+            throw new NullException("Operation not allowed");
+        }
+    }
+
+    public function log()
+    {
+        $logMethod = $this->logMethodToExecute;
+
+        return $this->$logMethod();
+    }
+
+    /**
+     * @return \Zend\Form\Form
+     */
+    public function getForm()
+    {
+        return $this->form;
+    }
+
+    /**
+     * @return InputFilterAwareInterface
+     */
+    public function getFormInputFilter()
+    {
+        return $this->formInputFilter;
     }
 
     /**
      * @return string
      */
-    public function getOperation()
+    public function getLogMethodToExecute()
     {
-        return $this->operation;
+        return $this->logMethodToExecute;
     }
 
-        /**
-         * @param string $recordDBField
-         * @param string $rawPostKey
-         * @param int $notNull
-         *
-         * @return array|bool
-         */
-        protected function setArrayRecordToHandle($recordDBField, $rawPostKey, $notNull=0)
-        {
-            if ($notNull) {
-                if ( empty($this->rawPost[$rawPostKey]) ) {
-                    return false;
-                }
-            }
-
-            if ( isset($this->rawPost[$rawPostKey]) ) {
-                $this->arrayRecordToHandle[$recordDBField] = $this->rawPost[$rawPostKey];
-            }
-
-            return $this->arrayRecordToHandle;
-        }
-
-        /**
-         * @param string $key
-         * @param string $value
-         */
-        protected function setArrayRecordElement($key, $value)
-        {
-            $this->arrayRecordToHandle[$key] = $value;
-        }
-
-        protected function cleanArrayRecordToHandle()
-        {
-            $this->arrayRecordToHandle = array();
-        }
-
-        /**
-         * @return array
-         */
-        protected function getArrayRecordToHandle()
-        {
-            if (is_array($this->arrayRecordToHandle)) {
-                return $this->arrayRecordToHandle;
-            }
-            
-            return $this->arrayRecordToHandle;
-        }
-
-        /**
-         * @param string $errorMessage
-         * @param string $title
-         */
-        protected function setErrorMessage($errorMessage, $title = 'Errori verificati', $type = 'danger')
-        {
-            $this->setVariable('messageType', $type);
-            $this->setVariable('messageTitle', $title);
-            $this->setVariable('messageShowFormLink', 1);
-            
-            if (is_array($errorMessage)) {
-                $this->setVariable('messageText', 'Si sono verificati i seguenti errori: ');
-                $this->setVariable('messageList', $errorMessage);
+    /**
+     * @param $operation
+     * @param $ok
+     * @return array
+     */
+    public function setupVariablesForTheView($operation, $ok)
+    {
+        if ($operation=='insert') {
+            if ($ok) {
+                return array(
+                    'messageShowFormLink'        => 0,
+                    'showLinkResetFormAndShowIt' => 1,
+                );
             } else {
-                $this->setVariable('messageText', $errorMessage);
+                return array(
+                    'messageShowFormLink' => 1,
+                );
+            }
+        } elseif($operation=='update') {
+            if ($ok) {
+                return array(
+                    'messageShowFormLink' => 1,
+                );
+            } else {
+                return array(
+                    'messageShowFormLink' => 1,
+                );
             }
         }
 
-        /**
-         * @param string $title
-         * @param string $message
-         * @param string $type
-         */
-        protected function setSuccessMessage(
-            $title = 'Operazione effettuata con successo',
-            $message = 'I dati sono stati elaborati correttamente',
-            $type = 'success')
-        {
-            $this->setVariables(array(
-                'messageType'   => $type,
-                'messageTitle'  => $title,
-                'messageText'   => $message,
-                'messageShowFormLink' => 1
-                )
-            );
-        }
-
-    /**
-     * Get the operation and execute the method with its name
-     */
-    public function performOperation()
-    {
-        $operation = $this->getOperation();
-        if ($operation) {
-            $this->$operation();
-        }
+        return array();
     }
 
     /**
@@ -203,9 +233,22 @@ abstract class CrudHandlerAbstract extends RouterManagerAbstract
 
     /**
      * @param LogsWriter $logsWriter
+     * @return LogsWriter
      */
     public function setLogsWriter(LogsWriter $logsWriter)
     {
         $this->logsWriter = $logsWriter;
+
+        return $this->logsWriter;
+    }
+
+    /**
+     * @throws NullException
+     */
+    protected function assertLogWriter()
+    {
+        if (!$this->getLogsWriter()) {
+            throw new NullException('Log writer is not set');
+        }
     }
 }

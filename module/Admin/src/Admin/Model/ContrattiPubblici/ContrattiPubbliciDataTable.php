@@ -30,17 +30,16 @@ class ContrattiPubbliciDataTable extends DataTableAbstract
                 "Oggetto del bando",
                 "Struttura proponente \ responsabili",
                 "Aggiudicatario",
-                "Scelta del Contraente",
+                //"Scelta del Contraente",
                 // "Elenco degli Operatori invitati a presentare offerte",
                     // "Vedi elenco" (posizione precednete)
-                "Numero di offerte ammesse",
+                "Scelta del Contraente",
                     // "Oggetto del bando", (posizione precednete)
                 "Importo somme liquidate Euro",
-                "Data di scadenza",
-                "Inserito da",
+                // "Inserito da",
                     // "Vedi Elenco", (pulsante, posizione precedente)
-                "Operatori invitati a presentare le offerte",
-                "Tempi di completamento",
+                // "Operatori invitati a presentare le offerte",
+                "Tempi",
                 "&nbsp;", 
                 "&nbsp;",
                 "&nbsp;",
@@ -68,16 +67,15 @@ class ContrattiPubbliciDataTable extends DataTableAbstract
             if ($records) {
                 foreach($records as $key => $row) {
                     $arrayToReturn[] = array(
-                        "<strong>CIG:</strong> ".$row['cig']."<br><br><strong>Oggetto del bando</strong>: ".$row['titolo']."<br><br><strong>Anno:</strong> ".$row['anno']."<br><br> <strong>Data Contratto:</strong> ",
+                        "<strong>CIG:</strong> ".$row['cig']."<br><br><strong>Oggetto del bando</strong>: ".$row['titolo']."<br><br><strong>Anno:</strong> ".$row['anno']."<br><br> <strong>Data Contratto:</strong> ".$row['data'],
                         "<strong>CF:</strong> <br><br><strong>Str. prop.:</strong> ".$row['nomeSettore']."<br><br> <strong>Resp. Proc.:</strong> ".$row['nomeResp'],
                         "<br><strong>Data aggiudicazione:</strong> <br><br> <strong>Importo di aggiudicazione (Euro):</strong> ".$row['importoAggiudicazione'],
-                        "",
-                        "<strong>Procedura di scelta del contraente:</strong>",
-                        "",
-                        "",
-                        $row['name'].' '.$row['surname']." <br><br><strong>Data \ ora di inserimento</strong>: ",
-                        "",
-                        "<strong>Inizio lavori:</strong> <br><br> <strong>Fine lavori:</strong> ",
+                        '<strong>Numero di offerte ammesse:</strong><br><br> '.$row['numeroOfferte']."<br><strong>Procedura di scelta del contraente:</strong> ".$row['nomeScelta'],
+                        $row['importoLiquidato'],
+                        //"",
+                        // $row['name'].' '.$row['surname']." <br><br><strong>Data \ ora di inserimento</strong>: ",
+                        // "",
+                        "<strong>Inizio lavori:</strong> ".$row['dataInizioLavori']."<br><br> <strong>Fine lavori:</strong> ".$row['dataFineLavori']."<br><br> Scadenza: ".$row['scadenza'],
                         array(
                             'type'      => 'tableButton',
                             'href'      => $this->getInput('baseUrl',1).'contratti-pubblici-aggiudicatari/elenco/'.$row['id'],
@@ -119,7 +117,9 @@ class ContrattiPubbliciDataTable extends DataTableAbstract
         {
             $param = $this->getParam();
 
-            $wrapper = new ContrattiPubbliciGetterWrapper(new ContrattiPubbliciGetter($this->getInput('entityManager',1)) );
+            $wrapper = new ContrattiPubbliciGetterWrapper(
+                new ContrattiPubbliciGetter($this->getInput('entityManager',1))
+            );
             $wrapper->setInput( array('orderBy'=> 'cc.id DESC') );
             $wrapper->setupQueryBuilder();
             $wrapper->setupPaginator( $wrapper->setupQuery($this->getInput('entityManager', 1)) );

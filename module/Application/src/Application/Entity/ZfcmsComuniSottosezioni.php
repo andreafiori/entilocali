@@ -149,7 +149,24 @@ class ZfcmsComuniSottosezioni
      */
     private $utente;
 
+    /**
+     * Set array collection
+     */
+    public function __construct()
+    {
+        $this->profonditaDa = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
+    /**
+     * @param int $id
+     * @return $this
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     /**
      * Get id

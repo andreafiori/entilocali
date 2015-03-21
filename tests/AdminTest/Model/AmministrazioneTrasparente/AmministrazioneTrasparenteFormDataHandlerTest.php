@@ -17,7 +17,9 @@ class AmministrazioneTrasparenteFormDataHandlerTest extends TestSuite
     {
         parent::setUp();
         
-        $this->amministrazioneTrasparenteFormDataHandler = new AmministrazioneTrasparenteFormDataHandler($this->getFrontendCommonInput());
+        $this->amministrazioneTrasparenteFormDataHandler = new AmministrazioneTrasparenteFormDataHandler(
+            $this->getFrontendCommonInput()
+        );
     }
     
     public function testFormProperties()

@@ -11,7 +11,7 @@ use Admin\Model\FormData\FormDataAbstract;
 class EntiTerziFormDataHandler extends FormDataAbstract
 {
     /**
-     * @param array $input
+     * @inheritdoc
      */
     public function __construct(array $input)
     {
@@ -26,7 +26,7 @@ class EntiTerziFormDataHandler extends FormDataAbstract
         if ($recordFromDb) {
             $form->setData($recordFromDb[0]);
             $submitButtonValue = 'Modifica';
-            $formTitle = $recordFromDb[0]['nome'];
+            $formTitle = 'Modifica Ente';
             $formAction = 'enti-terzi/update/';
         } else {
             $formTitle = 'Nuovo ente terzo';
@@ -47,7 +47,7 @@ class EntiTerziFormDataHandler extends FormDataAbstract
     }
     
         /**
-         * @param number|null $id
+         * @param int $id
          * @return array|null
          */
         private function getFormRecord($id)

@@ -27,6 +27,9 @@ class FormDataHandler extends RouterManagerAbstract implements RouterManagerInte
         $formSetter = $this->getFormSetter();
         if (isset($formSetter)) {
 
+            /**
+             * @var \Admin\Model\FormData\FormDataAbstract $objectFormHandler
+             */
             $objectFormHandler = new $formSetter($this->getInput());
 
             $this->exportVariableAsGlobal( $objectFormHandler->getVarToExport() );
@@ -57,6 +60,8 @@ class FormDataHandler extends RouterManagerAbstract implements RouterManagerInte
         if ($formSetterClassMap) {
             $this->formSetter = $formSetterClassMap;
         }
+
+        return null;
     }
     
     /**
@@ -67,6 +72,8 @@ class FormDataHandler extends RouterManagerAbstract implements RouterManagerInte
 		if (isset($this->formSetter)) {
 			return $this->formSetter;
 		}
+
+        return null;
     }
     
     /**
@@ -80,5 +87,7 @@ class FormDataHandler extends RouterManagerAbstract implements RouterManagerInte
         } else {
             unset($this->formSetter);
         }
+
+        return null;
     }
 }

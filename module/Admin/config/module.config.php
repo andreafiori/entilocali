@@ -4,6 +4,7 @@ return array(
         'invokables' => array(
             'Admin\Controller\Auth'                 => 'Admin\Controller\AuthController',
             'Admin\Controller\Admin'                => 'Admin\Controller\AdminController',
+            'Admin\Controller\FormDataPost'         => 'Admin\Controller\FormDataPostController',
             'Admin\Controller\HomePagePutter'       => 'Admin\Controller\HomePagePutter',
             'Admin\Controller\Pdf\AlboPretorioPdf'  => 'Admin\Controller\Pdf\AlboPretorioPdfController',
         ),
@@ -166,15 +167,15 @@ return array(
                     'formpost' => array(
                                     'type'    => 'Segment',
                                     'options' => array(
-                                                'route'         => 'formpost[/][:form_post_handler][/][:operation][/][:id][/]',
+                                                'route'         => 'formpost[/][:form_post_handler][/][:operation][/][:id[/]]',
                                                 'constraints'   => array(
                                                     'form_post_handler' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                                     'operation'         => '[a-zA-Z][a-zA-Z0-9_-]*',
                                                     'id'                => '[0-9]+',
                                                 ),
                                                 'defaults' => array(
-                                                    'controller' => 'Admin\Controller\Admin',
-                                                    'action'     => 'formpost',
+                                                    'controller' => 'Admin\Controller\FormDataPost',
+                                                    'action'     => 'index',
                                                 ),
                                     ),
                     ),
@@ -212,6 +213,7 @@ return array(
             'admin/admin/login'             => __DIR__ . '../../view/admin/auth/login.phtml',
             'admin/admin/index'             => __DIR__ . '../../view/admin/index.phtml',
             'admin/admin/formpost'          => __DIR__ . '../../view/admin/formpost-empty.phtml',
+            'admin/form-data-post/index'    => __DIR__ . '../../view/admin/formpost-empty.phtml',
             'admin/admin/invio-ente-terzo'  => __DIR__ . '/../view/invio-ente-terzo-empty.phtml',
             'admin/admin/config-edit'       => __DIR__ . '/../view/config-edit-empty.phtml',
             'admin/admin/delete-element'    => __DIR__ . '/../view/delete-element.phtml',
@@ -231,7 +233,6 @@ return array(
         "admin/datatable"                        => '\Admin\Model\DataTable\DataTableHandler',
         "admin/invio-ente-terzo"                 => '\Admin\Model\EntiTerzi\InvioEnteTerzoHandler',
         "admin/migrazione"                       => '\Admin\Model\Migrazione\MigrazioneHandler',
-        "admin/sezioni"                          => '\Admin\Model\Sezioni\SezioniHandler',
         "admin/contratti-pubblici-aggiudicatari" => '\Admin\Model\ContrattiPubblici\Operatori\OperatoriAggiudicatariHandler',
         "admin/users-roles-permissions"          => '\Admin\Model\Users\Roles\UsersRolesPermissionsHandler',
     ),
@@ -248,6 +249,7 @@ return array(
         'configurations'                => 'Admin\Model\Config\ConfigFormDataHandler',
         'sezioni-contenuti'             => 'Admin\Model\Sezioni\SezioniFormDataHandler',
         'sottosezioni-contenuti'        => 'Admin\Model\Sezioni\SottoSezioniFormDataHandler',
+        'sottosezioni-amm-trasparente'  => 'Admin\Model\Sezioni\SottoSezioniFormDataHandler',
         'stato-civile'                  => 'Admin\Model\StatoCivile\StatoCivileFormDataHandler',
         'stato-civile-sezioni'          => 'Admin\Model\StatoCivile\StatoCivileSezioniFormDataHandler',
         'contratti-pubblici'            => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciFormDataHandler',

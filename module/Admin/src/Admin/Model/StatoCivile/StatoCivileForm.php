@@ -5,8 +5,6 @@ namespace Admin\Model\StatoCivile;
 use Zend\Form\Form;
 
 /**
- * Stato Civile atti, backend Form
- * 
  * @author Andrea Fiori
  * @since  17 June 2014
  */
@@ -24,11 +22,12 @@ class StatoCivileForm extends Form
                         'type' => 'Textarea',
                         'options' => array( 'label' => '* Titolo' ),
                         'attributes' => array(
-                                        'id'       => 'titolo',
-                                        'required' => 'required',
-                                        'palceholder' => 'Inserisci il titolo',
-                                        'title' => 'Inserisci il titolo',
-                                        'rows' => '5',
+                                        'id'            => 'titolo',
+                                        'required'      => 'required',
+                                        'palceholder'   => 'Inserisci il titolo',
+                                        'title'         => 'Inserisci il titolo',
+                                        'rows'          => '5',
+                                        'maxlength'     => 250
                         )
         ));
     }
@@ -47,9 +46,9 @@ class StatoCivileForm extends Form
                            'value_options' => $sezioni,
                     ),
                     'attributes' => array(
-                            'id' => 'sezione',
-                            'title' => 'Seleziona la sezione',
-                            'required' => 'required',
+                            'id'        => 'sezione',
+                            'title'     => 'Seleziona la sezione',
+                            'required'  => 'required',
                     )
         ));
     }

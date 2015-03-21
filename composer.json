@@ -26,6 +26,8 @@
         "zf-commons/zfc-user": "dev-master",
         "bjyoungblood/BjyProfiler": "dev-master",
         "dino/dompdf-module": "dev-master",
-        "facebook/php-sdk-v4": "4.1.*@dev"
+        "facebook/php-sdk-v4": "4.1.*@dev",
+        "dudapiotr/zftable": "dev-master",
+        "rwoverdijk/assetmanager" : "dev-master"
     }
 }

@@ -2,15 +2,12 @@
 
 namespace Admin\Controller;
 
-use Admin\Model\Modules\ModulesGetter;
-use Admin\Model\Modules\ModulesGetterWrapper;
 use Application\Controller\SetupAbstractController;
-use Admin\Model\Logs\LogsWriter;
 use Zend\View\Model\ViewModel;
 use Application\Model\RouterManagers\RouterManager;
 use Application\Model\RouterManagers\RouterManagerHelper;
-use Admin\Model\FormData\FormDataCrudHandler;
 use Zend\Session\Container as SessionContainer;
+use Admin\Model\FormData\FormDataCrudHandler;
 
 /**
  * @author Andrea Fiori
@@ -86,54 +83,5 @@ class AdminController extends SetupAbstractController
         $this->layout('backend/templates/'.$appServiceLoader->recoverServiceKey('configurations', 'template_backend').'backend.phtml');
         
     	return new ViewModel();
-    }
-    
-    /**
-     * @return \Zend\View\Model\ViewModel
-     */
-    public function formpostAction()
-    {
-        /* Check login */
-        if (!$this->checkLogin()) {
-            return $this->redirect()->toRoute('login');
-        }
-
-        /* Must be a POST request */
-        if (!$this->getServiceLocator()->get('request')->isPost()) {
-            return $this->redirect()->toRoute('login');
-        }
-
-        $appServiceLoader = $this->recoverAppServiceLoader();
-
-        $input = array_merge(
-            $appServiceLoader->getProperties(),
-            array(
-                'userDetails'  => $this->recoverUserDetails(),
-            )
-        );
-
-        $formDataCrudHandler = new FormDataCrudHandler();
-        $formDataCrudHandler->setInput($input);
-        $formDataCrudHandler->setFormCrudHandler($this->params()->fromRoute('form_post_handler'));
-
-        $crudHandlerObject = $formDataCrudHandler->detectCrudHandlerClassMap(
-            $appServiceLoader->recoverServiceKey('moduleConfigs', 'formdata_crud_classmap')
-        );
-
-        /**
-         * @var \Admin\Model\FormData\CrudHandlerAbstract $crudHandler
-         */
-        $crudHandler = new $crudHandlerObject($input);
-        $crudHandler->setConnection($appServiceLoader->recoverService('entityManager')->getConnection());
-        $crudHandler->setOperation($this->params()->fromRoute('operation'));
-        $crudHandler->setLogsWriter( new LogsWriter($crudHandler->getConnection()) );
-        // TODO: validate input
-        $crudHandler->performOperation(); // TODO: pass raw post and raw files
-        // TODO: log operation
-
-        $this->layout()->setVariables($crudHandler->getOutput('export'));
-        $this->layout('backend/templates/'.$appServiceLoader->recoverServiceKey('configurations', 'template_backend').'message.phtml');
-        
-        return new ViewModel();
     }
 }

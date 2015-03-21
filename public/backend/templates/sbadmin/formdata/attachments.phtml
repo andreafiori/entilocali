@@ -103,6 +103,59 @@ echo $this->render($this->formDataCommonPath.'formdata_breadcrumb.phtml');
     </div>
 </div>
 
+<!-- Modal file too large -->
+<div class="modal fade" id="fileTooLarge" tabindex="-1" role="dialog" aria-labelledby="FileTooLargeModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content panel-danger">
+
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="deleteModalLabel"><strong>File troppo grande</strong></h4>
+            </div>
+
+            <form action="" method="post" id="frmDeleteModal">
+                <div class="modal-body">
+                    <p><strong>Attenzione:</strong> il file selezionato &egrave; troppo grande. Selezionare un file pi&ugrave; piccolo o non sar&agrave; possibile procedere.</p>
+
+                    <input type="hidden" name="deleteId" id="deleteId" value="" />
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Chiudi</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal extension file not allowed -->
+<div class="modal fade" id="extensionNotAllowed" tabindex="-1" role="dialog" aria-labelledby="extensionNotAllowedModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content panel-danger">
+
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="deleteModalLabel"><strong>Estensione file non consentita</strong></h4>
+            </div>
+
+            <form action="" method="post" id="frmDeleteModal">
+                <div class="modal-body">
+                    <p><strong>Attenzione:</strong> l'estensione del file selezionato non &egrave; consentita.</p>
+                    <p><strong>Estensioni file consentite:</strong> jpg, jpeg, png, gif, zip, rar, doc, docx, rtf, pdf, xls, xlsx. csv, ppt, txt</p>
+
+                    <input type="hidden" name="deleteId" id="deleteId" value="" />
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Chiudi</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
 
 <script>
 $(document).ready(function () {
@@ -121,5 +174,41 @@ $(document).ready(function () {
         $(_self.attr('href')).modal('show');
     });
 
+    /* Check File size */
+    $('#attachmentFile').bind('change', function() {
+        if (this.files[0].size > 10485760) {
+            $('#fileTooLarge').modal(); /* open modal */
+            $('#submit').prop("disabled", true); /* disable submit button */
+        } else {
+            $('#submit').prop("disabled", false);
+
+            /* Check File Extension */
+            var filename = $("#file_input").val();
+            var extension = $('#attachmentFile').val().split('.').pop().toLowerCase();
+
+            if (extension == filename) {
+                extension = '';
+            } else {
+                extension = extension.toLowerCase();
+            }
+
+            switch (extension) {
+                case 'jpg': case 'jpeg': case 'png': case 'gif':
+                case 'zip': case 'rar':
+                case 'doc': case 'docx': case 'rtf':
+                case 'pdf':
+                case 'xls': case 'xlsx': case 'csv':
+                case 'ppt':
+                case 'txt':
+                    $('#submit').prop("disabled", false);
+                break;
+
+                default:
+                    $('#submit').prop("disabled", true);
+                    $('#extensionNotAllowed').modal();
+                break;
+            }
+        }
+    });
 });
 </script>

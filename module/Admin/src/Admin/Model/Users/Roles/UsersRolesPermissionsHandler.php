@@ -16,7 +16,7 @@ class UsersRolesPermissionsHandler extends RouterManagerAbstract implements Rout
     {
         $param = $this->getInput('param', 1);
 
-        $this->checkFormPost(isset($param['post']) ? $param['post'] : null);
+        // $this->checkFormPost(isset($param['post']) ? $param['post'] : null);
 
         $roleRecord = $this->recoverRoleRecords(isset($param['route']['roleId']) ? $param['route']['roleId'] : null);
 
@@ -114,7 +114,7 @@ class UsersRolesPermissionsHandler extends RouterManagerAbstract implements Rout
         /**
          * @param array|null $formPost
          * @return bool
-         */
+
         private function checkFormPost($formPost)
         {
             $crudHandler =  new UsersRolesPermissionsCrudHandler($this->getInput());
@@ -133,5 +133,5 @@ class UsersRolesPermissionsHandler extends RouterManagerAbstract implements Rout
                 $crudHandler->insert();
 
             }
-        }
+        } */
 }

@@ -132,7 +132,7 @@ class AttachmentsFormDataHandler extends FormDataAbstract
                 $relatedRecord = $wrapper->getRecords();
 
                 $articleTitle = stripslashes($relatedRecord[0]['titolo']);
-                $breadCrumbModule = 'Contenuti';
+                $breadCrumbModule = ($param['route']['option']=='contenuti') ? 'Contenuti' : 'Amministrazione Trasparente';
             break;
         }
         

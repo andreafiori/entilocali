@@ -9,7 +9,7 @@ use Admin\Model\AlboPretorio\AlboPretorioSezioniCrudHandler;
  * @author Andrea Fiori
  * @since  26 October 2014
  */
-class AlboPretorioSezioniCrudHandlerTest extends TestSuite
+class AlboPretorioSezioniCrudHandlerTest //extends TestSuite
 {
     private $alboPretorioSezioniCrudHandler;
     

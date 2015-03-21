@@ -19,11 +19,16 @@ class StatoCivileSezioniCrudHandler extends CrudHandlerAbstract implements CrudH
         try {
             
             $this->getConnection()->insert($this->tableName, array(
-                'nome'      => $this->rawPost['nome'],
-                'attivo'    => $this->rawPost['attivo'],
+                'nome'                         => $this->rawPost['nome'],
+                'attivo'                       => $this->rawPost['attivo'],
+                'data_inserimento'             => date("Y-m-d H:i:s"),
+                'data_ultimo_aggiornamento'    => date("Y-m-d H:i:s"),
             ));
 
             $this->getConnection()->commit();
+
+            $this->setVariable('redirectRoute', 1);
+            $this->setVariable('redirectRouteTableSetter', 'stato-civile');
 
             $this->setSuccessMessage();
             

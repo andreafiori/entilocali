@@ -2,6 +2,7 @@
 
 namespace Admin\Model\FormData;
 
+use Application\Model\NullException;
 use Application\Model\RouterManagers\RouterManagerAbstract;
 
 /**
@@ -20,20 +21,22 @@ class FormDataCrudHandler extends RouterManagerAbstract
      * @return string
      */
     public function setFormCrudHandler($formCrudHandler)
-     {
+    {
         $this->formCrudHandler = $formCrudHandler;
 
         return $this->formCrudHandler;
     }
     
     /**
+     * Set Crud Handler Object
+     *
      * @param array $classMap
      * @return array
      */
     public function detectCrudHandlerClassMap(array $classMap)
     {
         if (!$this->formCrudHandler) {
-            throw new \Application\Model\NullException('Form Crud Handler is not set');
+            throw new NullException('Form Crud Handler object is not set');
         }
 
         if (isset($classMap[$this->formCrudHandler])) {

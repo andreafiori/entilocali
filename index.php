@@ -1,6 +1,6 @@
 <?php
 
-//ob_start('compressHTMLOutput');
+ob_start('sanitize_output');
 
 defined('APPLICATION_ENV') || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 
@@ -12,7 +12,7 @@ defined('APPLICATION_ENV') || define('APPLICATION_ENV', (getenv('APPLICATION_ENV
 chdir( __DIR__ );
 
 define('REQUEST_MICROTIME', microtime(true));
-// ini_set("display_errors",true);
+// ini_set("display_errors", true);
 
 // Decline static file requests back to the PHP built-in webserver
 if (php_sapi_name() === 'cli-server' && is_file(__DIR__ . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))) {
@@ -32,12 +32,22 @@ date_default_timezone_set('Asia/Manila');
 Zend\Mvc\Application::init(require 'config/application.config.php')->run();
 
 /* compress HTML output */
-// ob_end_flush();
-function compressHTMLOutput($buffer)
+ob_end_flush();
+function sanitize_output($buffer)
 {
-    $bufferout = $buffer;
-    $bufferout = str_replace("\n", "", $bufferout);
-    $bufferout = str_replace("\t", "", $bufferout);
-    $bufferout = preg_replace('/<!--(.|\s)*?-->/', '', $bufferout);
-    return $bufferout;
+    $search = array(
+        '/\>[^\S ]+/s',  // strip whitespaces after tags, except space
+        '/[^\S ]+\</s',  // strip whitespaces before tags, except space
+        '/(\s)+/s'       // shorten multiple whitespace sequences
+    );
+
+    $replace = array(
+        '>',
+        '<',
+        '\\1'
+    );
+
+    $buffer = preg_replace($search, $replace, $buffer);
+
+    return $buffer;
 }

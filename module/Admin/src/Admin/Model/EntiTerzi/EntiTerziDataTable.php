@@ -34,6 +34,7 @@ class EntiTerziDataTable extends DataTableAbstract
         ));
 
         $this->setTitle('Rubrica enti terzi');
+
         $this->setDescription('Gestione rubrica contatti enti terzi');
     }
 

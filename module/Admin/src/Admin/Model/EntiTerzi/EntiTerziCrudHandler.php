@@ -2,173 +2,181 @@
 
 namespace Admin\Model\EntiTerzi;
 
-use Admin\Model\FormData\CrudHandlerInterface;
 use Admin\Model\FormData\CrudHandlerAbstract;
+use Admin\Model\FormData\CrudHandlerInterface;
+use Admin\Model\FormData\CrudHandlerInsertUpdateInterface;
+use Application\Model\Database\DbTableContainer;
+use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\InputFilterAwareInterface;
 
 /**
  * @author Andrea Fiori
- * @since  18 August 2014
+ * @since  19 March 2015
  */
-class EntiTerziCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterface
+class EntiTerziCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterface, CrudHandlerInsertUpdateInterface
 {
-    private $tableName = 'zfcms_comuni_rubrica_enti_terzi';
-    
-    protected function insert()
+    protected $validInputFilterObject;
+
+    /**
+     * Setup form and its input filter
+     */
+    public function __construct()
     {
-        $this->getConnection()->beginTransaction();
-        try {
-            // Validate
-            $error = array();
+        $this->form = new EntiTerziForm();
 
-            $varsToCheck = array('nome', 'email');
-            foreach($varsToCheck as $var) {
-                if ( !isset($this->rawPost[$var]) or empty($this->rawPost[$var]) ) {
-                    $error[] = 'Campo <strong>'.$var.'</strong> non settato fra i campi del form';
-                }
-            }
-
-            if (!empty($error)) {
-                $this->setErrorMessage($error);
-                return false;
-            }
-
-            // Insert into db
-            $this->getConnection()->insert($this->tableName, array(
-                'nome'      => $this->rawPost['nome'],
-                'email'     => $this->rawPost['email'],
-            ));
-            $this->getConnection()->commit();
-
-            // Log
-            $userDetails  = $this->getInput('userDetails', 1);
-
-            $logsWriter = $this->getLogsWriter();
-            $logResult = $logsWriter->writeLog(array(
-                'user_id'   => $userDetails->id,
-                'module_id' => '12',
-                'message'   => $userDetails->name.' '.$userDetails->surname."' ha inserito l'ente terzo ".$this->rawPost['nome'],
-                'type'      => 'info',
-                'backend'   => 1,
-            ));
-
-            if ($logResult!=1) {
-                $this->setSuccessMessage('Dati salvati correttamente', 'Dati salvati correttamente, ma attenzione: il log non &egrave; stato scritto nel registro. Errore: '.$logResult, 'warning');
-            } else {
-                $this->setSuccessMessage();
-            }
-            
-        } catch (\Exception $e) {
-            $this->getConnection()->rollBack();
-            $errorMessage = $e->getMessage();
-
-            // Log
-            $userDetails  = $this->getInput('userDetails', 1);
-
-            $logsWriter = $this->getLogsWriter();
-            $logResult = $logsWriter->writeLog(array(
-                'user_id'   => $userDetails->id,
-                'module_id' => 12,
-                'message'   => $userDetails->name.' '.$userDetails->surname."', errore durante l'aggiornamento dell'ente terzo ".$this->rawPost['nome'].' Messaggio: '.$errorMessage,
-                'type'      => 'error',
-                'backend'   => 1,
-            ));
-
-            return $this->setErrorMessage($errorMessage);
-        }
-
-        return true;
-    }
-    
-    protected function update()
-    {
-        $this->getConnection()->beginTransaction();
-        try {
-            // Validate input
-            $error = array();
-
-            $varsToCheck = array('nome', 'email');
-            foreach($varsToCheck as $var) {
-                if ( !isset($this->rawPost[$var]) or empty($this->rawPost[$var]) ) {
-                    $error[] = 'Campo <strong>'.$var.'</strong> non settato fra i campi del form';
-                }
-            }
-
-            $this->setArrayRecordToHandle('nome', 'nome');
-            $this->setArrayRecordToHandle('email', 'email');
-
-            // Update
-            $this->getConnection()->update($this->tableName,
-                    $this->getArrayRecordToHandle(),
-                    array('id' => $this->rawPost['id'])
-            );
-
-            $this->getConnection()->commit();
-
-            // Log
-            $userDetails  = $this->getInput('userDetails', 1);
-
-            $logsWriter = $this->getLogsWriter();
-            $logResult = $logsWriter->writeLog(array(
-                'user_id'   => $userDetails->id,
-                'module_id' => 12,
-                'message'   => $userDetails->name.' '.$userDetails->surname."' ha aggiornato l'ente terzo ".$this->rawPost['nome'],
-                'type'      => 'info',
-                'backend'   => 1,
-            ));
-
-            if ($logResult!=1) {
-                $this->setSuccessMessage('Dati salvati correttamente', 'Dati salvati correttamente, ma attenzione: il log non &egrave; stato scritto nel registro. Errore: '.$logResult, 'warning');
-            } else {
-                $this->setSuccessMessage();
-            }
-
-        } catch (\Exception $e) {
-            $this->getConnection()->rollBack();
-            return $this->setErrorMessage($e->getMessage());
-        }
-
-        return true;
+        $this->formInputFilter = new EntiTerziFormInputFilter();
     }
 
-    public function delete($id, array $recordDataDeleted)
+    /**
+     * @param InputFilterAwareInterface $formData
+     *
+     * @return array
+     */
+    public function validateFormData(InputFilterAwareInterface $formData)
     {
-        $userDetails  = $this->getInput('userDetails', 1);
+        $error = array();
 
-        $this->getConnection()->beginTransaction();
-        try {
-
-            $this->getConnection()->delete( $this->tableName, array('id' => $id) );
-
-            $this->getConnection()->commit();
-
-            // Log
-            $logsWriter = $this->getLogsWriter();
-            $logsWriter->writeLog(array(
-                'user_id'   => $userDetails->id,
-                'module_id' => 2,
-                'message'   => $userDetails->name.' '.$userDetails->surname."', ha cancellato il contenuto ".$id,
-                'type'      => 'error',
-                'backend'   => 1,
-            ));
-
-            $this->setSuccessMessage();
-
-        } catch (\Exception $e) {
-            $this->getConnection()->rollBack();
-
-            // Log
-            $errorMessage = $e->getMessage();
-
-            $logsWriter = $this->getLogsWriter();
-            $logsWriter->writeLog(array(
-                'user_id'   => $userDetails->id,
-                'module_id' => '2',
-                'message'   => $userDetails->name.' '.$userDetails->surname."', errore durante la cancellazione del contenuto ".$this->rawPost['nome'].' Messaggio: '.$errorMessage,
-                'type'      => 'error',
-                'backend'   => 1,
-            ));
-
-            return $this->setErrorMessage($errorMessage);
+        $fields = array('nome','email');
+        foreach($fields as $field) {
+            if ( !isset($formData->$field) ) {
+                $error[] = 'Campo '.$field.' vuoto';
+            }
         }
+
+        return $error;
+    }
+
+    /**
+     * @param EntiTerziFormInputFilter $formData
+     * @return bool
+     * @throws \Application\Model\NullException
+     */
+    public function insert(InputFilterAwareInterface $formData)
+    {
+        $this->asssertConnection();
+
+        return $this->getConnection()->insert(DbTableContainer::entiTerzi, array(
+            'nome'        => $formData->nome,
+            'email'       => $formData->email,
+            'insert_date' => date("Y-m-d H:i:s"),
+            'last_update' => date("Y-m-d H:i:s"),
+        ));
+    }
+
+    /**
+     * @param EntiTerziFormInputFilter $formData
+     * @return int
+     * @throws \Application\Model\NullException
+     */
+    public function update(InputFilterAwareInterface $formData)
+    {
+        $this->asssertConnection();
+
+        return $this->getConnection()->update(DbTableContainer::entiTerzi, array(
+                'nome'        => $formData->nome,
+                'email'       => $formData->email,
+                'last_update' => date("Y-m-d H:i:s"),
+            ),
+            array('id' => $formData->id)
+        );
+    }
+
+    public function logInsertOk()
+    {
+        $this->assertUserDetails();
+
+        $this->assertLogWriter();
+
+        $userDetails = $this->getUserDetails();
+
+        $logsWriter = $this->getLogsWriter();
+
+        $inputFilter = $this->getFormInputFilter();
+
+        return $logsWriter->writeLog(array(
+            'user_id'   => $userDetails->id,
+            'module_id' => 2,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', ha inserito l'ente terzo ".$inputFilter->nome,
+            'type'      => 'error',
+            'backend'   => 1,
+        ));
+    }
+
+    /**
+     * @param null $message
+     * @return bool
+     * @throws \Application\Model\NullException
+     */
+    public function logInsertKo($message = null)
+    {
+        $this->assertUserDetails();
+
+        $this->assertLogWriter();
+
+        $userDetails = $this->getUserDetails();
+
+        $logsWriter = $this->getLogsWriter();
+
+        $inputFilter = $this->getFormInputFilter();
+
+        return $logsWriter->writeLog(array(
+            'user_id'   => $userDetails->id,
+            'module_id' => 2,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'inserimento dell'ente terzo ".$inputFilter->nome.' '.$inputFilter->email.' Messaggio: '.$message,
+            'type'      => 'error',
+            'backend'   => 1,
+        ));
+    }
+
+    /**
+     * @return bool
+     *
+     * @throws \Application\Model\NullException
+     */
+    public function logUpdateOk()
+    {
+        $this->assertUserDetails();
+
+        $this->assertLogWriter();
+
+        $userDetails = $this->getUserDetails();
+
+        $logsWriter = $this->getLogsWriter();
+
+        $inputFilter = $this->getFormInputFilter();
+
+        return $logsWriter->writeLog(array(
+            'user_id'   => $userDetails->id,
+            'module_id' => 2,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', ha aggiornato il ente terzo ".$inputFilter->nome,
+            'type'      => 'info',
+            'backend'   => 1,
+        ));
+    }
+
+    /**
+     * @param null $message
+     * @return bool
+     * @throws \Application\Model\NullException
+     */
+    public function logUpdateKo($message = null)
+    {
+        $this->assertUserDetails();
+
+        $this->assertLogWriter();
+
+        $userDetails = $this->getUserDetails();
+
+        $logsWriter = $this->getLogsWriter();
+
+        $inputFilter = $this->getFormInputFilter();
+
+        return $logsWriter->writeLog(array(
+            'user_id'   => $userDetails->id,
+            'module_id' => 2,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'ggiornamento dell'ente terzo ".$inputFilter->nome.' Messaggio: '.$message,
+            'type'      => 'error',
+            'backend'   => 1,
+        ));
     }
 }

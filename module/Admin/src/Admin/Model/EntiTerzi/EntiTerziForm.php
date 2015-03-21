@@ -2,7 +2,6 @@
 
 namespace Admin\Model\EntiTerzi;
 
-use Zend\Form\ElementInterface;
 use Zend\Form\Form;
 
 /**

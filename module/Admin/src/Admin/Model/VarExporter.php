@@ -43,9 +43,12 @@ class VarExporter extends InputSetupAbstract
 
         return $this->varToExport;
     }
-    
+
     /**
-     * @return array
+     * @param null $key
+     * @param null $noArray
+     *
+     * @return array|null
      */
     public function getVarToExport($key = null, $noArray = null)
     {

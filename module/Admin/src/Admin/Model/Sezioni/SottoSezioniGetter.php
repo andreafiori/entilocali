@@ -140,6 +140,19 @@ class SottoSezioniGetter extends QueryBuilderHelperAbstract
         return $this->getQueryBuilder();
     }
 
+    /**
+     * @param int $profonditaDa
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setProfonditaDaAsNull($profonditaDa)
+    {
+        if (is_numeric($profonditaDa) ) {
+            $this->getQueryBuilder()->andWhere("( sottosezioni.profonditaDa IS NULL OR sottosezioni.profonditaDa = '' ) ");
+        }
+
+        return $this->getQueryBuilder();
+    }
+
     /**    
      * @param int $id
      * @return \Doctrine\ORM\QueryBuilder

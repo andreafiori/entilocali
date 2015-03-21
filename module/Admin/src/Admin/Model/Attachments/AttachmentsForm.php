@@ -20,6 +20,7 @@ class AttachmentsForm extends Form
                                         'required'  => 'required',
                                         'title'     => 'Inserisci file allegato',
                                         'id'        => 'attachmentFile',
+                                        /* 'accept'    => "image/jpg,image/png,image/jpeg,image/gif" */
                         )
         ));
     }

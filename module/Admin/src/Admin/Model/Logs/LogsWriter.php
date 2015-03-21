@@ -1,6 +1,7 @@
 <?php
 
 namespace Admin\Model\Logs;
+use Application\Model\Database\DbTableContainer;
 use Application\Model\NullException;
 
 /**
@@ -23,27 +24,18 @@ class LogsWriter
     }
 
     /**
+     * Write log. Call this method under a try \ catch with beginTransaction and rollback methods
+     *
      * @param array $arrayValues
-     *
-     * @return bool|string
-     *
+     * @return bool
+     * @throws NullException
      * @throws \Doctrine\DBAL\ConnectionException
      */
     public function writeLog(array $arrayValues)
     {
-        $this->getConnection()->beginTransaction();
-        try {
-            $arrayValues = $this->validateValues($arrayValues);
+        $arrayValues = $this->validateValues($arrayValues);
 
-            $this->getConnection()->insert('zfcms_logs', $arrayValues);
-
-            $this->getConnection()->commit();
-
-        } catch (NullException $e) {
-            $this->getConnection()->rollBack();
-
-            return $e->getMessage();
-        }
+        $this->getConnection()->insert(DbTableContainer::logs, $arrayValues);
 
         return true;
     }
@@ -82,11 +74,11 @@ class LogsWriter
             return $arrayValues;
         }
 
-        /**
-         * @return \Doctrine\DBAL\Connection
-         */
-        private function getConnection()
-        {
-            return $this->connection;
-        }
+    /**
+     * @return \Doctrine\DBAL\Connection
+     */
+    public function getConnection()
+    {
+        return $this->connection;
+    }
 }

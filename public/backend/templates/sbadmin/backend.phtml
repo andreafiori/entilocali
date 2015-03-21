@@ -36,13 +36,10 @@ $acl = $this->userDetails->acl;
     ?>
 
     <script src="<?php echo $this->basePath() ?>/public/common/jquery/jquery.min.js"></script>
-
     <script src="<?php echo $this->basePath() ?>/public/common/jquery/form/jquery.form.js"></script>
     <script src="<?php echo $this->basePath() ?>/public/common/jquery/validate/jquery.validate.min.js"></script>
-
     <script src="<?php echo $this->basePath() ?>/public/common/jquery/ckeditor/ckeditor.js"></script>
     <script src="<?php echo $this->basePath() ?>/public/common/jquery/ckfinder/ckfinder.js"></script>
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file: -->
     <!--[if lt IE 9]>
@@ -127,8 +124,8 @@ $acl = $this->userDetails->acl;
                         <i class="fa fa-wrench fa-fw"></i> Assistenza&nbsp; <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="<?php echo $this->url('admin/formdata', array('lang' => 'it', 'formsetter'  => 'tickets')); ?>" title="">Nuova richiesta</a></li>
-                        <li><a href="<?php echo $this->url('admin/datatable', array('lang' => 'it', 'tablesetter'  => 'tickets')); ?>" title="">Elenco richieste</a></li>
+                        <li><a href="<?php echo $this->url('admin/formdata', array('lang' => 'it', 'formsetter' => 'tickets')); ?>" title="">Nuova richiesta</a></li>
+                        <li><a href="<?php echo $this->url('admin/datatable', array('lang' => 'it', 'tablesetter' => 'tickets')); ?>" title="">Elenco richieste</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -201,7 +198,7 @@ $acl = $this->userDetails->acl;
                     <li>
                         <a href="#" class="dropdown-collapse"><i class="fa fa-newspaper-o fa-fw"></i> <span class="side-menu-title">Contenuti</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li><a href="<?php echo $this->url('admin/formdata', array('lang' => 'it', 'formsetter'  => 'contenuti')); ?>" title="Nuovo contenuto">Nuovo</a></li>
+                            <li><a href="<?php echo $this->url('admin/formdata', array('lang' => 'it', 'formsetter' => 'contenuti')); ?>" title="Nuovo contenuto">Nuovo</a></li>
                             <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter' => 'contenuti')); ?>" title="Gestione contenuti">Modifica \ Elimina</a></li>
                             <!-- Sezioni -->
                             <li>
@@ -238,8 +235,8 @@ $acl = $this->userDetails->acl;
                         <a href="#" class="dropdown-collapse"><i class="fa fa-table fa-fw"></i> <span class="side-menu-title">Albo pretorio</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="<?php echo $this->baseUrl ?>formdata/albo-pretorio" title="Nuovo atto">Nuovo atto</a></li>
-                            <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'albo-pretorio')); ?>" title="Gestione">Gestione</a></li>
-                            <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'atti-ufficiali')); ?>" title="">Atti ufficiali</a></li>
+                            <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter' => 'albo-pretorio')); ?>" title="Gestione">Gestione</a></li>
+                            <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter' => 'atti-ufficiali')); ?>" title="">Atti ufficiali</a></li>
                             <!-- Sezioni -->
                             <?php if ($acl->hasResource('albo_pretorio_sezioni_add') or $acl->hasResource('albo_pretorio_sezioni_update')): ?>
                             <li>
@@ -256,7 +253,7 @@ $acl = $this->userDetails->acl;
                                 <a href="#" class="dropdown-collapse" title="Gestione enti terzi">Enti terzi <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li><a href="<?php echo $this->baseUrl ?>formdata/enti-terzi" title="Nuovo ente terzo">Nuovo indirizzo</a></li>
-                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang' => 'it', 'tablesetter'  => 'enti-terzi')); ?>" title="Gestione rubrica enti terzi">Gestione</a></li>
+                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang' => 'it', 'tablesetter' => 'enti-terzi')); ?>" title="Gestione rubrica enti terzi">Gestione</a></li>
                                 </ul>
                             </li>
                             <?php endif; ?>
@@ -273,14 +270,14 @@ $acl = $this->userDetails->acl;
                             <li><a href="<?php echo $this->baseUrl ?>formdata/stato-civile" title="Nuovo atto">Nuovo atto</a></li>
                             <?php endif; ?>
                             <?php if ($acl->hasResource('stato_civile_update')): ?>
-                            <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'stato-civile')); ?>" title="Gestione">Gestione</a></li>
+                            <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter' => 'stato-civile')); ?>" title="Gestione">Gestione</a></li>
                             <?php endif; ?>
                             <?php if ($acl->hasResource('stato_civile_sezioni_add') or $acl->hasResource('stato_civile_sezioni_update')): ?>
                             <li>
                                 <a href="#" class="dropdown-collapse" title="Sezioni stato civile">Sezioni <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li><a href="<?php echo $this->baseUrl ?>formdata/stato-civile-sezioni" title="Nuova sezione albo">Nuova</a></li>
-                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'stato-civile-sezioni')); ?>" title="Gestione sezioni">Gestione</a></li>
+                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter' => 'stato-civile-sezioni')); ?>" title="Gestione sezioni">Gestione</a></li>
                                 </ul>
                             </li>
                             <?php endif; ?>
@@ -289,7 +286,7 @@ $acl = $this->userDetails->acl;
                                     <a href="#" class="dropdown-collapse" title="Gestione enti terzi">Enti terzi <span class="fa arrow"></span></a>
                                     <ul class="nav nav-third-level">
                                         <li><a href="<?php echo $this->baseUrl ?>formdata/enti-terzi" title="Nuovo ente terzo">Nuovo indirizzo</a></li>
-                                        <li><a href="<?php echo $this->url('admin/datatable', array('lang' => 'it', 'tablesetter'  => 'enti-terzi')); ?>" title="Gestione rubrica enti terzi">Gestione</a></li>
+                                        <li><a href="<?php echo $this->url('admin/datatable', array('lang' => 'it', 'tablesetter' => 'enti-terzi')); ?>" title="Gestione rubrica enti terzi">Gestione</a></li>
                                     </ul>
                                 </li>
                             <?php endif; ?>
@@ -314,7 +311,7 @@ $acl = $this->userDetails->acl;
                                 <a href="#" class="dropdown-collapse" title="Sezioni amministrazione trasparente">Sezioni <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li><a href="#" title="Nuova sezione">Nuova</a></li>
-                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'amministrazione-trasparente-sezioni')); ?>" title="Gestione sezioni">Gestione</a></li>
+                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter' => 'amministrazione-trasparente-sezioni')); ?>" title="Gestione sezioni">Gestione</a></li>
                                 </ul>
                             </li>
                             -->
@@ -322,7 +319,7 @@ $acl = $this->userDetails->acl;
                             <li>
                                 <a href="#" class="dropdown-collapse" title="Gestione sottosezioni amm. trasparente">Sotto-sezioni <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
-                                    <li><a href="<?php echo $this->baseUrl ?>formdata/contenuti-sotto-sezioni" title="Inserisci nuova sottosezione">Nuova</a></li>
+                                    <li><a href="<?php echo $this->baseUrl ?>formdata/sottosezioni-amm-trasparente" title="Inserisci nuova sottosezione">Nuova</a></li>
                                     <li><a href="<?php echo $this->url('admin/datatable', array('lang' => 'it', 'tablesetter' => 'sottosezioni-amm-trasparente')); ?>" title="Gestione">Gestione</a></li>
                                 </ul>
                             </li>
@@ -339,10 +336,9 @@ $acl = $this->userDetails->acl;
                             <li><a href="<?php echo $this->baseUrl ?>formdata/atti-concessione" title="Nuovo articolo">Nuovo atto</a></li>
                             <?php endif; ?>
                             <?php if ($acl->hasResource('atti_concessione_update')): ?>
-                            <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'atti-concessione')); ?>" title="Gestione">Gestione</a></li>
+                            <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter' => 'atti-concessione')); ?>" title="Gestione">Gestione</a></li>
                             <?php endif; ?>
-
-                            <!-- Settori -->
+                            <!-- Settori atti di concessione -->
                             <?php if ($acl->hasResource('atti_concessione_settori_add') or $acl->hasResource('atti_concessione_settori_update')): ?>
                             <li>
                                 <a href="#" class="dropdown-collapse" title="Settori">Settori <span class="fa arrow"></span></a>
@@ -351,12 +347,11 @@ $acl = $this->userDetails->acl;
                                     <li><a href="<?php echo $this->baseUrl ?>formdata/atti-concessione-settori" title="Nuovo settore atti concessione">Nuovo</a></li>
                                     <?php endif; ?>
                                     <?php if ($acl->hasResource('atti_concessione_settori_update')): ?>
-                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'atti-concessione-settori')); ?>" title="Gestione settori atti concessione">Gestione</a></li>
+                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter' => 'atti-concessione-settori')); ?>" title="Gestione settori atti concessione">Gestione</a></li>
                                     <?php endif; ?>
                                 </ul>
                             </li>
                             <?php endif; ?>
-
                             <!-- Resp. proc. -->
                             <?php if ($acl->hasResource('atti_concessione_resp_proc_add') or $acl->hasResource('atti_concessione_resp_proc_update')): ?>
                             <li>
@@ -386,7 +381,7 @@ $acl = $this->userDetails->acl;
                                 <a href="#" class="dropdown-collapse" title="Settori contratti pubblici">Settori <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li><a href="<?php echo $this->baseUrl ?>formdata/contratti-pubblici-settori" title="Nuova sezione">Nuovo</a></li>
-                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'contratti-pubblici-settori')); ?>" title="Gestione settori">Gestione</a></li>
+                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter' => 'contratti-pubblici-settori')); ?>" title="Gestione settori">Gestione</a></li>
                                 </ul>
                             </li>
                             <?php endif; ?>
@@ -399,93 +394,125 @@ $acl = $this->userDetails->acl;
                                     <li><a href="<?php echo $this->url('admin/formdata', array('lang'=>'it', 'formsetter' => 'contratti-pubblici-responsabili' )); ?>" title="Nuovo resp. procedimento">Nuovo</a></li>
                                     <?php endif; ?>
                                     <?php if ($acl->hasResource('contratti_pubblici_resp_proc_update')): ?>
-                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'contratti-pubblici-responsabili')); ?>" title="Gestione resp. procedimento">Gestione</a></li>
+                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter' => 'contratti-pubblici-responsabili')); ?>" title="Gestione resp. procedimento">Gestione</a></li>
                                     <?php endif; ?>
                                 </ul>
                             </li>
                             <?php endif; ?>
+                            <!-- Voci scelta contraente -->
+                            <?php if ($acl->hasResource('contratti_pubblici_scelta_contraente_add') or $acl->hasResource('contratti_pubblici_scelta_contraente_update')): ?>
                             <li>
                                 <a href="#" class="dropdown-collapse" title="Gestione resp. procedimento">Voci scelta contraente <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
+                                    <?php if ($acl->hasResource('contratti_pubblici_scelta_contraente_add')): ?>
                                     <li><a href="<?php echo $this->url('admin/formdata', array('lang'=>'it', 'formsetter' => 'contratti-pubblici-scelta-contraente' )); ?>" title="Nuova voce scelta contraente">Nuova</a></li>
-                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'contratti-pubblici-scelta-contraente')); ?>" title="Gestione scelta contraente">Gestione</a></li>
+                                    <?php endif; ?>
+                                    <?php if ($acl->hasResource('contratti_pubblici_scelta_contraente_update')): ?>
+                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter' => 'contratti-pubblici-scelta-contraente')); ?>" title="Gestione scelta contraente">Gestione</a></li>
+                                    <?php endif; ?>
                                 </ul>
                             </li>
+                            <?php endif; ?>
+                            <!-- Responsabili procedimento -->
+                            <?php if ($acl->hasResource('contratti_pubblici_resp_proc_add') or $acl->hasResource('contratti_pubblici_resp_proc_update')): ?>
                             <li>
                                 <a href="#" class="dropdown-collapse" title="Gestione resp. procedimento">Operatori <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
+                                    <?php if ($acl->hasResource('contratti_pubblici_resp_proc_add')): ?>
                                     <li><a href="<?php echo $this->url('admin/formdata', array('lang' => 'it', 'formsetter' => 'contratti-pubblici-operatori' )); ?>" title="Nuovo operatore">Nuovo</a></li>
+                                    <?php endif; ?>
+                                    <?php if ($acl->hasResource('contratti_pubblici_resp_proc_update')): ?>
                                     <li><a href="<?php echo $this->url('admin/datatable', array('lang' => 'it', 'tablesetter' => 'contratti-pubblici-operatori')); ?>" title="Gestione operatori">Gestione</a></li>
+                                    <?php endif; ?>
                                 </ul>
                             </li>
+                            <?php endif; ?>
                         </ul>
                     </li>
 
                     <!-- Blogs -->
+                    <?php if ($acl->hasResource('blogs_add') or $acl->hasResource('blogs_update')): ?>
                     <li>
                         <a href="#" class="dropdown-collapse"><i class="fa fa-list-alt fa-fw"></i> <span class="side-menu-title">Blogs</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
+                            <?php if ($acl->hasResource('blogs_add')): ?>
                             <li><a href="#<?php echo $this->baseUrl ?>formdata/photo" title="Aggiungi nuova foto">Nuovo</a></li>
-                            <li><a href="#<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'photo')); ?>" title="Gestione gallerie fotografice">Modifica \ Elimina</a></li>
+                            <?php endif; ?>
+                            <?php if ($acl->hasResource('blogs_add')): ?>
+                            <li><a href="#<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter' => 'photo')); ?>" title="Gestione gallerie fotografice">Modifica \ Elimina</a></li>
+                            <?php endif; ?>
+                            <!-- Categories -->
+                            <?php if ($acl->hasResource('blogs_categories_add') or $acl->hasResource('blogs_categories_update')): ?>
                             <li>
                                 <a href="#" class="dropdown-collapse" title="Categorie">Categorie <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
+                                    <?php if ($acl->hasResource('blogs_categories_add')): ?>
                                     <li><a href="#<?php echo $this->baseUrl ?>formdata/blogs/" title="">Nuova</a></li>
-                                    <li><a href="#<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'categories', array('moduleId' => 6, 'type'=>'blogs'))); ?>" title="Gestione categorie blogs">Modifica \ Elimina</a></li>
+                                    <?php endif; ?>
+                                    <?php if ($acl->hasResource('blogs_categories_update')): ?>
+                                    <li><a href="#<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter' => 'categories', array('moduleId' => 6, 'type'=>'blogs'))); ?>" title="Gestione categorie blogs">Modifica \ Elimina</a></li>
+                                    <?php endif; ?>
                                 </ul>
                             </li>
+                            <?php endif; ?>
                         </ul>
                     </li>
+                    <?php endif; ?>
 
                     <!-- Foto -->
+                    <?php if ($acl->hasResource('photo_add') or $acl->hasResource('photo_update')): ?>
                     <li>
                         <a href="#" class="dropdown-collapse"><i class="fa fa-camera fa-fw"></i> <span class="side-menu-title">Foto</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="<?php echo $this->baseUrl ?>formdata/photo" title="Aggiungi nuova foto">Nuova</a></li>
-                            <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'photo')); ?>" title="Gestione gallerie fotografice">Gestione</a></li>
+                            <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter' => 'photo')); ?>" title="Gestione gallerie fotografice">Gestione</a></li>
+                            <!-- Categories -->
                             <li>
                                 <a href="#" class="dropdown-collapse" title="">Categorie <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
-                                    <li><a href="<?php echo $this->baseUrl ?>formdata/categories/?moduleId=6" title="">Nuovo</a></li>
+                                    <li><a href="<?php echo $this->baseUrl ?>formdata/categories/?moduleId=6" title="Nuova categoria foto">Nuova</a></li>
                                     <li><a href="<?php echo $this->url('admin/datatable', array('lang' => 'it', 'tablesetter' => 'categories', array('moduleId'=>6))); ?>" title="Gestione foto">Modifica \ Elimina</a></li>
                                 </ul>
                             </li>
                         </ul>
                     </li>
+                    <?php endif; ?>
 
+                    <!-- Newsletter -->
+                    <?php if ($acl->hasResource('newsletter_add') or $acl->hasResource('newsletter_update')): ?>
                     <li>
                         <a href="#" title="Newsletter"><i class="fa fa-newspaper-o fa-fw"></i> <span class="side-menu-title">Newsletter</span></a>
                     </li>
+                    <?php endif; ?>
 
-                    <!--
-                    <li>
-                        <a href="forms.html"><i class="fa fa-newspaper-o fa-fw"></i> <span class="side-menu-title">Video</span></a>
-                    </li>
-
-                    <li>
-                        <a href="forms.html"><i class="fa fa-newspaper-o fa-fw"></i> <span class="side-menu-title">FAQ</span></a>
-                    </li>
-                    -->
-
+                    <!-- Utenti -->
+                    <?php if ($acl->hasResource('users_add') or $acl->hasResource('users_roles_update')): ?>
                     <li>
                         <a href="#" class="dropdown-collapse"><i class="fa fa-list-alt fa-users"></i> <span class="side-menu-title">Utenti</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <?php if (in_array($this->userRole, array('WebMaster', 'SuperAdmin'))): ?>
+                            <?php if ($acl->hasResource('users_add')): ?>
                             <li><a href="<?php echo $this->baseUrl ?>formdata/users" title="Aggiungi nuova foto">Nuovo</a></li>
                             <?php endif; ?>
-                            <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'users')); ?>" title="Gestione gallerie fotografice">Gestione</a></li>
-                            <?php if (in_array($this->userRole, array('WebMaster', 'SuperAdmin'))): ?>
+                            <?php if ($acl->hasResource('users_roles_update')): ?>
+                            <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter' => 'users')); ?>" title="Gestione gallerie fotografice">Gestione</a></li>
+                            <?php endif; ?>
+                            <!-- Ruoli -->
+                            <?php if ($acl->hasResource('users_roles_add') or $acl->hasResource('users_roles_update')): ?>
                             <li>
                                 <a href="#" class="dropdown-collapse" title="">Ruoli <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
+                                    <?php if ($acl->hasResource('users_roles_add')): ?>
                                     <li><a href="<?php echo $this->baseUrl ?>users/roles/permissions/" title="Nuovo ruolo utente">Nuovo</a></li>
-                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'users-roles')); ?>" title="Gestione ruoli">Modifica \ Elimina</a></li>
+                                    <?php endif; ?>
+                                    <?php if ($acl->hasResource('users_roles_update')): ?>
+                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter' => 'users-roles')); ?>" title="Gestione ruoli">Modifica \ Elimina</a></li>
+                                    <?php endif; ?>
                                 </ul>
                             </li>
                             <?php endif; ?>
                         </ul>
                     </li>
-
+                    <?php endif; ?>
                 </ul>
             </div>
             <!-- /.sidebar-collapse -->
@@ -544,6 +571,23 @@ $acl = $this->userDetails->acl;
         $('select option:first', '#'+id).attr('selected',true);
     }
 
+    function clear_form_elements(id_name) {
+        jQuery("#"+id_name).find(':input').each(function() {
+            switch(this.type) {
+                case 'password':
+                case 'text': case 'email': case 'number':
+                case 'textarea':
+                case 'file':
+                case 'select-one':
+                    jQuery(this).val('');
+                    break;
+                case 'checkbox':
+                case 'radio':
+                    this.checked = false;
+            }
+        });
+    }
+
     function reloadPage()
     {
         window.location.reload();
@@ -583,7 +627,7 @@ $acl = $this->userDetails->acl;
         $('#contratti-opeartori-rubrica-table').DataTable({
             responsive: true,
             bPaginate: false,
-            // "pagingType": "full_numbers",
+            /* "pagingType": "full_numbers", */
             searching: false,
             "info": false,
             "pageLength": 10,

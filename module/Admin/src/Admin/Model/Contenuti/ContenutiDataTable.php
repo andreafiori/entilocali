@@ -7,8 +7,6 @@ use Admin\Model\DataTable\DataTableAbstract;
 /**
  * Contenuti from the old CMS
  *
- * TODO: check ACL
- *
  * @author Andrea Fiori
  * @since  15 February 2015
  */
@@ -20,6 +18,12 @@ class ContenutiDataTable extends DataTableAbstract
     public function __construct(array $input)
     {
         parent::__construct($input);
+
+        /* Check ACL */
+        if (!$this->getAcl()->hasResource('contenuti_update')) {
+            // $redirect = $this->getInput('redirect', 1);
+            return false;
+        }
 
         $configurations = $this->getInput('configurations', 1);
 
@@ -53,9 +57,10 @@ class ContenutiDataTable extends DataTableAbstract
         ));
 
         $this->setTitle('Contenuti');
+
         $this->setDescription('Gestione contenuti');
 
-        // $this->setTemplate('datatable/contenuti/datatable_contenuti.phtml');
+        return null;
     }
 
         /**

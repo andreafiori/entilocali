@@ -20,7 +20,9 @@ class AmministrazioneTrasparenteDataTable extends DataTableAbstract
         parent::__construct($input);
         
         $this->setTitle('Amministrazione trasparente');
+
         $this->setDescription('Gestione amministrazione trasparente');
+
         $this->setColumns( array(
             "Sezione", 
             "Sottosezione", 
@@ -38,7 +40,7 @@ class AmministrazioneTrasparenteDataTable extends DataTableAbstract
             )
         );
         
-        $paginatorRecords = $this->getRecordsPaginator();
+        $paginatorRecords = $this->setupPaginatorRecords();
         
         $this->setVariables(array(
             'paginator'     => $paginatorRecords,
@@ -52,7 +54,7 @@ class AmministrazioneTrasparenteDataTable extends DataTableAbstract
         /**
          * @return array 
          */
-        private function getRecordsPaginator()
+        private function setupPaginatorRecords()
         {
             $param = $this->getInput('param', 1);
 
@@ -78,7 +80,7 @@ class AmministrazioneTrasparenteDataTable extends DataTableAbstract
          */
         private function getFormattedRecords($records)
         {
-            if (!$records) {
+            if (empty($records)) {
                 return false;
             }
 

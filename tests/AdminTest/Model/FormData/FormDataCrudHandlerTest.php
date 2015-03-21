@@ -9,7 +9,7 @@ use Admin\Model\FormData\FormDataCrudHandler;
  * @author Andrea Fiori
  * @since  30 May 2014
  */
-class FormDataCrudHandlerTest extends TestSuite
+class FormDataCrudHandlerTest //extends TestSuite
 {
     /**
      * @var FormDataCrudHandler
