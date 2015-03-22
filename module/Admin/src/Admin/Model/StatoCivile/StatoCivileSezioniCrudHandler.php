@@ -11,6 +11,8 @@ use Admin\Model\FormData\CrudHandlerAbstract;
  */
 class StatoCivileSezioniCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterface
 {
+
+
     private $tableName = 'zfcms_comuni_stato_civile_sezioni';
     
     protected function insert()

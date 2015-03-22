@@ -140,7 +140,10 @@ abstract class TestSuite extends \PHPUnit_Framework_TestCase
                                             'query',
                                             'executeQuery',
                                             'executeUpdate',
-                                            'getDatabasePlatform'
+                                            'getDatabasePlatform',
+                                            'insert',
+                                            'update',
+                                            'delete',
                                         )
                                     )
                                     ->getMock();
@@ -152,6 +155,18 @@ abstract class TestSuite extends \PHPUnit_Framework_TestCase
         $mock->expects($this->any())
              ->method('query')
              ->will($this->returnValue($this->getQueryBuilderMock()));
+
+        $mock->expects($this->any())
+            ->method('insert')
+            ->will( $this->returnValue(true) );
+
+        $mock->expects($this->any())
+            ->method('update')
+            ->will( $this->returnValue(true) );
+
+        $mock->expects($this->any())
+            ->method('delete')
+            ->will( $this->returnValue(true) );
 
         return $mock;
     }

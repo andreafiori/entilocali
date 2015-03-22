@@ -26,14 +26,4 @@ class UsersRolesPermissionsCrudHandlerTest // extends TestSuite
 
         $this->usersRolesPermissionsCrudHandler->setConnection($this->getEntityManagerMock()->getConnection());
     }
-
-    public function testInsert()
-    {
-
-    }
-
-    public function testUpdate()
-    {
-
-    }
 }

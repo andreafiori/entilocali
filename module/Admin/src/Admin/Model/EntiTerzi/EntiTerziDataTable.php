@@ -16,7 +16,16 @@ class EntiTerziDataTable extends DataTableAbstract
     public function __construct(array $input)
     {
         parent::__construct($input);
-        
+
+        $param = $this->getInput('param',1);
+
+        if (isset($param['post']['deleteId'])) {
+            $crudHandler = new EntiTerziCrudHandler();
+            $crudHandler->setConnection($this->getInput('entityManager')->getConnection());
+            $crudHandler->setUserDetails($this->getUserDetails());
+            $crudHandler->delete($param['post']['deleteId']);
+        }
+
         $paginatorRecords = $this->setupPaginatorRecords();
 
         $this->setRecords( $this->formatRecordsToShowOnTable($paginatorRecords) );

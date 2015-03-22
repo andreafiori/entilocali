@@ -13,4 +13,12 @@ interface CrudHandlerInsertUpdateInterface
     public function insert(InputFilterAwareInterface $formData);
 
     public function update(InputFilterAwareInterface $formData);
+
+    public function logInsertOk();
+
+    public function logInsertKo($message = null);
+
+    public function logUpdateOk();
+
+    public function logUpdateKo($message = null);
 }

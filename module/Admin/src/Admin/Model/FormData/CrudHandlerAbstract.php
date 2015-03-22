@@ -7,6 +7,7 @@ use Zend\InputFilter\InputFilterInterface;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Admin\Model\Logs\LogsWriter;
+use ZendTest\XmlRpc\Server\Exception;
 
 /**
  * @author Andrea Fiori
@@ -35,6 +36,8 @@ abstract class CrudHandlerAbstract
 
     protected $logsWriter;
 
+    protected $recordsToHandle = array();
+
     /**
      * @param \Doctrine\DBAL\Connection $connection
      * @return \Doctrine\DBAL\Connection
@@ -62,6 +65,40 @@ abstract class CrudHandlerAbstract
     public function getConnection()
     {
         return $this->connection;
+    }
+
+    /**
+     * @param $key
+     * @param $value
+     * @param InputFilterAwareInterface $formInputFilter
+     * @return mixed
+     */
+    protected function setupRecordElementToHandle($key, $value, InputFilterAwareInterface $formInputFilter)
+    {
+        if ( isset($this->$formInputFilter->$key) ) {
+            $this->recordsToHandle = $value;
+        }
+
+        return $this->arrayRecordToHandle;
+    }
+
+    /**
+     * @param array $recordsToHandle
+     * @param InputFilterAwareInterface $formInputFilter
+     * @return array
+     */
+    protected function setupRecordsToHandle(array $recordsToHandle, InputFilterAwareInterface $formInputFilter)
+    {
+        foreach($recordsToHandle as $record) {
+            $this->setupRecordElementToHandle($record[0], $record[1], $formInputFilter);
+        }
+
+        return $this->recordsToHandle;
+    }
+
+    protected function cleanArrayRecordToHandle()
+    {
+        $this->recordsToHandle = array();
     }
 
     /**
@@ -157,13 +194,23 @@ abstract class CrudHandlerAbstract
         } else {
             throw new NullException("Operation not allowed");
         }
+
+        return $this->logMethodToExecute;
     }
 
     public function log()
     {
         $logMethod = $this->logMethodToExecute;
 
-        return $this->$logMethod();
+        if (!$logMethod) {
+            throw new NullException('Log method to execute is not set');
+        }
+
+        if (method_exists(get_called_class(), $logMethod)) {
+            return $this->$logMethod();
+        }
+
+        throw new NullException($logMethod.' does not exist on '.get_called_class());
     }
 
     /**

@@ -27,7 +27,7 @@ class SottoSezioniFormDataHandler extends FormDataAbstract
 
         $sezioniOptions = $this->getSezioniRecords(array(
             'fields'    => 'sezioni.id, sezioni.nome',
-            'id' => ($param['route']['formsetter']=='sottosezioni-amm-trasparente') ? $configurations['amministrazione_trasparente_sezione_id'] : null,
+            'id'        => ($param['route']['formsetter']=='sottosezioni-amm-trasparente') ? $configurations['amministrazione_trasparente_sezione_id'] : null,
             'excludeId' => ($param['route']['formsetter']=='sottosezioni-contenuti') ? $configurations['amministrazione_trasparente_sezione_id'] : null,
             'orderBy'   => 'sezioni.nome'
         ));
@@ -38,8 +38,8 @@ class SottoSezioniFormDataHandler extends FormDataAbstract
         }
 
         $form = new SottoSezioniForm();
-        $form->addFormOptions();
         $form->addSezioni( $this->formatSezioniRecordsForFormSelect($sezioniOptions) );
+        $form->addMainFormInputs();
 
         if ($recordFromDb) {
             $form->setData($recordFromDb[0]);
@@ -80,6 +80,8 @@ class SottoSezioniFormDataHandler extends FormDataAbstract
 
                 return $wrapper->getRecords();
             }
+
+            return null;
         }
 
         /**

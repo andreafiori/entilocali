@@ -3,182 +3,204 @@
 namespace Admin\Model\Contenuti;
 
 use Admin\Model\FormData\CrudHandlerAbstract;
+use Admin\Model\FormData\CrudHandlerInsertUpdateInterface;
 use Admin\Model\FormData\CrudHandlerInterface;
+use Application\Model\Database\DbTableContainer;
 use Zend\InputFilter\InputFilterAwareInterface;
 
 /**
  * @author Andrea Fiori
  * @since  15 February 2015
  */
-class ContenutiCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterface
+class ContenutiCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterface, CrudHandlerInsertUpdateInterface
 {
-    private $tableName = 'zfcms_comuni_contenuti';
-
-
     public function __construct()
     {
-        // TODO: Implement __construct() method.
+        $this->form = new ContenutiForm();
+
+        $this->formInputFilter = new ContenutiFormInputFilter();
     }
 
-    public function validateForm(array $formData)
-    {
-        // TODO: Implement validateForm() method.
-    }
-
+    /**
+     * @param InputFilterAwareInterface $formData
+     * @return array
+     */
     public function validateFormData(InputFilterAwareInterface $formData)
     {
-        // TODO: Implement validateFormData() method.
+        $error = array();
+
+        $fields = array('titolo', 'testo', 'dataInserimento', 'dataScadenza', 'attivo');
+        foreach($fields as $field) {
+            if ( !isset($formData->$field) ) {
+                $error[] = 'Campo '.$field.' vuoto';
+            }
+        }
+
+        return $error;
     }
 
-    protected function insert()
+    /**
+     * @param InputFilterAwareInterface $formData
+     * @return int
+     * @throws \Application\Model\NullException
+     */
+    public function insert(InputFilterAwareInterface $formData)
     {
+        $this->asssertConnection();
 
-        $this->getConnection()->insert($this->tableName, array(
-            'titolo'           => $this->rawPost['titolo'],
+        $this->assertUserDetails();
+
+        $userDetails = $this->getUserDetails();
+
+        return $this->getConnection()->insert(DbTableContainer::contenuti, array(
+            'titolo'           => $formData->titolo,
             'anno'             => date("Y"),
             'numero'           => 0,
-            'sommario'         => $this->rawPost['sommario'],
-            'testo'            => $this->rawPost['sommario'],
-            'data_inserimento' => $this->rawPost['dataInserimento'],
-            'data_scadenza'    => $this->rawPost['dataScadenza'],
-            'attivo'           => $this->rawPost['attivo'],
-            'sottosezione_id'  => $this->rawPost['sottosezione'],
-            'home'             => isset($this->rawPost['home']) ? $this->rawPost['home'] : 0,
-            'evidenza'         => isset($this->rawPost['evidenza']) ? $this->rawPost['evidenza'] : 0,
+            'sommario'         => $formData->sommario,
+            'testo'            => $formData->testo,
+            'data_inserimento' => $formData->dataInserimento,
+            'data_scadenza'    => $formData->dataScadenza,
+            'attivo'           => $formData->attivo,
+            'sottosezione_id'  => $formData->sottosezione,
+            'home'             => isset($formData->home) ? $formData->home : 0,
+            /* 'evidenza'         => isset($formData->evidenza) ? $formData->evidenza : 0, */
             'utente_id'        => $userDetails->id,
+            'rss'              => $formData->rss,
             /*
-            'rss'              => $this->rawPost['rss'],
+            $formData->faceobook
             'slug'             => $this->rawPost['titolo'],
             'seo_title'        => $this->rawPost['seoTitle'],
             'seo_description'  => $this->rawPost['seoDescription'],
             'seo_keywords'     => $this->rawPost['seo_keywords'],
             */
         ));
-
-        $this->getConnection()->commit();
-
-        $this->setSuccessMessage();
-
-        /*
-        } catch (\Exception $e) {
-            $this->getConnection()->rollBack();
-
-            // Log
-            $errorMessage = $e->getMessage();
-
-            $logsWriter = $this->getLogsWriter();
-            $logsWriter->writeLog(array(
-                'user_id'   => $userDetails->id,
-                'module_id' => '2',
-                'message'   => $userDetails->name.' '.$userDetails->surname."', errore durante l'inserimento del contenuto ".$this->rawPost['nome'].' Messaggio: '.$errorMessage,
-                'type'      => 'error',
-                'backend'   => 1,
-            ));
-
-            return $this->setErrorMessage($errorMessage);
-        }
-        */
-    }
-
-    protected function update()
-    {
-        $userDetails  = $this->getInput('userDetails', 1);
-
-        $this->getConnection()->beginTransaction();
-        try {
-            $error = array();
-
-            $varsToCheck = array('titolo', 'testo', 'dataInserimento', 'dataScadenza', 'attivo');
-            foreach($varsToCheck as $var) {
-                if ( !isset($this->rawPost[$var]) or empty($this->rawPost[$var]) ) {
-                    $error[] = 'Campo <strong>'.$var.'</strong> non settato fra i campi del form';
-                }
-            }
-
-            if (!empty($error)) {
-                $this->setErrorMessage($error);
-                return;
-            }
-
-            $this->setArrayRecordToHandle('sottosezione_id',  'sottosezione');
-            $this->setArrayRecordToHandle('titolo',           'titolo');
-            $this->setArrayRecordToHandle('sommario',         'sommario');
-            $this->setArrayRecordToHandle('testo',            'testo');
-            $this->setArrayRecordToHandle('data_inserimento', 'dataInserimento');
-            $this->setArrayRecordToHandle('data_scadenza',    'dataScadenza');
-            $this->setArrayRecordToHandle('attivo',           'attivo');
-
-            $this->getConnection()->update($this->tableName,
-                $this->getArrayRecordToHandle(),
-                array('id' => $this->rawPost['id'])
-            );
-
-            $this->getConnection()->commit();
-
-            $this->setSuccessMessage();
-
-        } catch (\Exception $e) {
-            $this->getConnection()->rollBack();
-
-            // Log
-            $errorMessage = $e->getMessage();
-
-            $logsWriter = $this->getLogsWriter();
-            $logsWriter->writeLog(array(
-                'user_id'   => $userDetails->id,
-                'module_id' => 2,
-                'message'   => $userDetails->name.' '.$userDetails->surname."', errore durante l'inserimento del contenuto ".$this->rawPost['nome'].' Messaggio: '.$errorMessage,
-                'type'      => 'error',
-                'backend'   => 1,
-            ));
-
-            return $this->setErrorMessage($errorMessage);
-        }
     }
 
     /**
-     * @param $id
-     * @param array $recordDataDeleted
+     * @param ContenutiFormInputFilter $formData
+     *
+     * @return int
      */
-    public function delete($id, array $recordDataDeleted)
+    public function update(InputFilterAwareInterface $formData)
     {
-        $userDetails  = $this->getInput('userDetails', 1);
+        $this->asssertConnection();
 
-        $this->getConnection()->beginTransaction();
-        try {
+        return $this->getConnection()->update(
+                    DbTableContainer::contenuti,
+                    array(
+                        'sottosezione_id'   => $formData->sottosezione,
+                        'titolo'            => $formData->titolo,
+                        'sommario'          => $formData->sommario,
+                        'testo'             => $formData->testo,
+                        'data_inserimento'  => $formData->dataInserimento,
+                        'data_scadenza'     => $formData->dataScadenza,
+                        'attivo'            => $formData->attivo,
+                        'home'              => $formData->homepage,
+                        'rss'               => $formData->rss,
+                    ),
+                    array('id' => $formData->id)
+        );
+    }
 
-            $this->getConnection()->delete( $this->tableName, array('id' => $id) );
+    /**
+     * @return bool
+     *
+     * @throws \Application\Model\NullException
+     */
+    public function logInsertOk()
+    {
+        $this->assertUserDetails();
 
-            $this->getConnection()->commit();
+        $this->assertLogWriter();
 
-            // Log
-            $logsWriter = $this->getLogsWriter();
-            $logsWriter->writeLog(array(
-                'user_id'   => $userDetails->id,
-                'module_id' => 2,
-                'message'   => $userDetails->name.' '.$userDetails->surname."', ha cancellato il contenuto ".$id,
-                'type'      => 'error',
-                'backend'   => 1,
-            ));
+        $userDetails = $this->getUserDetails();
 
-            $this->setSuccessMessage();
+        $logsWriter = $this->getLogsWriter();
 
-        } catch (\Exception $e) {
-            $this->getConnection()->rollBack();
+        $inputFilter = $this->getFormInputFilter();
 
-            // Log
-            $errorMessage = $e->getMessage();
+        return $logsWriter->writeLog(array(
+            'user_id'   => $userDetails->id,
+            'module_id' => 2,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', ha inserito il contenuto ".$inputFilter->titolo,
+            'type'      => 'error',
+            'backend'   => 1,
+        ));
+    }
 
-            $logsWriter = $this->getLogsWriter();
-            $logsWriter->writeLog(array(
-                'user_id'   => $userDetails->id,
-                'module_id' => '2',
-                'message'   => $userDetails->name.' '.$userDetails->surname."', errore durante la cancellazione del contenuto ".$this->rawPost['nome'].' Messaggio: '.$errorMessage,
-                'type'      => 'error',
-                'backend'   => 1,
-            ));
+    /**
+     * @param null $message
+     *
+     * @return bool
+     */
+    public function logInsertKo($message = null)
+    {
+        $this->assertUserDetails();
 
-            return $this->setErrorMessage($errorMessage);
-        }
+        $this->assertLogWriter();
+
+        $userDetails = $this->getUserDetails();
+
+        $logsWriter = $this->getLogsWriter();
+
+        $inputFilter = $this->getFormInputFilter();
+
+        return $logsWriter->writeLog(array(
+            'user_id'   => $userDetails->id,
+            'module_id' => 2,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'inserimento del contenuto ".$inputFilter->titolo.' '.$inputFilter->email.' Messaggio: '.$message,
+            'type'      => 'error',
+            'backend'   => 1,
+        ));
+    }
+
+    /**
+     * @return bool
+     */
+    public function logUpdateOk()
+    {
+        $this->assertUserDetails();
+
+        $this->assertLogWriter();
+
+        $userDetails = $this->getUserDetails();
+
+        $logsWriter = $this->getLogsWriter();
+
+        $inputFilter = $this->getFormInputFilter();
+
+        return $logsWriter->writeLog(array(
+            'user_id'   => $userDetails->id,
+            'module_id' => 2,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', ha aggiornato il contenuto ".$inputFilter->titolo,
+            'type'      => 'info',
+            'backend'   => 1,
+        ));
+    }
+
+    /**
+     * @param null $message
+     *
+     * @return bool
+     */
+    public function logUpdateKo($message = null)
+    {
+        $this->assertUserDetails();
+
+        $this->assertLogWriter();
+
+        $userDetails = $this->getUserDetails();
+
+        $logsWriter = $this->getLogsWriter();
+
+        $inputFilter = $this->getFormInputFilter();
+
+        return $logsWriter->writeLog(array(
+            'user_id'   => $userDetails->id,
+            'module_id' => 2,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'aggiornamento del contenuto ".$inputFilter->titolo.' Messaggio: '.$message,
+            'type'      => 'error',
+            'backend'   => 1,
+        ));
     }
 }

@@ -3,7 +3,6 @@
 namespace Admin\Model\StatoCivile;
 
 use Application\Model\RecordsGetterWrapperAbstract;
-use Admin\Model\StatoCivile\StatoCivileSezioniGetter;
 
 /** 
  * @author Andrea Fiori
@@ -11,15 +10,17 @@ use Admin\Model\StatoCivile\StatoCivileSezioniGetter;
  */
 class StatoCivileSezioniGetterWrapper extends RecordsGetterWrapperAbstract
 {
-    /** @var \Admin\Model\StatoCivile\StatoCivileSezioniGetter **/
+    /**
+     * @var StatoCivileSezioniGetter
+     */
     protected $objectGetter;
 
     /**
-     * @param \Admin\Model\StatoCivile\StatoCivileSezioniGetter $statoCivileSezioniGetter
+     * @param StatoCivileSezioniGetter $objectGetter
      */
-    public function __construct(StatoCivileSezioniGetter $statoCivileSezioniGetter)
+    public function __construct(StatoCivileSezioniGetter $objectGetter)
     {
-        $this->setObjectGetter($statoCivileSezioniGetter);
+        $this->setObjectGetter($objectGetter);
     }
     
     public function setupQueryBuilder()

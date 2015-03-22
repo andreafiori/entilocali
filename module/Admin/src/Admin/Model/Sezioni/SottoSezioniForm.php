@@ -45,7 +45,7 @@ class SottoSezioniForm extends Form
         ));
     }
 
-    public function addFormOptions()
+    public function addMainFormInputs()
     {
         $this->add(array(
             'name' => 'nomeSottosezione',

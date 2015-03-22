@@ -6,8 +6,11 @@ use Admin\Model\FormData\CrudHandlerAbstract;
 
 /**
  * Setup operations for the formPostData Controller
+ *
+ * @author Andrea Fiori
+ * @since  22 March 2015
  */
-class FormDataPostsControllerSetup
+class FormDataPostControllerSetup
 {
     private $crudHandler;
 
@@ -16,4 +19,11 @@ class FormDataPostsControllerSetup
         $this->crudHandler = $crudHandler;
     }
 
+    /**
+     * @return CrudHandlerAbstract
+     */
+    public function getCrudHandler()
+    {
+        return $this->crudHandler;
+    }
 }

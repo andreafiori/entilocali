@@ -11,6 +11,9 @@ use Admin\Model\StatoCivile\StatoCivileFormDataHandler;
  */
 class StatoCivileFormDataHandlerTest extends TestSuite
 {
+    /**
+     * @var StatoCivileFormDataHandler
+     */
     private $formDataHandler;
     
     protected function setUp()

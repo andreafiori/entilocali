@@ -81,6 +81,21 @@ class EntiTerziCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
         );
     }
 
+    /**
+     * @param $id
+     *
+     * @return int
+     */
+    public function delete($id)
+    {
+        $this->asssertConnection();
+
+        return $this->getConnection()->delete(DbTableContainer::entiTerzi,
+            array('id' => $id),
+            array('limit' => 1)
+        );
+    }
+
     public function logInsertOk()
     {
         $this->assertUserDetails();
@@ -174,7 +189,31 @@ class EntiTerziCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'ggiornamento dell'ente terzo ".$inputFilter->nome.' Messaggio: '.$message,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'aggiornamento dell'ente terzo ".$inputFilter->nome.' Messaggio: '.$message,
+            'type'      => 'error',
+            'backend'   => 1,
+        ));
+    }
+
+    /**
+     * @param array $record
+     *
+     * @return bool
+     */
+    public function logDelete(array $record)
+    {
+        $this->assertUserDetails();
+
+        $this->assertLogWriter();
+
+        $userDetails = $this->getUserDetails();
+
+        $logsWriter = $this->getLogsWriter();
+
+        return $logsWriter->writeLog(array(
+            'user_id'   => $userDetails->id,
+            'module_id' => 2,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', ha eliminato l'ente terzo ".$record->nome,
             'type'      => 'error',
             'backend'   => 1,
         ));

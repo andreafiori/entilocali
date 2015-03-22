@@ -42,7 +42,7 @@ class ContenutiForm extends Form
                 'placeholder'   => 'Titolo',
                 'title'         => 'Inserisci il titolo',
                 'id'            => 'titolo',
-                'maxlength'     => '250'
+                'maxlength'     => 250
             )
         ));
 
@@ -52,7 +52,7 @@ class ContenutiForm extends Form
             'options' => array('label' => 'Sotto titolo'),
             'attributes' => array(
                 'id'        => 'sommario',
-                'required'  => 'required',
+                'required'  => 'required'
             )
         ));
 
@@ -62,7 +62,7 @@ class ContenutiForm extends Form
             'options' => array('label' => 'Testo'),
             'attributes' => array(
                 'id'        => 'testo',
-                'required'  => 'required',
+                'required'  => 'required'
             )
         ));
 
@@ -70,14 +70,14 @@ class ContenutiForm extends Form
             'type' => 'Date',
             'name' => 'dataInserimento',
             'options' => array(
-                'label' => '* Data inserimento',
+                'label'  => '* Data inserimento',
                 'format' => 'Y-m-d H:i:s',
             ),
             'attributes' => array(
                 'style' => 'width: 22%',
                 'id' => 'dataInserimento',
                 'title' => 'Seleziona data inserimento',
-                'required' => 'required',
+                'required'    => 'required',
                 'placeholder' => 'Data inserimento...',
             )
         ));
@@ -93,7 +93,7 @@ class ContenutiForm extends Form
                 'style' => 'width: 22%',
                 'id' => 'dataScadenza',
                 'title' => 'Seleziona data scadenza',
-                'required' => 'required',
+                'required'    => 'required',
                 'placeholder' => 'Data scadenza...',
             )
         ));
@@ -110,9 +110,9 @@ class ContenutiForm extends Form
                 ),
             ),
             'attributes' => array(
-                'title' => 'Seleziona stato',
-                'id' => 'attivo',
-                'required' => 'required'
+                'title'     => 'Seleziona stato',
+                'id'        => 'attivo',
+                'required'  => 'required'
             )
         ));
     }

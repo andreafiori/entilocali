@@ -47,20 +47,21 @@ class FormDataPostController extends SetupAbstractController
             $appServiceLoader->recoverServiceKey('moduleConfigs', 'formdata_crud_classmap')
         );
 
+        $operation = $this->params()->fromRoute('operation');
+
         /**
          * @var \Admin\Model\FormData\CrudHandlerAbstract $crudHandler
          */
         $crudHandler = new $crudHandlerObject();
         try {
 
-            /* POST and FILES */
             $request = $this->getRequest();
             $post = array_merge_recursive(
                 $request->getPost()->toArray(),
                 $request->getFiles()->toArray()
             );
 
-            $crudHandler->getForm()->setInputFilter($crudHandler->getFormInputFilter()->getInputFilter());
+            $crudHandler->getForm()->setInputFilter( $crudHandler->getFormInputFilter()->getInputFilter() );
 
             $crudHandler->getForm()->setData($post);
 
@@ -77,13 +78,13 @@ class FormDataPostController extends SetupAbstractController
             if ( !empty($formDataValidationError) ) {
 
                 $this->layout()->setVariables(
-                    $crudHandler->setupErrorMessage($formDataValidationError)
+                    array_merge(
+                        $crudHandler->setupErrorMessage($formDataValidationError),
+                        $crudHandler->setupVariablesForTheView($operation, false)
+                    )
                 );
-
                 return $this->renderMessageTemplate($appServiceLoader->recoverServiceKey('configurations', 'template_backend'));
             }
-
-            $operation = $this->params()->fromRoute('operation');
 
             $crudHandler->getConnection()->beginTransaction();
 
@@ -95,19 +96,17 @@ class FormDataPostController extends SetupAbstractController
             try {
                 $crudHandler->$operation( $crudHandler->getFormInputFilter() );
 
-                /* Log OK */
-                $crudHandler->setupLogMethodToExecute($operation, true);
-
                 $crudHandler->getConnection()->commit();
 
                 $this->layout()->setVariables(
                     array_merge(
                         $crudHandler->setupSuccessMessage(),
-                        $crudHandler->setupVariablesForTheView($operation, 1)
+                        $crudHandler->setupVariablesForTheView($operation, true)
                     )
                 );
+
                 /* Log operation OK */
-                $crudHandler->setupLogMethodToExecute($operation, false);
+                $crudHandler->setupLogMethodToExecute($operation, true);
 
                 $crudHandler->setLogsWriter(new LogsWriter($crudHandler->getConnection()));
 
@@ -121,7 +120,10 @@ class FormDataPostController extends SetupAbstractController
                 $crudHandler->getConnection()->rollBack();
 
                 $this->layout()->setVariables(
-                    $crudHandler->setupErrorMessage($e->getMessage())
+                    array_merge(
+                        $crudHandler->setupErrorMessage($e->getMessage()),
+                        $crudHandler->setupVariablesForTheView($operation, false)
+                    )
                 );
 
                 /* Log KO for database query failure */
@@ -133,15 +135,24 @@ class FormDataPostController extends SetupAbstractController
 
                 $crudHandler->log($e->getMessage());
 
+                /* Commit */
                 $crudHandler->getLogsWriter()->getConnection()->commit();
             }
 
         } catch(\Exception $e) {
 
             if ($crudHandler->getConnection()) {
-                $crudHandler->getConnection()->rollBack();
-
                 /* Log KO */
+                $crudHandler->setupLogMethodToExecute($operation, false);
+
+                $crudHandler->setLogsWriter(new LogsWriter($crudHandler->getConnection()));
+
+                $crudHandler->getLogsWriter()->getConnection()->beginTransaction();
+
+                $crudHandler->log($e->getMessage());
+
+                /* Rollback */
+                $crudHandler->getConnection()->rollBack();
             }
 
             $this->layout()->setVariables(
@@ -155,6 +166,10 @@ class FormDataPostController extends SetupAbstractController
         return $this->renderMessageTemplate($appServiceLoader->recoverServiceKey('configurations', 'template_backend'));
     }
 
+        /**
+         * @param $template
+         * @return ViewModel
+         */
         private function renderMessageTemplate($template)
         {
             $this->layout('backend/templates/'.$template.'message.phtml');

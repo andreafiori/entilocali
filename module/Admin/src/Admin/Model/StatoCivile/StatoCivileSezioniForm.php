@@ -2,6 +2,8 @@
 
 namespace Admin\Model\StatoCivile;
 
+use Zend\Captcha;
+use Zend\Form\Element;
 use Zend\Form\Form;
 
 /**
@@ -16,17 +18,20 @@ class StatoCivileSezioniForm extends Form
     public function __construct($name = 'formData', $options = array())
     {
         parent::__construct($name, $options);
-        
+
         $this->add(array(
-                        'name' => 'nome',
-                        'type' => 'Text',
-                        'options' => array('label' => '* Nome'),
-                        'attributes' => array(
-                                    'required' => 'required',
-                                    'id'       => 'nome',
-                                    'title'    => 'Inserisci nome sezione',
-                                    'maxlength'=> 250
-                        )
+            'name' => 'nome',
+            'type' => 'Zend\Form\Element\Text',
+            'attributes' => array(
+                'id'            => 'nome',
+                'placeholder'   => 'Nome...',
+                'title'         => 'Inserisci nome sezione',
+                'required'      => 'required',
+                'maxlength'     => 250
+            ),
+            'options' => array(
+                'label' => '* Nome',
+            ),
         ));
         
         $this->add(array(
@@ -46,11 +51,16 @@ class StatoCivileSezioniForm extends Form
                                 'title'    => 'Seleziona stato',
                         )
         ));
-        
+
         $this->add(array(
                         'type' => 'Zend\Form\Element\Hidden',
                         'name' => 'id',
                         'attributes' => array("class" => 'hiddenField')
+        ));
+
+        $this->add(array(
+            'name' => 'csrf',
+            'type' => 'Zend\Form\Element\Csrf',
         ));
     }
 }

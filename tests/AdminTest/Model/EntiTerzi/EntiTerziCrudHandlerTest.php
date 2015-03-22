@@ -2,6 +2,7 @@
 
 namespace AdminTest\Model\EntiTerzi;
 
+use Admin\Model\Logs\LogsWriter;
 use ApplicationTest\TestSuite;
 use Admin\Model\EntiTerzi\EntiTerziCrudHandler;
 
@@ -16,7 +17,7 @@ class EntiTerziCrudHandlerTest extends TestSuite
      */
     private $crudHandler;
 
-    private $formSampleData;
+    private $formSampleData, $userDetailsSample;
 
     protected function setUp()
     {
@@ -29,15 +30,22 @@ class EntiTerziCrudHandlerTest extends TestSuite
             'nome'   => 'Provincia Olbia Tempio<br>',
             'email'  => 'myEnteTest@myemail.com',
         );
+
+        $this->userDetailsSample = new \stdClass();
+        $this->userDetailsSample->id = 1;
+        $this->userDetailsSample->name = 'John';
+        $this->userDetailsSample->surname = 'Doe';
     }
 
     public function testExchangeArray()
     {
         $this->setupFormInputFilterAndExchangeArray();
 
-        $this->assertNotNull($this->crudHandler->getFormInputFilter()->id);
-        $this->assertNotNull($this->crudHandler->getFormInputFilter()->nome);
-        $this->assertNotNull($this->crudHandler->getFormInputFilter()->email);
+        $inputFilter = $this->recoverEntiTerziFormInputFilterInstance();
+
+        $this->assertNotNull($inputFilter->id);
+        $this->assertNotNull($inputFilter->nome);
+        $this->assertNotNull($inputFilter->email);
     }
 
     public function testInsert()
@@ -46,7 +54,7 @@ class EntiTerziCrudHandlerTest extends TestSuite
 
         $this->crudHandler->setConnection($this->getEntityManagerMock()->getConnection());
 
-        $this->crudHandler->insert( $this->crudHandler->getFormInputFilter() );
+        $this->assertTrue( $this->crudHandler->insert($this->crudHandler->getFormInputFilter()) );
     }
 
     public function testUpdate()
@@ -55,7 +63,44 @@ class EntiTerziCrudHandlerTest extends TestSuite
 
         $this->crudHandler->setConnection($this->getEntityManagerMock()->getConnection());
 
-        $this->crudHandler->update( $this->crudHandler->getFormInputFilter() );
+        $this->assertTrue( $this->crudHandler->update($this->crudHandler->getFormInputFilter()) );
+    }
+
+    public function testDelete()
+    {
+        $this->setupFormInputFilterAndExchangeArray();
+
+        $this->crudHandler->setConnection($this->getEntityManagerMock()->getConnection());
+
+        $this->assertTrue( $this->crudHandler->delete(1) );
+    }
+
+    public function testLogInsertOK()
+    {
+        $this->setupLog('insert', true);
+
+        $this->assertTrue( $this->crudHandler->log() );
+    }
+
+    public function testLogInsertKO()
+    {
+        $this->setupLog('insert', false);
+
+        $this->assertTrue( $this->crudHandler->log() );
+    }
+
+    public function testLogUpdateOK()
+    {
+        $this->setupLog('update', true);
+
+        $this->assertTrue( $this->crudHandler->log() );
+    }
+
+    public function testLogUpdateKO()
+    {
+        $this->setupLog('update', false);
+
+        $this->assertTrue( $this->crudHandler->log() );
     }
 
     /**
@@ -73,14 +118,31 @@ class EntiTerziCrudHandlerTest extends TestSuite
         $this->assertEquals($this->crudHandler->getLogMethodToExecute(), 'logInsertOk');
     }
 
-        private function setupFormInputFilterAndExchangeArray()
-        {
-            $this->crudHandler->getForm()->setData($this->formSampleData);
+    private function setupFormInputFilterAndExchangeArray()
+    {
+        $this->crudHandler->getForm()->setData($this->formSampleData);
 
-            $this->crudHandler->getForm()->setInputFilter($this->crudHandler->getFormInputFilter()->getInputFilter());
+        $this->crudHandler->getForm()->setInputFilter($this->crudHandler->getFormInputFilter()->getInputFilter());
 
-            $this->crudHandler->getFormInputFilter()->exchangeArray($this->formSampleData);
-        }
+        $inputFilter = $this->recoverEntiTerziFormInputFilterInstance();
 
+        $inputFilter->exchangeArray($this->formSampleData);
+    }
 
+    /**
+     * @return \Admin\Model\EntiTerzi\EntiTerziFormInputFilter $inputFilter
+     */
+    private function recoverEntiTerziFormInputFilterInstance()
+    {
+        return $this->crudHandler->getFormInputFilter();
+    }
+
+    private function setupLog($operation, $ok)
+    {
+        $this->crudHandler->setUserDetails($this->userDetailsSample);
+
+        $this->crudHandler->setLogsWriter( new LogsWriter($this->getConnectionMock()) );
+
+        $this->crudHandler->setupLogMethodToExecute($operation, $ok);
+    }
 }

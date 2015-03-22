@@ -22,10 +22,10 @@ class SezioniForm extends Form
             'type' => 'Text',
             'options' => array( 'label' => '* Nome' ),
             'attributes' => array(
-                'required' => 'required',
-                'placeholder' => 'Nome...',
-                'title' => 'Inserisci nome sezione',
-                'id' => 'nome',
+                'required'      => 'required',
+                'placeholder'   => 'Nome...',
+                'title'         => 'Inserisci nome sezione',
+                'id'            => 'nome',
             )
         ));
     }
@@ -63,9 +63,9 @@ class SezioniForm extends Form
                 'label' => 'Link (se esterno indicare anche http://):'
             ),
             'attributes' => array(
-                'placeholder' => 'Link...',
-                'title' => 'Inserisci nome sezione',
-                'id' => 'url',
+                'placeholder'   => 'Link...',
+                'title'         => 'Inserisci nome sezione',
+                'id'            => 'url',
             )
         ));
 
