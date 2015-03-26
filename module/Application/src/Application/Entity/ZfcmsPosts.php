@@ -33,28 +33,28 @@ class ZfcmsPosts
      *
      * @ORM\Column(name="insert_date", type="datetime", nullable=false)
      */
-    private $insertDate = '2013-01-01 00:00:00';
+    private $insertDate;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="expire_date", type="datetime", nullable=false)
      */
-    private $expireDate = '2030-02-10 00:00:00';
+    private $expireDate;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="last_update", type="datetime", nullable=false)
      */
-    private $lastUpdate = '2030-02-10 00:00:00';
+    private $lastUpdate;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="parent_id", type="bigint", nullable=false)
      */
-    private $parentId = '0';
+    private $parentId;
 
     /**
      * @var string
@@ -75,7 +75,7 @@ class ZfcmsPosts
      *
      * @ORM\Column(name="flag_attachments", type="string", nullable=false)
      */
-    private $flagAttachments = 'no';
+    private $flagAttachments;
 
 
 

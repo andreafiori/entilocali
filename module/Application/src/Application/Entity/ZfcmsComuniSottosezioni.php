@@ -120,6 +120,13 @@ class ZfcmsComuniSottosezioni
     private $isAmmTrasparente;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="show_to_all", type="integer", nullable=false)
+     */
+    private $showToAll;
+
+    /**
      * @var \Application\Entity\ZfcmsComuniSottosezioni
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniSottosezioni")
@@ -149,24 +156,7 @@ class ZfcmsComuniSottosezioni
      */
     private $utente;
 
-    /**
-     * Set array collection
-     */
-    public function __construct()
-    {
-        $this->profonditaDa = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
-    /**
-     * @param int $id
-     * @return $this
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
 
     /**
      * Get id
@@ -498,6 +488,29 @@ class ZfcmsComuniSottosezioni
     public function getIsAmmTrasparente()
     {
         return $this->isAmmTrasparente;
+    }
+
+    /**
+     * Set showToAll
+     *
+     * @param integer $showToAll
+     * @return ZfcmsComuniSottosezioni
+     */
+    public function setShowToAll($showToAll)
+    {
+        $this->showToAll = $showToAll;
+    
+        return $this;
+    }
+
+    /**
+     * Get showToAll
+     *
+     * @return integer 
+     */
+    public function getShowToAll()
+    {
+        return $this->showToAll;
     }
 
     /**

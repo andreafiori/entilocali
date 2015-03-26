@@ -37,7 +37,7 @@ class AlboPretorioFormSearch extends Form
             'type' => 'Zend\Form\Element\Text',
             'name' => 'numero_atto',
             'attributes' => array(
-                'placeholder' => '',
+                'placeholder'   => 'Numero...',
                 'title'         => 'Inserisci numero atto',
                 'id'            => 'numero_atto',
                 'maxlength'     => 12

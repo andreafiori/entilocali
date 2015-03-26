@@ -26,49 +26,49 @@ class ZfcmsProductsOffers
      *
      * @ORM\Column(name="offer_date", type="datetime", nullable=false)
      */
-    private $offerDate = '2008-01-01 01:01:01';
+    private $offerDate;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="expire_date", type="datetime", nullable=false)
      */
-    private $expireDate = '2008-01-01 01:01:01';
+    private $expireDate;
 
     /**
      * @var string
      *
      * @ORM\Column(name="status", type="string", length=50, nullable=false)
      */
-    private $status = 'si';
+    private $status;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="company_id", type="integer", nullable=false)
      */
-    private $companyId = '0';
+    private $companyId;
 
     /**
      * @var string
      *
      * @ORM\Column(name="price_offer", type="decimal", precision=10, scale=2, nullable=false)
      */
-    private $priceOffer = '0.00';
+    private $priceOffer;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="qt", type="integer", nullable=false)
      */
-    private $qt = '1';
+    private $qt;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="product_id", type="bigint", nullable=false)
      */
-    private $productId = '0';
+    private $productId;
 
 
 }

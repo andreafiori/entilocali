@@ -2,21 +2,21 @@
 
 namespace AdminTest\Model\StatoCivile;
 
-use ApplicationTest\TestSuite;
+use ApplicationTest\CrudHandlerTestSuite;
 use Admin\Model\StatoCivile\StatoCivileSezioniCrudHandler;
 
 /**
  * @author Andrea Fiori
  * @since  22 March 2015
  */
-class StatoCivileSezioniCrudHandlerTest // extends TestSuite
+class StatoCivileSezioniCrudHandlerTest extends CrudHandlerTestSuite
 {
     /**
      * @var StatoCivileSezioniCrudHandler
      */
-    private $crudHandler;
+    protected $crudHandler;
 
-    private $formSampleData, $userDetailsSample;
+    protected $formSampleData;
 
     protected function setUp()
     {
@@ -27,12 +27,16 @@ class StatoCivileSezioniCrudHandlerTest // extends TestSuite
         $this->formSampleData = array(
             'id'     => '',
             'nome'   => 'Nuova sezione',
-            'stato'  => '1',
+            'attivo'  => '1',
         );
+    }
 
-        $this->userDetailsSample = new \stdClass();
-        $this->userDetailsSample->id = 1;
-        $this->userDetailsSample->name = 'John';
-        $this->userDetailsSample->surname = 'Doe';
+    public function testExchangeArray()
+    {
+        $this->setupFormInputFilterAndExchangeArray();
+
+        $this->assertNotNull($this->crudHandler->getFormInputFilter()->id);
+        $this->assertNotNull($this->crudHandler->getFormInputFilter()->nome);
+        $this->assertNotNull($this->crudHandler->getFormInputFilter()->attivo);
     }
 }

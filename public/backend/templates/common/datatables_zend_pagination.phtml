@@ -33,23 +33,33 @@
     </thead>
     <tbody>
         <?php foreach($this->records as $records): ?>
-        <tr class="odd gradeX">
-            <?php foreach($records as $record): ?>
+        <tr class="odd gradeX<?php if (isset($records['style'])): if ($records['style']=='hidden'): ?> info<?php endif; endif; ?>">
+            <?php foreach($records as $key => $record): ?>
                 <?php if (is_array($record)): ?>
                     <?php if ($record['type']=='updateButton'): ?>
-                    <td><a href="<?php echo $record['href'] ?>" class="btn btn-lg" title="<?php echo $record['title'] ?>"><i class="fa fa-pencil"></i> </a></td>
+                    <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                        <a href="<?php echo $record['href'] ?>" class="btn btn-lg" title="<?php echo $record['title'] ?>"><i class="fa fa-pencil"></i> </a>
+                    </td>
                     <?php elseif($record['type']=='alboRettificaButton'): ?>
-                    <td><a href="#alboRevisionModal" data-id="<?php echo $record['data-id'] ?>" class="open-alboRevisionModal btn btn-lg" title="Rettifica articolo"><i class="fa fa-edit"></i> </a></td>
+                    <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                        <a href="#alboRevisionModal" data-id="<?php echo $record['data-id'] ?>" class="open-alboRevisionModal btn btn-lg" title="Rettifica articolo"><i class="fa fa-edit"></i> </a>
+                    </td>
                     <?php elseif($record['type']=='alboAnnulledButton'): ?>
-                    <td colspan="4" valign="middle" class="text-center"><h4>ARTICOLO ANNULLATO</h4></td>
+                    <td colspan="4" valign="middle" class="text-center<?php echo isset($record['class']) ? ' '.$record['class'] : '' ?>">
+                        <h4>ARTICOLO ANNULLATO</h4>
+                    </td>
                     <!-- hidden fields to avoid js datatable error... -->
                     <td style="display: none">&nbsp;</td>
                     <td style="display: none">&nbsp;</td>
                     <td style="display: none">&nbsp;</td>
                     <?php elseif($record['type']=='alboAnnullButton'): ?>
-                    <td><a href="#alboAnnullModal" data-id="<?php echo $record['data-id'] ?>" class="open-alboAnnullModal btn btn-lg icon-red" title="Annulla articolo"><i class="fa fa-ban"></i> </a></td>
+                    <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                        <a href="#alboAnnullModal" data-id="<?php echo $record['data-id'] ?>" class="open-alboAnnullModal btn btn-lg icon-red" title="Annulla articolo"><i class="fa fa-ban"></i> </a>
+                    </td>
                     <?php elseif($record['type']=='alboPublishButton'): ?>
-                    <td><a href="#alboPublishModal" data-id="<?php echo $record['data-id'] ?>" class="open-alboPublishModal btn btn-lg" title="<?php echo (isset($record['title'])) ? $record['title'] : "Pubblica" ?>"><i class="fa fa-globe"></i> </a></td>
+                    <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                        <a href="#alboPublishModal" data-id="<?php echo $record['data-id'] ?>" class="open-alboPublishModal btn btn-lg" title="<?php echo (isset($record['title'])) ? $record['title'] : "Pubblica" ?>"><i class="fa fa-globe"></i> </a>
+                    </td>
                     <?php elseif($record['type']=='activeButton'): ?>
                     <td><a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-green" title="<?php echo (isset($record['title'])) ? $record['title'] : 'Attiva' ?>"><i class="fa fa-power-off"></i> </a></td>
                     <?php elseif($record['type']=='disableButton'): ?>
@@ -59,26 +69,50 @@
                     <?php elseif($record['type']=='noButton'): ?>
                     <td>&nbsp;</td>
                     <?php elseif($record['type']=='deleteButton'): ?>
-                    <td><a href="#deleteModal" data-action="<?php echo $record['href'] ?>" data-id="<?php echo $record['data-id'] ?>" class="open-deleteModal btn btn-lg icon-red" title="Elimina"><i class="fa fa-times"></i> </a></td>
+                    <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                        <a href="#deleteModal" data-action="<?php echo $record['href'] ?>" data-id="<?php echo $record['data-id'] ?>" class="open-deleteModal btn btn-lg icon-red" title="<?php echo (isset($record['title'])) ? $record['title'] : 'Elimina' ?>"><i class="fa fa-times"></i> </a>
+                    </td>
                     <?php elseif($record['type']=='homepagePutButton'): ?>
-                    <td><a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-green" title="Metti in home page"><i class="fa fa-home"></i> </a></td>
+                    <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                        <a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-green" title="Metti in home page"><i class="fa fa-home"></i> </a>
+                    </td>
                     <?php elseif($record['type']=='homepageDelButton'): ?>
-                    <td><a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-red" title="Togli dalla home page"><i class="fa fa-home"></i> </a></td>
+                    <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                        <a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-red" title="Togli dalla home page"><i class="fa fa-home"></i> </a>
+                    </td>
                     <?php elseif($record['type']=='tableButton'): ?>
-                    <td><a href="<?php echo $record['href'] ?>" class="btn btn-lg" title="<?php echo $record['title'] ?>"><i class="fa fa-table"></i> </a></td>
+                    <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                        <a href="<?php echo $record['href'] ?>" class="btn btn-lg" title="<?php echo $record['title'] ?>"><i class="fa fa-table"></i> </a>
+                    </td>
                     <?php elseif($record['type']=='attachButton'): ?>
-                    <td><a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-black" title="<?php echo isset($record['title']) ? $record['title'] : 'Gestione allegati'; ?>"><i class="fa fa-paperclip"></i> </a></td>
+                    <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                        <a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-black" title="<?php echo isset($record['title']) ? $record['title'] : 'Gestione allegati'; ?>"><i class="fa fa-paperclip"></i> </a>
+                    </td>
                     <?php elseif($record['type']=='relatapdfButton'): ?>
-                    <td><a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-red" title="Genera documento relata di pubblicazione"><i class="fa fa-file-pdf-o"></i> </a></td>
+                    <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                        <a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-red" title="Genera documento relata di pubblicazione"><i class="fa fa-file-pdf-o"></i> </a>
+                    </td>
                     <?php elseif($record['type']=='enteterzoButton'): ?>
-                    <td><a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-black" title="Invia ad ente terzo"><i class="fa fa-envelope-square"></i></a></td>
+                    <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                        <a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-black" title="Invia ad ente terzo"><i class="fa fa-envelope-square"></i></a>
+                    </td>
                     <?php elseif($record['type']=='squareIconButton'): ?>
-                    <td><a href="<?php echo $record['href'] ?>" class="btn btn-lg" title="<?php echo isset($record['title']) ? $record['title'] : null ?>"><i class="fa fa-check-square-o"></i> </a></td>
+                    <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                        <a href="<?php echo $record['href'] ?>" class="btn btn-lg" title="<?php echo isset($record['title']) ? $record['title'] : null ?>"><i class="fa fa-check-square-o"></i> </a>
+                    </td>
+                    <?php elseif($record['type']=='positionButton'): ?>
+                    <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                        <a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-black" title="<?php echo isset($record['title']) ? $record['title'] : null ?>"><i class="fa fa-cogs"></i> </a>
+                    </td>
+                    <?php elseif($record['type']=='field'): // normal text \ data field ?>
+                    <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                        <?php echo utf8_encode($record['record']) ?>
+                    </td>
                     <?php endif; ?>
                 <?php else: ?>
-                <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
-                    <?php echo utf8_encode($record) ?>
-                </td>
+                    <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                        <?php echo utf8_encode($record) ?>
+                    </td>
                 <?php endif; ?>
             <?php endforeach; ?>
         </tr>
@@ -155,8 +189,8 @@ endif;
             
             <form action="" method="post">
                 <div class="modal-body">
-                    <p><strong>Attenzione:</strong> L'articolo &egrave; gi&agrave; stato pubblicato. Passare alla modalit&agrave; di revisione?</p>
-                    <p>Una volta confermata la revisione, l'articolo non sar&agrave; visibile sul sito web pubblico per permettere di aggiungere o eliminare allegati e dovr&agrave; essere riattivato in questa sezione</p>
+                    <p><strong>Attenzione:</strong> L'articolo &egrave; gi&agrave; stato pubblicato. Vuoi passare alla revisione?</p>
+                    <p>L'articolo sar&agrave; nuovamente on-line una volta confermato il doppio passaggio uno dell'articolo e l'altro per gli allegati.</p>
 
                     <input type="hidden" name="revisionId" id="revisionId" value="" />
                 </div>

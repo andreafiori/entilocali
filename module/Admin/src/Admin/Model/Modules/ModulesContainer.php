@@ -8,23 +8,23 @@ namespace Admin\Model\Modules;
  * @author Andrea Fiori
  * @since  08 March 2015
  */
-class ModuleContainer
+class ModulesContainer
 {
     const contenuti_id                      = 2;
 
-    const albo_pretorio_id                  = 11;
+    const albo_pretorio_id                  = 3;
 
-    const amministrazione_trasparente_id    = '';
+    const amministrazione_trasparente_id    = 19;
 
-    const contratti_pubblici_id             = '';
+    const contratti_pubblici_id             = 17;
 
-    const atti_concessione                  = '';
+    const atti_concessione                  = 15;
 
-    const stato_civile_id                   = '';
+    const stato_civile_id                   = 13;
 
-    const blogs                             = '';
+    const blogs                             = 10;
 
-    const photo                             = '';
+    const photo                             = 8;
 
-    const newsletter                        = '';
+    const newsletter                        = 6;
 }

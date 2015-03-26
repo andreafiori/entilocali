@@ -57,14 +57,4 @@ class AmministrazioneTrasparenteCrudHandler extends CrudHandlerAbstract implemen
             return $this->setErrorMessage($e->getMessage());
         }
     }
-    
-    public function update()
-    {
-        
-    }
-    
-    public function delete()
-    {
-        
-    }
 }

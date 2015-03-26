@@ -2,7 +2,9 @@
 
 namespace Admin\Model\Sezioni;
 
+use Zend\InputFilter\InputFilterAwareInterface;
 use Admin\Model\FormData\CrudHandlerAbstract;
+use Application\Model\Database\DbTableContainer;
 use Application\Model\Slugifier;
 
 /**
@@ -11,101 +13,224 @@ use Application\Model\Slugifier;
  */
 class SottoSezioniCrudHandler extends CrudHandlerAbstract
 {
-    private $tableName = 'zfcms_comuni_sottosezioni';
-
-    public function insert()
+    /**
+     * Setup form and its input filter
+     */
+    public function __construct()
     {
-        $userDetails  = $this->getInput('userDetails', 1);
+        $this->form = new SottoSezioniForm();
+        $this->form->addSezioni(array(
+            1 => 'Giunta',
+            2 => 'Sindaco',
+            3 => 'Dove siamo',
+        ));
+        $this->form->addMainFormInputs();
 
-        $this->getConnection()->beginTransaction();
-        try {
-
-            $this->getConnection()->insert($this->tableName, array(
-                'nome'              => $this->rawPost['nomeSezione'],
-                'sezione_id'        => $this->rawPost['sezione'],
-                'url'               => $this->rawPost['url'],
-                'url_title'         => $this->rawPost['urlTitle'],
-                'posizione'         => $this->rawPost['posizione'],
-                'attivo'            => $this->rawPost['attivo'],
-                'profondita_da'     => 0,
-                'profondita_a'      => '',
-                'slug'              => Slugifier::slugify($this->rawPost['nomeSezione']),
-                'utente_id'         => $userDetails->id,
-            ));
-
-            $this->getConnection()->commit();
-
-            $this->setSuccessMessage();
-
-        } catch (\Exception $e) {
-            $this->getConnection()->rollBack();
-
-            // Log
-            $errorMessage = $e->getMessage();
-
-            $logsWriter = $this->getLogsWriter();
-            $logResult = $logsWriter->writeLog(array(
-                'user_id'   => $userDetails->id,
-                'module_id' => 2,
-                'message'   => $userDetails->name.' '.$userDetails->surname."', errore durante l'inserimento della sotto-sezione ".$this->rawPost['nomeSezione'].' Messaggio: '.$errorMessage,
-                'type'      => 'error',
-                'backend'   => 1,
-            ));
-
-            return $this->setErrorMessage($errorMessage);
-        }
+        $this->formInputFilter = new SottoSezioniFormInputFilter();
     }
 
-    public function update()
+    /**
+     * @param InputFilterAwareInterface $formData
+     *
+     * @return array
+     */
+    public function validateFormData(InputFilterAwareInterface $formData)
     {
-        $this->setArrayRecordToHandle('nome',       'nomeSottosezione');
-        $this->setArrayRecordToHandle('posizione',  'posizione');
-        $this->setArrayRecordToHandle('attivo',     'attivo');
-        $this->setArrayRecordToHandle('sezione_id', 'sezione');
-        $this->setArrayRecordToHandle('url',        'url');
-        $this->setArrayRecordToHandle('url_title',  'urlTitle');
+        return $this->checkValidateFormDataError(
+            $formData,
+            array('nomeSottoSezione', 'sezione', 'attivo')
+        );
+    }
 
-        $this->setArrayRecordElement('slug', Slugifier::slugify($this->rawPost['nomeSottosezione']));
+    /**
+     * @param InputFilterAwareInterface $formData
+     * @return int
+     * @throws \Application\Model\NullException
+     */
+    public function insert(InputFilterAwareInterface $formData)
+    {
+        $this->asssertConnection();
 
-        $userDetails  = $this->getInput('userDetails', 1);
+        $this->assertUserDetails();
 
-        $this->getConnection()->beginTransaction();
-        try {
+        $userDetails = $this->getUserDetails();
 
-            $affectedRows = $this->getConnection()->update(
-                $this->tableName, $this->getArrayRecordToHandle(), array('id' => $this->rawPost['idSottosezione'])
-            );
+        return $this->getConnection()->insert(DbTableContainer::sottosezioni, array(
+            'nome'              => $formData->nomeSottoSezione,
+            'sezione_id'        => $formData->sezione,
+            'url'               => $formData->url,
+            'url_title'         => $formData->urlTitle,
+            'posizione'         => $formData->posizione,
+            'attivo'            => $formData->attivo,
+            'profondita_da'     => 0,
+            'profondita_a'      => '',
+            'slug'              => Slugifier::slugify($formData->nomeSottoSezione),
+            'utente_id'         => $userDetails->id,
+        ));
+    }
 
-            $this->getConnection()->commit();
+    /**
+     * @param InputFilterAwareInterface $formData
+     * @return int
+     * @throws \Application\Model\NullException
+     */
+    public function update(InputFilterAwareInterface $formData)
+    {
+        $this->asssertConnection();
 
-            $this->setSuccessMessage();
+        return $this->getConnection()->update(
+            DbTableContainer::sottosezioni,
+            array(
+                'nome'          => $formData->nomeSottoSezione,
+                'attivo'        => $formData->attivo,
+                'sezione_id'    => $formData->sezione,
+                'url'           => $formData->url,
+                'url_title'     => $formData->urlTitle,
+            ),
+            array('id' => $formData->idSottoSezione),
+            array('limit' => 1)
+        );
+    }
 
-            // Log
-            $logsWriter = $this->getLogsWriter();
-            $logResult = $logsWriter->writeLog(array(
-                'user_id'   => $userDetails->id,
-                'module_id' => 2,
-                'message'   => $userDetails->name.' '.$userDetails->surname."', ha aggiornato la sotto-sezione ".$this->rawPost['nomeSottosezione'],
-                'type'      => 'info',
-                'backend'   => 1,
-            ));
+    /**
+     * @param $id
+     *
+     * @return int
+     */
+    public function delete($id)
+    {
+        $this->asssertConnection();
 
-        } catch(\Exception $e) {
-            $this->getConnection()->rollBack();
+        return $this->getConnection()->delete(
+            DbTableContainer::sottosezioni,
+            array('id'    => $id),
+            array('limit' => 1)
+        );
+    }
 
-            // Log
-            $errorMessage = $e->getMessage();
+    /**
+     * @return bool
+     */
+    public function logInsertOk()
+    {
+        $this->assertUserDetails();
 
-            $logsWriter = $this->getLogsWriter();
-            $logResult = $logsWriter->writeLog(array(
-                'user_id'   => $userDetails->id,
-                'module_id' => 2,
-                'message'   => $userDetails->name.' '.$userDetails->surname."', errore durante l'aggiornamento della sotto-sezione ".$this->rawPost['nomeSezione'].' Messaggio: '.$errorMessage,
-                'type'      => 'error',
-                'backend'   => 1,
-            ));
+        $this->assertLogWriter();
 
-            return $this->setErrorMessage($errorMessage);
-        }
+        $userDetails = $this->getUserDetails();
+
+        $logsWriter = $this->getLogsWriter();
+
+        $inputFilter = $this->getFormInputFilter();
+
+        return $logsWriter->writeLog(array(
+            'user_id'   => $userDetails->id,
+            'module_id' => 2,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', ha inserito la sotto-sezione ".$inputFilter->nomeSottoSezione.' Messaggio: ',
+            'type'      => 'error',
+            'backend'   => 1,
+        ));
+    }
+
+    /**
+     * @param null $message
+     * @return bool
+     * @throws \Application\Model\NullException
+     */
+    public function logInsertKo($message = null)
+    {
+        $this->assertUserDetails();
+
+        $this->assertLogWriter();
+
+        $userDetails = $this->getUserDetails();
+
+        $logsWriter = $this->getLogsWriter();
+
+        $inputFilter = $this->getFormInputFilter();
+
+        return $logsWriter->writeLog(array(
+            'user_id'   => $userDetails->id,
+            'module_id' => 2,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', errore durante l'inserimento della sotto-sezione ".$inputFilter->nomeSottoSezione.' Messaggio: '.$message,
+            'type'      => 'error',
+            'backend'   => 1,
+        ));
+    }
+
+    /**
+     * @return bool
+     *
+     * @throws \Application\Model\NullException
+     */
+    public function logUpdateOk()
+    {
+        $this->assertUserDetails();
+
+        $this->assertLogWriter();
+
+        $userDetails = $this->getUserDetails();
+
+        $logsWriter = $this->getLogsWriter();
+
+        $inputFilter = $this->getFormInputFilter();
+
+        return $logsWriter->writeLog(array(
+            'user_id'   => $userDetails->id,
+            'module_id' => 2,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', ha aggiornato la sezione ".$inputFilter->nomeSottoSezione,
+            'type'      => 'info',
+            'backend'   => 1,
+        ));
+    }
+
+    /**
+     * @param null $message
+     * @return bool
+     * @throws \Application\Model\NullException
+     */
+    public function logUpdateKo($message = null)
+    {
+        $this->assertUserDetails();
+
+        $this->assertLogWriter();
+
+        $userDetails = $this->getUserDetails();
+
+        $logsWriter = $this->getLogsWriter();
+
+        $inputFilter = $this->getFormInputFilter();
+
+        return $logsWriter->writeLog(array(
+            'user_id'   => $userDetails->id,
+            'module_id' => 2,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'aggiornamento della sezione ".$inputFilter->nomeSottoSezione.' Messaggio: '.$message,
+            'type'      => 'error',
+            'backend'   => 1,
+        ));
+    }
+
+    /**
+     * @param array $record
+     *
+     * @return bool
+     */
+    public function logDelete(array $record)
+    {
+        $this->assertUserDetails();
+
+        $this->assertLogWriter();
+
+        $userDetails = $this->getUserDetails();
+
+        $logsWriter = $this->getLogsWriter();
+
+        return $logsWriter->writeLog(array(
+            'user_id'   => $userDetails->id,
+            'module_id' => 2,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', ha eliminato la sezione ".$record->nome,
+            'type'      => 'error',
+            'backend'   => 1,
+        ));
     }
 }

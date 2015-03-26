@@ -61,21 +61,21 @@ class ZfcmsLanguages
      *
      * @ORM\Column(name="is_default", type="bigint", nullable=false)
      */
-    private $isDefault = '0';
+    private $isDefault;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="is_default_backend", type="bigint", nullable=false)
      */
-    private $isDefaultBackend = '0';
+    private $isDefaultBackend;
 
     /**
      * @var string
      *
      * @ORM\Column(name="encoding", type="string", length=50, nullable=true)
      */
-    private $encoding = 'UTF-8';
+    private $encoding;
 
     /**
      * @var integer
@@ -89,7 +89,7 @@ class ZfcmsLanguages
      *
      * @ORM\Column(name="channel_id", type="bigint", nullable=false)
      */
-    private $channelId = '1';
+    private $channelId;
 
 
 

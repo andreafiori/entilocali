@@ -47,7 +47,7 @@ class ZfcmsAttachments
      *
      * @ORM\Column(name="insert_date", type="datetime", nullable=false)
      */
-    private $insertDate = '2014-01-01 01:01:01';
+    private $insertDate;
 
     /**
      * @var \Application\Entity\ZfcmsAttachmentsMimetype

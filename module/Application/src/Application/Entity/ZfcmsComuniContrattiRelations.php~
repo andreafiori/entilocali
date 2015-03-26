@@ -26,28 +26,28 @@ class ZfcmsComuniContrattiRelations
      *
      * @ORM\Column(name="stato", type="integer", nullable=false)
      */
-    private $stato = '0';
+    private $stato;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="gruppo", type="integer", nullable=false)
      */
-    private $gruppo = '0';
+    private $gruppo;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="aggiudicatario", type="integer", nullable=false)
      */
-    private $aggiudicatario = '0';
+    private $aggiudicatario;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="membro", type="bigint", nullable=false)
      */
-    private $membro = '0';
+    private $membro;
 
     /**
      * @var \Application\Entity\ZfcmsComuniContratti

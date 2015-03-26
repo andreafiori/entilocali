@@ -2,6 +2,8 @@
 
 namespace Admin\Model\Attachments;
 
+use Zend\Form\Element;
+use Zend\Form\ElementInterface;
 use Zend\Form\Form;
 
 /**      

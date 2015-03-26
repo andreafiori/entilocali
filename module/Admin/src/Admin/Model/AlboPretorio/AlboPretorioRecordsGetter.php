@@ -21,13 +21,15 @@ class AlboPretorioRecordsGetter extends RecordsGetterAbstract
      */
     public function setArticoliInput(array $input)
     {
-        $this->articoliWrapper = new AlboPretorioArticoliGetterWrapper( new AlboPretorioArticoliGetter($this->getEntityManager()) );
+        $this->articoliWrapper = new AlboPretorioArticoliGetterWrapper(
+            new AlboPretorioArticoliGetter($this->getEntityManager())
+        );
         $this->articoliWrapper->setInput($input);
         $this->articoliWrapper->setupQueryBuilder();
         
         return $this->articoliWrapper;
     }
-    
+
     /**
      * @return AlboPretorioArticoliGetterWrapper
      */
@@ -43,7 +45,7 @@ class AlboPretorioRecordsGetter extends RecordsGetterAbstract
     }
     
     /**
-     * @param int $page
+     * @param int|null $page
      * @return $this->articoliWrapper
      */
     public function setArticoliPaginatorCurrentPage($page = null)
@@ -77,8 +79,9 @@ class AlboPretorioRecordsGetter extends RecordsGetterAbstract
         
         return $this->articoliWrapper->getPaginator();
     }
-    
+
         /**
+         * @return null
          * @throws NullException
          */
         private function assertAlboPretorioGetterWrapper()
@@ -86,6 +89,8 @@ class AlboPretorioRecordsGetter extends RecordsGetterAbstract
             if (!$this->articoliWrapper) {
                 throw new NullException('AlboPretorioGetterWrapper is not set. Use setArticoliInput before');
             }
+
+            return null;
         }
     
     /**
@@ -93,7 +98,9 @@ class AlboPretorioRecordsGetter extends RecordsGetterAbstract
      */
     public function setSezioni(array $input)
     {
-        $wrapper = new AlboPretorioSezioniGetterWrapper( new AlboPretorioSezioniGetter($this->getEntityManager()) );
+        $wrapper = new AlboPretorioSezioniGetterWrapper(
+            new AlboPretorioSezioniGetter($this->getEntityManager())
+        );
         $wrapper->setInput($input);
         $wrapper->setupQueryBuilder();
 
@@ -117,7 +124,9 @@ class AlboPretorioRecordsGetter extends RecordsGetterAbstract
      */
     public function getYears()
     {
-        $this->articoliWrapper = new AlboPretorioArticoliGetterWrapper( new AlboPretorioArticoliGetter($this->getEntityManager()) );
+        $this->articoliWrapper = new AlboPretorioArticoliGetterWrapper(
+            new AlboPretorioArticoliGetter($this->getEntityManager())
+        );
         $this->articoliWrapper->setInput( array('fields' => 'DISTINCT(aa.anno) AS anno', 'orderBy'=>'aa.anno') );
         $this->articoliWrapper->setupQueryBuilder();
 

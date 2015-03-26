@@ -47,7 +47,7 @@ class ZfcmsTickets
      *
      * @ORM\Column(name="create_date", type="datetime", nullable=false)
      */
-    private $createDate = '2014-01-01 01:01:00';
+    private $createDate;
 
     /**
      * @var string

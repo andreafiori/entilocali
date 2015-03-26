@@ -21,9 +21,14 @@ abstract class TestSuite extends \PHPUnit_Framework_TestCase
     protected $router;
     protected $routeMatch;
     protected $event;
+
     protected $serviceManager;
+
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
     protected $entityManagerMock;
-    
+
     protected function setUp()
     {
         $serviceManagerGrabber = new ServiceManagerGrabber();
@@ -142,6 +147,7 @@ abstract class TestSuite extends \PHPUnit_Framework_TestCase
                                             'executeUpdate',
                                             'getDatabasePlatform',
                                             'insert',
+                                            'lastInsertId',
                                             'update',
                                             'delete',
                                         )
@@ -168,53 +174,76 @@ abstract class TestSuite extends \PHPUnit_Framework_TestCase
             ->method('delete')
             ->will( $this->returnValue(true) );
 
+        $mock->expects($this->any())
+            ->method('lastInsertId')
+            ->will( $this->returnValue(1) );
+
         return $mock;
     }
     
     public function getQueryBuilderMock()
     {
-        $queryBuilderMock = $this->getMock('\Doctrine\ORM\QueryBuilder', 
+        $mock = $this->getMock('\Doctrine\ORM\QueryBuilder',
                 array('setFirstResult', 'setMaxResults', 'add', 'setParameter', 'setParameters', 'where', 'andWhere', 'getQuery', 'getResult', 'getScalarResult'),
                 array(), '', false);
-        
-        $queryBuilderMock->expects($this->any())
+
+        $mock->expects($this->any())
                      ->method('setFirstResult')
-                     ->will( $this->returnValue( $queryBuilderMock ) );
-        
-        $queryBuilderMock->expects($this->any())
+                     ->will( $this->returnValue( $mock ) );
+
+        $mock->expects($this->any())
                      ->method('setMaxResults')
-                     ->will( $this->returnValue( $queryBuilderMock ) );
-        
-        $queryBuilderMock->expects($this->any())
+                     ->will( $this->returnValue( $mock ) );
+
+        $mock->expects($this->any())
                          ->method('add')
-                         ->will( $this->returnValue( $queryBuilderMock ) );
-        
-        $queryBuilderMock->expects($this->any())
+                         ->will( $this->returnValue( $mock ) );
+
+        $mock->expects($this->any())
                          ->method('setParameter')
-                         ->will( $this->returnValue( $queryBuilderMock ) );
-        
-        $queryBuilderMock->expects($this->any())
+                         ->will( $this->returnValue( $mock ) );
+
+        $mock->expects($this->any())
                          ->method('setParameters')
-                         ->will( $this->returnValue( $queryBuilderMock ) );
+                         ->will( $this->returnValue( $mock ) );
 
-        $queryBuilderMock->expects($this->any())
+        $mock->expects($this->any())
                          ->method('where')
-                         ->will( $this->returnValue( $queryBuilderMock ) );
-        
-        $queryBuilderMock->expects($this->any())
-                         ->method('andWhere')
-                         ->will( $this->returnValue( $queryBuilderMock ) );
+                         ->will( $this->returnValue( $mock ) );
 
-        $queryBuilderMock->expects($this->any())
+        $mock->expects($this->any())
+                         ->method('andWhere')
+                         ->will( $this->returnValue( $mock ) );
+
+        $mock->expects($this->any())
                          ->method('getQuery')
-                         ->will( $this->returnValue( $queryBuilderMock ) );
-        
-        $queryBuilderMock
-                        ->expects($this->any())
+                         ->will( $this->returnValue( $mock ) );
+
+        $mock->expects($this->any())
                         ->method('getResult')
                         ->will($this->returnValue( array("id" => 1,"myResult" => 'MyResult')) );
         
-        return $queryBuilderMock;
+        return $mock;
+    }
+
+    /**
+     * S3 class mock
+     */
+    public function getAmazonS3Mock()
+    {
+        $mock = $this->getMock(
+                    '\Admin\Model\Amazon\S3\S3',
+                    array('inputFile'),
+                    array(),
+                    '',
+                    false
+                );
+
+        $mock->expects($this->any())
+             ->method('inputFile')
+             ->will( $this->returnValue($mock) );
+
+        return $mock;
     }
     
     /**
@@ -237,5 +266,4 @@ abstract class TestSuite extends \PHPUnit_Framework_TestCase
             'category'              => 'My Category Name',
         );
     }
-
 }

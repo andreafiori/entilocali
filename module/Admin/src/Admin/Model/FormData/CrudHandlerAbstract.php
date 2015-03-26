@@ -7,7 +7,6 @@ use Zend\InputFilter\InputFilterInterface;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Admin\Model\Logs\LogsWriter;
-use ZendTest\XmlRpc\Server\Exception;
 
 /**
  * @author Andrea Fiori
@@ -24,11 +23,21 @@ abstract class CrudHandlerAbstract
      * @var InputFilterAwareInterface
      */
     protected $formInputFilter;
+
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    protected $entityManager;
     
     /**
      * @var \Doctrine\DBAL\Connection
      */
     protected $connection;
+
+    /**
+     * @var array
+     */
+    protected $configurationsFromDb;
 
     protected $userDetails;
 
@@ -39,13 +48,42 @@ abstract class CrudHandlerAbstract
     protected $recordsToHandle = array();
 
     /**
+     * @param \Doctrine\ORM\EntityManager $entityManager
+     * @return \Doctrine\ORM\EntityManager
+     */
+    public function setEntityManager(\Doctrine\ORM\EntityManager $entityManager)
+    {
+        $this->entityManager = $entityManager;
+
+        return $this->entityManager;
+    }
+
+    /**
+     * @return \Doctrine\ORM\EntityManager
+     */
+    public function getEntityManager()
+    {
+        return $this->entityManager;
+    }
+
+        /**
+         * @throws NullException
+         */
+        protected function assertEntityManager()
+        {
+            if (!$this->getEntityManager()) {
+                throw new NullException("Doctrine Entity Manager instance is not set");
+            }
+        }
+
+    /**
      * @param \Doctrine\DBAL\Connection $connection
      * @return \Doctrine\DBAL\Connection
      */
     public function setConnection(\Doctrine\DBAL\Connection $connection)
     {
         $this->connection = $connection;
-        
+
         return $this->connection;
     }
 
@@ -66,6 +104,32 @@ abstract class CrudHandlerAbstract
     {
         return $this->connection;
     }
+
+    /**
+     * @param array $configurationsFromDb
+     */
+    public function setConfigurationsFromDb($configurationsFromDb)
+    {
+        $this->configurationsFromDb = $configurationsFromDb;
+    }
+
+    /**
+     * @return array
+     */
+    public function getConfigurationsFromDb()
+    {
+        return $this->configurationsFromDb;
+    }
+
+        /**
+         * @throws NullException
+         */
+        protected function asssertConfigurationsFromDb()
+        {
+            if (!$this->getConfigurationsFromDb()) {
+                throw new NullException("Configurations array from database is not set");
+            }
+        }
 
     /**
      * @param $key
@@ -297,5 +361,23 @@ abstract class CrudHandlerAbstract
         if (!$this->getLogsWriter()) {
             throw new NullException('Log writer is not set');
         }
+    }
+
+    /**
+     * @param InputFilterAwareInterface $formData
+     *
+     * @return array
+     */
+    protected function checkValidateFormDataError(InputFilterAwareInterface $formData, $arrayFields)
+    {
+        $error = array();
+
+        foreach($arrayFields as $field) {
+            if ( !isset($formData->$field) ) {
+                $error[] = 'Campo '.$field.' vuoto';
+            }
+        }
+
+        return $error;
     }
 }

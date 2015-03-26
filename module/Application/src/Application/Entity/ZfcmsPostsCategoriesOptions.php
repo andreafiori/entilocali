@@ -5,12 +5,12 @@ namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ZfcmsCategoriesOptions
+ * ZfcmsPostsCategoriesOptions
  *
- * @ORM\Table(name="zfcms_categories_options", indexes={@ORM\Index(name="category_id", columns={"category_id"}), @ORM\Index(name="language_id", columns={"language_id"}), @ORM\Index(name="name", columns={"name"})})
+ * @ORM\Table(name="zfcms_posts_categories_options", indexes={@ORM\Index(name="category_id", columns={"category_id"}), @ORM\Index(name="language_id", columns={"language_id"}), @ORM\Index(name="name", columns={"name"})})
  * @ORM\Entity
  */
-class ZfcmsCategoriesOptions
+class ZfcmsPostsCategoriesOptions
 {
     /**
      * @var integer
@@ -82,19 +82,19 @@ class ZfcmsCategoriesOptions
      *
      * @ORM\Column(name="position", type="bigint", nullable=true)
      */
-    private $position = '0';
+    private $position;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="parent_id", type="bigint", nullable=true)
      */
-    private $parentId = '0';
+    private $parentId;
 
     /**
-     * @var \Application\Entity\ZfcmsCategories
+     * @var \Application\Entity\ZfcmsPostsCategories
      *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsCategories")
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsPostsCategories")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      * })
@@ -127,7 +127,7 @@ class ZfcmsCategoriesOptions
      * Set name
      *
      * @param string $name
-     * @return ZfcmsCategoriesOptions
+     * @return ZfcmsPostsCategoriesOptions
      */
     public function setName($name)
     {
@@ -150,7 +150,7 @@ class ZfcmsCategoriesOptions
      * Set description
      *
      * @param string $description
-     * @return ZfcmsCategoriesOptions
+     * @return ZfcmsPostsCategoriesOptions
      */
     public function setDescription($description)
     {
@@ -173,7 +173,7 @@ class ZfcmsCategoriesOptions
      * Set seoUrl
      *
      * @param string $seoUrl
-     * @return ZfcmsCategoriesOptions
+     * @return ZfcmsPostsCategoriesOptions
      */
     public function setSeoUrl($seoUrl)
     {
@@ -196,7 +196,7 @@ class ZfcmsCategoriesOptions
      * Set seoTitle
      *
      * @param string $seoTitle
-     * @return ZfcmsCategoriesOptions
+     * @return ZfcmsPostsCategoriesOptions
      */
     public function setSeoTitle($seoTitle)
     {
@@ -219,7 +219,7 @@ class ZfcmsCategoriesOptions
      * Set seoKeywords
      *
      * @param string $seoKeywords
-     * @return ZfcmsCategoriesOptions
+     * @return ZfcmsPostsCategoriesOptions
      */
     public function setSeoKeywords($seoKeywords)
     {
@@ -242,7 +242,7 @@ class ZfcmsCategoriesOptions
      * Set seoDescription
      *
      * @param string $seoDescription
-     * @return ZfcmsCategoriesOptions
+     * @return ZfcmsPostsCategoriesOptions
      */
     public function setSeoDescription($seoDescription)
     {
@@ -265,7 +265,7 @@ class ZfcmsCategoriesOptions
      * Set accesskey
      *
      * @param string $accesskey
-     * @return ZfcmsCategoriesOptions
+     * @return ZfcmsPostsCategoriesOptions
      */
     public function setAccesskey($accesskey)
     {
@@ -288,7 +288,7 @@ class ZfcmsCategoriesOptions
      * Set templateFile
      *
      * @param string $templateFile
-     * @return ZfcmsCategoriesOptions
+     * @return ZfcmsPostsCategoriesOptions
      */
     public function setTemplateFile($templateFile)
     {
@@ -311,7 +311,7 @@ class ZfcmsCategoriesOptions
      * Set position
      *
      * @param integer $position
-     * @return ZfcmsCategoriesOptions
+     * @return ZfcmsPostsCategoriesOptions
      */
     public function setPosition($position)
     {
@@ -334,7 +334,7 @@ class ZfcmsCategoriesOptions
      * Set parentId
      *
      * @param integer $parentId
-     * @return ZfcmsCategoriesOptions
+     * @return ZfcmsPostsCategoriesOptions
      */
     public function setParentId($parentId)
     {
@@ -356,10 +356,10 @@ class ZfcmsCategoriesOptions
     /**
      * Set category
      *
-     * @param \Application\Entity\ZfcmsCategories $category
-     * @return ZfcmsCategoriesOptions
+     * @param \Application\Entity\ZfcmsPostsCategories $category
+     * @return ZfcmsPostsCategoriesOptions
      */
-    public function setCategory(\Application\Entity\ZfcmsCategories $category = null)
+    public function setCategory(\Application\Entity\ZfcmsPostsCategories $category = null)
     {
         $this->category = $category;
     
@@ -369,7 +369,7 @@ class ZfcmsCategoriesOptions
     /**
      * Get category
      *
-     * @return \Application\Entity\ZfcmsCategories 
+     * @return \Application\Entity\ZfcmsPostsCategories 
      */
     public function getCategory()
     {
@@ -380,7 +380,7 @@ class ZfcmsCategoriesOptions
      * Set language
      *
      * @param \Application\Entity\ZfcmsLanguages $language
-     * @return ZfcmsCategoriesOptions
+     * @return ZfcmsPostsCategoriesOptions
      */
     public function setLanguage(\Application\Entity\ZfcmsLanguages $language = null)
     {

@@ -61,7 +61,7 @@ class AttachmentsFormDataHandler extends FormDataAbstract
         $form->addInputFile();
         $form->addSecondaryFields();
 
-        // TODO: DELETE selected file
+        // TODO: DELETE records and file on S3
         if (isset($param['post']['deleteId'])) {
 
         }
@@ -89,7 +89,7 @@ class AttachmentsFormDataHandler extends FormDataAbstract
                 $relatedRecord = $wrapper->getRecords();
                 
                 if (count($relatedRecord)!=1) {
-                    // no attachments
+                    // No attachments
                 }
 
                 $articleTitle = stripslashes($relatedRecord[0]['titolo']);

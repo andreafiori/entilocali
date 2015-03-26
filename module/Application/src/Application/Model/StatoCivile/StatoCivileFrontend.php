@@ -6,7 +6,6 @@ use Application\Model\RouterManagers\RouterManagerAbstract;
 use Application\Model\RouterManagers\RouterManagerInterface;
 use Admin\Model\StatoCivile\StatoCivileGetter;
 use Admin\Model\StatoCivile\StatoCivileGetterWrapper;
-use Application\Model\StatoCivile\StatoCivileFormSearch;
 use Admin\Model\StatoCivile\StatoCivileRecordsGetter;
 
 /**
@@ -54,8 +53,8 @@ class StatoCivileFrontend extends RouterManagerAbstract implements RouterManager
     
         /**
          * @param array $input
-         * @param type $page
-         * @return type
+         * @param int $page
+         * @return array
          */
         private function getPaginatorRecords(array $input, $page = null)
         {
@@ -70,7 +69,7 @@ class StatoCivileFrontend extends RouterManagerAbstract implements RouterManager
         
         /**
          * @param array $queryInput
-         * @return type
+         * @return array
          */
         private function getSezioni(array $queryInput)
         {

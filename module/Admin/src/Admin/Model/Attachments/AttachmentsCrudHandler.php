@@ -3,188 +3,281 @@
 namespace Admin\Model\Attachments;
 
 use Admin\Model\FormData\CrudHandlerAbstract;
+use Admin\Model\FormData\CrudHandlerInsertUpdateInterface;
 use Admin\Model\FormData\CrudHandlerInterface;
+use Application\Model\Database\DbTableContainer;
+use Admin\Model\Modules\ModulesContainer;
+use Zend\InputFilter\InputFilterAwareInterface;
 use Admin\Model\Amazon\S3\S3;
 
 /**
  * @author Andrea Fiori
  * @since  20 December 2014
  */
-class AttachmentsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterface
+class AttachmentsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterface, CrudHandlerInsertUpdateInterface
 {
-    private $tableName              = 'zfcms_attachments';
-    private $tableName_options      = 'zfcms_attachments_options';
-    private $tableName_relations    = 'zfcms_attachments_relations';
+    private $tableName;
+    private $tableName_options;
+    private $tableName_relations;
 
-    protected function insert()
+    private $dbTable;
+
+    private $moduleId;
+
+    public function __construct()
     {
-        $this->getConnection()->beginTransaction();
-        try {
-            $request = $this->getInput('request', 1);
+        $this->form = new AttachmentsForm();
 
-            $formPost = array_merge_recursive(
-                $request->getPost()->toArray(),
-                $request->getFiles()->toArray()
-            );
+        $this->formInputFilter = new AttachmentsFormInputFilter();
 
-            $form = new AttachmentsForm();
-            $form->addInputFile();
-            $form->addSecondaryFields();
-            $form->setData($formPost);
+        $this->tableName = DbTableContainer::attachments;
+        $this->tableName_options = DbTableContainer::attachmentsOption;
+        $this->tableName_relations = DbTableContainer::attachmentsRelations;
 
-            /*
-             * why the form is INVALID ?????????????????????????????
-            if ( !$form->isValid() ) {
-                $this->setErrorMessage('Dati inseriti nel form non validi');
-                return false;
-            }
-            */
-
-            if (!isset($formPost['s3_directory'])) {
-                $this->setErrorMessage('Nome cartella di destinazione file non presente');
-                return false;
-            }
-
-            $formFilter = new AttachmentsFormFilter();
-            $form->setInputFilter($formFilter->getInputFilter());                        
-
-            // Validate file extension...
-            
-            // Validate file size...
-
-            // Select MIME
-            $wrapper = new AttachmentsMimetypeGetterWrapper(new AttachmentsMimetypeGetter($this->getInput('entityManager',1)));
-            $wrapper->setInput(array('mimetype' => $formPost['attachmentFile']['type']));
-            $wrapper->setupQueryBuilder();
-            $mimeRecords = $wrapper->getRecords();
-            if (!$mimeRecords) {
-                $this->setErrorMessage('Mime non trovato');
-                return false;
-            }
-            
-            // Insert on attachments
-            $this->getConnection()->insert($this->tableName, array(
-                'name'          => $formPost['attachmentFile']['name'],
-                'size'          => $formPost['attachmentFile']['size'],
-                'state'         => null,
-                'insert_date'   => date("Y-m-d H:i:s"),
-                'mime_id'       => $mimeRecords[0]['id'],
-                'user_id'       => $formPost['userId'],
-            ));
-            
-            $attachmentLastId = $this->getConnection()->lastInsertId();
-            
-            // Insert attachment options
-            $lastId = $this->getConnection()->lastInsertId();
-            $this->getConnection()->insert($this->tableName_options, array(
-                'title'         => $formPost['title'],
-                'description'   => $formPost['description'],
-                'expire_date'   => date("Y-m-d H:i:s"),
-                'attachment_id' => $this->getConnection()->lastInsertId(),
-                'language_id'   => 1,
-            ));
-
-            $this->getConnection()->update($this->tableName, array(
-                    'name' => AttachmentsContainer::assignFileName($formPost['attachmentFile']['name'], $lastId)
-                ),
-                array('id' => $lastId)
-            );
-
-            // Insert relations
-            $this->getConnection()->insert($this->tableName_relations, array(
-                'attachment_id' => $attachmentLastId,
-                'reference_id'  => $formPost['referenceId'],
-                'module_id'     => $formPost['moduleId'],
-            ));
-            
-            $appConfigurationsFromDb = $this->getInput('configurations',1);
-
-            // Upload on S3
-            $filename = AttachmentsContainer::assignFileName($formPost['attachmentFile']['name'], $lastId);
-            $s3 = new S3($appConfigurationsFromDb['amazon_s3_accesskey'], $appConfigurationsFromDb['amazon_s3_secretkey']);
-            $s3->putObject(
-                S3::inputFile($formPost['attachmentFile']['tmp_name'], false),
-                $appConfigurationsFromDb['amazon_s3_bucket'],
-                $formPost['s3_directory'].'/'.$filename,
-                S3::ACL_PUBLIC_READ
-            );
-  
-            $this->getConnection()->commit();
-
-            $this->setSuccessMessage();
-            
-            // Reload page using Javascript
-            $this->setVariables(array(
-                    'reloadPage' => 1
-                )
-            );
-
-        } catch (\Exception $e) {
-            $this->getConnection()->rollBack();
-            return $this->setErrorMessage($e->getMessage());
-        }
-    }
-    
-    protected function update()
-    {
-        $this->getConnection()->beginTransaction();
-        try {
-            $this->setArrayRecordToHandle('titolo', 'expireDate');
-
-            $this->getConnection()->update($this->tableName, 
-                    $this->getArrayRecordToHandle(),
-                    array('id' => $this->rawPost['id'])
-            );
-
-            $this->getConnection()->commit();
-
-            $this->setSuccessMessage();
-            
-        } catch (\Exception $e) {
-            $this->getConnection()->rollBack();
-            return $this->setErrorMessage($e->getMessage());
-        }
+        $this->moduleId = ModulesContainer::atti_concessione;
     }
 
     /**
-     * DELETE attachment file from database and S3 storage
+     * @param InputFilterAwareInterface $formData
+     *
+     * @return array
+     */
+    public function validateFormData(InputFilterAwareInterface $formData)
+    {
+        return $this->checkValidateFormDataError(
+            $formData,
+            array('title', 'description', 'attachmentFile', 'referenceId', 'moduleId')
+        );
+    }
+
+    /**
+     * @param InputFilterAwareInterface $formData
+     *
+     * @return int
+     */
+    public function insert(InputFilterAwareInterface $formData)
+    {
+        $this->assertEntityManager();
+
+        $this->asssertConnection();
+
+        $this->assertUserDetails();
+
+        $this->asssertConfigurationsFromDb();
+
+        $userDetails = $this->getUserDetails();
+
+        $configurations = $this->getConfigurationsFromDb();
+
+        // Select MIME
+        $wrapper = new AttachmentsMimetypeGetterWrapper(new AttachmentsMimetypeGetter($this->getEntityManager()));
+        $wrapper->setInput(array(
+                'mimetype' => $formData->attachmentFile['type'],
+                'limit'    => 1,
+            )
+        );
+        $wrapper->setupQueryBuilder();
+
+        $mimeRecords = $wrapper->getRecords();
+        if (!$mimeRecords) {
+            $this->setErrorMessage("Mime non trovato! Il tipo di file inserito non &egrave; supportato. Per ulteriori informazioni contattare l'amministrazione");
+            return false;
+        }
+
+        // Insert on attachments
+        $this->getConnection()->insert($this->tableName, array(
+            'name'          => $formData->attachmentFile['name'],
+            'size'          => $formData->attachmentFile['size'],
+            'state'         => null,
+            'insert_date'   => date("Y-m-d H:i:s"),
+            'mime_id'       => isset($mimeRecords[0]['id']) ? $mimeRecords[0]['id'] : null,
+            'user_id'       => $userDetails->id,
+        ));
+
+        $attachmentsTableLastInsertId = $this->getConnection()->lastInsertId();
+
+        // Insert attachment options
+        $lastId = $this->getConnection()->lastInsertId();
+
+        $this->getConnection()->insert($this->tableName_options, array(
+            'title'         => $formData->title,
+            'description'   => $formData->description,
+            'expire_date'   => date("Y-m-d H:i:s"),
+            'attachment_id' => $this->getConnection()->lastInsertId(),
+            'language_id'   => 1,
+        ));
+
+        $this->getConnection()->update($this->tableName, array(
+                'name' => AttachmentsContainer::assignFileName($formData->attachmentFile['name'], $lastId)
+            ),
+            array('id' => $lastId)
+        );
+
+        // Insert Relations
+        $this->getConnection()->insert($this->tableName_relations, array(
+            'attachment_id' => $attachmentsTableLastInsertId,
+            'reference_id'  => $formData->referenceId,
+            'module_id'     => $formData->moduleId,
+        ));
+
+        // Upload on Amazon S3
+        $filename = AttachmentsContainer::assignFileName($formData->attachmentFile['name'], $lastId);
+        $s3 = new S3(
+            $configurations['amazon_s3_accesskey'],
+            $configurations['amazon_s3_secretkey']
+        );
+        $s3->putObject(
+            S3::inputFile($formData->attachmentFile['tmp_name'], false),
+            $configurations['amazon_s3_bucket'],
+            $formData->s3_directory.'/'.$filename,
+            S3::ACL_PUBLIC_READ
+        );
+
+        return true;
+    }
+
+    /**
+     * @param InputFilterAwareInterface $formData
+     *
+     * @return int
+     */
+    public function update(InputFilterAwareInterface $formData)
+    {
+        $this->asssertConnection();
+
+        return $this->getConnection()->update($this->tableName_options,
+            array(
+                'title'       => $formData->title,
+                'description' => $formData->description,
+                'expire_date' => $formData->expireDate,
+            ),
+            array('id' => $formData->id),
+            array('limit' => 1)
+        );
+    }
+
+    /**
+     * TODO: delete from S3
      *
      * @param $id
      */
-    protected function delete($id)
+    public function delete($id)
     {
-        $this->getConnection()->beginTransaction();
-        try {
-            // delete relation record
-            $this->getConnection()->delete($this->tableName_relations,
-                array('attachment_id' => $id)
-            );
+        // delete relation record
+        $this->getConnection()->delete($this->tableName_relations,
+            array('attachment_id' => $id)
+        );
 
-            // delete option record
-            $this->getConnection()->delete($this->tableName_options,
-                array('attachment_id' => $id)
-            );
+        // delete option record
+        $this->getConnection()->delete($this->tableName_options,
+            array('attachment_id' => $id)
+        );
 
-            // delete attachment record
-            $this->getConnection()->delete($this->tableName,
-                array('id' => $id)
-            );
-
-            $this->getConnection()->commit();
-
-            return true;
-
-        } catch (\Exception $e) {
-            $this->getConnection()->rollBack();
-            return $this->setErrorMessage($e->getMessage());
-        }
+        // delete attachment record
+        return $this->getConnection()->delete($this->tableName,
+            array('id' => $id)
+        );
     }
 
-    public function deleteFromS3($id, $filename)
+    /**
+     * @return bool
+     *
+     * @throws \Application\Model\NullException
+     */
+    public function logInsertOk()
     {
+        $this->assertUserDetails();
 
+        $this->assertLogWriter();
+
+        $userDetails = $this->getUserDetails();
+
+        $logsWriter = $this->getLogsWriter();
+
+        $inputFilter = $this->getFormInputFilter();
+
+        return $logsWriter->writeLog(array(
+            'user_id'   => $userDetails->id,
+            'module_id' => $this->moduleId,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', ha inserito l'atto concessione ".$inputFilter->title,
+            'type'      => 'error',
+            'backend'   => 1,
+        ));
+    }
+
+    /**
+     * @param null $message
+     *
+     * @return bool
+     */
+    public function logInsertKo($message = null)
+    {
+        $this->assertUserDetails();
+
+        $this->assertLogWriter();
+
+        $userDetails = $this->getUserDetails();
+
+        $logsWriter = $this->getLogsWriter();
+
+        $inputFilter = $this->getFormInputFilter();
+
+        return $logsWriter->writeLog(array(
+            'user_id'   => $userDetails->id,
+            'module_id' => $this->moduleId,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'inserimento atto concessione ".$inputFilter->title.'Messaggio: '.$message,
+            'type'      => 'error',
+            'backend'   => 1,
+        ));
+    }
+
+    /**
+     * @return bool
+     */
+    public function logUpdateOk()
+    {
+        $this->assertUserDetails();
+
+        $this->assertLogWriter();
+
+        $userDetails = $this->getUserDetails();
+
+        $logsWriter = $this->getLogsWriter();
+
+        $inputFilter = $this->getFormInputFilter();
+
+        return $logsWriter->writeLog(array(
+            'user_id'   => $userDetails->id,
+            'module_id' => $this->moduleId,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', ha aggiornato l'atto concessione ".$inputFilter->title,
+            'type'      => 'info',
+            'backend'   => 1,
+        ));
+    }
+
+    /**
+     * @param null $message
+     *
+     * @return bool
+     */
+    public function logUpdateKo($message = null)
+    {
+        $this->assertUserDetails();
+
+        $this->assertLogWriter();
+
+        $userDetails = $this->getUserDetails();
+
+        $logsWriter = $this->getLogsWriter();
+
+        $inputFilter = $this->getFormInputFilter();
+
+        return $logsWriter->writeLog(array(
+            'user_id'   => $userDetails->id,
+            'module_id' => $this->moduleId,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'aggiornamento dell'atto concessione ".$inputFilter->title.' Messaggio: '.$message,
+            'type'      => 'error',
+            'backend'   => 1,
+        ));
     }
 }
-
-
-

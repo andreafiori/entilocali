@@ -45,6 +45,9 @@ class AlboPretorioArticoliGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setLimit($this->getInput('limit', 1));
     }
 
+    /**
+     * TODO: Add attachment records to an existing recordset
+     */
     public function addAttachmentsToRecords(array $records)
     {
 

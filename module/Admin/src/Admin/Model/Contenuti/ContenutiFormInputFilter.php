@@ -21,6 +21,7 @@ class ContenutiFormInputFilter implements InputFilterAwareInterface
     public $dataScadenza;
     public $attivo;
     public $homepage;
+    public $utente;
     public $rss;
     public $facebook;
 
@@ -40,6 +41,7 @@ class ContenutiFormInputFilter implements InputFilterAwareInterface
         $this->dataScadenza     = (isset($data['dataScadenza']))    ? $data['dataScadenza']     : null;
         $this->attivo           = (isset($data['attivo']))          ? $data['attivo']           : null;
         $this->homepage         = (isset($data['homepage']))        ? $data['homepage']         : null;
+        $this->utente           = (isset($data['utente']))          ? $data['utente']           : null;
         $this->rss              = (isset($data['rss']))             ? $data['rss']              : null;
         $this->facebook         = (isset($data['facebook']))        ? $data['facebook']         : null;
     }
@@ -76,6 +78,9 @@ class ContenutiFormInputFilter implements InputFilterAwareInterface
             $inputFilter->add(array(
                 'name'     => 'sottosezione',
                 'required' => true,
+                'options' => array(
+                    'disable_inarray_validator' => false
+                ),
                 'filters'  => array(
                     array('name' => 'Int'),
                 ),

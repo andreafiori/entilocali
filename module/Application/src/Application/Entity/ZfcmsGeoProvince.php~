@@ -54,7 +54,7 @@ class ZfcmsGeoProvince
      *
      * @ORM\Column(name="capoluogo", type="string", nullable=true)
      */
-    private $capoluogo = 'no';
+    private $capoluogo;
 
 
 }

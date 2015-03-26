@@ -37,11 +37,11 @@ abstract class SottoSezioniDataTableAbstract extends DataTableAbstract
         if ($records) {
             foreach($records as $key => $row) {
                 $rowToAdd = array(
-                    $row['nomeSottosezione'],
+                    $row['nomeSottoSezione'],
                     $row['nomeSezione'],
                     array(
                         'type'      => 'updateButton',
-                        'href'      => $this->getInput('baseUrl',1).'formdata/sottosezioni-contenuti/'.$row['idSottosezione'],
+                        'href'      => $this->getInput('baseUrl',1).'formdata/sottosezioni-contenuti/'.$row['idSottoSezione'],
                         'title'     => 'Modifica'
                     ),
                 );
@@ -50,7 +50,7 @@ abstract class SottoSezioniDataTableAbstract extends DataTableAbstract
                     $rowToAdd[] = array(
                         'type'      => 'deleteButton',
                         'href'      => '#',
-                        'data-id'   => $row['idSottosezione'],
+                        'data-id'   => $row['idSottoSezione'],
                         'title'     => 'Elimina'
                     );
                 }

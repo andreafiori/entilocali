@@ -20,24 +20,24 @@ class ContrattiPubbliciForm extends Form
         $this->add(array(
             'name' => 'cig',
             'type' => 'Text',
-            'options' => array('label' => '<abbr title="Codice Identificativo di Gara">CIG</abbr>'),
+            'options' => array('label' => '* <abbr title="Codice Identificativo di Gara">CIG</abbr>'),
             'attributes' => array(
-                'id' => 'cig',
-                'title' => 'Inserisci Codice Identificativo di Gara',
-                'placeholder' => 'CIG',
-                'required' => 'required'
+                'id'            => 'cig',
+                'title'         => 'Inserisci Codice Identificativo di Gara',
+                'placeholder'   => 'CIG',
+                'required'      => 'required'
             ),
         ));
 
         $this->add(array(
             'name' => 'titolo',
             'type' => 'Text',
-            'options' => array('label' => 'Oggetto del bando'),
+            'options' => array('label' => '* Oggetto del bando'),
             'attributes' => array(
                 'id' => 'titolo',
-                'title' => "Inserisci l'oggetto del bando",
+                'title'       => "Inserisci l'oggetto del bando",
                 'placeholder' => 'Oggetto...',
-                'required' => 'required'
+                'required'    => 'required'
             ),
         ));
 
@@ -45,21 +45,21 @@ class ContrattiPubbliciForm extends Form
             'type' => 'Application\Form\Element\PlainText',
             'name' => 'importi_label',
             'attributes' => array(
-                'id' => 'importi_label',
+                'id'    => 'importi_label',
                 'value' => 'Importi',
-                'type' => 'PlainTextTitle'
+                'type'  => 'PlainTextTitle'
             ),
         ));
 
         $this->add(array(
             'name' => 'importo',
             'type' => 'Text',
-            'options' => array('label' => 'Importo aggiudicazione (Euro): &euro;'),
+            'options' => array('label' => '* Importo aggiudicazione (Euro): &euro;'),
             'attributes' => array(
                 'id' => 'importo',
-                'title' => "Inserisci l'importo aggiudicazione",
-                'placeholder' => 'Importo aggiudicazione...',
-                'required' => 'required'
+                'title'         => "Inserisci l'importo aggiudicazione",
+                'placeholder'   => 'Importo aggiudicazione...',
+                'required'      => 'required'
             ),
         ));
 
@@ -82,9 +82,9 @@ class ContrattiPubbliciForm extends Form
             'type' => 'Application\Form\Element\PlainText',
             'name' => 'struttura_label',
             'attributes' => array(
-                'id' => 'struttura_label',
+                'id'    => 'struttura_label',
                 'value' => 'Struttura Proponente',
-                'type' => 'PlainTextTitle'
+                'type'  => 'PlainTextTitle'
             ),
         ));
 
@@ -108,7 +108,7 @@ class ContrattiPubbliciForm extends Form
     {
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
-            'name' => 'id_resp_proc',
+            'name' => 'respProc',
             'options' => array(
                 'label'         => 'Responsabile del procedimento',
                 'empty_option'  => 'Seleziona',
@@ -116,7 +116,7 @@ class ContrattiPubbliciForm extends Form
             ),
             'attributes' => array(
                 'title'     => 'Responsabile del Procedimento',
-                'id'        => 'id_resp_proc',
+                'id'        => 'respProc',
                 'required'  => 'required'
             )
         ));
@@ -160,7 +160,7 @@ class ContrattiPubbliciForm extends Form
             'type' => 'Date',
             'name' => 'data_agg',
             'options' => array(
-                'label' => 'Data aggiudicazione (Inizio lavori)',
+                'label' => 'Data scelta contraente (Inizio lavori)',
                 'format' => 'Y-m-d',
             ),
             'attributes' => array(
@@ -173,7 +173,7 @@ class ContrattiPubbliciForm extends Form
             'type' => 'Date',
             'name' => 'data_contratto',
             'options' => array(
-                'label' => 'Data Contratto (Fine lavori)',
+                'label' => 'Data termine (Fine lavori)',
                 'format' => 'Y-m-d',
             ),
             'attributes' => array(
@@ -217,7 +217,7 @@ class ContrattiPubbliciForm extends Form
             'type' => 'Date',
             'name' => 'inserimento',
             'options' => array(
-                'label' => 'Data inserimento: l\'articolo sarà visibile in front-end a partire da questa data',
+                'label' => 'Data inserimento: l\'articolo sarà visibile sul sito a partire da questa data',
                 'format' => 'Y-m-d',
             ),
             'attributes' => array(

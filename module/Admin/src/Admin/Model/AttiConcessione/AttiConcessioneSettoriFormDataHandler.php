@@ -20,7 +20,9 @@ class AttiConcessioneSettoriFormDataHandler extends FormDataAbstract
         $param = $this->getInput('param', 1);
         
         if (isset($param['route']['option'])) {
-            $wrapper = new AttiConcessioneSettoriGetterWrapper( new AttiConcessioneSettoriGetter($this->getInput('entityManager',1)) );
+            $wrapper = new AttiConcessioneSettoriGetterWrapper(
+                new AttiConcessioneSettoriGetter($this->getInput('entityManager',1))
+            );
             $wrapper->setInput( array('id' => $param['route']['option'], 'limit' => 1) );
             $wrapper->setupQueryBuilder();
             
@@ -30,13 +32,13 @@ class AttiConcessioneSettoriFormDataHandler extends FormDataAbstract
         $form = new AttiConcessioneSettoriForm();
         
         if (isset($records)) {
-            $formAction = '';
+            $formAction = 'atti-concessione-settori/insert';
             $formTitle = $records[0]['nome'];
             $formDescription = 'Inserisci nuovo settore atti di concessione';
             
             $form->setData($records[0]);
         } else {
-            $formAction = '';
+            $formAction = 'atti-concessione-settori/update';
             $formTitle = 'Nuovo settore atti di concessione';
             $formDescription = 'Modifica settore atti di concessione';
         }

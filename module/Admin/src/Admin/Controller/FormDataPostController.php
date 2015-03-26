@@ -62,15 +62,18 @@ class FormDataPostController extends SetupAbstractController
             );
 
             $crudHandler->getForm()->setInputFilter( $crudHandler->getFormInputFilter()->getInputFilter() );
-
+            $crudHandler->getForm()->setBindOnValidate(false);
             $crudHandler->getForm()->setData($post);
 
-            if ( !$crudHandler->getForm()->isValid() ) {
-                throw new \Exception('Form non valido. Verificare i dati inseriti');
+            $formValidation = $crudHandler->getForm()->isValid();
+            if (!$formValidation) {
+                throw new \Exception("Form non valido. Verificare i dati inseriti. Se l'errore persiste, contattare l'amministrazione");
             }
 
             $crudHandler->getFormInputFilter()->exchangeArray( $crudHandler->getForm()->getData() );
+            $crudHandler->setEntityManager($appServiceLoader->recoverService('entityManager'));
             $crudHandler->setConnection($appServiceLoader->recoverService('entityManager')->getConnection());
+            $crudHandler->setConfigurationsFromDb($appServiceLoader->recoverService('configurations'));
             $crudHandler->setUserDetails($this->recoverUserDetails());
 
             /* Validate submitted form data (2nd level validation) */
@@ -79,10 +82,15 @@ class FormDataPostController extends SetupAbstractController
 
                 $this->layout()->setVariables(
                     array_merge(
+                        array(
+                            'form' => $crudHandler->getForm(),
+                            'formInputFilter' => $crudHandler->getFormInputFilter()->getInputFilter(),
+                        ),
                         $crudHandler->setupErrorMessage($formDataValidationError),
                         $crudHandler->setupVariablesForTheView($operation, false)
                     )
                 );
+
                 return $this->renderMessageTemplate($appServiceLoader->recoverServiceKey('configurations', 'template_backend'));
             }
 
@@ -100,6 +108,10 @@ class FormDataPostController extends SetupAbstractController
 
                 $this->layout()->setVariables(
                     array_merge(
+                        array(
+                            'form' => $crudHandler->getForm(),
+                            'formInputFilter' => $crudHandler->getFormInputFilter()->getInputFilter(),
+                        ),
                         $crudHandler->setupSuccessMessage(),
                         $crudHandler->setupVariablesForTheView($operation, true)
                     )
@@ -121,6 +133,10 @@ class FormDataPostController extends SetupAbstractController
 
                 $this->layout()->setVariables(
                     array_merge(
+                        array(
+                            'form' => $crudHandler->getForm(),
+                            'formInputFilter' => $crudHandler->getFormInputFilter()->getInputFilter(),
+                        ),
                         $crudHandler->setupErrorMessage($e->getMessage()),
                         $crudHandler->setupVariablesForTheView($operation, false)
                     )
@@ -157,11 +173,17 @@ class FormDataPostController extends SetupAbstractController
 
             $this->layout()->setVariables(
                 array_merge(
+                    array(
+                        'form' => $crudHandler->getForm(),
+                        'formInputFilter' => $crudHandler->getFormInputFilter()->getInputFilter(),
+                    ),
                     $crudHandler->setupErrorMessage($e->getMessage()),
                     $crudHandler->setupVariablesForTheView($operation, false)
                 )
             );
         }
+
+        $this->layout()->setVariable('form', $crudHandler->getForm());
 
         return $this->renderMessageTemplate($appServiceLoader->recoverServiceKey('configurations', 'template_backend'));
     }

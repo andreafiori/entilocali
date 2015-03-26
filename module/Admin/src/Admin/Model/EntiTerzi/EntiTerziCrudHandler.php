@@ -83,8 +83,9 @@ class EntiTerziCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
 
     /**
      * @param $id
-     *
      * @return int
+     * @throws \Application\Model\NullException
+     * @throws \Doctrine\DBAL\Exception\InvalidArgumentException
      */
     public function delete($id)
     {
@@ -92,10 +93,14 @@ class EntiTerziCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
 
         return $this->getConnection()->delete(DbTableContainer::entiTerzi,
             array('id' => $id),
-            array('limit' => 1)
+            array('limit' )
         );
     }
 
+    /**
+     * @return bool
+     * @throws \Application\Model\NullException
+     */
     public function logInsertOk()
     {
         $this->assertUserDetails();

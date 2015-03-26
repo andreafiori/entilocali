@@ -33,11 +33,11 @@ foreach($this->sezioni as $sezione):
 
                 if ($sottoSezione['url']):
                     ?>
-                    <li><a href="<?php echo htmlentities($sottoSezione['url']) ?>"<?php if (isset($target)): ?> target="<?php echo $target ?>"<?php endif ?> title="<?php echo isset($sottoSezione['urlTitle']) ? utf8_encode($sottoSezione['urlTitle']) : 'Vai alla sezione '.utf8_encode($sottoSezione['nomeSottosezione']) ?>"><?php if (isset($target)): ?><img src="<?php echo $this->basepath() ?>/public/frontend/projects/entilocali/templates/telti/assets/images/external-link-icon.gif" alt="Apre in un'altra finestra"> <?php endif ?><?php echo utf8_encode($sottoSezione['nomeSottosezione']) ?></a></li>
+                    <li><a href="<?php echo htmlentities($sottoSezione['url']) ?>"<?php if (isset($target)): ?> target="<?php echo $target ?>"<?php endif ?> title="<?php echo isset($sottoSezione['urlTitle']) ? utf8_encode($sottoSezione['urlTitle']) : 'Vai alla sezione '.utf8_encode($sottoSezione['nomeSottoSezione']) ?>"><?php if (isset($target)): ?><img src="<?php echo $this->basepath() ?>/public/frontend/projects/entilocali/templates/telti/assets/images/external-link-icon.gif" alt="Apre in un'altra finestra"> <?php endif ?><?php echo utf8_encode($sottoSezione['nomeSottoSezione']) ?></a></li>
                     <?php
                 else:
                     ?>
-                    <li><a href="<?php echo $this->url('contents', array('subsectionid' => $sottoSezione['idSottosezione'])) ?>" title="<?php echo isset($sottoSezione['urlTitle']) ? utf8_encode($sottoSezione['urlTitle']) : 'Vai alla sezione '.utf8_encode($sottoSezione['nomeSottosezione']) ?>"><?php echo utf8_encode($sottoSezione['nomeSottosezione']) ?></a></li>
+                    <li><a href="<?php echo $this->url('contents', array('subsectionid' => $sottoSezione['idSottoSezione'])) ?>" title="<?php echo isset($sottoSezione['urlTitle']) ? utf8_encode($sottoSezione['urlTitle']) : 'Vai alla sezione '.utf8_encode($sottoSezione['nomeSottoSezione']) ?>"><?php echo utf8_encode($sottoSezione['nomeSottoSezione']) ?></a></li>
                     <?php
                 endif;
                 

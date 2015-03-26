@@ -29,7 +29,7 @@ class SezioniDataTable extends DataTableAbstract
             "&nbsp;",
         );
 
-        if ($this->isRole('WebMaster')) {
+        if ($this->getAcl()->hasResource('contenuti_sezioni_delete')) {
             $columns[] = "&nbsp;";
         }
 
@@ -42,6 +42,8 @@ class SezioniDataTable extends DataTableAbstract
         $this->setTitle('Sezioni');
 
         $this->setDescription('Gestione sezioni');
+
+        /* $this->setTemplate('datatable/datatable_sezioni.phtml'); */
     }
 
         /**
@@ -57,7 +59,7 @@ class SezioniDataTable extends DataTableAbstract
                     $rowToAdd = array(
                         $row['nome'],
                         $row['colonna'],
-                        $row['url'],
+                        (!empty($row['url'])) ? '<a href="'.$row['url'].'" target="_blank" title="'.$row['url'].'">Vai al link</a>' : null,
                         !empty($row['image']) ?
                             '<img src="'.$this->getInput('basePath',1).'public/common/icons/'.$row['image'].'" alt="">'
                             : '&nbsp;',
@@ -68,7 +70,7 @@ class SezioniDataTable extends DataTableAbstract
                         ),
                     );
 
-                    if ($this->isRole('WebMaster')) {
+                    if ($this->getAcl()->hasResource('contenuti_sezioni_delete')) {
                         $rowToAdd[] = array(
                             'type'      => 'deleteButton',
                             'href'      => '#',
@@ -91,7 +93,7 @@ class SezioniDataTable extends DataTableAbstract
         {
             $param = $this->getParam();
 
-            $wrapper = new SezioniGetterWrapper(new SezioniGetter($this->getInput('entityManager',1)) );
+            $wrapper = new SezioniGetterWrapper( new SezioniGetter($this->getInput('entityManager',1)) );
             $wrapper->setInput($input);
             $wrapper->setupQueryBuilder();
             $wrapper->setupPaginator( $wrapper->setupQuery($this->getInput('entityManager', 1)) );

@@ -120,6 +120,13 @@ class ZfcmsComuniSottosezioni
     private $isAmmTrasparente;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="show_to_all", type="integer", nullable=false)
+     */
+    private $showToAll;
+
+    /**
      * @var \Application\Entity\ZfcmsComuniSottosezioni
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniSottosezioni")

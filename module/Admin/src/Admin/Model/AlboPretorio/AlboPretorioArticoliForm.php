@@ -10,28 +10,23 @@ use Zend\Form\Form;
  */
 class AlboPretorioArticoliForm extends Form
 {
-    /**
-     * @inheritdoc
-     */
-    public function __construct($name = null, $options = array())
+    public function addTitolo()
     {
-        parent::__construct($name, $options);
-                
         $this->add(array(
-                        'type' => 'Text',
-                        'name' => 'titolo',
-                        'options' => array(
-                               'label' => '* Oggetto',
-                        ),
-                        'attributes' => array(
-                                'title' => 'Inserisci oggetto articolo',
-                                'id'    => 'oggetto',
-                                'required' => 'required',
-                                'placeholder' => 'Oggetto articolo',
-                        )
+            'type' => 'Text',
+            'name' => 'titolo',
+            'options' => array(
+                'label' => '* Oggetto',
+            ),
+            'attributes' => array(
+                'title'         => 'Inserisci oggetto articolo',
+                'id'            => 'titolo',
+                'required'      => 'required',
+                'placeholder'   => 'Oggetto...',
+            )
         ));
     }
-    
+
     /**
      * Given sezioni from db, set the array for the select
      * 
@@ -39,28 +34,24 @@ class AlboPretorioArticoliForm extends Form
      */
     public function addSezioni($sezioni)
     {
-        if (is_array($sezioni)) {
-    
-            $sezioniRecords = array();
-            foreach($sezioni as $sezione) {
-                $sezioniRecords[$sezione['id']] = $sezione['nome'];
-            }
-
-            $this->add(array(
-                            'type' => 'Zend\Form\Element\Select',
-                            'name' => 'sezione',
-                            'options' => array(
-                                    'label' => '* Sezione',
-                                    'empty_option' => 'Seleziona',
-                                    'value_options' => $sezioniRecords,
-                            ),
-                            'attributes' => array(
-                                    'title' => 'Seleziona sezione',
-                                    'id' => 'sezione',
-                                    'required' => 'required',
-                            )
-            ));
+        if (empty($sezioni)) {
+            return false;
         }
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'sezione',
+            'options' => array(
+                'label' => '* Sezione',
+                'empty_option' => 'Seleziona',
+                'value_options' => $sezioni,
+            ),
+            'attributes' => array(
+                'title'     => 'Seleziona sezione',
+                'id'        => 'sezione',
+                'required'  => 'required',
+            )
+        ));
     }
     
     public function addRettifica()
@@ -72,14 +63,14 @@ class AlboPretorioArticoliForm extends Form
                                'label' => 'Note',
                         ),
                         'attributes' => array(
-                                'title' => 'Note rettifica',
-                                'id' => 'note',
+                                'title'       => 'Note rettifica',
+                                'id'          => 'note',
                                 'placeholder' => 'Note rettifica',
                         )
         ));
     }
     
-    public function addLastFields()
+    public function addMainFields()
     {
         $this->add(array(
                         'type' => 'Text',
@@ -88,11 +79,11 @@ class AlboPretorioArticoliForm extends Form
                                'label' => '* Numero',
                         ),
                         'attributes' => array(
-                                'title' => 'Inserisci numero atto sezione',
-                                'id' => 'numeroAtto',
-                                'required' => 'required',
+                                'title'       => 'Inserisci numero atto sezione',
+                                'id'          => 'numeroAtto',
+                                'required'    => 'required',
                                 'placeholder' => 'Numero atto',
-                                'type' => 'number',
+                                'type'        => 'number',
                         )
         ));
         
@@ -103,19 +94,19 @@ class AlboPretorioArticoliForm extends Form
                                 'label' => '* Anno',
                         ),
                         'attributes' => array(
-                                'title' => 'Inserisci anno',
-                                'id' => 'anno',
-                                'required' => 'required',
-                                'placeholder' => 'Anno atto',
-                                'type' => 'number',
+                                'title'         => 'Inserisci anno',
+                                'id'            => 'anno',
+                                'required'      => 'required',
+                                'placeholder'   => 'Anno atto',
+                                'type'          => 'number',
                         )
         ));
         
         $this->add(array(
                         'type' => 'Application\Form\Element\PlainText',
-                        'name' => 'ente_terzo_label',
+                        'name' => 'enteTerzoLabel',
                         'attributes' => array(
-                                        'id' => 'ente_terzo_label',
+                                        'id'    => 'enteTerzoLabel',
                                         'value' => '<h4><strong>Ente terzo</strong></h4>',
                         ),
         ));
@@ -128,7 +119,7 @@ class AlboPretorioArticoliForm extends Form
                         ),
                         'attributes' => array(
                                 'title' => 'Inserisci nome ente terzo',
-                                'id' => 'ente_terzo',
+                                'id' => 'enteTerzo',
                                 'placeholder' => 'Nome ente terzo',
                         )
         ));
@@ -150,8 +141,8 @@ class AlboPretorioArticoliForm extends Form
                         'type' => 'Application\Form\Element\PlainText',
                         'name' => 'start_date_label',
                         'attributes' => array(
-                                        'id'    => 'expireDates',
-                                        'value' => '<h4><strong>Scadenza</strong></h4><p>Numero di giorni in cui questo articolo resterà visibile (lasciare in bianco per renderlo sempre visibile) e la data di scadenza.</p>',
+                                        'id'    => 'expireDatesLabel',
+                                        'value' => '<h4><strong>Scadenza</strong></h4><p>Se i campi vengono compilati entrambi prevale il numero di giorni in cui questo articolo rester&agrave; visibile (lasciare in bianco per renderlo sempre visibile) e la data di scadenza.</p>',
                         ),
         ));
 
@@ -166,15 +157,15 @@ class AlboPretorioArticoliForm extends Form
     {
         $this->add(array(
                         'type' => 'Text',
-                        'name' => 'scadenza',
+                        'name' => 'numeroGiorniScadenza',
                         'options' => array(
                                'label' => 'Numero di giorni',
                         ),
                         'attributes' => array(
-                                'title' => 'Numero di giorni alla scadenza',
-                                'id' => 'scadenza',
-                                'placeholder' => 'Numero di giorni alla scadenza',
-                                'type' => 'number'
+                                'title'         => 'Numero di giorni alla scadenza',
+                                'id'            => 'scadenza',
+                                'placeholder'   => 'Giorni...',
+                                'type'          => 'number'
                         )
         ));
 
@@ -182,13 +173,13 @@ class AlboPretorioArticoliForm extends Form
                         'type' => 'Date',
                         'name' => 'dataScadenza',
                         'options' => array(
-                                'label' => 'Data di scadenza',
+                                'label' => '* Data di scadenza',
                                 'format' => 'Y-m-d',
                         ),
                         'attributes' => array(
-                                'class' => 'form-control DatePicker',
-                                'id' => 'insertDate',
-                                'title' => 'Inserisci la data di pubblicazione',
+                                'id'        => 'insertDate',
+                                'title'     => 'Inserisci la data di pubblicazione',
+                                'required'  => 'required',
                         )
         ));
         
@@ -198,8 +189,8 @@ class AlboPretorioArticoliForm extends Form
             'options' => array(
                     'label' => 'Inserisci in home page',
                     'use_hidden_element' => true,
-                    'checked_value' => '1',
-                    'unchecked_value' => '',
+                    'checked_value'     => '1',
+                    'unchecked_value'   => '',
             ),
             'attributes' => array('id' => 'homepage')
         ));
@@ -224,7 +215,8 @@ class AlboPretorioArticoliForm extends Form
             'name' => 'facebook',
             'options' => array(
                 'label'                 => 'Inserisci su facebook',
-                'use_hidden_element'    => true,
+                'use_hidden_element'    => false,
+                'required'              => false,
                 'checked_value'         => 1,
                 'unchecked_value'       => '',
             ),

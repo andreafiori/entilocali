@@ -1,0 +1,11 @@
+<?php
+
+echo $this->render('backend/templates/'.$this->template_backend.'datatable/datatable_breadcrumb.phtml');
+
+?>
+    <div>
+        <a href="<?php echo $this->url('admin/posizioni-sezioni', array('lang'=>'it')); ?>" class="btn btn-default" title="Gestione posizioni"><i class="fa fa-cogs"></i> Gestione posizioni</a>
+    </div>
+<?php
+
+echo $this->render('backend/templates/common/datatables_zend_pagination.phtml');

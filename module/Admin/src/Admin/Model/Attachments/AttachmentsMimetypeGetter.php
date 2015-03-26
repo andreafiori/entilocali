@@ -10,6 +10,9 @@ use Application\Model\QueryBuilderHelperAbstract;
  */
 class AttachmentsMimetypeGetter extends QueryBuilderHelperAbstract
 {
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
     public function setMainQuery()
     {
         $this->setSelectQueryFields('a.id, a.mimetype');
@@ -22,7 +25,8 @@ class AttachmentsMimetypeGetter extends QueryBuilderHelperAbstract
     }
 
     /**
-     * @param number or array $id
+     * @param $id
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setId($id)
     {
@@ -38,9 +42,10 @@ class AttachmentsMimetypeGetter extends QueryBuilderHelperAbstract
         
         return $this->getQueryBuilder();
     }
-    
+
     /**
-     * @param string $mimetype
+     * @param $mimetype
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setMimeType($mimetype)
     {
@@ -48,5 +53,7 @@ class AttachmentsMimetypeGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere('a.mimetype = :mimetype ');
             $this->getQueryBuilder()->setParameter('mimetype', $mimetype);
         }
+
+        return $this->getQueryBuilder();
     }
 }

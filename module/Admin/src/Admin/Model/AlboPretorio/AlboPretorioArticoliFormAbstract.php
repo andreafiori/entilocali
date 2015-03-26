@@ -8,14 +8,16 @@ use Zend\Form\Form;
  * @author Andrea Fiori
  * @since  30 July 2014
  */
-abstract class AlboPretorioFormAbstract extends Form
+abstract class AlboPretorioArticoliFormAbstract extends Form
 {
     /**
      * @param array $sezioni
+     *
+     * @return bool|null
      */
-    public function addSezioni($sezioni)
+    public function addSezioni(array $sezioni)
     {
-        if (!is_array($sezioni)) {
+        if ( empty($sezioni) ) {
             return false;
         }
 
@@ -36,10 +38,12 @@ abstract class AlboPretorioFormAbstract extends Form
 
     /**
      * @param array $settori
+     *
+     * @return bool|null
      */
-    public function addSettori($settori)
+    public function addSettori(array $settori)
     {
-        if (!$settori) {
+        if ( empty($settori) ) {
             return false;
         }
         

@@ -26,7 +26,7 @@ class ZfcmsUsersTodo
      *
      * @ORM\Column(name="taskname", type="string", length=50, nullable=true)
      */
-    private $taskname = '0';
+    private $taskname;
 
     /**
      * @var string
@@ -40,28 +40,28 @@ class ZfcmsUsersTodo
      *
      * @ORM\Column(name="rifuser", type="integer", nullable=true)
      */
-    private $rifuser = '0';
+    private $rifuser;
 
     /**
      * @var string
      *
      * @ORM\Column(name="state", type="string", length=50, nullable=true)
      */
-    private $state = '0';
+    private $state;
 
     /**
      * @var string
      *
      * @ORM\Column(name="timelapsed", type="string", length=50, nullable=true)
      */
-    private $timelapsed = '0';
+    private $timelapsed;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="expiredate", type="datetime", nullable=true)
      */
-    private $expiredate = '2013-01-01 01:01:01';
+    private $expiredate;
 
 
 }

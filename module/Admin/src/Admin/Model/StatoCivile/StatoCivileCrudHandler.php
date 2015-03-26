@@ -2,70 +2,215 @@
 
 namespace Admin\Model\StatoCivile;
 
-use Admin\Model\FormData\CrudHandlerInterface;
 use Admin\Model\FormData\CrudHandlerAbstract;
+use Admin\Model\FormData\CrudHandlerInsertUpdateInterface;
+use Admin\Model\FormData\CrudHandlerInterface;
+use Admin\Model\Modules\ModulesContainer;
+use Application\Model\Database\DbTableContainer;
+use Zend\InputFilter\InputFilterAwareInterface;
 
 /**
  * @author Andrea Fiori
  * @since  30 October 2014
  */
-class StatoCivileCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterface
+class StatoCivileCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterface, CrudHandlerInsertUpdateInterface
 {
-    private $tableName = 'zfcms_comuni_stato_civile_articoli';
+    private $dbTable;
 
-    /**
-     * @throws \Doctrine\DBAL\ConnectionException
-     */
-    protected function insert()
+    private $moduleId;
+
+    public function __construct()
     {
-        $userDetails = $this->getInput('userDetails',1);
+        $this->form = new StatoCivileForm();
 
-        $this->getConnection()->beginTransaction();
-        try {
-            $this->getConnection()->insert($this->tableName, array(
-                'titolo'                => $this->rawPost['titolo'],
-                'progressivo'           => (isset($this->rawPost['numeroProgressivo'])) ? $this->rawPost['numeroProgressivo'] : 0,
-                'anno'                  => date("Y"),
-                'data'                  => date("Y-m-d"),
-                'ora'                   => date("H:i:s"),
-                'attivo'                => $this->rawPost['attivo'],
-                'scadenza'              => $this->rawPost['scadenza'],
-                'flag_allegati'         => 0,
-                'utente_id'             => $userDetails->id,
-                'sezione_id'            => $this->rawPost['sezione'],
-            ));
+        $this->formInputFilter = new StatoCivileFormInputFilter();
 
-            $this->getConnection()->commit();
+        $this->dbTable = DbTableContainer::statoCivileArticoli;
 
-            $this->setSuccessMessage();
-            
-        } catch (\Exception $e) {
-            $this->getConnection()->rollBack();
-            return $this->setErrorMessage($e->getMessage());
-        }
+        $this->moduleId = ModulesContainer::stato_civile_id;
     }
 
     /**
-     * @throws \Doctrine\DBAL\ConnectionException
+     * @param InputFilterAwareInterface $formData
+     * @return array
      */
-    protected function update()
+    public function validateFormData(InputFilterAwareInterface $formData)
     {
-        $this->getConnection()->beginTransaction();
-        try {
-            $this->setArrayRecordToHandle('titolo', 'utente', 'sezione');
+        return $this->checkValidateFormDataError(
+            $formData,
+            array('titolo', 'sezione', 'attivo', 'scadenza')
+        );
+    }
 
-            $this->getConnection()->update($this->tableName, 
-                    $this->getArrayRecordToHandle(),
-                    array('id' => $this->rawPost['id'])
-            );
+    /**
+     * @param InputFilterAwareInterface $formData
+     *
+     * @return int
+     */
+    public function insert(InputFilterAwareInterface $formData)
+    {
+        $this->asssertConnection();
 
-            $this->getConnection()->commit();
+        $this->assertUserDetails();
 
-            $this->setSuccessMessage();
-            
-        } catch (\Exception $e) {
-            $this->getConnection()->rollBack();
-            return $this->setErrorMessage($e->getMessage());
+        $userDetails = $this->getUserDetails();
+
+        return $this->getConnection()->insert($this->dbTable, array(
+            'titolo'                => $formData->titolo,
+            'progressivo'           => (isset($formData->numeroProgressivo)) ? $formData->numeroProgressivo : 0,
+            'anno'                  => date("Y"),
+            'data'                  => date("Y-m-d"),
+            'ora'                   => date("H:i:s"),
+            'attivo'                => $formData->attivo,
+            'scadenza'              => $formData->scadenza,
+            'flag_allegati'         => 0,
+            'utente_id'             => $userDetails->id,
+            'sezione_id'            => $formData->sezione,
+        ));
+    }
+
+    /**
+     * @param InputFilterAwareInterface $formData
+     *
+     * @return int
+     */
+    public function update(InputFilterAwareInterface $formData)
+    {
+        $this->asssertConnection();
+
+        $arrayUpdate = array(
+            'titolo'                => $formData->titolo,
+            'anno'                  => date("Y"),
+            'data'                  => date("Y-m-d"),
+            'ora'                   => date("H:i:s"),
+            'attivo'                => $formData->attivo,
+            'scadenza'              => $formData->scadenza,
+            'sezione_id'            => $formData->sezione,
+        );
+
+        if (isset($formData->utente)) {
+            $arrayUpdate['utente_id'] = $formData->utente;
         }
+
+        return $this->getConnection()->update($this->dbTable,
+            $arrayUpdate,
+            array('id' => $formData->id)
+        );
+    }
+
+    /**
+     * TODO: delete attachments
+     *
+     * @param $id
+     */
+    public function delete($id)
+    {
+        return $this->getConnection()->delete(
+            $this->dbTable,
+            array('id'    => $id),
+            array('limit' => 1)
+        );
+    }
+
+    /**
+     * @return bool
+     *
+     * @throws \Application\Model\NullException
+     */
+    public function logInsertOk()
+    {
+        $this->assertUserDetails();
+
+        $this->assertLogWriter();
+
+        $userDetails = $this->getUserDetails();
+
+        $logsWriter = $this->getLogsWriter();
+
+        $inputFilter = $this->getFormInputFilter();
+
+        return $logsWriter->writeLog(array(
+            'user_id'   => $userDetails->id,
+            'module_id' => $this->moduleId,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', ha inserito l'atto stato civile ".$inputFilter->titolo,
+            'type'      => 'error',
+            'backend'   => 1,
+        ));
+    }
+
+    /**
+     * @param null $message
+     *
+     * @return bool
+     */
+    public function logInsertKo($message = null)
+    {
+        $this->assertUserDetails();
+
+        $this->assertLogWriter();
+
+        $userDetails = $this->getUserDetails();
+
+        $logsWriter = $this->getLogsWriter();
+
+        $inputFilter = $this->getFormInputFilter();
+
+        return $logsWriter->writeLog(array(
+            'user_id'   => $userDetails->id,
+            'module_id' => $this->moduleId,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'inserimento atto stato civile ".$inputFilter->titolo.'Messaggio: '.$message,
+            'type'      => 'error',
+            'backend'   => 1,
+        ));
+    }
+
+    /**
+     * @return bool
+     */
+    public function logUpdateOk()
+    {
+        $this->assertUserDetails();
+
+        $this->assertLogWriter();
+
+        $userDetails = $this->getUserDetails();
+
+        $logsWriter = $this->getLogsWriter();
+
+        $inputFilter = $this->getFormInputFilter();
+
+        return $logsWriter->writeLog(array(
+            'user_id'   => $userDetails->id,
+            'module_id' => $this->moduleId,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', ha aggiornato la sezione stato civile ".$inputFilter->titolo,
+            'type'      => 'info',
+            'backend'   => 1,
+        ));
+    }
+
+    /**
+     * @param null $message
+     *
+     * @return bool
+     */
+    public function logUpdateKo($message = null)
+    {
+        $this->assertUserDetails();
+
+        $this->assertLogWriter();
+
+        $userDetails = $this->getUserDetails();
+
+        $logsWriter = $this->getLogsWriter();
+
+        $inputFilter = $this->getFormInputFilter();
+
+        return $logsWriter->writeLog(array(
+            'user_id'   => $userDetails->id,
+            'module_id' => $this->moduleId,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'aggiornamento dell'atto stato civile ".$inputFilter->titolo.' Messaggio: '.$message,
+            'type'      => 'error',
+            'backend'   => 1,
+        ));
     }
 }

@@ -147,15 +147,20 @@ class StatoCivileDataTable extends DataTableAbstract
         {
             if (isset($this->param['get']['active']) and isset($this->param['get']['id'])) {
 
+                $activeStatusValue = null;
+
                 if ($this->param['get']['active']=='toActive') {
                     $activeStatusValue = 1;
                 } elseif ($this->param['get']['active']=='toDisable') {
                     $activeStatusValue = 0;
                 }
 
+                /**
+                 * @var \Doctrine\DBAL\Connection $connection
+                 */
+                $connection = $this->getInput('entityManager',1)->getConnection();
+                $connection->beginTransaction();
                 try {
-                    $connection = $this->getInput('entityManager',1)->getConnection();
-                    $connection->beginTransaction();
                     $connection->update('zfcms_comuni_stato_civile_articoli', array(
                             'attivo' => $activeStatusValue
                         ),
@@ -163,9 +168,12 @@ class StatoCivileDataTable extends DataTableAbstract
                     );
                     $connection->commit();
                 } catch (\Exception $e) {
-                    $this->getConnection()->rollBack();
-                    return $this->setErrorMessage($e->getMessage());
+                    $connection->rollBack();
+
+                    return $e->getMessage();
                 }
             }
+
+            return null;
         }
 }

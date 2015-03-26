@@ -54,21 +54,21 @@ class ZfcmsComuniContrattiPartecipanti
      *
      * @ORM\Column(name="posizione", type="bigint", nullable=true)
      */
-    private $posizione = '0';
+    private $posizione;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="categoria", type="bigint", nullable=true)
      */
-    private $categoria = '0';
+    private $categoria;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="sel", type="bigint", nullable=false)
      */
-    private $sel = '0';
+    private $sel;
 
 
 }

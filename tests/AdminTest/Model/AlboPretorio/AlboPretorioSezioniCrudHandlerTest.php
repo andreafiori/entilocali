@@ -2,26 +2,34 @@
 
 namespace AdminTest\Model\AlboPretorio;
 
-use ApplicationTest\TestSuite;
+use ApplicationTest\CrudHandlerTestSuite;
 use Admin\Model\AlboPretorio\AlboPretorioSezioniCrudHandler;
 
 /**
  * @author Andrea Fiori
  * @since  26 October 2014
  */
-class AlboPretorioSezioniCrudHandlerTest //extends TestSuite
+class AlboPretorioSezioniCrudHandlerTest extends CrudHandlerTestSuite
 {
-    private $alboPretorioSezioniCrudHandler;
+    protected $crudHandler;
     
     protected function setUp()
     {
         parent::setUp();
         
-        $this->alboPretorioSezioniCrudHandler = new AlboPretorioSezioniCrudHandler($this->getFrontendCommonInput());
+        $this->crudHandler = new AlboPretorioSezioniCrudHandler();
+
+        $this->formSampleData = array(
+            'id'        => '',
+            'nome'      => 'Sezione albo pretorio di test',
+            'attivo'    => '1',
+        );
     }
-    
-    public function testInsert()
+
+    public function testExchangeArray()
     {
-        
+        $this->setupFormInputFilterAndExchangeArray();
+
+        $this->assertNotNull($this->crudHandler->getFormInputFilter()->id);
     }
 }

@@ -23,11 +23,30 @@ class CrudHandlerAbstractTest extends TestSuite
         $this->crudHandlerAbstract = $this->getMockForAbstractClass('\Admin\Model\FormData\CrudHandlerAbstract');
     }
 
+    public function testSetEntityManager()
+    {
+        $this->crudHandlerAbstract->setEntityManager( $this->getEntityManagerMock() );
+
+        $this->assertInstanceOf('\Doctrine\ORM\EntityManager', $this->crudHandlerAbstract->getEntityManager());
+    }
+
     public function testSetConnection()
     {
         $this->crudHandlerAbstract->setConnection( $this->getConnectionMock() );
 
         $this->assertInstanceOf('\Doctrine\DBAL\Connection', $this->crudHandlerAbstract->getConnection());
+    }
+
+    public function testSetConfigurationsFromDb()
+    {
+        $configurations = array(
+            'sitename' => 'My website',
+            'seo_title' => 'My website title'
+        );
+
+        $this->crudHandlerAbstract->setConfigurationsFromDb($configurations);
+
+        $this->assertEquals($configurations, $this->crudHandlerAbstract->getConfigurationsFromDb());
     }
 
     public function testSetupErrorMessage()

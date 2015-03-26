@@ -57,13 +57,13 @@ class AmministrazioneTrasparenteFormDataHandler extends FormDataAbstract
         $baseUrl = $this->getInput('baseUrl', 1);
 
         $this->setVariables(array(
-            'formTitle'              => $formTitle,
-            'formDescription'        => $formDescription,
-            'form'                   => $form,
-            'formAction'             => $formAction,
-            'formBreadCrumbCategory' => 'Amministrazione Trasparente',
+            'formTitle'                 => $formTitle,
+            'formDescription'           => $formDescription,
+            'form'                      => $form,
+            'formAction'                => $formAction,
+            'formBreadCrumbCategory'     => 'Amministrazione Trasparente',
             'formBreadCrumbCategoryLink' => $baseUrl.'datatable/amministrazione-trasparente/',
-            'CKEditorField'          => array('sommario', 'testo'),
+            'CKEditorField'              => array('sommario', 'testo'),
         ));
     }
 

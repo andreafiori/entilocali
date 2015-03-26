@@ -113,7 +113,7 @@ class ContenutiFormDataHandler extends FormDataAbstract
             $arrayToReturn = array();
             if (!empty($sezioniRecords)) {
                 foreach($sezioniRecords as $sezioniRecord) {
-                    $arrayToReturn[$sezioniRecord['idSottosezione']] = utf8_encode($sezioniRecord['nomeSezione']). ' - '.utf8_encode($sezioniRecord['nomeSottosezione']);
+                    $arrayToReturn[$sezioniRecord['idSottoSezione']] = utf8_encode($sezioniRecord['nomeSezione']). ' - '.utf8_encode($sezioniRecord['nomeSottoSezione']);
                 }
             }
 

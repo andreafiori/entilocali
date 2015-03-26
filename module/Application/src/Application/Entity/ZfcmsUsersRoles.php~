@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsUsersRoles
  *
- * @ORM\Table(name="zfcms_users_roles")
+ * @ORM\Table(name="zfcms_users_roles", uniqueConstraints={@ORM\UniqueConstraint(name="name", columns={"name"})})
  * @ORM\Entity
  */
 class ZfcmsUsersRoles

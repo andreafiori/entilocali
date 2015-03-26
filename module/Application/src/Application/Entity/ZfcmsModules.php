@@ -26,14 +26,14 @@ class ZfcmsModules
      *
      * @ORM\Column(name="code", type="string", length=50, nullable=false)
      */
-    private $code = '0';
+    private $code;
 
     /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=50, nullable=false)
      */
-    private $name = '0';
+    private $name;
 
     /**
      * @var string
@@ -68,7 +68,7 @@ class ZfcmsModules
      *
      * @ORM\Column(name="channel_id", type="bigint", nullable=false)
      */
-    private $channelId = '1';
+    private $channelId;
 
 
 

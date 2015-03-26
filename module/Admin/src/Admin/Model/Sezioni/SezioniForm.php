@@ -2,7 +2,9 @@
 
 namespace Admin\Model\Sezioni;
 
+use Zend\Form\Element;
 use Zend\Form\Form;
+use Zend\Captcha;
 
 /**
  * @author Andrea Fiori
@@ -135,7 +137,7 @@ class SezioniForm extends Form
             'name' => 'posizione',
             'attributes' => array(
                 "class" => 'hiddenField',
-                'id' => 'posizione'
+                'id'    => 'posizione'
             )
         ));
 
@@ -144,7 +146,7 @@ class SezioniForm extends Form
             'name' => 'id',
             'attributes' => array(
                 "class" => 'hiddenField',
-                'id' => 'id'
+                'id'    => 'id'
             )
         ));
     }

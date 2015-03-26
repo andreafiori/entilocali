@@ -47,21 +47,21 @@ class ZfcmsNewsletterEmails
      *
      * @ORM\Column(name="insert_date", type="datetime", nullable=false)
      */
-    private $insertDate = '2008-01-01 01:01:01';
+    private $insertDate;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="activation_date", type="datetime", nullable=false)
      */
-    private $activationDate = '2008-01-01 01:01:01';
+    private $activationDate;
 
     /**
      * @var string
      *
      * @ORM\Column(name="status", type="string", length=50, nullable=false)
      */
-    private $status = '0';
+    private $status;
 
 
 }

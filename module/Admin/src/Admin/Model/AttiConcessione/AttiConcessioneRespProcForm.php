@@ -5,8 +5,6 @@ namespace Admin\Model\AttiConcessione;
 use Zend\Form\Form;
 
 /**
- * Atti concessione, form responsabili di procedura
- *
  * @author Andrea Fiori
  * @since  15 December 2014
  */

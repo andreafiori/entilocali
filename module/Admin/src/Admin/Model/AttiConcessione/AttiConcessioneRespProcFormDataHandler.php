@@ -3,10 +3,8 @@
 namespace Admin\Model\AttiConcessione;
 
 use Admin\Model\FormData\FormDataAbstract;
-use Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteGetter;
-use Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteGetterWrapper;
 
-class AttiConcessioneRespFormDataHandler extends FormDataAbstract
+class AttiConcessioneRespProcFormDataHandler extends FormDataAbstract
 {
     /**
      * @param array $input
@@ -20,7 +18,9 @@ class AttiConcessioneRespFormDataHandler extends FormDataAbstract
         $form = new AttiConcessioneRespProcForm();
         
         if (isset($param['route']['option'])) {
-            $wrapper = new AttiConcessioneRespProcGetterWrapper( new AttiConcessioneRespProcGetter($this->getInput('entityManager',1)) );
+            $wrapper = new AttiConcessioneRespProcGetterWrapper(
+                new AttiConcessioneRespProcGetter($this->getInput('entityManager',1))
+            );
             $wrapper->setInput( array('id' => $param['route']['option'], 'limit' => 1) );
             $wrapper->setupQueryBuilder();
 
@@ -39,10 +39,15 @@ class AttiConcessioneRespFormDataHandler extends FormDataAbstract
             $formDescription = 'Inserisci responsabile';
         }
 
-        $this->setVariable('form',              $form);
-        $this->setVariable('formAction',        $formAction);
-        $this->setVariable('formTitle',         $formTitle);
-        $this->setVariable('formDescription',   $formDescription);
-        $this->setVariable('formBreadCrumbCategory', 'Amministrazione Trasparente');
+        $baseUrl = $this->getInput('baseUrl', 1);
+
+        $this->setVariables(array(
+            'form'                   => $form,
+            'formAction'             => $formAction,
+            'formTitle'              => $formTitle,
+            'formDescription'        => $formDescription,
+            'formBreadCrumbCategoryLink' => $baseUrl.'datatable/atticoncessione-resp-proc/',
+            'formBreadCrumbCategory' => 'Atti di concessione',
+        ));
     }
 }

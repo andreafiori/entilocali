@@ -47,35 +47,35 @@ class ZfcmsNewsletterTemplates
      *
      * @ORM\Column(name="format", type="string", nullable=false)
      */
-    private $format = 'html';
+    private $format;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="creation_date", type="datetime", nullable=false)
      */
-    private $creationDate = '0000-00-00 00:00:00';
+    private $creationDate;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="position", type="bigint", nullable=false)
      */
-    private $position = '0';
+    private $position;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="language_id", type="bigint", nullable=false)
      */
-    private $languageId = '1';
+    private $languageId;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="channel_id", type="bigint", nullable=false)
      */
-    private $channelId = '1';
+    private $channelId;
 
 
 }

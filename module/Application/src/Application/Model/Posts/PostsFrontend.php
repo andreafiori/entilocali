@@ -44,13 +44,17 @@ class PostsFrontend extends RouterManagerAbstract implements RouterManagerInterf
         
         $records = $postsGetterWrapper->setupRecords();
         
-        $this->setVariable('paginator', $records);
-        $this->setVariable('category', $postsGetterWrapper->getCategory() );
-        $this->setVariable('category_seo', Slugifier::slugify($postsGetterWrapper->getCategory()) );
-        $this->setVariable('title', $postsGetterWrapper->getTitle() );
-        $this->setVariable('title_seo', Slugifier::slugify($postsGetterWrapper->getTitle()) );
-        
+        $this->setVariables(array(
+                'paginator'     => $records,
+                'category'      => $postsGetterWrapper->getCategory(),
+                'category_seo'  => Slugifier::slugify($postsGetterWrapper->getCategory()),
+                'title'         => $postsGetterWrapper->getTitle(),
+                'title_seo'     => Slugifier::slugify($postsGetterWrapper->getTitle()),
+            )
+        );
+
         $this->setRecords($records);
+
         $this->setTemplate($postsGetterWrapper->getTemplate());
         
         return $this->getOutput();

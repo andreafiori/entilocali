@@ -23,26 +23,21 @@ class ContenutiCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
 
     /**
      * @param InputFilterAwareInterface $formData
+     *
      * @return array
      */
     public function validateFormData(InputFilterAwareInterface $formData)
     {
-        $error = array();
-
-        $fields = array('titolo', 'testo', 'dataInserimento', 'dataScadenza', 'attivo');
-        foreach($fields as $field) {
-            if ( !isset($formData->$field) ) {
-                $error[] = 'Campo '.$field.' vuoto';
-            }
-        }
-
-        return $error;
+        return $this->checkValidateFormDataError(
+            $formData,
+            array('titolo', 'testo', 'dataInserimento', 'dataScadenza', 'attivo')
+        );
     }
 
     /**
      * @param InputFilterAwareInterface $formData
+     *
      * @return int
-     * @throws \Application\Model\NullException
      */
     public function insert(InputFilterAwareInterface $formData)
     {
@@ -63,11 +58,11 @@ class ContenutiCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
             'attivo'           => $formData->attivo,
             'sottosezione_id'  => $formData->sottosezione,
             'home'             => isset($formData->home) ? $formData->home : 0,
-            /* 'evidenza'         => isset($formData->evidenza) ? $formData->evidenza : 0, */
             'utente_id'        => $userDetails->id,
             'rss'              => $formData->rss,
             /*
             $formData->faceobook
+            'evidenza'         => isset($formData->evidenza) ? $formData->evidenza : 0,
             'slug'             => $this->rawPost['titolo'],
             'seo_title'        => $this->rawPost['seoTitle'],
             'seo_description'  => $this->rawPost['seoDescription'],
@@ -99,6 +94,20 @@ class ContenutiCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
                         'rss'               => $formData->rss,
                     ),
                     array('id' => $formData->id)
+        );
+    }
+
+    /**
+     * TODO: delete attachments
+     *
+     * @param $id
+     */
+    public function delete($id)
+    {
+        return $this->getConnection()->delete(
+            DbTableContainer::contenuti,
+            array('id'    => $id),
+            array('limit' => 1)
         );
     }
 
@@ -148,7 +157,7 @@ class ContenutiCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'inserimento del contenuto ".$inputFilter->titolo.' '.$inputFilter->email.' Messaggio: '.$message,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'inserimento del contenuto ".$inputFilter->titolo.' Messaggio: '.$message,
             'type'      => 'error',
             'backend'   => 1,
         ));

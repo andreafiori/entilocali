@@ -57,7 +57,7 @@ class StatoCivileFormDataHandler extends FormDataAbstract
         }
 
         $this->setVariables(array(
-            'formTitle'                     => isset($records['titolo']) ? $records['titolo'] : 'Nuovo atto stato civile',
+            'formTitle'                     => isset($records['titolo']) ? 'Modifica atto' : 'Nuovo atto stato civile',
             'formDescription'               => '&Egrave; consigliabile inserire testi brevi sul tema trattato, possibilmente in minuscolo',
             'form'                          => $form,
             'formAction'                    => isset($formAction) ? $formAction : $formAction = 'stato-civile/insert/',

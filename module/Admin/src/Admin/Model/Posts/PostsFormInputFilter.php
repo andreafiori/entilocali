@@ -19,28 +19,27 @@ class PostsFormInputFilter implements InputFilterAwareInterface
 
     public function exchangeArray($data)
     {
-            $this->idpost    		= (isset($data['idpost'])) ? $data['idpost'] : null;
-            $this->idpostoption    	= (isset($data['idpostoption'])) ? $data['idpostoption'] : null;
-            $this->title 	 		= (isset($data['title'])) ? $data['title'] : null;
-            $this->description  	= (isset($data['description']))  ? $data['description']  : null;
-            $this->seoUrl               = (isset($data['seoUrl']))  ? $data['seoUrl']  : null;
-            $this->seoKeywords  	= (isset($data['seoKeywords']))  ? $data['seoKeywords']  : null;
-            $this->seoDescription  	= (isset($data['seoDescription']))  ? $data['seoDescription']  : null;
+        $this->idpost    		= (isset($data['idpost'])) ? $data['idpost'] : null;
+        $this->idpostoption    	= (isset($data['idpostoption'])) ? $data['idpostoption'] : null;
+        $this->title 	 		= (isset($data['title'])) ? $data['title'] : null;
+        $this->description  	= (isset($data['description']))  ? $data['description']  : null;
+        $this->seoUrl           = (isset($data['seoUrl']))  ? $data['seoUrl']  : null;
+        $this->seoKeywords  	= (isset($data['seoKeywords']))  ? $data['seoKeywords']  : null;
+        $this->seoDescription  	= (isset($data['seoDescription']))  ? $data['seoDescription']  : null;
     }
 
     public function getArrayCopy()
     {
-            return get_object_vars($this);
+        return get_object_vars($this);
     }
     
     /**
-     * 
      * @param \Zend\InputFilter\InputFilterInterface $inputFilter
      * @throws \Exception
      */
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
-            throw new \Exception("Not used");
+        throw new \Exception("Not used");
     }
 
     public function getInputFilter()

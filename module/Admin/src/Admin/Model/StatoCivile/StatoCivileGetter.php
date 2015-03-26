@@ -14,7 +14,14 @@ class StatoCivileGetter extends QueryBuilderHelperAbstract
     
     public function setMainQuery()
     {
-        $this->setSelectQueryFields("DISTINCT(sca.id) AS id, sca.titolo, sca.progressivo, sca.anno, sca.data, scs.id AS sezioneId, sca.scadenza, scs.nome, sca.attivo, ( SELECT CONCAT(u.name, ' ', u.surname) FROM Application\Entity\ZfcmsUsers u WHERE u.id = sca.utente ) AS user_name_surname ");
+        $this->setSelectQueryFields("DISTINCT(sca.id) AS id, sca.titolo, sca.progressivo,
+                                    sca.anno, sca.data, scs.id AS sezione, sca.scadenza, scs.nome, sca.attivo,
+
+
+                                    ( SELECT CONCAT(u.name, ' ', u.surname) FROM Application\Entity\ZfcmsUsers u
+                                    WHERE u.id = sca.utente ) AS user_name_surname
+
+                                     ");
 
         $this->getQueryBuilder()->select($this->getSelectQueryFields())
                                 ->from('Application\Entity\ZfcmsComuniStatoCivileArticoli', 'sca')

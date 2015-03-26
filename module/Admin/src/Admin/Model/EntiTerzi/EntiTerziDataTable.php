@@ -56,19 +56,30 @@ class EntiTerziDataTable extends DataTableAbstract
             $arrayToReturn = array();
             if ($records) {
                 foreach($records as $key => $row) {
+
                     $arrayToReturn[] = array(
-                        $row['nome'],
-                        $row['email'],
+                        array(
+                            'type' => 'field',
+                            'record' => $row['nome'],
+                            'class' => '',
+                        ),
+                        array(
+                            'type' => 'field',
+                            'record' => $row['email'],
+                            'class' => '',
+                        ),
                         array(
                             'type'      => 'updateButton',
                             'href'      => $this->getInput('baseUrl',1).'formdata/enti-terzi/'.$row['id'],
-                            'title'     => 'Modifica'
+                            'title'     => 'Modifica ente terzo',
+                            'class' => '',
                         ),
                         array(
                             'type'      => 'deleteButton',
                             'href'      => '#',
                             'data-id'   => $row['id'],
-                            'title'     => 'Elimina'
+                            'title'     => 'Elimina ente terzo',
+                            'class' => '',
                         ),
                     );
                 }

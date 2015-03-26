@@ -19,6 +19,7 @@ class AlboPretorioSezioniDataTable extends DataTableAbstract implements DataTabl
         parent::__construct($input);
         
         $this->setTitle('Sezioni albo pretorio');
+
         $this->setDescription('Elenco sezioni albo pretorio.');
 
         $this->setVariables(array(

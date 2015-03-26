@@ -20,6 +20,7 @@ class SottoSezioniForm extends Form
             'name' => 'sezione',
             'options' => array(
                 'label' => '* Sezione',
+                'disable_inarray_validator' => true,
                 'empty_option' => 'Seleziona',
                 'value_options' => $sezioni
             ),
@@ -32,7 +33,7 @@ class SottoSezioniForm extends Form
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Hidden',
-            'name' => 'idSottosezione',
+            'name' => 'idSottoSezione',
             'attributes' => array(
                 "class" => 'hiddenField'
             )
@@ -48,14 +49,14 @@ class SottoSezioniForm extends Form
     public function addMainFormInputs()
     {
         $this->add(array(
-            'name' => 'nomeSottosezione',
+            'name' => 'nomeSottoSezione',
             'type' => 'Text',
             'options' => array( 'label' => '* Nome' ),
             'attributes' => array(
                 'required'      => 'required',
                 'placeholder'   => 'Nome...',
                 'title'         => 'Inserisci nome sotto sezione',
-                'id'            => 'nomeSottosezione',
+                'id'            => 'nomeSottoSezione',
             )
         ));
 
@@ -86,7 +87,6 @@ class SottoSezioniForm extends Form
             'type' => 'Text',
             'options' => array( 'label' => '* Posizione' ),
             'attributes' => array(
-                'required'      => 'required',
                 'type'          => 'number',
                 'placeholder'   => 'Posizione...',
                 'title'         => 'Inserisci numero posizione',

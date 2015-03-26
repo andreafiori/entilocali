@@ -6,7 +6,7 @@ namespace Admin\Model\AlboPretorio;
  * @author Andrea Fiori
  * @since  18 May 2014
  */
-class AlboPretorioArticoliDataTable extends AlboPretorioDataTableAbstract
+class AlboPretorioArticoliDataTable extends AlboPretorioArticoliDataTableAbstract
 {
     /**
      * @inheritdoc

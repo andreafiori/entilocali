@@ -22,9 +22,9 @@ class ZfcmsPostsRelations
     private $id;
 
     /**
-     * @var \Application\Entity\ZfcmsCategories
+     * @var \Application\Entity\ZfcmsPostsCategories
      *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsCategories")
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsPostsCategories")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      * })

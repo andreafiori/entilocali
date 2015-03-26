@@ -33,7 +33,7 @@ class ZfcmsComuniSezioni
      *
      * @ORM\Column(name="colonna", type="string", length=100, nullable=false)
      */
-    private $colonna = 'sx';
+    private $colonna;
 
     /**
      * @var integer
@@ -132,6 +132,13 @@ class ZfcmsComuniSezioni
      * @ORM\Column(name="is_amm_trasparente", type="integer", nullable=true)
      */
     private $isAmmTrasparente;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="show_to_all", type="integer", nullable=false)
+     */
+    private $showToAll;
 
     /**
      * @var \Application\Entity\ZfcmsModules
@@ -531,6 +538,29 @@ class ZfcmsComuniSezioni
     public function getIsAmmTrasparente()
     {
         return $this->isAmmTrasparente;
+    }
+
+    /**
+     * Set showToAll
+     *
+     * @param integer $showToAll
+     * @return ZfcmsComuniSezioni
+     */
+    public function setShowToAll($showToAll)
+    {
+        $this->showToAll = $showToAll;
+    
+        return $this;
+    }
+
+    /**
+     * Get showToAll
+     *
+     * @return integer 
+     */
+    public function getShowToAll()
+    {
+        return $this->showToAll;
     }
 
     /**

@@ -6,7 +6,7 @@ namespace Admin\Model\AlboPretorio;
  * @author Andrea Fiori
  * @since  30 July 2014
  */
-class AlboPretorioArticoliSearchFilterForm extends AlboPretorioFormAbstract
+class AlboPretorioArticoliSearchFilterForm extends AlboPretorioArticoliFormAbstract
 {
     /**
      * @inheritdoc

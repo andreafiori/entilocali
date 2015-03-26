@@ -2,96 +2,234 @@
 
 namespace Admin\Model\AttiConcessione;
 
-use Admin\Model\FormData\CrudHandlerInterface;
 use Admin\Model\FormData\CrudHandlerAbstract;
+use Admin\Model\FormData\CrudHandlerInsertUpdateInterface;
+use Admin\Model\FormData\CrudHandlerInterface;
+use Admin\Model\Modules\ModulesContainer;
+use Application\Model\Database\DbTableContainer;
+use Zend\InputFilter\InputFilterAwareInterface;
 
 /**
  * @author Andrea Fiori
  * @since  16 December 2014
  */
-class AttiConcessioneCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterface
+class AttiConcessioneCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterface, CrudHandlerInsertUpdateInterface
 {
-    private $tableName = 'zfcms_comuni_concessione';
+    private $dbTable;
 
-    public function insert()
+    private $moduleId;
+
+    public function __construct()
     {
-        $this->getConnection()->beginTransaction();
-        try {
+        $this->form = new AttiConcessioneForm();
 
-            $error = array();
+        $this->formInputFilter = new AttiConcessioneFormInputFilter();
 
-            $varsToCheck = array('titolo', 'beneficiario', 'importo', 'modassegn', 'data', 'sezione', 'anno');
-            foreach($varsToCheck as $var) {
-                if ( !isset($this->rawPost[$var]) or empty($this->rawPost[$var]) ) {
-                    $error[] = 'Campo <strong>'.$var.'</strong> non settato fra i campi del form';
-                }
-            }
+        $this->dbTable = DbTableContainer::attiConcessione;
 
-            if (!is_numeric($this->rawPost['importo'])) {
-                $error[] = '<strong>Importo</strong> deve essere un valore numerico.';
-            }
-
-            if ( (int)$this->rawPost['anno'] > 2030 or (int)$this->rawPost['anno'] < 1954 ) {
-                $error[] = '<strong>Anno atto</strong> deve essere un anno valido di valore numerico.';
-            }
-            
-            if (!empty($error)) {
-                $this->setErrorMessage($error);
-                return;
-            } else {
-
-                $this->getConnection()->insert($this->tableName, array(
-                    'titolo'        => $this->rawPost['titolo'],
-                    'beneficiario'  => $this->rawPost['beneficiario'],
-                    'importo'       => $this->rawPost['importo'],
-                    'modassegn'     => $this->rawPost['modassegn'],
-                    'data'          => $this->rawPost['data'],
-                    'ora'           => date("H:i:s"),
-                    'resp_proc_id'  => $this->rawPost['respProc'],
-                    'settore_id'    => $this->rawPost['ufficioResponsabile'],
-                    'utente_id'    => $this->rawPost['utente_id'],
-                ));
-
-                $this->getConnection()->commit();
-
-                $this->setVariable('redirectRoute', 1);
-                $this->setVariable('redirectRouteTableSetter', 'atti-concessione');
-                
-                $this->setSuccessMessage('Atto inserito correttamente');
-            }
-
-        } catch (\Exception $e) {
-            $this->getConnection()->rollBack();
-            return $this->setErrorMessage($e->getMessage());
-        }
+        $this->moduleId = ModulesContainer::atti_concessione;
     }
-    
-    public function update()
+
+    /**
+     * @param InputFilterAwareInterface $formData
+     *
+     * @return array
+     */
+    public function validateFormData(InputFilterAwareInterface $formData)
     {
-        $this->getConnection()->beginTransaction();
-        try {
-            $this->cleanArrayRecordToHandle();
-            $this->setArrayRecordToHandle('titolo', 'titolo');
-            $this->setArrayRecordToHandle('beneficiario', 'beneficiario');
-            $this->setArrayRecordToHandle('importo', 'importo');
-            $this->setArrayRecordToHandle('modassegn', 'modassegn');
-            $this->setArrayRecordToHandle('data', 'data');
-            $this->setArrayRecordToHandle('anno', 'anno');
-            $this->setArrayRecordToHandle('settore_id', 'ufficioResponsabile');
-            $this->setArrayRecordToHandle('resp_proc_id', 'respProc');
+        $error = $this->checkValidateFormDataError(
+            $formData,
+            array('titolo', 'beneficiario', 'importo', 'modassegn', 'dataInserimento', 'anno')
+        );
 
-            $affectedRows = $this->getConnection()->update(
-                $this->tableName,
-                $this->getArrayRecordToHandle(),
-                array('id' => $this->rawPost['id'])
-            );
-
-            /* Show success message */
-            $this->setSuccessMessage('Dati aggiornati correttamente', 'Dati aggiornati correttamente in archivio.');
-
-        } catch (\Exception $e) {
-            $this->getConnection()->rollBack();
-            return $this->setErrorMessage($e->getMessage());
+        /* chars, symbols and string are in the old db
+        if (!is_numeric($formData->importo)) {
+            $error[] = 'Importo non &egrave; un numero';
         }
+        */
+
+        if ( (int)$formData->anno > 2030 or (int)$formData->anno < 1954 ) {
+            $error[] = 'Anno atto deve essere un anno valido.';
+        }
+
+        return $error;
+    }
+
+    /**
+     * @param InputFilterAwareInterface $formData
+     *
+     * @return int
+     */
+    public function insert(InputFilterAwareInterface $formData)
+    {
+        $this->asssertConnection();
+
+        $this->assertUserDetails();
+
+        $userDetails = $this->getUserDetails();
+
+        return $this->getConnection()->insert($this->dbTable, array(
+            'titolo'        => $formData->titolo,
+            'beneficiario'  => $formData->beneficiario,
+            'importo'       => $formData->importo,
+            'modassegn'     => $formData->modassegn,
+            'data'          => $formData->dataInserimento,
+            'anno'          => $formData->anno,
+            'settore_id'    => $formData->ufficioResponsabile,
+            'resp_proc_id'  => $formData->respProc,
+            'utente'        => $userDetails->id,
+        ));
+    }
+
+    /**
+     * @param InputFilterAwareInterface $formData
+     *
+     * @return int
+     */
+    public function update(InputFilterAwareInterface $formData)
+    {
+        $this->asssertConnection();
+
+        $this->assertUserDetails();
+
+        $userDetails = $this->getUserDetails();
+
+        $arrayToUpdate = array(
+            'titolo'        => $formData->titolo,
+            'beneficiario'  => $formData->beneficiario,
+            'importo'       => $formData->importo,
+            'modassegn'     => $formData->modassegn,
+            'data'          => $formData->dataInserimento,
+            'anno'          => $formData->anno,
+            'settore_id'    => $formData->ufficioResponsabile,
+            'resp_proc_id'  => $formData->respProc,
+        );
+
+        if (isset($formData->utente)) {
+            $arrayToUpdate['utente_id'] = $formData->utente;
+        }
+
+        return $this->getConnection()->update(
+            $this->dbTable,
+            $arrayToUpdate,
+            array('id'    => $formData->id),
+            array('limit' => 1)
+        );
+    }
+
+    /**
+     * TODO: delete attachments
+     *
+     * @param $id
+     */
+    public function delete($id)
+    {
+        return $this->getConnection()->delete(
+            $this->dbTable,
+            array('id'    => $id),
+            array('limit' => 1)
+        );
+    }
+
+    /**
+     * @return bool
+     *
+     * @throws \Application\Model\NullException
+     */
+    public function logInsertOk()
+    {
+        $this->assertUserDetails();
+
+        $this->assertLogWriter();
+
+        $userDetails = $this->getUserDetails();
+
+        $logsWriter = $this->getLogsWriter();
+
+        $inputFilter = $this->getFormInputFilter();
+
+        return $logsWriter->writeLog(array(
+            'user_id'   => $userDetails->id,
+            'module_id' => $this->moduleId,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', ha inserito l'atto concessione ".$inputFilter->titolo,
+            'type'      => 'error',
+            'backend'   => 1,
+        ));
+    }
+
+    /**
+     * @param null $message
+     *
+     * @return bool
+     */
+    public function logInsertKo($message = null)
+    {
+        $this->assertUserDetails();
+
+        $this->assertLogWriter();
+
+        $userDetails = $this->getUserDetails();
+
+        $logsWriter = $this->getLogsWriter();
+
+        $inputFilter = $this->getFormInputFilter();
+
+        return $logsWriter->writeLog(array(
+            'user_id'   => $userDetails->id,
+            'module_id' => $this->moduleId,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'inserimento atto concessione ".$inputFilter->titolo.'Messaggio: '.$message,
+            'type'      => 'error',
+            'backend'   => 1,
+        ));
+    }
+
+    /**
+     * @return bool
+     */
+    public function logUpdateOk()
+    {
+        $this->assertUserDetails();
+
+        $this->assertLogWriter();
+
+        $userDetails = $this->getUserDetails();
+
+        $logsWriter = $this->getLogsWriter();
+
+        $inputFilter = $this->getFormInputFilter();
+
+        return $logsWriter->writeLog(array(
+            'user_id'   => $userDetails->id,
+            'module_id' => $this->moduleId,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', ha aggiornato l'atto concessione ".$inputFilter->titolo,
+            'type'      => 'info',
+            'backend'   => 1,
+        ));
+    }
+
+    /**
+     * @param null $message
+     *
+     * @return bool
+     */
+    public function logUpdateKo($message = null)
+    {
+        $this->assertUserDetails();
+
+        $this->assertLogWriter();
+
+        $userDetails = $this->getUserDetails();
+
+        $logsWriter = $this->getLogsWriter();
+
+        $inputFilter = $this->getFormInputFilter();
+
+        return $logsWriter->writeLog(array(
+            'user_id'   => $userDetails->id,
+            'module_id' => $this->moduleId,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'aggiornamento dell'atto concessione ".$inputFilter->titolo.' Messaggio: '.$message,
+            'type'      => 'error',
+            'backend'   => 1,
+        ));
     }
 }

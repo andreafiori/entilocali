@@ -105,14 +105,14 @@ class StatoCivileForm extends Form
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Checkbox',
-            'name' => 'checkbox',
+            'name' => 'home',
             'attributes' => array(
                 'title'         => 'Inserisci in home page',
                 'id'            => 'home'
             ),
             'options' => array(
                 'label' => 'Inserisci in home page',
-                'use_hidden_element' => true,
+                'use_hidden_element' => false,
                 'checked_value'      => '1',
                 'unchecked_value'    => '0'
             )

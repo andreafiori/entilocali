@@ -1,6 +1,6 @@
 <?php
 
-namespace AdminTest\Model\Atticoncessione;
+namespace AdminTest\Model\AttiConcessione;
 
 use ApplicationTest\TestSuite;
 use Admin\Model\AttiConcessione\AttiConcessioneRespProcGetter;

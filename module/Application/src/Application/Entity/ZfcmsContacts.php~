@@ -68,7 +68,7 @@ class ZfcmsContacts
      *
      * @ORM\Column(name="format", type="string", length=50, nullable=true)
      */
-    private $format = 'contact';
+    private $format;
 
     /**
      * @var string
@@ -89,7 +89,7 @@ class ZfcmsContacts
      *
      * @ORM\Column(name="user_id", type="bigint", nullable=true)
      */
-    private $userId = '1';
+    private $userId;
 
 
 }

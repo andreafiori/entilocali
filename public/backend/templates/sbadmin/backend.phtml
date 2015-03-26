@@ -78,6 +78,15 @@ $acl = $this->userDetails->acl;
             border: 1px solid #DDD;
             -webkit-overflow-scrolling: touch;
         }
+
+        .positionMove {
+            cursor: move;
+        }
+
+        .rowHidden {
+            background-color: #eee;
+            color: #888;
+        }
     </style>
 </head>
 
@@ -210,6 +219,7 @@ $acl = $this->userDetails->acl;
                                     <?php if ($acl->hasResource('contenuti_sezioni_update')): ?>
                                     <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter' => 'sezioni-contenuti')); ?>" title="Gestione sezioni contenuti">Gestione</a></li>
                                     <?php endif; ?>
+                                    <li><a href="<?php echo $this->url('admin/posizioni-sezioni', array('lang'=>'it')); ?>" title="Gestione posizioni sezioni">Posizioni</a></li>
                                 </ul>
                             </li>
                             <!-- Sotto Sezioni -->

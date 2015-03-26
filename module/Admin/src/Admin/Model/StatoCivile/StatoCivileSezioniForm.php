@@ -57,10 +57,5 @@ class StatoCivileSezioniForm extends Form
                         'name' => 'id',
                         'attributes' => array("class" => 'hiddenField')
         ));
-
-        $this->add(array(
-            'name' => 'csrf',
-            'type' => 'Zend\Form\Element\Csrf',
-        ));
     }
 }

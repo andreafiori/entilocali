@@ -175,7 +175,7 @@ class AmministrazioneTrasparenteForm extends Form
                 'unchecked_value'   => 0,
             ),
             'attributes' => array(
-                'id'    => 'homepage',
+                'id'    => 'facebook',
                 'title' => "Spunta la casella per postare l'articolo su facebook"
             )
         ));

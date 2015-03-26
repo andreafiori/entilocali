@@ -22,9 +22,9 @@ class ZfcmsPostsRelations
     private $id;
 
     /**
-     * @var \Application\Entity\ZfcmsCategories
+     * @var \Application\Entity\ZfcmsPostsCategories
      *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsCategories")
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsPostsCategories")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      * })
@@ -76,10 +76,10 @@ class ZfcmsPostsRelations
     /**
      * Set category
      *
-     * @param \Application\Entity\ZfcmsCategories $category
+     * @param \Application\Entity\ZfcmsPostsCategories $category
      * @return ZfcmsPostsRelations
      */
-    public function setCategory(\Application\Entity\ZfcmsCategories $category = null)
+    public function setCategory(\Application\Entity\ZfcmsPostsCategories $category = null)
     {
         $this->category = $category;
     
@@ -89,7 +89,7 @@ class ZfcmsPostsRelations
     /**
      * Get category
      *
-     * @return \Application\Entity\ZfcmsCategories 
+     * @return \Application\Entity\ZfcmsPostsCategories 
      */
     public function getCategory()
     {

@@ -47,35 +47,35 @@ class ZfcmsLanguagesLabels
      *
      * @ORM\Column(name="is_backend", type="bigint", nullable=true)
      */
-    private $isBackend = '0';
+    private $isBackend;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="is_universal", type="bigint", nullable=true)
      */
-    private $isUniversal = '0';
+    private $isUniversal;
 
     /**
      * @var string
      *
      * @ORM\Column(name="status", type="string", length=50, nullable=true)
      */
-    private $status = '1';
+    private $status;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="module_id", type="bigint", nullable=true)
      */
-    private $moduleId = '0';
+    private $moduleId;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="linguage_id", type="bigint", nullable=true)
      */
-    private $linguageId = '1';
+    private $linguageId;
 
 
 }

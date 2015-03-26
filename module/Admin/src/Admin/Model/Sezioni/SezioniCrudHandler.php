@@ -2,21 +2,18 @@
 
 namespace Admin\Model\Sezioni;
 
-use Admin\Model\FormData\CrudHandlerAbstract;
-use Admin\Model\FormData\CrudHandlerInterface;
-use Admin\Model\FormData\CrudHandlerInsertUpdateInterface;
-use Application\Model\Database\DbTableContainer;
-use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
+use Admin\Model\FormData\CrudHandlerAbstract;
+use Application\Model\Database\DbTableContainer;
 use Application\Model\Slugifier;
 
 /**
  * @author Andrea Fiori
  * @since  17 February 2014
  */
-class SezioniCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterface, CrudHandlerInsertUpdateInterface
+class SezioniCrudHandler extends CrudHandlerAbstract
 {
-    protected $validInputFilterObject;
+    private $dbTable;
 
     /**
      * Setup form and its input filter
@@ -24,8 +21,12 @@ class SezioniCrudHandler extends CrudHandlerAbstract implements CrudHandlerInter
     public function __construct()
     {
         $this->form = new SezioniForm();
+        $this->form->addLingue(array());
+        $this->form->addOptions();
 
         $this->formInputFilter = new SezioniFormInputFilter();
+
+        $this->dbTable = DbTableContainer::sezioni;
     }
 
     /**
@@ -35,16 +36,10 @@ class SezioniCrudHandler extends CrudHandlerAbstract implements CrudHandlerInter
      */
     public function validateFormData(InputFilterAwareInterface $formData)
     {
-        $error = array();
-
-        $fields = array('nome', 'colonna', 'posizione', 'attivo');
-        foreach($fields as $field) {
-            if ( !isset($formData->$field) ) {
-                $error[] = 'Campo '.$field.' vuoto';
-            }
-        }
-
-        return $error;
+        return $this->checkValidateFormDataError(
+            $formData,
+            array('nome', 'colonna', 'attivo')
+        );
     }
 
     /**
@@ -56,7 +51,11 @@ class SezioniCrudHandler extends CrudHandlerAbstract implements CrudHandlerInter
     {
         $this->asssertConnection();
 
-        return $this->getConnection()->insert(DbTableContainer::sezioni, array(
+        $this->assertUserDetails();
+
+        $userDetails = $this->getUserDetails();
+
+        return $this->getConnection()->insert($this->dbTable, array(
             'nome'             => $formData->nome,
             'colonna'          => $formData->colonna,
             'posizione'        => $formData->posizione,
@@ -66,6 +65,7 @@ class SezioniCrudHandler extends CrudHandlerAbstract implements CrudHandlerInter
             'attivo'           => $formData->attivo,
             'url'              => $formData->url,
             'slug'             => Slugifier::slugify($formData->nome),
+            'utente_id'        => $userDetails->id,
             /*
             'link_macro'       => $formData->link_macro,
             'css_id'           => $formData->css_id,
@@ -73,8 +73,9 @@ class SezioniCrudHandler extends CrudHandlerAbstract implements CrudHandlerInter
             'seo_title'        => $formData->seoTitle,
             'seo_description'  => $formData->seoDescription,
             'seo_keywords'     => $formData->seoKeywords,
+            'is_amm_trasparente'     => $formData->seoKeywords,
+            'show_to_all'     => $formData->show_to_all,
             */
-            'insert_date' => date("Y-m-d H:i:s"),
         ));
     }
 
@@ -87,30 +88,15 @@ class SezioniCrudHandler extends CrudHandlerAbstract implements CrudHandlerInter
     {
         $this->asssertConnection();
 
-        /*
-        $this->setArrayRecordToHandle('nome', 'nome');
-        $this->setArrayRecordToHandle('colonna', 'colonna');
-        $this->setArrayRecordToHandle('posizione', 'posizione');
-        $this->setArrayRecordToHandle('link_macro', 'link_macro');
-        $this->setArrayRecordToHandle('lingua', 'lingua');
-        $this->setArrayRecordToHandle('blocco', 'blocco');
-        $this->setArrayRecordToHandle('modulo_id', 'modulo');
-        $this->setArrayRecordToHandle('attivo', 'attivo');
-        $this->setArrayRecordToHandle('url', 'url');
-        $this->setArrayRecordToHandle('css_id', 'cssId');
-        $this->setArrayRecordToHandle('image', 'image');
-        $this->setArrayRecordToHandle('slug', 'slug');
-        $this->setArrayRecordToHandle('seo_title', 'seoTitle');
-        $this->setArrayRecordToHandle('seo_description', 'seoDescription');
-        $this->setArrayRecordToHandle('seo_keywords', 'seoKeywords');
-        */
-
         return $this->getConnection()->update(
-            DbTableContainer::entiTerzi,
+            $this->dbTable,
             array(
                 'nome'        => $formData->nome,
                 'colonna'     => $formData->colonna,
-                'last_update' => date("Y-m-d H:i:s"),
+                'lingua'      => $formData->lingua,
+                'attivo'      => $formData->attivo,
+                'url'         => $formData->url,
+                'slug'        => Slugifier::slugify($formData->nome),
             ),
             array('id' => $formData->id),
             array('limit' => 1)
@@ -127,7 +113,7 @@ class SezioniCrudHandler extends CrudHandlerAbstract implements CrudHandlerInter
         $this->asssertConnection();
 
         return $this->getConnection()->delete(
-            DbTableContainer::entiTerzi,
+            $this->dbTable,
             array('id'    => $id),
             array('limit' => 1)
         );
@@ -151,7 +137,7 @@ class SezioniCrudHandler extends CrudHandlerAbstract implements CrudHandlerInter
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => '2',
-            'message'   => $userDetails->name.' '.$userDetails->surname."' ha aggiornato l'ente terzo ".$inputFilter->nome,
+            'message'   => $userDetails->name.' '.$userDetails->surname."' ha aggiornato la sezione ".$inputFilter->nome,
             'type'      => 'info',
             'backend'   => 1,
         ));
@@ -203,7 +189,7 @@ class SezioniCrudHandler extends CrudHandlerAbstract implements CrudHandlerInter
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', ha aggiornato il ente terzo ".$inputFilter->nome,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', ha aggiornato la sezione ".$inputFilter->nome,
             'type'      => 'info',
             'backend'   => 1,
         ));
@@ -229,7 +215,7 @@ class SezioniCrudHandler extends CrudHandlerAbstract implements CrudHandlerInter
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'aggiornamento dell'ente terzo ".$inputFilter->nome.' Messaggio: '.$message,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'aggiornamento della sezione ".$inputFilter->nome.' Messaggio: '.$message,
             'type'      => 'error',
             'backend'   => 1,
         ));
@@ -253,7 +239,7 @@ class SezioniCrudHandler extends CrudHandlerAbstract implements CrudHandlerInter
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', ha eliminato l'ente terzo ".$record->nome,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', ha eliminato la sezione ".$record->nome,
             'type'      => 'error',
             'backend'   => 1,
         ));

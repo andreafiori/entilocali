@@ -39,14 +39,15 @@ class AttiConcessioneDataTable extends DataTableAbstract
                 "",
                 "",
                 "",
-                ""
+                "",
+                "",
             )
         );
 
         $this->setVariables(array(
-                'tablesetter' => 'atti-concessione',
-                'paginator' => $paginatorRecords,
-                'paginatorItemCount' => $wrapper->getPaginator()->getTotalItemCount()
+                'tablesetter'           => 'atti-concessione',
+                'paginator'             => $paginatorRecords,
+                'paginatorItemCount'    => $wrapper->getPaginator()->getTotalItemCount()
             )
         );
         
@@ -99,19 +100,18 @@ class AttiConcessioneDataTable extends DataTableAbstract
                     $arrayToReturn[] = array(
                         // (isset($row['keyImp'])) ? $row['keyImp'] : '',
                         //$row['id'],
+
                         (isset($responsabile))  ?
-                            $row['nomeSezione'].'. <br><br>'.$responsabile
+                            utf8_encode($row['nomeSezione']).'. <br><br>'.$responsabile
                             :
-                            $row['nomeSezione'],
+                            utf8_encode($row['nomeSezione']),
                         
                         $row['progressivo']." / ".$row['anno'],
-                        $row['beneficiario'],
-                        $row['modassegn'],
-                        $row['importo'],
-                        $row['titolo'],
-                        //$row['dataInserimento'].' <br><br>'.$row['ora'],
-                        //$row['scadenza'],
-                        //$row['name'].' '.$row['surname'],
+                        utf8_encode($row['beneficiario']),
+                        utf8_encode($row['modassegn']),
+                        utf8_encode($row['importo']),
+                        utf8_encode($row['titolo']),
+                        '<strong>Data inserimento:</strong> '.$row['dataInserimento'].' <br><br><strong>Scadenza:</strong> '.$row['scadenza'].'<br><br> <strong>Inserito da:</strong> '.$row['name'].' '.$row['surname'],
                         array(
                             'type'      => $row['attivo']!=0 ? 'activeButton' : 'disableButton',
                             'href'      => '?active=&amp;id='.$row['id'],
@@ -127,12 +127,12 @@ class AttiConcessioneDataTable extends DataTableAbstract
                             'type'      => 'deleteButton',
                             'href'      => '#',
                             'title'     => 'Elimina',
-                            'data-id'   => $row['id']
+                            'data-id'   => $row['id'],
                         ),
                         array(
                             'type'      => 'attachButton',
-                            'href'      => $this->getInput('baseUrl',1).'formdata/attachments/atti-concessione/'.$row['id'],
-                            'title'     => 'Gestione allegati'
+                            'href'      => $this->getInput('baseUrl', 1).'formdata/attachments/atti-concessione/'.$row['id'],
+                            'title'     => 'Gestione allegati',
                         ),
                     );
                 }

@@ -15,7 +15,7 @@ class StatoCivileSezioniFormInputFilter implements InputFilterAwareInterface
 {
     public $id;
     public $nome;
-    public $stato;
+    public $attivo;
 
     protected $inputFilter;
 
@@ -24,9 +24,9 @@ class StatoCivileSezioniFormInputFilter implements InputFilterAwareInterface
      */
     public function exchangeArray(array $data)
     {
-        $this->id    = (isset($data['id']))    ? $data['id']     : null;
-        $this->nome  = (isset($data['nome']))  ? $data['nome']   : null;
-        $this->stato = (isset($data['stato'])) ? $data['stato']  : null;
+        $this->id    = (isset($data['id'])) ? $data['id'] : null;
+        $this->nome  = (isset($data['nome'])) ? $data['nome'] : null;
+        $this->attivo = (isset($data['attivo'])) ? $data['attivo'] : null;
     }
 
     public function setInputFilter(InputFilterInterface $inputFilter)
@@ -70,7 +70,7 @@ class StatoCivileSezioniFormInputFilter implements InputFilterAwareInterface
             ]));
 
             $inputFilter->add($factory->createInput([
-                'name' => 'stato',
+                'name' => 'attivo',
                 'filters' => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),

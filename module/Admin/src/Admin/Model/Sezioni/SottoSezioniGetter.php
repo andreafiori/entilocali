@@ -12,8 +12,8 @@ class SottoSezioniGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields("sottosezioni.id AS idSottosezione, IDENTITY(sottosezioni.sezione) AS sezione,
-            sottosezioni.nome AS nomeSottosezione, sottosezioni.immagine, sezioni.id AS idSezione, sezioni.nome AS nomeSezione,
+        $this->setSelectQueryFields("sottosezioni.id AS idSottoSezione, IDENTITY(sottosezioni.sezione) AS sezione,
+            sottosezioni.nome AS nomeSottoSezione, sottosezioni.immagine, sezioni.id AS idSezione, sezioni.nome AS nomeSezione,
             IDENTITY(sottosezioni.profonditaDa) AS profonditaDa, sottosezioni.profonditaA, sottosezioni.url, sottosezioni.attivo,
             sottosezioni.url, sottosezioni.urlTitle, sottosezioni.posizione
         ");

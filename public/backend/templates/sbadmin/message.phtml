@@ -1,7 +1,10 @@
 
 <div style="padding: 1%; margin: 0" class="alert alert-<?php if ($this->messageType) echo $this->messageType; else echo "info"; ?>" id="formdataresultmessage">
+
     <h1><?php echo $this->messageTitle ?></h1>
+
     <div><?php echo $this->messageText ?></div>
+
     <div>&nbsp;</div>
 
     <?php if (isset($this->messageList)): ?>
@@ -13,6 +16,45 @@
             <?php endforeach; ?>
         </ul>
     </div>
+    <?php endif; ?>
+
+    <?php if (isset($this->formInputFilter)): ?>
+        <!-- Form validation error messages -->
+        <?php
+        $invalidInputs = $this->formInputFilter->getInvalidInput();
+        if ( !empty($invalidInputs) ):
+            ?>
+            <h4>Campi non validi:</h4>
+            <?php
+            foreach($invalidInputs as $key => $value):
+                echo $key."<br>";
+            endforeach;
+            ?>
+            <br>
+            <?php
+        endif;
+        ?>
+    <?php endif; ?>
+
+    <?php if (!empty($this->form)): ?>
+        <!-- Form errors -->
+        <?php foreach ($this->form as $element): ?>
+            <?php
+            $elementError = $this->formElementerrors($element);
+            if (!empty($elementError)):
+                if (!isset($printDebugFormRow)):
+                    $printDebugFormRow = 1;
+                endif;
+                echo $element->getName().$elementError;
+            endif;
+            ?>
+        <?php endforeach; ?>
+
+        <?php
+        if (isset($printDebugFormRow)):
+            ?><br><?php
+        endif;
+        ?>
     <?php endif; ?>
 
     <?php if ($this->messageShowFormLink): ?>

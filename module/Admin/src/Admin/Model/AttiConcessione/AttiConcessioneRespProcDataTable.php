@@ -32,8 +32,8 @@ class AttiConcessioneRespProcDataTable extends DataTableAbstract
         );
         
         $this->setVariables(array(
-                'tablesetter' => 'atti-concessione-resp',
-                'paginator' => $paginatorRecords
+                'tablesetter'   => 'atti-concessione-resp',
+                'paginator'     => $paginatorRecords
             )
         );
 
@@ -41,6 +41,10 @@ class AttiConcessioneRespProcDataTable extends DataTableAbstract
             $this->setVariable('messageTitle', 'Nessun responsabile di procedimento');
             $this->setVariable('messageDescription', 'Nessun responsabile di procedimento per gli atti di concessione presente in archivio');
         }
+
+        $this->setVariables(array(
+
+        ));
     }
     
         /**

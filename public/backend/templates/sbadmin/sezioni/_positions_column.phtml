@@ -1,0 +1,7 @@
+<?php if (!empty($this->records)): ?>
+    <ul class="sezioniColumn">
+        <?php foreach($this->records as $sezioniColonna): ?>
+            <li class="trascinabile"><?php echo $sezioniColonna['nome']; ?></li>
+        <?php endforeach ?>
+    </ul>
+<?php endif; ?>

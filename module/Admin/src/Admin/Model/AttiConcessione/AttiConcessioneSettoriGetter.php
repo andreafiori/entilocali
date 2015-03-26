@@ -10,6 +10,9 @@ use Application\Model\QueryBuilderHelperAbstract;
  */
 class AttiConcessioneSettoriGetter extends QueryBuilderHelperAbstract
 {
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
     public function setMainQuery()
     {
         $this->setSelectQueryFields("settori.id, settori.nome, settori.responsabile, settori.attivo ");

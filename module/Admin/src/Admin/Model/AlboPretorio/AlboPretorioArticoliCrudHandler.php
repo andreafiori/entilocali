@@ -2,130 +2,248 @@
 
 namespace Admin\Model\AlboPretorio;
 
-use Admin\Model\FormData\CrudHandlerInterface;
 use Admin\Model\FormData\CrudHandlerAbstract;
+use Admin\Model\FormData\CrudHandlerInsertUpdateInterface;
+use Admin\Model\FormData\CrudHandlerInterface;
+use Application\Model\Database\DbTableContainer;
+use Zend\InputFilter\InputFilterAwareInterface;
 
 /**
  * @author Andrea Fiori
- * @since  30 October 2014
+ * @since  23 October 2014
  */
-class AlboPretorioArticoliCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterface
+class AlboPretorioArticoliCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterface, CrudHandlerInsertUpdateInterface
 {
-    private $tableName = 'zfcms_comuni_albo_articoli';
-    
-    public function insert()
+    private $dbTable;
+
+    public function __construct()
     {
-        $this->getConnection()->beginTransaction();
-        try {
-            $error = array();
-            
-            $varsToCheck = array('userId', 'sezione', 'numeroAtto', 'anno', 'dataScadenza', 'titolo');
-            foreach($varsToCheck as $var) {
-                if ( !isset($this->rawPost[$var]) or empty($this->rawPost[$var]) ) {
-                    $error[] = 'Campo <strong>'.$var.'</strong> non settato fra i campi del form';
-                }
-            }
-            
-            if (!empty($error)) {
-                $this->setErrorMessage($error);
-                return;
-            }
-            
-            if (!$this->rawPost['numeroAtto']) {
-                $error[] = 'Numero atto non &egrave; un numero';
-            }
-            
-            if ( (int)$this->rawPost['anno'] > 2030 or (int)$this->rawPost['anno'] < 1954 ) {
-                $error[] = 'Anno atto deve essere un anno valido.';
-            }
-            
-            if ($error) {
-                $this->setErrorMessage($error);
-            } else {
-                
-                $this->getConnection()->insert($this->tableName, array(
-                    'utente_id'             => $this->rawPost['userId'],
-                    'sezione_id'            => $this->rawPost['sezione'],
-                    //'numero_progressivo'    => $this->rawPost['numeroProgressivo'],
-                    'numero_atto'           => $this->rawPost['numeroAtto'],
-                    'anno'                  => $this->rawPost['anno'],
-                    'data_attivazione'      => date("Y-m-d H:i:s"),
-                    'ora_attivazione'       => date("H:i:s"),
-                    'data_pubblicare'       => date("Y-m-d H:i:s"),
-                    'ora_pubblicare'        => date("H:i:s"),
-                    'data_scadenza'         => $this->rawPost['dataScadenza'],
-                    'data_pubblicare'       => date("Y-m-d H:i:s"),
-                    'titolo'                => $this->rawPost['titolo'],
-                    'pubblicare'            => 0,
-                    'annullato'             => 0,
-                    'check_invia_regione'   => isset($this->rawPost['checkInviaRegione']) ? $this->rawPost['checkInviaRegione'] : 0,
-                    'anno_atto'             => date("Y"),
-                    'ente_terzo'            => $this->rawPost['enteTerzo'],
-                    'fonte_url'             => $this->rawPost['fonteUrl'],
-                ));
+        $this->form = new AlboPretorioArticoliForm();
+        $this->form->addSezioni(array(
+            1 => 'Bandi',
+            2 => 'Concorsi',
+        ));
+        $this->form->addTitolo();
+        $this->form->addMainFields();
+        $this->form->addRettifica();
+        $this->form->addFacebook();
 
-                $this->getConnection()->commit();
+        $this->formInputFilter = new AlboPretorioArticoliFormInputFilter();
 
-                $this->setVariable('redirectRoute', 1);
-                $this->setVariable('redirectRouteTableSetter', 'albo-pretorio');
-                
-                $this->setSuccessMessage('Atto inserito correttamente');
-            }
-        } catch (\Exception $e) {
-            $this->getConnection()->rollBack();
-            return $this->setErrorMessage($e->getMessage());
-        }
+        $this->dbTable = DbTableContainer::alboArticoli;
     }
 
-    public function update()
+    /**
+     * @param InputFilterAwareInterface $formData
+     * @return array
+     */
+    public function validateFormData(InputFilterAwareInterface $formData)
     {
-        try {
-            $this->setArrayRecordToHandle('titolo', 'titolo');
-            $this->setArrayRecordToHandle('utente_id', 'utente');
-            $this->setArrayRecordToHandle('sezione_id', 'sezione');
-            $this->setArrayRecordToHandle('numero_progressivo', 'numeroProgressivo');
-            $this->setArrayRecordToHandle('numero_atto', 'numeroAtto');
-            $this->setArrayRecordToHandle('anno', 'anno');
-            $this->setArrayRecordToHandle('data_attivazione', date("Y-m-d H:i:s") );
-            $this->setArrayRecordToHandle('ora_attivazione', date("H:i:s") );
-            $this->setArrayRecordToHandle('data_pubblicare', date("Y-m-d H:i:s") );
-            $this->setArrayRecordToHandle('ora_pubblicare',date("H:i:s") );
-            $this->setArrayRecordToHandle('scadenza', 'scadenza');
-            $this->setArrayRecordToHandle('data_pubblicare', date("Y-m-d H:i:s") );
-            $this->setArrayRecordToHandle('titolo', 'titolo');
-            $this->setArrayRecordToHandle('pubblicare', 'pubblicare');
-            $this->setArrayRecordToHandle('annullato', 'annullato');
-            $this->setArrayRecordToHandle('rettifica_id', 'rettificaId');
-            $this->setArrayRecordToHandle('data_invio_regione', date("Y-m-d H:i:s") );
-            $this->setArrayRecordToHandle('num_att', 'numAtt');
-            $this->setArrayRecordToHandle('check_invia_regione', 'checkInviaRegione');
-            $this->setArrayRecordToHandle('anno_atto', 'annoAtto');
-            $this->setArrayRecordToHandle('home', 'home');
-            $this->setArrayRecordToHandle('ente_terzo', 'enteTerzo');
-            $this->setArrayRecordToHandle('fonte_url', 'fonteUrl');
-            $this->setArrayRecordToHandle('note', 'note');
-            $this->setArrayRecordToHandle('data_rettifica', 'dataRettifica');
-            $this->setArrayRecordToHandle('check_rettifica', 'checkRettifica');
-            
-            $this->getConnection()->beginTransaction();
-            $this->getConnection()->update($this->tableName, 
-                    $this->getArrayRecordToHandle(),
-                    array('id' => $this->rawPost['id'])
-            );
+        $error = $this->checkValidateFormDataError(
+            $formData,
+            array('userId', 'sezione', 'numeroAtto', 'anno', 'dataScadenza', 'titolo')
+        );
 
-            $this->getConnection()->commit();
-
-            $this->setSuccessMessage('Atto aggiornato correttamente');
-            
-        } catch (\Exception $e) {
-            $this->getConnection()->rollBack();
-            return $this->setErrorMessage($e->getMessage());
+        if (!is_numeric($formData->numeroAtto)) {
+            $error[] = 'Numero atto non &egrave; un numero';
         }
+
+        if ( (int)$formData->anno > 2030 or (int)$formData->anno < 1954 ) {
+            $error[] = 'Anno atto deve essere un anno valido.';
+        }
+
+        return $error;
     }
-    
-    protected function delete()
+
+    /**
+     * @param InputFilterAwareInterface $formData
+     *
+     * @return int
+     */
+    public function insert(InputFilterAwareInterface $formData)
     {
-        // TODO: delete article, delete attachments, delete from home
+        $this->asssertConnection();
+
+        $this->assertUserDetails();
+
+        $userDetails = $this->getUserDetails();
+
+        return $this->getConnection()->insert($this->dbTable, array(
+            'utente_id'             => $userDetails->id,
+            'sezione_id'            => $formData->sezione,
+            'numero_progressivo'    => $formData->numeroProgressivo,
+            'numero_atto'           => $formData->numeroAtto,
+            'anno'                  => $formData->anno,
+            'data_attivazione'      => date("Y-m-d H:i:s"),
+            'ora_attivazione'       => date("H:i:s"),
+            'data_pubblicare'       => date("Y-m-d H:i:s"),
+            'ora_pubblicare'        => date("H:i:s"),
+            'data_scadenza'         => $formData->dataScadenza,
+            'data_pubblicare'       => date("Y-m-d H:i:s"),
+            'titolo'                => $formData->titolo,
+            'pubblicare'            => 0,
+            'annullato'             => 0,
+            'check_invia_regione'   => isset($formData->checkInviaRegione) ? $formData->checkInviaRegione : 0,
+            'anno_atto'             => date("Y"),
+            'ente_terzo'            => $formData->enteTerzo,
+            'fonte_url'             => $formData->fonteUrl,
+        ));
+    }
+
+    /**
+     * @param InputFilterAwareInterface $formData
+     *
+     * @return int
+     */
+    public function update(InputFilterAwareInterface $formData)
+    {
+        $this->asssertConnection();
+
+        $this->assertUserDetails();
+
+        $userDetails = $this->getUserDetails();
+
+        return $this->getConnection()->update(
+            $this->dbTable,
+            array(
+                'utente_id'             => $userDetails->id,
+                'sezione_id'            => $formData->sezione,
+                'numero_progressivo'    => $formData->numeroProgressivo,
+                'numero_atto'           => $formData->numeroAtto,
+                'anno'                  => $formData->anno,
+                'data_attivazione'      => date("Y-m-d H:i:s"),
+                'ora_attivazione'       => date("H:i:s"),
+                'data_pubblicare'       => date("Y-m-d H:i:s"),
+                'ora_pubblicare'        => date("H:i:s"),
+                'data_scadenza'         => $formData->dataScadenza,
+                'data_pubblicare'       => date("Y-m-d H:i:s"),
+                'titolo'                => $formData->titolo,
+                'pubblicare'            => 0,
+                'annullato'             => 0,
+                'check_invia_regione'   => isset($formData->checkInviaRegione) ? $formData->checkInviaRegione : 0,
+                'anno_atto'             => date("Y"),
+                'ente_terzo'            => $formData->enteTerzo,
+                'fonte_url'             => $formData->fonteUrl,
+                'note'                  => $formData->note,
+            ),
+            array('id' => $formData->id)
+        );
+    }
+
+    /**
+     * TODO: delete attachments
+     *
+     * @param $id
+     */
+    public function delete($id)
+    {
+        return $this->getConnection()->delete(
+            $this->dbTable,
+            array('id'    => $id),
+            array('limit' => 1)
+        );
+    }
+
+    /**
+     * @return bool
+     *
+     * @throws \Application\Model\NullException
+     */
+    public function logInsertOk()
+    {
+        $this->assertUserDetails();
+
+        $this->assertLogWriter();
+
+        $userDetails = $this->getUserDetails();
+
+        $logsWriter = $this->getLogsWriter();
+
+        $inputFilter = $this->getFormInputFilter();
+
+        return $logsWriter->writeLog(array(
+            'user_id'   => $userDetails->id,
+            'module_id' => 2,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', ha inserito l'atto albo pretorio ".$inputFilter->titolo,
+            'type'      => 'error',
+            'backend'   => 1,
+        ));
+    }
+
+    /**
+     * @param null $message
+     *
+     * @return bool
+     */
+    public function logInsertKo($message = null)
+    {
+        $this->assertUserDetails();
+
+        $this->assertLogWriter();
+
+        $userDetails = $this->getUserDetails();
+
+        $logsWriter = $this->getLogsWriter();
+
+        $inputFilter = $this->getFormInputFilter();
+
+        return $logsWriter->writeLog(array(
+            'user_id'   => $userDetails->id,
+            'module_id' => 2,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'inserimento atto albo pretorio ".$inputFilter->titolo.'Messaggio: '.$message,
+            'type'      => 'error',
+            'backend'   => 1,
+        ));
+    }
+
+    /**
+     * @return bool
+     */
+    public function logUpdateOk()
+    {
+        $this->assertUserDetails();
+
+        $this->assertLogWriter();
+
+        $userDetails = $this->getUserDetails();
+
+        $logsWriter = $this->getLogsWriter();
+
+        $inputFilter = $this->getFormInputFilter();
+
+        return $logsWriter->writeLog(array(
+            'user_id'   => $userDetails->id,
+            'module_id' => 2,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', ha aggiornato l'atto albo pretorio ".$inputFilter->titolo,
+            'type'      => 'info',
+            'backend'   => 1,
+        ));
+    }
+
+    /**
+     * @param null $message
+     *
+     * @return bool
+     */
+    public function logUpdateKo($message = null)
+    {
+        $this->assertUserDetails();
+
+        $this->assertLogWriter();
+
+        $userDetails = $this->getUserDetails();
+
+        $logsWriter = $this->getLogsWriter();
+
+        $inputFilter = $this->getFormInputFilter();
+
+        return $logsWriter->writeLog(array(
+            'user_id'   => $userDetails->id,
+            'module_id' => 2,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'aggiornamento dell'atto albo pretorio ".$inputFilter->titolo.' Messaggio: '.$message,
+            'type'      => 'error',
+            'backend'   => 1,
+        ));
     }
 }
 

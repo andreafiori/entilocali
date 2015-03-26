@@ -5,12 +5,12 @@ namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ZfcmsCategories
+ * ZfcmsPostsCategories
  *
- * @ORM\Table(name="zfcms_categories", indexes={@ORM\Index(name="module_id", columns={"module_id"}), @ORM\Index(name="status", columns={"status"})})
+ * @ORM\Table(name="zfcms_posts_categories", indexes={@ORM\Index(name="module_id", columns={"module_id"}), @ORM\Index(name="status", columns={"status"})})
  * @ORM\Entity
  */
-class ZfcmsCategories
+class ZfcmsPostsCategories
 {
     /**
      * @var integer
@@ -33,14 +33,14 @@ class ZfcmsCategories
      *
      * @ORM\Column(name="create_date", type="datetime", nullable=true)
      */
-    private $createDate = '2014-01-01 01:01:01';
+    private $createDate;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="last_update", type="datetime", nullable=true)
      */
-    private $lastUpdate = '2014-01-01 01:01:01';
+    private $lastUpdate;
 
     /**
      * @var string
@@ -61,7 +61,7 @@ class ZfcmsCategories
      *
      * @ORM\Column(name="column_position", type="string", nullable=true)
      */
-    private $columnPosition = 'left';
+    private $columnPosition;
 
     /**
      * @var string
@@ -96,7 +96,7 @@ class ZfcmsCategories
      * Set note
      *
      * @param string $note
-     * @return ZfcmsCategories
+     * @return ZfcmsPostsCategories
      */
     public function setNote($note)
     {
@@ -119,7 +119,7 @@ class ZfcmsCategories
      * Set createDate
      *
      * @param \DateTime $createDate
-     * @return ZfcmsCategories
+     * @return ZfcmsPostsCategories
      */
     public function setCreateDate($createDate)
     {
@@ -142,7 +142,7 @@ class ZfcmsCategories
      * Set lastUpdate
      *
      * @param \DateTime $lastUpdate
-     * @return ZfcmsCategories
+     * @return ZfcmsPostsCategories
      */
     public function setLastUpdate($lastUpdate)
     {
@@ -165,7 +165,7 @@ class ZfcmsCategories
      * Set code
      *
      * @param string $code
-     * @return ZfcmsCategories
+     * @return ZfcmsPostsCategories
      */
     public function setCode($code)
     {
@@ -188,7 +188,7 @@ class ZfcmsCategories
      * Set status
      *
      * @param string $status
-     * @return ZfcmsCategories
+     * @return ZfcmsPostsCategories
      */
     public function setStatus($status)
     {
@@ -211,7 +211,7 @@ class ZfcmsCategories
      * Set columnPosition
      *
      * @param string $columnPosition
-     * @return ZfcmsCategories
+     * @return ZfcmsPostsCategories
      */
     public function setColumnPosition($columnPosition)
     {
@@ -234,7 +234,7 @@ class ZfcmsCategories
      * Set template
      *
      * @param string $template
-     * @return ZfcmsCategories
+     * @return ZfcmsPostsCategories
      */
     public function setTemplate($template)
     {
@@ -257,7 +257,7 @@ class ZfcmsCategories
      * Set module
      *
      * @param \Application\Entity\ZfcmsModules $module
-     * @return ZfcmsCategories
+     * @return ZfcmsPostsCategories
      */
     public function setModule(\Application\Entity\ZfcmsModules $module = null)
     {

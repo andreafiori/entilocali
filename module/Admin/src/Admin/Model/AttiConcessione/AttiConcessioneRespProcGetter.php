@@ -10,6 +10,9 @@ use Application\Model\QueryBuilderHelperAbstract;
  */
 class AttiConcessioneRespProcGetter extends QueryBuilderHelperAbstract
 {
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
     public function setMainQuery()
     {
         $this->setSelectQueryFields("arp.id, arp.nomeResp, arp.attivo");

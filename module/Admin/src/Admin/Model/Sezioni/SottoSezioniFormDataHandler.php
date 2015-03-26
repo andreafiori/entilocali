@@ -44,7 +44,7 @@ class SottoSezioniFormDataHandler extends FormDataAbstract
         if ($recordFromDb) {
             $form->setData($recordFromDb[0]);
 
-            $formTitle  = $recordFromDb[0]['nomeSottosezione'];
+            $formTitle  = $recordFromDb[0]['nomeSottoSezione'];
             $formAction = 'sottosezioni-contenuti/update/';
             $submitButtonValue = 'Modifica';
         } else {

@@ -26,7 +26,7 @@ class ZfcmsModulesOptions
      *
      * @ORM\Column(name="name", type="string", length=100, nullable=false)
      */
-    private $name = '0';
+    private $name;
 
     /**
      * @var \Application\Entity\ZfcmsLanguages

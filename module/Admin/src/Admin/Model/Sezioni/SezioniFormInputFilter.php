@@ -8,7 +8,6 @@ use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\Validator\File\Size;
 
-
 /**
  * @author Andrea Fiori
  * @since  21 March 2015
@@ -31,16 +30,15 @@ class SezioniFormInputFilter implements InputFilterAwareInterface
      */
     public function exchangeArray(array $data)
     {
-        $this->id    = (isset($data['id']))    ? $data['id']      : null;
-        $this->nome  = (isset($data['nome']))  ? $data['nome']  : null;
-        $this->url  = (isset($data['url']))  ? $data['url']  : null;
-        $this->url  = (isset($data['url']))  ? $data['url']  : null;
-        $this->image  = (isset($data['image']))  ? $data['image']  : null;
-        $this->lingua  = (isset($data['lingua']))  ? $data['lingua']  : null;
-        $this->colonna  = (isset($data['colonna']))  ? $data['colonna']  : null;
-        $this->attivo  = (isset($data['attivo']))  ? $data['attivo']  : null;
-        $this->blocco  = (isset($data['blocco']))  ? $data['blocco']  : null;
-        $this->posizione  = (isset($data['posizione']))  ? $data['posizione']  : null;
+        $this->id           = (isset($data['id']))          ? $data['id']           : null;
+        $this->nome         = (isset($data['nome']))        ? $data['nome']         : null;
+        $this->url          = (isset($data['url']))         ? $data['url']          : null;
+        $this->image        = (isset($data['image']))       ? $data['image']        : null;
+        $this->lingua       = (isset($data['lingua']))      ? $data['lingua']       : null;
+        $this->colonna      = (isset($data['colonna']))     ? $data['colonna']      : null;
+        $this->attivo       = (isset($data['attivo']))      ? $data['attivo']       : null;
+        $this->blocco       = (isset($data['blocco']))      ? $data['blocco']       : null;
+        $this->posizione    = (isset($data['posizione']))   ? $data['posizione']    : null;
     }
 
     public function setInputFilter(InputFilterInterface $inputFilter)
@@ -58,7 +56,7 @@ class SezioniFormInputFilter implements InputFilterAwareInterface
 
             $inputFilter->add(array(
                 'name'     => 'id',
-                'required' => true,
+                'required' => false,
                 'filters'  => array(
                     array('name' => 'Int'),
                 ),
@@ -75,16 +73,16 @@ class SezioniFormInputFilter implements InputFilterAwareInterface
                 ),
             ]));
 
-            $inputFilter->add($factory->createInput([
+            $inputFilter->add($factory->createInput(array(
                 'name' => 'url',
-                'required' => true,
+                'required' => false,
                 'filters' => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
                 ),
                 'validators' => array(
                 ),
-            ]));
+            )));
 
             $inputFilter->add($factory->createInput([
                 'name' => 'lingua',
@@ -93,20 +91,12 @@ class SezioniFormInputFilter implements InputFilterAwareInterface
                     array('name' => 'StringTrim'),
                 ),
                 'validators' => array(
-                    array (
-                        'name' => 'InArray',
-                        'options' => array(
-                            'haystack' => array(0,1),
-                            'messages' => array(
-                                'notInArray' => 'undefined'
-                            ),
-                    ),
                 ),
-            ),
         ]));
 
         $inputFilter->add($factory->createInput([
             'name' => 'image',
+            'required' => false,
             'filters' => array(
                 array('name' => 'StripTags'),
                 array('name' => 'StringTrim'),
@@ -135,6 +125,7 @@ class SezioniFormInputFilter implements InputFilterAwareInterface
 
         $inputFilter->add($factory->createInput([
             'name' => 'colonna',
+            'required' => true,
             'filters' => array(
                 array('name' => 'StripTags'),
                 array('name' => 'StringTrim'),
@@ -143,9 +134,9 @@ class SezioniFormInputFilter implements InputFilterAwareInterface
                 array (
                     'name' => 'InArray',
                     'options' => array(
-                        'haystack' => array(0,1),
+                        'haystack' => array('sx','dx'),
                         'messages' => array(
-                            'notInArray' => 'undefined'
+                            'notInArray' => 'The element was not in array'
                         ),
                     ),
                 ),
@@ -173,6 +164,7 @@ class SezioniFormInputFilter implements InputFilterAwareInterface
 
         $inputFilter->add($factory->createInput([
             'name' => 'blocco',
+            'required' => false,
             'filters' => array(
                 array('name' => 'StripTags'),
                 array('name' => 'StringTrim'),
@@ -193,13 +185,13 @@ class SezioniFormInputFilter implements InputFilterAwareInterface
                     'name' => 'StringLength',
                     'options' => array(
                         'encoding' => 'UTF-8',
-                        'min' => '1',
+                        'min'      => '1',
                     ),
                 ),
             ),
         ]));
 
-            $this->inputFilter = $inputFilter;
+        $this->inputFilter = $inputFilter;
         }
 
         return $this->inputFilter;

@@ -9,7 +9,7 @@ use Admin\Model\Users\UsersGetterWrapper;
  * @author Andrea Fiori
  * @since  22 July 2014
  */
-class AlboPretorioFormDataHandler extends FormDataAbstract
+class AlboPretorioArticoliFormDataHandler extends FormDataAbstract
 {
     /**
      * @inheritdoc
@@ -24,10 +24,14 @@ class AlboPretorioFormDataHandler extends FormDataAbstract
                 new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter($this->getInput('entityManager'))),
                 isset($param['route']['option']) ? $param['route']['option'] : null
         );
-        
+
         $form = new AlboPretorioArticoliForm();
-        $form->addSezioni($this->getSezioni(new AlboPretorioSezioniGetterWrapper(new AlboPretorioSezioniGetter($this->getInput('entityManager')))));
-        $form->addLastFields();
+        $form->addSezioni($this->recoverSezioniForDropdown( new AlboPretorioSezioniGetterWrapper(
+                new AlboPretorioSezioniGetter($this->getInput('entityManager'))
+            )
+        ));
+        $form->addTitolo();
+        $form->addMainFields();
         $form->addScadenze();
         
         if (is_array($records) and count($records)==1) {
@@ -50,8 +54,8 @@ class AlboPretorioFormDataHandler extends FormDataAbstract
             // TODO: check se articolo già revisionato
             
         } else {
-            $form->setData(array('userId'=>$this->getInput('userDetails',1)->id));
             $form->addFacebook();
+            $form->setData(array('userId'=>$this->getInput('userDetails',1)->id));
 
             $formAction = 'albo-pretorio/insert/';
             $formTitle = 'Nuovo atto';
@@ -102,14 +106,23 @@ class AlboPretorioFormDataHandler extends FormDataAbstract
     }
     
     /**
-     * @param \Admin\Model\AlboPretorio\AlboPretorioSezioniGetterWrapper $recodsGetter
+     * @param AlboPretorioSezioniGetterWrapper $recodsGetter
      * @return array
      */
-    public function getSezioni(AlboPretorioSezioniGetterWrapper $recodsGetter)
+    private function recoverSezioniForDropdown(AlboPretorioSezioniGetterWrapper $recodsGetter)
     {
         $recodsGetter->setInput(array());
         $recodsGetter->setupQueryBuilder();
 
-        return $recodsGetter->getRecords();
+        $records = $recodsGetter->getRecords();
+
+        $toReturn = array();
+        if (!empty($records)) {
+            foreach($records as $record) {
+                $toReturn[$record['id']] = $record['nome'];
+            }
+        }
+
+        return $toReturn;
     }
 }

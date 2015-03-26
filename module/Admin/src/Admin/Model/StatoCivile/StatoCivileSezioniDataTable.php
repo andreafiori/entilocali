@@ -28,7 +28,9 @@ class StatoCivileSezioniDataTable extends DataTableAbstract
             )
         );
         
-        $paginatorRecords = $this->getRecordsPaginator();
+        $paginatorRecords = $this->getRecordsPaginator(array(
+            'orderBy' => 'scs.id DESC'
+        ));
         
         $this->setVariables(array(
                 'paginator' => $paginatorRecords,

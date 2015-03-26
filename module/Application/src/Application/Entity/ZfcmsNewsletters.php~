@@ -40,7 +40,7 @@ class ZfcmsNewsletters
      *
      * @ORM\Column(name="create_date", type="datetime", nullable=false)
      */
-    private $createDate = '0000-00-00 00:00:00';
+    private $createDate;
 
     /**
      * @var string
