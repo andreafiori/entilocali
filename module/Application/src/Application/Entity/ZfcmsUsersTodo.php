@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsUsersTodo
  *
- * @ORM\Table(name="zfcms_users_todo")
+ * @ORM\Table(name="zfcms_users_todo", indexes={@ORM\Index(name="fk_users_todo_usersid", columns={"user_id"})})
  * @ORM\Entity
  */
 class ZfcmsUsersTodo
@@ -15,18 +15,18 @@ class ZfcmsUsersTodo
     /**
      * @var integer
      *
-     * @ORM\Column(name="idtodo", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idtodo;
+    private $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="taskname", type="string", length=50, nullable=true)
+     * @ORM\Column(name="task_name", type="string", length=50, nullable=true)
      */
-    private $taskname;
+    private $taskName;
 
     /**
      * @var string
@@ -36,25 +36,11 @@ class ZfcmsUsersTodo
     private $description;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="rifuser", type="integer", nullable=true)
-     */
-    private $rifuser;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="state", type="string", length=50, nullable=true)
      */
     private $state;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="timelapsed", type="string", length=50, nullable=true)
-     */
-    private $timelapsed;
 
     /**
      * @var \DateTime
@@ -63,39 +49,49 @@ class ZfcmsUsersTodo
      */
     private $expiredate;
 
+    /**
+     * @var \Application\Entity\ZfcmsUsers
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsers")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * })
+     */
+    private $user;
+
 
 
     /**
-     * Get idtodo
+     * Get id
      *
      * @return integer 
      */
-    public function getIdtodo()
+    public function getId()
     {
-        return $this->idtodo;
+        return $this->id;
     }
 
     /**
-     * Set taskname
+     * Set taskName
      *
-     * @param string $taskname
+     * @param string $taskName
      * @return ZfcmsUsersTodo
      */
-    public function setTaskname($taskname)
+    public function setTaskName($taskName)
     {
-        $this->taskname = $taskname;
+        $this->taskName = $taskName;
     
         return $this;
     }
 
     /**
-     * Get taskname
+     * Get taskName
      *
      * @return string 
      */
-    public function getTaskname()
+    public function getTaskName()
     {
-        return $this->taskname;
+        return $this->taskName;
     }
 
     /**
@@ -122,29 +118,6 @@ class ZfcmsUsersTodo
     }
 
     /**
-     * Set rifuser
-     *
-     * @param integer $rifuser
-     * @return ZfcmsUsersTodo
-     */
-    public function setRifuser($rifuser)
-    {
-        $this->rifuser = $rifuser;
-    
-        return $this;
-    }
-
-    /**
-     * Get rifuser
-     *
-     * @return integer 
-     */
-    public function getRifuser()
-    {
-        return $this->rifuser;
-    }
-
-    /**
      * Set state
      *
      * @param string $state
@@ -168,29 +141,6 @@ class ZfcmsUsersTodo
     }
 
     /**
-     * Set timelapsed
-     *
-     * @param string $timelapsed
-     * @return ZfcmsUsersTodo
-     */
-    public function setTimelapsed($timelapsed)
-    {
-        $this->timelapsed = $timelapsed;
-    
-        return $this;
-    }
-
-    /**
-     * Get timelapsed
-     *
-     * @return string 
-     */
-    public function getTimelapsed()
-    {
-        return $this->timelapsed;
-    }
-
-    /**
      * Set expiredate
      *
      * @param \DateTime $expiredate
@@ -211,5 +161,28 @@ class ZfcmsUsersTodo
     public function getExpiredate()
     {
         return $this->expiredate;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Application\Entity\ZfcmsUsers $user
+     * @return ZfcmsUsersTodo
+     */
+    public function setUser(\Application\Entity\ZfcmsUsers $user = null)
+    {
+        $this->user = $user;
+    
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Application\Entity\ZfcmsUsers 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

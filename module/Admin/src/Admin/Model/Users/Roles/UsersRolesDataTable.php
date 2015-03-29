@@ -35,6 +35,7 @@ class UsersRolesDataTable extends DataTableAbstract
         ));
 
         $this->setTitle('Ruoli utente');
+
         $this->setDescription('Gestione ruoli utenti');
     }
 

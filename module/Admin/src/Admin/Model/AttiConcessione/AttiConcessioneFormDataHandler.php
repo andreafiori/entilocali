@@ -3,6 +3,10 @@
 namespace Admin\Model\AttiConcessione;
 
 use Admin\Model\FormData\FormDataAbstract;
+use Admin\Model\Users\RespProc\UsersRespProcGetter;
+use Admin\Model\Users\RespProc\UsersRespProcGetterWrapper;
+use Admin\Model\Users\Settori\UsersSettoriGetter;
+use Admin\Model\Users\Settori\UsersSettoriGetterWrapper;
 
 /**
  * @author Andrea Fiori
@@ -20,7 +24,8 @@ class AttiConcessioneFormDataHandler extends FormDataAbstract
         $param = $this->getInput('param', 1);
 
         $responsabiliProcedimento = $this->getResposabiliProcedimento(array());
-        $sezioniRecords = $this->getSezioni();
+
+        $sezioniRecords = $this->getUsersSettori();
 
         if (empty($sezioniRecords)) {
             $this->setTemplate('message.phtml');
@@ -63,7 +68,7 @@ class AttiConcessioneFormDataHandler extends FormDataAbstract
             $form->setData($records[0]);
         } else {
             $form->setData(array(
-                'dataScadenza' => date('Y-m-d', strtotime('+5 years')),
+                'anno' => date('Y')+5,
             ));
 
             $formAction      = 'atti-concessione/insert';
@@ -79,7 +84,7 @@ class AttiConcessioneFormDataHandler extends FormDataAbstract
                 'formTitle'                  => $formTitle,
                 'formDescription'            => $formDescription,
                 'formBreadCrumbCategory'     => 'Atti di concessione',
-                'formBreadCrumbCategoryLink' => $baseUrl.'datatable/contenuti/',
+                'formBreadCrumbCategoryLink' => $baseUrl.'datatable/atti-concessione/',
                 'CKEditorField'              => array('sottotitolo', 'testo')
             )
         );
@@ -101,10 +106,10 @@ class AttiConcessioneFormDataHandler extends FormDataAbstract
         /**
          * @return array
          */
-        private function getSezioni($input = array())
+        private function getUsersSettori($input = array())
         {
-            $wrapper = new AttiConcessioneSettoriGetterWrapper(
-                new AttiConcessioneSettoriGetter($this->getInput('entityManager',1))
+            $wrapper = new UsersSettoriGetterWrapper(
+                new UsersSettoriGetter($this->getInput('entityManager',1))
             );
             $wrapper->setInput($input);
             $wrapper->setupQueryBuilder();
@@ -113,11 +118,7 @@ class AttiConcessioneFormDataHandler extends FormDataAbstract
             
             $recordForSelectArea = array();
             foreach($records as $record) {
-                $valueToPush = $record['nome'];
-                if (isset($record['responsabile'])) {
-                    $valueToPush .= ' - Responsabile: '.$record['responsabile'];
-                }
-                $recordForSelectArea[$record['id']] = $valueToPush;
+                $recordForSelectArea[$record['id']] = $record['nome'];
             }
             
             return $recordForSelectArea;
@@ -125,8 +126,8 @@ class AttiConcessioneFormDataHandler extends FormDataAbstract
 
         private function getResposabiliProcedimento($input = array())
         {
-            $wrapper = new AttiConcessioneRespProcGetterWrapper(
-                new AttiConcessioneRespProcGetter($this->getInput('entityManager',1))
+            $wrapper = new UsersRespProcGetterWrapper(
+                new UsersRespProcGetter($this->getInput('entityManager',1))
             );
             $wrapper->setInput($input);
             $wrapper->setupQueryBuilder();
@@ -135,7 +136,7 @@ class AttiConcessioneFormDataHandler extends FormDataAbstract
 
             $recordForSelectArea = array();
             foreach($records as $record) {
-                $recordForSelectArea[$record['id']] = $record['nomeResp'];
+                $recordForSelectArea[$record['id']] = $record['name'].' '.$record['surname'];
             }
 
             return $recordForSelectArea;

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsUsersTodo
  *
- * @ORM\Table(name="zfcms_users_todo")
+ * @ORM\Table(name="zfcms_users_todo", indexes={@ORM\Index(name="fk_users_todo_usersid", columns={"user_id"})})
  * @ORM\Entity
  */
 class ZfcmsUsersTodo
@@ -15,18 +15,18 @@ class ZfcmsUsersTodo
     /**
      * @var integer
      *
-     * @ORM\Column(name="idtodo", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $idtodo;
+    private $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="taskname", type="string", length=50, nullable=true)
+     * @ORM\Column(name="task_name", type="string", length=50, nullable=true)
      */
-    private $taskname;
+    private $taskName;
 
     /**
      * @var string
@@ -36,13 +36,6 @@ class ZfcmsUsersTodo
     private $description;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="rifuser", type="integer", nullable=true)
-     */
-    private $rifuser;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="state", type="string", length=50, nullable=true)
@@ -50,18 +43,21 @@ class ZfcmsUsersTodo
     private $state;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="timelapsed", type="string", length=50, nullable=true)
-     */
-    private $timelapsed;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="expiredate", type="datetime", nullable=true)
      */
     private $expiredate;
+
+    /**
+     * @var \Application\Entity\ZfcmsUsers
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsers")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * })
+     */
+    private $user;
 
 
 }

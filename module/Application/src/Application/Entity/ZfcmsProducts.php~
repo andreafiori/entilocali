@@ -171,23 +171,23 @@ class ZfcmsProducts
     /**
      * @var integer
      *
-     * @ORM\Column(name="user_id", type="integer", nullable=false)
+     * @ORM\Column(name="model_id", type="integer", nullable=false)
+     */
+    private $modelId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="user_id", type="bigint", nullable=false)
      */
     private $userId;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="company_id", type="integer", nullable=false)
+     * @ORM\Column(name="company_id", type="bigint", nullable=false)
      */
     private $companyId;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="model_id", type="integer", nullable=false)
-     */
-    private $modelId;
 
 
 }

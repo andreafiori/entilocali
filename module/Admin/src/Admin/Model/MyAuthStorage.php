@@ -5,8 +5,6 @@ namespace Admin\Model;
 use Zend\Authentication\Storage\Session as SessionStorage;
 
 /**
- * Custom authentication storage
- *
  * @author Andrea Fiori
  * @since  13 May 2013
  */

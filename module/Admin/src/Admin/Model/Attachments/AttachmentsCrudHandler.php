@@ -20,8 +20,6 @@ class AttachmentsCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
     private $tableName_options;
     private $tableName_relations;
 
-    private $dbTable;
-
     private $moduleId;
 
     public function __construct()
@@ -199,7 +197,7 @@ class AttachmentsCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', ha inserito l'atto concessione ".$inputFilter->title,
+            'message'   => "Inserito nuovo atto di concessione ".$inputFilter->title,
             'type'      => 'error',
             'backend'   => 1,
         ));
@@ -225,7 +223,7 @@ class AttachmentsCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'inserimento atto concessione ".$inputFilter->title.'Messaggio: '.$message,
+            'message'   => "Errore nell'inserimento atto di concessione ".$inputFilter->title.' Messaggio: '.$message,
             'type'      => 'error',
             'backend'   => 1,
         ));
@@ -249,7 +247,7 @@ class AttachmentsCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', ha aggiornato l'atto concessione ".$inputFilter->title,
+            'message'   => "Aggiornato atto di concessione ".$inputFilter->title,
             'type'      => 'info',
             'backend'   => 1,
         ));
@@ -275,7 +273,7 @@ class AttachmentsCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'aggiornamento dell'atto concessione ".$inputFilter->title.' Messaggio: '.$message,
+            'message'   => "Errore nell'aggiornamento dell'atto di concessione ".$inputFilter->title.' Messaggio: '.$message,
             'type'      => 'error',
             'backend'   => 1,
         ));

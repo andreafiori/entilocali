@@ -163,25 +163,6 @@ echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', ar
             );
             ?>
 
-            <h4>Settori</h4>
-            <?php
-            echo $this->partial($this->templateBackendDir.'users/_roles-permissions-group-print.phtml', array(
-                    'records'   => $this->permissions['atti_concessione_settori'],
-                    'roleName'  => $this->roleName,
-                    'acl'       => $this->acl
-                )
-            );
-            ?>
-
-            <h4>Responsabili procedimento</h4>
-            <?php
-            echo $this->partial($this->templateBackendDir.'users/_roles-permissions-group-print.phtml', array(
-                    'records'   => $this->permissions['atti_concessione_resp_proc'],
-                    'roleName'  => $this->roleName,
-                    'acl'       => $this->acl
-                )
-            );
-            ?>
         </div>
     </div>
 
@@ -192,26 +173,6 @@ echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', ar
             <?php
             echo $this->partial($this->templateBackendDir.'users/_roles-permissions-group-print.phtml', array(
                     'records'   => $this->permissions['contratti_pubblici'],
-                    'roleName'  => $this->roleName,
-                    'acl'       => $this->acl
-                )
-            );
-            ?>
-
-            <h4>Settori</h4>
-            <?php
-            echo $this->partial($this->templateBackendDir.'users/_roles-permissions-group-print.phtml', array(
-                    'records'   => $this->permissions['contratti_pubblici_settori'],
-                    'roleName'  => $this->roleName,
-                    'acl'       => $this->acl
-                )
-            );
-            ?>
-
-            <h4>Responsabili procedimento</h4>
-            <?php
-            echo $this->partial($this->templateBackendDir.'users/_roles-permissions-group-print.phtml', array(
-                    'records'   => $this->permissions['contratti_pubblici_resp_proc'],
                     'roleName'  => $this->roleName,
                     'acl'       => $this->acl
                 )
@@ -316,6 +277,26 @@ echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', ar
             <?php
             echo $this->partial($this->templateBackendDir.'users/_roles-permissions-group-print.phtml', array(
                     'records'   => $this->permissions['users_roles'],
+                    'roleName'  => $this->roleName,
+                    'acl'       => $this->acl
+                )
+            );
+            ?>
+
+            <h4>Settori</h4>
+            <?php
+            echo $this->partial($this->templateBackendDir.'users/_roles-permissions-group-print.phtml', array(
+                    'records'   => $this->permissions['users_settori'],
+                    'roleName'  => $this->roleName,
+                    'acl'       => $this->acl
+                )
+            );
+            ?>
+
+            <h4>Responsabili procedimento</h4>
+            <?php
+            echo $this->partial($this->templateBackendDir.'users/_roles-permissions-group-print.phtml', array(
+                    'records'   => $this->permissions['users_resp_proc'],
                     'roleName'  => $this->roleName,
                     'acl'       => $this->acl
                 )

@@ -2,12 +2,14 @@
 return array(
     'controllers' => array(
         'invokables' => array(
-            'Admin\Controller\Auth'                 => 'Admin\Controller\AuthController',
-            'Admin\Controller\Admin'                => 'Admin\Controller\AdminController',
-            'Admin\Controller\FormDataPost'         => 'Admin\Controller\FormDataPostController',
-            'Admin\Controller\HomePagePutter'       => 'Admin\Controller\HomePagePutter',
-            'Admin\Controller\Pdf\AlboPretorioPdf'  => 'Admin\Controller\Pdf\AlboPretorioPdfController',
-            'Admin\Controller\SezioniPositionsUpdateController' => 'Admin\Controller\SezioniPositionsUpdateController',
+            'Admin\Controller\Auth'                                     => 'Admin\Controller\AuthController',
+            'Admin\Controller\ForgotPasswordController'                 => 'Admin\Controller\ForgotPasswordController',
+            'Admin\Controller\Admin'                                    => 'Admin\Controller\AdminController',
+            'Admin\Controller\FormDataPost'                             => 'Admin\Controller\FormDataPostController',
+            'Admin\Controller\HomePagePutter'                           => 'Admin\Controller\HomePagePutter',
+            'Admin\Controller\Pdf\AlboPretorioPdf'                      => 'Admin\Controller\Pdf\AlboPretorioPdfController',
+            'Admin\Controller\SezioniPositionsUpdateController'         => 'Admin\Controller\SezioniPositionsUpdateController',
+            'Admin\Controller\SottoSezioniPositionsUpdateController'    => 'Admin\Controller\SottoSezioniPositionsUpdateController',
         ),
     ),
     'router' => array(
@@ -165,6 +167,33 @@ return array(
                             ),
                         ),
                     ),
+                    'posizioni-sottosezioni' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'       => 'posizioni/sottosezioni/[:sezioneId[/]][:profonditaDa[/]]',
+                            'constraints' => array(
+                                'sezioneId' => '[0-9]+',
+                                'profonditaDa' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Admin',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'posizioni-sottosezioni-update' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'       => 'posizioni/sottosezioni/update[/]',
+                            'constraints' => array(
+
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\SottoSezioniPositionsUpdateController',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
                     'contratti-pubblici-aggiudicatari' => array(
                         'type'    => 'Segment',
                         'options' => array(
@@ -184,6 +213,19 @@ return array(
                             'route'       => 'users/roles/permissions/[:roleId[/]]',
                             'constraints' => array(
                                 'roleId' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Admin',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'users-resp-proc-management' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'       => 'users/resp-proc/management[/]',
+                            'constraints' => array(
+
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Admin',
@@ -247,6 +289,7 @@ return array(
             'admin/admin/delete-element'            => __DIR__ . '/../view/delete-element.phtml',
             'admin/admin/migrazione'                => __DIR__ . '/../view/migrazione.phtml',
             'admin/sezioni-positions-update/index'  => __DIR__ . '/../view/empty.phtml',
+            'admin/sotto-sezioni-positions-update/index'  => __DIR__ . '/../view/empty.phtml',
             'admin/'                                => __DIR__ . '/../view/empty.phtml',
         ),
         'template_path_stack' => array(
@@ -262,10 +305,11 @@ return array(
         "admin/datatable"                        => '\Admin\Model\DataTable\DataTableHandler',
         "admin/invio-ente-terzo"                 => '\Admin\Model\EntiTerzi\InvioEnteTerzoHandler',
         "admin/posizioni-sezioni"                => '\Admin\Model\Sezioni\SezioniPositionsHandler',
-        "admin/posizioni-sezioni-update"         => '\Admin\Model\Sezioni\SezioniPositionsPostHandler',
+        "admin/posizioni-sottosezioni"           => '\Admin\Model\Sezioni\SottoSezioniPositionsHandler',
         "admin/migrazione"                       => '\Admin\Model\Migrazione\MigrazioneHandler',
         "admin/contratti-pubblici-aggiudicatari" => '\Admin\Model\ContrattiPubblici\Operatori\OperatoriAggiudicatariHandler',
         "admin/users-roles-permissions"          => '\Admin\Model\Users\Roles\UsersRolesPermissionsHandler',
+        "admin/users-resp-proc-management"       => '\Admin\Model\Users\RespProc\UsersRespProcHandler',
     ),
     /* FormData Class Map */
     'formdata_classmap' => array(
@@ -291,6 +335,7 @@ return array(
         'enti-terzi'                    => 'Admin\Model\EntiTerzi\EntiTerziFormDataHandler',
         'tickets'                       => 'Admin\Model\Tickets\TicketsFormDataHandler',
         'users'                         => 'Admin\Model\Users\UsersFormDataHandler',
+        'users-settori'                 => 'Admin\Model\Users\Settori\UsersSettoriFormDataHandler',
         'categories'                    => 'Admin\Model\Posts\CategoriesFormDataHandler',
         'contents'                      => 'Admin\Model\Posts\PostsFormDataHandler',
         'photo'                         => 'Admin\Model\Posts\PostsFormDataHandler',
@@ -325,6 +370,9 @@ return array(
         'stato-civile-sezioni'                  => 'Admin\Model\StatoCivile\StatoCivileSezioniCrudHandler',
         'tickets'                               => 'Admin\Model\Tickets\TicketsCrudHandler',
         'users'                                 => 'Admin\Model\Users\UsersCrudHandler',
+        'users-roles'                           => 'Admin\Model\Users\Roles\UsersRolesCrudHandler',
+        'users-settori'                         => 'Admin\Model\Users\Settori\UsersSettoriCrudHandler',
+        'users-todo'                            => 'Admin\Model\Users\Roles\UsersTodoCrudHandler',
     ),
     /* DataTables Class Map */
     'datatables_classmap' => array(
@@ -358,5 +406,7 @@ return array(
         'stato-civile-sezioni'                  => 'Admin\Model\StatoCivile\StatoCivileSezioniDataTable',
         'users'                                 => 'Admin\Model\Users\UsersDataTable',
         'users-roles'                           => 'Admin\Model\Users\Roles\UsersRolesDataTable',
+        'users-settori'                         => 'Admin\Model\Users\Settori\UsersSettoriDataTable',
+        'users-resp-procedimento'               => 'Admin\Model\Users\Roles\UsersRespProcDataTable',
     ),
 );

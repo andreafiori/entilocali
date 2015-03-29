@@ -116,7 +116,7 @@ class EntiTerziCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', ha inserito l'ente terzo ".$inputFilter->nome,
+            'message'   => "Inserito l'ente terzo ".$inputFilter->nome,
             'type'      => 'error',
             'backend'   => 1,
         ));
@@ -142,7 +142,7 @@ class EntiTerziCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'inserimento dell'ente terzo ".$inputFilter->nome.' '.$inputFilter->email.' Messaggio: '.$message,
+            'message'   => "Errore nell'inserimento dell'ente terzo ".$inputFilter->nome.' '.$inputFilter->email.' Messaggio: '.$message,
             'type'      => 'error',
             'backend'   => 1,
         ));

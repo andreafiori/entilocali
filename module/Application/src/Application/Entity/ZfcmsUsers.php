@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsUsers
  *
- * @ORM\Table(name="zfcms_users", uniqueConstraints={@ORM\UniqueConstraint(name="email", columns={"email"})}, indexes={@ORM\Index(name="key_ids", columns={"role_id", "nation", "province"}), @ORM\Index(name="IDX_770AE5C7D60322AC", columns={"role_id"})})
+ * @ORM\Table(name="zfcms_users", uniqueConstraints={@ORM\UniqueConstraint(name="email", columns={"email"})}, indexes={@ORM\Index(name="key_ids", columns={"role_id", "nation", "province"}), @ORM\Index(name="fk_users_settori", columns={"settore_id"}), @ORM\Index(name="IDX_770AE5C7D60322AC", columns={"role_id"})})
  * @ORM\Entity
  */
 class ZfcmsUsers
@@ -204,13 +204,6 @@ class ZfcmsUsers
     private $status;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="settore", type="string", length=100, nullable=false)
-     */
-    private $settore;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="create_date", type="datetime", nullable=false)
@@ -230,6 +223,16 @@ class ZfcmsUsers
      * @ORM\Column(name="confirm_code", type="string", length=100, nullable=false)
      */
     private $confirmCode;
+
+    /**
+     * @var \Application\Entity\ZfcmsUsersSettori
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsersSettori")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="settore_id", referencedColumnName="id")
+     * })
+     */
+    private $settore;
 
     /**
      * @var \Application\Entity\ZfcmsUsersRoles
@@ -852,29 +855,6 @@ class ZfcmsUsers
     }
 
     /**
-     * Set settore
-     *
-     * @param string $settore
-     * @return ZfcmsUsers
-     */
-    public function setSettore($settore)
-    {
-        $this->settore = $settore;
-    
-        return $this;
-    }
-
-    /**
-     * Get settore
-     *
-     * @return string 
-     */
-    public function getSettore()
-    {
-        return $this->settore;
-    }
-
-    /**
      * Set createDate
      *
      * @param \DateTime $createDate
@@ -941,6 +921,29 @@ class ZfcmsUsers
     public function getConfirmCode()
     {
         return $this->confirmCode;
+    }
+
+    /**
+     * Set settore
+     *
+     * @param \Application\Entity\ZfcmsUsersSettori $settore
+     * @return ZfcmsUsers
+     */
+    public function setSettore(\Application\Entity\ZfcmsUsersSettori $settore = null)
+    {
+        $this->settore = $settore;
+    
+        return $this;
+    }
+
+    /**
+     * Get settore
+     *
+     * @return \Application\Entity\ZfcmsUsersSettori 
+     */
+    public function getSettore()
+    {
+        return $this->settore;
     }
 
     /**

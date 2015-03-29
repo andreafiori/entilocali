@@ -4,13 +4,12 @@ namespace Application\Setup;
 
 use Admin\Model\Posts\PostsGetter;
 use Admin\Model\Posts\PostsGetterWrapper;
-use Admin\Model\InputSetupAbstract;
 
 /**
  * @author Andrea Fiori
  * @since  30 April 2014
  */
-class UserInterfaceConfigurations extends InputSetupAbstract
+class UserInterfaceConfigurations
 {
     private $configurations;
     
@@ -19,35 +18,38 @@ class UserInterfaceConfigurations extends InputSetupAbstract
     /**
      * @param array $configurations
      */
-    public function setConfigurations(array $configurations)
+    public function  __construct(array $configurations)
     {
         $this->configurations = $configurations;
-        
-        $this->frontendKeysToCheck  = array("projectdir_frontend", "template_name");
-        $this->backendKeysToCheck   = array("template_backend", "template_project");
+    }
+
+    public function setAdditionalFrontendConfigurationsArray()
+    {
+        $this->configurations['template_project']   = 'frontend/projects/'.$this->configurations['projectdir_frontend'];
+        $this->configurations['template_name']      = $this->configurations['template_frontend'] ? $this->configurations['template_frontend'] : 'default/';
+        $this->configurations['template_path']      = $this->configurations['template_project'].'templates/'.$this->configurations['template_name'];
+
+        $this->setCommonConfigurations();
+
+        return $this->configurations;
     }
     
     /**
-     * 
-     * @param type $isBackend
-     * @return type
+     * @param int $isBackend
+     * @return array
      */
-    public function setConfigurationsArray($isBackend = false)
+    public function setAdditionalAdminConfigurationsArray()
     {
-        if ($isBackend) {
-            $this->configurations['template_project']     = 'backend/';
-            $this->configurations['template_name']        = isset($this->configurations['template_backend']) ? $this->configurations['template_backend'] : 'default/';
-            $this->configurations['template_path']        = $this->configurations['template_project'].'templates/'.$this->configurations['template_name'];
-            $this->configurations['preloader_class']      = isset($this->configurations['preloader_backend']) ? $this->configurations['preloader_backend'] : '';
+        $this->configurations['template_project']     = 'backend/';
+        $this->configurations['template_name']        = isset($this->configurations['template_backend']) ? $this->configurations['template_backend'] : 'default/';
+        $this->configurations['template_path']        = $this->configurations['template_project'].'templates/'.$this->configurations['template_name'];
+        $this->configurations['preloader_class']      = isset($this->configurations['preloader_backend']) ? $this->configurations['preloader_backend'] : '';
 
-            $this->configurations['loginActionBackend']       = $this->configurations['template_project'].'login/';
-            $this->configurations['logoutPathBackend']        = $this->configurations['template_project'].'logout/';
-            $this->configurations['loggedSectionPathBackend'] = $this->configurations['template_project'].'main/';
-        } else {
-            $this->configurations['template_project']     = 'frontend/projects/'.$this->configurations['projectdir_frontend'];
-            $this->configurations['template_name']        = $this->configurations['template_frontend'] ? $this->configurations['template_frontend'] : 'default/';
-            $this->configurations['template_path']        = $this->configurations['template_project'].'templates/'.$this->configurations['template_name'];
-        }
+        $this->configurations['loginActionBackend']       = $this->configurations['template_project'].'login/';
+        $this->configurations['logoutPathBackend']        = $this->configurations['template_project'].'logout/';
+        $this->configurations['loggedSectionPathBackend'] = $this->configurations['template_project'].'main/';
+
+        $this->setCommonConfigurations();
         
         return $this->configurations;
     }
@@ -92,18 +94,6 @@ class UserInterfaceConfigurations extends InputSetupAbstract
         
         return $this->postsGetterWrapper;
     }
-    
-    /**
-     * Set common configurations both for backend and frontend
-     */
-    public function setCommonConfigurations()
-    {
-        $this->configurations['basiclayout'] = $this->configurations['template_path'].'layout.phtml';
-        $this->configurations['imagedir']    = 'public/'.$this->configurations['template_project'].'templates/'.$this->configurations['template_name'].'assets/images/';
-        $this->configurations['cssdir']      = 'public/'.$this->configurations['template_project'].'templates/'.$this->configurations['template_name'].'assets/css/';
-        $this->configurations['jsdir']       = 'public/'.$this->configurations['template_project'].'templates/'.$this->configurations['template_name'].'assets/js/';
-        $this->configurations['templatedir'] = 'public/'.$this->configurations['template_project'].'templates/'.$this->configurations['template_name'];
-    }
 
     /**
      * @return array $this->configurations
@@ -112,4 +102,16 @@ class UserInterfaceConfigurations extends InputSetupAbstract
     {
         return $this->configurations;
     }
+
+        /**
+         * Set common configurations both for backend and frontend
+         */
+        private function setCommonConfigurations()
+        {
+            $this->configurations['basiclayout'] = $this->configurations['template_path'].'layout.phtml';
+            $this->configurations['imagedir']    = 'public/'.$this->configurations['template_project'].'templates/'.$this->configurations['template_name'].'assets/images/';
+            $this->configurations['cssdir']      = 'public/'.$this->configurations['template_project'].'templates/'.$this->configurations['template_name'].'assets/css/';
+            $this->configurations['jsdir']       = 'public/'.$this->configurations['template_project'].'templates/'.$this->configurations['template_name'].'assets/js/';
+            $this->configurations['templatedir'] = 'public/'.$this->configurations['template_project'].'templates/'.$this->configurations['template_name'];
+        }
 }

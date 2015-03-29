@@ -130,12 +130,9 @@ class UsersForm extends Form
             'type' => 'Zend\Form\Element\Select',
             'name' => 'status',
             'options' => array(
-                'label' => '* Ruolo',
+                'label' => '* Settore',
                 'empty_option' => 'Seleziona',
-                'value_options' => array(
-                    'attivo'    => 'Attivo',
-                    'nascosto'  => 'Nascosto',
-                ),
+                'value_options' => $records,
             ),
             'attributes' => array(
                 'title'     => 'Seleziona settore',

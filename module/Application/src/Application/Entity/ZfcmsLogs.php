@@ -22,13 +22,6 @@ class ZfcmsLogs
     private $id;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="user_id", type="bigint", nullable=false)
-     */
-    private $userId;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="datetime", type="datetime", nullable=false)
@@ -57,6 +50,13 @@ class ZfcmsLogs
     private $backend;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="reference_id", type="bigint", nullable=false)
+     */
+    private $referenceId;
+
+    /**
      * @var \Application\Entity\ZfcmsModules
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsModules")
@@ -65,6 +65,16 @@ class ZfcmsLogs
      * })
      */
     private $module;
+
+    /**
+     * @var \Application\Entity\ZfcmsUsers
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsers")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * })
+     */
+    private $user;
 
 
 
@@ -76,29 +86,6 @@ class ZfcmsLogs
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set userId
-     *
-     * @param integer $userId
-     * @return ZfcmsLogs
-     */
-    public function setUserId($userId)
-    {
-        $this->userId = $userId;
-    
-        return $this;
-    }
-
-    /**
-     * Get userId
-     *
-     * @return integer 
-     */
-    public function getUserId()
-    {
-        return $this->userId;
     }
 
     /**
@@ -194,6 +181,29 @@ class ZfcmsLogs
     }
 
     /**
+     * Set referenceId
+     *
+     * @param integer $referenceId
+     * @return ZfcmsLogs
+     */
+    public function setReferenceId($referenceId)
+    {
+        $this->referenceId = $referenceId;
+    
+        return $this;
+    }
+
+    /**
+     * Get referenceId
+     *
+     * @return integer 
+     */
+    public function getReferenceId()
+    {
+        return $this->referenceId;
+    }
+
+    /**
      * Set module
      *
      * @param \Application\Entity\ZfcmsModules $module
@@ -214,5 +224,28 @@ class ZfcmsLogs
     public function getModule()
     {
         return $this->module;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Application\Entity\ZfcmsUsers $user
+     * @return ZfcmsLogs
+     */
+    public function setUser(\Application\Entity\ZfcmsUsers $user = null)
+    {
+        $this->user = $user;
+    
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Application\Entity\ZfcmsUsers 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

@@ -31,16 +31,9 @@ class ZfcmsProductsBrands
     /**
      * @var string
      *
-     * @ORM\Column(name="image_thumb", type="string", length=100, nullable=false)
+     * @ORM\Column(name="image", type="string", length=100, nullable=false)
      */
-    private $imageThumb;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="image_big", type="string", length=100, nullable=false)
-     */
-    private $imageBig;
+    private $image;
 
     /**
      * @var string
@@ -87,9 +80,9 @@ class ZfcmsProductsBrands
     /**
      * @var string
      *
-     * @ORM\Column(name="seo_keyw", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="seo_keywords", type="text", length=65535, nullable=false)
      */
-    private $seoKeyw;
+    private $seoKeywords;
 
     /**
      * @var string

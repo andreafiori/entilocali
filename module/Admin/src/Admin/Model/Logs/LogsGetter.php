@@ -12,10 +12,15 @@ class LogsGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('l.id, l.userId, l.datetime, l.message, l.type, l.backend');
+        $this->setSelectQueryFields('
+                                    l.id, l.datetime, l.message, l.type, l.backend,
+
+                                    u.id, u.name, u.surname
+                                    ');
 
         $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
                                 ->from('Application\Entity\ZfcmsLogs', 'l')
+                                ->join('l.user', 'u')
                                 ->where('l.id != 0 ');
         
         return $this->getQueryBuilder();
@@ -37,6 +42,16 @@ class LogsGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->setParameter('id', $id);
         }
         
+        return $this->getQueryBuilder();
+    }
+
+    public function setUserId($id)
+    {
+        if ( is_numeric($id) ) {
+            $this->getQueryBuilder()->andWhere('u.id = :id ');
+            $this->getQueryBuilder()->setParameter('id', $id);
+        }
+
         return $this->getQueryBuilder();
     }
 }

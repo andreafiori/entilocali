@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsTickets
  *
- * @ORM\Table(name="zfcms_tickets", indexes={@ORM\Index(name="created_by", columns={"created_by"})})
+ * @ORM\Table(name="zfcms_tickets", indexes={@ORM\Index(name="ticket_user_id", columns={"created_by_id"})})
  * @ORM\Entity
  */
 class ZfcmsTickets
@@ -57,9 +57,12 @@ class ZfcmsTickets
     private $status;
 
     /**
-     * @var integer
+     * @var \Application\Entity\ZfcmsUsers
      *
-     * @ORM\Column(name="created_by", type="bigint", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsers")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="created_by_id", referencedColumnName="id")
+     * })
      */
     private $createdBy;
 
@@ -193,10 +196,10 @@ class ZfcmsTickets
     /**
      * Set createdBy
      *
-     * @param integer $createdBy
+     * @param \Application\Entity\ZfcmsUsers $createdBy
      * @return ZfcmsTickets
      */
-    public function setCreatedBy($createdBy)
+    public function setCreatedBy(\Application\Entity\ZfcmsUsers $createdBy = null)
     {
         $this->createdBy = $createdBy;
     
@@ -206,7 +209,7 @@ class ZfcmsTickets
     /**
      * Get createdBy
      *
-     * @return integer 
+     * @return \Application\Entity\ZfcmsUsers 
      */
     public function getCreatedBy()
     {

@@ -73,13 +73,21 @@ class IndexController extends SetupAbstractController
 
         $varsFromModel = $routerManagerHelper->getRouterManger()->getOutput('export');
 
-        $serverVars = $this->getRequest()->getServer();
+        if (method_exists($this->getRequest(), 'getServer')) {
+            $serverVars = $this->getRequest()->getServer();
+        } else $serverVars = null;
 
         $templateDir = 'frontend/projects/'.$configurations['project_frontend'].'templates/'.$configurations['template_frontend'];
         if (isset($varsFromModel['basiclayout'])) {
             $basicLayout = $templateDir.$varsFromModel['basiclayout'];
         } else {
             $basicLayout = $input['basiclayout'];
+        }
+
+        try {
+            $phpRenderer = $this->getServiceLocator()->get('Zend\View\Renderer\PhpRenderer');
+        } catch(\Zend\ServiceManager\Exception\ServiceNotFoundException $e) {
+            $phpRenderer = null;
         }
 
         $this->layout()->setVariables( array_merge($varsFromModel, $input) );
@@ -93,7 +101,7 @@ class IndexController extends SetupAbstractController
             'templatePartial'       => $input['template_path'].$routerManagerHelper->getRouterManger()->getTemplate(),
             'cssName'               => $sessionContainer->offSetGet('cssName'),
             'passwordPreviewArea'   => $this->hasPasswordPreviewArea($configurations),
-            'renderer'              => $this->getServiceLocator()->get('Zend\View\Renderer\PhpRenderer')
+            'renderer'              => $phpRenderer
         ));
         $this->layout($basicLayout);
 

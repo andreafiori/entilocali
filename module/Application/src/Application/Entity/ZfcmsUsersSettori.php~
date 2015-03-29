@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsUsersSettori
  *
- * @ORM\Table(name="zfcms_users_settori")
+ * @ORM\Table(name="zfcms_users_settori", indexes={@ORM\Index(name="fk_responsabile_user_id_settori", columns={"responsabile_user_id"})})
  * @ORM\Entity
  */
 class ZfcmsUsersSettori
@@ -27,6 +27,23 @@ class ZfcmsUsersSettori
      * @ORM\Column(name="nome", type="string", length=150, nullable=true)
      */
     private $nome;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="stato", type="integer", nullable=true)
+     */
+    private $stato;
+
+    /**
+     * @var \Application\Entity\ZfcmsUsers
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsers")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="responsabile_user_id", referencedColumnName="id")
+     * })
+     */
+    private $responsabileUser;
 
 
 }

@@ -3,6 +3,7 @@
 namespace AdminTest\Model\Atticoncessione;
 
 use Admin\Model\AttiConcessione\AttiConcessioneCrudHandler;
+use Admin\Model\AttiConcessione\AttiConcessioneForm;
 use ApplicationTest\CrudHandlerTestSuite;
 
 /**
@@ -22,10 +23,12 @@ class AttiConcessioneCrudHandlerTest extends CrudHandlerTestSuite
 
         $this->crudHandler = new AttiConcessioneCrudHandler();
 
+        $this->crudHandler->setForm($this->buildForm());
+
         $this->formSampleData = array(
             'id'                    => '',
             'beneficiario'          => 'John Doe',
-            'ufficioResponsabile'   => 'John Doe',
+            'ufficioResponsabile'   => 1,
             'respProc'              => 'John Doe',
             'importo'               => 2000,
             'modassegn'             => 'Assign to this test',
@@ -47,5 +50,17 @@ class AttiConcessioneCrudHandlerTest extends CrudHandlerTestSuite
         $this->assertNotNull($this->crudHandler->getFormInputFilter()->titolo);
         $this->assertNotNull($this->crudHandler->getFormInputFilter()->dataInserimento);
         $this->assertNotNull($this->crudHandler->getFormInputFilter()->anno);
+    }
+
+    protected function buildForm()
+    {
+        $form = new AttiConcessioneForm();
+        $form->addUfficioResponsabile(array(
+            1 => 'Responsabile 1',
+            2 => 'Responsabile 2'
+        ));
+        //$form->addModalitaAssegnazione();
+
+        return $form;
     }
 }

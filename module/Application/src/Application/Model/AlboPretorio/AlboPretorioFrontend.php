@@ -58,7 +58,7 @@ class AlboPretorioFrontend extends RouterManagerAbstract implements RouterManage
         
         /**
          * @param array $input
-         * @return type
+         * @return array|null
          */
         private function getSezioni(array $input)
         {
@@ -70,7 +70,7 @@ class AlboPretorioFrontend extends RouterManagerAbstract implements RouterManage
         /**
          * Get albo settori from users data
          * 
-         * @return type
+         * @return array|null
          */
         private function getSettori(array $input)
         {
@@ -82,7 +82,7 @@ class AlboPretorioFrontend extends RouterManagerAbstract implements RouterManage
         /**
          * @param array $input
          * @param int $page
-         * @return type
+         * @return array|null
          */
         private function getAlboPretorioRecords(array $input, $page)
         {

@@ -2,6 +2,7 @@
 
 namespace Admin\Model\AlboPretorio;
 
+use Zend\Form\Element;
 use Zend\Form\Form;
 
 /**

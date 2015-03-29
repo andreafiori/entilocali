@@ -35,6 +35,13 @@ class ZfcmsProductsInvoices
      */
     private $note;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="order_id", type="bigint", nullable=true)
+     */
+    private $orderId;
+
 
 
     /**
@@ -91,5 +98,28 @@ class ZfcmsProductsInvoices
     public function getNote()
     {
         return $this->note;
+    }
+
+    /**
+     * Set orderId
+     *
+     * @param integer $orderId
+     * @return ZfcmsProductsInvoices
+     */
+    public function setOrderId($orderId)
+    {
+        $this->orderId = $orderId;
+    
+        return $this;
+    }
+
+    /**
+     * Get orderId
+     *
+     * @return integer 
+     */
+    public function getOrderId()
+    {
+        return $this->orderId;
     }
 }

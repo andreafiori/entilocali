@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsTicketsMessages
  *
- * @ORM\Table(name="zfcms_tickets_messages", indexes={@ORM\Index(name="user_id", columns={"user_id"}), @ORM\Index(name="ticket_id", columns={"ticket_id"})})
+ * @ORM\Table(name="zfcms_tickets_messages", indexes={@ORM\Index(name="ticket_msg_tkt_id", columns={"ticket_id"}), @ORM\Index(name="ticket_msg_tkt_user_id", columns={"user_id"})})
  * @ORM\Entity
  */
 class ZfcmsTicketsMessages
@@ -36,18 +36,24 @@ class ZfcmsTicketsMessages
     private $insertDate;
 
     /**
-     * @var integer
+     * @var \Application\Entity\ZfcmsTickets
      *
-     * @ORM\Column(name="ticket_id", type="bigint", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsTickets")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="ticket_id", referencedColumnName="id")
+     * })
      */
-    private $ticketId;
+    private $ticket;
 
     /**
-     * @var integer
+     * @var \Application\Entity\ZfcmsTickets
      *
-     * @ORM\Column(name="user_id", type="bigint", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsTickets")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * })
      */
-    private $userId;
+    private $user;
 
 
 }

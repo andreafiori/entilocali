@@ -87,13 +87,11 @@ class AppServiceLoader extends AppServiceLoaderAbstract
     }
     
     /**
-     * Select configurations from db
+     * Select configurations from database
      *
      * @param ConfigGetterWrapper $configGetterWrapper
      * @param number $channel
      * @param number $languageId
-     *
-     * @throws Exception
      */
     public function setupConfigurations(ConfigGetterWrapper $wrapper, $channel = 1, $languageId = 1)
     {
@@ -119,6 +117,8 @@ class AppServiceLoader extends AppServiceLoaderAbstract
 
     /**
      * @param ModulesGetterWrapper $wrapper
+     * @param array $input
+     * @return \Application\Model\QueryBuilderHelperAbstract
      */
     public function setupModules(ModulesGetterWrapper $wrapper, $input = array())
     {
@@ -134,14 +134,17 @@ class AppServiceLoader extends AppServiceLoaderAbstract
 
     /**
      * @param UserInterfaceConfigurations $ui
-     *
      * @return UserInterfaceConfigurations
      */
     public function setupUserInterfaceConfigurations(UserInterfaceConfigurations $ui)
     {
-        $ui->setConfigurations($this->recoverService('configurations'));
-        $ui->setConfigurationsArray($this->recoverService('isBackend'));
-        $ui->setCommonConfigurations();
+        //$ui->setConfigurations($this->recoverService('configurations'));
+        if ($this->recoverService('isBackend')) {
+            $ui->setAdditionalAdminConfigurationsArray();
+        } else {
+            $ui->setAdditionalFrontendConfigurationsArray();
+        }
+        //$ui->setCommonConfigurations();
         $ui->setPreloadResponse($this->recoverService('entityManager'));
         
         return $ui;

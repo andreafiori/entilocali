@@ -171,23 +171,23 @@ class ZfcmsProducts
     /**
      * @var integer
      *
-     * @ORM\Column(name="user_id", type="integer", nullable=false)
+     * @ORM\Column(name="model_id", type="integer", nullable=false)
+     */
+    private $modelId;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="user_id", type="bigint", nullable=false)
      */
     private $userId;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="company_id", type="integer", nullable=false)
+     * @ORM\Column(name="company_id", type="bigint", nullable=false)
      */
     private $companyId;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="model_id", type="integer", nullable=false)
-     */
-    private $modelId;
 
 
 
@@ -685,6 +685,29 @@ class ZfcmsProducts
     }
 
     /**
+     * Set modelId
+     *
+     * @param integer $modelId
+     * @return ZfcmsProducts
+     */
+    public function setModelId($modelId)
+    {
+        $this->modelId = $modelId;
+    
+        return $this;
+    }
+
+    /**
+     * Get modelId
+     *
+     * @return integer 
+     */
+    public function getModelId()
+    {
+        return $this->modelId;
+    }
+
+    /**
      * Set userId
      *
      * @param integer $userId
@@ -728,28 +751,5 @@ class ZfcmsProducts
     public function getCompanyId()
     {
         return $this->companyId;
-    }
-
-    /**
-     * Set modelId
-     *
-     * @param integer $modelId
-     * @return ZfcmsProducts
-     */
-    public function setModelId($modelId)
-    {
-        $this->modelId = $modelId;
-    
-        return $this;
-    }
-
-    /**
-     * Get modelId
-     *
-     * @return integer 
-     */
-    public function getModelId()
-    {
-        return $this->modelId;
     }
 }

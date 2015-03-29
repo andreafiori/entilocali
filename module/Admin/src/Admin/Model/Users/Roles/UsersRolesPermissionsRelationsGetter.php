@@ -10,6 +10,9 @@ use Application\Model\QueryBuilderHelperAbstract;
  */
 class UsersRolesPermissionsRelationsGetter extends QueryBuilderHelperAbstract
 {
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
     public function setMainQuery()
     {
         $this->setSelectQueryFields('permission.id AS permissionId, role.id AS roleId, role.name AS roleName,

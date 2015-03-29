@@ -2,6 +2,8 @@
 
 namespace Application\Model\Contenuti;
 
+use Admin\Model\Sezioni\SottoSezioniGetter;
+use Admin\Model\Sezioni\SottoSezioniGetterWrapper;
 use Application\Model\RouterManagers\RouterManagerAbstract;
 use Application\Model\RouterManagers\RouterManagerInterface;
 use Admin\Model\Contenuti\ContenutiGetter;
@@ -38,6 +40,29 @@ class ContenutiFrontend extends RouterManagerAbstract implements RouterManagerIn
                     'noscaduti'   => 1,
                 )
             );
+
+            // Sub sectionsa
+            if (!empty($records)) {
+
+                foreach($records as &$record) {
+
+                    $wrapper = new SottoSezioniGetterWrapper(new SottoSezioniGetter($this->getInput('entityManager',1)));
+                    $wrapper->setInput(array(
+                        'profonditaDa' => $record['sottosezione'],
+                    ));
+                    $wrapper->setupQueryBuilder();
+
+                    $subSections = $wrapper->getRecords();
+
+                    if (!empty($subSections)) {
+                        foreach($subSections as $subSection) {
+                            $record['sotto_sezioni'][] = $subSection;
+                        }
+                    }
+                }
+
+            }
+
         }
 
         $this->setVariables(array(

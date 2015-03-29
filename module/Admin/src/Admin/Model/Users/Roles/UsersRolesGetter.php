@@ -56,4 +56,18 @@ class UsersRolesGetter extends QueryBuilderHelperAbstract
 
         return $this->getQueryBuilder();
     }
+
+    /**
+     * @param string $roleName
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setAdminAccess($adminAccess)
+    {
+        if ( is_numeric($adminAccess) ) {
+            $this->$adminAccess()->andWhere('role.adminAccess :adminAccess ');
+            $this->getQueryBuilder()->setParameter('adminAccess', $adminAccess);
+        }
+
+        return $this->getQueryBuilder();
+    }
 }

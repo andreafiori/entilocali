@@ -134,9 +134,9 @@ class ZfcmsComuniContratti
     private $cig;
 
     /**
-     * @var \Application\Entity\ZfcmsComuniContrattiRespProc
+     * @var \Application\Entity\ZfcmsUsersRespProc
      *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniContrattiRespProc")
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsersRespProc")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="resp_proc_id", referencedColumnName="id")
      * })
@@ -154,9 +154,9 @@ class ZfcmsComuniContratti
     private $scContr;
 
     /**
-     * @var \Application\Entity\ZfcmsComuniContrattiSettori
+     * @var \Application\Entity\ZfcmsUsersSettori
      *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniContrattiSettori")
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsersSettori")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="settore_id", referencedColumnName="id")
      * })
@@ -556,10 +556,10 @@ class ZfcmsComuniContratti
     /**
      * Set respProc
      *
-     * @param \Application\Entity\ZfcmsComuniContrattiRespProc $respProc
+     * @param \Application\Entity\ZfcmsUsersRespProc $respProc
      * @return ZfcmsComuniContratti
      */
-    public function setRespProc(\Application\Entity\ZfcmsComuniContrattiRespProc $respProc = null)
+    public function setRespProc(\Application\Entity\ZfcmsUsersRespProc $respProc = null)
     {
         $this->respProc = $respProc;
     
@@ -569,7 +569,7 @@ class ZfcmsComuniContratti
     /**
      * Get respProc
      *
-     * @return \Application\Entity\ZfcmsComuniContrattiRespProc 
+     * @return \Application\Entity\ZfcmsUsersRespProc 
      */
     public function getRespProc()
     {
@@ -602,10 +602,10 @@ class ZfcmsComuniContratti
     /**
      * Set settore
      *
-     * @param \Application\Entity\ZfcmsComuniContrattiSettori $settore
+     * @param \Application\Entity\ZfcmsUsersSettori $settore
      * @return ZfcmsComuniContratti
      */
-    public function setSettore(\Application\Entity\ZfcmsComuniContrattiSettori $settore = null)
+    public function setSettore(\Application\Entity\ZfcmsUsersSettori $settore = null)
     {
         $this->settore = $settore;
     
@@ -615,7 +615,7 @@ class ZfcmsComuniContratti
     /**
      * Get settore
      *
-     * @return \Application\Entity\ZfcmsComuniContrattiSettori 
+     * @return \Application\Entity\ZfcmsUsersSettori 
      */
     public function getSettore()
     {

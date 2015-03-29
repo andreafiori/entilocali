@@ -11,6 +11,9 @@ use Admin\Model\Users\UsersDataTable;
  */
 class UsersDataTableTest extends TestSuite
 {
+    /**
+     * @var UsersDataTable
+     */
     private $dataTableObject;
     
     protected function setUp()

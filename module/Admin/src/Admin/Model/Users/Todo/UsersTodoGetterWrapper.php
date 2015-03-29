@@ -1,34 +1,32 @@
 <?php
 
-namespace Admin\Model\AttiConcessione;
-
-use Application\Model\RecordsGetterWrapperAbstract;
+namespace Admin\Model\Users\Todo;
 
 /**
  * @author Andrea Fiori
- * @since  15 December 2014
+ * @since  26 March 2015
  */
-class AttiConcessioneRespProcGetterWrapper extends RecordsGetterWrapperAbstract
+class UsersTodoGetterWrapper extends RecordsGetterWrapperAbstract
 {
     /**
-     * @var AttiConcessioneRespProcGetter
+     * @var UsersSTodoGetter
      */
     protected $objectGetter;
 
     /**
-     * @param AttiConcessioneRespProcGetter $objectGetter
+     * @param UsersSettoriGetter $objectGetter
      */
-    public function __construct(AttiConcessioneRespProcGetter $objectGetter)
+    public function __construct(UsersSettoriGetter $objectGetter)
     {
         $this->setObjectGetter($objectGetter);
     }
-    
+
     public function setupQueryBuilder()
     {
         $this->objectGetter->setSelectQueryFields( $this->getInput('fields', 1) );
-        
+
         $this->objectGetter->setMainQuery();
-        
+
         $this->objectGetter->setId( $this->getInput('id', 1) );
         $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
         $this->objectGetter->setGroupBy( $this->getInput('groupBy', 1) );

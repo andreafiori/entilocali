@@ -59,7 +59,7 @@ class LogsDataTable extends DataTableAbstract
                 $arrayToReturn[]  = array(
                     $row['datetime'],
                     $row['message'],
-                    $row['userId'],
+                    $row['name'].' '.$row['surname'],
                     $row['type'],
                     $row['backend'],
                     array(

@@ -35,11 +35,22 @@
         <?php endif; ?>
 
         <br>
+
+        <?php if (isset($record['sotto_sezioni'])): ?>
+            <h4>Sotto sezioni</h4>
+            <ul>
+            <?php foreach($record['sotto_sezioni'] as $sottoSezione): ?>
+                <li><a href="<?php echo $this->url('contents', array('subsectionid' => $sottoSezione['idSottoSezione'])) ?>" title="Consulta la sottosezione di  <?php echo $record['titolo'] ?> <?php echo $sottoSezione['nomeSottoSezione'] ?>"><?php echo $sottoSezione['nomeSottoSezione'] ?></a></li>
+            <?php endforeach ?>
+            </ul>
+        <?php endif; ?>
+
         <?php
         echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
             'twitterShareText' => urlencode($record['titolo']),
         ));
         ?>
+
         <hr>
     <?php endforeach; ?>
 

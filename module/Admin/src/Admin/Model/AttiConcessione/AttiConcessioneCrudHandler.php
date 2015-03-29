@@ -39,14 +39,8 @@ class AttiConcessioneCrudHandler extends CrudHandlerAbstract implements CrudHand
     {
         $error = $this->checkValidateFormDataError(
             $formData,
-            array('titolo', 'beneficiario', 'importo', 'modassegn', 'dataInserimento', 'anno')
+            array('titolo', 'beneficiario', 'ufficioResponsabile', 'importo', 'modassegn', 'dataInserimento', 'anno')
         );
-
-        /* chars, symbols and string are in the old db
-        if (!is_numeric($formData->importo)) {
-            $error[] = 'Importo non &egrave; un numero';
-        }
-        */
 
         if ( (int)$formData->anno > 2030 or (int)$formData->anno < 1954 ) {
             $error[] = 'Anno atto deve essere un anno valido.';

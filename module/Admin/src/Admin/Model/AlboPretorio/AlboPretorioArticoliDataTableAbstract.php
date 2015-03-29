@@ -26,7 +26,7 @@ abstract class AlboPretorioArticoliDataTableAbstract extends DataTableAbstract i
     
     protected function setupArticoliInput()
     {
-        $articoliInput = array('orderBy' => 'aa.id DESC');
+        $articoliInput = array('orderBy' => 'alboArticoli.id DESC');
 
         $sessionPost = new SessionContainer();
 
@@ -37,7 +37,7 @@ abstract class AlboPretorioArticoliDataTableAbstract extends DataTableAbstract i
                 'mese'       => isset($this->param['post']['mese'])         ? $this->param['post']['mese'] : null,
                 'anno'       => isset($this->param['post']['anno'])         ? $this->param['post']['anno'] : null,
                 'search'     => isset($this->param['post']['search'])       ? $this->param['post']['search'] : null,
-                'orderBy'    => isset($this->param['post']['orderby'])      ? $this->param['post']['orderby'] : 'aa.id DESC'
+                'orderBy'    => isset($this->param['post']['orderby'])      ? $this->param['post']['orderby'] : 'alboArticoli.id DESC'
             ));
         }
         
@@ -47,7 +47,7 @@ abstract class AlboPretorioArticoliDataTableAbstract extends DataTableAbstract i
         }
         
         if (!isset($articoliInput['orderBy']) or $articoliInput['orderBy']=='') {
-            $articoliInput['orderBy'] = 'aa.id DESC';
+            $articoliInput['orderBy'] = 'alboArticoli.id DESC';
         }
         
         return $articoliInput;
@@ -189,7 +189,7 @@ abstract class AlboPretorioArticoliDataTableAbstract extends DataTableAbstract i
     protected function setupFormSearchAndExport(AlboPretorioArticoliFormAbstract $form, $labelName = null, $labelValue = null)
     {
         $sezioniRecords = $this->getSezioni( array('orderBy' => 'aps.nome') );
-        $settoriRecords = $this->getSettori( array('fields' => 'DISTINCT(u.settore) AS settore, u.id', 'groupBy'=>'settore') );
+        //$settoriRecords = $this->getSettori( array('fields' => 'DISTINCT(u.settore) AS settore, u.id', 'groupBy'=>'settore') );
 
         $form->addMonths();
         $form->addYears( $this->recordsGetter->getYears() );

@@ -18,9 +18,9 @@ class UsersRolesForm extends Form
         parent::__construct($name, $options);
 
         $this->add(array(
-            'name' => 'name',
-            'type' => 'Text',
-            'options' => array( 'label' => '* Nome' ),
+            'name'       => 'name',
+            'type'       => 'Text',
+            'options'    => array( 'label' => '* Nome' ),
             'attributes' => array(
                 'required'      => 'required',
                 'title'         => 'Inserisci il nome',
@@ -30,10 +30,10 @@ class UsersRolesForm extends Form
         ));
 
         $this->add(array(
-            'name' => 'description',
-            'type' => 'Textarea',
-            'options' => array( 'label' => 'Descrizione' ),
-            'attributes' => array(
+            'name'          => 'description',
+            'type'          => 'Textarea',
+            'options'       => array( 'label' => 'Descrizione' ),
+            'attributes'    => array(
                 'title'         => 'Inserisci la descrizione',
                 'placeholder'   => 'Descrizione...',
                 'id'            => 'description',

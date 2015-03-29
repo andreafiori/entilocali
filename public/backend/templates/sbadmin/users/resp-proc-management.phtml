@@ -1,0 +1,62 @@
+<?php
+
+if (!$this->hideBreadcrumb):
+    echo $this->render($this->formDataCommonPath.'formdata_breadcrumb.phtml');
+endif;
+
+if (!isset($this->formControlSpanWidth)): $this->formControlSpanWidth = 10; endif;
+if (!isset($this->formLabelSpanWidth)): $this->formLabelSpanWidth = 2; endif;
+
+?>
+<h2>Gestione responsabili procedimento</h2>
+
+<p>Elenco utenti responsabili procedimento</p>
+
+<?php if (!empty($this->usersRespProc)): ?>
+    <table class="table table-bordered">
+        <tr>
+            <th>Nome</th>
+            <th>Settore</th>
+            <th>&nbsp;</th>
+        </tr>
+        <?php foreach($this->usersRespProc as $respProc): ?>
+        <tr>
+            <td><?php echo $respProc['name'].' '.$respProc['surname'] ?></td>
+            <td><?php echo $respProc['nomeSettore'] ?></td>
+            <td><a href="#" class="btn btn-lg icon-red" title="Elimina utente dall'elenco responsabili procedimento"><i class="fa fa-times"></i> </a></td>
+        </tr>
+        <?php endforeach ?>
+    </table>
+<?php else: ?>
+    <div class="alert alert-warning">
+        <h3>Nessun responsabile di procedimento</h3>
+        <div>Aggiungi un nuovo responsabile di procedimento selezionando un utente dall'elenco sottostante</div>
+    </div>
+<?php endif; ?>
+
+<h3>Aggiungi utente</h3>
+
+<p>Aggiungi un utente all'elenco responsabili procedimento.</p>
+
+<div>
+    <?php
+    echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', array(
+            'form'                  => $this->form,
+            'formAction'            => $this->formAction,
+            'formTitle'             => $this->formTitle,
+            'formDescription'       => $this->formDescription,
+            'formControlSpanWidth'  => $this->formControlSpanWidth,
+            'formLabelSpanWidth'    => $this->formLabelSpanWidth,
+        )
+    );
+    ?>
+    <div class="form-group">
+        <label for="sbmtButton" class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label">&nbsp;</label>
+        <div class="col-sm-<?php echo $this->formControlSpanWidth ?>">
+            <input type="submit" class="btn btn-primary" value="Aggiungi">
+        </div>
+    </div>
+    <div>
+
+    </div>
+</div>

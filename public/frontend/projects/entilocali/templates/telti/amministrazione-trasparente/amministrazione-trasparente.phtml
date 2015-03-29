@@ -81,7 +81,7 @@ foreach($this->contenuti as $contenuto):
 
     <br>
     <?php
-    // sharing
+    // Sharing
     echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
         'twitterShareText' => utf8_encode($contenuto['titolo']),
     ));
@@ -104,13 +104,13 @@ if ($this->sottoSezioni):
             $urlSottoSezione = $sottoSezione['url'];
             $target = '_blank';
         } else {
-            $urlSottoSezione = $this->url('amministrazione-trasparente', array('profondita' => $sottoSezione['idSottosezione']));
+            $urlSottoSezione = $this->url('amministrazione-trasparente', array('profondita' => $sottoSezione['idSottoSezione']));
         }
         ?>
         <li>
             <a href="<?php echo $urlSottoSezione ?>"
-               title="Vai alla sezione <?php echo utf8_encode($sottoSezione['nomeSottosezione']); ?>"
-                <?php if (isset($target)): ?> target="<?php echo $target ?>"<?php endif; ?>><?php echo utf8_encode($sottoSezione['nomeSottosezione']); ?></a>
+               title="Vai alla sezione <?php echo utf8_encode($sottoSezione['nomeSottoSezione']); ?>"
+                <?php if (isset($target)): ?> target="<?php echo $target ?>"<?php endif; ?>><?php echo utf8_encode($sottoSezione['nomeSottoSezione']); ?></a>
         </li>    
         <?php
     endforeach;

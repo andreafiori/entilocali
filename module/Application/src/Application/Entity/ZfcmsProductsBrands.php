@@ -31,16 +31,9 @@ class ZfcmsProductsBrands
     /**
      * @var string
      *
-     * @ORM\Column(name="image_thumb", type="string", length=100, nullable=false)
+     * @ORM\Column(name="image", type="string", length=100, nullable=false)
      */
-    private $imageThumb;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="image_big", type="string", length=100, nullable=false)
-     */
-    private $imageBig;
+    private $image;
 
     /**
      * @var string
@@ -87,9 +80,9 @@ class ZfcmsProductsBrands
     /**
      * @var string
      *
-     * @ORM\Column(name="seo_keyw", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="seo_keywords", type="text", length=65535, nullable=false)
      */
-    private $seoKeyw;
+    private $seoKeywords;
 
     /**
      * @var string
@@ -134,49 +127,26 @@ class ZfcmsProductsBrands
     }
 
     /**
-     * Set imageThumb
+     * Set image
      *
-     * @param string $imageThumb
+     * @param string $image
      * @return ZfcmsProductsBrands
      */
-    public function setImageThumb($imageThumb)
+    public function setImage($image)
     {
-        $this->imageThumb = $imageThumb;
+        $this->image = $image;
     
         return $this;
     }
 
     /**
-     * Get imageThumb
+     * Get image
      *
      * @return string 
      */
-    public function getImageThumb()
+    public function getImage()
     {
-        return $this->imageThumb;
-    }
-
-    /**
-     * Set imageBig
-     *
-     * @param string $imageBig
-     * @return ZfcmsProductsBrands
-     */
-    public function setImageBig($imageBig)
-    {
-        $this->imageBig = $imageBig;
-    
-        return $this;
-    }
-
-    /**
-     * Get imageBig
-     *
-     * @return string 
-     */
-    public function getImageBig()
-    {
-        return $this->imageBig;
+        return $this->image;
     }
 
     /**
@@ -318,26 +288,26 @@ class ZfcmsProductsBrands
     }
 
     /**
-     * Set seoKeyw
+     * Set seoKeywords
      *
-     * @param string $seoKeyw
+     * @param string $seoKeywords
      * @return ZfcmsProductsBrands
      */
-    public function setSeoKeyw($seoKeyw)
+    public function setSeoKeywords($seoKeywords)
     {
-        $this->seoKeyw = $seoKeyw;
+        $this->seoKeywords = $seoKeywords;
     
         return $this;
     }
 
     /**
-     * Get seoKeyw
+     * Get seoKeywords
      *
      * @return string 
      */
-    public function getSeoKeyw()
+    public function getSeoKeywords()
     {
-        return $this->seoKeyw;
+        return $this->seoKeywords;
     }
 
     /**

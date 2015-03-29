@@ -5,6 +5,8 @@ namespace Admin\Model\Users;
 use Admin\Model\Migrazione\MigratorAbstract;
 
 /**
+ * TODO: users migration
+ *
  * @author Andrea Fiori
  * @since  21 February 2015
  */
@@ -14,12 +16,9 @@ class UsersMigrator extends MigratorAbstract
     {
         $this->assertRedbeanHelper();
 
-        return $this->getRedbeanHelper()->executeQuery("TRUNCATE table zfcms_comuni_contenuti;
-        INSERT INTO zfcms_comuni_contenuti
-        (id, sottosezione_id, anno, numero, titolo, sommario, testo,
-        data_inserimento, data_scadenza, data_invio_regione, attivo, home, evidenza, utente_id,
-        rss, pub_albo_comune, data_rettifica, path, tabella, check_atti, annoammtrasp)
-        (SELECT * FROM contenuti);");
+        return $this->getRedbeanHelper()->executeQuery("TRUNCATE table zfcms_users;
+INSERT INTO zfcms_users (id, name, email, username, password, livello)
+(SELECT id, nome, mail, username, password, settore, role_id FROM utenti);");
     }
 
     public function log()
@@ -29,7 +28,7 @@ class UsersMigrator extends MigratorAbstract
         $this->getLogWriter()->writeLog(array(
             'user_id'   => $this->getUserDetailsKey('id'),
             'module_id' => 2,
-            'message'   => $this->getUserDetailsKey('name').' '.$this->getUserDetailsKey('surname')." ha effettuato la <strong>migrazione contenuti</strong> dal database vecchio CMS ",
+            'message'   => $this->getUserDetailsKey('name').' '.$this->getUserDetailsKey('surname')." ha effettuato la <strong>migrazione utenti</strong> dal database vecchio CMS ",
             'type'      => 'info',
             'backend'   => 1,
         ));

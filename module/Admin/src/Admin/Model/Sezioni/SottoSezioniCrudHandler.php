@@ -126,7 +126,7 @@ class SottoSezioniCrudHandler extends CrudHandlerAbstract
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', ha inserito la sotto-sezione ".$inputFilter->nomeSottoSezione.' Messaggio: ',
+            'message'   => "Inserita la sotto-sezione ".$inputFilter->nomeSottoSezione.' Messaggio: ',
             'type'      => 'error',
             'backend'   => 1,
         ));
@@ -152,7 +152,7 @@ class SottoSezioniCrudHandler extends CrudHandlerAbstract
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', errore durante l'inserimento della sotto-sezione ".$inputFilter->nomeSottoSezione.' Messaggio: '.$message,
+            'message'   => "Errore durante l'inserimento della sotto-sezione ".$inputFilter->nomeSottoSezione.' Messaggio: '.$message,
             'type'      => 'error',
             'backend'   => 1,
         ));
@@ -178,7 +178,7 @@ class SottoSezioniCrudHandler extends CrudHandlerAbstract
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', ha aggiornato la sezione ".$inputFilter->nomeSottoSezione,
+            'message'   => "Aggiornato la sezione ".$inputFilter->nomeSottoSezione,
             'type'      => 'info',
             'backend'   => 1,
         ));
@@ -204,7 +204,7 @@ class SottoSezioniCrudHandler extends CrudHandlerAbstract
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'aggiornamento della sezione ".$inputFilter->nomeSottoSezione.' Messaggio: '.$message,
+            'message'   => "Errore nell'aggiornamento della sezione ".$inputFilter->nomeSottoSezione.' Messaggio: '.$message,
             'type'      => 'error',
             'backend'   => 1,
         ));
@@ -228,7 +228,7 @@ class SottoSezioniCrudHandler extends CrudHandlerAbstract
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', ha eliminato la sezione ".$record->nome,
+            'message'   => "Eliminata la sezione ".$record->nome,
             'type'      => 'error',
             'backend'   => 1,
         ));

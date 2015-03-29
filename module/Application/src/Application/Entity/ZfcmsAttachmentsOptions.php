@@ -57,6 +57,13 @@ class ZfcmsAttachmentsOptions
     private $status;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="atti_column_category", type="integer", nullable=true)
+     */
+    private $attiColumnCategory;
+
+    /**
      * @var \Application\Entity\ZfcmsAttachments
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsAttachments")
@@ -201,6 +208,29 @@ class ZfcmsAttachmentsOptions
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Set attiColumnCategory
+     *
+     * @param integer $attiColumnCategory
+     * @return ZfcmsAttachmentsOptions
+     */
+    public function setAttiColumnCategory($attiColumnCategory)
+    {
+        $this->attiColumnCategory = $attiColumnCategory;
+    
+        return $this;
+    }
+
+    /**
+     * Get attiColumnCategory
+     *
+     * @return integer 
+     */
+    public function getAttiColumnCategory()
+    {
+        return $this->attiColumnCategory;
     }
 
     /**

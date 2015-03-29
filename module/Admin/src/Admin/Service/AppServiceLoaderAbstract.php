@@ -2,9 +2,11 @@
 
 namespace Admin\Service;
 
+use Application\Model\NullException;
 use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
+use Zend\ServiceManager\ServiceManager;
 
 /**
  * @author Andrea Fiori
@@ -56,14 +58,21 @@ abstract class AppServiceLoaderAbstract
      */
     public function setProperties(array $properties)
     {
-        $this->properties = $properties;        
+        $this->properties = $properties;
+
+        return $this->properties;
     }
-    
+
+    /**
+     * @return array|null
+     */
     public function getProperties()
     {
         if (!empty($this->properties)) {
             return $this->properties;
         }
+
+        return null;
     }
     
     /**
@@ -97,14 +106,26 @@ abstract class AppServiceLoaderAbstract
      */
     public function recoverRouter()
     {
+        $this->assertServiceManager();
+
         try {
             $this->setService('router', $this->recoverService('serviceManager')->get('router') );
         } catch(ServiceNotCreatedException $ex) {
             $this->setService('router', HttpRouter::factory(array()) );
         }
-        
+
         return $this->recoverService('router');
     }
+
+        /**
+         * @throws NullException
+         */
+        private function assertServiceManager()
+        {
+            if (!$this->recoverService('serviceManager') instanceof ServiceManager) {
+                throw new NullException("Service Manager is not set as a service");
+            }
+        }
 
     /**
      * @return RouteMatch

@@ -2,6 +2,7 @@
 
 namespace Application;
 
+use Zend\Authentication\Adapter\DbTable as AuthAdapter;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
@@ -122,11 +123,11 @@ class Module implements AutoloaderProviderInterface
                 },
                 'AuthService' => function($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                            $dbTableAuthAdapter  = new DbTableAuthAdapter($dbAdapter, 'zfcms_users', 'username', 'password', 'MD5(?)');
+                    $dbTableAuthAdapter  = new AuthAdapter($dbAdapter, 'zfcms_users', 'username', 'password', 'MD5(?)');
 
                     $authService = new AuthenticationService();
                     $authService->setAdapter($dbTableAuthAdapter);
-                            $authService->setStorage($sm->get('Admin\Model\MyAuthStorage'));
+                    $authService->setStorage($sm->get('Admin\Model\MyAuthStorage'));
 
                     return $authService;
                 },

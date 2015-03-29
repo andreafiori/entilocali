@@ -278,6 +278,17 @@ abstract class CrudHandlerAbstract
     }
 
     /**
+     * @param $form
+     * @return \Zend\Form\Form
+     */
+    public function setForm($form)
+    {
+        $this->form = $form;
+
+        return $this->form;
+    }
+
+    /**
      * @return \Zend\Form\Form
      */
     public function getForm()

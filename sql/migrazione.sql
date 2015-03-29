@@ -37,7 +37,7 @@ rss, pub_albo_comune, data_rettifica, path, tabella, check_atti, annoammtrasp)
 
 -- Utenti
 TRUNCATE table zfcms_users;
-INSERT INTO zfcms_users (id, name, email, username, password, settore, livello)
+INSERT INTO zfcms_users (id, name, email, username, password, livello)
 (SELECT id, nome, mail, username, password, settore, role_id FROM utenti);
 
 -- Albo pretorio
@@ -54,31 +54,40 @@ INSERT INTO zfcms_users (id, name, email, username, password, settore, livello)
 
 
 -- Migrazione contratti pubblici
-	-- Contratti
+/*
 	TRUNCATE table zfcms_comuni_contratti;
-	INSERT INTO zfcms_comuni_contratti (id, beneficiario, titolo, importo_aggiudicazione, importo_liquidato, operatori, numero_offerte, modassegn, data_inizio_lavori, data_fine_lavori, progressivo, anno, data, ora, attivo, scadenza, utente_id, settore_id, resp_proc_id, sc_contr_id, cig) (SELECT * FROM contpub_data)
+	 INSERT INTO zfcms_comuni_contratti (id, beneficiario, titolo, importo_aggiudicazione,
+	 importo_liquidato, operatori, numero_offerte, modassegn, data_inizio_lavori, data_fine_lavori,
+	 progressivo, anno, data, ora, attivo, scadenza, utente_id, settore_id, resp_proc_id, sc_contr_id, cig)
+	 (SELECT * FROM contpub_data)
+*/
 
-	-- Partecipanti
-	TRUNCATE table zfcms_comuni_contratti_partecipanti;
-	INSERT INTO zfcms_comuni_contratti_partecipanti (SELECT * FROM contpub_partecipanti)
-	
-	-- Relazioni \ CIG
-	TRUNCATE table zfcms_comuni_contratti_relations;
-	INSERT INTO zfcms_comuni_contratti_relations 
-	(SELECT * FROM contpub_part_cig)
-	
-	-- Responsabili procedura
-	TRUNCATE table zfcms_comuni_contratti_resp_proc;
-	INSERT INTO zfcms_comuni_contratti_resp_proc (SELECT * FROM contpub_resp_proc)
-	
-	-- Scelta contraente
-	TRUNCATE table zfcms_comuni_contratti_sc_contr;
-	INSERT INTO zfcms_comuni_contratti_sc_contr (SELECT * FROM contpub_sc_contr)
-	
-	-- Settori
-	TRUNCATE table zfcms_comuni_contratti_settori;
-	INSERT INTO zfcms_comuni_contratti_settori 
-	(SELECT * FROM contpub_sezioni)
+    -- Partecipanti
+    TRUNCATE table zfcms_comuni_contratti_partecipanti;
+    INSERT INTO zfcms_comuni_contratti_partecipanti (SELECT * FROM contpub_partecipanti)
+
+    -- Relazioni \ CIG
+    TRUNCATE table zfcms_comuni_contratti_relations;
+    INSERT INTO zfcms_comuni_contratti_relations
+    (SELECT * FROM contpub_part_cig)
+
+    -- Responsabili procedura
+    /*
+    TRUNCATE table zfcms_comuni_contratti_resp_proc;
+    INSERT INTO zfcms_comuni_contratti_resp_proc (SELECT * FROM contpub_resp_proc)
+    */
+
+
+    -- Scelta contraente
+    TRUNCATE table zfcms_comuni_contratti_sc_contr;
+    INSERT INTO zfcms_comuni_contratti_sc_contr (SELECT * FROM contpub_sc_contr)
+
+    -- Settori
+    /*
+    TRUNCATE table zfcms_comuni_contratti_settori;
+    INSERT INTO zfcms_comuni_contratti_settori
+    (SELECT * FROM contpub_sezioni)
+    */
 
 	
 	
@@ -95,11 +104,15 @@ INSERT INTO zfcms_users (id, name, email, username, password, settore, livello)
 	-- TODO: remove euro and euro symbols from importo!
 	
 	-- Sezioni
+	/*
 	TRUNCATE table zfcms_comuni_concessione_settori;
 	INSERT INTO zfcms_comuni_concessione_settori (SELECT * FROM  ammaperta_sezioni);
+	*/
+	insert into zfcms_users_settori (nome, stato, responsabile_user_id)
+select nome, 1, 117 from zfcms_comuni_concessione_settori
 	
 	-- Responsabili procedura
-	
+
 	-- TODO: allegati, contratti codice fiscale (CF)
 	
 

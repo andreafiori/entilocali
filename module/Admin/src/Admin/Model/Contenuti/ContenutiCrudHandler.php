@@ -131,7 +131,7 @@ class ContenutiCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', ha inserito il contenuto ".$inputFilter->titolo,
+            'message'   => "Inserito il contenuto ".$inputFilter->titolo,
             'type'      => 'error',
             'backend'   => 1,
         ));
@@ -157,7 +157,7 @@ class ContenutiCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'inserimento del contenuto ".$inputFilter->titolo.' Messaggio: '.$message,
+            'message'   => "Errore nell'inserimento del contenuto ".$inputFilter->titolo.' Messaggio: '.$message,
             'type'      => 'error',
             'backend'   => 1,
         ));
@@ -181,7 +181,7 @@ class ContenutiCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', ha aggiornato il contenuto ".$inputFilter->titolo,
+            'message'   => "Aggiornato il contenuto ".$inputFilter->titolo,
             'type'      => 'info',
             'backend'   => 1,
         ));
@@ -207,7 +207,7 @@ class ContenutiCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'aggiornamento del contenuto ".$inputFilter->titolo.' Messaggio: '.$message,
+            'message'   => "Errore nell'aggiornamento del contenuto ".$inputFilter->titolo.' Messaggio: '.$message,
             'type'      => 'error',
             'backend'   => 1,
         ));

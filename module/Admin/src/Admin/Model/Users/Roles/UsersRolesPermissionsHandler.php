@@ -40,7 +40,8 @@ class UsersRolesPermissionsHandler extends RouterManagerAbstract implements Rout
                 new UsersRolesPermissionsRelationsGetter($this->getInput('entityManager',1))
             );
             $permissionsCurrentRoles->setInput(array(
-                    'roleId' => $roleRecord[0]['id'],
+                    'roleId'    => $roleRecord[0]['id'],
+                    'orderBy'   => 'permission.position',
                 )
             );
             $permissionsCurrentRoles->setupQueryBuilder();

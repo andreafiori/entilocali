@@ -25,18 +25,12 @@ class AttiConcessioneDataTable extends DataTableAbstract
         $this->setTitle('Atti di concessione');
         $this->setDescription('Gestione atti di concessione');
         $this->setColumns(array(
-                // "key_imp",
-                //"Codice",
                 "Ufficio-Responsabile del Servizio - Responsabile del Procedimento",
                 "Num / Anno",
                 "CF / P. IVA Beneficiario",
                 "Modalità Assegnazione",
                 "Importo",
                 "Norma o Titolo a base dell'attribuzione",
-                //"Data \ Ora inserimento",
-                //"Data scadenza",
-                //"Inserito da",
-                "",
                 "",
                 "",
                 "",
@@ -52,28 +46,13 @@ class AttiConcessioneDataTable extends DataTableAbstract
         );
         
         $this->setTemplate('datatable/datatable_atti_concessione.phtml');
+
         if (!$this->getRecords()) {
             $this->setVariable('messageTitle', 'Nessun atto di concessione presente');
             $this->setVariable('messageDescription', 'Nessun atto di concessione presente in archivio');
         }
     }
-    
-        /**
-         * @return AttiConcessioneGetterWrapper
-         */
-        private function setupPaginatorRecords()
-        {
-            $param = $this->getParam();
 
-            $wrapper = new AttiConcessioneGetterWrapper(new AttiConcessioneGetter($this->getInput('entityManager',1)) );
-            $wrapper->setInput($this->getInput());
-            $wrapper->setupQueryBuilder();
-            $wrapper->setupPaginator( $wrapper->setupQuery($this->getInput('entityManager', 1)) );
-            $wrapper->setupPaginatorCurrentPage( isset($param['route']['page']) ? $param['route']['page'] : null );
-
-            return $wrapper;
-        }
-        
         /**
          * @param array $records
          * @return array
@@ -84,9 +63,7 @@ class AttiConcessioneDataTable extends DataTableAbstract
             
             if ($records) {
                 foreach($records as $key => $row) {
-                    
-                    //$activeDisableButtonValue = ($row['attivo']!=0) ? 'toDisable' : 'toActive';
-            
+
                     if(isset($row['responsabile'])) {
                         $responsabile = $row['responsabile'];
                     } elseif (isset($row['nomeResp'])) {
@@ -98,14 +75,10 @@ class AttiConcessioneDataTable extends DataTableAbstract
                     }
 
                     $arrayToReturn[] = array(
-                        // (isset($row['keyImp'])) ? $row['keyImp'] : '',
-                        //$row['id'],
-
                         (isset($responsabile))  ?
                             utf8_encode($row['nomeSezione']).'. <br><br>'.$responsabile
                             :
                             utf8_encode($row['nomeSezione']),
-                        
                         $row['progressivo']." / ".$row['anno'],
                         utf8_encode($row['beneficiario']),
                         utf8_encode($row['modassegn']),
@@ -113,7 +86,7 @@ class AttiConcessioneDataTable extends DataTableAbstract
                         utf8_encode($row['titolo']),
                         '<strong>Data inserimento:</strong> '.$row['dataInserimento'].' <br><br><strong>Scadenza:</strong> '.$row['scadenza'].'<br><br> <strong>Inserito da:</strong> '.$row['name'].' '.$row['surname'],
                         array(
-                            'type'      => $row['attivo']!=0 ? 'activeButton' : 'disableButton',
+                            'type'      => ($row['attivo']!=0) ? 'toDisable' : 'toActive',
                             'href'      => '?active=&amp;id='.$row['id'],
                             'value'     => $row['attivo'],
                             'title'     => 'Attiva \ Disattiva'
@@ -139,5 +112,21 @@ class AttiConcessioneDataTable extends DataTableAbstract
             }
 
             return $arrayToReturn;
+        }
+
+        /**
+         * @return AttiConcessioneGetterWrapper
+         */
+        private function setupPaginatorRecords()
+        {
+            $param = $this->getParam();
+
+            $wrapper = new AttiConcessioneGetterWrapper(new AttiConcessioneGetter($this->getInput('entityManager',1)) );
+            $wrapper->setInput($this->getInput());
+            $wrapper->setupQueryBuilder();
+            $wrapper->setupPaginator( $wrapper->setupQuery($this->getInput('entityManager', 1)) );
+            $wrapper->setupPaginatorCurrentPage( isset($param['route']['page']) ? $param['route']['page'] : null );
+
+            return $wrapper;
         }
 }

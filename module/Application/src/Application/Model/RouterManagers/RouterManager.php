@@ -10,16 +10,16 @@ use Application\Model\NullException;
  */
 class RouterManager extends RouterManagerAbstract
 {
-    private $configurations;
+    private $configFromDb;
     private $routeMatchName;
     private $isBackend;
 
     /**
-     * @param array $configurations
+     * @param array $configFromDb
      */
-    public function __construct(array $configurations)
+    public function __construct(array $configFromDb)
     {
-        $this->configurations = $configurations;
+        $this->configFromDb = $configFromDb;
     }
     
     /**
@@ -41,14 +41,16 @@ class RouterManager extends RouterManagerAbstract
     }
     
     /**
+     * Check
+     *
      * @param array $router
      * @return string
      */
     public function setRouteMatchName(array $router)
     {
-        if ( isset($router[$this->configurations['routeMatchName']]) ) {
-            $this->routeMatchName = isset($router[$this->configurations['routeMatchName']]) ?
-            $router[$this->configurations['routeMatchName']] :
+        if ( isset($router[$this->configFromDb['routeMatchName']]) ) {
+            $this->routeMatchName = isset($router[$this->configFromDb['routeMatchName']]) ?
+            $router[$this->configFromDb['routeMatchName']] :
             null;
             
             return $this->routeMatchName;

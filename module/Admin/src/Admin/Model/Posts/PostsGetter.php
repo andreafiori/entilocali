@@ -36,7 +36,8 @@ class PostsGetter extends QueryBuilderHelperAbstract
     }
 
     /**
-     * @param number $channel
+     * @param int|null $channel
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setChannelId($channel = null)
     {
@@ -61,7 +62,7 @@ class PostsGetter extends QueryBuilderHelperAbstract
     }
 
     /**
-     * @param number or array $id
+     * @param number|array $id
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function setId($id)
@@ -89,6 +90,7 @@ class PostsGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere('co.name = LOWER( :categoryName ) ');
             $this->getQueryBuilder()->setParameter('categoryName', Slugifier::deSlugify($category) );
         }
+
         return $this->getQueryBuilder();
     }
 
@@ -102,6 +104,7 @@ class PostsGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere('LOWER( po.seoTitle ) =  :title ');
             $this->getQueryBuilder()->setParameter('title', Slugifier::deSlugify($title) );
         }
+
         return $this->getQueryBuilder();
     }
 
@@ -122,7 +125,7 @@ class PostsGetter extends QueryBuilderHelperAbstract
     }
 
     /**
-     * @param string or null $status
+     * @param string|null $status
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function setStatus($status = null)

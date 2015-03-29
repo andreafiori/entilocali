@@ -1,0 +1,60 @@
+<ul class="breadcrumb">
+    <li><a href="<?php echo $this->url('admin', array('lang'=>'it')); ?>" title="Home page">Home</a> <span class="divider"></span></li>
+    <li><a href="<?php echo $this->url('admin/datatable', array('lang' => 'it', 'tablesetter' => 'sottosezioni-contenuti')); ?>" title="">Sottosezioni</a> <span class="divider"></span></li>
+    <li><a href="<?php
+        echo $this->url('admin/posizioni-sottosezioni', array(
+                'lang'          => 'it',
+                'sezioneId'     => $this->records[0]['idSezione'],
+                'profonditaDa'  => 0
+            )
+        ); ?>" title="<?php echo $this->records[0]['nomeSezione'] ?>"><?php echo $this->records[0]['nomeSezione'] ?></a> <span class="divider"></span>
+    </li>
+    <li class="active">Posizioni</li>
+</ul>
+
+
+<h2>Gestione posizioni sottosezione</h2>
+
+<p>Gestione sottosezioni correlate alla sezione <strong><?php echo $this->records[0]['nomeSezione'] ?></strong>.</p>
+
+<p>Trascina il nome sottosezione per cambiare l'ordine oppure clicca sul link a destra (se presente) per ordinare
+    le sottoszioni di livello inferiore.</p>
+
+<?php if ($this->records): ?>
+
+<!-- Result div -->
+<div id="info"></div>
+
+<h3><?php echo $this->records[0]['nomeSezione'] ?></h3>
+
+<div class="row">
+    <div class="col-md-6">
+        <ul class="sezioniColumn" style="margin-left: 0; padding: 0">
+            <?php foreach($this->records as $sezioni): ?>
+                <li class="positionMove list-group-item list-group-item-warning" id="oggettoItem_<?php echo $sezioni['idSottoSezione'] ?>">
+                    <span class="trascinabile"><?php echo $sezioni['nomeSottoSezione']; ?> </span>
+                    <?php if ($sezioni['secondo_livello']==1): ?>
+                    <span class="pull-right"><a href="<?php echo $this->url('admin/posizioni-sottosezioni', array('lang' => 'it', 'sezioneId' => $sezioni['idSezione'], 'profonditaDa' => $sezioni['idSottoSezione'])); ?>" title="Sottosezioni">&raquo; Sottosezioni</a></span>
+                    <?php endif; ?>
+                </li>
+            <?php endforeach ?>
+        </ul>
+    </div>
+
+    <div class="col-md-6">&nbsp;</div>
+</div>
+
+<script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".sezioniColumn").sortable({
+            handle : '.trascinabile',
+            update : function () {
+                var ordina = $('.sezioniColumn').sortable('serialize');
+                $("#info").load("<?php echo $this->url('admin/posizioni-sottosezioni-update', array('lang'=>'it')); ?>?"+ordina+'&group='+$('#1').attr('id') );
+            }
+        });
+    });
+</script>
+<?php endif; ?>

@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Model\AttiConcessione;
+namespace Admin\Model\Users\Roles;
 
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
@@ -9,12 +9,18 @@ use Zend\InputFilter\InputFilterInterface;
 
 /**
  * @author Andrea Fiori
- * @since  15 December 2014
+ * @since  25 March 2015
  */
-class AttiConcessioneRespProcFormInputFilter extends CrudHandlerAbstract implements CrudHandlerInterface, CrudHandlerInsertUpdateInterface
+class UsersRolesFormInputFilter implements InputFilterAwareInterface
 {
     public $id;
-    public $nomeResp;
+    public $titolo;
+    public $sezione;
+    public $attivo;
+    public $data;
+    public $scadenza;
+    public $home;
+    public $utente;
 
     protected $inputFilter;
 
@@ -23,8 +29,8 @@ class AttiConcessioneRespProcFormInputFilter extends CrudHandlerAbstract impleme
      */
     public function exchangeArray(array $data)
     {
-        $this->id         = (isset($data['id']))        ? $data['id'] : null;
-        $this->nomeResp   = (isset($data['nomeResp']))  ? $data['nomeResp'] : null;
+        $this->id           = (isset($data['id']))       ? $data['id']      : null;
+
     }
 
     /**
@@ -37,7 +43,7 @@ class AttiConcessioneRespProcFormInputFilter extends CrudHandlerAbstract impleme
     }
 
     /**
-     * @return mixed
+     * @return InputFilter
      */
     public function getInputFilter()
     {
@@ -54,7 +60,7 @@ class AttiConcessioneRespProcFormInputFilter extends CrudHandlerAbstract impleme
             ));
 
             $inputFilter->add(array(
-                'name'     => 'nomeresp',
+                'name'     => 'name',
                 'required' => true,
                 'filters'  => array(
                     array('name' => 'StripTags'),
@@ -69,6 +75,15 @@ class AttiConcessioneRespProcFormInputFilter extends CrudHandlerAbstract impleme
                             'max'      => 255,
                         ),
                     ),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'description',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
                 ),
             ));
 

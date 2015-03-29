@@ -25,12 +25,13 @@ class AttachmentsFormDataHandler extends FormDataAbstract
 
         $moduleWrapper = new ModulesGetterWrapper( new ModulesGetter($this->getInput("entityManager", 1)) );
         $moduleWrapper->setInput(array(
-                'code' => $param['route']['option'],
+                'code'  => $param['route']['option'],
                 'limit' => 1
             )
         );
         $moduleWrapper->setupQueryBuilder();
         $moduleRecords = $moduleWrapper->getRecords();
+
         if (empty($moduleRecords)) {
             $this->setTemplate('message.phtml');
             $this->setVariables(array(
@@ -39,9 +40,9 @@ class AttachmentsFormDataHandler extends FormDataAbstract
                 'messageText'   => "Il presente modulo non &egrave; stato trovato. Contattare l'amministrazione per un aggiornamento dei dati relativi al modulo",
             ));
             return false;
-        } else {
-            $moduleId = $moduleRecords[0]['id'];
         }
+
+        $moduleId = $moduleRecords[0]['id'];
 
         // Get Attachments Records
         $wrapper = new AttachmentsGetterWrapper(new AttachmentsGetter($this->getInput("entityManager",1)));
@@ -52,10 +53,7 @@ class AttachmentsFormDataHandler extends FormDataAbstract
         ));
         $wrapper->setupQueryBuilder();
         $attachmentsRecords = $wrapper->getRecords();
-        if ( empty($attachmentsRecords) ) {
 
-        }
-        
         // Setup Attachment Form
         $form = new AttachmentsForm();
         $form->addInputFile();
@@ -83,16 +81,13 @@ class AttachmentsFormDataHandler extends FormDataAbstract
                 $wrapper = new \Admin\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper(
                     new \Admin\Model\AlboPretorio\AlboPretorioArticoliGetter($this->getInput("entityManager",1))
                 );
-                $wrapper->setInput(array('id' => $param['route']['option'], 'fields' => 'aa.id, aa.titolo'));
+                $wrapper->setInput(array('id' => $param['route']['option'], 'fields' => 'alboArticoli.id, alboArticoli.titolo'));
                 $wrapper->setupQueryBuilder();
                 
                 $relatedRecord = $wrapper->getRecords();
-                
-                if (count($relatedRecord)!=1) {
-                    // No attachments
-                }
 
                 $articleTitle = stripslashes($relatedRecord[0]['titolo']);
+
                 $breadCrumbModule = 'Albo pretorio';
             break;
 
@@ -104,8 +99,9 @@ class AttachmentsFormDataHandler extends FormDataAbstract
                 $wrapper->setupQueryBuilder();
                 
                 $relatedRecord = $wrapper->getRecords();
-                
+
                 $articleTitle = stripslashes($relatedRecord[0]['titolo']);
+
                 $breadCrumbModule = 'Stato civile';
             break;
 
@@ -122,6 +118,19 @@ class AttachmentsFormDataHandler extends FormDataAbstract
                 $breadCrumbModule = 'Contratti pubblici';
             break;
 
+            case("atti-concessione"):
+                $wrapper = new \Admin\Model\AttiConcessione\AttiConcessioneGetterWrapper(
+                    new \Admin\Model\AttiConcessione\AttiConcessioneGetter($this->getInput("entityManager",1))
+                );
+                $wrapper->setInput(array('id' => $param['route']['option']));
+                $wrapper->setupQueryBuilder();
+
+                $relatedRecord = $wrapper->getRecords();
+
+                $articleTitle = stripslashes($relatedRecord[0]['titolo']);
+                $breadCrumbModule = 'Atti concessione';
+            break;
+
             case("contenuti"): case("amministrazione-trasparente"):
                 $wrapper = new \Admin\Model\Contenuti\ContenutiGetterWrapper(
                     new \Admin\Model\Contenuti\ContenutiGetter($this->getInput("entityManager",1))
@@ -132,15 +141,16 @@ class AttachmentsFormDataHandler extends FormDataAbstract
                 $relatedRecord = $wrapper->getRecords();
 
                 $articleTitle = stripslashes($relatedRecord[0]['titolo']);
+
                 $breadCrumbModule = ($param['route']['option']=='contenuti') ? 'Contenuti' : 'Amministrazione Trasparente';
             break;
         }
         
         $form->setData( array(
-                'userId'                => $this->getInput('userDetails',1)->id,
-                'referenceId'           => $param['route']['id'],
-                'moduleId'              => $moduleId,
-                's3_directory'          => $param['route']['option']
+                'userId'            => $this->getInput('userDetails',1)->id,
+                'referenceId'       => $param['route']['id'],
+                'moduleId'          => $moduleId,
+                's3_directory'      => $param['route']['option']
             )
         );
         

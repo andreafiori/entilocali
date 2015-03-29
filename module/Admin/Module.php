@@ -15,13 +15,12 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
      */
     public function onBootstrap(MvcEvent $e)
     {
-        $eventManager        = $e->getApplication()->getEventManager();
-
         $moduleRouteListener = new ModuleRouteListener();
-        $moduleRouteListener->attach($eventManager);
-        
-        $translator = $e->getApplication()->getServiceManager()->get('translator');
-        AbstractValidator::setDefaultTranslator($translator);
+        $moduleRouteListener->attach($e->getApplication()->getEventManager());
+
+        AbstractValidator::setDefaultTranslator(
+            $e->getApplication()->getServiceManager()->get('translator')
+        );
     }
 
     /**

@@ -57,6 +57,13 @@ class ZfcmsAttachmentsOptions
     private $status;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="atti_column_category", type="integer", nullable=true)
+     */
+    private $attiColumnCategory;
+
+    /**
      * @var \Application\Entity\ZfcmsAttachments
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsAttachments")

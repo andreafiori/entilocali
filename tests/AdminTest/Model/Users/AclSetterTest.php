@@ -14,6 +14,9 @@ use ApplicationTest\TestSuite;
  */
 class AclSetterTest extends TestSuite
 {
+    /**
+     * @var AclSetter
+     */
     private $aclSetter;
 
     protected function setUp()

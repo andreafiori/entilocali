@@ -1,29 +1,29 @@
 <?php
 
-namespace Admin\Model\AttiConcessione;
+namespace Admin\Model\Users\Todo;
 
 use Application\Model\QueryBuilderHelperAbstract;
 
 /**
  * @author Andrea Fiori
- * @since  15 December 2014
+ * @since  26 March 2015
  */
-class AttiConcessioneRespProcGetter extends QueryBuilderHelperAbstract
+class UsersTodoGetter extends QueryBuilderHelperAbstract
 {
     /**
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function setMainQuery()
     {
-        $this->setSelectQueryFields("arp.id, arp.nomeResp, arp.attivo");
+        $this->setSelectQueryFields('toDo.id, toDo.taskName ');
 
-        $this->getQueryBuilder()->select($this->getSelectQueryFields())
-                                ->from('Application\Entity\ZfcmsComuniConcessioneRespProc', 'arp')
-                                ->where('arp.id != 0 ');
+        $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
+                                ->from('Application\Entity\ZfcmsUsersTodo', 'toDo')
+                                ->where("toDo.id != 0 ");
 
         return $this->getQueryBuilder();
     }
-    
+
     /**
      * @param number|array $id
      * @return \Doctrine\ORM\QueryBuilder
@@ -31,15 +31,15 @@ class AttiConcessioneRespProcGetter extends QueryBuilderHelperAbstract
     public function setId($id)
     {
         if ( is_numeric($id) ) {
-            $this->getQueryBuilder()->andWhere('arp.id = :id ');
+            $this->getQueryBuilder()->andWhere('toDo.id = :id ');
             $this->getQueryBuilder()->setParameter('id', $id);
         }
-        
+
         if (is_array($id)) {
-            $this->getQueryBuilder()->andWhere('arp.id IN ( :id ) ');
+            $this->getQueryBuilder()->andWhere('toDo.id IN ( :id ) ');
             $this->getQueryBuilder()->setParameter('id', $id);
         }
-        
+
         return $this->getQueryBuilder();
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Model\AttiConcessione;
+namespace Admin\Model\Users\Settori;
 
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
@@ -9,14 +9,13 @@ use Zend\InputFilter\InputFilterInterface;
 
 /**
  * @author Andrea Fiori
- * @since  23 March 2015
+ * @since  26 March 2015
  */
-class AttiConcessioneSettoriFormInputFilter implements InputFilterAwareInterface
+class UsersSettoriFormInputFilter implements InputFilterAwareInterface
 {
     public $id;
     public $nome;
-    public $responsabile;
-    public $attivo;
+    public $responsabileUserId;
 
     protected $inputFilter;
 
@@ -25,17 +24,23 @@ class AttiConcessioneSettoriFormInputFilter implements InputFilterAwareInterface
      */
     public function exchangeArray(array $data)
     {
-        $this->id           = (isset($data['id']))      ? $data['id']   : null;
-        $this->nome         = (isset($data['nome']))  ? $data['nome'] : null;
-        $this->responsabile = (isset($data['responsabile']))  ? $data['responsabile'] : null;
-        $this->attivo       = (isset($data['attivo']))  ? $data['attivo'] : null;
+        $this->id = (isset($data['id'])) ? $data['id'] : null;
+        $this->nome = (isset($data['nome'])) ? $data['nome'] : null;
+        $this->responsabileUserId = (isset($data['responsabileUserId'])) ? $data['responsabileUserId'] : null;
     }
 
+    /**
+     * @param InputFilterInterface $inputFilter
+     * @throws \Exception
+     */
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
         throw new \Exception("Not used");
     }
 
+    /**
+     * @return mixed
+     */
     public function getInputFilter()
     {
         if (!$this->inputFilter)
@@ -70,16 +75,8 @@ class AttiConcessioneSettoriFormInputFilter implements InputFilterAwareInterface
             ));
 
             $inputFilter->add(array(
-                'name'     => 'responsabile',
+                'name'     => 'responsabileUserId',
                 'required' => true,
-                'filters'  => array(
-                    array('name' => 'Int'),
-                ),
-            ));
-
-            $inputFilter->add(array(
-                'name'     => 'attivo',
-                'required' => false,
                 'filters'  => array(
                     array('name' => 'Int'),
                 ),

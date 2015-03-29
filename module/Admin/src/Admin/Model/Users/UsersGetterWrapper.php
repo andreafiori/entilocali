@@ -16,7 +16,7 @@ class UsersGetterWrapper extends RecordsGetterWrapperAbstract
     protected $objectGetter;
 
     /**
-     * @param UsersGetter $usersGetter
+     * @param UsersGetter $objectGetter
      */
     public function __construct(UsersGetter $objectGetter)
     {

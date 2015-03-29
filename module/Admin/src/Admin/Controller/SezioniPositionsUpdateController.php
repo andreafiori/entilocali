@@ -19,8 +19,6 @@ class SezioniPositionsUpdateController extends SetupAbstractController
 
         $appServiceLoader = $this->recoverAppServiceLoader();
 
-        $sql = array();
-
         $items = $this->params()->fromQuery('oggettoItem');
 
         $connection = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default')->getConnection();

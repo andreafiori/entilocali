@@ -134,9 +134,9 @@ class ZfcmsComuniContratti
     private $cig;
 
     /**
-     * @var \Application\Entity\ZfcmsComuniContrattiRespProc
+     * @var \Application\Entity\ZfcmsUsersRespProc
      *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniContrattiRespProc")
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsersRespProc")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="resp_proc_id", referencedColumnName="id")
      * })
@@ -154,9 +154,9 @@ class ZfcmsComuniContratti
     private $scContr;
 
     /**
-     * @var \Application\Entity\ZfcmsComuniContrattiSettori
+     * @var \Application\Entity\ZfcmsUsersSettori
      *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniContrattiSettori")
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsersSettori")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="settore_id", referencedColumnName="id")
      * })

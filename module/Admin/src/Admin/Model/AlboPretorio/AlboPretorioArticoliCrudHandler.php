@@ -164,7 +164,7 @@ class AlboPretorioArticoliCrudHandler extends CrudHandlerAbstract implements Cru
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', ha inserito l'atto albo pretorio ".$inputFilter->titolo,
+            'message'   => "Inserito un nuovo atto albo pretorio ".$inputFilter->titolo,
             'type'      => 'error',
             'backend'   => 1,
         ));
@@ -190,7 +190,7 @@ class AlboPretorioArticoliCrudHandler extends CrudHandlerAbstract implements Cru
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'inserimento atto albo pretorio ".$inputFilter->titolo.'Messaggio: '.$message,
+            'message'   => "Errore nell'inserimento atto albo pretorio ".$inputFilter->titolo.'Messaggio: '.$message,
             'type'      => 'error',
             'backend'   => 1,
         ));
@@ -214,7 +214,7 @@ class AlboPretorioArticoliCrudHandler extends CrudHandlerAbstract implements Cru
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', ha aggiornato l'atto albo pretorio ".$inputFilter->titolo,
+            'message'   => "Aggiornato l'atto albo pretorio ".$inputFilter->titolo,
             'type'      => 'info',
             'backend'   => 1,
         ));
@@ -240,7 +240,7 @@ class AlboPretorioArticoliCrudHandler extends CrudHandlerAbstract implements Cru
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'aggiornamento dell'atto albo pretorio ".$inputFilter->titolo.' Messaggio: '.$message,
+            'message'   => "Errore nell'aggiornamento dell'atto albo pretorio ".$inputFilter->titolo.' Messaggio: '.$message,
             'type'      => 'error',
             'backend'   => 1,
         ));

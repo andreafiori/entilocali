@@ -93,9 +93,14 @@
 
     <!-- Elenco completo operatori -->
     <h3>Elenco operatori</h3>
+
     <p>Seleziona e aggiungi operatori all'elenco partecipanti:</p>
+
     <?php if (!empty($this->operatori)): ?>
         <form action="" method="post" id="frmaddoperatore">
+        <div>
+            <input type="submit" name="addOperatoreButton" value="Aggiungi operaori all'elenco partecipanti" class="btn btn-lg btn-primary">
+        </div>
         <table class="table table-bordered dataTable" id="contratti-opeartori-rubrica-table">
             <thead>
             <tr>

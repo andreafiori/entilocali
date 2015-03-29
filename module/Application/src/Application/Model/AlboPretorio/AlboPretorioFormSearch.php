@@ -2,7 +2,7 @@
 
 namespace Application\Model\AlboPretorio;
 
-use Admin\Model\AlboPretorio\AlboPretorioFormAbstract;
+use Admin\Model\AlboPretorio\AlboPretorioArticoliFormAbstract;
 
 /**
  * Albo Pretorio Frontend Search Form
@@ -10,7 +10,7 @@ use Admin\Model\AlboPretorio\AlboPretorioFormAbstract;
  * @author Andrea Fiori
  * @since  08 May 2014
  */
-class AlboPretorioFormSearch extends AlboPretorioFormAbstract
+class AlboPretorioFormSearch extends AlboPretorioArticoliFormAbstract
 {
     /**
      * @param string $name

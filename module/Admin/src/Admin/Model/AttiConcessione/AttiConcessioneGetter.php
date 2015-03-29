@@ -15,25 +15,29 @@ class AttiConcessioneGetter extends QueryBuilderHelperAbstract
      */
     public function setMainQuery()
     {
-        $this->setSelectQueryFields("aa.id, aa.beneficiario, aa.titolo, aa.importo, 
-                aa.ufficioresponsabile, aa.modassegn, aa.data AS dataInserimento, aa.ora, aa.progressivo, aa.anno,
-                aa.scadenza, aa.attivo,
-                IDENTITY(aa.settore) AS ufficioResponsabile, IDENTITY(aa.respProc) AS respProc,
+        $this->setSelectQueryFields("atti.id, atti.beneficiario, atti.titolo, atti.importo,
+                atti.ufficioresponsabile, atti.modassegn, atti.data AS dataInserimento, atti.ora, atti.progressivo,
+                atti.anno, atti.scadenza, atti.attivo,
+                IDENTITY(atti.settore) AS ufficioResponsabile, IDENTITY(atti.respProc) AS respProc,
 
-                u.id, u.name, u.surname, u.settore,
+                u.id, u.name, u.surname,
                 
-                rp.nomeResp,
-                
-                asettori.nome AS nomeSezione, asettori.responsabile
+                asettori.nome AS nomeSezione,
+
+                IDENTITY( respProcedimento.user ) AS idResponsabileProc,
+                respProcedimentoUser.name AS nomeResponsabileProc,
+                respProcedimentoUser.surname AS cognomeResponsabileProc
         ");
 
         $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
-                                ->from('Application\Entity\ZfcmsComuniConcessione', 'aa')
-                                ->join('aa.utente', 'u')
-                                ->join('aa.settore', 'asettori')
-                                ->join('aa.respProc', 'rp')
-                                ->where(' (aa.utente = u.id) AND (aa.respProc = rp.id) ')
-                                ->andWhere(" (aa.scadenza >= '".date('Y-m-d-')."' OR aa.scadenza = '0000-00-00') AND (aa.utente = u.id) ");
+                                ->from('Application\Entity\ZfcmsComuniConcessione', 'atti')
+                                ->join('atti.utente', 'u')
+                                ->join('atti.settore', 'asettori')
+                                ->join('atti.respProc', 'respProcedimento')
+                                ->join('respProcedimento.user', 'respProcedimentoUser')
+                                ->where(' (atti.utente = u.id) AND (atti.respProc = respProcedimento.id) ')
+                                ->andWhere(" (atti.scadenza >= '".date('Y-m-d-')."' OR atti.scadenza = '0000-00-00')
+                                AND (atti.utente = u.id) ");
         
         return $this->getQueryBuilder();
     }
@@ -45,12 +49,12 @@ class AttiConcessioneGetter extends QueryBuilderHelperAbstract
     public function setId($id)
     {
         if ( is_numeric($id) ) {
-            $this->getQueryBuilder()->andWhere('ret.id = :id ');
+            $this->getQueryBuilder()->andWhere('atti.id = :id ');
             $this->getQueryBuilder()->setParameter('id', $id);
         }
         
         if (is_array($id)) {
-            $this->getQueryBuilder()->andWhere('ret.id IN ( :id ) ');
+            $this->getQueryBuilder()->andWhere('atti.id IN ( :id ) ');
             $this->getQueryBuilder()->setParameter('id', $id);
         }
         

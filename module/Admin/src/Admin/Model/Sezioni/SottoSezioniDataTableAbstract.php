@@ -28,6 +28,31 @@ abstract class SottoSezioniDataTableAbstract extends DataTableAbstract
     }
 
     /**
+     * @return array
+     */
+    protected function getHeaderColumns()
+    {
+        $columns = array(
+            "Nome",
+            "Sezione",
+        );
+
+        if ($this->getAcl()->hasResource('amministrazione_trsparente_sottosezioni_update')) {
+            $columns[] = "&nbsp;";
+        }
+
+        if ($this->getAcl()->hasResource('amministrazione_trsparente_sottosezioni_delete')) {
+            $columns[] = "&nbsp;";
+        }
+
+        if ($this->getAcl()->hasResource('amministrazione_trsparente_sottosezioni_update')) {
+            $columns[] = "&nbsp;";
+        }
+
+        return $columns;
+    }
+
+    /**
      * @param mixed $records
      * @return array
      */
@@ -46,7 +71,7 @@ abstract class SottoSezioniDataTableAbstract extends DataTableAbstract
                     ),
                 );
 
-                if ($this->isRole('WebMaster')) {
+                if ($this->getAcl()->hasResource('amministrazione_trsparente_sottosezioni_delete')) {
                     $rowToAdd[] = array(
                         'type'      => 'deleteButton',
                         'href'      => '#',
@@ -55,31 +80,18 @@ abstract class SottoSezioniDataTableAbstract extends DataTableAbstract
                     );
                 }
 
+                if ($this->getAcl()->hasResource('amministrazione_trsparente_sottosezioni_update')) {
+                    $rowToAdd[] = array(
+                        'type'      => 'positionButton',
+                        'href'      => $this->getInput('baseUrl',1).'posizioni/sottosezioni/'.$row['idSezione'],
+                        'title'     => 'Gestione posizioni'
+                    );
+                }
+
                 $arrayToReturn[] = $rowToAdd;
             }
         }
 
         return $arrayToReturn;
-    }
-
-    /**
-     * @return array
-     */
-    protected function getHeaderColumns()
-    {
-        $columns = array(
-            "Nome",
-            "Sezione",
-        );
-
-        if ($this->getAcl()->hasResource('amministrazione_trsparente_sottosezioni_update')) {
-            $columns[] = "&nbsp;";
-        }
-
-        if ($this->getAcl()->hasResource('amministrazione_trsparente_sottosezioni_delete')) {
-            $columns[] = "&nbsp;";
-        }
-
-        return $columns;
     }
 }

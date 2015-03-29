@@ -13,9 +13,6 @@ class DbTableContainer
     const attachmentsOption                 = 'zfcms_attachments_options';
     const attachmentsRelations              = 'zfcms_attachments_relations';
 
-    const categories                        = 'zfcms_categories';
-    const categoriesOptions                 = 'zfcms_categories_options';
-
     const alboArticoli                      = 'zfcms_comuni_albo_articoli';
     const alboSezioni                       = 'zfcms_comuni_albo_sezioni';
 
@@ -75,6 +72,9 @@ class DbTableContainer
     const postsOptions                      = 'zfcms_posts_options';
     const postsRelations                     = 'zfcms_posts_relations';
 
+    const categories                        = 'zfcms_posts_categories';
+    const categoriesOptions                 = 'zfcms_posts_categories_options';
+
     const products                          = 'zfcms_products';
     const productsAvailability              = 'zfcms_products_availability';
     const productsBrands                    = 'zfcms_products_brands';
@@ -91,8 +91,13 @@ class DbTableContainer
     const users                             = 'zfcms_users';
     const usersApiKeys                      = 'zfcms_users_api_keys';
     const usersApiBookmarks                 = 'zfcms_users_bookmarks';
+
     const usersRoles                        = 'zfcms_users_roles';
     const usersRolesPermissions             = 'zfcms_users_roles_permissions';
     const usersRolesPermissionsRelations    = 'zfcms_users_roles_permissions_relations';
+
+    const usersSettori                      = 'zfcms_users_settori';
+    const usersRespProc                     = 'zfcms_users_resp_proc';
+
     const usersTodo                         = 'zfcms_users_todo';
 }

@@ -102,9 +102,10 @@ class AuthController extends SetupAbstractController
                         new UsersGetter($entityManager)
                     );
                     $usersGetterWrapper->setInput( array(
-                        'username'  => $request->getPost('username'),
-                        'password'  => $request->getPost('password'),
-                        'limit'     => 1,
+                        'username'      => $request->getPost('username'),
+                        'password'      => $request->getPost('password'),
+                        'adminAccess'   => 1,
+                        'limit'         => 1,
                     ));
                     $usersGetterWrapper->setupQueryBuilder();
 

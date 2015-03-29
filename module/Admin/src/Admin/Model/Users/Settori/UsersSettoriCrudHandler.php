@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Model\AttiConcessione;
+namespace Admin\Model\Users\Settori;
 
 use Admin\Model\FormData\CrudHandlerAbstract;
 use Admin\Model\FormData\CrudHandlerInsertUpdateInterface;
@@ -11,9 +11,9 @@ use Zend\InputFilter\InputFilterAwareInterface;
 
 /**
  * @author Andrea Fiori
- * @since  25 March 2015
+ * @since  26 March 2015
  */
-class AttiConcessioneRespProcCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterface, CrudHandlerInsertUpdateInterface
+class UsersSettoriCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterface, CrudHandlerInsertUpdateInterface
 {
     private $dbTable;
 
@@ -21,13 +21,13 @@ class AttiConcessioneRespProcCrudHandler extends CrudHandlerAbstract implements 
 
     public function __construct()
     {
-        $this->form = new AttiConcessioneRespProcForm();
+        $this->form = new UsersSettoriForm();
 
-        $this->formInputFilter = new AttiConcessioneRespF();
+        $this->formInputFilter = new UsersSettoriFormInputFilter();
 
-        $this->dbTable = DbTableContainer::attiConcessioneRespProc;
+        $this->dbTable = DbTableContainer::usersSettori;
 
-        $this->moduleId = ModulesContainer::atti_concessione;
+        $this->moduleId = ModulesContainer::contenuti_id;
     }
 
     /**
@@ -37,22 +37,10 @@ class AttiConcessioneRespProcCrudHandler extends CrudHandlerAbstract implements 
      */
     public function validateFormData(InputFilterAwareInterface $formData)
     {
-        $error = $this->checkValidateFormDataError(
+        return $this->checkValidateFormDataError(
             $formData,
-            array('titolo', 'beneficiario', 'importo', 'modassegn', 'dataInserimento', 'anno')
+            array('nome', 'responsabileUserId')
         );
-
-        /* chars, symbols and string are in the old db
-        if (!is_numeric($formData->importo)) {
-            $error[] = 'Importo non &egrave; un numero';
-        }
-        */
-
-        if ( (int)$formData->anno > 2030 or (int)$formData->anno < 1954 ) {
-            $error[] = 'Anno atto deve essere un anno valido.';
-        }
-
-        return $error;
     }
 
     /**
@@ -64,20 +52,9 @@ class AttiConcessioneRespProcCrudHandler extends CrudHandlerAbstract implements 
     {
         $this->asssertConnection();
 
-        $this->assertUserDetails();
-
-        $userDetails = $this->getUserDetails();
-
         return $this->getConnection()->insert($this->dbTable, array(
-            'titolo'        => $formData->titolo,
-            'beneficiario'  => $formData->beneficiario,
-            'importo'       => $formData->importo,
-            'modassegn'     => $formData->modassegn,
-            'data'          => $formData->dataInserimento,
-            'anno'          => $formData->anno,
-            'settore_id'    => $formData->ufficioResponsabile,
-            'resp_proc_id'  => $formData->respProc,
-            'utente'        => $userDetails->id,
+            'nome'                 => $formData->nome,
+            'responsabile_user_id' => $formData->responsabileUserId,
         ));
     }
 
@@ -90,36 +67,18 @@ class AttiConcessioneRespProcCrudHandler extends CrudHandlerAbstract implements 
     {
         $this->asssertConnection();
 
-        $this->assertUserDetails();
-
-        $userDetails = $this->getUserDetails();
-
-        $arrayToUpdate = array(
-            'titolo'        => $formData->titolo,
-            'beneficiario'  => $formData->beneficiario,
-            'importo'       => $formData->importo,
-            'modassegn'     => $formData->modassegn,
-            'data'          => $formData->dataInserimento,
-            'anno'          => $formData->anno,
-            'settore_id'    => $formData->ufficioResponsabile,
-            'resp_proc_id'  => $formData->respProc,
-        );
-
-        if (isset($formData->utente)) {
-            $arrayToUpdate['utente_id'] = $formData->utente;
-        }
-
         return $this->getConnection()->update(
             $this->dbTable,
-            $arrayToUpdate,
+            array(
+                'nome' => $formData->nome,
+                'responsabile_user_id' => $formData->responsabileUserId,
+            ),
             array('id'    => $formData->id),
             array('limit' => 1)
         );
     }
 
     /**
-     * TODO: delete attachments
-     *
      * @param $id
      */
     public function delete($id)
@@ -151,7 +110,7 @@ class AttiConcessioneRespProcCrudHandler extends CrudHandlerAbstract implements 
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', ha inserito l'atto concessione ".$inputFilter->titolo,
+            'message'   => "Inserito il settore utente ".$inputFilter->nome,
             'type'      => 'error',
             'backend'   => 1,
         ));
@@ -177,7 +136,7 @@ class AttiConcessioneRespProcCrudHandler extends CrudHandlerAbstract implements 
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'inserimento atto concessione ".$inputFilter->titolo.'Messaggio: '.$message,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'inserimento settore utente ".$inputFilter->nome.'Messaggio: '.$message,
             'type'      => 'error',
             'backend'   => 1,
         ));
@@ -201,7 +160,7 @@ class AttiConcessioneRespProcCrudHandler extends CrudHandlerAbstract implements 
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', ha aggiornato l'atto concessione ".$inputFilter->titolo,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', ha aggiornato il settore utente ".$inputFilter->nome,
             'type'      => 'info',
             'backend'   => 1,
         ));
@@ -227,7 +186,7 @@ class AttiConcessioneRespProcCrudHandler extends CrudHandlerAbstract implements 
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'aggiornamento dell'atto concessione ".$inputFilter->titolo.' Messaggio: '.$message,
+            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'aggiornamento settore utente ".$inputFilter->nome.' Messaggio: '.$message,
             'type'      => 'error',
             'backend'   => 1,
         ));

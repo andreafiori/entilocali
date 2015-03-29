@@ -52,19 +52,15 @@ class ContrattiPubbliciCrudHandler extends CrudHandlerAbstract implements CrudHa
     {
         $this->asssertConnection();
 
-        $this->assertUserDetails();
-
-        $userDetails = $this->getUserDetails();
-
         return $this->getConnection()->insert($this->dbTable, array(
             'titolo'        => $formData->titolo,
             'cig'           => $formData->cig,
             'importo'       => $formData->importo,
             'importo2'      => $formData->importo2,
-            'scContr'      => $formData->scContr,
+            'scContr'       => $formData->scContr,
             'respProc'      => $formData->respProc,
-            'inserimento'      => $formData->inserimento,
-            'numeroOfferte'      => $formData->numeroOfferte,
+            'inserimento'   => $formData->inserimento,
+            'numeroOfferte' => $formData->numeroOfferte,
         ));
     }
 
@@ -77,13 +73,8 @@ class ContrattiPubbliciCrudHandler extends CrudHandlerAbstract implements CrudHa
     {
         $this->asssertConnection();
 
-        $this->assertUserDetails();
-
-        $userDetails = $this->getUserDetails();
-
         $arrayToUpdate = array(
             'titolo'        => $formData->titolo,
-
         );
 
         if (isset($formData->utente)) {
@@ -132,7 +123,7 @@ class ContrattiPubbliciCrudHandler extends CrudHandlerAbstract implements CrudHa
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', ha inserito l'atto concessione ".$inputFilter->titolo,
+            'message'   => "Inserito il bando di gara ".$inputFilter->titolo,
             'type'      => 'error',
             'backend'   => 1,
         ));
@@ -158,7 +149,7 @@ class ContrattiPubbliciCrudHandler extends CrudHandlerAbstract implements CrudHa
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'inserimento atto concessione ".$inputFilter->titolo.'Messaggio: '.$message,
+            'message'   => "Errore nell'inserimento del bando di gara ".$inputFilter->titolo.'Messaggio: '.$message,
             'type'      => 'error',
             'backend'   => 1,
         ));
@@ -182,7 +173,7 @@ class ContrattiPubbliciCrudHandler extends CrudHandlerAbstract implements CrudHa
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', ha aggiornato l'atto concessione ".$inputFilter->titolo,
+            'message'   => "Aggiornato il bando di gara".$inputFilter->titolo,
             'type'      => 'info',
             'backend'   => 1,
         ));
@@ -208,7 +199,7 @@ class ContrattiPubbliciCrudHandler extends CrudHandlerAbstract implements CrudHa
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'aggiornamento dell'atto concessione ".$inputFilter->titolo.' Messaggio: '.$message,
+            'message'   => "Errore nell'aggiornamento del bando di gara ".$inputFilter->titolo.' Messaggio: '.$message,
             'type'      => 'error',
             'backend'   => 1,
         ));

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsTicketsMessages
  *
- * @ORM\Table(name="zfcms_tickets_messages", indexes={@ORM\Index(name="user_id", columns={"user_id"}), @ORM\Index(name="ticket_id", columns={"ticket_id"})})
+ * @ORM\Table(name="zfcms_tickets_messages", indexes={@ORM\Index(name="ticket_msg_tkt_id", columns={"ticket_id"}), @ORM\Index(name="ticket_msg_tkt_user_id", columns={"user_id"})})
  * @ORM\Entity
  */
 class ZfcmsTicketsMessages
@@ -36,18 +36,24 @@ class ZfcmsTicketsMessages
     private $insertDate;
 
     /**
-     * @var integer
+     * @var \Application\Entity\ZfcmsTickets
      *
-     * @ORM\Column(name="ticket_id", type="bigint", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsTickets")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="ticket_id", referencedColumnName="id")
+     * })
      */
-    private $ticketId;
+    private $ticket;
 
     /**
-     * @var integer
+     * @var \Application\Entity\ZfcmsTickets
      *
-     * @ORM\Column(name="user_id", type="bigint", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsTickets")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * })
      */
-    private $userId;
+    private $user;
 
 
 
@@ -108,48 +114,48 @@ class ZfcmsTicketsMessages
     }
 
     /**
-     * Set ticketId
+     * Set ticket
      *
-     * @param integer $ticketId
+     * @param \Application\Entity\ZfcmsTickets $ticket
      * @return ZfcmsTicketsMessages
      */
-    public function setTicketId($ticketId)
+    public function setTicket(\Application\Entity\ZfcmsTickets $ticket = null)
     {
-        $this->ticketId = $ticketId;
+        $this->ticket = $ticket;
     
         return $this;
     }
 
     /**
-     * Get ticketId
+     * Get ticket
      *
-     * @return integer 
+     * @return \Application\Entity\ZfcmsTickets 
      */
-    public function getTicketId()
+    public function getTicket()
     {
-        return $this->ticketId;
+        return $this->ticket;
     }
 
     /**
-     * Set userId
+     * Set user
      *
-     * @param integer $userId
+     * @param \Application\Entity\ZfcmsTickets $user
      * @return ZfcmsTicketsMessages
      */
-    public function setUserId($userId)
+    public function setUser(\Application\Entity\ZfcmsTickets $user = null)
     {
-        $this->userId = $userId;
+        $this->user = $user;
     
         return $this;
     }
 
     /**
-     * Get userId
+     * Get user
      *
-     * @return integer 
+     * @return \Application\Entity\ZfcmsTickets 
      */
-    public function getUserId()
+    public function getUser()
     {
-        return $this->userId;
+        return $this->user;
     }
 }

@@ -163,7 +163,7 @@ class SezioniCrudHandler extends CrudHandlerAbstract
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => '2',
-            'message'   => $userDetails->name.' '.$userDetails->surname."', errore durante l'inserimento della sezione ".$inputFilter->nome.' Messaggio: '.$message,
+            'message'   => "Errore durante l'inserimento della sezione ".$inputFilter->nome.' Messaggio: '.$message,
             'type'      => 'error',
             'backend'   => 1,
         ));
@@ -189,7 +189,7 @@ class SezioniCrudHandler extends CrudHandlerAbstract
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', ha aggiornato la sezione ".$inputFilter->nome,
+            'message'   => "Aggiornato la sezione ".$inputFilter->nome,
             'type'      => 'info',
             'backend'   => 1,
         ));
@@ -215,7 +215,7 @@ class SezioniCrudHandler extends CrudHandlerAbstract
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'aggiornamento della sezione ".$inputFilter->nome.' Messaggio: '.$message,
+            'message'   => "Errore nell'aggiornamento della sezione ".$inputFilter->nome.' Messaggio: '.$message,
             'type'      => 'error',
             'backend'   => 1,
         ));
@@ -239,7 +239,7 @@ class SezioniCrudHandler extends CrudHandlerAbstract
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', ha eliminato la sezione ".$record->nome,
+            'message'   => "Eliminata la sezione ".$record->nome,
             'type'      => 'error',
             'backend'   => 1,
         ));

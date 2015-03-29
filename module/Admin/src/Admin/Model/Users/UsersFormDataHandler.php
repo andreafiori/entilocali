@@ -5,6 +5,8 @@ namespace Admin\Model\Users;
 use Admin\Model\FormData\FormDataAbstract;
 use Admin\Model\Users\Roles\UsersRolesGetter;
 use Admin\Model\Users\Roles\UsersRolesGetterWrapper;
+use Admin\Model\Users\Settori\UsersSettoriGetter;
+use Admin\Model\Users\Settori\UsersSettoriGetterWrapper;
 
 /**
  * @author Andrea Fiori
@@ -25,7 +27,14 @@ class UsersFormDataHandler extends FormDataAbstract
             $records = $this->getUserRecord($param['route']['option']);
         }
 
-        $form = $this->buildForm();
+        $form = new UsersForm();
+        if ($this->getAcl()->hasResource('users_roles_update')) {
+            $form->addRoles($this->getRolesRecords());
+        }
+
+        if ($this->getAcl()->hasResource('users_settori_update')) {
+            $form->addSettori($this->getSettoriRecords());
+        }
 
         if (!empty($records)) {
             $formAction      = 'users/update/'.$records[0]['id'];
@@ -58,20 +67,6 @@ class UsersFormDataHandler extends FormDataAbstract
     }
 
         /**
-         * @return UsersForm
-         */
-        private function buildForm()
-        {
-            $form = new UsersForm();
-
-            if( $this->isRole(array('SuperAdmin','WebMaster')) ) {
-                $form->addRoles($this->getRolesRecords());
-            }
-
-            return $form;
-        }
-
-        /**
          * @param number $idUser
          * @return boolean
          */
@@ -102,6 +97,27 @@ class UsersFormDataHandler extends FormDataAbstract
                 $toReturn = array();
                 foreach($rolesRecords as $rolesRecord) {
                     $toReturn[$rolesRecord['id']] = $rolesRecord['name'];
+                }
+                return $toReturn;
+            }
+
+            return false;
+        }
+
+        /**
+         * @return array
+         */
+        private function getSettoriRecords()
+        {
+            $wrapper = new UsersSettoriGetterWrapper( new UsersSettoriGetter($this->getInput('entityManager', 1)) );
+            $wrapper->setInput( array() );
+            $wrapper->setupQueryBuilder();
+
+            $rolesRecords = $wrapper->getRecords();
+            if (!empty($rolesRecords)) {
+                $toReturn = array();
+                foreach($rolesRecords as $rolesRecord) {
+                    $toReturn[$rolesRecord['id']] = $rolesRecord['nome'];
                 }
                 return $toReturn;
             }

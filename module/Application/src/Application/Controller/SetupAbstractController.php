@@ -39,7 +39,7 @@ abstract class SetupAbstractController extends AbstractActionController
         );
 
         $this->userInterfaceConfigurations = $appServiceLoader->setupUserInterfaceConfigurations(
-            new UserInterfaceConfigurations($appServiceLoader->getProperties())
+            new UserInterfaceConfigurations($appServiceLoader->recoverService('configurations'))
         );
 
         return $appServiceLoader;

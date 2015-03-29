@@ -46,7 +46,7 @@ class AlboPretorioRecordsGetter extends RecordsGetterAbstract
     
     /**
      * @param int|null $page
-     * @return $this->articoliWrapper
+     * @return AlboPretorioArticoliGetterWrapper
      */
     public function setArticoliPaginatorCurrentPage($page = null)
     {
@@ -127,7 +127,7 @@ class AlboPretorioRecordsGetter extends RecordsGetterAbstract
         $this->articoliWrapper = new AlboPretorioArticoliGetterWrapper(
             new AlboPretorioArticoliGetter($this->getEntityManager())
         );
-        $this->articoliWrapper->setInput( array('fields' => 'DISTINCT(aa.anno) AS anno', 'orderBy'=>'aa.anno') );
+        $this->articoliWrapper->setInput( array('fields' => 'DISTINCT(alboArticoli.anno) AS anno', 'orderBy' => 'alboArticoli.anno') );
         $this->articoliWrapper->setupQueryBuilder();
 
         $records = $this->articoliWrapper->getRecords();

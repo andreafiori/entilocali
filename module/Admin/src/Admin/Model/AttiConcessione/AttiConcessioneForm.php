@@ -6,6 +6,8 @@ use Zend\Form\Element;
 use Zend\Form\Form;
 
 /**
+ * TODO: Data scadenza: 5 Anni a partire dall'anno successivo a quello di inserimento, Associa articolo a utente: se utente non admin visualizza id campo nascosto, altrimenti select area
+ *
  * @author Andrea Fiori
  * @since  17 June 2013
  */
@@ -79,7 +81,7 @@ class AttiConcessioneForm extends Form
             ),
             'attributes' => array(
                 'id'        => 'respProc',
-                'title'     => 'Seleziona Responsabile del procedimento',
+                'title'     => 'Seleziona responsabile procedimento',
                 'required'  => 'required',
             )
         ));
@@ -145,15 +147,5 @@ class AttiConcessioneForm extends Form
             'name' => 'id',
             'attributes' => array("class"=>'hiddenField')
         ));
-
-        $this->add(array(
-            'type' => 'Zend\Form\Element\Hidden',
-            'name' => 'userId',
-            'attributes' => array("class"=>'hiddenField')
-        ));
-
-        // Data scadenza: 5 Anni a partire dall'anno successivo a quello di inserimento
-
-        // Associa articolo a utente: se utente non admin visualizza id campo nascosto, altrimenti select area
     }
 }
