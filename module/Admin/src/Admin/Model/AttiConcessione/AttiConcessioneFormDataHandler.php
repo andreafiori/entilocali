@@ -2,6 +2,8 @@
 
 namespace Admin\Model\AttiConcessione;
 
+use Admin\Model\AttiConcessione\ModalitaAssegnazione\AttiConcessioneModalitaAssegnazioneGetter;
+use Admin\Model\AttiConcessione\ModalitaAssegnazione\AttiConcessioneModalitaAssegnazioneGetterWrapper;
 use Admin\Model\FormData\FormDataAbstract;
 use Admin\Model\Users\RespProc\UsersRespProcGetter;
 use Admin\Model\Users\RespProc\UsersRespProcGetterWrapper;
@@ -25,7 +27,9 @@ class AttiConcessioneFormDataHandler extends FormDataAbstract
 
         $responsabiliProcedimento = $this->getResposabiliProcedimento(array());
 
-        $sezioniRecords = $this->getUsersSettori();
+        $sezioniRecords = $this->getUsersSettori(array(
+            'orderBy' => 'settore.nome'
+        ));
 
         if (empty($sezioniRecords)) {
             $this->setTemplate('message.phtml');
@@ -52,7 +56,8 @@ class AttiConcessioneFormDataHandler extends FormDataAbstract
         $form = new AttiConcessioneForm();
         $form->addUfficioResponsabile($sezioniRecords);
         $form->addResponsabileProcedimento($responsabiliProcedimento);
-        $form->addModalitaAssegnazione();
+        $form->addModalitaAssegnazione( $this->getModAssegnazione(array()) );
+        $form->addTitoloDataInserimentoEAnno();
 
         $routeOptionId = isset($param['route']['option']) ? $param['route']['option'] : null;
         if ($routeOptionId) {
@@ -141,4 +146,22 @@ class AttiConcessioneFormDataHandler extends FormDataAbstract
 
             return $recordForSelectArea;
         }
+
+    private function getModAssegnazione($input = array())
+    {
+        $wrapper = new AttiConcessioneModalitaAssegnazioneGetterWrapper(
+            new AttiConcessioneModalitaAssegnazioneGetter($this->getInput('entityManager',1))
+        );
+        $wrapper->setInput($input);
+        $wrapper->setupQueryBuilder();
+
+        $records = $wrapper->getRecords();
+
+        $recordForSelectArea = array();
+        foreach($records as $record) {
+            $recordForSelectArea[$record['id']] = $record['nome'];
+        }
+
+        return $recordForSelectArea;
+    }
 }

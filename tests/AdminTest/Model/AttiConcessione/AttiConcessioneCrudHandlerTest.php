@@ -31,7 +31,7 @@ class AttiConcessioneCrudHandlerTest extends CrudHandlerTestSuite
             'ufficioResponsabile'   => 1,
             'respProc'              => 'John Doe',
             'importo'               => 2000,
-            'modassegn'             => 'Assign to this test',
+            'modAssegnazione'       => 1,
             'titolo'                => 'My subject',
             'dataInserimento'       => '2015-03-24 20:30:00',
             'anno'                  => 2015
@@ -46,7 +46,7 @@ class AttiConcessioneCrudHandlerTest extends CrudHandlerTestSuite
         $this->assertNotNull($this->crudHandler->getFormInputFilter()->beneficiario);
         $this->assertNotNull($this->crudHandler->getFormInputFilter()->ufficioResponsabile);
         $this->assertNotNull($this->crudHandler->getFormInputFilter()->respProc);
-        $this->assertNotNull($this->crudHandler->getFormInputFilter()->modassegn);
+        $this->assertNotNull($this->crudHandler->getFormInputFilter()->modAssegnazione);
         $this->assertNotNull($this->crudHandler->getFormInputFilter()->titolo);
         $this->assertNotNull($this->crudHandler->getFormInputFilter()->dataInserimento);
         $this->assertNotNull($this->crudHandler->getFormInputFilter()->anno);
@@ -59,7 +59,15 @@ class AttiConcessioneCrudHandlerTest extends CrudHandlerTestSuite
             1 => 'Responsabile 1',
             2 => 'Responsabile 2'
         ));
-        //$form->addModalitaAssegnazione();
+        $form->addModalitaAssegnazione(array(
+            1 => 'Modalita 1',
+            2 => 'Modalita 2'
+        ));
+        $form->addUfficioResponsabile(array(
+            1 => 'Resp 1',
+            2 => 'Resp 2'
+        ));
+        $form->addTitoloDataInserimentoEAnno();
 
         return $form;
     }

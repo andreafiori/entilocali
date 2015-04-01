@@ -7,7 +7,6 @@ use Zend\View\Model\ViewModel;
 use Application\Model\RouterManagers\RouterManager;
 use Application\Model\RouterManagers\RouterManagerHelper;
 use Zend\Session\Container as SessionContainer;
-use Admin\Model\FormData\FormDataCrudHandler;
 
 /**
  * @author Andrea Fiori
@@ -40,7 +39,6 @@ class AdminController extends SetupAbstractController
         $userDetails = $this->recoverUserDetails();
 
         $uri = $this->getRequest()->getUri();
-
         $basePath = sprintf('%s://%s%s', $uri->getScheme(), $uri->getHost(), $appServiceLoader->recoverService('request')->getBaseUrl().'/');
         $baseUrl = sprintf($basePath.'admin/main/'.$this->params()->fromRoute('lang').'/');
 

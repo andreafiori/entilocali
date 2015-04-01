@@ -2,6 +2,7 @@
 
 namespace AdminTest\Model\Contenuti;
 
+use Admin\Model\Contenuti\ContenutiForm;
 use ApplicationTest\CrudHandlerTestSuite;
 use Admin\Model\Contenuti\ContenutiCrudHandler;
 
@@ -28,14 +29,16 @@ class ContenutiCrudHandlerTest extends CrudHandlerTestSuite
             'titolo'            => 'Titolo contenuto',
             'sommario'          => 'Testo sommario contenuto di prova',
             'testo'             => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum',
-            'dataInserimento'   => date("Y-m-d H:i:s"),
-            'dataScadenza'      => date("Y-m-d H:i:s"),
+            'dataInserimento'   => '2015-03-12 01:00:00',
+            'dataScadenza'      => '2020-03-12 01:00:00',
             'attivo'            => 1,
             'homepage'          => 1,
             'utente'            => 1,
             'facebook'          => '',
             'rss'               => 1,
         );
+
+        $this->crudHandler->setForm($this->buildForm());
     }
 
     public function testExchangeArray()
@@ -53,8 +56,26 @@ class ContenutiCrudHandlerTest extends CrudHandlerTestSuite
         $this->assertNotNull($this->crudHandler->getFormInputFilter()->homepage);
         $this->assertNotNull($this->crudHandler->getFormInputFilter()->utente);
         $this->assertNotNull($this->crudHandler->getFormInputFilter()->facebook);
-        // $this->assertNotNull($this->crudHandler->getFormInputFilter()->rss);
     }
 
+    /**
+     * @return ContenutiForm
+     */
+    private function buildForm()
+    {
+        $form = new ContenutiForm();
+        $form->addForm();
+        $form->addUsers(array(
+            1 => 'Mad Max',
+            2 => 'Chuck Norris'
+        ));
+        $form->addSottoSezioni(array(
+            1 => 'Sezione 1',
+            2 => 'Sezione 2',
+        ));
+        $form->addHomeBox();
+        $form->addSocial();
 
+        return $form;
+    }
 }

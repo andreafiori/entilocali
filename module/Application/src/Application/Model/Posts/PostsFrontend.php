@@ -74,7 +74,8 @@ class PostsFrontend extends RouterManagerAbstract implements RouterManagerInterf
             $homePageRecordsGetterWrapper->setupQueryBuilder();
 
             $homePageRecords = $homePageRecordsGetterWrapper->getRecords();
-            
+
+            $paginatorItemsperPage = 35;
             if ($homePageRecords) {
                 $homePageVar = array();
                 foreach($homePageRecords as $key => $value) {
@@ -85,7 +86,7 @@ class PostsFrontend extends RouterManagerAbstract implements RouterManagerInterf
                             $postsGetterWrapper->setupQueryBuilder();
                             $postsGetterWrapper->setupPaginator( $postsGetterWrapper->setupQuery( $this->getInput('entityManager', 1) ) );
                             $postsGetterWrapper->setupPaginatorCurrentPage(1);
-                            $postsGetterWrapper->setupPaginatorItemsPerPage(35);
+                            $postsGetterWrapper->setupPaginatorItemsPerPage($paginatorItemsperPage);
 
                             $homePageVar['blogs'][] = $postsGetterWrapper->setupRecords();
                         break;
@@ -96,7 +97,7 @@ class PostsFrontend extends RouterManagerAbstract implements RouterManagerInterf
                             $postsGetterWrapper->setupQueryBuilder();
                             $postsGetterWrapper->setupPaginator( $postsGetterWrapper->setupQuery( $this->getInput('entityManager', 1) ) );
                             $postsGetterWrapper->setupPaginatorCurrentPage(1);
-                            $postsGetterWrapper->setupPaginatorItemsPerPage(35);
+                            $postsGetterWrapper->setupPaginatorItemsPerPage($paginatorItemsperPage);
                             
                             $homePageVar['contents'][] = $postsGetterWrapper->setupRecords();
                         break;

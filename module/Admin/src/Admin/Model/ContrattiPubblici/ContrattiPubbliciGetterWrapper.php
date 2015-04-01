@@ -2,6 +2,10 @@
 
 namespace Admin\Model\ContrattiPubblici;
 
+use Admin\Model\ContrattiPubblici\Operatori\OperatoriAggiudicatariGetter;
+use Admin\Model\ContrattiPubblici\Operatori\OperatoriAggiudicatariGetterWrapper;
+use Admin\Model\ContrattiPubblici\Operatori\OperatoriGetter;
+use Admin\Model\ContrattiPubblici\Operatori\OperatoriGetterWrapper;
 use Application\Model\RecordsGetterWrapperAbstract;
 
 /**
@@ -10,6 +14,11 @@ use Application\Model\RecordsGetterWrapperAbstract;
  */
 class ContrattiPubbliciGetterWrapper extends RecordsGetterWrapperAbstract
 {
+    /**
+     * @var OperatoriAggiudicatariGetterWrapper
+     */
+    private $operatoriAggiudicatariGetterWrapper;
+
     /**
      * @var ContrattiPubbliciGetter
      */
@@ -36,17 +45,54 @@ class ContrattiPubbliciGetterWrapper extends RecordsGetterWrapperAbstract
     }
     
     /**
-     * TODO: Add lista partecipanti and aggiudicatario
-     * 
      * @param array $records
      */
     public function addListaPartecipanti(array $records)
     {
+        $this->assertOperatoriAggiudicatariGetterWrapper();
+
         foreach($records as &$record) {
 
-            $record['partecipanti'][] = array();
+            $this->operatoriAggiudicatariGetterWrapper->setInput(array(
+                'contrattoId' => $record['id'],
+            ));
+
+            $record['operatori'][] = $this->operatoriAggiudicatariGetterWrapper->getRecords();
+            $record['aggiudicatario'][] = array();
         }
+
+        return $records;
     }
+
+    /**
+     * @param OperatoriAggiudicatariGetterWrapper $operatoriAggiudicatariGetterWrapper
+     */
+    public function setOperatoriAggiudicatariGetterWrapper(OperatoriAggiudicatariGetterWrapper $operatoriAggiudicatariGetterWrapper)
+    {
+        $this->operatoriAggiudicatariGetterWrapper = $operatoriAggiudicatariGetterWrapper;
+    }
+
+    /**
+     * @return OperatoriAggiudicatariGetterWrapper
+     */
+    public function getOperatoriAggiudicatariGetterWrapper()
+    {
+        return $this->operatoriAggiudicatariGetterWrapper;
+    }
+
+        /**
+         * @return OperatoriAggiudicatariGetterWrapper
+         */
+        private function assertOperatoriAggiudicatariGetterWrapper()
+        {
+            if (!$this->operatoriAggiudicatariGetterWrapper) {
+                $this->operatoriAggiudicatariGetterWrapper = new OperatoriAggiudicatariGetterWrapper(
+                    new OperatoriAggiudicatariGetter($this->getInput('entityManager',1))
+                );
+            }
+
+            return $this->operatoriAggiudicatariGetterWrapper;
+        }
 
     /**
      * TODO: add attachment files selection

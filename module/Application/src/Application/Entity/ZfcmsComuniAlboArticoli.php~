@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsComuniAlboArticoli
  *
- * @ORM\Table(name="zfcms_comuni_albo_articoli", indexes={@ORM\Index(name="rettifica_id", columns={"rettifica_id"}), @ORM\Index(name="utente_id", columns={"utente_id"}), @ORM\Index(name="sezione_id", columns={"sezione_id"})})
+ * @ORM\Table(name="zfcms_comuni_albo_articoli", indexes={@ORM\Index(name="utente_id", columns={"utente_id"}), @ORM\Index(name="sezione_id", columns={"sezione_id"})})
  * @ORM\Entity
  */
 class ZfcmsComuniAlboArticoli

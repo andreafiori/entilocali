@@ -2,6 +2,10 @@
 
 namespace Application;
 
+use Admin\Model\Sezioni\SezioniGetter;
+use Admin\Model\Sezioni\SezioniGetterWrapper;
+use Admin\Model\Sezioni\SottoSezioniGetter;
+use Admin\Model\Sezioni\SottoSezioniGetterWrapper;
 use Zend\Authentication\Adapter\DbTable as AuthAdapter;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\Mvc\ModuleRouteListener;
@@ -110,9 +114,7 @@ class Module implements AutoloaderProviderInterface
     }
     
     /**
-     * Share authentication for both frontend and backend
-     * 
-     * @return AuthService object
+     * @return array
      */
     public function getServiceConfig()
     {
@@ -123,7 +125,7 @@ class Module implements AutoloaderProviderInterface
                 },
                 'AuthService' => function($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $dbTableAuthAdapter  = new AuthAdapter($dbAdapter, 'zfcms_users', 'username', 'password', 'MD5(?)');
+                    $dbTableAuthAdapter  = new AuthAdapter($dbAdapter, 'zfcms_users', 'username', 'password', 'MD5(CONCAT(?, salt))');
 
                     $authService = new AuthenticationService();
                     $authService->setAdapter($dbTableAuthAdapter);
@@ -153,6 +155,20 @@ class Module implements AutoloaderProviderInterface
                     
                     return $appServiceLoader;
 		        },
+                'SezioniRecords' => function($sl) {
+                    $em = $sl->get('Doctrine\ORM\EntityManager');
+
+                    $wrapper = new SezioniGetterWrapper(new SezioniGetter($em));
+                    $wrapper->setInput(array(
+                        'orderBy'   => 'sezioni.posizione ASC',
+                        'attivo'    => 1,
+                    ));
+                    $wrapper->setupQueryBuilder();
+
+                    return $wrapper->formatRecordsPerColumn(
+                        $wrapper->addSottoSezioni($wrapper->getRecords(), array('attivo'=>1))
+                    );
+                },
             ),
         );
     }

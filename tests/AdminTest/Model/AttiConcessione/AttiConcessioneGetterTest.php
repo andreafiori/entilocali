@@ -11,6 +11,9 @@ use Admin\Model\AttiConcessione\AttiConcessioneGetter;
  */
 class AttiConcessioneGetterTest extends TestSuite
 {
+    /**
+     * @var AttiConcessioneGetter
+     */
     private $objectGetter;
     
     protected function setUp()

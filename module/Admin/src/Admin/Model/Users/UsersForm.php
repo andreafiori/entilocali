@@ -77,16 +77,16 @@ class UsersForm extends Form
         ));
         
         $this->add(array(
-                        'name' => 'password-confirm',
+                        'name' => 'password_verify',
                         'type' => 'Password',
                         'options' => array( 'label' => 'Conferma password' ),
                         'attributes' => array(
                                         'title'         => 'Conferma password',
                                         'placeholder'   => 'Conferma password',
-                                        'id'            => 'password-confirm',
+                                        'id'            => 'password_verify',
                         )
         ));
-        
+
         $this->add(array(
                         'type' => 'Zend\Form\Element\Hidden',
                         'name' => 'old-password',
@@ -107,7 +107,7 @@ class UsersForm extends Form
     {
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
-            'name' => 'role',
+            'name' => 'roleId',
             'options' => array(
                 'label'         => '* Ruolo',
                 'empty_option'  => 'Seleziona',
@@ -115,7 +115,7 @@ class UsersForm extends Form
             ),
             'attributes' => array(
                 'title'     => 'Seleziona ruolo utente',
-                'id'        => 'role',
+                'id'        => 'roleId',
                 'required'  => 'required'
             )
         ));
@@ -128,7 +128,7 @@ class UsersForm extends Form
     {
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
-            'name' => 'status',
+            'name' => 'settoreId',
             'options' => array(
                 'label' => '* Settore',
                 'empty_option' => 'Seleziona',
@@ -136,7 +136,7 @@ class UsersForm extends Form
             ),
             'attributes' => array(
                 'title'     => 'Seleziona settore',
-                'id'        => 'settore',
+                'id'        => 'settoreId',
                 'required'  => 'required'
             )
         ));

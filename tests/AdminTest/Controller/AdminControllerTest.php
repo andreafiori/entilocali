@@ -30,7 +30,7 @@ class AdminControllerTest extends TestSuite
 
         $this->assertEquals(302, $this->controller->getResponse()->getStatusCode());
     }
-    /*
+
     public function testIndexActionCanAccessedAfterAuthentication()
     {
         $this->routeMatch->setParam('action', 'index');
@@ -46,7 +46,7 @@ class AdminControllerTest extends TestSuite
 
         $this->assertEquals(200, $this->controller->getResponse()->getStatusCode());
     }
-    */
+
         /**
          * AuthService mock identity
          * 

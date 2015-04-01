@@ -27,7 +27,7 @@ class OperatoriAggiudicatariHandler extends RouterManagerAbstract implements Rou
             $this->checkRemovePartecipante();
 
             $wrapper = new OperatoriAggiudicatariGetterWrapper( new OperatoriAggiudicatariGetter($this->getInput('entityManager', 1)) );
-            $wrapper->setInput(array('contratto' => $id));
+            $wrapper->setInput(array('contrattoId' => $id));
             $wrapper->setupQueryBuilder();
 
             $partecipantiRecords = $wrapper->getRecords();

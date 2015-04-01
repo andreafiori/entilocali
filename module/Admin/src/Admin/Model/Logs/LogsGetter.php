@@ -45,11 +45,28 @@ class LogsGetter extends QueryBuilderHelperAbstract
         return $this->getQueryBuilder();
     }
 
+    /**
+     * @param int $id
+     * @return \Doctrine\ORM\QueryBuilder
+     */
     public function setUserId($id)
     {
         if ( is_numeric($id) ) {
-            $this->getQueryBuilder()->andWhere('u.id = :id ');
-            $this->getQueryBuilder()->setParameter('id', $id);
+            $this->getQueryBuilder()->andWhere('u.id = :userId ');
+            $this->getQueryBuilder()->setParameter('userId', $id);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param int|bool $exclude
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setExcludeErrors($exclude)
+    {
+        if ($exclude) {
+            $this->getQueryBuilder()->andWhere("l.type != 'error' ");
         }
 
         return $this->getQueryBuilder();

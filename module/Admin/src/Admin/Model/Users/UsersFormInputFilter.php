@@ -19,6 +19,8 @@ class UsersFormInputFilter implements InputFilterAwareInterface
     public $email;
     public $username;
     public $password;
+    public $password_verify;
+    public $roleId;
 
     protected $inputFilter;
 
@@ -27,9 +29,14 @@ class UsersFormInputFilter implements InputFilterAwareInterface
      */
     public function exchangeArray(array $data)
     {
-        $this->id       = (isset($data['id']))      ? $data['id'] : null;
-        $this->name     = (isset($data['name']))    ? $data['name'] : null;
-        $this->surname  = (isset($data['surname'])) ? $data['surname'] : null;
+        $this->id                   = (isset($data['id']))      ? $data['id'] : null;
+        $this->name                 = (isset($data['name']))    ? $data['name'] : null;
+        $this->surname              = (isset($data['surname'])) ? $data['surname'] : null;
+        $this->email                = (isset($data['email'])) ? $data['email'] : null;
+        $this->username             = (isset($data['username'])) ? $data['username'] : null;
+        $this->password             = (isset($data['password'])) ? $data['password'] : null;
+        $this->password_verify      = (isset($data['password_verify'])) ? $data['password_verify'] : null;
+        $this->roleId               = (isset($data['roleId'])) ? $data['roleId'] : null;
     }
 
     /**
@@ -52,6 +59,127 @@ class UsersFormInputFilter implements InputFilterAwareInterface
 
             $inputFilter->add(array(
                 'name'     => 'id',
+                'required' => false,
+                'filters'  => array(
+                    array('name' => 'Int'),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'name',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => 1,
+                            'max'      => 160,
+                        ),
+                    ),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'surname',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => 1,
+                            'max'      => 160,
+                        ),
+                    ),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'email',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => 1,
+                            'max'      => 160,
+                        ),
+                    ),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'username',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => 1,
+                            'max'      => 160,
+                        ),
+                    ),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name' => 'password',
+                'required' => false,
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name' => 'password_verify',
+                'required' => false,
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array (
+                        'name' => 'identical',
+                        'options' => array(
+                            'token' => 'password',
+                        ),
+                    ),
+
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'roleId',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'Int'),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'roleId',
                 'required' => false,
                 'filters'  => array(
                     array('name' => 'Int'),

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsComuniConcessione
  *
- * @ORM\Table(name="zfcms_comuni_concessione", indexes={@ORM\Index(name="utente_id", columns={"utente_id"}), @ORM\Index(name="sezione_id", columns={"settore_id"}), @ORM\Index(name="resp_proc_id", columns={"resp_proc_id"})})
+ * @ORM\Table(name="zfcms_comuni_concessione", indexes={@ORM\Index(name="utente_id", columns={"utente_id"}), @ORM\Index(name="sezione_id", columns={"settore_id"}), @ORM\Index(name="resp_proc_id", columns={"resp_proc_id"}), @ORM\Index(name="fk_concessioni_modassign", columns={"mod_assegnazione_id"})})
  * @ORM\Entity
  */
 class ZfcmsComuniConcessione
@@ -57,13 +57,6 @@ class ZfcmsComuniConcessione
     private $ufficioresponsabile;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="modassegn", type="text", length=65535, nullable=false)
-     */
-    private $modassegn;
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="progressivo", type="bigint", nullable=false)
@@ -111,6 +104,16 @@ class ZfcmsComuniConcessione
      * @ORM\Column(name="flag_allegati", type="integer", nullable=false)
      */
     private $flagAllegati;
+
+    /**
+     * @var \Application\Entity\ZfcmsComuniConcessioneModassegn
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniConcessioneModassegn")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="mod_assegnazione_id", referencedColumnName="id")
+     * })
+     */
+    private $modAssegnazione;
 
     /**
      * @var \Application\Entity\ZfcmsUsersRespProc
@@ -267,29 +270,6 @@ class ZfcmsComuniConcessione
     public function getUfficioresponsabile()
     {
         return $this->ufficioresponsabile;
-    }
-
-    /**
-     * Set modassegn
-     *
-     * @param string $modassegn
-     * @return ZfcmsComuniConcessione
-     */
-    public function setModassegn($modassegn)
-    {
-        $this->modassegn = $modassegn;
-    
-        return $this;
-    }
-
-    /**
-     * Get modassegn
-     *
-     * @return string 
-     */
-    public function getModassegn()
-    {
-        return $this->modassegn;
     }
 
     /**
@@ -451,6 +431,29 @@ class ZfcmsComuniConcessione
     public function getFlagAllegati()
     {
         return $this->flagAllegati;
+    }
+
+    /**
+     * Set modAssegnazione
+     *
+     * @param \Application\Entity\ZfcmsComuniConcessioneModassegn $modAssegnazione
+     * @return ZfcmsComuniConcessione
+     */
+    public function setModAssegnazione(\Application\Entity\ZfcmsComuniConcessioneModassegn $modAssegnazione = null)
+    {
+        $this->modAssegnazione = $modAssegnazione;
+    
+        return $this;
+    }
+
+    /**
+     * Get modAssegnazione
+     *
+     * @return \Application\Entity\ZfcmsComuniConcessioneModassegn 
+     */
+    public function getModAssegnazione()
+    {
+        return $this->modAssegnazione;
     }
 
     /**

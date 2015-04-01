@@ -51,6 +51,27 @@ class ContenutiGetterTest extends TestSuite
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('excludeSottoSezioneId'));
     }
 
+    public function testSetSezioneId()
+    {
+        $this->objectGetter->setSezioneId(1);
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('sezioneId'));
+    }
+
+    public function testSetExcludeSottoSezioneId()
+    {
+        $this->objectGetter->setExcludeSottoSezioneId(1);
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('excludeSottoSezioneId'));
+    }
+
+    public function testSetExcludeSottoSezioneIdWithArrayParameter()
+    {
+        $this->objectGetter->setExcludeSottoSezioneId(array(1,2,3));
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('excludeSottoSezioneId'));
+    }
+
     public function testSetExcludeSezioneIdWithArrayInput()
     {
         $this->objectGetter->setExcludeSezioneId(array(1,2,3));

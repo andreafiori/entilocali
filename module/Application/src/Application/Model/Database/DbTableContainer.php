@@ -17,8 +17,7 @@ class DbTableContainer
     const alboSezioni                       = 'zfcms_comuni_albo_sezioni';
 
     const attiConcessione                   = 'zfcms_comuni_concessione';
-    const attiConcessioneRespProc           = 'zfcms_comuni_concessione_resp_proc';
-    const attiConcessioneSettori            = 'zfcms_comuni_concessione_settori';
+    const attiConcessioneModAssegn          = 'zfcms_comuni_concessione_modassegn';
 
     const contenuti                         = 'zfcms_comuni_contenuti';
     const contratti                         = 'zfcms_comuni_contratti';

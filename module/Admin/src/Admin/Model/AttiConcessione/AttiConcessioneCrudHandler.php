@@ -39,7 +39,7 @@ class AttiConcessioneCrudHandler extends CrudHandlerAbstract implements CrudHand
     {
         $error = $this->checkValidateFormDataError(
             $formData,
-            array('titolo', 'beneficiario', 'ufficioResponsabile', 'importo', 'modassegn', 'dataInserimento', 'anno')
+            array('titolo', 'beneficiario', 'ufficioResponsabile', 'importo', 'modAssegnazione', 'dataInserimento', 'anno')
         );
 
         if ( (int)$formData->anno > 2030 or (int)$formData->anno < 1954 ) {
@@ -66,7 +66,7 @@ class AttiConcessioneCrudHandler extends CrudHandlerAbstract implements CrudHand
             'titolo'        => $formData->titolo,
             'beneficiario'  => $formData->beneficiario,
             'importo'       => $formData->importo,
-            'modassegn'     => $formData->modassegn,
+            'modassegn'     => $formData->modAssegnazione,
             'data'          => $formData->dataInserimento,
             'anno'          => $formData->anno,
             'settore_id'    => $formData->ufficioResponsabile,
@@ -92,7 +92,7 @@ class AttiConcessioneCrudHandler extends CrudHandlerAbstract implements CrudHand
             'titolo'        => $formData->titolo,
             'beneficiario'  => $formData->beneficiario,
             'importo'       => $formData->importo,
-            'modassegn'     => $formData->modassegn,
+            'modassegn'     => $formData->modAssegnazione,
             'data'          => $formData->dataInserimento,
             'anno'          => $formData->anno,
             'settore_id'    => $formData->ufficioResponsabile,

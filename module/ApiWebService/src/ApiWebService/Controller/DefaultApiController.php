@@ -6,8 +6,8 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Application\Model\NullException;
 use ApiWebService\Model\ApiSetup;
 use ApiWebService\Model\ApiOutputManager;
-use Admin\Model\Users\UsersGetter;
-use Admin\Model\Users\UsersGetterWrapper;
+use Zend\View\Model\JsonModel;
+use Admin\Model\AlboPretorio\AlboPretorioRecordsGetter;
 
 /**
  * TODO: allow method\s for every single resource of the classMap
@@ -29,9 +29,10 @@ class DefaultApiController extends AbstractActionController
         $outputFormat   = $this->params()->fromRoute('output_format');
         
         $apiSetup = new ApiSetup();
-        
+
+        $input    = $apiSetup->getInput();
+
         $apiOutputManager = new ApiOutputManager($outputFormat);
-        
         try {
 
             $apiSetup->setMethod($method);
@@ -43,15 +44,31 @@ class DefaultApiController extends AbstractActionController
             // validate input: tipo di richiesta, risorsa e formato richiesto va visto se vanno bene
             // set error and status code for the final response...
 
+            $recordsGetter = new AlboPretorioRecordsGetter(array());
+            $recordsGetter->setEntityManager($entityManager);
+            $recordsGetter->setArticoliInput(array());
+            $recordsGetter->setArticoliPaginator();
+            $recordsGetter->setArticoliPaginatorCurrentPage(isset($input['page']) ? $input['page'] : null);
+            $recordsGetter->setArticoliPaginatorPerPage(isset($input['perpage']) ? $input['perpage'] : null);
+
+            $paginator = $recordsGetter->getPaginatorRecords();
+
+            $toReturn = array();
+            foreach($paginator as $row) {
+                $toReturn[] = array_filter($row);
+            }
+
+            return new JsonModel($toReturn);
+
         } catch (NullException $ex) {
             $apiOutputManager->setStatusCode(401);
             return $apiOutputManager->setupOutput( array(
-                'message'   => $ex->getMessage()
+                    'message'   => $ex->getMessage()
                 )
             );
         }
 
-        $input      = $apiSetup->getInput();
+
         $className  = $apiSetup->getResourceClassName();
         
         $classInstance = new $className($entityManager);

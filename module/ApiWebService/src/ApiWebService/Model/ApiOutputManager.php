@@ -6,6 +6,8 @@ use Zend\Http\Response;
 use Zend\View\Model\JsonModel;
 
 /**
+ * Recover output to print
+ *
  * @author Andrea Fiori
  * @since  16 September 2014
  */
@@ -34,7 +36,10 @@ class ApiOutputManager
         
         return $this->statusCode;
     }
-    
+
+    /**
+     * @return int
+     */
     public function getStatusCode()
     {
         return $this->statusCode;
@@ -49,7 +54,7 @@ class ApiOutputManager
     }
 
     /**
-     * Get the output with given format
+     * Get the output with given format, false if nothing: better throw an exception...
      * 
      * @param array $content
      * @return \Zend\View\Model\JsonModel|\Zend\Http\Response

@@ -97,6 +97,12 @@ INSERT INTO zfcms_users (id, name, email, username, password, livello)
 	TRUNCATE table zfcms_comuni_concessione;
 	INSERT INTO zfcms_comuni_concessione (id, key_imp, beneficiario, titolo, importo, ufficioresponsabile, modassegn, progressivo, anno, data, ora, attivo, scadenza, flag_allegati, utente_id, settore_id, resp_proc_id)
 	(SELECT id, key_imp, beneficiario, titolo, importo, ufficioresponsabile, modassegn, progressivo, anno, data, ora, attivo, scadenza, '0', utente_id, settore_id, resp_proc_id FROM  ammaperta_articoli);
+
+/* Remove euro from importo */
+update zfcms_comuni_concessione set importo = REPLACE(importo, ' euro', '');
+update zfcms_comuni_concessione set importo = REPLACE(importo, ' €', '');
+update zfcms_comuni_concessione set importo = REPLACE(importo, '€ ', '');
+update zfcms_comuni_concessione set importo = REPLACE(importo, '  iva esclusa', '');
 	
 	-- TRUNCATE table zfcms_comuni_concessione;
 	-- INSERT INTO zfcms_comuni_concessione (id, beneficiario, titolo, importo, ufficioresponsabile, modassegn, progressivo, anno, data, ora, attivo, scadenza, flag_allegati, utente_id, settore_id) (SELECT id, beneficiario, titolo, importo, ufficioresponsabile, modassegn, progressivo, anno, data, ora, attivo, scadenza, '0', id_utente, id_sezione FROM  ammaperta_articoli);

@@ -23,6 +23,4 @@ class TicketsGetterWrapperTest extends TestSuite
     {
         $this->assertNull( $this->objectWrapper->setupQueryBuilder() );
     }
-    
-    
 }

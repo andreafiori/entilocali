@@ -138,13 +138,11 @@ class AppServiceLoader extends AppServiceLoaderAbstract
      */
     public function setupUserInterfaceConfigurations(UserInterfaceConfigurations $ui)
     {
-        //$ui->setConfigurations($this->recoverService('configurations'));
         if ($this->recoverService('isBackend')) {
             $ui->setAdditionalAdminConfigurationsArray();
         } else {
             $ui->setAdditionalFrontendConfigurationsArray();
         }
-        //$ui->setCommonConfigurations();
         $ui->setPreloadResponse($this->recoverService('entityManager'));
         
         return $ui;

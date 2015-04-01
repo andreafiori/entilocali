@@ -23,6 +23,9 @@ class UsersRolesGetterWrapper extends RecordsGetterWrapperAbstract
         $this->setObjectGetter($objectGetter);
     }
 
+    /**
+     * @return null
+     */
     public function setupQueryBuilder()
     {
         $this->objectGetter->setSelectQueryFields( $this->getInput('fields', 1) );
@@ -35,5 +38,7 @@ class UsersRolesGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
         $this->objectGetter->setGroupBy( $this->getInput('groupBy', 1) );
         $this->objectGetter->setLimit( $this->getInput('limit', 1) );
+
+        return null;
     }
 }

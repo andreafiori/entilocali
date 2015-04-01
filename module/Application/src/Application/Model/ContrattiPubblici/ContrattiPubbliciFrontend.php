@@ -6,8 +6,8 @@ use Application\Model\RouterManagers\RouterManagerAbstract;
 use Application\Model\RouterManagers\RouterManagerInterface;
 use Admin\Model\ContrattiPubblici\ContrattiPubbliciGetter;
 use Admin\Model\ContrattiPubblici\ContrattiPubbliciGetterWrapper;
-use Admin\Model\ContrattiPubblici\Settori\SettoriGetter;
-use Admin\Model\ContrattiPubblici\Settori\SettoriGetterWrapper;
+use Admin\Model\Users\Settori\UsersSettoriGetter;
+use Admin\Model\Users\Settori\UsersSettoriGetterWrapper;
 
 /**
  * @author Andrea Fiori
@@ -19,7 +19,7 @@ class ContrattiPubbliciFrontend extends RouterManagerAbstract implements RouterM
     {
         $param = $this->getInput('param', 1);
         $config = $this->getInput('configurations', 1);
-        
+
         $paginatorRecords = $this->getContrattiRecords(
             array(
                 'annullato'  => 0,
@@ -28,9 +28,11 @@ class ContrattiPubbliciFrontend extends RouterManagerAbstract implements RouterM
             ),
             isset($param['route']['page']) ? $param['route']['page'] : ''
         );
-        
+
         $this->setRecords($paginatorRecords);
+
         $this->setTemplate('contratti-pubblici/contratti-pubblici.phtml');
+
         $this->setVariables(array(
             'form'                       => $this->getFormSearch(),
             'paginator'                  => $paginatorRecords,
@@ -40,25 +42,29 @@ class ContrattiPubbliciFrontend extends RouterManagerAbstract implements RouterM
     }
     
         /**
-         * @return \Application\Model\ContrattiPubblici\ContrattiPubbliciFormSearch
+         * @return ContrattiPubbliciFormSearch
          */
         private function getFormSearch()
         {
-            $wrapperContratti = $this->getContrattiWrapper(array('fields' => 'DISTINCT cc.anno AS anno', 'orderBy' => 'cc.anno'));
+            $wrapperContratti = $this->getContrattiWrapper(array(
+                    'fields' => 'DISTINCT(cc.anno) AS anno',
+                    'orderBy' => 'cc.anno'
+                )
+            );
             $years = $wrapperContratti->getRecords();
-            
+
             $yearsArray = array();
             foreach($years as $year) {
                 $yearsArray[] = $year['anno'];
             }
-            
+
             $settoriRecords = $this->getSettori(array(
                 
             ));
-            
+
             $settori = array();
             foreach($settoriRecords as $settore) {
-                $settori[$settore['id']] = $settore['nome'].' '.$settore['responsabile'];
+                $settori[$settore['id']] = $settore['nome'].' '.$settore['name'].' '.$settore['surname'];
             }
             
             $form = new ContrattiPubbliciFormSearch();
@@ -78,7 +84,7 @@ class ContrattiPubbliciFrontend extends RouterManagerAbstract implements RouterM
          */
         private function getSettori(array $input)
         {
-            $wrapper = new SettoriGetterWrapper( new SettoriGetter($this->getInput('entityManager',1)) );
+            $wrapper = new UsersSettoriGetterWrapper( new UsersSettoriGetter($this->getInput('entityManager',1)) );
             $wrapper->setInput($input);
             $wrapper->setupQueryBuilder();
             

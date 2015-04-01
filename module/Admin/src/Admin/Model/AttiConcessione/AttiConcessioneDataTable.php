@@ -18,12 +18,16 @@ class AttiConcessioneDataTable extends DataTableAbstract
         parent::__construct($input);
 
         $wrapper = $this->setupPaginatorRecords();
+
         $paginatorRecords = $wrapper->setupRecords();
+        $paginatorItemCount = $wrapper->getPaginator()->getTotalItemCount();
         
         $this->setRecords( $this->getFormattedDataTableRecords($paginatorRecords) );
 
         $this->setTitle('Atti di concessione');
-        $this->setDescription('Gestione atti di concessione');
+
+        $this->setDescription('Gestione <strong>'.$paginatorItemCount.'</strong> atti di concessione in archivio');
+
         $this->setColumns(array(
                 "Ufficio-Responsabile del Servizio - Responsabile del Procedimento",
                 "Num / Anno",
@@ -41,7 +45,7 @@ class AttiConcessioneDataTable extends DataTableAbstract
         $this->setVariables(array(
                 'tablesetter'           => 'atti-concessione',
                 'paginator'             => $paginatorRecords,
-                'paginatorItemCount'    => $wrapper->getPaginator()->getTotalItemCount()
+                'paginatorItemCount'    => $paginatorItemCount
             )
         );
         
@@ -81,7 +85,7 @@ class AttiConcessioneDataTable extends DataTableAbstract
                             utf8_encode($row['nomeSezione']),
                         $row['progressivo']." / ".$row['anno'],
                         utf8_encode($row['beneficiario']),
-                        utf8_encode($row['modassegn']),
+                        utf8_encode($row['nomemodAssegnazione']),
                         utf8_encode($row['importo']),
                         utf8_encode($row['titolo']),
                         '<strong>Data inserimento:</strong> '.$row['dataInserimento'].' <br><br><strong>Scadenza:</strong> '.$row['scadenza'].'<br><br> <strong>Inserito da:</strong> '.$row['name'].' '.$row['surname'],

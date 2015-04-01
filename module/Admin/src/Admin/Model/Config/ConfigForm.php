@@ -5,10 +5,8 @@ namespace Admin\Model\Config;
 use Zend\Form\Form;
 
 /**
- *
- * TODO:
-
-        emailnoreply, emailwebmaster
+ * OTHER FILEDS:
+ *        emailnoreply, emailwebmaster
 
         attachsizelimit
 
@@ -25,14 +23,6 @@ use Zend\Form\Form;
  */
 class ConfigForm extends Form
 {
-    /**
-     * @inheritdoc
-     */
-    public function __construct($name = null, $options = array())
-    {
-        parent::__construct($name, $options);
-    }
-
     public function addMainConfigs()
     {
         $this->add(array(

@@ -2,16 +2,20 @@
 
 namespace Admin;
 
+use ServiceLocatorFactory\ServiceLocatorFactory;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\Validator\AbstractValidator;
+use Zend\Session\Container as SessionContainer;
+use Admin\Model\Config\ConfigGetter;
+use Admin\Model\Config\ConfigGetterWrapper;
 
 class Module implements AutoloaderProviderInterface, ConfigProviderInterface
 {
     /**
-     * @param MvcEvent $e
+     * {@inheritDoc}
      */
     public function onBootstrap(MvcEvent $e)
     {
@@ -24,7 +28,7 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
     }
 
     /**
-     * @return array
+     * {@inheritDoc}
      */
     public function getAutoloaderConfig()
     {

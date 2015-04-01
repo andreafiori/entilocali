@@ -67,34 +67,34 @@ class ContenutiForm extends Form
         ));
 
         $this->add(array(
-            'type' => 'Date',
+            'type' => 'DateTime',
             'name' => 'dataInserimento',
             'options' => array(
                 'label'  => '* Data inserimento',
                 'format' => 'Y-m-d H:i:s',
             ),
             'attributes' => array(
-                'style' => 'width: 22%',
-                'id' => 'dataInserimento',
-                'title' => 'Seleziona data inserimento',
-                'required'    => 'required',
-                'placeholder' => 'Data inserimento...',
+                'style'         => 'width: 22%',
+                'id'            => 'dataInserimento',
+                'title'         => 'Seleziona data inserimento',
+                'required'      => 'required',
+                'placeholder'   => 'Data inserimento...',
             )
         ));
 
         $this->add(array(
-            'type' => 'Date',
+            'type' => 'DateTime',
             'name' => 'dataScadenza',
             'options' => array(
-                'label' => '* Data scadenza',
-                'format' => 'Y-m-d H:i:s',
+                'label'     => '* Data scadenza',
+                'format'    => 'Y-m-d H:i:s',
             ),
             'attributes' => array(
-                'style' => 'width: 22%',
-                'id' => 'dataScadenza',
-                'title' => 'Seleziona data scadenza',
-                'required'    => 'required',
-                'placeholder' => 'Data scadenza...',
+                'style'         => 'width: 22%',
+                'id'            => 'dataScadenza',
+                'title'         => 'Seleziona data scadenza',
+                'required'      => 'required',
+                'placeholder'   => 'Data scadenza...',
             )
         ));
 

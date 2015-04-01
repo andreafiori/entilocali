@@ -23,8 +23,9 @@ class ContrattiPubbliciGetter extends QueryBuilderHelperAbstract
                 users.name, users.surname,
 
                 settore.nome AS nomeSettore,
-                
-                responsabileUsers.name AS responsabileUsersName
+
+                responsabileUsers.name AS responsabileUsersName,
+                responsabileUsers.surname AS responsabileUsersSurname
                 ');
 
         $this->getQueryBuilder()->select($this->getSelectQueryFields())
@@ -34,7 +35,14 @@ class ContrattiPubbliciGetter extends QueryBuilderHelperAbstract
                                 ->join('cc.settore', 'settore')
                                 ->join('cc.respProc', 'responsabile')
                                 ->join('responsabile.user', 'responsabileUsers')
-                                ->where(' (cc.scContr = csc.id AND cc.utente = users.id) ');
+                                ->where('
+                                        (
+                                        cc.scContr = csc.id AND cc.utente = users.id
+                                        AND cc.settore = settore.id
+                                        AND responsabile.user = responsabileUsers.id
+                                        AND cc.respProc = responsabile.id
+                                        )
+                                        ');
         
         return $this->getQueryBuilder();
     }

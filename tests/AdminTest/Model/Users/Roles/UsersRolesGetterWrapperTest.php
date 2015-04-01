@@ -12,6 +12,9 @@ use Admin\Model\Users\Roles\UsersRolesGetterWrapper;
  */
 class UsersRolesGetterWrapperTest extends TestSuite
 {
+    /**
+     * @var UsersRolesGetterWrapper
+     */
     private $objectWrapper;
 
     protected function setUp()

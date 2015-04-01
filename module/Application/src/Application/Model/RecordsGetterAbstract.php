@@ -3,7 +3,6 @@
 namespace Application\Model;
 
 use Admin\Model\InputSetupAbstract;
-use Application\Model\RecordsGetterWrapperAbstract;
 
 /**
  * @author Andrea Fiori
@@ -11,7 +10,6 @@ use Application\Model\RecordsGetterWrapperAbstract;
  */
 class RecordsGetterAbstract extends InputSetupAbstract
 {
-    /** @var if set, get first row of the recordset **/
     protected $firstRow;
     
     protected $records;
@@ -22,7 +20,7 @@ class RecordsGetterAbstract extends InputSetupAbstract
     
     /**
      * @param \Doctrine\ORM\EntityManager $entityManager
-     * @return type
+     * @return \Doctrine\ORM\EntityManager
      */
     public function setEntityManager(\Doctrine\ORM\EntityManager $entityManager)
     {
@@ -44,7 +42,7 @@ class RecordsGetterAbstract extends InputSetupAbstract
     }
     
     /**
-     * @return 1
+     * @return mixed
      */
     public function setFirstRow()
     {
@@ -77,6 +75,7 @@ class RecordsGetterAbstract extends InputSetupAbstract
     
     /**
      * @param array $records
+     *
      * @return array
      */
     public function setRecords($records)

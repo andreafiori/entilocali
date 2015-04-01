@@ -21,6 +21,12 @@ class AttiConcessioneForm extends Form
         parent::__construct($name, $options);
 
         $this->add(array(
+            'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'id',
+            'attributes' => array("class"=>'hiddenField')
+        ));
+
+        $this->add(array(
                         'name' => 'beneficiario',
                         'type' => 'Textarea',
                         'options' => array( 'label' => '* Beneficiario CF / P.IVA' ),
@@ -87,24 +93,30 @@ class AttiConcessioneForm extends Form
         ));
     }
 
-    public function addModalitaAssegnazione()
+    public function addModalitaAssegnazione($records = array())
     {
         $this->add(array(
-                        'name' => 'modassegn',
-                        'type' => 'Text',
-                        'options' => array( 'label' => '* Modalit&agrave; assegnazione' ),
-                        'attributes' => array(
-                                        'title'         => 'Modalita assegnazione',
-                                        'placeholder'   => 'Modalita assegnazione...',
-                                        'id'            => 'modassegn',
-                                        'required'      => 'required',
-                        )
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'modAssegnazione',
+            'options' => array(
+                'label'          => '* Modalit&agrave; assegnazione',
+                'empty_option'   => 'Seleziona',
+                'value_options'  => $records,
+            ),
+            'attributes' => array(
+                'id'        => 'modAssegnazione',
+                'title'     => 'Seleziona modalita assegnazione',
+                'required'  => 'required',
+            )
         ));
+    }
 
+    public function addTitoloDataInserimentoEAnno()
+    {
         $this->add(array(
                         'name' => 'titolo',
                         'type' => 'Text',
-                        'options' => array( 'label' => "Norma o Titolo a base dell'attribuzione" ),
+                        'options' => array( 'label' => "Norma o titolo a base dell'attribuzione" ),
                         'attributes' => array(
                             'title'         => "* Norma o Titolo a base dell'attribuzione",
                             'id'            => 'titolo',
@@ -113,11 +125,11 @@ class AttiConcessioneForm extends Form
         ));
 
         $this->add(array(
-            'type' => 'Date',
+            'type' => 'DateTime',
             'name' => 'dataInserimento',
             'options' => array(
                 'label' => "* Data inserimento:",
-                'format' => 'Y-m-d',
+                'format' => 'Y-m-d H:i:s',
             ),
             'attributes' => array(
                 'id'            => 'data',
@@ -140,12 +152,6 @@ class AttiConcessioneForm extends Form
                 'placeholder'   => 'Anno...',
                 'required'      => 'required',
             )
-        ));
-
-        $this->add(array(
-            'type' => 'Zend\Form\Element\Hidden',
-            'name' => 'id',
-            'attributes' => array("class"=>'hiddenField')
         ));
     }
 }

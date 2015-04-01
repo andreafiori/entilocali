@@ -18,9 +18,9 @@ class InvioEnteTerzoHandler extends RouterManagerAbstract implements RouterManag
     {
         $param      = $this->getInput('param', 1);
 
-        $moduleName = $param['route']['modulename'];
+        $moduleCode = $param['route']['modulename'];
         
-        switch($moduleName) {
+        switch($moduleCode) {
             default:
                 // error
             break;
@@ -29,25 +29,23 @@ class InvioEnteTerzoHandler extends RouterManagerAbstract implements RouterManag
                 $recordsGetter = new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter( $this->getInput('entityManager',1) ));
                 $recordsGetter->setInput( array('id' => $param['route']['id'], 'limit' => 1) );
                 $recordsGetter->setupQueryBuilder();
-                
+
+                $moduleName = 'Albo pretorio';
+
                 $record = $recordsGetter->getRecords();
+
                 $titolo = $record[0]['titolo'];
             break;
-        
+
             case("stato-civile"):
                 $recordsGetter = new StatoCivileRecordsGetter( $this->getInput() );
                 $recordsGetter->setArticoli( array("id" => $param['route']['id'], 'limit' => 1) );
-                
+
+                $moduleName = 'Stato civile';
+
                 $record = $recordsGetter->getRecords();
+
                 $titolo = $record[0]['titolo'];
-            break;
-        
-            case("contratti-pubblici"):
-                
-            break;
-        
-            case("amministrazione-trasparente"):
-                
             break;
         }
 
@@ -61,6 +59,7 @@ class InvioEnteTerzoHandler extends RouterManagerAbstract implements RouterManag
         $this->setVariables(array(
             'formDataCommonPath' => 'backend/templates/common/',
             'form'               => $form,
+            'moduleName'         => $moduleName,
             'titolo'             => $titolo,
             'rubricaEntiTerzi'   => $entiTerziRecords,
         ));

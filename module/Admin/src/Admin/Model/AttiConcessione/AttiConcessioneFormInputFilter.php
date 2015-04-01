@@ -34,7 +34,7 @@ class AttiConcessioneFormInputFilter implements InputFilterAwareInterface
         $this->importo                  = (isset($data['importo']))             ? $data['importo']   : null;
         $this->ufficioResponsabile      = (isset($data['ufficioResponsabile'])) ? $data['ufficioResponsabile']   : null;
         $this->respProc                 = (isset($data['respProc']))            ? $data['respProc']   : null;
-        $this->modassegn                = (isset($data['modassegn']))           ? $data['modassegn']   : null;
+        $this->modAssegnazione          = (isset($data['modAssegnazione']))     ? $data['modAssegnazione']   : null;
         $this->titolo                   = (isset($data['titolo']))              ? $data['titolo']   : null;
         $this->dataInserimento          = (isset($data['dataInserimento']))     ? $data['dataInserimento']   : null;
         $this->anno                     = (isset($data['anno']))                ? $data['anno']   : null;
@@ -102,23 +102,12 @@ class AttiConcessioneFormInputFilter implements InputFilterAwareInterface
             ));
 
             $inputFilter->add(array(
-                 'name'     => 'modassegn',
-                 'required' => true,
-                 'filters'  => array(
-                     array('name' => 'StripTags'),
-                     array('name' => 'StringTrim'),
-                 ),
-                 'validators' => array(
-                     array(
-                         'name'    => 'StringLength',
-                         'options' => array(
-                             'encoding' => 'UTF-8',
-                             'min'      => 1,
-                             'max'      => 255,
-                         ),
-                     ),
-                 ),
-             ));
+                'name'     => 'modAssegnazione',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'Int'),
+                ),
+            ));
 
             $inputFilter->add(array(
                 'name'     => 'titolo',

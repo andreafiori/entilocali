@@ -32,7 +32,7 @@ class AuthController extends SetupAbstractController
     /**
      * @return \Zend\View\Model\ViewModel
      */
-    public function showFormLoginAction()
+    public function indexAction()
     {
         if ( $this->checkLogin() ) {
             return $this->redirect()->toRoute('admin');
@@ -211,7 +211,9 @@ class AuthController extends SetupAbstractController
 
             $this->flashmessenger()->addMessage("Uscita dall'area di amministrazione");
         }
-        
+
+        session_destroy();
+
         return $this->redirect()->toRoute('login');
     }
     

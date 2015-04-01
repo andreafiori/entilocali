@@ -30,6 +30,7 @@ class LogsGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setMainQuery();
         
         $this->objectGetter->setId( $this->getInput('id', 1) );
+        $this->objectGetter->setUserId( $this->getInput('userId', 1) );
         $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
         $this->objectGetter->setGroupBy( $this->getInput('groupBy', 1) );
         $this->objectGetter->setLimit( $this->getInput('limit', 1) );

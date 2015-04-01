@@ -18,7 +18,7 @@ class AlboPretorioApiResource extends ApiResultGetterAbstract
     public function getResourceRecords(array $input)
     {
         $recordsGetter = new AlboPretorioRecordsGetter($input);
-        $recordsGetter->setEntityManager($this->getEntityManager());
+        $recordsGetter->setEntityManager($this->getEntitbyManager());
         $recordsGetter->setArticoliInput($input);
         $recordsGetter->setArticoliPaginator();
         $recordsGetter->setArticoliPaginatorCurrentPage(isset($input['page']) ? $input['page'] : null);

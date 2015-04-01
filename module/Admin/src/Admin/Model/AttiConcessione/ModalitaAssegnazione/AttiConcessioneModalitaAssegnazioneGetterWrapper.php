@@ -1,24 +1,24 @@
 <?php
 
-namespace Admin\Model\ContrattiPubblici\ResponsabiliProcedimento;
+namespace Admin\Model\AttiConcessione\ModalitaAssegnazione;
 
 use Application\Model\RecordsGetterWrapperAbstract;
 
 /**
  * @author Andrea Fiori
- * @since  17 August 2014
+ * @since  30 March 2015
  */
-class ResponsabiliProcedimentoGetterWrapper extends RecordsGetterWrapperAbstract
+class AttiConcessioneModalitaAssegnazioneGetterWrapper  extends RecordsGetterWrapperAbstract
 {
     /**
-     * @var ResposabiliProcedimentoGetter
+     * @var AttiConcessioneModalitaAssegnazioneGetter
      */
     protected $objectGetter;
-    
+
     /**
-     * @param ResposabiliProcedimentoGetter $objectGetter
+     * @param AttiConcessioneModalitaAssegnazioneGetter $objectGetter
      */
-    public function __construct(ResponsabiliProcedimentoGetter $objectGetter)
+    public function __construct(AttiConcessioneModalitaAssegnazioneGetter $objectGetter)
     {
         $this->setObjectGetter($objectGetter);
     }
@@ -29,11 +29,12 @@ class ResponsabiliProcedimentoGetterWrapper extends RecordsGetterWrapperAbstract
     public function setupQueryBuilder()
     {
         $this->objectGetter->setSelectQueryFields( $this->getInput('fields', 1) );
-        
+
         $this->objectGetter->setMainQuery();
 
         $this->objectGetter->setId( $this->getInput('id', 1) );
         $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
+        $this->objectGetter->setGroupBy( $this->getInput('groupBy', 1) );
         $this->objectGetter->setLimit( $this->getInput('limit', 1) );
 
         return null;

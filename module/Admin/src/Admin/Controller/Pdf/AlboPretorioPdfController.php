@@ -35,24 +35,24 @@ class AlboPretorioPdfController extends SetupAbstractController
 
         return $pdf;
     }
-    
-    /**
-     * @param int $id
-     * @return AlboPretorioArticoliGetterWrapper
-     */
-    private function getArticle($id)
-    {
-        $wrapper = new AlboPretorioArticoliGetterWrapper(
-            new AlboPretorioArticoliGetter($this->getServiceLocator()->get('doctrine.entitymanager.orm_default'))
-        );
-        $wrapper->setInput(
-            array(
-                'id' => $id,
-                'limit' => 1
-            )
-        );
-        $wrapper->setupQueryBuilder();
-        
-        return $wrapper->getRecords();
-    }
+
+        /**
+         * @param int $id
+         * @return AlboPretorioArticoliGetterWrapper
+         */
+        private function getArticle($id)
+        {
+            $wrapper = new AlboPretorioArticoliGetterWrapper(
+                new AlboPretorioArticoliGetter($this->getServiceLocator()->get('doctrine.entitymanager.orm_default'))
+            );
+            $wrapper->setInput(
+                array(
+                    'id' => $id,
+                    'limit' => 1
+                )
+            );
+            $wrapper->setupQueryBuilder();
+
+            return $wrapper->getRecords();
+        }
 }

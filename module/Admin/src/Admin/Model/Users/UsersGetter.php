@@ -100,7 +100,7 @@ class UsersGetter extends QueryBuilderHelperAbstract
     public function setPassword($password)
     {
         if (!empty($password)) {
-            $this->getQueryBuilder()->andWhere("u.password = MD5( :password ) ");
+            $this->getQueryBuilder()->andWhere("u.password = MD5( CONCAT( :password , u.salt) ) ");
             $this->getQueryBuilder()->setParameter('password', $password);
         }
 

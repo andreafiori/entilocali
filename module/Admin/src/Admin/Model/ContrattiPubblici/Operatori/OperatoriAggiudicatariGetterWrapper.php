@@ -29,7 +29,7 @@ class OperatoriAggiudicatariGetterWrapper extends RecordsGetterWrapperAbstract
 
         $this->objectGetter->setMainQuery();
 
-        $this->objectGetter->setContrattoId( $this->getInput('contratto', 1) );
+        $this->objectGetter->setContrattoId( $this->getInput('contrattoId', 1) );
         $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
         $this->objectGetter->setGroupBy( $this->getInput('groupBy', 1) );
         $this->objectGetter->setLimit( $this->getInput('limit', 1) );

@@ -78,7 +78,7 @@ foreach ($this->form as $element):
             </div>
         </div>
         <?php
-    elseif ($attributes['type'] == 'date'):
+    elseif ($attributes['type'] == 'date' or $attributes['type'] == 'datetime'):
         ?>
         <div class="form-group">
             <label for="<?php echo $attributes['id'] ?>" class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label"><?php echo $element->getLabel() ?></label>

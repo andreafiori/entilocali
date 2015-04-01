@@ -17,19 +17,6 @@ class InvioEnteTerzoForm extends Form
     {
         parent::__construct($name, $options);
 
-        /*
-        $this->add(array(
-                        'name' => 'image',
-                        'type' => 'Zend\Form\Element\File',
-                        'options' => array( 'label' => 'Verbale' ),
-                        'attributes' => array(
-                                        'title' => 'Allega file',
-                                        'id'    => 'image',
-                                        'title' => 'File verbale di richiesta pubblicazioni in altro ente'
-                        )
-        ));
-        */
-        
         $this->add(array(
                         'name' => 'title',
                         'type' => 'Email',

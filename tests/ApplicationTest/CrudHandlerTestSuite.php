@@ -35,9 +35,7 @@ abstract class CrudHandlerTestSuite extends TestSuite
 
     public function testFormIsValid()
     {
-        $this->crudHandler->getForm()->setInputFilter($this->crudHandler->getFormInputFilter()->getInputFilter());
-
-        $this->crudHandler->getForm()->setData($this->formSampleData);
+        $this->setupFormInputFilterAndExchangeArray();
 
         $this->assertTrue( $this->crudHandler->getForm()->isValid() );
     }
@@ -131,9 +129,9 @@ abstract class CrudHandlerTestSuite extends TestSuite
 
     protected function setupFormInputFilterAndExchangeArray()
     {
-        $this->crudHandler->getForm()->setData($this->formSampleData);
-
         $this->crudHandler->getForm()->setInputFilter($this->crudHandler->getFormInputFilter()->getInputFilter());
+
+        $this->crudHandler->getForm()->setData($this->formSampleData);
 
         $this->crudHandler->getFormInputFilter()->exchangeArray($this->formSampleData);
     }
@@ -159,6 +157,7 @@ abstract class CrudHandlerTestSuite extends TestSuite
         $formValidationErrors = $this->crudHandler->getFormInputFilter()->getInputFilter()->getInvalidInput();
         foreach($formValidationErrors as $key => $value) {
             echo $key."\n";
+            //print_r($value);
         }
     }
 }

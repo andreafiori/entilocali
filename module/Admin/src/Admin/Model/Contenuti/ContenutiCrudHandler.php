@@ -80,19 +80,25 @@ class ContenutiCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
     {
         $this->asssertConnection();
 
+        $arrayUpdate = array(
+            'sottosezione_id'   => $formData->sottosezione,
+            'titolo'            => $formData->titolo,
+            'sommario'          => $formData->sommario,
+            'testo'             => $formData->testo,
+            'data_inserimento'  => $formData->dataInserimento,
+            'data_scadenza'     => $formData->dataScadenza,
+            'attivo'            => $formData->attivo,
+            'home'              => $formData->homepage,
+            'rss'               => $formData->rss,
+        );
+
+        if ($formData->utente) {
+            $arrayUpdate['utente_id'] = $formData->utente;
+        }
+
         return $this->getConnection()->update(
                     DbTableContainer::contenuti,
-                    array(
-                        'sottosezione_id'   => $formData->sottosezione,
-                        'titolo'            => $formData->titolo,
-                        'sommario'          => $formData->sommario,
-                        'testo'             => $formData->testo,
-                        'data_inserimento'  => $formData->dataInserimento,
-                        'data_scadenza'     => $formData->dataScadenza,
-                        'attivo'            => $formData->attivo,
-                        'home'              => $formData->homepage,
-                        'rss'               => $formData->rss,
-                    ),
+                    $arrayUpdate,
                     array('id' => $formData->id)
         );
     }

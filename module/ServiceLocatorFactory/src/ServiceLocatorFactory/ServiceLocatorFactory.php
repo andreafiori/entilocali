@@ -2,7 +2,6 @@
 
 namespace ServiceLocatorFactory;
 
-use ServiceLocatorFactory\NullServiceLocatorException;
 use Zend\ServiceManager\ServiceManager;
 
 class ServiceLocatorFactory
@@ -14,13 +13,14 @@ class ServiceLocatorFactory
 
     /**
      * @throw ServiceLocatorFactory\NullServiceLocatorException
-     * @return Zend\ServiceManager\ServiceManager
+     * @return \Zend\ServiceManager\ServiceManager
      */
     public static function getInstance()
     {
         if(null === self::$serviceManager) {
 			throw new NullServiceLocatorException('ServiceLocator is not set');
         }
+
         return self::$serviceManager;
     }
 

@@ -225,16 +225,6 @@ class ZfcmsUsers
     private $confirmCode;
 
     /**
-     * @var \Application\Entity\ZfcmsUsersSettori
-     *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsersSettori")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="settore_id", referencedColumnName="id")
-     * })
-     */
-    private $settore;
-
-    /**
      * @var \Application\Entity\ZfcmsUsersRoles
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsersRoles")
@@ -243,6 +233,16 @@ class ZfcmsUsers
      * })
      */
     private $role;
+
+    /**
+     * @var \Application\Entity\ZfcmsUsersSettori
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsersSettori")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="settore_id", referencedColumnName="id")
+     * })
+     */
+    private $settore;
 
 
 
@@ -924,29 +924,6 @@ class ZfcmsUsers
     }
 
     /**
-     * Set settore
-     *
-     * @param \Application\Entity\ZfcmsUsersSettori $settore
-     * @return ZfcmsUsers
-     */
-    public function setSettore(\Application\Entity\ZfcmsUsersSettori $settore = null)
-    {
-        $this->settore = $settore;
-    
-        return $this;
-    }
-
-    /**
-     * Get settore
-     *
-     * @return \Application\Entity\ZfcmsUsersSettori 
-     */
-    public function getSettore()
-    {
-        return $this->settore;
-    }
-
-    /**
      * Set role
      *
      * @param \Application\Entity\ZfcmsUsersRoles $role
@@ -967,5 +944,28 @@ class ZfcmsUsers
     public function getRole()
     {
         return $this->role;
+    }
+
+    /**
+     * Set settore
+     *
+     * @param \Application\Entity\ZfcmsUsersSettori $settore
+     * @return ZfcmsUsers
+     */
+    public function setSettore(\Application\Entity\ZfcmsUsersSettori $settore = null)
+    {
+        $this->settore = $settore;
+    
+        return $this;
+    }
+
+    /**
+     * Get settore
+     *
+     * @return \Application\Entity\ZfcmsUsersSettori 
+     */
+    public function getSettore()
+    {
+        return $this->settore;
     }
 }

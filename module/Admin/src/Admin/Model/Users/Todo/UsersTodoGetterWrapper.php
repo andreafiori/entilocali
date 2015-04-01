@@ -2,6 +2,8 @@
 
 namespace Admin\Model\Users\Todo;
 
+use Application\Model\RecordsGetterWrapperAbstract;
+
 /**
  * @author Andrea Fiori
  * @since  26 March 2015
@@ -9,14 +11,14 @@ namespace Admin\Model\Users\Todo;
 class UsersTodoGetterWrapper extends RecordsGetterWrapperAbstract
 {
     /**
-     * @var UsersSTodoGetter
+     * @var UsersTodoGetter
      */
     protected $objectGetter;
 
     /**
-     * @param UsersSettoriGetter $objectGetter
+     * @param UsersTodoGetter $objectGetter
      */
-    public function __construct(UsersSettoriGetter $objectGetter)
+    public function __construct(UsersTodoGetter $objectGetter)
     {
         $this->setObjectGetter($objectGetter);
     }

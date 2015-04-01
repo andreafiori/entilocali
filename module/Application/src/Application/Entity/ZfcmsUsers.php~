@@ -225,16 +225,6 @@ class ZfcmsUsers
     private $confirmCode;
 
     /**
-     * @var \Application\Entity\ZfcmsUsersSettori
-     *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsersSettori")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="settore_id", referencedColumnName="id")
-     * })
-     */
-    private $settore;
-
-    /**
      * @var \Application\Entity\ZfcmsUsersRoles
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsersRoles")
@@ -243,6 +233,16 @@ class ZfcmsUsers
      * })
      */
     private $role;
+
+    /**
+     * @var \Application\Entity\ZfcmsUsersSettori
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsersSettori")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="settore_id", referencedColumnName="id")
+     * })
+     */
+    private $settore;
 
 
 }

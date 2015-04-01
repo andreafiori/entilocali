@@ -66,7 +66,7 @@ class RouterManager extends RouterManagerAbstract
     }
     
     /**
-     * Setup the Frontend Object to use on the index controller
+     * Setup the Frontend Object to use in the Controller
      * 
      * @return RouterManagerAbstract
      * @throws NullException

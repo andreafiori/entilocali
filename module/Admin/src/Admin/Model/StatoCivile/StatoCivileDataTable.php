@@ -16,23 +16,7 @@ class StatoCivileDataTable extends DataTableAbstract
     public function __construct(array $input)
     {
         parent::__construct($input);
-        
-        $this->setTitle('Stato civile');
-        $this->setDescription('Gestione atti stato civile');
-        $this->setColumns( array(
-            "Titolo", 
-            "Numero / Anno", 
-            "Sezione", 
-            "Inserito il", 
-            "Scadenza", 
-            "Inserito da",
-            "&nbsp;", 
-            "&nbsp;", 
-            "&nbsp;",
-            "&nbsp;",
-            )
-        );
-        
+
         $formSearch = new StatoCivileFormSearch();
         $formSearch->addSubmitButton();
         $formSearch->addCheckExpired();
@@ -40,17 +24,35 @@ class StatoCivileDataTable extends DataTableAbstract
         
         $this->checkActiveDisable();
         
-        $paginatorRecords = $this->getRecordsPaginator();
+        $wrapper = $this->getStatoCivileGetterWrapper();
+        $paginatorCount = $wrapper->getPaginator()->getTotalItemCount();
 
-        $this->setVariables(array(
-            'paginator'     => $paginatorRecords,
-            'tablesetter'   => 'stato-civile',
-            'formSearch'    => $formSearch,
-            'formExport'    => $formSearch
+        $this->setTitle('Stato civile');
+        $this->setDescription($paginatorCount.' atti stato civile in archivio');
+        $this->setColumns( array(
+                "Titolo",
+                "Numero / Anno",
+                "Sezione",
+                "Inserito il",
+                "Scadenza",
+                "Inserito da",
+                "&nbsp;",
+                "&nbsp;",
+                "&nbsp;",
+                "&nbsp;",
             )
         );
 
-        $this->setRecords($this->getFormattedRecords($paginatorRecords));
+        $this->setVariables(array(
+            'paginator'         => $wrapper->getPaginator(),
+            'total_item_count'  => $paginatorCount,
+            'tablesetter'       => 'stato-civile',
+            'formSearch'        => $formSearch,
+            'formExport'        => $formSearch
+            )
+        );
+
+        $this->setRecords($this->getFormattedRecords($wrapper->setupRecords()));
         
         $this->setTemplate('datatable/datatable_statocivile.phtml');
     }
@@ -78,20 +80,20 @@ class StatoCivileDataTable extends DataTableAbstract
         }
         
         /**
-         * @return array 
+         * @return StatoCivileGetterWrapper
          */
-        private function getRecordsPaginator()
+        private function getStatoCivileGetterWrapper()
         {
             $param = $this->getInput('param', 1);
 
-            $statoCivileGetterWrapper = new StatoCivileGetterWrapper( new StatoCivileGetter($this->getInput('entityManager',1)) );
-            $statoCivileGetterWrapper->setInput( array('orderBy' => 'sca.id DESC') );
-            $statoCivileGetterWrapper->setupQueryBuilder();
-            $statoCivileGetterWrapper->setupPaginator( $statoCivileGetterWrapper->setupQuery( $this->getInput('entityManager', 1) ) );
-            $statoCivileGetterWrapper->setupPaginatorCurrentPage(isset($param['route']['page']) ? $param['route']['page'] : null);
-            $statoCivileGetterWrapper->setupPaginatorItemsPerPage(isset($param['route']['perpage']) ? $param['route']['perpage'] : null);
+            $wrapper = new StatoCivileGetterWrapper( new StatoCivileGetter($this->getInput('entityManager',1)) );
+            $wrapper->setInput( array('orderBy' => 'sca.id DESC') );
+            $wrapper->setupQueryBuilder();
+            $wrapper->setupPaginator( $wrapper->setupQuery( $this->getInput('entityManager', 1) ) );
+            $wrapper->setupPaginatorCurrentPage(isset($param['route']['page']) ? $param['route']['page'] : null);
+            $wrapper->setupPaginatorItemsPerPage(isset($param['route']['perpage']) ? $param['route']['perpage'] : null);
 
-            return $statoCivileGetterWrapper->getPaginator();
+            return $wrapper;
         }
         
         /**

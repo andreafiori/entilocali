@@ -12,7 +12,8 @@ class OperatoriAggiudicatariGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('contratto.id, contratto.titolo, partecipante.id AS idPartecipante, partecipante.cf, partecipante.nome, partecipante.ragioneSociale,
+        $this->setSelectQueryFields('contratto.id, contratto.titolo, partecipante.id AS idPartecipante,
+                                     partecipante.cf, partecipante.nome, partecipante.ragioneSociale,
 
                                      ccr.id AS idRelation, ccr.aggiudicatario, ccr.membro, ccr.stato, ccr.gruppo
                                     ');

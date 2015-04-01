@@ -12,7 +12,8 @@ class ContactsGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('DISTINCT(c.id) AS id, c.name, c.surname, c.email, c.phone, c.message, c.insertDate, c.format, c.status');
+        $this->setSelectQueryFields('DISTINCT(c.id) AS id, c.name, c.surname, c.email, c.phone, c.message, c.insertDate,
+                                    c.format, c.status');
 
         $this->getQueryBuilder()->select($this->getSelectQueryFields())
                                 ->from('Application\Entity\ZfcmsContacts', 'c')

@@ -32,6 +32,8 @@ class AlboPretorioArticoliDataTable extends AlboPretorioArticoliDataTableAbstrac
 
         $this->setVariables( $this->recoverCommonColumnsAndProperties($paginatorRecords) );
 
+        $this->setVariables( $this->recoverSearchForms() );
+
         $this->setRecords( $this->getFormattedDataTableRecords($paginatorRecords) );
 
         // $this->setTemplate('datatable/datatable_albo_pretorio.phtml');

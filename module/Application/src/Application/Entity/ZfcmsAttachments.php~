@@ -50,6 +50,27 @@ class ZfcmsAttachments
     private $insertDate;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="atti_concessione_colonna", type="integer", nullable=false)
+     */
+    private $attiConcessioneColonna;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="albo_rettificato", type="integer", nullable=false)
+     */
+    private $alboRettificato;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="albo_id", type="bigint", nullable=true)
+     */
+    private $alboId;
+
+    /**
      * @var \Application\Entity\ZfcmsAttachmentsMimetype
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsAttachmentsMimetype")

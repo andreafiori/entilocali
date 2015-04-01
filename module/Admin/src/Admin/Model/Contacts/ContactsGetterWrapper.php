@@ -10,14 +10,12 @@ use Application\Model\RecordsGetterWrapperAbstract;
  */
 class ContactsGetterWrapper extends RecordsGetterWrapperAbstract
 {
-    private $contactsGetter;
-
     /**
      * @param ContactsGetter $objectGetter
      */
     public function __construct(ContactsGetter $objectGetter)
     {
-        $this->contactsGetter = $objectGetter;
+        $this->objectGetter = $objectGetter;
     }
 
     /**
@@ -25,31 +23,15 @@ class ContactsGetterWrapper extends RecordsGetterWrapperAbstract
      */
     public function setupQueryBuilder()
     {
-        $this->contactsGetter->setSelectQueryFields( $this->getInput('fields', 1) );
+        $this->objectGetter->setSelectQueryFields( $this->getInput('fields', 1) );
         
-        $this->contactsGetter->setMainQuery();
+        $this->objectGetter->setMainQuery();
  
-        $this->contactsGetter->setSurname( $this->getInput('cognome', 1) );
-        $this->contactsGetter->setEmail( $this->getInput('email', 1) );        
-        $this->contactsGetter->setLimit( $this->getInput('limit', 1) );
+        $this->objectGetter->setSurname( $this->getInput('cognome', 1) );
+        $this->objectGetter->setEmail( $this->getInput('email', 1) );
+        $this->objectGetter->setLimit( $this->getInput('limit', 1) );
 
         return null;
-    }
-    
-    /**
-     * @return array
-     */
-    public function getRecords()
-    {
-        return $this->contactsGetter->getQueryResult();
-    }
-    
-    /**
-     * @return ContactsGetter
-     */
-    public function getContactsGetter()
-    {
-        return $this->contactsGetter;
     }
 }
 

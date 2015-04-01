@@ -14,13 +14,9 @@ use Zend\InputFilter\InputFilterInterface;
 class UsersRolesFormInputFilter implements InputFilterAwareInterface
 {
     public $id;
-    public $titolo;
-    public $sezione;
-    public $attivo;
-    public $data;
-    public $scadenza;
-    public $home;
-    public $utente;
+    public $name;
+    public $description;
+    public $adminAccess;
 
     protected $inputFilter;
 
@@ -29,8 +25,10 @@ class UsersRolesFormInputFilter implements InputFilterAwareInterface
      */
     public function exchangeArray(array $data)
     {
-        $this->id           = (isset($data['id']))       ? $data['id']      : null;
-
+        $this->id           = (isset($data['id']))          ? $data['id'] : null;
+        $this->name         = (isset($data['name']))        ? $data['name'] : null;
+        $this->description  = (isset($data['description'])) ? $data['description'] : null;
+        $this->adminAccess  = (isset($data['adminAccess'])) ? $data['adminAccess'] : null;
     }
 
     /**
@@ -80,10 +78,18 @@ class UsersRolesFormInputFilter implements InputFilterAwareInterface
 
             $inputFilter->add(array(
                 'name'     => 'description',
-                'required' => true,
+                'required' => false,
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'adminAccess',
+                'required' => false,
+                'filters'  => array(
+                    array('name' => 'Int'),
                 ),
             ));
 

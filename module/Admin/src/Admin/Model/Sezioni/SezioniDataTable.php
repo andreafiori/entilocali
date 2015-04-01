@@ -17,9 +17,12 @@ class SezioniDataTable extends DataTableAbstract
     {
         parent::__construct($input);
 
-        $paginatorRecords = $this->setupPaginatorRecords();
+        $wrapper = $this->setupWrapper( array() );
 
-        $this->setRecords( $this->formatRecordsToShowOnTable($paginatorRecords) );
+        $records = $wrapper->setupRecords();
+        $recordsCount = $wrapper->getPaginator()->getTotalItemCount();
+
+        $this->setRecords( $this->formatRecordsToShowOnTable($records) );
 
         $columns = array(
             "Nome",
@@ -35,13 +38,14 @@ class SezioniDataTable extends DataTableAbstract
 
         $this->setVariables(array(
             'tablesetter' => 'sezioni-contenuti',
-            'paginator'   => $paginatorRecords,
+            'paginator'   => $records,
+            'item_count'  => $recordsCount,
             'columns'     => $columns,
         ));
 
         $this->setTitle('Sezioni');
 
-        $this->setDescription('Gestione sezioni');
+        $this->setDescription($recordsCount.' sezioni presenti');
 
         /* $this->setTemplate('datatable/datatable_sezioni.phtml'); */
     }
@@ -87,9 +91,9 @@ class SezioniDataTable extends DataTableAbstract
         }
 
         /**
-         * @return array
+         * @return SezioniGetterWrapper
          */
-        private function setupPaginatorRecords($input = array())
+        private function setupWrapper($input = array())
         {
             $param = $this->getParam();
 
@@ -99,7 +103,7 @@ class SezioniDataTable extends DataTableAbstract
             $wrapper->setupPaginator( $wrapper->setupQuery($this->getInput('entityManager', 1)) );
             $wrapper->setupPaginatorCurrentPage( isset($param['route']['page']) ? $param['route']['page'] : null );
 
-            return $wrapper->setupRecords();
+            return $wrapper;
         }
 }
 

@@ -32,6 +32,14 @@ class DataTableHandler extends RouterManagerAbstract implements RouterManagerInt
                 $this->setTemplate($object->getTemplate());
             }
             
+        } else {
+            $this->setTemplate('message.phtml');
+            $this->setVariables(array(
+                    'messageType'   => 'danger',
+                    'messageTitle'  => 'Errori verificati',
+                    'messageText'   => "Impossibile visualizzare l'elenco dati richiesto",
+                )
+            );
         }
 
         return $this->getOutput();

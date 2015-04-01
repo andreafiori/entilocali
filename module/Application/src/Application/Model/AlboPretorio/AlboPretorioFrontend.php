@@ -48,7 +48,9 @@ class AlboPretorioFrontend extends RouterManagerAbstract implements RouterManage
         {
             $alboPretorioFormSearch = new AlboPretorioFormSearch();
             $alboPretorioFormSearch->addSezioni( $this->getSezioni(array()) );
-            $alboPretorioFormSearch->addSettori( $this->getSettori(array('fields' => 'DISTINCT(u.settore) AS settore, u.id', 'groupBy'=>'settore')) );
+            $alboPretorioFormSearch->addSettori( $this->getSettori(array(
+                'orderBy' => 'settore.nome ASC'
+            )) );
             $alboPretorioFormSearch->addCheckExpired();
             $alboPretorioFormSearch->addCsrf();
             $alboPretorioFormSearch->addFrontendSubmitButton();
@@ -76,7 +78,7 @@ class AlboPretorioFrontend extends RouterManagerAbstract implements RouterManage
         {
             $this->alboPretorioRecordsGetter->setSettori($input);
 
-            return $this->alboPretorioRecordsGetter->formatSezioniForFormSelect('id', 'settore');
+            return $this->alboPretorioRecordsGetter->formatSezioniForFormSelect('id', 'nome');
         }
         
         /**

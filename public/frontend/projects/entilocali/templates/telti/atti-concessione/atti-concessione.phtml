@@ -1,5 +1,5 @@
 <ul class="breadcrumbs">
-    <li><a href="<?php echo $this->basepath() ?>" title="Home page">Home</a></li>
+    <li><a href="<?php echo $this->basepath() ?>" title="Torna all'home page">Home</a></li>
     <li class="current">Atti di concessione</li>
 </ul>
 
@@ -7,9 +7,11 @@
 
 <h1>Atti di concessione</h1>
 
+<p><?php echo $this->paginator_total_item_count ?> atti in archivio</p>
+
 <div>
     <?php
-    
+
     /*
     $form = $this->form;
     $form->prepare();
@@ -28,7 +30,7 @@
     <!--
     <fieldset>
         <legend>Ricerca atti di concessione</legend>
-        <div>Form di ricerca in costruzione</div>
+
     </fieldset>
     -->
     <?php //echo $this->form()->closeTag(); ?>
@@ -61,8 +63,8 @@
         <td><?php echo utf8_encode($row['anno']) ?></td>
         <td><?php echo utf8_encode($row['beneficiario']) ?></td>
         <td><?php echo utf8_encode($row['importo']) ?></td>
-        <td><?php echo utf8_encode($row['modassegn']) ?></td>
-        <td><?php echo utf8_encode($row['nomeSezione']).'<br><br>'.utf8_encode($row['responsabile']) ?></td>
+        <td><?php echo utf8_encode($row['nomemodAssegnazione']) ?></td>
+        <td><?php echo utf8_encode($row['nomeSezione']).'<br><br>'.utf8_encode($row['nomeResponsabileProc']) ?></td>
         <td><?php echo utf8_encode($row['titolo']) ?></td>
         <td>&nbsp;</td>
     </tr>

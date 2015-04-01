@@ -43,4 +43,11 @@ class LogsGetterTest extends TestSuite
 
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('id'));
     }
+
+    public function testSetUserId()
+    {
+        $this->objectGetter->setUserId(1);
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('userId'));
+    }
 }

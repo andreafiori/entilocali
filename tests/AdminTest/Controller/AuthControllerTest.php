@@ -2,14 +2,14 @@
 
 namespace ApplicationTest\Controller;
 
-use Admin\Controller\AuthController;
 use ApplicationTest\TestSuite;
+use Admin\Controller\AuthController;
 
 /**
  * @author Andrea Fiori
  * @since  05 December 2013
  */
-class AuthControllerTest // extends TestSuite
+class AuthControllerTest extends TestSuite
 {
     private $controller;
 

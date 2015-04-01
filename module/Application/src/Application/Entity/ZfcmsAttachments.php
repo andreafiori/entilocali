@@ -50,6 +50,27 @@ class ZfcmsAttachments
     private $insertDate;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="atti_concessione_colonna", type="integer", nullable=false)
+     */
+    private $attiConcessioneColonna;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="albo_rettificato", type="integer", nullable=false)
+     */
+    private $alboRettificato;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="albo_id", type="bigint", nullable=true)
+     */
+    private $alboId;
+
+    /**
      * @var \Application\Entity\ZfcmsAttachmentsMimetype
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsAttachmentsMimetype")
@@ -171,6 +192,75 @@ class ZfcmsAttachments
     public function getInsertDate()
     {
         return $this->insertDate;
+    }
+
+    /**
+     * Set attiConcessioneColonna
+     *
+     * @param integer $attiConcessioneColonna
+     * @return ZfcmsAttachments
+     */
+    public function setAttiConcessioneColonna($attiConcessioneColonna)
+    {
+        $this->attiConcessioneColonna = $attiConcessioneColonna;
+    
+        return $this;
+    }
+
+    /**
+     * Get attiConcessioneColonna
+     *
+     * @return integer 
+     */
+    public function getAttiConcessioneColonna()
+    {
+        return $this->attiConcessioneColonna;
+    }
+
+    /**
+     * Set alboRettificato
+     *
+     * @param integer $alboRettificato
+     * @return ZfcmsAttachments
+     */
+    public function setAlboRettificato($alboRettificato)
+    {
+        $this->alboRettificato = $alboRettificato;
+    
+        return $this;
+    }
+
+    /**
+     * Get alboRettificato
+     *
+     * @return integer 
+     */
+    public function getAlboRettificato()
+    {
+        return $this->alboRettificato;
+    }
+
+    /**
+     * Set alboId
+     *
+     * @param integer $alboId
+     * @return ZfcmsAttachments
+     */
+    public function setAlboId($alboId)
+    {
+        $this->alboId = $alboId;
+    
+        return $this;
+    }
+
+    /**
+     * Get alboId
+     *
+     * @return integer 
+     */
+    public function getAlboId()
+    {
+        return $this->alboId;
     }
 
     /**

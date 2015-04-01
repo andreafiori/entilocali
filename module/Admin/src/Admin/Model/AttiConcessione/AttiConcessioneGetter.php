@@ -16,11 +16,13 @@ class AttiConcessioneGetter extends QueryBuilderHelperAbstract
     public function setMainQuery()
     {
         $this->setSelectQueryFields("atti.id, atti.beneficiario, atti.titolo, atti.importo,
-                atti.ufficioresponsabile, atti.modassegn, atti.data AS dataInserimento, atti.ora, atti.progressivo,
+                atti.ufficioresponsabile, atti.data AS dataInserimento, atti.ora, atti.progressivo,
                 atti.anno, atti.scadenza, atti.attivo,
                 IDENTITY(atti.settore) AS ufficioResponsabile, IDENTITY(atti.respProc) AS respProc,
 
                 u.id, u.name, u.surname,
+
+                modAssegnazione.id, modAssegnazione.nome AS nomemodAssegnazione,
                 
                 asettori.nome AS nomeSezione,
 
@@ -31,13 +33,18 @@ class AttiConcessioneGetter extends QueryBuilderHelperAbstract
 
         $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
                                 ->from('Application\Entity\ZfcmsComuniConcessione', 'atti')
+                                ->join('atti.modAssegnazione', 'modAssegnazione')
                                 ->join('atti.utente', 'u')
                                 ->join('atti.settore', 'asettori')
                                 ->join('atti.respProc', 'respProcedimento')
                                 ->join('respProcedimento.user', 'respProcedimentoUser')
-                                ->where(' (atti.utente = u.id) AND (atti.respProc = respProcedimento.id) ')
-                                ->andWhere(" (atti.scadenza >= '".date('Y-m-d-')."' OR atti.scadenza = '0000-00-00')
-                                AND (atti.utente = u.id) ");
+                                ->where("(
+                                        atti.utente = u.id
+                                        AND (atti.scadenza >= '".date('Y-m-d')."' OR atti.scadenza = '0000-00-00')
+                                        AND atti.settore = asettori.id
+                                        AND atti.respProc = respProcedimento.id
+                                        AND respProcedimento.user = respProcedimentoUser.id
+                                        )");
         
         return $this->getQueryBuilder();
     }

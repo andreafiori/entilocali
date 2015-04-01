@@ -4,6 +4,8 @@ namespace Admin\Model\AlboPretorio;
 
 use Admin\Model\DataTable\DataTableInterface;
 use Admin\Model\DataTable\DataTableAbstract;
+use Admin\Model\Logs\LogsWriter;
+use Application\Model\Database\DbTableContainer;
 use Zend\Session\Container as SessionContainer;
 
 /**
@@ -189,7 +191,10 @@ abstract class AlboPretorioArticoliDataTableAbstract extends DataTableAbstract i
     protected function setupFormSearchAndExport(AlboPretorioArticoliFormAbstract $form, $labelName = null, $labelValue = null)
     {
         $sezioniRecords = $this->getSezioni( array('orderBy' => 'aps.nome') );
-        //$settoriRecords = $this->getSettori( array('fields' => 'DISTINCT(u.settore) AS settore, u.id', 'groupBy'=>'settore') );
+        $settoriRecords = $this->getSettori( array(
+                'fields' => 'settore.id AS idSettore, settore.nome'
+            )
+        );
 
         $form->addMonths();
         $form->addYears( $this->recordsGetter->getYears() );
@@ -225,7 +230,7 @@ abstract class AlboPretorioArticoliDataTableAbstract extends DataTableAbstract i
     {
         $this->recordsGetter->setSettori($input);
 
-        return $this->recordsGetter->formatSezioniForFormSelect('id', 'settore');
+        return $this->recordsGetter->formatSezioniForFormSelect('id', 'nome');
     }
     
     /**
@@ -253,6 +258,12 @@ abstract class AlboPretorioArticoliDataTableAbstract extends DataTableAbstract i
                 '&nbsp;',
             ),
             'paginator'   => $paginatorRecords,
+        );
+    }
+
+    protected function recoverSearchForms()
+    {
+        return array(
             'formSearch'  => $this->setupFormSearchAndExport(new AlboPretorioArticoliSearchFilterForm()),
             'formExport'  => $this->setupFormSearchAndExport(new AlboPretorioArticoliSearchFilterForm(), 'export', 'Esporta'),
         );
@@ -274,19 +285,29 @@ abstract class AlboPretorioArticoliDataTableAbstract extends DataTableAbstract i
             try {
                 $connection = $this->getInput('entityManager',1)->getConnection();
                 $connection->beginTransaction();
-                $connection->update('zfcms_comuni_albo_articoli', array(
+                $connection->update(DbTableContainer::alboArticoli, array(
                         'attivo' => $activeStatusValue
                     ),
                     array('id' => $this->param['get']['id'])
                 );
                 $connection->commit();
+
+                /* Log */
+                $log = new LogsWriter($connection);
+                $log->writeLog(array(
+
+                ));
+
             } catch (\Exception $e) {
                 $this->getConnection()->rollBack();
                 return $this->setErrorMessage($e->getMessage());
             }
         }
     }
-    
+
+    /**
+     * @return mixed
+     */
     public function checkPublish()
     {
         if ( isset($this->param['post']['publishId']) ) {
@@ -294,7 +315,7 @@ abstract class AlboPretorioArticoliDataTableAbstract extends DataTableAbstract i
             $connection = $this->getInput('entityManager',1)->getConnection();
             $connection->beginTransaction();
             try {
-                $connection->update('zfcms_comuni_albo_articoli', array(
+                $connection->update(DbTableContainer::alboArticoli, array(
                         'pubblicare' => 1,
                         'attivo'     => 1,
                         'annullato'  => 0,
@@ -302,6 +323,13 @@ abstract class AlboPretorioArticoliDataTableAbstract extends DataTableAbstract i
                     array('id' => $this->param['post']['publishId'])
                 );
                 $connection->commit();
+
+                /* Log */
+                $log = new LogsWriter($connection);
+                $log->writeLog(array(
+
+                ));
+
             } catch (\Exception $e) {
                 $connection->rollBack();
                 return $this->setErrorMessage($e->getMessage());
@@ -325,7 +353,7 @@ abstract class AlboPretorioArticoliDataTableAbstract extends DataTableAbstract i
             $connection = $this->getInput('entityManager',1)->getConnection();
             $connection->beginTransaction();
             try {
-                $connection->update('zfcms_comuni_albo_articoli', array(
+                $connection->update(DbTableContainer::alboArticoli, array(
                         'annullato' => 1
                     ),
                     array('id' => $id)

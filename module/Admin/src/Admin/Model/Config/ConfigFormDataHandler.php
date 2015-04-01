@@ -23,8 +23,9 @@ class ConfigFormDataHandler extends FormDataAbstract
         ));
         $wrapper->setupQueryBuilder();
 
-        $form       = new ConfigForm();
+        $form = new ConfigForm();
         $form->addMainConfigs();
+
         if ($this->isRole('WebMaster')) {
             $form->addTemplates();
             $form->addProject();

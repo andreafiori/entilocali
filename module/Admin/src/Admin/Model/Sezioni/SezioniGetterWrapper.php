@@ -42,19 +42,6 @@ class SezioniGetterWrapper extends RecordsGetterWrapperAbstract
 
     /**
      * @param array $records
-     * @return array
-     */
-    public function formatRecordsPerColumn(array $records)
-    {
-        $toReturn = array();
-        foreach($records as $record) {
-            $toReturn[$record['colonna']][] = $record;
-        }
-        return $toReturn;
-    }
-
-    /**
-     * @param array $records
      * @param array $inputToMerge
      * @return array
      */
@@ -77,5 +64,21 @@ class SezioniGetterWrapper extends RecordsGetterWrapperAbstract
         }
 
         return $records;
+    }
+
+    /**
+     * @param array $records
+     * @return array
+     */
+    public function formatRecordsPerColumn(array $records)
+    {
+        $toReturn = array();
+        foreach($records as $record) {
+            if (isset($record['colonna'])) {
+                $toReturn[$record['colonna']][] = $record;
+            }
+        }
+
+        return $toReturn;
     }
 }

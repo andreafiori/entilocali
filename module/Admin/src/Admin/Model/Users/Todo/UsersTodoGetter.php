@@ -15,11 +15,12 @@ class UsersTodoGetter extends QueryBuilderHelperAbstract
      */
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('toDo.id, toDo.taskName ');
+        $this->setSelectQueryFields('toDo.id, toDo.taskName, toDo.expiredate ');
 
         $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
                                 ->from('Application\Entity\ZfcmsUsersTodo', 'toDo')
-                                ->where("toDo.id != 0 ");
+                                ->join('toDo.user', 'user')
+                                ->where("toDo.user = user.id ");
 
         return $this->getQueryBuilder();
     }

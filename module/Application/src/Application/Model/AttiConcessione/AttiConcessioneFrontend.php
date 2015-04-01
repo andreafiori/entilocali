@@ -13,6 +13,9 @@ use Admin\Model\AttiConcessione\AttiConcessioneGetterWrapper;
  */
 class AttiConcessioneFrontend extends RouterManagerAbstract implements RouterManagerInterface
 {
+    /**
+     * @return mixed
+     */
     public function setupRecord()
     {
         $param = $this->getInput('param', 1);
@@ -20,13 +23,12 @@ class AttiConcessioneFrontend extends RouterManagerAbstract implements RouterMan
         
         $paginatorRecords = $this->getAttiRecords(
             array(
-                'orderBy' => 'aa.id DESC',
+                'orderBy' => 'atti.id DESC',
             ),
             isset($param['route']['page']) ? $param['route']['page'] : ''
         );
 
         $this->setVariables(array(
-                'form'                       => '',
                 'paginator'                  => $paginatorRecords,
                 'paginator_total_item_count' => $paginatorRecords->getTotalItemCount(),
                 'basiclayout'                => isset($config['atti_concessione_basiclayout']) ? $config['atti_concessione_basiclayout'] : null
@@ -41,15 +43,17 @@ class AttiConcessioneFrontend extends RouterManagerAbstract implements RouterMan
         /**
          * 
          * @param array $input
-         * @param type $page
-         * @return AttiConcessioneGetterWrapper
+         * @param int $page
+         * @return \Zend\Paginator\Paginator
          */
         private function getAttiRecords(array $input, $page = 0)
         {
-            $wrapper = new AttiConcessioneGetterWrapper( new AttiConcessioneGetter($this->getInput('entityManager',1)) );
+            $wrapper = new AttiConcessioneGetterWrapper(
+                new AttiConcessioneGetter($this->getInput('entityManager',1))
+            );
             $wrapper->setInput($input);
             $wrapper->setupQueryBuilder();
-            $wrapper->setupPaginator( $wrapper->setupQuery( $this->getInput('entityManager', 1) ));
+            $wrapper->setupPaginator( $wrapper->setupQuery($this->getInput('entityManager', 1)) );
             $wrapper->setupPaginatorCurrentPage($page);
 
             return $wrapper->getPaginator();

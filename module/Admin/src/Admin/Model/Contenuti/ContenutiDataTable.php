@@ -27,7 +27,7 @@ class ContenutiDataTable extends DataTableAbstract
 
         $configurations = $this->getInput('configurations', 1);
 
-        $paginatorRecords = $this->setupPaginatorRecords(array(
+        $wrapper = $this->setupContenutiGetterWrapper(array(
             'orderBy'               => 'contenuti.id DESC',
             'excludeSottosezioneId' => isset($configurations['amministrazione_trasparente_sottosezione_id']) ? $configurations['amministrazione_trasparente_sottosezione_id'] : null,
             'excludeSezioneId'      => isset($configurations['amministrazione_trasparente_sezione_id']) ? $configurations['amministrazione_trasparente_sezione_id'] : null,
@@ -35,11 +35,15 @@ class ContenutiDataTable extends DataTableAbstract
             'utente'                => ($this->isRole(array('WebMaster'))) ? null : $this->getUserDetails()->id
         ));
 
+        $paginatorRecords = $wrapper->setupRecords();
+        $paginatorRecordsCount = $wrapper->getPaginator()->getTotalItemCount();
+
         $this->setRecords( $this->formatRecordsToShowOnTable($paginatorRecords) );
 
         $this->setVariables(array(
             'tablesetter' => 'contenuti',
             'paginator'   => $paginatorRecords,
+            'total_item_count' => $paginatorRecordsCount,
             'columns'     => array(
                 "Titolo",
                 "Sezione",
@@ -58,9 +62,7 @@ class ContenutiDataTable extends DataTableAbstract
 
         $this->setTitle('Contenuti');
 
-        $this->setDescription('Gestione contenuti');
-
-        return null;
+        $this->setDescription($paginatorRecordsCount.' contenuti in archivio');
     }
 
         /**
@@ -121,9 +123,9 @@ class ContenutiDataTable extends DataTableAbstract
 
         /**
          * @param array $input
-         * @return \stdClass
+         * @return ContenutiGetterWrapper
          */
-        private function setupPaginatorRecords($input = array())
+        private function setupContenutiGetterWrapper($input = array())
         {
             $param = $this->getParam();
 
@@ -133,6 +135,6 @@ class ContenutiDataTable extends DataTableAbstract
             $wrapper->setupPaginator( $wrapper->setupQuery($this->getInput('entityManager', 1)) );
             $wrapper->setupPaginatorCurrentPage( isset($param['route']['page']) ? $param['route']['page'] : null );
 
-            return $wrapper->setupRecords();
+            return $wrapper;
         }
 }

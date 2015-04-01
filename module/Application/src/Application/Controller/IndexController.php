@@ -5,10 +5,9 @@ namespace Application\Controller;
 use Zend\View\Model\ViewModel;
 use Application\Model\RouterManagers\RouterManager;
 use Application\Model\RouterManagers\RouterManagerHelper;
-use Admin\Model\Sezioni\SezioniGetter;
-use Admin\Model\Sezioni\SezioniGetterWrapper;
 use Application\Model\FrontendControllerSetup;
 use Zend\Session\Container as SessionContainer;
+use Zend\Http\Client;
 
 /**
  * Frontend main controller
@@ -22,11 +21,6 @@ class IndexController extends SetupAbstractController
     {
         $appServiceLoader = $this->recoverAppServiceLoader();
 
-        /**
-         * @var \Doctrine\ORM\EntityManager $entityManager
-         */
-        $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
-
         $configurations = $appServiceLoader->recoverService('configurations');
 
         $sessionContainer = new SessionContainer();
@@ -35,23 +29,7 @@ class IndexController extends SetupAbstractController
             return $this->redirect()->toRoute('password-preview'); // login to preview form
         }
 
-        $setup = new FrontendControllerSetup();
-        $setup->setupSezioniGetterWrapper( new SezioniGetterWrapper( new SezioniGetter($entityManager) ));
-
-        $sezioniRecords = $setup->setupSezioniRecords(
-            array(
-                'orderBy'   => 'sezioni.posizione ASC',
-                'attivo'    => 1,
-            )
-        );
-
-        $sezioni = $setup->sortByColumn($setup->setupSottoSezioniRecords(
-            $sezioniRecords,
-            array(
-                    'attivo' => 1,
-                )
-            )
-        );
+        $sezioni = $this->getServiceLocator()->get('SezioniRecords');
 
         $routerManager = new RouterManager($configurations);
         $routerManager->setIsBackend(0);
@@ -91,6 +69,7 @@ class IndexController extends SetupAbstractController
         }
 
         $this->layout()->setVariables( array_merge($varsFromModel, $input) );
+
         $this->layout()->setVariables( array(
             'sezioni'               => $sezioni,
             'templateDir'           => $templateDir,
@@ -103,6 +82,7 @@ class IndexController extends SetupAbstractController
             'passwordPreviewArea'   => $this->hasPasswordPreviewArea($configurations),
             'renderer'              => $phpRenderer
         ));
+
         $this->layout($basicLayout);
 
         return new ViewModel();

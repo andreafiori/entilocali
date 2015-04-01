@@ -24,7 +24,7 @@ return array(
                     'cms' => array(
                             'type'    => 'Segment',
                             'options' => array(
-                                    'route'       => 'application[/][:output_format][/][:resource][/][:id][/]',
+                                    'route'       => 'application/[:output_format[/]][:resource[/]][:id][/]',
                                     'constraints' => array(
                                             'output_format' => 'xml|json|rdf',
                                             'resource'      => '[a-zA-Z][a-zA-Z0-9_-]*',

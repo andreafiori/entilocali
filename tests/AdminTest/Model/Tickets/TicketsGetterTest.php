@@ -2,8 +2,8 @@
 
 namespace ApplicationTest\Model\Tickets;
 
-use ApplicationTest\TestSuite;
 use Admin\Model\Tickets\TicketsGetter;
+use ApplicationTest\TestSuite;
 
 /**
  * @author Andrea Fiori
@@ -36,5 +36,11 @@ class TicketsGetterTest extends TestSuite
         
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('id'));
     }
-    
+
+    public function testSetIdWithArrayInInput()
+    {
+        $this->objectGetter->setId( array(1,2,3) );
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('id'));
+    }
 }

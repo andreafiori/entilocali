@@ -3,9 +3,9 @@
 namespace Admin\Model\AlboPretorio;
 
 use Application\Model\RecordsGetterAbstract;
-use Admin\Model\Users\UsersGetter;
-use Admin\Model\Users\UsersGetterWrapper;
 use Application\Model\NullException;
+use Admin\Model\Users\Settori\UsersSettoriGetter;
+use Admin\Model\Users\Settori\UsersSettoriGetterWrapper;
 
 /**
  * @author Andrea Fiori
@@ -13,6 +13,9 @@ use Application\Model\NullException;
  */
 class AlboPretorioRecordsGetter extends RecordsGetterAbstract
 {
+    /**
+     * @var AlboPretorioArticoliGetterWrapper
+     */
     private $articoliWrapper;
     
     /**
@@ -112,7 +115,7 @@ class AlboPretorioRecordsGetter extends RecordsGetterAbstract
      */
     public function setSettori(array $input)
     {
-        $wrapper = new UsersGetterWrapper( new UsersGetter($this->getEntityManager()) );
+        $wrapper = new UsersSettoriGetterWrapper( new UsersSettoriGetter($this->getEntityManager()) );
         $wrapper->setInput($input);
         $wrapper->setupQueryBuilder();
 
@@ -127,7 +130,11 @@ class AlboPretorioRecordsGetter extends RecordsGetterAbstract
         $this->articoliWrapper = new AlboPretorioArticoliGetterWrapper(
             new AlboPretorioArticoliGetter($this->getEntityManager())
         );
-        $this->articoliWrapper->setInput( array('fields' => 'DISTINCT(alboArticoli.anno) AS anno', 'orderBy' => 'alboArticoli.anno') );
+        $this->articoliWrapper->setInput( array(
+                'fields'    => 'DISTINCT(alboArticoli.anno) AS anno',
+                'orderBy'   => 'alboArticoli.anno'
+            )
+        );
         $this->articoliWrapper->setupQueryBuilder();
 
         $records = $this->articoliWrapper->getRecords();
