@@ -83,7 +83,9 @@ class LogsDataTable extends DataTableAbstract
         $param = $this->getParam();
 
         $wrapper = new LogsGetterWrapper( new LogsGetter($this->getInput('entityManager',1)) );
-        $wrapper->setInput(array());
+        $wrapper->setInput(array(
+            'orderBy' => 'l.datetime DESC'
+        ));
         $wrapper->setupQueryBuilder();
         $wrapper->setupPaginator( $wrapper->setupQuery($this->getInput('entityManager', 1)) );
         $wrapper->setupPaginatorCurrentPage( isset($param['route']['page']) ? $param['route']['page'] : null );
@@ -96,6 +98,9 @@ class LogsDataTable extends DataTableAbstract
      */
     private function deleteAllLogs()
     {
+        /**
+         * @var \Doctrine\ORM\EntityManager $em
+         */
         $em = $this->getInput('entityManager',1);
         $connection = $em->getConnection();
         $dbPlatform = $connection->getDatabasePlatform();

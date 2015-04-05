@@ -16,18 +16,19 @@
         "doctrine/doctrine-orm-module": "0.*",
         "php": ">=5.3.3",
         "zendframework/zendframework": "2.3.*",
-        "gedmo/doctrine-extensions": "2.3.*"
+        "gedmo/doctrine-extensions": "2.3.*",
+        "doctrine/data-fixtures": "1.0.*"
     },
     "minimum-stability": "dev",
     "require-dev": {
         "zendframework/zend-developer-tools": "dev-master",
+        "zendframework/zenddiagnostics": "1.0.*@dev",
         "zendframework/zftool": "dev-master",
         "bjyoungblood/bjy-authorize": "dev-master",
         "zf-commons/zfc-user": "dev-master",
         "bjyoungblood/BjyProfiler": "dev-master",
         "dino/dompdf-module": "dev-master",
         "facebook/php-sdk-v4": "4.1.*@dev",
-        "dudapiotr/zftable": "dev-master",
         "rwoverdijk/assetmanager" : "dev-master"
     }
 }

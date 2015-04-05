@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Controller;
+namespace Auth\Controller;
 
 use Zend\View\Model\ViewModel;
 use Zend\Session\Container as SessionContainer;
@@ -34,10 +34,6 @@ class AuthController extends SetupAbstractController
      */
     public function indexAction()
     {
-        if ( $this->checkLogin() ) {
-            return $this->redirect()->toRoute('admin');
-        }
-
         $appServiceLoader = $this->recoverAppServiceLoader();
 
         $configurations = $appServiceLoader->recoverService('configurations');
@@ -71,6 +67,10 @@ class AuthController extends SetupAbstractController
         $redirect   = 'login';
         $request    = $this->getRequest();
         $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+
+        $appServiceLoader = $this->recoverAppServiceLoader();
+
+        $configurations = $appServiceLoader->recoverService('configurations');
         
         if ($request->isPost()) {
             $form->setData($request->getPost());
@@ -92,7 +92,7 @@ class AuthController extends SetupAbstractController
                     // set session timeout
                     $this->getSessionStorage()
                          ->setRememberMe();
-                    
+
                     // set storage again
                     $this->getAuthService()->setStorage($this->getSessionStorage());
                     $this->getAuthService()->getStorage()->write($request->getPost('username'));
@@ -158,7 +158,7 @@ class AuthController extends SetupAbstractController
                             }
                         }
 
-                        $sitename = $this->recoverSitename();
+                        $sitename = $configurations['sitename'];
 
                         if (!$sitename) {
                             throw new NullException('Site name is not set. Cannot complete the login');
@@ -166,13 +166,15 @@ class AuthController extends SetupAbstractController
 
                         /* Set user session values */
                         $sessionContainer = new SessionContainer();
-                        $sessionContainer->offsetSet('sitename', $sitename);
-                        $sessionContainer->offsetSet('id',      $records['id']);
-                        $sessionContainer->offsetSet('name',    $records['name']);
-                        $sessionContainer->offsetSet('surname', $records['surname']);
-                        $sessionContainer->offsetSet('email',   $records['email']);
-                        $sessionContainer->offsetSet('acl',     $aclSetter->getAcl());
-                        $sessionContainer->offsetSet('role',    $records['roleName']);
+                        $sessionContainer->offsetSet('sitename',            $sitename);
+                        $sessionContainer->offsetSet('id',                  $records['id']);
+                        $sessionContainer->offsetSet('name',                $records['name']);
+                        $sessionContainer->offsetSet('surname',             $records['surname']);
+                        $sessionContainer->offsetSet('email',               $records['email']);
+                        $sessionContainer->offsetSet('acl',                 $aclSetter->getAcl());
+                        $sessionContainer->offsetSet('salt',                $records['salt']);
+                        $sessionContainer->offsetSet('passwordLastUpdate',  $records['passwordLastUpdate']);
+                        $sessionContainer->offsetSet('role',                $records['roleName']);
 
                         /* Regenerate Session ID after login */
                         $manager = new \Zend\Session\SessionManager;
@@ -184,13 +186,13 @@ class AuthController extends SetupAbstractController
                     }
                 }
             } else {
-                // TODO: after 3 failures the login form must show a captcha...
+
                 $sessionContainer = new Container();
 
                 $loginFailures = $sessionContainer->offsetGet('loginFailures');
 
                 $sessionContainer->offsetSet('loginFailures', $loginFailures);
-                
+
                 foreach($form->getMessages() as $message) {
                     $this->flashmessenger()->addMessage( print_r($message,1) );
                 }
@@ -234,7 +236,7 @@ class AuthController extends SetupAbstractController
         private function getSessionStorage()
         {
             if (!$this->storage) {
-                $this->storage = $this->getServiceLocator()->get('Admin\Model\MyAuthStorage');
+                $this->storage = $this->getServiceLocator()->get('MyAuthStorage');
             }
 
             return $this->storage;

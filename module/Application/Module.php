@@ -4,8 +4,6 @@ namespace Application;
 
 use Admin\Model\Sezioni\SezioniGetter;
 use Admin\Model\Sezioni\SezioniGetterWrapper;
-use Admin\Model\Sezioni\SottoSezioniGetter;
-use Admin\Model\Sezioni\SottoSezioniGetterWrapper;
 use Zend\Authentication\Adapter\DbTable as AuthAdapter;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\Mvc\ModuleRouteListener;
@@ -47,20 +45,6 @@ class Module implements AutoloaderProviderInterface
 
             exit( $sm->get('ViewRenderer')->render($viewModel) );
         }
-        
-        $em = $application->getEventManager();
-        $em->attach(\Zend\Mvc\MvcEvent::EVENT_DISPATCH_ERROR, array($this, 'handleError'));
-        $em->attach(\Zend\Mvc\MvcEvent::EVENT_RENDER_ERROR, array($this, 'handleError'));
-    }
-
-    /**
-     * Handle errors exceptions and controller not found
-     * 
-     * @param MvcEvent $e
-     */
-    public function handleError(MvcEvent $e)
-    {
-
     }
 
     /**
@@ -120,7 +104,7 @@ class Module implements AutoloaderProviderInterface
     {
     	return array(
             'factories' => array(
-                'Admin\Model\MyAuthStorage' => function() {
+                'MyAuthStorage' => function() {
                     return new \Admin\Model\MyAuthStorage('login');
                 },
                 'AuthService' => function($sm) {
@@ -129,32 +113,10 @@ class Module implements AutoloaderProviderInterface
 
                     $authService = new AuthenticationService();
                     $authService->setAdapter($dbTableAuthAdapter);
-                    $authService->setStorage($sm->get('Admin\Model\MyAuthStorage'));
+                    $authService->setStorage($sm->get('MyAuthStorage'));
 
                     return $authService;
                 },
-                'AppServiceLoader' => function($sl) {
-                    $appServiceLoader = new AppServiceLoader();
-                    
-                    $em = $sl->get('Doctrine\ORM\EntityManager');
-                    $sm = $sl->get('servicemanager');
-
-		            $appServiceLoader->setProperties( array(
-                        'serviceLocator'    => $sl,
-                        'serviceManager'    => $sm,
-                        'entityManager'     => $em,
-                        'queryBuilder'      => $em->createQueryBuilder(),
-                        'translator'        => $sm->get('translator'),
-                        'moduleConfigs'     => $sm->get('config'),
-                        'request'           => $sm->get('request'),
-                        'router'            => $sm->get('request'),
-                    ));
-
-                    $appServiceLoader->recoverRouter();
-                    $appServiceLoader->recoverRouteMatch();
-                    
-                    return $appServiceLoader;
-		        },
                 'SezioniRecords' => function($sl) {
                     $em = $sl->get('Doctrine\ORM\EntityManager');
 

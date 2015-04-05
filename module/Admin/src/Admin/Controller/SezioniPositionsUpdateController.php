@@ -13,10 +13,6 @@ class SezioniPositionsUpdateController extends SetupAbstractController
 {
     public function indexAction()
     {
-        if (!$this->checkLogin()) {
-            return $this->redirect()->toRoute('login');
-        }
-
         $appServiceLoader = $this->recoverAppServiceLoader();
 
         $items = $this->params()->fromQuery('oggettoItem');

@@ -110,9 +110,15 @@
                     </td>
                     <?php endif; ?>
                 <?php else: ?>
+                    <?php if (!$record instanceof \DateTime): ?>
                     <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
                         <?php echo utf8_encode($record) ?>
                     </td>
+                    <?php else: ?>
+                        <td>
+                            <?php echo $record->format('d-m-Y H:i:s') ?>
+                        </td>
+                    <?php endif; ?>
                 <?php endif; ?>
             <?php endforeach; ?>
         </tr>

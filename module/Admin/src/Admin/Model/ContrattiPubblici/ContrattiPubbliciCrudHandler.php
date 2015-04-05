@@ -21,9 +21,9 @@ class ContrattiPubbliciCrudHandler extends CrudHandlerAbstract implements CrudHa
 
     public function __construct()
     {
-        $this->form = new AttiConcessioneForm();
+        $this->form = new ContrattiPubbliciForm();
 
-        $this->formInputFilter = new AttiConcessioneFormInputFilter();
+        $this->formInputFilter = new ContrattiPubbliciFormInputFilter();
 
         $this->dbTable = DbTableContainer::attiConcessione;
 
@@ -75,10 +75,17 @@ class ContrattiPubbliciCrudHandler extends CrudHandlerAbstract implements CrudHa
 
         $arrayToUpdate = array(
             'titolo'        => $formData->titolo,
+            'cig'           => $formData->cig,
+            'importo'       => $formData->importo,
+            'importo2'      => $formData->importo2,
+            'scContr'       => $formData->scContr,
+            'respProc'      => $formData->respProc,
+            'inserimento'   => $formData->inserimento,
+            'numeroOfferte' => $formData->numeroOfferte,
         );
 
         if (isset($formData->utente)) {
-            $arrayToUpdate['utente'] = $formData->utente;
+            $arrayToUpdate['utente_id'] = $formData->utente;
         }
 
         return $this->getConnection()->update(

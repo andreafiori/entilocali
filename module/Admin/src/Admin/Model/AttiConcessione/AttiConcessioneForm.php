@@ -6,8 +6,6 @@ use Zend\Form\Element;
 use Zend\Form\Form;
 
 /**
- * TODO: Data scadenza: 5 Anni a partire dall'anno successivo a quello di inserimento, Associa articolo a utente: se utente non admin visualizza id campo nascosto, altrimenti select area
- *
  * @author Andrea Fiori
  * @since  17 June 2013
  */
@@ -144,7 +142,7 @@ class AttiConcessioneForm extends Form
             'type' => 'Text',
             'options' => array( 'label' => "* Anno del Bando" ),
             'attributes' => array(
-                'title'         => "Anno del Bando",
+                'title'         => "Inserisci anno",
                 'id'            => 'anno',
                 'type'          => 'number',
                 'min'           => '1954',

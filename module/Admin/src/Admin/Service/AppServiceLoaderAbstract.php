@@ -74,7 +74,7 @@ abstract class AppServiceLoaderAbstract
 
         return null;
     }
-    
+
     /**
      * @param object $controller
      * @return object
@@ -87,7 +87,7 @@ abstract class AppServiceLoaderAbstract
     }
 
     /**
-     * @return object
+     * @return \Zend\Mvc\Controller\AbstractController
      */
     public function getController()
     {

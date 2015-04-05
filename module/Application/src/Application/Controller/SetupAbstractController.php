@@ -2,6 +2,7 @@
 
 namespace Application\Controller;
 
+use Admin\Service\AppServiceLoader;
 use Zend\Mvc\Controller\AbstractActionController;
 use Admin\Model\Config\ConfigGetter;
 use Admin\Model\Config\ConfigGetterWrapper;
@@ -15,19 +16,28 @@ use Zend\Session\Container as SessionContainer;
 abstract class SetupAbstractController extends AbstractActionController
 {
     /**
-     * @var \Application\Setup\UserInterfaceConfigurations 
-     */
-    protected $userInterfaceConfigurations;
-
-    /**
      * @return \Admin\Service\AppServiceLoader
      */
     protected function recoverAppServiceLoader($channel = 1)
     {
-        /**
-         * @var \Admin\Service\AppServiceLoader $appServiceLoader
-         */
-        $appServiceLoader = $this->getServiceLocator()->get('AppServiceLoader');
+        $sl = $this->getServiceLocator();
+        $em = $sl->get('Doctrine\ORM\EntityManager');
+        $sm = $sl->get('servicemanager');
+
+        $appServiceLoader = new AppServiceLoader();
+
+        $appServiceLoader->setProperties( array(
+            'serviceLocator'    => $sl,
+            'serviceManager'    => $sm,
+            'entityManager'     => $em,
+            'queryBuilder'      => $em->createQueryBuilder(),
+            'translator'        => $sm->get('translator'),
+            'moduleConfigs'     => $sm->get('config'),
+            'request'           => $sm->get('request'),
+            'router'            => $sm->get('request'),
+        ));
+        $appServiceLoader->recoverRouter();
+        $appServiceLoader->recoverRouteMatch();
         $appServiceLoader->setService('channel', $channel);
         $appServiceLoader->setController($this);
         $appServiceLoader->setupParams();
@@ -37,35 +47,11 @@ abstract class SetupAbstractController extends AbstractActionController
                 new ConfigGetter($appServiceLoader->recoverService('entityManager'))
             )
         );
-
-        $this->userInterfaceConfigurations = $appServiceLoader->setupUserInterfaceConfigurations(
+        $appServiceLoader->setupUserInterfaceConfigurations(
             new UserInterfaceConfigurations($appServiceLoader->recoverService('configurations'))
         );
 
         return $appServiceLoader;
-    }
-
-    /**
-     * @return \Application\Setup\UserInterfaceConfigurations
-     */
-    protected function getUserInterfaceConfigurationsArray()
-    {
-        return $this->userInterfaceConfigurations->getConfigurations();
-    }
-
-    /**
-     * @return bool
-     */
-    public function checkLogin()
-    {
-        $session = new SessionContainer();
-
-        if ( !$this->getServiceLocator()->get('AuthService')->hasIdentity() or
-             $session->offsetGet('sitename') != $this->recoverSitename()) {
-            return false;
-        }
-
-        return true;
     }
 
     /**
@@ -118,44 +104,20 @@ abstract class SetupAbstractController extends AbstractActionController
     }
 
     /**
-     * @return mixed
-     */
-    protected function recoverSitename()
-    {
-        $configGetterWrapper = new ConfigGetterWrapper(new ConfigGetter(
-                $this->getServiceLocator()->get('doctrine.entitymanager.orm_default')
-            )
-        );
-        $configGetterWrapper->setInput(array(
-            'name'      => 'sitename',
-            'channel'   => 1,
-            'language'  => 1,
-            'limit'     => 1
-        ));
-        $configGetterWrapper->setupQueryBuilder();
-
-        $records = $configGetterWrapper->getRecords();
-
-        if (empty($records)) {
-            return false;
-        }
-
-        return $records[0]['value'];
-    }
-
-    /**
      * @return \stdClass
      */
     protected function recoverUserDetails()
     {
         $session = new SessionContainer();
 
-        $userDetails            = new \stdClass();
-        $userDetails->id        = $session->offsetGet('id');
-        $userDetails->name      = $session->offsetGet('name');
-        $userDetails->surname   = $session->offsetGet('surname');
-        $userDetails->role      = $session->offsetGet('role');
-        $userDetails->acl       = $session->offsetGet('acl');
+        $userDetails                            = new \stdClass();
+        $userDetails->id                        = $session->offsetGet('id');
+        $userDetails->name                      = $session->offsetGet('name');
+        $userDetails->surname                   = $session->offsetGet('surname');
+        $userDetails->role                      = $session->offsetGet('role');
+        $userDetails->acl                       = $session->offsetGet('acl');
+        $userDetails->salt                      = $session->offsetGet('salt');
+        $userDetails->passwordLastUpdate        = $session->offsetGet('passwordLastUpdate');
 
         return $userDetails;
     }

@@ -1,10 +1,10 @@
 <?php
 
-namespace Admin\Controller\Pdf;
+namespace Admin\Controller\AlboPretorio;
 
-use Application\Controller\SetupAbstractController;
 use DOMPDFModule\View\Model\PdfModel;
 use Zend\View\Model\ViewModel;
+use Application\Controller\SetupAbstractController;
 use Admin\Model\AlboPretorio\AlboPretorioArticoliGetter;
 use Admin\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
 
@@ -12,27 +12,22 @@ use Admin\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
  * @author Andrea Fiori
  * @since  22 December 2014
  */
-class AlboPretorioPdfController extends SetupAbstractController
+class AlboPretorioRelataPdfController extends SetupAbstractController
 {
     /**
      * @return PdfModel
      */
-    public function relataAction()
+    public function indexAction()
     {
-        $this->checkLogin();
+        $records = $this->getArticle( $this->params()->fromRoute('id') );
 
         $pdf = new PdfModel();
-        $pdf->setOption('filename', 'albo-pretorio-relata');
-        $pdf->setOption('paperSize', 'a4');
+        $pdf->setOption('filename',         'albo-pretorio-relata-'.$records[0]['id']);
+        $pdf->setOption('paperSize',        'a4');
         $pdf->setOption('paperOrientation', 'landscape');
-
-        $id = $this->params()->fromRoute('id');
-        $records = $this->getArticle($id);
-
         $pdf->setVariables(array(
             'record' => $records[0]
         ));
-
         return $pdf;
     }
 
@@ -47,7 +42,7 @@ class AlboPretorioPdfController extends SetupAbstractController
             );
             $wrapper->setInput(
                 array(
-                    'id' => $id,
+                    'id'    => $id,
                     'limit' => 1
                 )
             );

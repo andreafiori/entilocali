@@ -11,9 +11,9 @@ use Zend\Form\Form;
 class TicketsForm extends Form
 {
     /**
-     * @param string $name
+     * @inheritdoc
      */
-    public function __construct($name = 'formData')
+    public function __construct($name = null)
     {
         parent::__construct($name);
         

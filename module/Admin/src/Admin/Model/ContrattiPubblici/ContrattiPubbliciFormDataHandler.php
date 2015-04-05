@@ -2,11 +2,11 @@
 
 namespace Admin\Model\ContrattiPubblici;
 
-use Admin\Model\ContrattiPubblici\ResponsabiliProcedimento\ResponsabiliProcedimentoGetter;
-use Admin\Model\ContrattiPubblici\ResponsabiliProcedimento\ResponsabiliProcedimentoGetterWrapper;
+use Admin\Model\FormData\FormDataAbstract;
+use Admin\Model\Users\RespProc\UsersRespProcGetter;
+use Admin\Model\Users\RespProc\UsersRespProcGetterWrapper;
 use Admin\Model\ContrattiPubblici\SceltaContraente\SceltaContraenteGetter;
 use Admin\Model\ContrattiPubblici\SceltaContraente\SceltaContraenteGetterWrapper;
-use Admin\Model\FormData\FormDataAbstract;
 
 /**
  * @author Andrea Fiori
@@ -101,7 +101,9 @@ class ContrattiPubbliciFormDataHandler extends FormDataAbstract
 
         private function getResponsabiliProcedimento($input = array())
         {
-            $wrapper = new ResponsabiliProcedimentoGetterWrapper( new ResponsabiliProcedimentoGetter($this->getInput('entityManager',1)) );
+            $wrapper = new UsersRespProcGetterWrapper(
+                new UsersRespProcGetter($this->getInput('entityManager',1))
+            );
             $wrapper->setInput($input);
             $wrapper->setupQueryBuilder();
 
@@ -109,7 +111,7 @@ class ContrattiPubbliciFormDataHandler extends FormDataAbstract
             if (!empty($records)) {
                 $toReturn = array();
                 foreach($records as $record) {
-                    $toReturn[$record['id']] = $record['nomeResp'];
+                    $toReturn[$record['id']] = $record['name'].' '.$record['surname'];
                 }
                 return $toReturn;
             }

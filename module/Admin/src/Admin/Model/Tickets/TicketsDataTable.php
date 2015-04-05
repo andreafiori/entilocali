@@ -3,8 +3,6 @@
 namespace Admin\Model\Tickets;
 
 use Admin\Model\DataTable\DataTableAbstract;
-use Admin\Model\Tickets\TicketsGetter;
-use Admin\Model\Tickets\TicketsGetterWrapper;
 
 /**
  * @author Andrea Fiori
@@ -12,38 +10,58 @@ use Admin\Model\Tickets\TicketsGetterWrapper;
  */
 class TicketsDataTable extends DataTableAbstract
 {
-    
+    /**
+     * @param array $input
+     */
     public function __construct(array $input)
     {
         parent::__construct($input);
                 
         $this->setTitle('Assistenza');
+
         $this->setDescription('Consulta le assistenze in archivio');
-        $this->setColumns(array("Oggetto", "Priorit&agrave;", ""));
+
+        $this->setColumns(array(
+                "Oggetto",
+                "Messaggio",
+                "Priorit&agrave;",
+                "Creato il"
+            )
+        );
     }
     
     public function getRecords()
     {
-        $ticketsGetterWrapper = new TicketsGetterWrapper( new TicketsGetter($this->getInput('entityManager',1)) );
-        $ticketsGetterWrapper->setInput( array() );
-        $ticketsGetterWrapper->setupQueryBuilder();
-        
-        $records = $ticketsGetterWrapper->getRecords();
+        $records = $this->recoverTicketRecords();
 
         if ( is_array($records) ) {
             $arrayToReturn = array();
             foreach($records as $record) {
 
                 $arrayToReturn[] = array(
+                    isset($record['title']) ? $record['title'] : null,
                     isset($record['subject']) ? $record['subject'] : null,
                     isset($record['priority']) ? $record['priority'] : null,
-                    isset($record['status']) ? $record['status'] : null,
-                    ''
+                    isset($record['createDate']) ? $record['createDate'] : null,
                 );
             }
+
             return $arrayToReturn;
         }
         
         return false;
+    }
+
+    /**
+     * @return \Application\Model\QueryBuilderHelperAbstract
+     * @throws \Application\Model\NullException
+     */
+    private function recoverTicketRecords($input = array())
+    {
+        $wrapper = new TicketsGetterWrapper(new TicketsGetter($this->getInput('entityManager', 1)));
+        $wrapper->setInput($input);
+        $wrapper->setupQueryBuilder();
+
+        return $wrapper->getRecords();
     }
 }

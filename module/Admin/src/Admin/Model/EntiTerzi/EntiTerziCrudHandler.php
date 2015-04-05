@@ -17,9 +17,6 @@ class EntiTerziCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
 {
     protected $validInputFilterObject;
 
-    /**
-     * Setup form and its input filter
-     */
     public function __construct()
     {
         $this->form = new EntiTerziForm();
@@ -48,8 +45,8 @@ class EntiTerziCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
 
     /**
      * @param EntiTerziFormInputFilter $formData
+     *
      * @return bool
-     * @throws \Application\Model\NullException
      */
     public function insert(InputFilterAwareInterface $formData)
     {
@@ -168,7 +165,7 @@ class EntiTerziCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', ha aggiornato il ente terzo ".$inputFilter->nome,
+            'message'   => "Ha aggiornato il ente terzo ".$inputFilter->nome,
             'type'      => 'info',
             'backend'   => 1,
         ));
@@ -194,7 +191,7 @@ class EntiTerziCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'aggiornamento dell'ente terzo ".$inputFilter->nome.' Messaggio: '.$message,
+            'message'   => "Errore nell'aggiornamento dell'ente terzo ".$inputFilter->nome.' Messaggio: '.$message,
             'type'      => 'error',
             'backend'   => 1,
         ));
@@ -218,7 +215,7 @@ class EntiTerziCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', ha eliminato l'ente terzo ".$record->nome,
+            'message'   => "Eliminato l'ente terzo ".$record->nome,
             'type'      => 'error',
             'backend'   => 1,
         ));

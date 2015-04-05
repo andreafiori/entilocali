@@ -20,12 +20,6 @@ class FormDataPostController extends SetupAbstractController
      */
     public function indexAction()
     {
-        /* Check login */
-        if (!$this->checkLogin()) {
-            return $this->redirect()->toRoute('login');
-        }
-
-        /* Must be a POST request */
         if (!$this->getServiceLocator()->get('request')->isPost()) {
             return $this->redirect()->toRoute('login');
         }

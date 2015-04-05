@@ -16,13 +16,17 @@ class ContrattiPubbliciDataTable extends DataTableAbstract
     public function __construct(array $input)
     {
         parent::__construct($input);
-        
-        $paginatorRecords = $this->setupPaginatorRecords();
+
+        $wrapper            = $this->setupPaginatorRecords();
+
+        $paginatorRecords   = $wrapper->setupRecords();
         
         $this->setRecords( $this->getFormattedDataTableRecords($paginatorRecords) );
 
         $this->setTitle('Contratti pubblici');
+
         $this->setDescription('Gestione bandi contratti pubblici');
+
         $this->setColumns(array(
                 "Oggetto del bando",
                 "Struttura proponente \ responsabili",
@@ -127,6 +131,6 @@ class ContrattiPubbliciDataTable extends DataTableAbstract
             $wrapper->setupPaginator( $wrapper->setupQuery($this->getInput('entityManager', 1)) );
             $wrapper->setupPaginatorCurrentPage( isset($param['route']['page']) ? $param['route']['page'] : null );
 
-            return $wrapper->setupRecords();
+            return $wrapper;
         }
 }

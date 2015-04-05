@@ -153,7 +153,7 @@ abstract class AlboPretorioArticoliDataTableAbstract extends DataTableAbstract i
 
                     $arrayLine[] = array(
                         'type'   => 'relatapdfButton',
-                        'href'   => $this->getInput('baseUrl',1).'pdf/albo-pretorio/'.$record['id'],
+                        'href'   => $this->getInput('baseUrl',1).'albo-pretorio/relata/pdf/'.$record['id'],
                         'class'  => $rowClass,
                     );
 

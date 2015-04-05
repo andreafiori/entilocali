@@ -13,11 +13,12 @@ class UsersGetter extends QueryBuilderHelperAbstract
     public function setMainQuery()
     {
         $this->setSelectQueryFields('DISTINCT(u.id) AS id, u.name, u.surname, u.email, u.address, u.status, u.zip,
-                                      u.city, u.username, u.lastUpdate, u.passwordLastUpdate,
+                                      u.city, u.username, u.lastUpdate, u.passwordLastUpdate, u.salt,
 
                                       role.id AS roleId, role.name AS roleName,
 
                                       settore.id AS settoreId, settore.nome,
+
                                       IDENTITY(settore.responsabileUser) AS responsabileUserId
                                     ');
 

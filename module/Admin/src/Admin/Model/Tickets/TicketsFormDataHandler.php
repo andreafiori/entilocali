@@ -16,17 +16,15 @@ class TicketsFormDataHandler extends FormDataAbstract
     public function __construct(array $input)
     {
         parent::__construct($input);
-        
-        $form = new TicketsForm();
-        
+
         $this->setVariables(array(
-            'form'                          => $form,
+            'form'                          => new TicketsForm(),
             'formTitle'                     => "Nuova richiesta di assistenza",
             'formDescription'               => "A seguito della richiesta, l'amministrazione provveder&agrave; a rispondere non appena possibile",
             'formAction'                    => "tickets/insert",
             'submitButtonValue'             => 'Procedi',
             'formBreadCrumbCategory'        => "Assistenza",
-            'formBreadCrumbCategoryLink'    => $this->getInput('baseUrl',1).'datatable/ticketing'
+            'formBreadCrumbCategoryLink'    => $this->getInput('baseUrl',1).'datatable/tickets'
         ));
     }
 }

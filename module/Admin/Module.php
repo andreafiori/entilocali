@@ -8,9 +8,9 @@ use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\Validator\AbstractValidator;
-use Zend\Session\Container as SessionContainer;
 use Admin\Model\Config\ConfigGetter;
 use Admin\Model\Config\ConfigGetterWrapper;
+use Zend\Session\Container as SessionContainer;
 
 class Module implements AutoloaderProviderInterface, ConfigProviderInterface
 {
@@ -25,7 +25,78 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
         AbstractValidator::setDefaultTranslator(
             $e->getApplication()->getServiceManager()->get('translator')
         );
+
+        $eventManager = $e->getApplication()->getEventManager();
+        $eventManager->attach(MvcEvent::EVENT_DISPATCH, array($this, 'preDispatch'), 2);
     }
+
+    /**
+     * @param MvcEvent $e
+     * @throws \Exception
+     * @throws \ServiceLocatorFactory\NullServiceLocatorException
+     */
+    public function preDispatch(MvcEvent $e)
+    {
+        $application   = $e->getApplication();
+        $sm            = $application->getServiceManager();
+
+        $router = $sm->get('router');
+        $request = $sm->get('request');
+        $matchedRoute = $router->match($request);
+
+        $params = $matchedRoute->getParams();
+
+        $controller = $params['controller'];
+
+        $moduleArray = explode('\\', $controller);
+
+        $module = array_pop($moduleArray);
+
+        if ($module=='Admin') {
+            $sl = ServiceLocatorFactory::getInstance();
+
+            $session = new SessionContainer();
+
+            if ( !$sl->get('AuthService')->hasIdentity() or
+                $session->offsetGet('sitename') != $this->recoverSitename($sl)) {
+
+                $url = $e->getRouter()->assemble(array('action' => 'index'), array('name' => 'login'));
+
+                $response = $e->getResponse();
+                $response->getHeaders()->addHeaderLine('Location', $url);
+                $response->setStatusCode(302);
+                $response->sendHeaders();
+                exit;
+            }
+        }
+    }
+
+        /**
+         * @return mixed
+         * @throws \Exception
+         */
+        private function recoverSitename($sl)
+        {
+            $configGetterWrapper = new ConfigGetterWrapper(new ConfigGetter(
+                    $sl->get('doctrine.entitymanager.orm_default')
+                )
+            );
+            $configGetterWrapper->setInput(array(
+                'name'      => 'sitename',
+                'channel'   => 1,
+                'language'  => 1,
+                'limit'     => 1
+            ));
+            $configGetterWrapper->setupQueryBuilder();
+
+            $records = $configGetterWrapper->getRecords();
+
+            if (empty($records)) {
+                throw new \Exception("Errore: nome sito non rilevato fra le configurazioni");
+            }
+
+            return $records[0]['value'];
+        }
 
     /**
      * {@inheritDoc}
@@ -43,7 +114,7 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
             ),
         );
     }
-    
+
     /**
      * @return array
      */

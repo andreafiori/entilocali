@@ -12,11 +12,11 @@ class TicketsGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('DISTINCT(t.id) AS id, t.title, t.subject, t.priority');
+        $this->setSelectQueryFields('DISTINCT(t.id) AS id, t.title, t.subject, t.priority, t.createDate');
 
-        $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
-                                ->add('from', 'Application\Entity\ZfcmsTickets t')
-                                ->add('where', 't.id != 0');
+        $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
+                                ->from('Application\Entity\ZfcmsTickets', ' t')
+                                ->where(' t.id != 0 ');
         
         return $this->getQueryBuilder();
     }

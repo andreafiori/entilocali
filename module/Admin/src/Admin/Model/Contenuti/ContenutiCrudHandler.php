@@ -6,6 +6,7 @@ use Admin\Model\FormData\CrudHandlerAbstract;
 use Admin\Model\FormData\CrudHandlerInsertUpdateInterface;
 use Admin\Model\FormData\CrudHandlerInterface;
 use Application\Model\Database\DbTableContainer;
+use Application\Model\Slugifier;
 use Zend\InputFilter\InputFilterAwareInterface;
 
 /**
@@ -47,6 +48,10 @@ class ContenutiCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
 
         $userDetails = $this->getUserDetails();
 
+        if ($formData->faceobook) {
+            // TODO: post on facebook page
+        }
+
         return $this->getConnection()->insert(DbTableContainer::contenuti, array(
             'titolo'           => $formData->titolo,
             'anno'             => date("Y"),
@@ -60,13 +65,12 @@ class ContenutiCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
             'home'             => isset($formData->home) ? $formData->home : 0,
             'utente_id'        => $userDetails->id,
             'rss'              => $formData->rss,
+            'slug'             => Slugifier::slugify($formData->titolo),
             /*
-            $formData->faceobook
             'evidenza'         => isset($formData->evidenza) ? $formData->evidenza : 0,
-            'slug'             => $this->rawPost['titolo'],
-            'seo_title'        => $this->rawPost['seoTitle'],
-            'seo_description'  => $this->rawPost['seoDescription'],
-            'seo_keywords'     => $this->rawPost['seo_keywords'],
+            'seo_title'        => $formData->seoTitle,
+            'seo_description'  => $formData->seoDescription,
+            'seo_keywords'     => $formData->seo_keywords,
             */
         ));
     }

@@ -27,10 +27,9 @@ class UsersDataTable extends DataTableAbstract
             'columns'     => array(
                 "Nome e Cognome",
                 "Email",
-                "Ultima modifica",
-                "Ultima modifica password",
-                // "Stato",
                 "Ruolo",
+                "Settore",
+                "Ultima modifica",
                 "&nbsp;",
                 "&nbsp;",
             ),
@@ -53,12 +52,11 @@ class UsersDataTable extends DataTableAbstract
                 $arrayToReturn[] = array(
                     $row['name'],
                     '<a href="mailto:'.$row['email'].'" title="Scrivi a '.$row['name'].' '.$row['surname'].'">'.$row['email'].'</a>',
-                    $row['lastUpdate'],
-                    $row['passwordLastUpdate'],
-                    // $row['status'],
                     ($row['roleName']!='WebMaster') ?
                         '<a href="'.$this->getInput('baseUrl',1).'users/roles/permissions/'.$row['roleId'].'" title="">'.$row['roleName'].'</a>'
                     : $row['roleName'],
+                    $row['nome'],
+                    $row['lastUpdate'],
                     array(
                         'type'      => 'updateButton',
                         'href'      => $this->getInput('baseUrl',1).'formdata/users/'.$row['id'],

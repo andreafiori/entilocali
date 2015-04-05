@@ -19,12 +19,13 @@ class AttiConcessioneModalitaAssegnazioneDataTable extends DataTableAbstract
 
         $wrapper = $this->setupPaginatorRecords();
         $paginatorRecords = $wrapper->setupRecords();
+        $itemCount = $wrapper->getPaginator()->getTotalItemCount();
 
         $this->setRecords( $this->getFormattedDataTableRecords($paginatorRecords) );
 
         $this->setTitle('Modalit&agrave; assegnazione atti di concessione');
 
-        $this->setDescription('Gestione modalit&agrave; assegnazione atti di concessione');
+        $this->setDescription($itemCount.' modalit&agrave; assegnazione atti di concessione presenti');
 
         $this->setColumns(array(
                 "Nome",
@@ -36,7 +37,7 @@ class AttiConcessioneModalitaAssegnazioneDataTable extends DataTableAbstract
         $this->setVariables(array(
                 'tablesetter'           => 'atti-concessione',
                 'paginator'             => $paginatorRecords,
-                'paginatorItemCount'    => $wrapper->getPaginator()->getTotalItemCount()
+                'paginatorItemCount'    => $itemCount
             )
         );
 

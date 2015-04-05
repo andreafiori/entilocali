@@ -406,7 +406,7 @@ $acl = $this->userDetails->acl;
                         <a href="#" class="dropdown-collapse"><i class="fa fa-list-alt fa-fw"></i> <span class="side-menu-title">Blogs</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <?php if ($acl->hasResource('blogs_add')): ?>
-                            <li><a href="#<?php echo $this->baseUrl ?>formdata/photo" title="Aggiungi nuova foto">Nuovo</a></li>
+                            <li><a href="#<?php echo $this->baseUrl ?>formdata/photo" title="Aggiungi nuovo post">Nuovo</a></li>
                             <?php endif; ?>
                             <?php if ($acl->hasResource('blogs_add')): ?>
                             <li><a href="#<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter' => 'photo')); ?>" title="Gestione gallerie fotografice">Modifica \ Elimina</a></li>
@@ -434,14 +434,14 @@ $acl = $this->userDetails->acl;
                     <li>
                         <a href="#" class="dropdown-collapse"><i class="fa fa-camera fa-fw"></i> <span class="side-menu-title">Foto</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li><a href="<?php echo $this->baseUrl ?>formdata/photo" title="Aggiungi nuova foto">Nuova</a></li>
-                            <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter' => 'photo')); ?>" title="Gestione gallerie fotografice">Gestione</a></li>
+                            <li><a href="#<?php echo $this->baseUrl ?>formdata/photo" title="Aggiungi nuova foto">Nuova</a></li>
+                            <li><a href="#<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter' => 'photo')); ?>" title="Gestione gallerie fotografice">Gestione</a></li>
                             <!-- Categories -->
                             <li>
                                 <a href="#" class="dropdown-collapse" title="">Categorie <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
-                                    <li><a href="<?php echo $this->baseUrl ?>formdata/categories/?moduleId=6" title="Nuova categoria foto">Nuova</a></li>
-                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang' => 'it', 'tablesetter' => 'categories', array('moduleId'=>6))); ?>" title="Gestione foto">Modifica \ Elimina</a></li>
+                                    <li><a href="#<?php echo $this->baseUrl ?>formdata/categories/?moduleId=6" title="Nuova categoria foto">Nuova</a></li>
+                                    <li><a href="#<?php echo $this->url('admin/datatable', array('lang' => 'it', 'tablesetter' => 'categories', array('moduleId'=>6))); ?>" title="Gestione foto">Modifica \ Elimina</a></li>
                                 </ul>
                             </li>
                         </ul>

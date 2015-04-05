@@ -23,7 +23,9 @@ if (!isset($this->formLabelSpanWidth)): $this->formLabelSpanWidth = 2; endif;
         <tr>
             <td><?php echo $respProc['name'].' '.$respProc['surname'] ?></td>
             <td><?php echo $respProc['nomeSettore'] ?></td>
-            <td><a href="#" class="btn btn-lg icon-red" title="Elimina utente dall'elenco responsabili procedimento"><i class="fa fa-times"></i> </a></td>
+            <td>
+                <a href="#deleteModal" data-action="#" data-id="<?php echo $respProc['id'] ?>" class="open-deleteModal btn btn-lg icon-red" title="Elimina dall'elenco responsabili procedimento"><i class="fa fa-times"></i> </a>
+            </td>
         </tr>
         <?php endforeach ?>
     </table>
@@ -38,25 +40,94 @@ if (!isset($this->formLabelSpanWidth)): $this->formLabelSpanWidth = 2; endif;
 
 <p>Aggiungi un utente all'elenco responsabili procedimento.</p>
 
+<!-- Form aggiungi agli utenti -->
 <div>
     <?php
+
+    $form = $this->form;
+    $form->prepare();
+
+    $formId = 'frmAddRespProc';
+
+    $form->setAttributes(array(
+        'action'    => '',
+        'method'    => 'post',
+        'enctype'   => 'multipart/form-data',
+        'name'      => $formId,
+        'id'        => $formId,
+        'role'      => 'form',
+        'class'     => 'form-horizontal'
+    ));
+
     echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', array(
             'form'                  => $this->form,
-            'formAction'            => $this->formAction,
+            'formId'                => $formId,
+            'formName'              => $formId,
+            'formAction'            => '',
             'formTitle'             => $this->formTitle,
             'formDescription'       => $this->formDescription,
-            'formControlSpanWidth'  => $this->formControlSpanWidth,
-            'formLabelSpanWidth'    => $this->formLabelSpanWidth,
         )
     );
+
+    echo $this->form()->openTag($form);
+
     ?>
     <div class="form-group">
-        <label for="sbmtButton" class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label">&nbsp;</label>
-        <div class="col-sm-<?php echo $this->formControlSpanWidth ?>">
-            <input type="submit" class="btn btn-primary" value="Aggiungi">
+        <label for="sbmtButton" class="col-sm-2 control-label">&nbsp;</label>
+        <div class="col-sm-10">
+            <button type="submit" class="btn btn-primary" title="Aggiungi all'elenco responsabili procedimento">Aggiungi</button>
         </div>
     </div>
-    <div>
+    <?php
 
+    echo $this->form()->closeTag();
+
+    ?>
+</div>
+
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="ConfirmDeleteModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content panel-danger">
+
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="deleteModalLabel"><strong>Conferma eliminazione?</strong></h4>
+            </div>
+
+            <form action="" method="post" id="frmDeleteModal">
+                <div class="modal-body">
+                    <p><strong>Attenzione:</strong> l'utente verr&agrave; eliminato dall'elenco dei responsabili di procedimento ma sar&agrave; possibile aggiungerlo nuovamente selezionandolo dall'elenco degli utenti sotto riportato.</p>
+
+                    <input type="hidden" name="deleteId" id="deleteId" value="" />
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
+                    <button type="submit" class="btn btn-danger">Conferma</button>
+                </div>
+            </form>
+
+        </div>
     </div>
 </div>
+
+
+<script>
+    $(document).ready(function () {
+        $(".open-deleteModal").click(function(e) {
+            e.preventDefault();
+
+            var _self = $(this);
+
+            var dataId = _self.data('id');
+            var dataAction = _self.data('action');
+
+            $("#deleteId").val(dataId);
+            $('#frmDeleteModal').attr('action', dataAction);
+
+            $(_self.attr('href')).modal('show');
+        });
+    });
+</script>

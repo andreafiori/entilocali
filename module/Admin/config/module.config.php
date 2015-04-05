@@ -2,44 +2,17 @@
 return array(
     'controllers' => array(
         'invokables' => array(
-            'Admin\Controller\Auth'                                     => 'Admin\Controller\AuthController',
             'Admin\Controller\ForgotPasswordController'                 => 'Admin\Controller\ForgotPasswordController',
             'Admin\Controller\Admin'                                    => 'Admin\Controller\AdminController',
             'Admin\Controller\FormDataPost'                             => 'Admin\Controller\FormDataPostController',
-            'Admin\Controller\HomePagePutter'                           => 'Admin\Controller\HomePagePutter',
-            'Admin\Controller\Pdf\AlboPretorioPdf'                      => 'Admin\Controller\Pdf\AlboPretorioPdfController',
+            'Admin\Controller\AlboPretorio\AlboPretorioRelataPdfController' => 'Admin\Controller\AlboPretorio\AlboPretorioRelataPdfController',
             'Admin\Controller\SezioniPositionsUpdateController'         => 'Admin\Controller\SezioniPositionsUpdateController',
             'Admin\Controller\SottoSezioniPositionsUpdateController'    => 'Admin\Controller\SottoSezioniPositionsUpdateController',
+            'Admin\Controller\Users\RespProc\UsersRespProcController'   => 'Admin\Controller\Users\RespProc\UsersRespProcController',
         ),
     ),
     'router' => array(
         'routes' => array(
-            'login' => array(
-                'type'    => 'Literal',
-                'options' => array(
-                    'route'    => '/auth',
-                    'defaults' => array(
-                        '__NAMESPACE__' => 'Admin\Controller',
-                        'controller'    => 'Auth',
-                        'action'        => 'index',
-                    ),
-                ),
-                'may_terminate' => true,
-                'child_routes' => array(
-                    'process' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'    => '/[:action]',
-                            'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            ),
-                            'defaults' => array(
-                            ),
-                        ),
-                    ),
-                ),
-            ),
             'admin' => array(
                 'type'    => 'Segment',
                 'options' => array(
@@ -99,6 +72,32 @@ return array(
                                                         'action'     => 'index',
                                                 ),
                                     ),
+                    ),
+                    'datatables' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'       => 'datatables/client-side[/]',
+                            'constraints' => array(
+
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Admin',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'datatables-server-side' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'       => 'datatables/server-side[/]',
+                            'constraints' => array(
+                                'tablesetter' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Admin',
+                                'action'     => 'index',
+                            ),
+                        ),
                     ),
                     'delete-element' => array(
                         'type'    => 'Segment',
@@ -248,18 +247,47 @@ return array(
                                                 ),
                                     ),
                     ),
-                    'pdf-albo-pretorio' => array(
+                    'albo-pretorio-relata-pdf' => array(
                                     'type'    => 'Segment',
                                     'options' => array(
-                                                'route'         => 'pdf/albo-pretorio/:id',
+                                                'route'         => 'albo-pretorio/relata/pdf/:id',
                                                 'constraints'   => array(
                                                     'id' => '[0-9]+',
                                                 ),
                                                 'defaults' => array(
-                                                    'controller' => 'Admin\Controller\Pdf\AlboPretorioPdf',
-                                                    'action'     => 'relata',
+                                                    'controller' => 'Admin\Controller\AlboPretorio\AlboPretorioRelataPdfController',
+                                                    'action'     => 'index',
                                                 ),
                                     ),
+                    ),
+                    'users-resp-proc' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'         => 'users/responsabili-procedimento[/]',
+                            'constraints'   => array(
+
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Users\RespProc\UsersRespProcController',
+                                'action'     => 'index',
+                            ),
+                        ),
+                        'child_routes' => array(
+                            'insert' => array(
+                                'type'    => 'Segment',
+                                'options' => array(
+                                    'route'    => 'homepage/putter/[:modulecode][/][:id[/]]',
+                                    'constraints' => array(
+                                        'modulecode' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                        'id'         => '[0-9]+',
+                                    ),
+                                    'defaults' => array(
+                                        'controller' => 'Admin\Controller\HomePageController',
+                                        'action'     => 'index',
+                                    ),
+                                ),
+                            ),
+                        ),
                     ),
                 ),
             ),
@@ -279,18 +307,18 @@ return array(
         'display_not_found_reason' => true,
         'display_exceptions'       => true,
         'template_map' => array(
-            'admin/admin/login'                     => __DIR__ . '../../view/admin/auth/login.phtml',
-            'admin/admin/index'                     => __DIR__ . '../../view/admin/index.phtml',
-            'admin/admin/formpost'                  => __DIR__ . '../../view/admin/formpost-empty.phtml',
-            'admin/albo-pretorio-pdf/relata'        => __DIR__ . '../../view/admin/albo-pretorio-pdf/relata.phtml',
-            'admin/form-data-post/index'            => __DIR__ . '../../view/admin/formpost-empty.phtml',
-            'admin/admin/invio-ente-terzo'          => __DIR__ . '/../view/invio-ente-terzo-empty.phtml',
-            'admin/admin/config-edit'               => __DIR__ . '/../view/config-edit-empty.phtml',
-            'admin/admin/delete-element'            => __DIR__ . '/../view/delete-element.phtml',
-            'admin/admin/migrazione'                => __DIR__ . '/../view/migrazione.phtml',
-            'admin/sezioni-positions-update/index'  => __DIR__ . '/../view/empty.phtml',
-            'admin/sotto-sezioni-positions-update/index'  => __DIR__ . '/../view/empty.phtml',
-            'admin/'                                => __DIR__ . '/../view/empty.phtml',
+            'admin/admin/login'                             => __DIR__ . '../../view/admin/auth/login.phtml',
+            'admin/admin/index'                             => __DIR__ . '../../view/admin/index.phtml',
+            'admin/admin/formpost'                          => __DIR__ . '../../view/admin/formpost-empty.phtml',
+            'admin/albo-pretorio-pdf/relata'                => __DIR__ . '../../view/admin/albo-pretorio-pdf/relata.phtml',
+            'admin/form-data-post/index'                    => __DIR__ . '../../view/admin/formpost-empty.phtml',
+            'admin/admin/invio-ente-terzo'                  => __DIR__ . '/../view/invio-ente-terzo-empty.phtml',
+            'admin/admin/config-edit'                       => __DIR__ . '/../view/config-edit-empty.phtml',
+            'admin/admin/delete-element'                    => __DIR__ . '/../view/delete-element.phtml',
+            'admin/admin/migrazione'                        => __DIR__ . '/../view/migrazione.phtml',
+            'admin/sezioni-positions-update/index'          => __DIR__ . '/../view/empty.phtml',
+            'admin/sotto-sezioni-positions-update/index'    => __DIR__ . '/../view/empty.phtml',
+            'admin/'                                        => __DIR__ . '/../view/empty.phtml',
         ),
         'template_path_stack' => array(
             __DIR__ . '../../view',
@@ -303,6 +331,8 @@ return array(
         "admin/formdata"                         => '\Admin\Model\FormData\FormDataHandler',
         "admin/delete-element"                   => '\Admin\Model\Delete\DeleteElementHandler',
         "admin/datatable"                        => '\Admin\Model\DataTable\DataTableHandler',
+        "admin/datatables"                       => '\Admin\Model\DataTable\DataTablesHandler',
+        "admin/datatables-server-side"           => '\Admin\Model\DataTable\DataTablesServerSideHandler',
         "admin/invio-ente-terzo"                 => '\Admin\Model\EntiTerzi\InvioEnteTerzoHandler',
         "admin/posizioni-sezioni"                => '\Admin\Model\Sezioni\SezioniPositionsHandler',
         "admin/posizioni-sottosezioni"           => '\Admin\Model\Sezioni\SottoSezioniPositionsHandler',
@@ -313,43 +343,42 @@ return array(
     ),
     /* FormData Class Map */
     'formdata_classmap' => array(
-        'attachments'                   => 'Admin\Model\Attachments\AttachmentsFormDataHandler',
-        'albo-pretorio'                 => 'Admin\Model\AlboPretorio\AlboPretorioArticoliFormDataHandler',
-        'albo-pretorio-sezioni'         => 'Admin\Model\AlboPretorio\AlboPretorioSezioniFormDataHandler',
-        'amministrazione-trasparente'   => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFormDataHandler',
-        'atti-concessione'              => 'Admin\Model\AttiConcessione\AttiConcessioneFormDataHandler',
-        'atti-concessione-mod-assign'   => '',
-        'contenuti'                     => 'Admin\Model\Contenuti\ContenutiFormDataHandler',
-        'configurations'                => 'Admin\Model\Config\ConfigFormDataHandler',
-        'sezioni-contenuti'             => 'Admin\Model\Sezioni\SezioniFormDataHandler',
-        'sottosezioni-contenuti'        => 'Admin\Model\Sezioni\SottoSezioniFormDataHandler',
-        'sottosezioni-amm-trasparente'  => 'Admin\Model\Sezioni\SottoSezioniFormDataHandler',
-        'stato-civile'                  => 'Admin\Model\StatoCivile\StatoCivileFormDataHandler',
-        'stato-civile-sezioni'          => 'Admin\Model\StatoCivile\StatoCivileSezioniFormDataHandler',
-        'contratti-pubblici'            => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciFormDataHandler',
+        'attachments'                           => 'Admin\Model\Attachments\AttachmentsFormDataHandler',
+        'albo-pretorio'                         => 'Admin\Model\AlboPretorio\AlboPretorioArticoliFormDataHandler',
+        'albo-pretorio-sezioni'                 => 'Admin\Model\AlboPretorio\AlboPretorioSezioniFormDataHandler',
+        'amministrazione-trasparente'           => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFormDataHandler',
+        'atti-concessione'                      => 'Admin\Model\AttiConcessione\AttiConcessioneFormDataHandler',
+        'contenuti'                             => 'Admin\Model\Contenuti\ContenutiFormDataHandler',
+        'configurations'                        => 'Admin\Model\Config\ConfigFormDataHandler',
+        'sezioni-contenuti'                     => 'Admin\Model\Sezioni\SezioniFormDataHandler',
+        'sottosezioni-contenuti'                => 'Admin\Model\Sezioni\SottoSezioniFormDataHandler',
+        'sottosezioni-amm-trasparente'          => 'Admin\Model\Sezioni\SottoSezioniFormDataHandler',
+        'stato-civile'                          => 'Admin\Model\StatoCivile\StatoCivileFormDataHandler',
+        'stato-civile-sezioni'                  => 'Admin\Model\StatoCivile\StatoCivileSezioniFormDataHandler',
+        'contratti-pubblici'                    => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciFormDataHandler',
         'contratti-pubblici-scelta-contraente'  => 'Admin\Model\ContrattiPubblici\SceltaContraente\SceltaContraenteFormDataHandler',
         'contratti-pubblici-operatori'          => 'Admin\Model\ContrattiPubblici\Operatori\OperatoriFormDataHandler',
-        'enti-terzi'                    => 'Admin\Model\EntiTerzi\EntiTerziFormDataHandler',
-        'tickets'                       => 'Admin\Model\Tickets\TicketsFormDataHandler',
-        'users'                         => 'Admin\Model\Users\UsersFormDataHandler',
-        'users-settori'                 => 'Admin\Model\Users\Settori\UsersSettoriFormDataHandler',
-        'categories'                    => 'Admin\Model\Posts\CategoriesFormDataHandler',
-        'contents'                      => 'Admin\Model\Posts\PostsFormDataHandler',
-        'photo'                         => 'Admin\Model\Posts\PostsFormDataHandler',
-        'blogs'                         => 'Admin\Model\Posts\PostsFormDataHandler',
+        'enti-terzi'                            => 'Admin\Model\EntiTerzi\EntiTerziFormDataHandler',
+        'tickets'                               => 'Admin\Model\Tickets\TicketsFormDataHandler',
+        'users'                                 => 'Admin\Model\Users\UsersFormDataHandler',
+        'users-settori'                         => 'Admin\Model\Users\Settori\UsersSettoriFormDataHandler',
+        'categories'                            => 'Admin\Model\Posts\CategoriesFormDataHandler',
+        'contents'                              => 'Admin\Model\Posts\PostsFormDataHandler',
+        'photo'                                 => 'Admin\Model\Posts\PostsFormDataHandler',
+        'blogs'                                 => 'Admin\Model\Posts\PostsFormDataHandler',
     ),
     /* FormData CRUD Class Map */
     'formdata_crud_classmap' => array( 
-        'albo-pretorio'               => 'Admin\Model\AlboPretorio\AlboPretorioArticoliCrudHandler',
-        'albo-pretorio-sezioni'       => 'Admin\Model\AlboPretorio\AlboPretorioSezioniCrudHandler',
-        'amministrazione-trasparente' => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteCrudHandler',
-        'attachments'                 => 'Admin\Model\Attachments\AttachmentsCrudHandler',
-        'atti-concessione'            => 'Admin\Model\AttiConcessione\AttiConcessioneCrudHandler',
-        'categories'                  => 'Admin\Model\Posts\CategoriesCrudHandler',
-        'contenuti'                   => 'Admin\Model\Contenuti\ContenutiCrudHandler',
-        'configurations'              => 'Admin\Model\Config\ConfigCrudHandler',
-        'sezioni-contenuti'           => 'Admin\Model\Sezioni\SezioniCrudHandler',
-        'sottosezioni-contenuti'      => 'Admin\Model\Sezioni\SottoSezioniCrudHandler',
+        'albo-pretorio'                         => 'Admin\Model\AlboPretorio\AlboPretorioArticoliCrudHandler',
+        'albo-pretorio-sezioni'                 => 'Admin\Model\AlboPretorio\AlboPretorioSezioniCrudHandler',
+        'amministrazione-trasparente'           => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteCrudHandler',
+        'attachments'                           => 'Admin\Model\Attachments\AttachmentsCrudHandler',
+        'atti-concessione'                      => 'Admin\Model\AttiConcessione\AttiConcessioneCrudHandler',
+        'categories'                            => 'Admin\Model\Posts\CategoriesCrudHandler',
+        'contenuti'                             => 'Admin\Model\Contenuti\ContenutiCrudHandler',
+        'configurations'                        => 'Admin\Model\Config\ConfigCrudHandler',
+        'sezioni-contenuti'                     => 'Admin\Model\Sezioni\SezioniCrudHandler',
+        'sottosezioni-contenuti'                => 'Admin\Model\Sezioni\SottoSezioniCrudHandler',
         'contratti-pubblici'                    => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciCrudHandler',
         'contratti-pubblici-scelta-contraente'  => 'Admin\Model\ContrattiPubblici\SceltaContraente\SceltaContraenteCrudHandler',
         'contratti-pubblici-operatori'          => 'Admin\Model\ContrattiPubblici\Operatori\OperatoriCrudHandler',

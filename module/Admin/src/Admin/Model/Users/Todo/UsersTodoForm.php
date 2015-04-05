@@ -56,9 +56,10 @@ class UsersTodoForm  extends Form
                 'min'         => '1970-01-01',
                 'step'        => '1',
                 'required'    => 'required',
+                'title'       => 'Da fare entro il...'
             ),
             'options' => array(
-                'label' => '* Da fare entro',
+                'label' => '* Da fare entro il',
             ),
         ));
 

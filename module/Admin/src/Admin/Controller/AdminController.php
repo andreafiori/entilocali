@@ -19,12 +19,8 @@ class AdminController extends SetupAbstractController
      */
     public function indexAction()
     {
-        if (!$this->checkLogin()) {
-            return $this->redirect()->toRoute('login');
-        }
-
         $appServiceLoader = $this->recoverAppServiceLoader();
-        
+
         $configurations = $appServiceLoader->recoverService('configurations');
 
         $sessionContainer = new SessionContainer();
@@ -66,17 +62,19 @@ class AdminController extends SetupAbstractController
 
         $templateDir = 'backend/templates/'.$appServiceLoader->recoverServiceKey('configurations', 'template_backend');
 
-        $this->layout()->setVariables($configurations);
-        $this->layout()->setVariables($routerManagerHelper->getRouterManger()->getOutput('export'));
-        $this->layout()->setVariables(array(
-            'baseUrl'               => $baseUrl,
-            'basePath'              => $basePath,
-            'userDetails'           => $userDetails,
-            'userRole'              => $userDetails->role,
-            'preloadResponse'       => $appServiceLoader->recoverServiceKey('configurations', 'preloadResponse'),
-            'templateBackendDir'    => $templateDir,
-            'templatePartial'       => $templateDir.$routerManagerHelper->getRouterManger()->getTemplate(1),
-            'passwordPreviewArea'   => $this->hasPasswordPreviewArea($configurations),
+        $this->layout()->setVariables(array_merge(
+            $configurations,
+            $routerManagerHelper->getRouterManger()->getOutput('export'),
+            array(
+                'baseUrl'               => $baseUrl,
+                'basePath'              => $basePath,
+                'userDetails'           => $userDetails,
+                'userRole'              => $userDetails->role,
+                'preloadResponse'       => $appServiceLoader->recoverServiceKey('configurations', 'preloadResponse'),
+                'templateBackendDir'    => $templateDir,
+                'templatePartial'       => $templateDir.$routerManagerHelper->getRouterManger()->getTemplate(1),
+                'passwordPreviewArea'   => $this->hasPasswordPreviewArea($configurations),
+            )
         ));
         $this->layout('backend/templates/'.$appServiceLoader->recoverServiceKey('configurations', 'template_backend').'backend.phtml');
         

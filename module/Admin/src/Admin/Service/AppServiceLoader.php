@@ -83,7 +83,7 @@ class AppServiceLoader extends AppServiceLoaderAbstract
                 "files"  => (array) $this->getController()->params()->fromFiles()
                 )
             )
-        );       
+        );
     }
     
     /**
@@ -143,8 +143,11 @@ class AppServiceLoader extends AppServiceLoaderAbstract
         } else {
             $ui->setAdditionalFrontendConfigurationsArray();
         }
+
         $ui->setPreloadResponse($this->recoverService('entityManager'));
-        
+
+        $this->setService('UserInterfaceConfigurations', $ui);
+
         return $ui;
     }
 }

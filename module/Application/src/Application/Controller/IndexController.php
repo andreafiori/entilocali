@@ -37,7 +37,7 @@ class IndexController extends SetupAbstractController
 
         $input = array_merge(
             $configurations,
-            $this->getUserInterfaceConfigurationsArray(),
+            $appServiceLoader->recoverService('UserInterfaceConfigurations')->getConfigurations(),
             $appServiceLoader->getProperties(),
             array(
                 'category'  => trim($this->params()->fromRoute('category')),

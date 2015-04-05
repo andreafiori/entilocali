@@ -63,15 +63,15 @@ class AttiConcessioneCrudHandler extends CrudHandlerAbstract implements CrudHand
         $userDetails = $this->getUserDetails();
 
         return $this->getConnection()->insert($this->dbTable, array(
-            'titolo'        => $formData->titolo,
-            'beneficiario'  => $formData->beneficiario,
-            'importo'       => $formData->importo,
-            'modassegn'     => $formData->modAssegnazione,
-            'data'          => $formData->dataInserimento,
-            'anno'          => $formData->anno,
-            'settore_id'    => $formData->ufficioResponsabile,
-            'resp_proc_id'  => $formData->respProc,
-            'utente'        => $userDetails->id,
+            'titolo'                => $formData->titolo,
+            'beneficiario'          => $formData->beneficiario,
+            'importo'               => $formData->importo,
+            'mod_assegnazione_id'   => $formData->modAssegnazione,
+            'data'                  => $formData->dataInserimento,
+            'anno'                  => $formData->anno,
+            'settore_id'            => $formData->ufficioResponsabile,
+            'resp_proc_id'          => $formData->respProc,
+            'utente_id'             => $userDetails->id,
         ));
     }
 
@@ -89,14 +89,14 @@ class AttiConcessioneCrudHandler extends CrudHandlerAbstract implements CrudHand
         $userDetails = $this->getUserDetails();
 
         $arrayToUpdate = array(
-            'titolo'        => $formData->titolo,
-            'beneficiario'  => $formData->beneficiario,
-            'importo'       => $formData->importo,
-            'modassegn'     => $formData->modAssegnazione,
-            'data'          => $formData->dataInserimento,
-            'anno'          => $formData->anno,
-            'settore_id'    => $formData->ufficioResponsabile,
-            'resp_proc_id'  => $formData->respProc,
+            'titolo'                => $formData->titolo,
+            'beneficiario'          => $formData->beneficiario,
+            'importo'               => $formData->importo,
+            'mod_assegnazione_id'   => $formData->modAssegnazione,
+            'data'                  => $formData->dataInserimento,
+            'anno'                  => $formData->anno,
+            'settore_id'            => $formData->ufficioResponsabile,
+            'resp_proc_id'          => $formData->respProc,
         );
 
         if (isset($formData->utente)) {

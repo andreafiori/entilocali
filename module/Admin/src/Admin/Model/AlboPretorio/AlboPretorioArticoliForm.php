@@ -171,16 +171,15 @@ class AlboPretorioArticoliForm extends Form
         ));
 
         $this->add(array(
-                        'type' => 'Date',
+                        'type' => 'DateTime',
                         'name' => 'dataScadenza',
                         'options' => array(
                                 'label' => '* Data di scadenza',
-                                'format' => 'Y-m-d',
+                                'format' => 'Y-m-d H:i:s',
                         ),
                         'attributes' => array(
                                 'id'        => 'insertDate',
                                 'title'     => 'Inserisci la data di pubblicazione',
-                                'required'  => 'required',
                         )
         ));
         

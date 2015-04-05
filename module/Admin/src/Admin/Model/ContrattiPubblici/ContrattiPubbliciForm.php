@@ -104,6 +104,9 @@ class ContrattiPubbliciForm extends Form
         ));
     }
 
+    /**
+     * @param array $records
+     */
     public function addResponsabili($records)
     {
         $this->add(array(

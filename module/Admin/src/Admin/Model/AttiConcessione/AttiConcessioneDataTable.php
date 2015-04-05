@@ -48,12 +48,15 @@ class AttiConcessioneDataTable extends DataTableAbstract
                 'paginatorItemCount'    => $paginatorItemCount
             )
         );
-        
+
         $this->setTemplate('datatable/datatable_atti_concessione.phtml');
 
         if (!$this->getRecords()) {
-            $this->setVariable('messageTitle', 'Nessun atto di concessione presente');
-            $this->setVariable('messageDescription', 'Nessun atto di concessione presente in archivio');
+            $this->setVariables(array(
+                'messageTitle'       => 'Nessun atto di concessione presente',
+                'messageDescription' => 'Nessun atto di concessione presente in archivio',
+                )
+            );
         }
     }
 

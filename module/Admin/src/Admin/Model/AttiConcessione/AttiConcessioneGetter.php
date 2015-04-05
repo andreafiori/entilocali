@@ -19,10 +19,11 @@ class AttiConcessioneGetter extends QueryBuilderHelperAbstract
                 atti.ufficioresponsabile, atti.data AS dataInserimento, atti.ora, atti.progressivo,
                 atti.anno, atti.scadenza, atti.attivo,
                 IDENTITY(atti.settore) AS ufficioResponsabile, IDENTITY(atti.respProc) AS respProc,
+                IDENTITY(atti.modAssegnazione) AS modAssegnazione,
 
                 u.id, u.name, u.surname,
 
-                modAssegnazione.id, modAssegnazione.nome AS nomemodAssegnazione,
+                modAssegn.id, modAssegn.nome AS nomemodAssegnazione,
                 
                 asettori.nome AS nomeSezione,
 
@@ -33,7 +34,7 @@ class AttiConcessioneGetter extends QueryBuilderHelperAbstract
 
         $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
                                 ->from('Application\Entity\ZfcmsComuniConcessione', 'atti')
-                                ->join('atti.modAssegnazione', 'modAssegnazione')
+                                ->join('atti.modAssegnazione', 'modAssegn')
                                 ->join('atti.utente', 'u')
                                 ->join('atti.settore', 'asettori')
                                 ->join('atti.respProc', 'respProcedimento')

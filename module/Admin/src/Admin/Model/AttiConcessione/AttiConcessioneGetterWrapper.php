@@ -22,7 +22,10 @@ class AttiConcessioneGetterWrapper extends RecordsGetterWrapperAbstract
     {
         $this->setObjectGetter($objectGetter);
     }
-    
+
+    /**
+     * @return null
+     */
     public function setupQueryBuilder()
     {
         $this->objectGetter->setSelectQueryFields( $this->getInput('fields', 1) );

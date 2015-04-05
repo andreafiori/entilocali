@@ -39,20 +39,32 @@ class AdminDashboard extends RouterManagerAbstract implements RouterManagerInter
         $todoListCount = count($todoList);
 
         $wrapper = new TicketsGetterWrapper(new TicketsGetter($this->getInput('entityManager', 1)));
-        $wrapper->setInput(array());
+        $wrapper->setInput(array(
+            'userId'    => $userDetails->id,
+            'orderBy'   => 't.createDate DESC',
+            'limit'     => 15,
+        ));
         $wrapper->setupQueryBuilder();
 
         $ticketList = $wrapper->getRecords();
 
+
+        $date1 = date_create( $userDetails->passwordLastUpdate->format("Y-m-d H:i:s") );
+        $date2 = date_create( date("Y-m-d H:i:s") );
+
+        $interval = $date2->diff($date1);
+
         $this->setVariables(array(
-                'contactFormMsg'     => $this->recoverContactsMessages(),
-                'todoForm'           => $todoForm,
-                'todoList'           => $todoList,
-                'todoListCount'      => $todoListCount,
-                'ticketList'         => $ticketList,
-                'ticketCount'        => count($ticketList),
-                'logRecords'         => $logRecords,
-                'formDataCommonPath' => 'backend/templates/common/'
+                'contactFormMsg'                => $this->recoverContactsMessages(),
+                'todoForm'                      => $todoForm,
+                'todoList'                      => $todoList,
+                'todoListCount'                 => $todoListCount,
+                'ticketList'                    => $ticketList,
+                'ticketCount'                   => count($ticketList),
+                'logRecords'                    => $logRecords,
+                'formDataCommonPath'            => 'backend/templates/common/',
+                'showPasswordNotSecureWarning'  => (empty($this->userDetails->salt)) ?  false : true,
+                'showUpdatePasswordWarning'     => ($interval->format('%m months') > 6) ? true : false,
             )
         );
 

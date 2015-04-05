@@ -5,8 +5,8 @@ $this->form->prepare();
 $form = $this->form;
 $form->prepare();
 
-$formAction = isset($this->formAction) ? $this->url('admin', array('lang' => 'it')).'formpost/'.$this->formAction : '';
-$formId = isset($this->formId) ? $this->formId : 'formData';
+$formAction = !empty($this->formAction) ? $this->url('admin', array('lang' => 'it')).'formpost/'.$this->formAction : '';
+$formId = !empty($this->formId) ? $this->formId : 'formData';
 
 $form->setAttributes(array(
     'action'    => $formAction,
