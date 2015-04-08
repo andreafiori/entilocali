@@ -23,6 +23,9 @@ class UserInterfaceConfigurations
         $this->configurations = $configurations;
     }
 
+    /**
+     * @return array
+     */
     public function setAdditionalFrontendConfigurationsArray()
     {
         $this->configurations['template_project']   = 'frontend/projects/'.$this->configurations['projectdir_frontend'];

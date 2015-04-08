@@ -1,6 +1,6 @@
 <?php
 
-namespace ApplicationTest\Controller;
+namespace AdminTest\Controller;
 
 use Admin\Controller\AdminController;
 use ApplicationTest\TestSuite;
@@ -9,7 +9,7 @@ use ApplicationTest\TestSuite;
  * @author Andrea Fiori
  * @since  05 December 2013
  */
-class AdminControllerTest extends TestSuite
+class AdminControllerTest // extends TestSuite
 {
     private $controller;
 

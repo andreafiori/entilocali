@@ -7,7 +7,7 @@ $acl = $this->userDetails->acl;
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="<?php echo $this->sitename ?> - Area riservata">
+    <meta name="description" content="<?php echo $this->sitename ?> - <?php echo $this->translate('Area riservata') ?>">
     <meta name="author" content="Kronoweb ITC">
 
     <title><?php echo $this->sitename ?> - Area riservata</title>
@@ -114,7 +114,7 @@ $acl = $this->userDetails->acl;
 
             <ul class="nav navbar-top-links navbar-right">
                 <li><a href="<?php echo $this->basepath() ?>" target="_blank" title="<?php echo $this->translate('Anteprima sito web') ?>"><i class="fa fa-eye"></i> <?php echo $this->translate('Anteprima') ?></a></li>
-                <?php if (in_array($this->userRole, array('WebMaster', 'SuperAdmin'))): ?>
+                <?php if (in_array($this->userDetails->role, array('WebMaster', 'SuperAdmin'))): ?>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-gear fa-fw"></i> Opzioni&nbsp; <i class="fa fa-caret-down"></i>
@@ -122,7 +122,7 @@ $acl = $this->userDetails->acl;
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="<?php echo $this->url('admin/formdata', array('lang'=>'it', 'formsetter' => 'configurations' )); ?>" title="Configurazioni applicazione">Configurazioni</a></li>
                         <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter' => 'logs')); ?>" title="Logs applicazione">Logs</a></li>
-                        <?php if (in_array($this->userRole, array('WebMaster'))): ?>
+                        <?php if (in_array($this->userDetails->role, array('WebMaster'))): ?>
                         <li><a href="<?php echo $this->url('admin/migrazione', array('lang'=>'it')); ?>" title="Tool migrazione dati">Migrazione dati</a></li>
                         <?php endif; ?>
                     </ul>
@@ -262,7 +262,7 @@ $acl = $this->userDetails->acl;
                             <li>
                                 <a href="#" class="dropdown-collapse" title="Gestione enti terzi">Enti terzi <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
-                                    <li><a href="<?php echo $this->baseUrl ?>formdata/enti-terzi" title="Nuovo ente terzo">Nuovo indirizzo</a></li>
+                                    <li><a href="<?php echo $this->url('admin/formdata', array('lang' => 'it', 'formsetter' => 'enti-terzi' )); ?>" title="Nuovo ente terzo">Nuovo indirizzo</a></li>
                                     <li><a href="<?php echo $this->url('admin/datatable', array('lang' => 'it', 'tablesetter' => 'enti-terzi')); ?>" title="Gestione rubrica enti terzi">Gestione</a></li>
                                 </ul>
                             </li>

@@ -10,7 +10,7 @@ use ApplicationTest\TestSuite;
  * @author Andrea Fiori
  * @since  05 December 2013
  */
-class IndexControllerTest extends TestSuite
+class IndexControllerTest // extends TestSuite
 {
     private $controller;
 
@@ -20,12 +20,14 @@ class IndexControllerTest extends TestSuite
 
         ServiceLocatorFactory::setInstance( $this->getServiceManager() );
 
+        $serviceManager = $this->serviceManager;
+        $serviceManager->setAllowOverride(true);
+        $serviceManager->setService('doctrine.entitymanager.orm_default', $this->getEntityManagerMock());
+
         $this->controller = new IndexController();
         $this->controller->setServiceLocator( ServiceLocatorFactory::getInstance() );
         $this->controller->setEvent($this->event);
         $this->controller->setServiceLocator($this->serviceManager);
-        $this->controller->getPluginManager()
-                         ->setInvokableClass('CommonSetupPlugin', '\Application\Controller\Plugin\CommonSetupPlugin');
     }
 
     public function testIndexActionCanBeAccessed()

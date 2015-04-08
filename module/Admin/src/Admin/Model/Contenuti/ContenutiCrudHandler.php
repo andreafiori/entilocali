@@ -48,8 +48,8 @@ class ContenutiCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
 
         $userDetails = $this->getUserDetails();
 
-        if ($formData->faceobook) {
-            // TODO: post on facebook page
+        if (isset($formData->faceobook)) {
+
         }
 
         return $this->getConnection()->insert(DbTableContainer::contenuti, array(

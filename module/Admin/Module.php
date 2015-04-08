@@ -48,17 +48,18 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
 
         $controller = $params['controller'];
 
-        $moduleArray = explode('\\', $controller);
+        $currentControllerNamespace = explode('\\', $controller);
 
-        $module = array_pop($moduleArray);
-
-        if ($module=='Admin') {
+        if ($currentControllerNamespace[0] == 'Admin') {
             $sl = ServiceLocatorFactory::getInstance();
 
             $session = new SessionContainer();
 
+            $userDetails = $session->offsetGet('userDetails');
+
             if ( !$sl->get('AuthService')->hasIdentity() or
-                $session->offsetGet('sitename') != $this->recoverSitename($sl)) {
+                $userDetails->sitename != $this->recoverSitename($sl)
+                ) {
 
                 $url = $e->getRouter()->assemble(array('action' => 'index'), array('name' => 'login'));
 

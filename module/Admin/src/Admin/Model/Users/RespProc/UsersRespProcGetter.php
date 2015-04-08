@@ -58,12 +58,12 @@ class UsersRespProcGetter extends QueryBuilderHelperAbstract
     {
         if ( is_numeric($id) ) {
             $this->getQueryBuilder()->andWhere('respProc.id != :excludeId ');
-            $this->getQueryBuilder()->setParameter('id', $id);
+            $this->getQueryBuilder()->setParameter('excludeId', $id);
         }
 
         if (is_array($id)) {
             $this->getQueryBuilder()->andWhere('respProc.id NOT IN ( :excludeId ) ');
-            $this->getQueryBuilder()->setParameter('id', $id);
+            $this->getQueryBuilder()->setParameter('excludeId', $id);
         }
     }
 }

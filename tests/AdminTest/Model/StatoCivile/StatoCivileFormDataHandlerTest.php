@@ -9,7 +9,7 @@ use Admin\Model\StatoCivile\StatoCivileFormDataHandler;
  * @author Andrea Fiori
  * @since  17 June 2013
  */
-class StatoCivileFormDataHandlerTest extends TestSuite
+class StatoCivileFormDataHandlerTest // extends TestSuite
 {
     /**
      * @var StatoCivileFormDataHandler

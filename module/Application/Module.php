@@ -4,6 +4,7 @@ namespace Application;
 
 use Admin\Model\Sezioni\SezioniGetter;
 use Admin\Model\Sezioni\SezioniGetterWrapper;
+use Application\Model\Database\DbTableContainer;
 use Zend\Authentication\Adapter\DbTable as AuthAdapter;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\Mvc\ModuleRouteListener;
@@ -11,7 +12,6 @@ use Zend\Mvc\MvcEvent;
 use Zend\Authentication\AuthenticationService;
 use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter;
 use Application\View\Helper\TextShortener;
-use Admin\Service\AppServiceLoader;
 
 /**
  * Appliacation Module
@@ -23,8 +23,7 @@ class Module implements AutoloaderProviderInterface
      */
     public function onBootstrap(MvcEvent $e)
     {
-    	$application = $e->getApplication();
-        $sm          = $application->getServiceManager();
+        $sm          = $e->getApplication()->getServiceManager();
 
         $eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
@@ -58,7 +57,7 @@ class Module implements AutoloaderProviderInterface
     /**
      * Configure plain text and custom form elements
      *
-     * @return multitype:multitype:string
+     * @return array
      */
     public function getViewHelperConfig()
     {
@@ -109,7 +108,7 @@ class Module implements AutoloaderProviderInterface
                 },
                 'AuthService' => function($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $dbTableAuthAdapter  = new AuthAdapter($dbAdapter, 'zfcms_users', 'username', 'password', 'MD5(CONCAT(?, salt))');
+                    $dbTableAuthAdapter  = new AuthAdapter($dbAdapter, DbTableContainer::users, 'username', 'password', 'MD5(CONCAT(?, salt))');
 
                     $authService = new AuthenticationService();
                     $authService->setAdapter($dbTableAuthAdapter);

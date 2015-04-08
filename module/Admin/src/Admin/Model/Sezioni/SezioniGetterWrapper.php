@@ -52,7 +52,7 @@ class SezioniGetterWrapper extends RecordsGetterWrapperAbstract
                 new SottoSezioniGetter($this->objectGetter->getEntityManager())
             );
             $wrapper->setInput( array_merge( array(
-                    'sezioneId' => $record['id'],
+                    'sezioneId' => isset($record['id']) ? $record['id'] : null,
                     'orderBy'   => 'sottosezioni.posizione',
                     'isSs'      => 0
                 ),

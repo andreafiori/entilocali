@@ -3,7 +3,7 @@
 namespace ApplicationTest;
 
 use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
-use Zend\Http\Request;
+use Zend\Http\PhpEnvironment\Request as PhpEnviromentRequest;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 use Application\Model\NullException;
@@ -34,14 +34,16 @@ abstract class TestSuite extends \PHPUnit_Framework_TestCase
         $serviceManagerGrabber = new ServiceManagerGrabber();
         
         $this->serviceManager = $serviceManagerGrabber->getServiceManager();
+        $this->serviceManager->setAllowOverride(true);
+        $this->serviceManager->setService('doctrine.entitymanager.orm_default', $this->getEntityManagerMock());
         
         $config = $this->serviceManager->get('Config');
-        
-        $this->request = new Request();
-        
+
+        $this->request = new PhpEnviromentRequest();
+
         $this->router = HttpRouter::factory(isset($config['router']) ? $config['router'] : array());
         $this->routeMatch = new RouteMatch(array('controller' => 'index'));
-        
+
         $this->event = new MvcEvent();
         $this->event->setRouter($this->router);
         $this->event->setRouteMatch($this->routeMatch);
@@ -221,7 +223,21 @@ abstract class TestSuite extends \PHPUnit_Framework_TestCase
 
         $mock->expects($this->any())
                         ->method('getResult')
-                        ->will($this->returnValue( array("id" => 1,"myResult" => 'MyResult')) );
+                        ->will($this->returnValue( array(
+                            array(
+                                "id"                    => 1,
+                                "myResult"              => 'MyResult',
+                            ),
+                            array(
+                                'name'  => 'projectdir_frontend',
+                                'value' => 'myProjectDirFrontend'
+                            ),
+                            array(
+                                'name'  => 'template_frontend',
+                                'value' => 'myTemplateNameFrontend'
+                            ),
+                        )
+                        ));
         
         return $mock;
     }

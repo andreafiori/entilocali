@@ -35,7 +35,7 @@ class AdminController extends SetupAbstractController
         $userDetails = $this->recoverUserDetails();
 
         $uri = $this->getRequest()->getUri();
-        $basePath = sprintf('%s://%s%s', $uri->getScheme(), $uri->getHost(), $appServiceLoader->recoverService('request')->getBaseUrl().'/');
+        $basePath = sprintf('%s://%s%s', $uri->getScheme(), $uri->getHost(), $this->getRequest()->getBaseUrl().'/');
         $baseUrl = sprintf($basePath.'admin/main/'.$this->params()->fromRoute('lang').'/');
 
         $input = array_merge(
@@ -76,8 +76,7 @@ class AdminController extends SetupAbstractController
                 'passwordPreviewArea'   => $this->hasPasswordPreviewArea($configurations),
             )
         ));
-        $this->layout('backend/templates/'.$appServiceLoader->recoverServiceKey('configurations', 'template_backend').'backend.phtml');
-        
-    	return new ViewModel();
+
+        return $this->layout('backend/templates/'.$appServiceLoader->recoverServiceKey('configurations', 'template_backend').'backend.phtml');
     }
 }

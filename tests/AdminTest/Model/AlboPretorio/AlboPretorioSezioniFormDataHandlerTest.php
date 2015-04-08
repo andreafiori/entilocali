@@ -8,7 +8,7 @@ use Admin\Model\AlboPretorio\AlboPretorioRecordsGetter;
  * @author Andrea Fiori
  * @since  17 August 2014
  */
-class AlboPretorioSezioniFormDataHandlerTest extends TestSuite
+class AlboPretorioSezioniFormDataHandlerTest //extends TestSuite
 {
     private $formDataHandler;
     

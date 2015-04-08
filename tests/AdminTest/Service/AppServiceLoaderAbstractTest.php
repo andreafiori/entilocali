@@ -77,7 +77,10 @@ class AppServiceLoaderAbstractTest extends TestSuite
     {
         $this->appServiceLoaderAbstract->setService('serviceManager', $this->serviceManager);
 
-        $this->assertInstanceOf('Zend\Mvc\Router\Console\SimpleRouteStack', $this->appServiceLoaderAbstract->recoverRouter());
+        $router = $this->appServiceLoaderAbstract->recoverRouter();
+
+        $this->assertTrue( (get_class($router) == 'Zend\Mvc\Router\Console\SimpleRouteStack'
+            or get_class($router) == 'Zend\Mvc\Router\Http\TreeRouteStack') );
     }
     
     public function testGetController()

@@ -15,6 +15,40 @@ use Zend\Session\Container as SessionContainer;
  */
 abstract class SetupAbstractController extends AbstractActionController
 {
+    protected function initializeAdminArea($channel = 1)
+    {
+        $appServiceLoader = $this->recoverAppServiceLoader($channel);
+
+        $configurations = $appServiceLoader->recoverService('configurations');
+
+        $sessionContainer = new SessionContainer();
+
+        if (!$this->checkPasswordPreviewArea($configurations, $sessionContainer)) {
+            return $this->redirect()->toRoute('password-preview');
+        }
+
+        $templateBackend = $appServiceLoader->recoverServiceKey('configurations', 'template_backend');
+
+        $uri        = $this->getRequest()->getUri();
+        $basePath   = sprintf('%s://%s%s', $uri->getScheme(), $uri->getHost(), $this->getRequest()->getBaseUrl().'/');
+        $templateDir = 'backend/templates/'.$templateBackend;
+
+        $this->layout()->setVariables(array_merge(
+            $configurations,
+            array(
+                'baseUrl'               => sprintf($basePath.'admin/main/'.$this->params()->fromRoute('lang').'/'),
+                'basePath'              => $basePath,
+                'userDetails'           => $sessionContainer->offsetGet('userDetails'),
+                'preloadResponse'       => $appServiceLoader->recoverServiceKey('configurations', 'preloadResponse'),
+                'templateBackendDir'    => $templateDir,
+                'templatePartial'       => $templateDir.'datatable/datatable.phtml',
+                'passwordPreviewArea'   => $this->hasPasswordPreviewArea($configurations),
+            )
+        ));
+
+        return 'backend/templates/'.$templateBackend.'backend.phtml';
+    }
+
     /**
      * @return \Admin\Service\AppServiceLoader
      */
@@ -26,16 +60,17 @@ abstract class SetupAbstractController extends AbstractActionController
 
         $appServiceLoader = new AppServiceLoader();
 
-        $appServiceLoader->setProperties( array(
-            'serviceLocator'    => $sl,
-            'serviceManager'    => $sm,
-            'entityManager'     => $em,
-            'queryBuilder'      => $em->createQueryBuilder(),
-            'translator'        => $sm->get('translator'),
-            'moduleConfigs'     => $sm->get('config'),
-            'request'           => $sm->get('request'),
-            'router'            => $sm->get('request'),
-        ));
+        $appServiceLoader->setProperties(array(
+                'serviceLocator'    => $sl,
+                'serviceManager'    => $sm,
+                'entityManager'     => $em,
+                'queryBuilder'      => $em->createQueryBuilder(),
+                'translator'        => $sm->get('translator'),
+                'moduleConfigs'     => $sm->get('config'),
+                'request'           => $sm->get('request'),
+                'router'            => $sm->get('request'),
+            )
+        );
         $appServiceLoader->recoverRouter();
         $appServiceLoader->recoverRouteMatch();
         $appServiceLoader->setService('channel', $channel);
@@ -50,7 +85,6 @@ abstract class SetupAbstractController extends AbstractActionController
         $appServiceLoader->setupUserInterfaceConfigurations(
             new UserInterfaceConfigurations($appServiceLoader->recoverService('configurations'))
         );
-
         return $appServiceLoader;
     }
 
@@ -70,19 +104,17 @@ abstract class SetupAbstractController extends AbstractActionController
 
         if ( isset($configurations['preview_password_area']) and $sessionContainer->offsetGet('preview_area_ok')!=1) {
             return false;
-        } else {
-            $dateDiff = date_diff(
-                date_create($sessionContainer->offsetGet('preview_area_logintimeout')),
-                date_create(date("Y-m-d H:i:s"))
-            );
+        }
 
-            if ($dateDiff->i > 60) {
+        $dateDiff = date_diff(
+            date_create($sessionContainer->offsetGet('preview_area_logintimeout')),
+            date_create(date("Y-m-d H:i:s"))
+        );
 
-                $sessionContainer->offsetUnset('preview_area_ok');
-                $sessionContainer->offsetUnset('preview_area_logintimeout');
-
-                return false;
-            }
+        if ($dateDiff->i > 60) {
+            $sessionContainer->offsetUnset('preview_area_ok');
+            $sessionContainer->offsetUnset('preview_area_logintimeout');
+            return false;
         }
 
         return true;
@@ -110,15 +142,6 @@ abstract class SetupAbstractController extends AbstractActionController
     {
         $session = new SessionContainer();
 
-        $userDetails                            = new \stdClass();
-        $userDetails->id                        = $session->offsetGet('id');
-        $userDetails->name                      = $session->offsetGet('name');
-        $userDetails->surname                   = $session->offsetGet('surname');
-        $userDetails->role                      = $session->offsetGet('role');
-        $userDetails->acl                       = $session->offsetGet('acl');
-        $userDetails->salt                      = $session->offsetGet('salt');
-        $userDetails->passwordLastUpdate        = $session->offsetGet('passwordLastUpdate');
-
-        return $userDetails;
+        return $session->offsetGet('userDetails');
     }
 }

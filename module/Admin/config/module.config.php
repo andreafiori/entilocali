@@ -2,13 +2,15 @@
 return array(
     'controllers' => array(
         'invokables' => array(
-            'Admin\Controller\ForgotPasswordController'                 => 'Admin\Controller\ForgotPasswordController',
-            'Admin\Controller\Admin'                                    => 'Admin\Controller\AdminController',
-            'Admin\Controller\FormDataPost'                             => 'Admin\Controller\FormDataPostController',
+            'Admin\Controller\ForgotPasswordController'                     => 'Admin\Controller\ForgotPasswordController',
+            'Admin\Controller\Admin'                                        => 'Admin\Controller\AdminController',
+            'Admin\Controller\FormDataPost'                                 => 'Admin\Controller\FormDataPostController',
+            'Admin\Controller\AlboPretorio\AlboPretorioSummaryController'   => 'Admin\Controller\AlboPretorio\AlboPretorioSummaryController',
+            'Admin\Controller\EntiTerzi\EntiTerziSummaryController'         => 'Admin\Controller\EntiTerzi\EntiTerziSummaryController',
             'Admin\Controller\AlboPretorio\AlboPretorioRelataPdfController' => 'Admin\Controller\AlboPretorio\AlboPretorioRelataPdfController',
-            'Admin\Controller\SezioniPositionsUpdateController'         => 'Admin\Controller\SezioniPositionsUpdateController',
-            'Admin\Controller\SottoSezioniPositionsUpdateController'    => 'Admin\Controller\SottoSezioniPositionsUpdateController',
-            'Admin\Controller\Users\RespProc\UsersRespProcController'   => 'Admin\Controller\Users\RespProc\UsersRespProcController',
+            'Admin\Controller\SezioniPositionsUpdateController'             => 'Admin\Controller\SezioniPositionsUpdateController',
+            'Admin\Controller\SottoSezioniPositionsUpdateController'        => 'Admin\Controller\SottoSezioniPositionsUpdateController',
+            'Admin\Controller\Users\RespProc\UsersRespProcController'       => 'Admin\Controller\Users\RespProc\UsersRespProcController',
         ),
     ),
     'router' => array(
@@ -57,6 +59,31 @@ return array(
                                     ),
                         ),
                     ),
+                    'albo-pretorio-summary' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'       => 'albo-pretorio/summary[/]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\AlboPretorio\AlboPretorioSummaryController',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'enti-terzi-summary' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'       => 'enti-terzi/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'constraints' => array(
+                                'page'        => '[0-9]+',
+                                'order_by'    => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'order'       => 'ASC|DESC',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\EntiTerzi\EntiTerziSummaryController',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
                     'datatable' => array(
                                     'type'    => 'Segment',
                                     'options' => array(
@@ -73,6 +100,7 @@ return array(
                                                 ),
                                     ),
                     ),
+                    /* Datatables spike with server side pagination */
                     'datatables' => array(
                         'type'    => 'Segment',
                         'options' => array(
@@ -99,6 +127,7 @@ return array(
                             ),
                         ),
                     ),
+                    /* Delete an element from db endpoint */
                     'delete-element' => array(
                         'type'    => 'Segment',
                         'options' => array(
@@ -144,9 +173,7 @@ return array(
                         'type'    => 'Segment',
                         'options' => array(
                             'route'       => 'posizioni/sezioni[/]',
-                            'constraints' => array(
-
-                            ),
+                            'constraints' => array(),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Admin',
                                 'action'     => 'index',
@@ -157,9 +184,7 @@ return array(
                         'type'    => 'Segment',
                         'options' => array(
                             'route'       => 'posizioni/sezioni/update[/]',
-                            'constraints' => array(
-
-                            ),
+                            'constraints' => array(),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\SezioniPositionsUpdateController',
                                 'action'     => 'index',
@@ -171,8 +196,8 @@ return array(
                         'options' => array(
                             'route'       => 'posizioni/sottosezioni/[:sezioneId[/]][:profonditaDa[/]]',
                             'constraints' => array(
-                                'sezioneId' => '[0-9]+',
-                                'profonditaDa' => '[0-9]+',
+                                'sezioneId'     => '[0-9]+',
+                                'profonditaDa'  => '[0-9]+',
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Admin',
@@ -184,9 +209,7 @@ return array(
                         'type'    => 'Segment',
                         'options' => array(
                             'route'       => 'posizioni/sottosezioni/update[/]',
-                            'constraints' => array(
-
-                            ),
+                            'constraints' => array(),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\SottoSezioniPositionsUpdateController',
                                 'action'     => 'index',
@@ -223,9 +246,7 @@ return array(
                         'type'    => 'Segment',
                         'options' => array(
                             'route'       => 'users/resp-proc/management[/]',
-                            'constraints' => array(
-
-                            ),
+                            'constraints' => array(),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Admin',
                                 'action'     => 'index',
@@ -264,9 +285,7 @@ return array(
                         'type'    => 'Segment',
                         'options' => array(
                             'route'         => 'users/responsabili-procedimento[/]',
-                            'constraints'   => array(
-
-                            ),
+                            'constraints'   => array(),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Users\RespProc\UsersRespProcController',
                                 'action'     => 'index',

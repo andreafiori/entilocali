@@ -145,7 +145,7 @@ class AttiConcessioneCrudHandler extends CrudHandlerAbstract implements CrudHand
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', ha inserito l'atto concessione ".$inputFilter->titolo,
+            'message'   => "Inserito nuovo atto concessione ".$inputFilter->titolo,
             'type'      => 'error',
             'backend'   => 1,
         ));
@@ -171,7 +171,7 @@ class AttiConcessioneCrudHandler extends CrudHandlerAbstract implements CrudHand
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'inserimento atto concessione ".$inputFilter->titolo.'Messaggio: '.$message,
+            'message'   => "Errore nell'inserimento atto concessione ".$inputFilter->titolo.' Messaggio: '.$message,
             'type'      => 'error',
             'backend'   => 1,
         ));
@@ -195,7 +195,7 @@ class AttiConcessioneCrudHandler extends CrudHandlerAbstract implements CrudHand
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', ha aggiornato l'atto concessione ".$inputFilter->titolo,
+            'message'   => "Aggiornato atto concessione ".$inputFilter->titolo,
             'type'      => 'info',
             'backend'   => 1,
         ));
@@ -221,7 +221,7 @@ class AttiConcessioneCrudHandler extends CrudHandlerAbstract implements CrudHand
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'aggiornamento dell'atto concessione ".$inputFilter->titolo.' Messaggio: '.$message,
+            'message'   => "Errore nell'aggiornamento dell'atto concessione ".$inputFilter->titolo.' Messaggio: '.$message,
             'type'      => 'error',
             'backend'   => 1,
         ));

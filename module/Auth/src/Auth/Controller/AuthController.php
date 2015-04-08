@@ -26,8 +26,8 @@ use \Exception;
 class AuthController extends SetupAbstractController
 {
     private $authservice;
-    private $form;
-    private $storage;
+
+    private $sessionStorage;
     
     /**
      * @return \Zend\View\Model\ViewModel
@@ -40,6 +40,8 @@ class AuthController extends SetupAbstractController
 
         $sessionContainer = new SessionContainer();
 
+        $templateBackend = $appServiceLoader->recoverServiceKey('configurations', 'template_backend');
+
         /* Preview Password Area */
         if (!$this->checkPasswordPreviewArea($configurations, $sessionContainer)) {
             return $this->redirect()->toRoute('password-preview');
@@ -48,22 +50,21 @@ class AuthController extends SetupAbstractController
         $this->layout()->setVariables($configurations);
         $this->layout()->setVariables(
             array(
-                'form'      => $this->getUserFormAuthentication(),
+                'form'      => new UserFormAuthentication(),
                 'messages'  => $this->flashMessenger()->getMessages(),
             )
         );
-        $this->layout('backend/templates/'.$appServiceLoader->recoverServiceKey('configurations', 'template_backend').'login.phtml');
 
-        return new ViewModel();
+        return $this->layout('backend/templates/'.$templateBackend.'login.phtml');
     }
-    
+
     /**
      * @return Redirect
      * @throws Exception
      */
     public function authenticateAction()
     {
-        $form       = $this->getUserFormAuthentication();
+        $form       = new UserFormAuthentication();
         $redirect   = 'login';
         $request    = $this->getRequest();
         $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
@@ -81,23 +82,23 @@ class AuthController extends SetupAbstractController
                                        ->setCredential($request->getPost('password'));
 
                 $result = $this->getAuthService()->authenticate();
+
                 foreach($result->getMessages() as $message) {
-                    // save message temporary into flashmessenger
                     $this->flashmessenger()->addMessage($message);
                 }
-                
+
                 if ($result->isValid()) {
                     $redirect = 'admin';
-                    
-                    // set session timeout
+
+                    // set session timeout stored in MyAuthStorage class...
                     $this->getSessionStorage()
                          ->setRememberMe();
 
-                    // set storage again
+                    // set storage into the auth service
                     $this->getAuthService()->setStorage($this->getSessionStorage());
                     $this->getAuthService()->getStorage()->write($request->getPost('username'));
                     
-                    // Get user data
+                    // Search user into db
                     $usersGetterWrapper = new UsersGetterWrapper(
                         new UsersGetter($entityManager)
                     );
@@ -114,7 +115,7 @@ class AuthController extends SetupAbstractController
                     if ( isset($records) and count($records)==1 ) {
                         $records = $records[0];
 
-                        /* Set ACL */
+                        // Set ACL
                         $aclSetter = new AclSetter(new Acl());
                         $aclSetter->setUsersRolesGetterWrapper(new UsersRolesGetterWrapper(
                                 new UsersRolesGetter($entityManager)
@@ -122,8 +123,9 @@ class AuthController extends SetupAbstractController
                         );
                         $aclSetter->addRoles($aclSetter->recoverRoles(array()));
 
-                        if ($records['roleName']==='WebMaster') {
-                            // Assign all permissions...
+                        if ($records['roleName'] === 'WebMaster') {
+
+                            // Assign all permissions
                             $wrapper = new UsersRolesPermissionsGetterWrapper(
                                 new UsersRolesPermissionsGetter($entityManager)
                             );
@@ -132,7 +134,7 @@ class AuthController extends SetupAbstractController
 
                             $permissionsRecords = $wrapper->getRecords();
                             if (empty($permissionsRecords)) {
-                                throw new NullException("Error: No permissions stored on database!");
+                                throw new NullException("Error: no permissions stored on database!");
                             }
 
                             foreach($permissionsRecords as $permissionsRecord) {
@@ -149,7 +151,7 @@ class AuthController extends SetupAbstractController
 
                             $permissionsRecords = $wrapper->getRecords();
                             if (empty($permissionsRecords)) {
-                                throw new NullException("Error: No permissions stored on database!");
+                                throw new NullException("Error: no permissions stored on database!");
                             }
 
                             foreach($permissionsRecords as $permissionsRecord) {
@@ -164,24 +166,26 @@ class AuthController extends SetupAbstractController
                             throw new NullException('Site name is not set. Cannot complete the login');
                         }
 
-                        /* Set user session values */
+                        $userDetails = new \stdClass();
+                        $userDetails->sitename              = $sitename;
+                        $userDetails->id                    = $records['id'];
+                        $userDetails->name                  = $records['name'];
+                        $userDetails->surname               = $records['surname'];
+                        $userDetails->email                 = $records['email'];
+                        $userDetails->acl                   = $aclSetter->getAcl();
+                        $userDetails->salt                  = $records['salt'];
+                        $userDetails->passwordLastUpdate    = $records['passwordLastUpdate'];
+                        $userDetails->role                  = $records['role'];
+
+                        // Set user session values
                         $sessionContainer = new SessionContainer();
-                        $sessionContainer->offsetSet('sitename',            $sitename);
-                        $sessionContainer->offsetSet('id',                  $records['id']);
-                        $sessionContainer->offsetSet('name',                $records['name']);
-                        $sessionContainer->offsetSet('surname',             $records['surname']);
-                        $sessionContainer->offsetSet('email',               $records['email']);
-                        $sessionContainer->offsetSet('acl',                 $aclSetter->getAcl());
-                        $sessionContainer->offsetSet('salt',                $records['salt']);
-                        $sessionContainer->offsetSet('passwordLastUpdate',  $records['passwordLastUpdate']);
-                        $sessionContainer->offsetSet('role',                $records['roleName']);
+                        $sessionContainer->offsetSet('userDetails', $userDetails);
 
                         /* Regenerate Session ID after login */
                         $manager = new \Zend\Session\SessionManager;
                         $manager->regenerateId();
 
                     } else {
-                        // throw new Exception('Cannot get user details after login');
                         $this->flashmessenger()->addMessage( print_r("Nome utente e\o password non validi", 1) );
                     }
                 }
@@ -200,6 +204,14 @@ class AuthController extends SetupAbstractController
         }
         
         return $this->redirect()->toRoute($redirect, array("lang" => 'it'));
+    }
+
+    /**
+     * @param \Zend\Authentication\AuthenticationService $authservice
+     */
+    public function setAuthService(\Zend\Authentication\AuthenticationService $authservice)
+    {
+        $this->authservice = $authservice;
     }
 
     /**
@@ -227,6 +239,7 @@ class AuthController extends SetupAbstractController
             if (!$this->authservice) {
                 $this->authservice = $this->getServiceLocator()->get('AuthService');
             }
+
             return $this->authservice;
         }
 
@@ -235,22 +248,10 @@ class AuthController extends SetupAbstractController
          */
         private function getSessionStorage()
         {
-            if (!$this->storage) {
-                $this->storage = $this->getServiceLocator()->get('MyAuthStorage');
+            if (!$this->sessionStorage) {
+                $this->sessionStorage = $this->getServiceLocator()->get('MyAuthStorage');
             }
 
-            return $this->storage;
-        }
-
-        /**
-         * @return \Admin\Model\Users\UserFormAuthentication
-         */
-        private function getUserFormAuthentication()
-        {
-            if (!$this->form) {
-                $this->form = new UserFormAuthentication();
-
-                return $this->form;
-            }
+            return $this->sessionStorage;
         }
 }
