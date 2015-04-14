@@ -25,8 +25,12 @@ class AlboPretorioArticoliDataTable extends AlboPretorioArticoliDataTableAbstrac
         $this->recordsGetter = new AlboPretorioRecordsGetter($this->getInput());
         $this->recordsGetter->setArticoliInput($this->setupArticoliInput());
         $this->recordsGetter->setArticoliPaginator();
-        $this->recordsGetter->setArticoliPaginatorCurrentPage(isset($this->param['route']['page']) ? $this->param['route']['page'] : null);
-        $this->recordsGetter->setArticoliPaginatorPerPage(isset($this->param['route']['perpage']) ? $this->param['route']['perpage'] : null);
+        $this->recordsGetter->setArticoliPaginatorCurrentPage(
+            isset($this->param['route']['page']) ? $this->param['route']['page'] : null
+        );
+        $this->recordsGetter->setArticoliPaginatorPerPage(
+            isset($this->param['route']['perpage']) ? $this->param['route']['perpage'] : null
+        );
 
         $paginatorRecords = $this->recordsGetter->getPaginatorRecords();
 

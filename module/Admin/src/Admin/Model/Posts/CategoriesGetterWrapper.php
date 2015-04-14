@@ -31,9 +31,11 @@ class CategoriesGetterWrapper extends RecordsGetterWrapperAbstract
         
         $this->objectGetter->setId($this->getInput('id',1));
         $this->objectGetter->setModuleId($this->getInput('moduleId',1));
+        $this->objectGetter->setChannelId($this->getInput('channelId',1));
+        $this->objectGetter->setModuleCode($this->getInput('moduleCode',1));
         $this->objectGetter->setStatus($this->getInput('status',1));
         $this->objectGetter->setOrderBy($this->getInput('orderBy', 1), 'co.position');
-        $this->objectGetter->setGroupBy($this->getInput('groupBy', 1), 'co.position');
+        $this->objectGetter->setGroupBy($this->getInput('groupBy', 1));
         $this->objectGetter->setLimit($this->getInput('limit', 1));
     }
 }

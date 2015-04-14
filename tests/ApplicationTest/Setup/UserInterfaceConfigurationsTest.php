@@ -50,11 +50,4 @@ class UserInterfaceConfigurationsTest extends TestSuite
 
         $this->assertTrue( is_array($userInterfaceConfigurations->setAdditionalAdminConfigurationsArray()) );
     }
-
-    public function testSetPreloadResponse()
-    {
-        $userInterfaceConfigurations = new UserInterfaceConfigurations($this->backendInput);
-
-        $this->assertTrue( is_array($userInterfaceConfigurations->setPreloadResponse($this->getEntityManagerMock())) );
-    }
 }

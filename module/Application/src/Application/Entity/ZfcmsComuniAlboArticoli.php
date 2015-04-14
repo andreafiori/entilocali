@@ -22,6 +22,13 @@ class ZfcmsComuniAlboArticoli
     private $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="cig", type="string", length=20, nullable=false)
+     */
+    private $cig;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="numero_progressivo", type="bigint", nullable=false)
@@ -240,6 +247,29 @@ class ZfcmsComuniAlboArticoli
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set cig
+     *
+     * @param string $cig
+     * @return ZfcmsComuniAlboArticoli
+     */
+    public function setCig($cig)
+    {
+        $this->cig = $cig;
+    
+        return $this;
+    }
+
+    /**
+     * Get cig
+     *
+     * @return string 
+     */
+    public function getCig()
+    {
+        return $this->cig;
     }
 
     /**

@@ -167,8 +167,9 @@ class ContrattiPubbliciForm extends Form
                 'format' => 'Y-m-d',
             ),
             'attributes' => array(
-                'id' => 'data_agg',
-                'required' => 'required'
+                'id'        => 'data_agg',
+                'required'  => 'required',
+                'title'     => "Seleziona data inizio lavori",
             )
         ));
 
@@ -181,7 +182,8 @@ class ContrattiPubbliciForm extends Form
             ),
             'attributes' => array(
                 'id' => 'data_contratto',
-                'required' => 'required'
+                'required'  => 'required',
+                'title'     => "Seleziona data fine lavori",
             )
         ));
     }
@@ -207,9 +209,9 @@ class ContrattiPubbliciForm extends Form
                 'value_options' => $records,
             ),
             'attributes' => array(
-                'title' => 'Seleziona la scelta del contraente',
-                'id'    => 'sc_contr_id',
-                'required' => 'required'
+                'title'     => 'Seleziona la scelta del contraente',
+                'id'        => 'sc_contr_id',
+                'required'  => 'required'
             )
         ));
     }

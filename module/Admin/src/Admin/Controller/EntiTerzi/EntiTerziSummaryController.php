@@ -24,16 +24,11 @@ class EntiTerziSummaryController extends SetupAbstractController
 
         $translator = $this->getServiceLocator()->get('translator');
 
-        $wrapper = new EntiTerziGetterWrapper( new EntiTerziGetter($entityManager) );
-        $wrapper->setInput( array('orderBy' => 'ret.id DESC') );
-        $wrapper->setupQueryBuilder();
-        $wrapper->setupPaginator( $wrapper->setupQuery($entityManager) );
-        $wrapper->setupPaginatorCurrentPage( isset($page) ? $page: null );
+        $wrapper = $this->recoverEntiTerziGetterWrapper($entityManager, $page);
 
         $paginatorRecords = $wrapper->setupRecords();
 
         $this->layout()->setVariables(array(
-            'tablesetter'       => 'enti-terzi',
             'paginator'         => $wrapper->getPaginator(),
             'tableTitle'        => $translator->translate('Rubrica enti terzi'),
             'tableDescription'  => $wrapper->getPaginator()->getTotalItemCount().$translator->translate(' enti in archivio'),
@@ -48,10 +43,30 @@ class EntiTerziSummaryController extends SetupAbstractController
 
         $this->layout()->setVariable('templatePartial', $templateDir.'datatable/datatable.phtml');
 
-        return $this->layout($mainLayout);
+        $this->layout()->setTemplate($mainLayout);
     }
 
         /**
+         * Recover Enti Terzi Object Wrapper
+         *
+         * @param $entityManager
+         * @param int $page
+         * @return EntiTerziGetterWrapper
+         */
+        private function recoverEntiTerziGetterWrapper($entityManager, $page)
+        {
+            $wrapper = new EntiTerziGetterWrapper(new EntiTerziGetter($entityManager));
+            $wrapper->setInput(array('orderBy' => 'ret.id DESC'));
+            $wrapper->setupQueryBuilder();
+            $wrapper->setupPaginator($wrapper->setupQuery($entityManager));
+            $wrapper->setupPaginatorCurrentPage(isset($page) ? $page : null);
+
+            return $wrapper;
+        }
+
+        /**
+         * Format columns enti terzi records
+         *
          * @param mixed $records
          * @return array
          */
@@ -73,10 +88,9 @@ class EntiTerziSummaryController extends SetupAbstractController
                         ),
                         array(
                             'type'      => 'updateButton',
-                            'href'      => $this->url()->fromRoute('admin/formdata', array(
-                                    'lang'          => 'it',
-                                    'formsetter'    => 'enti-terzi',
-                                    'id'            => $row['id']
+                            'href'      => $this->url()->fromRoute('admin/enti-terzi-form', array(
+                                    'lang'  => 'it',
+                                    'id'    => $row['id'],
                                 )
                             ),
                             'title'     => 'Modifica ente terzo',

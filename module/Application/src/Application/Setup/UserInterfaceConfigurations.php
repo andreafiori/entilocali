@@ -12,8 +12,6 @@ use Admin\Model\Posts\PostsGetterWrapper;
 class UserInterfaceConfigurations
 {
     private $configurations;
-    
-    private $postsGetterWrapper;
 
     /**
      * @param array $configurations
@@ -55,47 +53,6 @@ class UserInterfaceConfigurations
         $this->setCommonConfigurations();
         
         return $this->configurations;
-    }
-    
-    /**
-     * @return array
-     */
-    public function setPreloadResponse($entityManager)
-    {
-        $wrapper = new PostsGetterWrapper(new PostsGetter($entityManager));
-        $wrapper->setInput(array(
-				'limit' => '50',
-				'type'  => array('content', 'blog'),
-				'status' => \Admin\Model\Posts\PostsUtils::STATE_ACTIVE 
-			)
-		);
-        $wrapper->setupQueryBuilder();
-        $wrapper->setupPaginator( $wrapper->setupQuery($entityManager) );
-        
-        $postsList = $wrapper->setupRecords();
-        
-        if ($postsList) {
-            foreach($postsList as $preload) {
-                if ( !isset($preload['categoryName']) ) {
-                    break;
-                }
-                
-                $this->configurations['preloadResponse'][$preload['categoryName']][] = $preload;
-            }
-        }
-        
-        return $this->configurations;
-    }
-    
-    /**
-     * @param \Admin\Model\Posts\PostsGetterWrapper $postsGetterWrapper
-     * @return \Admin\Model\Posts\PostsGetterWrapper
-     */
-    public function setPostsGetterWrapper(PostsGetterWrapper $postsGetterWrapper)
-    {
-        $this->postsGetterWrapper = $postsGetterWrapper;
-        
-        return $this->postsGetterWrapper;
     }
 
     /**

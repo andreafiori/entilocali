@@ -14,9 +14,9 @@ class AlboPretorioSezioniGetter extends QueryBuilderHelperAbstract
     {
         $this->setSelectQueryFields('DISTINCT(aps.id) AS id, aps.nome, aps.attivo, aps.dest, aps.del, aps.det');
 
-        $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
-                                ->add('from', 'Application\Entity\ZfcmsComuniAlboSezioni aps ')
-                                ->add('where', 'aps.id != 0 '); 
+        $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
+                                ->from('Application\Entity\ZfcmsComuniAlboSezioni', 'aps')
+                                ->where('aps.id != 0 ');
         
         return $this->getQueryBuilder();
     }

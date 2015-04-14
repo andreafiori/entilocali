@@ -10,18 +10,6 @@ use Zend\Form\Form;
  */
 class PostsForm extends Form
 {
-    private $input;
-
-    /**
-     * @param array $input
-     */
-    public function setInput(array $input)
-    {
-        $this->input = $input;
-
-        return $this->input;
-    }
-    
     public function addUploadImage()
     {
         $this->add(array(
@@ -42,10 +30,10 @@ class PostsForm extends Form
                         'type' => 'Text',
                         'options' => array( 'label' => '* Titolo' ),
                         'attributes' => array(
-                                        'required' => 'required',
-                                        'placeholder' => 'Inserisci il titolo',
-                                        'title' => 'Inserisci il titolo',
-                                        'id' => 'title',
+                                        'required'      => 'required',
+                                        'placeholder'   => 'Inserisci il titolo',
+                                        'title'         => 'Inserisci il titolo',
+                                        'id'            => 'title',
                         )
         ));
         
@@ -54,9 +42,9 @@ class PostsForm extends Form
                         'type' => 'Text',
                         'options'    => array( 'label' => 'Sotto titolo' ),
                         'attributes' => array(
-                                        'title' => 'Inserisci il sotto titolo',
-                                        'placeholder' => 'Inserisci il sotto titolo',
-                                        'id'    => 'subtitle',
+                                        'title'         => 'Inserisci il sotto titolo',
+                                        'placeholder'   => 'Inserisci il sotto titolo',
+                                        'id'            => 'subtitle',
                         )
         ));
 
@@ -65,18 +53,18 @@ class PostsForm extends Form
                         'type' => 'Textarea',
                         'options' => array( 'label' => 'Descrizione' ),
                         'attributes' => array(
-                                        'id' => 'description',
+                                        'id'        => 'description',
                                         'required'  => 'required',
                                         'class'     => 'wysiwyg',
                         )
         ));
         
         $this->add(array(
-                        'type' => 'Date',
+                        'type' => 'DateTime',
                         'name' => 'expireDate',
                         'options' => array(
-                                'label' => 'Scadenza',
-                                'format' => 'Y-m-d',
+                                'label'     => 'Scadenza',
+                                'format'    => 'Y-m-d H:i:s',
                         ),
                         'attributes' => array(
                                 'style' => 'width: 22%',
@@ -125,21 +113,23 @@ class PostsForm extends Form
                         'attributes' => array("class"=>'hiddenField')
         ));
     }
-    
+
     /**
      * @param array $values
-     * @param array $checkedValues
      */
-    public function addCategory(array $values, $checkedValues = array())
+    public function addCategory(array $values)
     {
         $this->add(array(
-                        'type' => 'Application\Form\Element\CheckboxTree',
-                        'name' => 'category',
-                        'options' => array( 'label' => 'Categorie', 'checked_value' => $checkedValues ),
-                        'attributes' => array(
-                                    'id'    => 'category',
-                                    'value' => $values
-                        ),
+            'type' => 'Zend\Form\Element\MultiCheckbox',
+            'name' => 'categories',
+            'options' => array(
+                'label'         => '* Categorie',
+                'value_options' => $values,
+            ),
+            'attributes' => array(
+                'id'    => 'category',
+                'title' => 'Seleziona almeno una categoria'
+            )
         ));
     }
     
@@ -163,7 +153,6 @@ class PostsForm extends Form
                         'options' => array( 'label' => 'Descrizione' ),
                         'attributes' => array(
                                         'id'    => 'seoDescription',
-                                        'class' => 'form-control',
                                         'title' => 'Inserisci descrizione per i motori di ricerca',
                                         'rows'  => 5,
                         ),
@@ -175,9 +164,8 @@ class PostsForm extends Form
                         'options' => array( 'label' => 'Parole chiave (separate da virgola)' ),
                         'attributes' => array(
                                         'id'    => 'seoKeywords',
-                                        'class' => 'form-control',
                                         'title' => 'Parole chiave per i motori di ricerca',
-                                        'rows'  => '5',
+                                        'rows'  => 5,
                         )
         ));
     }

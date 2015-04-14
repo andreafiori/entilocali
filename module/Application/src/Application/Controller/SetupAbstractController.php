@@ -2,12 +2,14 @@
 
 namespace Application\Controller;
 
+use Admin\Model\Logs\LogsWriter;
 use Admin\Service\AppServiceLoader;
 use Zend\Mvc\Controller\AbstractActionController;
 use Admin\Model\Config\ConfigGetter;
 use Admin\Model\Config\ConfigGetterWrapper;
 use Application\Setup\UserInterfaceConfigurations;
 use Zend\Session\Container as SessionContainer;
+use Zend\View\Model\ViewModel;
 
 /**
  * @author Andrea Fiori
@@ -15,6 +17,15 @@ use Zend\Session\Container as SessionContainer;
  */
 abstract class SetupAbstractController extends AbstractActionController
 {
+    const formTemplate = 'formdata/formdata.phtml';
+
+    const summaryTemplate = 'datatable/datatable.phtml';
+
+    /**
+     * @var ViewModel
+     */
+    protected $viewModel;
+
     protected function initializeAdminArea($channel = 1)
     {
         $appServiceLoader = $this->recoverAppServiceLoader($channel);
@@ -29,9 +40,9 @@ abstract class SetupAbstractController extends AbstractActionController
 
         $templateBackend = $appServiceLoader->recoverServiceKey('configurations', 'template_backend');
 
-        $uri        = $this->getRequest()->getUri();
-        $basePath   = sprintf('%s://%s%s', $uri->getScheme(), $uri->getHost(), $this->getRequest()->getBaseUrl().'/');
-        $templateDir = 'backend/templates/'.$templateBackend;
+        $uri            = $this->getRequest()->getUri();
+        $basePath       = sprintf('%s://%s%s', $uri->getScheme(), $uri->getHost(), $this->getRequest()->getBaseUrl().'/');
+        $templateDir    = 'backend/templates/'.$templateBackend;
 
         $this->layout()->setVariables(array_merge(
             $configurations,
@@ -42,6 +53,7 @@ abstract class SetupAbstractController extends AbstractActionController
                 'preloadResponse'       => $appServiceLoader->recoverServiceKey('configurations', 'preloadResponse'),
                 'templateBackendDir'    => $templateDir,
                 'templatePartial'       => $templateDir.'datatable/datatable.phtml',
+                'formDataCommonPath'    => 'backend/templates/common/',
                 'passwordPreviewArea'   => $this->hasPasswordPreviewArea($configurations),
             )
         ));
@@ -77,11 +89,7 @@ abstract class SetupAbstractController extends AbstractActionController
         $appServiceLoader->setController($this);
         $appServiceLoader->setupParams();
         $appServiceLoader->setupRedirect();
-        $appServiceLoader->setupConfigurations(
-            new ConfigGetterWrapper(
-                new ConfigGetter($appServiceLoader->recoverService('entityManager'))
-            )
-        );
+        $appServiceLoader->setupConfigurations( new ConfigGetterWrapper(new ConfigGetter($em)) );
         $appServiceLoader->setupUserInterfaceConfigurations(
             new UserInterfaceConfigurations($appServiceLoader->recoverService('configurations'))
         );
@@ -143,5 +151,28 @@ abstract class SetupAbstractController extends AbstractActionController
         $session = new SessionContainer();
 
         return $session->offsetGet('userDetails');
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function recoverAcl()
+    {
+        $session = new SessionContainer();
+
+        return $session->offsetGet('userDetails')->acl;
+    }
+
+    /**
+     * @param array $logArray
+     * @return bool
+     */
+    protected function log(array $logArray)
+    {
+        $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+
+        $log = new LogsWriter($em->getConnection());
+
+        return $log->writeLog($logArray);
     }
 }

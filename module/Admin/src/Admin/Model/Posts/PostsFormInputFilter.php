@@ -13,19 +13,33 @@ use Zend\InputFilter\InputFilterInterface;
  */
 class PostsFormInputFilter implements InputFilterAwareInterface
 {
-    public $idpost, $idpostoption, $title, $description, $seoUrl, $seoKeywords, $seoDescription;
+    public $postid;
+    public $postoptionid;
+    public $title;
+    public $subtitle;
+    public $description;
+    public $seoUrl;
+    public $expireDate;
+    public $category;
+    public $seoKeywords;
+    public $seoDescription;
+    public $status;
 
     protected $inputFilter;
 
     public function exchangeArray($data)
     {
-        $this->idpost    		= (isset($data['idpost'])) ? $data['idpost'] : null;
-        $this->idpostoption    	= (isset($data['idpostoption'])) ? $data['idpostoption'] : null;
+        $this->postid    		= (isset($data['postid'])) ? $data['postid'] : null;
+        $this->postoptionid    	= (isset($data['postoptionid'])) ? $data['postoptionid'] : null;
         $this->title 	 		= (isset($data['title'])) ? $data['title'] : null;
+        $this->subtitle 	    = (isset($data['subtitle'])) ? $data['subtitle'] : null;
         $this->description  	= (isset($data['description']))  ? $data['description']  : null;
         $this->seoUrl           = (isset($data['seoUrl']))  ? $data['seoUrl']  : null;
+        $this->category  	    = (isset($data['category']))  ? $data['category']  : null;
+        $this->expireDate  	    = (isset($data['expireDate']))  ? $data['expireDate']  : null;
         $this->seoKeywords  	= (isset($data['seoKeywords']))  ? $data['seoKeywords']  : null;
         $this->seoDescription  	= (isset($data['seoDescription']))  ? $data['seoDescription']  : null;
+        $this->status  	        = (isset($data['status']))  ? $data['status']  : null;
     }
 
     public function getArrayCopy()
@@ -47,18 +61,19 @@ class PostsFormInputFilter implements InputFilterAwareInterface
         if (!$this->inputFilter) {
 
             $inputFilter = new InputFilter();
+
             $factory     = new InputFactory();
 
             $inputFilter->add($factory->createInput(array(
-                            'name'     => 'id',
-                            'required' => true,
+                            'name'     => 'postid',
+                            'required' => false,
                             'filters'  => array(
                                             array('name' => 'Int'),
                             ),
             )));
 
             $inputFilter->add($factory->createInput(array(
-                            'name'     => 'titolo',
+                            'name'     => 'title',
                             'required' => true,
                             'filters'  => array(
                                             array('name' => 'StripTags'),
@@ -70,51 +85,82 @@ class PostsFormInputFilter implements InputFilterAwareInterface
                                                     'options' => array(
                                                                     'encoding' => 'UTF-8',
                                                                     'min'      => 1,
-                                                                    'max'      => 100,
+                                                                    'max'      => 255,
                                                     ),
                                             ),
                             ),
             )));
-            
+
             $inputFilter->add($factory->createInput(array(
-                            'name'     => 'descrizione',
+                'name'     => 'subtitle',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => 1,
+                            'max'      => 255,
+                        ),
+                    ),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name'     => 'seoDescription',
+                'required' => false,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => 1,
+                            'max'      => 255,
+                        ),
+                    ),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name'     => 'seoKeywords',
+                'required' => false,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => 1,
+                            'max'      => 255,
+                        ),
+                    ),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                            'name'     => 'description',
                             'required' => true,
             )));
 
             $inputFilter->add($factory->createInput(array(
-                            'name'     => 'seoDescription',
-                            'filters'  => array(
-                                            array('name' => 'StripTags'),
-                                            array('name' => 'StringTrim'),
-                            ),
-                            'validators' => array(
-                                            array(
-                                                'name'    => 'StringLength',
-                                                'options' => array(
-                                                                'encoding' => 'UTF-8',
-                                                                'min'      => 1,
-                                                                'max'      => 100,
-                                                ),
-                                            ),
-                            ),
+                'name'     => 'expireDate',
+                'required' => true,
             )));
-            
+
             $inputFilter->add($factory->createInput(array(
-                            'name'     => 'seoKeywords',
-                            'filters'  => array(
-                                            array('name' => 'StripTags'),
-                                            array('name' => 'StringTrim'),
-                            ),
-                            'validators' => array(
-                                            array(
-                                                'name'    => 'StringLength',
-                                                'options' => array(
-                                                                'encoding' => 'UTF-8',
-                                                                'min'      => 1,
-                                                                'max'      => 100,
-                                                ),
-                                            ),
-                            ),
+                'name'     => 'category',
+                'required' => true,
             )));
 
             $this->inputFilter = $inputFilter;

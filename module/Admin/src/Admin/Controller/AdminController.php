@@ -73,10 +73,11 @@ class AdminController extends SetupAbstractController
                 'preloadResponse'       => $appServiceLoader->recoverServiceKey('configurations', 'preloadResponse'),
                 'templateBackendDir'    => $templateDir,
                 'templatePartial'       => $templateDir.$routerManagerHelper->getRouterManger()->getTemplate(1),
+                'formDataCommonPath'    => 'backend/templates/common/',
                 'passwordPreviewArea'   => $this->hasPasswordPreviewArea($configurations),
             )
         ));
 
-        return $this->layout('backend/templates/'.$appServiceLoader->recoverServiceKey('configurations', 'template_backend').'backend.phtml');
+        $this->layout()->setTemplate('backend/templates/'.$appServiceLoader->recoverServiceKey('configurations', 'template_backend').'backend.phtml');
     }
 }

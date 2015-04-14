@@ -69,6 +69,64 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
                 $response->sendHeaders();
                 exit;
             }
+
+            // Refresh Remember Me Session timeout
+            // $sm->get('MyAuthStorage')->setRememberMe();
+
+            // Check ACL
+            $roles = include __DIR__ . '/config/module.acl.roles.php';
+
+            foreach($roles as $key => $value) {
+                if ($key == $matchedRoute->getMatchedRouteName()) {
+
+                    if (isset($value['resources'])) {
+                        $allowed = 0;
+                        foreach($value['resources'] as $resource) {
+                            if ($userDetails->acl->hasResource($resource)) {
+                                $allowed = 1;
+                            }
+                        }
+
+                        // No permissions, redirect...
+                        if ($allowed==0) {
+                            $url = $e->getRouter()->assemble(array('action' => 'index', 'lang' => 'it'), array('name' => 'admin'));
+
+                            $response = $e->getResponse();
+                            $response->getHeaders()->addHeaderLine('Location', $url);
+                            $response->setStatusCode(401);
+                            $response->sendHeaders();
+                            exit;
+                        }
+                    }
+
+                }
+            }
+
+            if ($matchedRoute->getMatchedRouteName()=='admin/datatable'
+                and isset($roles['datatables'][$params['tablesetter']])) {
+
+                $allowed = 0;
+                foreach($roles['datatables'][$params['tablesetter']] as $resources) {
+                    foreach($resources as $resource) {
+                        if ($userDetails->acl->hasResource($resource)) {
+                            $allowed = 1;
+                            break;
+                        }
+                    }
+                }
+
+                // No permissions, redirect...
+                if ($allowed==0) {
+                    $url = $e->getRouter()->assemble(array('action' => 'index', 'lang' => 'it'), array('name' => 'admin'));
+
+                    $response = $e->getResponse();
+                    $response->getHeaders()->addHeaderLine('Location', $url);
+                    $response->setStatusCode(401);
+                    $response->sendHeaders();
+                    exit;
+                }
+
+            }
         }
     }
 

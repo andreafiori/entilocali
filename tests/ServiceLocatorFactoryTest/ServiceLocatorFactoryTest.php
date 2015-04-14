@@ -12,22 +12,18 @@ use Zend\ServiceManager\ServiceManager;
  */
 class ServiceLocatorFactoryTest extends TestSuite
 {
-    protected function setUp()
+    /**
+     * @expectedException \ServiceLocatorFactory\NullServiceLocatorException
+     */
+    public function testGetinstance()
     {
-        parent::setUp();
+        ServiceLocatorFactory::getInstance();
     }
 
     public function testSetinstance()
     {
         ServiceLocatorFactory::setInstance( $this->getServiceManager() );
-        $this->assertTrue( ServiceLocatorFactory::getInstance() instanceof ServiceManager);
-    }
 
-    /**
-     * @throws \ServiceLocatorFactory\NullServiceLocatorException
-     */
-    public function testGetinstance()
-    {
-        ServiceLocatorFactory::getInstance();
+        $this->assertTrue( ServiceLocatorFactory::getInstance() instanceof ServiceManager );
     }
 }

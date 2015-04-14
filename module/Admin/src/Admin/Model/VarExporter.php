@@ -162,7 +162,7 @@ class VarExporter extends InputSetupAbstract
      */
     protected function isRole($roleName)
     {
-        $userRole = $this->getInput('userDetails',1)->role;
+        $userRole = $this->getInput('userDetails', 1)->role;
 
         if (is_array($roleName)) {
             foreach($roleName as $role) {

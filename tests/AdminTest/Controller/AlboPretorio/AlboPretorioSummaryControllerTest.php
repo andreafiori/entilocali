@@ -20,11 +20,9 @@ class AlboPretorioSummaryControllerTest extends TestSuite
     {
         parent::setUp();
 
-        $serviceManager = $this->getServiceManager();
-
         $this->controller = new AlboPretorioSummaryController();
         $this->controller->setEvent($this->event);
-        $this->controller->setServiceLocator($serviceManager);
+        $this->controller->setServiceLocator($this->getServiceManager());
     }
 
     public function testIndexAction()

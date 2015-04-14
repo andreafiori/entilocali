@@ -2,12 +2,9 @@
 
 namespace Admin\Controller\Users\RespProc;
 
-use Zend\Mvc\Controller\AbstractController;
+use Application\Controller\SetupAbstractController;
 
-/**
- * TODO: insert and delete. Log after each operation and redirect...
- */
-class UsersRespProcController extends AbstractController
+class UsersRespProcController extends SetupAbstractController
 {
     public function insertAction()
     {

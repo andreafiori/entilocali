@@ -20,6 +20,7 @@ class EntiTerziFormDataHandler extends FormDataAbstract
         $param = $this->getInput('param', 1);
         
         $recordFromDb = $this->getFormRecord(isset($param['route']['option']) ? $param['route']['option'] : null);
+
         $this->setRecord($recordFromDb);
         
         $form = new EntiTerziForm();
@@ -36,7 +37,7 @@ class EntiTerziFormDataHandler extends FormDataAbstract
         
         $this->setVariables( array(
                 'formTitle'              => $formTitle,
-                'formDescription'        => 'Compila i dati relativi a un ente terzo a cui inviare documenti',
+                'formDescription'        => "Compila i dati relativi a all'ente terzo",
                 'form'                   => $form,
                 'formAction'             => $formAction,
                 'submitButtonValue'      => $submitButtonValue,

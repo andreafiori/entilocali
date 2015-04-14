@@ -246,11 +246,11 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
      * @param int $id
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function setShowToAll($bool)
+    public function setShowToAll($showToAll)
     {
-        if ( is_numeric($bool) ) {
-            $this->getQueryBuilder()->andWhere('sezioni.showToAll = :showToAll ');
-            $this->getQueryBuilder()->setParameter('showToAll', $bool);
+        if ( is_numeric($showToAll) ) {
+            $this->getQueryBuilder()->andWhere('sezione.showToAll = :showToAll ');
+            $this->getQueryBuilder()->setParameter('showToAll', $showToAll);
         }
 
         return $this->getQueryBuilder();

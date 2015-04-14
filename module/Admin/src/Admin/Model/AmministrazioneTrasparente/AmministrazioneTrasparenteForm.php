@@ -108,7 +108,8 @@ class AmministrazioneTrasparenteForm extends Form
                         ),
                         'attributes' => array(
                                 'id'        => 'attivo',
-                                'required'  => 'required'
+                                'required'  => 'required',
+                                'title'     => 'Seleziona stato'
                         )
         ));
 
@@ -141,22 +142,22 @@ class AmministrazioneTrasparenteForm extends Form
         ));
         
         $this->add(array(
-                        'type' => 'Zend\Form\Element\Hidden',
-                        'name' => 'id',
-                        'attributes' => array("class" => 'hiddenField')
+                        'type'          => 'Zend\Form\Element\Hidden',
+                        'name'          => 'id',
+                        'attributes'    => array("class" => 'hiddenField')
         ));
         
         $this->add(array(
-                        'type' => 'Zend\Form\Element\Hidden',
-                        'name' => 'moduloId',
-                        'attributes' => array("class" => 'hiddenField')
+                        'type'          => 'Zend\Form\Element\Hidden',
+                        'name'          => 'moduloId',
+                        'attributes'    => array("class" => 'hiddenField')
         ));
 
         // Utente SELECT o HiddenField
         $this->add(array(
-                        'type' => 'Zend\Form\Element\Hidden',
-                        'name' => 'userId',
-                        'attributes' => array("class" => 'hiddenField')
+                        'type'          => 'Zend\Form\Element\Hidden',
+                        'name'          => 'userId',
+                        'attributes'    => array("class" => 'hiddenField')
         ));
         
         // Abilita la visibilità a un Gruppo di Atti Ufficiali:

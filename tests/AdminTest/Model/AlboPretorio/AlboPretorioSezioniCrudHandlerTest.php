@@ -31,5 +31,7 @@ class AlboPretorioSezioniCrudHandlerTest extends CrudHandlerTestSuite
         $this->setupFormInputFilterAndExchangeArray();
 
         $this->assertNotNull($this->crudHandler->getFormInputFilter()->id);
+        $this->assertNotNull($this->crudHandler->getFormInputFilter()->nome);
+        $this->assertNotNull($this->crudHandler->getFormInputFilter()->attivo);
     }
 }

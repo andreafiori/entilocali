@@ -35,7 +35,9 @@ class LogsWriter
     {
         $arrayValues = $this->validateValues($arrayValues);
 
+        $this->getConnection()->beginTransaction();
         $this->getConnection()->insert(DbTableContainer::logs, $arrayValues);
+        $this->getConnection()->commit();
 
         return true;
     }

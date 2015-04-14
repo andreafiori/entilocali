@@ -32,7 +32,7 @@ body {
 @media(min-width:768px) {
 	#page-wrapper {
 		position: inherit;
-		margin: 50px 0 0 250px;		# 50px is Top nav size
+		margin: 50px 0 0 250px; /* 50px is Top nav size */
 		padding: 0 30px;
 		border-left: 1px solid #e7e7e7;
 	}
@@ -40,8 +40,6 @@ body {
 	.navbar-header {
 		float: none;
 	}
-	
-	
 }
 
 @media(max-width:768px) {

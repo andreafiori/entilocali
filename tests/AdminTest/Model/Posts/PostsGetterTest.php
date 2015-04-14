@@ -73,11 +73,11 @@ class PostsGetterTest extends TestSuite
         $this->objectGetter->setStatus('active');
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('status'));
     }
-    
-    public function testSetOrderBy()
+
+    public function testModuleCode()
     {
-        $this->objectGetter->setOrderBy('name');
-        
-        $this->assertEmpty($this->objectGetter->getQueryBuilder()->getParameter('orderBy'));
+        $this->objectGetter->setModuleCode('blogs');
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('moduleCode'));
     }
 }

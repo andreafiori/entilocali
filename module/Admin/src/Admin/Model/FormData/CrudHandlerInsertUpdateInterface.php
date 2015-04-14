@@ -10,15 +10,31 @@ use Zend\InputFilter\InputFilterAwareInterface;
  */
 interface CrudHandlerInsertUpdateInterface
 {
+    /**
+     * @param InputFilterAwareInterface $formData
+     * @return mixed
+     */
     public function insert(InputFilterAwareInterface $formData);
 
+    /**
+     * @param InputFilterAwareInterface $formData
+     * @return mixed
+     */
     public function update(InputFilterAwareInterface $formData);
 
     public function logInsertOk();
 
+    /**
+     * @param null $message
+     * @return mixed
+     */
     public function logInsertKo($message = null);
 
     public function logUpdateOk();
 
+    /**
+     * @param null $message
+     * @return mixed
+     */
     public function logUpdateKo($message = null);
 }

@@ -45,9 +45,9 @@ class ZfcmsPostsCategories
     /**
      * @var string
      *
-     * @ORM\Column(name="code", type="string", length=30, nullable=true)
+     * @ORM\Column(name="slug", type="string", length=80, nullable=true)
      */
-    private $code;
+    private $slug;
 
     /**
      * @var string

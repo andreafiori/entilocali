@@ -45,9 +45,9 @@ class ZfcmsPostsCategories
     /**
      * @var string
      *
-     * @ORM\Column(name="code", type="string", length=30, nullable=true)
+     * @ORM\Column(name="slug", type="string", length=80, nullable=true)
      */
-    private $code;
+    private $slug;
 
     /**
      * @var string
@@ -162,26 +162,26 @@ class ZfcmsPostsCategories
     }
 
     /**
-     * Set code
+     * Set slug
      *
-     * @param string $code
+     * @param string $slug
      * @return ZfcmsPostsCategories
      */
-    public function setCode($code)
+    public function setSlug($slug)
     {
-        $this->code = $code;
+        $this->slug = $slug;
     
         return $this;
     }
 
     /**
-     * Get code
+     * Get slug
      *
      * @return string 
      */
-    public function getCode()
+    public function getSlug()
     {
-        return $this->code;
+        return $this->slug;
     }
 
     /**

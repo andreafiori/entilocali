@@ -12,23 +12,25 @@ class CategoriesGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('DISTINCT(category.id) AS id, co.name, co.description, 
-                co.seoKeywords, co.seoDescription,
-                category.createDate, category.status, 
-                IDENTITY(category.module) AS module
-                ');
+        $this->setSelectQueryFields('DISTINCT(category.id) AS id, co.name, co.description,
+                                    co.seoKeywords, co.seoDescription,
+                                    category.createDate, category.status,
+                                    IDENTITY(category.module) AS moduleId,
+                                    module.name AS moduleName
+                                    ');
 
         $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
-                                ->from('Application\Entity\ZfcmsCategoriesOptions', 'co')
+                                ->from('Application\Entity\ZfcmsPostsCategoriesOptions', 'co')
                                 ->join('co.category', 'category')
-                                ->where('co.category = category.id ');
+                                ->join('category.module', 'module')
+                                ->where('co.category = category.id AND category.module = module.id ');
 
         return $this->getQueryBuilder();
     }
-    
+
     /**
-     * @param number or array $id
-     * @return type
+     * @param int $id
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setId($id)
     {
@@ -41,10 +43,13 @@ class CategoriesGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere('category.id IN ( :id ) ');
             $this->getQueryBuilder()->setParameter('id', $id);
         }
+
+        return $this->getQueryBuilder();
     }
-    
+
     /**
      * @param number $channel
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setChannelId($channel = null)
     {
@@ -52,10 +57,13 @@ class CategoriesGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere('category.module = :moduleId ');
             $this->getQueryBuilder()->setParameter('channel', $channel);
         }
+
+        return $this->getQueryBuilder();
     }
-    
+
     /**
      * @param number $moduleId
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setModuleId($moduleId = null)
     {
@@ -63,20 +71,13 @@ class CategoriesGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere('category.module = :moduleId ');
             $this->getQueryBuilder()->setParameter('moduleId', $moduleId);
         }
+
+        return $this->getQueryBuilder();
     }
-    
+
     /**
-     * @param number $languageId
-     */
-    public function setLanguageId($languageId = null)
-    {
-        if (is_numeric($languageId)) {
-            $this->getQueryBuilder()->setParameter('language', $languageId);
-        }
-    }
-    
-    /**
-     * @param string or null $status
+     * @param string $status
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setStatus($status = null)
     {
@@ -86,5 +87,21 @@ class CategoriesGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere("category.status = :status ");
             $this->getQueryBuilder()->setParameter('status', $status);
         }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param string $moduleCode
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setModuleCode($moduleCode = null)
+    {
+        if (!empty($moduleCode)) {
+            $this->getQueryBuilder()->andWhere('module.code = :moduleCode ');
+            $this->getQueryBuilder()->setParameter('moduleCode', $moduleCode);
+        }
+
+        return $this->getQueryBuilder();
     }
 }

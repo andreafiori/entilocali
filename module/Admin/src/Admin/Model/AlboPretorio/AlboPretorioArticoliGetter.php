@@ -159,11 +159,11 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
      */
     public function setAnnullato($annulled)
     {
-        if ( isset($annulled) ) {
+        if ( !empty($annulled) ) {
             $this->getQueryBuilder()->andWhere('alboArticoli.annullato = :annullato ');
             $this->getQueryBuilder()->setParameter('annullato', $annulled);
         }
-        
+
         return $this->getQueryBuilder();
     }
     

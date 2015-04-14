@@ -64,13 +64,6 @@ class ZfcmsComuniContratti
     private $numeroOfferte;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="modassegn", type="text", length=65535, nullable=false)
-     */
-    private $modassegn;
-
-    /**
      * @var \DateTime
      *
      * @ORM\Column(name="data_inizio_lavori", type="date", nullable=false)
@@ -125,6 +118,13 @@ class ZfcmsComuniContratti
      * @ORM\Column(name="scadenza", type="date", nullable=false)
      */
     private $scadenza;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="modalita_assegnazione", type="bigint", nullable=false)
+     */
+    private $modalitaAssegnazione;
 
     /**
      * @var string
@@ -324,29 +324,6 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Set modassegn
-     *
-     * @param string $modassegn
-     * @return ZfcmsComuniContratti
-     */
-    public function setModassegn($modassegn)
-    {
-        $this->modassegn = $modassegn;
-    
-        return $this;
-    }
-
-    /**
-     * Get modassegn
-     *
-     * @return string 
-     */
-    public function getModassegn()
-    {
-        return $this->modassegn;
-    }
-
-    /**
      * Set dataInizioLavori
      *
      * @param \DateTime $dataInizioLavori
@@ -528,6 +505,29 @@ class ZfcmsComuniContratti
     public function getScadenza()
     {
         return $this->scadenza;
+    }
+
+    /**
+     * Set modalitaAssegnazione
+     *
+     * @param integer $modalitaAssegnazione
+     * @return ZfcmsComuniContratti
+     */
+    public function setModalitaAssegnazione($modalitaAssegnazione)
+    {
+        $this->modalitaAssegnazione = $modalitaAssegnazione;
+    
+        return $this;
+    }
+
+    /**
+     * Get modalitaAssegnazione
+     *
+     * @return integer 
+     */
+    public function getModalitaAssegnazione()
+    {
+        return $this->modalitaAssegnazione;
     }
 
     /**

@@ -12,5 +12,9 @@ interface CrudHandlerInterface
 {
     public function __construct();
 
+    /**
+     * @param InputFilterAwareInterface $formData
+     * @return mixed
+     */
     public function validateFormData(InputFilterAwareInterface $formData);
 }

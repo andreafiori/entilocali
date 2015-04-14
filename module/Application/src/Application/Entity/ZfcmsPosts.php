@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsPosts
  *
- * @ORM\Table(name="zfcms_posts", indexes={@ORM\Index(name="parent_id", columns={"parent_id"}), @ORM\Index(name="alias", columns={"alias"}), @ORM\Index(name="flag_allegati", columns={"flag_attachments"})})
+ * @ORM\Table(name="zfcms_posts", indexes={@ORM\Index(name="parent_id", columns={"parent_id"}), @ORM\Index(name="flag_allegati", columns={"flag_attachments"}), @ORM\Index(name="fk_posts_user_id", columns={"user_id"})})
  * @ORM\Entity
  */
 class ZfcmsPosts
@@ -52,30 +52,26 @@ class ZfcmsPosts
     /**
      * @var integer
      *
+     * @ORM\Column(name="flag_attachments", type="integer", nullable=true)
+     */
+    private $flagAttachments;
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="parent_id", type="bigint", nullable=false)
      */
     private $parentId;
 
     /**
-     * @var string
+     * @var \Application\Entity\ZfcmsUsers
      *
-     * @ORM\Column(name="type", type="string", length=40, nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsers")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * })
      */
-    private $type;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="alias", type="string", length=40, nullable=false)
-     */
-    private $alias;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="flag_attachments", type="string", nullable=false)
-     */
-    private $flagAttachments;
+    private $user;
 
 
 
@@ -182,6 +178,29 @@ class ZfcmsPosts
     }
 
     /**
+     * Set flagAttachments
+     *
+     * @param integer $flagAttachments
+     * @return ZfcmsPosts
+     */
+    public function setFlagAttachments($flagAttachments)
+    {
+        $this->flagAttachments = $flagAttachments;
+    
+        return $this;
+    }
+
+    /**
+     * Get flagAttachments
+     *
+     * @return integer 
+     */
+    public function getFlagAttachments()
+    {
+        return $this->flagAttachments;
+    }
+
+    /**
      * Set parentId
      *
      * @param integer $parentId
@@ -205,71 +224,25 @@ class ZfcmsPosts
     }
 
     /**
-     * Set type
+     * Set user
      *
-     * @param string $type
+     * @param \Application\Entity\ZfcmsUsers $user
      * @return ZfcmsPosts
      */
-    public function setType($type)
+    public function setUser(\Application\Entity\ZfcmsUsers $user = null)
     {
-        $this->type = $type;
+        $this->user = $user;
     
         return $this;
     }
 
     /**
-     * Get type
+     * Get user
      *
-     * @return string 
+     * @return \Application\Entity\ZfcmsUsers 
      */
-    public function getType()
+    public function getUser()
     {
-        return $this->type;
-    }
-
-    /**
-     * Set alias
-     *
-     * @param string $alias
-     * @return ZfcmsPosts
-     */
-    public function setAlias($alias)
-    {
-        $this->alias = $alias;
-    
-        return $this;
-    }
-
-    /**
-     * Get alias
-     *
-     * @return string 
-     */
-    public function getAlias()
-    {
-        return $this->alias;
-    }
-
-    /**
-     * Set flagAttachments
-     *
-     * @param string $flagAttachments
-     * @return ZfcmsPosts
-     */
-    public function setFlagAttachments($flagAttachments)
-    {
-        $this->flagAttachments = $flagAttachments;
-    
-        return $this;
-    }
-
-    /**
-     * Get flagAttachments
-     *
-     * @return string 
-     */
-    public function getFlagAttachments()
-    {
-        return $this->flagAttachments;
+        return $this->user;
     }
 }

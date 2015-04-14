@@ -62,6 +62,8 @@ return array(
     'Application\Entity\ZfcmsProductsShipments'                                         => __DIR__ . '/src/Application/Entity/ZfcmsProductsShipments.php',
     'Application\Entity\ZfcmsProductsShipmentsRegistry'                                 => __DIR__ . '/src/Application/Entity/ZfcmsProductsShipmentsRegistry.php',
     'Application\Entity\ZfcmsProductsShipmentsTypes'                                    => __DIR__ . '/src/Application/Entity/ZfcmsProductsShipmentsTypes.php',
+    'Application\Entity\ZfcmsTags'                                                      => __DIR__ . '/src/Application/Entity/ZfcmsTags.php',
+    'Application\Entity\ZfcmsTagsRelations'                                             => __DIR__ . '/src/Application/Entity/ZfcmsTagsRelations.php',
     'Application\Entity\ZfcmsTickets'                                                   => __DIR__ . '/src/Application/Entity/ZfcmsTickets.php',
     'Application\Entity\ZfcmsTicketsMessages'                                           => __DIR__ . '/src/Application/Entity/ZfcmsTicketsMessages.php',
     'Application\Entity\ZfcmsUsers'                                                     => __DIR__ . '/src/Application/Entity/ZfcmsUsers.php',

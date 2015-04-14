@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsFaqAnswers
  *
- * @ORM\Table(name="zfcms_faq_answers", indexes={@ORM\Index(name="question_id", columns={"question_id"}), @ORM\Index(name="user_id", columns={"user_id"})})
+ * @ORM\Table(name="zfcms_faq_answers", indexes={@ORM\Index(name="fk_faq_users", columns={"user_id"}), @ORM\Index(name="fk_faq_question_id", columns={"question_id"})})
  * @ORM\Entity
  */
 class ZfcmsFaqAnswers
@@ -50,18 +50,24 @@ class ZfcmsFaqAnswers
     private $lastUpdate;
 
     /**
-     * @var integer
+     * @var \Application\Entity\ZfcmsFaqAnswers
      *
-     * @ORM\Column(name="question_id", type="bigint", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsFaqAnswers")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="question_id", referencedColumnName="id")
+     * })
      */
-    private $questionId;
+    private $question;
 
     /**
-     * @var integer
+     * @var \Application\Entity\ZfcmsUsers
      *
-     * @ORM\Column(name="user_id", type="bigint", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsers")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * })
      */
-    private $userId;
+    private $user;
 
 
 
@@ -168,48 +174,48 @@ class ZfcmsFaqAnswers
     }
 
     /**
-     * Set questionId
+     * Set question
      *
-     * @param integer $questionId
+     * @param \Application\Entity\ZfcmsFaqAnswers $question
      * @return ZfcmsFaqAnswers
      */
-    public function setQuestionId($questionId)
+    public function setQuestion(\Application\Entity\ZfcmsFaqAnswers $question = null)
     {
-        $this->questionId = $questionId;
+        $this->question = $question;
     
         return $this;
     }
 
     /**
-     * Get questionId
+     * Get question
      *
-     * @return integer 
+     * @return \Application\Entity\ZfcmsFaqAnswers 
      */
-    public function getQuestionId()
+    public function getQuestion()
     {
-        return $this->questionId;
+        return $this->question;
     }
 
     /**
-     * Set userId
+     * Set user
      *
-     * @param integer $userId
+     * @param \Application\Entity\ZfcmsUsers $user
      * @return ZfcmsFaqAnswers
      */
-    public function setUserId($userId)
+    public function setUser(\Application\Entity\ZfcmsUsers $user = null)
     {
-        $this->userId = $userId;
+        $this->user = $user;
     
         return $this;
     }
 
     /**
-     * Get userId
+     * Get user
      *
-     * @return integer 
+     * @return \Application\Entity\ZfcmsUsers 
      */
-    public function getUserId()
+    public function getUser()
     {
-        return $this->userId;
+        return $this->user;
     }
 }

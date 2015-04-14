@@ -27,7 +27,7 @@ class AlboPretorioArticoliGetterTest extends TestSuite
     {
         $this->objectGetter->setMainQuery();
         
-        $this->assertTrue( is_array($this->objectGetter->getQueryResult()) );
+        $this->assertTrue(is_array($this->objectGetter->getQueryResult()), 'The main query does not work correctly');
     }
     
     public function testSetId()

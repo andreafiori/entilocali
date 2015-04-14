@@ -28,12 +28,15 @@ class SetupAbstractControllerTest extends TestSuite
         $this->controller->setServiceLocator($this->serviceManager);
     }
 
-    public function testHasPasswordPreviewArea()
+    public function testHasPasswordPreviewAreaIsFalse()
     {
         $this->assertFalse($this->controller->hasPasswordPreviewArea(array()));
+    }
 
+    public function testHasPasswordPreviewAreaIsTrue()
+    {
         $this->assertTrue($this->controller->hasPasswordPreviewArea(array(
-            'preview_password_area' => 'MyAreaPassword',
+            'preview_password'      => 'MyAreaPassword',
             'preview_password_area' =>  1
         )));
     }

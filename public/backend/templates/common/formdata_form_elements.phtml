@@ -51,12 +51,9 @@ foreach ($this->form as $element):
         <div class="form-group">
             <label for="<?php echo $attributes['id'] ?>" class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label"><?php echo $element->getLabel() ?></label>
             <div class="col-sm-<?php echo $this->formControlSpanWidth ?>">
-                <fieldset>
-                <?php foreach ($element->getValueOptions() as $key => $value): ?>
-                    <input type="checkbox" id="<?php echo $element->getName() ?>_<?php echo $key; ?>" name="<?php echo $element->getName() ?>[]" value="<?php echo $value; ?>">
-                    <label for="<?php echo $element->getName() ?>_<?php echo $key; ?>"><?php echo $value ?></label>
-                <?php endforeach; ?>
-                </fieldset>
+
+                <?php echo $this->formElement($form->get($attributes['name'])); ?>
+
             </div>
         </div>
         <?php
@@ -84,8 +81,8 @@ foreach ($this->form as $element):
             <label for="<?php echo $attributes['id'] ?>" class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label"><?php echo $element->getLabel() ?></label>
             <div class="col-sm-<?php echo $this->formControlSpanWidth ?>">
                 <input type="text" style="width: 30%; " name="<?php echo $attributes['name'] ?>" class="datetimepicker" placeholder="<?php echo (isset($attributes['placeholder'])) ? $attributes['placeholder'] : 'Seleziona data...' ?>" title="<?php echo (isset($attributes['title'])) ? $attributes['title'] : null ?>" id="<?php echo $attributes['id'] ?>" value="<?php echo $element->getValue() ?>" readonly="readonly"<?php if (isset($attributes['required'])): ?> required="required"<?php endif; ?>>
-                <input type="button" class="btn btn-danger" onclick="$('#<?php echo $attributes['id'] ?>').val(''); " value="Elimina valore">
-                <input type="button" class="btn btn-info" onclick="$('#<?php echo $attributes['id'] ?>').val('0000-00-00 00:00:00'); " value="Setta &quot;data zero&quot;">
+                <input type="button" class="btn btn-danger" onclick="$('#<?php echo $attributes['id'] ?>').val(''); " value="Elimina valore" title="Elimina valore data corrente">
+                <input type="button" class="btn btn-info" onclick="$('#<?php echo $attributes['id'] ?>').val('0000-00-00 00:00:00'); " value="Setta &quot;data zero&quot;" title="Seleziona data 0000-00-00 00-00-00">
             </div>
         </div>
         <?php

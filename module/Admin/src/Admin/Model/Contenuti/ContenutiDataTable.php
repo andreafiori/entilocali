@@ -21,7 +21,6 @@ class ContenutiDataTable extends DataTableAbstract
 
         /* Check ACL */
         if (!$this->getAcl()->hasResource('contenuti_update')) {
-            // $redirect = $this->getInput('redirect', 1);
             return false;
         }
 
@@ -41,10 +40,10 @@ class ContenutiDataTable extends DataTableAbstract
         $this->setRecords( $this->formatRecordsToShowOnTable($paginatorRecords) );
 
         $this->setVariables(array(
-            'tablesetter' => 'contenuti',
-            'paginator'   => $paginatorRecords,
-            'total_item_count' => $paginatorRecordsCount,
-            'columns'     => array(
+            'tablesetter'       => 'contenuti',
+            'paginator'         => $paginatorRecords,
+            'total_item_count'  => $paginatorRecordsCount,
+            'columns'           => array(
                 "Titolo",
                 "Sezione",
                 "Sotto sezione",
@@ -74,7 +73,7 @@ class ContenutiDataTable extends DataTableAbstract
             $arrayToReturn = array();
             if ($records) {
                 foreach($records as $key => $row) {
-                    // $activeDisableButtonValue = ($row['attivo']!=0) ? 'toDisable' : 'toActive';
+
                     $arrayToReturn[] = array(
                         $row['titolo'],
                         $row['nomeSezione'],

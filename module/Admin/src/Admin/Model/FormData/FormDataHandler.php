@@ -47,6 +47,14 @@ class FormDataHandler extends RouterManagerAbstract implements RouterManagerInte
             }
 
             $this->setVariable('formDataCommonPath', 'backend/templates/common/');
+        } else {
+            // Message or redirect here...
+            $this->setVariables(array(
+                'messageType'   => 'danger',
+                'messageTitle'  => 'Form non rilevato',
+                'messageText'   => 'Form non presente in questa pagina'
+            ));
+            $this->setTemplate('message.phtml');
         }
 
         return $this->getOutput();

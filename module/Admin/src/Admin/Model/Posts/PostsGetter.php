@@ -17,21 +17,32 @@ class PostsGetter extends QueryBuilderHelperAbstract
     public function setMainQuery()
     {
         $this->setSelectQueryFields('DISTINCT(p.id) AS postid, po.id AS postoptionid, p.lastUpdate, 
-                p.insertDate, p.expireDate, p.type, p.alias, po.title, po.subtitle, po.status, 
-                po.description, po.seoUrl, po.seoTitle, po.seoDescription, po.seoKeywords, 
-                p.flagAttachments, co.name AS categoryName, c.template, 
-                IDENTITY(r.module) AS module
-                ');
+                                    p.insertDate, p.expireDate, p.type, p.alias, p.flagAttachments,
+                                    po.title, po.subtitle, po.status, po.description, po.seoUrl, po.seoTitle,
+                                    po.seoDescription, po.seoKeywords,
+                                    c.template,
+                                    IDENTITY(r.module) AS moduleId,
+                                    users.name AS userName, users.surname AS userSurname
+                                    ');
 
         $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
-                                ->add('from', 'Application\Entity\ZfcmsPosts p, 
+            ->add('from', 'Application\Entity\ZfcmsPosts p,
                                         Application\Entity\ZfcmsPostsOptions po, 
                                         Application\Entity\ZfcmsPostsRelations r, 
                                         Application\Entity\ZfcmsPostsCategories c,
-                                        Application\Entity\ZfcmsPostsCategoriesOptions co
+                                        Application\Entity\ZfcmsPostsCategoriesOptions co,
+                                        Application\Entity\ZfcmsModules module,
+                                        Application\Entity\ZfcmsUsers users
                                 ')
-                                ->where('po.posts = p.id AND p.id = r.posts AND c.id = r.category AND co.category = c.id AND r.channel = :channel AND co.language = :language AND po.language = :language');
-        
+            ->where('po.posts = p.id AND p.id = r.posts AND c.id = r.category
+                                        AND co.category = c.id AND r.category = c.id
+                                        AND r.channel = :channel
+                                        AND co.language = :language
+                                        AND po.language = :language
+                                        AND r.module = module.id
+                                        AND p.user = users.id
+                                        ');
+
         return $this->getQueryBuilder();
     }
 
@@ -44,10 +55,10 @@ class PostsGetter extends QueryBuilderHelperAbstract
         if ( is_numeric($channel) ) {
             $this->getQueryBuilder()->setParameter('channel', $channel);
         }
-        
+
         return $this->getQueryBuilder();
     }
-    
+
     /**
      * @param number $languageId
      * @return \Doctrine\ORM\QueryBuilder
@@ -57,7 +68,7 @@ class PostsGetter extends QueryBuilderHelperAbstract
         if (is_numeric($languageId)) {
             $this->getQueryBuilder()->setParameter('language', $languageId);
         }
-        
+
         return $this->getQueryBuilder();
     }
 
@@ -71,12 +82,12 @@ class PostsGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere('p.id = :id AND po.id = :id');
             $this->getQueryBuilder()->setParameter('id', $id);
         }
-        
+
         if (is_array($id)) {
             $this->getQueryBuilder()->andWhere('p.id IN ( :id ) AND po.id IN ( :id )');
             $this->getQueryBuilder()->setParameter('id', $id);
         }
-        
+
         return $this->getQueryBuilder();
     }
 
@@ -120,7 +131,7 @@ class PostsGetter extends QueryBuilderHelperAbstract
         } elseif ( is_array($type) ) {
             $this->getQueryBuilder()->andWhere( $this->getQueryBuilder()->expr()->in('p.type', $type));
         }
-        
+
         return $this->getQueryBuilder();
     }
 
@@ -136,7 +147,21 @@ class PostsGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere("po.status = :status ");
             $this->getQueryBuilder()->setParameter('status', $status);
         }
-        
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param string $moduleCode
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setModuleCode($moduleCode)
+    {
+        if ( is_string($moduleCode) ) {
+            $this->getQueryBuilder()->andWhere('module.code =  :moduleCode ');
+            $this->getQueryBuilder()->setParameter('moduleCode', $moduleCode);
+        }
+
         return $this->getQueryBuilder();
     }
 }

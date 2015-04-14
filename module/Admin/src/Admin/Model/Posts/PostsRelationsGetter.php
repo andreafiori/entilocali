@@ -6,7 +6,7 @@ use Application\Model\QueryBuilderHelperAbstract;
 
 /**
  * Posts Query and Records Getters
- * 
+ *
  * @author Andrea Fiori
  * @since  15 April 2014
  */
@@ -14,15 +14,24 @@ class PostsRelationsGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('IDENTITY(r.posts) AS posts, IDENTITY(r.category) AS category, IDENTITY(r.module) AS module, IDENTITY(r.channel) AS canale');
-        
-        $this->getQueryBuilder()->add('select', $this->getSelectQueryFields())
-                                ->add('from', 'Application\Entity\ZfcmsPostsRelations r ')
-                                ->add('where', 'r.channel = :channel ');
+        $this->setSelectQueryFields('IDENTITY(r.posts) AS postsId,
+                                    IDENTITY(r.category) AS categoryId,
+                                    IDENTITY(r.module) AS moduleId,
+                                    IDENTITY(r.channel) AS channelId
+                                    ');
+
+        $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
+                                ->from('Application\Entity\ZfcmsPostsRelations', 'r')
+                                ->join('r.module', 'module')
+                                ->join('r.posts', 'posts')
+                                ->join('r.category', 'categ')
+                                ->where('r.channel = :channel AND r.module = module.id
+                                        AND r.posts = posts.id AND r.category = categ.id
+                                        ');
 
         return $this->getQueryBuilder();
     }
- 
+
     /**
      * @param number $channel
      */
@@ -31,10 +40,10 @@ class PostsRelationsGetter extends QueryBuilderHelperAbstract
         if (is_numeric($channel)) {
             $this->getQueryBuilder()->setParameter('channel', $channel);
         }
-        
+
         return $this->getQueryBuilder();
     }
-    
+
     /**
      * @param number $id
      * @return number
@@ -45,15 +54,15 @@ class PostsRelationsGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere('r.posts = :id ');
             $this->getQueryBuilder()->setParameter('id', $id);
         }
-        
+
         if ( is_array($id) ) {
             $this->getQueryBuilder()->andWhere('r.posts IN ( :id ) ');
             $this->getQueryBuilder()->setParameter('id', $id);
         }
-        
+
         return $this->getQueryBuilder();
     }
-    
+
     /**
      * @param number $id
      * @return number
@@ -64,7 +73,7 @@ class PostsRelationsGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere('r.module = :moduleId');
             $this->getQueryBuilder()->setParameter('moduleId', $id);
         }
-        
+
         return $this->getQueryBuilder();
     }
 }

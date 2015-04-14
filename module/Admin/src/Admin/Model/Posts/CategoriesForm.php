@@ -20,9 +20,9 @@ class CategoriesForm extends Form
                     'options' => array( 'label' => '* Nome' ),
                     'attributes' => array(
                                     'required' => 'required',
-                                    'class' => 'form-control',
                                     'title' => 'Inserisci nome categoria',
                                     'id' => 'name',
+                                    'maxlength' => 255,
                     )
         ));
         
@@ -31,9 +31,9 @@ class CategoriesForm extends Form
                         'type' => 'Text',
                         'options' => array( 'label' => 'Descrizione' ),
                         'attributes' => array(
-                                        'class' => 'form-control',
-                                        'title' => 'Inserisci descrizione',
-                                        'id'    => 'nome',
+                                        'title'     => 'Inserisci descrizione',
+                                        'id'        => 'nome',
+                                        'maxlength' => 255,
                         )
         ));
         
@@ -52,7 +52,6 @@ class CategoriesForm extends Form
                         'options' => array( 'label' => 'Descrizione' ),
                         'attributes' => array(
                                         'id' => 'seoDescription',
-                                        'class' => 'form-control',
                                         'title' => 'Inserisci descrizione per i motori di ricerca',
                                         'rows' => 5,
                         ),
@@ -64,7 +63,6 @@ class CategoriesForm extends Form
                         'options' => array( 'label' => 'Parole chiave (separate da virgola)' ),
                         'attributes' => array(
                                         'id'    => 'seoKeywords',
-                                        'class' => 'form-control',
                                         'title' => 'Parole chiave per i motori di ricerca',
                                         'rows'  => '5',
                         )
@@ -81,21 +79,5 @@ class CategoriesForm extends Form
                         'type' => 'Hidden',
                         'attributes' => array( 'id' => 'id', 'class' => 'hiddenField' )
         ));
-        
-        /*
-         * TODO: parentId sub categories selection...
-         * 
-        $this->add(array(
-                    'name' => 'accesskey',
-                    'type' => 'Text',
-                    'options' => array( 'label' => 'Accesskey' ),
-                    'attributes' => array(
-                                    'class' => 'form-control',
-                                    'title' => 'Inserisci tasto shortcut da tastiera',
-                                    'maxlength' => '3',
-                                    'id' => 'accesskey',
-                    )
-        ));
-        */
     }
 }

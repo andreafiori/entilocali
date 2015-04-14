@@ -1,0 +1,332 @@
+<div class="table-responsive">
+    <table class="table table-bordered" id="zf2-pagination-table">
+        <thead>
+        <tr>
+            <?php foreach($this->columns as $column): ?>
+                <?php if ( is_array($column) ): ?>
+                    <th style="width: <?php echo $column['width'] ?>"><?php echo $column['label'] ?></th>
+                <?php else: ?>
+                    <th><?php echo $column ?></th>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach($this->records as $records): ?>
+            <tr class="odd gradeX<?php if (isset($records['style'])): if ($records['style']=='hidden'): ?> info<?php endif; endif; ?>">
+                <?php foreach($records as $key => $record): ?>
+                    <?php if (is_array($record)): ?>
+                        <?php if ($record['type']=='updateButton'): ?>
+                            <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                                <a href="<?php echo $record['href'] ?>" class="btn btn-lg" title="<?php echo $record['title'] ?>"><i class="fa fa-pencil"></i> </a>
+                            </td>
+                        <?php elseif($record['type']=='alboRettificaButton'): ?>
+                            <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                                <a href="#alboRevisionModal" data-id="<?php echo $record['data-id'] ?>" class="open-alboRevisionModal btn btn-lg" title="Rettifica articolo"><i class="fa fa-edit"></i> </a>
+                            </td>
+                        <?php elseif($record['type']=='alboAnnulledButton'): ?>
+                            <td colspan="4" valign="middle" class="text-center<?php echo isset($record['class']) ? ' '.$record['class'] : '' ?>">
+                                <h4>ARTICOLO ANNULLATO</h4>
+                            </td>
+                            <!-- hidden fields to avoid js datatable error... -->
+                            <td style="display: none">&nbsp;</td>
+                            <td style="display: none">&nbsp;</td>
+                            <td style="display: none">&nbsp;</td>
+                        <?php elseif($record['type']=='alboAnnullButton'): ?>
+                            <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                                <a href="#alboAnnullModal" data-id="<?php echo $record['data-id'] ?>" class="open-alboAnnullModal btn btn-lg icon-red" title="Annulla articolo"><i class="fa fa-ban"></i> </a>
+                            </td>
+                        <?php elseif($record['type']=='alboPublishButton'): ?>
+                            <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                                <a href="#alboPublishModal" data-action="<?php echo $record['data-form-action'] ?>" data-id="<?php echo $record['data-id'] ?>" class="open-alboPublishModal btn btn-lg" title="<?php echo (isset($record['title'])) ? $record['title'] : "Pubblica" ?>"><i class="fa fa-globe"></i> </a>
+                            </td>
+                        <?php elseif($record['type']=='activeButton'): ?>
+                            <td><a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-green" title="<?php echo (isset($record['title'])) ? $record['title'] : 'Attiva' ?>"><i class="fa fa-power-off"></i> </a></td>
+                        <?php elseif($record['type']=='disableButton'): ?>
+                            <td><a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-red" title="<?php echo (isset($record['title'])) ? $record['title'] : 'Disattiva' ?>"><i class="fa fa-power-off"></i> </a></td>
+                        <?php elseif($record['type']=='ignore'): ?>
+                            <!-- No content -->
+                        <?php elseif($record['type']=='noButton'): ?>
+                            <td>&nbsp;</td>
+                        <?php elseif($record['type']=='deleteButton'): ?>
+                            <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                                <a href="#deleteModal" data-action="<?php echo $record['href'] ?>" data-id="<?php echo $record['data-id'] ?>" class="open-deleteModal btn btn-lg icon-red" title="<?php echo (isset($record['title'])) ? $record['title'] : 'Elimina' ?>"><i class="fa fa-times"></i> </a>
+                            </td>
+                        <?php elseif($record['type']=='homepagePutButton'): ?>
+                            <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                                <a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-green" title="Metti in home page"><i class="fa fa-home"></i> </a>
+                            </td>
+                        <?php elseif($record['type']=='homepageDelButton'): ?>
+                            <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                                <a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-red" title="Togli dalla home page"><i class="fa fa-home"></i> </a>
+                            </td>
+                        <?php elseif($record['type']=='tableButton'): ?>
+                            <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                                <a href="<?php echo $record['href'] ?>" class="btn btn-lg" title="<?php echo $record['title'] ?>"><i class="fa fa-table"></i> </a>
+                            </td>
+                        <?php elseif($record['type']=='attachButton'): ?>
+                            <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                                <a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-black" title="<?php echo isset($record['title']) ? $record['title'] : 'Gestione allegati'; ?>"><i class="fa fa-paperclip"></i> </a>
+                            </td>
+                        <?php elseif($record['type']=='relatapdfButton'): ?>
+                            <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                                <a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-red" title="Genera documento relata di pubblicazione"><i class="fa fa-file-pdf-o"></i> </a>
+                            </td>
+                        <?php elseif($record['type']=='enteterzoButton'): ?>
+                            <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                                <a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-black" title="Invia ad ente terzo"><i class="fa fa-envelope-square"></i></a>
+                            </td>
+                        <?php elseif($record['type']=='squareIconButton'): ?>
+                            <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                                <a href="<?php echo $record['href'] ?>" class="btn btn-lg" title="<?php echo isset($record['title']) ? $record['title'] : null ?>"><i class="fa fa-check-square-o"></i> </a>
+                            </td>
+                        <?php elseif($record['type']=='positionButton'): ?>
+                            <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                                <a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-black" title="<?php echo isset($record['title']) ? $record['title'] : null ?>"><i class="fa fa-cogs"></i> </a>
+                            </td>
+                        <?php elseif($record['type']=='field'): // normal text \ data field ?>
+                            <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                                <?php echo utf8_encode($record['record']) ?>
+                            </td>
+                        <?php endif; ?>
+                    <?php else: ?>
+                        <?php if (!$record instanceof \DateTime): ?>
+                            <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                                <?php echo utf8_encode($record) ?>
+                            </td>
+                        <?php else: ?>
+                            <td>
+                                <?php echo $record->format('d-m-Y H:i:s') ?>
+                            </td>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+
+<?php
+
+if ( count($this->paginator) > 1 ):
+    try {
+        echo $this->paginationControl(
+            $this->paginator,
+            'sliding',
+            'application/pagination/bootstrap.phtml',
+            array(
+                'route' => $this->route,
+                'tablesetter' => $this->tablesetter,
+                'lang'        => $this->lang ? $this->lang : 'it',
+            )
+        );
+    } catch (Exception $e) {
+        ?>
+        <div class="alert alert-danger">
+            <h3>Errore paginazione</h3>
+            <p>Errore nella visualizzazione dei numeri di pagina: <?php echo $e->getMessage() ?></p>
+        </div>
+    <?php
+    }
+endif;
+
+?>
+
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="ConfirmDeleteModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content panel-danger">
+
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="deleteModalLabel"><strong>Conferma eliminazione?</strong></h4>
+            </div>
+
+            <form action="" method="post" id="frmDeleteModal">
+                <div class="modal-body">
+                    <p><strong>Attenzione:</strong> i dati di questo elemento e i contenuti ad esso collegati verranno cancellati
+                        definitivamente e non sar&agrave; possibile recuperarli se non richiedendo
+                        un <strong>backup dei dati</strong> all'amministratore del sito web.</p>
+
+                    <input type="hidden" name="deleteId" id="deleteId" value="" />
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
+                    <button type="submit" class="btn btn-danger">Conferma</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modale revisione articolo albo -->
+<div class="modal fade" id="alboRevisionModal" tabindex="-1" role="dialog" aria-labelledby="alboRevisionModalAriaLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content panel-info">
+
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="alboRevisionModalLabel"><strong>Conferma revisione?</strong></h4>
+            </div>
+
+            <form action="" method="post">
+                <div class="modal-body">
+                    <p><strong>Attenzione:</strong> L'articolo &egrave; gi&agrave; stato pubblicato. Vuoi passare alla revisione?</p>
+                    <p>L'articolo sar&agrave; nuovamente on-line una volta confermato il doppio passaggio uno dell'articolo e l'altro per gli allegati.</p>
+
+                    <input type="hidden" name="revisionId" id="revisionId" value="" />
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
+                    <button type="submit" class="btn btn-primary">Conferma</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modale annullamento articolo albo -->
+<div class="modal fade" id="alboAnnullModal" tabindex="-1" role="dialog" aria-labelledby="DisableArticleAlboPretorio" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content panel-danger">
+
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="alboAnnullModalLabel"><strong>Annulla articolo?</strong></h4>
+            </div>
+
+            <form action="" method="post">
+                <div class="modal-body">
+                    <p><strong>Attenzione:</strong> una volta annullato l'articolo non potr&agrave; pi&ugrave; essere ripristinato
+                    se non su esplicita richiesta agli amministratori di sistema.</p>
+
+                    <input type="hidden" name="annullId" id="annullId" value="" />
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
+                    <button type="submit" class="btn btn-danger">Conferma</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modale conferma pubblicazione articolo albo -->
+<div class="modal fade" id="alboPublishModal" tabindex="-1" role="dialog" aria-labelledby="alboPublishModalAlboAriaLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content panel-info">
+
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="alboPublishModalLabel"><strong>Pubblica articolo?</strong></h4>
+            </div>
+
+            <form action="" method="post" id="frmAlboPublish">
+                <div class="modal-body">
+                    <p>L'articolo sar&agrave; visibile sul sito pubblico.</p>
+
+                    <input type="hidden" name="publishId" id="publishId" value="" />
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
+                    <button type="submit" class="btn btn-primary">Conferma</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    /* Force scroll for large tables */
+    function forceResponsiveTables() {
+        var windowSize = $(window).width();
+        if ($('.table-responsive > .table').length > 0) {
+            $.each($('.table-responsive > .table'), function (index, value) {
+                var thisTable = $(value);
+                var tableSize = thisTable.width();
+                var parent = thisTable.parent('.table-responsive');
+                /* 768px is the default for bootstrap 3's responsive-table, modify if needed */
+                if (windowSize <= 768) {
+                    parent.css('width', '').css('overflow-x', '').css('overflow-y', '').css('margin-bottom', '').css('border', '');
+                } else {
+                    if (tableSize >= windowSize) {
+                        /* Change the border color based on the bootstrap theme colors */
+                        parent.css('width', '100%').css('overflow-x', 'scroll').css('overflow-y', 'hidden').css('margin-bottom', '15px').css('border', '1px solid #DDDDDD');
+                    } else {
+                        parent.css('width', '').css('overflow-x', '').css('overflow-y', '').css('margin-bottom', '').css('border', '');
+                    }
+                }
+            });
+        }
+    }
+
+    $(document).ready(function () {
+
+        $(window).resize(forceResponsiveTables);
+
+        forceResponsiveTables();
+
+        $(".open-deleteModal").click(function(e) {
+            e.preventDefault();
+
+            var _self = $(this);
+
+            var dataId = _self.data('id');
+            var dataAction = _self.data('action');
+
+            $("#deleteId").val(dataId);
+            $('#frmDeleteModal').attr('action', dataAction);
+
+            $(_self.attr('href')).modal('show');
+        });
+
+        $(".open-alboRevisionModal").click(function(e) {
+            e.preventDefault();
+
+            var _self = $(this);
+
+            var dataId = _self.data('id');
+            $("#revisionId").val(dataId);
+
+            $(_self.attr('href')).modal('show');
+        });
+
+        $(".open-alboPublishModal").click(function(e) {
+            e.preventDefault();
+
+            var _self = $(this);
+
+            var dataId = _self.data('id');
+            var dataAction = _self.data('action');
+
+            $("#publishId").val(dataId);
+            $('#frmAlboPublish').attr('action', dataAction);
+
+            $(_self.attr('href')).modal('show');
+        });
+
+        $(".open-alboAnnullModal").click(function(e) {
+            e.preventDefault();
+
+            var _self = $(this);
+
+            var dataId = _self.data('id');
+            $("#annullId").val(dataId);
+
+            $(_self.attr('href')).modal('show');
+        });
+    });
+</script>

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsPosts
  *
- * @ORM\Table(name="zfcms_posts", indexes={@ORM\Index(name="parent_id", columns={"parent_id"}), @ORM\Index(name="alias", columns={"alias"}), @ORM\Index(name="flag_allegati", columns={"flag_attachments"})})
+ * @ORM\Table(name="zfcms_posts", indexes={@ORM\Index(name="parent_id", columns={"parent_id"}), @ORM\Index(name="flag_allegati", columns={"flag_attachments"}), @ORM\Index(name="fk_posts_user_id", columns={"user_id"})})
  * @ORM\Entity
  */
 class ZfcmsPosts
@@ -52,30 +52,26 @@ class ZfcmsPosts
     /**
      * @var integer
      *
+     * @ORM\Column(name="flag_attachments", type="integer", nullable=true)
+     */
+    private $flagAttachments;
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="parent_id", type="bigint", nullable=false)
      */
     private $parentId;
 
     /**
-     * @var string
+     * @var \Application\Entity\ZfcmsUsers
      *
-     * @ORM\Column(name="type", type="string", length=40, nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsers")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * })
      */
-    private $type;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="alias", type="string", length=40, nullable=false)
-     */
-    private $alias;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="flag_attachments", type="string", nullable=false)
-     */
-    private $flagAttachments;
+    private $user;
 
 
 }

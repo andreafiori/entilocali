@@ -137,4 +137,3 @@ var isIE = function() {
 		return v > 4 ? v : undef;
 	}
 }
-

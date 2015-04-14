@@ -1,0 +1,52 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ZfcmsTagsRelations
+ *
+ * @ORM\Table(name="zfcms_tags_relations", indexes={@ORM\Index(name="fk_tags_relations", columns={"tag_id"}), @ORM\Index(name="fk_tags_module", columns={"module_id"})})
+ * @ORM\Entity
+ */
+class ZfcmsTagsRelations
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="reference_id", type="bigint", nullable=false)
+     */
+    private $referenceId;
+
+    /**
+     * @var \Application\Entity\ZfcmsModules
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsModules")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="module_id", referencedColumnName="id")
+     * })
+     */
+    private $module;
+
+    /**
+     * @var \Application\Entity\ZfcmsTags
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsTags")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="tag_id", referencedColumnName="id")
+     * })
+     */
+    private $tag;
+
+
+}

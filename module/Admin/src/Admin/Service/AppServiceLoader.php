@@ -144,8 +144,6 @@ class AppServiceLoader extends AppServiceLoaderAbstract
             $ui->setAdditionalFrontendConfigurationsArray();
         }
 
-        $ui->setPreloadResponse($this->recoverService('entityManager'));
-
         $this->setService('UserInterfaceConfigurations', $ui);
 
         return $ui;

@@ -13,11 +13,12 @@ class ServiceLocatorFactory
 
     /**
      * @throw ServiceLocatorFactory\NullServiceLocatorException
+     *
      * @return \Zend\ServiceManager\ServiceManager
      */
     public static function getInstance()
     {
-        if(null === self::$serviceManager) {
+        if (null === self::$serviceManager) {
 			throw new NullServiceLocatorException('ServiceLocator is not set');
         }
 
@@ -25,7 +26,7 @@ class ServiceLocatorFactory
     }
 
     /**
-     * @param ServiceManager
+     * @param ServiceManager $sm
      */
     public static function setInstance(ServiceManager $sm)
     {

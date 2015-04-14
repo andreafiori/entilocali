@@ -175,7 +175,7 @@ class AuthController extends SetupAbstractController
                         $userDetails->acl                   = $aclSetter->getAcl();
                         $userDetails->salt                  = $records['salt'];
                         $userDetails->passwordLastUpdate    = $records['passwordLastUpdate'];
-                        $userDetails->role                  = $records['role'];
+                        $userDetails->role                  = $records['roleName'];
 
                         // Set user session values
                         $sessionContainer = new SessionContainer();
