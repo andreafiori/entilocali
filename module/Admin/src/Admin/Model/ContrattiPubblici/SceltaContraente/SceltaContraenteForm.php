@@ -16,7 +16,13 @@ class SceltaContraenteForm extends Form
     public function __construct($name = null, $options = array())
     {
         parent::__construct($name, $options);
-        
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'id',
+            'attributes' => array("class" => 'hiddenField')
+        ));
+
         $this->add(array(
                         'name' => 'nomeScelta',
                         'type' => 'Text',
@@ -44,12 +50,6 @@ class SceltaContraenteForm extends Form
                 'title'    => 'Seleziona stato',
                 'id'       => 'attivo'
             )
-        ));
-
-        $this->add(array(
-            'type' => 'Zend\Form\Element\Hidden',
-            'name' => 'id',
-            'attributes' => array("class" => 'hiddenField')
         ));
     }
 }

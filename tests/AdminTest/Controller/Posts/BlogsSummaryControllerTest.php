@@ -18,6 +18,8 @@ class BlogsSummaryControllerTest extends TestSuite
         parent::setUp();
 
         $this->controller = new BlogsSummaryController();
+        $this->controller->setEvent($this->event);
+        $this->controller->setServiceLocator($this->getServiceManager());
     }
 
     public function testIndexAction()

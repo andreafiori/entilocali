@@ -20,10 +20,6 @@ class IndexControllerTest // extends TestSuite
 
         ServiceLocatorFactory::setInstance( $this->getServiceManager() );
 
-        $serviceManager = $this->serviceManager;
-        $serviceManager->setAllowOverride(true);
-        $serviceManager->setService('doctrine.entitymanager.orm_default', $this->getEntityManagerMock());
-
         $this->controller = new IndexController();
         $this->controller->setServiceLocator( ServiceLocatorFactory::getInstance() );
         $this->controller->setEvent($this->event);
@@ -35,9 +31,7 @@ class IndexControllerTest // extends TestSuite
         $this->routeMatch->setParam('action', 'index');
         
         $this->controller->dispatch($this->request);
-        
-        $response = $this->controller->getResponse();
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(200, $this->controller->getResponse()->getStatusCode());
     }
 }

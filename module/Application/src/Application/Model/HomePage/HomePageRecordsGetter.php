@@ -22,4 +22,37 @@ class HomePageRecordsGetter extends QueryBuilderHelperAbstract
 
         return $this->getQueryBuilder();
     }
+
+    /**
+     * @param int|array $id
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setId($id)
+    {
+        if ( is_numeric($id) ) {
+            $this->getQueryBuilder()->andWhere('h.id = :id ');
+            $this->getQueryBuilder()->setParameter('id', $id);
+        }
+
+        if (is_array($id)) {
+            $this->getQueryBuilder()->andWhere('h.id IN ( :id ) ');
+            $this->getQueryBuilder()->setParameter('id', $id);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param $moduleCode
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setModuleCode($moduleCode)
+    {
+        if ( is_string($moduleCode) ) {
+            $this->getQueryBuilder()->andWhere('m.code = :moduleCode ');
+            $this->getQueryBuilder()->setParameter('moduleCode', $moduleCode);
+        }
+
+        return $this->getQueryBuilder();
+    }
 }

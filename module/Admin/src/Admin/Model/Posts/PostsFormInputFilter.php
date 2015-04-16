@@ -24,6 +24,7 @@ class PostsFormInputFilter implements InputFilterAwareInterface
     public $seoKeywords;
     public $seoDescription;
     public $status;
+    public $moduleId;
 
     protected $inputFilter;
 
@@ -40,8 +41,12 @@ class PostsFormInputFilter implements InputFilterAwareInterface
         $this->seoKeywords  	= (isset($data['seoKeywords']))  ? $data['seoKeywords']  : null;
         $this->seoDescription  	= (isset($data['seoDescription']))  ? $data['seoDescription']  : null;
         $this->status  	        = (isset($data['status']))  ? $data['status']  : null;
+        $this->moduleId  	    = (isset($data['moduleId']))  ? $data['moduleId']  : null;
     }
 
+    /**
+     * @return array
+     */
     public function getArrayCopy()
     {
         return get_object_vars($this);

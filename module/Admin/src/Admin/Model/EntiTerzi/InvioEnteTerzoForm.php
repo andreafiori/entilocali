@@ -18,14 +18,14 @@ class InvioEnteTerzoForm extends Form
         parent::__construct($name, $options);
 
         $this->add(array(
-                        'name' => 'title',
+                        'name' => 'emailEnte',
                         'type' => 'Email',
                         'options' => array( 'label' => "* Indirizzo email ente" ),
                         'attributes' => array(
-                                        'required' => 'required',
-                                        'placeholder' => 'Email ente',
-                                        'title' => 'Inserisci indirizzo email ente a cui inviare',
-                                        'id' => 'title',
+                                        'required'      => 'required',
+                                        'placeholder'   => 'Email ente...',
+                                        'title'         => 'Inserisci indirizzo email ente a cui inviare',
+                                        'id'            => 'emailEnte',
                         )
         ));
     }

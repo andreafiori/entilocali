@@ -29,14 +29,10 @@ class AlboPretorioFormControllerHelperTest extends TestSuite
         $this->alboPretorioFormControllerHelper = new AlboPretorioFormControllerHelper();
     }
 
-    public function testRecoverAlboArticolo()
+    public function testSetupAlboArticolo()
     {
-        $records = $this->alboPretorioFormControllerHelper->recoverAlboArticolo(
-
-            new AlboPretorioArticoliGetterWrapper(
-                new AlboPretorioArticoliGetter( $this->getEntityManagerMock() )
-            ),
-
+        $records = $this->alboPretorioFormControllerHelper->setupAlboArticolo(
+            new AlboPretorioArticoliGetterWrapper( new AlboPretorioArticoliGetter( $this->getEntityManagerMock() )  ),
             1
         );
 
@@ -46,11 +42,7 @@ class AlboPretorioFormControllerHelperTest extends TestSuite
     public function testRecoverUsersRecords()
     {
         $records = $this->alboPretorioFormControllerHelper->recoverUsersRecords(
-
-            new UsersGetterWrapper(
-                new UsersGetter( $this->getEntityManagerMock() )
-            ),
-
+            new UsersGetterWrapper( new UsersGetter($this->getEntityManagerMock()) ),
             1
         );
 
@@ -60,11 +52,7 @@ class AlboPretorioFormControllerHelperTest extends TestSuite
     public function testRecoverSezioniRecords()
     {
         $records = $this->alboPretorioFormControllerHelper->recoverSezioniRecords(
-
-            new AlboPretorioSezioniGetterWrapper(
-                new AlboPretorioSezioniGetter( $this->getEntityManagerMock() )
-            ),
-
+            new AlboPretorioSezioniGetterWrapper( new AlboPretorioSezioniGetter($this->getEntityManagerMock()) ),
             1
         );
 

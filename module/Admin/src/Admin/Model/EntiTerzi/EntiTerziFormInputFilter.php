@@ -28,6 +28,10 @@ class EntiTerziFormInputFilter implements InputFilterAwareInterface
         $this->email = (isset($data['email'])) ? $data['email']  : null;
     }
 
+    /**
+     * @param InputFilterInterface $inputFilter
+     * @throws \Exception
+     */
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
         throw new \Exception("This method is unused");

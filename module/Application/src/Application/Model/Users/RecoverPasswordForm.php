@@ -11,8 +11,7 @@ use Zend\Form\Form;
 class RecoverPasswordForm extends Form
 {
     /**
-     * @param type $name
-     * @param type $options
+     * @inheritdoc
      */
     public function __construct($name = null, $options = array())
     {

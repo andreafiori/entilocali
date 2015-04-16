@@ -25,9 +25,9 @@ class ContrattiPubbliciCrudHandler extends CrudHandlerAbstract implements CrudHa
 
         $this->formInputFilter = new ContrattiPubbliciFormInputFilter();
 
-        $this->dbTable = DbTableContainer::attiConcessione;
+        $this->dbTable = DbTableContainer::contratti;
 
-        $this->moduleId = ModulesContainer::atti_concessione;
+        $this->moduleId = ModulesContainer::contratti_pubblici_id;
     }
 
     /**

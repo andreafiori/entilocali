@@ -68,7 +68,9 @@ class BlogsSummaryController extends SetupAbstractController
 
         $selectArray = array();
         foreach($categoriesRecords as $categoriesRecord) {
-            $selectArray[$categoriesRecord['id']] = $categoriesRecord['name'];
+            $id = isset($categoriesRecord['id']) ? $categoriesRecord['id'] : null;
+            $name = isset($categoriesRecord['name']) ? $categoriesRecord['name'] : null;
+            $selectArray[$id] = $name;
         }
 
         $form = new PostsSearchForm();

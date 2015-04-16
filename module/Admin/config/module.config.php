@@ -15,6 +15,7 @@ return array(
             /* Enti Terzi */
             'Admin\Controller\EntiTerzi\EntiTerziFormController'                => 'Admin\Controller\EntiTerzi\EntiTerziFormController',
             'Admin\Controller\EntiTerzi\EntiTerziSummaryController'             => 'Admin\Controller\EntiTerzi\EntiTerziSummaryController',
+            'Admin\Controller\EntiTerzi\InvioEnteTerzoController'               => 'Admin\Controller\EntiTerzi\InvioEnteTerzoController',
 
             /* Blogs */
             'Admin\Controller\Posts\BlogsCategoriesSummaryController'           => 'Admin\Controller\Posts\BlogsCategoriesSummaryController',
@@ -22,7 +23,6 @@ return array(
             'Admin\Controller\Posts\BlogsFormController'                        => 'Admin\Controller\Posts\BlogsFormController',
 
             /* Photo */
-
 
             'Admin\Controller\SezioniPositionsUpdateController'                 => 'Admin\Controller\SezioniPositionsUpdateController',
             'Admin\Controller\SottoSezioniPositionsUpdateController'            => 'Admin\Controller\SottoSezioniPositionsUpdateController',
@@ -95,6 +95,19 @@ return array(
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\AlboPretorio\AlboPretorioFormController',
                                 'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'albo-pretorio-form-rettifica' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'       => 'albo-pretorio/form/rettifica[/][:id[/]]',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\AlboPretorio\AlboPretorioFormController',
+                                'action'     => 'rettifica',
                             ),
                         ),
                     ),
@@ -261,16 +274,30 @@ return array(
                     'invio-ente-terzo' => array(
                                     'type'    => 'Segment',
                                     'options' => array(
-                                                'route'       => 'invio-ente-terzo[/][:modulename][/][:id][/]',
+                                                'route'       => 'invio-ente-terzo/:modulename/:id[/]',
                                                 'constraints' => array(
                                                         'modulename' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                                         'id'         => '[0-9]+',
                                                 ),
                                                 'defaults' => array(
-                                                        'controller' => 'Admin\Controller\Admin',
+                                                        'controller' => 'Admin\Controller\EntiTerzi\InvioEnteTerzoController',
                                                         'action'     => 'index',
                                                 ),
                                     ),
+                    ),
+                    'invio-ente-terzo-inviomail' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'       => 'invio-ente-terzo-sendmail/:modulename/:id[/]',
+                            'constraints' => array(
+                                'modulename' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id'         => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\EntiTerzi\InvioEnteTerzoController',
+                                'action'     => 'inviomail',
+                            ),
+                        ),
                     ),
                     'posizioni-sezioni' => array(
                         'type'    => 'Segment',
@@ -438,6 +465,8 @@ return array(
             'admin/albo-pretorio-form/index'                => __DIR__ . '/../view/admin/empty.phtml',
             'admin/albo-pretorio-pdf/relata'                => __DIR__ . '../../view/admin/albo-pretorio-pdf/relata.phtml',
 
+            'admin/invio-ente-terzo/index'                  => __DIR__ . '/../view/admin/empty.phtml',
+
             /* Posts */
             'admin/blogs-summary/index'                     => __DIR__ . '/../view/admin/empty.phtml',
             'admin/blogs-form/index'                        => __DIR__ . '/../view/admin/empty.phtml',
@@ -518,7 +547,6 @@ return array(
         'newsletter'                            => 'Admin\Model\Newsletter\NewsletterCrudHandler',
         'posts'                                 => 'Admin\Model\Posts\PostsCrudHandler',
         'enti-terzi'                            => 'Admin\Model\EntiTerzi\EntiTerziCrudHandler',
-        'invio-ente-terzo'                      => 'Admin\Model\EntiTerzi\InvioEnteTerzoCrudHandler',
         'stato-civile'                          => 'Admin\Model\StatoCivile\StatoCivileCrudHandler',
         'stato-civile-sezioni'                  => 'Admin\Model\StatoCivile\StatoCivileSezioniCrudHandler',
         'tickets'                               => 'Admin\Model\Tickets\TicketsCrudHandler',

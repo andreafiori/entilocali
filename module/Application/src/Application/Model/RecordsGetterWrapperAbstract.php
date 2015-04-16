@@ -235,7 +235,12 @@ abstract class RecordsGetterWrapperAbstract
 
         foreach($records as &$record) {
             $attachments = new AttachmentsGetterWrapper( new AttachmentsGetter($this->getEntityManager()) );
-            $attachments->setInput(array_merge($input, array('referenceId' => $record['id'])));
+            $attachments->setInput(array_merge(
+                $input,
+                array(
+                    'referenceId' => isset($record['id']) ? $record['id'] : null
+                )
+            ));
             $attachments->setupQueryBuilder();
 
             $attachmentsRecords = $attachments->getRecords();

@@ -12,9 +12,12 @@ use Zend\Form\Element;
  */
 class ContactsForm extends Form 
 {
+    /**
+     * @inheritdoc
+     */
     public function __construct($name = null) 
     {
-        parent::__construct('contactForm');
+        parent::__construct($name);
                 
         $this->add(array( 
             'name' => 'nome', 

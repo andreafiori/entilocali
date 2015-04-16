@@ -13,60 +13,84 @@ class AlboPretorioArticoliForm extends Form
 {
     public function addTitolo()
     {
-        $this->add(array(
-            'type' => 'Text',
-            'name' => 'titolo',
-            'options' => array(
-                'label' => '* Oggetto',
-            ),
-            'attributes' => array(
-                'title'         => 'Inserisci oggetto articolo',
-                'id'            => 'titolo',
-                'required'      => 'required',
-                'placeholder'   => 'Oggetto...',
-            )
-        ));
+        $this->add($this->recoverTitolo());
     }
+
+    public function addTitoloReadOnly()
+    {
+        $titolo = $this->recoverTitolo();
+
+        $titolo['attributes']['readonly'] = 'readonly';
+
+        $this->add($titolo);
+    }
+
+        /**
+         * @return array
+         */
+        private function recoverTitolo()
+        {
+            return array(
+                        'type' => 'Text',
+                        'name' => 'titolo',
+                        'options' => array(
+                            'label' => '* Oggetto',
+                        ),
+                        'attributes' => array(
+                            'title'         => 'Inserisci oggetto articolo',
+                            'id'            => 'titolo',
+                            'required'      => 'required',
+                            'placeholder'   => 'Oggetto...',
+                        )
+            );
+        }
 
     /**
      * Given sezioni from db, set the array for the select
      * 
      * @param array $sezioni
      */
-    public function addSezioni($sezioni)
+    public function addSezioni(array $sezioni)
     {
-        if (empty($sezioni)) {
-            return false;
-        }
-
         $this->add(array(
-            'type' => 'Zend\Form\Element\Select',
-            'name' => 'sezione',
-            'options' => array(
-                'label' => '* Sezione',
-                'empty_option' => 'Seleziona',
-                'value_options' => $sezioni,
-            ),
-            'attributes' => array(
-                'title'     => 'Seleziona sezione',
-                'id'        => 'sezione',
-                'required'  => 'required',
-            )
+                        'type' => 'Zend\Form\Element\Select',
+                        'name' => 'sezione',
+                        'options' => array(
+                            'label' => '* Sezione',
+                            'empty_option' => 'Seleziona',
+                            'value_options' => $sezioni,
+                        ),
+                        'attributes' => array(
+                            'title'     => 'Seleziona sezione',
+                            'id'        => 'sezione',
+                            'required'  => 'required',
+                        )
         ));
     }
-    
-    public function addRettifica()
+
+    public function addNote()
     {
         $this->add(array(
                         'type' => 'Textarea',
                         'name' => 'note',
                         'options' => array(
-                               'label' => 'Note',
+                               'label' => '* Note',
                         ),
                         'attributes' => array(
-                                'title'       => 'Note rettifica',
+                                'title'       => 'Inserisci note rettifica',
                                 'id'          => 'note',
                                 'placeholder' => 'Note rettifica',
+                                'rows'        => 5,
+                                'required'    => 'required',
+                        )
+        ));
+
+        $this->add(array(
+                        'type' => 'Zend\Form\Element\Hidden',
+                        'name' => 'rettifica',
+                        'attributes' => array(
+                            'class' => 'hiddenField',
+                            'value' => 1,
                         )
         ));
     }

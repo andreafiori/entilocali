@@ -6,7 +6,6 @@ use Zend\Mail;
 use Application\Model\RouterManagers\RouterManagerAbstract;
 use Application\Model\RouterManagers\RouterManagerInterface;
 use Application\Model\Contacts\ContactsForm;
-use Application\Model\Contacts\ContactsFormValidator;
 use Application\Model\NullException;
 
 /**

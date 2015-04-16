@@ -4,8 +4,8 @@ namespace Admin\Controller\AlboPretorio;
 
 use Admin\Model\AlboPretorio\AlboPretorioArticoliGetter;
 use Admin\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
+use Admin\Model\AlboPretorio\AlboPretorioOperationsControllerHelper;
 use Application\Controller\SetupAbstractController;
-use Application\Model\Database\DbTableContainer;
 
 /**
  * @author Andrea Fiori
@@ -14,90 +14,111 @@ use Application\Model\Database\DbTableContainer;
 class AlboPretorioOperationsController extends SetupAbstractController
 {
     /**
-     * Annull atto and redirect to summary
+     * Pubblica atto albo
+     *
+     * @return string
      */
-    public function annullAction()
-    {
-        if ($this->getServiceLocator()->get('request')->isPost()) {
-
-        }
-
-        return $this->redirect()->toRoute('admin',  array('lang' => 'it') );
-    }
-
     public function publishAction()
     {
         if ($this->getServiceLocator()->get('request')->isPost()) {
 
             $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-            $record = $this->recoverArticle($em, $this->params()->fromPost('publishId'));
-
             $userDetails = $this->recoverUserDetails();
 
-            $connection = $em->getConnection();
-            $connection->beginTransaction();
+            $helper = new AlboPretorioOperationsControllerHelper();
+            $helper->setConnection($em->getConnection());
+            $record = $helper->recoverSingleArticle(
+                new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter($em)),
+                $this->params()->fromPost('publishId')
+            );
+
             try {
-                $connection->update(
-                    DbTableContainer::alboArticoli,
-
-                    array(
-                        'pubblicare' => 1,
-                        'attivo'     => 1,
-                        'annullato'  => 0,
-                    ),
-
-                    array('id' => $this->params()->fromPost('publishId') )
-                );
-
-                $this->log(
-                    array(
-                        'user_id'       => $userDetails->id,
-                        'module_id'     => 2,
-                        'message'       => "Annullato atto albo pretorio ".$record[0]['titolo'],
-                        'type'          => 'error',
-                        'backend'       => 1,
-                        'reference_id'  => $record[0]['id']
-                    )
-                );
-
-                $connection->commit();
-
-                return $this->redirect()->toRoute('admin/albo-pretorio-summary',  array('lang' => 'it') );
-
-            } catch (\Exception $e) {
-                $connection->rollBack();
+                $helper->publishArticle($this->params()->fromPost('publishId'));
 
                 $this->log(array(
-                    'user_id'   => $userDetails->id,
-                    'module_id' => 2,
-                    'message'   => "Errore annullamento atto albo pretorio ".$record[0]['titolo'].' ID: '.$record[0]['id'],
-                    'type'      => 'error',
-                    'backend'   => 1,
+                    'user_id' => $userDetails->id,
+                    'message' => "Pubblicato atto albo pretorio " . $record[0]['titolo'],
+                    'type' => 'info',
+                    'backend' => 1,
+                    'module_id' => 3,
+                    'reference_id' => $record[0]['id'],
+                ));
+            } catch (\Exception $e) {
+                $helper->getConnection()->rollBack();
+
+                $this->log(array(
+                    'user_id' => $userDetails->id,
+                    'message' => "Errore pubblicazione atto albo pretorio " . $record[0]['titolo'] . ' Messaggio generato: ' . $e->getMessage(),
+                    'type' => 'error',
+                    'backend' => 1,
+                    'module_id' => 3,
+                    'reference_id' => $record[0]['id'],
                 ));
 
-                return $e->getMessage();
+                // TODO: redidrect to a message page and show an error message
             }
         }
 
-        return $this->redirect()->toRoute('admin',  array('lang' => 'it') );
+        return $this->redirectToSummary();
     }
 
-        /**
-         * @param int $id
-         * @return AlboPretorioArticoliGetterWrapper
-         */
-        private function recoverArticle($em, $id)
-        {
-            $wrapper = new AlboPretorioArticoliGetterWrapper( new AlboPretorioArticoliGetter($em) );
-            $wrapper->setInput(
-                array(
-                    'id'    => $id,
-                    'limit' => 1,
-                )
-            );
-            $wrapper->setupQueryBuilder();
+    /**
+     * Annull atto and redirect to summary
+     */
+    public function annullAction()
+    {
+        if ($this->getServiceLocator()->get('request')->isPost()) {
 
-            return $wrapper->getRecords();
+            $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+
+            $userDetails = $this->recoverUserDetails();
+
+            $id = $this->params()->fromPost('annullId');
+
+            $helper = new AlboPretorioOperationsControllerHelper();
+            $helper->setConnection($em->getConnection());
+            $record = $helper->recoverSingleArticle(
+                new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter($em)),
+                $id
+            );
+
+            try {
+
+                $helper->annullArticle($id);
+
+                $this->log(array(
+                    'user_id'       => $userDetails->id,
+                    'message'       => "Pubblicato atto albo pretorio " . $record[0]['titolo'],
+                    'type'          => 'info',
+                    'backend'       => 1,
+                    'module_id'     => 3,
+                    'reference_id'  => $record[0]['id'],
+                ));
+
+            } catch (\Exception $e) {
+                $helper->getConnection()->rollBack();
+
+                $this->log(array(
+                    'user_id'       => $userDetails->id,
+                    'message'       => "Errore pubblicazione atto albo pretorio " . $record[0]['titolo'] . ' Messaggio generato: ' . $e->getMessage(),
+                    'type'          => 'error',
+                    'backend'       => 1,
+                    'module_id'     => 3,
+                    'reference_id'  => $record[0]['id'],
+                ));
+
+                // TODO: redidrect to a message page and show an error message
+            }
+
+            return $this->redirectToSummary();
+        }
+
+        return $this->redirectToSummary();
+    }
+
+        private function redirectToSummary()
+        {
+            return $this->redirect()->toRoute('admin/albo-pretorio-summary', array('lang' => 'it'));
         }
 }

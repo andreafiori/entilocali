@@ -9,6 +9,8 @@ use Application\Model\Database\DbTableContainer;
 use Zend\Session\Container as SessionContainer;
 
 /**
+ * TO DELETE!!! Move all this elements into its own controller and different models...
+ *
  * @author Andrea Fiori
  * @since  02 November 2014
  */
@@ -53,132 +55,6 @@ abstract class AlboPretorioArticoliDataTableAbstract extends DataTableAbstract i
         }
         
         return $articoliInput;
-    }
-
-    /**
-     * @param array $records
-     * @return array|null
-     */
-    protected function getFormattedDataTableRecords($records, $modulePrefixLink = 'albo-pretorio')
-    {
-        $arrayToReturn = array();
-        if ($records) {
-            foreach($records as $key => $record) {
-
-                $rowClass = '';
-                if ($record['attivo']==0) {
-                    $rowClass = 'rowHidden';
-                }
-
-                $arrayLine = array(
-                    array(
-                        'type'   => 'field',
-                        'record' => $record['numeroAtto']." / ".$record['anno'],
-                        'class'  => $rowClass,
-                    ),
-                    array(
-                        'type'   => 'field',
-                        'record' => $record['titolo'],
-                        'class'  => $rowClass,
-                    ),
-                    array(
-                        'type'   => 'field',
-                        'record' => $record['nomeSezione'],
-                        'class'  => $rowClass,
-                    ),
-                    array(
-                        'type'   => 'field',
-                        'record' => $record['dataScadenza'],
-                        'class'  => $rowClass,
-                    ),
-                    array(
-                        'type'   => 'field',
-                        'record' => ($record['pubblicare']==1) ? $record['dataAttivazione'] : 'Non ancora pubblicato',
-                        'class'  => $rowClass,
-                    ),
-                    array(
-                        'type'   => 'field',
-                        'record' => $record['userName'].' '.$record['userSurname'],
-                        'class'  => $rowClass,
-                    ),
-                );
-
-                $arrayLine[] = array(
-                    'type'  => 'attachButton',
-                    'href'  => $this->getInput('baseUrl',1).'formdata/attachments/'.$modulePrefixLink.'/'.$record['id'],
-                    'class' => $rowClass,
-                );
-
-                if ($record['annullato']) {
-                    $arrayLine[] = array(
-                        'type'  => 'alboAnnulledButton',
-                        'class' => $rowClass,
-                    );
-                } else {
-                    if ($record['pubblicare']==1) {
-                        $arrayLine[] = array(
-                            'type'      => 'alboRettificaButton',
-                            'href'      => $this->getInput('baseUrl',1).'formdata/'.$modulePrefixLink.'/'.$record['id'].'/?rettifica=1',
-                            'title'     => 'Rettifica articolo',
-                            'data-id'   => $record['id'],
-                            'class'  => $rowClass,
-                        );
-                    } else {
-                        // Note: quando l'articolo non è pubblicato, non è possibile modificarlo!?
-                        /*
-                        $activeDisableButtonValue = ($record['attivo']!=0) ? 'toDisable' : 'toActive';
-                        $arrayLine[] = array(
-                            'type'      => $record['attivo']!=0 ? 'activeButton' : 'disableButton',
-                            'href'      => '?active='.$activeDisableButtonValue.'&amp;id='.$record['id'],
-                            'value'     => $record['attivo'],
-                            'title'     => 'Attiva \ Disattiva',
-                            'class'     => $rowClass,
-                        );
-                        */
-                        $arrayLine[] = array(
-                            'type'      => 'alboPublishButton',
-                            'href'      => '?publish='.$record['id'],
-                            'data-id'   => $record['id'],
-                            'title'     => 'Pubblica articolo',
-                            'class'     => $rowClass,
-                        );
-
-                        $arrayLine[] = array(
-                            'type'      => 'updateButton',
-                            'href'      => $this->getInput('baseUrl',1).'formdata/'.$modulePrefixLink.'/'.$record['id'],
-                            'title'     => 'Modifica articolo',
-                            'class'     => $rowClass,
-                        );
-                    }
-
-                    $arrayLine[] = array(
-                        'type'   => 'relatapdfButton',
-                        'href'   => $this->getInput('baseUrl',1).'albo-pretorio/relata/pdf/'.$record['id'],
-                        'class'  => $rowClass,
-                    );
-
-                    $arrayLine[] = array(
-                        'type'   => 'enteterzoButton',
-                        'href'   => $this->getInput('baseUrl',1).'invio-ente-terzo/'.$modulePrefixLink.'/'.$record['id'],
-                        'class'  => $rowClass,
-                    );
-
-                    if ($record['pubblicare']==1) {
-                        $arrayLine[] = array(
-                            'type'      => 'alboAnnullButton',
-                            'href'      => '#',
-                            'data-id'   => $record['id'],
-                            'title'     => 'Annulla articolo',
-                            'class'     => $rowClass,
-                        );
-                    }
-                }
-
-                $arrayToReturn[] = $arrayLine;
-            }
-        }
-
-        return $arrayToReturn;
     }
 
     /**
@@ -232,34 +108,6 @@ abstract class AlboPretorioArticoliDataTableAbstract extends DataTableAbstract i
 
         return $this->recordsGetter->formatSezioniForFormSelect('id', 'nome');
     }
-    
-    /**
-     * @param mixed $paginatorRecords
-     * @param string $title
-     * @return array
-     */
-    protected function recoverCommonColumnsAndProperties($paginatorRecords, $title = 'Albo pretorio')
-    {
-        return array(
-            'tableTitle'        => $title,
-            'tableDescription'  => "Elenco atti albo. <strong>Attenzione:</strong> se viene effettuata una ricerca sui dati, gli stessi vengono memorizzati in sessione. Occorre resettare i dati dal form di ricerca se si vuole tornare alla visualizzazione predefinita.",
-            'tablesetter'       => 'albo-pretorio',
-            'columns' => array(
-                array('label' => 'Num \ Anno', 'width' => '10%'),
-                array('label' => 'Titolo', 'width' => '20%'),
-                'Settore',
-                'Scadenza',
-                'Data attivazione',
-                'Inserito da',
-                '&nbsp;',
-                '&nbsp;',
-                '&nbsp;',
-                '&nbsp;',
-                '&nbsp;',
-            ),
-            'paginator'   => $paginatorRecords,
-        );
-    }
 
     protected function recoverSearchForms()
     {
@@ -304,39 +152,6 @@ abstract class AlboPretorioArticoliDataTableAbstract extends DataTableAbstract i
             }
         }
     }
-
-    /**
-     * @return mixed
-     */
-    public function checkPublish()
-    {
-        if ( isset($this->param['post']['publishId']) ) {
-            
-            $connection = $this->getInput('entityManager',1)->getConnection();
-            $connection->beginTransaction();
-            try {
-                $connection->update(DbTableContainer::alboArticoli, array(
-                        'pubblicare' => 1,
-                        'attivo'     => 1,
-                        'annullato'  => 0,
-                    ),
-                    array('id' => $this->param['post']['publishId'])
-                );
-                $connection->commit();
-
-                /* Log */
-                $log = new LogsWriter($connection);
-                $log->writeLog(array(
-
-                ));
-
-            } catch (\Exception $e) {
-                $connection->rollBack();
-                return $this->setErrorMessage($e->getMessage());
-            }
-            
-        }
-    }
     
     public function checkRevision()
     {
@@ -345,24 +160,5 @@ abstract class AlboPretorioArticoliDataTableAbstract extends DataTableAbstract i
             $redirect->toUrl( $this->getInput('baseUrl',1).'formdata/albo-pretorio/'.$this->param['post']['revisionId'].'/?revision=1');
         }
     }
-    
-    public function checkAnnull()
-    {
-        $id = isset($this->param['post']['annullId']) ? $this->param['post']['annullId'] : null;
-        if ($id) {
-            $connection = $this->getInput('entityManager',1)->getConnection();
-            $connection->beginTransaction();
-            try {
-                $connection->update(DbTableContainer::alboArticoli, array(
-                        'annullato' => 1
-                    ),
-                    array('id' => $id)
-                );
-                $connection->commit();
-            } catch (\Exception $e) {
-                $connection->rollBack();
-                return $this->setErrorMessage($e->getMessage());
-            }
-        }
-    }
+
 }

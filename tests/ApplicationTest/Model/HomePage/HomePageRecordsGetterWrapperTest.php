@@ -12,13 +12,18 @@ use Application\Model\HomePage\HomePageRecordsGetterWrapper;
  */
 class HomePageRecordsGetterWrapperTest extends TestSuite
 {
+    /**
+     * @var HomePageRecordsGetterWrapper
+     */
     private $homePageRecordsGetterWrapper;
     
     protected function setUp()
     {
         parent::setUp();
         
-        $this->homePageRecordsGetterWrapper = new HomePageRecordsGetterWrapper( new HomePageRecordsGetter($this->getEntityManagerMock()) );
+        $this->homePageRecordsGetterWrapper = new HomePageRecordsGetterWrapper(
+            new HomePageRecordsGetter($this->getEntityManagerMock()
+        ));
     }
     
     public function testSetupQueryBuilder()

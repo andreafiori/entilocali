@@ -46,6 +46,10 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
 
         $params = $matchedRoute->getParams();
 
+        if (!isset($params['controller'])) {
+            return;
+        }
+
         $controller = $params['controller'];
 
         $currentControllerNamespace = explode('\\', $controller);

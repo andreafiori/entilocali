@@ -112,7 +112,7 @@ class AlboPretorioSummaryController extends SetupAbstractController
                             'class'  => $rowClass,
                         ),
                     );
-
+                    /* Attachment button */
                     $arrayLine[] = array(
                         'type'  => 'attachButton',
                         'href'  => 'formdata/attachments/'.$modulePrefixLink.'/'.$record['id'],
@@ -126,19 +126,19 @@ class AlboPretorioSummaryController extends SetupAbstractController
                         );
                     } else {
                         if ($record['pubblicare']==1) {
-                            /* Rettifica */
+                            /* Rettifica button */
                             $arrayLine[] = array(
                                 'type'      => 'alboRettificaButton',
-                                'href'      => $this->url()->fromRoute('admin/albo-pretorio-form', array(
-                                    'lang'          => 'it',
-                                    'id'            => $record['id']
+                                'data-form-action' => $this->url()->fromRoute('admin/albo-pretorio-form-rettifica', array(
+                                    'lang'      => 'it',
+                                    'id'        => $record['id'],
                                 )),
                                 'title'     => 'Rettifica articolo',
                                 'data-id'   => $record['id'],
                                 'class'     => $rowClass,
                             );
                         } else {
-                            /* Publish */
+                            /* Publish button */
                             $arrayLine[] = array(
                                 'type'      => 'alboPublishButton',
                                 'data-form-action' => $this->url()->fromRoute('admin/albo-pretorio-operations', array(
@@ -160,7 +160,7 @@ class AlboPretorioSummaryController extends SetupAbstractController
                                 'class'     => $rowClass,
                             );
                         }
-                        /* Relata button */
+                        /* Relata PDF button */
                         $arrayLine[] = array(
                             'type'   => 'relatapdfButton',
                             'href'   => 'albo-pretorio/relata/pdf/'.$record['id'],
@@ -169,13 +169,21 @@ class AlboPretorioSummaryController extends SetupAbstractController
                         /* Invio enti terzi button */
                         $arrayLine[] = array(
                             'type'   => 'enteterzoButton',
-                            'href'   => 'invio-ente-terzo/'.$modulePrefixLink.'/'.$record['id'],
+                            'href'   => $this->url()->fromRoute('admin/invio-ente-terzo', array(
+                                'lang'          => 'it',
+                                'modulename'    => $modulePrefixLink,
+                                'id'            => $record['id'],
+                            )),
                             'class'  => $rowClass,
                         );
-                        /* Publish button */
+                        /* Annull button */
                         if ($record['pubblicare']==1) {
                             $arrayLine[] = array(
                                 'type'      => 'alboAnnullButton',
+                                'data-form-action' => $this->url()->fromRoute('admin/albo-pretorio-operations', array(
+                                    'lang'          => 'it',
+                                    'action'        => 'annull'
+                                )),
                                 'href'      => '#',
                                 'data-id'   => $record['id'],
                                 'title'     => 'Annulla articolo',

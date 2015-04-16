@@ -17,18 +17,24 @@ abstract class ControllerSetupAbstract
 
     /**
      * @param RouterManager $routerManager
+     * @return RouterManager
      */
     public function setRouterManager(RouterManager $routerManager)
     {
         $this->routerManager = $routerManager;
+
+        return $this->routerManager;
     }
 
     /**
-     * @param mixed $routerManagerHelper
+     * @param RouterManagerHelper $routerManagerHelper
+     * @return RouterManagerHelper
      */
-    public function setRouterManagerHelper($routerManagerHelper)
+    public function setRouterManagerHelper(RouterManagerHelper $routerManagerHelper)
     {
         $this->routerManagerHelper = $routerManagerHelper;
+
+        return $this->routerManagerHelper;
     }
 
     /**

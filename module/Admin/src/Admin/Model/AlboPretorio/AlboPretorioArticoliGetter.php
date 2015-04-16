@@ -18,10 +18,12 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
                 alboArticoli.enteTerzo,
                 alboArticoli.attivo,
                 alboArticoli.checkRettifica,
+                alboArticoli.note,
                 IDENTITY(alboArticoli.sezione) AS sezione,
-                aps.id AS idSezione, aps.nome AS nomeSezione, 
                 alboArticoli.pubblicare,
                 alboArticoli.annullato,
+                aps.id AS idSezione, aps.nome AS nomeSezione,
+
                 u.id AS iduser, u.name AS userName, u.surname AS userSurname,
                 settoreUtente.nome AS nomeSettore
         ");
@@ -197,6 +199,7 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
 
     /**
      * @param int $noScaduti
+     * @return \Doctrine\ORM\QueryBuilder
      */
     public function setNoScaduti($noScaduti)
     {
@@ -204,5 +207,21 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->andWhere("( alboArticoli.dataScadenza > '".date("Y-m-d H:i:s")."'
             OR alboArticoli.dataScadenza = '0000-00-00 00:00:00') ");
         }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param string $search
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setFreeSearch($search)
+    {
+        if (!empty($search)) {
+            $this->getQueryBuilder()->andWhere(' ( alboArticoli.titolo LIKE :freeSearch OR aps.nome LIKE :freeSearch ) ');
+            $this->getQueryBuilder()->setParameter('freeSearch', $search);
+        }
+
+        return $this->getQueryBuilder();
     }
 }

@@ -32,4 +32,9 @@ class ServiceLocatorFactory
     {
         self::$serviceManager = $sm;
     }
+
+    public static function unsetInstance()
+    {
+        self::$serviceManager = null;
+    }
 }

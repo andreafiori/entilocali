@@ -244,7 +244,7 @@ $acl = $this->userDetails->acl;
                     <li>
                         <a href="#" class="dropdown-collapse"><i class="fa fa-table fa-fw"></i> <span class="side-menu-title">Albo pretorio</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li><a href="<?php echo $this->baseUrl ?>formdata/albo-pretorio" title="Nuovo atto">Nuovo atto</a></li>
+                            <li><a href="<?php echo $this->url('admin/albo-pretorio-form', array('lang' => 'it') ); ?>" title="Nuovo atto">Nuovo atto</a></li>
                             <li><a href="<?php echo $this->url('admin/albo-pretorio-summary', array('lang'=>'it',)); ?>" title="Gestione">Gestione</a></li>
                             <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter' => 'atti-ufficiali')); ?>" title="">Atti ufficiali</a></li>
                             <!-- Sezioni -->
@@ -445,7 +445,7 @@ $acl = $this->userDetails->acl;
                             <li>
                                 <a href="#" class="dropdown-collapse" title="">Categorie <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
-                                    <li><a href="#<?php echo $this->baseUrl ?>formdata/categories/?moduleId=6" title="Nuova categoria foto">Nuova</a></li>
+                                    <li><a href="#" title="Nuova categoria foto">Nuova</a></li>
                                     <li><a href="<?php echo $this->url('admin/posts-categories-summary', array(
                                                 'lang'          => 'it',
                                                 'moduleCode'    => 'photo',

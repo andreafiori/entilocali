@@ -14,6 +14,9 @@ return array(
     'admin/albo-pretorio-form' => array(
         'resources' => array( 'albo_pretorio_add', 'albo_pretorio_update')
     ),
+    'admin/albo-pretorio-form-post' => array(
+        'resources' => array( 'albo_pretorio_add', 'albo_pretorio_update')
+    ),
     /* Posizioni Sezioni contenuti e amministrazione trasparente */
     'admin/posizioni-sezioni' => array(
         'resources' => array( 'contenuti_sezioni_update' )
@@ -21,7 +24,6 @@ return array(
     'admin/posizioni-sezioni-update' => array(
         'resources' => array( 'contenuti_sezioni_update' )
     ),
-
     /* Responsabili procedimento */
     'admin/users-resp-proc-management' => array(
         'resources' => array( 'contenuti_sezioni_update' )

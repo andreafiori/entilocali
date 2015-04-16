@@ -58,6 +58,7 @@ class AttachmentsSThreeDownloaderController extends SetupAbstractController
             ->addHeaderLine('Content-Description', 'File Transfer')
             ->addHeaderLine('Content-Disposition', 'attachment; filename='.$filename)
             ->addHeaderLine('Content-Type', $mimetype);
+
         return $response;
     }
 }

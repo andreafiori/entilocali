@@ -229,6 +229,10 @@ abstract class TestSuite extends \PHPUnit_Framework_TestCase
                                 "myResult"              => 'MyResult',
                             ),
                             array(
+                                'name' => 'project_frontend',
+                                'value' => 'myProjectName'
+                            ),
+                            array(
                                 'name'  => 'projectdir_frontend',
                                 'value' => 'myProjectDirFrontend'
                             ),

@@ -3,8 +3,6 @@
 namespace Admin\Model;
 
 /**
- * Common var exporter for dataTables and formData
- * 
  * @since  30 July 2014
  * @author Andrea Fiori
  */

@@ -41,8 +41,6 @@ class RouterManager extends RouterManagerAbstract
     }
     
     /**
-     * Check
-     *
      * @param array $router
      * @return string
      */

@@ -4,10 +4,6 @@ namespace Application\Model;
 
 use Zend\Form\Form;
 
-/**
- * Class PasswordPreviewForm
- * @package Application\Model
- */
 class PasswordPreviewForm extends Form
 {
     /**

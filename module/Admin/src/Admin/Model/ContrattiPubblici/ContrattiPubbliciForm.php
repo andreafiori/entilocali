@@ -160,11 +160,11 @@ class ContrattiPubbliciForm extends Form
         ));
 
         $this->add(array(
-            'type' => 'Date',
+            'type' => 'DateTime',
             'name' => 'data_agg',
             'options' => array(
                 'label' => 'Data scelta contraente (Inizio lavori)',
-                'format' => 'Y-m-d',
+                'format' => 'Y-m-d H:i:s',
             ),
             'attributes' => array(
                 'id'        => 'data_agg',
@@ -174,14 +174,14 @@ class ContrattiPubbliciForm extends Form
         ));
 
         $this->add(array(
-            'type' => 'Date',
+            'type' => 'DateTime',
             'name' => 'data_contratto',
             'options' => array(
                 'label' => 'Data termine (Fine lavori)',
-                'format' => 'Y-m-d',
+                'format' => 'Y-m-d H:i:s',
             ),
             'attributes' => array(
-                'id' => 'data_contratto',
+                'id'        => 'data_contratto',
                 'required'  => 'required',
                 'title'     => "Seleziona data fine lavori",
             )
@@ -219,11 +219,11 @@ class ContrattiPubbliciForm extends Form
     public function addDatePubblicazione()
     {
         $this->add(array(
-            'type' => 'Date',
+            'type' => 'DateTime',
             'name' => 'inserimento',
             'options' => array(
                 'label' => 'Data inserimento: l\'articolo sarà visibile sul sito a partire da questa data',
-                'format' => 'Y-m-d',
+                'format' => 'Y-m-d H:i:s',
             ),
             'attributes' => array(
                 'id'        => 'inserimento',

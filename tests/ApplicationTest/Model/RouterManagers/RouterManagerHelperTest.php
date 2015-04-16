@@ -2,8 +2,8 @@
 
 namespace ApplicationTest\Model\RouterManagers;
 
+use Application\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFrontend;
 use Application\Model\RouterManagers\RouterManagerHelper;
-use Application\Model\Posts\PostsFrontend;
 use ApplicationTest\TestSuite;
 
 /**
@@ -18,7 +18,7 @@ class RouterManagerHelperTest extends TestSuite
     {
         parent::setUp();
         
-        $this->routerManagerHelper = new RouterManagerHelper(new PostsFrontend() );
+        $this->routerManagerHelper = new RouterManagerHelper(new AmministrazioneTrasparenteFrontend() );
     }
     
     public function testGetRouterManger()

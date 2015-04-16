@@ -16,11 +16,21 @@
 
 <?php
 
-// $form->setAttribute('action', $this->url('contact/process'));
-$this->form->setAttribute('method', 'post');
-$this->form->setAttribute('role', 'form');
-$this->form->setAttribute('class', 'form-horizontal');
 $this->form->prepare();
+
+$form = $this->form;
+
+$formId = 'frmInvioEnteTerzo';
+
+$form->setAttributes(array(
+    'action'    => $this->formAction,
+    'method'    => 'post',
+    'enctype'   => 'multipart/form-data',
+    'name'      => $formId,
+    'id'        => $formId,
+    'role'      => 'form',
+    'class'     => 'form-horizontal'
+));
 
 echo $this->form()->openTag($this->form);
 

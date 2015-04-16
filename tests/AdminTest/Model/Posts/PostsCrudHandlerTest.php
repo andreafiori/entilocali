@@ -30,7 +30,7 @@ class PostsCrudHandlerTest extends CrudHandlerTestSuite
             'seoDescription'    => 'my description for SEOs',
             'seoKeywords'       => 'my,keywwords',
             'category'          => array(1, 2),
-            'moduloId'          => 2,
+            'moduleId'          => 2,
         );
     }
 
@@ -48,5 +48,6 @@ class PostsCrudHandlerTest extends CrudHandlerTestSuite
         $this->assertNotNull($this->crudHandler->getFormInputFilter()->seoDescription, 'seoDescription must not be null');
         $this->assertNotNull($this->crudHandler->getFormInputFilter()->seoKeywords, 'seoKeyworkds must not be null');
         $this->assertNotNull($this->crudHandler->getFormInputFilter()->category, 'Category must not be null');
+        $this->assertNotNull($this->crudHandler->getFormInputFilter()->moduleId, 'ModuleId must not be null');
     }
 }

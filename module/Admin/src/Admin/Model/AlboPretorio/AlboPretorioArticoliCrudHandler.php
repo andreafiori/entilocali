@@ -19,14 +19,6 @@ class AlboPretorioArticoliCrudHandler extends CrudHandlerAbstract implements Cru
     public function __construct()
     {
         $this->form = new AlboPretorioArticoliForm();
-        $this->form->addSezioni(array(
-            1 => 'Bandi',
-            2 => 'Concorsi',
-        ));
-        $this->form->addTitolo();
-        $this->form->addMainFields();
-        $this->form->addRettifica();
-        $this->form->addFacebook();
 
         $this->formInputFilter = new AlboPretorioArticoliFormInputFilter();
 
@@ -120,11 +112,12 @@ class AlboPretorioArticoliCrudHandler extends CrudHandlerAbstract implements Cru
                 'titolo'                => $formData->titolo,
                 'pubblicare'            => 0,
                 'annullato'             => 0,
+                'check_rettifica'        => isset($formData->checkRettifica) ? $formData->checkRettifica : 0,
                 'check_invia_regione'   => isset($formData->checkInviaRegione) ? $formData->checkInviaRegione : 0,
                 'anno_atto'             => date("Y"),
                 'ente_terzo'            => $formData->enteTerzo,
                 'fonte_url'             => $formData->fonteUrl,
-                'note'                  => $formData->note,
+                'note'                  => isset($formData->note) ? $formData->note : null,
             ),
             array('id' => $formData->id)
         );

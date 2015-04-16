@@ -23,9 +23,10 @@ class Module implements AutoloaderProviderInterface
      */
     public function onBootstrap(MvcEvent $e)
     {
-        $sm          = $e->getApplication()->getServiceManager();
+        $sm = $e->getApplication()->getServiceManager();
 
         $eventManager        = $e->getApplication()->getEventManager();
+
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
 
@@ -47,7 +48,7 @@ class Module implements AutoloaderProviderInterface
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     public function getConfig()
     {

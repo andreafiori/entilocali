@@ -34,7 +34,7 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
     {
         $error = array();
 
-        $fields = array('title');
+        $fields = array('title', 'description');
         foreach($fields as $field) {
             if ( !isset($formData->$field) ) {
                 $error[] = 'Campo '.$field.' vuoto';
@@ -81,7 +81,7 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
                 $this->getConnection()->insert(DbTableContainer::postsRelations, array(
                     'posts_id'      => $postsLastInsertId,
                     'category_id'   => $category,
-                    'module_id'     => $formData->moduloId,
+                    'module_id'     => $formData->moduleId,
                     'channel_id'    => 1,
                 ));
             }

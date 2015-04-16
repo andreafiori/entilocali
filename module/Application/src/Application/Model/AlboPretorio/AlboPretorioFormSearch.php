@@ -13,7 +13,7 @@ use Admin\Model\AlboPretorio\AlboPretorioArticoliFormAbstract;
 class AlboPretorioFormSearch extends AlboPretorioArticoliFormAbstract
 {
     /**
-     * @param string $name
+     * @inheritdoc
      */
     public function __construct($name = null) 
     {
@@ -27,9 +27,6 @@ class AlboPretorioFormSearch extends AlboPretorioArticoliFormAbstract
                 'title'  => 'Inserisci numero repertorio',
                 'id'     => 'numero_progressivo',
                 'type'   => 'number',
-                //'min'  => '0',
-                //'max'  => '10',
-                //'step' => '1',
             ),
             'options' => array(
                 'label' => 'Numero repertorio',

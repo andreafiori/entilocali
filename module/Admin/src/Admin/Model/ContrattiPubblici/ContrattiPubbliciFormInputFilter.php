@@ -71,6 +71,22 @@ class ContrattiPubbliciFormInputFilter implements InputFilterAwareInterface
                 ),
             ));
 
+            $inputFilter->add(array(
+                'name'     => 'importo',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'Int'),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'importo2',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'Int'),
+                ),
+            ));
+
 
 
             $this->inputFilter = $inputFilter;

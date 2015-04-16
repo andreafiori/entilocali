@@ -57,6 +57,8 @@ class PasswordPreviewController extends SetupAbstractController
     }
 
     /**
+     * Logout from password preview area
+     *
      * @return \Zend\Http\Response
      */
     public function logoutAction()

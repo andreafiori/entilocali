@@ -1,22 +1,36 @@
 <?php
 return array(
+    'controllers' => array(
+        'invokables' => array(
+            'Application\Controller\Index'                              => 'Application\Controller\IndexController',
+            'Application\Controller\DocumentExport'                     => 'Application\Controller\DocumentExportController',
+            'Application\Controller\Feed'                               => 'Application\Controller\FeedController',
+            'Application\Controller\AttachmentsSThreeDownloader'        => 'Application\Controller\AttachmentsSThreeDownloaderController',
+            'Application\Controller\PasswordPreview'                    => 'Application\Controller\PasswordPreviewController',
+            'Application\Controller\Faq\Faq'                            => 'Application\Controller\Faq\FaqController',
+            'Application\Controller\AlboPretorio\AlboPretorio'          => 'Application\Controller\AlboPretorio\AlboPretorioController',
+            'Application\Controller\AttiConcessione\AttiConcessione'    => 'Application\Controller\AttiConcessione\AttiConcessioneController',
+            'Application\Controller\Contenuti\Contenuti'                => 'Application\Controller\Contenuti\ContenutiController',
+            'Application\Controller\HomePage\HomePage'                  => 'Application\Controller\HomePage\HomePageController',
+        ),
+    ),
     'router' => array(
                     'routes' => array(
-                                    'home' => array(
-                                                    'type'    => 'segment',
-                                                    'options' => array(
-                                                                    'route' => '/',
-                                                    ),
-                                                    'may_terminate' => true,
-                                                    'defaults' => array(
-                                                            'controller' => 'Application\Controller\Index',
-                                                            'action'     => 'index',
-                                                    ),
-                                    ),
                                     'main' => array(
                                                     'type'    => 'segment',
                                                     'options' => array(
-                                                                    'route' => '/[:category][/][:title][/]',
+                                                        'route' => '/',
+                                                        'defaults' => array(
+                                                            'controller' => 'Application\Controller\HomePage\HomePage',
+                                                            'action'     => 'index',
+                                                        ),
+                                                    ),
+                                                    'may_terminate' => true,
+                                    ),
+                                    'posts-main' => array(
+                                                    'type'    => 'segment',
+                                                    'options' => array(
+                                                                    'route' => '/:category[/][:title][/]',
                                                                     'constraints' => array(
                                                                             'category'  => '[a-zA-Z][a-zA-Z0-9_-]*',
                                                                             'title'     => '[a-zA-Z0-9_-]*',
@@ -28,6 +42,21 @@ return array(
                                                     ),
                                                     'may_terminate' => true,
                                     ),
+                                    'posts-category-only' => array(
+                                                    'type'    => 'segment',
+                                                    'options' => array(
+                                                        'route'    => '/[:category][/]page[/][:page][/]',
+                                                        'constraints' => array(
+                                                            'category'  => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                            'page'      => '[0-9]+',
+                                                        ),
+                                                        'defaults' => array(
+                                                            'controller' => 'Application\Controller\Index',
+                                                            'action'     => 'index',
+                                                        ),
+                                                    ),
+                                                    'may_terminate' => true,
+                                    ),
                                     'contents' => array(
                                                     'type'    => 'segment',
                                                     'options' => array(
@@ -36,7 +65,7 @@ return array(
                                                                             'subsectionid' => '[0-9]+',
                                                                     ),
                                                                     'defaults' => array(
-                                                                            'controller' => 'Application\Controller\Index',
+                                                                            'controller' => 'Application\Controller\Contenuti\Contenuti',
                                                                             'action'     => 'index',
                                                                     ),
                                                     ),
@@ -56,21 +85,6 @@ return array(
                                                     ),
                                                     'may_terminate' => true,
                                     ),
-                                    'posts' => array(
-                                                    'type'    => 'segment',
-                                                    'options' => array(
-                                                                    'route'    => '/[:category][/]page[/][:page][/]',
-                                                                    'constraints' => array(
-                                                                            'category'  => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                                            'page'      => '[0-9]+',
-                                                                    ),
-                                                                    'defaults' => array(
-                                                                            'controller' => 'Application\Controller\Index',
-                                                                            'action'     => 'index',
-                                                                    ),
-                                                    ),
-                                                    'may_terminate' => true,
-                                    ),
                                     'attachments-sthree-download' => array(
                                         'type'    => 'segment',
                                         'options' => array(
@@ -80,7 +94,7 @@ return array(
                                                 'id'      => '[0-9]+',
                                             ),
                                             'defaults' => array(
-                                                'controller' => 'Application\Controller\AttachmentsSThreeDownloaderController',
+                                                'controller' => 'Application\Controller\AttachmentsSThreeDownloader',
                                                 'action'     => 'index',
                                             ),
                                         ),
@@ -94,7 +108,7 @@ return array(
 
                                             ),
                                             'defaults' => array(
-                                                'controller' => 'Application\Controller\PasswordPreviewController',
+                                                'controller' => 'Application\Controller\PasswordPreview',
                                                 'action'     => 'index',
                                             ),
                                         ),
@@ -108,7 +122,7 @@ return array(
 
                                             ),
                                             'defaults' => array(
-                                                'controller' => 'Application\Controller\PasswordPreviewController',
+                                                'controller' => 'Application\Controller\PasswordPreview',
                                                 'action'     => 'logout',
                                             ),
                                         ),
@@ -164,8 +178,8 @@ return array(
 
                                                         ),
                                                         'defaults' => array(
-                                                            'controller' => 'Application\Controller\Index',
-                                                            'action'    => 'index',
+                                                            'controller'    => 'Application\Controller\Faq\Faq',
+                                                            'action'        => 'index',
                                                         ),
                                         ),
                                         'may_terminate' => true,
@@ -184,7 +198,7 @@ return array(
                                                             'page' => '[0-9]+',
                                                         ),
                                                         'defaults' => array(
-                                                            'controller' => 'Application\Controller\Index',
+                                                            'controller' => 'Application\Controller\AlboPretorio\AlboPretorio',
                                                             'action'    => 'index',
                                                         ),
                                         ),
@@ -246,7 +260,7 @@ return array(
                                                             'page'      => '[0-9]+',
                                                         ),
                                                         'defaults' => array(
-                                                            'controller' => 'Application\Controller\Index',
+                                                            'controller' => 'Application\Controller\AttiConcessione\AttiConcessione',
                                                             'action'     => 'index',
                                                         ),
                                         ),
@@ -412,20 +426,6 @@ return array(
                                     ),
                     ),
     ),
-    'controllers' => array(
-        'invokables' => array(
-            'Application\Controller\Index'             => 'Application\Controller\IndexController',
-            'Application\Controller\DocumentExport'    => 'Application\Controller\DocumentExportController',
-            'Application\Controller\Feed'              => 'Application\Controller\FeedController',
-            'Application\Controller\AttachmentsSThreeDownloaderController'  => 'Application\Controller\AttachmentsSThreeDownloaderController',
-            'Application\Controller\PasswordPreviewController' => 'Application\Controller\PasswordPreviewController',
-        ),
-    ),
-    'controller_plugins' => array(
-        'invokables' => array(
-
-        )
-    ),
     'view_manager' => array(
                     'display_not_found_reason' => true,
                     'display_exceptions'       => true,
@@ -433,14 +433,17 @@ return array(
                     'not_found_template'       => 'error/404',
                     'exception_template'       => 'error/index',
                     'template_map' => array(
-                                    'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
-                                    'application/feed/index'  => __DIR__ . '/../view/application/index/index.phtml',
-                                    'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
-                                    'application/pagination'  => __DIR__ . '/../view/application/pagination/numbers.phtml',
-                                    'admin/index'             => __DIR__ . '/../view/',
-                                    'error/404'               => __DIR__ . '/../view/error/404.phtml',
-                                    'error/index'             => __DIR__ . '/../view/error/index.phtml',
-                                    'error/dbconnection'      => __DIR__ . '/../view/error/dbconnection.phtml',
+                        'application/home-page/index'           => __DIR__ . '/../view/empty.phtml',
+                        'layout/layout'                         => __DIR__ . '/../view/layout/layout.phtml',
+                        'application/feed/index'                => __DIR__ . '/../view/application/index/index.phtml',
+                        'application/index/index'               => __DIR__ . '/../view/application/index/index.phtml',
+                        'application/pagination'                => __DIR__ . '/../view/application/pagination/numbers.phtml',
+                        'application/albo-pretorio/index'       => __DIR__ . '/../view/empty.phtml',
+                        'application/atti-concessione/index'    => __DIR__ . '/../view/empty.phtml',
+                        'application/contenuti/index'           => __DIR__ . '/../view/empty.phtml',
+                        'error/404'                             => __DIR__ . '/../view/error/404.phtml',
+                        'error/index'                           => __DIR__ . '/../view/error/index.phtml',
+                        'error/dbconnection'                    => __DIR__ . '/../view/error/dbconnection.phtml',
                     ),
                     'template_path_stack' => array(
                                     __DIR__ . '/../view',
@@ -483,23 +486,17 @@ return array(
                                 ),
                 ),
     ),
-    // Frontend Router Class Map. The PostsFrontend will handle the home page
+    // Frontend Router Class Map. The PostsFrontend will handle the home page. This section will be deleted...
     'fe_router' => array(
-        "default"                       => 'Application\Model\Posts\PostsFrontend',
-        "home"                          => 'Application\Model\Posts\PostsFrontend',
-        "contents"                      => 'Application\Model\Contenuti\ContenutiFrontend',
         "css"                           => 'Application\Model\CssStyleSwitch\CssStyleSwitchFrontend',
-        "albo-pretorio"                 => 'Application\Model\AlboPretorio\AlboPretorioFrontend',
         "amministrazione-trasparente"   => 'Application\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFrontend',
-        "atti-concessione"              => 'Application\Model\AttiConcessione\AttiConcessioneFrontend',
         "contatti"                      => 'Application\Model\Contacts\ContactsFrontend',
         "contratti-pubblici"            => 'Application\Model\ContrattiPubblici\ContrattiPubbliciFrontend',
-        "faq"                           => 'Application\Model\Faq\FaqFrontend',
         "foto"                          => 'Application\Model\Posts\PhotoFrontend',
         "newsletter"                    => 'Application\Model\Newsletter\NewsletterFrontend',
         "registrazione"                 => 'Application\Model\Users\RegistrationFrontend',
         "recupero-password"             => 'Application\Model\Users\RecoverPasswordFrontend',
-        "ricerca"                       => 'Application\Model\Ricerca\RicercaFrontend',
         "stato-civile"                  => 'Application\Model\StatoCivile\StatoCivileFrontend',
+        "ricerca"                       => 'Application\Model\Ricerca\RicercaFrontend',
     )
 );

@@ -61,6 +61,53 @@ abstract class SetupAbstractController extends AbstractActionController
         return 'backend/templates/'.$templateBackend.'backend.phtml';
     }
 
+    protected function initializeFrontendWebsite()
+    {
+        $appServiceLoader = $this->recoverAppServiceLoader();
+
+        $configurations = $appServiceLoader->recoverService('configurations');
+
+        $sessionContainer = new SessionContainer();
+
+        if (!$this->checkPasswordPreviewArea($configurations, $sessionContainer)) {
+            return $this->redirect()->toRoute('password-preview'); // login to preview form
+        }
+
+        $sezioni = $this->getServiceLocator()->get('SezioniRecords');
+
+        if (method_exists($this->getRequest(), 'getServer')) {
+            $serverVars = $this->getRequest()->getServer();
+        } else $serverVars = null;
+
+        $templateDir = 'frontend/projects/'.$configurations['project_frontend'].'templates/'.$configurations['template_frontend'];
+        if (isset($varsFromModel['basiclayout'])) {
+            $basicLayout = $templateDir.$varsFromModel['basiclayout'];
+        } else {
+            $basicLayout = $templateDir.'/layout.phtml';
+        }
+
+        try {
+            $phpRenderer = $this->getServiceLocator()->get('Zend\View\Renderer\PhpRenderer');
+        } catch(\Zend\ServiceManager\Exception\ServiceNotFoundException $e) {
+            $phpRenderer = null;
+        }
+
+        $this->layout()->setVariables($configurations);
+        $this->layout()->setVariables( array(
+            'sezioni'               => $sezioni,
+            'templateDir'           => $templateDir,
+            'preloadResponse'       => isset($input['preloadResponse']) ? $input['preloadResponse'] : null,
+            'currentUrl'            => "http://".$serverVars["SERVER_NAME"].$serverVars["REQUEST_URI"],
+            'currentDateTime'       => date("Y-m-d H:i:s"),
+            'template_frontend'     => $configurations['template_frontend'],
+            'cssName'               => $sessionContainer->offSetGet('cssName'),
+            'passwordPreviewArea'   => $this->hasPasswordPreviewArea($configurations),
+            'renderer'              => $phpRenderer,
+        ));
+
+        return $basicLayout;
+    }
+
     /**
      * @return \Admin\Service\AppServiceLoader
      */

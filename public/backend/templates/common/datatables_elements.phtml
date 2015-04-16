@@ -22,7 +22,7 @@
                             </td>
                         <?php elseif($record['type']=='alboRettificaButton'): ?>
                             <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
-                                <a href="#alboRevisionModal" data-id="<?php echo $record['data-id'] ?>" class="open-alboRevisionModal btn btn-lg" title="Rettifica articolo"><i class="fa fa-edit"></i> </a>
+                                <a href="#alboRevisionModal" data-action="<?php echo $record['data-form-action'] ?>" data-id="<?php echo $record['data-id'] ?>" class="open-alboRevisionModal btn btn-lg" title="Rettifica articolo"><i class="fa fa-edit"></i> </a>
                             </td>
                         <?php elseif($record['type']=='alboAnnulledButton'): ?>
                             <td colspan="4" valign="middle" class="text-center<?php echo isset($record['class']) ? ' '.$record['class'] : '' ?>">
@@ -34,7 +34,7 @@
                             <td style="display: none">&nbsp;</td>
                         <?php elseif($record['type']=='alboAnnullButton'): ?>
                             <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
-                                <a href="#alboAnnullModal" data-id="<?php echo $record['data-id'] ?>" class="open-alboAnnullModal btn btn-lg icon-red" title="Annulla articolo"><i class="fa fa-ban"></i> </a>
+                                <a href="#alboAnnullModal" data-action="<?php echo $record['data-form-action'] ?>" data-id="<?php echo $record['data-id'] ?>" class="open-alboAnnullModal btn btn-lg icon-red" title="Annulla articolo"><i class="fa fa-ban"></i> </a>
                             </td>
                         <?php elseif($record['type']=='alboPublishButton'): ?>
                             <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
@@ -173,7 +173,7 @@ endif;
                 <h4 class="modal-title" id="alboRevisionModalLabel"><strong>Conferma revisione?</strong></h4>
             </div>
 
-            <form action="" method="post">
+            <form action="" id="frmRevision" method="post">
                 <div class="modal-body">
                     <p><strong>Attenzione:</strong> L'articolo &egrave; gi&agrave; stato pubblicato. Vuoi passare alla revisione?</p>
                     <p>L'articolo sar&agrave; nuovamente on-line una volta confermato il doppio passaggio uno dell'articolo e l'altro per gli allegati.</p>
@@ -192,7 +192,7 @@ endif;
 </div>
 
 
-<!-- Modale annullamento articolo albo -->
+<!-- Modale Annullamento articolo albo -->
 <div class="modal fade" id="alboAnnullModal" tabindex="-1" role="dialog" aria-labelledby="DisableArticleAlboPretorio" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content panel-danger">
@@ -202,7 +202,7 @@ endif;
                 <h4 class="modal-title" id="alboAnnullModalLabel"><strong>Annulla articolo?</strong></h4>
             </div>
 
-            <form action="" method="post">
+            <form action="" id="frmAnnull" method="post">
                 <div class="modal-body">
                     <p><strong>Attenzione:</strong> una volta annullato l'articolo non potr&agrave; pi&ugrave; essere ripristinato
                     se non su esplicita richiesta agli amministratori di sistema.</p>
@@ -297,9 +297,11 @@ endif;
             e.preventDefault();
 
             var _self = $(this);
-
             var dataId = _self.data('id');
+            var dataAction = _self.data('action');
+
             $("#revisionId").val(dataId);
+            $('#frmRevision').attr('action', dataAction);
 
             $(_self.attr('href')).modal('show');
         });
@@ -308,7 +310,6 @@ endif;
             e.preventDefault();
 
             var _self = $(this);
-
             var dataId = _self.data('id');
             var dataAction = _self.data('action');
 
@@ -322,9 +323,11 @@ endif;
             e.preventDefault();
 
             var _self = $(this);
-
             var dataId = _self.data('id');
+            var dataAction = _self.data('action');
+
             $("#annullId").val(dataId);
+            $('#frmAnnull').attr('action', dataAction);
 
             $(_self.attr('href')).modal('show');
         });

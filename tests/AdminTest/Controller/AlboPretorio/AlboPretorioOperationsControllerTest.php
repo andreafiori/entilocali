@@ -21,9 +21,10 @@ class AlboPretorioOperationsControllerTest extends TestSuite
     {
         parent::setUp();
 
-        $this->request = new Request();
-
         $sm = $this->getServiceManager();
+
+        $this->request = new Request(); // override request
+
         $sm->setService('request', $this->request);
 
         $this->controller = new AlboPretorioOperationsController();
@@ -34,6 +35,15 @@ class AlboPretorioOperationsControllerTest extends TestSuite
     public function testPublishAction()
     {
         $this->routeMatch->setParam('action', 'publish');
+
+        $this->controller->dispatch($this->request);
+
+        $this->assertEquals(302, $this->controller->getResponse()->getStatusCode());
+    }
+
+    public function testAnnullAction()
+    {
+        $this->routeMatch->setParam('action', 'annull');
 
         $this->controller->dispatch($this->request);
 

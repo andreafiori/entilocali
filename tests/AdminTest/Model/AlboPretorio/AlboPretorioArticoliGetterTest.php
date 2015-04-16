@@ -71,4 +71,11 @@ class AlboPretorioArticoliGetterTest extends TestSuite
         
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('dataScadenza'));
     }
+
+    public function testSetFreeSearch()
+    {
+        $this->objectGetter->setFreeSearch('my search tesxt...');
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('freeSearch'));
+    }
 }

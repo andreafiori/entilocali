@@ -17,7 +17,7 @@ class PostsGetter extends QueryBuilderHelperAbstract
     public function setMainQuery()
     {
         $this->setSelectQueryFields('DISTINCT(p.id) AS postid, po.id AS postoptionid, p.lastUpdate, 
-                                    p.insertDate, p.expireDate, p.type, p.alias, p.flagAttachments,
+                                    p.insertDate, p.expireDate, p.flagAttachments,
                                     po.title, po.subtitle, po.status, po.description, po.seoUrl, po.seoTitle,
                                     po.seoDescription, po.seoKeywords,
                                     c.template,

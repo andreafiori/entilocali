@@ -13,8 +13,7 @@ use Zend\Form\Form;
 class StatoCivileFormSearch extends Form
 {
     /**
-     * @param type $name
-     * @param type $options
+     * @inheritdoc
      */
     public function __construct($name = null, $options = array())
     {    

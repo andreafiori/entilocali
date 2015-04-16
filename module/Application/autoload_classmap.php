@@ -152,8 +152,6 @@ return array(
     'Application\Model\Newsletter\NewsletterFrontend'                                   => __DIR__ . '/src/Application/Model/Newsletter/NewsletterFrontend.php',
     'Application\Model\NullException'                                                   => __DIR__ . '/src/Application/Model/NullException.php',
     'Application\Model\PasswordPreviewForm'                                             => __DIR__ . '/src/Application/Model/PasswordPreviewForm.php',
-    'Application\Model\Posts\PhotoFrontend'                                             => __DIR__ . '/src/Application/Model/Posts/PhotoFrontend.php',
-    'Application\Model\Posts\PostsFrontend'                                             => __DIR__ . '/src/Application/Model/Posts/PostsFrontend.php',
     'Application\Model\QueryBuilderHelperAbstract'                                      => __DIR__ . '/src/Application/Model/QueryBuilderHelperAbstract.php',
     'Application\Model\QueryBuilderSetterAbstract'                                      => __DIR__ . '/src/Application/Model/QueryBuilderSetterAbstract.php',
     'Application\Model\RecordsGetterAbstract'                                           => __DIR__ . '/src/Application/Model/RecordsGetterAbstract.php',

@@ -11,22 +11,32 @@ use Application\Model\NullException;
  */
 class AlboPretorioFormControllerHelper
 {
+    private $alboArticolo;
+
     /**
      * @param AlboPretorioArticoliGetterWrapper $recodsGetter
      * @param int $id
-     *
      * @return array|null
      */
-    public function recoverAlboArticolo(AlboPretorioArticoliGetterWrapper $recodsGetter, $id)
+    public function setupAlboArticolo(AlboPretorioArticoliGetterWrapper $wrapper, $id)
     {
         if (is_numeric($id)) {
-            $recodsGetter->setInput( array('id' => $id, 'limit' => 1) );
-            $recodsGetter->setupQueryBuilder();
+            $wrapper->setInput( array('id' => $id, 'limit' => 1) );
 
-            return $recodsGetter->getRecords();
+            $wrapper->setupQueryBuilder();
+
+            $this->alboArticolo = $wrapper->getRecords();
         }
 
-        return null;
+        return $this->alboArticolo;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getAlboArticolo()
+    {
+        return $this->alboArticolo;
     }
 
     /**
@@ -36,6 +46,7 @@ class AlboPretorioFormControllerHelper
     public function recoverUsersRecords(UsersGetterWrapper $recodsGetter)
     {
         $recodsGetter->setInput( array('fields' => 'u.id,u.name,u.surname') );
+
         $recodsGetter->setupQueryBuilder();
 
         return $recodsGetter->getRecords();
@@ -47,7 +58,11 @@ class AlboPretorioFormControllerHelper
      */
     public function recoverSezioniRecords(AlboPretorioSezioniGetterWrapper $recodsGetter)
     {
-        $recodsGetter->setInput(array());
+        $recodsGetter->setInput(array(
+            'fields' => 'aps.id, aps.nome',
+            'orderBy' => 'aps.nome ASC',
+        ));
+
         $recodsGetter->setupQueryBuilder();
 
         return $recodsGetter->getRecords();
@@ -61,9 +76,11 @@ class AlboPretorioFormControllerHelper
     {
         $toReturn = array();
 
-        if (!empty($records)and isset($record['id']) and isset($record['nome'])) {
+        if (!empty($records)) {
             foreach($records as $record) {
-                $toReturn[$record['id']] = $record['nome'];
+                if ( isset($record['id']) and isset($record['nome']) ) {
+                    $toReturn[$record['id']] = $record['nome'];
+                }
             }
         }
 
