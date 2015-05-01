@@ -20,9 +20,9 @@ class AttiConcessioneController extends SetupAbstractController
 
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-        $basicLayout = $this->layout()->getVariable('atti_concessione_basiclayout');
-
         $templateDir = $this->layout()->getVariable('templateDir');
+
+        $basicLayout = $this->layout()->getVariable('atti_concessione_basiclayout');
 
         $wrapper = new AttiConcessioneGetterWrapper( new AttiConcessioneGetter($em) );
         $wrapper->setInput(array('orderBy' => 'atti.id DESC'));

@@ -26,7 +26,7 @@ class ContrattiPubbliciFormSearch extends Form
                                 'empty_option' => 'Seleziona',
                         ),
                         'attributes' => array(
-                                'title' => 'Seleziona anno',
+                                'title' => 'Seleziona anno pubblicazione',
                                 'id'    => 'anno'
                         )
         ));
@@ -39,9 +39,9 @@ class ContrattiPubbliciFormSearch extends Form
                         'type' => 'Text',
                         'options' => array( 'label' => 'CIG (Codice Identificativo di Gara)' ),
                         'attributes' => array(
-                                        'id' => 'cig',
-                                        
-                                        'title' => 'Inserisci Codice Identificativo di Gara',
+                                        'id'        => 'cig',
+                                        'title'     => 'Inserisci Codice Identificativo di Gara',
+                                        'maxlength' => '150',
                         ),
         ));
         
@@ -50,8 +50,9 @@ class ContrattiPubbliciFormSearch extends Form
                         'type' => 'Text',
                         'options' => array( 'label' => 'Importo aggiudicazione (Euro) &euro;' ),
                         'attributes' => array(
-                                        'id' => 'importo',
-                                        'title' => "Inserisci l'importo aggiudicazione",
+                                        'id'        => 'importo',
+                                        'title'     => "Inserisci l'importo aggiudicazione",
+                                        'maxlength' => '150',
                         ),
         ));
         
@@ -71,8 +72,8 @@ class ContrattiPubbliciFormSearch extends Form
                         'name' => 'ufficio',
                         'options' => array(
                                'label' => 'Ufficio e responsabile servizio',
-                               'value_options' => $arrayOfValues,
-                               'empty_option' => 'Seleziona',
+                               'value_options'  => $arrayOfValues,
+                               'empty_option'   => 'Seleziona',
                         ),
                         'attributes' => array(
                                 'title' => 'Seleziona ufficio e responsabile servizio',
@@ -90,9 +91,9 @@ class ContrattiPubbliciFormSearch extends Form
                                'label' => 'Cerca',
                         ),
                         'attributes' => array(
-                                'title' => 'Cerca fra i contatti pubblici',
                                 'id'    => 'cerca',
                                 'value' => 'Cerca',
+                                'title' => 'Avvia ricerca fra i contatti pubblici',
                         )
         ));
     }

@@ -46,8 +46,11 @@ class AlboPretorioFormController extends SetupAbstractController
             $form = new AlboPretorioArticoliForm();
             $form->addSezioni($helper->formatSezioniForADropdown($sezioniRecords));
             $form->addTitolo();
+            $form->addNumero();
+            $form->addAnno();
             $form->addMainFields();
             $form->addScadenze();
+
             // Add users checkbox: $userRecords = $helper->recoverUsersRecords(new UsersGetterWrapper(new UsersGetter($em)));
 
             if ( !empty($articoliRecords) ) {
@@ -114,7 +117,7 @@ class AlboPretorioFormController extends SetupAbstractController
             $form = new AlboPretorioArticoliForm();
             $form->addNote();
             $form->addSezioni( $helper->formatSezioniForADropdown($sezioniRecords) );
-            $form->addTitoloReadOnly();
+            $form->addTitolo();
             $form->addMainFields();
             $form->addScadenze();
             $form->setData($articoloRecord[0]);

@@ -22,12 +22,14 @@ if (!$this->form):
     <?php if ( $this->alboRevisionWarning ): ?>
     <div class="alert alert-warning">
         <h4><i class="fa fa-pencil-square-o"></i> Rettifica atto albo pretorio</h4>
-        <p>Si sta effettuando una visura dell'articolo. Se non vuoi fare nessuna modifica, non completare il form.<br>
-        Completando il form, l'atto verr&agrave; momentaneamente oscurato per consentire la modifica sulla sezione allegati.
-        L'articolo sar&agrave; nuovamente visibile quando al termine del ciclo, entrando nella sezione Allegati,
-            si completer&agrave; la visura riabilitando la visibilit&agrave; dell'atto.</p>
+        <p>Si vuole effettuare oltre ad una visura la modifica dell'articolo?</p>
+        <p>Se non vuoi fare nessuna modifica, non dare conferma.</p>
+        <p>Se dai conferma, l'atto verr&agrave; momentaneamente oscurato per consentire successivamente, terminato il ciclo di rettifica modificando anche la sezione Allegati, di tornare visibile on-line.</p>
+
         <p><strong>Data rettifica:</strong> <?php echo date("d-m-Y") ?></p>
-        <p><strong>Rep:</strong> <?php echo $this->alboNumeroAtto ?> / <?php echo $this->alboAnnoAtto ?></p>
+
+        <p><strong>Numero \ Anno</strong> <?php echo $this->alboNumeroAtto ?> / <?php echo $this->alboAnnoAtto ?></p>
+
     </div>
     <?php else: ?>
         <?php if (!empty($this->formDescription)): ?>

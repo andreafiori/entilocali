@@ -1,15 +1,22 @@
+
+<?php if ($this->cssName!='default' and $this->cssName!=''): ?>
+    <div>&raquo; <a href="<?php echo $this->url('css-style-switch', array('cssname' => 'default')) ?>" title="Torna alla visualizzazione del sito grafico">Sito grafico</a></div>
+<?php endif; ?>
+
 <div class="large-12 columns">
-    <div class="large-6 columns">
+    
+    <div class="large-12 columns">
+        
+        <ul class="inline-list right">
+            <li><a href="#mainContents" accesskey="x" class="button small">Vai ai contenuti</a></li>
+        </ul>
+        
         <h1>
-        <a href="<?php echo $this->basepath() ?>/" title="Torna all'home page">
-            <?php echo $this->sitename ?>
-        </a>
+            <a href="<?php echo $this->basepath() ?>/" title="<?php echo $this->sitename ?>">
+                <?php echo $this->sitename ?>
+            </a>
         </h1>
-    </div>
-    <div class="large-6 columns">
-    <ul class="inline-list right">
-        <li><a href="#mainContents" accesskey="x" class="button small">Vai ai contenuti</a></li>
-    </ul>
+        
     </div>
 </div>
 
@@ -21,15 +28,15 @@
             <li class="name">
                 <h1><a href="<?php echo $this->basepath() ?>/" title="Torna all'home page" accesskey="h">Home</a></h1>
             </li>
-
-            <li class="toggle-topbar menu-icon"><a href="#" title="Menu navigazione"><span>Menu</span></a></li>
         </ul>
 
         <section class="top-bar-section">
             <h2 class="hidden">Men&ugrave; navigazione</h2>
             <ul class="left">
                 <li class="divider"></li>
-                <li><a href="<?php echo $this->url('albo-pretorio') ?>" title="Elenco atti albo pretorio">Albo pretorio</a></li>
+
+                <li><a href="<?php echo $this->url('albo-pretorio') ?>" title="Consultazione elenco atti albo pretorio">Albo pretorio</a></li>
+
                 <li class="divider"></li>
                 <li><a href="<?php echo $this->url('stato-civile') ?>" title="Pubblicazioni stato civile">Stato civile</a></li>
                 <li class="divider"></li>
@@ -45,10 +52,23 @@
                 <li><a href="<?php echo $this->url('contatti') ?>">Contatti</a></li>
                 -->
             </ul>
-
+            
             <ul class="right">
-                <li><a href="<?php echo $this->url('registrazione', array()); ?>" title="Registrati come nuovo utente">Registrati</a></li>
+                <!-- <li><a href="#" title="Feed RSS di <?php echo $this->sitename ?>">RSS</a></li> -->
+                <li class="has-form">
+                    <div class="row collapse">
+                        <div class="large-8 small-9 columns">
+                            <input type="text" name="search" placeholder="Cerca...">
+                        </div>
+                        <div class="large-4 small-3 columns">
+                            <a href="#" class="alert button expand" title="Cerca sul sito">Cerca</a>
+                        </div>
+                    </div>
+                </li>
+                <!--
+                <li><a href="#" title="Registrati come nuovo utente">Registrati</a></li>
                 <li><a href="#" title="Iscrizione newsletter">Newsletter</a></li>
+
                 <li class="has-dropdown">
                     <a href="#" title="Altri moduli">Altri moduli</a>
                     <ul class="dropdown">
@@ -56,12 +76,14 @@
                         <li><a href="#" title="Azienda">Azienda</a></li>
                         <li><a href="#" title="Booking">Booking</a></li>
                         <li><a href="#" title="Servizio SMS">Servizio SMS</a></li>
-                        <li><a href="#" title="Meteo">Meteo</a></li>
+                        <li><a href="#" title="Servizio Meteo">Meteo</a></li>
                         <li><a href="#" title="Galleria fotografica">Galleria fotografica</a></li>
                         <li><a href="#" title="E-commerce">E-commerce</a></li>
                     </ul>
                 </li>
+                -->
             </ul>
+            
         </section>
     </nav>
 </div>

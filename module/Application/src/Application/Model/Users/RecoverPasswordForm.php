@@ -17,27 +17,27 @@ class RecoverPasswordForm extends Form
     {
         parent::__construct($name, $options);
         
-        $this->add(array( 
-            'name' => 'email', 
+        $this->add(array(
+            'name' => 'email',
             'type' => 'Zend\Form\Element\Text', 
-            'attributes' => array( 
-                'placeholder' => 'Inserisci email...',
-                'title' => 'Inserisci email...',
-                'required' => 'required',
-                'id' => 'email'
-            ), 
+            'attributes' => array(
+                'placeholder'   => 'Inserisci email...',
+                'title'         => 'Inserisci email per richiedere il recupero password',
+                'required'      => 'required',
+                'id'            => 'email'
+            ),
             'options' => array( 
-                'label' => 'E-mail', 
+                'label' => 'E-mail',
             ), 
         ));
 
         $this->add(array(
-            'name' => 'submit',
+            'name' => 'submitbutton',
             'attributes' => array(
                 'type'  => 'submit',
                 'value' => 'Procedi',
-                'title' => 'Procedi con la registrazione',
-                'id' => 'submitbutton',
+                'title' => 'Procedi con la richiesta di recupero password',
+                'id'    => 'submitbutton',
             ),
         ));
     }

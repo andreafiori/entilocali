@@ -22,10 +22,6 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($e->getApplication()->getEventManager());
 
-        AbstractValidator::setDefaultTranslator(
-            $e->getApplication()->getServiceManager()->get('translator')
-        );
-
         $eventManager = $e->getApplication()->getEventManager();
         $eventManager->attach(MvcEvent::EVENT_DISPATCH, array($this, 'preDispatch'), 2);
     }

@@ -157,7 +157,6 @@ abstract class CrudHandlerTestSuite extends TestSuite
         $formValidationErrors = $this->crudHandler->getFormInputFilter()->getInputFilter()->getInvalidInput();
         foreach($formValidationErrors as $key => $value) {
             echo $key."\n";
-            //print_r($value);
         }
     }
 }

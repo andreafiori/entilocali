@@ -3,7 +3,8 @@ return array(
     'modules' => array(
             'EdpModuleLayouts',
             'ServiceLocatorFactory',
-            'DoctrineModule', 'DoctrineORMModule',
+            'DoctrineModule',
+            'DoctrineORMModule',
             'ZendDeveloperTools',
             'DOMPDFModule',
             'Application',

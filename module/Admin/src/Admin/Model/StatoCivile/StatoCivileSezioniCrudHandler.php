@@ -116,7 +116,7 @@ class StatoCivileSezioniCrudHandler extends CrudHandlerAbstract implements CrudH
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', ha inserito la sezione stato civile ".$inputFilter->nome,
+            'message'   => "Inserita sezione stato civile ".$inputFilter->nome,
             'type'      => 'error',
             'backend'   => 1,
         ));
@@ -142,7 +142,7 @@ class StatoCivileSezioniCrudHandler extends CrudHandlerAbstract implements CrudH
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'inserimento sezione stato civile".$inputFilter->nome.'Messaggio: '.$message,
+            'message'   => "Errore nell'inserimento sezione stato civile".$inputFilter->nome.'Messaggio: '.$message,
             'type'      => 'error',
             'backend'   => 1,
         ));
@@ -166,7 +166,7 @@ class StatoCivileSezioniCrudHandler extends CrudHandlerAbstract implements CrudH
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', ha aggiornato la sezione stato civile ".$inputFilter->nome,
+            'message'   => "Aggiornata sezione stato civile ".$inputFilter->nome,
             'type'      => 'info',
             'backend'   => 1,
         ));
@@ -192,7 +192,7 @@ class StatoCivileSezioniCrudHandler extends CrudHandlerAbstract implements CrudH
         return $logsWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'aggiornamento della sezione stato civile ".$inputFilter->nome.' Messaggio: '.$message,
+            'message'   => "Errore nell'aggiornamento della sezione stato civile ".$inputFilter->nome.' Messaggio: '.$message,
             'type'      => 'error',
             'backend'   => 1,
         ));

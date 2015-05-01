@@ -136,9 +136,16 @@ class ZfcmsPostsOptions
     /**
      * @var integer
      *
-     * @ORM\Column(name="always_in_home", type="integer", nullable=true)
+     * @ORM\Column(name="always_in_home", type="integer", nullable=false)
      */
     private $alwaysInHome;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="homepage", type="integer", nullable=false)
+     */
+    private $homepage;
 
     /**
      * @var \Application\Entity\ZfcmsLanguages

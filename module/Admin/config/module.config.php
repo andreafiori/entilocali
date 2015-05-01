@@ -2,15 +2,37 @@
 return array(
     'controllers' => array(
         'invokables' => array(
-            'Admin\Controller\ForgotPasswordController'                         => 'Admin\Controller\ForgotPasswordController',
             'Admin\Controller\Admin'                                            => 'Admin\Controller\AdminController',
+
+            /* Attachment files */
+            'Admin\Controller\Attachments\AttachmentsForm'                      => 'Admin\Controller\Attachments\AttachmentsFormController',
+
+            /* Insert and update Ajax POSTs */
             'Admin\Controller\FormDataPost'                                     => 'Admin\Controller\FormDataPostController',
+
+            /* Contenuti */
+            'Admin\Controller\Contenuti\ContenutiSummary'                       => 'Admin\Controller\Contenuti\ContenutiSummaryController',
+            'Admin\Controller\Contenuti\ContenutiForm'                          => 'Admin\Controller\Contenuti\ContenutiFormController',
 
             /* Albo Pretorio */
             'Admin\Controller\AlboPretorio\AlboPretorioSummaryController'       => 'Admin\Controller\AlboPretorio\AlboPretorioSummaryController',
             'Admin\Controller\AlboPretorio\AlboPretorioFormController'          => 'Admin\Controller\AlboPretorio\AlboPretorioFormController',
             'Admin\Controller\AlboPretorio\AlboPretorioOperationsController'    => 'Admin\Controller\AlboPretorio\AlboPretorioOperationsController',
             'Admin\Controller\AlboPretorio\AlboPretorioRelataPdfController'     => 'Admin\Controller\AlboPretorio\AlboPretorioRelataPdfController',
+
+            /* Stato Civile */
+
+            /* Amm. trasparente */
+
+            /* Atti concessione */
+            'Admin\Controller\AttiConcessione\AttiConcessioneForm'              => 'Admin\Controller\AttiConcessione\AttiConcessioneFormController',
+            'Admin\Controller\AttiConcessione\AttiConcessioneSummary'           => 'Admin\Controller\AttiConcessione\AttiConcessioneSummaryController',
+            'Admin\Controller\AttiConcessione\ModalitaAssegnazioneForm'         => 'Admin\Controller\AttiConcessione\ModalitaAssegnazioneFormController',
+            'Admin\Controller\AttiConcessione\ModalitaAssegnazioneSummary'      => 'Admin\Controller\AttiConcessione\ModalitaAssegnazioneSummaryController',
+
+            /* Contratti Pubblici */
+            'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSummary'       => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSummaryController',
+            'Admin\Controller\ContrattiPubblici\ContrattiPubbliciForm'          => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciFormController',
 
             /* Enti Terzi */
             'Admin\Controller\EntiTerzi\EntiTerziFormController'                => 'Admin\Controller\EntiTerzi\EntiTerziFormController',
@@ -24,8 +46,11 @@ return array(
 
             /* Photo */
 
+            /* Sezioni */
             'Admin\Controller\SezioniPositionsUpdateController'                 => 'Admin\Controller\SezioniPositionsUpdateController',
             'Admin\Controller\SottoSezioniPositionsUpdateController'            => 'Admin\Controller\SottoSezioniPositionsUpdateController',
+
+            /* Users */
             'Admin\Controller\Users\RespProc\UsersRespProcController'           => 'Admin\Controller\Users\RespProc\UsersRespProcController',
         ),
     ),
@@ -75,10 +100,62 @@ return array(
                                     ),
                         ),
                     ),
+                    'contenuti-form' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'       => 'contenuti/form[/][:id[/]]',
+                            'constraints' => array(
+                                'module' => '[a-zA-Z0-9_-]*',
+                                'id'     => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Contenuti\ContenutiForm',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'contenuti-summary' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'contenuti/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\contenuti\ContenutiSummary',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'attachments-form' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'       => 'attachments/form/:module[/][:id[/]]',
+                            'constraints' => array(
+                                'module' => '[a-zA-Z0-9_-]*',
+                                'id'     => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Attachments\AttachmentsForm',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'attachments-form-update' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'       => 'attachments/form/update/:module[/][:id[/]]',
+                            'constraints' => array(
+                                'module' => '[a-zA-Z0-9_-]*',
+                                'id'     => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Attachments\AttachmentsForm',
+                                'action'     => 'updateForm',
+                            ),
+                        ),
+                    ),
                     'albo-pretorio-summary' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'       => 'albo-pretorio/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'route' => 'albo-pretorio/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\AlboPretorio\AlboPretorioSummaryController',
                                 'action'     => 'index',
@@ -88,7 +165,7 @@ return array(
                     'albo-pretorio-form' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'       => 'albo-pretorio/form[/][:id[/]]',
+                            'route' => 'albo-pretorio/form[/][:id[/]]',
                             'constraints' => array(
                                 'id' => '[0-9]+',
                             ),
@@ -101,7 +178,7 @@ return array(
                     'albo-pretorio-form-rettifica' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'       => 'albo-pretorio/form/rettifica[/][:id[/]]',
+                            'route' => 'albo-pretorio/form/rettifica[/][:id[/]]',
                             'constraints' => array(
                                 'id' => '[0-9]+',
                             ),
@@ -114,13 +191,82 @@ return array(
                     'albo-pretorio-operations' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'       => 'albo-pretorio/operations/[:action[/]][:id[/]]',
+                            'route' => 'albo-pretorio/operations/[:action[/]][:id[/]]',
                             'constraints' => array(
                                 'action'     => '[a-zA-Z0-9_-]*',
                                 'id'         => '[0-9]+',
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\AlboPretorio\AlboPretorioOperationsController',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'atti-concessione-form' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'       => 'atti-concessione/form[/][:id[/]]',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\AttiConcessione\AttiConcessioneForm',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'atti-concessione-summary' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'atti-concessione/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\AttiConcessione\AttiConcessioneSummary',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'atti-concessione-modalita-assegnazione-form' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'atti-concessione-modalita-assegnazione/form[/][:id[/]]',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\AttiConcessione\ModalitaAssegnazioneForm',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'atti-concessione-modalita-assegnazione-summary' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'atti-concessione-modalita-assegnazione/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\AttiConcessione\ModalitaAssegnazioneSummary',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'contratti-pubblici-summary' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'contratti-pubblici/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSummary',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'contratti-pubblici-form' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'contratti-pubblici/form[/][:id[/]]',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciForm',
                                 'action'     => 'index',
                             ),
                         ),
@@ -458,13 +604,31 @@ return array(
         'template_map' => array(
             'admin/admin/login'                             => __DIR__ . '../../view/admin/auth/login.phtml',
             'admin/admin/index'                             => __DIR__ . '../../view/admin/index.phtml',
+            'admin/attachments-form/index'                  => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/attachments-form-update/index'           => __DIR__ . '/../view/admin/empty.phtml',
+
             'admin/admin/formpost'                          => __DIR__ . '../../view/admin/formpost-empty.phtml',
+
+            /* Contenuti */
+            'admin/contenuti-summary/index'                 => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/contenuti-form/index'                    => __DIR__ . '/../view/admin/empty.phtml',
 
             /* Albo pretorio */
             'admin/albo-pretorio-summary/index'             => __DIR__ . '/../view/admin/empty.phtml',
             'admin/albo-pretorio-form/index'                => __DIR__ . '/../view/admin/empty.phtml',
             'admin/albo-pretorio-pdf/relata'                => __DIR__ . '../../view/admin/albo-pretorio-pdf/relata.phtml',
 
+            /* Atti concessione */
+            'admin/atti-concessione-form/index'             => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/atti-concessione-summary/index'          => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/modalita-assegnazione-form/index'        => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/modalita-assegnazione-summary/index'     => __DIR__ . '/../view/admin/empty.phtml',
+
+            /* Contratti pubblici */
+            'admin/contratti-pubblici-summary/index'        => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/contratti-pubblici-form/index'           => __DIR__ . '/../view/admin/empty.phtml',
+
+            /* Enti terzi */
             'admin/invio-ente-terzo/index'                  => __DIR__ . '/../view/admin/empty.phtml',
 
             /* Posts */
@@ -478,9 +642,13 @@ return array(
 
             'admin/admin/config-edit'                       => __DIR__ . '/../view/config-edit-empty.phtml',
             'admin/admin/delete-element'                    => __DIR__ . '/../view/delete-element.phtml',
+
             'admin/admin/migrazione'                        => __DIR__ . '/../view/migrazione.phtml',
+
             'admin/sezioni-positions-update/index'          => __DIR__ . '/../view/admin/empty.phtml',
+
             'admin/sotto-sezioni-positions-update/index'    => __DIR__ . '/../view/admin/empty.phtml',
+
             'admin/'                                        => __DIR__ . '/../view/admin/empty.phtml',
         ),
         'template_path_stack' => array(
@@ -509,7 +677,6 @@ return array(
         'attachments'                           => 'Admin\Model\Attachments\AttachmentsFormDataHandler',
         'albo-pretorio-sezioni'                 => 'Admin\Model\AlboPretorio\AlboPretorioSezioniFormDataHandler',
         'amministrazione-trasparente'           => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFormDataHandler',
-        'atti-concessione'                      => 'Admin\Model\AttiConcessione\AttiConcessioneFormDataHandler',
         'contenuti'                             => 'Admin\Model\Contenuti\ContenutiFormDataHandler',
         'configurations'                        => 'Admin\Model\Config\ConfigFormDataHandler',
         'sezioni-contenuti'                     => 'Admin\Model\Sezioni\SezioniFormDataHandler',
@@ -527,12 +694,13 @@ return array(
         'contents'                              => 'Admin\Model\Posts\PostsFormDataHandler',
     ),
     /* FormData CRUD Class Map */
-    'formdata_crud_classmap' => array( 
+    'formdata_crud_classmap' => array(
         'albo-pretorio'                         => 'Admin\Model\AlboPretorio\AlboPretorioArticoliCrudHandler',
         'albo-pretorio-sezioni'                 => 'Admin\Model\AlboPretorio\AlboPretorioSezioniCrudHandler',
         'amministrazione-trasparente'           => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteCrudHandler',
         'attachments'                           => 'Admin\Model\Attachments\AttachmentsCrudHandler',
         'atti-concessione'                      => 'Admin\Model\AttiConcessione\AttiConcessioneCrudHandler',
+        'atti-concessione-modalita-assegnazione-form' => 'Admin\Model\AttiConcessione\ModalitaAssegnazione\AttiConcessioneModalitaAssegnazioneCrudHandler',
         'blogs'                                 => 'Admin\Model\Posts\PostsCrudHandler',
         'categories'                            => 'Admin\Model\Posts\CategoriesCrudHandler',
         'contenuti'                             => 'Admin\Model\Contenuti\ContenutiCrudHandler',
@@ -571,7 +739,6 @@ return array(
         'atti-ufficiali'                        => 'Admin\Model\AlboPretorio\AttiUfficialiDataTable',
         'albo-pretorio-sezioni'                 => 'Admin\Model\AlboPretorio\AlboPretorioSezioniDataTable',
         'amministrazione-trasparente'           => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteDataTable',
-        'atti-concessione'                      => 'Admin\Model\AttiConcessione\AttiConcessioneDataTable',
         'atti-concessione-mod-assign'           => 'Admin\Model\AttiConcessione\ModalitaAssegnazione\AttiConcessioneModalitaAssegnazioneDataTable',
         'contratti-pubblici'                    => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciDataTable',
         'contratti-pubblici-scelta-contraente'  => 'Admin\Model\ContrattiPubblici\SceltaContraente\SceltaContraenteDataTable',

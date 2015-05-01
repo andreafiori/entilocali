@@ -10,8 +10,6 @@ use Application\Model\QueryBuilderHelperAbstract;
  */
 class StatoCivileGetter extends QueryBuilderHelperAbstract
 {
-    const moduleId = 13;
-    
     public function setMainQuery()
     {
         $this->setSelectQueryFields("DISTINCT(sca.id) AS id, sca.titolo, sca.progressivo,
@@ -32,7 +30,7 @@ class StatoCivileGetter extends QueryBuilderHelperAbstract
     }
     
     /**
-     * @param number or array $id
+     * @param number|array $id
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function setId($id)
@@ -111,7 +109,7 @@ class StatoCivileGetter extends QueryBuilderHelperAbstract
     }
     
     /**
-     * @param type $text
+     * @param string $text
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function setTextSearch($text)

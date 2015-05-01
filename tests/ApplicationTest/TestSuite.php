@@ -17,11 +17,24 @@ use Application\Model\NullException;
 abstract class TestSuite extends \PHPUnit_Framework_TestCase
 {
     protected $request;
+
     protected $response;
+
     protected $router;
+
+    /**
+     * @var RouteMatch
+     */
     protected $routeMatch;
+
+    /**
+     * @var MvcEvent
+     */
     protected $event;
 
+    /**
+     * @var ServiceManagerGrabber
+     */
     protected $serviceManager;
 
     /**

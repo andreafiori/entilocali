@@ -22,13 +22,6 @@ class ZfcmsModulesOptions
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=100, nullable=false)
-     */
-    private $name;
-
-    /**
      * @var \Application\Entity\ZfcmsLanguages
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsLanguages")
@@ -58,29 +51,6 @@ class ZfcmsModulesOptions
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return ZfcmsModulesOptions
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string 
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 
     /**

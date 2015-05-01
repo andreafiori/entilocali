@@ -136,9 +136,16 @@ class ZfcmsPostsOptions
     /**
      * @var integer
      *
-     * @ORM\Column(name="always_in_home", type="integer", nullable=true)
+     * @ORM\Column(name="always_in_home", type="integer", nullable=false)
      */
     private $alwaysInHome;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="homepage", type="integer", nullable=false)
+     */
+    private $homepage;
 
     /**
      * @var \Application\Entity\ZfcmsLanguages
@@ -561,6 +568,29 @@ class ZfcmsPostsOptions
     public function getAlwaysInHome()
     {
         return $this->alwaysInHome;
+    }
+
+    /**
+     * Set homepage
+     *
+     * @param integer $homepage
+     * @return ZfcmsPostsOptions
+     */
+    public function setHomepage($homepage)
+    {
+        $this->homepage = $homepage;
+    
+        return $this;
+    }
+
+    /**
+     * Get homepage
+     *
+     * @return integer 
+     */
+    public function getHomepage()
+    {
+        return $this->homepage;
     }
 
     /**

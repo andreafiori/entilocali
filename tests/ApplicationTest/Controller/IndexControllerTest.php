@@ -10,8 +10,11 @@ use ApplicationTest\TestSuite;
  * @author Andrea Fiori
  * @since  05 December 2013
  */
-class IndexControllerTest // extends TestSuite
+class IndexControllerTest extends TestSuite
 {
+    /**
+     * @var IndexController
+     */
     private $controller;
 
     protected function setUp()

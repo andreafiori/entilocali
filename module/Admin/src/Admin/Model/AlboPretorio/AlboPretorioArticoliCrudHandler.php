@@ -33,16 +33,8 @@ class AlboPretorioArticoliCrudHandler extends CrudHandlerAbstract implements Cru
     {
         $error = $this->checkValidateFormDataError(
             $formData,
-            array('userId', 'sezione', 'numeroAtto', 'anno', 'dataScadenza', 'titolo')
+            array('userId', 'sezione', 'dataScadenza', 'titolo')
         );
-
-        if (!is_numeric($formData->numeroAtto)) {
-            $error[] = 'Numero atto non &egrave; un numero';
-        }
-
-        if ( (int)$formData->anno > 2030 or (int)$formData->anno < 1954 ) {
-            $error[] = 'Anno atto deve essere un anno valido.';
-        }
 
         return $error;
     }
@@ -95,32 +87,56 @@ class AlboPretorioArticoliCrudHandler extends CrudHandlerAbstract implements Cru
 
         $userDetails = $this->getUserDetails();
 
+        $arrayUpdate = array(
+            'utente_id'             => $userDetails->id,
+            'sezione_id'            => $formData->sezione,
+            /*
+            'numero_progressivo'    => $formData->numeroProgressivo,
+            'data_attivazione'      => date("Y-m-d H:i:s"),
+            'ora_attivazione'       => date("H:i:s"),
+            */
+            'data_pubblicare'       => date("Y-m-d H:i:s"),
+            'ora_pubblicare'        => date("H:i:s"),
+            'data_scadenza'         => $formData->dataScadenza,
+            'data_pubblicare'       => date("Y-m-d H:i:s"),
+            'titolo'                => $formData->titolo,
+            'pubblicare'            => 0,
+            'annullato'             => 0,
+            'check_rettifica'       => isset($formData->checkRettifica) ? $formData->checkRettifica : 0,
+            'check_invia_regione'   => isset($formData->checkInviaRegione) ? $formData->checkInviaRegione : 0,
+            'anno_atto'             => date("Y"),
+            'ente_terzo'            => $formData->enteTerzo,
+            'fonte_url'             => $formData->fonteUrl,
+            'note'                  => isset($formData->note) ? $formData->note : null,
+        );
+
+        if (!empty($formData->numeroAtto)) {
+            $arrayUpdate['numero_atto'] = $formData->numeroAtto;
+        }
+
+        if (!empty($formData->anno)) {
+            $arrayUpdate['anno'] = $formData->anno;
+        }
+
         return $this->getConnection()->update(
             $this->dbTable,
-            array(
-                'utente_id'             => $userDetails->id,
-                'sezione_id'            => $formData->sezione,
-                'numero_progressivo'    => $formData->numeroProgressivo,
-                'numero_atto'           => $formData->numeroAtto,
-                'anno'                  => $formData->anno,
-                'data_attivazione'      => date("Y-m-d H:i:s"),
-                'ora_attivazione'       => date("H:i:s"),
-                'data_pubblicare'       => date("Y-m-d H:i:s"),
-                'ora_pubblicare'        => date("H:i:s"),
-                'data_scadenza'         => $formData->dataScadenza,
-                'data_pubblicare'       => date("Y-m-d H:i:s"),
-                'titolo'                => $formData->titolo,
-                'pubblicare'            => 0,
-                'annullato'             => 0,
-                'check_rettifica'        => isset($formData->checkRettifica) ? $formData->checkRettifica : 0,
-                'check_invia_regione'   => isset($formData->checkInviaRegione) ? $formData->checkInviaRegione : 0,
-                'anno_atto'             => date("Y"),
-                'ente_terzo'            => $formData->enteTerzo,
-                'fonte_url'             => $formData->fonteUrl,
-                'note'                  => isset($formData->note) ? $formData->note : null,
-            ),
+            $arrayUpdate,
             array('id' => $formData->id)
         );
+    }
+
+    /**
+     * @param InputFilterAwareInterface $formData
+     * @return array
+     */
+    public function addVariablesForTheView(InputFilterAwareInterface $formData, $operation)
+    {
+        if ($operation=='update') {
+            return array(
+                'messageShowFormLink'   =>  1,
+                'attachmentFilesModule' =>  1,
+            );
+        }
     }
 
     /**

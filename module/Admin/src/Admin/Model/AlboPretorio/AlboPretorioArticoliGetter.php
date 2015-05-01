@@ -22,6 +22,8 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
                 IDENTITY(alboArticoli.sezione) AS sezione,
                 alboArticoli.pubblicare,
                 alboArticoli.annullato,
+                alboArticoli.home,
+
                 aps.id AS idSezione, aps.nome AS nomeSezione,
 
                 u.id AS iduser, u.name AS userName, u.surname AS userSurname,

@@ -11,13 +11,14 @@ use Admin\Model\DataTable\DataTableAbstract;
 class AttiConcessioneModalitaAssegnazioneDataTable extends DataTableAbstract
 {
     /**
-     * @param array $input
+     * @inheritdoc
      */
     public function __construct(array $input)
     {
         parent::__construct($input);
 
         $wrapper = $this->setupPaginatorRecords();
+
         $paginatorRecords = $wrapper->setupRecords();
         $itemCount = $wrapper->getPaginator()->getTotalItemCount();
 
@@ -65,7 +66,7 @@ class AttiConcessioneModalitaAssegnazioneDataTable extends DataTableAbstract
                     utf8_encode($row['nome']),
                     array(
                         'type'      => 'updateButton',
-                        'href'      => $this->getInput('baseUrl',1).'formdata/atti-concessione/'.$row['id'],
+                        'href'      => '#',
                         'title'     => 'Modifica'
                     ),
                     array(

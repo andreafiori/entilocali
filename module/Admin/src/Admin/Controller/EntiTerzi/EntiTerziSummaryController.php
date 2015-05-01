@@ -38,10 +38,9 @@ class EntiTerziSummaryController extends SetupAbstractController
                 "&nbsp;",
                 "&nbsp;",
             ),
-            'records' => $this->formatRecordsToShowOnTable($paginatorRecords)
+            'records' => $this->formatRecordsToShowOnTable($paginatorRecords),
+            'templatePartial' => $templateDir.'datatable/datatable.phtml'
         ));
-
-        $this->layout()->setVariable('templatePartial', $templateDir.'datatable/datatable.phtml');
 
         $this->layout()->setTemplate($mainLayout);
     }

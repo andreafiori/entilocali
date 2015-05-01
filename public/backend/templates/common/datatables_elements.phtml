@@ -54,11 +54,11 @@
                             </td>
                         <?php elseif($record['type']=='homepagePutButton'): ?>
                             <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
-                                <a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-green" title="Metti in home page"><i class="fa fa-home"></i> </a>
+                                <a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-green" title="Presente in home page, clicca per togliere dalla home page"><i class="fa fa-home"></i> </a>
                             </td>
                         <?php elseif($record['type']=='homepageDelButton'): ?>
                             <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
-                                <a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-red" title="Togli dalla home page"><i class="fa fa-home"></i> </a>
+                                <a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-red" title="Non presente in home, clicca per mettere in home page"><i class="fa fa-home"></i> </a>
                             </td>
                         <?php elseif($record['type']=='tableButton'): ?>
                             <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
@@ -176,7 +176,7 @@ endif;
             <form action="" id="frmRevision" method="post">
                 <div class="modal-body">
                     <p><strong>Attenzione:</strong> L'articolo &egrave; gi&agrave; stato pubblicato. Vuoi passare alla revisione?</p>
-                    <p>L'articolo sar&agrave; nuovamente on-line una volta confermato il doppio passaggio uno dell'articolo e l'altro per gli allegati.</p>
+                    <p>L'articolo sar&agrave; nuovamente on-line una volta confermati i doppi passaggi di modifica dell'articolo e degli allegati.</p>
 
                     <input type="hidden" name="revisionId" id="revisionId" value="" />
                 </div>

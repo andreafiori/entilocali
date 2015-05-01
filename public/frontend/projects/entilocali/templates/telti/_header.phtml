@@ -50,6 +50,17 @@
 .sezioniTitle {
     font-size: 120%;
 }
+
+.formElementUlList {
+    list-style-type: none;
+    padding: 0;
+    margin-left: 0;
+}
+
+.formElementUlList li {
+    color: #cc0000;
+}
+
 </style>
 <?php endif; ?>
 
@@ -61,7 +72,7 @@
 
 <?php if ($this->passwordPreviewArea): ?>
     <div class="alert-box info text-center" id="previewAreaAlert">
-        Area riservata <strong><?php echo $this->sitename ?></strong> -
+        Anteprima <strong><?php echo $this->sitename ?></strong>. Validazione HTML e CSS sono riferite al form di login di quest'area pertanto possono contenere errori.
         <strong>
             <a href="<?php echo $this->url('password-preview-logout', array('action' => 'logout')); ?>" title="Uscita area risevata">Uscita</a>
         </strong>

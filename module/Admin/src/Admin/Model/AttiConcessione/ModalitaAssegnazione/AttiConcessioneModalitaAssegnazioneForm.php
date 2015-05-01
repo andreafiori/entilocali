@@ -11,8 +11,7 @@ use Zend\Form\Form;
 class AttiConcessioneModalitaAssegnazioneForm extends Form
 {
     /**
-     * @param null $name
-     * @param null $options
+     * @inheritdoc
      */
     public function __construct($name = null, $options = null)
     {

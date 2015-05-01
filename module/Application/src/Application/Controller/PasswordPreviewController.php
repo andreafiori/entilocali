@@ -12,9 +12,6 @@ use Zend\View\Model\ViewModel;
  */
 class PasswordPreviewController extends SetupAbstractController
 {
-    /**
-     * @return ViewModel
-     */
     public function indexAction()
     {
         $appServiceLoader = $this->recoverAppServiceLoader();
@@ -23,18 +20,18 @@ class PasswordPreviewController extends SetupAbstractController
 
         $session = new SessionContainer();
 
-        if ( !isset($configurations['preview_password_area']) or
-            $this->checkPasswordPreviewArea($configurations, $session) or
-            !$this->hasPasswordPreviewArea($configurations)
-            ) {
-            return $this->redirect()->toRoute('home');
+        $model = new ViewModel();
+
+        if ( !isset($configurations['preview_password_area']) or $this->checkPasswordPreviewArea($configurations, $session) or !$this->hasPasswordPreviewArea($configurations) ) {
+            return $this->redirect()->toRoute('main');
         }
 
         $form = new PasswordPreviewForm();
 
-        $model = new ViewModel();
-        $model->setVariable('form', $form);
-        $model->setVariable('sitename', isset($configurations['sitename']) ? $configurations['sitename'] : null);
+        $model->setVariables(array(
+            'form'      => $form,
+            'sitename'  => isset($configurations['sitename']) ? $configurations['sitename'] : null,
+        ));
 
         $request = $this->getRequest();
         if ($request->isPost()) {
@@ -46,7 +43,7 @@ class PasswordPreviewController extends SetupAbstractController
                     $session->offsetSet('preview_area_ok', 1);
                     $session->offsetSet('preview_area_logintimeout', date("Y-m-d H:i:s"));
 
-                    return $this->redirect()->toRoute('home');
+                    return $this->redirect()->toRoute('main');
                 } else {
                     $model->setVariable('errorMessage', 'Password errata!');
                 }
@@ -67,6 +64,6 @@ class PasswordPreviewController extends SetupAbstractController
         $session->offsetUnset('preview_area_ok');
         $session->offsetUnset('preview_area_logintimeout');
 
-        return $this->redirect()->toRoute('home');
+        return $this->redirect()->toRoute('main');
     }
 }

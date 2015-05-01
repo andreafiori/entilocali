@@ -43,9 +43,4 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1), 'po.position' );
         $this->objectGetter->setLimit( $this->getInput('limit', 1) );
     }
-
-    public function addCategories(array $records)
-    {
-
-    }
 }

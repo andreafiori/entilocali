@@ -8,6 +8,8 @@ use Admin\Model\Users\Settori\UsersSettoriGetter;
 use Admin\Model\Users\Settori\UsersSettoriGetterWrapper;
 
 /**
+ * General container for recovering data from different tables. This object is considered TO DELETE!
+ *
  * @author Andrea Fiori
  * @since  27 July 2014
  */

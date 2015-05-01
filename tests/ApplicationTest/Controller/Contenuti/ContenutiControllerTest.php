@@ -12,6 +12,9 @@ use ServiceLocatorFactory\ServiceLocatorFactory;
  */
 class ContenutiControllerTest extends TestSuite
 {
+    /**
+     * @var ContenutiController
+     */
     private $controller;
 
     protected function setUp()

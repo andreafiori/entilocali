@@ -23,12 +23,22 @@ class Module implements AutoloaderProviderInterface
      */
     public function onBootstrap(MvcEvent $e)
     {
+        date_default_timezone_set('Europe/Madrid');
+
         $sm = $e->getApplication()->getServiceManager();
 
-        $eventManager        = $e->getApplication()->getEventManager();
+        $eventManager = $e->getApplication()->getEventManager();
 
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
+
+        $translator = $e->getApplication()->getServiceManager()->get('translator');
+        $translator->addTranslationFile(
+            'phpArray',
+            __DIR__ . '/config/module.form.translate.php'
+
+        );
+        \Zend\Validator\AbstractValidator::setDefaultTranslator($translator);
 
         try {
             $dbInstance = $sm->get('Zend\Db\Adapter\Adapter');
@@ -40,8 +50,7 @@ class Module implements AutoloaderProviderInterface
             $content = new \Zend\View\Model\ViewModel();
             $content->setTemplate('error/dbconnection');
 
-            $viewModel->setVariable('content', $sm->get('ViewRenderer')
-                                                  ->render($content));
+            $viewModel->setVariable('content', $sm->get('ViewRenderer')->render($content));
 
             exit( $sm->get('ViewRenderer')->render($viewModel) );
         }

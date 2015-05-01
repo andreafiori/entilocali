@@ -21,12 +21,10 @@ class AlboPretorioSummaryController extends SetupAbstractController
         $perPage    = $this->params()->fromRoute('perpage');
         $em         = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-        $input = array(
-            'orderBy' => 'alboArticoli.id DESC'
-        );
-
         $wrapper = new AlboPretorioArticoliGetterWrapper( new AlboPretorioArticoliGetter($em) );
-        $wrapper->setInput($input);
+        $wrapper->setInput(array(
+            'orderBy' => 'alboArticoli.id DESC'
+        ));
         $wrapper->setupQueryBuilder();
         $wrapper->setupPaginator( $wrapper->setupQuery($em) );
         $wrapper->setupPaginatorCurrentPage($page);
@@ -53,7 +51,6 @@ class AlboPretorioSummaryController extends SetupAbstractController
                     '&nbsp;',
                     '&nbsp;',
                 ),
-
                 'paginator'         => $paginator,
                 'records'           => $this->formatArticoliRecords($records),
                 'templatePartial'   => self::summaryTemplate
@@ -115,7 +112,12 @@ class AlboPretorioSummaryController extends SetupAbstractController
                     /* Attachment button */
                     $arrayLine[] = array(
                         'type'  => 'attachButton',
-                        'href'  => 'formdata/attachments/'.$modulePrefixLink.'/'.$record['id'],
+                        'href'  => $this->url()->fromRoute('admin/formdata', array(
+                            'lang'          => 'it',
+                            'formsetter'    => 'attachments',
+                            'option'        => $modulePrefixLink,
+                            'id'            => $record['id']
+                        )),
                         'class' => $rowClass,
                     );
 
@@ -137,6 +139,14 @@ class AlboPretorioSummaryController extends SetupAbstractController
                                 'data-id'   => $record['id'],
                                 'class'     => $rowClass,
                             );
+
+                            /* Homepage button */
+                            $arrayLine[] = array(
+                                'type'      => $record['home']==1 ? 'homepagePutButton' : 'homepageDelButton',
+                                'href'      => '#',
+                                'value'     => $record['home']==1 ? 1 : 0,
+                            );
+
                         } else {
                             /* Publish button */
                             $arrayLine[] = array(
@@ -176,7 +186,7 @@ class AlboPretorioSummaryController extends SetupAbstractController
                             )),
                             'class'  => $rowClass,
                         );
-                        /* Annull button */
+                        /* Annull button if published */
                         if ($record['pubblicare']==1) {
                             $arrayLine[] = array(
                                 'type'      => 'alboAnnullButton',

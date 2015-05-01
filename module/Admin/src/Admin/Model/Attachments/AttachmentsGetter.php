@@ -27,7 +27,9 @@ class AttachmentsGetter extends QueryBuilderHelperAbstract
                                        Application\Entity\ZfcmsAttachmentsMimeType am,
                                        Application\Entity\ZfcmsUsers u
                                 ')
-                                ->where(' ao.attachment = a.id AND ar.attachment = a.id AND a.user = u.id AND a.mime = am.id ');
+                                ->where('ao.attachment = a.id AND ar.attachment = a.id
+                                        AND a.user = u.id AND a.mime = am.id
+                                        ');
 
         return $this->getQueryBuilder();
     }

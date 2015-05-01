@@ -19,11 +19,6 @@ class ContenutiDataTable extends DataTableAbstract
     {
         parent::__construct($input);
 
-        /* Check ACL */
-        if (!$this->getAcl()->hasResource('contenuti_update')) {
-            return false;
-        }
-
         $configurations = $this->getInput('configurations', 1);
 
         $wrapper = $this->setupContenutiGetterWrapper(array(

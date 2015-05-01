@@ -8,7 +8,6 @@ use Admin\Model\Posts\PostsGetterWrapper;
 use Admin\Model\Posts\CategoriesGetter;
 use Admin\Model\Posts\CategoriesGetterWrapper;
 use Application\Controller\SetupAbstractController;
-use Zend\View\Model\ViewModel;
 
 /**
  * @author Andrea Fiori
@@ -24,14 +23,15 @@ class BlogsFormController extends SetupAbstractController
 
         $id = $this->params()->fromRoute('id');
 
-        $wrapper = new PostsGetterWrapper( new PostsGetter($entityManager) );
-        $wrapper->setInput(array(
-            'id'    => $id,
-            'limit' => 1,
-        ));
-        $wrapper->setupQueryBuilder();
-
-        $recordFromDb = $wrapper->getRecords();
+        if ($id) {
+            $wrapper = new PostsGetterWrapper( new PostsGetter($entityManager) );
+            $wrapper->setInput(array(
+                'id'    => $id,
+                'limit' => 1,
+            ));
+            $wrapper->setupQueryBuilder();
+            $recordFromDb = $wrapper->getRecords();
+        }
 
         $wrapper = new CategoriesGetterWrapper(new CategoriesGetter($entityManager));
         $wrapper->setInput(array(
@@ -51,7 +51,7 @@ class BlogsFormController extends SetupAbstractController
         $form->addMainFields();
         $form->addCategory($selectArray);
 
-        if ($recordFromDb) {
+        if (!empty($recordFromDb)) {
 
             $wrapper = new PostsGetterWrapper( new PostsGetter($entityManager) );
             $wrapper->setInput( array(
@@ -97,7 +97,5 @@ class BlogsFormController extends SetupAbstractController
         $this->layout()->setVariable('templatePartial', self::formTemplate);
 
         $this->layout()->setTemplate($mainLayout);
-
-        return new ViewModel();
     }
 }

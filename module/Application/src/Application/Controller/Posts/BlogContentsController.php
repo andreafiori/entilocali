@@ -12,11 +12,13 @@ use Application\Controller\SetupAbstractController;
  */
 class BlogContentsController extends SetupAbstractController
 {
+    /*
     public function indexAction()
     {
         $mainLayout = $this->initializeFrontendWebsite();
 
         $category = $this->getInput('category', 1);
+
         $title = $this->getInput('title', 1);
 
         $param = $this->getInput('param', 1);
@@ -44,4 +46,10 @@ class BlogContentsController extends SetupAbstractController
 
         $this->layout()->setTemplate($mainLayout);
     }
+
+    public function details()
+    {
+
+    }
+    */
 }

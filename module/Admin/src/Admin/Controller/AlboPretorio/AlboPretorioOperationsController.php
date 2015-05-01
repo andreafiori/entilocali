@@ -37,26 +37,26 @@ class AlboPretorioOperationsController extends SetupAbstractController
                 $helper->publishArticle($this->params()->fromPost('publishId'));
 
                 $this->log(array(
-                    'user_id' => $userDetails->id,
-                    'message' => "Pubblicato atto albo pretorio " . $record[0]['titolo'],
-                    'type' => 'info',
-                    'backend' => 1,
-                    'module_id' => 3,
-                    'reference_id' => $record[0]['id'],
+                    'user_id'       => $userDetails->id,
+                    'message'       => "Pubblicato atto albo pretorio " . $record[0]['titolo'],
+                    'type'          => 'info',
+                    'backend'       => 1,
+                    'module_id'     => 3,
+                    'reference_id'  => $record[0]['id'],
                 ));
             } catch (\Exception $e) {
                 $helper->getConnection()->rollBack();
 
                 $this->log(array(
-                    'user_id' => $userDetails->id,
-                    'message' => "Errore pubblicazione atto albo pretorio " . $record[0]['titolo'] . ' Messaggio generato: ' . $e->getMessage(),
-                    'type' => 'error',
-                    'backend' => 1,
-                    'module_id' => 3,
-                    'reference_id' => $record[0]['id'],
+                    'user_id'       => $userDetails->id,
+                    'message'       => "Errore pubblicazione atto albo pretorio " . $record[0]['titolo'] . ' Messaggio generato: ' . $e->getMessage(),
+                    'type'          => 'error',
+                    'backend'       => 1,
+                    'module_id'     => 3,
+                    'reference_id'  => $record[0]['id'],
                 ));
 
-                // TODO: redidrect to a message page and show an error message
+                // TODO: redirect to a message page and show an error message
             }
         }
 

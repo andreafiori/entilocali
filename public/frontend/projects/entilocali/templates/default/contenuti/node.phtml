@@ -16,15 +16,17 @@
         <div><?php echo utf8_encode($record['sommario']) ?></div>
         <?php endif; ?>
 
-        <div><?php echo utf8_encode($record['testo']); ?></div>
+        <div>
+            <?php echo utf8_encode($record['testo']); ?>
+        </div>
 
         <?php if (!empty($record['attachments'])): ?>
             <h3>Allegati</h3>
             <?php foreach($record['attachments'] as $attachment): ?>
             <div>
                 <a href="<?php echo $this->url('attachments-sthree-download', array(
-                    'type' => 'contenuti',
-                    'id' => $attachment['id'])); ?>" title="Scarica allegato <?php echo $attachment['name'] ?>">
+                    'type'  => 'contenuti',
+                    'id'    => $attachment['id'])); ?>" title="Scarica allegato <?php echo $attachment['name'] ?>">
                     <img src="<?php echo $this->basepath() ?>/public/common/icons/attachments/<?php echo $attachment['image']; ?>" alt="Icon tipo file per <?php echo $attachment['name'] ?>">
                     <?php echo $attachment['name'] ?>
                 </a> (<?php echo $attachment['size'] ?> Kb)
@@ -33,16 +35,28 @@
         <?php endif; ?>
 
         <br>
+
+        <?php if (isset($record['sotto_sezioni'])): ?>
+            <h4>Sotto sezioni</h4>
+            <ul>
+            <?php foreach($record['sotto_sezioni'] as $sottoSezione): ?>
+                <li><a href="<?php echo $this->url('contents', array('subsectionid' => $sottoSezione['idSottoSezione'])) ?>" title="Consulta la sottosezione di  <?php echo $record['titolo'] ?> <?php echo $sottoSezione['nomeSottoSezione'] ?>"><?php echo $sottoSezione['nomeSottoSezione'] ?></a></li>
+            <?php endforeach ?>
+            </ul>
+        <?php endif; ?>
+
         <?php
         echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
             'twitterShareText' => urlencode($record['titolo']),
         ));
         ?>
+
         <hr>
     <?php endforeach; ?>
 
 <?php else: ?>
     <div class="panel callout">
-        <h2>Nessun contenuto presente</h2>
+        <h2>Nessun testo presente in questa pagina</h2>
+        <p>La pagina corrente &egrave; attualmente in costruzione</p>
     </div>
 <?php endif; ?>

@@ -3,7 +3,6 @@
 namespace Admin\Model\StatoCivile;
 
 use Application\Model\RecordsGetterWrapperAbstract;
-use Admin\Model\StatoCivile\StatoCivileGetter;
 
 /**
  * @author Andrea Fiori

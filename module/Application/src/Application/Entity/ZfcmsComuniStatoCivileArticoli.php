@@ -78,6 +78,13 @@ class ZfcmsComuniStatoCivileArticoli
     private $flagAllegati;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="homepage", type="integer", nullable=false)
+     */
+    private $homepage;
+
+    /**
      * @var \Application\Entity\ZfcmsComuniStatoCivileSezioni
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniStatoCivileSezioni")
@@ -291,6 +298,29 @@ class ZfcmsComuniStatoCivileArticoli
     public function getFlagAllegati()
     {
         return $this->flagAllegati;
+    }
+
+    /**
+     * Set homepage
+     *
+     * @param integer $homepage
+     * @return ZfcmsComuniStatoCivileArticoli
+     */
+    public function setHomepage($homepage)
+    {
+        $this->homepage = $homepage;
+    
+        return $this;
+    }
+
+    /**
+     * Get homepage
+     *
+     * @return integer 
+     */
+    public function getHomepage()
+    {
+        return $this->homepage;
     }
 
     /**

@@ -13,37 +13,20 @@ class AlboPretorioArticoliForm extends Form
 {
     public function addTitolo()
     {
-        $this->add($this->recoverTitolo());
+        $this->add(array(
+            'type' => 'Text',
+            'name' => 'titolo',
+            'options' => array(
+                'label' => '* Oggetto',
+            ),
+            'attributes' => array(
+                'title'         => 'Inserisci oggetto articolo',
+                'id'            => 'titolo',
+                'required'      => 'required',
+                'placeholder'   => 'Oggetto...',
+            )
+        ));
     }
-
-    public function addTitoloReadOnly()
-    {
-        $titolo = $this->recoverTitolo();
-
-        $titolo['attributes']['readonly'] = 'readonly';
-
-        $this->add($titolo);
-    }
-
-        /**
-         * @return array
-         */
-        private function recoverTitolo()
-        {
-            return array(
-                        'type' => 'Text',
-                        'name' => 'titolo',
-                        'options' => array(
-                            'label' => '* Oggetto',
-                        ),
-                        'attributes' => array(
-                            'title'         => 'Inserisci oggetto articolo',
-                            'id'            => 'titolo',
-                            'required'      => 'required',
-                            'placeholder'   => 'Oggetto...',
-                        )
-            );
-        }
 
     /**
      * Given sezioni from db, set the array for the select
@@ -56,8 +39,8 @@ class AlboPretorioArticoliForm extends Form
                         'type' => 'Zend\Form\Element\Select',
                         'name' => 'sezione',
                         'options' => array(
-                            'label' => '* Sezione',
-                            'empty_option' => 'Seleziona',
+                            'label'         => '* Sezione',
+                            'empty_option'  => 'Seleziona',
                             'value_options' => $sezioni,
                         ),
                         'attributes' => array(
@@ -88,45 +71,51 @@ class AlboPretorioArticoliForm extends Form
         $this->add(array(
                         'type' => 'Zend\Form\Element\Hidden',
                         'name' => 'rettifica',
-                        'attributes' => array(
-                            'class' => 'hiddenField',
-                            'value' => 1,
+                        'attributes'    => array(
+                            'class'     => 'hiddenField',
+                            'value'     => 1,
                         )
+        ));
+    }
+
+    public function addNumero()
+    {
+        $this->add(array(
+            'type' => 'Text',
+            'name' => 'numeroAtto',
+            'options' => array(
+                'label' => '* Numero',
+            ),
+            'attributes' => array(
+                'title'       => 'Inserisci numero atto sezione',
+                'id'          => 'numeroAtto',
+                'required'    => 'required',
+                'placeholder' => 'Numero atto',
+                'type'        => 'number',
+            )
+        ));
+    }
+
+    public function addAnno()
+    {
+        $this->add(array(
+            'type' => 'Text',
+            'name' => 'anno',
+            'options' => array(
+                'label' => '* Anno',
+            ),
+            'attributes' => array(
+                'title'         => 'Inserisci anno',
+                'id'            => 'anno',
+                'required'      => 'required',
+                'placeholder'   => 'Anno atto',
+                'type'          => 'number',
+            )
         ));
     }
     
     public function addMainFields()
     {
-        $this->add(array(
-                        'type' => 'Text',
-                        'name' => 'numeroAtto',
-                        'options' => array(
-                               'label' => '* Numero',
-                        ),
-                        'attributes' => array(
-                                'title'       => 'Inserisci numero atto sezione',
-                                'id'          => 'numeroAtto',
-                                'required'    => 'required',
-                                'placeholder' => 'Numero atto',
-                                'type'        => 'number',
-                        )
-        ));
-        
-        $this->add(array(
-                        'type' => 'Text',
-                        'name' => 'anno',
-                        'options' => array(
-                                'label' => '* Anno',
-                        ),
-                        'attributes' => array(
-                                'title'         => 'Inserisci anno',
-                                'id'            => 'anno',
-                                'required'      => 'required',
-                                'placeholder'   => 'Anno atto',
-                                'type'          => 'number',
-                        )
-        ));
-        
         $this->add(array(
                         'type' => 'Application\Form\Element\PlainText',
                         'name' => 'enteTerzoLabel',

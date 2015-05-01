@@ -2,7 +2,8 @@
 
 namespace ApplicationTest\Model\RouterManagers;
 
-use Application\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFrontend;
+use Admin\Model\AlboPretorio\AlboPretorioSezioniFormDataHandler;
+use Admin\Model\FormData\FormDataHandler;
 use Application\Model\RouterManagers\RouterManagerHelper;
 use ApplicationTest\TestSuite;
 
@@ -18,11 +19,14 @@ class RouterManagerHelperTest extends TestSuite
     {
         parent::setUp();
         
-        $this->routerManagerHelper = new RouterManagerHelper(new AmministrazioneTrasparenteFrontend() );
+        $this->routerManagerHelper = new RouterManagerHelper( new FormDataHandler() );
     }
     
     public function testGetRouterManger()
     {
-        $this->assertInstanceOf('Application\Model\RouterManagers\RouterManagerAbstract', $this->routerManagerHelper->getRouterManger());
+        $this->assertInstanceOf(
+            'Application\Model\RouterManagers\RouterManagerAbstract',
+            $this->routerManagerHelper->getRouterManger()
+        );
     }
 }

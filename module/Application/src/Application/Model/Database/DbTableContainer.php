@@ -69,7 +69,7 @@ class DbTableContainer
 
     const posts                             = 'zfcms_posts';
     const postsOptions                      = 'zfcms_posts_options';
-    const postsRelations                     = 'zfcms_posts_relations';
+    const postsRelations                    = 'zfcms_posts_relations';
 
     const categories                        = 'zfcms_posts_categories';
     const categoriesOptions                 = 'zfcms_posts_categories_options';

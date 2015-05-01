@@ -81,7 +81,7 @@ class AttiConcessioneModalitaAssegnazioneCrudHandler extends CrudHandlerAbstract
     }
 
     /**
-     * @param $id
+     * @param int $id
      */
     public function delete($id)
     {

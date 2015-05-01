@@ -17,74 +17,58 @@
     $form = $this->form;
     $form->prepare();
 
-    $form->setAttribute('action', $this->basepath());
+    $form->setAttribute('action', $this->currentUrl);
     $form->setAttribute('method', 'post');
     $form->setAttribute('role', 'form');
 
     $formLabel = $this->plugin('formLabel');
 
     echo $this->form()->openTag($this->form);
-    
-    foreach ($this->form as $element):
-        $attributes = $element->getAttributes();
-        echo $this->formElementErrors($element);
-        if ($attributes['name'] == 'csrf'):
-            echo $this->formElement($element);
-        elseif ($attributes['type'] == 'submit'):
-        ?>
-        <div class="row">
-            <div class="small-8 columns">
-                <div class="row">
-                    <div class="small-3 columns">
-                        <label for="<?php echo $attributes['id'] ?>">&nbsp;</label>
-                    </div>
-                    <div class="small-9 columns">
-                        <?php
-                        $element->setAttribute('class', 'button small');
-                        echo $this->formElement($element);
-                        ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php
-        elseif ($attributes['type'] == 'checkbox'):
-        ?>
-        <div class="row">
-            <div class="small-8 columns">
-                <div class="row">
-                    <div class="small-3 columns">
-                        &nbsp;
-                    </div>
-                    <div class="small-9 columns">
-                        <label for="<?php echo $attributes['id'] ?>"> <?php echo $this->formElement($element); ?> <?php echo $element->getLabel() ?></label>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php else: ?>
-        <div class="row">
-            <div class="small-8 columns">
-                <div class="row">
-                    <div class="small-3 columns">
-                        <label for="<?php echo $attributes['id'] ?>"><?php echo $element->getLabel() ?>:</label>
-                    </div>
-                    <div class="small-9 columns">
-                        <?php echo $this->formElement($element); ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php
-        endif;
-    endforeach;
 
-    echo $this->form()->closeTag();
-    
     ?>
-</fieldset>
+    <div class="row">
+        <?php $name = $form->get('anno'); ?>
+        <?php echo $this->formElementErrors($name); ?>
+        <div class="small-2 columns">
+            <?php echo $formLabel->openTag(array('for'=>'anno')) . $name->getOption('label'). $formLabel->closeTag(); ?>
+        </div>
+        <div class="small-2 columns">
+            <?php echo $this->formInput($name)?>
+        </div>
 
-<!-- Contenuti -->
+        <?php $name = $form->get('testo'); ?>
+        <?php echo $this->formElementErrors($name); ?>
+        <div class="small-2 columns">
+            <?php echo $formLabel->openTag(array('for'=>'testo')) . $name->getOption('label').$formLabel->closeTag(); ?>
+        </div>
+        <div class="small-6 columns">
+            <?php echo $this->formInput($name)?>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <?php $name = $form->get('subsection'); ?>
+        <?php echo $this->formElementErrors($name); ?>
+        <div class="small-2 columns">
+            <div class="text-right"><?php echo $this->formInput($name)?></div>
+        </div>
+        <div class="small-4 columns">
+            <?php echo $formLabel->openTag(array('for' => 'subsection')) . $name->getOption('label').$formLabel->closeTag(); ?>
+        </div>
+
+        <?php $name = $form->get('search'); $name->setAttribute('class','button tiny info'); ?>
+        <?php echo $this->formElementErrors($name); ?>
+        <div class="small-2 columns">
+            <?php echo $this->formInput($name)?>
+        </div>
+        <div class="small-8 columns">
+            <?php echo $formLabel->openTag() . $name->getOption('label').$formLabel->closeTag(); ?>
+        </div>
+    </div>
+
+
+<!-- Articolo amm trasp -->
 <?php
 
 foreach($this->contenuti as $contenuto):
@@ -97,18 +81,18 @@ foreach($this->contenuti as $contenuto):
 
     <br>
     <?php
-    // sharing
+    // Sharing
     echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
         'twitterShareText' => utf8_encode($contenuto['titolo']),
     ));
     ?>
 
-    <?php
+<?php
 endforeach;
 
 ?>
 
-<!-- Sezioni -->
+<!-- SottoSezioni -->
 <?php
 if ($this->sottoSezioni):
     ?>
@@ -116,9 +100,17 @@ if ($this->sottoSezioni):
     <ul>
     <?php
     foreach($this->sottoSezioni as $sottoSezione):
+        if (!empty($sottoSezione['url'])) {
+            $urlSottoSezione = $sottoSezione['url'];
+            $target = '_blank';
+        } else {
+            $urlSottoSezione = $this->url('amministrazione-trasparente', array('profondita' => $sottoSezione['idSottoSezione']));
+        }
         ?>
         <li>
-            <a href="<?php echo $this->url('amministrazione-trasparente', array('profondita' => $sottoSezione['idSottosezione'])) ?>" title="Vai alla sezione <?php echo utf8_encode($sottoSezione['nomeSottosezione']); ?>"><?php echo utf8_encode($sottoSezione['nomeSottosezione']); ?></a>
+            <a href="<?php echo $urlSottoSezione ?>"
+               title="Vai alla sezione <?php echo utf8_encode($sottoSezione['nomeSottoSezione']); ?>"
+                <?php if (isset($target)): ?> target="<?php echo $target ?>"<?php endif; ?>><?php echo utf8_encode($sottoSezione['nomeSottoSezione']); ?></a>
         </li>    
         <?php
     endforeach;

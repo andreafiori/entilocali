@@ -12,9 +12,15 @@ class HomePageRecordsGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('h.referenceId, h.position, h.freeText, IDENTITY(hb.module) AS moduleId ');
+        $this->setSelectQueryFields('h.referenceId, h.position, h.freeText,
+                                    IDENTITY(hb.module) AS moduleId,
 
-        $this->getQueryBuilder()->select($this->getSelectQueryFields())
+                                    hb.position AS blockPosition,
+
+                                    m.code AS moduleCode
+                                    ');
+
+        $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
                                 ->from('Application\Entity\ZfcmsHomepage', 'h')
                                 ->join('h.block', 'hb')
                                 ->join('hb.module', 'm')
@@ -51,6 +57,19 @@ class HomePageRecordsGetter extends QueryBuilderHelperAbstract
         if ( is_string($moduleCode) ) {
             $this->getQueryBuilder()->andWhere('m.code = :moduleCode ');
             $this->getQueryBuilder()->setParameter('moduleCode', $moduleCode);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param $onylActive
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setOnlyActiveModules($onylActive)
+    {
+        if ($onylActive == 1) {
+            $this->getQueryBuilder()->andWhere('m.status = 1 ');
         }
 
         return $this->getQueryBuilder();

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsHomepageBlocks
  *
- * @ORM\Table(name="zfcms_homepage_blocks", indexes={@ORM\Index(name="module_id", columns={"module_id"})})
+ * @ORM\Table(name="zfcms_homepage_blocks", uniqueConstraints={@ORM\UniqueConstraint(name="module_id", columns={"module_id"})})
  * @ORM\Entity
  */
 class ZfcmsHomepageBlocks
@@ -27,6 +27,13 @@ class ZfcmsHomepageBlocks
      * @ORM\Column(name="position", type="integer", nullable=true)
      */
     private $position;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="note", type="string", length=100, nullable=true)
+     */
+    private $note;
 
     /**
      * @var \Application\Entity\ZfcmsModules

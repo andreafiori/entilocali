@@ -129,9 +129,16 @@ class ZfcmsComuniContratti
     /**
      * @var string
      *
-     * @ORM\Column(name="cig", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="cig", type="string", length=20, nullable=true)
      */
     private $cig;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="homepage", type="integer", nullable=false)
+     */
+    private $homepage;
 
     /**
      * @var \Application\Entity\ZfcmsUsersRespProc
@@ -551,6 +558,29 @@ class ZfcmsComuniContratti
     public function getCig()
     {
         return $this->cig;
+    }
+
+    /**
+     * Set homepage
+     *
+     * @param integer $homepage
+     * @return ZfcmsComuniContratti
+     */
+    public function setHomepage($homepage)
+    {
+        $this->homepage = $homepage;
+    
+        return $this;
+    }
+
+    /**
+     * Get homepage
+     *
+     * @return integer 
+     */
+    public function getHomepage()
+    {
+        return $this->homepage;
     }
 
     /**

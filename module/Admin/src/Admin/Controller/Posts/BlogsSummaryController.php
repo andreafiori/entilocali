@@ -37,7 +37,7 @@ class BlogsSummaryController extends SetupAbstractController
         $wrapper->setupPaginatorCurrentPage(isset($page) ? $page : null);
         $wrapper->setupPaginatorItemsPerPage(isset($perPage) ? $perPage : null);
 
-        $paginator      = $wrapper->getPaginator();
+        $paginator = $wrapper->getPaginator();
 
         $postsRecords = $wrapper->setupRecords();
 

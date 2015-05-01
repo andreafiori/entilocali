@@ -129,9 +129,16 @@ class ZfcmsComuniContratti
     /**
      * @var string
      *
-     * @ORM\Column(name="cig", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="cig", type="string", length=20, nullable=true)
      */
     private $cig;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="homepage", type="integer", nullable=false)
+     */
+    private $homepage;
 
     /**
      * @var \Application\Entity\ZfcmsUsersRespProc

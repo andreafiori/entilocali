@@ -1,40 +1,47 @@
-[![Build Status](https://travis-ci.org/andreafiori/zend2-cms-with-restful-api.svg?branch=master)](https://travis-ci.org/andreafiori/zend2-cms-with-restful-api)
+Entilocali project for Kronoweb.it
+============================================
 
-[![Coverage Status](https://coveralls.io/repos/andreafiori/zend2-cms-with-restful-api/badge.png)](https://coveralls.io/r/andreafiori/zend2-cms-with-restful-api)
-
-Zend2 CMS with RESTful API
-===============================
+[![Build Status](https://travis-ci.org/andreafiori/entilocali.svg?branch=master)](https://travis-ci.org/andreafiori/entilocali)
 
 Introduction
 --------------
 
-    The application is still under construction!!!
+    The application is still under construction
 
-I'm building this application to restyle an old CMS made with flat PHP long time ago for a company.
-This is intended to manage data for public administrations and companies.
+I'm building this application to restyle an old CMS made with flat PHP long time ago for the company.
+This is intended to manage data for public administrations and small companies.
 
 Installation
 -------------------
 
-Get a working copy of this project is to clone the repository and use `composer` to install dependencies using the `create-project` command:
-
     php composer.phar self-update
     php composer.phar install
-
-The MySQL database dump file is on the sql directory.
-
-Update third part scripts using:
     
+To update the dependencies and optimize the autoloader for better performances:
+
     composer update --optimize-autoloader
 
-Rename the a.htaccess file to .htaccess. I've renamed it to use on my localhost with XAMPP.
+Rename the a.htaccess file to .htaccess. I've renamed it to use on my localhost Windows XAMPP enviroment.
 
-Notes
+A sample of the MySQL database dump file is on the sql directory.
+The doctrine files represents the updated structure of all db tables
+
+Description
 -------------------
 
 This index.php file on the root allows to use this application on a shared hosting.
+The vendor file will be shared with multiple applications on the same VPS.
 
 The public directory contains frontend, backend and common assets, views and templates.
 
-Amazon S3 class: https://github.com/tpyo/amazon-s3-php-class
+The application uses Amazon S3 to store static attachment files: 
+Here is the singleton class I've used:
+
+    S3 class: https://github.com/tpyo/amazon-s3-php-class
+    
+Code documentation
+------------------------
+
+The code documentation can be generated using the apigen.phar.
+For more info: <a href="http://www.apigen.org" target="_blank">ApiGen</a>
 

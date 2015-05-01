@@ -18,9 +18,9 @@ class BlogsCategoriesSummaryController extends SetupAbstractController
 
         $entityManager  = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-        $page       = $this->params()->fromRoute('page');
+        $page = $this->params()->fromRoute('page');
 
-        $moduleCode     = $this->params()->fromRoute('moduleCode');
+        $moduleCode = $this->params()->fromRoute('moduleCode');
 
         $wrapper = new CategoriesGetterWrapper( new CategoriesGetter($entityManager) );
         $wrapper->setInput(array(

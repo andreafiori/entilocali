@@ -4,12 +4,8 @@ namespace Application\Model\CssStyleSwitch;
 
 use Application\Model\RouterManagers\RouterManagerAbstract;
 use Application\Model\RouterManagers\RouterManagerInterface;
-use Zend\Session\Container as SessionContainer;
 
-/**
- * Change session value about CSS to use
- * 
- */
+
 class CssStyleSwitchFrontend extends RouterManagerAbstract implements RouterManagerInterface
 {
     public function setupRecord()

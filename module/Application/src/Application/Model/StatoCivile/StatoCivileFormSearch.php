@@ -23,9 +23,10 @@ class StatoCivileFormSearch extends Form
             'type' => 'Text',
             'name' => 'testo',
             'attributes' => array(
-                'placeholder' => 'Inserisci testo...',
-                'title'  => 'Inserisci testo',
-                'id'     => 'testo'
+                'placeholder'   => 'Inserisci testo...',
+                'title'         => 'Inserisci testo',
+                'id'            => 'testo',
+                'maxlength'     => '150',
             ),
             'options' => array(
                 'label' => 'Testo',
@@ -39,12 +40,13 @@ class StatoCivileFormSearch extends Form
             'type' => 'Zend\Form\Element\Select',
             'name' => 'mese',
             'attributes' => array(
-                'title' => 'Seleziona mese',
+                'title' => 'Seleziona mese pubblicazione',
                 'id'    => 'mese'
             ),
             'empty_option' => 'Mese',
             'options' => array(
-                    'label' => 'Mese',
+                    'label'         => 'Mese',
+                    'empty_option'  => 'Mese',
                     'value_options' => array(
                         '1'  => 'Gennaio',
                         '2'  => 'Febbraio',
@@ -69,19 +71,20 @@ class StatoCivileFormSearch extends Form
             'type' => 'Zend\Form\Element\Select',
             'name' => 'anno',
             'attributes' => array(
-                'title' => 'Seleziona anno',
+                'title' => 'Seleziona anno pubblicazione',
                 'id' => 'anno'
             ),
             'options' => array(
-                'label' => 'Anno',
+                'label'         => 'Anno',
                 'value_options' => $this->getArrayYears(),
+                'empty_option'  => 'Anno',
             )
         ));
     }
     
         private function getArrayYears()
         {
-            $arrayYears = array('' => 'Anno');
+            $arrayYears = array();
 
             for($i=date("Y"); $i < date("Y")+7; $i++) {
                 $arrayYears[$i] = $i;
@@ -125,7 +128,8 @@ class StatoCivileFormSearch extends Form
             'attributes' => array(
                 'label' => '&nbsp;',
                 'value' => 'Cerca',
-                'id' => 'search',
+                'id'    => 'search',
+                'title' => 'Cerca fra le pubblicazioni stato civile'
             ))
         );
     }

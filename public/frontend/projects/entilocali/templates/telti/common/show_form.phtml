@@ -14,7 +14,12 @@ echo $this->form()->openTag($this->form);
 
 foreach ($this->form as $element):
     $attributes = $element->getAttributes();
-    echo $this->formElementErrors($element);
+
+    echo $this->formElementErrors($element, array(
+            'class' => "formElementUlList",
+        )
+    );
+
     if ($attributes['name'] == 'csrf'):
         echo $this->formElement($element);
     elseif ($attributes['type'] == 'submit'):

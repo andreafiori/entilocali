@@ -23,7 +23,8 @@ class NewsletterForm extends Form
                 'placeholder' => 'Inserisci email',
                 'title'     => 'Inserisci email',
                 'required'  => 'required',
-                'id'        => 'nome'
+                'id'        => 'nome',
+                'maxlength' => '150',
             ), 
             'options' => array( 
                 'label' => 'Nome', 

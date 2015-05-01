@@ -31,9 +31,30 @@ class ZfcmsHomepage
     /**
      * @var string
      *
+     * @ORM\Column(name="title", type="string", length=255, nullable=true)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="free_text", type="text", length=65535, nullable=true)
      */
     private $freeText;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="show_attachments", type="integer", nullable=false)
+     */
+    private $showAttachments;
 
     /**
      * @var integer

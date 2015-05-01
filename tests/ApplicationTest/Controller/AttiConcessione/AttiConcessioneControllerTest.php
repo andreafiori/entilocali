@@ -12,6 +12,9 @@ use ServiceLocatorFactory\ServiceLocatorFactory;
  */
 class AttiConcessioneControllerTest extends TestSuite
 {
+    /**
+     * @var AttiConcessioneController
+     */
     private $controller;
 
     protected function setUp()

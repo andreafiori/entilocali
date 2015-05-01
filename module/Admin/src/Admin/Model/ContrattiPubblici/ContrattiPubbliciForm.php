@@ -52,11 +52,11 @@ class ContrattiPubbliciForm extends Form
         ));
 
         $this->add(array(
-            'name' => 'importo',
+            'name' => 'importoAggiudicazione',
             'type' => 'Text',
             'options' => array('label' => '* Importo aggiudicazione (Euro): &euro;'),
             'attributes' => array(
-                'id' => 'importo',
+                'id' => 'importoAggiudicazione',
                 'title'         => "Inserisci l'importo aggiudicazione",
                 'placeholder'   => 'Importo aggiudicazione...',
                 'required'      => 'required'
@@ -64,11 +64,11 @@ class ContrattiPubbliciForm extends Form
         ));
 
         $this->add(array(
-            'name' => 'importo2',
+            'name' => 'importoLiquidato',
             'type' => 'Text',
             'options' => array('label' => 'Importo delle somme liquidate (Euro): &euro;'),
             'attributes' => array(
-                'id' => 'importo2',
+                'id' => 'importoLiquidato',
                 'title' => "Inserisci l'importo somme liquidate",
                 'placeholder' => 'Importo somme liquidate...',
                 'required' => 'required'

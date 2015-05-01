@@ -14,10 +14,6 @@ use Zend\Mvc\Controller\AbstractActionController;
  */
 class DocumentExportController extends AbstractActionController
 {
-    private $subjectMap = array(
-        'albo-pretorio' => 'Admin\Model\AlboPretorio\AlboPretorioDocumentExporter'
-    );
-
     public function indexAction()
     {
         $subject    = $this->params()->fromRoute('subject');
@@ -65,8 +61,6 @@ class DocumentExportController extends AbstractActionController
             break;
         }
 
-        return new \Zend\View\Model\JsonModel(
-                array("id" => $id)
-        );
+        return new \Zend\View\Model\JsonModel( array("id" => $id) );
     }
 }

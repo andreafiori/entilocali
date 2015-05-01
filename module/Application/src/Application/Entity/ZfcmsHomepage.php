@@ -31,9 +31,30 @@ class ZfcmsHomepage
     /**
      * @var string
      *
+     * @ORM\Column(name="title", type="string", length=255, nullable=true)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=255, nullable=true)
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="free_text", type="text", length=65535, nullable=true)
      */
     private $freeText;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="show_attachments", type="integer", nullable=false)
+     */
+    private $showAttachments;
 
     /**
      * @var integer
@@ -88,6 +109,52 @@ class ZfcmsHomepage
     }
 
     /**
+     * Set title
+     *
+     * @param string $title
+     * @return ZfcmsHomepage
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return ZfcmsHomepage
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
      * Set freeText
      *
      * @param string $freeText
@@ -108,6 +175,29 @@ class ZfcmsHomepage
     public function getFreeText()
     {
         return $this->freeText;
+    }
+
+    /**
+     * Set showAttachments
+     *
+     * @param integer $showAttachments
+     * @return ZfcmsHomepage
+     */
+    public function setShowAttachments($showAttachments)
+    {
+        $this->showAttachments = $showAttachments;
+    
+        return $this;
+    }
+
+    /**
+     * Get showAttachments
+     *
+     * @return integer 
+     */
+    public function getShowAttachments()
+    {
+        return $this->showAttachments;
     }
 
     /**

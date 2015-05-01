@@ -26,15 +26,13 @@ class FormDataPostController extends SetupAbstractController
 
         $appServiceLoader = $this->recoverAppServiceLoader();
 
-        $input = array_merge(
+        $formDataCrudHandler = new FormDataCrudHandler();
+        $formDataCrudHandler->setInput(array_merge(
             $appServiceLoader->getProperties(),
             array(
                 'userDetails'  => $this->recoverUserDetails(),
             )
-        );
-
-        $formDataCrudHandler = new FormDataCrudHandler();
-        $formDataCrudHandler->setInput($input);
+        ));
         $formDataCrudHandler->setFormCrudHandler($this->params()->fromRoute('form_post_handler'));
 
         $crudHandlerObject = $formDataCrudHandler->detectCrudHandlerClassMap(
@@ -43,11 +41,16 @@ class FormDataPostController extends SetupAbstractController
 
         $operation = $this->params()->fromRoute('operation');
 
+
         /**
          * @var \Admin\Model\FormData\CrudHandlerAbstract $crudHandler
          */
-        $crudHandler = new $crudHandlerObject();
         try {
+            if (!class_exists($crudHandlerObject)) {
+                throw new \Exception("CrudHandler object does not exist");
+            }
+
+            $crudHandler = new $crudHandlerObject();
 
             $request = $this->getRequest();
             $post = array_merge_recursive(
@@ -81,7 +84,8 @@ class FormDataPostController extends SetupAbstractController
                             'formInputFilter' => $crudHandler->getFormInputFilter()->getInputFilter(),
                         ),
                         $crudHandler->setupErrorMessage($formDataValidationError),
-                        $crudHandler->setupVariablesForTheView($operation, false)
+                        $crudHandler->setupVariablesForTheView($operation, false),
+                        $crudHandler->addVariablesForTheView($crudHandler->getFormInputFilter(), $operation)
                     )
                 );
 
@@ -96,7 +100,7 @@ class FormDataPostController extends SetupAbstractController
 
             /* Insert or Update */
             try {
-                $crudHandler->$operation( $crudHandler->getFormInputFilter() );
+                $crudHandler->$operation($crudHandler->getFormInputFilter());
 
                 $crudHandler->getConnection()->commit();
 
@@ -107,7 +111,8 @@ class FormDataPostController extends SetupAbstractController
                             'formInputFilter' => $crudHandler->getFormInputFilter()->getInputFilter(),
                         ),
                         $crudHandler->setupSuccessMessage(),
-                        $crudHandler->setupVariablesForTheView($operation, true)
+                        $crudHandler->setupVariablesForTheView($operation, true),
+                        $crudHandler->addVariablesForTheView($crudHandler->getFormInputFilter(), $operation)
                     )
                 );
 
@@ -128,11 +133,12 @@ class FormDataPostController extends SetupAbstractController
                 $this->layout()->setVariables(
                     array_merge(
                         array(
-                            'form' => $crudHandler->getForm(),
-                            'formInputFilter' => $crudHandler->getFormInputFilter()->getInputFilter(),
+                            'form'              => $crudHandler->getForm(),
+                            'formInputFilter'   => $crudHandler->getFormInputFilter()->getInputFilter(),
                         ),
                         $crudHandler->setupErrorMessage($e->getMessage()),
-                        $crudHandler->setupVariablesForTheView($operation, false)
+                        $crudHandler->setupVariablesForTheView($operation, false),
+                        $crudHandler->addVariablesForTheView($crudHandler->getFormInputFilter(), $operation)
                     )
                 );
 
@@ -151,33 +157,43 @@ class FormDataPostController extends SetupAbstractController
 
         } catch(\Exception $e) {
 
-            if ($crudHandler->getConnection()) {
-                /* Log KO */
-                $crudHandler->setupLogMethodToExecute($operation, false);
+            if (isset($crudHandler)) {
+                if ($crudHandler->getConnection()) {
+                    /* Log KO */
+                    $crudHandler->setupLogMethodToExecute($operation, false);
 
-                $crudHandler->setLogsWriter(new LogsWriter($crudHandler->getConnection()));
+                    $crudHandler->setLogsWriter(new LogsWriter($crudHandler->getConnection()));
 
-                $crudHandler->getLogsWriter()->getConnection()->beginTransaction();
+                    $crudHandler->getLogsWriter()->getConnection()->beginTransaction();
 
-                $crudHandler->log($e->getMessage());
+                    $crudHandler->log($e->getMessage());
 
-                /* Rollback */
-                $crudHandler->getConnection()->rollBack();
+                    /* Rollback */
+                    $crudHandler->getConnection()->rollBack();
+                }
+
+                $this->layout()->setVariables(
+                    array_merge(
+                        array(
+                            'form'              => $crudHandler->getForm(),
+                            'formInputFilter'   => $crudHandler->getFormInputFilter()->getInputFilter(),
+                        ),
+                        $crudHandler->setupErrorMessage($e->getMessage()),
+                        $crudHandler->setupVariablesForTheView($operation, false),
+                        $crudHandler->addVariablesForTheView($crudHandler->getFormInputFilter(), $operation)
+                    )
+                );
+
+                return $this->renderMessageTemplate($appServiceLoader->recoverServiceKey('configurations', 'template_backend'));
+
+            } else {
+                $this->layout()->setVariables(array(
+                    'messageType'   => 'danger',
+                    'messageTitle'  => 'Errori verificati',
+                    'messageText'   => 'Errore nel percorso di destinazione form (action) o nella configurazione del form',
+                ));
             }
-
-            $this->layout()->setVariables(
-                array_merge(
-                    array(
-                        'form' => $crudHandler->getForm(),
-                        'formInputFilter' => $crudHandler->getFormInputFilter()->getInputFilter(),
-                    ),
-                    $crudHandler->setupErrorMessage($e->getMessage()),
-                    $crudHandler->setupVariablesForTheView($operation, false)
-                )
-            );
         }
-
-        $this->layout()->setVariable('form', $crudHandler->getForm());
 
         return $this->renderMessageTemplate($appServiceLoader->recoverServiceKey('configurations', 'template_backend'));
     }

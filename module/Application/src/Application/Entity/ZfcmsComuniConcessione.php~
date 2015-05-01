@@ -106,6 +106,13 @@ class ZfcmsComuniConcessione
     private $flagAllegati;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="homepage", type="integer", nullable=false)
+     */
+    private $homepage;
+
+    /**
      * @var \Application\Entity\ZfcmsComuniConcessioneModassegn
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniConcessioneModassegn")

@@ -10,46 +10,47 @@ use Application\Model\RecordsGetterWrapperAbstract;
  */
 class HomePageRecordsGetterWrapper extends RecordsGetterWrapperAbstract
 {
-    private $hompageRecordsGetter;
-    
     /**
-     * @param HompageRecordsGetter $hompageRecordsGetter
+     * @var HomePageRecordsGetter
      */
-    public function __construct(HomePageRecordsGetter $hompageRecordsGetter)
+    protected $objectGetter;
+
+    /**
+     * @param HomePageRecordsGetter $objectGetter
+     */
+    public function __construct(HomePageRecordsGetter $objectGetter)
     {
-        $this->setObjectGetter($hompageRecordsGetter);
+        $this->setObjectGetter($objectGetter);
         
-        $this->hompageRecordsGetter = $this->getObjectGetter();
+        $this->objectGetter = $this->getObjectGetter();
     }
     
     public function setupQueryBuilder()
     {
-        $this->hompageRecordsGetter->setSelectQueryFields( $this->getInput('fields', 1) );
+        $this->objectGetter->setSelectQueryFields( $this->getInput('fields', 1) );
 
-        $this->hompageRecordsGetter->setMainQuery();
+        $this->objectGetter->setMainQuery();
         
-        $this->hompageRecordsGetter->setOrderBy( $this->getInput('orderBy', 1), 'hb.position' );
-        $this->hompageRecordsGetter->setLimit( $this->getInput('limit', 1) );
+        $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1), 'hb.position ASC' );
+        $this->objectGetter->setOnlyActiveModules( $this->getInput('onlyActiveModules', 1) );
+        $this->objectGetter->setGroupBy( $this->getInput('groupBy', 1) );
+        $this->objectGetter->setLimit( $this->getInput('limit', 1) );
     }
-    
+
     /**
-     * @return array or null
+     * @param array $records
+     * @return array
      */
-    public function getRecords()
+    public function formatPerModuleCode(array $records)
     {
-        $homePageRecords = $this->hompageRecordsGetter->getQueryResult();
-        
-        if (is_array($homePageRecords)) {
-            $arrayHomePageRecords = array();
-            foreach($homePageRecords as $homePageRecord) {
-                if ( isset($homePageRecord['moduleId']) ) {
-                    $arrayHomePageRecords[$homePageRecord['moduleId']][] = $homePageRecord;
-                }
+        $recordsToReturn = array();
+
+        foreach($records as $record) {
+            if ( isset($record['moduleCode']) ) {
+                $recordsToReturn[$record['moduleCode']][] = $record;
             }
-            
-            return $arrayHomePageRecords;
         }
-        
-        return null;
+
+        return $recordsToReturn;
     }
 }

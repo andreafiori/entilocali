@@ -105,7 +105,7 @@ class AlboPretorioFormControllerHelper
     }
 
     /**
-     * @param $sezioniRecords
+     * @param array $sezioniRecords
      * @throws NullException
      */
     public function checkArticoloIsNotAnnull($records)

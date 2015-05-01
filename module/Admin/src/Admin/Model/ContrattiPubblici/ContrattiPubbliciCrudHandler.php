@@ -53,14 +53,14 @@ class ContrattiPubbliciCrudHandler extends CrudHandlerAbstract implements CrudHa
         $this->asssertConnection();
 
         return $this->getConnection()->insert($this->dbTable, array(
-            'titolo'        => $formData->titolo,
-            'cig'           => $formData->cig,
-            'importo'       => $formData->importo,
-            'importo2'      => $formData->importo2,
-            'scContr'       => $formData->scContr,
-            'respProc'      => $formData->respProc,
-            'inserimento'   => $formData->inserimento,
-            'numeroOfferte' => $formData->numeroOfferte,
+            'titolo'                    => $formData->titolo,
+            'cig'                       => $formData->cig,
+            'importo_aggiudicazione'    => $formData->importoAggiudicazione,
+            'importo_liquidato'         => $formData->importoLiquidato,
+            'scContr'                   => $formData->scContr,
+            'respProc'                  => $formData->respProc,
+            'inserimento'               => $formData->inserimento,
+            'numeroOfferte'             => $formData->numeroOfferte,
         ));
     }
 
@@ -74,14 +74,14 @@ class ContrattiPubbliciCrudHandler extends CrudHandlerAbstract implements CrudHa
         $this->asssertConnection();
 
         $arrayToUpdate = array(
-            'titolo'        => $formData->titolo,
-            'cig'           => $formData->cig,
-            'importo'       => $formData->importo,
-            'importo2'      => $formData->importo2,
-            'scContr'       => $formData->scContr,
-            'respProc'      => $formData->respProc,
-            'inserimento'   => $formData->inserimento,
-            'numeroOfferte' => $formData->numeroOfferte,
+            'titolo'                    => $formData->titolo,
+            'cig'                       => $formData->cig,
+            'importo_aggiudicazione'    => $formData->importoAggiudicazione,
+            'importo_liquidato'         => $formData->importoLiquidato,
+            'scContr'                   => $formData->scContr,
+            'respProc'                  => $formData->respProc,
+            'inserimento'               => $formData->inserimento,
+            'numeroOfferte'             => $formData->numeroOfferte,
         );
 
         if (isset($formData->utente)) {

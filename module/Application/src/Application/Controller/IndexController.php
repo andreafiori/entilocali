@@ -2,89 +2,110 @@
 
 namespace Application\Controller;
 
-use Zend\View\Model\ViewModel;
-use Application\Model\RouterManagers\RouterManager;
-use Application\Model\RouterManagers\RouterManagerHelper;
-use Application\Model\FrontendControllerSetup;
-use Zend\Session\Container as SessionContainer;
-use Zend\Http\Client;
+use Admin\Model\AlboPretorio\AlboPretorioArticoliGetter;
+use Admin\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
+use Admin\Model\Posts\PostsGetter;
+use Admin\Model\Posts\PostsGetterWrapper;
+use Application\Model\HomePage\HomePageRecordsGetter;
+use Application\Model\HomePage\HomePageRecordsGetterWrapper;
 
 /**
- * Frontend main controller
- * 
  * @author Andrea Fiori
- * @since  04 December 2013
+ * @since  16 April 2015
  */
 class IndexController extends SetupAbstractController
 {
     public function indexAction()
     {
-        $appServiceLoader = $this->recoverAppServiceLoader();
+        $mainLayout = $this->initializeFrontendWebsite();
 
-        $configurations = $appServiceLoader->recoverService('configurations');
+        $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-        $sessionContainer = new SessionContainer();
+        $wrapper = new HomePageRecordsGetterWrapper( new HomePageRecordsGetter($em) );
+        $wrapper->setInput( array(
+            'onlyActiveModules' => 1,
+            'orderBy'           => 'hb.position ASC'
+        ));
+        $wrapper->setupQueryBuilder();
 
-        if (!$this->checkPasswordPreviewArea($configurations, $sessionContainer)) {
-            return $this->redirect()->toRoute('password-preview'); // login to preview form
+        $homePageRecords = $wrapper->formatPerModuleCode( $wrapper->getRecords() );
+
+        if (!empty($homePageRecords)) {
+
+            /* Gather RefereceIds per module... */
+            $referenceIdContainer = array();
+            foreach($homePageRecords as $key => $values) {
+                foreach($values as $value) {
+                    if ( !empty($value['freeText']) ) {
+                        $referenceIdContainer[$key]['freeText'][] = $value['freeText'];
+                    }
+
+                    $referenceIdContainer[$key]['referenceId'][] = $value['referenceId'];
+                }
+            }
+
+            /* Fetch data from each modules using wrappers... */
+            $homePageVar = array();
+            foreach($referenceIdContainer as $key => $value) {
+
+                switch($key) {
+
+                    case('contenuti'):
+                        /*
+                        $wrapper = new PostsGetterWrapper( new PostsGetter($em) );
+                        $wrapper->setInput( array('id' => $value['referenceId']) );
+                        $wrapper->setupQueryBuilder();
+                        $wrapper->setupPaginator( $wrapper->setupQuery($em) );
+                        $wrapper->setupPaginatorCurrentPage(1);
+                        $wrapper->setupPaginatorItemsPerPage(35);
+
+                        $homePageVar[$key] = $wrapper->setupRecords();
+                        */
+                    break;
+
+                    case('freeText'):
+                        foreach($value as $record) {
+                            $homePageVar[$key][] = array('freeText' => $record[0]);
+                        }
+                        break;
+
+                    case('blogs'):
+
+                    break;
+
+                    case('photo'):
+
+                    break;
+
+                    case('albo-pretorio'):
+                        $wrapper = new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter($em));
+                        $wrapper->setInput(array(
+                            'id' => $value['referenceId'],
+                        ));
+                        $wrapper->setupQueryBuilder();
+                        $wrapper->setupPaginator( $wrapper->setupQuery($em) );
+                        $wrapper->setupPaginatorCurrentPage(1);
+                        $wrapper->setupPaginatorItemsPerPage(35);
+
+                        $homePageVar[$key] = $wrapper->setupRecords();
+                    break;
+
+                    case('stato-civile'):
+
+                    break;
+
+                    case('amministrazione-trasparente'):
+
+                    break;
+                }
+            }
         }
 
-        $sezioni = $this->getServiceLocator()->get('SezioniRecords');
-
-        $routerManager = new RouterManager($configurations);
-        $routerManager->setIsBackend(0);
-        $routerManager->setRouteMatchName( $appServiceLoader->recoverServiceKey('moduleConfigs', 'fe_router') );
-
-        $input = array_merge(
-            $configurations,
-            $appServiceLoader->recoverService('UserInterfaceConfigurations')->getConfigurations(),
-            $appServiceLoader->getProperties(),
-            array(
-                'category'  => trim($this->params()->fromRoute('category')),
-                'title'     => trim($this->params()->fromRoute('title')),
-            )
-        );
-
-        $routerManagerHelper = new RouterManagerHelper($routerManager->setupRouteMatchObjectInstance());
-        $routerManagerHelper->getRouterManger()->setInput($input);
-        $routerManagerHelper->getRouterManger()->setupRecord();
-
-        $varsFromModel = $routerManagerHelper->getRouterManger()->getOutput('export');
-
-        if (method_exists($this->getRequest(), 'getServer')) {
-            $serverVars = $this->getRequest()->getServer();
-        } else $serverVars = null;
-
-        $templateDir = 'frontend/projects/'.$configurations['project_frontend'].'templates/'.$configurations['template_frontend'];
-        if (isset($varsFromModel['basiclayout'])) {
-            $basicLayout = $templateDir.$varsFromModel['basiclayout'];
-        } else {
-            $basicLayout = $input['basiclayout'];
-        }
-
-        try {
-            $phpRenderer = $this->getServiceLocator()->get('Zend\View\Renderer\PhpRenderer');
-        } catch(\Zend\ServiceManager\Exception\ServiceNotFoundException $e) {
-            $phpRenderer = null;
-        }
-
-        $this->layout()->setVariables( array_merge($varsFromModel, $input) );
-
-        $this->layout()->setVariables( array(
-            'sezioni'               => $sezioni,
-            'templateDir'           => $templateDir,
-            'maindata'              => $routerManagerHelper->getRouterManger()->getRecords(),
-            'preloadResponse'       => isset($input['preloadResponse']) ? $input['preloadResponse'] : null,
-            'currentUrl'            => "http://".$serverVars["SERVER_NAME"].$serverVars["REQUEST_URI"],
-            'currentDateTime'       => date("Y-m-d H:i:s"),
-            'templatePartial'       => $input['template_path'].$routerManagerHelper->getRouterManger()->getTemplate(),
-            'cssName'               => $sessionContainer->offSetGet('cssName'),
-            'passwordPreviewArea'   => $this->hasPasswordPreviewArea($configurations),
-            'renderer'              => $phpRenderer
+        $this->layout()->setVariables(array(
+            'homepage'          => !empty($homePageVar) ? $homePageVar : null,
+            'templatePartial'   => 'homepage/homepage.phtml',
         ));
 
-        $this->layout($basicLayout);
-
-        return new ViewModel();
+        $this->layout()->setTemplate($mainLayout);
     }
 }

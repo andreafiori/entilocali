@@ -345,6 +345,11 @@ abstract class CrudHandlerAbstract
         return array();
     }
 
+    public function addVariablesForTheView(InputFilterAwareInterface $formData, $operation)
+    {
+        return array();
+    }
+
     /**
      * @return LogsWriter
      */

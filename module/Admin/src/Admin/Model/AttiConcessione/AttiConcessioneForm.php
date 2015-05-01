@@ -126,14 +126,15 @@ class AttiConcessioneForm extends Form
             'type' => 'DateTime',
             'name' => 'dataInserimento',
             'options' => array(
-                'label' => "* Data inserimento:",
-                'format' => 'Y-m-d H:i:s',
+                'label'     => "* Data inserimento:",
+                'format'    => 'Y-m-d H:i:s',
             ),
             'attributes' => array(
                 'id'            => 'data',
                 'required'      => 'required',
                 'type'          => 'date',
                 'placeholder'   => 'Data inserimento...',
+                'title'         => 'Seleziona data di pubblicazione',
             )
         ));
 

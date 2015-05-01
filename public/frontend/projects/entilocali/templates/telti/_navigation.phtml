@@ -1,6 +1,6 @@
 
 <?php if ($this->cssName!='default' and $this->cssName!=''): ?>
-    <div>&raquo; <a href="<?php echo $this->url('css', array('cssname' => 'default')) ?>" title="Torna alla visualizzazione del sito grafico">Sito grafico</a></div>
+    <div>&raquo; <a href="<?php echo $this->url('css-style-switch', array('cssname' => 'default')) ?>" title="Torna alla visualizzazione del sito grafico">Sito grafico</a></div>
 <?php endif; ?>
 
 <div class="large-12 columns">
@@ -54,7 +54,7 @@
             </ul>
             
             <ul class="right">
-                <li><a href="#" title="Feed RSS di <?php echo $this->sitename ?>">RSS</a></li>
+                <!-- <li><a href="#" title="Feed RSS di <?php echo $this->sitename ?>">RSS</a></li> -->
                 <li class="has-form">
                     <div class="row collapse">
                         <div class="large-8 small-9 columns">

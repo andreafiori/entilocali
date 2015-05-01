@@ -63,6 +63,10 @@
     </div>
     <?php endif; ?>
 
+    <?php if (isset($this->attachmentFilesModule)): ?>
+        <p>&raquo; <a href="#" title="Completa gestione allegati">Vai alla gestione allegati per completare la rettifica</a></p>
+    <?php endif; ?>
+
     <?php if ($this->showLinkResetFormAndShowIt): ?>
     <!-- Clear form fields and show form again -->
     <div>

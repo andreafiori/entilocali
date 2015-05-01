@@ -1,6 +1,6 @@
 <?php
 
-namespace AdminTest\Model\ContrattiPubblici\SceltaContraente;
+namespace AdminTest\Model\ContrattiPubblici;
 
 use Admin\Model\ContrattiPubblici\ContrattiPubbliciCrudHandler;
 use Admin\Model\ContrattiPubblici\SceltaContraente\SceltaContraenteCrudHandler;
@@ -23,10 +23,10 @@ class ContrattiPubbliciCrudHandlerTest extends CrudHandlerTestSuite
 
         $this->formSampleData = array(
             'id'                => '',
-            'cig'               => '122312324354',
+            'cig'               => '1223123243',
             'titolo'            => 'Titolo Contratto Pubblico',
-            'importo'           => 1234.42,
-            'importo2'          => 1234.42,
+            'importoAggiudicazione' => 1234.42,
+            'importoLiquidato'  => 1234.42,
             'scContr'           => 1,
             'respProc'          => 2,
             'inserimento'       => '2015-04-12 01:00:00',
@@ -43,8 +43,8 @@ class ContrattiPubbliciCrudHandlerTest extends CrudHandlerTestSuite
         $this->assertNotNull($this->crudHandler->getFormInputFilter()->id);
         $this->assertNotNull($this->crudHandler->getFormInputFilter()->cig);
         $this->assertNotNull($this->crudHandler->getFormInputFilter()->titolo);
-        $this->assertNotNull($this->crudHandler->getFormInputFilter()->importo);
-        $this->assertNotNull($this->crudHandler->getFormInputFilter()->importo2);
+        $this->assertNotNull($this->crudHandler->getFormInputFilter()->importoAggiudicazione);
+        $this->assertNotNull($this->crudHandler->getFormInputFilter()->importoLiquidato);
         $this->assertNotNull($this->crudHandler->getFormInputFilter()->scContr);
         $this->assertNotNull($this->crudHandler->getFormInputFilter()->respProc);
         $this->assertNotNull($this->crudHandler->getFormInputFilter()->inserimento);

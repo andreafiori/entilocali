@@ -4,12 +4,16 @@
 </ul>
 
 <?php if (count($this->paginator)): ?>
-<div class="text-center"><h1>Bandi di gara e contratti</h1></div>
+<div class="text-center">
+    <h1>Bandi di gara e contratti</h1>
+</div>
+
+<p><?php echo $this->paginator_total_item_count ?> bandi in archivio</p>
 
 <fieldset>
         <legend>Ricerca</legend>
     <?php
-    
+
     $form = $this->form;
     $form->prepare();
 
@@ -90,14 +94,16 @@ echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_fr
                 <td>
                     <strong>CF:</strong> <br><br>
                     <strong>Str. prop:</strong> <?php echo utf8_encode($row['nomeSettore']) ?><br><br>
-                    <strong>Resp.</strong> <?php echo utf8_encode($row['responsabile']) ?><br><br>
-                    <strong>Resp. Proc.</strong> <?php echo utf8_encode($row['nomeResp']) ?>
+                    <strong>Resp.</strong> <?php echo utf8_encode($row['responsabileUsersName'].' '.$row['responsabileUsersSurname']) ?><br><br>
+                    <strong>Resp. Proc.</strong> <?php echo utf8_encode($row['responsabileUsersName'].' '.$row['responsabileUsersSurname'])?>
                 </td>
                 <td><?php echo utf8_encode($row['nomeScelta']) ?></td>
+                <!-- TODO: operatori invitati a partecipare -->
                 <td>
                     <strong>CF-PI:</strong> <br><br>
-                    <strong>Nome e Ragione sociale:</strong> <?php echo utf8_encode($row['nomeResp']) ?>
+                    <strong>Nome e Ragione sociale:</strong>
                 </td>
+                <!-- TODO: Aggiudicatario -->
                 <td>
                     <strong>CF-PI:</strong> <br><br>
                     <strong>Nome e Ragione sociale:</strong>

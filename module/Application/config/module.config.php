@@ -11,7 +11,12 @@ return array(
             'Application\Controller\AlboPretorio\AlboPretorio'          => 'Application\Controller\AlboPretorio\AlboPretorioController',
             'Application\Controller\AttiConcessione\AttiConcessione'    => 'Application\Controller\AttiConcessione\AttiConcessioneController',
             'Application\Controller\Contenuti\Contenuti'                => 'Application\Controller\Contenuti\ContenutiController',
-            'Application\Controller\HomePage\HomePage'                  => 'Application\Controller\HomePage\HomePageController',
+            'Application\Controller\AmministrazioneTrasparente\AmministrazioneTrasparente' => 'Application\Controller\AmministrazioneTrasparente\AmministrazioneTrasparenteController',
+            'Application\Controller\ContrattiPubblici\ContrattiPubblici' => 'Application\Controller\ContrattiPubblici\ContrattiPubbliciController',
+            'Application\Controller\StatoCivile\StatoCivile'            => 'Application\Controller\StatoCivile\StatoCivileController',
+            'Application\Controller\CssStyleSwitch'                     => 'Application\Controller\CssStyleSwitchController',
+            'Application\Controller\Users\UsersCreateAccount'           => 'Application\Controller\Users\UsersCreateAccountController',
+            'Application\Controller\Users\UsersRecoverPassword'         => 'Application\Controller\Users\UsersRecoverPasswordController'
         ),
     ),
     'router' => array(
@@ -21,12 +26,13 @@ return array(
                                                     'options' => array(
                                                         'route' => '/',
                                                         'defaults' => array(
-                                                            'controller' => 'Application\Controller\HomePage\HomePage',
+                                                            'controller' => 'Application\Controller\Index',
                                                             'action'     => 'index',
                                                         ),
                                                     ),
                                                     'may_terminate' => true,
                                     ),
+                                    /*
                                     'posts-main' => array(
                                                     'type'    => 'segment',
                                                     'options' => array(
@@ -57,6 +63,7 @@ return array(
                                                     ),
                                                     'may_terminate' => true,
                                     ),
+                                    */
                                     'contents' => array(
                                                     'type'    => 'segment',
                                                     'options' => array(
@@ -71,19 +78,19 @@ return array(
                                                     ),
                                                     'may_terminate' => true,
                                     ),
-                                    'css' => array(
-                                                    'type'    => 'segment',
-                                                    'options' => array(
-                                                                    'route'    => '/css/styeleswitch/[:cssname[/]]',
-                                                                    'constraints' => array(
-                                                                            'cssname'  => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                                    ),
-                                                                    'defaults' => array(
-                                                                            'controller' => 'Application\Controller\Index',
-                                                                            'action'     => 'index',
-                                                                    ),
-                                                    ),
-                                                    'may_terminate' => true,
+                                    'css-style-switch' => array(
+                                                'type'    => 'segment',
+                                                'options' => array(
+                                                                'route'    => '/css/styeleswitch/[:cssname[/]]',
+                                                                'constraints' => array(
+                                                                        'cssname'  => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                                ),
+                                                                'defaults' => array(
+                                                                        'controller' => 'Application\Controller\CssStyleSwitch',
+                                                                        'action'     => 'index',
+                                                                ),
+                                                ),
+                                                'may_terminate' => true,
                                     ),
                                     'attachments-sthree-download' => array(
                                         'type'    => 'segment',
@@ -128,7 +135,7 @@ return array(
                                         ),
                                         'may_terminate' => true,
                                     ),
-                                    'version' => array(
+                                    'document-export' => array(
                                                     'type'    => 'segment',
                                                     'options' => array(
                                                                     'route'       => '/document/[:subject][/][:filetype][/][:id[/]]',
@@ -148,27 +155,6 @@ return array(
                                                                                     ),
                                                                     ),
                                                     ),
-                                    ),
-                                    'foto' => array(
-                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
-                                        'options' => array(
-                                                        'route'    => '/foto[/][:action]',
-                                                        'constraints' => array(
-
-                                                        ),
-                                                        'defaults' => array(
-                                                            'controller' => 'Application\Controller\Index',
-                                                            'action'    => 'index',
-                                                        ),
-                                        ),
-                                        'may_terminate' => true,
-                                        'child_routes' => array(
-                                                        'default' => array(
-                                                                'type'    => 'Wildcard',
-                                                                'options' => array(
-                                                            ),
-                                                        ),
-                                        ),
                                     ),
                                     'faq' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
@@ -215,11 +201,11 @@ return array(
                                         'options' => array(
                                                         'route'    => '/stato-civile/pubblicazioni/elenco[/][page/:page[/]]',
                                                         'constraints' => array(
-                                                            'page'      => '[0-9]+',
+                                                            'page' => '[0-9]+',
                                                         ),
                                                         'defaults' => array(
-                                                            'controller' => 'Application\Controller\Index',
-                                                            'action'    => 'index',
+                                                            'controller' => 'Application\Controller\StatoCivile\StatoCivile',
+                                                            'action'     => 'index',
                                                         ),
                                         ),
                                         'may_terminate' => true,
@@ -227,7 +213,7 @@ return array(
                                                         'default' => array(
                                                                         'type'    => 'Wildcard',
                                                                         'options' => array(
-                                                                        ),
+                                                                    ),
                                                         ),
                                         ),
                                     ),
@@ -239,8 +225,8 @@ return array(
                                                             'profondita'  => '[0-9]+',
                                                         ),
                                                         'defaults' => array(
-                                                            'controller' => 'Application\Controller\Index',
-                                                            'action'    => 'index',
+                                                            'controller' => 'Application\Controller\AmministrazioneTrasparente\AmministrazioneTrasparente',
+                                                            'action'     => 'index',
                                                         ),
                                         ),
                                         'may_terminate' => true,
@@ -269,7 +255,7 @@ return array(
                                                         'default' => array(
                                                                         'type'    => 'Wildcard',
                                                                         'options' => array(
-                                                                        ),
+                                                                    ),
                                                         ),
                                         ),
                                     ),
@@ -281,7 +267,7 @@ return array(
 
                                                         ),
                                                         'defaults' => array(
-                                                            'controller' => 'Application\Controller\Index',
+                                                            'controller' => 'Application\Controller\ContrattiPubblici\ContrattiPubblici',
                                                             'action'    => 'index',
                                                         ),
                                         ),
@@ -340,12 +326,12 @@ return array(
                                     'recupero-password' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
-                                                        'route'    => '/recupero-password[/]',
+                                                        'route'    => '/account/recupero-password[/]',
                                                         'constraints' => array(
 
                                                         ),
                                                         'defaults' => array(
-                                                            'controller' => 'Application\Controller\Index',
+                                                            'controller' => 'Application\Controller\Users\UsersRecoverPassword',
                                                             'action'    => 'index',
                                                         ),
                                         ),
@@ -361,12 +347,12 @@ return array(
                                     'registrazione' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
-                                                        'route'    => '/form/registrazione[/]',
+                                                        'route'    => '/registrazione/crea-account[/]',
                                                         'constraints' => array(
 
                                                         ),
                                                         'defaults' => array(
-                                                            'controller' => 'Application\Controller\Index',
+                                                            'controller' => 'Application\Controller\Users\UsersCreateAccount',
                                                             'action'    => 'index',
                                                         ),
                                         ),
@@ -375,8 +361,51 @@ return array(
                                                         'default' => array(
                                                                         'type'    => 'Wildcard',
                                                                         'options' => array(
-                                                                        ),
+                                                                    ),
                                                         ),
+                                        ),
+                                    ),
+                                    'registrazione-invio' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                            'route'    => '/registrazione/crea-account/invio[/]',
+                                            'constraints' => array(
+
+                                            ),
+                                            'defaults' => array(
+                                                'controller'    => 'Application\Controller\Users\UsersCreateAccount',
+                                                'action'        => 'register',
+                                            ),
+                                        ),
+                                        'may_terminate' => true,
+                                        'child_routes' => array(
+                                            'default' => array(
+                                                'type'    => 'Wildcard',
+                                                'options' => array(
+
+                                                ),
+                                            ),
+                                        ),
+                                    ),
+                                    'registrazione-conferma' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                            'route'    => '/registrazione/crea-account/conferma/attivazione[/]',
+                                            'constraints' => array(
+
+                                            ),
+                                            'defaults' => array(
+                                                'controller'    => 'Application\Controller\Users\UsersCreateAccount',
+                                                'action'        => 'confirm',
+                                            ),
+                                        ),
+                                        'may_terminate' => true,
+                                        'child_routes' => array(
+                                            'default' => array(
+                                                'type'    => 'Wildcard',
+                                                'options' => array(
+                                                ),
+                                            ),
                                         ),
                                     ),
                                     'ricerca' => array(
@@ -433,17 +462,23 @@ return array(
                     'not_found_template'       => 'error/404',
                     'exception_template'       => 'error/index',
                     'template_map' => array(
-                        'application/home-page/index'           => __DIR__ . '/../view/empty.phtml',
-                        'layout/layout'                         => __DIR__ . '/../view/layout/layout.phtml',
-                        'application/feed/index'                => __DIR__ . '/../view/application/index/index.phtml',
-                        'application/index/index'               => __DIR__ . '/../view/application/index/index.phtml',
-                        'application/pagination'                => __DIR__ . '/../view/application/pagination/numbers.phtml',
-                        'application/albo-pretorio/index'       => __DIR__ . '/../view/empty.phtml',
-                        'application/atti-concessione/index'    => __DIR__ . '/../view/empty.phtml',
-                        'application/contenuti/index'           => __DIR__ . '/../view/empty.phtml',
-                        'error/404'                             => __DIR__ . '/../view/error/404.phtml',
-                        'error/index'                           => __DIR__ . '/../view/error/index.phtml',
-                        'error/dbconnection'                    => __DIR__ . '/../view/error/dbconnection.phtml',
+                        'application/home-page/index'                   => __DIR__ . '/../view/empty.phtml',
+                        'layout/layout'                                 => __DIR__ . '/../view/layout/layout.phtml',
+                        'application/feed/index'                        => __DIR__ . '/../view/application/index/index.phtml',
+                        'application/amministrazione-trasparente/index' => __DIR__ . '/../view/empty.phtml',
+                        'application/contratti-pubblici/index'          => __DIR__ . '/../view/empty.phtml',
+                        'application/index/index'                       => __DIR__ . '/../view/application/index/index.phtml',
+                        'application/pagination'                        => __DIR__ . '/../view/application/pagination/numbers.phtml',
+                        'application/albo-pretorio/index'               => __DIR__ . '/../view/empty.phtml',
+                        'application/stato-civile/index'                => __DIR__ . '/../view/empty.phtml',
+                        'application/atti-concessione/index'            => __DIR__ . '/../view/empty.phtml',
+                        'application/contenuti/index'                   => __DIR__ . '/../view/empty.phtml',
+                        'application/css-style-switch/index'            => __DIR__ . '/../view/empty.phtml',
+                        'application/users-create-account/index'        => __DIR__ . '/../view/empty.phtml',
+                        'application/users-recover-password/index'      => __DIR__ . '/../view/empty.phtml',
+                        'error/404'                                     => __DIR__ . '/../view/error/404.phtml',
+                        'error/index'                                   => __DIR__ . '/../view/error/index.phtml',
+                        'error/dbconnection'                            => __DIR__ . '/../view/error/dbconnection.phtml',
                     ),
                     'template_path_stack' => array(
                                     __DIR__ . '/../view',
@@ -486,17 +521,4 @@ return array(
                                 ),
                 ),
     ),
-    // Frontend Router Class Map. The PostsFrontend will handle the home page. This section will be deleted...
-    'fe_router' => array(
-        "css"                           => 'Application\Model\CssStyleSwitch\CssStyleSwitchFrontend',
-        "amministrazione-trasparente"   => 'Application\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFrontend',
-        "contatti"                      => 'Application\Model\Contacts\ContactsFrontend',
-        "contratti-pubblici"            => 'Application\Model\ContrattiPubblici\ContrattiPubbliciFrontend',
-        "foto"                          => 'Application\Model\Posts\PhotoFrontend',
-        "newsletter"                    => 'Application\Model\Newsletter\NewsletterFrontend',
-        "registrazione"                 => 'Application\Model\Users\RegistrationFrontend',
-        "recupero-password"             => 'Application\Model\Users\RecoverPasswordFrontend',
-        "stato-civile"                  => 'Application\Model\StatoCivile\StatoCivileFrontend',
-        "ricerca"                       => 'Application\Model\Ricerca\RicercaFrontend',
-    )
 );

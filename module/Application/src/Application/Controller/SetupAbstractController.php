@@ -2,14 +2,16 @@
 
 namespace Application\Controller;
 
+use Application\Setup\UserInterfaceConfigurations;
 use Admin\Model\Logs\LogsWriter;
 use Admin\Service\AppServiceLoader;
-use Zend\Mvc\Controller\AbstractActionController;
 use Admin\Model\Config\ConfigGetter;
 use Admin\Model\Config\ConfigGetterWrapper;
-use Application\Setup\UserInterfaceConfigurations;
+use Zend\Mvc\MvcEvent;
 use Zend\Session\Container as SessionContainer;
 use Zend\View\Model\ViewModel;
+use Zend\Http\Response;
+use Zend\Mvc\Controller\AbstractActionController;
 
 /**
  * @author Andrea Fiori
@@ -35,7 +37,8 @@ abstract class SetupAbstractController extends AbstractActionController
         $sessionContainer = new SessionContainer();
 
         if (!$this->checkPasswordPreviewArea($configurations, $sessionContainer)) {
-            return $this->redirect()->toRoute('password-preview');
+            header("Location: ".$this->url()->fromRoute('password-preview'));
+            exit;
         }
 
         $templateBackend = $appServiceLoader->recoverServiceKey('configurations', 'template_backend');
@@ -44,7 +47,7 @@ abstract class SetupAbstractController extends AbstractActionController
         $basePath       = sprintf('%s://%s%s', $uri->getScheme(), $uri->getHost(), $this->getRequest()->getBaseUrl().'/');
         $templateDir    = 'backend/templates/'.$templateBackend;
 
-        $this->layout()->setVariables(array_merge(
+        $this->layout()->setVariables( array_merge(
             $configurations,
             array(
                 'baseUrl'               => sprintf($basePath.'admin/main/'.$this->params()->fromRoute('lang').'/'),
@@ -64,13 +67,13 @@ abstract class SetupAbstractController extends AbstractActionController
     protected function initializeFrontendWebsite()
     {
         $appServiceLoader = $this->recoverAppServiceLoader();
-
         $configurations = $appServiceLoader->recoverService('configurations');
 
         $sessionContainer = new SessionContainer();
 
         if (!$this->checkPasswordPreviewArea($configurations, $sessionContainer)) {
-            return $this->redirect()->toRoute('password-preview'); // login to preview form
+            header("Location: ".$this->url()->fromRoute('password-preview'));
+            exit;
         }
 
         $sezioni = $this->getServiceLocator()->get('SezioniRecords');
@@ -93,6 +96,7 @@ abstract class SetupAbstractController extends AbstractActionController
         }
 
         $this->layout()->setVariables($configurations);
+
         $this->layout()->setVariables( array(
             'sezioni'               => $sezioni,
             'templateDir'           => $templateDir,
@@ -130,6 +134,7 @@ abstract class SetupAbstractController extends AbstractActionController
                 'router'            => $sm->get('request'),
             )
         );
+
         $appServiceLoader->recoverRouter();
         $appServiceLoader->recoverRouteMatch();
         $appServiceLoader->setService('channel', $channel);
