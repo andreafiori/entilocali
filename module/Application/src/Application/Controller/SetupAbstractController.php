@@ -227,4 +227,12 @@ abstract class SetupAbstractController extends AbstractActionController
 
         return $log->writeLog($logArray);
     }
+
+    /**
+     * @return \Doctrine\DBAL\Connection
+     */
+    protected function recoverConnection()
+    {
+        return $this->getServiceLocator()->get('doctrine.entitymanager.orm_default')->getConnection();
+    }
 }

@@ -2,6 +2,8 @@
 
 namespace AdminTest\Model\Attachments;
 
+use Admin\Model\Attachments\AttachmentsGetter;
+use Admin\Model\Attachments\AttachmentsGetterWrapper;
 use Admin\Model\Modules\ModulesGetter;
 use Admin\Model\Modules\ModulesGetterWrapper;
 use Admin\Model\Attachments\AttachmentsFormControllerHelper;
@@ -58,4 +60,36 @@ class AttachmentsFormControllerHelperTest extends TestSuite
     {
         $this->attachmentsFormControllerHelper->checkModuleRecords();
     }
+
+    public function testAttachmentsGetterWrapper()
+    {
+        $this->attachmentsFormControllerHelper->setAttachmentsGetterWrapper(
+            new AttachmentsGetterWrapper( new AttachmentsGetter($this->getEntityManagerMock()) )
+        );
+
+        $this->assertInstanceOf(
+            '\Admin\Model\Attachments\AttachmentsGetterWrapper',
+            $this->attachmentsFormControllerHelper->getAttachmentsGetterWrapper()
+        );
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testAttachmentsRecordsThrowsException()
+    {
+        $this->attachmentsFormControllerHelper->setupAttachmentsRecords();
+    }
+
+    public function testAttachmentsRecords()
+    {
+        $this->attachmentsFormControllerHelper->setAttachmentsGetterWrapper(
+            new AttachmentsGetterWrapper( new AttachmentsGetter($this->getEntityManagerMock()) )
+        );
+        $this->attachmentsFormControllerHelper->setupAttachmentsRecords();
+
+        $this->assertTrue( is_array($this->attachmentsFormControllerHelper->getAttachmentRecords()) );
+    }
+
+
 }

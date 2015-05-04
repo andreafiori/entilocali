@@ -79,7 +79,6 @@ class BlogsSummaryController extends SetupAbstractController
         $this->layout()->setVariables(array(
             'tableTitle'        => 'Blogs',
             'tableDescription'  => $paginator->getTotalItemCount().' posts in archivio',
-
             'columns' => array(
                 "Titolo",
                 "Categorie",
@@ -90,7 +89,6 @@ class BlogsSummaryController extends SetupAbstractController
                 "&nbsp;",
                 "&nbsp;"
             ),
-
             'paginator'         => $paginator,
             'records'           => $columnRecords,
             'searchFilterForm'  => $form,

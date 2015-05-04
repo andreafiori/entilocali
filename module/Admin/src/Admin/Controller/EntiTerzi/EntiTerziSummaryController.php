@@ -24,12 +24,15 @@ class EntiTerziSummaryController extends SetupAbstractController
 
         $translator = $this->getServiceLocator()->get('translator');
 
-        $wrapper = $this->recoverEntiTerziGetterWrapper($entityManager, $page);
+        $wrapper = new EntiTerziGetterWrapper( new EntiTerziGetter($entityManager) );
+        $wrapper->setInput( array('orderBy' => 'ret.id DESC') );
+        $wrapper->setupQueryBuilder();
+        $wrapper->setupPaginator( $wrapper->setupQuery($entityManager) );
+        $wrapper->setupPaginatorCurrentPage(isset($page) ? $page : null);
 
         $paginatorRecords = $wrapper->setupRecords();
 
         $this->layout()->setVariables(array(
-            'paginator'         => $wrapper->getPaginator(),
             'tableTitle'        => $translator->translate('Rubrica enti terzi'),
             'tableDescription'  => $wrapper->getPaginator()->getTotalItemCount().$translator->translate(' enti in archivio'),
             'columns' => array(
@@ -38,30 +41,13 @@ class EntiTerziSummaryController extends SetupAbstractController
                 "&nbsp;",
                 "&nbsp;",
             ),
+            'paginator'         => $wrapper->getPaginator(),
             'records' => $this->formatRecordsToShowOnTable($paginatorRecords),
             'templatePartial' => $templateDir.'datatable/datatable.phtml'
         ));
 
         $this->layout()->setTemplate($mainLayout);
     }
-
-        /**
-         * Recover Enti Terzi Object Wrapper
-         *
-         * @param $entityManager
-         * @param int $page
-         * @return EntiTerziGetterWrapper
-         */
-        private function recoverEntiTerziGetterWrapper($entityManager, $page)
-        {
-            $wrapper = new EntiTerziGetterWrapper(new EntiTerziGetter($entityManager));
-            $wrapper->setInput(array('orderBy' => 'ret.id DESC'));
-            $wrapper->setupQueryBuilder();
-            $wrapper->setupPaginator($wrapper->setupQuery($entityManager));
-            $wrapper->setupPaginatorCurrentPage(isset($page) ? $page : null);
-
-            return $wrapper;
-        }
 
         /**
          * Format columns enti terzi records

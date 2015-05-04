@@ -6,6 +6,7 @@ return array(
 
             /* Attachment files */
             'Admin\Controller\Attachments\AttachmentsForm'                      => 'Admin\Controller\Attachments\AttachmentsFormController',
+            'Admin\Controller\Attachments\AttachmentsFormUpdate'                => 'Admin\Controller\Attachments\AttachmentsFormUpdateController',
 
             /* Insert and update Ajax POSTs */
             'Admin\Controller\FormDataPost'                                     => 'Admin\Controller\FormDataPostController',
@@ -15,12 +16,19 @@ return array(
             'Admin\Controller\Contenuti\ContenutiForm'                          => 'Admin\Controller\Contenuti\ContenutiFormController',
 
             /* Albo Pretorio */
-            'Admin\Controller\AlboPretorio\AlboPretorioSummaryController'       => 'Admin\Controller\AlboPretorio\AlboPretorioSummaryController',
-            'Admin\Controller\AlboPretorio\AlboPretorioFormController'          => 'Admin\Controller\AlboPretorio\AlboPretorioFormController',
-            'Admin\Controller\AlboPretorio\AlboPretorioOperationsController'    => 'Admin\Controller\AlboPretorio\AlboPretorioOperationsController',
-            'Admin\Controller\AlboPretorio\AlboPretorioRelataPdfController'     => 'Admin\Controller\AlboPretorio\AlboPretorioRelataPdfController',
+            'Admin\Controller\AlboPretorio\AlboPretorioSummary'                 => 'Admin\Controller\AlboPretorio\AlboPretorioSummaryController',
+            'Admin\Controller\AlboPretorio\AlboPretorioForm'                    => 'Admin\Controller\AlboPretorio\AlboPretorioFormController',
+            'Admin\Controller\AlboPretorio\AlboPretorioOperations'              => 'Admin\Controller\AlboPretorio\AlboPretorioOperationsController',
+            'Admin\Controller\AlboPretorio\AlboPretorioRelataPdf'               => 'Admin\Controller\AlboPretorio\AlboPretorioRelataPdfController',
+            'Admin\Controller\AlboPretorio\AlboPretorioSezioniForm'             => 'Admin\Controller\AlboPretorio\AlboPretorioSezioniFormController',
+            'Admin\Controller\AlboPretorio\AlboPretorioSezioniSummary'          => 'Admin\Controller\AlboPretorio\AlboPretorioSezioniSummaryController',
 
             /* Stato Civile */
+            'Admin\Controller\StatoCivile\StatoCivileSummary'                   => 'Admin\Controller\StatoCivile\StatoCivileSummaryController',
+            'Admin\Controller\StatoCivile\StatoCivileForm'                      => 'Admin\Controller\StatoCivile\StatoCivileFormController',
+            'Admin\Controller\StatoCivile\StatoCivileOperations'                => 'Admin\Controller\StatoCivile\StatoCivileOperationsController',
+            'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniSummary'    => 'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniSummaryController',
+            'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniForm'       => 'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniFormController',
 
             /* Amm. trasparente */
 
@@ -40,7 +48,7 @@ return array(
             'Admin\Controller\EntiTerzi\InvioEnteTerzoController'               => 'Admin\Controller\EntiTerzi\InvioEnteTerzoController',
 
             /* Blogs */
-            'Admin\Controller\Posts\BlogsCategoriesSummaryController'           => 'Admin\Controller\Posts\BlogsCategoriesSummaryController',
+            'Admin\Controller\Posts\BlogsCategoriesSummary'                     => 'Admin\Controller\Posts\BlogsCategoriesSummaryController',
             'Admin\Controller\Posts\BlogsSummaryController'                     => 'Admin\Controller\Posts\BlogsSummaryController',
             'Admin\Controller\Posts\BlogsFormController'                        => 'Admin\Controller\Posts\BlogsFormController',
 
@@ -51,7 +59,10 @@ return array(
             'Admin\Controller\SottoSezioniPositionsUpdateController'            => 'Admin\Controller\SottoSezioniPositionsUpdateController',
 
             /* Users */
-            'Admin\Controller\Users\RespProc\UsersRespProcController'           => 'Admin\Controller\Users\RespProc\UsersRespProcController',
+            'Admin\Controller\Users\UsersSummary'                     => 'Admin\Controller\Users\UsersSummaryController',
+            'Admin\Controller\Users\UsersForm'                        => 'Admin\Controller\Users\UsersFormController',
+
+            'Admin\Controller\Users\RespProc\UsersRespProcController' => 'Admin\Controller\Users\RespProc\UsersRespProcController',
         ),
     ),
     'router' => array(
@@ -125,7 +136,7 @@ return array(
                         ),
                     ),
                     'attachments-form' => array(
-                        'type'    => 'Segment',
+                        'type' => 'Segment',
                         'options' => array(
                             'route'       => 'attachments/form/:module[/][:id[/]]',
                             'constraints' => array(
@@ -147,8 +158,8 @@ return array(
                                 'id'     => '[0-9]+',
                             ),
                             'defaults' => array(
-                                'controller' => 'Admin\Controller\Attachments\AttachmentsForm',
-                                'action'     => 'updateForm',
+                                'controller' => 'Admin\Controller\Attachments\AttachmentsFormUpdate',
+                                'action'     => 'index',
                             ),
                         ),
                     ),
@@ -157,7 +168,7 @@ return array(
                         'options' => array(
                             'route' => 'albo-pretorio/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
                             'defaults' => array(
-                                'controller' => 'Admin\Controller\AlboPretorio\AlboPretorioSummaryController',
+                                'controller' => 'Admin\Controller\AlboPretorio\AlboPretorioSummary',
                                 'action'     => 'index',
                             ),
                         ),
@@ -170,7 +181,7 @@ return array(
                                 'id' => '[0-9]+',
                             ),
                             'defaults' => array(
-                                'controller' => 'Admin\Controller\AlboPretorio\AlboPretorioFormController',
+                                'controller' => 'Admin\Controller\AlboPretorio\AlboPretorioForm',
                                 'action'     => 'index',
                             ),
                         ),
@@ -183,8 +194,31 @@ return array(
                                 'id' => '[0-9]+',
                             ),
                             'defaults' => array(
-                                'controller' => 'Admin\Controller\AlboPretorio\AlboPretorioFormController',
+                                'controller' => 'Admin\Controller\AlboPretorio\AlboPretorioForm',
                                 'action'     => 'rettifica',
+                            ),
+                        ),
+                    ),
+                    'albo-pretorio-sezioni-form' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'albo-pretorio-sezioni/form[/][:id[/]]',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\AlboPretorio\AlboPretorioSezioniForm',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'albo-pretorio-sezioni-summary' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'albo-pretorio-sezioni/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\AlboPretorio\AlboPretorioSezioniSummary',
+                                'action'     => 'index',
                             ),
                         ),
                     ),
@@ -197,7 +231,67 @@ return array(
                                 'id'         => '[0-9]+',
                             ),
                             'defaults' => array(
-                                'controller' => 'Admin\Controller\AlboPretorio\AlboPretorioOperationsController',
+                                'controller' => 'Admin\Controller\AlboPretorio\AlboPretorioOperations',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'stato-civile-summary' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'stato-civile/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\StatoCivile\StatoCivileSummary',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'stato-civile-form' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'stato-civile/form[/][:id[/]]',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\StatoCivile\StatoCivileForm',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'stato-civile-operations' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'stato-civile/operations/:action/:id[/]',
+                            'constraints' => array(
+                                'id'        => '[0-9]+',
+                                'action'    => '[a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\StatoCivile\StatoCivileOperations',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'stato-civile-sezioni-summary' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'stato-civile-sezioni/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniSummary',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'stato-civile-sezioni-form' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'stato-civile-sezioni/form[/][:id[/]]',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniForm',
                                 'action'     => 'index',
                             ),
                         ),
@@ -311,7 +405,7 @@ return array(
                                 'order'       => 'ASC|DESC',
                             ),
                             'defaults' => array(
-                                'controller' => 'Admin\Controller\Posts\BlogsCategoriesSummaryController',
+                                'controller' => 'Admin\Controller\Posts\BlogsCategoriesSummary',
                                 'action'     => 'index',
                             ),
                         ),
@@ -420,9 +514,9 @@ return array(
                     'invio-ente-terzo' => array(
                                     'type'    => 'Segment',
                                     'options' => array(
-                                                'route'       => 'invio-ente-terzo/:modulename/:id[/]',
+                                                'route'       => 'invio-ente-terzo/:module/:id[/]',
                                                 'constraints' => array(
-                                                        'modulename' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                        'module'     => '[a-zA-Z][a-zA-Z0-9_-]*',
                                                         'id'         => '[0-9]+',
                                                 ),
                                                 'defaults' => array(
@@ -529,21 +623,6 @@ return array(
                             ),
                         ),
                     ),
-                    'formpost' => array(
-                                    'type'    => 'Segment',
-                                    'options' => array(
-                                                'route'         => 'formpost[/][:form_post_handler][/][:operation][/][:id[/]]',
-                                                'constraints'   => array(
-                                                    'form_post_handler' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                    'operation'         => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                    'id'                => '[0-9]+',
-                                                ),
-                                                'defaults' => array(
-                                                    'controller' => 'Admin\Controller\FormDataPost',
-                                                    'action'     => 'index',
-                                                ),
-                                    ),
-                    ),
                     'albo-pretorio-relata-pdf' => array(
                                     'type'    => 'Segment',
                                     'options' => array(
@@ -552,10 +631,39 @@ return array(
                                                     'id' => '[0-9]+',
                                                 ),
                                                 'defaults' => array(
-                                                    'controller' => 'Admin\Controller\AlboPretorio\AlboPretorioRelataPdfController',
+                                                    'controller' => 'Admin\Controller\AlboPretorio\AlboPretorioRelataPdf',
                                                     'action'     => 'index',
                                                 ),
                                     ),
+                    ),
+                    'users-summary' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'       => 'users/summary[/][:categoryId[/]][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'constraints' => array(
+                                'categoryId'  => '[0-9]+',
+                                'page'        => '[0-9]+',
+                                'order_by'    => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'order'       => 'ASC|DESC',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Users\UsersSummary',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'users-form' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'users/form[/][:id[/]]',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Users\UsersForm',
+                                'action'     => 'index',
+                            ),
+                        ),
                     ),
                     'users-resp-proc' => array(
                         'type'    => 'Segment',
@@ -581,6 +689,21 @@ return array(
                                         'action'     => 'index',
                                     ),
                                 ),
+                            ),
+                        ),
+                    ),
+                    'formpost' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'         => 'formpost[/][:form_post_handler][/][:operation][/][:id[/]]',
+                            'constraints'   => array(
+                                'form_post_handler' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'operation'         => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id'                => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\FormDataPost',
+                                'action'     => 'index',
                             ),
                         ),
                     ),
@@ -618,6 +741,12 @@ return array(
             'admin/albo-pretorio-form/index'                => __DIR__ . '/../view/admin/empty.phtml',
             'admin/albo-pretorio-pdf/relata'                => __DIR__ . '../../view/admin/albo-pretorio-pdf/relata.phtml',
 
+            /* Stato civile */
+            'admin/stato-civile-summary/index'              => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/stato-civile-form/index'                 => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/stato-civile-sezioni-summary/index'      => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/stato-civile-sezioni-form/index'         => __DIR__ . '/../view/admin/empty.phtml',
+
             /* Atti concessione */
             'admin/atti-concessione-form/index'             => __DIR__ . '/../view/admin/empty.phtml',
             'admin/atti-concessione-summary/index'          => __DIR__ . '/../view/admin/empty.phtml',
@@ -634,6 +763,7 @@ return array(
             /* Posts */
             'admin/blogs-summary/index'                     => __DIR__ . '/../view/admin/empty.phtml',
             'admin/blogs-form/index'                        => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/blogs-categories-summary/index'          => __DIR__ . '/../view/admin/empty.phtml',
 
             'admin/form-data-post/index'                    => __DIR__ . '../../view/admin/formpost-empty.phtml',
 
@@ -648,6 +778,9 @@ return array(
             'admin/sezioni-positions-update/index'          => __DIR__ . '/../view/admin/empty.phtml',
 
             'admin/sotto-sezioni-positions-update/index'    => __DIR__ . '/../view/admin/empty.phtml',
+
+            'admin/users-summary/index'                     => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/users-form/index'                        => __DIR__ . '/../view/admin/empty.phtml',
 
             'admin/'                                        => __DIR__ . '/../view/admin/empty.phtml',
         ),
@@ -674,54 +807,50 @@ return array(
     ),
     /* FormData Class Map */
     'formdata_classmap' => array(
-        'attachments'                           => 'Admin\Model\Attachments\AttachmentsFormDataHandler',
-        'albo-pretorio-sezioni'                 => 'Admin\Model\AlboPretorio\AlboPretorioSezioniFormDataHandler',
         'amministrazione-trasparente'           => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFormDataHandler',
-        'contenuti'                             => 'Admin\Model\Contenuti\ContenutiFormDataHandler',
         'configurations'                        => 'Admin\Model\Config\ConfigFormDataHandler',
+
         'sezioni-contenuti'                     => 'Admin\Model\Sezioni\SezioniFormDataHandler',
+
         'sottosezioni-contenuti'                => 'Admin\Model\Sezioni\SottoSezioniFormDataHandler',
         'sottosezioni-amm-trasparente'          => 'Admin\Model\Sezioni\SottoSezioniFormDataHandler',
-        'stato-civile'                          => 'Admin\Model\StatoCivile\StatoCivileFormDataHandler',
-        'stato-civile-sezioni'                  => 'Admin\Model\StatoCivile\StatoCivileSezioniFormDataHandler',
-        'contratti-pubblici'                    => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciFormDataHandler',
+
         'contratti-pubblici-scelta-contraente'  => 'Admin\Model\ContrattiPubblici\SceltaContraente\SceltaContraenteFormDataHandler',
         'contratti-pubblici-operatori'          => 'Admin\Model\ContrattiPubblici\Operatori\OperatoriFormDataHandler',
+
         'tickets'                               => 'Admin\Model\Tickets\TicketsFormDataHandler',
-        'users'                                 => 'Admin\Model\Users\UsersFormDataHandler',
+
         'users-settori'                         => 'Admin\Model\Users\Settori\UsersSettoriFormDataHandler',
-        'categories'                            => 'Admin\Model\Posts\CategoriesFormDataHandler',
-        'contents'                              => 'Admin\Model\Posts\PostsFormDataHandler',
     ),
     /* FormData CRUD Class Map */
     'formdata_crud_classmap' => array(
-        'albo-pretorio'                         => 'Admin\Model\AlboPretorio\AlboPretorioArticoliCrudHandler',
-        'albo-pretorio-sezioni'                 => 'Admin\Model\AlboPretorio\AlboPretorioSezioniCrudHandler',
-        'amministrazione-trasparente'           => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteCrudHandler',
-        'attachments'                           => 'Admin\Model\Attachments\AttachmentsCrudHandler',
-        'atti-concessione'                      => 'Admin\Model\AttiConcessione\AttiConcessioneCrudHandler',
-        'atti-concessione-modalita-assegnazione-form' => 'Admin\Model\AttiConcessione\ModalitaAssegnazione\AttiConcessioneModalitaAssegnazioneCrudHandler',
-        'blogs'                                 => 'Admin\Model\Posts\PostsCrudHandler',
-        'categories'                            => 'Admin\Model\Posts\CategoriesCrudHandler',
-        'contenuti'                             => 'Admin\Model\Contenuti\ContenutiCrudHandler',
-        'configurations'                        => 'Admin\Model\Config\ConfigCrudHandler',
-        'sezioni-contenuti'                     => 'Admin\Model\Sezioni\SezioniCrudHandler',
-        'sottosezioni-contenuti'                => 'Admin\Model\Sezioni\SottoSezioniCrudHandler',
-        'contratti-pubblici'                    => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciCrudHandler',
-        'contratti-pubblici-scelta-contraente'  => 'Admin\Model\ContrattiPubblici\SceltaContraente\SceltaContraenteCrudHandler',
-        'contratti-pubblici-operatori'          => 'Admin\Model\ContrattiPubblici\Operatori\OperatoriCrudHandler',
-        'contatti'                              => 'Admin\Model\Contacts\ContactsCrudHandler',
-        'faq'                                   => 'Admin\Model\Faq\FaqCrudHandler',
-        'newsletter'                            => 'Admin\Model\Newsletter\NewsletterCrudHandler',
-        'posts'                                 => 'Admin\Model\Posts\PostsCrudHandler',
-        'enti-terzi'                            => 'Admin\Model\EntiTerzi\EntiTerziCrudHandler',
-        'stato-civile'                          => 'Admin\Model\StatoCivile\StatoCivileCrudHandler',
-        'stato-civile-sezioni'                  => 'Admin\Model\StatoCivile\StatoCivileSezioniCrudHandler',
-        'tickets'                               => 'Admin\Model\Tickets\TicketsCrudHandler',
-        'users'                                 => 'Admin\Model\Users\UsersCrudHandler',
-        'users-roles'                           => 'Admin\Model\Users\Roles\UsersRolesCrudHandler',
-        'users-settori'                         => 'Admin\Model\Users\Settori\UsersSettoriCrudHandler',
-        'users-todo'                            => 'Admin\Model\Users\Roles\UsersTodoCrudHandler',
+        'albo-pretorio'                                 => 'Admin\Model\AlboPretorio\AlboPretorioArticoliCrudHandler',
+        'albo-pretorio-sezioni'                         => 'Admin\Model\AlboPretorio\AlboPretorioSezioniCrudHandler',
+        'amministrazione-trasparente'                   => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteCrudHandler',
+        'attachments'                                   => 'Admin\Model\Attachments\AttachmentsCrudHandler',
+        'atti-concessione'                              => 'Admin\Model\AttiConcessione\AttiConcessioneCrudHandler',
+        'atti-concessione-modalita-assegnazione-form'   => 'Admin\Model\AttiConcessione\ModalitaAssegnazione\AttiConcessioneModalitaAssegnazioneCrudHandler',
+        'blogs'                                         => 'Admin\Model\Posts\PostsCrudHandler',
+        'categories'                                    => 'Admin\Model\Posts\CategoriesCrudHandler',
+        'contenuti'                                     => 'Admin\Model\Contenuti\ContenutiCrudHandler',
+        'configurations'                                => 'Admin\Model\Config\ConfigCrudHandler',
+        'sezioni-contenuti'                             => 'Admin\Model\Sezioni\SezioniCrudHandler',
+        'sottosezioni-contenuti'                        => 'Admin\Model\Sezioni\SottoSezioniCrudHandler',
+        'contratti-pubblici'                            => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciCrudHandler',
+        'contratti-pubblici-scelta-contraente'          => 'Admin\Model\ContrattiPubblici\SceltaContraente\SceltaContraenteCrudHandler',
+        'contratti-pubblici-operatori'                  => 'Admin\Model\ContrattiPubblici\Operatori\OperatoriCrudHandler',
+        'contatti'                                      => 'Admin\Model\Contacts\ContactsCrudHandler',
+        'faq'                                           => 'Admin\Model\Faq\FaqCrudHandler',
+        'newsletter'                                    => 'Admin\Model\Newsletter\NewsletterCrudHandler',
+        'posts'                                         => 'Admin\Model\Posts\PostsCrudHandler',
+        'enti-terzi'                                    => 'Admin\Model\EntiTerzi\EntiTerziCrudHandler',
+        'stato-civile'                                  => 'Admin\Model\StatoCivile\StatoCivileCrudHandler',
+        'stato-civile-sezioni'                          => 'Admin\Model\StatoCivile\StatoCivileSezioniCrudHandler',
+        'tickets'                                       => 'Admin\Model\Tickets\TicketsCrudHandler',
+        'users'                                         => 'Admin\Model\Users\UsersCrudHandler',
+        'users-roles'                                   => 'Admin\Model\Users\Roles\UsersRolesCrudHandler',
+        'users-settori'                                 => 'Admin\Model\Users\Settori\UsersSettoriCrudHandler',
+        'users-todo'                                    => 'Admin\Model\Users\Roles\UsersTodoCrudHandler',
     ),
     /* DataTables Class Map */
     'datatables_classmap' => array(
@@ -729,24 +858,19 @@ return array(
         'contacts'                              => 'Admin\Model\Contacts\ContactsDataTable',
         'faq'                                   => 'Admin\Model\Faq\FaqDataTable',
         'newsletter'                            => 'Admin\Model\Newsletter\NewsletterDataTable',
-        'contenuti'                             => 'Admin\Model\Contenuti\ContenutiDataTable',
+        'logs'                                  => 'Admin\Model\Logs\LogsDataTable',
+
         'sezioni-contenuti'                     => 'Admin\Model\Sezioni\SezioniDataTable',
         'sottosezioni-contenuti'                => 'Admin\Model\Sezioni\SottosezioniContenutiDataTable',
         'sottosezioni-amm-trasparente'          => 'Admin\Model\Sezioni\SottosezioniAmmTrasparenteDataTable',
-        'contents'                              => 'Admin\Model\Posts\PostsDataTable',
-        'photo'                                 => 'Admin\Model\Posts\PostsDataTable',
-        'blog'                                  => 'Admin\Model\Posts\PostsDataTable',
-        'atti-ufficiali'                        => 'Admin\Model\AlboPretorio\AttiUfficialiDataTable',
-        'albo-pretorio-sezioni'                 => 'Admin\Model\AlboPretorio\AlboPretorioSezioniDataTable',
+
         'amministrazione-trasparente'           => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteDataTable',
-        'atti-concessione-mod-assign'           => 'Admin\Model\AttiConcessione\ModalitaAssegnazione\AttiConcessioneModalitaAssegnazioneDataTable',
-        'contratti-pubblici'                    => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciDataTable',
+
+        'atti-ufficiali'                        => 'Admin\Model\AlboPretorio\AttiUfficialiDataTable',
+
         'contratti-pubblici-scelta-contraente'  => 'Admin\Model\ContrattiPubblici\SceltaContraente\SceltaContraenteDataTable',
         'contratti-pubblici-operatori'          => 'Admin\Model\ContrattiPubblici\Operatori\OperatoriDataTable',
-        'logs'                                  => 'Admin\Model\Logs\LogsDataTable',
-        'stato-civile'                          => 'Admin\Model\StatoCivile\StatoCivileDataTable',
-        'stato-civile-sezioni'                  => 'Admin\Model\StatoCivile\StatoCivileSezioniDataTable',
-        'users'                                 => 'Admin\Model\Users\UsersDataTable',
+
         'users-roles'                           => 'Admin\Model\Users\Roles\UsersRolesDataTable',
         'users-settori'                         => 'Admin\Model\Users\Settori\UsersSettoriDataTable',
         'users-resp-procedimento'               => 'Admin\Model\Users\Roles\UsersRespProcDataTable',

@@ -14,6 +14,7 @@ use Application\Model\RouterManagers\RouterManagerAbstract;
 class FormDataCrudHandler extends RouterManagerAbstract
 {
     private $formCrudHandler;
+
     private $crudHandler;
     
     /**
@@ -28,7 +29,7 @@ class FormDataCrudHandler extends RouterManagerAbstract
     }
     
     /**
-     * Set Crud Handler Object
+     * Set CRUD Handler Object
      *
      * @param array $classMap
      * @return array
@@ -36,7 +37,7 @@ class FormDataCrudHandler extends RouterManagerAbstract
     public function detectCrudHandlerClassMap(array $classMap)
     {
         if (!$this->formCrudHandler) {
-            throw new NullException('Form Crud Handler object is not set');
+            throw new NullException('Form CRUD Handler object is not set');
         }
 
         if (isset($classMap[$this->formCrudHandler])) {

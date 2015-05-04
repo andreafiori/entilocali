@@ -9,7 +9,7 @@ use Admin\Model\FormData\FormDataCrudHandler;
  * @author Andrea Fiori
  * @since  30 May 2014
  */
-class FormDataCrudHandlerTest //extends TestSuite
+class FormDataCrudHandlerTest extends TestSuite
 {
     /**
      * @var FormDataCrudHandler
@@ -24,9 +24,7 @@ class FormDataCrudHandlerTest //extends TestSuite
         
         $this->formDataCrudHandler = new FormDataCrudHandler( $this->getFrontendCommonInput() );
         
-        $this->classMapTest = array(
-            'posts' => 'Admin\Posts\PostsCrudHandler'
-        );
+        $this->classMapTest = array('posts' => 'Admin\Posts\PostsCrudHandler');
     }
     
     public function testSetFormCrudHandler()

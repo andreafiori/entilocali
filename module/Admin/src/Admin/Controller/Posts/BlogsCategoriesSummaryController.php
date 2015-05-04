@@ -6,10 +6,6 @@ use Admin\Model\Posts\CategoriesGetter;
 use Admin\Model\Posts\CategoriesGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
-/**
- * @author Andrea Fiori
- * @since  11 April 2015
- */
 class BlogsCategoriesSummaryController extends SetupAbstractController
 {
     public function indexAction()
@@ -41,12 +37,10 @@ class BlogsCategoriesSummaryController extends SetupAbstractController
                 array(
                     'type'      => 'updateButton',
                     'href'      => 'formdata/categories/',
-                    'tooltip'   => 1,
                     'title'     => 'Modifica'
                 ),
                 array(
                     'type'      => 'deleteButton',
-                    'tooltip'   => 1,
                     'href'      => '#',
                     'title'     => 'Elimina',
                     'data-id'   => $record['id']

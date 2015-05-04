@@ -88,13 +88,9 @@ class BlogsFormController extends SetupAbstractController
             'submitButtonValue'             => $submitButtonValue,
             'CKEditorField'                 => 'description',
             'formBreadCrumbCategory'        => 'Blogs',
-            'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/blogs-summary', array(
-                    'lang' => 'it',
-                )
-            ),
+            'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/blogs-summary', array('lang' => 'it')),
+            'templatePartial'                => self::formTemplate,
         ));
-
-        $this->layout()->setVariable('templatePartial', self::formTemplate);
 
         $this->layout()->setTemplate($mainLayout);
     }

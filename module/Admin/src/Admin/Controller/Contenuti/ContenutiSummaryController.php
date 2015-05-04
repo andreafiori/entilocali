@@ -37,12 +37,12 @@ class ContenutiSummaryController extends SetupAbstractController
         $paginatorRecords = $this->formatRecordsToShowOnTable($wrapper->setupRecords());
 
         $this->layout()->setVariables(array(
-            'tableTitle'             => 'Contenuti',
-            'tableDescription'       => $paginatorRecordsCount.' contenuti in archivio',
-            'paginator'         => $paginator,
-            'total_item_count'  => $paginatorRecordsCount,
-            'records'           => $paginatorRecords,
-            'templatePartial'   => $templateDir.self::summaryTemplate,
+            'tableTitle'            => 'Contenuti',
+            'tableDescription'      => $paginatorRecordsCount.' contenuti in archivio',
+            'paginator'             => $paginator,
+            'total_item_count'      => $paginatorRecordsCount,
+            'records'               => $paginatorRecords,
+            'templatePartial'       => $templateDir.self::summaryTemplate,
             'columns' => array(
                 "Titolo",
                 "Sezione",
@@ -108,9 +108,15 @@ class ContenutiSummaryController extends SetupAbstractController
                     ),
                     array(
                         'type'      => 'attachButton',
-                        'href'      => 'formdata/attachments/contenuti/'.$row['id'],
+                        'href'      =>$this->url()->fromRoute('admin/attachments-form', array(
+                                'lang'      => 'it',
+                                'module'    => 'contenuti',
+                                'id'        => $row['id']
+                            )
+                        ),
                     )
                 );
+
             }
         }
 

@@ -24,9 +24,8 @@ class AlboPretorioRelataPdfController extends SetupAbstractController
         $pdf->setOption('filename',         'albo-pretorio-relata-'.$records[0]['id']);
         $pdf->setOption('paperSize',        'a4');
         $pdf->setOption('paperOrientation', 'landscape');
-        $pdf->setVariables(array(
-            'record' => $records[0]
-        ));
+        $pdf->setVariables( array('record' => $records[0]) );
+
         return $pdf;
     }
 

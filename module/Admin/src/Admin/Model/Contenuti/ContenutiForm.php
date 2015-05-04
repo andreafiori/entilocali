@@ -52,7 +52,8 @@ class ContenutiForm extends Form
             'options' => array('label' => 'Sotto titolo'),
             'attributes' => array(
                 'id'        => 'sommario',
-                'required'  => 'required'
+                'required'  => 'required',
+                'class'     => 'wysiwyg'
             )
         ));
 
@@ -62,7 +63,8 @@ class ContenutiForm extends Form
             'options' => array('label' => 'Testo'),
             'attributes' => array(
                 'id'        => 'testo',
-                'required'  => 'required'
+                'required'  => 'required',
+                'class'     => 'wysiwyg'
             )
         ));
 

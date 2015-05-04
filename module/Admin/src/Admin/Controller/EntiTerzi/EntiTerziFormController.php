@@ -41,10 +41,7 @@ class EntiTerziFormController extends SetupAbstractController
                 'formAction'                    => $formAction,
                 'submitButtonValue'             => $submitButtonValue,
                 'formBreadCrumbCategory'        => 'Enti terzi',
-                'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/enti-terzi-summary', array(
-                        'lang' => 'it',
-                    )
-                ),
+                'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/enti-terzi-summary', array('lang' => 'it')),
                 'templatePartial'               => 'formdata/formdata.phtml'
             )
         );

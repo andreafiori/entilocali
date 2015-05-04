@@ -27,7 +27,7 @@ class AttachmentsFormController extends SetupAbstractController
 
         try {
             $helper = new AttachmentsFormControllerHelper();
-            $helper->setModulesGetterWrapper(new ModulesGetterWrapper(new ModulesGetter($em)));
+            $helper->setModulesGetterWrapper( new ModulesGetterWrapper(new ModulesGetter($em)) );
             $helper->setupModuleRecords($option);
 
             $wrapper = new AttachmentsGetterWrapper(new AttachmentsGetter($em));
@@ -60,6 +60,8 @@ class AttachmentsFormController extends SetupAbstractController
                     $articleTitle = stripslashes($relatedRecord[0]['titolo']);
 
                     $breadCrumbModule = 'Albo pretorio';
+
+                    $breadCrumbLink = $this->url()->fromRoute('admin/albo-pretorio-summary', array('lang' => 'it') );
                 break;
 
                 case("stato-civile"):
@@ -76,6 +78,8 @@ class AttachmentsFormController extends SetupAbstractController
                     $articleTitle = stripslashes($relatedRecord[0]['titolo']);
 
                     $breadCrumbModule = 'Stato civile';
+
+                    $breadCrumbLink = $this->url()->fromRoute('admin/stato-civile-summary', array('lang' => 'it') );
                 break;
 
                 case("contratti-pubblici"):
@@ -88,6 +92,7 @@ class AttachmentsFormController extends SetupAbstractController
                     $relatedRecord = $wrapper->getRecords();
 
                     $articleTitle = stripslashes($relatedRecord[0]['titolo']);
+
                     $breadCrumbModule = 'Contratti pubblici';
                 break;
 
@@ -103,9 +108,11 @@ class AttachmentsFormController extends SetupAbstractController
                     $articleTitle = stripslashes($relatedRecord[0]['titolo']);
 
                     $breadCrumbModule = 'Atti concessione';
+
+                    $breadCrumbLink = $this->url()->fromRoute('admin/atti-concessione-summary', array('lang' => 'it') );
                 break;
 
-                case("contenuti"): case("amministrazione-trasparente"):
+                case("contenuti"):
                     $wrapper = new \Admin\Model\Contenuti\ContenutiGetterWrapper(
                         new \Admin\Model\Contenuti\ContenutiGetter($em)
                     );
@@ -116,7 +123,25 @@ class AttachmentsFormController extends SetupAbstractController
 
                     $articleTitle = stripslashes($relatedRecord[0]['titolo']);
 
-                    $breadCrumbModule = ($option=='contenuti') ? 'Contenuti' : 'Amministrazione Trasparente';
+                    $breadCrumbModule = 'Contenuti';
+
+                    $breadCrumbLink = $this->url()->fromRoute('admin/contenuti-summary', array('lang' => 'it') );
+                break;
+
+                case("amministrazione-trasparente"):
+                    $wrapper = new \Admin\Model\Contenuti\ContenutiGetterWrapper(
+                        new \Admin\Model\Contenuti\ContenutiGetter($em)
+                    );
+                    $wrapper->setInput(array('id' => $option));
+                    $wrapper->setupQueryBuilder();
+
+                    $relatedRecord = $wrapper->getRecords();
+
+                    $articleTitle = stripslashes($relatedRecord[0]['titolo']);
+
+                    $breadCrumbModule = 'Amministrazione Trasparente';
+
+                    $breadCrumbLink = $this->url()->fromRoute('admin/contenuti-summary', array('lang' => 'it') );
                 break;
             }
 
@@ -139,7 +164,7 @@ class AttachmentsFormController extends SetupAbstractController
                     'articleTitle'               => $articleTitle,
                     'hideBreadcrumb'             => 1,
                     'formBreadCrumbCategory'     => $breadCrumbModule, $articleTitle,
-                    'formBreadCrumbCategoryLink' => 'datatable/'.$option,
+                    'formBreadCrumbCategoryLink' => $breadCrumbLink,
                     'attachmentType'             => $option,
                     'templatePartial'            => 'formdata/attachments.phtml',
                 )
@@ -157,10 +182,5 @@ class AttachmentsFormController extends SetupAbstractController
             $this->layout()->setTemplate($mainLayout);
             return false;
         }
-    }
-
-    public function updateFormAction()
-    {
-
     }
 }

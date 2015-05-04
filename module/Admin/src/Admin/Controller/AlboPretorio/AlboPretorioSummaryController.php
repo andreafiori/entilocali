@@ -112,10 +112,9 @@ class AlboPretorioSummaryController extends SetupAbstractController
                     /* Attachment button */
                     $arrayLine[] = array(
                         'type'  => 'attachButton',
-                        'href'  => $this->url()->fromRoute('admin/formdata', array(
+                        'href'  => $this->url()->fromRoute('admin/attachments-form', array(
                             'lang'          => 'it',
-                            'formsetter'    => 'attachments',
-                            'option'        => $modulePrefixLink,
+                            'module'        => $modulePrefixLink,
                             'id'            => $record['id']
                         )),
                         'class' => $rowClass,
@@ -173,7 +172,11 @@ class AlboPretorioSummaryController extends SetupAbstractController
                         /* Relata PDF button */
                         $arrayLine[] = array(
                             'type'   => 'relatapdfButton',
-                            'href'   => 'albo-pretorio/relata/pdf/'.$record['id'],
+                            'href'   => $this->url()->fromRoute('admin/albo-pretorio-relata-pdf', array(
+                                'lang'      => 'it',
+                                'module'    => $modulePrefixLink,
+                                'id'        => $record['id'],
+                            )),
                             'class'  => $rowClass,
                         );
                         /* Invio enti terzi button */
@@ -181,7 +184,7 @@ class AlboPretorioSummaryController extends SetupAbstractController
                             'type'   => 'enteterzoButton',
                             'href'   => $this->url()->fromRoute('admin/invio-ente-terzo', array(
                                 'lang'          => 'it',
-                                'modulename'    => $modulePrefixLink,
+                                'module'        => $modulePrefixLink,
                                 'id'            => $record['id'],
                             )),
                             'class'  => $rowClass,

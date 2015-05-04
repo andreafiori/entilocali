@@ -13,7 +13,7 @@ use Zend\Form\Form;
 class StatoCivileFormSearch extends Form
 {
     /**
-     * @param string $name
+     * @inheritdoc
      */
     public function __construct($name = null) 
     {
@@ -89,7 +89,7 @@ class StatoCivileFormSearch extends Form
     }
     
     /**
-     * @param array $years
+     * @param mixed $years
      */
     public function addYears($years = null)
     {

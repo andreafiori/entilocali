@@ -43,9 +43,7 @@ echo $this->render($this->formDataCommonPath.'formdata_breadcrumb.phtml');
         <tbody>
         <?php foreach($this->attachmentsList as $record): ?>
         <tr>
-            <!--
-            <td><input type="checkbox" id="chk<?php echo $record['id'] ?>" name="attachmentId[]" value="<?php echo $record['id'] ?>"></td>
-            -->
+            <!-- <td><input type="checkbox" id="chk<?php echo $record['id'] ?>" name="attachmentId[]" value="<?php echo $record['id'] ?>"></td> -->
             <td><label for="chk<?php echo $record['id'] ?>"><?php echo $record['name'] ?> (<?php echo $record['size'] ?> Kb)</label></td>
             <td><?php echo isset($record['title']) ? $record['title'] : null ?></td>
             <td><?php echo isset($record['description']) ? $record['description'] : null ?></td>
@@ -70,6 +68,7 @@ echo $this->render($this->formDataCommonPath.'formdata_breadcrumb.phtml');
     </form>
     <?php endif; ?>
     </div>
+
     <div class="tab-pane" id="attachmentNew">
         <?php echo $this->render('backend/templates/'.$this->template_backend.'formdata/formdata.phtml'); ?>
     </div>

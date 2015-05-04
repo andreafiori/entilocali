@@ -12,7 +12,6 @@ return array(
             'Auth',
             'ApiWebService',
             'Feed',
-            'Migrazione',
     ),
     'module_listener_options' => array(
         'module_paths' => array(

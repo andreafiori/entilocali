@@ -7,8 +7,19 @@ use Application\Model\NullException;
 
 class AttachmentsFormControllerHelper
 {
+    /**
+     * @var ModulesGetterWrapper
+     */
     private $modulesGetterWrapper;
+
     private $moduleRecords;
+
+    /**
+     * @var AttachmentsGetterWrapper
+     */
+    private $attachmentsGetterWrapper;
+
+    private $attachmentRecords;
 
     /**
      * @param ModulesGetterWrapper $wrapper
@@ -73,5 +84,50 @@ class AttachmentsFormControllerHelper
         if ( !isset($moduleRecords[0]['id']) ) {
             throw new NullException("Il presente modulo non &egrave; stato trovato. Se l'errore persiste, contattare l'amministrazione");
         }
+    }
+
+    /**
+     * @param AttachmentsGetterWrapper $wrapper
+     */
+    public function setAttachmentsGetterWrapper(AttachmentsGetterWrapper $wrapper)
+    {
+        $this->attachmentsGetterWrapper = $wrapper;
+    }
+
+    /**
+     * @param array $input
+     * @return array
+     */
+    public function setupAttachmentsRecords($input = array())
+    {
+        $this->assertAttachmentsGetterWrapper();
+
+        $this->getAttachmentsGetterWrapper()->setInput($input);
+        $this->getAttachmentsGetterWrapper()->setupQueryBuilder();
+
+        $this->attachmentRecords = $this->getAttachmentsGetterWrapper()->getRecords();
+    }
+
+    private function assertAttachmentsGetterWrapper()
+    {
+        if (!$this->getAttachmentsGetterWrapper()) {
+            throw new NullException("AttachmentsGetterWrapper is not set");
+        }
+    }
+
+    /**
+     * @return AttachmentsGetterWrapper
+     */
+    public function getAttachmentsGetterWrapper()
+    {
+        return $this->attachmentsGetterWrapper;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAttachmentRecords()
+    {
+        return $this->attachmentRecords;
     }
 }
