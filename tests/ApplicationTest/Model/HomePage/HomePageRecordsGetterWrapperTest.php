@@ -39,4 +39,21 @@ class HomePageRecordsGetterWrapperTest extends TestSuite
         
         $this->assertTrue(is_array($this->homePageRecordsGetterWrapper->getRecords()) );
     }
+
+    public function testformatPerModuleCode()
+    {
+        $recordTest = array(
+            array(
+                'moduleCode' => 'blogs',
+            ),
+            array(
+                'moduleCode' => 'blogs',
+            ),
+        );
+
+        $this->assertArrayHasKey(
+            'blogs',
+            $this->homePageRecordsGetterWrapper->formatPerModuleCode($recordTest)
+        );
+    }
 }

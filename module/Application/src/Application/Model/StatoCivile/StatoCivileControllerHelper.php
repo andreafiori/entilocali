@@ -3,6 +3,7 @@
 namespace Application\Model\StatoCivile;
 
 use Admin\Model\StatoCivile\StatoCivileSezioniGetterWrapper;
+use Admin\Model\StatoCivile\StatoCivileGetterWrapper;
 use Application\Model\NullException;
 
 /**
@@ -15,6 +16,13 @@ class StatoCivileControllerHelper
      * @var StatoCivileSezioniGetterWrapper
      */
     private $statoCivileSezioniGetterWrapper;
+
+    /**
+     * @var StatoCivileGetterWrapper
+     */
+    private $statoCivileGetterWrapper;
+
+    private $statoCivileYears;
 
     private $sezioniRecords;
 
@@ -97,6 +105,7 @@ class StatoCivileControllerHelper
 
     /**
      * @param StatoCivileFormSearch $form
+     * @return StatoCivileFormSearch
      */
     public function setupFormSearch(StatoCivileFormSearch $form)
     {
@@ -109,4 +118,54 @@ class StatoCivileControllerHelper
 
         return $form;
     }
+
+    /**
+     * @param StatoCivileGetterWrapper $statoCivileGetterWrapper
+     */
+    public function setStatoCivileGetterWrapper(StatoCivileGetterWrapper $statoCivileGetterWrapper)
+    {
+        $this->statoCivileGetterWrapper = $statoCivileGetterWrapper;
+    }
+
+    /**
+     * @return StatoCivileGetterWrapper
+     */
+    public function getStatoCivileGetterWrapper()
+    {
+        return $this->statoCivileGetterWrapper;
+    }
+
+    /**
+     * @param array $input
+     * @return array
+     */
+    public function setupYears($input = array())
+    {
+        $this->assertStatoCivileGetterWrapper();
+
+        $this->getStatoCivileGetterWrapper()->setInput($input);
+        $this->getStatoCivileGetterWrapper()->setupQueryBuilder();
+
+        $this->statoCivileYears = $this->getStatoCivileGetterWrapper()->formatYears(
+            $this->getStatoCivileGetterWrapper()->getRecords()
+        );
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getStatoCivileYears()
+    {
+        return $this->statoCivileYears;
+    }
+
+        /**
+         * @throws NullException
+         */
+        private function assertStatoCivileGetterWrapper()
+        {
+            if (!$this->getStatoCivileGetterWrapper()) {
+                throw new NullException("StatoCivileGetterWrapper is not set");
+            }
+        }
 }

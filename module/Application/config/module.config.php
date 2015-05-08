@@ -16,7 +16,8 @@ return array(
             'Application\Controller\StatoCivile\StatoCivile'            => 'Application\Controller\StatoCivile\StatoCivileController',
             'Application\Controller\CssStyleSwitch'                     => 'Application\Controller\CssStyleSwitchController',
             'Application\Controller\Users\UsersCreateAccount'           => 'Application\Controller\Users\UsersCreateAccountController',
-            'Application\Controller\Users\UsersRecoverPassword'         => 'Application\Controller\Users\UsersRecoverPasswordController'
+            'Application\Controller\Users\UsersRecoverPassword'         => 'Application\Controller\Users\UsersRecoverPasswordController',
+            'Application\Controller\StatoCivile\StatoCivileExport'      => 'Application\Controller\StatoCivile\StatoCivileExportController'
         ),
     ),
     'router' => array(
@@ -215,6 +216,28 @@ return array(
                                                                         'options' => array(
                                                                     ),
                                                         ),
+                                        ),
+                                    ),
+                                    'stato-civile-export' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                            'route'    => '/stato-civile/export/:action[/]',
+                                            'constraints' => array(
+                                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                            ),
+                                            'defaults' => array(
+                                                'controller' => 'Application\Controller\StatoCivile\StatoCivileExport',
+                                                'action'     => 'index',
+                                            ),
+                                        ),
+                                        'may_terminate' => true,
+                                        'child_routes' => array(
+                                            'default' => array(
+                                                'type'    => 'Wildcard',
+                                                'options' => array(
+
+                                                ),
+                                            ),
                                         ),
                                     ),
                                     'amministrazione-trasparente' => array(

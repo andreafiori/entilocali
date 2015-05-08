@@ -387,7 +387,7 @@ $acl = $this->userDetails->acl;
                                 <a href="#" class="dropdown-collapse" title="Categorie">Categorie <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <?php if ($acl->hasResource('blogs_categories_add')): ?>
-                                    <li><a href="" title="">Nuova</a></li>
+                                    <li><a href="#" title="">Nuova</a></li>
                                     <?php endif; ?>
                                     <?php if ($acl->hasResource('blogs_categories_update')): ?>
                                     <li><a href="<?php echo $this->url('admin/posts-categories-summary', array(
@@ -456,10 +456,10 @@ $acl = $this->userDetails->acl;
                                 <a href="#" class="dropdown-collapse" title="">Ruoli <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <?php if ($acl->hasResource('users_roles_add')): ?>
-                                    <li><a href="<?php echo $this->baseUrl ?>users/roles/permissions/" title="Nuovo ruolo utente">Nuovo</a></li>
+                                    <li><a href="<?php echo $this->url('admin/users-roles-form', array('lang' => 'it') ); ?>" title="Nuovo ruolo utente">Nuovo</a></li>
                                     <?php endif; ?>
                                     <?php if ($acl->hasResource('users_roles_update')): ?>
-                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter' => 'users-roles')); ?>" title="Gestione ruoli utente">Modifica \ Elimina</a></li>
+                                    <li><a href="<?php echo $this->url('admin/users-roles-summary', array('lang' => 'it') ); ?>" title="Gestione ruoli utente">Modifica \ Elimina</a></li>
                                     <?php endif; ?>
                                 </ul>
                             </li>
@@ -550,7 +550,8 @@ $acl = $this->userDetails->acl;
                 case 'file':
                 case 'select-one':
                     jQuery(this).val('');
-                    break;
+                break;
+
                 case 'checkbox':
                 case 'radio':
                     this.checked = false;

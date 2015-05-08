@@ -90,11 +90,6 @@ class AlboPretorioArticoliCrudHandler extends CrudHandlerAbstract implements Cru
         $arrayUpdate = array(
             'utente_id'             => $userDetails->id,
             'sezione_id'            => $formData->sezione,
-            /*
-            'numero_progressivo'    => $formData->numeroProgressivo,
-            'data_attivazione'      => date("Y-m-d H:i:s"),
-            'ora_attivazione'       => date("H:i:s"),
-            */
             'data_pubblicare'       => date("Y-m-d H:i:s"),
             'ora_pubblicare'        => date("H:i:s"),
             'data_scadenza'         => $formData->dataScadenza,
@@ -135,6 +130,11 @@ class AlboPretorioArticoliCrudHandler extends CrudHandlerAbstract implements Cru
             return array(
                 'messageShowFormLink'   =>  1,
                 'attachmentFilesModule' =>  1,
+                'attachmentLink'        =>  $this->getUrl()->fromRoute('admin/attachments-form',  array(
+                    'lang' => 'it',
+                    'module' => 'albo-pretorio',
+                    'id' => $formData->id
+                ))
             );
         }
     }
@@ -255,4 +255,3 @@ class AlboPretorioArticoliCrudHandler extends CrudHandlerAbstract implements Cru
         ));
     }
 }
-

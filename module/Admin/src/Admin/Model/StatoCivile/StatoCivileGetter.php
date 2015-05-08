@@ -15,11 +15,10 @@ class StatoCivileGetter extends QueryBuilderHelperAbstract
         $this->setSelectQueryFields("DISTINCT(sca.id) AS id, sca.titolo, sca.progressivo,
                                     sca.anno, sca.data, scs.id AS sezione, sca.scadenza, scs.nome, sca.attivo,
 
-
                                     ( SELECT CONCAT(u.name, ' ', u.surname) FROM Application\Entity\ZfcmsUsers u
                                     WHERE u.id = sca.utente ) AS user_name_surname
 
-                                     ");
+                                    ");
 
         $this->getQueryBuilder()->select($this->getSelectQueryFields())
                                 ->from('Application\Entity\ZfcmsComuniStatoCivileArticoli', 'sca')
@@ -119,6 +118,20 @@ class StatoCivileGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->setParameter('textSearch', "%$text%");
         }
         
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param int $noScaduti
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setNoScaduti($noScaduti)
+    {
+        if ($noScaduti == 1) {
+            $this->getQueryBuilder()->andWhere("( sca.scadenza > '".date("Y-m-d H:i:s")."'
+            OR sca.scadenza = '0000-00-00 00:00:00') ");
+        }
+
         return $this->getQueryBuilder();
     }
 }

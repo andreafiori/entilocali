@@ -4,8 +4,7 @@ namespace Application\Controller;
 
 use Admin\Model\AlboPretorio\AlboPretorioArticoliGetter;
 use Admin\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
-use Admin\Model\Posts\PostsGetter;
-use Admin\Model\Posts\PostsGetterWrapper;
+use Application\Model\HomePage\HomePageHelper;
 use Application\Model\HomePage\HomePageRecordsGetter;
 use Application\Model\HomePage\HomePageRecordsGetterWrapper;
 
@@ -21,32 +20,18 @@ class IndexController extends SetupAbstractController
 
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-        $wrapper = new HomePageRecordsGetterWrapper( new HomePageRecordsGetter($em) );
-        $wrapper->setInput( array(
-            'onlyActiveModules' => 1,
-            'orderBy'           => 'hb.position ASC'
-        ));
-        $wrapper->setupQueryBuilder();
+        $helper = new HomePageHelper();
+        $helper->setHomePageRecordsGetterWrapper(
+            new HomePageRecordsGetterWrapper(new HomePageRecordsGetter($em))
+        );
+        $helper->setupHomePageRecords( array('onlyActiveModules' => 1, 'orderBy' => 'hb.position ASC') );
+        $helper->gatherReferenceIds();
 
-        $homePageRecords = $wrapper->formatPerModuleCode( $wrapper->getRecords() );
-
+        $homePageRecords = $helper->getHomePageRecords();
         if (!empty($homePageRecords)) {
 
-            /* Gather RefereceIds per module... */
-            $referenceIdContainer = array();
-            foreach($homePageRecords as $key => $values) {
-                foreach($values as $value) {
-                    if ( !empty($value['freeText']) ) {
-                        $referenceIdContainer[$key]['freeText'][] = $value['freeText'];
-                    }
-
-                    $referenceIdContainer[$key]['referenceId'][] = $value['referenceId'];
-                }
-            }
-
-            /* Fetch data from each modules using wrappers... */
             $homePageVar = array();
-            foreach($referenceIdContainer as $key => $value) {
+            foreach($homePageRecords as $key => $value) {
 
                 switch($key) {
 
@@ -65,12 +50,14 @@ class IndexController extends SetupAbstractController
 
                     case('freeText'):
                         foreach($value as $record) {
-                            $homePageVar[$key][] = array('freeText' => $record[0]);
+                            if (!empty($record['freeText'])) {
+                                $homePageVar[$key][] = array('freeText' => $record['freeText']);
+                            }
                         }
-                        break;
+                    break;
 
                     case('blogs'):
-
+                        // $wrapper = new PostsGetterWrapper( new PostsGetter($em) );
                     break;
 
                     case('photo'):
@@ -79,9 +66,7 @@ class IndexController extends SetupAbstractController
 
                     case('albo-pretorio'):
                         $wrapper = new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter($em));
-                        $wrapper->setInput(array(
-                            'id' => $value['referenceId'],
-                        ));
+                        $wrapper->setInput( array('id' => $value['referenceIds']) );
                         $wrapper->setupQueryBuilder();
                         $wrapper->setupPaginator( $wrapper->setupQuery($em) );
                         $wrapper->setupPaginatorCurrentPage(1);

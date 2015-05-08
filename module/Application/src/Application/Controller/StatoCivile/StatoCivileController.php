@@ -31,8 +31,8 @@ class StatoCivileController extends SetupAbstractController
         $helper->setupSezioniRecords(array());
         $helper->formatSezioniForFormSelect($helper->getSezioniRecords());
 
-        $form = $helper->setupFormSearch(new StatoCivileFormSearch());
-        $form->setData($this->getRequest()->isPost() ? $this->getRequest()->getPost() : array() );
+        $form = $helper->setupFormSearch( new StatoCivileFormSearch() );
+        $form->setData( $this->getRequest()->isPost() ? $this->getRequest()->getPost() : array() );
 
         $wrapper = new StatoCivileGetterWrapper( new StatoCivileGetter($em) );
         $wrapper->setInput( array_merge(

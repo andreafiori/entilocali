@@ -30,9 +30,9 @@ class HomePageRecordsGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setSelectQueryFields( $this->getInput('fields', 1) );
 
         $this->objectGetter->setMainQuery();
-        
-        $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1), 'hb.position ASC' );
+
         $this->objectGetter->setOnlyActiveModules( $this->getInput('onlyActiveModules', 1) );
+        $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1), 'hb.position ASC' );
         $this->objectGetter->setGroupBy( $this->getInput('groupBy', 1) );
         $this->objectGetter->setLimit( $this->getInput('limit', 1) );
     }

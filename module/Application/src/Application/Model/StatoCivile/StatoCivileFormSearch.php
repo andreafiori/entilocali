@@ -5,7 +5,7 @@ namespace Application\Model\StatoCivile;
 use Zend\Form\Form;
 
 /**
- * Stato Civile Frontend Search Form
+ * Frontend Search Form
  * 
  * @author Andrea Fiori
  * @since  24 July 2014
@@ -72,7 +72,7 @@ class StatoCivileFormSearch extends Form
             'name' => 'anno',
             'attributes' => array(
                 'title' => 'Seleziona anno pubblicazione',
-                'id' => 'anno'
+                'id'    => 'anno'
             ),
             'options' => array(
                 'label'         => 'Anno',

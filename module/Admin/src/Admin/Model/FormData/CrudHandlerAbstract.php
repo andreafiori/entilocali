@@ -35,6 +35,11 @@ abstract class CrudHandlerAbstract
     protected $connection;
 
     /**
+     * @var \Zend\Mvc\Controller\Plugin\Url
+     */
+    protected $url;
+
+    /**
      * @var array
      */
     protected $configurationsFromDb;
@@ -395,5 +400,21 @@ abstract class CrudHandlerAbstract
         }
 
         return $error;
+    }
+
+    /**
+     * @return \Zend\Mvc\Controller\Plugin\Url
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param \Zend\Mvc\Controller\Plugin\Url $url
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
     }
 }

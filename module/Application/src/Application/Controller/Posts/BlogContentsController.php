@@ -12,7 +12,6 @@ use Application\Controller\SetupAbstractController;
  */
 class BlogContentsController extends SetupAbstractController
 {
-    /*
     public function indexAction()
     {
         $mainLayout = $this->initializeFrontendWebsite();
@@ -51,5 +50,4 @@ class BlogContentsController extends SetupAbstractController
     {
 
     }
-    */
 }

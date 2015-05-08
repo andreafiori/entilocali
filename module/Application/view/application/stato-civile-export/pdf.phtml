@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style>
+    h1, h2 {  }
+    p { margin-bottom: 10px }
+    .text-center { text-align: center }
+    .hidden { display: none; }
+</style>
+<body>
+
+<h2 class="text-center">
+    <?php echo $this->sitename; ?> - Stato Civile
+</h2>
+
+<p>&nbsp;</p>
+
+<?php foreach($this->records as $record): ?>
+    <p><?php echo $record['titolo'] ?></p>
+
+    <p><strong>Numero \ Anno:</strong> <?php echo $record['progressivo'] ?> \ <?php echo $record['anno'] ?></p>
+    <p><strong>Sezione:</strong> <?php echo $record['nome']; ?></p>
+    <p><strong>Scadenza:</strong> <?php echo $record['scadenza']->format("d-m-Y"); ?></p>
+
+    <hr style="color: #ccc;">
+<?php endforeach; ?>
+
+<p>&copy; <?php echo $this->sitename ?>. Documento generato il: <?php echo date("d-m-Y"); ?> alle ore <?php echo date("H:i:s"); ?>.</p>
+
+</body>
+</html>

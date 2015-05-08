@@ -2,9 +2,9 @@
 <?php
 
 foreach($this->sezioni as $sezione):
-    
+
     switch($sezione['moduleCode']):
-    
+
         default: case("contenuti"):
 
             if (isset($sezione['sottosezioni'])):
@@ -40,14 +40,14 @@ foreach($this->sezioni as $sezione):
                     <li><a href="<?php echo $this->url('contents', array('subsectionid' => $sottoSezione['idSottoSezione'])) ?>" title="<?php echo isset($sottoSezione['urlTitle']) ? utf8_encode($sottoSezione['urlTitle']) : 'Vai alla sezione '.utf8_encode($sottoSezione['nomeSottoSezione']) ?>"><?php echo utf8_encode($sottoSezione['nomeSottoSezione']) ?></a></li>
                     <?php
                 endif;
-                
+
             endforeach;
             ?>
             </ul>
             <?php
             endif;
         break;
-        
+
         case('atti-concessione'):
         ?>
         <h1>
@@ -71,6 +71,12 @@ foreach($this->sezioni as $sezione):
                 <li><a href="#" title="Leggi articolo Mews 2">News 2</a></li>
                 <li><a href="#" title="Leggi articolo Mews 3">News 3</a></li>
             </ul>
+            <?php
+        break;
+
+        case("blogs"):
+            ?>
+            BLOGS!
             <?php
         break;
 
@@ -100,21 +106,22 @@ foreach($this->sezioni as $sezione):
             <?php
         break;
 
-        /*
+
         case('amministrazione-trasparente'): case('amministrazionetrasparente'):
 
         break;
-
+        /*
         case('albo'): // atti di Telti presi da contenuti???!!!
             ?>
             <h1><?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?></h1>
-            
+
             <div class="panel info">
                 In costruzione
             </div>
             <?php
         break;
         */
+
     endswitch;
 
 endforeach;

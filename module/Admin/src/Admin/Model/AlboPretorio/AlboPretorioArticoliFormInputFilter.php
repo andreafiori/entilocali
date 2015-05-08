@@ -26,6 +26,7 @@ class AlboPretorioArticoliFormInputFilter implements InputFilterAwareInterface
     public $homepage;
     public $note;
     public $userId;
+    public $checkRettifica;
 
     protected $inputFilter;
 
@@ -47,6 +48,8 @@ class AlboPretorioArticoliFormInputFilter implements InputFilterAwareInterface
         $this->homepage                 = (isset($data['homepage']))                ? $data['homepage'] : null;
         $this->note                     = (isset($data['note']))                    ? $data['note'] : null;
         $this->userId                   = (isset($data['userId']))                  ? $data['userId'] : null;
+        $this->checkRettifica           = (isset($data['checkRettifica']))          ? $data['checkRettifica'] : null;
+
     }
 
     /**
@@ -207,6 +210,14 @@ class AlboPretorioArticoliFormInputFilter implements InputFilterAwareInterface
 
             $inputFilter->add(array(
                 'name'     => 'userId',
+                'required' => false,
+                'filters'  => array(
+                    array('name' => 'Int'),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name' => 'checkRettifica',
                 'required' => false,
                 'filters'  => array(
                     array('name' => 'Int'),

@@ -69,12 +69,12 @@ class AlboPretorioArticoliForm extends Form
         ));
 
         $this->add(array(
-                        'type' => 'Zend\Form\Element\Hidden',
-                        'name' => 'rettifica',
-                        'attributes'    => array(
-                            'class'     => 'hiddenField',
-                            'value'     => 1,
-                        )
+            'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'checkRettifica',
+            'attributes'    => array(
+                'class'     => 'hiddenField',
+                'value'     => 1,
+            )
         ));
     }
 

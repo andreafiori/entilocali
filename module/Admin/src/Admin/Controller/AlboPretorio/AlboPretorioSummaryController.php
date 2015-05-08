@@ -7,10 +7,6 @@ use Admin\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
 use Application\Controller\SetupAbstractController;
 use Zend\View\Model\ViewModel;
 
-/**
- * @author Andrea Fiori
- * @since  06 April 2015
- */
 class AlboPretorioSummaryController extends SetupAbstractController
 {
     public function indexAction()
@@ -37,7 +33,6 @@ class AlboPretorioSummaryController extends SetupAbstractController
         $this->layout()->setVariables(array(
                 'tableTitle'        => 'Albo pretorio',
                 'tableDescription'  => $paginator->getTotalItemCount()." atti in archivio",
-
                 'columns' => array(
                     array('label' => 'Num \ Anno', 'width' => '10%'),
                     array('label' => 'Titolo', 'width' => '20%'),
@@ -127,6 +122,7 @@ class AlboPretorioSummaryController extends SetupAbstractController
                         );
                     } else {
                         if ($record['pubblicare']==1) {
+
                             /* Rettifica button */
                             $arrayLine[] = array(
                                 'type'      => 'alboRettificaButton',

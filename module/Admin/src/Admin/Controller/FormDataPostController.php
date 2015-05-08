@@ -51,6 +51,7 @@ class FormDataPostController extends SetupAbstractController
             }
 
             $crudHandler = new $crudHandlerObject();
+            $crudHandler->setUrl( $this->url() );
 
             $request = $this->getRequest();
             $post = array_merge_recursive(

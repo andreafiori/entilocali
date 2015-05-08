@@ -18,6 +18,7 @@ return array(
             /* Albo Pretorio */
             'Admin\Controller\AlboPretorio\AlboPretorioSummary'                 => 'Admin\Controller\AlboPretorio\AlboPretorioSummaryController',
             'Admin\Controller\AlboPretorio\AlboPretorioForm'                    => 'Admin\Controller\AlboPretorio\AlboPretorioFormController',
+            'Admin\Controller\AlboPretorio\AlboPretorioFormRettifica'           => 'Admin\Controller\AlboPretorio\AlboPretorioFormRettificaController',
             'Admin\Controller\AlboPretorio\AlboPretorioOperations'              => 'Admin\Controller\AlboPretorio\AlboPretorioOperationsController',
             'Admin\Controller\AlboPretorio\AlboPretorioRelataPdf'               => 'Admin\Controller\AlboPretorio\AlboPretorioRelataPdfController',
             'Admin\Controller\AlboPretorio\AlboPretorioSezioniForm'             => 'Admin\Controller\AlboPretorio\AlboPretorioSezioniFormController',
@@ -61,6 +62,8 @@ return array(
             /* Users */
             'Admin\Controller\Users\UsersSummary'                     => 'Admin\Controller\Users\UsersSummaryController',
             'Admin\Controller\Users\UsersForm'                        => 'Admin\Controller\Users\UsersFormController',
+            'Admin\Controller\Users\Roles\UsersRolesForm'             => 'Admin\Controller\Users\Roles\UsersRolesFormController',
+            'Admin\Controller\Users\Roles\UsersRolesSummary'          => 'Admin\Controller\Users\Roles\UsersRolesSummaryController',
 
             'Admin\Controller\Users\RespProc\UsersRespProcController' => 'Admin\Controller\Users\RespProc\UsersRespProcController',
         ),
@@ -194,8 +197,8 @@ return array(
                                 'id' => '[0-9]+',
                             ),
                             'defaults' => array(
-                                'controller' => 'Admin\Controller\AlboPretorio\AlboPretorioForm',
-                                'action'     => 'rettifica',
+                                'controller' => 'Admin\Controller\AlboPretorio\AlboPretorioFormRettifica',
+                                'action'     => 'index',
                             ),
                         ),
                     ),
@@ -232,6 +235,19 @@ return array(
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\AlboPretorio\AlboPretorioOperations',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'albo-pretorio-relata-pdf' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'         => 'albo-pretorio/relata/pdf/:id',
+                            'constraints'   => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\AlboPretorio\AlboPretorioRelataPdf',
                                 'action'     => 'index',
                             ),
                         ),
@@ -587,24 +603,11 @@ return array(
                         ),
                     ),
                     'contratti-pubblici-aggiudicatari' => array(
-                        'type'    => 'Segment',
+                        'type' => 'Segment',
                         'options' => array(
                             'route'       => 'contratti-pubblici-aggiudicatari/elenco[[/]:id[/]]',
                             'constraints' => array(
                                 'id' => '[0-9]+',
-                            ),
-                            'defaults' => array(
-                                'controller' => 'Admin\Controller\Admin',
-                                'action'     => 'index',
-                            ),
-                        ),
-                    ),
-                    'users-roles-permissions' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'       => 'users/roles/permissions/[:roleId[/]]',
-                            'constraints' => array(
-                                'roleId' => '[0-9]+',
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Admin',
@@ -622,19 +625,6 @@ return array(
                                 'action'     => 'index',
                             ),
                         ),
-                    ),
-                    'albo-pretorio-relata-pdf' => array(
-                                    'type'    => 'Segment',
-                                    'options' => array(
-                                                'route'         => 'albo-pretorio/relata/pdf/:id',
-                                                'constraints'   => array(
-                                                    'id' => '[0-9]+',
-                                                ),
-                                                'defaults' => array(
-                                                    'controller' => 'Admin\Controller\AlboPretorio\AlboPretorioRelataPdf',
-                                                    'action'     => 'index',
-                                                ),
-                                    ),
                     ),
                     'users-summary' => array(
                         'type'    => 'Segment',
@@ -661,6 +651,35 @@ return array(
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Users\UsersForm',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'users-roles-form' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'users/roles/form[/][:id[/]]',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Users\Roles\UsersRolesForm',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'users-roles-summary' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'       => 'users/roles/summary[/][:categoryId[/]][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'constraints' => array(
+                                'categoryId'  => '[0-9]+',
+                                'page'        => '[0-9]+',
+                                'order_by'    => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'order'       => 'ASC|DESC',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Users\Roles\UsersRolesSummary',
                                 'action'     => 'index',
                             ),
                         ),
@@ -781,6 +800,8 @@ return array(
 
             'admin/users-summary/index'                     => __DIR__ . '/../view/admin/empty.phtml',
             'admin/users-form/index'                        => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/users-roles-form/index'                  => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/users-roles-summary/index'               => __DIR__ . '/../view/admin/empty.phtml',
 
             'admin/'                                        => __DIR__ . '/../view/admin/empty.phtml',
         ),
@@ -802,7 +823,6 @@ return array(
         "admin/posizioni-sottosezioni"           => '\Admin\Model\Sezioni\SottoSezioniPositionsHandler',
         "admin/migrazione"                       => '\Admin\Model\Migrazione\MigrazioneHandler',
         "admin/contratti-pubblici-aggiudicatari" => '\Admin\Model\ContrattiPubblici\Operatori\OperatoriAggiudicatariHandler',
-        "admin/users-roles-permissions"          => '\Admin\Model\Users\Roles\UsersRolesPermissionsHandler',
         "admin/users-resp-proc-management"       => '\Admin\Model\Users\RespProc\UsersRespProcHandler',
     ),
     /* FormData Class Map */
@@ -819,7 +839,6 @@ return array(
         'contratti-pubblici-operatori'          => 'Admin\Model\ContrattiPubblici\Operatori\OperatoriFormDataHandler',
 
         'tickets'                               => 'Admin\Model\Tickets\TicketsFormDataHandler',
-
         'users-settori'                         => 'Admin\Model\Users\Settori\UsersSettoriFormDataHandler',
     ),
     /* FormData CRUD Class Map */
@@ -871,7 +890,6 @@ return array(
         'contratti-pubblici-scelta-contraente'  => 'Admin\Model\ContrattiPubblici\SceltaContraente\SceltaContraenteDataTable',
         'contratti-pubblici-operatori'          => 'Admin\Model\ContrattiPubblici\Operatori\OperatoriDataTable',
 
-        'users-roles'                           => 'Admin\Model\Users\Roles\UsersRolesDataTable',
         'users-settori'                         => 'Admin\Model\Users\Settori\UsersSettoriDataTable',
         'users-resp-procedimento'               => 'Admin\Model\Users\Roles\UsersRespProcDataTable',
     ),

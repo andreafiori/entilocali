@@ -12,7 +12,7 @@ class HomePageRecordsGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('h.referenceId, h.position, h.freeText,
+        $this->setSelectQueryFields('DISTINCT(h.id) AS id, h.referenceId, h.position, h.freeText,
                                     IDENTITY(hb.module) AS moduleId,
 
                                     hb.position AS blockPosition,

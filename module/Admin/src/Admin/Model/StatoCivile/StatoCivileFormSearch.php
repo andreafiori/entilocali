@@ -12,18 +12,13 @@ use Zend\Form\Form;
  */
 class StatoCivileFormSearch extends Form
 {
-    /**
-     * @inheritdoc
-     */
-    public function __construct($name = null) 
+    public function addProgressivo()
     {
-        parent::__construct($name);
-        
         $this->add(array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'numero_progressivo',
             'attributes' => array(
-                'placeholder'   => '',
+                'placeholder'   => 'Numero...',
                 'title'         => 'Inserisci numero repertorio',
                 'id'            => 'numero_progressivo',
                 'maxlength'     => 15
@@ -32,12 +27,15 @@ class StatoCivileFormSearch extends Form
                 'label' => 'Numero repertorio',
             )
         ));
-        
+    }
+
+    public function addNumeroAtto()
+    {
         $this->add(array(
             'type' => 'Zend\Form\Element\Text',
             'name' => 'numero_atto',
             'attributes' => array(
-                'placeholder' => '',
+                'placeholder' => 'Atto...',
                 'title'         => 'Inserisci numero atto',
                 'id'            => 'numero_atto',
                 'maxlength'     => 15
@@ -46,20 +44,27 @@ class StatoCivileFormSearch extends Form
                 'label' => 'Numero atto',
             )
         ));
-        
+    }
+
+    public function addFreeText()
+    {
         $this->add(array(
+            'type' => 'Text',
             'name' => 'testo',
-            'type' => 'Zend\Form\Element\Text',
             'attributes' => array(
-                'placeholder' => 'Ricerca...',
-                'title' => "Inserisci testo della ricerca sull'albo",
-                'id' => 'testo'
+                'placeholder'   => 'Inserisci testo...',
+                'title'         => 'Inserisci testo',
+                'id'            => 'testo',
+                'maxlength'     => 150,
             ),
             'options' => array(
                 'label' => 'Testo',
-            ),
+            )
         ));
-        
+    }
+
+    public function addMese()
+    {
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
             'name' => 'mese',
@@ -84,7 +89,7 @@ class StatoCivileFormSearch extends Form
                     '11' => 'Novembre',
                     '12' => 'Dicembre',
                 ),
-             )
+            )
         ));
     }
     
@@ -108,6 +113,7 @@ class StatoCivileFormSearch extends Form
                 'id'    => 'anno'
             ),
             'options' => array(
+                'empty_option'  => 'Anno',
                 'label'         => 'Anno',
                 'value_options' => $years
             )
@@ -144,7 +150,27 @@ class StatoCivileFormSearch extends Form
             )
         ));
     }
-    
+
+    /**
+     * @param mixed $sezioni
+     */
+    public function addSezioni($sezioni)
+    {
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'sezione',
+            'attributes' => array(
+                'title' => 'Seleziona sezione',
+                'id'    => 'sezione'
+            ),
+            'options' => array(
+                'label' => 'Sezione',
+                'empty_option' => 'Sezione',
+                'value_options' => $sezioni
+            )
+        ));
+    }
+
     public function addSubmitButton()
     {
         $this->add(array(
