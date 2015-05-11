@@ -2,9 +2,13 @@
 
 namespace Admin\Controller\AttiConcessione;
 
+use Admin\Model\AttiConcessione\AttiConcessioneControllerHelper;
 use Admin\Model\AttiConcessione\AttiConcessioneGetter;
 use Admin\Model\AttiConcessione\AttiConcessioneGetterWrapper;
+use Admin\Model\Users\Settori\UsersSettoriGetter;
+use Admin\Model\Users\Settori\UsersSettoriGetterWrapper;
 use Application\Controller\SetupAbstractController;
+use Application\Model\AttiConcessione\AttiConcessioneFormSearch;
 
 /**
  * @author Andrea Fiori
@@ -17,17 +21,52 @@ class AttiConcessioneSummaryController extends SetupAbstractController
         $mainLayout = $this->initializeAdminArea();
 
         $page       = $this->params()->fromRoute('page');
+
         $em         = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-        $wrapper = new AttiConcessioneGetterWrapper( new AttiConcessioneGetter($em) );
-        $wrapper->setInput(array('orderBy' => ''));
-        $wrapper->setupQueryBuilder();
-        $wrapper->setupPaginator( $wrapper->setupQuery($em) );
-        $wrapper->setupPaginatorCurrentPage( isset($page) ? $page : null );
 
-        $paginator          = $wrapper->getPaginator();
-        $paginatorItemCount = $wrapper->getPaginator()->getTotalItemCount();
-        $paginatorRecords   = $this->formatArticoliRecords($wrapper->setupRecords());
+        $helper = new AttiConcessioneControllerHelper();
+        $helper->setAttiConcessioneGetterWrapper( new AttiConcessioneGetterWrapper(new AttiConcessioneGetter($em)) );
+        $helper->setupYearsRecords( array(
+            'fields' => 'DISTINCT(atti.anno) AS year',
+            'orderBy' => 'atti.id DESC'
+        ),
+            $page,
+            null
+        );
+        $helper->setAttiConcessioneGetterWrapper( new AttiConcessioneGetterWrapper(new AttiConcessioneGetter($em)) );
+        $helper->setupAttiConcessioneGetterWrapperWithPaginator(
+            array('orderBy' => 'atti.id DESC'),
+            $page,
+            null
+        );
+        $helper->setUsersSettoriGetterWrapper( new UsersSettoriGetterWrapper(new UsersSettoriGetter($em)) );
+        $helper->setupSettoriRecords( array('orderBy' => 'settore.nome') );
+
+        $settoriForDropDown = $helper->getUsersSettoriRecords();
+
+        $yearsForDropdown = $helper->formatYears( $helper->getYearsRecords() );
+
+        $wrapperArticoli = $helper->getAttiConcessioneGetterWrapperWithPaginator();
+
+        $form = new AttiConcessioneFormSearch();
+        $form->addAnno($yearsForDropdown);
+        $form->addMainElements();
+        $form->addUfficio($settoriForDropDown);
+        $form->addSubmitSearchButton();
+        $form->addResetButton();
+
+        $paginator          = $wrapperArticoli->getPaginator();
+
+        $paginatorItemCount = $wrapperArticoli->getPaginator()->getTotalItemCount();
+
+        $paginatorRecords   = $this->formatArticoliRecords($wrapperArticoli->setupRecords());
+
+        $formSearch = new AttiConcessioneFormSearch();
+        $formSearch->addMainElements();
+        $formSearch->addAnno($yearsForDropdown);
+        $formSearch->addUfficio($settoriForDropDown);
+        $formSearch->addSubmitSearchButton();
 
         if ( empty($paginatorRecords) ) {
             $this->layout()->setVariables(array(
@@ -44,6 +83,7 @@ class AttiConcessioneSummaryController extends SetupAbstractController
                 'tableTitle'        => 'Atti di concessione',
                 'tableDescription'  => $paginatorItemCount." atti in archivio",
                 'tablesetter'       => 'atti-concessione',
+                'formSearch'        => $formSearch,
                 'columns'           => array(
                         "Ufficio-Responsabile del Servizio - Responsabile del Procedimento",
                         "Num / Anno",

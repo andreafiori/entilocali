@@ -50,11 +50,6 @@ class ContrattiPubbliciFormControllerHelperTest extends TestSuite
         $this->assertTrue( is_array($this->helper->getSceltaContraenteRecords()) );
     }
 
-    public function setUsersRespProcGetterWrapper()
-    {
-
-    }
-
         private function setupSceltaContraenteGetterWrapper()
         {
             $this->helper->setSceltaContraenteGetterWrapper(

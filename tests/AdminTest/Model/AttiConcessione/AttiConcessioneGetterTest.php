@@ -43,4 +43,39 @@ class AttiConcessioneGetterTest extends TestSuite
         
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('id'));
     }
+
+    public function testSetAnno()
+    {
+        $this->objectGetter->setAnno(2015);
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('anno'));
+    }
+
+    public function testSetAttivo()
+    {
+        $this->objectGetter->setAttivo(1);
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('attivo'));
+    }
+
+    public function testSetBeneficiarioSearch()
+    {
+        $this->objectGetter->setBeneficiarioSearch('myBeneficiario');
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('beneficiarioSearch'));
+    }
+
+    public function testSetImporto()
+    {
+        $this->objectGetter->setImporto(2040);
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('importo'));
+    }
+
+    public function testSetProgressivo()
+    {
+        $this->objectGetter->setProgressivo(12);
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('progressivo'));
+    }
 }

@@ -565,6 +565,17 @@ $acl = $this->userDetails->acl;
     }
 
     $(document).ready(function () {
+        /* Toggle search \ export summaries form */
+        $("#lnkSearchExport").click(function() {
+            $("#frmFrmSearchExport").slideToggle("slow");
+        });
+
+        /* Reset form search and submit */
+        $("#resetForm").click(function() {
+            resetCurrentForm('frmSearchExport');
+
+            $('#frmSearchExport').submit();
+        });
 
         /* Datatable */
         $('#dataTable').dataTable({

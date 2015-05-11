@@ -44,11 +44,11 @@ class PostsGetterTest extends TestSuite
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('id'));
     }
 
-    public function testSetCategoryName()
+    public function testSetCategorySlug()
     {
-        $this->objectGetter->setCategoryName('MyPostCategory');
+        $this->objectGetter->setCategorySlug('my-category-slug');
         
-        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('categoryName'));
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('categorySlug'));
     }
 
     public function testSetTitle()

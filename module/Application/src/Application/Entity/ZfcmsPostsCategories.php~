@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsPostsCategories
  *
- * @ORM\Table(name="zfcms_posts_categories", indexes={@ORM\Index(name="module_id", columns={"module_id"}), @ORM\Index(name="status", columns={"status"})})
+ * @ORM\Table(name="zfcms_posts_categories", indexes={@ORM\Index(name="language_id", columns={"language_id"}), @ORM\Index(name="name", columns={"name"}), @ORM\Index(name="fk_category_module_id", columns={"module_id"}), @ORM\Index(name="fk_category_parent_id", columns={"parent_id"})})
  * @ORM\Entity
  */
 class ZfcmsPostsCategories
@@ -24,7 +24,77 @@ class ZfcmsPostsCategories
     /**
      * @var string
      *
-     * @ORM\Column(name="note", type="string", length=100, nullable=true)
+     * @ORM\Column(name="name", type="string", length=80, nullable=true)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=80, nullable=true)
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_url", type="string", length=80, nullable=true)
+     */
+    private $seoUrl;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_title", type="string", length=80, nullable=true)
+     */
+    private $seoTitle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_keywords", type="string", length=80, nullable=true)
+     */
+    private $seoKeywords;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_description", type="string", length=120, nullable=true)
+     */
+    private $seoDescription;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="accesskey", type="string", length=10, nullable=true)
+     */
+    private $accesskey;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="template_file", type="string", length=50, nullable=true)
+     */
+    private $templateFile;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=50, nullable=true)
+     */
+    private $status;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=255, nullable=true)
+     */
+    private $slug;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="note", type="text", length=65535, nullable=true)
      */
     private $note;
 
@@ -38,37 +108,26 @@ class ZfcmsPostsCategories
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="last_update", type="datetime", nullable=true)
+     * @ORM\Column(name="expire_date", type="datetime", nullable=true)
      */
-    private $lastUpdate;
+    private $expireDate;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="slug", type="string", length=80, nullable=true)
+     * @ORM\Column(name="position", type="bigint", nullable=true)
      */
-    private $slug;
+    private $position;
 
     /**
-     * @var string
+     * @var \Application\Entity\ZfcmsLanguages
      *
-     * @ORM\Column(name="status", type="string", length=80, nullable=true)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsLanguages")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="language_id", referencedColumnName="id")
+     * })
      */
-    private $status;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="column_position", type="string", nullable=true)
-     */
-    private $columnPosition;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="template", type="string", length=80, nullable=true)
-     */
-    private $template;
+    private $language;
 
     /**
      * @var \Application\Entity\ZfcmsModules
@@ -79,6 +138,16 @@ class ZfcmsPostsCategories
      * })
      */
     private $module;
+
+    /**
+     * @var \Application\Entity\ZfcmsPostsCategories
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsPostsCategories")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     * })
+     */
+    private $parent;
 
 
 }

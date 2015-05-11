@@ -132,6 +132,11 @@ return array(
                         'type'    => 'Segment',
                         'options' => array(
                             'route' => 'contenuti/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'constraints' => array(
+                                'order_by' => '[a-zA-Z0-9_-]*',
+                                'order' => '[a-zA-Z0-9_-]*',
+                                'page'     => '[0-9]+',
+                            ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\contenuti\ContenutiSummary',
                                 'action'     => 'index',
@@ -170,6 +175,11 @@ return array(
                         'type'    => 'Segment',
                         'options' => array(
                             'route' => 'albo-pretorio/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'constraints' => array(
+                                'order_by' => '[a-zA-Z0-9_-]*',
+                                'order' => '[a-zA-Z0-9_-]*',
+                                'page'     => '[0-9]+',
+                            ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\AlboPretorio\AlboPretorioSummary',
                                 'action'     => 'index',
@@ -219,6 +229,11 @@ return array(
                         'type' => 'Segment',
                         'options' => array(
                             'route' => 'albo-pretorio-sezioni/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'constraints' => array(
+                                'order_by' => '[a-zA-Z0-9_-]*',
+                                'order' => '[a-zA-Z0-9_-]*',
+                                'page'     => '[0-9]+',
+                            ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\AlboPretorio\AlboPretorioSezioniSummary',
                                 'action'     => 'index',
@@ -256,6 +271,11 @@ return array(
                         'type'    => 'Segment',
                         'options' => array(
                             'route' => 'stato-civile/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'constraints' => array(
+                                'order_by' => '[a-zA-Z0-9_-]*',
+                                'order' => '[a-zA-Z0-9_-]*',
+                                'page'     => '[0-9]+',
+                            ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\StatoCivile\StatoCivileSummary',
                                 'action'     => 'index',
@@ -293,6 +313,11 @@ return array(
                         'type'    => 'Segment',
                         'options' => array(
                             'route' => 'stato-civile-sezioni/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'constraints' => array(
+                                'order_by' => '[a-zA-Z0-9_-]*',
+                                'order' => '[a-zA-Z0-9_-]*',
+                                'page'     => '[0-9]+',
+                            ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniSummary',
                                 'action'     => 'index',
@@ -329,6 +354,11 @@ return array(
                         'type'    => 'Segment',
                         'options' => array(
                             'route' => 'atti-concessione/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'constraints' => array(
+                                'order_by' => '[a-zA-Z0-9_-]*',
+                                'order' => '[a-zA-Z0-9_-]*',
+                                'page'     => '[0-9]+',
+                            ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\AttiConcessione\AttiConcessioneSummary',
                                 'action'     => 'index',
@@ -352,6 +382,11 @@ return array(
                         'type'    => 'Segment',
                         'options' => array(
                             'route' => 'atti-concessione-modalita-assegnazione/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'constraints' => array(
+                                'order_by' => '[a-zA-Z0-9_-]*',
+                                'order' => '[a-zA-Z0-9_-]*',
+                                'page'     => '[0-9]+',
+                            ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\AttiConcessione\ModalitaAssegnazioneSummary',
                                 'action'     => 'index',
@@ -362,6 +397,11 @@ return array(
                         'type'    => 'Segment',
                         'options' => array(
                             'route' => 'contratti-pubblici/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'constraints' => array(
+                                'order_by' => '[a-zA-Z0-9_-]*',
+                                'order' => '[a-zA-Z0-9_-]*',
+                                'page'     => '[0-9]+',
+                            ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSummary',
                                 'action'     => 'index',

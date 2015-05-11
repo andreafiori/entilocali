@@ -3,100 +3,168 @@
     <li class="current">Atti di concessione</li>
 </ul>
 
-<?php if (count($this->paginator)): ?>
+<?php if ($this->messageType): ?>
 
-<h1>Atti di concessione</h1>
-
-<p><?php echo $this->paginator_total_item_count ?> atti in archivio</p>
-
-<div>
-    <?php
-
-    /*
-    $form = $this->form;
-    $form->prepare();
-
-    $form->setAttribute('action',   $this->serverUrl(true));
-    $form->setAttribute('method',   'post');
-    $form->setAttribute('role',     'form');
-    $form->setAttribute('id',       'atti-concessione-search-form');
-
-    $form->get('search')->setAttribute('class', 'button button-tiny');
-    
-    echo $this->form()->openTag($form);
-    */
-    
-    ?>
-    <!--
-    <fieldset>
-        <legend>Ricerca atti di concessione</legend>
-
-    </fieldset>
-    -->
-    <?php //echo $this->form()->closeTag(); ?>
-
-</div>
-
-<?php
-    echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
-        'twitterShareText' => $this->sitename.' - Atti di concessione',
-    ));
-?>
-
-<table class="responsive" role="grid">
-    <thead>
-    <tr>
-        <th scope="col"><b>N</b></th>
-        <th scope="col"><b>Anno</b></th>
-        <th scope="col"><b>Beneficiario CF/PIVA</b></th>
-        <th scope="col"><b>Importo</b></th>
-        <th scope="col"><b>Modalità Assegnazione</b></th>
-        <th scope="col"><b>Ufficio e Responsabile del Servizio</b></th>
-        <th scope="col"><b>Norma o Titolo a base dell'attribuzione</b></th>
-        <th scope="col"><b>Progetto</b><br><b>Capitolato</b><br><b>Contratto</b><br><b>Curriculum</b></th>
-    </tr>
-    </thead>
-    <tbody>
-    <?php foreach($this->paginator as $key => $row): ?>
-    <tr>
-        <td><?php echo utf8_encode($row['progressivo']) ?></td>
-        <td><?php echo utf8_encode($row['anno']) ?></td>
-        <td><?php echo utf8_encode($row['beneficiario']) ?></td>
-        <td><?php echo utf8_encode($row['importo']) ?></td>
-        <td><?php echo utf8_encode($row['nomemodAssegnazione']) ?></td>
-        <td><?php echo utf8_encode($row['nomeSezione']).'<br><br>'.utf8_encode($row['nomeResponsabileProc']) ?></td>
-        <td><?php echo utf8_encode($row['titolo']) ?></td>
-        <td>&nbsp;</td>
-    </tr>
-    <tr>
-        <td colspan="8"><hr></td>
-    </tr>
-    <?php endforeach; ?>
-    </tbody>
-</table>
-
-<?php
-echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
-    'twitterShareText' => $this->sitename.' - Atti di concessione',
-));
-?>
-
-<?php
-    if ( count($this->paginator) > 1 ):
-        echo $this->paginationControl(
-            $this->paginator,
-            'sliding',
-            'application/pagination/foundation.phtml',
-            array(
-                'route' => 'atti-concessione'
-            )
-        );
-    endif;
-else:
-    ?>
-    <div class="panel info">
-        <h1>Nessun atto di concessione in archivio</h1>
-        <p>Nessun articolo presente in archivio</p>
+    <div data-alert class="alert-box success warning">
+        <h2>Si &egrave; verificato un problema:</h2>
+        <?php echo $this->messageText ?>
     </div>
-    <?php
-endif;
+
+<?php else: ?>
+
+    <?php if (count($this->paginator)): ?>
+
+        <h2>Atti di concessione</h2>
+
+        <p><?php echo $this->paginator_total_item_count ?> atti in archivio</p>
+
+        <div>
+            <?php
+
+            $form = $this->form;
+
+            $form->prepare();
+
+            $form->setAttribute('action',   $this->url('atti-concessione'));
+            $form->setAttribute('method',   'post');
+            $form->setAttribute('role',     'form');
+            $form->setAttribute('id',       'atti-concessione-search-form');
+
+            $form->get('search')->setAttribute('class', 'button button-tiny tiny');
+
+            echo $this->form()->openTag($form);
+
+            ?>
+            <fieldset>
+                <legend>Ricerca atti di concessione</legend>
+
+                <div class="row">
+
+                    <div class="large-2 columns">
+                        <label for="<?php echo $form->get('anno')->getAttribute('id'); ?>">
+                            <?php echo $form->get('anno')->getLabel() ?>:
+                        </label>
+                    </div>
+                    <div class="large-2 columns">
+                        <?php echo $this->formElement($form->get('anno')); ?>
+                    </div>
+
+                    <div class="large-2 columns">
+                        <label for="<?php echo $form->get('codice')->getAttribute('id'); ?>">
+                            <?php echo $form->get('codice')->getLabel() ?>:
+                        </label>
+                    </div>
+                    <div class="large-2 columns">
+                        <?php echo $this->formElement($form->get('codice')); ?>
+                    </div>
+
+                    <div class="large-2 columns">
+                        <label for="<?php echo $form->get('beneficiario')->getAttribute('id'); ?>">
+                            <?php echo $form->get('beneficiario')->getLabel() ?>:
+                        </label>
+                    </div>
+                    <div class="large-2 columns">
+                        <?php echo $this->formElement($form->get('beneficiario')); ?>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="large-2 columns">
+                        <label for="<?php echo $form->get('importo')->getAttribute('id'); ?>">
+                            <?php echo $form->get('importo')->getLabel() ?>:
+                        </label>
+                    </div>
+                    <div class="large-2 columns">
+                        <?php echo $this->formElement($form->get('importo')); ?>
+                    </div>
+
+                    <div class="large-2 columns">
+                        <label for="<?php echo $form->get('settore')->getAttribute('id'); ?>">
+                            <?php echo $form->get('settore')->getLabel() ?>:
+                        </label>
+                    </div>
+                    <div class="large-6 columns">
+                        <?php echo $this->formElement($form->get('settore')); ?>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="large-2 columns">
+                        <label for="<?php echo $form->get('search')->getAttribute('id'); ?>">
+                            &nbsp;
+                        </label>
+                    </div>
+                    <div class="large-10 columns">
+                        <?php echo $this->formElement($form->get('search')); ?>
+                    </div>
+                </div>
+            </fieldset>
+
+            <?php echo $this->form()->closeTag(); ?>
+
+        </div>
+
+        <?php
+        echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
+            'twitterShareText' => $this->sitename.' - Atti di concessione',
+        ));
+        ?>
+
+        <table class="responsive" role="grid">
+            <thead>
+            <tr>
+                <th scope="col"><b>N</b></th>
+                <th scope="col"><b>Anno</b></th>
+                <th scope="col"><b>Beneficiario CF/PIVA</b></th>
+                <th scope="col"><b>Importo</b></th>
+                <th scope="col"><b>Modalità Assegnazione</b></th>
+                <th scope="col"><b>Ufficio e Responsabile del Servizio</b></th>
+                <th scope="col"><b>Norma o Titolo a base dell'attribuzione</b></th>
+                <th scope="col"><b>Progetto</b><br><b>Capitolato</b><br><b>Contratto</b><br><b>Curriculum</b></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach($this->paginator as $key => $row): ?>
+                <tr>
+                    <td><?php echo utf8_encode($row['progressivo']) ?></td>
+                    <td><?php echo utf8_encode($row['anno']) ?></td>
+                    <td><?php echo utf8_encode($row['beneficiario']) ?></td>
+                    <td>&euro; <?php echo utf8_encode($row['importo']) ?></td>
+                    <td><?php echo utf8_encode($row['nomemodAssegnazione']) ?></td>
+                    <td><?php echo utf8_encode($row['nomeSezione']).'<br><br>'.utf8_encode($row['nomeResponsabileProc']) ?></td>
+                    <td><?php echo utf8_encode($row['titolo']) ?></td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td colspan="8"><hr></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+
+        <?php
+        echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
+            'twitterShareText' => $this->sitename.' - Atti di concessione',
+        ));
+        ?>
+
+        <?php
+        if ( count($this->paginator) > 1 ):
+            echo $this->paginationControl(
+                $this->paginator,
+                'sliding',
+                'application/pagination/foundation.phtml',
+                array(
+                    'route' => 'atti-concessione'
+                )
+            );
+        endif;
+    else:
+        ?>
+        <div class="panel info">
+            <h2>Nessun atto di concessione in archivio</h2>
+            <p>Nessun articolo presente in archivio</p>
+        </div>
+    <?php endif; ?>
+
+<?php endif; ?>

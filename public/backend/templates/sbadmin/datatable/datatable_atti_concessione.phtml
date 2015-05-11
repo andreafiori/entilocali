@@ -1,25 +1,76 @@
 <?php echo $this->render('backend/templates/'.$this->template_backend.'datatable/datatable_breadcrumb.phtml'); ?>
 
-<ul class="nav nav-tabs" role="tablist">
-    <li class="active"><a href="#home" role="tab" data-toggle="tab"><i class="fa fa-list"></i> <?php echo $this->translate('Elenco atti'); ?></a></li>
-    <li><a href="#search" role="tab" data-toggle="tab"><i class="fa fa-search"></i> <?php echo $this->translate('Ricerca'); ?></a></li>
-    <li><a href="#export" role="tab" data-toggle="tab"><i class="fa fa-external-link-square"></i> <?php echo $this->translate('Esportazione dati'); ?></a></li>
-</ul>
+<p>
+    <a href="javascript:void(0)" id="lnkSearchExport" class="btn btn-primary">
+        <i class="fa fa-search"></i> Ricerca ed esportazione
+    </a>
+</p>
 
-<div class="tab-content">
-    <div class="tab-pane active" id="home">
-        <?php echo $this->render('backend/templates/common/datatables_zend_pagination.phtml'); ?>
+<div id="frmFrmSearchExport" style="display: block">
+
+<br>
+
+<?php
+
+$form = $this->formSearch;
+
+$form->setAttribute('action',   $this->url('admin/atti-concessione-summary', array('lang'=>'it')));
+$form->setAttribute('method',   'post');
+$form->setAttribute('role',     'form');
+$form->setAttribute('class',    'form-horizontal');
+$form->setAttribute('id',       'frmSearchExport');
+
+$form->get('anno')->setAttribute('class', 'form-control');
+$form->get('codice')->setAttribute('class', 'form-control');
+$form->get('beneficiario')->setAttribute('class', 'form-control');
+$form->get('importo')->setAttribute('class', 'form-control');
+$form->get('settore')->setAttribute('class', 'form-control');
+$form->get('search')->setAttribute('class', 'btn btn-primary');
+
+$form->prepare();
+
+echo $this->form()->openTag($form);
+?>
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="<?php echo $form->get('anno')->getAttribute('id') ?>"> <?php echo $this->formLabel($form->get('anno')) ?></label>
+        <div class="col-sm-2">
+            <?php echo $this->formElement($form->get('anno')); ?>
+        </div>
+
+        <label class="col-sm-2 control-label" for="<?php echo $form->get('codice')->getAttribute('id') ?>"> <?php echo $this->formLabel($form->get('codice')) ?></label>
+        <div class="col-sm-2">
+            <?php echo $this->formElement($form->get('codice')); ?>
+        </div>
+
+        <label class="col-sm-2 control-label" for="<?php echo $form->get('beneficiario')->getAttribute('id') ?>"> <?php echo $this->formLabel($form->get('beneficiario')) ?></label>
+        <div class="col-sm-2">
+            <?php echo $this->formElement($form->get('beneficiario')); ?>
+        </div>
+
     </div>
-    
-    <div class="tab-pane" id="search">
-        <h3>Ricerca</h3>
-         <div class="alert alert-warning"><h3>In costruzione</h3></div>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="<?php echo $form->get('importo')->getAttribute('id') ?>"> <?php echo $this->formLabel($form->get('importo')) ?></label>
+        <div class="col-sm-2">
+            <?php echo $this->formElement($form->get('importo')); ?>
+        </div>
+
+        <label class="col-sm-2 control-label" for="<?php echo $form->get('settore')->getAttribute('id') ?>"> <?php echo $this->formLabel($form->get('settore')) ?></label>
+        <div class="col-sm-6">
+            <?php echo $this->formElement($form->get('settore')); ?>
+        </div>
     </div>
-    
-    <div class="tab-pane" id="export">
-        
-        <h3>Esportazione dati</h3>
-        <div class="alert alert-warning"><h3>In costruzione</h3></div>
-        
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="<?php echo $form->get('search')->getAttribute('id') ?>"> <?php echo $this->formLabel($form->get('search')) ?></label>
+        <div class="col-sm-6">
+            <?php echo $this->formElement($form->get('search')); ?>
+        </div>
     </div>
+<?php
+echo $this->form()->closeTag();
+
+?>
 </div>
+
+<?php echo $this->render('backend/templates/common/datatables_zend_pagination.phtml'); ?>

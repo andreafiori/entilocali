@@ -22,13 +22,6 @@ class ZfcmsHomepage
     private $id;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="position", type="integer", nullable=true)
-     */
-    private $position;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255, nullable=true)
@@ -55,6 +48,20 @@ class ZfcmsHomepage
      * @ORM\Column(name="show_attachments", type="integer", nullable=false)
      */
     private $showAttachments;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="highlight", type="integer", nullable=false)
+     */
+    private $highlight;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="position", type="integer", nullable=true)
+     */
+    private $position;
 
     /**
      * @var integer

@@ -11,6 +11,7 @@
     <br>
 
     <?php
+
     $form = $this->formSearch;
 
     $form->setAttribute('action',   $this->url('admin/stato-civile-summary', array('lang'=>'it')));
@@ -18,8 +19,6 @@
     $form->setAttribute('role',     'form');
     $form->setAttribute('class',    'form-horizontal');
     $form->setAttribute('id',       'frmSearchExport');
-
-    $form->prepare();
 
     $form->get('testo')->setAttribute('class', 'form-control');
     $form->get('mese')->setAttribute('class', 'form-control');
@@ -102,11 +101,11 @@
             </button>
 
             <button type="submit" id="json_export" class="btn btn-info" title="Esporta dati in formato JSON">
-                JSON
+                <i class="fa fa-file-text"></i> JSON
             </button>
 
             <button type="submit" id="xml_export" class="btn btn-info" title="Esporta dati in formato XML">
-                XML
+                <i class="fa fa-file-text"></i> XML
             </button>
         </div>
     </div>
@@ -125,28 +124,6 @@
 <?php echo $this->render('backend/templates/common/datatables_zend_pagination.phtml'); ?>
 
 <script>
-
-if (!typeof resetCurrentForm == 'function') {
-    function resetCurrentForm(id)
-    {
-        $(':text, :password, :file', '#'+id).val('');
-        $(':input,select option', '#'+id).removeAttr('checked').removeAttr('selected');
-        $('select option:first', '#'+id).attr('selected',true);
-    }
-}
-
-/* Reset form search and submit */
-$("#resetForm").click(function() {
-    resetCurrentForm('frmSearchExport');
-
-    $('#frmSearchExport').submit();
-});
-
-/* Toggle form */
-$("#lnkSearchExport").click(function() {
-    $("#frmFrmSearchExport").slideToggle("slow");
-});
-
 /* Change form action to export records */
 $('#csv_export').click(function() {
     $('#frmSearchExport').attr('action', '<?php echo $this->url('stato-civile-export', array('action' => 'csv') ); ?>');

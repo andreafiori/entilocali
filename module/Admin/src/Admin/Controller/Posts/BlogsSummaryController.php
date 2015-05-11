@@ -4,9 +4,9 @@ namespace Admin\Controller\Posts;
 
 use Admin\Model\Posts\CategoriesGetter;
 use Admin\Model\Posts\CategoriesGetterWrapper;
+use Admin\Model\Posts\PostsFormSearch;
 use Admin\Model\Posts\PostsGetter;
 use Admin\Model\Posts\PostsGetterWrapper;
-use Admin\Model\Posts\PostsSearchForm;
 use Application\Controller\SetupAbstractController;
 use Zend\View\Model\ViewModel;
 
@@ -23,6 +23,7 @@ class BlogsSummaryController extends SetupAbstractController
         $entityManager  = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
         $page       = $this->params()->fromRoute('page');
+
         $perPage    = $this->params()->fromRoute('perpage');
 
         $wrapper = new PostsGetterWrapper( new PostsGetter($entityManager) );
@@ -42,15 +43,15 @@ class BlogsSummaryController extends SetupAbstractController
         $postsRecords = $wrapper->setupRecords();
 
         foreach($postsRecords as &$postsRecord) {
-
             $wrapper = new PostsGetterWrapper( new PostsGetter($entityManager) );
             $wrapper->setInput( array(
-                    'fields'     => 'co.id, co.name',
-                    'id'         => $postsRecord['postid'],
-                    'orderBy'    => 'co.name',
+                    'fields'     => 'c.id, c.name',
+                    'id'         => $postsRecord['id'],
+                    'orderBy'    => 'c.name',
                 )
             );
             $wrapper->setupQueryBuilder();
+
             $postsRecord['categories'] = $wrapper->getRecords();
         }
 
@@ -58,23 +59,24 @@ class BlogsSummaryController extends SetupAbstractController
 
         $wrapper = new CategoriesGetterWrapper(new CategoriesGetter($entityManager));
         $wrapper->setInput(array(
-            'fields'        => 'category.id, co.name',
-            'orderBy'       => 'co.name',
+            'fields'        => 'category.id, category.name',
+            'orderBy'       => 'category.name',
             'moduleCode'    => 'blogs',
         ));
         $wrapper->setupQueryBuilder();
 
         $categoriesRecords = $wrapper->getRecords();
 
-        $selectArray = array();
+        $categoriesRecordsForDropdown = array();
         foreach($categoriesRecords as $categoriesRecord) {
             $id = isset($categoriesRecord['id']) ? $categoriesRecord['id'] : null;
             $name = isset($categoriesRecord['name']) ? $categoriesRecord['name'] : null;
-            $selectArray[$id] = $name;
+            $categoriesRecordsForDropdown[$id] = $name;
         }
 
-        $form = new PostsSearchForm();
-        $form->addCategories($selectArray);
+        $form = new PostsFormSearch();
+        $form->addCategories($categoriesRecordsForDropdown);
+        $form->addSubmitButton();
 
         $this->layout()->setVariables(array(
             'tableTitle'        => 'Blogs',
@@ -91,10 +93,10 @@ class BlogsSummaryController extends SetupAbstractController
             ),
             'paginator'         => $paginator,
             'records'           => $columnRecords,
-            'searchFilterForm'  => $form,
+            'formSearch'        => $form,
         ));
 
-        $this->layout()->setVariable('templatePartial', 'datatable/datatable_posts.phtml');
+        $this->layout()->setVariable('templatePartial', 'datatable/datatable_blogs.phtml');
 
         $this->layout()->setTemplate($mainLayout);
 
@@ -120,25 +122,26 @@ class BlogsSummaryController extends SetupAbstractController
                     $categoryToPrint,
                     '',
                     $record['userName'].' '.$record['userSurname'],
-                    "<strong>Inserito il:</strong> ".date("d-m-Y", strtotime($record['insertDate']))."<br><br><strong>Ultima modifica:</strong> ".date("d-m-Y", strtotime($record['lastUpdate'])),
+                    "<strong>Inserito il:</strong> ".date("d-m-Y", strtotime($record['createDate'])).
+                    "<br><br><strong>Ultima modifica:</strong> ".date("d-m-Y", strtotime($record['lastUpdate'])),
                     array(
-                        'type'      => 'updateButton',
-                        'href'      => $this->url()->fromRoute('admin/posts-form', array(
-                            'lang'  => 'it',
-                            'formtype' => 'blogs',
-                            'id'    => $record['postid']
+                        'type' => 'updateButton',
+                        'href' => $this->url()->fromRoute('admin/posts-form', array(
+                            'lang'      => 'it',
+                            'formtype'  => 'blogs',
+                            'id'        => $record['id']
                         )),
-                        'title'     => 'Modifica'
+                        'title' => 'Modifica'
                     ),
                     array(
                         'type'      => 'deleteButton',
                         'title'     => 'Elimina',
                         'href'      => '#',
-                        'data-id'   => $record['postoptionid']
+                        'data-id'   => $record['id']
                     ),
                     array(
-                        'type'      => 'attachButton',
-                        'href'      => '#',
+                        'type' => 'attachButton',
+                        'href' => '#',
                     ),
                 );
             }

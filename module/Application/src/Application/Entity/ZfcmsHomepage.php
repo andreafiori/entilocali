@@ -22,13 +22,6 @@ class ZfcmsHomepage
     private $id;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="position", type="integer", nullable=true)
-     */
-    private $position;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255, nullable=true)
@@ -59,6 +52,20 @@ class ZfcmsHomepage
     /**
      * @var integer
      *
+     * @ORM\Column(name="highlight", type="integer", nullable=false)
+     */
+    private $highlight;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="position", type="integer", nullable=true)
+     */
+    private $position;
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="reference_id", type="integer", nullable=true)
      */
     private $referenceId;
@@ -83,29 +90,6 @@ class ZfcmsHomepage
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set position
-     *
-     * @param integer $position
-     * @return ZfcmsHomepage
-     */
-    public function setPosition($position)
-    {
-        $this->position = $position;
-    
-        return $this;
-    }
-
-    /**
-     * Get position
-     *
-     * @return integer 
-     */
-    public function getPosition()
-    {
-        return $this->position;
     }
 
     /**
@@ -198,6 +182,52 @@ class ZfcmsHomepage
     public function getShowAttachments()
     {
         return $this->showAttachments;
+    }
+
+    /**
+     * Set highlight
+     *
+     * @param integer $highlight
+     * @return ZfcmsHomepage
+     */
+    public function setHighlight($highlight)
+    {
+        $this->highlight = $highlight;
+    
+        return $this;
+    }
+
+    /**
+     * Get highlight
+     *
+     * @return integer 
+     */
+    public function getHighlight()
+    {
+        return $this->highlight;
+    }
+
+    /**
+     * Set position
+     *
+     * @param integer $position
+     * @return ZfcmsHomepage
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+    
+        return $this;
+    }
+
+    /**
+     * Get position
+     *
+     * @return integer 
+     */
+    public function getPosition()
+    {
+        return $this->position;
     }
 
     /**

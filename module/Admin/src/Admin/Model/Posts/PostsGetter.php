@@ -5,10 +5,6 @@ namespace Admin\Model\Posts;
 use Application\Model\QueryBuilderHelperAbstract;
 use Application\Model\Slugifier;
 
-/**
- * @author Andrea Fiori
- * @since  15 April 2014
- */
 class PostsGetter extends QueryBuilderHelperAbstract
 {
     /**
@@ -16,29 +12,30 @@ class PostsGetter extends QueryBuilderHelperAbstract
      */
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('DISTINCT(p.id) AS postid, po.id AS postoptionid, p.lastUpdate, 
-                                    p.insertDate, p.expireDate, p.flagAttachments,
-                                    po.title, po.subtitle, po.status, po.description, po.seoUrl, po.seoTitle,
-                                    po.seoDescription, po.seoKeywords,
-                                    c.template,
-                                    IDENTITY(r.module) AS moduleId,
+        $this->setSelectQueryFields('DISTINCT(p.id) AS id, p.lastUpdate,
+                                    p.createDate, p.expireDate, p.hasAttachments,
+                                    p.title, p.subtitle, p.description, p.slug, p.seoTitle,
+                                    p.seoDescription, p.seoKeywords,
+
+                                    c.name AS categoryName,
+                                    c.templateFile, IDENTITY(r.module) AS moduleId, c.slug AS categorySlug,
+
                                     users.name AS userName, users.surname AS userSurname
                                     ');
 
         $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
-            ->add('from', 'Application\Entity\ZfcmsPosts p,
-                                        Application\Entity\ZfcmsPostsOptions po, 
-                                        Application\Entity\ZfcmsPostsRelations r, 
-                                        Application\Entity\ZfcmsPostsCategories c,
-                                        Application\Entity\ZfcmsPostsCategoriesOptions co,
-                                        Application\Entity\ZfcmsModules module,
-                                        Application\Entity\ZfcmsUsers users
-                                ')
-            ->where('po.posts = p.id AND p.id = r.posts AND c.id = r.category
-                                        AND co.category = c.id AND r.category = c.id
+                                ->add('from', 'Application\Entity\ZfcmsPosts p,
+                                                Application\Entity\ZfcmsPostsRelations r,
+
+                                                Application\Entity\ZfcmsPostsCategories c,
+
+                                                Application\Entity\ZfcmsModules module,
+
+                                                Application\Entity\ZfcmsUsers users
+                                        ')
+                                ->where('p.id = r.posts AND c.id = r.category
                                         AND r.channel = :channel
-                                        AND co.language = :language
-                                        AND po.language = :language
+                                        AND c.language = :language
                                         AND r.module = module.id
                                         AND p.user = users.id
                                         ');
@@ -79,12 +76,12 @@ class PostsGetter extends QueryBuilderHelperAbstract
     public function setId($id)
     {
         if ( is_numeric($id) ) {
-            $this->getQueryBuilder()->andWhere('p.id = :id AND po.id = :id');
+            $this->getQueryBuilder()->andWhere('p.id = :id ');
             $this->getQueryBuilder()->setParameter('id', $id);
         }
 
         if (is_array($id)) {
-            $this->getQueryBuilder()->andWhere('p.id IN ( :id ) AND po.id IN ( :id )');
+            $this->getQueryBuilder()->andWhere('p.id IN ( :id ) ');
             $this->getQueryBuilder()->setParameter('id', $id);
         }
 
@@ -92,14 +89,28 @@ class PostsGetter extends QueryBuilderHelperAbstract
     }
 
     /**
-     * @param string $category
+     * @param string $categorySlug
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function setCategoryName($category)
+    public function setCategorySlug($categorySlug)
     {
-        if ( is_string($category) ) {
-            $this->getQueryBuilder()->andWhere('co.name = LOWER( :categoryName ) ');
-            $this->getQueryBuilder()->setParameter('categoryName', Slugifier::deSlugify($category) );
+        if ( is_string($categorySlug) ) {
+            $this->getQueryBuilder()->andWhere('c.slug = :categorySlug ');
+            $this->getQueryBuilder()->setParameter('categorySlug', $categorySlug);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param string $slug
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setSlug($slug)
+    {
+        if ( is_string($slug) ) {
+            $this->getQueryBuilder()->andWhere('p.slug = :slug ');
+            $this->getQueryBuilder()->setParameter('slug', $slug);
         }
 
         return $this->getQueryBuilder();
@@ -112,7 +123,7 @@ class PostsGetter extends QueryBuilderHelperAbstract
     public function setTitle($title)
     {
         if ( is_string($title) ) {
-            $this->getQueryBuilder()->andWhere('LOWER( po.seoTitle ) =  :title ');
+            $this->getQueryBuilder()->andWhere('LOWER( p.seoTitle ) =  :title ');
             $this->getQueryBuilder()->setParameter('title', Slugifier::deSlugify($title) );
         }
 
@@ -142,9 +153,9 @@ class PostsGetter extends QueryBuilderHelperAbstract
     public function setStatus($status = null)
     {
         if ($status == 'NULL' or $status == 'null') {
-            $this->getQueryBuilder()->andWhere('po.status IS NULL ');
+            $this->getQueryBuilder()->andWhere('p.status IS NULL ');
         } elseif ($status != null) {
-            $this->getQueryBuilder()->andWhere("po.status = :status ");
+            $this->getQueryBuilder()->andWhere("p.status = :status ");
             $this->getQueryBuilder()->setParameter('status', $status);
         }
 
@@ -160,6 +171,21 @@ class PostsGetter extends QueryBuilderHelperAbstract
         if ( is_string($moduleCode) ) {
             $this->getQueryBuilder()->andWhere('module.code =  :moduleCode ');
             $this->getQueryBuilder()->setParameter('moduleCode', $moduleCode);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+
+    /**
+     * @param int $noScaduti
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setNoScaduti($noScaduti)
+    {
+        if ($noScaduti == 1) {
+            $this->getQueryBuilder()->andWhere("( p.expireDate > '".date("Y-m-d H:i:s")."'
+            OR p.dataScadenza = '0000-00-00 00:00:00' ) ");
         }
 
         return $this->getQueryBuilder();

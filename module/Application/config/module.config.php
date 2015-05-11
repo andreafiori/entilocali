@@ -4,7 +4,6 @@ return array(
         'invokables' => array(
             'Application\Controller\Index'                              => 'Application\Controller\IndexController',
             'Application\Controller\DocumentExport'                     => 'Application\Controller\DocumentExportController',
-            'Application\Controller\Feed'                               => 'Application\Controller\FeedController',
             'Application\Controller\AttachmentsSThreeDownloader'        => 'Application\Controller\AttachmentsSThreeDownloaderController',
             'Application\Controller\PasswordPreview'                    => 'Application\Controller\PasswordPreviewController',
             'Application\Controller\Faq\Faq'                            => 'Application\Controller\Faq\FaqController',
@@ -17,7 +16,8 @@ return array(
             'Application\Controller\CssStyleSwitch'                     => 'Application\Controller\CssStyleSwitchController',
             'Application\Controller\Users\UsersCreateAccount'           => 'Application\Controller\Users\UsersCreateAccountController',
             'Application\Controller\Users\UsersRecoverPassword'         => 'Application\Controller\Users\UsersRecoverPasswordController',
-            'Application\Controller\StatoCivile\StatoCivileExport'      => 'Application\Controller\StatoCivile\StatoCivileExportController'
+            'Application\Controller\StatoCivile\StatoCivileExport'      => 'Application\Controller\StatoCivile\StatoCivileExportController',
+            'Application\Controller\Posts\Blogs'                        => 'Application\Controller\Posts\BlogsController',
         ),
     ),
     'router' => array(
@@ -33,14 +33,15 @@ return array(
                                                     ),
                                                     'may_terminate' => true,
                                     ),
+                                    /* Posts Contents */
                                     /*
-                                    'posts-main' => array(
+                                    'posts-contents-categories' => array(
                                                     'type'    => 'segment',
                                                     'options' => array(
-                                                                    'route' => '/:category[/][:title][/]',
+                                                                    'route' => '/:category[/][page/:page[/]]',
                                                                     'constraints' => array(
                                                                             'category'  => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                                            'title'     => '[a-zA-Z0-9_-]*',
+                                                                            'page'      => '[a-zA-Z0-9_-]*',
                                                                     ),
                                                                     'defaults' => array(
                                                                             'controller' => 'Application\Controller\Index',
@@ -49,22 +50,55 @@ return array(
                                                     ),
                                                     'may_terminate' => true,
                                     ),
-                                    'posts-category-only' => array(
-                                                    'type'    => 'segment',
-                                                    'options' => array(
-                                                        'route'    => '/[:category][/]page[/][:page][/]',
-                                                        'constraints' => array(
-                                                            'category'  => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                            'page'      => '[0-9]+',
-                                                        ),
-                                                        'defaults' => array(
-                                                            'controller' => 'Application\Controller\Index',
-                                                            'action'     => 'index',
-                                                        ),
-                                                    ),
-                                                    'may_terminate' => true,
+                                    'posts-contents-details' => array(
+                                        'type' => 'segment',
+                                        'options' => array(
+                                            'route' => '/:category[/][:title[/]]',
+                                            'constraints' => array(
+                                                'category'  => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                'title'     => '[a-zA-Z0-9_-]*',
+                                            ),
+                                            'defaults' => array(
+                                                'controller' => 'Application\Controller\Index',
+                                                'action'     => 'index',
+                                            ),
+                                        ),
+                                        'may_terminate' => true,
                                     ),
                                     */
+                                    /* Blogs Posts */
+                                    'posts-blogs-categories' => array(
+                                        'type'    => 'segment',
+                                        'options' => array(
+                                            'route' => '/blogs/:category[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                                            'constraints' => array(
+                                                'category'  => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                'page'        => '[0-9]+',
+                                                'order_by'    => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                'order'       => 'ASC|DESC',
+                                            ),
+                                            'defaults' => array(
+                                                'controller' => 'Application\Controller\Posts\Blogs',
+                                                'action'     => 'index',
+                                            ),
+                                        ),
+                                        'may_terminate' => true,
+                                    ),
+                                    'posts-blogs-details' => array(
+                                        'type'    => 'segment',
+                                        'options' => array(
+                                            'route' => '/blogs/:category/:title[/]',
+                                            'constraints' => array(
+                                                'category'  => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                'title'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                            ),
+                                            'defaults' => array(
+                                                'controller' => 'Application\Controller\Posts\Blogs',
+                                                'action'     => 'details',
+                                            ),
+                                        ),
+                                        'may_terminate' => true,
+                                    ),
                                     'contents' => array(
                                                     'type'    => 'segment',
                                                     'options' => array(
@@ -496,6 +530,8 @@ return array(
                         'application/stato-civile/index'                => __DIR__ . '/../view/empty.phtml',
                         'application/atti-concessione/index'            => __DIR__ . '/../view/empty.phtml',
                         'application/contenuti/index'                   => __DIR__ . '/../view/empty.phtml',
+                        'application/blogs/index'                       => __DIR__ . '/../view/empty.phtml',
+                        'application/blogs/details'                     => __DIR__ . '/../view/empty.phtml',
                         'application/css-style-switch/index'            => __DIR__ . '/../view/empty.phtml',
                         'application/users-create-account/index'        => __DIR__ . '/../view/empty.phtml',
                         'application/users-recover-password/index'      => __DIR__ . '/../view/empty.phtml',

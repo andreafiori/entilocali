@@ -1,0 +1,111 @@
+<ul class="breadcrumbs">
+    <li><a href="<?php echo $this->basepath() ?>/" title="Torna alla home page">Home</a> <span class="divider"></span></li>
+    <li><?php echo $this->categoryName ?></li>
+</ul>
+
+<h2><?php echo ucfirst($this->categoryName) ?></h2>
+
+<p><?php echo $this->item_count ?> posts in archivio.</p>
+
+<?php
+$form = $this->formSearch;
+
+$form->setAttribute('action',   '#');
+$form->setAttribute('method',   'post');
+$form->setAttribute('role',     'form');
+$form->setAttribute('id',       'frmBlogSearch');
+
+$form->get('search')->setAttribute('class', 'button button-tiny tiny');
+
+$form->prepare();
+
+echo $this->form()->openTag($form);
+
+?>
+<fieldset>
+    <legend>Cerca fra i blogs</legend>
+
+    <div class="row">
+        <div class="large-6 columns">
+            <label for="<?php echo $form->get('testo')->getAttribute('id'); ?>">
+                <?php echo $form->get('testo')->getLabel() ?>:
+            </label>
+            <?php echo $this->formElement($form->get('testo')); ?>
+        </div>
+
+        <div class="large-6 columns">
+            <label for="<?php echo $form->get('category')->getAttribute('id'); ?>">
+                <?php echo $form->get('category')->getLabel() ?>:
+            </label>
+            <?php echo $this->formElement($form->get('category')); ?>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-12 columns">
+            <label for="<?php echo $form->get('search')->getAttribute('id'); ?>">
+                <?php echo $this->formElement($form->get('search')); ?>
+            </label>
+        </div>
+    </div>
+
+</fieldset>
+<?php echo $this->form()->closeTag(); ?>
+
+<?php if ( count($this->paginator) ): ?>
+
+    <?php foreach($this->paginator as $key => $row): ?>
+
+        <?php $linkDetails = $this->url('posts-blogs-details', array('category' => $row['categorySlug'], 'title' => $row['slug'])) ?>
+
+        <div class="row">
+            <h2>
+                <a href="<?php echo $linkDetails ?>" title="Continua a leggere <?php echo $row['title'] ?>">
+                    <?php echo $row['title'] ?>
+                </a>
+            </h2>
+
+            <?php if (!empty($row['subtitle'])): ?>
+                <div>
+                    <h4><?php echo $row['subtitle'] ?></h4>
+                </div>
+            <?php endif; ?>
+
+            <div class="large-3 columns">
+                <a href="<?php echo $linkDetails ?>" title="Continua a leggere <?php echo $row['title'] ?>">
+                    <img src="http://placehold.it/160x120&amp;text=immagine" alt="Placeholder image for <?php echo $row['title'] ?>">
+                </a>
+            </div>
+
+            <div class="large-9 columns">
+                <?php echo $this->TextShortener(strip_tags($row['description']), 50, 100, '...'); ?>
+                <a href="<?php echo $linkDetails ?>" title="Continua a leggere <?php echo $row['title'] ?>">
+                    Leggi tutto
+                </a>
+            </div>
+
+        </div>
+
+        <hr>
+
+    <?php endforeach; ?>
+<?php else: ?>
+    <h2>Nessun post presente</h2>
+
+    <p>Non &egrave; presente nessun post per la categoria selezionata.</p>
+<?php endif; ?>
+<?php
+
+if ( count($this->paginator) > 1 ):
+
+    echo $this->paginationControl(
+        $this->paginator,
+        'sliding',
+        'application/pagination/foundation.phtml',
+        array(
+            'category'  => $this->category,
+            'route'     => 'posts-blogs-categories'
+        )
+    );
+
+endif;

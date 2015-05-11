@@ -22,10 +22,9 @@ class AmministrazioneTrasparenteFormSearch extends Form
                         'type' => 'Text',
                         'options' => array( 'label' => '* Anno' ),
                         'attributes' => array(
-                                        'title' => 'Anno di riferimento',
-                                        'id'    => 'anno',
+                                        'title'     => 'Anno di riferimento',
+                                        'id'        => 'anno',
                                         'maxlength' => 4,
-                                        'type' => 'Number'
                         )
         ));
         

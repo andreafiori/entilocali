@@ -68,4 +68,74 @@ class AttiConcessioneGetter extends QueryBuilderHelperAbstract
         
         return $this->getQueryBuilder();
     }
+
+    /**
+     * @param $attivo
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setAttivo($attivo)
+    {
+        if ( is_numeric($attivo) ) {
+            $this->getQueryBuilder()->andWhere('atti.attivo = :attivo ');
+            $this->getQueryBuilder()->setParameter('attivo', $attivo);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param $anno
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setAnno($anno)
+    {
+        if ( is_numeric($anno) ) {
+            $this->getQueryBuilder()->andWhere('atti.anno = :anno ');
+            $this->getQueryBuilder()->setParameter('anno', $anno);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param string $search
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setBeneficiarioSearch($search)
+    {
+        if (!empty($search)) {
+            $this->getQueryBuilder()->andWhere(' ( atti.beneficiario LIKE :beneficiarioSearch ) ');
+            $this->getQueryBuilder()->setParameter('beneficiarioSearch', $search);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param string $importo
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setImporto($importo)
+    {
+        if (!empty($importo)) {
+            $this->getQueryBuilder()->andWhere(' ( atti.importo = :importo ) ');
+            $this->getQueryBuilder()->setParameter('importo', $importo);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param int $progressivo
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setProgressivo($progressivo)
+    {
+        if ( is_numeric($progressivo) ) {
+            $this->getQueryBuilder()->andWhere(' ( atti.progressivo = :progressivo ) ');
+            $this->getQueryBuilder()->setParameter('progressivo', $progressivo);
+        }
+
+        return $this->getQueryBuilder();
+    }
 }

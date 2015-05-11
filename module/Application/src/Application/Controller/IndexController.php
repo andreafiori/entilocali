@@ -7,6 +7,7 @@ use Admin\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
 use Application\Model\HomePage\HomePageHelper;
 use Application\Model\HomePage\HomePageRecordsGetter;
 use Application\Model\HomePage\HomePageRecordsGetterWrapper;
+use Application\Model\NullException;
 
 /**
  * @author Andrea Fiori
@@ -20,23 +21,35 @@ class IndexController extends SetupAbstractController
 
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-        $helper = new HomePageHelper();
-        $helper->setHomePageRecordsGetterWrapper(
-            new HomePageRecordsGetterWrapper(new HomePageRecordsGetter($em))
-        );
-        $helper->setupHomePageRecords( array('onlyActiveModules' => 1, 'orderBy' => 'hb.position ASC') );
-        $helper->gatherReferenceIds();
+        try {
+            $helper = new HomePageHelper();
+            $helper->setHomePageRecordsGetterWrapper( new HomePageRecordsGetterWrapper(new HomePageRecordsGetter($em)) );
+            $helper->setupHomePageRecords( array(
+                'onlyActiveModules' => 1,
+                'orderBy'           => 'hb.position ASC',
+            ));
+            $helper->gatherReferenceIds();
+            $helper->checkHomePageRecords();
 
-        $homePageRecords = $helper->getHomePageRecords();
-        if (!empty($homePageRecords)) {
+            $homePageRecords = $helper->getHomePageRecords();
+
+            $sortedHomePageRecords = array();
+            foreach($homePageRecords as $key => $values) {
+                foreach($values as $value) {
+                    if (isset($value['position'])) {
+                        $sortedHomePageRecords[$key][$value['position']] = $value;
+                    }
+                }
+
+                $sortedHomePageRecords[$key]['referenceIds'] = $values['referenceIds'];
+            }
 
             $homePageVar = array();
-            foreach($homePageRecords as $key => $value) {
+            foreach($sortedHomePageRecords as $key => $value) {
 
                 switch($key) {
 
                     case('contenuti'):
-                        /*
                         $wrapper = new PostsGetterWrapper( new PostsGetter($em) );
                         $wrapper->setInput( array('id' => $value['referenceId']) );
                         $wrapper->setupQueryBuilder();
@@ -45,8 +58,7 @@ class IndexController extends SetupAbstractController
                         $wrapper->setupPaginatorItemsPerPage(35);
 
                         $homePageVar[$key] = $wrapper->setupRecords();
-                        */
-                    break;
+                        break;
 
                     case('freeText'):
                         foreach($value as $record) {
@@ -54,19 +66,19 @@ class IndexController extends SetupAbstractController
                                 $homePageVar[$key][] = array('freeText' => $record['freeText']);
                             }
                         }
-                    break;
+                        break;
 
                     case('blogs'):
-                        // $wrapper = new PostsGetterWrapper( new PostsGetter($em) );
+                        $wrapper = new PostsGetterWrapper( new PostsGetter($em) );
                     break;
 
                     case('photo'):
 
-                    break;
+                        break;
 
                     case('albo-pretorio'):
                         $wrapper = new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter($em));
-                        $wrapper->setInput( array('id' => $value['referenceIds']) );
+                        $wrapper->setInput( array('id' => $value['referenceIds'], 'orderBy' => 'alboArticoli.id') );
                         $wrapper->setupQueryBuilder();
                         $wrapper->setupPaginator( $wrapper->setupQuery($em) );
                         $wrapper->setupPaginatorCurrentPage(1);
@@ -77,13 +89,16 @@ class IndexController extends SetupAbstractController
 
                     case('stato-civile'):
 
-                    break;
+                        break;
 
                     case('amministrazione-trasparente'):
 
-                    break;
+                        break;
                 }
             }
+
+        } catch(NullException $e) {
+
         }
 
         $this->layout()->setVariables(array(

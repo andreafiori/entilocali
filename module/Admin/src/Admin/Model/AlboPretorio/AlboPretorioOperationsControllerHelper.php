@@ -72,6 +72,7 @@ class AlboPretorioOperationsControllerHelper extends OperationsHelperAbstract
                 'pubblicare' => 0,
                 'attivo'     => 0,
                 'annullato'  => 1,
+                'data_annullamento' => date("Y-m-d H:i:s"),
             ),
             array('id' => $id)
         );

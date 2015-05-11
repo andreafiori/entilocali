@@ -2,10 +2,14 @@
 
 namespace Admin\Controller\AlboPretorio;
 
+use Application\Model\AlboPretorio\AlboPretorioFormSearch;
 use Admin\Model\AlboPretorio\AlboPretorioArticoliGetter;
 use Admin\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
+use Admin\Model\AlboPretorio\AlboPretorioSezioniGetter;
+use Admin\Model\AlboPretorio\AlboPretorioSezioniGetterWrapper;
+use Admin\Model\Users\Settori\UsersSettoriGetter;
+use Admin\Model\Users\Settori\UsersSettoriGetterWrapper;
 use Application\Controller\SetupAbstractController;
-use Zend\View\Model\ViewModel;
 
 class AlboPretorioSummaryController extends SetupAbstractController
 {
@@ -26,11 +30,29 @@ class AlboPretorioSummaryController extends SetupAbstractController
         $wrapper->setupPaginatorCurrentPage($page);
         $wrapper->setupPaginatorItemsPerPage($perPage);
 
+        $sezioniWrapper = new AlboPretorioSezioniGetterWrapper( new AlboPretorioSezioniGetter($em) );
+        $sezioniWrapper->setInput(array());
+        $sezioniWrapper->setupQueryBuilder();
+
+        $usersSettoriWrapper = new UsersSettoriGetterWrapper( new UsersSettoriGetter($em) );
+        $usersSettoriWrapper->setInput(array('orderBy' => 'settore.nome ASC'));
+        $usersSettoriWrapper->setupQueryBuilder();
+
+        $formSearch = new AlboPretorioFormSearch();
+        $formSearch->addYears();
+        $formSearch->addSezioni( $sezioniWrapper->formatForDropwdown($sezioniWrapper->getRecords(), 'id', 'nome') );
+        $formSearch->addSettori( $usersSettoriWrapper->formatForDropwdown($usersSettoriWrapper->getRecords(), 'id', 'nome') );
+        $formSearch->addCheckExpired();
+        $formSearch->addCsrf();
+        $formSearch->addSubmitButton();
+        $formSearch->addResetButton();
+
         $paginator = $wrapper->getPaginator();
 
         $records = $wrapper->setupRecords();
 
         $this->layout()->setVariables(array(
+                'formSearch'        => $formSearch,
                 'tableTitle'        => 'Albo pretorio',
                 'tableDescription'  => $paginator->getTotalItemCount()." atti in archivio",
                 'columns' => array(
@@ -45,16 +67,15 @@ class AlboPretorioSummaryController extends SetupAbstractController
                     '&nbsp;',
                     '&nbsp;',
                     '&nbsp;',
+                    '&nbsp;',
                 ),
                 'paginator'         => $paginator,
                 'records'           => $this->formatArticoliRecords($records),
-                'templatePartial'   => self::summaryTemplate
+                'templatePartial'   => 'datatable/datatable_albo_pretorio.phtml'
             )
         );
 
         $this->layout()->setTemplate($mainLayout);
-
-        return new ViewModel();
     }
 
         /**
@@ -115,6 +136,13 @@ class AlboPretorioSummaryController extends SetupAbstractController
                         'class' => $rowClass,
                     );
 
+                    /* Homepage button */
+                    $arrayLine[] = array(
+                        'type'      => $record['home']==1 ? 'homepagePutButton' : 'homepageDelButton',
+                        'href'      => '#',
+                        'value'     => $record['home']==1 ? 1 : 0,
+                    );
+
                     if ($record['annullato']) {
                         $arrayLine[] = array(
                             'type'  => 'alboAnnulledButton',
@@ -133,13 +161,6 @@ class AlboPretorioSummaryController extends SetupAbstractController
                                 'title'     => 'Rettifica articolo',
                                 'data-id'   => $record['id'],
                                 'class'     => $rowClass,
-                            );
-
-                            /* Homepage button */
-                            $arrayLine[] = array(
-                                'type'      => $record['home']==1 ? 'homepagePutButton' : 'homepageDelButton',
-                                'href'      => '#',
-                                'value'     => $record['home']==1 ? 1 : 0,
                             );
 
                         } else {

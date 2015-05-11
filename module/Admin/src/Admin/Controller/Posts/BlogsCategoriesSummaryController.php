@@ -19,9 +19,7 @@ class BlogsCategoriesSummaryController extends SetupAbstractController
         $moduleCode = $this->params()->fromRoute('moduleCode');
 
         $wrapper = new CategoriesGetterWrapper( new CategoriesGetter($entityManager) );
-        $wrapper->setInput(array(
-            "moduleCode" => $moduleCode,
-        ));
+        $wrapper->setInput( array("moduleCode" => $moduleCode) );
         $wrapper->setupQueryBuilder();
         $wrapper->setupPaginator($wrapper->setupQuery($entityManager));
         $wrapper->setupPaginatorCurrentPage(isset($page) ? $page : null);
@@ -36,7 +34,7 @@ class BlogsCategoriesSummaryController extends SetupAbstractController
                 ucfirst($record['status']),
                 array(
                     'type'      => 'updateButton',
-                    'href'      => 'formdata/categories/',
+                    'href'      => '#',
                     'title'     => 'Modifica'
                 ),
                 array(

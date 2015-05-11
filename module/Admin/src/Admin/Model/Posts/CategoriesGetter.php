@@ -12,18 +12,17 @@ class CategoriesGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('DISTINCT(category.id) AS id, co.name, co.description,
-                                    co.seoKeywords, co.seoDescription,
+        $this->setSelectQueryFields('DISTINCT(category.id) AS id, category.name, category.description,
+                                    category.seoKeywords, category.seoDescription,
                                     category.createDate, category.status,
                                     IDENTITY(category.module) AS moduleId,
                                     module.name AS moduleName
                                     ');
 
         $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
-                                ->from('Application\Entity\ZfcmsPostsCategoriesOptions', 'co')
-                                ->join('co.category', 'category')
+                                ->from('Application\Entity\ZfcmsPostsCategories', 'category')
                                 ->join('category.module', 'module')
-                                ->where('co.category = category.id AND category.module = module.id ');
+                                ->where('category.module = module.id ');
 
         return $this->getQueryBuilder();
     }
@@ -100,6 +99,20 @@ class CategoriesGetter extends QueryBuilderHelperAbstract
         if (!empty($moduleCode)) {
             $this->getQueryBuilder()->andWhere('module.code = :moduleCode ');
             $this->getQueryBuilder()->setParameter('moduleCode', $moduleCode);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param string $slug
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setSlug($slug)
+    {
+        if ( !empty($slug) ) {
+            $this->getQueryBuilder()->andWhere('category.slug = :slug ');
+            $this->getQueryBuilder()->setParameter('slug', $slug);
         }
 
         return $this->getQueryBuilder();

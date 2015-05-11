@@ -124,7 +124,7 @@ abstract class AlboPretorioArticoliFormAbstract extends Form
     {
         if (!is_array($years)) {
             $years = array();
-            for($i = date("Y"); $i < date("Y")+5; $i++) {
+            for($i = date("Y")-3; $i < date("Y")+5; $i++) {
                 $years[] = $i;
             }
         }
@@ -134,7 +134,7 @@ abstract class AlboPretorioArticoliFormAbstract extends Form
             'name' => 'anno',
             'attributes' => array(
                 'title' => 'Seleziona anno',
-                'id'    => 'testo'
+                'id'    => 'anno'
             ),
             'options' => array(
                     'label' => 'Anno',

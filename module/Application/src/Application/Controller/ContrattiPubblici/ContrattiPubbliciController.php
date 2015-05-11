@@ -9,10 +9,6 @@ use Admin\Model\Users\Settori\UsersSettoriGetterWrapper;
 use Application\Controller\SetupAbstractController;
 use Application\Model\ContrattiPubblici\ContrattiPubbliciFormSearch;
 
-/**
- * @author Andrea Fiori
- * @since  17 April 2015
- */
 class ContrattiPubbliciController extends SetupAbstractController
 {
     public function indexAction()
@@ -53,7 +49,6 @@ class ContrattiPubbliciController extends SetupAbstractController
             $yearsArray[] = $year['anno'];
         }
 
-        /* Select Settori Users */
         $wrapper = new UsersSettoriGetterWrapper(new UsersSettoriGetter($em));
         $wrapper->setInput(array());
         $wrapper->setupQueryBuilder();
@@ -65,7 +60,6 @@ class ContrattiPubbliciController extends SetupAbstractController
             $settori[$settore['id']] = $settore['nome'].' '.$settore['name'].' '.$settore['surname'];
         }
 
-        /* Form search */
         $form = new ContrattiPubbliciFormSearch();
         $form->addYears($yearsArray);
         $form->addMainFormElements();

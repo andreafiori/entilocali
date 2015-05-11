@@ -17,8 +17,6 @@ use Application\Model\RouterManagers\RouterManagerInterface;
 /**
  * Backend Frontend home page handler
  *
- * TODO: get TODO list, render TODO form, select count of all modules...
- *
  * @author Andrea Fiori
  * @since  18 May 2014
  */
@@ -47,7 +45,6 @@ class AdminDashboard extends RouterManagerAbstract implements RouterManagerInter
         $wrapper->setupQueryBuilder();
 
         $ticketList = $wrapper->getRecords();
-
 
         $date1 = date_create( $userDetails->passwordLastUpdate->format("Y-m-d H:i:s") );
         $date2 = date_create( date("Y-m-d H:i:s") );

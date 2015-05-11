@@ -49,9 +49,9 @@ class Params extends AbstractHelper
     }
 
     /**
-     * @param type $param
-     * @param type $default
-     * @return type
+     * @param string $param
+     * @param null $default
+     * @return mixed
      */
     public function fromQuery($param = null, $default = null)
     {
@@ -61,11 +61,11 @@ class Params extends AbstractHelper
 
         return $this->request->getPost($param, $default);
     }
-    
+
     /**
-     * @param type $param
-     * @param type $default
-     * @return type
+     * @param null $param
+     * @param null $default
+     * @return array|mixed|null
      */
     public function fromRoute($param = null, $default = null)
     {

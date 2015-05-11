@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsPosts
  *
- * @ORM\Table(name="zfcms_posts", indexes={@ORM\Index(name="parent_id", columns={"parent_id"}), @ORM\Index(name="flag_allegati", columns={"flag_attachments"}), @ORM\Index(name="fk_posts_user_id", columns={"user_id"})})
+ * @ORM\Table(name="zfcms_posts", indexes={@ORM\Index(name="language_id", columns={"language_id"}), @ORM\Index(name="seo_title", columns={"seo_title"}), @ORM\Index(name="title", columns={"title"}), @ORM\Index(name="fk_posts_user_id", columns={"user_id"})})
  * @ORM\Entity
  */
 class ZfcmsPosts
@@ -24,44 +24,152 @@ class ZfcmsPosts
     /**
      * @var string
      *
-     * @ORM\Column(name="note", type="string", length=80, nullable=true)
+     * @ORM\Column(name="note", type="string", length=100, nullable=true)
      */
     private $note;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="insert_date", type="datetime", nullable=false)
+     * @ORM\Column(name="create_date", type="datetime", nullable=true)
      */
-    private $insertDate;
+    private $createDate;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="expire_date", type="datetime", nullable=false)
+     * @ORM\Column(name="expire_date", type="datetime", nullable=true)
      */
     private $expireDate;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="last_update", type="datetime", nullable=false)
+     * @ORM\Column(name="last_update", type="datetime", nullable=true)
      */
     private $lastUpdate;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="flag_attachments", type="integer", nullable=true)
+     * @ORM\Column(name="image", type="string", length=80, nullable=true)
      */
-    private $flagAttachments;
+    private $image;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image_homepage", type="string", length=80, nullable=true)
+     */
+    private $imageHomepage;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=150, nullable=true)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="subtitle", type="string", length=150, nullable=true)
+     */
+    private $subtitle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", length=65535, nullable=true)
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=50, nullable=true)
+     */
+    private $status;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="parent_id", type="bigint", nullable=false)
+     * @ORM\Column(name="position", type="bigint", nullable=true)
      */
-    private $parentId;
+    private $position;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_title", type="string", length=150, nullable=true)
+     */
+    private $seoTitle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_description", type="string", length=150, nullable=true)
+     */
+    private $seoDescription;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_keywords", type="string", length=150, nullable=true)
+     */
+    private $seoKeywords;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="template", type="string", length=150, nullable=true)
+     */
+    private $template;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=150, nullable=true)
+     */
+    private $slug;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="href", type="text", length=65535, nullable=true)
+     */
+    private $href;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="always_in_home", type="integer", nullable=false)
+     */
+    private $alwaysInHome;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="homepage", type="integer", nullable=false)
+     */
+    private $homepage;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="has_attachments", type="integer", nullable=false)
+     */
+    private $hasAttachments;
+
+    /**
+     * @var \Application\Entity\ZfcmsLanguages
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsLanguages")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="language_id", referencedColumnName="id")
+     * })
+     */
+    private $language;
 
     /**
      * @var \Application\Entity\ZfcmsUsers

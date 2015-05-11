@@ -32,6 +32,7 @@
                             <td style="display: none">&nbsp;</td>
                             <td style="display: none">&nbsp;</td>
                             <td style="display: none">&nbsp;</td>
+
                         <?php elseif($record['type']=='alboAnnullButton'): ?>
                             <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
                                 <a href="#alboAnnullModal" data-action="<?php echo $record['data-form-action'] ?>" data-id="<?php echo $record['data-id'] ?>" class="open-alboAnnullModal btn btn-lg icon-red" title="Annulla articolo"><i class="fa fa-ban"></i> </a>

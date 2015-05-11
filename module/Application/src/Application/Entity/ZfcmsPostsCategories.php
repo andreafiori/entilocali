@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsPostsCategories
  *
- * @ORM\Table(name="zfcms_posts_categories", indexes={@ORM\Index(name="module_id", columns={"module_id"}), @ORM\Index(name="status", columns={"status"})})
+ * @ORM\Table(name="zfcms_posts_categories", indexes={@ORM\Index(name="language_id", columns={"language_id"}), @ORM\Index(name="name", columns={"name"}), @ORM\Index(name="fk_category_module_id", columns={"module_id"}), @ORM\Index(name="fk_category_parent_id", columns={"parent_id"})})
  * @ORM\Entity
  */
 class ZfcmsPostsCategories
@@ -24,7 +24,77 @@ class ZfcmsPostsCategories
     /**
      * @var string
      *
-     * @ORM\Column(name="note", type="string", length=100, nullable=true)
+     * @ORM\Column(name="name", type="string", length=80, nullable=true)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=80, nullable=true)
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_url", type="string", length=80, nullable=true)
+     */
+    private $seoUrl;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_title", type="string", length=80, nullable=true)
+     */
+    private $seoTitle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_keywords", type="string", length=80, nullable=true)
+     */
+    private $seoKeywords;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="seo_description", type="string", length=120, nullable=true)
+     */
+    private $seoDescription;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="accesskey", type="string", length=10, nullable=true)
+     */
+    private $accesskey;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="template_file", type="string", length=50, nullable=true)
+     */
+    private $templateFile;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=50, nullable=true)
+     */
+    private $status;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=255, nullable=true)
+     */
+    private $slug;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="note", type="text", length=65535, nullable=true)
      */
     private $note;
 
@@ -38,37 +108,26 @@ class ZfcmsPostsCategories
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="last_update", type="datetime", nullable=true)
+     * @ORM\Column(name="expire_date", type="datetime", nullable=true)
      */
-    private $lastUpdate;
+    private $expireDate;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="slug", type="string", length=80, nullable=true)
+     * @ORM\Column(name="position", type="bigint", nullable=true)
      */
-    private $slug;
+    private $position;
 
     /**
-     * @var string
+     * @var \Application\Entity\ZfcmsLanguages
      *
-     * @ORM\Column(name="status", type="string", length=80, nullable=true)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsLanguages")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="language_id", referencedColumnName="id")
+     * })
      */
-    private $status;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="column_position", type="string", nullable=true)
-     */
-    private $columnPosition;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="template", type="string", length=80, nullable=true)
-     */
-    private $template;
+    private $language;
 
     /**
      * @var \Application\Entity\ZfcmsModules
@@ -80,6 +139,16 @@ class ZfcmsPostsCategories
      */
     private $module;
 
+    /**
+     * @var \Application\Entity\ZfcmsPostsCategories
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsPostsCategories")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     * })
+     */
+    private $parent;
+
 
 
     /**
@@ -90,6 +159,236 @@ class ZfcmsPostsCategories
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return ZfcmsPostsCategories
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return ZfcmsPostsCategories
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set seoUrl
+     *
+     * @param string $seoUrl
+     * @return ZfcmsPostsCategories
+     */
+    public function setSeoUrl($seoUrl)
+    {
+        $this->seoUrl = $seoUrl;
+    
+        return $this;
+    }
+
+    /**
+     * Get seoUrl
+     *
+     * @return string 
+     */
+    public function getSeoUrl()
+    {
+        return $this->seoUrl;
+    }
+
+    /**
+     * Set seoTitle
+     *
+     * @param string $seoTitle
+     * @return ZfcmsPostsCategories
+     */
+    public function setSeoTitle($seoTitle)
+    {
+        $this->seoTitle = $seoTitle;
+    
+        return $this;
+    }
+
+    /**
+     * Get seoTitle
+     *
+     * @return string 
+     */
+    public function getSeoTitle()
+    {
+        return $this->seoTitle;
+    }
+
+    /**
+     * Set seoKeywords
+     *
+     * @param string $seoKeywords
+     * @return ZfcmsPostsCategories
+     */
+    public function setSeoKeywords($seoKeywords)
+    {
+        $this->seoKeywords = $seoKeywords;
+    
+        return $this;
+    }
+
+    /**
+     * Get seoKeywords
+     *
+     * @return string 
+     */
+    public function getSeoKeywords()
+    {
+        return $this->seoKeywords;
+    }
+
+    /**
+     * Set seoDescription
+     *
+     * @param string $seoDescription
+     * @return ZfcmsPostsCategories
+     */
+    public function setSeoDescription($seoDescription)
+    {
+        $this->seoDescription = $seoDescription;
+    
+        return $this;
+    }
+
+    /**
+     * Get seoDescription
+     *
+     * @return string 
+     */
+    public function getSeoDescription()
+    {
+        return $this->seoDescription;
+    }
+
+    /**
+     * Set accesskey
+     *
+     * @param string $accesskey
+     * @return ZfcmsPostsCategories
+     */
+    public function setAccesskey($accesskey)
+    {
+        $this->accesskey = $accesskey;
+    
+        return $this;
+    }
+
+    /**
+     * Get accesskey
+     *
+     * @return string 
+     */
+    public function getAccesskey()
+    {
+        return $this->accesskey;
+    }
+
+    /**
+     * Set templateFile
+     *
+     * @param string $templateFile
+     * @return ZfcmsPostsCategories
+     */
+    public function setTemplateFile($templateFile)
+    {
+        $this->templateFile = $templateFile;
+    
+        return $this;
+    }
+
+    /**
+     * Get templateFile
+     *
+     * @return string 
+     */
+    public function getTemplateFile()
+    {
+        return $this->templateFile;
+    }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     * @return ZfcmsPostsCategories
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return ZfcmsPostsCategories
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string 
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
     /**
@@ -139,118 +438,72 @@ class ZfcmsPostsCategories
     }
 
     /**
-     * Set lastUpdate
+     * Set expireDate
      *
-     * @param \DateTime $lastUpdate
+     * @param \DateTime $expireDate
      * @return ZfcmsPostsCategories
      */
-    public function setLastUpdate($lastUpdate)
+    public function setExpireDate($expireDate)
     {
-        $this->lastUpdate = $lastUpdate;
+        $this->expireDate = $expireDate;
     
         return $this;
     }
 
     /**
-     * Get lastUpdate
+     * Get expireDate
      *
      * @return \DateTime 
      */
-    public function getLastUpdate()
+    public function getExpireDate()
     {
-        return $this->lastUpdate;
+        return $this->expireDate;
     }
 
     /**
-     * Set slug
+     * Set position
      *
-     * @param string $slug
+     * @param integer $position
      * @return ZfcmsPostsCategories
      */
-    public function setSlug($slug)
+    public function setPosition($position)
     {
-        $this->slug = $slug;
+        $this->position = $position;
     
         return $this;
     }
 
     /**
-     * Get slug
+     * Get position
      *
-     * @return string 
+     * @return integer 
      */
-    public function getSlug()
+    public function getPosition()
     {
-        return $this->slug;
+        return $this->position;
     }
 
     /**
-     * Set status
+     * Set language
      *
-     * @param string $status
+     * @param \Application\Entity\ZfcmsLanguages $language
      * @return ZfcmsPostsCategories
      */
-    public function setStatus($status)
+    public function setLanguage(\Application\Entity\ZfcmsLanguages $language = null)
     {
-        $this->status = $status;
+        $this->language = $language;
     
         return $this;
     }
 
     /**
-     * Get status
+     * Get language
      *
-     * @return string 
+     * @return \Application\Entity\ZfcmsLanguages 
      */
-    public function getStatus()
+    public function getLanguage()
     {
-        return $this->status;
-    }
-
-    /**
-     * Set columnPosition
-     *
-     * @param string $columnPosition
-     * @return ZfcmsPostsCategories
-     */
-    public function setColumnPosition($columnPosition)
-    {
-        $this->columnPosition = $columnPosition;
-    
-        return $this;
-    }
-
-    /**
-     * Get columnPosition
-     *
-     * @return string 
-     */
-    public function getColumnPosition()
-    {
-        return $this->columnPosition;
-    }
-
-    /**
-     * Set template
-     *
-     * @param string $template
-     * @return ZfcmsPostsCategories
-     */
-    public function setTemplate($template)
-    {
-        $this->template = $template;
-    
-        return $this;
-    }
-
-    /**
-     * Get template
-     *
-     * @return string 
-     */
-    public function getTemplate()
-    {
-        return $this->template;
+        return $this->language;
     }
 
     /**
@@ -274,5 +527,28 @@ class ZfcmsPostsCategories
     public function getModule()
     {
         return $this->module;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \Application\Entity\ZfcmsPostsCategories $parent
+     * @return ZfcmsPostsCategories
+     */
+    public function setParent(\Application\Entity\ZfcmsPostsCategories $parent = null)
+    {
+        $this->parent = $parent;
+    
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \Application\Entity\ZfcmsPostsCategories 
+     */
+    public function getParent()
+    {
+        return $this->parent;
     }
 }

@@ -5,8 +5,6 @@ namespace Application\Model\AlboPretorio;
 use Admin\Model\AlboPretorio\AlboPretorioArticoliFormAbstract;
 
 /**
- * Albo Pretorio Frontend Search Form
- * 
  * @author Andrea Fiori
  * @since  08 May 2014
  */
@@ -15,7 +13,7 @@ class AlboPretorioFormSearch extends AlboPretorioArticoliFormAbstract
     /**
      * @inheritdoc
      */
-    public function __construct($name = null) 
+    public function __construct($name = null, $options = null)
     {
         parent::__construct($name);
         
@@ -86,19 +84,6 @@ class AlboPretorioFormSearch extends AlboPretorioArticoliFormAbstract
                 ),
              )
         ));
-        
-        $this->add(array(
-            'type' => 'Zend\Form\Element\Select',
-            'name' => 'anno',
-            'attributes' => array(
-                'title' => 'Seleziona anno di partenza dalla data di pubblicazione',
-                'id'    => 'anno'
-            ),
-            'options' => array(
-                'label' => 'Anno',
-                'value_options' => $this->getArrayYears(),
-            )
-        ));
     }
 
     public function addCheckExpired()
@@ -131,17 +116,35 @@ class AlboPretorioFormSearch extends AlboPretorioArticoliFormAbstract
             )
         ));
     }
-    
-    public function addFrontendSubmitButton()
+
+    /**
+     * @inheritdoc
+     */
+    public function addSubmitButton($name = null, $label = null)
     {
         $this->add(array(
-            'name' => 'search',
-            'type'  => 'submit',
-            'attributes' => array(
-                'label' => '&nbsp;',
-                'title' => "Premi per avviare la ricerca sull'albo pretorio",
-                'value' => 'Cerca',
-            ))
+                'name' => 'search',
+                'type'  => 'submit',
+                'attributes' => array(
+                    'label' => '&nbsp;',
+                    'title' => "Premi per avviare la ricerca sugli atti dell'albo pretorio",
+                    'value' => 'Cerca',
+                    'id'    => 'submit',
+                ))
+        );
+    }
+
+    public function addResetButton()
+    {
+        $this->add(array(
+                'name' => 'resetForm',
+                'type'  => 'submit',
+                'attributes' => array(
+                    'label' => ' ',
+                    'title' => "Premi il pulsante per resettare il form di ricerca",
+                    'value' => 'Reset',
+                    'id'    => 'resetForm',
+                ))
         );
     }
 }

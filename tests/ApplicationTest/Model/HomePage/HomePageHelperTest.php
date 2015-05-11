@@ -14,11 +14,41 @@ class HomePageHelperTest extends TestSuite
      */
     private $helper;
 
+    private $homePageRecordsSample;
+
     protected function setUp()
     {
         parent::setUp();
 
         $this->helper = new HomePageHelper();
+
+        $this->homePageRecordsSample = array(
+            'albo-pretorio' => array(
+                array(
+                    'id' => 1,
+                    'referenceId' => 2,
+                    'position' => 2,
+                ),
+                array(
+                    'id' => 2,
+                    'referenceId' => 3,
+                    'position' => 3,
+                ),
+                array(
+                    'id' => 3,
+                    'referenceId' => 4,
+                    'position' => 1,
+                ),
+            ),
+            'freeText' => array(
+                array(
+                    'id' => 4,
+                    'referenceId' => 5,
+                    'freeText' => 'This is my free text',
+                    'position' => 1,
+                ),
+            ),
+        );
     }
 
     public function testSetHomePageRecordsGetterWrapper()
@@ -54,34 +84,44 @@ class HomePageHelperTest extends TestSuite
 
     public function testGatherReferenceIds()
     {
-        $recordTest = array(
-            'albo-pretorio' => array(
-                array(
-                    'id' => 1,
-                    'referenceId' => 2,
-                ),
-                array(
-                    'id' => 2,
-                    'referenceId' => 3,
-                ),
-                array(
-                    'id' => 3,
-                    'referenceId' => 4,
-                ),
-            ),
-            'freeText' => array(
-                array(
-                    'id' => 4,
-                    'referenceId' => 5,
-                    'freeText' => 'This is my free text'
-                ),
-            ),
-        );
-
         $this->helper->setHomePageRecordsGetterWrapper(
             new HomePageRecordsGetterWrapper( new HomePageRecordsGetter($this->getEntityManagerMock()) )
         );
-        $this->helper->setHomePageRecords($recordTest);
+        $this->helper->setHomePageRecords($this->homePageRecordsSample);
         $this->helper->gatherReferenceIds();
+    }
+
+    public function testGatherReferenceIdsReturnFalse()
+    {
+        $this->helper->setHomePageRecordsGetterWrapper(
+            new HomePageRecordsGetterWrapper( new HomePageRecordsGetter($this->getEntityManagerMock()) )
+        );
+        $this->helper->setHomePageRecords(array());
+
+        $this->assertFalse( $this->helper->gatherReferenceIds() );
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testCheckHomePageRecordsThrowsException()
+    {
+        $this->helper->checkHomePageRecords();
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testCheckClassMapKey()
+    {
+        $this->helper->checkClassMapKey('unexistentModuleCode');
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testCheckClassMapObjectExists()
+    {
+        $this->helper->checkClassMapObjectExists('contenuti');
     }
 }

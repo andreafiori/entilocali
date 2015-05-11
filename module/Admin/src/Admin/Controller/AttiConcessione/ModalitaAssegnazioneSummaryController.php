@@ -46,39 +46,39 @@ class ModalitaAssegnazioneSummaryController extends SetupAbstractController
         $this->layout()->setTemplate($mainLayout);
     }
 
-    /**
-     * @param array $records
-     * @return array|null
-     */
-    protected function formatArticoliRecords($records)
-    {
-        $arrayToReturn = array();
-        if (!empty($records)) {
-            foreach($records as $key => $record) {
+        /**
+         * @param array $records
+         * @return array|null
+         */
+        private function formatArticoliRecords($records)
+        {
+            $arrayToReturn = array();
+            if (!empty($records)) {
+                foreach($records as $key => $record) {
 
-                $arrayToReturn[] = array(
-                    array(
-                        'type'   => 'field',
-                        'record' => $record['nome'],
-                    ),
-                    array(
-                        'type'      => 'updateButton',
-                        'href'      => $this->url()->fromRoute('admin/albo-pretorio-form', array(
-                            'lang'  => 'it',
-                            'id'    => $record['id']
-                        )),
-                        'title'     => 'Modifica',
-                    ),
-                    array(
-                        'type'      => 'deleteButton',
-                        'href'      => '#',
-                        'data-id'   => $record['id'],
-                        'title'     => 'Elimina ',
-                    )
-                );
+                    $arrayToReturn[] = array(
+                        array(
+                            'type'   => 'field',
+                            'record' => $record['nome'],
+                        ),
+                        array(
+                            'type'      => 'updateButton',
+                            'href'      => $this->url()->fromRoute('admin/albo-pretorio-form', array(
+                                'lang'  => 'it',
+                                'id'    => $record['id']
+                            )),
+                            'title'     => 'Modifica',
+                        ),
+                        array(
+                            'type'      => 'deleteButton',
+                            'href'      => '#',
+                            'data-id'   => $record['id'],
+                            'title'     => 'Elimina ',
+                        )
+                    );
+                }
             }
-        }
 
-        return $arrayToReturn;
-    }
+            return $arrayToReturn;
+        }
 }

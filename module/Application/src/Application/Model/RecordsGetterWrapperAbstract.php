@@ -268,4 +268,28 @@ abstract class RecordsGetterWrapperAbstract
     {
         return $this->entityManager;
     }
+
+    /**
+     * @param array $recordset
+     * @param $idFieldName
+     * @param $valueFieldName
+     * @return array|bool
+     */
+    public function formatForDropwdown($recordset, $idFieldName, $valueFieldName)
+    {
+        if (!empty($recordset)) {
+            $arrayToReturn = array();
+            foreach($recordset as $record) {
+
+                if (!isset($record[$idFieldName])) {
+                    break;
+                }
+
+                $arrayToReturn[$record[$idFieldName]] = isset($record[$valueFieldName]) ? $record[$valueFieldName] : null;
+            }
+            return $arrayToReturn;
+        }
+
+        return false;
+    }
 }

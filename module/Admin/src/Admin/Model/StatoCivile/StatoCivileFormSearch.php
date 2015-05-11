@@ -52,7 +52,7 @@ class StatoCivileFormSearch extends Form
             'type' => 'Text',
             'name' => 'testo',
             'attributes' => array(
-                'placeholder'   => 'Inserisci testo...',
+                'placeholder'   => 'Testo...',
                 'title'         => 'Inserisci testo',
                 'id'            => 'testo',
                 'maxlength'     => 150,
@@ -178,8 +178,9 @@ class StatoCivileFormSearch extends Form
             'type'  => 'submit',
             'attributes' => array(
                 'label' => '&nbsp;',
-                'title' => "Premi per avviare la ricerca sull'albo pretorio",
+                'title' => "Premi per avviare la ricerca sugli atti dello stato civile",
                 'value' => 'Cerca',
+                'id'    => 'submit',
             ))
         );
     }

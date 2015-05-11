@@ -1,163 +1,186 @@
 <ul class="breadcrumbs">
-    <li><a href="<?php echo $this->basepath() ?>" title="Home page">Home</a></li>
+    <li><a href="<?php echo $this->basepath() ?>" title="Torna alla pagina principale">Home</a></li>
     <li class="current">Albo pretorio</li>
 </ul>
 
 <?php if (count($this->paginator)): ?>
 
-<h1>Albo pretorio</h1>
- 
-<div>
+    <h1>Albo pretorio</h1>
+
     <div>
+        <div>
+            <?php
+
+            $form = $this->form;
+            $form->prepare();
+
+            $form->setAttribute('action',   $this->serverUrl(true));
+            $form->setAttribute('method',   'post');
+            $form->setAttribute('role',     'form');
+            $form->setAttribute('id',       'albo-pretorio-search-form');
+
+            $form->get('search')->setAttribute('class', 'button button-tiny tiny');
+
+            echo $this->form()->openTag($form);
+
+            ?>
+            <fieldset>
+                <legend>Ricerca atti nell'albo</legend>
+
+                <div class="row">
+
+                    <div class="large-4 columns">
+                        <label for="<?php echo $form->get('numero_progressivo')->getAttribute('id'); ?>">
+                            <?php echo $form->get('numero_progressivo')->getLabel() ?>:
+                        </label>
+                    </div>
+
+                    <div class="large-2 columns">
+                        <?php echo $this->formElement($form->get('numero_progressivo')); ?>
+                    </div>
+
+                    <div class="large-2 columns">
+                        <label for="<?php echo $form->get('numero_atto')->getAttribute('id'); ?>">
+                            <?php echo $form->get('numero_atto')->getLabel() ?>:
+                        </label>
+                    </div>
+
+                    <div class="large-2 columns">
+                        <?php echo $this->formElement($form->get('numero_atto')); ?>
+                    </div>
+
+                    <div class="large-2 columns">
+                        &nbsp;
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="large-12 columns">
+                        <label for="<?php echo $form->get('testo')->getAttribute('id'); ?>">
+                            <?php echo $form->get('testo')->getLabel() ?>:
+                        </label>
+                        <?php echo $this->formElement($form->get('testo')); ?>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="large-4 columns">
+                        <label for="<?php echo $form->get('mese')->getAttribute('id'); ?>">
+                            Atti a partire da:
+                        </label>
+                    </div>
+
+                    <div class="large-4 columns">
+                        <?php echo $this->formElement($form->get('mese')); ?>
+                    </div>
+
+                    <div class="large-4 columns">
+                        <?php echo $this->formElement($form->get('anno')); ?>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="large-12 columns">
+                        <label for="<?php echo $form->get('sezione')->getAttribute('id'); ?>">
+                            <?php echo $form->get('sezione')->getLabel() ?>:
+                        </label>
+                        <?php echo $this->formElement($form->get('sezione')); ?>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="large-12 columns">
+                        <label for="<?php echo $form->get('settore')->getAttribute('id'); ?>">
+                            <?php echo $form->get('settore')->getLabel() ?>:
+                        </label>
+
+                        <?php echo $this->formElement($form->get('settore')); ?>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="large-12 columns">
+                        <label for="<?php echo $form->get('expired')->getAttribute('id'); ?>" aria-label="Clicca sul bottone per avviare la ricerca sugli atti dell'albo">
+                            <?php echo $this->formElement($form->get('expired')); ?>
+                            <?php echo $form->get('expired')->getLabel() ?>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="large-12 columns">
+                        <?php echo $this->formElement($form->get('csrf')); ?>
+                        <?php echo $this->formElement($form->get('search')); ?>
+                    </div>
+                </div>
+
+            </fieldset>
+            <?php echo $this->form()->closeTag(); ?>
+
+        </div>
+
+        <div class="panel callout">Per aprire i file firmati digitalmente scaricare il software ArubaSign:<br>
+            <ul class="unstyled">
+                <li><i class="fa fa-windows"></i> <a href="#" title="Software per PC">Versione per PC (17,5MB)</a></li>
+                <li><i class="fa fa-linux"></i> Versione per Linux <a href="#" title="ArubaSign per Linux 32bit">(32 bit)</a> - <a href="#" title="ArubaSign per Linux 64bit">(64 bit)</a></li>
+                <li><i class="fa fa-apple"></i> <a href="#" title="Software per MAC">Versione per MAC (31,2MB)</a></li>
+            </ul>
+
+            <br>
+
+            Si consiglia di visionare l'albo pretorio per tutta la durata della pubblicazione in quanto potrebbero verificarsi modifiche che verranno segnalate tramite rettifiche e/o annullamenti degli atti.
+        </div>
+
+    </div>
+
+    <?php foreach($this->paginator as $key => $row): ?>
+
+        <div<?php if ($row['annullato'] == 1): ?> class="alert-box secondary"<?php endif; ?>>
+
+            <?php if ($row['annullato'] == 1): ?>
+            <h2>Atto annullato il <?php echo date("d-m-Y", strtotime($row['dataAnnullamento'])) ?></h2>
+
+            <blockquote>
+
+                <h3><?php echo $row['titolo'] ?></h3>
+                <?php else: ?>
+                    <h2><?php echo $row['titolo'] ?></h2>
+                <?php endif;?>
+
+                <p><strong>Rep.:</strong> <?php echo $row['numeroProgressivo'] ?> / <?php echo $row['numeroAtto'] ?></p>
+                <p><strong>Pubblicato il:</strong> <?php echo $row['dataAttivazione'] ?> / <strong>Ore:</strong> <?php echo $row['oraAttivazione'] ?></p>
+                <p><strong>Scadenza:</strong> <?php echo $row['dataScadenza'] ?></p>
+                <p><strong>Sezione:</strong> <?php echo $row['nomeSezione'] ?></p>
+
+                <p class="text-right">
+                    Esporta:
+                    <a href="#" title="Esporta in formato testo"><img src="<?php echo $this->basepath() ?>/public/common/icons/txt.png" alt="Icona file di testo"></a>
+                    <a href="#" title="Esporta in formato CSV"><img src="<?php echo $this->basepath() ?>/public/common/icons/csv.gif" alt="Icona CSV"></a>
+                    <a href="#" title="Esporta in formato PDF"><img src="<?php echo $this->basepath() ?>/public/common/icons/pdf.gif" alt="Icona PDF"></a>
+
+                    <br>
+
+                    <img src="<?php echo $this->basepath() ?>/public/common/icons/share.gif" alt="Icona file condivisione" title="Icona file condivisione"> Condividi: <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->currentUrl; ?>" title="Condividi su facebook" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"><img src="<?php echo $this->basepath() ?>/public/common/icons/facebook.gif" alt="Icona Facebook"></a>
+                    <a href="http://twitter.com/share?text=<?php echo $twitterShareText ?>&amp;url=<?php echo $this->currentUrl; ?>" title="Condividi su Twitter"><img src="<?php echo $this->basepath() ?>/public/common/icons/twitter.gif" alt="Icona Twitter"></a>
+                    <a href="https://plus.google.com/share?url=<?php echo $this->currentUrl; ?>" title="Condividi su Google Plus"><img src="<?php echo $this->basepath() ?>/public/common/icons/google-plus.png" alt="Icona Google Plus"></a>
+                </p>
+
+                <?php if ($row['annullato'] == 1): ?>
+            </blockquote>
+        <?php endif; ?>
+
+            <!--
+                <p><strong>Allegati:</strong></p>
+
+                <p>[PDF] provvedimento_unico n. 1 del 17 04 2014 .pdf (48 KB)</p>
+            -->
+        </div>
+
+        <?php if ($row['annullato'] != 1): ?><hr><?php endif; ?>
+
+    <?php endforeach; ?>
+
     <?php
-    
-    $form = $this->form;
-    $form->prepare();
-
-    $form->setAttribute('action',   $this->serverUrl(true));
-    $form->setAttribute('method',   'post');
-    $form->setAttribute('role',     'form');
-    $form->setAttribute('id',       'albo-pretorio-search-form');
-        
-    $form->get('search')->setAttribute('class', 'button button-tiny');
-    
-    echo $this->form()->openTag($form);
-    
-    ?>
-    <fieldset>
-        <legend>Ricerca atti nell'albo</legend>
-        
-        <div class="row">
-            
-            <div class="large-4 columns">
-                <label for="<?php echo $form->get('numero_progressivo')->getAttribute('id'); ?>">
-                    <?php echo $form->get('numero_progressivo')->getLabel() ?>:
-                </label>
-            </div>
-            
-            <div class="large-2 columns">
-                <?php echo $this->formElement($form->get('numero_progressivo')); ?>
-            </div>
-            
-            <div class="large-2 columns">
-                <label for="<?php echo $form->get('numero_atto')->getAttribute('id'); ?>">
-                    <?php echo $form->get('numero_atto')->getLabel() ?>:
-                </label>
-            </div>
-            
-            <div class="large-2 columns">
-                <?php echo $this->formElement($form->get('numero_atto')); ?>
-            </div>
-            
-            <div class="large-2 columns">
-                &nbsp;
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="large-12 columns">
-                <label for="<?php echo $form->get('testo')->getAttribute('id'); ?>">
-                    <?php echo $form->get('testo')->getLabel() ?>:
-                </label>
-                <?php echo $this->formElement($form->get('testo')); ?>
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="large-4 columns">
-            <label for="<?php echo $form->get('mese')->getAttribute('id'); ?>">
-                Atti a partire da:
-            </label>
-            </div>
-            
-            <div class="large-4 columns">
-                <?php echo $this->formElement($form->get('mese')); ?>
-            </div>
-
-            <div class="large-4 columns">
-                <?php echo $this->formElement($form->get('anno')); ?>
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="large-12 columns">
-                <label for="<?php echo $form->get('sezione')->getAttribute('id'); ?>">
-                    <?php echo $form->get('sezione')->getLabel() ?>:
-                </label>
-                <?php echo $this->formElement($form->get('sezione')); ?>
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="large-12 columns">
-                <label for="<?php echo $form->get('settore')->getAttribute('id'); ?>">
-                    <?php echo $form->get('settore')->getLabel() ?>:
-                </label>
-            
-                <?php echo $this->formElement($form->get('settore')); ?>
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="large-12 columns">
-                <label for="<?php echo $form->get('expired')->getAttribute('id'); ?>" aria-label="Clicca sul bottone per avviare la ricerca sugli atti dell'albo">
-                    <?php echo $this->formElement($form->get('expired')); ?>
-                    <?php echo $form->get('expired')->getLabel() ?>
-                </label>
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="large-12 columns">
-                <label>&nbsp;</label>
-                <?php echo $this->formElement($form->get('csrf')); ?>
-                <?php echo $this->formElement($form->get('search')); ?>
-            </div>
-        </div>
-
-    </fieldset>
-    <?php echo $this->form()->closeTag(); ?>
-
-    </div>
-
-    <div class="panel callout">Per aprire i file firmati digitalmente scaricare il software ArubaSign:<br>
-        <ul class="unstyled">
-            <li><i class="fa fa-windows"></i> <a href="http://www.kronoweb.it/download/ArubaSign/ArubaSign2_3_5_WINDOWS.exe" title="Software per PC">Versione per PC (17,5MB)</a></li>
-            <li><i class="fa fa-linux"></i> Versione per Linux <a href="#" title="ArubaSign per Linux 32bit">(32 bit)</a> - <a href="#" title="ArubaSign per Linux 64bit">(64 bit)</a></li>
-            <li><i class="fa fa-apple"></i> <a href="http://www.kronoweb.it/download/ArubaSign/ArubaSign2_1_5MAC.zip" title="Software per MAC">Versione per MAC (31,2MB)</a></li>
-        </ul>
-        <br>
-        Si consiglia di visionare l'albo pretorio per tutta la durata della pubblicazione in quanto potrebbero verificarsi modifiche che verranno segnalate tramite rettifiche e/o annullamenti degli atti.
-    </div>
-
-</div>
-
-<?php foreach($this->paginator as $key => $row): ?>
-
-    <h2><?php echo $row['titolo'] ?></h2>
-
-    <p><strong>Rep.:</strong> <?php echo $row['numeroProgressivo'] ?> / <?php echo $row['numeroAtto'] ?></p>
-    <p><strong>Pubblicato il:</strong> <?php echo $row['dataAttivazione'] ?> / <strong>Ore:</strong> <?php echo $row['oraAttivazione'] ?></p>
-    <p><strong>Scadenza:</strong> <?php echo $row['dataScadenza'] ?></p>
-    <p><strong>Sezione:</strong> <?php echo $row['nomeSezione'] ?></p>
-
-    <br>
-    <br>
-    <p class="text-right">Esporta: <a href="#" title="Esporta in formato testo">TXT</a>,
-        <a href="#" title="Esporta in formato word">PDF</a>,
-        <a href="#" title="Esporta in formato word">Word</a>.
-        Condividi: <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->currentUrl; ?>" title="Condividi su facebook" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;">Facebook</a>,
-        <a href="http://twitter.com/share?text=<?php echo urlencode($row['titolo']) ?>&amp;url=<?php echo $this->currentUrl; ?>">Twitter</a>,
-        <a href="https://plus.google.com/share?url=<?php echo $this->currentUrl; ?>" title="Condividi su google plus">Gplus</a>
-    </p>
-    <!-- TODO:
-        <p><strong>Allegati:</strong></p>
-        <p>[PDF] provvedimento_unico n. 1 del 17 04 2014 .pdf (48 KB)</p>
-    -->
-    <hr>
-<?php endforeach; ?>
-
-<?php
     if ( count($this->paginator) > 1 ):
         echo $this->paginationControl(
             $this->paginator,
@@ -174,5 +197,5 @@ else:
         <h1>Nessun atto albo pretorio in archivio</h1>
         <p>Nessun articolo dell'albo pretorio risulta presente in archivio</p>
     </div>
-    <?php
+<?php
 endif;

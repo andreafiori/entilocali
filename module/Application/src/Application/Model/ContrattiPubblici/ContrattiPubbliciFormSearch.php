@@ -5,8 +5,6 @@ namespace Application\Model\ContrattiPubblici;
 use Zend\Form\Form;
 
 /**
- * Contratti Pubblici Form Search Frontend
- * 
  * @author Andrea Fiori
  * @since  24 July 2014
  */
@@ -41,24 +39,21 @@ class ContrattiPubbliciFormSearch extends Form
                         'attributes' => array(
                                         'id'        => 'cig',
                                         'title'     => 'Inserisci Codice Identificativo di Gara',
-                                        'maxlength' => '150',
+                                        'maxlength' => 10,
+                                        'placeholder' => 'CIG...',
                         ),
         ));
         
         $this->add(array(
                         'name' => 'importo',
                         'type' => 'Text',
-                        'options' => array( 'label' => 'Importo aggiudicazione (Euro) &euro;' ),
+                        'options' => array( 'label' => 'Importo aggiudicazione (Euro)' ),
                         'attributes' => array(
                                         'id'        => 'importo',
                                         'title'     => "Inserisci l'importo aggiudicazione",
-                                        'maxlength' => '150',
+                                        'maxlength' => 35,
+                                        'placeholder' => 'Importo...'
                         ),
-        ));
-        
-        $this->add(array(
-            'name' => 'csrf',
-            'type' => 'Zend\Form\Element\Csrf',
         ));
     }
     
@@ -86,12 +81,16 @@ class ContrattiPubbliciFormSearch extends Form
     {
         $this->add(array(
                         'type' => 'Zend\Form\Element\Submit',
-                        'name' => 'cerca',
+                        'name' => 'search',
                         'options' => array(
-                               'label' => 'Cerca',
+                               'label' => ' ',
+                                'label_options' => array(
+                                    'disable_html_escape' => true,
+                                ),
                         ),
+
                         'attributes' => array(
-                                'id'    => 'cerca',
+                                'id'    => 'search',
                                 'value' => 'Cerca',
                                 'title' => 'Avvia ricerca fra i contatti pubblici',
                         )

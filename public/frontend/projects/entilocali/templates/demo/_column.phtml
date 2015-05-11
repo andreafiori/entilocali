@@ -7,45 +7,47 @@
 
             default: case("contenuti"):
 
-            if (isset($sezione['sottosezioni'])):
-                ?>
-                <h2 class="sezioniTitle">
-                    <?php if ($sezione['image']!=''): ?>
-                        <img src="<?php echo $this->basepath() ?>/public/common/icons/<?php echo $sezione['image'] ?>" alt="Icona per <?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?>">
-                    <?php endif; ?>
-
-                    <?php if ($sezione['url']!=''): ?>
-                        <a href="<?php echo htmlentities($sezione['url']) ?>" title="<?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?> [apre in un'altra pagina]" target="_blank">
-                            <img src="<?php echo $this->basepath() ?>/public/frontend/projects/entilocali/templates/telti/assets/images/external-link-icon.gif" alt="Apre in un'altra finestra">
-                            <?php echo strtoupper(html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8')); ?>
-                        </a>
-                    <?php else: ?>
-                        <?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8')); ?>
-                    <?php endif; ?>
-                </h2>
-
-                <ul class="side-nav">
-                    <?php
-                    foreach($sezione['sottosezioni'] as $sottoSezione):
-                        if ( \preg_match("/^http/i", $sottoSezione['url']) ):
-                            $target = "_blank";
-                        endif;
-
-                        if ($sottoSezione['url']):
-                            ?>
-                            <li><a href="<?php echo htmlentities($sottoSezione['url']) ?>"<?php if (isset($target)): ?> target="<?php echo $target ?>"<?php endif ?> title="<?php echo isset($sottoSezione['urlTitle']) ? utf8_encode($sottoSezione['urlTitle']) : 'Vai alla sezione '.utf8_encode($sottoSezione['nomeSottoSezione']) ?>"><?php if (isset($target)): ?><img src="<?php echo $this->basepath() ?>/public/frontend/projects/entilocali/templates/telti/assets/images/external-link-icon.gif" alt="Apre in un'altra finestra"> <?php endif ?><?php echo utf8_encode($sottoSezione['nomeSottoSezione']) ?></a></li>
-                        <?php
-                        else:
-                            ?>
-                            <li><a href="<?php echo $this->url('contents', array('subsectionid' => $sottoSezione['idSottoSezione'])) ?>" title="<?php echo isset($sottoSezione['urlTitle']) ? utf8_encode($sottoSezione['urlTitle']) : 'Vai alla sezione '.utf8_encode($sottoSezione['nomeSottoSezione']) ?>"><?php echo utf8_encode($sottoSezione['nomeSottoSezione']) ?></a></li>
-                        <?php
-                        endif;
-
-                    endforeach;
+                if (isset($sezione['sottosezioni'])):
                     ?>
-                </ul>
-            <?php
-            endif;
+                    <h2 class="sezioniTitle">
+                        <?php if ($sezione['image']!=''): ?>
+                            <img src="<?php echo $this->basepath() ?>/public/common/icons/<?php echo $sezione['image'] ?>" alt="Icona per <?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?>">
+                        <?php endif; ?>
+
+                        <?php if ($sezione['url']!=''): ?>
+                            <a href="<?php echo htmlentities($sezione['url']) ?>" title="<?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?> [apre in un'altra pagina]" target="_blank">
+                                <img src="<?php echo $this->basepath() ?>/public/frontend/projects/entilocali/templates/telti/assets/images/external-link-icon.gif" alt="Apre in un'altra finestra">
+                                <?php echo strtoupper(html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8')); ?>
+                            </a>
+                        <?php else: ?>
+                            <?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8')); ?>
+                        <?php endif; ?>
+                    </h2>
+
+                    <ul class="side-nav">
+                        <?php
+                        foreach($sezione['sottosezioni'] as $sottoSezione):
+
+                            if ( \preg_match("/^http/i", $sottoSezione['url']) ):
+                                $target = "_blank";
+                            endif;
+
+                            if ($sottoSezione['url']):
+                                ?>
+                                <li><a href="<?php echo htmlentities($sottoSezione['url']) ?>"<?php if (isset($target)): ?> target="<?php echo $target ?>"<?php endif ?> title="<?php echo isset($sottoSezione['urlTitle']) ? utf8_encode($sottoSezione['urlTitle']) : 'Vai alla sezione '.utf8_encode($sottoSezione['nomeSottoSezione']) ?>"><?php if (isset($target)): ?><img src="<?php echo $this->basepath() ?>/public/frontend/projects/entilocali/templates/telti/assets/images/external-link-icon.gif" alt="Apre in un'altra finestra"> <?php endif ?><?php echo utf8_encode($sottoSezione['nomeSottoSezione']) ?></a></li>
+                            <?php
+                            else:
+                                ?>
+                                <li><a href="<?php echo $this->url('contents', array('subsectionid' => $sottoSezione['idSottoSezione'])) ?>" title="<?php echo isset($sottoSezione['urlTitle']) ? utf8_encode($sottoSezione['urlTitle']) : 'Vai alla sezione '.utf8_encode($sottoSezione['nomeSottoSezione']) ?>"><?php echo utf8_encode($sottoSezione['nomeSottoSezione']) ?></a></li>
+                            <?php
+                            endif;
+
+                        endforeach;
+                        ?>
+                    </ul>
+                <?php
+                endif;
+
             break;
 
             case('atti-concessione'):
@@ -61,33 +63,22 @@
                     <li><a href="<?php echo $this->url('amministrazione-trasparente', array('profondita' => 200)) ?>">Amministrazione trasparente</a></li>
                 </ul>
                 <?php
-                break;
-
-            case('eventi'):
-                ?>
-                <h2 class="sezioniTitle">NEWS</h2>
-                <ul class="side-nav">
-                    <li><a href="#" title="Leggi articolo Mews 1">News 1</a></li>
-                    <li><a href="#" title="Leggi articolo Mews 2">News 2</a></li>
-                    <li><a href="#" title="Leggi articolo Mews 3">News 3</a></li>
-                </ul>
-                <?php
-                break;
+            break;
 
             case("blogs"):
                 ?>
                 <h2 class="sezioniTitle">BLOGS</h2>
                 <ul class="side-nav">
-                    <li><a href="#" title="Leggi elenco articoli 'Eventi'">Eventi</a></li>
-                    <li><a href="#" title="Leggi elenco articoli ">News</a></li>
-                    <li><a href="#" title="Leggi elenco articoli ">Rassegna stampa</a></li>
+                    <li><a href="<?php echo $this->url('posts-blogs-categories', array('category' => 'eventi')) ?>" title="Leggi elenco articoli 'Eventi'">Eventi</a></li>
+                    <li><a href="<?php echo $this->url('posts-blogs-categories', array('category' => 'news')) ?>" title="Leggi elenco articoli 'News'">News</a></li>
+                    <li><a href="<?php echo $this->url('posts-blogs-categories', array('category' => 'rassegna-stampa')) ?>" title="Leggi elenco articoli 'Rassegna stampa'">Rassegna stampa</a></li>
                 </ul>
                 <?php
-                break;
+            break;
 
             case('community'):
                 ?>
-                <form action="<?php echo $this->currentUrl ?>" method="post">
+                <form action="#" method="post">
                     <fieldset>
                         <legend><img src="<?php echo $this->basepath() ?>/public/common/icons/<?php echo $sezione['image'] ?>" alt="Icona per <?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?>"> <?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?></legend>
 
@@ -110,21 +101,6 @@
 
                 <?php
             break;
-
-            case('amministrazione-trasparente'): case('amministrazionetrasparente'):
-
-            break;
-            /*
-            case('albo'): // atti di Telti presi da contenuti???!!!
-                ?>
-                <h1><?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?></h1>
-
-                <div class="panel info">
-                    In costruzione
-                </div>
-                <?php
-            break;
-            */
 
         endswitch;
 

@@ -33,6 +33,10 @@ class AttiConcessioneGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setMainQuery();
         
         $this->objectGetter->setId( $this->getInput('id', 1) );
+        $this->objectGetter->setAttivo( $this->getInput('attivo', 1) );
+        $this->objectGetter->setImporto( $this->getInput('importo', 1) );
+        $this->objectGetter->setBeneficiarioSearch( $this->getInput('beneficiarioSearch', 1) );
+        $this->objectGetter->setProgressivo( $this->getInput('progressivo', 1) );
         $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
         $this->objectGetter->setGroupBy( $this->getInput('groupBy', 1) );
         $this->objectGetter->setLimit( $this->getInput('limit', 1) );

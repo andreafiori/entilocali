@@ -4,7 +4,10 @@ namespace Admin\Controller\ContrattiPubblici;
 
 use Admin\Model\ContrattiPubblici\ContrattiPubbliciGetter;
 use Admin\Model\ContrattiPubblici\ContrattiPubbliciGetterWrapper;
+use Admin\Model\Users\Settori\UsersSettoriGetter;
+use Admin\Model\Users\Settori\UsersSettoriGetterWrapper;
 use Application\Controller\SetupAbstractController;
+use Application\Model\ContrattiPubblici\ContrattiPubbliciFormSearch;
 
 class ContrattiPubbliciSummaryController extends SetupAbstractController
 {
@@ -23,13 +26,49 @@ class ContrattiPubbliciSummaryController extends SetupAbstractController
         $wrapper->setupPaginatorCurrentPage( is_numeric($page) ? $page : null );
         $wrapper->setupPaginatorItemsPerPage($perPage);
 
+
+        $wrapperYears = new ContrattiPubbliciGetterWrapper(new ContrattiPubbliciGetter($em));
+        $wrapperYears->setInput(array(
+            'fields'    => 'DISTINCT(cc.anno) AS anno',
+            'orderBy'   => 'cc.anno'
+        ));
+        $wrapperYears->setupQueryBuilder();
+
+        $years = $wrapperYears->getRecords();
+
+        $yearsArray = array();
+        foreach($years as $year) {
+            $yearsArray[] = $year['anno'];
+        }
+
+
+        $wrapperSettori = new UsersSettoriGetterWrapper(new UsersSettoriGetter($em));
+        $wrapperSettori->setInput(array());
+        $wrapperSettori->setupQueryBuilder();
+
+        $settoriRecords = $wrapperSettori->getRecords();
+
+        $settori = array();
+        foreach($settoriRecords as $settore) {
+            $settori[$settore['id']] = $settore['nome'].' '.$settore['name'].' '.$settore['surname'];
+        }
+
+        $formSearch = new ContrattiPubbliciFormSearch();
+        $formSearch->addMainFormElements();
+        $formSearch->addYears($yearsArray);
+        $formSearch->addSettori($settori);
+        $formSearch->addSubmit();
+
         $paginator = $wrapper->getPaginator();
+
         $wrapperRecords = $wrapper->setupRecords();
+
         $paginatorRecords = $this->formatArticoliRecords($wrapperRecords);
 
         $this->layout()->setVariables(array(
                 'tableTitle'        => 'Contratti pubblici',
                 'tableDescription'  => $paginator->getTotalItemCount()." contratti in archivio",
+                'formSearch'        => $formSearch,
                 'columns' =>array(
                     "Oggetto del bando",
                     "Struttura proponente \ responsabili",

@@ -35,12 +35,13 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setChannelId($channel ? $channel : 1);
         $this->objectGetter->setLanguageId($language ? $language : 1);
         $this->objectGetter->setId( $this->getInput('id', 1) );
-        $this->objectGetter->setCategoryName( $this->getInput('category', 1) );
+        $this->objectGetter->setCategorySlug( $this->getInput('categorySlug', 1) );
+        $this->objectGetter->setSlug( $this->getInput('slug', 1) );
         $this->objectGetter->setTitle( $this->getInput('title', 1) );
         $this->objectGetter->setType( $this->getInput('type', 1) );
         $this->objectGetter->setStatus( $this->getInput('status', 1) );
         $this->objectGetter->setModuleCode( $this->getInput('moduleCode', 1) );
-        $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1), 'po.position' );
+        $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
         $this->objectGetter->setLimit( $this->getInput('limit', 1) );
     }
 }
