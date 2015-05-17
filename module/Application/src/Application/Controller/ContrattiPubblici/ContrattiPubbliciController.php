@@ -32,8 +32,14 @@ class ContrattiPubbliciController extends SetupAbstractController
         $wrapper->setupQueryBuilder();
         $wrapper->setupPaginator( $wrapper->setupQuery($em));
         $wrapper->setupPaginatorCurrentPage(isset($page) ? $page : 0);
+        $wrapper->setEntityManager($em);
 
-        $paginatorContratti = $wrapper->getPaginator();
+        $contrattiRecords = $wrapper->addAttachmentsToPaginatorRecords(
+            $wrapper->setupRecords(),
+            array()
+        );
+
+        $contrattiPaginator = $wrapper->getPaginator();
 
         $wrapper = new ContrattiPubbliciGetterWrapper(new ContrattiPubbliciGetter($em));
         $wrapper->setInput(array(
@@ -68,8 +74,9 @@ class ContrattiPubbliciController extends SetupAbstractController
 
         $this->layout()->setVariables(array(
             'form'                       => $form,
-            'paginator'                  => $paginatorContratti,
-            'paginator_total_item_count' => $paginatorContratti->getTotalItemCount(),
+            'records'                    => $contrattiRecords,
+            'paginator'                  => $contrattiPaginator,
+            'paginator_total_item_count' => $contrattiPaginator->getTotalItemCount(),
             'templatePartial'            => 'contratti-pubblici/contratti-pubblici.phtml',
         ));
 

@@ -2,44 +2,16 @@
 
 namespace Admin\Model\Attachments;
 
-use Admin\Model\Modules\ModulesGetterWrapper;
 use Application\Model\NullException;
 
-class AttachmentsFormControllerHelper
+class AttachmentsFormControllerHelper extends AttachmentsFormControllerHelperAbstract
 {
-    /**
-     * @var ModulesGetterWrapper
-     */
-    private $modulesGetterWrapper;
+    private $propertiesGetterClassPath;
 
-    private $moduleRecords;
-
-    /**
-     * @var AttachmentsGetterWrapper
-     */
-    private $attachmentsGetterWrapper;
-
-    private $attachmentRecords;
-
-    /**
-     * @param ModulesGetterWrapper $wrapper
-     */
-    public function setModulesGetterWrapper(ModulesGetterWrapper $wrapper)
-    {
-        $this->modulesGetterWrapper = $wrapper;
-    }
-
-    /**
-     * @return ModulesGetterWrapper
-     */
-    public function getModulesGetterWrapper()
-    {
-        return $this->modulesGetterWrapper;
-    }
+    private $propertiesGetterClassInstance;
 
     /**
      * @param $moduleSlug
-     * @throws NullException
      */
     public function setupModuleRecords($moduleSlug)
     {
@@ -49,14 +21,6 @@ class AttachmentsFormControllerHelper
         $this->getModulesGetterWrapper()->setupQueryBuilder();
 
         $this->moduleRecords = $this->getModulesGetterWrapper()->getRecords();
-    }
-
-    /**
-     * @return array|null
-     */
-    public function getModuleRecords()
-    {
-        return $this->moduleRecords;
     }
 
     /**
@@ -70,13 +34,6 @@ class AttachmentsFormControllerHelper
     /**
      * @throws NullException
      */
-    protected function assertModulesGetterWrapper()
-    {
-        if (!$this->modulesGetterWrapper) {
-            throw new NullException("Il presente modulo non &egrave; stato trovato. Se l'errore persiste, contattare l'amministrazione");
-        }
-    }
-
     public function checkModuleRecords()
     {
         $moduleRecords = $this->getModuleRecords();
@@ -84,14 +41,6 @@ class AttachmentsFormControllerHelper
         if ( !isset($moduleRecords[0]['id']) ) {
             throw new NullException("Il presente modulo non &egrave; stato trovato. Se l'errore persiste, contattare l'amministrazione");
         }
-    }
-
-    /**
-     * @param AttachmentsGetterWrapper $wrapper
-     */
-    public function setAttachmentsGetterWrapper(AttachmentsGetterWrapper $wrapper)
-    {
-        $this->attachmentsGetterWrapper = $wrapper;
     }
 
     /**
@@ -108,26 +57,68 @@ class AttachmentsFormControllerHelper
         $this->attachmentRecords = $this->getAttachmentsGetterWrapper()->getRecords();
     }
 
-    private function assertAttachmentsGetterWrapper()
+    /**
+     * @throws NullException
+     */
+    public function chekcModuleCodeOnClassMap()
     {
-        if (!$this->getAttachmentsGetterWrapper()) {
-            throw new NullException("AttachmentsGetterWrapper is not set");
+        if (!isset($this->classMap[$this->getModuleCode()])) {
+            throw new NullException("Module code is not set on class map array list");
+        }
+    }
+
+    public function setupPropertiesGetterClassPath()
+    {
+        $this->chekcModuleCodeOnClassMap();
+
+        $classPath = $this->classMap[$this->getModuleCode()];
+
+        $this->checkClassMapClassExists($classPath);
+
+        $this->propertiesGetterClassPath = $classPath;
+    }
+
+    /**
+     * @param $classPath
+     * @throws NullException
+     */
+    private function checkClassMapClassExists($classPath)
+    {
+        if (!class_exists($classPath)) {
+            throw new NullException("Attachment properties getter is not a valid class on class map list");
         }
     }
 
     /**
-     * @return AttachmentsGetterWrapper
+     * @return \Admin\Model\Attachments\AttachmentPropertiesGetterChildAbstract
      */
-    public function getAttachmentsGetterWrapper()
+    public function getPropertiesGetterClassInstance()
     {
-        return $this->attachmentsGetterWrapper;
+        return $this->propertiesGetterClassInstance;
+    }
+
+    public function setupPropertiesGetterClassInstance()
+    {
+        $classPath = $this->getPropertiesGetterClassPath();
+
+        $this->propertiesGetterClassInstance = new $classPath();
+    }
+
+    /**
+     * Recover object property getter class name from map
+     */
+    public function recoverPropertiesGetter()
+    {
+        $moduleCode = $this->getModuleCode();
+
+        return isset($this->classMap[$moduleCode]) ? $this->classMap[$moduleCode] : null;
     }
 
     /**
      * @return mixed
      */
-    public function getAttachmentRecords()
+    public function getPropertiesGetterClassPath()
     {
-        return $this->attachmentRecords;
+        return $this->propertiesGetterClassPath;
     }
 }

@@ -238,8 +238,12 @@ abstract class TestSuite extends \PHPUnit_Framework_TestCase
                         ->method('getResult')
                         ->will($this->returnValue( array(
                             array(
-                                "id"                    => 1,
-                                "myResult"              => 'MyResult',
+                                "id"        => 1,
+                                "myResult"  => 'MyResult',
+                            ),
+                            array(
+                                'name'  => 'sitename',
+                                'value' => 'My website',
                             ),
                             array(
                                 'name' => 'project_frontend',

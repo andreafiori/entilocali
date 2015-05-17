@@ -12,9 +12,6 @@ use Application\Model\Users\CreateAccountFormInputFilter;
  */
 class UsersCreateAccountController extends SetupAbstractController
 {
-    /**
-     * Show create account form, validate form, redirect to response message
-     */
     public function indexAction()
     {
         $mainLayout = $this->initializeFrontendWebsite();
@@ -69,6 +66,6 @@ class UsersCreateAccountController extends SetupAbstractController
      */
     public function confirmAction()
     {
-        //$confirmCode = $this->params()->fromQuery('confirmcode');
+        // $confirmCode = $this->params()->fromQuery('confirmcode');
     }
 }

@@ -13,7 +13,7 @@ class AttachmentsGetter extends QueryBuilderHelperAbstract
     public function setMainQuery()
     {
         $this->setSelectQueryFields('DISTINCT(a.id) AS id, a.name, a.size, a.state, a.insertDate,
-                                      ao.title, ao.description,
+                                      ao.id AS attachmenOptionId, ao.title, ao.description, ao.expireDate,
                                       am.image, am.mimetype,
 
                                       u.name AS username, u.surname
@@ -28,7 +28,7 @@ class AttachmentsGetter extends QueryBuilderHelperAbstract
                                        Application\Entity\ZfcmsUsers u
                                 ')
                                 ->where('ao.attachment = a.id AND ar.attachment = a.id
-                                        AND a.user = u.id AND a.mime = am.id
+                                            AND a.user = u.id AND a.mime = am.id
                                         ');
 
         return $this->getQueryBuilder();

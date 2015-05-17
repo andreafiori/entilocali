@@ -7,6 +7,7 @@ use Admin\Model\Attachments\AttachmentsGetterWrapper;
 use Admin\Model\Modules\ModulesGetter;
 use Admin\Model\Modules\ModulesGetterWrapper;
 use Admin\Model\Attachments\AttachmentsFormControllerHelper;
+use Application\Model\NullException;
 use ApplicationTest\TestSuite;
 
 class AttachmentsFormControllerHelperTest extends TestSuite
@@ -14,35 +15,23 @@ class AttachmentsFormControllerHelperTest extends TestSuite
     /**
      * @var AttachmentsFormControllerHelper
      */
-    private $attachmentsFormControllerHelper;
+    private $helper;
 
     protected function setUp()
     {
         parent::setUp();
 
-        $this->attachmentsFormControllerHelper = new AttachmentsFormControllerHelper();
-    }
-
-    public function testSetModulesGetterWrapper()
-    {
-        $this->attachmentsFormControllerHelper->setModulesGetterWrapper(
-            new ModulesGetterWrapper(new ModulesGetter($this->getEntityManagerMock()))
-        );
-
-        $this->assertInstanceOf(
-            '\Admin\Model\Modules\ModulesGetterWrapper',
-            $this->attachmentsFormControllerHelper->getModulesGetterWrapper()
-        );
+        $this->helper = new AttachmentsFormControllerHelper();
     }
 
     public function testSetupModuleRecords()
     {
-        $this->attachmentsFormControllerHelper->setModulesGetterWrapper(
+        $this->helper->setModulesGetterWrapper(
             new ModulesGetterWrapper(new ModulesGetter($this->getEntityManagerMock()))
         );
-        $this->attachmentsFormControllerHelper->setupModuleRecords('albo-pretorio');
+        $this->helper->setupModuleRecords('albo-pretorio');
 
-        $this->assertTrue(is_array($this->attachmentsFormControllerHelper->getModuleRecords()));
+        $this->assertTrue(is_array($this->helper->getModuleRecords()));
     }
 
     /**
@@ -50,7 +39,7 @@ class AttachmentsFormControllerHelperTest extends TestSuite
      */
     public function testSetupModuleRecordsThrowsException()
     {
-        $this->attachmentsFormControllerHelper->setupModuleRecords('albo-pretorio');
+        $this->helper->setupModuleRecords('albo-pretorio');
     }
 
     /**
@@ -58,38 +47,34 @@ class AttachmentsFormControllerHelperTest extends TestSuite
      */
     public function testCheckModuleRecordsThrowsException()
     {
-        $this->attachmentsFormControllerHelper->checkModuleRecords();
+        $this->helper->checkModuleRecords();
     }
 
-    public function testAttachmentsGetterWrapper()
+    public function testSetupAttachmentsRecords()
     {
-        $this->attachmentsFormControllerHelper->setAttachmentsGetterWrapper(
+        $this->helper->setAttachmentsGetterWrapper(
             new AttachmentsGetterWrapper( new AttachmentsGetter($this->getEntityManagerMock()) )
         );
+        $this->helper->setupAttachmentsRecords();
 
-        $this->assertInstanceOf(
-            '\Admin\Model\Attachments\AttachmentsGetterWrapper',
-            $this->attachmentsFormControllerHelper->getAttachmentsGetterWrapper()
-        );
+        $this->assertTrue( is_array($this->helper->getAttachmentRecords()) );
     }
 
     /**
      * @expectedException \Exception
      */
-    public function testAttachmentsRecordsThrowsException()
+    public function testSetupAttachmentsRecordsThrowsException()
     {
-        $this->attachmentsFormControllerHelper->setupAttachmentsRecords();
+        $this->helper->setupAttachmentsRecords();
     }
 
-    public function testAttachmentsRecords()
+    /**
+     * @expectedException \Exception
+     */
+    public function testCheckModuleCodeThrowsException()
     {
-        $this->attachmentsFormControllerHelper->setAttachmentsGetterWrapper(
-            new AttachmentsGetterWrapper( new AttachmentsGetter($this->getEntityManagerMock()) )
-        );
-        $this->attachmentsFormControllerHelper->setupAttachmentsRecords();
+        $this->helper->setModuleCode('non-existing-module');
 
-        $this->assertTrue( is_array($this->attachmentsFormControllerHelper->getAttachmentRecords()) );
+        $this->helper->checkModuleRecords();
     }
-
-
 }

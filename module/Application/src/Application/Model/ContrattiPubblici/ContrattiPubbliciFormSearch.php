@@ -88,7 +88,6 @@ class ContrattiPubbliciFormSearch extends Form
                                     'disable_html_escape' => true,
                                 ),
                         ),
-
                         'attributes' => array(
                                 'id'    => 'search',
                                 'value' => 'Cerca',

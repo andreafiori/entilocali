@@ -48,6 +48,7 @@ class AttiConcessioneControllerHelper
         $wrapper->setInput($input);
         $wrapper->setupQueryBuilder();
         $wrapper->setupPaginator( $wrapper->setupQuery($wrapper->getObjectGetter()->getEntityManager()) );
+        $wrapper->setEntityManager($wrapper->getObjectGetter()->getEntityManager());
         $wrapper->setupPaginatorCurrentPage($page);
         $wrapper->setupPaginatorItemsPerPage($perPage);
 

@@ -6,26 +6,38 @@ use Zend\Form\Element;
 use Zend\Form\ElementInterface;
 use Zend\Form\Form;
 
-/**      
- * @author Andrea Fiori
- * @since  20 August 2014
- */
 class AttachmentsForm extends Form
 {
     public function addInputFile()
     {
-        $this->add(array(
-                        'name' => 'attachmentFile',
-                        'type' => 'Zend\Form\Element\File',
-                        'options' => array( 'label' => '* File' ),
-                        'attributes' => array(
-                                        'required'  => 'required',
-                                        'title'     => 'Inserisci file allegato',
-                                        'id'        => 'attachmentFile',
-                                        /* 'accept'    => "image/jpg,image/png,image/jpeg,image/gif" */
-                        )
-        ));
+        $this->add( $this->getInputFileArray() );
     }
+
+    public function addInputFileNotRequired()
+    {
+        $element = $this->getInputFileArray();
+
+        unset($element['attributes']['required']);
+
+        $this->add($element);
+    }
+
+        /**
+         * @return array
+         */
+        private function getInputFileArray()
+        {
+            return array(
+                'name' => 'attachmentFile',
+                'type' => 'Zend\Form\Element\File',
+                'options' => array( 'label' => '* File' ),
+                'attributes' => array(
+                    'required'  => 'required',
+                    'title'     => 'Inserisci file allegato',
+                    'id'        => 'attachmentFile',
+                )
+            );
+        }
     
     public function addSecondaryFields()
     {
@@ -55,11 +67,11 @@ class AttachmentsForm extends Form
         ));
         
         $this->add(array(
-                        'type' => 'Date',
+                        'type' => 'DateTime',
                         'name' => 'expireDate',
                         'options' => array(
                                 'label' => 'Scadenza',
-                                'format' => 'Y-m-d',
+                                'format' => 'Y-m-d H:i:s',
                         ),
                         'attributes' => array(
                                 'required'      => 'required',
@@ -95,7 +107,7 @@ class AttachmentsForm extends Form
         
         $this->add(array(
                         'type'          => 'Zend\Form\Element\Hidden',
-                        'name'          => 'attachmentId',
+                        'name'          => 'attachmenOptionId',
                         'attributes'    => array("class" => 'hiddenField')
         ));
         

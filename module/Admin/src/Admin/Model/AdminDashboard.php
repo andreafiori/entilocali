@@ -15,7 +15,7 @@ use Application\Model\RouterManagers\RouterManagerAbstract;
 use Application\Model\RouterManagers\RouterManagerInterface;
         
 /**
- * Backend Frontend home page handler
+ * Admin area home page handler
  *
  * @author Andrea Fiori
  * @since  18 May 2014

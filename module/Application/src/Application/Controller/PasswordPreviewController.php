@@ -3,6 +3,7 @@
 namespace Application\Controller;
 
 use Application\Model\PasswordPreviewForm;
+use Application\Model\SetupAbstractControllerHelper;
 use Zend\Session\Container as SessionContainer;
 use Zend\View\Model\ViewModel;
 
@@ -20,20 +21,25 @@ class PasswordPreviewController extends SetupAbstractController
 
         $session = new SessionContainer();
 
-        $model = new ViewModel();
-
         if ( !isset($configurations['preview_password_area']) or $this->checkPasswordPreviewArea($configurations, $session) or !$this->hasPasswordPreviewArea($configurations) ) {
             return $this->redirect()->toRoute('main');
         }
 
+        $request = $this->getRequest();
+
+        $helper = new SetupAbstractControllerHelper();
+        $helper->setConfigurations($configurations);
+        $helper->setRequest($request);
+        $helper->setupZf2appDir();
+        $helper->setupAppDirRelativePath();
+
         $form = new PasswordPreviewForm();
 
-        $model->setVariables(array(
+        $this->layout()->setVariables(array(
             'form'      => $form,
             'sitename'  => isset($configurations['sitename']) ? $configurations['sitename'] : null,
         ));
 
-        $request = $this->getRequest();
         if ($request->isPost()) {
             $form->setData($request->getPost());
             if ($form->isValid()) {
@@ -45,12 +51,14 @@ class PasswordPreviewController extends SetupAbstractController
 
                     return $this->redirect()->toRoute('main');
                 } else {
-                    $model->setVariable('errorMessage', 'Password errata!');
+                    $this->layout()->setVariable('errorMessage', 'Password errata!');
                 }
             }
         }
 
-        return $model;
+        $this->layout()->setVariable('publicDirRelativePath', $helper->getAppDirRelativePath().'/public');
+
+        $this->layout()->setTemplate('frontend/projects/'.$configurations['project_frontend'].'templates/'.$configurations['template_frontend'] .'preview-area/preview-area.phtml');
     }
 
     /**

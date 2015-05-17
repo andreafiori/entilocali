@@ -11,10 +11,6 @@ use Application\Controller\SetupAbstractController;
 use Application\Model\AttiConcessione\AttiConcessioneFormSearch;
 use Application\Model\NullException;
 
-/**
- * @author Andrea Fiori
- * @since  15 April 2015
- */
 class AttiConcessioneController extends SetupAbstractController
 {
     public function indexAction()
@@ -33,9 +29,9 @@ class AttiConcessioneController extends SetupAbstractController
             $helper = new AttiConcessioneControllerHelper();
             $helper->setAttiConcessioneGetterWrapper( new AttiConcessioneGetterWrapper(new AttiConcessioneGetter($em)) );
             $helper->setupYearsRecords( array(
-                'fields' => 'DISTINCT(atti.anno) AS year',
-                'orderBy' => 'atti.id DESC'
-            ),
+                    'fields' => 'DISTINCT(atti.anno) AS year',
+                    'orderBy' => 'atti.id DESC'
+                ),
                 $page,
                 null
             );
@@ -48,22 +44,21 @@ class AttiConcessioneController extends SetupAbstractController
             $helper->setUsersSettoriGetterWrapper( new UsersSettoriGetterWrapper(new UsersSettoriGetter($em)) );
             $helper->setupSettoriRecords( array('orderBy' => 'settore.nome') );
 
-            $settoriForDropDown = $helper->getUsersSettoriRecords();
-
-            $yearsForDropdown = $helper->formatYears( $helper->getYearsRecords() );
-
             $wrapperArticoli = $helper->getAttiConcessioneGetterWrapperWithPaginator();
 
-            $articoliRecords = $wrapperArticoli->setupRecords();
+            $articoliRecords = $wrapperArticoli->addAttachmentsToPaginatorRecords(
+                $wrapperArticoli->setupRecords(),
+                array()
+            );
 
             $form = new AttiConcessioneFormSearch();
-            $form->addAnno($yearsForDropdown);
+            $form->addAnno( $helper->formatYears($helper->getYearsRecords()) );
             $form->addMainElements();
-            $form->addUfficio($settoriForDropDown);
+            $form->addUfficio($helper->getUsersSettoriRecords());
             $form->addSubmitSearchButton();
 
             $this->layout()->setVariables(array(
-                'records'                       => !empty($articoliRecords) ? $articoliRecords : null,
+                'records'                       => $articoliRecords,
                 'form'                          => $form,
                 'paginator'                     => $wrapperArticoli->getPaginator(),
                 'paginator_total_item_count'    => $wrapperArticoli->getPaginator()->getTotalItemCount(),

@@ -28,7 +28,7 @@ class ContenutiController extends SetupAbstractController
                 'noscaduti'     => 1,
                 'attivo'        => 1,
                 'modulo'        => 2,
-                'sottosezione'  => $subsectionid,
+                'soNttosezione'  => $subsectionid,
             )
         );
         $wrapper->setupQueryBuilder();

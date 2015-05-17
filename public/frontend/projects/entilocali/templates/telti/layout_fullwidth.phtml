@@ -16,7 +16,7 @@
                         <div id="mainContents"></div>
                         <?php
                         if (!empty($this->templatePartial)) {
-                            echo $this->partial($this->templatePartial);
+                            echo $this->partial($this->templateDir.$this->templatePartial);
                         }
                         ?>
                     </div>
@@ -32,10 +32,9 @@
     </div>
 </div>
 
-<script src="<?php echo $this->basePath() ?>/public/common/jquery/jquery.min.js"></script>
-<script src="<?php echo $this->basePath() ?>/public/common/foundation/js/foundation.min.js"></script>
-<script src="<?php echo $this->basePath() ?>/public/common/foundation/js/foundation/foundation.topbar.js"></script>
-<script src="<?php echo $this->basePath() ?>/public/common/foundation/js/responsive-tables.js"></script>
+<script src="<?php echo $publicDirRelativePath ?>/common/foundation/js/foundation.min.js"></script>
+<script src="<?php echo $publicDirRelativePath ?>/common/foundation/js/foundation/foundation.topbar.js"></script>
+<script src="<?php echo $publicDirRelativePath ?>/common/foundation/js/responsive-tables.js"></script>
 <script>
     $(document).foundation();
 </script>

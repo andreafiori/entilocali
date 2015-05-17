@@ -26,18 +26,15 @@ class PostsGetter extends QueryBuilderHelperAbstract
         $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
                                 ->add('from', 'Application\Entity\ZfcmsPosts p,
                                                 Application\Entity\ZfcmsPostsRelations r,
-
                                                 Application\Entity\ZfcmsPostsCategories c,
-
                                                 Application\Entity\ZfcmsModules module,
-
                                                 Application\Entity\ZfcmsUsers users
                                         ')
                                 ->where('p.id = r.posts AND c.id = r.category
-                                        AND r.channel = :channel
-                                        AND c.language = :language
-                                        AND r.module = module.id
-                                        AND p.user = users.id
+                                            AND r.channel = :channel
+                                            AND c.language = :language
+                                            AND r.module = module.id
+                                            AND p.user = users.id
                                         ');
 
         return $this->getQueryBuilder();
@@ -83,6 +80,25 @@ class PostsGetter extends QueryBuilderHelperAbstract
         if (is_array($id)) {
             $this->getQueryBuilder()->andWhere('p.id IN ( :id ) ');
             $this->getQueryBuilder()->setParameter('id', $id);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param int|array $categoryId
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setCategoryId($categoryId)
+    {
+        if ( is_numeric($categoryId) ) {
+            $this->getQueryBuilder()->andWhere('c.id = :categoryId ');
+            $this->getQueryBuilder()->setParameter('categoryId', $categoryId);
+        }
+
+        if (is_array($categoryId)) {
+            $this->getQueryBuilder()->andWhere('c.id IN ( :categoryId ) ');
+            $this->getQueryBuilder()->setParameter('categoryId', $categoryId);
         }
 
         return $this->getQueryBuilder();

@@ -3,7 +3,6 @@
 namespace Admin\Model\Attachments;
 
 use Application\Model\RecordsGetterWrapperAbstract;
-use Admin\Model\Attachments\AttachmentsGetter;
 
 /**
  * @author Andrea Fiori

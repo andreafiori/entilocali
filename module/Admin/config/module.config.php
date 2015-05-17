@@ -31,7 +31,9 @@ return array(
             'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniSummary'    => 'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniSummaryController',
             'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniForm'       => 'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniFormController',
 
-            /* Amm. trasparente */
+            /* Amministrazione trasparente */
+            'Admin\Controller\AmministrazioneTrasparente\AmministrazioneTrasparenteForm' => 'Admin\Controller\AmministrazioneTrasparente\AmministrazioneTrasparenteFormController',
+            'Admin\Controller\AmministrazioneTrasparente\AmministrazioneTrasparenteSummary' => 'Admin\Controller\AmministrazioneTrasparente\AmministrazioneTrasparenteSummaryController',
 
             /* Atti concessione */
             'Admin\Controller\AttiConcessione\AttiConcessioneForm'              => 'Admin\Controller\AttiConcessione\AttiConcessioneFormController',
@@ -49,23 +51,35 @@ return array(
             'Admin\Controller\EntiTerzi\InvioEnteTerzoController'               => 'Admin\Controller\EntiTerzi\InvioEnteTerzoController',
 
             /* Blogs */
-            'Admin\Controller\Posts\BlogsCategoriesSummary'                     => 'Admin\Controller\Posts\BlogsCategoriesSummaryController',
-            'Admin\Controller\Posts\BlogsSummaryController'                     => 'Admin\Controller\Posts\BlogsSummaryController',
-            'Admin\Controller\Posts\BlogsFormController'                        => 'Admin\Controller\Posts\BlogsFormController',
+            'Admin\Controller\Blogs\BlogsCategoriesForm'             => 'Admin\Controller\Blogs\BlogsCategoriesFormController',
+            'Admin\Controller\Blogs\BlogsCategoriesSummary'          => 'Admin\Controller\Blogs\BlogsCategoriesSummaryController',
+            'Admin\Controller\Blogs\BlogsSummary'                    => 'Admin\Controller\Blogs\BlogsSummaryController',
+            'Admin\Controller\Blogs\BlogsForm'                       => 'Admin\Controller\Blogs\BlogsFormController',
 
             /* Photo */
+            'Admin\Controller\Photo\PhotoCategoriesForm'             => 'Admin\Controller\Photo\PhotosCategoriesFormController',
+            'Admin\Controller\Photo\PhotoCategoriesSummary'          => 'Admin\Controller\Photo\PhotoCategoriesSummaryController',
 
             /* Sezioni */
-            'Admin\Controller\SezioniPositionsUpdateController'                 => 'Admin\Controller\SezioniPositionsUpdateController',
-            'Admin\Controller\SottoSezioniPositionsUpdateController'            => 'Admin\Controller\SottoSezioniPositionsUpdateController',
+            'Admin\Controller\Sezioni\SezioniForm'                    => 'Admin\Controller\Sezioni\SezioniFormController',
+            'Admin\Controller\Sezioni\SezioniSummary'                 => 'Admin\Controller\Sezioni\SezioniSummaryController',
+            'Admin\Controller\Sezioni\SezioniPositionsUpdate'         => 'Admin\Controller\SezioniPositionsUpdateController',
+
+            /* Sotto-sezioni */
+            'Admin\Controller\Sezioni\SottoSezioniForm'               => 'Admin\Controller\Sezioni\SottoSezioniFormController',
+            'Admin\Controller\Sezioni\SottoSezioniSummary'            => 'Admin\Controller\Sezioni\SottoSezioniSummaryController',
+            'Admin\Controller\Sezioni\SottoSezioniPositionsUpdate'    => 'Admin\Controller\SottoSezioniPositionsUpdateController',
 
             /* Users */
             'Admin\Controller\Users\UsersSummary'                     => 'Admin\Controller\Users\UsersSummaryController',
             'Admin\Controller\Users\UsersForm'                        => 'Admin\Controller\Users\UsersFormController',
             'Admin\Controller\Users\Roles\UsersRolesForm'             => 'Admin\Controller\Users\Roles\UsersRolesFormController',
             'Admin\Controller\Users\Roles\UsersRolesSummary'          => 'Admin\Controller\Users\Roles\UsersRolesSummaryController',
-
             'Admin\Controller\Users\RespProc\UsersRespProcController' => 'Admin\Controller\Users\RespProc\UsersRespProcController',
+
+            /* Gestione home page */
+            'Admin\Controller\HomePage\HomePageBlocksPositions'       => 'Admin\Controller\HomePage\HomePageBlocksPositionsController',
+            'Admin\Controller\HomePage\HomePageManager'               => 'Admin\Controller\HomePage\HomePageManagerController',
         ),
     ),
     'router' => array(
@@ -85,6 +99,33 @@ return array(
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
+                    'homepage-blocks-positions' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route'       => 'homepage/blocks/positions[/]',
+                            'constraints' => array(
+
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\HomePage\HomePageBlocksPositions',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'homepage-blocks-positions-update' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'homepage/blocks/positions/update[/]',
+                            'constraints' => array(
+
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\HomePage\HomePageBlocksPositions',
+                                'action'     => 'update',
+                            ),
+                        ),
+                    ),
+                    /*
                     'homepage-putter' => array(
                         'type'    => 'Segment',
                         'options' => array(
@@ -99,6 +140,7 @@ return array(
                             ),
                         ),
                     ),
+                    */
                     'formdata' => array(
                         'type'    => 'Segment',
                         'options' => array(
@@ -112,6 +154,21 @@ return array(
                                                 'controller' => 'Admin\Controller\Admin',
                                                 'action'     => 'index',
                                     ),
+                        ),
+                    ),
+                    'contenuti-summary' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'contenuti/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'constraints' => array(
+                                'order_by' => '[a-zA-Z0-9_-]*',
+                                'order' => '[a-zA-Z0-9_-]*',
+                                'page'     => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Contenuti\ContenutiSummary',
+                                'action'     => 'index',
+                            ),
                         ),
                     ),
                     'contenuti-form' => array(
@@ -128,17 +185,59 @@ return array(
                             ),
                         ),
                     ),
-                    'contenuti-summary' => array(
+                    'sezioni-summary' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route' => 'contenuti/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'route' => 'sezioni/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
                             'constraints' => array(
                                 'order_by' => '[a-zA-Z0-9_-]*',
                                 'order' => '[a-zA-Z0-9_-]*',
                                 'page'     => '[0-9]+',
                             ),
                             'defaults' => array(
-                                'controller' => 'Admin\Controller\contenuti\ContenutiSummary',
+                                'controller' => 'Admin\Controller\Sezioni\SezioniSummary',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'sezioni-form' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'sezioni/form[/][:id[/]]',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Sezioni\SezioniForm',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'amministrazione-trasparente-summary' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'amministrazione-trasparente/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'constraints' => array(
+                                'order_by'  => '[a-zA-Z0-9_-]*',
+                                'order'     => '[a-zA-Z0-9_-]*',
+                                'page'      => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\AmministrazioneTrasparente\AmministrazioneTrasparenteSummary',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'amministrazione-trasparente-form' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'       => 'amministrazione-trasparente/form[/][:id[/]]',
+                            'constraints' => array(
+                                'module' => '[a-zA-Z0-9_-]*',
+                                'id'     => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\AmministrazioneTrasparente\AmministrazioneTrasparenteForm',
                                 'action'     => 'index',
                             ),
                         ),
@@ -449,7 +548,7 @@ return array(
                             ),
                         ),
                     ),
-                    'posts-categories-summary' => array(
+                    'blogs-categories-summary' => array(
                         'type'    => 'Segment',
                         'options' => array(
                             'route'       => 'posts/categories/summary/:moduleCode[/][:categoryId[/]][page/:page[/]][/order_by/:order_by][/:order[/]]',
@@ -461,7 +560,7 @@ return array(
                                 'order'       => 'ASC|DESC',
                             ),
                             'defaults' => array(
-                                'controller' => 'Admin\Controller\Posts\BlogsCategoriesSummary',
+                                'controller' => 'Admin\Controller\Blogs\BlogsCategoriesSummary',
                                 'action'     => 'index',
                             ),
                         ),
@@ -477,13 +576,13 @@ return array(
                                 'order'       => 'ASC|DESC',
                             ),
                             'defaults' => array(
-                                'controller' => 'Admin\Controller\Posts\BlogsSummaryController',
+                                'controller' => 'Admin\Controller\Blogs\BlogsSummary',
                                 'action'     => 'index',
                             ),
                         ),
                     ),
                     'posts-form' => array(
-                        'type'    => 'Segment',
+                        'type' => 'Segment',
                         'options' => array(
                             'route'       => 'posts/form/:formtype[/][:id[/]]',
                             'constraints' => array(
@@ -491,13 +590,13 @@ return array(
                                 'id'        => '[0-9]+',
                             ),
                             'defaults' => array(
-                                'controller' => 'Admin\Controller\Posts\BlogsFormController',
+                                'controller' => 'Admin\Controller\Blogs\BlogsForm',
                                 'action'     => 'index',
                             ),
                         ),
                     ),
                     'datatable' => array(
-                                    'type'    => 'Segment',
+                                    'type' => 'Segment',
                                     'options' => array(
                                                 'route'       => 'datatable[/][:tablesetter[/]][page/:page[/]][/order_by/:order_by][/:order[/]]',
                                                 'constraints' => array(
@@ -555,7 +654,7 @@ return array(
                         ),
                     ),
                     'migrazione' => array(
-                        'type'    => 'Segment',
+                        'type' => 'Segment',
                         'options' => array(
                             'route'       => 'migrazione/tool[/]',
                             'constraints' => array(
@@ -612,7 +711,7 @@ return array(
                             'route'       => 'posizioni/sezioni/update[/]',
                             'constraints' => array(),
                             'defaults' => array(
-                                'controller' => 'Admin\Controller\SezioniPositionsUpdateController',
+                                'controller' => 'Admin\Controller\Sezioni\SezioniPositionsUpdate',
                                 'action'     => 'index',
                             ),
                         ),
@@ -637,7 +736,7 @@ return array(
                             'route'       => 'posizioni/sottosezioni/update[/]',
                             'constraints' => array(),
                             'defaults' => array(
-                                'controller' => 'Admin\Controller\SottoSezioniPositionsUpdateController',
+                                'controller' => 'Admin\Controller\SottoSezioniPositionsUpdate',
                                 'action'     => 'index',
                             ),
                         ),
@@ -795,6 +894,10 @@ return array(
             'admin/contenuti-summary/index'                 => __DIR__ . '/../view/admin/empty.phtml',
             'admin/contenuti-form/index'                    => __DIR__ . '/../view/admin/empty.phtml',
 
+            /* Amministrazione trasparente */
+            'admin/amministrazione-trasparente-summary/index' => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/amministrazione-trasparente-form/index'    => __DIR__ . '/../view/admin/empty.phtml',
+
             /* Albo pretorio */
             'admin/albo-pretorio-summary/index'             => __DIR__ . '/../view/admin/empty.phtml',
             'admin/albo-pretorio-form/index'                => __DIR__ . '/../view/admin/empty.phtml',
@@ -843,11 +946,15 @@ return array(
             'admin/users-roles-form/index'                  => __DIR__ . '/../view/admin/empty.phtml',
             'admin/users-roles-summary/index'               => __DIR__ . '/../view/admin/empty.phtml',
 
+            'admin/home-page-blocks-positions/index'        => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/home-page-blocks-positions/update'       => __DIR__ . '/../view/admin/empty.phtml',
+
             'admin/'                                        => __DIR__ . '/../view/admin/empty.phtml',
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view/',
             __DIR__ . '../../public',
+            __DIR__ . '../../../public',
         ),
     ),
     /* Backend Router Class Map */
@@ -867,17 +974,12 @@ return array(
     ),
     /* FormData Class Map */
     'formdata_classmap' => array(
-        'amministrazione-trasparente'           => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFormDataHandler',
         'configurations'                        => 'Admin\Model\Config\ConfigFormDataHandler',
-
         'sezioni-contenuti'                     => 'Admin\Model\Sezioni\SezioniFormDataHandler',
-
         'sottosezioni-contenuti'                => 'Admin\Model\Sezioni\SottoSezioniFormDataHandler',
         'sottosezioni-amm-trasparente'          => 'Admin\Model\Sezioni\SottoSezioniFormDataHandler',
-
         'contratti-pubblici-scelta-contraente'  => 'Admin\Model\ContrattiPubblici\SceltaContraente\SceltaContraenteFormDataHandler',
         'contratti-pubblici-operatori'          => 'Admin\Model\ContrattiPubblici\Operatori\OperatoriFormDataHandler',
-
         'tickets'                               => 'Admin\Model\Tickets\TicketsFormDataHandler',
         'users-settori'                         => 'Admin\Model\Users\Settori\UsersSettoriFormDataHandler',
     ),
@@ -913,24 +1015,15 @@ return array(
     ),
     /* DataTables Class Map */
     'datatables_classmap' => array(
-        'tickets'                               => 'Admin\Model\Tickets\TicketsDataTable',
-        'contacts'                              => 'Admin\Model\Contacts\ContactsDataTable',
-        'faq'                                   => 'Admin\Model\Faq\FaqDataTable',
-        'newsletter'                            => 'Admin\Model\Newsletter\NewsletterDataTable',
-        'logs'                                  => 'Admin\Model\Logs\LogsDataTable',
-
-        'sezioni-contenuti'                     => 'Admin\Model\Sezioni\SezioniDataTable',
-        'sottosezioni-contenuti'                => 'Admin\Model\Sezioni\SottosezioniContenutiDataTable',
-        'sottosezioni-amm-trasparente'          => 'Admin\Model\Sezioni\SottosezioniAmmTrasparenteDataTable',
-
-        'amministrazione-trasparente'           => 'Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteDataTable',
-
-        'atti-ufficiali'                        => 'Admin\Model\AlboPretorio\AttiUfficialiDataTable',
-
-        'contratti-pubblici-scelta-contraente'  => 'Admin\Model\ContrattiPubblici\SceltaContraente\SceltaContraenteDataTable',
-        'contratti-pubblici-operatori'          => 'Admin\Model\ContrattiPubblici\Operatori\OperatoriDataTable',
-
-        'users-settori'                         => 'Admin\Model\Users\Settori\UsersSettoriDataTable',
-        'users-resp-procedimento'               => 'Admin\Model\Users\Roles\UsersRespProcDataTable',
+        'tickets'                                       => 'Admin\Model\Tickets\TicketsDataTable',
+        'contacts'                                      => 'Admin\Model\Contacts\ContactsDataTable',
+        'logs'                                          => 'Admin\Model\Logs\LogsDataTable',
+        'sezioni-contenuti'                             => 'Admin\Model\Sezioni\SezioniDataTable',
+        'sottosezioni-contenuti'                        => 'Admin\Model\Sezioni\SottosezioniContenutiDataTable',
+        'sottosezioni-amm-trasparente'                  => 'Admin\Model\Sezioni\SottosezioniAmmTrasparenteDataTable',
+        'atti-ufficiali'                                => 'Admin\Model\AlboPretorio\AttiUfficialiDataTable',
+        'contratti-pubblici-scelta-contraente'          => 'Admin\Model\ContrattiPubblici\SceltaContraente\SceltaContraenteDataTable',
+        'contratti-pubblici-operatori'                  => 'Admin\Model\ContrattiPubblici\Operatori\OperatoriDataTable',
+        'users-settori'                                 => 'Admin\Model\Users\Settori\UsersSettoriDataTable',
     ),
 );

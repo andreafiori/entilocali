@@ -21,7 +21,7 @@ class AttachmentsFormInputFilter implements InputFilterAwareInterface
     public $s3_directory;
     public $moduleId;
     public $userId;
-    public $attachmentId;
+    public $attachmenOptionId;
     public $referenceId;
     
     protected $inputFilter;
@@ -38,7 +38,7 @@ class AttachmentsFormInputFilter implements InputFilterAwareInterface
         $this->s3_directory    = (isset($data['s3_directory']))     ? $data['s3_directory']     : null;
         $this->moduleId        = (isset($data['moduleId']))         ? $data['moduleId']         : null;
         $this->userId          = (isset($data['userId']))           ? $data['userId']           : null;
-        $this->attachmentId    = (isset($data['attachmentId']))     ? $data['attachmentId']     : null;
+        $this->attachmenOptionId = (isset($data['attachmenOptionId']))     ? $data['attachmenOptionId']     : null;
         $this->referenceId     = (isset($data['referenceId']))      ? $data['referenceId']      : null;
     }
 
@@ -77,28 +77,6 @@ class AttachmentsFormInputFilter implements InputFilterAwareInterface
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
                 ),
-                /*
-                'validators' => array(
-                    array (
-                        'name' => 'Zend\Validator\File\Size',
-                        'options' => array(
-                            'max' => '10',
-                        ),
-                    ),
-                    array (
-                        'name' => 'Zend\Validator\File\ExcludeExtension',
-                        'options' => array(
-                            'jpg,jpeg,gif,png,rar,pdf,pdfa,zip,doc,docx,rtf,xls,xlsx,csv,txt',
-                        ),
-                    ),
-                    array (
-                        'name' => 'Zend\Validator\File\MimeType',
-                        'options' => array(
-                            'image',
-                        ),
-                    ),
-                ),
-                */
             ]));
 
             $inputFilter->add(
@@ -179,6 +157,14 @@ class AttachmentsFormInputFilter implements InputFilterAwareInterface
 
             $inputFilter->add(array(
                 'name'     => 'moduleId',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'Int'),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'attachmenOptionId',
                 'required' => true,
                 'filters'  => array(
                     array('name' => 'Int'),

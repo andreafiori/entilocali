@@ -17,6 +17,7 @@ class BlogsController extends SetupAbstractController
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
         $page       = $this->params()->fromRoute('page');
+
         $category   = $this->params()->fromRoute('category');
 
         $formSearch = new PostsFormSearch();
@@ -37,10 +38,14 @@ class BlogsController extends SetupAbstractController
         $wrapper->setupPaginator( $wrapper->setupQuery($em) );
         $wrapper->setupPaginatorCurrentPage($page);
         $wrapper->setupPaginatorItemsPerPage(null);
+        $wrapper->setEntityManager($em);
+
+        $records = $wrapper->addAttachmentsToPaginatorRecords($wrapper->setupRecords(), array());
 
         $paginator = $wrapper->getPaginator();
 
         $this->layout()->setVariables(array(
+                'records'           => $records,
                 'paginator'         => $paginator,
                 'item_count'        => $paginator->getTotalItemCount(),
                 'category'          => $category,
@@ -59,9 +64,9 @@ class BlogsController extends SetupAbstractController
 
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-        $category   = $this->params()->fromRoute('category');
+        $category = $this->params()->fromRoute('category');
 
-        $title       = $this->params()->fromRoute('title');
+        $title = $this->params()->fromRoute('title');
 
         $wrapper = new PostsGetterWrapper( new PostsGetter($em) );
         $wrapper->setInput(array(
@@ -71,6 +76,7 @@ class BlogsController extends SetupAbstractController
             'limit'             => 1,
         ));
         $wrapper->setupQueryBuilder();
+
         $records = $wrapper->getRecords();
 
         if (!empty($records)) {

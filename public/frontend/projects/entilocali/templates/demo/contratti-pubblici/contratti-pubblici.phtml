@@ -1,3 +1,13 @@
+<?php
+/* Share and export icons */
+$shareIconsView = $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml', array(
+    'twitterShareText'          => $this->sitename.' - Bandi e contratti pubblici',
+    'exportTxtUrl'              => '',
+    'exportCsvUrl'              => '',
+    'exportPdfUrl'              => '',
+    'publicDirRelativePath'     => $this->publicDirRelativePath,
+));
+?>
 <ul class="breadcrumbs">
     <li><a href="<?php echo $this->basepath() ?>" title="Torna all'home page">Home</a></li>
     <li class="current">Bandi di gara e contratti</li>
@@ -11,62 +21,83 @@
 <p><?php echo $this->paginator_total_item_count ?> bandi in archivio</p>
 
 <fieldset>
-        <legend>Ricerca</legend>
+        <legend>Ricerca atti di concessione</legend>
     <?php
 
     $form = $this->form;
+
     $form->prepare();
 
-    $form->setAttribute('action', $this->basepath());
+    $form->setAttribute('action', $this->url('contratti-pubblici'));
     $form->setAttribute('method', 'post');
     $form->setAttribute('role', 'form');
+    $form->setAttribute('id',   'contrattiPubbliciSearchForm');
+
+    $form->get('search')->setAttribute('class', 'button button-tiny tiny');
+    $form->get('importo')->setLabel('Importo');
+    $form->get('cig')->setLabel('<abbr title="Codice identificativo gara">CIG</abbr>');
 
     $formLabel = $this->plugin('formLabel');
 
     echo $this->form()->openTag($this->form);
 
-    foreach ($this->form as $element):
-        $attributes = $element->getAttributes();
-        echo $this->formElementErrors($element);
-        if ($attributes['name'] == 'csrf'):
-            echo $this->formElement($element);
-        elseif ($attributes['type'] == 'submit'):
-        ?>
-        <div class="large-12 small-12 columns">
-            <div class="large-4 small-12 columns">
-                <label for="<?php echo $attributes['id'] ?>">&nbsp;</label>
-            </div>
-            <div class="large-8 small-12 columns">
-                <?php
-                $element->setAttribute('class', 'button small');
-                echo $this->formElement($element);
-                ?>
-            </div>
-        </div>
-        <?php else: ?>
-        <div class="large-12 small-12 columns">
-            <div class="large-4 small-12 columns">
-                <label for="<?php echo $attributes['id'] ?>"><?php echo $element->getLabel() ?>:</label>
-            </div>
-            <div class="large-8 small-12 columns">
-                <?php echo $this->formElement($element); ?>
-            </div>
-        </div>
-        <?php
-        endif;
-    endforeach;
-
-    echo $this->form()->closeTag();
-    
     ?>
+
+    <div class="row">
+        <div class="large-2 columns">
+            <label for="<?php echo $form->get('anno')->getAttribute('id'); ?>">
+                <?php echo $form->get('anno')->getLabel() ?>:
+            </label>
+        </div>
+        <div class="large-2 columns">
+            <?php echo $this->formElement($form->get('anno')); ?>
+        </div>
+
+        <div class="large-2 columns">
+            <label for="<?php echo $form->get('cig')->getAttribute('id'); ?>">
+                <?php echo $form->get('cig')->getLabel() ?>:
+            </label>
+        </div>
+        <div class="large-2 columns">
+            <?php echo $this->formElement($form->get('cig')); ?>
+        </div>
+
+        <div class="large-2 columns">
+            <label for="<?php echo $form->get('importo')->getAttribute('id'); ?>">
+                <?php echo $form->get('importo')->getLabel() ?>:
+            </label>
+        </div>
+        <div class="large-2 columns">
+            <?php echo $this->formElement($form->get('importo')); ?>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-3 columns">
+            <label for="<?php echo $form->get('ufficio')->getAttribute('id'); ?>">
+                <?php echo $form->get('ufficio')->getLabel() ?>:
+            </label>
+        </div>
+        <div class="large-9 columns">
+            <?php echo $this->formElement($form->get('ufficio')); ?>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-2 columns">
+            <label for="<?php echo $form->get('search')->getAttribute('id'); ?>">
+                <?php echo $form->get('search')->getLabel() ?>:
+            </label>
+        </div>
+        <div class="large-10 columns">
+            <?php echo $this->formElement($form->get('search')); ?>
+        </div>
+    </div>
+
+    <?php echo $this->form()->closeTag(); ?>
 </fieldset>
 
-<?php
-// sharing
-echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
-    'twitterShareText' => $this->sitename.' - Bandi e contratti pubblici',
-));
-?>
+<?php echo $shareIconsView; ?>
 
 <div>
     <table class="responsive" role="grid">
@@ -84,7 +115,7 @@ echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_fr
             </tr>
         </thead>
         <tbody>
-            <?php foreach($this->paginator as $key => $row): ?>
+            <?php foreach($this->records as $key => $row): ?>
             <tr>
                 <td>
                     <strong>Oggetto del bando:</strong> <?php echo utf8_encode($row['titolo']) ?><br><br>
@@ -103,10 +134,10 @@ echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_fr
                     <strong>CF-PI:</strong> <br><br>
                     <strong>Nome e Ragione sociale:</strong>
                 </td>
-                <!-- TODO: Aggiudicatario -->
+                <!-- TODO: List Aggiudicatario -->
                 <td>
                     <strong>CF-PI:</strong> <br><br>
-                    <strong>Nome e Ragione sociale:</strong>
+                    <strong>Nome e ragione sociale:</strong>
                 </td>
                 <td>
                     <strong>Importo di aggiudicazione:</strong> <?php echo utf8_encode($row['importoAggiudicazione']) ?> &euro;<br><br>
@@ -116,32 +147,36 @@ echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_fr
                     <strong>Inizio lavori:</strong> <?php $temp2 = explode("-", $row['dataInizioLavori']); echo $temp2[2]."-".$temp2[1]."-".$temp2[0]; ?><br><br>
                     <strong>Fine lavori:</strong> <?php echo $row['dataFineLavori'] ?>
                 </td>
-                <td>&nbsp;</td>
+                <td>
+                    <?php if (!empty($row['attachments'])): ?>
+
+                    <?php else: ?>
+                        &nbsp;
+                    <?php endif; ?>
+                </td>
             </tr>
             <tr>
-                <td colspan="8"><hr></td>
+                <td colspan="8">
+                    <hr>
+                </td>
             </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
 </div>
 <?php
-    // pagination
+
     if (count($this->paginator) > 1):
         echo $this->paginationControl(
             $this->paginator,
             'sliding',
             'application/pagination/foundation.phtml',
-            array(
-                'route' => 'contratti-pubblici'
-            )
+            array('route' => 'contratti-pubblici')
         );
     endif;
 
-    // sharing
-    echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
-        'twitterShareText' => $this->sitename.' - Bandi e contratti pubblici',
-    ));
+    echo $shareIconsView;
+
 else:
     ?>
     <div>

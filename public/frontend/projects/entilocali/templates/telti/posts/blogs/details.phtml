@@ -1,0 +1,37 @@
+<ul class="breadcrumbs">
+    <li><a href="<?php echo $this->basepath() ?>/" title="Torna alla home page">Home</a> <span class="divider"></span></li>
+
+    <li><a href="<?php echo $this->url('posts-blogs-categories', array('category' => $this->categorySlug)) ?>" title="Vai a <?php echo $this->categoryName; ?>"><?php echo $this->categoryName; ?></a></li>
+
+    <li class="current"><?php echo $this->title ?></li>
+</ul>
+
+<?php if (!empty($this->record)): ?>
+
+    <h3><?php echo $this->record['title'] ?></h3>
+
+    <?php if (!empty($this->record['subtitle'])): ?>
+        <div>
+            <h4><?php echo $this->record['subtitle'] ?></h4>
+        </div>
+    <?php endif; ?>
+
+    <?php echo $this->record['description'] ?>
+
+    <?php
+
+    echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml', array(
+        'twitterShareText' => urlencode($this->record['title']),
+    ));
+
+    ?>
+
+
+<?php else: ?>
+
+    <div alert-box danger>
+        <h3>Nessun post trovato</h3>
+        <p>Si &egrave; verificao un errore di selezione dati</p>
+    </div>
+
+<?php endif; ?>

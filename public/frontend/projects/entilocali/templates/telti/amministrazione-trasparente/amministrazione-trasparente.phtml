@@ -1,3 +1,10 @@
+<?php
+/* Share and export icons */
+$shareExportIcons = $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
+    'twitterShareText' => urlencode( utf8_encode($this->contenuti[0]['titolo']) ),
+    'publicDirRelativePath' => $this->publicDirRelativePath,
+));
+?>
 <ul class="breadcrumbs">
     <li><a href="<?php echo $this->basepath() ?>" title="Torna all'home page">Home</a></li>
     <li><a href="<?php echo $this->url('amministrazione-trasparente', array('profondita' => 200)) ?>" title="Vai all'indice di amministrazione trasparente">Amministrazione trasparente</a></li>
@@ -57,7 +64,7 @@
             <?php echo $formLabel->openTag(array('for' => 'subsection')) . $name->getOption('label').$formLabel->closeTag(); ?>
         </div>
 
-        <?php $name = $form->get('search'); $name->setAttribute('class','button tiny info'); ?>
+        <?php $name = $form->get('search'); $name->setAttribute('class','button tiny primary'); ?>
         <?php echo $this->formElementErrors($name); ?>
         <div class="small-2 columns">
             <?php echo $this->formInput($name)?>
@@ -67,8 +74,6 @@
         </div>
     </div>
 
-
-<!-- Articolo amm trasp -->
 <?php
 
 foreach($this->contenuti as $contenuto):
@@ -80,12 +85,7 @@ foreach($this->contenuti as $contenuto):
     <div><?php echo utf8_encode($contenuto['testo']) ?></div>
 
     <br>
-    <?php
-    // Sharing
-    echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
-        'twitterShareText' => utf8_encode($contenuto['titolo']),
-    ));
-    ?>
+    <?php echo $shareExportIcons ?>
 
 <?php
 endforeach;
@@ -118,4 +118,3 @@ if ($this->sottoSezioni):
     </ul>
     <?php
 endif;
-

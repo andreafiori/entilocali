@@ -16,7 +16,6 @@ class ContenutiSummaryController extends SetupAbstractController
         $em             = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
         $configurations = $this->layout()->getVariable('configurations');
         $userDetails    = $this->layout()->getVariable('userDetails');
-        $templateDir    = $this->layout()->getVariable('templateDir');
 
         $wrapper = new ContenutiGetterWrapper( new ContenutiGetter($em) );
         $wrapper->setInput(array(
@@ -42,7 +41,7 @@ class ContenutiSummaryController extends SetupAbstractController
             'paginator'             => $paginator,
             'total_item_count'      => $paginatorRecordsCount,
             'records'               => $paginatorRecords,
-            'templatePartial'       => $templateDir.self::summaryTemplate,
+            'templatePartial'       => self::summaryTemplate,
             'columns' => array(
                 "Titolo",
                 "Sezione",
@@ -86,7 +85,12 @@ class ContenutiSummaryController extends SetupAbstractController
                     ),
                     array(
                         'type'      => 'updateButton',
-                        'href'      => 'formdata/contenuti/'.$row['id'],
+                        'href'      => $this->url()->fromRoute('admin/contenuti-form', array(
+                                'lang'      => 'it',
+                                'module'    => 'contenuti',
+                                'id'        => $row['id']
+                            )
+                        ),
                         'title'     => 'Modifica contenuto'
                     ),
                     array(
@@ -108,7 +112,7 @@ class ContenutiSummaryController extends SetupAbstractController
                     ),
                     array(
                         'type'      => 'attachButton',
-                        'href'      =>$this->url()->fromRoute('admin/attachments-form', array(
+                        'href'      => $this->url()->fromRoute('admin/attachments-form', array(
                                 'lang'      => 'it',
                                 'module'    => 'contenuti',
                                 'id'        => $row['id']

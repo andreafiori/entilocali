@@ -2,22 +2,24 @@
 return array(
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index'                              => 'Application\Controller\IndexController',
-            'Application\Controller\DocumentExport'                     => 'Application\Controller\DocumentExportController',
-            'Application\Controller\AttachmentsSThreeDownloader'        => 'Application\Controller\AttachmentsSThreeDownloaderController',
-            'Application\Controller\PasswordPreview'                    => 'Application\Controller\PasswordPreviewController',
-            'Application\Controller\Faq\Faq'                            => 'Application\Controller\Faq\FaqController',
-            'Application\Controller\AlboPretorio\AlboPretorio'          => 'Application\Controller\AlboPretorio\AlboPretorioController',
-            'Application\Controller\AttiConcessione\AttiConcessione'    => 'Application\Controller\AttiConcessione\AttiConcessioneController',
-            'Application\Controller\Contenuti\Contenuti'                => 'Application\Controller\Contenuti\ContenutiController',
-            'Application\Controller\AmministrazioneTrasparente\AmministrazioneTrasparente' => 'Application\Controller\AmministrazioneTrasparente\AmministrazioneTrasparenteController',
-            'Application\Controller\ContrattiPubblici\ContrattiPubblici' => 'Application\Controller\ContrattiPubblici\ContrattiPubbliciController',
-            'Application\Controller\StatoCivile\StatoCivile'            => 'Application\Controller\StatoCivile\StatoCivileController',
-            'Application\Controller\CssStyleSwitch'                     => 'Application\Controller\CssStyleSwitchController',
-            'Application\Controller\Users\UsersCreateAccount'           => 'Application\Controller\Users\UsersCreateAccountController',
-            'Application\Controller\Users\UsersRecoverPassword'         => 'Application\Controller\Users\UsersRecoverPasswordController',
-            'Application\Controller\StatoCivile\StatoCivileExport'      => 'Application\Controller\StatoCivile\StatoCivileExportController',
-            'Application\Controller\Posts\Blogs'                        => 'Application\Controller\Posts\BlogsController',
+            'Application\Controller\Index'                                                  => 'Application\Controller\IndexController',
+            'Application\Controller\DocumentExport'                                         => 'Application\Controller\DocumentExportController',
+            'Application\Controller\AttachmentsSThreeDownloader'                            => 'Application\Controller\AttachmentsSThreeDownloaderController',
+            'Application\Controller\PasswordPreview'                                        => 'Application\Controller\PasswordPreviewController',
+            'Application\Controller\Faq\Faq'                                                => 'Application\Controller\Faq\FaqController',
+            'Application\Controller\AlboPretorio\AlboPretorio'                              => 'Application\Controller\AlboPretorio\AlboPretorioController',
+            'Application\Controller\AttiConcessione\AttiConcessione'                        => 'Application\Controller\AttiConcessione\AttiConcessioneController',
+            'Application\Controller\Contenuti\Contenuti'                                    => 'Application\Controller\Contenuti\ContenutiController',
+            'Application\Controller\AmministrazioneTrasparente\AmministrazioneTrasparente'  => 'Application\Controller\AmministrazioneTrasparente\AmministrazioneTrasparenteController',
+            'Application\Controller\ContrattiPubblici\ContrattiPubblici'                    => 'Application\Controller\ContrattiPubblici\ContrattiPubbliciController',
+            'Application\Controller\StatoCivile\StatoCivile'                                => 'Application\Controller\StatoCivile\StatoCivileController',
+            'Application\Controller\CssStyleSwitch'                                         => 'Application\Controller\CssStyleSwitchController',
+            'Application\Controller\Users\UsersCreateAccount'                               => 'Application\Controller\Users\UsersCreateAccountController',
+            'Application\Controller\Users\UsersRecoverPassword'                             => 'Application\Controller\Users\UsersRecoverPasswordController',
+            'Application\Controller\StatoCivile\StatoCivileExport'                          => 'Application\Controller\StatoCivile\StatoCivileExportController',
+            'Application\Controller\Posts\Blogs'                                            => 'Application\Controller\Posts\BlogsController',
+            'Application\Controller\Posts\Photo'                                            => 'Application\Controller\Posts\PhotoController',
+            'Application\Controller\CookieWarning'                                          => 'Application\Controller\CookieWarningController',
         ),
     ),
     'router' => array(
@@ -72,7 +74,7 @@ return array(
                                         'options' => array(
                                             'route' => '/blogs/:category[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
                                             'constraints' => array(
-                                                'category'  => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                'category'    => '[a-zA-Z][a-zA-Z0-9_-]*',
                                                 'page'        => '[0-9]+',
                                                 'order_by'    => '[a-zA-Z][a-zA-Z0-9_-]*',
                                                 'order'       => 'ASC|DESC',
@@ -95,6 +97,37 @@ return array(
                                             'defaults' => array(
                                                 'controller' => 'Application\Controller\Posts\Blogs',
                                                 'action'     => 'details',
+                                            ),
+                                        ),
+                                        'may_terminate' => true,
+                                    ),
+                                    'posts-photo-gallery' => array(
+                                        'type' => 'segment',
+                                        'options' => array(
+                                            'route' => '/photo/gallery[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                                            'constraints' => array(
+                                                'page'        => '[0-9]+',
+                                                'order_by'    => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                'order'       => 'ASC|DESC',
+                                            ),
+                                            'defaults' => array(
+                                                'controller' => 'Application\Controller\Posts\Photo',
+                                                'action'     => 'index',
+                                            ),
+                                        ),
+                                        'may_terminate' => true,
+                                    ),
+                                    'posts-photo-gallery-details' => array(
+                                        'type' => 'segment',
+                                        'options' => array(
+                                            'route' => '/photo/gallery/:category/:title[/]',
+                                            'constraints' => array(
+                                                'category'  => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                'title'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                            ),
+                                            'defaults' => array(
+                                                'controller' => 'Application\Controller\Posts\Photo',
+                                                'action'     => 'index',
                                             ),
                                         ),
                                         'may_terminate' => true,
@@ -486,6 +519,50 @@ return array(
                                                         ),
                                         ),
                                     ),
+                                    'cookie-warning-confirm' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                            'route'    => '/cookie/warning/confirm[/]',
+                                            'constraints' => array(
+
+                                            ),
+                                            'defaults' => array(
+                                                'controller' => 'Application\Controller\CookieWarning',
+                                                'action'    => 'confirm',
+                                            ),
+                                        ),
+                                        'may_terminate' => true,
+                                        'child_routes' => array(
+                                            'default' => array(
+                                                'type'    => 'Wildcard',
+                                                'options' => array(
+
+                                                ),
+                                            ),
+                                        ),
+                                    ),
+                                    'cookie-warning-deny' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                            'route'    => '/cookie/warning/deny[/]',
+                                            'constraints' => array(
+
+                                            ),
+                                            'defaults' => array(
+                                                'controller' => 'Application\Controller\CookieWarning',
+                                                'action'    => 'deny',
+                                            ),
+                                        ),
+                                        'may_terminate' => true,
+                                        'child_routes' => array(
+                                            'default' => array(
+                                                'type'    => 'Wildcard',
+                                                'options' => array(
+
+                                                ),
+                                            ),
+                                        ),
+                                    ),
                     ),
     ),
     'service_manager' => array(
@@ -531,17 +608,21 @@ return array(
                         'application/atti-concessione/index'            => __DIR__ . '/../view/empty.phtml',
                         'application/contenuti/index'                   => __DIR__ . '/../view/empty.phtml',
                         'application/blogs/index'                       => __DIR__ . '/../view/empty.phtml',
+                        'application/photo/index'                       => __DIR__ . '/../view/empty.phtml',
                         'application/blogs/details'                     => __DIR__ . '/../view/empty.phtml',
                         'application/css-style-switch/index'            => __DIR__ . '/../view/empty.phtml',
                         'application/users-create-account/index'        => __DIR__ . '/../view/empty.phtml',
                         'application/users-recover-password/index'      => __DIR__ . '/../view/empty.phtml',
+                        'application/cookie-warning/confirm'            => __DIR__ . '/../view/empty.phtml',
+                        'application/password-preview/index'            => __DIR__ . '/../view/empty.phtml',
                         'error/404'                                     => __DIR__ . '/../view/error/404.phtml',
                         'error/index'                                   => __DIR__ . '/../view/error/index.phtml',
                         'error/dbconnection'                            => __DIR__ . '/../view/error/dbconnection.phtml',
                     ),
                     'template_path_stack' => array(
                                     __DIR__ . '/../view',
-                                    __DIR__ . '/../../../public'
+                                    __DIR__ . '/../../../public',
+                                    __DIR__ . '/../../../../public'
                     ),
                     'strategies' => array(
                         'ViewJsonStrategy',

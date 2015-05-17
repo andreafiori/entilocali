@@ -7,11 +7,11 @@
     <div class="large-12 columns">
         
         <ul class="inline-list right">
-            <li><a href="#mainContents" accesskey="x" class="button small">Vai ai contenuti</a></li>
+            <li><a href="#mainContents" accesskey="x" class="button small" title="Salta ai contenuti">Vai ai contenuti</a></li>
         </ul>
         
         <h1>
-            <a href="<?php echo $this->basepath() ?>/" title="<?php echo $this->sitename ?>">
+            <a href="<?php echo $this->basepath() ?>/" title="Torna alla home page di <?php echo $this->sitename ?>">
                 <?php echo $this->sitename ?>
             </a>
         </h1>
@@ -25,32 +25,42 @@
     <nav class="top-bar" data-topbar role="navigation">
         <ul class="title-area">
             <li class="name">
-                <h1><a href="<?php echo $this->basepath() ?>/" title="Torna all'home page" accesskey="h">Home</a></h1>
+                <h2><a href="<?php echo $this->basepath() ?>/" title="Torna all'home page" accesskey="h">Home</a></h2>
             </li>
+
+            <?php if (!$this->cssName or $this->cssName == 'default'): ?>
+                <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+            <?php endif; ?>
         </ul>
 
         <section class="top-bar-section">
+
             <h2 class="hidden">Men&ugrave; navigazione</h2>
+
             <ul class="left">
+                <?php if (!$this->cssName or $this->cssName == 'default'): ?>
                 <li class="divider"></li>
+                <?php endif; ?>
 
                 <li><a href="<?php echo $this->url('albo-pretorio') ?>" title="Consultazione elenco atti albo pretorio">Albo pretorio</a></li>
-
-                <li class="divider"></li>
+                <?php if (!$this->cssName or $this->cssName == 'default'): ?>
+                    <li class="divider"></li>
+                <?php endif; ?>
                 <li><a href="<?php echo $this->url('stato-civile') ?>" title="Pubblicazioni stato civile">Stato civile</a></li>
-                <li class="divider"></li>
+                <?php if (!$this->cssName or $this->cssName == 'default'): ?>
+                    <li class="divider"></li>
+                <?php endif; ?>
                 <li><a href="<?php echo $this->url('contratti-pubblici') ?>" title="Elenco bandi di gara e contratti">Bandi e contratti</a></li>
-                <li class="divider"></li>
+                <?php if (!$this->cssName or $this->cssName == 'default'): ?>
+                    <li class="divider"></li>
+                <?php endif; ?>
                 <li><a href="<?php echo $this->url('atti-concessione') ?>" title="Elenco atti di concessione">Atti di concessione</a></li>
-                <li class="divider"></li>
+                <?php if (!$this->cssName or $this->cssName == 'default'): ?>
+                    <li class="divider"></li>
+                <?php endif; ?>
                 <li><a href="<?php echo $this->url('amministrazione-trasparente') ?>" title="Articoli amministrazione trasparente">Amministrazione trasparente</a></li>
-                <li class="divider"></li>
-                <!--
-                <li><a href="<?php echo $this->url('main', array('category' => 'comune-azienda', 'title' => 'dove-siamo')) ?>" title="Dove siamo">Dove siamo</a></li>
-                <li class="divider"></li>
-                -->
             </ul>
-            
+
             <ul class="right">
 
                 <!--
@@ -66,7 +76,7 @@
                 </li>
                 -->
 
-                <li><a href="#" title="Registrati come nuovo utente">Registrati</a></li>
+                <li><a href="<?php echo $this->url('registrazione', array()); ?>" title="Registrati come nuovo utente">Registrati</a></li>
 
                 <li class="has-dropdown">
                     <a href="#" title="Altri moduli">Altri moduli</a>
@@ -78,14 +88,13 @@
                         <li><a href="#" title="Booking">Booking</a></li>
                         <li><a href="#" title="E-commerce">E-commerce</a></li>
                         <li><a href="#" title="Iscrizione newsletter">Newsletter</a></li>
-                        <li><a href="#" title="Galleria fotografica e categorie di foto">Galleria fotografica</a></li>
+                        <li><a href="<?php echo $this->url('posts-photo-gallery') ?>" title="Galleria fotografica e categorie di foto">Galleria fotografica</a></li>
                         <li><a href="<?php echo $this->url('contatti') ?>" title="Form contatti">Contatti</a></li>
-
                     </ul>
                 </li>
 
             </ul>
-            
+
         </section>
     </nav>
 </div>

@@ -66,15 +66,7 @@ class IndexController extends SetupAbstractController
                                 $homePageVar[$key][] = array('freeText' => $record['freeText']);
                             }
                         }
-                        break;
-
-                    case('blogs'):
-                        $wrapper = new PostsGetterWrapper( new PostsGetter($em) );
                     break;
-
-                    case('photo'):
-
-                        break;
 
                     case('albo-pretorio'):
                         $wrapper = new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter($em));
@@ -89,11 +81,11 @@ class IndexController extends SetupAbstractController
 
                     case('stato-civile'):
 
-                        break;
+                    break;
 
                     case('amministrazione-trasparente'):
 
-                        break;
+                    break;
                 }
             }
 

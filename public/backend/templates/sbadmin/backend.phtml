@@ -13,33 +13,33 @@ $acl = $this->userDetails->acl;
     <title><?php echo $this->sitename ?> - Area riservata</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="<?php echo $this->basePath() ?>/public/<?php echo $this->templateBackendDir ?>bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo $this->publicDirRelativePath ?>/<?php echo $this->templateDir ?>bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-    <link href="<?php echo $this->basePath() ?>/public/<?php echo $this->templateBackendDir ?>bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+    <link href="<?php echo $this->publicDirRelativePath ?>/<?php echo $this->templateDir ?>bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
 
     <!-- DataTables CSS -->
-    <link href="<?php echo $this->basePath() ?>/public/<?php echo $this->templateBackendDir ?>bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="<?php echo $this->publicDirRelativePath ?>/<?php echo $this->templateDir ?>bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
 
     <!-- DataTables Responsive CSS -->
-    <link href="<?php echo $this->basePath() ?>/public/<?php echo $this->templateBackendDir ?>bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
+    <link href="<?php echo $this->publicDirRelativePath ?>/<?php echo $this->templateDir ?>bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="<?php echo $this->basePath() ?>/public/<?php echo $this->templateBackendDir ?>dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="<?php echo $this->publicDirRelativePath ?>/<?php echo $this->templateDir ?>dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="<?php echo $this->basePath() ?>/public/<?php echo $this->templateBackendDir ?>bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php echo $this->publicDirRelativePath ?>/<?php echo $this->templateDir ?>bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <?php
     echo $this->headLink()
-        ->prependStylesheet($this->basePath().'/public/common/jquery/datetimepicker/jquery.datetimepicker.css')
+        ->prependStylesheet($this->publicDirRelativePath.'/common/jquery/datetimepicker/jquery.datetimepicker.css')
     ?>
 
-    <script src="<?php echo $this->basePath() ?>/public/common/jquery/jquery.min.js"></script>
-    <script src="<?php echo $this->basePath() ?>/public/common/jquery/form/jquery.form.js"></script>
-    <script src="<?php echo $this->basePath() ?>/public/common/jquery/validate/jquery.validate.min.js"></script>
-    <script src="<?php echo $this->basePath() ?>/public/common/jquery/ckeditor/ckeditor.js"></script>
-    <script src="<?php echo $this->basePath() ?>/public/common/jquery/ckfinder/ckfinder.js"></script>
+    <script src="<?php echo $this->publicDirRelativePath ?>/common/jquery/jquery.min.js"></script>
+    <script src="<?php echo $this->publicDirRelativePath ?>/common/jquery/form/jquery.form.js"></script>
+    <script src="<?php echo $this->publicDirRelativePath ?>/common/jquery/validate/jquery.validate.min.js"></script>
+    <script src="<?php echo $this->publicDirRelativePath ?>/common/jquery/ckeditor/ckeditor.js"></script>
+    <script src="<?php echo $this->publicDirRelativePath ?>/common/jquery/ckfinder/ckfinder.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file: -->
     <!--[if lt IE 9]>
@@ -59,7 +59,7 @@ $acl = $this->userDetails->acl;
             cursor: pointer;
         }
         fieldset input  {
-            cursor: pointer
+            cursor: pointer;
         }
 
         /* Icon colors */
@@ -292,10 +292,10 @@ $acl = $this->userDetails->acl;
                         <a href="#" class="dropdown-collapse"><i class="fa fa-laptop fa-fw"></i> <span class="side-menu-title">Amm. trasparente</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <?php if ($acl->hasResource('amministrazione_trsparente_add')): ?>
-                            <li><a href="<?php echo $this->baseUrl ?>formdata/amministrazione-trasparente" title="Nuovo articolo">Nuovo articolo</a></li>
+                            <li><a href="<?php echo $this->url('admin/amministrazione-trasparente-form', array('lang' => 'it')); ?>" title="Nuovo articolo">Nuovo articolo</a></li>
                             <?php endif; ?>
                             <?php if ($acl->hasResource('amministrazione_trsparente_update')): ?>
-                            <li><a href="<?php echo $this->url('admin/datatable', array('lang' => 'it', 'tablesetter' => 'amministrazione-trasparente')); ?>" title="Gestione">Gestione</a></li>
+                            <li><a href="<?php echo $this->url('admin/amministrazione-trasparente-summary', array('lang' => 'it')); ?>" title="Gestione">Gestione</a></li>
                             <?php endif; ?>
                             <!-- Sezioni -->
 
@@ -390,7 +390,7 @@ $acl = $this->userDetails->acl;
                                     <li><a href="#" title="">Nuova</a></li>
                                     <?php endif; ?>
                                     <?php if ($acl->hasResource('blogs_categories_update')): ?>
-                                    <li><a href="<?php echo $this->url('admin/posts-categories-summary', array(
+                                    <li><a href="<?php echo $this->url('admin/blogs-categories-summary', array(
                                                 'lang'          => 'it',
                                                 'moduleCode'    => 'blogs',
                                             )
@@ -416,7 +416,7 @@ $acl = $this->userDetails->acl;
                                 <a href="#" class="dropdown-collapse" title="">Categorie <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li><a href="#" title="Nuova categoria foto">Nuova</a></li>
-                                    <li><a href="<?php echo $this->url('admin/posts-categories-summary', array(
+                                    <li><a href="<?php echo $this->url('admin/blogs-categories-summary', array(
                                                 'lang'          => 'it',
                                                 'moduleCode'    => 'photo',
                                             )
@@ -493,8 +493,9 @@ $acl = $this->userDetails->acl;
     <div id="page-wrapper">
         <br>
         <?php
-        // Main Template
-        echo $this->partial($this->templatePartial);
+        if (!empty($this->templatePartial)) {
+            echo $this->partial($this->templateDir.$this->templatePartial);
+        }
         ?>
     </div>
 
@@ -502,23 +503,23 @@ $acl = $this->userDetails->acl;
 <!-- /#wrapper -->
 
 <!-- jQuery Cookie -->
-<script src="<?php echo $this->basePath() ?>/public/<?php echo $this->templateBackendDir ?>bower_components/jquery-cookie-master/src/jquery.cookie.js"></script>
+<script src="<?php echo $this->publicDirRelativePath ?>/<?php echo $this->templateDir ?>bower_components/jquery-cookie-master/src/jquery.cookie.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
-<script src="<?php echo $this->basePath() ?>/public/<?php echo $this->templateBackendDir ?>bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="<?php echo $this->publicDirRelativePath ?>/<?php echo $this->templateDir ?>bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
 <!-- Metis Menu Plugin JavaScript -->
-<script src="<?php echo $this->basePath() ?>/public/<?php echo $this->templateBackendDir ?>bower_components/metisMenu/dist/metisMenu.min.js"></script>
+<script src="<?php echo $this->publicDirRelativePath ?>/<?php echo $this->templateDir ?>bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
 <!-- DataTables JavaScript -->
-<script src="<?php echo $this->basePath() ?>/public/<?php echo $this->templateBackendDir ?>bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
-<script src="<?php echo $this->basePath() ?>/public/<?php echo $this->templateBackendDir ?>bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+<script src="<?php echo $this->publicDirRelativePath ?>/<?php echo $this->templateDir ?>bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+<script src="<?php echo $this->publicDirRelativePath ?>/<?php echo $this->templateDir ?>bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 
 <!-- Custom Theme JavaScript -->
-<script src="<?php echo $this->basePath() ?>/public/<?php echo $this->templateBackendDir ?>dist/js/sb-admin-2.js"></script>
+<script src="<?php echo $this->publicDirRelativePath ?>/<?php echo $this->templateDir ?>dist/js/sb-admin-2.js"></script>
 
 <!-- Datepicker -->
-<script src="<?php echo $this->basePath() ?>/public/common/jquery/datetimepicker/jquery.datetimepicker.js"></script>
+<script src="<?php echo $this->publicDirRelativePath ?>/common/jquery/datetimepicker/jquery.datetimepicker.js"></script>
 
 <script>
 

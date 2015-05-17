@@ -7,7 +7,10 @@ use ApplicationTest\TestSuite;
 
 class UsersSummaryControllerTest extends TestSuite
 {
-    private  $controller;
+    /**
+     * @var UsersSummaryController
+     */
+    private $controller;
 
     protected function setUp()
     {

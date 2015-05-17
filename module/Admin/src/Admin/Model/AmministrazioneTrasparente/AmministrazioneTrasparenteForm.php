@@ -36,14 +36,13 @@ class AmministrazioneTrasparenteForm extends Form
     {
         $this->add(array(
                         'name'      => 'titolo',
-                        'type'      => 'Textarea',
+                        'type'      => 'Text',
                         'options'   => array('label' => '* Titolo'),
                         'attributes' => array(
                                         'required'  => 'required',
-                                        'class'     => 'form-control',
                                         'title'     => 'Inserisci il titolo',
                                         'id'        => 'titolo',
-                                        'rows'      => 5,
+                                        'maxlength' => 255,
                         )
         ));
         
@@ -53,7 +52,6 @@ class AmministrazioneTrasparenteForm extends Form
                         'options' => array( 'label' => 'Sotto titolo' ),
                         'attributes' => array(
                                         'title' => 'Inserisci il sottotitolo',
-                                        'class' => 'wysiwyg',
                                         'id'    => 'sommario',
                         )
         ));

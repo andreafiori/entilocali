@@ -15,7 +15,8 @@ echo $this->partial($this->templateDir.'_navigation');
                         <?php
                         if (!empty($this->sezioni['sx'])):
                             echo $this->partial($this->templateDir.'_column', array(
-                                'sezioni' => $this->sezioni['sx']
+                                'sezioni' => $this->sezioni['sx'],
+                                'publicDirRelativePath' => $this->publicDirRelativePath,
                             ));
                         else:
                             ?>
@@ -30,7 +31,7 @@ echo $this->partial($this->templateDir.'_navigation');
                     <div id="mainContents"></div>
                     <?php
                     if (!empty($this->templatePartial)) {
-                        echo $this->partial($this->templatePartial);
+                        echo $this->partial($this->templateDir.$this->templatePartial);
                     }
                     ?>
                 </div>
@@ -41,7 +42,8 @@ echo $this->partial($this->templateDir.'_navigation');
                         <?php
                         if (!empty($this->sezioni['dx'])):
                             echo $this->partial($this->templateDir.'_column', array(
-                                'sezioni' => $this->sezioni['dx']
+                                'sezioni' => $this->sezioni['dx'],
+                                'publicDirRelativePath' => $this->publicDirRelativePath,
                             ));
                         else:
                             ?>
@@ -61,10 +63,9 @@ echo $this->partial($this->templateDir.'_navigation');
 
 </div>
 
-<script src="<?php echo $this->basePath() ?>/public/common/jquery/jquery.min.js"></script>
-<script src="<?php echo $this->basePath() ?>/public/common/foundation/js/foundation.min.js"></script>
-<script src="<?php echo $this->basePath() ?>/public/common/foundation/js/foundation/foundation.topbar.js"></script>
-<script src="<?php echo $this->basePath() ?>/public/common/foundation/js/responsive-tables.js"></script>
+<script src="<?php echo $publicDirRelativePath ?>/common/foundation/js/foundation.min.js"></script>
+<script src="<?php echo $publicDirRelativePath ?>/common/foundation/js/foundation/foundation.topbar.js"></script>
+<script src="<?php echo $publicDirRelativePath ?>/common/foundation/js/responsive-tables.js"></script>
 <script>
     $(document).foundation();
 </script>

@@ -229,17 +229,13 @@ abstract class RecordsGetterWrapperAbstract
             return false;
         }
 
-        if (!$this->getEntityManager()) {
-            throw new NullException("Set EntityManager on Wrapper Input to select attachment files");
-        }
+        $this->assertEntityManager();
 
         foreach($records as &$record) {
             $attachments = new AttachmentsGetterWrapper( new AttachmentsGetter($this->getEntityManager()) );
             $attachments->setInput(array_merge(
                 $input,
-                array(
-                    'referenceId' => isset($record['id']) ? $record['id'] : null
-                )
+                array('referenceId' => isset($record['id']) ? $record['id'] : null)
             ));
             $attachments->setupQueryBuilder();
 
@@ -251,6 +247,48 @@ abstract class RecordsGetterWrapperAbstract
         }
 
         return $records;
+    }
+
+    /**
+     * @param mixed $records
+     * @param array $input
+     * @return bool
+     */
+    public function addAttachmentsToPaginatorRecords($records, $input = array())
+    {
+        if ( empty($records) ) {
+            return false;
+        }
+
+        $this->assertEntityManager();
+
+        foreach($records as $key => &$value) {
+
+            $attachments = new AttachmentsGetterWrapper( new AttachmentsGetter($this->getEntityManager()) );
+            $attachments->setInput(array_merge(
+                $input,
+                array('referenceId' => isset($value['id']) ? $value['id'] : null)
+            ));
+            $attachments->setupQueryBuilder();
+
+            $attachmentsRecords = $attachments->getRecords();
+
+            if (!empty($attachmentsRecords)) {
+                $value['attachments'] = $attachmentsRecords;
+            }
+        }
+
+        return $records;
+    }
+
+    /**
+     * @throws NullException
+     */
+    protected function assertEntityManager()
+    {
+        if (!$this->getEntityManager()) {
+            throw new NullException("Set EntityManager on Wrapper Input to select attachment files");
+        }
     }
 
     /**

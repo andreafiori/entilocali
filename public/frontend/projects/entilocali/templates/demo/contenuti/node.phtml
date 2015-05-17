@@ -48,6 +48,7 @@
         <?php
         echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
             'twitterShareText' => urlencode($record['titolo']),
+            'publicDirRelativePath' => $this->publicDirRelativePath,
         ));
         ?>
 

@@ -149,7 +149,7 @@ class AttachmentsCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
                 'description' => $formData->description,
                 'expire_date' => $formData->expireDate,
             ),
-            array('id' => $formData->id),
+            array('id' => $formData->attachmenOptionId),
             array('limit' => 1)
         );
     }
@@ -163,12 +163,12 @@ class AttachmentsCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
     {
         // delete relation record
         $this->getConnection()->delete($this->tableName_relations,
-            array('attachment_id' => $id)
+            array('attachmenOptionId' => $id)
         );
 
         // delete option record
         $this->getConnection()->delete($this->tableName_options,
-            array('attachment_id' => $id)
+            array('attachmenOptionId' => $id)
         );
 
         // delete attachment record

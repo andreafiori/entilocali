@@ -25,8 +25,6 @@ class StatoCivileSummaryController extends SetupAbstractController
 
         $sessionContainer = new SessionContainer();
 
-
-
         $formPostedValues = $sessionContainer->offsetGet('statoCivileFormSearch');
 
         $request = $this->getRequest();

@@ -9,10 +9,6 @@ use Admin\Model\Sezioni\SottoSezioniGetterWrapper;
 use Application\Controller\SetupAbstractController;
 use Application\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFormSearch;
 
-/**
- * @author Andrea Fiori
- * @since  17 April 2015
- */
 class AmministrazioneTrasparenteController extends SetupAbstractController
 {
     public function indexAction()
@@ -28,7 +24,7 @@ class AmministrazioneTrasparenteController extends SetupAbstractController
         $basicLayout = $this->layout()->getVariable('amministrazione_trasparente_basiclayout');
 
         $formSearch = new AmministrazioneTrasparenteFormSearch();
-        $formSearch->setData(array('anno'=>date("Y")));
+        $formSearch->setData( array('anno' => date("Y")) );
 
         $sottoSezioni = new SottoSezioniGetterWrapper(new SottoSezioniGetter($em));
         $sottoSezioni->setInput(array(

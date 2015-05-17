@@ -1,3 +1,10 @@
+<?php
+/* Share and export icons */
+$shareExportView = $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
+    'twitterShareText' => $this->sitename.' - Atti di concessione',
+    'publicDirRelativePath' => $this->publicDirRelativePath,
+));
+?>
 <ul class="breadcrumbs">
     <li><a href="<?php echo $this->basepath() ?>" title="Torna all'home page">Home</a></li>
     <li class="current">Atti di concessione</li>
@@ -78,12 +85,12 @@
                         <?php echo $this->formElement($form->get('importo')); ?>
                     </div>
 
-                    <div class="large-2 columns">
+                    <div class="large-4 columns">
                         <label for="<?php echo $form->get('settore')->getAttribute('id'); ?>">
                             <?php echo $form->get('settore')->getLabel() ?>:
                         </label>
                     </div>
-                    <div class="large-6 columns">
+                    <div class="large-4 columns">
                         <?php echo $this->formElement($form->get('settore')); ?>
                     </div>
                 </div>
@@ -104,11 +111,7 @@
 
         </div>
 
-        <?php
-        echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
-            'twitterShareText' => $this->sitename.' - Atti di concessione',
-        ));
-        ?>
+        <?php echo $shareExportView ?>
 
         <table class="responsive" role="grid">
             <thead>
@@ -118,7 +121,7 @@
                 <th scope="col"><b>Beneficiario CF/PIVA</b></th>
                 <th scope="col"><b>Importo</b></th>
                 <th scope="col"><b>Modalità Assegnazione</b></th>
-                <th scope="col"><b>Ufficio e Responsabile del Servizio</b></th>
+                <th scope="col"><b>Ufficio e responsabile del servizio</b></th>
                 <th scope="col"><b>Norma o Titolo a base dell'attribuzione</b></th>
                 <th scope="col"><b>Progetto</b><br><b>Capitolato</b><br><b>Contratto</b><br><b>Curriculum</b></th>
             </tr>
@@ -141,24 +144,19 @@
             <?php endforeach; ?>
             </tbody>
         </table>
-
         <?php
-        echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
-            'twitterShareText' => $this->sitename.' - Atti di concessione',
-        ));
-        ?>
 
-        <?php
+        echo $shareExportView;
+
         if ( count($this->paginator) > 1 ):
             echo $this->paginationControl(
                 $this->paginator,
                 'sliding',
                 'application/pagination/foundation.phtml',
-                array(
-                    'route' => 'atti-concessione'
-                )
+                array('route' => 'atti-concessione')
             );
         endif;
+
     else:
         ?>
         <div class="panel info">
@@ -167,4 +165,5 @@
         </div>
     <?php endif; ?>
 
-<?php endif; ?>
+<?php
+endif;

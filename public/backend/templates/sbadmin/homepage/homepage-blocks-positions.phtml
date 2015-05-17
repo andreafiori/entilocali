@@ -1,0 +1,39 @@
+<ul class="breadcrumb">
+    <li><a href="<?php echo $this->url('admin', array('lang'=>'it')); ?>" title="Home page">Home</a></li>
+    <li class="active">Gestione home page</li>
+    <li class="active">Posizioni moduli</li>
+</ul>
+
+<h2>Posizioni moduli in home page</h2>
+
+<p>Ordinamento dei blocchi visualizzati in home page.</p>
+
+<div id="result"></div>
+
+<div class="row">
+    <div class="col-md-6">
+        <?php if (!empty($this->records)): ?>
+            <ul class="homepageBlocksColumn" style="margin-left: 0; padding: 0">
+                <?php foreach($this->records as $record): ?>
+                    <li class="positionMove list-group-item list-group-item-info" id="oggettoItem_<?php echo $record['id'] ?>">
+                        <span class="trascinabile"><?php echo $record['moduleName']; ?></span>
+                    </li>
+                <?php endforeach ?>
+            </ul>
+        <?php endif; ?>
+    </div>
+</div>
+
+<script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".homepageBlocksColumn").sortable({
+            handle : '.trascinabile',
+            update : function () {
+                var ordina = $('.homepageBlocksColumn').sortable('serialize');
+                $("#result").load("<?php echo $this->url('admin/homepage-blocks-positions-update', array('lang' => 'it')); ?>?"+ordina+'&group='+$('#1').attr('id') );
+            }
+        });
+    });
+</script>

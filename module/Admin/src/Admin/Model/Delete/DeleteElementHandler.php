@@ -8,8 +8,6 @@ use Admin\Model\Contenuti\ContenutiCrudHandler;
 use Admin\Model\Logs\LogsWriter;
 
 /**
- * End point class to delete an element of the Admin and redirect to its list
- *
  * @author Andrea Fiori
  * @since  19 February 2015
  */
@@ -49,7 +47,6 @@ class DeleteElementHandler extends RouterManagerAbstract implements RouterManage
          * use the crudHandler to delete element
          * redirect to list
          */
-
         $this->setTemplate('delete/delete-element.phtml');
 
         return $this->getOutput();

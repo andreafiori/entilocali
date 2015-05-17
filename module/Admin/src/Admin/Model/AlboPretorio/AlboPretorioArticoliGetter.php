@@ -227,4 +227,11 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
 
         return $this->getQueryBuilder();
     }
+
+    public function addProgressivoSelect($prog)
+    {
+        //$this->getQueryBuilder()->addSelect(' ( SELECT MAX(alboArticoli.id))+1 FROM alboArticoli ) AS newProgressivo ');
+
+        return $this->getQueryBuilder();
+    }
 }

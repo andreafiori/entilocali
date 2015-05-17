@@ -2,6 +2,7 @@
 
 namespace Auth\Controller;
 
+use Application\Model\SetupAbstractControllerHelper;
 use Zend\View\Model\ViewModel;
 use Zend\Session\Container as SessionContainer;
 use Zend\Permissions\Acl\Acl;
@@ -42,16 +43,25 @@ class AuthController extends SetupAbstractController
 
         $templateBackend = $appServiceLoader->recoverServiceKey('configurations', 'template_backend');
 
-        /* Preview Password Area */
+        /* Preview Password Area Check */
         if (!$this->checkPasswordPreviewArea($configurations, $sessionContainer)) {
             return $this->redirect()->toRoute('password-preview');
         }
 
+        $request = $this->getRequest();
+
+        $helper = new SetupAbstractControllerHelper();
+        $helper->setConfigurations($configurations);
+        $helper->setRequest($request);
+        $helper->setupZf2appDir();
+        $helper->setupAppDirRelativePath();
+
         $this->layout()->setVariables($configurations);
         $this->layout()->setVariables(
             array(
-                'form'      => new UserFormAuthentication(),
-                'messages'  => $this->flashMessenger()->getMessages(),
+                'publicDirRelativePath' => $helper->getAppDirRelativePath().'/public',
+                'form'                  => new UserFormAuthentication(),
+                'messages'              => $this->flashMessenger()->getMessages(),
             )
         );
 

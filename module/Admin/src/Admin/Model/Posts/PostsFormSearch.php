@@ -21,7 +21,8 @@ class PostsFormSearch extends Form
             'attributes' => array(
                 'id' => 'testo',
                 'placeholder' => 'Testo...',
-                'required' => 'required',
+                'required'    => 'required',
+                'title'       => 'Digita il testo da cercare'
             ),
             'options' => array(
                 'label' => 'Testo',

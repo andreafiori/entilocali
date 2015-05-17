@@ -29,6 +29,7 @@ class AlboPretorioArticoliGetterWrapper extends RecordsGetterWrapperAbstract
 
         $this->objectGetter->setMainQuery();
 
+        $this->objectGetter->addProgressivoSelect( $this->getInput('newprog', 1));
         $this->objectGetter->setId($this->getInput('id', 1));
         $this->objectGetter->setNumeroProgressivo($this->getInput('numeroProgressivo', 1));
         $this->objectGetter->setNumeroAtto($this->getInput('numeroAtto', 1));

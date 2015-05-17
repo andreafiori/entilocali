@@ -1,5 +1,4 @@
 <?php echo $this->doctype(); ?>
-
 <html lang="it" class="no-js">
 <head>
 <meta charset="utf-8">
@@ -9,20 +8,20 @@
 <meta name="keywords" content="<?php echo $this->keywords ?>">
 
 <?php if (!$this->cssName or $this->cssName == 'default'): ?>
-<link href="<?php echo $this->basePath() ?>/public/common/foundation/css/foundation.min.css" media="screen" rel="stylesheet" type="text/css">
+<link href="<?php echo $this->publicDirRelativePath ?>/common/foundation/css/foundation.min.css" media="screen" rel="stylesheet" type="text/css">
 <?php elseif($this->cssName=='rosso-su-nero'): ?>
-<link href="<?php echo $this->basePath() ?>/public/common/css/red_on_black.css" media="screen" rel="stylesheet" type="text/css">
+<link href="<?php echo $this->publicDirRelativePath ?>/common/css/red_on_black.css" media="screen" rel="stylesheet" type="text/css">
 <?php elseif($this->cssName=='high-visibility'): ?>
-<link href="<?php echo $this->basePath() ?>/public/common/css/high_visibility.css" media="screen" rel="stylesheet" type="text/css">
+<link href="<?php echo $this->publicDirRelativePath ?>/common/css/high_visibility.css" media="screen" rel="stylesheet" type="text/css">
 <?php elseif($this->cssName=='text'): ?>
 
 <?php endif; ?>
 
-<link href="<?php echo $this->basePath() . '/public/frontend/projects/favicon.ico' ?>" rel="shortcut icon" type="image/vnd.microsoft.icon">
-<script src="<?php echo $this->basePath() ?>/public/common/foundation/js/vendor/modernizr.js"></script>
+<link href="<?php echo $this->publicDirRelativePath ?>/frontend/projects/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
+<script src="<?php echo $this->publicDirRelativePath ?>/common/foundation/js/vendor/modernizr.js"></script>
 
 <!--[if lt IE 9]>
-<link rel="stylesheet" href="<?php echo $this->basePath() ?>/public/common/foundation/css/ie.css">
+    <link rel="stylesheet" href="<?php echo $publicDir ?>/common/foundation/css/ie.css">
 <![endif]-->
 
 <style>
@@ -60,6 +59,14 @@ table { width: 100% }
 @media only screen and (min-width: 768px) {
     .pull-left {float: left !important;}
     .pull-right {float: right !important;}
+}
+
+.redString {
+    color: #d14;
+}
+
+aside h2 {
+    font-size: 100%;
 }
 </style>
 
@@ -99,21 +106,38 @@ table { width: 100% }
     color: #cc0000;
 }
 
+.cookieWarning {
+    padding: 1.2em 0 0 0;
+}
 </style>
 <?php endif; ?>
 
-<script src="<?php echo $this->basePath() ?>/public/common/jquery/jquery.min.js"></script>
+<script src="<?php echo $this->publicDirRelativePath ?>/common/jquery/jquery.min.js"></script>
 
 </head>
 
 <body>
 
+<noscript>
+    Javascript &egrave; stato disattivato. Per un migliore utilizzo del sito si prega di attivare Javascrip sul browser in uso.
+</noscript>
+
 <?php if ($this->passwordPreviewArea): ?>
+    <!-- Preview area alert -->
     <div class="alert-box info text-center" id="previewAreaAlert">
-        Anteprima <strong><?php echo $this->sitename ?></strong>. Validazione HTML e CSS sono riferite al form di login di quest'area pertanto possono contenere errori.
-        <strong>
+        <strong>Anteprima <?php echo $this->sitename ?>.
             <a href="<?php echo $this->url('password-preview-logout', array('action' => 'logout')); ?>" title="Uscita area risevata">Uscita</a>
         </strong>
-        <a href="#" class="close" onclick="$('#previewAreaAlert').hide();">&times;</a>
+        <a href="#" class="close" onclick="$('#previewAreaAlert').hide();" title="Nascondi avviso">&times;</a>
+    </div>
+<?php endif; ?>
+
+<?php if ($this->cookieWarning!=1): ?>
+    <!-- Cookie Warning -->
+    <div class="alert-box secondary text-center cookieWarning" id="previewAreaAlert">
+        <!-- <form action="#" method="post" id="frmCookieWarning"> -->
+        Il sito <?php echo $this->sitename ?> utilizza cookies di sessione; consulta la nostra <a href="#" title="Leggi la nostra privacy policy">privacy policy</a>.
+        <a href="<?php echo $this->url('cookie-warning-confirm', array('action' => 'confirm')); ?>" class="button tiny">OK ho capito</a> <a href="#" class="button warning tiny">Maggiori informazioni</a>
+        <!-- </form> -->
     </div>
 <?php endif; ?>

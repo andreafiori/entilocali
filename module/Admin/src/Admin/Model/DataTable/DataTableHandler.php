@@ -21,7 +21,7 @@ class DataTableHandler extends RouterManagerAbstract implements RouterManagerInt
             if (class_exists($tableSetterClassMap[$tableSetter])) {
                 $ojectName = $tableSetterClassMap[$tableSetter];
                 $object = new $ojectName($this->getInput());
-                
+
                 $this->setVariable('records',           $object->getRecords());
                 $this->setVariable('tableTitle',        $object->getTitle());
                 $this->setVariable('tableDescription',  $object->getDescription());

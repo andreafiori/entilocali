@@ -41,7 +41,11 @@ if ($this->homepage):
                     <div>
                         <h3><?php echo $content['title'] ?></h3>
                         <p><?php echo $this->TextShortener($content['description'], 30, 30); ?></p>
-                        <p><a href="<?php echo $this->basepath().$content['linkDetails'] ?>" class="button secondary small" title="Continua a leggere l'articolo">Leggi</a></p>
+                        <p>
+                            <a href="<?php echo $this->basepath().$content['linkDetails'] ?>" class="button secondary small" title="Continua a leggere l'articolo">
+                                Leggi
+                            </a>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -80,9 +84,11 @@ if ($this->homepage):
             <?php
 
         elseif ($key == 'freeText'):
+
             foreach($value as $record) {
                 echo $record['freeText']."<br>";
             }
+
         endif;
 
     endforeach;

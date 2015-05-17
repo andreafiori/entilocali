@@ -2,6 +2,7 @@
 
 namespace Application\Controller;
 
+use Application\Model\SetupAbstractControllerHelper;
 use Application\Setup\UserInterfaceConfigurations;
 use Admin\Model\Logs\LogsWriter;
 use Admin\Service\AppServiceLoader;
@@ -13,10 +14,6 @@ use Zend\View\Model\ViewModel;
 use Zend\Http\Response;
 use Zend\Mvc\Controller\AbstractActionController;
 
-/**
- * @author Andrea Fiori
- * @since  04 December 2013
- */
 abstract class SetupAbstractController extends AbstractActionController
 {
     const formTemplate = 'formdata/formdata.phtml';
@@ -28,6 +25,10 @@ abstract class SetupAbstractController extends AbstractActionController
      */
     protected $viewModel;
 
+    /**
+     * @param int $channel
+     * @return string
+     */
     protected function initializeAdminArea($channel = 1)
     {
         $appServiceLoader = $this->recoverAppServiceLoader($channel);
@@ -41,32 +42,46 @@ abstract class SetupAbstractController extends AbstractActionController
             exit;
         }
 
-        $templateBackend = $appServiceLoader->recoverServiceKey('configurations', 'template_backend');
+        $request = $this->getRequest();
 
-        $uri            = $this->getRequest()->getUri();
-        $basePath       = sprintf('%s://%s%s', $uri->getScheme(), $uri->getHost(), $this->getRequest()->getBaseUrl().'/');
-        $templateDir    = 'backend/templates/'.$templateBackend;
+        $helper = new SetupAbstractControllerHelper();
+        $helper->setConfigurations($configurations);
+        $helper->setRequest($request);
+        $helper->setupZf2appDir();
+        $helper->setupAppDirRelativePath();
 
-        $this->layout()->setVariables( array_merge(
+        $templateBackend    = $helper->getConfigurations('template_backend', 1);
+        $uri                = $request->getUri();
+        $basePath           = sprintf('%s://%s%s', $uri->getScheme(), $uri->getHost(), $request->getBaseUrl().'/');
+        $cookieWarning      = $sessionContainer->offsetGet($configurations['sitename']);
+
+        $this->layout()->setVariables(array_merge(
             $configurations,
             array(
+                'publicDirRelativePath' => $helper->getAppDirRelativePath().'/public',
                 'baseUrl'               => sprintf($basePath.'admin/main/'.$this->params()->fromRoute('lang').'/'),
                 'basePath'              => $basePath,
                 'userDetails'           => $sessionContainer->offsetGet('userDetails'),
-                'preloadResponse'       => $appServiceLoader->recoverServiceKey('configurations', 'preloadResponse'),
-                'templateBackendDir'    => $templateDir,
-                'templatePartial'       => $templateDir.'datatable/datatable.phtml',
+                'preloadResponse'       => $helper->getConfigurations('preloadResponse', 1),
+                'templateDir'           => 'backend/templates/'.$templateBackend,
                 'formDataCommonPath'    => 'backend/templates/common/',
                 'passwordPreviewArea'   => $this->hasPasswordPreviewArea($configurations),
+                'cookieWarning'         => !empty($cookieWarning) ? $cookieWarning : null,
             )
         ));
 
         return 'backend/templates/'.$templateBackend.'backend.phtml';
     }
 
-    protected function initializeFrontendWebsite()
+    /**
+     * Initialize variables for the FRONTEND
+     *
+     * @return string
+     */
+    protected function initializeFrontendWebsite($channel = 1)
     {
-        $appServiceLoader = $this->recoverAppServiceLoader();
+        $appServiceLoader = $this->recoverAppServiceLoader($channel);
+
         $configurations = $appServiceLoader->recoverService('configurations');
 
         $sessionContainer = new SessionContainer();
@@ -76,40 +91,40 @@ abstract class SetupAbstractController extends AbstractActionController
             exit;
         }
 
-        $sezioni = $this->getServiceLocator()->get('SezioniRecords');
+        $request = $this->getRequest();
 
-        if (method_exists($this->getRequest(), 'getServer')) {
-            $serverVars = $this->getRequest()->getServer();
-        } else $serverVars = null;
+        $helper = new SetupAbstractControllerHelper();
+        $helper->setConfigurations($configurations);
+        $helper->setRequest($request);
+        $helper->setSezioniRecords( $this->getServiceLocator()->get('SezioniRecords') );
+        $helper->setupServer();
+        $helper->setupFrontendTemplatePath();
+        $helper->setupPhpRenderer( $this->getServiceLocator() );
+        $helper->setupZf2appDir();
+        $helper->setupAppDirRelativePath();
 
-        $templateDir = 'frontend/projects/'.$configurations['project_frontend'].'templates/'.$configurations['template_frontend'];
-        if (isset($varsFromModel['basiclayout'])) {
-            $basicLayout = $templateDir.$varsFromModel['basiclayout'];
-        } else {
-            $basicLayout = $templateDir.'/layout.phtml';
-        }
-
-        try {
-            $phpRenderer = $this->getServiceLocator()->get('Zend\View\Renderer\PhpRenderer');
-        } catch(\Zend\ServiceManager\Exception\ServiceNotFoundException $e) {
-            $phpRenderer = null;
-        }
+        $serverVars             = $helper->getServer();
+        $cookieWarningSession   = $sessionContainer->offsetGet('cookie-warning');
+        $uri                    = $request->getUri();
 
         $this->layout()->setVariables($configurations);
-
         $this->layout()->setVariables( array(
-            'sezioni'               => $sezioni,
-            'templateDir'           => $templateDir,
+            'basePath'              => sprintf('%s://%s%s', $uri->getScheme(), $uri->getHost(), $request->getBaseUrl().'/'),
+            'publicDirRelativePath' => $helper->getAppDirRelativePath().'/public',
+            'configurations'        => $configurations,
+            'sezioni'               => $helper->getSezioniRecords(),
+            'templateDir'           => 'frontend/projects/'.$configurations['project_frontend'].'templates/'.$configurations['template_frontend'],
             'preloadResponse'       => isset($input['preloadResponse']) ? $input['preloadResponse'] : null,
             'currentUrl'            => "http://".$serverVars["SERVER_NAME"].$serverVars["REQUEST_URI"],
             'currentDateTime'       => date("Y-m-d H:i:s"),
             'template_frontend'     => $configurations['template_frontend'],
             'cssName'               => $sessionContainer->offSetGet('cssName'),
             'passwordPreviewArea'   => $this->hasPasswordPreviewArea($configurations),
-            'renderer'              => $phpRenderer,
+            'renderer'              => $helper->getPhpRenderer(),
+            'cookieWarning'         => isset($cookieWarningSession[$configurations['sitename']]) ? $cookieWarningSession[$configurations['sitename']] : null,
         ));
 
-        return $basicLayout;
+        return 'frontend/projects/'.$configurations['project_frontend'].'templates/'.$configurations['template_frontend'] .'layout.phtml';
     }
 
     /**

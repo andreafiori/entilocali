@@ -3,6 +3,7 @@
 namespace Admin\Controller;
 
 use Application\Controller\SetupAbstractController;
+use Application\Model\SetupAbstractControllerHelper;
 use Zend\View\Model\ViewModel;
 use Application\Model\RouterManagers\RouterManager;
 use Application\Model\RouterManagers\RouterManagerHelper;
@@ -25,20 +26,30 @@ class AdminController extends SetupAbstractController
 
         $sessionContainer = new SessionContainer();
 
-        /* Preview password Area */
         if (!$this->checkPasswordPreviewArea($configurations, $sessionContainer)) {
             return $this->redirect()->toRoute('password-preview');
         }
 
-        $moduleConfigs = $appServiceLoader->recoverService('moduleConfigs');
+        $request = $this->getRequest();
 
-        $userDetails = $this->recoverUserDetails();
+        $helper = new SetupAbstractControllerHelper();
+        $helper->setConfigurations($configurations);
+        $helper->setRequest($request);
+        $helper->setupZf2appDir();
+        $helper->setupAppDirRelativePath();
 
-        $uri = $this->getRequest()->getUri();
-        $basePath = sprintf('%s://%s%s', $uri->getScheme(), $uri->getHost(), $this->getRequest()->getBaseUrl().'/');
-        $baseUrl = sprintf($basePath.'admin/main/'.$this->params()->fromRoute('lang').'/');
+        $moduleConfigs      = $appServiceLoader->recoverService('moduleConfigs');
+        $userDetails        = $this->recoverUserDetails();
+        $uri                = $this->getRequest()->getUri();
+        $basePath           = sprintf('%s://%s%s', $uri->getScheme(), $uri->getHost(), $this->getRequest()->getBaseUrl().'/');
+        $baseUrl            = sprintf($basePath.'admin/main/'.$this->params()->fromRoute('lang').'/');
 
-        $input = array_merge(
+        $routerManager = new RouterManager($appServiceLoader->recoverService('configurations'));
+        $routerManager->setIsBackend(1);
+        $routerManager->setRouteMatchName($appServiceLoader->recoverServiceKey('moduleConfigs', 'be_router'));
+
+        $routerManagerHelper = new RouterManagerHelper($routerManager->setupRouteMatchObjectInstance());
+        $routerManagerHelper->getRouterManger()->setInput(array_merge(
             $appServiceLoader->getProperties(),
             array(
                 'formsetter'             => trim($this->params()->fromRoute('formsetter')),
@@ -50,34 +61,26 @@ class AdminController extends SetupAbstractController
                 'baseUrl'                => $baseUrl,
                 'basePath'               => $basePath,
             )
-        );
-
-        $routerManager = new RouterManager($appServiceLoader->recoverService('configurations'));
-        $routerManager->setIsBackend(1);
-        $routerManager->setRouteMatchName($appServiceLoader->recoverServiceKey('moduleConfigs', 'be_router'));
-
-        $routerManagerHelper = new RouterManagerHelper($routerManager->setupRouteMatchObjectInstance());
-        $routerManagerHelper->getRouterManger()->setInput($input);
+        ));
         $routerManagerHelper->getRouterManger()->setupRecord();
-
-        $templateDir = 'backend/templates/'.$appServiceLoader->recoverServiceKey('configurations', 'template_backend');
 
         $this->layout()->setVariables(array_merge(
             $configurations,
             $routerManagerHelper->getRouterManger()->getOutput('export'),
             array(
+                'publicDirRelativePath' => $helper->getAppDirRelativePath() .'/public',
                 'baseUrl'               => $baseUrl,
                 'basePath'              => $basePath,
                 'userDetails'           => $userDetails,
                 'userRole'              => $userDetails->role,
                 'preloadResponse'       => $appServiceLoader->recoverServiceKey('configurations', 'preloadResponse'),
-                'templateBackendDir'    => $templateDir,
-                'templatePartial'       => $templateDir.$routerManagerHelper->getRouterManger()->getTemplate(1),
+                'templateDir'           => 'backend/templates/'.$helper->getConfigurations('template_backend'),
+                'templatePartial'       => $routerManagerHelper->getRouterManger()->getTemplate(1),
                 'formDataCommonPath'    => 'backend/templates/common/',
                 'passwordPreviewArea'   => $this->hasPasswordPreviewArea($configurations),
             )
         ));
 
-        $this->layout()->setTemplate('backend/templates/'.$appServiceLoader->recoverServiceKey('configurations', 'template_backend').'backend.phtml');
+        $this->layout()->setTemplate('backend/templates/'.$helper->getConfigurations('template_backend').'backend.phtml');
     }
 }

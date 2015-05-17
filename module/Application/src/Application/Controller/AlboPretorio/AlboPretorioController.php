@@ -2,6 +2,7 @@
 
 namespace Application\Controller\AlboPretorio;
 
+use Admin\Model\Modules\ModulesContainer;
 use Application\Controller\SetupAbstractController;
 use Application\Model\AlboPretorio\AlboPretorioFormSearch;
 use Admin\Model\AlboPretorio\AlboPretorioArticoliGetter;
@@ -19,7 +20,7 @@ class AlboPretorioController extends SetupAbstractController
 
         $page = $this->params()->fromRoute('page');
 
-        $em   = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+        $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
         $wrapper = new AlboPretorioArticoliGetterWrapper( new AlboPretorioArticoliGetter($em) );
         $wrapper->setInput(array(
@@ -47,11 +48,16 @@ class AlboPretorioController extends SetupAbstractController
         $formSearch->addCsrf();
         $formSearch->addSubmitButton();
 
+        $wrapper->setEntityManager($em);
+        $mainRecords = $wrapper->addAttachmentsToPaginatorRecords($wrapper->setupRecords(), array(
+            'moduleId' => ModulesContainer::albo_pretorio_id
+        ));
+
         $this->layout()->setVariables(array(
             'templatePartial'   => 'albo-pretorio/albo-pretorio.phtml',
             'form'              => $formSearch,
             'paginator'         => $wrapper->getPaginator(),
-            'records'           => $wrapper->setupRecords(),
+            'records'           => $mainRecords,
         ));
 
         $this->layout()->setTemplate($mainLayout);

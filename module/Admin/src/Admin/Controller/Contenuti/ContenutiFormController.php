@@ -3,6 +3,8 @@
 namespace Admin\Controller\Contenuti;
 
 use Admin\Model\Contenuti\ContenutiForm;
+use Admin\Model\Contenuti\ContenutiGetter;
+use Admin\Model\Contenuti\ContenutiGetterWrapper;
 use Admin\Model\Sezioni\SottoSezioniGetter;
 use Admin\Model\Sezioni\SottoSezioniGetterWrapper;
 use Admin\Model\Users\UsersGetter;
@@ -19,6 +21,8 @@ class ContenutiFormController extends SetupAbstractController
         $em             = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
         $configurations = $this->layout()->getVariable('configurations');
         $userDetails    = $this->layout()->getVariable('userDetails');
+        $ammTraspSezioneId = $this->layout()->getVariable('amministrazione_trasparente_sezione_id');
+        $ammTraspSottoSezioneId = $this->layout()->getVariable('amministrazione_trasparente_sottosezione_id');
 
         if (is_numeric($id)) {
             $wrapper = new ContenutiGetterWrapper( new ContenutiGetter($em) );
@@ -35,8 +39,8 @@ class ContenutiFormController extends SetupAbstractController
 
         $wrapper = new SottoSezioniGetterWrapper( new SottoSezioniGetter($em) );
         $wrapper->setInput(array(
-            'excludeId'             => isset($configurations['amministrazione_trasparente_sottosezione_id']) ? $configurations['amministrazione_trasparente_sottosezione_id'] : null,
-            'excludeSezioneId'      => isset($configurations['amministrazione_trasparente_sezione_id']) ? $configurations['amministrazione_trasparente_sezione_id'] : null,
+            'excludeId'             => isset($ammTraspSottoSezioneId) ? $ammTraspSottoSezioneId : null,
+            'excludeSezioneId'      => isset($ammTraspSezioneId) ? $ammTraspSezioneId : null,
             'showToAll'             => ($userDetails->role=='WebMaster') ? null : 1,
         ));
         $wrapper->setupQueryBuilder();
@@ -94,7 +98,7 @@ class ContenutiFormController extends SetupAbstractController
                 'formTitle'                  => $formTitle,
                 'formDescription'            => $formDescription,
                 'submitButtonValue'          => $submitButtonValue,
-                'CKEditorField'              => array('sommario', 'testo'),
+                'CKEditorField'              => array('testo'),
                 'formBreadCrumbCategory'     => 'Contenuti',
                 'formBreadCrumbCategoryLink' => 'datatable/contenuti/',
                 'templatePartial'            => self::formTemplate
