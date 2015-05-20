@@ -128,10 +128,10 @@ class AlboPretorioSummaryController extends SetupAbstractController
                     /* Attachment button */
                     $arrayLine[] = array(
                         'type'  => 'attachButton',
-                        'href'  => $this->url()->fromRoute('admin/attachments-form', array(
+                        'href'  => $this->url()->fromRoute('admin/attachments-summary', array(
                             'lang'          => 'it',
                             'module'        => $modulePrefixLink,
-                            'id'            => $record['id']
+                            'referenceId'   => $record['id'],
                         )),
                         'class' => $rowClass,
                     );

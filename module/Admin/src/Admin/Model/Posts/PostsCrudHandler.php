@@ -34,9 +34,9 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
     {
         $error = array();
 
-        $fields = array('title', 'description');
+        $fields = array('title', 'description', 'categories');
         foreach($fields as $field) {
-            if ( !isset($formData->$field) ) {
+            if ( empty($formData->$field) ) {
                 $error[] = 'Campo '.$field.' vuoto';
             }
         }
@@ -53,31 +53,29 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
     {
         $this->asssertConnection();
 
+        $userDetails = $this->getUserDetails();
+
         $this->getConnection()->insert(DbTableContainer::posts, array(
-            'note' => Slugifier::slugify($formData->title),
-            'insert_date'   => date("Y-m-d H:i:s"),
-            'expire_date'   => isset($formData->expireDate) ? $formData->expireDate : date("2030-m-d H:i:s"),
-            'last_update'   => date("Y-m-d H:i:s"),
-            'parent_id'     => 0,
-        ));
-
-        $postsLastInsertId = $this->getConnection()->lastInsertId();
-
-        $this->getConnection()->insert(DbTableContainer::postsOptions, array(
             'title'             => $formData->title,
             'subtitle'          => $formData->subtitle,
             'description'       => $formData->description,
             'status'            => empty($formData->status) ? 1 : $formData->status,
-            'seo_url'           => Slugifier::slugify($formData->title),
+            'slug'              => Slugifier::slugify($formData->title),
             'seo_title'         => $formData->title,
             'seo_description'   => $formData->seoDescription,
             'seo_keywords'      => $formData->seoKeywords,
-            'posts_id'          => $postsLastInsertId,
             'language_id'       => 1,
+            'note'              => Slugifier::slugify($formData->title),
+            'create_date'       => date("Y-m-d H:i:s"),
+            'expire_date'       => isset($formData->expireDate) ? $formData->expireDate : date("2030-m-d H:i:s"),
+            'last_update'       => date("Y-m-d H:i:s"),
+            'user_id'           => $userDetails->id,
         ));
 
-        if (is_array($formData->category)) {
-            foreach ($formData->category as $category) {
+        $postsLastInsertId = $this->getConnection()->lastInsertId();
+
+        if ( is_array($formData->categories) ) {
+            foreach ($formData->categories as $category) {
                 $this->getConnection()->insert(DbTableContainer::postsRelations, array(
                     'posts_id'      => $postsLastInsertId,
                     'category_id'   => $category,
@@ -99,7 +97,7 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
     {
         $this->asssertConnection();
 
-        return $this->getConnection()->update(DbTableContainer::postsOptions, array(
+        return $this->getConnection()->update(DbTableContainer::posts, array(
                 'title'         => $formData->title,
                 'subtitle'      => $formData->subtitle,
                 'description'   => $formData->description,

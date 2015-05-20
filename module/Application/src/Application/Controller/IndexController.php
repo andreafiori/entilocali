@@ -4,15 +4,15 @@ namespace Application\Controller;
 
 use Admin\Model\AlboPretorio\AlboPretorioArticoliGetter;
 use Admin\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
+use Admin\Model\AttiConcessione\AttiConcessioneGetter;
+use Admin\Model\AttiConcessione\AttiConcessioneGetterWrapper;
+use Admin\Model\StatoCivile\StatoCivileGetter;
+use Admin\Model\StatoCivile\StatoCivileGetterWrapper;
 use Application\Model\HomePage\HomePageHelper;
 use Application\Model\HomePage\HomePageRecordsGetter;
 use Application\Model\HomePage\HomePageRecordsGetterWrapper;
 use Application\Model\NullException;
 
-/**
- * @author Andrea Fiori
- * @since  16 April 2015
- */
 class IndexController extends SetupAbstractController
 {
     public function indexAction()
@@ -80,7 +80,25 @@ class IndexController extends SetupAbstractController
                     break;
 
                     case('stato-civile'):
+                        $wrapper = new StatoCivileGetterWrapper(new StatoCivileGetter($em));
+                        $wrapper->setInput( array('id' => $value['referenceIds'], 'orderBy' => 'sca.id') );
+                        $wrapper->setupQueryBuilder();
+                        $wrapper->setupPaginator( $wrapper->setupQuery($em) );
+                        $wrapper->setupPaginatorCurrentPage(1);
+                        $wrapper->setupPaginatorItemsPerPage(35);
 
+                        $homePageVar[$key] = $wrapper->setupRecords();
+                    break;
+
+                    case("atti-concessione"):
+                        $wrapper = new AttiConcessioneGetterWrapper(new AttiConcessioneGetter($em));
+                        $wrapper->setInput( array('id' => $value['referenceIds'], 'orderBy' => 'atti.id') );
+                        $wrapper->setupQueryBuilder();
+                        $wrapper->setupPaginator( $wrapper->setupQuery($em) );
+                        $wrapper->setupPaginatorCurrentPage(1);
+                        $wrapper->setupPaginatorItemsPerPage(35);
+
+                        $homePageVar[$key] = $wrapper->setupRecords();
                     break;
 
                     case('amministrazione-trasparente'):

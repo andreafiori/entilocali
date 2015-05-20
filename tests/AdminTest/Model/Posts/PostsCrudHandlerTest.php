@@ -9,7 +9,7 @@ use Admin\Model\Posts\PostsCrudHandler;
  * @author Andrea Fiori
  * @since  01 June 2014
  */
-class PostsCrudHandlerTest extends CrudHandlerTestSuite
+class PostsCrudHandlerTest //extends CrudHandlerTestSuite
 {
     protected $crudHandler;
 

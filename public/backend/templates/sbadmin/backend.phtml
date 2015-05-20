@@ -196,10 +196,10 @@ $acl = $this->userDetails->acl;
                                 <a href="#" class="dropdown-collapse" title="Gestione sezioni contenuti">Sezioni <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <?php if ($acl->hasResource('contenuti_sezioni_add')): ?>
-                                    <li><a href="<?php echo $this->url('admin/formdata', array('lang' => 'it', 'formsetter' => 'sezioni-contenuti')); ?>" title="Nuova sezione contenuti">Nuova</a></li>
+                                    <li><a href="<?php echo $this->url('admin/sezioni-summary', array('lang' => 'it')); ?>" title="Nuova sezione contenuti">Nuova</a></li>
                                     <?php endif; ?>
                                     <?php if ($acl->hasResource('contenuti_sezioni_update')): ?>
-                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter' => 'sezioni-contenuti')); ?>" title="Gestione sezioni contenuti">Gestione</a></li>
+                                    <li><a href="<?php echo $this->url('admin/sezioni-summary', array('lang' => 'it')); ?>" title="Gestione sezioni contenuti">Gestione</a></li>
                                     <?php endif; ?>
                                     <li><a href="<?php echo $this->url('admin/posizioni-sezioni', array('lang'=>'it')); ?>" title="Gestione posizioni sezioni">Posizioni</a></li>
                                 </ul>
@@ -210,7 +210,7 @@ $acl = $this->userDetails->acl;
                                 <a href="#" class="dropdown-collapse" title="Gestione sezioni contenuti">Sotto-Sezioni <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <?php if ($acl->hasResource('contenuti_sottosezioni_add')): ?>
-                                    <li><a href="<?php echo $this->baseUrl ?>formdata/sottosezioni-contenuti" title="">Nuova</a></li>
+                                    <li><a href="<?php echo $this->url('admin/formdata', array('lang' => 'it', 'formsetter' => 'sottosezioni-contenuti' )); ?>" title="Nuova sottosezione">Nuova</a></li>
                                     <?php endif; ?>
                                     <?php if ($acl->hasResource('contenuti_sottosezioni_update')): ?>
                                     <li><a href="<?php echo $this->url('admin/datatable', array('lang' => 'it', 'tablesetter' => 'sottosezioni-contenuti')); ?>" title="Gestione">Gestione</a></li>

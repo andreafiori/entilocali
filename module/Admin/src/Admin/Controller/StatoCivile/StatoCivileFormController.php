@@ -61,6 +61,7 @@ class StatoCivileFormController extends SetupAbstractController
 
         if ( empty($records) ) {
             $form->setData(array(
+                'data' => date('Y-m-d H:i:s', strtotime(date("Y-m-d H:i:s"). ' + 8 days')),
                 'scadenza'=> date('Y-m-d H:i:s', strtotime(date("Y-m-d H:i:s"). ' + 8 days')),
             ));
 

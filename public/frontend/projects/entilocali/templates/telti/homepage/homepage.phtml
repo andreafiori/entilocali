@@ -27,7 +27,6 @@ if ($this->homepage):
             <?php
 
         elseif ($key == 'contents'):
-
             ?>
             <div class="row">
             <?php
@@ -69,26 +68,38 @@ if ($this->homepage):
             ?>
             <h3>Albo pretorio</h3>
             <?php foreach($value as $record): ?>
-
                 <div>
                     <?php echo ucfirst($record['titolo']) ?>
                 </div>
-
-                <!--
-                <div class="text-right">
-                    Allegati:
-                </div>
-                -->
             <?php endforeach ?>
+
             <hr>
             <?php
+        elseif ($key == 'stato-civile'):
+            ?>
+            <h3>Stato civile</h3>
+            <?php foreach($value as $record): ?>
+                <div>
+                    <?php echo ucfirst($record['titolo']) ?>
+                </div>
+            <?php endforeach ?>
 
+            <hr>
+            <?php
+        elseif ($key == 'atti-concessione'):
+            ?>
+            <h3>Atti di concessione</h3>
+
+            <?php foreach($value as $record): ?>
+                <div><?php echo ucfirst($record['titolo']) ?></div>
+            <?php endforeach ?>
+
+            <hr>
+            <?php
         elseif ($key == 'freeText'):
-
             foreach($value as $record) {
                 echo $record['freeText']."<br>";
             }
-
         endif;
 
     endforeach;

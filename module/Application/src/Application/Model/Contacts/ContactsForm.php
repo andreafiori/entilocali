@@ -81,27 +81,29 @@ class ContactsForm extends Form
             'name' => 'csrf',
             'type' => 'Zend\Form\Element\Csrf',
         ));
-        
-        // CAPTCHA
-        /*
+    }
+
+    public function addCaptcha()
+    {
         $dumb = new Captcha\Dumb();
         $dumb->setLabel('Copia e incolla la seguente stringa:');
-        
+
         $captcha = new Element\Captcha('captcha');
         $captcha->setCaptcha($dumb)->setLabel('Captcha');
 
         $this->add($captcha);
-        */
-        // END CAPTHCHA
-        
+    }
+
+    public function addSubmitButton()
+    {
         $this->add(array(
-            'name' => 'send',
-            'type'  => 'submit',
-            'attributes' => array(
-                'label' => '&nbsp;',
-                'value' => 'Invia',
-                'id' => 'send'
-            ))
+                'name' => 'send',
+                'type'  => 'submit',
+                'attributes' => array(
+                    'label' => '&nbsp;',
+                    'value' => 'Invia',
+                    'id' => 'send'
+                ))
         );
     }
 }

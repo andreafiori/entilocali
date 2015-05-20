@@ -23,6 +23,8 @@ class AmministrazioneTrasparenteController extends SetupAbstractController
 
         $basicLayout = $this->layout()->getVariable('amministrazione_trasparente_basiclayout');
 
+        $amministrazione_trasparente_sottosezione_id = $this->layout()->getVariable('amministrazione_trasparente_sottosezione_id');
+
         $formSearch = new AmministrazioneTrasparenteFormSearch();
         $formSearch->setData( array('anno' => date("Y")) );
 
@@ -48,6 +50,7 @@ class AmministrazioneTrasparenteController extends SetupAbstractController
             'sottoSezioni'     => $sottoSezioni->getRecords(),
             'contenuti'        => $wrapper->getRecords(),
             'templatePartial'  => 'amministrazione-trasparente/amministrazione-trasparente.phtml',
+            'amministrazione_trasparente_sottosezione_id' => $amministrazione_trasparente_sottosezione_id
         ));
 
         $this->layout()->setTemplate(isset($basicLayout) ? $templateDir.$basicLayout : $mainLayout);

@@ -16,8 +16,14 @@ use Application\Model\NullException;
  */
 abstract class TestSuite extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var PhpEnviromentRequest
+     */
     protected $request;
 
+    /**
+     * @var \Zend\Http\Response
+     */
     protected $response;
 
     protected $router;

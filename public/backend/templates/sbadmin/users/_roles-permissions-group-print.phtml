@@ -1,12 +1,12 @@
 <?php if (isset($records)): ?>
-<?php foreach($records as $record): ?>
-<div>
-    <input name="permissions[<?php echo $record['flag'] ?>]" type="checkbox"<?php if ($this->acl->hasResource($record['flag']) and $this->acl->isAllowed($this->roleName, $record['flag'])): ?> checked="checked"<?php endif; ?> id="<?php echo $record['flag'] ?>" value="<?php echo $record['permissionId'] ?>">
-    <label style="font-weight: normal; cursor: pointer" for="<?php echo $record['flag'] ?>">
-        <?php echo $record['description'] ?>
-    </label>
-</div>
-<?php endforeach; ?>
+    <?php foreach($records as $record): ?>
+    <div>
+        <input name="permissions[<?php echo $record['flag'] ?>]" type="checkbox"<?php if ($this->acl->hasResource($record['flag']) and $this->acl->isAllowed($this->roleName, $record['flag'])): ?> checked="checked"<?php endif; ?> id="<?php echo $record['flag'] ?>" value="<?php echo $record['permissionId'] ?>">
+        <label style="font-weight: normal; cursor: pointer" for="<?php echo $record['flag'] ?>">
+            <?php echo $record['description'] ?>
+        </label>
+    </div>
+    <?php endforeach; ?>
 <?php else: ?>
     <div class="alert alert-danger">
         Impossibile visualizzare il blocco permessi utente

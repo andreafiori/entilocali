@@ -114,10 +114,10 @@ class AmministrazioneTrasparenteSummaryController extends SetupAbstractControlle
                 ),
                 array(
                     'type'      => 'attachButton',
-                    'href'      => $this->url()->fromRoute('admin/attachments-form', array(
-                            'lang'      => 'it',
-                            'module'    => 'amministrazione-trasparente',
-                            'id'        => $record['id'],
+                    'href'      => $this->url()->fromRoute('admin/attachments-summary', array(
+                            'lang'          => 'it',
+                            'module'        => 'amministrazione-trasparente',
+                            'referenceId'   => $record['id'],
                         )
                     ),
                 ),

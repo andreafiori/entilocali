@@ -18,9 +18,9 @@ class UsersRolesForm extends Form
         parent::__construct($name, $options);
 
         $this->add(array(
-            'name'       => 'name',
-            'type'       => 'Text',
-            'options'    => array( 'label' => '* Nome' ),
+            'name' => 'name',
+            'type' => 'Text',
+            'options' => array( 'label' => '* Nome' ),
             'attributes' => array(
                 'required'      => 'required',
                 'title'         => 'Inserisci il nome',
@@ -30,14 +30,14 @@ class UsersRolesForm extends Form
         ));
 
         $this->add(array(
-            'name'          => 'description',
-            'type'          => 'Textarea',
-            'options'       => array( 'label' => 'Descrizione' ),
-            'attributes'    => array(
+            'name' => 'description',
+            'type' => 'Textarea',
+            'options' => array('label' => 'Descrizione'),
+            'attributes' => array(
                 'title'         => 'Inserisci la descrizione',
                 'placeholder'   => 'Descrizione...',
                 'id'            => 'description',
-                'rows'          => 8
+                'rows'          => 8,
             )
         ));
 
@@ -45,9 +45,9 @@ class UsersRolesForm extends Form
             'type' => 'Zend\Form\Element\Select',
             'name' => 'adminAccess',
             'options' => array(
-                'label'          => '* Tipo ruolo',
-                'empty_option'   => 'Seleziona',
-                'value_options'  => array(
+                'label' => '* Tipo ruolo',
+                'empty_option' => 'Seleziona',
+                'value_options' => array(
                     1 => 'Utente area risevata',
                     0 => 'Community'
                 ),

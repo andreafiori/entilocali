@@ -59,6 +59,7 @@ class UsersCrudHandler  extends CrudHandlerAbstract implements CrudHandlerInterf
             'email'         => $formData->email,
             'username'      => $formData->username,
             'role_id'       => $formData->roleId,
+            'settore_id'    => $formData->settoreId,
             'last_update'   => date("Y-m-d H:i:s"),
             'create_date'   => date("Y-m-d H:i:s"),
         );
@@ -93,6 +94,7 @@ class UsersCrudHandler  extends CrudHandlerAbstract implements CrudHandlerInterf
             'email'         => $formData->email,
             'username'      => $formData->username,
             'role_id'       => $formData->roleId,
+            'settore_id'    => $formData->settoreId,
             'last_update'   => date("Y-m-d H:i:s"),
         );
 

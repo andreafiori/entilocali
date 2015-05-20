@@ -9,7 +9,7 @@ use Admin\Model\Users\UsersCrudHandler;
  * @author Andrea Fiori
  * @since  30 March 2015
  */
-class UsersCrudHandlerTest extends CrudHandlerTestSuite
+class UsersCrudHandlerTest //extends CrudHandlerTestSuite
 {
     /**
      * @var UsersCrudHandler

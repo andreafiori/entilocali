@@ -5,7 +5,9 @@ return array(
             'Admin\Controller\Admin'                                            => 'Admin\Controller\AdminController',
 
             /* Attachment files */
+            'Admin\Controller\Attachments\AttachmentsSummary'                   => 'Admin\Controller\Attachments\AttachmentsSummaryController',
             'Admin\Controller\Attachments\AttachmentsForm'                      => 'Admin\Controller\Attachments\AttachmentsFormController',
+            'Admin\Controller\Attachments\AttachmentsPositions'                 => 'Admin\Controller\Attachments\AttachmentsPositionsController',
             'Admin\Controller\Attachments\AttachmentsFormUpdate'                => 'Admin\Controller\Attachments\AttachmentsFormUpdateController',
 
             /* Insert and update Ajax POSTs */
@@ -55,10 +57,11 @@ return array(
             'Admin\Controller\Blogs\BlogsCategoriesSummary'          => 'Admin\Controller\Blogs\BlogsCategoriesSummaryController',
             'Admin\Controller\Blogs\BlogsSummary'                    => 'Admin\Controller\Blogs\BlogsSummaryController',
             'Admin\Controller\Blogs\BlogsForm'                       => 'Admin\Controller\Blogs\BlogsFormController',
+            'Admin\Controller\Blogs\Blogs'                           => 'Admin\Controller\Blogs\BlogsController',
 
             /* Photo */
-            'Admin\Controller\Photo\PhotoCategoriesForm'             => 'Admin\Controller\Photo\PhotosCategoriesFormController',
-            'Admin\Controller\Photo\PhotoCategoriesSummary'          => 'Admin\Controller\Photo\PhotoCategoriesSummaryController',
+            'Admin\Controller\Photo\PhotoForm'                        => 'Admin\Controller\Photo\PhotoFormController',
+            'Admin\Controller\Photo\PhotoSummary'                     => 'Admin\Controller\Photo\PhotoSummaryController',
 
             /* Sezioni */
             'Admin\Controller\Sezioni\SezioniForm'                    => 'Admin\Controller\Sezioni\SezioniFormController',
@@ -79,7 +82,10 @@ return array(
 
             /* Gestione home page */
             'Admin\Controller\HomePage\HomePageBlocksPositions'       => 'Admin\Controller\HomePage\HomePageBlocksPositionsController',
-            'Admin\Controller\HomePage\HomePageManager'               => 'Admin\Controller\HomePage\HomePageManagerController',
+            'Admin\Controller\HomePage\HomePage'                      => 'Admin\Controller\HomePage\HomePageController',
+
+            /* AJAX TRIAL */
+            'Admin\Controller\FormAjaxTrial'                          => 'Admin\Controller\FormAjaxTrialController',
         ),
     ),
     'router' => array(
@@ -99,6 +105,32 @@ return array(
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
+                    'ajax-pform-trial' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route'       => 'trial/form/ajax/:action[/]',
+                            'constraints' => array(
+                                'action' => '[a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\FormAjaxTrial',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'homepage-positions' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route'       => 'homepage/management[/]',
+                            'constraints' => array(
+
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\HomePage\HomePage',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
                     'homepage-blocks-positions' => array(
                         'type' => 'Segment',
                         'options' => array(
@@ -190,9 +222,9 @@ return array(
                         'options' => array(
                             'route' => 'sezioni/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
                             'constraints' => array(
-                                'order_by' => '[a-zA-Z0-9_-]*',
-                                'order' => '[a-zA-Z0-9_-]*',
-                                'page'     => '[0-9]+',
+                                'order_by'  => '[a-zA-Z0-9_-]*',
+                                'order'     => '[a-zA-Z0-9_-]*',
+                                'page'      => '[0-9]+',
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Sezioni\SezioniSummary',
@@ -242,13 +274,57 @@ return array(
                             ),
                         ),
                     ),
+                    'attachments-summary' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'attachments/summary/:module/:referenceId[/]',
+                            'constraints' => array(
+                                'module'        => '[a-zA-Z0-9_-]*',
+                                'referenceId'   => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Attachments\AttachmentsSummary',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'attachments-positions' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'attachments/positions/:module/:referenceId[/]',
+                            'constraints' => array(
+                                'module'        => '[a-zA-Z0-9_-]*',
+                                'referenceId'   => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Attachments\AttachmentsPositions',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
                     'attachments-form' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route'       => 'attachments/form/:module[/][:id[/]]',
+                            'route'       => 'attachments/form/:module/:referenceId[/][:attachmentId[/]]',
                             'constraints' => array(
-                                'module' => '[a-zA-Z0-9_-]*',
-                                'id'     => '[0-9]+',
+                                'module'        => '[a-zA-Z0-9_-]*',
+                                'referenceId'   => '[0-9]+',
+                                'attachmentId'  => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Attachments\AttachmentsForm',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'attachments-form-big-files' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'attachments/form/big/files/:module/:referenceId[/][:attachmentId[/]]',
+                            'constraints' => array(
+                                'module'        => '[a-zA-Z0-9_-]*',
+                                'referenceId'   => '[0-9]+',
+                                'attachmentId'  => '[0-9]+',
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Attachments\AttachmentsForm',
@@ -275,9 +351,9 @@ return array(
                         'options' => array(
                             'route' => 'albo-pretorio/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
                             'constraints' => array(
-                                'order_by' => '[a-zA-Z0-9_-]*',
-                                'order' => '[a-zA-Z0-9_-]*',
-                                'page'     => '[0-9]+',
+                                'order_by'  => '[a-zA-Z0-9_-]*',
+                                'order'     => '[a-zA-Z0-9_-]*',
+                                'page'      => '[0-9]+',
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\AlboPretorio\AlboPretorioSummary',
@@ -581,6 +657,20 @@ return array(
                             ),
                         ),
                     ),
+                    'blogs-operations' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'       => 'blogs/operations/:action[/]',
+                            'constraints' => array(
+                                'action' => '[a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Blogs\Blogs',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+
                     'posts-form' => array(
                         'type' => 'Segment',
                         'options' => array(
@@ -591,6 +681,35 @@ return array(
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Blogs\BlogsForm',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'photo-summary' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'       => 'photo/summary[/][:categoryId[/]][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'constraints' => array(
+                                'categoryId'  => '[0-9]+',
+                                'page'        => '[0-9]+',
+                                'order_by'    => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'order'       => 'ASC|DESC',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Photo\PhotoSummary',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'photo-form' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route'       => 'photo/form[/][:id[/]]',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Photo\PhotoForm',
                                 'action'     => 'index',
                             ),
                         ),
@@ -881,7 +1000,7 @@ return array(
     ),
     'view_manager' => array(
         'display_not_found_reason' => true,
-        'display_exceptions'       => true,
+        'display_exceptions' => true,
         'template_map' => array(
             'admin/admin/login'                             => __DIR__ . '../../view/admin/auth/login.phtml',
             'admin/admin/index'                             => __DIR__ . '../../view/admin/index.phtml',
@@ -922,10 +1041,14 @@ return array(
             /* Enti terzi */
             'admin/invio-ente-terzo/index'                  => __DIR__ . '/../view/admin/empty.phtml',
 
-            /* Posts */
+            /* Blogs */
             'admin/blogs-summary/index'                     => __DIR__ . '/../view/admin/empty.phtml',
             'admin/blogs-form/index'                        => __DIR__ . '/../view/admin/empty.phtml',
             'admin/blogs-categories-summary/index'          => __DIR__ . '/../view/admin/empty.phtml',
+
+            /* Photo */
+            'admin/photo-form/index'                        => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/photo-summary/index'                        => __DIR__ . '/../view/admin/empty.phtml',
 
             'admin/form-data-post/index'                    => __DIR__ . '../../view/admin/formpost-empty.phtml',
 
@@ -946,10 +1069,15 @@ return array(
             'admin/users-roles-form/index'                  => __DIR__ . '/../view/admin/empty.phtml',
             'admin/users-roles-summary/index'               => __DIR__ . '/../view/admin/empty.phtml',
 
+            'admin/home-page/index'                         => __DIR__ . '/../view/admin/empty.phtml',
             'admin/home-page-blocks-positions/index'        => __DIR__ . '/../view/admin/empty.phtml',
             'admin/home-page-blocks-positions/update'       => __DIR__ . '/../view/admin/empty.phtml',
 
             'admin/'                                        => __DIR__ . '/../view/admin/empty.phtml',
+
+            /* AJAX POST TRIAL */
+            'admin/form-ajax-trial/index'                   => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/form-ajax-trial/add'                     => __DIR__ . '/../view/admin/empty.phtml',
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view/',
@@ -975,7 +1103,6 @@ return array(
     /* FormData Class Map */
     'formdata_classmap' => array(
         'configurations'                        => 'Admin\Model\Config\ConfigFormDataHandler',
-        'sezioni-contenuti'                     => 'Admin\Model\Sezioni\SezioniFormDataHandler',
         'sottosezioni-contenuti'                => 'Admin\Model\Sezioni\SottoSezioniFormDataHandler',
         'sottosezioni-amm-trasparente'          => 'Admin\Model\Sezioni\SottoSezioniFormDataHandler',
         'contratti-pubblici-scelta-contraente'  => 'Admin\Model\ContrattiPubblici\SceltaContraente\SceltaContraenteFormDataHandler',
@@ -995,7 +1122,6 @@ return array(
         'categories'                                    => 'Admin\Model\Posts\CategoriesCrudHandler',
         'contenuti'                                     => 'Admin\Model\Contenuti\ContenutiCrudHandler',
         'configurations'                                => 'Admin\Model\Config\ConfigCrudHandler',
-        'sezioni-contenuti'                             => 'Admin\Model\Sezioni\SezioniCrudHandler',
         'sottosezioni-contenuti'                        => 'Admin\Model\Sezioni\SottoSezioniCrudHandler',
         'contratti-pubblici'                            => 'Admin\Model\ContrattiPubblici\ContrattiPubbliciCrudHandler',
         'contratti-pubblici-scelta-contraente'          => 'Admin\Model\ContrattiPubblici\SceltaContraente\SceltaContraenteCrudHandler',
@@ -1018,7 +1144,6 @@ return array(
         'tickets'                                       => 'Admin\Model\Tickets\TicketsDataTable',
         'contacts'                                      => 'Admin\Model\Contacts\ContactsDataTable',
         'logs'                                          => 'Admin\Model\Logs\LogsDataTable',
-        'sezioni-contenuti'                             => 'Admin\Model\Sezioni\SezioniDataTable',
         'sottosezioni-contenuti'                        => 'Admin\Model\Sezioni\SottosezioniContenutiDataTable',
         'sottosezioni-amm-trasparente'                  => 'Admin\Model\Sezioni\SottosezioniAmmTrasparenteDataTable',
         'atti-ufficiali'                                => 'Admin\Model\AlboPretorio\AttiUfficialiDataTable',

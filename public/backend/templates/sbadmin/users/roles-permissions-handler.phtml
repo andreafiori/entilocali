@@ -1,7 +1,7 @@
 <ul class="breadcrumb">
     <li><a href="<?php echo $this->url('admin', array('lang' => 'it')) ?>" title="Home page">Home</a> <span class="divider"></span></li>
-    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'users')); ?>" title="Gestione utenti">Utenti</a></li>
-    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter'  => 'users-roles')); ?>" title="Gestione ruoli">Ruoli</a></li>
+    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter' => 'users')); ?>" title="Gestione utenti">Utenti</a></li>
+    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter' => 'users-roles')); ?>" title="Gestione ruoli">Ruoli</a></li>
     <li><?php echo $this->roleName ?></li>
 </ul>
 
@@ -43,7 +43,7 @@ echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', ar
         <div class="col-sm-10">
             <h3>Contenuti</h3>
             <?php
-            echo $this->partial($this->templateBackendDir.'users/_roles-permissions-group-print.phtml', array(
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
                     'records'  => $this->permissions['contenuti'],
                     'roleName' => $this->roleName,
                     'acl'      => $this->acl
@@ -53,7 +53,7 @@ echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', ar
 
             <h4>Sezioni</h4>
             <?php
-            echo $this->partial($this->templateBackendDir.'users/_roles-permissions-group-print.phtml', array(
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
                     'records'  => $this->permissions['contenuti_sezioni'],
                     'roleName' => $this->roleName,
                     'acl'      => $this->acl
@@ -63,7 +63,7 @@ echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', ar
 
             <h4>Sottosezioni</h4>
             <?php
-            echo $this->partial($this->templateBackendDir.'users/_roles-permissions-group-print.phtml', array(
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
                     'records'  => $this->permissions['contenuti_sottosezioni'],
                     'roleName' => $this->roleName,
                     'acl'      => $this->acl
@@ -78,7 +78,7 @@ echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', ar
         <div class="col-sm-5">
             <h3>Albo Pretorio</h3>
             <?php
-            echo $this->partial($this->templateBackendDir.'users/_roles-permissions-group-print.phtml', array(
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
                     'records'  => $this->permissions['albo_pretorio'],
                     'roleName' => $this->roleName,
                     'acl'      => $this->acl
@@ -87,7 +87,7 @@ echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', ar
             ?>
             <h4> Sezioni</h4>
             <?php
-            echo $this->partial($this->templateBackendDir.'users/_roles-permissions-group-print.phtml', array(
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
                     'records'   => $this->permissions['albo_pretorio_sezioni'],
                     'roleName'  => $this->roleName,
                     'acl'       => $this->acl
@@ -99,7 +99,7 @@ echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', ar
         <div class="col-sm-5">
             <h3>Stato civile</h3>
             <?php
-            echo $this->partial($this->templateBackendDir.'users/_roles-permissions-group-print.phtml', array(
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
                     'records'   => $this->permissions['stato_civile'],
                     'roleName'  => $this->roleName,
                     'acl'       => $this->acl
@@ -108,7 +108,7 @@ echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', ar
             ?>
             <h4>Sezioni</h4>
             <?php
-            echo $this->partial($this->templateBackendDir.'users/_roles-permissions-group-print.phtml', array(
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
                     'records'   => $this->permissions['stato_civile_sezioni'],
                     'roleName'  => $this->roleName,
                     'acl'       => $this->acl
@@ -123,7 +123,7 @@ echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', ar
         <div class="col-sm-5">
             <h3>Amministrazione Trasparente</h3>
             <?php
-            echo $this->partial($this->templateBackendDir.'users/_roles-permissions-group-print.phtml', array(
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
                     'records'   => $this->permissions['amministrazione_trsparente'],
                     'roleName'  => $this->roleName,
                     'acl'       => $this->acl
@@ -133,7 +133,7 @@ echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', ar
 
             <h4>Sezioni</h4>
             <?php
-            echo $this->partial($this->templateBackendDir.'users/_roles-permissions-group-print.phtml', array(
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
                     'records'   => $this->permissions['amministrazione_trsparente_sezioni'],
                     'roleName'  => $this->roleName,
                     'acl'       => $this->acl
@@ -143,7 +143,7 @@ echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', ar
 
             <h4>Sottosezioni</h4>
             <?php
-            echo $this->partial($this->templateBackendDir.'users/_roles-permissions-group-print.phtml', array(
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
                     'records'   => $this->permissions['amministrazione_trsparente_sottosezioni'],
                     'roleName'  => $this->roleName,
                     'acl'       => $this->acl
@@ -155,7 +155,7 @@ echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', ar
         <div class="col-sm-5">
             <h3>Atti di Concessione</h3>
             <?php
-            echo $this->partial($this->templateBackendDir.'users/_roles-permissions-group-print.phtml', array(
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
                     'records'   => $this->permissions['atti_concessione'],
                     'roleName'  => $this->roleName,
                     'acl'       => $this->acl
@@ -171,7 +171,7 @@ echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', ar
         <div class="col-sm-5">
             <h3>Contratti pubblici</h3>
             <?php
-            echo $this->partial($this->templateBackendDir.'users/_roles-permissions-group-print.phtml', array(
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
                     'records'   => $this->permissions['contratti_pubblici'],
                     'roleName'  => $this->roleName,
                     'acl'       => $this->acl
@@ -181,7 +181,7 @@ echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', ar
 
             <h4>Voci scelta contraente</h4>
             <?php
-            echo $this->partial($this->templateBackendDir.'users/_roles-permissions-group-print.phtml', array(
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
                     'records'   => $this->permissions['contratti_pubblici_scelta_contraente'],
                     'roleName'  => $this->roleName,
                     'acl'       => $this->acl
@@ -191,7 +191,7 @@ echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', ar
 
             <h4>Operatori</h4>
             <?php
-            echo $this->partial($this->templateBackendDir.'users/_roles-permissions-group-print.phtml', array(
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
                     'records'   => $this->permissions['contratti_pubblici_opeatori'],
                     'roleName'  => $this->roleName,
                     'acl'       => $this->acl
@@ -203,7 +203,7 @@ echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', ar
         <div class="col-sm-5">
             <h3>Enti terzi</h3>
             <?php
-            echo $this->partial($this->templateBackendDir.'users/_roles-permissions-group-print.phtml', array(
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
                     'records'   => $this->permissions['enti_terzi'],
                     'roleName'  => $this->roleName,
                     'acl'       => $this->acl
@@ -218,7 +218,7 @@ echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', ar
         <div class="col-sm-5">
             <h3>Blogs</h3>
             <?php
-            echo $this->partial($this->templateBackendDir.'users/_roles-permissions-group-print.phtml', array(
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
                     'records'   => $this->permissions['blogs'],
                     'roleName'  => $this->roleName,
                     'acl'       => $this->acl
@@ -228,7 +228,7 @@ echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', ar
 
             <h4>Categorie</h4>
             <?php
-            echo $this->partial($this->templateBackendDir.'users/_roles-permissions-group-print.phtml', array(
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
                     'records'   => $this->permissions['blogs_categories'],
                     'roleName'  => $this->roleName,
                     'acl'       => $this->acl
@@ -240,7 +240,7 @@ echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', ar
         <div class="col-sm-5">
             <h3>Foto</h3>
             <?php
-            echo $this->partial($this->templateBackendDir.'users/_roles-permissions-group-print.phtml', array(
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
                     'records'   => $this->permissions['photo'],
                     'roleName'  => $this->roleName,
                     'acl'       => $this->acl
@@ -250,7 +250,7 @@ echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', ar
 
             <h4>Categorie</h4>
             <?php
-            echo $this->partial($this->templateBackendDir.'users/_roles-permissions-group-print.phtml', array(
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
                     'records'   => $this->permissions['photo_categories'],
                     'roleName'  => $this->roleName,
                     'acl'       => $this->acl
@@ -265,7 +265,7 @@ echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', ar
         <div class="col-sm-10">
             <h3>Gestione Utenti</h3>
             <?php
-            echo $this->partial($this->templateBackendDir.'users/_roles-permissions-group-print.phtml', array(
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
                     'records'   => $this->permissions['users'],
                     'roleName'  => $this->roleName,
                     'acl'       => $this->acl
@@ -275,7 +275,7 @@ echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', ar
 
             <h4>Ruoli</h4>
             <?php
-            echo $this->partial($this->templateBackendDir.'users/_roles-permissions-group-print.phtml', array(
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
                     'records'   => $this->permissions['users_roles'],
                     'roleName'  => $this->roleName,
                     'acl'       => $this->acl
@@ -285,7 +285,7 @@ echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', ar
 
             <h4>Settori</h4>
             <?php
-            echo $this->partial($this->templateBackendDir.'users/_roles-permissions-group-print.phtml', array(
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
                     'records'   => $this->permissions['users_settori'],
                     'roleName'  => $this->roleName,
                     'acl'       => $this->acl
@@ -295,7 +295,7 @@ echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', ar
 
             <h4>Responsabili procedimento</h4>
             <?php
-            echo $this->partial($this->templateBackendDir.'users/_roles-permissions-group-print.phtml', array(
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
                     'records'   => $this->permissions['users_resp_proc'],
                     'roleName'  => $this->roleName,
                     'acl'       => $this->acl

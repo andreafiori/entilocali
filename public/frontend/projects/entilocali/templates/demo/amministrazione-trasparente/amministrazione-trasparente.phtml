@@ -1,38 +1,46 @@
 <?php
+
+$titolo = (!empty($this->contenuti[0]['titolo'])) ? utf8_encode($this->contenuti[0]['titolo']) : null;
+
 /* Share and export icons */
 $shareExportIcons = $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
-    'twitterShareText' => urlencode( utf8_encode($this->contenuti[0]['titolo']) ),
+    'twitterShareText'      => urlencode( utf8_encode($titolo) ),
     'publicDirRelativePath' => $this->publicDirRelativePath,
 ));
+
 ?>
-<ul class="breadcrumbs">
-    <li><a href="<?php echo $this->basepath() ?>" title="Torna all'home page">Home</a></li>
-    <li><a href="<?php echo $this->url('amministrazione-trasparente', array('profondita' => 200)) ?>" title="Vai all'indice di amministrazione trasparente">Amministrazione trasparente</a></li>
-    <?php if (isset($this->contenuti[0]['titolo'])): ?>
-    <li class="current"><?php echo utf8_encode($this->contenuti[0]['titolo']) ?></li>
-    <?php endif ?>
-</ul>
+    <ul class="breadcrumbs">
+        <li><a href="<?php echo $this->basepath() ?>" title="Torna all'home page">Home</a></li>
+        <li>
+            <a href="<?php echo $this->url('amministrazione-trasparente', array('profondita' => $this->amministrazione_trasparente_sottosezione_id)) ?>" title="Vai all'indice di amministrazione trasparente">
+                Amministrazione trasparente
+            </a>
+        </li>
+        <?php if (isset($this->contenuti[0]['titolo'])): ?>
+            <li class="current"><?php echo (!empty($titolo)) ? utf8_encode($titolo) : 'Nessun p' ?></li>
+        <?php endif ?>
+    </ul>
 
-<div class="text-center">
-    <h1>Amministrazione trasparente</h1>
-</div>
+    <div class="text-center">
+        <h1>Amministrazione trasparente</h1>
+    </div>
 
-<fieldset>
-        <legend>Ricerca</legend>
-    <?php
-    
-    $form = $this->form;
-    $form->prepare();
+    <fieldset>
+    <legend>Ricerca</legend>
+<?php
 
-    $form->setAttribute('action', $this->currentUrl);
-    $form->setAttribute('method', 'post');
-    $form->setAttribute('role', 'form');
+$form = $this->form;
+$form->prepare();
 
-    $formLabel = $this->plugin('formLabel');
+$form->setAttribute('action', $this->currentUrl);
+$form->setAttribute('method', 'post');
+$form->setAttribute('role', 'form');
 
-    echo $this->form()->openTag($this->form);
+$formLabel = $this->plugin('formLabel');
 
-    ?>
+echo $this->form()->openTag($this->form);
+
+?>
     <div class="row">
         <?php $name = $form->get('anno'); ?>
         <?php echo $this->formElementErrors($name); ?>
@@ -92,7 +100,7 @@ endforeach;
 
 ?>
 
-<!-- SottoSezioni -->
+    <!-- SottoSezioni -->
 <?php
 if ($this->sottoSezioni):
     ?>
@@ -111,8 +119,8 @@ if ($this->sottoSezioni):
             <a href="<?php echo $urlSottoSezione ?>"
                title="Vai alla sezione <?php echo utf8_encode($sottoSezione['nomeSottoSezione']); ?>"
                 <?php if (isset($target)): ?> target="<?php echo $target ?>"<?php endif; ?>><?php echo utf8_encode($sottoSezione['nomeSottoSezione']); ?></a>
-        </li>    
-        <?php
+        </li>
+    <?php
     endforeach;
     ?>
     </ul>

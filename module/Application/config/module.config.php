@@ -35,6 +35,17 @@ return array(
                                                     ),
                                                     'may_terminate' => true,
                                     ),
+                                    'notfound' => array(
+                                        'type'    => 'segment',
+                                        'options' => array(
+                                            'route' => '/page/not/found/',
+                                            'defaults' => array(
+                                                'controller' => 'Application\Controller\Index',
+                                                'action'     => 'notfound',
+                                            ),
+                                        ),
+                                        'may_terminate' => true,
+                                    ),
                                     /* Posts Contents */
                                     /*
                                     'posts-contents-categories' => array(
@@ -597,6 +608,7 @@ return array(
                     'exception_template'       => 'error/index',
                     'template_map' => array(
                         'application/home-page/index'                   => __DIR__ . '/../view/empty.phtml',
+                        'application/index/notfound'                    => __DIR__ . '/../view/empty.phtml',
                         'layout/layout'                                 => __DIR__ . '/../view/layout/layout.phtml',
                         'application/feed/index'                        => __DIR__ . '/../view/application/index/index.phtml',
                         'application/amministrazione-trasparente/index' => __DIR__ . '/../view/empty.phtml',
@@ -615,7 +627,7 @@ return array(
                         'application/users-recover-password/index'      => __DIR__ . '/../view/empty.phtml',
                         'application/cookie-warning/confirm'            => __DIR__ . '/../view/empty.phtml',
                         'application/password-preview/index'            => __DIR__ . '/../view/empty.phtml',
-                        'error/404'                                     => __DIR__ . '/../view/error/404.phtml',
+                        'error/404'                                     => __DIR__ . '/../view/error/notfound.phtml',
                         'error/index'                                   => __DIR__ . '/../view/error/index.phtml',
                         'error/dbconnection'                            => __DIR__ . '/../view/error/dbconnection.phtml',
                     ),

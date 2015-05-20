@@ -10,6 +10,8 @@ class AttachmentsFormControllerHelper extends AttachmentsFormControllerHelperAbs
 
     private $propertiesGetterClassInstance;
 
+    private $attachmentsForm;
+
     /**
      * @param $moduleSlug
      */
@@ -120,5 +122,41 @@ class AttachmentsFormControllerHelper extends AttachmentsFormControllerHelperAbs
     public function getPropertiesGetterClassPath()
     {
         return $this->propertiesGetterClassPath;
+    }
+
+    /**
+     * @param AttachmentsForm $form
+     */
+    public function setAttachmentsForm(AttachmentsForm $form)
+    {
+        $this->attachmentsForm = $form;
+    }
+
+    /**
+     * @return AttachmentsForm
+     */
+    public function getAttachmentsForm()
+    {
+        return $this->attachmentsForm;
+    }
+
+    private function assertAttachmentsForm()
+    {
+        if (!$this->getAttachmentsForm()) {
+            throw new NullException("Attachments form is not set");
+        }
+    }
+
+    public function buildForm($formData)
+    {
+        $this->assertAttachmentsForm();
+
+        $form = $this->getAttachmentsForm();
+
+        (!empty($formData)) ? $form->addInputFileNotRequired() : $form->addInputFile();
+
+        $form->addSecondaryFields();
+
+        $this->form = $form;
     }
 }

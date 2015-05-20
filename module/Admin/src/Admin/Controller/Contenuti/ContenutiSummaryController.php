@@ -84,14 +84,14 @@ class ContenutiSummaryController extends SetupAbstractController
                         'title'     => $row['attivo']==1 ? 'Nascondi contenuto' : 'Attiva contenuto',
                     ),
                     array(
-                        'type'      => 'updateButton',
-                        'href'      => $this->url()->fromRoute('admin/contenuti-form', array(
+                        'type' => 'updateButton',
+                        'href' => $this->url()->fromRoute('admin/contenuti-form', array(
                                 'lang'      => 'it',
                                 'module'    => 'contenuti',
                                 'id'        => $row['id']
                             )
                         ),
-                        'title'     => 'Modifica contenuto'
+                        'title' => 'Modifica contenuto'
                     ),
                     array(
                         'type'      => 'deleteButton',
@@ -111,11 +111,11 @@ class ContenutiSummaryController extends SetupAbstractController
                         'value'     => $row['home']==1 ? 'homepageDelButton' : 'homepagePutButton',
                     ),
                     array(
-                        'type'      => 'attachButton',
-                        'href'      => $this->url()->fromRoute('admin/attachments-form', array(
-                                'lang'      => 'it',
-                                'module'    => 'contenuti',
-                                'id'        => $row['id']
+                        'type' => 'attachButton',
+                        'href' => $this->url()->fromRoute('admin/attachments-summary', array(
+                                'lang'          => 'it',
+                                'module'        => 'contenuti',
+                                'referenceId'   => $row['id']
                             )
                         ),
                     )

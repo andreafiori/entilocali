@@ -9,7 +9,7 @@ class HomePageBlocksGetter extends QueryBuilderHelperAbstract
     public function setMainQuery()
     {
         $this->setSelectQueryFields("DISTINCT(homePageBlocks.id) AS id, homePageBlocks.position, homePageBlocks.note,
-                                     modules.id, modules.name AS moduleName
+                                     modules.id AS moduleId, modules.name AS moduleName
                                     ");
 
         $this->getQueryBuilder()->select( $this->getSelectQueryFields() )

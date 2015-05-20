@@ -1,15 +1,15 @@
 <?php if (empty($records)): ?>
-    <div class="alert alert-warning">
+    <div class="alert alert-warning" style="margin: 0; padding-top: 0">
         <?php if ($this->messageTitle): ?>
         <h1><?php echo $this->messageTitle ?></h1>
         <?php else: ?>
-        <h1>Nessun dato in archivio</h1>
+            <h3>Nessuna informazione trovata</h3>
         <?php endif; ?>
 
         <?php if ($this->messageDescription): ?>
-        <p><?php echo $this->messageDescription ?></p>
+            <p><?php echo $this->messageDescription ?></p>
         <?php else: ?>
-        <p>Nessun dato da elencare &egrave; stato trovato.</p>
+            <p>Non &egrave; stata trovata nessuna informazione da elencare nella pagina corrente relativa al modulo richiesto.</p>
         <?php endif; ?>
     </div>
 <?php else: ?>

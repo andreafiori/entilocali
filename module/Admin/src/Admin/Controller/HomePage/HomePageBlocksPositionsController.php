@@ -19,7 +19,8 @@ class HomePageBlocksPositionsController extends SetupAbstractController
         $helper = new HomePageControllerHelper();
         $helper->setHomePageBlocksGetterWrapper(new HomePageBlocksGetterWrapper(new HomePageBlocksGetter($em)));
         $helper->setupHomePageBlocksRecords(array(
-            'orderBy' => 'homePageBlocks.position'
+            'orderBy' => 'homePageBlocks.position',
+            'fields'  => ''
         ));
 
         $this->layout()->setVariables(array(
@@ -41,7 +42,7 @@ class HomePageBlocksPositionsController extends SetupAbstractController
 
         if (!empty($items)):
             foreach ($items as $position => $item):
-
+//echo "$item => $position <br>";
                 $connection->update(
                     DbTableContainer::homepageBlocks,
                     array('position' => $position),

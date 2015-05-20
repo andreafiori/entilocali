@@ -21,6 +21,7 @@ class UsersFormInputFilter implements InputFilterAwareInterface
     public $password;
     public $password_verify;
     public $roleId;
+    public $settoreId;
 
     protected $inputFilter;
 
@@ -37,6 +38,7 @@ class UsersFormInputFilter implements InputFilterAwareInterface
         $this->password             = (isset($data['password'])) ? $data['password'] : null;
         $this->password_verify      = (isset($data['password_verify'])) ? $data['password_verify'] : null;
         $this->roleId               = (isset($data['roleId'])) ? $data['roleId'] : null;
+        $this->settoreId            = (isset($data['settoreId'])) ? $data['settoreId'] : null;
     }
 
     /**
@@ -172,6 +174,14 @@ class UsersFormInputFilter implements InputFilterAwareInterface
 
             $inputFilter->add(array(
                 'name'     => 'roleId',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'Int'),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'settoreId',
                 'required' => true,
                 'filters'  => array(
                     array('name' => 'Int'),

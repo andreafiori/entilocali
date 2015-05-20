@@ -1,21 +1,34 @@
 <?php
+
+$titolo = (!empty($this->contenuti[0]['titolo'])) ? utf8_encode($this->contenuti[0]['titolo']) : null;
+
 /* Share and export icons */
 $shareExportIcons = $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
-    'twitterShareText' => urlencode( utf8_encode($this->contenuti[0]['titolo']) ),
+    'twitterShareText'      => urlencode( utf8_encode($titolo) ),
     'publicDirRelativePath' => $this->publicDirRelativePath,
 ));
+
 ?>
 <ul class="breadcrumbs">
     <li><a href="<?php echo $this->basepath() ?>" title="Torna all'home page">Home</a></li>
-    <li><a href="<?php echo $this->url('amministrazione-trasparente', array('profondita' => 200)) ?>" title="Vai all'indice di amministrazione trasparente">Amministrazione trasparente</a></li>
-    <?php if (isset($this->contenuti[0]['titolo'])): ?>
-    <li class="current"><?php echo utf8_encode($this->contenuti[0]['titolo']) ?></li>
-    <?php endif ?>
+    <li>
+        <a href="<?php echo $this->url('amministrazione-trasparente', array('profondita' => $this->amministrazione_trasparente_sottosezione_id)) ?>" title="Vai all'indice di amministrazione trasparente">
+            Amministrazione trasparente
+        </a>
+    </li>
+    <li class="current"><?php echo (!empty($titolo)) ? utf8_encode($titolo) : 'Nessun contenuto' ?></li>
 </ul>
 
 <div class="text-center">
     <h1>Amministrazione trasparente</h1>
 </div>
+
+<?php if (empty($titolo)): ?>
+<div>
+    <h2>Siamo spiacenti</h2>
+    <p>Nessun contenuto per la sezione selezionata</p>
+</div>
+<?php endif; ?>
 
 <fieldset>
         <legend>Ricerca</legend>

@@ -16,8 +16,6 @@ class EntiTerziSummaryController extends SetupAbstractController
     {
         $mainLayout = $this->initializeAdminArea();
 
-        $templateDir = $this->layout()->getVariable('templateDir');
-
         $page = $this->params()->fromRoute('page');
 
         $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
@@ -42,8 +40,8 @@ class EntiTerziSummaryController extends SetupAbstractController
                 "&nbsp;",
             ),
             'paginator'         => $wrapper->getPaginator(),
-            'records' => $this->formatRecordsToShowOnTable($paginatorRecords),
-            'templatePartial' => $templateDir.'datatable/datatable.phtml'
+            'records'           => $this->formatRecordsToShowOnTable($paginatorRecords),
+            'templatePartial'   => self::summaryTemplate
         ));
 
         $this->layout()->setTemplate($mainLayout);

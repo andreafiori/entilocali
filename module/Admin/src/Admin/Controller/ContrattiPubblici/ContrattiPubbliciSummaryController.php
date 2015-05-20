@@ -128,8 +128,12 @@ class ContrattiPubbliciSummaryController extends SetupAbstractController
                             'title'     => 'Attiva \ Disattiva'
                         ),
                         array(
-                            'type'      => 'updateButton',
-                            'href'      => $this->url()->fromRoute('admin/contratti-pubblici-form', array('lang' => 'it', 'id' => $row['id']) ),
+                            'type' => 'updateButton',
+                            'href' => $this->url()->fromRoute('admin/contratti-pubblici-form', array(
+                                    'lang'  => 'it',
+                                    'id'    => $row['id']
+                                )
+                            ),
                             'title'     => 'Modifica'
                         ),
                         array(
@@ -139,14 +143,14 @@ class ContrattiPubbliciSummaryController extends SetupAbstractController
                             'data-id'   => $row['id']
                         ),
                         array(
-                            'type'      => 'attachButton',
-                            'href'      => $this->url()->fromRoute('admin/attachments-form', array(
-                                'lang'      => 'it',
-                                'module'    => 'contratti-pubblici',
-                                'id'        => $row['id']
+                            'type' => 'attachButton',
+                            'href' => $this->url()->fromRoute('admin/attachments-summary', array(
+                                    'lang'          => 'it',
+                                    'module'        => 'contratti-pubblici',
+                                    'referenceId'   => $row['id']
                                 )
                             ),
-                            'title'     => 'Gestione allegati'
+                            'title' => 'Gestione allegati'
                         ),
                     );
                 }

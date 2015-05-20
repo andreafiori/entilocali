@@ -12,17 +12,31 @@ class PostsForm extends Form
 {
     public function addUploadImage()
     {
-        $this->add(array(
-                        'name' => 'image',
-                        'type' => 'Zend\Form\Element\File',
-                        'options' => array( 'label' => 'Immagine' ),
-                        'attributes' => array(
-                                        'title' => 'Inserisci file',
-                                        'id' => 'image',
-                        )
-        ));
+        $this->add( $this->recoverUploadImage() );
     }
-    
+
+    public function addUploadImageRequired()
+    {
+        $element = $this->recoverUploadImage();
+
+        $element['attributes']['required'] = 'required';
+
+        $this->add( $element );
+    }
+
+        private function recoverUploadImage()
+        {
+            return array(
+                'name' => 'image',
+                'type' => 'Zend\Form\Element\File',
+                'options' => array('label' => 'Immagine'),
+                'attributes' => array(
+                    'title' => 'Inserisci file',
+                    'id'    => 'image',
+                )
+            );
+        }
+
     public function addMainFields()
     {
         $this->add(array(
@@ -94,12 +108,6 @@ class PostsForm extends Form
                         'name' => 'postid',
                         'attributes' => array("class" => 'hiddenField')
         ));
-
-        $this->add(array(
-                        'type' => 'Zend\Form\Element\Hidden',
-                        'name' => 'postoptionid',
-                        'attributes' => array("class"=>'hiddenField')
-        ));
         
         $this->add(array(
                         'type' => 'Zend\Form\Element\Hidden',
@@ -109,7 +117,7 @@ class PostsForm extends Form
         
         $this->add(array(
                         'type' => 'Zend\Form\Element\Hidden',
-                        'name' => 'moduleid',
+                        'name' => 'moduleId',
                         'attributes' => array("class"=>'hiddenField')
         ));
     }
@@ -123,12 +131,13 @@ class PostsForm extends Form
             'type' => 'Zend\Form\Element\MultiCheckbox',
             'name' => 'categories',
             'options' => array(
-                'label'         => '* Categorie',
+                'label' => '* Categorie',
                 'value_options' => $values,
             ),
             'attributes' => array(
-                'id'    => 'category',
-                'title' => 'Seleziona almeno una categoria'
+                'id'    => 'categories',
+                'title' => 'Seleziona almeno una categoria',
+                'required' => 'required'
             )
         ));
     }

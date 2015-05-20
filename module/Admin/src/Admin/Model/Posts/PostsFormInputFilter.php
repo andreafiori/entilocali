@@ -20,11 +20,11 @@ class PostsFormInputFilter implements InputFilterAwareInterface
     public $description;
     public $seoUrl;
     public $expireDate;
-    public $category;
     public $seoKeywords;
     public $seoDescription;
     public $status;
     public $moduleId;
+    public $categories;
 
     protected $inputFilter;
 
@@ -34,14 +34,14 @@ class PostsFormInputFilter implements InputFilterAwareInterface
         $this->postoptionid    	= (isset($data['postoptionid'])) ? $data['postoptionid'] : null;
         $this->title 	 		= (isset($data['title'])) ? $data['title'] : null;
         $this->subtitle 	    = (isset($data['subtitle'])) ? $data['subtitle'] : null;
-        $this->description  	= (isset($data['description']))  ? $data['description']  : null;
+        $this->description  	= (isset($data['description']))  ? $data['description'] : null;
         $this->seoUrl           = (isset($data['seoUrl']))  ? $data['seoUrl']  : null;
-        $this->category  	    = (isset($data['category']))  ? $data['category']  : null;
-        $this->expireDate  	    = (isset($data['expireDate']))  ? $data['expireDate']  : null;
-        $this->seoKeywords  	= (isset($data['seoKeywords']))  ? $data['seoKeywords']  : null;
-        $this->seoDescription  	= (isset($data['seoDescription']))  ? $data['seoDescription']  : null;
-        $this->status  	        = (isset($data['status']))  ? $data['status']  : null;
-        $this->moduleId  	    = (isset($data['moduleId']))  ? $data['moduleId']  : null;
+        $this->expireDate  	    = (isset($data['expireDate']))  ? $data['expireDate'] : null;
+        $this->seoKeywords  	= (isset($data['seoKeywords']))  ? $data['seoKeywords'] : null;
+        $this->seoDescription  	= (isset($data['seoDescription']))  ? $data['seoDescription'] : null;
+        $this->status  	        = (isset($data['status']))  ? $data['status'] : null;
+        $this->moduleId  	    = (isset($data['moduleId']))  ? $data['moduleId'] : null;
+        $this->categories       = (isset($data['categories']))  ? $data['categories'] : null;
     }
 
     /**
@@ -67,13 +67,13 @@ class PostsFormInputFilter implements InputFilterAwareInterface
 
             $inputFilter = new InputFilter();
 
-            $factory     = new InputFactory();
+            $factory = new InputFactory();
 
             $inputFilter->add($factory->createInput(array(
-                            'name'     => 'postid',
+                            'name'     => 'id',
                             'required' => false,
                             'filters'  => array(
-                                            array('name' => 'Int'),
+                                array('name' => 'Int'),
                             ),
             )));
 
@@ -98,7 +98,7 @@ class PostsFormInputFilter implements InputFilterAwareInterface
 
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'subtitle',
-                'required' => true,
+                'required' => false,
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
@@ -153,9 +153,19 @@ class PostsFormInputFilter implements InputFilterAwareInterface
                 ),
             )));
 
+            $inputFilter->add($factory->createInput([
+                'name' => 'categories',
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                ),
+            ]));
+
             $inputFilter->add($factory->createInput(array(
-                            'name'     => 'description',
-                            'required' => true,
+                'name'     => 'description',
+                'required' => true,
             )));
 
             $inputFilter->add($factory->createInput(array(
@@ -164,8 +174,11 @@ class PostsFormInputFilter implements InputFilterAwareInterface
             )));
 
             $inputFilter->add($factory->createInput(array(
-                'name'     => 'category',
+                'name'     => 'moduleId',
                 'required' => true,
+                'filters'  => array(
+                    array('name' => 'Int'),
+                ),
             )));
 
             $this->inputFilter = $inputFilter;

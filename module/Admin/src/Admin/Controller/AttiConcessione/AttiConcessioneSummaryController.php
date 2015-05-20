@@ -21,9 +21,7 @@ class AttiConcessioneSummaryController extends SetupAbstractController
         $mainLayout = $this->initializeAdminArea();
 
         $page       = $this->params()->fromRoute('page');
-
         $em         = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
-
 
         $helper = new AttiConcessioneControllerHelper();
         $helper->setAttiConcessioneGetterWrapper( new AttiConcessioneGetterWrapper(new AttiConcessioneGetter($em)) );
@@ -158,10 +156,10 @@ class AttiConcessioneSummaryController extends SetupAbstractController
                         ),
                         array(
                             'type'      => 'attachButton',
-                            'href'      => $this->url()->fromRoute('admin/attachments-form', array(
-                                'lang'      => 'it',
-                                'module'    => 'atti-concessione',
-                                'id'        => $row['id']
+                            'href'      => $this->url()->fromRoute('admin/attachments-summary', array(
+                                'lang'          => 'it',
+                                'module'        => 'atti-concessione',
+                                'referenceId'   => $row['id']
                             )),
                             'title'     => 'Gestione allegati',
                         ),

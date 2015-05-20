@@ -76,7 +76,13 @@ foreach($this->sezioni as $sezione):
 
         case("blogs"):
             ?>
-            BLOGS!
+            <h2 class="sezioniTitle">BLOGS</h2>
+
+            <ul class="side-nav">
+                <li><a href="<?php echo $this->url('posts-blogs-categories', array('category' => 'eventi')) ?>" title="Leggi elenco articoli 'Eventi'">Eventi</a></li>
+                <li><a href="<?php echo $this->url('posts-blogs-categories', array('category' => 'news')) ?>" title="Leggi elenco articoli 'News'">News</a></li>
+                <li><a href="<?php echo $this->url('posts-blogs-categories', array('category' => 'rassegna-stampa')) ?>" title="Leggi elenco articoli 'Rassegna stampa'">Rassegna stampa</a></li>
+            </ul>
             <?php
         break;
 

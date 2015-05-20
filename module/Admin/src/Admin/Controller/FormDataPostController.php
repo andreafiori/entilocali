@@ -41,7 +41,6 @@ class FormDataPostController extends SetupAbstractController
 
         $operation = $this->params()->fromRoute('operation');
 
-
         /**
          * @var \Admin\Model\FormData\CrudHandlerAbstract $crudHandler
          */

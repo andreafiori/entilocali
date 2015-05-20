@@ -70,13 +70,13 @@ class UsersSummaryController extends SetupAbstractController
                     $row['nome'],
                     $row['lastUpdate'],
                     array(
-                        'type'      => 'updateButton',
-                        'href'      => $this->url()->fromRoute('admin/users-form', array(
+                        'type' => 'updateButton',
+                        'href' => $this->url()->fromRoute('admin/users-form', array(
                                 'lang'   => 'it',
                                 'id'     => $row['id']
                             )
                         ),
-                        'title'     => 'Modifica utente'
+                        'title' => 'Modifica utente'
                     ),
                     array(
                         'type'      => 'deleteButton',

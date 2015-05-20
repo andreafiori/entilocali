@@ -2,6 +2,7 @@
 
 namespace Admin\Controller\Blogs;
 
+use Admin\Model\Modules\ModulesContainer;
 use Admin\Model\Posts\PostsForm;
 use Admin\Model\Posts\PostsGetter;
 use Admin\Model\Posts\PostsGetterWrapper;
@@ -22,7 +23,6 @@ class BlogsFormController extends SetupAbstractController
         $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
         $id = $this->params()->fromRoute('id');
-
         if ($id) {
             $wrapper = new PostsGetterWrapper( new PostsGetter($entityManager) );
             $wrapper->setInput(array(
@@ -47,7 +47,13 @@ class BlogsFormController extends SetupAbstractController
             $selectArray[$categoriesRecord['id']] = $categoriesRecord['name'];
         }
 
+        $formBasicInput = array(
+            'type' => 'blogs',
+            'moduleId' => ModulesContainer::blogs,
+        );
+
         $form = new PostsForm();
+        $form->addUploadImage();
         $form->addMainFields();
         $form->addCategory($selectArray);
 
@@ -61,6 +67,7 @@ class BlogsFormController extends SetupAbstractController
                 )
             );
             $wrapper->setupQueryBuilder();
+
             $categoryRecords = $wrapper->getRecords();
 
             $categoryIdForForm = array();
@@ -69,7 +76,8 @@ class BlogsFormController extends SetupAbstractController
             }
 
             $recordFromDb[0]['categories'] = $categoryIdForForm;
-            $form->setData($recordFromDb[0]);
+
+            $form->setData( array_merge($formBasicInput, $recordFromDb[0]) );
 
             $formTitle          = 'Modifica blog post';
             $formAction         = 'blogs/update/';
@@ -78,12 +86,14 @@ class BlogsFormController extends SetupAbstractController
             $formTitle          = 'Nuovo blog post';
             $formAction         = 'blogs/insert/';
             $submitButtonValue  = 'Inserisci';
+
+            $form->setData( array_merge($formBasicInput, array('expireDate' => date('Y-m-d H:i:s', strtotime('+5 years')) )));
         }
 
         $this->layout()->setVariables(array(
-            'formTitle'                     => $formTitle,
-            'formDescription'               => 'Compila dati post',
             'form'                          => $form,
+            'formTitle'                     => $formTitle,
+            'formDescription'               => 'Compila dati blog post',
             'formAction'                    => $formAction,
             'submitButtonValue'             => $submitButtonValue,
             'CKEditorField'                 => 'description',

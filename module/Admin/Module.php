@@ -70,9 +70,6 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
                 exit;
             }
 
-            // Refresh Remember Me Session timeout
-            // $sm->get('MyAuthStorage')->setRememberMe();
-
             // Check ACL
             $roles = include __DIR__ . '/config/module.acl.roles.php';
 
@@ -87,7 +84,7 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
                             }
                         }
 
-                        // No permissions, redirect...
+                        /* No permissions, redirect... */
                         if ($allowed==0) {
                             $url = $e->getRouter()->assemble(array('action' => 'index', 'lang' => 'it'), array('name' => 'admin'));
 
@@ -115,7 +112,7 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
                     }
                 }
 
-                // No permissions, redirect...
+                /* No permissions, redirect... */
                 if ($allowed==0) {
                     $url = $e->getRouter()->assemble(array('action' => 'index', 'lang' => 'it'), array('name' => 'admin'));
 

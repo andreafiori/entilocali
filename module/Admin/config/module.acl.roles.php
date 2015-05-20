@@ -1,11 +1,11 @@
 <?php
 return array(
-    /* Enti terzi */
-    'admin/enti-terzi-summary' => array(
-        'resources' => array( 'enti_terzi_add', 'enti_terzi_update' )
+    /* Contenuti */
+    'admin/contenuti-summary' => array(
+        'resources' => array('contenuti_add', 'contenuti_update', 'contenuti_viewall')
     ),
-    'admin/enti-terzi-form' => array(
-        'resources' => array( 'enti_terzi_add', 'enti_terzi_update'  )
+    'admin/contenuti-form' => array(
+        'resources' => array('contenuti_add', 'contenuti_update')
     ),
     /* Albo pretorio */
     'admin/albo-pretorio-summary' => array(
@@ -16,6 +16,27 @@ return array(
     ),
     'admin/albo-pretorio-form-post' => array(
         'resources' => array( 'albo_pretorio_add', 'albo_pretorio_update')
+    ),
+    /* Stato civile */
+    'admin/stato-civile-summary' => array(
+        'resources' => array('stato_civile_add', 'stato_civile_update')
+    ),
+    'admin/stato-civile-form' => array(
+        'resources' => array('stato_civile_add', 'stato_civile_update')
+    ),
+    /* Contratti pubblici */
+    'admin/contratti-pubblici-summary' => array(
+        'resources' => array('contratti_pubblici_add', 'contratti_pubblici_update')
+    ),
+    'admin/contratti-pubblici-form' => array(
+        'resources' => array('contratti_pubblici_add', 'contratti_pubblici_update')
+    ),
+    /* Atti concessione */
+    'admin/atti-concessione-summary' => array(
+        'resources' => array('atti_concessione_add', 'atti_concessione_update')
+    ),
+    'admin/atti-concessione-form' => array(
+        'resources' => array('atti_concessione_add', 'atti_concessione_update')
     ),
     /* Posizioni Sezioni contenuti e amministrazione trasparente */
     'admin/posizioni-sezioni' => array(
@@ -30,16 +51,22 @@ return array(
     ),
     /* Users roles */
     'users-roles-permissions' => array(
-        'resources' => array( 'users_roles_add', 'users_roles_update' )
+        'resources' => array('users_roles_add', 'users_roles_update')
+    ),
+    /* Enti terzi */
+    'admin/enti-terzi-summary' => array(
+        'resources' => array('enti_terzi_add', 'enti_terzi_update')
+    ),
+    'admin/enti-terzi-form' => array(
+        'resources' => array('enti_terzi_add', 'enti_terzi_update')
+    ),
+    /* ajax update trial */
+    'admin/formdata-ajax' => array(
+        //'resources' => array('formdata_')
     ),
 
     /* Datatables summary */
     'datatables' => array(
-        'contenuti' => array(
-            'resources' => array(
-                'contenuti_add', 'contenuti_viewall', 'contenuti_update'
-            )
-        ),
         'sezioni-contenuti' => array(
             'resources' => array(
                 'contenuti_sezioni_add', 'contenuti_sezioni_update',
@@ -60,41 +87,14 @@ return array(
                 'albo_pretorio_sezioni_add', 'albo_pretorio_sezioni_update'
             )
         ),
-        /*
-        'atti-ufficiali' => array(
-            'resources' => array(
-                'atti_ufficiali_add', 'atti_ufficiali_update'
-            )
-        ),
-        */
-        'enti-terzi' => array(
-            'resources' => array(
-                'enti-terzi_add', 'enti-terzi_update'
-            )
-        ),
-        'stato-civile' => array(
-            'resources' => array(
-                'stato_civile_add', 'stato_civile_update'
-            )
-        ),
         'stato-civile-sezioni' => array(
             'resources' => array(
                 'stato_civile_sezioni_add', 'stato_civile_sezioni_update'
             )
         ),
-        'atti-concessione' => array(
-            'resources' => array(
-                'atti_concessione_add', 'atti_concessione_update'
-            )
-        ),
         'atti-concessione-mod-assign' => array(
             'resources' => array(
                 'atti_concessione_mod-assign_add', 'atti_concessione_update'
-            )
-        ),
-        'contratti-pubblici' => array(
-            'resources' => array(
-                'contratti_pubblici_add', 'contratti_pubblici_update'
             )
         ),
         'contratti-pubblici-scelta-contraente' => array(

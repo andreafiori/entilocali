@@ -2,12 +2,12 @@
 
 namespace AdminTest\Model\Attachments;
 
+use Admin\Model\Attachments\AttachmentsForm;
 use Admin\Model\Attachments\AttachmentsGetter;
 use Admin\Model\Attachments\AttachmentsGetterWrapper;
 use Admin\Model\Modules\ModulesGetter;
 use Admin\Model\Modules\ModulesGetterWrapper;
 use Admin\Model\Attachments\AttachmentsFormControllerHelper;
-use Application\Model\NullException;
 use ApplicationTest\TestSuite;
 
 class AttachmentsFormControllerHelperTest extends TestSuite
@@ -76,5 +76,27 @@ class AttachmentsFormControllerHelperTest extends TestSuite
         $this->helper->setModuleCode('non-existing-module');
 
         $this->helper->checkModuleRecords();
+    }
+
+    public function testSetAttachmentsForm()
+    {
+        $this->helper->setAttachmentsForm(new AttachmentsForm());
+
+        $this->assertInstanceOf(
+            '\Admin\Model\Attachments\AttachmentsForm',
+            $this->helper->getAttachmentsForm()
+        );
+    }
+
+    public function testBuildForm()
+    {
+        $this->helper->setAttachmentsForm(new AttachmentsForm());
+
+        $this->helper->buildForm(array());
+
+        $this->assertInstanceOf(
+            '\Admin\Model\Attachments\AttachmentsForm',
+            $this->helper->getAttachmentsForm()
+        );
     }
 }

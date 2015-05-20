@@ -13,7 +13,7 @@
         </div>
 
         <?php if (isset($record['sommario'])): ?>
-        <div><?php echo utf8_encode($record['sommario']) ?></div>
+            <div><?php echo utf8_encode($record['sommario']) ?></div>
         <?php endif; ?>
 
         <div>
@@ -23,14 +23,14 @@
         <?php if (!empty($record['attachments'])): ?>
             <h3>Allegati</h3>
             <?php foreach($record['attachments'] as $attachment): ?>
-            <div>
-                <a href="<?php echo $this->url('attachments-sthree-download', array(
-                    'type'  => 'contenuti',
-                    'id'    => $attachment['id'])); ?>" title="Scarica allegato <?php echo $attachment['name'] ?>">
-                    <img src="<?php echo $this->basepath() ?>/public/common/icons/attachments/<?php echo $attachment['image']; ?>" alt="Icon tipo file per <?php echo $attachment['name'] ?>">
-                    <?php echo $attachment['name'] ?>
-                </a> (<?php echo $attachment['size'] ?> Kb)
-            </div>
+                <div>
+                    <a href="<?php echo $this->url('attachments-sthree-download', array(
+                        'type'  => 'contenuti',
+                        'id'    => $attachment['id'])); ?>" title="Scarica allegato <?php echo $attachment['name'] ?>">
+                        <img src="<?php echo $this->publicDirRelativePath ?>/common/icons/attachments/<?php echo $attachment['image']; ?>" alt="Icon tipo file per <?php echo $attachment['name'] ?>">
+                        <?php echo $attachment['name'] ?>
+                    </a> (<?php echo $attachment['size'] ?> Kb)
+                </div>
             <?php endforeach ?>
         <?php endif; ?>
 
@@ -39,9 +39,9 @@
         <?php if (isset($record['sotto_sezioni'])): ?>
             <h4>Sotto sezioni</h4>
             <ul>
-            <?php foreach($record['sotto_sezioni'] as $sottoSezione): ?>
-                <li><a href="<?php echo $this->url('contents', array('subsectionid' => $sottoSezione['idSottoSezione'])) ?>" title="Consulta la sottosezione di  <?php echo $record['titolo'] ?> <?php echo $sottoSezione['nomeSottoSezione'] ?>"><?php echo $sottoSezione['nomeSottoSezione'] ?></a></li>
-            <?php endforeach ?>
+                <?php foreach($record['sotto_sezioni'] as $sottoSezione): ?>
+                    <li><a href="<?php echo $this->url('contents', array('subsectionid' => $sottoSezione['idSottoSezione'])) ?>" title="Consulta la sottosezione di  <?php echo $record['titolo'] ?> <?php echo $sottoSezione['nomeSottoSezione'] ?>"><?php echo $sottoSezione['nomeSottoSezione'] ?></a></li>
+                <?php endforeach ?>
             </ul>
         <?php endif; ?>
 

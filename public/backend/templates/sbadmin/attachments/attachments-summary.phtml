@@ -1,0 +1,166 @@
+<ul class="breadcrumb">
+    <li><a href="<?php echo $this->url('admin', array('lang'=>'it')); ?>" title="Home page">Home</a> <span class="divider"></span></li>
+    <li class="active">
+        <a href="<?php echo $this->formBreadCrumbCategoryLink ?>" title="<?php echo $this->formBreadCrumbCategory ?>">
+            <?php echo $this->formBreadCrumbCategory ?>
+        </a>
+    </li>
+    <li><a href="#" title="Torna all'articolo">Articolo</a></li>
+    <li class="active">Gestione files allegati</li>
+</ul>
+
+<h3><?php echo $this->articleTitle ?></h3>
+
+<p><?php echo $this->translate('Gestione files allegati.') ?></p>
+
+<div>
+    <a href="<?php echo $this->url('admin/attachments-form', array('lang' => 'it', 'module' => $this->moduleCode, 'referenceId' => $this->referenceId)); ?>" class="btn btn-default" title="Inserisci nuovo file">
+        <i class="fa fa-paperclip"></i> Nuovo file
+    </a>
+
+    <?php if (count($this->attachmentsList)>1): ?>
+    <a href="<?php echo $this->url('admin/attachments-positions', array('lang' => 'it', 'module' => $this->moduleCode, 'referenceId' => $this->referenceId)); ?>" class="btn btn-default" title="Posizioni file allegati">
+        <i class="fa fa-gear"></i> Posizioni
+    </a>
+    <?php endif; ?>
+
+    <a href="#" class="btn btn-default" title="Sezione allegati di grandi dimensioni">
+        <i class="fa fa-paperclip"></i> Allegati di grandi dimensioni
+    </a>
+</div>
+
+
+<div>
+    <?php if (!isset($this->attachmentsList) or empty($this->attachmentsList)): ?>
+        <div>&nbsp;</div>
+        <div class="alert alert-warning">
+            <h4><?php echo $this->translate('Nessun allegato presente') ?></h4>
+            <div><?php echo $this->translate("Nessun allegato presente per l'articolo corrente. Inserisci un nuovo allegato.") ?></div>
+        </div>
+        
+    <?php else: ?>
+        <div>&nbsp;</div>
+        <form action="#" method="post" enctype="multipart/form-data">
+        <div class="table-responsive">
+            <table border="0" class="table table-bordered" width="100%">
+            <thead>
+            <tr>
+                <th>&nbsp;</th>
+                <th><?php echo $this->translate('Titolo') ?></th>
+                <th><?php echo $this->translate('Date') ?></th>
+                <th><?php echo $this->translate('Inserito da') ?></th>
+
+                <?php if ($this->alboRettificaColumnDisplay): ?>
+                    <th>&nbsp;</th>
+                <?php endif; ?>
+
+                <?php if ($this->attiConcessioneCatColumnDisplay): ?>
+                    <th><?php echo $this->translate('Visualizza nella colonna') ?></th>
+                <?php endif; ?>
+
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+                <th>&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach($this->attachmentsList as $record): ?>
+            <tr>
+                <td><input type="checkbox" id="chk<?php echo $record['id'] ?>" name="attachmentId[]" value="<?php echo $record['id'] ?>"></td>
+                <td><?php echo isset($record['title']) ? $record['title'] : null ?><br>(<?php echo $record['size'] ?> Kb)</td>
+                <td>
+                    <strong>Inserito il:</strong> <?php echo $record['insertDate']->format('Y-m-d H:i:s') ?><br><br>
+                    <strong>Scadenza:</strong> <?php echo $record['expireDate']->format('Y-m-d H:i:s') ?>
+                </td>
+                <td><?php echo $record['username'].' '.$record['surname'] ?></td>
+
+                <?php if ($this->alboRettificaColumnDisplay): ?>
+                    <!-- Albo pretorio rettifica coluumn -->
+                    <td>
+                        <a href="#" title="Rettifica atto" class="btn btn-default"><i class="fa fa-power-off"></i></a>
+                    </td>
+                <?php endif; ?>
+
+                <?php if ($this->attiConcessioneCatColumnDisplay): ?>
+                    <!-- Atti concessione category display coluumn -->
+                    <td>
+                        <?php
+
+                        echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', array(
+                                'form'                  => $this->attiConcessioneColumnDisplayForm,
+                                'formAction'            => $this->formAction,
+                                'formTitle'             => $this->formTitle,
+                                'formDescription'       => $this->formDescription,
+                                'formControlSpanWidth'  => $this->formControlSpanWidth,
+                                'formLabelSpanWidth'    => $this->formLabelSpanWidth,
+                            )
+                        );
+
+                        ?>
+                    </td>
+                <?php endif; ?>
+
+                <td><a href="<?php echo $this->url('admin/attachments-form', array('lang' => 'it', 'module' => $this->moduleCode, 'referenceId' => $this->referenceId, 'attachmentId' => $record['id'])); ?>" class="btn btn-primary" title="<?php echo $this->translate('Modifica file allegato') ?>"><i class="fa fa-pencil"></i></a></td>
+                <td><a href="#deleteModal" data-action="<?php echo $this->currentUrl ?>" class="open-deleteModal btn btn-danger" data-id="<?php echo $record['id'] ?>" title="<?php echo $this->translate('Elimina file allegato') ?>"><i class="fa fa-remove"></i> </a></td>
+                <td><a href="<?php echo $this->url('attachments-sthree-download', array('lang' => 'it', 'type' => $this->attachmentType, 'id' => $record['id']) ); ?>" class="btn btn-default" title="Scarica file"><i class="fa fa-download"></i></a></td>
+            </tr>
+            <?php endforeach; ?>
+            <tr>
+                <td colspan="10">
+                    <a href="#" class="open-deleteModal btn btn-danger" title="<?php echo $this->translate('Elimina file selezionati') ?>"><i class="fa fa-trash-o"></i> <?php echo $this->translate('Elimina file\s selezionato\i') ?></a>
+                    <a href="#" class="btn btn-primary" title="<?php echo $this->translate('Scarica tutti gli allegati') ?>"><i class="fa fa-download"></i> <?php echo $this->translate('Scarica tutti gli allegati') ?></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+        </form>
+    <?php endif; ?>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="ConfirmDeleteModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content panel-danger">
+
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="deleteModalLabel"><strong>Conferma eliminazione?</strong></h4>
+            </div>
+
+            <form action="" method="post" id="frmDeleteModal">
+                <div class="modal-body">
+                    <p><strong>Attenzione:</strong> l'allegato verr&agrave; eliminato definitivamente.</p>
+
+                    <input type="hidden" name="deleteId" id="deleteId" value="" />
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
+                    <button type="submit" class="btn btn-danger">Conferma</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $(".open-deleteModal").click(function (e) {
+            e.preventDefault();
+
+            var _self = $(this);
+
+            var dataId = _self.data('id');
+            var dataAction = _self.data('action');
+
+            $("#deleteId").val(dataId);
+            $('#frmDeleteModal').attr('action', dataAction);
+
+            $(_self.attr('href')).modal('show');
+        });
+
+    });
+</script>

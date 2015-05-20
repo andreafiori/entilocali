@@ -19,10 +19,18 @@ class EntiTerziFormController extends SetupAbstractController
 
         $id = $this->params()->fromRoute('id');
 
-        $recordFromDb = $this->getFormRecord(isset($id) ? $id : null);
+        if (is_numeric($id)) {
+            $wrapper = new EntiTerziGetterWrapper(
+                new EntiTerziGetter($this->getServiceLocator()->get('doctrine.entitymanager.orm_default'))
+            );
+            $wrapper->setInput( array('id' => $id, 'limit' => 1) );
+            $wrapper->setupQueryBuilder();
+
+            $recordFromDb = $wrapper->getRecords();
+        }
 
         $form = new EntiTerziForm();
-        if ($recordFromDb) {
+        if (!empty($recordFromDb)) {
             $form->setData($recordFromDb[0]);
 
             $submitButtonValue  = 'Modifica';
@@ -48,21 +56,4 @@ class EntiTerziFormController extends SetupAbstractController
 
         $this->layout()->setTemplate($mainLayout);
     }
-
-        /**
-         * @param int $id
-         * @return array|null
-         */
-        private function getFormRecord($id)
-        {
-            if (is_numeric($id)) {
-                $wrapper = new EntiTerziGetterWrapper(
-                    new EntiTerziGetter($this->getServiceLocator()->get('doctrine.entitymanager.orm_default'))
-                );
-                $wrapper->setInput( array('id' => $id, 'limit' => 1) );
-                $wrapper->setupQueryBuilder();
-
-                return $wrapper->getRecords();
-            }
-        }
 }

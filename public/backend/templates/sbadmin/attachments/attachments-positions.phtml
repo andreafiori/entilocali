@@ -1,0 +1,23 @@
+<ul class="breadcrumb">
+    <li><a href="<?php echo $this->url('admin', array('lang'=>'it')); ?>" title="Home page">Home</a> </li>
+    <li class="active">
+        <a href="<?php echo $this->formBreadCrumbCategoryLink ?>" title="<?php echo $this->formBreadCrumbCategory ?>">
+            <?php echo $this->formBreadCrumbCategory ?>
+        </a>
+    </li>
+    <li><a href="<?php echo $this->url('admin/attachments-summary', array(
+            'lang'          => 'it',
+            'module'        => $this->moduleCode,
+            'referenceId'   => $referenceId
+        )) ?>" title="Gestione allegati <?php echo $this->formBreadCrumbCategory ?>"><?php echo $this->articleTitle ?></a></li>
+
+    <li class="active">Posizioni files allegati</li>
+</ul>
+
+<h2>Gestione posizioni allegati</h2>
+
+<p><strong><?php echo $this->articleTitle ?></strong>. Trascina il nome del file nella posizione desiderata</p>
+
+
+
+

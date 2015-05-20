@@ -158,23 +158,23 @@ class StatoCivileSummaryController extends SetupAbstractController
                                 'id'    => $record['id'],
                             )
                         ),
-                        'title'     => 'Modifica'
+                        'title' => 'Modifica'
                     ),
                     array(
                         'type'      => 'attachButton',
-                        'href'      => $this->url()->fromRoute('admin/attachments-form', array(
-                                'lang'   => 'it',
-                                'module' => 'stato-civile',
-                                'id'     => $record['id']
+                        'href'      => $this->url()->fromRoute('admin/attachments-summary', array(
+                                'lang'          => 'it',
+                                'module'        => 'stato-civile',
+                                'referenceId'   => $record['id'],
                             )
                         ),
                     ),
                     array(
-                        'type'      => 'enteterzoButton',
-                        'href'      => $this->url()->fromRoute('admin/invio-ente-terzo', array(
-                                'lang'   => 'it',
-                                'module' => 'stato-civile',
-                                'id'     => $record['id'],
+                        'type' => 'enteterzoButton',
+                        'href' => $this->url()->fromRoute('admin/invio-ente-terzo', array(
+                                'lang'          => 'it',
+                                'module'        => 'stato-civile',
+                                'id'            => $record['id'],
                             )
                         ),
                         'title' => 'Invia ad ente terzo'

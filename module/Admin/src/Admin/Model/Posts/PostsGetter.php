@@ -17,8 +17,8 @@ class PostsGetter extends QueryBuilderHelperAbstract
                                     p.title, p.subtitle, p.description, p.slug, p.seoTitle,
                                     p.seoDescription, p.seoKeywords,
 
-                                    c.name AS categoryName,
-                                    c.templateFile, IDENTITY(r.module) AS moduleId, c.slug AS categorySlug,
+                                    c.name AS categoryName, c.templateFile, c.slug AS categorySlug,
+                                    IDENTITY(r.module) AS moduleId,
 
                                     users.name AS userName, users.surname AS userSurname
                                     ');

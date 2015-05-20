@@ -21,10 +21,10 @@ class AlboPretorioFormSearch extends AlboPretorioArticoliFormAbstract
             'type' => 'Text',
             'name' => 'numero_progressivo',
             'attributes' => array(
-                'placeholder' => '',
-                'title'  => 'Inserisci numero repertorio',
-                'id'     => 'numero_progressivo',
-                'type'   => 'number',
+                'placeholder'   => 'Nr...',
+                'title'         => 'Inserisci numero repertorio',
+                'id'            => 'numero_progressivo',
+                'type'          => 'number',
             ),
             'options' => array(
                 'label' => 'Numero repertorio',
@@ -57,7 +57,7 @@ class AlboPretorioFormSearch extends AlboPretorioArticoliFormAbstract
                 'label' => 'Testo',
             ),
         ));
-        
+
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
             'name' => 'mese',
@@ -67,8 +67,8 @@ class AlboPretorioFormSearch extends AlboPretorioArticoliFormAbstract
             ),
             'options' => array(
                 'label' => 'Mese',
+                'empty_option' => 'Mese',
                 'value_options' => array(
-                    ''   => 'Mese',
                     '1'  => 'Gennaio',
                     '2'  => 'Febbraio',
                     '3'  => 'Marzo',
@@ -127,7 +127,7 @@ class AlboPretorioFormSearch extends AlboPretorioArticoliFormAbstract
                 'type'  => 'submit',
                 'attributes' => array(
                     'label' => '&nbsp;',
-                    'title' => "Premi per avviare la ricerca sugli atti dell'albo pretorio",
+                    'title' => "Premi per avviare la ricerca sugli atti dell'albo pretori\o",
                     'value' => 'Cerca',
                     'id'    => 'submit',
                 ))
@@ -144,6 +144,7 @@ class AlboPretorioFormSearch extends AlboPretorioArticoliFormAbstract
                     'title' => "Premi il pulsante per resettare il form di ricerca",
                     'value' => 'Reset',
                     'id'    => 'resetForm',
+                    'type'  => 'reset'
                 ))
         );
     }

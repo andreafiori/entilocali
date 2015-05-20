@@ -1,34 +1,37 @@
-<ul class="breadcrumb">
-    <li><a href="<?php echo $this->basepath() ?>/" title="Home page">Home</a> <span class="divider"></span></li>
-    <li><a href="#" title=""><?php echo $this->maindata[0]['categoryName']; ?></a></li>
-    <li class="active"><?php echo $this->maindata[0]['title'] ?></li>
+<ul class="breadcrumbs">
+    <li><a href="<?php echo $this->basepath() ?>/" title="Torna alla home page">Home</a> <span class="divider"></span></li>
+
+    <li><a href="<?php echo $this->url('posts-blogs-categories', array('category' => $this->categorySlug)) ?>" title="Vai a <?php echo $this->categoryName; ?>"><?php echo $this->categoryName; ?></a></li>
+
+    <li class="current"><?php echo $this->title ?></li>
 </ul>
 
-<div class="blog_details">
+<?php if (!empty($this->record)): ?>
 
-    <h1><?php echo $this->maindata[0]['title'] ?></h1>
+    <h3><?php echo $this->record['title'] ?></h3>
 
-    <div><?php echo $this->maindata[0]['description'] ?></div>
-    
-    <?php if ($this->maindata[0]['flagAllegati'] == 'si'): ?>
-    <h2>Allegati</h2>
-    <ul>
-        <li>Allegato 1</li>
-        <li>Allegato 2</li>
-        <li>Allegato 3</li>
-    </ul>
+    <?php if (!empty($this->record['subtitle'])): ?>
+        <div>
+            <h4><?php echo $this->record['subtitle'] ?></h4>
+        </div>
     <?php endif; ?>
 
-    <p class="text-right">
-        Esporta: <a href="#" title="Visualizza documento in formato PDF">PDF</a> 
-        <a href="#" title="Visualizza documento in formato Word">WORD</a> 
-        <a href="#" title="Visualizza documento in formato testo">TXT</a> 
-        
-        Condividi: <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->currentUrl; ?>" title="Condividi pagina su facebook" target="_blank"><i class="fa fa-facebook"></i> 
-        Facebook</a> <a href="https://twitter.com/home?status=<?php echo $this->currentUrl; ?>" title="Condividi pagina su Twitter"><i class="fa fa-twitter"></i> Twitter</a> 
-        <!-- <a href="https://plus.google.com/share?url=<?php echo $this->currentUrl ?>">Google Plus</a> <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=<?php echo $this->currentUrl ?>&amp;title=<?php echo $this->maindata[0]['seoTitle'] ?>">Linkedin</a> <a href="https://pinterest.com/pin/create/button/?url=<?php echo $this->currentUrl ?>">Pinterest</a>--></p>
+    <?php echo $this->record['description'] ?>
 
-    
-    <hr>
-    
-</div>
+    <?php
+
+    echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml', array(
+        'twitterShareText' => urlencode($this->record['title']),
+        'publicDirRelativePath' => $this->publicDirRelativePath,
+    ));
+
+    ?>
+
+<?php else: ?>
+
+    <div alert-box danger>
+        <h3>Nessun post trovato</h3>
+        <p>Si &egrave; verificao un errore di selezione dati</p>
+    </div>
+
+<?php endif; ?>

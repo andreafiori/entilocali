@@ -1,0 +1,38 @@
+<ul class="breadcrumb">
+    <li><a href="<?php echo $this->url('admin', array('lang' => 'it')); ?>" title="Home page">Home</a></li>
+    <li class="active">Gestione home page</li>
+</ul>
+
+<h2>Gestione home page</h2>
+
+<p>
+    <a href="<?php echo $this->url('admin/homepage-blocks-positions', array('lang' => 'it') ); ?>" class="btn btn-default" title="Gestione posizione blocchi">
+        <i class="fa fa-cog"></i> Posizioni blocchi
+    </a>
+</p>
+
+<div class="alert alert-warning">
+    <h4>Sezione in costruzione</h4>
+    <p>Questa sezione &egrave; progettata per gestire gli elementi all'interno dei singoli blocchi (moduli) visualizzati e ordinabili in home page</p>
+</div>
+
+<?php //var_dump($this->records) ?>
+
+<!--
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th scope="col">Modulo</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach($this->records as $record): ?>
+    <tr>
+        <td><?php echo $record['moduleName'] ?></td>
+        <td><?php echo $record['title'] ?></td>
+        <td><a href="" class="btn btn-primary">Modifica</a></td>
+    </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+-->

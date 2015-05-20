@@ -339,10 +339,12 @@ abstract class CrudHandlerAbstract
             if ($ok) {
                 return array(
                     'messageShowFormLink' => 1,
+                    'showLinkResetFormAndShowIt' => 0,
                 );
             } else {
                 return array(
                     'messageShowFormLink' => 1,
+                    'showLinkResetFormAndShowIt' => 0,
                 );
             }
         }

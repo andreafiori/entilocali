@@ -11,10 +11,11 @@ class ContactsController extends SetupAbstractController
 {
     public function indexAction()
     {
-
-
         $form     = new ContactsForm();
+        $form->addSubmitButton();
+
         $request  = $this->getInput('request');
+
         $template = 'contatti/contatti.phtml';
 
         if (!is_object($request)) {
@@ -60,10 +61,5 @@ class ContactsController extends SetupAbstractController
         $this->setVariable('form', $form);
 
         return $this->getOutput();
-    }
-
-    public function sendAction()
-    {
-
     }
 }

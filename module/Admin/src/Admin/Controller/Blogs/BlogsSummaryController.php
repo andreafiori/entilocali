@@ -19,7 +19,6 @@ class BlogsSummaryController extends SetupAbstractController
         $entityManager  = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
         $page       = $this->params()->fromRoute('page');
-
         $perPage    = $this->params()->fromRoute('perpage');
 
         $wrapper = new PostsGetterWrapper( new PostsGetter($entityManager) );
@@ -27,12 +26,17 @@ class BlogsSummaryController extends SetupAbstractController
                 'moduleCode' => 'blogs',
                 'userId'     => null,
                 'orderBy'    => 'p.id DESC',
+                'fields'     => 'DISTINCT(p.id) AS id, p.lastUpdate,
+                                    p.createDate, p.expireDate, p.hasAttachments,
+                                    p.title, p.subtitle, p.description, p.slug, p.seoTitle,
+                                    p.seoDescription, p.seoKeywords,
+                                    users.name AS userName, users.surname AS userSurname'
             )
         );
         $wrapper->setupQueryBuilder();
         $wrapper->setupPaginator($wrapper->setupQuery($entityManager));
-        $wrapper->setupPaginatorCurrentPage(isset($page) ? $page : null);
-        $wrapper->setupPaginatorItemsPerPage(isset($perPage) ? $perPage : null);
+        $wrapper->setupPaginatorCurrentPage($page);
+        $wrapper->setupPaginatorItemsPerPage($perPage);
 
         $paginator = $wrapper->getPaginator();
 
@@ -80,7 +84,7 @@ class BlogsSummaryController extends SetupAbstractController
             'columns' => array(
                 "Titolo",
                 "Categorie",
-                "Tags",
+                //"Tags",
                 "Inserito da",
                 "Ultima modifica",
                 "&nbsp;",
@@ -116,7 +120,7 @@ class BlogsSummaryController extends SetupAbstractController
                 $recordsToReturn[] = array(
                     $record['title'],
                     $categoryToPrint,
-                    '',
+                    //'', TAGS ROW...
                     $record['userName'].' '.$record['userSurname'],
                     "<strong>Inserito il:</strong> ".date("d-m-Y", strtotime($record['createDate'])).
                     "<br><br><strong>Ultima modifica:</strong> ".date("d-m-Y", strtotime($record['lastUpdate'])),

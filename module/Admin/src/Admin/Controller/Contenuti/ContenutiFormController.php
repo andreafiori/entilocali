@@ -17,11 +17,10 @@ class ContenutiFormController extends SetupAbstractController
     {
         $mainLayout = $this->initializeAdminArea();
 
-        $id             = $this->params()->fromRoute('id');
-        $em             = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
-        $configurations = $this->layout()->getVariable('configurations');
-        $userDetails    = $this->layout()->getVariable('userDetails');
-        $ammTraspSezioneId = $this->layout()->getVariable('amministrazione_trasparente_sezione_id');
+        $id                     = $this->params()->fromRoute('id');
+        $em                     = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+        $userDetails            = $this->layout()->getVariable('userDetails');
+        $ammTraspSezioneId      = $this->layout()->getVariable('amministrazione_trasparente_sezione_id');
         $ammTraspSottoSezioneId = $this->layout()->getVariable('amministrazione_trasparente_sottosezione_id');
 
         if (is_numeric($id)) {
@@ -100,7 +99,7 @@ class ContenutiFormController extends SetupAbstractController
                 'submitButtonValue'          => $submitButtonValue,
                 'CKEditorField'              => array('testo'),
                 'formBreadCrumbCategory'     => 'Contenuti',
-                'formBreadCrumbCategoryLink' => 'datatable/contenuti/',
+                'formBreadCrumbCategoryLink' => $this->url()->fromRoute('admin/contenuti-summary', array('lang' => 'it')),
                 'templatePartial'            => self::formTemplate
             )
         );
