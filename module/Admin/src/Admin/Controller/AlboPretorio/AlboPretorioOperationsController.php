@@ -28,6 +28,7 @@ class AlboPretorioOperationsController extends SetupAbstractController
 
             $helper = new AlboPretorioOperationsControllerHelper();
             $helper->setConnection($em->getConnection());
+			
             $record = $helper->recoverSingleArticle(
                 new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter($em)),
                 $this->params()->fromPost('publishId')

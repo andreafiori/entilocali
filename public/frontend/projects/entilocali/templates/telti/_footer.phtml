@@ -19,19 +19,19 @@
             <?php endif; ?>
 
             <?php if ($this->cssName!='text'): ?>
-            <li><a href="<?php echo $this->url('css-style-switch', array('cssname' => 'text')) ?>" title="Passa alla visualizzazione solo testo">Sito testuale</a></li>
+            <li><a href="<?php echo $this->url('css-style-switch', array('cssname' => 'text')) ?>" title="Passa alla visualizzazione solo testo"><?php echo $this->translate('Sito testuale') ?></a></li>
             <?php endif; ?>
 
             <?php if ($this->cssName!='rosso-su-nero'): ?>
-            <li><a href="<?php echo $this->url('css-style-switch', array('cssname' => 'rosso-su-nero')) ?>" title="Passa alla visualizzazione rosso su nero">Rosso su nero</a></li>
+            <li><a href="<?php echo $this->url('css-style-switch', array('cssname' => 'rosso-su-nero')) ?>" title="Passa alla visualizzazione rosso su nero"><?php echo $this->translate('Rosso su nero'); ?></a></li>
             <?php endif; ?>
 
             <?php if ($this->cssName!='high-visibility'): ?>
-            <li><a href="<?php echo $this->url('css-style-switch', array('cssname' => 'high-visibility')) ?>" title="Passa alla visualizzazione ad alta visibilit&agrave;">Alta visibilit&agrave;</a></li>
+            <li><a href="<?php echo $this->url('css-style-switch', array('cssname' => 'high-visibility')) ?>" title="Passa alla visualizzazione ad alta visibilit&agrave;"><?php echo $this->translate('Alta visibilit&agrave;') ?></a></li>
             <?php endif; ?>
 
-            <li><a href="#" title="Elenco accessi da tastiera (Shortcut)">Accesso da tastiera</a></li>
-            <li><a href="#" title="Dichiarazione di accessibilit&agrave; Legge Stanca">Dichiarazione di accessibilit&agrave;</a></li>
+            <li><a href="#" title="Elenco accessi da tastiera (Shortcut)"><?php echo $this->translate('Accesso da tastiera') ?></a></li>
+            <li><a href="#" title="Dichiarazione di accessibilit&agrave; Legge Stanca"><?php echo $this->translate('Dichiarazione di accessibilit&agrave;') ?></a></li>
         </ul>
         </div>
 

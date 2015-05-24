@@ -47,7 +47,7 @@ class ZfcmsAttachments
      *
      * @ORM\Column(name="insert_date", type="datetime", nullable=false)
      */
-    private $insertDate;
+    private $insertDate = '2014-01-01 01:01:01';
 
     /**
      * @var integer
@@ -92,3 +92,4 @@ class ZfcmsAttachments
 
 
 }
+

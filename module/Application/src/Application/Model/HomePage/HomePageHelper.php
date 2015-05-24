@@ -3,15 +3,18 @@
 namespace Application\Model\HomePage;
 
 use Application\Model\NullException;
+use Admin\Model\HomePage\HomePageGetterWrapper;
 
 class HomePageHelper
 {
     /**
-     * @var HomePageRecordsGetterWrapper
+     * @var $homePageGetterWrapper
      */
-    private $homePageRecordsGetterWrapper;
+    private $homePageGetterWrapper;
 
     private $homePageRecords;
+
+    private $issetReferenceIds;
 
     private $classMap = array(
         'contenuti'                     => '\Application\Model\Contenuti\ContenutiHomePageBuilder',
@@ -23,7 +26,7 @@ class HomePageHelper
         'blogs'                         => '',
         'contents'                      => '',
         'photo'                         => '',
-        'freeText'                      => ''
+        'freeText'                      => '\Application\Model\HomePage\FreeTextHomePageBuilder'
     );
 
     /**
@@ -43,28 +46,41 @@ class HomePageHelper
     }
 
     /**
-     * @param HomePageRecordsGetterWrapper $homePageRecordsGetterWrapper
+     * @param $key
+     * @return mixed
      */
-    public function setHomePageRecordsGetterWrapper($homePageRecordsGetterWrapper)
+    public function recoverClassMapKey($key)
     {
-        $this->homePageRecordsGetterWrapper = $homePageRecordsGetterWrapper;
+        if (isset($this->classMap[$key])) {
+            return $this->classMap[$key];
+        }
+
+        return null;
     }
 
     /**
-     * @return HomePageRecordsGetterWrapper
+     * @param HomePageGetterWrapper $homePageGetterWrapper
      */
-    public function getHomePageRecordsGetterWrapper()
+    public function setHomePageGetterWrapper(HomePageGetterWrapper $homePageGetterWrapper)
     {
-        return $this->homePageRecordsGetterWrapper;
+        $this->homePageGetterWrapper = $homePageGetterWrapper;
+    }
+
+    /**
+     * @return \Admin\Model\HomePage\HomePageGetterWrapper $homePageGetterWrapper
+     */
+    public function getHomePageGetterWrapper()
+    {
+        return $this->homePageGetterWrapper;
     }
 
     /**
      * @throws NullException
      */
-    private function assertHomePageRecordsGetterWrapper()
+    private function assertHomePageGetterWrapper()
     {
-        if (!$this->getHomePageRecordsGetterWrapper()) {
-            throw new NullException("HomePageRecordsGetterWrapper is not set");
+        if (!$this->getHomePageGetterWrapper()) {
+            throw new NullException("HomePageGetterWrapper is not set");
         }
     }
 
@@ -73,13 +89,15 @@ class HomePageHelper
      */
     public function setupHomePageRecords($input = array())
     {
-        $this->assertHomePageRecordsGetterWrapper();
+        $this->assertHomePageGetterWrapper();
 
-        $wrapper = $this->getHomePageRecordsGetterWrapper();
+        $wrapper = $this->getHomePageGetterWrapper();
         $wrapper->setInput($input);
         $wrapper->setupQueryBuilder();
 
-        $this->setHomePageRecords($wrapper->formatPerModuleCode($wrapper->getRecords()));
+        $this->setHomePageRecords(
+            $wrapper->formatPerModuleCode($wrapper->getRecords())
+        );
     }
 
     /**
@@ -99,16 +117,13 @@ class HomePageHelper
     }
 
     /**
-     * @return bool
+     * Attach referenceIDs into the existing home page recordset
      */
     public function gatherReferenceIds()
     {
+        $this->assertHomePageRecords();
+
         $homePageRecords = $this->getHomePageRecords();
-
-        if (empty($homePageRecords)) {
-           return false;
-        }
-
         foreach($homePageRecords as $key => $values) {
             foreach($values as $value) {
                 if (isset($value['referenceId'])) {
@@ -117,15 +132,37 @@ class HomePageHelper
             }
         }
 
-        $this->setHomePageRecords($homePageRecords);
+        $this->issetReferenceIds = 1;
 
-        return true;
+        $this->setHomePageRecords($homePageRecords);
     }
 
+    /**
+     * @throws NullException
+     */
+    private function assertHomePageRecords()
+    {
+        if (!$this->getHomePageRecords()) {
+            throw new NullException("HomePageRecords are not set");
+        }
+    }
+
+    /**
+     * @throws NullException
+     */
+    private function assertIssetReferenceIds()
+    {
+        if (!$this->issetReferenceIds) {
+            throw new NullException("Reference IDs are not set");
+        }
+    }
+
+    /**
+     * @throws NullException
+     */
     public function checkHomePageRecords()
     {
         $homePageRecords = $this->getHomePageRecords();
-
         if (empty($homePageRecords)) {
             throw new NullException("Home page records are empty");
         }
@@ -150,6 +187,20 @@ class HomePageHelper
     {
         if (!class_exists($this->classMap[$key])) {
             throw new NullException($this->classMap[$key]." object or file does not exist");
+        }
+    }
+
+    /**
+     * @throws NullException
+     */
+    public function checkClassMapFromRecords()
+    {
+        $this->assertIssetReferenceIds();
+
+        $records = $this->getHomePageRecords();
+        foreach($records as $key => $value) {
+            $this->checkClassMapKey($key);
+            $this->checkClassMapObjectExists($key);
         }
     }
 }

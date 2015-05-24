@@ -148,11 +148,11 @@ class UsersCrudHandler  extends CrudHandlerAbstract implements CrudHandlerInterf
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => "Inserito nuovo utente ".$inputFilter->name.' '.$inputFilter->surname,
@@ -174,11 +174,11 @@ class UsersCrudHandler  extends CrudHandlerAbstract implements CrudHandlerInterf
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => "Errore nell'inserimento utente ".$inputFilter->name.' '.$inputFilter->surname.'Messaggio: '.$message,
@@ -198,11 +198,11 @@ class UsersCrudHandler  extends CrudHandlerAbstract implements CrudHandlerInterf
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => "Aggiornato utente ".$inputFilter->name.' '.$inputFilter->surname,
@@ -224,11 +224,11 @@ class UsersCrudHandler  extends CrudHandlerAbstract implements CrudHandlerInterf
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => "Errore nell'aggiornamento utente ".$inputFilter->name.' '.$inputFilter->surname.' Messaggio: '.$message,

@@ -75,7 +75,7 @@ class ZfcmsUsersRoles
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -86,6 +86,7 @@ class ZfcmsUsersRoles
      * Set code
      *
      * @param string $code
+     *
      * @return ZfcmsUsersRoles
      */
     public function setCode($code)
@@ -98,7 +99,7 @@ class ZfcmsUsersRoles
     /**
      * Get code
      *
-     * @return string 
+     * @return string
      */
     public function getCode()
     {
@@ -109,6 +110,7 @@ class ZfcmsUsersRoles
      * Set name
      *
      * @param string $name
+     *
      * @return ZfcmsUsersRoles
      */
     public function setName($name)
@@ -121,7 +123,7 @@ class ZfcmsUsersRoles
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -132,6 +134,7 @@ class ZfcmsUsersRoles
      * Set description
      *
      * @param string $description
+     *
      * @return ZfcmsUsersRoles
      */
     public function setDescription($description)
@@ -144,7 +147,7 @@ class ZfcmsUsersRoles
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -155,6 +158,7 @@ class ZfcmsUsersRoles
      * Set insertDate
      *
      * @param \DateTime $insertDate
+     *
      * @return ZfcmsUsersRoles
      */
     public function setInsertDate($insertDate)
@@ -167,7 +171,7 @@ class ZfcmsUsersRoles
     /**
      * Get insertDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getInsertDate()
     {
@@ -178,6 +182,7 @@ class ZfcmsUsersRoles
      * Set lastUpdate
      *
      * @param \DateTime $lastUpdate
+     *
      * @return ZfcmsUsersRoles
      */
     public function setLastUpdate($lastUpdate)
@@ -190,7 +195,7 @@ class ZfcmsUsersRoles
     /**
      * Get lastUpdate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getLastUpdate()
     {
@@ -201,6 +206,7 @@ class ZfcmsUsersRoles
      * Set status
      *
      * @param string $status
+     *
      * @return ZfcmsUsersRoles
      */
     public function setStatus($status)
@@ -213,7 +219,7 @@ class ZfcmsUsersRoles
     /**
      * Get status
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
@@ -224,6 +230,7 @@ class ZfcmsUsersRoles
      * Set adminAccess
      *
      * @param integer $adminAccess
+     *
      * @return ZfcmsUsersRoles
      */
     public function setAdminAccess($adminAccess)
@@ -236,7 +243,7 @@ class ZfcmsUsersRoles
     /**
      * Get adminAccess
      *
-     * @return integer 
+     * @return integer
      */
     public function getAdminAccess()
     {

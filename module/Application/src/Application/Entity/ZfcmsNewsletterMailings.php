@@ -57,7 +57,7 @@ class ZfcmsNewsletterMailings
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -68,6 +68,7 @@ class ZfcmsNewsletterMailings
      * Set errorLog
      *
      * @param string $errorLog
+     *
      * @return ZfcmsNewsletterMailings
      */
     public function setErrorLog($errorLog)
@@ -80,7 +81,7 @@ class ZfcmsNewsletterMailings
     /**
      * Get errorLog
      *
-     * @return string 
+     * @return string
      */
     public function getErrorLog()
     {
@@ -91,6 +92,7 @@ class ZfcmsNewsletterMailings
      * Set description
      *
      * @param string $description
+     *
      * @return ZfcmsNewsletterMailings
      */
     public function setDescription($description)
@@ -103,7 +105,7 @@ class ZfcmsNewsletterMailings
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -114,6 +116,7 @@ class ZfcmsNewsletterMailings
      * Set sendingDate
      *
      * @param \DateTime $sendingDate
+     *
      * @return ZfcmsNewsletterMailings
      */
     public function setSendingDate($sendingDate)
@@ -126,7 +129,7 @@ class ZfcmsNewsletterMailings
     /**
      * Get sendingDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getSendingDate()
     {
@@ -137,6 +140,7 @@ class ZfcmsNewsletterMailings
      * Set newsletter
      *
      * @param \Application\Entity\ZfcmsNewsletters $newsletter
+     *
      * @return ZfcmsNewsletterMailings
      */
     public function setNewsletter(\Application\Entity\ZfcmsNewsletters $newsletter = null)
@@ -149,7 +153,7 @@ class ZfcmsNewsletterMailings
     /**
      * Get newsletter
      *
-     * @return \Application\Entity\ZfcmsNewsletters 
+     * @return \Application\Entity\ZfcmsNewsletters
      */
     public function getNewsletter()
     {

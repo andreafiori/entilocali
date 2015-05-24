@@ -107,11 +107,11 @@ class SceltaContraenteCrudHandler extends CrudHandlerAbstract implements CrudHan
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
             'message'   => "Inserita nuova voce scelta contraente ".$inputFilter->nomeScelta,
@@ -133,11 +133,11 @@ class SceltaContraenteCrudHandler extends CrudHandlerAbstract implements CrudHan
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
             'message'   => "Errore nell'inserimento voce scelta contraente ".$inputFilter->nomeScelta.' Messaggio: '.$message,
@@ -159,11 +159,11 @@ class SceltaContraenteCrudHandler extends CrudHandlerAbstract implements CrudHan
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
             'message'   => "Aggiornata voce scelta contraente ".$inputFilter->nomeScelta,
@@ -185,11 +185,11 @@ class SceltaContraenteCrudHandler extends CrudHandlerAbstract implements CrudHan
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
             'message'   => "Errore nell'aggiornamento della voce scelta conctraente ".$inputFilter->nomeScelta.' Messaggio: '.$message,
@@ -211,9 +211,9 @@ class SceltaContraenteCrudHandler extends CrudHandlerAbstract implements CrudHan
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
             'message'   => "Eliminata voce scelta contraente ".$record->nomeScelta,

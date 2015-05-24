@@ -26,8 +26,27 @@ class HomePageGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setMainQuery();
 
         $this->objectGetter->setId($this->getInput('id', 1));
+        $this->objectGetter->setLanguage($this->getInput('language', 1));
+        $this->objectGetter->setLanguageAbbreviation($this->getInput('languageAbbreviation', 1));
         $this->objectGetter->setOrderBy($this->getInput('orderBy', 1));
         $this->objectGetter->setGroupBy($this->getInput('groupBy', 1));
         $this->objectGetter->setLimit($this->getInput('limit', 1));
+    }
+
+    /**
+     * @param array $records
+     * @return array
+     */
+    public function formatPerModuleCode(array $records)
+    {
+        $recordsToReturn = array();
+
+        foreach($records as $record) {
+            if ( isset($record['moduleCode']) ) {
+                $recordsToReturn[$record['moduleCode']][] = $record;
+            }
+        }
+
+        return $recordsToReturn;
     }
 }

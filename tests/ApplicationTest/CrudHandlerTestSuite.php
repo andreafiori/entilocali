@@ -2,7 +2,7 @@
 
 namespace ApplicationTest;
 
-use Admin\Model\Logs\LogsWriter;
+use Admin\Model\Log\LogWriter;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 
@@ -140,7 +140,7 @@ abstract class CrudHandlerTestSuite extends TestSuite
     {
         $this->crudHandler->setUserDetails($this->userDetailsSample);
 
-        $this->crudHandler->setLogsWriter( new LogsWriter($this->getConnectionMock()) );
+        $this->crudHandler->setLogWriter( new LogWriter($this->getConnectionMock()) );
 
         $this->crudHandler->setupLogMethodToExecute($operation, $ok);
     }

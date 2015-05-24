@@ -13,7 +13,7 @@ class AttachmentsGetter extends QueryBuilderHelperAbstract
     public function setMainQuery()
     {
         $this->setSelectQueryFields('DISTINCT(a.id) AS id, a.name, a.size, a.state, a.insertDate,
-                                      ao.id AS attachmenOptionId, ao.title, ao.description, ao.expireDate,
+                                      ao.id AS attachmenOptionId, ao.title, ao.description, ao.expireDate, ao.position,
                                       am.image, am.mimetype,
 
                                       u.name AS username, u.surname

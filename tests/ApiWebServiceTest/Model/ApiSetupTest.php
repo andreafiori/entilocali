@@ -3,7 +3,6 @@
 namespace ApiWebService\Model;
 
 use ApplicationTest\TestSuite;
-use ApiWebService\Model\ApiSetup;
 
 /**
  * @author Andrea Fiori

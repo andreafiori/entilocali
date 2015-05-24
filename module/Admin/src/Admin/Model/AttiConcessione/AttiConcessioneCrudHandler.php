@@ -138,11 +138,11 @@ class AttiConcessioneCrudHandler extends CrudHandlerAbstract implements CrudHand
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => "Inserito nuovo atto concessione ".$inputFilter->titolo,
@@ -164,11 +164,11 @@ class AttiConcessioneCrudHandler extends CrudHandlerAbstract implements CrudHand
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => "Errore nell'inserimento atto concessione ".$inputFilter->titolo.' Messaggio: '.$message,
@@ -188,11 +188,11 @@ class AttiConcessioneCrudHandler extends CrudHandlerAbstract implements CrudHand
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => "Aggiornato atto concessione ".$inputFilter->titolo,
@@ -214,11 +214,11 @@ class AttiConcessioneCrudHandler extends CrudHandlerAbstract implements CrudHand
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => "Errore nell'aggiornamento dell'atto concessione ".$inputFilter->titolo.' Messaggio: '.$message,

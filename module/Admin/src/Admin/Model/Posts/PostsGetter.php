@@ -24,12 +24,12 @@ class PostsGetter extends QueryBuilderHelperAbstract
                                     ');
 
         $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
-                                ->add('from', 'Application\Entity\ZfcmsPosts p,
-                                                Application\Entity\ZfcmsPostsRelations r,
-                                                Application\Entity\ZfcmsPostsCategories c,
-                                                Application\Entity\ZfcmsModules module,
-                                                Application\Entity\ZfcmsUsers users
-                                        ')
+                                ->from('Application\Entity\ZfcmsPostsRelations', 'r')
+                                ->join('r.posts', 'p')
+                                ->join('r.category', 'c')
+                                ->join('r.module', 'module')
+                                ->join('p.user', 'users')
+                                ->join('c.language', 'language')
                                 ->where('p.id = r.posts AND c.id = r.category
                                             AND r.channel = :channel
                                             AND c.language = :language
@@ -60,7 +60,22 @@ class PostsGetter extends QueryBuilderHelperAbstract
     public function setLanguageId($languageId = null)
     {
         if (is_numeric($languageId)) {
+            $this->getQueryBuilder()->andWhere('language.id = :language ');
             $this->getQueryBuilder()->setParameter('language', $languageId);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param string $langAbbr
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setLanguageAbbreviation($langAbbr = null)
+    {
+        if (!empty($langAbbr)) {
+            $this->getQueryBuilder()->andWhere('language.abbreviation1 = :languageAbbr ');
+            $this->getQueryBuilder()->setParameter('languageAbbr', $langAbbr);
         }
 
         return $this->getQueryBuilder();

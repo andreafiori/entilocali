@@ -1,7 +1,8 @@
 <?php
 echo $this->partial($this->templateDir.'_header');
-    
+
 echo $this->partial($this->templateDir.'_navigation');
+
 ?>
 <div class="large-12 columns">
 
@@ -17,11 +18,8 @@ echo $this->partial($this->templateDir.'_navigation');
                             echo $this->partial($this->templateDir.'_column', array(
                                 'sezioni'               => $this->sezioni['sx'],
                                 'publicDirRelativePath' => $this->publicDirRelativePath,
+                                'lang'                  => $this->lang,
                             ));
-                        else:
-                            ?>
-                            <h1>Nessuna sezione</h1>
-                            <?php
                         endif;
                         ?>
                     </aside>
@@ -44,11 +42,8 @@ echo $this->partial($this->templateDir.'_navigation');
                             echo $this->partial($this->templateDir.'_column', array(
                                 'sezioni'               => $this->sezioni['dx'],
                                 'publicDirRelativePath' => $this->publicDirRelativePath,
+                                'lang'                  => $this->lang,
                             ));
-                        else:
-                            ?>
-                            <h1>Nessuna sezione</h1>
-                            <?php
                         endif;
                         ?>
                     </aside>

@@ -106,11 +106,11 @@ class EntiTerziCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
             'message'   => "Inserito l'ente terzo ".$inputFilter->nome,
@@ -132,11 +132,11 @@ class EntiTerziCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
             'message'   => "Errore nell'inserimento dell'ente terzo ".$inputFilter->nome.' '.$inputFilter->email.' Messaggio: '.$message,
@@ -158,11 +158,11 @@ class EntiTerziCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
             'message'   => "Ha aggiornato il ente terzo ".$inputFilter->nome,
@@ -184,11 +184,11 @@ class EntiTerziCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
             'message'   => "Errore nell'aggiornamento dell'ente terzo ".$inputFilter->nome.' Messaggio: '.$message,
@@ -210,9 +210,9 @@ class EntiTerziCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
             'message'   => "Eliminato l'ente terzo ".$record->nome,

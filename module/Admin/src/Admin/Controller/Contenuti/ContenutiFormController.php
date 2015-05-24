@@ -2,6 +2,7 @@
 
 namespace Admin\Controller\Contenuti;
 
+use Admin\Model\Contenuti\ContenutiControllerHelper;
 use Admin\Model\Contenuti\ContenutiForm;
 use Admin\Model\Contenuti\ContenutiGetter;
 use Admin\Model\Contenuti\ContenutiGetterWrapper;
@@ -23,86 +24,87 @@ class ContenutiFormController extends SetupAbstractController
         $ammTraspSezioneId      = $this->layout()->getVariable('amministrazione_trasparente_sezione_id');
         $ammTraspSottoSezioneId = $this->layout()->getVariable('amministrazione_trasparente_sottosezione_id');
 
-        if (is_numeric($id)) {
-            $wrapper = new ContenutiGetterWrapper( new ContenutiGetter($em) );
-            $wrapper->setInput( array(
-                    'id'     => $id,
-                    'limit'  => 1,
-                    'utente' => ($userDetails->role=='WebMaster') ? null : $userDetails->id
+        try {
+            $helper = new ContenutiControllerHelper();
+            $helper->setContenutiGetterWrapper( new ContenutiGetterWrapper(new ContenutiGetter($em)) );
+            $helper->setupContenutiGetterWrapperRecords(array(
+                'id'     => is_numeric($id) ? $id : 0,
+                'limit'  => 1,
+                'utente' => ($userDetails->role=='WebMaster') ? null : $userDetails->id
+            ));
+            $helper->setSottoSezioniGetterWrapper(new SottoSezioniGetterWrapper(new SottoSezioniGetter($em)));
+            $helper->setupSottoSezioniGetterWrapperRecords(array(
+                'excludeId'             => $ammTraspSottoSezioneId,
+                'excludeSezioneId'      => $ammTraspSezioneId,
+                'showToAll'             => ($userDetails->role == 'WebMaster') ? null : 1,
+            ));
+            $helper->formatSottoSezioniGetterWrapperRecordsForDropdown();
+
+            $contenutiRecords = $helper->getContenutiGetterWrapperRecords();
+
+            $form = new ContenutiForm();
+            $form->addSottoSezioni( $helper->getSottoSezioniGetterWrapperRecords() );
+            $form->addForm();
+            if ($userDetails->role=='WebMaster') {
+
+                $wrapper = new UsersGetterWrapper( new UsersGetter($em) );
+                $wrapper->setInput( array('orderBy' => 'u.name') );
+                $wrapper->setupQueryBuilder();
+
+                $records = $wrapper->getRecords();
+
+                $arrayToReturn = array();
+                if (!empty($records)) {
+                    foreach($records as $record) {
+                        $arrayToReturn[$record['id']] = utf8_encode($record['name']). ' '.utf8_encode($record['surname']);
+                    }
+                }
+
+                $form->addUsers($arrayToReturn);
+            }
+            $form->addHomeBox();
+
+            if ( !empty($contenutiRecords) ) {
+                $form->setData($contenutiRecords[0]);
+
+                $submitButtonValue      = 'Modifica';
+                $formTitle              = 'Modifica contenuto';
+                $formDescription        = 'Modifica i dati relativi al contenuto';
+                $formAction             = 'contenuti/update/';
+                $formBreadCrumbTitle    = '';
+            } else {
+                $form->setData(array(
+                    'dataInserimento'   => date('Y-m-d H:i:s'),
+                    'dataScadenza'      => date('Y-m-d H:i:s', strtotime('+5 years')),
+                    'attivo'            => 1,
+                    'utente'            => $userDetails->id,
+                ));
+                $form->addSocial();
+
+                $formTitle              = 'Nuovo contenuto';
+                $formDescription        = 'Inserisci i dati relativi al contenuto';
+                $submitButtonValue      = 'Inserisci';
+                $formAction             = 'contenuti/insert/';
+                $formBreadCrumbTitle    = 'Nuovo contenuto';
+            }
+
+            $this->layout()->setVariables( array(
+                    'form'                       => $form,
+                    'formAction'                 => $formAction,
+                    'formTitle'                  => $formTitle,
+                    'formDescription'            => $formDescription,
+                    'submitButtonValue'          => $submitButtonValue,
+                    'CKEditorField'              => array('testo'),
+                    'formBreadCrumbCategory'     => 'Contenuti',
+                    'formBreadCrumbCategoryLink' => $this->url()->fromRoute('admin/contenuti-summary', array('lang' => 'it')),
+                    'formBreadCrumbTitle'        => $formBreadCrumbTitle,
+                    'templatePartial'            => self::formTemplate
                 )
             );
-            $wrapper->setupQueryBuilder();
 
-            $recordFromDb = $wrapper->getRecords();
+        } catch(\Exception $e) {
+
         }
-
-        $wrapper = new SottoSezioniGetterWrapper( new SottoSezioniGetter($em) );
-        $wrapper->setInput(array(
-            'excludeId'             => isset($ammTraspSottoSezioneId) ? $ammTraspSottoSezioneId : null,
-            'excludeSezioneId'      => isset($ammTraspSezioneId) ? $ammTraspSezioneId : null,
-            'showToAll'             => ($userDetails->role=='WebMaster') ? null : 1,
-        ));
-        $wrapper->setupQueryBuilder();
-
-        $sezioniRecords = $wrapper->getRecords();
-
-        $arraySezioni= array();
-        if (!empty($sezioniRecords)) {
-            foreach($sezioniRecords as $sezioniRecord) {
-                $arraySezioni[$sezioniRecord['idSottoSezione']] = utf8_encode($sezioniRecord['nomeSezione']). ' - '.utf8_encode($sezioniRecord['nomeSottoSezione']);
-            }
-        }
-
-        $form = new ContenutiForm();
-        $form->addSottoSezioni($arraySezioni);
-        $form->addForm();
-        if ($userDetails->role=='WebMaster') {
-
-            $wrapper = new UsersGetterWrapper( new UsersGetter($em) );
-            $wrapper->setInput( array('orderBy' => 'u.name') );
-            $wrapper->setupQueryBuilder();
-
-            $records = $wrapper->getRecords();
-
-            $arrayToReturn = array();
-            if (!empty($records)) {
-                foreach($records as $record) {
-                    $arrayToReturn[$record['id']] = utf8_encode($record['name']). ' '.utf8_encode($record['surname']);
-                }
-            }
-
-            $form->addUsers($arrayToReturn);
-        }
-        $form->addHomeBox();
-
-        if ( !empty($recordFromDb) ) {
-            $form->setData($recordFromDb[0]);
-
-            $submitButtonValue  = 'Modifica';
-            $formTitle          = 'Modifica contenuto';
-            $formDescription    = null;
-            $formAction         = 'contenuti/update/';
-        } else {
-            $form->addSocial();
-
-            $formTitle          = 'Nuovo contenuto';
-            $formDescription    = 'Inserisci i dati relativi al contenuto';
-            $submitButtonValue  = 'Inserisci';
-            $formAction         = 'contenuti/insert/';
-        }
-
-        $this->layout()->setVariables( array(
-                'form'                       => $form,
-                'formAction'                 => $formAction,
-                'formTitle'                  => $formTitle,
-                'formDescription'            => $formDescription,
-                'submitButtonValue'          => $submitButtonValue,
-                'CKEditorField'              => array('testo'),
-                'formBreadCrumbCategory'     => 'Contenuti',
-                'formBreadCrumbCategoryLink' => $this->url()->fromRoute('admin/contenuti-summary', array('lang' => 'it')),
-                'templatePartial'            => self::formTemplate
-            )
-        );
 
         $this->layout()->setTemplate($mainLayout);
     }

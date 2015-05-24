@@ -3,20 +3,21 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Application\Controller\Index'                                                  => 'Application\Controller\IndexController',
-            'Application\Controller\DocumentExport'                                         => 'Application\Controller\DocumentExportController',
+            /* 'Application\Controller\DocumentExport'                                         => 'Application\Controller\DocumentExportController', */
             'Application\Controller\AttachmentsSThreeDownloader'                            => 'Application\Controller\AttachmentsSThreeDownloaderController',
             'Application\Controller\PasswordPreview'                                        => 'Application\Controller\PasswordPreviewController',
             'Application\Controller\Faq\Faq'                                                => 'Application\Controller\Faq\FaqController',
             'Application\Controller\AlboPretorio\AlboPretorio'                              => 'Application\Controller\AlboPretorio\AlboPretorioController',
             'Application\Controller\AttiConcessione\AttiConcessione'                        => 'Application\Controller\AttiConcessione\AttiConcessioneController',
             'Application\Controller\Contenuti\Contenuti'                                    => 'Application\Controller\Contenuti\ContenutiController',
+            'Application\Controller\Contenuti\ContenutiExport'                              => 'Application\Controller\Contenuti\ContenutiExportController',
+            'Application\Controller\StatoCivile\StatoCivileExport'                          => 'Application\Controller\StatoCivile\StatoCivileExportController',
             'Application\Controller\AmministrazioneTrasparente\AmministrazioneTrasparente'  => 'Application\Controller\AmministrazioneTrasparente\AmministrazioneTrasparenteController',
             'Application\Controller\ContrattiPubblici\ContrattiPubblici'                    => 'Application\Controller\ContrattiPubblici\ContrattiPubbliciController',
             'Application\Controller\StatoCivile\StatoCivile'                                => 'Application\Controller\StatoCivile\StatoCivileController',
             'Application\Controller\CssStyleSwitch'                                         => 'Application\Controller\CssStyleSwitchController',
             'Application\Controller\Users\UsersCreateAccount'                               => 'Application\Controller\Users\UsersCreateAccountController',
             'Application\Controller\Users\UsersRecoverPassword'                             => 'Application\Controller\Users\UsersRecoverPasswordController',
-            'Application\Controller\StatoCivile\StatoCivileExport'                          => 'Application\Controller\StatoCivile\StatoCivileExportController',
             'Application\Controller\Posts\Blogs'                                            => 'Application\Controller\Posts\BlogsController',
             'Application\Controller\Posts\Photo'                                            => 'Application\Controller\Posts\PhotoController',
             'Application\Controller\CookieWarning'                                          => 'Application\Controller\CookieWarningController',
@@ -25,137 +26,123 @@ return array(
     'router' => array(
                     'routes' => array(
                                     'main' => array(
-                                                    'type'    => 'segment',
+                                                    'type' => 'segment',
                                                     'options' => array(
-                                                        'route' => '/',
+                                                        'route' => '/[:lang[/]]',
                                                         'defaults' => array(
                                                             'controller' => 'Application\Controller\Index',
                                                             'action'     => 'index',
                                                         ),
+                                                        'constraints' => array(
+                                                            'lang' => '(it|en|es|de|fr)?',
+                                                        ),
                                                     ),
                                                     'may_terminate' => true,
+                                                    'child_routes' => array(
+                                                        'contenuti' => array(
+                                                            'type'    => 'segment',
+                                                            'options' => array(
+                                                                'route' => 'contents/node/[:subsectionid[/]]',
+                                                                'constraints' => array(
+                                                                    'subsectionid' => '[0-9]+',
+                                                                ),
+                                                                'defaults' => array(
+                                                                    'controller' => 'Application\Controller\Contenuti\Contenuti',
+                                                                    'action'     => 'index',
+                                                                ),
+                                                            ),
+                                                            'may_terminate' => true,
+                                                        ),
+                                                        /* Blogs Posts */
+                                                        'posts-blogs-categories' => array(
+                                                            'type'    => 'segment',
+                                                            'options' => array(
+                                                                'route' => 'blogs/:category[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                                                                'constraints' => array(
+                                                                    'category'    => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                                    'page'        => '[0-9]+',
+                                                                    'order_by'    => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                                    'order'       => 'ASC|DESC',
+                                                                ),
+                                                                'defaults' => array(
+                                                                    'controller' => 'Application\Controller\Posts\Blogs',
+                                                                    'action'     => 'index',
+                                                                ),
+                                                            ),
+                                                            'may_terminate' => true,
+                                                        ),
+                                                        'posts-blogs-details' => array(
+                                                            'type'    => 'segment',
+                                                            'options' => array(
+                                                                'route' => 'blogs/:category/:title[/]',
+                                                                'constraints' => array(
+                                                                    'category'  => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                                    'title'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                                ),
+                                                                'defaults' => array(
+                                                                    'controller' => 'Application\Controller\Posts\Blogs',
+                                                                    'action'     => 'details',
+                                                                ),
+                                                            ),
+                                                            'may_terminate' => true,
+                                                        ),
+                                                        'posts-photo-gallery' => array(
+                                                            'type' => 'segment',
+                                                            'options' => array(
+                                                                'route' => '/photo/gallery[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                                                                'constraints' => array(
+                                                                    'page'        => '[0-9]+',
+                                                                    'order_by'    => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                                    'order'       => 'ASC|DESC',
+                                                                ),
+                                                                'defaults' => array(
+                                                                    'controller' => 'Application\Controller\Posts\Photo',
+                                                                    'action'     => 'index',
+                                                                ),
+                                                            ),
+                                                            'may_terminate' => true,
+                                                        ),
+                                                        'posts-photo-gallery-details' => array(
+                                                            'type' => 'segment',
+                                                            'options' => array(
+                                                                'route' => '/photo/gallery/:category/:title[/]',
+                                                                'constraints' => array(
+                                                                    'category'  => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                                    'title'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                                ),
+                                                                'defaults' => array(
+                                                                    'controller' => 'Application\Controller\Posts\Photo',
+                                                                    'action'     => 'index',
+                                                                ),
+                                                            ),
+                                                            'may_terminate' => true,
+                                                        ),
+                                                    ),
                                     ),
                                     'notfound' => array(
-                                        'type'    => 'segment',
-                                        'options' => array(
-                                            'route' => '/page/not/found/',
-                                            'defaults' => array(
-                                                'controller' => 'Application\Controller\Index',
-                                                'action'     => 'notfound',
-                                            ),
-                                        ),
-                                        'may_terminate' => true,
-                                    ),
-                                    /* Posts Contents */
-                                    /*
-                                    'posts-contents-categories' => array(
-                                                    'type'    => 'segment',
+                                                    'type' => 'segment',
                                                     'options' => array(
-                                                                    'route' => '/:category[/][page/:page[/]]',
-                                                                    'constraints' => array(
-                                                                            'category'  => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                                            'page'      => '[a-zA-Z0-9_-]*',
-                                                                    ),
-                                                                    'defaults' => array(
-                                                                            'controller' => 'Application\Controller\Index',
-                                                                            'action'     => 'index',
-                                                                    ),
+                                                        'route' => '/page/not/found/',
+                                                        'defaults' => array(
+                                                            'controller' => 'Application\Controller\Index',
+                                                            'action'     => 'notfound',
+                                                        ),
                                                     ),
                                                     'may_terminate' => true,
                                     ),
-                                    'posts-contents-details' => array(
-                                        'type' => 'segment',
-                                        'options' => array(
-                                            'route' => '/:category[/][:title[/]]',
-                                            'constraints' => array(
-                                                'category'  => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                'title'     => '[a-zA-Z0-9_-]*',
-                                            ),
-                                            'defaults' => array(
-                                                'controller' => 'Application\Controller\Index',
-                                                'action'     => 'index',
-                                            ),
-                                        ),
-                                        'may_terminate' => true,
-                                    ),
-                                    */
-                                    /* Blogs Posts */
-                                    'posts-blogs-categories' => array(
-                                        'type'    => 'segment',
-                                        'options' => array(
-                                            'route' => '/blogs/:category[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
-                                            'constraints' => array(
-                                                'category'    => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                'page'        => '[0-9]+',
-                                                'order_by'    => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                'order'       => 'ASC|DESC',
-                                            ),
-                                            'defaults' => array(
-                                                'controller' => 'Application\Controller\Posts\Blogs',
-                                                'action'     => 'index',
-                                            ),
-                                        ),
-                                        'may_terminate' => true,
-                                    ),
-                                    'posts-blogs-details' => array(
-                                        'type'    => 'segment',
-                                        'options' => array(
-                                            'route' => '/blogs/:category/:title[/]',
-                                            'constraints' => array(
-                                                'category'  => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                'title'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                            ),
-                                            'defaults' => array(
-                                                'controller' => 'Application\Controller\Posts\Blogs',
-                                                'action'     => 'details',
-                                            ),
-                                        ),
-                                        'may_terminate' => true,
-                                    ),
-                                    'posts-photo-gallery' => array(
-                                        'type' => 'segment',
-                                        'options' => array(
-                                            'route' => '/photo/gallery[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
-                                            'constraints' => array(
-                                                'page'        => '[0-9]+',
-                                                'order_by'    => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                'order'       => 'ASC|DESC',
-                                            ),
-                                            'defaults' => array(
-                                                'controller' => 'Application\Controller\Posts\Photo',
-                                                'action'     => 'index',
-                                            ),
-                                        ),
-                                        'may_terminate' => true,
-                                    ),
-                                    'posts-photo-gallery-details' => array(
-                                        'type' => 'segment',
-                                        'options' => array(
-                                            'route' => '/photo/gallery/:category/:title[/]',
-                                            'constraints' => array(
-                                                'category'  => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                'title'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                            ),
-                                            'defaults' => array(
-                                                'controller' => 'Application\Controller\Posts\Photo',
-                                                'action'     => 'index',
-                                            ),
-                                        ),
-                                        'may_terminate' => true,
-                                    ),
-                                    'contents' => array(
-                                                    'type'    => 'segment',
-                                                    'options' => array(
-                                                                    'route' => '/contents/node/[:subsectionid[/]]',
-                                                                    'constraints' => array(
-                                                                            'subsectionid' => '[0-9]+',
-                                                                    ),
-                                                                    'defaults' => array(
-                                                                            'controller' => 'Application\Controller\Contenuti\Contenuti',
-                                                                            'action'     => 'index',
-                                                                    ),
+                                    'contenuti-export' => array(
+                                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                                'options' => array(
+                                                    'route'    => '/contenuti/export/:action[/]',
+                                                    'constraints' => array(
+                                                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                                     ),
-                                                    'may_terminate' => true,
+                                                    'defaults' => array(
+                                                        'controller' => 'Application\Controller\Contenuti\ContenutiExport',
+                                                        'action'     => 'index',
+                                                    ),
+                                                ),
+                                                'may_terminate' => true,
                                     ),
                                     'css-style-switch' => array(
                                                 'type'    => 'segment',
@@ -172,47 +159,47 @@ return array(
                                                 'may_terminate' => true,
                                     ),
                                     'attachments-sthree-download' => array(
-                                        'type'    => 'segment',
-                                        'options' => array(
-                                            'route'    => '/attachments/download/single/:type/:id/',
-                                            'constraints' => array(
-                                                'type'  => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                'id'      => '[0-9]+',
-                                            ),
-                                            'defaults' => array(
-                                                'controller' => 'Application\Controller\AttachmentsSThreeDownloader',
-                                                'action'     => 'index',
-                                            ),
-                                        ),
-                                        'may_terminate' => true,
+                                                'type'    => 'segment',
+                                                'options' => array(
+                                                    'route'    => '/attachments/download/single/:type/:id/',
+                                                    'constraints' => array(
+                                                        'type'  => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                        'id'      => '[0-9]+',
+                                                    ),
+                                                    'defaults' => array(
+                                                        'controller' => 'Application\Controller\AttachmentsSThreeDownloader',
+                                                        'action'     => 'index',
+                                                    ),
+                                                ),
+                                                'may_terminate' => true,
                                     ),
                                     'password-preview' => array(
-                                        'type'    => 'segment',
-                                        'options' => array(
-                                            'route'    => '/password/preview/form[/]',
-                                            'constraints' => array(
+                                                'type'    => 'segment',
+                                                'options' => array(
+                                                    'route'    => '/password/preview/form[/]',
+                                                    'constraints' => array(
 
-                                            ),
-                                            'defaults' => array(
-                                                'controller' => 'Application\Controller\PasswordPreview',
-                                                'action'     => 'index',
-                                            ),
-                                        ),
-                                        'may_terminate' => true,
+                                                    ),
+                                                    'defaults' => array(
+                                                        'controller' => 'Application\Controller\PasswordPreview',
+                                                        'action'     => 'index',
+                                                    ),
+                                                ),
+                                                'may_terminate' => true,
                                     ),
                                     'password-preview-logout' => array(
-                                        'type'    => 'segment',
-                                        'options' => array(
-                                            'route'    => '/password/preview/logout[/]',
-                                            'constraints' => array(
+                                                'type'    => 'segment',
+                                                'options' => array(
+                                                    'route'    => '/password/preview/logout[/]',
+                                                    'constraints' => array(
 
-                                            ),
-                                            'defaults' => array(
-                                                'controller' => 'Application\Controller\PasswordPreview',
-                                                'action'     => 'logout',
-                                            ),
-                                        ),
-                                        'may_terminate' => true,
+                                                    ),
+                                                    'defaults' => array(
+                                                        'controller' => 'Application\Controller\PasswordPreview',
+                                                        'action'     => 'logout',
+                                                    ),
+                                                ),
+                                                'may_terminate' => true,
                                     ),
                                     'document-export' => array(
                                                     'type'    => 'segment',
@@ -227,53 +214,40 @@ return array(
                                                                     ),
                                                     ),
                                                     'may_terminate' => true,
-                                                    'child_routes' => array(
-                                                                    'default' => array(
-                                                                                    'type'    => 'Wildcard',
-                                                                                    'options' => array(
-                                                                                    ),
-                                                                    ),
-                                                    ),
                                     ),
                                     'faq' => array(
-                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
-                                        'options' => array(
-                                                        'route'    => '/faq/domande[/][:action]',
-                                                        'constraints' => array(
+                                                'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                                'options' => array(
+                                                                'route'    => '/faq/domande[/][:action]',
+                                                                'constraints' => array(
 
-                                                        ),
-                                                        'defaults' => array(
-                                                            'controller'    => 'Application\Controller\Faq\Faq',
-                                                            'action'        => 'index',
-                                                        ),
-                                        ),
-                                        'may_terminate' => true,
-                                        'child_routes' => array(
-                                                        'default' => array(
-                                                            'type'    => 'Wildcard',
-                                                            'options' => array( ),
-                                                        ),
-                                        ),
+                                                                ),
+                                                                'defaults' => array(
+                                                                    'controller'    => 'Application\Controller\Faq\Faq',
+                                                                    'action'        => 'index',
+                                                                ),
+                                                ),
+                                                'may_terminate' => true,
                                     ),
                                     'albo-pretorio' => array(
-                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
-                                        'options' => array(
-                                                        'route'    => '/albo-pretorio/atti/elenco[/][page/:page[/]]',
-                                                        'constraints' => array(
-                                                            'page' => '[0-9]+',
+                                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                                        'options' => array(
+                                                                'route'    => '/albo-pretorio/atti/elenco[/][page/:page[/]]',
+                                                                'constraints' => array(
+                                                                    'page' => '[0-9]+',
+                                                                ),
+                                                                'defaults' => array(
+                                                                    'controller' => 'Application\Controller\AlboPretorio\AlboPretorio',
+                                                                    'action'    => 'index',
+                                                                ),
                                                         ),
-                                                        'defaults' => array(
-                                                            'controller' => 'Application\Controller\AlboPretorio\AlboPretorio',
-                                                            'action'    => 'index',
+                                                        'may_terminate' => true,
+                                                        'child_routes' => array(
+                                                                'default' => array(
+                                                                    'type'    => 'Wildcard',
+                                                                    'options' => array(),
+                                                                ),
                                                         ),
-                                        ),
-                                        'may_terminate' => true,
-                                        'child_routes' => array(
-                                                        'default' => array(
-                                                            'type'    => 'Wildcard',
-                                                            'options' => array(),
-                                                        ),
-                                        ),
                                     ),
                                     'stato-civile' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
@@ -289,34 +263,25 @@ return array(
                                         ),
                                         'may_terminate' => true,
                                         'child_routes' => array(
-                                                        'default' => array(
-                                                                        'type'    => 'Wildcard',
-                                                                        'options' => array(
-                                                                    ),
-                                                        ),
+                                                    'default' => array(
+                                                        'type'    => 'Wildcard',
+                                                        'options' => array( ),
+                                                    ),
                                         ),
                                     ),
                                     'stato-civile-export' => array(
-                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
-                                        'options' => array(
-                                            'route'    => '/stato-civile/export/:action[/]',
-                                            'constraints' => array(
-                                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                            ),
-                                            'defaults' => array(
-                                                'controller' => 'Application\Controller\StatoCivile\StatoCivileExport',
-                                                'action'     => 'index',
-                                            ),
-                                        ),
-                                        'may_terminate' => true,
-                                        'child_routes' => array(
-                                            'default' => array(
-                                                'type'    => 'Wildcard',
-                                                'options' => array(
-
-                                                ),
-                                            ),
-                                        ),
+                                                    'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                                    'options' => array(
+                                                        'route'    => '/stato-civile/export/:action[/]',
+                                                        'constraints' => array(
+                                                            'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                        ),
+                                                        'defaults' => array(
+                                                            'controller' => 'Application\Controller\StatoCivile\StatoCivileExport',
+                                                            'action'     => 'index',
+                                                        ),
+                                                    ),
+                                                    'may_terminate' => true,
                                     ),
                                     'amministrazione-trasparente' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
@@ -577,28 +542,24 @@ return array(
                     ),
     ),
     'service_manager' => array(
-                    'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',
                     'navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
                     'abstract_factories' => array(
                                'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
                                'Zend\Log\LoggerAbstractServiceFactory',
                     ),
-                    'aliases' => array(
-                                'translator' => 'MvcTranslator',
-                    ),
                     'factories' => array(
-
+                        'translator' => 'Zend\I18n\Translator\TranslatorServiceFactory',
                     ),
     ),
     'translator' => array(
-                    'locale' => 'it_IT',
-                    'translation_file_patterns' => array(
-                                    array(
-                                        'type'     => 'gettext',
-                                        'base_dir' => __DIR__ . '/../language',
-                                        'pattern'  => '%s.mo',
-                                    ),
-                    ),
+        'locale' => 'it_IT',
+        'translation_file_patterns' => array(
+            array(
+                'type'     => 'gettext',
+                'base_dir' => __DIR__ . '/../language',
+                'pattern'  => '%s.mo',
+            ),
+        ),
     ),
     'view_manager' => array(
                     'display_not_found_reason' => true,
@@ -608,17 +569,20 @@ return array(
                     'exception_template'       => 'error/index',
                     'template_map' => array(
                         'application/home-page/index'                   => __DIR__ . '/../view/empty.phtml',
+                        'application/index/index'                       => __DIR__ . '/../view/application/index/index.phtml',
+                        'application/pagination'                        => __DIR__ . '/../view/application/pagination/numbers.phtml',
                         'application/index/notfound'                    => __DIR__ . '/../view/empty.phtml',
                         'layout/layout'                                 => __DIR__ . '/../view/layout/layout.phtml',
                         'application/feed/index'                        => __DIR__ . '/../view/application/index/index.phtml',
                         'application/amministrazione-trasparente/index' => __DIR__ . '/../view/empty.phtml',
                         'application/contratti-pubblici/index'          => __DIR__ . '/../view/empty.phtml',
-                        'application/index/index'                       => __DIR__ . '/../view/application/index/index.phtml',
-                        'application/pagination'                        => __DIR__ . '/../view/application/pagination/numbers.phtml',
                         'application/albo-pretorio/index'               => __DIR__ . '/../view/empty.phtml',
                         'application/stato-civile/index'                => __DIR__ . '/../view/empty.phtml',
                         'application/atti-concessione/index'            => __DIR__ . '/../view/empty.phtml',
                         'application/contenuti/index'                   => __DIR__ . '/../view/empty.phtml',
+                        'application/contenuti-export/csv'              => __DIR__ . '/../view/empty.phtml',
+                        'application/contenuti-export/pdf'              => __DIR__ . '/../view/empty.phtml',
+                        'application/contenuti-export/txt'              => __DIR__ . '/../view/empty.phtml',
                         'application/blogs/index'                       => __DIR__ . '/../view/empty.phtml',
                         'application/photo/index'                       => __DIR__ . '/../view/empty.phtml',
                         'application/blogs/details'                     => __DIR__ . '/../view/empty.phtml',

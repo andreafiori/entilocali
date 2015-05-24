@@ -4,8 +4,8 @@ namespace Admin\Model;
 
 use Admin\Model\Contacts\ContactsGetter;
 use Admin\Model\Contacts\ContactsGetterWrapper;
-use Admin\Model\Logs\LogsGetter;
-use Admin\Model\Logs\LogsGetterWrapper;
+use Admin\Model\Log\LogGetter;
+use Admin\Model\Log\LogGetterWrapper;
 use Admin\Model\Tickets\TicketsGetter;
 use Admin\Model\Tickets\TicketsGetterWrapper;
 use Admin\Model\Users\Todo\UsersTodoForm;
@@ -75,7 +75,7 @@ class AdminDashboard extends RouterManagerAbstract implements RouterManagerInter
          */
         private function recoverLogRecords($userId)
         {
-            $logWrapper = new LogsGetterWrapper(new LogsGetter($this->getInput('entityManager', 1)));
+            $logWrapper = new LogGetterWrapper(new LogGetter($this->getInput('entityManager', 1)));
             $logWrapper->setInput(array(
                 'userId'    => $userId,
                 'orderBy'   => 'l.datetime DESC',

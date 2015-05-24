@@ -4,10 +4,6 @@ namespace Admin\Model\Contenuti;
 
 use Application\Model\QueryBuilderHelperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  11 January 2015
- */
 class ContenutiGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
@@ -23,19 +19,23 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
 
             sottosez.nome AS nomeSottosezione,
 
-            u.name, u.surname
+            u.name, u.surname,
+
+            languages.id AS languageId, languages.abbreviation1
         ");
 
-        $this->getQueryBuilder()->select($this->getSelectQueryFields())
+        $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
                                 ->from('Application\Entity\ZfcmsComuniContenuti', 'contenuti')
                                 ->join('contenuti.sottosezione', 'sottosez')
                                 ->join('contenuti.utente', 'u')
                                 ->join('sottosez.sezione', 'sezione')
                                 ->join('sezione.modulo', 'modulo')
+                                ->join('sezione.lingua', 'languages')
                                 ->where('( contenuti.sottosezione = sottosez.id
                                         AND contenuti.utente = u.id 
                                         AND sottosez.sezione = sezione.id
                                         AND sezione.modulo = modulo.id
+                                        AND sezione.lingua = languages.id
                                         ) 
                                 ');
 
@@ -251,6 +251,34 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
         if ( is_numeric($showToAll) ) {
             $this->getQueryBuilder()->andWhere('sezione.showToAll = :showToAll ');
             $this->getQueryBuilder()->setParameter('showToAll', $showToAll);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param $lingua
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setLingua($lingua)
+    {
+        if ( !empty($lingua) ) {
+            $this->getQueryBuilder()->andWhere('sezione.lingua = :lingua ');
+            $this->getQueryBuilder()->setParameter('lingua', $lingua);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param $abbreviation
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setLanguageAbbreviation($abbreviation)
+    {
+        if ( !empty($abbreviation) ) {
+            $this->getQueryBuilder()->andWhere('languages.abbreviation1 = :languageAbbreviation ');
+            $this->getQueryBuilder()->setParameter('languageAbbreviation', $abbreviation);
         }
 
         return $this->getQueryBuilder();

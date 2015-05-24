@@ -133,8 +133,8 @@ $acl = $this->userDetails->acl;
                         <i class="fa fa-wrench fa-fw"></i> Assistenza&nbsp; <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="<?php echo $this->url('admin/formdata', array('lang' => 'it', 'formsetter' => 'tickets')); ?>" title="">Nuova richiesta</a></li>
-                        <li><a href="<?php echo $this->url('admin/datatable', array('lang' => 'it', 'tablesetter' => 'tickets')); ?>" title="">Elenco richieste</a></li>
+                        <li><a href="<?php echo $this->url('admin/tickets-form', array('lang'=>'it')); ?>" title="Nuova richiesta">Nuova richiesta</a></li>
+                        <li><a href="<?php echo $this->url('admin/tickets-summary', array('lang'=>'it')); ?>" title="Elenco richieste di assistenza">Elenco richieste</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">

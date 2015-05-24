@@ -47,7 +47,7 @@ class ZfcmsAttachments
      *
      * @ORM\Column(name="insert_date", type="datetime", nullable=false)
      */
-    private $insertDate;
+    private $insertDate = '2014-01-01 01:01:01';
 
     /**
      * @var integer
@@ -95,7 +95,7 @@ class ZfcmsAttachments
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -106,6 +106,7 @@ class ZfcmsAttachments
      * Set name
      *
      * @param string $name
+     *
      * @return ZfcmsAttachments
      */
     public function setName($name)
@@ -118,7 +119,7 @@ class ZfcmsAttachments
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -129,6 +130,7 @@ class ZfcmsAttachments
      * Set size
      *
      * @param string $size
+     *
      * @return ZfcmsAttachments
      */
     public function setSize($size)
@@ -141,7 +143,7 @@ class ZfcmsAttachments
     /**
      * Get size
      *
-     * @return string 
+     * @return string
      */
     public function getSize()
     {
@@ -152,6 +154,7 @@ class ZfcmsAttachments
      * Set state
      *
      * @param string $state
+     *
      * @return ZfcmsAttachments
      */
     public function setState($state)
@@ -164,7 +167,7 @@ class ZfcmsAttachments
     /**
      * Get state
      *
-     * @return string 
+     * @return string
      */
     public function getState()
     {
@@ -175,6 +178,7 @@ class ZfcmsAttachments
      * Set insertDate
      *
      * @param \DateTime $insertDate
+     *
      * @return ZfcmsAttachments
      */
     public function setInsertDate($insertDate)
@@ -187,7 +191,7 @@ class ZfcmsAttachments
     /**
      * Get insertDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getInsertDate()
     {
@@ -198,6 +202,7 @@ class ZfcmsAttachments
      * Set attiConcessioneColonna
      *
      * @param integer $attiConcessioneColonna
+     *
      * @return ZfcmsAttachments
      */
     public function setAttiConcessioneColonna($attiConcessioneColonna)
@@ -210,7 +215,7 @@ class ZfcmsAttachments
     /**
      * Get attiConcessioneColonna
      *
-     * @return integer 
+     * @return integer
      */
     public function getAttiConcessioneColonna()
     {
@@ -221,6 +226,7 @@ class ZfcmsAttachments
      * Set alboRettificato
      *
      * @param integer $alboRettificato
+     *
      * @return ZfcmsAttachments
      */
     public function setAlboRettificato($alboRettificato)
@@ -233,7 +239,7 @@ class ZfcmsAttachments
     /**
      * Get alboRettificato
      *
-     * @return integer 
+     * @return integer
      */
     public function getAlboRettificato()
     {
@@ -244,6 +250,7 @@ class ZfcmsAttachments
      * Set alboId
      *
      * @param integer $alboId
+     *
      * @return ZfcmsAttachments
      */
     public function setAlboId($alboId)
@@ -256,7 +263,7 @@ class ZfcmsAttachments
     /**
      * Get alboId
      *
-     * @return integer 
+     * @return integer
      */
     public function getAlboId()
     {
@@ -267,6 +274,7 @@ class ZfcmsAttachments
      * Set mime
      *
      * @param \Application\Entity\ZfcmsAttachmentsMimetype $mime
+     *
      * @return ZfcmsAttachments
      */
     public function setMime(\Application\Entity\ZfcmsAttachmentsMimetype $mime = null)
@@ -279,7 +287,7 @@ class ZfcmsAttachments
     /**
      * Get mime
      *
-     * @return \Application\Entity\ZfcmsAttachmentsMimetype 
+     * @return \Application\Entity\ZfcmsAttachmentsMimetype
      */
     public function getMime()
     {
@@ -290,6 +298,7 @@ class ZfcmsAttachments
      * Set user
      *
      * @param \Application\Entity\ZfcmsUsers $user
+     *
      * @return ZfcmsAttachments
      */
     public function setUser(\Application\Entity\ZfcmsUsers $user = null)
@@ -302,7 +311,7 @@ class ZfcmsAttachments
     /**
      * Get user
      *
-     * @return \Application\Entity\ZfcmsUsers 
+     * @return \Application\Entity\ZfcmsUsers
      */
     public function getUser()
     {

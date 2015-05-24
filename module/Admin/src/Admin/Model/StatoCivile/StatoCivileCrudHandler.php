@@ -125,11 +125,11 @@ class StatoCivileCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => $userDetails->name.' '.$userDetails->surname."', ha inserito l'atto stato civile ".$inputFilter->titolo,
@@ -151,11 +151,11 @@ class StatoCivileCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'inserimento atto stato civile ".$inputFilter->titolo.'Messaggio: '.$message,
@@ -175,11 +175,11 @@ class StatoCivileCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => $userDetails->name.' '.$userDetails->surname."', ha aggiornato la sezione stato civile ".$inputFilter->titolo,
@@ -201,11 +201,11 @@ class StatoCivileCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'aggiornamento dell'atto stato civile ".$inputFilter->titolo.' Messaggio: '.$message,

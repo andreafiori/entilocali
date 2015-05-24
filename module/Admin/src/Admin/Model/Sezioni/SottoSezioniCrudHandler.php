@@ -119,11 +119,11 @@ class SottoSezioniCrudHandler extends CrudHandlerAbstract
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
             'message'   => "Inserita la sotto-sezione ".$inputFilter->nomeSottoSezione.' Messaggio: ',
@@ -145,11 +145,11 @@ class SottoSezioniCrudHandler extends CrudHandlerAbstract
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
             'message'   => "Errore durante l'inserimento della sotto-sezione ".$inputFilter->nomeSottoSezione.' Messaggio: '.$message,
@@ -171,11 +171,11 @@ class SottoSezioniCrudHandler extends CrudHandlerAbstract
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
             'message'   => "Aggiornato la sezione ".$inputFilter->nomeSottoSezione,
@@ -197,11 +197,11 @@ class SottoSezioniCrudHandler extends CrudHandlerAbstract
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
             'message'   => "Errore nell'aggiornamento della sezione ".$inputFilter->nomeSottoSezione.' Messaggio: '.$message,
@@ -223,9 +223,9 @@ class SottoSezioniCrudHandler extends CrudHandlerAbstract
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
             'message'   => "Eliminata la sezione ".$record->nome,

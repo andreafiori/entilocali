@@ -5,7 +5,6 @@ if ($this->homepage):
     foreach($this->homepage as $key => $value):
 
         if ($key == 'blogs'):
-
             ?>
             <div class="row">
                 <?php foreach($value as $content): ?>
@@ -25,7 +24,17 @@ if ($this->homepage):
             </div>
             <hr class="hidden">
         <?php
-
+        elseif ($key == 'contenuti'):
+            ?>
+            <h3>Pagine in evidenza</h3>
+            <?php foreach($value as $record): ?>
+            <div>
+                <a href="<?php echo '#'; // echo $this->url('contents', array('subsectionid' => $record['sottosezione'])) ?>" title="Vai alla pagina <?php echo $record['titolo'] ?>">
+                    <?php echo $record['titolo'] ?>
+                </a>
+            </div>
+        <?php endforeach; ?>
+        <?php
         elseif ($key == 'contents'):
             ?>
             <div class="row">
@@ -97,9 +106,11 @@ if ($this->homepage):
             <hr>
         <?php
         elseif ($key == 'freeText'):
-            foreach($value as $record) {
-                echo $record['freeText']."<br>";
-            }
+            if ( !empty($value) ):
+                foreach($value as $record):
+                    echo $record['freeText']."<br>";
+                endforeach;
+            endif;
         endif;
 
     endforeach;

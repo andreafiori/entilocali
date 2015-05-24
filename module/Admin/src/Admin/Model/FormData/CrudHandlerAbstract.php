@@ -6,7 +6,7 @@ use Application\Model\NullException;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
-use Admin\Model\Logs\LogsWriter;
+use Admin\Model\Log\LogWriter;
 
 /**
  * @author Andrea Fiori
@@ -48,7 +48,7 @@ abstract class CrudHandlerAbstract
 
     protected $logMethodToExecute;
 
-    protected $logsWriter;
+    protected $LogWriter;
 
     protected $recordsToHandle = array();
 
@@ -358,22 +358,22 @@ abstract class CrudHandlerAbstract
     }
 
     /**
-     * @return LogsWriter
+     * @return LogWriter
      */
-    public function getLogsWriter()
+    public function getLogWriter()
     {
-        return $this->logsWriter;
+        return $this->LogWriter;
     }
 
     /**
-     * @param LogsWriter $logsWriter
-     * @return LogsWriter
+     * @param LogWriter $LogWriter
+     * @return LogWriter
      */
-    public function setLogsWriter(LogsWriter $logsWriter)
+    public function setLogWriter(LogWriter $LogWriter)
     {
-        $this->logsWriter = $logsWriter;
+        $this->LogWriter = $LogWriter;
 
-        return $this->logsWriter;
+        return $this->LogWriter;
     }
 
     /**
@@ -381,7 +381,7 @@ abstract class CrudHandlerAbstract
      */
     protected function assertLogWriter()
     {
-        if (!$this->getLogsWriter()) {
+        if (!$this->getLogWriter()) {
             throw new NullException('Log writer is not set');
         }
     }

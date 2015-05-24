@@ -81,6 +81,8 @@ class SetupAbstractControllerHelper
         if ($noArray == null) {
             return $this->configurations;
         }
+
+        return null;
     }
 
     /**

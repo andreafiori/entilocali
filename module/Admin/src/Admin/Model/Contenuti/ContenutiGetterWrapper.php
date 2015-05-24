@@ -45,6 +45,8 @@ class ContenutiGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setExcludeSottoSezioneId( $this->getInput('excludeSottoSezioneId', 1) );
         $this->objectGetter->setSezioneId( $this->getInput('sezioneId', 1) );
         $this->objectGetter->setShowToAll( $this->getInput('showToAll', 1) );
+        $this->objectGetter->setLingua( $this->getInput('lingua', 1) );
+        $this->objectGetter->setLanguageAbbreviation( $this->getInput('languageAbbreviation', 1) );
         $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
         $this->objectGetter->setGroupBy( $this->getInput('groupBy', 1) );
         $this->objectGetter->setLimit( $this->getInput('limit', 1) );

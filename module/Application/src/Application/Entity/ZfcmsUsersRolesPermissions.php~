@@ -26,21 +26,21 @@ class ZfcmsUsersRolesPermissions
      *
      * @ORM\Column(name="flag", type="string", length=50, nullable=true)
      */
-    private $flag;
+    private $flag = '';
 
     /**
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=50, nullable=true)
      */
-    private $description;
+    private $description = '';
 
     /**
      * @var string
      *
      * @ORM\Column(name="group", type="string", length=50, nullable=true)
      */
-    private $group;
+    private $group = '';
 
     /**
      * @var integer
@@ -51,3 +51,4 @@ class ZfcmsUsersRolesPermissions
 
 
 }
+

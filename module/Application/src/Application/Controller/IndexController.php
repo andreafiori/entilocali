@@ -2,15 +2,9 @@
 
 namespace Application\Controller;
 
-use Admin\Model\AlboPretorio\AlboPretorioArticoliGetter;
-use Admin\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
-use Admin\Model\AttiConcessione\AttiConcessioneGetter;
-use Admin\Model\AttiConcessione\AttiConcessioneGetterWrapper;
-use Admin\Model\StatoCivile\StatoCivileGetter;
-use Admin\Model\StatoCivile\StatoCivileGetterWrapper;
+use Admin\Model\HomePage\HomePageGetter;
+use Admin\Model\HomePage\HomePageGetterWrapper;
 use Application\Model\HomePage\HomePageHelper;
-use Application\Model\HomePage\HomePageRecordsGetter;
-use Application\Model\HomePage\HomePageRecordsGetterWrapper;
 use Application\Model\NullException;
 
 class IndexController extends SetupAbstractController
@@ -21,98 +15,42 @@ class IndexController extends SetupAbstractController
 
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
+        $lang = $this->layout()->getVariable('lang');
+
         try {
             $helper = new HomePageHelper();
-            $helper->setHomePageRecordsGetterWrapper( new HomePageRecordsGetterWrapper(new HomePageRecordsGetter($em)) );
+            $helper->setHomePageGetterWrapper( new HomePageGetterWrapper(new HomePageGetter($em)) );
             $helper->setupHomePageRecords( array(
-                'onlyActiveModules' => 1,
-                'orderBy'           => 'hb.position ASC',
+                'onlyActiveModules'     => 1,
+                'orderBy'               => 'homePageBlocks.position ASC',
+                'languageAbbreviation'  => $lang
             ));
             $helper->gatherReferenceIds();
             $helper->checkHomePageRecords();
+            // TODO: sort home records by homepage position (not home page block)
 
-            $homePageRecords = $helper->getHomePageRecords();
-
-            $sortedHomePageRecords = array();
-            foreach($homePageRecords as $key => $values) {
-                foreach($values as $value) {
-                    if (isset($value['position'])) {
-                        $sortedHomePageRecords[$key][$value['position']] = $value;
-                    }
-                }
-
-                $sortedHomePageRecords[$key]['referenceIds'] = $values['referenceIds'];
-            }
-
-            $homePageVar = array();
+            $sortedHomePageRecords = $helper->getHomePageRecords();
+            $helper->checkClassMapFromRecords();
+            $homePageElements = array();
             foreach($sortedHomePageRecords as $key => $value) {
+                $obj = $helper->recoverClassMapKey($key);
 
-                switch($key) {
+                /**
+                 * @var \Application\Model\HomePage\HomePageBuilderAbstract $builder
+                 */
+                $builder = new $obj();
+                $builder->setEntityManager($em);
+                $builder->setModuleRelatedRecords($value);
 
-                    case('contenuti'):
-                        $wrapper = new PostsGetterWrapper( new PostsGetter($em) );
-                        $wrapper->setInput( array('id' => $value['referenceId']) );
-                        $wrapper->setupQueryBuilder();
-                        $wrapper->setupPaginator( $wrapper->setupQuery($em) );
-                        $wrapper->setupPaginatorCurrentPage(1);
-                        $wrapper->setupPaginatorItemsPerPage(35);
-
-                        $homePageVar[$key] = $wrapper->setupRecords();
-                        break;
-
-                    case('freeText'):
-                        foreach($value as $record) {
-                            if (!empty($record['freeText'])) {
-                                $homePageVar[$key][] = array('freeText' => $record['freeText']);
-                            }
-                        }
-                    break;
-
-                    case('albo-pretorio'):
-                        $wrapper = new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter($em));
-                        $wrapper->setInput( array('id' => $value['referenceIds'], 'orderBy' => 'alboArticoli.id') );
-                        $wrapper->setupQueryBuilder();
-                        $wrapper->setupPaginator( $wrapper->setupQuery($em) );
-                        $wrapper->setupPaginatorCurrentPage(1);
-                        $wrapper->setupPaginatorItemsPerPage(35);
-
-                        $homePageVar[$key] = $wrapper->setupRecords();
-                    break;
-
-                    case('stato-civile'):
-                        $wrapper = new StatoCivileGetterWrapper(new StatoCivileGetter($em));
-                        $wrapper->setInput( array('id' => $value['referenceIds'], 'orderBy' => 'sca.id') );
-                        $wrapper->setupQueryBuilder();
-                        $wrapper->setupPaginator( $wrapper->setupQuery($em) );
-                        $wrapper->setupPaginatorCurrentPage(1);
-                        $wrapper->setupPaginatorItemsPerPage(35);
-
-                        $homePageVar[$key] = $wrapper->setupRecords();
-                    break;
-
-                    case("atti-concessione"):
-                        $wrapper = new AttiConcessioneGetterWrapper(new AttiConcessioneGetter($em));
-                        $wrapper->setInput( array('id' => $value['referenceIds'], 'orderBy' => 'atti.id') );
-                        $wrapper->setupQueryBuilder();
-                        $wrapper->setupPaginator( $wrapper->setupQuery($em) );
-                        $wrapper->setupPaginatorCurrentPage(1);
-                        $wrapper->setupPaginatorItemsPerPage(35);
-
-                        $homePageVar[$key] = $wrapper->setupRecords();
-                    break;
-
-                    case('amministrazione-trasparente'):
-
-                    break;
-                }
+                $homePageElements[$key] = $builder->recoverHomePageElements();
             }
 
         } catch(NullException $e) {
-
+            // TODO: handle errors rendering a different template... echo $e->getMessage();
         }
 
-        $this->layout()->setVariables(array(
-            'homepage'          => !empty($homePageVar) ? $homePageVar : null,
+        $this->layout()->setVariables( array(
+            'homepage'          => !empty($homePageElements) ? $homePageElements : null,
             'templatePartial'   => 'homepage/homepage.phtml',
         ));
 

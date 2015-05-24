@@ -6,6 +6,7 @@ use Admin\Model\Users\Roles\UsersRolesGetter;
 use Admin\Model\Users\Roles\UsersRolesGetterWrapper;
 use Admin\Model\Users\Settori\UsersSettoriGetter;
 use Admin\Model\Users\Settori\UsersSettoriGetterWrapper;
+use Admin\Model\Users\UsersControllerHelper;
 use Admin\Model\Users\UsersForm;
 use Admin\Model\Users\UsersGetter;
 use Admin\Model\Users\UsersGetterWrapper;
@@ -18,50 +19,40 @@ class UsersFormController extends SetupAbstractController
         $mainLayout = $this->initializeAdminArea();
 
         $id = $this->params()->fromRoute('id');
+
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
         $userDetails = $this->layout()->getVariable('userDetails');
 
-        if ( is_numeric($id) ) {
-            $wrapper = new UsersGetterWrapper( new UsersGetter($em) );
-            $wrapper->setInput( array("id" => $id) );
-            $wrapper->setupQueryBuilder();
+        $helper = new UsersControllerHelper();
+        $helper->setUsersGetterWrapper( new UsersGetterWrapper(new UsersGetter($em)) );
+        $helper->setupUsersGetterWrapperRecords(array(
+                'id' => (is_numeric($id)) ? $id : 0,
+                'limit' => 1
+            )
+        );
+        $helper->setUsersSettoriGetterWrapper( new UsersSettoriGetterWrapper(new UsersSettoriGetter($em)) );
 
-            $records =  $wrapper->getRecords();
-        }
+        $records = $helper->getUsersGetterWrapperRecords();
+
 
         $form = new UsersForm();
         if ($userDetails->acl->hasResource('users_roles_update')) {
-            $wrapper = new UsersRolesGetterWrapper( new UsersRolesGetter($em) );
-            $wrapper->setInput( array() );
-            $wrapper->setupQueryBuilder();
 
-            $rolesRecords = $wrapper->getRecords();
-            if (!empty($rolesRecords)) {
-                $toReturn = array();
-                foreach($rolesRecords as $rolesRecord) {
-                    $toReturn[$rolesRecord['id']] = $rolesRecord['name'];
-                }
+            $helper->setUsersRolesGetterWrapper( new UsersRolesGetterWrapper(new UsersRolesGetter($em)) );
+            $helper->setupUsersRolesGetterWrapperRecords();
+            $helper->formatUsersRolesGetterWrapperRecordsForDropdown();
 
-            }
-
-            $form->addRoles($toReturn);
+            $form->addRoles($helper->getUsersRolesGetterWrapperRecords());
         }
 
         if ($userDetails->acl->hasResource('users_settori_update')) {
-            $wrapper = new UsersSettoriGetterWrapper( new UsersSettoriGetter($em) );
-            $wrapper->setInput( array() );
-            $wrapper->setupQueryBuilder();
 
-            $rolesRecords = $wrapper->getRecords();
-            if (!empty($rolesRecords)) {
-                $toReturn = array();
-                foreach($rolesRecords as $rolesRecord) {
-                    $toReturn[$rolesRecord['id']] = $rolesRecord['nome'];
-                }
-            }
+            $helper->setUsersSettoriGetterWrapper( new UsersSettoriGetterWrapper(new UsersSettoriGetter($em)) );
+            $helper->setupUsersSettoriGetterWrapperRecords( array() );
+            $helper->formatUsersSettoriGetterWrapperRecordsForDropdown();
 
-            $form->addSettori($toReturn);
+            $form->addSettori( $helper->getUsersSettoriGetterWrapperRecords() );
         }
 
         if (!empty($records)) {

@@ -5,27 +5,36 @@ if ($this->homepage):
     foreach($this->homepage as $key => $value):
 
         if ($key == 'blogs'):
-
             ?>
             <div class="row">
-            <?php foreach($value as $content): ?>
-            <div class="large-12 column">
-                <div>
-                  <a class="alignleft" href="#" title="">
-                    <img class="media-object" data-src="holder.js/64x64" alt="64x64" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZWVlIi8+PHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iMzIiIHk9IjMyIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9zdmc+" style="width: 64px; height: 64px;">
-                  </a>
-                  <div class="media-body">
-                    <h4 class="media-heading"><?php echo $content['title']; ?></h4>
-                    <div><?php echo $this->TextShortener($content['description'], 30, 30); ?></div>
-                    <div><a href="<?php echo $this->basepath().$content['linkDetails'] ?>" class="btn btn-primary" role="button">Leggi</a></div>
-                  </div>
-                </div>
-            </div>
-            <?php  endforeach; ?>
+                <?php foreach($value as $content): ?>
+                    <div class="large-12 column">
+                        <div>
+                            <a class="alignleft" href="#" title="">
+                                <img class="media-object" data-src="holder.js/64x64" alt="64x64" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZWVlIi8+PHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iMzIiIHk9IjMyIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9zdmc+" style="width: 64px; height: 64px;">
+                            </a>
+                            <div class="media-body">
+                                <h4 class="media-heading"><?php echo $content['title']; ?></h4>
+                                <div><?php echo $this->TextShortener($content['description'], 30, 30); ?></div>
+                                <div><a href="<?php echo $this->basepath().$content['linkDetails'] ?>" class="btn btn-primary" role="button">Leggi</a></div>
+                            </div>
+                        </div>
+                    </div>
+                <?php  endforeach; ?>
             </div>
             <hr class="hidden">
+        <?php
+        elseif ($key == 'contenuti'):
+            ?>
+            <h3>Pagine in evidenza</h3>
+            <?php foreach($value as $record): ?>
+                <div>
+                    <a href="<?php echo '#'; // echo $this->url('contents', array('subsectionid' => $record['sottosezione'])) ?>" title="Vai alla pagina <?php echo $record['titolo'] ?>">
+                        <?php echo $record['titolo'] ?>
+                    </a>
+                </div>
+            <?php endforeach; ?>
             <?php
-
         elseif ($key == 'contents'):
             ?>
             <div class="row">
@@ -33,59 +42,59 @@ if ($this->homepage):
 
             $i=0;
             foreach($value as $content):
-            ?>
-            <div class="large-6 column">
-                <div>
-                    <img data-src="holder.js/300x200" alt="300x200" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSI+PC9yZWN0Pjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjE1MCIgeT0iMTAwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjE5cHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MzAweDIwMDwvdGV4dD48L3N2Zz4=" style="width: 300px; height: 200px;">
+                ?>
+                <div class="large-6 column">
                     <div>
-                        <h3><?php echo $content['title'] ?></h3>
-                        <p><?php echo $this->TextShortener($content['description'], 30, 30); ?></p>
-                        <p>
-                            <a href="<?php echo $this->basepath().$content['linkDetails'] ?>" class="button secondary small" title="Continua a leggere l'articolo">
-                                Leggi
-                            </a>
-                        </p>
+                        <img data-src="holder.js/300x200" alt="300x200" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2VlZSI+PC9yZWN0Pjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjE1MCIgeT0iMTAwIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjE5cHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+MzAweDIwMDwvdGV4dD48L3N2Zz4=" style="width: 300px; height: 200px;">
+                        <div>
+                            <h3><?php echo $content['title'] ?></h3>
+                            <p><?php echo $this->TextShortener($content['description'], 30, 30); ?></p>
+                            <p>
+                                <a href="<?php echo $this->basepath().$content['linkDetails'] ?>" class="button secondary small" title="Continua a leggere l'articolo">
+                                    Leggi
+                                </a>
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <?php
+                <?php
 
-            $i++;
-            if ($i==2):
-            ?>
-            </div><div class="row">
-            <?php
-            $i=0;
-            endif;
+                $i++;
+                if ($i==2):
+                    ?>
+                    </div><div class="row">
+                    <?php
+                    $i=0;
+                endif;
 
-            ?>
+                ?>
             <?php endforeach; ?>
             </div>
             <hr class="hidden">
-            <?php
+        <?php
 
         elseif ($key == 'albo-pretorio'):
             ?>
             <h3>Albo pretorio</h3>
             <?php foreach($value as $record): ?>
-                <div>
-                    <?php echo ucfirst($record['titolo']) ?>
-                </div>
-            <?php endforeach ?>
+            <div>
+                <?php echo ucfirst($record['titolo']) ?>
+            </div>
+        <?php endforeach ?>
 
             <hr>
-            <?php
+        <?php
         elseif ($key == 'stato-civile'):
             ?>
             <h3>Stato civile</h3>
             <?php foreach($value as $record): ?>
-                <div>
-                    <?php echo ucfirst($record['titolo']) ?>
-                </div>
-            <?php endforeach ?>
+            <div>
+                <?php echo ucfirst($record['titolo']) ?>
+            </div>
+        <?php endforeach ?>
 
             <hr>
-            <?php
+        <?php
         elseif ($key == 'atti-concessione'):
             ?>
             <h3>Atti di concessione</h3>
@@ -95,11 +104,13 @@ if ($this->homepage):
             <?php endforeach ?>
 
             <hr>
-            <?php
+        <?php
         elseif ($key == 'freeText'):
-            foreach($value as $record) {
-                echo $record['freeText']."<br>";
-            }
+            if ( !empty($value) ):
+                foreach($value as $record):
+                    echo $record['freeText']."<br>";
+                endforeach;
+            endif;
         endif;
 
     endforeach;

@@ -2,14 +2,14 @@
 
 namespace Admin\Model\AlboPretorio;
 
-use Admin\Model\OperationsHelperAbstract;
 use Application\Model\Database\DbTableContainer;
+use Admin\Model\OperationsModelAbstract;
 
 /**
  * @author Andrea Fiori
  * @since  14 April 2015
  */
-class AlboPretorioOperationsControllerHelper extends OperationsHelperAbstract
+class AlboPretorioOperationsControllerHelper extends OperationsModelAbstract
 {
     private $articleRecord;
 

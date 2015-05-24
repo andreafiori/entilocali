@@ -56,6 +56,7 @@ class AttachmentsPositionsController extends SetupAbstractController
                         $helper->getPropertiesGetterClassInstance()->getBreadcrumbRoute(),
                         array('lang' => 'it')
                     ),
+                    'records'                           => $attachmentRecord,
                     'templatePartial'                   => 'attachments/attachments-positions.phtml',
                 )
             );

@@ -34,6 +34,7 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
         
         $this->objectGetter->setChannelId($channel ? $channel : 1);
         $this->objectGetter->setLanguageId($language ? $language : 1);
+        $this->objectGetter->setLanguageAbbreviation( $this->getInput('languageAbbr', 1) );
         $this->objectGetter->setId( $this->getInput('id', 1) );
         $this->objectGetter->setCategoryId( $this->getInput('categoryId', 1) );
         $this->objectGetter->setCategorySlug( $this->getInput('categorySlug', 1) );

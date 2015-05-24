@@ -2,7 +2,7 @@
 
 namespace Admin\Model\Migrazione;
 
-use Admin\Model\Logs\LogsWriter;
+use Admin\Model\Logs\LogWriter;
 use Application\Model\Database\Redbean\RedbeanHelper;
 use Application\Model\NullException;
 use Application\Model\RouterManagers\RouterManagerAbstract;
@@ -52,7 +52,7 @@ class MigrazioneHandler extends RouterManagerAbstract implements RouterManagerIn
                      */
                     $migrator = new $this->arrayMap[$migrazioneOld]($this->getInput());
                     $migrator->setRedbeanHelper(new RedbeanHelper());
-                    $migrator->setLogWriter(new LogsWriter($this->getInput('entityManager', 1)->getConnection()));
+                    $migrator->setLogWriter(new LogWriter($this->getInput('entityManager', 1)->getConnection()));
                     $migrator->setUserDetails($this->getInput('userDetails',1));
                     $migrator->setForeignKeyChecks(0);
                     $migrator->migrate();

@@ -61,7 +61,7 @@ class AttiConcessioneGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->setParameter('id', $id);
         }
         
-        if (is_array($id)) {
+        if ( is_array($id) ) {
             $this->getQueryBuilder()->andWhere('atti.id IN ( :id ) ');
             $this->getQueryBuilder()->setParameter('id', $id);
         }

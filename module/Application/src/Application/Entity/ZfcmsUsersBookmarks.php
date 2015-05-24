@@ -26,21 +26,21 @@ class ZfcmsUsersBookmarks
      *
      * @ORM\Column(name="reference_id", type="bigint", nullable=false)
      */
-    private $referenceId;
+    private $referenceId = '0';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="category_id", type="bigint", nullable=false)
      */
-    private $categoryId;
+    private $categoryId = '0';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="module_id", type="bigint", nullable=false)
      */
-    private $moduleId;
+    private $moduleId = '0';
 
     /**
      * @var \Application\Entity\ZfcmsUsers
@@ -57,7 +57,7 @@ class ZfcmsUsersBookmarks
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -68,6 +68,7 @@ class ZfcmsUsersBookmarks
      * Set referenceId
      *
      * @param integer $referenceId
+     *
      * @return ZfcmsUsersBookmarks
      */
     public function setReferenceId($referenceId)
@@ -80,7 +81,7 @@ class ZfcmsUsersBookmarks
     /**
      * Get referenceId
      *
-     * @return integer 
+     * @return integer
      */
     public function getReferenceId()
     {
@@ -91,6 +92,7 @@ class ZfcmsUsersBookmarks
      * Set categoryId
      *
      * @param integer $categoryId
+     *
      * @return ZfcmsUsersBookmarks
      */
     public function setCategoryId($categoryId)
@@ -103,7 +105,7 @@ class ZfcmsUsersBookmarks
     /**
      * Get categoryId
      *
-     * @return integer 
+     * @return integer
      */
     public function getCategoryId()
     {
@@ -114,6 +116,7 @@ class ZfcmsUsersBookmarks
      * Set moduleId
      *
      * @param integer $moduleId
+     *
      * @return ZfcmsUsersBookmarks
      */
     public function setModuleId($moduleId)
@@ -126,7 +129,7 @@ class ZfcmsUsersBookmarks
     /**
      * Get moduleId
      *
-     * @return integer 
+     * @return integer
      */
     public function getModuleId()
     {
@@ -137,6 +140,7 @@ class ZfcmsUsersBookmarks
      * Set user
      *
      * @param \Application\Entity\ZfcmsUsers $user
+     *
      * @return ZfcmsUsersBookmarks
      */
     public function setUser(\Application\Entity\ZfcmsUsers $user = null)
@@ -149,7 +153,7 @@ class ZfcmsUsersBookmarks
     /**
      * Get user
      *
-     * @return \Application\Entity\ZfcmsUsers 
+     * @return \Application\Entity\ZfcmsUsers
      */
     public function getUser()
     {

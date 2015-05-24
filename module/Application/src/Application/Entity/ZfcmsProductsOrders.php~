@@ -26,63 +26,64 @@ class ZfcmsProductsOrders
      *
      * @ORM\Column(name="number", type="integer", nullable=false)
      */
-    private $number;
+    private $number = '0';
 
     /**
      * @var string
      *
      * @ORM\Column(name="code", type="string", length=50, nullable=false)
      */
-    private $code;
+    private $code = '0';
 
     /**
      * @var string
      *
      * @ORM\Column(name="qt", type="string", length=10, nullable=false)
      */
-    private $qt;
+    private $qt = '1';
 
     /**
      * @var string
      *
      * @ORM\Column(name="price", type="decimal", precision=60, scale=2, nullable=false)
      */
-    private $price;
+    private $price = '0.00';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="order_date", type="datetime", nullable=false)
      */
-    private $orderDate;
+    private $orderDate = '0000-00-00 00:00:00';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="product_id", type="integer", nullable=false)
      */
-    private $productId;
+    private $productId = '0';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="user_id", type="integer", nullable=false)
      */
-    private $userId;
+    private $userId = '0';
 
     /**
      * @var string
      *
      * @ORM\Column(name="status", type="string", length=100, nullable=false)
      */
-    private $status;
+    private $status = 'no';
 
     /**
      * @var string
      *
      * @ORM\Column(name="payment_format", type="string", length=100, nullable=false)
      */
-    private $paymentFormat;
+    private $paymentFormat = 'no';
 
 
 }
+

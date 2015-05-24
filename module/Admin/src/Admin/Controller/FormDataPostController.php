@@ -2,7 +2,7 @@
 
 namespace Admin\Controller;
 
-use Admin\Model\Logs\LogsWriter;
+use Admin\Model\Logs\LogWriter;
 use Application\Controller\SetupAbstractController;
 use Admin\Model\FormData\FormDataCrudHandler;
 use Zend\View\Model\ViewModel;
@@ -119,13 +119,13 @@ class FormDataPostController extends SetupAbstractController
                 /* Log operation OK */
                 $crudHandler->setupLogMethodToExecute($operation, true);
 
-                $crudHandler->setLogsWriter(new LogsWriter($crudHandler->getConnection()));
+                $crudHandler->setLogWriter(new LogWriter($crudHandler->getConnection()));
 
-                $crudHandler->getLogsWriter()->getConnection()->beginTransaction();
+                $crudHandler->getLogWriter()->getConnection()->beginTransaction();
 
                 $crudHandler->log();
 
-                $crudHandler->getLogsWriter()->getConnection()->commit();
+                $crudHandler->getLogWriter()->getConnection()->commit();
 
             } catch(\Exception $e) {
                 $crudHandler->getConnection()->rollBack();
@@ -145,14 +145,14 @@ class FormDataPostController extends SetupAbstractController
                 /* Log KO for database query failure */
                 $crudHandler->setupLogMethodToExecute($operation, false);
 
-                $crudHandler->setLogsWriter(new LogsWriter($crudHandler->getConnection()));
+                $crudHandler->setLogWriter(new LogWriter($crudHandler->getConnection()));
 
-                $crudHandler->getLogsWriter()->getConnection()->beginTransaction();
+                $crudHandler->getLogWriter()->getConnection()->beginTransaction();
 
                 $crudHandler->log($e->getMessage());
 
                 /* Commit */
-                $crudHandler->getLogsWriter()->getConnection()->commit();
+                $crudHandler->getLogWriter()->getConnection()->commit();
             }
 
         } catch(\Exception $e) {
@@ -162,9 +162,9 @@ class FormDataPostController extends SetupAbstractController
                     /* Log KO */
                     $crudHandler->setupLogMethodToExecute($operation, false);
 
-                    $crudHandler->setLogsWriter(new LogsWriter($crudHandler->getConnection()));
+                    $crudHandler->setLogWriter(new LogWriter($crudHandler->getConnection()));
 
-                    $crudHandler->getLogsWriter()->getConnection()->beginTransaction();
+                    $crudHandler->getLogWriter()->getConnection()->beginTransaction();
 
                     $crudHandler->log($e->getMessage());
 

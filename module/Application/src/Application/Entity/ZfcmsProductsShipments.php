@@ -61,7 +61,7 @@ class ZfcmsProductsShipments
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -72,6 +72,7 @@ class ZfcmsProductsShipments
      * Set nome
      *
      * @param string $nome
+     *
      * @return ZfcmsProductsShipments
      */
     public function setNome($nome)
@@ -84,7 +85,7 @@ class ZfcmsProductsShipments
     /**
      * Get nome
      *
-     * @return string 
+     * @return string
      */
     public function getNome()
     {
@@ -95,6 +96,7 @@ class ZfcmsProductsShipments
      * Set costoEuro
      *
      * @param string $costoEuro
+     *
      * @return ZfcmsProductsShipments
      */
     public function setCostoEuro($costoEuro)
@@ -107,7 +109,7 @@ class ZfcmsProductsShipments
     /**
      * Get costoEuro
      *
-     * @return string 
+     * @return string
      */
     public function getCostoEuro()
     {
@@ -118,6 +120,7 @@ class ZfcmsProductsShipments
      * Set costoNazionale
      *
      * @param string $costoNazionale
+     *
      * @return ZfcmsProductsShipments
      */
     public function setCostoNazionale($costoNazionale)
@@ -130,7 +133,7 @@ class ZfcmsProductsShipments
     /**
      * Get costoNazionale
      *
-     * @return string 
+     * @return string
      */
     public function getCostoNazionale()
     {
@@ -141,6 +144,7 @@ class ZfcmsProductsShipments
      * Set costoInternaz
      *
      * @param string $costoInternaz
+     *
      * @return ZfcmsProductsShipments
      */
     public function setCostoInternaz($costoInternaz)
@@ -153,7 +157,7 @@ class ZfcmsProductsShipments
     /**
      * Get costoInternaz
      *
-     * @return string 
+     * @return string
      */
     public function getCostoInternaz()
     {
@@ -164,6 +168,7 @@ class ZfcmsProductsShipments
      * Set tempoMedio
      *
      * @param string $tempoMedio
+     *
      * @return ZfcmsProductsShipments
      */
     public function setTempoMedio($tempoMedio)
@@ -176,7 +181,7 @@ class ZfcmsProductsShipments
     /**
      * Get tempoMedio
      *
-     * @return string 
+     * @return string
      */
     public function getTempoMedio()
     {

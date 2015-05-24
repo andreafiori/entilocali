@@ -54,7 +54,7 @@ class ZfcmsComuniStatoCivileSezioni
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -65,6 +65,7 @@ class ZfcmsComuniStatoCivileSezioni
      * Set nome
      *
      * @param string $nome
+     *
      * @return ZfcmsComuniStatoCivileSezioni
      */
     public function setNome($nome)
@@ -77,7 +78,7 @@ class ZfcmsComuniStatoCivileSezioni
     /**
      * Get nome
      *
-     * @return string 
+     * @return string
      */
     public function getNome()
     {
@@ -88,6 +89,7 @@ class ZfcmsComuniStatoCivileSezioni
      * Set attivo
      *
      * @param integer $attivo
+     *
      * @return ZfcmsComuniStatoCivileSezioni
      */
     public function setAttivo($attivo)
@@ -100,7 +102,7 @@ class ZfcmsComuniStatoCivileSezioni
     /**
      * Get attivo
      *
-     * @return integer 
+     * @return integer
      */
     public function getAttivo()
     {
@@ -111,6 +113,7 @@ class ZfcmsComuniStatoCivileSezioni
      * Set dataInserimento
      *
      * @param \DateTime $dataInserimento
+     *
      * @return ZfcmsComuniStatoCivileSezioni
      */
     public function setDataInserimento($dataInserimento)
@@ -123,7 +126,7 @@ class ZfcmsComuniStatoCivileSezioni
     /**
      * Get dataInserimento
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDataInserimento()
     {
@@ -134,6 +137,7 @@ class ZfcmsComuniStatoCivileSezioni
      * Set dataUltimoAggiornamento
      *
      * @param \DateTime $dataUltimoAggiornamento
+     *
      * @return ZfcmsComuniStatoCivileSezioni
      */
     public function setDataUltimoAggiornamento($dataUltimoAggiornamento)
@@ -146,7 +150,7 @@ class ZfcmsComuniStatoCivileSezioni
     /**
      * Get dataUltimoAggiornamento
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDataUltimoAggiornamento()
     {

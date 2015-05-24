@@ -47,7 +47,7 @@ return array(
     ),
     /* Responsabili procedimento */
     'admin/users-resp-proc-management' => array(
-        'resources' => array( 'contenuti_sezioni_update' )
+        'resources' => array('contenuti_sezioni_update')
     ),
     /* Users roles */
     'users-roles-permissions' => array(
@@ -60,11 +60,13 @@ return array(
     'admin/enti-terzi-form' => array(
         'resources' => array('enti_terzi_add', 'enti_terzi_update')
     ),
-    /* ajax update trial */
-    'admin/formdata-ajax' => array(
-        //'resources' => array('formdata_')
+    /* Tickets */
+    'admin/tickets-summary' => array(
+        'resources' => array('tickets_add', 'tickets_update')
     ),
-
+    'admin/tickets-form' => array(
+        //'resources' => array('tickets_add', 'tickets_update')
+    ),
     /* Datatables summary */
     'datatables' => array(
         'sezioni-contenuti' => array(

@@ -5,7 +5,7 @@ namespace Admin\Model\Delete;
 use Application\Model\RouterManagers\RouterManagerAbstract;
 use Application\Model\RouterManagers\RouterManagerInterface;
 use Admin\Model\Contenuti\ContenutiCrudHandler;
-use Admin\Model\Logs\LogsWriter;
+use Admin\Model\Logs\LogWriter;
 
 /**
  * @author Andrea Fiori
@@ -22,7 +22,7 @@ class DeleteElementHandler extends RouterManagerAbstract implements RouterManage
                 $crudHandler = new ContenutiCrudHandler($this->getInput());
                 $crudHandler->setConnection($this->getInput('entityManager',1)->getConnection());
                 $crudHandler->setOperation('delete');
-                $crudHandler->setLogsWriter( new LogsWriter($crudHandler->getConnection()) );
+                $crudHandler->setLogWriter( new LogWriter($crudHandler->getConnection()) );
                 // $crudHandler->delete();
 
                 $output = $crudHandler->getOutput('export');

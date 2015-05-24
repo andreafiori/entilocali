@@ -105,11 +105,11 @@ class UsersRolesCrudHandler extends CrudHandlerAbstract implements CrudHandlerIn
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => "Inserito il settore utente ".$inputFilter->name,
@@ -131,11 +131,11 @@ class UsersRolesCrudHandler extends CrudHandlerAbstract implements CrudHandlerIn
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => "Errore nell'inserimento ruolo utente ".$inputFilter->name.' Messaggio: '.$message,
@@ -155,11 +155,11 @@ class UsersRolesCrudHandler extends CrudHandlerAbstract implements CrudHandlerIn
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => "Aggiornato ruolo utente ".$inputFilter->name,
@@ -181,11 +181,11 @@ class UsersRolesCrudHandler extends CrudHandlerAbstract implements CrudHandlerIn
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => "Errore nell'aggiornamento del ruolo utente ".$inputFilter->name.' Messaggio: '.$message,

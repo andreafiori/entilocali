@@ -89,7 +89,7 @@ class ZfcmsComuniConcessione
      *
      * @ORM\Column(name="attivo", type="integer", nullable=false)
      */
-    private $attivo;
+    private $attivo = '0';
 
     /**
      * @var \DateTime
@@ -110,7 +110,7 @@ class ZfcmsComuniConcessione
      *
      * @ORM\Column(name="homepage", type="integer", nullable=false)
      */
-    private $homepage;
+    private $homepage = '0';
 
     /**
      * @var \Application\Entity\ZfcmsComuniConcessioneModassegn
@@ -154,3 +154,4 @@ class ZfcmsComuniConcessione
 
 
 }
+

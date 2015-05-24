@@ -1,13 +1,19 @@
 <ul class="breadcrumbs">
-    <li><a href="<?php echo $this->basepath() ?>/" title="Torna alla home page">Home</a> <span class="divider"></span></li>
+    <li>
+        <a href="<?php echo $this->url('main', array('lang' => $this->lang)); ?>" title="<?php echo $this->translate('Torna alla home page') ?>">
+            Home
+        </a>
+        <span class="divider"></span>
+    </li>
     <li><?php echo $this->categoryName ?></li>
 </ul>
 
 <h2><?php echo ucfirst($this->categoryName) ?></h2>
 
-<p><?php echo $this->item_count ?> posts in archivio.</p>
+<p><?php echo $this->item_count ?> <?php echo $this->translate('posts in archivio'); ?>.</p>
 
 <?php
+
 $form = $this->formSearch;
 
 $form->setAttribute('action',   '#');
@@ -16,26 +22,33 @@ $form->setAttribute('role',     'form');
 $form->setAttribute('id',       'frmBlogSearch');
 
 $form->get('search')->setAttribute('class', 'button button-tiny tiny');
-
+$form->get('testo')->setAttributes(array(
+        'placeholder' => $this->translate('Cerca').'...',
+        'title' => $this->translate('Digita il testo da cercare'),
+    )
+);
+$form->get('category')->setOptions(array('empty_option'  => $this->translate('Seleziona')));
+$form->get('category')->setAttributes(array('title' => $this->translate('Seleziona categoria')));
+$form->get('search')->setAttributes(array('value' => $this->translate('Cerca')));
 $form->prepare();
 
 echo $this->form()->openTag($form);
 
 ?>
 <fieldset>
-    <legend>Cerca fra i blogs</legend>
+    <legend><?php echo $this->translate('Cerca fra i blogs'); ?></legend>
 
     <div class="row">
         <div class="large-6 columns">
             <label for="<?php echo $form->get('testo')->getAttribute('id'); ?>">
-                <?php echo $form->get('testo')->getLabel() ?>:
+                <?php echo $this->translate( $form->get('testo')->getLabel() ); ?>:
             </label>
             <?php echo $this->formElement($form->get('testo')); ?>
         </div>
 
         <div class="large-6 columns">
             <label for="<?php echo $form->get('category')->getAttribute('id'); ?>">
-                <?php echo $form->get('category')->getLabel() ?>:
+                <?php echo $this->translate( $form->get('category')->getLabel() ); ?>:
             </label>
             <?php echo $this->formElement($form->get('category')); ?>
         </div>
@@ -50,13 +63,14 @@ echo $this->form()->openTag($form);
     </div>
 
 </fieldset>
+
 <?php echo $this->form()->closeTag(); ?>
 
 <?php if ( count($this->records) ): ?>
 
     <?php foreach($this->records as $key => $row): ?>
 
-        <?php $linkDetails = $this->url('posts-blogs-details', array('category' => $row['categorySlug'], 'title' => $row['slug'])) ?>
+        <?php $linkDetails = $this->url('main/posts-blogs-details', array('lang' => $this->lang, 'category' => $row['categorySlug'], 'title' => $row['slug'])) ?>
 
         <div class="row">
             <h2>
@@ -80,9 +94,16 @@ echo $this->form()->openTag($form);
             <div class="large-9 columns">
                 <?php echo $this->TextShortener(strip_tags($row['description']), 50, 100, '...'); ?>
                 <a href="<?php echo $linkDetails ?>" title="Continua a leggere <?php echo $row['title'] ?>">
-                    Leggi tutto
+                    <?php echo $this->translate('Leggi tutto'); ?>
                 </a>
             </div>
+
+            <?php
+            echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
+                'twitterShareText' => urlencode($row['title']),
+                'publicDirRelativePath' => $this->publicDirRelativePath,
+            ));
+            ?>
 
         </div>
 
@@ -92,7 +113,7 @@ echo $this->form()->openTag($form);
 <?php else: ?>
     <h2>Nessun post presente</h2>
 
-    <p>Non &egrave; presente nessun post per la categoria selezionata.</p>
+    <p>Nessun post trovato in archivio o per la categoria selezionata.</p>
 <?php endif; ?>
 <?php
 

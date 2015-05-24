@@ -4,10 +4,6 @@ namespace Admin\Model\Tickets;
 
 use Application\Model\QueryBuilderHelperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  18 May 2014
- */
 class TicketsGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()

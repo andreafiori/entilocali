@@ -51,8 +51,9 @@ class ContenutiForm extends Form
             'type' => 'Textarea',
             'options' => array('label' => 'Sotto titolo'),
             'attributes' => array(
-                'id'        => 'sommario',
-                'required'  => 'required',
+                'id' => 'sommario',
+                'placeholder' => 'Sotto titolo...',
+                'title' => 'Inserisci sotto titolo',
             )
         ));
 

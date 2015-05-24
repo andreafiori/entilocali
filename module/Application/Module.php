@@ -13,9 +13,6 @@ use Zend\Authentication\AuthenticationService;
 use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter;
 use Application\View\Helper\TextShortener;
 
-/**
- * Appliacation Module
- */
 class Module implements AutoloaderProviderInterface
 {
     /**
@@ -31,14 +28,6 @@ class Module implements AutoloaderProviderInterface
 
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
-
-        $translator = $e->getApplication()->getServiceManager()->get('translator');
-        $translator->addTranslationFile(
-            'phpArray',
-            __DIR__ . '/config/module.form.translate.php'
-
-        );
-        \Zend\Validator\AbstractValidator::setDefaultTranslator($translator);
 
         try {
             $dbInstance = $sm->get('Zend\Db\Adapter\Adapter');
@@ -65,8 +54,6 @@ class Module implements AutoloaderProviderInterface
     }
     
     /**
-     * Configure plain text and custom form elements
-     *
      * @return array
      */
     public function getViewHelperConfig()
@@ -125,20 +112,6 @@ class Module implements AutoloaderProviderInterface
                     $authService->setStorage($sm->get('MyAuthStorage'));
 
                     return $authService;
-                },
-                'SezioniRecords' => function($sl) {
-                    $em = $sl->get('Doctrine\ORM\EntityManager');
-
-                    $wrapper = new SezioniGetterWrapper(new SezioniGetter($em));
-                    $wrapper->setInput(array(
-                        'orderBy'   => 'sezioni.posizione ASC',
-                        'attivo'    => 1,
-                    ));
-                    $wrapper->setupQueryBuilder();
-
-                    return $wrapper->formatRecordsPerColumn(
-                        $wrapper->addSottoSezioni($wrapper->getRecords(), array('attivo'=>1))
-                    );
                 },
             ),
         );

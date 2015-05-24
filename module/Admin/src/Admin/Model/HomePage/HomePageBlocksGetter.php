@@ -38,4 +38,18 @@ class HomePageBlocksGetter extends QueryBuilderHelperAbstract
 
         return $this->getQueryBuilder();
     }
+
+    /**
+     * @param $moduleId
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setModuleId($moduleId)
+    {
+        if ( is_numeric($moduleId) ) {
+            $this->getQueryBuilder()->andWhere('homePageBlocks.module = :moduleId ');
+            $this->getQueryBuilder()->setParameter('moduleId', $moduleId);
+        }
+
+        return $this->getQueryBuilder();
+    }
 }

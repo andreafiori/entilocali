@@ -26,14 +26,14 @@ class ZfcmsGeoComuniCap
      *
      * @ORM\Column(name="capcode", type="string", length=5, nullable=false)
      */
-    private $capcode;
+    private $capcode = '0';
 
     /**
      * @var string
      *
      * @ORM\Column(name="nome", type="string", length=80, nullable=false)
      */
-    private $nome;
+    private $nome = '0';
 
     /**
      * @var \Application\Entity\ZfcmsGeoComuni
@@ -47,3 +47,4 @@ class ZfcmsGeoComuniCap
 
 
 }
+

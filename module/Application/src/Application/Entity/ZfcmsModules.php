@@ -26,14 +26,14 @@ class ZfcmsModules
      *
      * @ORM\Column(name="code", type="string", length=50, nullable=false)
      */
-    private $code;
+    private $code = '0';
 
     /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=50, nullable=false)
      */
-    private $name;
+    private $name = '0';
 
     /**
      * @var string
@@ -68,14 +68,14 @@ class ZfcmsModules
      *
      * @ORM\Column(name="channel_id", type="bigint", nullable=false)
      */
-    private $channelId;
+    private $channelId = '1';
 
 
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -86,6 +86,7 @@ class ZfcmsModules
      * Set code
      *
      * @param string $code
+     *
      * @return ZfcmsModules
      */
     public function setCode($code)
@@ -98,7 +99,7 @@ class ZfcmsModules
     /**
      * Get code
      *
-     * @return string 
+     * @return string
      */
     public function getCode()
     {
@@ -109,6 +110,7 @@ class ZfcmsModules
      * Set name
      *
      * @param string $name
+     *
      * @return ZfcmsModules
      */
     public function setName($name)
@@ -121,7 +123,7 @@ class ZfcmsModules
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -132,6 +134,7 @@ class ZfcmsModules
      * Set status
      *
      * @param string $status
+     *
      * @return ZfcmsModules
      */
     public function setStatus($status)
@@ -144,7 +147,7 @@ class ZfcmsModules
     /**
      * Get status
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
@@ -155,6 +158,7 @@ class ZfcmsModules
      * Set accesskey
      *
      * @param string $accesskey
+     *
      * @return ZfcmsModules
      */
     public function setAccesskey($accesskey)
@@ -167,7 +171,7 @@ class ZfcmsModules
     /**
      * Get accesskey
      *
-     * @return string 
+     * @return string
      */
     public function getAccesskey()
     {
@@ -178,6 +182,7 @@ class ZfcmsModules
      * Set front
      *
      * @param integer $front
+     *
      * @return ZfcmsModules
      */
     public function setFront($front)
@@ -190,7 +195,7 @@ class ZfcmsModules
     /**
      * Get front
      *
-     * @return integer 
+     * @return integer
      */
     public function getFront()
     {
@@ -201,6 +206,7 @@ class ZfcmsModules
      * Set ordine
      *
      * @param integer $ordine
+     *
      * @return ZfcmsModules
      */
     public function setOrdine($ordine)
@@ -213,7 +219,7 @@ class ZfcmsModules
     /**
      * Get ordine
      *
-     * @return integer 
+     * @return integer
      */
     public function getOrdine()
     {
@@ -224,6 +230,7 @@ class ZfcmsModules
      * Set channelId
      *
      * @param integer $channelId
+     *
      * @return ZfcmsModules
      */
     public function setChannelId($channelId)
@@ -236,7 +243,7 @@ class ZfcmsModules
     /**
      * Get channelId
      *
-     * @return integer 
+     * @return integer
      */
     public function getChannelId()
     {

@@ -33,7 +33,7 @@ class ZfcmsGeoNazioni
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -44,6 +44,7 @@ class ZfcmsGeoNazioni
      * Set nome
      *
      * @param string $nome
+     *
      * @return ZfcmsGeoNazioni
      */
     public function setNome($nome)
@@ -56,7 +57,7 @@ class ZfcmsGeoNazioni
     /**
      * Get nome
      *
-     * @return string 
+     * @return string
      */
     public function getNome()
     {

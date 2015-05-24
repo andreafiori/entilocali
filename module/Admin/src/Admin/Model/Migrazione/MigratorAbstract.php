@@ -3,7 +3,7 @@
 namespace Admin\Model\Migrazione;
 
 use Admin\Model\InputSetterGetterAbstract;
-use Admin\Model\Logs\LogsWriter;
+use Admin\Model\Logs\LogWriter;
 use Application\Model\Database\Redbean\RedbeanHelper;
 use Application\Model\NullException;
 
@@ -28,15 +28,15 @@ abstract class MigratorAbstract extends InputSetterGetterAbstract
     }
 
     /**
-     * @param LogsWriter $logsWriter
+     * @param LogWriter $LogWriter
      */
-    public function setLogWriter(LogsWriter $logsWriter)
+    public function setLogWriter(LogWriter $LogWriter)
     {
-        $this->logWriter = $logsWriter;
+        $this->logWriter = $LogWriter;
     }
 
     /**
-     * @return LogsWriter
+     * @return LogWriter
      */
     public function getLogWriter()
     {

@@ -26,7 +26,7 @@ class ZfcmsTagsRelations
      *
      * @ORM\Column(name="reference_id", type="bigint", nullable=false)
      */
-    private $referenceId;
+    private $referenceId = '0';
 
     /**
      * @var \Application\Entity\ZfcmsModules
@@ -53,7 +53,7 @@ class ZfcmsTagsRelations
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -64,6 +64,7 @@ class ZfcmsTagsRelations
      * Set referenceId
      *
      * @param integer $referenceId
+     *
      * @return ZfcmsTagsRelations
      */
     public function setReferenceId($referenceId)
@@ -76,7 +77,7 @@ class ZfcmsTagsRelations
     /**
      * Get referenceId
      *
-     * @return integer 
+     * @return integer
      */
     public function getReferenceId()
     {
@@ -87,6 +88,7 @@ class ZfcmsTagsRelations
      * Set module
      *
      * @param \Application\Entity\ZfcmsModules $module
+     *
      * @return ZfcmsTagsRelations
      */
     public function setModule(\Application\Entity\ZfcmsModules $module = null)
@@ -99,7 +101,7 @@ class ZfcmsTagsRelations
     /**
      * Get module
      *
-     * @return \Application\Entity\ZfcmsModules 
+     * @return \Application\Entity\ZfcmsModules
      */
     public function getModule()
     {
@@ -110,6 +112,7 @@ class ZfcmsTagsRelations
      * Set tag
      *
      * @param \Application\Entity\ZfcmsTags $tag
+     *
      * @return ZfcmsTagsRelations
      */
     public function setTag(\Application\Entity\ZfcmsTags $tag = null)
@@ -122,7 +125,7 @@ class ZfcmsTagsRelations
     /**
      * Get tag
      *
-     * @return \Application\Entity\ZfcmsTags 
+     * @return \Application\Entity\ZfcmsTags
      */
     public function getTag()
     {

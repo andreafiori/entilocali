@@ -54,28 +54,28 @@ class ZfcmsComuniContrattiPartecipanti
      *
      * @ORM\Column(name="posizione", type="bigint", nullable=true)
      */
-    private $posizione;
+    private $posizione = '0';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="categoria", type="bigint", nullable=true)
      */
-    private $categoria;
+    private $categoria = '0';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="sel", type="bigint", nullable=false)
      */
-    private $sel;
+    private $sel = '0';
 
 
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -86,6 +86,7 @@ class ZfcmsComuniContrattiPartecipanti
      * Set cf
      *
      * @param string $cf
+     *
      * @return ZfcmsComuniContrattiPartecipanti
      */
     public function setCf($cf)
@@ -98,7 +99,7 @@ class ZfcmsComuniContrattiPartecipanti
     /**
      * Get cf
      *
-     * @return string 
+     * @return string
      */
     public function getCf()
     {
@@ -109,6 +110,7 @@ class ZfcmsComuniContrattiPartecipanti
      * Set ragioneSociale
      *
      * @param string $ragioneSociale
+     *
      * @return ZfcmsComuniContrattiPartecipanti
      */
     public function setRagioneSociale($ragioneSociale)
@@ -121,7 +123,7 @@ class ZfcmsComuniContrattiPartecipanti
     /**
      * Get ragioneSociale
      *
-     * @return string 
+     * @return string
      */
     public function getRagioneSociale()
     {
@@ -132,6 +134,7 @@ class ZfcmsComuniContrattiPartecipanti
      * Set ruolo1
      *
      * @param string $ruolo1
+     *
      * @return ZfcmsComuniContrattiPartecipanti
      */
     public function setRuolo1($ruolo1)
@@ -144,7 +147,7 @@ class ZfcmsComuniContrattiPartecipanti
     /**
      * Get ruolo1
      *
-     * @return string 
+     * @return string
      */
     public function getRuolo1()
     {
@@ -155,6 +158,7 @@ class ZfcmsComuniContrattiPartecipanti
      * Set nome
      *
      * @param string $nome
+     *
      * @return ZfcmsComuniContrattiPartecipanti
      */
     public function setNome($nome)
@@ -167,7 +171,7 @@ class ZfcmsComuniContrattiPartecipanti
     /**
      * Get nome
      *
-     * @return string 
+     * @return string
      */
     public function getNome()
     {
@@ -178,6 +182,7 @@ class ZfcmsComuniContrattiPartecipanti
      * Set posizione
      *
      * @param integer $posizione
+     *
      * @return ZfcmsComuniContrattiPartecipanti
      */
     public function setPosizione($posizione)
@@ -190,7 +195,7 @@ class ZfcmsComuniContrattiPartecipanti
     /**
      * Get posizione
      *
-     * @return integer 
+     * @return integer
      */
     public function getPosizione()
     {
@@ -201,6 +206,7 @@ class ZfcmsComuniContrattiPartecipanti
      * Set categoria
      *
      * @param integer $categoria
+     *
      * @return ZfcmsComuniContrattiPartecipanti
      */
     public function setCategoria($categoria)
@@ -213,7 +219,7 @@ class ZfcmsComuniContrattiPartecipanti
     /**
      * Get categoria
      *
-     * @return integer 
+     * @return integer
      */
     public function getCategoria()
     {
@@ -224,6 +230,7 @@ class ZfcmsComuniContrattiPartecipanti
      * Set sel
      *
      * @param integer $sel
+     *
      * @return ZfcmsComuniContrattiPartecipanti
      */
     public function setSel($sel)
@@ -236,7 +243,7 @@ class ZfcmsComuniContrattiPartecipanti
     /**
      * Get sel
      *
-     * @return integer 
+     * @return integer
      */
     public function getSel()
     {

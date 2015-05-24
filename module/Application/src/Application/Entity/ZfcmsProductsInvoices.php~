@@ -26,14 +26,14 @@ class ZfcmsProductsInvoices
      *
      * @ORM\Column(name="description", type="string", length=100, nullable=false)
      */
-    private $description;
+    private $description = '0';
 
     /**
      * @var string
      *
      * @ORM\Column(name="note", type="string", length=100, nullable=false)
      */
-    private $note;
+    private $note = '0';
 
     /**
      * @var integer
@@ -44,3 +44,4 @@ class ZfcmsProductsInvoices
 
 
 }
+

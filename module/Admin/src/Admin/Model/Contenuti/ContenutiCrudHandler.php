@@ -134,11 +134,11 @@ class ContenutiCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
             'message'   => "Inserito il contenuto ".$inputFilter->titolo,
@@ -160,11 +160,11 @@ class ContenutiCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
             'message'   => "Errore nell'inserimento del contenuto ".$inputFilter->titolo.' Messaggio: '.$message,
@@ -184,11 +184,11 @@ class ContenutiCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
             'message'   => "Aggiornato il contenuto ".$inputFilter->titolo,
@@ -210,11 +210,11 @@ class ContenutiCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
             'message'   => "Errore nell'aggiornamento del contenuto ".$inputFilter->titolo.' Messaggio: '.$message,

@@ -48,8 +48,8 @@ class ConfigCrudHandler extends CrudHandlerAbstract
             // Log
             $errorMessage = $e->getMessage();
 
-            $logsWriter = $this->getLogsWriter();
-            $logsWriter->writeLog(array(
+            $LogWriter = $this->getLogWriter();
+            $LogWriter->writeLog(array(
                 'user_id'   => $userDetails->id,
                 'module_id' => 2,
                 'message'   => $userDetails->name.' '.$userDetails->surname."', errore durante l'inserimento del contenuto ".$this->rawPost['nome'].' Messaggio: '.$errorMessage,

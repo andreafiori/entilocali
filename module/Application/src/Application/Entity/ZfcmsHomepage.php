@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsHomepage
  *
- * @ORM\Table(name="zfcms_homepage", indexes={@ORM\Index(name="reference_id", columns={"reference_id"}), @ORM\Index(name="block_id", columns={"block_id"})})
+ * @ORM\Table(name="zfcms_homepage", indexes={@ORM\Index(name="reference_id", columns={"reference_id"}), @ORM\Index(name="block_id", columns={"block_id"}), @ORM\Index(name="fk_homepage_language_id", columns={"language_id"})})
  * @ORM\Entity
  */
 class ZfcmsHomepage
@@ -71,6 +71,16 @@ class ZfcmsHomepage
     private $referenceId;
 
     /**
+     * @var \Application\Entity\ZfcmsLanguages
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsLanguages")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="language_id", referencedColumnName="id")
+     * })
+     */
+    private $language;
+
+    /**
      * @var \Application\Entity\ZfcmsHomepageBlocks
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsHomepageBlocks")
@@ -85,7 +95,7 @@ class ZfcmsHomepage
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -96,6 +106,7 @@ class ZfcmsHomepage
      * Set title
      *
      * @param string $title
+     *
      * @return ZfcmsHomepage
      */
     public function setTitle($title)
@@ -108,7 +119,7 @@ class ZfcmsHomepage
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -119,6 +130,7 @@ class ZfcmsHomepage
      * Set description
      *
      * @param string $description
+     *
      * @return ZfcmsHomepage
      */
     public function setDescription($description)
@@ -131,7 +143,7 @@ class ZfcmsHomepage
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -142,6 +154,7 @@ class ZfcmsHomepage
      * Set freeText
      *
      * @param string $freeText
+     *
      * @return ZfcmsHomepage
      */
     public function setFreeText($freeText)
@@ -154,7 +167,7 @@ class ZfcmsHomepage
     /**
      * Get freeText
      *
-     * @return string 
+     * @return string
      */
     public function getFreeText()
     {
@@ -165,6 +178,7 @@ class ZfcmsHomepage
      * Set showAttachments
      *
      * @param integer $showAttachments
+     *
      * @return ZfcmsHomepage
      */
     public function setShowAttachments($showAttachments)
@@ -177,7 +191,7 @@ class ZfcmsHomepage
     /**
      * Get showAttachments
      *
-     * @return integer 
+     * @return integer
      */
     public function getShowAttachments()
     {
@@ -188,6 +202,7 @@ class ZfcmsHomepage
      * Set highlight
      *
      * @param integer $highlight
+     *
      * @return ZfcmsHomepage
      */
     public function setHighlight($highlight)
@@ -200,7 +215,7 @@ class ZfcmsHomepage
     /**
      * Get highlight
      *
-     * @return integer 
+     * @return integer
      */
     public function getHighlight()
     {
@@ -211,6 +226,7 @@ class ZfcmsHomepage
      * Set position
      *
      * @param integer $position
+     *
      * @return ZfcmsHomepage
      */
     public function setPosition($position)
@@ -223,7 +239,7 @@ class ZfcmsHomepage
     /**
      * Get position
      *
-     * @return integer 
+     * @return integer
      */
     public function getPosition()
     {
@@ -234,6 +250,7 @@ class ZfcmsHomepage
      * Set referenceId
      *
      * @param integer $referenceId
+     *
      * @return ZfcmsHomepage
      */
     public function setReferenceId($referenceId)
@@ -246,7 +263,7 @@ class ZfcmsHomepage
     /**
      * Get referenceId
      *
-     * @return integer 
+     * @return integer
      */
     public function getReferenceId()
     {
@@ -254,9 +271,34 @@ class ZfcmsHomepage
     }
 
     /**
+     * Set language
+     *
+     * @param \Application\Entity\ZfcmsLanguages $language
+     *
+     * @return ZfcmsHomepage
+     */
+    public function setLanguage(\Application\Entity\ZfcmsLanguages $language = null)
+    {
+        $this->language = $language;
+    
+        return $this;
+    }
+
+    /**
+     * Get language
+     *
+     * @return \Application\Entity\ZfcmsLanguages
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    /**
      * Set block
      *
      * @param \Application\Entity\ZfcmsHomepageBlocks $block
+     *
      * @return ZfcmsHomepage
      */
     public function setBlock(\Application\Entity\ZfcmsHomepageBlocks $block = null)
@@ -269,7 +311,7 @@ class ZfcmsHomepage
     /**
      * Get block
      *
-     * @return \Application\Entity\ZfcmsHomepageBlocks 
+     * @return \Application\Entity\ZfcmsHomepageBlocks
      */
     public function getBlock()
     {

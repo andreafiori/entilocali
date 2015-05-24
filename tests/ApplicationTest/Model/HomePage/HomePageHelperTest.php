@@ -3,8 +3,8 @@
 namespace ApplicationTest\Model\HomePage;
 
 use Application\Model\HomePage\HomePageHelper;
-use Application\Model\HomePage\HomePageRecordsGetter;
-use Application\Model\HomePage\HomePageRecordsGetterWrapper;
+use Admin\Model\HomePage\HomePageGetter;
+use Admin\Model\HomePage\HomePageGetterWrapper;
 use ApplicationTest\TestSuite;
 
 class HomePageHelperTest extends TestSuite
@@ -51,15 +51,15 @@ class HomePageHelperTest extends TestSuite
         );
     }
 
-    public function testSetHomePageRecordsGetterWrapper()
+    public function testSetHomePageGetterWrapper()
     {
-        $this->helper->setHomePageRecordsGetterWrapper(
-            new HomePageRecordsGetterWrapper( new HomePageRecordsGetter($this->getEntityManagerMock()) )
+        $this->helper->setHomePageGetterWrapper(
+            new HomePageGetterWrapper( new HomePageGetter($this->getEntityManagerMock()) )
         );
 
         $this->assertInstanceOf(
-            '\Application\Model\HomePage\HomePageRecordsGetterWrapper',
-            $this->helper->getHomePageRecordsGetterWrapper()
+            '\Admin\Model\HomePage\HomePageGetterWrapper',
+            $this->helper->getHomePageGetterWrapper()
         );
     }
 
@@ -73,8 +73,8 @@ class HomePageHelperTest extends TestSuite
 
     public function testSetupHomePageRecords()
     {
-        $this->helper->setHomePageRecordsGetterWrapper(
-            new HomePageRecordsGetterWrapper( new HomePageRecordsGetter($this->getEntityManagerMock()) )
+        $this->helper->setHomePageGetterWrapper(
+            new HomePageGetterWrapper( new HomePageGetter($this->getEntityManagerMock()) )
         );
 
         $this->helper->setupHomePageRecords();
@@ -84,21 +84,13 @@ class HomePageHelperTest extends TestSuite
 
     public function testGatherReferenceIds()
     {
-        $this->helper->setHomePageRecordsGetterWrapper(
-            new HomePageRecordsGetterWrapper( new HomePageRecordsGetter($this->getEntityManagerMock()) )
+        $this->helper->setHomePageGetterWrapper(
+            new HomePageGetterWrapper( new HomePageGetter($this->getEntityManagerMock()) )
         );
         $this->helper->setHomePageRecords($this->homePageRecordsSample);
         $this->helper->gatherReferenceIds();
-    }
 
-    public function testGatherReferenceIdsReturnFalse()
-    {
-        $this->helper->setHomePageRecordsGetterWrapper(
-            new HomePageRecordsGetterWrapper( new HomePageRecordsGetter($this->getEntityManagerMock()) )
-        );
-        $this->helper->setHomePageRecords(array());
-
-        $this->assertFalse( $this->helper->gatherReferenceIds() );
+        $this->assertTrue( is_array($this->helper->getHomePageRecords()) );
     }
 
     /**
@@ -107,21 +99,5 @@ class HomePageHelperTest extends TestSuite
     public function testCheckHomePageRecordsThrowsException()
     {
         $this->helper->checkHomePageRecords();
-    }
-
-    /**
-     * @expectedException \Exception
-     */
-    public function testCheckClassMapKey()
-    {
-        $this->helper->checkClassMapKey('unexistentModuleCode');
-    }
-
-    /**
-     * @expectedException \Exception
-     */
-    public function testCheckClassMapObjectExists()
-    {
-        $this->helper->checkClassMapObjectExists('contenuti');
     }
 }

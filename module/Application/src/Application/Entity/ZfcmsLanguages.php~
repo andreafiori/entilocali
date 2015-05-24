@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsLanguages
  *
- * @ORM\Table(name="zfcms_languages", indexes={@ORM\Index(name="channel_id", columns={"channel_id"})})
+ * @ORM\Table(name="zfcms_languages", uniqueConstraints={@ORM\UniqueConstraint(name="abbreviation1", columns={"abbreviation1"})}, indexes={@ORM\Index(name="channel_id", columns={"channel_id"})})
  * @ORM\Entity
  */
 class ZfcmsLanguages
@@ -61,21 +61,21 @@ class ZfcmsLanguages
      *
      * @ORM\Column(name="is_default", type="bigint", nullable=false)
      */
-    private $isDefault;
+    private $isDefault = '0';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="is_default_backend", type="bigint", nullable=false)
      */
-    private $isDefaultBackend;
+    private $isDefaultBackend = '0';
 
     /**
      * @var string
      *
      * @ORM\Column(name="encoding", type="string", length=50, nullable=true)
      */
-    private $encoding;
+    private $encoding = 'UTF-8';
 
     /**
      * @var integer
@@ -85,11 +85,15 @@ class ZfcmsLanguages
     private $status;
 
     /**
-     * @var integer
+     * @var \Application\Entity\ZfcmsChannels
      *
-     * @ORM\Column(name="channel_id", type="bigint", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsChannels")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="channel_id", referencedColumnName="id")
+     * })
      */
-    private $channelId;
+    private $channel;
 
 
 }
+

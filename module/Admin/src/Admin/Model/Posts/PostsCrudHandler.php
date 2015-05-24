@@ -136,11 +136,11 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
             'message'   => "Inserito il post ".$inputFilter->title,
@@ -162,11 +162,11 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
             'message'   => "Errore nell'inserimento del post ".$inputFilter->title.' Messaggio: '.$message,
@@ -188,11 +188,11 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
             'message'   => "Ha aggiornato il post ".$inputFilter->title,
@@ -214,11 +214,11 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
             'message'   => "Errore nell'aggiornamento del post ".$inputFilter->title.' Messaggio: '.$message,
@@ -240,9 +240,9 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => 2,
             'message'   => "Eliminato post record ".$record->title,

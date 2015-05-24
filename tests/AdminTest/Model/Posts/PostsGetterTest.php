@@ -80,4 +80,18 @@ class PostsGetterTest extends TestSuite
 
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('moduleCode'));
     }
+
+    public function testSetLanguageId()
+    {
+        $this->objectGetter->setLanguageId(2);
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('language'));
+    }
+
+    public function testSetLanguageAbbreviation()
+    {
+        $this->objectGetter->setLanguageAbbreviation('en');
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('languageAbbr'));
+    }
 }

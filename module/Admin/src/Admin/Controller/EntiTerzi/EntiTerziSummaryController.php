@@ -18,15 +18,15 @@ class EntiTerziSummaryController extends SetupAbstractController
 
         $page = $this->params()->fromRoute('page');
 
-        $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+        $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
         $translator = $this->getServiceLocator()->get('translator');
 
-        $wrapper = new EntiTerziGetterWrapper( new EntiTerziGetter($entityManager) );
+        $wrapper = new EntiTerziGetterWrapper( new EntiTerziGetter($em) );
         $wrapper->setInput( array('orderBy' => 'ret.id DESC') );
         $wrapper->setupQueryBuilder();
-        $wrapper->setupPaginator( $wrapper->setupQuery($entityManager) );
-        $wrapper->setupPaginatorCurrentPage(isset($page) ? $page : null);
+        $wrapper->setupPaginator( $wrapper->setupQuery($em) );
+        $wrapper->setupPaginatorCurrentPage($page);
 
         $paginatorRecords = $wrapper->setupRecords();
 

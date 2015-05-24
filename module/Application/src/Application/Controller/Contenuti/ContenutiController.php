@@ -2,8 +2,10 @@
 
 namespace Application\Controller\Contenuti;
 
+use Admin\Model\Contenuti\ContenutiControllerHelper;
 use Admin\Model\Contenuti\ContenutiGetter;
 use Admin\Model\Contenuti\ContenutiGetterWrapper;
+use Admin\Model\Modules\ModulesContainer;
 use Admin\Model\Sezioni\SottoSezioniGetter;
 use Admin\Model\Sezioni\SottoSezioniGetterWrapper;
 use Application\Controller\SetupAbstractController;
@@ -20,18 +22,24 @@ class ContenutiController extends SetupAbstractController
 
         $subsectionid = $this->params()->fromRoute('subsectionid');
 
+        $lang = $this->params()->fromRoute('lang');
+
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-        $wrapper = new ContenutiGetterWrapper( new ContenutiGetter($em) );
-        $wrapper->setEntityManager($em);
-        $wrapper->setInput(array(
+        $helper = new ContenutiControllerHelper();
+        $helper->setContenutiGetterWrapper( new ContenutiGetterWrapper(new ContenutiGetter($em)) );
+
+        $wrapper = $helper->recoverWrapper(
+            $helper->getContenutiGetterWrapper(),
+            array(
                 'noscaduti'     => 1,
                 'attivo'        => 1,
-                'modulo'        => 2,
-                'soNttosezione'  => $subsectionid,
+                'modulo'        => ModulesContainer::contenuti_id,
+                'sottosezione' => $subsectionid,
+                'languageAbbreviation' => $lang,
             )
         );
-        $wrapper->setupQueryBuilder();
+        $wrapper->setEntityManager($em);
 
         $records = $wrapper->addAttachmentsFromRecords(
             $wrapper->getRecords(),
@@ -42,6 +50,7 @@ class ContenutiController extends SetupAbstractController
         );
 
         if (!empty($records)) {
+            /* Cerca sottosezioni se contenuto non è vuoto */
             foreach($records as &$record) {
 
                 $wrapper = new SottoSezioniGetterWrapper( new SottoSezioniGetter($em) );
@@ -52,7 +61,6 @@ class ContenutiController extends SetupAbstractController
                 $wrapper->setupQueryBuilder();
 
                 $subSections = $wrapper->getRecords();
-
                 if (!empty($subSections)) {
                     foreach($subSections as $subSection) {
                         $record['sotto_sezioni'][] = $subSection;

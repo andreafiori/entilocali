@@ -46,7 +46,7 @@ class ZfcmsGeoComuniCapQuartieri
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -57,6 +57,7 @@ class ZfcmsGeoComuniCapQuartieri
      * Set capQuartiere
      *
      * @param \Application\Entity\ZfcmsGeoComuniCap $capQuartiere
+     *
      * @return ZfcmsGeoComuniCapQuartieri
      */
     public function setCapQuartiere(\Application\Entity\ZfcmsGeoComuniCap $capQuartiere = null)
@@ -69,7 +70,7 @@ class ZfcmsGeoComuniCapQuartieri
     /**
      * Get capQuartiere
      *
-     * @return \Application\Entity\ZfcmsGeoComuniCap 
+     * @return \Application\Entity\ZfcmsGeoComuniCap
      */
     public function getCapQuartiere()
     {
@@ -80,6 +81,7 @@ class ZfcmsGeoComuniCapQuartieri
      * Set quartiere
      *
      * @param \Application\Entity\ZfcmsGeoComuniQuartieri $quartiere
+     *
      * @return ZfcmsGeoComuniCapQuartieri
      */
     public function setQuartiere(\Application\Entity\ZfcmsGeoComuniQuartieri $quartiere = null)
@@ -92,7 +94,7 @@ class ZfcmsGeoComuniCapQuartieri
     /**
      * Get quartiere
      *
-     * @return \Application\Entity\ZfcmsGeoComuniQuartieri 
+     * @return \Application\Entity\ZfcmsGeoComuniQuartieri
      */
     public function getQuartiere()
     {

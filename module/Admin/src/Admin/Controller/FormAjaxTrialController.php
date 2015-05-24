@@ -2,7 +2,6 @@
 
 namespace Admin\Controller;
 
-use Admin\Model\Logs\LogsWriter;
 use Application\Controller\SetupAbstractController;
 use Application\Model\Contacts\ContactsForm;
 use Application\Model\Database\DbTableContainer;
@@ -70,9 +69,7 @@ class FormAjaxTrialController extends SetupAbstractController
                 );
 
             } catch(\Exception $e) {
-
                 $this->layout()->setTemplate($this->layout()->getVariable('templateDir').'message.phtml');
-
             }
 
         } else {

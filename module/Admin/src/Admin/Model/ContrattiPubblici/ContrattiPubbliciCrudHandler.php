@@ -123,11 +123,11 @@ class ContrattiPubbliciCrudHandler extends CrudHandlerAbstract implements CrudHa
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => "Inserito il bando di gara ".$inputFilter->titolo,
@@ -149,11 +149,11 @@ class ContrattiPubbliciCrudHandler extends CrudHandlerAbstract implements CrudHa
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => "Errore nell'inserimento del bando di gara ".$inputFilter->titolo.'Messaggio: '.$message,
@@ -173,11 +173,11 @@ class ContrattiPubbliciCrudHandler extends CrudHandlerAbstract implements CrudHa
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => "Aggiornato il bando di gara".$inputFilter->titolo,
@@ -199,11 +199,11 @@ class ContrattiPubbliciCrudHandler extends CrudHandlerAbstract implements CrudHa
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => "Errore nell'aggiornamento del bando di gara ".$inputFilter->titolo.' Messaggio: '.$message,

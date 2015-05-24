@@ -8,6 +8,7 @@ use Admin\Model\StatoCivile\StatoCivileGetter;
 use Admin\Model\StatoCivile\StatoCivileGetterWrapper;
 use Application\Controller\SetupAbstractController;
 use Zend\Session\Container as SessionContainer;
+use Application\Model\Export\CsvExportHelper;
 
 class StatoCivileExportController extends SetupAbstractController
 {
@@ -58,7 +59,9 @@ class StatoCivileExportController extends SetupAbstractController
                         );
                     }
 
-                    $content = $this->makeCsvLine($arrayContent);
+                    $csvExportHelper = new CsvExportHelper();
+
+                    $content = $csvExportHelper->makeCsvLine($arrayContent);
 
                     $response = $this->getResponse();
                     $response->getHeaders()
@@ -75,30 +78,6 @@ class StatoCivileExportController extends SetupAbstractController
 
         return $this->redirectForUnvalidAccess();
     }
-
-        /**
-         * @param $values
-         * @return string
-         */
-        private function makeCsvLine($values)
-        {
-            $content = '';
-            foreach($values as $key => $record)
-            {
-                foreach($record as &$value) {
-                    if (    (strpos($value, ';')  !== false) || (strpos($value, '"')  !== false) ||
-                        (strpos($value, ' ')  !== false) || (strpos($value, "\t") !== false) ||
-                        (strpos($value, "\n") !== false) || (strpos($value, "\r") !== false))
-                    {
-                        $value = '"' . str_replace('"', '""', $value) . '"';
-                    }
-                }
-
-                $content .= implode(';', $record) . "\n";
-            }
-
-            return $content;
-        }
 
     public function pdfAction()
     {
@@ -188,16 +167,5 @@ class StatoCivileExportController extends SetupAbstractController
         }
 
         return $this->redirectForUnvalidAccess();
-    }
-
-    private function redirectForUnvalidAccess()
-    {
-        if (is_object( $this->getRequest()->getHeader('Referer'))) {
-            return $this->redirect()->toUrl(
-                $this->getRequest()->getHeader('Referer')->uri()->getPath()
-            );
-        }
-
-        return $this->redirect()->toRoute('main', array('lang' => 'it') );
     }
 }

@@ -16,6 +16,9 @@ return array(
             /* Contenuti */
             'Admin\Controller\Contenuti\ContenutiSummary'                       => 'Admin\Controller\Contenuti\ContenutiSummaryController',
             'Admin\Controller\Contenuti\ContenutiForm'                          => 'Admin\Controller\Contenuti\ContenutiFormController',
+            'Admin\Controller\Contenuti\ContenutiEnableDisable'                 => 'Admin\Controller\Contenuti\ContenutiEnableDisableController',
+            'Admin\Controller\Contenuti\ContenutiHomeputremove'                 => 'Admin\Controller\Contenuti\ContenutiHomeputremoveController',
+            'Admin\Controller\Contenuti\ContenutiOperations'                    => 'Admin\Controller\Contenuti\ContenutiOperationsController',
 
             /* Albo Pretorio */
             'Admin\Controller\AlboPretorio\AlboPretorioSummary'                 => 'Admin\Controller\AlboPretorio\AlboPretorioSummaryController',
@@ -84,7 +87,11 @@ return array(
             'Admin\Controller\HomePage\HomePageBlocksPositions'       => 'Admin\Controller\HomePage\HomePageBlocksPositionsController',
             'Admin\Controller\HomePage\HomePage'                      => 'Admin\Controller\HomePage\HomePageController',
 
-            /* AJAX TRIAL */
+            /* Tickets */
+            'Admin\Controller\Tickets\TicketsForm'                    => 'Admin\Controller\Tickets\TicketsFormController',
+            'Admin\Controller\Tickets\TicketsSummary'                 => 'Admin\Controller\Tickets\TicketsSummaryController',
+
+            /* AJAX TRIAL, form di prova */
             'Admin\Controller\FormAjaxTrial'                          => 'Admin\Controller\FormAjaxTrialController',
         ),
     ),
@@ -186,6 +193,45 @@ return array(
                                                 'controller' => 'Admin\Controller\Admin',
                                                 'action'     => 'index',
                                     ),
+                        ),
+                    ),
+                    'contenuti-operations' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'contenuti/operations/:action[/][:id[/]]',
+                            'constraints' => array(
+                                'action'    => '[a-zA-Z0-9_-]*',
+                                'id'        => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Contenuti\ContenutiOperations',
+                            ),
+                        ),
+                    ),
+                    'contenuti-homeputremove' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'contenuti/homepage/management/:action/:id[/]',
+                            'constraints' => array(
+                                'action' => '[a-zA-Z0-9_-]*',
+                                'id'     => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Contenuti\ContenutiHomeputremove',
+                            ),
+                        ),
+                    ),
+                    'contenuti-enabledisable' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'contenuti/operations/:action/:id[/]',
+                            'constraints' => array(
+                                'action'    => '[a-zA-Z0-9_-]*',
+                                'id'        => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Contenuti\ContenutiEnableDisable',
+                            ),
                         ),
                     ),
                     'contenuti-summary' => array(
@@ -670,7 +716,6 @@ return array(
                             ),
                         ),
                     ),
-
                     'posts-form' => array(
                         'type' => 'Segment',
                         'options' => array(
@@ -710,6 +755,34 @@ return array(
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Photo\PhotoForm',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'tickets-form' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'tickets/form[/][:id[/]]',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Tickets\TicketsForm',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'tickets-summary' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'tickets/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'constraints' => array(
+                                'order_by'  => '[a-zA-Z0-9_-]*',
+                                'order'     => '[a-zA-Z0-9_-]*',
+                                'page'      => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Tickets\TicketsSummary',
                                 'action'     => 'index',
                             ),
                         ),
@@ -1012,6 +1085,13 @@ return array(
             /* Contenuti */
             'admin/contenuti-summary/index'                 => __DIR__ . '/../view/admin/empty.phtml',
             'admin/contenuti-form/index'                    => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/contenuti-enabledisable/enable'          => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/contenuti-enabledisable/disable'         => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/contenuti-homeputremove/put'             => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/contenuti-homeputremove/remove'          => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/contenuti-operations/insert'             => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/contenuti-operations/update'             => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/contenuti-operations/delete'             => __DIR__ . '/../view/admin/empty.phtml',
 
             /* Amministrazione trasparente */
             'admin/amministrazione-trasparente-summary/index' => __DIR__ . '/../view/admin/empty.phtml',
@@ -1107,7 +1187,6 @@ return array(
         'sottosezioni-amm-trasparente'          => 'Admin\Model\Sezioni\SottoSezioniFormDataHandler',
         'contratti-pubblici-scelta-contraente'  => 'Admin\Model\ContrattiPubblici\SceltaContraente\SceltaContraenteFormDataHandler',
         'contratti-pubblici-operatori'          => 'Admin\Model\ContrattiPubblici\Operatori\OperatoriFormDataHandler',
-        'tickets'                               => 'Admin\Model\Tickets\TicketsFormDataHandler',
         'users-settori'                         => 'Admin\Model\Users\Settori\UsersSettoriFormDataHandler',
     ),
     /* FormData CRUD Class Map */
@@ -1141,7 +1220,6 @@ return array(
     ),
     /* DataTables Class Map */
     'datatables_classmap' => array(
-        'tickets'                                       => 'Admin\Model\Tickets\TicketsDataTable',
         'contacts'                                      => 'Admin\Model\Contacts\ContactsDataTable',
         'logs'                                          => 'Admin\Model\Logs\LogsDataTable',
         'sottosezioni-contenuti'                        => 'Admin\Model\Sezioni\SottosezioniContenutiDataTable',

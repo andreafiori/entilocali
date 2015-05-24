@@ -26,7 +26,7 @@ class ZfcmsComuniContenuti
      *
      * @ORM\Column(name="anno", type="integer", nullable=false)
      */
-    private $anno;
+    private $anno = '0';
 
     /**
      * @var integer
@@ -61,28 +61,28 @@ class ZfcmsComuniContenuti
      *
      * @ORM\Column(name="data_inserimento", type="datetime", nullable=false)
      */
-    private $dataInserimento;
+    private $dataInserimento = '0000-00-00 00:00:00';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="data_scadenza", type="datetime", nullable=false)
      */
-    private $dataScadenza;
+    private $dataScadenza = '0000-00-00 00:00:00';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="data_invio_regione", type="datetime", nullable=false)
      */
-    private $dataInvioRegione;
+    private $dataInvioRegione = '0000-00-00 00:00:00';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="attivo", type="integer", nullable=false)
      */
-    private $attivo;
+    private $attivo = '1';
 
     /**
      * @var integer
@@ -110,14 +110,14 @@ class ZfcmsComuniContenuti
      *
      * @ORM\Column(name="pub_albo_comune", type="datetime", nullable=false)
      */
-    private $pubAlboComune;
+    private $pubAlboComune = '0000-00-00 00:00:00';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="data_rettifica", type="datetime", nullable=false)
      */
-    private $dataRettifica;
+    private $dataRettifica = '0000-00-00 00:00:00';
 
     /**
      * @var string
@@ -145,7 +145,7 @@ class ZfcmsComuniContenuti
      *
      * @ORM\Column(name="annoammtrasp", type="integer", nullable=false)
      */
-    private $annoammtrasp;
+    private $annoammtrasp = '2015';
 
     /**
      * @var string
@@ -207,7 +207,7 @@ class ZfcmsComuniContenuti
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -218,6 +218,7 @@ class ZfcmsComuniContenuti
      * Set anno
      *
      * @param integer $anno
+     *
      * @return ZfcmsComuniContenuti
      */
     public function setAnno($anno)
@@ -230,7 +231,7 @@ class ZfcmsComuniContenuti
     /**
      * Get anno
      *
-     * @return integer 
+     * @return integer
      */
     public function getAnno()
     {
@@ -241,6 +242,7 @@ class ZfcmsComuniContenuti
      * Set numero
      *
      * @param integer $numero
+     *
      * @return ZfcmsComuniContenuti
      */
     public function setNumero($numero)
@@ -253,7 +255,7 @@ class ZfcmsComuniContenuti
     /**
      * Get numero
      *
-     * @return integer 
+     * @return integer
      */
     public function getNumero()
     {
@@ -264,6 +266,7 @@ class ZfcmsComuniContenuti
      * Set titolo
      *
      * @param string $titolo
+     *
      * @return ZfcmsComuniContenuti
      */
     public function setTitolo($titolo)
@@ -276,7 +279,7 @@ class ZfcmsComuniContenuti
     /**
      * Get titolo
      *
-     * @return string 
+     * @return string
      */
     public function getTitolo()
     {
@@ -287,6 +290,7 @@ class ZfcmsComuniContenuti
      * Set sommario
      *
      * @param string $sommario
+     *
      * @return ZfcmsComuniContenuti
      */
     public function setSommario($sommario)
@@ -299,7 +303,7 @@ class ZfcmsComuniContenuti
     /**
      * Get sommario
      *
-     * @return string 
+     * @return string
      */
     public function getSommario()
     {
@@ -310,6 +314,7 @@ class ZfcmsComuniContenuti
      * Set testo
      *
      * @param string $testo
+     *
      * @return ZfcmsComuniContenuti
      */
     public function setTesto($testo)
@@ -322,7 +327,7 @@ class ZfcmsComuniContenuti
     /**
      * Get testo
      *
-     * @return string 
+     * @return string
      */
     public function getTesto()
     {
@@ -333,6 +338,7 @@ class ZfcmsComuniContenuti
      * Set dataInserimento
      *
      * @param \DateTime $dataInserimento
+     *
      * @return ZfcmsComuniContenuti
      */
     public function setDataInserimento($dataInserimento)
@@ -345,7 +351,7 @@ class ZfcmsComuniContenuti
     /**
      * Get dataInserimento
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDataInserimento()
     {
@@ -356,6 +362,7 @@ class ZfcmsComuniContenuti
      * Set dataScadenza
      *
      * @param \DateTime $dataScadenza
+     *
      * @return ZfcmsComuniContenuti
      */
     public function setDataScadenza($dataScadenza)
@@ -368,7 +375,7 @@ class ZfcmsComuniContenuti
     /**
      * Get dataScadenza
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDataScadenza()
     {
@@ -379,6 +386,7 @@ class ZfcmsComuniContenuti
      * Set dataInvioRegione
      *
      * @param \DateTime $dataInvioRegione
+     *
      * @return ZfcmsComuniContenuti
      */
     public function setDataInvioRegione($dataInvioRegione)
@@ -391,7 +399,7 @@ class ZfcmsComuniContenuti
     /**
      * Get dataInvioRegione
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDataInvioRegione()
     {
@@ -402,6 +410,7 @@ class ZfcmsComuniContenuti
      * Set attivo
      *
      * @param integer $attivo
+     *
      * @return ZfcmsComuniContenuti
      */
     public function setAttivo($attivo)
@@ -414,7 +423,7 @@ class ZfcmsComuniContenuti
     /**
      * Get attivo
      *
-     * @return integer 
+     * @return integer
      */
     public function getAttivo()
     {
@@ -425,6 +434,7 @@ class ZfcmsComuniContenuti
      * Set home
      *
      * @param integer $home
+     *
      * @return ZfcmsComuniContenuti
      */
     public function setHome($home)
@@ -437,7 +447,7 @@ class ZfcmsComuniContenuti
     /**
      * Get home
      *
-     * @return integer 
+     * @return integer
      */
     public function getHome()
     {
@@ -448,6 +458,7 @@ class ZfcmsComuniContenuti
      * Set evidenza
      *
      * @param integer $evidenza
+     *
      * @return ZfcmsComuniContenuti
      */
     public function setEvidenza($evidenza)
@@ -460,7 +471,7 @@ class ZfcmsComuniContenuti
     /**
      * Get evidenza
      *
-     * @return integer 
+     * @return integer
      */
     public function getEvidenza()
     {
@@ -471,6 +482,7 @@ class ZfcmsComuniContenuti
      * Set rss
      *
      * @param integer $rss
+     *
      * @return ZfcmsComuniContenuti
      */
     public function setRss($rss)
@@ -483,7 +495,7 @@ class ZfcmsComuniContenuti
     /**
      * Get rss
      *
-     * @return integer 
+     * @return integer
      */
     public function getRss()
     {
@@ -494,6 +506,7 @@ class ZfcmsComuniContenuti
      * Set pubAlboComune
      *
      * @param \DateTime $pubAlboComune
+     *
      * @return ZfcmsComuniContenuti
      */
     public function setPubAlboComune($pubAlboComune)
@@ -506,7 +519,7 @@ class ZfcmsComuniContenuti
     /**
      * Get pubAlboComune
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getPubAlboComune()
     {
@@ -517,6 +530,7 @@ class ZfcmsComuniContenuti
      * Set dataRettifica
      *
      * @param \DateTime $dataRettifica
+     *
      * @return ZfcmsComuniContenuti
      */
     public function setDataRettifica($dataRettifica)
@@ -529,7 +543,7 @@ class ZfcmsComuniContenuti
     /**
      * Get dataRettifica
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDataRettifica()
     {
@@ -540,6 +554,7 @@ class ZfcmsComuniContenuti
      * Set path
      *
      * @param string $path
+     *
      * @return ZfcmsComuniContenuti
      */
     public function setPath($path)
@@ -552,7 +567,7 @@ class ZfcmsComuniContenuti
     /**
      * Get path
      *
-     * @return string 
+     * @return string
      */
     public function getPath()
     {
@@ -563,6 +578,7 @@ class ZfcmsComuniContenuti
      * Set tabella
      *
      * @param string $tabella
+     *
      * @return ZfcmsComuniContenuti
      */
     public function setTabella($tabella)
@@ -575,7 +591,7 @@ class ZfcmsComuniContenuti
     /**
      * Get tabella
      *
-     * @return string 
+     * @return string
      */
     public function getTabella()
     {
@@ -586,6 +602,7 @@ class ZfcmsComuniContenuti
      * Set checkAtti
      *
      * @param integer $checkAtti
+     *
      * @return ZfcmsComuniContenuti
      */
     public function setCheckAtti($checkAtti)
@@ -598,7 +615,7 @@ class ZfcmsComuniContenuti
     /**
      * Get checkAtti
      *
-     * @return integer 
+     * @return integer
      */
     public function getCheckAtti()
     {
@@ -609,6 +626,7 @@ class ZfcmsComuniContenuti
      * Set annoammtrasp
      *
      * @param integer $annoammtrasp
+     *
      * @return ZfcmsComuniContenuti
      */
     public function setAnnoammtrasp($annoammtrasp)
@@ -621,7 +639,7 @@ class ZfcmsComuniContenuti
     /**
      * Get annoammtrasp
      *
-     * @return integer 
+     * @return integer
      */
     public function getAnnoammtrasp()
     {
@@ -632,6 +650,7 @@ class ZfcmsComuniContenuti
      * Set slug
      *
      * @param string $slug
+     *
      * @return ZfcmsComuniContenuti
      */
     public function setSlug($slug)
@@ -644,7 +663,7 @@ class ZfcmsComuniContenuti
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {
@@ -655,6 +674,7 @@ class ZfcmsComuniContenuti
      * Set seoTitle
      *
      * @param string $seoTitle
+     *
      * @return ZfcmsComuniContenuti
      */
     public function setSeoTitle($seoTitle)
@@ -667,7 +687,7 @@ class ZfcmsComuniContenuti
     /**
      * Get seoTitle
      *
-     * @return string 
+     * @return string
      */
     public function getSeoTitle()
     {
@@ -678,6 +698,7 @@ class ZfcmsComuniContenuti
      * Set seoDescription
      *
      * @param string $seoDescription
+     *
      * @return ZfcmsComuniContenuti
      */
     public function setSeoDescription($seoDescription)
@@ -690,7 +711,7 @@ class ZfcmsComuniContenuti
     /**
      * Get seoDescription
      *
-     * @return string 
+     * @return string
      */
     public function getSeoDescription()
     {
@@ -701,6 +722,7 @@ class ZfcmsComuniContenuti
      * Set seoKeywords
      *
      * @param string $seoKeywords
+     *
      * @return ZfcmsComuniContenuti
      */
     public function setSeoKeywords($seoKeywords)
@@ -713,7 +735,7 @@ class ZfcmsComuniContenuti
     /**
      * Get seoKeywords
      *
-     * @return string 
+     * @return string
      */
     public function getSeoKeywords()
     {
@@ -724,6 +746,7 @@ class ZfcmsComuniContenuti
      * Set isAmmTrasparente
      *
      * @param integer $isAmmTrasparente
+     *
      * @return ZfcmsComuniContenuti
      */
     public function setIsAmmTrasparente($isAmmTrasparente)
@@ -736,7 +759,7 @@ class ZfcmsComuniContenuti
     /**
      * Get isAmmTrasparente
      *
-     * @return integer 
+     * @return integer
      */
     public function getIsAmmTrasparente()
     {
@@ -747,6 +770,7 @@ class ZfcmsComuniContenuti
      * Set sottosezione
      *
      * @param \Application\Entity\ZfcmsComuniSottosezioni $sottosezione
+     *
      * @return ZfcmsComuniContenuti
      */
     public function setSottosezione(\Application\Entity\ZfcmsComuniSottosezioni $sottosezione = null)
@@ -759,7 +783,7 @@ class ZfcmsComuniContenuti
     /**
      * Get sottosezione
      *
-     * @return \Application\Entity\ZfcmsComuniSottosezioni 
+     * @return \Application\Entity\ZfcmsComuniSottosezioni
      */
     public function getSottosezione()
     {
@@ -770,6 +794,7 @@ class ZfcmsComuniContenuti
      * Set utente
      *
      * @param \Application\Entity\ZfcmsUsers $utente
+     *
      * @return ZfcmsComuniContenuti
      */
     public function setUtente(\Application\Entity\ZfcmsUsers $utente = null)
@@ -782,7 +807,7 @@ class ZfcmsComuniContenuti
     /**
      * Get utente
      *
-     * @return \Application\Entity\ZfcmsUsers 
+     * @return \Application\Entity\ZfcmsUsers
      */
     public function getUtente()
     {

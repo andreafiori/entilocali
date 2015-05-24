@@ -10,7 +10,7 @@
 
 <p>Trascinare i nomi delle sezioni disponendoli secondo l'ordine desiderato. L'aggiornamento sar&agrave; automatico ed il risultato sar&agrave; visualizzato in questa pagina.</p>
 
-<!-- Result div -->
+
 <div id="info"></div>
 
 <div class="row">
@@ -40,20 +40,11 @@
             </ul>
         <?php endif; ?>
 
-        <?php
-        /*
-        echo $this->partial('_positions_column.phtml', array(
-                'records' => $this->records['dx'],
-            )
-        );
-        */
-        ?>
     </div>
 </div>
 
 
 <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
-
 <script type="text/javascript">
 $(document).ready(function() {
     $(".sezioniColumn").sortable({
@@ -65,6 +56,3 @@ $(document).ready(function() {
     });
 });
 </script>
-
-
-

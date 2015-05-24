@@ -124,7 +124,7 @@ class ZfcmsComuniSottosezioni
      *
      * @ORM\Column(name="show_to_all", type="integer", nullable=false)
      */
-    private $showToAll;
+    private $showToAll = '0';
 
     /**
      * @var \Application\Entity\ZfcmsComuniSottosezioni
@@ -161,7 +161,7 @@ class ZfcmsComuniSottosezioni
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -172,6 +172,7 @@ class ZfcmsComuniSottosezioni
      * Set nome
      *
      * @param string $nome
+     *
      * @return ZfcmsComuniSottosezioni
      */
     public function setNome($nome)
@@ -184,7 +185,7 @@ class ZfcmsComuniSottosezioni
     /**
      * Get nome
      *
-     * @return string 
+     * @return string
      */
     public function getNome()
     {
@@ -195,6 +196,7 @@ class ZfcmsComuniSottosezioni
      * Set immagine
      *
      * @param string $immagine
+     *
      * @return ZfcmsComuniSottosezioni
      */
     public function setImmagine($immagine)
@@ -207,7 +209,7 @@ class ZfcmsComuniSottosezioni
     /**
      * Get immagine
      *
-     * @return string 
+     * @return string
      */
     public function getImmagine()
     {
@@ -218,6 +220,7 @@ class ZfcmsComuniSottosezioni
      * Set url
      *
      * @param string $url
+     *
      * @return ZfcmsComuniSottosezioni
      */
     public function setUrl($url)
@@ -230,7 +233,7 @@ class ZfcmsComuniSottosezioni
     /**
      * Get url
      *
-     * @return string 
+     * @return string
      */
     public function getUrl()
     {
@@ -241,6 +244,7 @@ class ZfcmsComuniSottosezioni
      * Set urlTitle
      *
      * @param string $urlTitle
+     *
      * @return ZfcmsComuniSottosezioni
      */
     public function setUrlTitle($urlTitle)
@@ -253,7 +257,7 @@ class ZfcmsComuniSottosezioni
     /**
      * Get urlTitle
      *
-     * @return string 
+     * @return string
      */
     public function getUrlTitle()
     {
@@ -264,6 +268,7 @@ class ZfcmsComuniSottosezioni
      * Set urlTargetBlank
      *
      * @param string $urlTargetBlank
+     *
      * @return ZfcmsComuniSottosezioni
      */
     public function setUrlTargetBlank($urlTargetBlank)
@@ -276,7 +281,7 @@ class ZfcmsComuniSottosezioni
     /**
      * Get urlTargetBlank
      *
-     * @return string 
+     * @return string
      */
     public function getUrlTargetBlank()
     {
@@ -287,6 +292,7 @@ class ZfcmsComuniSottosezioni
      * Set posizione
      *
      * @param integer $posizione
+     *
      * @return ZfcmsComuniSottosezioni
      */
     public function setPosizione($posizione)
@@ -299,7 +305,7 @@ class ZfcmsComuniSottosezioni
     /**
      * Get posizione
      *
-     * @return integer 
+     * @return integer
      */
     public function getPosizione()
     {
@@ -310,6 +316,7 @@ class ZfcmsComuniSottosezioni
      * Set attivo
      *
      * @param integer $attivo
+     *
      * @return ZfcmsComuniSottosezioni
      */
     public function setAttivo($attivo)
@@ -322,7 +329,7 @@ class ZfcmsComuniSottosezioni
     /**
      * Get attivo
      *
-     * @return integer 
+     * @return integer
      */
     public function getAttivo()
     {
@@ -333,6 +340,7 @@ class ZfcmsComuniSottosezioni
      * Set profonditaA
      *
      * @param string $profonditaA
+     *
      * @return ZfcmsComuniSottosezioni
      */
     public function setProfonditaA($profonditaA)
@@ -345,7 +353,7 @@ class ZfcmsComuniSottosezioni
     /**
      * Get profonditaA
      *
-     * @return string 
+     * @return string
      */
     public function getProfonditaA()
     {
@@ -356,6 +364,7 @@ class ZfcmsComuniSottosezioni
      * Set isSs
      *
      * @param integer $isSs
+     *
      * @return ZfcmsComuniSottosezioni
      */
     public function setIsSs($isSs)
@@ -368,7 +377,7 @@ class ZfcmsComuniSottosezioni
     /**
      * Get isSs
      *
-     * @return integer 
+     * @return integer
      */
     public function getIsSs()
     {
@@ -379,6 +388,7 @@ class ZfcmsComuniSottosezioni
      * Set slug
      *
      * @param string $slug
+     *
      * @return ZfcmsComuniSottosezioni
      */
     public function setSlug($slug)
@@ -391,7 +401,7 @@ class ZfcmsComuniSottosezioni
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {
@@ -402,6 +412,7 @@ class ZfcmsComuniSottosezioni
      * Set seoTitle
      *
      * @param string $seoTitle
+     *
      * @return ZfcmsComuniSottosezioni
      */
     public function setSeoTitle($seoTitle)
@@ -414,7 +425,7 @@ class ZfcmsComuniSottosezioni
     /**
      * Get seoTitle
      *
-     * @return string 
+     * @return string
      */
     public function getSeoTitle()
     {
@@ -425,6 +436,7 @@ class ZfcmsComuniSottosezioni
      * Set seoKeywords
      *
      * @param string $seoKeywords
+     *
      * @return ZfcmsComuniSottosezioni
      */
     public function setSeoKeywords($seoKeywords)
@@ -437,7 +449,7 @@ class ZfcmsComuniSottosezioni
     /**
      * Get seoKeywords
      *
-     * @return string 
+     * @return string
      */
     public function getSeoKeywords()
     {
@@ -448,6 +460,7 @@ class ZfcmsComuniSottosezioni
      * Set seoDescription
      *
      * @param string $seoDescription
+     *
      * @return ZfcmsComuniSottosezioni
      */
     public function setSeoDescription($seoDescription)
@@ -460,7 +473,7 @@ class ZfcmsComuniSottosezioni
     /**
      * Get seoDescription
      *
-     * @return string 
+     * @return string
      */
     public function getSeoDescription()
     {
@@ -471,6 +484,7 @@ class ZfcmsComuniSottosezioni
      * Set isAmmTrasparente
      *
      * @param integer $isAmmTrasparente
+     *
      * @return ZfcmsComuniSottosezioni
      */
     public function setIsAmmTrasparente($isAmmTrasparente)
@@ -483,7 +497,7 @@ class ZfcmsComuniSottosezioni
     /**
      * Get isAmmTrasparente
      *
-     * @return integer 
+     * @return integer
      */
     public function getIsAmmTrasparente()
     {
@@ -494,6 +508,7 @@ class ZfcmsComuniSottosezioni
      * Set showToAll
      *
      * @param integer $showToAll
+     *
      * @return ZfcmsComuniSottosezioni
      */
     public function setShowToAll($showToAll)
@@ -506,7 +521,7 @@ class ZfcmsComuniSottosezioni
     /**
      * Get showToAll
      *
-     * @return integer 
+     * @return integer
      */
     public function getShowToAll()
     {
@@ -517,6 +532,7 @@ class ZfcmsComuniSottosezioni
      * Set profonditaDa
      *
      * @param \Application\Entity\ZfcmsComuniSottosezioni $profonditaDa
+     *
      * @return ZfcmsComuniSottosezioni
      */
     public function setProfonditaDa(\Application\Entity\ZfcmsComuniSottosezioni $profonditaDa = null)
@@ -529,7 +545,7 @@ class ZfcmsComuniSottosezioni
     /**
      * Get profonditaDa
      *
-     * @return \Application\Entity\ZfcmsComuniSottosezioni 
+     * @return \Application\Entity\ZfcmsComuniSottosezioni
      */
     public function getProfonditaDa()
     {
@@ -540,6 +556,7 @@ class ZfcmsComuniSottosezioni
      * Set sezione
      *
      * @param \Application\Entity\ZfcmsComuniSezioni $sezione
+     *
      * @return ZfcmsComuniSottosezioni
      */
     public function setSezione(\Application\Entity\ZfcmsComuniSezioni $sezione = null)
@@ -552,7 +569,7 @@ class ZfcmsComuniSottosezioni
     /**
      * Get sezione
      *
-     * @return \Application\Entity\ZfcmsComuniSezioni 
+     * @return \Application\Entity\ZfcmsComuniSezioni
      */
     public function getSezione()
     {
@@ -563,6 +580,7 @@ class ZfcmsComuniSottosezioni
      * Set utente
      *
      * @param \Application\Entity\ZfcmsUsers $utente
+     *
      * @return ZfcmsComuniSottosezioni
      */
     public function setUtente(\Application\Entity\ZfcmsUsers $utente = null)
@@ -575,7 +593,7 @@ class ZfcmsComuniSottosezioni
     /**
      * Get utente
      *
-     * @return \Application\Entity\ZfcmsUsers 
+     * @return \Application\Entity\ZfcmsUsers
      */
     public function getUtente()
     {

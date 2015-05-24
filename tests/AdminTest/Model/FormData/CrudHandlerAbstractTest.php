@@ -2,7 +2,7 @@
 
 namespace AdminTest\Model\FormData;
 
-use Admin\Model\Logs\LogsWriter;
+use Admin\Model\Log\LogWriter;
 use ApplicationTest\TestSuite;
 
 /**
@@ -107,10 +107,10 @@ class CrudHandlerAbstractTest extends TestSuite
         $this->assertTrue( is_array($this->crudHandlerAbstract->setupVariablesForTheView('update', false)) );
     }
 
-    public function testSetLogsWriter()
+    public function testSetLogWriter()
     {
-        $this->crudHandlerAbstract->setLogsWriter( new LogsWriter($this->getConnectionMock()) );
+        $this->crudHandlerAbstract->setLogWriter( new LogWriter($this->getConnectionMock()) );
 
-        $this->assertInstanceOf('\Admin\Model\Logs\LogsWriter', $this->crudHandlerAbstract->getLogsWriter());
+        $this->assertInstanceOf('\Admin\Model\Log\LogWriter', $this->crudHandlerAbstract->getLogWriter());
     }
 }

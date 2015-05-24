@@ -47,42 +47,42 @@ class ZfcmsNewsletterTemplates
      *
      * @ORM\Column(name="format", type="string", nullable=false)
      */
-    private $format;
+    private $format = 'html';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="creation_date", type="datetime", nullable=false)
      */
-    private $creationDate;
+    private $creationDate = '0000-00-00 00:00:00';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="position", type="bigint", nullable=false)
      */
-    private $position;
+    private $position = '0';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="language_id", type="bigint", nullable=false)
      */
-    private $languageId;
+    private $languageId = '1';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="channel_id", type="bigint", nullable=false)
      */
-    private $channelId;
+    private $channelId = '1';
 
 
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -93,6 +93,7 @@ class ZfcmsNewsletterTemplates
      * Set name
      *
      * @param string $name
+     *
      * @return ZfcmsNewsletterTemplates
      */
     public function setName($name)
@@ -105,7 +106,7 @@ class ZfcmsNewsletterTemplates
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -116,6 +117,7 @@ class ZfcmsNewsletterTemplates
      * Set filename
      *
      * @param string $filename
+     *
      * @return ZfcmsNewsletterTemplates
      */
     public function setFilename($filename)
@@ -128,7 +130,7 @@ class ZfcmsNewsletterTemplates
     /**
      * Get filename
      *
-     * @return string 
+     * @return string
      */
     public function getFilename()
     {
@@ -139,6 +141,7 @@ class ZfcmsNewsletterTemplates
      * Set description
      *
      * @param string $description
+     *
      * @return ZfcmsNewsletterTemplates
      */
     public function setDescription($description)
@@ -151,7 +154,7 @@ class ZfcmsNewsletterTemplates
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -162,6 +165,7 @@ class ZfcmsNewsletterTemplates
      * Set format
      *
      * @param string $format
+     *
      * @return ZfcmsNewsletterTemplates
      */
     public function setFormat($format)
@@ -174,7 +178,7 @@ class ZfcmsNewsletterTemplates
     /**
      * Get format
      *
-     * @return string 
+     * @return string
      */
     public function getFormat()
     {
@@ -185,6 +189,7 @@ class ZfcmsNewsletterTemplates
      * Set creationDate
      *
      * @param \DateTime $creationDate
+     *
      * @return ZfcmsNewsletterTemplates
      */
     public function setCreationDate($creationDate)
@@ -197,7 +202,7 @@ class ZfcmsNewsletterTemplates
     /**
      * Get creationDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreationDate()
     {
@@ -208,6 +213,7 @@ class ZfcmsNewsletterTemplates
      * Set position
      *
      * @param integer $position
+     *
      * @return ZfcmsNewsletterTemplates
      */
     public function setPosition($position)
@@ -220,7 +226,7 @@ class ZfcmsNewsletterTemplates
     /**
      * Get position
      *
-     * @return integer 
+     * @return integer
      */
     public function getPosition()
     {
@@ -231,6 +237,7 @@ class ZfcmsNewsletterTemplates
      * Set languageId
      *
      * @param integer $languageId
+     *
      * @return ZfcmsNewsletterTemplates
      */
     public function setLanguageId($languageId)
@@ -243,7 +250,7 @@ class ZfcmsNewsletterTemplates
     /**
      * Get languageId
      *
-     * @return integer 
+     * @return integer
      */
     public function getLanguageId()
     {
@@ -254,6 +261,7 @@ class ZfcmsNewsletterTemplates
      * Set channelId
      *
      * @param integer $channelId
+     *
      * @return ZfcmsNewsletterTemplates
      */
     public function setChannelId($channelId)
@@ -266,7 +274,7 @@ class ZfcmsNewsletterTemplates
     /**
      * Get channelId
      *
-     * @return integer 
+     * @return integer
      */
     public function getChannelId()
     {

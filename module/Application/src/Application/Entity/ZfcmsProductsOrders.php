@@ -26,70 +26,70 @@ class ZfcmsProductsOrders
      *
      * @ORM\Column(name="number", type="integer", nullable=false)
      */
-    private $number;
+    private $number = '0';
 
     /**
      * @var string
      *
      * @ORM\Column(name="code", type="string", length=50, nullable=false)
      */
-    private $code;
+    private $code = '0';
 
     /**
      * @var string
      *
      * @ORM\Column(name="qt", type="string", length=10, nullable=false)
      */
-    private $qt;
+    private $qt = '1';
 
     /**
      * @var string
      *
      * @ORM\Column(name="price", type="decimal", precision=60, scale=2, nullable=false)
      */
-    private $price;
+    private $price = '0.00';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="order_date", type="datetime", nullable=false)
      */
-    private $orderDate;
+    private $orderDate = '0000-00-00 00:00:00';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="product_id", type="integer", nullable=false)
      */
-    private $productId;
+    private $productId = '0';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="user_id", type="integer", nullable=false)
      */
-    private $userId;
+    private $userId = '0';
 
     /**
      * @var string
      *
      * @ORM\Column(name="status", type="string", length=100, nullable=false)
      */
-    private $status;
+    private $status = 'no';
 
     /**
      * @var string
      *
      * @ORM\Column(name="payment_format", type="string", length=100, nullable=false)
      */
-    private $paymentFormat;
+    private $paymentFormat = 'no';
 
 
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -100,6 +100,7 @@ class ZfcmsProductsOrders
      * Set number
      *
      * @param integer $number
+     *
      * @return ZfcmsProductsOrders
      */
     public function setNumber($number)
@@ -112,7 +113,7 @@ class ZfcmsProductsOrders
     /**
      * Get number
      *
-     * @return integer 
+     * @return integer
      */
     public function getNumber()
     {
@@ -123,6 +124,7 @@ class ZfcmsProductsOrders
      * Set code
      *
      * @param string $code
+     *
      * @return ZfcmsProductsOrders
      */
     public function setCode($code)
@@ -135,7 +137,7 @@ class ZfcmsProductsOrders
     /**
      * Get code
      *
-     * @return string 
+     * @return string
      */
     public function getCode()
     {
@@ -146,6 +148,7 @@ class ZfcmsProductsOrders
      * Set qt
      *
      * @param string $qt
+     *
      * @return ZfcmsProductsOrders
      */
     public function setQt($qt)
@@ -158,7 +161,7 @@ class ZfcmsProductsOrders
     /**
      * Get qt
      *
-     * @return string 
+     * @return string
      */
     public function getQt()
     {
@@ -169,6 +172,7 @@ class ZfcmsProductsOrders
      * Set price
      *
      * @param string $price
+     *
      * @return ZfcmsProductsOrders
      */
     public function setPrice($price)
@@ -181,7 +185,7 @@ class ZfcmsProductsOrders
     /**
      * Get price
      *
-     * @return string 
+     * @return string
      */
     public function getPrice()
     {
@@ -192,6 +196,7 @@ class ZfcmsProductsOrders
      * Set orderDate
      *
      * @param \DateTime $orderDate
+     *
      * @return ZfcmsProductsOrders
      */
     public function setOrderDate($orderDate)
@@ -204,7 +209,7 @@ class ZfcmsProductsOrders
     /**
      * Get orderDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getOrderDate()
     {
@@ -215,6 +220,7 @@ class ZfcmsProductsOrders
      * Set productId
      *
      * @param integer $productId
+     *
      * @return ZfcmsProductsOrders
      */
     public function setProductId($productId)
@@ -227,7 +233,7 @@ class ZfcmsProductsOrders
     /**
      * Get productId
      *
-     * @return integer 
+     * @return integer
      */
     public function getProductId()
     {
@@ -238,6 +244,7 @@ class ZfcmsProductsOrders
      * Set userId
      *
      * @param integer $userId
+     *
      * @return ZfcmsProductsOrders
      */
     public function setUserId($userId)
@@ -250,7 +257,7 @@ class ZfcmsProductsOrders
     /**
      * Get userId
      *
-     * @return integer 
+     * @return integer
      */
     public function getUserId()
     {
@@ -261,6 +268,7 @@ class ZfcmsProductsOrders
      * Set status
      *
      * @param string $status
+     *
      * @return ZfcmsProductsOrders
      */
     public function setStatus($status)
@@ -273,7 +281,7 @@ class ZfcmsProductsOrders
     /**
      * Get status
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
@@ -284,6 +292,7 @@ class ZfcmsProductsOrders
      * Set paymentFormat
      *
      * @param string $paymentFormat
+     *
      * @return ZfcmsProductsOrders
      */
     public function setPaymentFormat($paymentFormat)
@@ -296,7 +305,7 @@ class ZfcmsProductsOrders
     /**
      * Get paymentFormat
      *
-     * @return string 
+     * @return string
      */
     public function getPaymentFormat()
     {

@@ -4,7 +4,7 @@ namespace Admin\Model\AlboPretorio;
 
 use Admin\Model\DataTable\DataTableInterface;
 use Admin\Model\DataTable\DataTableAbstract;
-use Admin\Model\Logs\LogsWriter;
+use Admin\Model\Logs\LogWriter;
 use Application\Model\Database\DbTableContainer;
 use Zend\Session\Container as SessionContainer;
 
@@ -141,7 +141,7 @@ abstract class AlboPretorioArticoliDataTableAbstract extends DataTableAbstract i
                 $connection->commit();
 
                 /* Log */
-                $log = new LogsWriter($connection);
+                $log = new LogWriter($connection);
                 $log->writeLog(array(
 
                 ));

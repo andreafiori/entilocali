@@ -43,8 +43,8 @@ class OperatoriCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
             // Log
             $userDetails  = $this->getInput('userDetails', 1);
 
-            $logsWriter = $this->getLogsWriter();
-            $logResult = $logsWriter->writeLog(array(
+            $LogWriter = $this->getLogWriter();
+            $logResult = $LogWriter->writeLog(array(
                 'user_id'   => $userDetails->id,
                 'module_id' => '12',
                 'message'   => $userDetails->name.' '.$userDetails->surname."' ha aggiornato l'ente terzo ".$this->rawPost['nome'],
@@ -65,8 +65,8 @@ class OperatoriCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
             // Log
             $userDetails  = $this->getInput('userDetails', 1);
 
-            $logsWriter = $this->getLogsWriter();
-            $logResult = $logsWriter->writeLog(array(
+            $LogWriter = $this->getLogWriter();
+            $logResult = $LogWriter->writeLog(array(
                 'user_id'   => $userDetails->id,
                 'module_id' => 12,
                 'message'   => $userDetails->name.' '.$userDetails->surname."', errore durante l'aggiornamento dell'ente terzo ".$this->rawPost['nome'].' Messaggio: '.$errorMessage,
@@ -109,8 +109,8 @@ class OperatoriCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
             // Log
             $userDetails  = $this->getInput('userDetails', 1);
 
-            $logsWriter = $this->getLogsWriter();
-            $logResult = $logsWriter->writeLog(array(
+            $LogWriter = $this->getLogWriter();
+            $logResult = $LogWriter->writeLog(array(
                 'user_id'   => $userDetails->id,
                 'module_id' => 5,
                 'message'   => $userDetails->name.' '.$userDetails->surname."' ha aggiornato l'ente terzo ".$this->rawPost['nome'],

@@ -1,7 +1,7 @@
 <?php if (!empty($this->records)): ?>
 
     <ul class="breadcrumbs">
-        <li><a href="<?php echo $this->basepath() ?>" title="Torna all'home page">Home</a></li>
+        <li><a href="<?php echo $this->url('main', array('lang' => $this->lang)); ?>" title="Torna all'home page">Home</a></li>
         <li class="current"><?php echo $this->records[0]['nomeSezione'] ?></li>
         <li class="current"><?php echo html_entity_decode($this->records[0]['nomeSottosezione'], ENT_COMPAT, 'UTF-8') ?></li>
     </ul>
@@ -21,7 +21,7 @@
         </div>
 
         <?php if (!empty($record['attachments'])): ?>
-            <h3>Allegati</h3>
+            <h3><?php echo $this->translate('Allegati') ?></h3>
             <?php foreach($record['attachments'] as $attachment): ?>
                 <div>
                     <a href="<?php echo $this->url('attachments-sthree-download', array(
@@ -37,10 +37,10 @@
         <br>
 
         <?php if (isset($record['sotto_sezioni'])): ?>
-            <h4>Sotto sezioni</h4>
+            <h4><?php echo $this->translate('Sotto sezioni') ?></h4>
             <ul>
                 <?php foreach($record['sotto_sezioni'] as $sottoSezione): ?>
-                    <li><a href="<?php echo $this->url('contents', array('subsectionid' => $sottoSezione['idSottoSezione'])) ?>" title="Consulta la sottosezione di  <?php echo $record['titolo'] ?> <?php echo $sottoSezione['nomeSottoSezione'] ?>"><?php echo $sottoSezione['nomeSottoSezione'] ?></a></li>
+                    <li><a href="<?php echo $this->url('main/contenuti', array('lang' => $this->lang, 'subsectionid' => $sottoSezione['idSottoSezione'])) ?>" title="Consulta la sottosezione di  <?php echo $record['titolo'] ?> <?php echo $sottoSezione['nomeSottoSezione'] ?>"><?php echo $sottoSezione['nomeSottoSezione'] ?></a></li>
                 <?php endforeach ?>
             </ul>
         <?php endif; ?>
@@ -57,7 +57,7 @@
 
 <?php else: ?>
     <div class="panel callout">
-        <h2>Nessun testo presente in questa pagina</h2>
-        <p>La pagina corrente &egrave; attualmente in costruzione</p>
+        <h2><?php echo $this->translate('Nessun testo presente in questa pagina') ?></h2>
+        <p><?php echo $this->translate('La pagina corrente &egrave; attualmente in costruzione') ?></p>
     </div>
 <?php endif; ?>

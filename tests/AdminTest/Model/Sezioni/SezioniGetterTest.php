@@ -58,10 +58,17 @@ class SezioniGetterTest extends TestSuite
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('attivo'));
     }
 
-    public function testBlocco()
+    public function testSetBlocco()
     {
         $this->objectGetter->setBlocco(1);
 
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('blocco'));
+    }
+
+    public function testSetLingua()
+    {
+        $this->objectGetter->setLingua('it');
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('lingua'));
     }
 }

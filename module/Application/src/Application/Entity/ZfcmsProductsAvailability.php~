@@ -47,7 +47,8 @@ class ZfcmsProductsAvailability
      *
      * @ORM\Column(name="position", type="integer", nullable=false)
      */
-    private $position;
+    private $position = '0';
 
 
 }
+

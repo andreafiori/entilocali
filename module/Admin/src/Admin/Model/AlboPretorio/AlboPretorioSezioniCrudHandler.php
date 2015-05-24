@@ -105,11 +105,11 @@ class AlboPretorioSezioniCrudHandler extends CrudHandlerAbstract implements Crud
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => "Inserito l'atto albo pretorio ".$inputFilter->nome,
@@ -131,11 +131,11 @@ class AlboPretorioSezioniCrudHandler extends CrudHandlerAbstract implements Crud
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => "Errore nell'inserimento sezione albo pretorio ".$inputFilter->nome.' Messaggio: '.$message,
@@ -155,11 +155,11 @@ class AlboPretorioSezioniCrudHandler extends CrudHandlerAbstract implements Crud
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => "Aggiornata la sezione albo pretorio ".$inputFilter->nome,
@@ -181,11 +181,11 @@ class AlboPretorioSezioniCrudHandler extends CrudHandlerAbstract implements Crud
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => "Errore nell'aggiornamento dell'atto albo pretorio ".$inputFilter->nome.' Messaggio: '.$message,

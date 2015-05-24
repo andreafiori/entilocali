@@ -1,18 +1,20 @@
-
 <?php if ($this->cssName!='default' and $this->cssName!=''): ?>
-    <div>&raquo; <a href="<?php echo $this->url('css-style-switch', array('cssname' => 'default')) ?>" title="Torna alla visualizzazione del sito grafico">Sito grafico</a></div>
+    <div>&raquo; <a href="<?php echo $this->url('css-style-switch', array('cssname' => 'default')) ?>" title="Torna alla visualizzazione del sito grafico">
+            <?php echo $this->translate('Sito grafico'); ?>
+        </a>
+    </div>
 <?php endif; ?>
 
 <div class="large-12 columns">
-    
+
     <div class="large-12 columns">
         
         <ul class="inline-list right">
-            <li><a href="#mainContents" accesskey="x" class="button small">Vai ai contenuti</a></li>
+            <li><a href="#mainContents" accesskey="x" class="button small"><?php echo $this->translate('Vai ai contenuti'); ?></a></li>
         </ul>
         
         <h1>
-            <a href="<?php echo $this->basepath() ?>/" title="<?php echo $this->sitename ?>">
+            <a href="<?php echo $this->url('main', array('lang' => $this->lang)) ?>" title="<?php echo $this->sitename ?>">
                 <img src="<?php echo  $this->publicDirRelativePath ?>/frontend/projects/entilocali/templates/telti/assets/images/telti_logo.jpg" alt="">
             </a>
         </h1>
@@ -26,7 +28,7 @@
     <nav class="top-bar" data-topbar role="navigation">
         <ul class="title-area">
             <li class="name">
-                <h1><a href="<?php echo $this->basepath() ?>/" title="Torna all'home page" accesskey="h">Home</a></h1>
+                <h1><a href="<?php echo $this->basepath() ?>/" title="<?php echo $this->translate('Vai alla home page'); ?>" accesskey="h">Home</a></h1>
             </li>
         </ul>
 
@@ -58,30 +60,28 @@
                 <li class="has-form">
                     <div class="row collapse">
                         <div class="large-8 small-9 columns">
-                            <input type="text" name="search" placeholder="Cerca...">
+                            <input type="text" name="search" placeholder="<?php echo $this->translate('Cerca'); ?>...">
                         </div>
                         <div class="large-4 small-3 columns">
-                            <a href="#" class="alert button expand" title="Cerca sul sito">Cerca</a>
+                            <a href="#" class="alert button expand" title="<?php echo $this->translate('Cerca sul sito'); ?>"><?php echo $this->translate('Cerca'); ?></a>
                         </div>
                     </div>
                 </li>
                 <!--
-                <li><a href="#" title="Registrati come nuovo utente">Registrati</a></li>
-                <li><a href="#" title="Iscrizione newsletter">Newsletter</a></li>
+                    <li><a href="#" title="Registrati come nuovo utente">Registrati</a></li>
+                    <li><a href="#" title="Iscrizione newsletter">Newsletter</a></li>
+                -->
 
                 <li class="has-dropdown">
-                    <a href="#" title="Altri moduli">Altri moduli</a>
+                    <a href="javascript:void(0)" title="<?php echo $this->translate('Lingue disponibili'); ?>">
+                        <?php echo $this->translate('Lingue'); ?>
+                    </a>
                     <ul class="dropdown">
-                        <li><a href="#" title="Autocertificazioni">Autocertificazioni</a></li>
-                        <li><a href="#" title="Azienda">Azienda</a></li>
-                        <li><a href="#" title="Booking">Booking</a></li>
-                        <li><a href="#" title="Servizio SMS">Servizio SMS</a></li>
-                        <li><a href="#" title="Servizio Meteo">Meteo</a></li>
-                        <li><a href="#" title="Galleria fotografica">Galleria fotografica</a></li>
-                        <li><a href="#" title="E-commerce">E-commerce</a></li>
+                        <li><a href="<?php echo $this->url('main', array('lang' => 'it')) ?>" title="Sito in lingua italiana">Italiano</a></li>
+                        <li><a href="<?php echo $this->url('main', array('lang' => 'en')) ?>" title="Switch to English language">English</a></li>
                     </ul>
                 </li>
-                -->
+
             </ul>
             
         </section>

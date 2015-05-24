@@ -15,16 +15,19 @@ class SezioniGetter extends QueryBuilderHelperAbstract
      */
     public function setMainQuery()
     {
-        $this->setSelectQueryFields("sezioni.id, sezioni.nome, sezioni.colonna, sezioni.lingua, sezioni.url,
-                                     IDENTITY(sezioni.modulo) AS moduloId, sezioni.attivo,
+        $this->setSelectQueryFields("sezioni.id, sezioni.nome, sezioni.colonna, IDENTITY(sezioni.lingua) AS lingua,
+                                    sezioni.url, IDENTITY(sezioni.modulo) AS moduloId, sezioni.attivo,
                                      sezioni.colonna, sezioni.title, sezioni.image, sezioni.blocco,
 
-                                     modulo.code AS moduleCode
-        ");
+                                     modulo.code AS moduleCode,
+
+                                     languages.abbreviation1 AS abbr
+                                    ");
 
         $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
                                 ->from('Application\Entity\ZfcmsComuniSezioni', 'sezioni')
                                 ->join('sezioni.modulo', 'modulo')
+                                ->join('sezioni.lingua', 'languages')
                                 ->where("sezioni.id != '' ");
 
         return $this->getQueryBuilder();
@@ -41,7 +44,7 @@ class SezioniGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->setParameter('id', $id);
         }
         
-        if (is_array($id)) {
+        if ( is_array($id) ) {
             $this->getQueryBuilder()->andWhere('sezioni.id IN ( :id ) ');
             $this->getQueryBuilder()->setParameter('id', $id);
         }
@@ -97,7 +100,7 @@ class SezioniGetter extends QueryBuilderHelperAbstract
     }
 
     /**
-     * @param int $moduloId
+     * @param int|array $moduloId
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function setModuloId($moduloId)
@@ -107,13 +110,18 @@ class SezioniGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->setParameter('moduloId', $moduloId);
         }
 
+        if ( is_array($moduloId) ) {
+            $this->getQueryBuilder()->andWhere('sezioni.modulo = IN ( :moduloId ) ');
+            $this->getQueryBuilder()->setParameter('moduloId', $moduloId);
+        }
+
         return $this->getQueryBuilder();
     }
 
     /**
- * @param int $slug
- * @return \Doctrine\ORM\QueryBuilder
- */
+     * @param string $slug
+     * @return \Doctrine\ORM\QueryBuilder
+     */
     public function setSlug($slug)
     {
         if (is_numeric($slug) ) {
@@ -133,6 +141,34 @@ class SezioniGetter extends QueryBuilderHelperAbstract
         if (is_numeric($blocco) ) {
             $this->getQueryBuilder()->andWhere('sezioni.blocco = :blocco ');
             $this->getQueryBuilder()->setParameter('blocco', $blocco);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param int $lingua
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setLingua($lingua)
+    {
+        if ( !empty($lingua) ) {
+            $this->getQueryBuilder()->andWhere('sezioni.lingua = :lingua ');
+            $this->getQueryBuilder()->setParameter('lingua', $lingua);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param string $abbreviation
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setLanguageAbbreviation($abbreviation)
+    {
+        if ( !empty($abbreviation) ) {
+            $this->getQueryBuilder()->andWhere('languages.abbreviation1 = :languageAbbreviation ');
+            $this->getQueryBuilder()->setParameter('languageAbbreviation', $abbreviation);
         }
 
         return $this->getQueryBuilder();

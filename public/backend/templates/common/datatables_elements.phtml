@@ -67,7 +67,9 @@
                             </td>
                         <?php elseif($record['type']=='attachButton'): ?>
                             <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
-                                <a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-black" title="<?php echo isset($record['title']) ? $record['title'] : 'Gestione allegati'; ?>"><i class="fa fa-paperclip"></i> </a>
+                                <a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-black" title="<?php echo isset($record['title']) ? $record['title'] : 'Gestione allegati'; ?>">
+                                    <i class="fa fa-paperclip"></i> <?php if (isset($record['attachmentsFilesCount'])): ?>(<?php echo $record['attachmentsFilesCount'] ?>)<?php endif ?>
+                                </a>
                             </td>
                         <?php elseif($record['type']=='relatapdfButton'): ?>
                             <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>

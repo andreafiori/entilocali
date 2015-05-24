@@ -2,9 +2,11 @@
 
 namespace Application\Controller;
 
+use Admin\Model\Sezioni\SezioniGetter;
+use Admin\Model\Sezioni\SezioniGetterWrapper;
 use Application\Model\SetupAbstractControllerHelper;
 use Application\Setup\UserInterfaceConfigurations;
-use Admin\Model\Logs\LogsWriter;
+use Admin\Model\Log\LogWriter;
 use Admin\Service\AppServiceLoader;
 use Admin\Model\Config\ConfigGetter;
 use Admin\Model\Config\ConfigGetterWrapper;
@@ -74,7 +76,7 @@ abstract class SetupAbstractController extends AbstractActionController
     }
 
     /**
-     * Initialize variables for the FRONTEND
+     * Initialize variables for the public website
      *
      * @return string
      */
@@ -86,6 +88,10 @@ abstract class SetupAbstractController extends AbstractActionController
 
         $sessionContainer = new SessionContainer();
 
+        $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+
+        $lang = $this->params()->fromRoute('lang');
+
         if (!$this->checkPasswordPreviewArea($configurations, $sessionContainer)) {
             header("Location: ".$this->url()->fromRoute('password-preview'));
             exit;
@@ -93,10 +99,22 @@ abstract class SetupAbstractController extends AbstractActionController
 
         $request = $this->getRequest();
 
+        $wrapper = new SezioniGetterWrapper(new SezioniGetter($em));
+        $wrapper->setInput(array(
+            'orderBy'               => 'sezioni.posizione ASC',
+            'attivo'                => 1,
+            'languageAbbreviation'  => isset($lang) ? $lang : 'it',
+        ));
+        $wrapper->setupQueryBuilder();
+
+        $sezioniRecords = $wrapper->formatRecordsPerColumn(
+            $wrapper->addSottoSezioni($wrapper->getRecords(), array('attivo'=>1))
+        );
+
         $helper = new SetupAbstractControllerHelper();
         $helper->setConfigurations($configurations);
         $helper->setRequest($request);
-        $helper->setSezioniRecords( $this->getServiceLocator()->get('SezioniRecords') );
+        $helper->setSezioniRecords($sezioniRecords);
         $helper->setupServer();
         $helper->setupFrontendTemplatePath();
         $helper->setupPhpRenderer( $this->getServiceLocator() );
@@ -106,6 +124,20 @@ abstract class SetupAbstractController extends AbstractActionController
         $serverVars             = $helper->getServer();
         $cookieWarningSession   = $sessionContainer->offsetGet('cookie-warning');
         $uri                    = $request->getUri();
+
+        $serviceLocator = $this->getServiceLocator();
+
+        /**
+         * @var \Zend\Mvc\I18n\Translator $translator
+         */
+        $translator = $serviceLocator->get('translator');
+        if ( file_exists('./module/Application/language/app.'.$lang.'.php') ) {
+            $translator->addTranslationFile('phparray', './module/Application/language/app.'.$lang.'.php');
+        }
+        if ( file_exists('./module/Application/language/form.array.'.$lang.'.php') ) {
+            $translator->addTranslationFile('phparray', './module/Application/language/form.array.'.$lang.'.php');
+        }
+        $serviceLocator->get('ViewHelperManager')->get('translate')->setTranslator($translator);
 
         $this->layout()->setVariables($configurations);
         $this->layout()->setVariables( array(
@@ -122,6 +154,7 @@ abstract class SetupAbstractController extends AbstractActionController
             'passwordPreviewArea'   => $this->hasPasswordPreviewArea($configurations),
             'renderer'              => $helper->getPhpRenderer(),
             'cookieWarning'         => isset($cookieWarningSession[$configurations['sitename']]) ? $cookieWarningSession[$configurations['sitename']] : null,
+            'lang'                  => (isset($lang)) ? $lang : 'it',
         ));
 
         return 'frontend/projects/'.$configurations['project_frontend'].'templates/'.$configurations['template_frontend'] .'layout.phtml';
@@ -238,7 +271,7 @@ abstract class SetupAbstractController extends AbstractActionController
     {
         $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
 
-        $log = new LogsWriter($em->getConnection());
+        $log = new LogWriter($em->getConnection());
 
         return $log->writeLog($logArray);
     }
@@ -249,5 +282,19 @@ abstract class SetupAbstractController extends AbstractActionController
     protected function recoverConnection()
     {
         return $this->getServiceLocator()->get('doctrine.entitymanager.orm_default')->getConnection();
+    }
+
+    /**
+     * @return Response
+     */
+    protected function redirectForUnvalidAccess()
+    {
+        if (is_object( $this->getRequest()->getHeader('Referer'))) {
+            return $this->redirect()->toUrl(
+                $this->getRequest()->getHeader('Referer')->uri()->getPath()
+            );
+        }
+
+        return $this->redirect()->toRoute('main', array('lang' => 'it') );
     }
 }

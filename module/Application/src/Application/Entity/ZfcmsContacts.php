@@ -68,7 +68,7 @@ class ZfcmsContacts
      *
      * @ORM\Column(name="format", type="string", length=50, nullable=true)
      */
-    private $format;
+    private $format = 'contact';
 
     /**
      * @var string
@@ -89,14 +89,14 @@ class ZfcmsContacts
      *
      * @ORM\Column(name="user_id", type="bigint", nullable=true)
      */
-    private $userId;
+    private $userId = '1';
 
 
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -107,6 +107,7 @@ class ZfcmsContacts
      * Set name
      *
      * @param string $name
+     *
      * @return ZfcmsContacts
      */
     public function setName($name)
@@ -119,7 +120,7 @@ class ZfcmsContacts
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -130,6 +131,7 @@ class ZfcmsContacts
      * Set surname
      *
      * @param string $surname
+     *
      * @return ZfcmsContacts
      */
     public function setSurname($surname)
@@ -142,7 +144,7 @@ class ZfcmsContacts
     /**
      * Get surname
      *
-     * @return string 
+     * @return string
      */
     public function getSurname()
     {
@@ -153,6 +155,7 @@ class ZfcmsContacts
      * Set email
      *
      * @param string $email
+     *
      * @return ZfcmsContacts
      */
     public function setEmail($email)
@@ -165,7 +168,7 @@ class ZfcmsContacts
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -176,6 +179,7 @@ class ZfcmsContacts
      * Set phone
      *
      * @param string $phone
+     *
      * @return ZfcmsContacts
      */
     public function setPhone($phone)
@@ -188,7 +192,7 @@ class ZfcmsContacts
     /**
      * Get phone
      *
-     * @return string 
+     * @return string
      */
     public function getPhone()
     {
@@ -199,6 +203,7 @@ class ZfcmsContacts
      * Set message
      *
      * @param string $message
+     *
      * @return ZfcmsContacts
      */
     public function setMessage($message)
@@ -211,7 +216,7 @@ class ZfcmsContacts
     /**
      * Get message
      *
-     * @return string 
+     * @return string
      */
     public function getMessage()
     {
@@ -222,6 +227,7 @@ class ZfcmsContacts
      * Set insertDate
      *
      * @param \DateTime $insertDate
+     *
      * @return ZfcmsContacts
      */
     public function setInsertDate($insertDate)
@@ -234,7 +240,7 @@ class ZfcmsContacts
     /**
      * Get insertDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getInsertDate()
     {
@@ -245,6 +251,7 @@ class ZfcmsContacts
      * Set format
      *
      * @param string $format
+     *
      * @return ZfcmsContacts
      */
     public function setFormat($format)
@@ -257,7 +264,7 @@ class ZfcmsContacts
     /**
      * Get format
      *
-     * @return string 
+     * @return string
      */
     public function getFormat()
     {
@@ -268,6 +275,7 @@ class ZfcmsContacts
      * Set status
      *
      * @param string $status
+     *
      * @return ZfcmsContacts
      */
     public function setStatus($status)
@@ -280,7 +288,7 @@ class ZfcmsContacts
     /**
      * Get status
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
@@ -291,6 +299,7 @@ class ZfcmsContacts
      * Set ipAddress
      *
      * @param string $ipAddress
+     *
      * @return ZfcmsContacts
      */
     public function setIpAddress($ipAddress)
@@ -303,7 +312,7 @@ class ZfcmsContacts
     /**
      * Get ipAddress
      *
-     * @return string 
+     * @return string
      */
     public function getIpAddress()
     {
@@ -314,6 +323,7 @@ class ZfcmsContacts
      * Set userId
      *
      * @param integer $userId
+     *
      * @return ZfcmsContacts
      */
     public function setUserId($userId)
@@ -326,7 +336,7 @@ class ZfcmsContacts
     /**
      * Get userId
      *
-     * @return integer 
+     * @return integer
      */
     public function getUserId()
     {

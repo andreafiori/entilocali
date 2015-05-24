@@ -103,11 +103,11 @@ class UsersTodoCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => "Inserito il settore utente ".$inputFilter->nome,
@@ -129,11 +129,11 @@ class UsersTodoCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'inserimento settore utente ".$inputFilter->nome.'Messaggio: '.$message,
@@ -153,11 +153,11 @@ class UsersTodoCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => $userDetails->name.' '.$userDetails->surname."', ha aggiornato il settore utente ".$inputFilter->nome,
@@ -179,11 +179,11 @@ class UsersTodoCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'aggiornamento settore utente ".$inputFilter->nome.' Messaggio: '.$message,

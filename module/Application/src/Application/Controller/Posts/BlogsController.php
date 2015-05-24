@@ -16,7 +16,7 @@ class BlogsController extends SetupAbstractController
 
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-        $page       = $this->params()->fromRoute('page');
+        $page = $this->params()->fromRoute('page');
 
         $category   = $this->params()->fromRoute('category');
 
@@ -70,10 +70,10 @@ class BlogsController extends SetupAbstractController
 
         $wrapper = new PostsGetterWrapper( new PostsGetter($em) );
         $wrapper->setInput(array(
-            'moduleCode'        => 'blogs',
-            'categorySlug'      => $category,
-            'slug'              => $title,
-            'limit'             => 1,
+            'moduleCode'   => 'blogs',
+            'categorySlug' => $category,
+            'slug'         => $title,
+            'limit'        => 1,
         ));
         $wrapper->setupQueryBuilder();
 
@@ -82,18 +82,17 @@ class BlogsController extends SetupAbstractController
         if (!empty($records)) {
             $singleRecord = $records[0];
             $categoryName = $singleRecord['categoryName'];
-            $title = $singleRecord['title'];
+            $title        = $singleRecord['title'];
         }
 
-        $this->layout()->setVariables( array(
-                'categorySlug'      => $category,
-                'titleSlug'         => $title,
-                'categoryName'      => !empty($categoryName) ? $categoryName : null,
-                'title'             => !empty($title) ? $title : null,
-                'record'            => !empty($singleRecord) ? $singleRecord : null,
-                'templatePartial'   => 'posts/blogs/details.phtml'
-            )
-        );
+        $this->layout()->setVariables(array(
+            'categorySlug'      => $category,
+            'titleSlug'         => $title,
+            'categoryName'      => !empty($categoryName) ? $categoryName : null,
+            'title'             => !empty($title) ? $title : null,
+            'record'            => !empty($singleRecord) ? $singleRecord : null,
+            'templatePartial'   => 'posts/blogs/details.phtml',
+        ));
 
         $this->layout()->setTemplate($mainLayout);
     }

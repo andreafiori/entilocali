@@ -20,5 +20,5 @@
         <?php endif; ?>
     <?php endif; ?>
 
-    <li class="active"><?php echo $this->formTitle ?></li>
+    <li class="active"><?php echo (empty($this->formBreadCrumbTitle)) ? $this->formTitle : $this->formBreadCrumbTitle; ?></li>
 </ul>

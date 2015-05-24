@@ -109,11 +109,11 @@ class StatoCivileSezioniCrudHandler extends CrudHandlerAbstract implements CrudH
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => "Inserita sezione stato civile ".$inputFilter->nome,
@@ -135,11 +135,11 @@ class StatoCivileSezioniCrudHandler extends CrudHandlerAbstract implements CrudH
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => "Errore nell'inserimento sezione stato civile".$inputFilter->nome.'Messaggio: '.$message,
@@ -159,11 +159,11 @@ class StatoCivileSezioniCrudHandler extends CrudHandlerAbstract implements CrudH
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => "Aggiornata sezione stato civile ".$inputFilter->nome,
@@ -185,11 +185,11 @@ class StatoCivileSezioniCrudHandler extends CrudHandlerAbstract implements CrudH
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => "Errore nell'aggiornamento della sezione stato civile ".$inputFilter->nome.' Messaggio: '.$message,

@@ -244,8 +244,10 @@ abstract class TestSuite extends \PHPUnit_Framework_TestCase
                         ->method('getResult')
                         ->will($this->returnValue( array(
                             array(
-                                "id"        => 1,
-                                "myResult"  => 'MyResult',
+                                "id" => 1,
+                                'idSottoSezione' => 1,
+                                'nomeSezione' => 'my section',
+                                'nomeSottoSezione' => 'my sub-section',
                             ),
                             array(
                                 'name'  => 'sitename',
@@ -300,11 +302,9 @@ abstract class TestSuite extends \PHPUnit_Framework_TestCase
             'serviceLocator'        => $this->getServiceManager(),
             'entityManager'         => $this->getEntityManagerMock(),
             'queryBuilder'          => $this->getQueryBuilderMock(),
-            
             'languageId'            => 1,
             'languageAbbreviation'  => 'it',
             'channelId'             => 1,
-            
             'title'                 => 'My Title',
             'category'              => 'My Category Name',
         );

@@ -105,11 +105,11 @@ class AttiConcessioneModalitaAssegnazioneCrudHandler extends CrudHandlerAbstract
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => "Inserita nuova modalita' assegnazione atto concessione ".$inputFilter->nome,
@@ -131,11 +131,11 @@ class AttiConcessioneModalitaAssegnazioneCrudHandler extends CrudHandlerAbstract
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => "Errore nell'inserimento della nuova modalita' assegnazione atto concessione atto concessione ".$inputFilter->nome.'Messaggio: '.$message,
@@ -155,11 +155,11 @@ class AttiConcessioneModalitaAssegnazioneCrudHandler extends CrudHandlerAbstract
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => "Aggiornata la modalita' assegnazione atto concessione ".$inputFilter->nome,
@@ -181,11 +181,11 @@ class AttiConcessioneModalitaAssegnazioneCrudHandler extends CrudHandlerAbstract
 
         $userDetails = $this->getUserDetails();
 
-        $logsWriter = $this->getLogsWriter();
+        $LogWriter = $this->getLogWriter();
 
         $inputFilter = $this->getFormInputFilter();
 
-        return $logsWriter->writeLog(array(
+        return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
             'message'   => "Errore nell'aggiornamento della modalita' assegnazione atto concessione ".$inputFilter->nome.' Messaggio: '.$message,

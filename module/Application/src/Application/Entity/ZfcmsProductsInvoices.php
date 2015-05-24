@@ -26,14 +26,14 @@ class ZfcmsProductsInvoices
      *
      * @ORM\Column(name="description", type="string", length=100, nullable=false)
      */
-    private $description;
+    private $description = '0';
 
     /**
      * @var string
      *
      * @ORM\Column(name="note", type="string", length=100, nullable=false)
      */
-    private $note;
+    private $note = '0';
 
     /**
      * @var integer
@@ -47,7 +47,7 @@ class ZfcmsProductsInvoices
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -58,6 +58,7 @@ class ZfcmsProductsInvoices
      * Set description
      *
      * @param string $description
+     *
      * @return ZfcmsProductsInvoices
      */
     public function setDescription($description)
@@ -70,7 +71,7 @@ class ZfcmsProductsInvoices
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -81,6 +82,7 @@ class ZfcmsProductsInvoices
      * Set note
      *
      * @param string $note
+     *
      * @return ZfcmsProductsInvoices
      */
     public function setNote($note)
@@ -93,7 +95,7 @@ class ZfcmsProductsInvoices
     /**
      * Get note
      *
-     * @return string 
+     * @return string
      */
     public function getNote()
     {
@@ -104,6 +106,7 @@ class ZfcmsProductsInvoices
      * Set orderId
      *
      * @param integer $orderId
+     *
      * @return ZfcmsProductsInvoices
      */
     public function setOrderId($orderId)
@@ -116,7 +119,7 @@ class ZfcmsProductsInvoices
     /**
      * Get orderId
      *
-     * @return integer 
+     * @return integer
      */
     public function getOrderId()
     {

@@ -33,7 +33,7 @@ class ZfcmsFaqQuestions
      *
      * @ORM\Column(name="position", type="bigint", nullable=false)
      */
-    private $position;
+    private $position = '0';
 
     /**
      * @var string
@@ -92,3 +92,4 @@ class ZfcmsFaqQuestions
 
 
 }
+
