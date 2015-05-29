@@ -17,6 +17,7 @@ echo $this->partial($this->templateDir.'_navigation');
                             echo $this->partial($this->templateDir.'_column', array(
                                 'sezioni' => $this->sezioni['sx'],
                                 'publicDirRelativePath' => $this->publicDirRelativePath,
+                                'lang'                  => $this->lang,
                             ));
                         else:
                             ?>
@@ -44,6 +45,7 @@ echo $this->partial($this->templateDir.'_navigation');
                             echo $this->partial($this->templateDir.'_column', array(
                                 'sezioni' => $this->sezioni['dx'],
                                 'publicDirRelativePath' => $this->publicDirRelativePath,
+                                'lang'                  => $this->lang,
                             ));
                         else:
                             ?>

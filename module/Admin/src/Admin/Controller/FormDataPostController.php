@@ -2,15 +2,11 @@
 
 namespace Admin\Controller;
 
-use Admin\Model\Logs\LogWriter;
+use Admin\Model\Log\LogWriter;
 use Application\Controller\SetupAbstractController;
 use Admin\Model\FormData\FormDataCrudHandler;
 use Zend\View\Model\ViewModel;
 
-/**
- * @author Andrea Fiori
- * @since  19 March 2015
- */
 class FormDataPostController extends SetupAbstractController
 {
     /**
@@ -58,12 +54,12 @@ class FormDataPostController extends SetupAbstractController
                 $request->getFiles()->toArray()
             );
 
+            /* Set form input filter and validate */
             $crudHandler->getForm()->setInputFilter( $crudHandler->getFormInputFilter()->getInputFilter() );
             $crudHandler->getForm()->setBindOnValidate(false);
             $crudHandler->getForm()->setData($post);
 
-            $formValidation = $crudHandler->getForm()->isValid();
-            if (!$formValidation) {
+            if (!($crudHandler->getForm()->isValid())) {
                 throw new \Exception("Form non valido. Verificare i dati inseriti. Se l'errore persiste, contattare l'amministrazione");
             }
 

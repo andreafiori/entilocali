@@ -34,29 +34,35 @@ class SezioniFormController extends SetupAbstractController
 
             $submitButtonValue = 'Modifica';
             $formTitle = $recordFromDb[0]['nome'];
-            $formAction = 'sezioni-contenuti/update/';
+            $formAction = $this->url()->fromRoute('admin/sezioni-update', array(
+                'lang'              => $this->params()->fromRoute('lang'),
+                'languageSelection' => $this->params()->fromRoute('languageSelection'),
+            ));
         } else {
-            $form->setData( array(
-                    'posizione' => 1,
-                )
-            );
+            $form->setData( array('posizione' => 1) );
 
             $formTitle = 'Nuova sezione';
             $submitButtonValue = 'Inserisci';
-            $formAction = 'sezioni-contenuti/insert/';
+            $formAction = $this->url()->fromRoute('admin/sezioni-insert', array(
+                'lang'              => $this->params()->fromRoute('lang'),
+                'languageSelection' => $this->params()->fromRoute('languageSelection'),
+            ));
         }
 
-        $this->layout()->setVariables( array(
-                'form'                          => $form,
-                'formAction'                    => $formAction,
-                'formTitle'                     => $formTitle,
-                'formDescription'               => 'Le sezioni rappresentano i blocchi principali sui quali costruire le basi dei contenuti',
-                'submitButtonValue'             => $submitButtonValue,
-                'formBreadCrumbCategory'        => 'Sezioni',
-                'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/sezioni-summary', array('lang' => 'it')),
-                'templatePartial'               => self::formTemplate,
-            )
-        );
+        $this->layout()->setVariables(array(
+            'form'                          => $form,
+            'formAction'                    => $formAction,
+            'formTitle'                     => $formTitle,
+            'formDescription'               => 'Le sezioni rappresentano i blocchi principali sui quali costruire le basi dei contenuti',
+            'submitButtonValue'             => $submitButtonValue,
+            'noFormActionPrefix'            => 1,
+            'formBreadCrumbCategory'        => 'Sezioni',
+            'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/sezioni-summary', array(
+                'lang' => 'it',
+                'languageSelection' => $this->params()->fromRoute('languageSelection'),
+            )),
+            'templatePartial' => self::formTemplate,
+        ));
 
         $this->layout()->setTemplate($mainLayout);
     }

@@ -1,7 +1,10 @@
 <ul class="breadcrumb">
-    <li><a href="<?php echo $this->url('admin', array('lang'=>'it')); ?>" title="Home page">Home</a>
-        <span class="divider"></span></li>
-    
+    <li>
+        <a href="<?php echo $this->url('admin', array('lang' => $this->params()->fromRoute('lang'))); ?>" title="Home page">
+            Home
+        </a>
+    </li>
+
     <?php if ( is_array($this->formBreadCrumbCategory) ): ?>
 
         <?php foreach($this->formBreadCrumbCategory as $breadcrumb): ?>
@@ -20,5 +23,7 @@
         <?php endif; ?>
     <?php endif; ?>
 
-    <li class="active"><?php echo (empty($this->formBreadCrumbTitle)) ? $this->formTitle : $this->formBreadCrumbTitle; ?></li>
+    <li class="active">
+        <?php echo (empty($this->formBreadCrumbTitle)) ? $this->formTitle : $this->formBreadCrumbTitle; ?>
+    </li>
 </ul>

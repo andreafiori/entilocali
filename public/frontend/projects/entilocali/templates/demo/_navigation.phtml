@@ -7,7 +7,11 @@
     <div class="large-12 columns">
         
         <ul class="inline-list right">
-            <li><a href="#mainContents" accesskey="x" class="button small" title="Salta ai contenuti">Vai ai contenuti</a></li>
+            <li>
+                <a href="#mainContents" accesskey="x" class="button small" title="<?php echo $this->translate('Salta ai contenuti'); ?>">
+                    <?php echo $this->translate('Vai ai contenuti'); ?>
+                </a>
+            </li>
         </ul>
         
         <h1>
@@ -25,7 +29,7 @@
     <nav class="top-bar" data-topbar role="navigation">
         <ul class="title-area">
             <li class="name">
-                <h2><a href="<?php echo $this->basepath() ?>/" title="Torna all'home page" accesskey="h">Home</a></h2>
+                <h2><a href="<?php echo $this->url('main', array('lang' => $this->lang)); ?>" title="Torna all'home page" accesskey="h">Home</a></h2>
             </li>
 
             <?php if (!$this->cssName or $this->cssName == 'default'): ?>
@@ -63,33 +67,49 @@
 
             <ul class="right">
 
-                <!--
                 <li class="has-form">
                     <div class="row collapse">
                         <div class="large-8 small-9 columns">
-                            <input type="text" name="search" placeholder="Cerca...">
+                            <input type="text" name="search" placeholder="<?php echo $this->translate('Cerca'); ?>...">
                         </div>
                         <div class="large-4 small-3 columns">
-                            <a href="#" class="alert button expand" title="Cerca sul sito">Cerca</a>
+                            <a href="#" class="alert button expand" title="<?php echo $this->translate('Cerca sul sito'); ?>">
+                                <?php echo $this->translate('Cerca'); ?>
+                            </a>
                         </div>
                     </div>
                 </li>
-                -->
-
-                <li><a href="<?php echo $this->url('registrazione', array()); ?>" title="Registrati come nuovo utente">Registrati</a></li>
 
                 <li class="has-dropdown">
-                    <a href="#" title="Altri moduli">Altri moduli</a>
+                    <a href="javascript:void(0)" title="<?php echo $this->translate('Lingue disponibili'); ?>">
+                        <?php echo $this->translate('Lingue'); ?>
+                    </a>
                     <ul class="dropdown">
-                        <li><a href="#" title="Moduli Autocertificazioni">Autocertificazioni</a></li>
-                        <li><a href="#" title="Servizi personalizzati per aziende">Azienda</a></li>
-                        <li><a href="#" title="Servizio SMS, invio messaggi">Servizio SMS</a></li>
-                        <li><a href="#" title="Servizio Meteo">Meteo</a></li>
+                        <li><a href="<?php echo $this->url('main', array('lang' => 'it')) ?>" title="Sito in lingua italiana">Italiano</a></li>
+                        <li><a href="<?php echo $this->url('main', array('lang' => 'en')) ?>" title="Switch to English language">English</a></li>
+                    </ul>
+                </li>
+
+                <li class="has-dropdown">
+                    <a href="#" title="<?php echo $this->translate('Altri moduli') ?>"><?php echo $this->translate('Altri moduli') ?></a>
+                    <ul class="dropdown">
+                        <li><a href="#" title="Moduli Autocertificazioni"><?php echo $this->translate('Autocertificazioni') ?></a></li>
+                        <li><a href="#" title="Servizi personalizzati per aziende"><?php echo $this->translate('Azienda') ?></a></li>
+                        <li><a href="#" title="<?php echo $this->translate('Servizio SMS, invio messaggi') ?>"><?php echo $this->translate('Servizio SMS') ?></a></li>
+                        <li><a href="#" title="<?php echo $this->translate('Servizio Meteo') ?>"><?php echo $this->translate('Meteo') ?></a></li>
                         <li><a href="#" title="Booking">Booking</a></li>
                         <li><a href="#" title="E-commerce">E-commerce</a></li>
-                        <li><a href="#" title="Iscrizione newsletter">Newsletter</a></li>
-                        <li><a href="<?php echo $this->url('posts-photo-gallery') ?>" title="Galleria fotografica e categorie di foto">Galleria fotografica</a></li>
-                        <li><a href="<?php echo $this->url('contatti') ?>" title="Form contatti">Contatti</a></li>
+                        <li><a href="#" title="<?php echo $this->translate('Iscrizione newsletter') ?>">Newsletter</a></li>
+                        <li>
+                            <a href="<?php echo $this->url('main/posts-photo-gallery', array('lang' => $this->lang)) ?>" title="Galleria fotografica e categorie di foto">
+                                <?php echo $this->translate('Galleria fotografica') ?>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="<?php echo $this->url('contatti') ?>" title="Form contatti">
+                                <?php echo $this->translate('Contatti') ?>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 

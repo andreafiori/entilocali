@@ -21,6 +21,7 @@ class ContenutiFormController extends SetupAbstractController
         $id                     = $this->params()->fromRoute('id');
         $em                     = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
         $userDetails            = $this->layout()->getVariable('userDetails');
+        $languageSelection      = $this->params()->fromRoute('languageSelection');
         $ammTraspSezioneId      = $this->layout()->getVariable('amministrazione_trasparente_sezione_id');
         $ammTraspSottoSezioneId = $this->layout()->getVariable('amministrazione_trasparente_sottosezione_id');
 
@@ -37,6 +38,7 @@ class ContenutiFormController extends SetupAbstractController
                 'excludeId'             => $ammTraspSottoSezioneId,
                 'excludeSezioneId'      => $ammTraspSezioneId,
                 'showToAll'             => ($userDetails->role == 'WebMaster') ? null : 1,
+                'languageAbbreviation'  => $languageSelection,
             ));
             $helper->formatSottoSezioniGetterWrapperRecordsForDropdown();
 
@@ -70,8 +72,13 @@ class ContenutiFormController extends SetupAbstractController
                 $submitButtonValue      = 'Modifica';
                 $formTitle              = 'Modifica contenuto';
                 $formDescription        = 'Modifica i dati relativi al contenuto';
-                $formAction             = 'contenuti/update/';
+                $formAction             = $this->url()->fromRoute('admin/contenuti-update', array(
+                        'lang'              => $this->params()->fromRoute('lang'),
+                        'languageSelection' => $languageSelection,
+                    )
+                );
                 $formBreadCrumbTitle    = '';
+
             } else {
                 $form->setData(array(
                     'dataInserimento'   => date('Y-m-d H:i:s'),
@@ -84,23 +91,30 @@ class ContenutiFormController extends SetupAbstractController
                 $formTitle              = 'Nuovo contenuto';
                 $formDescription        = 'Inserisci i dati relativi al contenuto';
                 $submitButtonValue      = 'Inserisci';
-                $formAction             = 'contenuti/insert/';
+                $formAction             = $this->url()->fromRoute('admin/contenuti-insert', array(
+                    'lang'              => $this->params()->fromRoute('lang'),
+                    'languageSelection' => $languageSelection,
+                ));
                 $formBreadCrumbTitle    = 'Nuovo contenuto';
             }
 
-            $this->layout()->setVariables( array(
-                    'form'                       => $form,
-                    'formAction'                 => $formAction,
-                    'formTitle'                  => $formTitle,
-                    'formDescription'            => $formDescription,
-                    'submitButtonValue'          => $submitButtonValue,
-                    'CKEditorField'              => array('testo'),
-                    'formBreadCrumbCategory'     => 'Contenuti',
-                    'formBreadCrumbCategoryLink' => $this->url()->fromRoute('admin/contenuti-summary', array('lang' => 'it')),
-                    'formBreadCrumbTitle'        => $formBreadCrumbTitle,
-                    'templatePartial'            => self::formTemplate
-                )
-            );
+            $this->layout()->setVariables(array(
+                'form'                       => $form,
+                'formAction'                 => $formAction,
+                'formTitle'                  => $formTitle,
+                'formDescription'            => $formDescription,
+                'submitButtonValue'          => $submitButtonValue,
+                'CKEditorField'              => array('testo'),
+                'formBreadCrumbCategory'     => 'Contenuti',
+                'noFormActionPrefix'         => 1,
+                'formBreadCrumbCategoryLink' => $this->url()->fromRoute('admin/contenuti-summary', array(
+                    'lang'              => $this->params()->fromRoute('lang'),
+                    'languageSelection' => $languageSelection,
+                    'page'              => $this->params()->fromRoute('previouspage'),
+                )),
+                'formBreadCrumbTitle'        => $formBreadCrumbTitle,
+                'templatePartial'            => self::formTemplate
+            ));
 
         } catch(\Exception $e) {
 

@@ -1,0 +1,26 @@
+<?php echo $this->render('backend/templates/'.$this->template_backend.'datatable/datatable_breadcrumb.phtml'); ?>
+
+<?php if ($this->formLanguage): ?>
+    <div>
+        <a href="javascript:void(0)" id="lnkSearchExport" class="btn btn-primary">
+            <i class="fa fa-search"></i> <?php echo $this->translate('Ricerca ed esportazione'); ?>
+        </a>
+    </div>
+
+    <div id="frmFrmSearchExport" style="display: block">
+        <br>
+        <?php
+        echo $this->partial($this->formDataCommonPath.'_formdata_language.phtml', array(
+                'formAction'   => $this->url('admin/sottosezioni-operations', array(
+                    'lang'   => $this->params()->fromRoute('lang'),
+                    'action' => 'changeammtraspsummarylang',
+                )),
+                'formLanguage' => $this->formLanguage,
+            )
+        );
+        ?>
+    </div>
+<?php
+endif;
+
+echo $this->render('backend/templates/common/datatables_zend_pagination.phtml');

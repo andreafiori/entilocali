@@ -7,6 +7,7 @@ return array(
     'Rosso su nero'         => 'Red on black',
     'Alta visibilit&agrave;' => 'High visibility',
     'Accesso da tastiera'   => 'Shortcuts',
+    'Elenco accessi da tastiera (Shortcut)' => 'Shortcut list',
     'Dichiarazione di accessibilit&agrave;' => 'Accessibility notes',
     'Passa alla visualizzazione' => 'View website ',
     'Sito testuale'         => 'Text-only version',
@@ -25,6 +26,12 @@ return array(
     "Inserisci l'indirizzo email per richiedere una nuova password" => 'Insert your email address to obtain a new password',
     'Lingue'                => 'Languages',
     'Galleria fotografica'  => 'Photo gallery',
+    'Meteo'                 => 'Weather',
+    'Servizio meteo'        => 'Weather service',
+    'Altri moduli'          => 'Other modules',
+    'Azienda'               => 'Company',
+    'Contatti'              => 'Contact us',
+    "apre in un'altra pagina" => "apre in un'altra pagina",
 
     /* Contenuti */
     'Nessun testo presente in questa pagina' => 'No content for this page',

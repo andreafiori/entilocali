@@ -4,10 +4,6 @@ namespace Admin\Model\Log;
 
 use Application\Model\QueryBuilderHelperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  12 December 2014
- */
 class LogGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()

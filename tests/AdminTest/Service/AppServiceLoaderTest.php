@@ -9,12 +9,11 @@ use Admin\Model\Config\ConfigGetterWrapper;
 use Application\Setup\UserInterfaceConfigurations;
 use ApplicationTest\TestSuite;
 
-/**
- * @author Andrea Fiori
- * @since  26 November 2014
- */
 class AppServiceLoaderTest extends TestSuite
 {
+    /**
+     * @var AppServiceLoader
+     */
     private $appServiceLoader;
     
     protected function setUp()
@@ -103,7 +102,10 @@ class AppServiceLoaderTest extends TestSuite
     {
         $this->setupController($this->routeMatch);
         
-        $this->appServiceLoader->setupConfigurations(new ConfigGetterWrapper( new ConfigGetter($this->getEntityManagerMock()) ));
+        $this->appServiceLoader->setupConfigurations(
+            new ConfigGetterWrapper(new ConfigGetter($this->getEntityManagerMock())),
+            array()
+        );
         
         $this->assertTrue(is_array($this->appServiceLoader->recoverService('configurations')) );
     }
@@ -111,8 +113,11 @@ class AppServiceLoaderTest extends TestSuite
     public function testUserInterfaceConfigurations()
     {
         $this->setupController($this->routeMatch);
-        
-        $this->appServiceLoader->setupConfigurations(new ConfigGetterWrapper(new ConfigGetter($this->getEntityManagerMock())));
+
+        $this->appServiceLoader->setupConfigurations(
+            new ConfigGetterWrapper(new ConfigGetter($this->getEntityManagerMock())),
+            array()
+        );
         
         $ui = new UserInterfaceConfigurations($this->appServiceLoader->recoverService('configurations'));
         

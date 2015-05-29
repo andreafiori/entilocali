@@ -60,7 +60,7 @@ class AttachmentsSummaryController extends SetupAbstractController
                     'formBreadCrumbCategory'            => $helper->getPropertiesGetterClassInstance()->getBreadcrumbModule(),
                     'formBreadCrumbCategoryLink'        => $this->url()->fromRoute(
                         $helper->getPropertiesGetterClassInstance()->getBreadcrumbRoute(),
-                        array('lang' => 'it')
+                        array('lang' => 'it', 'languageSelection' => 'it')
                     ),
                     'alboRettificaColumnDisplay'        => (isset($alboRettificaColumnDisplay)) ? $alboRettificaColumnDisplay : null,
                     'attiConcessioneCatColumnDisplay'   => (isset($attiConcessioneColumnDisplayForm)) ? 1 : null,

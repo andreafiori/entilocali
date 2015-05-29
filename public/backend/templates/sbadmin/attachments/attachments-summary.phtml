@@ -1,5 +1,5 @@
 <ul class="breadcrumb">
-    <li><a href="<?php echo $this->url('admin', array('lang'=>'it')); ?>" title="Home page">Home</a> <span class="divider"></span></li>
+    <li><a href="<?php echo $this->url('admin', array('lang' => 'it')); ?>" title="Home page">Home</a> <span class="divider"></span></li>
     <li class="active">
         <a href="<?php echo $this->formBreadCrumbCategoryLink ?>" title="<?php echo $this->formBreadCrumbCategory ?>">
             <?php echo $this->formBreadCrumbCategory ?>
@@ -37,7 +37,7 @@
             <h4><?php echo $this->translate('Nessun allegato presente') ?></h4>
             <div><?php echo $this->translate("Nessun allegato presente per l'articolo corrente. Inserisci un nuovo allegato.") ?></div>
         </div>
-        
+
     <?php else: ?>
         <div>&nbsp;</div>
         <form action="#" method="post" enctype="multipart/form-data">

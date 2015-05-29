@@ -44,8 +44,8 @@ class SezioniForm extends Form
                 'label' => '* Lingua',
                 'empty_option' => 'Seleziona',
                 'value_options' => array(
-                    'it'   => 'Italiano',
-                    'en'   => 'English',
+                    1   => 'Italiano',
+                    2   => 'English',
                 ),
             ),
             'attributes' => array(

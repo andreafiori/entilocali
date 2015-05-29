@@ -15,13 +15,14 @@ class SottoSezioniGetter extends QueryBuilderHelperAbstract
         $this->setSelectQueryFields("sottosezioni.id AS idSottoSezione, IDENTITY(sottosezioni.sezione) AS sezione,
             sottosezioni.nome AS nomeSottoSezione, sottosezioni.immagine, sezioni.id AS idSezione, sezioni.nome AS nomeSezione,
             IDENTITY(sottosezioni.profonditaDa) AS profonditaDa, sottosezioni.profonditaA, sottosezioni.url, sottosezioni.attivo,
-            sottosezioni.url, sottosezioni.urlTitle, sottosezioni.posizione
+            sottosezioni.url, sottosezioni.urlTitle, sottosezioni.posizione, sottosezioni.isAmmTrasparente
         ");
 
         $this->getQueryBuilder()->select($this->getSelectQueryFields())
                                 ->from('Application\Entity\ZfcmsComuniSottosezioni', 'sottosezioni')
                                 ->join('sottosezioni.sezione', 'sezioni')
                                 ->join('sezioni.modulo', 'modulo')
+                                ->join('sezioni.lingua', 'languages')
                                 ->where("sottosezioni.sezione = sezioni.id ");
 
         return $this->getQueryBuilder();
@@ -176,6 +177,34 @@ class SottoSezioniGetter extends QueryBuilderHelperAbstract
         if ( is_numeric($attivo) ) {
             $this->getQueryBuilder()->andWhere('sottosezioni.attivo = :attivo ');
             $this->getQueryBuilder()->setParameter('attivo', $attivo);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param int $lingua
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setLinguaId($lingua)
+    {
+        if ( !empty($lingua) ) {
+            $this->getQueryBuilder()->andWhere('sezioni.lingua = :linguaId ');
+            $this->getQueryBuilder()->setParameter('linguaId', $lingua);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param string $abbreviation
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setLanguageAbbreviation($abbreviation)
+    {
+        if ( !empty($abbreviation) ) {
+            $this->getQueryBuilder()->andWhere('languages.abbreviation1 = :languageAbbreviation ');
+            $this->getQueryBuilder()->setParameter('languageAbbreviation', $abbreviation);
         }
 
         return $this->getQueryBuilder();

@@ -7,6 +7,7 @@ use Admin\Model\FormData\CrudHandlerInsertUpdateInterface;
 use Admin\Model\FormData\CrudHandlerInterface;
 use Application\Model\Database\DbTableContainer;
 use Admin\Model\Modules\ModulesContainer;
+use Application\Model\NullException;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Admin\Model\Amazon\S3\S3;
 
@@ -111,25 +112,29 @@ class AttachmentsCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
             array('id' => $lastId)
         );
 
-        // Insert Relations
-        $this->getConnection()->insert($this->tableName_relations, array(
-            'attachment_id' => $attachmentsTableLastInsertId,
-            'reference_id'  => $formData->referenceId,
-            'module_id'     => $formData->moduleId,
-        ));
-
         // Upload on Amazon S3
         $filename = AttachmentsContainer::assignFileName($formData->attachmentFile['name'], $lastId);
         $s3 = new S3(
             $configurations['amazon_s3_accesskey'],
             $configurations['amazon_s3_secretkey']
         );
-        $s3->putObject(
+        $s3Upload = $s3->putObject(
             S3::inputFile($formData->attachmentFile['tmp_name'], false),
             $configurations['amazon_s3_bucket'],
             $formData->s3_directory.'/'.$filename,
             S3::ACL_PUBLIC_READ
         );
+
+        if (!$s3Upload) {
+            throw new NullException("Errore upload file ".$configurations['amazon_s3_bucket'].' - ');
+        }
+
+        // Insert Relations
+        $this->getConnection()->insert($this->tableName_relations, array(
+            'attachment_id' => $attachmentsTableLastInsertId,
+            'reference_id'  => $formData->referenceId,
+            'module_id'     => $formData->moduleId,
+        ));
 
         return true;
     }

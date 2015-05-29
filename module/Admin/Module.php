@@ -41,12 +41,11 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
         $matchedRoute = $router->match($request);
 
         $params = $matchedRoute->getParams();
-
-        if (!isset($params['controller'])) {
-            return;
-        }
-
         $controller = $params['controller'];
+
+        if (!isset($controller)) {
+            return false;
+        }
 
         $currentControllerNamespace = explode('\\', $controller);
 
@@ -57,9 +56,8 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
 
             $userDetails = $session->offsetGet('userDetails');
 
-            if ( !$sl->get('AuthService')->hasIdentity() or
-                $userDetails->sitename != $this->recoverSitename($sl)
-                ) {
+            /* Check Admin area login */
+            if ( !$sl->get('AuthService')->hasIdentity() or $userDetails->sitename != $this->recoverSitename($sl) ) {
 
                 $url = $e->getRouter()->assemble(array('action' => 'index'), array('name' => 'login'));
 

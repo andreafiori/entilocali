@@ -156,7 +156,7 @@ abstract class OperationsModelAbstract
      * @param int $perPage
      * @return mixed
      */
-    protected function recoverWrapperRecordsPaginator($wrapper, $input, $page, $perPage = null)
+    public function recoverWrapperRecordsPaginator($wrapper, $input, $page, $perPage = null)
     {
         $wrapper->setInput($input);
         $wrapper->setupQueryBuilder();
@@ -165,5 +165,29 @@ abstract class OperationsModelAbstract
         $wrapper->setupPaginatorItemsPerPage($perPage);
 
         return $wrapper;
+    }
+
+    /**
+     * @param array $recordset
+     * @param $idFieldName
+     * @param $valueFieldName
+     * @return array|bool
+     */
+    public function formatForDropwdown($recordset, $idFieldName, $valueFieldName)
+    {
+        if (!empty($recordset)) {
+            $arrayToReturn = array();
+            foreach($recordset as $record) {
+
+                if (!isset($record[$idFieldName])) {
+                    break;
+                }
+
+                $arrayToReturn[$record[$idFieldName]] = isset($record[$valueFieldName]) ? $record[$valueFieldName] : null;
+            }
+            return $arrayToReturn;
+        }
+
+        return false;
     }
 }

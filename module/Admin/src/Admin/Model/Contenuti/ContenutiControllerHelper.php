@@ -2,19 +2,17 @@
 
 namespace Admin\Model\Contenuti;
 
-use Admin\Model\ControllerHelperAbstract;
-use Admin\Model\Sezioni\SottoSezioniGetterWrapper;
+use Admin\Model\Sezioni\SezioniControllerHelperAbstract;
 use Application\Model\NullException;
+use Zend\InputFilter\InputFilterAwareInterface;
+use Application\Model\Database\DbTableContainer;
+use Application\Model\Slugifier;
 
-class ContenutiControllerHelper extends ControllerHelperAbstract
+class ContenutiControllerHelper extends SezioniControllerHelperAbstract
 {
     private $contenutiGetterWrapper;
 
     private $contenutiGetterWrapperRecords;
-
-    private $sottoSezioniGetterWrapper;
-
-    private $sottoSezioniGetterWrapperRecords;
 
     /**
      * @param ContenutiGetterWrapper $contenutiGetterWrapper
@@ -64,7 +62,7 @@ class ContenutiControllerHelper extends ControllerHelperAbstract
 
     /**
      * @param array $input
-     * @param $page
+     * @param int $page
      * @throws NullException
      */
     public function setupContenutiGetterWrapperRecordsPaginator($input = array(), $page)
@@ -79,14 +77,6 @@ class ContenutiControllerHelper extends ControllerHelperAbstract
     }
 
     /**
-     * @param SottoSezioniGetterWrapper $sottoSezioniGetterWrapper
-     */
-    public function setSottoSezioniGetterWrapper(SottoSezioniGetterWrapper $sottoSezioniGetterWrapper)
-    {
-        $this->sottoSezioniGetterWrapper = $sottoSezioniGetterWrapper;
-    }
-
-    /**
      * @throws NullException
      */
     private function assertContenutiGetterWrapper()
@@ -97,72 +87,66 @@ class ContenutiControllerHelper extends ControllerHelperAbstract
     }
 
     /**
+     * @param InputFilterAwareInterface $inputFilter
+     * @return int
      * @throws NullException
      */
-    private function assertSottoSezioniGetterWrapper()
+    public function insert(InputFilterAwareInterface $inputFilter)
     {
-        if (!$this->getSottoSezioniGetterWrapper()) {
-            throw new NullException("SottoSezioniGetterWrapper is not set");
-        }
-    }
+        $this->assertConnection();
+        $this->assertLoggedUser();
 
-    /**
-     * @throws NullException
-     */
-    private function assertSottoSezioniGetterWrapperRecords()
-    {
-        $sottoSezioniRecords = $this->getSottoSezioniGetterWrapperRecords();
-        if ( empty($sottoSezioniRecords) ) {
-            throw new NullException("SottoSezioniGetterWrapperRecords are not set or empty");
-        }
-    }
+        $userDetails = $this->getLoggedUser();
 
-    /**
-     * @return mixed
-     */
-    public function getSottoSezioniGetterWrapper()
-    {
-        return $this->sottoSezioniGetterWrapper;
-    }
+        $arrayUpdate = array(
+            'sottosezione_id'   => $inputFilter->sottosezione,
+            'titolo'            => $inputFilter->titolo,
+            'sommario'          => strip_tags($inputFilter->sommario),
+            'testo'             => $inputFilter->testo,
+            'data_inserimento'  => $inputFilter->dataInserimento,
+            'data_scadenza'     => $inputFilter->dataScadenza,
+            'attivo'            => $inputFilter->attivo,
+            'slug'              => Slugifier::slugify($inputFilter->titolo),
+            'home'              => $inputFilter->home,
+            'rss'               => $inputFilter->rss,
+            'utente_id'         => $userDetails->id
+        );
 
-    /**
-     * @return array
-     */
-    public function getSottoSezioniGetterWrapperRecords()
-    {
-        return $this->sottoSezioniGetterWrapperRecords;
-    }
-
-    /**
-     * @param array $input
-     */
-    public function setupSottoSezioniGetterWrapperRecords($input = array())
-    {
-        $this->assertSottoSezioniGetterWrapper();
-
-        $this->sottoSezioniGetterWrapperRecords = $this->recoverWrapperRecords(
-            $this->getSottoSezioniGetterWrapper(),
-            $input
+        return $this->getConnection()->insert(
+            DbTableContainer::contenuti,
+            $arrayUpdate
         );
     }
 
     /**
-     * @param array $records
+     * @param InputFilterAwareInterface $inputFilter
+     * @return int
+     * @throws NullException
      */
-    public function formatSottoSezioniGetterWrapperRecordsForDropdown($recordsInput = array())
+    public function update(InputFilterAwareInterface $inputFilter)
     {
-        $this->assertSottoSezioniGetterWrapperRecords();
+        $this->assertConnection();
 
-        $records = ( empty($recordsInput) ) ? $this->getSottoSezioniGetterWrapperRecords() : $recordsInput;
-
-        $sezioni = array();
-        foreach($records as $record) {
-            if (isset($record['idSottoSezione']) and isset($record['nomeSezione']) and isset($record['nomeSottoSezione'])) {
-                $sezioni[$record['idSottoSezione']] = utf8_encode($record['nomeSezione']).' - '.utf8_encode($record['nomeSottoSezione']);
-            }
+        $arrayUpdate = array(
+            'sottosezione_id'   => $inputFilter->sottosezione,
+            'titolo'            => $inputFilter->titolo,
+            'sommario'          => strip_tags($inputFilter->sommario),
+            'testo'             => $inputFilter->testo,
+            'data_inserimento'  => $inputFilter->dataInserimento,
+            'data_scadenza'     => $inputFilter->dataScadenza,
+            'attivo'            => $inputFilter->attivo,
+            'slug'              => Slugifier::slugify($inputFilter->titolo),
+            'home'              => $inputFilter->home,
+            'rss'               => $inputFilter->rss,
+        );
+        if (isset($inputFilter->utente)) {
+            $arrayUpdate['utente_id'] = $inputFilter->utente;
         }
 
-        $this->sottoSezioniGetterWrapperRecords = $sezioni;
+        return $this->getConnection()->update(
+            DbTableContainer::contenuti,
+            $arrayUpdate,
+            array('id' => $inputFilter->id)
+        );
     }
-
 }

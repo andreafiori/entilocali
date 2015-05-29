@@ -8,6 +8,9 @@ use ApplicationTest\TestSuite;
 
 class HomePageBlocksGetterWrapperTest extends TestSuite
 {
+    /**
+     * @var HomePageBlocksGetterWrapper
+     */
     private $objectWrapper;
     
     protected function setUp()

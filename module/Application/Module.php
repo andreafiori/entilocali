@@ -2,8 +2,6 @@
 
 namespace Application;
 
-use Admin\Model\Sezioni\SezioniGetter;
-use Admin\Model\Sezioni\SezioniGetterWrapper;
 use Application\Model\Database\DbTableContainer;
 use Zend\Authentication\Adapter\DbTable as AuthAdapter;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;

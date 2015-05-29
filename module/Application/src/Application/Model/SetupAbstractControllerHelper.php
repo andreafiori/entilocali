@@ -2,10 +2,12 @@
 
 namespace Application\Model;
 
+use Admin\Model\OperationsModelAbstract;
+use Admin\Model\Sezioni\SezioniGetterWrapper;
 use Admin\Service\AppServiceLoader;
 use Zend\Session\Container;
 
-class SetupAbstractControllerHelper
+class SetupAbstractControllerHelper extends OperationsModelAbstract
 {
     private $adminArea;
 
@@ -21,6 +23,8 @@ class SetupAbstractControllerHelper
     private $frontendTemplate;
 
     private $frontendTemplatePath;
+
+    private $sezioniGetterWrapper;
 
     private $sezioniRecords;
 
@@ -70,6 +74,8 @@ class SetupAbstractControllerHelper
     }
 
     /**
+     * @param string $key
+     * @param int $noArray
      * @return string|null
      */
     public function getConfigurations($key = null, $noArray = null)
@@ -146,11 +152,50 @@ class SetupAbstractControllerHelper
     }
 
     /**
+     * @param SezioniGetterWrapper $sezioniGetterWrapper
+     */
+    public function setSezioniGetterWrapper(SezioniGetterWrapper $sezioniGetterWrapper)
+    {
+        $this->sezioniGetterWrapper = $sezioniGetterWrapper;
+    }
+
+    /**
+     * @return SezioniGetterWrapper
+     */
+    public function getSezioniGetterWrapper()
+    {
+        return $this->sezioniGetterWrapper;
+    }
+
+    /**
+     * @throws NullException
+     */
+    private function assertSezioniGetterWrapper()
+    {
+        if (!$this->getSezioniGetterWrapper()) {
+            throw new NullException("SezioniGetterWrapper is not set");
+        }
+    }
+
+    /**
      * @param array $sezioniRecords
      */
     public function setSezioniRecords($sezioniRecords)
     {
         $this->sezioniRecords = $sezioniRecords;
+    }
+
+    /**
+     * @param array $sezioniRecords
+     */
+    public function setupSezioniRecords($input = array())
+    {
+        $this->assertSezioniGetterWrapper();
+
+        $this->sezioniRecords = $this->recoverWrapperRecords(
+            $this->getSezioniGetterWrapper(),
+            $input
+        );
     }
 
     /**

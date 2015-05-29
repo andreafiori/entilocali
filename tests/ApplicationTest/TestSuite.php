@@ -263,8 +263,12 @@ abstract class TestSuite extends \PHPUnit_Framework_TestCase
                             ),
                             array(
                                 'name'  => 'template_frontend',
-                                'value' => 'myTemplateNameFrontend'
+                                'value' => 'myTemplateNameFrontend',
                             ),
+                            array(
+                                'name' => 'template_backend',
+                                'value' => 'myBackendTemplateDirectory',
+                            )
                         )
                         ));
         

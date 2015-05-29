@@ -93,16 +93,17 @@ class AppServiceLoader extends AppServiceLoaderAbstract
      * @param number $channel
      * @param number $languageId
      */
-    public function setupConfigurations(ConfigGetterWrapper $wrapper, $channel = 1, $languageId = 1)
+    public function setupConfigurations(ConfigGetterWrapper $wrapper, array $input)
     {
         if (!is_object($this->recoverService('routeMatch'))) {
             throw new \Exception("RouteMatch is not set");
         }
 
         $wrapper->setInput(array(
-            'channel'   => $channel,
-            'language'  => $languageId,
-            'isBackend' => $this->recoverService('isBackend')
+            'channel'   => isset($input['channel']) ? $input['channel'] : 1,
+            'language'  => isset($input['languageId']) ? $input['languageId'] : 1,
+            'isBackend' => $this->recoverService('isBackend'),
+            'languageAbbreviation' => isset($input['languageAbbreviation']) ? $input['languageAbbreviation'] : null,
         ));
         $wrapper->setupQueryBuilder();
 

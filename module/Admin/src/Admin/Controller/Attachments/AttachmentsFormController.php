@@ -75,7 +75,7 @@ class AttachmentsFormController extends SetupAbstractController
                     'formBreadCrumbCategory'     => $helper->getPropertiesGetterClassInstance()->getBreadcrumbModule(),
                     'formBreadCrumbCategoryLink' => $this->url()->fromRoute(
                         $helper->getPropertiesGetterClassInstance()->getBreadcrumbRoute(),
-                        array('lang' => 'it')
+                        array('lang' => 'it', 'languageSelection' => 'it')
                     ),
                     'breadCrumbActiveLabel'      => isset($attachmentRecord[0]['title']) ? $attachmentRecord[0]['title'] : 'Nuovo file',
                     'attachmentType'             => $helper->getModuleCode(),

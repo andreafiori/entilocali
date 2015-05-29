@@ -1,14 +1,10 @@
 <?php
 
-namespace Admin\Controller;
+namespace Admin\Controller\Sezioni;
 
 use Application\Controller\SetupAbstractController;
 use Application\Model\Database\DbTableContainer;
 
-/**
- * @author Andrea Fiori
- * @since  27 March 2015
- */
 class SottoSezioniPositionsUpdateController extends SetupAbstractController
 {
     public function indexAction()

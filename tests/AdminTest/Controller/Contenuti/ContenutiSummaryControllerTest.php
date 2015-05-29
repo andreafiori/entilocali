@@ -21,7 +21,7 @@ class ContenutiSummaryControllerTest extends TestSuite
         $this->controller->setServiceLocator($this->getServiceManager());
     }
 
-    public function testIndexAction()
+    public function testIndexActionIsAccessible()
     {
         $this->routeMatch->setParam('action', 'index');
 

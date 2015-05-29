@@ -112,6 +112,9 @@
 
 <?php
 
+/* Current language selection (from route, using params view helper) */
+$this->languageSelection = $this->params()->fromRoute('languageSelection');
+
 if ( count($this->paginator) > 1 ):
     try {
         echo $this->paginationControl(
@@ -119,9 +122,10 @@ if ( count($this->paginator) > 1 ):
             'sliding',
             'application/pagination/bootstrap.phtml',
             array(
-                'route' => $this->route,
-                'tablesetter' => $this->tablesetter,
-                'lang'        => $this->lang ? $this->lang : 'it',
+                'route'             => $this->route,
+                'tablesetter'       => $this->tablesetter,
+                'lang'              => !empty($this->lang) ? $this->lang : 'it',
+                'languageSelection' => !empty($this->languageSelection) ? $this->languageSelection : 'it',
             )
         );
     } catch (Exception $e) {

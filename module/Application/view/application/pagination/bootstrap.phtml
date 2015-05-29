@@ -1,14 +1,14 @@
 <?php if ($this->pageCount): ?>
     <?php
-    $paginationParameters = array_filter( array(
-        'lang'          => $this->lang,
-        'tablesetter'   => $this->tablesetter,
-        'pageCount'     => $this->current,
-        'category'      => $this->category,
-        'order_by'      => $this->order_by,
-        'order'         => $this->order
-        )
-    );
+    $paginationParameters = array_filter(array(
+        'lang'              => $this->lang,
+        'tablesetter'       => $this->tablesetter,
+        'pageCount'         => $this->current,
+        'category'          => $this->category,
+        'order_by'          => $this->order_by,
+        'order'             => $this->order,
+        'languageSelection' => $this->languageSelection,
+    ));
     ?>
     <div class="pagination pagination-centered">
         <ul class="pagination">

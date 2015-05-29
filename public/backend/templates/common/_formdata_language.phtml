@@ -1,0 +1,38 @@
+<?php
+/* Partial form language view */
+if ($this->formLanguage):
+
+    $form = $this->formLanguage;
+
+    $form->setAttribute('action',   $this->formAction);
+    $form->setAttribute('method',   'post');
+    $form->setAttribute('role',     'form');
+    $form->setAttribute('class',    'form-horizontal');
+    $form->setAttribute('id',       'frmSwitchLanguage');
+
+    $form->get('lingua')->setAttribute('class', 'form-control');
+    $form->get('sbmtlang')->setAttribute('class', 'btn btn-primary');
+
+    $form->prepare();
+
+    echo $this->form()->openTag($form);
+
+    ?>
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="<?php echo $form->get('lingua')->getAttribute('id') ?>">
+            <?php echo $this->formLabel($form->get('lingua')) ?>
+        </label>
+
+        <div class="col-sm-4">
+            <?php echo $this->formElement($form->get('lingua')); ?>
+        </div>
+
+        <div class="col-sm-6">
+            <?php echo $this->formElement($form->get('sbmtlang')); ?>
+        </div>
+    </div>
+    <?php
+
+    echo $this->form()->closeTag();
+
+endif;

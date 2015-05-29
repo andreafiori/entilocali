@@ -36,10 +36,10 @@
 
         <br>
 
-        <?php if (isset($record['sotto_sezioni'])): ?>
+        <?php if (isset($record['sottosezioni'])): ?>
             <h4><?php echo $this->translate('Sotto sezioni') ?></h4>
             <ul>
-                <?php foreach($record['sotto_sezioni'] as $sottoSezione): ?>
+                <?php foreach($record['sottosezioni'] as $sottoSezione): ?>
                     <li><a href="<?php echo $this->url('main/contenuti', array('lang' => $this->lang, 'subsectionid' => $sottoSezione['idSottoSezione'])) ?>" title="Consulta la sottosezione di  <?php echo $record['titolo'] ?> <?php echo $sottoSezione['nomeSottoSezione'] ?>"><?php echo $sottoSezione['nomeSottoSezione'] ?></a></li>
                 <?php endforeach ?>
             </ul>

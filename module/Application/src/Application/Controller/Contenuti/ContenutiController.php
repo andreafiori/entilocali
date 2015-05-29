@@ -26,6 +26,8 @@ class ContenutiController extends SetupAbstractController
 
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
+        $ammTraspSezioneId      = $this->layout()->getVariable('amministrazione_trasparente_sezione_id');
+
         $helper = new ContenutiControllerHelper();
         $helper->setContenutiGetterWrapper( new ContenutiGetterWrapper(new ContenutiGetter($em)) );
 
@@ -50,12 +52,12 @@ class ContenutiController extends SetupAbstractController
         );
 
         if (!empty($records)) {
-            /* Cerca sottosezioni se contenuto non è vuoto */
             foreach($records as &$record) {
 
                 $wrapper = new SottoSezioniGetterWrapper( new SottoSezioniGetter($em) );
                 $wrapper->setInput( array(
-                        'profonditaDa' => isset($record['sottosezione']) ? $record['sottosezione'] : null
+                        'profonditaDa'      => isset($record['sottosezione']) ? $record['sottosezione'] : null,
+                        'excludeSezioneId'  => isset($ammTraspSezioneId) ? $ammTraspSezioneId : null,
                     )
                 );
                 $wrapper->setupQueryBuilder();

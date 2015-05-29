@@ -9,6 +9,10 @@ use Zend\InputFilter\InputFilterInterface;
 class ConfigFormInputFilter implements InputFilterAwareInterface
 {
     public $id;
+    public $sitename;
+    public $description;
+    public $keywords;
+    public $emailcontact;
 
     private $inputFilter;
 
@@ -17,7 +21,7 @@ class ConfigFormInputFilter implements InputFilterAwareInterface
      */
     public function exchangeArray(array $data)
     {
-        $this->id    = (isset($data['id']))    ? $data['id']     : null;
+        $this->id  = (isset($data['id'])) ? $data['id'] : null;
     }
 
     /**

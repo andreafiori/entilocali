@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </div>
-            <a href="<?php echo $this->url('admin/datatable', array('lang' => 'it', 'tablesetter'  => 'contacts')); ?>" title="">
+            <a href="<?php echo $this->url('admin/contacts-summary', array('lang' => $this->params()->fromRoute('lang'), 'tablesetter'  => 'contacts')); ?>" title="">
                 <div class="panel-footer">
                     <span class="pull-left">Visualizza</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

@@ -13,6 +13,9 @@ class SezioniPositionsUpdateController extends SetupAbstractController
 
         $items = $this->params()->fromQuery('oggettoItem');
 
+        /**
+         * @var \Doctrine\DBAL\Connection
+         */
         $connection = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default')->getConnection();
 
         if (!empty($items)):

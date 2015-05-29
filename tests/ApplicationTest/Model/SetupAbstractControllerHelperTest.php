@@ -57,9 +57,9 @@ class SetupAbstractControllerHelperTest extends TestSuite
         $this->assertNotEmpty( $this->helper->getRequest() );
     }
 
-    public function testSetSezioniRecords()
+    public function testSetupSezioniRecords()
     {
-        $this->helper->setSezioniRecords(array(
+        $this->helper->setupSezioniRecords(array(
             array(
                 'id'    => 1,
                 'nome'  => 'Sezione 1',

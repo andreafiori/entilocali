@@ -6,7 +6,8 @@ use Zend\Form\Form;
 
 /**
  * OTHER FILEDS:
- *        emailnoreply, emailwebmaster
+
+       emailnoreply, emailwebmaster
 
         attachsizelimit
 
@@ -17,9 +18,7 @@ use Zend\Form\Form;
         amministrazione_trasparente_basiclayout
 
         amministrazione_trasparente_sottosezione_id   -> amm trasp id di partenza
- *
- * @author Andrea Fiori
- * @since  14 March 2014
+
  */
 class ConfigForm extends Form
 {
@@ -75,11 +74,10 @@ class ConfigForm extends Form
             )
         ));
 
-        // emailnoreply     emailwebmaster
-
+        /*
         $this->add(array(
             'type' => 'Application\Form\Element\PlainText',
-            'name' => 'start_date',
+            'name' => 'paginationLabel',
             'attributes' => array(
                 'id'    => 'searchEngines',
                 'value' => 'Paginazione',
@@ -99,6 +97,7 @@ class ConfigForm extends Form
                 'type'          => 'number'
             )
         ));
+        */
     }
 
     public function addProject()

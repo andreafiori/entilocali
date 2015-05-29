@@ -34,7 +34,7 @@ return array(
                                                             'action'     => 'index',
                                                         ),
                                                         'constraints' => array(
-                                                            'lang' => '(it|en|es|de|fr)?',
+                                                            'lang' => '[a-z]{2}',
                                                         ),
                                                     ),
                                                     'may_terminate' => true,

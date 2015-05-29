@@ -8,13 +8,55 @@
 
 <div id="frmFrmSearchExport" style="display: block">
 
-    <br>
-
     <?php
+
+    if ($this->formLanguage):
+        $form = $this->formLanguage;
+
+        $form->setAttribute('action',   $this->url('admin/contenuti-operations', array(
+            'lang'   => $this->params()->fromRoute('lang'),
+            'action' => 'changesummarylang',
+        )));
+        $form->setAttribute('method',   'post');
+        $form->setAttribute('role',     'form');
+        $form->setAttribute('class',    'form-horizontal');
+        $form->setAttribute('id',       'frmSwitchLanguage');
+
+        $form->get('lingua')->setAttribute('class', 'form-control');
+        $form->get('sbmtlang')->setAttribute('class', 'btn btn-primary');
+
+        $form->prepare();
+
+        echo $this->form()->openTag($form);
+
+        ?>
+        <br>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="<?php echo $form->get('lingua')->getAttribute('id') ?>">
+                <?php echo $this->formLabel($form->get('lingua')) ?>
+            </label>
+
+            <div class="col-sm-4">
+                <?php echo $this->formElement($form->get('lingua')); ?>
+            </div>
+
+            <div class="col-sm-6">
+                <?php echo $this->formElement($form->get('sbmtlang')); ?>
+            </div>
+        </div>
+        <?php
+
+        echo $this->form()->closeTag();
+    endif;
 
     $form = $this->formSearch;
 
-    $form->setAttribute('action',   $this->url('admin/contenuti-summary', array('lang' => 'it')));
+    $form->setAttribute('action', $this->url('admin/contenuti-operations', array(
+        'lang'          => $this->params()->fromRoute('lang'),
+        'action'        => 'summarysearch',
+        'page'          => $this->params()->fromRoute('page'),
+
+    )));
     $form->setAttribute('method',   'post');
     $form->setAttribute('role',     'form');
     $form->setAttribute('class',    'form-horizontal');
@@ -22,7 +64,6 @@
 
     $form->get('testo')->setAttribute('class', 'form-control');
     $form->get('sottosezioni')->setAttribute('class', 'form-control');
-    $form->get('lingua')->setAttribute('class', 'form-control');
     $form->get('search')->setAttribute('class', 'btn btn-primary');
 
     $form->prepare();
@@ -30,38 +71,40 @@
     echo $this->form()->openTag($form);
 
     ?>
+
+    <br>
+
+    <h4 class="text-center">Ricerca fra i contenuti</h4>
+
     <div class="form-group">
         <label class="col-sm-2 control-label" for="<?php echo $form->get('testo')->getAttribute('id') ?>">
             <?php echo $this->formLabel($form->get('testo')) ?>
         </label>
+
         <div class="col-sm-4">
             <?php echo $this->formElement($form->get('testo')); ?>
         </div>
 
-        <label class="col-sm-2 control-label" for="<?php echo $form->get('lingua')->getAttribute('id') ?>">
-            <?php echo $this->formLabel($form->get('lingua')) ?>
-        </label>
-        <div class="col-sm-4">
-            <?php echo $this->formElement($form->get('lingua')); ?>
-        </div>
-    </div>
-
-    <div class="form-group" style="padding-left: 3.5%">
         <label class="col-sm-2 control-label" for="<?php echo $form->get('sottosezioni')->getAttribute('id') ?>">
             <?php echo $this->formLabel($form->get('sottosezioni')) ?>
         </label>
         <div class="col-sm-4">
             <?php echo $this->formElement($form->get('sottosezioni')); ?>
         </div>
+    </div>
+
+    <div class="form-group">
         <label class="col-sm-4 control-label" for="<?php echo $form->get('inhome')->getAttribute('id') ?>">
             <?php echo $this->formElement($form->get('inhome')); ?> <?php echo $this->formLabel($form->get('inhome')) ?>
         </label>
     </div>
 
     <div class="form-group">
+
         <div class="col-sm-2">
             &nbsp;
         </div>
+
         <div class="col-sm-2">
             <?php echo $this->formElement($form->get('search')); ?>
         </div>
@@ -72,6 +115,7 @@
             <button type="submit" class="btn btn-success" id="csv_export">
                 <i class="fa fa-file-excel-o"></i> CSV
             </button>
+
             <!--
             <button type="submit" class="btn btn-danger" id="pdf_export">
                 <i class="fa fa-file-pdf-o"></i> PDF
@@ -80,7 +124,6 @@
             <button type="submit" class="btn btn-info">
                 <i class="fa fa-file-text"></i> TXT
             </button>
-
 
             <button type="submit" class="btn btn-info">
             XML
@@ -97,11 +140,8 @@
     <?php echo $this->form()->closeTag(); ?>
 </div>
 
-<?php
+<?php echo $this->render('backend/templates/common/datatables_zend_pagination.phtml'); ?>
 
-echo $this->render('backend/templates/common/datatables_zend_pagination.phtml');
-
-?>
 <script>
 /* Change form action to export records */
 $('#csv_export').click(function() {

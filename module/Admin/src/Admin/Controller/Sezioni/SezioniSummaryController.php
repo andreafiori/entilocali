@@ -2,6 +2,10 @@
 
 namespace Admin\Controller\Sezioni;
 
+use Admin\Model\Languages\LanguagesFormSearch;
+use Admin\Model\Languages\LanguagesGetter;
+use Admin\Model\Languages\LanguagesGetterWrapper;
+use Admin\Model\Sezioni\SezioniControllerHelper;
 use Admin\Model\Sezioni\SezioniGetter;
 use Admin\Model\Sezioni\SezioniGetterWrapper;
 use Application\Controller\SetupAbstractController;
@@ -10,24 +14,31 @@ class SezioniSummaryController extends SetupAbstractController
 {
     public function indexAction()
     {
-        $mainLayout = $this->initializeAdminArea();
+        $mainLayout         = $this->initializeAdminArea();
+        $em                 = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+        $languageSelection  = $this->params()->fromRoute('languageSelection');
+        $page = $this->params()->fromRoute('page');
 
-        $em             = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+        $helper = new SezioniControllerHelper();
+        $helper->setSezioniGetterWrapper(new SezioniGetterWrapper(new SezioniGetter($em)));
+        $helper->setLanguagesGetterWrapper(new LanguagesGetterWrapper(new LanguagesGetter($em)));
 
-        $page           = $this->params()->fromRoute('page');
+        $formLanguage = $helper->setupLanguageFormSearch( new LanguagesFormSearch(), array('status'=>1), $languageSelection );
 
-        $wrapper = new SezioniGetterWrapper( new SezioniGetter($em) );
-        $wrapper->setInput(array(
-            'orderBy' => '',
-
-        ));
-        $wrapper->setupQueryBuilder();
-        $wrapper->setupPaginator( $wrapper->setupQuery($em) );
-        $wrapper->setupPaginatorCurrentPage($page);
+        $wrapper = $helper->recoverWrapperRecordsPaginator(
+            $helper->getSezioniGetterWrapper(),
+            array(
+                'orderBy' => 'sezioni.id',
+                'languageAbbreviation' => $languageSelection,
+            ),
+            $page,
+            null
+        );
 
         $paginator = $wrapper->getPaginator();
 
-        $columns = array("Nome",
+        $columns = array(
+            "Nome",
             "Colonna",
             "URL",
             "Immagine",
@@ -44,14 +55,15 @@ class SezioniSummaryController extends SetupAbstractController
             'columns'           => $columns,
             'paginator'         => $paginator,
             'records'           => $this->formatRecordsToShowOnTable( $wrapper->setupRecords() ),
-            'templatePartial'   => self::summaryTemplate
+            'templatePartial'   => 'datatable/datatable_sezioni.phtml',
+            'formLanguage'      => !empty($formLanguage) ? $formLanguage : null,
         ));
 
         $this->layout()->setTemplate($mainLayout);
     }
 
     /**
-     * @param mixed $records
+     * @param array $records
      * @return array
      */
     private function formatRecordsToShowOnTable($records)
@@ -70,9 +82,14 @@ class SezioniSummaryController extends SetupAbstractController
                         '<img src="'.$publicDirRelativePath.'/common/icons/'.$row['image'].'" alt="'.$row['image'].'">'
                         : '&nbsp;',
                     array(
-                        'type'      => 'updateButton',
-                        'href'      => 'formdata/sezioni-contenuti/'.$row['id'],
-                        'title'     => 'Modifica'
+                        'type' => 'updateButton',
+                        'href' => $this->url()->fromRoute('admin/sezioni-form', array(
+                            'lang'              => $this->params()->fromRoute('lang'),
+                            'id'                => $row['id'],
+                            'languageSelection' => $this->params()->fromRoute('languageSelection'),
+                            'previouspage'      => $this->params()->fromRoute('page'),
+                        )),
+                        'title' => 'Modifica sezione'
                     ),
                 );
 

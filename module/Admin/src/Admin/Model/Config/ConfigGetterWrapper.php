@@ -4,10 +4,6 @@ namespace Admin\Model\Config;
 
 use Application\Model\RecordsGetterWrapperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  01 November 2014
- */
 class ConfigGetterWrapper extends RecordsGetterWrapperAbstract
 {
     /**

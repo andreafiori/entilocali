@@ -1,0 +1,88 @@
+<ul class="breadcrumb">
+    <li>
+        <a href="<?php echo $this->url('admin', array('lang' => $this->params()->fromRoute('lang'))); ?>" title="Torna all'home page">
+            Home
+        </a>
+    </li>
+    <li>
+        <a href="<?php echo $this->url('admin/contenuti-form', array('lang'=>$this->params()->fromRoute('lang'), 'languageSelection' => $this->params()->fromRoute('lang'))) ?>" title="Elenco contenuti">
+            Contenuti
+        </a>
+    </li>
+    <li class="active">
+        Sottosezioni
+    </li>
+</ul>
+
+
+<div>
+    <a href="javascript:void(0)" id="lnkSearchExport" class="btn btn-primary">
+        <i class="fa fa-search"></i> <?php echo $this->translate('Ricerca'); ?>
+    </a>
+</div>
+
+<div id="frmFrmSearchExport" style="display: block">
+<?php if ($this->formLanguage): ?>
+    <br>
+    <?php
+
+    echo $this->partial($this->formDataCommonPath.'_formdata_language.phtml', array(
+            'formAction'   => $this->url('admin/sottosezioni-operations', array(
+                'lang'   => $this->params()->fromRoute('lang'),
+                'action' => 'changecontenutisummarylang',
+            )),
+            'formLanguage' => $this->formLanguage,
+        )
+    );
+endif;
+
+$form = $this->formSearch;
+
+$form->setAttribute('action',   '#');
+$form->setAttribute('method',   'post');
+$form->setAttribute('role',     'form');
+$form->setAttribute('class',    'form-horizontal');
+$form->setAttribute('id',       'frmSearchExport');
+
+$form->get('testo')->setAttribute('class', 'form-control');
+$form->get('sezioni')->setAttribute('class', 'form-control');
+$form->get('search')->setAttribute('class', 'btn btn-primary');
+
+$form->prepare();
+
+echo $this->form()->openTag($form);
+?>
+    <h4 class="text-center">Ricerca sottosezioni</h4>
+
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="<?php echo $form->get('testo')->getAttribute('id') ?>">
+            <?php echo $this->formLabel($form->get('testo')) ?>
+        </label>
+
+        <div class="col-sm-4">
+            <?php echo $this->formElement($form->get('testo')); ?>
+        </div>
+
+        <label class="col-sm-2 control-label" for="<?php echo $form->get('sezioni')->getAttribute('id') ?>">
+            <?php echo $this->formLabel($form->get('sezioni')) ?>
+        </label>
+        <div class="col-sm-4">
+            <?php echo $this->formElement($form->get('sezioni')); ?>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-2">
+            &nbsp;
+        </div>
+
+        <div class="col-sm-2">
+            <?php echo $this->formElement($form->get('search')); ?>
+        </div>
+    </div>
+
+</div>
+<?php
+echo $this->form()->closeTag();
+
+echo $this->render('backend/templates/common/datatables_zend_pagination.phtml');

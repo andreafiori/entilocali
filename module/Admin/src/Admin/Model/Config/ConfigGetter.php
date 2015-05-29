@@ -4,10 +4,6 @@ namespace Admin\Model\Config;
 
 use Application\Model\QueryBuilderHelperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  01 November 2014
- */
 class ConfigGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()

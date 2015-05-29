@@ -3,6 +3,8 @@
 namespace Admin\Model;
 
 /**
+ * TO DELETE: old class for an old pattern
+ *
  * @author Andrea Fiori
  * @since  14 August 2014
  */

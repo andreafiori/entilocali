@@ -25,6 +25,14 @@ class ContenutiFormSearch extends Form
                 'label' => 'Testo',
             )
         ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'languageSelection',
+            'attributes' => array(
+                'class'     => 'hiddenField',
+            )
+        ));
     }
 
     /**
@@ -67,6 +75,9 @@ class ContenutiFormSearch extends Form
         ));
     }
 
+    /**
+     * @param array $userRecords
+     */
     public function addUsers(array $userRecords)
     {
         $this->add(array(
@@ -81,26 +92,6 @@ class ContenutiFormSearch extends Form
                 'title'     => 'Seleziona utente',
                 'id'        => 'utente',
                 'required'  => 'required'
-            )
-        ));
-    }
-
-    /**
-     * @param $langRecords
-     */
-    public function addLingua($langRecords)
-    {
-        $this->add(array(
-            'type' => 'Zend\Form\Element\Select',
-            'name' => 'lingua',
-            'options' => array(
-                'label' => 'Lingua',
-                'empty_option' => 'Seleziona',
-                'value_options' => $langRecords,
-            ),
-            'attributes' => array(
-                'title'     => 'Seleziona utente',
-                'id'        => 'lingua',
             )
         ));
     }

@@ -19,14 +19,14 @@ class ContenutiForm extends Form
             'type' => 'Zend\Form\Element\Select',
             'name' => 'sottosezione',
             'options' => array(
-                'label'         => '* Sotto-sezione',
+                'label'         => '* Sottosezione',
                 'empty_option'  => 'Seleziona',
                 'value_options' => $records,
             ),
             'attributes' => array(
-                'title' => 'Seleziona Sotto-sezione',
-                'id'    => 'sottosezione',
-                'required' => 'required'
+                'title'     => 'Seleziona sottosezione',
+                'id'        => 'sottosezione',
+                'required'  => 'required'
             )
         ));
     }
@@ -52,8 +52,9 @@ class ContenutiForm extends Form
             'options' => array('label' => 'Sotto titolo'),
             'attributes' => array(
                 'id' => 'sommario',
-                'placeholder' => 'Sotto titolo...',
-                'title' => 'Inserisci sotto titolo',
+                'placeholder'   => 'Sotto titolo...',
+                'title'         => 'Inserisci sotto titolo',
+                'maxlength'     => 200,
             )
         ));
 
@@ -123,14 +124,14 @@ class ContenutiForm extends Form
     {
         $this->add(array(
             'type' => 'Zend\Form\Element\Checkbox',
-            'name' => 'homepage',
+            'name' => 'home',
             'options' => array(
                 'label'             => 'Inserisci in home page',
                 'checked_value'     => 1,
                 'unchecked_value'   => 0
             ),
             'attributes' => array(
-                'id'    => 'homepage',
+                'id'    => 'home',
                 'title' => 'Spunta la casella per inserire in home page'
             )
         ));
@@ -145,7 +146,7 @@ class ContenutiForm extends Form
             ),
             'attributes' => array(
                 'id'    => 'rss',
-                'title' => 'Spunta la casella per inserire in home page'
+                'title' => 'Spunta la casella per inserire nel box notizie'
             )
         ));
 

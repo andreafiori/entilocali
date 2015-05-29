@@ -58,19 +58,51 @@
     <?php endif; ?>
 
     <?php if ($this->messageShowFormLink): ?>
-    <div id="showFormContainer">
-        &raquo; <a href="javascript:void(0)" id="reShowForm" title="Torna al form">Torna al form</a>
-    </div>
+        <div id="showFormContainer">
+            <p>
+                <i class="fa fa-arrow-left"></i> <a href="javascript:void(0)" id="reShowForm" title="Mostra nuovamente il form">
+                    <?php echo ($this->messageShowForm) ? $this->messageShowForm : 'Torna al form' ?>
+                </a>
+            </p>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($this->attachmentsLink): ?>
+        <div id="attachmentsManagementLink">
+            <p>
+                <i class="fa fa-paperclip"></i> <a href="<?php echo $this->attachmentsLink ?>" title="Vai alla gestione allegati">
+                    Allegati
+                </a>
+            </p>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($this->backToSummaryLink): ?>
+        <div id="backToSummary">
+            <p>
+                <i class="fa fa-list"></i> <a href="<?php echo $this->backToSummaryLink ?>" title="Torna all'elenco dati del modulo corrente">
+                    <?php echo ($this->backToSummaryText) ? $this->backToSummaryText : "Torna all'elenco dati" ?>
+                </a>
+            </p>
+        </div>
     <?php endif; ?>
 
     <?php if (isset($this->attachmentFilesModule)): ?>
-        <p>&raquo; <a href="<?php echo $this->attachmentLink; ?>" title="Completa gestione allegati">Vai alla gestione allegati per completare la rettifica</a></p>
+        <p>
+            <i class="fa fa-paperclip"></i> <a href="<?php echo $this->attachmentLink; ?>" title="Completa gestione allegati">
+                Vai alla gestione allegati per completare la rettifica
+            </a>
+        </p>
     <?php endif; ?>
 
     <?php if ($this->showLinkResetFormAndShowIt): ?>
     <!-- Clear form fields and show form again -->
     <div>
-        &raquo; <a href="javascript:void(0)" id="showForNewInsert" title="Inserisci un nuovo record">Inserisci un nuovo elemento</a>
+        <p>
+            &raquo; <a href="javascript:void(0)" id="showForNewInsert" title="Inserisci un nuovo record">
+                Inserisci un nuovo elemento
+            </a>
+        </p>
     </div>
     <?php endif; ?>
 
@@ -88,7 +120,6 @@
 <div>&nbsp;</div>
 
 <script>
-
 $('#reShowForm').click(function() {
     $('#formcontainer').show();
     $('input:submit').attr('disabled', false);

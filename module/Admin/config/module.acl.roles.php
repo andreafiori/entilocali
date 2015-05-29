@@ -7,6 +7,19 @@ return array(
     'admin/contenuti-form' => array(
         'resources' => array('contenuti_add', 'contenuti_update')
     ),
+    'admin/sezioni-summary' => array(
+        'resources' => array( 'contenuti_sezioni_update' )
+    ),
+    'admin/sezioni-form' => array(
+        'resources' => array( 'contenuti_sezioni_add', 'contenuti_sezioni_update' )
+    ),
+    /* Posizioni Sezioni contenuti e amministrazione trasparente */
+    'admin/posizioni-sezioni' => array(
+        'resources' => array( 'contenuti_sezioni_update' )
+    ),
+    'admin/posizioni-sezioni-update' => array(
+        'resources' => array( 'contenuti_sezioni_update' )
+    ),
     /* Albo pretorio */
     'admin/albo-pretorio-summary' => array(
         'resources' => array( 'albo_pretorio_add', 'albo_pretorio_update')
@@ -38,18 +51,17 @@ return array(
     'admin/atti-concessione-form' => array(
         'resources' => array('atti_concessione_add', 'atti_concessione_update')
     ),
-    /* Posizioni Sezioni contenuti e amministrazione trasparente */
-    'admin/posizioni-sezioni' => array(
-        'resources' => array( 'contenuti_sezioni_update' )
-    ),
-    'admin/posizioni-sezioni-update' => array(
-        'resources' => array( 'contenuti_sezioni_update' )
-    ),
     /* Responsabili procedimento */
     'admin/users-resp-proc-management' => array(
         'resources' => array('contenuti_sezioni_update')
     ),
     /* Users roles */
+    'users-roles-summary' => array(
+        'resources' => array('users_roles_update')
+    ),
+    'users-roles-form' => array(
+        'resources' => array('users_roles_add', 'users_roles_update')
+    ),
     'users-roles-permissions' => array(
         'resources' => array('users_roles_add', 'users_roles_update')
     ),
@@ -69,11 +81,6 @@ return array(
     ),
     /* Datatables summary */
     'datatables' => array(
-        'sezioni-contenuti' => array(
-            'resources' => array(
-                'contenuti_sezioni_add', 'contenuti_sezioni_update',
-            )
-        ),
         'sottosezioni-contenuti' => array(
             'resources' => array(
                 'contenuti_sottosezioni_add', 'contenuti_sottosezioni_update',

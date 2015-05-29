@@ -6,10 +6,10 @@ Entilocali project for Kronoweb.it
 Introduction
 --------------
 
-    The application is still under construction
+    The application is still under construction!
 
-I'm building this application to restyle an old CMS made with flat PHP long time ago for the company.
-This is intended to manage data for public administrations and small companies.
+This application is intended to manage data for public administrations and small companies.
+It will replace an old flat PHP CMS.
 
 Installation
 -------------------
@@ -23,8 +23,11 @@ To update the dependencies and optimize the autoloader for better performances:
 
 Rename the a.htaccess file to .htaccess. I've renamed it to use on my localhost Windows XAMPP enviroment.
 
+Database
+-------------------
+
 A sample of the MySQL database dump file is on the sql directory.
-The doctrine files represents the updated structure of all db tables
+The doctrine entities represent the updated structure of all db tables.
 
 Description
 -------------------

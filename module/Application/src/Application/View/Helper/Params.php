@@ -50,7 +50,7 @@ class Params extends AbstractHelper
 
     /**
      * @param string $param
-     * @param null $default
+     * @param mixed $default
      * @return mixed
      */
     public function fromQuery($param = null, $default = null)
@@ -63,8 +63,8 @@ class Params extends AbstractHelper
     }
 
     /**
-     * @param null $param
-     * @param null $default
+     * @param mixed $param
+     * @param mixed $default
      * @return array|mixed|null
      */
     public function fromRoute($param = null, $default = null)

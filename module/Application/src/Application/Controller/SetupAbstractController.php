@@ -44,7 +44,10 @@ abstract class SetupAbstractController extends AbstractActionController
             exit;
         }
 
-        $request = $this->getRequest();
+        $request            = $this->getRequest();
+        $uri                = $request->getUri();
+        $basePath           = sprintf('%s://%s%s', $uri->getScheme(), $uri->getHost(), $request->getBaseUrl().'/');
+        $cookieWarning      = $sessionContainer->offsetGet($configurations['sitename']);
 
         $helper = new SetupAbstractControllerHelper();
         $helper->setConfigurations($configurations);
@@ -52,23 +55,24 @@ abstract class SetupAbstractController extends AbstractActionController
         $helper->setupZf2appDir();
         $helper->setupAppDirRelativePath();
 
-        $templateBackend    = $helper->getConfigurations('template_backend', 1);
-        $uri                = $request->getUri();
-        $basePath           = sprintf('%s://%s%s', $uri->getScheme(), $uri->getHost(), $request->getBaseUrl().'/');
-        $cookieWarning      = $sessionContainer->offsetGet($configurations['sitename']);
+        $templateBackend = $configurations['template_backend'];
 
         $this->layout()->setVariables(array_merge(
             $configurations,
             array(
-                'publicDirRelativePath' => $helper->getAppDirRelativePath().'/public',
-                'baseUrl'               => sprintf($basePath.'admin/main/'.$this->params()->fromRoute('lang').'/'),
-                'basePath'              => $basePath,
-                'userDetails'           => $sessionContainer->offsetGet('userDetails'),
-                'preloadResponse'       => $helper->getConfigurations('preloadResponse', 1),
-                'templateDir'           => 'backend/templates/'.$templateBackend,
-                'formDataCommonPath'    => 'backend/templates/common/',
-                'passwordPreviewArea'   => $this->hasPasswordPreviewArea($configurations),
-                'cookieWarning'         => !empty($cookieWarning) ? $cookieWarning : null,
+                'configurations'                => $configurations,
+                'publicDirRelativePath'         => $helper->getAppDirRelativePath().'/public',
+                'baseUrl'                       => sprintf($basePath.'admin/main/'.$this->params()->fromRoute('lang').'/'),
+                'basePath'                      => $basePath,
+                'userDetails'                   => $sessionContainer->offsetGet('userDetails'),
+                'preloadResponse'               => $helper->getConfigurations('preloadResponse', 1),
+                'templateDir'                   => 'backend/templates/'.$templateBackend,
+                'formDataCommonPath'            => 'backend/templates/common/',
+                'passwordPreviewArea'           => $this->hasPasswordPreviewArea($configurations),
+                'cookieWarning'                 => !empty($cookieWarning) ? $cookieWarning : null,
+                'isMultiLanguage'               => isset($configurations['isMultiLanguage']) ? 1 : 0,
+                'defaultLanguageId'             => 1,
+                'defaultLanguageAbbreviation'   => 'it',
             )
         ));
 
@@ -88,44 +92,42 @@ abstract class SetupAbstractController extends AbstractActionController
 
         $sessionContainer = new SessionContainer();
 
-        $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
-
-        $lang = $this->params()->fromRoute('lang');
-
         if (!$this->checkPasswordPreviewArea($configurations, $sessionContainer)) {
             header("Location: ".$this->url()->fromRoute('password-preview'));
             exit;
         }
 
+        $serviceLocator = $this->getServiceLocator();
         $request = $this->getRequest();
-
-        $wrapper = new SezioniGetterWrapper(new SezioniGetter($em));
-        $wrapper->setInput(array(
-            'orderBy'               => 'sezioni.posizione ASC',
-            'attivo'                => 1,
-            'languageAbbreviation'  => isset($lang) ? $lang : 'it',
-        ));
-        $wrapper->setupQueryBuilder();
-
-        $sezioniRecords = $wrapper->formatRecordsPerColumn(
-            $wrapper->addSottoSezioni($wrapper->getRecords(), array('attivo'=>1))
-        );
+        $uri = $request->getUri();
+        $cookieWarningSession = $sessionContainer->offsetGet('cookie-warning');
+        $lang = $this->params()->fromRoute('lang');
 
         $helper = new SetupAbstractControllerHelper();
         $helper->setConfigurations($configurations);
         $helper->setRequest($request);
-        $helper->setSezioniRecords($sezioniRecords);
+        $helper->setSezioniGetterWrapper( new SezioniGetterWrapper(
+            new SezioniGetter($this->getServiceLocator()->get('doctrine.entitymanager.orm_default')))
+        );
+        $helper->setupSezioniRecords(array(
+            'orderBy'               => 'sezioni.posizione ASC',
+            'attivo'                => 1,
+            'languageAbbreviation'  => isset($lang) ? $lang : 'it',
+        ));
+        $helper->setSezioniRecords(
+            $helper->getSezioniGetterWrapper()->formatRecordsPerColumn(
+                $helper->getSezioniGetterWrapper()->addSottoSezioni(
+                    $helper->getSezioniRecords(), array('attivo' => 1)
+                )
+            )
+        );
         $helper->setupServer();
         $helper->setupFrontendTemplatePath();
         $helper->setupPhpRenderer( $this->getServiceLocator() );
         $helper->setupZf2appDir();
         $helper->setupAppDirRelativePath();
 
-        $serverVars             = $helper->getServer();
-        $cookieWarningSession   = $sessionContainer->offsetGet('cookie-warning');
-        $uri                    = $request->getUri();
-
-        $serviceLocator = $this->getServiceLocator();
+        $serverVars = $helper->getServer();
 
         /**
          * @var \Zend\Mvc\I18n\Translator $translator
@@ -141,20 +143,23 @@ abstract class SetupAbstractController extends AbstractActionController
 
         $this->layout()->setVariables($configurations);
         $this->layout()->setVariables( array(
-            'basePath'              => sprintf('%s://%s%s', $uri->getScheme(), $uri->getHost(), $request->getBaseUrl().'/'),
-            'publicDirRelativePath' => $helper->getAppDirRelativePath().'/public',
-            'configurations'        => $configurations,
-            'sezioni'               => $helper->getSezioniRecords(),
-            'templateDir'           => 'frontend/projects/'.$configurations['project_frontend'].'templates/'.$configurations['template_frontend'],
-            'preloadResponse'       => isset($input['preloadResponse']) ? $input['preloadResponse'] : null,
-            'currentUrl'            => "http://".$serverVars["SERVER_NAME"].$serverVars["REQUEST_URI"],
-            'currentDateTime'       => date("Y-m-d H:i:s"),
-            'template_frontend'     => $configurations['template_frontend'],
-            'cssName'               => $sessionContainer->offSetGet('cssName'),
-            'passwordPreviewArea'   => $this->hasPasswordPreviewArea($configurations),
-            'renderer'              => $helper->getPhpRenderer(),
-            'cookieWarning'         => isset($cookieWarningSession[$configurations['sitename']]) ? $cookieWarningSession[$configurations['sitename']] : null,
-            'lang'                  => (isset($lang)) ? $lang : 'it',
+            'basePath'                      => sprintf('%s://%s%s', $uri->getScheme(), $uri->getHost(), $request->getBaseUrl().'/'),
+            'publicDirRelativePath'         => $helper->getAppDirRelativePath().'/public',
+            'configurations'                => $configurations,
+            'sezioni'                       => $helper->getSezioniRecords(),
+            'templateDir'                   => 'frontend/projects/'.$configurations['project_frontend'].'templates/'.$configurations['template_frontend'],
+            'preloadResponse'               => isset($input['preloadResponse']) ? $input['preloadResponse'] : null,
+            'currentUrl'                    => "http://".$serverVars["SERVER_NAME"].$serverVars["REQUEST_URI"],
+            'currentDateTime'               => date("Y-m-d H:i:s"),
+            'template_frontend'             => $configurations['template_frontend'],
+            'cssName'                       => $sessionContainer->offSetGet('cssName'),
+            'passwordPreviewArea'           => $this->hasPasswordPreviewArea($configurations),
+            'renderer'                      => $helper->getPhpRenderer(),
+            'cookieWarning'                 => isset($cookieWarningSession[$configurations['sitename']]) ? $cookieWarningSession[$configurations['sitename']] : null,
+            'lang'                          => (isset($lang)) ? $lang : 'it',
+            'isMultiLanguage'               => isset($configurations['isMultiLanguage']) ? 1 : 0,
+            'defaultLanguageId'             => 1,
+            'defaultLanguageAbbreviation'   => 'it',
         ));
 
         return 'frontend/projects/'.$configurations['project_frontend'].'templates/'.$configurations['template_frontend'] .'layout.phtml';
@@ -189,7 +194,7 @@ abstract class SetupAbstractController extends AbstractActionController
         $appServiceLoader->setController($this);
         $appServiceLoader->setupParams();
         $appServiceLoader->setupRedirect();
-        $appServiceLoader->setupConfigurations( new ConfigGetterWrapper(new ConfigGetter($em)) );
+        $appServiceLoader->setupConfigurations(new ConfigGetterWrapper(new ConfigGetter($em)), array());
         $appServiceLoader->setupUserInterfaceConfigurations(
             new UserInterfaceConfigurations($appServiceLoader->recoverService('configurations'))
         );

@@ -2,38 +2,12 @@
 
 namespace Admin\Controller\Contenuti;
 
-use Admin\Model\Contenuti\ContenutiForm;
-use Admin\Model\Contenuti\ContenutiGetter;
-use Admin\Model\Contenuti\ContenutiGetterWrapper;
 use Admin\Model\Contenuti\ContenutiOperationsModel;
-use Admin\Model\Log\LogWriter;
-use Admin\Model\Modules\ModulesContainer;
 use Application\Controller\SetupAbstractController;
+use Zend\Session\Container as SessionContainer;
 
 class ContenutiOperationsController extends SetupAbstractController
 {
-    public function insertAction()
-    {
-        $mainLayout = $this->initializeAdminArea();
-
-        $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
-
-        $page = $this->params()->fromRoute('page');
-
-        $configurations = $this->layout()->getVariable('configurations');
-
-        $userDetails = $this->layout()->getVariable('userDetails');
-
-        $form = new ContenutiForm();
-
-        $this->layout()->setTemplate($mainLayout);
-    }
-
-    public function updateAction()
-    {
-
-    }
-
     /**
      * TODO: delete from contenuti, delete attachments (if...): attachments, options, relation, file from AWS...
      */
@@ -48,7 +22,47 @@ class ContenutiOperationsController extends SetupAbstractController
         if (empty($id)) {
             return $this->redirect()->toRoute('admin', array('lang'=>'it'));
         }
+    }
 
-        echo "here"; exit;
+    /**
+     * Switch language on summary
+     *
+     * @return \Zend\Http\Response
+     */
+    public function changesummarylangAction()
+    {
+        if ($this->getRequest()->isPost()) {
+            return $this->redirect()->toRoute('admin/contenuti-summary', array(
+                'lang'              => $this->params()->fromRoute('lang'),
+                'languageSelection' => $this->params()->fromPost('lingua'),
+                'page'              => $this->params()->fromRoute('page'),
+            ));
+        }
+
+        return $this->redirect()->toRoute('main');
+    }
+
+    /**
+     * Set session search for the summary
+     */
+    public function summarysearchAction()
+    {
+        if ($this->getRequest()->isPost()) {
+
+            $sessioContainer = new SessionContainer();
+            $sessioContainer->offsetSet('contenutiSummarySearch', array(
+                'testo'         => '',
+                'sottosezioni'  => '',
+                'inhome'        => '',
+            ));
+
+            return $this->redirect()->toRoute('admin/contenuti-summary', array(
+                'lang'              => $this->params()->fromRoute('lang'),
+                'languageSelection' => $this->params()->fromPost('lingua'),
+                'page'              => $this->params()->fromRoute('page'),
+            ));
+        }
+
+        return $this->redirect()->toRoute('main');
     }
 }

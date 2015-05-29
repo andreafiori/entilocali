@@ -25,10 +25,11 @@
         "zendframework/zenddiagnostics": "1.0.*@dev",
         "zendframework/zftool": "dev-master",
         "bjyoungblood/bjy-authorize": "dev-master",
-        "zf-commons/zfc-user": "dev-master",
         "bjyoungblood/BjyProfiler": "dev-master",
+        "zf-commons/zfc-user": "dev-master",
         "dino/dompdf-module": "dev-master",
         "facebook/php-sdk-v4": "5.*@dev",
+        "dudapiotr/zftable": "dev-master",
         "rwoverdijk/assetmanager" : "dev-master"
     }
 }

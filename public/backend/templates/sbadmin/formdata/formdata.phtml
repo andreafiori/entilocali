@@ -9,74 +9,88 @@ if (!isset($this->formLabelSpanWidth)): $this->formLabelSpanWidth = 2; endif;
 
 if (!$this->form):
 ?>
-<div class="alert alert-danger">
-    <h4>Errore verificato</h4>
-    <div>Impossibile visualizzare il form: oggetto form non rilevato</div>
-</div>
+    <div class="alert alert-danger">
+        <h4>Errore verificato</h4>
+        <div>Impossibile visualizzare il form: oggetto form non rilevato</div>
+    </div>
 <?php else: ?>
-<div id="formcontainer">
-    <div id="formTitle">
-        <h3><?php echo $this->formTitle ?></h3>
-    </div>
+    <div id="formcontainer">
 
-    <?php if ( $this->alboRevisionWarning ): ?>
-    <div class="alert alert-warning">
-        <h4><i class="fa fa-pencil-square-o"></i> Si vuole effettuare oltre ad una visura la modifica dell'articolo?</h4>
-        <p>Se non vuoi fare nessuna modifica, non dare conferma.</p>
-        <p>Se dai conferma, l'atto verr&agrave; momentaneamente oscurato per consentire successivamente, terminato il ciclo di rettifica modificando anche la sezione Allegati, di tornare visibile on-line.</p>
-
-        <p><strong>Data rettifica:</strong> <?php echo date("d-m-Y") ?></p>
-
-        <p><strong>Numero \ Anno</strong> <?php echo $this->alboNumeroAtto ?> / <?php echo $this->alboAnnoAtto ?></p>
-
-    </div>
-    <?php else: ?>
-        <?php if (!empty($this->formDescription)): ?>
-            <p><?php echo $this->formDescription ?></p>
-        <?php endif; ?>
-    <?php endif; ?>
-
-    <?php
-        echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', array(
-                'form'                  => $this->form,
-                'formAction'            => $this->formAction,
-                'formTitle'             => $this->formTitle,
-                'formDescription'       => $this->formDescription,
-                'formControlSpanWidth'  => $this->formControlSpanWidth,
-                'formLabelSpanWidth'    => $this->formLabelSpanWidth,
-                'CKEditorField'         => $this->CKEditorField,
-                'noFormActionPrefix'    => $this->noFormActionPrefix,
-            )
-        );
-    ?>
-
-    <div class="form-group">
-        <label class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label">&nbsp;</label>
-        <div class="col-sm-<?php echo $this->formControlSpanWidth ?>"><input type="submit" name="submit" id="submit" title="Clicca per inviare i dati del form" value="<?php echo $this->submitButtonValue ? $this->submitButtonValue : "Conferma"; ?>" class="btn btn-primary" onclick="javascript:refreshEditor();<?php if ($this->hideOnSubmit): ?>  document.getElementById('formcontainer').style.display='none'<?php endif ?>"></div>
-    </div>
-
-    <div class="form-group">
-        <label class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label">&nbsp;</label>
-        <div class="col-sm-<?php echo $this->formControlSpanWidth ?>">
-            <label>* Campi obbligatori</label>
+        <div id="formTitle">
+            <h3><?php echo $this->formTitle ?></h3>
         </div>
+
+        <?php if ( $this->alboRevisionWarning ): ?>
+        <div class="alert alert-warning">
+            <h4><i class="fa fa-pencil-square-o"></i> Si vuole effettuare oltre ad una visura la modifica dell'articolo?</h4>
+            <p>Se non vuoi fare nessuna modifica, non dare conferma.</p>
+            <p>Se dai conferma, l'atto verr&agrave; momentaneamente oscurato per consentire successivamente, terminato il ciclo di rettifica modificando anche la sezione Allegati, di tornare visibile on-line.</p>
+
+            <p><strong>Data rettifica:</strong> <?php echo date("d-m-Y") ?></p>
+
+            <p><strong>Numero \ Anno</strong> <?php echo $this->alboNumeroAtto ?> / <?php echo $this->alboAnnoAtto ?></p>
+
+        </div>
+        <?php else: ?>
+            <?php if (!empty($this->formDescription)): ?>
+                <p><?php echo $this->formDescription ?></p>
+            <?php endif; ?>
+        <?php endif; ?>
+
+        <?php
+            echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', array(
+                    'form'                  => $this->form,
+                    'formAction'            => $this->formAction,
+                    'formTitle'             => $this->formTitle,
+                    'formDescription'       => $this->formDescription,
+                    'formControlSpanWidth'  => $this->formControlSpanWidth,
+                    'formLabelSpanWidth'    => $this->formLabelSpanWidth,
+                    'CKEditorField'         => $this->CKEditorField,
+                    'noFormActionPrefix'    => $this->noFormActionPrefix,
+                )
+            );
+        ?>
+
+        <div class="form-group">
+            <label class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label">&nbsp;</label>
+            <div class="col-sm-<?php echo $this->formControlSpanWidth ?>"><input type="submit" name="submit" id="submit" title="Clicca per inviare i dati del form" value="<?php echo $this->submitButtonValue ? $this->submitButtonValue : "Conferma"; ?>" class="btn btn-primary" onclick="javascript:refreshEditor();<?php if ($this->hideOnSubmit): ?>  document.getElementById('formcontainer').style.display='none'<?php endif ?>"></div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label">&nbsp;</label>
+            <div class="col-sm-<?php echo $this->formControlSpanWidth ?>">
+                <label>* Campi obbligatori</label>
+            </div>
+        </div>
+
+        <?php echo $this->form()->closeTag($this->form); ?>
     </div>
 
-    <?php echo $this->form()->closeTag($this->form); ?>
-</div>
+    <div id="formDataLoading" class="alert alert-warning" style="display: none">
+        <h1>Attendere: elaborazione dati in corso...</h1>
+    </div>
 
-<div id="formDataLoading" class="alert alert-warning" style="display: none">
-    <h1>Attendere: elaborazione dati in corso...</h1>
-</div>
+    <div id="formDataResponse"></div>
 
-<div id="formDataResponse"></div>
-
-<script>
-    <?php if (isset($this->CKEditorField)): ?>
-        <?php if ( is_array($this->CKEditorField) ): ?>
-            <?php foreach($this->CKEditorField as $ckEditorField): ?>
-            /* CKEditor and CKFinder integration (multiple) */
-            var editor = CKEDITOR.replace( '<?php echo $ckEditorField ?>', {
+    <script>
+        <?php if (isset($this->CKEditorField)): ?>
+            <?php if ( is_array($this->CKEditorField) ): ?>
+                <?php foreach($this->CKEditorField as $ckEditorField): ?>
+                /* CKEditor and CKFinder integration (multiple) */
+                var editor = CKEDITOR.replace( '<?php echo $ckEditorField ?>', {
+                    filebrowserBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html',
+                    filebrowserImageBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html?type=Images',
+                    filebrowserFlashBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html?type=Flash',
+                    filebrowserUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+                    filebrowserImageUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+                    filebrowserFlashUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
+                    /*, filebrowserWindowWidth : '1000', filebrowserWindowHeight : '700' */
+                });
+                CKFinder.setupCKEditor( editor, '../' );
+                <?php endforeach; ?>
+            <?php elseif(is_string($this->CKEditorField)): ?>
+            /* CKEditor and CKFinder integration (single) */
+            var editor = CKEDITOR.replace( '<?php echo $this->CKEditorField ?>', {
                 filebrowserBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html',
                 filebrowserImageBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html?type=Images',
                 filebrowserFlashBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html?type=Flash',
@@ -86,28 +100,15 @@ if (!$this->form):
                 /*, filebrowserWindowWidth : '1000', filebrowserWindowHeight : '700' */
             });
             CKFinder.setupCKEditor( editor, '../' );
-            <?php endforeach; ?>
-        <?php elseif(is_string($this->CKEditorField)): ?>
-        /* CKEditor and CKFinder integration (single) */
-        var editor = CKEDITOR.replace( '<?php echo $this->CKEditorField ?>', {
-            filebrowserBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html',
-            filebrowserImageBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html?type=Images',
-            filebrowserFlashBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html?type=Flash',
-            filebrowserUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-            filebrowserImageUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-            filebrowserFlashUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
-            /*, filebrowserWindowWidth : '1000', filebrowserWindowHeight : '700' */
-        });
-        CKFinder.setupCKEditor( editor, '../' );
+            <?php endif; ?>
+
         <?php endif; ?>
 
-    <?php endif; ?>
-
-    function refreshEditor() {
-        for (instance in CKEDITOR.instances) {
-            CKEDITOR.instances[instance].updateElement();
+        function refreshEditor() {
+            for (instance in CKEDITOR.instances) {
+                CKEDITOR.instances[instance].updateElement();
+            }
         }
-    }
-</script>
+    </script>
 <?php
 endif;

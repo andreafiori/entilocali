@@ -2,8 +2,11 @@
 
 namespace Admin\Model;
 
+use Admin\Model\Languages\LanguagesFormSearch;
+use Admin\Model\Languages\LanguagesGetterWrapper;
 use Application\Model\NullException;
 use Admin\Model\Users\UsersGetterWrapper;
+use Admin\Model\HomePage\HomePageBlocksGetterWrapper;
 use Application\Model\Database\DbTableContainer;
 
 abstract class ControllerHelperAbstract extends OperationsModelAbstract
@@ -15,9 +18,45 @@ abstract class ControllerHelperAbstract extends OperationsModelAbstract
 
     protected $usersGetterWrapperRecords;
 
+    /**
+     * @var HomePageBlocksGetterWrapper
+     */
     protected $homePageBlocksGetterWrapper;
 
     protected $homePageBlocksRecords;
+
+    /**
+     * @var LanguagesGetterWrapper
+     */
+    protected $languagesGetterWrapper;
+
+    protected $loggedUser;
+
+    /**
+     * @param mixed $loggedUser
+     */
+    public function setLoggedUser($loggedUser)
+    {
+        $this->loggedUser = $loggedUser;
+    }
+
+    /**
+     * @throws NullException
+     */
+    protected function assertLoggedUser()
+    {
+        if (!$this->getLoggedUser()) {
+            throw new NullException("Logged user data are not set");
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLoggedUser()
+    {
+        return $this->loggedUser;
+    }
 
     /**
      * @param UsersGetterWrapper $usersGetterWrapper
@@ -64,7 +103,15 @@ abstract class ControllerHelperAbstract extends OperationsModelAbstract
     }
 
     /**
-     * @return mixed
+     * @param HomePageBlocksGetterWrapper $homePageBlocksGetterWrapper
+     */
+    public function setHomePageBlocksGetterWrapper(HomePageBlocksGetterWrapper $homePageBlocksGetterWrapper)
+    {
+        $this->homePageBlocksGetterWrapper = $homePageBlocksGetterWrapper;
+    }
+
+    /**
+     * @return HomePageBlocksGetterWrapper
      */
     public function getHomePageBlocksGetterWrapper()
     {
@@ -79,14 +126,6 @@ abstract class ControllerHelperAbstract extends OperationsModelAbstract
         if (!$this->getHomePageBlocksGetterWrapper()) {
             throw new NullException("HomePageBlocksGetterWrapper is not set");
         }
-    }
-
-    /**
-     * @param mixed $homePageBlocksGetterWrapper
-     */
-    public function setHomePageBlocksGetterWrapper($homePageBlocksGetterWrapper)
-    {
-        $this->homePageBlocksGetterWrapper = $homePageBlocksGetterWrapper;
     }
 
     /**
@@ -122,7 +161,7 @@ abstract class ControllerHelperAbstract extends OperationsModelAbstract
     }
 
     /**
-     * Perform inset on homepage db table
+     * Inset on homepage db table using referenceID only
      */
     public function insertInHomePage($id)
     {
@@ -146,5 +185,56 @@ abstract class ControllerHelperAbstract extends OperationsModelAbstract
                 'block_id'          => $blockRecords[0]['id'],
             )
         );
+    }
+
+    /**
+     * @param mixed $languagesGetterWrapper
+     */
+    public function setLanguagesGetterWrapper(LanguagesGetterWrapper $languagesGetterWrapper)
+    {
+        $this->languagesGetterWrapper = $languagesGetterWrapper;
+    }
+
+    /**
+     * @return LanguagesGetterWrapper
+     */
+    public function getLanguagesGetterWrapper()
+    {
+        return $this->languagesGetterWrapper;
+    }
+
+    /**
+     * @throws NullException
+     */
+    protected function assertLanguagesGetterWrapper()
+    {
+        if (!$this->getLanguagesGetterWrapper()) {
+            throw new NullException("LanguagesGetterWrapper is not set");
+        }
+    }
+
+    /**
+     * @param LanguagesFormSearch $formLanguage
+     * @param array $input
+     * @param string $languageSelection
+     * @return LanguagesFormSearch
+     */
+    public function setupLanguageFormSearch(LanguagesFormSearch $formLanguage, array $input, $languageSelection)
+    {
+        $this->assertLanguagesGetterWrapper();
+
+        $wrapper = $this->recoverWrapper($this->getLanguagesGetterWrapper(), $input);
+
+        $formLanguage->addLanguages(
+            $wrapper->formatForDropwdown(
+                $wrapper->getRecords(),
+                'abbreviation1',
+                'name'
+            )
+        );
+        $formLanguage->addSubmitButton();
+        $formLanguage->setData( array('lingua' => $languageSelection) );
+
+        return $formLanguage;
     }
 }

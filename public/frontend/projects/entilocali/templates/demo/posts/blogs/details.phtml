@@ -1,7 +1,7 @@
 <ul class="breadcrumbs">
-    <li><a href="<?php echo $this->basepath() ?>/" title="Torna alla home page">Home</a> <span class="divider"></span></li>
+    <li><a href="<?php echo $this->url('main', array('lang'=>$this->lang)); ?>" title="Torna alla home page">Home</a> <span class="divider"></span></li>
 
-    <li><a href="<?php echo $this->url('posts-blogs-categories', array('category' => $this->categorySlug)) ?>" title="Vai a <?php echo $this->categoryName; ?>"><?php echo $this->categoryName; ?></a></li>
+    <li><a href="<?php echo $this->url('main/posts-blogs-categories', array('lang' => $this->lang, 'category' => $this->categorySlug)) ?>" title="Vai a <?php echo $this->categoryName; ?>"><?php echo $this->categoryName; ?></a></li>
 
     <li class="current"><?php echo $this->title ?></li>
 </ul>

@@ -6,10 +6,6 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
-/**
- * @author Andrea Fiori
- * @since  20 March 2015
- */
 class ContenutiFormInputFilter implements InputFilterAwareInterface
 {
     public $id;
@@ -20,7 +16,7 @@ class ContenutiFormInputFilter implements InputFilterAwareInterface
     public $dataInserimento;
     public $dataScadenza;
     public $attivo;
-    public $homepage;
+    public $home;
     public $utente;
     public $rss;
     public $facebook;
@@ -40,7 +36,7 @@ class ContenutiFormInputFilter implements InputFilterAwareInterface
         $this->dataInserimento  = (isset($data['dataInserimento'])) ? $data['dataInserimento']  : null;
         $this->dataScadenza     = (isset($data['dataScadenza']))    ? $data['dataScadenza']     : null;
         $this->attivo           = (isset($data['attivo']))          ? $data['attivo']           : null;
-        $this->homepage         = (isset($data['homepage']))        ? $data['homepage']         : null;
+        $this->home             = (isset($data['home']))            ? $data['home']             : null;
         $this->utente           = (isset($data['utente']))          ? $data['utente']           : null;
         $this->rss              = (isset($data['rss']))             ? $data['rss']              : null;
         $this->facebook         = (isset($data['facebook']))        ? $data['facebook']         : null;
@@ -109,7 +105,18 @@ class ContenutiFormInputFilter implements InputFilterAwareInterface
                 'name'     => 'sommario',
                 'required' => false,
                 'filters'  => array(
+                    array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name' => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => 1,
+                            'max'      => 255,
+                        ),
+                    ),
                 ),
             ));
 
@@ -138,7 +145,7 @@ class ContenutiFormInputFilter implements InputFilterAwareInterface
             ));
 
             $inputFilter->add(array(
-                'name'     => 'attivo',
+                'name' => 'attivo',
                 'required' => true,
                 'filters'  => array(
                     array('name' => 'Int'),
@@ -146,7 +153,7 @@ class ContenutiFormInputFilter implements InputFilterAwareInterface
             ));
 
             $inputFilter->add(array(
-                'name'     => 'homepage',
+                'name'     => 'home',
                 'required' => true,
                 'filters'  => array(
                     array('name' => 'Int'),
