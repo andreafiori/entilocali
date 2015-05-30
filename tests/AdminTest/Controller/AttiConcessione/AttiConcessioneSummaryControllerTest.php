@@ -3,7 +3,7 @@
 namespace AdminTest\Controller\AttiConcessione;
 
 use Admin\Controller\AttiConcessione\AttiConcessioneSummaryController;
-use ApplicationTest\TestSuite;
+use ModelModuleTest\TestSuite;
 
 /**
  * @author Andrea Fiori

@@ -2,8 +2,8 @@
 
 namespace Admin\Controller\Log;
 
-use Admin\Model\Log\LogGetter;
-use Admin\Model\Log\LogGetterWrapper;
+use ModelModule\Model\Log\LogGetter;
+use ModelModule\Model\Log\LogGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
 class LogSummaryController extends SetupAbstractController
@@ -27,7 +27,7 @@ class LogSummaryController extends SetupAbstractController
         $paginatorRecords =  $wrapper->setupRecords();
 
         $this->layout()->setVariables(array(
-            'tableTitle'        => 'Log operazioni eseguite',
+            'tableTitle'        => 'Tracciamento operazioni eseguite',
             'tableDescription'  => $wrapper->getPaginator()->getTotalItemCount().' operazioni loggate',
             'columns' => array(
                 "Data \ ora",
@@ -73,28 +73,4 @@ class LogSummaryController extends SetupAbstractController
 
         return $arrayToReturn;
     }
-
-    /**
-     * Truncate table logs
-
-    private function deleteAllLogs()
-    {
-        $em = $this->getInput('entityManager',1);
-
-        $connection = $em->getConnection();
-        $dbPlatform = $connection->getDatabasePlatform();
-        $connection->beginTransaction();
-        try {
-            $connection->query('SET FOREIGN_KEY_CHECKS=0');
-
-            $q = $dbPlatform->getTruncateTableSql('zfcms_logs');
-
-            $connection->executeUpdate($q);
-            $connection->query('SET FOREIGN_KEY_CHECKS=1');
-            $connection->commit();
-        }
-        catch (\Exception $e) {
-            $connection->rollback();
-        }
-    }*/
 }

@@ -1,6 +1,6 @@
 <?php
 
-use ApplicationTest\ServiceManagerGrabber;
+use ModelModuleTest\ServiceManagerGrabber;
 
 error_reporting(E_ALL | E_STRICT);
 
@@ -12,6 +12,8 @@ $loader = require_once  './vendor/autoload.php';
 $loader->add("AdminTest\\", $cwd);
 $loader->add("ApiWebServiceTest\\", $cwd);
 $loader->add("ApplicationTest\\", $cwd);
+$loader->add("AuthTest\\", $cwd);
+$loader->add("ModelModuleTest\\", $cwd);
 $loader->add("ServiceLocatorFactoryTest\\", $cwd);
 $loader->register();
 

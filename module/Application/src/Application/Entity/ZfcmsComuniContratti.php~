@@ -40,14 +40,14 @@ class ZfcmsComuniContratti
      *
      * @ORM\Column(name="importo_aggiudicazione", type="decimal", precision=12, scale=2, nullable=true)
      */
-    private $importoAggiudicazione = '0.00';
+    private $importoAggiudicazione;
 
     /**
      * @var string
      *
      * @ORM\Column(name="importo_liquidato", type="decimal", precision=12, scale=2, nullable=true)
      */
-    private $importoLiquidato = '0.00';
+    private $importoLiquidato;
 
     /**
      * @var string
@@ -61,7 +61,7 @@ class ZfcmsComuniContratti
      *
      * @ORM\Column(name="numero_offerte", type="integer", nullable=true)
      */
-    private $numeroOfferte = '0';
+    private $numeroOfferte;
 
     /**
      * @var \DateTime
@@ -182,4 +182,3 @@ class ZfcmsComuniContratti
 
 
 }
-

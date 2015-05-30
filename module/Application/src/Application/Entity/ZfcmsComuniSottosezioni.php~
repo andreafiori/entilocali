@@ -124,7 +124,7 @@ class ZfcmsComuniSottosezioni
      *
      * @ORM\Column(name="show_to_all", type="integer", nullable=false)
      */
-    private $showToAll = '0';
+    private $showToAll;
 
     /**
      * @var \Application\Entity\ZfcmsComuniSottosezioni
@@ -158,4 +158,3 @@ class ZfcmsComuniSottosezioni
 
 
 }
-

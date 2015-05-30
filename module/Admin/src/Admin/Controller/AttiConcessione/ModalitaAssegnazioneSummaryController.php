@@ -2,8 +2,8 @@
 
 namespace Admin\Controller\AttiConcessione;
 
-use Admin\Model\AttiConcessione\ModalitaAssegnazione\AttiConcessioneModalitaAssegnazioneGetter;
-use Admin\Model\AttiConcessione\ModalitaAssegnazione\AttiConcessioneModalitaAssegnazioneGetterWrapper;
+use ModelModule\Model\AttiConcessione\ModalitaAssegnazione\AttiConcessioneModalitaAssegnazioneGetter;
+use ModelModule\Model\AttiConcessione\ModalitaAssegnazione\AttiConcessioneModalitaAssegnazioneGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
 class ModalitaAssegnazioneSummaryController extends SetupAbstractController

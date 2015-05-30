@@ -2,13 +2,13 @@
 
 namespace Application\Controller\StatoCivile;
 
-use Admin\Model\StatoCivile\StatoCivileFormSearch;
+use ModelModule\Model\StatoCivile\StatoCivileFormSearch;
 use DOMPDFModule\View\Model\PdfModel;
-use Admin\Model\StatoCivile\StatoCivileGetter;
-use Admin\Model\StatoCivile\StatoCivileGetterWrapper;
+use ModelModule\Model\StatoCivile\StatoCivileGetter;
+use ModelModule\Model\StatoCivile\StatoCivileGetterWrapper;
 use Application\Controller\SetupAbstractController;
 use Zend\Session\Container as SessionContainer;
-use Application\Model\Export\CsvExportHelper;
+use ModelModule\Model\Export\CsvExportHelper;
 
 class StatoCivileExportController extends SetupAbstractController
 {

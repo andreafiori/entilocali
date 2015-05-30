@@ -54,14 +54,14 @@ class ZfcmsProductsBrands
      *
      * @ORM\Column(name="status", type="string", length=50, nullable=false)
      */
-    private $status = 'si';
+    private $status;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="position", type="integer", nullable=false)
      */
-    private $position = '0';
+    private $position;
 
     /**
      * @var string
@@ -96,7 +96,7 @@ class ZfcmsProductsBrands
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -107,7 +107,6 @@ class ZfcmsProductsBrands
      * Set code
      *
      * @param string $code
-     *
      * @return ZfcmsProductsBrands
      */
     public function setCode($code)
@@ -120,7 +119,7 @@ class ZfcmsProductsBrands
     /**
      * Get code
      *
-     * @return string
+     * @return string 
      */
     public function getCode()
     {
@@ -131,7 +130,6 @@ class ZfcmsProductsBrands
      * Set image
      *
      * @param string $image
-     *
      * @return ZfcmsProductsBrands
      */
     public function setImage($image)
@@ -144,7 +142,7 @@ class ZfcmsProductsBrands
     /**
      * Get image
      *
-     * @return string
+     * @return string 
      */
     public function getImage()
     {
@@ -155,7 +153,6 @@ class ZfcmsProductsBrands
      * Set name
      *
      * @param string $name
-     *
      * @return ZfcmsProductsBrands
      */
     public function setName($name)
@@ -168,7 +165,7 @@ class ZfcmsProductsBrands
     /**
      * Get name
      *
-     * @return string
+     * @return string 
      */
     public function getName()
     {
@@ -179,7 +176,6 @@ class ZfcmsProductsBrands
      * Set description
      *
      * @param string $description
-     *
      * @return ZfcmsProductsBrands
      */
     public function setDescription($description)
@@ -192,7 +188,7 @@ class ZfcmsProductsBrands
     /**
      * Get description
      *
-     * @return string
+     * @return string 
      */
     public function getDescription()
     {
@@ -203,7 +199,6 @@ class ZfcmsProductsBrands
      * Set status
      *
      * @param string $status
-     *
      * @return ZfcmsProductsBrands
      */
     public function setStatus($status)
@@ -216,7 +211,7 @@ class ZfcmsProductsBrands
     /**
      * Get status
      *
-     * @return string
+     * @return string 
      */
     public function getStatus()
     {
@@ -227,7 +222,6 @@ class ZfcmsProductsBrands
      * Set position
      *
      * @param integer $position
-     *
      * @return ZfcmsProductsBrands
      */
     public function setPosition($position)
@@ -240,7 +234,7 @@ class ZfcmsProductsBrands
     /**
      * Get position
      *
-     * @return integer
+     * @return integer 
      */
     public function getPosition()
     {
@@ -251,7 +245,6 @@ class ZfcmsProductsBrands
      * Set urlWeb
      *
      * @param string $urlWeb
-     *
      * @return ZfcmsProductsBrands
      */
     public function setUrlWeb($urlWeb)
@@ -264,7 +257,7 @@ class ZfcmsProductsBrands
     /**
      * Get urlWeb
      *
-     * @return string
+     * @return string 
      */
     public function getUrlWeb()
     {
@@ -275,7 +268,6 @@ class ZfcmsProductsBrands
      * Set seoUrl
      *
      * @param string $seoUrl
-     *
      * @return ZfcmsProductsBrands
      */
     public function setSeoUrl($seoUrl)
@@ -288,7 +280,7 @@ class ZfcmsProductsBrands
     /**
      * Get seoUrl
      *
-     * @return string
+     * @return string 
      */
     public function getSeoUrl()
     {
@@ -299,7 +291,6 @@ class ZfcmsProductsBrands
      * Set seoKeywords
      *
      * @param string $seoKeywords
-     *
      * @return ZfcmsProductsBrands
      */
     public function setSeoKeywords($seoKeywords)
@@ -312,7 +303,7 @@ class ZfcmsProductsBrands
     /**
      * Get seoKeywords
      *
-     * @return string
+     * @return string 
      */
     public function getSeoKeywords()
     {
@@ -323,7 +314,6 @@ class ZfcmsProductsBrands
      * Set seoDescription
      *
      * @param string $seoDescription
-     *
      * @return ZfcmsProductsBrands
      */
     public function setSeoDescription($seoDescription)
@@ -336,7 +326,7 @@ class ZfcmsProductsBrands
     /**
      * Get seoDescription
      *
-     * @return string
+     * @return string 
      */
     public function getSeoDescription()
     {

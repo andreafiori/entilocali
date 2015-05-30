@@ -3,8 +3,8 @@
 namespace Admin\Controller\EntiTerzi;
 
 use Application\Controller\SetupAbstractController;
-use Admin\Model\EntiTerzi\EntiTerziGetter;
-use Admin\Model\EntiTerzi\EntiTerziGetterWrapper;
+use ModelModule\Model\EntiTerzi\EntiTerziGetter;
+use ModelModule\Model\EntiTerzi\EntiTerziGetterWrapper;
 
 /**
  * @author Andrea Fiori
@@ -72,7 +72,7 @@ class EntiTerziSummaryController extends SetupAbstractController
                         array(
                             'type'      => 'updateButton',
                             'href'      => $this->url()->fromRoute('admin/enti-terzi-form', array(
-                                    'lang'  => 'it',
+                                    'lang'  => $this->params()->fromRoute('lang'),
                                     'id'    => $row['id'],
                                 )
                             ),

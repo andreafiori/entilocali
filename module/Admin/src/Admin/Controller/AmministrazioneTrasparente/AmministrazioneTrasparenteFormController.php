@@ -2,11 +2,11 @@
 
 namespace Admin\Controller\AmministrazioneTrasparente;
 
-use Admin\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteForm;
-use Admin\Model\Contenuti\ContenutiGetter;
-use Admin\Model\Contenuti\ContenutiGetterWrapper;
-use Admin\Model\Sezioni\SottoSezioniGetter;
-use Admin\Model\Sezioni\SottoSezioniGetterWrapper;
+use ModelModule\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteForm;
+use ModelModule\Model\Contenuti\ContenutiGetter;
+use ModelModule\Model\Contenuti\ContenutiGetterWrapper;
+use ModelModule\Model\Sezioni\SottoSezioniGetter;
+use ModelModule\Model\Sezioni\SottoSezioniGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
 class AmministrazioneTrasparenteFormController extends SetupAbstractController

@@ -3,7 +3,7 @@
 namespace AdminTest\Controller\StatoCivile;
 
 use Admin\Controller\StatoCivile\StatoCivileSummaryController;
-use ApplicationTest\TestSuite;
+use ModelModuleTest\TestSuite;
 
 class StatoCivileSummaryControllerTest extends TestSuite
 {

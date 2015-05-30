@@ -54,29 +54,31 @@ class ZfcmsConfig
      *
      * @ORM\Column(name="is_always_allowed", type="bigint", nullable=false)
      */
-    private $isAlwaysAllowed = '1';
+    private $isAlwaysAllowed;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="module_id", type="bigint", nullable=false)
+     * @ORM\Column(name="module_id", type="bigint", nullable=true)
      */
-    private $moduleId = '4';
+    private $moduleId;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="channel_id", type="bigint", nullable=false)
+     * @ORM\Column(name="channel_id", type="bigint", nullable=true)
      */
-    private $channelId = '1';
+    private $channelId;
 
     /**
-     * @var integer
+     * @var \Application\Entity\ZfcmsLanguages
      *
-     * @ORM\Column(name="language_id", type="bigint", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsLanguages")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="language_id", referencedColumnName="id")
+     * })
      */
-    private $languageId = '1';
+    private $language;
 
 
 }
-

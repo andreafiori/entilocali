@@ -71,16 +71,6 @@ class ZfcmsHomepage
     private $referenceId;
 
     /**
-     * @var \Application\Entity\ZfcmsLanguages
-     *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsLanguages")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="language_id", referencedColumnName="id")
-     * })
-     */
-    private $language;
-
-    /**
      * @var \Application\Entity\ZfcmsHomepageBlocks
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsHomepageBlocks")
@@ -90,6 +80,15 @@ class ZfcmsHomepage
      */
     private $block;
 
+    /**
+     * @var \Application\Entity\ZfcmsLanguages
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsLanguages")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="language_id", referencedColumnName="id")
+     * })
+     */
+    private $language;
+
 
 }
-

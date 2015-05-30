@@ -3,7 +3,7 @@
 namespace AdminTest\Controller\Blogs;
 
 use Admin\Controller\Blogs\BlogsSummaryController;
-use ApplicationTest\TestSuite;
+use ModelModuleTest\TestSuite;
 
 /**
  * @author Andrea Fiori

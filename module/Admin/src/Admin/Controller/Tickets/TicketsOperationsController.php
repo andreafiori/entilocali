@@ -2,16 +2,16 @@
 
 namespace Admin\Controller\Tickets;
 
-use Admin\Model\Tickets\TicketsForm;
+use ModelModule\Model\Tickets\TicketsForm;
 use Application\Controller\SetupAbstractController;
 
 /**
  *
  * TODO:
- *  insert request into db, send request to webmaster
- *  change state of the ticket
- *  let the users answer to request and the webmaster to answer and eventually close the ticket
- *
+        insert request into db
+        send request to webmasters
+        let the users answer to request and the webmaster to answer and eventually close the ticket
+        change ticket status
  */
 class TicketsOperationsController extends SetupAbstractController
 {

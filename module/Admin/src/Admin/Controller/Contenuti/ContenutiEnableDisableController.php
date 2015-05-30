@@ -2,11 +2,11 @@
 
 namespace Admin\Controller\Contenuti;
 
-use Admin\Model\Contenuti\ContenutiGetter;
-use Admin\Model\Contenuti\ContenutiGetterWrapper;
-use Admin\Model\Contenuti\ContenutiOperationsModel;
-use Admin\Model\Log\LogWriter;
-use Admin\Model\Modules\ModulesContainer;
+use ModelModule\Model\Contenuti\ContenutiGetter;
+use ModelModule\Model\Contenuti\ContenutiGetterWrapper;
+use ModelModule\Model\Contenuti\ContenutiOperationsModel;
+use ModelModule\Model\Log\LogWriter;
+use ModelModule\Model\Modules\ModulesContainer;
 use Application\Controller\SetupAbstractController;
 
 /**
@@ -15,7 +15,7 @@ use Application\Controller\SetupAbstractController;
 class ContenutiEnableDisableController extends SetupAbstractController
 {
     /**
-     * Attiva contenuto
+     * Attiva contenuto e redirect verso il sommario
      */
     public function enableAction()
     {
@@ -47,7 +47,13 @@ class ContenutiEnableDisableController extends SetupAbstractController
 
             $operationModel->getConnection()->commit();
 
-            return $this->redirect()->toRoute('admin/contenuti-summary', array('lang'=>'it'));
+            return $this->redirect()->toRoute('admin/contenuti-summary',
+                array(
+                    'lang'              => $this->params()->fromRoute('lang'),
+                    'languageSelection' => $this->params()->fromRoute('languageSelection'),
+                    'previouspage'      => $this->params()->fromRoute('previouspage'),
+                )
+            );
 
         } catch(\Exception $e) {
 
@@ -103,7 +109,13 @@ class ContenutiEnableDisableController extends SetupAbstractController
 
             $operationModel->getConnection()->commit();
 
-            return $this->redirect()->toRoute('admin/contenuti-summary', array('lang'=>'it'));
+            return $this->redirect()->toRoute('admin/contenuti-summary',
+                array(
+                    'lang'              => $this->params()->fromRoute('lang'),
+                    'languageSelection' => $this->params()->fromRoute('languageSelection'),
+                    'previouspage'      => $this->params()->fromRoute('previouspage'),
+                )
+            );
 
         } catch(\Exception $e) {
 

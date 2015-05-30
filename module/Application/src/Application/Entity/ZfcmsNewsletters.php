@@ -40,7 +40,7 @@ class ZfcmsNewsletters
      *
      * @ORM\Column(name="create_date", type="datetime", nullable=false)
      */
-    private $createDate = '0000-00-00 00:00:00';
+    private $createDate;
 
     /**
      * @var string
@@ -61,7 +61,7 @@ class ZfcmsNewsletters
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -72,7 +72,6 @@ class ZfcmsNewsletters
      * Set title
      *
      * @param string $title
-     *
      * @return ZfcmsNewsletters
      */
     public function setTitle($title)
@@ -85,7 +84,7 @@ class ZfcmsNewsletters
     /**
      * Get title
      *
-     * @return string
+     * @return string 
      */
     public function getTitle()
     {
@@ -96,7 +95,6 @@ class ZfcmsNewsletters
      * Set messageText
      *
      * @param string $messageText
-     *
      * @return ZfcmsNewsletters
      */
     public function setMessageText($messageText)
@@ -109,7 +107,7 @@ class ZfcmsNewsletters
     /**
      * Get messageText
      *
-     * @return string
+     * @return string 
      */
     public function getMessageText()
     {
@@ -120,7 +118,6 @@ class ZfcmsNewsletters
      * Set createDate
      *
      * @param \DateTime $createDate
-     *
      * @return ZfcmsNewsletters
      */
     public function setCreateDate($createDate)
@@ -133,7 +130,7 @@ class ZfcmsNewsletters
     /**
      * Get createDate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getCreateDate()
     {
@@ -144,7 +141,6 @@ class ZfcmsNewsletters
      * Set format
      *
      * @param string $format
-     *
      * @return ZfcmsNewsletters
      */
     public function setFormat($format)
@@ -157,7 +153,7 @@ class ZfcmsNewsletters
     /**
      * Get format
      *
-     * @return string
+     * @return string 
      */
     public function getFormat()
     {
@@ -168,7 +164,6 @@ class ZfcmsNewsletters
      * Set sent
      *
      * @param string $sent
-     *
      * @return ZfcmsNewsletters
      */
     public function setSent($sent)
@@ -181,7 +176,7 @@ class ZfcmsNewsletters
     /**
      * Get sent
      *
-     * @return string
+     * @return string 
      */
     public function getSent()
     {

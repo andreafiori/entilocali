@@ -3,8 +3,8 @@
 namespace Application\Controller\Users;
 
 use Application\Controller\SetupAbstractController;
-use Application\Model\Users\CreateAccountForm;
-use Application\Model\Users\CreateAccountFormInputFilter;
+use ModelModule\Model\Users\CreateAccountForm;
+use ModelModule\Model\Users\CreateAccountFormInputFilter;
 
 /**
  * @author Andrea Fiori

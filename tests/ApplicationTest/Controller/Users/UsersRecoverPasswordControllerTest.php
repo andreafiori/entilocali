@@ -4,7 +4,7 @@ namespace ApplicationTest\Controller\Users;
 
 use Application\Controller\Users\UsersRecoverPasswordController;
 use ServiceLocatorFactory\ServiceLocatorFactory;
-use ApplicationTest\TestSuite;
+use ModelModuleTest\TestSuite;
 
 /**
  * @author Andrea Fiori

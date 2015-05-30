@@ -2,8 +2,8 @@
 
 namespace Admin\Controller\Sezioni;
 
-use Admin\Model\Sezioni\SottoSezioniGetter;
-use Admin\Model\Sezioni\SottoSezioniGetterWrapper;
+use ModelModule\Model\Sezioni\SottoSezioniGetter;
+use ModelModule\Model\Sezioni\SottoSezioniGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
 class SottoSezioniPositionsController extends SetupAbstractController

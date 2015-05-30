@@ -2,7 +2,7 @@
 
 namespace ApiWebService\Model;
 
-use ApplicationTest\TestSuite;
+use ModelModuleTest\TestSuite;
 use ApiWebService\Model\ApiOutputManager;
 
 /**

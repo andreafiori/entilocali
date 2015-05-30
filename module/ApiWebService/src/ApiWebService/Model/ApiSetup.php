@@ -2,8 +2,8 @@
 
 namespace ApiWebService\Model;
 
-use Admin\Model\Users\UsersGetterWrapper;
-use Application\Model\NullException;
+use ModelModule\Model\Users\UsersGetterWrapper;
+use ModelModule\Model\NullException;
 
 /**
  * @author Andrea Fiori

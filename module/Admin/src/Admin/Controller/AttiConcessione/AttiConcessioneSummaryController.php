@@ -2,13 +2,13 @@
 
 namespace Admin\Controller\AttiConcessione;
 
-use Admin\Model\AttiConcessione\AttiConcessioneControllerHelper;
-use Admin\Model\AttiConcessione\AttiConcessioneGetter;
-use Admin\Model\AttiConcessione\AttiConcessioneGetterWrapper;
-use Admin\Model\Users\Settori\UsersSettoriGetter;
-use Admin\Model\Users\Settori\UsersSettoriGetterWrapper;
+use ModelModule\Model\AttiConcessione\AttiConcessioneControllerHelper;
+use ModelModule\Model\AttiConcessione\AttiConcessioneGetter;
+use ModelModule\Model\AttiConcessione\AttiConcessioneGetterWrapper;
+use ModelModule\Model\Users\Settori\UsersSettoriGetter;
+use ModelModule\Model\Users\Settori\UsersSettoriGetterWrapper;
 use Application\Controller\SetupAbstractController;
-use Application\Model\AttiConcessione\AttiConcessioneFormSearch;
+use ModelModule\Model\AttiConcessione\AttiConcessioneFormSearch;
 
 /**
  * @author Andrea Fiori

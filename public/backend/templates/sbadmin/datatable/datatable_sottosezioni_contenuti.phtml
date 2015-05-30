@@ -5,7 +5,7 @@
         </a>
     </li>
     <li>
-        <a href="<?php echo $this->url('admin/contenuti-form', array('lang'=>$this->params()->fromRoute('lang'), 'languageSelection' => $this->params()->fromRoute('lang'))) ?>" title="Elenco contenuti">
+        <a href="<?php echo $this->url('admin/contenuti-form', array('lang'=>$this->params()->fromRoute('lang'), 'languageSelection' => $this->params()->fromRoute('languageSelection'))) ?>" title="Elenco contenuti">
             Contenuti
         </a>
     </li>
@@ -28,8 +28,9 @@
 
     echo $this->partial($this->formDataCommonPath.'_formdata_language.phtml', array(
             'formAction'   => $this->url('admin/sottosezioni-operations', array(
-                'lang'   => $this->params()->fromRoute('lang'),
-                'action' => 'changecontenutisummarylang',
+                'lang'              => $this->params()->fromRoute('lang'),
+                'languageSelection' => $this->params()->fromRoute('languageSelection'),
+                'action'            => 'changecontenutisummarylang',
             )),
             'formLanguage' => $this->formLanguage,
         )

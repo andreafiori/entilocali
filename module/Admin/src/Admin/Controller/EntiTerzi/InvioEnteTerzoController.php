@@ -2,15 +2,15 @@
 
 namespace Admin\Controller\EntiTerzi;
 
-use Admin\Model\EntiTerzi\EntiTerziGetter;
-use Admin\Model\EntiTerzi\EntiTerziGetterWrapper;
-use Admin\Model\EntiTerzi\InvioEnteTerzoForm;
-use Admin\Model\AlboPretorio\AlboPretorioArticoliGetter;
-use Admin\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
-use Admin\Model\StatoCivile\StatoCivileGetter;
-use Admin\Model\StatoCivile\StatoCivileGetterWrapper;
+use ModelModule\Model\EntiTerzi\EntiTerziGetter;
+use ModelModule\Model\EntiTerzi\EntiTerziGetterWrapper;
+use ModelModule\Model\EntiTerzi\InvioEnteTerzoForm;
+use ModelModule\Model\AlboPretorio\AlboPretorioArticoliGetter;
+use ModelModule\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
+use ModelModule\Model\StatoCivile\StatoCivileGetter;
+use ModelModule\Model\StatoCivile\StatoCivileGetterWrapper;
 use Application\Controller\SetupAbstractController;
-use Application\Model\NullException;
+use ModelModule\Model\NullException;
 
 class InvioEnteTerzoController extends SetupAbstractController
 {

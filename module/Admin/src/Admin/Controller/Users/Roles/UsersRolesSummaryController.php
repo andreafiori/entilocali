@@ -2,8 +2,8 @@
 
 namespace Admin\Controller\Users\Roles;
 
-use Admin\Model\Users\Roles\UsersRolesGetter;
-use Admin\Model\Users\Roles\UsersRolesGetterWrapper;
+use ModelModule\Model\Users\Roles\UsersRolesGetter;
+use ModelModule\Model\Users\Roles\UsersRolesGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
 class UsersRolesSummaryController extends SetupAbstractController

@@ -47,7 +47,7 @@ class ZfcmsProductsShipmentsTypes
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -58,7 +58,6 @@ class ZfcmsProductsShipmentsTypes
      * Set areaDiConsegna
      *
      * @param string $areaDiConsegna
-     *
      * @return ZfcmsProductsShipmentsTypes
      */
     public function setAreaDiConsegna($areaDiConsegna)
@@ -71,7 +70,7 @@ class ZfcmsProductsShipmentsTypes
     /**
      * Get areaDiConsegna
      *
-     * @return string
+     * @return string 
      */
     public function getAreaDiConsegna()
     {
@@ -82,7 +81,6 @@ class ZfcmsProductsShipmentsTypes
      * Set ordineMinimo
      *
      * @param string $ordineMinimo
-     *
      * @return ZfcmsProductsShipmentsTypes
      */
     public function setOrdineMinimo($ordineMinimo)
@@ -95,7 +93,7 @@ class ZfcmsProductsShipmentsTypes
     /**
      * Get ordineMinimo
      *
-     * @return string
+     * @return string 
      */
     public function getOrdineMinimo()
     {
@@ -106,7 +104,6 @@ class ZfcmsProductsShipmentsTypes
      * Set tempoMedioConsegna
      *
      * @param string $tempoMedioConsegna
-     *
      * @return ZfcmsProductsShipmentsTypes
      */
     public function setTempoMedioConsegna($tempoMedioConsegna)
@@ -119,7 +116,7 @@ class ZfcmsProductsShipmentsTypes
     /**
      * Get tempoMedioConsegna
      *
-     * @return string
+     * @return string 
      */
     public function getTempoMedioConsegna()
     {

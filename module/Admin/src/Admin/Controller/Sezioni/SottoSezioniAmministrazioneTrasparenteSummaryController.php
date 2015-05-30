@@ -2,14 +2,15 @@
 
 namespace Admin\Controller\Sezioni;
 
-use Admin\Model\Sezioni\SezioniControllerHelper;
-use Admin\Model\Sezioni\SottoSezioniGetter;
-use Admin\Model\Sezioni\SottoSezioniGetterWrapper;
-use Admin\Model\Languages\LanguagesGetter;
-use Admin\Model\Languages\LanguagesGetterWrapper;
-use Admin\Model\Languages\LanguagesFormSearch;
+use ModelModule\Model\Sezioni\SezioniControllerHelper;
+use ModelModule\Model\Sezioni\SottoSezioniGetter;
+use ModelModule\Model\Sezioni\SottoSezioniGetterWrapper;
+use ModelModule\Model\Languages\LanguagesGetter;
+use ModelModule\Model\Languages\LanguagesGetterWrapper;
+use ModelModule\Model\Languages\LanguagesFormSearch;
+use Application\Controller\SetupAbstractController;
 
-class SottoSezioniAmministrazioneTrasparenteSummaryController extends SottoSezioniControllerAbstract
+class SottoSezioniAmministrazioneTrasparenteSummaryController extends SetupAbstractController
 {
     public function indexAction()
     {
@@ -60,10 +61,69 @@ class SottoSezioniAmministrazioneTrasparenteSummaryController extends SottoSezio
             ),
             'formLanguage'      => isset($formLanguage) ? $formLanguage : null,
             'paginator'         => $wrapper->getPaginator(),
-            'records'           => $this->formatRecordsToShowOnTable($paginatorRecords),
+            //'records'           => $this->formatRecordsToShowOnTable($paginatorRecords),
             'templatePartial'   => 'datatable/datatable_sottosezioni_ammtrasp.phtml',
         ));
 
         $this->layout()->setTemplate($mainLayout);
+    }
+
+    /**
+     * Format common columns values for the summary
+     *
+     * @param $records
+     * @return array
+     */
+    protected function formatRecordsToShowOnTable($records)
+    {
+        $lang = $this->params()->fromRoute('lang');
+        $page = $this->params()->fromRoute('page');
+        $languageSelection = $this->params()->fromRoute('languageSelection');
+
+        $arrayToReturn = array();
+        if ($records) {
+            foreach($records as $key => $row) {
+                $rowToAdd = array(
+                    $row['nomeSottoSezione'],
+                    $row['nomeSezione'],
+                    array(
+                        'type' => 'updateButton',
+                        'href' => $this->url()->fromRoute('admin/sottosezioni-contenuti-form', array(
+                            'lang'               => $lang,
+                            'id'                 => $row['idSottoSezione'],
+                            'languageSelection'  => $languageSelection,
+                            'previouspage'       => $page,
+                        )),
+                        'title' => 'Modifica'
+                    ),
+                );
+
+                //if ($this->getAcl()->hasResource('amministrazione_trsparente_sottosezioni_delete')) {
+                $rowToAdd[] = array(
+                    'type'      => 'deleteButton',
+                    'href'      => '#',
+                    'data-id'   => $row['idSottoSezione'],
+                    'title'     => 'Elimina'
+                );
+                //}
+
+                //if ($this->getAcl()->hasResource('amministrazione_trsparente_sottosezioni_update')) {
+                $rowToAdd[] = array(
+                    'type' => 'positionButton',
+                    'href' => $this->url()->fromRoute('admin/posizioni-sottosezioni', array(
+                            'lang'              => $this->params()->fromRoute('lang'),
+                            'languageSelection' => $languageSelection,
+                            'sezioneId'         => $row['idSezione'],
+                        )
+                    ),
+                    'title' => 'Gestione posizioni'
+                );
+                //}
+
+                $arrayToReturn[] = $rowToAdd;
+            }
+        }
+
+        return $arrayToReturn;
     }
 }

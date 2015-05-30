@@ -2,9 +2,9 @@
 
 namespace Admin\Controller\Configurations;
 
-use Admin\Model\Config\ConfigForm;
-use Admin\Model\Config\ConfigGetter;
-use Admin\Model\Config\ConfigGetterWrapper;
+use ModelModule\Model\Config\ConfigForm;
+use ModelModule\Model\Config\ConfigGetter;
+use ModelModule\Model\Config\ConfigGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
 class ConfigurationsFormController extends SetupAbstractController

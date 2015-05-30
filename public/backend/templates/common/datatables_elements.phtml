@@ -87,9 +87,15 @@
                             <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
                                 <a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-black" title="<?php echo isset($record['title']) ? $record['title'] : null ?>"><i class="fa fa-cogs"></i> </a>
                             </td>
-                        <?php elseif($record['type']=='field'): // normal text \ data field ?>
+                        <?php elseif($record['type']=='field'): // text field ?>
                             <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
                                 <?php echo utf8_encode($record['record']) ?>
+                            </td>
+                        <?php elseif($record['type']=='link'): ?>
+                            <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                                <a href="<?php echo $record['href'] ?>" title="<?php echo isset($record['title']) ? $record['title'] : $record['label'] ?>">
+                                    <?php echo utf8_encode($record['label']) ?>
+                                </a>
                             </td>
                         <?php endif; ?>
                     <?php else: ?>

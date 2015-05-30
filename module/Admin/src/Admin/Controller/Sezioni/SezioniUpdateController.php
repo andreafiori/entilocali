@@ -2,12 +2,14 @@
 
 namespace Admin\Controller\Sezioni;
 
-use Admin\Model\Log\LogWriter;
-use Admin\Model\Modules\ModulesContainer;
-use Admin\Model\Sezioni\SezioniControllerHelper;
-use Admin\Model\Sezioni\SezioniForm;
-use Admin\Model\Sezioni\SezioniFormInputFilter;
+use ModelModule\Model\Log\LogWriter;
+use ModelModule\Model\Modules\ModulesContainer;
+use ModelModule\Model\Sezioni\SezioniControllerHelper;
+use ModelModule\Model\Sezioni\SezioniForm;
+use ModelModule\Model\Sezioni\SezioniFormInputFilter;
 use Application\Controller\SetupAbstractController;
+use ModelModule\Model\NullException;
+use Zend\Validator\File\Size;
 
 class SezioniUpdateController extends SetupAbstractController
 {
@@ -62,6 +64,45 @@ class SezioniUpdateController extends SetupAbstractController
                 'reference_id'  => $inputFilter->id,
                 'backend'       => 1,
             ));
+
+            // Image icon upload
+            /*
+            $size = new Size(array('min'=>20000));
+
+            $File = $this->params()->fromFiles('image');
+            $adapter = new \Zend\File\Transfer\Adapter\Http();
+            $adapter->setValidators(array($size), $File['name']);
+
+            if (!$adapter->isValid()) {
+                $dataError = $adapter->getMessages();
+                $error = array();
+                foreach($dataError as $key=>$row) {
+                    $error[] = $row;
+                }
+                $form->setMessages(array('fileupload' => $error));
+
+                var_dump($error);
+            } else {
+                $adapter->setDestination('public');
+                if ($adapter->receive($File['name'])) {
+                    // $profile->exchangeArray($form->getData());
+                    // echo 'Profile Name '.$profile->profilename.' upload '.$profile->fileupload;
+
+                    $filePathInfo = pathinfo($File['name']);
+                    $extension = $filePathInfo['extension'];
+
+                    // create thumb with imagine
+                    $imagine = new \Imagine\Gd\Imagine();
+                    $size    = new \Imagine\Image\Box(160, 130);
+                    $mode    = \Imagine\Image\ImageInterface::THUMBNAIL_INSET;
+                    $imagine->open('public/'.$File['name'])
+                            ->thumbnail($size, $mode)
+                            ->save('public/thumb_imagine.'.$extension)
+                    ;
+                }
+            }
+            */
+
 
             $this->layout()->setVariables(array(
                 'messageType'           => 'success',

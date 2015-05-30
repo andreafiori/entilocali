@@ -3,7 +3,7 @@
 namespace AdminTest\Controller\StatoCivile\Sezioni;
 
 use Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniFormController;
-use ApplicationTest\TestSuite;
+use ModelModuleTest\TestSuite;
 
 class StatoCivileSezioniFormControllerTest extends TestSuite
 {

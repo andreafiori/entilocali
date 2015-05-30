@@ -4,8 +4,8 @@ namespace Application\Controller\Contacts;
 
 use Zend\Mail;
 use Application\Controller\SetupAbstractController;
-use Application\Model\Contacts\ContactsForm;
-use Application\Model\NullException;
+use ModelModule\Model\Contacts\ContactsForm;
+use ModelModule\Model\NullException;
 
 class ContactsController extends SetupAbstractController
 {

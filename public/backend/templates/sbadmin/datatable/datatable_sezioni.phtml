@@ -11,9 +11,11 @@
         <br>
         <?php
         echo $this->partial($this->formDataCommonPath.'_formdata_language.phtml', array(
-                'formAction'   => $this->url('admin/sezioni-operations', array(
-                    'lang'   => $this->params()->fromRoute('lang'),
-                    'action' => 'changesummarylang',
+                'formAction' => $this->url('admin/sezioni-operations', array(
+                    'lang'              => $this->params()->fromRoute('lang'),
+                    'languageSelection' => $this->params()->fromRoute('languageSelection'),
+                    'action'            => 'changesummarylang',
+                    'previouspage'      => $this->params()->fromRoute('page'),
                 )),
                 'formLanguage' => $this->formLanguage,
             )

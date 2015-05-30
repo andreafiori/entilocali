@@ -2,13 +2,9 @@
 
 namespace AdminTest\Controller\AlboPretorio;
 
-use ApplicationTest\TestSuite;
 use Admin\Controller\AlboPretorio\AlboPretorioFormController;
+use ModelModuleTest\TestSuite;
 
-/**
- * @author Andrea Fiori
- * @since  08 April 2015
- */
 class AlboPretorioFormControllerTest extends TestSuite
 {
     /**

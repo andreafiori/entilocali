@@ -2,14 +2,14 @@
 
 namespace Application\Controller;
 
-use Admin\Model\Sezioni\SezioniGetter;
-use Admin\Model\Sezioni\SezioniGetterWrapper;
-use Application\Model\SetupAbstractControllerHelper;
-use Application\Setup\UserInterfaceConfigurations;
-use Admin\Model\Log\LogWriter;
-use Admin\Service\AppServiceLoader;
-use Admin\Model\Config\ConfigGetter;
-use Admin\Model\Config\ConfigGetterWrapper;
+use ModelModule\Model\Sezioni\SezioniGetter;
+use ModelModule\Model\Sezioni\SezioniGetterWrapper;
+use ModelModule\Model\SetupAbstractControllerHelper;
+use ModelModule\Setup\UserInterfaceConfigurations;
+use ModelModule\Model\Log\LogWriter;
+use ModelModule\Service\AppServiceLoader;
+use ModelModule\Model\Config\ConfigGetter;
+use ModelModule\Model\Config\ConfigGetterWrapper;
 use Zend\Mvc\MvcEvent;
 use Zend\Session\Container as SessionContainer;
 use Zend\View\Model\ViewModel;
@@ -166,7 +166,7 @@ abstract class SetupAbstractController extends AbstractActionController
     }
 
     /**
-     * @return \Admin\Service\AppServiceLoader
+     * @return \ModelModule\Service\AppServiceLoader
      */
     protected function recoverAppServiceLoader($channel = 1)
     {

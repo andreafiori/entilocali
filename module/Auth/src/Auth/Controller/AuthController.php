@@ -2,28 +2,24 @@
 
 namespace Auth\Controller;
 
-use Application\Model\SetupAbstractControllerHelper;
+use ModelModule\Model\SetupAbstractControllerHelper;
 use Zend\View\Model\ViewModel;
 use Zend\Session\Container as SessionContainer;
 use Zend\Permissions\Acl\Acl;
 use Application\Controller\SetupAbstractController;
-use Admin\Model\Users\UserFormAuthentication;
-use Admin\Model\Users\UsersGetter;
-use Admin\Model\Users\UsersGetterWrapper;
-use Admin\Model\Users\AclSetter;
-use Admin\Model\Users\Roles\UsersRolesGetter;
-use Admin\Model\Users\Roles\UsersRolesGetterWrapper;
-use Admin\Model\Users\Roles\UsersRolesPermissionsGetter;
-use Admin\Model\Users\Roles\UsersRolesPermissionsGetterWrapper;
-use Admin\Model\Users\Roles\UsersRolesPermissionsRelationsGetter;
-use Admin\Model\Users\Roles\UsersRolesPermissionsRelationsGetterWrapper;
-use Application\Model\NullException;
+use ModelModule\Model\Users\UserFormAuthentication;
+use ModelModule\Model\Users\UsersGetter;
+use ModelModule\Model\Users\UsersGetterWrapper;
+use ModelModule\Model\Users\AclSetter;
+use ModelModule\Model\Users\Roles\UsersRolesGetter;
+use ModelModule\Model\Users\Roles\UsersRolesGetterWrapper;
+use ModelModule\Model\Users\Roles\UsersRolesPermissionsGetter;
+use ModelModule\Model\Users\Roles\UsersRolesPermissionsGetterWrapper;
+use ModelModule\Model\Users\Roles\UsersRolesPermissionsRelationsGetter;
+use ModelModule\Model\Users\Roles\UsersRolesPermissionsRelationsGetterWrapper;
+use ModelModule\Model\NullException;
 use \Exception;
 
-/**
- * @author Andrea Fiori
- * @since  20 April 2014
- */
 class AuthController extends SetupAbstractController
 {
     private $authservice;
@@ -254,7 +250,7 @@ class AuthController extends SetupAbstractController
         }
 
         /**
-         * @return \Admin\Model\MyAuthStorage
+         * @return \ModelModule\Model\MyAuthStorage
          */
         private function getSessionStorage()
         {

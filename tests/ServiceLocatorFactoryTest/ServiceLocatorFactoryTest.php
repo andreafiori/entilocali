@@ -2,7 +2,7 @@
 
 namespace ServiceLocatorFactoryTest;
 
-use ApplicationTest\TestSuite;
+use ModelModuleTest\TestSuite;
 use ServiceLocatorFactory\ServiceLocatorFactory;
 use Zend\ServiceManager\ServiceManager;
 

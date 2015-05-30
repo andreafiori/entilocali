@@ -2,14 +2,14 @@
 
 namespace Application;
 
-use Application\Model\Database\DbTableContainer;
+use ModelModule\Model\Database\DbTableContainer;
 use Zend\Authentication\Adapter\DbTable as AuthAdapter;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\Authentication\AuthenticationService;
 use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter;
-use Application\View\Helper\TextShortener;
+use ModelModule\View\Helper\TextShortener;
 
 class Module implements AutoloaderProviderInterface
 {
@@ -57,7 +57,7 @@ class Module implements AutoloaderProviderInterface
     public function getViewHelperConfig()
     {
         return array(
-            'invokables' 	=> array(
+            'invokables' => array(
                 'formelement'       => 'Application\Form\View\Helper\FormElement',
                 'formPlainText'     => 'Application\Form\View\Helper\FormPlainText',
                 'formCheckboxTree'  => 'Application\Form\View\Helper\FormCheckboxTree',
@@ -68,7 +68,7 @@ class Module implements AutoloaderProviderInterface
                 },
                 'Params' => function($sl) {
                     $app = $sl->getServiceLocator()->get('Application');
-                    return new View\Helper\Params($app->getRequest(), $app->getMvcEvent());
+                    return new \ModelModule\View\Helper\Params($app->getRequest(), $app->getMvcEvent());
                 },
             ),
         );
@@ -99,11 +99,17 @@ class Module implements AutoloaderProviderInterface
     	return array(
             'factories' => array(
                 'MyAuthStorage' => function() {
-                    return new \Admin\Model\MyAuthStorage('login');
+                    return new \ModelModule\Model\MyAuthStorage('login');
                 },
                 'AuthService' => function($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $dbTableAuthAdapter  = new AuthAdapter($dbAdapter, DbTableContainer::users, 'username', 'password', 'MD5(CONCAT(?, salt))');
+                    $dbTableAuthAdapter  = new AuthAdapter(
+                        $dbAdapter,
+                        DbTableContainer::users,
+                        'username',
+                        'password',
+                        'MD5(CONCAT(?, salt))
+                    ');
 
                     $authService = new AuthenticationService();
                     $authService->setAdapter($dbTableAuthAdapter);

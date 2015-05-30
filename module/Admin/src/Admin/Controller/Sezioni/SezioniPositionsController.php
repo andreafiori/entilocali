@@ -2,12 +2,12 @@
 
 namespace Admin\Controller\Sezioni;
 
-use Admin\Model\Sezioni\SezioniControllerHelper;
-use Admin\Model\Sezioni\SezioniGetter;
-use Admin\Model\Sezioni\SezioniGetterWrapper;
-use Admin\Model\Languages\LanguagesGetter;
-use Admin\Model\Languages\LanguagesGetterWrapper;
-use Admin\Model\Languages\LanguagesFormSearch;
+use ModelModule\Model\Sezioni\SezioniControllerHelper;
+use ModelModule\Model\Sezioni\SezioniGetter;
+use ModelModule\Model\Sezioni\SezioniGetterWrapper;
+use ModelModule\Model\Languages\LanguagesGetter;
+use ModelModule\Model\Languages\LanguagesGetterWrapper;
+use ModelModule\Model\Languages\LanguagesFormSearch;
 use Application\Controller\SetupAbstractController;
 
 class SezioniPositionsController extends SetupAbstractController

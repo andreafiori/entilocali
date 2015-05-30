@@ -2,13 +2,14 @@
 
 namespace Admin\Controller\StatoCivile;
 
-use Admin\Model\StatoCivile\StatoCivileFormSearch;
-use Admin\Model\StatoCivile\StatoCivileGetter;
-use Admin\Model\StatoCivile\StatoCivileGetterWrapper;
-use Admin\Model\StatoCivile\StatoCivileSezioniGetter;
-use Admin\Model\StatoCivile\StatoCivileSezioniGetterWrapper;
+use ModelModule\Model\StatoCivile\StatoCivileFormSearch;
+use ModelModule\Model\StatoCivile\StatoCivileGetter;
+use ModelModule\Model\StatoCivile\StatoCivileGetterWrapper;
+use ModelModule\Model\StatoCivile\StatoCivileSezioniGetter;
+use ModelModule\Model\StatoCivile\StatoCivileSezioniGetterWrapper;
 use Application\Controller\SetupAbstractController;
-use Application\Model\StatoCivile\StatoCivileControllerHelper;
+use ModelModule\Model\StatoCivile\StatoCivileControllerHelper;
+use ModelModule\Model\NullException;
 use Zend\Session\Container as SessionContainer;
 
 class StatoCivileSummaryController extends SetupAbstractController
@@ -27,90 +28,106 @@ class StatoCivileSummaryController extends SetupAbstractController
 
         $formPostedValues = $sessionContainer->offsetGet('statoCivileFormSearch');
 
-        $request = $this->getRequest();
-        if ($request->isPost()) {
-            $post = array_merge_recursive(
-                $request->getPost()->toArray(),
-                $request->getFiles()->toArray()
+        try {
+            $request = $this->getRequest();
+            if ($request->isPost()) {
+                $post = array_merge_recursive(
+                    $request->getPost()->toArray(),
+                    $request->getFiles()->toArray()
+                );
+            } else {
+                $post = $formPostedValues;
+            }
+
+            $statoCivileArticoliInput = array(
+                'numero'        => isset($post['numero']) ? $post['numero'] : null,
+                'anno'          => isset($post['anno']) ? $post['anno'] : null,
+                'sezioneId'     => isset($post['sezione']) ? $post['sezione'] : null,
+                'noScaduti'     => isset($post['expired']) ? $post['expired'] : null,
+                'textSearch'    => isset($post['testo']) ? $post['testo'] : null,
+                'orderBy'       => 'sca.id DESC',
             );
-        } else {
-            $post = $formPostedValues;
+
+            $helper = new StatoCivileControllerHelper();
+            $helper->setStatoCivileGetterWrapper(new StatoCivileGetterWrapper(new StatoCivileGetter($em)));
+            $helper->setupYears(array_merge(
+                $statoCivileArticoliInput,
+                array('fields' => 'DISTINCT(sca.anno) AS anno')
+            ));
+            $helper->setStatoCivileSezioniGetterWrapper(
+                new StatoCivileSezioniGetterWrapper(new StatoCivileSezioniGetter($em))
+            );
+            $helper->setupSezioniRecords(array());
+
+            $sezioniRecords = $helper->formatSezioniForFormSelect($helper->getSezioniRecords());
+
+            if (empty($sezioniRecords)) {
+                throw new NullException("Nessuna sezione in archivio");
+            }
+
+            $yearsList = $helper->getStatoCivileYears();
+
+            $formSearch = new StatoCivileFormSearch();
+            $formSearch->addFreeText();
+            $formSearch->addProgressivo();
+            $formSearch->addNumeroAtto();
+            $formSearch->addMese();
+            $formSearch->addSezioni($sezioniRecords);
+            $formSearch->addSubmitButton();
+            $formSearch->addCheckExpired();
+            $formSearch->addYears( !empty($yearsList) ? $yearsList : null );
+
+            if ($this->getRequest()->isPost()) {
+                $formSearch->setBindOnValidate(false);
+                $formSearch->setData($post);
+
+                $sessionContainer->offsetSet('statoCivileFormSearch', $post);
+            } elseif ( !empty($formPostedValues) ) {
+                $formSearch->setData($formPostedValues);
+            }
+
+            $wrapper = new StatoCivileGetterWrapper( new StatoCivileGetter($em) );
+            $wrapper->setInput($statoCivileArticoliInput);
+            $wrapper->setupQueryBuilder();
+            $wrapper->setupPaginator( $wrapper->setupQuery($em) );
+            $wrapper->setupPaginatorCurrentPage(is_numeric($page) ? $page : null);
+            $wrapper->setupPaginatorItemsPerPage(is_numeric($perPage) ? $perPage : null);
+
+            $paginator = $wrapper->getPaginator();
+
+            $paginatorCount = $paginator->getTotalItemCount();
+
+            $this->layout()->setVariables( array(
+                    'tableTitle'        => 'Stato civile',
+                    'tableDescription'  => $paginatorCount.' atti stato civile in archivio',
+                    'columns'           => array(
+                        "Titolo",
+                        "Numero / Anno",
+                        "Sezione",
+                        "Inserito il",
+                        "Scadenza",
+                        "Inserito da",
+                        "&nbsp;",
+                        "&nbsp;",
+                        "&nbsp;",
+                        "&nbsp;",
+                    ),
+                    'formSearch'        => $formSearch,
+                    'records'           => $this->formatRecords($wrapper->setupRecords()),
+                    'paginator'         => $paginator,
+                    'total_item_count'  => $paginatorCount,
+                    'templatePartial'   => 'datatable/datatable_statocivile.phtml',
+                )
+            );
+
+        } catch(\Exception $e) {
+            $this->layout()->setVariables(array(
+                'messageType'       => 'warning',
+                'messageTitle'      => 'Errore verificato',
+                'messageText'       => $e->getMessage(),
+                'templatePartial'   => 'message.phtml'
+            ));
         }
-
-        $statoCivileArticoliInput = array(
-            'numero'        => isset($post['numero']) ? $post['numero'] : null,
-            'anno'          => isset($post['anno']) ? $post['anno'] : null,
-            'sezioneId'     => isset($post['sezione']) ? $post['sezione'] : null,
-            'noScaduti'     => isset($post['expired']) ? $post['expired'] : null,
-            'textSearch'    => isset($post['testo']) ? $post['testo'] : null,
-            'orderBy'       => 'sca.id DESC',
-        );
-
-        $helper = new StatoCivileControllerHelper();
-        $helper->setStatoCivileGetterWrapper(new StatoCivileGetterWrapper(new StatoCivileGetter($em)));
-        $helper->setupYears(array_merge(
-            $statoCivileArticoliInput,
-            array('fields' => 'DISTINCT(sca.anno) AS anno')
-        ));
-        $helper->setStatoCivileSezioniGetterWrapper(
-            new StatoCivileSezioniGetterWrapper(new StatoCivileSezioniGetter($em))
-        );
-        $helper->setupSezioniRecords(array());
-
-        $yearsList = $helper->getStatoCivileYears();
-
-        $formSearch = new StatoCivileFormSearch();
-        $formSearch->addFreeText();
-        $formSearch->addProgressivo();
-        $formSearch->addNumeroAtto();
-        $formSearch->addMese();
-        $formSearch->addSezioni( $helper->formatSezioniForFormSelect($helper->getSezioniRecords()) );
-        $formSearch->addSubmitButton();
-        $formSearch->addCheckExpired();
-        $formSearch->addYears( !empty($yearsList) ? $yearsList : null );
-
-        if ($this->getRequest()->isPost()) {
-            $formSearch->setBindOnValidate(false);
-            $formSearch->setData($post);
-
-            $sessionContainer->offsetSet('statoCivileFormSearch', $post);
-        } elseif ( !empty($formPostedValues) ) {
-            $formSearch->setData($formPostedValues);
-        }
-
-        $wrapper = new StatoCivileGetterWrapper( new StatoCivileGetter($em) );
-        $wrapper->setInput($statoCivileArticoliInput);
-        $wrapper->setupQueryBuilder();
-        $wrapper->setupPaginator( $wrapper->setupQuery($em) );
-        $wrapper->setupPaginatorCurrentPage(is_numeric($page) ? $page : null);
-        $wrapper->setupPaginatorItemsPerPage(is_numeric($perPage) ? $perPage : null);
-
-        $paginator = $wrapper->getPaginator();
-
-        $paginatorCount = $paginator->getTotalItemCount();
-
-        $this->layout()->setVariables( array(
-                'tableTitle'        => 'Stato civile',
-                'tableDescription'  => $paginatorCount.' atti stato civile in archivio',
-                'columns'           => array(
-                    "Titolo",
-                    "Numero / Anno",
-                    "Sezione",
-                    "Inserito il",
-                    "Scadenza",
-                    "Inserito da",
-                    "&nbsp;",
-                    "&nbsp;",
-                    "&nbsp;",
-                    "&nbsp;",
-                ),
-                'formSearch'        => $formSearch,
-                'records'           => $this->formatRecords($wrapper->setupRecords()),
-                'paginator'         => $paginator,
-                'total_item_count'  => $paginatorCount,
-                'templatePartial'   => 'datatable/datatable_statocivile.phtml',
-            )
-        );
 
         $this->layout()->setTemplate($mainLayout);
     }

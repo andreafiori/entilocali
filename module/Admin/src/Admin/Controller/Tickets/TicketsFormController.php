@@ -2,7 +2,7 @@
 
 namespace Admin\Controller\Tickets;
 
-use Admin\Model\Tickets\TicketsForm;
+use ModelModule\Model\Tickets\TicketsForm;
 use Application\Controller\SetupAbstractController;
 
 class TicketsFormController extends SetupAbstractController
@@ -15,10 +15,12 @@ class TicketsFormController extends SetupAbstractController
             'form'                          => new TicketsForm(),
             'formTitle'                     => "Nuova richiesta di assistenza",
             'formDescription'               => "A seguito della richiesta, l'amministrazione provveder&agrave; a rispondere non appena possibile",
-            'formAction'                    => '',
+            'formAction'                    => '#',
             'submitButtonValue'             => 'Procedi',
             'formBreadCrumbCategory'        => "Assistenza",
-            'formBreadCrumbCategoryLink'    => 'datatable/tickets',
+            'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/tickets-summary', array(
+                'lang' => $this->params()->fromRoute('lang')
+            )),
             'templatePartial'               => self::formTemplate,
         ));
 

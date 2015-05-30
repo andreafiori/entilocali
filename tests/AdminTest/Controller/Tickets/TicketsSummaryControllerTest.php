@@ -4,7 +4,7 @@ namespace AdminTest\Controller\Tickets;
 
 use Admin\Controller\Tickets\TicketsFormController;
 use Admin\Controller\Tickets\TicketsSummaryController;
-use ApplicationTest\TestSuite;
+use ModelModuleTest\TestSuite;
 
 class TicketsSummaryControllerTest extends TestSuite
 {

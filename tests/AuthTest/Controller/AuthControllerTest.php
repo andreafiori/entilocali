@@ -2,7 +2,7 @@
 
 namespace AuthTest\Controller;
 
-use ApplicationTest\TestSuite;
+use ModelModuleTest\TestSuite;
 use Auth\Controller\AuthController;
 use Zend\Http\PhpEnvironment\Request;
 use Zend\Server\Method\Parameter;

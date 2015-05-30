@@ -26,7 +26,7 @@ class ZfcmsUsersTodo
      *
      * @ORM\Column(name="task_name", type="string", length=50, nullable=true)
      */
-    private $taskName = '0';
+    private $taskName;
 
     /**
      * @var string
@@ -40,14 +40,14 @@ class ZfcmsUsersTodo
      *
      * @ORM\Column(name="state", type="string", length=50, nullable=true)
      */
-    private $state = '0';
+    private $state;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="expiredate", type="datetime", nullable=true)
      */
-    private $expiredate = '2013-01-01 01:01:01';
+    private $expiredate;
 
     /**
      * @var \Application\Entity\ZfcmsUsers
@@ -61,4 +61,3 @@ class ZfcmsUsersTodo
 
 
 }
-

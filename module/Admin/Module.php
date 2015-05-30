@@ -8,8 +8,8 @@ use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\Validator\AbstractValidator;
-use Admin\Model\Config\ConfigGetter;
-use Admin\Model\Config\ConfigGetterWrapper;
+use ModelModule\Model\Config\ConfigGetter;
+use ModelModule\Model\Config\ConfigGetterWrapper;
 use Zend\Session\Container as SessionContainer;
 
 class Module implements AutoloaderProviderInterface, ConfigProviderInterface

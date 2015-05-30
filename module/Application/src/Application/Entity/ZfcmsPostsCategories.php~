@@ -117,7 +117,7 @@ class ZfcmsPostsCategories
      *
      * @ORM\Column(name="position", type="bigint", nullable=true)
      */
-    private $position = '0';
+    private $position;
 
     /**
      * @var \Application\Entity\ZfcmsLanguages
@@ -151,4 +151,3 @@ class ZfcmsPostsCategories
 
 
 }
-

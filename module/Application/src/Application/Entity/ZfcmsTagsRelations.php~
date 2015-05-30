@@ -26,7 +26,7 @@ class ZfcmsTagsRelations
      *
      * @ORM\Column(name="reference_id", type="bigint", nullable=false)
      */
-    private $referenceId = '0';
+    private $referenceId;
 
     /**
      * @var \Application\Entity\ZfcmsModules
@@ -50,4 +50,3 @@ class ZfcmsTagsRelations
 
 
 }
-

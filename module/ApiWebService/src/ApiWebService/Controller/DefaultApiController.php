@@ -3,11 +3,11 @@
 namespace ApiWebService\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Application\Model\NullException;
+use ModelModule\Model\NullException;
 use ApiWebService\Model\ApiSetup;
 use ApiWebService\Model\ApiOutputManager;
 use Zend\View\Model\JsonModel;
-use Admin\Model\AlboPretorio\AlboPretorioRecordsGetter;
+use ModelModule\Model\AlboPretorio\AlboPretorioRecordsGetter;
 
 /**
  * TODO: allow method\s for every single resource of the classMap

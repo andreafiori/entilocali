@@ -2,12 +2,12 @@
 
 namespace Admin\Controller\Attachments;
 
-use Admin\Model\Attachments\AttachmentsFormControllerHelper;
-use Admin\Model\Modules\ModulesGetter;
-use Admin\Model\Modules\ModulesGetterWrapper;
-use Admin\Model\Attachments\AttachmentsGetter;
-use Admin\Model\Attachments\AttachmentsGetterWrapper;
-use Application\Model\NullException;
+use ModelModule\Model\Attachments\AttachmentsFormControllerHelper;
+use ModelModule\Model\Modules\ModulesGetter;
+use ModelModule\Model\Modules\ModulesGetterWrapper;
+use ModelModule\Model\Attachments\AttachmentsGetter;
+use ModelModule\Model\Attachments\AttachmentsGetterWrapper;
+use ModelModule\Model\NullException;
 use Application\Controller\SetupAbstractController;
 
 class AttachmentsPositionsController extends SetupAbstractController

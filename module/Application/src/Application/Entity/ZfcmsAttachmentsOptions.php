@@ -88,7 +88,7 @@ class ZfcmsAttachmentsOptions
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -99,7 +99,6 @@ class ZfcmsAttachmentsOptions
      * Set title
      *
      * @param string $title
-     *
      * @return ZfcmsAttachmentsOptions
      */
     public function setTitle($title)
@@ -112,7 +111,7 @@ class ZfcmsAttachmentsOptions
     /**
      * Get title
      *
-     * @return string
+     * @return string 
      */
     public function getTitle()
     {
@@ -123,7 +122,6 @@ class ZfcmsAttachmentsOptions
      * Set description
      *
      * @param string $description
-     *
      * @return ZfcmsAttachmentsOptions
      */
     public function setDescription($description)
@@ -136,7 +134,7 @@ class ZfcmsAttachmentsOptions
     /**
      * Get description
      *
-     * @return string
+     * @return string 
      */
     public function getDescription()
     {
@@ -147,7 +145,6 @@ class ZfcmsAttachmentsOptions
      * Set expireDate
      *
      * @param \DateTime $expireDate
-     *
      * @return ZfcmsAttachmentsOptions
      */
     public function setExpireDate($expireDate)
@@ -160,7 +157,7 @@ class ZfcmsAttachmentsOptions
     /**
      * Get expireDate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getExpireDate()
     {
@@ -171,7 +168,6 @@ class ZfcmsAttachmentsOptions
      * Set position
      *
      * @param integer $position
-     *
      * @return ZfcmsAttachmentsOptions
      */
     public function setPosition($position)
@@ -184,7 +180,7 @@ class ZfcmsAttachmentsOptions
     /**
      * Get position
      *
-     * @return integer
+     * @return integer 
      */
     public function getPosition()
     {
@@ -195,7 +191,6 @@ class ZfcmsAttachmentsOptions
      * Set status
      *
      * @param string $status
-     *
      * @return ZfcmsAttachmentsOptions
      */
     public function setStatus($status)
@@ -208,7 +203,7 @@ class ZfcmsAttachmentsOptions
     /**
      * Get status
      *
-     * @return string
+     * @return string 
      */
     public function getStatus()
     {
@@ -219,7 +214,6 @@ class ZfcmsAttachmentsOptions
      * Set attiColumnCategory
      *
      * @param integer $attiColumnCategory
-     *
      * @return ZfcmsAttachmentsOptions
      */
     public function setAttiColumnCategory($attiColumnCategory)
@@ -232,7 +226,7 @@ class ZfcmsAttachmentsOptions
     /**
      * Get attiColumnCategory
      *
-     * @return integer
+     * @return integer 
      */
     public function getAttiColumnCategory()
     {
@@ -243,7 +237,6 @@ class ZfcmsAttachmentsOptions
      * Set attachment
      *
      * @param \Application\Entity\ZfcmsAttachments $attachment
-     *
      * @return ZfcmsAttachmentsOptions
      */
     public function setAttachment(\Application\Entity\ZfcmsAttachments $attachment = null)
@@ -256,7 +249,7 @@ class ZfcmsAttachmentsOptions
     /**
      * Get attachment
      *
-     * @return \Application\Entity\ZfcmsAttachments
+     * @return \Application\Entity\ZfcmsAttachments 
      */
     public function getAttachment()
     {
@@ -267,7 +260,6 @@ class ZfcmsAttachmentsOptions
      * Set language
      *
      * @param \Application\Entity\ZfcmsLanguages $language
-     *
      * @return ZfcmsAttachmentsOptions
      */
     public function setLanguage(\Application\Entity\ZfcmsLanguages $language = null)
@@ -280,7 +272,7 @@ class ZfcmsAttachmentsOptions
     /**
      * Get language
      *
-     * @return \Application\Entity\ZfcmsLanguages
+     * @return \Application\Entity\ZfcmsLanguages 
      */
     public function getLanguage()
     {

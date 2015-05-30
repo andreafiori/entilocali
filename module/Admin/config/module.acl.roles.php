@@ -1,5 +1,8 @@
 <?php
 return array(
+    'admin/configurations-form' => array(
+        'resources' => array('configurations_update',)
+    ),
     /* Contenuti */
     'admin/contenuti-summary' => array(
         'resources' => array('contenuti_add', 'contenuti_update', 'contenuti_viewall')
@@ -13,12 +16,31 @@ return array(
     'admin/sezioni-form' => array(
         'resources' => array( 'contenuti_sezioni_add', 'contenuti_sezioni_update' )
     ),
-    /* Posizioni Sezioni contenuti e amministrazione trasparente */
+    /* Blogs */
+    'admin/blogs-summary' => array(
+        // 'resources' => array('blogs_add', 'blogs_update', 'blogs_viewall')
+    ),
+    'admin/blogs-form' => array(
+        // 'resources' => array('blogs_add', 'blogs_update', 'blogs_viewall')
+    ),
+    /* Photo */
+    'admin/photo-summary' => array(
+        // 'resources' => array('photo_add', 'photo_update', 'photo_viewall')
+    ),
+    'admin/photo-form' => array(
+        // 'resources' => array('photo_add', 'photo_update', 'photo_viewall')
+    ),
+    /*
     'admin/posizioni-sezioni' => array(
         'resources' => array( 'contenuti_sezioni_update' )
     ),
     'admin/posizioni-sezioni-update' => array(
         'resources' => array( 'contenuti_sezioni_update' )
+    ),
+    */
+    /* Contacts */
+    'admin/contacts-summary' => array(
+        'resources' => array( 'contacts_update')
     ),
     /* Albo pretorio */
     'admin/albo-pretorio-summary' => array(
@@ -74,10 +96,22 @@ return array(
     ),
     /* Tickets */
     'admin/tickets-summary' => array(
-        'resources' => array('tickets_add', 'tickets_update')
+        //'resources' => array('tickets_add', 'tickets_update')
     ),
     'admin/tickets-form' => array(
         //'resources' => array('tickets_add', 'tickets_update')
+    ),
+    /* Sezioni */
+
+    /* Sottosezioni */
+
+    /* Logs */
+    'admin/log-summary' => array(
+        'resources' => array('logs_add')
+    ),
+    /* Home page */
+    'admin/homepage-blocks-positions' => array(
+        // 'resources' => array('homepage_positions_update')
     ),
     /* Datatables summary */
     'datatables' => array(

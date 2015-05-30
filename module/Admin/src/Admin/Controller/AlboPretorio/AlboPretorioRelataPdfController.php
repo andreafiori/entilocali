@@ -4,8 +4,8 @@ namespace Admin\Controller\AlboPretorio;
 
 use DOMPDFModule\View\Model\PdfModel;
 use Application\Controller\SetupAbstractController;
-use Admin\Model\AlboPretorio\AlboPretorioArticoliGetter;
-use Admin\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
+use ModelModule\Model\AlboPretorio\AlboPretorioArticoliGetter;
+use ModelModule\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
 
 /**
  * @author Andrea Fiori

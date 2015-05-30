@@ -2,4 +2,9 @@
 
 echo $this->render('backend/templates/'.$this->template_backend.'datatable/datatable_breadcrumb.phtml');
 
-echo $this->render('backend/templates/common/datatables_zend_pagination.phtml');
+// echo $this->render('backend/templates/common/datatables_zend_pagination.phtml');
+
+echo $this->partial($this->formDataCommonPath.'datatables_zend_pagination.phtml', array(
+
+    )
+);

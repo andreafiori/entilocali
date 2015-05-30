@@ -3,16 +3,12 @@
 namespace Admin\Controller;
 
 use Application\Controller\SetupAbstractController;
-use Application\Model\SetupAbstractControllerHelper;
 use Zend\View\Model\ViewModel;
-use Application\Model\RouterManagers\RouterManager;
-use Application\Model\RouterManagers\RouterManagerHelper;
+use ModelModule\Model\SetupAbstractControllerHelper;
+use ModelModule\Model\RouterManagers\RouterManager;
+use ModelModule\Model\RouterManagers\RouterManagerHelper;
 use Zend\Session\Container as SessionContainer;
 
-/**
- * @author Andrea Fiori
- * @since  20 April 2014
- */
 class AdminController extends SetupAbstractController
 {
     /**

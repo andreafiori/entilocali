@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsContacts
  *
- * @ORM\Table(name="zfcms_contacts", indexes={@ORM\Index(name="user_id", columns={"user_id"})})
+ * @ORM\Table(name="zfcms_contacts", indexes={@ORM\Index(name="user_id", columns={"user_id"}), @ORM\Index(name="fk_contacts_languages", columns={"language_id"})})
  * @ORM\Entity
  */
 class ZfcmsContacts
@@ -68,7 +68,7 @@ class ZfcmsContacts
      *
      * @ORM\Column(name="format", type="string", length=50, nullable=true)
      */
-    private $format = 'contact';
+    private $format;
 
     /**
      * @var string
@@ -85,12 +85,24 @@ class ZfcmsContacts
     private $ipAddress;
 
     /**
-     * @var integer
+     * @var \Application\Entity\ZfcmsLanguages
      *
-     * @ORM\Column(name="user_id", type="bigint", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsLanguages")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="language_id", referencedColumnName="id")
+     * })
      */
-    private $userId = '1';
+    private $language;
+
+    /**
+     * @var \Application\Entity\ZfcmsUsers
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsers")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * })
+     */
+    private $user;
 
 
 }
-

@@ -2,8 +2,8 @@
 
 namespace Admin\Controller\Users;
 
-use Admin\Model\Users\UsersGetter;
-use Admin\Model\Users\UsersGetterWrapper;
+use ModelModule\Model\Users\UsersGetter;
+use ModelModule\Model\Users\UsersGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
 class UsersSummaryController extends SetupAbstractController
@@ -61,12 +61,25 @@ class UsersSummaryController extends SetupAbstractController
         $arrayToReturn = array();
         if ($records) {
             foreach($records as $key => $row) {
+
+                if ($row['roleName']!='WebMaster') {
+                    $role = array(
+                        'type' => 'link',
+                        'href' => $this->url()->fromRoute('admin/users-roles-form', array(
+                            'lang' => $this->params()->fromRoute('lang'),
+                            'id' => $row['roleId']
+                        )),
+                        'label' => $row['roleName'],
+                        'title' => 'Vai alla gestione ruoli e permessi per '.$row['roleName'],
+                    );
+                } else {
+                    $role = $row['roleName'];
+                }
+
                 $arrayToReturn[] = array(
                     $row['name'],
                     '<a href="mailto:'.$row['email'].'" title="Scrivi a '.$row['name'].' '.$row['surname'].'">'.$row['email'].'</a>',
-                    ($row['roleName']!='WebMaster') ?
-                        '<a href="users/roles/permissions/'.$row['roleId'].'" title="">'.$row['roleName'].'</a>'
-                        : $row['roleName'],
+                    $role,
                     $row['nome'],
                     $row['lastUpdate'],
                     array(

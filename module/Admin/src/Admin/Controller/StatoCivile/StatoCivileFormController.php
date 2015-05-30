@@ -2,11 +2,11 @@
 
 namespace Admin\Controller\StatoCivile;
 
-use Admin\Model\StatoCivile\StatoCivileForm;
-use Admin\Model\StatoCivile\StatoCivileGetter;
-use Admin\Model\StatoCivile\StatoCivileGetterWrapper;
-use Admin\Model\StatoCivile\StatoCivileSezioniGetter;
-use Admin\Model\StatoCivile\StatoCivileSezioniGetterWrapper;
+use ModelModule\Model\StatoCivile\StatoCivileForm;
+use ModelModule\Model\StatoCivile\StatoCivileGetter;
+use ModelModule\Model\StatoCivile\StatoCivileGetterWrapper;
+use ModelModule\Model\StatoCivile\StatoCivileSezioniGetter;
+use ModelModule\Model\StatoCivile\StatoCivileSezioniGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
 class StatoCivileFormController extends SetupAbstractController
@@ -20,7 +20,7 @@ class StatoCivileFormController extends SetupAbstractController
 
         $sezioniWrapper = new StatoCivileSezioniGetterWrapper( new StatoCivileSezioniGetter($em) );
         $sezioniWrapper->setInput(array(
-
+            'orderBy' => '',
         ));
         $sezioniWrapper->setupQueryBuilder();
 
@@ -28,7 +28,7 @@ class StatoCivileFormController extends SetupAbstractController
 
         if (empty($sezioniRecords)) {
 
-            $this->setVariables(array(
+            $this->layout()->setVariables(array(
                 'messageType'       => 'warning',
                 'messageTitle'      => 'Nessuna sezione presente',
                 'messageText'       => "Non &egrave; possibile inserire un nuovo articolo se non esiste almeno una sezione.",
@@ -36,6 +36,7 @@ class StatoCivileFormController extends SetupAbstractController
             ));
 
             $this->layout()->setTemplate($mainLayout);
+
             return;
         }
 
@@ -82,9 +83,8 @@ class StatoCivileFormController extends SetupAbstractController
                 'formAction'                    => $formAction,
                 'formBreadCrumbCategory'        => 'Stato civile',
                 'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/stato-civile-summary', array(
-                        'lang' => 'it'
-                    )
-                ),
+                    'lang' => $this->params()->fromRoute('lang')
+                )),
                 'templatePartial'               => self::formTemplate,
             )
         );

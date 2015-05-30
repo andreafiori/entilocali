@@ -2,7 +2,7 @@
 
 namespace AdminTest\Controller\AlboPretorio;
 
-use ApplicationTest\TestSuite;
+use ModelModuleTest\TestSuite;
 use Admin\Controller\AlboPretorio\AlboPretorioOperationsController;
 use Zend\Http\Request;
 

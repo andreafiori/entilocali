@@ -2,13 +2,13 @@
 
 namespace Admin\Controller\AlboPretorio;
 
-use Application\Model\AlboPretorio\AlboPretorioFormSearch;
-use Admin\Model\AlboPretorio\AlboPretorioArticoliGetter;
-use Admin\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
-use Admin\Model\AlboPretorio\AlboPretorioSezioniGetter;
-use Admin\Model\AlboPretorio\AlboPretorioSezioniGetterWrapper;
-use Admin\Model\Users\Settori\UsersSettoriGetter;
-use Admin\Model\Users\Settori\UsersSettoriGetterWrapper;
+use ModelModule\Model\AlboPretorio\AlboPretorioFormSearch;
+use ModelModule\Model\AlboPretorio\AlboPretorioArticoliGetter;
+use ModelModule\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
+use ModelModule\Model\AlboPretorio\AlboPretorioSezioniGetter;
+use ModelModule\Model\AlboPretorio\AlboPretorioSezioniGetterWrapper;
+use ModelModule\Model\Users\Settori\UsersSettoriGetter;
+use ModelModule\Model\Users\Settori\UsersSettoriGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
 class AlboPretorioSummaryController extends SetupAbstractController

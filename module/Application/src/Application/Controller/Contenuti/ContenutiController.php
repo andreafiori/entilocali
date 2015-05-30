@@ -2,12 +2,12 @@
 
 namespace Application\Controller\Contenuti;
 
-use Admin\Model\Contenuti\ContenutiControllerHelper;
-use Admin\Model\Contenuti\ContenutiGetter;
-use Admin\Model\Contenuti\ContenutiGetterWrapper;
-use Admin\Model\Modules\ModulesContainer;
-use Admin\Model\Sezioni\SottoSezioniGetter;
-use Admin\Model\Sezioni\SottoSezioniGetterWrapper;
+use ModelModule\Model\Contenuti\ContenutiControllerHelper;
+use ModelModule\Model\Contenuti\ContenutiGetter;
+use ModelModule\Model\Contenuti\ContenutiGetterWrapper;
+use ModelModule\Model\Modules\ModulesContainer;
+use ModelModule\Model\Sezioni\SottoSezioniGetter;
+use ModelModule\Model\Sezioni\SottoSezioniGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
 /**

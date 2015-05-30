@@ -2,12 +2,12 @@
 
 namespace Admin\Controller\Sezioni;
 
-use Admin\Model\Languages\LanguagesFormSearch;
-use Admin\Model\Languages\LanguagesGetter;
-use Admin\Model\Languages\LanguagesGetterWrapper;
-use Admin\Model\Sezioni\SezioniControllerHelper;
-use Admin\Model\Sezioni\SezioniGetter;
-use Admin\Model\Sezioni\SezioniGetterWrapper;
+use ModelModule\Model\Languages\LanguagesFormSearch;
+use ModelModule\Model\Languages\LanguagesGetter;
+use ModelModule\Model\Languages\LanguagesGetterWrapper;
+use ModelModule\Model\Sezioni\SezioniControllerHelper;
+use ModelModule\Model\Sezioni\SezioniGetter;
+use ModelModule\Model\Sezioni\SezioniGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
 class SezioniSummaryController extends SetupAbstractController
@@ -43,6 +43,7 @@ class SezioniSummaryController extends SetupAbstractController
             "URL",
             "Immagine",
             "&nbsp;",
+            "&nbsp;",
         );
 
         if ( $this->layout()->getVariable('userDetails')->acl->hasResource('contenuti_sezioni_delete') ) {
@@ -74,13 +75,28 @@ class SezioniSummaryController extends SetupAbstractController
             $publicDirRelativePath = $this->layout()->getVariable('publicDirRelativePath');
             foreach($records as $key => $row) {
 
+                if ($row['attivo']==1) {
+                    $enableDisableLink = '#';
+                } else {
+                    $enableDisableLink = '#';
+                }
+
                 $rowToAdd = array(
                     $row['nome'],
                     $row['colonna'],
-                    (!empty($row['url'])) ? '<a href="'.$row['url'].'" target="_blank" title="'.$row['url'].'">Vai al link</a>' : null,
+
+                    (!empty($row['url'])) ? '<a href="'.$row['url'].'" target="_blank" title="'.$row['url'].' [apre in un\'altra pagina]">Vai al link</a>' : null,
+
                     !empty($row['image']) ?
                         '<img src="'.$publicDirRelativePath.'/common/icons/'.$row['image'].'" alt="'.$row['image'].'">'
                         : '&nbsp;',
+
+                    array(
+                        'type'      => $row['attivo']==1 ? 'activeButton' : 'disableButton',
+                        'href'      => $enableDisableLink,
+                        'value'     => $row['attivo'],
+                        'title'     => $row['attivo']==1 ? 'Nascondi sezione sul sito' : 'Mostra sezione sul sito',
+                    ),
                     array(
                         'type' => 'updateButton',
                         'href' => $this->url()->fromRoute('admin/sezioni-form', array(

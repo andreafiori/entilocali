@@ -2,8 +2,8 @@
 
 namespace Admin\Controller\StatoCivile\Sezioni;
 
-use Admin\Model\StatoCivile\StatoCivileSezioniGetter;
-use Admin\Model\StatoCivile\StatoCivileSezioniGetterWrapper;
+use ModelModule\Model\StatoCivile\StatoCivileSezioniGetter;
+use ModelModule\Model\StatoCivile\StatoCivileSezioniGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
 class StatoCivileSezioniSummaryController extends SetupAbstractController

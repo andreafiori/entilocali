@@ -2,8 +2,8 @@
 
 namespace Admin\Controller\HomePage;
 
-use Admin\Model\HomePage\HomePageGetter;
-use Admin\Model\HomePage\HomePageGetterWrapper;
+use ModelModule\Model\HomePage\HomePageGetter;
+use ModelModule\Model\HomePage\HomePageGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
 class HomePageController extends SetupAbstractController

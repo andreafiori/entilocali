@@ -2,7 +2,7 @@
 
 namespace Admin\Controller\EntiTerzi;
 
-use ApplicationTest\TestSuite;
+use ModelModuleTest\TestSuite;
 
 class EntiTerziSummaryControllerTest extends TestSuite
 {

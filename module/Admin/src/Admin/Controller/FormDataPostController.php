@@ -2,9 +2,9 @@
 
 namespace Admin\Controller;
 
-use Admin\Model\Log\LogWriter;
+use ModelModule\Model\Log\LogWriter;
 use Application\Controller\SetupAbstractController;
-use Admin\Model\FormData\FormDataCrudHandler;
+use ModelModule\Model\FormData\FormDataCrudHandler;
 use Zend\View\Model\ViewModel;
 
 class FormDataPostController extends SetupAbstractController

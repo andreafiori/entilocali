@@ -3,7 +3,7 @@
 namespace ServiceLocatorFactoryTest;
 
 use ServiceLocatorFactory\NullServiceLocatorException;
-use ApplicationTest\TestSuite;
+use ModelModuleTest\TestSuite;
 
 /**
  * @author Andrea Fiori

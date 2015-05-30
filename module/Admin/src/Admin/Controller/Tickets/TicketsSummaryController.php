@@ -2,8 +2,8 @@
 
 namespace Admin\Controller\Tickets;
 
-use Admin\Model\Tickets\TicketsGetter;
-use Admin\Model\Tickets\TicketsGetterWrapper;
+use ModelModule\Model\Tickets\TicketsGetter;
+use ModelModule\Model\Tickets\TicketsGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
 class TicketsSummaryController extends SetupAbstractController

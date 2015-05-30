@@ -3,7 +3,7 @@
 namespace AdminTest\Controller\Attachments;
 
 use Admin\Controller\Attachments\AttachmentsFormController;
-use ApplicationTest\TestSuite;
+use ModelModuleTest\TestSuite;
 
 /**
  * @author Andrea Fiori

@@ -60,7 +60,7 @@ class ZfcmsTicketsMessages
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -71,7 +71,6 @@ class ZfcmsTicketsMessages
      * Set message
      *
      * @param string $message
-     *
      * @return ZfcmsTicketsMessages
      */
     public function setMessage($message)
@@ -84,7 +83,7 @@ class ZfcmsTicketsMessages
     /**
      * Get message
      *
-     * @return string
+     * @return string 
      */
     public function getMessage()
     {
@@ -95,7 +94,6 @@ class ZfcmsTicketsMessages
      * Set insertDate
      *
      * @param \DateTime $insertDate
-     *
      * @return ZfcmsTicketsMessages
      */
     public function setInsertDate($insertDate)
@@ -108,7 +106,7 @@ class ZfcmsTicketsMessages
     /**
      * Get insertDate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getInsertDate()
     {
@@ -119,7 +117,6 @@ class ZfcmsTicketsMessages
      * Set ticket
      *
      * @param \Application\Entity\ZfcmsTickets $ticket
-     *
      * @return ZfcmsTicketsMessages
      */
     public function setTicket(\Application\Entity\ZfcmsTickets $ticket = null)
@@ -132,7 +129,7 @@ class ZfcmsTicketsMessages
     /**
      * Get ticket
      *
-     * @return \Application\Entity\ZfcmsTickets
+     * @return \Application\Entity\ZfcmsTickets 
      */
     public function getTicket()
     {
@@ -143,7 +140,6 @@ class ZfcmsTicketsMessages
      * Set user
      *
      * @param \Application\Entity\ZfcmsTickets $user
-     *
      * @return ZfcmsTicketsMessages
      */
     public function setUser(\Application\Entity\ZfcmsTickets $user = null)
@@ -156,7 +152,7 @@ class ZfcmsTicketsMessages
     /**
      * Get user
      *
-     * @return \Application\Entity\ZfcmsTickets
+     * @return \Application\Entity\ZfcmsTickets 
      */
     public function getUser()
     {

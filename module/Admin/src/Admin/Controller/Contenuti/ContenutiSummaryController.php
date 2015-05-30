@@ -2,15 +2,15 @@
 
 namespace Admin\Controller\Contenuti;
 
-use Admin\Model\Contenuti\ContenutiControllerHelper;
-use Admin\Model\Contenuti\ContenutiFormSearch;
-use Admin\Model\Contenuti\ContenutiGetter;
-use Admin\Model\Contenuti\ContenutiGetterWrapper;
-use Admin\Model\Languages\LanguagesGetter;
-use Admin\Model\Languages\LanguagesGetterWrapper;
-use Admin\Model\Languages\LanguagesFormSearch;
-use Admin\Model\Sezioni\SottoSezioniGetter;
-use Admin\Model\Sezioni\SottoSezioniGetterWrapper;
+use ModelModule\Model\Contenuti\ContenutiControllerHelper;
+use ModelModule\Model\Contenuti\ContenutiFormSearch;
+use ModelModule\Model\Contenuti\ContenutiGetter;
+use ModelModule\Model\Contenuti\ContenutiGetterWrapper;
+use ModelModule\Model\Languages\LanguagesGetter;
+use ModelModule\Model\Languages\LanguagesGetterWrapper;
+use ModelModule\Model\Languages\LanguagesFormSearch;
+use ModelModule\Model\Sezioni\SottoSezioniGetter;
+use ModelModule\Model\Sezioni\SottoSezioniGetterWrapper;
 use Application\Controller\SetupAbstractController;
 use Zend\Session\Container as SessionContainer;
 
@@ -30,86 +30,97 @@ class ContenutiSummaryController extends SetupAbstractController
         $ammTraspSottoSezioneId = $this->layout()->getVariable('amministrazione_trasparente_sottosezione_id');
         $languageSelection      = $this->params()->fromRoute('languageSelection');
 
-        // $sessionContainer       = new SessionContainer();
+        $sessionContainer       = new SessionContainer();
 
         $helper = new ContenutiControllerHelper();
-        $helper->setContenutiGetterWrapper( new ContenutiGetterWrapper(new ContenutiGetter($em)) );
 
-        $wrapper = $helper->recoverWrapper( $helper->getContenutiGetterWrapper(), array(
-            'excludeSottosezioneId' => isset($configurations['amministrazione_trasparente_sottosezione_id']) ? $configurations['amministrazione_trasparente_sottosezione_id'] : null,
-            'excludeSezioneId'      => isset($configurations['amministrazione_trasparente_sezione_id']) ? $configurations['amministrazione_trasparente_sezione_id'] : null,
-            'showToAll'             => ($userRole=='WebMaster') ? null : 1,
-            'utente'                => ($userRole=='WebMaster') ? null : $userId,
-            'languageAbbreviation'  => $languageSelection,
-            'orderBy'               => 'contenuti.id DESC',
-        ));
-        $wrapper->setupPaginator( $wrapper->setupQuery($em) );
-        $wrapper->setupPaginatorCurrentPage( isset($page) ? $page : null );
-        $wrapper->setupPaginatorItemsPerPage(null);
-        $wrapper->setEntityManager($em);
+        try {
+            $helper->setContenutiGetterWrapper(new ContenutiGetterWrapper(new ContenutiGetter($em)));
 
-        $helper->setSottoSezioniGetterWrapper(new SottoSezioniGetterWrapper(new SottoSezioniGetter($em)));
-        $helper->setupSottoSezioniGetterWrapperRecords(array(
-            'excludeId'             => $ammTraspSottoSezioneId,
-            'excludeSezioneId'      => $ammTraspSezioneId,
-            'showToAll'             => ($userRole == 'WebMaster') ? null : 1,
-            'languageAbbreviation'  => $languageSelection,
-        ));
-        $helper->formatSottoSezioniGetterWrapperRecordsForDropdown();
+            $wrapper = $helper->recoverWrapper( $helper->getContenutiGetterWrapper(), array(
+                'excludeSottosezioneId' => isset($configurations['amministrazione_trasparente_sottosezione_id']) ? $configurations['amministrazione_trasparente_sottosezione_id'] : null,
+                'excludeSezioneId'      => isset($configurations['amministrazione_trasparente_sezione_id']) ? $configurations['amministrazione_trasparente_sezione_id'] : null,
+                'showToAll'             => ($userRole=='WebMaster') ? null : 1,
+                'utente'                => ($userRole=='WebMaster') ? null : $userId,
+                'languageAbbreviation'  => $languageSelection,
+                'orderBy'               => 'contenuti.id DESC',
+            ));
+            $wrapper->setupPaginator( $wrapper->setupQuery($em) );
+            $wrapper->setupPaginatorCurrentPage( isset($page) ? $page : null );
+            $wrapper->setupPaginatorItemsPerPage(null);
+            $wrapper->setEntityManager($em);
 
-        $paginatorRecords = $wrapper->addAttachmentsToPaginatorRecords(
-            $wrapper->setupRecords(),
-            array()
-        );
+            $helper->setSottoSezioniGetterWrapper(new SottoSezioniGetterWrapper(new SottoSezioniGetter($em)));
+            $helper->setupSottoSezioniGetterWrapperRecords(array(
+                'excludeId'             => $ammTraspSottoSezioneId,
+                'excludeSezioneId'      => $ammTraspSezioneId,
+                'showToAll'             => ($userRole == 'WebMaster') ? null : 1,
+                'languageAbbreviation'  => $languageSelection,
+            ));
+            $helper->formatSottoSezioniGetterWrapperRecordsForDropdown();
 
-        $isMultiLanguage = !empty($configurations['isMultiLanguage']);
-        if ($isMultiLanguage==1) {
-            $helper->setLanguagesGetterWrapper(new LanguagesGetterWrapper(new LanguagesGetter($em)));
-
-            $formLanguage = $helper->setupLanguageFormSearch(
-                new LanguagesFormSearch(),
-                array('status' => 1),
-                $languageSelection
+            $paginatorRecords = $wrapper->addAttachmentsToPaginatorRecords(
+                $wrapper->setupRecords(),
+                array()
             );
+
+            $isMultiLanguage = !empty($configurations['isMultiLanguage']);
+            if ($isMultiLanguage==1) {
+                $helper->setLanguagesGetterWrapper(new LanguagesGetterWrapper(new LanguagesGetter($em)));
+
+                $formLanguage = $helper->setupLanguageFormSearch(
+                    new LanguagesFormSearch(),
+                    array('status' => 1),
+                    $languageSelection
+                );
+            }
+
+            $formSearch = new ContenutiFormSearch();
+            $formSearch->addSottosezioni( $helper->getSottoSezioniGetterWrapperRecords() );
+            $formSearch->addInHome();
+            $formSearch->addSubmitButton();
+            $formSearch->setData(array(
+                array('languageSelection' => $languageSelection),
+                array() // TODO: session post form here...
+            ));
+
+            $paginator = $wrapper->getPaginator();
+
+            $paginatorRecordsCount = $paginator->getTotalItemCount();
+
+            $paginatorRecords = $this->formatRecordsToShowOnTable($paginatorRecords);
+
+            $this->layout()->setVariables(array(
+                'tableTitle'            => 'Contenuti',
+                'tableDescription'      => $paginatorRecordsCount.' contenuti in archivio',
+                'paginator'             => $paginator,
+                'records'               => $paginatorRecords,
+                'templatePartial'       => 'datatable/datatable_contenuti.phtml',
+                'formSearch'            => $formSearch,
+                'formLanguage'          => isset($formLanguage) ? $formLanguage : null,
+                'columns' => array(
+                    "Titolo",
+                    "Sezione",
+                    "Sotto sezione",
+                    'Data inserimento',
+                    'Data scadenza',
+                    'Inserito da',
+                    "&nbsp;",
+                    "&nbsp;",
+                    "&nbsp;",
+                    "&nbsp;",
+                    "&nbsp;",
+                ),
+            ));
+
+        } catch(\Exception $e) {
+            $this->layout()->setVariables(array(
+                'messageType'       => 'warning',
+                'messageTitle'      => 'Errore verificato',
+                'messageText'       => $e->getMessage(),
+                'templatePartial'   => 'message.phtml'
+            ));
         }
-
-        $formSearch = new ContenutiFormSearch();
-        $formSearch->addSottosezioni( $helper->getSottoSezioniGetterWrapperRecords() );
-        $formSearch->addInHome();
-        $formSearch->addSubmitButton();
-        $formSearch->setData(array(
-            array('languageSelection' => $languageSelection),
-            array() // TODO: session post form here...
-        ));
-
-        $paginator = $wrapper->getPaginator();
-
-        $paginatorRecordsCount = $paginator->getTotalItemCount();
-
-        $paginatorRecords = $this->formatRecordsToShowOnTable($paginatorRecords);
-
-        $this->layout()->setVariables(array(
-            'tableTitle'            => 'Contenuti',
-            'tableDescription'      => $paginatorRecordsCount.' contenuti in archivio',
-            'paginator'             => $paginator,
-            'records'               => $paginatorRecords,
-            'templatePartial'       => 'datatable/datatable_contenuti.phtml',
-            'formSearch'            => $formSearch,
-            'columns' => array(
-                "Titolo",
-                "Sezione",
-                "Sotto sezione",
-                'Data inserimento',
-                'Data scadenza',
-                'Inserito da',
-                "&nbsp;",
-                "&nbsp;",
-                "&nbsp;",
-                "&nbsp;",
-                "&nbsp;",
-            ),
-            'formLanguage'    => isset($formLanguage) ? $formLanguage : null,
-        ));
 
         $this->layout()->setTemplate($mainLayout);
     }
@@ -126,16 +137,18 @@ class ContenutiSummaryController extends SetupAbstractController
 
                 if ($row['attivo']==1) {
                     $enableDisableLink = $this->url()->fromRoute('admin/contenuti-enabledisable', array(
-                            'lang'          => $this->params()->fromRoute('lang'),
-                            'action'        => 'disable',
-                            'id'            => $row['id']
+                            'lang'              => $this->params()->fromRoute('lang'),
+                            'languageSelection' => $this->params()->fromRoute('languageSelection'),
+                            'id'                => $row['id'],
+                            'action'            => 'disable',
                         )
                     );
                 } else {
                     $enableDisableLink = $this->url()->fromRoute('admin/contenuti-enabledisable', array(
-                            'lang'          => $this->params()->fromRoute('lang'),
-                            'action'        => 'enable',
-                            'id'            => $row['id']
+                            'lang'              => $this->params()->fromRoute('lang'),
+                            'languageSelection' => $this->params()->fromRoute('languageSelection'),
+                            'id'                => $row['id'],
+                            'action'            => 'enable',
                         )
                     );
                 }

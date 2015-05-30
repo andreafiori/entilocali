@@ -3,7 +3,8 @@
 namespace AdminTest\Controller\Contenuti;
 
 use Admin\Controller\Contenuti\ContenutiOperationsController;
-use ApplicationTest\TestSuite;
+use ModelModuleTest\TestSuite;
+use Zend\Http\Request;
 
 class ContenutiOperationsControllerTest extends TestSuite
 {
@@ -21,21 +22,33 @@ class ContenutiOperationsControllerTest extends TestSuite
         $this->controller->setServiceLocator($this->getServiceManager());
     }
 
-    public function testInsertAction()
+    public function testChangesummarylangAction()
     {
-        $this->routeMatch->setParam('action', 'insert');
+        $this->routeMatch->setParam('action', 'changesummarylang');
 
         $this->controller->dispatch($this->request);
 
-        $this->assertEquals(200, $this->controller->getResponse()->getStatusCode());
+        $this->assertEquals(302, $this->controller->getResponse()->getStatusCode());
     }
 
-    public function testUpdateAction()
+    public function testChangesummarylangActionReturnsRedirectAfterPost()
     {
-        $this->routeMatch->setParam('action', 'update');
+        $this->request->setMethod(Request::METHOD_POST)->getPost()->fromArray(array('lingua' => 'en'));
+
+        $this->routeMatch->setParam('action', 'changesummarylang');
+        $this->routeMatch->setParam('lang', 'it');
 
         $this->controller->dispatch($this->request);
 
-        $this->assertEquals(200, $this->controller->getResponse()->getStatusCode());
+        $this->assertEquals(302, $this->controller->getResponse()->getStatusCode());
+    }
+
+    public function testSummarysearchAction()
+    {
+        $this->routeMatch->setParam('action', 'summarysearch');
+
+        $this->controller->dispatch($this->request);
+
+        $this->assertEquals(302, $this->controller->getResponse()->getStatusCode());
     }
 }

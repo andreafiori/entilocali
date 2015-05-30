@@ -2,7 +2,7 @@
 
 namespace ApplicationTest\Controller\StatoCivile;
 
-use ApplicationTest\TestSuite;
+use ModelModuleTest\TestSuite;
 use Application\Controller\StatoCivile\StatoCivileController;
 use ServiceLocatorFactory\ServiceLocatorFactory;
 

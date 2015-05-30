@@ -1,7 +1,7 @@
 <?php
 
 namespace Feed\Model;
-use Admin\Model\InputSetterGetterAbstract;
+use ModelModule\Model\InputSetterGetterAbstract;
 
 /**
  * Help to build an RSS output

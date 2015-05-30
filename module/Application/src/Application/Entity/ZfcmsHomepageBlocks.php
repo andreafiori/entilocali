@@ -50,7 +50,7 @@ class ZfcmsHomepageBlocks
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -61,7 +61,6 @@ class ZfcmsHomepageBlocks
      * Set position
      *
      * @param integer $position
-     *
      * @return ZfcmsHomepageBlocks
      */
     public function setPosition($position)
@@ -74,7 +73,7 @@ class ZfcmsHomepageBlocks
     /**
      * Get position
      *
-     * @return integer
+     * @return integer 
      */
     public function getPosition()
     {
@@ -85,7 +84,6 @@ class ZfcmsHomepageBlocks
      * Set note
      *
      * @param string $note
-     *
      * @return ZfcmsHomepageBlocks
      */
     public function setNote($note)
@@ -98,7 +96,7 @@ class ZfcmsHomepageBlocks
     /**
      * Get note
      *
-     * @return string
+     * @return string 
      */
     public function getNote()
     {
@@ -109,7 +107,6 @@ class ZfcmsHomepageBlocks
      * Set module
      *
      * @param \Application\Entity\ZfcmsModules $module
-     *
      * @return ZfcmsHomepageBlocks
      */
     public function setModule(\Application\Entity\ZfcmsModules $module = null)
@@ -122,7 +119,7 @@ class ZfcmsHomepageBlocks
     /**
      * Get module
      *
-     * @return \Application\Entity\ZfcmsModules
+     * @return \Application\Entity\ZfcmsModules 
      */
     public function getModule()
     {

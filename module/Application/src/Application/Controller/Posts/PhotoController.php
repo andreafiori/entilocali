@@ -2,8 +2,8 @@
 
 namespace Application\Controller\Posts;
 
-use Admin\Model\Posts\PostsGetter;
-use Admin\Model\Posts\PostsGetterWrapper;
+use ModelModule\Model\Posts\PostsGetter;
+use ModelModule\Model\Posts\PostsGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
 class PhotoController extends SetupAbstractController

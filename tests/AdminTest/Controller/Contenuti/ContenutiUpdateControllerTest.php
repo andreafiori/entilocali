@@ -4,7 +4,8 @@ namespace AdminTest\Controller\Contenuti;
 
 use Admin\Controller\Contenuti\ContenutiUpdateController;
 use Zend\Http\Request;
-use ApplicationTest\TestSuite;
+use ModelModuleTest\TestSuite;
+use Zend\Session\Container as SessionContainer;
 
 class ContenutiUpdateControllerTest extends TestSuite
 {
@@ -34,6 +35,8 @@ class ContenutiUpdateControllerTest extends TestSuite
     public function testIndexActionCorrectPostRequest()
     {
         $this->routeMatch->setParam('action', 'index');
+
+        $this->setupUserSession($this->recoverUserDetails());
 
         $this->request->setMethod(Request::METHOD_POST)->getPost()->fromArray(array(
             'sottosezione_id'   => 1,

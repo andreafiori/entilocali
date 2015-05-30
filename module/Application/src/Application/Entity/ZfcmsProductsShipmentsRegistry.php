@@ -117,7 +117,7 @@ class ZfcmsProductsShipmentsRegistry
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -128,7 +128,6 @@ class ZfcmsProductsShipmentsRegistry
      * Set name
      *
      * @param string $name
-     *
      * @return ZfcmsProductsShipmentsRegistry
      */
     public function setName($name)
@@ -141,7 +140,7 @@ class ZfcmsProductsShipmentsRegistry
     /**
      * Get name
      *
-     * @return string
+     * @return string 
      */
     public function getName()
     {
@@ -152,7 +151,6 @@ class ZfcmsProductsShipmentsRegistry
      * Set surname
      *
      * @param string $surname
-     *
      * @return ZfcmsProductsShipmentsRegistry
      */
     public function setSurname($surname)
@@ -165,7 +163,7 @@ class ZfcmsProductsShipmentsRegistry
     /**
      * Get surname
      *
-     * @return string
+     * @return string 
      */
     public function getSurname()
     {
@@ -176,7 +174,6 @@ class ZfcmsProductsShipmentsRegistry
      * Set address
      *
      * @param string $address
-     *
      * @return ZfcmsProductsShipmentsRegistry
      */
     public function setAddress($address)
@@ -189,7 +186,7 @@ class ZfcmsProductsShipmentsRegistry
     /**
      * Get address
      *
-     * @return string
+     * @return string 
      */
     public function getAddress()
     {
@@ -200,7 +197,6 @@ class ZfcmsProductsShipmentsRegistry
      * Set addressNumber
      *
      * @param integer $addressNumber
-     *
      * @return ZfcmsProductsShipmentsRegistry
      */
     public function setAddressNumber($addressNumber)
@@ -213,7 +209,7 @@ class ZfcmsProductsShipmentsRegistry
     /**
      * Get addressNumber
      *
-     * @return integer
+     * @return integer 
      */
     public function getAddressNumber()
     {
@@ -224,7 +220,6 @@ class ZfcmsProductsShipmentsRegistry
      * Set cap
      *
      * @param string $cap
-     *
      * @return ZfcmsProductsShipmentsRegistry
      */
     public function setCap($cap)
@@ -237,7 +232,7 @@ class ZfcmsProductsShipmentsRegistry
     /**
      * Get cap
      *
-     * @return string
+     * @return string 
      */
     public function getCap()
     {
@@ -248,7 +243,6 @@ class ZfcmsProductsShipmentsRegistry
      * Set cittaId
      *
      * @param integer $cittaId
-     *
      * @return ZfcmsProductsShipmentsRegistry
      */
     public function setCittaId($cittaId)
@@ -261,7 +255,7 @@ class ZfcmsProductsShipmentsRegistry
     /**
      * Get cittaId
      *
-     * @return integer
+     * @return integer 
      */
     public function getCittaId()
     {
@@ -272,7 +266,6 @@ class ZfcmsProductsShipmentsRegistry
      * Set provinciaId
      *
      * @param integer $provinciaId
-     *
      * @return ZfcmsProductsShipmentsRegistry
      */
     public function setProvinciaId($provinciaId)
@@ -285,7 +278,7 @@ class ZfcmsProductsShipmentsRegistry
     /**
      * Get provinciaId
      *
-     * @return integer
+     * @return integer 
      */
     public function getProvinciaId()
     {
@@ -296,7 +289,6 @@ class ZfcmsProductsShipmentsRegistry
      * Set nazioneId
      *
      * @param integer $nazioneId
-     *
      * @return ZfcmsProductsShipmentsRegistry
      */
     public function setNazioneId($nazioneId)
@@ -309,7 +301,7 @@ class ZfcmsProductsShipmentsRegistry
     /**
      * Get nazioneId
      *
-     * @return integer
+     * @return integer 
      */
     public function getNazioneId()
     {
@@ -320,7 +312,6 @@ class ZfcmsProductsShipmentsRegistry
      * Set ordineId
      *
      * @param integer $ordineId
-     *
      * @return ZfcmsProductsShipmentsRegistry
      */
     public function setOrdineId($ordineId)
@@ -333,7 +324,7 @@ class ZfcmsProductsShipmentsRegistry
     /**
      * Get ordineId
      *
-     * @return integer
+     * @return integer 
      */
     public function getOrdineId()
     {
@@ -344,7 +335,6 @@ class ZfcmsProductsShipmentsRegistry
      * Set phoneNumber
      *
      * @param string $phoneNumber
-     *
      * @return ZfcmsProductsShipmentsRegistry
      */
     public function setPhoneNumber($phoneNumber)
@@ -357,7 +347,7 @@ class ZfcmsProductsShipmentsRegistry
     /**
      * Get phoneNumber
      *
-     * @return string
+     * @return string 
      */
     public function getPhoneNumber()
     {
@@ -368,7 +358,6 @@ class ZfcmsProductsShipmentsRegistry
      * Set email
      *
      * @param string $email
-     *
      * @return ZfcmsProductsShipmentsRegistry
      */
     public function setEmail($email)
@@ -381,7 +370,7 @@ class ZfcmsProductsShipmentsRegistry
     /**
      * Get email
      *
-     * @return string
+     * @return string 
      */
     public function getEmail()
     {
@@ -392,7 +381,6 @@ class ZfcmsProductsShipmentsRegistry
      * Set message
      *
      * @param string $message
-     *
      * @return ZfcmsProductsShipmentsRegistry
      */
     public function setMessage($message)
@@ -405,7 +393,7 @@ class ZfcmsProductsShipmentsRegistry
     /**
      * Get message
      *
-     * @return string
+     * @return string 
      */
     public function getMessage()
     {
@@ -416,7 +404,6 @@ class ZfcmsProductsShipmentsRegistry
      * Set spedizioneId
      *
      * @param integer $spedizioneId
-     *
      * @return ZfcmsProductsShipmentsRegistry
      */
     public function setSpedizioneId($spedizioneId)
@@ -429,7 +416,7 @@ class ZfcmsProductsShipmentsRegistry
     /**
      * Get spedizioneId
      *
-     * @return integer
+     * @return integer 
      */
     public function getSpedizioneId()
     {

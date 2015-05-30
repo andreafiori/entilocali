@@ -2,10 +2,10 @@
 
 namespace Application\Controller;
 
-use Admin\Model\HomePage\HomePageGetter;
-use Admin\Model\HomePage\HomePageGetterWrapper;
-use Application\Model\HomePage\HomePageHelper;
-use Application\Model\NullException;
+use ModelModule\Model\HomePage\HomePageGetter;
+use ModelModule\Model\HomePage\HomePageGetterWrapper;
+use ModelModule\Model\HomePage\HomePageHelper;
+use ModelModule\Model\NullException;
 
 class IndexController extends SetupAbstractController
 {

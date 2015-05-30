@@ -3,17 +3,13 @@
 namespace Application\Controller\StatoCivile;
 
 use Application\Controller\SetupAbstractController;
-use Admin\Model\StatoCivile\StatoCivileGetter;
-use Admin\Model\StatoCivile\StatoCivileGetterWrapper;
-use Admin\Model\StatoCivile\StatoCivileSezioniGetter;
-use Admin\Model\StatoCivile\StatoCivileSezioniGetterWrapper;
-use Application\Model\StatoCivile\StatoCivileControllerHelper;
-use Application\Model\StatoCivile\StatoCivileFormSearch;
+use ModelModule\Model\StatoCivile\StatoCivileGetter;
+use ModelModule\Model\StatoCivile\StatoCivileGetterWrapper;
+use ModelModule\Model\StatoCivile\StatoCivileSezioniGetter;
+use ModelModule\Model\StatoCivile\StatoCivileSezioniGetterWrapper;
+use ModelModule\Model\StatoCivile\StatoCivileControllerHelper;
+use ModelModule\Model\StatoCivile\StatoCivileFormSearch;
 
-/**
- * @author Andrea Fiori
- * @since  18 April 2015
- */
 class StatoCivileController extends SetupAbstractController
 {
     public function indexAction()
@@ -24,18 +20,20 @@ class StatoCivileController extends SetupAbstractController
 
         $page = $this->params()->fromRoute('page');
 
-        $helper = new StatoCivileControllerHelper();
-        $helper->setStatoCivileSezioniGetterWrapper(
-            new StatoCivileSezioniGetterWrapper(new StatoCivileSezioniGetter($em))
-        );
-        $helper->setupSezioniRecords(array());
-        $helper->formatSezioniForFormSelect($helper->getSezioniRecords());
+        try {
 
-        $form = $helper->setupFormSearch( new StatoCivileFormSearch() );
-        $form->setData( $this->getRequest()->isPost() ? $this->getRequest()->getPost() : array() );
+            $helper = new StatoCivileControllerHelper();
+            $helper->setStatoCivileSezioniGetterWrapper(
+                new StatoCivileSezioniGetterWrapper(new StatoCivileSezioniGetter($em))
+            );
+            $helper->setupSezioniRecords(array());
+            $helper->formatSezioniForFormSelect($helper->getSezioniRecords());
 
-        $wrapper = new StatoCivileGetterWrapper( new StatoCivileGetter($em) );
-        $wrapper->setInput( array_merge(
+            //$form = $helper->setupFormSearch( new StatoCivileFormSearch() );
+            //$form->setData( $this->getRequest()->isPost() ? $this->getRequest()->getPost() : array() );
+
+            $wrapper = new StatoCivileGetterWrapper( new StatoCivileGetter($em) );
+            $wrapper->setInput(array_merge(
                 array(
                     'textSearch' => $this->params()->fromPost('testo'),
                     'anno'       => $this->params()->fromPost('anno'),
@@ -46,18 +44,21 @@ class StatoCivileController extends SetupAbstractController
                     'orderBy' => 'sca.data DESC',
                     'sca.attivo' => 1
                 )
-            )
-        );
-        $wrapper->setupQueryBuilder();
-        $wrapper->setupPaginator( $wrapper->setupQuery($em) );
-        $wrapper->setupPaginatorCurrentPage(isset($page) ? $page : null);
+            ));
+            $wrapper->setupQueryBuilder();
+            $wrapper->setupPaginator( $wrapper->setupQuery($em) );
+            $wrapper->setupPaginatorCurrentPage(isset($page) ? $page : null);
 
-        $paginatorRecords = $wrapper->getPaginator();
+            $paginatorRecords = $wrapper->getPaginator();
+
+        } catch(\Exception $e) {
+
+        }
 
         $this->layout()->setVariables(array(
-            'paginator'         => $paginatorRecords,
-            'form'              => $form,
-            'records'           => $paginatorRecords,
+            'paginator'         => !empty($paginatorRecords) ? $paginatorRecords : null,
+            'form'              => !empty($form) ? $form : null,
+            'records'           => !empty($paginatorRecords) ? $paginatorRecords : null,
             'templatePartial'   => 'stato-civile/stato-civile.phtml',
         ));
 

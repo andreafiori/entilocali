@@ -2,13 +2,13 @@
 
 namespace Admin\Controller\Contenuti;
 
-use Admin\Model\Contenuti\ContenutiControllerHelper;
-use Admin\Model\Contenuti\ContenutiForm;
-use Admin\Model\Contenuti\ContenutiFormInputFilter;
-use Admin\Model\Log\LogWriter;
-use Admin\Model\Modules\ModulesContainer;
+use ModelModule\Model\Contenuti\ContenutiControllerHelper;
+use ModelModule\Model\Contenuti\ContenutiForm;
+use ModelModule\Model\Contenuti\ContenutiFormInputFilter;
+use ModelModule\Model\Log\LogWriter;
+use ModelModule\Model\Modules\ModulesContainer;
 use Application\Controller\SetupAbstractController;
-use Application\Model\NullException;
+use ModelModule\Model\NullException;
 
 class ContenutiInsertController extends SetupAbstractController
 {

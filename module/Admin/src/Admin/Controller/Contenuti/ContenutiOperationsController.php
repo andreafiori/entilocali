@@ -2,7 +2,7 @@
 
 namespace Admin\Controller\Contenuti;
 
-use Admin\Model\Contenuti\ContenutiOperationsModel;
+use ModelModule\Model\Contenuti\ContenutiOperationsModel;
 use Application\Controller\SetupAbstractController;
 use Zend\Session\Container as SessionContainer;
 

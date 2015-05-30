@@ -50,7 +50,7 @@ class ZfcmsUsersSettori
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -61,7 +61,6 @@ class ZfcmsUsersSettori
      * Set nome
      *
      * @param string $nome
-     *
      * @return ZfcmsUsersSettori
      */
     public function setNome($nome)
@@ -74,7 +73,7 @@ class ZfcmsUsersSettori
     /**
      * Get nome
      *
-     * @return string
+     * @return string 
      */
     public function getNome()
     {
@@ -85,7 +84,6 @@ class ZfcmsUsersSettori
      * Set stato
      *
      * @param integer $stato
-     *
      * @return ZfcmsUsersSettori
      */
     public function setStato($stato)
@@ -98,7 +96,7 @@ class ZfcmsUsersSettori
     /**
      * Get stato
      *
-     * @return integer
+     * @return integer 
      */
     public function getStato()
     {
@@ -109,7 +107,6 @@ class ZfcmsUsersSettori
      * Set responsabileUser
      *
      * @param \Application\Entity\ZfcmsUsers $responsabileUser
-     *
      * @return ZfcmsUsersSettori
      */
     public function setResponsabileUser(\Application\Entity\ZfcmsUsers $responsabileUser = null)
@@ -122,7 +119,7 @@ class ZfcmsUsersSettori
     /**
      * Get responsabileUser
      *
-     * @return \Application\Entity\ZfcmsUsers
+     * @return \Application\Entity\ZfcmsUsers 
      */
     public function getResponsabileUser()
     {

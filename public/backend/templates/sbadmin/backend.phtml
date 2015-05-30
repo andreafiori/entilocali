@@ -143,7 +143,11 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                         <i class="fa fa-user fa-fw"></i> <?php echo $this->userDetails->name." ".$this->userDetails->surname ?>&nbsp; <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="<?php echo $this->url('admin/formdata', array('lang' => $lang, 'formsetter' => 'users', 'id' => $this->userDetails->id) ); ?>" title="Modifica dati utente"><i class="fa fa-user fa-fw"></i> Profilo</a></li>
+                        <li>
+                            <a href="<?php echo $this->url('admin/users-form', array('lang' => $lang, 'id' => $this->userDetails->id)); ?>" title="Modifica dati utente">
+                                <i class="fa fa-user fa-fw"></i> Profilo
+                            </a>
+                        </li>
                         <li class="divider"></li>
                         <li><a href="<?php echo $this->url('login/process', array('action' => 'logout')); ?>" title="Uscita dall'area riservata"><i class="fa fa-sign-out fa-fw"></i> Uscita</a>
                         </li>
@@ -208,7 +212,7 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                                 <ul class="nav nav-third-level">
                                     <?php if ($acl->hasResource('contenuti_sezioni_add')): ?>
                                     <li>
-                                        <a href="<?php echo $this->url('admin/sezioni-summary', array('lang' => $lang, 'languageSelection' => $languageSelection)); ?>" title="Nuova sezione contenuti">
+                                        <a href="<?php echo $this->url('admin/sezioni-form', array('lang' => $lang, 'languageSelection' => $languageSelection)); ?>" title="Nuova sezione contenuti">
                                             Nuova
                                         </a>
                                     </li>
@@ -221,7 +225,7 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                                     </li>
                                     <?php endif; ?>
                                     <li>
-                                        <a href="<?php echo $this->url('admin/posizioni-sezioni', array('lang' => $lang, 'languageSelection' => $languageSelection)); ?>" title="Gestione posizioni sezioni">
+                                        <a href="<?php echo $this->url('admin/sezioni-positions', array('lang' => $lang, 'languageSelection' => $languageSelection)); ?>" title="Gestione posizioni sezioni">
                                             Posizioni
                                         </a>
                                     </li>
@@ -234,8 +238,7 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                                 <ul class="nav nav-third-level">
                                     <?php if ($acl->hasResource('contenuti_sottosezioni_add')): ?>
                                     <li>
-                                        <a href="<?php echo $this->url('admin/formdata', array(
-                                            'lang' => $lang, 'formsetter' => 'sottosezioni-contenuti' )); ?>" title="Nuova sottosezione">
+                                        <a href="<?php echo $this->url('admin/sottosezioni-contenuti-form', array('lang' => $lang, 'languageSelection' => $languageSelection)) ?>" title="Nuova sottosezione">
                                             Nuova
                                         </a>
                                     </li>
@@ -333,7 +336,7 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                             <li>
                                 <a href="#" class="dropdown-collapse" title="Gestione sottosezioni amm. trasparente">Sottosezioni <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
-                                    <li><a href="<?php echo $this->baseUrl ?>formdata/sottosezioni-amm-trasparente" title="Inserisci nuova sottosezione">Nuova</a></li>
+                                    <li><a href="<?php echo $this->url('admin/sottosezioni-amm-trasp-form', array('lang' => $lang, 'languageSelection' => $languageSelection)) ?>" title="Inserisci nuova sottosezione">Nuova</a></li>
                                     <li><a href="<?php echo $this->url('admin/sottosezioni-amm-trasp-summary', array('lang' => $lang, 'languageSelection' => $languageSelection)) ?>" title="Gestione">Gestione</a></li>
                                 </ul>
                             </li>
@@ -471,10 +474,10 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                         <a href="#" class="dropdown-collapse"><i class="fa fa-list-alt fa-users"></i> <span class="side-menu-title">Utenti</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <?php if ($acl->hasResource('users_add')): ?>
-                            <li><a href="<?php echo $this->url('admin/users-form', array('lang' => $lang) ); ?>" title="Aggiungi nuovo utente">Nuovo</a></li>
+                            <li><a href="<?php echo $this->url('admin/users-form', array('lang' => $lang)); ?>" title="Aggiungi nuovo utente">Nuovo</a></li>
                             <?php endif; ?>
                             <?php if ($acl->hasResource('users_roles_update')): ?>
-                            <li><a href="<?php echo $this->url('admin/users-summary', array('lang' => $lang) ); ?>" title="Gestione">Gestione</a></li>
+                            <li><a href="<?php echo $this->url('admin/users-summary', array('lang' => $lang)); ?>" title="Gestione utenti">Gestione</a></li>
                             <?php endif; ?>
 
                             <!-- Responsabili procedimento -->

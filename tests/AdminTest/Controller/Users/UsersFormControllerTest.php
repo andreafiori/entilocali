@@ -3,7 +3,7 @@
 namespace AdminTest\Controller\Users;
 
 use Admin\Controller\Users\UsersFormController;
-use ApplicationTest\TestSuite;
+use ModelModuleTest\TestSuite;
 
 class UsersFormControllerTest //extends TestSuite
 {

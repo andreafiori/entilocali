@@ -26,21 +26,21 @@ class ZfcmsUsersRolesPermissions
      *
      * @ORM\Column(name="flag", type="string", length=50, nullable=true)
      */
-    private $flag = '';
+    private $flag;
 
     /**
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=50, nullable=true)
      */
-    private $description = '';
+    private $description;
 
     /**
      * @var string
      *
      * @ORM\Column(name="group", type="string", length=50, nullable=true)
      */
-    private $group = '';
+    private $group;
 
     /**
      * @var integer
@@ -54,7 +54,7 @@ class ZfcmsUsersRolesPermissions
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -65,7 +65,6 @@ class ZfcmsUsersRolesPermissions
      * Set flag
      *
      * @param string $flag
-     *
      * @return ZfcmsUsersRolesPermissions
      */
     public function setFlag($flag)
@@ -78,7 +77,7 @@ class ZfcmsUsersRolesPermissions
     /**
      * Get flag
      *
-     * @return string
+     * @return string 
      */
     public function getFlag()
     {
@@ -89,7 +88,6 @@ class ZfcmsUsersRolesPermissions
      * Set description
      *
      * @param string $description
-     *
      * @return ZfcmsUsersRolesPermissions
      */
     public function setDescription($description)
@@ -102,7 +100,7 @@ class ZfcmsUsersRolesPermissions
     /**
      * Get description
      *
-     * @return string
+     * @return string 
      */
     public function getDescription()
     {
@@ -113,7 +111,6 @@ class ZfcmsUsersRolesPermissions
      * Set group
      *
      * @param string $group
-     *
      * @return ZfcmsUsersRolesPermissions
      */
     public function setGroup($group)
@@ -126,7 +123,7 @@ class ZfcmsUsersRolesPermissions
     /**
      * Get group
      *
-     * @return string
+     * @return string 
      */
     public function getGroup()
     {
@@ -137,7 +134,6 @@ class ZfcmsUsersRolesPermissions
      * Set position
      *
      * @param integer $position
-     *
      * @return ZfcmsUsersRolesPermissions
      */
     public function setPosition($position)
@@ -150,7 +146,7 @@ class ZfcmsUsersRolesPermissions
     /**
      * Get position
      *
-     * @return integer
+     * @return integer 
      */
     public function getPosition()
     {

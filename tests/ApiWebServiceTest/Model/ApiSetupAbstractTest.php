@@ -2,7 +2,7 @@
 
 namespace ApiWebService\Model;
 
-use ApplicationTest\TestSuite;
+use ModelModuleTest\TestSuite;
 
 /**
  * @author Andrea Fiori
@@ -38,7 +38,7 @@ class ApiSetupAbstractTest extends TestSuite
     }
     
     /**
-     * @expectedException \Application\Model\NullException
+     * @expectedException \ModelModule\Model\NullException
      */
     public function testSetUnvalidMethod()
     {

@@ -2,16 +2,16 @@
 
 namespace Admin\Controller\ContrattiPubblici;
 
-use Admin\Model\ContrattiPubblici\ContrattiPubbliciForm;
-use Admin\Model\ContrattiPubblici\ContrattiPubbliciFormControllerHelper;
-use Admin\Model\ContrattiPubblici\ContrattiPubbliciGetter;
-use Admin\Model\ContrattiPubblici\ContrattiPubbliciGetterWrapper;
-use Admin\Model\ContrattiPubblici\SceltaContraente\SceltaContraenteGetter;
-use Admin\Model\ContrattiPubblici\SceltaContraente\SceltaContraenteGetterWrapper;
-use Admin\Model\Users\RespProc\UsersRespProcGetter;
-use Admin\Model\Users\RespProc\UsersRespProcGetterWrapper;
+use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciForm;
+use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciFormControllerHelper;
+use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciGetter;
+use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciGetterWrapper;
+use ModelModule\Model\ContrattiPubblici\SceltaContraente\SceltaContraenteGetter;
+use ModelModule\Model\ContrattiPubblici\SceltaContraente\SceltaContraenteGetterWrapper;
+use ModelModule\Model\Users\RespProc\UsersRespProcGetter;
+use ModelModule\Model\Users\RespProc\UsersRespProcGetterWrapper;
 use Application\Controller\SetupAbstractController;
-use Application\Model\NullException;
+use ModelModule\Model\NullException;
 
 class ContrattiPubbliciFormController extends SetupAbstractController
 {

@@ -2,14 +2,14 @@
 
 namespace Admin\Controller\Users;
 
-use Admin\Model\Users\Roles\UsersRolesGetter;
-use Admin\Model\Users\Roles\UsersRolesGetterWrapper;
-use Admin\Model\Users\Settori\UsersSettoriGetter;
-use Admin\Model\Users\Settori\UsersSettoriGetterWrapper;
-use Admin\Model\Users\UsersControllerHelper;
-use Admin\Model\Users\UsersForm;
-use Admin\Model\Users\UsersGetter;
-use Admin\Model\Users\UsersGetterWrapper;
+use ModelModule\Model\Users\Roles\UsersRolesGetter;
+use ModelModule\Model\Users\Roles\UsersRolesGetterWrapper;
+use ModelModule\Model\Users\Settori\UsersSettoriGetter;
+use ModelModule\Model\Users\Settori\UsersSettoriGetterWrapper;
+use ModelModule\Model\Users\UsersControllerHelper;
+use ModelModule\Model\Users\UsersForm;
+use ModelModule\Model\Users\UsersGetter;
+use ModelModule\Model\Users\UsersGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
 class UsersFormController extends SetupAbstractController
@@ -40,7 +40,7 @@ class UsersFormController extends SetupAbstractController
         if ($userDetails->acl->hasResource('users_roles_update')) {
 
             $helper->setUsersRolesGetterWrapper( new UsersRolesGetterWrapper(new UsersRolesGetter($em)) );
-            $helper->setupUsersRolesGetterWrapperRecords();
+            $helper->setupUsersRolesGetterWrapperRecords(array());
             $helper->formatUsersRolesGetterWrapperRecordsForDropdown();
 
             $form->addRoles($helper->getUsersRolesGetterWrapperRecords());

@@ -2,12 +2,12 @@
 
 namespace Admin\Controller\Blogs;
 
-use Admin\Model\Modules\ModulesContainer;
-use Admin\Model\Posts\PostsForm;
-use Admin\Model\Posts\PostsGetter;
-use Admin\Model\Posts\PostsGetterWrapper;
-use Admin\Model\Posts\CategoriesGetter;
-use Admin\Model\Posts\CategoriesGetterWrapper;
+use ModelModule\Model\Modules\ModulesContainer;
+use ModelModule\Model\Posts\PostsForm;
+use ModelModule\Model\Posts\PostsGetter;
+use ModelModule\Model\Posts\PostsGetterWrapper;
+use ModelModule\Model\Posts\CategoriesGetter;
+use ModelModule\Model\Posts\CategoriesGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
 /**

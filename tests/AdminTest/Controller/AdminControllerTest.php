@@ -3,7 +3,7 @@
 namespace AdminTest\Controller;
 
 use Admin\Controller\AdminController;
-use ApplicationTest\TestSuite;
+use ModelModuleTest\TestSuite;
 
 /**
  * @author Andrea Fiori

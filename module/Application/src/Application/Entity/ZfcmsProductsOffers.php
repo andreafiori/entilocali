@@ -26,56 +26,56 @@ class ZfcmsProductsOffers
      *
      * @ORM\Column(name="offer_date", type="datetime", nullable=false)
      */
-    private $offerDate = '2008-01-01 01:01:01';
+    private $offerDate;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="expire_date", type="datetime", nullable=false)
      */
-    private $expireDate = '2008-01-01 01:01:01';
+    private $expireDate;
 
     /**
      * @var string
      *
      * @ORM\Column(name="status", type="string", length=50, nullable=false)
      */
-    private $status = 'si';
+    private $status;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="company_id", type="integer", nullable=false)
      */
-    private $companyId = '0';
+    private $companyId;
 
     /**
      * @var string
      *
      * @ORM\Column(name="price_offer", type="decimal", precision=10, scale=2, nullable=false)
      */
-    private $priceOffer = '0.00';
+    private $priceOffer;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="qt", type="integer", nullable=false)
      */
-    private $qt = '1';
+    private $qt;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="product_id", type="bigint", nullable=false)
      */
-    private $productId = '0';
+    private $productId;
 
 
 
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -86,7 +86,6 @@ class ZfcmsProductsOffers
      * Set offerDate
      *
      * @param \DateTime $offerDate
-     *
      * @return ZfcmsProductsOffers
      */
     public function setOfferDate($offerDate)
@@ -99,7 +98,7 @@ class ZfcmsProductsOffers
     /**
      * Get offerDate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getOfferDate()
     {
@@ -110,7 +109,6 @@ class ZfcmsProductsOffers
      * Set expireDate
      *
      * @param \DateTime $expireDate
-     *
      * @return ZfcmsProductsOffers
      */
     public function setExpireDate($expireDate)
@@ -123,7 +121,7 @@ class ZfcmsProductsOffers
     /**
      * Get expireDate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getExpireDate()
     {
@@ -134,7 +132,6 @@ class ZfcmsProductsOffers
      * Set status
      *
      * @param string $status
-     *
      * @return ZfcmsProductsOffers
      */
     public function setStatus($status)
@@ -147,7 +144,7 @@ class ZfcmsProductsOffers
     /**
      * Get status
      *
-     * @return string
+     * @return string 
      */
     public function getStatus()
     {
@@ -158,7 +155,6 @@ class ZfcmsProductsOffers
      * Set companyId
      *
      * @param integer $companyId
-     *
      * @return ZfcmsProductsOffers
      */
     public function setCompanyId($companyId)
@@ -171,7 +167,7 @@ class ZfcmsProductsOffers
     /**
      * Get companyId
      *
-     * @return integer
+     * @return integer 
      */
     public function getCompanyId()
     {
@@ -182,7 +178,6 @@ class ZfcmsProductsOffers
      * Set priceOffer
      *
      * @param string $priceOffer
-     *
      * @return ZfcmsProductsOffers
      */
     public function setPriceOffer($priceOffer)
@@ -195,7 +190,7 @@ class ZfcmsProductsOffers
     /**
      * Get priceOffer
      *
-     * @return string
+     * @return string 
      */
     public function getPriceOffer()
     {
@@ -206,7 +201,6 @@ class ZfcmsProductsOffers
      * Set qt
      *
      * @param integer $qt
-     *
      * @return ZfcmsProductsOffers
      */
     public function setQt($qt)
@@ -219,7 +213,7 @@ class ZfcmsProductsOffers
     /**
      * Get qt
      *
-     * @return integer
+     * @return integer 
      */
     public function getQt()
     {
@@ -230,7 +224,6 @@ class ZfcmsProductsOffers
      * Set productId
      *
      * @param integer $productId
-     *
      * @return ZfcmsProductsOffers
      */
     public function setProductId($productId)
@@ -243,7 +236,7 @@ class ZfcmsProductsOffers
     /**
      * Get productId
      *
-     * @return integer
+     * @return integer 
      */
     public function getProductId()
     {

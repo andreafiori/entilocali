@@ -117,7 +117,7 @@ class ZfcmsPostsCategories
      *
      * @ORM\Column(name="position", type="bigint", nullable=true)
      */
-    private $position = '0';
+    private $position;
 
     /**
      * @var \Application\Entity\ZfcmsLanguages
@@ -154,7 +154,7 @@ class ZfcmsPostsCategories
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -165,7 +165,6 @@ class ZfcmsPostsCategories
      * Set name
      *
      * @param string $name
-     *
      * @return ZfcmsPostsCategories
      */
     public function setName($name)
@@ -178,7 +177,7 @@ class ZfcmsPostsCategories
     /**
      * Get name
      *
-     * @return string
+     * @return string 
      */
     public function getName()
     {
@@ -189,7 +188,6 @@ class ZfcmsPostsCategories
      * Set description
      *
      * @param string $description
-     *
      * @return ZfcmsPostsCategories
      */
     public function setDescription($description)
@@ -202,7 +200,7 @@ class ZfcmsPostsCategories
     /**
      * Get description
      *
-     * @return string
+     * @return string 
      */
     public function getDescription()
     {
@@ -213,7 +211,6 @@ class ZfcmsPostsCategories
      * Set seoUrl
      *
      * @param string $seoUrl
-     *
      * @return ZfcmsPostsCategories
      */
     public function setSeoUrl($seoUrl)
@@ -226,7 +223,7 @@ class ZfcmsPostsCategories
     /**
      * Get seoUrl
      *
-     * @return string
+     * @return string 
      */
     public function getSeoUrl()
     {
@@ -237,7 +234,6 @@ class ZfcmsPostsCategories
      * Set seoTitle
      *
      * @param string $seoTitle
-     *
      * @return ZfcmsPostsCategories
      */
     public function setSeoTitle($seoTitle)
@@ -250,7 +246,7 @@ class ZfcmsPostsCategories
     /**
      * Get seoTitle
      *
-     * @return string
+     * @return string 
      */
     public function getSeoTitle()
     {
@@ -261,7 +257,6 @@ class ZfcmsPostsCategories
      * Set seoKeywords
      *
      * @param string $seoKeywords
-     *
      * @return ZfcmsPostsCategories
      */
     public function setSeoKeywords($seoKeywords)
@@ -274,7 +269,7 @@ class ZfcmsPostsCategories
     /**
      * Get seoKeywords
      *
-     * @return string
+     * @return string 
      */
     public function getSeoKeywords()
     {
@@ -285,7 +280,6 @@ class ZfcmsPostsCategories
      * Set seoDescription
      *
      * @param string $seoDescription
-     *
      * @return ZfcmsPostsCategories
      */
     public function setSeoDescription($seoDescription)
@@ -298,7 +292,7 @@ class ZfcmsPostsCategories
     /**
      * Get seoDescription
      *
-     * @return string
+     * @return string 
      */
     public function getSeoDescription()
     {
@@ -309,7 +303,6 @@ class ZfcmsPostsCategories
      * Set accesskey
      *
      * @param string $accesskey
-     *
      * @return ZfcmsPostsCategories
      */
     public function setAccesskey($accesskey)
@@ -322,7 +315,7 @@ class ZfcmsPostsCategories
     /**
      * Get accesskey
      *
-     * @return string
+     * @return string 
      */
     public function getAccesskey()
     {
@@ -333,7 +326,6 @@ class ZfcmsPostsCategories
      * Set templateFile
      *
      * @param string $templateFile
-     *
      * @return ZfcmsPostsCategories
      */
     public function setTemplateFile($templateFile)
@@ -346,7 +338,7 @@ class ZfcmsPostsCategories
     /**
      * Get templateFile
      *
-     * @return string
+     * @return string 
      */
     public function getTemplateFile()
     {
@@ -357,7 +349,6 @@ class ZfcmsPostsCategories
      * Set status
      *
      * @param string $status
-     *
      * @return ZfcmsPostsCategories
      */
     public function setStatus($status)
@@ -370,7 +361,7 @@ class ZfcmsPostsCategories
     /**
      * Get status
      *
-     * @return string
+     * @return string 
      */
     public function getStatus()
     {
@@ -381,7 +372,6 @@ class ZfcmsPostsCategories
      * Set slug
      *
      * @param string $slug
-     *
      * @return ZfcmsPostsCategories
      */
     public function setSlug($slug)
@@ -394,7 +384,7 @@ class ZfcmsPostsCategories
     /**
      * Get slug
      *
-     * @return string
+     * @return string 
      */
     public function getSlug()
     {
@@ -405,7 +395,6 @@ class ZfcmsPostsCategories
      * Set note
      *
      * @param string $note
-     *
      * @return ZfcmsPostsCategories
      */
     public function setNote($note)
@@ -418,7 +407,7 @@ class ZfcmsPostsCategories
     /**
      * Get note
      *
-     * @return string
+     * @return string 
      */
     public function getNote()
     {
@@ -429,7 +418,6 @@ class ZfcmsPostsCategories
      * Set createDate
      *
      * @param \DateTime $createDate
-     *
      * @return ZfcmsPostsCategories
      */
     public function setCreateDate($createDate)
@@ -442,7 +430,7 @@ class ZfcmsPostsCategories
     /**
      * Get createDate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getCreateDate()
     {
@@ -453,7 +441,6 @@ class ZfcmsPostsCategories
      * Set expireDate
      *
      * @param \DateTime $expireDate
-     *
      * @return ZfcmsPostsCategories
      */
     public function setExpireDate($expireDate)
@@ -466,7 +453,7 @@ class ZfcmsPostsCategories
     /**
      * Get expireDate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getExpireDate()
     {
@@ -477,7 +464,6 @@ class ZfcmsPostsCategories
      * Set position
      *
      * @param integer $position
-     *
      * @return ZfcmsPostsCategories
      */
     public function setPosition($position)
@@ -490,7 +476,7 @@ class ZfcmsPostsCategories
     /**
      * Get position
      *
-     * @return integer
+     * @return integer 
      */
     public function getPosition()
     {
@@ -501,7 +487,6 @@ class ZfcmsPostsCategories
      * Set language
      *
      * @param \Application\Entity\ZfcmsLanguages $language
-     *
      * @return ZfcmsPostsCategories
      */
     public function setLanguage(\Application\Entity\ZfcmsLanguages $language = null)
@@ -514,7 +499,7 @@ class ZfcmsPostsCategories
     /**
      * Get language
      *
-     * @return \Application\Entity\ZfcmsLanguages
+     * @return \Application\Entity\ZfcmsLanguages 
      */
     public function getLanguage()
     {
@@ -525,7 +510,6 @@ class ZfcmsPostsCategories
      * Set module
      *
      * @param \Application\Entity\ZfcmsModules $module
-     *
      * @return ZfcmsPostsCategories
      */
     public function setModule(\Application\Entity\ZfcmsModules $module = null)
@@ -538,7 +522,7 @@ class ZfcmsPostsCategories
     /**
      * Get module
      *
-     * @return \Application\Entity\ZfcmsModules
+     * @return \Application\Entity\ZfcmsModules 
      */
     public function getModule()
     {
@@ -549,7 +533,6 @@ class ZfcmsPostsCategories
      * Set parent
      *
      * @param \Application\Entity\ZfcmsPostsCategories $parent
-     *
      * @return ZfcmsPostsCategories
      */
     public function setParent(\Application\Entity\ZfcmsPostsCategories $parent = null)
@@ -562,7 +545,7 @@ class ZfcmsPostsCategories
     /**
      * Get parent
      *
-     * @return \Application\Entity\ZfcmsPostsCategories
+     * @return \Application\Entity\ZfcmsPostsCategories 
      */
     public function getParent()
     {

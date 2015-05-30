@@ -2,12 +2,12 @@
 
 namespace Admin\Controller\AlboPretorio;
 
-use Admin\Model\AlboPretorio\AlboPretorioArticoliForm;
-use Admin\Model\AlboPretorio\AlboPretorioArticoliGetter;
-use Admin\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
-use Admin\Model\AlboPretorio\AlboPretorioFormControllerHelper;
-use Admin\Model\AlboPretorio\AlboPretorioSezioniGetter;
-use Admin\Model\AlboPretorio\AlboPretorioSezioniGetterWrapper;
+use ModelModule\Model\AlboPretorio\AlboPretorioArticoliForm;
+use ModelModule\Model\AlboPretorio\AlboPretorioArticoliGetter;
+use ModelModule\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
+use ModelModule\Model\AlboPretorio\AlboPretorioFormControllerHelper;
+use ModelModule\Model\AlboPretorio\AlboPretorioSezioniGetter;
+use ModelModule\Model\AlboPretorio\AlboPretorioSezioniGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
 class AlboPretorioFormRettificaController extends SetupAbstractController

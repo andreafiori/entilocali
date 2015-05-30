@@ -2,8 +2,8 @@
 
 namespace Admin\Controller\AmministrazioneTrasparente;
 
-use Admin\Model\Contenuti\ContenutiGetter;
-use Admin\Model\Contenuti\ContenutiGetterWrapper;
+use ModelModule\Model\Contenuti\ContenutiGetter;
+use ModelModule\Model\Contenuti\ContenutiGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
 class AmministrazioneTrasparenteSummaryController extends SetupAbstractController

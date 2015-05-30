@@ -12,6 +12,23 @@ use Zend\Form\Form;
  */
 class StatoCivileFormSearch extends Form
 {
+    public function addFreeText()
+    {
+        $this->add(array(
+            'type' => 'Text',
+            'name' => 'testo',
+            'attributes' => array(
+                'placeholder'   => 'Testo...',
+                'title'         => 'Inserisci testo',
+                'id'            => 'testo',
+                'maxlength'     => 150,
+            ),
+            'options' => array(
+                'label' => 'Testo',
+            )
+        ));
+    }
+
     public function addProgressivo()
     {
         $this->add(array(
@@ -42,23 +59,6 @@ class StatoCivileFormSearch extends Form
             ),
             'options' => array(
                 'label' => 'Numero atto',
-            )
-        ));
-    }
-
-    public function addFreeText()
-    {
-        $this->add(array(
-            'type' => 'Text',
-            'name' => 'testo',
-            'attributes' => array(
-                'placeholder'   => 'Testo...',
-                'title'         => 'Inserisci testo',
-                'id'            => 'testo',
-                'maxlength'     => 150,
-            ),
-            'options' => array(
-                'label' => 'Testo',
             )
         ));
     }
@@ -96,7 +96,7 @@ class StatoCivileFormSearch extends Form
     /**
      * @param mixed $years
      */
-    public function addYears($years = null)
+    public function addAnni($years = null)
     {
         if (empty($years)) {
             $years = array();

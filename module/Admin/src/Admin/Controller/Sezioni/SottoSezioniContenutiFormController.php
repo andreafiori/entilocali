@@ -2,7 +2,12 @@
 
 namespace Admin\Controller\Sezioni;
 
-use Admin\Model\Sezioni\SottoSezioniForm;
+use ModelModule\Model\Sezioni\SezioniControllerHelper;
+use ModelModule\Model\Sezioni\SezioniGetter;
+use ModelModule\Model\Sezioni\SezioniGetterWrapper;
+use ModelModule\Model\Sezioni\SottoSezioniForm;
+use ModelModule\Model\Sezioni\SottoSezioniGetter;
+use ModelModule\Model\Sezioni\SottoSezioniGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
 class SottoSezioniContenutiFormController extends SetupAbstractController
@@ -11,62 +16,50 @@ class SottoSezioniContenutiFormController extends SetupAbstractController
     {
         $mainLayout = $this->initializeAdminArea();
 
-        $id = $this->params()->fromRoute('id');
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
         $configurations = $this->layout()->getVariable('configurations');
+        $id = $this->params()->fromRoute('id');
+        $module = $this->params()->fromRoute('module');
+        $lang = $this->params()->fromRoute('lang');
+        $page = $this->params()->fromRoute('page');
+        $languageSelection = $this->params()->fromRoute('languageSelection');
 
-        $form = new SottoSezioniForm();
-        if (!empty($recordFromDb)) {
-            $form->setData($recordFromDb[0]);
+        try{
 
-            $submitButtonValue  = 'Modifica';
-            $formTitle          = 'Modifica sottosezione';
-            $formAction         = '#';
-        } else {
-            $formTitle          = 'Nuova sottosezione';
-            $submitButtonValue  = 'Inserisci';
-            $formAction         = '#';
+            $helper = new SezioniControllerHelper();
+            $helper->setSottoSezioniGetterWrapper(new SottoSezioniGetterWrapper(new SottoSezioniGetter($em)));
+            $helper->setupSottoSezioniGetterWrapperRecords(array('id' => $id, 'limit' => 1));
+            $helper->assertSottoSezioniGetterWrapperRecords();
+            $helper->setSezioniGetterWrapper(new SezioniGetterWrapper(new SezioniGetter($em)));
+            $helper->setupSezioniGetterWrapperRecords(array(
+                'fields'    => 'sezioni.id, sezioni.nome',
+                //'sezioneId' => ($module=='amm-trasparente') ? $configurations['amministrazione_trasparente_sezione_id'] : null,
+                'excludeId' => ($module=='contenuti') ? $configurations['amministrazione_trasparente_sezione_id'] : null,
+                'orderBy'   => 'sezioni.nome'
+            ));
+
+        } catch(\Exception $e) {
+            // TODO: render a message...
         }
-
-        $this->layout()->setVariables( array(
-                'formTitle'                     => $formTitle,
-                'formDescription'               => "Compila i dati relativi a alla sottosezione",
-                'form'                          => $form,
-                'formAction'                    => $formAction,
-                'submitButtonValue'             => $submitButtonValue,
-                'formBreadCrumbCategory'        => 'Sottosezioni',
-                'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/contenuti-summary', array('lang' => 'it')),
-                'templatePartial'               => 'formdata/formdata.phtml'
-            )
-        );
-
-        $this->layout()->setTemplate($mainLayout);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function __construct(array $input)
-    {
-        parent::__construct($input);
 
         if (is_numeric($id)) {
             $wrapper = new SottoSezioniGetterWrapper( new SottoSezioniGetter($em) );
             $wrapper->setInput( array('id' => $id, 'limit' => 1) );
             $wrapper->setupQueryBuilder();
 
-            return $wrapper->getRecords();
+            $recordFromDb = $wrapper->getRecords();
         }
-        $recordFromDb = $this->getSottoSezioniFormRecord($id);
 
-        $this->setRecord($recordFromDb);
-
-        $sezioniOptions = $this->getSezioniRecords(array(
+        $wrapper = new SezioniGetterWrapper(new SezioniGetter($em));
+        $wrapper->setInput(array(
             'fields'    => 'sezioni.id, sezioni.nome',
-            'id'        => ($param['route']['formsetter']=='sottosezioni-amm-trasparente') ? $configurations['amministrazione_trasparente_sezione_id'] : null,
-            'excludeId' => ($param['route']['formsetter']=='sottosezioni-contenuti') ? $configurations['amministrazione_trasparente_sezione_id'] : null,
+            'sezioneId' => ($module=='amm-trasparente') ? $configurations['amministrazione_trasparente_sezione_id'] : null,
+            'excludeId' => ($module=='contenuti') ? $configurations['amministrazione_trasparente_sezione_id'] : null,
             'orderBy'   => 'sezioni.nome'
         ));
+        $wrapper->setupQueryBuilder();
+
+        $sezioniOptions = $wrapper->getRecords();
 
         if (empty($sezioniOptions)) {
             // error...
@@ -77,55 +70,34 @@ class SottoSezioniContenutiFormController extends SetupAbstractController
         $form->addSezioni( $this->formatSezioniRecordsForFormSelect($sezioniOptions) );
         $form->addMainFormInputs();
 
-        if ($recordFromDb) {
+        if (!empty($recordFromDb)) {
             $form->setData($recordFromDb[0]);
 
-            $formTitle  = $recordFromDb[0]['nomeSottoSezione'];
-            $formAction = 'sottosezioni-contenuti/update/';
-            $submitButtonValue = 'Modifica';
+            $formTitle          = $recordFromDb[0]['nomeSottoSezione'];
+            $formAction         = 'sottosezioni-contenuti/update/';
+            $submitButtonValue  = 'Modifica';
         } else {
             $formTitle          = 'Nuova sotto sezione';
             $submitButtonValue  = 'Inserisci';
             $formAction         = 'sottosezioni-contenuti/insert/';
         }
 
-        $baseUrl = $this->getInput('baseUrl', 1);
+        $this->layout()->setVariables(array(
+            'form'                          => $form,
+            'formAction'                    => $formAction,
+            'formTitle'                     => $formTitle,
+            'formDescription'               => 'Dati relativi alle sotto sezioni',
+            'submitButtonValue'             => $submitButtonValue,
+            'formBreadCrumbCategory'        => 'Sottosezioni contenuti',
+            'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/sottosezioni-contenuti-summary', array(
+                'lang'               => $lang,
+                'languageSelection'  => $languageSelection,
+                'previouspage'       => $page,
+            )),
+            'templatePartial'               => self::formTemplate,
+        ));
 
-        $this->setVariables( array(
-                'form'                   => $form,
-                'formAction'             => $formAction,
-                'formTitle'              => $formTitle,
-                'formDescription'        => 'Dati relativi alle sotto sezioni',
-                'submitButtonValue'      => $submitButtonValue,
-                'formBreadCrumbCategory' => 'Sotto sezioni',
-                'formBreadCrumbCategoryLink' => $baseUrl.'datatable/sottosezioni-contenuti/',
-            )
-        );
-    }
-
-    /**
-     * @param int|null $id
-     * @return array|null
-     */
-    private function getSottoSezioniFormRecord($id)
-    {
-
-
-        return null;
-    }
-
-    /**
-     * @param array $input
-     *
-     * @return array
-     */
-    private function getSezioniRecords(array $input)
-    {
-        $wrapper = new SezioniGetterWrapper( new SezioniGetter($this->getInput('entityManager',1)) );
-        $wrapper->setInput($input);
-        $wrapper->setupQueryBuilder();
-
-        return $wrapper->getRecords();
+        $this->layout()->setTemplate($mainLayout);
     }
 
     /**

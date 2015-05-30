@@ -3,7 +3,7 @@
 namespace Admin\Controller\Sezioni;
 
 use Application\Controller\SetupAbstractController;
-use Application\Model\Database\DbTableContainer;
+use ModelModule\Model\Database\DbTableContainer;
 
 class SottoSezioniPositionsUpdateController extends SetupAbstractController
 {

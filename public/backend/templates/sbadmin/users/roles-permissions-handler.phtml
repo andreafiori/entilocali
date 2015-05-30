@@ -1,7 +1,19 @@
 <ul class="breadcrumb">
-    <li><a href="<?php echo $this->url('admin', array('lang' => 'it')) ?>" title="Home page">Home</a> <span class="divider"></span></li>
-    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter' => 'users')); ?>" title="Gestione utenti">Utenti</a></li>
-    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=>'it', 'tablesetter' => 'users-roles')); ?>" title="Gestione ruoli">Ruoli</a></li>
+    <li>
+        <a href="<?php echo $this->url('admin', array('lang' => $this->params()->fromRoute('lang'))); ?>" title="Home page">
+            Home
+        </a>
+    </li>
+    <li>
+        <a href="<?php echo $this->url('admin/users-summary', array('lang' => $this->params()->fromRoute('lang'))); ?>" title="Gestione utenti">
+            Utenti
+        </a>
+    </li>
+    <li>
+        <a href="<?php echo $this->url('admin/users-roles-summary', array('lang' => $this->params()->fromRoute('lang')) ); ?>" title="Gestione ruoli">
+            Ruoli
+        </a>
+    </li>
     <li><?php echo $this->roleName ?></li>
 </ul>
 

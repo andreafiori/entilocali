@@ -3,8 +3,8 @@
 namespace ApiWebService\Model\Resources;
 
 use ApiWebService\Model\ApiResultGetterAbstract;
-use Admin\Model\ContrattiPubblici\ContrattiPubbliciGetter;
-use Admin\Model\ContrattiPubblici\ContrattiPubbliciGetterWrapper;
+use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciGetter;
+use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciGetterWrapper;
 
 /**
  * @author Andrea Fiori

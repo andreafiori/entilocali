@@ -2,9 +2,9 @@
 
 namespace Admin\Controller\AlboPretorio;
 
-use Admin\Model\AlboPretorio\AlboPretorioSezioniForm;
-use Admin\Model\AlboPretorio\AlboPretorioSezioniGetter;
-use Admin\Model\AlboPretorio\AlboPretorioSezioniGetterWrapper;
+use ModelModule\Model\AlboPretorio\AlboPretorioSezioniForm;
+use ModelModule\Model\AlboPretorio\AlboPretorioSezioniGetter;
+use ModelModule\Model\AlboPretorio\AlboPretorioSezioniGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
 class AlboPretorioSezioniFormController extends SetupAbstractController

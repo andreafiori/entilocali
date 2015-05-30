@@ -5,10 +5,6 @@ namespace Application\Form\View\Helper;
 use Zend\Form\View\Helper\AbstractHelper;
 use Zend\Form\ElementInterface;
 
-/**
- * @author Andrea Fiori
- * @since  19 July 2013
- */
 class FormCheckboxTree extends AbstractHelper
 {
     /**

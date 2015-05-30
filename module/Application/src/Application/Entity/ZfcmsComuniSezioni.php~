@@ -33,7 +33,7 @@ class ZfcmsComuniSezioni
      *
      * @ORM\Column(name="colonna", type="string", length=100, nullable=false)
      */
-    private $colonna = 'sx';
+    private $colonna;
 
     /**
      * @var integer
@@ -131,7 +131,7 @@ class ZfcmsComuniSezioni
      *
      * @ORM\Column(name="show_to_all", type="integer", nullable=false)
      */
-    private $showToAll = '0';
+    private $showToAll;
 
     /**
      * @var \Application\Entity\ZfcmsLanguages
@@ -165,4 +165,3 @@ class ZfcmsComuniSezioni
 
 
 }
-

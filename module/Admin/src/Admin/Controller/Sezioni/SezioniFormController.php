@@ -2,9 +2,12 @@
 
 namespace Admin\Controller\Sezioni;
 
-use Admin\Model\Sezioni\SezioniForm;
-use Admin\Model\Sezioni\SezioniGetter;
-use Admin\Model\Sezioni\SezioniGetterWrapper;
+use ModelModule\Model\Languages\LanguagesGetter;
+use ModelModule\Model\Languages\LanguagesGetterWrapper;
+use ModelModule\Model\Sezioni\SezioniControllerHelper;
+use ModelModule\Model\Sezioni\SezioniForm;
+use ModelModule\Model\Sezioni\SezioniGetter;
+use ModelModule\Model\Sezioni\SezioniGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
 class SezioniFormController extends SetupAbstractController
@@ -15,18 +18,23 @@ class SezioniFormController extends SetupAbstractController
 
         $id = $this->params()->fromRoute('id');
 
-        if (is_numeric($id)) {
-            $wrapper = new SezioniGetterWrapper(
-                new SezioniGetter($this->getServiceLocator()->get('doctrine.entitymanager.orm_default'))
-            );
-            $wrapper->setInput( array('id' => $id, 'limit' => 1) );
-            $wrapper->setupQueryBuilder();
+        $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-            $recordFromDb =  $wrapper->getRecords();
-        }
+        $helper = new SezioniControllerHelper();
+        $helper->setSezioniGetterWrapper(new SezioniGetterWrapper(new SezioniGetter($em)));
+        $recordFromDb = $helper->recoverWrapperRecordsById(
+            $helper->getSezioniGetterWrapper(),
+            array('id' => $id, 'limit' => 1),
+            $id
+        );
+        $helper->setLanguagesGetterWrapper(new LanguagesGetterWrapper(new LanguagesGetter($em)));
 
         $form = new SezioniForm();
-        $form->addLingue(array());
+        $form->addIconImage();
+        $form->addLingue(array(
+            1 => 'Italiano',
+            2 => 'Inglese',
+        ));
         $form->addOptions();
 
         if (!empty($recordFromDb)) {
@@ -58,7 +66,7 @@ class SezioniFormController extends SetupAbstractController
             'noFormActionPrefix'            => 1,
             'formBreadCrumbCategory'        => 'Sezioni',
             'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/sezioni-summary', array(
-                'lang' => 'it',
+                'lang' => $this->params()->fromRoute('lang'),
                 'languageSelection' => $this->params()->fromRoute('languageSelection'),
             )),
             'templatePartial' => self::formTemplate,

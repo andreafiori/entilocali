@@ -3,9 +3,9 @@
 namespace Admin\Controller\EntiTerzi;
 
 use Application\Controller\SetupAbstractController;
-use Admin\Model\EntiTerzi\EntiTerziForm;
-use Admin\Model\EntiTerzi\EntiTerziGetter;
-use Admin\Model\EntiTerzi\EntiTerziGetterWrapper;
+use ModelModule\Model\EntiTerzi\EntiTerziForm;
+use ModelModule\Model\EntiTerzi\EntiTerziGetter;
+use ModelModule\Model\EntiTerzi\EntiTerziGetterWrapper;
 
 /**
  * @author Andrea Fiori
@@ -49,7 +49,9 @@ class EntiTerziFormController extends SetupAbstractController
                 'formAction'                    => $formAction,
                 'submitButtonValue'             => $submitButtonValue,
                 'formBreadCrumbCategory'        => 'Enti terzi',
-                'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/enti-terzi-summary', array('lang' => 'it')),
+                'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/enti-terzi-summary', array(
+                    'lang' => $this->params()->fromRoute('lang')
+                )),
                 'templatePartial'               => 'formdata/formdata.phtml'
             )
         );

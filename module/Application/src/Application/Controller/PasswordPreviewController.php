@@ -2,8 +2,8 @@
 
 namespace Application\Controller;
 
-use Application\Model\PasswordPreviewForm;
-use Application\Model\SetupAbstractControllerHelper;
+use ModelModule\Model\PasswordPreviewForm;
+use ModelModule\Model\SetupAbstractControllerHelper;
 use Zend\Session\Container as SessionContainer;
 use Zend\View\Model\ViewModel;
 

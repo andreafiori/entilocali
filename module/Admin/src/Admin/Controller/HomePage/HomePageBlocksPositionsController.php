@@ -2,11 +2,11 @@
 
 namespace Admin\Controller\HomePage;
 
-use Admin\Model\HomePage\HomePageBlocksGetter;
-use Admin\Model\HomePage\HomePageBlocksGetterWrapper;
-use Admin\Model\HomePage\HomePageControllerHelper;
+use ModelModule\Model\HomePage\HomePageBlocksGetter;
+use ModelModule\Model\HomePage\HomePageBlocksGetterWrapper;
+use ModelModule\Model\HomePage\HomePageControllerHelper;
 use Application\Controller\SetupAbstractController;
-use Application\Model\Database\DbTableContainer;
+use ModelModule\Model\Database\DbTableContainer;
 
 class HomePageBlocksPositionsController extends SetupAbstractController
 {

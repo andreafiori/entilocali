@@ -2,7 +2,7 @@
 
 namespace Admin\Controller\StatoCivile;
 
-use Application\Model\Database\DbTableContainer;
+use ModelModule\Model\Database\DbTableContainer;
 use Application\Controller\SetupAbstractController;
 
 class StatoCivileOperationsController extends SetupAbstractController

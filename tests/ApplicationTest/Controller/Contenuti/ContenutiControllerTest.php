@@ -2,7 +2,7 @@
 
 namespace ApplicationTest\Controller\Contenuti;
 
-use ApplicationTest\TestSuite;
+use ModelModuleTest\TestSuite;
 use Application\Controller\Contenuti\ContenutiController;
 use ServiceLocatorFactory\ServiceLocatorFactory;
 

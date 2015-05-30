@@ -26,14 +26,14 @@ class ZfcmsUsersApiKeys
      *
      * @ORM\Column(name="key", type="string", length=150, nullable=false)
      */
-    private $key = '0';
+    private $key;
 
     /**
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=150, nullable=false)
      */
-    private $email = '0';
+    private $email;
 
     /**
      * @var integer
@@ -61,7 +61,7 @@ class ZfcmsUsersApiKeys
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -72,7 +72,6 @@ class ZfcmsUsersApiKeys
      * Set key
      *
      * @param string $key
-     *
      * @return ZfcmsUsersApiKeys
      */
     public function setKey($key)
@@ -85,7 +84,7 @@ class ZfcmsUsersApiKeys
     /**
      * Get key
      *
-     * @return string
+     * @return string 
      */
     public function getKey()
     {
@@ -96,7 +95,6 @@ class ZfcmsUsersApiKeys
      * Set email
      *
      * @param string $email
-     *
      * @return ZfcmsUsersApiKeys
      */
     public function setEmail($email)
@@ -109,7 +107,7 @@ class ZfcmsUsersApiKeys
     /**
      * Get email
      *
-     * @return string
+     * @return string 
      */
     public function getEmail()
     {
@@ -120,7 +118,6 @@ class ZfcmsUsersApiKeys
      * Set userId
      *
      * @param integer $userId
-     *
      * @return ZfcmsUsersApiKeys
      */
     public function setUserId($userId)
@@ -133,7 +130,7 @@ class ZfcmsUsersApiKeys
     /**
      * Get userId
      *
-     * @return integer
+     * @return integer 
      */
     public function getUserId()
     {
@@ -144,7 +141,6 @@ class ZfcmsUsersApiKeys
      * Set created
      *
      * @param \DateTime $created
-     *
      * @return ZfcmsUsersApiKeys
      */
     public function setCreated($created)
@@ -157,7 +153,7 @@ class ZfcmsUsersApiKeys
     /**
      * Get created
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getCreated()
     {
@@ -168,7 +164,6 @@ class ZfcmsUsersApiKeys
      * Set confirmed
      *
      * @param integer $confirmed
-     *
      * @return ZfcmsUsersApiKeys
      */
     public function setConfirmed($confirmed)
@@ -181,7 +176,7 @@ class ZfcmsUsersApiKeys
     /**
      * Get confirmed
      *
-     * @return integer
+     * @return integer 
      */
     public function getConfirmed()
     {

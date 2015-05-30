@@ -4,7 +4,7 @@ namespace ApplicationTest\Controller\StatoCivile;
 
 use Application\Controller\StatoCivile\StatoCivileExportController;
 use ServiceLocatorFactory\ServiceLocatorFactory;
-use ApplicationTest\TestSuite;
+use ModelModuleTest\TestSuite;
 
 class StatoCivileExportControllerTest extends TestSuite
 {

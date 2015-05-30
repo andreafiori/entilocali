@@ -2,14 +2,14 @@
 
 namespace Admin\Controller\Contenuti;
 
-use Admin\Model\Contenuti\ContenutiControllerHelper;
-use Admin\Model\Contenuti\ContenutiForm;
-use Admin\Model\Contenuti\ContenutiGetter;
-use Admin\Model\Contenuti\ContenutiGetterWrapper;
-use Admin\Model\Sezioni\SottoSezioniGetter;
-use Admin\Model\Sezioni\SottoSezioniGetterWrapper;
-use Admin\Model\Users\UsersGetter;
-use Admin\Model\Users\UsersGetterWrapper;
+use ModelModule\Model\Contenuti\ContenutiControllerHelper;
+use ModelModule\Model\Contenuti\ContenutiForm;
+use ModelModule\Model\Contenuti\ContenutiGetter;
+use ModelModule\Model\Contenuti\ContenutiGetterWrapper;
+use ModelModule\Model\Sezioni\SottoSezioniGetter;
+use ModelModule\Model\Sezioni\SottoSezioniGetterWrapper;
+use ModelModule\Model\Users\UsersGetter;
+use ModelModule\Model\Users\UsersGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
 class ContenutiFormController extends SetupAbstractController
@@ -112,12 +112,18 @@ class ContenutiFormController extends SetupAbstractController
                     'languageSelection' => $languageSelection,
                     'page'              => $this->params()->fromRoute('previouspage'),
                 )),
-                'formBreadCrumbTitle'        => $formBreadCrumbTitle,
-                'templatePartial'            => self::formTemplate
+                'formBreadCrumbTitle'  => $formBreadCrumbTitle,
+                'templatePartial'      => self::formTemplate
             ));
 
         } catch(\Exception $e) {
 
+            $this->layout()->setVariables(array(
+                'messageType'   => 'warning',
+                'messageTitle'  => 'Errore verificato',
+                'messageText'   => 'Messaggio generato '.$e->getMessage(),
+                'templatePartial' => 'message.phtml',
+            ));
         }
 
         $this->layout()->setTemplate($mainLayout);

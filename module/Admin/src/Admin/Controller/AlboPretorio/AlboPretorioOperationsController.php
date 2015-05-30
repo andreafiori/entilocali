@@ -2,9 +2,9 @@
 
 namespace Admin\Controller\AlboPretorio;
 
-use Admin\Model\AlboPretorio\AlboPretorioArticoliGetter;
-use Admin\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
-use Admin\Model\AlboPretorio\AlboPretorioOperationsControllerHelper;
+use ModelModule\Model\AlboPretorio\AlboPretorioArticoliGetter;
+use ModelModule\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
+use ModelModule\Model\AlboPretorio\AlboPretorioOperationsControllerHelper;
 use Application\Controller\SetupAbstractController;
 
 /**

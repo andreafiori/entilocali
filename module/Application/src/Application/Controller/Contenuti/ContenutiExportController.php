@@ -2,12 +2,12 @@
 
 namespace Application\Controller\Contenuti;
 
-use Admin\Model\Contenuti\ContenutiFormSearch;
-use Admin\Model\Contenuti\ContenutiGetter;
-use Admin\Model\Contenuti\ContenutiGetterWrapper;
+use ModelModule\Model\Contenuti\ContenutiFormSearch;
+use ModelModule\Model\Contenuti\ContenutiGetter;
+use ModelModule\Model\Contenuti\ContenutiGetterWrapper;
 use Application\Controller\SetupAbstractController;
 use Zend\Session\Container as SessionContainer;
-use Application\Model\Export\CsvExportHelper;
+use ModelModule\Model\Export\CsvExportHelper;
 
 class ContenutiExportController extends SetupAbstractController
 {

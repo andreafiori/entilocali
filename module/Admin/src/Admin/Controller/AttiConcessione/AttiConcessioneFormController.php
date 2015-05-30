@@ -2,15 +2,15 @@
 
 namespace Admin\Controller\AttiConcessione;
 
-use Admin\Model\AttiConcessione\AttiConcessioneGetter;
-use Admin\Model\AttiConcessione\AttiConcessioneGetterWrapper;
-use Admin\Model\AttiConcessione\AttiConcessioneForm;
-use Admin\Model\AttiConcessione\ModalitaAssegnazione\AttiConcessioneModalitaAssegnazioneGetter;
-use Admin\Model\AttiConcessione\ModalitaAssegnazione\AttiConcessioneModalitaAssegnazioneGetterWrapper;
-use Admin\Model\Users\RespProc\UsersRespProcGetter;
-use Admin\Model\Users\RespProc\UsersRespProcGetterWrapper;
-use Admin\Model\Users\Settori\UsersSettoriGetter;
-use Admin\Model\Users\Settori\UsersSettoriGetterWrapper;
+use ModelModule\Model\AttiConcessione\AttiConcessioneGetter;
+use ModelModule\Model\AttiConcessione\AttiConcessioneGetterWrapper;
+use ModelModule\Model\AttiConcessione\AttiConcessioneForm;
+use ModelModule\Model\AttiConcessione\ModalitaAssegnazione\AttiConcessioneModalitaAssegnazioneGetter;
+use ModelModule\Model\AttiConcessione\ModalitaAssegnazione\AttiConcessioneModalitaAssegnazioneGetterWrapper;
+use ModelModule\Model\Users\RespProc\UsersRespProcGetter;
+use ModelModule\Model\Users\RespProc\UsersRespProcGetterWrapper;
+use ModelModule\Model\Users\Settori\UsersSettoriGetter;
+use ModelModule\Model\Users\Settori\UsersSettoriGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
 /**

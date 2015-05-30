@@ -2,7 +2,7 @@
 
 namespace ApiWebService\Model;
 
-use ApplicationTest\TestSuite;
+use ModelModuleTest\TestSuite;
 
 /**
  * @author Andrea Fiori
@@ -33,7 +33,7 @@ class ApiSetupTest extends TestSuite
     }
 
     /**
-     * @expectedException \Application\Model\NullException
+     * @expectedException \ModelModule\Model\NullException
      */
     public function testSetInvalidResource()
     {
@@ -41,7 +41,7 @@ class ApiSetupTest extends TestSuite
     }
     
     /**
-     * @expectedException \Application\Model\NullException
+     * @expectedException \ModelModule\Model\NullException
      */
     public function testSetInvalidResourceWithNonExistentClass()
     {

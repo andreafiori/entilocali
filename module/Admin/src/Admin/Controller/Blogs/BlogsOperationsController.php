@@ -2,8 +2,8 @@
 
 namespace Admin\src\Admin\Controller\Blogs;
 
-use Admin\Model\Posts\PostsForm;
-use Admin\Model\Posts\PostsFormInputFilter;
+use ModelModule\Model\Posts\PostsForm;
+use ModelModule\Model\Posts\PostsFormInputFilter;
 use Application\Controller\SetupAbstractController;
 
 class BlogsOperationsController extends SetupAbstractController

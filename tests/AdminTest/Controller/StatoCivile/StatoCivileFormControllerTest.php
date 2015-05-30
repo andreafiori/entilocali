@@ -3,10 +3,13 @@
 namespace AdminTest\Controller\StatoCivile;
 
 use Admin\Controller\StatoCivile\StatoCivileFormController;
-use ApplicationTest\TestSuite;
+use ModelModuleTest\TestSuite;
 
 class StatoCivileFormControllerTest extends TestSuite
 {
+    /**
+     * @var StatoCivileFormController
+     */
     private  $controller;
 
     protected function setUp()
@@ -21,6 +24,7 @@ class StatoCivileFormControllerTest extends TestSuite
     public function testIndexAction()
     {
         $this->routeMatch->setParam('action', 'index');
+        $this->routeMatch->setParam('lang', 'it');
 
         $this->controller->dispatch($this->request);
 

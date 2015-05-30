@@ -2,11 +2,11 @@
 
 namespace Admin\Controller\Photo;
 
-use Admin\Model\Posts\CategoriesGetter;
-use Admin\Model\Posts\CategoriesGetterWrapper;
-use Admin\Model\Posts\PostsFormSearch;
-use Admin\Model\Posts\PostsGetter;
-use Admin\Model\Posts\PostsGetterWrapper;
+use ModelModule\Model\Posts\CategoriesGetter;
+use ModelModule\Model\Posts\CategoriesGetterWrapper;
+use ModelModule\Model\Posts\PostsFormSearch;
+use ModelModule\Model\Posts\PostsGetter;
+use ModelModule\Model\Posts\PostsGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
 class PhotoSummaryController extends SetupAbstractController

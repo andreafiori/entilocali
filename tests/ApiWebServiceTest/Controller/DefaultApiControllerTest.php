@@ -2,7 +2,7 @@
 
 namespace ApiWebService\Controller;
 
-use ApplicationTest\TestSuite;
+use ModelModuleTest\TestSuite;
 use ApiWebService\Controller\DefaultApiController;
 
 /**

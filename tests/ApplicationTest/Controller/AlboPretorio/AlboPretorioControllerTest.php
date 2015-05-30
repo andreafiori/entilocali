@@ -2,7 +2,7 @@
 
 namespace ApplicationTest\Controller\AlboPretorio;
 
-use ApplicationTest\TestSuite;
+use ModelModuleTest\TestSuite;
 use ServiceLocatorFactory\ServiceLocatorFactory;
 use Application\Controller\AlboPretorio\AlboPretorioController;
 

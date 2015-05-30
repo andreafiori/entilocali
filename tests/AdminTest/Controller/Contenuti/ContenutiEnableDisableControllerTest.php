@@ -3,7 +3,7 @@
 namespace AdminTest\Controller\Contenuti;
 
 use Admin\Controller\Contenuti\ContenutiEnableDisableController;
-use ApplicationTest\TestSuite;
+use ModelModuleTest\TestSuite;
 
 class ContenutiEnableDisableControllerTest extends TestSuite
 {

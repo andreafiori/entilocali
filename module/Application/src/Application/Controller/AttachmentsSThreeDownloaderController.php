@@ -2,9 +2,9 @@
 
 namespace Application\Controller;
 
-use Admin\Model\Amazon\S3\S3;
-use Admin\Model\Attachments\AttachmentsGetter;
-use Admin\Model\Attachments\AttachmentsGetterWrapper;
+use ModelModule\Model\Amazon\S3\S3;
+use ModelModule\Model\Attachments\AttachmentsGetter;
+use ModelModule\Model\Attachments\AttachmentsGetterWrapper;
 
 /**
  * @author Andrea Fiori

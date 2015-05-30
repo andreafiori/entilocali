@@ -26,21 +26,21 @@ class ZfcmsUsersBookmarks
      *
      * @ORM\Column(name="reference_id", type="bigint", nullable=false)
      */
-    private $referenceId = '0';
+    private $referenceId;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="category_id", type="bigint", nullable=false)
      */
-    private $categoryId = '0';
+    private $categoryId;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="module_id", type="bigint", nullable=false)
      */
-    private $moduleId = '0';
+    private $moduleId;
 
     /**
      * @var \Application\Entity\ZfcmsUsers
@@ -54,4 +54,3 @@ class ZfcmsUsersBookmarks
 
 
 }
-

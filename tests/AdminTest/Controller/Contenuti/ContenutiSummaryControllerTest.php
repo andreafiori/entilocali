@@ -3,7 +3,7 @@
 namespace AdminTest\Controller\Contenuti;
 
 use Admin\Controller\Contenuti\ContenutiSummaryController;
-use ApplicationTest\TestSuite;
+use ModelModuleTest\TestSuite;
 
 class ContenutiSummaryControllerTest extends TestSuite
 {

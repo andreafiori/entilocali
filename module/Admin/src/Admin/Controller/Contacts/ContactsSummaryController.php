@@ -2,8 +2,8 @@
 
 namespace Admin\Controller\Contacts;
 
-use Admin\Model\Contacts\ContactsGetter;
-use Admin\Model\Contacts\ContactsGetterWrapper;
+use ModelModule\Model\Contacts\ContactsGetter;
+use ModelModule\Model\Contacts\ContactsGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
 class ContactsSummaryController extends SetupAbstractController

@@ -3,7 +3,7 @@
 namespace AdminTest\Controller\Tickets;
 
 use Admin\Controller\Tickets\TicketsFormController;
-use ApplicationTest\TestSuite;
+use ModelModuleTest\TestSuite;
 
 class TicketsFormControllerTest extends TestSuite
 {
@@ -24,6 +24,7 @@ class TicketsFormControllerTest extends TestSuite
     public function testIndexAction()
     {
         $this->routeMatch->setParam('action', 'index');
+        $this->routeMatch->setParam('lang', 'it');
 
         $this->controller->dispatch($this->request);
 

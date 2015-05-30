@@ -2,16 +2,16 @@
 
 namespace Admin\Controller\Contenuti;
 
-use Admin\Model\Contenuti\ContenutiGetter;
-use Admin\Model\Contenuti\ContenutiGetterWrapper;
-use Admin\Model\Contenuti\HomePagePutRemoveControllerHelper;
-use Admin\Model\HomePage\HomePageBlocksGetter;
-use Admin\Model\HomePage\HomePageBlocksGetterWrapper;
-use Admin\Model\Log\LogWriter;
-use Admin\Model\Modules\ModulesContainer;
+use ModelModule\Model\Contenuti\ContenutiGetter;
+use ModelModule\Model\Contenuti\ContenutiGetterWrapper;
+use ModelModule\Model\Contenuti\HomePagePutRemoveControllerHelper;
+use ModelModule\Model\HomePage\HomePageBlocksGetter;
+use ModelModule\Model\HomePage\HomePageBlocksGetterWrapper;
+use ModelModule\Model\Log\LogWriter;
+use ModelModule\Model\Modules\ModulesContainer;
 use Application\Controller\SetupAbstractController;
-use Application\Model\Database\DbTableContainer;
-use Application\Model\NullException;
+use ModelModule\Model\Database\DbTableContainer;
+use ModelModule\Model\NullException;
 
 class ContenutiHomeputremoveController extends SetupAbstractController
 {

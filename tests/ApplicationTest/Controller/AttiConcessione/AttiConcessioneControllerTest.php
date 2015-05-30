@@ -2,7 +2,7 @@
 
 namespace ApplicationTest\Controller\AttiConcessione;
 
-use ApplicationTest\TestSuite;
+use ModelModuleTest\TestSuite;
 use Application\Controller\AttiConcessione\AttiConcessioneController;
 use ServiceLocatorFactory\ServiceLocatorFactory;
 

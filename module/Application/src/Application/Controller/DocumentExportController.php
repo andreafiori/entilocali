@@ -2,8 +2,8 @@
 
 namespace Application\Controller;
 
-use Admin\Model\Contenuti\ContenutiGetter;
-use Admin\Model\Contenuti\ContenutiGetterWrapper;
+use ModelModule\Model\Contenuti\ContenutiGetter;
+use ModelModule\Model\Contenuti\ContenutiGetterWrapper;
 use DOMPDFModule\View\Model\PdfModel;
 use Zend\Http\Response;
 use Zend\Mvc\Controller\AbstractActionController;

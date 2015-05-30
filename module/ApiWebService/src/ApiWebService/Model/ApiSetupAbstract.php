@@ -2,7 +2,7 @@
 
 namespace ApiWebService\Model;
 
-use Application\Model\NullException;
+use ModelModule\Model\NullException;
 
 /**
  * @author Andrea Fiori

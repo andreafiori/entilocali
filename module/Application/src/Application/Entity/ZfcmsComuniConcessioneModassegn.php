@@ -47,7 +47,7 @@ class ZfcmsComuniConcessioneModassegn
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -58,7 +58,6 @@ class ZfcmsComuniConcessioneModassegn
      * Set nome
      *
      * @param string $nome
-     *
      * @return ZfcmsComuniConcessioneModassegn
      */
     public function setNome($nome)
@@ -71,7 +70,7 @@ class ZfcmsComuniConcessioneModassegn
     /**
      * Get nome
      *
-     * @return string
+     * @return string 
      */
     public function getNome()
     {
@@ -82,7 +81,6 @@ class ZfcmsComuniConcessioneModassegn
      * Set stato
      *
      * @param integer $stato
-     *
      * @return ZfcmsComuniConcessioneModassegn
      */
     public function setStato($stato)
@@ -95,7 +93,7 @@ class ZfcmsComuniConcessioneModassegn
     /**
      * Get stato
      *
-     * @return integer
+     * @return integer 
      */
     public function getStato()
     {
@@ -106,7 +104,6 @@ class ZfcmsComuniConcessioneModassegn
      * Set posizione
      *
      * @param integer $posizione
-     *
      * @return ZfcmsComuniConcessioneModassegn
      */
     public function setPosizione($posizione)
@@ -119,7 +116,7 @@ class ZfcmsComuniConcessioneModassegn
     /**
      * Get posizione
      *
-     * @return integer
+     * @return integer 
      */
     public function getPosizione()
     {

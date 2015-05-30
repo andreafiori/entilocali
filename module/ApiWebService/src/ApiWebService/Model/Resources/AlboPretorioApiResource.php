@@ -3,7 +3,7 @@
 namespace ApiWebService\Model\Resources;
 
 use ApiWebService\Model\ApiResultGetterAbstract;
-use Admin\Model\AlboPretorio\AlboPretorioRecordsGetter;
+use ModelModule\Model\AlboPretorio\AlboPretorioRecordsGetter;
 
 /**
  * @author Andrea Fiori

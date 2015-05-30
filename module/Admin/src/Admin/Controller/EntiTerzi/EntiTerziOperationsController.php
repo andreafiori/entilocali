@@ -3,8 +3,8 @@
 namespace Admin\Controller\EntiTerzi;
 
 use Application\Controller\SetupAbstractController;
-use Admin\Model\EntiTerzi\EntiTerziGetter;
-use Admin\Model\EntiTerzi\EntiTerziGetterWrapper;
+use ModelModule\Model\EntiTerzi\EntiTerziGetter;
+use ModelModule\Model\EntiTerzi\EntiTerziGetterWrapper;
 
 /**
  * @author Andrea Fiori

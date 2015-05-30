@@ -2,12 +2,12 @@
 
 namespace Application\Controller\ContrattiPubblici;
 
-use Admin\Model\ContrattiPubblici\ContrattiPubbliciGetter;
-use Admin\Model\ContrattiPubblici\ContrattiPubbliciGetterWrapper;
-use Admin\Model\Users\Settori\UsersSettoriGetter;
-use Admin\Model\Users\Settori\UsersSettoriGetterWrapper;
+use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciGetter;
+use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciGetterWrapper;
+use ModelModule\Model\Users\Settori\UsersSettoriGetter;
+use ModelModule\Model\Users\Settori\UsersSettoriGetterWrapper;
 use Application\Controller\SetupAbstractController;
-use Application\Model\ContrattiPubblici\ContrattiPubbliciFormSearch;
+use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciFormSearch;
 
 class ContrattiPubbliciController extends SetupAbstractController
 {

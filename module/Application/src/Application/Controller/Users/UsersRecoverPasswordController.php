@@ -3,7 +3,7 @@
 namespace Application\Controller\Users;
 
 use Application\Controller\SetupAbstractController;
-use Application\Model\Users\RecoverPasswordForm;
+use ModelModule\Model\Users\RecoverPasswordForm;
 
 /**
  * @author Andrea Fiori

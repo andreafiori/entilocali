@@ -4,7 +4,7 @@ namespace ApplicationTest\Controller;
 
 use Application\Controller\IndexController;
 use ServiceLocatorFactory\ServiceLocatorFactory;
-use ApplicationTest\TestSuite;
+use ModelModuleTest\TestSuite;
 
 /**
  * @author Andrea Fiori

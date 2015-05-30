@@ -38,4 +38,15 @@ class SezioniOperationsController extends SetupAbstractController
 
         return $this->redirect()->toRoute('main');
     }
+
+    public function changepositionslangAction()
+    {
+        if ($this->getRequest()->isPost()) {
+            return $this->redirect()->toRoute('admin/sezioni-positions', array(
+                'lang'              => $this->params()->fromRoute('lang'),
+                'languageSelection' => $this->params()->fromPost('lingua'),
+                'page'              => $this->params()->fromRoute('page'),
+            ));
+        }
+    }
 }

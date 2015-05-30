@@ -2,7 +2,7 @@
 
 namespace Admin\src\Admin\Controller\Photo;
 
-use Admin\Model\Posts\PostsForm;
+use ModelModule\Model\Posts\PostsForm;
 use Application\Controller\SetupAbstractController;
 
 class PhotoOperationsController extends SetupAbstractController

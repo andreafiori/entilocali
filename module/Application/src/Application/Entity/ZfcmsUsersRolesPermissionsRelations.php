@@ -46,7 +46,7 @@ class ZfcmsUsersRolesPermissionsRelations
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -57,7 +57,6 @@ class ZfcmsUsersRolesPermissionsRelations
      * Set permission
      *
      * @param \Application\Entity\ZfcmsUsersRolesPermissions $permission
-     *
      * @return ZfcmsUsersRolesPermissionsRelations
      */
     public function setPermission(\Application\Entity\ZfcmsUsersRolesPermissions $permission = null)
@@ -70,7 +69,7 @@ class ZfcmsUsersRolesPermissionsRelations
     /**
      * Get permission
      *
-     * @return \Application\Entity\ZfcmsUsersRolesPermissions
+     * @return \Application\Entity\ZfcmsUsersRolesPermissions 
      */
     public function getPermission()
     {
@@ -81,7 +80,6 @@ class ZfcmsUsersRolesPermissionsRelations
      * Set role
      *
      * @param \Application\Entity\ZfcmsUsersRoles $role
-     *
      * @return ZfcmsUsersRolesPermissionsRelations
      */
     public function setRole(\Application\Entity\ZfcmsUsersRoles $role = null)
@@ -94,7 +92,7 @@ class ZfcmsUsersRolesPermissionsRelations
     /**
      * Get role
      *
-     * @return \Application\Entity\ZfcmsUsersRoles
+     * @return \Application\Entity\ZfcmsUsersRoles 
      */
     public function getRole()
     {

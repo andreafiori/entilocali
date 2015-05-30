@@ -47,14 +47,14 @@ class ZfcmsProductsAvailability
      *
      * @ORM\Column(name="position", type="integer", nullable=false)
      */
-    private $position = '0';
+    private $position;
 
 
 
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -65,7 +65,6 @@ class ZfcmsProductsAvailability
      * Set image
      *
      * @param string $image
-     *
      * @return ZfcmsProductsAvailability
      */
     public function setImage($image)
@@ -78,7 +77,7 @@ class ZfcmsProductsAvailability
     /**
      * Get image
      *
-     * @return string
+     * @return string 
      */
     public function getImage()
     {
@@ -89,7 +88,6 @@ class ZfcmsProductsAvailability
      * Set name
      *
      * @param string $name
-     *
      * @return ZfcmsProductsAvailability
      */
     public function setName($name)
@@ -102,7 +100,7 @@ class ZfcmsProductsAvailability
     /**
      * Get name
      *
-     * @return string
+     * @return string 
      */
     public function getName()
     {
@@ -113,7 +111,6 @@ class ZfcmsProductsAvailability
      * Set status
      *
      * @param string $status
-     *
      * @return ZfcmsProductsAvailability
      */
     public function setStatus($status)
@@ -126,7 +123,7 @@ class ZfcmsProductsAvailability
     /**
      * Get status
      *
-     * @return string
+     * @return string 
      */
     public function getStatus()
     {
@@ -137,7 +134,6 @@ class ZfcmsProductsAvailability
      * Set position
      *
      * @param integer $position
-     *
      * @return ZfcmsProductsAvailability
      */
     public function setPosition($position)
@@ -150,7 +146,7 @@ class ZfcmsProductsAvailability
     /**
      * Get position
      *
-     * @return integer
+     * @return integer 
      */
     public function getPosition()
     {

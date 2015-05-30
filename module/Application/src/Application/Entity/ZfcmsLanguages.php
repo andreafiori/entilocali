@@ -61,21 +61,21 @@ class ZfcmsLanguages
      *
      * @ORM\Column(name="is_default", type="bigint", nullable=false)
      */
-    private $isDefault = '0';
+    private $isDefault;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="is_default_backend", type="bigint", nullable=false)
      */
-    private $isDefaultBackend = '0';
+    private $isDefaultBackend;
 
     /**
      * @var string
      *
      * @ORM\Column(name="encoding", type="string", length=50, nullable=true)
      */
-    private $encoding = 'UTF-8';
+    private $encoding;
 
     /**
      * @var integer
@@ -99,7 +99,7 @@ class ZfcmsLanguages
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -110,7 +110,6 @@ class ZfcmsLanguages
      * Set flag
      *
      * @param string $flag
-     *
      * @return ZfcmsLanguages
      */
     public function setFlag($flag)
@@ -123,7 +122,7 @@ class ZfcmsLanguages
     /**
      * Get flag
      *
-     * @return string
+     * @return string 
      */
     public function getFlag()
     {
@@ -134,7 +133,6 @@ class ZfcmsLanguages
      * Set name
      *
      * @param string $name
-     *
      * @return ZfcmsLanguages
      */
     public function setName($name)
@@ -147,7 +145,7 @@ class ZfcmsLanguages
     /**
      * Get name
      *
-     * @return string
+     * @return string 
      */
     public function getName()
     {
@@ -158,7 +156,6 @@ class ZfcmsLanguages
      * Set abbreviation1
      *
      * @param string $abbreviation1
-     *
      * @return ZfcmsLanguages
      */
     public function setAbbreviation1($abbreviation1)
@@ -171,7 +168,7 @@ class ZfcmsLanguages
     /**
      * Get abbreviation1
      *
-     * @return string
+     * @return string 
      */
     public function getAbbreviation1()
     {
@@ -182,7 +179,6 @@ class ZfcmsLanguages
      * Set abbreviation2
      *
      * @param string $abbreviation2
-     *
      * @return ZfcmsLanguages
      */
     public function setAbbreviation2($abbreviation2)
@@ -195,7 +191,7 @@ class ZfcmsLanguages
     /**
      * Get abbreviation2
      *
-     * @return string
+     * @return string 
      */
     public function getAbbreviation2()
     {
@@ -206,7 +202,6 @@ class ZfcmsLanguages
      * Set abbreviation3
      *
      * @param string $abbreviation3
-     *
      * @return ZfcmsLanguages
      */
     public function setAbbreviation3($abbreviation3)
@@ -219,7 +214,7 @@ class ZfcmsLanguages
     /**
      * Get abbreviation3
      *
-     * @return string
+     * @return string 
      */
     public function getAbbreviation3()
     {
@@ -230,7 +225,6 @@ class ZfcmsLanguages
      * Set isDefault
      *
      * @param integer $isDefault
-     *
      * @return ZfcmsLanguages
      */
     public function setIsDefault($isDefault)
@@ -243,7 +237,7 @@ class ZfcmsLanguages
     /**
      * Get isDefault
      *
-     * @return integer
+     * @return integer 
      */
     public function getIsDefault()
     {
@@ -254,7 +248,6 @@ class ZfcmsLanguages
      * Set isDefaultBackend
      *
      * @param integer $isDefaultBackend
-     *
      * @return ZfcmsLanguages
      */
     public function setIsDefaultBackend($isDefaultBackend)
@@ -267,7 +260,7 @@ class ZfcmsLanguages
     /**
      * Get isDefaultBackend
      *
-     * @return integer
+     * @return integer 
      */
     public function getIsDefaultBackend()
     {
@@ -278,7 +271,6 @@ class ZfcmsLanguages
      * Set encoding
      *
      * @param string $encoding
-     *
      * @return ZfcmsLanguages
      */
     public function setEncoding($encoding)
@@ -291,7 +283,7 @@ class ZfcmsLanguages
     /**
      * Get encoding
      *
-     * @return string
+     * @return string 
      */
     public function getEncoding()
     {
@@ -302,7 +294,6 @@ class ZfcmsLanguages
      * Set status
      *
      * @param integer $status
-     *
      * @return ZfcmsLanguages
      */
     public function setStatus($status)
@@ -315,7 +306,7 @@ class ZfcmsLanguages
     /**
      * Get status
      *
-     * @return integer
+     * @return integer 
      */
     public function getStatus()
     {
@@ -326,7 +317,6 @@ class ZfcmsLanguages
      * Set channel
      *
      * @param \Application\Entity\ZfcmsChannels $channel
-     *
      * @return ZfcmsLanguages
      */
     public function setChannel(\Application\Entity\ZfcmsChannels $channel = null)
@@ -339,7 +329,7 @@ class ZfcmsLanguages
     /**
      * Get channel
      *
-     * @return \Application\Entity\ZfcmsChannels
+     * @return \Application\Entity\ZfcmsChannels 
      */
     public function getChannel()
     {

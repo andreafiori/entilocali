@@ -2,7 +2,7 @@
 
 namespace ApplicationTest\Controller;
 
-use ApplicationTest\TestSuite;
+use ModelModuleTest\TestSuite;
 use Application\Controller\CssStyleSwitchController;
 use ServiceLocatorFactory\ServiceLocatorFactory;
 

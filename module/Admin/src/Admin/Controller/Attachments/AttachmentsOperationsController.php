@@ -2,7 +2,7 @@
 
 namespace Admin\Controller\Attachments;
 
-use Admin\Model\OperationsControllerInterface;
+use ModelModule\Model\OperationsControllerInterface;
 use Application\Controller\SetupAbstractController;
 
 class AttachmentsOperationsController extends SetupAbstractController implements OperationsControllerInterface

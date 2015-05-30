@@ -26,7 +26,7 @@ class ZfcmsComuniContenuti
      *
      * @ORM\Column(name="anno", type="integer", nullable=false)
      */
-    private $anno = '0';
+    private $anno;
 
     /**
      * @var integer
@@ -61,28 +61,28 @@ class ZfcmsComuniContenuti
      *
      * @ORM\Column(name="data_inserimento", type="datetime", nullable=false)
      */
-    private $dataInserimento = '0000-00-00 00:00:00';
+    private $dataInserimento;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="data_scadenza", type="datetime", nullable=false)
      */
-    private $dataScadenza = '0000-00-00 00:00:00';
+    private $dataScadenza;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="data_invio_regione", type="datetime", nullable=false)
      */
-    private $dataInvioRegione = '0000-00-00 00:00:00';
+    private $dataInvioRegione;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="attivo", type="integer", nullable=false)
      */
-    private $attivo = '1';
+    private $attivo;
 
     /**
      * @var integer
@@ -110,14 +110,14 @@ class ZfcmsComuniContenuti
      *
      * @ORM\Column(name="pub_albo_comune", type="datetime", nullable=false)
      */
-    private $pubAlboComune = '0000-00-00 00:00:00';
+    private $pubAlboComune;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="data_rettifica", type="datetime", nullable=false)
      */
-    private $dataRettifica = '0000-00-00 00:00:00';
+    private $dataRettifica;
 
     /**
      * @var string
@@ -145,7 +145,7 @@ class ZfcmsComuniContenuti
      *
      * @ORM\Column(name="annoammtrasp", type="integer", nullable=false)
      */
-    private $annoammtrasp = '2015';
+    private $annoammtrasp;
 
     /**
      * @var string
@@ -204,4 +204,3 @@ class ZfcmsComuniContenuti
 
 
 }
-

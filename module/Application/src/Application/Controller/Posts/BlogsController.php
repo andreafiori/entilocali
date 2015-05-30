@@ -2,11 +2,11 @@
 
 namespace Application\Controller\Posts;
 
-use Admin\Model\Posts\PostsGetter;
-use Admin\Model\Posts\PostsGetterWrapper;
-use Admin\Model\Posts\PostsFormSearch;
+use ModelModule\Model\Posts\PostsGetter;
+use ModelModule\Model\Posts\PostsGetterWrapper;
+use ModelModule\Model\Posts\PostsFormSearch;
 use Application\Controller\SetupAbstractController;
-use Application\Model\Slugifier;
+use ModelModule\Model\Slugifier;
 
 class BlogsController extends SetupAbstractController
 {

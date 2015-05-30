@@ -3,7 +3,7 @@
 <?php if ($this->formLanguage): ?>
     <div>
         <a href="javascript:void(0)" id="lnkSearchExport" class="btn btn-primary">
-            <i class="fa fa-search"></i> <?php echo $this->translate('Ricerca ed esportazione'); ?>
+            <i class="fa fa-search"></i> <?php echo $this->translate('Ricerca'); ?>
         </a>
     </div>
 
@@ -11,9 +11,10 @@
         <br>
         <?php
         echo $this->partial($this->formDataCommonPath.'_formdata_language.phtml', array(
-                'formAction'   => $this->url('admin/sottosezioni-operations', array(
-                    'lang'   => $this->params()->fromRoute('lang'),
-                    'action' => 'changeammtraspsummarylang',
+                'formAction' => $this->url('admin/sottosezioni-operations', array(
+                    'lang'              => $this->params()->fromRoute('lang'),
+                    'languageSelection' => $this->params()->fromRoute('languageSelection'),
+                    'action'            => 'changeammtraspsummarylang',
                 )),
                 'formLanguage' => $this->formLanguage,
             )

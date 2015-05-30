@@ -8,7 +8,7 @@
         }
     ],
     "keywords": [
-        "Zend framework 2"
+        "Zend2,Zend,Kronoweb,enti locali,comuni,framework"
     ],
     "homepage": "http://framework.zend.com/",
     "require": {
@@ -29,7 +29,7 @@
         "zf-commons/zfc-user": "dev-master",
         "dino/dompdf-module": "dev-master",
         "facebook/php-sdk-v4": "5.*@dev",
-        "dudapiotr/zftable": "dev-master",
-        "rwoverdijk/assetmanager" : "dev-master"
+        "rwoverdijk/assetmanager" : "dev-master",
+        "imagine/imagine": "dev-master"
     }
 }
