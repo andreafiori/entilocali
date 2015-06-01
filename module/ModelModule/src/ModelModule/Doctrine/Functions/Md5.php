@@ -1,7 +1,5 @@
 <?php
 
-namespace ModelModule\Model\Doctrine\Functions;
-
 /*
  * DoctrineExtensions Mysql Function Pack
  *
@@ -13,37 +11,42 @@ namespace ModelModule\Model\Doctrine\Functions;
  * obtain it through the world-wide-web, please send an email
  * to kontakt@beberlei.de so I can send you a copy immediately.
  */
+namespace ModelModule\Doctrine\Functions;
 
 use Doctrine\ORM\Query\Lexer;
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
 
 /**
- * "MONTH" "(" SimpleArithmeticExpression ")". Modified from DoctrineExtensions\Query\Mysql\Year
+ * "MD5" "(" StringPrimary ")"
  *
  * @category    DoctrineExtensions
  * @package     DoctrineExtensions\Query\Mysql
- * @author      Rafael Kassner <kassner@gmail.com>
- * @author      Sarjono Mukti Aji <me@simukti.net>
- * @license     MIT License
+ * @author      Andreas Gallien <gallien@seleos.de>
+ * @license     New BSD License
  */
-class Month extends FunctionNode
+class Md5 extends FunctionNode
 {
-    public $date;
+    public $stringPrimary;
+	
     /**
      * @override
      */
     public function getSql(\Doctrine\ORM\Query\SqlWalker $sqlWalker)
     {
-        return "MONTH(" . $sqlWalker->walkArithmeticPrimary($this->date) . ")";
+        return $sqlWalker->getConnection()->getDatabasePlatform()->getMd5Expression(
+            $sqlWalker->walkStringPrimary($this->stringPrimary)
+        );
     }
+	
     /**
      * @override
      */
     public function parse(\Doctrine\ORM\Query\Parser $parser)
     {
+        $lexer = $parser->getLexer();
         $parser->match(Lexer::T_IDENTIFIER);
         $parser->match(Lexer::T_OPEN_PARENTHESIS);
-        $this->date = $parser->ArithmeticPrimary();
+        $this->stringPrimary = $parser->StringPrimary();
         $parser->match(Lexer::T_CLOSE_PARENTHESIS);
     }
 }

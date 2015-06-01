@@ -17,6 +17,8 @@ class SezioniFormController extends SetupAbstractController
         $mainLayout = $this->initializeAdminArea();
 
         $id = $this->params()->fromRoute('id');
+        $modulename = $this->params()->fromRoute('modulename');
+        $modulenameLabel = str_replace('-', ' ', $modulename);
 
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
@@ -28,13 +30,18 @@ class SezioniFormController extends SetupAbstractController
             $id
         );
         $helper->setLanguagesGetterWrapper(new LanguagesGetterWrapper(new LanguagesGetter($em)));
+        $languagesRecordsForDropdown = $helper->formatForDropwdown(
+            $helper->recoverWrapperRecords(
+                $helper->getLanguagesGetterWrapper(),
+                array('status' => 1)
+            ),
+            'id',
+            'name'
+        );
 
         $form = new SezioniForm();
         $form->addIconImage();
-        $form->addLingue(array(
-            1 => 'Italiano',
-            2 => 'Inglese',
-        ));
+        $form->addLingue($languagesRecordsForDropdown);
         $form->addOptions();
 
         if (!empty($recordFromDb)) {
@@ -45,15 +52,21 @@ class SezioniFormController extends SetupAbstractController
             $formAction = $this->url()->fromRoute('admin/sezioni-update', array(
                 'lang'              => $this->params()->fromRoute('lang'),
                 'languageSelection' => $this->params()->fromRoute('languageSelection'),
+                'modulename'        => $modulename,
             ));
         } else {
-            $form->setData( array('posizione' => 1) );
+            $form->setData(array(
+                'posizione'         => 1,
+                'lingua'            => 1,
+                'isAmmTrasparente'  => ($modulename!='contenuti') ? 1 : 0,
+            ));
 
             $formTitle = 'Nuova sezione';
             $submitButtonValue = 'Inserisci';
             $formAction = $this->url()->fromRoute('admin/sezioni-insert', array(
                 'lang'              => $this->params()->fromRoute('lang'),
                 'languageSelection' => $this->params()->fromRoute('languageSelection'),
+                'modulename'        => $modulename,
             ));
         }
 
@@ -64,11 +77,23 @@ class SezioniFormController extends SetupAbstractController
             'formDescription'               => 'Le sezioni rappresentano i blocchi principali sui quali costruire le basi dei contenuti',
             'submitButtonValue'             => $submitButtonValue,
             'noFormActionPrefix'            => 1,
-            'formBreadCrumbCategory'        => 'Sezioni',
-            'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/sezioni-summary', array(
-                'lang' => $this->params()->fromRoute('lang'),
-                'languageSelection' => $this->params()->fromRoute('languageSelection'),
-            )),
+            'formBreadCrumbCategory'        => array(
+                array(
+                    'href' => '#',
+                    'label' => ucfirst($modulenameLabel),
+                    'title' => 'Elenco '.$modulename,
+                ),
+                array(
+                    'href' => $this->url()->fromRoute('admin/sezioni-summary', array(
+                        'lang'              => $this->params()->fromRoute('lang'),
+                        'languageSelection' => $this->params()->fromRoute('languageSelection'),
+                        'modulename'        => $modulename,
+                    )),
+                    'label' => 'Sezioni',
+                    'title' => 'Sezioni '.$modulenameLabel,
+                ),
+            ),
+
             'templatePartial' => self::formTemplate,
         ));
 

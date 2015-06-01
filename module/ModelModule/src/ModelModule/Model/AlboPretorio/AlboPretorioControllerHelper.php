@@ -1,10 +1,11 @@
 <?php
 
-namespace Admin\Model\AlboPretorio;
+namespace ModelModule\Model\AlboPretorio;
 
+use ModelModule\Model\ControllerHelperAbstract;
 use ModelModule\Model\NullException;
 
-class AlboPretorioControllerHelper
+class AlboPretorioControllerHelper extends ControllerHelperAbstract
 {
     private $alboPretorioArticoliGetterWrapper;
 
@@ -34,12 +35,10 @@ class AlboPretorioControllerHelper
     {
         $this->assertAlboPretorioArticoliGetterWrapper();
 
-        $wrapper = $this->getAlboPretorioArticoliGetterWrapper();
-
-        $wrapper->setInput($input);
-        $wrapper->setupQueryBuilder();
-
-        $this->alboPretorioArticoliRecords = $wrapper->getRecords();
+        $this->alboPretorioArticoliRecords = $this->recoverWrapperRecords(
+            $this->getAlboPretorioArticoliGetterWrapper(),
+            $input
+        );
     }
 
     /**

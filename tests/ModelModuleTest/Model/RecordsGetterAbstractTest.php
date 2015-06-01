@@ -1,13 +1,9 @@
 <?php
 
-namespace ApplicationTest\Model;
+namespace ModelModuleTest\Model;
 
 use ModelModuleTest\TestSuite;
 
-/**
- * @author Andrea Fiori
- * @since  27 July 2014
- */
 class RecordsGetterAbstractTest extends TestSuite
 {
     /**
@@ -26,6 +22,13 @@ class RecordsGetterAbstractTest extends TestSuite
         );
         
         $this->recordSetSampleData = array( array('id' => '1','name' => 'John'), array('id' => 2,'name' => 'Steve') );
+    }
+
+    public function testSetEntityManager()
+    {
+        $this->recordsGetterAbstract->setEntityManager($this->getEntityManagerMock());
+
+        $this->assertInstanceOf('\Doctrine\ORM\EntityManager', $this->recordsGetterAbstract->getEntityManager());
     }
     
     public function testSetFirstRow()

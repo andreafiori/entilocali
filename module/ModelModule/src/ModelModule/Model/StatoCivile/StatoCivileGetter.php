@@ -4,10 +4,6 @@ namespace ModelModule\Model\StatoCivile;
 
 use ModelModule\Model\QueryBuilderHelperAbstract;
 
-/** 
- * @author Andrea Fiori
- * @since  17 June 2013
- */
 class StatoCivileGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()

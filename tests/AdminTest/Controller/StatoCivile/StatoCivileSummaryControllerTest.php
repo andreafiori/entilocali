@@ -7,7 +7,10 @@ use ModelModuleTest\TestSuite;
 
 class StatoCivileSummaryControllerTest extends TestSuite
 {
-    private  $controller;
+    /**
+     * @var StatoCivileSummaryController
+     */
+    private $controller;
 
     protected function setUp()
     {

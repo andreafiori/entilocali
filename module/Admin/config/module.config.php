@@ -35,27 +35,41 @@ return array(
             /* Stato Civile */
             'Admin\Controller\StatoCivile\StatoCivileSummary'                   => 'Admin\Controller\StatoCivile\StatoCivileSummaryController',
             'Admin\Controller\StatoCivile\StatoCivileForm'                      => 'Admin\Controller\StatoCivile\StatoCivileFormController',
+            'Admin\Controller\StatoCivile\StatoCivileInsert'                    => 'Admin\Controller\StatoCivile\StatoCivileInsertController', // to create
+            'Admin\Controller\StatoCivile\StatoCivileUpdate'                    => 'Admin\Controller\StatoCivile\StatoCivileUpdateController', // to create
             'Admin\Controller\StatoCivile\StatoCivileOperations'                => 'Admin\Controller\StatoCivile\StatoCivileOperationsController',
             'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniSummary'    => 'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniSummaryController',
             'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniForm'       => 'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniFormController',
+            'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniInsert'     => 'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniInsertController', // to create
+            'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniUpdate'     => 'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniUpdateController', // to create
 
             /* Amministrazione trasparente */
-            'Admin\Controller\AmministrazioneTrasparente\AmministrazioneTrasparenteForm' => 'Admin\Controller\AmministrazioneTrasparente\AmministrazioneTrasparenteFormController',
+            'Admin\Controller\AmministrazioneTrasparente\AmministrazioneTrasparenteForm'    => 'Admin\Controller\AmministrazioneTrasparente\AmministrazioneTrasparenteFormController',
             'Admin\Controller\AmministrazioneTrasparente\AmministrazioneTrasparenteSummary' => 'Admin\Controller\AmministrazioneTrasparente\AmministrazioneTrasparenteSummaryController',
 
             /* Atti concessione */
             'Admin\Controller\AttiConcessione\AttiConcessioneForm'              => 'Admin\Controller\AttiConcessione\AttiConcessioneFormController',
             'Admin\Controller\AttiConcessione\AttiConcessioneSummary'           => 'Admin\Controller\AttiConcessione\AttiConcessioneSummaryController',
+            'Admin\Controller\AttiConcessione\AttiConcessioneInsert'            => 'Admin\Controller\AttiConcessione\AttiConcessioneInsertController', // to create
+            'Admin\Controller\AttiConcessione\AttiConcessioneUpdate'            => 'Admin\Controller\AttiConcessione\AttiConcessioneUpdateController', // to create
             'Admin\Controller\AttiConcessione\ModalitaAssegnazioneForm'         => 'Admin\Controller\AttiConcessione\ModalitaAssegnazioneFormController',
             'Admin\Controller\AttiConcessione\ModalitaAssegnazioneSummary'      => 'Admin\Controller\AttiConcessione\ModalitaAssegnazioneSummaryController',
+            'Admin\Controller\AttiConcessione\ModalitaAssegnazioneInsert'       => 'Admin\Controller\AttiConcessione\ModalitaAssegnazioneInsert', // to create
+            'Admin\Controller\AttiConcessione\ModalitaAssegnazioneUpdate'       => 'Admin\Controller\AttiConcessione\ModalitaAssegnazioneUpdate', // to create
 
             /* Contratti Pubblici */
-            'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSummary'       => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSummaryController',
-            'Admin\Controller\ContrattiPubblici\ContrattiPubbliciForm'          => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciFormController',
+            'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSummary'                   => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSummaryController',
+            'Admin\Controller\ContrattiPubblici\ContrattiPubbliciForm'                      => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciFormController',
+            'Admin\Controller\ContrattiPubblici\ContrattiPubbliciInsert'                    => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciInsertController', // to create
+            'Admin\Controller\ContrattiPubblici\ContrattiPubbliciUpdate'                    => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciUpdateController', // to create
+            'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSceltaContraenteForm'      => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSceltaContraenteFormController',
+            'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSceltaContraenteSummary'   => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSceltaContraenteSummaryController',
 
             /* Enti Terzi */
-            'Admin\Controller\EntiTerzi\EntiTerziFormController'                => 'Admin\Controller\EntiTerzi\EntiTerziFormController',
-            'Admin\Controller\EntiTerzi\EntiTerziSummaryController'             => 'Admin\Controller\EntiTerzi\EntiTerziSummaryController',
+            'Admin\Controller\EntiTerzi\EntiTerziForm'                          => 'Admin\Controller\EntiTerzi\EntiTerziFormController',
+            'Admin\Controller\EntiTerzi\EntiTerziSummary'                       => 'Admin\Controller\EntiTerzi\EntiTerziSummaryController',
+            'Admin\Controller\EntiTerzi\EntiTerziInsert'                        => 'Admin\Controller\EntiTerzi\EntiTerziInsertController', // to create
+            'Admin\Controller\EntiTerzi\EntiTerziUpdate'                        => 'Admin\Controller\EntiTerzi\EntiTerziUpdateController', // to create
             'Admin\Controller\EntiTerzi\InvioEnteTerzoController'               => 'Admin\Controller\EntiTerzi\InvioEnteTerzoController',
 
             /* Blogs */
@@ -79,10 +93,10 @@ return array(
             'Admin\Controller\Sezioni\SezioniUpdate'                  => 'Admin\Controller\Sezioni\SezioniUpdateController',
 
             /* Sottosezioni */
-            'Admin\Controller\Sezioni\SottoSezioniContenutiSummary'                  => 'Admin\Controller\Sezioni\SottoSezioniContenutiSummaryController',
-            'Admin\Controller\Sezioni\SottoSezioniContenutiForm'      => 'Admin\Controller\Sezioni\SottoSezioniContenutiFormController',
-            'Admin\Controller\Sezioni\SottoSezioniAmmTraspForm'                      => 'Admin\Controller\Sezioni\SottoSezioniAmmTraspFormController',
-            'Admin\Controller\Sezioni\SottoSezioniAmministrazioneTrasparenteSummary' => 'Admin\Controller\Sezioni\SottoSezioniAmministrazioneTrasparenteSummaryController',
+            'Admin\Controller\Sezioni\SottoSezioniSummary'            => 'Admin\Controller\Sezioni\SottoSezioniSummaryController',
+            'Admin\Controller\Sezioni\SottoSezioniForm'               => 'Admin\Controller\Sezioni\SottoSezioniFormController',
+            'Admin\Controller\Sezioni\SottoSezioniInsert'             => 'Admin\Controller\Sezioni\SottoSezioniInsertController', // to create
+            'Admin\Controller\Sezioni\SottoSezioniUpdate'             => 'Admin\Controller\Sezioni\SottoSezioniUpdateController', // to create
             'Admin\Controller\Sezioni\SottoSezioniPositions'          => 'Admin\Controller\Sezioni\SottoSezioniPositionsController',
             'Admin\Controller\Sezioni\SottoSezioniPositionsUpdate'    => 'Admin\Controller\Sezioni\SottoSezioniPositionsUpdateController',
             'Admin\Controller\Sezioni\SottoSezioniOperations'         => 'Admin\Controller\Sezioni\SottoSezioniOperationsController',
@@ -96,10 +110,10 @@ return array(
             'Admin\Controller\Users\Roles\UsersRolesSummary'          => 'Admin\Controller\Users\Roles\UsersRolesSummaryController',
 
             /* Users settori */
-            'Admin\Controller\Users\Settori\SettoriSummary'          => 'Admin\Controller\Users\Settori\SettoriSummaryController',
+            'Admin\Controller\Users\Settori\SettoriSummary'           => 'Admin\Controller\Users\Settori\SettoriSummaryController',
 
             /* Users responsabili procedimento */
-            'Admin\Controller\Users\RespProc\UsersRespProcController' => 'Admin\Controller\Users\RespProc\UsersRespProcController',
+            'Admin\Controller\Users\RespProc\UsersRespProc'           => 'Admin\Controller\Users\RespProc\UsersRespProcController',
 
             /* Gestione home page */
             'Admin\Controller\HomePage\HomePageBlocksPositions'       => 'Admin\Controller\HomePage\HomePageBlocksPositionsController',
@@ -372,12 +386,13 @@ return array(
                     'sezioni-summary' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route' => 'sezioni/summary/lang/:languageSelection[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'route' => 'sezioni/summary/:modulename/lang/:languageSelection[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
                             'constraints' => array(
                                 'page'              => '[0-9]+',
                                 'order_by'          => '[a-zA-Z0-9_-]*',
                                 'order'             => '[a-zA-Z0-9_-]*',
                                 'languageSelection' => '[a-z]{2}',
+                                'modulename'        => '(contenuti|amministrazione-trasparente)',
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Sezioni\SezioniSummary',
@@ -388,11 +403,12 @@ return array(
                     'sezioni-form' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => 'sezioni/formlang/:languageSelection[/][:id[/]][previouspage/:previouspage[/]]',
+                            'route' => 'sezioni/form/:modulename/lang/:languageSelection[/][:id[/]][previouspage/:previouspage[/]]',
                             'constraints' => array(
                                 'id'                 => '[0-9]+',
                                 'languageSelection'  => '[a-z]{2}',
                                 'previouspage'       => '[0-9]+',
+                                'modulename'         => '(contenuti|amministrazione-trasparente)',
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Sezioni\SezioniForm',
@@ -403,9 +419,10 @@ return array(
                     'sezioni-insert' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route' => 'sezioni/formdata/lang/:languageSelection/insert[/]',
+                            'route' => 'sezioni/:modulename/form/lang/:languageSelection/insert[/]',
                             'constraints' => array(
                                 'languageSelection' => '[a-z]{2}',
+                                'modulename'        => '(contenuti|amministrazione-trasparente)',
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Sezioni\SezioniInsert',
@@ -416,71 +433,43 @@ return array(
                     'sezioni-update' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => 'sezioni/formdata/lang/:languageSelection/update/',
+                            'route' => 'sezioni/:modulename/form/lang/:languageSelection/update/',
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Sezioni\SezioniUpdate',
                                 'action'     => 'index',
+                                'modulename'         => '(contenuti|amministrazione-trasparente)',
                             ),
                         ),
                     ),
-                    'sottosezioni-contenuti-summary' => array(
+                    'sottosezioni-summary' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route' => 'sottosezioni/contenuti/summary/lang/:languageSelection[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'route' => 'sottosezioni/:modulename/summary/lang/:languageSelection[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
                             'constraints' => array(
                                 'page'              => '[0-9]+',
                                 'order_by'          => '[a-zA-Z0-9_-]*',
                                 'order'             => '[a-zA-Z0-9_-]*',
                                 'languageSelection' => '[a-z]{2}',
+                                'modulename'        => '(contenuti|amministrazione-trasparente)',
                             ),
                             'defaults' => array(
-                                'controller' => 'Admin\Controller\Sezioni\SottoSezioniContenutiSummary',
+                                'controller' => 'Admin\Controller\Sezioni\SottoSezioniSummary',
                                 'action'     => 'index',
                             ),
                         ),
                     ),
-                    'sottosezioni-contenuti-form' => array(
+                    'sottosezioni-form' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => 'sottosezioni/contenuti/form/lang/:languageSelection[/][:id[/]][previouspage/:previouspage[/]]',
+                            'route' => 'sottosezioni/:modulename/form/lang/:languageSelection[/][:id[/]][previouspage/:previouspage[/]]',
                             'constraints' => array(
                                 'id'                 => '[0-9]+',
                                 'languageSelection'  => '[a-z]{2}',
                                 'previouspage'       => '[0-9]+',
+                                'modulename'         => '(contenuti|amministrazione-trasparente)',
                             ),
                             'defaults' => array(
-                                'controller' => 'Admin\Controller\Sezioni\SottoSezioniContenutiForm',
-                                'action'     => 'index',
-                            ),
-                        ),
-                    ),
-                    'sottosezioni-amm-trasp-summary' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route' => 'sottosezioni-amm-trasparente/summary/lang/:languageSelection[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
-                            'constraints' => array(
-                                'page'              => '[0-9]+',
-                                'order_by'          => '[a-zA-Z0-9_-]*',
-                                'order'             => '[a-zA-Z0-9_-]*',
-                                'languageSelection' => '[a-z]{2}',
-                            ),
-                            'defaults' => array(
-                                'controller' => 'Admin\Controller\Sezioni\SottoSezioniAmministrazioneTrasparenteSummary',
-                                'action'     => 'index',
-                            ),
-                        ),
-                    ),
-                    'sottosezioni-amm-trasp-form' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => 'sottosezioni/amm-trasparente/form/lang/:languageSelection[/][:id[/]][previouspage/:previouspage[/]]',
-                            'constraints' => array(
-                                'id'                 => '[0-9]+',
-                                'languageSelection'  => '[a-z]{2}',
-                                'previouspage'       => '[0-9]+',
-                            ),
-                            'defaults' => array(
-                                'controller' => 'Admin\Controller\Sezioni\SottoSezioniAmmTraspForm',
+                                'controller' => 'Admin\Controller\Sezioni\SottoSezioniForm',
                                 'action'     => 'index',
                             ),
                         ),
@@ -503,8 +492,9 @@ return array(
                         'options' => array(
                             'route' => 'sezioni/operations/lang/:languageSelection/:action[/][:id[/]][previouspage/:previouspage[/]]',
                             'constraints' => array(
-                                'action'     => '[a-zA-Z0-9_-]*',
-                                'id'         => '[0-9]+',
+                                'action'            => '[a-zA-Z0-9_-]*',
+                                'id'                => '[0-9]+',
+                                'languageSelection' => '[a-z]{2}',
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Sezioni\SezioniOperations',
@@ -834,6 +824,26 @@ return array(
                             ),
                         ),
                     ),
+                    'atti-concessione-modalita-assegnazione-insert' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'atti-concessione/modalita-assegnazione/insert[/]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\AttiConcessione\ModalitaAssegnazioneInsert',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'atti-concessione-modalita-assegnazione-update' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'atti-concessione/modalita-assegnazione/update[/]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\AttiConcessione\ModalitaAssegnazioneUpdate',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
                     'contratti-pubblici-summary' => array(
                         'type'    => 'Segment',
                         'options' => array(
@@ -862,8 +872,36 @@ return array(
                             ),
                         ),
                     ),
-                    'enti-terzi-summary' => array(
+                    'contratti-pubblici-scelta-contraente-summary' => array(
                         'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'contratti-pubblici/scelta-contraente/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'constraints' => array(
+                                'order_by'  => '[a-zA-Z0-9_-]*',
+                                'order'     => '[a-zA-Z0-9_-]*',
+                                'page'      => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSceltaContraenteSummary',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'contratti-pubblici-scelta-contraente-form' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'contratti-pubblici/scelta-contraente/form[/][:id[/]]',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSceltaContraenteForm',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'enti-terzi-summary' => array(
+                        'type' => 'Segment',
                         'options' => array(
                             'route'       => 'enti-terzi/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
                             'constraints' => array(
@@ -872,7 +910,7 @@ return array(
                                 'order'       => 'ASC|DESC',
                             ),
                             'defaults' => array(
-                                'controller' => 'Admin\Controller\EntiTerzi\EntiTerziSummaryController',
+                                'controller' => 'Admin\Controller\EntiTerzi\EntiTerziSummary',
                                 'action'     => 'index',
                             ),
                         ),
@@ -885,7 +923,7 @@ return array(
                                 'id' => '[0-9]+',
                             ),
                             'defaults' => array(
-                                'controller' => 'Admin\Controller\EntiTerzi\EntiTerziFormController',
+                                'controller' => 'Admin\Controller\EntiTerzi\EntiTerziForm',
                                 'action'     => 'index',
                             ),
                         ),
@@ -893,13 +931,14 @@ return array(
                     'blogs-categories-summary' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'       => 'posts/categories/summary/:moduleCode[/][:categoryId[/]][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'route'       => 'posts/categories/lang/:languageSelection/summary/:moduleCode[/][:categoryId[/]][page/:page[/]][/order_by/:order_by][/:order[/]]',
                             'constraints' => array(
-                                'moduleCode'  => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'categoryId'  => '[0-9]+',
-                                'page'        => '[0-9]+',
-                                'order_by'    => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'order'       => 'ASC|DESC',
+                                'languageSelection' => '[a-z]{2}',
+                                'moduleCode'        => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'categoryId'        => '[0-9]+',
+                                'page'              => '[0-9]+',
+                                'order_by'          => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'order'             => 'ASC|DESC',
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Blogs\BlogsCategoriesSummary',
@@ -907,39 +946,10 @@ return array(
                             ),
                         ),
                     ),
-                    'blogs-summary' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'       => 'blogs/summary[/][:categoryId[/]][page/:page[/]][/order_by/:order_by][/:order[/]]',
-                            'constraints' => array(
-                                'categoryId'  => '[0-9]+',
-                                'page'        => '[0-9]+',
-                                'order_by'    => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'order'       => 'ASC|DESC',
-                            ),
-                            'defaults' => array(
-                                'controller' => 'Admin\Controller\Blogs\BlogsSummary',
-                                'action'     => 'index',
-                            ),
-                        ),
-                    ),
-                    'blogs-operations' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'       => 'blogs/operations/:action[/]',
-                            'constraints' => array(
-                                'action' => '[a-zA-Z0-9_-]*',
-                            ),
-                            'defaults' => array(
-                                'controller' => 'Admin\Controller\Blogs\Blogs',
-                                'action'     => 'index',
-                            ),
-                        ),
-                    ),
-                    'posts-form' => array(
+                    'blogs-form' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route'       => 'posts/form/:formtype[/][:id[/]]',
+                            'route'       => 'blogs/lang/:languageSelection/form/:formtype[/][:id[/]]',
                             'constraints' => array(
                                 'formtype'  => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'id'        => '[0-9]+',
@@ -950,15 +960,48 @@ return array(
                             ),
                         ),
                     ),
+                    'blogs-summary' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'       => 'blogs/lang/:languageSelection/summary[/][:categoryId[/]][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'constraints' => array(
+                                'languageSelection' => '[a-z]{2}',
+                                'categoryId'        => '[0-9]+',
+                                'page'              => '[0-9]+',
+                                'order_by'          => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'order'             => 'ASC|DESC',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Blogs\BlogsSummary',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'blogs-operations' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'blogs/lang/:languageSelection/operations/:action[/]',
+                            'constraints' => array(
+                                'action'            => '[a-zA-Z0-9_-]*',
+                                'languageSelection' => '[a-z]{2}',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Blogs\BlogsOperations',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+
                     'photo-summary' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'       => 'photo/summary[/][:categoryId[/]][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'route'       => 'photo/lang/:languageSelection/summary[/][:categoryId[/]][page/:page[/]][/order_by/:order_by][/:order[/]]',
                             'constraints' => array(
-                                'categoryId'  => '[0-9]+',
-                                'page'        => '[0-9]+',
-                                'order_by'    => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'order'       => 'ASC|DESC',
+                                'languageSelection' => '[a-z]{2}',
+                                'categoryId'        => '[0-9]+',
+                                'page'              => '[0-9]+',
+                                'order_by'          => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'order'             => 'ASC|DESC',
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Photo\PhotoSummary',
@@ -969,13 +1012,14 @@ return array(
                     'photo-form' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route'       => 'photo/form[/][:id[/]]',
+                            'route'       => 'photo/lang/:languageSelection/form[/][:id[/]]',
                             'constraints' => array(
                                 'id' => '[0-9]+',
                             ),
                             'defaults' => array(
-                                'controller' => 'Admin\Controller\Photo\PhotoForm',
-                                'action'     => 'index',
+                                'languageSelection' => '[a-z]{2}',
+                                'controller'        => 'Admin\Controller\Photo\PhotoForm',
+                                'action'            => 'index',
                             ),
                         ),
                     ),
@@ -1094,7 +1138,7 @@ return array(
                     'sezioni-positions' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route' => 'posizioni/sezioni/lang/:languageSelection[/]',
+                            'route' => 'posizioni/sezioni/:modulename/lang/:languageSelection[/]',
                             'constraints' => array(
                                 'languageSelection' => '[a-z]{2}',
                             ),
@@ -1118,7 +1162,7 @@ return array(
                     'posizioni-sottosezioni' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route'       => 'posizioni/sottosezioni/lang/:languageSelection/:sezioneId[/][:profonditaDa[/]]',
+                            'route'       => 'sottosezioni/posizioni/:modulename/lang/:languageSelection/:sezioneId[/][:profonditaDa[/]]',
                             'constraints' => array(
                                 'languageSelection' => '[a-z]{2}',
                                 'sezioneId'         => '[0-9]+',
@@ -1148,17 +1192,6 @@ return array(
                             'constraints' => array(
                                 'id' => '[0-9]+',
                             ),
-                            'defaults' => array(
-                                'controller' => 'Admin\Controller\Admin',
-                                'action'     => 'index',
-                            ),
-                        ),
-                    ),
-                    'users-resp-proc-management' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'       => 'users/resp-proc/management[/]',
-                            'constraints' => array(),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Admin',
                                 'action'     => 'index',
@@ -1223,30 +1256,40 @@ return array(
                             ),
                         ),
                     ),
-                    'users-resp-proc' => array(
-                        'type' => 'Segment',
+
+                    'users-resp-proc-management' => array(
+                        'type'    => 'Segment',
                         'options' => array(
-                            'route'         => 'users/responsabili-procedimento[/]',
-                            'constraints'   => array(),
+                            'route'       => 'users/resp-proc/management[/]',
+                            'constraints' => array(),
                             'defaults' => array(
-                                'controller' => 'Admin\Controller\Users\RespProc\UsersRespProcController',
+                                'controller' => 'Admin\Controller\Admin',
                                 'action'     => 'index',
                             ),
                         ),
-                        'child_routes' => array(
-                            'insert' => array(
-                                'type'    => 'Segment',
-                                'options' => array(
-                                    'route'    => 'homepage/putter/[:modulecode][/][:id[/]]',
-                                    'constraints' => array(
-                                        'modulecode' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                        'id'         => '[0-9]+',
-                                    ),
-                                    'defaults' => array(
-                                        'controller' => 'Admin\Controller\HomePageController',
-                                        'action'     => 'index',
-                                    ),
-                                ),
+                    ),
+
+                    'users-responsabili-procedimento' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'users/responsabili-procedimento/management[/]',
+                            'constraints' => array(),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Users\RespProc\UsersRespProc',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'users-responsabili-procedimento-operations' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'users/responsabili-procedimento/operations/:action[/]',
+                            'constraints' => array(
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Users\RespProc\UsersRespProc',
+                                'action'     => 'index',
                             ),
                         ),
                     ),
@@ -1314,6 +1357,8 @@ return array(
             'admin/albo-pretorio-summary/index'             => __DIR__ . '/../view/admin/empty.phtml',
             'admin/albo-pretorio-form/index'                => __DIR__ . '/../view/admin/empty.phtml',
             'admin/albo-pretorio-pdf/relata'                => __DIR__ . '../../view/admin/albo-pretorio-pdf/relata.phtml',
+            'admin/albo-pretorio-sezioni-form/index'        => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/albo-pretorio-sezioni-summary/index'     => __DIR__ . '/../view/admin/empty.phtml',
 
             /* Stato civile */
             'admin/stato-civile-summary/index'              => __DIR__ . '/../view/admin/empty.phtml',
@@ -1330,6 +1375,8 @@ return array(
             /* Contratti pubblici */
             'admin/contratti-pubblici-summary/index'        => __DIR__ . '/../view/admin/empty.phtml',
             'admin/contratti-pubblici-form/index'           => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/contratti-pubblici-scelta-contraente-form/index' => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/contratti-pubblici-scelta-contraente-summary/index' => __DIR__ . '/../view/admin/empty.phtml',
 
             /* Enti terzi */
             'admin/invio-ente-terzo/index'                  => __DIR__ . '/../view/admin/empty.phtml',
@@ -1361,8 +1408,9 @@ return array(
 
             /* SottoSezioni */
             'admin/sotto-sezioni-contenuti-summary/index'   => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/sotto-sezioni-form/index'                => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/sotto-sezioni-summary/index'             => __DIR__ . '/../view/admin/empty.phtml',
             'admin/sotto-sezioni-positions-update/index'    => __DIR__ . '/../view/admin/empty.phtml',
-            'admin/sotto-sezioni-amministrazione-trasparente-summary/index' => __DIR__ . '/../view/admin/empty.phtml',
             'admin/sotto-sezioni-amm-trasp-form/index'      => __DIR__ . '/../view/admin/empty.phtml',
             'admin/sotto-sezioni-positions/index'           => __DIR__ . '/../view/admin/empty.phtml',
 
@@ -1371,11 +1419,16 @@ return array(
             'admin/users-form/index'                        => __DIR__ . '/../view/admin/empty.phtml',
             'admin/users-roles-form/index'                  => __DIR__ . '/../view/admin/empty.phtml',
             'admin/users-roles-summary/index'               => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/users-resp-proc/index'                   => __DIR__ . '/../view/admin/empty.phtml',
 
             /* Home page */
             'admin/home-page/index'                         => __DIR__ . '/../view/admin/empty.phtml',
             'admin/home-page-blocks-positions/index'        => __DIR__ . '/../view/admin/empty.phtml',
             'admin/home-page-blocks-positions/update'       => __DIR__ . '/../view/admin/empty.phtml',
+
+            /* Ticket */
+            'admin/tickets-form/index'                      => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/tickets-summary/index'                   => __DIR__ . '/../view/admin/empty.phtml',
 
             'admin/'                                        => __DIR__ . '/../view/admin/empty.phtml',
         ),
@@ -1432,8 +1485,6 @@ return array(
     ),
     /* DataTables Class Map */
     'datatables_classmap' => array(
-        'atti-ufficiali'                                => 'ModelModule\Model\AlboPretorio\AttiUfficialiDataTable',
-        'contratti-pubblici-scelta-contraente'          => 'ModelModule\Model\ContrattiPubblici\SceltaContraente\SceltaContraenteDataTable',
         'contratti-pubblici-operatori'                  => 'ModelModule\Model\ContrattiPubblici\Operatori\OperatoriDataTable',
         'users-settori'                                 => 'ModelModule\Model\Users\Settori\UsersSettoriDataTable',
     ),

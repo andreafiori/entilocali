@@ -5,10 +5,6 @@ namespace AdminTest\Controller\AlboPretorio;
 use ModelModuleTest\TestSuite;
 use Admin\Controller\AlboPretorio\AlboPretorioRelataPdfController;
 
-/**
- * @author Andrea Fiori
- * @since  08 April 2015
- */
 class AlboPretorioRelataPdfControllerTest extends TestSuite
 {
     /**

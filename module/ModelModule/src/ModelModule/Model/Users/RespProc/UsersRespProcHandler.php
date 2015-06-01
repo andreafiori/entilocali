@@ -7,12 +7,7 @@ use ModelModule\Model\Users\UsersGetterWrapper;
 use ModelModule\Model\Database\DbTableContainer;
 use ModelModule\Model\RouterManagers\RouterManagerAbstract;
 use ModelModule\Model\RouterManagers\RouterManagerInterface;
-use ZfTable\Controller\TableController;
 
-/**
- * @author Andrea Fiori
- * @since  25 March 2015
- */
 class UsersRespProcHandler extends RouterManagerAbstract implements RouterManagerInterface
 {
     public function setupRecord()

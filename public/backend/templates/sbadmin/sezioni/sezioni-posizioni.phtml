@@ -3,7 +3,12 @@
         <a href="<?php echo $this->url('admin', array('lang' => $this->params()->fromRoute('lang'))); ?>" title="Home page">Home</a>
     </li>
     <li>
-        <a href="<?php echo $this->url('admin/sezioni-summary', array('lang' => $this->params()->fromRoute('lang'), 'languageSelection' => $this->params()->fromRoute('lang'))) ?>" title="Sezioni">
+        <a href="#" title="">
+            <?php echo ucfirst(str_replace('-',' ', $this->params()->fromRoute('modulename'))) ?>
+        </a>
+    </li>
+    <li>
+        <a href="<?php echo $this->url('admin/sezioni-summary', array('lang' => $this->params()->fromRoute('lang'), 'modulename' => $this->params()->fromRoute('modulename'), 'languageSelection' => $this->params()->fromRoute('lang'))) ?>" title="Elenco sezioni">
             Sezioni
         </a>
     </li>
@@ -12,9 +17,9 @@
     </li>
 </ul>
 
-<h3>Gestione posizioni</h3>
+<h3>Gestione posizioni sezioni</h3>
 
-<p>In questa sezione vengono visualizzate le sezioni <strong>visibili sul sito web</strong>.</p>
+<p>In questa sezione vengono visualizzate le sezioni <strong>attive e visibili sul sito web</strong>.</p>
 
 <p>Trascinare i nomi delle sezioni disponendoli secondo l'ordine desiderato. L'aggiornamento sar&agrave; automatico ed il risultato sar&agrave; visualizzato in questa pagina.</p>
 

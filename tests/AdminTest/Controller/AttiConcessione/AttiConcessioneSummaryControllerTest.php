@@ -5,10 +5,6 @@ namespace AdminTest\Controller\AttiConcessione;
 use Admin\Controller\AttiConcessione\AttiConcessioneSummaryController;
 use ModelModuleTest\TestSuite;
 
-/**
- * @author Andrea Fiori
- * @since  28 April 2015
- */
 class AttiConcessioneSummaryControllerTest extends TestSuite
 {
     /**

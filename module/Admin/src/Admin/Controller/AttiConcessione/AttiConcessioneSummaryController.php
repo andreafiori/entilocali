@@ -10,10 +10,6 @@ use ModelModule\Model\Users\Settori\UsersSettoriGetterWrapper;
 use Application\Controller\SetupAbstractController;
 use ModelModule\Model\AttiConcessione\AttiConcessioneFormSearch;
 
-/**
- * @author Andrea Fiori
- * @since  28 April 2015
- */
 class AttiConcessioneSummaryController extends SetupAbstractController
 {
     public function indexAction()
@@ -70,7 +66,8 @@ class AttiConcessioneSummaryController extends SetupAbstractController
             $this->layout()->setVariables(array(
                     'messageType'        => 'warning',
                     'messageTitle'       => 'Nessun atto di concessione presente',
-                    'messageDescription' => 'Nessun atto di concessione presente in archivio',
+                    'messageText'        => 'Nessun atto di concessione in archivio',
+                    'templatePartial'    => 'message.phtml',
                 )
             );
             $this->layout()->setTemplate($mainLayout);

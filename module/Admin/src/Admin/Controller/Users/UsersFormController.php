@@ -35,7 +35,6 @@ class UsersFormController extends SetupAbstractController
 
         $records = $helper->getUsersGetterWrapperRecords();
 
-
         $form = new UsersForm();
         if ($userDetails->acl->hasResource('users_roles_update')) {
 

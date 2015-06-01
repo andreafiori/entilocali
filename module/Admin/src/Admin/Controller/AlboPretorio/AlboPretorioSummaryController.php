@@ -2,6 +2,7 @@
 
 namespace Admin\Controller\AlboPretorio;
 
+use ModelModule\Model\AlboPretorio\AlboPretorioControllerHelper;
 use ModelModule\Model\AlboPretorio\AlboPretorioFormSearch;
 use ModelModule\Model\AlboPretorio\AlboPretorioArticoliGetter;
 use ModelModule\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
@@ -21,59 +22,74 @@ class AlboPretorioSummaryController extends SetupAbstractController
         $perPage    = $this->params()->fromRoute('perpage');
         $em         = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-        $wrapper = new AlboPretorioArticoliGetterWrapper( new AlboPretorioArticoliGetter($em) );
-        $wrapper->setInput(array(
-            'orderBy' => 'alboArticoli.id DESC'
-        ));
-        $wrapper->setupQueryBuilder();
-        $wrapper->setupPaginator( $wrapper->setupQuery($em) );
-        $wrapper->setupPaginatorCurrentPage($page);
-        $wrapper->setupPaginatorItemsPerPage($perPage);
+        $helper = new AlboPretorioControllerHelper();
 
-        $sezioniWrapper = new AlboPretorioSezioniGetterWrapper( new AlboPretorioSezioniGetter($em) );
-        $sezioniWrapper->setInput(array());
-        $sezioniWrapper->setupQueryBuilder();
-
-        $usersSettoriWrapper = new UsersSettoriGetterWrapper( new UsersSettoriGetter($em) );
-        $usersSettoriWrapper->setInput(array('orderBy' => 'settore.nome ASC'));
-        $usersSettoriWrapper->setupQueryBuilder();
-
-        $formSearch = new AlboPretorioFormSearch();
-        $formSearch->addYears();
-        $formSearch->addSezioni( $sezioniWrapper->formatForDropwdown($sezioniWrapper->getRecords(), 'id', 'nome') );
-        $formSearch->addSettori( $usersSettoriWrapper->formatForDropwdown($usersSettoriWrapper->getRecords(), 'id', 'nome') );
-        $formSearch->addCheckExpired();
-        $formSearch->addCsrf();
-        $formSearch->addSubmitButton();
-        $formSearch->addResetButton();
-
-        $paginator = $wrapper->getPaginator();
-
-        $records = $wrapper->setupRecords();
-
-        $this->layout()->setVariables(array(
-                'formSearch'        => $formSearch,
-                'tableTitle'        => 'Albo pretorio',
-                'tableDescription'  => $paginator->getTotalItemCount()." atti in archivio",
-                'columns' => array(
-                    array('label' => 'Num \ Anno', 'width' => '10%'),
-                    array('label' => 'Titolo', 'width' => '20%'),
-                    'Settore',
-                    'Scadenza',
-                    'Data attivazione',
-                    'Inserito da',
-                    '&nbsp;',
-                    '&nbsp;',
-                    '&nbsp;',
-                    '&nbsp;',
-                    '&nbsp;',
-                    '&nbsp;',
+        try {
+            $sezioniRecords = $helper->recoverWrapperRecords(
+                new AlboPretorioSezioniGetterWrapper(new AlboPretorioSezioniGetter($em)),
+                array('orderBy' => 'aps.nome ASC')
+            );
+            $helper->checkRecords($sezioniRecords, 'Nessuna sezione presente');
+            $settoriRecords = $helper->recoverWrapperRecords(
+                new UsersSettoriGetterWrapper(new UsersSettoriGetter($em)),
+                array('orderBy' => 'settore.nome ASC')
+            );
+            $helper->checkRecords($settoriRecords, 'Nessun settore presente');
+            $paginatorWrapper = $helper->recoverWrapperRecordsPaginator(
+                new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter($em)),
+                array(
+                    'orderBy' => 'alboArticoli.id DESC'
                 ),
-                'paginator'         => $paginator,
-                'records'           => $this->formatArticoliRecords($records),
-                'templatePartial'   => 'datatable/datatable_albo_pretorio.phtml'
-            )
-        );
+                $page,
+                $perPage
+            );
+
+            $formSearch = new AlboPretorioFormSearch();
+            $formSearch->addYears();
+            $formSearch->addSezioni( $helper->formatForDropwdown($sezioniRecords, 'id', 'nome') );
+            $formSearch->addSettori( $helper->formatForDropwdown($settoriRecords, 'id', 'nome') );
+            $formSearch->addCheckExpired();
+            $formSearch->addCsrf();
+            $formSearch->addSubmitButton();
+            $formSearch->addResetButton();
+
+            $paginator = $paginatorWrapper->getPaginator();
+
+            $records = $paginatorWrapper->setupRecords();
+
+            $this->layout()->setVariables(array(
+                    'formSearch'        => $formSearch,
+                    'tableTitle'        => 'Albo pretorio',
+                    'tableDescription'  => $paginator->getTotalItemCount()." atti in archivio",
+                    'columns' => array(
+                        array('label' => 'Num \ Anno', 'width' => '10%'),
+                        array('label' => 'Titolo', 'width' => '20%'),
+                        'Settore',
+                        'Scadenza',
+                        'Data attivazione',
+                        'Inserito da',
+                        '&nbsp;',
+                        '&nbsp;',
+                        '&nbsp;',
+                        '&nbsp;',
+                        '&nbsp;',
+                        '&nbsp;',
+                    ),
+                    'paginator'         => $paginator,
+                    'records'           => $this->formatArticoliRecords($records),
+                    'templatePartial'   => 'datatable/datatable_albo_pretorio.phtml'
+                )
+            );
+
+        } catch(\Exception $e) {
+            $this->layout()->setVariables(array(
+                    'messageType'       => 'warning',
+                    'messageTitle'      => 'Errore verificato',
+                    'messageText'       => $e->getMessage(),
+                    'templatePartial'   => 'message.phtml'
+                )
+            );
+        }
 
         $this->layout()->setTemplate($mainLayout);
     }

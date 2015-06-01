@@ -8,7 +8,6 @@ use ModelModule\Model\StatoCivile\StatoCivileGetterWrapper;
 use ModelModule\Model\StatoCivile\StatoCivileSezioniGetter;
 use ModelModule\Model\StatoCivile\StatoCivileSezioniGetterWrapper;
 use ModelModule\Model\StatoCivile\StatoCivileControllerHelper;
-use ModelModule\Model\StatoCivile\StatoCivileFormSearch;
 
 class StatoCivileController extends SetupAbstractController
 {

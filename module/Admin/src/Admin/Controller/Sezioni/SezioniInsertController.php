@@ -42,6 +42,7 @@ class SezioniInsertController extends SetupAbstractController
         $helper = new SezioniControllerHelper();
         $helper->setConnection($connection);
         $helper->getConnection()->beginTransaction();
+
         try {
 
             if (!$form->isValid()) {
@@ -53,7 +54,7 @@ class SezioniInsertController extends SetupAbstractController
             $helper->setLoggedUser($userDetails);
             $lastInsertId = $helper->insert($inputFilter);
             $helper->getConnection()->commit();
-
+            
             $helper->setLogWriter(new LogWriter($connection));
             $helper->writeLog(array(
                 'user_id'       => $userDetails->id,
@@ -65,22 +66,25 @@ class SezioniInsertController extends SetupAbstractController
             ));
 
             $this->layout()->setVariables(array(
-                'messageType'           => 'success',
-                'messageTitle'          => 'Sezione inserita correttamente',
-                'messageText'           => 'I dati sono stati processati correttamente dal sistema',
+                'messageType'                => 'success',
+                'messageTitle'               => 'Sezione inserita correttamente',
+                'messageText'                => 'I dati sono stati processati correttamente dal sistema',
                 'showLinkResetFormAndShowIt' => 1,
                 'backToSummaryLink'     => $this->url()->fromRoute('admin/sezioni-summary', array(
                     'lang'              => $this->params()->fromRoute('languageSelection'),
                     'languageSelection' => $this->params()->fromRoute('languageSelection'),
+                    'modulename'        => $this->params()->fromRoute('modulename'),
                 )),
                 'backToSummaryText'     => "Elenco sezioni",
             ));
 
-            $this->layout()->setTemplate($this->layout()->getVariable('templateDir').'message.phtml');
-
         } catch(\Exception $e) {
 
-            $helper->getConnection()->rollBack();
+            try {
+                $helper->getConnection()->rollBack();
+            } catch(\Doctrine\DBAL\ConnectionException $e) {
+                
+            }
 
             $logWriter = new LogWriter($connection);
             $logWriter->writeLog(array(
@@ -100,8 +104,8 @@ class SezioniInsertController extends SetupAbstractController
                 'messageShowFormLink'   => 1,
                 'messageShowForm'       => 'Torna al form di inserimento dati',
             ));
-
-            $this->layout()->setTemplate($this->layout()->getVariable('templateDir').'message.phtml');
         }
+
+        $this->layout()->setTemplate($this->layout()->getVariable('templateDir').'message.phtml');
     }
 }

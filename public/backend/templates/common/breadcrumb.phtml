@@ -1,0 +1,48 @@
+<ul class="breadcrumb">
+    <li>
+        <a href="<?php echo $this->url('admin', array('lang' => $this->params()->fromRoute('lang'))); ?>" title="Home page">
+            Home
+        </a>
+    </li>
+
+    <?php if ( is_array($this->formBreadCrumbCategory) ): ?>
+
+        <?php foreach($this->formBreadCrumbCategory as $breadcrumb): ?>
+            <li>
+                <a href="<?php echo $breadcrumb['href'] ?>" title="<?php echo $breadcrumb['title'] ?>">
+                    <?php echo $breadcrumb['label'] ?>
+                </a> <span class="divider"></span>
+            </li>
+
+        <?php endforeach; ?>
+
+    <?php elseif( isset($this->formBreadCrumbCategory) ): ?>
+        <?php if (isset($this->formBreadCrumbCategoryLink)): ?>
+            <li>
+                <a href="<?php echo $this->formBreadCrumbCategoryLink ?>" title="<?php echo $this->formBreadCrumbCategory ?>">
+                    <?php echo $this->formBreadCrumbCategory ?>
+                </a> <span class="divider"></span>
+            </li>
+        <?php else: ?>
+            <li class="active">
+                <?php echo $this->formBreadCrumbCategory ?>
+            </li>
+        <?php endif; ?>
+    <?php endif; ?>
+
+    <?php if ($this->formBreadCrumbTitle or $this->formTitle): ?>
+    <li class="active">
+        <?php echo (empty($this->formBreadCrumbTitle)) ? $this->formTitle : $this->formBreadCrumbTitle; ?>
+    </li>
+    <?php endif; ?>
+
+    <?php if ($this->dataTableActiveTitle): ?>
+        <li class="active">
+            <?php echo $this->dataTableActiveTitle ?>
+        </li>
+    <?php elseif ($this->tableTitle): ?>
+        <li class="active"><?php echo $this->tableTitle ?></li>
+    <?php endif; ?>
+
+</ul>
+

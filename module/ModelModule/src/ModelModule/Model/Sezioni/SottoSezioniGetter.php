@@ -4,10 +4,6 @@ namespace ModelModule\Model\Sezioni;
 
 use ModelModule\Model\QueryBuilderHelperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  10 January 2015
- */
 class SottoSezioniGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
@@ -205,6 +201,19 @@ class SottoSezioniGetter extends QueryBuilderHelperAbstract
         if ( !empty($abbreviation) ) {
             $this->getQueryBuilder()->andWhere('languages.abbreviation1 = :languageAbbreviation ');
             $this->getQueryBuilder()->setParameter('languageAbbreviation', $abbreviation);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param int $isAmmTrasparente
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setIsAmmTrasparente($isAmmTrasparente)
+    {
+        if ( !empty($isAmmTrasparente) ) {
+            $this->getQueryBuilder()->andWhere('sezioni.isAmmTrasparente = 1 ');
         }
 
         return $this->getQueryBuilder();

@@ -1,6 +1,6 @@
 <?php
 
-namespace ModelModule\Model\Doctrine;
+namespace ModelModule\Doctrine;
 
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\Common\Util\Inflector;
@@ -59,7 +59,7 @@ class EntitySerializer
     
     /**
      * @param \Doctrine\ORM\EntityManager $em
-     * @return \Application\Model\Doctrine\EntitySerializer
+     * @return \ModelModule\Doctrine\EntitySerializer
      */
     public function setEntityManager(EntityManager $em)
     {

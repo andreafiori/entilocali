@@ -7,10 +7,6 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
-/**
- * @author Andrea Fiori
- * @since  24 March 2015
- */
 class StatoCivileFormInputFilter implements InputFilterAwareInterface
 {
     public $id;

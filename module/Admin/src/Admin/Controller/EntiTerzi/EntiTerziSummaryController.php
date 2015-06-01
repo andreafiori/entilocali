@@ -6,10 +6,6 @@ use Application\Controller\SetupAbstractController;
 use ModelModule\Model\EntiTerzi\EntiTerziGetter;
 use ModelModule\Model\EntiTerzi\EntiTerziGetterWrapper;
 
-/**
- * @author Andrea Fiori
- * @since  06 April 2015
- */
 class EntiTerziSummaryController extends SetupAbstractController
 {
     public function indexAction()

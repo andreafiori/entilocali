@@ -38,6 +38,7 @@ class SezioniGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setBlocco( $this->getInput('blocco', 1) );
         $this->objectGetter->setLingua( $this->getInput('lingua', 1) );
         $this->objectGetter->setLanguageAbbreviation( $this->getInput('languageAbbreviation', 1) );
+        $this->objectGetter->setIsAmmTrasparente( $this->getInput('isAmmTrasparente', 1) );
         $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
         $this->objectGetter->setLimit( $this->getInput('limit', 1) );
     }

@@ -17,7 +17,8 @@ class SezioniSummaryController extends SetupAbstractController
         $mainLayout         = $this->initializeAdminArea();
         $em                 = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
         $languageSelection  = $this->params()->fromRoute('languageSelection');
-        $page = $this->params()->fromRoute('page');
+        $page               = $this->params()->fromRoute('page');
+        $modulename         = $this->params()->fromRoute('modulename');
 
         $helper = new SezioniControllerHelper();
         $helper->setSezioniGetterWrapper(new SezioniGetterWrapper(new SezioniGetter($em)));
@@ -58,6 +59,8 @@ class SezioniSummaryController extends SetupAbstractController
             'records'           => $this->formatRecordsToShowOnTable( $wrapper->setupRecords() ),
             'templatePartial'   => 'datatable/datatable_sezioni.phtml',
             'formLanguage'      => !empty($formLanguage) ? $formLanguage : null,
+            'hidebreadcrumb'    => 1,
+            'modulename'        => str_replace('-', ' ', $modulename),
         ));
 
         $this->layout()->setTemplate($mainLayout);
@@ -69,6 +72,8 @@ class SezioniSummaryController extends SetupAbstractController
      */
     private function formatRecordsToShowOnTable($records)
     {
+        $modulename = $this->params()->fromRoute('modulename');
+
         $arrayToReturn = array();
         if ($records) {
             $acl = $this->layout()->getVariable('userDetails');
@@ -104,6 +109,7 @@ class SezioniSummaryController extends SetupAbstractController
                             'id'                => $row['id'],
                             'languageSelection' => $this->params()->fromRoute('languageSelection'),
                             'previouspage'      => $this->params()->fromRoute('page'),
+                            'modulename'        => $modulename,
                         )),
                         'title' => 'Modifica sezione'
                     ),

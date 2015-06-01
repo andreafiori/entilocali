@@ -173,4 +173,17 @@ class SezioniGetter extends QueryBuilderHelperAbstract
 
         return $this->getQueryBuilder();
     }
+
+    /**
+     * @param int $isAmmTrasparente
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setIsAmmTrasparente($isAmmTrasparente)
+    {
+        if ( !empty($isAmmTrasparente) ) {
+            $this->getQueryBuilder()->andWhere('sezioni.isAmmTrasparente = 1 ');
+        }
+
+        return $this->getQueryBuilder();
+    }
 }

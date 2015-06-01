@@ -1,0 +1,14 @@
+<div style="padding: 1%; margin: 0"
+     class="alert alert-<?php if ($this->messageType) echo $this->messageType; else echo "warning"; ?>">
+
+    <h2>
+        <?php echo ($this->messageTitle) ? $this->messageTitle : 'Errori verificati' ?>
+    </h2>
+
+    <div>
+        <?php echo $this->messageText ?>
+    </div>
+
+</div>
+
+<div>&nbsp;</div>

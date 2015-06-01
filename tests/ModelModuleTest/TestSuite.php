@@ -243,6 +243,7 @@ abstract class TestSuite extends \PHPUnit_Framework_TestCase
                                 'idSottoSezione' => 1,
                                 'nomeSezione' => 'my section',
                                 'nomeSottoSezione' => 'my sub-section',
+                                'titolo' => 'my title',
                             ),
                             array(
                                 'name'  => 'sitename',

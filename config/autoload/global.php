@@ -15,7 +15,6 @@ return array(
                     'hostname'  => $dbParams['hostname'],
                     'port'      => $dbParams['port'],
                 ));
-                
                 $adapter->setProfiler(new BjyProfiler\Db\Profiler\Profiler);
                 $adapter->injectProfilingStatementPrototype();
                 return $adapter;

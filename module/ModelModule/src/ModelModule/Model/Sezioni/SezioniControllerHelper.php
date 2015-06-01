@@ -36,9 +36,9 @@ class SezioniControllerHelper extends SezioniControllerHelperAbstract
             'seo_title'        => $inputFilter->seoTitle,
             'seo_description'  => $inputFilter->seoDescription,
             'seo_keywords'     => $inputFilter->seoKeywords,
-            'is_amm_trasparente' => $inputFilter->seoKeywords,
-            'show_to_all'     => $inputFilter->show_to_all,
+            'show_to_all'      => $inputFilter->show_to_all,
             */
+            'is_amm_trasparente' => $inputFilter->isAmmTrasparente,
         ));
     }
     

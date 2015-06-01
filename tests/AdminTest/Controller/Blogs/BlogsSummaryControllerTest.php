@@ -5,12 +5,11 @@ namespace AdminTest\Controller\Blogs;
 use Admin\Controller\Blogs\BlogsSummaryController;
 use ModelModuleTest\TestSuite;
 
-/**
- * @author Andrea Fiori
- * @since  11 April 2015
- */
 class BlogsSummaryControllerTest extends TestSuite
 {
+    /**
+     * @var BlogsSummaryController
+     */
     private  $controller;
 
     protected function setUp()

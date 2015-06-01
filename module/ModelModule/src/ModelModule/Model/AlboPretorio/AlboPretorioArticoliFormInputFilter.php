@@ -7,10 +7,6 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
-/**
- * @author Andrea Fiori
- * @since  27 July 2014
- */
 class AlboPretorioArticoliFormInputFilter implements InputFilterAwareInterface
 {
     public $id;

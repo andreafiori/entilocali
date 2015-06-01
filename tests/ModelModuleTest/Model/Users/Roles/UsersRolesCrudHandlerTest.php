@@ -5,10 +5,6 @@ namespace ModelModuleTest\Model\Users\Roles;
 use ModelModuleTest\CrudHandlerTestSuite;
 use ModelModule\Model\Users\Roles\UsersRolesCrudHandler;
 
-/**
- * @author Andrea Fiori
- * @since  29 March 2015
- */
 class UsersSettoriCrudHandlerTest extends CrudHandlerTestSuite
 {
     /**

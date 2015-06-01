@@ -257,4 +257,18 @@ abstract class ControllerHelperAbstract extends OperationsModelAbstract
 
         return $formLanguage;
     }
+
+    /**
+     * Ensure the given recordset is not empty
+     *
+     * @param $recordset
+     * @param string $message
+     * @throws NullException
+     */
+    public function checkRecordset($recordset, $message = 'Empty recordset')
+    {
+        if ( empty($recordset) ) {
+            throw new NullException($message);
+        }
+    }
 }

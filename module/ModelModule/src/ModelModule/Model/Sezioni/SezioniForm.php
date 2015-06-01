@@ -140,6 +140,15 @@ class SezioniForm extends Form
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'isAmmTrasparente',
+            'attributes' => array(
+                "class" => 'hiddenField',
+                'id'    => 'isAmmTrasparente'
+            )
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Hidden',
             'name' => 'id',
             'attributes' => array(
                 "class" => 'hiddenField',

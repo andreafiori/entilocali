@@ -6,10 +6,6 @@ use ModelModuleTest\TestSuite;
 use Admin\Controller\AlboPretorio\AlboPretorioOperationsController;
 use Zend\Http\Request;
 
-/**
- * @author Andrea Fiori
- * @since  06 April 2015
- */
 class AlboPretorioOperationsControllerTest extends TestSuite
 {
     /**
@@ -23,7 +19,7 @@ class AlboPretorioOperationsControllerTest extends TestSuite
 
         $sm = $this->getServiceManager();
 
-        $this->request = new Request(); // override request
+        $this->request = new Request();
 
         $sm->setService('request', $this->request);
 
@@ -32,7 +28,7 @@ class AlboPretorioOperationsControllerTest extends TestSuite
         $this->controller->setServiceLocator($sm);
     }
 
-    public function testPublishAction()
+    public function testPublishActionReturnsRedirect()
     {
         $this->routeMatch->setParam('action', 'publish');
 
@@ -41,7 +37,38 @@ class AlboPretorioOperationsControllerTest extends TestSuite
         $this->assertEquals(302, $this->controller->getResponse()->getStatusCode());
     }
 
+    public function testPublishAction()
+    {
+        $this->routeMatch->setParam('action', 'publish');
+        $this->routeMatch->setParam('lang', 'it');
+
+        $this->setupUserSession($this->recoverUserDetails());
+
+        $this->request->setMethod(Request::METHOD_POST)->getPost()->fromArray(array(
+            'publishId' => 1
+        ));
+
+        $this->controller->dispatch($this->request);
+
+        $this->assertEquals(302, $this->controller->getResponse()->getStatusCode());
+    }
+
     public function testAnnullAction()
+    {
+        $this->routeMatch->setParam('action', 'annull');
+
+        $this->setupUserSession($this->recoverUserDetails());
+
+        $this->request->setMethod(Request::METHOD_POST)->getPost()->fromArray(array(
+            'annullId' => 1
+        ));
+
+        $this->controller->dispatch($this->request);
+
+        $this->assertEquals(302, $this->controller->getResponse()->getStatusCode());
+    }
+
+    public function testAnnullActionReturnsRedirect()
     {
         $this->routeMatch->setParam('action', 'annull');
 

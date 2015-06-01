@@ -2,6 +2,7 @@
 
 namespace Admin\Controller\StatoCivile\Sezioni;
 
+use ModelModule\Model\StatoCivile\StatoCivileControllerHelper;
 use ModelModule\Model\StatoCivile\StatoCivileSezioniGetter;
 use ModelModule\Model\StatoCivile\StatoCivileSezioniGetterWrapper;
 use ModelModule\Model\StatoCivile\StatoCivileSezioniForm;
@@ -13,27 +14,27 @@ class StatoCivileSezioniFormController extends SetupAbstractController
     {
         $mainLayout = $this->initializeAdminArea();
 
-        $id = $this->params()->fromRoute('id');
-        $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+        $id     = $this->params()->fromRoute('id');
+        $lang   = $this->params()->fromRoute('lang');
+        $em     = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+
+        $helper = new StatoCivileControllerHelper();
+        $records = $helper->recoverWrapperRecordsById(
+            new StatoCivileSezioniGetterWrapper(new StatoCivileSezioniGetter($em)),
+            array('id' => $id, 'limit' => 1),
+            $id
+        );
 
         $form = new StatoCivileSezioniForm();
 
-        if ( is_numeric($id) ) {
-            $wrapper = new StatoCivileSezioniGetterWrapper( new StatoCivileSezioniGetter($em) );
-            $wrapper->setInput(array('scs.id' => $id));
-            $wrapper->setupQueryBuilder();
-
-            $record = $wrapper->getRecords();
-        }
-
-        if (!empty($record)) {
-            $form->setData($record[0]);
+        if (!empty($records)) {
+            $form->setData($records[0]);
 
             $formAction = 'stato-civile-sezioni/update';
-            $formTitle = 'Modifica sezione stato civile';
+            $formTitle = 'Modifica';
         } else {
             $formAction = 'stato-civile-sezioni/insert';
-            $formTitle = 'Nuova sezione stato civile';
+            $formTitle = 'Nuova';
         }
 
         $this->layout()->setVariables(array(
@@ -41,11 +42,23 @@ class StatoCivileSezioniFormController extends SetupAbstractController
                 'formAction'                 => $formAction,
                 'formTitle'                  => $formTitle,
                 'formDescription'            => 'Compila il form e premi il pulsante per confermare',
-                'formBreadCrumbCategory'     => 'Sezioni stato civile',
-                'formBreadCrumbCategoryLink' => $this->url()->fromRoute('admin/stato-civile-sezioni-summary', array(
-                    'lang' => 'it'
-                )),
-                'templatePartial'            => self::formTemplate,
+                'formBreadCrumbCategory'     => array(
+                    array(
+                        'label' => 'Stato civile',
+                        'href' => $this->url()->fromRoute('admin/stato-civile-summary', array(
+                            'lang' => $lang
+                        )),
+                        'title' => "Elenco atti stato civile"
+                    ),
+                    array(
+                        'label' => 'Sezioni',
+                        'href' =>  $this->url()->fromRoute('admin/stato-civile-sezioni-summary', array(
+                            'lang' => $lang
+                        )),
+                        'title' => "Elenco sezioni stato civile"
+                    ),
+                ),
+                'templatePartial' => self::formTemplate,
             )
         );
 

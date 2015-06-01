@@ -1,4 +1,4 @@
-<?php echo $this->render('backend/templates/'.$this->template_backend.'datatable/datatable_breadcrumb.phtml'); ?>
+<?php echo $this->render($this->formDataCommonPath.'breadcrumb.phtml'); ?>
 
 <?php if (empty($records)): ?>
     <div class="alert alert-warning">
@@ -22,7 +22,16 @@
 
         <p><?php echo $this->tableDescription ?></p>
 
+        <?php if (!empty($this->formLanguage)): ?>
+            <br>
+        <?php endif; ?>
+
         <?php
+
+        echo $this->partial($this->formDataCommonPath.'_formdata_language.phtml', array(
+            'formLanguage' => $this->formLanguage,
+            'formAction' => $this->formLanguageAction,
+        ));
 
         $this->formSearch->prepare();
 

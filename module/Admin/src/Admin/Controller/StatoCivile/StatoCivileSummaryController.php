@@ -21,7 +21,6 @@ class StatoCivileSummaryController extends SetupAbstractController
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
         $page = $this->params()->fromRoute('page');
-
         $perPage = $this->params()->fromRoute('perpage');
 
         $sessionContainer = new SessionContainer();
@@ -60,22 +59,19 @@ class StatoCivileSummaryController extends SetupAbstractController
             $helper->setupSezioniRecords(array());
 
             $sezioniRecords = $helper->formatSezioniForFormSelect($helper->getSezioniRecords());
-
-            if (empty($sezioniRecords)) {
-                throw new NullException("Nessuna sezione in archivio");
-            }
+            $helper->checkRecords($sezioniRecords, "Nessuna sezione in archivio");
 
             $yearsList = $helper->getStatoCivileYears();
 
             $formSearch = new StatoCivileFormSearch();
-            $formSearch->addFreeText();
+            $formSearch->addTesto();
             $formSearch->addProgressivo();
             $formSearch->addNumeroAtto();
             $formSearch->addMese();
             $formSearch->addSezioni($sezioniRecords);
             $formSearch->addSubmitButton();
             $formSearch->addCheckExpired();
-            $formSearch->addYears( !empty($yearsList) ? $yearsList : null );
+            $formSearch->addAnni( !empty($yearsList) ? $yearsList : null );
 
             if ($this->getRequest()->isPost()) {
                 $formSearch->setBindOnValidate(false);

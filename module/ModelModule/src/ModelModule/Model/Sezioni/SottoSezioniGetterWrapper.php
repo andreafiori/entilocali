@@ -4,10 +4,6 @@ namespace ModelModule\Model\Sezioni;
 
 use ModelModule\Model\RecordsGetterWrapperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  10 January 2015
- */
 class SottoSezioniGetterWrapper extends RecordsGetterWrapperAbstract
 {
     /**
@@ -41,6 +37,7 @@ class SottoSezioniGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setLinguaId( $this->getInput('linguaId', 1) );
         $this->objectGetter->setLanguageAbbreviation( $this->getInput('languageAbbreviation', 1) );
         $this->objectGetter->setAttivo( $this->getInput('attivo', 1) );
+        $this->objectGetter->setIsAmmTrasparente( $this->getInput('isAmmTrasparente', 1) );
         $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
         $this->objectGetter->setLimit( $this->getInput('limit', 1) );
     }

@@ -1,4 +1,4 @@
-<?php echo $this->render('backend/templates/'.$this->template_backend.'datatable/datatable_breadcrumb.phtml'); ?>
+<?php echo $this->render($this->formDataCommonPath.'breadcrumb.phtml'); ?>
 
 <div>
     <a href="javascript:void(0)" id="lnkSearchExport" class="btn btn-primary">
@@ -8,46 +8,19 @@
 
 <div id="frmFrmSearchExport" style="display: block">
 
+    <?php if (!empty($this->formLanguage)): ?>
+        <br>
+    <?php endif; ?>
+
     <?php
 
-    if ($this->formLanguage):
-        $form = $this->formLanguage;
-
-        $form->setAttribute('action',   $this->url('admin/contenuti-operations', array(
+    echo $this->partial($this->formDataCommonPath.'_formdata_language.phtml', array(
+        'formLanguage' => $this->formLanguage,
+        'formAction' => $this->url('admin/contenuti-operations', array(
             'lang'   => $this->params()->fromRoute('lang'),
             'action' => 'changesummarylang',
-        )));
-        $form->setAttribute('method',   'post');
-        $form->setAttribute('role',     'form');
-        $form->setAttribute('class',    'form-horizontal');
-        $form->setAttribute('id',       'frmSwitchLanguage');
-
-        $form->get('lingua')->setAttribute('class', 'form-control');
-        $form->get('sbmtlang')->setAttribute('class', 'btn btn-primary');
-
-        $form->prepare();
-
-        echo $this->form()->openTag($form);
-
-        ?>
-        <br>
-        <div class="form-group">
-            <label class="col-sm-2 control-label" for="<?php echo $form->get('lingua')->getAttribute('id') ?>">
-                <?php echo $this->formLabel($form->get('lingua')) ?>
-            </label>
-
-            <div class="col-sm-4">
-                <?php echo $this->formElement($form->get('lingua')); ?>
-            </div>
-
-            <div class="col-sm-6">
-                <?php echo $this->formElement($form->get('sbmtlang')); ?>
-            </div>
-        </div>
-        <?php
-
-        echo $this->form()->closeTag();
-    endif;
+        )),
+    ));
 
     $form = $this->formSearch;
 
@@ -71,8 +44,6 @@
     echo $this->form()->openTag($form);
 
     ?>
-
-    <br>
 
     <h4 class="text-center">Ricerca fra i contenuti</h4>
 

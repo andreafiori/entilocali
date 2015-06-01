@@ -28,9 +28,9 @@ abstract class QueryBuilderHelperAbstract
         $this->entityManager = $entityManager;
 
         $config = $this->entityManager->getConfiguration();
-        $config->addCustomDatetimeFunction('DATE_FORMAT', "\\ModelModule\\Model\\Doctrine\\Functions\\DateFormat");
-        $config->addCustomDatetimeFunction('MONTH', "\\ModelModule\\Model\\Doctrine\\Functions\\Month");
-        $config->addCustomDatetimeFunction('MD5', "\\ModelModule\\Model\\Doctrine\\Functions\\Md5");
+        $config->addCustomDatetimeFunction('DATE_FORMAT', "\\ModelModule\\Doctrine\\Functions\\DateFormat");
+        $config->addCustomDatetimeFunction('MONTH', "\\ModelModule\\Doctrine\\Functions\\Month");
+        $config->addCustomDatetimeFunction('MD5', "\\ModelModule\\Doctrine\\Functions\\Md5");
 
         $this->queryBuilder = $this->entityManager->createQueryBuilder();
     }

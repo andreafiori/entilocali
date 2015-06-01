@@ -7,10 +7,6 @@ use Application\Controller\SetupAbstractController;
 use ModelModule\Model\AlboPretorio\AlboPretorioArticoliGetter;
 use ModelModule\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
 
-/**
- * @author Andrea Fiori
- * @since  22 December 2014
- */
 class AlboPretorioRelataPdfController extends SetupAbstractController
 {
     /**

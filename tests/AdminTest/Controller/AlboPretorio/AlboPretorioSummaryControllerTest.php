@@ -5,10 +5,6 @@ namespace AdminTest\Controller\AlboPretorio;
 use ModelModuleTest\TestSuite;
 use Admin\Controller\AlboPretorio\AlboPretorioSummaryController;
 
-/**
- * @author Andrea Fiori
- * @since  06 April 2015
- */
 class AlboPretorioSummaryControllerTest extends TestSuite
 {
     /**

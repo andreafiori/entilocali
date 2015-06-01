@@ -171,4 +171,25 @@ class UsersControllerHelper extends ControllerHelperAbstract
             throw new NullException("UsersSettoriGetterWrapperRecords are not set");
         }
     }
+
+    /**
+     * @param $recordset
+     * @param $idFieldName
+     * @return array|bool
+     */
+    public function formatUsersForDropdown($recordset, $idFieldName)
+    {
+        if (!empty($recordset)) {
+            $arrayToReturn = array();
+            foreach($recordset as $record) {
+                if (!isset($record[$idFieldName])) {
+                    break;
+                }
+                $arrayToReturn[$record[$idFieldName]] = $record['surname'].' '.$record['name'];
+            }
+            return $arrayToReturn;
+        }
+
+        return false;
+    }
 }

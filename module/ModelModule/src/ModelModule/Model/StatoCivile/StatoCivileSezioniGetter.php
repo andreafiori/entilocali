@@ -4,10 +4,6 @@ namespace ModelModule\Model\StatoCivile;
 
 use ModelModule\Model\QueryBuilderHelperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  26 July 2013
- */
 class StatoCivileSezioniGetter extends QueryBuilderHelperAbstract
 {
     /**
@@ -31,12 +27,12 @@ class StatoCivileSezioniGetter extends QueryBuilderHelperAbstract
     public function setId($id)
     {
         if ( is_numeric($id) ) {
-            $this->getQueryBuilder()->andWhere('sca.id = :id ');
+            $this->getQueryBuilder()->andWhere('scs.id = :id ');
             $this->getQueryBuilder()->setParameter('id', $id);
         }
         
         if (is_array($id)) {
-            $this->getQueryBuilder()->andWhere('sca.id IN ( :id ) ');
+            $this->getQueryBuilder()->andWhere('scs.id IN ( :id ) ');
             $this->getQueryBuilder()->setParameter('id', $id);
         }
         

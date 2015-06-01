@@ -10,12 +10,6 @@ return array(
     'admin/contenuti-form' => array(
         'resources' => array('contenuti_add', 'contenuti_update')
     ),
-    'admin/sezioni-summary' => array(
-        'resources' => array( 'contenuti_sezioni_update' )
-    ),
-    'admin/sezioni-form' => array(
-        'resources' => array( 'contenuti_sezioni_add', 'contenuti_sezioni_update' )
-    ),
     /* Blogs */
     'admin/blogs-summary' => array(
         // 'resources' => array('blogs_add', 'blogs_update', 'blogs_viewall')
@@ -102,9 +96,19 @@ return array(
         //'resources' => array('tickets_add', 'tickets_update')
     ),
     /* Sezioni */
-
+    'admin/sezioni-summary' => array(
+        'resources' => array( 'contenuti_sezioni_update' )
+    ),
+    'admin/sezioni-form' => array(
+        'resources' => array( 'contenuti_sezioni_add', 'contenuti_sezioni_update' )
+    ),
     /* Sottosezioni */
-
+    'admin/sottosezioni-summary' => array(
+        'resources' => array( 'contenuti_sezioni_update' )
+    ),
+    'admin/sottosezioni-form' => array(
+        'resources' => array( 'contenuti_sezioni_add', 'contenuti_sezioni_update' )
+    ),
     /* Logs */
     'admin/log-summary' => array(
         'resources' => array('logs_add')

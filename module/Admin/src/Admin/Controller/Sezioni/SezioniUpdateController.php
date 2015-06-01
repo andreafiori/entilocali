@@ -65,45 +65,6 @@ class SezioniUpdateController extends SetupAbstractController
                 'backend'       => 1,
             ));
 
-            // Image icon upload
-            /*
-            $size = new Size(array('min'=>20000));
-
-            $File = $this->params()->fromFiles('image');
-            $adapter = new \Zend\File\Transfer\Adapter\Http();
-            $adapter->setValidators(array($size), $File['name']);
-
-            if (!$adapter->isValid()) {
-                $dataError = $adapter->getMessages();
-                $error = array();
-                foreach($dataError as $key=>$row) {
-                    $error[] = $row;
-                }
-                $form->setMessages(array('fileupload' => $error));
-
-                var_dump($error);
-            } else {
-                $adapter->setDestination('public');
-                if ($adapter->receive($File['name'])) {
-                    // $profile->exchangeArray($form->getData());
-                    // echo 'Profile Name '.$profile->profilename.' upload '.$profile->fileupload;
-
-                    $filePathInfo = pathinfo($File['name']);
-                    $extension = $filePathInfo['extension'];
-
-                    // create thumb with imagine
-                    $imagine = new \Imagine\Gd\Imagine();
-                    $size    = new \Imagine\Image\Box(160, 130);
-                    $mode    = \Imagine\Image\ImageInterface::THUMBNAIL_INSET;
-                    $imagine->open('public/'.$File['name'])
-                            ->thumbnail($size, $mode)
-                            ->save('public/thumb_imagine.'.$extension)
-                    ;
-                }
-            }
-            */
-
-
             $this->layout()->setVariables(array(
                 'messageType'           => 'success',
                 'messageTitle'          => 'Sezione aggiornata correttamente',
@@ -113,6 +74,7 @@ class SezioniUpdateController extends SetupAbstractController
                 'backToSummaryLink'     => $this->url()->fromRoute('admin/sezioni-summary', array(
                     'lang'              => $this->params()->fromRoute('languageSelection'),
                     'languageSelection' => $this->params()->fromRoute('languageSelection'),
+                    'modulename'        => $this->params()->fromRoute('modulename'),
                 )),
                 'backToSummaryText'     => "Elenco sezioni",
             ));
@@ -125,7 +87,7 @@ class SezioniUpdateController extends SetupAbstractController
             $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
                 'module_id'     => ModulesContainer::contenuti_id,
-                'message'       => "Errore aggiornamento sezione ID: ".$inputFilter->id,
+                'message'       => "Errore aggiornamento sezione ",
                 'type'          => 'error',
                 'reference_id'  => $inputFilter->id,
                 'backend'       => 1,

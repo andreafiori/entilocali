@@ -162,4 +162,22 @@ abstract class SezioniControllerHelperAbstract extends ControllerHelperAbstract
             throw new NullException("Nessuna sottosezione in archivio");
         }
     }
+
+    /**
+     * @param string $moduleName
+     * @param int $id
+     * @param string $message
+     * @return bool
+     * @throws NullException
+     */
+    public function checkAmministrazioneTrasparenteId($moduleName, $id, $message='ID is not a number')
+    {
+        if ($moduleName != 'amministrazione-trasparente') {
+            return false;
+        }
+
+        if ( !is_numeric($id) ) {
+            throw new NullException($message);
+        }
+    }
 }

@@ -2,9 +2,9 @@
 
 namespace ModelModule\Model\AlboPretorio;
 
-use ModelModule\Model\AlboPretorio\AlboPretorioArticoliFormAbstract;
+use Zend\Form\Form as ZendForm;
 
-class AlboPretorioFormSearch extends AlboPretorioArticoliFormAbstract
+class AlboPretorioFormSearch extends ZendForm
 {
     /**
      * @inheritdoc
@@ -85,6 +85,85 @@ class AlboPretorioFormSearch extends AlboPretorioArticoliFormAbstract
         ));
     }
 
+    /**
+     * @param array $sezioni
+     *
+     * @return bool|null
+     */
+    public function addSezioni($sezioni)
+    {
+        if ( empty($sezioni) ) {
+            return false;
+        }
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'sezione',
+            'attributes' => array(
+                'title' => 'Seleziona sezione',
+                'id'    => 'sezione'
+            ),
+            'options' => array(
+                'label' => 'Sezione',
+                'empty_option' => 'Seleziona',
+                'value_options' => $sezioni,
+            )
+        ));
+    }
+
+    /**
+     * @param array $settori
+     *
+     * @return bool|null
+     */
+    public function addSettori(array $settori)
+    {
+        if ( empty($settori) ) {
+            return false;
+        }
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'settore',
+            'attributes' => array(
+                'title' => 'Seleziona settore',
+                'id'    => 'settore'
+            ),
+            'options' => array(
+                'label' => 'Settore',
+                'empty_option' => 'Seleziona',
+                'value_options' => $settori,
+            )
+        ));
+    }
+
+    /**
+     * @param array $years
+     */
+    public function addYears($years = null)
+    {
+        if (!is_array($years)) {
+            $years = array();
+            for($i = date("Y")-3; $i < date("Y")+5; $i++) {
+                $years[] = $i;
+            }
+        }
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'anno',
+            'attributes' => array(
+                'title' => 'Seleziona anno',
+                'id'    => 'anno'
+            ),
+            'options' => array(
+                'label' => 'Anno',
+                'empty_option'  => 'Anno',
+                'value_options' => $years,
+            )
+        ));
+    }
+
     public function addCheckExpired()
     {
         $this->add(array(
@@ -102,16 +181,41 @@ class AlboPretorioFormSearch extends AlboPretorioArticoliFormAbstract
             )
         ));
     }
-    
+
+    public function addOrderBy()
+    {
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'orderby',
+            'attributes' => array(
+                'title' => 'Ordina per',
+                'id'    => 'orderby'
+            ),
+            'options' => array(
+                'label' => 'Ordina per',
+                'empty_option' => 'Seleziona',
+                'value_options' => array(
+                    'aa.anno'   => 'Anno',
+                    'aa.numeroAtto' => 'Numero Progressivo',
+                    'aa.titolo' => 'Titolo',
+                    'aa.dataAttivazione' => 'Data Attivazione',
+                    'aa.dataScadenza' => 'Data Scadenza',
+                    'aps.nome'  => 'Sezione',
+                    'aps.nome'  => 'Settore',
+                ),
+            )
+        ));
+    }
+
     public function addCsrf()
     {
         $this->add(array(
             'type' => 'Zend\Form\Element\Csrf',
             'name' => 'csrf',
             'options' => array(
-                    'csrf_options' => array(
-                        'timeout' => 600
-                    )
+                'csrf_options' => array(
+                    'timeout' => 600
+                )
             )
         ));
     }

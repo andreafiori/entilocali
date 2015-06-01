@@ -1,6 +1,6 @@
 <?php
 
-namespace ApplicationTest\Model;
+namespace ModelModuleTest\Model;
 
 use ModelModuleTest\TestSuite;
 

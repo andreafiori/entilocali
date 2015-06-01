@@ -4,7 +4,6 @@ namespace ModelModule\Model;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\DBAL\Connection;
-use ModelModule\Model\NullException;
 use ModelModule\Model\Log\LogWriter;
 
 abstract class OperationsModelAbstract
@@ -23,6 +22,8 @@ abstract class OperationsModelAbstract
      * @var LogWriter
      */
     protected $logWriter;
+
+    protected $wrapper;
 
     /**
      * @param \Doctrine\ORM\EntityManager $entityManager
@@ -122,7 +123,7 @@ abstract class OperationsModelAbstract
     }
 
     /**
-     * @param \Application\Model\RecordsGetterWrapperAbstract $wrapper
+     * @param \ModelModule\Model\RecordsGetterWrapperAbstract $wrapper
      * @param array $input
      * @return array
      */
@@ -136,10 +137,10 @@ abstract class OperationsModelAbstract
     }
 
     /**
-     * @param \Application\Model\RecordsGetterWrapperAbstract $wrapper
+     * @param \ModelModule\Model\RecordsGetterWrapperAbstract $wrapper
      * @param array $input
      * @param int $id
-     * @return \Application\Model\RecordsGetterWrapperAbstract|bool
+     * @return \ModelModule\Model\RecordsGetterWrapperAbstract|bool
      */
     public function recoverWrapperById($wrapper, $input, $id)
     {
@@ -151,7 +152,7 @@ abstract class OperationsModelAbstract
     }
 
     /**
-     * @param \Application\Model\RecordsGetterWrapperAbstract $wrapper
+     * @param \ModelModule\Model\RecordsGetterWrapperAbstract $wrapper
      * @param array $input
      * @param int $id
      * @return array|bool
@@ -166,9 +167,9 @@ abstract class OperationsModelAbstract
     }
 
     /**
-     * @param \Application\Model\RecordsGetterWrapperAbstract $wrapper
+     * @param \ModelModule\Model\RecordsGetterWrapperAbstract $wrapper
      * @param $input
-     * @return \Application\Model\RecordsGetterWrapperAbstract
+     * @return \ModelModule\Model\RecordsGetterWrapperAbstract
      */
     public function recoverWrapper($wrapper, $input)
     {
@@ -180,11 +181,11 @@ abstract class OperationsModelAbstract
     }
 
     /**
-     * @param \Application\Model\RecordsGetterWrapperAbstract $wrapper
+     * @param \ModelModule\Model\RecordsGetterWrapperAbstract $wrapper
      * @param array $input
      * @param int $page
      * @param int $perPage
-     * @return mixed
+     * @return \ModelModule\Model\RecordsGetterWrapperAbstract
      */
     public function recoverWrapperRecordsPaginator($wrapper, $input, $page, $perPage = null)
     {
@@ -229,6 +230,33 @@ abstract class OperationsModelAbstract
     public function checkRecords($records, $message ='Empty records')
     {
         if ( empty($records) ) {
+            throw new NullException($message);
+        }
+    }
+
+    /**
+     * @param mixed $wrapper
+     */
+    public function setWrapper($wrapper)
+    {
+        $this->wrapper = $wrapper;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWrapper()
+    {
+        return $this->wrapper;
+    }
+
+    /**
+     * @param string $message
+     * @throws NullException
+     */
+    protected function assertWrapper($message = 'Object wrapper is not set')
+    {
+        if (!$this->getWrapper()) {
             throw new NullException($message);
         }
     }

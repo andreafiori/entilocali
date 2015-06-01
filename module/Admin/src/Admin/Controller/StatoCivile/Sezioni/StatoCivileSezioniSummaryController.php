@@ -15,6 +15,7 @@ class StatoCivileSezioniSummaryController extends SetupAbstractController
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
         $page       = $this->params()->fromRoute('page');
+        $lang       = $this->params()->fromRoute('lang');
         $perPage    = $this->params()->fromRoute('perpage');
 
         $wrapper = new StatoCivileSezioniGetterWrapper( new StatoCivileSezioniGetter($em) );
@@ -29,7 +30,7 @@ class StatoCivileSezioniSummaryController extends SetupAbstractController
         $paginatorCount = $paginator->getTotalItemCount();
 
         $this->layout()->setVariables(array(
-                'tableTitle'        => 'Sezioni stato civile',
+                'tableTitle'        => 'Sezioni',
                 'tableDescription'  => $paginatorCount.' sezioni stato civile in archivio',
                 'columns'           => array(
                     "Nome",
@@ -43,8 +44,8 @@ class StatoCivileSezioniSummaryController extends SetupAbstractController
                 'records'                       => $this->formatRecords( $wrapper->setupRecords() ),
                 'formBreadCrumbCategory'        => 'Stato civile',
                 'templatePartial'               => self::summaryTemplate,
-                'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/stato-civile-sezioni-summary', array(
-                    'lang' => 'it'
+                'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/stato-civile-summary', array(
+                    'lang' => $lang
                 )),
             )
         );

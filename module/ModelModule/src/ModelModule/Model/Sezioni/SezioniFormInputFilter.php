@@ -8,10 +8,6 @@ use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\Validator\File\Size;
 
-/**
- * @author Andrea Fiori
- * @since  21 March 2015
- */
 class SezioniFormInputFilter implements InputFilterAwareInterface
 {
     public $id;
@@ -22,6 +18,7 @@ class SezioniFormInputFilter implements InputFilterAwareInterface
     public $attivo;
     public $blocco;
     public $posizione;
+    public $isAmmTrasparente;
 
     protected $inputFilter;
 
@@ -30,15 +27,16 @@ class SezioniFormInputFilter implements InputFilterAwareInterface
      */
     public function exchangeArray(array $data)
     {
-        $this->id           = (isset($data['id']))          ? $data['id']           : null;
-        $this->nome         = (isset($data['nome']))        ? $data['nome']         : null;
-        $this->url          = (isset($data['url']))         ? $data['url']          : null;
-        $this->image        = (isset($data['image']))       ? $data['image']        : null;
-        $this->lingua       = (isset($data['lingua']))      ? $data['lingua']       : null;
-        $this->colonna      = (isset($data['colonna']))     ? $data['colonna']      : null;
-        $this->attivo       = (isset($data['attivo']))      ? $data['attivo']       : null;
-        $this->blocco       = (isset($data['blocco']))      ? $data['blocco']       : null;
-        $this->posizione    = (isset($data['posizione']))   ? $data['posizione']    : null;
+        $this->id               = (isset($data['id']))               ? $data['id']               : null;
+        $this->nome             = (isset($data['nome']))             ? $data['nome']             : null;
+        $this->url              = (isset($data['url']))              ? $data['url']              : null;
+        $this->image            = (isset($data['image']))            ? $data['image']            : null;
+        $this->lingua           = (isset($data['lingua']))           ? $data['lingua']           : null;
+        $this->colonna          = (isset($data['colonna']))          ? $data['colonna']          : null;
+        $this->attivo           = (isset($data['attivo']))           ? $data['attivo']           : null;
+        $this->blocco           = (isset($data['blocco']))           ? $data['blocco']           : null;
+        $this->posizione        = (isset($data['posizione']))        ? $data['posizione']        : null;
+        $this->isAmmTrasparente = (isset($data['isAmmTrasparente'])) ? $data['isAmmTrasparente'] : null;
     }
 
     public function setInputFilter(InputFilterInterface $inputFilter)
@@ -56,6 +54,14 @@ class SezioniFormInputFilter implements InputFilterAwareInterface
 
             $inputFilter->add(array(
                 'name'     => 'id',
+                'required' => false,
+                'filters'  => array(
+                    array('name' => 'Int'),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'isAmmTrasparente',
                 'required' => false,
                 'filters'  => array(
                     array('name' => 'Int'),

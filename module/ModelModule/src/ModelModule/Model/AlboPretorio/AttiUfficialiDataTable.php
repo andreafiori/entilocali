@@ -2,10 +2,6 @@
 
 namespace ModelModule\Model\AlboPretorio;
 
-/**
- * @author Andrea Fiori
- * @since  02 November 2014
- */
 class AttiUfficialiDataTable extends AlboPretorioArticoliDataTableAbstract
 {
     /**
@@ -31,6 +27,6 @@ class AttiUfficialiDataTable extends AlboPretorioArticoliDataTableAbstract
 
         $this->setRecords( $this->getFormattedDataTableRecords($paginatorRecords) );
         
-        // $this->setTemplate('datatable/datatable_albo_pretorio.phtml');
+        $this->setTemplate('datatable/datatable_albo_pretorio.phtml');
     }
 }

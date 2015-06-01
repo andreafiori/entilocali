@@ -2,12 +2,9 @@
 
 namespace ModelModule\Model\StatoCivile;
 
+use Zend\Form\ElementInterface;
 use Zend\Form\Form;
 
-/**
- * @author Andrea Fiori
- * @since  17 June 2014
- */
 class StatoCivileForm extends Form
 {
     /**
@@ -62,8 +59,8 @@ class StatoCivileForm extends Form
                 'label' => '* Stato',
                 'empty_option' => 'Seleziona',
                 'value_options' => array(
-                    '1'   => 'Attivo',
-                    '0'   => 'Nascosto',
+                    1   => 'Attivo',
+                    0   => 'Nascosto',
                 ),
             ),
             'attributes' => array(
@@ -122,9 +119,9 @@ class StatoCivileForm extends Form
     public function addId()
     {
         $this->add(array(
-                        'type' => 'Zend\Form\Element\Hidden',
-                        'name' => 'id',
-                        'attributes' => array("class" => 'hiddenField')
+                'type' => 'Zend\Form\Element\Hidden',
+                'name' => 'id',
+                'attributes' => array("class" => 'hiddenField')
         ));
     }
 }

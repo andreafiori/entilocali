@@ -4,10 +4,6 @@ namespace ModelModule\Model\StatoCivile;
 
 use ModelModule\Model\RecordsGetterWrapperAbstract;
 
-/** 
- * @author Andrea Fiori
- * @since  26 July 2013
- */
 class StatoCivileSezioniGetterWrapper extends RecordsGetterWrapperAbstract
 {
     /**

@@ -2,12 +2,6 @@
 
 namespace ModelModule\Model;
 
-use ModelModule\Model\InputSetupAbstract;
-
-/**
- * @author Andrea Fiori
- * @since  27 July 2013
- */
 class RecordsGetterAbstract extends InputSetupAbstract
 {
     protected $firstRow;

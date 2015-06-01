@@ -7,10 +7,6 @@ use ModelModule\Model\EntiTerzi\EntiTerziForm;
 use ModelModule\Model\EntiTerzi\EntiTerziGetter;
 use ModelModule\Model\EntiTerzi\EntiTerziGetterWrapper;
 
-/**
- * @author Andrea Fiori
- * @since  08 April 2015
- */
 class EntiTerziFormController extends SetupAbstractController
 {
     public function indexAction()

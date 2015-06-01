@@ -1,7 +1,7 @@
 <?php
 
 if (!$this->hideBreadcrumb):
-    echo $this->render($this->formDataCommonPath.'formdata_breadcrumb.phtml');
+    echo $this->render($this->formDataCommonPath.'breadcrumb.phtml');
 endif;
 
 if (!isset($this->formControlSpanWidth)): $this->formControlSpanWidth = 10; endif;
@@ -25,11 +25,8 @@ if (!$this->form):
             <h4><i class="fa fa-pencil-square-o"></i> Si vuole effettuare oltre ad una visura la modifica dell'articolo?</h4>
             <p>Se non vuoi fare nessuna modifica, non dare conferma.</p>
             <p>Se dai conferma, l'atto verr&agrave; momentaneamente oscurato per consentire successivamente, terminato il ciclo di rettifica modificando anche la sezione Allegati, di tornare visibile on-line.</p>
-
             <p><strong>Data rettifica:</strong> <?php echo date("d-m-Y") ?></p>
-
             <p><strong>Numero \ Anno</strong> <?php echo $this->alboNumeroAtto ?> / <?php echo $this->alboAnnoAtto ?></p>
-
         </div>
         <?php else: ?>
             <?php if (!empty($this->formDescription)): ?>
@@ -38,7 +35,9 @@ if (!$this->form):
         <?php endif; ?>
 
         <?php
-            echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', array(
+            echo $this->partial(
+                $this->formDataCommonPath.'formdata_form_elements.phtml',
+                array(
                     'form'                  => $this->form,
                     'formAction'            => $this->formAction,
                     'formTitle'             => $this->formTitle,

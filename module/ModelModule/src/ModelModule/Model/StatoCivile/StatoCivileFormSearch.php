@@ -4,76 +4,116 @@ namespace ModelModule\Model\StatoCivile;
 
 use Zend\Form\Form;
 
-/**
- * Frontend Search Form
- * 
- * @author Andrea Fiori
- * @since  24 July 2014
- */
 class StatoCivileFormSearch extends Form
 {
-    public function addMesi()
+    public function addTesto()
+    {
+        $this->add(array(
+            'type' => 'Text',
+            'name' => 'testo',
+            'attributes' => array(
+                'placeholder'   => 'Testo...',
+                'title'         => 'Inserisci testo',
+                'id'            => 'testo',
+                'maxlength'     => 150,
+            ),
+            'options' => array(
+                'label' => 'Testo',
+            )
+        ));
+    }
+
+    public function addProgressivo()
+    {
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Text',
+            'name' => 'numero_progressivo',
+            'attributes' => array(
+                'placeholder'   => 'Numero...',
+                'title'         => 'Inserisci numero repertorio',
+                'id'            => 'numero_progressivo',
+                'maxlength'     => 15
+            ),
+            'options' => array(
+                'label' => 'Numero repertorio',
+            )
+        ));
+    }
+
+    public function addNumeroAtto()
+    {
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Text',
+            'name' => 'numero_atto',
+            'attributes' => array(
+                'placeholder' => 'Atto...',
+                'title'         => 'Inserisci numero atto',
+                'id'            => 'numero_atto',
+                'maxlength'     => 15
+            ),
+            'options' => array(
+                'label' => 'Numero atto',
+            )
+        ));
+    }
+
+    public function addMese()
     {
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
             'name' => 'mese',
             'attributes' => array(
-                'title' => 'Seleziona mese pubblicazione',
+                'title' => 'Seleziona mese di partenza dalla data di pubblicazione',
                 'id'    => 'mese'
             ),
-            'empty_option' => 'Mese',
             'options' => array(
-                    'label'         => 'Mese',
-                    'empty_option'  => 'Mese',
-                    'value_options' => array(
-                        '1'  => 'Gennaio',
-                        '2'  => 'Febbraio',
-                        '3'  => 'Marzo',
-                        '4'  => 'Aprile',
-                        '5'  => 'Maggio',
-                        '6'  => 'Giugno',
-                        '7'  => 'Luglio',
-                        '8'  => 'Agosto',
-                        '9'  => 'Settembre',
-                        '10' => 'Ottobre',
-                        '11' => 'Novembre',
-                        '12' => 'Dicembre',
-                     ),
-             )
-        ));
-    }
-    
-    public function addAnni()
-    {
-        $this->add(array(
-            'type' => 'Zend\Form\Element\Select',
-            'name' => 'anno',
-            'attributes' => array(
-                'title' => 'Seleziona anno pubblicazione',
-                'id'    => 'anno'
-            ),
-            'options' => array(
-                'label'         => 'Anno',
-                'value_options' => $this->getArrayYears(),
-                'empty_option'  => 'Anno',
+                'label' => 'Mese',
+                'empty_option' => 'Mese',
+                'value_options' => array(
+                    '1'  => 'Gennaio',
+                    '2'  => 'Febbraio',
+                    '3'  => 'Marzo',
+                    '4'  => 'Aprile',
+                    '5'  => 'Maggio',
+                    '6'  => 'Giugno',
+                    '7'  => 'Luglio',
+                    '8'  => 'Agosto',
+                    '9'  => 'Settembre',
+                    '10' => 'Ottobre',
+                    '11' => 'Novembre',
+                    '12' => 'Dicembre',
+                ),
             )
         ));
     }
 
-        /**
-         * @return array
-         */
-        private function getArrayYears()
-        {
-            $arrayYears = array();
-
-            for($i=date("Y"); $i < date("Y")+7; $i++) {
-                $arrayYears[$i] = $i;
+    /**
+     * @param mixed $years
+     */
+    public function addAnni($years = null)
+    {
+        if (empty($years)) {
+            $years = array();
+            for($i = date("Y"); $i<date("Y")+5; $i++) {
+                $years[] = $i;
             }
-            
-            return $arrayYears;
         }
-    
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'anno',
+            'attributes' => array(
+                'title' => 'Seleziona anno di partenza dalla data di pubblicazione',
+                'id'    => 'anno'
+            ),
+            'options' => array(
+                'empty_option'  => 'Anno',
+                'label'         => 'Anno',
+                'value_options' => $years
+            )
+        ));
+    }
+
     public function addSezioni($sezioni)
     {
         $this->add(array(
@@ -87,6 +127,24 @@ class StatoCivileFormSearch extends Form
                     'label' => 'Sezione',
                     'empty_option' => 'Sezione',
                     'value_options' => $sezioni
+            )
+        ));
+    }
+
+    public function addCheckExpired()
+    {
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Checkbox',
+            'name' => 'expired',
+            'attributes' => array(
+                'title' => 'Spunta casella per cercare fra i documenti scaduti',
+                'id'    => 'expired'
+            ),
+            'options' => array(
+                'label' => 'Cerca anche nei documenti scaduti',
+                'use_hidden_element' => true,
+                'checked_value'      => '1',
+                'unchecked_value'    => '0'
             )
         ));
     }

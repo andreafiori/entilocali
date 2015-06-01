@@ -5,11 +5,11 @@ return array(
     'application/pagination/bootstrap'    => __DIR__ . '/view/application/pagination/bootstrap.phtml',
     'application/pagination/foundation'   => __DIR__ . '/view/application/pagination/foundation.phtml',
     'application/pagination/numbers'      => __DIR__ . '/view/application/pagination/numbers.phtml',
-    'application/password-preview/index'  => __DIR__ . '/view/application/password-preview/index.phtml',
     'application/stato-civile-export/pdf' => __DIR__ . '/view/application/stato-civile-export/pdf.phtml',
     'empty'                               => __DIR__ . '/view/empty.phtml',
     'error/404'                           => __DIR__ . '/view/error/404.phtml',
     'error/dbconnection'                  => __DIR__ . '/view/error/dbconnection.phtml',
     'error/index'                         => __DIR__ . '/view/error/index.phtml',
+    'error/notfound'                      => __DIR__ . '/view/error/notfound.phtml',
     'layout/layout'                       => __DIR__ . '/view/layout/layout.phtml',
 );

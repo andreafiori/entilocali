@@ -1,6 +1,6 @@
 <?php
 
-namespace ApplicationTest\Model;
+namespace ModelModuleTest\Model;
 
 use ModelModule\Service\AppServiceLoader;
 use ModelModule\Model\SetupAbstractControllerHelper;

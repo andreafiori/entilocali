@@ -1,28 +1,69 @@
-<?php echo $this->render('backend/templates/'.$this->template_backend.'datatable/datatable_breadcrumb.phtml'); ?>
-
-<?php if ($this->formLanguage): ?>
-    <div>
-        <a href="javascript:void(0)" id="lnkSearchExport" class="btn btn-primary">
-            <i class="fa fa-search"></i> <?php echo $this->translate('Ricerca ed esportazione'); ?>
-        </a>
-    </div>
-
-    <div id="frmFrmSearchExport" style="display: block">
-        <br>
-        <?php
-        echo $this->partial($this->formDataCommonPath.'_formdata_language.phtml', array(
-                'formAction' => $this->url('admin/sezioni-operations', array(
-                    'lang'              => $this->params()->fromRoute('lang'),
-                    'languageSelection' => $this->params()->fromRoute('languageSelection'),
-                    'action'            => 'changesummarylang',
-                    'previouspage'      => $this->params()->fromRoute('page'),
-                )),
-                'formLanguage' => $this->formLanguage,
-            )
-        );
-        ?>
-    </div>
-    <?php
+<?php
+if ($this->modulename=='contenuti'): // TODO: move the if on the controller...
+    $moduleLink = '#';
+else:
+    $moduleLink = '#';
 endif;
+?>
+<ul class="breadcrumb">
+    <li>
+        <a href="<?php echo $this->url('admin', array('lang' => $this->params()->fromRoute('lang'))); ?>" title="Home page">
+            Home
+        </a>
+    </li>
+    <li>
+        <a href="<?php echo $moduleLink ?>" title="Vai all'elenco <?php echo $this->modulename ?>">
+            <?php echo ucfirst($this->modulename) ?>
+        </a>
+    </li>
+    <li class="active"><?php echo $this->tableTitle ?></li>
+</ul>
 
-echo $this->render('backend/templates/common/datatables_zend_pagination.phtml');
+
+<?php if (empty($records)): ?>
+    <div class="alert alert-warning" style="margin: 0; padding-top: 0">
+        <?php if ($this->emptyMessageTitle): ?>
+            <h1><?php echo $this->emptyMessageTitle ?></h1>
+        <?php else: ?>
+            <h3>Nessuna informazione trovata</h3>
+        <?php endif; ?>
+
+        <?php if ($this->emptyMessageText): ?>
+            <p><?php echo $this->emptyMessageText ?></p>
+        <?php else: ?>
+            <p>Non &egrave; stata trovata nessuna informazione da elencare nella pagina corrente relativa al modulo richiesto.</p>
+        <?php endif; ?>
+    </div>
+<?php else: ?>
+
+    <?php if ($this->formLanguage): ?>
+        <div>
+            <a href="javascript:void(0)" id="lnkSearchExport" class="btn btn-primary">
+                <i class="fa fa-search"></i> <?php echo $this->translate('Ricerca ed esportazione'); ?>
+            </a>
+        </div>
+
+        <div id="frmFrmSearchExport" style="display: block">
+            <br>
+            <?php
+            echo $this->partial($this->formDataCommonPath.'_formdata_language.phtml', array(
+                    'formAction' => $this->url('admin/sezioni-operations', array(
+                        'lang'              => $this->params()->fromRoute('lang'),
+                        'languageSelection' => $this->params()->fromRoute('languageSelection'),
+                        'action'            => 'changesummarylang',
+                        'previouspage'      => $this->params()->fromRoute('page'),
+                    )),
+                    'formLanguage' => $this->formLanguage,
+                )
+            );
+            ?>
+        </div>
+    <?php endif; ?>
+
+    <h3><?php echo $this->tableTitle ?></h3>
+
+    <p><?php echo $this->tableDescription ?></p>
+
+    <?php echo $this->render($this->formDataCommonPath.'datatables_elements.phtml'); ?>
+<?php
+endif;

@@ -212,20 +212,20 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                                 <ul class="nav nav-third-level">
                                     <?php if ($acl->hasResource('contenuti_sezioni_add')): ?>
                                     <li>
-                                        <a href="<?php echo $this->url('admin/sezioni-form', array('lang' => $lang, 'languageSelection' => $languageSelection)); ?>" title="Nuova sezione contenuti">
+                                        <a href="<?php echo $this->url('admin/sezioni-form', array('lang' => $lang, 'modulename' => 'contenuti', 'languageSelection' => $languageSelection)); ?>" title="Nuova sezione contenuti">
                                             Nuova
                                         </a>
                                     </li>
                                     <?php endif; ?>
                                     <?php if ($acl->hasResource('contenuti_sezioni_update')): ?>
                                     <li>
-                                        <a href="<?php echo $this->url('admin/sezioni-summary', array('lang' => $lang, 'languageSelection' => $languageSelection)); ?>" title="Gestione sezioni contenuti">
+                                        <a href="<?php echo $this->url('admin/sezioni-summary', array('lang' => $lang, 'modulename' => 'contenuti', 'languageSelection' => $languageSelection)); ?>" title="Gestione sezioni contenuti">
                                             Gestione
                                         </a>
                                     </li>
                                     <?php endif; ?>
                                     <li>
-                                        <a href="<?php echo $this->url('admin/sezioni-positions', array('lang' => $lang, 'languageSelection' => $languageSelection)); ?>" title="Gestione posizioni sezioni">
+                                        <a href="<?php echo $this->url('admin/sezioni-positions', array('lang' => $lang, 'modulename' => 'contenuti', 'languageSelection' => $languageSelection)); ?>" title="Gestione posizioni sezioni">
                                             Posizioni
                                         </a>
                                     </li>
@@ -238,14 +238,14 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                                 <ul class="nav nav-third-level">
                                     <?php if ($acl->hasResource('contenuti_sottosezioni_add')): ?>
                                     <li>
-                                        <a href="<?php echo $this->url('admin/sottosezioni-contenuti-form', array('lang' => $lang, 'languageSelection' => $languageSelection)) ?>" title="Nuova sottosezione">
+                                        <a href="<?php echo $this->url('admin/sottosezioni-form', array('lang' => $lang, 'modulename' => 'contenuti', 'languageSelection' => $languageSelection)) ?>" title="Nuova sottosezione">
                                             Nuova
                                         </a>
                                     </li>
                                     <?php endif; ?>
                                     <?php if ($acl->hasResource('contenuti_sottosezioni_update')): ?>
                                     <li>
-                                        <a href="<?php echo $this->url('admin/sottosezioni-contenuti-summary', array('lang' => $lang, 'languageSelection' => $languageSelection)) ?>" title="Gestione sottosezioni">
+                                        <a href="<?php echo $this->url('admin/sottosezioni-summary', array('lang' => $lang, 'modulename' => 'contenuti', 'languageSelection' => $languageSelection)) ?>" title="Gestione sottosezioni">
                                             Gestione
                                         </a>
                                     </li>
@@ -263,7 +263,7 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                         <ul class="nav nav-second-level">
                             <li><a href="<?php echo $this->url('admin/albo-pretorio-form', array('lang' => $lang) ); ?>" title="Nuovo atto">Nuovo atto</a></li>
                             <li><a href="<?php echo $this->url('admin/albo-pretorio-summary', array('lang' => $lang)); ?>" title="Gestione">Gestione</a></li>
-                            <li><a href="<?php echo $this->url('admin/datatable', array('lang' => $lang, 'tablesetter' => 'atti-ufficiali')); ?>" title="">Atti ufficiali</a></li>
+                            <li><a href="#" title="Elenco atti ufficiali">Atti ufficiali</a></li>
                             <!-- Sezioni -->
                             <?php if ($acl->hasResource('albo_pretorio_sezioni_add') or $acl->hasResource('albo_pretorio_sezioni_update')): ?>
                             <li>
@@ -321,7 +321,7 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                     </li>
                     <?php endif; ?>
 
-                    <!-- Amm. trasparente -->
+                    <!-- Amministrazione trasparente -->
                     <?php if ($acl->hasResource('amministrazione_trsparente_add') or $acl->hasResource('amministrazione_trsparente_update')): ?>
                     <li>
                         <a href="#" class="dropdown-collapse"><i class="fa fa-laptop fa-fw"></i> <span class="side-menu-title">Amm. trasparente</span><span class="fa arrow"></span></a>
@@ -332,12 +332,13 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                             <?php if ($acl->hasResource('amministrazione_trsparente_update')): ?>
                             <li><a href="<?php echo $this->url('admin/amministrazione-trasparente-summary', array('lang' => $lang)); ?>" title="Gestione">Gestione</a></li>
                             <?php endif; ?>
+                            <!-- Sezioni -->
                             <!-- Sottosezioni -->
                             <li>
-                                <a href="#" class="dropdown-collapse" title="Gestione sottosezioni amm. trasparente">Sottosezioni <span class="fa arrow"></span></a>
+                                <a href="#" class="dropdown-collapse" title="Gestione sottosezioni amministrazione trasparente">Sottosezioni <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
-                                    <li><a href="<?php echo $this->url('admin/sottosezioni-amm-trasp-form', array('lang' => $lang, 'languageSelection' => $languageSelection)) ?>" title="Inserisci nuova sottosezione">Nuova</a></li>
-                                    <li><a href="<?php echo $this->url('admin/sottosezioni-amm-trasp-summary', array('lang' => $lang, 'languageSelection' => $languageSelection)) ?>" title="Gestione">Gestione</a></li>
+                                    <li><a href="#" title="Inserisci nuova sottosezione">Nuova</a></li>
+                                    <li><a href="#" title="Gestione">Gestione</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -391,10 +392,10 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                                 <a href="#" class="dropdown-collapse" title="Gestione resp. procedimento">Voci scelta contraente <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <?php if ($acl->hasResource('contratti_pubblici_scelta_contraente_add')): ?>
-                                    <li><a href="<?php echo $this->url('admin/formdata', array('lang' => $lang, 'formsetter' => 'contratti-pubblici-scelta-contraente' )); ?>" title="Nuova voce scelta contraente">Nuova</a></li>
+                                    <li><a href="<?php echo $this->url('admin/contratti-pubblici-scelta-contraente-form', array('lang' => $lang )) ?>" title="Nuova voce scelta contraente">Nuova</a></li>
                                     <?php endif; ?>
                                     <?php if ($acl->hasResource('contratti_pubblici_scelta_contraente_update')): ?>
-                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang'=> $lang, 'tablesetter' => 'contratti-pubblici-scelta-contraente')); ?>" title="Gestione scelta contraente">Gestione</a></li>
+                                    <li><a href="<?php echo $this->url('admin/contratti-pubblici-scelta-contraente-summary', array('lang' => $lang )) ?>" title="Gestione voci scelta contraente">Gestione</a></li>
                                     <?php endif; ?>
                                 </ul>
                             </li>
@@ -409,10 +410,11 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                         <a href="#" class="dropdown-collapse"><i class="fa fa-list-alt fa-fw"></i> <span class="side-menu-title">Blogs</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <?php if ($acl->hasResource('blogs_add')): ?>
-                            <li><a href="<?php echo $this->url('admin/posts-form', array('lang' => $lang, 'formtype' => 'blogs')) ?>" title="Aggiungi nuovo post">Nuovo</a></li>
+                            <li><a href="<?php echo $this->url('admin/blogs-form', array('lang' => $lang, 'languageSelection' => $languageSelection
+                                , 'formtype' => 'blogs')) ?>" title="Aggiungi nuovo post">Nuovo</a></li>
                             <?php endif; ?>
                             <?php if ($acl->hasResource('blogs_update')): ?>
-                            <li><a href="<?php echo $this->url('admin/blogs-summary', array('lang' => $lang) ); ?>" title="Gestione posts blogs">Modifica \ Elimina</a></li>
+                            <li><a href="<?php echo $this->url('admin/blogs-summary', array('lang' => $lang, 'languageSelection' => $languageSelection) ); ?>" title="Gestione posts blogs">Modifica \ Elimina</a></li>
                             <?php endif; ?>
                             <!-- Categories -->
                             <?php if ($acl->hasResource('blogs_categories_add') or $acl->hasResource('blogs_categories_update')): ?>
@@ -426,6 +428,7 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                                     <li><a href="<?php echo $this->url('admin/blogs-categories-summary', array(
                                                 'lang'          => $lang,
                                                 'moduleCode'    => 'blogs',
+                                                'languageSelection' => $languageSelection
                                             )
                                         );
                                         ?>" title="Gestione categorie blogs">Modifica \ Elimina</a></li>
@@ -450,8 +453,9 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                                 <ul class="nav nav-third-level">
                                     <li><a href="#" title="Nuova categoria foto">Nuova</a></li>
                                     <li><a href="<?php echo $this->url('admin/blogs-categories-summary', array(
-                                                'lang'          => $lang,
-                                                'moduleCode'    => 'photo',
+                                                'lang'              => $lang,
+                                                'languageSelection' => $languageSelection,
+                                                'moduleCode'        => 'photo',
                                             )
                                         );
                                         ?>" title="Gestione foto">Modifica \ Elimina</a></li>
@@ -464,7 +468,38 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                     <!-- Newsletter -->
                     <?php if ($acl->hasResource('newsletter_add') or $acl->hasResource('newsletter_update')): ?>
                     <li>
-                        <a href="#" title="Newsletter"><i class="fa fa-newspaper-o fa-fw"></i> <span class="side-menu-title">Newsletter</span></a>
+                        <a href="#" class="dropdown-collapse" title="Newsletter"><i class="fa fa-newspaper-o fa-fw"></i> <span class="side-menu-title">Newsletter</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <?php if ($acl->hasResource('newsletter_add')): ?>
+                                <li><a href="#" title="Nuova newsletter">Nuova</a></li>
+                            <?php endif; ?>
+                            <?php if ($acl->hasResource('newsletter_update')): ?>
+                                <li><a href="#" title="Gestione newsletter">Gestione</a></li>
+                            <?php endif; ?>
+
+                            <!-- Utenti iscritti e utenti "solo email" -->
+                            <li>
+                                <a href="#" title="Elenco iscritti">
+                                    Iscritti
+                                </a>
+                            </li>
+
+                            <!-- Newsletter templates -->
+                            <?php //if ($acl->hasResource('newsletter_templates_add') or $acl->hasResource('newsletter_templates_update')): ?>
+                                <li>
+                                    <a href="#" class="dropdown-collapse" title="">Templates <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+                                        <?php //if ($acl->hasResource('newsletter_templates_add')): ?>
+                                            <li><a href="#" title="Nuovo">Nuovo</a></li>
+                                        <?php //endif; ?>
+                                        <?php //if ($acl->hasResource('newsletter_templates_update')): ?>
+                                            <li><a href="#" title="Gestione newsletter templates">Modifica \ Elimina</a></li>
+                                        <?php //endif; ?>
+                                    </ul>
+                                </li>
+                            <?php //endif; ?>
+
+                        </ul>
                     </li>
                     <?php endif; ?>
 

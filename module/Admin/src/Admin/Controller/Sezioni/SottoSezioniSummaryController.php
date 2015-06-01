@@ -13,7 +13,7 @@ use ModelModule\Model\Languages\LanguagesGetterWrapper;
 use ModelModule\Model\Languages\LanguagesFormSearch;
 use Application\Controller\SetupAbstractController;
 
-class SottoSezioniContenutiSummaryController extends SetupAbstractController
+class SottoSezioniSummaryController extends SetupAbstractController
 {
     public function indexAction()
     {
@@ -22,28 +22,35 @@ class SottoSezioniContenutiSummaryController extends SetupAbstractController
         $em                     = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
         $ammTraspSezioneId      = $this->layout()->getVariable('amministrazione_trasparente_sezione_id');
-        //$ammTraspSottoSezioneId = $this->layout()->getVariable('amministrazione_trasparente_sottosezione_id');
+        $ammTraspSottoSezioneId = $this->layout()->getVariable('amministrazione_trasparente_sottosezione_id');
         $configurations         = $this->layout()->getVariable('configurations');
         $page                   = $this->params()->fromRoute('page');
         $languageSelection      = $this->params()->fromRoute('languageSelection');
-        //$userDetails            = $this->layout()->getVariable('userDetails');
-        //$userRole               = isset($userDetails->role) ? $userDetails->role : '';
+        $modulename             = $this->params()->fromRoute('modulename');
+        //$userDetails          = $this->layout()->getVariable('userDetails');
+        //$userRole             = isset($userDetails->role) ? $userDetails->role : '';
 
         $helper = new SezioniControllerHelper();
         $helper->setSottoSezioniGetterWrapper(new SottoSezioniGetterWrapper(new SottoSezioniGetter($em)));
 
-        $wrapper = $helper->recoverWrapperRecordsPaginator(
-            $helper->getSottoSezioniGetterWrapper(),
-            array(
-                'excludeSezioneId'      => $ammTraspSezioneId,
-                'languageAbbreviation'  => $languageSelection,
-            ),
-            $page,
-            null
-        );
-        $helper->setSezioniGetterWrapper(new SezioniGetterWrapper(new SezioniGetter($em)));
-        $sezioniRecordsForDropDown = $helper->formatForDropwdown(
-            $helper->recoverWrapperRecords(
+        try {
+            $helper->checkAmministrazioneTrasparenteId(
+                $modulename,
+                $ammTraspSezioneId,
+                "Nessun ID sezione associato al modulo amm. trasparente. Contattare gli amministratori dell'applicazione"
+            );
+
+            $wrapper = $helper->recoverWrapperRecordsPaginator(
+                $helper->getSottoSezioniGetterWrapper(),
+                array(
+                    'excludeSezioneId'      => $ammTraspSezioneId,
+                    'languageAbbreviation'  => $languageSelection,
+                ),
+                $page,
+                null
+            );
+            $helper->setSezioniGetterWrapper(new SezioniGetterWrapper(new SezioniGetter($em)));
+            $sezioniRecords = $helper->recoverWrapperRecords(
                 $helper->getSezioniGetterWrapper(),
                 array(
                     'excludeSezioneId'      => $ammTraspSezioneId,
@@ -51,44 +58,46 @@ class SottoSezioniContenutiSummaryController extends SetupAbstractController
                     'fields'                => 'sezioni.id, sezioni.nome',
                     'orderBy'               => 'sezioni.posizione ASC',
                 )
-            ),
-            'id',
-            'nome'
-        );
-
-        $isMultiLanguage = !empty($configurations['isMultiLanguage']);
-        if ($isMultiLanguage==1) {
-            $helper->setLanguagesGetterWrapper(new LanguagesGetterWrapper(new LanguagesGetter($em)));
-
-            $formLanguage = $helper->setupLanguageFormSearch(
-                new LanguagesFormSearch(),
-                array('status' => 1),
-                $languageSelection
             );
+            $helper->checkRecordset($sezioniRecords, 'Nessuna sezione presente');
+
+            if ( (!empty($configurations['isMultiLanguage']))==1 ) {
+                $helper->setLanguagesGetterWrapper(new LanguagesGetterWrapper(new LanguagesGetter($em)));
+
+                $formLanguage = $helper->setupLanguageFormSearch(
+                    new LanguagesFormSearch(),
+                    array('status' => 1),
+                    $languageSelection
+                );
+            }
+
+            $formSearch = new SottoSezioniFormSearch();
+            $formSearch->addSezioni( $helper->formatForDropwdown($sezioniRecords, 'id', 'nome') );
+            $formSearch->addSubmitButton();
+
+            $this->layout()->setVariables(array(
+                'tableTitle'        => 'Sottosezioni contenuti',
+                'tableDescription'  => $wrapper->getPaginator()->getTotalItemCount().' sottosezioni in archivio',
+                'columns' => array(
+                    "Nome",
+                    "Sezione",
+                    "&nbsp;",
+                    "&nbsp;",
+                    "&nbsp;",
+                ),
+                'formLanguage'      => isset($formLanguage) ? $formLanguage : null,
+                'paginator'         => $wrapper->getPaginator(),
+                'records'           => $this->formatRecordsToShowOnTable($wrapper->setupRecords()),
+                'formSearch'        => $formSearch,
+                'templatePartial'   => 'datatable/datatable_sottosezioni.phtml',
+            ));
+
+        } catch(\Exception $e) {
+            $this->layout()->setVariables(array(
+                'messageText'       => $e->getMessage(),
+                'templatePartial'   => 'message-exception.phtml',
+            ));
         }
-
-        $paginatorRecords = $wrapper->setupRecords();
-
-        $formSearch = new SottoSezioniFormSearch();
-        $formSearch->addSezioni($sezioniRecordsForDropDown);
-        $formSearch->addSubmitButton();
-
-        $this->layout()->setVariables(array(
-            'tableTitle' => 'Sottosezioni contenuti',
-            'tableDescription'  => $wrapper->getPaginator()->getTotalItemCount().' sottosezioni in archivio',
-            'columns' => array(
-                "Nome",
-                "Sezione",
-                "&nbsp;",
-                "&nbsp;",
-                "&nbsp;",
-            ),
-            'formLanguage'      => isset($formLanguage) ? $formLanguage : null,
-            'paginator'         => $wrapper->getPaginator(),
-            'records'           => $this->formatRecordsToShowOnTable($paginatorRecords),
-            'formSearch'        => $formSearch,
-            'templatePartial'   => 'datatable/datatable_sottosezioni_contenuti.phtml',
-        ));
 
         $this->layout()->setTemplate($mainLayout);
     }
@@ -101,9 +110,10 @@ class SottoSezioniContenutiSummaryController extends SetupAbstractController
      */
     protected function formatRecordsToShowOnTable($records)
     {
-        $lang = $this->params()->fromRoute('lang');
-        $page = $this->params()->fromRoute('page');
-        $languageSelection = $this->params()->fromRoute('languageSelection');
+        $lang               = $this->params()->fromRoute('lang');
+        $page               = $this->params()->fromRoute('page');
+        $languageSelection  = $this->params()->fromRoute('languageSelection');
+        $modulename         = $this->params()->fromRoute('modulename');
 
         $arrayToReturn = array();
         if ($records) {
@@ -113,11 +123,12 @@ class SottoSezioniContenutiSummaryController extends SetupAbstractController
                     $row['nomeSezione'],
                     array(
                         'type' => 'updateButton',
-                        'href' => $this->url()->fromRoute('admin/sottosezioni-contenuti-form', array(
+                        'href' => $this->url()->fromRoute('admin/sottosezioni-form', array(
                             'lang'               => $lang,
                             'id'                 => $row['idSottoSezione'],
                             'languageSelection'  => $languageSelection,
                             'previouspage'       => $page,
+                            'modulename'         => $modulename
                         )),
                         'title'     => 'Modifica'
                     ),

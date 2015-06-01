@@ -7,10 +7,6 @@ use ModelModule\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
 use ModelModule\Model\AlboPretorio\AlboPretorioOperationsControllerHelper;
 use Application\Controller\SetupAbstractController;
 
-/**
- * @author Andrea Fiori
- * @since  09 April 2015
- */
 class AlboPretorioOperationsController extends SetupAbstractController
 {
     /**
@@ -45,12 +41,14 @@ class AlboPretorioOperationsController extends SetupAbstractController
                     'module_id'     => 3,
                     'reference_id'  => $record[0]['id'],
                 ));
+
             } catch (\Exception $e) {
+
                 $helper->getConnection()->rollBack();
 
                 $this->log(array(
                     'user_id'       => $userDetails->id,
-                    'message'       => "Errore pubblicazione atto albo pretorio " . $record[0]['titolo'] . ' Messaggio generato: ' . $e->getMessage(),
+                    'message'       => "Errore pubblicazione atto albo pretorio ".$record[0]['titolo'].' Messaggio generato: '.$e->getMessage(),
                     'type'          => 'error',
                     'backend'       => 1,
                     'module_id'     => 3,
