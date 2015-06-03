@@ -62,7 +62,11 @@
                 <?php if (!$this->cssName or $this->cssName == 'default'): ?>
                     <li class="divider"></li>
                 <?php endif; ?>
-                <li><a href="<?php echo $this->url('amministrazione-trasparente') ?>" title="Articoli amministrazione trasparente">Amministrazione trasparente</a></li>
+                <li>
+                    <a href="<?php echo $this->url('amministrazione-trasparente', array('profondita' => 200)) ?>" title="Articoli amministrazione trasparente">
+                        Amministrazione trasparente
+                    </a>
+                </li>
             </ul>
 
             <ul class="right">

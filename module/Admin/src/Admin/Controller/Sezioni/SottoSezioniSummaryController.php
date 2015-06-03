@@ -27,7 +27,6 @@ class SottoSezioniSummaryController extends SetupAbstractController
         $page                   = $this->params()->fromRoute('page');
         $languageSelection      = $this->params()->fromRoute('languageSelection');
         $modulename             = $this->params()->fromRoute('modulename');
-        //$userDetails          = $this->layout()->getVariable('userDetails');
         //$userRole             = isset($userDetails->role) ? $userDetails->role : '';
 
         $helper = new SezioniControllerHelper();
@@ -114,6 +113,7 @@ class SottoSezioniSummaryController extends SetupAbstractController
         $page               = $this->params()->fromRoute('page');
         $languageSelection  = $this->params()->fromRoute('languageSelection');
         $modulename         = $this->params()->fromRoute('modulename');
+        $userDetails        = $this->layout()->getVariable('userDetails');
 
         $arrayToReturn = array();
         if ($records) {
@@ -134,27 +134,28 @@ class SottoSezioniSummaryController extends SetupAbstractController
                     ),
                 );
 
-                //if ($this->getAcl()->hasResource('amministrazione_trsparente_sottosezioni_delete')) {
-                $rowToAdd[] = array(
-                    'type'      => 'deleteButton',
-                    'href'      => '#',
-                    'data-id'   => $row['idSottoSezione'],
-                    'title'     => 'Elimina'
-                );
-                //}
+                if ($userDetails->acl->hasResource('amministrazione_trsparente_sottosezioni_delete')) {
+                    $rowToAdd[] = array(
+                        'type'      => 'deleteButton',
+                        'href'      => '#',
+                        'data-id'   => $row['idSottoSezione'],
+                        'title'     => 'Elimina'
+                    );
+                }
 
-                //if ($this->getAcl()->hasResource('amministrazione_trsparente_sottosezioni_update')) {
-                $rowToAdd[] = array(
-                    'type' => 'positionButton',
-                    'href' => $this->url()->fromRoute('admin/posizioni-sottosezioni', array(
-                            'lang'              => $this->params()->fromRoute('lang'),
-                            'languageSelection' => $this->params()->fromRoute('languageSelection'),
-                            'sezioneId'         => $row['idSezione'],
-                        )
-                    ),
-                    'title' => 'Gestione posizioni'
-                );
-                //}
+                if ($userDetails->acl->hasResource('amministrazione_trsparente_sottosezioni_update')) {
+                    $rowToAdd[] = array(
+                        'type' => 'positionButton',
+                        'href' => $this->url()->fromRoute('admin/posizioni-sottosezioni', array(
+                                'lang'              => $this->params()->fromRoute('lang'),
+                                'languageSelection' => $this->params()->fromRoute('languageSelection'),
+                                'sezioneId'         => $row['idSezione'],
+                                'modulename'         => $modulename
+                            )
+                        ),
+                        'title' => 'Gestione posizioni'
+                    );
+                }
 
                 $arrayToReturn[] = $rowToAdd;
             }

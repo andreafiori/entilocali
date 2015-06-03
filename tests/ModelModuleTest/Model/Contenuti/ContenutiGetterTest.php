@@ -140,13 +140,6 @@ class ContenutiGetterTest extends TestSuite
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('utenteId'));
     }
 
-    public function testIsAmmTrasparente()
-    {
-        $this->objectGetter->setIsAmmTrasparente('1');
-
-        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('isammtrasp'));
-    }
-
     public function testSetShowToAll()
     {
         $this->objectGetter->setShowToAll('1');

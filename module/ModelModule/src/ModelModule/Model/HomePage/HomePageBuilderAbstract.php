@@ -16,32 +16,7 @@ abstract class HomePageBuilderAbstract extends OperationsModelAbstract
     protected $wrapperRecords;
 
     protected $moduleRelatedRecords;
-
-    /**
-     * @param \Application\Model\RecordsGetterAbstract $wrapper
-     */
-    public function setWrapper($wrapper)
-    {
-        $this->wrapper = $wrapper;
-
-        return $this->wrapper;
-    }
-
-    /**
-     * @return \Application\Model\RecordsGetterAbstract
-     */
-    public function getWrapper()
-    {
-        return $this->wrapper;
-    }
     
-    protected function assertWrapper()
-    {
-        if (!$this->getwrapper()) {
-            throw new NullException("Wrapper object is not set");
-        }
-    }
-
     /**
      * @return array
      */
@@ -66,6 +41,9 @@ abstract class HomePageBuilderAbstract extends OperationsModelAbstract
         return $this->moduleRelatedRecords;
     }
 
+    /**
+     * @throws NullException
+     */
     protected function assertModuleRelatedRecords()
     {
         if (!$this->getModuleRelatedRecords()) {

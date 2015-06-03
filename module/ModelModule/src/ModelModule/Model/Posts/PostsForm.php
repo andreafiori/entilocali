@@ -4,10 +4,6 @@ namespace ModelModule\Model\Posts;
 
 use Zend\Form\Form;
 
-/**
- * @author Andrea Fiori
- * @since  17 May 2014
- */
 class PostsForm extends Form
 {
     public function addUploadImage()
@@ -37,39 +33,48 @@ class PostsForm extends Form
             );
         }
 
+    public function addTitle()
+    {
+        $this->add(array(
+            'name' => 'title',
+            'type' => 'Text',
+            'options' => array( 'label' => '* Titolo' ),
+            'attributes' => array(
+                'required'      => 'required',
+                'placeholder'   => 'Inserisci il titolo',
+                'title'         => 'Inserisci il titolo',
+                'id'            => 'title',
+            )
+        ));
+    }
+
+    public function addSubtitle()
+    {
+        $this->add(array(
+            'name' => 'subtitle',
+            'type' => 'Text',
+            'options'    => array( 'label' => 'Sotto titolo' ),
+            'attributes' => array(
+                'title'         => 'Inserisci il sotto titolo',
+                'placeholder'   => 'Inserisci il sotto titolo',
+                'id'            => 'subtitle',
+            )
+        ));
+    }
+
     public function addMainFields()
     {
         $this->add(array(
-                        'name' => 'title',
-                        'type' => 'Text',
-                        'options' => array( 'label' => '* Titolo' ),
-                        'attributes' => array(
-                                        'required'      => 'required',
-                                        'placeholder'   => 'Inserisci il titolo',
-                                        'title'         => 'Inserisci il titolo',
-                                        'id'            => 'title',
-                        )
-        ));
-        
-        $this->add(array(
-                        'name' => 'subtitle',
-                        'type' => 'Text',
-                        'options'    => array( 'label' => 'Sotto titolo' ),
-                        'attributes' => array(
-                                        'title'         => 'Inserisci il sotto titolo',
-                                        'placeholder'   => 'Inserisci il sotto titolo',
-                                        'id'            => 'subtitle',
-                        )
-        ));
-
-        $this->add(array(
                         'name' => 'description',
                         'type' => 'Textarea',
-                        'options' => array( 'label' => 'Descrizione' ),
+                        'options' => array( 'label' => '* Descrizione' ),
                         'attributes' => array(
                                         'id'        => 'description',
                                         'required'  => 'required',
                                         'class'     => 'wysiwyg',
+                                        'title'     => 'Inserisci descrizione',
+                                        'rows'      => 8,
+                                        'cols'      => 20,
                         )
         ));
         
@@ -77,12 +82,14 @@ class PostsForm extends Form
                         'type' => 'DateTime',
                         'name' => 'expireDate',
                         'options' => array(
-                                'label'     => 'Scadenza',
+                                'label'     => '* Scadenza',
                                 'format'    => 'Y-m-d H:i:s',
                         ),
                         'attributes' => array(
                                 'style' => 'width: 22%',
-                                'id'    => 'expireDate'
+                                'id'    => 'expireDate',
+                                'required'  => 'required',
+                                'title'     => 'Seleziona data scadenza',
                         )
         ));
         
@@ -98,8 +105,10 @@ class PostsForm extends Form
                                ),
                         ),
                         'attributes' => array(
-                                'title' => 'Seleziona stato',
-                                'id'    => 'status'
+                                'title'     => 'Seleziona stato',
+                                'id'        => 'status',
+                                'required'  => 'required',
+                                'title'     => 'Seleziona stato',
                         )
         ));
   
@@ -135,9 +144,9 @@ class PostsForm extends Form
                 'value_options' => $values,
             ),
             'attributes' => array(
-                'id'    => 'categories',
-                'title' => 'Seleziona almeno una categoria',
-                'required' => 'required'
+                'id'        => 'categories',
+                'title'     => 'Seleziona almeno una categoria',
+                'required'  => 'required'
             )
         ));
     }

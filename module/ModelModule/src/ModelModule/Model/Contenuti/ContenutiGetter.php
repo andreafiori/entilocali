@@ -32,12 +32,12 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
                                 ->join('sezione.modulo', 'modulo')
                                 ->join('sezione.lingua', 'languages')
                                 ->where('( contenuti.sottosezione = sottosez.id
-                                        AND contenuti.utente = u.id 
-                                        AND sottosez.sezione = sezione.id
-                                        AND sezione.modulo = modulo.id
-                                        AND sezione.lingua = languages.id
-                                        ) 
-                                ');
+                                            AND contenuti.utente = u.id
+                                            AND sottosez.sezione = sezione.id
+                                            AND sezione.modulo = modulo.id
+                                            AND sezione.lingua = languages.id
+                                        )
+                                '); // AND sezione.utente = u.id AND sottosez.utente = u.id will give an error!!!
 
         return $this->getQueryBuilder();
     }
@@ -229,14 +229,14 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
     }
 
     /**
-     * @param int $id
+     * @param int $isAmmTrasparente
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function setIsAmmTrasparente($bool)
+    public function setIsAmmTrasparente($isAmmTrasparente)
     {
-        if ( is_numeric($bool) ) {
-            $this->getQueryBuilder()->andWhere('contenuti.isAmmTrasparente = :isammtrasp ');
-            $this->getQueryBuilder()->setParameter('isammtrasp', $bool);
+        if ( is_numeric($isAmmTrasparente) ) {
+            $this->getQueryBuilder()->andWhere('sottosez.isAmmTrasparente = :isammtrasp AND sezione.isAmmTrasparente = :isammtrasp ');
+            $this->getQueryBuilder()->setParameter('isammtrasp', $isAmmTrasparente);
         }
 
         return $this->getQueryBuilder();

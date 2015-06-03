@@ -22,33 +22,33 @@ class ContenutiFormController extends SetupAbstractController
         $em                     = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
         $userDetails            = $this->layout()->getVariable('userDetails');
         $languageSelection      = $this->params()->fromRoute('languageSelection');
-        $ammTraspSezioneId      = $this->layout()->getVariable('amministrazione_trasparente_sezione_id');
-        $ammTraspSottoSezioneId = $this->layout()->getVariable('amministrazione_trasparente_sottosezione_id');
+        $modulename             = $this->params()->fromRoute('modulename');
+        $subsection             = $this->params()->fromQuery('subsection');
 
         try {
             $helper = new ContenutiControllerHelper();
-            $helper->setContenutiGetterWrapper( new ContenutiGetterWrapper(new ContenutiGetter($em)) );
-            $helper->setupContenutiGetterWrapperRecords(array(
-                'id'     => is_numeric($id) ? $id : 0,
-                'limit'  => 1,
-                'utente' => ($userDetails->role=='WebMaster') ? null : $userDetails->id
-            ));
             $helper->setSottoSezioniGetterWrapper(new SottoSezioniGetterWrapper(new SottoSezioniGetter($em)));
             $helper->setupSottoSezioniGetterWrapperRecords(array(
-                'excludeId'             => $ammTraspSottoSezioneId,
-                'excludeSezioneId'      => $ammTraspSezioneId,
                 'showToAll'             => ($userDetails->role == 'WebMaster') ? null : 1,
                 'languageAbbreviation'  => $languageSelection,
+                'isAmmTrasparente'      => ($modulename!='contenuti') ? 1 : null,
             ));
+            $helper->checkRecords($helper->getSottoSezioniGetterWrapperRecords(),'Nessuna sottosezione presente');
             $helper->formatSottoSezioniGetterWrapperRecordsForDropdown();
-
-            $contenutiRecords = $helper->getContenutiGetterWrapperRecords();
+            $contenutiRecords = $helper->recoverWrapperRecordsById(
+                new ContenutiGetterWrapper(new ContenutiGetter($em)),
+                array(
+                    'id'     => $id,
+                    'limit'  => 1,
+                    'utente' => ($userDetails->role=='WebMaster') ? null : $userDetails->id
+                ),
+                $id
+            );
 
             $form = new ContenutiForm();
             $form->addSottoSezioni( $helper->getSottoSezioniGetterWrapperRecords() );
-            $form->addForm();
+            $form->addMainFormElements();
             if ($userDetails->role=='WebMaster') {
-
                 $wrapper = new UsersGetterWrapper( new UsersGetter($em) );
                 $wrapper->setInput( array('orderBy' => 'u.name') );
                 $wrapper->setupQueryBuilder();
@@ -70,13 +70,12 @@ class ContenutiFormController extends SetupAbstractController
                 $form->setData($contenutiRecords[0]);
 
                 $submitButtonValue      = 'Modifica';
-                $formTitle              = 'Modifica contenuto';
-                $formDescription        = 'Modifica i dati relativi al contenuto';
+                $formTitle              = 'Modifica artciolo';
+                $formDescription        = "Modifica i dati relativi all'articolo. Massimo 255 caratteri per i campi testo. Utilizzare testi brevi e concisi. <strong>Evitare copia \ incolla da file word</strong> o pagine web che potrebbero danneggiare il layout della pagina.";
                 $formAction             = $this->url()->fromRoute('admin/contenuti-update', array(
-                        'lang'              => $this->params()->fromRoute('lang'),
-                        'languageSelection' => $languageSelection,
-                    )
-                );
+                    'lang'              => $this->params()->fromRoute('lang'),
+                    'languageSelection' => $languageSelection,
+                ));
                 $formBreadCrumbTitle    = '';
 
             } else {
@@ -88,14 +87,14 @@ class ContenutiFormController extends SetupAbstractController
                 ));
                 $form->addSocial();
 
-                $formTitle              = 'Nuovo contenuto';
-                $formDescription        = 'Inserisci i dati relativi al contenuto';
+                $formTitle              = 'Nuovo articolo';
+                $formDescription        = "Inserisci i dati relativi all'articolo. Massimo 255 caratteri per i campi testo. Utilizzare testi brevi e concisi. <strong>Evitare copia \ incolla da file word</strong> o pagine web che potrebbero danneggiare il layout della pagina.";
                 $submitButtonValue      = 'Inserisci';
                 $formAction             = $this->url()->fromRoute('admin/contenuti-insert', array(
                     'lang'              => $this->params()->fromRoute('lang'),
                     'languageSelection' => $languageSelection,
                 ));
-                $formBreadCrumbTitle    = 'Nuovo contenuto';
+                $formBreadCrumbTitle    = 'Nuovo artciolo';
             }
 
             $this->layout()->setVariables(array(
@@ -105,12 +104,13 @@ class ContenutiFormController extends SetupAbstractController
                 'formDescription'            => $formDescription,
                 'submitButtonValue'          => $submitButtonValue,
                 'CKEditorField'              => array('testo'),
-                'formBreadCrumbCategory'     => 'Contenuti',
+                'formBreadCrumbCategory'     => ucfirst(str_replace('-', ' ', $modulename)),
                 'noFormActionPrefix'         => 1,
                 'formBreadCrumbCategoryLink' => $this->url()->fromRoute('admin/contenuti-summary', array(
                     'lang'              => $this->params()->fromRoute('lang'),
-                    'languageSelection' => $languageSelection,
                     'page'              => $this->params()->fromRoute('previouspage'),
+                    'languageSelection' => $languageSelection,
+                    'modulename'        => $modulename,
                 )),
                 'formBreadCrumbTitle'  => $formBreadCrumbTitle,
                 'templatePartial'      => self::formTemplate
@@ -124,6 +124,7 @@ class ContenutiFormController extends SetupAbstractController
                 'messageText'   => 'Messaggio generato '.$e->getMessage(),
                 'templatePartial' => 'message.phtml',
             ));
+
         }
 
         $this->layout()->setTemplate($mainLayout);

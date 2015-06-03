@@ -2,6 +2,7 @@
 
 namespace Admin\Controller\Photo;
 
+use ModelModule\Model\Posts\PostsControllerHelper;
 use ModelModule\Model\Posts\PostsForm;
 use ModelModule\Model\Posts\PostsGetter;
 use ModelModule\Model\Posts\PostsGetterWrapper;
@@ -17,16 +18,17 @@ class PhotoFormController extends SetupAbstractController
 
         $id = $this->params()->fromRoute('id');
 
-        if (is_numeric($id)) {
-            $wrapper = new PostsGetterWrapper( new PostsGetter($em) );
-            $wrapper->setInput( array('id' => $id, 'limit' => 1) );
-            $wrapper->setupQueryBuilder();
-
-            $recordFromDb = $wrapper->getRecords();
-        }
+        $helper = new PostsControllerHelper();
+        $recordFromDb = $helper->recoverWrapperRecordsById(
+            new PostsGetterWrapper(new PostsGetter($em)),
+            array('id' => $id, 'limit' => 1),
+            $id
+        );
 
         $form = new PostsForm();
         $form->addUploadImageRequired();
+        $form->addTitle();
+        $form->addSubtitle();
         $form->addMainFields();
 
         if (!empty($recordFromDb)) {
@@ -34,11 +36,11 @@ class PhotoFormController extends SetupAbstractController
 
             $submitButtonValue  = 'Modifica';
             $formTitle          = 'Modifica foto';
-            $formAction         = '';
+            $formAction         = '#';
         } else {
             $formTitle          = 'Nuova foto';
             $submitButtonValue  = 'Inserisci';
-            $formAction         = '';
+            $formAction         = '#';
         }
 
         $this->layout()->setVariables( array(
@@ -48,8 +50,12 @@ class PhotoFormController extends SetupAbstractController
                 'formAction'                    => $formAction,
                 'submitButtonValue'             => $submitButtonValue,
                 'formBreadCrumbCategory'        => 'Galleria foto',
-                'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/photo-summary', array('lang' => 'it')),
-                'CKEditorField'                 => 'description',
+                'imageValidation'               => 1,
+                'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/photo-summary', array(
+                    'lang'              => 'it',
+                    'languageSelection' => 'it',
+                )),
+                'noCKEditor'                    => 1,
                 'templatePartial'               => self::formTemplate,
             )
         );

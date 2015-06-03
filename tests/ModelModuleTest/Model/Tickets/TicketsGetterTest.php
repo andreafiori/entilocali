@@ -1,6 +1,6 @@
 <?php
 
-namespace ApplicationTest\Model\Tickets;
+namespace ModelModuleTest\Model\Tickets;
 
 use ModelModule\Model\Tickets\TicketsGetter;
 use ModelModuleTest\TestSuite;

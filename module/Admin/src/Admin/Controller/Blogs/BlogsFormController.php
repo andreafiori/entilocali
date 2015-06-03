@@ -6,14 +6,10 @@ use ModelModule\Model\Modules\ModulesContainer;
 use ModelModule\Model\Posts\PostsForm;
 use ModelModule\Model\Posts\PostsGetter;
 use ModelModule\Model\Posts\PostsGetterWrapper;
-use ModelModule\Model\Posts\CategoriesGetter;
-use ModelModule\Model\Posts\CategoriesGetterWrapper;
+use ModelModule\Model\Posts\PostsCategoriesGetter;
+use ModelModule\Model\Posts\PostsCategoriesGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
-/**
- * @author Andrea Fiori
- * @since  12 April 2015
- */
 class BlogsFormController extends SetupAbstractController
 {
     public function indexAction()
@@ -33,7 +29,7 @@ class BlogsFormController extends SetupAbstractController
             $recordFromDb = $wrapper->getRecords();
         }
 
-        $wrapper = new CategoriesGetterWrapper(new CategoriesGetter($entityManager));
+        $wrapper = new PostsCategoriesGetterWrapper(new PostsCategoriesGetter($entityManager));
         $wrapper->setInput(array(
             'fields'        => 'category.id, category.name',
             'orderBy'       => 'category.name',
@@ -44,7 +40,9 @@ class BlogsFormController extends SetupAbstractController
 
         $selectArray = array();
         foreach($categoriesRecords as $categoriesRecord) {
-            $selectArray[$categoriesRecord['id']] = $categoriesRecord['name'];
+            if (isset($categoriesRecord['id']) and isset($categoriesRecord['name'])) {
+                $selectArray[$categoriesRecord['id']] = $categoriesRecord['name'];
+            }
         }
 
         $formBasicInput = array(

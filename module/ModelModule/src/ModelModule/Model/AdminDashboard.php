@@ -13,13 +13,7 @@ use ModelModule\Model\Users\Todo\UsersTodoGetter;
 use ModelModule\Model\Users\Todo\UsersTodoGetterWrapper;
 use ModelModule\Model\RouterManagers\RouterManagerAbstract;
 use ModelModule\Model\RouterManagers\RouterManagerInterface;
-        
-/**
- * Admin area home page handler
- *
- * @author Andrea Fiori
- * @since  18 May 2014
- */
+
 class AdminDashboard extends RouterManagerAbstract implements RouterManagerInterface
 {
     /**
@@ -71,7 +65,7 @@ class AdminDashboard extends RouterManagerAbstract implements RouterManagerInter
         /**
          * @param int $userId
          *
-         * @return \Application\Model\QueryBuilderHelperAbstract
+         * @return \ModelModule\Model\QueryBuilderHelperAbstract
          */
         private function recoverLogRecords($userId)
         {
@@ -87,8 +81,8 @@ class AdminDashboard extends RouterManagerAbstract implements RouterManagerInter
         }
 
         /**
-         * @return \Application\Model\QueryBuilderHelperAbstract
-         * @throws \Application\Model\NullException
+         * @return \ModelModule\Model\QueryBuilderHelperAbstract
+         * @throws \ModelModule\Model\NullException
          */
         private function recoverTodoRecords()
         {
@@ -99,6 +93,10 @@ class AdminDashboard extends RouterManagerAbstract implements RouterManagerInter
             return $todoWrapper->getRecords();
         }
 
+        /**
+         * @return QueryBuilderHelperAbstract
+         * @throws NullException
+         */
         private function recoverContactsMessages()
         {
             $wrapper = new ContactsGetterWrapper(new ContactsGetter($this->getInput('entityManager', 1)));

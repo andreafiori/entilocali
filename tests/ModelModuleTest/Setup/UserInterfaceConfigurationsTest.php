@@ -1,6 +1,6 @@
 <?php
 
-namespace ApplicationTest\Setup;
+namespace ModelModuleTest\Setup;
 
 use ModelModuleTest\TestSuite;
 use ModelModule\Setup\UserInterfaceConfigurations;

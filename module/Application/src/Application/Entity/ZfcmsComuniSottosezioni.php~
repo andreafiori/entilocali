@@ -127,6 +127,20 @@ class ZfcmsComuniSottosezioni
     private $showToAll;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="template_type", type="string", length=50, nullable=false)
+     */
+    private $templateType;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="template_file", type="string", length=50, nullable=false)
+     */
+    private $templateFile;
+
+    /**
      * @var \Application\Entity\ZfcmsComuniSottosezioni
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniSottosezioni")

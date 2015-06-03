@@ -57,6 +57,7 @@ abstract class TestSuite extends \PHPUnit_Framework_TestCase
 
         $this->router = HttpRouter::factory(isset($config['router']) ? $config['router'] : array());
         $this->routeMatch = new RouteMatch(array('controller' => 'index'));
+        $this->routeMatch->setParam('lang', 'it');
 
         $this->event = new MvcEvent();
         $this->event->setRouter($this->router);

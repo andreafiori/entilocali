@@ -18,7 +18,10 @@ class AlboPretorioFormController extends SetupAbstractController
         $mainLayout = $this->initializeAdminArea();
 
         $id             = $this->params()->fromRoute('id');
+        $lang           = $this->params()->fromRoute('lang');
+
         $em             = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+
         $helper         = new AlboPretorioFormControllerHelper();
 
         try {
@@ -52,27 +55,23 @@ class AlboPretorioFormController extends SetupAbstractController
                 $form->setData($articoliRecords[0]);
 
                 $formAction     = 'albo-pretorio/update/'.$articoliRecords[0]['id'];
-
                 $formTitle      = $articoliRecords[0]['titolo'];
 
             } else {
                 $form->addFacebook();
 
                 $formAction = 'albo-pretorio/insert/';
-
                 $formTitle  = 'Nuovo atto';
             }
 
             $this->layout()->setVariables(array(
-                    'form'                          => $form,
-                    'formAction'                    => $formAction,
-                    'formTitle'                     => $formTitle,
-                    'formDescription'               => "Compila i dati relativi all'atto da inserire sull'albo pretorio",
-                    'templatePartial'               => self::formTemplate,
-                    'formBreadCrumbCategory'        => 'Albo pretorio',
-                    'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/albo-pretorio-summary', array('lang' => 'it')),
-                )
-            );
+                'form'                          => $form,
+                'formAction'                    => $formAction,
+                'formTitle'                     => $formTitle,
+                'formDescription'               => "Compila i dati relativi all'atto da inserire sull'albo pretorio",
+                'templatePartial'               => self::formTemplate,
+                'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/albo-pretorio-summary', array('lang' => $lang)),
+            ));
 
         } catch(NullException $e) {
             $message = $e->getParams();

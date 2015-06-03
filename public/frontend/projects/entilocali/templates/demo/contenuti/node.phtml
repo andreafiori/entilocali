@@ -9,15 +9,15 @@
     <?php foreach($this->records as $record): ?>
 
         <div class="contentTitle">
-            <h2><?php echo html_entity_decode($record['titolo'], ENT_COMPAT, 'UTF-8') ?></h2>
+            <h2><?php echo $record['titolo'] ?></h2>
         </div>
 
         <?php if (isset($record['sommario'])): ?>
-            <div><?php echo utf8_encode($record['sommario']) ?></div>
+            <div><?php echo $record['sommario'] ?></div>
         <?php endif; ?>
 
         <div>
-            <?php echo utf8_encode($record['testo']); ?>
+            <?php echo $record['testo']; ?>
         </div>
 
         <?php if (!empty($record['attachments'])): ?>

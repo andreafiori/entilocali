@@ -5,10 +5,6 @@ namespace ModelModuleTest\Model\Posts;
 use ModelModuleTest\TestSuite;
 use ModelModule\Model\Posts\PostsGetter;
 
-/**
- * @author Andrea Fiori
- * @since  05 May 2014
- */
 class PostsGetterTest extends TestSuite
 {
     /**

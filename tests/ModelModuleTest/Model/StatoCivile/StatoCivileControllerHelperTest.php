@@ -1,6 +1,6 @@
 <?php
 
-namespace ApplicationTest\Model\StatoCivile;
+namespace ModelModuleTest\Model\StatoCivile;
 
 use ModelModule\Model\StatoCivile\StatoCivileSezioniGetter;
 use ModelModule\Model\StatoCivile\StatoCivileSezioniGetterWrapper;

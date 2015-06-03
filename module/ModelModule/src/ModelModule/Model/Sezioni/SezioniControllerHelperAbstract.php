@@ -164,6 +164,8 @@ abstract class SezioniControllerHelperAbstract extends ControllerHelperAbstract
     }
 
     /**
+     * TODO: delete it, use isAmmTrasparente flag!
+     *
      * @param string $moduleName
      * @param int $id
      * @param string $message

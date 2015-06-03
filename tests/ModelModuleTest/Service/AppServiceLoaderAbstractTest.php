@@ -1,6 +1,6 @@
 <?php
 
-namespace AdminTest\Service;
+namespace ModelModuleTest\Service;
 
 use ModelModuleTest\TestSuite;
 use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;

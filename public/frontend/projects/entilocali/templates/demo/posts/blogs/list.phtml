@@ -8,63 +8,66 @@
     <li><?php echo $this->categoryName ?></li>
 </ul>
 
-<h2><?php echo ucfirst($this->categoryName) ?></h2>
-
-<p><?php echo $this->item_count ?> <?php echo $this->translate('posts in archivio'); ?>.</p>
-
 <?php
+if ($this->formSearch):
 
-$form = $this->formSearch;
+    ?>
+    <h2><?php echo ucfirst($this->categoryName) ?></h2>
 
-$form->setAttribute('action',   '#');
-$form->setAttribute('method',   'post');
-$form->setAttribute('role',     'form');
-$form->setAttribute('id',       'frmBlogSearch');
+    <p><?php echo $this->item_count ?> <?php echo $this->translate('posts in archivio'); ?>.</p>
+    <?php
 
-$form->get('search')->setAttribute('class', 'button button-tiny tiny');
-$form->get('testo')->setAttributes(array(
-        'placeholder' => $this->translate('Cerca').'...',
-        'title' => $this->translate('Digita il testo da cercare'),
-    )
-);
-$form->get('category')->setOptions(array('empty_option'  => $this->translate('Seleziona')));
-$form->get('category')->setAttributes(array('title' => $this->translate('Seleziona categoria')));
-$form->get('search')->setAttributes(array('value' => $this->translate('Cerca')));
-$form->prepare();
+    $form = $this->formSearch;
 
-echo $this->form()->openTag($form);
+    $form->setAttribute('action',   '#');
+    $form->setAttribute('method',   'post');
+    $form->setAttribute('role',     'form');
+    $form->setAttribute('id',       'frmBlogSearch');
 
-?>
-<fieldset>
-    <legend><?php echo $this->translate('Cerca fra i blogs'); ?></legend>
+    $form->get('search')->setAttribute('class', 'button button-tiny tiny');
+    $form->get('testo')->setAttributes(array(
+            'placeholder' => $this->translate('Cerca').'...',
+            'title' => $this->translate('Digita il testo da cercare'),
+        )
+    );
+    $form->get('category')->setOptions(array('empty_option'  => $this->translate('Seleziona')));
+    $form->get('category')->setAttributes(array('title' => $this->translate('Seleziona categoria')));
+    $form->get('search')->setAttributes(array('value' => $this->translate('Cerca')));
+    $form->prepare();
 
-    <div class="row">
-        <div class="large-6 columns">
-            <label for="<?php echo $form->get('testo')->getAttribute('id'); ?>">
-                <?php echo $this->translate( $form->get('testo')->getLabel() ); ?>:
-            </label>
-            <?php echo $this->formElement($form->get('testo')); ?>
+    echo $this->form()->openTag($form);
+
+    ?>
+    <fieldset>
+        <legend><?php echo $this->translate('Cerca fra i blogs'); ?></legend>
+
+        <div class="row">
+            <div class="large-6 columns">
+                <label for="<?php echo $form->get('testo')->getAttribute('id'); ?>">
+                    <?php echo $this->translate( $form->get('testo')->getLabel() ); ?>:
+                </label>
+                <?php echo $this->formElement($form->get('testo')); ?>
+            </div>
+
+            <div class="large-6 columns">
+                <label for="<?php echo $form->get('category')->getAttribute('id'); ?>">
+                    <?php echo $this->translate( $form->get('category')->getLabel() ); ?>:
+                </label>
+                <?php echo $this->formElement($form->get('category')); ?>
+            </div>
         </div>
 
-        <div class="large-6 columns">
-            <label for="<?php echo $form->get('category')->getAttribute('id'); ?>">
-                <?php echo $this->translate( $form->get('category')->getLabel() ); ?>:
-            </label>
-            <?php echo $this->formElement($form->get('category')); ?>
+        <div class="row">
+            <div class="large-12 columns">
+                <label for="<?php echo $form->get('search')->getAttribute('id'); ?>">
+                    <?php echo $this->formElement($form->get('search')); ?>
+                </label>
+            </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="large-12 columns">
-            <label for="<?php echo $form->get('search')->getAttribute('id'); ?>">
-                <?php echo $this->formElement($form->get('search')); ?>
-            </label>
-        </div>
-    </div>
-
-</fieldset>
-
-<?php echo $this->form()->closeTag(); ?>
+    </fieldset>
+    <?php echo $this->form()->closeTag(); ?>
+<?php endif; ?>
 
 <?php if ( count($this->records) ): ?>
 
@@ -111,9 +114,9 @@ echo $this->form()->openTag($form);
 
     <?php endforeach; ?>
 <?php else: ?>
-    <h2>Nessun post presente</h2>
+    <h2><?php echo $this->translate('Nessun post presente') ?></h2>
 
-    <p>Nessun post trovato in archivio o per la categoria selezionata.</p>
+    <p><?php echo $this->translate('Nessun post trovato in archivio per la categoria selezionata') ?></p>
 <?php endif; ?>
 <?php
 

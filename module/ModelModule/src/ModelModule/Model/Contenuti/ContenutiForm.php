@@ -4,10 +4,6 @@ namespace ModelModule\Model\Contenuti;
 
 use Zend\Form\Form;
 
-/**
- * @author Andrea Fiori
- * @since  11 January 2015
- */
 class ContenutiForm extends Form
 {
     /**
@@ -31,7 +27,7 @@ class ContenutiForm extends Form
         ));
     }
 
-    public function addForm()
+    public function addMainFormElements()
     {
         $this->add(array(
             'name' => 'titolo',

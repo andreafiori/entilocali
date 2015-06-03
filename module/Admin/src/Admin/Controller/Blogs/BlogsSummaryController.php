@@ -5,14 +5,13 @@ namespace Admin\Controller\Blogs;
 use ModelModule\Model\Languages\LanguagesFormSearch;
 use ModelModule\Model\Languages\LanguagesGetter;
 use ModelModule\Model\Languages\LanguagesGetterWrapper;
-use ModelModule\Model\Posts\CategoriesGetter;
-use ModelModule\Model\Posts\CategoriesGetterWrapper;
+use ModelModule\Model\Posts\PostsCategoriesGetter;
+use ModelModule\Model\Posts\PostsCategoriesGetterWrapper;
 use ModelModule\Model\Posts\PostsControllerHelper;
 use ModelModule\Model\Posts\PostsFormSearch;
 use ModelModule\Model\Posts\PostsGetter;
 use ModelModule\Model\Posts\PostsGetterWrapper;
 use Application\Controller\SetupAbstractController;
-use Zend\View\Model\ViewModel;
 
 class BlogsSummaryController extends SetupAbstractController
 {
@@ -22,7 +21,7 @@ class BlogsSummaryController extends SetupAbstractController
 
         $entityManager  = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-        $configurations         = $this->layout()->getVariable('configurations');
+        $configurations     = $this->layout()->getVariable('configurations');
         $languageSelection  = $this->params()->fromRoute('languageSelection');
         $page               = $this->params()->fromRoute('page');
         $perPage            = $this->params()->fromRoute('perpage');
@@ -30,7 +29,7 @@ class BlogsSummaryController extends SetupAbstractController
         try {
             $helper = new PostsControllerHelper();
             $categoriesRecords = $helper->recoverWrapperRecords(
-                new CategoriesGetterWrapper(new CategoriesGetter($entityManager)),
+                new PostsCategoriesGetterWrapper(new PostsCategoriesGetter($entityManager)),
                 array(
                     'fields'        => 'category.id, category.name',
                     'orderBy'       => 'category.name',
@@ -135,7 +134,7 @@ class BlogsSummaryController extends SetupAbstractController
                 $recordsToReturn[] = array(
                     $record['title'],
                     $categoryToPrint,
-                    //'', TAGS ROW...
+                    // TAGS ROW...
                     $record['userName'].' '.$record['userSurname'],
                     "<strong>Inserito il:</strong> ".date("d-m-Y", strtotime($record['createDate'])).
                     "<br><br><strong>Ultima modifica:</strong> ".date("d-m-Y", strtotime($record['lastUpdate'])),

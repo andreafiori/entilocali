@@ -4,10 +4,6 @@ namespace ModelModule\Model\Posts;
 
 use ModelModule\Model\RecordsGetterWrapperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  15 April 2014
- */
 class PostsGetterWrapper extends RecordsGetterWrapperAbstract
 {
     /**
@@ -45,5 +41,7 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setModuleCode( $this->getInput('moduleCode', 1) );
         $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
         $this->objectGetter->setLimit( $this->getInput('limit', 1) );
+
+        return null;
     }
 }

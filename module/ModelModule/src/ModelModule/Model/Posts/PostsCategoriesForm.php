@@ -4,11 +4,7 @@ namespace ModelModule\Model\Posts;
 
 use Zend\Form\Form;
 
-/**
- * @author Andrea Fiori
- * @since  09 June 2014
- */
-class CategoriesForm extends Form
+class PostsCategoriesForm extends Form
 {
     public function __construct($name = null)
     {

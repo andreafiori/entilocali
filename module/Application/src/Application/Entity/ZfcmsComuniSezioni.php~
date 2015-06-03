@@ -122,7 +122,7 @@ class ZfcmsComuniSezioni
     /**
      * @var integer
      *
-     * @ORM\Column(name="is_amm_trasparente", type="integer", nullable=true)
+     * @ORM\Column(name="is_amm_trasparente", type="integer", nullable=false)
      */
     private $isAmmTrasparente;
 

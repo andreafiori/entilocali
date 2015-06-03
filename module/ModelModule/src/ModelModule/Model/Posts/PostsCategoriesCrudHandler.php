@@ -6,11 +6,7 @@ use ModelModule\Model\FormData\CrudHandlerInterface;
 use ModelModule\Model\FormData\CrudHandlerAbstract;
 use ModelModule\Model\Slugifier;
 
-/**
- * @author Andrea Fiori
- * @since  08 June 2013
- */
-class CategoriesCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterface
+class PostsCategoriesCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterface
 {
     protected function insert()
     {

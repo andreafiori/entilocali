@@ -2,6 +2,8 @@
 
 namespace Application\Controller\AmministrazioneTrasparente;
 
+use ModelModule\Model\Contenuti\ContenutiControllerHelper;
+use ModelModule\Model\Contenuti\ContenutiFormSearch;
 use ModelModule\Model\Contenuti\ContenutiGetter;
 use ModelModule\Model\Contenuti\ContenutiGetterWrapper;
 use ModelModule\Model\Sezioni\SottoSezioniGetter;
@@ -20,37 +22,48 @@ class AmministrazioneTrasparenteController extends SetupAbstractController
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
         $templateDir = $this->layout()->getVariable('templateDir');
-
         $basicLayout = $this->layout()->getVariable('amministrazione_trasparente_basiclayout');
 
-        $amministrazione_trasparente_sottosezione_id = $this->layout()->getVariable('amministrazione_trasparente_sottosezione_id');
+        $sottosezioneId = $this->layout()->getVariable('amministrazione_trasparente_sottosezione_id');
+        $sezioneId = $this->layout()->getVariable('amministrazione_trasparente_sezione_id');
 
-        $formSearch = new AmministrazioneTrasparenteFormSearch();
+        // TODO: get form search result, set a session, back to previous page
+        $formSearch = new ContenutiFormSearch();
+        $formSearch->addAnno();
+        $formSearch->addCheckExpired();
+        $formSearch->addSubmitButton();
         $formSearch->setData( array('anno' => date("Y")) );
 
-        $sottoSezioni = new SottoSezioniGetterWrapper(new SottoSezioniGetter($em));
-        $sottoSezioni->setInput(array(
-                'attivo'        => 1,
-                'profonditaDa'  => $profondita
+        $helper = new ContenutiControllerHelper();
+        $sottosezioniRecords = $helper->recoverWrapperRecords(
+            new SottoSezioniGetterWrapper(new SottoSezioniGetter($em)),
+            array(
+                'attivo'                => 1,
+                'profonditaDa'          => $profondita,
+                'sezioneId'             => $sezioneId,
+                'languageAbbreviation'  => 'it', // Italian as first language
+                'isAmmTrasparente'      => 1,
+                'orderBy'               => 'sottosezioni.posizione ASC',
             )
         );
-        $sottoSezioni->setupQueryBuilder();
 
-        $wrapper = new ContenutiGetterWrapper(new ContenutiGetter($em));
-        $wrapper->setInput( array(
+        $contenutiRecords = $helper->recoverWrapperRecords(
+            new ContenutiGetterWrapper(new ContenutiGetter($em)),
+            array(
                 'sottosezione'  => $profondita,
                 'attivo'        => 1,
                 'noscaduti'     => 1,
+                'sezioneId'     => $sezioneId,
+                'orderBy'       => 'contenuti.posizione ASC'
             )
         );
-        $wrapper->setupQueryBuilder();
 
         $this->layout()->setVariables(array(
-            'form'             => $formSearch,
-            'sottoSezioni'     => $sottoSezioni->getRecords(),
-            'contenuti'        => $wrapper->getRecords(),
-            'templatePartial'  => 'amministrazione-trasparente/amministrazione-trasparente.phtml',
-            'amministrazione_trasparente_sottosezione_id' => $amministrazione_trasparente_sottosezione_id
+            'form'                      => $formSearch,
+            'sottoSezioni'              => $sottosezioniRecords,
+            'contenuti'                 => !empty($contenutiRecords) ? $contenutiRecords : null,
+            'ammTraspSottoSezioneId'    => $sezioneId,
+            'templatePartial'           => 'amministrazione-trasparente/amministrazione-trasparente.phtml',
         ));
 
         $this->layout()->setTemplate(isset($basicLayout) ? $templateDir.$basicLayout : $mainLayout);

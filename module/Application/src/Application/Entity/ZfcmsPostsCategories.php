@@ -120,6 +120,13 @@ class ZfcmsPostsCategories
     private $position;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="parent_id", type="bigint", nullable=false)
+     */
+    private $parentId;
+
+    /**
      * @var \Application\Entity\ZfcmsLanguages
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsLanguages")
@@ -138,16 +145,6 @@ class ZfcmsPostsCategories
      * })
      */
     private $module;
-
-    /**
-     * @var \Application\Entity\ZfcmsPostsCategories
-     *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsPostsCategories")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
-     * })
-     */
-    private $parent;
 
 
 
@@ -484,6 +481,29 @@ class ZfcmsPostsCategories
     }
 
     /**
+     * Set parentId
+     *
+     * @param integer $parentId
+     * @return ZfcmsPostsCategories
+     */
+    public function setParentId($parentId)
+    {
+        $this->parentId = $parentId;
+    
+        return $this;
+    }
+
+    /**
+     * Get parentId
+     *
+     * @return integer 
+     */
+    public function getParentId()
+    {
+        return $this->parentId;
+    }
+
+    /**
      * Set language
      *
      * @param \Application\Entity\ZfcmsLanguages $language
@@ -527,28 +547,5 @@ class ZfcmsPostsCategories
     public function getModule()
     {
         return $this->module;
-    }
-
-    /**
-     * Set parent
-     *
-     * @param \Application\Entity\ZfcmsPostsCategories $parent
-     * @return ZfcmsPostsCategories
-     */
-    public function setParent(\Application\Entity\ZfcmsPostsCategories $parent = null)
-    {
-        $this->parent = $parent;
-    
-        return $this;
-    }
-
-    /**
-     * Get parent
-     *
-     * @return \Application\Entity\ZfcmsPostsCategories 
-     */
-    public function getParent()
-    {
-        return $this->parent;
     }
 }

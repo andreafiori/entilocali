@@ -5,31 +5,21 @@
     echo $this->partial($this->templateDir.'_navigation');
 ?>
 
-<div>
-    <div class="large-12 columns">
-
-        <br>
-
-            <div class="large-12 columns">
-                    
-                    <div class="large-12 small-12 columns">
-                        <div id="mainContents"></div>
-                        <?php
-                        if (!empty($this->templatePartial)) {
-                            echo $this->partial($this->templateDir.$this->templatePartial);
-                        }
-                        ?>
-                    </div>
-
+<div class="large-12 columns">
+    <br>
+        <div class="large-12 columns">
+            <div class="large-12 small-12 columns">
+                <div id="mainContents"></div>
+                <?php
+                if (!empty($this->templatePartial)) {
+                    echo $this->partial($this->templateDir.$this->templatePartial);
+                }
+                ?>
             </div>
+        </div>
+    <hr>
 
-        <hr>
-        
-        <?php
-            echo $this->partial($this->templateDir.'_footer');
-        ?>
-        
-    </div>
+    <?php  echo $this->partial($this->templateDir.'_footer'); ?>
 </div>
 
 <script src="<?php echo $publicDirRelativePath ?>/common/foundation/js/foundation.min.js"></script>

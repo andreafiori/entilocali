@@ -87,7 +87,31 @@ abstract class RecordsGetterWrapperAbstract
             throw new NullException("ObjectGetter is not set");
         }
         
-        return $this->objectGetter->getQueryResult();
+        return $this->convertToUft8( $this->objectGetter->getQueryResult() );
+    }
+
+    /**
+     * Convert recordset int ocd
+     *
+     * @param array $recordset
+     * @return array
+     */
+    private function convertToUft8($recordset)
+    {
+        if (!empty($recordset)) {
+            foreach($recordset as $num => $records) {
+                foreach($records as $key => $value) {
+                    $value = $recordset[$num][$key];
+                    if (is_string($value)) {
+                        $recordset[$num][$key] = utf8_encode($value);
+                    }
+                }
+            }
+
+            return $recordset;
+        }
+
+        return null;
     }
     
     /**
@@ -219,7 +243,7 @@ abstract class RecordsGetterWrapperAbstract
      *
      * @return array|bool
      */
-    public function addAttachmentsFromRecords(array $records, $input = array())
+    public function addAttachmentsFromRecords($records, $input = array())
     {
         if ( empty($records) ) {
             return false;

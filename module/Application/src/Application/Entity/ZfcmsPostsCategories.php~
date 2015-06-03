@@ -120,6 +120,13 @@ class ZfcmsPostsCategories
     private $position;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="parent_id", type="bigint", nullable=false)
+     */
+    private $parentId;
+
+    /**
      * @var \Application\Entity\ZfcmsLanguages
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsLanguages")
@@ -138,16 +145,6 @@ class ZfcmsPostsCategories
      * })
      */
     private $module;
-
-    /**
-     * @var \Application\Entity\ZfcmsPostsCategories
-     *
-     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsPostsCategories")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
-     * })
-     */
-    private $parent;
 
 
 }

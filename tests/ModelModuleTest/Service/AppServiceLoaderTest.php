@@ -1,6 +1,6 @@
 <?php
 
-namespace AdminTest\Service;
+namespace ModelModuleTest\Service;
 
 use ModelModule\Service\AppServiceLoader;
 use ModelModule\Model\Config\ConfigGetter;

@@ -3,11 +3,15 @@
         <thead>
         <tr>
             <?php foreach($this->columns as $column): ?>
+
+                <?php if (empty($column)) break; /* no empty elements... */ ?>
+
                 <?php if ( is_array($column) ): ?>
                     <th style="width: <?php echo $column['width'] ?>"><?php echo $column['label'] ?></th>
                 <?php else: ?>
                     <th><?php echo $column ?></th>
                 <?php endif; ?>
+
             <?php endforeach; ?>
         </tr>
         </thead>
@@ -15,6 +19,9 @@
         <?php foreach($this->records as $records): ?>
             <tr class="odd gradeX<?php if (isset($records['style'])): if ($records['style']=='hidden'): ?> info<?php endif; endif; ?>">
                 <?php foreach($records as $key => $record): ?>
+
+                    <?php if (empty($record)) break; /* no empty elements... */ ?>
+
                     <?php if (is_array($record)): ?>
                         <?php if ($record['type']=='updateButton'): ?>
                             <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
@@ -63,7 +70,7 @@
                             </td>
                         <?php elseif($record['type']=='tableButton'): ?>
                             <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
-                                <a href="<?php echo $record['href'] ?>" class="btn btn-lg" title="<?php echo $record['title'] ?>"><i class="fa fa-table"></i> </a>
+                                <a href="<?php echo $record['href'] ?>" class="btn btn-lg" title="<?php echo isset($record['title']) ? $record['title'] : null ?>"><i class="fa fa-table"></i> </a>
                             </td>
                         <?php elseif($record['type']=='attachButton'): ?>
                             <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
@@ -99,6 +106,7 @@
                             </td>
                         <?php endif; ?>
                     <?php else: ?>
+
                         <?php if (!$record instanceof \DateTime): ?>
                             <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
                                 <?php echo utf8_encode($record) ?>
@@ -108,6 +116,7 @@
                                 <?php echo $record->format('d-m-Y H:i:s') ?>
                             </td>
                         <?php endif; ?>
+
                     <?php endif; ?>
                 <?php endforeach; ?>
             </tr>
@@ -120,6 +129,7 @@
 
 /* Current language selection (from route, using params view helper) */
 $this->languageSelection = $this->params()->fromRoute('languageSelection');
+$this->modulename = $this->params()->fromRoute('modulename');
 
 if ( count($this->paginator) > 1 ):
     try {
@@ -132,6 +142,7 @@ if ( count($this->paginator) > 1 ):
                 'tablesetter'       => $this->tablesetter,
                 'lang'              => !empty($this->lang) ? $this->lang : 'it',
                 'languageSelection' => !empty($this->languageSelection) ? $this->languageSelection : 'it',
+                'modulename'        => !empty($this->modulename) ? $this->modulename : null,
             )
         );
     } catch (Exception $e) {

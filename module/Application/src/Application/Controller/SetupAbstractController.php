@@ -110,17 +110,17 @@ abstract class SetupAbstractController extends AbstractActionController
             new SezioniGetter($this->getServiceLocator()->get('doctrine.entitymanager.orm_default')))
         );
         $helper->setupSezioniRecords(array(
-            'orderBy'               => 'sezioni.posizione ASC',
             'attivo'                => 1,
             'languageAbbreviation'  => isset($lang) ? $lang : 'it',
+            'orderBy'               => 'sezioni.posizione ASC',
         ));
-        $helper->setSezioniRecords(
-            $helper->getSezioniGetterWrapper()->formatRecordsPerColumn(
-                $helper->getSezioniGetterWrapper()->addSottoSezioni(
-                    $helper->getSezioniRecords(), array('attivo' => 1)
-                )
-            )
+
+        $sottosezioniRecords = $helper->getSezioniGetterWrapper()->addSottoSezioni(
+            $helper->getSezioniRecords(),
+            array('attivo' => 1)
         );
+
+        $helper->setSezioniRecords( $helper->getSezioniGetterWrapper()->formatRecordsPerColumn($sottosezioniRecords) );
         $helper->setupServer();
         $helper->setupFrontendTemplatePath();
         $helper->setupPhpRenderer( $this->getServiceLocator() );

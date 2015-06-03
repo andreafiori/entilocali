@@ -10,88 +10,13 @@ use ModelModule\Model\Slugifier;
 
 class ContenutiControllerHelper extends SezioniControllerHelperAbstract
 {
-    private $contenutiGetterWrapper;
-
-    private $contenutiGetterWrapperRecords;
-
-    /**
-     * @param ContenutiGetterWrapper $contenutiGetterWrapper
-     */
-    public function setContenutiGetterWrapper(ContenutiGetterWrapper $contenutiGetterWrapper)
-    {
-        $this->contenutiGetterWrapper = $contenutiGetterWrapper;
-    }
-
-    /**
-     * @return ContenutiGetterWrapper
-     */
-    public function getContenutiGetterWrapper()
-    {
-        return $this->contenutiGetterWrapper;
-    }
-
-    /**
-     * @param ContenutiGetterWrapper $contenutiGetterWrapperRecords
-     */
-    public function setContenutiGetterWrapperRecords(ContenutiGetterWrapper $contenutiGetterWrapperRecords)
-    {
-        $this->contenutiGetterWrapperRecords = $contenutiGetterWrapperRecords;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getContenutiGetterWrapperRecords()
-    {
-        return $this->contenutiGetterWrapperRecords;
-    }
-
-    /**
-     * @param array $input
-     * @throws NullException
-     */
-    public function setupContenutiGetterWrapperRecords($input = array())
-    {
-        $this->assertContenutiGetterWrapper();
-
-        $this->contenutiGetterWrapperRecords = $this->recoverWrapperRecords(
-            $this->getContenutiGetterWrapper(),
-            $input
-        );
-    }
-
-    /**
-     * @param array $input
-     * @param int $page
-     * @throws NullException
-     */
-    public function setupContenutiGetterWrapperRecordsPaginator($input = array(), $page)
-    {
-        $this->assertContenutiGetterWrapper();
-
-        $this->contenutiGetterWrapperRecords = $this->recoverWrapperRecordsPaginator(
-            $this->getContenutiGetterWrapper(),
-            $input,
-            $page
-        );
-    }
-
-    /**
-     * @throws NullException
-     */
-    private function assertContenutiGetterWrapper()
-    {
-        if (!$this->getContenutiGetterWrapper()) {
-            throw new NullException("ContenutiGetterWrapper is not set");
-        }
-    }
-
     /**
      * @param InputFilterAwareInterface $inputFilter
+     * @param string $moduleName
      * @return int
      * @throws NullException
      */
-    public function insert(InputFilterAwareInterface $inputFilter)
+    public function insert(InputFilterAwareInterface $inputFilter, $moduleName = 'contenuti')
     {
         $this->assertConnection();
         $this->assertLoggedUser();
@@ -148,5 +73,10 @@ class ContenutiControllerHelper extends SezioniControllerHelperAbstract
             $arrayUpdate,
             array('id' => $inputFilter->id)
         );
+    }
+
+    public function updateTabella()
+    {
+
     }
 }

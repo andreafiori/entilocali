@@ -22,6 +22,7 @@ return array(
             'Admin\Controller\Contenuti\ContenutiOperations'                    => 'Admin\Controller\Contenuti\ContenutiOperationsController',
             'Admin\Controller\Contenuti\ContenutiInsert'                        => 'Admin\Controller\Contenuti\ContenutiInsertController',
             'Admin\Controller\Contenuti\ContenutiUpdate'                        => 'Admin\Controller\Contenuti\ContenutiUpdateController',
+            'Admin\Controller\Contenuti\ContenutiTabellaForm'                   => 'Admin\Controller\Contenuti\ContenutiTabellaFormController',
 
             /* Albo Pretorio */
             'Admin\Controller\AlboPretorio\AlboPretorioSummary'                 => 'Admin\Controller\AlboPretorio\AlboPretorioSummaryController',
@@ -44,8 +45,6 @@ return array(
             'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniUpdate'     => 'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniUpdateController', // to create
 
             /* Amministrazione trasparente */
-            'Admin\Controller\AmministrazioneTrasparente\AmministrazioneTrasparenteForm'    => 'Admin\Controller\AmministrazioneTrasparente\AmministrazioneTrasparenteFormController',
-            'Admin\Controller\AmministrazioneTrasparente\AmministrazioneTrasparenteSummary' => 'Admin\Controller\AmministrazioneTrasparente\AmministrazioneTrasparenteSummaryController',
 
             /* Atti concessione */
             'Admin\Controller\AttiConcessione\AttiConcessioneForm'              => 'Admin\Controller\AttiConcessione\AttiConcessioneFormController',
@@ -82,6 +81,9 @@ return array(
             /* Photo */
             'Admin\Controller\Photo\PhotoForm'                        => 'Admin\Controller\Photo\PhotoFormController',
             'Admin\Controller\Photo\PhotoSummary'                     => 'Admin\Controller\Photo\PhotoSummaryController',
+            'Admin\Controller\Photo\PhotoInsert'                      => 'Admin\Controller\Photo\PhotoInsertController',
+            'Admin\Controller\Photo\PhotoUpdate'                      => 'Admin\Controller\Photo\PhotoUpdateController',
+            'Admin\Controller\Photo\PhotoDelete'                      => 'Admin\Controller\Photo\PhotoDeleteController',
 
             /* Sezioni */
             'Admin\Controller\Sezioni\SezioniForm'                    => 'Admin\Controller\Sezioni\SezioniFormController',
@@ -331,12 +333,13 @@ return array(
                     'contenuti-summary' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => 'contenuti/summary/lang/:languageSelection[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'route' => 'common/module/:modulename/summary/lang/:languageSelection[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
                             'constraints' => array(
                                 'order_by'          => '[a-zA-Z0-9_-]*',
                                 'order'             => '[a-zA-Z0-9_-]*',
                                 'page'              => '[0-9]+',
                                 'languageSelection' => '[a-z]{2}',
+                                'modulename'        => '(contenuti|amministrazione-trasparente)',
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Contenuti\ContenutiSummary',
@@ -347,9 +350,9 @@ return array(
                     'contenuti-form' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route' => 'contenuti/form/lang/:languageSelection[/][:id[/]][previouspage/:previouspage[/]]',
+                            'route' => 'common/module/:modulename/form/lang/:languageSelection[/][:id[/]][previouspage/:previouspage[/]]',
                             'constraints' => array(
-                                'module'                => '[a-zA-Z0-9_-]*',
+                                'modulename'            => '(contenuti|amministrazione-trasparente)',
                                 'id'                    => '[0-9]+',
                                 'languageSelection'     => '[a-z]{2}',
                                 'previouspage'          => '[0-9]+',
@@ -363,9 +366,10 @@ return array(
                     'contenuti-insert' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route' => 'contenuti/formdata/lang/:languageSelection/insert[/]',
+                            'route' => 'amministrazione-trasparente/form/tabella/lang/:languageSelection/article/:id[/]',
                             'constraints' => array(
-                                'languageSelection' => '[a-z]{2}',
+                                'languageSelection'     => '[a-z]{2}',
+                                'id'                    => '[0-9]+',
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Contenuti\ContenutiInsert',
@@ -379,6 +383,21 @@ return array(
                             'route' => 'contenuti/formdata/lang/:languageSelection/update/',
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Contenuti\ContenutiUpdate',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'amministrazione-trasparente-tabella' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'common/amministrazione-trasparente/tabella/form/lang/:languageSelection/:id[/][previouspage/:previouspage[/]]',
+                            'constraints' => array(
+                                'id'                => '[0-9]+',
+                                'languageSelection' => '[a-z]{2}',
+                                'modulename'        => '(contenuti|amministrazione-trasparente)',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Contenuti\ContenutiTabellaForm',
                                 'action'     => 'index',
                             ),
                         ),
@@ -498,35 +517,6 @@ return array(
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Sezioni\SezioniOperations',
-                            ),
-                        ),
-                    ),
-                    'amministrazione-trasparente-summary' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route' => 'amministrazione-trasparente/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
-                            'constraints' => array(
-                                'order_by'  => '[a-zA-Z0-9_-]*',
-                                'order'     => '[a-zA-Z0-9_-]*',
-                                'page'      => '[0-9]+',
-                            ),
-                            'defaults' => array(
-                                'controller' => 'Admin\Controller\AmministrazioneTrasparente\AmministrazioneTrasparenteSummary',
-                                'action'     => 'index',
-                            ),
-                        ),
-                    ),
-                    'amministrazione-trasparente-form' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'       => 'amministrazione-trasparente/form[/][:id[/]]',
-                            'constraints' => array(
-                                'module' => '[a-zA-Z0-9_-]*',
-                                'id'     => '[0-9]+',
-                            ),
-                            'defaults' => array(
-                                'controller' => 'Admin\Controller\AmministrazioneTrasparente\AmministrazioneTrasparenteForm',
-                                'action'     => 'index',
                             ),
                         ),
                     ),
@@ -963,7 +953,7 @@ return array(
                     'blogs-summary' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'       => 'blogs/lang/:languageSelection/summary[/][:categoryId[/]][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'route' => 'blogs/summary/lang/:languageSelection[/][:categoryId[/]][page/:page[/]][/order_by/:order_by][/:order[/]]',
                             'constraints' => array(
                                 'languageSelection' => '[a-z]{2}',
                                 'categoryId'        => '[0-9]+',
@@ -991,9 +981,8 @@ return array(
                             ),
                         ),
                     ),
-
                     'photo-summary' => array(
-                        'type'    => 'Segment',
+                        'type' => 'Segment',
                         'options' => array(
                             'route'       => 'photo/lang/:languageSelection/summary[/][:categoryId[/]][page/:page[/]][/order_by/:order_by][/:order[/]]',
                             'constraints' => array(
@@ -1348,10 +1337,9 @@ return array(
             'admin/contenuti-operations/delete'             => __DIR__ . '/../view/admin/empty.phtml',
             'admin/contenuti-operations/changesummarylang'  => __DIR__ . '/../view/admin/empty.phtml',
             'admin/contenuti-operations/summarysearch'      => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/contenuti-tabella-form/index'            => __DIR__ . '/../view/admin/empty.phtml',
 
             /* Amministrazione trasparente */
-            'admin/amministrazione-trasparente-summary/index' => __DIR__ . '/../view/admin/empty.phtml',
-            'admin/amministrazione-trasparente-form/index'    => __DIR__ . '/../view/admin/empty.phtml',
 
             /* Albo pretorio */
             'admin/albo-pretorio-summary/index'             => __DIR__ . '/../view/admin/empty.phtml',

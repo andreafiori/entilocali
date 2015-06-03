@@ -2,7 +2,6 @@
 
 namespace ModelModule\Model;
 
-use ModelModule\Model\OperationsModelAbstract;
 use ModelModule\Model\Sezioni\SezioniGetterWrapper;
 use ModelModule\Service\AppServiceLoader;
 use Zend\Session\Container;
@@ -58,7 +57,7 @@ class SetupAbstractControllerHelper extends OperationsModelAbstract
     }
 
     /**
-     * @return \Admin\Service\AppServiceLoader
+     * @return \ModelModule\Service\AppServiceLoader
      */
     public function getAppServiceLoader()
     {

@@ -59,4 +59,8 @@ return array(
     'Seleziona categoria' => 'Select category',
     'Categoria' => 'Category',
     'Seleziona' => 'Select',
+
+    /* Blogs*/
+    'Nessun post presente' => 'No blog posts',
+    'Nessun post trovato in archivio per la categoria selezionata' => 'No posts for the current category',
 );

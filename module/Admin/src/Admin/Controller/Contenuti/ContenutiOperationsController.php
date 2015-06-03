@@ -9,22 +9,6 @@ use Zend\Session\Container as SessionContainer;
 class ContenutiOperationsController extends SetupAbstractController
 {
     /**
-     * TODO: delete from contenuti, delete attachments (if...): attachments, options, relation, file from AWS...
-     */
-    public function deleteAction()
-    {
-        $mainLayout = $this->initializeAdminArea();
-
-        $id = $this->params()->fromPost('id');
-
-        $operationModel = new ContenutiOperationsModel();
-
-        if (empty($id)) {
-            return $this->redirect()->toRoute('admin', array('lang'=>'it'));
-        }
-    }
-
-    /**
      * Switch language on summary
      *
      * @return \Zend\Http\Response
@@ -36,6 +20,7 @@ class ContenutiOperationsController extends SetupAbstractController
                 'lang'              => $this->params()->fromRoute('lang'),
                 'languageSelection' => $this->params()->fromPost('lingua'),
                 'page'              => $this->params()->fromRoute('page'),
+                'modulename'        => 'contenuti',
             ));
         }
 
@@ -64,5 +49,21 @@ class ContenutiOperationsController extends SetupAbstractController
         }
 
         return $this->redirect()->toRoute('main');
+    }
+
+    /**
+     * TODO: delete from contenuti, delete attachments (if...): attachments, options, relation, file from AWS...
+     */
+    public function deleteAction()
+    {
+        $mainLayout = $this->initializeAdminArea();
+
+        $id = $this->params()->fromPost('id');
+
+        $operationModel = new ContenutiOperationsModel();
+
+        if (empty($id)) {
+            return $this->redirect()->toRoute('admin', array('lang'=>'it'));
+        }
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace ApplicationTest\Model\Contenuti;
+namespace ModelModuleTest\Model\Contenuti;
 
 use ModelModule\Model\Contenuti\ContenutiHomePageBuilder;
 use ModelModuleTest\TestSuite;

@@ -6,12 +6,11 @@ use ModelModuleTest\TestSuite;
 use ModelModule\Model\Posts\PostsGetter;
 use ModelModule\Model\Posts\PostsGetterWrapper;
 
-/**
- * @author Andrea Fiori
- * @since  15 April 2014
- */
 class PostsGetterWrapperTest extends TestSuite
 {
+    /**
+     * @var PostsGetterWrapper
+     */
     private $objectWrapper;
     
     protected function setUp()

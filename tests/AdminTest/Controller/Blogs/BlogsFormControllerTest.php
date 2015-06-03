@@ -24,6 +24,7 @@ class BlogsFormControllerTest extends TestSuite
     public function testIndexAction()
     {
         $this->routeMatch->setParam('action', 'index');
+        $this->routeMatch->setParam('languageSelection', 'it');
 
         $this->controller->dispatch($this->request);
 

@@ -2,6 +2,7 @@
 $acl = $this->userDetails->acl;
 $lang = $this->params()->fromRoute('lang');
 $languageSelectionFromRoute = $this->params()->fromRoute('languageSelection');
+$modulename = $this->params()->fromRoute('modulename');
 $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionFromRoute : $lang;
 ?>
 <!DOCTYPE html>
@@ -194,15 +195,12 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                         <a href="#" class="dropdown-collapse" title=""><i class="fa fa-newspaper-o fa-fw"></i> <span class="side-menu-title">Contenuti</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="<?php echo $this->url('admin/contenuti-form', array('lang' => $lang, 'languageSelection' => $languageSelection)); ?>" title="Nuovo contenuto">
+                                <a href="<?php echo $this->url('admin/contenuti-form', array('lang' => $lang, 'languageSelection' => $languageSelection, 'modulename' => 'contenuti')); ?>" title="Nuovo contenuto">
                                     Nuovo
                                 </a>
                             </li>
                             <li>
-                                <a href="<?php echo $this->url('admin/contenuti-summary', array(
-                                    'lang' => $lang,
-                                    'languageSelection' => $languageSelection
-                                    )); ?>" title="Gestione contenuti">
+                                <a href="<?php echo $this->url('admin/contenuti-summary', array('lang' => $lang, 'languageSelection' => $languageSelection, 'modulename' => 'contenuti')); ?>" title="Gestione contenuti">
                                     Modifica \ Elimina
                                 </a>
                             </li>
@@ -259,7 +257,7 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                     <!-- Albo pretorio -->
                     <?php if ($acl->hasResource('albo_pretorio_add') or $acl->hasResource('albo_pretorio_supdate')): ?>
                     <li>
-                        <a href="#" class="dropdown-collapse"><i class="fa fa-table fa-fw"></i> <span class="side-menu-title">Albo pretorio</span><span class="fa arrow"></span></a>
+                        <a href="#" class="dropdown-collapse" title="Menu albo pretorio"><i class="fa fa-table fa-fw"></i> <span class="side-menu-title">Albo pretorio</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="<?php echo $this->url('admin/albo-pretorio-form', array('lang' => $lang) ); ?>" title="Nuovo atto">Nuovo atto</a></li>
                             <li><a href="<?php echo $this->url('admin/albo-pretorio-summary', array('lang' => $lang)); ?>" title="Gestione">Gestione</a></li>
@@ -327,12 +325,20 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                         <a href="#" class="dropdown-collapse"><i class="fa fa-laptop fa-fw"></i> <span class="side-menu-title">Amm. trasparente</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <?php if ($acl->hasResource('amministrazione_trsparente_add')): ?>
-                            <li><a href="<?php echo $this->url('admin/amministrazione-trasparente-form', array('lang' => $lang)); ?>" title="Nuovo articolo">Nuovo articolo</a></li>
+                            <li><a href="<?php echo $this->url('admin/contenuti-form', array('lang' => $lang, 'languageSelection' => $languageSelection, 'modulename' => 'amministrazione-trasparente')); ?>" title="Nuovo articolo">Nuovo articolo</a></li>
                             <?php endif; ?>
                             <?php if ($acl->hasResource('amministrazione_trsparente_update')): ?>
-                            <li><a href="<?php echo $this->url('admin/amministrazione-trasparente-summary', array('lang' => $lang)); ?>" title="Gestione">Gestione</a></li>
+                            <li><a href="<?php echo $this->url('admin/contenuti-summary', array('lang' => $lang, 'languageSelection' => $languageSelection, 'modulename' => 'amministrazione-trasparente')); ?>" title="Gestione">Gestione</a></li>
                             <?php endif; ?>
                             <!-- Sezioni -->
+                            <li>
+                                <a href="#" class="dropdown-collapse" title="Gestione sezioni amministrazione trasparente">Sezioni <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li><a href="#" title="Inserisci nuova sezione">Nuova</a></li>
+                                    <li><a href="#" title="Gestione">Gestione</a></li>
+                                </ul>
+                            </li>
+
                             <!-- Sottosezioni -->
                             <li>
                                 <a href="#" class="dropdown-collapse" title="Gestione sottosezioni amministrazione trasparente">Sottosezioni <span class="fa arrow"></span></a>
@@ -341,6 +347,7 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                                     <li><a href="#" title="Gestione">Gestione</a></li>
                                 </ul>
                             </li>
+
                         </ul>
                     </li>
                     <?php endif; ?>
@@ -440,25 +447,23 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                     </li>
                     <?php endif; ?>
 
-                    <!-- Foto -->
+                    <!-- Photo -->
                     <?php if ($acl->hasResource('photo_add') or $acl->hasResource('photo_update')): ?>
                     <li>
                         <a href="#" class="dropdown-collapse"><i class="fa fa-camera fa-fw"></i> <span class="side-menu-title">Foto</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li><a href="#" title="Aggiungi nuova foto">Nuova</a></li>
-                            <li><a href="#" title="Gestione gallerie fotografice">Gestione</a></li>
+                            <li><a href="<?php echo $this->url('admin/photo-form', array('lang' => $lang, 'languageSelection' => $languageSelection)) ?>" title="Aggiungi nuova foto">Nuova</a></li>
+                            <li><a href="<?php echo $this->url('admin/photo-summary', array('lang' => $lang, 'languageSelection' => $languageSelection)) ?>" title="Gestione gallerie fotografice">Gestione</a></li>
                             <!-- Categories -->
                             <li>
                                 <a href="#" class="dropdown-collapse" title="">Categorie <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li><a href="#" title="Nuova categoria foto">Nuova</a></li>
-                                    <li><a href="<?php echo $this->url('admin/blogs-categories-summary', array(
-                                                'lang'              => $lang,
-                                                'languageSelection' => $languageSelection,
-                                                'moduleCode'        => 'photo',
-                                            )
-                                        );
-                                        ?>" title="Gestione foto">Modifica \ Elimina</a></li>
+                                    <li>
+                                        <a href="<?php echo $this->url('admin/blogs-categories-summary', array('lang' => $lang, 'moduleCode' => 'photo', 'languageSelection' => $languageSelection)) ?>" title="Gestione foto">
+                                            Modifica \ Elimina
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
@@ -485,19 +490,19 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                             </li>
 
                             <!-- Newsletter templates -->
-                            <?php //if ($acl->hasResource('newsletter_templates_add') or $acl->hasResource('newsletter_templates_update')): ?>
+                            <?php if ($acl->hasResource('newsletter_templates_add') or $acl->hasResource('newsletter_templates_update')): ?>
                                 <li>
                                     <a href="#" class="dropdown-collapse" title="">Templates <span class="fa arrow"></span></a>
                                     <ul class="nav nav-third-level">
-                                        <?php //if ($acl->hasResource('newsletter_templates_add')): ?>
+                                        <?php if ($acl->hasResource('newsletter_templates_add')): ?>
                                             <li><a href="#" title="Nuovo">Nuovo</a></li>
-                                        <?php //endif; ?>
-                                        <?php //if ($acl->hasResource('newsletter_templates_update')): ?>
+                                        <?php endif; ?>
+                                        <?php if ($acl->hasResource('newsletter_templates_update')): ?>
                                             <li><a href="#" title="Gestione newsletter templates">Modifica \ Elimina</a></li>
-                                        <?php //endif; ?>
+                                        <?php endif; ?>
                                     </ul>
                                 </li>
-                            <?php //endif; ?>
+                            <?php endif; ?>
 
                         </ul>
                     </li>

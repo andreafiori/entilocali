@@ -212,8 +212,9 @@ class SottoSezioniGetter extends QueryBuilderHelperAbstract
      */
     public function setIsAmmTrasparente($isAmmTrasparente)
     {
-        if ( !empty($isAmmTrasparente) ) {
-            $this->getQueryBuilder()->andWhere('sezioni.isAmmTrasparente = 1 ');
+        if ( is_numeric($isAmmTrasparente) ) {
+            $this->getQueryBuilder()->andWhere('sottosezioni.isAmmTrasparente = :isammtrasp AND sezioni.isAmmTrasparente = :isammtrasp ');
+            $this->getQueryBuilder()->setParameter('isammtrasp', $isAmmTrasparente);
         }
 
         return $this->getQueryBuilder();

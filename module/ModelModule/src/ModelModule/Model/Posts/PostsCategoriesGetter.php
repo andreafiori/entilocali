@@ -4,11 +4,7 @@ namespace ModelModule\Model\Posts;
 
 use ModelModule\Model\QueryBuilderHelperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  15 April 2014
- */
-class CategoriesGetter extends QueryBuilderHelperAbstract
+class PostsCategoriesGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
@@ -22,6 +18,7 @@ class CategoriesGetter extends QueryBuilderHelperAbstract
         $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
                                 ->from('Application\Entity\ZfcmsPostsCategories', 'category')
                                 ->join('category.module', 'module')
+                                ->join('category.language', 'language')
                                 ->where('category.module = module.id ');
 
         return $this->getQueryBuilder();
@@ -113,6 +110,20 @@ class CategoriesGetter extends QueryBuilderHelperAbstract
         if ( !empty($slug) ) {
             $this->getQueryBuilder()->andWhere('category.slug = :slug ');
             $this->getQueryBuilder()->setParameter('slug', $slug);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param string $langAbbr
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setLanguageAbbreviation($langAbbr)
+    {
+        if (!empty($langAbbr)) {
+            $this->getQueryBuilder()->andWhere('language.abbreviation1 = :languageAbbr ');
+            $this->getQueryBuilder()->setParameter('languageAbbr', $langAbbr);
         }
 
         return $this->getQueryBuilder();

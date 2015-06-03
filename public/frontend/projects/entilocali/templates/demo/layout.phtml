@@ -21,7 +21,7 @@ echo $this->partial($this->templateDir.'_navigation');
                             ));
                         else:
                             ?>
-                            <h1>Nessuna sezione</h1>
+                            <h1><?php echo $this->translate('Nessuna sezione') ?></h1>
                             <?php
                         endif;
                         ?>
@@ -49,7 +49,7 @@ echo $this->partial($this->templateDir.'_navigation');
                             ));
                         else:
                             ?>
-                            <h1>Nessuna sezione</h1>
+                            <h1><?php echo $this->translate('Nessuna sezione') ?></h1>
                             <?php
                         endif;
                         ?>

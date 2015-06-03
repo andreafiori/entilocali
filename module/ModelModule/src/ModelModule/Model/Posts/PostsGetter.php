@@ -71,7 +71,7 @@ class PostsGetter extends QueryBuilderHelperAbstract
      * @param string $langAbbr
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function setLanguageAbbreviation($langAbbr = null)
+    public function setLanguageAbbreviation($langAbbr)
     {
         if (!empty($langAbbr)) {
             $this->getQueryBuilder()->andWhere('language.abbreviation1 = :languageAbbr ');

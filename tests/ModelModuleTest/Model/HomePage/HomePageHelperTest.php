@@ -1,6 +1,6 @@
 <?php
 
-namespace ApplicationTest\Model\HomePage;
+namespace ModelModuleTest\Model\HomePage;
 
 use ModelModule\Model\HomePage\HomePageHelper;
 use ModelModule\Model\HomePage\HomePageGetter;

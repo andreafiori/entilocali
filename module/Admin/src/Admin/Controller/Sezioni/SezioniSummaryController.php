@@ -57,10 +57,10 @@ class SezioniSummaryController extends SetupAbstractController
             'columns'           => $columns,
             'paginator'         => $paginator,
             'records'           => $this->formatRecordsToShowOnTable( $wrapper->setupRecords() ),
-            'templatePartial'   => 'datatable/datatable_sezioni.phtml',
             'formLanguage'      => !empty($formLanguage) ? $formLanguage : null,
             'hidebreadcrumb'    => 1,
             'modulename'        => str_replace('-', ' ', $modulename),
+            'templatePartial'   => 'datatable/datatable_sezioni.phtml',
         ));
 
         $this->layout()->setTemplate($mainLayout);
@@ -90,7 +90,7 @@ class SezioniSummaryController extends SetupAbstractController
                     $row['nome'],
                     $row['colonna'],
 
-                    (!empty($row['url'])) ? '<a href="'.$row['url'].'" target="_blank" title="'.$row['url'].' [apre in un\'altra pagina]">Vai al link</a>' : null,
+                    (!empty($row['url'])) ? '<a href="'.$row['url'].'" target="_blank" title="'.$row['url'].' [apre in un\'altra pagina]">Vai al link</a>' : '&nbsp;',
 
                     !empty($row['image']) ?
                         '<img src="'.$publicDirRelativePath.'/common/icons/'.$row['image'].'" alt="'.$row['image'].'">'
@@ -106,8 +106,8 @@ class SezioniSummaryController extends SetupAbstractController
                         'type' => 'updateButton',
                         'href' => $this->url()->fromRoute('admin/sezioni-form', array(
                             'lang'              => $this->params()->fromRoute('lang'),
-                            'id'                => $row['id'],
                             'languageSelection' => $this->params()->fromRoute('languageSelection'),
+                            'id'                => $row['id'],
                             'previouspage'      => $this->params()->fromRoute('page'),
                             'modulename'        => $modulename,
                         )),

@@ -2,6 +2,7 @@
 
 namespace Admin\Controller\AlboPretorio;
 
+use ModelModule\Model\AlboPretorio\AlboPretorioControllerHelper;
 use ModelModule\Model\AlboPretorio\AlboPretorioSezioniGetter;
 use ModelModule\Model\AlboPretorio\AlboPretorioSezioniGetterWrapper;
 use Application\Controller\SetupAbstractController;
@@ -11,14 +12,20 @@ class AlboPretorioSezioniSummaryController extends SetupAbstractController
     public function indexAction()
     {
         $mainLayout = $this->initializeAdminArea();
-        $page = $this->params()->fromRoute('page');
+
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-        $wrapper = new AlboPretorioSezioniGetterWrapper( new AlboPretorioSezioniGetter($em) );
-        $wrapper->setInput( array('orderBy' => '') );
-        $wrapper->setupQueryBuilder();
-        $wrapper->setupPaginator( $wrapper->setupQuery($em) );
-        $wrapper->setupPaginatorCurrentPage( isset($page) ? $page : null );
+        $page = $this->params()->fromRoute('page');
+        $perPage = $this->params()->fromRoute('perpage');
+        $lang = $this->params()->fromRoute('lang');
+
+        $helper = new AlboPretorioControllerHelper();
+        $wrapper = $helper->recoverWrapperRecordsPaginator(
+            new AlboPretorioSezioniGetterWrapper(new AlboPretorioSezioniGetter($em)),
+            array('orderBy' => ''),
+            $page,
+            $perPage
+        );
 
         $paginator = $wrapper->getPaginator();
 
@@ -34,6 +41,16 @@ class AlboPretorioSezioniSummaryController extends SetupAbstractController
                     "Stato",
                     "&nbsp;",
                     "&nbsp;",
+                ),
+                'dataTableActiveTitle' => 'Sezioni',
+                'formBreadCrumbCategory' => array(
+                    array(
+                      'label' => 'Albo pretorio',
+                      'href'  =>  $this->url()->fromRoute('admin/albo-pretorio-sezioni-summary',
+                          array('lang' => $lang)
+                      ),
+                      'title' => 'Albo pretorio',
+                    ),
                 ),
                 'paginator'         => $paginator,
                 'records'           => $paginatorRecords,

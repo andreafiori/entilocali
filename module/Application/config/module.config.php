@@ -286,7 +286,7 @@ return array(
                                     'amministrazione-trasparente' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
-                                                        'route'    => '/amministrazione-trasparente/articoli/elenco/[:profondita[/]]',
+                                                        'route'    => '/amministrazione-trasparente/articoli/elenco/:profondita[/]',
                                                         'constraints' => array(
                                                             'profondita'  => '[0-9]+',
                                                         ),

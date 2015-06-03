@@ -12,7 +12,9 @@ class AlboPretorioSezioniFormController extends SetupAbstractController
     public function indexAction()
     {
         $mainLayout = $this->initializeAdminArea();
+
         $id = $this->params()->fromRoute('id');
+        $lang = $this->params()->fromRoute('lang');
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
         if (is_numeric($id)) {
@@ -29,11 +31,9 @@ class AlboPretorioSezioniFormController extends SetupAbstractController
             $form->setData($sezioneRecord[0]);
 
             $formTitle = $sezioneRecord[0]['nome'];
-
             $formAction = 'albo-pretorio-sezioni/update/'.$sezioneRecord[0]['id'];
         } else {
-            $formTitle = 'Nuova sezione albo pretorio';
-
+            $formTitle = 'Nuova sezione';
             $formAction = 'albo-pretorio-sezioni/insert/';
         }
 
@@ -42,10 +42,23 @@ class AlboPretorioSezioniFormController extends SetupAbstractController
             'formDescription'               => 'Inserisci dati nuova sezione albo pretorio',
             'form'                          => $form,
             'formAction'                    => $formAction,
-            'formBreadCrumbCategory'        => 'Sezioni albo pretorio',
-            'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/albo-pretorio-sezioni-summary', array(
-                'lang' => 'it',
-            )),
+            'formBreadCrumbTitle'           => 'Modifica',
+            'formBreadCrumbCategory' => array(
+                array(
+                    'label' => 'Albo pretorio',
+                    'href'  =>  $this->url()->fromRoute('admin/albo-pretorio-summary',
+                        array('lang' => $lang)
+                    ),
+                    'title' => 'Albo pretorio',
+                ),
+                array(
+                    'label' => 'Sezioni',
+                    'href'  =>  $this->url()->fromRoute('admin/albo-pretorio-sezioni-summary', array(
+                        'lang' => $lang,
+                    )),
+                    'title' => 'Elenco sezioni albo pretorio',
+                ),
+            ),
             'templatePartial'               => self::formTemplate,
         ));
 

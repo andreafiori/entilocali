@@ -2,10 +2,10 @@
 
 namespace ModelModule\Model\HomePage;
 
+use ModelModule\Model\ControllerHelperAbstract;
 use ModelModule\Model\NullException;
-use ModelModule\Model\HomePage\HomePageGetterWrapper;
 
-class HomePageHelper
+class HomePageHelper extends ControllerHelperAbstract
 {
     /**
      * @var $homePageGetterWrapper
@@ -17,16 +17,16 @@ class HomePageHelper
     private $issetReferenceIds;
 
     private $classMap = array(
-        'contenuti'                     => '\Application\Model\Contenuti\ContenutiHomePageBuilder',
-        'albo-pretorio'                 => '\Application\Model\AlboPretorio\AlboPretorioHomePageBuilder',
-        'stato-civile'                  => '\Application\Model\StatoCivile\StatoCivileHomePageBuilder',
+        'contenuti'                     => '\ModelModule\Model\Contenuti\ContenutiHomePageBuilder',
+        'albo-pretorio'                 => '\ModelModule\Model\AlboPretorio\AlboPretorioHomePageBuilder',
+        'stato-civile'                  => '\ModelModule\Model\StatoCivile\StatoCivileHomePageBuilder',
         'amministrazione-trasparente'   => '',
-        'atti-concessione'              => '\Application\Model\AttiConcessione\AttiConcessioneHomePageBuilder',
-        'contratti-pubblici'            => '\Application\Model\ContrattiPubblici\ContrattiPubbliciHomePageBuilder',
-        'blogs'                         => '',
+        'atti-concessione'              => '\ModelModule\Model\AttiConcessione\AttiConcessioneHomePageBuilder',
+        'contratti-pubblici'            => '\ModelModule\Model\ContrattiPubblici\ContrattiPubbliciHomePageBuilder',
+        'blogs'                         => '\ModelModule\Model\Blogs\BlogsHomePageBuilder',
         'contents'                      => '',
-        'photo'                         => '',
-        'freeText'                      => '\Application\Model\HomePage\FreeTextHomePageBuilder'
+        'photo'                         => '\ModelModule\Model\Photo\PhotoHomePageBuilder',
+        'freeText'                      => '\ModelModule\Model\HomePage\FreeTextHomePageBuilder'
     );
 
     /**
@@ -67,7 +67,7 @@ class HomePageHelper
     }
 
     /**
-     * @return \Admin\Model\HomePage\HomePageGetterWrapper $homePageGetterWrapper
+     * @return \ModelModule\Model\HomePage\HomePageGetterWrapper $homePageGetterWrapper
      */
     public function getHomePageGetterWrapper()
     {
@@ -95,9 +95,12 @@ class HomePageHelper
         $wrapper->setInput($input);
         $wrapper->setupQueryBuilder();
 
-        $this->setHomePageRecords(
-            $wrapper->formatPerModuleCode($wrapper->getRecords())
-        );
+        $homePageRecords = $wrapper->getRecords();
+        if (!empty($homePageRecords)) {
+            $this->setHomePageRecords(
+                $wrapper->formatPerModuleCode($homePageRecords)
+            );
+        }
     }
 
     /**

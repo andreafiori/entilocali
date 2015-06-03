@@ -38,7 +38,7 @@ class ZfcmsComuniContenuti
     /**
      * @var string
      *
-     * @ORM\Column(name="titolo", type="text", length=16777215, nullable=false)
+     * @ORM\Column(name="titolo", type="text", length=16777215, nullable=true)
      */
     private $titolo;
 
@@ -181,6 +181,13 @@ class ZfcmsComuniContenuti
      * @ORM\Column(name="is_amm_trasparente", type="integer", nullable=false)
      */
     private $isAmmTrasparente;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="posizione", type="integer", nullable=false)
+     */
+    private $posizione;
 
     /**
      * @var \Application\Entity\ZfcmsComuniSottosezioni
@@ -741,6 +748,29 @@ class ZfcmsComuniContenuti
     public function getIsAmmTrasparente()
     {
         return $this->isAmmTrasparente;
+    }
+
+    /**
+     * Set posizione
+     *
+     * @param integer $posizione
+     * @return ZfcmsComuniContenuti
+     */
+    public function setPosizione($posizione)
+    {
+        $this->posizione = $posizione;
+    
+        return $this;
+    }
+
+    /**
+     * Get posizione
+     *
+     * @return integer 
+     */
+    public function getPosizione()
+    {
+        return $this->posizione;
     }
 
     /**

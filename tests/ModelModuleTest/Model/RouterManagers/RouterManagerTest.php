@@ -1,6 +1,6 @@
 <?php
 
-namespace ApplicationTest\Model\RouterManagers;
+namespace ModelModuleTest\Model\RouterManagers;
 
 use ModelModuleTest\TestSuite;
 use ModelModule\Model\RouterManagers\RouterManager;

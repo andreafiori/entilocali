@@ -31,8 +31,10 @@ echo $this->form()->openTag($form);
 
 foreach ($this->form as $element):
     $attributes = $element->getAttributes();
+
     echo $this->formElementErrors($element);
-    if (isset($attributes['class']) and $attributes['class'] == 'wysiwyg'):
+
+    if (isset($attributes['class']) and $attributes['class'] == 'wysiwyg' and !$this->noCKEditor):
     ?>
     <div class="form-group">
         <div class="col-sm-12">

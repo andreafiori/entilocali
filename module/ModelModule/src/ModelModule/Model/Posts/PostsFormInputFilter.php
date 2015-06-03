@@ -7,10 +7,6 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
-/**
- * @author Andrea Fiori
- * @since  08 February 2014
- */
 class PostsFormInputFilter implements InputFilterAwareInterface
 {
     public $postid;

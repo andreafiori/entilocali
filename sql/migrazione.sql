@@ -1,19 +1,18 @@
 -- Disable foreign checks
 SET foreign_key_checks = 0;
 
-
 -- Sezioni
 TRUNCATE table zfcms_comuni_sezioni;
 INSERT INTO zfcms_comuni_sezioni (id, nome, colonna, posizione, link_macro, lingua, blocco, modulo_id
 , attivo, url, css_id
 -- , image, slug, title, utente_id, seo_title, seo_description, seo_keywords
-)
-  (SELECT * FROM sezioni);
-/*
+) (SELECT * FROM sezioni);
+
+UPDATE zfcms_comuni_sezioni SET utente_id = 1; /* Assign a user id */
+UPDATE zfcms_comuni_sezioni SET lingua = 1; /* Set first language ID */
 UPDATE zfcms_comuni_sezioni SET nome = REPLACE(nome, 'à', '&agrave;') WHERE nome LIKE '%à%';
 UPDATE zfcms_comuni_sezioni SET nome = REPLACE(nome, 'ò', '&ograve;') WHERE nome LIKE '%ò%';
 UPDATE zfcms_comuni_sezioni SET nome = REPLACE(nome, 'ì', '&igrave;') WHERE nome LIKE '%ì%';
-*/
 
 
 -- Sottosezioni
@@ -21,7 +20,15 @@ TRUNCATE table zfcms_comuni_sottosezioni;
 INSERT INTO zfcms_comuni_sottosezioni 
 (id, sezione_id, nome, immagine, url, posizione, attivo, profondita_a, profondita_da, is_ss)
 (SELECT * FROM sottosezioni);
+UPDATE zfcms_comuni_sottosezioni SET utente_id = 1;
 
+-- Utenti
+TRUNCATE table zfcms_users;
+INSERT INTO zfcms_users (id, name, email, username, password, settore_id, role_id)
+(SELECT id, nome, mail, username, password, settore, livello FROM utenti);
+ -- inject a user
+INSERT INTO `zfcms_users` ( `image`, `name`, `surname`, `address`, `zip`, `city`, `province`, `birth_date`, `birth_place`, `nation`, `sex`, `job`, `email`, `phone`, `mobile`, `fax`, `website_url`, `fiscal_code`, `vat_code`, `newsletter`, `newsletter_format`, `username`, `password`, `password_last_update`, `status`, `create_date`, `last_update`, `confirm_code`, `role_id`) VALUES
+		( 'noimg.gif', 'Andrea', 'Fiori', 'via Aretina 1', '50126', 'Firenze', 87, '1982-08-10 00:00:00', 'Angera', 107, 'M', 'Web developer', 'a.fiori@cheapnet.it', '', '3295639204', '', '', '', '', '', 'html', 'a.fiori@cheapnet.it', 'c2870721a47988180f6fa53213b546b2', '2014-01-01 01:01:01', 'active', '2010-06-03 15:28:29', '2013-05-03 15:28:29', '', 1);
 
 
 -- Contenuti
@@ -31,14 +38,14 @@ INSERT INTO zfcms_comuni_contenuti
 data_inserimento, data_scadenza, data_invio_regione, attivo, home, evidenza, utente_id, 
 rss, pub_albo_comune, data_rettifica, path, tabella, check_atti, annoammtrasp) 
 (SELECT * FROM contenuti);
--- UPDATE zfcms_comuni_contenuti SET testo = REPLACE(testo, '<p> </p>', '<br>') WHERE testo LIKE '%<p> </p>%';
--- UPDATE zfcms_comuni_contenuti SET sommario = REPLACE(sommario, '<p> </p>', '<br>') WHERE sommario LIKE '%<p> </p>%';
 
+UPDATE zfcms_comuni_contenuti SET testo = REPLACE(testo, '<p> </p>', '<br>') WHERE testo LIKE '%<p> </p>%';
+UPDATE zfcms_comuni_contenuti SET sommario = REPLACE(sommario, '<p> </p>', '<br>') WHERE sommario LIKE '%<p> </p>%';
+/* Amministrazione trasparente set flag ID to 1
+UPDATE zfcms_comuni_sottosezioni SET is_amm_trasparente = 1 where sezione_id = 14;
+UPDATE zfcms_comuni_sezioni SET is_amm_trasparente = 1 where id = 14;
+*/
 
--- Utenti
-TRUNCATE table zfcms_users;
-INSERT INTO zfcms_users (id, name, email, username, password, livello)
-(SELECT id, nome, mail, username, password, settore, role_id FROM utenti);
 
 -- Albo pretorio
 

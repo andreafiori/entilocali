@@ -12,7 +12,7 @@ $shareExportIcons = $this->partial('frontend/projects/entilocali/templates/'.$th
     <ul class="breadcrumbs">
         <li><a href="<?php echo $this->basepath() ?>" title="Torna all'home page">Home</a></li>
         <li>
-            <a href="<?php echo $this->url('amministrazione-trasparente', array('profondita' => $this->amministrazione_trasparente_sottosezione_id)) ?>" title="Vai all'indice di amministrazione trasparente">
+            <a href="<?php echo $this->url('amministrazione-trasparente', array('profondita' => $this->ammTraspSottoSezioneId)) ?>" title="Vai all'indice di amministrazione trasparente">
                 Amministrazione trasparente
             </a>
         </li>
@@ -59,17 +59,16 @@ echo $this->form()->openTag($this->form);
         <div class="small-6 columns">
             <?php echo $this->formInput($name)?>
         </div>
-
     </div>
 
     <div class="row">
-        <?php $name = $form->get('subsection'); ?>
+        <?php $name = $form->get('searchSubsection'); ?>
         <?php echo $this->formElementErrors($name); ?>
         <div class="small-2 columns">
             <div class="text-right"><?php echo $this->formInput($name)?></div>
         </div>
         <div class="small-4 columns">
-            <?php echo $formLabel->openTag(array('for' => 'subsection')) . $name->getOption('label').$formLabel->closeTag(); ?>
+            <?php echo $formLabel->openTag(array('for' => 'searchSubsection')) . $name->getOption('label').$formLabel->closeTag(); ?>
         </div>
 
         <?php $name = $form->get('search'); $name->setAttribute('class','button tiny primary'); ?>
@@ -82,29 +81,22 @@ echo $this->form()->openTag($this->form);
         </div>
     </div>
 
-<?php
+<?php if (!empty($this->contenuti)): ?>
+    <?php foreach($this->contenuti as $contenuto): ?>
+        <h3><?php echo utf8_encode($contenuto['titolo']) ?> (Anno <?php echo $contenuto['annoammtrasp'] ?>)</h3>
 
-foreach($this->contenuti as $contenuto):
-    ?>
-    <h3><?php echo utf8_encode($contenuto['titolo']) ?> (Anno <?php echo $contenuto['annoammtrasp'] ?>)</h3>
+        <div><?php echo utf8_encode($contenuto['sommario']) ?></div>
 
-    <div><?php echo utf8_encode($contenuto['sommario']) ?></div>
+        <div><?php echo utf8_encode($contenuto['testo']) ?></div>
 
-    <div><?php echo utf8_encode($contenuto['testo']) ?></div>
+        <br>
+        <?php echo $shareExportIcons ?>
+    <?php endforeach; ?>
+<?php endif; ?>
 
-    <br>
-    <?php echo $shareExportIcons ?>
 
-<?php
-endforeach;
-
-?>
-
-    <!-- SottoSezioni -->
-<?php
-if ($this->sottoSezioni):
-    ?>
-    <h4>Sotto sezioni</h4>
+<?php if ($this->sottoSezioni): ?>
+    <h4>Sottosezioni</h4>
     <ul>
     <?php
     foreach($this->sottoSezioni as $sottoSezione):
@@ -124,5 +116,4 @@ if ($this->sottoSezioni):
     endforeach;
     ?>
     </ul>
-    <?php
-endif;
+<?php endif;

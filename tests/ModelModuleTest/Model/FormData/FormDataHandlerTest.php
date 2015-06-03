@@ -1,6 +1,6 @@
 <?php
 
-namespace ApplicationTest\Model\FormData;
+namespace ModelModuleTest\Model\FormData;
 
 use ModelModuleTest\TestSuite;
 use ModelModule\Model\FormData\FormDataHandler;

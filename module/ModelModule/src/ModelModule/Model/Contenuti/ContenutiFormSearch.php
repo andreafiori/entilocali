@@ -27,10 +27,38 @@ class ContenutiFormSearch extends Form
         ));
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\Hidden',
-            'name' => 'languageSelection',
+            'name' => 'csrf',
+            'type' => 'Zend\Form\Element\Csrf',
+        ));
+    }
+
+    public function addAnno()
+    {
+        $this->add(array(
+            'name' => 'anno',
+            'type' => 'Text',
+            'options' => array( 'label' => '* Anno' ),
             'attributes' => array(
-                'class'     => 'hiddenField',
+                'title'     => 'Anno di riferimento',
+                'id'        => 'anno',
+                'maxlength' => 4,
+            )
+        ));
+    }
+
+    public function addCheckExpired()
+    {
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Checkbox',
+            'name' => 'searchSubsection',
+            'options' => array(
+                'label' => 'Cerca nelle sottosezioni',
+                'use_hidden_element' => false,
+                'checked_value'      => 1,
+                'unchecked_value'    => 0
+            ),
+            'attributes' => array(
+                'id' => 'searchSubsection'
             )
         ));
     }

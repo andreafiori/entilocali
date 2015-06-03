@@ -4,10 +4,6 @@ namespace ModelModule\Model\Sezioni;
 
 use ModelModule\Model\RecordsGetterWrapperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  10 January 2015
- */
 class SezioniGetterWrapper extends RecordsGetterWrapperAbstract
 {
     /**
@@ -48,40 +44,47 @@ class SezioniGetterWrapper extends RecordsGetterWrapperAbstract
      * @param array $inputToMerge
      * @return array
      */
-    public function addSottoSezioni(array $records, $inputToMerge = array())
+    public function addSottoSezioni($records, $inputToMerge = array())
     {
-        foreach($records as &$record) {
-            $wrapper = new SottoSezioniGetterWrapper(
-                new SottoSezioniGetter($this->objectGetter->getEntityManager())
-            );
-            $wrapper->setInput( array_merge( array(
-                    'sezioneId' => isset($record['id']) ? $record['id'] : null,
-                    'orderBy'   => 'sottosezioni.posizione',
-                    'isSs'      => 0
-                ),
-                $inputToMerge
-            ));
-            $wrapper->setupQueryBuilder();
+        if (!empty($records)) {
 
-            $record['sottosezioni'] = is_array($wrapper->getRecords()) ? $wrapper->getRecords() : null;
+            foreach($records as &$record) {
+                $wrapper = new SottoSezioniGetterWrapper(
+                    new SottoSezioniGetter($this->objectGetter->getEntityManager())
+                );
+                $wrapper->setInput( array_merge( array(
+                        'sezioneId' => isset($record['id']) ? $record['id'] : null,
+                        'orderBy'   => 'sottosezioni.posizione',
+                        'isSs'      => 0
+                    ),
+                    $inputToMerge
+                ));
+                $wrapper->setupQueryBuilder();
+
+                $record['sottosezioni'] = is_array($wrapper->getRecords()) ? $wrapper->getRecords() : null;
+            }
+
+            return $records;
         }
-
-        return $records;
     }
 
     /**
      * @param array $records
      * @return array
      */
-    public function formatRecordsPerColumn(array $records)
+    public function formatRecordsPerColumn($records)
     {
-        $toReturn = array();
-        foreach($records as $record) {
-            if (isset($record['colonna'])) {
-                $toReturn[$record['colonna']][] = $record;
+        if (!empty($records)) {
+            $toReturn = array();
+            foreach($records as $record) {
+                if (isset($record['colonna'])) {
+                    $toReturn[$record['colonna']][] = $record;
+                }
             }
+
+            return $toReturn;
         }
 
-        return $toReturn;
+        return null;
     }
 }

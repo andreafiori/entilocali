@@ -5,7 +5,7 @@ namespace AdminTest\Controller\StatoCivile\Sezioni;
 use Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniFormController;
 use ModelModuleTest\TestSuite;
 
-class StatoCivileSezioniFormControllerTest extends TestSuite
+class StatoCivileSezioniSummaryControllerTest extends TestSuite
 {
     /**
      * @var StatoCivileSezioniFormController

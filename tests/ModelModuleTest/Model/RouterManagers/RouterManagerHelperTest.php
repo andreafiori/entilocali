@@ -1,6 +1,6 @@
 <?php
 
-namespace ApplicationTest\Model\RouterManagers;
+namespace ModelModuleTest\Model\RouterManagers;
 
 use ModelModule\Model\AlboPretorio\AlboPretorioSezioniFormDataHandler;
 use ModelModule\Model\FormData\FormDataHandler;

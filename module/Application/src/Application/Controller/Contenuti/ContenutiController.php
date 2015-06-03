@@ -10,10 +10,6 @@ use ModelModule\Model\Sezioni\SottoSezioniGetter;
 use ModelModule\Model\Sezioni\SottoSezioniGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
-/**
- * @author Andrea Fiori
- * @since  15 April 2015
- */
 class ContenutiController extends SetupAbstractController
 {
     public function indexAction()
@@ -26,13 +22,11 @@ class ContenutiController extends SetupAbstractController
 
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-        $ammTraspSezioneId      = $this->layout()->getVariable('amministrazione_trasparente_sezione_id');
+        $ammTraspSezioneId = $this->layout()->getVariable('amministrazione_trasparente_sezione_id');
 
         $helper = new ContenutiControllerHelper();
-        $helper->setContenutiGetterWrapper( new ContenutiGetterWrapper(new ContenutiGetter($em)) );
-
         $wrapper = $helper->recoverWrapper(
-            $helper->getContenutiGetterWrapper(),
+            new ContenutiGetterWrapper(new ContenutiGetter($em)),
             array(
                 'noscaduti'     => 1,
                 'attivo'        => 1,

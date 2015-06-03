@@ -10,10 +10,6 @@ use Zend\InputFilter\InputFilterAwareInterface;
 use ModelModule\Model\Database\DbTableContainer;
 use ModelModule\Model\Slugifier;
 
-/**
- * @author Andrea Fiori
- * @since  01 June 2014
- */
 class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterface, CrudHandlerInsertUpdateInterface
 {
     protected $validInputFilterObject;
@@ -91,7 +87,7 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
     /**
      * @param PostsFormInputFilter $formData
      * @return int
-     * @throws \Application\Model\NullException
+     * @throws \ModelModule\Model\NullException
      */
     public function update(InputFilterAwareInterface $formData)
     {
@@ -111,7 +107,7 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
     /**
      * @param $id
      * @return int
-     * @throws \Application\Model\NullException
+     * @throws \ModelModule\Model\NullException
      * @throws \Doctrine\DBAL\Exception\InvalidArgumentException
      */
     public function delete($id)
@@ -126,7 +122,7 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
 
     /**
      * @return bool
-     * @throws \Application\Model\NullException
+     * @throws \ModelModule\Model\NullException
      */
     public function logInsertOk()
     {
@@ -152,7 +148,7 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
     /**
      * @param null $message
      * @return bool
-     * @throws \Application\Model\NullException
+     * @throws \ModelModule\Model\NullException
      */
     public function logInsertKo($message = null)
     {
@@ -178,7 +174,7 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
     /**
      * @return bool
      *
-     * @throws \Application\Model\NullException
+     * @throws \ModelModule\Model\NullException
      */
     public function logUpdateOk()
     {
@@ -204,7 +200,7 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
     /**
      * @param null $message
      * @return bool
-     * @throws \Application\Model\NullException
+     * @throws \ModelModule\Model\NullException
      */
     public function logUpdateKo($message = null)
     {

@@ -22,52 +22,48 @@ class ContenutiSummaryController extends SetupAbstractController
 
         $em                     = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
         $page                   = $this->params()->fromRoute('page');
+        $perPage                = $this->params()->fromRoute('perPage');
         $configurations         = $this->layout()->getVariable('configurations');
         $userDetails            = $this->layout()->getVariable('userDetails');
         $userRole               = isset($userDetails->role) ? $userDetails->role : '';
         $userId                 = isset($userDetails->id) ? $userDetails->id : 1;
-        $ammTraspSezioneId      = $this->layout()->getVariable('amministrazione_trasparente_sezione_id');
-        $ammTraspSottoSezioneId = $this->layout()->getVariable('amministrazione_trasparente_sottosezione_id');
         $languageSelection      = $this->params()->fromRoute('languageSelection');
-
-        $sessionContainer       = new SessionContainer();
+        $modulename             = $this->params()->fromRoute('modulename');
+        $isAmmTrasparente       = ($modulename!='contenuti') ? 1 : 0;
+        //$sessionContainer       = new SessionContainer();
 
         $helper = new ContenutiControllerHelper();
 
         try {
-            $helper->setContenutiGetterWrapper(new ContenutiGetterWrapper(new ContenutiGetter($em)));
-
-            $wrapper = $helper->recoverWrapper( $helper->getContenutiGetterWrapper(), array(
-                'excludeSottosezioneId' => isset($configurations['amministrazione_trasparente_sottosezione_id']) ? $configurations['amministrazione_trasparente_sottosezione_id'] : null,
-                'excludeSezioneId'      => isset($configurations['amministrazione_trasparente_sezione_id']) ? $configurations['amministrazione_trasparente_sezione_id'] : null,
-                'showToAll'             => ($userRole=='WebMaster') ? null : 1,
-                'utente'                => ($userRole=='WebMaster') ? null : $userId,
-                'languageAbbreviation'  => $languageSelection,
-                'orderBy'               => 'contenuti.id DESC',
-            ));
-            $wrapper->setupPaginator( $wrapper->setupQuery($em) );
-            $wrapper->setupPaginatorCurrentPage( isset($page) ? $page : null );
-            $wrapper->setupPaginatorItemsPerPage(null);
-            $wrapper->setEntityManager($em);
-
+            $wrapper = $helper->recoverWrapperRecordsPaginator(
+                new ContenutiGetterWrapper(new ContenutiGetter($em)),
+                array(
+                    'showToAll'             => ($userRole=='WebMaster') ? null : 1,
+                    'utente'                => ($userRole=='WebMaster') ? null : $userId,
+                    'languageAbbreviation'  => $languageSelection,
+                    'isAmmTrasparente'      => $isAmmTrasparente,
+                    'orderBy'               => 'contenuti.id DESC',
+                ),
+                $page,
+                $perPage
+            );
             $helper->setSottoSezioniGetterWrapper(new SottoSezioniGetterWrapper(new SottoSezioniGetter($em)));
             $helper->setupSottoSezioniGetterWrapperRecords(array(
-                'excludeId'             => $ammTraspSottoSezioneId,
-                'excludeSezioneId'      => $ammTraspSezioneId,
+                'isAmmTrasparente'      => $isAmmTrasparente,
                 'showToAll'             => ($userRole == 'WebMaster') ? null : 1,
                 'languageAbbreviation'  => $languageSelection,
             ));
             $helper->formatSottoSezioniGetterWrapperRecordsForDropdown();
 
+            $wrapper->setEntityManager($em);
             $paginatorRecords = $wrapper->addAttachmentsToPaginatorRecords(
                 $wrapper->setupRecords(),
-                array()
+                array('orderBy' => '')
             );
 
-            $isMultiLanguage = !empty($configurations['isMultiLanguage']);
-            if ($isMultiLanguage==1) {
+            /* Detect form switch language */
+            if ((!empty($configurations['isMultiLanguage'])) == 1 and $modulename == 'contenuti') {
                 $helper->setLanguagesGetterWrapper(new LanguagesGetterWrapper(new LanguagesGetter($em)));
-
                 $formLanguage = $helper->setupLanguageFormSearch(
                     new LanguagesFormSearch(),
                     array('status' => 1),
@@ -88,28 +84,26 @@ class ContenutiSummaryController extends SetupAbstractController
 
             $paginatorRecordsCount = $paginator->getTotalItemCount();
 
-            $paginatorRecords = $this->formatRecordsToShowOnTable($paginatorRecords);
-
             $this->layout()->setVariables(array(
-                'tableTitle'            => 'Contenuti',
-                'tableDescription'      => $paginatorRecordsCount.' contenuti in archivio',
+                'tableTitle'            => ($modulename=='contenuti') ? 'Contenuti' : 'Amministrazione Trasparente',
+                'tableDescription'      => $paginatorRecordsCount.' articoli in archivio',
                 'paginator'             => $paginator,
-                'records'               => $paginatorRecords,
+                'records'               => $this->formatRecordsToShowOnTable($paginatorRecords),
                 'templatePartial'       => 'datatable/datatable_contenuti.phtml',
                 'formSearch'            => $formSearch,
                 'formLanguage'          => isset($formLanguage) ? $formLanguage : null,
                 'columns' => array(
-                    "Titolo",
                     "Sezione",
                     "Sotto sezione",
-                    'Data inserimento',
-                    'Data scadenza',
+                    "Titolo",
+                    'Date',
                     'Inserito da',
                     "&nbsp;",
                     "&nbsp;",
                     "&nbsp;",
                     "&nbsp;",
                     "&nbsp;",
+                    ($isAmmTrasparente == 1) ? "&nbsp;" : null,
                 ),
             ));
 
@@ -131,51 +125,64 @@ class ContenutiSummaryController extends SetupAbstractController
      */
     private function formatRecordsToShowOnTable($records)
     {
+        $lang                   = $this->params()->fromRoute('lang');
+        $languageSelection      = $this->params()->fromRoute('languageSelection');
+        $modulename             = $this->params()->fromRoute('modulename');
+        $isAmmTrasparente       = ($modulename!='contenuti') ? 1 : 0;
+
         $arrayToReturn = array();
         if ($records) {
             foreach($records as $key => $row) {
 
                 if ($row['attivo']==1) {
                     $enableDisableLink = $this->url()->fromRoute('admin/contenuti-enabledisable', array(
-                            'lang'              => $this->params()->fromRoute('lang'),
-                            'languageSelection' => $this->params()->fromRoute('languageSelection'),
-                            'id'                => $row['id'],
-                            'action'            => 'disable',
-                        )
-                    );
+                        'lang'              => $lang,
+                        'languageSelection' => $languageSelection,
+                        'id'                => $row['id'],
+                        'action'            => 'disable',
+                    ));
                 } else {
                     $enableDisableLink = $this->url()->fromRoute('admin/contenuti-enabledisable', array(
-                            'lang'              => $this->params()->fromRoute('lang'),
-                            'languageSelection' => $this->params()->fromRoute('languageSelection'),
-                            'id'                => $row['id'],
-                            'action'            => 'enable',
-                        )
-                    );
+                        'lang'              => $lang,
+                        'languageSelection' => $languageSelection,
+                        'id'                => $row['id'],
+                        'action'            => 'enable',
+                    ));
                 }
 
                 /* Home page put \ remove link */
                 if ($row['home']==1) {
                     $homePutRemoveLink = $this->url()->fromRoute('admin/contenuti-homeputremove', array(
-                            'lang'          => $this->params()->fromRoute('lang'),
+                            'lang'          => $lang,
                             'action'        => 'remove',
                             'id'            => $row['id']
                         )
                     );
                 } else {
                     $homePutRemoveLink = $this->url()->fromRoute('admin/contenuti-homeputremove', array(
-                            'lang'          => $this->params()->fromRoute('lang'),
-                            'action'        => 'put',
-                            'id'            => $row['id']
-                        )
+                        'lang'          => $lang,
+                        'action'        => 'put',
+                        'id'            => $row['id']
+                    ));
+                }
+
+                if ($isAmmTrasparente==1) {
+                    $tableButton = array(
+                        'type' => 'tableButton',
+                        'href' => $this->url()->fromRoute('admin/amministrazione-trasparente-tabella', array(
+                            'lang'              => $lang,
+                            'languageSelection' => $languageSelection,
+                            'id'                => $row['id']
+                        )),
+                        'attachmentsFilesCount' => isset($row['attachments']) ? count($row['attachments']) : 0,
                     );
                 }
 
                 $arrayToReturn[] = array(
-                    $row['titolo'],
                     $row['nomeSezione'],
                     $row['nomeSottosezione'],
-                    $row['dataInserimento'],
-                    $row['dataScadenza'],
+                    $row['titolo'],
+                    'Inserimento: '.$row['dataInserimento']."<br><br>Scadenza: ".$row['dataScadenza'],
                     $row['name'].' '.$row['surname'],
                     /* Enable \ Disable button */
                     array(
@@ -188,10 +195,10 @@ class ContenutiSummaryController extends SetupAbstractController
                     array(
                         'type' => 'updateButton',
                         'href' => $this->url()->fromRoute('admin/contenuti-form', array(
-                                'lang'              => $this->params()->fromRoute('lang'),
-                                'module'            => 'contenuti',
+                                'lang'              => $lang,
+                                'modulename'        => $modulename,
+                                'languageSelection' => $languageSelection,
                                 'id'                => $row['id'],
-                                'languageSelection' => $this->params()->fromRoute('languageSelection'),
                                 'previouspage'      => $this->params()->fromRoute('page'),
                             )
                         ),
@@ -219,13 +226,15 @@ class ContenutiSummaryController extends SetupAbstractController
                     array(
                         'type' => 'attachButton',
                         'href' => $this->url()->fromRoute('admin/attachments-summary', array(
-                                'lang'              => $this->params()->fromRoute('lang'),
+                                'lang'              => $lang,
                                 'module'            => 'contenuti',
                                 'referenceId'       => $row['id'],
                             )
                         ),
                         'attachmentsFilesCount' => isset($row['attachments']) ? count($row['attachments']) : 0,
-                    )
+                    ),
+                    /* Tabella gestione "tabellare" amm. trasparente */
+                    !empty($tableButton) ? $tableButton : null,
                 );
 
             }

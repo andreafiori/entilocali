@@ -36,7 +36,7 @@ class IndexController extends SetupAbstractController
                 $obj = $helper->recoverClassMapKey($key);
 
                 /**
-                 * @var \Application\Model\HomePage\HomePageBuilderAbstract $builder
+                 * @var \ModelModule\Model\HomePage\HomePageBuilderAbstract $builder
                  */
                 $builder = new $obj();
                 $builder->setEntityManager($em);

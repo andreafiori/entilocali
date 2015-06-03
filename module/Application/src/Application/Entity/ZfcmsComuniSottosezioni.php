@@ -127,6 +127,20 @@ class ZfcmsComuniSottosezioni
     private $showToAll;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="template_type", type="string", length=50, nullable=false)
+     */
+    private $templateType;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="template_file", type="string", length=50, nullable=false)
+     */
+    private $templateFile;
+
+    /**
      * @var \Application\Entity\ZfcmsComuniSottosezioni
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniSottosezioni")
@@ -511,6 +525,52 @@ class ZfcmsComuniSottosezioni
     public function getShowToAll()
     {
         return $this->showToAll;
+    }
+
+    /**
+     * Set templateType
+     *
+     * @param string $templateType
+     * @return ZfcmsComuniSottosezioni
+     */
+    public function setTemplateType($templateType)
+    {
+        $this->templateType = $templateType;
+    
+        return $this;
+    }
+
+    /**
+     * Get templateType
+     *
+     * @return string 
+     */
+    public function getTemplateType()
+    {
+        return $this->templateType;
+    }
+
+    /**
+     * Set templateFile
+     *
+     * @param string $templateFile
+     * @return ZfcmsComuniSottosezioni
+     */
+    public function setTemplateFile($templateFile)
+    {
+        $this->templateFile = $templateFile;
+    
+        return $this;
+    }
+
+    /**
+     * Get templateFile
+     *
+     * @return string 
+     */
+    public function getTemplateFile()
+    {
+        return $this->templateFile;
     }
 
     /**

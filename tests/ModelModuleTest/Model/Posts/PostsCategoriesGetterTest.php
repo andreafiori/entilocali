@@ -3,21 +3,20 @@
 namespace ModelModuleTest\Model\Categories;
 
 use ModelModuleTest\TestSuite;
-use ModelModule\Model\Posts\CategoriesGetter;
+use ModelModule\Model\Posts\PostsCategoriesGetter;
 
-/**
- * @author Andrea Fiori
- * @since  29 May 2014
- */
-class CategoriesGetterTest extends TestSuite
+class PostsCategoriesGetterTest extends TestSuite
 {
+    /**
+     * @var PostsCategoriesGetter
+     */
     private $objectGetter;
 
     protected function setUp()
     {
         parent::setUp();
         
-        $this->objectGetter = new CategoriesGetter( $this->getEntityManagerMock() );
+        $this->objectGetter = new PostsCategoriesGetter( $this->getEntityManagerMock() );
     }
 
     public function testSetMainQuery()
