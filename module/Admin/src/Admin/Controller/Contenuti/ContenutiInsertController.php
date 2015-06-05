@@ -54,7 +54,9 @@ class ContenutiInsertController extends SetupAbstractController
             $helper->getConnection()->beginTransaction();
             $lastInsertId = $helper->insert($inputFilter);
             $helper->getConnection()->commit();
+
             // TODO: insert in home, update home field if home is selected
+
             $helper->setLogWriter(new LogWriter($connection));
             $helper->writeLog(array(
                 'user_id'       => $userDetails->id,
@@ -67,15 +69,15 @@ class ContenutiInsertController extends SetupAbstractController
 
             $this->layout()->setVariables(array(
                 'messageType'           => 'success',
-                'messageTitle'          => 'Contenuto aggiornato correttamente',
+                'messageTitle'          => 'Contenuto inserito correttamente',
                 'messageText'           => 'I dati sono stati processati correttamente dal sistema',
                 'showLinkResetFormAndShowIt' => 1,
                 'backToSummaryLink'     => $this->url()->fromRoute('admin/contenuti-summary', array(
                     'lang'              => $this->params()->fromRoute('languageSelection'),
                     'languageSelection' => $this->params()->fromRoute('languageSelection'),
                 )),
-                'backToSummaryText'     => "Elenco contenuti",
-                'attachmentsLink'       => $this->url()->fromRoute('admin/attachments-summary', array(
+                'backToSummaryText' => "Elenco contenuti",
+                'attachmentsLink' => $this->url()->fromRoute('admin/attachments-summary', array(
                     'lang'          => $this->params()->fromRoute('languageSelection'),
                     'module'        => 'contenuti',
                     'referenceId'   => $inputFilter->id,

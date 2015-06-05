@@ -5,10 +5,6 @@ namespace ModelModuleTest\Model\FormData;
 use ModelModule\Model\Log\LogWriter;
 use ModelModuleTest\TestSuite;
 
-/**
- * @author Andrea Fiori
- * @since  01 June 2014
- */
 class CrudHandlerAbstractTest extends TestSuite
 {
     /**

@@ -5,6 +5,7 @@ namespace Admin\Controller\Users\Settori;
 use ModelModule\Model\Users\Settori\UsersSettoriGetter;
 use ModelModule\Model\Users\Settori\UsersSettoriGetterWrapper;
 use Application\Controller\SetupAbstractController;
+use ModelModule\Model\Users\UsersControllerHelper;
 
 class SettoriSummaryController extends SetupAbstractController
 {
@@ -14,19 +15,21 @@ class SettoriSummaryController extends SetupAbstractController
 
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
+        $lang       = $this->params()->fromRoute('lang');
         $page       = $this->params()->fromRoute('page');
         $perPage    = $this->params()->fromRoute('perpage');
 
-        $wrapper = new UsersSettoriGetterWrapper(new UsersSettoriGetter($em));
-        $wrapper->setInput(array(
-            'orderBy' => 'settore.nome'
-        ));
-        $wrapper->setupQueryBuilder();
-        $wrapper->setupPaginator( $wrapper->setupQuery($em) );
-        $wrapper->setupPaginatorCurrentPage($page);
-        $wrapper->setupPaginatorItemsPerPage($perPage);
+        $helper = new UsersControllerHelper();
+
+        $wrapper = $helper->recoverWrapperRecordsPaginator(
+            new UsersSettoriGetterWrapper(new UsersSettoriGetter($em)),
+            array('orderBy' => 'settore.id DESC'),
+            $page,
+            $perPage
+        );
 
         $paginator = $wrapper->getPaginator();
+
         $paginatorRecords = $wrapper->setupRecords();
 
         $this->layout()->setVariables(array(
@@ -39,8 +42,18 @@ class SettoriSummaryController extends SetupAbstractController
                 "&nbsp;",
                 "&nbsp;",
             ),
-            'records'           => $this->formatRecords($paginatorRecords),
-            'paginator'         => $paginator,
+            'records'                => $this->formatRecords($paginatorRecords),
+            'paginator'              => $paginator,
+            'dataTableActiveTitle'   => 'Settori',
+            'formBreadCrumbCategory' => array(
+                array(
+                    'label' => 'Utenti',
+                    'href'  =>  $this->url()->fromRoute('admin/users-summary',
+                        array('lang' => $lang)
+                    ),
+                    'title' => 'Elenco utenti',
+                ),
+            ),
             'templatePartial'   => self::summaryTemplate,
         ));
 
@@ -61,8 +74,11 @@ class SettoriSummaryController extends SetupAbstractController
                     $row['name'].' '.$row['surname'],
                     array(
                         'type'      => 'updateButton',
-                        'href'      => 'formdata/users-settori/'.$row['id'],
-                        'title'     => 'Modifica settore utente'
+                        'href'      => $this->url()->fromRoute('admin/users-settori-form', array(
+                            'lang' => $this->params()->fromRoute('lang'),
+                            'id'   => $row['id'],
+                        )),
+                        'title' => 'Modifica settore utente'
                     ),
                     array(
                         'type'      => 'deleteButton',

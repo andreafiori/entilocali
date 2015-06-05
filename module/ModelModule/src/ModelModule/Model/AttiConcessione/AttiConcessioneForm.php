@@ -5,10 +5,6 @@ namespace ModelModule\Model\AttiConcessione;
 use Zend\Form\Element;
 use Zend\Form\Form;
 
-/**
- * @author Andrea Fiori
- * @since  17 June 2013
- */
 class AttiConcessioneForm extends Form
 {
     /**

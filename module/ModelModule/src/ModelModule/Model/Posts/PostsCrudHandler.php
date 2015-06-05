@@ -47,7 +47,7 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
      */
     public function insert(InputFilterAwareInterface $formData)
     {
-        $this->asssertConnection();
+        $this->assertConnection();
 
         $userDetails = $this->getUserDetails();
 
@@ -91,7 +91,7 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
      */
     public function update(InputFilterAwareInterface $formData)
     {
-        $this->asssertConnection();
+        $this->assertConnection();
 
         return $this->getConnection()->update(DbTableContainer::posts, array(
                 'title'         => $formData->title,
@@ -112,7 +112,7 @@ class PostsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterfa
      */
     public function delete($id)
     {
-        $this->asssertConnection();
+        $this->assertConnection();
 
         return $this->getConnection()->delete(DbTableContainer::posts,
             array('id' => $id),

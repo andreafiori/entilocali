@@ -141,6 +141,13 @@ class ZfcmsComuniContratti
     private $homepage;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data_ultimo_aggiornamento", type="datetime", nullable=false)
+     */
+    private $dataUltimoAggiornamento;
+
+    /**
      * @var \Application\Entity\ZfcmsUsersRespProc
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsersRespProc")

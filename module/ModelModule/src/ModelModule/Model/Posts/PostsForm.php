@@ -53,7 +53,7 @@ class PostsForm extends Form
         $this->add(array(
             'name' => 'subtitle',
             'type' => 'Text',
-            'options'    => array( 'label' => 'Sotto titolo' ),
+            'options' => array('label' => 'Sotto titolo'),
             'attributes' => array(
                 'title'         => 'Inserisci il sotto titolo',
                 'placeholder'   => 'Inserisci il sotto titolo',

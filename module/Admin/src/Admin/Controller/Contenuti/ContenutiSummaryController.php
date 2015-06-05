@@ -47,15 +47,18 @@ class ContenutiSummaryController extends SetupAbstractController
                 $page,
                 $perPage
             );
-            $helper->setSottoSezioniGetterWrapper(new SottoSezioniGetterWrapper(new SottoSezioniGetter($em)));
-            $helper->setupSottoSezioniGetterWrapperRecords(array(
-                'isAmmTrasparente'      => $isAmmTrasparente,
-                'showToAll'             => ($userRole == 'WebMaster') ? null : 1,
-                'languageAbbreviation'  => $languageSelection,
-            ));
-            $helper->formatSottoSezioniGetterWrapperRecordsForDropdown();
+            $sottoSezioniRecords = $helper->recoverWrapperRecords(
+                new SottoSezioniGetterWrapper(new SottoSezioniGetter($em)),
+                array(
+                    'isAmmTrasparente'      => $isAmmTrasparente,
+                    'showToAll'             => ($userRole == 'WebMaster') ? null : 1,
+                    'languageAbbreviation'  => $languageSelection,
+                )
+            );
+            $sottoSezioniRecordsForDropDown = $helper->formatSottoSezioniGetterWrapperRecordsForDropdown($sottoSezioniRecords);
 
             $wrapper->setEntityManager($em);
+
             $paginatorRecords = $wrapper->addAttachmentsToPaginatorRecords(
                 $wrapper->setupRecords(),
                 array('orderBy' => '')
@@ -72,7 +75,7 @@ class ContenutiSummaryController extends SetupAbstractController
             }
 
             $formSearch = new ContenutiFormSearch();
-            $formSearch->addSottosezioni( $helper->getSottoSezioniGetterWrapperRecords() );
+            $formSearch->addSottosezioni($sottoSezioniRecordsForDropDown);
             $formSearch->addInHome();
             $formSearch->addSubmitButton();
             $formSearch->setData(array(

@@ -8,7 +8,7 @@
         }
     ],
     "keywords": [
-        "Zend2,Zend,Kronoweb,enti locali,comuni,framework"
+        "Zend2,Zend,Kronoweb,enti locali,comuni,framework,php"
     ],
     "homepage": "http://framework.zend.com/",
     "require": {
@@ -17,7 +17,7 @@
         "php": ">=5.3.3",
         "zendframework/zendframework": "2.3.*",
         "gedmo/doctrine-extensions": "2.3.*",
-        "doctrine/data-fixtures": "1.0.*"
+        "doctrine/data-fixtures": "1.*"
     },
     "minimum-stability": "dev",
     "require-dev": {
@@ -30,6 +30,7 @@
         "dino/dompdf-module": "dev-master",
         "facebook/php-sdk-v4": "5.*@dev",
         "rwoverdijk/assetmanager" : "dev-master",
-        "imagine/imagine": "dev-master"
+        "imagine/imagine": "dev-master",
+        "hounddog/doctrine-data-fixture-module": "dev-master"
     }
 }

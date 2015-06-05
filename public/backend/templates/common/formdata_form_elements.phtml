@@ -5,7 +5,7 @@ $this->form->prepare();
 $form = $this->form;
 $form->prepare();
 
-/* prefix for old crudhandler objects action POST... */
+/* Prefix for old crudhandler objects action POST... */
 if (!$this->noFormActionPrefix) {
     $formActionPrefix = $this->url('admin', array('lang' => 'it')).'formpost/';
 } else {
@@ -109,6 +109,19 @@ foreach ($this->form as $element):
         <label for="<?php echo $attributes['id'] ?>" class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label"><?php echo $element->getLabel() ?></label>
         <div class="col-sm-<?php echo $this->formControlSpanWidth ?>">
             <input value="<?php echo $element->getValue() ?>" type="button" class="btn btn-default" name="<?php echo $attributes['name'] ?>" onclick="resetCurrentForm('<?php echo $formId ?>');<?php if (isset($attributes['submit'])) echo ' submit()'; ?>">
+        </div>
+    </div>
+    <?php elseif ($attributes['type']=='text' or $attributes['type'] == 'Text'): ?>
+    <div class="form-group">
+        <label for="<?php echo $attributes['id'] ?>" class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label"><?php echo $element->getLabel() ?></label>
+        <div class="col-sm-<?php echo $this->formControlSpanWidth ?>">
+            <input type="text" name="<?php echo $attributes['name'] ?>" class="<?php if (isset($attributes['class'])): echo $attributes['class']; else: ?>form-control<?php endif; ?>"
+                    <?php if (isset($attributes['placeholder'])): ?> placeholder="<?php echo $attributes['placeholder'] ?>"<?php endif; ?>
+                    <?php if (isset($attributes['title'])): ?> title="<?php echo $attributes['title'] ?>"<?php endif; ?>
+                    <?php if (isset($attributes['id'])): ?> id="<?php echo $attributes['id'] ?>"<?php endif; ?>
+                    value="<?php echo $element->getValue() ?>"
+                    <?php if (isset($attributes['readonly'])): ?> readonly="readonly"<?php endif; ?>
+                    <?php if (isset($attributes['required'])): ?> required="required"<?php endif; ?>>
         </div>
     </div>
     <?php

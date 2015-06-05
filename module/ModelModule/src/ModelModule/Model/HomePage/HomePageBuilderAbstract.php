@@ -16,7 +16,7 @@ abstract class HomePageBuilderAbstract extends OperationsModelAbstract
     protected $wrapperRecords;
 
     protected $moduleRelatedRecords;
-    
+
     /**
      * @return array
      */

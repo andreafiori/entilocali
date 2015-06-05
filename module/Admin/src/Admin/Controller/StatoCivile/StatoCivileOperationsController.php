@@ -7,12 +7,18 @@ use Application\Controller\SetupAbstractController;
 
 class StatoCivileOperationsController extends SetupAbstractController
 {
+    /**
+     * Enable atto and redirect to summary
+     *
+     * @return \Zend\Http\Response
+     */
     public function activeAction()
     {
+        $lang = $this->params()->fromRoute('lang');
         $id = $this->params()->fromRoute('id');
 
         if ($this->changeAttivo(1, $id)===true) {
-            return $this->redirect()->toRoute('admin/stato-civile-summary', array('lang' => 'it'));
+            return $this->redirect()->toRoute('admin/stato-civile-summary', array('lang' => $lang));
         }
 
         $mainLayout = $this->initializeAdminArea();
@@ -20,12 +26,18 @@ class StatoCivileOperationsController extends SetupAbstractController
         $this->layout()->setTemplate($mainLayout);
     }
 
+    /**
+     * Disable atto and redirect to summary
+     *
+     * @return \Zend\Http\Response
+     */
     public function disableAction()
     {
+        $lang = $this->params()->fromRoute('lang');
         $id = $this->params()->fromRoute('id');
 
         if ($this->changeAttivo(0, $id)===true) {
-            return $this->redirect()->toRoute('admin/stato-civile-summary', array('lang' => 'it'));
+            return $this->redirect()->toRoute('admin/stato-civile-summary', array('lang' => $lang));
         }
 
         $mainLayout = $this->initializeAdminArea();
@@ -34,6 +46,8 @@ class StatoCivileOperationsController extends SetupAbstractController
     }
 
         /**
+         * TODO: move this method into the controller helper!
+         *
          * @param int $attivo
          * @param int $id
          *
@@ -44,7 +58,11 @@ class StatoCivileOperationsController extends SetupAbstractController
             $connection = $this->recoverConnection();
             $connection->beginTransaction();
             try {
-                $connection->update(DbTableContainer::statoCivileArticoli, array('attivo' => $attivo), array('id' => $id));
+                $connection->update(
+                    DbTableContainer::statoCivileArticoli,
+                    array('attivo' => $attivo),
+                    array('id' => $id)
+                );
 
                 $connection->commit();
 

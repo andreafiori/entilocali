@@ -21,16 +21,19 @@ class SezioniSummaryController extends SetupAbstractController
         $modulename         = $this->params()->fromRoute('modulename');
 
         $helper = new SezioniControllerHelper();
-        $helper->setSezioniGetterWrapper(new SezioniGetterWrapper(new SezioniGetter($em)));
         $helper->setLanguagesGetterWrapper(new LanguagesGetterWrapper(new LanguagesGetter($em)));
 
-        $formLanguage = $helper->setupLanguageFormSearch( new LanguagesFormSearch(), array('status'=>1), $languageSelection );
+        $formLanguage = $helper->setupLanguageFormSearch(
+            new LanguagesFormSearch(),
+            array('status' => 1),
+            $languageSelection
+        );
 
         $wrapper = $helper->recoverWrapperRecordsPaginator(
-            $helper->getSezioniGetterWrapper(),
+            new SezioniGetterWrapper(new SezioniGetter($em)),
             array(
-                'orderBy' => 'sezioni.id',
-                'languageAbbreviation' => $languageSelection,
+                'orderBy'               => 'sezioni.id',
+                'languageAbbreviation'  => $languageSelection,
             ),
             $page,
             null

@@ -51,7 +51,7 @@ class UsersCrudHandler  extends CrudHandlerAbstract implements CrudHandlerInterf
      */
     public function insert(InputFilterAwareInterface $formData)
     {
-        $this->asssertConnection();
+        $this->assertConnection();
 
         $arrayInsert = array(
             'name'          => $formData->name,
@@ -86,7 +86,7 @@ class UsersCrudHandler  extends CrudHandlerAbstract implements CrudHandlerInterf
      */
     public function update(InputFilterAwareInterface $formData)
     {
-        $this->asssertConnection();
+        $this->assertConnection();
 
         $arrayToUpdate = array(
             'name'          => $formData->name,

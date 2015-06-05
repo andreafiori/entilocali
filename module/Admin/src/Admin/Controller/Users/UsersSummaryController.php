@@ -2,6 +2,7 @@
 
 namespace Admin\Controller\Users;
 
+use ModelModule\Model\Users\UsersControllerHelper;
 use ModelModule\Model\Users\UsersGetter;
 use ModelModule\Model\Users\UsersGetterWrapper;
 use Application\Controller\SetupAbstractController;
@@ -17,12 +18,13 @@ class UsersSummaryController extends SetupAbstractController
         $page       = $this->params()->fromRoute('page');
         $perPage    = $this->params()->fromRoute('perpage');
 
-        $wrapper = new UsersGetterWrapper(new UsersGetter($em) );
-        $wrapper->setInput( array('orderBy' => 'u.id DESC') );
-        $wrapper->setupQueryBuilder();
-        $wrapper->setupPaginator( $wrapper->setupQuery($em) );
-        $wrapper->setupPaginatorCurrentPage( isset($page) ? $page : null );
-        $wrapper->setupPaginatorItemsPerPage($perPage);
+        $helper = new UsersControllerHelper();
+        $wrapper = $helper->recoverWrapperRecordsPaginator(
+            new UsersGetterWrapper(new UsersGetter($em)),
+            array('orderBy' => 'u.id DESC'),
+            $page,
+            $perPage
+        );
 
         $paginator = $wrapper->getPaginator();
 
@@ -53,7 +55,7 @@ class UsersSummaryController extends SetupAbstractController
     }
 
     /**
-     * @param mixed $records
+     * @param array $records
      * @return array
      */
     private function formatRecords($records)
@@ -85,7 +87,7 @@ class UsersSummaryController extends SetupAbstractController
                     array(
                         'type' => 'updateButton',
                         'href' => $this->url()->fromRoute('admin/users-form', array(
-                                'lang'   => 'it',
+                                'lang'   => $this->params()->fromRoute('lang'),
                                 'id'     => $row['id']
                             )
                         ),

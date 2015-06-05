@@ -37,9 +37,7 @@ class AlboPretorioSummaryController extends SetupAbstractController
             $helper->checkRecords($settoriRecords, 'Nessun settore presente');
             $paginatorWrapper = $helper->recoverWrapperRecordsPaginator(
                 new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter($em)),
-                array(
-                    'orderBy' => 'alboArticoli.id DESC'
-                ),
+                array('orderBy' => 'alboArticoli.id DESC'),
                 $page,
                 $perPage
             );
@@ -49,9 +47,9 @@ class AlboPretorioSummaryController extends SetupAbstractController
             $formSearch->addSezioni( $helper->formatForDropwdown($sezioniRecords, 'id', 'nome') );
             $formSearch->addSettori( $helper->formatForDropwdown($settoriRecords, 'id', 'nome') );
             $formSearch->addCheckExpired();
-            $formSearch->addCsrf();
             $formSearch->addSubmitButton();
             $formSearch->addResetButton();
+            $formSearch->addCsrf();
 
             $paginator = $paginatorWrapper->getPaginator();
 
@@ -105,8 +103,12 @@ class AlboPretorioSummaryController extends SetupAbstractController
                 foreach($records as $key => $record) {
 
                     $rowClass = '';
-                    if ($record['attivo']==0) {
+                    if ($record['attivo']==0 and $record['annullato']==1) {
                         $rowClass = 'rowHidden';
+                    }
+
+                    if ($record['attivo']==1 and $record['pubblicare']==0 and $record['annullato']==0) {
+                        $rowClass = 'rowNew';
                     }
 
                     $arrayLine = array(
@@ -149,7 +151,6 @@ class AlboPretorioSummaryController extends SetupAbstractController
                             'module'        => $modulePrefixLink,
                             'referenceId'   => $record['id'],
                         )),
-                        'class' => $rowClass,
                     );
 
                     /* Homepage button */
@@ -171,12 +172,11 @@ class AlboPretorioSummaryController extends SetupAbstractController
                             $arrayLine[] = array(
                                 'type'      => 'alboRettificaButton',
                                 'data-form-action' => $this->url()->fromRoute('admin/albo-pretorio-form-rettifica', array(
-                                    'lang'      => 'it',
+                                    'lang'      => $this->params()->fromRoute('lang'),
                                     'id'        => $record['id'],
                                 )),
                                 'title'     => 'Rettifica articolo',
                                 'data-id'   => $record['id'],
-                                'class'     => $rowClass,
                             );
 
                         } else {
@@ -184,12 +184,11 @@ class AlboPretorioSummaryController extends SetupAbstractController
                             $arrayLine[] = array(
                                 'type'      => 'alboPublishButton',
                                 'data-form-action' => $this->url()->fromRoute('admin/albo-pretorio-operations', array(
-                                    'lang'          => 'it',
+                                    'lang'          => $this->params()->fromRoute('lang'),
                                     'action'        => 'publish'
                                 )),
                                 'data-id'   => $record['id'],
                                 'title'     => 'Pubblica articolo',
-                                'class'     => $rowClass,
                             );
                             /* Update button */
                             $arrayLine[] = array(
@@ -199,7 +198,6 @@ class AlboPretorioSummaryController extends SetupAbstractController
                                     'id'    => $record['id']
                                 )),
                                 'title'     => 'Modifica articolo',
-                                'class'     => $rowClass,
                             );
                         }
                         /* Relata PDF button */
@@ -210,7 +208,6 @@ class AlboPretorioSummaryController extends SetupAbstractController
                                 'module'    => $modulePrefixLink,
                                 'id'        => $record['id'],
                             )),
-                            'class'  => $rowClass,
                         );
                         /* Invio enti terzi button */
                         $arrayLine[] = array(
@@ -220,7 +217,6 @@ class AlboPretorioSummaryController extends SetupAbstractController
                                 'module'        => $modulePrefixLink,
                                 'id'            => $record['id'],
                             )),
-                            'class'  => $rowClass,
                         );
                         /* Annull button if published */
                         if ($record['pubblicare']==1) {
@@ -233,7 +229,6 @@ class AlboPretorioSummaryController extends SetupAbstractController
                                 'href'      => '#',
                                 'data-id'   => $record['id'],
                                 'title'     => 'Annulla articolo',
-                                'class'     => $rowClass,
                             );
                         }
                     }

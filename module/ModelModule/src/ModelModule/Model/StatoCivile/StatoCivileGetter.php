@@ -10,6 +10,7 @@ class StatoCivileGetter extends QueryBuilderHelperAbstract
     {
         $this->setSelectQueryFields("DISTINCT(sca.id) AS id, sca.titolo, sca.progressivo,
                                     sca.anno, sca.data, scs.id AS sezione, sca.scadenza, scs.nome, sca.attivo,
+                                    sca.homepageFlag, sca.boxNotizie,
 
                                     ( SELECT CONCAT(u.name, ' ', u.surname) FROM Application\Entity\ZfcmsUsers u
                                     WHERE u.id = sca.utente ) AS user_name_surname
@@ -126,6 +127,20 @@ class StatoCivileGetter extends QueryBuilderHelperAbstract
         if ($noScaduti == 1) {
             $this->getQueryBuilder()->andWhere("( sca.scadenza > '".date("Y-m-d H:i:s")."'
             OR sca.scadenza = '0000-00-00 00:00:00') ");
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param int $attivo
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setAttivo($attivo)
+    {
+        if ( is_numeric($attivo) ) {
+            $this->getQueryBuilder()->andWhere("sca.attivo = :attivo ");
+            $this->getQueryBuilder()->setParameter('attivo', $attivo);
         }
 
         return $this->getQueryBuilder();

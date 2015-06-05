@@ -49,7 +49,7 @@ class AlboPretorioSezioniCrudHandler extends CrudHandlerAbstract implements Crud
      */
     public function insert(InputFilterAwareInterface $formData)
     {
-        $this->asssertConnection();
+        $this->assertConnection();
 
         return $this->getConnection()->insert($this->dbTable, array(
             'nome'   => $formData->nome,
@@ -64,7 +64,7 @@ class AlboPretorioSezioniCrudHandler extends CrudHandlerAbstract implements Crud
      */
     public function update(InputFilterAwareInterface $formData)
     {
-        $this->asssertConnection();
+        $this->assertConnection();
 
         return $this->getConnection()->update(
             $this->dbTable,

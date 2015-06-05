@@ -6,10 +6,6 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
-/**
- * @author Andrea Fiori
- * @since 16 August 2014
- */
 class SceltaContraenteFormInputFilter implements InputFilterAwareInterface
 {
     public $id;
@@ -59,6 +55,7 @@ class SceltaContraenteFormInputFilter implements InputFilterAwareInterface
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
                 ),
                 'validators' => array(
                     array(

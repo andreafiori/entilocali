@@ -74,8 +74,10 @@ class SezioniFormInputFilter implements InputFilterAwareInterface
                 'filters' => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
                 ),
                 'validators' => array(
+
                 ),
             ]));
 
@@ -85,8 +87,7 @@ class SezioniFormInputFilter implements InputFilterAwareInterface
                 'filters' => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
+                    array('name' => 'HtmlEntities'),
                 ),
             )));
 
@@ -95,113 +96,117 @@ class SezioniFormInputFilter implements InputFilterAwareInterface
                 'filters' => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
                 ),
                 'validators' => array(
                 ),
-        ]));
+            ]));
 
-        $inputFilter->add($factory->createInput([
-            'name' => 'image',
-            'required' => false,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                /*
-                array (
-                    'name' => 'Zend\Validator\File\Size',
-                    'options' => array(
-                        'max' => '20000',
-                    ),
+            $inputFilter->add($factory->createInput([
+                'name' => 'image',
+                'required' => false,
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
                 ),
-
-                array (
-                    'name' => 'Zend\Validator\File\ExcludeExtension',
-                    'options' => array(
-                        'jpg,jpeg,gif,png',
+                'validators' => array(
+                    /*
+                    array (
+                        'name' => 'Zend\Validator\File\Size',
+                        'options' => array(
+                            'max' => '20000',
+                        ),
                     ),
-                ),
-                array (
-                    'name' => 'Zend\Validator\File\MimeType',
-                    'options' => array(
-                        'image/jpg',
+                    array (
+                        'name' => 'Zend\Validator\File\ExcludeExtension',
+                        'options' => array(
+                            'jpg,jpeg,gif,png',
+                        ),
                     ),
+                    array (
+                        'name' => 'Zend\Validator\File\MimeType',
+                        'options' => array(
+                            'image/jpg',
+                        ),
+                    ),
+                    */
                 ),
-                */
+            ]));
 
-            ),
-        ]));
-
-        $inputFilter->add($factory->createInput([
-            'name' => 'colonna',
-            'required' => true,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array (
-                    'name' => 'InArray',
-                    'options' => array(
-                        'haystack' => array('sx','dx'),
-                        'messages' => array(
-                            'notInArray' => 'The element was not in array'
+            $inputFilter->add($factory->createInput([
+                'name' => 'colonna',
+                'required' => true,
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
+                ),
+                'validators' => array(
+                    array (
+                        'name' => 'InArray',
+                        'options' => array(
+                            'haystack' => array('sx','dx'),
+                            'messages' => array(
+                                'notInArray' => 'The element was not in array'
+                            ),
                         ),
                     ),
                 ),
-            ),
-        ]));
+            ]));
 
-        $inputFilter->add($factory->createInput([
-            'name' => 'attivo',
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array (
-                    'name' => 'InArray',
-                    'options' => array(
-                        'haystack' => array(0,1),
-                        'messages' => array(
-                            'notInArray' => 'undefined'
+            $inputFilter->add($factory->createInput([
+                'name' => 'attivo',
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
+                ),
+                'validators' => array(
+                    array (
+                        'name' => 'InArray',
+                        'options' => array(
+                            'haystack' => array(0,1),
+                            'messages' => array(
+                                'notInArray' => 'undefined'
+                            ),
                         ),
                     ),
                 ),
-            ),
-        ]));
+            ]));
 
-        $inputFilter->add($factory->createInput([
-            'name' => 'blocco',
-            'required' => false,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-            ),
-        ]));
+            $inputFilter->add($factory->createInput([
+                'name' => 'blocco',
+                'required' => false,
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
+                ),
+                'validators' => array(
+                ),
+            ]));
 
-        $inputFilter->add($factory->createInput([
-            'name' => 'posizione',
-            'required' => false,
-            'filters' => array(
-                array('name' => 'StripTags'),
-                array('name' => 'StringTrim'),
-            ),
-            'validators' => array(
-                array (
-                    'name' => 'StringLength',
-                    'options' => array(
-                        'encoding' => 'UTF-8',
-                        'min'      => '1',
+            $inputFilter->add($factory->createInput([
+                'name' => 'posizione',
+                'required' => false,
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
+                ),
+                'validators' => array(
+                    array (
+                        'name' => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => '1',
+                        ),
                     ),
                 ),
-            ),
-        ]));
+            ]));
 
-        $this->inputFilter = $inputFilter;
+            $this->inputFilter = $inputFilter;
         }
 
         return $this->inputFilter;

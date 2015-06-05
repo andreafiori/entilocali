@@ -148,6 +148,24 @@ class StatoCivileFormSearch extends Form
             )
         ));
     }
+
+    public function addInHome()
+    {
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Checkbox',
+            'name' => 'expired',
+            'attributes' => array(
+                'title' => 'Cerca atto presente in home page',
+                'id'    => 'homepage'
+            ),
+            'options' => array(
+                'label' => 'Presente in home page',
+                'use_hidden_element' => true,
+                'checked_value'      => '1',
+                'unchecked_value'    => '0'
+            )
+        ));
+    }
     
     public function addSubmitButton()
     {

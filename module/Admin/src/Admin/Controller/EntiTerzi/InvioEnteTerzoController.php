@@ -18,9 +18,11 @@ class InvioEnteTerzoController extends SetupAbstractController
     {
         $mainLayout = $this->initializeAdminArea();
 
-        $id             = $this->params()->fromRoute('id');
-        $moduleCode     = $this->params()->fromRoute('module');
         $em             = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+
+        $id             = $this->params()->fromRoute('id');
+        $lang           = $this->params()->fromRoute('lang');
+        $moduleCode     = $this->params()->fromRoute('module');
 
         switch($moduleCode) {
             default:
@@ -54,6 +56,7 @@ class InvioEnteTerzoController extends SetupAbstractController
 
         $wrapper = new EntiTerziGetterWrapper(new EntiTerziGetter($em));
         $wrapper->setupQueryBuilder();
+
         $entiTerziRecords = $wrapper->getRecords();
 
         $form = new InvioEnteTerzoForm();
@@ -63,7 +66,7 @@ class InvioEnteTerzoController extends SetupAbstractController
             'formDataCommonPath' => 'backend/templates/common/',
             'form'               => $form,
             'formAction'         => $this->url()->fromRoute('admin/invio-ente-terzo-inviomail', array(
-                'lang'           => 'it',
+                'lang'           => $lang,
                 'modulename'     => $moduleCode,
                 'id'             => $record[0]['id'],
             )),

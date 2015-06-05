@@ -17,6 +17,7 @@ class AttachmentsSummaryController extends SetupAbstractController
     {
         $mainLayout = $this->initializeAdminArea();
 
+        $lang  = $this->params()->fromRoute('lang');
         $moduleCode  = $this->params()->fromRoute('module');
         $referenceId = $this->params()->fromRoute('referenceId');
         $em          = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
@@ -60,7 +61,7 @@ class AttachmentsSummaryController extends SetupAbstractController
                     'formBreadCrumbCategory'            => $helper->getPropertiesGetterClassInstance()->getBreadcrumbModule(),
                     'formBreadCrumbCategoryLink'        => $this->url()->fromRoute(
                         $helper->getPropertiesGetterClassInstance()->getBreadcrumbRoute(),
-                        array('lang' => 'it', 'languageSelection' => 'it')
+                        array('lang' => $lang, 'languageSelection' => $lang, 'modulename' => $moduleCode)
                     ),
                     'alboRettificaColumnDisplay'        => (isset($alboRettificaColumnDisplay)) ? $alboRettificaColumnDisplay : null,
                     'attiConcessioneCatColumnDisplay'   => (isset($attiConcessioneColumnDisplayForm)) ? 1 : null,

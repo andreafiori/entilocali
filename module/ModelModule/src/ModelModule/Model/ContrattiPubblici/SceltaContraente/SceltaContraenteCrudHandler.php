@@ -54,7 +54,7 @@ class SceltaContraenteCrudHandler extends CrudHandlerAbstract implements CrudHan
      */
     public function insert(InputFilterAwareInterface $formData)
     {
-        $this->asssertConnection();
+        $this->assertConnection();
 
         return $this->getConnection()->insert($this->tableName, array(
             'nome_scelta'   => $formData->nomeScelta,
@@ -69,7 +69,7 @@ class SceltaContraenteCrudHandler extends CrudHandlerAbstract implements CrudHan
      */
     public function update(InputFilterAwareInterface $formData)
     {
-        $this->asssertConnection();
+        $this->assertConnection();
 
         return $this->getConnection()->update($this->tableName, array(
                 'nome_scelta'   => $formData->nomeScelta,
@@ -87,7 +87,7 @@ class SceltaContraenteCrudHandler extends CrudHandlerAbstract implements CrudHan
      */
     public function delete($id)
     {
-        $this->asssertConnection();
+        $this->assertConnection();
 
         return $this->getConnection()->delete($this->tableName,
             array('id' => $id),

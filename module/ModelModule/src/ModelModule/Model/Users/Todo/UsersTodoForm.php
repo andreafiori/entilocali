@@ -12,9 +12,12 @@ use Zend\Form\Form;
  */
 class UsersTodoForm  extends Form
 {
+    /**
+     * @inheritdoc
+     */
     public function __construct($name = null)
     {
-        parent::__construct('');
+        parent::__construct($name);
 
         $this->setAttribute('method', 'post');
 

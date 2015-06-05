@@ -13,10 +13,6 @@ use ModelModule\Model\Users\Settori\UsersSettoriGetter;
 use ModelModule\Model\Users\Settori\UsersSettoriGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
-/**
- * @author Andrea Fiori
- * @since  28 April 2015
- */
 class AttiConcessioneFormController extends SetupAbstractController
 {
     public function indexAction()

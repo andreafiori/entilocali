@@ -71,18 +71,25 @@ class ZfcmsComuniStatoCivileArticoli
     private $scadenza;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="flag_allegati", type="string", nullable=false)
+     * @ORM\Column(name="homepage_flag", type="integer", nullable=false)
      */
-    private $flagAllegati;
+    private $homepageFlag;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="homepage", type="integer", nullable=false)
+     * @ORM\Column(name="allegati_numero", type="integer", nullable=false)
      */
-    private $homepage;
+    private $allegatiNumero;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="box_notizie", type="integer", nullable=false)
+     */
+    private $boxNotizie;
 
     /**
      * @var \Application\Entity\ZfcmsComuniStatoCivileSezioni
@@ -278,49 +285,72 @@ class ZfcmsComuniStatoCivileArticoli
     }
 
     /**
-     * Set flagAllegati
+     * Set homepageFlag
      *
-     * @param string $flagAllegati
+     * @param integer $homepageFlag
      * @return ZfcmsComuniStatoCivileArticoli
      */
-    public function setFlagAllegati($flagAllegati)
+    public function setHomepageFlag($homepageFlag)
     {
-        $this->flagAllegati = $flagAllegati;
+        $this->homepageFlag = $homepageFlag;
     
         return $this;
     }
 
     /**
-     * Get flagAllegati
-     *
-     * @return string 
-     */
-    public function getFlagAllegati()
-    {
-        return $this->flagAllegati;
-    }
-
-    /**
-     * Set homepage
-     *
-     * @param integer $homepage
-     * @return ZfcmsComuniStatoCivileArticoli
-     */
-    public function setHomepage($homepage)
-    {
-        $this->homepage = $homepage;
-    
-        return $this;
-    }
-
-    /**
-     * Get homepage
+     * Get homepageFlag
      *
      * @return integer 
      */
-    public function getHomepage()
+    public function getHomepageFlag()
     {
-        return $this->homepage;
+        return $this->homepageFlag;
+    }
+
+    /**
+     * Set allegatiNumero
+     *
+     * @param integer $allegatiNumero
+     * @return ZfcmsComuniStatoCivileArticoli
+     */
+    public function setAllegatiNumero($allegatiNumero)
+    {
+        $this->allegatiNumero = $allegatiNumero;
+    
+        return $this;
+    }
+
+    /**
+     * Get allegatiNumero
+     *
+     * @return integer 
+     */
+    public function getAllegatiNumero()
+    {
+        return $this->allegatiNumero;
+    }
+
+    /**
+     * Set boxNotizie
+     *
+     * @param integer $boxNotizie
+     * @return ZfcmsComuniStatoCivileArticoli
+     */
+    public function setBoxNotizie($boxNotizie)
+    {
+        $this->boxNotizie = $boxNotizie;
+    
+        return $this;
+    }
+
+    /**
+     * Get boxNotizie
+     *
+     * @return integer 
+     */
+    public function getBoxNotizie()
+    {
+        return $this->boxNotizie;
     }
 
     /**

@@ -85,6 +85,11 @@
             <?php echo $this->formElement($form->get('search')); ?>
         </div>
 
+        <div class="col-sm-2">
+            <button type="button" onclick="" id="resetForm" name="resetForm" class="btn btn-danger">Reset</button>
+        </div>
+
+        <!--
         <div class="col-sm-6">
             Esporta:
 
@@ -100,7 +105,6 @@
                 <i class="fa fa-file-text"></i> TXT
             </button>
 
-            <!--
             <button type="button" id="xml_export" class="btn btn-info" title="Esporta dati in formato XML">
                 <i class="fa fa-file-text"></i> XML
             </button>
@@ -108,15 +112,8 @@
             <button type="button" id="json_export" class="btn btn-info" title="Esporta dati in formato JSON">
                 <i class="fa fa-file-text"></i> JSON
             </button>
-            -->
         </div>
-    </div>
-
-    <div class="form-group">
-        <label class="col-sm-2 control-label" for="">&nbsp;</label>
-        <div class="col-sm-10">
-            <button type="button" onclick="" id="resetForm" name="resetForm" class="btn btn-danger">Resetta dati di ricerca</button>
-        </div>
+        -->
     </div>
 
     <?php echo $this->form()->closeTag(); ?>

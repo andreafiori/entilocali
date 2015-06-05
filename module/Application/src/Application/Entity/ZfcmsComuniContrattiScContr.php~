@@ -35,5 +35,12 @@ class ZfcmsComuniContrattiScContr
      */
     private $attivo;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data_ultimo_aggiornamento", type="datetime", nullable=false)
+     */
+    private $dataUltimoAggiornamento;
+
 
 }

@@ -3,165 +3,114 @@
 namespace ModelModule\Model\StatoCivile;
 
 use ModelModule\Model\ControllerHelperAbstract;
-use ModelModule\Model\NullException;
+use ModelModule\Model\Database\DbTableContainer;
+use Zend\InputFilter\InputFilterAwareInterface;
 
 class StatoCivileControllerHelper extends ControllerHelperAbstract
 {
     /**
-     * @var StatoCivileSezioniGetterWrapper
+     * @param StatoCivileGetterWrapper $wrapper
+     * @return int
      */
-    private $statoCivileSezioniGetterWrapper;
-
-    /**
-     * @var StatoCivileGetterWrapper
-     */
-    private $statoCivileGetterWrapper;
-
-    private $statoCivileYears;
-
-    private $sezioniRecords;
-
-    /**
-     * @param StatoCivileSezioniGetterWrapper $statoCivileSezioniGetterWrapper
-     */
-    public function setStatoCivileSezioniGetterWrapper(StatoCivileSezioniGetterWrapper $statoCivileSezioniGetterWrapper)
+    public function recoverNumeroProgressivo(StatoCivileGetterWrapper $wrapper)
     {
-        $this->statoCivileSezioniGetterWrapper = $statoCivileSezioniGetterWrapper;
-    }
+        $numeroProgressivo = $this->recoverWrapperRecords(
+            $wrapper,
+            array(
+                'fields'    => 'MAX(sca.progressivo) AS maxProgressivo',
+                'anno'      => date("Y")
+            )
+        );
 
-    /**
-     * @return StatoCivileSezioniGetterWrapper
-     */
-    public function getStatoCivileSezioniGetterWrapper()
-    {
-        return $this->statoCivileSezioniGetterWrapper;
-    }
-
-        /**
-         * @throws NullException
-         */
-        private function assertStatoCivileSezioniGetterWrapper()
-        {
-            if (!$this->getStatoCivileSezioniGetterWrapper()) {
-                throw new NullException("StatoCivileSezioniGetterWrapper is not set");
-            }
+        if (isset($numeroProgressivo[0]['maxProgressivo'])) {
+            return $numeroProgressivo[0]['maxProgressivo'] + 1;
         }
 
-    /**
-     * @param array $recordset
-     * @return array|bool
-     */
-    public function formatSezioniForFormSelect($recordset)
-    {
-        if (!empty($recordset)) {
-
-            $arrayToReturn = array();
-
-            foreach($recordset as $record) {
-
-                if (!isset($record['id'])) {
-                    break;
-                }
-
-                if (isset($record['id']) and isset($record['nome'])) {
-                    $arrayToReturn[$record['id']] = $record['nome'];
-                }
-            }
-
-            return $arrayToReturn;
-        }
-
-        return false;
+        return 1;
     }
 
     /**
-     * @param array $input
-     * @return \Application\Model\QueryBuilderHelperAbstract
+     * @param InputFilterAwareInterface $formData
+     * @return int
+     * @throws \ModelModule\Model\NullException
      */
-    public function setupSezioniRecords($input = array())
+    public function insert(InputFilterAwareInterface $formData)
     {
-        $this->assertStatoCivileSezioniGetterWrapper();
+        $this->assertConnection();
 
-        $this->getStatoCivileSezioniGetterWrapper()->setInput($input);
-        $this->getStatoCivileSezioniGetterWrapper()->setupQueryBuilder();
+        $this->assertLoggedUser();
 
-        $this->sezioniRecords = $this->getStatoCivileSezioniGetterWrapper()->getRecords();
+        $userDetails = $this->getLoggedUser();
 
-        return $this->sezioniRecords;
-    }
-
-    /**
-     * @return array
-     */
-    public function getSezioniRecords()
-    {
-        return $this->sezioniRecords;
-    }
-
-    /**
-     * @param StatoCivileFormSearch $form
-     * @return StatoCivileFormSearch
-     */
-    public function setupFormSearch($form)
-    {
-        $sezioni = $this->formatSezioniForFormSelect( $this->getSezioniRecords() );
-
-
-        $form->addSezioni( !empty($sezioni) ? $sezioni : array() );
-        $form->addMesi();
-        $form->addAnni();
-        $form->addSubmitButton();
-
-        return $form;
-    }
-
-    /**
-     * @param StatoCivileGetterWrapper $statoCivileGetterWrapper
-     */
-    public function setStatoCivileGetterWrapper(StatoCivileGetterWrapper $statoCivileGetterWrapper)
-    {
-        $this->statoCivileGetterWrapper = $statoCivileGetterWrapper;
-    }
-
-    /**
-     * @return StatoCivileGetterWrapper
-     */
-    public function getStatoCivileGetterWrapper()
-    {
-        return $this->statoCivileGetterWrapper;
-    }
-
-    /**
-     * @param array $input
-     * @return array
-     */
-    public function setupYears($input = array())
-    {
-        $this->assertStatoCivileGetterWrapper();
-
-        $this->getStatoCivileGetterWrapper()->setInput($input);
-        $this->getStatoCivileGetterWrapper()->setupQueryBuilder();
-
-        $this->statoCivileYears = $this->getStatoCivileGetterWrapper()->formatYears(
-            $this->getStatoCivileGetterWrapper()->getRecords()
+        return $this->getConnection()->insert(
+            DbTableContainer::statoCivileArticoli,
+            array(
+                'titolo'                => $formData->titolo,
+                'progressivo'           => $formData->progressivo,
+                'anno'                  => date("Y"),
+                'data'                  => date("Y-m-d"),
+                'ora'                   => date("H:i:s"),
+                'attivo'                => $formData->attivo,
+                'scadenza'              => $formData->scadenza,
+                'utente_id'             => $userDetails->id,
+                'sezione_id'            => $formData->sezione,
+            )
         );
     }
 
     /**
-     * @return array|null
+     * @param InputFilterAwareInterface $formData
+     * @return int
+     * @throws \ModelModule\Model\NullException
      */
-    public function getStatoCivileYears()
+    public function update(InputFilterAwareInterface $formData)
     {
-        return $this->statoCivileYears;
+        $this->assertConnection();
+
+        $arrayUpdate = array(
+            'titolo'                => $formData->titolo,
+            'anno'                  => date("Y"),
+            'data'                  => date("Y-m-d"),
+            'ora'                   => date("H:i:s"),
+            'attivo'                => $formData->attivo,
+            'scadenza'              => $formData->scadenza,
+            'sezione_id'            => $formData->sezione,
+            'homepage_flag'         => isset($formData->homepageFlag) ? $formData->homepageFlag : 0,
+            'box_notizie'           => isset($formData->boxNotizie) ? $formData->boxNotizie : 0,
+        );
+
+        if (isset($formData->utente)) {
+            $arrayUpdate['utente_id'] = $formData->utente;
+        }
+
+        return $this->getConnection()->update(
+            DbTableContainer::statoCivileArticoli,
+            $arrayUpdate,
+            array('id' => $formData->id),
+            array('limit' => 1)
+        );
     }
 
-        /**
-         * @throws NullException
-         */
-        private function assertStatoCivileGetterWrapper()
-        {
-            if (!$this->getStatoCivileGetterWrapper()) {
-                throw new NullException("StatoCivileGetterWrapper is not set");
-            }
-        }
+    public function delete($id)
+    {
+        return $this->getConnection()->delete(
+            DbTableContainer::statoCivileArticoli,
+            array('id'    => $id),
+            array('limit' => 1)
+        );
+    }
+
+    /**
+     * @param StatoCivileGetterWrapper $wrapper
+     * @param array $input
+     * @return array
+     */
+    public function setupYears(StatoCivileGetterWrapper $wrapper, $input = array())
+    {
+        $wrapper->setInput($input);
+
+        $wrapper->setupQueryBuilder();
+
+        return $wrapper->formatYears( $wrapper->getRecords() );
+    }
 }

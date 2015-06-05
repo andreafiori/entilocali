@@ -7,16 +7,15 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
-/**
- * @author Andrea Fiori
- * @since  23 March 2014
- */
 class AlboPretorioSezioniFormInputFilter implements InputFilterAwareInterface
 {
     public $id;
     public $nome;
     public $attivo;
 
+    /**
+     * @var InputFilterAwareInterface
+     */
     protected $inputFilter;
 
     /**
@@ -29,6 +28,10 @@ class AlboPretorioSezioniFormInputFilter implements InputFilterAwareInterface
         $this->attivo  = (isset($data['attivo']))  ? $data['attivo'] : null;
     }
 
+    /**
+     * @param InputFilterInterface $inputFilter
+     * @throws \Exception
+     */
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
         throw new \Exception("Not used");
@@ -54,6 +57,7 @@ class AlboPretorioSezioniFormInputFilter implements InputFilterAwareInterface
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
                 ),
                 'validators' => array(
                     array(

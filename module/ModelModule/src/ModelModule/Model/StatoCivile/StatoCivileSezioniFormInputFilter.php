@@ -56,6 +56,7 @@ class StatoCivileSezioniFormInputFilter implements InputFilterAwareInterface
                 'filters' => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
+
                 ),
                 'validators' => array(
                     array (

@@ -16,24 +16,49 @@ class HomePageBlocksPositionsController extends SetupAbstractController
 
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-        $helper = new HomePageControllerHelper();
-        $helper->setHomePageBlocksGetterWrapper(new HomePageBlocksGetterWrapper(new HomePageBlocksGetter($em)));
-        $helper->setupHomePageBlocksRecords(array(
-            'orderBy' => 'homePageBlocks.position',
-            'fields'  => ''
-        ));
+        try {
 
-        $this->layout()->setVariables(array(
-            'records'           => $helper->getHomePageBlocksRecords(),
-            'templatePartial'   => 'homepage/homepage-blocks-positions.phtml',
-        ));
+            $helper = new HomePageControllerHelper();
+            $homePageRecords =  $helper->recoverWrapperRecords(
+                new HomePageBlocksGetterWrapper(new HomePageBlocksGetter($em)),
+                array(
+                    'orderBy' => 'homePageBlocks.position',
+                    'fields'  => ''
+                )
+            );
+            $helper->checkRecords($homePageRecords, 'Nessun blocco home page presente');
+
+            $this->layout()->setVariables(array(
+                'records'           => $homePageRecords,
+                'templatePartial'   => 'homepage/homepage-blocks-positions.phtml',
+            ));
+
+        } catch(\Exception $e) {
+            $this->layout()->setVariables(array(
+                'messageType'           => 'danger',
+                'messageTitle'          => 'Errore verificato',
+                'messageText'           => $e->getMessage(),
+                'showBreadCrumb'        => 1,
+                'formBreadCrumbCategory' => array(
+                    array(
+                        'label' => 'Gestione home page',
+                        'href' => '#',
+                        'title' => 'Vai alla gestione home page',
+                    ),
+                ),
+                'dataTableActiveTitle'  => 'Posizioni moduli',
+                'templatePartial'       => 'message.phtml'
+            ));
+        }
 
         $this->layout()->setTemplate($mainLayout);
     }
 
+    /**
+     * Update positions: this action is called via AJAX
+     */
     public function updateAction()
     {
-
         $appServiceLoader = $this->recoverAppServiceLoader();
 
         $items = $this->params()->fromQuery('oggettoItem');
@@ -42,7 +67,6 @@ class HomePageBlocksPositionsController extends SetupAbstractController
 
         if (!empty($items)):
             foreach ($items as $position => $item):
-//echo "$item => $position <br>";
                 $connection->update(
                     DbTableContainer::homepageBlocks,
                     array('position' => $position),
@@ -51,7 +75,6 @@ class HomePageBlocksPositionsController extends SetupAbstractController
 
             endforeach;
         endif;
-
 
         $this->layout()->setTerminal(true);
 

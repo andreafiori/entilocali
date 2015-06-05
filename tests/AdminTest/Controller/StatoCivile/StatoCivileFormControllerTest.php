@@ -24,7 +24,6 @@ class StatoCivileFormControllerTest extends TestSuite
     public function testIndexAction()
     {
         $this->routeMatch->setParam('action', 'index');
-        $this->routeMatch->setParam('lang', 'it');
 
         $this->controller->dispatch($this->request);
 

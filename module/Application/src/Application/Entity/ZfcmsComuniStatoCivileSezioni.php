@@ -36,6 +36,13 @@ class ZfcmsComuniStatoCivileSezioni
     private $attivo;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="posizione", type="integer", nullable=false)
+     */
+    private $posizione;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="data_inserimento", type="datetime", nullable=true)
@@ -105,6 +112,29 @@ class ZfcmsComuniStatoCivileSezioni
     public function getAttivo()
     {
         return $this->attivo;
+    }
+
+    /**
+     * Set posizione
+     *
+     * @param integer $posizione
+     * @return ZfcmsComuniStatoCivileSezioni
+     */
+    public function setPosizione($posizione)
+    {
+        $this->posizione = $posizione;
+    
+        return $this;
+    }
+
+    /**
+     * Get posizione
+     *
+     * @return integer 
+     */
+    public function getPosizione()
+    {
+        return $this->posizione;
     }
 
     /**

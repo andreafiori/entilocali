@@ -52,7 +52,7 @@ class AttiConcessioneModalitaAssegnazioneCrudHandler extends CrudHandlerAbstract
      */
     public function insert(InputFilterAwareInterface $formData)
     {
-        $this->asssertConnection();
+        $this->assertConnection();
 
         return $this->getConnection()->insert($this->dbTable, array(
             'nome' => $formData->nome,
@@ -66,7 +66,7 @@ class AttiConcessioneModalitaAssegnazioneCrudHandler extends CrudHandlerAbstract
      */
     public function update(InputFilterAwareInterface $formData)
     {
-        $this->asssertConnection();
+        $this->assertConnection();
 
         $arrayToUpdate = array(
             'nome' => $formData->nome,

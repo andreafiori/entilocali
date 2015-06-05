@@ -56,7 +56,7 @@ class AttiConcessioneCrudHandler extends CrudHandlerAbstract implements CrudHand
      */
     public function insert(InputFilterAwareInterface $formData)
     {
-        $this->asssertConnection();
+        $this->assertConnection();
 
         $this->assertUserDetails();
 
@@ -82,7 +82,7 @@ class AttiConcessioneCrudHandler extends CrudHandlerAbstract implements CrudHand
      */
     public function update(InputFilterAwareInterface $formData)
     {
-        $this->asssertConnection();
+        $this->assertConnection();
 
         $this->assertUserDetails();
 

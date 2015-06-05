@@ -5,7 +5,7 @@ namespace Admin\Controller\AlboPretorio;
 use ModelModule\Model\AlboPretorio\AlboPretorioArticoliForm;
 use ModelModule\Model\AlboPretorio\AlboPretorioArticoliGetter;
 use ModelModule\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
-use ModelModule\Model\AlboPretorio\AlboPretorioFormControllerHelper;
+use ModelModule\Model\AlboPretorio\AlboPretorioControllerHelper;
 use ModelModule\Model\AlboPretorio\AlboPretorioSezioniGetter;
 use ModelModule\Model\AlboPretorio\AlboPretorioSezioniGetterWrapper;
 use Application\Controller\SetupAbstractController;
@@ -22,46 +22,58 @@ class AlboPretorioFormController extends SetupAbstractController
 
         $em             = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-        $helper         = new AlboPretorioFormControllerHelper();
-
+        $helper = new AlboPretorioControllerHelper();
         try {
-            $sezioniRecords = $helper->recoverSezioniRecords( new AlboPretorioSezioniGetterWrapper(
-                    new AlboPretorioSezioniGetter($em)
+            $sezioniRecords = $helper->recoverWrapperRecords(
+                new AlboPretorioSezioniGetterWrapper( new AlboPretorioSezioniGetter($em) ),
+                array(
+                    'fields' => 'aps.id, aps.nome',
+                    'orderBy' => 'aps.nome ASC',
                 )
             );
-
-            $helper->checkSezioniIsNotEmpty($sezioniRecords);
-            $helper->setupAlboArticolo(
+            $helper->checkRecords($sezioniRecords, 'Sezioni non presenti o non rilevate dal sistema. Verificare i dati delle sezioni o inserirne una nuova');
+            $articoliRecords = $helper->recoverWrapperRecordsById(
                 new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter($em)),
-                isset($id) ? $id : null
+                array('id' => $id, 'limit' => 1),
+                $id
+            );
+            $helper->checkArticoloIsNotAnnulled($articoliRecords);
+
+            $numeroProgressivo = $helper->recoverNumeroProgressivo(
+                new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter($em))
             );
 
-            $articoliRecords = $helper->getAlboArticolo();
-
-            $helper->checkArticoloIsNotAnnull($articoliRecords);
-
             $form = new AlboPretorioArticoliForm();
-            $form->addSezioni($helper->formatSezioniForADropdown($sezioniRecords));
+            $form->addSezioni($helper->formatForDropwdown($sezioniRecords, 'id', 'nome'));
             $form->addTitolo();
             $form->addNumero();
             $form->addAnno();
             $form->addMainFields();
             $form->addScadenze();
-
-            // Add users checkbox: $userRecords = $helper->recoverUsersRecords(new UsersGetterWrapper(new UsersGetter($em)));
+            $form->addHomePage();
 
             if ( !empty($articoliRecords) ) {
 
                 $form->setData($articoliRecords[0]);
 
-                $formAction     = 'albo-pretorio/update/'.$articoliRecords[0]['id'];
+                $formAction     = $this->url()->fromRoute('admin/albo-pretorio-update', array(
+                    'lang' => $lang
+                ));
                 $formTitle      = $articoliRecords[0]['titolo'];
+                $submitButtonValue = 'Modifica';
 
             } else {
                 $form->addFacebook();
+                $form->setData(array(
+                    'anno'       => date("Y"),
+                    'numeroAtto' => $numeroProgressivo,
+                ));
 
-                $formAction = 'albo-pretorio/insert/';
+                $formAction = $this->url()->fromRoute('admin/albo-pretorio-insert', array(
+                    'lang' => $lang
+                ));
                 $formTitle  = 'Nuovo atto';
+                $submitButtonValue = 'Inserisci';
             }
 
             $this->layout()->setVariables(array(
@@ -69,8 +81,18 @@ class AlboPretorioFormController extends SetupAbstractController
                 'formAction'                    => $formAction,
                 'formTitle'                     => $formTitle,
                 'formDescription'               => "Compila i dati relativi all'atto da inserire sull'albo pretorio",
+                'submitButtonValue'             => $submitButtonValue,
+                'noFormActionPrefix'            => 1,
+                'formBreadCrumbCategory'        => array(
+                    array(
+                        'label' => 'Albo pretorio',
+                        'href'  => $this->url()->fromRoute('admin/albo-pretorio-summary', array(
+                            'lang' => $lang
+                        )),
+                        'title' => "'Torna all'elenco atti albo pretorio",
+                    )
+                ),
                 'templatePartial'               => self::formTemplate,
-                'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/albo-pretorio-summary', array('lang' => $lang)),
             ));
 
         } catch(NullException $e) {

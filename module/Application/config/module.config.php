@@ -1,4 +1,7 @@
 <?php
+
+namespace Application;
+
 return array(
     'controllers' => array(
         'invokables' => array(
@@ -636,5 +639,8 @@ return array(
                                                 ),
                                 ),
                 ),
+                'fixture' => array(
+                    __NAMESPACE__.'_fixture' => __DIR__ . '/../src/'.__NAMESPACE__.'/Fixture',
+                )
     ),
 );

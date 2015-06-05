@@ -6,6 +6,7 @@ use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
 use Zend\Http\PhpEnvironment\Request as PhpEnviromentRequest;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
+use Zend\Permissions\Acl\Acl;
 use Zend\Session\Container as SessionContainer;
 use ModelModule\Model\NullException;
 
@@ -318,6 +319,7 @@ abstract class TestSuite extends \PHPUnit_Framework_TestCase
         $userDetails->name = 'MyName';
         $userDetails->surname = 'MySurname';
         $userDetails->email = 'test@mytestsuite.com';
+        $userDetails->acl = new Acl();
 
         return $userDetails;
     }

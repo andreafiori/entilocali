@@ -12,7 +12,14 @@ class AlboPretorioArticoliFormInputFilter implements InputFilterAwareInterface
     public $id;
     public $titolo;
     public $sezione;
+
+    /**
+     * Numero progressivo aggiunto SOLO al momento dell'inserimento nel db
+     *
+     * @var int $numeroProgressivo
+     */
     public $numeroProgressivo;
+
     public $numeroAtto;
     public $anno;
     public $enteTerzo;
@@ -34,7 +41,6 @@ class AlboPretorioArticoliFormInputFilter implements InputFilterAwareInterface
         $this->id                       = (isset($data['id']))                      ? $data['id']   : null;
         $this->titolo                   = (isset($data['titolo']))                  ? $data['titolo'] : null;
         $this->sezione                  = (isset($data['sezione']))                 ? $data['sezione'] : null;
-        $this->numeroProgressivo        = (isset($data['numeroProgressivo']))       ? $data['numeroProgressivo'] : null;
         $this->numeroAtto               = (isset($data['numeroAtto']))              ? $data['numeroAtto'] : null;
         $this->anno                     = (isset($data['anno']))                    ? $data['anno'] : null;
         $this->enteTerzo                = (isset($data['enteTerzo']))               ? $data['enteTerzo'] : null;
@@ -80,6 +86,7 @@ class AlboPretorioArticoliFormInputFilter implements InputFilterAwareInterface
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
                 ),
                 'validators' => array(
                     array(
@@ -126,6 +133,7 @@ class AlboPretorioArticoliFormInputFilter implements InputFilterAwareInterface
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
                 ),
                 'validators' => array(
                     array(
@@ -145,6 +153,7 @@ class AlboPretorioArticoliFormInputFilter implements InputFilterAwareInterface
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
                 ),
                 'validators' => array(
                     array(
@@ -163,6 +172,7 @@ class AlboPretorioArticoliFormInputFilter implements InputFilterAwareInterface
                 'required' => false,
                 'filters'  => array(
                     array('name' => 'Int'),
+                    array('name' => 'HtmlEntities'),
                 ),
             ));
 
@@ -172,6 +182,7 @@ class AlboPretorioArticoliFormInputFilter implements InputFilterAwareInterface
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
                 ),
                 'validators' => array(
                     array(
@@ -191,6 +202,7 @@ class AlboPretorioArticoliFormInputFilter implements InputFilterAwareInterface
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
                 ),
                 'validators' => array(
                     array(

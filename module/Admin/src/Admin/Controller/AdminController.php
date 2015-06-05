@@ -3,6 +3,7 @@
 namespace Admin\Controller;
 
 use Application\Controller\SetupAbstractController;
+use ModelModule\Model\Users\Todo\UsersTodoForm;
 use Zend\View\Model\ViewModel;
 use ModelModule\Model\SetupAbstractControllerHelper;
 use ModelModule\Model\RouterManagers\RouterManager;
@@ -16,67 +17,21 @@ class AdminController extends SetupAbstractController
      */
     public function indexAction()
     {
-        $appServiceLoader = $this->recoverAppServiceLoader();
+        $mainLayout = $this->initializeAdminArea();
 
-        $configurations = $appServiceLoader->recoverService('configurations');
+        $userDetails = $this->recoverUserDetails();
 
-        $sessionContainer = new SessionContainer();
+        $lasUpdatePasswordDate1 = new \DateTime(date('Y-m-d', strtotime($userDetails->passwordLastUpdate->date)));
+        $lasUpdatePasswordDate2 = new \DateTime(date('Y-m-d', strtotime(date("Y-m-d H:i:s"))));
+        $lastUpdatePasswordDays = $lasUpdatePasswordDate1->diff($lasUpdatePasswordDate2)->days;
 
-        if (!$this->checkPasswordPreviewArea($configurations, $sessionContainer)) {
-            return $this->redirect()->toRoute('password-preview');
-        }
-
-        $request = $this->getRequest();
-
-        $helper = new SetupAbstractControllerHelper();
-        $helper->setConfigurations($configurations);
-        $helper->setRequest($request);
-        $helper->setupZf2appDir();
-        $helper->setupAppDirRelativePath();
-
-        $moduleConfigs      = $appServiceLoader->recoverService('moduleConfigs');
-        $userDetails        = $this->recoverUserDetails();
-        $uri                = $this->getRequest()->getUri();
-        $basePath           = sprintf('%s://%s%s', $uri->getScheme(), $uri->getHost(), $this->getRequest()->getBaseUrl().'/');
-        $baseUrl            = sprintf($basePath.'admin/main/'.$this->params()->fromRoute('lang').'/');
-
-        $routerManager = new RouterManager($appServiceLoader->recoverService('configurations'));
-        $routerManager->setIsBackend(1);
-        $routerManager->setRouteMatchName($appServiceLoader->recoverServiceKey('moduleConfigs', 'be_router'));
-
-        $routerManagerHelper = new RouterManagerHelper($routerManager->setupRouteMatchObjectInstance());
-        $routerManagerHelper->getRouterManger()->setInput(array_merge(
-            $appServiceLoader->getProperties(),
-            array(
-                'formsetter'             => trim($this->params()->fromRoute('formsetter')),
-                'tablesetter'            => trim($this->params()->fromRoute('tablesetter')),
-                'formdata_classmap'      => $moduleConfigs['formdata_classmap'],
-                'formdata_crud_classmap' => $moduleConfigs['formdata_crud_classmap'],
-                'datatables_classmap'    => $moduleConfigs['datatables_classmap'],
-                'userDetails'            => $userDetails,
-                'baseUrl'                => $baseUrl,
-                'basePath'               => $basePath,
-            )
-        ));
-        $routerManagerHelper->getRouterManger()->setupRecord();
-
-        $this->layout()->setVariables(array_merge(
-            $configurations,
-            $routerManagerHelper->getRouterManger()->getOutput('export'),
-            array(
-                'publicDirRelativePath' => $helper->getAppDirRelativePath() .'/public',
-                'baseUrl'               => $baseUrl,
-                'basePath'              => $basePath,
-                'userDetails'           => $userDetails,
-                'userRole'              => $userDetails->role,
-                'preloadResponse'       => $appServiceLoader->recoverServiceKey('configurations', 'preloadResponse'),
-                'templateDir'           => 'backend/templates/'.$helper->getConfigurations('template_backend'),
-                'templatePartial'       => $routerManagerHelper->getRouterManger()->getTemplate(1),
-                'formDataCommonPath'    => 'backend/templates/common/',
-                'passwordPreviewArea'   => $this->hasPasswordPreviewArea($configurations),
-            )
+        $this->layout()->setVariables(array(
+            'form' => new UsersTodoForm(),
+            'showPasswordNotSecureWarning'  => (!empty($userDetails->salt)) ? 0 : 1,
+            'showUpdatePasswordWarning'     => ($lastUpdatePasswordDays > 30) ? 1 : 0,
+            'templatePartial'               => 'dashboard/dashboard.phtml',
         ));
 
-        $this->layout()->setTemplate('backend/templates/'.$helper->getConfigurations('template_backend').'backend.phtml');
+        $this->layout()->setTemplate($mainLayout);
     }
 }

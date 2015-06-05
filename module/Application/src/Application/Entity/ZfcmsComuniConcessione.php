@@ -113,6 +113,13 @@ class ZfcmsComuniConcessione
     private $homepage;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="notizie_box", type="integer", nullable=false)
+     */
+    private $notizieBox;
+
+    /**
      * @var \Application\Entity\ZfcmsComuniConcessioneModassegn
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniConcessioneModassegn")
@@ -461,6 +468,29 @@ class ZfcmsComuniConcessione
     public function getHomepage()
     {
         return $this->homepage;
+    }
+
+    /**
+     * Set notizieBox
+     *
+     * @param integer $notizieBox
+     * @return ZfcmsComuniConcessione
+     */
+    public function setNotizieBox($notizieBox)
+    {
+        $this->notizieBox = $notizieBox;
+    
+        return $this;
+    }
+
+    /**
+     * Get notizieBox
+     *
+     * @return integer 
+     */
+    public function getNotizieBox()
+    {
+        return $this->notizieBox;
     }
 
     /**

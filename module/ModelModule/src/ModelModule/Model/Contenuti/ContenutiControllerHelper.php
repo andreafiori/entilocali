@@ -2,13 +2,12 @@
 
 namespace ModelModule\Model\Contenuti;
 
-use ModelModule\Model\Sezioni\SezioniControllerHelperAbstract;
 use ModelModule\Model\NullException;
 use Zend\InputFilter\InputFilterAwareInterface;
 use ModelModule\Model\Database\DbTableContainer;
 use ModelModule\Model\Slugifier;
 
-class ContenutiControllerHelper extends SezioniControllerHelperAbstract
+class ContenutiControllerHelper extends ContenutiControllerHelperAbstract
 {
     /**
      * @param InputFilterAwareInterface $inputFilter

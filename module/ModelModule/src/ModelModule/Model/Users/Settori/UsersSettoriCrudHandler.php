@@ -9,10 +9,6 @@ use ModelModule\Model\Modules\ModulesContainer;
 use ModelModule\Model\Database\DbTableContainer;
 use Zend\InputFilter\InputFilterAwareInterface;
 
-/**
- * @author Andrea Fiori
- * @since  26 March 2015
- */
 class UsersSettoriCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterface, CrudHandlerInsertUpdateInterface
 {
     private $dbTable;
@@ -50,12 +46,7 @@ class UsersSettoriCrudHandler extends CrudHandlerAbstract implements CrudHandler
      */
     public function insert(InputFilterAwareInterface $formData)
     {
-        $this->asssertConnection();
 
-        return $this->getConnection()->insert($this->dbTable, array(
-            'nome'                 => $formData->nome,
-            'responsabile_user_id' => $formData->responsabileUserId,
-        ));
     }
 
     /**
@@ -65,7 +56,7 @@ class UsersSettoriCrudHandler extends CrudHandlerAbstract implements CrudHandler
      */
     public function update(InputFilterAwareInterface $formData)
     {
-        $this->asssertConnection();
+        $this->assertConnection();
 
         return $this->getConnection()->update(
             $this->dbTable,
@@ -93,7 +84,7 @@ class UsersSettoriCrudHandler extends CrudHandlerAbstract implements CrudHandler
     /**
      * @return bool
      *
-     * @throws \Application\Model\NullException
+     * @throws \ModelModule\Model\NullException
      */
     public function logInsertOk()
     {
@@ -136,57 +127,7 @@ class UsersSettoriCrudHandler extends CrudHandlerAbstract implements CrudHandler
         return $LogWriter->writeLog(array(
             'user_id'   => $userDetails->id,
             'module_id' => $this->moduleId,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'inserimento settore utente ".$inputFilter->nome.'Messaggio: '.$message,
-            'type'      => 'error',
-            'backend'   => 1,
-        ));
-    }
-
-    /**
-     * @return bool
-     */
-    public function logUpdateOk()
-    {
-        $this->assertUserDetails();
-
-        $this->assertLogWriter();
-
-        $userDetails = $this->getUserDetails();
-
-        $LogWriter = $this->getLogWriter();
-
-        $inputFilter = $this->getFormInputFilter();
-
-        return $LogWriter->writeLog(array(
-            'user_id'   => $userDetails->id,
-            'module_id' => $this->moduleId,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', ha aggiornato il settore utente ".$inputFilter->nome,
-            'type'      => 'info',
-            'backend'   => 1,
-        ));
-    }
-
-    /**
-     * @param null $message
-     *
-     * @return bool
-     */
-    public function logUpdateKo($message = null)
-    {
-        $this->assertUserDetails();
-
-        $this->assertLogWriter();
-
-        $userDetails = $this->getUserDetails();
-
-        $LogWriter = $this->getLogWriter();
-
-        $inputFilter = $this->getFormInputFilter();
-
-        return $LogWriter->writeLog(array(
-            'user_id'   => $userDetails->id,
-            'module_id' => $this->moduleId,
-            'message'   => $userDetails->name.' '.$userDetails->surname."', errore nell'aggiornamento settore utente ".$inputFilter->nome.' Messaggio: '.$message,
+            'message'   => "Errore nell'inserimento settore utente ".$inputFilter->nome.'Messaggio: '.$message,
             'type'      => 'error',
             'backend'   => 1,
         ));

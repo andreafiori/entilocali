@@ -36,6 +36,13 @@ class ZfcmsComuniStatoCivileSezioni
     private $attivo;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="posizione", type="integer", nullable=false)
+     */
+    private $posizione;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="data_inserimento", type="datetime", nullable=true)

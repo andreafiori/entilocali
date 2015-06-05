@@ -78,6 +78,13 @@ class ZfcmsComuniContenuti
     private $dataInvioRegione;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data_ultimo_aggiornamento", type="datetime", nullable=false)
+     */
+    private $dataUltimoAggiornamento;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="attivo", type="integer", nullable=false)

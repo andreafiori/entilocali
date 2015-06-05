@@ -5,10 +5,6 @@ namespace ModelModule\Model\ContrattiPubblici\Operatori;
 use ModelModule\Model\FormData\CrudHandlerInterface;
 use ModelModule\Model\FormData\CrudHandlerAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  28 February 2015
- */
 class OperatoriCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterface
 {
     private $tableName = 'zfcms_comuni_contratti_partecipanti';

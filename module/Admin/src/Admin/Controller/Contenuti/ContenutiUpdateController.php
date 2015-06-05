@@ -76,12 +76,13 @@ class ContenutiUpdateController extends SetupAbstractController
                 'messageShowFormLink'   => 1,
                 'messageShowForm'       => 'Torna al contenuto',
                 'backToSummaryLink'     => $this->url()->fromRoute('admin/contenuti-summary', array(
-                    'lang'              => $this->params()->fromRoute('languageSelection'),
+                    'lang'              => $this->params()->fromRoute('lang'),
                     'languageSelection' => $this->params()->fromRoute('languageSelection'),
+                    'modulename'        => $this->params()->fromRoute('modulename'),
                 )),
                 'backToSummaryText'     => "Elenco contenuti",
                 'attachmentsLink'       => $this->url()->fromRoute('admin/attachments-summary', array(
-                    'lang'          => $this->params()->fromRoute('languageSelection'),
+                    'lang'          => $this->params()->fromRoute('lang'),
                     'module'        => 'contenuti',
                     'referenceId'   => $inputFilter->id,
                 )),

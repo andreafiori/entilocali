@@ -24,7 +24,6 @@ class ContrattiPubbliciSceltaContraenteFormController extends SetupAbstractContr
             $id
         );
 
-
         $form = new SceltaContraenteForm();
 
         if ($recordFromDb) {

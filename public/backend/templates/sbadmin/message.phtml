@@ -1,4 +1,8 @@
 
+<?php if ($this->showBreadCrumb): ?>
+    <?php echo $this->render($this->formDataCommonPath.'breadcrumb.phtml'); ?>
+<?php endif; ?>
+
 <div style="padding: 1%; margin: 0" class="alert alert-<?php if ($this->messageType) echo $this->messageType; else echo "info"; ?>" id="formdataresultmessage">
 
     <h1><?php echo $this->messageTitle ?></h1>
@@ -37,7 +41,7 @@
     <?php endif; ?>
 
     <?php if (!empty($this->form)): ?>
-        <!-- Form errors -->
+        <!-- Form Errors -->
         <?php foreach ($this->form as $element): ?>
             <?php
             $elementError = $this->formElementerrors($element);
@@ -45,7 +49,7 @@
                 if (!isset($printDebugFormRow)):
                     $printDebugFormRow = 1;
                 endif;
-                echo $element->getName().$elementError;
+                echo $element->getName().' '.$elementError;
             endif;
             ?>
         <?php endforeach; ?>
@@ -60,8 +64,19 @@
     <?php if ($this->messageShowFormLink): ?>
         <div id="showFormContainer">
             <p>
-                <i class="fa fa-arrow-left"></i> <a href="javascript:void(0)" id="reShowForm" title="Mostra nuovamente il form">
-                    <?php echo ($this->messageShowForm) ? $this->messageShowForm : 'Torna al form' ?>
+                <a href="javascript:void(0)" id="reShowForm" title="Mostra nuovamente il form">
+                    <i class="fa fa-arrow-left"></i> <?php echo ($this->messageShowForm) ? $this->messageShowForm : 'Torna al form' ?>
+                </a>
+            </p>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($this->showLinkResetFormAndShowIt): ?>
+        <!-- Clear form fields and show form again -->
+        <div>
+            <p>
+                <a href="javascript:void(0)" id="showForNewInsert" title="Inserisci un nuovo record">
+                    <i class="fa fa-plus-circle"></i> Inserisci un nuovo elemento
                 </a>
             </p>
         </div>
@@ -70,8 +85,8 @@
     <?php if ($this->attachmentsLink): ?>
         <div id="attachmentsManagementLink">
             <p>
-                <i class="fa fa-paperclip"></i> <a href="<?php echo $this->attachmentsLink ?>" title="Vai alla gestione allegati">
-                    Allegati
+                <a href="<?php echo $this->attachmentsLink ?>" title="Vai alla gestione allegati">
+                    <i class="fa fa-paperclip"></i> Allegati
                 </a>
             </p>
         </div>
@@ -80,8 +95,8 @@
     <?php if ($this->backToSummaryLink): ?>
         <div id="backToSummary">
             <p>
-                <i class="fa fa-list"></i> <a href="<?php echo $this->backToSummaryLink ?>" title="Torna all'elenco dati del modulo corrente">
-                    <?php echo ($this->backToSummaryText) ? $this->backToSummaryText : "Torna all'elenco dati" ?>
+                <a href="<?php echo $this->backToSummaryLink ?>" title="Torna all'elenco dati del modulo corrente">
+                    <i class="fa fa-list"></i> <?php echo ($this->backToSummaryText) ? $this->backToSummaryText : "Torna all'elenco dati" ?>
                 </a>
             </p>
         </div>
@@ -89,21 +104,10 @@
 
     <?php if (isset($this->attachmentFilesModule)): ?>
         <p>
-            <i class="fa fa-paperclip"></i> <a href="<?php echo $this->attachmentLink; ?>" title="Completa gestione allegati">
-                Vai alla gestione allegati per completare la rettifica
+            <a href="<?php echo $this->attachmentLink; ?>" title="Completa gestione allegati">
+                <i class="fa fa-paperclip"></i> Vai alla gestione allegati per completare la rettifica
             </a>
         </p>
-    <?php endif; ?>
-
-    <?php if ($this->showLinkResetFormAndShowIt): ?>
-    <!-- Clear form fields and show form again -->
-    <div>
-        <p>
-            &raquo; <a href="javascript:void(0)" id="showForNewInsert" title="Inserisci un nuovo record">
-                Inserisci un nuovo elemento
-            </a>
-        </p>
-    </div>
     <?php endif; ?>
 
     <?php if ($this->redirectRouteTableSetter): ?>

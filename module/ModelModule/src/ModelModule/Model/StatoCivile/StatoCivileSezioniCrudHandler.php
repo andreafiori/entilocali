@@ -51,7 +51,7 @@ class StatoCivileSezioniCrudHandler extends CrudHandlerAbstract implements CrudH
      */
     public function insert(InputFilterAwareInterface $formData)
     {
-        $this->asssertConnection();
+        $this->assertConnection();
 
         return $this->getConnection()->insert($this->dbTable, array(
             'nome'                         => $formData->nome,
@@ -68,7 +68,7 @@ class StatoCivileSezioniCrudHandler extends CrudHandlerAbstract implements CrudH
      */
     public function update(InputFilterAwareInterface $formData)
     {
-        $this->asssertConnection();
+        $this->assertConnection();
 
         return $this->getConnection()->update(
             $this->dbTable,

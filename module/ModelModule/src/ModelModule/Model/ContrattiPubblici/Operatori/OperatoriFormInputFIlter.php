@@ -2,9 +2,7 @@
 
 namespace ModelModule\Model\ContrattiPubblici\Operatori;
 
-
-
-class OperatoriForm
+class OperatoriFormInputFilter
 {
 
 }

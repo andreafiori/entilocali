@@ -12,6 +12,8 @@ class BlogsUpdateController extends SetupAbstractController
 
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
+        // TODO: check if categories is empy... update posts, update categories (delete old or check categories and add\delete to match the selection)
+
         $this->layout()->setTemplate($mainLayout);
     }
 }

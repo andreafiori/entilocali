@@ -25,16 +25,19 @@ class AttiConcessioneController extends SetupAbstractController
 
         $basicLayout = $this->layout()->getVariable('atti_concessione_basiclayout');
 
-        try{
+        try {
             $helper = new AttiConcessioneControllerHelper();
-            $helper->setAttiConcessioneGetterWrapper( new AttiConcessioneGetterWrapper(new AttiConcessioneGetter($em)) );
-            $helper->setupYearsRecords( array(
+            $years = $helper->recoverWrapperRecords(
+                new AttiConcessioneGetterWrapper(new AttiConcessioneGetter($em)),
+                array(
                     'fields' => 'DISTINCT(atti.anno) AS year',
                     'orderBy' => 'atti.id DESC'
                 ),
                 $page,
                 null
             );
+
+
             $helper->setAttiConcessioneGetterWrapper( new AttiConcessioneGetterWrapper(new AttiConcessioneGetter($em)) );
             $helper->setupAttiConcessioneGetterWrapperWithPaginator(
                 array('orderBy' => 'atti.id DESC', 'attivo' => 1),
@@ -50,6 +53,8 @@ class AttiConcessioneController extends SetupAbstractController
                 $wrapperArticoli->setupRecords(),
                 array()
             );
+
+
 
             $form = new AttiConcessioneFormSearch();
             $form->addAnno( $helper->formatYears($helper->getYearsRecords()) );

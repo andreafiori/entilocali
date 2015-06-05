@@ -50,7 +50,7 @@ class UsersTodoCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
      */
     public function insert(InputFilterAwareInterface $formData)
     {
-        $this->asssertConnection();
+        $this->assertConnection();
 
         return $this->getConnection()->insert($this->dbTable, array(
             'nome'                 => $formData->nome,
@@ -65,7 +65,7 @@ class UsersTodoCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
      */
     public function update(InputFilterAwareInterface $formData)
     {
-        $this->asssertConnection();
+        $this->assertConnection();
 
         return $this->getConnection()->update(
             $this->dbTable,

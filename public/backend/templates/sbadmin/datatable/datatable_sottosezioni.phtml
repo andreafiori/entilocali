@@ -5,8 +5,12 @@
         </a>
     </li>
     <li>
-        <a href="<?php echo $this->url('admin/contenuti-form', array('lang'=>$this->params()->fromRoute('lang'), 'languageSelection' => $this->params()->fromRoute('languageSelection'))) ?>" title="Elenco contenuti">
-            Contenuti
+        <a href="<?php echo $this->url('admin/'.$this->params()->fromRoute('modulename').'-form',
+            array('lang' => $this->params()->fromRoute('lang'),
+                'languageSelection' => $this->params()->fromRoute('languageSelection'),
+                'modulename' => $this->params()->fromRoute('modulename')
+            )) ?>" title="Elenco">
+            <?php echo ucfirst(str_replace('-', ' ', $this->params()->fromRoute('modulename'))) ?>
         </a>
     </li>
     <li class="active">

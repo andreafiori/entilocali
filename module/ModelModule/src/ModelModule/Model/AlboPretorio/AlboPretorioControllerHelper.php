@@ -2,9 +2,141 @@
 
 namespace ModelModule\Model\AlboPretorio;
 
+use ModelModule\Model\Database\DbTableContainer;
+use ModelModule\Model\NullException;
+use ModelModule\Model\StatoCivile\StatoCivileFormInputFilter;
+use Zend\InputFilter\InputFilterAwareInterface;
 use ModelModule\Model\ControllerHelperAbstract;
 
 class AlboPretorioControllerHelper extends ControllerHelperAbstract
 {
+    /**
+     * @param AlboPretorioArticoliGetterWrapper $wrapper
+     * @return int
+     */
+    public function recoverNumeroProgressivo(AlboPretorioArticoliGetterWrapper $wrapper)
+    {
+        $numeroProgressivo = $this->recoverWrapperRecords(
+            $wrapper,
+            array(
+                'fields'    => 'MAX(alboArticoli.numeroProgressivo) AS maxProgressivo',
+                'anno'      => date("Y")
+            )
+        );
 
+        if (isset($numeroProgressivo[0]['maxProgressivo'])) {
+            return $numeroProgressivo[0]['maxProgressivo'] + 1;
+        }
+
+        return 1;
+    }
+
+    /**
+     * @param AlboPretorioArticoliFormInputFilter $inputFilter
+     * @return int
+     * @throws NullException
+     */
+    public function insert(AlboPretorioArticoliFormInputFilter $inputFilter)
+    {
+        $this->assertConnection();
+        $this->assertLoggedUser();
+
+        $userDetails = $this->getLoggedUser();
+
+        return $this->getConnection()->insert(
+            DbTableContainer::alboArticoli,
+            array(
+                'utente_id'             => $userDetails->id,
+                'sezione_id'            => $inputFilter->sezione,
+                'numero_progressivo'    => $inputFilter->numeroProgressivo,
+                'numero_atto'           => $inputFilter->numeroAtto,
+                'anno'                  => $inputFilter->anno,
+                'data_attivazione'      => date("Y-m-d H:i:s"),
+                'ora_attivazione'       => date("H:i:s"),
+                'data_pubblicare'       => date("Y-m-d H:i:s"),
+                'ora_pubblicare'        => date("H:i:s"),
+                'data_scadenza'         => $inputFilter->dataScadenza,
+                'data_pubblicare'       => date("Y-m-d H:i:s"),
+                'titolo'                => $inputFilter->titolo,
+                'attivo'                => 1,
+                'pubblicare'            => 0,
+                'annullato'             => 0,
+                'check_invia_regione'   => isset($inputFilter->checkInviaRegione) ? $inputFilter->checkInviaRegione : 0,
+                'anno_atto'             => date("Y"),
+                'ente_terzo'            => $inputFilter->enteTerzo,
+                'fonte_url'             => $inputFilter->fonteUrl,
+            )
+        );
+    }
+
+    /**
+     * @param AlboPretorioArticoliFormInputFilter $inputFilter
+     * @return int
+     * @throws NullException
+     */
+    public function update(AlboPretorioArticoliFormInputFilter $inputFilter)
+    {
+        $this->assertConnection();
+        $this->assertLoggedUser();
+
+        $userDetails = $this->getLoggedUser();
+
+        $arrayUpdate = array(
+            'utente_id'             => $userDetails->id,
+            'sezione_id'            => $inputFilter->sezione,
+            'data_pubblicare'       => date("Y-m-d H:i:s"),
+            'ora_pubblicare'        => date("H:i:s"),
+            'data_scadenza'         => $inputFilter->dataScadenza,
+            'data_pubblicare'       => date("Y-m-d H:i:s"),
+            'titolo'                => $inputFilter->titolo,
+            'attivo'                => 1,
+            'check_rettifica'       => isset($inputFilter->checkRettifica) ? $inputFilter->checkRettifica : 0,
+            'check_invia_regione'   => isset($inputFilter->checkInviaRegione) ? $inputFilter->checkInviaRegione : 0,
+            'anno_atto'             => date("Y"),
+            'ente_terzo'            => $inputFilter->enteTerzo,
+            'fonte_url'             => $inputFilter->fonteUrl,
+            'note'                  => isset($inputFilter->note) ? $inputFilter->note : null,
+        );
+
+        if (!empty($inputFilter->numeroAtto)) {
+            $arrayUpdate['numero_atto'] = $inputFilter->numeroAtto;
+        }
+
+        if (!empty($inputFilter->anno)) {
+            $arrayUpdate['anno'] = $inputFilter->anno;
+        }
+
+        return $this->getConnection()->update(
+            DbTableContainer::alboArticoli,
+            $arrayUpdate,
+            array('id' => $inputFilter->id)
+        );
+    }
+
+    /**
+     * @param int $id
+     * @return int
+     * @throws \Doctrine\DBAL\Exception\InvalidArgumentException
+     */
+    public function delete($id)
+    {
+        $this->assertConnection();
+
+        return $this->getConnection()->delete(
+            DbTableContainer::alboArticoli,
+            array('id' => $id),
+            array('limit' => 1)
+        );
+    }
+
+    /**
+     * @param array $sezioniRecords
+     * @throws NullException
+     */
+    public function checkArticoloIsNotAnnulled($records)
+    {
+        if (isset($records[0]['annullato']) and $records[0]['annullato']==1) {
+            throw new NullException("Articolo annullato. Impossibile modificare l'articolo");
+        }
+    }
 }

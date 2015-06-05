@@ -150,6 +150,13 @@ class ZfcmsPosts
     /**
      * @var integer
      *
+     * @ORM\Column(name="box_notizie", type="integer", nullable=false)
+     */
+    private $boxNotizie;
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="homepage", type="integer", nullable=false)
      */
     private $homepage;

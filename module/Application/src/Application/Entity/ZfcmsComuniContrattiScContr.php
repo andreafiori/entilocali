@@ -35,6 +35,13 @@ class ZfcmsComuniContrattiScContr
      */
     private $attivo;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data_ultimo_aggiornamento", type="datetime", nullable=false)
+     */
+    private $dataUltimoAggiornamento;
+
 
 
     /**
@@ -91,5 +98,28 @@ class ZfcmsComuniContrattiScContr
     public function getAttivo()
     {
         return $this->attivo;
+    }
+
+    /**
+     * Set dataUltimoAggiornamento
+     *
+     * @param \DateTime $dataUltimoAggiornamento
+     * @return ZfcmsComuniContrattiScContr
+     */
+    public function setDataUltimoAggiornamento($dataUltimoAggiornamento)
+    {
+        $this->dataUltimoAggiornamento = $dataUltimoAggiornamento;
+    
+        return $this;
+    }
+
+    /**
+     * Get dataUltimoAggiornamento
+     *
+     * @return \DateTime 
+     */
+    public function getDataUltimoAggiornamento()
+    {
+        return $this->dataUltimoAggiornamento;
     }
 }

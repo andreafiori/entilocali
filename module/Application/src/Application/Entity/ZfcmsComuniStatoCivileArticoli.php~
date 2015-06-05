@@ -71,18 +71,25 @@ class ZfcmsComuniStatoCivileArticoli
     private $scadenza;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="flag_allegati", type="string", nullable=false)
+     * @ORM\Column(name="homepage_flag", type="integer", nullable=false)
      */
-    private $flagAllegati;
+    private $homepageFlag;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="homepage", type="integer", nullable=false)
+     * @ORM\Column(name="allegati_numero", type="integer", nullable=false)
      */
-    private $homepage;
+    private $allegatiNumero;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="box_notizie", type="integer", nullable=false)
+     */
+    private $boxNotizie;
 
     /**
      * @var \Application\Entity\ZfcmsComuniStatoCivileSezioni

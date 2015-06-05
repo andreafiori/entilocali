@@ -23,18 +23,19 @@ class ContenutiFormController extends SetupAbstractController
         $userDetails            = $this->layout()->getVariable('userDetails');
         $languageSelection      = $this->params()->fromRoute('languageSelection');
         $modulename             = $this->params()->fromRoute('modulename');
-        $subsection             = $this->params()->fromQuery('subsection');
 
         try {
             $helper = new ContenutiControllerHelper();
-            $helper->setSottoSezioniGetterWrapper(new SottoSezioniGetterWrapper(new SottoSezioniGetter($em)));
-            $helper->setupSottoSezioniGetterWrapperRecords(array(
-                'showToAll'             => ($userDetails->role == 'WebMaster') ? null : 1,
-                'languageAbbreviation'  => $languageSelection,
-                'isAmmTrasparente'      => ($modulename!='contenuti') ? 1 : null,
-            ));
-            $helper->checkRecords($helper->getSottoSezioniGetterWrapperRecords(),'Nessuna sottosezione presente');
-            $helper->formatSottoSezioniGetterWrapperRecordsForDropdown();
+            $sottoSezioniRecords = $helper->recoverWrapperRecords(
+                new SottoSezioniGetterWrapper(new SottoSezioniGetter($em)),
+                array(
+                    'showToAll'             => ($userDetails->role == 'WebMaster') ? null : 1,
+                    'languageAbbreviation'  => $languageSelection,
+                    'isAmmTrasparente'      => ($modulename!='contenuti') ? 1 : null,
+                )
+            );
+            $helper->checkRecords($sottoSezioniRecords, 'Nessuna sottosezione presente');
+            $sottoSezioniRecordsForDropDown = $helper->formatSottoSezioniGetterWrapperRecordsForDropdown($sottoSezioniRecords);
             $contenutiRecords = $helper->recoverWrapperRecordsById(
                 new ContenutiGetterWrapper(new ContenutiGetter($em)),
                 array(
@@ -46,19 +47,19 @@ class ContenutiFormController extends SetupAbstractController
             );
 
             $form = new ContenutiForm();
-            $form->addSottoSezioni( $helper->getSottoSezioniGetterWrapperRecords() );
+            $form->addSottoSezioni($sottoSezioniRecordsForDropDown);
             $form->addMainFormElements();
             if ($userDetails->role=='WebMaster') {
-                $wrapper = new UsersGetterWrapper( new UsersGetter($em) );
-                $wrapper->setInput( array('orderBy' => 'u.name') );
-                $wrapper->setupQueryBuilder();
 
-                $records = $wrapper->getRecords();
+                $usersRecords = $helper->recoverWrapperRecords(
+                    new UsersGetterWrapper(new UsersGetter($em)),
+                    array('orderBy' => 'u.name')
+                );
 
                 $arrayToReturn = array();
-                if (!empty($records)) {
-                    foreach($records as $record) {
-                        $arrayToReturn[$record['id']] = utf8_encode($record['name']). ' '.utf8_encode($record['surname']);
+                if (!empty($usersRecords)) {
+                    foreach($usersRecords as $record) {
+                        $arrayToReturn[$record['id']] = $record['name']. ' '.$record['surname'];
                     }
                 }
 
@@ -75,6 +76,7 @@ class ContenutiFormController extends SetupAbstractController
                 $formAction             = $this->url()->fromRoute('admin/contenuti-update', array(
                     'lang'              => $this->params()->fromRoute('lang'),
                     'languageSelection' => $languageSelection,
+                    'modulename'        => $modulename,
                 ));
                 $formBreadCrumbTitle    = '';
 
@@ -93,6 +95,7 @@ class ContenutiFormController extends SetupAbstractController
                 $formAction             = $this->url()->fromRoute('admin/contenuti-insert', array(
                     'lang'              => $this->params()->fromRoute('lang'),
                     'languageSelection' => $languageSelection,
+                    'modulename'        => $modulename,
                 ));
                 $formBreadCrumbTitle    = 'Nuovo artciolo';
             }

@@ -8,10 +8,6 @@ use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\Validator\File\Size;
 
-/**
- * @author Andrea Fiori
- * @since  22 March 2015
- */
 class SottoSezioniFormInputFilter implements InputFilterAwareInterface
 {
     public $idSottoSezione;
@@ -38,6 +34,10 @@ class SottoSezioniFormInputFilter implements InputFilterAwareInterface
         $this->attivo           = (isset($data['attivo']))            ? $data['attivo']           : null;
     }
 
+    /**
+     * @param InputFilterInterface $inputFilter
+     * @throws \Exception
+     */
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
         throw new \Exception("Not used");
@@ -84,6 +84,7 @@ class SottoSezioniFormInputFilter implements InputFilterAwareInterface
                 'filters' => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
                 ),
             ]));
 
@@ -93,6 +94,7 @@ class SottoSezioniFormInputFilter implements InputFilterAwareInterface
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
                 ),
             ));
 
@@ -102,6 +104,7 @@ class SottoSezioniFormInputFilter implements InputFilterAwareInterface
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
                 ),
             ));
 

@@ -2,7 +2,6 @@
 
 namespace Admin\Controller\Sezioni;
 
-use ModelModule\Model\NullException;
 use ModelModule\Model\Sezioni\SezioniControllerHelper;
 use ModelModule\Model\Sezioni\SezioniGetter;
 use ModelModule\Model\Sezioni\SezioniGetterWrapper;
@@ -27,32 +26,32 @@ class SottoSezioniFormController extends SetupAbstractController
 
         try {
             $helper = new SezioniControllerHelper();
-            $helper->checkAmministrazioneTrasparenteId(
-                $modulename,
-                isset($configurations['amministrazione_trasparente_sezione_id']) ? $configurations['amministrazione_trasparente_sezione_id'] : null,
-                "Nessun ID sezione associato al modulo amm. trasparente. Contattare gli amministratori dell'applicazione"
+            $sezioniRecords = $helper->recoverWrapperRecords(
+                new SezioniGetterWrapper(new SezioniGetter($em)),
+                array(
+                    'fields' => 'sezioni.id, sezioni.nome',
+                    'isAmmTrasparente' => ($modulename!='contenuti') ? 1 : 0,
+                    'orderBy' => 'sezioni.nome'
+                )
             );
-            $helper->setSezioniGetterWrapper(new SezioniGetterWrapper(new SezioniGetter($em)));
-            $helper->setupSezioniGetterWrapperRecords(array(
-                'fields'    => 'sezioni.id, sezioni.nome',
-                'sezioneId' => ($modulename=='amministrazione-trasparente') ? $configurations['amministrazione_trasparente_sezione_id'] : null,
-                'excludeId' => ($modulename=='contenuti') ? $configurations['amministrazione_trasparente_sezione_id'] : null,
-                'orderBy'   => 'sezioni.nome'
-            ));
-            $helper->checkRecordset(
-                $helper->getSezioniGetterWrapperRecords(),
+            $helper->checkRecords(
+                $sezioniRecords,
                 'Nessuna sezione in archivio. Impossibile inserire una sottosezione. Inserire almeno una sezione'
             );
-            $helper->setSottoSezioniGetterWrapper(new SottoSezioniGetterWrapper(new SottoSezioniGetter($em)));
+            /*
+            $helper->recoverWrapperRecords(
+                new SottoSezioniGetterWrapper(new SottoSezioniGetter($em)),
 
+            );
+            */
             $sottoSezioniRecords = $helper->recoverWrapperRecordsById(
-                $helper->getSottoSezioniGetterWrapper(),
+                new SottoSezioniGetterWrapper(new SottoSezioniGetter($em)),
                 array('id' => $id, 'limit' => 1),
                 $id
             );
 
             $form = new SottoSezioniForm();
-            $form->addSezioni( $this->formatSezioniRecordsForFormSelect($helper->getSezioniGetterWrapperRecords()) );
+            $form->addSezioni( $helper->formatForDropwdown($sezioniRecords,'id','nome') );
             $form->addMainFormInputs();
 
             if (!empty($sottoSezioniRecords)) {
@@ -98,19 +97,5 @@ class SottoSezioniFormController extends SetupAbstractController
         }
 
         $this->layout()->setTemplate($mainLayout);
-    }
-
-    /**
-     * @param array $records
-     *
-     * @return array
-     */
-    private function formatSezioniRecordsForFormSelect(array $records)
-    {
-        $arrayToReturn = array();
-        foreach($records as $record) {
-            $arrayToReturn[$record['id']] = $record['nome'];
-        }
-        return $arrayToReturn;
     }
 }

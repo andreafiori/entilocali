@@ -43,10 +43,8 @@ class ContenutiFormInputFilter implements InputFilterAwareInterface
     }
 
     /**
-     * Set input filter
-     *
-     * @param  InputFilterInterface $inputFilter
-     * @return InputFilterAwareInterface
+     * @param InputFilterInterface $inputFilter
+     * @throws \Exception
      */
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
@@ -54,9 +52,7 @@ class ContenutiFormInputFilter implements InputFilterAwareInterface
     }
 
     /**
-     * Retrieve input filter
-     *
-     * @return InputFilterInterface
+     * @return InputFilter
      */
     public function getInputFilter()
     {
@@ -88,6 +84,7 @@ class ContenutiFormInputFilter implements InputFilterAwareInterface
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
                 ),
                 'validators' => array(
                     array(
@@ -107,6 +104,7 @@ class ContenutiFormInputFilter implements InputFilterAwareInterface
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
                 ),
                 'validators' => array(
                     array(
@@ -132,7 +130,9 @@ class ContenutiFormInputFilter implements InputFilterAwareInterface
                 'name'     => 'dataInserimento',
                 'required' => true,
                 'filters'  => array(
+                    array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
                 ),
             ));
 
@@ -140,7 +140,9 @@ class ContenutiFormInputFilter implements InputFilterAwareInterface
                 'name'     => 'dataScadenza',
                 'required' => true,
                 'filters'  => array(
+                    array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
                 ),
             ));
 

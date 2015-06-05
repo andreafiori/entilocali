@@ -7,10 +7,6 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
-/**
- * @author Andrea Fiori
- * @since  24 March 2015
- */
 class ContrattiPubbliciFormInputFilter implements InputFilterAwareInterface
 {
     public $id;
@@ -77,6 +73,7 @@ class ContrattiPubbliciFormInputFilter implements InputFilterAwareInterface
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
                 ),
                 'validators' => array(
                     array(
@@ -96,6 +93,7 @@ class ContrattiPubbliciFormInputFilter implements InputFilterAwareInterface
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
                 ),
                 'validators' => array(
                     array(
@@ -166,7 +164,7 @@ class ContrattiPubbliciFormInputFilter implements InputFilterAwareInterface
                 ),
                 'validators' => array(
                     array(
-                        'name'    => 'StringLength',
+                        'name' => 'StringLength',
                         'options' => array(
                             'encoding' => 'UTF-8',
                             'min'      => 1,
@@ -182,6 +180,7 @@ class ContrattiPubbliciFormInputFilter implements InputFilterAwareInterface
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
                 ),
                 'validators' => array(
                     array(

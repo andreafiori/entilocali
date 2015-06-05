@@ -21,36 +21,26 @@ class SottoSezioniSummaryController extends SetupAbstractController
 
         $em                     = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-        $ammTraspSezioneId      = $this->layout()->getVariable('amministrazione_trasparente_sezione_id');
-        $ammTraspSottoSezioneId = $this->layout()->getVariable('amministrazione_trasparente_sottosezione_id');
         $configurations         = $this->layout()->getVariable('configurations');
+
         $page                   = $this->params()->fromRoute('page');
         $languageSelection      = $this->params()->fromRoute('languageSelection');
         $modulename             = $this->params()->fromRoute('modulename');
-        //$userRole             = isset($userDetails->role) ? $userDetails->role : '';
 
         $helper = new SezioniControllerHelper();
-        $helper->setSottoSezioniGetterWrapper(new SottoSezioniGetterWrapper(new SottoSezioniGetter($em)));
 
         try {
-            $helper->checkAmministrazioneTrasparenteId(
-                $modulename,
-                $ammTraspSezioneId,
-                "Nessun ID sezione associato al modulo amm. trasparente. Contattare gli amministratori dell'applicazione"
-            );
-
             $wrapper = $helper->recoverWrapperRecordsPaginator(
-                $helper->getSottoSezioniGetterWrapper(),
+                new SottoSezioniGetterWrapper(new SottoSezioniGetter($em)),
                 array(
-                    'excludeSezioneId'      => $ammTraspSezioneId,
+                    'isAmmTrasparente'      => ($modulename=='amministrazione-trasparente') ?  1 : 0,
                     'languageAbbreviation'  => $languageSelection,
                 ),
                 $page,
                 null
             );
-            $helper->setSezioniGetterWrapper(new SezioniGetterWrapper(new SezioniGetter($em)));
             $sezioniRecords = $helper->recoverWrapperRecords(
-                $helper->getSezioniGetterWrapper(),
+                new SezioniGetterWrapper(new SezioniGetter($em)),
                 array(
                     'excludeSezioneId'      => $ammTraspSezioneId,
                     'languageAbbreviation'  => $languageSelection,
@@ -60,7 +50,7 @@ class SottoSezioniSummaryController extends SetupAbstractController
             );
             $helper->checkRecordset($sezioniRecords, 'Nessuna sezione presente');
 
-            if ( (!empty($configurations['isMultiLanguage']))==1 ) {
+            if ( (!empty($configurations['isMultiLanguage'])) == 1 ) {
                 $helper->setLanguagesGetterWrapper(new LanguagesGetterWrapper(new LanguagesGetter($em)));
 
                 $formLanguage = $helper->setupLanguageFormSearch(
@@ -75,7 +65,7 @@ class SottoSezioniSummaryController extends SetupAbstractController
             $formSearch->addSubmitButton();
 
             $this->layout()->setVariables(array(
-                'tableTitle'        => 'Sottosezioni contenuti',
+                'tableTitle'        => 'Sottosezioni '.ucfirst(str_replace('-', ' ', $modulename)),
                 'tableDescription'  => $wrapper->getPaginator()->getTotalItemCount().' sottosezioni in archivio',
                 'columns' => array(
                     "Nome",
@@ -130,7 +120,7 @@ class SottoSezioniSummaryController extends SetupAbstractController
                             'previouspage'       => $page,
                             'modulename'         => $modulename
                         )),
-                        'title'     => 'Modifica'
+                        'title'     => 'Modifica sottosezione'
                     ),
                 );
 
@@ -147,10 +137,10 @@ class SottoSezioniSummaryController extends SetupAbstractController
                     $rowToAdd[] = array(
                         'type' => 'positionButton',
                         'href' => $this->url()->fromRoute('admin/posizioni-sottosezioni', array(
-                                'lang'              => $this->params()->fromRoute('lang'),
-                                'languageSelection' => $this->params()->fromRoute('languageSelection'),
+                                'lang'              => $lang,
+                                'languageSelection' => $languageSelection,
                                 'sezioneId'         => $row['idSezione'],
-                                'modulename'         => $modulename
+                                'modulename'        => $modulename
                             )
                         ),
                         'title' => 'Gestione posizioni'

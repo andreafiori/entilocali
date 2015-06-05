@@ -153,7 +153,7 @@ abstract class RecordsGetterWrapperAbstract
         if ( !is_numeric($page) ) {
             $page = 1;
         }
-        
+
         $this->paginator->setCurrentPageNumber($page);
 
         return $this->paginator;

@@ -6,10 +6,6 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
-/**
- * @author Andrea Fiori
- * @since  19 March 2015
- */
 class EntiTerziFormInputFilter implements InputFilterAwareInterface
 {
     public $id;
@@ -37,6 +33,9 @@ class EntiTerziFormInputFilter implements InputFilterAwareInterface
         throw new \Exception("This method is unused");
     }
 
+    /**
+     * @return InputFilter
+     */
     public function getInputFilter()
     {
         if (!$this->inputFilter) {

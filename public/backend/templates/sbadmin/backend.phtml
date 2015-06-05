@@ -78,6 +78,10 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
             background-color: #eee;
             color: #888;
         }
+        .rowNew {
+            background-color: #337ab7;
+            color: #fff;
+        }
         .visibleFieldset {
             border: 1px groove #ddd !important;
             padding: 0 1.4em 1.4em 1.4em !important;
@@ -363,6 +367,8 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                             <?php if ($acl->hasResource('atti_concessione_update')): ?>
                             <li><a href="<?php echo $this->url('admin/atti-concessione-summary', array('lang' => $lang) ); ?>" title="Gestione">Gestione</a></li>
                             <?php endif; ?>
+                            <!-- Responsabili di procedimento -->
+                            <li><a href="<?php echo $this->url('admin/users-resp-proc-management', array('lang' => $lang)); ?>" title="Gestione">Responsabili procedimento</a></li>
                             <!-- Modalita assegnazione -->
                             <?php if (!$acl->hasResource('atti_concessione_modassign_add') or $acl->hasResource('atti_concessione_modassign_update')): ?>
                                 <li>
@@ -383,20 +389,20 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                         <ul class="nav nav-second-level">
                             <li><a href="<?php echo $this->url('admin/contratti-pubblici-form', array('lang' => $lang) ); ?>" title="Nuovo bando contratto">Nuovo bando</a></li>
                             <li><a href="<?php echo $this->url('admin/contratti-pubblici-summary', array('lang' => $lang) ); ?>" title="Gestione contratti pubblici">Gestione</a></li>
-                            <?php if ($acl->hasResource('contratti_pubblici_settori_add') or $acl->hasResource('contratti_pubblici_settori_update')): ?>
+
+                            <!-- Operatori / Aziende / Aggiudicatari -->
                             <li>
-                                <a href="#" class="dropdown-collapse" title="Settori contratti pubblici">Settori <span class="fa arrow"></span></a>
+                                <a href="#" class="dropdown-collapse" title="Operatori contratti pubblici">Aziende <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
-                                    <li><a href="<?php echo $this->url('admin/formdata', array('lang' => $lang, 'formsetter' => 'contratti-pubblici-settori' )); ?>" title="Nuova sezione">Nuovo</a></li>
-                                    <li><a href="<?php echo $this->url('admin/datatable', array('lang' => $lang, 'tablesetter' => 'contratti-pubblici-settori')); ?>" title="Gestione settori">Gestione</a></li>
+                                    <li><a href="<?php echo $this->url('admin/contratti-pubblici-operatori-form', array('lang' => $lang) ); ?>" title="Nuovo operatore \ azienda">Nuova</a></li>
+                                    <li><a href="<?php echo $this->url('admin/contratti-pubblici-operatori-summary', array('lang' => $lang) ); ?>" title="Gestione aziende contratti pubblici">Gestione</a></li>
                                 </ul>
                             </li>
-                            <?php endif; ?>
 
-                            <!-- Voci scelta contraente -->
                             <?php if ($acl->hasResource('contratti_pubblici_scelta_contraente_add') or $acl->hasResource('contratti_pubblici_scelta_contraente_update')): ?>
+                            <!-- Voci scelta contraente -->
                             <li>
-                                <a href="#" class="dropdown-collapse" title="Gestione resp. procedimento">Voci scelta contraente <span class="fa arrow"></span></a>
+                                <a href="#" class="dropdown-collapse" title="Gestione voci scelta contraente">Voci scelta contraente <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <?php if ($acl->hasResource('contratti_pubblici_scelta_contraente_add')): ?>
                                     <li><a href="<?php echo $this->url('admin/contratti-pubblici-scelta-contraente-form', array('lang' => $lang )) ?>" title="Nuova voce scelta contraente">Nuova</a></li>
@@ -541,13 +547,13 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                             <!-- Settori -->
                             <?php if ($acl->hasResource('users_settori_add') or $acl->hasResource('users_settori_update')): ?>
                             <li>
-                                <a href="#" class="dropdown-collapse" title="">Settori <span class="fa arrow"></span></a>
+                                <a href="#" class="dropdown-collapse" title="Menu Settori">Settori <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <?php if ($acl->hasResource('users_settori_add')): ?>
-                                        <li><a href="<?php echo $this->url('admin/formdata', array('lang' => $lang, 'formsetter' => 'users-settori' )); ?>" title="Nuovo settore utente">Nuovo</a></li>
+                                        <li><a href="<?php echo $this->url('admin/users-settori-form', array('lang' => $lang) ); ?>" title="Nuovo settore utente">Nuovo</a></li>
                                     <?php endif; ?>
                                     <?php if ($acl->hasResource('users_settori_update')): ?>
-                                        <li><a href="<?php echo $this->url('admin/datatable', array('lang' => $lang, 'tablesetter' => 'users-settori')); ?>" title="Gestione settori utente">Modifica \ Elimina</a></li>
+                                        <li><a href="<?php echo $this->url('admin/users-settori-summary', array('lang' => $lang) ); ?>" title="Gestione settori utente">Modifica \ Elimina</a></li>
                                     <?php endif; ?>
                                 </ul>
                             </li>
@@ -666,7 +672,7 @@ $(document).ready(function () {
         "oLanguage": { "sSearch": "Cerca:" }
     });
 
-    $('#contratti-opeartori-rubrica-table').DataTable({
+    $('#contratti-operatori-rubrica-table').DataTable({
         responsive: true,
         bPaginate: false,
         /* "pagingType": "full_numbers", */

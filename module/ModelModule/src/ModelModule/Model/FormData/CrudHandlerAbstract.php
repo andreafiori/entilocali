@@ -95,7 +95,7 @@ abstract class CrudHandlerAbstract
     /**
      * @throws NullException
      */
-    protected function asssertConnection()
+    protected function assertConnection()
     {
         if (!$this->getConnection()) {
             throw new NullException("Doctrine connection instance is not set");

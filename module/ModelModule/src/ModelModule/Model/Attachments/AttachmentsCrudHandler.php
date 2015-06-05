@@ -58,7 +58,7 @@ class AttachmentsCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
     {
         $this->assertEntityManager();
 
-        $this->asssertConnection();
+        $this->assertConnection();
 
         $this->assertUserDetails();
 
@@ -146,7 +146,7 @@ class AttachmentsCrudHandler extends CrudHandlerAbstract implements CrudHandlerI
      */
     public function update(InputFilterAwareInterface $formData)
     {
-        $this->asssertConnection();
+        $this->assertConnection();
 
         return $this->getConnection()->update($this->tableName_options,
             array(

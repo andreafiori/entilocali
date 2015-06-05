@@ -49,7 +49,7 @@ class SottoSezioniCrudHandler extends CrudHandlerAbstract
      */
     public function insert(InputFilterAwareInterface $formData)
     {
-        $this->asssertConnection();
+        $this->assertConnection();
 
         $this->assertUserDetails();
 
@@ -76,7 +76,7 @@ class SottoSezioniCrudHandler extends CrudHandlerAbstract
      */
     public function update(InputFilterAwareInterface $formData)
     {
-        $this->asssertConnection();
+        $this->assertConnection();
 
         return $this->getConnection()->update(
             DbTableContainer::sottosezioni,
@@ -99,7 +99,7 @@ class SottoSezioniCrudHandler extends CrudHandlerAbstract
      */
     public function delete($id)
     {
-        $this->asssertConnection();
+        $this->assertConnection();
 
         return $this->getConnection()->delete(
             DbTableContainer::sottosezioni,

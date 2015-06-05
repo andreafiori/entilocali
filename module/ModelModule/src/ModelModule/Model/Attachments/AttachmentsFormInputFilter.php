@@ -7,10 +7,6 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
-/**
- * @author Andrea Fiori
- * @since  20 December 2014
- */
 class AttachmentsFormInputFilter implements InputFilterAwareInterface
 {
     public $id;
@@ -74,8 +70,7 @@ class AttachmentsFormInputFilter implements InputFilterAwareInterface
                 'name' => 'attachmentFile',
                 'required' => true,
                 'filters' => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
+
                 ),
             ]));
 
@@ -86,6 +81,7 @@ class AttachmentsFormInputFilter implements InputFilterAwareInterface
                     'filters'  => array(
                         array('name' => 'StripTags'),
                         array('name' => 'StringTrim'),
+                        array('name' => 'HtmlEntities'),
                     ),
                     'validators' => array(
                         array(
@@ -97,32 +93,6 @@ class AttachmentsFormInputFilter implements InputFilterAwareInterface
                             ),
                         ),
                     ),
-                ))
-            );
-            
-            $inputFilter->add(
-                $factory->createInput(array(
-                    'name'     => 'description',
-                    'required' => true,
-                    'filters'  => array(
-                        array('name' => 'StripTags'),
-                        array('name' => 'StringTrim'),
-                    ),
-                    'validators' => array(
-                        array(
-                            'name'    => 'StringLength',
-                            'options' => array(
-                                'encoding' => 'UTF-8',
-                            ),
-                        ),
-                    ),
-                ))
-            );
-             
-            $inputFilter->add(
-                $factory->createInput(array(
-                    'name'     => 'title',
-                    'required' => true,
                 ))
             );
 
@@ -133,6 +103,7 @@ class AttachmentsFormInputFilter implements InputFilterAwareInterface
                     'filters'  => array(
                         array('name' => 'StripTags'),
                         array('name' => 'StringTrim'),
+                        array('name' => 'HtmlEntities'),
                     ),
                     'validators' => array(
                         array(
@@ -140,7 +111,7 @@ class AttachmentsFormInputFilter implements InputFilterAwareInterface
                             'options' => array(
                                 'encoding' => 'UTF-8',
                                 'min'      => 1,
-                                'max'      => 100,
+                                'max'      => 255,
                             ),
                         ),
                     ),

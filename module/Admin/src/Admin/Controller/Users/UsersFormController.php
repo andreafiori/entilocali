@@ -67,15 +67,15 @@ class UsersFormController extends SetupAbstractController
         }
 
         $this->layout()->setVariables(array(
-                'form'                          => $form,
-                'formTitle'                     => $formTitle,
-                'formDescription'               => $formDescription,
-                'formAction'                    => $formAction,
-                'formBreadCrumbCategory'        => 'Utenti',
-                'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/users-summary', array('lang' => 'it')),
-                'templatePartial'               => self::formTemplate,
-            )
-        );
+            'form'                          => $form,
+            'formTitle'                     => $formTitle,
+            'formDescription'               => $formDescription,
+            'formAction'                    => $formAction,
+            'formBreadCrumbCategory'        => 'Utenti',
+            'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/users-summary', array('lang' => 'it')),
+            'noFormActionPrefix'            => 1,
+            'templatePartial'               => self::formTemplate,
+        ));
 
         $this->layout()->setTemplate($mainLayout);
     }

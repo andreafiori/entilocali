@@ -14,13 +14,13 @@
 
         <p>Si attesta che l'atto avente oggetto: </p>
 
-        <h2><?php echo utf8_encode($this->record['titolo']) ?></h2>
+        <h2><?php echo $this->record['titolo'] ?></h2>
 
         <p><strong>Richiesto da:</strong> <?php echo $this->record['userName']." ".$this->record['userSurname'] ?></p>
 
         <p class="text-center">&Egrave; stato pubblicato sull'albo pretorio online del sito istituzionale di questo Ente con i seguenti dati:</p>
 
-        <p><strong>Numero / anno.:</strong> <?php echo $this->record['numeroAtto'] ?> / <?php echo $this->record['anno'] ?></p>
+        <p><strong>Numero / anno:</strong> <?php echo $this->record['numeroAtto'] ?> / <?php echo $this->record['anno'] ?></p>
 
         <p><strong>Pubblicato il:</strong> <?php echo $this->record['dataPubblicare']->format('d-m-Y H:i:s') ?></p>
 

@@ -26,7 +26,7 @@ class NewsletterForm extends Form
                 'id'        => 'nome',
                 'maxlength' => '150',
             ), 
-            'options' => array( 
+            'options' => array(
                 'label' => 'Nome', 
             ), 
         ));

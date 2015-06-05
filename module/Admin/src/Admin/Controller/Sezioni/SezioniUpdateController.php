@@ -15,6 +15,9 @@ class SezioniUpdateController extends SetupAbstractController
 {
     public function indexAction()
     {
+        /**
+         * @var \Doctrine\ORM\EntityManager $em
+         */
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
         /**
@@ -52,11 +55,14 @@ class SezioniUpdateController extends SetupAbstractController
             $helper = new SezioniControllerHelper();
             $helper->setConnection($connection);
             $helper->getConnection()->beginTransaction();
+            $helper->setLoggedUser($userDetails);
             $helper->update($inputFilter);
             $helper->getConnection()->commit();
+
             // TODO: upload icon, delete old icon if old icon is set and its file exists
-            $helper->setLogWriter(new LogWriter($connection));
-            $helper->writeLog(array(
+
+            $logWriter = new LogWriter($connection);
+            $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
                 'module_id'     => ModulesContainer::contenuti_id,
                 'message'       => "Aggiornata sezione ".$inputFilter->nome. " ID: ".$inputFilter->id,
@@ -72,7 +78,7 @@ class SezioniUpdateController extends SetupAbstractController
                 'messageShowFormLink'   => 1,
                 'messageShowForm'       => 'Torna alla sezione',
                 'backToSummaryLink'     => $this->url()->fromRoute('admin/sezioni-summary', array(
-                    'lang'              => $this->params()->fromRoute('languageSelection'),
+                    'lang'              => $this->params()->fromRoute('lang'),
                     'languageSelection' => $this->params()->fromRoute('languageSelection'),
                     'modulename'        => $this->params()->fromRoute('modulename'),
                 )),

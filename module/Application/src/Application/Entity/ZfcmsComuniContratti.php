@@ -141,6 +141,13 @@ class ZfcmsComuniContratti
     private $homepage;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data_ultimo_aggiornamento", type="datetime", nullable=false)
+     */
+    private $dataUltimoAggiornamento;
+
+    /**
      * @var \Application\Entity\ZfcmsUsersRespProc
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsUsersRespProc")
@@ -581,6 +588,29 @@ class ZfcmsComuniContratti
     public function getHomepage()
     {
         return $this->homepage;
+    }
+
+    /**
+     * Set dataUltimoAggiornamento
+     *
+     * @param \DateTime $dataUltimoAggiornamento
+     * @return ZfcmsComuniContratti
+     */
+    public function setDataUltimoAggiornamento($dataUltimoAggiornamento)
+    {
+        $this->dataUltimoAggiornamento = $dataUltimoAggiornamento;
+    
+        return $this;
+    }
+
+    /**
+     * Get dataUltimoAggiornamento
+     *
+     * @return \DateTime 
+     */
+    public function getDataUltimoAggiornamento()
+    {
+        return $this->dataUltimoAggiornamento;
     }
 
     /**

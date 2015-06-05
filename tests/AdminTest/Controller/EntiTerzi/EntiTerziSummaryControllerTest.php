@@ -6,6 +6,9 @@ use ModelModuleTest\TestSuite;
 
 class EntiTerziSummaryControllerTest extends TestSuite
 {
+    /**
+     * @var EntiTerziSummaryController
+     */
     private $controller;
 
     protected function setUp()

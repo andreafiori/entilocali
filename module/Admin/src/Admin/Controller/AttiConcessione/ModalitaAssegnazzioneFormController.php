@@ -19,7 +19,7 @@ class ModalitaAssegnazioneFormController extends SetupAbstractController
 
         try {
             $wrapper = new AttiConcessioneModalitaAssegnazioneGetterWrapper(
-                    new AttiConcessioneModalitaAssegnazioneGetter($em)
+                new AttiConcessioneModalitaAssegnazioneGetter($em)
             );
             $wrapper->setInput(array(
                 'id' => $id,
@@ -34,25 +34,22 @@ class ModalitaAssegnazioneFormController extends SetupAbstractController
                 $form->setData($modalitaRecords[0]);
 
                 $formAction = 'atti-concessione-modalita-assegnazione/update/'.$modalitaRecords[0]['id'];
-
                 $formTitle = $modalitaRecords[0]['nome'];
 
             } else {
                 $formAction = 'atti-concessione-modalita-assegnazione/insert/';
-
                 $formTitle  = 'Nuova modalit&agrave;';
             }
 
             $this->layout()->setVariables(array(
-                    'form'                          => $form,
-                    'formAction'                    => $formAction,
-                    'formTitle'                     => $formTitle,
-                    'formDescription'               => "Compila i dati relativi alla modalit&agrave; assegnazione",
-                    'templatePartial'               => self::formTemplate,
-                    'formBreadCrumbCategory'        => 'Modalit&agrave; assegnazione atti di concessione',
-                    'formBreadCrumbCategoryLink'    => ''
-                )
-            );
+                'form'                          => $form,
+                'formAction'                    => $formAction,
+                'formTitle'                     => $formTitle,
+                'formDescription'               => "Compila i dati relativi alla modalit&agrave; assegnazione",
+                'templatePartial'               => self::formTemplate,
+                'formBreadCrumbCategory'        => 'Modalit&agrave; assegnazione atti di concessione',
+                'formBreadCrumbCategoryLink'    => ''
+            ));
 
         } catch(NullException $e) {
             $message = $e->getParams();

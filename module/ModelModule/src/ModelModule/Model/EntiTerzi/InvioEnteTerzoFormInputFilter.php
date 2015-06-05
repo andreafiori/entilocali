@@ -15,7 +15,6 @@ class InvioEnteTerzoFormInputFilter implements InputFilterAwareInterface
 {
     public $id;
 
-
     protected $inputFilter;
 
     /**

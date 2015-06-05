@@ -79,6 +79,7 @@ class PostsFormInputFilter implements InputFilterAwareInterface
                             'filters'  => array(
                                             array('name' => 'StripTags'),
                                             array('name' => 'StringTrim'),
+                                            array('name' => 'HtmlEntities'),
                             ),
                             'validators' => array(
                                             array(
@@ -98,6 +99,7 @@ class PostsFormInputFilter implements InputFilterAwareInterface
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
                 ),
                 'validators' => array(
                     array(
@@ -117,6 +119,7 @@ class PostsFormInputFilter implements InputFilterAwareInterface
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
                 ),
                 'validators' => array(
                     array(
@@ -136,6 +139,7 @@ class PostsFormInputFilter implements InputFilterAwareInterface
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
                 ),
                 'validators' => array(
                     array(

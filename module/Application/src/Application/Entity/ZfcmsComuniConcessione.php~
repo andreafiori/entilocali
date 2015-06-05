@@ -113,6 +113,13 @@ class ZfcmsComuniConcessione
     private $homepage;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="notizie_box", type="integer", nullable=false)
+     */
+    private $notizieBox;
+
+    /**
      * @var \Application\Entity\ZfcmsComuniConcessioneModassegn
      *
      * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsComuniConcessioneModassegn")

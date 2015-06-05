@@ -7,14 +7,14 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
-/**
- * @author Andrea Fiori
- * @since  19 April 2015
- */
 class CreateAccountFormInputFilter implements InputFilterAwareInterface
 {
     protected $inputFilter;
 
+    /**
+     * @param InputFilterInterface $inputFilter
+     * @throws \Exception
+     */
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
         throw new \Exception("Not used");

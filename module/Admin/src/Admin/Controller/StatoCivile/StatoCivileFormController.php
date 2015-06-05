@@ -2,6 +2,7 @@
 
 namespace Admin\Controller\StatoCivile;
 
+use ModelModule\Model\StatoCivile\StatoCivileControllerHelper;
 use ModelModule\Model\StatoCivile\StatoCivileForm;
 use ModelModule\Model\StatoCivile\StatoCivileGetter;
 use ModelModule\Model\StatoCivile\StatoCivileGetterWrapper;
@@ -16,78 +17,70 @@ class StatoCivileFormController extends SetupAbstractController
         $mainLayout = $this->initializeAdminArea();
 
         $id = $this->params()->fromRoute('id');
+        
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-        $sezioniWrapper = new StatoCivileSezioniGetterWrapper( new StatoCivileSezioniGetter($em) );
-        $sezioniWrapper->setInput(array(
-            'orderBy' => '',
-        ));
-        $sezioniWrapper->setupQueryBuilder();
+        try {
+            $helper = new StatoCivileControllerHelper();
+            $sezioniRecords = $helper->recoverWrapperRecords(
+                new StatoCivileSezioniGetterWrapper( new StatoCivileSezioniGetter($em) ),
+                array('orderBy' => '')
+            );
+            $helper->checkRecords($sezioniRecords, 'Nessuna sezione presente');
+            $sezioniForDropDown = $helper->formatForDropwdown($sezioniRecords, 'id', 'nome');
+            $records = $helper->recoverWrapperRecordsById(
+                new StatoCivileGetterWrapper(new StatoCivileGetter($em)),
+                array('id' => $id, 'limit' => 1),
+                $id
+            );
 
-        $sezioniRecords = $sezioniWrapper->getRecords();
+            $form = new StatoCivileForm();
+            $form->addSezioni($sezioniForDropDown);
+            $form->addDates();
 
-        if (empty($sezioniRecords)) {
+            if ( empty($records) ) {
+                $form->setData(array(
+                    'data'                  => date('Y-m-d H:i:s', strtotime(date("Y-m-d H:i:s"). ' + 8 days')),
+                    'scadenza'              => date('Y-m-d H:i:s', strtotime(date("Y-m-d H:i:s"). ' + 8 days')),
+                    'numero_progressivo'    => '',
+                ));
+
+                $formAction = $this->url()->fromRoute('admin/stato-civile-insert', array(
+                    'lang' => $this->params()->fromRoute('lang')
+                ));
+                $formTitle = 'Nuovo atto stato civile';
+
+            } else {
+                $form->setData($records[0]);
+
+                $formAction = $this->url()->fromRoute('admin/stato-civile-update', array(
+                    'lang' => $this->params()->fromRoute('lang')
+                ));
+                $formTitle = 'Modifica atto';
+            }
 
             $this->layout()->setVariables(array(
-                'messageType'       => 'warning',
-                'messageTitle'      => 'Nessuna sezione presente',
-                'messageText'       => "Non &egrave; possibile inserire un nuovo articolo se non esiste almeno una sezione.",
+                    'form'                          => $form,
+                    'formTitle'                     => $formTitle,
+                    'formDescription'               => '&Egrave; consigliabile inserire <strong>testi brevi sul tema trattato</strong>, possibilmente in minuscolo e con solo la prima iniziale maiuscola',
+                    'formAction'                    => $formAction,
+                    'formBreadCrumbCategory'        => 'Stato civile',
+                    'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/stato-civile-summary', array(
+                        'lang' => $this->params()->fromRoute('lang')
+                    )),
+                    'noFormActionPrefix'            => 1,
+                    'templatePartial'               => self::formTemplate,
+                )
+            );
+
+        } catch(\Exception $e) {
+            $this->layout()->setVariables(array(
+                'messageType'       => 'danger',
+                'messageTitle'      => 'Errore verificato',
+                'messageText'       => $e->getMessage(),
                 'templatePartial'   => 'message.phtml',
             ));
-
-            $this->layout()->setTemplate($mainLayout);
-
-            return;
         }
-
-        $sezioniFormatted = array();
-        foreach($sezioniRecords as $sezione) {
-            if (isset( $sezione['nome'])) {
-                $sezioniFormatted[$sezione['id']] = $sezione['nome'];
-            }
-        }
-
-        $form = new StatoCivileForm();
-        $form->addSezioni($sezioniFormatted);
-        $form->addDates();
-        $form->addId();
-
-        if (is_numeric($id)) {
-            $wrapper = new StatoCivileGetterWrapper( new StatoCivileGetter($em) );
-            $wrapper->setInput( array('id' => $id, 'limit' => 1) );
-            $wrapper->setupQueryBuilder();
-
-            $records = $wrapper->getRecords();
-        }
-
-        if ( empty($records) ) {
-            $form->setData(array(
-                'data' => date('Y-m-d H:i:s', strtotime(date("Y-m-d H:i:s"). ' + 8 days')),
-                'scadenza'=> date('Y-m-d H:i:s', strtotime(date("Y-m-d H:i:s"). ' + 8 days')),
-            ));
-
-            $formAction = 'stato-civile/update/';
-
-            $formTitle = 'Nuovo atto stato civile';
-        } else {
-            $form->setData($records[0]);
-
-            $formAction = 'stato-civile/insert/';
-            $formTitle = 'Modifica atto';
-        }
-
-        $this->layout()->setVariables(array(
-                'form'                          => $form,
-                'formTitle'                     => $formTitle,
-                'formDescription'               => '&Egrave; consigliabile inserire testi brevi sul tema trattato, possibilmente in minuscolo',
-                'formAction'                    => $formAction,
-                'formBreadCrumbCategory'        => 'Stato civile',
-                'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/stato-civile-summary', array(
-                    'lang' => $this->params()->fromRoute('lang')
-                )),
-                'templatePartial'               => self::formTemplate,
-            )
-        );
 
         $this->layout()->setTemplate($mainLayout);
     }

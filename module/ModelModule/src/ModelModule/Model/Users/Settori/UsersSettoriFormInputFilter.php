@@ -7,10 +7,6 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
-/**
- * @author Andrea Fiori
- * @since  26 March 2015
- */
 class UsersSettoriFormInputFilter implements InputFilterAwareInterface
 {
     public $id;
@@ -24,9 +20,9 @@ class UsersSettoriFormInputFilter implements InputFilterAwareInterface
      */
     public function exchangeArray(array $data)
     {
-        $this->id = (isset($data['id'])) ? $data['id'] : null;
-        $this->nome = (isset($data['nome'])) ? $data['nome'] : null;
-        $this->responsabileUserId = (isset($data['responsabileUserId'])) ? $data['responsabileUserId'] : null;
+        $this->id                   = (isset($data['id'])) ? $data['id'] : null;
+        $this->nome                 = (isset($data['nome'])) ? $data['nome'] : null;
+        $this->responsabileUserId   = (isset($data['responsabileUserId'])) ? $data['responsabileUserId'] : null;
     }
 
     /**
@@ -61,6 +57,7 @@ class UsersSettoriFormInputFilter implements InputFilterAwareInterface
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
                 ),
                 'validators' => array(
                     array(

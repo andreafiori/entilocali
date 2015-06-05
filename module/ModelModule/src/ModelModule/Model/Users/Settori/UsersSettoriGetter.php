@@ -4,10 +4,6 @@ namespace ModelModule\Model\Users\Settori;
 
 use ModelModule\Model\QueryBuilderHelperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  26 March 2015
- */
 class UsersSettoriGetter extends QueryBuilderHelperAbstract
 {
     /**

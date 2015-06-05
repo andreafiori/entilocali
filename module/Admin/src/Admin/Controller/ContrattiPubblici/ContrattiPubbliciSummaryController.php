@@ -2,6 +2,7 @@
 
 namespace Admin\Controller\ContrattiPubblici;
 
+use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciControllerHelper;
 use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciGetter;
 use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciGetterWrapper;
 use ModelModule\Model\Users\Settori\UsersSettoriGetter;
@@ -15,17 +16,18 @@ class ContrattiPubbliciSummaryController extends SetupAbstractController
     {
         $mainLayout = $this->initializeAdminArea();
 
-        $page       = $this->params()->fromRoute('page');
-        $perPage    = $this->params()->fromRoute('perpage');
         $em         = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-        $wrapper = new ContrattiPubbliciGetterWrapper( new ContrattiPubbliciGetter($em) );
-        $wrapper->setInput( array('orderBy' => 'cc.id DESC') );
-        $wrapper->setupQueryBuilder();
-        $wrapper->setupPaginator( $wrapper->setupQuery($em) );
-        $wrapper->setupPaginatorCurrentPage( is_numeric($page) ? $page : null );
-        $wrapper->setupPaginatorItemsPerPage($perPage);
+        $page       = $this->params()->fromRoute('page');
+        $perPage    = $this->params()->fromRoute('perpage');
 
+        $helper = new ContrattiPubbliciControllerHelper();
+        $wrapper = $helper->recoverWrapperRecordsPaginator(
+            new ContrattiPubbliciGetterWrapper(new ContrattiPubbliciGetter($em)),
+            array('orderBy' => 'cc.id DESC'),
+            $page,
+            $perPage
+        );
 
         $wrapperYears = new ContrattiPubbliciGetterWrapper(new ContrattiPubbliciGetter($em));
         $wrapperYears->setInput(array(
@@ -38,9 +40,10 @@ class ContrattiPubbliciSummaryController extends SetupAbstractController
 
         $yearsArray = array();
         foreach($years as $year) {
-            $yearsArray[] = $year['anno'];
+            if (isset($year['anno'])) {
+                $yearsArray[] = $year['anno'];
+            }
         }
-
 
         $wrapperSettori = new UsersSettoriGetterWrapper(new UsersSettoriGetter($em));
         $wrapperSettori->setInput(array());
@@ -50,7 +53,9 @@ class ContrattiPubbliciSummaryController extends SetupAbstractController
 
         $settori = array();
         foreach($settoriRecords as $settore) {
-            $settori[$settore['id']] = $settore['nome'].' '.$settore['name'].' '.$settore['surname'];
+            if (isset($settore['id']) and isset($settore['nome']) and isset($settore['surname'])) {
+                $settori[$settore['id']] = $settore['nome'].' '.$settore['name'].' '.$settore['surname'];
+            }
         }
 
         $formSearch = new ContrattiPubbliciFormSearch();

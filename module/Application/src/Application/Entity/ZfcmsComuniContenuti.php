@@ -78,6 +78,13 @@ class ZfcmsComuniContenuti
     private $dataInvioRegione;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data_ultimo_aggiornamento", type="datetime", nullable=false)
+     */
+    private $dataUltimoAggiornamento;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="attivo", type="integer", nullable=false)
@@ -403,6 +410,29 @@ class ZfcmsComuniContenuti
     public function getDataInvioRegione()
     {
         return $this->dataInvioRegione;
+    }
+
+    /**
+     * Set dataUltimoAggiornamento
+     *
+     * @param \DateTime $dataUltimoAggiornamento
+     * @return ZfcmsComuniContenuti
+     */
+    public function setDataUltimoAggiornamento($dataUltimoAggiornamento)
+    {
+        $this->dataUltimoAggiornamento = $dataUltimoAggiornamento;
+    
+        return $this;
+    }
+
+    /**
+     * Get dataUltimoAggiornamento
+     *
+     * @return \DateTime 
+     */
+    public function getDataUltimoAggiornamento()
+    {
+        return $this->dataUltimoAggiornamento;
     }
 
     /**

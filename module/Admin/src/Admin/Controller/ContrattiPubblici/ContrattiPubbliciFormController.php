@@ -19,8 +19,9 @@ class ContrattiPubbliciFormController extends SetupAbstractController
     {
         $mainLayout = $this->initializeAdminArea();
 
-        $id = $this->params()->fromRoute('id');
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+
+        $id = $this->params()->fromRoute('id');
 
         try {
             $helper = new ContrattiPubbliciFormControllerHelper();

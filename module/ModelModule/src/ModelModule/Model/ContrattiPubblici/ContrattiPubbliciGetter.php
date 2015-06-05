@@ -4,10 +4,6 @@ namespace ModelModule\Model\ContrattiPubblici;
 
 use ModelModule\Model\QueryBuilderHelperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  14 August 2014
- */
 class ContrattiPubbliciGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()

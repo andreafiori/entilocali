@@ -4,10 +4,6 @@ namespace ModelModule\Model\ContrattiPubblici\Operatori;
 
 use Zend\Form\Form;
 
-/**
- * @author Andrea Fiori
- * @since  18 December 2014
- */
 class OperatoriForm extends Form
 {
     /**

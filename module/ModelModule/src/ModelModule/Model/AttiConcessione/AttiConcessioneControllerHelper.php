@@ -2,10 +2,11 @@
 
 namespace ModelModule\Model\AttiConcessione;
 
+use ModelModule\Model\ControllerHelperAbstract;
 use ModelModule\Model\Users\Settori\UsersSettoriGetterWrapper;
 use ModelModule\Model\NullException;
 
-class AttiConcessioneControllerHelper
+class AttiConcessioneControllerHelper extends ControllerHelperAbstract
 {
     private $attiConcessioneGetterWrapper;
 

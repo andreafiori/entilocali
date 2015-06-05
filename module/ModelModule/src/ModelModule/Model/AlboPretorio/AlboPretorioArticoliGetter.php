@@ -19,7 +19,7 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
                 alboArticoli.pubblicare,
                 alboArticoli.annullato,
                 alboArticoli.dataAnnullamento,
-                alboArticoli.home,
+                alboArticoli.home, alboArticoli.fonteUrl,
 
                 aps.id AS idSezione, aps.nome AS nomeSezione,
 

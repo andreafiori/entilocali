@@ -150,6 +150,13 @@ class ZfcmsPosts
     /**
      * @var integer
      *
+     * @ORM\Column(name="box_notizie", type="integer", nullable=false)
+     */
+    private $boxNotizie;
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="homepage", type="integer", nullable=false)
      */
     private $homepage;
@@ -605,6 +612,29 @@ class ZfcmsPosts
     public function getAlwaysInHome()
     {
         return $this->alwaysInHome;
+    }
+
+    /**
+     * Set boxNotizie
+     *
+     * @param integer $boxNotizie
+     * @return ZfcmsPosts
+     */
+    public function setBoxNotizie($boxNotizie)
+    {
+        $this->boxNotizie = $boxNotizie;
+    
+        return $this;
+    }
+
+    /**
+     * Get boxNotizie
+     *
+     * @return integer 
+     */
+    public function getBoxNotizie()
+    {
+        return $this->boxNotizie;
     }
 
     /**

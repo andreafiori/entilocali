@@ -5,10 +5,6 @@ namespace ModelModuleTest\Model\Users\Settori;
 use ModelModule\Model\Users\Settori\UsersSettoriGetter;
 use ModelModuleTest\TestSuite;
 
-/**
- * @author Andrea Fiori
- * @since  29 March 2015
- */
 class UsersSettoriGetterTest extends TestSuite
 {
     /**

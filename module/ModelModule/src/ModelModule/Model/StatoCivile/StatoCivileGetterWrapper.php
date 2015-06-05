@@ -31,6 +31,7 @@ class StatoCivileGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setTextSearch( $this->getInput('textSearch', 1) );
         $this->objectGetter->setSezioneId( $this->getInput('sezioneId', 1) );
         $this->objectGetter->setNoScaduti($this->getInput('noScaduti', 1));
+        $this->objectGetter->setAttivo($this->getInput('attivo', 1));
         $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
         $this->objectGetter->setGroupBy( $this->getInput('groupBy', 1) );
         $this->objectGetter->setLimit( $this->getInput('limit', 1) );

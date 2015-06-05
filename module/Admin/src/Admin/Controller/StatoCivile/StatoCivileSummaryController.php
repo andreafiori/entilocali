@@ -9,7 +9,6 @@ use ModelModule\Model\StatoCivile\StatoCivileSezioniGetter;
 use ModelModule\Model\StatoCivile\StatoCivileSezioniGetterWrapper;
 use Application\Controller\SetupAbstractController;
 use ModelModule\Model\StatoCivile\StatoCivileControllerHelper;
-use ModelModule\Model\NullException;
 use Zend\Session\Container as SessionContainer;
 
 class StatoCivileSummaryController extends SetupAbstractController
@@ -24,10 +23,9 @@ class StatoCivileSummaryController extends SetupAbstractController
         $perPage = $this->params()->fromRoute('perpage');
 
         $sessionContainer = new SessionContainer();
-
-        $formPostedValues = $sessionContainer->offsetGet('statoCivileFormSearch');
-
         try {
+
+            $formPostedValues = $sessionContainer->offsetGet('statoCivileFormSearch');
             $request = $this->getRequest();
             if ($request->isPost()) {
                 $post = array_merge_recursive(
@@ -48,46 +46,51 @@ class StatoCivileSummaryController extends SetupAbstractController
             );
 
             $helper = new StatoCivileControllerHelper();
-            $helper->setStatoCivileGetterWrapper(new StatoCivileGetterWrapper(new StatoCivileGetter($em)));
-            $helper->setupYears(array_merge(
-                $statoCivileArticoliInput,
-                array('fields' => 'DISTINCT(sca.anno) AS anno')
-            ));
-            $helper->setStatoCivileSezioniGetterWrapper(
-                new StatoCivileSezioniGetterWrapper(new StatoCivileSezioniGetter($em))
+            $yearsList = $helper->setupYears(
+                new StatoCivileGetterWrapper(new StatoCivileGetter($em)),
+                array_merge(
+                    $statoCivileArticoliInput,
+                    array('fields' => 'DISTINCT(sca.anno) AS anno')
+                )
             );
-            $helper->setupSezioniRecords(array());
-
-            $sezioniRecords = $helper->formatSezioniForFormSelect($helper->getSezioniRecords());
+            $sezioniRecords = $helper->recoverWrapperRecords(
+                new StatoCivileSezioniGetterWrapper(new StatoCivileSezioniGetter($em)),
+                array()
+            );
             $helper->checkRecords($sezioniRecords, "Nessuna sezione in archivio");
-
-            $yearsList = $helper->getStatoCivileYears();
+            $sezioniRecordsForDropDown = $helper->formatForDropwdown(
+                $sezioniRecords,
+                'id',
+                'nome'
+            );
 
             $formSearch = new StatoCivileFormSearch();
             $formSearch->addTesto();
             $formSearch->addProgressivo();
             $formSearch->addNumeroAtto();
             $formSearch->addMese();
-            $formSearch->addSezioni($sezioniRecords);
+            $formSearch->addSezioni($sezioniRecordsForDropDown);
             $formSearch->addSubmitButton();
             $formSearch->addCheckExpired();
-            $formSearch->addAnni( !empty($yearsList) ? $yearsList : null );
+            $formSearch->addAnni($yearsList);
 
             if ($this->getRequest()->isPost()) {
+
                 $formSearch->setBindOnValidate(false);
                 $formSearch->setData($post);
 
                 $sessionContainer->offsetSet('statoCivileFormSearch', $post);
+
             } elseif ( !empty($formPostedValues) ) {
                 $formSearch->setData($formPostedValues);
             }
 
-            $wrapper = new StatoCivileGetterWrapper( new StatoCivileGetter($em) );
-            $wrapper->setInput($statoCivileArticoliInput);
-            $wrapper->setupQueryBuilder();
-            $wrapper->setupPaginator( $wrapper->setupQuery($em) );
-            $wrapper->setupPaginatorCurrentPage(is_numeric($page) ? $page : null);
-            $wrapper->setupPaginatorItemsPerPage(is_numeric($perPage) ? $perPage : null);
+            $wrapper = $helper->recoverWrapperRecordsPaginator(
+                new StatoCivileGetterWrapper(new StatoCivileGetter($em)),
+                $statoCivileArticoliInput,
+                $page,
+                $perPage
+            );
 
             $paginator = $wrapper->getPaginator();
 
@@ -107,22 +110,25 @@ class StatoCivileSummaryController extends SetupAbstractController
                         "&nbsp;",
                         "&nbsp;",
                         "&nbsp;",
+                        "&nbsp;",
+                        "&nbsp;",
                     ),
                     'formSearch'        => $formSearch,
                     'records'           => $this->formatRecords($wrapper->setupRecords()),
                     'paginator'         => $paginator,
-                    'total_item_count'  => $paginatorCount,
                     'templatePartial'   => 'datatable/datatable_statocivile.phtml',
                 )
             );
 
         } catch(\Exception $e) {
+
             $this->layout()->setVariables(array(
                 'messageType'       => 'warning',
                 'messageTitle'      => 'Errore verificato',
                 'messageText'       => $e->getMessage(),
                 'templatePartial'   => 'message.phtml'
             ));
+
         }
 
         $this->layout()->setTemplate($mainLayout);
@@ -135,6 +141,8 @@ class StatoCivileSummaryController extends SetupAbstractController
          */
         private function formatRecords($records)
         {
+            $lang = $this->params()->fromRoute('lang');
+
             if (!$records) {
                 return false;
             }
@@ -143,10 +151,18 @@ class StatoCivileSummaryController extends SetupAbstractController
             foreach($records as $record) {
 
                 if ( $record['attivo']==0) {
-                    $linkActiveDisable = $this->url()->fromRoute('admin/stato-civile-operations', array('lang' => 'it', 'action' => 'active', 'id' => $record['id']) );
+                    $linkActiveDisable = $this->url()->fromRoute('admin/stato-civile-operations', array(
+                        'lang'      => $lang,
+                        'action'    => 'active',
+                        'id'        => $record['id']
+                    ));
                     $buttonType = 'disableButton';
                 } else {
-                    $linkActiveDisable = $this->url()->fromRoute('admin/stato-civile-operations', array('lang' => 'it', 'action' => 'disable', 'id' => $record['id']) );
+                    $linkActiveDisable = $this->url()->fromRoute('admin/stato-civile-operations', array(
+                        'lang'      => $lang,
+                        'action'    => 'disable',
+                        'id'        => $record['id']
+                    ));
                     $buttonType = 'activeButton';
                 }
 
@@ -167,29 +183,43 @@ class StatoCivileSummaryController extends SetupAbstractController
                     array(
                         'type'      => 'updateButton',
                         'href'      => $this->url()->fromRoute('admin/stato-civile-form', array(
-                                'lang'  => 'it',
+                                'lang'  => $lang,
                                 'id'    => $record['id'],
                             )
                         ),
-                        'title' => 'Modifica'
+                        'title' => 'Modifica atto'
+                    ),
+                    array(
+                        'type' => 'deleteButton',
+                        'href' => $this->url()->fromRoute('admin/stato-civile-delete', array(
+                                'lang'          => $this->params()->fromRoute('lang'),
+                                'action'        => 'delete',
+                                'id'            => $record['id']
+                            )
+                        ),
+                        'data-id' => $record['id'],
+                        'title'   => 'Elimina atto'
                     ),
                     array(
                         'type'      => 'attachButton',
                         'href'      => $this->url()->fromRoute('admin/attachments-summary', array(
-                                'lang'          => 'it',
-                                'module'        => 'stato-civile',
-                                'referenceId'   => $record['id'],
-                            )
-                        ),
+                            'lang'          => $lang,
+                            'referenceId'   => $record['id'],
+                            'module'        => 'stato-civile',
+                        )),
+                    ),
+                    array(
+                        'type'      => 'homepageDelButton',
+                        'href'      => '#',
+                        'value'     => 'homepageDelButton',
                     ),
                     array(
                         'type' => 'enteterzoButton',
                         'href' => $this->url()->fromRoute('admin/invio-ente-terzo', array(
-                                'lang'          => 'it',
-                                'module'        => 'stato-civile',
-                                'id'            => $record['id'],
-                            )
-                        ),
+                            'lang'      => $lang,
+                            'id'        => $record['id'],
+                            'module'    => 'stato-civile',
+                        )),
                         'title' => 'Invia ad ente terzo'
                     ),
                 );

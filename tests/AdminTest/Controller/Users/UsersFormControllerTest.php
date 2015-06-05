@@ -5,9 +5,12 @@ namespace AdminTest\Controller\Users;
 use Admin\Controller\Users\UsersFormController;
 use ModelModuleTest\TestSuite;
 
-class UsersFormControllerTest //extends TestSuite
+class UsersFormControllerTest extends TestSuite
 {
-    private  $controller;
+    /**
+     * @var UsersFormController
+     */
+    private $controller;
 
     protected function setUp()
     {
@@ -20,6 +23,8 @@ class UsersFormControllerTest //extends TestSuite
 
     public function testIndexAction()
     {
+        $this->setupUserSession($this->recoverUserDetails());
+
         $this->routeMatch->setParam('action', 'index');
 
         $this->controller->dispatch($this->request);

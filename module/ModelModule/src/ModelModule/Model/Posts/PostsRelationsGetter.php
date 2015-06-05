@@ -4,10 +4,6 @@ namespace ModelModule\Model\Posts;
 
 use ModelModule\Model\QueryBuilderHelperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  15 April 2014
- */
 class PostsRelationsGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()

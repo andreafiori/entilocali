@@ -7,10 +7,6 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
-/**
- * @author Andrea Fiori
- * @since  30 March 2015
- */
 class AttiConcessioneModalitaAssegnazioneFormInputFilter implements InputFilterAwareInterface
 {
     public $id;
@@ -59,6 +55,7 @@ class AttiConcessioneModalitaAssegnazioneFormInputFilter implements InputFilterA
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
                 ),
                 'validators' => array(
                     array(

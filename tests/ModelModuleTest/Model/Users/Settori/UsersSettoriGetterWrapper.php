@@ -6,19 +6,20 @@ use ModelModule\Model\Users\Settori\UsersSettoriGetter;
 use ModelModule\Model\Users\Settori\UsersSettoriGetterWrapper;
 use ModelModuleTest\TestSuite;
 
-/**
- * @author Andrea Fiori
- * @since  29 March 2015
- */
 class UsersSettoriGetterWrapperTest extends TestSuite
 {
+    /**
+     * @var UsersSettoriGetterWrapper
+     */
     private $objectWrapper;
 
     protected function setUp()
     {
         parent::setUp();
 
-        $this->objectWrapper = new UsersSettoriGetterWrapper( new UsersSettoriGetter($this->getEntityManagerMock()) );
+        $this->objectWrapper = new UsersSettoriGetterWrapper(
+            new UsersSettoriGetter($this->getEntityManagerMock())
+        );
     }
 
     public function testSetupQueryBuilder()

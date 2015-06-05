@@ -50,7 +50,7 @@ class EntiTerziCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
      */
     public function insert(InputFilterAwareInterface $formData)
     {
-        $this->asssertConnection();
+        $this->assertConnection();
 
         return $this->getConnection()->insert(DbTableContainer::entiTerzi, array(
             'nome'        => $formData->nome,
@@ -67,7 +67,7 @@ class EntiTerziCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
      */
     public function update(InputFilterAwareInterface $formData)
     {
-        $this->asssertConnection();
+        $this->assertConnection();
 
         return $this->getConnection()->update(DbTableContainer::entiTerzi, array(
                 'nome'        => $formData->nome,
@@ -86,7 +86,7 @@ class EntiTerziCrudHandler extends CrudHandlerAbstract implements CrudHandlerInt
      */
     public function delete($id)
     {
-        $this->asssertConnection();
+        $this->assertConnection();
 
         return $this->getConnection()->delete(DbTableContainer::entiTerzi,
             array('id' => $id),

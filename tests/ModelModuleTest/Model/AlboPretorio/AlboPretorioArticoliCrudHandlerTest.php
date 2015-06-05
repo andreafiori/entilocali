@@ -5,7 +5,7 @@ namespace ModelModuleTest\Model\AlboPretorio;
 use ModelModule\Model\AlboPretorio\AlboPretorioArticoliCrudHandler;
 use ModelModuleTest\CrudHandlerTestSuite;
 
-class AlboPretorioArticoliCrudHandlerTest extends CrudHandlerTestSuite
+class AlboPretorioArticoliCrudHandlerTest //extends CrudHandlerTestSuite
 {
     /**
      * @var AlboPretorioArticoliCrudHandler

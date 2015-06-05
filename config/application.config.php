@@ -5,6 +5,7 @@ return array(
             'ServiceLocatorFactory',
             'DoctrineModule',
             'DoctrineORMModule',
+            'DoctrineDataFixtureModule',
             //'ZendDeveloperTools',
             'ModelModule',
             'DOMPDFModule',

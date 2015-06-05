@@ -3,6 +3,7 @@
 namespace Application\Controller\StatoCivile;
 
 use Application\Controller\SetupAbstractController;
+use ModelModule\Model\StatoCivile\StatoCivileFormSearch;
 use ModelModule\Model\StatoCivile\StatoCivileGetter;
 use ModelModule\Model\StatoCivile\StatoCivileGetterWrapper;
 use ModelModule\Model\StatoCivile\StatoCivileSezioniGetter;
@@ -18,46 +19,56 @@ class StatoCivileController extends SetupAbstractController
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
         $page = $this->params()->fromRoute('page');
+        $perPage = $this->params()->fromRoute('perpage');
 
         try {
 
             $helper = new StatoCivileControllerHelper();
-            $helper->setStatoCivileSezioniGetterWrapper(
-                new StatoCivileSezioniGetterWrapper(new StatoCivileSezioniGetter($em))
+            $sezioniRecords = $helper->recoverWrapperRecords(
+                new StatoCivileSezioniGetterWrapper(new StatoCivileSezioniGetter($em)),
+                array()
             );
-            $helper->setupSezioniRecords(array());
-            $helper->formatSezioniForFormSelect($helper->getSezioniRecords());
-
-            //$form = $helper->setupFormSearch( new StatoCivileFormSearch() );
-            //$form->setData( $this->getRequest()->isPost() ? $this->getRequest()->getPost() : array() );
-
-            $wrapper = new StatoCivileGetterWrapper( new StatoCivileGetter($em) );
-            $wrapper->setInput(array_merge(
-                array(
-                    'textSearch' => $this->params()->fromPost('testo'),
-                    'anno'       => $this->params()->fromPost('anno'),
-                    'mese'       => $this->params()->fromPost('mese'),
-                    'sezione'    => $this->params()->fromPost('sezione')
+            $sezioniRecordsForDropdown = $helper->formatForDropwdown(
+                $sezioniRecords,
+                'id',
+                'nome'
+            );
+            $wrapper = $helper->recoverWrapperRecordsPaginator(
+                new StatoCivileGetterWrapper(new StatoCivileGetter($em)),
+                array_merge(
+                    array(
+                        'textSearch' => $this->params()->fromPost('testo'),
+                        'anno'       => $this->params()->fromPost('anno'),
+                        'mese'       => $this->params()->fromPost('mese'),
+                        'sezione'    => $this->params()->fromPost('sezione')
+                    ),
+                    array(
+                        'attivo'    => 1,
+                        'noScaduti' => 1,
+                        'orderBy'   => 'sca.data DESC',
+                    )
                 ),
-                array(
-                    'orderBy' => 'sca.data DESC',
-                    'sca.attivo' => 1
-                )
-            ));
-            $wrapper->setupQueryBuilder();
-            $wrapper->setupPaginator( $wrapper->setupQuery($em) );
-            $wrapper->setupPaginatorCurrentPage(isset($page) ? $page : null);
+                $page,
+                $perPage
+            );
 
-            $paginatorRecords = $wrapper->getPaginator();
+            $paginator = $wrapper->getPaginator();
+
+            $form = new StatoCivileFormSearch();
+            $form->addTesto();
+            $form->addSezioni($sezioniRecordsForDropdown);
+            $form->addMese();
+            $form->addAnni();
+            $form->addSubmitButton();
 
         } catch(\Exception $e) {
 
         }
 
         $this->layout()->setVariables(array(
-            'paginator'         => !empty($paginatorRecords) ? $paginatorRecords : null,
+            'paginator'         => !empty($paginator) ? $paginator : null,
+            'records'           => !empty($paginator) ? $paginator : null,
             'form'              => !empty($form) ? $form : null,
-            'records'           => !empty($paginatorRecords) ? $paginatorRecords : null,
             'templatePartial'   => 'stato-civile/stato-civile.phtml',
         ));
 

@@ -10,13 +10,15 @@ use Zend\InputFilter\InputFilterInterface;
 class StatoCivileFormInputFilter implements InputFilterAwareInterface
 {
     public $id;
+    public $progressivo;
     public $titolo;
     public $sezione;
     public $attivo;
     public $data;
     public $scadenza;
-    public $home;
+    public $homepageFlag;
     public $utente;
+    public $boxNotizie;
 
     protected $inputFilter;
 
@@ -25,14 +27,15 @@ class StatoCivileFormInputFilter implements InputFilterAwareInterface
      */
     public function exchangeArray(array $data)
     {
-        $this->id           = (isset($data['id']))       ? $data['id']      : null;
-        $this->titolo       = (isset($data['titolo']))   ? $data['titolo']  : null;
-        $this->sezione      = (isset($data['sezione'])) ? $data['sezione'] : null;
-        $this->attivo       = (isset($data['attivo'])) ? $data['attivo'] : null;
-        $this->data         = (isset($data['data'])) ? $data['data'] : null;
-        $this->scadenza     = (isset($data['scadenza'])) ? $data['scadenza'] : null;
-        $this->home         = (isset($data['home'])) ? $data['home'] : null;
-        $this->utente       = (isset($data['utente'])) ? $data['utente'] : null;
+        $this->id           = (isset($data['id']))           ? $data['id']           : null;
+        $this->titolo       = (isset($data['titolo']))       ? $data['titolo']       : null;
+        $this->sezione      = (isset($data['sezione']))      ? $data['sezione']      : null;
+        $this->attivo       = (isset($data['attivo']))       ? $data['attivo']       : null;
+        $this->data         = (isset($data['data']))         ? $data['data']         : null;
+        $this->scadenza     = (isset($data['scadenza']))     ? $data['scadenza']     : null;
+        $this->utente       = (isset($data['utente']))       ? $data['utente']       : null;
+        $this->homepageFlag = (isset($data['homepageFlag'])) ? $data['homepageFlag'] : null;
+        $this->boxNotizie   = (isset($data['boxNotizie']))   ? $data['boxNotizie']   : null;
     }
 
     /**
@@ -67,6 +70,7 @@ class StatoCivileFormInputFilter implements InputFilterAwareInterface
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
                 ),
                 'validators' => array(
                     array(
@@ -116,7 +120,15 @@ class StatoCivileFormInputFilter implements InputFilterAwareInterface
             ));
 
             $inputFilter->add(array(
-                'name'     => 'home',
+                'name'     => 'homepageFlag',
+                'required' => false,
+                'filters'  => array(
+                    array('name' => 'Int'),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'boxNotizie',
                 'required' => false,
                 'filters'  => array(
                     array('name' => 'Int'),

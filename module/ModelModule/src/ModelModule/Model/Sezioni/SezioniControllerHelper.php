@@ -2,14 +2,20 @@
 
 namespace ModelModule\Model\Sezioni;
 
+use ModelModule\Model\Contenuti\ContenutiControllerHelperAbstract;
 use ModelModule\Model\Modules\ModulesContainer;
 use ModelModule\Model\Database\DbTableContainer;
 use ModelModule\Model\Slugifier;
 use Zend\InputFilter\InputFilterAwareInterface;
 use ModelModule\Model\NullException;
 
-class SezioniControllerHelper extends SezioniControllerHelperAbstract
+class SezioniControllerHelper extends ContenutiControllerHelperAbstract
 {
+    /**
+     * @param InputFilterAwareInterface $inputFilter
+     * @return int
+     * @throws NullException
+     */
     public function insert(InputFilterAwareInterface $inputFilter)
     {
         $this->assertConnection();

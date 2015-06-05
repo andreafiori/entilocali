@@ -3,6 +3,7 @@
 namespace Admin\Controller\EntiTerzi;
 
 use Application\Controller\SetupAbstractController;
+use ModelModule\Model\AlboPretorio\AlboPretorioControllerHelper;
 use ModelModule\Model\EntiTerzi\EntiTerziGetter;
 use ModelModule\Model\EntiTerzi\EntiTerziGetterWrapper;
 
@@ -18,11 +19,12 @@ class EntiTerziSummaryController extends SetupAbstractController
 
         $translator = $this->getServiceLocator()->get('translator');
 
-        $wrapper = new EntiTerziGetterWrapper( new EntiTerziGetter($em) );
-        $wrapper->setInput( array('orderBy' => 'ret.id DESC') );
-        $wrapper->setupQueryBuilder();
-        $wrapper->setupPaginator( $wrapper->setupQuery($em) );
-        $wrapper->setupPaginatorCurrentPage($page);
+        $helper = new AlboPretorioControllerHelper();
+        $wrapper = $helper->recoverWrapperRecordsPaginator(
+            new EntiTerziGetterWrapper(new EntiTerziGetter($em)),
+            array('orderBy' => 'ret.id DESC'),
+            $page
+        );
 
         $paginatorRecords = $wrapper->setupRecords();
 

@@ -53,12 +53,24 @@ return array(
     'admin/stato-civile-form' => array(
         'resources' => array('stato_civile_add', 'stato_civile_update')
     ),
+    'admin/stato-civile-insert' => array(
+        'resources' => array('stato_civile_add',)
+    ),
+    'admin/stato-civile-update' => array(
+        'resources' => array('stato_civile_update',)
+    ),
     /* Contratti pubblici */
     'admin/contratti-pubblici-summary' => array(
         'resources' => array('contratti_pubblici_add', 'contratti_pubblici_update')
     ),
     'admin/contratti-pubblici-form' => array(
         'resources' => array('contratti_pubblici_add', 'contratti_pubblici_update')
+    ),
+    'admin/contratti-pubblici-operatori-summary' => array(
+        'resources' => array('contratti_pubblici_operatori_add', 'contratti_pubblici_operatori_update')
+    ),
+    'admin/contratti-pubblici-operatori-form' => array(
+        'resources' => array('contratti_pubblici_operatori_add', 'contratti_pubblici_operatori_update')
     ),
     /* Atti concessione */
     'admin/atti-concessione-summary' => array(

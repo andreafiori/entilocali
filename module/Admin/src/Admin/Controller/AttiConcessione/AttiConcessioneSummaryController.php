@@ -19,67 +19,71 @@ class AttiConcessioneSummaryController extends SetupAbstractController
         $page       = $this->params()->fromRoute('page');
         $em         = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-        $helper = new AttiConcessioneControllerHelper();
-        $helper->setAttiConcessioneGetterWrapper( new AttiConcessioneGetterWrapper(new AttiConcessioneGetter($em)) );
-        $helper->setupYearsRecords( array(
-            'fields' => 'DISTINCT(atti.anno) AS year',
-            'orderBy' => 'atti.id DESC'
-        ),
-            $page,
-            null
-        );
-        $helper->setAttiConcessioneGetterWrapper( new AttiConcessioneGetterWrapper(new AttiConcessioneGetter($em)) );
-        $helper->setupAttiConcessioneGetterWrapperWithPaginator(
-            array('orderBy' => 'atti.id DESC'),
-            $page,
-            null
-        );
-        $helper->setUsersSettoriGetterWrapper( new UsersSettoriGetterWrapper(new UsersSettoriGetter($em)) );
-        $helper->setupSettoriRecords( array('orderBy' => 'settore.nome') );
+        try {
 
-        $settoriForDropDown = $helper->getUsersSettoriRecords();
-
-        $yearsForDropdown = $helper->formatYears( $helper->getYearsRecords() );
-
-        $wrapperArticoli = $helper->getAttiConcessioneGetterWrapperWithPaginator();
-
-        $form = new AttiConcessioneFormSearch();
-        $form->addAnno($yearsForDropdown);
-        $form->addMainElements();
-        $form->addUfficio($settoriForDropDown);
-        $form->addSubmitSearchButton();
-        $form->addResetButton();
-
-        $paginator          = $wrapperArticoli->getPaginator();
-
-        $paginatorItemCount = $wrapperArticoli->getPaginator()->getTotalItemCount();
-
-        $paginatorRecords   = $this->formatArticoliRecords($wrapperArticoli->setupRecords());
-
-        $formSearch = new AttiConcessioneFormSearch();
-        $formSearch->addMainElements();
-        $formSearch->addAnno($yearsForDropdown);
-        $formSearch->addUfficio($settoriForDropDown);
-        $formSearch->addSubmitSearchButton();
-
-        if ( empty($paginatorRecords) ) {
-            $this->layout()->setVariables(array(
-                    'messageType'        => 'warning',
-                    'messageTitle'       => 'Nessun atto di concessione presente',
-                    'messageText'        => 'Nessun atto di concessione in archivio',
-                    'templatePartial'    => 'message.phtml',
-                )
+            $helper = new AttiConcessioneControllerHelper();
+            $helper->setAttiConcessioneGetterWrapper( new AttiConcessioneGetterWrapper(new AttiConcessioneGetter($em)) );
+            $helper->setupYearsRecords( array(
+                    'fields' => 'DISTINCT(atti.anno) AS year',
+                    'orderBy' => 'atti.id DESC'
+                ),
+                $page,
+                null
             );
-            $this->layout()->setTemplate($mainLayout);
-            return false;
-        }
+            $helper->setAttiConcessioneGetterWrapper( new AttiConcessioneGetterWrapper(new AttiConcessioneGetter($em)) );
+            $helper->setupAttiConcessioneGetterWrapperWithPaginator(
+                array('orderBy' => 'atti.id DESC'),
+                $page,
+                null
+            );
+            $helper->setUsersSettoriGetterWrapper( new UsersSettoriGetterWrapper(new UsersSettoriGetter($em)) );
+            $helper->setupSettoriRecords( array('orderBy' => 'settore.nome') );
 
-        $this->layout()->setVariables(array(
-                'tableTitle'        => 'Atti di concessione',
-                'tableDescription'  => $paginatorItemCount." atti in archivio",
-                'tablesetter'       => 'atti-concessione',
-                'formSearch'        => $formSearch,
-                'columns'           => array(
+            $settoriForDropDown = $helper->getUsersSettoriRecords();
+
+            $yearsForDropdown = $helper->formatYears( $helper->getYearsRecords() );
+
+            $wrapperArticoli = $helper->getAttiConcessioneGetterWrapperWithPaginator();
+
+            $form = new AttiConcessioneFormSearch();
+            $form->addAnno($yearsForDropdown);
+            $form->addMainElements();
+            $form->addUfficio($settoriForDropDown);
+            $form->addSubmitSearchButton();
+            $form->addResetButton();
+
+            $paginator          = $wrapperArticoli->getPaginator();
+
+            $paginatorItemCount = $wrapperArticoli->getPaginator()->getTotalItemCount();
+
+            $paginatorRecords   = $this->formatArticoliRecords($wrapperArticoli->setupRecords());
+
+            $formSearch = new AttiConcessioneFormSearch();
+            $formSearch->addMainElements();
+            $formSearch->addAnno($yearsForDropdown);
+            $formSearch->addUfficio($settoriForDropDown);
+            $formSearch->addSubmitSearchButton();
+
+            if ( empty($paginatorRecords) ) {
+                $this->layout()->setVariables(array(
+                        'messageType'           => 'warning',
+                        'messageTitle'          => 'Nessun atto di concessione presente',
+                        'messageText'           => 'Nessun atto di concessione in archivio',
+                        'showBreadCrumb'        => 1,
+                        'dataTableActiveTitle'  => 'Atti di concessione',
+                        'templatePartial'       => 'message.phtml',
+                    )
+                );
+                $this->layout()->setTemplate($mainLayout);
+                return false;
+            }
+
+            $this->layout()->setVariables(array(
+                    'tableTitle'        => 'Atti di concessione',
+                    'tableDescription'  => $paginatorItemCount." atti in archivio",
+                    'tablesetter'       => 'atti-concessione',
+                    'formSearch'        => $formSearch,
+                    'columns'           => array(
                         "Ufficio-Responsabile del Servizio - Responsabile del Procedimento",
                         "Num / Anno",
                         "CF / P. IVA Beneficiario",
@@ -90,14 +94,18 @@ class AttiConcessioneSummaryController extends SetupAbstractController
                         "",
                         "",
                         "",
-                ),
-                'paginator'         => $paginator,
-                'records'           => $paginatorRecords,
-                'templatePartial'   => 'datatable/datatable_atti_concessione.phtml'
-            )
-        );
+                    ),
+                    'paginator'         => $paginator,
+                    'records'           => $paginatorRecords,
+                    'templatePartial'   => 'datatable/datatable_atti_concessione.phtml'
+                )
+            );
 
-        $this->layout()->setTemplate($mainLayout);
+            $this->layout()->setTemplate($mainLayout);
+
+        } catch(\Exception $e) {
+
+        }
     }
 
         /**

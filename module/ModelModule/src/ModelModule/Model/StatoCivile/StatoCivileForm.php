@@ -23,9 +23,15 @@ class StatoCivileForm extends Form
                                         'required'      => 'required',
                                         'palceholder'   => 'Inserisci il titolo',
                                         'title'         => 'Inserisci il titolo',
-                                        'rows'          => '5',
+                                        'rows'          => '3',
                                         'maxlength'     => 250
                         )
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'id',
+            'attributes' => array("class" => 'hiddenField')
         ));
     }
 
@@ -102,26 +108,32 @@ class StatoCivileForm extends Form
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Checkbox',
-            'name' => 'home',
+            'name' => 'homepageFlag',
             'attributes' => array(
-                'title'         => 'Inserisci in home page',
-                'id'            => 'home'
+                'title' => 'Inserisci in home page',
+                'id'    => 'homepageFlag'
             ),
             'options' => array(
                 'label' => 'Inserisci in home page',
                 'use_hidden_element' => false,
-                'checked_value'      => '1',
-                'unchecked_value'    => '0'
+                'checked_value'      => 1,
+                'unchecked_value'    => 0
             )
         ));
-    }
-    
-    public function addId()
-    {
+
         $this->add(array(
-                'type' => 'Zend\Form\Element\Hidden',
-                'name' => 'id',
-                'attributes' => array("class" => 'hiddenField')
+            'type' => 'Zend\Form\Element\Checkbox',
+            'name' => 'boxNotizie',
+            'attributes' => array(
+                'title' => 'Inserisci nel box notizie',
+                'id'    => 'boxNotizie'
+            ),
+            'options' => array(
+                'label' => 'Inserisci nel box notizie',
+                'use_hidden_element' => false,
+                'checked_value'      => 1,
+                'unchecked_value'    => 0
+            )
         ));
     }
 }
