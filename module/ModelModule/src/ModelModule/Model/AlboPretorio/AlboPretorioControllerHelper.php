@@ -39,6 +39,7 @@ class AlboPretorioControllerHelper extends ControllerHelperAbstract
     public function insert(AlboPretorioArticoliFormInputFilter $inputFilter)
     {
         $this->assertConnection();
+
         $this->assertLoggedUser();
 
         $userDetails = $this->getLoggedUser();

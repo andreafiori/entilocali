@@ -10,7 +10,7 @@ class AttiConcessioneSummaryControllerTest extends TestSuite
     /**
      * @var AttiConcessioneSummaryController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

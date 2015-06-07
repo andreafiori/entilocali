@@ -30,7 +30,6 @@ class SottoSezioniFormInputFilter implements InputFilterAwareInterface
         $this->nomeSottoSezione = (isset($data['nomeSottoSezione']))  ? $data['nomeSottoSezione'] : null;
         $this->url              = (isset($data['url']))               ? $data['url']              : null;
         $this->urlTitle         = (isset($data['urlTitle']))          ? $data['urlTitle']         : null;
-        $this->posizione        = (isset($data['posizione']))         ? $data['posizione']        : null;
         $this->attivo           = (isset($data['attivo']))            ? $data['attivo']           : null;
     }
 

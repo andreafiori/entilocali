@@ -15,7 +15,7 @@ class UsersCreateAccountControllerTest extends TestSuite
     /**
      * @var UsersCreateAccountController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

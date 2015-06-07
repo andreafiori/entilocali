@@ -3,15 +3,16 @@
 namespace AdminTest\Controller\StatoCivile;
 
 use Admin\Controller\StatoCivile\StatoCivileInsertController;
-use ModelModuleTest\TestSuite;
-use Zend\Http\Request;
+use ModelModule\Model\StatoCivile\StatoCivileForm;
+use ModelModule\Model\StatoCivile\StatoCivileFormInputFilter;
+use ModelModuleTest\InsertUpdateTestSuite;
 
-class StatoCivileInsertControllerTest extends TestSuite
+class StatoCivileInsertControllerTest extends InsertUpdateTestSuite
 {
     /**
      * @var StatoCivileInsertController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {
@@ -20,37 +21,44 @@ class StatoCivileInsertControllerTest extends TestSuite
         $this->controller = new StatoCivileInsertController();
         $this->controller->setEvent($this->event);
         $this->controller->setServiceLocator($this->getServiceManager());
-    }
 
-    public function testIndexActionReturnsRedirect()
-    {
-        $this->routeMatch->setParam('action', 'index');
-
-        $this->controller->dispatch($this->request);
-
-        $this->assertEquals(302, $this->controller->getResponse()->getStatusCode());
-    }
-
-    public function testIndexActionCorrectPostRequest()
-    {
-        $this->routeMatch->setParam('action', 'index');
-
-        $this->setupUserSession($this->recoverUserDetails());
-
-        $this->request->setMethod(Request::METHOD_POST)->getPost()->fromArray(array(
+        $this->formDataSample = array(
             'titolo'                => 'Primo atto stato civile',
             'anno'                  => date("Y"),
             'data'                  => date("Y-m-d"),
             'ora'                   => date("H:i:s"),
             'attivo'                => 1,
             'scadenza'              => date("Y-m-d H:i:s"),
-            'utente_id'             => 1,
-            'sezione_id'            => 1,
+            'utente'                => 1,
+            'sezione'               => 1,
             'home'                  => 0,
+        );
+    }
+
+    public function testFormSampleDataIsNotValid()
+    {
+        unset($this->formDataSample['titolo']);
+
+        $form = $this->setupForm($this->formDataSample);
+
+        $this->assertFalse($form->isValid());
+    }
+
+    protected function setupForm($formDataSample)
+    {
+        $form = new StatoCivileForm();
+        $form->addSezioni(array(
+            1 => 'Sezione test 1',
+            2 => 'Sezione test 2',
+            3 => 'Sezione test 3',
         ));
 
-        $this->controller->dispatch($this->request);
+        $inputFilter = new StatoCivileFormInputFilter();
 
-        $this->assertEquals(200, $this->controller->getResponse()->getStatusCode());
+        $form->setInputFilter($inputFilter->getInputFilter());
+
+        $form->setData($formDataSample);
+
+        return $form;
     }
 }

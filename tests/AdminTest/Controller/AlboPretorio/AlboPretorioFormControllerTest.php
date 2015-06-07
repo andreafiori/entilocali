@@ -10,7 +10,7 @@ class AlboPretorioFormControllerTest extends TestSuite
     /**
      * @var AlboPretorioFormController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

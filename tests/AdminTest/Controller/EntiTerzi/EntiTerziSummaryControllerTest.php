@@ -1,7 +1,8 @@
 <?php
 
-namespace Admin\Controller\EntiTerzi;
+namespace AdminTest\Controller\EntiTerzi;
 
+use Admin\Controller\EntiTerzi\EntiTerziSummaryController;
 use ModelModuleTest\TestSuite;
 
 class EntiTerziSummaryControllerTest extends TestSuite
@@ -9,7 +10,7 @@ class EntiTerziSummaryControllerTest extends TestSuite
     /**
      * @var EntiTerziSummaryController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

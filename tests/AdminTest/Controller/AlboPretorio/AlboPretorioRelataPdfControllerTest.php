@@ -10,7 +10,7 @@ class AlboPretorioRelataPdfControllerTest extends TestSuite
     /**
      * @var AlboPretorioRelataPdfController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

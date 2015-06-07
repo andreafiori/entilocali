@@ -15,7 +15,7 @@ class UsersRecoverPasswordControllerTest extends TestSuite
     /**
      * @var UsersRecoverPasswordController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

@@ -10,7 +10,7 @@ class AttiConcessioneFormControllerTest extends TestSuite
     /**
      * @var AttiConcessioneFormController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

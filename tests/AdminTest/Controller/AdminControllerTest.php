@@ -11,7 +11,7 @@ use ModelModuleTest\TestSuite;
  */
 class AdminControllerTest // extends TestSuite
 {
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

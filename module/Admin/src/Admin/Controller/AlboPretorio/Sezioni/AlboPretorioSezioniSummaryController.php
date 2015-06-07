@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Controller\AlboPretorio;
+namespace Admin\Controller\AlboPretorio\Sezioni;
 
 use ModelModule\Model\AlboPretorio\AlboPretorioControllerHelper;
 use ModelModule\Model\AlboPretorio\AlboPretorioSezioniGetter;

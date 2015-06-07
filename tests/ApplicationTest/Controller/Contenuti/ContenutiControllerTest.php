@@ -15,7 +15,7 @@ class ContenutiControllerTest extends TestSuite
     /**
      * @var ContenutiController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

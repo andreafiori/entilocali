@@ -10,7 +10,7 @@ class SettoriSummaryControllerTest extends TestSuite
     /**
      * @var SettoriSummaryController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

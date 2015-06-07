@@ -11,7 +11,7 @@ class ContrattiPubbliciFormControllerTest extends TestSuite
     /**
      * @var ContrattiPubbliciSummaryController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

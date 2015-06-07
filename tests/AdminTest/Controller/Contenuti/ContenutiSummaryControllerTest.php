@@ -10,7 +10,7 @@ class ContenutiSummaryControllerTest extends TestSuite
     /**
      * @var ContenutiSummaryController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

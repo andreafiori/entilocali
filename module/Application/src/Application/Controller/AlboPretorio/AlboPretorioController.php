@@ -2,6 +2,7 @@
 
 namespace Application\Controller\AlboPretorio;
 
+use ModelModule\Model\AlboPretorio\AlboPretorioControllerHelper;
 use ModelModule\Model\Modules\ModulesContainer;
 use ModelModule\Model\AlboPretorio\AlboPretorioFormSearch;
 use ModelModule\Model\AlboPretorio\AlboPretorioArticoliGetter;
@@ -22,42 +23,37 @@ class AlboPretorioController extends SetupAbstractController
 
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-        $wrapper = new AlboPretorioArticoliGetterWrapper( new AlboPretorioArticoliGetter($em) );
-        $wrapper->setInput(array(
-            'orderBy' => 'alboArticoli.id DESC'
-        ));
-        $wrapper->setupQueryBuilder();
-        $wrapper->setupPaginator( $wrapper->setupQuery($em) );
-        $wrapper->setupPaginatorCurrentPage(isset($page) ? $page : null);
-
-        $sezioniWrapper = new AlboPretorioSezioniGetterWrapper( new AlboPretorioSezioniGetter($em) );
-        $sezioniWrapper->setInput(array(
-
-        ));
-        $sezioniWrapper->setupQueryBuilder();
-
-        $usersSettoriWrapper = new UsersSettoriGetterWrapper( new UsersSettoriGetter($em) );
-        $usersSettoriWrapper->setInput(array('orderBy' => 'settore.nome ASC'));
-        $usersSettoriWrapper->setupQueryBuilder();
+        $helper = new AlboPretorioControllerHelper();
+        $articoliWrapper = $helper->recoverWrapperRecordsPaginator(
+            new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter($em)),
+            array('orderBy' => 'alboArticoli.id DESC'),
+            $page,
+            null
+        );
+        $sezioniRecords = $helper->recoverWrapperRecords(
+            new AlboPretorioSezioniGetterWrapper(new AlboPretorioSezioniGetter($em)),
+            array()
+        );
 
         $formSearch = new AlboPretorioFormSearch();
         $formSearch->addYears();
-        $formSearch->addSezioni( $sezioniWrapper->formatForDropwdown($sezioniWrapper->getRecords(), 'id', 'nome') );
-        $formSearch->addSettori( $usersSettoriWrapper->formatForDropwdown($usersSettoriWrapper->getRecords(), 'id', 'nome') );
+        $formSearch->addSezioni( $helper->formatForDropwdown($sezioniRecords, 'id', 'nome') );
         $formSearch->addCheckExpired();
         $formSearch->addCsrf();
         $formSearch->addSubmitButton();
 
-        $wrapper->setEntityManager($em);
-        $mainRecords = $wrapper->addAttachmentsToPaginatorRecords($wrapper->setupRecords(), array(
-            'moduleId' => ModulesContainer::albo_pretorio_id
-        ));
+        $articoliWrapper->setEntityManager($em);
+
+        $mainRecords = $articoliWrapper->addAttachmentsToPaginatorRecords(
+            $articoliWrapper->setupRecords(),
+            array('moduleId' => ModulesContainer::albo_pretorio_id)
+        );
 
         $this->layout()->setVariables(array(
-            'templatePartial'   => 'albo-pretorio/albo-pretorio.phtml',
             'form'              => $formSearch,
-            'paginator'         => $wrapper->getPaginator(),
+            'paginator'         => $articoliWrapper->getPaginator(),
             'records'           => $mainRecords,
+            'templatePartial'   => 'albo-pretorio/albo-pretorio.phtml',
         ));
 
         $this->layout()->setTemplate($mainLayout);

@@ -3,14 +3,16 @@
 namespace AdminTest\Controller\Sezioni;
 
 use Admin\Controller\Sezioni\SezioniInsertController;
-use ModelModuleTest\TestSuite;
+use ModelModule\Model\Sezioni\SezioniForm;
+use ModelModule\Model\Sezioni\SezioniFormInputFilter;
+use ModelModuleTest\InsertUpdateTestSuite;
 
-class SezioniInsertControllerTest extends TestSuite
+class SezioniInsertControllerTest extends InsertUpdateTestSuite
 {
     /**
      * @var SezioniInsertController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {
@@ -19,14 +21,44 @@ class SezioniInsertControllerTest extends TestSuite
         $this->controller = new SezioniInsertController();
         $this->controller->setEvent($this->event);
         $this->controller->setServiceLocator($this->getServiceManager());
+
+        $this->formDataSample = array(
+            'nome'      => 'Sezione test',
+            'lingua'    => 'it',
+            'colonna'   => 'sx',
+            'attivo'    => 1,
+        );
     }
 
-    public function testIndexAction()
+    /**
+     * @param $formDataSample
+     * @return SezioniForm
+     */
+    protected function setupForm($formDataSample)
     {
-        $this->routeMatch->setParam('action', 'index');
+        $form = new SezioniForm();
+        $form->addLingue(array(
+            'it' => 'Italiano',
+            'en' => 'English'
+        ));
+        $form->addIconImage();
+        $form->addOptions();
 
-        $this->controller->dispatch($this->request);
+        $inputFilter = new SezioniFormInputFilter();
 
-        $this->assertEquals(302, $this->controller->getResponse()->getStatusCode());
+        $form->setInputFilter($inputFilter->getInputFilter());
+
+        $form->setData($formDataSample);
+
+        return $form;
+    }
+
+    public function testFormSampleDataIsNotValid()
+    {
+        unset($this->formDataSample['nome']);
+
+        $form = $this->setupForm($this->formDataSample);
+
+        $this->assertFalse($form->isValid());
     }
 }

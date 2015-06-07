@@ -10,7 +10,7 @@ class SezioniFormControllerTest extends TestSuite
     /**
      * @var SezioniFormController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

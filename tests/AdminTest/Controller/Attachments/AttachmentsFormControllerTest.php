@@ -14,7 +14,7 @@ class AttachmentsFormControllerTest extends TestSuite
     /**
      * @var AttachmentsFormController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

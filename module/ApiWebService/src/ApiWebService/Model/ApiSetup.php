@@ -2,13 +2,8 @@
 
 namespace ApiWebService\Model;
 
-use ModelModule\Model\Users\UsersGetterWrapper;
 use ModelModule\Model\NullException;
 
-/**
- * @author Andrea Fiori
- * @since  22 August 2014
- */
 class ApiSetup extends ApiSetupAbstract
 {
     private $resourceClassMap;

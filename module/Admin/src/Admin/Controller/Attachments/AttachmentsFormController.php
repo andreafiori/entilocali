@@ -17,10 +17,11 @@ class AttachmentsFormController extends SetupAbstractController
     {
         $mainLayout = $this->initializeAdminArea();
 
+        $em             = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+
         $moduleCode     = $this->params()->fromRoute('module');
         $referenceId    = $this->params()->fromRoute('referenceId');
         $attachmentId   = $this->params()->fromRoute('attachmentId');
-        $em             = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
         try {
             $helper = new AttachmentsFormControllerHelper();
@@ -70,6 +71,7 @@ class AttachmentsFormController extends SetupAbstractController
                     'formDescription'            => 'La dimensione del file non deve superare i <strong>10MB</strong>.',
                     'formAction'                 => 'attachments/insert',
                     'hideBreadcrumb'             => 1,
+                    'noFormActionPrefix'         => 1,
                     'attachmentsList'            => $helper->getAttachmentRecords(),
                     'articleTitle'               => $helper->getPropertiesGetterClassInstance()->getAttachmentFormTitle(),
                     'formBreadCrumbCategory'     => $helper->getPropertiesGetterClassInstance()->getBreadcrumbModule(),

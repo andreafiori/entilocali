@@ -25,26 +25,17 @@ class SezioniControllerHelper extends ContenutiControllerHelperAbstract
         $userDetails = $this->getLoggedUser();
 
         return $this->getConnection()->insert(DbTableContainer::sezioni, array(
-            'nome'             => $inputFilter->nome,
-            'colonna'          => $inputFilter->colonna,
-            'posizione'        => $inputFilter->posizione,
-            'lingua'           => $inputFilter->lingua,
-            'blocco'           => $inputFilter->blocco,
-            'modulo_id'        => isset($inputFilter->modulo) ? $inputFilter->modulo : ModulesContainer::contenuti_id,
-            'attivo'           => $inputFilter->attivo,
-            'url'              => $inputFilter->url,
-            'slug'             => Slugifier::slugify($inputFilter->nome),
-            'utente_id'        => $userDetails->id,
-            /*
-            'link_macro'       => $inputFilter->link_macro,
-            'css_id'           => $inputFilter->css_id,
-            'image'            => $inputFilter->image,
-            'seo_title'        => $inputFilter->seoTitle,
-            'seo_description'  => $inputFilter->seoDescription,
-            'seo_keywords'     => $inputFilter->seoKeywords,
-            'show_to_all'      => $inputFilter->show_to_all,
-            */
-            'is_amm_trasparente' => $inputFilter->isAmmTrasparente,
+            'nome'                  => $inputFilter->nome,
+            'colonna'               => $inputFilter->colonna,
+            'posizione'             => $inputFilter->posizione,
+            'lingua'                => $inputFilter->lingua,
+            'blocco'                => $inputFilter->blocco,
+            'modulo_id'             => isset($inputFilter->modulo) ? $inputFilter->modulo : ModulesContainer::contenuti_id,
+            'attivo'                => $inputFilter->attivo,
+            'url'                   => $inputFilter->url,
+            'slug'                  => Slugifier::slugify($inputFilter->nome),
+            'utente_id'             => $userDetails->id,
+            'is_amm_trasparente'    => $inputFilter->isAmmTrasparente,
         ));
     }
     

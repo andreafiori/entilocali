@@ -34,12 +34,6 @@ class SottoSezioniForm extends Form
                 "class" => 'hiddenField'
             )
         ));
-
-        $this->add(array(
-            'type' => 'Zend\Form\Element\Hidden',
-            'name' => 'id',
-            'attributes' => array("class" => 'hiddenField')
-        ));
     }
 
     public function addMainFormInputs()
@@ -75,18 +69,6 @@ class SottoSezioniForm extends Form
                 'placeholder'   => 'Descrizione URL...',
                 'title'         => 'Inserisci descrizione URL',
                 'id'            => 'urlTitle',
-            )
-        ));
-
-        $this->add(array(
-            'name' => 'posizione',
-            'type' => 'Text',
-            'options' => array( 'label' => '* Posizione' ),
-            'attributes' => array(
-                'type'          => 'number',
-                'placeholder'   => 'Posizione...',
-                'title'         => 'Inserisci numero posizione',
-                'id'            => 'posizione',
             )
         ));
 

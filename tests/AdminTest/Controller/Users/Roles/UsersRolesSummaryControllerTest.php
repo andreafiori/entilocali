@@ -10,7 +10,7 @@ class UsersRolesSummaryControllerTest extends TestSuite
     /**
      * @var UsersRolesSummaryController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

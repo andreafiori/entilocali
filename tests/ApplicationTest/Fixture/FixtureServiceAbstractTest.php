@@ -23,6 +23,6 @@ class FixtureServiceAbstractTest extends TestSuite
 
         $zendConfig = $sm->get('config');
 
-        $this->assertInstanceOf('\Doctrine\ORM\EntityManager', $sm->get('doctrine.entitymanager.orm_default'));
+        $this->assertInstanceOf('\Doctrine\ORM\EntityManager', $sm->get('Doctrine\ORM\EntityManager'));
     }
 }

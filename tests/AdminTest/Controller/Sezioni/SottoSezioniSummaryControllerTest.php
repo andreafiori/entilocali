@@ -11,7 +11,7 @@ class SottoSezioniSummaryControllerTest extends TestSuite
     /**
      * @var SottoSezioniSummaryController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

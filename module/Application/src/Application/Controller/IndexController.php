@@ -18,19 +18,21 @@ class IndexController extends SetupAbstractController
         $lang = $this->layout()->getVariable('lang');
 
         try {
+
             $helper = new HomePageHelper();
             $helper->setHomePageGetterWrapper( new HomePageGetterWrapper(new HomePageGetter($em)) );
-            $helper->setupHomePageRecords( array(
+            $helper->setupHomePageRecords(array(
                 'onlyActiveModules'     => 1,
                 'orderBy'               => 'homePageBlocks.position ASC',
                 'languageAbbreviation'  => $lang
             ));
             $helper->gatherReferenceIds();
             $helper->checkHomePageRecords();
-            // TODO: sort home records by homepage position (not home page block)
 
             $sortedHomePageRecords = $helper->getHomePageRecords();
+
             $helper->checkClassMapFromRecords();
+
             $homePageElements = array();
             foreach($sortedHomePageRecords as $key => $value) {
                 $obj = $helper->recoverClassMapKey($key);
@@ -46,7 +48,7 @@ class IndexController extends SetupAbstractController
             }
 
         } catch(NullException $e) {
-            // TODO: handle errors rendering a different template... echo $e->getMessage();
+
         }
 
         $this->layout()->setVariables( array(

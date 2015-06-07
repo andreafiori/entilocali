@@ -112,32 +112,6 @@ class AlboPretorioFormSearch extends ZendForm
     }
 
     /**
-     * @param array $settori
-     *
-     * @return bool|null
-     */
-    public function addSettori(array $settori)
-    {
-        if ( empty($settori) ) {
-            return false;
-        }
-
-        $this->add(array(
-            'type' => 'Zend\Form\Element\Select',
-            'name' => 'settore',
-            'attributes' => array(
-                'title' => 'Seleziona settore',
-                'id'    => 'settore'
-            ),
-            'options' => array(
-                'label' => 'Settore',
-                'empty_option' => 'Seleziona',
-                'value_options' => $settori,
-            )
-        ));
-    }
-
-    /**
      * @param array $years
      */
     public function addYears($years = null)

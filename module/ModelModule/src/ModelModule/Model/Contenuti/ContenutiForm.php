@@ -188,7 +188,6 @@ class ContenutiForm extends Form
             'attributes' => array(
                 'title'     => 'Seleziona utente',
                 'id'        => 'utente',
-                'required'  => 'required'
             )
         ));
     }

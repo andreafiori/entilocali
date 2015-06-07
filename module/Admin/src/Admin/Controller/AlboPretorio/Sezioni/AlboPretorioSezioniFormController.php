@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Controller\AlboPretorio;
+namespace Admin\Controller\AlboPretorio\Sezioni;
 
 use ModelModule\Model\AlboPretorio\AlboPretorioSezioniForm;
 use ModelModule\Model\AlboPretorio\AlboPretorioSezioniGetter;
@@ -15,6 +15,7 @@ class AlboPretorioSezioniFormController extends SetupAbstractController
 
         $id = $this->params()->fromRoute('id');
         $lang = $this->params()->fromRoute('lang');
+
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
         if (is_numeric($id)) {
@@ -31,10 +32,14 @@ class AlboPretorioSezioniFormController extends SetupAbstractController
             $form->setData($sezioneRecord[0]);
 
             $formTitle = $sezioneRecord[0]['nome'];
-            $formAction = 'albo-pretorio-sezioni/update/'.$sezioneRecord[0]['id'];
+            $formAction = $this->url()->fromRoute('admin/albo-pretorio-sezioni-update', array(
+                'lang' => $lang,
+            ));
         } else {
             $formTitle = 'Nuova sezione';
-            $formAction = 'albo-pretorio-sezioni/insert/';
+            $formAction = $this->url()->fromRoute('admin/albo-pretorio-sezioni-insert', array(
+                'lang' => $lang,
+            ));
         }
 
         $this->layout()->setVariables(array(
@@ -42,6 +47,7 @@ class AlboPretorioSezioniFormController extends SetupAbstractController
             'formDescription'               => 'Inserisci dati nuova sezione albo pretorio',
             'form'                          => $form,
             'formAction'                    => $formAction,
+            'noFormActionPrefix'            => 1,
             'formBreadCrumbTitle'           => 'Modifica',
             'formBreadCrumbCategory' => array(
                 array(

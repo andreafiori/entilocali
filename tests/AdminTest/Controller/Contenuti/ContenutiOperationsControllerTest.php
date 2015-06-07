@@ -11,7 +11,7 @@ class ContenutiOperationsControllerTest extends TestSuite
     /**
      * @var ContenutiOperationsController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

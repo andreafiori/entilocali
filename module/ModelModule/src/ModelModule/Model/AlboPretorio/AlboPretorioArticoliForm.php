@@ -156,6 +156,7 @@ class AlboPretorioArticoliForm extends Form
             'options' => array(
                     'label' => '* Data di scadenza',
                     'format' => 'Y-m-d H:i:s',
+                    'required' => true,
             ),
             'attributes' => array(
                     'id'    => 'dataScadenza',

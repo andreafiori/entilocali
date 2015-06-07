@@ -15,7 +15,7 @@ class IndexControllerTest extends TestSuite
     /**
      * @var IndexController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

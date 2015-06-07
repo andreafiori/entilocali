@@ -8,8 +8,6 @@ use ModelModule\Model\AlboPretorio\AlboPretorioArticoliGetter;
 use ModelModule\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
 use ModelModule\Model\AlboPretorio\AlboPretorioSezioniGetter;
 use ModelModule\Model\AlboPretorio\AlboPretorioSezioniGetterWrapper;
-use ModelModule\Model\Users\Settori\UsersSettoriGetter;
-use ModelModule\Model\Users\Settori\UsersSettoriGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
 class AlboPretorioSummaryController extends SetupAbstractController
@@ -30,11 +28,6 @@ class AlboPretorioSummaryController extends SetupAbstractController
                 array('orderBy' => 'aps.nome ASC')
             );
             $helper->checkRecords($sezioniRecords, 'Nessuna sezione presente');
-            $settoriRecords = $helper->recoverWrapperRecords(
-                new UsersSettoriGetterWrapper(new UsersSettoriGetter($em)),
-                array('orderBy' => 'settore.nome ASC')
-            );
-            $helper->checkRecords($settoriRecords, 'Nessun settore presente');
             $paginatorWrapper = $helper->recoverWrapperRecordsPaginator(
                 new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter($em)),
                 array('orderBy' => 'alboArticoli.id DESC'),
@@ -45,7 +38,6 @@ class AlboPretorioSummaryController extends SetupAbstractController
             $formSearch = new AlboPretorioFormSearch();
             $formSearch->addYears();
             $formSearch->addSezioni( $helper->formatForDropwdown($sezioniRecords, 'id', 'nome') );
-            $formSearch->addSettori( $helper->formatForDropwdown($settoriRecords, 'id', 'nome') );
             $formSearch->addCheckExpired();
             $formSearch->addSubmitButton();
             $formSearch->addResetButton();

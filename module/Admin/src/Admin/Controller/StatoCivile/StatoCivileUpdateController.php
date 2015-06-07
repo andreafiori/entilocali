@@ -5,6 +5,7 @@ namespace Admin\Controller\StatoCivile;
 use Application\Controller\SetupAbstractController;
 use ModelModule\Model\Log\LogWriter;
 use ModelModule\Model\Modules\ModulesContainer;
+use ModelModule\Model\NullException;
 use ModelModule\Model\StatoCivile\StatoCivileControllerHelper;
 use ModelModule\Model\StatoCivile\StatoCivileForm;
 use ModelModule\Model\StatoCivile\StatoCivileFormInputFilter;

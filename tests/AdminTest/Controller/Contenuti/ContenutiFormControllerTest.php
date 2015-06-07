@@ -10,7 +10,7 @@ class ContenutiFormControllerTest extends TestSuite
     /**
      * @var ContenutiFormController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

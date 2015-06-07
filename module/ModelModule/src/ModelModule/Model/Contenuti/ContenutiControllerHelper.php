@@ -63,6 +63,7 @@ class ContenutiControllerHelper extends ContenutiControllerHelperAbstract
             'home'              => $inputFilter->home,
             'rss'               => $inputFilter->rss,
         );
+
         if (isset($inputFilter->utente)) {
             $arrayUpdate['utente_id'] = $inputFilter->utente;
         }

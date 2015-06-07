@@ -7,14 +7,7 @@ use ModelModule\Model\NullException;
 use ApiWebService\Model\ApiSetup;
 use ApiWebService\Model\ApiOutputManager;
 use Zend\View\Model\JsonModel;
-use ModelModule\Model\AlboPretorio\AlboPretorioRecordsGetter;
 
-/**
- * TODO: allow method\s for every single resource of the classMap
- *
- * @author Andrea Fiori
- * @since 10 April 2014
- */
 class DefaultApiController extends AbstractActionController
 {
     /**
@@ -30,7 +23,7 @@ class DefaultApiController extends AbstractActionController
         
         $apiSetup = new ApiSetup();
 
-        $input    = $apiSetup->getInput();
+        $input = $apiSetup->getInput();
 
         $apiOutputManager = new ApiOutputManager($outputFormat);
         try {
@@ -41,9 +34,12 @@ class DefaultApiController extends AbstractActionController
             // setup API Key here...
             $apiSetup->setResourceClassMap($moduleConfig['resources_class_map']);
             $apiSetup->setResourceClassName( $this->params()->fromRoute('resource') );
+
             // validate input: tipo di richiesta, risorsa e formato richiesto va visto se vanno bene
+
             // set error and status code for the final response...
 
+            /*
             $recordsGetter = new AlboPretorioRecordsGetter(array());
             $recordsGetter->setEntityManager($entityManager);
             $recordsGetter->setArticoliInput(array());
@@ -52,6 +48,7 @@ class DefaultApiController extends AbstractActionController
             $recordsGetter->setArticoliPaginatorPerPage(isset($input['perpage']) ? $input['perpage'] : null);
 
             $paginator = $recordsGetter->getPaginatorRecords();
+            */
 
             $toReturn = array();
             foreach($paginator as $row) {

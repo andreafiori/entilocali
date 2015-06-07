@@ -1,22 +1,22 @@
 <?php
 
-namespace AdminTest\Controller\AlboPretorio;
+namespace AdminTest\Controller\AlboPretorio\Sezioni;
 
-use Admin\Controller\AlboPretorio\AlboPretorioSezioniSummaryController;
+use Admin\Controller\AlboPretorio\Sezioni\AlboPretorioSezioniFormController;
 use ModelModuleTest\TestSuite;
 
-class AlboPretorioSezioniSummaryControllerTest extends TestSuite
+class AlboPretorioSezioniFormControllerTest extends TestSuite
 {
     /**
-     * @var AlboPretorioSezioniSummaryController
+     * @var AlboPretorioSezioniFormController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {
         parent::setUp();
 
-        $this->controller = new AlboPretorioSezioniSummaryController();
+        $this->controller = new AlboPretorioSezioniFormController();
         $this->controller->setEvent($this->event);
         $this->controller->setServiceLocator($this->getServiceManager());
     }

@@ -10,7 +10,7 @@ class StatoCivileSummaryControllerTest extends TestSuite
     /**
      * @var StatoCivileSummaryController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

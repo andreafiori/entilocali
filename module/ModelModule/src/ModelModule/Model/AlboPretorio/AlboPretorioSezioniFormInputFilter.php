@@ -23,9 +23,9 @@ class AlboPretorioSezioniFormInputFilter implements InputFilterAwareInterface
      */
     public function exchangeArray(array $data)
     {
-        $this->id  = (isset($data['id']))      ? $data['id']   : null;
-        $this->nome  = (isset($data['nome']))  ? $data['nome'] : null;
-        $this->attivo  = (isset($data['attivo']))  ? $data['attivo'] : null;
+        $this->id       = (isset($data['id']))      ? $data['id']       : null;
+        $this->nome     = (isset($data['nome']))    ? $data['nome']     : null;
+        $this->attivo   = (isset($data['attivo']))  ? $data['attivo']   : null;
     }
 
     /**
@@ -34,7 +34,7 @@ class AlboPretorioSezioniFormInputFilter implements InputFilterAwareInterface
      */
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
-        throw new \Exception("Not used");
+        throw new \Exception("This method is not used");
     }
 
     public function getInputFilter()

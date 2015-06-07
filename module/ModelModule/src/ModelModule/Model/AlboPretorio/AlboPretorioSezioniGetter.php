@@ -4,10 +4,6 @@ namespace ModelModule\Model\AlboPretorio;
 
 use ModelModule\Model\QueryBuilderHelperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  24 July 2014
- */
 class AlboPretorioSezioniGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()

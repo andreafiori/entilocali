@@ -10,7 +10,7 @@ class ContenutiEnableDisableControllerTest extends TestSuite
     /**
      * @var ContenutiEnableDisableController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

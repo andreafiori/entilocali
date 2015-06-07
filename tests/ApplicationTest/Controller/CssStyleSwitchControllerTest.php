@@ -11,7 +11,7 @@ class CssStyleSwitchControllerTest extends TestSuite
     /**
      * @var CssStyleSwitchController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

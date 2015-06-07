@@ -6,6 +6,7 @@ use Application\Controller\SetupAbstractController;
 use ModelModule\Model\EntiTerzi\EntiTerziForm;
 use ModelModule\Model\EntiTerzi\EntiTerziGetter;
 use ModelModule\Model\EntiTerzi\EntiTerziGetterWrapper;
+use ModelModule\Model\EntiTerzi\EntiTerziControllerHelper;
 
 class EntiTerziFormController extends SetupAbstractController
 {
@@ -14,28 +15,33 @@ class EntiTerziFormController extends SetupAbstractController
         $mainLayout = $this->initializeAdminArea();
 
         $id = $this->params()->fromRoute('id');
+        $lang = $this->params()->fromRoute('lang');
 
-        if (is_numeric($id)) {
-            $wrapper = new EntiTerziGetterWrapper(
-                new EntiTerziGetter($this->getServiceLocator()->get('doctrine.entitymanager.orm_default'))
-            );
-            $wrapper->setInput( array('id' => $id, 'limit' => 1) );
-            $wrapper->setupQueryBuilder();
+        $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-            $recordFromDb = $wrapper->getRecords();
-        }
+        $helper = new EntiTerziControllerHelper();
+        $entiTerziRecords = $helper->recoverWrapperRecordsById(
+            new EntiTerziGetterWrapper(new EntiTerziGetter($em)),
+            array('id' => $id, 'limit' => 1),
+            $id
+        );
 
         $form = new EntiTerziForm();
-        if (!empty($recordFromDb)) {
-            $form->setData($recordFromDb[0]);
+
+        if (!empty($entiTerziRecords)) {
+            $form->setData($entiTerziRecords[0]);
 
             $submitButtonValue  = 'Modifica';
             $formTitle          = 'Modifica ente terzo';
-            $formAction         = 'enti-terzi/update/';
+            $formAction         =  $this->url()->fromRoute('admin/enti-terzi-update', array(
+                'lang' => $lang
+            ));
         } else {
             $formTitle          = 'Nuovo ente terzo';
             $submitButtonValue  = 'Inserisci';
-            $formAction         = 'enti-terzi/insert/';
+            $formAction         = $this->url()->fromRoute('admin/enti-terzi-insert', array(
+                'lang' => $lang
+            ));
         }
 
         $this->layout()->setVariables( array(
@@ -44,11 +50,12 @@ class EntiTerziFormController extends SetupAbstractController
                 'form'                          => $form,
                 'formAction'                    => $formAction,
                 'submitButtonValue'             => $submitButtonValue,
+                'noFormActionPrefix'            => 1,
                 'formBreadCrumbCategory'        => 'Enti terzi',
                 'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/enti-terzi-summary', array(
-                    'lang' => $this->params()->fromRoute('lang')
+                    'lang' => $lang
                 )),
-                'templatePartial'               => 'formdata/formdata.phtml'
+                'templatePartial'               => self::formTemplate,
             )
         );
 

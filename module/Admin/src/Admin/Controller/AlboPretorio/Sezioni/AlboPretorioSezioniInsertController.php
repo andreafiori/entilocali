@@ -1,10 +1,13 @@
 <?php
 
-namespace Admin\Controller\AlboPretorio;
+namespace Admin\Controller\AlboPretorio\Sezioni;
 
 use ModelModule\Model\AlboPretorio\AlboPretorioArticoliForm;
 use ModelModule\Model\AlboPretorio\AlboPretorioArticoliFormInputFilter;
 use ModelModule\Model\AlboPretorio\AlboPretorioControllerHelper;
+use ModelModule\Model\AlboPretorio\AlboPretorioSezioniControllerHelper;
+use ModelModule\Model\AlboPretorio\AlboPretorioSezioniForm;
+use ModelModule\Model\AlboPretorio\AlboPretorioSezioniFormInputFilter;
 use ModelModule\Model\Modules\ModulesContainer;
 use ModelModule\Model\Log\LogWriter;
 use ModelModule\Model\NullException;
@@ -32,9 +35,9 @@ class AlboPretorioSezioniInsertController extends SetupAbstractController
             return $this->redirect()->toRoute('main');
         }
 
-        $inputFilter = new AlboPretorioArticoliFormInputFilter();
+        $inputFilter = new AlboPretorioSezioniFormInputFilter();
 
-        $form = new AlboPretorioArticoliForm();
+        $form = new AlboPretorioSezioniForm();
         $form->setBindOnValidate(false);
         $form->setInputFilter( $inputFilter->getInputFilter() );
         $form->setData($post);
@@ -43,7 +46,7 @@ class AlboPretorioSezioniInsertController extends SetupAbstractController
 
         $userDetails = $this->recoverUserDetails();
 
-        $helper = new AlboPretorioControllerHelper();
+        $helper = new AlboPretorioSezioniControllerHelper();
         $helper->setConnection($connection);
         $helper->getConnection()->beginTransaction();
 
@@ -63,7 +66,7 @@ class AlboPretorioSezioniInsertController extends SetupAbstractController
             $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
                 'module_id'     => ModulesContainer::contenuti_id,
-                'message'       => "Inserita nuova sezione ".$inputFilter->nome. " ID: ".$lastInsertId,
+                'message'       => "Inserita nuova sezione albo pretorio ".$inputFilter->nome. " ID: ".$lastInsertId,
                 'type'          => 'info',
                 'reference_id'  => $lastInsertId,
                 'backend'       => 1,
@@ -71,13 +74,11 @@ class AlboPretorioSezioniInsertController extends SetupAbstractController
 
             $this->layout()->setVariables(array(
                 'messageType'                => 'success',
-                'messageTitle'               => 'Sezione inserita correttamente',
+                'messageTitle'               => 'Sezione albo pretorio inserita correttamente',
                 'messageText'                => 'I dati sono stati processati correttamente dal sistema',
                 'showLinkResetFormAndShowIt' => 1,
-                'backToSummaryLink'     => $this->url()->fromRoute('admin/sezioni-summary', array(
+                'backToSummaryLink'     => $this->url()->fromRoute('admin/albo-pretorio-sezioni-summary', array(
                     'lang'              => $this->params()->fromRoute('lang'),
-                    'languageSelection' => $this->params()->fromRoute('languageSelection'),
-                    'modulename'        => $this->params()->fromRoute('modulename'),
                 )),
                 'backToSummaryText'     => "Elenco sezioni",
             ));
@@ -101,7 +102,7 @@ class AlboPretorioSezioniInsertController extends SetupAbstractController
 
             $this->layout()->setVariables(array(
                 'messageType'           => 'danger',
-                'messageTitle'          => 'Errore inserimento nuova sezione',
+                'messageTitle'          => 'Errore inserimento nuova sezione albo pretorio',
                 'messageText'           => 'Messaggio generato: '.$e->getMessage(),
                 'form'                  => $form,
                 'formInputFilter'       => $inputFilter->getInputFilter(),

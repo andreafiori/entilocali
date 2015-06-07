@@ -10,7 +10,7 @@ class SezioniSummaryControllerTest extends TestSuite
     /**
      * @var SezioniSummaryController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

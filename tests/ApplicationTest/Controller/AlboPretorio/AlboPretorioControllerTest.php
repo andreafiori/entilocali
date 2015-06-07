@@ -12,7 +12,7 @@ use Application\Controller\AlboPretorio\AlboPretorioController;
  */
 class AlboPretorioControllerTest extends TestSuite
 {
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

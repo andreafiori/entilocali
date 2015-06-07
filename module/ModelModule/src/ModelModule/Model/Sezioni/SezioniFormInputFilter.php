@@ -35,13 +35,16 @@ class SezioniFormInputFilter implements InputFilterAwareInterface
         $this->colonna          = (isset($data['colonna']))          ? $data['colonna']          : null;
         $this->attivo           = (isset($data['attivo']))           ? $data['attivo']           : null;
         $this->blocco           = (isset($data['blocco']))           ? $data['blocco']           : null;
-        $this->posizione        = (isset($data['posizione']))        ? $data['posizione']        : null;
         $this->isAmmTrasparente = (isset($data['isAmmTrasparente'])) ? $data['isAmmTrasparente'] : null;
     }
 
+    /**
+     * @param InputFilterInterface $inputFilter
+     * @throws \Exception
+     */
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
-        throw new \Exception("Not used");
+        throw new \Exception("This method is unused");
     }
 
     public function getInputFilter()
@@ -184,25 +187,7 @@ class SezioniFormInputFilter implements InputFilterAwareInterface
                     array('name' => 'HtmlEntities'),
                 ),
                 'validators' => array(
-                ),
-            ]));
 
-            $inputFilter->add($factory->createInput([
-                'name' => 'posizione',
-                'required' => false,
-                'filters' => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
-                    array('name' => 'HtmlEntities'),
-                ),
-                'validators' => array(
-                    array (
-                        'name' => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => '1',
-                        ),
-                    ),
                 ),
             ]));
 

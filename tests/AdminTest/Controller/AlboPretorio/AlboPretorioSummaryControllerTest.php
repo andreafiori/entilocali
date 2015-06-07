@@ -10,7 +10,7 @@ class AlboPretorioSummaryControllerTest extends TestSuite
     /**
      * @var AlboPretorioSummaryController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

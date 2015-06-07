@@ -15,7 +15,7 @@ class StatoCivileControllerTest extends TestSuite
     /**
      * @var StatoCivileController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

@@ -4,10 +4,6 @@ namespace ApiWebService\Model;
 
 use ModelModule\Model\NullException;
 
-/**
- * @author Andrea Fiori
- * @since  23 August 2014
- */
 abstract class ApiSetupAbstract
 {
     protected $method;

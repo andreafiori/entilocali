@@ -11,7 +11,7 @@ class AlboPretorioOperationsControllerTest extends TestSuite
     /**
      * @var AlboPretorioOperationsController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

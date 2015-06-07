@@ -10,7 +10,7 @@ class UsersFormControllerTest extends TestSuite
     /**
      * @var UsersFormController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

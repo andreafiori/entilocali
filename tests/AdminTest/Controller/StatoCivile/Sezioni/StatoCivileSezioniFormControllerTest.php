@@ -10,7 +10,7 @@ class StatoCivileSezioniFormControllerTest extends TestSuite
     /**
      * @var StatoCivileSezioniFormController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

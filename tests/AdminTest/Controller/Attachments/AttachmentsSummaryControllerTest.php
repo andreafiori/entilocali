@@ -10,7 +10,7 @@ class AttachmentsSummaryControllerTest extends TestSuite
     /**
      * @var AttachmentsSummaryController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

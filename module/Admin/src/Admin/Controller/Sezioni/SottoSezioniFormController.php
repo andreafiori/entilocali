@@ -38,12 +38,6 @@ class SottoSezioniFormController extends SetupAbstractController
                 $sezioniRecords,
                 'Nessuna sezione in archivio. Impossibile inserire una sottosezione. Inserire almeno una sezione'
             );
-            /*
-            $helper->recoverWrapperRecords(
-                new SottoSezioniGetterWrapper(new SottoSezioniGetter($em)),
-
-            );
-            */
             $sottoSezioniRecords = $helper->recoverWrapperRecordsById(
                 new SottoSezioniGetterWrapper(new SottoSezioniGetter($em)),
                 array('id' => $id, 'limit' => 1),
@@ -58,22 +52,30 @@ class SottoSezioniFormController extends SetupAbstractController
                 $form->setData($sottoSezioniRecords[0]);
 
                 $formTitle              = $sottoSezioniRecords[0]['nomeSottoSezione'];
-                $formAction             = '#';
                 $submitButtonValue      = 'Modifica';
                 $formBreadCrumbTitle    = 'Modifica';
+                $formAction             =  $this->url()->fromRoute('admin/sottosezioni-update', array(
+                    'lang'              => $lang,
+                    'languageSelection' => $languageSelection,
+                    'modulename'        => $modulename,
+                ));
 
             } else {
                 $formTitle              = 'Nuova sottosezione';
                 $formBreadCrumbTitle    = 'Nuova';
                 $submitButtonValue      = 'Inserisci';
-                $formAction             = '#';
+                $formAction             = $this->url()->fromRoute('admin/sottosezioni-insert', array(
+                    'lang'              => $lang,
+                    'languageSelection' => $languageSelection,
+                    'modulename'        => $modulename,
+                ));
             }
 
             $this->layout()->setVariables(array(
                 'form'                          => $form,
                 'formAction'                    => $formAction,
                 'formTitle'                     => $formTitle,
-                'formDescription'               => 'Dati relativi alle sotto sezioni',
+                'formDescription'               => 'Dati relativi alle sottosezioni',
                 'noFormActionPrefix'            => 1,
                 'submitButtonValue'             => $submitButtonValue,
                 'formBreadCrumbTitle'           => $formBreadCrumbTitle,

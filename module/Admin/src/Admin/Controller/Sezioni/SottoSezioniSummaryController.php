@@ -42,7 +42,6 @@ class SottoSezioniSummaryController extends SetupAbstractController
             $sezioniRecords = $helper->recoverWrapperRecords(
                 new SezioniGetterWrapper(new SezioniGetter($em)),
                 array(
-                    'excludeSezioneId'      => $ammTraspSezioneId,
                     'languageAbbreviation'  => $languageSelection,
                     'fields'                => 'sezioni.id, sezioni.nome',
                     'orderBy'               => 'sezioni.posizione ASC',

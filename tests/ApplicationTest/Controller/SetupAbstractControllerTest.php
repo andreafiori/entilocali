@@ -14,7 +14,7 @@ class SetupAbstractControllerTest extends TestSuite
     /**
      * @var \Application\Controller\SetupAbstractController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

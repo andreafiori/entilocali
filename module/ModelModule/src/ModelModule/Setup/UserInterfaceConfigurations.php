@@ -2,13 +2,6 @@
 
 namespace ModelModule\Setup;
 
-use ModelModule\Model\Posts\PostsGetter;
-use ModelModule\Model\Posts\PostsGetterWrapper;
-
-/**
- * @author Andrea Fiori
- * @since  30 April 2014
- */
 class UserInterfaceConfigurations
 {
     private $configurations;

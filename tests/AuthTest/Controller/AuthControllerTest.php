@@ -17,7 +17,7 @@ class AuthControllerTest extends TestSuite
     /**
      * @var AuthController
      */
-    private $controller;
+    protected $controller;
 
     protected function setUp()
     {

@@ -4,10 +4,6 @@ namespace ModelModule\Model\EntiTerzi;
 
 use Zend\Form\Form;
 
-/**
- * @author Andrea Fiori
- * @since  17 August 2014
- */
 class EntiTerziForm extends Form
 {
     /**

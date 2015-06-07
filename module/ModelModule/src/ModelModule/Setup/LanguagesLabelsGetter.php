@@ -4,19 +4,9 @@ namespace ModelModule\Setup;
 
 use ModelModule\Model\QueryBuilderSetterAbstract;
 
-/**
- * Get Language Labels from db and format records like label => value
- * 
- * @author Andrea Fiori
- * @since  02 April 2014
- */
-class LanguagesLabelsSetup extends QueryBuilderSetterAbstract
+class LanguagesLabelsGetter extends QueryBuilderSetterAbstract
 {
-    /**
-     * @param number $languageId
-     * @return array
-     */
-    public function setLanguagesLabels($languageId = 1)
+    public function setLanguagesLabels()
     {
             $languageLabelsFromDb = $this->getQueryBuilder()->add('select', 'll.nome, ll.valore, ll.descrizione, ll.isbackend')
                                                             ->add('from', 'Application\Entity\LingueEtichette ll ')

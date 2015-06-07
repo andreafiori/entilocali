@@ -279,9 +279,9 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                             <!-- Enti terzi -->
                             <?php if ($acl->hasResource('enti_terzi_add') or $acl->hasResource('enti_terzi_update')): ?>
                             <li>
-                                <a href="#" class="dropdown-collapse" title="Gestione enti terzi">Enti terzi <span class="fa arrow"></span></a>
+                                <a href="#" class="dropdown-collapse" title="Menu enti terzi">Enti terzi <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
-                                    <li><a href="<?php echo $this->url('admin/enti-terzi-form', array( 'lang' => $lang, ) ); ?>" title="Nuovo ente terzo">Nuovo indirizzo</a></li>
+                                    <li><a href="<?php echo $this->url('admin/enti-terzi-form', array( 'lang' => $lang ) ); ?>" title="Nuovo ente terzo">Nuovo</a></li>
                                     <li><a href="<?php echo $this->url('admin/enti-terzi-summary', array( 'lang' => $lang  )); ?>" title="Gestione rubrica enti terzi">Gestione</a></li>
                                 </ul>
                             </li>

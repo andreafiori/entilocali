@@ -4,10 +4,6 @@ namespace ModelModule\Model\AlboPretorio;
 
 use Zend\Form\Form;
 
-/**
- * @author Andrea Fiori
- * @since  27 July 2014
- */
 class AlboPretorioSezioniForm extends Form
 {
     /**
@@ -21,13 +17,13 @@ class AlboPretorioSezioniForm extends Form
                         'type' => 'Text',
                         'name' => 'nome',
                         'options' => array(
-                               'label' => 'Nome',
+                               'label' => '* Nome',
                         ),
                         'attributes' => array(
                                 'title'         => 'Inserisci nome sezione',
                                 'id'            => 'nome',
+                                'placeholder'   => 'Nome...',
                                 'required'      => 'required',
-                                'placeholder'   => 'Inserisci nome sezione...',
                         )
         ));
 

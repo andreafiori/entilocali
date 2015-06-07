@@ -64,37 +64,28 @@
         </div>
         
         <div class="row">
-            <div class="large-4 columns">
+            <div class="large-2 columns">
             <label for="<?php echo $form->get('mese')->getAttribute('id'); ?>">
                 Atti a partire da:
             </label>
             </div>
             
-            <div class="large-4 columns">
+            <div class="large-2 columns">
                 <?php echo $this->formElement($form->get('mese')); ?>
             </div>
 
-            <div class="large-4 columns">
+            <div class="large-2 columns">
                 <?php echo $this->formElement($form->get('anno')); ?>
             </div>
-        </div>
-        
-        <div class="row">
-            <div class="large-12 columns">
+
+            <div class="large-2 columns">
                 <label for="<?php echo $form->get('sezione')->getAttribute('id'); ?>">
                     <?php echo $form->get('sezione')->getLabel() ?>:
                 </label>
-                <?php echo $this->formElement($form->get('sezione')); ?>
             </div>
-        </div>
-        
-        <div class="row">
-            <div class="large-12 columns">
-                <label for="<?php echo $form->get('settore')->getAttribute('id'); ?>">
-                    <?php echo $form->get('settore')->getLabel() ?>:
-                </label>
-            
-                <?php echo $this->formElement($form->get('settore')); ?>
+
+            <div class="large-4 columns">
+                <?php echo $this->formElement($form->get('sezione')); ?>
             </div>
         </div>
         
