@@ -25,45 +25,61 @@ class UsersFormController extends SetupAbstractController
         $userDetails = $this->layout()->getVariable('userDetails');
 
         $helper = new UsersControllerHelper();
-        $helper->setUsersGetterWrapper( new UsersGetterWrapper(new UsersGetter($em)) );
-        $helper->setupUsersGetterWrapperRecords(array(
-                'id' => (is_numeric($id)) ? $id : 0,
+        $records = $helper->recoverWrapperRecordsById(
+            new UsersGetterWrapper(new UsersGetter($em)),
+            array(
+                'id' => $id,
                 'limit' => 1
-            )
+            ),
+            $id
         );
-        $helper->setUsersSettoriGetterWrapper( new UsersSettoriGetterWrapper(new UsersSettoriGetter($em)) );
-
-        $records = $helper->getUsersGetterWrapperRecords();
 
         $form = new UsersForm();
-        if ($userDetails->acl->hasResource('users_roles_update')) {
-
-            $helper->setUsersRolesGetterWrapper( new UsersRolesGetterWrapper(new UsersRolesGetter($em)) );
-            $helper->setupUsersRolesGetterWrapperRecords(array());
-            $helper->formatUsersRolesGetterWrapperRecordsForDropdown();
-
-            $form->addRoles($helper->getUsersRolesGetterWrapperRecords());
+        if (!empty($records)) {
+            $form->addPasswords();
+        } else {
+            $form->addPasswordsMandatory();
         }
 
+        /* Check roles permission */
+        if ($userDetails->acl->hasResource('users_roles_update')) {
+            $rolesRecords = $helper->recoverWrapperRecords(
+                new UsersRolesGetterWrapper(new UsersRolesGetter($em)),
+                array()
+            );
+            $rolesRecordsForDropDown = $helper->formatForDropwdown($rolesRecords, 'id', 'name');
+
+            $form->addRoles($rolesRecordsForDropDown);
+        }
+
+        /* Check settori permission */
         if ($userDetails->acl->hasResource('users_settori_update')) {
 
-            $helper->setUsersSettoriGetterWrapper( new UsersSettoriGetterWrapper(new UsersSettoriGetter($em)) );
-            $helper->setupUsersSettoriGetterWrapperRecords( array() );
-            $helper->formatUsersSettoriGetterWrapperRecordsForDropdown();
+            $settoriRecords = $helper->recoverWrapperRecords(
+                new UsersSettoriGetterWrapper(new UsersSettoriGetter($em)),
+                array()
+            );
+            $settoriRecordsForDropDown = $helper->formatForDropwdown($settoriRecords, 'id', 'nome');
 
-            $form->addSettori( $helper->getUsersSettoriGetterWrapperRecords() );
+            $form->addSettori($settoriRecordsForDropDown);
         }
 
         if (!empty($records)) {
-            $formAction      = 'users/update/'.$records[0]['id'];
+            $formAction      = $this->url()->fromRoute('admin/users-update', array(
+                'lang' => $this->params()->fromRoute('lang'),
+            ));
+
             $formTitle       = 'Modifica utente';
             $formDescription = 'Modifica dati utente';
 
             $form->setData($records[0]);
         } else {
+            $formAction      = $this->url()->fromRoute('admin/users-insert', array(
+                'lang' => $this->params()->fromRoute('lang'),
+            ));
+
             $formTitle       = 'Nuovo utente';
-            $formDescription = 'Creazione nuovo utente.';
-            $formAction      = 'users/insert/';
+            $formDescription = 'Creazione nuovo utente';
         }
 
         $this->layout()->setVariables(array(
@@ -72,7 +88,9 @@ class UsersFormController extends SetupAbstractController
             'formDescription'               => $formDescription,
             'formAction'                    => $formAction,
             'formBreadCrumbCategory'        => 'Utenti',
-            'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/users-summary', array('lang' => 'it')),
+            'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/users-summary', array(
+                'lang' => $this->params()->fromRoute('lang')
+            )),
             'noFormActionPrefix'            => 1,
             'templatePartial'               => self::formTemplate,
         ));

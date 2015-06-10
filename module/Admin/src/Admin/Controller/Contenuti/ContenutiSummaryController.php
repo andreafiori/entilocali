@@ -55,6 +55,7 @@ class ContenutiSummaryController extends SetupAbstractController
                     'languageAbbreviation'  => $languageSelection,
                 )
             );
+            $helper->checkRecords($sottoSezioniRecords,'Nessuna sottosezione presente');
             $sottoSezioniRecordsForDropDown = $helper->formatSottoSezioniGetterWrapperRecordsForDropdown($sottoSezioniRecords);
 
             $wrapper->setEntityManager($em);
@@ -111,12 +112,15 @@ class ContenutiSummaryController extends SetupAbstractController
             ));
 
         } catch(\Exception $e) {
+
             $this->layout()->setVariables(array(
                 'messageType'       => 'warning',
                 'messageTitle'      => 'Errore verificato',
                 'messageText'       => $e->getMessage(),
-                'templatePartial'   => 'message.phtml'
+                'templatePartial'   => 'message.phtml',
+                'showbreadcrumb'    => 1
             ));
+
         }
 
         $this->layout()->setTemplate($mainLayout);

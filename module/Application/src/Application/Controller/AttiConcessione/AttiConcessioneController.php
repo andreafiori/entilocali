@@ -27,7 +27,8 @@ class AttiConcessioneController extends SetupAbstractController
 
         try {
             $helper = new AttiConcessioneControllerHelper();
-            $years = $helper->recoverWrapperRecords(
+
+            $yearsRecords = $helper->recoverWrapperRecords(
                 new AttiConcessioneGetterWrapper(new AttiConcessioneGetter($em)),
                 array(
                     'fields' => 'DISTINCT(atti.anno) AS year',
@@ -37,45 +38,48 @@ class AttiConcessioneController extends SetupAbstractController
                 null
             );
 
-
-            $helper->setAttiConcessioneGetterWrapper( new AttiConcessioneGetterWrapper(new AttiConcessioneGetter($em)) );
-            $helper->setupAttiConcessioneGetterWrapperWithPaginator(
+            $wrapperArticoli = $helper->recoverWrapperRecordsPaginator(
+                new AttiConcessioneGetterWrapper(new AttiConcessioneGetter($em)),
                 array('orderBy' => 'atti.id DESC', 'attivo' => 1),
                 $page,
                 null
             );
-            $helper->setUsersSettoriGetterWrapper( new UsersSettoriGetterWrapper(new UsersSettoriGetter($em)) );
-            $helper->setupSettoriRecords( array('orderBy' => 'settore.nome') );
 
-            $wrapperArticoli = $helper->getAttiConcessioneGetterWrapperWithPaginator();
+            $settoriRecords = $helper->recoverWrapperRecords(
+                new UsersSettoriGetterWrapper(new UsersSettoriGetter($em)),
+                array('orderBy' => 'settore.nome')
+            );
 
+            $wrapperArticoli->setEntityManager($em);
             $articoliRecords = $wrapperArticoli->addAttachmentsToPaginatorRecords(
                 $wrapperArticoli->setupRecords(),
                 array()
             );
 
-
-
             $form = new AttiConcessioneFormSearch();
-            $form->addAnno( $helper->formatYears($helper->getYearsRecords()) );
+            $form->addAnno( $helper->formatYears($yearsRecords) );
             $form->addMainElements();
-            $form->addUfficio($helper->getUsersSettoriRecords());
+            $form->addUfficio( $helper->formatForDropwdown($settoriRecords, 'id', 'nome') );
             $form->addSubmitSearchButton();
+
+            $articoliPaginator = $wrapperArticoli->getPaginator();
 
             $this->layout()->setVariables(array(
                 'records'                       => $articoliRecords,
                 'form'                          => $form,
-                'paginator'                     => $wrapperArticoli->getPaginator(),
-                'paginator_total_item_count'    => $wrapperArticoli->getPaginator()->getTotalItemCount(),
+                'paginator'                     => $articoliPaginator,
+                'paginator_total_item_count'    => $articoliPaginator->getTotalItemCount(),
                 'templatePartial'               => 'atti-concessione/atti-concessione.phtml',
             ));
 
         } catch(NullException $e) {
+
             $this->layout()->setVariables(array(
-                'messageType'                   => 'warning',
-                'messageText'                   => $e->getMessage(),
+                'messageType'                   => 'secondary',
+                'messageText'                   => "Si &egrave; verificato un problema o un'assenza di dati necessari wper visualizzare la pagina richiesta",
                 'templatePartial'               => 'atti-concessione/atti-concessione.phtml',
             ));
+
         }
 
         $this->layout()->setTemplate(isset($basicLayout) ? $templateDir.$basicLayout : $mainLayout);

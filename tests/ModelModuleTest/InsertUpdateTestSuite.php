@@ -48,9 +48,11 @@ abstract class InsertUpdateTestSuite extends TestSuite
     {
         $form = $this->setupForm($this->formDataSample);
 
-        $isValidForm = $form->isValid();
+        if (is_object($form)) {
+            $isValidForm = $form->isValid();
+        }
 
-        //$this->printFormElementErrors($form->getInputFilter());
+        // $this->printFormElementErrors($form->getInputFilter());
 
         $this->assertTrue($isValidForm);
     }
@@ -63,13 +65,14 @@ abstract class InsertUpdateTestSuite extends TestSuite
     protected function printFormElementErrors($inputFilter)
     {
         echo "\nFORM DEBUG: \n";
+
         $formValidationErrors = $inputFilter->getInvalidInput();
         foreach($formValidationErrors as $key => $value) {
-            echo $key."\n";
+            echo $key." - ".print_r($value->getMessages(), 1)."\n";
         }
     }
 
-    abstract protected function setupForm($formDataSample);
-
     abstract public function testFormSampleDataIsNotValid();
+
+    abstract protected function setupForm($formDataSample);
 }

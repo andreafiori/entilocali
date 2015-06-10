@@ -4,10 +4,6 @@ namespace ModelModule\Model\Users;
 
 use ModelModule\Model\QueryBuilderHelperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  13 June 2014
- */
 class UsersGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
@@ -17,7 +13,7 @@ class UsersGetter extends QueryBuilderHelperAbstract
 
                                       role.id AS roleId, role.name AS roleName,
 
-                                      settore.id AS settoreId, settore.nome,
+                                      settore.id AS settoreId, settore.nome AS nomeSettore,
 
                                       IDENTITY(settore.responsabileUser) AS responsabileUserId
                                     ');
@@ -25,7 +21,7 @@ class UsersGetter extends QueryBuilderHelperAbstract
         $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
                                 ->from('Application\Entity\ZfcmsUsers', 'u')
                                 ->join('u.role', 'role')
-                                ->join('u.settore', 'settore')
+                                ->leftJoin('u.settore', 'settore')
                                 ->where("u.role = role.id ");
 
         return $this->getQueryBuilder();

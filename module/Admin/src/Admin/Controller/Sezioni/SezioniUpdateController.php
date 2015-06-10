@@ -65,7 +65,7 @@ class SezioniUpdateController extends SetupAbstractController
             $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
                 'module_id'     => ModulesContainer::contenuti_id,
-                'message'       => "Aggiornata sezione ".$inputFilter->nome. " ID: ".$inputFilter->id,
+                'message'       => "Aggiornata sezione ".$inputFilter->nome,
                 'type'          => 'info',
                 'reference_id'  => $inputFilter->id,
                 'backend'       => 1,
@@ -95,6 +95,7 @@ class SezioniUpdateController extends SetupAbstractController
                 'module_id'     => ModulesContainer::contenuti_id,
                 'message'       => "Errore aggiornamento sezione ",
                 'type'          => 'error',
+                'description'   => $e->getMessage(),
                 'reference_id'  => $inputFilter->id,
                 'backend'       => 1,
             ));

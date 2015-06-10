@@ -36,6 +36,20 @@ class ZfcmsComuniContratti
     private $titolo;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="numero_determina", type="bigint", nullable=true)
+     */
+    private $numeroDetermina;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data_determina", type="date", nullable=false)
+     */
+    private $dataDetermina;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="importo_aggiudicazione", type="decimal", precision=12, scale=2, nullable=true)
@@ -94,16 +108,16 @@ class ZfcmsComuniContratti
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="data", type="date", nullable=false)
+     * @ORM\Column(name="data_inserimento", type="date", nullable=false)
      */
-    private $data;
+    private $dataInserimento;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="ora", type="time", nullable=false)
+     * @ORM\Column(name="ora_inserimento", type="time", nullable=false)
      */
-    private $ora;
+    private $oraInserimento;
 
     /**
      * @var integer

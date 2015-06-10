@@ -77,7 +77,6 @@ class SezioniFormController extends SetupAbstractController
             'formTitle'                     => $formTitle,
             'formDescription'               => 'Le sezioni rappresentano i blocchi principali sui quali costruire le basi dei contenuti',
             'submitButtonValue'             => $submitButtonValue,
-            'noFormActionPrefix'            => 1,
             'formBreadCrumbCategory'        => array(
                 array(
                     'href' => '#',
@@ -94,7 +93,8 @@ class SezioniFormController extends SetupAbstractController
                     'title' => 'Sezioni '.$modulenameLabel,
                 ),
             ),
-            'templatePartial' => self::formTemplate,
+            'noFormActionPrefix'            => 1,
+            'templatePartial'               => self::formTemplate,
         ));
 
         $this->layout()->setTemplate($mainLayout);

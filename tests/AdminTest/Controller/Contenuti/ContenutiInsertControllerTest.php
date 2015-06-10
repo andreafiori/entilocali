@@ -5,17 +5,14 @@ namespace AdminTest\Controller\Contenuti;
 use Admin\Controller\Contenuti\ContenutiInsertController;
 use ModelModule\Model\Contenuti\ContenutiForm;
 use ModelModule\Model\Contenuti\ContenutiFormInputFilter;
-use ModelModuleTest\TestSuite;
-use Zend\Http\Request;
+use ModelModuleTest\InsertUpdateTestSuite;
 
-class ContenutiInsertControllerTest extends TestSuite
+class ContenutiInsertControllerTest extends InsertUpdateTestSuite
 {
     /**
      * @var ContenutiInsertController
      */
     protected $controller;
-
-    private $formDataSample;
 
     protected function setUp()
     {
@@ -39,36 +36,7 @@ class ContenutiInsertControllerTest extends TestSuite
         );
     }
 
-    public function testIndexActionReturnsRedirect()
-    {
-        $this->routeMatch->setParam('action', 'index');
-
-        $this->controller->dispatch($this->request);
-
-        $this->assertEquals(302, $this->controller->getResponse()->getStatusCode());
-    }
-
-    public function testIndexActionCorrectPostRequest()
-    {
-        $this->routeMatch->setParam('action', 'index');
-
-        $this->setupUserSession($this->recoverUserDetails());
-
-        $this->request->setMethod(Request::METHOD_POST)->getPost()->fromArray($this->formDataSample);
-
-        $this->controller->dispatch($this->request);
-
-        $this->assertEquals(200, $this->controller->getResponse()->getStatusCode());
-    }
-
-    public function testFormSampleDataIsValid()
-    {
-        $form = $this->setupForm($this->formDataSample);
-
-        $this->assertTrue($form->isValid());
-    }
-
-    public function testFormSampleIsNotValid()
+    public function testFormSampleDataIsNotValid()
     {
         unset($this->formDataSample['titolo']);
 
@@ -81,9 +49,13 @@ class ContenutiInsertControllerTest extends TestSuite
      * @param $formDataSample
      * @return ContenutiForm
      */
-    private function setupForm($formDataSample)
+    protected function setupForm($formDataSample)
     {
         $form = new ContenutiForm();
+        $form->addSottoSezioni(array(
+            1 => 'Sottosezione 1',
+            2 => 'Sottosezione 2',
+        ));
         $form->addMainFormElements();
         $form->addUsers(array(
             1 => 'John Doe',
@@ -99,19 +71,5 @@ class ContenutiInsertControllerTest extends TestSuite
         $form->setData($formDataSample);
 
         return $form;
-    }
-
-    /**
-     * DEBUG Form: $this->printFormElementErrors($form->getInputFilter());
-     *
-     * @param $inputFilter
-     */
-    private function printFormElementErrors($inputFilter)
-    {
-        echo "DEBUG: \n";
-        $formValidationErrors = $inputFilter->getInvalidInput();
-        foreach($formValidationErrors as $key => $value) {
-            echo $key."\n";
-        }
     }
 }

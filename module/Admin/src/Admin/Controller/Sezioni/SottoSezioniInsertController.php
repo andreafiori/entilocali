@@ -63,7 +63,7 @@ class SottoSezioniInsertController extends SetupAbstractController
             $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
                 'module_id'     => ModulesContainer::albo_pretorio_id,
-                'message'       => "Inserita nuova sezione ".$inputFilter->nome. " ID: ".$lastInsertId,
+                'message'       => "Inserita nuova sezione ".$inputFilter->nomeSottoSezione. " ID: ".$lastInsertId,
                 'type'          => 'info',
                 'reference_id'  => $lastInsertId,
                 'backend'       => 1,
@@ -94,7 +94,7 @@ class SottoSezioniInsertController extends SetupAbstractController
             $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
                 'module_id'     => ModulesContainer::contenuti_id,
-                'message'       => "Errore inserimento nuova sezione: ".$inputFilter->nome,
+                'message'       => "Errore inserimento nuova sezione: ".$inputFilter->nomeSottoSezione,
                 'type'          => 'error',
                 'backend'       => 1,
             ));

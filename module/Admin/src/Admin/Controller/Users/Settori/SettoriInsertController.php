@@ -63,7 +63,7 @@ class SettoriInsertController extends SetupAbstractController
             $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
                 'module_id'     => ModulesContainer::contenuti_id,
-                'message'       => "Inserito nuovo settore utente ".$inputFilter->nome. " ID: ".$lastInsertId,
+                'message'       => "Inserito nuovo settore utente ".$inputFilter->nome,
                 'type'          => 'info',
                 'reference_id'  => $lastInsertId,
                 'backend'       => 1,
@@ -71,13 +71,13 @@ class SettoriInsertController extends SetupAbstractController
 
             $this->layout()->setVariables(array(
                 'messageType'                => 'success',
-                'messageTitle'               => 'Settore inserito correttamente',
+                'messageTitle'               => 'Settore utente inserito correttamente',
                 'messageText'                => 'I dati sono stati processati correttamente dal sistema',
                 'showLinkResetFormAndShowIt' => 1,
-                'backToSummaryLink'     => $this->url()->fromRoute('admin/users-settori-summary', array(
-                    'lang'              => $this->params()->fromRoute('lang'),
+                'backToSummaryLink' => $this->url()->fromRoute('admin/users-settori-summary', array(
+                    'lang' => $this->params()->fromRoute('lang'),
                 )),
-                'backToSummaryText'     => "Elenco settori",
+                'backToSummaryText'          => "Elenco settori",
             ));
 
         } catch(\Exception $e) {
@@ -88,14 +88,14 @@ class SettoriInsertController extends SetupAbstractController
             $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
                 'module_id'     => ModulesContainer::contenuti_id,
-                'message'       => "Errore inserimento nuova sezione: ".$inputFilter->nome,
+                'message'       => "Errore inserimento nuovo settore: ".$inputFilter->nome,
                 'type'          => 'error',
                 'backend'       => 1,
             ));
 
             $this->layout()->setVariables(array(
                 'messageType'           => 'danger',
-                'messageTitle'          => 'Errore inserimento nuova sezione',
+                'messageTitle'          => 'Errore inserimento nuovo settore',
                 'messageText'           => 'Messaggio generato: '.$e->getMessage(),
                 'form'                  => $form,
                 'formInputFilter'       => $inputFilter->getInputFilter(),

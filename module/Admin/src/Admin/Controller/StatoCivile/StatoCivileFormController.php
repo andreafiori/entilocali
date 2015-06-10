@@ -6,8 +6,8 @@ use ModelModule\Model\StatoCivile\StatoCivileControllerHelper;
 use ModelModule\Model\StatoCivile\StatoCivileForm;
 use ModelModule\Model\StatoCivile\StatoCivileGetter;
 use ModelModule\Model\StatoCivile\StatoCivileGetterWrapper;
-use ModelModule\Model\StatoCivile\StatoCivileSezioniGetter;
-use ModelModule\Model\StatoCivile\StatoCivileSezioniGetterWrapper;
+use ModelModule\Model\StatoCivile\Sezioni\StatoCivileSezioniGetter;
+use ModelModule\Model\StatoCivile\Sezioni\StatoCivileSezioniGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
 class StatoCivileFormController extends SetupAbstractController

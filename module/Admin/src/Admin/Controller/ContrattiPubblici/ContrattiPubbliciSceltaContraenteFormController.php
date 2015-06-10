@@ -29,12 +29,16 @@ class ContrattiPubbliciSceltaContraenteFormController extends SetupAbstractContr
         if ($recordFromDb) {
             $form->setData($recordFromDb[0]);
 
-            $formAction             = 'contratti-pubblici-scelta-contraente/update';
+            $formAction             = $this->url()->fromRoute('admin/contratti-pubblici-scelta-contraente-update', array(
+                'lang' => $this->params()->fromRoute('lang')
+            ));
             $formTitle              = 'Modifica voce scelta del contraente';
-            $formDescription        = 'Modifica scelta contraente';
+            $formDescription        = 'Modifica dati e procedi';
             $formBreadCrumbTitle    = 'Modifica';
         } else {
-            $formAction             = 'contratti-pubblici-scelta-contraente/insert';
+            $formAction             = $this->url()->fromRoute('admin/contratti-pubblici-scelta-contraente-insert', array(
+                'lang' => $this->params()->fromRoute('lang')
+            ));
             $formTitle              = 'Nuova voce scelta del contraente';
             $formDescription        = 'Inserisci voce scelta contraente';
             $formBreadCrumbTitle    = 'Nuova';
@@ -64,7 +68,8 @@ class ContrattiPubbliciSceltaContraenteFormController extends SetupAbstractContr
                         'label' => 'Scelta contraente'
                     )
                 ),
-                'templatePartial' => self::formTemplate
+                'noFormActionPrefix'    => 1,
+                'templatePartial'       => self::formTemplate
             )
         );
 

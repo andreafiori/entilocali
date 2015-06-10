@@ -16,7 +16,13 @@ class UsersForm extends Form
     public function __construct($name = null, $options = array())
     {
         parent::__construct($name, $options);
-        
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'id',
+            'attributes' => array("class" => 'hiddenField')
+        ));
+
         $this->add(array(
                         'name' => 'name',
                         'type' => 'Text',
@@ -64,39 +70,80 @@ class UsersForm extends Form
                                         'id'            => 'username',
                         )
         ));
-        
+    }
+
+    public function addPasswords()
+    {
         $this->add(array(
-                        'name' => 'password',
-                        'type' => 'Password',
-                        'options' => array( 'label' => 'Password' ),
-                        'attributes' => array(
-                                        'title'         => 'Inserisci password',
-                                        'placeholder'   => 'Inserisci una password',
-                                        'id'            => 'password',
-                        )
-        ));
-        
-        $this->add(array(
-                        'name' => 'password_verify',
-                        'type' => 'Password',
-                        'options' => array( 'label' => 'Conferma password' ),
-                        'attributes' => array(
-                                        'title'         => 'Conferma password',
-                                        'placeholder'   => 'Conferma password',
-                                        'id'            => 'password_verify',
-                        )
+            'name' => 'password',
+            'type' => 'Password',
+            'options' => array('label' => 'Password'),
+            'attributes' => array(
+                'title'         => 'Inserisci password',
+                'placeholder'   => 'Inserisci una password',
+                'id'            => 'password',
+            )
         ));
 
         $this->add(array(
-                        'type' => 'Zend\Form\Element\Hidden',
-                        'name' => 'old-password',
-                        'attributes' => array("class" => 'hiddenField')
+            'name' => 'password_verify',
+            'type' => 'Password',
+            'options' => array( 'label' => 'Conferma password' ),
+            'attributes' => array(
+                'title'         => 'Conferma password',
+                'placeholder'   => 'Conferma password',
+                'id'            => 'password_verify',
+            )
         ));
-        
+    }
+
+    public function addPasswordsMandatory()
+    {
         $this->add(array(
-                        'type' => 'Zend\Form\Element\Hidden',
-                        'name' => 'id',
-                        'attributes' => array("class" => 'hiddenField')
+            'name' => 'password',
+            'type' => 'Password',
+            'options' => array('label' => '* Password'),
+            'attributes' => array(
+                'title'         => 'Inserisci password',
+                'placeholder'   => 'Inserisci una password',
+                'required'      => 'required',
+                'id'            => 'password',
+            )
+        ));
+
+        $this->add(array(
+            'name' => 'password_verify',
+            'type' => 'Password',
+            'options' => array( 'label' => '* Conferma password' ),
+            'attributes' => array(
+                'title'         => 'Conferma password',
+                'placeholder'   => 'Conferma password',
+                'required'      => 'required',
+                'id'            => 'password_verify',
+            )
+        ));
+    }
+
+    public function addState()
+    {
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'status',
+            'options' => array(
+                'label'         => '* Stato',
+                'empty_option'  => 'Seleziona',
+                'value_options' => array(
+                    'active'        => 'Attivo',
+                    'deleted'       => 'Eliminato',
+                    'banned'        => 'Bannato',
+                    'not_confirmed' => 'Non confermato',
+                ),
+            ),
+            'attributes' => array(
+                'title'     => 'Seleziona stato utente',
+                'id'        => 'status',
+                'required'  => 'required'
+            )
         ));
     }
 

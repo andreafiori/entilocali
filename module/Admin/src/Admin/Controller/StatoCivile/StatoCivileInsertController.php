@@ -68,7 +68,7 @@ class StatoCivileInsertController extends SetupAbstractController
             $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
                 'module_id'     => ModulesContainer::stato_civile_id,
-                'message'       => "Inserito nuovo atto stato civile ".$inputFilter->titolo. " ID: ".$lastInsertId,
+                'message'       => "Inserito nuovo atto stato civile ".$inputFilter->titolo,
                 'type'          => 'info',
                 'reference_id'  => $lastInsertId,
                 'backend'       => 1,
@@ -104,6 +104,8 @@ class StatoCivileInsertController extends SetupAbstractController
                 'module_id'     => ModulesContainer::stato_civile_id,
                 'message'       => "Errore inserimento nuovo atto stato civile: ".$inputFilter->titolo,
                 'type'          => 'error',
+				'description'   => $e->getMessage(),
+                'reference_id'  => $inputFilter->id,
                 'backend'       => 1,
             ));
 

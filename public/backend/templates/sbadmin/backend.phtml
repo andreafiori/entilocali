@@ -367,10 +367,12 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                             <?php if ($acl->hasResource('atti_concessione_update')): ?>
                             <li><a href="<?php echo $this->url('admin/atti-concessione-summary', array('lang' => $lang) ); ?>" title="Gestione">Gestione</a></li>
                             <?php endif; ?>
+
                             <!-- Responsabili di procedimento -->
                             <li><a href="<?php echo $this->url('admin/users-resp-proc-management', array('lang' => $lang)); ?>" title="Gestione">Responsabili procedimento</a></li>
-                            <!-- Modalita assegnazione -->
+
                             <?php if (!$acl->hasResource('atti_concessione_modassign_add') or $acl->hasResource('atti_concessione_modassign_update')): ?>
+                                <!-- Modalita assegnazione -->
                                 <li>
                                     <a href="#" class="dropdown-collapse" title="">Modalit&agrave; assegnazione <span class="fa arrow"></span></a>
                                     <ul class="nav nav-third-level">
@@ -384,6 +386,7 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                     <?php endif; ?>
 
                     <!-- Contratti pubblici -->
+                    <?php if ($acl->hasResource('contratti_pubblici_add') or $acl->hasResource('contratti_pubblici_update')): ?>
                     <li>
                         <a href="#" class="dropdown-collapse"><i class="fa fa-edit fa-fw"></i> <span class="side-menu-title">Contratti pubblici</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -416,6 +419,7 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
 
                         </ul>
                     </li>
+                    <?php endif; ?>
 
                     <!-- Blogs -->
                     <?php if ($acl->hasResource('blogs_add') or $acl->hasResource('blogs_update')): ?>

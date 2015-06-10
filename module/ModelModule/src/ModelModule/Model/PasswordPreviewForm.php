@@ -18,11 +18,11 @@ class PasswordPreviewForm extends Form
             'type' => 'Password',
             'options' => array('label' => '* Password'),
             'attributes' => array(
-                'required' => 'required',
-                'placeholder' => 'Password',
-                'title'       => 'Inserisci password',
-                'id'          => 'password',
-                'maxlength'   => 50,
+                'required'      => 'required',
+                'placeholder'   => 'Password',
+                'title'         => 'Inserisci password',
+                'id'            => 'password',
+                'maxlength'     => 50,
             )
         ));
     }

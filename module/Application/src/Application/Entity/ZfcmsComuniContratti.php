@@ -36,6 +36,20 @@ class ZfcmsComuniContratti
     private $titolo;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="numero_determina", type="bigint", nullable=true)
+     */
+    private $numeroDetermina;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="data_determina", type="date", nullable=false)
+     */
+    private $dataDetermina;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="importo_aggiudicazione", type="decimal", precision=12, scale=2, nullable=true)
@@ -94,16 +108,16 @@ class ZfcmsComuniContratti
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="data", type="date", nullable=false)
+     * @ORM\Column(name="data_inserimento", type="date", nullable=false)
      */
-    private $data;
+    private $dataInserimento;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="ora", type="time", nullable=false)
+     * @ORM\Column(name="ora_inserimento", type="time", nullable=false)
      */
-    private $ora;
+    private $oraInserimento;
 
     /**
      * @var integer
@@ -243,6 +257,52 @@ class ZfcmsComuniContratti
     public function getTitolo()
     {
         return $this->titolo;
+    }
+
+    /**
+     * Set numeroDetermina
+     *
+     * @param integer $numeroDetermina
+     * @return ZfcmsComuniContratti
+     */
+    public function setNumeroDetermina($numeroDetermina)
+    {
+        $this->numeroDetermina = $numeroDetermina;
+    
+        return $this;
+    }
+
+    /**
+     * Get numeroDetermina
+     *
+     * @return integer 
+     */
+    public function getNumeroDetermina()
+    {
+        return $this->numeroDetermina;
+    }
+
+    /**
+     * Set dataDetermina
+     *
+     * @param \DateTime $dataDetermina
+     * @return ZfcmsComuniContratti
+     */
+    public function setDataDetermina($dataDetermina)
+    {
+        $this->dataDetermina = $dataDetermina;
+    
+        return $this;
+    }
+
+    /**
+     * Get dataDetermina
+     *
+     * @return \DateTime 
+     */
+    public function getDataDetermina()
+    {
+        return $this->dataDetermina;
     }
 
     /**
@@ -430,49 +490,49 @@ class ZfcmsComuniContratti
     }
 
     /**
-     * Set data
+     * Set dataInserimento
      *
-     * @param \DateTime $data
+     * @param \DateTime $dataInserimento
      * @return ZfcmsComuniContratti
      */
-    public function setData($data)
+    public function setDataInserimento($dataInserimento)
     {
-        $this->data = $data;
+        $this->dataInserimento = $dataInserimento;
     
         return $this;
     }
 
     /**
-     * Get data
+     * Get dataInserimento
      *
      * @return \DateTime 
      */
-    public function getData()
+    public function getDataInserimento()
     {
-        return $this->data;
+        return $this->dataInserimento;
     }
 
     /**
-     * Set ora
+     * Set oraInserimento
      *
-     * @param \DateTime $ora
+     * @param \DateTime $oraInserimento
      * @return ZfcmsComuniContratti
      */
-    public function setOra($ora)
+    public function setOraInserimento($oraInserimento)
     {
-        $this->ora = $ora;
+        $this->oraInserimento = $oraInserimento;
     
         return $this;
     }
 
     /**
-     * Get ora
+     * Get oraInserimento
      *
      * @return \DateTime 
      */
-    public function getOra()
+    public function getOraInserimento()
     {
-        return $this->ora;
+        return $this->oraInserimento;
     }
 
     /**

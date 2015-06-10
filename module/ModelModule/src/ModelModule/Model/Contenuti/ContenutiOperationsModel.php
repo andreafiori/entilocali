@@ -6,21 +6,14 @@ use ModelModule\Model\OperationsModelAbstract;
 use ModelModule\Model\Database\DbTableContainer;
 use ModelModule\Model\NullException;
 
+/**
+ * TODO: turn this class into a controllerHelper and delete the methods. Use abstract methods
+ */
 class ContenutiOperationsModel extends OperationsModelAbstract
 {
     private $contenutiGetterWrapper;
 
     private $contenutiRecords;
-
-    public function insert($formData)
-    {
-
-    }
-
-    public function update($formData)
-    {
-
-    }
 
     /**
      * @param $id
@@ -74,6 +67,9 @@ class ContenutiOperationsModel extends OperationsModelAbstract
         }
     }
 
+    /**
+     * @throws NullException
+     */
     public function checkContenutiRecords()
     {
         $records = $this->getContenutiRecords();
@@ -91,17 +87,19 @@ class ContenutiOperationsModel extends OperationsModelAbstract
         return $this->contenutiRecords;
     }
 
+    /**
+     * @param int $id
+     * @return int
+     */
     public function annull($id)
     {
         $this->assertConnection();
 
-        $this->getConnection()->update(
+        return $this->getConnection()->update(
             DbTableContainer::contenuti,
             array('attivo' => 0),
             array('id' => $id)
         );
-
-        return true;
     }
 
     /**

@@ -2,12 +2,10 @@
 
 namespace ModelModule\Model\ContrattiPubblici;
 
+use Zend\Form\Element;
 use Zend\Form\Form;
+use Zend\Captcha;
 
-/**
- * @author Andrea Fiori
- * @since  26 June 2014
- */
 class ContrattiPubbliciForm extends Form
 {
     /**
@@ -16,6 +14,14 @@ class ContrattiPubbliciForm extends Form
     public function __construct($name = null, $options = array())
     {
         parent::__construct($name, $options);
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'id',
+            'attributes' => array(
+                "class" => 'hiddenField'
+            )
+        ));
 
         $this->add(array(
             'name' => 'cig',
@@ -40,10 +46,50 @@ class ContrattiPubbliciForm extends Form
                 'required'    => 'required'
             ),
         ));
+    }
 
+    public function addDetermina()
+    {
         $this->add(array(
             'type' => 'Application\Form\Element\PlainText',
-            'name' => 'importi_label',
+            'name' => 'struttura_label',
+            'attributes' => array(
+                'id'    => 'struttura_label',
+                'value' => 'Numero e data determina',
+                'type'  => 'PlainTextTitle'
+            ),
+        ));
+
+        $this->add(array(
+            'name' => 'numeroDetermina',
+            'type' => 'Text',
+            'options' => array('label' => 'Numero'),
+            'attributes' => array(
+                'id'            => 'numeroDetermina',
+                'title'         => "Inserisci numero determina",
+                'placeholder'   => 'Numero...',
+            ),
+        ));
+
+        $this->add(array(
+            'type' => 'Date',
+            'name' => 'dataDetermina',
+            'options' => array(
+                'label' => 'Data determina',
+                'format' => 'Y-m-d',
+            ),
+            'attributes' => array(
+                'id'        => 'dataDetermina',
+                'title'     => "Seleziona data determina",
+            )
+        ));
+    }
+
+    public function addImporti()
+    {
+        $this->add(array(
+            'type' => 'Application\Form\Element\PlainText',
+            'name' => 'importiLabel',
             'attributes' => array(
                 'id'    => 'importi_label',
                 'value' => 'Importi',
@@ -76,7 +122,7 @@ class ContrattiPubbliciForm extends Form
         ));
     }
 
-    public function addStrutturaProponente($records)
+    public function addStrutturaProponenteLabel()
     {
         $this->add(array(
             'type' => 'Application\Form\Element\PlainText',
@@ -87,45 +133,53 @@ class ContrattiPubbliciForm extends Form
                 'type'  => 'PlainTextTitle'
             ),
         ));
+    }
 
+    /**
+     * @param array $records
+     */
+    public function addSettori($records)
+    {
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
-            'name' => 'id_sezione',
+            'name' => 'settoreId',
             'options' => array(
-                'label' => 'Struttura proponente - responsabile',
-                'empty_option' => 'Seleziona',
-                'value_options' => array($records),
+                'label'         => 'Settore',
+                'empty_option'  => 'Seleziona',
+                'value_options' => $records,
             ),
             'attributes' => array(
-                'title'     => 'Seleziona la struttura proponente',
-                'id'        => 'id_sezione',
+                'title'     => 'Seleziona settore',
+                'id'        => 'settoreId',
                 'required'  => 'required'
             )
         ));
     }
 
     /**
-     * @param array $records
+     * Responsabile procedimento
+     *
+     * @param $records
      */
     public function addResponsabili($records)
     {
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
-            'name' => 'respProc',
+            'name' => 'respProcId',
             'options' => array(
-                'label'         => 'Responsabile del procedimento',
-                'empty_option'  => 'Seleziona',
+                'label' => 'Responsabile',
+                'empty_option' => 'Seleziona',
                 'value_options' => $records,
             ),
             'attributes' => array(
-                'title'     => 'Responsabile del Procedimento',
-                'id'        => 'respProc',
+                'title'     => 'Seleziona la struttura proponente',
+                'id'        => 'respProcId',
                 'required'  => 'required'
             )
         ));
     }
 
-    public function addNumeroOfferteEDate()
+    public function addNumeroOfferte()
     {
         $this->add(array(
             'type' => 'Application\Form\Element\PlainText',
@@ -140,7 +194,7 @@ class ContrattiPubbliciForm extends Form
         $this->add(array(
             'name' => 'numeroOfferte',
             'type' => 'Text',
-            'options' => array( 'label' => 'Numero di offerte ammesse' ),
+            'options' => array('label' => 'Numero di offerte ammesse'),
             'attributes' => array(
                 'id'            => 'numeroOfferte',
                 'title'         => "Inserisci numero di offerte ammesse",
@@ -148,7 +202,10 @@ class ContrattiPubbliciForm extends Form
                 'required'      => 'required'
             ),
         ));
+    }
 
+    public function addDataInizioFineLavori()
+    {
         $this->add(array(
             'type' => 'Application\Form\Element\PlainText',
             'name' => 'struttura_label',
@@ -161,13 +218,13 @@ class ContrattiPubbliciForm extends Form
 
         $this->add(array(
             'type' => 'DateTime',
-            'name' => 'data_agg',
+            'name' => 'dataInizioLavori',
             'options' => array(
-                'label' => 'Data scelta contraente (Inizio lavori)',
+                'label' => 'Data inizio lavori',
                 'format' => 'Y-m-d H:i:s',
             ),
             'attributes' => array(
-                'id'        => 'data_agg',
+                'id'        => 'dataInizioLavori',
                 'required'  => 'required',
                 'title'     => "Seleziona data inizio lavori",
             )
@@ -175,19 +232,22 @@ class ContrattiPubbliciForm extends Form
 
         $this->add(array(
             'type' => 'DateTime',
-            'name' => 'data_contratto',
+            'name' => 'dataFineLavori',
             'options' => array(
-                'label' => 'Data termine (Fine lavori)',
+                'label' => 'Data fine lavori',
                 'format' => 'Y-m-d H:i:s',
             ),
             'attributes' => array(
-                'id'        => 'data_contratto',
+                'id'        => 'dataFineLavori',
                 'required'  => 'required',
                 'title'     => "Seleziona data fine lavori",
             )
         ));
     }
 
+    /**
+     * @param array $records
+     */
     public function addSceltaContraente($records)
     {
         $this->add(array(
@@ -202,7 +262,7 @@ class ContrattiPubbliciForm extends Form
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
-            'name' => 'scContr',
+            'name' => 'sceltaContraenteId',
             'options' => array(
                 'label' => '* Scelta del contraente',
                 'empty_option' => 'Seleziona',
@@ -210,7 +270,7 @@ class ContrattiPubbliciForm extends Form
             ),
             'attributes' => array(
                 'title'     => 'Seleziona la scelta del contraente',
-                'id'        => 'sc_contr_id',
+                'id'        => 'sceltaContraenteId',
                 'required'  => 'required'
             )
         ));
@@ -220,13 +280,13 @@ class ContrattiPubbliciForm extends Form
     {
         $this->add(array(
             'type' => 'DateTime',
-            'name' => 'inserimento',
+            'name' => 'dataInserimento',
             'options' => array(
                 'label' => 'Data inserimento: l\'articolo sarà visibile sul sito a partire da questa data',
                 'format' => 'Y-m-d H:i:s',
             ),
             'attributes' => array(
-                'id'        => 'inserimento',
+                'id'        => 'dataInserimento',
                 'title'     => 'Seleziona data pubblicazione',
                 'required'  => 'required',
             )
@@ -252,32 +312,33 @@ class ContrattiPubbliciForm extends Form
             ),
         ));
     }
-    
-    public function addUsersSelect(array $usersRecords)
-    {
-        if (isset($usersRecords)) {          
-            $this->add(array(
-                            'type' => 'Application\Form\Element\PlainText',
-                            'name' => 'struttura_label',
-                            'attributes' => array(
-                                            'id'    => 'struttura_label',
-                                            'value' => 'UTENTE',
-                                            'type'  => 'PlainTextTitle',
-                            ),
-            ));
 
-            $this->add(array(
-                            'type' => 'Zend\Form\Element\Select',
-                            'name' => 'utente_id',
-                            'options' => array(
-                                   'label' => 'Associa articolo a utente',
-                                   'value_options' => $usersRecords,
-                            ),
-                            'attributes' => array(
-                                    'title' => 'Seleziona utente',
-                                    'id'    => 'utente_id'
-                            )
-            ));
-        }
+    /**
+     * @param array $usersRecords
+     */
+    public function addUsersSelect($usersRecords)
+    {
+        $this->add(array(
+                        'type' => 'Application\Form\Element\PlainText',
+                        'name' => 'struttura_label',
+                        'attributes' => array(
+                                        'id'    => 'struttura_label',
+                                        'value' => 'UTENTE',
+                                        'type'  => 'PlainTextTitle',
+                        ),
+        ));
+
+        $this->add(array(
+                        'type' => 'Zend\Form\Element\Select',
+                        'name' => 'utenteId',
+                        'options' => array(
+                               'label' => 'Associa articolo a utente',
+                               'value_options' => $usersRecords,
+                        ),
+                        'attributes' => array(
+                                'title' => 'Seleziona utente',
+                                'id'    => 'utenteId'
+                        )
+        ));
     }
 }

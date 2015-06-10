@@ -38,6 +38,13 @@ class ZfcmsLogs
     /**
      * @var string
      *
+     * @ORM\Column(name="description", type="text", length=65535, nullable=false)
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="type", type="string", length=50, nullable=false)
      */
     private $type;
@@ -132,6 +139,29 @@ class ZfcmsLogs
     public function getMessage()
     {
         return $this->message;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return ZfcmsLogs
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 
     /**

@@ -42,7 +42,7 @@ class AttiConcessioneFormInputFilter implements InputFilterAwareInterface
      */
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
-        throw new \Exception("Not used");
+        throw new \Exception("This method is unused");
     }
 
     /**
@@ -83,6 +83,14 @@ class AttiConcessioneFormInputFilter implements InputFilterAwareInterface
             ));
 
             $inputFilter->add(array(
+                'name'     => 'importo',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'Int'),
+                ),
+            ));
+
+            $inputFilter->add(array(
                 'name'     => 'ufficioResponsabile',
                 'required' => true,
                 'filters'  => array(
@@ -108,7 +116,7 @@ class AttiConcessioneFormInputFilter implements InputFilterAwareInterface
 
             $inputFilter->add(array(
                 'name'     => 'titolo',
-                'required' => false,
+                'required' => true,
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),

@@ -8,17 +8,18 @@ class ContrattiPubbliciGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('DISTINCT(cc.id) AS id, cc.beneficiario,
-                cc.titolo, cc.importoAggiudicazione, cc.importoLiquidato, cc.dataInizioLavori, cc.dataFineLavori,
-                cc.progressivo, cc.anno, cc.data, cc.ora, cc.attivo, cc.scadenza, cc.cig,
-                cc.numeroOfferte,
+        $this->setSelectQueryFields('DISTINCT(cc.id) AS id, cc.beneficiario, cc.titolo,
+                cc.dataDetermina, cc.numeroDetermina,
+                cc.importoAggiudicazione, cc.importoLiquidato, cc.dataInizioLavori, cc.dataFineLavori,
+                cc.progressivo, cc.anno, cc.dataInserimento, cc.oraInserimento, cc.attivo, cc.scadenza, cc.cig,
+                cc.numeroOfferte, IDENTITY(cc.respProc) AS respProcId, IDENTITY(cc.settore) AS settoreId,
+                IDENTITY(cc.scContr) AS sceltaContraenteId, IDENTITY(cc.utente) AS contrattiUtenteId,
 
                 csc.nomeScelta,
-                settore.nome AS nomeUtenteSettore,
+
+                settore.nome AS nomeUtenteSettore, settore.nome AS nomeSettore,
                 
                 users.name, users.surname,
-
-                settore.nome AS nomeSettore,
 
                 responsabileUsers.name AS responsabileUsersName,
                 responsabileUsers.surname AS responsabileUsersSurname

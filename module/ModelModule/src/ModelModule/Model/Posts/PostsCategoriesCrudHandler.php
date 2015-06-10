@@ -6,15 +6,15 @@ use ModelModule\Model\FormData\CrudHandlerInterface;
 use ModelModule\Model\FormData\CrudHandlerAbstract;
 use ModelModule\Model\Slugifier;
 
-class PostsCategoriesCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterface
+class PostsCategoriesCrudHandler //extends CrudHandlerAbstract implements CrudHandlerInterface
 {
     protected function insert()
     {
         try {
             $this->getConnection()->insert('zfcms_categories', array(
                 'note'              => Slugifier::slugify($this->rawPost['name']),
-                'create_date'        => date("Y-m-d H:i:s"),
-                'last_update'        => date("Y-m-d H:i:s"),
+                'create_date'       => date("Y-m-d H:i:s"),
+                'last_update'       => date("Y-m-d H:i:s"),
                 'module_id'         => isset($this->rawPost['moduloId']) ? $this->rawPost['moduloId'] : 4,
                 'status'            => $this->rawPost['status'],
             ));
@@ -56,7 +56,7 @@ class PostsCategoriesCrudHandler extends CrudHandlerAbstract implements CrudHand
      */
     protected function update()
     {
-        $form = new CategoriesForm();
+        $form = new PostsCategoriesForm();
         $form->setData($this->rawPost);
         if ( !$form->isValid() ) {
             return $this->setErrorMessage("I valori inviati attraverso il form risultano invalidi. Se l'errore persiste, contattare l'amministrazione", 'Form non valido');

@@ -6,10 +6,6 @@ use ModelModuleTest\TestSuite;
 use ModelModule\Model\Users\UsersGetter;
 use ModelModule\Model\Users\UsersGetterWrapper;
 
-/**
- * @author Andrea Fiori
- * @since  18 August 2014
- */
 class UsersGetterWrapperTest extends TestSuite
 {
     /**

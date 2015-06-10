@@ -18,6 +18,7 @@ class UsersRolesFormController extends SetupAbstractController
     {
         $mainLayout = $this->initializeAdminArea();
 
+        $lang = $this->params()->fromRoute('lang');
         $id = $this->params()->fromRoute('id');
 
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
@@ -42,10 +43,6 @@ class UsersRolesFormController extends SetupAbstractController
 
         if ( !empty($roleRecord) ) {
 
-            /*if ($roleRecord[0]['name'] === 'WebMaster') {
-                return $this->redirect()->toRoute('admin', array('lang' => 'it'));
-            }*/
-
             $acl->addRole($roleRecord[0]['name']);
 
             $permissionsCurrentRoles = new UsersRolesPermissionsRelationsGetterWrapper(
@@ -57,10 +54,12 @@ class UsersRolesFormController extends SetupAbstractController
             ));
             $permissionsCurrentRoles->setupQueryBuilder();
 
-            $permissionsCurrentRolesRecords = $permissionsCurrentRoles->getRecords();
-            foreach($permissionsCurrentRolesRecords as $currentRolesRecord) {
-                $acl->addResource($currentRolesRecord['flag']);
-                $acl->allow($roleRecord[0]['name'], $currentRolesRecord['flag']);
+            if (!empty($permissionsCurrentRolesRecords)) {
+                $permissionsCurrentRolesRecords = $permissionsCurrentRoles->getRecords();
+                foreach($permissionsCurrentRolesRecords as $currentRolesRecord) {
+                    $acl->addResource($currentRolesRecord['flag']);
+                    $acl->allow($roleRecord[0]['name'], $currentRolesRecord['flag']);
+                }
             }
 
             $formAction      = 'users-roles/update/'.$roleRecord[0]['id'];
@@ -70,22 +69,36 @@ class UsersRolesFormController extends SetupAbstractController
             $form->setData($roleRecord[0]);
         } else {
             $formTitle       = 'Nuovo ruolo utente';
-            $formDescription = 'Creazione nuovo ruolo utente.';
+            $formDescription = 'Creazione nuovo ruolo utente';
             $formAction      = 'users-roles/insert/';
         }
 
         $this->layout()->setVariables(array(
-            'form'               => $form,
-            'formAction'         => $formAction,
-            'formTitle'          => $formTitle,
-            'formDescription'    => $formDescription,
-            'roleName'           => isset($roleRecord[0]['name']) ? $roleRecord[0]['name'] : null,
-            'roleId'             => isset($roleRecord[0]['id']) ? $roleRecord[0]['id'] : null,
-            'permissions'        => $permissionsWrapper->sortPerGroup($permissionsRecords),
-            'acl'                => $acl,
-            'formDataCommonPath' => 'backend/templates/common/',
-            'adminAccess'        => isset($roleRecord[0]['adminAccess']) ? $roleRecord[0]['adminAccess'] : null,
-            'templatePartial'    => 'users/roles-permissions-handler.phtml',
+            'form'                          => $form,
+            'formAction'                    => $formAction,
+            'formTitle'                     => $formTitle,
+            'formDescription'               => $formDescription,
+            'roleName'                      => isset($roleRecord[0]['name']) ? $roleRecord[0]['name'] : null,
+            'roleId'                        => isset($roleRecord[0]['id']) ? $roleRecord[0]['id'] : null,
+            'permissions'                   => $permissionsWrapper->sortPerGroup($permissionsRecords),
+            'acl'                           => $acl,
+            'formDataCommonPath'            => 'backend/templates/common/',
+            'adminAccess'                   => isset($roleRecord[0]['adminAccess']) ? $roleRecord[0]['adminAccess'] : null,
+            'formBreadCrumbTitle'           => 'Modifica',
+            'formBreadCrumbCategory' => array(
+                array(
+                    'label' => 'Utenti',
+                    'href'  =>  $this->url()->fromRoute('admin/users-summary', array('lang' => $lang) ),
+                    'title' => 'Elenco utenti',
+                ),
+                array(
+                    'label' => 'Ruoli',
+                    'href'  =>  $this->url()->fromRoute('admin/users-roles-summary', array('lang' => $lang)),
+                    'title' => 'Elenco ruoli',
+                ),
+            ),
+            'showRolePermissionsTemplate'   => 1,
+            'templatePartial'               => self::formTemplate,
         ));
 
         $this->layout()->setTemplate($mainLayout);

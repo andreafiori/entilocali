@@ -40,35 +40,6 @@ class ContenutiUpdateControllerTest extends TestSuite
         );
     }
 
-    public function testIndexActionReturnsRedirect()
-    {
-        $this->routeMatch->setParam('action', 'index');
-
-        $this->controller->dispatch($this->request);
-
-        $this->assertEquals(302, $this->controller->getResponse()->getStatusCode());
-    }
-
-    public function testIndexActionCorrectPostRequest()
-    {
-        $this->routeMatch->setParam('action', 'index');
-
-        $this->setupUserSession($this->recoverUserDetails());
-
-        $this->request->setMethod(Request::METHOD_POST)->getPost()->fromArray($this->formDataSample);
-
-        $this->controller->dispatch($this->request);
-
-        $this->assertEquals(200, $this->controller->getResponse()->getStatusCode());
-    }
-
-    public function testFormSampleDataIsValid()
-    {
-        $form = $this->setupForm($this->formDataSample);
-
-        $this->assertTrue($form->isValid());
-    }
-
     public function testFormSampleIsNotValid()
     {
         unset($this->formDataSample['titolo']);

@@ -1,0 +1,295 @@
+
+<div id="permissionsContainer" style="display: <?php echo ($this->adminAccess==1) ? "block" : "none" ?>">
+
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-10">
+            <h3>Permessi:</h3>
+        </div>
+    </div>
+
+    <div class="text-right">
+        <button id="btnSelectAll" type="button" class="btn btn-default" title="Seleziona tutti i permessi">Seleziona tutti</button>
+        <button id="btnDeselectAll" type="button" class="btn btn-default" title="Deseleziona tutti i permessi">Deseleziona tutti</button>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-2">&nbsp;</div>
+        <div class="col-sm-10">
+            <h3>Contenuti</h3>
+            <?php
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
+                    'records'  => $this->permissions['contenuti'],
+                    'roleName' => $this->roleName,
+                    'acl'      => $this->acl
+                )
+            );
+            ?>
+
+            <h4>Sezioni</h4>
+            <?php
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
+                    'records'  => $this->permissions['contenuti_sezioni'],
+                    'roleName' => $this->roleName,
+                    'acl'      => $this->acl
+                )
+            );
+            ?>
+
+            <h4>Sottosezioni</h4>
+            <?php
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
+                    'records'  => $this->permissions['contenuti_sottosezioni'],
+                    'roleName' => $this->roleName,
+                    'acl'      => $this->acl
+                )
+            );
+            ?>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-2">&nbsp;</div>
+        <div class="col-sm-5">
+            <h3>Albo Pretorio</h3>
+            <?php
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
+                    'records'  => $this->permissions['albo_pretorio'],
+                    'roleName' => $this->roleName,
+                    'acl'      => $this->acl
+                )
+            );
+            ?>
+            <h4> Sezioni</h4>
+            <?php
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
+                    'records'   => $this->permissions['albo_pretorio_sezioni'],
+                    'roleName'  => $this->roleName,
+                    'acl'       => $this->acl
+                )
+            );
+            ?>
+        </div>
+
+        <div class="col-sm-5">
+            <h3>Stato civile</h3>
+            <?php
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
+                    'records'   => $this->permissions['stato_civile'],
+                    'roleName'  => $this->roleName,
+                    'acl'       => $this->acl
+                )
+            );
+            ?>
+            <h4>Sezioni</h4>
+            <?php
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
+                    'records'   => $this->permissions['stato_civile_sezioni'],
+                    'roleName'  => $this->roleName,
+                    'acl'       => $this->acl
+                )
+            );
+            ?>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-2">&nbsp;</div>
+        <div class="col-sm-5">
+            <h3>Amministrazione Trasparente</h3>
+            <?php
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
+                    'records'   => $this->permissions['amministrazione_trsparente'],
+                    'roleName'  => $this->roleName,
+                    'acl'       => $this->acl
+                )
+            );
+            ?>
+
+            <h4>Sezioni</h4>
+            <?php
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
+                    'records'   => $this->permissions['amministrazione_trsparente_sezioni'],
+                    'roleName'  => $this->roleName,
+                    'acl'       => $this->acl
+                )
+            );
+            ?>
+
+            <h4>Sottosezioni</h4>
+            <?php
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
+                    'records'   => $this->permissions['amministrazione_trsparente_sottosezioni'],
+                    'roleName'  => $this->roleName,
+                    'acl'       => $this->acl
+                )
+            );
+            ?>
+        </div>
+
+        <div class="col-sm-5">
+            <h3>Atti di Concessione</h3>
+            <?php
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
+                    'records'   => $this->permissions['atti_concessione'],
+                    'roleName'  => $this->roleName,
+                    'acl'       => $this->acl
+                )
+            );
+            ?>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-2">&nbsp;</div>
+        <div class="col-sm-5">
+            <h3>Contratti pubblici</h3>
+            <?php
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
+                    'records'   => $this->permissions['contratti_pubblici'],
+                    'roleName'  => $this->roleName,
+                    'acl'       => $this->acl
+                )
+            );
+            ?>
+
+            <h4>Voci scelta contraente</h4>
+            <?php
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
+                    'records'   => $this->permissions['contratti_pubblici_scelta_contraente'],
+                    'roleName'  => $this->roleName,
+                    'acl'       => $this->acl
+                )
+            );
+            ?>
+
+            <h4>Operatori</h4>
+            <?php
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
+                    'records'   => $this->permissions['contratti_pubblici_opeatori'],
+                    'roleName'  => $this->roleName,
+                    'acl'       => $this->acl
+                )
+            );
+            ?>
+        </div>
+
+        <div class="col-sm-5">
+            <h3>Enti terzi</h3>
+            <?php
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
+                    'records'   => $this->permissions['enti_terzi'],
+                    'roleName'  => $this->roleName,
+                    'acl'       => $this->acl
+                )
+            );
+            ?>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-2">&nbsp;</div>
+        <div class="col-sm-5">
+            <h3>Blogs</h3>
+            <?php
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
+                    'records'   => $this->permissions['blogs'],
+                    'roleName'  => $this->roleName,
+                    'acl'       => $this->acl
+                )
+            );
+            ?>
+
+            <h4>Categorie</h4>
+            <?php
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
+                    'records'   => $this->permissions['blogs_categories'],
+                    'roleName'  => $this->roleName,
+                    'acl'       => $this->acl
+                )
+            );
+            ?>
+        </div>
+
+        <div class="col-sm-5">
+            <h3>Foto</h3>
+            <?php
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
+                    'records'   => $this->permissions['photo'],
+                    'roleName'  => $this->roleName,
+                    'acl'       => $this->acl
+                )
+            );
+            ?>
+
+            <h4>Categorie</h4>
+            <?php
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
+                    'records'   => $this->permissions['photo_categories'],
+                    'roleName'  => $this->roleName,
+                    'acl'       => $this->acl
+                )
+            );
+            ?>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-2">&nbsp;</div>
+        <div class="col-sm-10">
+            <h3>Gestione Utenti</h3>
+            <?php
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
+                    'records'   => $this->permissions['users'],
+                    'roleName'  => $this->roleName,
+                    'acl'       => $this->acl
+                )
+            );
+            ?>
+
+            <h4>Ruoli</h4>
+            <?php
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
+                    'records'   => $this->permissions['users_roles'],
+                    'roleName'  => $this->roleName,
+                    'acl'       => $this->acl
+                )
+            );
+            ?>
+
+            <h4>Settori</h4>
+            <?php
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
+                    'records'   => $this->permissions['users_settori'],
+                    'roleName'  => $this->roleName,
+                    'acl'       => $this->acl
+                )
+            );
+            ?>
+
+            <h4>Responsabili procedimento</h4>
+            <?php
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
+                    'records'   => $this->permissions['users_resp_proc'],
+                    'roleName'  => $this->roleName,
+                    'acl'       => $this->acl
+                )
+            );
+            ?>
+        </div>
+    </div>
+    <?php // if ($this->currentRoleName === 'WebMaster'): TODO: check on current role name ?>
+    <!--
+    <div class="row">
+        <div class="col-sm-2">&nbsp;</div>
+        <div class="col-sm-10">
+            <h3>Strumenti per Webmaster</h3>
+            <div><input type="checkbox" name="permission[migration_tool]"> Tool migrazione dati</div>
+            <div><input type="checkbox" name="permission[log_management]"> Gestione Log</div>
+            <div><input type="checkbox" name="permission[backup_database]"> Backup database</div>
+        </div>
+    </div>
+    -->
+    <?php // endif; ?>
+</div>

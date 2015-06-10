@@ -3,100 +3,90 @@
 namespace ModelModule\Model\AttiConcessione;
 
 use ModelModule\Model\ControllerHelperAbstract;
-use ModelModule\Model\Users\Settori\UsersSettoriGetterWrapper;
-use ModelModule\Model\NullException;
+use ModelModule\Model\Database\DbTableContainer;
+use Zend\InputFilter\InputFilterAwareInterface;
 
 class AttiConcessioneControllerHelper extends ControllerHelperAbstract
 {
-    private $attiConcessioneGetterWrapper;
-
-    private $attiConcessioneGetterWrapperWithPaginator;
-
-    private $yearsRecords;
-
-    private $usersSettoriGetterWrapper;
-
-    private $usersSettoriRecords;
-
     /**
-     * @param AttiConcessioneGetterWrapper $wrapper
+     * @param InputFilterAwareInterface $formData
+     * @return int
      */
-    public function setAttiConcessioneGetterWrapper(AttiConcessioneGetterWrapper $wrapper)
+    public function insert(InputFilterAwareInterface $formData)
     {
-        $this->attiConcessioneGetterWrapper = $wrapper;
+        $this->assertConnection();
+
+        $this->assertLoggedUser();
+
+        $userDetails = $this->getLoggedUser();
+
+        return $this->getConnection()->insert(
+            DbTableContainer::attiConcessione,
+            array(
+                'titolo'                => $formData->titolo,
+                'beneficiario'          => $formData->beneficiario,
+                'importo'               => $formData->importo,
+                'mod_assegnazione_id'   => $formData->modAssegnazione,
+                'data'                  => $formData->dataInserimento,
+                'anno'                  => $formData->anno,
+                'settore_id'            => $formData->ufficioResponsabile,
+                'resp_proc_id'          => $formData->respProc,
+                'utente_id'             => $userDetails->id,
+            )
+        );
     }
 
     /**
-     * @throws NullException
+     * @param InputFilterAwareInterface $formData
+     * @return int
      */
-    private function assertAttiConcessioneGetterWrapper()
+    public function update(InputFilterAwareInterface $formData)
     {
-        if (!$this->getAttiConcessioneGetterWrapper()) {
-            throw new NullException("AttiConcessioneGetterWrapper is not set");
+        $this->assertConnection();
+
+        $arrayToUpdate = array(
+            'titolo'                => $formData->titolo,
+            'beneficiario'          => $formData->beneficiario,
+            'importo'               => $formData->importo,
+            'mod_assegnazione_id'   => $formData->modAssegnazione,
+            'data'                  => $formData->dataInserimento,
+            'anno'                  => $formData->anno,
+            'settore_id'            => $formData->ufficioResponsabile,
+            'resp_proc_id'          => $formData->respProc,
+        );
+
+        if (isset($formData->utente)) {
+            $arrayToUpdate['utente_id'] = $formData->utente;
         }
+
+        return $this->getConnection()->update(
+            DbTableContainer::attiConcessione,
+            $arrayToUpdate,
+            array('id'    => $formData->id),
+            array('limit' => 1)
+        );
     }
 
     /**
-     * @param array $input
-     * @param int $page
-     * @param int $perPage
+     * @param $recordset
+     * @return array
      */
-    public function setupAttiConcessioneGetterWrapperWithPaginator($input = array(), $page, $perPage)
+    public function formatResponsabiliForDropdown($recordset)
     {
-        $this->assertAttiConcessioneGetterWrapper();
+        if (is_array($recordset)) {
 
-        $wrapper = $this->getAttiConcessioneGetterWrapper();
-        $wrapper->setInput($input);
-        $wrapper->setupQueryBuilder();
-        $wrapper->setupPaginator( $wrapper->setupQuery($wrapper->getObjectGetter()->getEntityManager()) );
-        $wrapper->setEntityManager($wrapper->getObjectGetter()->getEntityManager());
-        $wrapper->setupPaginatorCurrentPage($page);
-        $wrapper->setupPaginatorItemsPerPage($perPage);
+            $responsabiliProcedimento = array();
 
-        $this->attiConcessioneGetterWrapperWithPaginator = $wrapper;
-    }
+            foreach($recordset as $record) {
+                if (isset($record['name']) and isset($record['surname'])) {
+                    $responsabiliProcedimento[$record['id']] = $record['name'].' '.$record['surname'];
+                }
+            }
 
-    /**
-     * @return AttiConcessioneGetterWrapper
-     */
-    public function getAttiConcessioneGetterWrapperWithPaginator()
-    {
-        return $this->attiConcessioneGetterWrapperWithPaginator;
-    }
+            return $responsabiliProcedimento;
+        }
 
-    public function setupYearsRecords()
-    {
-        $this->assertAttiConcessioneGetterWrapper();
-
-        $wrapper = $this->getAttiConcessioneGetterWrapper();
-        $wrapper->setInput(array('fields' => 'DISTINCT(atti.anno) AS year', 'orderBy' => 'atti.id DESC'));
-        $wrapper->setupQueryBuilder();
-
-        $this->yearsRecords = $wrapper->getRecords();
-    }
-
-    /**
-     * @return UsersSettoriGetterWrapper
-     */
-    public function getUsersSettoriGetterWrapper()
-    {
-        return $this->usersSettoriGetterWrapper;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getYearsRecords()
-    {
-        return $this->yearsRecords;
-    }
-
-    /**
-     * @return AttiConcessioneGetterWrapper
-     */
-    public function getAttiConcessioneGetterWrapper()
-    {
-        return $this->attiConcessioneGetterWrapper;
+        return null;
     }
 
     /**
@@ -106,6 +96,7 @@ class AttiConcessioneControllerHelper extends ControllerHelperAbstract
     public function formatYears($years)
     {
         if (!empty($years)) {
+
             $yearsForDropdown = array();
             foreach($years as $year) {
                 if (isset($year['year'])) {
@@ -117,45 +108,5 @@ class AttiConcessioneControllerHelper extends ControllerHelperAbstract
         }
 
         return false;
-    }
-
-    /**
-     * @param UsersSettoriGetterWrapper $wrapper
-     */
-    public function setUsersSettoriGetterWrapper(UsersSettoriGetterWrapper $wrapper)
-    {
-        $this->usersSettoriGetterWrapper = $wrapper;
-    }
-
-    public function setupSettoriRecords($input)
-    {
-        $this->assertUsersSettoriGetterWrapper();
-
-        $this->usersSettoriGetterWrapper->setInput($input);
-        $this->usersSettoriGetterWrapper->setupQueryBuilder();
-
-        $this->usersSettoriRecords = $this->usersSettoriGetterWrapper->formatForDropwdown(
-            $this->usersSettoriGetterWrapper->getRecords(),
-            'id',
-            'nome'
-        );
-    }
-
-    /**
-     * @return array
-     */
-    public function getUsersSettoriRecords()
-    {
-        return $this->usersSettoriRecords;
-    }
-
-    /**
-     * @throws NullException
-     */
-    private function assertUsersSettoriGetterWrapper()
-    {
-        if ( !$this->getUsersSettoriGetterWrapper() ) {
-            throw new NullException("UsersSettoriGetterWrapper is not set");
-        }
     }
 }

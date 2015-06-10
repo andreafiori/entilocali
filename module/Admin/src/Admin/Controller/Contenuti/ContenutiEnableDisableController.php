@@ -58,11 +58,12 @@ class ContenutiEnableDisableController extends SetupAbstractController
         } catch(\Exception $e) {
 
             $operationModel->getLogWriter()->writeLog(array(
-                'user_id'   => isset($userDetails->id) ? $userDetails->id : 1,
-                'module_id' => ModulesContainer::contenuti_id,
-                'message'   => "Contenuto reso visibile al sito pubblico",
-                'type'      => 'error',
-                'backend'   => 1,
+                'user_id'   	=> isset($userDetails->id) ? $userDetails->id : 1,
+                'module_id' 	=> ModulesContainer::contenuti_id,
+                'message'   	=> "Errore nell'operazione di resa visibile contenuto al sito pubblico",
+                'type'      	=> 'error',
+                'reference_id'	=> $id,
+                'backend'   	=> 1,
             ));
 
             $this->layout()->setVariables(array(
@@ -143,7 +144,7 @@ class ContenutiEnableDisableController extends SetupAbstractController
          * @param $id
          * @param $connection
          * @return ContenutiOperationsModel
-         * @throws \Application\Model\NullException
+         * @throws \ModelModule\Model\NullException
          */
         private function setupContenutiOperations($em, $connection, $id, $attivoValue = 1)
         {

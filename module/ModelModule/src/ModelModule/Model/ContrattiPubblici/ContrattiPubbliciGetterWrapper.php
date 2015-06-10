@@ -4,14 +4,8 @@ namespace ModelModule\Model\ContrattiPubblici;
 
 use ModelModule\Model\ContrattiPubblici\Operatori\OperatoriAggiudicatariGetter;
 use ModelModule\Model\ContrattiPubblici\Operatori\OperatoriAggiudicatariGetterWrapper;
-use ModelModule\Model\ContrattiPubblici\Operatori\OperatoriGetter;
-use ModelModule\Model\ContrattiPubblici\Operatori\OperatoriGetterWrapper;
 use ModelModule\Model\RecordsGetterWrapperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  14 August 2014
- */
 class ContrattiPubbliciGetterWrapper extends RecordsGetterWrapperAbstract
 {
     /**
@@ -93,14 +87,4 @@ class ContrattiPubbliciGetterWrapper extends RecordsGetterWrapperAbstract
 
             return $this->operatoriAggiudicatariGetterWrapper;
         }
-
-    /**
-     * TODO: add attachment files selection
-     *
-     * @param array $records
-     */
-    public function addAttachments(array $records)
-    {
-        // TODO: add attachments to records array
-    }
 }

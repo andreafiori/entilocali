@@ -62,8 +62,9 @@ class AlboPretorioSezioniUpdateController extends SetupAbstractController
             $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
                 'module_id'     => ModulesContainer::albo_pretorio_id,
-                'message'       => "Aggiornata sezione albo pretorio ".$inputFilter->nome. " ID: ".$inputFilter->id,
+                'message'       => "Aggiornata sezione albo pretorio ".$inputFilter->nome,
                 'type'          => 'info',
+                'description'   => '',
                 'reference_id'  => $inputFilter->id,
                 'backend'       => 1,
             ));
@@ -90,6 +91,7 @@ class AlboPretorioSezioniUpdateController extends SetupAbstractController
                 'module_id'     => ModulesContainer::albo_pretorio_id,
                 'message'       => "Errore aggiornamento sezione albo pretorio",
                 'type'          => 'error',
+                'description'   => $e->getMessage(),
                 'reference_id'  => $inputFilter->id,
                 'backend'       => 1,
             ));

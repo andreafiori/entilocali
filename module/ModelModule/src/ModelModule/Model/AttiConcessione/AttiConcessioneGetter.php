@@ -4,10 +4,6 @@ namespace ModelModule\Model\AttiConcessione;
 
 use ModelModule\Model\QueryBuilderHelperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  12 December 2014
- */
 class AttiConcessioneGetter extends QueryBuilderHelperAbstract
 {
     /**
@@ -21,13 +17,13 @@ class AttiConcessioneGetter extends QueryBuilderHelperAbstract
                 IDENTITY(atti.settore) AS ufficioResponsabile, IDENTITY(atti.respProc) AS respProc,
                 IDENTITY(atti.modAssegnazione) AS modAssegnazione,
 
-                u.id, u.name, u.surname,
+                u.id AS userId, u.name, u.surname,
 
-                modAssegn.id, modAssegn.nome AS nomemodAssegnazione,
+                modAssegn.id AS modAssegnId, modAssegn.nome AS nomemodAssegnazione,
                 
                 asettori.nome AS nomeSezione,
 
-                IDENTITY( respProcedimento.user ) AS idResponsabileProc,
+                IDENTITY( respProcedimento.user ) AS respProId,
                 respProcedimentoUser.name AS nomeResponsabileProc,
                 respProcedimentoUser.surname AS cognomeResponsabileProc
         ");

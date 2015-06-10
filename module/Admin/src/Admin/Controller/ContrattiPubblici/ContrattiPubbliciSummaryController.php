@@ -94,6 +94,7 @@ class ContrattiPubbliciSummaryController extends SetupAbstractController
                     "&nbsp;",
                     "&nbsp;",
                     "&nbsp;",
+                    "&nbsp;",
                     "&nbsp;"
                 ),
                 'paginator'         => $paginator,
@@ -115,12 +116,12 @@ class ContrattiPubbliciSummaryController extends SetupAbstractController
             if ($records) {
                 foreach($records as $key => $row) {
                     $arrayToReturn[] = array(
-                        "<strong>CIG:</strong> ".$row['cig']."<br><br><strong>Oggetto del bando</strong>: ".$row['titolo']."<br><br><strong>Anno:</strong> ".$row['anno']."<br><br> <strong>Data Contratto:</strong> ".$row['data'],
+                        "<strong>CIG:</strong> ".$row['cig']."<br><br><strong>Oggetto del bando</strong>: ".$row['titolo']."<br><br><strong>Anno:</strong> ".$row['anno']."<br><br> <strong>Data contratto:</strong> ".$row['dataInserimento'],
                         "<strong>CF:</strong> <br><br><strong>Str. prop.:</strong> ".$row['nomeSettore']."<br><br> <strong>Resp. Proc.:</strong> ".$row['responsabileUsersName'],
                         "<br><strong>Data aggiudicazione:</strong> <br><br> <strong>Importo di aggiudicazione (Euro):</strong> ".$row['importoAggiudicazione'],
                         '<strong>Numero di offerte ammesse:</strong> '.$row['numeroOfferte']."<br><br><strong>Procedura di scelta del contraente:</strong> ".$row['nomeScelta'],
                         $row['importoLiquidato'],
-                        "<strong>Inizio lavori:</strong> ".$row['dataInizioLavori']."<br><br> <strong>Fine lavori:</strong> ".$row['dataFineLavori']."<br><br> Scadenza: ".$row['scadenza'],
+                        "<strong>Inizio lavori:</strong> ".$row['dataInizioLavori']."<br><br> <strong>Fine lavori:</strong> ".$row['dataFineLavori']."<br><br> <strong>Scadenza:</strong> ".$row['scadenza'],
                         array(
                             'type'      => 'tableButton',
                             'href'      => 'contratti-pubblici-aggiudicatari/elenco/'.$row['id'],
@@ -146,6 +147,11 @@ class ContrattiPubbliciSummaryController extends SetupAbstractController
                             'href'      => '#',
                             'title'     => 'Elimina',
                             'data-id'   => $row['id']
+                        ),
+                        array(
+                            'type'      => 'homepageDelButton',
+                            'href'      => '#',
+                            'value'     => 'homepageDelButton',
                         ),
                         array(
                             'type' => 'attachButton',

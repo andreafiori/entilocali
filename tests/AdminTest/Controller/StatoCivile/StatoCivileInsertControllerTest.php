@@ -44,6 +44,10 @@ class StatoCivileInsertControllerTest extends InsertUpdateTestSuite
         $this->assertFalse($form->isValid());
     }
 
+    /**
+     * @param $formDataSample
+     * @return StatoCivileForm
+     */
     protected function setupForm($formDataSample)
     {
         $form = new StatoCivileForm();

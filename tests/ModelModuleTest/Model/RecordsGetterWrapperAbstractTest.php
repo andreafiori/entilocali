@@ -2,6 +2,7 @@
 
 namespace ModelModuleTest\Model;
 
+use ModelModule\Model\Contenuti\ContenutiGetter;
 use ModelModuleTest\TestSuite;
 
 class RecordsGetterWrapperAbstractTest extends TestSuite
@@ -31,5 +32,22 @@ class RecordsGetterWrapperAbstractTest extends TestSuite
     public function testGetRecordsThrowsException()
     {
         $this->recordsGetterWrapperAbstract->getRecords();
+    }
+
+    public function testSetObjectGetter()
+    {
+        $this->recordsGetterWrapperAbstract->setObjectGetter(new ContenutiGetter($this->getEntityManagerMock()));
+
+        $this->assertInstanceOf(
+            '\ModelModule\Model\QueryBuilderHelperAbstract',
+            $this->recordsGetterWrapperAbstract->getObjectGetter()
+        );
+    }
+
+    public function testSetEntityManager()
+    {
+        $this->recordsGetterWrapperAbstract->setEntityManager($this->getEntityManagerMock());
+
+        $this->assertInstanceOf('Doctrine\ORM\EntityManager', $this->recordsGetterWrapperAbstract->getEntityManager());
     }
 }

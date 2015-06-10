@@ -4,7 +4,6 @@ namespace ModelModule\Model;
 
 use ModelModule\Model\Languages\LanguagesFormSearch;
 use ModelModule\Model\Languages\LanguagesGetterWrapper;
-use ModelModule\Model\NullException;
 use ModelModule\Model\Users\UsersGetterWrapper;
 use ModelModule\Model\HomePage\HomePageBlocksGetterWrapper;
 use ModelModule\Model\Database\DbTableContainer;

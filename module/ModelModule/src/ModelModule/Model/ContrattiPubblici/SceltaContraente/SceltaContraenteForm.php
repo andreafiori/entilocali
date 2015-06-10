@@ -4,10 +4,6 @@ namespace ModelModule\Model\ContrattiPubblici\SceltaContraente;
 
 use Zend\Form\Form;
 
-/**
- * @author Andrea Fiori
- * @since 16 August 2014
- */
 class SceltaContraenteForm extends Form
 {
     /**

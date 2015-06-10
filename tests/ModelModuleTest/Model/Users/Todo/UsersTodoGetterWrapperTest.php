@@ -2,14 +2,10 @@
 
 namespace ModelModuleTest\Model\Users\Todo;
 
-use ModelModuleTest\TestSuite;
 use ModelModule\Model\Users\Todo\UsersTodoGetter;
 use ModelModule\Model\Users\Todo\UsersTodoGetterWrapper;
+use ModelModuleTest\TestSuite;
 
-/**
- * @author Andrea Fiori
- * @since  29 March 2015
- */
 class UsersTodoGetterWrapperTest extends TestSuite
 {
     /**

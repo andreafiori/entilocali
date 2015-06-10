@@ -87,6 +87,11 @@ class AlboPretorioInsertController extends SetupAbstractController
                     'lang'              => $this->params()->fromRoute('lang'),
                 )),
                 'backToSummaryText'     => "Elenco atti albo pretorio",
+                'attachmentsLink' => $this->url()->fromRoute('admin/attachments-summary', array(
+                    'lang'          => $this->params()->fromRoute('lang'),
+                    'module'        => 'albo-pretorio',
+                    'referenceId'   => $lastInsertId,
+                )),
             ));
 
         } catch(\Exception $e) {
@@ -102,6 +107,8 @@ class AlboPretorioInsertController extends SetupAbstractController
                 'user_id'       => $userDetails->id,
                 'module_id'     => ModulesContainer::albo_pretorio_id,
                 'message'       => "Errore inserimento atto albo pretorio ".$inputFilter->titolo,
+                'description'   => $e->getMessage(),
+                'reference_id'  => $inputFilter->id,
                 'type'          => 'error',
                 'backend'       => 1,
             ));
@@ -109,7 +116,7 @@ class AlboPretorioInsertController extends SetupAbstractController
             $this->layout()->setVariables(array(
                 'messageType'           => 'danger',
                 'messageTitle'          => 'Errore inserimento dati',
-                'messageText'           => 'Messaggio generato: '.$e->getMessage(),
+                'messageText'           => $e->getMessage(),
                 'form'                  => $form,
                 'formInputFilter'       => $inputFilter->getInputFilter(),
                 'messageShowFormLink'   => 1,

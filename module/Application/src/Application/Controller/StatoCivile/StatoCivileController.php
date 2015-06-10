@@ -6,8 +6,8 @@ use Application\Controller\SetupAbstractController;
 use ModelModule\Model\StatoCivile\StatoCivileFormSearch;
 use ModelModule\Model\StatoCivile\StatoCivileGetter;
 use ModelModule\Model\StatoCivile\StatoCivileGetterWrapper;
-use ModelModule\Model\StatoCivile\StatoCivileSezioniGetter;
-use ModelModule\Model\StatoCivile\StatoCivileSezioniGetterWrapper;
+use ModelModule\Model\StatoCivile\Sezioni\StatoCivileSezioniGetter;
+use ModelModule\Model\StatoCivile\Sezioni\StatoCivileSezioniGetterWrapper;
 use ModelModule\Model\StatoCivile\StatoCivileControllerHelper;
 
 class StatoCivileController extends SetupAbstractController

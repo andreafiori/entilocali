@@ -5,10 +5,6 @@ namespace ModelModuleTest\Model\Users;
 use ModelModuleTest\TestSuite;
 use ModelModule\Model\Users\UsersGetter;
 
-/**
- * @author Andrea Fiori
- * @since  16 June 2014
- */
 class UsersGetterTest extends TestSuite
 {
     /**

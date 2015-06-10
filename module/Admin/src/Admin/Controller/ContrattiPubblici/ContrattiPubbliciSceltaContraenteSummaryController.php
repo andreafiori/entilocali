@@ -27,6 +27,7 @@ class ContrattiPubbliciSceltaContraenteSummaryController extends SetupAbstractCo
         );
 
         $paginator = $sceltaContraenteWrapper->getPaginator();
+
         $paginatorRecords = $sceltaContraenteWrapper->setupRecords();
 
         $this->layout()->setVariables(array(
@@ -38,8 +39,8 @@ class ContrattiPubbliciSceltaContraenteSummaryController extends SetupAbstractCo
                 "&nbsp;",
                 "&nbsp;",
             ),
-            'paginator'         => $paginator,
-            'records'           => $this->formatRecordsToShowOnTable($paginatorRecords),
+            'paginator'               => $paginator,
+            'records'                 => $this->formatRecordsToShowOnTable($paginatorRecords),
             'dataTableActiveTitle'    => 'Voci scelta contraente',
             'formBreadCrumbCategory' => array(
                 array(
@@ -67,19 +68,19 @@ class ContrattiPubbliciSceltaContraenteSummaryController extends SetupAbstractCo
                 foreach($records as $key => $row) {
                     $arrayToReturn[] = array(
                         $row['nomeScelta'],
-                        $row['attivo'],
+                        ($row['attivo']==1) ? 'Attivo' : 'Nascosto',
                         array(
                             'type'      => 'updateButton',
                             'href'      => $this->url()->fromRoute('admin/contratti-pubblici-scelta-contraente-form', array(
                                 'lang'  => $this->params()->fromRoute('lang'),
                                 'id'    => $row['id'],
                             )),
-                            'title'     => 'Modifica'
+                            'title'     => 'Modifica voce scelta contraente'
                         ),
                         array(
                             'type'      => 'deleteButton',
                             'href'      => '#',
-                            'title'     => 'Elimina',
+                            'title'     => 'Elimina voce scelta contraente',
                             'data-id'   => $row['id']
                         ),
                     );

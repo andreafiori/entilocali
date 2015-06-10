@@ -12,7 +12,8 @@ $shareExportView = $this->partial('frontend/projects/entilocali/templates/'.$thi
 
 <?php if ($this->messageType): ?>
 
-    <div data-alert class="alert-box success warning">
+    <!-- Error \ Warning -->
+    <div data-alert class="alert-box success secondary">
         <h2>Si &egrave; verificato un problema:</h2>
         <?php echo $this->messageText ?>
     </div>

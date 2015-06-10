@@ -200,14 +200,16 @@ abstract class OperationsModelAbstract
 
     /**
      * @param array $recordset
-     * @param $idFieldName
-     * @param $valueFieldName
+     * @param string $idFieldName
+     * @param string $valueFieldName
      * @return array|bool
      */
     public function formatForDropwdown($recordset, $idFieldName, $valueFieldName)
     {
         if (!empty($recordset)) {
+
             $arrayToReturn = array();
+
             foreach($recordset as $record) {
 
                 if (!isset($record[$idFieldName])) {
@@ -216,6 +218,7 @@ abstract class OperationsModelAbstract
 
                 $arrayToReturn[$record[$idFieldName]] = isset($record[$valueFieldName]) ? $record[$valueFieldName] : null;
             }
+
             return $arrayToReturn;
         }
 

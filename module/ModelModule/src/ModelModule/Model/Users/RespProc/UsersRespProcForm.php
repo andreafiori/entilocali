@@ -4,12 +4,16 @@ namespace ModelModule\Model\Users\RespProc;
 
 use Zend\Form\Form;
 
-/**
- * @author Andrea Fiori
- * @since  25 March 2015
- */
 class UsersRespProcForm extends Form
 {
+    /**
+     * @inheritdoc
+     */
+    public function __construct($name = null, $options = array())
+    {
+        parent::__construct($name, $options);
+    }
+
     /**
      * @param array $records
      */

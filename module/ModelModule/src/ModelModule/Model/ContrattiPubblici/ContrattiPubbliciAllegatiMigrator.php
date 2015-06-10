@@ -4,10 +4,6 @@ namespace ModelModule\Model\ContrattiPubblici;
 
 use ModelModule\Model\Migrazione\MigratorAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  05 March 2015
- */
 class ContrattiPubbliciAllegatiMigrator extends MigratorAbstract
 {
     public function migrate()

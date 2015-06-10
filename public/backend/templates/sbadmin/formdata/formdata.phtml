@@ -49,6 +49,19 @@ if (!$this->form):
                     'noFormActionPrefix'    => $this->noFormActionPrefix,
                 )
             );
+
+            if ($this->showRolePermissionsTemplate):
+                echo $this->partial(
+                    $this->templateDir.'users/_roles-permissions-handler.phtml',
+                    array(
+                        'rolename'    => $this->rolename,
+                        'acl'         => $this->acl,
+                        'permissions' => $this->permissions,
+                        'adminAccess' => $this->adminAccess,
+                        'templateDir' => $this->templateDir,
+                    )
+                );
+            endif;
         ?>
 
         <div class="form-group">
@@ -127,6 +140,23 @@ if (!$this->form):
     </div>
 
     <script>
+        /* Users Roles JS */
+        $('#adminAccess').change(function() {
+            if ($(this).val()==1) {
+                $('#permissionsContainer').show();
+            } else {
+                $('#permissionsContainer').hide();
+            }
+        });
+
+        $('#btnSelectAll').click(function() {
+            $('input[type=checkbox]').prop('checked', 'checked');
+        });
+
+        $('#btnDeselectAll').click(function() {
+            $('input[type=checkbox]').prop('checked', '');
+        });
+
         <?php if ($this->imageValidation): ?>
         /* Check File size and extension */
         $('#image').bind('change', function() {

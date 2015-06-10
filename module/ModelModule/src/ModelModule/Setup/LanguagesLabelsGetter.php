@@ -2,9 +2,9 @@
 
 namespace ModelModule\Setup;
 
-use ModelModule\Model\QueryBuilderSetterAbstract;
+use ModelModule\Model\QueryBuilderHelperAbstract;
 
-class LanguagesLabelsGetter extends QueryBuilderSetterAbstract
+class LanguagesLabelsGetter extends QueryBuilderHelperAbstract
 {
     public function setLanguagesLabels()
     {

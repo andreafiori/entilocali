@@ -2,6 +2,7 @@
 
 namespace Admin\Controller\AttiConcessione;
 
+use ModelModule\Model\AttiConcessione\AttiConcessioneControllerHelper;
 use ModelModule\Model\AttiConcessione\AttiConcessioneGetter;
 use ModelModule\Model\AttiConcessione\AttiConcessioneGetterWrapper;
 use ModelModule\Model\AttiConcessione\AttiConcessioneForm;
@@ -20,118 +21,97 @@ class AttiConcessioneFormController extends SetupAbstractController
         $mainLayout = $this->initializeAdminArea();
 
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+
         $id = $this->params()->fromRoute('id');
+        $lang = $this->params()->fromRoute('lang');
 
-        $wrapper = new UsersRespProcGetterWrapper( new UsersRespProcGetter($em) );
-        $wrapper->setInput(array());
-        $wrapper->setupQueryBuilder();
+        try {
 
-        $records = $wrapper->getRecords();
+            $helper = new AttiConcessioneControllerHelper();
 
-        $responsabiliProcedimento = array();
-        foreach($records as $record) {
-            if (isset($record['name']) and isset($record['surname'])) {
-                $responsabiliProcedimento[$record['id']] = $record['name'].' '.$record['surname'];
+            $respProcRecords = $helper->recoverWrapperRecords(
+                new UsersRespProcGetterWrapper(new UsersRespProcGetter($em)),
+                array()
+            );
+
+            $helper->checkRecords($respProcRecords, 'Nessun responsabile procedimento');
+
+            $respProcForDropdown = $helper->formatResponsabiliForDropdown($respProcRecords);
+
+            $sezioniRecords = $helper->recoverWrapperRecords(
+                new UsersSettoriGetterWrapper(new UsersSettoriGetter($em)),
+                array('orderBy' => 'settore.nome')
+            );
+            $helper->checkRecords($sezioniRecords, 'Nessuna sezione presente');
+
+            $sezioniRecordsForDropDown = $helper->formatForDropwdown($sezioniRecords, 'id', 'nome');
+
+            $modalitaAssegnazioneRecords = $helper->recoverWrapperRecords(
+                new AttiConcessioneModalitaAssegnazioneGetterWrapper(
+                    new AttiConcessioneModalitaAssegnazioneGetter($em)
+                ),
+                array()
+            );
+            $modAssegnForDropdown = $helper->formatForDropwdown($modalitaAssegnazioneRecords, 'id', 'nome');
+
+            $attiRecords = $helper->recoverWrapperRecordsById(
+                new AttiConcessioneGetterWrapper(new AttiConcessioneGetter($em)),
+                array('aa.id' => $id, 'limit' => 1),
+                $id
+            );
+
+            $form = new AttiConcessioneForm();
+            $form->addUfficioResponsabile($sezioniRecordsForDropDown);
+            $form->addResponsabileProcedimento($respProcForDropdown);
+            $form->addModalitaAssegnazione($modAssegnForDropdown);
+            $form->addTitoloDataInserimentoEAnno();
+
+            if (!empty($attiRecords)) {
+                $formAction         = $this->url()->fromRoute('admin/atti-concessione-update', array(
+                    'lang' => $lang
+                ));
+                $formTitle          = 'Modifica atto di concessione';
+                $formDescription    = 'Modifica nuovo atto di concessione';
+
+                $form->setData($attiRecords[0]);
+
+            } else {
+
+                $form->setData(array('anno' => date('Y')+5));
+
+                $formAction      = $this->url()->fromRoute('admin/atti-concessione-insert', array(
+                    'lang' => $lang
+                ));
+                $formTitle       = 'Nuovo atto di concessione';
+                $formDescription = 'Inserisci nuovo atto di concessione';
             }
-        }
 
-        if (empty($responsabiliProcedimento)) {
-
-            $this->layout()->setVariables(array(
-                'templatePartial'   => 'message.phtml',
-                'messageType'       => 'warning',
-                'messageTitle'      => 'Nessun responsabile procedimento',
-                'messageText'       => "Inserire almeno un responsabile procedimento"
-            ));
-
-            $this->layout()->setTemplate($mainLayout);
-
-            return false;
-        }
-
-        $wrapper = new UsersSettoriGetterWrapper( new UsersSettoriGetter($em) );
-        $wrapper->setInput( array('orderBy' => 'settore.nome') );
-        $wrapper->setupQueryBuilder();
-
-        $sezioniRecordsFromWrapper = $wrapper->getRecords();
-
-        $sezioniRecords = array();
-        foreach($sezioniRecordsFromWrapper as $record) {
-            $sezioniRecords[$record['id']] = $record['nome'];
-        }
-
-        if (empty($sezioniRecords)) {
-
-            $this->layout()->setVariables(array(
-                'templatePartial'   => 'message.phtml',
-                'messageType'       => 'warning',
-                'messageTitle'      => 'Nessuna sezione',
-                'messageText'       => "Non &egrave; possibile inserire un nuovo atto. Inserire almeno una sezione."
-            ));
+            $this->layout()->setVariables( array(
+                    'form'                       => $form,
+                    'formAction'                 => $formAction,
+                    'formTitle'                  => $formTitle,
+                    'formDescription'            => $formDescription,
+                    'formBreadCrumbCategory'     => 'Atti di concessione',
+                    'formBreadCrumbCategoryLink' => $this->url()->fromRoute('admin/atti-concessione-summary', array(
+                        'lang' => $lang
+                    )),
+                    'noFormActionPrefix'         => 1,
+                    'templatePartial'            => self::formTemplate,
+                )
+            );
 
             $this->layout()->setTemplate($mainLayout);
 
-            return false;
+        } catch(\Exception $e) {
+
+            $this->layout()->setVariables(array(
+                'messageType'       => 'danger',
+                'messageTitle'      => 'Errore o problema verificato',
+                'messageText'       => $e->getMessage(),
+                'templatePartial'   => 'message.phtml',
+            ));
+
+            $this->layout()->setTemplate($mainLayout);
         }
-
-        $wrapper = new AttiConcessioneModalitaAssegnazioneGetterWrapper(
-            new AttiConcessioneModalitaAssegnazioneGetter($em)
-        );
-        $wrapper->setInput(array());
-        $wrapper->setupQueryBuilder();
-
-        $records = $wrapper->getRecords();
-
-        $modalitaAssegnazioneRecords = array();
-        foreach($records as $record) {
-            $modalitaAssegnazioneRecords[$record['id']] = $record['nome'];
-        }
-
-        $form = new AttiConcessioneForm();
-        $form->addUfficioResponsabile($sezioniRecords);
-        $form->addResponsabileProcedimento($responsabiliProcedimento);
-        $form->addModalitaAssegnazione($modalitaAssegnazioneRecords);
-        $form->addTitoloDataInserimentoEAnno();
-
-        $routeOptionId = isset($id) ? $id : null;
-
-        if ( is_numeric($routeOptionId) ) {
-            $wrapper = new AttiConcessioneGetterWrapper( new AttiConcessioneGetter($em) );
-            $wrapper->setInput( array('aa.id' => $routeOptionId, 'limit' => 1) );
-            $wrapper->setupQueryBuilder();
-
-            $attiRecords =  $wrapper->getRecords();
-        }
-
-        if (!empty($attiRecords)) {
-            $formAction         = 'atti-concessione/update';
-            $formTitle          = 'Modifica atto di concessione';
-            $formDescription    = 'Modifica nuovo atto di concessione';
-
-            $attiRecords[0]['importo'] = utf8_encode($attiRecords[0]['importo']);
-
-            $form->setData($attiRecords[0]);
-
-        } else {
-
-            $form->setData(array('anno' => date('Y')+5));
-
-            $formAction      = 'atti-concessione/insert';
-            $formTitle       = 'Nuovo atto di concessione';
-            $formDescription = 'Inserisci nuovo atto di concessione';
-        }
-
-        $this->layout()->setVariables( array(
-            'form'                       => $form,
-            'formAction'                 => $formAction,
-            'formTitle'                  => $formTitle,
-            'formDescription'            => $formDescription,
-            'templatePartial'            => self::formTemplate,
-            'formBreadCrumbCategory'     => 'Atti di concessione',
-            'formBreadCrumbCategoryLink' => $this->url()->fromRoute('admin/atti-concessione-summary', array('lang' => 'it') )
-            )
-        );
-
-        $this->layout()->setTemplate($mainLayout);
     }
 }

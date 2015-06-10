@@ -22,18 +22,21 @@ class AttiConcessioneForm extends Form
 
         $this->add(array(
                         'name' => 'beneficiario',
+                        'required' => true,
                         'type' => 'Textarea',
                         'options' => array( 'label' => '* Beneficiario CF / P.IVA' ),
                         'attributes' => array(
-                                        'title'     => 'Beneficiario CF / P.IVA',
+                                        'title'     => 'Inserisci beneficiario CF / P.IVA',
                                         'id'        => 'beneficiario',
+                                        'rows'      => 3,
+                                        'maxlength' => 230,
                                         'required'  => 'required',
-                                        'rows'      => '8',
                         )
         ));
 
         $this->add(array(
                         'name' => 'importo',
+                        'required' => true,
                         'type' => 'Text',
                         'options' => array( 'label' => '* Importo (Euro)' ),
                         'attributes' => array(
@@ -54,13 +57,13 @@ class AttiConcessioneForm extends Form
                         'type' => 'Zend\Form\Element\Select',
                         'name' => 'ufficioResponsabile',
                         'options' => array(
-                               'label'          => '* Ufficio Responsabile',
+                               'label'          => '* Ufficio responsabile',
                                'empty_option'   => 'Seleziona',
                                'value_options'  => $records,
                         ),
                         'attributes' => array(
                                 'id'        => 'ufficioResponsabile',
-                                'title'     => 'Seleziona Ufficio Responsabile',
+                                'title'     => 'Seleziona ufficio responsabile',
                                 'required'  => 'required',
                         )
         ));
@@ -87,6 +90,9 @@ class AttiConcessioneForm extends Form
         ));
     }
 
+    /**
+     * @param array $records
+     */
     public function addModalitaAssegnazione($records = array())
     {
         $this->add(array(
@@ -109,18 +115,21 @@ class AttiConcessioneForm extends Form
     {
         $this->add(array(
                         'name' => 'titolo',
+                        'required' => true,
                         'type' => 'Text',
-                        'options' => array( 'label' => "Norma o titolo a base dell'attribuzione" ),
+                        'options' => array('label' => "Norma o titolo a base dell'attribuzione"),
                         'attributes' => array(
                             'title'         => "* Norma o Titolo a base dell'attribuzione",
                             'id'            => 'titolo',
                             'placeholder'   => 'Norma o titolo...',
+                            'required'      => 'required',
                         )
         ));
 
         $this->add(array(
             'type' => 'DateTime',
             'name' => 'dataInserimento',
+            'required' => true,
             'options' => array(
                 'label'     => "* Data inserimento:",
                 'format'    => 'Y-m-d H:i:s',

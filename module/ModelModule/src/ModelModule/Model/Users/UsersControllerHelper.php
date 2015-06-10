@@ -3,173 +3,139 @@
 namespace ModelModule\Model\Users;
 
 use ModelModule\Model\ControllerHelperAbstract;
-use ModelModule\Model\Users\Roles\UsersRolesGetterWrapper;
-use ModelModule\Model\Users\Settori\UsersSettoriGetterWrapper;
+use ModelModule\Model\Database\DbTableContainer;
 use ModelModule\Model\NullException;
+use Zend\InputFilter\InputFilterAwareInterface;
+use Zend\Session\Container as SessionContainer;
 
 class UsersControllerHelper extends ControllerHelperAbstract
 {
     /**
-     * @var UsersSettoriGetterWrapper
+     * Verify if two passwords are different
+     *
+     * @param string $password
+     * @param string $passwordVerify
+     * @param string $message
      */
-    private $usersSettoriGetterWrapper;
-
-    private $usersSettoriGetterWrapperRecords;
-
-    /**
-     * @var UsersRolesGetterWrapper
-     */
-    private $usersRolesGetterWrapper;
-
-    private $usersRolesGetterWrapperRecords;
-
-    /**
-     * @return UsersSettoriGetterWrapper
-     */
-    public function getUsersSettoriGetterWrapper()
+    public function verifyPassword($password, $passwordVerify, $message)
     {
-        return $this->usersSettoriGetterWrapper;
+        if ($password != $passwordVerify) {
+            throw new NullException($message);
+        }
     }
 
     /**
-     * @param UsersSettoriGetterWrapper $usersSettoriGetterWrapper
+     * Generate a salt string to concatenate and decode with a password
+     *
+     * @return string
      */
-    public function setUsersSettoriGetterWrapper(UsersSettoriGetterWrapper $usersSettoriGetterWrapper)
+    public function generateSalt()
     {
-        $this->usersSettoriGetterWrapper = $usersSettoriGetterWrapper;
+        return uniqid();
     }
 
     /**
-     * @return array
+     * Encode password joining salt and password
+     *
+     * @param string $password
+     * @return string
      */
-    public function getUsersSettoriGetterWrapperRecords()
+    public function encodePassword($password)
     {
-        return $this->usersSettoriGetterWrapperRecords;
-    }
+        $salt = $this->generateSalt();
 
-    /**
-     * @param UsersRolesGetterWrapper $usersRolesGetterWrapper
-     */
-    public function setUsersRolesGetterWrapper(UsersRolesGetterWrapper $usersRolesGetterWrapper)
-    {
-        $this->usersRolesGetterWrapper = $usersRolesGetterWrapper;
-    }
-
-    /**
-     * @return UsersRolesGetterWrapper
-     */
-    public function getUsersRolesGetterWrapper()
-    {
-        return $this->usersRolesGetterWrapper;
-    }
-
-    /**
-     * @param array $input
-     */
-    public function setupUsersRolesGetterWrapperRecords($input = array())
-    {
-        $this->assetUsersRolesGetterWrapper();
-
-        $this->usersRolesGetterWrapperRecords = $this->recoverWrapperRecords(
-            $this->getUsersRolesGetterWrapper(),
-            $input
+        return array(
+            'password' => md5($password.$salt),
+            'salt'     => $salt,
         );
     }
 
     /**
-     * @return mixed
+     * @param InputFilterAwareInterface $formData
+     *
+     * @return int
      */
-    public function getUsersRolesGetterWrapperRecords()
+    public function insert(InputFilterAwareInterface $formData)
     {
-        return $this->usersRolesGetterWrapperRecords;
-    }
+        $this->assertConnection();
 
-    /**
-     * @param array $records
-     * @throws NullException
-     */
-    public function formatUsersRolesGetterWrapperRecordsForDropdown($records = array())
-    {
-        $this->assertUsersRolesGetterWrapperRecords();
+        $encodedPassword = $this->encodePassword($formData->password);
 
-        $roles = (empty($records)) ? $this->getUsersRolesGetterWrapperRecords() : $records;
+        $arrayInsert = array(
+            'name'          => $formData->name,
+            'surname'       => $formData->surname,
+            'email'         => $formData->email,
+            'username'      => $formData->username,
+            'password'      => $encodedPassword['password'],
+            'salt'          => $encodedPassword['salt'],
+            'role_id'       => $formData->roleId,
+            'settore_id'    => $formData->settoreId,
+            'last_update'   => date("Y-m-d H:i:s"),
+            'create_date'   => date("Y-m-d H:i:s"),
+        );
 
-        $rolesList = array();
-        foreach($roles as $role) {
-            $rolesList[$role['id']] = $role['name'];
-        }
-
-        $this->usersRolesGetterWrapperRecords = $rolesList;
-    }
-
-    /**
-     * @throws NullException
-     */
-    private function assertUsersRolesGetterWrapperRecords()
-    {
-        if (!$this->getUsersRolesGetterWrapperRecords()) {
-            throw new NullException("UsersRolesGetterWrapperRecords are not set");
-        }
-    }
-
-    /**
-     * @param array $input
-     */
-    public function setupUsersSettoriGetterWrapperRecords($input = array())
-    {
-        $this->assertUsersSettoriGetterWrapper();
-
-        $this->usersSettoriGetterWrapperRecords = $this->recoverWrapperRecords(
-            $this->getUsersSettoriGetterWrapper(),
-            $input
+        return $this->getConnection()->insert(
+            DbTableContainer::users,
+            $arrayInsert
         );
     }
 
     /**
-     * @param array $records
+     * @param InputFilterAwareInterface $formData
+     *
+     * @return int
      */
-    public function formatUsersSettoriGetterWrapperRecordsForDropdown($records = array())
+    public function update(InputFilterAwareInterface $formData)
     {
-        $this->assertUsersSettoriGetterWrapperRecords();
+        $this->assertConnection();
 
-        $settori = (empty($records)) ? $this->getUsersSettoriGetterWrapperRecords() : $records;
+        $arrayToUpdate = array(
+            'name'          => $formData->name,
+            'surname'       => $formData->surname,
+            'email'         => $formData->email,
+            'username'      => $formData->username,
+            'last_update'   => date("Y-m-d H:i:s"),
+        );
 
-        $settoriList = array();
-        foreach($settori as $settore) {
-            $settoriList[$settore['id']] = $settore['nome'];
+        if (!empty($formData->password)) {
+            $encodedPassword = $this->encodePassword($formData->password);
+
+            $arrayToUpdate['password'] = $encodedPassword['password'];
+            $arrayToUpdate['salt'] = $encodedPassword['salt'];
+            $arrayToUpdate['password_last_update'] = date("Y-m-d H:i:s");
         }
 
-        $this->usersSettoriGetterWrapperRecords = $settoriList;
+        if (!empty($formData->roleId)) {
+            $arrayToUpdate['role_id'] = $formData->roleId;
+        }
+
+        if (!empty($formData->settore_id)) {
+            $arrayToUpdate['settore_id'] = $formData->settore_id;
+        }
+
+        return $this->getConnection()->update(
+            DbTableContainer::users,
+            $arrayToUpdate,
+            array('id' => $formData->id),
+            array('limit' => 1)
+        );
     }
 
     /**
-     * @throws NullException
+     * TODO: Update last update date password session
      */
-    private function assertUsersSettoriGetterWrapper()
+    public function updateLastUpdatePassword()
     {
-        if (!$this->getUsersSettoriGetterWrapper()) {
-            throw new NullException("UsersSettoriGetterWrapper is not set");
-        }
+        $sessionContainer = new SessionContainer();
+
+        $userDetails = $sessionContainer->offsetExists('userDetails');
+
+        return $userDetails;
     }
 
-    /**
-     * @throws NullException
-     */
-    private function assetUsersRolesGetterWrapper()
+    public function delete()
     {
-        if (!$this->getUsersRolesGetterWrapper()) {
-            throw new NullException("UsersRolesGetterWrapper is not set");
-        }
-    }
-
-    /**
-     * @throws NullException
-     */
-    private function assertUsersSettoriGetterWrapperRecords()
-    {
-        if (!$this->getUsersSettoriGetterWrapperRecords()) {
-            throw new NullException("UsersSettoriGetterWrapperRecords are not set");
-        }
+        // TODO: delete user, delete roles, delete every association....
     }
 
     /**

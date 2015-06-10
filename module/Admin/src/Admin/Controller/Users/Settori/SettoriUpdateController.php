@@ -7,6 +7,7 @@ use ModelModule\Model\Modules\ModulesContainer;
 use ModelModule\Model\Users\Settori\SettoriControllerHelper;
 use ModelModule\Model\Users\Settori\UsersSettoriForm;
 use ModelModule\Model\Users\Settori\UsersSettoriFormInputFilter;
+use ModelModule\Model\NullException;
 use Application\Controller\SetupAbstractController;
 
 class SettoriUpdateController extends SetupAbstractController
@@ -56,7 +57,7 @@ class SettoriUpdateController extends SetupAbstractController
                 'user_id'       => $userDetails->id,
                 'module_id'     => ModulesContainer::contenuti_id,
                 'message'       => "Aggiornato il settore utente ".$inputFilter->nome,
-                'reference_id'  => $userDetails->id,
+                'reference_id'  => $inputFilter->id,
                 'type'          => 'info',
                 'backend'       => 1,
             ));
@@ -81,8 +82,9 @@ class SettoriUpdateController extends SetupAbstractController
             $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
                 'module_id'     => ModulesContainer::contenuti_id,
-                'message'       => "Errore nell'aggiornamento settore utente ".$inputFilter->nome.' Messaggio generato: '.$e->getMessage(),
-                'reference_id'  => $userDetails->id,
+                'message'       => "Errore nell'aggiornamento settore utente ".$inputFilter->nome,
+                'description'   => $e->getMessage(),
+                'reference_id'  => $inputFilter->id,
                 'type'          => 'error',
                 'backend'       => 1,
             ));

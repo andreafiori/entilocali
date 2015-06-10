@@ -63,7 +63,7 @@ class ContenutiHomeputremoveController extends SetupAbstractController
 
             $helper->getConnection()->commit();
 
-            return $this->redirect()->toRoute('admin/contenuti-summary', array('lang'=>'it'));
+            return $this->redirect()->toRoute('admin/contenuti-summary', array('lang' => 'it'));
 
         } catch(\Exception $e) {
 

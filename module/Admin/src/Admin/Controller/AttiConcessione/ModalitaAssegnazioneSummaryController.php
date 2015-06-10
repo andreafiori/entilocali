@@ -12,9 +12,10 @@ class ModalitaAssegnazioneSummaryController extends SetupAbstractController
     {
         $mainLayout = $this->initializeAdminArea();
 
+        $em         = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+
         $page       = $this->params()->fromRoute('page');
         $perPage    = $this->params()->fromRoute('perpage');
-        $em         = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
         $wrapper = new AttiConcessioneModalitaAssegnazioneGetterWrapper(
             new AttiConcessioneModalitaAssegnazioneGetter($em)
@@ -37,6 +38,16 @@ class ModalitaAssegnazioneSummaryController extends SetupAbstractController
                     '&nbsp;',
                     '&nbsp;',
                 ),
+                'formBreadCrumbCategory' => array(
+                    array(
+                        'href'  => $this->url()->fromRoute('admin/users-resp-proc-management', array(
+                            'lang' => $this->params()->fromRoute('lang')
+                        )),
+                        'label' => 'Atti di concessione',
+                        'title' => 'Elenco atti di concessione',
+                    ),
+                ),
+                'dataTableActiveTitle' => 'Modalit&agrave; assegnazione',
                 'paginator'         => $paginator,
                 'records'           => $this->formatArticoliRecords($records),
                 'templatePartial'   => self::summaryTemplate
@@ -63,17 +74,17 @@ class ModalitaAssegnazioneSummaryController extends SetupAbstractController
                         ),
                         array(
                             'type'      => 'updateButton',
-                            'href'      => $this->url()->fromRoute('admin/albo-pretorio-form', array(
-                                'lang'  => 'it',
+                            'href'      => $this->url()->fromRoute('admin/atti-concessione-modalita-assegnazione-form', array(
+                                'lang'  => $this->params()->fromRoute('lang'),
                                 'id'    => $record['id']
                             )),
-                            'title'     => 'Modifica',
+                            'title'     => 'Modifica modalita assegnazione atti',
                         ),
                         array(
                             'type'      => 'deleteButton',
                             'href'      => '#',
                             'data-id'   => $record['id'],
-                            'title'     => 'Elimina ',
+                            'title'     => 'Elimina modalita assegnazione atti',
                         )
                     );
                 }

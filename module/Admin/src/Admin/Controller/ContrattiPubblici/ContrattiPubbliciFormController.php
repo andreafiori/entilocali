@@ -2,8 +2,8 @@
 
 namespace Admin\Controller\ContrattiPubblici;
 
+use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciControllerHelper;
 use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciForm;
-use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciFormControllerHelper;
 use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciGetter;
 use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciGetterWrapper;
 use ModelModule\Model\ContrattiPubblici\SceltaContraente\SceltaContraenteGetter;
@@ -12,6 +12,8 @@ use ModelModule\Model\Users\RespProc\UsersRespProcGetter;
 use ModelModule\Model\Users\RespProc\UsersRespProcGetterWrapper;
 use Application\Controller\SetupAbstractController;
 use ModelModule\Model\NullException;
+use ModelModule\Model\Users\Settori\UsersSettoriGetter;
+use ModelModule\Model\Users\Settori\UsersSettoriGetterWrapper;
 
 class ContrattiPubbliciFormController extends SetupAbstractController
 {
@@ -21,40 +23,69 @@ class ContrattiPubbliciFormController extends SetupAbstractController
 
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
+        $lang = $this->params()->fromRoute('lang');
         $id = $this->params()->fromRoute('id');
 
         try {
-            $helper = new ContrattiPubbliciFormControllerHelper();
-            $helper->setSceltaContraenteGetterWrapper( new SceltaContraenteGetterWrapper(new SceltaContraenteGetter($em)) );
-            $helper->setupSceltaContraenteRecords( array() );
-            $helper->formatSceltaContraenteRecords();
-            $helper->setUsersRespProcGetterWrapper( new UsersRespProcGetterWrapper(new UsersRespProcGetter($em)) );
-            $helper->setupUsersRespProcRecords( array() );
-            $helper->formatUsersRespProcRecords();
+            $helper = new ContrattiPubbliciControllerHelper();
+            $sceltaContraenteRecords = $helper->recoverWrapperRecords(
+                new SceltaContraenteGetterWrapper(new SceltaContraenteGetter($em)),
+                array('orderBy' => '')
+            );
+            $helper->checkRecords($sceltaContraenteRecords, "Nessuna opzione di scelta contraente rilevata");
+            $sceltaContraenteRecordsForDropDown = $helper->formatForDropwdown(
+                $sceltaContraenteRecords,
+                'id',
+                'nomeScelta'
+            );
 
-            if ( is_numeric($id) ) {
-                $wrapper = new ContrattiPubbliciGetterWrapper( new ContrattiPubbliciGetter($em) );
-                $wrapper->setInput( array('id' => $id, 'limit' => 1) );
-                $wrapper->setupQueryBuilder();
+            $responsabiliProcRecords = $helper->recoverWrapperRecords(
+                new UsersRespProcGetterWrapper(new UsersRespProcGetter($em)),
+                array('orderBy' => '')
+            );
+            $helper->checkRecords($responsabiliProcRecords, "Nessuna responsabile di procedimento rilevato");
+            $responsabiliProcRecordsForDropDown = $helper->formatUsersRespProcRecords($responsabiliProcRecords);
 
-                $records = $wrapper->getRecords();
-            }
+            $contrattoRecord = $helper->recoverWrapperRecordsById(
+                new ContrattiPubbliciGetterWrapper(new ContrattiPubbliciGetter($em)),
+                array('id' => $id, 'limit' => 1),
+                $id
+            );
+
+            $usersSettoriRecords = $helper->recoverWrapperRecords(
+                new UsersSettoriGetterWrapper(new UsersSettoriGetter($em)),
+                array()
+            );
+            $helper->checkRecords($usersSettoriRecords, 'Nessun settore presente');
+            $usersSettoriRecordsForDropDown = $helper->formatForDropwdown($usersSettoriRecords, 'id', 'nome');
 
             $form = new ContrattiPubbliciForm();
-            $form->addSceltaContraente( $helper->getSceltaContraenteRecords() );
-            $form->addResponsabili( $helper->getUsersRespProcRecords() );
+            $form->addDetermina();
+            $form->addImporti();
+            $form->addStrutturaProponenteLabel();
+            $form->addResponsabili($responsabiliProcRecordsForDropDown);
+            $form->addSceltaContraente($sceltaContraenteRecordsForDropDown);
+            $form->addSettori($usersSettoriRecordsForDropDown);
             $form->addDatePubblicazione();
-            $form->addNumeroOfferteEDate();
+            $form->addNumeroOfferte();
+            $form->addDataInizioFineLavori();
+            // $form->addUsersSelect(); // TODO: add user selection
 
-            if (!empty($records)) {
-                $formAction = 'contratti-pubblici/update';
+            if (!empty($contrattoRecord)) {
+
+                $formAction = $this->url()->fromRoute('admin/contratti-pubblici-update', array(
+                    'lang' => $lang
+                ));
                 $formTitle = 'Modifica bando';
 
-                $form->setData($records[0]);
+                $form->setData($contrattoRecord[0]);
             } else {
+
                 $form->setData( array("insertDate" => date("Y-m-d"), "expireDate" => date("2030-m-d")) );
 
-                $formAction = 'contratti-pubblici/insert';
+                $formAction = $this->url()->fromRoute('admin/contratti-pubblici-insert', array(
+                    'lang' => $lang
+                ));
                 $formTitle = 'Nuovo bando';
             }
 
@@ -64,9 +95,12 @@ class ContrattiPubbliciFormController extends SetupAbstractController
                 'formTitle'                  => $formTitle,
                 'formDescription'            => '&Egrave; consigliabile inserire testi brevi sul tema trattato, possibilmente in minuscolo.',
                 'formBreadCrumbCategory'     => 'Contratti pubblici',
-                'formBreadCrumbCategoryLink' => $this->url()->fromRoute('admin/contratti-pubblici-summary', array('lang' => 'it')),
+                'formBreadCrumbCategoryLink' => $this->url()->fromRoute('admin/contratti-pubblici-summary', array(
+                    'lang' => $lang
+                )),
                 'formLabelSpanWidth'         => 3,
                 'formControlSpanWidth'       => 9,
+                'noFormActionPrefix'         => 1,
                 'templatePartial'            => self::formTemplate
             ));
 

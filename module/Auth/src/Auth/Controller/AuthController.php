@@ -82,7 +82,7 @@ class AuthController extends SetupAbstractController
         if ($request->isPost()) {
             $form->setData($request->getPost());
             if ($form->isValid()) {
-                // check authentication...
+                // Check authentication...
                 $this->getAuthService()->getAdapter()
                                        ->setIdentity($request->getPost('username'))
                                        ->setCredential($request->getPost('password'));
@@ -132,6 +132,8 @@ class AuthController extends SetupAbstractController
                         if ($records['roleName'] === 'WebMaster') {
 
                             // Assign all permissions
+                            $aclSetter->getAcl()->allow($records['roleName']);
+
                             $wrapper = new UsersRolesPermissionsGetterWrapper(
                                 new UsersRolesPermissionsGetter($entityManager)
                             );

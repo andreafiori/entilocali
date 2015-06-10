@@ -3,12 +3,17 @@
 namespace Admin\Controller;
 
 use Application\Controller\SetupAbstractController;
+use ModelModule\DashboardControllerHelper;
+use ModelModule\Model\Contacts\ContactsGetter;
+use ModelModule\Model\Contacts\ContactsGetterWrapper;
+use ModelModule\Model\Log\LogGetter;
+use ModelModule\Model\Log\LogGetterWrapper;
+use ModelModule\Model\Tickets\TicketsGetter;
+use ModelModule\Model\Tickets\TicketsGetterWrapper;
 use ModelModule\Model\Users\Todo\UsersTodoForm;
+use ModelModule\Model\Users\Todo\UsersTodoGetter;
+use ModelModule\Model\Users\Todo\UsersTodoGetterWrapper;
 use Zend\View\Model\ViewModel;
-use ModelModule\Model\SetupAbstractControllerHelper;
-use ModelModule\Model\RouterManagers\RouterManager;
-use ModelModule\Model\RouterManagers\RouterManagerHelper;
-use Zend\Session\Container as SessionContainer;
 
 class AdminController extends SetupAbstractController
 {
@@ -19,16 +24,47 @@ class AdminController extends SetupAbstractController
     {
         $mainLayout = $this->initializeAdminArea();
 
+        $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+
         $userDetails = $this->recoverUserDetails();
 
-        $lasUpdatePasswordDate1 = new \DateTime(date('Y-m-d', strtotime($userDetails->passwordLastUpdate->date)));
-        $lasUpdatePasswordDate2 = new \DateTime(date('Y-m-d', strtotime(date("Y-m-d H:i:s"))));
-        $lastUpdatePasswordDays = $lasUpdatePasswordDate1->diff($lasUpdatePasswordDate2)->days;
+        $helper = new DashboardControllerHelper();
+        $lastUpdatePasswordDays = $helper->calculateLastUpdatePasswordDays($userDetails->passwordLastUpdate->date);
+        $logRecords = $helper->recoverWrapperRecords(
+            new LogGetterWrapper(new LogGetter($em)),
+            array(
+                'userId'    => $userDetails->id,
+                'orderBy'   => 'l.datetime DESC',
+                'limit'     => 10,
+            )
+        );
+        $contactMessages = $helper->recoverWrapperRecords(
+            new ContactsGetterWrapper(new ContactsGetter($em)),
+            array('fields' => 'COUNT(c.id) AS msgCount ')
+        );
+        $todoRecords = $helper->recoverWrapperRecords(
+            new UsersTodoGetterWrapper(new UsersTodoGetter($em)),
+            array('userId' => $userDetails->id)
+        );
+        $ticketList = $helper->recoverWrapperRecords(
+            new TicketsGetterWrapper(new TicketsGetter($em)),
+            array(
+                'userId'    => $userDetails->id,
+                'orderBy'   => 't.createDate DESC',
+                'limit'     => 10,
+            )
+        );
 
         $this->layout()->setVariables(array(
-            'form' => new UsersTodoForm(),
+            'form'                          => new UsersTodoForm(),
             'showPasswordNotSecureWarning'  => (!empty($userDetails->salt)) ? 0 : 1,
             'showUpdatePasswordWarning'     => ($lastUpdatePasswordDays > 30) ? 1 : 0,
+            'logRecords'                    => $logRecords,
+            'contactFormMsg'                => $contactMessages,
+            'todoListCount'                 => count($todoRecords),
+            'todoList'                      => $todoRecords,
+            'ticketList'                    => $ticketList,
+            'ticketCount'                   => count($ticketList),
             'templatePartial'               => 'dashboard/dashboard.phtml',
         ));
 

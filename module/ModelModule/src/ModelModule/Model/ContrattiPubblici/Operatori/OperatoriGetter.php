@@ -4,10 +4,6 @@ namespace ModelModule\Model\ContrattiPubblici\Operatori;
 
 use ModelModule\Model\QueryBuilderHelperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  17 August 2014
- */
 class OperatoriGetter extends QueryBuilderHelperAbstract
 {
     /**

@@ -62,8 +62,8 @@ class LogWriter
                 throw new NullException('Message text is not set');
             }
 
-            if (!isset($arrayValues['type'])) {
-                $arrayValues['backend'] = 1;
+            if (!isset($arrayValues['reference_id'])) {
+                $arrayValues['reference_id'] = 0;
             }
 
             if (!isset($arrayValues['backend'])) {

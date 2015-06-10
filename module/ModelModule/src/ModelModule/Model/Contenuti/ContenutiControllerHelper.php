@@ -75,8 +75,18 @@ class ContenutiControllerHelper extends ContenutiControllerHelperAbstract
         );
     }
 
-    public function updateTabella()
+    /**
+     * @param InputFilterAwareInterface $inputFilter
+     * @return int
+     */
+    public function updateTabella(InputFilterAwareInterface $inputFilter)
     {
+        $this->assertConnection();
 
+        return $this->getConnection()->update(
+            DbTableContainer::contenuti,
+            array('tabella' => $inputFilter->tabella),
+            array('id' => $inputFilter->id)
+        );
     }
 }

@@ -30,6 +30,15 @@ class SezioniInsertControllerTest extends InsertUpdateTestSuite
         );
     }
 
+    public function testFormSampleDataIsNotValid()
+    {
+        unset($this->formDataSample['nome']);
+
+        $form = $this->setupForm($this->formDataSample);
+
+        $this->assertFalse( $form->isValid() );
+    }
+
     /**
      * @param $formDataSample
      * @return SezioniForm
@@ -51,14 +60,5 @@ class SezioniInsertControllerTest extends InsertUpdateTestSuite
         $form->setData($formDataSample);
 
         return $form;
-    }
-
-    public function testFormSampleDataIsNotValid()
-    {
-        unset($this->formDataSample['nome']);
-
-        $form = $this->setupForm($this->formDataSample);
-
-        $this->assertFalse($form->isValid());
     }
 }

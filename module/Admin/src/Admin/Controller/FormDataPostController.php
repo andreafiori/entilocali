@@ -7,6 +7,9 @@ use Application\Controller\SetupAbstractController;
 use ModelModule\Model\FormData\FormDataCrudHandler;
 use Zend\View\Model\ViewModel;
 
+/**
+ * TODO: delete this controller after deleting and migrating all crudHandler objects!!!
+ */
 class FormDataPostController extends SetupAbstractController
 {
     /**
@@ -38,7 +41,7 @@ class FormDataPostController extends SetupAbstractController
         $operation = $this->params()->fromRoute('operation');
 
         /**
-         * @var \Admin\Model\FormData\CrudHandlerAbstract $crudHandler
+         * @var \ModelModule\Model\FormData\CrudHandlerAbstract $crudHandler
          */
         try {
             if (!class_exists($crudHandlerObject)) {

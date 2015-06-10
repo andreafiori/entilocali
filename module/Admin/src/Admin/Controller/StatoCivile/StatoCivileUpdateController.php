@@ -62,8 +62,9 @@ class StatoCivileUpdateController extends SetupAbstractController
             $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
                 'module_id'     => ModulesContainer::stato_civile_id,
-                'message'       => "Aggiornato atto stato civile ".$inputFilter->titolo. " ID: ".$inputFilter->id,
+                'message'       => "Aggiornato atto stato civile ".$inputFilter->titolo,
                 'type'          => 'info',
+                'description'   => '',
                 'reference_id'  => $inputFilter->id,
                 'backend'       => 1,
             ));
@@ -75,14 +76,14 @@ class StatoCivileUpdateController extends SetupAbstractController
                 'messageShowFormLink'   => 1,
                 'messageShowForm'       => "Torna al form atto",
                 'backToSummaryLink'     => $this->url()->fromRoute('admin/stato-civile-summary', array(
-                    'lang'              => $this->params()->fromRoute('lang'),
+                    'lang' => $this->params()->fromRoute('lang'),
                 )),
                 'attachmentsLink'       => $this->url()->fromRoute('admin/attachments-summary', array(
                     'lang'          => $this->params()->fromRoute('lang'),
                     'module'        => 'stato-civile',
                     'referenceId'   => $inputFilter->id,
                 )),
-                'backToSummaryText'     => "Elenco atti",
+                'backToSummaryText' => "Elenco atti stato civile",
             ));
 
             $this->layout()->setTemplate($this->layout()->getVariable('templateDir').'message.phtml');
@@ -93,8 +94,9 @@ class StatoCivileUpdateController extends SetupAbstractController
             $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
                 'module_id'     => ModulesContainer::stato_civile_id,
-                'message'       => "Errore aggiornamento atto stato civile",
+                'message'       => "Errore aggiornamento atto stato civile ".$inputFilter->titolo,
                 'type'          => 'error',
+                'description'   => $e->getMessage(),
                 'reference_id'  => $inputFilter->id,
                 'backend'       => 1,
             ));
@@ -102,7 +104,7 @@ class StatoCivileUpdateController extends SetupAbstractController
             $this->layout()->setVariables(array(
                 'messageType'           => 'danger',
                 'messageTitle'          => 'Errore aggiornamento atto stato civile',
-                'messageText'           => 'Messaggio generato: '.$e->getMessage(),
+                'messageText'           => $e->getMessage(),
                 'form'                  => $form,
                 'formInputFilter'       => $inputFilter->getInputFilter(),
                 'messageShowFormLink'   => 1,

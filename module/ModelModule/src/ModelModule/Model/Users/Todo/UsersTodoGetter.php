@@ -4,10 +4,6 @@ namespace ModelModule\Model\Users\Todo;
 
 use ModelModule\Model\QueryBuilderHelperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  26 March 2015
- */
 class UsersTodoGetter extends QueryBuilderHelperAbstract
 {
     /**
@@ -39,6 +35,20 @@ class UsersTodoGetter extends QueryBuilderHelperAbstract
         if (is_array($id)) {
             $this->getQueryBuilder()->andWhere('toDo.id IN ( :id ) ');
             $this->getQueryBuilder()->setParameter('id', $id);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param int $id
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setUserId($id)
+    {
+        if ( is_numeric($id) ) {
+            $this->getQueryBuilder()->andWhere('toDo.user = :userId ');
+            $this->getQueryBuilder()->setParameter('userId', $id);
         }
 
         return $this->getQueryBuilder();

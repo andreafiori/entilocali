@@ -4,10 +4,6 @@ namespace ModelModule\Model\AttiConcessione;
 
 use ModelModule\Model\RecordsGetterWrapperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  12 December 2014
- */
 class AttiConcessioneGetterWrapper extends RecordsGetterWrapperAbstract
 {
     /**

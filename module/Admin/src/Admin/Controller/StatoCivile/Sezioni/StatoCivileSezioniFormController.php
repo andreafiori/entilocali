@@ -3,9 +3,9 @@
 namespace Admin\Controller\StatoCivile\Sezioni;
 
 use ModelModule\Model\StatoCivile\StatoCivileControllerHelper;
-use ModelModule\Model\StatoCivile\StatoCivileSezioniGetter;
-use ModelModule\Model\StatoCivile\StatoCivileSezioniGetterWrapper;
-use ModelModule\Model\StatoCivile\StatoCivileSezioniForm;
+use ModelModule\Model\StatoCivile\Sezioni\StatoCivileSezioniGetter;
+use ModelModule\Model\StatoCivile\Sezioni\StatoCivileSezioniGetterWrapper;
+use ModelModule\Model\StatoCivile\Sezioni\StatoCivileSezioniForm;
 use Application\Controller\SetupAbstractController;
 
 class StatoCivileSezioniFormController extends SetupAbstractController
@@ -14,9 +14,10 @@ class StatoCivileSezioniFormController extends SetupAbstractController
     {
         $mainLayout = $this->initializeAdminArea();
 
+        $em     = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+
         $id     = $this->params()->fromRoute('id');
         $lang   = $this->params()->fromRoute('lang');
-        $em     = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
         $helper = new StatoCivileControllerHelper();
         $records = $helper->recoverWrapperRecordsById(
@@ -30,11 +31,17 @@ class StatoCivileSezioniFormController extends SetupAbstractController
         if (!empty($records)) {
             $form->setData($records[0]);
 
-            $formAction = 'stato-civile-sezioni/update';
-            $formTitle = 'Modifica';
+            $formAction = $this->url()->fromRoute('admin/stato-civile-sezioni-update', array(
+                'lang' => $lang
+            ));
+            $formTitle = 'Modifica sezione';
+            $formBreadCrumbTitle = 'Modifica';
         } else {
-            $formAction = 'stato-civile-sezioni/insert';
+            $formAction = $this->url()->fromRoute('admin/stato-civile-sezioni-insert', array(
+                'lang' => $lang
+            ));
             $formTitle = 'Nuova';
+            $formBreadCrumbTitle = 'Nuova sezione';
         }
 
         $this->layout()->setVariables(array(
@@ -58,6 +65,8 @@ class StatoCivileSezioniFormController extends SetupAbstractController
                         'title' => "Elenco sezioni stato civile"
                     ),
                 ),
+                'formBreadCrumbTitle' => $formBreadCrumbTitle,
+                'noFormActionPrefix' => 1,
                 'templatePartial' => self::formTemplate,
             )
         );

@@ -32,13 +32,28 @@ class ContenutiTabellaForm extends Form
             'type' => 'Zend\Form\Element\Hidden',
             'name' => 'id',
             'attributes' => array(
-                "class" => 'hiddenField'
+                "class" => 'hiddenField',
+                'required' => 'required',
             )
         ));
 
         $this->add(array(
-            'name' => 'csrf',
+            'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'titolo',
+            'attributes' => array(
+                "class" => 'hiddenField',
+                'required' => 'required',
+            )
+        ));
+
+        $this->add(array(
             'type' => 'Zend\Form\Element\Csrf',
+            'name' => 'csrf',
+            'options' => array(
+                'csrf_options' => array(
+                    'timeout' => 6000
+                )
+            )
         ));
     }
 }

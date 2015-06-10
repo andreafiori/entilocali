@@ -5,7 +5,7 @@ return array(
             'Admin\Controller\Admin'                                            => 'Admin\Controller\AdminController',
             'Admin\Controller\Configurations\ConfigurationsForm'                => 'Admin\Controller\Configurations\ConfigurationsFormController',
 
-            /* Attachment files */
+            /* Attachment Files */
             'Admin\Controller\Attachments\AttachmentsSummary'                   => 'Admin\Controller\Attachments\AttachmentsSummaryController',
             'Admin\Controller\Attachments\AttachmentsForm'                      => 'Admin\Controller\Attachments\AttachmentsFormController',
             'Admin\Controller\Attachments\AttachmentsPositions'                 => 'Admin\Controller\Attachments\AttachmentsPositionsController',
@@ -14,7 +14,7 @@ return array(
             /* Insert and update Ajax POSTs */
             'Admin\Controller\FormDataPost'                                     => 'Admin\Controller\FormDataPostController',
 
-            /* Contenuti */
+            /* Contenuti e Amministrazione trasparente */
             'Admin\Controller\Contenuti\ContenutiSummary'                       => 'Admin\Controller\Contenuti\ContenutiSummaryController',
             'Admin\Controller\Contenuti\ContenutiForm'                          => 'Admin\Controller\Contenuti\ContenutiFormController',
             'Admin\Controller\Contenuti\ContenutiEnableDisable'                 => 'Admin\Controller\Contenuti\ContenutiEnableDisableController',
@@ -23,6 +23,7 @@ return array(
             'Admin\Controller\Contenuti\ContenutiInsert'                        => 'Admin\Controller\Contenuti\ContenutiInsertController',
             'Admin\Controller\Contenuti\ContenutiUpdate'                        => 'Admin\Controller\Contenuti\ContenutiUpdateController',
             'Admin\Controller\Contenuti\ContenutiTabellaForm'                   => 'Admin\Controller\Contenuti\ContenutiTabellaFormController',
+            'Admin\Controller\Contenuti\ContenutiTabellaUpdate'                 => 'Admin\Controller\Contenuti\ContenutiTabellaUpdateController',
 
             /* Albo Pretorio */
             'Admin\Controller\AlboPretorio\AlboPretorioSummary'                 => 'Admin\Controller\AlboPretorio\AlboPretorioSummaryController',
@@ -46,16 +47,14 @@ return array(
             'Admin\Controller\StatoCivile\StatoCivileOperations'                => 'Admin\Controller\StatoCivile\StatoCivileOperationsController',
             'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniSummary'    => 'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniSummaryController',
             'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniForm'       => 'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniFormController',
-            'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniInsert'     => 'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniInsertController', // to create
-            'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniUpdate'     => 'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniUpdateController', // to create
+            'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniInsert'     => 'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniInsertController',
+            'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniUpdate'     => 'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniUpdateController',
 
-            /* Amministrazione trasparente */
-
-            /* Atti concessione */
+            /* Atti Concessione */
             'Admin\Controller\AttiConcessione\AttiConcessioneForm'              => 'Admin\Controller\AttiConcessione\AttiConcessioneFormController',
             'Admin\Controller\AttiConcessione\AttiConcessioneSummary'           => 'Admin\Controller\AttiConcessione\AttiConcessioneSummaryController',
-            'Admin\Controller\AttiConcessione\AttiConcessioneInsert'            => 'Admin\Controller\AttiConcessione\AttiConcessioneInsertController', // to create
-            'Admin\Controller\AttiConcessione\AttiConcessioneUpdate'            => 'Admin\Controller\AttiConcessione\AttiConcessioneUpdateController', // to create
+            'Admin\Controller\AttiConcessione\AttiConcessioneInsert'            => 'Admin\Controller\AttiConcessione\AttiConcessioneInsertController',
+            'Admin\Controller\AttiConcessione\AttiConcessioneUpdate'            => 'Admin\Controller\AttiConcessione\AttiConcessioneUpdateController',
             'Admin\Controller\AttiConcessione\ModalitaAssegnazioneForm'         => 'Admin\Controller\AttiConcessione\ModalitaAssegnazioneFormController',
             'Admin\Controller\AttiConcessione\ModalitaAssegnazioneSummary'      => 'Admin\Controller\AttiConcessione\ModalitaAssegnazioneSummaryController',
             'Admin\Controller\AttiConcessione\ModalitaAssegnazioneInsert'       => 'Admin\Controller\AttiConcessione\ModalitaAssegnazioneInsert', // to create
@@ -68,6 +67,9 @@ return array(
             'Admin\Controller\ContrattiPubblici\ContrattiPubbliciUpdate'                     => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciUpdateController',
             'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSceltaContraenteForm'       => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSceltaContraenteFormController',
             'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSceltaContraenteSummary'    => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSceltaContraenteSummaryController',
+            'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSceltaContraenteInsert'     => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSceltaContraenteInsertController',
+            'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSceltaContraenteUpdate'     => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSceltaContraenteUpdateController',
+            'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSceltaContraenteDelete'     => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSceltaContraenteDeleteController',
             'Admin\Controller\ContrattiPubblici\Operatori\ContrattiPubbliciOperatoriForm'    => 'Admin\Controller\ContrattiPubblici\Operatori\ContrattiPubbliciOperatoriFormController',
             'Admin\Controller\ContrattiPubblici\Operatori\ContrattiPubbliciOperatoriSummary' => 'Admin\Controller\ContrattiPubblici\Operatori\ContrattiPubbliciOperatoriSummaryController',
             'Admin\Controller\ContrattiPubblici\Operatori\ContrattiPubbliciOperatoriInsert'  => 'Admin\Controller\ContrattiPubblici\Operatori\ContrattiPubbliciOperatoriInsertController',
@@ -106,8 +108,8 @@ return array(
             /* Sottosezioni */
             'Admin\Controller\Sezioni\SottoSezioniSummary'            => 'Admin\Controller\Sezioni\SottoSezioniSummaryController',
             'Admin\Controller\Sezioni\SottoSezioniForm'               => 'Admin\Controller\Sezioni\SottoSezioniFormController',
-            'Admin\Controller\Sezioni\SottoSezioniInsert'             => 'Admin\Controller\Sezioni\SottoSezioniInsertController', // to create
-            'Admin\Controller\Sezioni\SottoSezioniUpdate'             => 'Admin\Controller\Sezioni\SottoSezioniUpdateController', // to create
+            'Admin\Controller\Sezioni\SottoSezioniInsert'             => 'Admin\Controller\Sezioni\SottoSezioniInsertController',
+            'Admin\Controller\Sezioni\SottoSezioniUpdate'             => 'Admin\Controller\Sezioni\SottoSezioniUpdateController',
             'Admin\Controller\Sezioni\SottoSezioniPositions'          => 'Admin\Controller\Sezioni\SottoSezioniPositionsController',
             'Admin\Controller\Sezioni\SottoSezioniPositionsUpdate'    => 'Admin\Controller\Sezioni\SottoSezioniPositionsUpdateController',
             'Admin\Controller\Sezioni\SottoSezioniOperations'         => 'Admin\Controller\Sezioni\SottoSezioniOperationsController',
@@ -115,10 +117,16 @@ return array(
             /* Users */
             'Admin\Controller\Users\UsersSummary'                     => 'Admin\Controller\Users\UsersSummaryController',
             'Admin\Controller\Users\UsersForm'                        => 'Admin\Controller\Users\UsersFormController',
+            'Admin\Controller\Users\UsersInsert'                      => 'Admin\Controller\Users\UsersInsertController',
+            'Admin\Controller\Users\UsersUpdate'                      => 'Admin\Controller\Users\UsersUpdateController',
+            'Admin\Controller\Users\UsersDelete'                      => 'Admin\Controller\Users\UsersDeleteController', // to create
 
             /* Users Roles */
             'Admin\Controller\Users\Roles\UsersRolesForm'             => 'Admin\Controller\Users\Roles\UsersRolesFormController',
             'Admin\Controller\Users\Roles\UsersRolesSummary'          => 'Admin\Controller\Users\Roles\UsersRolesSummaryController',
+            'Admin\Controller\Users\Roles\UsersRolesInsert'           => 'Admin\Controller\Users\Roles\UsersRolesInsertController', // to create
+            'Admin\Controller\Users\Roles\UsersRolesUpdate'           => 'Admin\Controller\Users\Roles\UsersRolesUpdateController', // to create
+            'Admin\Controller\Users\Roles\UsersRolesDelete'           => 'Admin\Controller\Users\Roles\UsersRolesDeleteController', // to create
 
             /* Users Settori */
             'Admin\Controller\Users\Settori\SettoriSummary'           => 'Admin\Controller\Users\Settori\SettoriSummaryController',
@@ -128,6 +136,8 @@ return array(
 
             /* Users responsabili procedimento */
             'Admin\Controller\Users\RespProc\UsersRespProc'           => 'Admin\Controller\Users\RespProc\UsersRespProcController',
+            'Admin\Controller\Users\RespProc\UsersRespProcInsert'     => 'Admin\Controller\Users\RespProc\UsersRespProcInsertController',
+            'Admin\Controller\Users\RespProc\UsersRespProcUpdate'     => 'Admin\Controller\Users\RespProc\UsersRespProcUpdateController',
 
             /* Gestione home page */
             'Admin\Controller\HomePage\HomePageBlocksPositions'       => 'Admin\Controller\HomePage\HomePageBlocksPositionsController',
@@ -235,9 +245,6 @@ return array(
                         'type' => 'Segment',
                         'options' => array(
                             'route'       => 'homepage/management[/]',
-                            'constraints' => array(
-
-                            ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\HomePage\HomePage',
                                 'action'     => 'index',
@@ -407,10 +414,19 @@ return array(
                             'constraints' => array(
                                 'id'                => '[0-9]+',
                                 'languageSelection' => '[a-z]{2}',
-                                'modulename'        => '(contenuti|amministrazione-trasparente)',
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Contenuti\ContenutiTabellaForm',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'amministrazione-trasparente-tabella-update' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'common/amministrazione-trasparente/tabella/form/update[/]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Contenuti\ContenutiTabellaUpdate',
                                 'action'     => 'index',
                             ),
                         ),
@@ -901,6 +917,26 @@ return array(
                             ),
                         ),
                     ),
+                    'stato-civile-sezioni-insert' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'stato-civile/sezioni/form/insert[/]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniInsert',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'stato-civile-sezioni-update' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'stato-civile/sezioni/form/update[/]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniUpdate',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
                     'atti-concessione-form' => array(
                         'type'    => 'Segment',
                         'options' => array(
@@ -910,6 +946,26 @@ return array(
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\AttiConcessione\AttiConcessioneForm',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'atti-concessione-insert' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'atti-concessione/form/insert[/]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\AttiConcessione\AttiConcessioneInsert',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'atti-concessione-update' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'atti-concessione/form/update[/]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\AttiConcessione\AttiConcessioneUpdate',
                                 'action'     => 'index',
                             ),
                         ),
@@ -932,7 +988,7 @@ return array(
                     'atti-concessione-modalita-assegnazione-form' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route' => 'atti-concessione-modalita-assegnazione/form[/][:id[/]]',
+                            'route' => 'atti-concessione/modalita-assegnazione/form[/][:id[/]]',
                             'constraints' => array(
                                 'id' => '[0-9]+',
                             ),
@@ -1059,6 +1115,26 @@ return array(
                             ),
                         ),
                     ),
+                    'contratti-pubblici-scelta-contraente-insert' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'contratti-pubblici/scelta-contraente/form/insert[/]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSceltaContraenteInsert',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'contratti-pubblici-scelta-contraente-update' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'contratti-pubblici/scelta-contraente/form/update[/]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSceltaContraenteUpdate',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
                     'contratti-pubblici-operatori-form' => array(
                         'type'    => 'Segment',
                         'options' => array(
@@ -1076,9 +1152,6 @@ return array(
                         'type'    => 'Segment',
                         'options' => array(
                             'route' => 'contratti-pubblici/operatori/form/insert[/]',
-                            'constraints' => array(
-
-                            ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\ContrattiPubblici\Operatori\ContrattiPubbliciOperatoriInsert',
                                 'action'     => 'index',
@@ -1089,9 +1162,6 @@ return array(
                         'type'    => 'Segment',
                         'options' => array(
                             'route' => 'contratti-pubblici/operatori/form/update[/]',
-                            'constraints' => array(
-
-                            ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\ContrattiPubblici\Operatori\ContrattiPubbliciOperatoriUpdate',
                                 'action'     => 'index',
@@ -1302,49 +1372,6 @@ return array(
                             ),
                         ),
                     ),
-                    'datatable' => array(
-                                    'type' => 'Segment',
-                                    'options' => array(
-                                                'route'       => 'datatable[/][:tablesetter[/]][page/:page[/]][/order_by/:order_by][/:order[/]]',
-                                                'constraints' => array(
-                                                        'tablesetter' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                        'page'        => '[0-9]+',
-                                                        'order_by'    => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                        'order'       => 'ASC|DESC',
-                                                ),
-                                                'defaults' => array(
-                                                        'controller' => 'Admin\Controller\Admin',
-                                                        'action'     => 'index',
-                                                ),
-                                    ),
-                    ),
-                    /* Datatables spike with server side pagination */
-                    'datatables' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'       => 'datatables/client-side[/]',
-                            'constraints' => array(
-
-                            ),
-                            'defaults' => array(
-                                'controller' => 'Admin\Controller\Admin',
-                                'action'     => 'index',
-                            ),
-                        ),
-                    ),
-                    'datatables-server-side' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'       => 'datatables/server-side[/]',
-                            'constraints' => array(
-                                'tablesetter' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            ),
-                            'defaults' => array(
-                                'controller' => 'Admin\Controller\Admin',
-                                'action'     => 'index',
-                            ),
-                        ),
-                    ),
                     'migrazione' => array(
                         'type' => 'Segment',
                         'options' => array(
@@ -1465,6 +1492,26 @@ return array(
                             ),
                         ),
                     ),
+                    'users-insert' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'users/form/insert[/]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Users\UsersInsert',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'users-update' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'users/form/update[/]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Users\UsersUpdate',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
                     'users-roles-form' => array(
                         'type'    => 'Segment',
                         'options' => array(
@@ -1553,12 +1600,12 @@ return array(
                         ),
                     ),
                     'users-resp-proc-management' => array(
-                        'type'    => 'Segment',
+                        'type' => 'Segment',
                         'options' => array(
                             'route'       => 'users/resp-proc/management[/]',
                             'constraints' => array(),
                             'defaults' => array(
-                                'controller' => 'Admin\Controller\Admin',
+                                'controller' => 'Admin\Controller\Users\RespProc\UsersRespProc',
                                 'action'     => 'index',
                             ),
                         ),
@@ -1643,6 +1690,7 @@ return array(
             'admin/contenuti-operations/changesummarylang'  => __DIR__ . '/../view/admin/empty.phtml',
             'admin/contenuti-operations/summarysearch'      => __DIR__ . '/../view/admin/empty.phtml',
             'admin/contenuti-tabella-form/index'            => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/contenuti-tabella-update/index'          => __DIR__ . '/../view/admin/empty.phtml',
 
             /* Amministrazione trasparente */
 
@@ -1747,6 +1795,8 @@ return array(
             /* Users */
             'admin/users-summary/index'                     => __DIR__ . '/../view/admin/empty.phtml',
             'admin/users-form/index'                        => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/users-insert/index'                      => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/users-update/index'                      => __DIR__ . '/../view/admin/empty.phtml',
             'admin/users-roles-form/index'                  => __DIR__ . '/../view/admin/empty.phtml',
             'admin/users-roles-summary/index'               => __DIR__ . '/../view/admin/empty.phtml',
             'admin/users-resp-proc/index'                   => __DIR__ . '/../view/admin/empty.phtml',
@@ -1776,24 +1826,18 @@ return array(
     ),
     /* Backend Router Class Map */
     'be_router' => array(
-        "admin/migrazione"                       => '\ModelModule\Model\Migrazione\MigrazioneHandler',
-        "admin/contratti-pubblici-aggiudicatari" => '\ModelModule\Model\ContrattiPubblici\Operatori\OperatoriAggiudicatariHandler',
-        "admin/users-resp-proc-management"       => '\ModelModule\Model\Users\RespProc\UsersRespProcHandler',
+        "admin/migrazione"                              => '\ModelModule\Model\Migrazione\MigrazioneHandler',
+        "admin/contratti-pubblici-aggiudicatari"        => '\ModelModule\Model\ContrattiPubblici\Operatori\OperatoriAggiudicatariHandler',
+        "admin/users-resp-proc-management"              => '\ModelModule\Model\Users\RespProc\UsersRespProcHandler',
     ),
     /* FormData CRUD Class Map */
     'formdata_crud_classmap' => array(
         'attachments'                                   => 'ModelModule\Model\Attachments\AttachmentsCrudHandler',
-        'atti-concessione'                              => 'ModelModule\Model\AttiConcessione\AttiConcessioneCrudHandler',
-        'atti-concessione-modalita-assegnazione-form'   => 'ModelModule\Model\AttiConcessione\ModalitaAssegnazione\AttiConcessioneModalitaAssegnazioneCrudHandler',
         'blogs'                                         => 'ModelModule\Model\Posts\PostsCrudHandler',
-        'categories'                                    => 'ModelModule\Model\Posts\PostsCategoriesCrudHandler',
-        'contratti-pubblici-scelta-contraente'          => 'ModelModule\Model\ContrattiPubblici\SceltaContraente\SceltaContraenteCrudHandler',
-        'contratti-pubblici-operatori'                  => 'ModelModule\Model\ContrattiPubblici\Operatori\OperatoriCrudHandler',
         'posts'                                         => 'ModelModule\Model\Posts\PostsCrudHandler',
-        'stato-civile-sezioni'                          => 'ModelModule\Model\StatoCivile\StatoCivileSezioniCrudHandler',
-        'users'                                         => 'ModelModule\Model\Users\UsersCrudHandler',
-        'users-roles'                                   => 'ModelModule\Model\Users\Roles<\UsersRolesCrudHandler',
-        'users-settori'                                 => 'ModelModule\Model\Users\Settori\UsersSettoriCrudHandler',
+        'categories'                                    => 'ModelModule\Model\Posts\PostsCategoriesCrudHandler',
+        'contratti-pubblici-operatori'                  => 'ModelModule\Model\ContrattiPubblici\Operatori\OperatoriCrudHandler',
+        'users-roles'                                   => 'ModelModule\Model\Users\Roles\UsersRolesCrudHandler',
         'users-todo'                                    => 'ModelModule\Model\Users\Roles\UsersTodoCrudHandler',
     ),
 );

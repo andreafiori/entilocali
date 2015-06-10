@@ -32,7 +32,7 @@
                     </div>
                 </div>
             </div>
-            <a href="#" title="Gestione home page">
+            <a href="<?php echo $this->url('admin/homepage-management', array('lang' => $this->params()->fromRoute('lang')) ); ?>" title="Gestione home page">
                 <div class="panel-footer">
                     <span class="pull-left">Gestione home page</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -99,7 +99,7 @@
                     </div>
                 </div>
             </div>
-            <a href="<?php echo $this->url('admin/datatable', array('lang' => 'it', 'tablesetter' => 'tickets')); ?>" title="">
+            <a href="#" title="Elenco richieste di assistenza">
                 <div class="panel-footer">
                     <span class="pull-left">Visualizza richieste</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

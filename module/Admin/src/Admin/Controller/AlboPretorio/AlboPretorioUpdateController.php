@@ -62,8 +62,9 @@ class AlboPretorioUpdateController extends SetupAbstractController
             $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
                 'module_id'     => ModulesContainer::contenuti_id,
-                'message'       => "Aggiornato atto albo pretorio ".$inputFilter->titolo. " ID: ".$inputFilter->id,
+                'message'       => "Aggiornato atto albo pretorio ".$inputFilter->titolo,
                 'type'          => 'info',
+                'description'   => '',
                 'reference_id'  => $inputFilter->id,
                 'backend'       => 1,
             ));
@@ -73,7 +74,7 @@ class AlboPretorioUpdateController extends SetupAbstractController
                 'messageTitle'          => 'Atto albo pretorio aggiornato correttamente',
                 'messageText'           => 'I dati sono stati processati correttamente dal sistema',
                 'messageShowFormLink'   => 1,
-                'messageShowForm'       => "Torna all'elenco atti albo pretorio",
+                'messageShowForm'       => "Torna alla modifica dati atto",
                 'backToSummaryLink'     => $this->url()->fromRoute('admin/albo-pretorio-summary', array(
                     'lang' => $this->params()->fromRoute('lang'),
                 )),
@@ -95,6 +96,7 @@ class AlboPretorioUpdateController extends SetupAbstractController
                 'module_id'     => ModulesContainer::albo_pretorio_id,
                 'message'       => "Errore aggiornamento atto albo pretorio",
                 'type'          => 'error',
+                'description'   => $e->getMessage(),
                 'reference_id'  => $inputFilter->id,
                 'backend'       => 1,
             ));
@@ -102,11 +104,11 @@ class AlboPretorioUpdateController extends SetupAbstractController
             $this->layout()->setVariables(array(
                 'messageType'           => 'danger',
                 'messageTitle'          => 'Errore aggiornamento atto albo pretorio',
-                'messageText'           => 'Messaggio generato: '.$e->getMessage(),
+                'messageText'           => $e->getMessage(),
                 'form'                  => $form,
                 'formInputFilter'       => $inputFilter->getInputFilter(),
                 'messageShowFormLink'   => 1,
-                'messageShowForm'       => "Torna all'elenco atti atto albo pretorio",
+                'messageShowForm'       => "Torna alla modifica dati atto",
             ));
 
             $this->layout()->setTemplate($this->layout()->getVariable('templateDir').'message.phtml');

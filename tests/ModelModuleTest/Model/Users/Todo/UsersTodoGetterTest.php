@@ -2,13 +2,9 @@
 
 namespace ModelModuleTest\Model\Users\Todo;
 
-use ModelModuleTest\TestSuite;
 use ModelModule\Model\Users\Todo\UsersTodoGetter;
+use ModelModuleTest\TestSuite;
 
-/**
- * @author Andrea Fiori
- * @since  29 March 2015
- */
 class UsersTodoGetterTest extends TestSuite
 {
     /**
@@ -39,8 +35,15 @@ class UsersTodoGetterTest extends TestSuite
 
     public function testSetIdWithArrayInInput()
     {
-        $this->objectGetter->setId( array(1,2,3) );
+        $this->objectGetter->setId( array(1, 2, 3) );
 
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('id'));
+    }
+
+    public function testSetUserId()
+    {
+        $this->objectGetter->setUserId(1);
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('userId'));
     }
 }

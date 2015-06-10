@@ -5,14 +5,18 @@ namespace Admin\Controller\ContrattiPubblici;
 use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciControllerHelper;
 use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciForm;
 use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciFormInputFilter;
+use ModelModule\Model\NullException;
 use ModelModule\Model\Modules\ModulesContainer;
-use Application\Controller\SetupAbstractController;
 use ModelModule\Model\Log\LogWriter;
+use Application\Controller\SetupAbstractController;
 
 class ContrattiPubbliciInsertController extends SetupAbstractController
 {
     public function indexAction()
     {
+        /**
+         * @var \Doctrine\ORM\EntityManager $em
+         */
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
         /**
@@ -88,14 +92,15 @@ class ContrattiPubbliciInsertController extends SetupAbstractController
             $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
                 'module_id'     => ModulesContainer::contenuti_id,
-                'message'       => "Errore inserimento nuova sezione: ".$inputFilter->nome,
+                'message'       => "Errore inserimento nuovo bando di gara: ".$inputFilter->titolo,
                 'type'          => 'error',
+				'description'   => $e->getMessage(),
                 'backend'       => 1,
             ));
 
             $this->layout()->setVariables(array(
                 'messageType'           => 'danger',
-                'messageTitle'          => 'Errore inserimento nuova sezione',
+                'messageTitle'          => 'Errore inserimento nuovo bando di gara: '.$inputFilter->titolo.' - '.$e->getMessage(),
                 'messageText'           => 'Messaggio generato: '.$e->getMessage(),
                 'form'                  => $form,
                 'formInputFilter'       => $inputFilter->getInputFilter(),

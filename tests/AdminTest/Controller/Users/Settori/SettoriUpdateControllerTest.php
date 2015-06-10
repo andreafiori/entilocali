@@ -3,9 +3,11 @@
 namespace AdminTest\Controller\Users\Settori;
 
 use Admin\Controller\Users\Settori\SettoriUpdateController;
-use ModelModuleTest\TestSuite;
+use ModelModule\Model\Users\Settori\UsersSettoriForm;
+use ModelModule\Model\Users\Settori\UsersSettoriFormInputFilter;
+use ModelModuleTest\InsertUpdateTestSuite;
 
-class SettoriUpdateControllerTest extends TestSuite
+class SettoriUpdateControllerTest extends InsertUpdateTestSuite
 {
     /**
      * @var SettoriUpdateController
@@ -19,14 +21,32 @@ class SettoriUpdateControllerTest extends TestSuite
         $this->controller = new SettoriUpdateController();
         $this->controller->setEvent($this->event);
         $this->controller->setServiceLocator($this->getServiceManager());
+
+        $this->formDataSample = array(
+            'nome'                  => 'Settore test',
+            'responsabileUserId'  => 1,
+        );
     }
 
-    public function testIndexAction()
+    public function testFormSampleDataIsNotValid()
     {
-        $this->routeMatch->setParam('action', 'index');
+        unset($this->formDataSample['nome']);
 
-        $this->controller->dispatch($this->request);
+        $form = $this->setupForm($this->formDataSample);
 
-        $this->assertEquals(302, $this->controller->getResponse()->getStatusCode());
+        $this->assertFalse($form->isValid());
+    }
+
+    protected function setupForm($formDataSample)
+    {
+        $form = new UsersSettoriForm();
+
+        $inputFilter = new UsersSettoriFormInputFilter();
+
+        $form->setInputFilter($inputFilter->getInputFilter());
+
+        $form->setData($formDataSample);
+
+        return $form;
     }
 }

@@ -63,7 +63,7 @@ class ContenutiUpdateController extends SetupAbstractController
             $helper->writeLog(array(
                 'user_id'       => $userDetails->id,
                 'module_id'     => ModulesContainer::contenuti_id,
-                'message'       => "Aggiornato il contenuto ".$inputFilter->titolo. " ID: ".$inputFilter->id,
+                'message'       => "Aggiornato il contenuto ".$inputFilter->titolo,
                 'type'          => 'info',
                 'reference_id'  => $inputFilter->id,
                 'backend'       => 1,
@@ -98,6 +98,7 @@ class ContenutiUpdateController extends SetupAbstractController
                 'module_id'     => ModulesContainer::contenuti_id,
                 'message'       => "Errore aggiornamento contenuto ID: ".$inputFilter->id,
                 'type'          => 'error',
+                'description'   => $e->getMessage(),
                 'reference_id'  => $inputFilter->id,
                 'backend'       => 1,
             ));

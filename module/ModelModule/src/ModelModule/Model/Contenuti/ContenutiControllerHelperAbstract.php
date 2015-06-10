@@ -12,15 +12,21 @@ class ContenutiControllerHelperAbstract extends ControllerHelperAbstract
      * @param array $recordset
      * @return array
      */
-    public function formatSottoSezioniGetterWrapperRecordsForDropdown(array $recordset)
+    public function formatSottoSezioniGetterWrapperRecordsForDropdown($recordset)
     {
-        $sezioni = array();
-        foreach($recordset as $record) {
-            if (isset($record['idSottoSezione']) and isset($record['nomeSezione']) and isset($record['nomeSottoSezione'])) {
-                $sezioni[$record['idSottoSezione']] = utf8_encode($record['nomeSezione']).' - '.utf8_encode($record['nomeSottoSezione']);
+        if (!empty($recordset)) {
+
+            $sezioni = array();
+
+            foreach($recordset as $record) {
+                if (isset($record['idSottoSezione']) and isset($record['nomeSezione']) and isset($record['nomeSottoSezione'])) {
+                    $sezioni[$record['idSottoSezione']] = utf8_encode($record['nomeSezione']).' - '.utf8_encode($record['nomeSottoSezione']);
+                }
             }
+
+            return $sezioni;
         }
 
-        return $sezioni;
+        return null;
     }
 }

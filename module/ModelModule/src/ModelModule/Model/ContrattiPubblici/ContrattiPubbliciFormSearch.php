@@ -4,10 +4,6 @@ namespace ModelModule\Model\ContrattiPubblici;
 
 use Zend\Form\Form;
 
-/**
- * @author Andrea Fiori
- * @since  24 July 2014
- */
 class ContrattiPubbliciFormSearch extends Form
 {
     /**

@@ -7,6 +7,9 @@ use ModelModuleTest\TestSuite;
 
 class SettoriFormControllerTest extends TestSuite
 {
+    /**
+     * @var SettoriFormController
+     */
     private  $controller;
 
     protected function setUp()

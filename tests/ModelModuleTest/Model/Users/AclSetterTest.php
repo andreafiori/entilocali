@@ -8,10 +8,6 @@ use ModelModule\Model\Users\Roles\UsersRolesGetterWrapper;
 use Zend\Permissions\Acl\Acl;
 use ModelModuleTest\TestSuite;
 
-/**
- * @author Andrea Fiori
- * @since  15 June 2013
- */
 class AclSetterTest extends TestSuite
 {
     /**

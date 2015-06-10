@@ -2,27 +2,40 @@
 
 namespace ModelModuleTest\Model\StatoCivile;
 
-use ModelModuleTest\TestSuite;
 use ModelModule\Model\StatoCivile\StatoCivileGetter;
 use ModelModule\Model\StatoCivile\StatoCivileGetterWrapper;
+use ModelModuleTest\TestSuite;
 
-/**
- * @author Andrea Fiori
- * @since  18 August 2014
- */
 class StatoCivileGetterWrapperTest extends TestSuite
 {
+    /**
+     * @var StatoCivileGetterWrapper
+     */
     private $objectWrapper;
     
     protected function setUp()
     {
         parent::setUp();
         
-        $this->objectWrapper = new StatoCivileGetterWrapper( new StatoCivileGetter($this->getEntityManagerMock()) );
+        $this->objectWrapper = new StatoCivileGetterWrapper(new StatoCivileGetter($this->getEntityManagerMock()));
     }
     
     public function testSetupQueryBuilder()
     {
         $this->assertNull( $this->objectWrapper->setupQueryBuilder() );
+    }
+
+    public function testFormatYears()
+    {
+        $years = $this->objectWrapper->formatYears(
+            array(
+                'anno' => 2014
+            ),
+            array(
+                'anno' => 2015
+            )
+        );
+
+        $this->assertTrue( is_array($years) );
     }
 }

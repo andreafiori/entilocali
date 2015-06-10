@@ -22,6 +22,8 @@ class SottoSezioniUpdateControllerTest extends InsertUpdateTestSuite
         $this->controller->setEvent($this->event);
         $this->controller->setServiceLocator($this->getServiceManager());
 
+        $this->routeMatch->setParam('modulename', 'contenuti');
+
         $this->formDataSample = array(
             'idSottoSezione'    => 1,
             'sezione'           => 1,

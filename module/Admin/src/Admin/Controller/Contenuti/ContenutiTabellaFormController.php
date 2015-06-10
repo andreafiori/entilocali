@@ -18,7 +18,6 @@ class ContenutiTabellaFormController extends SetupAbstractController
 
         $id = $this->params()->fromRoute('id');
 
-
         $helper = new ContenutiControllerHelper();
         $contenutiRecords = $helper->recoverWrapperRecordsById(
             new ContenutiGetterWrapper(new ContenutiGetter($em)),
@@ -27,11 +26,17 @@ class ContenutiTabellaFormController extends SetupAbstractController
         );
 
         $form = new ContenutiTabellaForm();
-        $formAction = '/prova';
+        $formAction = $this->url()->fromRoute('admin/amministrazione-trasparente-tabella-update', array(
+            'lang'              => $this->params()->fromRoute('lang'),
+            'languageSelection' => $this->params()->fromRoute('languageSelection'),
+            'modulename'        => 'amministrazione-trasparente',
+        ));
         $formTitle = $contenutiRecords[0]['titolo'];
         $formDescription = "Compila i dati della tabella (dati aggiuntivi all'articolo)";
 
-        $form->setData($contenutiRecords[0]);
+        if (!empty($contenutiRecords[0])) {
+            $form->setData($contenutiRecords[0]);
+        }
 
         $this->layout()->setVariables(array(
             'form'                       => $form,

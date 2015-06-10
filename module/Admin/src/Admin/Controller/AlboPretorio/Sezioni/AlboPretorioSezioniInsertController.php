@@ -2,9 +2,6 @@
 
 namespace Admin\Controller\AlboPretorio\Sezioni;
 
-use ModelModule\Model\AlboPretorio\AlboPretorioArticoliForm;
-use ModelModule\Model\AlboPretorio\AlboPretorioArticoliFormInputFilter;
-use ModelModule\Model\AlboPretorio\AlboPretorioControllerHelper;
 use ModelModule\Model\AlboPretorio\AlboPretorioSezioniControllerHelper;
 use ModelModule\Model\AlboPretorio\AlboPretorioSezioniForm;
 use ModelModule\Model\AlboPretorio\AlboPretorioSezioniFormInputFilter;
@@ -65,8 +62,8 @@ class AlboPretorioSezioniInsertController extends SetupAbstractController
             $logWriter = new LogWriter($connection);
             $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
-                'module_id'     => ModulesContainer::contenuti_id,
-                'message'       => "Inserita nuova sezione albo pretorio ".$inputFilter->nome. " ID: ".$lastInsertId,
+                'module_id'     => ModulesContainer::albo_pretorio_id,
+                'message'       => "Inserita nuova sezione albo pretorio ".$inputFilter->nome,
                 'type'          => 'info',
                 'reference_id'  => $lastInsertId,
                 'backend'       => 1,
@@ -88,21 +85,22 @@ class AlboPretorioSezioniInsertController extends SetupAbstractController
             try {
                 $helper->getConnection()->rollBack();
             } catch(\Doctrine\DBAL\ConnectionException $e) {
-
+				
             }
 
             $logWriter = new LogWriter($connection);
             $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
-                'module_id'     => ModulesContainer::contenuti_id,
+                'module_id'     => ModulesContainer::albo_pretorio_id,
                 'message'       => "Errore inserimento nuova sezione: ".$inputFilter->nome,
+				'description'   => $e->getMessage(),
                 'type'          => 'error',
                 'backend'       => 1,
             ));
 
             $this->layout()->setVariables(array(
                 'messageType'           => 'danger',
-                'messageTitle'          => 'Errore inserimento nuova sezione albo pretorio',
+                'messageTitle'          => 'Errore inserimento nuova sezione albo pretorio '.$inputFilter->nome.' - '.$e->getMessage(),
                 'messageText'           => 'Messaggio generato: '.$e->getMessage(),
                 'form'                  => $form,
                 'formInputFilter'       => $inputFilter->getInputFilter(),

@@ -63,7 +63,7 @@ class EntiTerziInsertController extends SetupAbstractController
             $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
                 'module_id'     => ModulesContainer::contenuti_id,
-                'message'       => "Inserita nuovo ente terzo ".$inputFilter->nome. " ID: ".$lastInsertId,
+                'message'       => "Inserito nuovo ente terzo ".$inputFilter->nome. " ID: ".$lastInsertId,
                 'type'          => 'info',
                 'reference_id'  => $lastInsertId,
                 'backend'       => 1,
@@ -77,7 +77,7 @@ class EntiTerziInsertController extends SetupAbstractController
                 'backToSummaryLink'     => $this->url()->fromRoute('admin/enti-terzi-summary', array(
                     'lang'              => $this->params()->fromRoute('lang'),
                 )),
-                'backToSummaryText'     => "Elenco sezioni",
+                'backToSummaryText'     => "Elenco enti",
             ));
 
         } catch(\Exception $e) {
@@ -94,6 +94,7 @@ class EntiTerziInsertController extends SetupAbstractController
                 'module_id'     => ModulesContainer::contenuti_id,
                 'message'       => "Errore inserimento nuovo ente terzo: ".$inputFilter->nome,
                 'type'          => 'error',
+				'description'   => $e->getMessage(),
                 'backend'       => 1,
             ));
 

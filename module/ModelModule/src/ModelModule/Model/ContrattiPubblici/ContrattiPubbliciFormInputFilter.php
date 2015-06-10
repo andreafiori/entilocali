@@ -10,16 +10,29 @@ use Zend\InputFilter\InputFilterInterface;
 class ContrattiPubbliciFormInputFilter implements InputFilterAwareInterface
 {
     public $id;
-    public $cig;
     public $titolo;
+    public $numeroDetermina;
+    public $dataDetermina;
     public $importoAggiudicazione;
     public $importoLiquidato;
-    public $scContr;
-    public $respProc;
-    public $inserimento;
+    /* public $operatori; */
     public $numeroOfferte;
-    public $data_agg;
-    public $data_contratto;
+    public $dataInizioLavori;
+    public $dataFineLavori;
+    public $anno;
+    public $data;
+    public $ora;
+    public $attivo;
+    public $scadenza;
+    public $modalitaAssegnazione;
+    public $cig;
+    /* public $homepage; */
+    /* public $dataUltimoAggiornamento; */
+    public $utenteId;
+    public $settoreId;
+    public $sceltaContraenteId;
+    public $respProcId;
+    public $dataInserimento;
 
     protected $inputFilter;
 
@@ -28,17 +41,30 @@ class ContrattiPubbliciFormInputFilter implements InputFilterAwareInterface
      */
     public function exchangeArray(array $data)
     {
-        $this->id                       = (isset($data['id']))                      ? $data['id']   : null;
-        $this->cig                      = (isset($data['cig']))                     ? $data['cig']   : null;
+        $this->id                       = (isset($data['id'])) ? $data['id']        : null;
         $this->titolo                   = (isset($data['titolo']))                  ? $data['titolo']   : null;
+        $this->numeroDetermina          = (isset($data['numeroDetermina']))         ? $data['numeroDetermina']   : null;
+        $this->dataDetermina            = (isset($data['dataDetermina']))           ? $data['dataDetermina']   : null;
         $this->importoAggiudicazione    = (isset($data['importoAggiudicazione']))   ? $data['importoAggiudicazione'] : null;
-        $this->importoLiquidato         = (isset($data['importoLiquidato'])) ? $data['importoLiquidato'] : null;
-        $this->scContr                  = (isset($data['scContr']))         ? $data['scContr']   : null;
-        $this->respProc                 = (isset($data['respProc']))        ? $data['respProc']   : null;
-        $this->inserimento              = (isset($data['inserimento']))     ? $data['inserimento']   : null;
-        $this->numeroOfferte            = (isset($data['numeroOfferte']))   ? $data['numeroOfferte']   : null;
-        $this->data_agg                 = (isset($data['data_agg']))        ? $data['data_agg']   : null;
-        $this->data_contratto           = (isset($data['data_contratto']))  ? $data['data_contratto']   : null;
+        $this->importoLiquidato         = (isset($data['importoLiquidato']))        ? $data['importoLiquidato'] : null;
+        /* $this->operatori             = (isset($data['operatori']))               ? $data['operatori'] : null; */
+        $this->numeroOfferte            = (isset($data['numeroOfferte']))           ? $data['numeroOfferte']   : null;
+        $this->dataInizioLavori         = (isset($data['dataInizioLavori']))        ? $data['dataInizioLavori']   : null;
+        $this->dataFineLavori           = (isset($data['dataFineLavori']))          ? $data['dataFineLavori']   : null;
+        $this->anno                     = (isset($data['anno']))                    ? $data['anno']   : null;
+        $this->data                     = (isset($data['data']))                    ? $data['data']   : null;
+        $this->ora                      = (isset($data['ora']))                     ? $data['ora']   : null;
+        $this->attivo                   = (isset($data['attivo']))                  ? $data['attivo']   : null;
+        $this->scadenza                 = (isset($data['scadenza']))                ? $data['scadenza']   : null;
+        $this->modalitaAssegnazione     = (isset($data['modalitaAssegnazione']))    ? $data['modalitaAssegnazione']   : null;
+        $this->cig                      = (isset($data['cig']))                     ? $data['cig']   : null;
+        /* $homepage; */
+        /* $dataUltimoAggiornamento; */
+        $this->utenteId                 = (isset($data['utenteId;']))               ? $data['utenteId;']            : null;
+        $this->settoreId                = (isset($data['settoreId;']))              ? $data['settoreId;']           : null;
+        $this->sceltaContraenteId       = (isset($data['sceltaContraenteId']))      ? $data['sceltaContraenteId']   : null;
+        $this->respProcId               = (isset($data['respProcId']))              ? $data['respProcId']           : null;
+        $this->dataInserimento          = (isset($data['dataInserimento']))         ? $data['dataInserimento']      : null;
     }
 
     /**
@@ -47,7 +73,7 @@ class ContrattiPubbliciFormInputFilter implements InputFilterAwareInterface
      */
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
-        throw new \Exception("Not used");
+        throw new \Exception("This method is unused");
     }
 
     /**
@@ -81,7 +107,7 @@ class ContrattiPubbliciFormInputFilter implements InputFilterAwareInterface
                         'options' => array(
                             'encoding' => 'UTF-8',
                             'min'      => 1,
-                            'max'      => 10,
+                            'max'      => 11,
                         ),
                     ),
                 ),
@@ -108,6 +134,27 @@ class ContrattiPubbliciFormInputFilter implements InputFilterAwareInterface
             ));
 
             $inputFilter->add(array(
+                'name'     => 'numeroDetermina',
+                'required' => false,
+                'filters'  => array(
+                    array('name' => 'Int'),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'dataDetermina',
+                'required' => false,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
+                ),
+                'validators' => array(
+
+                ),
+            ));
+
+            $inputFilter->add(array(
                 'name'     => 'importoAggiudicazione',
                 'required' => true,
                 'filters'  => array(
@@ -124,26 +171,26 @@ class ContrattiPubbliciFormInputFilter implements InputFilterAwareInterface
             ));
 
             $inputFilter->add(array(
-                'name'     => 'scContr',
-                'required' => false,
+                'name'     => 'sceltaContraenteId',
+                'required' => true,
                 'filters'  => array(
                     array('name' => 'Int'),
                 ),
             ));
 
             $inputFilter->add(array(
-                'name'     => 'respProc',
-                'required' => false,
+                'name'     => 'respProcId',
+                'required' => true,
                 'filters'  => array(
                     array('name' => 'Int'),
                 ),
             ));
 
             $inputFilter->add(array(
-                'name'     => 'inserimento',
-                'required' => false,
+                'name'     => 'dataInserimento',
+                'required' => true,
                 'filters'  => array(
-                    array('name' => 'Int'),
+
                 ),
             ));
 
@@ -156,41 +203,24 @@ class ContrattiPubbliciFormInputFilter implements InputFilterAwareInterface
             ));
 
             $inputFilter->add(array(
-                'name'     => 'data_agg',
+                'name'     => 'dataInizioLavori',
                 'required' => true,
                 'filters'  => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
+
                 ),
                 'validators' => array(
-                    array(
-                        'name' => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 155,
-                        ),
-                    ),
+
                 ),
             ));
 
             $inputFilter->add(array(
-                'name'     => 'data_contratto',
+                'name'     => 'dataFineLavori',
                 'required' => true,
                 'filters'  => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
-                    array('name' => 'HtmlEntities'),
+
                 ),
                 'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 155,
-                        ),
-                    ),
+
                 ),
             ));
 

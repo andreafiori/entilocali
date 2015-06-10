@@ -4,10 +4,6 @@ namespace ModelModule\Model\Users\RespProc;
 
 use ModelModule\Model\RecordsGetterWrapperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  25 March 2015
- */
 class UsersRespProcGetterWrapper extends RecordsGetterWrapperAbstract
 {
     /**

@@ -93,6 +93,7 @@ class SottoSezioniUpdateController extends SetupAbstractController
                 'message'       => "Errore aggiornamento sottosezione ",
                 'type'          => 'error',
                 'reference_id'  => $inputFilter->idSottoSezione,
+				'description'   => $e->getMessage(),
                 'backend'       => 1,
             ));
 

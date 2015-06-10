@@ -5,10 +5,6 @@ namespace ModelModuleTest\Model\StatoCivile;
 use ModelModuleTest\TestSuite;
 use ModelModule\Model\StatoCivile\StatoCivileGetter;
 
-/**
- * @author Andrea Fiori
- * @since  18 August 2014
- */
 class StatoCivileGetterTest extends TestSuite
 {
     /**

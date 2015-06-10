@@ -4,10 +4,6 @@ namespace ModelModule\Model\Users\Roles;
 
 use Zend\Form\Form;
 
-/**
- * @author Andrea Fiori
- * @since  10 March 2015
- */
 class UsersRolesForm extends Form
 {
     /**

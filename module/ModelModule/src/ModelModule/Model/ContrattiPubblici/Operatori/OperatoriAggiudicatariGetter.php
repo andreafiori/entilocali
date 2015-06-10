@@ -4,10 +4,6 @@ namespace ModelModule\Model\ContrattiPubblici\Operatori;
 
 use ModelModule\Model\QueryBuilderHelperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  28 February 2015
- */
 class OperatoriAggiudicatariGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()

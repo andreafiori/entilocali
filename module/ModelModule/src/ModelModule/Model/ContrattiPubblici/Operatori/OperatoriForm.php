@@ -12,7 +12,13 @@ class OperatoriForm extends Form
     public function __construct($name = null, $options = array())
     {        
         parent::__construct($name, $options);
-                
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'id',
+            'attributes' => array("class" => 'hiddenField')
+        ));
+
         $this->add(array(
                         'name' => 'nome',
                         'type' => 'Text',
@@ -20,7 +26,7 @@ class OperatoriForm extends Form
                         'attributes' => array(
                                         'id' => 'nome',
                                         'placeholder' => 'Nome...',
-                                        'title' => 'Inserisci nuova operatore',
+                                        'title' => 'Inserisci nome',
                                         'required' => 'required'
                         ),
         ));
@@ -32,7 +38,7 @@ class OperatoriForm extends Form
                         'attributes' => array(
                                         'id' => 'cf',
                                         'placeholder' => 'Codice fiscale...',
-                                        'title'       => 'Inserisci codice fiscale operatore',
+                                        'title'       => 'Inserisci codice fiscale',
                                         'required'    => 'required'
                         ),
         ));
@@ -44,15 +50,9 @@ class OperatoriForm extends Form
                         'attributes' => array(
                                         'id'            => 'ragioneSociale',
                                         'placeholder'   => 'Ragione sociale...',
-                                        'title'         => 'Inserisci ragione sociale operatore',
+                                        'title'         => 'Inserisci ragione sociale',
                                         'required'      => 'required'
                         ),
-        ));
-
-        $this->add(array(
-            'type' => 'Zend\Form\Element\Hidden',
-            'name' => 'id',
-            'attributes' => array("class" => 'hiddenField')
         ));
     }
 }

@@ -4,10 +4,6 @@ namespace ModelModule\Model\ContrattiPubblici\SceltaContraente;
 
 use ModelModule\Model\RecordsGetterWrapperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  14 August 2014
- */
 class SceltaContraenteGetterWrapper extends RecordsGetterWrapperAbstract
 {
     /**

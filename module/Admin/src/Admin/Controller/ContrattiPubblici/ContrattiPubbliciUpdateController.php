@@ -2,12 +2,21 @@
 
 namespace Admin\Controller\ContrattiPubblici;
 
+use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciControllerHelper;
+use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciForm;
+use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciFormInputFilter;
+use ModelModule\Model\NullException;
+use ModelModule\Model\Modules\ModulesContainer;
+use ModelModule\Model\Log\LogWriter;
 use Application\Controller\SetupAbstractController;
 
 class ContrattiPubbliciUpdateController extends SetupAbstractController
 {
     public function indexAction()
     {
+        /**
+         * @var \Doctrine\ORM\EntityManager $em
+         */
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
         /**
@@ -22,9 +31,9 @@ class ContrattiPubbliciUpdateController extends SetupAbstractController
             return $this->redirect()->toRoute('main');
         }
 
-        $inputFilter = new UsersSettoriFormInputFilter();
+        $inputFilter = new ContrattiPubbliciFormInputFilter();
 
-        $form = new UsersSettoriForm();
+        $form = new ContrattiPubbliciForm();
         $form->setBindOnValidate(false);
         $form->setInputFilter( $inputFilter->getInputFilter() );
         $form->setData($post);
@@ -41,7 +50,7 @@ class ContrattiPubbliciUpdateController extends SetupAbstractController
 
             $inputFilter->exchangeArray( $form->getData() );
 
-            $helper = new SettoriControllerHelper();
+            $helper = new ContrattiPubbliciControllerHelper();
             $helper->setConnection($connection);
             $helper->getConnection()->beginTransaction();
             $helper->update($inputFilter);
@@ -50,7 +59,7 @@ class ContrattiPubbliciUpdateController extends SetupAbstractController
             $helper->writeLog(array(
                 'user_id'       => $userDetails->id,
                 'module_id'     => ModulesContainer::contenuti_id,
-                'message'       => "Aggiornato il settore utente ".$inputFilter->nome,
+                'message'       => "Aggiornato il bando di gara ".$inputFilter->titolo,
                 'reference_id'  => $userDetails->id,
                 'type'          => 'info',
                 'backend'       => 1,
@@ -58,14 +67,19 @@ class ContrattiPubbliciUpdateController extends SetupAbstractController
 
             $this->layout()->setVariables(array(
                 'messageType'           => 'success',
-                'messageTitle'          => 'Settore utente aggiornato correttamente',
+                'messageTitle'          => 'Bando di gara aggiornato correttamente',
                 'messageText'           => 'I dati sono stati processati correttamente dal sistema',
                 'messageShowFormLink'   => 1,
                 'messageShowForm'       => 'Torna al form',
-                'backToSummaryLink'     => $this->url()->fromRoute('admin/users-settori-summary', array(
-                    'lang'              => $this->params()->fromRoute('lang'),
+                'backToSummaryLink'     => $this->url()->fromRoute('admin/contratti-pubblici-summary', array(
+                    'lang' => $this->params()->fromRoute('lang'),
                 )),
                 'backToSummaryText'     => "Elenco settori utente",
+                'attachmentsLink'       => $this->url()->fromRoute('admin/attachments-summary', array(
+                    'lang'          => $this->params()->fromRoute('lang'),
+                    'module'        => 'contratti-pubblici',
+                    'referenceId'   => $inputFilter->id,
+                )),
             ));
 
             $this->layout()->setTemplate($this->layout()->getVariable('templateDir').'message.phtml');
@@ -76,18 +90,19 @@ class ContrattiPubbliciUpdateController extends SetupAbstractController
             $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
                 'module_id'     => ModulesContainer::contenuti_id,
-                'message'       => "Errore nell'aggiornamento settore utente ".$inputFilter->nome.' Messaggio generato: '.$e->getMessage(),
-                'reference_id'  => $userDetails->id,
+                'message'       => "Errore nell'aggiornamento contratto pubblico ".$inputFilter->titolo,
+                'description'   => $e->getMessage(),
+                'reference_id'  => $inputFilter->id,
                 'type'          => 'error',
                 'backend'       => 1,
             ));
 
             $this->layout()->setVariables(array(
                 'messageType'           => 'danger',
-                'messageTitle'          => 'Errore aggiornamento settore utente',
-                'messageText'           => 'Messaggio generato: ' . $e->getMessage(),
+                'messageTitle'          => 'Errore aggiornamento contratto pubblico',
+                'messageText'           => $e->getMessage(),
                 'messageShowFormLink'   => 1,
-                'messageShowForm'       => "Torna all'elenco settori",
+                'messageShowForm'       => "Torna ai dati del bando di gara",
                 'form'                  => $form,
                 'formInputFilter'       => $inputFilter->getInputFilter(),
             ));

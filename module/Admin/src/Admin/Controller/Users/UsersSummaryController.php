@@ -82,7 +82,7 @@ class UsersSummaryController extends SetupAbstractController
                     $row['name'],
                     '<a href="mailto:'.$row['email'].'" title="Scrivi a '.$row['name'].' '.$row['surname'].'">'.$row['email'].'</a>',
                     $role,
-                    $row['nome'],
+                    (!empty($row['nomeSettore'])) ? $row['nomeSettore'] : '&nbsp;',
                     $row['lastUpdate'],
                     array(
                         'type' => 'updateButton',

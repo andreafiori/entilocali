@@ -29,22 +29,33 @@ class UsersRespProcController extends SetupAbstractController
         );
         $usersForDropDown = $helper->formatForDropwdown(
             $userRecords,
-            'name',
-            'surname'
+            'id',
+            'name'
         );
+
         $usersRespProcRecords = $helper->recoverWrapperRecords(
             new UsersRespProcGetterWrapper(new UsersRespProcGetter($em)),
-            array()
+            array('orderBy' => '')
         );
 
         $form = new UsersRespProcForm();
         $form->addUsers($usersForDropDown);
 
         $this->layout()->setVariables(array(
-            'form'                  => $form,
-            'usersRespProc'         => $usersRespProcRecords,
-            'formDataCommonPath'    => 'backend/templates/common/',
-            'templatePartial'       => 'users/resp-proc-management.phtml'
+            'form'                   => $form,
+            'usersRespProc'          => $usersRespProcRecords,
+            'formDataCommonPath'     => 'backend/templates/common/',
+            'formBreadCrumbCategory' => array(
+                array(
+                    'href'  => $this->url()->fromRoute('admin/users-resp-proc-management', array(
+                        'lang' => $this->params()->fromRoute('lang')
+                    )),
+                    'label' => 'Atti di concessione',
+                    'title' => 'Elenco atti di concessione',
+                ),
+            ),
+            'formBreadCrumbTitle'    => 'Responsabili procedimento',
+            'templatePartial'        => 'users/resp-proc-management.phtml'
         ));
 
         $this->layout()->setTemplate($mainLayout);

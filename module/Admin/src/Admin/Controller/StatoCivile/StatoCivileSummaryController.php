@@ -5,11 +5,11 @@ namespace Admin\Controller\StatoCivile;
 use ModelModule\Model\StatoCivile\StatoCivileFormSearch;
 use ModelModule\Model\StatoCivile\StatoCivileGetter;
 use ModelModule\Model\StatoCivile\StatoCivileGetterWrapper;
-use ModelModule\Model\StatoCivile\StatoCivileSezioniGetter;
-use ModelModule\Model\StatoCivile\StatoCivileSezioniGetterWrapper;
-use Application\Controller\SetupAbstractController;
+use ModelModule\Model\StatoCivile\Sezioni\StatoCivileSezioniGetter;
+use ModelModule\Model\StatoCivile\Sezioni\StatoCivileSezioniGetterWrapper;
 use ModelModule\Model\StatoCivile\StatoCivileControllerHelper;
 use Zend\Session\Container as SessionContainer;
+use Application\Controller\SetupAbstractController;
 
 class StatoCivileSummaryController extends SetupAbstractController
 {

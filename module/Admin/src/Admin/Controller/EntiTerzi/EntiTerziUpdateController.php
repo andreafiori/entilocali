@@ -90,6 +90,7 @@ class EntiTerziUpdateController extends SetupAbstractController
                 'module_id'     => ModulesContainer::contenuti_id,
                 'message'       => "Errore aggiornamento ente terzo ".$inputFilter->nome,
                 'type'          => 'error',
+                'description'   => $e->getMessage(),
                 'reference_id'  => $inputFilter->id,
                 'backend'       => 1,
             ));

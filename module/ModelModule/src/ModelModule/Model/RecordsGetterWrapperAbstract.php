@@ -134,10 +134,10 @@ abstract class RecordsGetterWrapperAbstract
     public function setupQuery(\Doctrine\ORM\EntityManager $entityManager)
     {
         $this->query = $entityManager->createQuery( $this->getObjectGetter()->getDQLQuery() )
-                                ->setFirstResult($this->firstResult)
-                                ->setMaxResults($this->maxResults)
-                                ->setParameters( $this->getObjectGetter()->getQuery()->getParameters() )
-                                ->getScalarResult();
+                                     ->setFirstResult($this->firstResult)
+                                     ->setMaxResults($this->maxResults)
+                                     ->setParameters( $this->getObjectGetter()->getQuery()->getParameters() )
+                                     ->getScalarResult();
 
         return $this->query ? $this->query : array();
     }
@@ -146,7 +146,7 @@ abstract class RecordsGetterWrapperAbstract
      * @param int $page
      * @return \Zend\Paginator\Paginator
      */
-    public function setupPaginatorCurrentPage($page = 1)
+    public function setupPaginatorCurrentPage($page)
     {
         $this->assertPaginator();
         

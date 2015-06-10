@@ -2,14 +2,11 @@
 
 namespace ModelModule\Model\ContrattiPubblici\Operatori;
 
-use ModelModule\Model\RouterManagers\RouterManagerAbstract;
-use ModelModule\Model\RouterManagers\RouterManagerInterface;
 use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciGetter;
 use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciGetterWrapper;
 
 /**
- * @author Andrea Fiori
- * @since  27 February 2015
+ * TODO: DELETE this class!!
  */
 class OperatoriAggiudicatariHandler extends RouterManagerAbstract implements RouterManagerInterface
 {

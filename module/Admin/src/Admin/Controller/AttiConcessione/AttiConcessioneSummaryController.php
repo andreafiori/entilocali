@@ -22,28 +22,29 @@ class AttiConcessioneSummaryController extends SetupAbstractController
         try {
 
             $helper = new AttiConcessioneControllerHelper();
-            $helper->setAttiConcessioneGetterWrapper( new AttiConcessioneGetterWrapper(new AttiConcessioneGetter($em)) );
-            $helper->setupYearsRecords( array(
+            $yearsRecords = $helper->recoverWrapperRecords(
+                new AttiConcessioneGetterWrapper(new AttiConcessioneGetter($em)),
+                array(
                     'fields' => 'DISTINCT(atti.anno) AS year',
                     'orderBy' => 'atti.id DESC'
                 ),
                 $page,
                 null
             );
-            $helper->setAttiConcessioneGetterWrapper( new AttiConcessioneGetterWrapper(new AttiConcessioneGetter($em)) );
-            $helper->setupAttiConcessioneGetterWrapperWithPaginator(
+            $wrapperArticoli = $helper->recoverWrapperRecordsPaginator(
+                new AttiConcessioneGetterWrapper(new AttiConcessioneGetter($em)),
                 array('orderBy' => 'atti.id DESC'),
                 $page,
                 null
             );
-            $helper->setUsersSettoriGetterWrapper( new UsersSettoriGetterWrapper(new UsersSettoriGetter($em)) );
-            $helper->setupSettoriRecords( array('orderBy' => 'settore.nome') );
+            $settoriRecords = $helper->recoverWrapperRecords(
+                new UsersSettoriGetterWrapper(new UsersSettoriGetter($em)),
+                array('orderBy' => 'settore.nome')
+            );
 
-            $settoriForDropDown = $helper->getUsersSettoriRecords();
+            $yearsForDropdown = $helper->formatYears($yearsRecords);
 
-            $yearsForDropdown = $helper->formatYears( $helper->getYearsRecords() );
-
-            $wrapperArticoli = $helper->getAttiConcessioneGetterWrapperWithPaginator();
+            $settoriForDropDown = $helper->formatForDropwdown($settoriRecords, 'id', 'nome');
 
             $form = new AttiConcessioneFormSearch();
             $form->addAnno($yearsForDropdown);
@@ -53,9 +54,7 @@ class AttiConcessioneSummaryController extends SetupAbstractController
             $form->addResetButton();
 
             $paginator          = $wrapperArticoli->getPaginator();
-
-            $paginatorItemCount = $wrapperArticoli->getPaginator()->getTotalItemCount();
-
+            $paginatorItemCount = $paginator->getTotalItemCount();
             $paginatorRecords   = $this->formatArticoliRecords($wrapperArticoli->setupRecords());
 
             $formSearch = new AttiConcessioneFormSearch();
@@ -68,14 +67,16 @@ class AttiConcessioneSummaryController extends SetupAbstractController
                 $this->layout()->setVariables(array(
                         'messageType'           => 'warning',
                         'messageTitle'          => 'Nessun atto di concessione presente',
-                        'messageText'           => 'Nessun atto di concessione in archivio',
+                        'messageText'           => 'Nessun atto di concessione presente in archivio',
                         'showBreadCrumb'        => 1,
                         'dataTableActiveTitle'  => 'Atti di concessione',
                         'templatePartial'       => 'message.phtml',
                     )
                 );
+
                 $this->layout()->setTemplate($mainLayout);
-                return false;
+
+                return true;
             }
 
             $this->layout()->setVariables(array(
@@ -90,10 +91,11 @@ class AttiConcessioneSummaryController extends SetupAbstractController
                         "Modalità Assegnazione",
                         "Importo",
                         "Norma o Titolo a base dell'attribuzione",
-                        "",
-                        "",
-                        "",
-                        "",
+                        "Date",
+                        //"&nbsp;",
+                        "&nbsp;",
+                        "&nbsp;",
+                        "&nbsp;",
                     ),
                     'paginator'         => $paginator,
                     'records'           => $paginatorRecords,
@@ -132,22 +134,24 @@ class AttiConcessioneSummaryController extends SetupAbstractController
                     $arrayToReturn[] = array(
 
                         (isset($responsabile))  ?
-                            utf8_encode($row['nomeSezione']).'. <br><br>'.$responsabile
+                            $row['nomeSezione'].'. <br><br>'.$responsabile
                             :
-                            utf8_encode($row['nomeSezione']),
+                            $row['nomeSezione'],
 
                         $row['progressivo']." / ".$row['anno'],
-                        utf8_encode($row['beneficiario']),
-                        utf8_encode($row['nomemodAssegnazione']),
-                        utf8_encode($row['importo']),
-                        utf8_encode($row['titolo']),
+                        $row['beneficiario'],
+                        $row['nomemodAssegnazione'],
+                        $row['importo'],
+                        $row['titolo'],
                         '<strong>Data inserimento:</strong> '.$row['dataInserimento'].' <br><br><strong>Scadenza:</strong> '.$row['scadenza'].'<br><br> <strong>Inserito da:</strong> '.$row['name'].' '.$row['surname'],
+                        /*
                         array(
                             'type'      => ($row['attivo']!=0) ? 'toDisable' : 'toActive',
                             'href'      => '?active=&amp;id='.$row['id'],
                             'value'     => $row['attivo'],
                             'title'     => 'Attiva \ Disattiva'
                         ),
+                        */
                         array(
                             'type'      => 'updateButton',
                             'href'      => $this->url()->fromRoute('admin/atti-concessione-form', array('lang' => 'it', 'id' => $row['id']) ),
