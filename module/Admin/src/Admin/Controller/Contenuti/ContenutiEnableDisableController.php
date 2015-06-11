@@ -51,6 +51,7 @@ class ContenutiEnableDisableController extends SetupAbstractController
                 array(
                     'lang'              => $this->params()->fromRoute('lang'),
                     'languageSelection' => $this->params()->fromRoute('languageSelection'),
+                    'modulename'        => $this->params()->fromRoute('modulename'),
                     'previouspage'      => $this->params()->fromRoute('previouspage'),
                 )
             );
@@ -114,6 +115,7 @@ class ContenutiEnableDisableController extends SetupAbstractController
                 array(
                     'lang'              => $this->params()->fromRoute('lang'),
                     'languageSelection' => $this->params()->fromRoute('languageSelection'),
+                    'modulename'        => $this->params()->fromRoute('modulename'),
                     'previouspage'      => $this->params()->fromRoute('previouspage'),
                 )
             );
@@ -140,11 +142,10 @@ class ContenutiEnableDisableController extends SetupAbstractController
     }
 
         /**
-         * @param $em
-         * @param $id
-         * @param $connection
+         * @param \Doctrine\ORM\EntityManager $em
+         * @param int $id
+         * @param \Doctrine\DBAL\Connection $connection
          * @return ContenutiOperationsModel
-         * @throws \ModelModule\Model\NullException
          */
         private function setupContenutiOperations($em, $connection, $id, $attivoValue = 1)
         {

@@ -72,6 +72,12 @@
                             <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
                                 <a href="<?php echo $record['href'] ?>" class="btn btn-lg" title="<?php echo isset($record['title']) ? $record['title'] : null ?>"><i class="fa fa-table"></i> </a>
                             </td>
+                        <?php elseif($record['type']=='multiuserButton'): ?>
+                            <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
+                                <a href="<?php echo $record['href'] ?>" class="btn btn-lg" title="<?php echo isset($record['title']) ? $record['title'] : null ?>">
+                                    <i class="fa fa-users"></i>
+                                </a>
+                            </td>
                         <?php elseif($record['type']=='attachButton'): ?>
                             <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
                                 <a href="<?php echo $record['href'] ?>" class="btn btn-lg icon-black" title="<?php echo isset($record['title']) ? $record['title'] : 'Gestione allegati'; ?>">

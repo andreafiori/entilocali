@@ -14,9 +14,10 @@ class SottoSezioniOperationsController extends SetupAbstractController
     public function changecontenutisummarylangAction()
     {
         if ($this->getRequest()->isPost()) {
-            return $this->redirect()->toRoute('admin/sottosezioni-contenuti-summary', array(
+            return $this->redirect()->toRoute('admin/contenuti-summary', array(
                 'lang'              => $this->params()->fromRoute('lang'),
                 'languageSelection' => $this->params()->fromPost('lingua'),
+                'modulename'        => $this->params()->fromRoute('modulename'),
                 'page'              => $this->params()->fromRoute('page'),
             ));
         }
@@ -30,9 +31,10 @@ class SottoSezioniOperationsController extends SetupAbstractController
     public function changeammtraspsummarylangAction()
     {
         if ($this->getRequest()->isPost()) {
-            return $this->redirect()->toRoute('admin/sottosezioni-amm-trasp-summary', array(
+            return $this->redirect()->toRoute('admin/contenuti-summary', array(
                 'lang'              => $this->params()->fromRoute('lang'),
                 'languageSelection' => $this->params()->fromPost('lingua'),
+                'modulename'        => $this->params()->fromRoute('modulename'),
                 'page'              => $this->params()->fromRoute('page'),
             ));
         }

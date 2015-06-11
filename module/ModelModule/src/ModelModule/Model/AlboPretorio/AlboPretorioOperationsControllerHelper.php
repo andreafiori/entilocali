@@ -5,19 +5,14 @@ namespace ModelModule\Model\AlboPretorio;
 use ModelModule\Model\Database\DbTableContainer;
 use ModelModule\Model\OperationsModelAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  14 April 2015
- */
 class AlboPretorioOperationsControllerHelper extends OperationsModelAbstract
 {
     private $articleRecord;
 
     /**
      * @param AlboPretorioArticoliGetterWrapper $wrapper
-     * @param  int $id
-     * @return \Application\Model\QueryBuilderHelperAbstract
-     * @throws \Application\Model\NullException
+     * @param int $id
+     * @return \ModelModule\Model\QueryBuilderHelperAbstract
      */
     public function recoverSingleArticle(AlboPretorioArticoliGetterWrapper $wrapper, $id)
     {

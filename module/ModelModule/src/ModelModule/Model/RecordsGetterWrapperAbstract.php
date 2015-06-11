@@ -29,6 +29,8 @@ abstract class RecordsGetterWrapperAbstract
 
     protected $entityManager;
 
+    protected $attachmentsGetterWrapper;
+
     /**
      * @param array $input
      */
@@ -267,6 +269,36 @@ abstract class RecordsGetterWrapperAbstract
         }
 
         return $records;
+    }
+
+    /**
+     * @param AttachmentsGetterWrapper $attachmentsGetterWrapper
+     */
+    public function setAttachmentsGetterWrapper(AttachmentsGetterWrapper $attachmentsGetterWrapper)
+    {
+        $this->attachmentsGetterWrapper = $attachmentsGetterWrapper;
+    }
+
+    /**
+     * @return AttachmentsGetterWrapper
+     */
+    public function getAttachmentsGetterWrapper()
+    {
+        return $this->attachmentsGetterWrapper;
+    }
+
+    /**
+     * @return AttachmentsGetterWrapper
+     */
+    protected function assertAttachmentsGetterWrapper()
+    {
+        if (!$this->getAttachmentsGetterWrapper()) {
+            $this->setAttachmentsGetterWrapper(
+                new AttachmentsGetterWrapper(new AttachmentsGetter($this->getEntityManager()))
+            );
+        }
+
+        return $this->getAttachmentsGetterWrapper();
     }
 
     /**

@@ -4,10 +4,6 @@ namespace ModelModule\Model\Users\Roles;
 
 use ModelModule\Model\FormData\CrudHandlerAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  13 March 2015
- */
 class UsersRolesPermissionsCrudHandler extends CrudHandlerAbstract
 {
     private $rolesTable = 'zfcms_users_roles';

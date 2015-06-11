@@ -27,7 +27,7 @@ class SezioniControllerHelper extends ContenutiControllerHelperAbstract
         return $this->getConnection()->insert(DbTableContainer::sezioni, array(
             'nome'                  => $inputFilter->nome,
             'colonna'               => $inputFilter->colonna,
-            'posizione'             => $inputFilter->posizione,
+            'posizione'             => ($inputFilter->posizione) ? $inputFilter->posizione : 1,
             'lingua'                => $inputFilter->lingua,
             'blocco'                => $inputFilter->blocco,
             'modulo_id'             => isset($inputFilter->modulo) ? $inputFilter->modulo : ModulesContainer::contenuti_id,

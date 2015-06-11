@@ -19,6 +19,7 @@ class SezioniSummaryController extends SetupAbstractController
         $languageSelection  = $this->params()->fromRoute('languageSelection');
         $page               = $this->params()->fromRoute('page');
         $modulename         = $this->params()->fromRoute('modulename');
+        $isAmmTrasparente   = ($modulename=='amministrazione-trasparente') ? 1 : 0;
 
         $helper = new SezioniControllerHelper();
         $helper->setLanguagesGetterWrapper(new LanguagesGetterWrapper(new LanguagesGetter($em)));
@@ -32,8 +33,9 @@ class SezioniSummaryController extends SetupAbstractController
         $wrapper = $helper->recoverWrapperRecordsPaginator(
             new SezioniGetterWrapper(new SezioniGetter($em)),
             array(
-                'orderBy'               => 'sezioni.id',
+                'orderBy'               => 'sezioni.id DESC',
                 'languageAbbreviation'  => $languageSelection,
+                'isAmmTrasparente'      => $isAmmTrasparente,
             ),
             $page,
             null

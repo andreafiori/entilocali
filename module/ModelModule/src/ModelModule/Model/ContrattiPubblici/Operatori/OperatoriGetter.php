@@ -11,7 +11,7 @@ class OperatoriGetter extends QueryBuilderHelperAbstract
      */
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('operatori.id, operatori.cf, operatori.ragioneSociale, operatori.ruolo1, operatori.nome');
+        $this->setSelectQueryFields('operatori.id, operatori.cf, operatori.ragioneSociale, operatori.nome');
 
         $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
                                 ->from('Application\Entity\ZfcmsComuniContrattiPartecipanti', 'operatori')
@@ -40,13 +40,15 @@ class OperatoriGetter extends QueryBuilderHelperAbstract
     }
 
     /**
+     * Set IDs to exclude
+     *
      * @param number|array $id
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function setExcludeId($id)
     {
         if ( is_numeric($id) ) {
-            $this->getQueryBuilder()->andWhere('operatori.id != :notInId ');
+            $this->getQueryBuilder()->andWhere('operatori.id NOT IN :notInId ');
             $this->getQueryBuilder()->setParameter('notInId', $id);
         }
 

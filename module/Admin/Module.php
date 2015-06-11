@@ -56,7 +56,7 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
 
             $userDetails = $session->offsetGet('userDetails');
 
-            /* Check Admin area login */
+            /* Check Admin Area login */
             if ( !$sl->get('AuthService')->hasIdentity() or $userDetails->sitename != $this->recoverSitename($sl) ) {
 
                 $url = $e->getRouter()->assemble(array('action' => 'index'), array('name' => 'login'));
@@ -97,31 +97,6 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
                 }
             }
 
-            if ($matchedRoute->getMatchedRouteName()=='admin/datatable'
-                and isset($roles['datatables'][$params['tablesetter']])) {
-
-                $allowed = 0;
-                foreach($roles['datatables'][$params['tablesetter']] as $resources) {
-                    foreach($resources as $resource) {
-                        if ($userDetails->acl->hasResource($resource)) {
-                            $allowed = 1;
-                            break;
-                        }
-                    }
-                }
-
-                /* No permissions, redirect... */
-                if ($allowed==0) {
-                    $url = $e->getRouter()->assemble(array('action' => 'index', 'lang' => 'it'), array('name' => 'admin'));
-
-                    $response = $e->getResponse();
-                    $response->getHeaders()->addHeaderLine('Location', $url);
-                    $response->setStatusCode(401);
-                    $response->sendHeaders();
-                    exit;
-                }
-
-            }
         }
     }
 

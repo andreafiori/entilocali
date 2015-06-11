@@ -55,7 +55,7 @@ class SottoSezioniPositionsController extends SetupAbstractController
 
         /**
          * @param array $input
-         * @return \Application\Model\QueryBuilderHelperAbstract
+         * @return \ModelModule\Model\QueryBuilderHelperAbstract
          */
         private function getSottoSezioniRecords($input = array())
         {

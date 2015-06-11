@@ -4,10 +4,6 @@ namespace ModelModule\Model\Attachments;
 
 use ModelModule\Model\RecordsGetterWrapperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  25 July 2014
- */
 class AttachmentsGetterWrapper extends RecordsGetterWrapperAbstract
 {
     /**

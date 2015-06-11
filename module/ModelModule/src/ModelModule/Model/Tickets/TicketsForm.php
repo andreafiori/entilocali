@@ -4,10 +4,6 @@ namespace ModelModule\Model\Tickets;
 
 use Zend\Form\Form;
 
-/**
- * @author Andrea Fiori
- * @since  14 May 2014
- */
 class TicketsForm extends Form
 {
     /**
@@ -60,7 +56,7 @@ class TicketsForm extends Form
             ),
             'attributes' => array(
                 'required' => 'required',
-                'title'    => 'Seleziona piorita',
+                'title'    => 'Seleziona priorita',
                 'id'       => 'priority'
             )
         ));

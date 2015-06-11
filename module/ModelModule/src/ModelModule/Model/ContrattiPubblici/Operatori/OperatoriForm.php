@@ -24,10 +24,10 @@ class OperatoriForm extends Form
                         'type' => 'Text',
                         'options' => array( 'label' => '* Nome' ),
                         'attributes' => array(
-                                        'id' => 'nome',
-                                        'placeholder' => 'Nome...',
-                                        'title' => 'Inserisci nome',
-                                        'required' => 'required'
+                                        'id'            => 'nome',
+                                        'placeholder'   => 'Nome...',
+                                        'title'         => 'Inserisci nome',
+                                        'required'      => 'required'
                         ),
         ));
         

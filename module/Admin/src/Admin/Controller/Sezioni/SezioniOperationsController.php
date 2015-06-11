@@ -6,19 +6,14 @@ use Application\Controller\SetupAbstractController;
 
 class SezioniOperationsController extends SetupAbstractController
 {
-    public function insertAction()
+    public function disableAction()
     {
-
+        $id = $this->params()->fromRoute('id');
     }
 
-    public function updateAction()
+    public function enableAction()
     {
-
-    }
-
-    public function deleteAction()
-    {
-
+        $id = $this->params()->fromRoute('id');
     }
 
     /**
@@ -32,6 +27,7 @@ class SezioniOperationsController extends SetupAbstractController
             return $this->redirect()->toRoute('admin/sezioni-summary', array(
                 'lang'              => $this->params()->fromRoute('lang'),
                 'languageSelection' => $this->params()->fromPost('lingua'),
+                'modulename'        => $this->params()->fromRoute('modulename'),
                 'page'              => $this->params()->fromRoute('page'),
             ));
         }
@@ -45,6 +41,7 @@ class SezioniOperationsController extends SetupAbstractController
             return $this->redirect()->toRoute('admin/sezioni-positions', array(
                 'lang'              => $this->params()->fromRoute('lang'),
                 'languageSelection' => $this->params()->fromPost('lingua'),
+                'modulename'        => $this->params()->fromRoute('modulename'),
                 'page'              => $this->params()->fromRoute('page'),
             ));
         }

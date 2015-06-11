@@ -28,7 +28,7 @@ class AlboPretorioSummaryController extends SetupAbstractController
                 array('orderBy' => 'aps.nome ASC')
             );
             $helper->checkRecords($sezioniRecords, 'Nessuna sezione presente');
-            $paginatorWrapper = $helper->recoverWrapperRecordsPaginator(
+            $alboArticoliWrapper = $helper->recoverWrapperRecordsPaginator(
                 new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter($em)),
                 array('orderBy' => 'alboArticoli.id DESC'),
                 $page,
@@ -43,9 +43,12 @@ class AlboPretorioSummaryController extends SetupAbstractController
             $formSearch->addResetButton();
             $formSearch->addCsrf();
 
-            $paginator = $paginatorWrapper->getPaginator();
+            $alboArticoliRecords = $alboArticoliWrapper->setupRecords();
 
-            $records = $paginatorWrapper->setupRecords();
+            $alboArticoliWrapper->setEntityManager($em);
+            $alboArticoliWrapper->addAttachmentsFromRecords($alboArticoliRecords);
+
+            $paginator = $alboArticoliWrapper->getPaginator();
 
             $this->layout()->setVariables(array(
                     'formSearch'        => $formSearch,
@@ -66,7 +69,7 @@ class AlboPretorioSummaryController extends SetupAbstractController
                         '&nbsp;',
                     ),
                     'paginator'         => $paginator,
-                    'records'           => $this->formatArticoliRecords($records),
+                    'records'           => $this->formatArticoliRecords($alboArticoliRecords),
                     'templatePartial'   => 'datatable/datatable_albo_pretorio.phtml'
                 )
             );
@@ -90,6 +93,8 @@ class AlboPretorioSummaryController extends SetupAbstractController
          */
         protected function formatArticoliRecords($records, $modulePrefixLink = 'albo-pretorio')
         {
+            $lang = $this->params()->fromRoute('lang');
+
             $arrayToReturn = array();
             if ($records) {
                 foreach($records as $key => $record) {
@@ -135,14 +140,16 @@ class AlboPretorioSummaryController extends SetupAbstractController
                             'class'  => $rowClass,
                         ),
                     );
+
                     /* Attachment button */
                     $arrayLine[] = array(
                         'type'  => 'attachButton',
                         'href'  => $this->url()->fromRoute('admin/attachments-summary', array(
-                            'lang'          => 'it',
+                            'lang'          => $lang,
                             'module'        => $modulePrefixLink,
                             'referenceId'   => $record['id'],
                         )),
+                        'attachmentsFilesCount' => isset($record['attachments']) ? count($record['attachments']) : 0,
                     );
 
                     /* Homepage button */
@@ -164,7 +171,7 @@ class AlboPretorioSummaryController extends SetupAbstractController
                             $arrayLine[] = array(
                                 'type'      => 'alboRettificaButton',
                                 'data-form-action' => $this->url()->fromRoute('admin/albo-pretorio-form-rettifica', array(
-                                    'lang'      => $this->params()->fromRoute('lang'),
+                                    'lang'      => $lang,
                                     'id'        => $record['id'],
                                 )),
                                 'title'     => 'Rettifica articolo',
@@ -176,7 +183,7 @@ class AlboPretorioSummaryController extends SetupAbstractController
                             $arrayLine[] = array(
                                 'type'      => 'alboPublishButton',
                                 'data-form-action' => $this->url()->fromRoute('admin/albo-pretorio-operations', array(
-                                    'lang'          => $this->params()->fromRoute('lang'),
+                                    'lang'          => $lang,
                                     'action'        => 'publish'
                                 )),
                                 'data-id'   => $record['id'],
@@ -186,7 +193,7 @@ class AlboPretorioSummaryController extends SetupAbstractController
                             $arrayLine[] = array(
                                 'type'      => 'updateButton',
                                 'href'      => $this->url()->fromRoute('admin/albo-pretorio-form', array(
-                                    'lang'  => 'it',
+                                    'lang'  => $lang,
                                     'id'    => $record['id']
                                 )),
                                 'title'     => 'Modifica articolo',
@@ -205,7 +212,7 @@ class AlboPretorioSummaryController extends SetupAbstractController
                         $arrayLine[] = array(
                             'type'   => 'enteterzoButton',
                             'href'   => $this->url()->fromRoute('admin/invio-ente-terzo', array(
-                                'lang'          => 'it',
+                                'lang'          => $lang,
                                 'module'        => $modulePrefixLink,
                                 'id'            => $record['id'],
                             )),
@@ -215,7 +222,7 @@ class AlboPretorioSummaryController extends SetupAbstractController
                             $arrayLine[] = array(
                                 'type'      => 'alboAnnullButton',
                                 'data-form-action' => $this->url()->fromRoute('admin/albo-pretorio-operations', array(
-                                    'lang'          => 'it',
+                                    'lang'          => $lang,
                                     'action'        => 'annull'
                                 )),
                                 'href'      => '#',

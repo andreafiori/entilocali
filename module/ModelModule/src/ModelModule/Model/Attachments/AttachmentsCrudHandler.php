@@ -11,10 +11,6 @@ use ModelModule\Model\NullException;
 use Zend\InputFilter\InputFilterAwareInterface;
 use ModelModule\Model\Amazon\S3\S3;
 
-/**
- * @author Andrea Fiori
- * @since  20 December 2014
- */
 class AttachmentsCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterface, CrudHandlerInsertUpdateInterface
 {
     private $tableName;

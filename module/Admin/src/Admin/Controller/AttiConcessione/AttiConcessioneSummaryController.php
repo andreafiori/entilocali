@@ -55,7 +55,11 @@ class AttiConcessioneSummaryController extends SetupAbstractController
 
             $paginator          = $wrapperArticoli->getPaginator();
             $paginatorItemCount = $paginator->getTotalItemCount();
-            $paginatorRecords   = $this->formatArticoliRecords($wrapperArticoli->setupRecords());
+
+            $wrapperArticoli->setEntityManager($em);
+            $paginatorRecords   = $this->formatArticoliRecords(
+                $wrapperArticoli->addAttachmentsFromRecords($wrapperArticoli->setupRecords())
+            );
 
             $formSearch = new AttiConcessioneFormSearch();
             $formSearch->addMainElements();
@@ -144,14 +148,7 @@ class AttiConcessioneSummaryController extends SetupAbstractController
                         $row['importo'],
                         $row['titolo'],
                         '<strong>Data inserimento:</strong> '.$row['dataInserimento'].' <br><br><strong>Scadenza:</strong> '.$row['scadenza'].'<br><br> <strong>Inserito da:</strong> '.$row['name'].' '.$row['surname'],
-                        /*
-                        array(
-                            'type'      => ($row['attivo']!=0) ? 'toDisable' : 'toActive',
-                            'href'      => '?active=&amp;id='.$row['id'],
-                            'value'     => $row['attivo'],
-                            'title'     => 'Attiva \ Disattiva'
-                        ),
-                        */
+                        /* TODO: icon home page */
                         array(
                             'type'      => 'updateButton',
                             'href'      => $this->url()->fromRoute('admin/atti-concessione-form', array('lang' => 'it', 'id' => $row['id']) ),
@@ -171,6 +168,7 @@ class AttiConcessioneSummaryController extends SetupAbstractController
                                 'referenceId'   => $row['id']
                             )),
                             'title'     => 'Gestione allegati',
+                            'attachmentsFilesCount' => isset($row['attachments']) ? count($row['attachments']) : 0,
                         ),
                     );
                 }

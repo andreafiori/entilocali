@@ -81,11 +81,9 @@ class ContrattiPubbliciFormController extends SetupAbstractController
                 $form->setData($contrattoRecord[0]);
             } else {
 
-                $form->setData( array("insertDate" => date("Y-m-d"), "expireDate" => date("2030-m-d")) );
+                $form->setData( array("dataInserimento" => date("Y-m-d H:i:s")) );
 
-                $formAction = $this->url()->fromRoute('admin/contratti-pubblici-insert', array(
-                    'lang' => $lang
-                ));
+                $formAction = $this->url()->fromRoute('admin/contratti-pubblici-insert', array('lang' => $lang));
                 $formTitle = 'Nuovo bando';
             }
 

@@ -5,6 +5,7 @@ namespace Admin\Controller\Users\Roles;
 use ModelModule\Model\Users\Roles\UsersRolesForm;
 use ModelModule\Model\Users\Roles\UsersRolesGetter;
 use ModelModule\Model\Users\Roles\UsersRolesGetterWrapper;
+use ModelModule\Model\Users\Roles\UsersRolesPermissionsCrudHandler;
 use ModelModule\Model\Users\Roles\UsersRolesPermissionsGetter;
 use ModelModule\Model\Users\Roles\UsersRolesPermissionsGetterWrapper;
 use ModelModule\Model\Users\Roles\UsersRolesPermissionsRelationsGetter;
@@ -107,25 +108,18 @@ class UsersRolesFormController extends SetupAbstractController
     /**
      * @param array|null $formPost
      * @return bool
-
+     */
     private function checkFormPost($formPost)
     {
         $crudHandler =  new UsersRolesPermissionsCrudHandler($this->getInput());
         $crudHandler->setConnection($this->getInput('entityManager')->getConnection());
 
         if (!empty($formPost['id'])) {
-
-        $crudHandler->setOperation('update');
-
-        $crudHandler->update();
-
+            $crudHandler->setOperation('update');
+            $crudHandler->update();
         } else {
-
-        $crudHandler->setOperation('insert');
-
-        $crudHandler->insert();
-
+            $crudHandler->setOperation('insert');
+            $crudHandler->insert();
         }
     }
-     */
 }

@@ -66,7 +66,8 @@ class ContrattiPubbliciSummaryController extends SetupAbstractController
 
         $paginator = $wrapper->getPaginator();
 
-        $wrapperRecords = $wrapper->setupRecords();
+        $wrapper->setEntityManager($em);
+        $wrapperRecords = $wrapper->addAttachmentsFromRecords($wrapper->setupRecords());
 
         $paginatorRecords = $this->formatArticoliRecords($wrapperRecords);
 
@@ -83,7 +84,7 @@ class ContrattiPubbliciSummaryController extends SetupAbstractController
                     "Elenco degli Operatori invitati a presentare offerte",
                     "Vedi elenco" (posizione precednete)
                     */
-                    "Scelta del Contraente",
+                    "Scelta del contraente",
                     "Importo somme liquidate Euro",
                     /*
                     "Inserito da",
@@ -95,7 +96,6 @@ class ContrattiPubbliciSummaryController extends SetupAbstractController
                     "&nbsp;",
                     "&nbsp;",
                     "&nbsp;",
-                    "&nbsp;"
                 ),
                 'paginator'         => $paginator,
                 'records'           => $paginatorRecords,
@@ -112,6 +112,8 @@ class ContrattiPubbliciSummaryController extends SetupAbstractController
          */
         private function formatArticoliRecords($records)
         {
+            $lang = $this->params()->fromRoute('lang');
+
             $arrayToReturn = array();
             if ($records) {
                 foreach($records as $key => $row) {
@@ -120,23 +122,20 @@ class ContrattiPubbliciSummaryController extends SetupAbstractController
                         "<strong>CF:</strong> <br><br><strong>Str. prop.:</strong> ".$row['nomeSettore']."<br><br> <strong>Resp. Proc.:</strong> ".$row['responsabileUsersName'],
                         "<br><strong>Data aggiudicazione:</strong> <br><br> <strong>Importo di aggiudicazione (Euro):</strong> ".$row['importoAggiudicazione'],
                         '<strong>Numero di offerte ammesse:</strong> '.$row['numeroOfferte']."<br><br><strong>Procedura di scelta del contraente:</strong> ".$row['nomeScelta'],
-                        $row['importoLiquidato'],
-                        "<strong>Inizio lavori:</strong> ".$row['dataInizioLavori']."<br><br> <strong>Fine lavori:</strong> ".$row['dataFineLavori']."<br><br> <strong>Scadenza:</strong> ".$row['scadenza'],
+                        $row['importoLiquidato'].' &euro;',
+                        "<strong>Inizio lavori:</strong> ".date_format(date_create($row['dataInizioLavori']), 'd-m-Y')."<br><br> <strong>Fine lavori:</strong> ".$row['dataFineLavori']."<br><br> <strong>Scadenza:</strong> ".$row['scadenza'],
                         array(
-                            'type'      => 'tableButton',
-                            'href'      => 'contratti-pubblici-aggiudicatari/elenco/'.$row['id'],
-                            'title'     => 'Elenco aggiudicatari \ partecipanti'
-                        ),
-                        array(
-                            'type'      => $row['attivo']!=0 ? 'activeButton' : 'disableButton',
-                            'href'      => '#',
-                            'value'     => $row['attivo'],
-                            'title'     => 'Attiva \ Disattiva'
+                            'type'      => 'multiuserButton',
+                            'href'      =>  $this->url()->fromRoute('admin/contratti-pubblici-aggiudicatari', array(
+                                'lang'  => $lang,
+                                'id'    => $row['id'],
+                            )),
+                            'title'     => 'Elenco aggiudicatari \ partecipanti',
                         ),
                         array(
                             'type' => 'updateButton',
                             'href' => $this->url()->fromRoute('admin/contratti-pubblici-form', array(
-                                    'lang'  => 'it',
+                                    'lang'  => $lang,
                                     'id'    => $row['id']
                                 )
                             ),
@@ -156,12 +155,12 @@ class ContrattiPubbliciSummaryController extends SetupAbstractController
                         array(
                             'type' => 'attachButton',
                             'href' => $this->url()->fromRoute('admin/attachments-summary', array(
-                                    'lang'          => 'it',
-                                    'module'        => 'contratti-pubblici',
-                                    'referenceId'   => $row['id']
-                                )
-                            ),
-                            'title' => 'Gestione allegati'
+                                'lang'          => $lang,
+                                'module'        => 'contratti-pubblici',
+                                'referenceId'   => $row['id']
+                            )),
+                            'title' => 'Gestione allegati',
+                            'attachmentsFilesCount' => isset($row['attachments']) ? count($row['attachments']) : 0,
                         ),
                     );
                 }

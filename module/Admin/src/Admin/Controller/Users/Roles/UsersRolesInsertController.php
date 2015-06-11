@@ -63,7 +63,7 @@ class UsersRolesInsertController extends SetupAbstractController
             $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
                 'module_id'     => ModulesContainer::contenuti_id,
-                'message'       => "Inserita nuovo ruolo utente ".$inputFilter->name,
+                'message'       => "Inserito nuovo ruolo utente ".$inputFilter->name,
                 'type'          => 'info',
                 'reference_id'  => $lastInsertId,
                 'backend'       => 1,
@@ -71,13 +71,13 @@ class UsersRolesInsertController extends SetupAbstractController
 
             $this->layout()->setVariables(array(
                 'messageType'                => 'success',
-                'messageTitle'               => 'Sezione inserita correttamente',
+                'messageTitle'               => 'Ruolo utente inserito correttamente',
                 'messageText'                => 'I dati sono stati processati correttamente dal sistema',
                 'showLinkResetFormAndShowIt' => 1,
                 'backToSummaryLink'     => $this->url()->fromRoute('admin/users-roles-summary', array(
                     'lang'              => $this->params()->fromRoute('lang'),
                 )),
-                'backToSummaryText'     => "Elenco sezioni",
+                'backToSummaryText'     => "Elenco ruoli",
             ));
 
         } catch(\Exception $e) {

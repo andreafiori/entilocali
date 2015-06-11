@@ -3,25 +3,52 @@
 namespace Admin\Controller\Users\RespProc;
 
 use Application\Controller\SetupAbstractController;
+use ModelModule\Model\Database\DbTableContainer;
+use ModelModule\Model\Log\LogWriter;
 
-/**
- * TODO: insert user resp. proc., log operation, redirect...
- */
 class UsersRespProcInsertController extends SetupAbstractController
 {
     public function indexAction()
     {
-        /*
-        $connection = $this->getInput('entityManager',1)->getConnection();
+        /**
+         * @var \Doctrine\ORM\EntityManager $em
+         */
+        $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+
+        /**
+         * @var \Doctrine\DBAL\Connection $connection
+         */
+        $connection = $em->getConnection();
+
+        $request = $this->getRequest();
+
+        if (!($request->isXmlHttpRequest() or $request->isPost())) {
+            return $this->redirect()->toRoute('main');
+        }
+
+        $post = array_merge_recursive( $request->getPost()->toArray(), $request->getFiles()->toArray() );
+
+        $userDetails = $this->recoverUserDetails();
+
         $connection->insert(
             DbTableContainer::usersRespProc,
             array(
-                'user_id' => $param['post']['user'],
+                'user_id' => $post['user'],
                 'attivo'  => 1,
             )
         );
 
-        return redirect....
-        */
+        $logWriter = new LogWriter($connection);
+        $logWriter->writeLog(array(
+            'user_id'       => $userDetails->id,
+            'module_id'     => ModulesContainer::contenuti_id,
+            'message'       => "Inserito nuovo responsabile di procedimento, utente ".$userDetails->id,
+            'type'          => 'info',
+            'backend'       => 1,
+        ));
+
+        return $this->redirect()->toRoute('admin/users-resp-proc-management', array(
+            'lang' => $this->params()->fromRoute('lang')
+        ));
     }
 }

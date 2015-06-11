@@ -19,6 +19,7 @@ class AttachmentsFormController extends SetupAbstractController
 
         $em             = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
+        $lang           = $this->params()->fromRoute('lang');
         $moduleCode     = $this->params()->fromRoute('module');
         $referenceId    = $this->params()->fromRoute('referenceId');
         $attachmentId   = $this->params()->fromRoute('attachmentId');
@@ -77,7 +78,7 @@ class AttachmentsFormController extends SetupAbstractController
                     'formBreadCrumbCategory'     => $helper->getPropertiesGetterClassInstance()->getBreadcrumbModule(),
                     'formBreadCrumbCategoryLink' => $this->url()->fromRoute(
                         $helper->getPropertiesGetterClassInstance()->getBreadcrumbRoute(),
-                        array('lang' => 'it', 'languageSelection' => 'it')
+                        array('lang' => $lang, 'languageSelection' => $lang)
                     ),
                     'breadCrumbActiveLabel'      => isset($attachmentRecord[0]['title']) ? $attachmentRecord[0]['title'] : 'Nuovo file',
                     'attachmentType'             => $helper->getModuleCode(),

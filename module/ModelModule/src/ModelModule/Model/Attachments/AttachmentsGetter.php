@@ -4,10 +4,6 @@ namespace ModelModule\Model\Attachments;
 
 use ModelModule\Model\QueryBuilderHelperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  25 July 2014
- */
 class AttachmentsGetter extends QueryBuilderHelperAbstract
 {
     public function setMainQuery()

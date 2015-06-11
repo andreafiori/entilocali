@@ -28,19 +28,17 @@ class TicketsSummaryController extends SetupAbstractController
 
         $records = $wrapper->getRecords();
 
+        $arrayToReturn = array();
         if ( is_array($records) ) {
-            $arrayToReturn = array();
             foreach($records as $record) {
-
                 $arrayToReturn[] = array(
                     isset($record['title']) ? $record['title'] : null,
                     isset($record['subject']) ? $record['subject'] : null,
                     isset($record['priority']) ? $record['priority'] : null,
                     isset($record['createDate']) ? $record['createDate'] : null,
-                    //'Risolvi',
-                    //'Rispondi',
+                    'Risolvi',
+                    'Rispondi',
                 );
-
             }
         }
 

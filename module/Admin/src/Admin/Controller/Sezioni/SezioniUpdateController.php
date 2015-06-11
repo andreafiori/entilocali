@@ -103,7 +103,7 @@ class SezioniUpdateController extends SetupAbstractController
             $this->layout()->setVariables(array(
                 'messageType'           => 'danger',
                 'messageTitle'          => 'Errore aggiornamento sezione',
-                'messageText'           => 'Messaggio generato: '.$e->getMessage(),
+                'messageText'           => $e->getMessage(),
                 'form'                  => $form,
                 'formInputFilter'       => $inputFilter->getInputFilter(),
                 'messageShowFormLink'   => 1,

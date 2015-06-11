@@ -338,8 +338,8 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                             <li>
                                 <a href="#" class="dropdown-collapse" title="Gestione sezioni amministrazione trasparente">Sezioni <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
-                                    <li><a href="#" title="Inserisci nuova sezione">Nuova</a></li>
-                                    <li><a href="#" title="Gestione">Gestione</a></li>
+                                    <li><a href="<?php echo $this->url('admin/sezioni-form', array('lang' => $lang, 'modulename' => 'amministrazione-trasparente', 'languageSelection' => $languageSelection)); ?>" title="Inserisci nuova sezione">Nuova</a></li>
+                                    <li><a href="<?php echo $this->url('admin/sezioni-summary', array('lang' => $lang, 'modulename' => 'amministrazione-trasparente', 'languageSelection' => $languageSelection)); ?>" title="Gestione">Gestione</a></li>
                                 </ul>
                             </li>
 

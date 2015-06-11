@@ -27,4 +27,41 @@ class ModulesContainer
     const photo                             = 8;
 
     const newsletter                        = 6;
+
+    /**
+     * @param $moduleCode
+     * @return int
+     */
+    public static function recoverIdFromModuleCode($moduleCode)
+    {
+        switch($moduleCode) {
+            default:
+                return self::contenuti_id;
+            break;
+
+            case("amministrazione-trasparente"):
+                return self::amministrazione_trasparente_id;
+            break;
+
+            case("albo-pretorio"):
+                return self::albo_pretorio_id;
+            break;
+
+            case("atti-concessione"):
+                return self::atti_concessione;
+            break;
+
+            case("contratti-pubblici"):
+                return self::contratti_pubblici_id;
+            break;
+
+            case("stato-civile"):
+                return self::stato_civile_id;
+            break;
+
+            case("blogs"):
+                return self::blogs;
+            break;
+        }
+    }
 }

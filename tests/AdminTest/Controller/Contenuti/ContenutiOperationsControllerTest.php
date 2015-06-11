@@ -37,6 +37,7 @@ class ContenutiOperationsControllerTest extends TestSuite
 
         $this->routeMatch->setParam('action', 'changesummarylang');
         $this->routeMatch->setParam('lang', 'it');
+        $this->routeMatch->setParam('modulename', 'contenuti');
 
         $this->controller->dispatch($this->request);
 

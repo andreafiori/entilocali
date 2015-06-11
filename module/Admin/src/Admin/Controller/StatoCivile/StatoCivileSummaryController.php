@@ -92,6 +92,9 @@ class StatoCivileSummaryController extends SetupAbstractController
                 $perPage
             );
 
+            $wrapper->setEntityManager($em);
+            $attiRecords = $wrapper->addAttachmentsFromRecords($wrapper->setupRecords());
+
             $paginator = $wrapper->getPaginator();
 
             $paginatorCount = $paginator->getTotalItemCount();
@@ -114,7 +117,7 @@ class StatoCivileSummaryController extends SetupAbstractController
                         "&nbsp;",
                     ),
                     'formSearch'        => $formSearch,
-                    'records'           => $this->formatRecords($wrapper->setupRecords()),
+                    'records'           => $this->formatRecords($attiRecords),
                     'paginator'         => $paginator,
                     'templatePartial'   => 'datatable/datatable_statocivile.phtml',
                 )
@@ -207,6 +210,7 @@ class StatoCivileSummaryController extends SetupAbstractController
                             'referenceId'   => $record['id'],
                             'module'        => 'stato-civile',
                         )),
+                        'attachmentsFilesCount' => isset($row['attachments']) ? count($row['attachments']) : 0,
                     ),
                     array(
                         'type'      => 'homepageDelButton',

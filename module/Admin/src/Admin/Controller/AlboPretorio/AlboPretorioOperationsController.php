@@ -116,8 +116,11 @@ class AlboPretorioOperationsController extends SetupAbstractController
         return $this->redirectToSummary();
     }
 
-        private function redirectToSummary()
-        {
-            return $this->redirect()->toRoute('admin/albo-pretorio-summary', array('lang' => 'it'));
-        }
+    /**
+     * @return Redirect
+     */
+    private function redirectToSummary()
+    {
+        return $this->redirect()->toRoute('admin/albo-pretorio-summary', array('lang' => 'it'));
+    }
 }

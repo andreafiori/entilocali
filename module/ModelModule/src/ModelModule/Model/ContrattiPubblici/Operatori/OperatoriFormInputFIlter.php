@@ -2,13 +2,17 @@
 
 namespace ModelModule\Model\ContrattiPubblici\Operatori;
 
+use Zend\InputFilter\Factory as InputFactory;
+use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
+use Zend\InputFilter\InputFilterInterface;
 
 class OperatoriFormInputFilter implements InputFilterAwareInterface
 {
     public $id;
-    public $nomeScelta;
-    public $attivo;
+    public $nome;
+    public $cf;
+    public $ragioneSociale;
 
     private $inputFilter;
 
@@ -17,9 +21,10 @@ class OperatoriFormInputFilter implements InputFilterAwareInterface
      */
     public function exchangeArray(array $data)
     {
-        $this->id           = (isset($data['id']))    ? $data['id']     : null;
-        $this->nomeScelta   = (isset($data['nomeScelta']))  ? $data['nomeScelta']   : null;
-        $this->attivo       = (isset($data['attivo'])) ? $data['attivo']  : null;
+        $this->id               = (isset($data['id']))              ? $data['id']               : null;
+        $this->nome             = (isset($data['nome']))            ? $data['nome']             : null;
+        $this->cf               = (isset($data['cf']))            ? $data['cf']                 : null;
+        $this->ragioneSociale   = (isset($data['ragioneSociale']))  ? $data['ragioneSociale']   : null;
     }
 
     /**
@@ -48,7 +53,7 @@ class OperatoriFormInputFilter implements InputFilterAwareInterface
             ));
 
             $inputFilter->add(array(
-                'name'     => 'nomeScelta',
+                'name'     => 'nome',
                 'required' => true,
                 'filters'  => array(
                     array('name' => 'StripTags'),
@@ -68,10 +73,42 @@ class OperatoriFormInputFilter implements InputFilterAwareInterface
             ));
 
             $inputFilter->add(array(
-                'name'     => 'attivo',
-                'required' => false,
+                'name'     => 'cf',
+                'required' => true,
                 'filters'  => array(
-                    array('name' => 'Int'),
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
+                ),
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => 1,
+                            'max'      => 100,
+                        ),
+                    ),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'ragioneSociale',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
+                ),
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => 1,
+                            'max'      => 100,
+                        ),
+                    ),
                 ),
             ));
 

@@ -17,8 +17,9 @@
     echo $this->partial($this->formDataCommonPath.'_formdata_language.phtml', array(
         'formLanguage' => $this->formLanguage,
         'formAction' => $this->url('admin/contenuti-operations', array(
-            'lang'   => $this->params()->fromRoute('lang'),
-            'action' => 'changesummarylang',
+            'lang'          => $this->params()->fromRoute('lang'),
+            'modulename'    => $this->params()->fromRoute('modulename'),
+            'action'        => 'changesummarylang',
         )),
     ));
 
@@ -27,6 +28,7 @@
     $form->setAttribute('action', $this->url('admin/contenuti-operations', array(
         'lang'          => $this->params()->fromRoute('lang'),
         'action'        => 'summarysearch',
+        'modulename'    => $this->params()->fromRoute('modulename'),
         'page'          => $this->params()->fromRoute('page'),
 
     )));
@@ -81,13 +83,14 @@
         </div>
 
         <div class="col-sm-6">
+            <!--
             Esporta:
 
             <button type="submit" class="btn btn-success" id="csv_export">
                 <i class="fa fa-file-excel-o"></i> CSV
             </button>
 
-            <!--
+
             <button type="submit" class="btn btn-danger" id="pdf_export">
                 <i class="fa fa-file-pdf-o"></i> PDF
             </button>
@@ -97,14 +100,14 @@
             </button>
 
             <button type="submit" class="btn btn-info">
-            XML
+                <i class="fa fa-file-text"></i> XML
             </button>
 
             <button type="submit" class="btn btn-info">
-            JSON
+                <i class="fa fa-file-text"></i> JSON
             </button>
-            -->
 
+            -->
         </div>
     </div>
 

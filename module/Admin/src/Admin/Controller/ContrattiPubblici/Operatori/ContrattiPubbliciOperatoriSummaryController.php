@@ -15,13 +15,14 @@ class ContrattiPubbliciOperatoriSummaryController extends SetupAbstractControlle
 
         $em         = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
+        $lang       = $this->params()->fromRoute('lang');
         $page       = $this->params()->fromRoute('page');
         $perPage    = $this->params()->fromRoute('perpage');
 
         $helper = new ContrattiPubbliciControllerHelper();
         $wrapper = $helper->recoverWrapperRecordsPaginator(
             new OperatoriGetterWrapper(new OperatoriGetter($em)),
-            array('orderBy' => ''),
+            array('orderBy' => 'operatori.id DESC'),
             $page,
             $perPage
         );
@@ -34,15 +35,24 @@ class ContrattiPubbliciOperatoriSummaryController extends SetupAbstractControlle
             'tableTitle'        => 'Aziende contratti pubblici',
             'tableDescription'  => $paginator->getTotalItemCount().' aziende in archivio',
             'columns' => array(
+                "Nome",
                 "CF",
                 "Ragione sociale",
-                "Nome",
-                "Ruolo",
                 "&nbsp;",
                 "&nbsp;",
             ),
             'paginator'         => $paginator,
             'records'           => $this->formatRecordsToShowOnTable($paginatorRecords),
+            'dataTableActiveTitle' => 'Aziende',
+            'formBreadCrumbCategory' => array(
+                array(
+                    'label' => 'Contratti pubblici',
+                    'href'  =>  $this->url()->fromRoute('admin/contratti-pubblici-summary',
+                        array('lang' => $lang)
+                    ),
+                    'title' => 'Elenco contratti pubblici',
+                ),
+            ),
             'templatePartial'   => self::summaryTemplate
         ));
 
@@ -61,17 +71,16 @@ class ContrattiPubbliciOperatoriSummaryController extends SetupAbstractControlle
         if ($records) {
             foreach($records as $key => $row) {
                 $arrayToReturn[] = array(
+                    $row['nome'],
                     $row['cf'],
                     $row['ragioneSociale'],
-                    $row['nome'],
-                    $row['ruolo1'],
                     array(
                         'type'      => 'updateButton',
                         'href'      => $this->url()->fromRoute('admin/contratti-pubblici-operatori-form', array(
                             'lang'  => $lang,
                             'id'    => $row['id']
                         )),
-                        'title'     => 'Modifica'
+                        'title'     => 'Modifica dati azienda'
                     ),
                     array(
                         'type'      => 'deleteButton',

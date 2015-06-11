@@ -20,7 +20,7 @@ class ContenutiOperationsController extends SetupAbstractController
                 'lang'              => $this->params()->fromRoute('lang'),
                 'languageSelection' => $this->params()->fromPost('lingua'),
                 'page'              => $this->params()->fromRoute('page'),
-                'modulename'        => 'contenuti',
+                'modulename'        => $this->params()->fromRoute('modulename'),
             ));
         }
 
@@ -44,6 +44,7 @@ class ContenutiOperationsController extends SetupAbstractController
             return $this->redirect()->toRoute('admin/contenuti-summary', array(
                 'lang'              => $this->params()->fromRoute('lang'),
                 'languageSelection' => $this->params()->fromPost('lingua'),
+                'modulename'        => $this->params()->fromRoute('modulename'),
                 'page'              => $this->params()->fromRoute('page'),
             ));
         }

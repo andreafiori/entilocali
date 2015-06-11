@@ -17,7 +17,7 @@ class ContrattiPubbliciOperatoriFormController extends SetupAbstractController
         $em         = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
         $id         = $this->params()->fromRoute('id');
-        $lang         = $this->params()->fromRoute('lang');
+        $lang       = $this->params()->fromRoute('lang');
 
         $helper = new ContrattiPubbliciControllerHelper();
         $operatoriRecords = $helper->recoverWrapperRecordsById(
@@ -37,7 +37,7 @@ class ContrattiPubbliciOperatoriFormController extends SetupAbstractController
                 'lang'  => $lang,
             ));
         } else {
-            $formTitle = 'Nuovo operatore';
+            $formTitle = 'Nuova azienda';
             $submitButtonValue = 'Inserisci';
             $formAction = $this->url()->fromRoute('admin/contratti-pubblici-operatori-insert', array(
                 'lang'  => $lang,
@@ -56,14 +56,14 @@ class ContrattiPubbliciOperatoriFormController extends SetupAbstractController
                         'href' => $this->url()->fromRoute('admin/contratti-pubblici-summary', array(
                             'lang'  => $lang,
                         )),
-                        'title' => ''
+                        'title' => 'Elenco contratti pubblici'
                     ),
                     array(
                         'label' => 'Aziende',
                         'href' => $this->url()->fromRoute('admin/contratti-pubblici-operatori-summary', array(
                             'lang'  => $lang,
                         )),
-                        'title' => ''
+                        'title' => 'Elenco aziende'
                     )
                 ),
                 'noFormActionPrefix' => 1,

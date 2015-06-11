@@ -27,15 +27,15 @@ class AttachmentsFormInputFilter implements InputFilterAwareInterface
      */
     public function exchangeArray($data)
     {
-        $this->title           = (isset($data['title']))            ? $data['title']            : null;
-        $this->description     = (isset($data['description']))      ? $data['description']      : null;
-        $this->attachmentFile  = (isset($data['attachmentFile']))   ? $data['attachmentFile']   : null;
-        $this->expireDate      = (isset($data['expireDate']))       ? $data['expireDate']       : null;
-        $this->s3_directory    = (isset($data['s3_directory']))     ? $data['s3_directory']     : null;
-        $this->moduleId        = (isset($data['moduleId']))         ? $data['moduleId']         : null;
-        $this->userId          = (isset($data['userId']))           ? $data['userId']           : null;
-        $this->attachmenOptionId = (isset($data['attachmenOptionId']))     ? $data['attachmenOptionId']     : null;
-        $this->referenceId     = (isset($data['referenceId']))      ? $data['referenceId']      : null;
+        $this->title                = (isset($data['title']))               ? $data['title']            : null;
+        $this->description          = (isset($data['description']))         ? $data['description']      : null;
+        $this->attachmentFile       = (isset($data['attachmentFile']))      ? $data['attachmentFile']   : null;
+        $this->expireDate           = (isset($data['expireDate']))          ? $data['expireDate']       : null;
+        $this->s3_directory         = (isset($data['s3_directory']))        ? $data['s3_directory']     : null;
+        $this->moduleId             = (isset($data['moduleId']))            ? $data['moduleId']         : null;
+        $this->userId               = (isset($data['userId']))              ? $data['userId']           : null;
+        $this->attachmenOptionId    = (isset($data['attachmenOptionId']))   ? $data['attachmenOptionId']     : null;
+        $this->referenceId          = (isset($data['referenceId']))         ? $data['referenceId']      : null;
     }
 
     /**

@@ -10,8 +10,10 @@ return array(
             'Admin\Controller\Attachments\AttachmentsForm'                      => 'Admin\Controller\Attachments\AttachmentsFormController',
             'Admin\Controller\Attachments\AttachmentsPositions'                 => 'Admin\Controller\Attachments\AttachmentsPositionsController',
             'Admin\Controller\Attachments\AttachmentsFormUpdate'                => 'Admin\Controller\Attachments\AttachmentsFormUpdateController',
+            'Admin\Controller\Attachments\AttachmentsInsert'                    => 'Admin\Controller\Attachments\AttachmentsInsertController',
+            'Admin\Controller\Attachments\AttachmentsUpdate'                    => 'Admin\Controller\Attachments\AttachmentsUpdateController',
 
-            /* Insert and update Ajax POSTs */
+            /* Insert and update Ajax POSTs (TO DELETE) */
             'Admin\Controller\FormDataPost'                                     => 'Admin\Controller\FormDataPostController',
 
             /* Contenuti e Amministrazione trasparente */
@@ -74,6 +76,8 @@ return array(
             'Admin\Controller\ContrattiPubblici\Operatori\ContrattiPubbliciOperatoriSummary' => 'Admin\Controller\ContrattiPubblici\Operatori\ContrattiPubbliciOperatoriSummaryController',
             'Admin\Controller\ContrattiPubblici\Operatori\ContrattiPubbliciOperatoriInsert'  => 'Admin\Controller\ContrattiPubblici\Operatori\ContrattiPubbliciOperatoriInsertController',
             'Admin\Controller\ContrattiPubblici\Operatori\ContrattiPubbliciOperatoriUpdate'  => 'Admin\Controller\ContrattiPubblici\Operatori\ContrattiPubbliciOperatoriUpdateController',
+            'Admin\Controller\ContrattiPubblici\Operatori\OperatoriAggiudicatari'            => 'Admin\Controller\ContrattiPubblici\Operatori\OperatoriAggiudicatariController',
+            'Admin\Controller\ContrattiPubblici\Operatori\OperatoriAggiudicatariOperations'  => 'Admin\Controller\ContrattiPubblici\Operatori\OperatoriAggiudicatariOperationsController',
 
             /* Enti Terzi */
             'Admin\Controller\EntiTerzi\EntiTerziForm'              => 'Admin\Controller\EntiTerzi\EntiTerziFormController',
@@ -141,10 +145,11 @@ return array(
 
             /* Gestione home page */
             'Admin\Controller\HomePage\HomePageBlocksPositions'       => 'Admin\Controller\HomePage\HomePageBlocksPositionsController',
-            'Admin\Controller\HomePage\HomePage'                      => 'Admin\Controller\HomePage\HomePageController', // to rename
+            'Admin\Controller\HomePage\HomePage'                      => 'Admin\Controller\HomePage\HomePageController',
 
             /* Tickets */
             'Admin\Controller\Tickets\TicketsForm'                    => 'Admin\Controller\Tickets\TicketsFormController',
+            'Admin\Controller\Tickets\TicketsInsert'                    => 'Admin\Controller\Tickets\TicketsInsertController', // to create
             'Admin\Controller\Tickets\TicketsSummary'                 => 'Admin\Controller\Tickets\TicketsSummaryController',
 
             /* Contacts */
@@ -172,19 +177,6 @@ return array(
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
-                    'ajax-pform-trial' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => 'trial/form/ajax/:action[/]',
-                            'constraints' => array(
-                                'action' => '[a-zA-Z0-9_-]*',
-                            ),
-                            'defaults' => array(
-                                'controller' => 'Admin\Controller\FormAjaxTrial',
-                                'action'     => 'index',
-                            ),
-                        ),
-                    ),
                     'configurations-form' => array(
                         'type'    => 'Segment',
                         'options' => array(
@@ -290,28 +282,14 @@ return array(
                             ),
                         ),
                     ),
-                    'formdata' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                                    'route'    => 'formdata[/][:formsetter][/][:option[/]][:id[/]]',
-                                    'constraints' => array(
-                                                'formsetter' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                'option'     => '[a-zA-Z0-9_-]*',
-                                                'id'         => '[0-9]+',
-                                    ),
-                                    'defaults' => array(
-                                                'controller' => 'Admin\Controller\Admin',
-                                                'action'     => 'index',
-                                    ),
-                        ),
-                    ),
                     'contenuti-operations' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => 'contenuti/operations/:action[/][:id[/]]',
+                            'route' => 'common/:modulename/operations/:action[/][:id[/]]',
                             'constraints' => array(
-                                'action'    => '[a-zA-Z0-9_-]*',
-                                'id'        => '[0-9]+',
+                                'action'        => '[a-zA-Z0-9_-]*',
+                                'modulename'    => '[a-zA-Z0-9_-]*',
+                                'id'            => '[0-9]+',
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Contenuti\ContenutiOperations',
@@ -334,9 +312,10 @@ return array(
                     'contenuti-enabledisable' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => 'contenuti/operations/lang/:languageSelection/:action/:id[/][previouspage/:previouspage[/]]',
+                            'route' => 'common/:modulename/operations/lang/:languageSelection/:action/:id[/][previouspage/:previouspage[/]]',
                             'constraints' => array(
                                 'action'            => '[a-zA-Z0-9_-]*',
+                                'modulename'        => '[a-zA-Z0-9_-]*',
                                 'languageSelection' => '[a-z]{2}',
                                 'previouspage'      => '[0-9]+',
                                 'id'                => '[0-9]+',
@@ -551,10 +530,12 @@ return array(
                     'sottosezioni-operations' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => 'sottosezioni/operations/lang/:languageSelection/:action[/][:id[/]][previouspage/:previouspage[/]]',
+                            'route' => 'sottosezioni/:modulename/operations/lang/:languageSelection/:action[/][:id[/]][previouspage/:previouspage[/]]',
                             'constraints' => array(
-                                'action'     => '[a-zA-Z0-9_-]*',
-                                'id'         => '[0-9]+',
+                                'action'            => '[a-zA-Z0-9_-]*',
+                                'modulename'        => '[a-zA-Z0-9_-]*',
+                                'id'                => '[0-9]+',
+                                'languageSelection' => '[a-z]{2}',
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Sezioni\SottoSezioniOperations',
@@ -564,9 +545,10 @@ return array(
                     'sezioni-operations' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => 'sezioni/operations/lang/:languageSelection/:action[/][:id[/]][previouspage/:previouspage[/]]',
+                            'route' => 'sezioni/:modulename/operations/lang/:languageSelection/:action[/][:id[/]][previouspage/:previouspage[/]]',
                             'constraints' => array(
                                 'action'            => '[a-zA-Z0-9_-]*',
+                                'modulename'        => '[a-zA-Z0-9_-]*',
                                 'id'                => '[0-9]+',
                                 'languageSelection' => '[a-z]{2}',
                             ),
@@ -1136,7 +1118,7 @@ return array(
                         ),
                     ),
                     'contratti-pubblici-operatori-form' => array(
-                        'type'    => 'Segment',
+                        'type' => 'Segment',
                         'options' => array(
                             'route' => 'contratti-pubblici/operatori/form[/][:id[/]]',
                             'constraints' => array(
@@ -1149,7 +1131,7 @@ return array(
                         ),
                     ),
                     'contratti-pubblici-operatori-insert' => array(
-                        'type'    => 'Segment',
+                        'type' => 'Segment',
                         'options' => array(
                             'route' => 'contratti-pubblici/operatori/form/insert[/]',
                             'defaults' => array(
@@ -1174,7 +1156,7 @@ return array(
                             'route' => 'contratti-pubblici/operatori/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
                             'constraints' => array(
                                 'order_by' => '[a-zA-Z0-9_-]*',
-                                'order' => '[a-zA-Z0-9_-]*',
+                                'order'    => '[a-zA-Z0-9_-]*',
                                 'page'     => '[0-9]+',
                             ),
                             'defaults' => array(
@@ -1186,12 +1168,26 @@ return array(
                     'contratti-pubblici-aggiudicatari' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route'       => 'contratti-pubblici-aggiudicatari/elenco[[/]:id[/]]',
+                            'route'       => 'contratti-pubblici/aggiudicatari/bando/:id[/]',
                             'constraints' => array(
                                 'id' => '[0-9]+',
                             ),
                             'defaults' => array(
-                                'controller' => 'Admin\Controller\Admin',
+                                'controller' => 'Admin\Controller\ContrattiPubblici\Operatori\OperatoriAggiudicatari',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'contratti-pubblici-aggiudicatari-operations' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route'       => 'contratti-pubblici/aggiudicatari/bando/:id/operation/:action[/]',
+                            'constraints' => array(
+                                'id'        => '[0-9]+',
+                                'action'    => '[a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\ContrattiPubblici\Operatori\OperatoriAggiudicatariOperations',
                                 'action'     => 'index',
                             ),
                         ),
@@ -1228,9 +1224,6 @@ return array(
                         'type'    => 'Segment',
                         'options' => array(
                             'route' => 'enti-terzi/rubrica/form/insert[/]',
-                            'constraints' => array(
-
-                            ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\EntiTerzi\EntiTerziInsert',
                                 'action'     => 'index',
@@ -1241,9 +1234,6 @@ return array(
                         'type'    => 'Segment',
                         'options' => array(
                             'route' => 'enti-terzi/rubrica/form/update[/]',
-                            'constraints' => array(
-
-                            ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\EntiTerzi\EntiTerziUpdate',
                                 'action'     => 'index',
@@ -1670,7 +1660,11 @@ return array(
             'admin/admin/login'                             => __DIR__ . '../../view/admin/auth/login.phtml',
             'admin/admin/index'                             => __DIR__ . '../../view/admin/index.phtml',
 
+            /* Attachment files */
             'admin/attachments-form/index'                  => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/attachments-insert/index'                => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/attachments-update/index'                => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/attachments-delete/index'                => __DIR__ . '/../view/admin/empty.phtml',
             'admin/attachments-form-update/index'           => __DIR__ . '/../view/admin/empty.phtml',
 
             'admin/admin/formpost'                          => __DIR__ . '../../view/admin/formpost-empty.phtml',
@@ -1827,8 +1821,6 @@ return array(
     /* Backend Router Class Map */
     'be_router' => array(
         "admin/migrazione"                              => '\ModelModule\Model\Migrazione\MigrazioneHandler',
-        "admin/contratti-pubblici-aggiudicatari"        => '\ModelModule\Model\ContrattiPubblici\Operatori\OperatoriAggiudicatariHandler',
-        "admin/users-resp-proc-management"              => '\ModelModule\Model\Users\RespProc\UsersRespProcHandler',
     ),
     /* FormData CRUD Class Map */
     'formdata_crud_classmap' => array(

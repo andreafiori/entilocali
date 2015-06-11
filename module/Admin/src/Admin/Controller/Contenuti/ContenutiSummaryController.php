@@ -145,6 +145,7 @@ class ContenutiSummaryController extends SetupAbstractController
                     $enableDisableLink = $this->url()->fromRoute('admin/contenuti-enabledisable', array(
                         'lang'              => $lang,
                         'languageSelection' => $languageSelection,
+                        'modulename'        => $modulename,
                         'id'                => $row['id'],
                         'action'            => 'disable',
                     ));
@@ -152,6 +153,7 @@ class ContenutiSummaryController extends SetupAbstractController
                     $enableDisableLink = $this->url()->fromRoute('admin/contenuti-enabledisable', array(
                         'lang'              => $lang,
                         'languageSelection' => $languageSelection,
+                        'modulename'        => $modulename,
                         'id'                => $row['id'],
                         'action'            => 'enable',
                     ));
@@ -217,6 +219,7 @@ class ContenutiSummaryController extends SetupAbstractController
                         'href' => $this->url()->fromRoute('admin/contenuti-operations', array(
                                 'lang'          => $this->params()->fromRoute('lang'),
                                 'action'        => 'delete',
+                                'modulename'    => $modulename,
                                 'id'            => $row['id']
                             )
                         ),

@@ -9,10 +9,7 @@ use ModelModule\Model\Modules\ModulesContainer;
 use ModelModule\Model\Database\DbTableContainer;
 use Zend\InputFilter\InputFilterAwareInterface;
 
-/**
- * @author Andrea Fiori
- * @since  29 March 2015
- */
+
 class UsersRolesCrudHandler extends CrudHandlerAbstract implements CrudHandlerInterface, CrudHandlerInsertUpdateInterface
 {
     private $dbTable;
@@ -95,7 +92,7 @@ class UsersRolesCrudHandler extends CrudHandlerAbstract implements CrudHandlerIn
     /**
      * @return bool
      *
-     * @throws \Application\Model\NullException
+     * @throws \ModelModule\Model\NullException
      */
     public function logInsertOk()
     {
