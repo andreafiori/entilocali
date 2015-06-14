@@ -15,7 +15,9 @@ class TicketsFormController extends SetupAbstractController
             'form'                          => new TicketsForm(),
             'formTitle'                     => "Nuova richiesta di assistenza",
             'formDescription'               => "A seguito della richiesta, l'amministrazione provveder&agrave; a rispondere non appena possibile",
-            'formAction'                    => '#',
+            'formAction'                    => $this->url()->fromRoute('admin/tickets-insert', array(
+                'lang' => $this->params()->fromRoute('lang')
+            )),
             'submitButtonValue'             => 'Procedi',
             'formBreadCrumbCategory'        => "Assistenza",
             'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/tickets-summary', array(

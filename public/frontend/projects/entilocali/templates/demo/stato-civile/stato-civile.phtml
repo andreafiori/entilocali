@@ -39,34 +39,33 @@
         </div>
 
         <div class="row">
-            <div class="large-4 columns">
-                <label for="<?php echo $form->get('mese')->getAttribute('id'); ?>">Atti a partire da:</label>
+            <div class="large-2 columns">
+                <label for="<?php echo $form->get('mese')->getAttribute('id'); ?>">
+                    Atti a partire da:
+                </label>
             </div>
 
-            <div class="large-4 columns">
+            <div class="large-2 columns">
                 <?php echo $this->formElement($form->get('mese')); ?>
             </div>
 
-            <div class="large-4 columns">
+            <div class="large-2 columns">
                 <?php echo $this->formElement($form->get('anno')); ?>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="large-12 columns">
-            <label for="<?php echo $form->get('sezione')->getAttribute('id'); ?>">
-                <?php echo $form->get('sezione')->getLabel() ?>:
-            </label>
-
-            <?php echo $this->formElement($form->get('sezione')); ?>
-            
+            <div class="large-2 columns">
+                <label for="<?php echo $form->get('sezione')->getAttribute('id'); ?>">
+                    <?php echo $form->get('sezione')->getLabel() ?>:
+                </label>
+            </div>
+            <div class="large-4 columns">
+                <?php echo $this->formElement($form->get('sezione')); ?>
             </div>
         </div>
 
         <div class="row">
             <div class="large-12 columns">
             <label aria-label="Cerca" for="search">
-                <?php // echo $this->formElement($form->get('csrf')); ?>
                 <?php echo $this->formElement($form->get('search')); ?>
             </label>
             </div>
@@ -76,17 +75,19 @@
 
     <?php echo $this->form()->closeTag(); ?>
 
-    <div>Per aprire i file firmati digitalmente scaricare il software ArubaSign:<br>
+    <div class="panel callout">
+        <div>Per aprire i file firmati digitalmente scaricare il software ArubaSign:<br>
 
-    <ul class="unstyled">
-        <li><a href="http://www.kronoweb.it/download/ArubaSign/ArubaSign2_3_5_WINDOWS.exe" title="Software per PC">Versione per PC (17,5MB)</a></li>
-        <li>Versione per Linux <a href="https://www.pec.it/Download/Software/FirmaDigitale/ArubaSign32-2_8_3.tar.bz2" title="Software per Linux">(32 bit)</a> - <a href="https://www.pec.it/Download/Software/FirmaDigitale/ArubaSign64-2_8_3.tar.bz2" title="Software per Linux">(64 bit)</a></li>
-        <li><a href="http://www.kronoweb.it/download/ArubaSign/ArubaSign2_1_5MAC.zip" title="Software per MAC">Versione per MAC (31,2MB)</a></li>
-    </ul>
+        <ul class="unstyled">
+            <li><a href="#" title="Software per PC">Versione per PC (17,5MB)</a></li>
+            <li>Versione per Linux <a href="https://www.pec.it/Download/Software/FirmaDigitale/ArubaSign32-2_8_3.tar.bz2" title="Software per Linux">(32 bit)</a> - <a href="https://www.pec.it/Download/Software/FirmaDigitale/ArubaSign64-2_8_3.tar.bz2" title="Software per Linux">(64 bit)</a></li>
+            <li><a href="#" title="Software per MAC">Versione per MAC (31,2MB)</a></li>
+        </ul>
 
-    Si consiglia di visionare l'albo pretorio per tutta la durata della pubblicazione in quanto potrebbero verificarsi modifiche che verranno segnalate tramite rettifiche e/o annullamenti degli atti.
+        Si consiglia di visionare l'albo pretorio per tutta la durata della pubblicazione in quanto potrebbero verificarsi modifiche che verranno segnalate tramite rettifiche e/o annullamenti degli atti.
+        </div>
     </div>
-    <hr>
+
 </div>
 
 <?php foreach($this->paginator as $key => $row): ?>
@@ -95,11 +96,45 @@
     <h2><?php echo $row['titolo'] ?></h2>
     <div><strong>Numero \ Anno:</strong> <?php echo $row['progressivo']." / ".$row['anno']; ?></div>
     <div><strong>Scadenza:</strong> <?php echo date('d-m-Y', strtotime($row['scadenza']) ); ?></div>
-    <div><strong>Sezione:</strong> <?php echo $row['nome'] ?></div>
-    <!-- <div><strong>Allegati</strong></div> -->
+    <div><strong>Sezione:</strong> <?php echo $row['nomeSezione'] ?></div>
+
+    <?php if (isset($row['attachments'])): ?>
+        <div>
+            <br>
+            <p><strong>Allegati:</strong></p>
+            <ul class="no-bullet">
+                <?php foreach($row['attachments'] as $attachment): ?>
+                    <li>
+                        <a href="#" title="Scarica allegato <?php echo $attachment['title'] ?> (<?php echo $attachment['size'] ?> Kb)">
+                            <img src="<?php echo $this->publicDirRelativePath ?>/common/icons/attachments/<?php echo $attachment['image'] ?>" alt="Icona per <?php echo $attachment['title'] ?> (<?php echo $attachment['size'] ?> Kb)">
+                            <?php echo $attachment['title'] ?>
+                        </a>
+                    </li>
+                <?php endforeach ?>
+            </ul>
+        </div>
+    <?php endif;?>
+
+    <?php
+
+    /* Share and export icons */
+    echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml', array(
+        'exportTxtUrl'          => $this->url('stato-civile-export-single', array('action' => 'txt', 'id' => $row['id'])),
+        'exportCsvUrl'          => $this->url('stato-civile-export-single', array('action' => 'csv', 'id' => $row['id'])),
+        'exportPdfUrl'          => $this->url('stato-civile-export-single', array('action' => 'pdf', 'id' => $row['id'])),
+        'exportXMLUrl'          => $this->url('stato-civile-export-single', array('action' => 'xml', 'id' => $row['id'])),
+        'exportJSONUrl'         => $this->url('stato-civile-export-single', array('action' => 'json', 'id' => $row['id'])),
+        'twitterShareText'      => urlencode($row['titolo']),
+        'publicDirRelativePath' => $this->publicDirRelativePath,
+        'currentUrl'            => $this->currentUrl,
+    ));
+
+    ?>
 </div>
 </article>
+
 <hr>
+
 <?php endforeach; ?>
 
 <?php

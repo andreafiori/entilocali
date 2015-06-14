@@ -3,6 +3,7 @@
 namespace Application\Controller\StatoCivile;
 
 use Application\Controller\SetupAbstractController;
+use ModelModule\Model\Modules\ModulesContainer;
 use ModelModule\Model\StatoCivile\StatoCivileFormSearch;
 use ModelModule\Model\StatoCivile\StatoCivileGetter;
 use ModelModule\Model\StatoCivile\StatoCivileGetterWrapper;
@@ -52,6 +53,12 @@ class StatoCivileController extends SetupAbstractController
                 $perPage
             );
 
+            $wrapper->setEntityManager($em);
+            $articoloRecord = $wrapper->addAttachmentsToPaginatorRecords(
+                $wrapper->setupRecords(),
+                array('moduleId' => ModulesContainer::stato_civile_id)
+            );
+
             $paginator = $wrapper->getPaginator();
 
             $form = new StatoCivileFormSearch();
@@ -59,6 +66,7 @@ class StatoCivileController extends SetupAbstractController
             $form->addSezioni($sezioniRecordsForDropdown);
             $form->addMese();
             $form->addAnni();
+            $form->addCheckExpired();
             $form->addSubmitButton();
 
         } catch(\Exception $e) {
@@ -70,6 +78,39 @@ class StatoCivileController extends SetupAbstractController
             'records'           => !empty($paginator) ? $paginator : null,
             'form'              => !empty($form) ? $form : null,
             'templatePartial'   => 'stato-civile/stato-civile.phtml',
+        ));
+
+        $this->layout()->setTemplate($mainLayout);
+    }
+
+    /**
+     * Stato civile details
+     */
+    public function detailsAction()
+    {
+        $mainLayout = $this->initializeFrontendWebsite();
+
+        $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+
+        $id = $this->params()->fromRoute('id');
+
+        $helper = new StatoCivileControllerHelper();
+        $wrapper = $helper->recoverWrapperById(
+            new StatoCivileGetterWrapper(new StatoCivileGetter($em)),
+            array('id' => $id, 'limit' => 1),
+            $id
+        );
+
+        $wrapper->setEntityManager($em);
+        $articoloRecord = $wrapper->addAttachmentsToPaginatorRecords(
+            $wrapper->setupRecords(),
+            array('moduleId' => ModulesContainer::stato_civile_id)
+        );
+
+        $this->layout()->setVariables(array(
+            'records'           => (!empty($articoloRecord)) ? $articoloRecord[0] : null,
+            'notfound'          => empty($articoloRecord),
+            'templatePartial'   => 'stato-civile/stato-civile-details.phtml',
         ));
 
         $this->layout()->setTemplate($mainLayout);

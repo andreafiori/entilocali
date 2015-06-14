@@ -153,7 +153,11 @@ class AttachmentsFormControllerHelper extends AttachmentsFormControllerHelperAbs
 
         $form = $this->getAttachmentsForm();
 
-        (!empty($formData)) ? $form->addInputFileNotRequired() : $form->addInputFile();
+        // (!empty($formData)) ? $form->addInputFileNotRequired() : $form->addInputFile();
+
+        if (empty($formData)) {
+            $form->addInputFile();
+        }
 
         $form->addSecondaryFields();
 

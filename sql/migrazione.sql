@@ -30,6 +30,11 @@ INSERT INTO zfcms_users (id, name, email, username, password, settore_id, role_i
 INSERT INTO `zfcms_users` ( `image`, `name`, `surname`, `address`, `zip`, `city`, `province`, `birth_date`, `birth_place`, `nation`, `sex`, `job`, `email`, `phone`, `mobile`, `fax`, `website_url`, `fiscal_code`, `vat_code`, `newsletter`, `newsletter_format`, `username`, `password`, `password_last_update`, `status`, `create_date`, `last_update`, `confirm_code`, `role_id`) VALUES
 		( 'noimg.gif', 'Andrea', 'Fiori', 'via Aretina 1', '50126', 'Firenze', 87, '1982-08-10 00:00:00', 'Angera', 107, 'M', 'Web developer', 'a.fiori@cheapnet.it', '', '3295639204', '', '', '', '', '', 'html', 'a.fiori@cheapnet.it', 'c2870721a47988180f6fa53213b546b2', '2014-01-01 01:01:01', 'active', '2010-06-03 15:28:29', '2013-05-03 15:28:29', '', 1);
 
+-- UPDATE zfcms_users set surname = SUBSTRING_INDEX(name,' ',-1)
+-- UPDATE zfcms_users set settore_id = null where id NOT IN (1,27) Update settori
+-- SELECT SUBSTRING_INDEX(name,' ',-1) from zfcms_users
+-- UPDATE zfcms_users SET name = REPLACE( name, SUBSTRING_INDEX(name,' ',-1), '')
+-- UPDATE zfcms_users SET name = surname where name = ''
 
 -- Contenuti
 TRUNCATE table zfcms_comuni_contenuti;

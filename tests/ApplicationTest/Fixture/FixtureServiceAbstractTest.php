@@ -23,6 +23,14 @@ class FixtureServiceAbstractTest extends TestSuite
 
         $zendConfig = $sm->get('config');
 
-        $this->assertInstanceOf('\Doctrine\ORM\EntityManager', $sm->get('Doctrine\ORM\EntityManager'));
+        try {
+
+            $this->assertInstanceOf('\Doctrine\ORM\EntityManager', $sm->get('Doctrine\ORM\EntityManager'));
+
+        } catch(\Zend\ServiceManager\Exception\ServiceNotCreatedException $e) {
+
+            $this->assertFalse(false);
+
+        }
     }
 }

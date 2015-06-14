@@ -76,7 +76,6 @@ class SottoSezioniFormController extends SetupAbstractController
                 'formAction'                    => $formAction,
                 'formTitle'                     => $formTitle,
                 'formDescription'               => 'Dati relativi alle sottosezioni',
-                'noFormActionPrefix'            => 1,
                 'submitButtonValue'             => $submitButtonValue,
                 'formBreadCrumbTitle'           => $formBreadCrumbTitle,
                 'formBreadCrumbCategory'        => 'Sottosezioni',

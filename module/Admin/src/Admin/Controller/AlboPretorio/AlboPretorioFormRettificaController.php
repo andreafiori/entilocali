@@ -53,7 +53,6 @@ class AlboPretorioFormRettificaController extends SetupAbstractController
                         'formTitle'                     => $articoloRecord[0]['titolo'],
                         'formDescription'               => "Compila i dati relativi all'atto da inserire sull'albo pretorio",
                         'templatePartial'               => self::formTemplate,
-                        'noFormActionPrefix'            => 1,
                         'formBreadCrumbCategory'        => array(
                             array(
                                 'label' => 'Albo pretorio',

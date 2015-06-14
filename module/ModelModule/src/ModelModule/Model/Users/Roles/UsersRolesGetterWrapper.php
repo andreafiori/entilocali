@@ -4,10 +4,6 @@ namespace ModelModule\Model\Users\Roles;
 
 use ModelModule\Model\RecordsGetterWrapperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  28 February 2015
- */
 class UsersRolesGetterWrapper extends RecordsGetterWrapperAbstract
 {
     /**

@@ -5,6 +5,7 @@ namespace Admin\Controller\Users\Roles;
 use ModelModule\Model\Log\LogWriter;
 use ModelModule\Model\Modules\ModulesContainer;
 use ModelModule\Model\NullException;
+use ModelModule\Model\Users\Roles\UsersRolesControllerHelper;
 use ModelModule\Model\Users\Roles\UsersRolesForm;
 use ModelModule\Model\Users\Roles\UsersRolesFormInputFilter;
 use ModelModule\Model\Users\UsersControllerHelper;
@@ -51,18 +52,18 @@ class UsersRolesUpdateController extends SetupAbstractController
 
             $inputFilter->exchangeArray( $form->getData() );
 
-            $helper = new UsersControllerHelper();
+            $helper = new UsersRolesControllerHelper();
             $helper->setConnection($connection);
             $helper->getConnection()->beginTransaction();
             $helper->setLoggedUser($userDetails);
-            //$helper->update($inputFilter);
+            $helper->update($inputFilter);
             $helper->getConnection()->commit();
 
             $logWriter = new LogWriter($connection);
             $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
                 'module_id'     => ModulesContainer::contenuti_id,
-                'message'       => "Aggiornata sezione ".$inputFilter->nome,
+                'message'       => "Aggiornato ruolo utente ".$inputFilter->name,
                 'type'          => 'info',
                 'reference_id'  => $inputFilter->id,
                 'backend'       => 1,
@@ -70,16 +71,14 @@ class UsersRolesUpdateController extends SetupAbstractController
 
             $this->layout()->setVariables(array(
                 'messageType'           => 'success',
-                'messageTitle'          => 'Sezione aggiornata correttamente',
+                'messageTitle'          => 'Ruolo utente aggiornato correttamente',
                 'messageText'           => 'I dati sono stati processati correttamente dal sistema',
                 'messageShowFormLink'   => 1,
-                'messageShowForm'       => 'Torna alla sezione',
-                'backToSummaryLink'     => $this->url()->fromRoute('admin/sezioni-summary', array(
-                    'lang'              => $this->params()->fromRoute('lang'),
-                    'languageSelection' => $this->params()->fromRoute('languageSelection'),
-                    'modulename'        => $this->params()->fromRoute('modulename'),
+                'messageShowForm'       => 'Torna al ruolo utente',
+                'backToSummaryLink'     => $this->url()->fromRoute('admin/users-roles-summary', array(
+                    'lang' => $this->params()->fromRoute('lang'),
                 )),
-                'backToSummaryText'     => "Elenco sezioni",
+                'backToSummaryText'     => "Elenco ruoli utente",
             ));
 
             $this->layout()->setTemplate($this->layout()->getVariable('templateDir').'message.phtml');

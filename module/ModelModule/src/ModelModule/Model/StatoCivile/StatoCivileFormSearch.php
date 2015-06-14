@@ -4,6 +4,9 @@ namespace ModelModule\Model\StatoCivile;
 
 use Zend\Form\Form;
 
+/**
+ * Stato civile common form search
+ */
 class StatoCivileFormSearch extends Form
 {
     public function addTesto()

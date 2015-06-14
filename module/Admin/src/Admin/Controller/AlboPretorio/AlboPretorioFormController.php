@@ -82,7 +82,6 @@ class AlboPretorioFormController extends SetupAbstractController
                 'formTitle'                     => $formTitle,
                 'formDescription'               => "Compila i dati relativi all'atto da inserire sull'albo pretorio",
                 'submitButtonValue'             => $submitButtonValue,
-                'noFormActionPrefix'            => 1,
                 'formBreadCrumbCategory'        => array(
                     array(
                         'label' => 'Albo pretorio',

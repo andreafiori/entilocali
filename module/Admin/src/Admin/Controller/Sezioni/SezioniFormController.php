@@ -44,6 +44,8 @@ class SezioniFormController extends SetupAbstractController
         $form->addIconImage();
         $form->addLingue($languagesRecordsForDropdown);
         $form->addOptions();
+        // $form->addModule();
+        $form->addBlocco();
 
         if (!empty($recordFromDb)) {
             $form->setData($recordFromDb[0]);
@@ -93,7 +95,6 @@ class SezioniFormController extends SetupAbstractController
                     'title' => 'Sezioni '.$modulenameLabel,
                 ),
             ),
-            'noFormActionPrefix'            => 1,
             'templatePartial'               => self::formTemplate,
         ));
 

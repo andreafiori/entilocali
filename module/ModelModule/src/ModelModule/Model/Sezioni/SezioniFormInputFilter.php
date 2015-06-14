@@ -47,6 +47,9 @@ class SezioniFormInputFilter implements InputFilterAwareInterface
         throw new \Exception("This method is unused");
     }
 
+    /**
+     * @return InputFilter
+     */
     public function getInputFilter()
     {
         if (!$this->inputFilter)

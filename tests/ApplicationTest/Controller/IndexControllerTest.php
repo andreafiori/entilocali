@@ -6,10 +6,6 @@ use Application\Controller\IndexController;
 use ServiceLocatorFactory\ServiceLocatorFactory;
 use ModelModuleTest\TestSuite;
 
-/**
- * @author Andrea Fiori
- * @since  05 December 2013
- */
 class IndexControllerTest extends TestSuite
 {
     /**

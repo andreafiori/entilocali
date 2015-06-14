@@ -12,29 +12,24 @@ return array(
     ),
     /* Blogs */
     'admin/blogs-summary' => array(
-        // 'resources' => array('blogs_add', 'blogs_update', 'blogs_viewall')
+        'resources' => array('blogs_add', 'blogs_update')
     ),
     'admin/blogs-form' => array(
-        // 'resources' => array('blogs_add', 'blogs_update', 'blogs_viewall')
+        'resources' => array('blogs_add', 'blogs_update')
     ),
     /* Photo */
     'admin/photo-summary' => array(
-        // 'resources' => array('photo_add', 'photo_update', 'photo_viewall')
+        'resources' => array('photo_add', 'photo_update')
     ),
     'admin/photo-form' => array(
-        // 'resources' => array('photo_add', 'photo_update', 'photo_viewall')
+        'resources' => array('photo_add', 'photo_update')
     ),
-    /*
     'admin/posizioni-sezioni' => array(
         'resources' => array( 'contenuti_sezioni_update' )
     ),
-    'admin/posizioni-sezioni-update' => array(
-        'resources' => array( 'contenuti_sezioni_update' )
-    ),
-    */
     /* Contacts */
     'admin/contacts-summary' => array(
-        'resources' => array( 'contacts_update')
+        'resources' => array( 'contacts_management')
     ),
     /* Albo pretorio */
     'admin/albo-pretorio-summary' => array(
@@ -136,26 +131,23 @@ return array(
     ),
     /* Logs */
     'admin/log-summary' => array(
-        'resources' => array('logs_add')
+
     ),
     /* Home page */
     'admin/homepage-management' => array(
         'resources' => array('homepage_management')
     ),
     'admin/homepage-blocks-positions' => array(
-        'resources' => array('homepage_positions_update')
+        'resources' => array('homepage_positions')
     ),
-    /* Users */
+    /* Users: form check is not here for letting users update its own data */
     'admin/users-summary' => array(
         'resources' => array('users_update')
-    ),
-    'admin/users-form' => array(
-        'resources' => array('users_add', 'users_update')
     ),
     'admin/users-insert' => array(
         'resources' => array('users_add')
     ),
-    'admin/users-insert' => array(
+    'admin/users-update' => array(
         'resources' => array('users_update')
     ),
     /* Users roles */

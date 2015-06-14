@@ -68,7 +68,6 @@ class ContrattiPubbliciSceltaContraenteFormController extends SetupAbstractContr
                         'label' => 'Scelta contraente'
                     )
                 ),
-                'noFormActionPrefix'    => 1,
                 'templatePartial'       => self::formTemplate
             )
         );

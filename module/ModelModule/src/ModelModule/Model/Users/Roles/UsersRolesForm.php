@@ -33,7 +33,7 @@ class UsersRolesForm extends Form
                 'title'         => 'Inserisci la descrizione',
                 'placeholder'   => 'Descrizione...',
                 'id'            => 'description',
-                'rows'          => 8,
+                'rows'          => 5,
             )
         ));
 

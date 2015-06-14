@@ -3,6 +3,7 @@
 return array(
     'Application\Module'                                                                     => __DIR__ . '/Module.php',
     'Application\Controller\AlboPretorio\AlboPretorioController'                             => __DIR__ . '/src/Application/Controller/AlboPretorio/AlboPretorioController.php',
+    'Application\Controller\AlboPretorio\AlboPretorioExportSingleController'                 => __DIR__ . '/src/Application/Controller/AlboPretorio/AlboPretorioExportSingleController.php',
     'Application\Controller\AmministrazioneTrasparente\AmministrazioneTrasparenteController' => __DIR__ . '/src/Application/Controller/AmministrazioneTrasparente/AmministrazioneTrasparenteController.php',
     'Application\Controller\AttachmentsSThreeDownloaderController'                           => __DIR__ . '/src/Application/Controller/AttachmentsSThreeDownloaderController.php',
     'Application\Controller\AttiConcessione\AttiConcessioneController'                       => __DIR__ . '/src/Application/Controller/AttiConcessione/AttiConcessioneController.php',
@@ -21,6 +22,7 @@ return array(
     'Application\Controller\SetupAbstractController'                                         => __DIR__ . '/src/Application/Controller/SetupAbstractController.php',
     'Application\Controller\StatoCivile\StatoCivileController'                               => __DIR__ . '/src/Application/Controller/StatoCivile/StatoCivileController.php',
     'Application\Controller\StatoCivile\StatoCivileExportController'                         => __DIR__ . '/src/Application/Controller/StatoCivile/StatoCivileExportController.php',
+    'Application\Controller\StatoCivile\StatoCivileExportSingleController'                   => __DIR__ . '/src/Application/Controller/StatoCivile/StatoCivileExportSingleController.php',
     'Application\Controller\Users\UsersCreateAccountController'                              => __DIR__ . '/src/Application/Controller/Users/UsersCreateAccountController.php',
     'Application\Controller\Users\UsersRecoverPasswordController'                            => __DIR__ . '/src/Application/Controller/Users/UsersRecoverPasswordController.php',
     'Application\Entity\ZfcmsAttachments'                                                    => __DIR__ . '/src/Application/Entity/ZfcmsAttachments.php',

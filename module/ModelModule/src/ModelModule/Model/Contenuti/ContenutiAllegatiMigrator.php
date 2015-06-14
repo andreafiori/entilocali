@@ -6,10 +6,6 @@ use ModelModule\Model\Attachments\AttachnmetsContainer;
 use ModelModule\Model\Migrazione\MigratorAbstract;
 use ModelModule\Model\Amazon\S3\S3;
 
-/**
- * @author Andrea Fiori
- * @since  05 March 2015
- */
 class ContenutiAllegatiMigrator extends MigratorAbstract
 {
     /**
@@ -66,7 +62,6 @@ class ContenutiAllegatiMigrator extends MigratorAbstract
             $fp = fopen('public/frontend/media/contenuti/'.$newAttachmentFilename, 'w');
             fwrite($fp, $singleAttachment[0]['dati']);
             fclose($fp);
-
         }
     }
 

@@ -2,8 +2,8 @@
 
 namespace AdminTest\Controller\AlboPretorio;
 
-use ModelModuleTest\TestSuite;
 use Admin\Controller\AlboPretorio\AlboPretorioSummaryController;
+use ModelModuleTest\TestSuite;
 
 class AlboPretorioSummaryControllerTest extends TestSuite
 {

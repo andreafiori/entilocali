@@ -9,7 +9,7 @@ return array(
             'Admin\Controller\Attachments\AttachmentsSummary'                   => 'Admin\Controller\Attachments\AttachmentsSummaryController',
             'Admin\Controller\Attachments\AttachmentsForm'                      => 'Admin\Controller\Attachments\AttachmentsFormController',
             'Admin\Controller\Attachments\AttachmentsPositions'                 => 'Admin\Controller\Attachments\AttachmentsPositionsController',
-            'Admin\Controller\Attachments\AttachmentsFormUpdate'                => 'Admin\Controller\Attachments\AttachmentsFormUpdateController',
+            'Admin\Controller\Attachments\AttachmentsPositionsUpdate'           => 'Admin\Controller\Attachments\AttachmentsPositionsUpdateController',
             'Admin\Controller\Attachments\AttachmentsInsert'                    => 'Admin\Controller\Attachments\AttachmentsInsertController',
             'Admin\Controller\Attachments\AttachmentsUpdate'                    => 'Admin\Controller\Attachments\AttachmentsUpdateController',
 
@@ -149,7 +149,7 @@ return array(
 
             /* Tickets */
             'Admin\Controller\Tickets\TicketsForm'                    => 'Admin\Controller\Tickets\TicketsFormController',
-            'Admin\Controller\Tickets\TicketsInsert'                    => 'Admin\Controller\Tickets\TicketsInsertController', // to create
+            'Admin\Controller\Tickets\TicketsInsert'                    => 'Admin\Controller\Tickets\TicketsInsertController',
             'Admin\Controller\Tickets\TicketsSummary'                 => 'Admin\Controller\Tickets\TicketsSummaryController',
 
             /* Contacts */
@@ -299,10 +299,12 @@ return array(
                     'contenuti-homeputremove' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => 'contenuti/homepage/management/:action/:id[/]',
+                            'route' => 'common/:modulename/lang/:languageSelection/homepage/management/:action/:id[/]',
                             'constraints' => array(
-                                'action' => '[a-zA-Z0-9_-]*',
-                                'id'     => '[0-9]+',
+                                'action'            => '[a-zA-Z0-9_-]*',
+                                'modulename'        => '[a-zA-Z0-9_-]*',
+                                'languageSelection' => '[a-z]{2}',
+                                'id'                => '[0-9]+',
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Contenuti\ContenutiHomeputremove',
@@ -585,6 +587,16 @@ return array(
                             ),
                         ),
                     ),
+                    'attachments-positions-update' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'attachments/positions/operations/update[/]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Attachments\AttachmentsPositionsUpdate',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
                     'attachments-form' => array(
                         'type' => 'Segment',
                         'options' => array(
@@ -615,16 +627,30 @@ return array(
                             ),
                         ),
                     ),
-                    'attachments-form-update' => array(
+                    'attachments-insert' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'       => 'attachments/form/update/:module[/][:id[/]]',
+                            'route'       => 'attachments/form/insert/:modulename[/][:id[/]]',
                             'constraints' => array(
-                                'module' => '[a-zA-Z0-9_-]*',
-                                'id'     => '[0-9]+',
+                                'modulename'    => '[a-zA-Z0-9_-]*',
+                                'id'            => '[0-9]+',
                             ),
                             'defaults' => array(
-                                'controller' => 'Admin\Controller\Attachments\AttachmentsFormUpdate',
+                                'controller' => 'Admin\Controller\Attachments\AttachmentsInsert',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'attachments-update' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'       => 'attachments/form/update/:modulename[/][:id[/]]',
+                            'constraints' => array(
+                                'modulename'    => '[a-zA-Z0-9_-]*',
+                                'id'            => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Attachments\AttachmentsUpdate',
                                 'action'     => 'index',
                             ),
                         ),
@@ -1347,6 +1373,16 @@ return array(
                             ),
                         ),
                     ),
+                    'tickets-insert' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'tickets/form/insert[/]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Tickets\TicketsInsert',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
                     'tickets-summary' => array(
                         'type'    => 'Segment',
                         'options' => array(
@@ -1430,7 +1466,7 @@ return array(
                     'posizioni-sottosezioni' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route'       => 'sottosezioni/posizioni/:modulename/lang/:languageSelection/:sezioneId[/][:profonditaDa[/]]',
+                            'route' => 'sottosezioni/posizioni/:modulename/lang/:languageSelection/:sezioneId[/][:profonditaDa[/]]',
                             'constraints' => array(
                                 'languageSelection' => '[a-z]{2}',
                                 'sezioneId'         => '[0-9]+',
@@ -1443,7 +1479,7 @@ return array(
                         ),
                     ),
                     'posizioni-sottosezioni-update' => array(
-                        'type'    => 'Segment',
+                        'type' => 'Segment',
                         'options' => array(
                             'route'       => 'posizioni/sottosezioni/update[/]',
                             'constraints' => array(),
@@ -1454,7 +1490,7 @@ return array(
                         ),
                     ),
                     'users-summary' => array(
-                        'type'    => 'Segment',
+                        'type' => 'Segment',
                         'options' => array(
                             'route'       => 'users/summary[/][:categoryId[/]][page/:page[/]][/order_by/:order_by][/:order[/]]',
                             'constraints' => array(
@@ -1511,6 +1547,26 @@ return array(
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Users\Roles\UsersRolesForm',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'users-roles-insert' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'users/roles/form/insert[/]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Users\Roles\UsersRolesInsert',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'users-roles-update' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'users/roles/form/update[/]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Users\Roles\UsersRolesUpdate',
                                 'action'     => 'index',
                             ),
                         ),
@@ -1661,7 +1717,10 @@ return array(
             'admin/admin/index'                             => __DIR__ . '../../view/admin/index.phtml',
 
             /* Attachment files */
+            'admin/attachments-summary/index'               => __DIR__ . '/../view/admin/empty.phtml',
             'admin/attachments-form/index'                  => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/attachments-positions/index'             => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/attachments-positions-update/index'      => __DIR__ . '/../view/admin/empty.phtml',
             'admin/attachments-insert/index'                => __DIR__ . '/../view/admin/empty.phtml',
             'admin/attachments-update/index'                => __DIR__ . '/../view/admin/empty.phtml',
             'admin/attachments-delete/index'                => __DIR__ . '/../view/admin/empty.phtml',
@@ -1762,10 +1821,6 @@ return array(
             'admin/photo-form/index'                        => __DIR__ . '/../view/admin/empty.phtml',
             'admin/photo-summary/index'                     => __DIR__ . '/../view/admin/empty.phtml',
 
-            'admin/form-data-post/index'                    => __DIR__ . '../../view/admin/formpost-empty.phtml',
-
-            'admin/admin/migrazione'                        => __DIR__ . '/../view/migrazione.phtml',
-
             /* Sezioni */
             'admin/sezioni-form/index'                      => __DIR__ . '/../view/admin/empty.phtml',
             'admin/sezioni-summary/index'                   => __DIR__ . '/../view/admin/empty.phtml',
@@ -1792,6 +1847,8 @@ return array(
             'admin/users-insert/index'                      => __DIR__ . '/../view/admin/empty.phtml',
             'admin/users-update/index'                      => __DIR__ . '/../view/admin/empty.phtml',
             'admin/users-roles-form/index'                  => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/users-roles-insert/index'                  => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/users-roles-update/index'                  => __DIR__ . '/../view/admin/empty.phtml',
             'admin/users-roles-summary/index'               => __DIR__ . '/../view/admin/empty.phtml',
             'admin/users-resp-proc/index'                   => __DIR__ . '/../view/admin/empty.phtml',
 
@@ -1808,9 +1865,13 @@ return array(
 
             /* Ticket */
             'admin/tickets-form/index'                      => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/tickets-insert/index'                    => __DIR__ . '/../view/admin/empty.phtml',
             'admin/tickets-summary/index'                   => __DIR__ . '/../view/admin/empty.phtml',
 
             'admin/'                                        => __DIR__ . '/../view/admin/empty.phtml',
+
+            'admin/form-data-post/index'                    => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/admin/migrazione'                        => __DIR__ . '/../view/migrazione.phtml',
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view/',
@@ -1824,11 +1885,9 @@ return array(
     ),
     /* FormData CRUD Class Map */
     'formdata_crud_classmap' => array(
-        'attachments'                                   => 'ModelModule\Model\Attachments\AttachmentsCrudHandler',
         'blogs'                                         => 'ModelModule\Model\Posts\PostsCrudHandler',
         'posts'                                         => 'ModelModule\Model\Posts\PostsCrudHandler',
         'categories'                                    => 'ModelModule\Model\Posts\PostsCategoriesCrudHandler',
-        'contratti-pubblici-operatori'                  => 'ModelModule\Model\ContrattiPubblici\Operatori\OperatoriCrudHandler',
         'users-roles'                                   => 'ModelModule\Model\Users\Roles\UsersRolesCrudHandler',
         'users-todo'                                    => 'ModelModule\Model\Users\Roles\UsersTodoCrudHandler',
     ),

@@ -70,7 +70,7 @@ class AttachmentsForm extends Form
                         'type' => 'DateTime',
                         'name' => 'expireDate',
                         'options' => array(
-                                'label' => 'Scadenza',
+                                'label' => '* Scadenza',
                                 'format' => 'Y-m-d H:i:s',
                         ),
                         'attributes' => array(

@@ -27,15 +27,15 @@ class AttachmentsFormInputFilter implements InputFilterAwareInterface
      */
     public function exchangeArray($data)
     {
-        $this->title                = (isset($data['title']))               ? $data['title']            : null;
-        $this->description          = (isset($data['description']))         ? $data['description']      : null;
-        $this->attachmentFile       = (isset($data['attachmentFile']))      ? $data['attachmentFile']   : null;
-        $this->expireDate           = (isset($data['expireDate']))          ? $data['expireDate']       : null;
-        $this->s3_directory         = (isset($data['s3_directory']))        ? $data['s3_directory']     : null;
-        $this->moduleId             = (isset($data['moduleId']))            ? $data['moduleId']         : null;
-        $this->userId               = (isset($data['userId']))              ? $data['userId']           : null;
-        $this->attachmenOptionId    = (isset($data['attachmenOptionId']))   ? $data['attachmenOptionId']     : null;
-        $this->referenceId          = (isset($data['referenceId']))         ? $data['referenceId']      : null;
+        $this->title                = (isset($data['title']))               ? $data['title']             : null;
+        $this->description          = (isset($data['description']))         ? $data['description']       : null;
+        $this->attachmentFile       = (isset($data['attachmentFile']))      ? $data['attachmentFile']    : null;
+        $this->expireDate           = (isset($data['expireDate']))          ? $data['expireDate']        : null;
+        $this->s3_directory         = (isset($data['s3_directory']))        ? $data['s3_directory']      : null;
+        $this->moduleId             = (isset($data['moduleId']))            ? $data['moduleId']          : null;
+        $this->userId               = (isset($data['userId']))              ? $data['userId']            : null;
+        $this->attachmenOptionId    = (isset($data['attachmenOptionId']))   ? $data['attachmenOptionId'] : null;
+        $this->referenceId          = (isset($data['referenceId']))         ? $data['referenceId']       : null;
     }
 
     /**
@@ -68,7 +68,7 @@ class AttachmentsFormInputFilter implements InputFilterAwareInterface
 
             $inputFilter->add($factory->createInput([
                 'name' => 'attachmentFile',
-                'required' => true,
+                'required' => false,
                 'filters' => array(
 
                 ),
@@ -118,6 +118,28 @@ class AttachmentsFormInputFilter implements InputFilterAwareInterface
                 ))
             );
 
+            $inputFilter->add(
+                $factory->createInput(array(
+                    'name'     => 'expireDate',
+                    'required' => true,
+                    'filters'  => array(
+                        array('name' => 'StripTags'),
+                        array('name' => 'StringTrim'),
+                        array('name' => 'HtmlEntities'),
+                    ),
+                    'validators' => array(
+                        array(
+                            'name'    => 'StringLength',
+                            'options' => array(
+                                'encoding' => 'UTF-8',
+                                'min'      => 1,
+                                'max'      => 255,
+                            ),
+                        ),
+                    ),
+                ))
+            );
+
             $inputFilter->add(array(
                 'name'     => 'referenceId',
                 'required' => true,
@@ -133,6 +155,28 @@ class AttachmentsFormInputFilter implements InputFilterAwareInterface
                     array('name' => 'Int'),
                 ),
             ));
+
+            $inputFilter->add(
+                $factory->createInput(array(
+                    'name'     => 's3_directory',
+                    'required' => true,
+                    'filters'  => array(
+                        array('name' => 'StripTags'),
+                        array('name' => 'StringTrim'),
+                        array('name' => 'HtmlEntities'),
+                    ),
+                    'validators' => array(
+                        array(
+                            'name'    => 'StringLength',
+                            'options' => array(
+                                'encoding' => 'UTF-8',
+                                'min'      => 1,
+                                'max'      => 255,
+                            ),
+                        ),
+                    ),
+                ))
+            );
 
             $inputFilter->add(array(
                 'name'     => 'attachmenOptionId',

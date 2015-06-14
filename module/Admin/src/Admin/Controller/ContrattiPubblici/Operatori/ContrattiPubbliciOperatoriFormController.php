@@ -66,7 +66,6 @@ class ContrattiPubbliciOperatoriFormController extends SetupAbstractController
                         'title' => 'Elenco aziende'
                     )
                 ),
-                'noFormActionPrefix' => 1,
                 'templatePartial' => self::formTemplate,
             )
         );

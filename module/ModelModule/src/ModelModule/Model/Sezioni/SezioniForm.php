@@ -116,20 +116,6 @@ class SezioniForm extends Form
         ));
 
         $this->add(array(
-            'type' => 'Zend\Form\Element\Checkbox',
-            'name' => 'blocco',
-            'options' => array(
-                'label' => 'Crea un blocco per questa sezione',
-                'checked_value'   => 1,
-                'unchecked_value' => 0
-            ),
-            'attributes' => array(
-                'id'    => 'blocco',
-                'title' => 'Spunta la casella per creare un blocco sulla sezione'
-            )
-        ));
-
-        $this->add(array(
             'type' => 'Zend\Form\Element\Hidden',
             'name' => 'isAmmTrasparente',
             'attributes' => array(
@@ -144,6 +130,52 @@ class SezioniForm extends Form
             'attributes' => array(
                 "class" => 'hiddenField',
                 'id'    => 'id'
+            )
+        ));
+    }
+
+    public function addModule()
+    {
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'modulo',
+            'options' => array(
+                'label' => '* Associa al modulo',
+                'empty_option'  => 'Seleziona',
+                'value_options' => array(
+                    2   => 'Contenuti',
+                    19  => 'Amministrazione trasparente',
+                    10  => 'Blogs',
+                    3   => 'Albo pretorio',
+                    17  => 'Contratti pubblici',
+                    15  => 'Atti concessione',
+                    6   => 'Newsletter',
+                    8   => 'Foto',
+                    12  => 'Ricerca',
+
+                ),
+            ),
+            'attributes' => array(
+                'required'  => 'required',
+                'title'     => 'Seleziona modulo',
+                'id'        => 'lingua'
+            )
+        ));
+    }
+
+    public function addBlocco()
+    {
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Checkbox',
+            'name' => 'blocco',
+            'options' => array(
+                'label' => 'Crea un blocco per questa sezione',
+                'checked_value'   => 1,
+                'unchecked_value' => 0
+            ),
+            'attributes' => array(
+                'id'    => 'blocco',
+                'title' => 'Spunta la casella per creare un blocco sulla sezione'
             )
         ));
     }

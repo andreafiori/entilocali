@@ -173,7 +173,7 @@ class StatoCivileSummaryController extends SetupAbstractController
 
                     $record['titolo'],
                     $record['progressivo'].' / '.$record['anno'],
-                    $record['nome'],
+                    $record['nomeSezione'],
                     $record['data'],
                     $record['scadenza'],
                     $record['user_name_surname'],
@@ -210,7 +210,7 @@ class StatoCivileSummaryController extends SetupAbstractController
                             'referenceId'   => $record['id'],
                             'module'        => 'stato-civile',
                         )),
-                        'attachmentsFilesCount' => isset($row['attachments']) ? count($row['attachments']) : 0,
+                        'attachmentsFilesCount' => isset($record['attachments']) ? count($record['attachments']) : 0,
                     ),
                     array(
                         'type'      => 'homepageDelButton',

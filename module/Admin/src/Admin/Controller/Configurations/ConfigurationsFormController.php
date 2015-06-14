@@ -16,6 +16,8 @@ class ConfigurationsFormController extends SetupAbstractController
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
         $configurations = $this->layout()->getVariable('configurations');
 
+        $userDetails = $this->recoverUserDetails();
+
         $wrapper = new ConfigGetterWrapper(new ConfigGetter($em));
         $wrapper->setInput(array(
             'languageAbbreviation' => '',
@@ -24,12 +26,14 @@ class ConfigurationsFormController extends SetupAbstractController
 
         $form = new ConfigForm();
         $form->addMainConfigs();
-        //if ($this->isRole('WebMaster')) {
+
+        if ($userDetails->role == 'WebMaster') {
             $form->addTemplates();
             $form->addProject();
             $form->addAmazonS3Fields();
             $form->addPasswordPreviewArea();
-        //}
+        }
+
         $form->setData($configurations);
 
         $this->layout()->setVariables(array(

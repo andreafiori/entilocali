@@ -10,8 +10,17 @@ use Application\Controller\SetupAbstractController;
 use Zend\Session\Container as SessionContainer;
 use ModelModule\Model\Export\CsvExportHelper;
 
+/**
+ * Export after a form POST search request
+ */
 class StatoCivileExportController extends SetupAbstractController
 {
+    /**
+     * CSV export
+     *
+     * @return \Zend\Http\Response|\Zend\Stdlib\ResponseInterface
+     * @throws \ModelModule\Model\NullException
+     */
     public function csvAction()
     {
         if ($this->getRequest()->isPost()) {
@@ -28,6 +37,7 @@ class StatoCivileExportController extends SetupAbstractController
             $form->setData($post);
 
             if ( $form->isValid() ) {
+
                 $sessionContainer = new SessionContainer();
                 $sessionContainer->offsetSet('statoCivileFormSearch', $post);
 
@@ -43,10 +53,9 @@ class StatoCivileExportController extends SetupAbstractController
                     'orderBy'       => 'sca.id DESC',
                     'limit'         => 1500,
                 ));
+
                 $wrapper->setupQueryBuilder();
-
                 $records = $wrapper->getRecords();
-
                 if ( !empty($records) ) {
                     $arrayContent = array();
                     $arrayContent[] = array('Titolo', 'Numero \ Anno', 'Inserito il', 'Scadenza');
@@ -60,17 +69,14 @@ class StatoCivileExportController extends SetupAbstractController
                     }
 
                     $csvExportHelper = new CsvExportHelper();
-
                     $content = $csvExportHelper->makeCsvLine($arrayContent);
-
                     $response = $this->getResponse();
                     $response->getHeaders()
-                        ->addHeaderLine('Content-Type', 'text/csv')
-                        ->addHeaderLine('Content-Disposition', 'attachment; filename="stato_civile_'.date("dmYHis").'.csv"')
-                        ->addHeaderLine('Accept-Ranges', 'bytes')
-                        ->addHeaderLine('Content-Length', strlen($content) );
+                             ->addHeaderLine('Content-Type', 'text/csv')
+                             ->addHeaderLine('Content-Disposition', 'attachment; filename="stato_civile_'.date("dmYHis").'.csv"')
+                             ->addHeaderLine('Accept-Ranges', 'bytes')
+                             ->addHeaderLine('Content-Length', strlen($content) );
                     $response->setContent($content);
-
                     return $response;
                 }
             }
@@ -79,6 +85,12 @@ class StatoCivileExportController extends SetupAbstractController
         return $this->redirectForUnvalidAccess();
     }
 
+    /**
+     * PDF export
+     *
+     * @return PdfModel|\Zend\Http\Response
+     * @throws \ModelModule\Model\NullException
+     */
     public function pdfAction()
     {
         if ($this->getRequest()->isPost()) {
@@ -86,6 +98,7 @@ class StatoCivileExportController extends SetupAbstractController
             $this->initializeFrontendWebsite();
 
             $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+
             $wrapper = new StatoCivileGetterWrapper(new StatoCivileGetter($em));
             $wrapper->setInput(array(
                 'numero'        => isset($post['numero']) ? $post['numero'] : null,
@@ -116,18 +129,27 @@ class StatoCivileExportController extends SetupAbstractController
         return $this->redirectForUnvalidAccess();
     }
 
+    /**
+     * TXT action
+     *
+     * @return \Zend\Http\Response|\Zend\Stdlib\ResponseInterface
+     * @throws \ModelModule\Model\NullException
+     */
     public function txtAction()
     {
         if ($this->getRequest()->isPost()) {
+
             $this->initializeFrontendWebsite();
 
             $request = $this->getRequest();
+
             $post = array_merge_recursive(
                 $request->getPost()->toArray(),
                 $request->getFiles()->toArray()
             );
 
             $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+
             $wrapper = new StatoCivileGetterWrapper(new StatoCivileGetter($em));
             $wrapper->setInput(array(
                 'numero'        => isset($post['numero']) ? $post['numero'] : null,
@@ -139,7 +161,6 @@ class StatoCivileExportController extends SetupAbstractController
                 'limit'         => 1500,
             ));
             $wrapper->setupQueryBuilder();
-
             $records = $wrapper->getRecords();
 
             $content = '';
@@ -149,7 +170,7 @@ class StatoCivileExportController extends SetupAbstractController
 
             foreach($records as $record) {
                 $content .= $record['titolo']."\n";
-                $content .= 'Sezione: '.$record['nome']."\n";
+                $content .= 'Sezione: '.$record['nomeSezione']."\n";
                 $content .= "Inserito il: ".$record['data']->format("d-m-Y")."\n";
                 $content .= "Scadenza: ".$record['scadenza']->format("d-m-Y")."\n";
                 $content .= "---------------------------------------------------------------- \n";

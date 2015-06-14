@@ -6,10 +6,6 @@ use ModelModule\Model\Amazon\S3\S3;
 use ModelModule\Model\Migrazione\MigratorAbstract;
 use ModelModule\Model\Slugifier;
 
-/**
- * @author Andrea Fiori
- * @since  21 February 2015
- */
 class ContenutiMigrator extends MigratorAbstract
 {
     public function migrate()

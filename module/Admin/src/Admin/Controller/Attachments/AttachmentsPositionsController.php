@@ -16,8 +16,10 @@ class AttachmentsPositionsController extends SetupAbstractController
     {
         $mainLayout = $this->initializeAdminArea();
 
+        $lang        = $this->params()->fromRoute('lang');
         $moduleCode  = $this->params()->fromRoute('module');
         $referenceId = $this->params()->fromRoute('referenceId');
+
         $em          = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
         try {
@@ -45,21 +47,20 @@ class AttachmentsPositionsController extends SetupAbstractController
                 throw new NullException("Nessun file allegato trovato");
             }
 
-            $this->layout()->setVariables( array(
-                    'attachmentsList'                   => $helper->getAttachmentRecords(),
-                    'articleTitle'                      => $helper->getPropertiesGetterClassInstance()->getAttachmentFormTitle(),
-                    'attachmentType'                    => $helper->getModuleCode(),
-                    'moduleCode'                        => $moduleCode,
-                    'referenceId'                       => $referenceId,
-                    'formBreadCrumbCategory'            => $helper->getPropertiesGetterClassInstance()->getBreadcrumbModule(),
-                    'formBreadCrumbCategoryLink'        => $this->url()->fromRoute(
-                        $helper->getPropertiesGetterClassInstance()->getBreadcrumbRoute(),
-                        array('lang' => 'it')
-                    ),
-                    'records'                           => $attachmentRecord,
-                    'templatePartial'                   => 'attachments/attachments-positions.phtml',
-                )
-            );
+            $this->layout()->setVariables(array(
+                'attachmentsList'                   => $helper->getAttachmentRecords(),
+                'articleTitle'                      => $helper->getPropertiesGetterClassInstance()->getAttachmentFormTitle(),
+                'attachmentType'                    => $helper->getModuleCode(),
+                'moduleCode'                        => $moduleCode,
+                'referenceId'                       => $referenceId,
+                'formBreadCrumbCategory'            => $helper->getPropertiesGetterClassInstance()->getBreadcrumbModule(),
+                'formBreadCrumbCategoryLink'        => $this->url()->fromRoute(
+                    $helper->getPropertiesGetterClassInstance()->getBreadcrumbRoute(),
+                    array('lang' => $lang)
+                ),
+                'records'                           => $attachmentRecord,
+                'templatePartial'                   => 'attachments/attachments-positions.phtml',
+            ));
 
         } catch(NullException $e) {
             $this->layout()->setVariables( array(

@@ -45,14 +45,23 @@ class ContenutiTabellaFormController extends SetupAbstractController
             'formDescription'            => $formDescription,
             'submitButtonValue'          => 'Aggiorna',
             'CKEditorField'              => array('tabella'),
-            'noFormActionPrefix'         => 1,
-            'formBreadCrumbCategory'     => 'Amministrazione Trasparente',
-            'formBreadCrumbCategoryLink' => $this->url()->fromRoute('admin/contenuti-summary', array(
-                'lang'              => $this->params()->fromRoute('lang'),
-                'languageSelection' => $this->params()->fromRoute('languageSelection'),
-                'modulename'        => 'amministrazione-trasparente',
-            )),
-            'formBreadCrumbTitle'  => '',
+            'formBreadCrumbCategory'     => array(
+                array(
+                    'href' => $this->url()->fromRoute('admin/contenuti-summary', array(
+                        'lang'              => $this->params()->fromRoute('lang'),
+                        'languageSelection' => $this->params()->fromRoute('languageSelection'),
+                        'modulename'        => 'amministrazione-trasparente',
+                    )),
+                    'label' => 'Amministrazione Trasparente',
+                    'title' => 'Vai alla gestione amministrazione Trasparente'
+                ),
+                array(
+                    'href' => '#',
+                    'label' => 'Articolo',
+                    'title' => "Vai alla gestione dell'articolo",
+                ),
+            ),
+            'formBreadCrumbTitle'  => 'Gestione tabella aggiuntiv',
             'templatePartial'      => self::formTemplate
         ));
 

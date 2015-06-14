@@ -68,7 +68,6 @@ class StatoCivileFormController extends SetupAbstractController
                     'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/stato-civile-summary', array(
                         'lang' => $this->params()->fromRoute('lang')
                     )),
-                    'noFormActionPrefix'            => 1,
                     'templatePartial'               => self::formTemplate,
                 )
             );

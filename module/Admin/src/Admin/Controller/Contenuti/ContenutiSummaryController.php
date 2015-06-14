@@ -30,9 +30,19 @@ class ContenutiSummaryController extends SetupAbstractController
         $languageSelection      = $this->params()->fromRoute('languageSelection');
         $modulename             = $this->params()->fromRoute('modulename');
         $isAmmTrasparente       = ($modulename!='contenuti') ? 1 : 0;
-        //$sessionContainer       = new SessionContainer();
+        // $sessionContainer    = new SessionContainer();
 
         $helper = new ContenutiControllerHelper();
+
+        /* Detect form switch language */
+        if ((!empty($configurations['isMultiLanguage'])) == 1 and $modulename == 'contenuti') {
+            $helper->setLanguagesGetterWrapper(new LanguagesGetterWrapper(new LanguagesGetter($em)));
+            $formLanguage = $helper->setupLanguageFormSearch(
+                new LanguagesFormSearch(),
+                array('status' => 1),
+                $languageSelection
+            );
+        }
 
         try {
             $wrapper = $helper->recoverWrapperRecordsPaginator(
@@ -55,7 +65,7 @@ class ContenutiSummaryController extends SetupAbstractController
                     'languageAbbreviation'  => $languageSelection,
                 )
             );
-            $helper->checkRecords($sottoSezioniRecords,'Nessuna sottosezione presente');
+            $helper->checkRecords($sottoSezioniRecords,'Nessuna sottosezione presente, verificare i parametri di ricerca e se sono presenti i dati');
             $sottoSezioniRecordsForDropDown = $helper->formatSottoSezioniGetterWrapperRecordsForDropdown($sottoSezioniRecords);
 
             $wrapper->setEntityManager($em);
@@ -64,16 +74,6 @@ class ContenutiSummaryController extends SetupAbstractController
                 $wrapper->setupRecords(),
                 array('orderBy' => '')
             );
-
-            /* Detect form switch language */
-            if ((!empty($configurations['isMultiLanguage'])) == 1 and $modulename == 'contenuti') {
-                $helper->setLanguagesGetterWrapper(new LanguagesGetterWrapper(new LanguagesGetter($em)));
-                $formLanguage = $helper->setupLanguageFormSearch(
-                    new LanguagesFormSearch(),
-                    array('status' => 1),
-                    $languageSelection
-                );
-            }
 
             $formSearch = new ContenutiFormSearch();
             $formSearch->addSottosezioni($sottoSezioniRecordsForDropDown);
@@ -88,40 +88,40 @@ class ContenutiSummaryController extends SetupAbstractController
 
             $paginatorRecordsCount = $paginator->getTotalItemCount();
 
-            $this->layout()->setVariables(array(
-                'tableTitle'            => ($modulename=='contenuti') ? 'Contenuti' : 'Amministrazione Trasparente',
-                'tableDescription'      => $paginatorRecordsCount.' articoli in archivio',
-                'paginator'             => $paginator,
-                'records'               => $this->formatRecordsToShowOnTable($paginatorRecords),
-                'templatePartial'       => 'datatable/datatable_contenuti.phtml',
-                'formSearch'            => $formSearch,
-                'formLanguage'          => isset($formLanguage) ? $formLanguage : null,
-                'columns' => array(
-                    "Sezione",
-                    "Sotto sezione",
-                    "Titolo",
-                    'Date',
-                    'Inserito da',
-                    "&nbsp;",
-                    "&nbsp;",
-                    "&nbsp;",
-                    "&nbsp;",
-                    "&nbsp;",
-                    ($isAmmTrasparente == 1) ? "&nbsp;" : null,
-                ),
-            ));
-
         } catch(\Exception $e) {
 
             $this->layout()->setVariables(array(
-                'messageType'       => 'warning',
-                'messageTitle'      => 'Errore verificato',
+                'showMessage'       => 1,
+                'messageType'       => 'danger',
+                'messageTitle'      => 'Si &egrave; verificato un problema',
                 'messageText'       => $e->getMessage(),
                 'templatePartial'   => 'message.phtml',
-                'showbreadcrumb'    => 1
             ));
 
         }
+
+        $this->layout()->setVariables(array(
+            'tableTitle'            => ($modulename=='contenuti') ? 'Contenuti' : 'Amministrazione Trasparente',
+            'tableDescription'      => (!empty($paginatorRecordsCount)) ? $paginatorRecordsCount.' articoli in archivio' : null,
+            'paginator'             => (!empty($paginator)) ? $paginator : null,
+            'records'               => !empty($paginatorRecords) ? $this->formatRecordsToShowOnTable($paginatorRecords) : null,
+            'templatePartial'       => 'datatable/datatable_contenuti.phtml',
+            'formSearch'            => (!empty($formSearch)) ? $formSearch : null,
+            'formLanguage'          => isset($formLanguage) ? $formLanguage : null,
+            'columns' => array(
+                "Sezione",
+                "Sotto sezione",
+                "Titolo",
+                'Date',
+                'Inserito da',
+                "&nbsp;",
+                "&nbsp;",
+                "&nbsp;",
+                "&nbsp;",
+                "&nbsp;",
+                ($isAmmTrasparente == 1) ? "&nbsp;" : null,
+            ),
+        ));
 
         $this->layout()->setTemplate($mainLayout);
     }
@@ -162,16 +162,20 @@ class ContenutiSummaryController extends SetupAbstractController
                 /* Home page put \ remove link */
                 if ($row['home']==1) {
                     $homePutRemoveLink = $this->url()->fromRoute('admin/contenuti-homeputremove', array(
-                            'lang'          => $lang,
-                            'action'        => 'remove',
-                            'id'            => $row['id']
+                            'lang'              => $lang,
+                            'action'            => 'remove',
+                            'languageSelection' => $languageSelection,
+                            'modulename'        => $modulename,
+                            'id'                => $row['id']
                         )
                     );
                 } else {
                     $homePutRemoveLink = $this->url()->fromRoute('admin/contenuti-homeputremove', array(
-                        'lang'          => $lang,
-                        'action'        => 'put',
-                        'id'            => $row['id']
+                        'lang'              => $lang,
+                        'action'            => 'put',
+                        'languageSelection' => $languageSelection,
+                        'modulename'        => $modulename,
+                        'id'                => $row['id']
                     ));
                 }
 
@@ -237,7 +241,7 @@ class ContenutiSummaryController extends SetupAbstractController
                         'type' => 'attachButton',
                         'href' => $this->url()->fromRoute('admin/attachments-summary', array(
                                 'lang'              => $lang,
-                                'module'            => 'contenuti',
+                                'module'            => $modulename,
                                 'referenceId'       => $row['id'],
                             )
                         ),

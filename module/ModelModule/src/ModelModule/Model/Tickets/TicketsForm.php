@@ -14,31 +14,31 @@ class TicketsForm extends Form
         parent::__construct($name);
         
         $this->add(array( 
-            'name' => 'oggetto', 
+            'name' => 'subject',
             'type' => 'Zend\Form\Element\Text', 
             'attributes' => array( 
-                'placeholder' => 'Oggetto...',
-                'title' => "Inserisci l'oggetto del problema",
-                'required' => 'required',
-                'id' => 'oggetto'
+                'placeholder'   => 'Oggetto...',
+                'title'         => "Inserisci l'oggetto del problema",
+                'required'      => 'required',
+                'id'            => 'subject'
             ),
             'options' => array( 
-                'label' => 'Oggetto',
+                'label' => '* Oggetto',
             ), 
         ));
         
-        $this->add(array( 
-            'name' => 'descrizione', 
+        $this->add(array(
+            'name' => 'message',
             'type' => 'Zend\Form\Element\Textarea',
             'attributes' => array(
-                'placeholder' => 'Inserisci descrizione...',
-                'title' => 'Inserisci descrizione',
-                'required' => 'required',
-                'rows' => 8,
-                'id' => 'descrizione'
+                'placeholder'   => 'Descrizione...',
+                'title'         => 'Inserisci descrizione problema',
+                'required'      => 'required',
+                'rows'          => 8,
+                'id'            => 'message'
             ),
             'options' => array( 
-                'label' => 'Descrizione',
+                'label' => '* Descrizione',
             ),
         ));
 

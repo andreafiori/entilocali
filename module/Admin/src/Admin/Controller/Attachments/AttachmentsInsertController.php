@@ -2,16 +2,20 @@
 
 namespace Admin\Controller\Attachments;
 
-use Application\Controller\SetupAbstractController;
+use ModelModule\Model\Amazon\S3\S3;
+use ModelModule\Model\Amazon\S3\S3Helper;
+use ModelModule\Model\Attachments\AttachmentsControllerHelper;
 use ModelModule\Model\Attachments\AttachmentsForm;
-use ModelModule\Model\Attachments\AttachmentsFormControllerHelper;
 use ModelModule\Model\Attachments\AttachmentsFormInputFilter;
+use ModelModule\Model\Attachments\AttachmentsMimetypeGetter;
+use ModelModule\Model\Attachments\AttachmentsMimetypeGetterWrapper;
 use ModelModule\Model\Log\LogWriter;
 use ModelModule\Model\Modules\ModulesContainer;
 use ModelModule\Model\NullException;
+use Application\Controller\SetupAbstractController;
 
 /**
- * TODO: add attachment on S3 (choose to storage...), add attachment, options and relations records using transactions
+ * Attachment data insert and storage
  */
 class AttachmentsInsertController extends SetupAbstractController
 {
@@ -46,9 +50,11 @@ class AttachmentsInsertController extends SetupAbstractController
 
         $userDetails = $this->recoverUserDetails();
 
-        $helper = new AttachmentsFormControllerHelper();
+        $helper = new AttachmentsControllerHelper();
         $helper->setConnection($connection);
         $helper->getConnection()->beginTransaction();
+
+        $s3Helper = new S3Helper();
 
         try {
 
@@ -59,7 +65,40 @@ class AttachmentsInsertController extends SetupAbstractController
             $inputFilter->exchangeArray( $form->getData() );
 
             $helper->setLoggedUser($userDetails);
-            $lastInsertId = $helper->insert($inputFilter);
+
+            /* Check S3 keys */
+            $configurations = $this->layout()->getVariable('configurations');
+            $s3AccessKey = isset($configurations['amazon_s3_accesskey']) ? $configurations['amazon_s3_accesskey'] : null;
+            $s3SecretKey = isset($configurations['amazon_s3_secretkey']) ? $configurations['amazon_s3_secretkey'] : null;
+
+            $s3Helper->setAccessKey($s3AccessKey);
+            $s3Helper->setSecretKey($s3SecretKey);
+            $s3Helper->setBucket( isset($configurations['amazon_s3_bucket']) ? $configurations['amazon_s3_bucket'] : null );
+            $s3Helper->setS3Directory($inputFilter->s3_directory);
+            $s3Helper->setS3( new S3($s3AccessKey, $s3SecretKey) );
+
+            /* Recover MIME */
+            $mimeRecords = $helper->recoverWrapperRecords(
+                new AttachmentsMimetypeGetterWrapper(new AttachmentsMimetypeGetter($em)),
+                array(
+                    'mimetype' => $inputFilter->attachmentFile['type'],
+                    'limit'    => 1,
+                )
+            );
+            $helper->checkRecords($mimeRecords, "Il tipo di file inserito non &egrave; supportato. Per ulteriori informazioni contattare l'amministrazione");
+
+            $helper->insertAttachments($inputFilter, $mimeRecords[0]['id']);
+            $lastInsertId = $helper->getConnection()->lastInsertId();
+            $attachmentFileName = $s3Helper->assignFileName($inputFilter->attachmentFile['name'], $lastInsertId);
+            $helper->updateAttachmentsFilename($lastInsertId, $attachmentFileName);
+            $helper->insertAttachmentsOptions($inputFilter, $lastInsertId);
+            $helper->insertAttachmentsRelations($inputFilter, $lastInsertId);
+
+            $s3Helper->upload(
+                $inputFilter->attachmentFile['tmp_name'],
+                $attachmentFileName
+            );
+
             $helper->getConnection()->commit();
 
             $logWriter = new LogWriter($connection);
@@ -74,15 +113,10 @@ class AttachmentsInsertController extends SetupAbstractController
 
             $this->layout()->setVariables(array(
                 'messageType'                => 'success',
-                'messageTitle'               => 'Sezione inserita correttamente',
+                'messageTitle'               => 'Allegato inserito correttamente',
                 'messageText'                => 'I dati sono stati processati correttamente dal sistema',
                 'showLinkResetFormAndShowIt' => 1,
-                'backToSummaryLink'     => $this->url()->fromRoute('admin/sezioni-summary', array(
-                    'lang'              => $this->params()->fromRoute('lang'),
-                    'languageSelection' => $this->params()->fromRoute('languageSelection'),
-                    'modulename'        => $this->params()->fromRoute('modulename'),
-                )),
-                'backToSummaryText'     => "Elenco sezioni",
+                'backToSummaryText'          => "Elenco file allegati",
             ));
 
         } catch(\Exception $e) {
@@ -105,7 +139,7 @@ class AttachmentsInsertController extends SetupAbstractController
 
             $this->layout()->setVariables(array(
                 'messageType'           => 'danger',
-                'messageTitle'          => 'Errore inserimento nuova sezione',
+                'messageTitle'          => 'Errore inserimento file allegato',
                 'messageText'           => $e->getMessage(),
                 'form'                  => $form,
                 'formInputFilter'       => $inputFilter->getInputFilter(),

@@ -13,9 +13,15 @@ class LogOperationsController extends SetupAbstractController
     public function deleteallAction()
     {
         if ($this->getRequest()->isPost()) {
-            /*
+
+            /**
+             * @var \Doctrine\ORM\EntityManager $em
+             */
             $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
+            /**
+             * @var \Doctrine\DBAL\Connection $connection
+             */
             $connection = $em->getConnection();
 
             $dbPlatform = $connection->getDatabasePlatform();
@@ -34,14 +40,14 @@ class LogOperationsController extends SetupAbstractController
             } catch (\Exception $e) {
                 $connection->rollback();
             }
-            */
+
         }
     }
 
     /**
-     * TODO: Delete single log (after a verified post)
+     * TODO: Delete single log
      */
-    public function deletesingle()
+    public function deletesingleAction()
     {
 
     }

@@ -108,7 +108,6 @@ class ContenutiFormController extends SetupAbstractController
                 'submitButtonValue'          => $submitButtonValue,
                 'CKEditorField'              => array('testo'),
                 'formBreadCrumbCategory'     => ucfirst(str_replace('-', ' ', $modulename)),
-                'noFormActionPrefix'         => 1,
                 'formBreadCrumbCategoryLink' => $this->url()->fromRoute('admin/contenuti-summary', array(
                     'lang'              => $this->params()->fromRoute('lang'),
                     'page'              => $this->params()->fromRoute('previouspage'),

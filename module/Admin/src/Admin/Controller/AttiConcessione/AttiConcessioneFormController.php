@@ -95,7 +95,6 @@ class AttiConcessioneFormController extends SetupAbstractController
                     'formBreadCrumbCategoryLink' => $this->url()->fromRoute('admin/atti-concessione-summary', array(
                         'lang' => $lang
                     )),
-                    'noFormActionPrefix'         => 1,
                     'templatePartial'            => self::formTemplate,
                 )
             );

@@ -37,7 +37,7 @@ class ContenutiExportController extends SetupAbstractController
 
                 $wrapper = new ContenutiGetterWrapper(new ContenutiGetter($em));
                 $wrapper->setInput(array(
-                    'limit'         => 1500,
+                    'limit' => 1500,
                 ));
                 $wrapper->setupQueryBuilder();
 
@@ -60,10 +60,10 @@ class ContenutiExportController extends SetupAbstractController
 
                     $response = $this->getResponse();
                     $response->getHeaders()
-                        ->addHeaderLine('Content-Type', 'text/csv')
-                        ->addHeaderLine('Content-Disposition', 'attachment; filename="contenuti_'.date("dmYHis").'.csv"')
-                        ->addHeaderLine('Accept-Ranges', 'bytes')
-                        ->addHeaderLine('Content-Length', strlen($content) );
+                            ->addHeaderLine('Content-Type', 'text/csv')
+                            ->addHeaderLine('Content-Disposition', 'attachment; filename="contenuti_'.date("dmYHis").'.csv"')
+                            ->addHeaderLine('Accept-Ranges', 'bytes')
+                            ->addHeaderLine('Content-Length', strlen($content) );
                     $response->setContent($content);
 
                     return $response;

@@ -38,7 +38,7 @@ class UsersControllerHelper extends ControllerHelperAbstract
      * Encode password joining salt and password
      *
      * @param string $password
-     * @return string
+     * @return array
      */
     public function encodePassword($password)
     {

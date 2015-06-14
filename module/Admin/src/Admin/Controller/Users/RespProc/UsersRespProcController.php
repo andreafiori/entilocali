@@ -10,6 +10,9 @@ use ModelModule\Model\Users\UsersControllerHelper;
 use ModelModule\Model\Users\UsersGetter;
 use ModelModule\Model\Users\UsersGetterWrapper;
 
+/**
+ * Responsabili procedimento atti di concessione management
+ */
 class UsersRespProcController extends SetupAbstractController
 {
     public function indexAction()

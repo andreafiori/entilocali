@@ -9,8 +9,9 @@ class StatoCivileGetter extends QueryBuilderHelperAbstract
     public function setMainQuery()
     {
         $this->setSelectQueryFields("DISTINCT(sca.id) AS id, sca.titolo, sca.progressivo,
-                                    sca.anno, sca.data, scs.id AS sezione, sca.scadenza, scs.nome, sca.attivo,
-                                    sca.homepageFlag, sca.boxNotizie,
+                                    sca.anno, sca.data, sca.homepageFlag, sca.boxNotizie,
+
+                                    scs.id AS sezioneId, sca.scadenza, scs.nome AS nomeSezione, sca.attivo,
 
                                     ( SELECT CONCAT(u.name, ' ', u.surname) FROM Application\Entity\ZfcmsUsers u
                                     WHERE u.id = sca.utente ) AS user_name_surname

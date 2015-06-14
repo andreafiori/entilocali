@@ -98,7 +98,6 @@ class ContrattiPubbliciFormController extends SetupAbstractController
                 )),
                 'formLabelSpanWidth'         => 3,
                 'formControlSpanWidth'       => 9,
-                'noFormActionPrefix'         => 1,
                 'templatePartial'            => self::formTemplate
             ));
 

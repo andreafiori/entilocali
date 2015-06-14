@@ -31,6 +31,7 @@ class UsersGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setUsername( $this->getInput('username', 1) );
         $this->objectGetter->setPassword( $this->getInput('password', 1) );
         $this->objectGetter->setStatus( $this->getInput('status', 1) );
+        $this->objectGetter->setRoleName( $this->getInput('roleName', 1) );
         $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
         $this->objectGetter->setGroupBy( $this->getInput('groupBy', 1) );
         $this->objectGetter->setLimit( $this->getInput('limit', 1) );

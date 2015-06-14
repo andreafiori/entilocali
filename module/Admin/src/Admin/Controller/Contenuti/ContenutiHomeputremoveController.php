@@ -23,6 +23,9 @@ class ContenutiHomeputremoveController extends SetupAbstractController
         $mainLayout = $this->initializeAdminArea();
 
         $id = $this->params()->fromRoute('id');
+        $lang = $this->params()->fromRoute('lang');
+        $modulename = $this->params()->fromRoute('modulename');
+        $languageSelection = $this->params()->fromRoute('languageSelection');
 
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
@@ -63,11 +66,19 @@ class ContenutiHomeputremoveController extends SetupAbstractController
 
             $helper->getConnection()->commit();
 
-            return $this->redirect()->toRoute('admin/contenuti-summary', array('lang' => 'it'));
+            return $this->redirect()->toRoute('admin/contenuti-summary', array(
+                'lang'              => $lang,
+                'languageSelection' => $languageSelection,
+                'modulename'        => $modulename,
+            ));
 
         } catch(\Exception $e) {
 
-            $helper->getConnection()->rollBack();
+            try {
+                $helper->getConnection()->rollBack();
+            } catch(\Doctrine\DBAL\ConnectionException $transactionError) {
+
+            }
 
             try {
 
@@ -112,8 +123,13 @@ class ContenutiHomeputremoveController extends SetupAbstractController
         $mainLayout = $this->initializeAdminArea();
 
         $id = $this->params()->fromRoute('id');
+        $lang = $this->params()->fromRoute('lang');
+        $modulename = $this->params()->fromRoute('modulename');
+        $languageSelection = $this->params()->fromRoute('languageSelection');
 
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+
+        $userDetails = $this->layout()->getVariable('userDetails');
 
         $connection = $em->getConnection();
 
@@ -146,12 +162,48 @@ class ContenutiHomeputremoveController extends SetupAbstractController
 
             $helper->getConnection()->commit();
 
-            return $this->redirect()->toRoute('admin/contenuti-summary', array('lang'=>'it'));
+            return $this->redirect()->toRoute('admin/contenuti-summary', array(
+                'lang'              => $lang,
+                'languageSelection' => $languageSelection,
+                'modulename'        => $modulename,
+            ));
 
         } catch(\Exception $e) {
 
-            $helper->getConnection()->rollBack();
+            try {
+                $helper->getConnection()->rollBack();
+            } catch(\Doctrine\DBAL\ConnectionException $transactionError) {
 
+            }
+
+            try {
+
+                $helper->setLogWriter(new LogWriter($connection));
+                $helper->getLogWriter()->writeLog(array(
+                    'user_id'   => isset($userDetails->id) ? $userDetails->id : 1,
+                    'module_id' => ModulesContainer::contenuti_id,
+                    'message'   => "Errore eliminazione contenuto dalla home page",
+                    'type'      => 'error',
+                    'backend'   => 1,
+                ));
+
+                $this->layout()->setVariables(array(
+                    'messageType'       => 'danger',
+                    'messageTitle'      => 'Errore eliminazione contenuto dalla home page',
+                    'messageText'       => $e->getMessage(),
+                    'templatePartial'   => 'message.phtml',
+                ));
+
+            } catch(\Exception $e) {
+
+                $this->layout()->setVariables(array(
+                    'messageType' => 'danger',
+                    'messageTitle' => 'Errore verificato',
+                    'messageText' => "Errore eliminazione contenuto dalla home page e log operazione",
+                    'templatePartial' => 'message.phtml',
+                ));
+
+            }
         }
 
         $this->layout()->setTemplate($mainLayout);

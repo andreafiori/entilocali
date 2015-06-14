@@ -65,9 +65,8 @@ class StatoCivileSezioniFormController extends SetupAbstractController
                         'title' => "Elenco sezioni stato civile"
                     ),
                 ),
-                'formBreadCrumbTitle' => $formBreadCrumbTitle,
-                'noFormActionPrefix' => 1,
-                'templatePartial' => self::formTemplate,
+                'formBreadCrumbTitle'	=> $formBreadCrumbTitle,
+                'templatePartial'		=> self::formTemplate,
             )
         );
 

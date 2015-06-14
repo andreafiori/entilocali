@@ -7,114 +7,123 @@
 </div>
 
 <div id="frmFrmSearchExport" style="display: block">
-
-    <?php if (!empty($this->formLanguage)): ?>
-        <br>
-    <?php endif; ?>
-
     <?php
 
-    echo $this->partial($this->formDataCommonPath.'_formdata_language.phtml', array(
-        'formLanguage' => $this->formLanguage,
-        'formAction' => $this->url('admin/contenuti-operations', array(
+    if (!empty($this->formLanguage)):
+        ?>
+        <br>
+        <?php
+        echo $this->partial($this->formDataCommonPath.'_formdata_language.phtml', array(
+            'formLanguage' => $this->formLanguage,
+            'formAction' => $this->url('admin/contenuti-operations', array(
+                'lang'          => $this->params()->fromRoute('lang'),
+                'modulename'    => $this->params()->fromRoute('modulename'),
+                'action'        => 'changesummarylang',
+            )),
+        ));
+    endif;
+
+    if ($this->formSearch):
+
+        $form = $this->formSearch;
+
+        $form->setAttribute('action', $this->url('admin/contenuti-operations', array(
             'lang'          => $this->params()->fromRoute('lang'),
+            'action'        => 'summarysearch',
             'modulename'    => $this->params()->fromRoute('modulename'),
-            'action'        => 'changesummarylang',
-        )),
-    ));
+            'page'          => $this->params()->fromRoute('page'),
 
-    $form = $this->formSearch;
+        )));
+        $form->setAttribute('method',   'post');
+        $form->setAttribute('role',     'form');
+        $form->setAttribute('class',    'form-horizontal');
+        $form->setAttribute('id',       'frmSearchExport');
 
-    $form->setAttribute('action', $this->url('admin/contenuti-operations', array(
-        'lang'          => $this->params()->fromRoute('lang'),
-        'action'        => 'summarysearch',
-        'modulename'    => $this->params()->fromRoute('modulename'),
-        'page'          => $this->params()->fromRoute('page'),
+        $form->get('testo')->setAttribute('class', 'form-control');
+        $form->get('sottosezioni')->setAttribute('class', 'form-control');
+        $form->get('search')->setAttribute('class', 'btn btn-primary');
 
-    )));
-    $form->setAttribute('method',   'post');
-    $form->setAttribute('role',     'form');
-    $form->setAttribute('class',    'form-horizontal');
-    $form->setAttribute('id',       'frmSearchExport');
+        $form->prepare();
 
-    $form->get('testo')->setAttribute('class', 'form-control');
-    $form->get('sottosezioni')->setAttribute('class', 'form-control');
-    $form->get('search')->setAttribute('class', 'btn btn-primary');
-
-    $form->prepare();
-
-    echo $this->form()->openTag($form);
+        echo $this->form()->openTag($form);
 
     ?>
 
-    <h4 class="text-center">Ricerca fra gli articoli</h4>
+        <h4 class="text-center">Ricerca fra gli articoli</h4>
 
-    <div class="form-group">
-        <label class="col-sm-2 control-label" for="<?php echo $form->get('testo')->getAttribute('id') ?>">
-            <?php echo $this->formLabel($form->get('testo')) ?>
-        </label>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="<?php echo $form->get('testo')->getAttribute('id') ?>">
+                <?php echo $this->formLabel($form->get('testo')) ?>
+            </label>
 
-        <div class="col-sm-4">
-            <?php echo $this->formElement($form->get('testo')); ?>
+            <div class="col-sm-4">
+                <?php echo $this->formElement($form->get('testo')); ?>
+            </div>
+
+            <label class="col-sm-2 control-label" for="<?php echo $form->get('sottosezioni')->getAttribute('id') ?>">
+                <?php echo $this->formLabel($form->get('sottosezioni')) ?>
+            </label>
+            <div class="col-sm-4">
+                <?php echo $this->formElement($form->get('sottosezioni')); ?>
+            </div>
         </div>
 
-        <label class="col-sm-2 control-label" for="<?php echo $form->get('sottosezioni')->getAttribute('id') ?>">
-            <?php echo $this->formLabel($form->get('sottosezioni')) ?>
-        </label>
-        <div class="col-sm-4">
-            <?php echo $this->formElement($form->get('sottosezioni')); ?>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label class="col-sm-4 control-label" for="<?php echo $form->get('inhome')->getAttribute('id') ?>">
-            <?php echo $this->formElement($form->get('inhome')); ?> <?php echo $this->formLabel($form->get('inhome')) ?>
-        </label>
-    </div>
-
-    <div class="form-group">
-
-        <div class="col-sm-2">
-            &nbsp;
+        <div class="form-group">
+            <label class="col-sm-4 control-label" for="<?php echo $form->get('inhome')->getAttribute('id') ?>">
+                <?php echo $this->formElement($form->get('inhome')); ?> <?php echo $this->formLabel($form->get('inhome')) ?>
+            </label>
         </div>
 
-        <div class="col-sm-2">
-            <?php echo $this->formElement($form->get('search')); ?>
+        <div class="form-group">
+
+            <div class="col-sm-2">
+                &nbsp;
+            </div>
+
+            <div class="col-sm-2">
+                <?php echo $this->formElement($form->get('search')); ?>
+            </div>
+
+            <div class="col-sm-6">
+                <!--
+                Esporta:
+
+                <button type="submit" class="btn btn-success" id="csv_export">
+                    <i class="fa fa-file-excel-o"></i> CSV
+                </button>
+
+
+                <button type="submit" class="btn btn-danger" id="pdf_export">
+                    <i class="fa fa-file-pdf-o"></i> PDF
+                </button>
+
+                <button type="submit" class="btn btn-info">
+                    <i class="fa fa-file-text"></i> TXT
+                </button>
+
+                <button type="submit" class="btn btn-info">
+                    <i class="fa fa-file-text"></i> XML
+                </button>
+
+                <button type="submit" class="btn btn-info">
+                    <i class="fa fa-file-text"></i> JSON
+                </button>
+
+                -->
+            </div>
         </div>
 
-        <div class="col-sm-6">
-            <!--
-            Esporta:
-
-            <button type="submit" class="btn btn-success" id="csv_export">
-                <i class="fa fa-file-excel-o"></i> CSV
-            </button>
-
-
-            <button type="submit" class="btn btn-danger" id="pdf_export">
-                <i class="fa fa-file-pdf-o"></i> PDF
-            </button>
-
-            <button type="submit" class="btn btn-info">
-                <i class="fa fa-file-text"></i> TXT
-            </button>
-
-            <button type="submit" class="btn btn-info">
-                <i class="fa fa-file-text"></i> XML
-            </button>
-
-            <button type="submit" class="btn btn-info">
-                <i class="fa fa-file-text"></i> JSON
-            </button>
-
-            -->
-        </div>
-    </div>
-
-    <?php echo $this->form()->closeTag(); ?>
+        <?php echo $this->form()->closeTag(); ?>
+    <?php endif; ?>
 </div>
 
-<?php echo $this->render('backend/templates/common/datatables_zend_pagination.phtml'); ?>
+<?php
+
+if (!empty($this->records)):
+    echo $this->render('backend/templates/common/datatables_zend_pagination.phtml');
+endif;
+
+?>
 
 <script>
 /* Change form action to export records */
@@ -130,3 +139,13 @@ $('#txt_export').click(function() {
     $('#frmSearchExport').attr('action', '<?php echo $this->url('contenuti-export', array('action' => 'txt') ); ?>');
 });
 </script>
+
+<?php
+
+if ($this->showMessage):
+    echo $this->partial($this->templateDir.'message.phtml', array(
+        'messageType'   => $this->messageType,
+        'messageTitle'  => $this->messageTitle,
+        'messageText'   => $this->messageText,
+    ));
+endif;

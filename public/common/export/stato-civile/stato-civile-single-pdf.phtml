@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style>
+    h1,h2 { margin-bottom: 50px; text-align: center; }
+    p { margin-bottom: 10px }
+    .text-center { text-align: center }
+    .text-right { text-align: right }
+</style>
+<body>
+
+<p><strong><?php echo $this->sitename ?></strong></p>
+
+<br>
+
+<p>Atto stato civile generato il <?php echo date("d-m-Y") ?> alle ore <?php echo date("H:i:s") ?></p>
+
+<br>
+
+<h3><?php echo $this->record['titolo'] ?></h3>
+
+<p><strong>Numero \ Anno:</strong> <?php echo $this->record['progressivo'] ?> \ <?php echo $this->record['anno'] ?> </p>
+
+<p><strong>Scadenza:</strong> <?php echo $this->record['scadenza']->format("m-d-Y") ?></p>
+
+<p><strong>Sezione:</strong> <?php echo $this->record['nomeSezione'] ?></p>
+
+<?php if (isset($this->record['attachments'])): ?>
+    <br>
+    <p><strong>Allegati:</strong></p>
+    <?php foreach($this->record['attachments'] as $attachment): ?>
+        <p><a href="#" title=""><?php echo $attachment['title'] ?> (<?php echo $attachment['size'] ?> Kb)</a></p>
+    <?php endforeach ?>
+<?php endif;?>
+
+<br>
+
+<p>&copy; <?php echo date("Y").' '.$this->sitename ?></p>
+
+</body>
+</html>

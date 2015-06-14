@@ -50,7 +50,6 @@ class EntiTerziFormController extends SetupAbstractController
                 'form'                          => $form,
                 'formAction'                    => $formAction,
                 'submitButtonValue'             => $submitButtonValue,
-                'noFormActionPrefix'            => 1,
                 'formBreadCrumbCategory'        => 'Enti terzi',
                 'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/enti-terzi-summary', array(
                     'lang' => $lang

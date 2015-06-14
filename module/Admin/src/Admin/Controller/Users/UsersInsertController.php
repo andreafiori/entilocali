@@ -10,9 +10,6 @@ use ModelModule\Model\Users\UsersForm;
 use ModelModule\Model\Users\UsersFormInputFilter;
 use ModelModule\Model\Log\LogWriter;
 
-/**
- * TODO: review this code snippet!!!
- */
 class UsersInsertController extends SetupAbstractController
 {
     public function indexAction()
@@ -59,8 +56,7 @@ class UsersInsertController extends SetupAbstractController
             $inputFilter->exchangeArray( $form->getData() );
 
             $helper->setLoggedUser($userDetails);
-            // $lastInsertId = $helper->insert($inputFilter);
-            $lastInsertId = 1; // TODO: check verify password, add encoded password + salt, encode password to store
+            $lastInsertId = $helper->insert($inputFilter);
             $helper->getConnection()->commit();
 
             $logWriter = new LogWriter($connection);
@@ -90,7 +86,7 @@ class UsersInsertController extends SetupAbstractController
 
             try {
                 $helper->getConnection()->rollBack();
-            } catch(\Doctrine\DBAL\ConnectionException $e) {
+            } catch(\Doctrine\DBAL\ConnectionException $ex) {
 
             }
 

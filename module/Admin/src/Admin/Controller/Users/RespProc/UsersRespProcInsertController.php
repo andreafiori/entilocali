@@ -30,6 +30,8 @@ class UsersRespProcInsertController extends SetupAbstractController
 
         $userDetails = $this->recoverUserDetails();
 
+        $helper = new Respproc();
+
         $connection->insert(
             DbTableContainer::usersRespProc,
             array(

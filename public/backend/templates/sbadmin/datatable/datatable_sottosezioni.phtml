@@ -6,7 +6,8 @@
     </li>
     <li>
         <a href="<?php echo $this->url('admin/'.$this->params()->fromRoute('modulename').'-form',
-            array('lang' => $this->params()->fromRoute('lang'),
+            array(
+                'lang' => $this->params()->fromRoute('lang'),
                 'languageSelection' => $this->params()->fromRoute('languageSelection'),
                 'modulename' => $this->params()->fromRoute('modulename')
             )) ?>" title="Elenco">
@@ -41,8 +42,9 @@
                     'lang'              => $this->params()->fromRoute('lang'),
                     'languageSelection' => $this->params()->fromRoute('languageSelection'),
                     'action'            => 'changecontenutisummarylang',
+                    'modulename'        => $this->params()->fromRoute('modulename')
                 )),
-                'formLanguage' => $this->formLanguage,
+                'formLanguage'          => $this->formLanguage,
             )
         );
     endif;

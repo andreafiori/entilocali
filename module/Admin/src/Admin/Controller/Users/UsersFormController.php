@@ -91,7 +91,6 @@ class UsersFormController extends SetupAbstractController
             'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/users-summary', array(
                 'lang' => $this->params()->fromRoute('lang')
             )),
-            'noFormActionPrefix'            => 1,
             'templatePartial'               => self::formTemplate,
         ));
 

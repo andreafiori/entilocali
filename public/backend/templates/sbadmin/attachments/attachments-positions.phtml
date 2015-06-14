@@ -1,12 +1,13 @@
+<?php $lang = $this->params()->fromRoute('lang'); ?>
 <ul class="breadcrumb">
-    <li><a href="<?php echo $this->url('admin', array('lang'=>'it')); ?>" title="Home page">Home</a> </li>
+    <li><a href="<?php echo $this->url('admin', array('lang' => $lang)); ?>" title="Torna all'home page">Home</a> </li>
     <li class="active">
         <a href="<?php echo $this->formBreadCrumbCategoryLink ?>" title="<?php echo $this->formBreadCrumbCategory ?>">
             <?php echo $this->formBreadCrumbCategory ?>
         </a>
     </li>
     <li><a href="<?php echo $this->url('admin/attachments-summary', array(
-            'lang'          => 'it',
+            'lang'          => $lang,
             'module'        => $this->moduleCode,
             'referenceId'   => $referenceId
         )) ?>" title="Gestione allegati <?php echo $this->formBreadCrumbCategory ?>"><?php echo $this->articleTitle ?></a></li>
@@ -25,10 +26,9 @@
 
     <div class="col-md-6">
         <?php if (!empty($this->records)): ?>
-            <ul class="sezioniColumn" style="margin-left: 0; padding: 0">
+            <ul class="attachPositionsColumn" style="margin-left: 0; padding: 0">
                 <?php foreach($this->records as $record): ?>
-
-                    <li class="positionMove list-group-item list-group-item-info" id="oggettoItem_<?php echo $record['id'] ?>">
+                    <li class="positionMove list-group-item list-group-item-info" id="oggettoItem_<?php echo $record['attachmenOptionId'] ?>">
                         <span class="trascinabile"><?php echo $record['title']; ?></span>
                     </li>
                 <?php endforeach ?>
@@ -42,11 +42,11 @@
 <script type="text/javascript" src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-        $(".sezioniColumn").sortable({
+        $(".attachPositionsColumn").sortable({
             handle : '.trascinabile',
             update : function () {
-                var ordina = $('.sezioniColumn').sortable('serialize');
-                $("#info").load("<?php echo "@"; // echo $this->url('admin/posizioni-sezioni-update', array('lang' => 'it')); ?>?"+ordina+'&group='+$('#1').attr('id') );
+                var ordina = $('.attachPositionsColumn').sortable('serialize');
+                $("#info").load("<?php echo $this->url('admin/attachments-positions-update', array('lang' => $lang)); ?>?"+ordina+'&group='+$('#1').attr('id') );
             }
         });
     });

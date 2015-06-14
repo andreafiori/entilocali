@@ -6,6 +6,9 @@ use ModelModule\Model\QueryBuilderHelperAbstract;
 
 class UsersGetter extends QueryBuilderHelperAbstract
 {
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
     public function setMainQuery()
     {
         $this->setSelectQueryFields('DISTINCT(u.id) AS id, u.name, u.surname, u.email, u.address, u.status, u.zip,
@@ -127,6 +130,20 @@ class UsersGetter extends QueryBuilderHelperAbstract
         if (!empty($salt)) {
             $this->getQueryBuilder()->andWhere("u.salt = :salt ");
             $this->getQueryBuilder()->setParameter('salt', $salt);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param string $roleName
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setRoleName($roleName)
+    {
+        if (!empty($roleName)) {
+            $this->getQueryBuilder()->andWhere("role.name = :roleName ");
+            $this->getQueryBuilder()->setParameter('roleName', $roleName);
         }
 
         return $this->getQueryBuilder();

@@ -27,6 +27,9 @@ class Module implements AutoloaderProviderInterface
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
 
+        $app = $e->getTarget();
+        /* $app->getEventManager()->attach('finish', array($this, 'compressOutput'), 100); */
+
         try {
             $dbInstance = $sm->get('Zend\Db\Adapter\Adapter');
             $dbInstance->getDriver()->getConnection()->connect();
@@ -41,6 +44,31 @@ class Module implements AutoloaderProviderInterface
 
             exit( $sm->get('ViewRenderer')->render($viewModel) );
         }
+    }
+
+    /**
+     * @param MvcEvent $e
+     */
+    public function compressOutput(MvcEvent $e)
+    {
+        $response = $e->getResponse();
+        $content = $response->getBody();
+
+        $search = array(
+            '/\>[^\S ]+/s',  // strip whitespaces after tags, except space
+            '/[^\S ]+\</s',  // strip whitespaces before tags, except space
+            '/(\s)+/s'       // shorten multiple whitespace sequences
+        );
+
+        $replace = array(
+            '>',
+            '<',
+            '\\1'
+        );
+
+        $content = preg_replace($search, $replace, $content);
+
+        $response->setContent($content);
     }
 
     /**

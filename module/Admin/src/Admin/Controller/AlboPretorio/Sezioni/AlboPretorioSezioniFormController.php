@@ -47,7 +47,6 @@ class AlboPretorioSezioniFormController extends SetupAbstractController
             'formDescription'               => 'Inserisci dati nuova sezione albo pretorio',
             'form'                          => $form,
             'formAction'                    => $formAction,
-            'noFormActionPrefix'            => 1,
             'formBreadCrumbTitle'           => 'Modifica',
             'formBreadCrumbCategory' => array(
                 array(

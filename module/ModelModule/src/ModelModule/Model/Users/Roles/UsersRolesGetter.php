@@ -4,10 +4,6 @@ namespace ModelModule\Model\Users\Roles;
 
 use ModelModule\Model\QueryBuilderHelperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  28 February 2015
- */
 class UsersRolesGetter extends QueryBuilderHelperAbstract
 {
     /**

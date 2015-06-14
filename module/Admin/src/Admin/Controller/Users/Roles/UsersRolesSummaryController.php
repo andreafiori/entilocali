@@ -2,6 +2,7 @@
 
 namespace Admin\Controller\Users\Roles;
 
+use ModelModule\Model\Users\Roles\UsersRolesControllerHelper;
 use ModelModule\Model\Users\Roles\UsersRolesGetter;
 use ModelModule\Model\Users\Roles\UsersRolesGetterWrapper;
 use Application\Controller\SetupAbstractController;
@@ -13,16 +14,19 @@ class UsersRolesSummaryController extends SetupAbstractController
         $mainLayout = $this->initializeAdminArea();
 
         $page = $this->params()->fromRoute('page');
+        $lang = $this->params()->fromRoute('lang');
 
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-        $wrapper = new UsersRolesGetterWrapper( new UsersRolesGetter($em) );
-        $wrapper->setInput(array(
-            'orderBy' => 'role.id DESC'
-        ));
-        $wrapper->setupQueryBuilder();
-        $wrapper->setupPaginator( $wrapper->setupQuery($em) );
-        $wrapper->setupPaginatorCurrentPage($page);
+        $helper = new UsersRolesControllerHelper();
+        $wrapper = $helper->recoverWrapperRecordsPaginator(
+            new UsersRolesGetterWrapper(new UsersRolesGetter($em)),
+            array(
+                'orderBy' => 'role.id DESC'
+            ),
+            $page,
+            null
+        );
 
         $paginator = $wrapper->getPaginator();
 
@@ -30,7 +34,7 @@ class UsersRolesSummaryController extends SetupAbstractController
 
         $this->layout()->setVariables(array(
                 'tableTitle'                     => 'Gestione ruoli utenti',
-                'tableDescription'               => $paginator->getTotalItemCount().' ruoli utente',
+                'tableDescription'               => $paginator->getTotalItemCount()." ruoli utente. Gestione ruoli e permessi.",
                 'columns' => array(
                     "Nome",
                     "Data inserimento",
@@ -40,7 +44,7 @@ class UsersRolesSummaryController extends SetupAbstractController
                 ),
                 'records'                       => $this->formatRecords($paginatorRecords),
                 'formBreadCrumbCategory'        => 'Ruoli utente',
-                'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/users-summary', array('lang' => 'it')),
+                'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/users-summary', array('lang' => $lang)),
                 'templatePartial'               => self::summaryTemplate,
             )
         );
@@ -54,6 +58,8 @@ class UsersRolesSummaryController extends SetupAbstractController
          */
         private function formatRecords($records)
         {
+            $lang = $this->params()->fromRoute('lang');
+
             $arrayToReturn = array();
             if ($records) {
                 foreach($records as $key => $row) {
@@ -61,20 +67,21 @@ class UsersRolesSummaryController extends SetupAbstractController
                         $row['name'],
                         $row['insertDate'],
                         $row['lastUpdate'],
-                        ($row['name']=='WebMaster') ? '&nbsp;' :
-                            array(
-                                'type'      => 'updateButton',
-                                'href'      => $this->url()->fromRoute('admin/users-roles-form', array('lang' => 'it', 'id' => $row['id'])),
-                                'data-id'   => $row['id'],
-                                'title'     => 'Modifica ruolo utente'
-                            ),
-                        ($row['name']=='WebMaster') ? '&nbsp;' :
-                            array(
-                                'type'      => 'deleteButton',
-                                'href'      => '#',
-                                'data-id'   => $row['id'],
-                                'title'     => 'Elimina ruolo utente'
-                            ),
+                        array(
+                            'type'      => 'updateButton',
+                            'href'      => $this->url()->fromRoute('admin/users-roles-form', array(
+                                'lang'  => $lang,
+                                'id'    => $row['id']
+                            )),
+                            'data-id'   => $row['id'],
+                            'title'     => 'Modifica ruolo utente'
+                        ),
+                        array(
+                            'type'      => 'deleteButton',
+                            'href'      => '#',
+                            'data-id'   => $row['id'],
+                            'title'     => 'Elimina ruolo utente'
+                        ),
                     );
                 }
             }

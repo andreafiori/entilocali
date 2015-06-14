@@ -15,6 +15,7 @@ return array(
             'Application\Controller\Contenuti\Contenuti'                                    => 'Application\Controller\Contenuti\ContenutiController',
             'Application\Controller\Contenuti\ContenutiExport'                              => 'Application\Controller\Contenuti\ContenutiExportController',
             'Application\Controller\StatoCivile\StatoCivileExport'                          => 'Application\Controller\StatoCivile\StatoCivileExportController',
+            'Application\Controller\StatoCivile\StatoCivileExportSingle'                    => 'Application\Controller\StatoCivile\StatoCivileExportSingleController',
             'Application\Controller\AmministrazioneTrasparente\AmministrazioneTrasparente'  => 'Application\Controller\AmministrazioneTrasparente\AmministrazioneTrasparenteController',
             'Application\Controller\ContrattiPubblici\ContrattiPubblici'                    => 'Application\Controller\ContrattiPubblici\ContrattiPubbliciController',
             'Application\Controller\StatoCivile\StatoCivile'                                => 'Application\Controller\StatoCivile\StatoCivileController',
@@ -212,12 +213,13 @@ return array(
 
                                                                     ),
                                                                     'defaults' => array(
-                                                                                    'controller' => 'Application\Controller\DocumentExport',
-                                                                                    'action'     => 'index',
+                                                                        'controller' => 'Application\Controller\DocumentExport',
+                                                                        'action'     => 'index',
                                                                     ),
                                                     ),
                                                     'may_terminate' => true,
                                     ),
+                                    /*
                                     'faq' => array(
                                                 'type'    => 'Zend\Mvc\Router\Http\Segment',
                                                 'options' => array(
@@ -232,6 +234,7 @@ return array(
                                                 ),
                                                 'may_terminate' => true,
                                     ),
+                                    */
                                     'albo-pretorio' => array(
                                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                                         'options' => array(
@@ -251,6 +254,20 @@ return array(
                                                                     'options' => array(),
                                                                 ),
                                                         ),
+                                    ),
+                                    'albo-pretorio-details' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                            'route'    => '/albo-pretorio/atti/dettagli/:id',
+                                            'constraints' => array(
+                                                'id' => '[0-9]+',
+                                            ),
+                                            'defaults' => array(
+                                                'controller'    => 'Application\Controller\AlboPretorio\AlboPretorio',
+                                                'action'        => 'details',
+                                            ),
+                                        ),
+                                        'may_terminate' => true,
                                     ),
                                     'stato-civile' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
@@ -272,6 +289,20 @@ return array(
                                                     ),
                                         ),
                                     ),
+                                    'stato-civile-details' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                            'route'    => '/stato-civile/atti/dettagli/:id[/]',
+                                            'constraints' => array(
+                                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                            ),
+                                            'defaults' => array(
+                                                'controller' => 'Application\Controller\StatoCivile\StatoCivile',
+                                                'action'     => 'details'
+                                            ),
+                                        ),
+                                        'may_terminate' => true,
+                                    ),
                                     'stato-civile-export' => array(
                                                     'type'    => 'Zend\Mvc\Router\Http\Segment',
                                                     'options' => array(
@@ -286,6 +317,21 @@ return array(
                                                     ),
                                                     'may_terminate' => true,
                                     ),
+                                'stato-civile-export-single' => array(
+                                    'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                    'options' => array(
+                                        'route'    => '/stato-civile/export/single/:action/:id[/]',
+                                        'constraints' => array(
+                                            'action'    => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                            'id'        => '[0-9]+',
+                                        ),
+                                        'defaults' => array(
+                                            'controller' => 'Application\Controller\StatoCivile\StatoCivileExportSingle',
+                                            'action'     => 'index',
+                                        ),
+                                    ),
+                                    'may_terminate' => true,
+                                ),
                                     'amministrazione-trasparente' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
@@ -301,9 +347,9 @@ return array(
                                         'may_terminate' => true,
                                         'child_routes' => array(
                                                         'default' => array(
-                                                                        'type'    => 'Wildcard',
-                                                                        'options' => array(
-                                                                        ),
+                                                                'type'    => 'Wildcard',
+                                                                'options' => array(
+                                                            ),
                                                         ),
                                         ),
                                     ),
@@ -333,7 +379,7 @@ return array(
                                         'options' => array(
                                                         'route'    => '/contratti-pubblici/bandi-e-contratti/elenco[/][page/:page[/]]',
                                                         'constraints' => array(
-
+                                                            'page'  => '[0-9]+',
                                                         ),
                                                         'defaults' => array(
                                                             'controller' => 'Application\Controller\ContrattiPubblici\ContrattiPubblici',
@@ -341,13 +387,34 @@ return array(
                                                         ),
                                         ),
                                         'may_terminate' => true,
-                                        'child_routes' => array(
-                                                        'default' => array(
-                                                                        'type'    => 'Wildcard',
-                                                                        'options' => array(
-                                                                        ),
-                                                        ),
+                                    ),
+                                    'contratti-pubblici-details' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                            'route'    => '/contratti-pubblici/bandi-e-contratti/dettagli/:id[/]',
+                                            'constraints' => array(
+                                                'id' => '[0-9]+',
+                                            ),
+                                            'defaults' => array(
+                                                'controller' => 'Application\Controller\ContrattiPubblici\ContrattiPubblici',
+                                                'action'    => 'index',
+                                            ),
                                         ),
+                                        'may_terminate' => true,
+                                    ),
+                                    'contratti-pubblici-export' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                            'route'    => '/contratti-pubblici/bandi-e-contratti/export/:format/:id[/]',
+                                            'constraints' => array(
+                                                'id' => '[0-9]+',
+                                            ),
+                                            'defaults' => array(
+                                                'controller' => 'Application\Controller\ContrattiPubblici\ContrattiPubblici',
+                                                'action'    => 'index',
+                                            ),
+                                        ),
+                                        'may_terminate' => true,
                                     ),
                                     'contatti' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
@@ -364,9 +431,10 @@ return array(
                                         'may_terminate' => true,
                                         'child_routes' => array(
                                                         'default' => array(
-                                                                        'type'    => 'Wildcard',
-                                                                        'options' => array(
-                                                                        ),
+                                                            'type'    => 'Wildcard',
+                                                            'options' => array(
+
+                                                            ),
                                                         ),
                                         ),
                                     ),
@@ -385,10 +453,10 @@ return array(
                                         'may_terminate' => true,
                                         'child_routes' => array(
                                                         'default' => array(
-                                                                        'type'    => 'Wildcard',
-                                                                        'options' => array(
+                                                            'type' => 'Wildcard',
+                                                            'options' => array(
 
-                                                                        ),
+                                                            ),
                                                         ),
                                         ),
                                     ),
@@ -407,9 +475,10 @@ return array(
                                         'may_terminate' => true,
                                         'child_routes' => array(
                                                         'default' => array(
-                                                                        'type'    => 'Wildcard',
-                                                                        'options' => array(
-                                                                        ),
+                                                            'type'    => 'Wildcard',
+                                                            'options' => array(
+
+                                                            ),
                                                         ),
                                         ),
                                     ),
@@ -428,9 +497,9 @@ return array(
                                         'may_terminate' => true,
                                         'child_routes' => array(
                                                         'default' => array(
-                                                                        'type'    => 'Wildcard',
-                                                                        'options' => array(
-                                                                    ),
+                                                                'type'    => 'Wildcard',
+                                                                'options' => array(
+                                                            ),
                                                         ),
                                         ),
                                     ),
@@ -581,6 +650,10 @@ return array(
                         'application/contratti-pubblici/index'          => __DIR__ . '/../view/empty.phtml',
                         'application/albo-pretorio/index'               => __DIR__ . '/../view/empty.phtml',
                         'application/stato-civile/index'                => __DIR__ . '/../view/empty.phtml',
+                        'application/stato-civile-export-single/csv'    => __DIR__ . '/../view/empty.phtml',
+                        'application/stato-civile-export-single/txt'    => __DIR__ . '/../view/empty.phtml',
+                        'application/stato-civile-export-single/pdf'    => __DIR__ . '/../view/empty.phtml',
+                        'application/stato-civile-export-single/json'   => __DIR__ . '/../view/empty.phtml',
                         'application/atti-concessione/index'            => __DIR__ . '/../view/empty.phtml',
                         'application/contenuti/index'                   => __DIR__ . '/../view/empty.phtml',
                         'application/contenuti-export/csv'              => __DIR__ . '/../view/empty.phtml',

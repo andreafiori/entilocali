@@ -6,10 +6,6 @@ use ModelModule\Model\Amazon\S3\S3;
 use ModelModule\Model\Attachments\AttachmentsGetter;
 use ModelModule\Model\Attachments\AttachmentsGetterWrapper;
 
-/**
- * @author Andrea Fiori
- * @since  25 February 2015
- */
 class AttachmentsSThreeDownloaderController extends SetupAbstractController
 {
     public function indexAction()
@@ -53,11 +49,11 @@ class AttachmentsSThreeDownloaderController extends SetupAbstractController
         $response = $this->getResponse();
         $response->setContent($sthreeFile->body);
         $response
-            ->getHeaders()
-            ->addHeaderLine('Content-Type', 'public')
-            ->addHeaderLine('Content-Description', 'File Transfer')
-            ->addHeaderLine('Content-Disposition', 'attachment; filename='.$filename)
-            ->addHeaderLine('Content-Type', $mimetype);
+                ->getHeaders()
+                ->addHeaderLine('Content-Type', 'public')
+                ->addHeaderLine('Content-Description', 'File Transfer')
+                ->addHeaderLine('Content-Disposition', 'attachment; filename='.$filename)
+                ->addHeaderLine('Content-Type', $mimetype);
 
         return $response;
     }

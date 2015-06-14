@@ -26,7 +26,7 @@ class AlboPretorioController extends SetupAbstractController
         $helper = new AlboPretorioControllerHelper();
         $articoliWrapper = $helper->recoverWrapperRecordsPaginator(
             new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter($em)),
-            array('orderBy' => 'alboArticoli.id DESC'),
+            array('orderBy' => 'alboArticoli.id DESC', 'pubblicare' => 1),
             $page,
             null
         );

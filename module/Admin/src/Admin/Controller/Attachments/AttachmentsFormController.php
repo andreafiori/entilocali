@@ -19,10 +19,11 @@ class AttachmentsFormController extends SetupAbstractController
 
         $em             = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-        $lang           = $this->params()->fromRoute('lang');
-        $moduleCode     = $this->params()->fromRoute('module');
-        $referenceId    = $this->params()->fromRoute('referenceId');
-        $attachmentId   = $this->params()->fromRoute('attachmentId');
+        $lang               = $this->params()->fromRoute('lang');
+        $languageSelection  = $this->params()->fromRoute('languageSelection');
+        $moduleCode         = $this->params()->fromRoute('module');
+        $referenceId        = $this->params()->fromRoute('referenceId');
+        $attachmentId       = $this->params()->fromRoute('attachmentId');
 
         try {
             $helper = new AttachmentsFormControllerHelper();
@@ -57,11 +58,25 @@ class AttachmentsFormController extends SetupAbstractController
 
             $attachmentRecord = $helper->getAttachmentRecords();
             if (!empty($attachmentRecord)) {
+
+                $formAction = $this->url()->fromRoute('admin/attachments-update', array(
+                    'lang'              => $lang,
+                    'languageSelection' => $languageSelection,
+                    'modulename'        => $moduleCode,
+                ));
                 $formInput = array_merge($formBasicInput, $attachmentRecord[0]);
-                $formTitle = $attachmentRecord[0]['title'];
+                $formTitle = 'Modifica allegato';
+
             } else {
+
+                $formAction = $this->url()->fromRoute('admin/attachments-insert', array(
+                    'lang'              => $lang,
+                    'languageSelection' => $languageSelection,
+                    'modulename'        => $moduleCode,
+                ));
                 $formInput = $formBasicInput;
                 $formTitle = 'Nuovo allegato';
+
             }
 
             $helper->getAttachmentsForm()->setData($formInput);
@@ -70,15 +85,14 @@ class AttachmentsFormController extends SetupAbstractController
                     'form'                       => $helper->getAttachmentsForm(),
                     'formTitle'                  => $formTitle,
                     'formDescription'            => 'La dimensione del file non deve superare i <strong>10MB</strong>.',
-                    'formAction'                 => 'attachments/insert',
+                    'formAction'                 => $formAction,
                     'hideBreadcrumb'             => 1,
-                    'noFormActionPrefix'         => 1,
                     'attachmentsList'            => $helper->getAttachmentRecords(),
                     'articleTitle'               => $helper->getPropertiesGetterClassInstance()->getAttachmentFormTitle(),
                     'formBreadCrumbCategory'     => $helper->getPropertiesGetterClassInstance()->getBreadcrumbModule(),
                     'formBreadCrumbCategoryLink' => $this->url()->fromRoute(
                         $helper->getPropertiesGetterClassInstance()->getBreadcrumbRoute(),
-                        array('lang' => $lang, 'languageSelection' => $lang)
+                        array('lang' => $lang, 'languageSelection' => $lang, 'modulename' => $moduleCode)
                     ),
                     'breadCrumbActiveLabel'      => isset($attachmentRecord[0]['title']) ? $attachmentRecord[0]['title'] : 'Nuovo file',
                     'attachmentType'             => $helper->getModuleCode(),

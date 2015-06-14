@@ -63,7 +63,9 @@ class UsersRolesFormController extends SetupAbstractController
                 }
             }
 
-            $formAction      = 'users-roles/update/'.$roleRecord[0]['id'];
+            $formAction      = $this->url()->fromRoute('admin/users-roles-update', array(
+                'lang' => $lang
+            ));
             $formTitle       = 'Modifica ruolo utente';
             $formDescription = 'Modifica dati relativi al ruolo';
 

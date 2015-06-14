@@ -1,6 +1,6 @@
 <?php
 
-ob_start('sanitize_output');
+// ob_start('sanitize_output');
 
 defined('APPLICATION_ENV') || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 
@@ -32,7 +32,7 @@ date_default_timezone_set('Asia/Manila');
 Zend\Mvc\Application::init(require 'config/application.config.php')->run();
 
 /* compress HTML output */
-ob_end_flush();
+//ob_end_flush();
 function sanitize_output($buffer)
 {
     $search = array(

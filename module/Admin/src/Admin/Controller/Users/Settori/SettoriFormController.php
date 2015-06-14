@@ -74,7 +74,6 @@ class SettoriFormController extends SetupAbstractController
                         'title' => 'Elenco settori utenti'
                     ),
                 ),
-                'noFormActionPrefix'         => 1,
                 'templatePartial'            => self::formTemplate,
             )
         );

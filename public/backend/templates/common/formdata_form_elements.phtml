@@ -5,13 +5,7 @@ $this->form->prepare();
 $form = $this->form;
 $form->prepare();
 
-/* Prefix for old crudhandler objects action POST... */
-if (!$this->noFormActionPrefix) {
-    $formActionPrefix = $this->url('admin', array('lang' => 'it')).'formpost/';
-} else {
-    $formActionPrefix = '';
-}
-$formAction = !empty($this->formAction) ? $formActionPrefix.$this->formAction : '';
+$formAction = $this->formAction;
 $formId = !empty($this->formId) ? $this->formId : 'formData';
 
 $form->setAttributes(array(
