@@ -2,12 +2,6 @@
 
 namespace ModelModule\Model\Modules;
 
-/**
- * Static module ID container
- *
- * @author Andrea Fiori
- * @since  08 March 2015
- */
 class ModulesContainer
 {
     const contenuti_id                      = 2;
@@ -61,6 +55,10 @@ class ModulesContainer
 
             case("blogs"):
                 return self::blogs;
+            break;
+
+            case("photo"):
+                return self::photo;
             break;
         }
     }

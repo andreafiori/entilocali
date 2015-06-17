@@ -6,6 +6,9 @@ use Zend\Form\Form;
 
 class PostsCategoriesForm extends Form
 {
+    /**
+     * @inheritdoc
+     */
     public function __construct($name = null)
     {
         parent::__construct('formData');
@@ -24,46 +27,16 @@ class PostsCategoriesForm extends Form
         
         $this->add(array(
                         'name' => 'description',
-                        'type' => 'Text',
+                        'type' => 'Textarea',
                         'options' => array( 'label' => 'Descrizione' ),
                         'attributes' => array(
                                         'title'     => 'Inserisci descrizione',
-                                        'id'        => 'nome',
+                                        'id'        => 'description',
                                         'maxlength' => 255,
+                                        'rows'      => 3,
                         )
         ));
-        
-        $this->add(array(
-                        'type' => 'Application\Form\Element\PlainText',
-                        'name' => 'start_date',
-                        'attributes' => array(
-                                        'id' => 'searchEngines',
-                                        'value' => '<h3>Motori di ricerca</h3>',
-                        ),
-        ));
 
-        $this->add(array(
-                        'name' => 'seoDescription',
-                        'type' => 'Textarea',
-                        'options' => array( 'label' => 'Descrizione' ),
-                        'attributes' => array(
-                                        'id' => 'seoDescription',
-                                        'title' => 'Inserisci descrizione per i motori di ricerca',
-                                        'rows' => 5,
-                        ),
-        ));
-
-        $this->add(array(
-                        'name' => 'seoKeywords',
-                        'type' => 'Textarea',
-                        'options' => array( 'label' => 'Parole chiave (separate da virgola)' ),
-                        'attributes' => array(
-                                        'id'    => 'seoKeywords',
-                                        'title' => 'Parole chiave per i motori di ricerca',
-                                        'rows'  => '5',
-                        )
-        ));
-        
         $this->add(array(
                         'name' => 'moduleId',
                         'type' => 'Hidden',
@@ -74,6 +47,40 @@ class PostsCategoriesForm extends Form
                         'name' => 'id',
                         'type' => 'Hidden',
                         'attributes' => array( 'id' => 'id', 'class' => 'hiddenField' )
+        ));
+    }
+
+    public function addSeo()
+    {
+        $this->add(array(
+            'type' => 'Application\Form\Element\PlainText',
+            'name' => 'start_date',
+            'attributes' => array(
+                'id' => 'searchEngines',
+                'value' => '<h3>Motori di ricerca</h3>',
+            ),
+        ));
+
+        $this->add(array(
+            'name' => 'seoDescription',
+            'type' => 'Textarea',
+            'options' => array( 'label' => 'Descrizione' ),
+            'attributes' => array(
+                'id' => 'seoDescription',
+                'title' => 'Inserisci descrizione per i motori di ricerca',
+                'rows' => 5,
+            ),
+        ));
+
+        $this->add(array(
+            'name' => 'seoKeywords',
+            'type' => 'Textarea',
+            'options' => array( 'label' => 'Parole chiave (separate da virgola)' ),
+            'attributes' => array(
+                'id'    => 'seoKeywords',
+                'title' => 'Parole chiave per i motori di ricerca',
+                'rows'  => '5',
+            )
         ));
     }
 }

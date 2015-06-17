@@ -1,0 +1,119 @@
+<?php
+
+$titolo = (!empty($this->contenuti[0]['titolo'])) ? utf8_encode($this->contenuti[0]['titolo']) : null;
+
+/* Share and export icons */
+$shareExportIcons = $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
+    'twitterShareText'      => urlencode( utf8_encode($titolo) ),
+    'publicDirRelativePath' => $this->publicDirRelativePath,
+));
+
+?>
+    <ul class="breadcrumbs">
+        <li><a href="<?php echo $this->basepath() ?>" title="Torna all'home page">Home</a></li>
+        <li>
+            <a href="<?php echo $this->url('amministrazione-trasparente', array('profondita' => $this->ammTraspSottoSezioneId)) ?>" title="Vai all'indice di amministrazione trasparente">
+                Amministrazione trasparente
+            </a>
+        </li>
+        <?php if (isset($this->contenuti[0]['titolo'])): ?>
+            <li class="current"><?php echo (!empty($titolo)) ? utf8_encode($titolo) : 'Nessun p' ?></li>
+        <?php endif ?>
+    </ul>
+
+    <div class="text-center">
+        <h1>Amministrazione trasparente</h1>
+    </div>
+
+    <fieldset>
+    <legend>Ricerca</legend>
+<?php
+
+$form = $this->form;
+$form->prepare();
+
+$form->setAttribute('action', $this->currentUrl);
+$form->setAttribute('method', 'post');
+$form->setAttribute('role', 'form');
+
+$formLabel = $this->plugin('formLabel');
+
+echo $this->form()->openTag($this->form);
+
+?>
+    <div class="row">
+        <?php $name = $form->get('anno'); ?>
+        <?php echo $this->formElementErrors($name); ?>
+        <div class="small-2 columns">
+            <?php echo $formLabel->openTag(array('for'=>'anno')) . $name->getOption('label'). $formLabel->closeTag(); ?>
+        </div>
+        <div class="small-2 columns">
+            <?php echo $this->formInput($name)?>
+        </div>
+
+        <?php $name = $form->get('testo'); ?>
+        <?php echo $this->formElementErrors($name); ?>
+        <div class="small-2 columns">
+            <?php echo $formLabel->openTag(array('for'=>'testo')) . $name->getOption('label').$formLabel->closeTag(); ?>
+        </div>
+        <div class="small-6 columns">
+            <?php echo $this->formInput($name)?>
+        </div>
+    </div>
+
+    <div class="row">
+        <?php $name = $form->get('searchSubsection'); ?>
+        <?php echo $this->formElementErrors($name); ?>
+        <div class="small-2 columns">
+            <div class="text-right"><?php echo $this->formInput($name)?></div>
+        </div>
+        <div class="small-4 columns">
+            <?php echo $formLabel->openTag(array('for' => 'searchSubsection')) . $name->getOption('label').$formLabel->closeTag(); ?>
+        </div>
+
+        <?php $name = $form->get('search'); $name->setAttribute('class','button tiny primary'); ?>
+        <?php echo $this->formElementErrors($name); ?>
+        <div class="small-2 columns">
+            <?php echo $this->formInput($name)?>
+        </div>
+        <div class="small-8 columns">
+            <?php echo $formLabel->openTag() . $name->getOption('label').$formLabel->closeTag(); ?>
+        </div>
+    </div>
+
+<?php if (!empty($this->contenuti)): ?>
+    <?php foreach($this->contenuti as $contenuto): ?>
+        <h3><?php echo utf8_encode($contenuto['titolo']) ?> (Anno <?php echo $contenuto['annoammtrasp'] ?>)</h3>
+
+        <div><?php echo utf8_encode($contenuto['sommario']) ?></div>
+
+        <div><?php echo utf8_encode($contenuto['testo']) ?></div>
+
+        <br>
+        <?php echo $shareExportIcons ?>
+    <?php endforeach; ?>
+<?php endif; ?>
+
+
+<?php if ($this->sottoSezioni): ?>
+    <h4>Sottosezioni</h4>
+    <ul>
+    <?php
+    foreach($this->sottoSezioni as $sottoSezione):
+        if (!empty($sottoSezione['url'])) {
+            $urlSottoSezione = $sottoSezione['url'];
+            $target = '_blank';
+        } else {
+            $urlSottoSezione = $this->url('amministrazione-trasparente', array('profondita' => $sottoSezione['idSottoSezione']));
+        }
+        ?>
+        <li>
+            <a href="<?php echo $urlSottoSezione ?>"
+               title="Vai alla sezione <?php echo utf8_encode($sottoSezione['nomeSottoSezione']); ?>"
+                <?php if (isset($target)): ?> target="<?php echo $target ?>"<?php endif; ?>><?php echo utf8_encode($sottoSezione['nomeSottoSezione']); ?></a>
+        </li>
+    <?php
+    endforeach;
+    ?>
+    </ul>
+<?php endif;

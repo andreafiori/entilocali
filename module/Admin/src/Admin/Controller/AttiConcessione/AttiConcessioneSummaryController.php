@@ -5,6 +5,7 @@ namespace Admin\Controller\AttiConcessione;
 use ModelModule\Model\AttiConcessione\AttiConcessioneControllerHelper;
 use ModelModule\Model\AttiConcessione\AttiConcessioneGetter;
 use ModelModule\Model\AttiConcessione\AttiConcessioneGetterWrapper;
+use ModelModule\Model\Modules\ModulesContainer;
 use ModelModule\Model\Users\Settori\UsersSettoriGetter;
 use ModelModule\Model\Users\Settori\UsersSettoriGetterWrapper;
 use Application\Controller\SetupAbstractController;
@@ -58,7 +59,12 @@ class AttiConcessioneSummaryController extends SetupAbstractController
 
             $wrapperArticoli->setEntityManager($em);
             $paginatorRecords   = $this->formatArticoliRecords(
-                $wrapperArticoli->addAttachmentsFromRecords($wrapperArticoli->setupRecords())
+                $wrapperArticoli->addAttachmentsFromRecords(
+                    $wrapperArticoli->setupRecords(),
+                    array(
+                        'moduleId' => ModulesContainer::atti_concessione,
+                    )
+                )
             );
 
             $formSearch = new AttiConcessioneFormSearch();

@@ -6,11 +6,14 @@ use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
+use Zend\Validator\File\Count;
+use Zend\Validator\File\Size;
+use Zend\Validator\File\MimeType;
 
 class PostsFormInputFilter implements InputFilterAwareInterface
 {
-    public $postid;
-    public $postoptionid;
+    public $id;
+    public $image;
     public $title;
     public $subtitle;
     public $description;
@@ -20,14 +23,15 @@ class PostsFormInputFilter implements InputFilterAwareInterface
     public $seoDescription;
     public $status;
     public $moduleId;
+    public $languageId;
     public $categories;
 
     protected $inputFilter;
 
     public function exchangeArray($data)
     {
-        $this->postid    		= (isset($data['postid'])) ? $data['postid'] : null;
-        $this->postoptionid    	= (isset($data['postoptionid'])) ? $data['postoptionid'] : null;
+        $this->id    		    = (isset($data['id'])) ? $data['id'] : null;
+        $this->image    		= (isset($data['image'])) ? $data['image'] : null;
         $this->title 	 		= (isset($data['title'])) ? $data['title'] : null;
         $this->subtitle 	    = (isset($data['subtitle'])) ? $data['subtitle'] : null;
         $this->description  	= (isset($data['description']))  ? $data['description'] : null;
@@ -92,6 +96,38 @@ class PostsFormInputFilter implements InputFilterAwareInterface
                                             ),
                             ),
             )));
+
+            $inputFilter->add($factory->createInput([
+                'name' => 'image',
+                'required' => false,
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
+                ),
+                'validators' => array(
+                    /*
+                    array (
+                        'name' => 'Count',
+                        'options' => array(
+                            'min' => '1',
+                        ),
+                    ),
+                    array (
+                        'name' => 'Extension',
+                        'options' => array(
+                            'jpg','jpeg','gif','png',
+                        ),
+                    ),
+                    array (
+                        'name' => 'MimeType',
+                        'options' => array(
+                            'image/jpeg'
+                        ),
+                    ),
+                    */
+                ),
+            ]));
 
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'subtitle',
@@ -160,6 +196,7 @@ class PostsFormInputFilter implements InputFilterAwareInterface
                     array('name' => 'StringTrim'),
                 ),
                 'validators' => array(
+
                 ),
             ]));
 

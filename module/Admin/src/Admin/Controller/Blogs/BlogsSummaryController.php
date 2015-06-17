@@ -12,6 +12,7 @@ use ModelModule\Model\Posts\PostsFormSearch;
 use ModelModule\Model\Posts\PostsGetter;
 use ModelModule\Model\Posts\PostsGetterWrapper;
 use Application\Controller\SetupAbstractController;
+use ModelModule\Model\Modules\ModulesContainer;
 
 class BlogsSummaryController extends SetupAbstractController
 {
@@ -22,6 +23,7 @@ class BlogsSummaryController extends SetupAbstractController
         $entityManager  = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
         $configurations     = $this->layout()->getVariable('configurations');
+        $lang               = $this->params()->fromRoute('lang');
         $languageSelection  = $this->params()->fromRoute('languageSelection');
         $page               = $this->params()->fromRoute('page');
         $perPage            = $this->params()->fromRoute('perpage');
@@ -53,9 +55,19 @@ class BlogsSummaryController extends SetupAbstractController
                 $perPage
             );
 
-            /* Add categories to the post recordset. To refactor... */
+            /* add categories to the recordset */
             $postsRecords = $wrapperBlogPosts->setupRecords();
             $helper->checkRecords($postsRecords, 'Nessun blog post in archivio');
+
+            /* add attachment files to the recordset */
+            $wrapperBlogPosts->setEntityManager($entityManager);
+            $postsRecords = $wrapperBlogPosts->addAttachmentsFromRecords(
+				$postsRecords,
+				array(
+					'moduleId' => ModulesContainer::blogs,
+				)
+			);
+
             if (!empty($postsRecords)) {
                 foreach($postsRecords as &$postsRecord) {
                     $wrapper = new PostsGetterWrapper( new PostsGetter($entityManager) );
@@ -103,7 +115,7 @@ class BlogsSummaryController extends SetupAbstractController
                 'paginator'         => $paginator,
                 'records'           => $this->formatColumnRecords($postsRecords),
                 'formSearch'        => $form,
-                'formLanguage'      => $formLanguage,
+                'formLanguage'      => !empty($formLanguage) ? $formLanguage : null,
                 'templatePartial'   => 'datatable/datatable_blogs.phtml',
             ));
 
@@ -123,6 +135,9 @@ class BlogsSummaryController extends SetupAbstractController
          */
         private function formatColumnRecords($records)
         {
+            $lang               = $this->params()->fromRoute('lang');
+            $languageSelection  = $this->params()->fromRoute('languageSelection');
+
             $recordsToReturn = array();
             foreach($records as $record) {
 
@@ -141,22 +156,27 @@ class BlogsSummaryController extends SetupAbstractController
                     array(
                         'type' => 'updateButton',
                         'href' => $this->url()->fromRoute('admin/blogs-form', array(
-                            'lang'      => $this->params()->fromRoute('lang'),
+                            'lang'              => $this->params()->fromRoute('lang'),
                             'languageSelection' => $this->params()->fromRoute('languageSelection'),
-                            'formtype'  => 'blogs',
-                            'id'        => $record['id'],
+                            'formtype'          => 'blogs',
+                            'id'                => $record['id'],
                         )),
-                        'title' => 'Modifica'
+                        'title' => 'Modifica post'
                     ),
                     array(
                         'type'      => 'deleteButton',
-                        'title'     => 'Elimina',
+                        'title'     => 'Elimina post',
                         'href'      => '#',
                         'data-id'   => $record['id']
                     ),
                     array(
                         'type' => 'attachButton',
-                        'href' => '#',
+                        'href' => $this->url()->fromRoute('admin/attachments-summary', array(
+                            'lang'          => $lang,
+                            'module'        => 'blogs',
+                            'referenceId'   => $record['id'],
+                        )),
+                        'attachmentsFilesCount' => isset($record['attachments']) ? count($record['attachments']) : 0,
                     ),
                 );
             }

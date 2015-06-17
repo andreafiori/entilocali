@@ -1,5 +1,8 @@
 <?php
 
+$sm = $this->getHelperPluginManager()->getServiceLocator();
+$currentRoute = $sm->get('Application')->getMvcEvent()->getRouteMatch()->getMatchedRouteName();
+
 if (!$this->hideBreadcrumb):
     echo $this->render($this->formDataCommonPath.'breadcrumb.phtml');
 endif;
@@ -139,6 +142,22 @@ if (!$this->form):
     </div>
 
     <script>
+        $('.passwordStrength').keyup(function(e) {
+            var strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g");
+            var mediumRegex = new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$", "g");
+            var enoughRegex = new RegExp("(?=.{6,}).*", "g");
+            if (false == enoughRegex.test($(this).val())) {
+                /* $('#pass-strength-result').className = 'passMorechars'; */
+                $('#pass-strength-result').html('<span class="passMorechars">Troppi pochi caratteri!</span>');
+            } else if (strongRegex.test($(this).val())) {
+                $('#pass-strength-result').html('<span class="passSuccess">Forte!</span>');
+            } else if (mediumRegex.test($(this).val())) {
+                $('#pass-strength-result').html('<span class="passMedium">Media!</span>');
+            } else {
+                $('#pass-strength-result').html('<span class="passError">Password non sicura!</span>');
+            }
+            return true;
+        });
         /* Users Roles JS */
         $('#adminAccess').change(function() {
             if ($(this).val()==1) {
@@ -225,6 +244,39 @@ if (!$this->form):
                 CKEDITOR.instances[instance].updateElement();
             }
         }
+
+        <?php if ($currentRoute=='admin/blogs-form'): ?>
+        /* Check File size and extension */
+        $('#image').bind('change', function() {
+            if (this.files[0].size > 10485760) {
+                $('#fileTooLarge').modal(); /* open modal */
+                $('#submit').prop("disabled", true); /* disable submit button */
+            } else {
+                $('#submit').prop("disabled", false);
+
+                /* Check File Extension */
+                var filename = $("#file_input").val();
+                var extension = $('#attachmentFile').val().split('.').pop().toLowerCase();
+
+                if (extension == filename) {
+                    extension = '';
+                } else {
+                    extension = extension.toLowerCase();
+                }
+
+                switch (extension) {
+                    case 'jpg': case 'jpeg': case 'png': case 'gif':
+                        $('#submit').prop("disabled", false);
+                    break;
+
+                    default:
+                        $('#submit').prop("disabled", true);
+                        $('#extensionNotAllowed').modal();
+                    break;
+                }
+            }
+        });
+        <?php endif; ?>
     </script>
 <?php
 endif;

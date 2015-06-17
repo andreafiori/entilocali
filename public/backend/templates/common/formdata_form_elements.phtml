@@ -44,18 +44,18 @@ foreach ($this->form as $element):
         <div class="form-group">
             <label class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label">&nbsp;</label>
             <div class="col-sm-<?php echo $this->formControlSpanWidth ?>"><?php echo $this->formElement($element); ?>
-            <label for="<?php echo $attributes['id'] ?>" style="width: 80%"> <?php echo $element->getLabel() ?></label>
+                <label for="<?php echo $attributes['id'] ?>" style="width: 80%"> <?php echo $element->getLabel() ?></label>
             </div>
         </div>
         <?php
     elseif ($attributes['type'] == 'multi_checkbox'):
         ?>
         <div class="form-group">
-            <label for="<?php echo $attributes['id'] ?>" class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label"><?php echo $element->getLabel() ?></label>
+            <label for="<?php echo $attributes['id'] ?>" class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label">
+                <?php echo $element->getLabel() ?>
+            </label>
             <div class="col-sm-<?php echo $this->formControlSpanWidth ?>">
-
                 <?php echo $this->formElement($form->get($attributes['name'])); ?>
-
             </div>
         </div>
         <?php
@@ -105,6 +105,22 @@ foreach ($this->form as $element):
             <input value="<?php echo $element->getValue() ?>" type="button" class="btn btn-default" name="<?php echo $attributes['name'] ?>" onclick="resetCurrentForm('<?php echo $formId ?>');<?php if (isset($attributes['submit'])) echo ' submit()'; ?>">
         </div>
     </div>
+    <?php elseif (isset($attributes['class']) and $attributes['class'] == 'passwordStrength'): ?>
+        <div class="form-group">
+            <label for="<?php echo $attributes['id'] ?>" class="col-sm-2 control-label"><?php echo $element->getLabel() ?></label>
+            <div class="col-sm-4">
+                <input type="password" name="<?php echo $attributes['name'] ?>" class="form-control passwordStrength<?php if (isset($attributes['class'])): echo ' '.$attributes['class']; ?><?php endif; ?>"
+                    <?php if (isset($attributes['placeholder'])): ?> placeholder="<?php echo $attributes['placeholder'] ?>"<?php endif; ?>
+                    <?php if (isset($attributes['title'])): ?> title="<?php echo $attributes['title'] ?>"<?php endif; ?>
+                    <?php if (isset($attributes['id'])): ?> id="<?php echo $attributes['id'] ?>"<?php endif; ?>
+                       value="<?php echo $element->getValue() ?>"
+                    <?php if (isset($attributes['readonly'])): ?> readonly="readonly"<?php endif; ?>
+                    <?php if (isset($attributes['required'])): ?> required="required"<?php endif; ?>>
+            </div>
+            <div class="col-sm-4">
+                <span id="pass-strength-result"></span>
+            </div>
+        </div>
     <?php elseif ($attributes['type']=='text' or $attributes['type'] == 'Text'): ?>
     <div class="form-group">
         <label for="<?php echo $attributes['id'] ?>" class="col-sm-<?php echo $this->formLabelSpanWidth ?> control-label"><?php echo $element->getLabel() ?></label>

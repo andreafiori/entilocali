@@ -2,6 +2,8 @@
 
 namespace Auth\Controller;
 
+use ModelModule\Model\Log\LogWriter;
+use ModelModule\Model\Modules\ModulesContainer;
 use ModelModule\Model\SetupAbstractControllerHelper;
 use Zend\View\Model\ViewModel;
 use Zend\Session\Container as SessionContainer;
@@ -192,6 +194,18 @@ class AuthController extends SetupAbstractController
                         /* Regenerate Session ID after login */
                         $manager = new \Zend\Session\SessionManager;
                         $manager->regenerateId();
+
+                        /* Log entering admin area */
+                        $logWriter = new LogWriter($entityManager->getConnection());
+                        $logWriter->writeLog(array(
+                            'user_id'       => $userDetails->id,
+                            'module_id'     => ModulesContainer::contenuti_id,
+                            'message'       => "Ingresso nell'area riservata",
+                            'description'   => $records['name'].' '.$records['surname']." ha effettuato un ingresso nell'area riservata",
+                            'type'          => 'info',
+                            'reference_id'  => 0,
+                            'backend'       => 1,
+                        ));
 
                     } else {
                         $this->flashmessenger()->addMessage( print_r("Nome utente e\o password non validi", 1) );

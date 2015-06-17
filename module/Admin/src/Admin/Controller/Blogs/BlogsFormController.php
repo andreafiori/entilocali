@@ -3,6 +3,7 @@
 namespace Admin\Controller\Blogs;
 
 use ModelModule\Model\Modules\ModulesContainer;
+use ModelModule\Model\Posts\PostsControllerHelper;
 use ModelModule\Model\Posts\PostsForm;
 use ModelModule\Model\Posts\PostsGetter;
 use ModelModule\Model\Posts\PostsGetterWrapper;
@@ -18,90 +19,116 @@ class BlogsFormController extends SetupAbstractController
 
         $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-        $id = $this->params()->fromRoute('id');
-        if ($id) {
-            $wrapper = new PostsGetterWrapper( new PostsGetter($entityManager) );
-            $wrapper->setInput(array(
-                'id'    => $id,
-                'limit' => 1,
-            ));
-            $wrapper->setupQueryBuilder();
-            $recordFromDb = $wrapper->getRecords();
-        }
+        $lang               = $this->params()->fromRoute('lang');
+        $languageSelection  = $this->params()->fromRoute('languageSelection');
+        $id                 = $this->params()->fromRoute('id');
 
-        $wrapper = new PostsCategoriesGetterWrapper(new PostsCategoriesGetter($entityManager));
-        $wrapper->setInput(array(
-            'fields'        => 'category.id, category.name',
-            'orderBy'       => 'category.name',
-            'moduleCode'    => 'blogs',
-        ));
-        $wrapper->setupQueryBuilder();
-        $categoriesRecords = $wrapper->getRecords();
+        try {
 
-        $selectArray = array();
-        foreach($categoriesRecords as $categoriesRecord) {
-            if (isset($categoriesRecord['id']) and isset($categoriesRecord['name'])) {
-                $selectArray[$categoriesRecord['id']] = $categoriesRecord['name'];
-            }
-        }
-
-        $formBasicInput = array(
-            'type' => 'blogs',
-            'moduleId' => ModulesContainer::blogs,
-        );
-
-        $form = new PostsForm();
-        $form->addUploadImage();
-        $form->addMainFields();
-        $form->addCategory($selectArray);
-
-        if (!empty($recordFromDb)) {
-
-            $wrapper = new PostsGetterWrapper( new PostsGetter($entityManager) );
-            $wrapper->setInput( array(
-                    'fields'     => 'c.id, c.name',
-                    'id'         => $recordFromDb[0]['id'],
-                    'orderBy'    => 'c.name',
+            $helper = new PostsControllerHelper();
+            $categoriesRecords = $helper->recoverWrapperRecords(
+                new PostsCategoriesGetterWrapper(new PostsCategoriesGetter($entityManager)),
+                array(
+                    'fields'        => 'category.id, category.name',
+                    'orderBy'       => 'category.name',
+                    'moduleCode'    => 'blogs',
                 )
             );
-            $wrapper->setupQueryBuilder();
+            $helper->checkRecords($categoriesRecords, 'Nessuna categorie non presente. Inserire almeno una categoria');
+            $categoriesRecordsForDropDown = $helper->formatForDropwdown($categoriesRecords ,'id', 'name');
+            $postsRecords = $helper->recoverWrapperRecordsById(
+                $wrapper = new PostsGetterWrapper(new PostsGetter($entityManager)),
+                array(
+                    'id'    => $id,
+                    'limit' => 1,
+                ),
+                $id
+            );
 
-            $categoryRecords = $wrapper->getRecords();
+            $formBasicInput = array(
+                'type'      => 'blogs',
+                'moduleId'  => ModulesContainer::blogs,
+            );
 
-            $categoryIdForForm = array();
-            foreach($categoryRecords as $categoryRecord) {
-                $categoryIdForForm[] = $categoryRecord['id'];
+            /*
+            mkdir('public/frontend/media/photo');
+            mkdir('public/frontend/media/photo/demo');
+            mkdir('public/frontend/media/photo/demo/big');
+            mkdir('public/frontend/media/photo/demo/thumb');
+            */
+
+            $form = new PostsForm();
+            $form->addUploadImage();
+            $form->addTitle();
+            $form->addSubtitle();
+            $form->addMainFields();
+            $form->addCategory($categoriesRecordsForDropDown);
+            /* Additional fields: */
+            /*
+            $form->addSeo();
+            $form->addHome();
+            $form->addFacebook();
+            */
+
+            if (!empty($postsRecords)) {
+
+                $categoryIdForForm = $helper->gatherCategoriesId(
+                    new PostsGetterWrapper(new PostsGetter($entityManager)),
+                    array(
+                        'fields'     => 'c.id, c.name',
+                        'id'         => $postsRecords[0]['id'],
+                        'orderBy'    => 'c.name',
+                    )
+                );
+
+                $recordFromDb[0]['categories'] = $categoryIdForForm;
+
+                $form->setData( array_merge($formBasicInput, $recordFromDb[0]) );
+
+                $formTitle          = 'Modifica blog post';
+                $formAction         = $this->url()->fromRoute('admin/blogs-update', array(
+                    'lang'              => $lang,
+                    'languageSelection' => $languageSelection,
+                ));
+                $submitButtonValue  = 'Modifica';
+            } else {
+                $formTitle          = 'Nuovo blog post';
+                $formAction         = $this->url()->fromRoute('admin/blogs-insert', array(
+                    'lang'              => $lang,
+                    'languageSelection' => $languageSelection,
+                ));
+                $submitButtonValue  = 'Inserisci';
+
+                $form->setData( array_merge($formBasicInput, array(
+                    'expireDate' => date('Y-m-d H:i:s', strtotime('+5 years')),
+                    'status' => 1,
+                )));
             }
 
-            $recordFromDb[0]['categories'] = $categoryIdForForm;
+            $this->layout()->setVariables(array(
+                'form'                          => $form,
+                'formTitle'                     => $formTitle,
+                'formDescription'               => 'Compila dati blog post',
+                'formAction'                    => $formAction,
+                'submitButtonValue'             => $submitButtonValue,
+                'CKEditorField'                 => 'description',
+                'formBreadCrumbCategory'        => 'Blogs',
+                'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/blogs-summary', array(
+                    'lang'              => $this->params()->fromRoute('lang'),
+                    'languageSelection' => $this->params()->fromRoute('languageSelection'),
+                )),
+                'templatePartial'                => self::formTemplate,
+            ));
 
-            $form->setData( array_merge($formBasicInput, $recordFromDb[0]) );
+        } catch(\Exception $e) {
 
-            $formTitle          = 'Modifica blog post';
-            $formAction         = 'blogs/update/';
-            $submitButtonValue  = 'Modifica';
-        } else {
-            $formTitle          = 'Nuovo blog post';
-            $formAction         = 'blogs/insert/';
-            $submitButtonValue  = 'Inserisci';
-
-            $form->setData( array_merge($formBasicInput, array('expireDate' => date('Y-m-d H:i:s', strtotime('+5 years')) )));
+            $this->layout()->setVariables(array(
+                'messageType'   => 'warning',
+                'messageTitle'  => 'Errore verificato',
+                'messageText'   => $e->getMessage(),
+                'templatePartial' => 'message.phtml',
+            ));
         }
-
-        $this->layout()->setVariables(array(
-            'form'                          => $form,
-            'formTitle'                     => $formTitle,
-            'formDescription'               => 'Compila dati blog post',
-            'formAction'                    => $formAction,
-            'submitButtonValue'             => $submitButtonValue,
-            'CKEditorField'                 => 'description',
-            'formBreadCrumbCategory'        => 'Blogs',
-            'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/blogs-summary', array(
-                'lang' => $this->params()->fromRoute('lang'),
-                'languageSelection' => $this->params()->fromRoute('languageSelection'),
-            )),
-            'templatePartial'                => self::formTemplate,
-        ));
 
         $this->layout()->setTemplate($mainLayout);
     }

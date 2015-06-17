@@ -6,5 +6,5 @@ use Zend\Form\Element;
 
 class CheckboxTree extends Element
 {
-    protected $attributes = array( 'type' => 'plaintext' );
+    protected $attributes = array( 'type' => 'checkboxTree' );
 }

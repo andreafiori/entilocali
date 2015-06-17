@@ -2,6 +2,7 @@
 
 namespace ModelModule\Model\Posts;
 
+use Zend\Form\ElementInterface;
 use Zend\Form\Form;
 
 class PostsForm extends Form
@@ -20,6 +21,9 @@ class PostsForm extends Form
         $this->add( $element );
     }
 
+        /**
+         * @return array
+         */
         private function recoverUploadImage()
         {
             return array(
@@ -38,12 +42,12 @@ class PostsForm extends Form
         $this->add(array(
             'name' => 'title',
             'type' => 'Text',
-            'options' => array( 'label' => '* Titolo' ),
+            'options' => array('label' => '* Titolo'),
             'attributes' => array(
-                'required'      => 'required',
-                'placeholder'   => 'Inserisci il titolo',
-                'title'         => 'Inserisci il titolo',
-                'id'            => 'title',
+                'required' => 'required',
+                'placeholder' => 'Inserisci il titolo',
+                'title' => 'Inserisci il titolo',
+                'id' => 'title',
             )
         ));
     }
@@ -53,10 +57,10 @@ class PostsForm extends Form
         $this->add(array(
             'name' => 'subtitle',
             'type' => 'Text',
-            'options' => array('label' => 'Sotto titolo'),
+            'options' => array('label' => 'Sottotitolo'),
             'attributes' => array(
-                'title'         => 'Inserisci il sotto titolo',
-                'placeholder'   => 'Inserisci il sotto titolo',
+                'title'         => 'Inserisci il sottotitolo',
+                'placeholder'   => 'Inserisci il sottotitolo',
                 'id'            => 'subtitle',
             )
         ));
@@ -100,12 +104,11 @@ class PostsForm extends Form
                                'label' => '* Stato',
                                 'empty_option' => 'Seleziona',
                                 'value_options' => array(
-                                       'attivo'   => 'Attivo',
-                                       'nascosto' => 'Nascosto',
+                                       1 => 'Attivo',
+                                       0 => 'Nascosto',
                                ),
                         ),
                         'attributes' => array(
-                                'title'     => 'Seleziona stato',
                                 'id'        => 'status',
                                 'required'  => 'required',
                                 'title'     => 'Seleziona stato',
@@ -114,7 +117,7 @@ class PostsForm extends Form
   
         $this->add(array(
                         'type' => 'Zend\Form\Element\Hidden',
-                        'name' => 'postid',
+                        'name' => 'id',
                         'attributes' => array("class" => 'hiddenField')
         ));
         
@@ -150,11 +153,8 @@ class PostsForm extends Form
             )
         ));
     }
-    
-    /**
-     * SEO Fields
-     */
-    public function addSEO()
+
+    public function addSeo()
     {
         $this->add(array(
                         'type' => 'Application\Form\Element\PlainText',
@@ -185,6 +185,54 @@ class PostsForm extends Form
                                         'title' => 'Parole chiave per i motori di ricerca',
                                         'rows'  => 5,
                         )
+        ));
+    }
+
+    public function addHome()
+    {
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Checkbox',
+            'name' => 'inhome',
+            'options' => array(
+                'label' => 'Inserisci in home page',
+                'checked_value'     => 1,
+                'unchecked_value'   => 0
+            ),
+            'attributes' => array(
+                'id'    => 'inhome',
+                'title' => 'Inserisci in home page'
+            )
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Checkbox',
+            'name' => 'rss',
+            'options' => array(
+                'label' => 'Inserisci nel box notizie',
+                'checked_value'     => 1,
+                'unchecked_value'   => 0
+            ),
+            'attributes' => array(
+                'id'    => 'rss',
+                'title' => 'Spunta la casella per inserire nel box notizie'
+            )
+        ));
+    }
+
+    public function addFacebook()
+    {
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Checkbox',
+            'name' => 'rss',
+            'options' => array(
+                'label' => 'Inserisci su facebook',
+                'checked_value'     => 1,
+                'unchecked_value'   => 0
+            ),
+            'attributes' => array(
+                'id'    => 'rss',
+                'title' => 'Spunta la casella per inserire un link alla pagina facebook'
+            )
         ));
     }
 }

@@ -17,9 +17,10 @@ class AttachmentsSummaryController extends SetupAbstractController
     {
         $mainLayout = $this->initializeAdminArea();
 
-        $lang  = $this->params()->fromRoute('lang');
+        $lang        = $this->params()->fromRoute('lang');
         $moduleCode  = $this->params()->fromRoute('module');
         $referenceId = $this->params()->fromRoute('referenceId');
+
         $em          = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
         try {

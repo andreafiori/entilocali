@@ -11,14 +11,18 @@ return array(
             'Application\Controller\PasswordPreview'                                        => 'Application\Controller\PasswordPreviewController',
             'Application\Controller\Faq\Faq'                                                => 'Application\Controller\Faq\FaqController',
             'Application\Controller\AlboPretorio\AlboPretorio'                              => 'Application\Controller\AlboPretorio\AlboPretorioController',
+            'Application\Controller\AlboPretorio\AlboPretorioExportSingle'                  => 'Application\Controller\AlboPretorio\AlboPretorioExportSingleController',
             'Application\Controller\AttiConcessione\AttiConcessione'                        => 'Application\Controller\AttiConcessione\AttiConcessioneController',
+            'Application\Controller\AttiConcessione\AttiConcessioneExportSingle'            => 'Application\Controller\AttiConcessione\AttiConcessioneExportSingleController',
             'Application\Controller\Contenuti\Contenuti'                                    => 'Application\Controller\Contenuti\ContenutiController',
             'Application\Controller\Contenuti\ContenutiExport'                              => 'Application\Controller\Contenuti\ContenutiExportController',
+            'Application\Controller\Contenuti\ContenutiExportSingle'                        => 'Application\Controller\Contenuti\ContenutiExportSingleController',
+            'Application\Controller\StatoCivile\StatoCivile'                                => 'Application\Controller\StatoCivile\StatoCivileController',
             'Application\Controller\StatoCivile\StatoCivileExport'                          => 'Application\Controller\StatoCivile\StatoCivileExportController',
             'Application\Controller\StatoCivile\StatoCivileExportSingle'                    => 'Application\Controller\StatoCivile\StatoCivileExportSingleController',
             'Application\Controller\AmministrazioneTrasparente\AmministrazioneTrasparente'  => 'Application\Controller\AmministrazioneTrasparente\AmministrazioneTrasparenteController',
             'Application\Controller\ContrattiPubblici\ContrattiPubblici'                    => 'Application\Controller\ContrattiPubblici\ContrattiPubbliciController',
-            'Application\Controller\StatoCivile\StatoCivile'                                => 'Application\Controller\StatoCivile\StatoCivileController',
+            'Application\Controller\ContrattiPubblici\ContrattiPubbliciExportSingle'        => 'Application\Controller\ContrattiPubblici\ContrattiPubbliciExportSingleController',
             'Application\Controller\CssStyleSwitch'                                         => 'Application\Controller\CssStyleSwitchController',
             'Application\Controller\Users\UsersCreateAccount'                               => 'Application\Controller\Users\UsersCreateAccountController',
             'Application\Controller\Users\UsersRecoverPassword'                             => 'Application\Controller\Users\UsersRecoverPasswordController',
@@ -148,6 +152,21 @@ return array(
                                                 ),
                                                 'may_terminate' => true,
                                     ),
+                                    'contenuti-export-single' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                            'route'    => '/albo-pretorio/export/single/:action/:id[/]',
+                                            'constraints' => array(
+                                                'action'    => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                'id'        => '[0-9]+',
+                                            ),
+                                            'defaults' => array(
+                                                'controller' => 'Application\Controller\Contenuti\ContenutiExportSingle',
+                                                'action'     => 'index',
+                                            ),
+                                        ),
+                                        'may_terminate' => true,
+                                    ),
                                     'css-style-switch' => array(
                                                 'type'    => 'segment',
                                                 'options' => array(
@@ -269,6 +288,21 @@ return array(
                                         ),
                                         'may_terminate' => true,
                                     ),
+                                    'albo-pretorio-export-single' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                            'route'    => '/albo-pretorio/export/single/:action/:id[/]',
+                                            'constraints' => array(
+                                                'action'    => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                'id'        => '[0-9]+',
+                                            ),
+                                            'defaults' => array(
+                                                'controller' => 'Application\Controller\AlboPretorio\AlboPretorioExportSingle',
+                                                'action'     => 'index',
+                                            ),
+                                        ),
+                                        'may_terminate' => true,
+                                    ),
                                     'stato-civile' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
@@ -317,21 +351,21 @@ return array(
                                                     ),
                                                     'may_terminate' => true,
                                     ),
-                                'stato-civile-export-single' => array(
-                                    'type'    => 'Zend\Mvc\Router\Http\Segment',
-                                    'options' => array(
-                                        'route'    => '/stato-civile/export/single/:action/:id[/]',
-                                        'constraints' => array(
-                                            'action'    => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                            'id'        => '[0-9]+',
+                                    'stato-civile-export-single' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                            'route'    => '/stato-civile/export/single/:action/:id[/]',
+                                            'constraints' => array(
+                                                'action'    => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                'id'        => '[0-9]+',
+                                            ),
+                                            'defaults' => array(
+                                                'controller' => 'Application\Controller\StatoCivile\StatoCivileExportSingle',
+                                                'action'     => 'index',
+                                            ),
                                         ),
-                                        'defaults' => array(
-                                            'controller' => 'Application\Controller\StatoCivile\StatoCivileExportSingle',
-                                            'action'     => 'index',
-                                        ),
+                                        'may_terminate' => true,
                                     ),
-                                    'may_terminate' => true,
-                                ),
                                     'amministrazione-trasparente' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
@@ -352,6 +386,21 @@ return array(
                                                             ),
                                                         ),
                                         ),
+                                    ),
+                                    'amministrazione-trasparente-export-single' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                            'route'    => '/amministrazione-trasparente/export/single/:action/:id[/]',
+                                            'constraints' => array(
+                                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                'id'     => '[0-9]+',
+                                            ),
+                                            'defaults' => array(
+                                                'controller' => 'Application\Controller\AmministrazioneTrasparente\AmministrazioneTrasparenteExportSingle',
+                                                'action'     => 'index',
+                                            ),
+                                        ),
+                                        'may_terminate' => true,
                                     ),
                                     'atti-concessione' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
@@ -374,6 +423,21 @@ return array(
                                                         ),
                                         ),
                                     ),
+                                    'atti-concessione-export-single' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                            'route'    => '/atti-concessione/export/single/:action/:id[/]',
+                                            'constraints' => array(
+                                                'action'    => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                'id'        => '[0-9]+',
+                                            ),
+                                            'defaults' => array(
+                                                'controller' => 'Application\Controller\AttiConcessione\AttiConcessioneExportSingle',
+                                                'action'     => 'index',
+                                            ),
+                                        ),
+                                        'may_terminate' => true,
+                                    ),
                                     'contratti-pubblici' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
@@ -388,10 +452,10 @@ return array(
                                         ),
                                         'may_terminate' => true,
                                     ),
-                                    'contratti-pubblici-details' => array(
+                                    'contratti-pubblici-export' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
-                                            'route'    => '/contratti-pubblici/bandi-e-contratti/dettagli/:id[/]',
+                                            'route'    => '/contratti-pubblici/bandi-e-contratti/export/:format/:id[/]',
                                             'constraints' => array(
                                                 'id' => '[0-9]+',
                                             ),
@@ -402,10 +466,25 @@ return array(
                                         ),
                                         'may_terminate' => true,
                                     ),
-                                    'contratti-pubblici-export' => array(
+                                    'contratti-pubblici-export-single' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
-                                            'route'    => '/contratti-pubblici/bandi-e-contratti/export/:format/:id[/]',
+                                            'route'    => '/contratti-pubblici/export/single/:action/:id[/]',
+                                            'constraints' => array(
+                                                'action'    => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                'id'        => '[0-9]+',
+                                            ),
+                                            'defaults' => array(
+                                                'controller' => 'Application\Controller\ContrattiPubblici\ContrattiPubbliciExportSingle',
+                                                'action'     => 'index',
+                                            ),
+                                        ),
+                                        'may_terminate' => true,
+                                    ),
+                                    'contratti-pubblici-details' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                            'route'    => '/contratti-pubblici/bandi-e-contratti/dettagli/:id[/]',
                                             'constraints' => array(
                                                 'id' => '[0-9]+',
                                             ),
@@ -655,6 +734,7 @@ return array(
                         'application/stato-civile-export-single/pdf'    => __DIR__ . '/../view/empty.phtml',
                         'application/stato-civile-export-single/json'   => __DIR__ . '/../view/empty.phtml',
                         'application/atti-concessione/index'            => __DIR__ . '/../view/empty.phtml',
+                        'application/atti-concessione-export-single/index' => __DIR__ . '/../view/empty.phtml',
                         'application/contenuti/index'                   => __DIR__ . '/../view/empty.phtml',
                         'application/contenuti-export/csv'              => __DIR__ . '/../view/empty.phtml',
                         'application/contenuti-export/pdf'              => __DIR__ . '/../view/empty.phtml',

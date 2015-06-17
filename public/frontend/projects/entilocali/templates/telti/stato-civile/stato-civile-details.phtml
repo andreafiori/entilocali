@@ -1,0 +1,17 @@
+<ul class="breadcrumbs">
+    <li><a href="<?php echo $this->basepath() ?>" title="Home page">Home</a></li>
+    <li><a href="#" title="Vai all'indice elenco atti stato civile">Stato civile</a></li>
+    <li class="current">Dettagli atto</li>
+</ul>
+
+<?php if ($this->notfound): ?>
+    <h2>Atto stato civile non trovato</h2>
+    <p>Impossibile mostrare i dati dell'atto richiesto</p>
+<?php else: ?>
+    <h2><?php echo ""; ?></h2>
+    <div>
+
+    </div>
+    <!-- TODO: show Share and export -->
+<?php endif; ?>
+

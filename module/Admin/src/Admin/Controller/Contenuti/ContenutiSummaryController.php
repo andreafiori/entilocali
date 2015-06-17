@@ -9,6 +9,7 @@ use ModelModule\Model\Contenuti\ContenutiGetterWrapper;
 use ModelModule\Model\Languages\LanguagesGetter;
 use ModelModule\Model\Languages\LanguagesGetterWrapper;
 use ModelModule\Model\Languages\LanguagesFormSearch;
+use ModelModule\Model\Modules\ModulesContainer;
 use ModelModule\Model\Sezioni\SottoSezioniGetter;
 use ModelModule\Model\Sezioni\SottoSezioniGetterWrapper;
 use Application\Controller\SetupAbstractController;
@@ -72,7 +73,10 @@ class ContenutiSummaryController extends SetupAbstractController
 
             $paginatorRecords = $wrapper->addAttachmentsToPaginatorRecords(
                 $wrapper->setupRecords(),
-                array('orderBy' => '')
+                array(
+                    'moduleId'  => ($modulename!='contenuti') ? ModulesContainer::contenuti_id : ModulesContainer::amministrazione_trasparente_id,
+                    'orderBy'   => 'ao.position'
+                )
             );
 
             $formSearch = new ContenutiFormSearch();

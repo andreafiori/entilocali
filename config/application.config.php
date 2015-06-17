@@ -6,7 +6,7 @@ return array(
             'DoctrineModule',
             'DoctrineORMModule',
             'DoctrineDataFixtureModule',
-            //'ZendDeveloperTools',
+            'ZendDeveloperTools',
             'ModelModule',
             'DOMPDFModule',
             'Application',

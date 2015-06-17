@@ -23,7 +23,8 @@ abstract class AttachmentsFormControllerHelperAbstract
         'contratti-pubblici'            => '\ModelModule\Model\ContrattiPubblici\ContrattiPubbliciAttachmentsPropertiesGetter',
         'contenuti'                     => '\ModelModule\Model\Contenuti\ContenutiAttachmentsPropertiesGetter',
         'amministrazione-trasparente'   => '\ModelModule\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteAttachmentsPropertiesGetter',
-        'blogs'                         => '\ModelModule\Model\Blogs\BlogsAttachmentsPropertiesGetter'
+        'blogs'                         => '\ModelModule\Model\Blogs\BlogsAttachmentsPropertiesGetter',
+        'contents'                      => '\ModelModule\Model\Posts\ContentsAttachmentsPropertiesGetter',
     );
 
     /**

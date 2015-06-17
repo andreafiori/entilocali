@@ -82,10 +82,8 @@
                 <?php endif; ?>
 
                 <?php if ($this->attiConcessioneCatColumnDisplay): ?>
-                    <!-- Atti concessione category display coluumn -->
                     <td>
                         <?php
-
                         echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', array(
                                 'form'                  => $this->attiConcessioneColumnDisplayForm,
                                 'formAction'            => $this->formAction,
@@ -95,7 +93,6 @@
                                 'formLabelSpanWidth'    => $this->formLabelSpanWidth,
                             )
                         );
-
                         ?>
                     </td>
                 <?php endif; ?>

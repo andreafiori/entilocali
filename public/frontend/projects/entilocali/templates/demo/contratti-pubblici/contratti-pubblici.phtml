@@ -149,7 +149,19 @@ $shareIconsView = $this->partial('frontend/projects/entilocali/templates/'.$this
                 </td>
                 <td>
                     <?php if (!empty($row['attachments'])): ?>
-
+                        <div>
+                            <p><strong>Allegati:</strong></p>
+                            <ul class="no-bullet">
+                                <?php foreach($row['attachments'] as $attachment): ?>
+                                    <li>
+                                        <a href="<?php echo $this->publicDirRelativePath ?>/common/icons/attachments/<?php echo $attachment['image'] ?>" title="Scarica allegato <?php echo $attachment['title'] ?> (<?php echo $attachment['size'] ?> Kb)">
+                                            <img src="<?php echo $this->publicDirRelativePath ?>/common/icons/attachments/<?php echo $attachment['image'] ?>" alt="Icona per <?php echo $attachment['title'] ?> (<?php echo $attachment['size'] ?> Kb)">
+                                            <?php echo $attachment['title'] ?>
+                                        </a>
+                                    </li>
+                                <?php endforeach ?>
+                            </ul>
+                        </div>
                     <?php else: ?>
                         &nbsp;
                     <?php endif; ?>

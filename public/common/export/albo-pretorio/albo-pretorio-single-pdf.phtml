@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<style>
+    h1, h2 { margin-bottom: 30px; }
+    p { margin-bottom: 10px }
+    .text-center { text-align: center }
+    .red { color: #c00c00 }
+</style>
+
+<body>
+
+<h2><?php echo $this->sitename ?></h2>
+
+<p>Documento generato il <?php echo date("d-m-Y") ?></p>
+
+<?php if ($this->record['annullato'] == 1): ?>
+<p class="red">
+    <strong>Atto annullato il</strong> <span class="redString">
+        <?php echo date("d-m-Y", strtotime($this->record['dataAnnullamento']->format('d-m-Y H:i:s'))) ?>
+    </span>
+</p>
+<?php endif; ?>
+
+<h2><?php echo $this->record['titolo'] ?></h2>
+
+<p><strong>Numero / anno:</strong> <?php echo $this->record['numeroAtto'] ?> / <?php echo $this->record['anno'] ?></p>
+
+<p><strong>Pubblicato il:</strong> <?php echo $this->record['dataPubblicare']->format('d-m-Y H:i:s') ?></p>
+
+<p><strong>Scadenza:</strong> <?php echo $this->record['dataScadenza']->format('d-m-Y H:i:s') ?></p>
+
+<p><strong>Sezione:</strong> <?php echo $this->record['nomeSezione'] ?></p>
+
+<?php if ( !empty($this->record['note']) ): ?>
+    <p><strong>Note:</strong> <?php echo $this->record['note'] ?></p>
+<?php endif; ?>
+
+</body>
+</html>

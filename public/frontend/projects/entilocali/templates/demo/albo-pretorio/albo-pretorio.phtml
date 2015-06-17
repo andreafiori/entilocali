@@ -6,7 +6,7 @@
 <?php if (count($this->paginator)): ?>
 
 <h2>Albo pretorio</h2>
- 
+
 <div>
     <div>
     <?php
@@ -136,25 +136,27 @@
         <h4><?php echo $row['titolo'] ?></h4>
     <?php else: ?>
         <h3><?php echo $row['titolo'] ?></h3>
-    <?php endif;?>
+    <?php endif; ?>
 
     <p><strong>Rep.:</strong> <?php echo $row['numeroProgressivo'] ?> / <?php echo $row['numeroAtto'] ?></p>
     <p><strong>Pubblicato il:</strong> <?php echo $row['dataAttivazione'] ?> / <strong>Ore:</strong> <?php echo $row['oraAttivazione'] ?></p>
+    <?php if ($row['dataScadenza']!='0000-00-00 00:00:00'): ?>
     <p><strong>Scadenza:</strong> <?php echo $row['dataScadenza'] ?></p>
+    <?php endif; ?>
     <p><strong>Sezione:</strong> <?php echo $row['nomeSezione'] ?></p>
 
     <?php if (isset($row['attachments'])): ?>
         <div>
             <p><strong>Allegati:</strong></p>
             <ul class="no-bullet">
-        <?php foreach($row['attachments'] as $attachment): ?>
-            <li>
-                <a href="#" title="Scarica allegato <?php echo $attachment['title'] ?> (<?php echo $attachment['size'] ?> Kb)">
-                    <img src="<?php echo $this->publicDirRelativePath ?>/common/icons/attachments/<?php echo $attachment['image'] ?>" alt="Icona per <?php echo $attachment['title'] ?> (<?php echo $attachment['size'] ?> Kb)">
-                    <?php echo $attachment['title'] ?>
-                </a>
+            <?php foreach($row['attachments'] as $attachment): ?>
+                <li>
+                    <a href="<?php echo $this->publicDirRelativePath ?>/common/icons/attachments/<?php echo $attachment['image'] ?>" title="Scarica allegato <?php echo $attachment['title'] ?> (<?php echo $attachment['size'] ?> Kb)">
+                        <img src="<?php echo $this->publicDirRelativePath ?>/common/icons/attachments/<?php echo $attachment['image'] ?>" alt="Icona per <?php echo $attachment['title'] ?> (<?php echo $attachment['size'] ?> Kb)">
+                        <?php echo $attachment['title'] ?>
+                    </a>
                 </li>
-        <?php endforeach ?>
+            <?php endforeach ?>
             </ul>
         </div>
     <?php endif;?>
@@ -162,7 +164,13 @@
     <?php
 
     echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml', array(
-        'twitterShareText' => urlencode($this->record['title']),
+        'exportTxtUrl'          => $this->url('albo-pretorio-export-single', array('action' => 'txt', 'id' => $row['id'])),
+        'exportCsvUrl'          => $this->url('albo-pretorio-export-single', array('action' => 'csv', 'id' => $row['id'])),
+        'exportPdfUrl'          => $this->url('albo-pretorio-export-single', array('action' => 'pdf', 'id' => $row['id'])),
+        'exportXMLUrl'          => $this->url('albo-pretorio-export-single', array('action' => 'xml', 'id' => $row['id'])),
+        'exportJSONUrl'         => $this->url('albo-pretorio-export-single', array('action' => 'json', 'id' => $row['id'])),
+        'twitterShareText'      => urlencode($row['titolo']),
+        'currentUrl'            => $this->currentUrl,
         'publicDirRelativePath' => $this->publicDirRelativePath,
     ));
 
@@ -179,7 +187,7 @@
 <?php endforeach; ?>
 
 <?php
-    if ( count($this->paginator) > 1 ):
+    if (count($this->paginator) > 1):
         echo $this->paginationControl(
             $this->paginator,
             'sliding',

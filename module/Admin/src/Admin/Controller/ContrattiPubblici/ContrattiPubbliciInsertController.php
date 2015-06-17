@@ -56,7 +56,8 @@ class ContrattiPubbliciInsertController extends SetupAbstractController
             $inputFilter->exchangeArray( $form->getData() );
 
             $helper->setLoggedUser($userDetails);
-            $lastInsertId = $helper->insert($inputFilter);
+            $helper->insert($inputFilter);
+            $lastInsertId = $helper->getConnection()->lastInsertId();
             $helper->getConnection()->commit();
 
             $logWriter = new LogWriter($connection);

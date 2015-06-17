@@ -1,0 +1,41 @@
+<?php
+
+/* Check if it must print the file attachment list */
+$printOk = 0;
+foreach($this->attachments as $attachment):
+    if ($attachment['attiConcessioneColonna'] == $this->attiConcessioneColonna):
+        $printOk = 1;
+        break;
+    endif;
+endforeach;
+
+if ($printOk==1):
+?>
+<div>
+    <strong>Allegati:</strong>
+    <ul class="no-bullet">
+        <?php
+        foreach($this->attachments as $attachment):
+            if ($attachment['attiConcessioneColonna'] == $this->attiConcessioneColonna):
+            $icon = 'public/common/icons/attachments/'.$attachment['image'];
+        ?>
+            <li>
+                <a href="<?php echo $this->url('attachments-sthree-download', array(
+                    'lang' => 'it',
+                    'type' => 'atti-concessione',
+                    'id' => $attachment['id'])
+                    ) ?>" title="Scarica allegato <?php echo $attachment['title'] ?> (<?php echo $attachment['size'] ?> Kb)">
+                    <?php if (file_exists($icon)): ?>
+                    <img src="<?php echo $this->publicDirRelativePath ?>/common/icons/attachments/<?php echo $attachment['image'] ?>" alt="Icona per <?php echo $attachment['title'] ?>
+                     <?php endif; ?>
+                    (<?php echo $attachment['size'] ?> Kb)">
+                    <?php echo $attachment['title'] ?> (<?php echo round($attachment['size'] / 1024 / 1024,2) ?> Mb)
+                </a>
+            </li>
+        <?php
+            endif;
+        endforeach
+        ?>
+</div>
+<?php
+endif;

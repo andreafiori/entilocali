@@ -54,9 +54,12 @@ class StatoCivileController extends SetupAbstractController
             );
 
             $wrapper->setEntityManager($em);
-            $articoloRecord = $wrapper->addAttachmentsToPaginatorRecords(
+            $wrapper->addAttachmentsToPaginatorRecords(
                 $wrapper->setupRecords(),
-                array('moduleId' => ModulesContainer::stato_civile_id)
+                array(
+                    'moduleId' => ModulesContainer::stato_civile_id,
+                    'noScaduti' => 1,
+                )
             );
 
             $paginator = $wrapper->getPaginator();

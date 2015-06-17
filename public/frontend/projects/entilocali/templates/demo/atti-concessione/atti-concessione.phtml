@@ -123,7 +123,7 @@ $shareExportView = $this->partial('frontend/projects/entilocali/templates/'.$thi
                 <th scope="col"><b>Importo</b></th>
                 <th scope="col"><b>Modalità Assegnazione</b></th>
                 <th scope="col"><b>Ufficio e responsabile del servizio</b></th>
-                <th scope="col"><b>Norma o Titolo a base dell'attribuzione</b></th>
+                <th scope="col"><b>Norma o titolo a base dell'attribuzione</b></th>
                 <th scope="col"><b>Progetto</b><br><b>Capitolato</b><br><b>Contratto</b><br><b>Curriculum</b></th>
             </tr>
             </thead>
@@ -136,11 +136,42 @@ $shareExportView = $this->partial('frontend/projects/entilocali/templates/'.$thi
                     <td>&euro; <?php echo utf8_encode($row['importo']) ?></td>
                     <td><?php echo utf8_encode($row['nomemodAssegnazione']) ?></td>
                     <td><?php echo utf8_encode($row['nomeSezione']).'<br><br>'.utf8_encode($row['nomeResponsabileProc']) ?></td>
-                    <td><?php echo utf8_encode($row['titolo']) ?></td>
-                    <td>&nbsp;</td>
+                    <td>
+                        <?php echo utf8_encode($row['titolo']) ?>
+                        <?php if (isset($row['attachments'])): ?>
+                            <br>
+                            <?php
+                            echo $this->partial(
+                                $this->templateDir.'atti-concessione/_atti-attachments.phtml',
+                                array(
+                                    'attachments' => $row['attachments'],
+                                    'publicDirRelativePath' => $this->publicDirRelativePath,
+                                    'attiConcessioneColonna' => 2,
+                                )
+                            );
+                            ?>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?php if (isset($row['attachments'])): ?>
+                            <?php
+                            echo $this->partial(
+                                $this->templateDir.'atti-concessione/_atti-attachments.phtml',
+                                array(
+                                    'attachments' => $row['attachments'],
+                                    'publicDirRelativePath' => $this->publicDirRelativePath,
+                                    'attiConcessioneColonna' => 1,
+                                )
+                            );
+                            ?>
+                        <?php endif; ?>
+                        &nbsp;
+                    </td>
                 </tr>
                 <tr>
-                    <td colspan="8"><hr></td>
+                    <td colspan="8">
+                        <hr>
+                    </td>
                 </tr>
             <?php endforeach; ?>
             </tbody>

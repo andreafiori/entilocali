@@ -46,7 +46,11 @@ class AlboPretorioController extends SetupAbstractController
 
         $mainRecords = $articoliWrapper->addAttachmentsToPaginatorRecords(
             $articoliWrapper->setupRecords(),
-            array('moduleId' => ModulesContainer::albo_pretorio_id)
+            array(
+                'moduleId'  => ModulesContainer::albo_pretorio_id,
+                'noScaduti' => 1,
+                'orderBy'   => 'ao.position'
+            )
         );
 
         $this->layout()->setVariables(array(

@@ -9,6 +9,7 @@ use ModelModule\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
 use ModelModule\Model\AlboPretorio\AlboPretorioSezioniGetter;
 use ModelModule\Model\AlboPretorio\AlboPretorioSezioniGetterWrapper;
 use Application\Controller\SetupAbstractController;
+use ModelModule\Model\Modules\ModulesContainer;
 
 class AlboPretorioSummaryController extends SetupAbstractController
 {
@@ -46,7 +47,12 @@ class AlboPretorioSummaryController extends SetupAbstractController
             $alboArticoliRecords = $alboArticoliWrapper->setupRecords();
 
             $alboArticoliWrapper->setEntityManager($em);
-            $alboArticoliWrapper->addAttachmentsFromRecords($alboArticoliRecords);
+            $alboArticoliWrapper->addAttachmentsFromRecords(
+                $alboArticoliRecords,
+                array(
+                    'moduleId' => ModulesContainer::albo_pretorio_id,
+                )
+            );
 
             $paginator = $alboArticoliWrapper->getPaginator();
 

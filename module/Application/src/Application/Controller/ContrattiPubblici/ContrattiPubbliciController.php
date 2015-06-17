@@ -4,6 +4,7 @@ namespace Application\Controller\ContrattiPubblici;
 
 use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciGetter;
 use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciGetterWrapper;
+use ModelModule\Model\Modules\ModulesContainer;
 use ModelModule\Model\Users\Settori\UsersSettoriGetter;
 use ModelModule\Model\Users\Settori\UsersSettoriGetterWrapper;
 use Application\Controller\SetupAbstractController;
@@ -36,7 +37,7 @@ class ContrattiPubbliciController extends SetupAbstractController
 
         $contrattiRecords = $wrapper->addAttachmentsToPaginatorRecords(
             $wrapper->setupRecords(),
-            array()
+            array('moduleId' => ModulesContainer::contratti_pubblici_id, 'noScaduti' => 1)
         );
 
         $contrattiPaginator = $wrapper->getPaginator();

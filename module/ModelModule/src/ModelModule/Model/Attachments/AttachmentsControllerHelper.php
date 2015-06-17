@@ -26,65 +26,16 @@ class AttachmentsControllerHelper extends ControllerHelperAbstract
         return $this->getConnection()->insert(
             DbTableContainer::attachments,
             array(
-                'name' => $formData->attachmentFile['name'],
-                'size' => $formData->attachmentFile['size'],
-                'state' => null,
-                'insert_date' => date("Y-m-d H:i:s"),
-                'mime_id' => $mimeId,
-                'user_id' => $userDetails->id,
-
+                'name'                      => $formData->attachmentFile['name'],
+                'size'                      => $formData->attachmentFile['size'],
+                'state'                     => null,
+                'insert_date'               => date("Y-m-d H:i:s"),
+                'atti_concessione_colonna'  => 1,
+                'albo_rettificato'          => 0,
+                'mime_id'                   => $mimeId,
+                'user_id'                   => $userDetails->id,
             )
         );
-
-        /*
-        // $configurations = $this->getConfigurationsFromDb();
-
-        $attachmentsTableLastInsertId = $this->getConnection()->lastInsertId();
-
-        // Insert attachment options
-        $lastId = $this->getConnection()->lastInsertId();
-
-        $this->getConnection()->insert($this->tableName_options, array(
-            'title'         => $formData->title,
-            'description'   => $formData->description,
-            'expire_date'   => date("Y-m-d H:i:s"),
-            'attachment_id' => $this->getConnection()->lastInsertId(),
-            'language_id'   => 1,
-        ));
-
-        $this->getConnection()->update($this->tableName, array(
-            'name' => AttachmentsContainer::assignFileName($formData->attachmentFile['name'], $lastId)
-        ),
-            array('id' => $lastId)
-        );
-
-        // Upload on Amazon S3
-        $filename = AttachmentsContainer::assignFileName($formData->attachmentFile['name'], $lastId);
-        $s3 = new S3(
-            $configurations['amazon_s3_accesskey'],
-            $configurations['amazon_s3_secretkey']
-        );
-        $s3Upload = $s3->putObject(
-            S3::inputFile($formData->attachmentFile['tmp_name'], false),
-            $configurations['amazon_s3_bucket'],
-            $formData->s3_directory.'/'.$filename,
-            S3::ACL_PUBLIC_READ
-        );
-
-        if (!$s3Upload) {
-            throw new NullException("Errore upload file ".$configurations['amazon_s3_bucket'].' - ');
-        }
-
-        // Insert Relations
-        return $this->getConnection()->insert(
-            DbTableContainer::attachmentsRelations,
-            array(
-                'attachment_id' => $lastInsertId,
-                'reference_id'  => $formData->referenceId,
-                'module_id'     => $formData->moduleId,
-            )
-        );
-        */
     }
 
     /**

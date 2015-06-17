@@ -9,8 +9,16 @@ use Zend\InputFilter\InputFilterInterface;
 
 class PostsFormSearchInputFilter implements InputFilterAwareInterface
 {
+    public $testo;
+    public $csrf;
+    public $category;
+
     protected $inputFilter;
 
+    /**
+     * @param InputFilterInterface $inputFilter
+     * @throws \Exception
+     */
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
         throw new \Exception("Not used");
@@ -34,26 +42,6 @@ class PostsFormSearchInputFilter implements InputFilterAwareInterface
                 'validators' => array(
                 ),
             ]));
-
-            $inputFilter->add($factory->createInput([
-                    'name' => 'Blog',
-                    'filters' => array(
-                        array('name' => 'StripTags'),
-                        array('name' => 'StringTrim'),
-                    ),
-                    'validators' => array(
-                        array (
-                            'name' => 'InArray',
-                            'options' => array(
-                                'haystack' => array(0, 1),
-                                'messages' => array(
-                                    'notInArray' => 'undefined'
-                                ),
-                            ),
-                        ),
-                    ),
-                ])
-            );
 
             $this->inputFilter = $inputFilter;
         }

@@ -106,7 +106,6 @@ class StatoCivileExportSingleController extends SetupAbstractController
 
     /**
      * @return \Zend\Http\Response|\Zend\Stdlib\ResponseInterface
-     * @throws \ModelModule\Model\NullException
      */
     public function txtAction()
     {
@@ -131,16 +130,15 @@ class StatoCivileExportSingleController extends SetupAbstractController
 
         $content = '';
         $content .= $this->layout()->getVariable('sitename').PHP_EOL;
-        $content .= "---------------------------------------".PHP_EOL;
+        $content .= PHP_EOL;
         $content .= "Stato civile".PHP_EOL;
-        $content .= "---------------------------------------".PHP_EOL;
+        $content .= PHP_EOL;
 
         foreach($records as $record) {
             $content .= $record['titolo'].PHP_EOL;
             $content .= 'Sezione: '.$record['nomeSezione'].PHP_EOL;
             $content .= "Inserito il: ".$record['data']->format("d-m-Y").PHP_EOL;
             $content .= "Scadenza: ".$record['scadenza']->format("d-m-Y").PHP_EOL;
-            $content .= "---------------------------------------".PHP_EOL;
         }
         $content .= " ".PHP_EOL;
         $content .= date("Y").' '.$this->layout()->getVariable('sitename');
@@ -157,6 +155,9 @@ class StatoCivileExportSingleController extends SetupAbstractController
         return $response;
     }
 
+    /**
+     * @return \Zend\Http\Response|JsonModel
+     */
     public function jsonAction()
     {
         $this->initializeFrontendWebsite();

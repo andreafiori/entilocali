@@ -2,6 +2,7 @@
 
 namespace Application\Controller\Posts;
 
+use ModelModule\Model\Modules\ModulesContainer;
 use ModelModule\Model\Posts\PostsCategoriesGetter;
 use ModelModule\Model\Posts\PostsCategoriesGetterWrapper;
 use ModelModule\Model\Posts\PostsControllerHelper;
@@ -49,7 +50,12 @@ class BlogsController extends SetupAbstractController
 
         $records = $wrapper->addAttachmentsToPaginatorRecords(
             $wrapper->setupRecords(),
-            array()
+            array(
+                'moduleId'              => ModulesContainer::blogs,
+                'noScaduti'             => 1,
+                'languageAbbreviation'  => $lang,
+                'orderBy'               => 'ao.position'
+            )
         );
 
         $paginator = $wrapper->getPaginator();

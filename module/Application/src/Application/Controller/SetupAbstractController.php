@@ -48,6 +48,8 @@ abstract class SetupAbstractController extends AbstractActionController
         $uri                = $request->getUri();
         $basePath           = sprintf('%s://%s%s', $uri->getScheme(), $uri->getHost(), $request->getBaseUrl().'/');
         $cookieWarning      = $sessionContainer->offsetGet($configurations['sitename']);
+        $lang               = $this->params()->fromRoute('lang');
+        $serviceLocator     = $this->getServiceLocator();
 
         $helper = new SetupAbstractControllerHelper();
         $helper->setConfigurations($configurations);
@@ -56,6 +58,16 @@ abstract class SetupAbstractController extends AbstractActionController
         $helper->setupAppDirRelativePath();
 
         $templateBackend = $configurations['template_backend'];
+
+        /**
+         * @var \Zend\Mvc\I18n\Translator $translator
+         */
+        $translator = $serviceLocator->get('translator');
+
+        if ( file_exists('./module/Application/language/form.array.'.$lang.'.php') ) {
+            $translator->addTranslationFile('phparray', './module/Application/language/form.array.'.$lang.'.php');
+        }
+        $serviceLocator->get('ViewHelperManager')->get('translate')->setTranslator($translator);
 
         $this->layout()->setVariables(array_merge(
             $configurations,

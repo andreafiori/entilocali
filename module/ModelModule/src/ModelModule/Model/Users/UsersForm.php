@@ -4,10 +4,6 @@ namespace ModelModule\Model\Users;
 
 use Zend\Form\Form;
 
-/**
- * @author Andrea Fiori
- * @since  08 June 2014
- */
 class UsersForm extends Form
 {
     /**
@@ -82,6 +78,7 @@ class UsersForm extends Form
                 'title'         => 'Inserisci password',
                 'placeholder'   => 'Inserisci una password',
                 'id'            => 'password',
+                'class'         => 'passwordStrength',
             )
         ));
 
@@ -108,6 +105,7 @@ class UsersForm extends Form
                 'placeholder'   => 'Inserisci una password',
                 'required'      => 'required',
                 'id'            => 'password',
+                'class'         => 'passwordStrength',
             )
         ));
 

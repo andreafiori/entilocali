@@ -56,7 +56,8 @@ class ContrattiPubbliciOperatoriInsertController extends SetupAbstractController
             $inputFilter->exchangeArray( $form->getData() );
 
             $helper->setLoggedUser($userDetails);
-            $lastInsertId = $helper->insert($inputFilter);
+            $helper->insert($inputFilter);
+            $lastInsertId = $helper->getConnection()->lastInsertId();
             $helper->getConnection()->commit();
 
             $logWriter = new LogWriter($connection);
@@ -75,7 +76,7 @@ class ContrattiPubbliciOperatoriInsertController extends SetupAbstractController
                 'messageText'                => 'I dati sono stati processati correttamente dal sistema',
                 'showLinkResetFormAndShowIt' => 1,
                 'backToSummaryLink'     => $this->url()->fromRoute('admin/contratti-pubblici-operatori-summary', array(
-                    'lang'              => $this->params()->fromRoute('lang'),
+                    'lang' => $this->params()->fromRoute('lang'),
                 )),
                 'backToSummaryText'     => "Elenco aziende",
             ));

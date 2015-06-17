@@ -82,15 +82,15 @@ return array(
             /* Enti Terzi */
             'Admin\Controller\EntiTerzi\EntiTerziForm'              => 'Admin\Controller\EntiTerzi\EntiTerziFormController',
             'Admin\Controller\EntiTerzi\EntiTerziSummary'           => 'Admin\Controller\EntiTerzi\EntiTerziSummaryController',
-            'Admin\Controller\EntiTerzi\EntiTerziInsert'            => 'Admin\Controller\EntiTerzi\EntiTerziInsertController', // to create
-            'Admin\Controller\EntiTerzi\EntiTerziUpdate'            => 'Admin\Controller\EntiTerzi\EntiTerziUpdateController', // to create
+            'Admin\Controller\EntiTerzi\EntiTerziInsert'            => 'Admin\Controller\EntiTerzi\EntiTerziInsertController',
+            'Admin\Controller\EntiTerzi\EntiTerziUpdate'            => 'Admin\Controller\EntiTerzi\EntiTerziUpdateController',
             'Admin\Controller\EntiTerzi\InvioEnteTerzoController'   => 'Admin\Controller\EntiTerzi\InvioEnteTerzoController',
 
             /* Blogs */
-            'Admin\Controller\Blogs\BlogsCategoriesForm'             => 'Admin\Controller\Blogs\BlogsCategoriesFormController',
-            'Admin\Controller\Blogs\BlogsCategoriesSummary'          => 'Admin\Controller\Blogs\BlogsCategoriesSummaryController',
             'Admin\Controller\Blogs\BlogsSummary'                    => 'Admin\Controller\Blogs\BlogsSummaryController',
             'Admin\Controller\Blogs\BlogsForm'                       => 'Admin\Controller\Blogs\BlogsFormController',
+            'Admin\Controller\Blogs\BlogsInsert'                     => 'Admin\Controller\Blogs\BlogsInsertController',
+            'Admin\Controller\Blogs\BlogsUpdate'                     => 'Admin\Controller\Blogs\BlogsUpdateController',
             'Admin\Controller\Blogs\Blogs'                           => 'Admin\Controller\Blogs\BlogsController',
 
             /* Photo */
@@ -99,6 +99,13 @@ return array(
             'Admin\Controller\Photo\PhotoInsert'                      => 'Admin\Controller\Photo\PhotoInsertController',
             'Admin\Controller\Photo\PhotoUpdate'                      => 'Admin\Controller\Photo\PhotoUpdateController',
             'Admin\Controller\Photo\PhotoDelete'                      => 'Admin\Controller\Photo\PhotoDeleteController',
+
+            /* Posts Categories (generic) */
+            'Admin\Controller\Posts\PostsCategoriesForm'             => 'Admin\Controller\Posts\PostsCategoriesFormController',
+            'Admin\Controller\Posts\PostsCategoriesInsert'           => 'Admin\Controller\Posts\PostsCategoriesInsertController',
+            'Admin\Controller\Posts\PostsCategoriesUpdate'           => 'Admin\Controller\Posts\PostsCategoriesUpdateController',
+            'Admin\Controller\Posts\PostsCategoriesDelete'           => 'Admin\Controller\Posts\PostsCategoriesDeleteController', // to create
+            'Admin\Controller\Posts\PostsCategoriesSummary'          => 'Admin\Controller\Posts\PostsCategoriesSummaryController',
 
             /* Sezioni */
             'Admin\Controller\Sezioni\SezioniForm'                    => 'Admin\Controller\Sezioni\SezioniFormController',
@@ -1266,20 +1273,65 @@ return array(
                             ),
                         ),
                     ),
-                    'blogs-categories-summary' => array(
+                    'posts-categories-summary' => array(
                         'type'    => 'Segment',
                         'options' => array(
                             'route'       => 'posts/categories/lang/:languageSelection/summary/:moduleCode[/][:categoryId[/]][page/:page[/]][/order_by/:order_by][/:order[/]]',
                             'constraints' => array(
                                 'languageSelection' => '[a-z]{2}',
-                                'moduleCode'        => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'moduleCode'        => 'photo|blogs|contents|videos',
                                 'categoryId'        => '[0-9]+',
                                 'page'              => '[0-9]+',
                                 'order_by'          => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'order'             => 'ASC|DESC',
                             ),
                             'defaults' => array(
-                                'controller' => 'Admin\Controller\Blogs\BlogsCategoriesSummary',
+                                'controller' => 'Admin\Controller\Posts\PostsCategoriesSummary',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'posts-categories-form' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route'       => 'posts/categories/lang/:languageSelection/form/:formtype[/][:id[/]]',
+                            'constraints' => array(
+                                'formtype'              => 'photo|blogs|contents|videos',
+                                'languageSelection'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id'                    => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Posts\PostsCategoriesForm',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'posts-categories-insert' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route'       => 'posts/categories/lang/:languageSelection/form/:formtype/insert[:id[/]]',
+                            'constraints' => array(
+                                'formtype'              => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'languageSelection'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id'                    => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Posts\PostsCategoriesInsert',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'posts-categories-update' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'posts/categories/lang/:languageSelection/form/:formtype/update[:id[/]]',
+                            'constraints' => array(
+                                'formtype'              => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'languageSelection'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id'                    => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Posts\PostsCategoriesUpdate',
                                 'action'     => 'index',
                             ),
                         ),
@@ -1289,11 +1341,32 @@ return array(
                         'options' => array(
                             'route'       => 'blogs/lang/:languageSelection/form/:formtype[/][:id[/]]',
                             'constraints' => array(
-                                'formtype'  => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id'        => '[0-9]+',
+                                'formtype'              => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'languageSelection'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id'                    => '[0-9]+',
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Blogs\BlogsForm',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'blogs-insert' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'blogs/lang/:languageSelection/form/insert[/]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Blogs\BlogsInsert',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'blogs-update' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'blogs/lang/:languageSelection/form/update[/]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Blogs\BlogsUpdate',
                                 'action'     => 'index',
                             ),
                         ),
@@ -1815,7 +1888,12 @@ return array(
             'admin/blogs-insert/index'                      => __DIR__ . '/../view/admin/empty.phtml',
             'admin/blogs-update/index'                      => __DIR__ . '/../view/admin/empty.phtml',
             'admin/blogs-delete/index'                      => __DIR__ . '/../view/admin/empty.phtml',
-            'admin/blogs-categories-summary/index'          => __DIR__ . '/../view/admin/empty.phtml',
+
+            /* Posts Categories */
+            'admin/posts-categories-summary/index'          => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/posts-categories-form/index'             => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/posts-categories-insert/index'           => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/posts-categories-update/index'           => __DIR__ . '/../view/admin/empty.phtml',
 
             /* Photo */
             'admin/photo-form/index'                        => __DIR__ . '/../view/admin/empty.phtml',
@@ -1881,14 +1959,11 @@ return array(
     ),
     /* Backend Router Class Map */
     'be_router' => array(
-        "admin/migrazione"                              => '\ModelModule\Model\Migrazione\MigrazioneHandler',
+        /* "admin/migrazione"                           => 'ModelModule\Model\Migrazione\MigrazioneHandler', */
     ),
     /* FormData CRUD Class Map */
     'formdata_crud_classmap' => array(
-        'blogs'                                         => 'ModelModule\Model\Posts\PostsCrudHandler',
-        'posts'                                         => 'ModelModule\Model\Posts\PostsCrudHandler',
-        'categories'                                    => 'ModelModule\Model\Posts\PostsCategoriesCrudHandler',
-        'users-roles'                                   => 'ModelModule\Model\Users\Roles\UsersRolesCrudHandler',
-        'users-todo'                                    => 'ModelModule\Model\Users\Roles\UsersTodoCrudHandler',
+        'users-roles' => 'ModelModule\Model\Users\Roles\UsersRolesCrudHandler',
+        'users-todo'  => 'ModelModule\Model\Users\Roles\UsersTodoCrudHandler',
     ),
 );

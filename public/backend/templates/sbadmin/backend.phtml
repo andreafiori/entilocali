@@ -93,6 +93,11 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
             border: 0;
             padding-left: 0.5em;
         }
+        /* Password strength */
+        .passError { color: #c00; font-weight: bold }
+        .passMorechars { color: #808080; font-weight: bold }
+        .passMedium { color: #00008b; font-weight: bold }
+        .passSuccess { color: #006400; font-weight: bold }
     </style>
 </head>
 
@@ -126,10 +131,16 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                         <i class="fa fa-gear fa-fw"></i> Opzioni&nbsp; <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="<?php echo $this->url('admin/configurations-form', array('lang' => $lang, 'languageSelection' => $languageSelection)); ?>" title="Configurazioni applicazione">Configurazioni</a></li>
+                        <li>
+                            <a href="<?php echo $this->url('admin/configurations-form', array('lang' => $lang, 'languageSelection' => $languageSelection)); ?>" title="Configurazioni applicazione">
+                                Configurazioni
+                            </a>
+                        </li>
                         <li><a href="<?php echo $this->url('admin/log-summary', array('lang' => $lang)); ?>" title="Logs applicazione">Logs</a></li>
                         <?php if (in_array($this->userDetails->role, array('WebMaster'))): ?>
+                        <!--
                         <li><a href="<?php echo $this->url('admin/migrazione', array('lang' => $lang)); ?>" title="Tool migrazione dati">Migrazione dati</a></li>
+                        -->
                         <?php endif; ?>
                     </ul>
                 </li>
@@ -428,7 +439,7 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                         <ul class="nav nav-second-level">
                             <?php if ($acl->hasResource('blogs_add')): ?>
                             <li><a href="<?php echo $this->url('admin/blogs-form', array('lang' => $lang, 'languageSelection' => $languageSelection
-                                , 'formtype' => 'blogs')) ?>" title="Aggiungi nuovo post">Nuovo</a></li>
+                                , 'formtype' => 'blogs')) ?>" title="Aggiungi nuovo post">Nuovo post</a></li>
                             <?php endif; ?>
                             <?php if ($acl->hasResource('blogs_update')): ?>
                             <li><a href="<?php echo $this->url('admin/blogs-summary', array('lang' => $lang, 'languageSelection' => $languageSelection) ); ?>" title="Gestione posts blogs">Modifica \ Elimina</a></li>
@@ -439,10 +450,16 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                                 <a href="#" class="dropdown-collapse" title="Categorie">Categorie <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <?php if ($acl->hasResource('blogs_categories_add')): ?>
-                                    <li><a href="#" title="">Nuova</a></li>
+                                    <li><a href="<?php echo $this->url('admin/posts-categories-form', array(
+                                                'lang'              => $lang,
+                                                'formtype'          => 'blogs',
+                                                'languageSelection' => $languageSelection
+                                            )
+                                        );
+                                        ?>" title="">Nuova</a></li>
                                     <?php endif; ?>
                                     <?php if ($acl->hasResource('blogs_categories_update')): ?>
-                                    <li><a href="<?php echo $this->url('admin/blogs-categories-summary', array(
+                                    <li><a href="<?php echo $this->url('admin/posts-categories-summary', array(
                                                 'lang'          => $lang,
                                                 'moduleCode'    => 'blogs',
                                                 'languageSelection' => $languageSelection
@@ -468,9 +485,21 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                             <li>
                                 <a href="#" class="dropdown-collapse" title="">Categorie <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
-                                    <li><a href="#" title="Nuova categoria foto">Nuova</a></li>
+                                    <li><a href="<?php echo $this->url('admin/posts-categories-form', array(
+                                                'lang'              => $lang,
+                                                'formtype'          => 'photo',
+                                                'languageSelection' => $languageSelection
+                                            )
+                                        );
+                                        ?>" title="Nuova categoria foto">Nuova</a></li>
                                     <li>
-                                        <a href="<?php echo $this->url('admin/blogs-categories-summary', array('lang' => $lang, 'moduleCode' => 'photo', 'languageSelection' => $languageSelection)) ?>" title="Gestione foto">
+                                        <a href="<?php echo $this->url('admin/posts-categories-summary', array(
+                                                'lang'              => $lang,
+                                                'moduleCode'        => 'photo',
+                                                'languageSelection' => $languageSelection
+                                            )
+                                        );
+                                        ?>" title="Gestione foto">
                                             Modifica \ Elimina
                                         </a>
                                     </li>
@@ -491,14 +520,14 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                             <?php if ($acl->hasResource('newsletter_update')): ?>
                                 <li><a href="#" title="Gestione newsletter">Gestione</a></li>
                             <?php endif; ?>
-
+                            <?php //if ($acl->hasResource('newsletter_update')): ?>
                             <!-- Utenti iscritti e utenti "solo email" -->
                             <li>
                                 <a href="#" title="Elenco iscritti">
                                     Iscritti
                                 </a>
                             </li>
-
+                            <?php //endif; ?>
                             <!-- Newsletter templates -->
                             <?php if ($acl->hasResource('newsletter_templates_add') or $acl->hasResource('newsletter_templates_update')): ?>
                                 <li>
@@ -513,7 +542,6 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                                     </ul>
                                 </li>
                             <?php endif; ?>
-
                         </ul>
                     </li>
                     <?php endif; ?>

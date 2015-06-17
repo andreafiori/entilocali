@@ -5,6 +5,7 @@ namespace Admin\Controller\ContrattiPubblici;
 use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciControllerHelper;
 use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciGetter;
 use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciGetterWrapper;
+use ModelModule\Model\Modules\ModulesContainer;
 use ModelModule\Model\Users\Settori\UsersSettoriGetter;
 use ModelModule\Model\Users\Settori\UsersSettoriGetterWrapper;
 use Application\Controller\SetupAbstractController;
@@ -67,7 +68,12 @@ class ContrattiPubbliciSummaryController extends SetupAbstractController
         $paginator = $wrapper->getPaginator();
 
         $wrapper->setEntityManager($em);
-        $wrapperRecords = $wrapper->addAttachmentsFromRecords($wrapper->setupRecords());
+        $wrapperRecords = $wrapper->addAttachmentsFromRecords(
+            $wrapper->setupRecords(),
+            array(
+                'moduleId' => ModulesContainer::contratti_pubblici_id,
+            )
+        );
 
         $paginatorRecords = $this->formatArticoliRecords($wrapperRecords);
 
