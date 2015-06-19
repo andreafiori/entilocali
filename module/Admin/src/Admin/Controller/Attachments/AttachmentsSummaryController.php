@@ -4,6 +4,7 @@ namespace Admin\Controller\Attachments;
 
 use ModelModule\Model\Attachments\AttachmentsFormControllerHelper;
 use ModelModule\Model\AttiConcessione\AttiConcessioneColumnDisplayForm;
+use ModelModule\Model\Modules\ModulesContainer;
 use ModelModule\Model\Modules\ModulesGetter;
 use ModelModule\Model\Modules\ModulesGetterWrapper;
 use ModelModule\Model\Attachments\AttachmentsGetter;
@@ -29,7 +30,7 @@ class AttachmentsSummaryController extends SetupAbstractController
             $helper->setupModuleRecords($moduleCode);
             $helper->setAttachmentsGetterWrapper( new AttachmentsGetterWrapper(new AttachmentsGetter($em)) );
             $helper->setupAttachmentsRecords( array(
-                    'moduleId'      => $moduleCode,
+                    'moduleId'      => ModulesContainer::recoverIdFromModuleCode($moduleCode),
                     'referenceId'   => $referenceId,
                     'orderBy'       => 'ao.position'
                 )

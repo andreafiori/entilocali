@@ -19,6 +19,11 @@ class BlogsFormControllerTest extends TestSuite
         $this->controller = new BlogsFormController();
         $this->controller->setEvent($this->event);
         $this->controller->setServiceLocator($this->getServiceManager());
+
+        $this->controller->layout()->setVariable('configurations', array(
+            'media_dir'     => 'public\frontend\media',
+            'media_project' => 'public\frontend\media\demo',
+        ));
     }
 
     public function testIndexAction()

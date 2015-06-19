@@ -23,9 +23,15 @@ class BlogsFormController extends SetupAbstractController
         $languageSelection  = $this->params()->fromRoute('languageSelection');
         $id                 = $this->params()->fromRoute('id');
 
+        $configurations = $this->layout()->getVariable('configurations');
+
         try {
 
             $helper = new PostsControllerHelper();
+            $helper->checkMediaDir($configurations);
+            $helper->checkMediaProject($configurations);
+            $helper->checkMediaSubDir($configurations);
+
             $categoriesRecords = $helper->recoverWrapperRecords(
                 new PostsCategoriesGetterWrapper(new PostsCategoriesGetter($entityManager)),
                 array(
@@ -45,26 +51,13 @@ class BlogsFormController extends SetupAbstractController
                 $id
             );
 
-            $formBasicInput = array(
-                'type'      => 'blogs',
-                'moduleId'  => ModulesContainer::blogs,
-            );
-
-            /*
-            mkdir('public/frontend/media/photo');
-            mkdir('public/frontend/media/photo/demo');
-            mkdir('public/frontend/media/photo/demo/big');
-            mkdir('public/frontend/media/photo/demo/thumb');
-            */
-
             $form = new PostsForm();
             $form->addUploadImage();
             $form->addTitle();
             $form->addSubtitle();
             $form->addMainFields();
             $form->addCategory($categoriesRecordsForDropDown);
-            /* Additional fields: */
-            /*
+            /* Additional fields:
             $form->addSeo();
             $form->addHome();
             $form->addFacebook();
@@ -81,9 +74,10 @@ class BlogsFormController extends SetupAbstractController
                     )
                 );
 
-                $recordFromDb[0]['categories'] = $categoryIdForForm;
+                $postsRecords[0]['currentImage'] = isset($postsRecords[0]['image']) ? $postsRecords[0]['image'] : null;
+                $postsRecords[0]['categories'] = $categoryIdForForm;
 
-                $form->setData( array_merge($formBasicInput, $recordFromDb[0]) );
+                $form->setData($postsRecords[0]);
 
                 $formTitle          = 'Modifica blog post';
                 $formAction         = $this->url()->fromRoute('admin/blogs-update', array(
@@ -99,10 +93,10 @@ class BlogsFormController extends SetupAbstractController
                 ));
                 $submitButtonValue  = 'Inserisci';
 
-                $form->setData( array_merge($formBasicInput, array(
-                    'expireDate' => date('Y-m-d H:i:s', strtotime('+5 years')),
-                    'status' => 1,
-                )));
+                $form->setData(array(
+                    'expireDate'    => date('Y-m-d H:i:s', strtotime('+5 years')),
+                    'status'        => 1,
+                ));
             }
 
             $this->layout()->setVariables(array(

@@ -43,6 +43,9 @@ class AlboPretorioUpdateController extends SetupAbstractController
 
         $userDetails = $this->recoverUserDetails();
 
+        $helper = new AlboPretorioControllerHelper();
+        $helper->setConnection($connection);
+        $helper->setLoggedUser($userDetails);
         try {
 
             if (!$form->isValid()) {
@@ -51,9 +54,6 @@ class AlboPretorioUpdateController extends SetupAbstractController
 
             $inputFilter->exchangeArray( $form->getData() );
 
-            $helper = new AlboPretorioControllerHelper();
-            $helper->setConnection($connection);
-            $helper->setLoggedUser($userDetails);
             $helper->getConnection()->beginTransaction();
             $helper->update($inputFilter);
             $helper->getConnection()->commit();
@@ -89,6 +89,12 @@ class AlboPretorioUpdateController extends SetupAbstractController
             $this->layout()->setTemplate($this->layout()->getVariable('templateDir').'message.phtml');
 
         } catch(\Exception $e) {
+
+            try {
+                $helper->getConnection()->rollBack();
+            } catch(\Doctrine\DBAL\ConnectionException $exDb) {
+
+            }
 
             $logWriter = new LogWriter($connection);
             $logWriter->writeLog(array(

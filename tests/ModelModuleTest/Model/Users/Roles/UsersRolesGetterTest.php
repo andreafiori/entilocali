@@ -5,10 +5,6 @@ namespace ModelModuleTest\Model\Users\Roles;
 use ModelModuleTest\TestSuite;
 use ModelModule\Model\Users\Roles\UsersRolesGetter;
 
-/**
- * @author Andrea Fiori
- * @since  28 February 2015
- */
 class UsersRolesGetterTest extends TestSuite
 {
     /**

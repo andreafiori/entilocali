@@ -10,9 +10,6 @@ use ModelModule\Model\Users\UsersControllerHelper;
 use ModelModule\Model\Users\UsersGetter;
 use ModelModule\Model\Users\UsersGetterWrapper;
 
-/**
- * Responsabili procedimento atti di concessione management
- */
 class UsersRespProcController extends SetupAbstractController
 {
     public function indexAction()
@@ -38,7 +35,9 @@ class UsersRespProcController extends SetupAbstractController
 
         $usersRespProcRecords = $helper->recoverWrapperRecords(
             new UsersRespProcGetterWrapper(new UsersRespProcGetter($em)),
-            array('orderBy' => '')
+            array(
+                'orderBy' => 'u.surname'
+            )
         );
 
         $form = new UsersRespProcForm();
@@ -50,7 +49,7 @@ class UsersRespProcController extends SetupAbstractController
             'formDataCommonPath'     => 'backend/templates/common/',
             'formBreadCrumbCategory' => array(
                 array(
-                    'href'  => $this->url()->fromRoute('admin/users-resp-proc-management', array(
+                    'href' => $this->url()->fromRoute('admin/users-responsabili-procedimento', array(
                         'lang' => $this->params()->fromRoute('lang')
                     )),
                     'label' => 'Atti di concessione',

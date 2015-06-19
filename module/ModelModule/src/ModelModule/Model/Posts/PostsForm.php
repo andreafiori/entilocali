@@ -44,10 +44,10 @@ class PostsForm extends Form
             'type' => 'Text',
             'options' => array('label' => '* Titolo'),
             'attributes' => array(
-                'required' => 'required',
-                'placeholder' => 'Inserisci il titolo',
-                'title' => 'Inserisci il titolo',
-                'id' => 'title',
+                'required'      => 'required',
+                'placeholder'   => 'Inserisci il titolo',
+                'title'         => 'Inserisci il titolo',
+                'id'            => 'title',
             )
         ));
     }
@@ -62,6 +62,26 @@ class PostsForm extends Form
                 'title'         => 'Inserisci il sottotitolo',
                 'placeholder'   => 'Inserisci il sottotitolo',
                 'id'            => 'subtitle',
+            )
+        ));
+    }
+
+    /**
+     * Add description textare with wysiwyg class
+     */
+    public function addDescription()
+    {
+        $this->add(array(
+            'name' => 'description',
+            'type' => 'Textarea',
+            'options' => array( 'label' => '* Descrizione' ),
+            'attributes' => array(
+                'id'        => 'description',
+                'required'  => 'required',
+                'class'     => 'wysiwyg',
+                'title'     => 'Inserisci descrizione',
+                'rows'      => 8,
+                'cols'      => 20,
             )
         ));
     }
@@ -119,18 +139,6 @@ class PostsForm extends Form
                         'type' => 'Zend\Form\Element\Hidden',
                         'name' => 'id',
                         'attributes' => array("class" => 'hiddenField')
-        ));
-        
-        $this->add(array(
-                        'type' => 'Zend\Form\Element\Hidden',
-                        'name' => 'type',
-                        'attributes' => array("class" => 'hiddenField')
-        ));
-        
-        $this->add(array(
-                        'type' => 'Zend\Form\Element\Hidden',
-                        'name' => 'moduleId',
-                        'attributes' => array("class"=>'hiddenField')
         ));
     }
 

@@ -20,7 +20,7 @@ class UsersRespProcControllerHelper extends ControllerHelperAbstract
         return $this->getConnection()->insert(
             DbTableContainer::usersRespProc,
             array(
-                'nome'      => $userId,
+                'user_id'   => $userId,
                 'attivo'    => 1,
             )
         );
@@ -36,11 +36,14 @@ class UsersRespProcControllerHelper extends ControllerHelperAbstract
     {
         $this->assertConnection();
 
-        return $this->getConnection()->delete(
+        $this->getConnection()->query('SET FOREIGN_KEY_CHECKS=0');
+        $this->getConnection()->delete(
             DbTableContainer::usersRespProc,
-            array(
-                'id' => $id,
-            )
+            array('id' => $id),
+            array('limit'=> 1)
         );
+        $this->getConnection()->query('SET FOREIGN_KEY_CHECKS=1');
+
+        return true;
     }
 }

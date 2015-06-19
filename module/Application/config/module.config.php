@@ -6,7 +6,6 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Application\Controller\Index'                                                  => 'Application\Controller\IndexController',
-            /* 'Application\Controller\DocumentExport'                                         => 'Application\Controller\DocumentExportController', */
             'Application\Controller\AttachmentsSThreeDownloader'                            => 'Application\Controller\AttachmentsSThreeDownloaderController',
             'Application\Controller\PasswordPreview'                                        => 'Application\Controller\PasswordPreviewController',
             'Application\Controller\Faq\Faq'                                                => 'Application\Controller\Faq\FaqController',
@@ -26,106 +25,123 @@ return array(
             'Application\Controller\CssStyleSwitch'                                         => 'Application\Controller\CssStyleSwitchController',
             'Application\Controller\Users\UsersCreateAccount'                               => 'Application\Controller\Users\UsersCreateAccountController',
             'Application\Controller\Users\UsersRecoverPassword'                             => 'Application\Controller\Users\UsersRecoverPasswordController',
-            'Application\Controller\Posts\Blogs'                                            => 'Application\Controller\Posts\BlogsController',
-            'Application\Controller\Posts\Photo'                                            => 'Application\Controller\Posts\PhotoController',
+            'Application\Controller\Blogs\Blogs'                                            => 'Application\Controller\Blogs\BlogsController',
+            'Application\Controller\Blogs\BlogsExport'                                      => 'Application\Controller\Blogs\BlogsExportController',
+            'Application\Controller\Blogs\BlogsExportSingle'                                => 'Application\Controller\Blogs\BlogsExportSingleController',
+            'Application\Controller\Photo\Photo'                                            => 'Application\Controller\Posts\PhotoController',
             'Application\Controller\CookieWarning'                                          => 'Application\Controller\CookieWarningController',
         ),
     ),
     'router' => array(
                     'routes' => array(
                                     'main' => array(
-                                                    'type' => 'segment',
-                                                    'options' => array(
-                                                        'route' => '/[:lang[/]]',
-                                                        'defaults' => array(
-                                                            'controller' => 'Application\Controller\Index',
-                                                            'action'     => 'index',
-                                                        ),
-                                                        'constraints' => array(
-                                                            'lang' => '[a-z]{2}',
-                                                        ),
+                                        'type' => 'segment',
+                                        'options' => array(
+                                            'route' => '/[:lang[/]]',
+                                            'defaults' => array(
+                                                'controller' => 'Application\Controller\Index',
+                                                'action'     => 'index',
+                                            ),
+                                            'constraints' => array(
+                                                'lang' => '[a-z]{2}',
+                                            ),
+                                        ),
+                                        'may_terminate' => true,
+                                        'child_routes' => array(
+                                            'contenuti' => array(
+                                                'type'    => 'segment',
+                                                'options' => array(
+                                                    'route' => 'contents/node/[:subsectionid[/]]',
+                                                    'constraints' => array(
+                                                        'subsectionid' => '[0-9]+',
                                                     ),
-                                                    'may_terminate' => true,
-                                                    'child_routes' => array(
-                                                        'contenuti' => array(
-                                                            'type'    => 'segment',
-                                                            'options' => array(
-                                                                'route' => 'contents/node/[:subsectionid[/]]',
-                                                                'constraints' => array(
-                                                                    'subsectionid' => '[0-9]+',
-                                                                ),
-                                                                'defaults' => array(
-                                                                    'controller' => 'Application\Controller\Contenuti\Contenuti',
-                                                                    'action'     => 'index',
-                                                                ),
-                                                            ),
-                                                            'may_terminate' => true,
-                                                        ),
-                                                        /* Blogs Posts */
-                                                        'posts-blogs-categories' => array(
-                                                            'type'    => 'segment',
-                                                            'options' => array(
-                                                                'route' => 'blogs/:category[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
-                                                                'constraints' => array(
-                                                                    'category'    => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                                    'page'        => '[0-9]+',
-                                                                    'order_by'    => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                                    'order'       => 'ASC|DESC',
-                                                                ),
-                                                                'defaults' => array(
-                                                                    'controller' => 'Application\Controller\Posts\Blogs',
-                                                                    'action'     => 'index',
-                                                                ),
-                                                            ),
-                                                            'may_terminate' => true,
-                                                        ),
-                                                        'posts-blogs-details' => array(
-                                                            'type'    => 'segment',
-                                                            'options' => array(
-                                                                'route' => 'blogs/:category/:title[/]',
-                                                                'constraints' => array(
-                                                                    'category'  => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                                    'title'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                                ),
-                                                                'defaults' => array(
-                                                                    'controller' => 'Application\Controller\Posts\Blogs',
-                                                                    'action'     => 'details',
-                                                                ),
-                                                            ),
-                                                            'may_terminate' => true,
-                                                        ),
-                                                        'posts-photo-gallery' => array(
-                                                            'type' => 'segment',
-                                                            'options' => array(
-                                                                'route' => '/photo/gallery[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
-                                                                'constraints' => array(
-                                                                    'page'        => '[0-9]+',
-                                                                    'order_by'    => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                                    'order'       => 'ASC|DESC',
-                                                                ),
-                                                                'defaults' => array(
-                                                                    'controller' => 'Application\Controller\Posts\Photo',
-                                                                    'action'     => 'index',
-                                                                ),
-                                                            ),
-                                                            'may_terminate' => true,
-                                                        ),
-                                                        'posts-photo-gallery-details' => array(
-                                                            'type' => 'segment',
-                                                            'options' => array(
-                                                                'route' => '/photo/gallery/:category/:title[/]',
-                                                                'constraints' => array(
-                                                                    'category'  => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                                    'title'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                                ),
-                                                                'defaults' => array(
-                                                                    'controller' => 'Application\Controller\Posts\Photo',
-                                                                    'action'     => 'index',
-                                                                ),
-                                                            ),
-                                                            'may_terminate' => true,
-                                                        ),
+                                                    'defaults' => array(
+                                                        'controller' => 'Application\Controller\Contenuti\Contenuti',
+                                                        'action'     => 'index',
                                                     ),
+                                                ),
+                                                'may_terminate' => true,
+                                            ),
+                                            /* Blogs Posts */
+                                            'blogs-categories' => array(
+                                                'type'    => 'segment',
+                                                'options' => array(
+                                                    'route' => 'blogs/:category[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                                                    'constraints' => array(
+                                                        'category'    => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                        'page'        => '[0-9]+',
+                                                        'order_by'    => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                        'order'       => 'ASC|DESC',
+                                                    ),
+                                                    'defaults' => array(
+                                                        'controller' => 'Application\Controller\Blogs\Blogs',
+                                                        'action'     => 'index',
+                                                    ),
+                                                ),
+                                                'may_terminate' => true,
+                                            ),
+                                            'blogs-details' => array(
+                                                'type'    => 'segment',
+                                                'options' => array(
+                                                    'route' => 'blogs/:category/:title[/]',
+                                                    'constraints' => array(
+                                                        'category'  => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                        'title'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                    ),
+                                                    'defaults' => array(
+                                                        'controller' => 'Application\Controller\Blogs\Blogs',
+                                                        'action'     => 'details',
+                                                    ),
+                                                ),
+                                                'may_terminate' => true,
+                                            ),
+                                            'blogs-export-single' => array(
+                                                'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                                'options' => array(
+                                                    'route' => 'blogs/export/single/:action/:id[/]',
+                                                    'constraints' => array(
+                                                        'action'    => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                        'id'        => '[0-9]+',
+                                                    ),
+                                                    'defaults' => array(
+                                                        'controller' => 'Application\Controller\Blogs\BlogsExportSingle',
+                                                        'action'     => 'index',
+                                                    ),
+                                                ),
+                                                'may_terminate' => true,
+                                            ),
+                                            'photo-gallery' => array(
+                                                'type' => 'segment',
+                                                'options' => array(
+                                                    'route' => '/photo/gallery[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                                                    'constraints' => array(
+                                                        'page'        => '[0-9]+',
+                                                        'order_by'    => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                        'order'       => 'ASC|DESC',
+                                                    ),
+                                                    'defaults' => array(
+                                                        'controller' => 'Application\Controller\Posts\Photo',
+                                                        'action'     => 'index',
+                                                    ),
+                                                ),
+                                                'may_terminate' => true,
+                                            ),
+                                            'photo-gallery-details' => array(
+                                                'type' => 'segment',
+                                                'options' => array(
+                                                    'route' => '/photo/gallery/:category/:title[/]',
+                                                    'constraints' => array(
+                                                        'category'  => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                        'title'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                    ),
+                                                    'defaults' => array(
+                                                        'controller' => 'Application\Controller\Posts\Photo',
+                                                        'action'     => 'index',
+                                                    ),
+                                                ),
+                                                'may_terminate' => true,
+                                            ),
+                                        ),
                                     ),
                                     'notfound' => array(
                                                     'type' => 'segment',
@@ -155,7 +171,7 @@ return array(
                                     'contenuti-export-single' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
-                                            'route'    => '/albo-pretorio/export/single/:action/:id[/]',
+                                            'route'    => '/contenuti/export/single/:action/:id[/]',
                                             'constraints' => array(
                                                 'action'    => '[a-zA-Z][a-zA-Z0-9_-]*',
                                                 'id'        => '[0-9]+',
@@ -238,22 +254,20 @@ return array(
                                                     ),
                                                     'may_terminate' => true,
                                     ),
-                                    /*
                                     'faq' => array(
                                                 'type'    => 'Zend\Mvc\Router\Http\Segment',
                                                 'options' => array(
-                                                                'route'    => '/faq/domande[/][:action]',
-                                                                'constraints' => array(
+                                                            'route'    => '/faq/domande[/][:action]',
+                                                            'constraints' => array(
 
-                                                                ),
-                                                                'defaults' => array(
-                                                                    'controller'    => 'Application\Controller\Faq\Faq',
-                                                                    'action'        => 'index',
-                                                                ),
+                                                            ),
+                                                            'defaults' => array(
+                                                                'controller'    => 'Application\Controller\Faq\Faq',
+                                                                'action'        => 'index',
+                                                            ),
                                                 ),
                                                 'may_terminate' => true,
                                     ),
-                                    */
                                     'albo-pretorio' => array(
                                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                                         'options' => array(

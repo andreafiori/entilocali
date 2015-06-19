@@ -6,7 +6,7 @@ use Zend\ServiceManager\ServiceManager;
 use Zend\Mvc\Service;
 use ModelModuleTest\TestSuite;
 
-class FixtureServiceAbstractTest extends TestSuite
+class FixtureServiceAbstractTest //extends TestSuite
 {
     protected function setUp()
     {

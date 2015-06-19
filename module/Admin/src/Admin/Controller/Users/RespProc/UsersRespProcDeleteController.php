@@ -4,10 +4,8 @@ namespace Admin\Controller\Users\RespProc;
 
 use Application\Controller\SetupAbstractController;
 use ModelModule\Model\Database\DbTableContainer;
+use ModelModule\Model\Users\RespProc\UsersRespProcControllerHelper;
 
-/**
- * TODO: delete user resp. proc., log operation, redirect...
- */
 class UsersRespProcDeleteController extends SetupAbstractController
 {
     public function indexAction()
@@ -24,25 +22,21 @@ class UsersRespProcDeleteController extends SetupAbstractController
 
         $request = $this->getRequest();
 
-        if (!($request->isXmlHttpRequest() or $request->isPost())) {
+        if (!$request->isPost()) {
             return $this->redirect()->toRoute('main');
         }
 
-        $post = array_merge_recursive( $request->getPost()->toArray(), $request->getFiles()->toArray() );
+        $post = $request->getPost()->toArray();
 
         $userDetails = $this->recoverUserDetails();
 
-        $connection->beginTransaction();
-        $connection->query('SET FOREIGN_KEY_CHECKS=0');
-        $connection->delete(
-            DbTableContainer::usersRespProc,
-            array('id' => $post['deleteId']),
-            array('limit'=> 1)
-        );
-        $connection->query('SET FOREIGN_KEY_CHECKS=1');
-        $connection->commit();
+        $helper = new UsersRespProcControllerHelper();
+        $helper->setConnection($connection);
+        $helper->getConnection()->beginTransaction();
+        $helper->delete($post['deleteId']);
+        $helper->getConnection()->commit();
 
-        return $this->redirect()->toRoute('admin/users-resp-proc-management', array(
+        return $this->redirect()->toRoute('admin/users-responsabili-procedimento', array(
             'lang' => $this->params()->fromRoute('lang')
         ));
     }

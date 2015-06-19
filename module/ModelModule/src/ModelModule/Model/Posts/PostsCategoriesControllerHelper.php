@@ -18,6 +18,8 @@ class PostsCategoriesControllerHelper extends ControllerHelperAbstract
     {
         $this->assertConnection();
 
+        $slug = Slugifier::slugify($formData->name);
+
         return $this->getConnection()->insert(
             DbTableContainer::postsCategories,
             array(
@@ -28,8 +30,9 @@ class PostsCategoriesControllerHelper extends ControllerHelperAbstract
                 'parent_id'         => 0,
                 'module_id'         => $formData->moduleId,
                 'language_id'       => $formData->languageId,
-                'seo_url'           => Slugifier::slugify($formData->name),
-                'seo_title'         => Slugifier::slugify($formData->name),
+                'slug'              => $slug,
+                'seo_url'           => $slug,
+                'seo_title'         => $formData->name,
                 // 'seo_keywords'      => $formData->seoKeywords,
                 // 'seo_description'   => $formData->seoDescription,
                 'accesskey'         => '',

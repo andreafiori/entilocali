@@ -22,7 +22,9 @@ if (!isset($this->formLabelSpanWidth)): $this->formLabelSpanWidth = 2; endif;
             <td><?php echo $respProc['name'].' '.$respProc['surname'] ?></td>
             <td><?php echo $respProc['nomeSettore'] ?></td>
             <td>
-                <a href="#deleteModal" data-action="#" data-id="<?php echo $respProc['id'] ?>" class="open-deleteModal btn btn-lg icon-red" title="Elimina dall'elenco responsabili procedimento">
+                <a href="#deleteModal" data-action="<?php echo $this->url('admin/users-responsabili-procedimento-delete', array(
+                    'lang' => $this->params()->fromRoute('lang'),
+                )); ?>" data-id="<?php echo $respProc['id'] ?>" class="open-deleteModal btn btn-lg icon-red" title="Elimina dall'elenco responsabili procedimento">
                     <i class="fa fa-times"></i>
                 </a>
             </td>
@@ -48,7 +50,9 @@ if (!isset($this->formLabelSpanWidth)): $this->formLabelSpanWidth = 2; endif;
     $form->prepare();
 
     $formId = 'frmAddRespProc';
-    $formAction = '';
+    $formAction = $this->url('admin/users-responsabili-procedimento-insert', array(
+        'lang' => $this->params()->fromRoute('lang'),
+    ));
 
     $form->setAttributes(array(
         'action'    => $formAction,

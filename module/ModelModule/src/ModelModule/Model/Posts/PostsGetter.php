@@ -14,7 +14,7 @@ class PostsGetter extends QueryBuilderHelperAbstract
     {
         $this->setSelectQueryFields('DISTINCT(p.id) AS id, p.lastUpdate,
                                     p.createDate, p.expireDate, p.hasAttachments,
-                                    p.title, p.subtitle, p.description, p.slug, p.seoTitle,
+                                    p.image, p.title, p.subtitle, p.description, p.slug, p.seoTitle,
                                     p.seoDescription, p.seoKeywords, p.status,
 
                                     c.name AS categoryName, c.templateFile, c.slug AS categorySlug,

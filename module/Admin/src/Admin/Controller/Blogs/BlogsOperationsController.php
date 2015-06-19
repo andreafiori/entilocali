@@ -1,67 +1,60 @@
 <?php
 
-namespace Admin\src\Admin\Controller\Blogs;
+namespace Admin\Controller\Blogs;
 
-use ModelModule\Model\Posts\PostsForm;
-use ModelModule\Model\Posts\PostsFormInputFilter;
 use Application\Controller\SetupAbstractController;
+use ModelModule\Model\Posts\PostsFormSearch;
+use Zend\Session\Container as SessionContainer;
 
 class BlogsOperationsController extends SetupAbstractController
 {
     /**
-     * TODO:
-        Image thumb if uploaded:
-            check size, check file type,
-            create thumb
-        add into db
-        log
-        if error -> rollback and log error
-     *
+     * Switch language and redirect to summary
      */
-    public function addAction()
+    public function switchlanguageAction()
     {
-        $request = $this->getRequest();
-
-        $post = array_merge_recursive(
-            $request->getPost()->toArray(),
-            $request->getFiles()->toArray()
-        );
-    }
-
-    /**
-     *
-     */
-    public function editAction()
-    {
-        $request = $this->getRequest();
-
-        $post = array_merge_recursive(
-            $request->getPost()->toArray(),
-            $request->getFiles()->toArray()
-        );
-    }
-
-    public function deleteAction()
-    {
-        $request = $this->getRequest();
-
-        $post = array_merge_recursive($request->getPost()->toArray());
-
-        $form = new PostsForm();
-        $form->addUploadImage();
-        // $form->addCategory( array() );
-
-        if ($request->isPost()) {
-            $formValidator = new PostsFormInputFilter();
-
-            $form->setInputFilter($formValidator->getInputFilter());
-            $form->setData($post);
-
-            if ($form->isValid()) {
-                $formValidator->exchangeArray($form->getData());
-
-
-            }
+        if ($this->getRequest()->isPost()) {
+            return $this->redirect()->toRoute('admin/blogs-summary', array(
+                'lang'              => $this->params()->fromRoute('lang'),
+                'languageSelection' => $this->params()->fromPost('lingua'),
+                'page'              => $this->params()->fromRoute('page'),
+                'modulename'        => $this->params()->fromRoute('formtype'),
+            ));
         }
+
+        return $this->redirect()->toRoute('main');
+    }
+
+    public function blogsearchAction()
+    {
+        if ($this->getRequest()->isPost()) {
+            $formSearch = new PostsFormSearch();
+            // $formSearch->setData();
+
+            $session = new SessionContainer();
+            $session->offsetSet('blogsSearchSession', array(
+                'text'      => '',
+                'category'  => '',
+            ));
+        }
+
+        return $this->redirect()->toRoute('main');
+    }
+
+    public function photosearchAction()
+    {
+        // TODO: set session searcch for pictures
+        if ($this->getRequest()->isPost()) {
+            $formSearch = new PostsFormSearch();
+            // $formSearch->setData();
+
+            $session = new SessionContainer();
+            $session->offsetSet('photoSearchSession', array(
+                'text'      => '',
+                'category'  => '',
+            ));
+        }
+
+        return $this->redirect()->toRoute('main');
     }
 }

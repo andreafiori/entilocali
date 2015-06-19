@@ -4,7 +4,9 @@ namespace Admin\Controller\Photo;
 
 use ModelModule\Model\Posts\CategoriesGetter;
 use ModelModule\Model\Posts\CategoriesGetterWrapper;
-use ModelModule\Model\Posts\PostsFormSearch;
+use ModelModule\Model\Posts\PostsCategoriesGetter;
+use ModelModule\Model\Posts\PostsCategoriesGetterWrapper;
+use ModelModule\Model\Posts\PostsControllerHelper;
 use ModelModule\Model\Posts\PostsGetter;
 use ModelModule\Model\Posts\PostsGetterWrapper;
 use Application\Controller\SetupAbstractController;
@@ -20,26 +22,51 @@ class PhotoSummaryController extends SetupAbstractController
         $page       = $this->params()->fromRoute('page');
         $perPage    = $this->params()->fromRoute('perpage');
 
-        $wrapper = new PostsGetterWrapper( new PostsGetter($em) );
-        $wrapper->setInput( array(
+        $helper = new PostsControllerHelper();
+        $categoriesRecords = $helper->recoverWrapperRecords(
+            new PostsCategoriesGetterWrapper(new PostsCategoriesGetter($em)),
+            array(
+                'fields'        => 'category.id, category.name',
+                'orderBy'       => 'category.name',
+                'moduleCode'    => 'photo',
+            )
+        );
+        $helper->checkRecords($categoriesRecords, 'Nessuna categoria presente');
+        $wrapperPosts = $helper->recoverWrapperRecordsPaginator(
+            new PostsGetterWrapper(new PostsGetter($em)),
+            array(
                 'moduleCode' => 'photo',
                 'userId'     => null,
                 'orderBy'    => 'p.id DESC',
                 'fields'     => 'DISTINCT(p.id) AS id, p.lastUpdate,
                                     p.createDate, p.expireDate, p.hasAttachments,
-                                    p.title, p.subtitle, p.description, p.slug, p.seoTitle,
+                                    p.image, p.title, p.subtitle, p.description, p.slug, p.seoTitle,
                                     p.seoDescription, p.seoKeywords,
                                     users.name AS userName, users.surname AS userSurname'
-            )
+            ),
+            $page,
+            $perPage
         );
-        $wrapper->setupQueryBuilder();
-        $wrapper->setupPaginator($wrapper->setupQuery($em));
-        $wrapper->setupPaginatorCurrentPage($page);
-        $wrapper->setupPaginatorItemsPerPage($perPage);
 
-        $paginator = $wrapper->getPaginator();
+        /* Add categories to the recordset */
+        $postsRecords = $wrapperPosts->setupRecords();
+        $helper->checkRecords($postsRecords, 'Nessuna foto in archivio');
 
-        $postsRecords = $wrapper->setupRecords();
+        foreach($postsRecords as &$postsRecord) {
+            $wrapper = new PostsGetterWrapper(new PostsGetter($em));
+            $wrapper->setInput(array(
+                'fields'     => 'c.id, c.name',
+                'id'         => $postsRecord['id'],
+                'orderBy'    => 'c.name',
+            ));
+            $wrapper->setupQueryBuilder();
+
+            $postsRecord['categories'] = $wrapper->getRecords();
+        }
+
+        $paginator = $wrapperPosts->getPaginator();
+
+        $postsRecords = $wrapperPosts->setupRecords();
 
         $this->layout()->setVariables(array(
             'tableTitle'        => 'Foto',
@@ -52,10 +79,9 @@ class PhotoSummaryController extends SetupAbstractController
                 "Categorie",
                 //"Tags",
                 "Inserito da",
-                "Ultima modifica",
+                "Date",
                 "&nbsp;",
                 "&nbsp;",
-                "&nbsp;"
             ),
             'formSearch'        => '',
             'templatePartial'   => self::summaryTemplate
@@ -70,6 +96,11 @@ class PhotoSummaryController extends SetupAbstractController
      */
     private function formatColumnRecords($records)
     {
+        $configurations     = $this->layout()->getVariable('configurations');
+        $lang               = $this->params()->fromRoute('lang');
+        $languageSelection  = $this->params()->fromRoute('languageSelection');
+        $page               = $this->params()->fromRoute('page');
+
         $recordsToReturn = array();
         foreach($records as $record) {
 
@@ -78,7 +109,16 @@ class PhotoSummaryController extends SetupAbstractController
                 $categoryToPrint .= $category['name']."<br>";
             }
 
+            $imageThumbsPath = $this->layout()->getVariable('basePath').$configurations['media_dir'].$configurations['media_project'].'photo/thumbs/'.$record['image'];
+            $imageBigPath = str_replace('thumbs', 'big', $imageThumbsPath);
+
             $recordsToReturn[] = array(
+                array(
+                    'type'  => 'image',
+                    'src'   => $imageThumbsPath,
+                    'href'  => $imageBigPath,
+                    'title' => 'Image desc',
+                ),
                 $record['title'],
                 $categoryToPrint,
                 //'', TAGS ROW...
@@ -87,17 +127,24 @@ class PhotoSummaryController extends SetupAbstractController
                 "<br><br><strong>Ultima modifica:</strong> ".date("d-m-Y", strtotime($record['lastUpdate'])),
                 array(
                     'type' => 'updateButton',
-                    'href' => $this->url()->fromRoute('admin/posts-form', array(
-                        'lang'      => 'it',
-                        'formtype'  => 'photo',
-                        'id'        => $record['id']
+                    'href' => $this->url()->fromRoute('admin/photo-form', array(
+                        'lang'              => $lang,
+                        'languageSelection' => $languageSelection,
+                        'formtype'          => 'photo',
+                        'id'                => $record['id']
                     )),
                     'title' => 'Modifica'
                 ),
                 array(
                     'type'      => 'deleteButton',
                     'title'     => 'Elimina',
-                    'href'      => '#',
+                    'href'      => $this->url()->fromRoute('admin/photo-delete', array(
+                        'lang'              => $lang,
+                        'languageSelection' => $languageSelection,
+                        'page'              => isset($page) ? $page : 1,
+                        'formtype'          => 'photo',
+                        'id'                => $record['id'],
+                    )),
                     'data-id'   => $record['id']
                 ),
             );

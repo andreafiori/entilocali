@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Controller\Posts;
+namespace Application\Controller\Photo;
 
 use ModelModule\Model\Posts\PostsGetter;
 use ModelModule\Model\Posts\PostsGetterWrapper;
@@ -16,13 +16,10 @@ class PhotoController extends SetupAbstractController
 
         $page       = $this->params()->fromRoute('page');
 
-        //$category   = $this->params()->fromRoute('category');
-
         $wrapper = new PostsGetterWrapper( new PostsGetter($em) );
         $wrapper->setInput(array(
-            'moduleCode'        => 'photo',
-            //'categorySlug'    => $category,
-            'orderBy'           => 'p.id DESC',
+            'moduleCode'    => 'photo',
+            'orderBy'       => 'p.id DESC',
         ));
         $wrapper->setupQueryBuilder();
         $wrapper->setupPaginator( $wrapper->setupQuery($em) );
@@ -38,9 +35,6 @@ class PhotoController extends SetupAbstractController
                 'records'           => $records,
                 'paginator'         => $paginator,
                 'item_count'        => $paginator->getTotalItemCount(),
-                //'category'          => $category,
-                //'formSearch'        => $formSearch,
-                //'categoryName'      => Slugifier::deSlugify($category),
                 'templatePartial'   => 'posts/photo/list.phtml'
             )
         );

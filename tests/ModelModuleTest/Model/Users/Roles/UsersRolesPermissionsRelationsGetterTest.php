@@ -5,10 +5,6 @@ namespace ModelModuleTest\Model\Users\Roles;
 use ModelModuleTest\TestSuite;
 use ModelModule\Model\Users\Roles\UsersRolesPermissionsRelationsGetter;
 
-/**
- * @author Andrea Fiori
- * @since  10 March 2015
- */
 class UsersRolesPermissionsRelationsGetterTest extends TestSuite
 {
     private $objectGetter;

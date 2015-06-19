@@ -127,6 +127,7 @@
 $('#reShowForm').click(function() {
     $('#formcontainer').show();
     $('input:submit').attr('disabled', false);
+    $('input:file').val('');
     $('#showFormContainer').hide();
 
     $("#formdataresultmessage").fadeOut("slow", function () {

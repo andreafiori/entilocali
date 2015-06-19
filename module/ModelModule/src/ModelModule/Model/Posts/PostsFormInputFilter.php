@@ -40,7 +40,6 @@ class PostsFormInputFilter implements InputFilterAwareInterface
         $this->seoKeywords  	= (isset($data['seoKeywords']))  ? $data['seoKeywords'] : null;
         $this->seoDescription  	= (isset($data['seoDescription']))  ? $data['seoDescription'] : null;
         $this->status  	        = (isset($data['status']))  ? $data['status'] : null;
-        $this->moduleId  	    = (isset($data['moduleId']))  ? $data['moduleId'] : null;
         $this->categories       = (isset($data['categories']))  ? $data['categories'] : null;
     }
 
@@ -78,6 +77,16 @@ class PostsFormInputFilter implements InputFilterAwareInterface
             )));
 
             $inputFilter->add($factory->createInput(array(
+                'name'     => 'currentImage',
+                'required' => false,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
                             'name'     => 'title',
                             'required' => true,
                             'filters'  => array(
@@ -108,19 +117,19 @@ class PostsFormInputFilter implements InputFilterAwareInterface
                 'validators' => array(
                     /*
                     array (
-                        'name' => 'Count',
+                        'name' => 'Zend\Validator\File\Count',
                         'options' => array(
                             'min' => '1',
                         ),
                     ),
                     array (
-                        'name' => 'Extension',
+                        'name' => 'Zend\Validator\File\Extension',
                         'options' => array(
                             'jpg','jpeg','gif','png',
                         ),
                     ),
                     array (
-                        'name' => 'MimeType',
+                        'name' => 'Zend\Validator\File\MimeType',
                         'options' => array(
                             'image/jpeg'
                         ),
@@ -208,14 +217,6 @@ class PostsFormInputFilter implements InputFilterAwareInterface
             $inputFilter->add($factory->createInput(array(
                 'name'     => 'expireDate',
                 'required' => true,
-            )));
-
-            $inputFilter->add($factory->createInput(array(
-                'name'     => 'moduleId',
-                'required' => true,
-                'filters'  => array(
-                    array('name' => 'Int'),
-                ),
             )));
 
             $this->inputFilter = $inputFilter;

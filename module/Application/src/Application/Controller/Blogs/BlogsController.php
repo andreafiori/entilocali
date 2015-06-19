@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Controller\Posts;
+namespace Application\Controller\Blogs;
 
 use ModelModule\Model\Modules\ModulesContainer;
 use ModelModule\Model\Posts\PostsCategoriesGetter;
@@ -19,6 +19,8 @@ class BlogsController extends SetupAbstractController
         $mainLayout = $this->initializeFrontendWebsite();
 
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+
+        $configurations = $this->layout()->getVariable('configurations');
 
         $lang = $this->params()->fromRoute('lang');
         $page = $this->params()->fromRoute('page');
@@ -73,6 +75,8 @@ class BlogsController extends SetupAbstractController
             'category'          => $category,
             'formSearch'        => (!empty($formSearch)) ? $formSearch : null,
             'categoryName'      => Slugifier::deSlugify($category),
+            'mediaDir'          => isset($configurations['media_dir']) ? $configurations['media_dir'] : null,
+            'mediaProject'      => isset($configurations['media_project']) ? $configurations['media_project'] : null,
             'templatePartial'   => 'posts/blogs/list.phtml'
         ));
 
@@ -84,6 +88,8 @@ class BlogsController extends SetupAbstractController
         $mainLayout = $this->initializeFrontendWebsite();
 
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+
+        $configurations = $this->layout()->getVariable('configurations');
 
         $category = $this->params()->fromRoute('category');
         $languageSelection = $this->params()->fromRoute('languageSelection');
@@ -113,6 +119,8 @@ class BlogsController extends SetupAbstractController
             'categoryName'      => !empty($categoryName) ? $categoryName : null,
             'title'             => !empty($title) ? $title : null,
             'record'            => !empty($singleRecord) ? $singleRecord : null,
+            'mediaDir'          => isset($configurations['media_dir']) ? $configurations['media_dir'] : null,
+            'mediaProject'      => isset($configurations['media_project']) ? $configurations['media_project'] : null,
             'templatePartial'   => 'posts/blogs/details.phtml',
         ));
 

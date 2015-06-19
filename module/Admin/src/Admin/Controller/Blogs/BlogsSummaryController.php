@@ -47,7 +47,7 @@ class BlogsSummaryController extends SetupAbstractController
                     'orderBy'    => 'p.id DESC',
                     'fields'     => 'DISTINCT(p.id) AS id, p.lastUpdate,
                                     p.createDate, p.expireDate, p.hasAttachments,
-                                    p.title, p.subtitle, p.description, p.slug, p.seoTitle,
+                                    p.image, p.title, p.subtitle, p.description, p.slug, p.seoTitle,
                                     p.seoDescription, p.seoKeywords,
                                     users.name AS userName, users.surname AS userSurname'
                 ),
@@ -55,11 +55,11 @@ class BlogsSummaryController extends SetupAbstractController
                 $perPage
             );
 
-            /* add categories to the recordset */
+            /* Add categories to the recordset */
             $postsRecords = $wrapperBlogPosts->setupRecords();
             $helper->checkRecords($postsRecords, 'Nessun blog post in archivio');
 
-            /* add attachment files to the recordset */
+            /* Add attachment files to the recordset */
             $wrapperBlogPosts->setEntityManager($entityManager);
             $postsRecords = $wrapperBlogPosts->addAttachmentsFromRecords(
 				$postsRecords,
@@ -68,18 +68,16 @@ class BlogsSummaryController extends SetupAbstractController
 				)
 			);
 
-            if (!empty($postsRecords)) {
-                foreach($postsRecords as &$postsRecord) {
-                    $wrapper = new PostsGetterWrapper( new PostsGetter($entityManager) );
-                    $wrapper->setInput(array(
-                        'fields'     => 'c.id, c.name',
-                        'id'         => $postsRecord['id'],
-                        'orderBy'    => 'c.name',
-                    ));
-                    $wrapper->setupQueryBuilder();
+            foreach($postsRecords as &$postsRecord) {
+                $wrapper = new PostsGetterWrapper( new PostsGetter($entityManager) );
+                $wrapper->setInput(array(
+                    'fields'     => 'c.id, c.name',
+                    'id'         => $postsRecord['id'],
+                    'orderBy'    => 'c.name',
+                ));
+                $wrapper->setupQueryBuilder();
 
-                    $postsRecord['categories'] = $wrapper->getRecords();
-                }
+                $postsRecord['categories'] = $wrapper->getRecords();
             }
 
             $paginator = $wrapperBlogPosts->getPaginator();
@@ -103,11 +101,11 @@ class BlogsSummaryController extends SetupAbstractController
                 'tableTitle'        => 'Blogs',
                 'tableDescription'  => $paginator->getTotalItemCount().' posts in archivio',
                 'columns' => array(
+                    "Immagine",
                     "Titolo",
                     "Categorie",
-                    //"Tags",
-                    "Inserito da",
-                    "Ultima modifica",
+                    "Inserita da",
+                    "Date",
                     "&nbsp;",
                     "&nbsp;",
                     "&nbsp;"
@@ -116,6 +114,11 @@ class BlogsSummaryController extends SetupAbstractController
                 'records'           => $this->formatColumnRecords($postsRecords),
                 'formSearch'        => $form,
                 'formLanguage'      => !empty($formLanguage) ? $formLanguage : null,
+                'formLanguageAction' => $this->url()->fromRoute('admin/blogs-operations', array(
+                    'action'            => 'switchlanguage',
+                    'lang'              => $lang,
+                    'languageSelection' => $languageSelection,
+                )),
                 'templatePartial'   => 'datatable/datatable_blogs.phtml',
             ));
 
@@ -130,13 +133,17 @@ class BlogsSummaryController extends SetupAbstractController
     }
 
         /**
+         * Format recordset to view on table
+         *
          * @param mixed $records
          * @return array
          */
         private function formatColumnRecords($records)
         {
+            $configurations     = $this->layout()->getVariable('configurations');
             $lang               = $this->params()->fromRoute('lang');
             $languageSelection  = $this->params()->fromRoute('languageSelection');
+            $page               = $this->params()->fromRoute('page');
 
             $recordsToReturn = array();
             foreach($records as $record) {
@@ -146,7 +153,16 @@ class BlogsSummaryController extends SetupAbstractController
                     $categoryToPrint .= $category['name']."<br>";
                 }
 
+                $imageThumbsPath = $this->layout()->getVariable('basePath').$configurations['media_dir'].$configurations['media_project'].'blogs/thumbs/'.$record['image'];
+                $imageBigPath = str_replace('thumbs', 'big', $imageThumbsPath);
+
                 $recordsToReturn[] = array(
+                    ($record['image']) ? array(
+                        'type'  => 'image',
+                        'src'   => $imageThumbsPath,
+                        'href'  => $imageBigPath,
+                        'title' => 'Image desc',
+                    ) : '&nbsp;',
                     $record['title'],
                     $categoryToPrint,
                     // TAGS ROW...
@@ -156,8 +172,8 @@ class BlogsSummaryController extends SetupAbstractController
                     array(
                         'type' => 'updateButton',
                         'href' => $this->url()->fromRoute('admin/blogs-form', array(
-                            'lang'              => $this->params()->fromRoute('lang'),
-                            'languageSelection' => $this->params()->fromRoute('languageSelection'),
+                            'lang'              => $lang,
+                            'languageSelection' => $languageSelection,
                             'formtype'          => 'blogs',
                             'id'                => $record['id'],
                         )),
@@ -166,7 +182,13 @@ class BlogsSummaryController extends SetupAbstractController
                     array(
                         'type'      => 'deleteButton',
                         'title'     => 'Elimina post',
-                        'href'      => '#',
+                        'href'      => $this->url()->fromRoute('admin/blogs-delete', array(
+                            'lang'              => $lang,
+                            'languageSelection' => $languageSelection,
+                            'page'              => isset($page) ? $page : 1,
+                            'formtype'          => 'blogs',
+                            'id'                => $record['id'],
+                        )),
                         'data-id'   => $record['id']
                     ),
                     array(

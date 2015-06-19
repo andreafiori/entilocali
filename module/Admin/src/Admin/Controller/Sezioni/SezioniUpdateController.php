@@ -44,6 +44,11 @@ class SezioniUpdateController extends SetupAbstractController
 
         $userDetails = $this->recoverUserDetails();
 
+        $helper = new SezioniControllerHelper();
+        $helper->setConnection($connection);
+        $helper->getConnection()->beginTransaction();
+        $helper->setLoggedUser($userDetails);
+
         try {
 
             if (!$form->isValid()) {
@@ -52,10 +57,6 @@ class SezioniUpdateController extends SetupAbstractController
 
             $inputFilter->exchangeArray( $form->getData() );
 
-            $helper = new SezioniControllerHelper();
-            $helper->setConnection($connection);
-            $helper->getConnection()->beginTransaction();
-            $helper->setLoggedUser($userDetails);
             $helper->update($inputFilter);
             $helper->getConnection()->commit();
 
@@ -88,6 +89,12 @@ class SezioniUpdateController extends SetupAbstractController
             $this->layout()->setTemplate($this->layout()->getVariable('templateDir').'message.phtml');
 
         } catch(\Exception $e) {
+
+            try {
+                $helper->getConnection()->rollBack();
+            } catch(\Doctrine\DBAL\ConnectionException $exDb) {
+
+            }
 
             $logWriter = new LogWriter($connection);
             $logWriter->writeLog(array(

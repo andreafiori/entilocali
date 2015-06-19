@@ -21,7 +21,7 @@ class UsersRespProcGetter extends QueryBuilderHelperAbstract
         $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
                                 ->from('Application\Entity\ZfcmsUsersRespProc', 'respProc')
                                 ->join('respProc.user', 'u')
-                                ->join('u.settore', 'settore')
+                                ->leftJoin('u.settore', 'settore')
                                 ->where("respProc.id != 0 ");
 
         return $this->getQueryBuilder();

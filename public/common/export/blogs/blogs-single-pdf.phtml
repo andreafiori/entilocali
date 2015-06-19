@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<style>
+    h1, h2 { margin-bottom: 30px; }
+    p { margin-bottom: 10px }
+    .text-center { text-align: center }
+    .red { color: #c00c00 }
+</style>
+
+<body>
+
+<h2><?php echo $this->sitename ?></h2>
+
+<p>Documento generato il <?php echo date("d-m-Y") ?></p>
+
+<h2><?php echo $this->record['title'] ?></h2>
+
+<?php if ($this->record['subtitle']): ?>
+<?php endif; ?>
+
+<?php echo $this->record['description'] ?>
+
+<p>&copy; <?php echo $this->sitename ?></p>
+
+</body>
+</html>

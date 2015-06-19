@@ -146,7 +146,7 @@ class AttiConcessioneForm extends Form
         $this->add(array(
             'name' => 'anno',
             'type' => 'Text',
-            'options' => array( 'label' => "* Anno del Bando" ),
+            'options' => array( 'label' => "* Anno del bando" ),
             'attributes' => array(
                 'title'         => "Inserisci anno",
                 'id'            => 'anno',

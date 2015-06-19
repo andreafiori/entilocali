@@ -5,6 +5,8 @@ namespace Admin\Controller\Users\RespProc;
 use Application\Controller\SetupAbstractController;
 use ModelModule\Model\Database\DbTableContainer;
 use ModelModule\Model\Log\LogWriter;
+use ModelModule\Model\Modules\ModulesContainer;
+use ModelModule\Model\Users\RespProc\UsersRespProcControllerHelper;
 
 class UsersRespProcInsertController extends SetupAbstractController
 {
@@ -30,26 +32,22 @@ class UsersRespProcInsertController extends SetupAbstractController
 
         $userDetails = $this->recoverUserDetails();
 
-        $helper = new Respproc();
-
-        $connection->insert(
-            DbTableContainer::usersRespProc,
-            array(
-                'user_id' => $post['user'],
-                'attivo'  => 1,
-            )
-        );
+        $helper = new UsersRespProcControllerHelper();
+        $helper->setConnection($connection);
+        $helper->getConnection()->beginTransaction();
+        $helper->insert($post['user']);
+        $helper->getConnection()->commit();
 
         $logWriter = new LogWriter($connection);
         $logWriter->writeLog(array(
             'user_id'       => $userDetails->id,
-            'module_id'     => ModulesContainer::contenuti_id,
+            'module_id'     => ModulesContainer::atti_concessione,
             'message'       => "Inserito nuovo responsabile di procedimento, utente ".$userDetails->id,
             'type'          => 'info',
             'backend'       => 1,
         ));
 
-        return $this->redirect()->toRoute('admin/users-resp-proc-management', array(
+        return $this->redirect()->toRoute('admin/users-responsabili-procedimento', array(
             'lang' => $this->params()->fromRoute('lang')
         ));
     }

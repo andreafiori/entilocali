@@ -91,6 +91,8 @@ return array(
             'Admin\Controller\Blogs\BlogsForm'                       => 'Admin\Controller\Blogs\BlogsFormController',
             'Admin\Controller\Blogs\BlogsInsert'                     => 'Admin\Controller\Blogs\BlogsInsertController',
             'Admin\Controller\Blogs\BlogsUpdate'                     => 'Admin\Controller\Blogs\BlogsUpdateController',
+            'Admin\Controller\Blogs\BlogsDelete'                     => 'Admin\Controller\Blogs\BlogsDeleteController',
+            'Admin\Controller\Blogs\BlogsOperations'                => 'Admin\Controller\Blogs\BlogsOperationsController',
             'Admin\Controller\Blogs\Blogs'                           => 'Admin\Controller\Blogs\BlogsController',
 
             /* Photo */
@@ -148,7 +150,7 @@ return array(
             /* Users responsabili procedimento */
             'Admin\Controller\Users\RespProc\UsersRespProc'           => 'Admin\Controller\Users\RespProc\UsersRespProcController',
             'Admin\Controller\Users\RespProc\UsersRespProcInsert'     => 'Admin\Controller\Users\RespProc\UsersRespProcInsertController',
-            'Admin\Controller\Users\RespProc\UsersRespProcUpdate'     => 'Admin\Controller\Users\RespProc\UsersRespProcUpdateController',
+            'Admin\Controller\Users\RespProc\UsersRespProcDelete'     => 'Admin\Controller\Users\RespProc\UsersRespProcDeleteController',
 
             /* Gestione home page */
             'Admin\Controller\HomePage\HomePageBlocksPositions'       => 'Admin\Controller\HomePage\HomePageBlocksPositionsController',
@@ -1371,8 +1373,18 @@ return array(
                             ),
                         ),
                     ),
+                    'blogs-delete' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'blogs/lang/:languageSelection/prevpage/:page/form/delete[/]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Blogs\BlogsDelete',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
                     'blogs-summary' => array(
-                        'type'    => 'Segment',
+                        'type' => 'Segment',
                         'options' => array(
                             'route' => 'blogs/summary/lang/:languageSelection[/][:categoryId[/]][page/:page[/]][/order_by/:order_by][/:order[/]]',
                             'constraints' => array(
@@ -1398,7 +1410,6 @@ return array(
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Blogs\BlogsOperations',
-                                'action'     => 'index',
                             ),
                         ),
                     ),
@@ -1430,6 +1441,36 @@ return array(
                                 'languageSelection' => '[a-z]{2}',
                                 'controller'        => 'Admin\Controller\Photo\PhotoForm',
                                 'action'            => 'index',
+                            ),
+                        ),
+                    ),
+                    'photo-insert' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'photo/lang/:languageSelection/form/insert[/]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Photo\PhotoInsert',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'photo-update' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'photo/lang/:languageSelection/form/update[/]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Photo\PhotoUpdate',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'photo-delete' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'photo/lang/:languageSelection/form/delete[/]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Photo\PhotoDelete',
+                                'action'     => 'index',
                             ),
                         ),
                     ),
@@ -1718,17 +1759,6 @@ return array(
                             ),
                         ),
                     ),
-                    'users-resp-proc-management' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route'       => 'users/resp-proc/management[/]',
-                            'constraints' => array(),
-                            'defaults' => array(
-                                'controller' => 'Admin\Controller\Users\RespProc\UsersRespProc',
-                                'action'     => 'index',
-                            ),
-                        ),
-                    ),
                     'users-responsabili-procedimento' => array(
                         'type' => 'Segment',
                         'options' => array(
@@ -1736,6 +1766,28 @@ return array(
                             'constraints' => array(),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Users\RespProc\UsersRespProc',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'users-responsabili-procedimento-insert' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'users/responsabili-procedimento/form/insert[/]',
+                            'constraints' => array(),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Users\RespProc\UsersRespProcInsert',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'users-responsabili-procedimento-delete' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'users/responsabili-procedimento/form/delete[/]',
+                            'constraints' => array(),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Users\RespProc\UsersRespProcDelete',
                                 'action'     => 'index',
                             ),
                         ),
@@ -1897,6 +1949,9 @@ return array(
 
             /* Photo */
             'admin/photo-form/index'                        => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/photo-insert/index'                      => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/photo-update/index'                      => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/photo-delete/index'                      => __DIR__ . '/../view/admin/empty.phtml',
             'admin/photo-summary/index'                     => __DIR__ . '/../view/admin/empty.phtml',
 
             /* Sezioni */

@@ -6,10 +6,6 @@ use ModelModuleTest\TestSuite;
 use ModelModule\Model\Users\Roles\UsersRolesGetter;
 use ModelModule\Model\Users\Roles\UsersRolesGetterWrapper;
 
-/**
- * @author Andrea Fiori
- * @since  28 February 2015
- */
 class UsersRolesGetterWrapperTest extends TestSuite
 {
     /**

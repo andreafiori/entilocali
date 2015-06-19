@@ -26,6 +26,8 @@ class AttiConcessioneControllerHelper extends ControllerHelperAbstract
                 'titolo'                => $formData->titolo,
                 'beneficiario'          => $formData->beneficiario,
                 'importo'               => $formData->importo,
+                'ufficioresponsabile'   => $formData->ufficioResponsabile,
+                'progressivo'           => $formData->progressivo,
                 'mod_assegnazione_id'   => $formData->modAssegnazione,
                 'data'                  => $formData->dataInserimento,
                 'anno'                  => $formData->anno,
@@ -34,6 +36,27 @@ class AttiConcessioneControllerHelper extends ControllerHelperAbstract
                 'utente_id'             => $userDetails->id,
             )
         );
+    }
+
+    /**
+     * @param AttiConcessioneGetterWrapper $wrapper
+     * @return int
+     */
+    public function recoverNumeroProgressivo(AttiConcessioneGetterWrapper $wrapper, $anno)
+    {
+        $numeroProgressivo = $this->recoverWrapperRecords(
+            $wrapper,
+            array(
+                'fields'    => 'MAX(atti.progressivo) AS maxProgressivo',
+                'anno'      => $anno
+            )
+        );
+
+        if (isset($numeroProgressivo[0]['maxProgressivo'])) {
+            return $numeroProgressivo[0]['maxProgressivo'] + 1;
+        }
+
+        return 1;
     }
 
     /**

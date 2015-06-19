@@ -87,8 +87,8 @@ class SezioniInsertController extends SetupAbstractController
 
             try {
                 $helper->getConnection()->rollBack();
-            } catch(\Doctrine\DBAL\ConnectionException $e) {
-                
+            } catch(\Doctrine\DBAL\ConnectionException $exDb) {
+
             }
 
             $logWriter = new LogWriter($connection);

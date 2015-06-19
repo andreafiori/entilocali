@@ -44,6 +44,7 @@ class BlogsInsertController extends SetupAbstractController
         $this->initializeAdminArea();
 
         $userDetails = $this->recoverUserDetails();
+        $configurations = $this->layout()->getVariable('configurations');
 
         $helper = new PostsControllerHelper();
         $helper->setConnection($connection);
@@ -57,6 +58,10 @@ class BlogsInsertController extends SetupAbstractController
 
             $inputFilter->exchangeArray( $form->getData() );
 
+            $mediaDir = $helper->checkMediaDir($configurations);
+            $mediaProject = $helper->checkMediaProject($configurations);
+            $helper->checkMediaSubDir($configurations);
+
             $languageRecords = $helper->recoverWrapperRecords(
                 new LanguagesGetterWrapper(new LanguagesGetter($em)),
                 array(
@@ -66,24 +71,33 @@ class BlogsInsertController extends SetupAbstractController
             );
             $helper->checkRecords($languageRecords,'Nessun dato relativo alle lingue');
             $inputFilter->languageId = $languageRecords[0]['id'];
+            $inputFilter->moduleId = ModulesContainer::blogs;
 
             $helper->setLoggedUser($userDetails);
             $helper->insert($inputFilter);
             $lastInsertId = $helper->getConnection()->lastInsertId();
+            /* Create thumbnail and upload big image*/
             if ($inputFilter->image) {
+
                 $imagePathInfo = pathinfo($inputFilter->image['name']);
+                $newFilename = $lastInsertId.'_'.uniqid().'.'.$imagePathInfo['extension'];
+                $thumbWitdth = isset($configurations['blogs_image_width']) ? $configurations['blogs_image_width'] : 160;
+                $thumbHeight = isset($configurations['blogs_image_height']) ? $configurations['blogs_image_height'] : 130;
+
                 $imagine = new \Imagine\Gd\Imagine();
-                $size    = new \Imagine\Image\Box(160, 130);
-                $mode    = \Imagine\Image\ImageInterface::THUMBNAIL_INSET;
-                $newFilename = '1_'.uniqid().'.'.$imagePathInfo['extension'];
                 $imagine->open($inputFilter->image['tmp_name'])
-                        ->thumbnail($size, $mode)
-                        ->save('public/frontend/media/blogs/demo/thumbs/'.$newFilename)
+                        ->thumbnail(
+                            new \Imagine\Image\Box($thumbWitdth, $thumbHeight),
+                            \Imagine\Image\ImageInterface::THUMBNAIL_INSET
+                        )
+                        ->save($mediaDir.$mediaProject.'/blogs/thumbs/'.$newFilename)
                 ;
 
-                move_uploaded_file($inputFilter->image['tmp_name'], 'public/frontend/media/blogs/demo/big/'.$newFilename);
+                move_uploaded_file($inputFilter->image['tmp_name'], $mediaDir.$mediaProject.'/blogs/big/'.$newFilename);
             }
 
+            $helper->updateImage($lastInsertId, $newFilename);
+            /* Insert Relations */
             foreach($inputFilter->categories as $category) {
                 $helper->insertRelation($inputFilter, $lastInsertId, $category);
             }
@@ -92,7 +106,7 @@ class BlogsInsertController extends SetupAbstractController
             $logWriter = new LogWriter($connection);
             $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
-                'module_id'     => ModulesContainer::albo_pretorio_id,
+                'module_id'     => ModulesContainer::blogs,
                 'message'       => "Inserita nuovo blog post ".$inputFilter->title,
                 'type'          => 'info',
                 'reference_id'  => $lastInsertId,
@@ -107,6 +121,11 @@ class BlogsInsertController extends SetupAbstractController
                 'backToSummaryLink'          => $this->url()->fromRoute('admin/blogs-summary', array(
                     'lang'              => $this->params()->fromRoute('lang'),
                     'languageSelection' => $this->params()->fromRoute('languageSelection'),
+                )),
+                'attachmentsLink' => $this->url()->fromRoute('admin/attachments-summary', array(
+                    'lang'          => $this->params()->fromRoute('lang'),
+                    'module'        => 'blogs',
+                    'referenceId'   => $lastInsertId,
                 )),
                 'backToSummaryText'     => "Elenco posts",
             ));

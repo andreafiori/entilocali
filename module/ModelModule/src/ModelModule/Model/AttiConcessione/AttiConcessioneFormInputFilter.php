@@ -13,10 +13,11 @@ class AttiConcessioneFormInputFilter implements InputFilterAwareInterface
     public $beneficiario;
     public $importo;
     public $ufficioResponsabile;
+    public $progressivo;
+    public $anno;
     public $modassegn;
     public $titolo;
     public $dataInserimento;
-    public $anno;
 
     protected $inputFilter;
 

@@ -77,7 +77,7 @@ class AttiConcessioneFormController extends SetupAbstractController
 
             } else {
 
-                $form->setData(array('anno' => date('Y')+5));
+                $form->setData( array('anno' => date('Y')) );
 
                 $formAction      = $this->url()->fromRoute('admin/atti-concessione-insert', array(
                     'lang' => $lang

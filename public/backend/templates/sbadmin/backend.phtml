@@ -380,7 +380,7 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                             <?php endif; ?>
 
                             <!-- Responsabili di procedimento -->
-                            <li><a href="<?php echo $this->url('admin/users-resp-proc-management', array('lang' => $lang)); ?>" title="Gestione">Responsabili procedimento</a></li>
+                            <li><a href="<?php echo $this->url('admin/users-responsabili-procedimento', array('lang' => $lang)); ?>" title="Gestione">Responsabili procedimento</a></li>
 
                             <?php if (!$acl->hasResource('atti_concessione_modassign_add') or $acl->hasResource('atti_concessione_modassign_update')): ?>
                                 <!-- Modalita assegnazione -->
@@ -559,7 +559,7 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                             <?php endif; ?>
 
                             <!-- Responsabili procedimento -->
-                            <li><a href="<?php echo $this->url('admin/users-resp-proc-management', array('lang' => $lang)); ?>" title="Gestione">Responsabili procedimento</a></li>
+                            <li><a href="<?php echo $this->url('admin/users-responsabili-procedimento', array('lang' => $lang)); ?>" title="Gestione">Responsabili procedimento</a></li>
 
                             <!-- Ruoli -->
                             <?php if ($acl->hasResource('users_roles_add') or $acl->hasResource('users_roles_update')): ?>
