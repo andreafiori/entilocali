@@ -4,22 +4,6 @@ namespace ModelModule\Model\Config;
 
 use Zend\Form\Form;
 
-/**
- * OTHER FILEDS:
-
-       emailnoreply, emailwebmaster
-
-        attachsizelimit
-
-        atti_concessione_basiclayout
-
-        contratti_pubblici_basiclayout
-
-        amministrazione_trasparente_basiclayout
-
-        amministrazione_trasparente_sottosezione_id   -> amm trasp id di partenza
-
- */
 class ConfigForm extends Form
 {
     public function addMainConfigs()
@@ -63,19 +47,6 @@ class ConfigForm extends Form
         ));
 
         $this->add(array(
-            'name' => 'emailcontact',
-            'type' => 'Text',
-            'options' => array('label' => '* E-mail form contatti'),
-            'attributes' => array(
-                'title'         => 'Inserisci email form contatti',
-                'id'            => 'emailcontact',
-                'placeholder'   => 'Email contatto...',
-                'required'      => 'required',
-            )
-        ));
-
-        /*
-        $this->add(array(
             'type' => 'Application\Form\Element\PlainText',
             'name' => 'paginationLabel',
             'attributes' => array(
@@ -97,7 +68,44 @@ class ConfigForm extends Form
                 'type'          => 'number'
             )
         ));
+    }
+
+    public function addContrattiPubblici()
+    {
+        /*
+         contratti_pubblici_basiclayout
+         amministrazione_trasparente_basiclayout
+         atti_concessione_basiclayout
         */
+    }
+
+    public function addEmails()
+    {
+        $this->add(array(
+            'name' => 'emailcontact',
+            'type' => 'Text',
+            'options' => array('label' => '* E-mail form contatti'),
+            'attributes' => array(
+                'title'         => 'Inserisci email form contatti',
+                'id'            => 'emailcontact',
+                'placeholder'   => 'Email contatto...',
+                'required'      => 'required',
+            )
+        ));
+
+        $this->add(array(
+            'name' => 'emailnoreply',
+            'type' => 'Text',
+            'options' => array('label' => '* E-mail noreplyi'),
+            'attributes' => array(
+                'title'         => 'Inserisci email noreply',
+                'id'            => 'emailnoreply',
+                'placeholder'   => 'Email contatto...',
+                'required'      => 'required',
+            )
+        ));
+
+        /* mailwebmaster ? */
     }
 
     public function addProject()
@@ -113,16 +121,18 @@ class ConfigForm extends Form
         ));
 
         $this->add(array(
-            'name' => 'project_frontend',
+            'name' => 'projectdir_frontend',
             'type' => 'Text',
             'options' => array('label' => '* Nome cartella progetto sito pubblico'),
             'attributes' => array(
                 'title'         => 'Frontend',
-                'id'            => 'project_frontend',
+                'id'            => 'projectdir_frontend',
                 'placeholder'   => 'Nome cartella progetto sito pubblico...',
                 'required'      => 'required',
             )
         ));
+
+        /* project_frontend */
 
         $this->add(array(
             'name' => 'project_backend',
@@ -135,13 +145,6 @@ class ConfigForm extends Form
                 'required'      => 'required',
             )
         ));
-
-        // projectdir_frontend
-
-        // atti_concessione_basiclayout     atti_concessione_basiclayout
-        // contratti_pubblici_basiclayout
-        // amministrazione_trasparente_basiclayout  amministrazione_trasparente_sezione_id
-        // amministrazione_trasparente_sottosezione_id
     }
 
     public function addTemplates()
@@ -288,5 +291,7 @@ class ConfigForm extends Form
                 'required'      => 'required',
             )
         ));
+
+        /* attachsizelimit */
     }
 }

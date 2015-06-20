@@ -2,6 +2,7 @@
 
 namespace Admin\Controller\Contenuti;
 
+use ModelModule\Model\Contenuti\ContenutiFormSearch;
 use ModelModule\Model\Contenuti\ContenutiOperationsModel;
 use Application\Controller\SetupAbstractController;
 use Zend\Session\Container as SessionContainer;
@@ -18,7 +19,7 @@ class ContenutiOperationsController extends SetupAbstractController
         if ($this->getRequest()->isPost()) {
             return $this->redirect()->toRoute('admin/contenuti-summary', array(
                 'lang'              => $this->params()->fromRoute('lang'),
-                'languageSelection' => $this->params()->fromPost('lingua'),
+                'languageSelection' => $this->params()->fromPost('languageSelection'),
                 'page'              => $this->params()->fromRoute('page'),
                 'modulename'        => $this->params()->fromRoute('modulename'),
             ));
@@ -28,43 +29,34 @@ class ContenutiOperationsController extends SetupAbstractController
     }
 
     /**
+     * TODO: delete this, use the common controller to post search both from frontend and admin area (same form)
+     *
      * Set session search for the summary
      */
     public function summarysearchAction()
     {
         if ($this->getRequest()->isPost()) {
 
+            $formSearch = new ContenutiFormSearch();
+            $formSearch->addAnno();
+            $formSearch->addInHome();
+            $formSearch->addCheckExpired();
+
             $sessioContainer = new SessionContainer();
             $sessioContainer->offsetSet('contenutiSummarySearch', array(
-                'testo'         => '',
-                'sottosezioni'  => '',
-                'inhome'        => '',
+                'testo'         => $this->params()->fromPost('testo'),
+                'sottosezioni'  => $this->params()->fromPost('sottosezioni'),
+                'inhome'        => $this->params()->fromPost('inhome'),
             ));
 
             return $this->redirect()->toRoute('admin/contenuti-summary', array(
                 'lang'              => $this->params()->fromRoute('lang'),
-                'languageSelection' => $this->params()->fromPost('lingua'),
+                'languageSelection' => $this->params()->fromRoute('languageSelection'),
                 'modulename'        => $this->params()->fromRoute('modulename'),
                 'page'              => $this->params()->fromRoute('page'),
             ));
         }
 
         return $this->redirect()->toRoute('main');
-    }
-
-    /**
-     * TODO: delete from contenuti, delete attachments (if...): attachments, options, relation, file from AWS...
-     */
-    public function deleteAction()
-    {
-        $mainLayout = $this->initializeAdminArea();
-
-        $id = $this->params()->fromPost('id');
-
-        $operationModel = new ContenutiOperationsModel();
-
-        if (empty($id)) {
-            return $this->redirect()->toRoute('admin', array('lang'=>'it'));
-        }
     }
 }

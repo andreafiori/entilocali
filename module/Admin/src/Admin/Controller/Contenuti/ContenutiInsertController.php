@@ -29,6 +29,9 @@ class ContenutiInsertController extends SetupAbstractController
             return $this->redirect()->toRoute('main');
         }
 
+        $modulename = $this->params()->fromRoute('modulename');
+        $modulenameLabel = str_replace("-", " ", $modulename);
+
         $inputFilter = new ContenutiFormInputFilter();
 
         $form = new ContenutiForm();
@@ -68,19 +71,20 @@ class ContenutiInsertController extends SetupAbstractController
             ));
 
             $this->layout()->setVariables(array(
-                'messageType'           => 'success',
-                'messageTitle'          => 'Contenuto inserito correttamente',
-                'messageText'           => 'I dati sono stati processati correttamente dal sistema',
-                'showLinkResetFormAndShowIt' => 1,
-                'backToSummaryLink'     => $this->url()->fromRoute('admin/contenuti-summary', array(
+                'messageType'                   => 'success',
+                'messageTitle'                  => 'Contenuto inserito correttamente',
+                'messageText'                   => 'I dati sono stati processati correttamente dal sistema',
+                'showLinkResetFormAndShowIt'    => 1,
+                'backToSummaryLink' => $this->url()->fromRoute('admin/'.$modulename.'-summary', array(
                     'lang'              => $this->params()->fromRoute('lang'),
                     'languageSelection' => $this->params()->fromRoute('languageSelection'),
                 )),
-                'backToSummaryText' => "Elenco contenuti",
+                'backToSummaryText'             => "Elenco contenuti",
+                'insertAgainLabel'              => "Inserisci un altro articolo \ contenuto",
                 'attachmentsLink' => $this->url()->fromRoute('admin/attachments-summary', array(
                     'lang'          => $this->params()->fromRoute('languageSelection'),
                     'module'        => 'contenuti',
-                    'referenceId'   => $inputFilter->id,
+                    'referenceId'   => $lastInsertId,
                 )),
             ));
 
@@ -92,7 +96,7 @@ class ContenutiInsertController extends SetupAbstractController
             $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
                 'module_id'     => ModulesContainer::contenuti_id,
-                'message'       => "Errore inserimento nuovo contenuto: ".$inputFilter->titolo,
+                'message'       => "Errore inserimento nuovo contenuto \ articolo: ".$inputFilter->titolo,
 				'description'   => $e->getMessage()."; Titolo: ".$inputFilter->titolo." Testo: ".$inputFilter->testo.' Sottosezione: '.$inputFilter->sottosezione,
                 'type'          => 'error',
                 'backend'       => 1,
@@ -101,7 +105,7 @@ class ContenutiInsertController extends SetupAbstractController
             $this->layout()->setVariables(array(
                 'messageType'           => 'danger',
                 'messageTitle'          => 'Errore aggiornamento contenuto',
-                'messageText'           => 'Messaggio generato: '.$e->getMessage(),
+                'messageText'           => $e->getMessage(),
                 'form'                  => $form,
                 'formInputFilter'       => $inputFilter->getInputFilter(),
                 'messageShowFormLink'   => 1,

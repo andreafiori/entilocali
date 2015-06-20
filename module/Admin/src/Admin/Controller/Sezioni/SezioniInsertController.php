@@ -81,6 +81,7 @@ class SezioniInsertController extends SetupAbstractController
                     'modulename'        => $this->params()->fromRoute('modulename'),
                 )),
                 'backToSummaryText'     => "Elenco sezioni",
+                'insertAgainLabel'      => "Inserisci un'altra sezione",
             ));
 
         } catch(\Exception $e) {

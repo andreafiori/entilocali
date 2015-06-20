@@ -70,14 +70,13 @@ class PhotoSummaryController extends SetupAbstractController
 
         $this->layout()->setVariables(array(
             'tableTitle'        => 'Foto',
-            'tableDescription'  => $paginator->getTotalItemCount().' posts in archivio',
+            'tableDescription'  => $paginator->getTotalItemCount().' foto in archivio',
             'paginator'         => $paginator,
             'records'           => $this->formatColumnRecords($postsRecords),
             'columns' => array(
                 'Foto',
                 "Titolo",
                 "Categorie",
-                //"Tags",
                 "Inserito da",
                 "Date",
                 "&nbsp;",

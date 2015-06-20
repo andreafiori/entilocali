@@ -57,15 +57,17 @@ class AlboPretorioInsertController extends SetupAbstractController
 
             $inputFilter->exchangeArray( $form->getData() );
 
-            /* Numero progressivo */
             $numeroProgressivo = $helper->recoverNumeroProgressivo(
                 new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter($em))
             );
             $inputFilter->numeroProgressivo = $numeroProgressivo;
 
             $helper->setLoggedUser($userDetails);
-            $lastInsertId = $helper->insert($inputFilter);
-            // TODO: insert in home page if homepage == 1, facebook post if faceboo == 1 and all settings about fb are ok
+            $helper->insert($inputFilter);
+            $lastInsertId = $helper->getConnection()->lastInsertId();
+
+                // TODO: insert in home page if homepage == 1, facebook post if faceboo == 1 and all settings about fb are ok
+
             $helper->getConnection()->commit();
 
             $logWriter = new LogWriter($connection);
@@ -83,10 +85,11 @@ class AlboPretorioInsertController extends SetupAbstractController
                 'messageTitle'               => 'Atto albo pretorio inserito correttamente',
                 'messageText'                => 'I dati sono stati processati correttamente dal sistema',
                 'showLinkResetFormAndShowIt' => 1,
-                'backToSummaryLink'     => $this->url()->fromRoute('admin/albo-pretorio-summary', array(
-                    'lang'              => $this->params()->fromRoute('lang'),
+                'backToSummaryLink' => $this->url()->fromRoute('admin/albo-pretorio-summary', array(
+                    'lang' => $this->params()->fromRoute('lang'),
                 )),
                 'backToSummaryText'     => "Elenco atti albo pretorio",
+                'insertAgainLabel'      => "Inserisci un altro atto",
                 'attachmentsLink' => $this->url()->fromRoute('admin/attachments-summary', array(
                     'lang'          => $this->params()->fromRoute('lang'),
                     'module'        => 'albo-pretorio',
@@ -98,7 +101,7 @@ class AlboPretorioInsertController extends SetupAbstractController
 
             try {
                 $helper->getConnection()->rollBack();
-            } catch(\Doctrine\DBAL\ConnectionException $e) {
+            } catch(\Doctrine\DBAL\ConnectionException $dbEx) {
 
             }
 
@@ -108,7 +111,7 @@ class AlboPretorioInsertController extends SetupAbstractController
                 'module_id'     => ModulesContainer::albo_pretorio_id,
                 'message'       => "Errore inserimento atto albo pretorio ".$inputFilter->titolo,
                 'description'   => $e->getMessage(),
-                'reference_id'  => $inputFilter->id,
+                'reference_id'  => isset($lastInsertId) ? $lastInsertId : 0,
                 'type'          => 'error',
                 'backend'       => 1,
             ));

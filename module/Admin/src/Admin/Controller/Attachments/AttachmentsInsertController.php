@@ -40,6 +40,7 @@ class AttachmentsInsertController extends SetupAbstractController
         $post = array_merge_recursive( $request->getPost()->toArray(), $request->getFiles()->toArray() );
 
         $inputFilter = new AttachmentsFormInputFilter();
+        $moduleCode = $this->params()->fromRoute('modulename');
 
         $form = new AttachmentsForm();
         $form->setBindOnValidate(false);
@@ -104,8 +105,8 @@ class AttachmentsInsertController extends SetupAbstractController
             $logWriter = new LogWriter($connection);
             $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
-                'module_id'     => ModulesContainer::contenuti_id,
-                'message'       => "Inserita nuovo allegato ".$inputFilter->title,
+                'module_id'     => ModulesContainer::recoverIdFromModuleCode($moduleCode),
+                'message'       => "Inserito nuovo allegato ".$inputFilter->title,
                 'type'          => 'info',
                 'reference_id'  => $lastInsertId,
                 'backend'       => 1,
@@ -117,20 +118,21 @@ class AttachmentsInsertController extends SetupAbstractController
                 'messageText'                => 'I dati sono stati processati correttamente dal sistema',
                 'showLinkResetFormAndShowIt' => 1,
                 'backToSummaryText'          => "Elenco file allegati",
+                'insertAgainLabel'           => "Inserisci un altro file allegato",
             ));
 
         } catch(\Exception $e) {
 
             try {
                 $helper->getConnection()->rollBack();
-            } catch(\Doctrine\DBAL\ConnectionException $e) {
+            } catch(\Doctrine\DBAL\ConnectionException $dbEx) {
 
             }
 
             $logWriter = new LogWriter($connection);
             $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
-                'module_id'     => ModulesContainer::contenuti_id, // TODO: get id with new static method
+                'module_id'     => ModulesContainer::recoverIdFromModuleCode($moduleCode),
                 'message'       => "Errore inserimento nuovo file allegato: ".$inputFilter->title,
                 'type'          => 'error',
                 'description'   => $e->getMessage(),

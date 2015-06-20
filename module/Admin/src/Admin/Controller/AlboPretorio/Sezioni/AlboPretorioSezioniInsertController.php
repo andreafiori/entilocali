@@ -78,6 +78,7 @@ class AlboPretorioSezioniInsertController extends SetupAbstractController
                     'lang'              => $this->params()->fromRoute('lang'),
                 )),
                 'backToSummaryText'     => "Elenco sezioni",
+                'insertAgainLabel'      => "Inserisci un'altra sezione",
             ));
 
         } catch(\Exception $e) {

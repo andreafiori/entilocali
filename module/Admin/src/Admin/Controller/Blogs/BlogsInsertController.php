@@ -122,12 +122,13 @@ class BlogsInsertController extends SetupAbstractController
                     'lang'              => $this->params()->fromRoute('lang'),
                     'languageSelection' => $this->params()->fromRoute('languageSelection'),
                 )),
+                'backToSummaryText'     => "Elenco posts",
                 'attachmentsLink' => $this->url()->fromRoute('admin/attachments-summary', array(
                     'lang'          => $this->params()->fromRoute('lang'),
                     'module'        => 'blogs',
                     'referenceId'   => $lastInsertId,
                 )),
-                'backToSummaryText'     => "Elenco posts",
+                'insertAgainLabel'           => "Inserisci un altro post",
             ));
 
         } catch(\Exception $e) {

@@ -238,6 +238,32 @@
     <div class="row">
         <div class="col-sm-2">&nbsp;</div>
         <div class="col-sm-10">
+            <h3>Newsletter</h3>
+            <?php
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
+                    'records'   => $this->permissions['newsletter'],
+                    'roleName'  => $this->roleName,
+                    'acl'       => $this->acl
+                )
+            );
+            ?>
+
+            <h4>Templates</h4>
+            <?php
+            echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(
+                    'records'   => $this->permissions['newsletter_templates'],
+                    'roleName'  => $this->roleName,
+                    'acl'       => $this->acl
+                )
+            );
+            ?>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-2">&nbsp;</div>
+        <div class="col-sm-10">
             <h3>Gestione Utenti</h3>
             <?php
             echo $this->partial($this->templateDir.'users/_roles-permissions-group-print.phtml', array(

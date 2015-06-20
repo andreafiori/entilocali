@@ -4,7 +4,6 @@ namespace ModelModule\Model\Users\Roles;
 
 use ModelModule\Model\ControllerHelperAbstract;
 use ModelModule\Model\Database\DbTableContainer;
-use ModelModule\Model\NullException;
 use Zend\InputFilter\InputFilterAwareInterface;
 
 class UsersRolesControllerHelper extends ControllerHelperAbstract
@@ -53,18 +52,42 @@ class UsersRolesControllerHelper extends ControllerHelperAbstract
         );
     }
 
-    public function delete()
+    /**
+     * Delete permission relation on database
+     *
+     * @param $roleId
+     */
+    public function deleteAllRolePermissions($roleId)
     {
+        $this->assertConnection();
 
+        $this->getConnection()->query('SET FOREIGN_KEY_CHECKS=0');
+        $this->getConnection()->delete(
+            DbTableContainer::usersRolesPermissionsRelations,
+            array('role_id' => $roleId)
+        );
+        $this->getConnection()->query('SET FOREIGN_KEY_CHECKS=1');
     }
 
+    /**
+     * Insert permission relation on database
+     *
+     * @param int $roleId
+     * @param int $permissionId
+     * @return int
+     */
     public function insertPermissionRelation($roleId, $permissionId)
     {
+        $this->assertConnection();
 
-    }
+        $this->getConnection()->insert(
+            DbTableContainer::usersRolesPermissionsRelations,
+            array(
+                'role_id'       => $roleId,
+                'permission_id' => $permissionId,
+            )
+        );
 
-    public function deletePermissionRelation($roleId, $permissionId)
-    {
-
+        return $this->getConnection()->lastInsertId();
     }
 }

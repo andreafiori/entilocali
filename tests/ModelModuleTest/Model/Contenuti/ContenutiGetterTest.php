@@ -153,4 +153,11 @@ class ContenutiGetterTest extends TestSuite
 
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('lingua'));
     }
+
+    public function testSetInhome()
+    {
+        $this->objectGetter->setInHome(1);
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('inhome'));
+    }
 }

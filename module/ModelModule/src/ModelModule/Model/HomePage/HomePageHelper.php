@@ -20,11 +20,9 @@ class HomePageHelper extends ControllerHelperAbstract
         'contenuti'                     => '\ModelModule\Model\Contenuti\ContenutiHomePageBuilder',
         'albo-pretorio'                 => '\ModelModule\Model\AlboPretorio\AlboPretorioHomePageBuilder',
         'stato-civile'                  => '\ModelModule\Model\StatoCivile\StatoCivileHomePageBuilder',
-        'amministrazione-trasparente'   => '',
         'atti-concessione'              => '\ModelModule\Model\AttiConcessione\AttiConcessioneHomePageBuilder',
         'contratti-pubblici'            => '\ModelModule\Model\ContrattiPubblici\ContrattiPubbliciHomePageBuilder',
         'blogs'                         => '\ModelModule\Model\Blogs\BlogsHomePageBuilder',
-        'contents'                      => '',
         'photo'                         => '\ModelModule\Model\Photo\PhotoHomePageBuilder',
         'freeText'                      => '\ModelModule\Model\HomePage\FreeTextHomePageBuilder'
     );

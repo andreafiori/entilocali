@@ -87,6 +87,7 @@ class AttiConcessioneInsertController extends SetupAbstractController
                     'modulename'        => $this->params()->fromRoute('modulename'),
                 )),
                 'backToSummaryText'     => "Elenco atti",
+                'insertAgainLabel'      => "Inserisci un altro atto",
             ));
 
         } catch(\Exception $e) {

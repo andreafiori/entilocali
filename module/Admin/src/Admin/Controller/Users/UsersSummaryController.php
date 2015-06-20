@@ -64,8 +64,28 @@ class UsersSummaryController extends SetupAbstractController
         if ($records) {
             foreach($records as $key => $row) {
 
-                if ($row['roleName']!='WebMaster') {
-                    $role = array(
+                if (!empty($row['nomeSettore'])) {
+                    $settore = array(
+                        'type' => 'link',
+                        'href' => $this->url()->fromRoute('admin/users-settori-summary', array(
+                            'lang' => $this->params()->fromRoute('lang'),
+                        )),
+                        'label' => $row['nomeSettore'],
+                        'title' => 'Vai alla gestione settori utente',
+                    );
+                } else {
+                    $settore = '&nbsp;';
+                }
+
+                $arrayToReturn[] = array(
+                    $row['name'],
+                    array(
+                        'type'  => 'link',
+                        'href'  => 'mailto:'.$row['email'],
+                        'label' => $row['email'],
+                        'title' => 'Scrivi a '.$row['name'].' '.$row['surname'],
+                    ),
+                    array(
                         'type' => 'link',
                         'href' => $this->url()->fromRoute('admin/users-roles-form', array(
                             'lang' => $this->params()->fromRoute('lang'),
@@ -73,24 +93,15 @@ class UsersSummaryController extends SetupAbstractController
                         )),
                         'label' => $row['roleName'],
                         'title' => 'Vai alla gestione ruoli e permessi per '.$row['roleName'],
-                    );
-                } else {
-                    $role = $row['roleName'];
-                }
-
-                $arrayToReturn[] = array(
-                    $row['name'],
-                    '<a href="mailto:'.$row['email'].'" title="Scrivi a '.$row['name'].' '.$row['surname'].'">'.$row['email'].'</a>',
-                    $role,
-                    (!empty($row['nomeSettore'])) ? $row['nomeSettore'] : '&nbsp;',
+                    ),
+                    $settore,
                     $row['lastUpdate'],
                     array(
                         'type' => 'updateButton',
                         'href' => $this->url()->fromRoute('admin/users-form', array(
-                                'lang'   => $this->params()->fromRoute('lang'),
-                                'id'     => $row['id']
-                            )
-                        ),
+                            'lang'   => $this->params()->fromRoute('lang'),
+                            'id'     => $row['id']
+                        )),
                         'title' => 'Modifica utente'
                     ),
                     array(

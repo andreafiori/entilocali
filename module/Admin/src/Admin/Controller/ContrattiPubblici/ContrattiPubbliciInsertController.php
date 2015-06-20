@@ -75,10 +75,16 @@ class ContrattiPubbliciInsertController extends SetupAbstractController
                 'messageTitle'               => 'Bando di gara inserito correttamente',
                 'messageText'                => 'I dati sono stati processati correttamente dal sistema',
                 'showLinkResetFormAndShowIt' => 1,
-                'backToSummaryLink'          => $this->url()->fromRoute('admin/sezioni-summary', array(
+                'backToSummaryLink'          => $this->url()->fromRoute('admin/contratti-pubblici-summary', array(
                     'lang' => $this->params()->fromRoute('lang'),
                 )),
                 'backToSummaryText'     => "Elenco bandi di gara e contratti",
+                'attachmentsLink' => $this->url()->fromRoute('admin/attachments-summary', array(
+                    'lang'          => $this->params()->fromRoute('languageSelection'),
+                    'module'        => 'contratti-pubblici',
+                    'referenceId'   => $lastInsertId,
+                )),
+                'insertAgainLabel'      => "Inserisci un altro bando foto",
             ));
 
         } catch(\Exception $e) {

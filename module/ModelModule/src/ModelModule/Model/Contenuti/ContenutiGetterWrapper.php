@@ -4,10 +4,6 @@ namespace ModelModule\Model\Contenuti;
 
 use ModelModule\Model\RecordsGetterWrapperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  11 January 2015
- */
 class ContenutiGetterWrapper extends RecordsGetterWrapperAbstract
 {
     /**     
@@ -46,6 +42,7 @@ class ContenutiGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setSezioneId( $this->getInput('sezioneId', 1) );
         $this->objectGetter->setShowToAll( $this->getInput('showToAll', 1) );
         $this->objectGetter->setLingua( $this->getInput('lingua', 1) );
+        $this->objectGetter->setInHome( $this->getInput('inhome', 1) );
         $this->objectGetter->setLanguageAbbreviation( $this->getInput('languageAbbreviation', 1) );
         $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
         $this->objectGetter->setGroupBy( $this->getInput('groupBy', 1) );

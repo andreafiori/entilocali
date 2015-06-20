@@ -6,7 +6,7 @@ use Zend\ServiceManager\ServiceManager;
 use Zend\Mvc\Service;
 use ModelModuleTest\TestSuite;
 
-class FixtureServiceAbstractTest //extends TestSuite
+class FixtureServiceAbstractTest extends TestSuite
 {
     protected function setUp()
     {
@@ -24,13 +24,10 @@ class FixtureServiceAbstractTest //extends TestSuite
         $zendConfig = $sm->get('config');
 
         try {
-
             $this->assertInstanceOf('\Doctrine\ORM\EntityManager', $sm->get('Doctrine\ORM\EntityManager'));
-
         } catch(\Zend\ServiceManager\Exception\ServiceNotCreatedException $e) {
 
             $this->assertFalse(false);
-
         }
     }
 }

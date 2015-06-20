@@ -78,6 +78,7 @@ class SettoriInsertController extends SetupAbstractController
                     'lang' => $this->params()->fromRoute('lang'),
                 )),
                 'backToSummaryText'          => "Elenco settori",
+                'insertAgainLabel'           => "Inserisci un altro settore",
             ));
 
         } catch(\Exception $e) {

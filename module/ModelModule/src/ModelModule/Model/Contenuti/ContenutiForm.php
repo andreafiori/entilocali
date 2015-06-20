@@ -45,11 +45,11 @@ class ContenutiForm extends Form
         $this->add(array(
             'name' => 'sommario',
             'type' => 'Textarea',
-            'options' => array('label' => 'Sotto titolo'),
+            'options' => array('label' => 'Sottotitolo'),
             'attributes' => array(
                 'id' => 'sommario',
-                'placeholder'   => 'Sotto titolo...',
-                'title'         => 'Inserisci sotto titolo',
+                'placeholder'   => 'Sottotitolo...',
+                'title'         => 'Inserisci sottotitolo',
                 'maxlength'     => 200,
             )
         ));
@@ -73,7 +73,6 @@ class ContenutiForm extends Form
                 'format' => 'Y-m-d H:i:s',
             ),
             'attributes' => array(
-                'style'         => 'width: 22%',
                 'id'            => 'dataInserimento',
                 'title'         => 'Seleziona data inserimento',
                 'required'      => 'required',
@@ -89,7 +88,6 @@ class ContenutiForm extends Form
                 'format'    => 'Y-m-d H:i:s',
             ),
             'attributes' => array(
-                'style'         => 'width: 22%',
                 'id'            => 'dataScadenza',
                 'title'         => 'Seleziona data scadenza',
                 'required'      => 'required',

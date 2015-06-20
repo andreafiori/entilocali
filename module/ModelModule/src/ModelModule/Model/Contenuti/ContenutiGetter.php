@@ -257,7 +257,7 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
     }
 
     /**
-     * @param $lingua
+     * @param string $lingua
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function setLingua($lingua)
@@ -279,6 +279,39 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
         if ( !empty($abbreviation) ) {
             $this->getQueryBuilder()->andWhere('languages.abbreviation1 = :languageAbbreviation ');
             $this->getQueryBuilder()->setParameter('languageAbbreviation', $abbreviation);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * Set "is in home page" option
+     *
+     * @param int $inhome
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setInHome($inhome)
+    {
+        if ( !empty($inhome) ) {
+            $this->getQueryBuilder()->andWhere('contenuti.home = :inhome ');
+            $this->getQueryBuilder()->setParameter('inhome', $inhome);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * Free text research
+     *
+     * @param string $search
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setFreeSearch($search)
+    {
+        if (!empty($search)) {
+            $this->getQueryBuilder()->andWhere(' ( contenuti.titolo LIKE :freeSearch OR contenuti.testo LIKE :freeSearch
+            OR sezione.nome LIKE :freeSearch ) ');
+            $this->getQueryBuilder()->setParameter('freeSearch', $search);
         }
 
         return $this->getQueryBuilder();

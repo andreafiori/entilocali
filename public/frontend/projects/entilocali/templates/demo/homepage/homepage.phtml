@@ -1,5 +1,5 @@
 <?php
-
+$lang = $this->params()->fromRoute('lang') ? $this->params()->fromRoute('lang') : 'it';
 if ($this->homepage):
 
     foreach($this->homepage as $key => $value):
@@ -16,7 +16,7 @@ if ($this->homepage):
                             <div class="media-body">
                                 <h4 class="media-heading"><?php echo $content['title']; ?></h4>
                                 <div><?php echo $this->TextShortener($content['description'], 30, 30); ?></div>
-                                <div><a href="<?php echo $this->basepath().$content['linkDetails'] ?>" class="btn btn-primary" role="button">Leggi</a></div>
+                                <div><a href="#" class="btn btn-primary" role="button">Leggi</a></div>
                             </div>
                         </div>
                     </div>
@@ -26,10 +26,10 @@ if ($this->homepage):
         <?php
         elseif ($key == 'contenuti'):
             ?>
-            <h3>Pagine in evidenza</h3>
+            <h3>In evidenza</h3>
             <?php foreach($value as $record): ?>
             <div>
-                <a href="<?php echo '#'; // echo $this->url('contents', array('subsectionid' => $record['sottosezione'])) ?>" title="Vai alla pagina <?php echo $record['titolo'] ?>">
+                <a href="<?php echo $this->url('main/contenuti', array('lang' => $lang, 'subsectionid' => $record['sottosezione'])) ?>" title="Vai alla pagina <?php echo $record['titolo'] ?>">
                     <?php echo $record['titolo'] ?>
                 </a>
             </div>

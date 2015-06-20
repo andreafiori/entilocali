@@ -70,6 +70,7 @@ $shareIconsView = $this->partial('frontend/projects/entilocali/templates/'.$this
         <div class="large-2 columns">
             <?php echo $this->formElement($form->get('importo')); ?>
         </div>
+
     </div>
 
     <div class="row">
@@ -84,13 +85,12 @@ $shareIconsView = $this->partial('frontend/projects/entilocali/templates/'.$this
     </div>
 
     <div class="row">
-        <div class="large-2 columns">
-            <label for="<?php echo $form->get('search')->getAttribute('id'); ?>">
-                <?php echo $form->get('search')->getLabel() ?>:
-            </label>
-        </div>
+        <div class="large-2 columns">&nbsp;</div>
         <div class="large-10 columns">
-            <?php echo $this->formElement($form->get('search')); ?>
+            <label for="<?php echo $form->get('search')->getAttribute('id'); ?>">
+                <?php echo $form->get('search')->getLabel() ?>
+                <?php echo $this->formElement($form->get('search')); ?>
+            </label>
         </div>
     </div>
 
@@ -154,7 +154,7 @@ $shareIconsView = $this->partial('frontend/projects/entilocali/templates/'.$this
                             <ul class="no-bullet">
                                 <?php foreach($row['attachments'] as $attachment): ?>
                                     <li>
-                                        <a href="<?php echo $this->publicDirRelativePath ?>/common/icons/attachments/<?php echo $attachment['image'] ?>" title="Scarica allegato <?php echo $attachment['title'] ?> (<?php echo $attachment['size'] ?> Kb)">
+                                        <a href="<?php echo $this->url('attachments-sthree-download', array('type' => 'contratti-pubblici', 'id' => $attachment['id'])); ?>" title="Scarica allegato <?php echo $attachment['title'] ?> (<?php echo $attachment['size'] ?> Kb)">
                                             <img src="<?php echo $this->publicDirRelativePath ?>/common/icons/attachments/<?php echo $attachment['image'] ?>" alt="Icona per <?php echo $attachment['title'] ?> (<?php echo $attachment['size'] ?> Kb)">
                                             <?php echo $attachment['title'] ?>
                                         </a>

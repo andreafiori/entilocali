@@ -79,6 +79,7 @@ class EntiTerziInsertController extends SetupAbstractController
                     'lang'              => $this->params()->fromRoute('lang'),
                 )),
                 'backToSummaryText'     => "Elenco enti",
+                'insertAgainLabel'      => "Inserisci un altro ente",
             ));
 
         } catch(\Exception $e) {

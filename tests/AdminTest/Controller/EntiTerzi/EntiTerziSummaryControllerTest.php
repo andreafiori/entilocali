@@ -19,6 +19,8 @@ class EntiTerziSummaryControllerTest extends TestSuite
         $this->controller = new EntiTerziSummaryController();
         $this->controller->setEvent($this->event);
         $this->controller->setServiceLocator($this->getServiceManager());
+
+        $this->setupUserSession($this->recoverUserDetails());
     }
 
     public function testIndexAction()

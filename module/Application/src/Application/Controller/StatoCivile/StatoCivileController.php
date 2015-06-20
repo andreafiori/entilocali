@@ -57,7 +57,7 @@ class StatoCivileController extends SetupAbstractController
             $wrapper->addAttachmentsToPaginatorRecords(
                 $wrapper->setupRecords(),
                 array(
-                    'moduleId' => ModulesContainer::stato_civile_id,
+                    'moduleId'  => ModulesContainer::stato_civile_id,
                     'noScaduti' => 1,
                 )
             );

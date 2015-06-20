@@ -28,7 +28,7 @@ return array(
             'Application\Controller\Blogs\Blogs'                                            => 'Application\Controller\Blogs\BlogsController',
             'Application\Controller\Blogs\BlogsExport'                                      => 'Application\Controller\Blogs\BlogsExportController',
             'Application\Controller\Blogs\BlogsExportSingle'                                => 'Application\Controller\Blogs\BlogsExportSingleController',
-            'Application\Controller\Photo\Photo'                                            => 'Application\Controller\Posts\PhotoController',
+            'Application\Controller\Photo\Photo'                                            => 'Application\Controller\Photo\PhotoController',
             'Application\Controller\CookieWarning'                                          => 'Application\Controller\CookieWarningController',
         ),
     ),
@@ -51,9 +51,53 @@ return array(
                                             'contenuti' => array(
                                                 'type'    => 'segment',
                                                 'options' => array(
-                                                    'route' => 'contents/node/[:subsectionid[/]]',
+                                                    'route' => 'contenuti/articoli/dettagli/:subsectionid[/]',
                                                     'constraints' => array(
                                                         'subsectionid' => '[0-9]+',
+                                                    ),
+                                                    'defaults' => array(
+                                                        'controller' => 'Application\Controller\Contenuti\Contenuti',
+                                                        'action'     => 'index',
+                                                    ),
+                                                ),
+                                                'may_terminate' => true,
+                                            ),
+                                            'contenuti-export' => array(
+                                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                                'options' => array(
+                                                    'route'    => 'contenuti/export/:action[/]',
+                                                    'constraints' => array(
+                                                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                    ),
+                                                    'defaults' => array(
+                                                        'controller' => 'Application\Controller\Contenuti\ContenutiExport',
+                                                        'action'     => 'index',
+                                                    ),
+                                                ),
+                                                'may_terminate' => true,
+                                            ),
+                                            'contenuti-export-single' => array(
+                                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                                'options' => array(
+                                                    'route'    => 'common/:modulename/export/single/:action/:id[/]',
+                                                    'constraints' => array(
+                                                        'modulename'    => '(contenuti|amministrazione-trasparente)',
+                                                        'action'        => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                        'id'            => '[0-9]+',
+                                                    ),
+                                                    'defaults' => array(
+                                                        'controller' => 'Application\Controller\Contenuti\ContenutiExportSingle',
+                                                        'action'     => 'index',
+                                                    ),
+                                                ),
+                                                'may_terminate' => true,
+                                            ),
+                                            'contenuti-search' => array(
+                                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                                'options' => array(
+                                                    'route'    => 'contenuti/export/:action[/]',
+                                                    'constraints' => array(
+                                                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                                     ),
                                                     'defaults' => array(
                                                         'controller' => 'Application\Controller\Contenuti\Contenuti',
@@ -113,19 +157,20 @@ return array(
                                             'photo-gallery' => array(
                                                 'type' => 'segment',
                                                 'options' => array(
-                                                    'route' => '/photo/gallery[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                                                    'route' => 'foto/galleria[/][pag/:page[/]][/order_by/:order_by][/:order[/]]',
                                                     'constraints' => array(
                                                         'page'        => '[0-9]+',
                                                         'order_by'    => '[a-zA-Z][a-zA-Z0-9_-]*',
                                                         'order'       => 'ASC|DESC',
                                                     ),
                                                     'defaults' => array(
-                                                        'controller' => 'Application\Controller\Posts\Photo',
+                                                        'controller' => 'Application\Controller\Photo\Photo',
                                                         'action'     => 'index',
                                                     ),
                                                 ),
                                                 'may_terminate' => true,
                                             ),
+                                            /*
                                             'photo-gallery-details' => array(
                                                 'type' => 'segment',
                                                 'options' => array(
@@ -135,12 +180,13 @@ return array(
                                                         'title'     => '[a-zA-Z][a-zA-Z0-9_-]*',
                                                     ),
                                                     'defaults' => array(
-                                                        'controller' => 'Application\Controller\Posts\Photo',
-                                                        'action'     => 'index',
+                                                        'controller' => 'Application\Controller\Photo\Photo',
+                                                        'action'     => 'details',
                                                     ),
                                                 ),
                                                 'may_terminate' => true,
                                             ),
+                                            */
                                         ),
                                     ),
                                     'notfound' => array(
@@ -153,35 +199,6 @@ return array(
                                                         ),
                                                     ),
                                                     'may_terminate' => true,
-                                    ),
-                                    'contenuti-export' => array(
-                                                'type' => 'Zend\Mvc\Router\Http\Segment',
-                                                'options' => array(
-                                                    'route'    => '/contenuti/export/:action[/]',
-                                                    'constraints' => array(
-                                                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                    ),
-                                                    'defaults' => array(
-                                                        'controller' => 'Application\Controller\Contenuti\ContenutiExport',
-                                                        'action'     => 'index',
-                                                    ),
-                                                ),
-                                                'may_terminate' => true,
-                                    ),
-                                    'contenuti-export-single' => array(
-                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
-                                        'options' => array(
-                                            'route'    => '/contenuti/export/single/:action/:id[/]',
-                                            'constraints' => array(
-                                                'action'    => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                                'id'        => '[0-9]+',
-                                            ),
-                                            'defaults' => array(
-                                                'controller' => 'Application\Controller\Contenuti\ContenutiExportSingle',
-                                                'action'     => 'index',
-                                            ),
-                                        ),
-                                        'may_terminate' => true,
                                     ),
                                     'css-style-switch' => array(
                                                 'type'    => 'segment',

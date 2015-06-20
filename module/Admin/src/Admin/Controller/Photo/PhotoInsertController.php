@@ -122,6 +122,7 @@ class PhotoInsertController extends SetupAbstractController
                     'lang'              => $this->params()->fromRoute('lang'),
                     'languageSelection' => $this->params()->fromRoute('languageSelection'),
                 )),
+                'insertAgainLabel'      => "Inserisci un'altra foto",
                 'backToSummaryText'     => "Elenco foto",
             ));
 
@@ -146,7 +147,7 @@ class PhotoInsertController extends SetupAbstractController
             $this->layout()->setVariables(array(
                 'messageType'           => 'danger',
                 'messageTitle'          => 'Errore inserimento nuova foto',
-                'messageText'           => 'Messaggio generato: '.$e->getMessage(),
+                'messageText'           => $e->getMessage(),
                 'form'                  => $form,
                 'formInputFilter'       => $inputFilter->getInputFilter(),
                 'messageShowFormLink'   => 1,

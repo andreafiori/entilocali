@@ -2,6 +2,7 @@
 
 namespace Application\Controller\Photo;
 
+use ModelModule\Model\Posts\PostsControllerHelper;
 use ModelModule\Model\Posts\PostsGetter;
 use ModelModule\Model\Posts\PostsGetterWrapper;
 use Application\Controller\SetupAbstractController;
@@ -14,31 +15,41 @@ class PhotoController extends SetupAbstractController
 
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-        $page       = $this->params()->fromRoute('page');
+        $page = $this->params()->fromRoute('page');
 
-        $wrapper = new PostsGetterWrapper( new PostsGetter($em) );
-        $wrapper->setInput(array(
-            'moduleCode'    => 'photo',
-            'orderBy'       => 'p.id DESC',
-        ));
-        $wrapper->setupQueryBuilder();
-        $wrapper->setupPaginator( $wrapper->setupQuery($em) );
-        $wrapper->setupPaginatorCurrentPage($page);
-        $wrapper->setupPaginatorItemsPerPage(null);
-        $wrapper->setEntityManager($em);
+        $configurations = $this->layout()->getVariable('configurations');
+        $directoryThumb = $configurations['media_dir'].$configurations['media_project'].'photo/thumbs/';
+        $directoryBig = $configurations['media_dir'].$configurations['media_project'].'photo/big/';
+
+        $helper = new PostsControllerHelper();
+        $wrapper = $helper->recoverWrapperRecordsPaginator(
+            new PostsGetterWrapper(new PostsGetter($em)),
+            array(
+                'moduleCode' => 'photo',
+                'orderBy'    => 'p.id DESC',
+            ),
+            $page,
+            null
+        );
 
         $paginator = $wrapper->getPaginator();
 
-        $records = $wrapper->addAttachmentsToPaginatorRecords($wrapper->setupRecords(), array());
+        $records =$wrapper->setupRecords();
 
         $this->layout()->setVariables(array(
-                'records'           => $records,
-                'paginator'         => $paginator,
-                'item_count'        => $paginator->getTotalItemCount(),
-                'templatePartial'   => 'posts/photo/list.phtml'
-            )
-        );
+            'directoryThumb'        => $directoryThumb,
+            'directoryBig'          => $directoryBig,
+            'records'               => $records,
+            'paginator'             => $paginator,
+            'item_count'            => $paginator->getTotalItemCount(),
+            'templatePartial'       => 'posts/photo/list.phtml'
+        ));
 
         $this->layout()->setTemplate($mainLayout);
+    }
+
+    public function details()
+    {
+
     }
 }

@@ -13,10 +13,7 @@ return array(
             'Admin\Controller\Attachments\AttachmentsInsert'                    => 'Admin\Controller\Attachments\AttachmentsInsertController',
             'Admin\Controller\Attachments\AttachmentsUpdate'                    => 'Admin\Controller\Attachments\AttachmentsUpdateController',
 
-            /* Insert and update Ajax POSTs (TO DELETE) */
-            'Admin\Controller\FormDataPost'                                     => 'Admin\Controller\FormDataPostController',
-
-            /* Contenuti e Amministrazione trasparente */
+            /* Contenuti, Amministrazione trasparente */
             'Admin\Controller\Contenuti\ContenutiSummary'                       => 'Admin\Controller\Contenuti\ContenutiSummaryController',
             'Admin\Controller\Contenuti\ContenutiForm'                          => 'Admin\Controller\Contenuti\ContenutiFormController',
             'Admin\Controller\Contenuti\ContenutiEnableDisable'                 => 'Admin\Controller\Contenuti\ContenutiEnableDisableController',
@@ -24,6 +21,7 @@ return array(
             'Admin\Controller\Contenuti\ContenutiOperations'                    => 'Admin\Controller\Contenuti\ContenutiOperationsController',
             'Admin\Controller\Contenuti\ContenutiInsert'                        => 'Admin\Controller\Contenuti\ContenutiInsertController',
             'Admin\Controller\Contenuti\ContenutiUpdate'                        => 'Admin\Controller\Contenuti\ContenutiUpdateController',
+            'Admin\Controller\Contenuti\ContenutiDelete'                        => 'Admin\Controller\Contenuti\ContenutiDeleteController',
             'Admin\Controller\Contenuti\ContenutiTabellaForm'                   => 'Admin\Controller\Contenuti\ContenutiTabellaFormController',
             'Admin\Controller\Contenuti\ContenutiTabellaUpdate'                 => 'Admin\Controller\Contenuti\ContenutiTabellaUpdateController',
 
@@ -294,11 +292,12 @@ return array(
                     'contenuti-operations' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => 'common/:modulename/operations/:action[/][:id[/]]',
+                            'route' => 'common/:modulename/lang/:languageSelection/operations/:action[/][:id[/]]',
                             'constraints' => array(
-                                'action'        => '[a-zA-Z0-9_-]*',
-                                'modulename'    => '[a-zA-Z0-9_-]*',
-                                'id'            => '[0-9]+',
+                                'action'            => '[a-zA-Z0-9_-]*',
+                                'languageSelection' => '[a-z]{2}',
+                                'modulename'        => '[a-zA-Z0-9_-]*',
+                                'id'                => '[0-9]+',
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Contenuti\ContenutiOperations',
@@ -473,9 +472,9 @@ return array(
                         'options' => array(
                             'route' => 'sezioni/:modulename/form/lang/:languageSelection/update/',
                             'defaults' => array(
-                                'controller' => 'Admin\Controller\Sezioni\SezioniUpdate',
-                                'action'     => 'index',
-                                'modulename'         => '(contenuti|amministrazione-trasparente)',
+                                'controller'    => 'Admin\Controller\Sezioni\SezioniUpdate',
+                                'action'        => 'index',
+                                'modulename'    => '(contenuti|amministrazione-trasparente)',
                             ),
                         ),
                     ),
@@ -660,6 +659,20 @@ return array(
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Attachments\AttachmentsUpdate',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'attachments-delete' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route'       => 'attachments/form/delete/:modulename[/][:id[/]]',
+                            'constraints' => array(
+                                'modulename'    => '[a-zA-Z0-9_-]*',
+                                'id'            => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Attachments\AttachmentsDelete',
                                 'action'     => 'index',
                             ),
                         ),
@@ -1920,6 +1933,7 @@ return array(
             'admin/contratti-pubblici-operatori-insert/index'           => __DIR__ . '/../view/admin/empty.phtml',
             'admin/contratti-pubblici-operatori-update/index'           => __DIR__ . '/../view/admin/empty.phtml',
             'admin/contratti-pubblici-operatori-delete/index'           => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/operatori-aggiudicatari/index'                       => __DIR__ . '/../view/admin/empty.phtml',
             'admin/contratti-pubblici-scelta-contraente-form/index'     => __DIR__ . '/../view/admin/empty.phtml',
             'admin/contratti-pubblici-scelta-contraente-insert/index'   => __DIR__ . '/../view/admin/empty.phtml',
             'admin/contratti-pubblici-scelta-contraente-update/index'   => __DIR__ . '/../view/admin/empty.phtml',
@@ -1980,8 +1994,8 @@ return array(
             'admin/users-insert/index'                      => __DIR__ . '/../view/admin/empty.phtml',
             'admin/users-update/index'                      => __DIR__ . '/../view/admin/empty.phtml',
             'admin/users-roles-form/index'                  => __DIR__ . '/../view/admin/empty.phtml',
-            'admin/users-roles-insert/index'                  => __DIR__ . '/../view/admin/empty.phtml',
-            'admin/users-roles-update/index'                  => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/users-roles-insert/index'                => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/users-roles-update/index'                => __DIR__ . '/../view/admin/empty.phtml',
             'admin/users-roles-summary/index'               => __DIR__ . '/../view/admin/empty.phtml',
             'admin/users-resp-proc/index'                   => __DIR__ . '/../view/admin/empty.phtml',
 
@@ -2005,6 +2019,8 @@ return array(
 
             'admin/form-data-post/index'                    => __DIR__ . '/../view/admin/empty.phtml',
             'admin/admin/migrazione'                        => __DIR__ . '/../view/migrazione.phtml',
+
+            'admin/configurations-form/index'               => __DIR__ . '/../view/migrazione.phtml',
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view/',

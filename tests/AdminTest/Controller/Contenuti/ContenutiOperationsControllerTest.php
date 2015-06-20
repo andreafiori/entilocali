@@ -33,7 +33,10 @@ class ContenutiOperationsControllerTest extends TestSuite
 
     public function testChangesummarylangActionReturnsRedirectAfterPost()
     {
-        $this->request->setMethod(Request::METHOD_POST)->getPost()->fromArray(array('lingua' => 'en'));
+        $this->request->setMethod(Request::METHOD_POST)->getPost()->fromArray(array(
+            'lingua' => 'en',
+            'languageSelection' => 'it'
+        ));
 
         $this->routeMatch->setParam('action', 'changesummarylang');
         $this->routeMatch->setParam('lang', 'it');

@@ -71,15 +71,16 @@ class SottoSezioniInsertController extends SetupAbstractController
 
             $this->layout()->setVariables(array(
                 'messageType'                => 'success',
-                'messageTitle'               => 'Sezione inserita correttamente',
+                'messageTitle'               => 'Sottosezione inserita correttamente',
                 'messageText'                => 'I dati sono stati processati correttamente dal sistema',
                 'showLinkResetFormAndShowIt' => 1,
-                'backToSummaryLink'     => $this->url()->fromRoute('admin/sezioni-summary', array(
+                'backToSummaryLink'     => $this->url()->fromRoute('admin/sottosezioni-summary', array(
                     'lang'              => $this->params()->fromRoute('lang'),
                     'languageSelection' => $this->params()->fromRoute('languageSelection'),
                     'modulename'        => $this->params()->fromRoute('modulename'),
                 )),
-                'backToSummaryText'     => "Elenco sezioni",
+                'backToSummaryText'     => "Elenco sottosezioni",
+                'insertAgainLabel'      => "Inserisci un'altra sottosezione",
             ));
 
         } catch(\Exception $e) {

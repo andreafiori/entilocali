@@ -13,7 +13,9 @@
         </div>
 
         <?php if (isset($record['sommario'])): ?>
-            <div><?php echo $record['sommario'] ?></div>
+        <div>
+            <p><strong><?php echo $record['sommario'] ?></strong></p>
+        </div>
         <?php endif; ?>
 
         <div>
@@ -47,7 +49,12 @@
 
         <?php
         echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
-            'twitterShareText' => urlencode($record['titolo']),
+            'exportTxtUrl'          => $this->url('main/contenuti-export-single', array('lang' => $this->lang, 'modulename' => 'contenuti', 'action' => 'txt', 'id' => $record['id'])),
+            'exportCsvUrl'          => '',
+            'exportPdfUrl'          => $this->url('main/contenuti-export-single', array('lang' => $this->lang, 'modulename' => 'contenuti', 'action' => 'pdf', 'id' => $record['id'])),
+            'exportXMLUrl'          => '',
+            'exportJSONUrl'         => $this->url('main/contenuti-export-single', array('lang' => $this->lang, 'modulename' => 'contenuti', 'action' => 'json', 'id' => $record['id'])),
+            'twitterShareText'      => urlencode($record['titolo']),
             'publicDirRelativePath' => $this->publicDirRelativePath,
         ));
         ?>

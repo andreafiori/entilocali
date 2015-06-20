@@ -1,10 +1,15 @@
 <?php
 
-$titolo = (!empty($this->contenuti[0]['titolo'])) ? utf8_encode($this->contenuti[0]['titolo']) : null;
+$titolo = (!empty($this->contenuti[0]['titolo'])) ? $this->contenuti[0]['titolo']: null;
 
 /* Share and export icons */
 $shareExportIcons = $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
-    'twitterShareText'      => urlencode( utf8_encode($titolo) ),
+    'exportTxtUrl'          => $this->url('main/contenuti-export-single', array('lang' => $this->lang, 'modulename' => 'contenuti', 'action' => 'txt', 'id' => $this->contenuti[0]['id'])),
+    'exportCsvUrl'          => '',
+    'exportPdfUrl'          => $this->url('main/contenuti-export-single', array('lang' => $this->lang, 'modulename' => 'contenuti', 'action' => 'pdf', 'id' => $this->contenuti[0]['id'])),
+    'exportXMLUrl'          => '',
+    'exportJSONUrl'         => $this->url('main/contenuti-export-single', array('lang' => $this->lang, 'modulename' => 'contenuti', 'action' => 'json', 'id' => $this->contenuti[0]['id'])),
+    'twitterShareText'      => urlencode($titolo),
     'publicDirRelativePath' => $this->publicDirRelativePath,
 ));
 
@@ -108,9 +113,8 @@ echo $this->form()->openTag($this->form);
         }
         ?>
         <li>
-            <a href="<?php echo $urlSottoSezione ?>"
-               title="Vai alla sezione <?php echo utf8_encode($sottoSezione['nomeSottoSezione']); ?>"
-                <?php if (isset($target)): ?> target="<?php echo $target ?>"<?php endif; ?>><?php echo utf8_encode($sottoSezione['nomeSottoSezione']); ?></a>
+            <a href="<?php echo $urlSottoSezione ?>" title="Vai alla sezione <?php echo $sottoSezione['nomeSottoSezione']; ?>"
+                <?php if (isset($target)): ?> target="<?php echo $target ?>"<?php endif; ?>><?php echo $sottoSezione['nomeSottoSezione']; ?></a>
         </li>
     <?php
     endforeach;

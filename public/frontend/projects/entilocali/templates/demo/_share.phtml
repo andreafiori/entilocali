@@ -1,4 +1,5 @@
 <p class="text-right">
+    <?php if ($this->exportTxtUrl or $this->exportCsvUrl or $this->exportPdfUrl or $this->exportJSONUrl): ?>
     <img src="<?php echo $this->publicDirRelativePath ?>/common/icons/export.gif" alt="<?php echo $this->translate('Icona file esportazione'); ?>"> <?php echo $this->translate('Esporta'); ?>:
     <?php if ($this->exportTxtUrl): ?>
     <a href="<?php echo $this->exportTxtUrl ?>" title="<?php echo $this->translate('Esporta in formato testo'); ?>"><img src="<?php echo $this->publicDirRelativePath ?>/common/icons/txt.png" alt="<?php echo $this->translate('Icona file di testo'); ?>"></a>
@@ -14,6 +15,7 @@
     <?php endif; ?>
     <br>
     <br>
+    <?php endif; ?>
 
     <img src="<?php echo $this->publicDirRelativePath ?>/common/icons/share.gif" alt="<?php echo $this->translate('Icona file condivisione'); ?>" title="<?php echo $this->translate('Icona file condivisione'); ?>"> <?php echo $this->translate('Condividi'); ?>: <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $this->currentUrl; ?>" title="<?php echo $this->translate('Condividi su facebook'); ?>" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');return false;"><img src="<?php echo $this->publicDirRelativePath ?>/common/icons/facebook.gif" alt="Icona Facebook"></a>
     <a href="http://twitter.com/share?text=<?php echo $twitterShareText ?>&amp;url=<?php echo $this->currentUrl; ?>" title="<?php echo $this->translate('Condividi su Twitter'); ?>"><img src="<?php echo $this->publicDirRelativePath ?>/common/icons/twitter.gif" alt="<?php echo $this->translate('Icona Twitter'); ?>"></a>

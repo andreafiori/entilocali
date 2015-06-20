@@ -1,11 +1,37 @@
 CKFinder Changelog
 ==================
 http://cksource.com/ckfinder
-Copyright (C) 2007-2014, CKSource - Frederico Knabben. All rights reserved.
+Copyright (C) 2007-2015, CKSource - Frederico Knabben. All rights reserved.
+
+
+### Version 2.5
+- Fixed: Opening settings panel after opening/closing flashupload panel caused exception being thrown.
+- Fixed: Selection issues when double-clicking the file.
+- Fixed: getSelectedfiles no longer returns duplicated entries.
+- Added the possibility to access in selectActionFunction custom attributes passed in <File> elements returned by the GetFiles command.
+- Added the possibility to define custom plugins that provide additional toolbar buttons.
+- Added the possibility to pass extra parameters to popup methods with config.popupFeatures and config.popupTitle.
+- Added changes required by CKEditor 4.5.0.
+
+### Version 2.4.3
+
+### Version 2.4.2
+- Updated syntax highlighting component used in the fileeditor plugin. Added languages support: markdown, restructured text, java, less, sass, scss, perl, python, ruby and sql.
+- Changed default thumbnail delay to 100ms.
+- Fixed: Loading thumbnails is terribly slow when there are many files in a folder.
+- Fixed: Using "Search" while the folder was loading could result in a JavaScript error.
+- Fixed: External script loading in popup does not work in Internet Explorer.
+- Fixed: Editing of text files broken in Chrome 31 and higher.
+- Fixed: Too early thumb render on uploading multiple files.
+- Fixed: Issues with HTML5 upload in IE11 "tile mode" when in popup.
+- Fixed: Issues when calling CKFinder popup twice.
+- Fixed: CKFinder with thumbs disabled - icons are not shown.
+- Fixed: IE9: SCRIPT1002: Syntax error.
+- Updated translations: Italian, Turkish.
 
 ### Version 2.4.1
 Updated copyrights, fixed URLs inside source code, other minor fixes.
-[PHP] - Fixed: empty filename when non-UTF-8 character is found on nginx with PHP 5.4
+[PHP] - Fixed: Empty filename when non-UTF-8 character is found on nginx with PHP 5.4
 
 ### Version 2.4
 - Added Search box in the toolbar that performs search of those files matching the searched string in the current folder.

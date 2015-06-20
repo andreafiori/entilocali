@@ -2,14 +2,14 @@
 
 namespace Application\Controller\AlboPretorio;
 
-use Application\Controller\SetupAbstractController;
-use DOMPDFModule\View\Model\PdfModel;
 use ModelModule\Model\AlboPretorio\AlboPretorioArticoliGetter;
 use ModelModule\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
 use ModelModule\Model\AlboPretorio\AlboPretorioControllerHelper;
+use DOMPDFModule\View\Model\PdfModel;
 use ModelModule\Model\Export\CsvExportHelper;
 use ModelModule\Model\Slugifier;
 use Zend\View\Model\JsonModel;
+use Application\Controller\SetupAbstractController;
 
 class AlboPretorioExportSingleController extends SetupAbstractController
 {

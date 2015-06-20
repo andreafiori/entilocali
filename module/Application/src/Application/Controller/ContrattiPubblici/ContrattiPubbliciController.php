@@ -37,7 +37,10 @@ class ContrattiPubbliciController extends SetupAbstractController
 
         $contrattiRecords = $wrapper->addAttachmentsToPaginatorRecords(
             $wrapper->setupRecords(),
-            array('moduleId' => ModulesContainer::contratti_pubblici_id, 'noScaduti' => 1)
+            array(
+                'moduleId'  => ModulesContainer::contratti_pubblici_id,
+                'noScaduti' => 1
+            )
         );
 
         $contrattiPaginator = $wrapper->getPaginator();

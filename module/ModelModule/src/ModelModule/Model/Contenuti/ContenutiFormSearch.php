@@ -130,13 +130,14 @@ class ContenutiFormSearch extends Form
             'type' => 'Zend\Form\Element\Checkbox',
             'name' => 'inhome',
             'options' => array(
-                'label'             => 'presente in home page',
-                'checked_value'     => 1,
-                'unchecked_value'   => 0,
+                'label'              => 'in home page',
+                'use_hidden_element' => false,
+                'checked_value'      => 1,
+                'unchecked_value'    => 0,
             ),
             'attributes' => array(
                 'id'    => 'inhome',
-                'title' => "Contenuti in home page"
+                'title' => "Presente in home page"
             )
         ));
     }
@@ -151,6 +152,21 @@ class ContenutiFormSearch extends Form
                     'title' => "Premi per avviare la ricerca",
                     'value' => 'Cerca',
                     'id'    => 'submit',
+                ))
+        );
+    }
+
+    public function addResetButton()
+    {
+        $this->add(array(
+                'name' => 'reset',
+                'type'  => 'submit',
+                'attributes' => array(
+                    'label' => '&nbsp;',
+                    'title' => "Premi per resettare la ricerca",
+                    'value' => 'Reset',
+                    'id'    => 'reset',
+                    'type'  => 'reset',
                 ))
         );
     }

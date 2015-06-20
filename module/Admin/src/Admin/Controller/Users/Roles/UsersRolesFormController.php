@@ -2,10 +2,10 @@
 
 namespace Admin\Controller\Users\Roles;
 
+use ModelModule\Model\Users\Roles\UsersRolesControllerHelper;
 use ModelModule\Model\Users\Roles\UsersRolesForm;
 use ModelModule\Model\Users\Roles\UsersRolesGetter;
 use ModelModule\Model\Users\Roles\UsersRolesGetterWrapper;
-use ModelModule\Model\Users\Roles\UsersRolesPermissionsCrudHandler;
 use ModelModule\Model\Users\Roles\UsersRolesPermissionsGetter;
 use ModelModule\Model\Users\Roles\UsersRolesPermissionsGetterWrapper;
 use ModelModule\Model\Users\Roles\UsersRolesPermissionsRelationsGetter;
@@ -24,22 +24,20 @@ class UsersRolesFormController extends SetupAbstractController
 
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-        if (is_numeric($id)) {
-            $wrapper = new UsersRolesGetterWrapper(new UsersRolesGetter($em) );
-            $wrapper->setInput( array('id' => $id, 'limit' => 1) );
-            $wrapper->setupQueryBuilder();
 
-            $roleRecord = $wrapper->getRecords();
-        }
-
-        $permissionsWrapper = new UsersRolesPermissionsGetterWrapper( new UsersRolesPermissionsGetter($em) );
-        $permissionsWrapper->setInput( array() );
-        $permissionsWrapper->setupQueryBuilder();
-
+        $helper = new UsersRolesControllerHelper();
+        $roleRecord = $helper->recoverWrapperRecordsById(
+            new UsersRolesGetterWrapper(new UsersRolesGetter($em)),
+            array('id' => $id, 'limit' => 1),
+            $id
+        );
+        $permissionsWrapper = $helper->recoverWrapper(
+            new UsersRolesPermissionsGetterWrapper(new UsersRolesPermissionsGetter($em)),
+            array()
+        );
         $permissionsRecords = $permissionsWrapper->getRecords();
 
         $acl = new Acl();
-
         $form = new UsersRolesForm();
 
         if ( !empty($roleRecord) ) {
@@ -73,7 +71,9 @@ class UsersRolesFormController extends SetupAbstractController
         } else {
             $formTitle       = 'Nuovo ruolo utente';
             $formDescription = 'Creazione nuovo ruolo utente';
-            $formAction      = 'users-roles/insert/';
+            $formAction      =  $this->url()->fromRoute('admin/users-roles-insert', array(
+                'lang' => $lang
+            ));
         }
 
         $this->layout()->setVariables(array(
@@ -105,23 +105,5 @@ class UsersRolesFormController extends SetupAbstractController
         ));
 
         $this->layout()->setTemplate($mainLayout);
-    }
-
-    /**
-     * @param array|null $formPost
-     * @return bool
-     */
-    private function checkFormPost($formPost)
-    {
-        $crudHandler =  new UsersRolesPermissionsCrudHandler($this->getInput());
-        $crudHandler->setConnection($this->getInput('entityManager')->getConnection());
-
-        if (!empty($formPost['id'])) {
-            $crudHandler->setOperation('update');
-            $crudHandler->update();
-        } else {
-            $crudHandler->setOperation('insert');
-            $crudHandler->insert();
-        }
     }
 }

@@ -17,6 +17,8 @@ class EntiTerziSummaryController extends SetupAbstractController
 
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
+        $userDetails = $this->recoverUserDetails();
+        $acl = $userDetails->acl;
         $translator = $this->getServiceLocator()->get('translator');
 
         $helper = new AlboPretorioControllerHelper();
@@ -35,7 +37,7 @@ class EntiTerziSummaryController extends SetupAbstractController
                 "Nome",
                 "Email",
                 "&nbsp;",
-                "&nbsp;",
+                ($acl->hasResource('enti_terzi_delete')) ? "&nbsp;" : null,
             ),
             'paginator'         => $wrapper->getPaginator(),
             'records'           => $this->formatRecordsToShowOnTable($paginatorRecords),
@@ -53,11 +55,14 @@ class EntiTerziSummaryController extends SetupAbstractController
          */
         private function formatRecordsToShowOnTable($records)
         {
+            $userDetails = $this->recoverUserDetails();
+            $acl = $userDetails->acl;
+
             $arrayToReturn = array();
             if ($records) {
                 foreach($records as $key => $row) {
 
-                    $arrayToReturn[] = array(
+                    $arrayToPush = array(
                         array(
                             'type' => 'field',
                             'record' => $row['nome'],
@@ -67,22 +72,29 @@ class EntiTerziSummaryController extends SetupAbstractController
                             'type' => 'field',
                             'record' => $row['email'],
                         ),
-                        array(
+                    );
+
+                    if ($acl->hasResource('enti_terzi_update')) {
+                        $arrayToPush[] = array(
                             'type'      => 'updateButton',
                             'href'      => $this->url()->fromRoute('admin/enti-terzi-form', array(
-                                    'lang'  => $this->params()->fromRoute('lang'),
-                                    'id'    => $row['id'],
-                                )
-                            ),
+                                'lang'  => $this->params()->fromRoute('lang'),
+                                'id'    => $row['id'],
+                            )),
                             'title'     => 'Modifica ente terzo',
-                        ),
-                        array(
+                        );
+                    }
+
+                    if ($acl->hasResource('enti_terzi_delete') and $row['nome']!='WebMaster') {
+                        $arrayToPush[] = array(
                             'type'      => 'deleteButton',
-                            'href'      => '#',
+                            'href'      => '#', // TODO: add link to delete ente
                             'data-id'   => $row['id'],
                             'title'     => 'Elimina ente terzo',
-                        ),
-                    );
+                        );
+                    }
+
+                    $arrayToReturn[] = $arrayToPush;
                 }
             }
 

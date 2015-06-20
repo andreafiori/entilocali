@@ -7,7 +7,7 @@ use ModelModule\Model\Database\DbTableContainer;
 use ModelModule\Model\NullException;
 
 /**
- * TODO: turn this class into a controllerHelper and delete the methods. Use abstract methods
+ * TODO: turn this class into a controllerHelper and delete the methods. Use abstract methods, turn this file into a controller helper!
  */
 class ContenutiOperationsModel extends OperationsModelAbstract
 {

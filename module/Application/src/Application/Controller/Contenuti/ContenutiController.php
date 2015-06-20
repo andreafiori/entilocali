@@ -68,7 +68,7 @@ class ContenutiController extends SetupAbstractController
         $this->layout()->setVariables(array(
             'records'           => isset($records) ? $records : null,
             'recordsCount'      => count($records),
-            'templatePartial'   => 'contenuti/node.phtml',
+            'templatePartial'   => 'contenuti/contenuti-list.phtml',
         ));
 
         $this->layout()->setTemplate($mainLayout);

@@ -31,7 +31,9 @@ class ContenutiSummaryController extends SetupAbstractController
         $languageSelection      = $this->params()->fromRoute('languageSelection');
         $modulename             = $this->params()->fromRoute('modulename');
         $isAmmTrasparente       = ($modulename!='contenuti') ? 1 : 0;
-        // $sessionContainer    = new SessionContainer();
+
+        $sessionContainer    = new SessionContainer();
+        $sessionSearch = $sessionContainer->offsetGet('contenutiSummarySearch');
 
         $helper = new ContenutiControllerHelper();
 
@@ -48,12 +50,14 @@ class ContenutiSummaryController extends SetupAbstractController
         try {
             $wrapper = $helper->recoverWrapperRecordsPaginator(
                 new ContenutiGetterWrapper(new ContenutiGetter($em)),
-                array(
-                    'showToAll'             => ($userRole=='WebMaster') ? null : 1,
-                    'utente'                => ($userRole=='WebMaster') ? null : $userId,
-                    'languageAbbreviation'  => $languageSelection,
-                    'isAmmTrasparente'      => $isAmmTrasparente,
-                    'orderBy'               => 'contenuti.id DESC',
+                array_merge(array(
+                        'showToAll'             => ($userRole=='WebMaster') ? null : 1,
+                        'utente'                => ($userRole=='WebMaster') ? null : $userId,
+                        'languageAbbreviation'  => $languageSelection,
+                        'isAmmTrasparente'      => $isAmmTrasparente,
+                        'orderBy'               => 'contenuti.id DESC',
+                    ),
+                    !empty($sessionSearch) ? $sessionSearch : array()
                 ),
                 $page,
                 $perPage
@@ -83,9 +87,9 @@ class ContenutiSummaryController extends SetupAbstractController
             $formSearch->addSottosezioni($sottoSezioniRecordsForDropDown);
             $formSearch->addInHome();
             $formSearch->addSubmitButton();
-            $formSearch->setData(array(
+            $formSearch->setData(array_merge(
                 array('languageSelection' => $languageSelection),
-                array() // TODO: session post form here...
+                !empty($sessionSearch) ? $sessionSearch : array()
             ));
 
             $paginator = $wrapper->getPaginator();
@@ -105,7 +109,7 @@ class ContenutiSummaryController extends SetupAbstractController
         }
 
         $this->layout()->setVariables(array(
-            'tableTitle'            => ($modulename=='contenuti') ? 'Contenuti' : 'Amministrazione Trasparente',
+            'tableTitle'            => ($modulename=='contenuti') ? 'Contenuti' : 'Amministrazione trasparente',
             'tableDescription'      => (!empty($paginatorRecordsCount)) ? $paginatorRecordsCount.' articoli in archivio' : null,
             'paginator'             => (!empty($paginator)) ? $paginator : null,
             'records'               => !empty($paginatorRecords) ? $this->formatRecordsToShowOnTable($paginatorRecords) : null,
@@ -198,7 +202,7 @@ class ContenutiSummaryController extends SetupAbstractController
                 $arrayToReturn[] = array(
                     $row['nomeSezione'],
                     $row['nomeSottosezione'],
-                    $row['titolo'],
+                    !empty($row['titolo']) ? $row['titolo'] : '&nbsp;',
                     'Inserimento: '.$row['dataInserimento']."<br><br>Scadenza: ".$row['dataScadenza'],
                     $row['name'].' '.$row['surname'],
                     /* Enable \ Disable button */
@@ -225,12 +229,12 @@ class ContenutiSummaryController extends SetupAbstractController
                     array(
                         'type' => 'deleteButton',
                         'href' => $this->url()->fromRoute('admin/contenuti-operations', array(
-                                'lang'          => $this->params()->fromRoute('lang'),
-                                'action'        => 'delete',
-                                'modulename'    => $modulename,
-                                'id'            => $row['id']
-                            )
-                        ),
+                            'lang'                  => $this->params()->fromRoute('lang'),
+                            'languageSelection'  => $languageSelection,
+                            'action'                => 'delete',
+                            'modulename'            => $modulename,
+                            'id'                    => $row['id']
+                        )),
                         'data-id' => $row['id'],
                         'title'   => 'Elimina contenuto'
                     ),
@@ -244,11 +248,10 @@ class ContenutiSummaryController extends SetupAbstractController
                     array(
                         'type' => 'attachButton',
                         'href' => $this->url()->fromRoute('admin/attachments-summary', array(
-                                'lang'              => $lang,
-                                'module'            => $modulename,
-                                'referenceId'       => $row['id'],
-                            )
-                        ),
+                            'lang'              => $lang,
+                            'module'            => $modulename,
+                            'referenceId'       => $row['id'],
+                        )),
                         'attachmentsFilesCount' => isset($row['attachments']) ? count($row['attachments']) : 0,
                     ),
                     /* Tabella gestione "tabellare" amm. trasparente */

@@ -83,6 +83,7 @@ class StatoCivileInsertController extends SetupAbstractController
                     'lang' => $this->params()->fromRoute('lang'),
                 )),
                 'backToSummaryText' => "Elenco atti",
+                'insertAgainLabel'  => "Inserisci un altro atto",
                 'attachmentsLink' => $this->url()->fromRoute('admin/attachments-summary', array(
                     'lang'          => $this->params()->fromRoute('lang'),
                     'module'        => 'stato-civile',
@@ -94,7 +95,7 @@ class StatoCivileInsertController extends SetupAbstractController
 
             try {
                 $helper->getConnection()->rollBack();
-            } catch(\Doctrine\DBAL\ConnectionException $e) {
+            } catch(\Doctrine\DBAL\ConnectionException $dbEx) {
 
             }
 

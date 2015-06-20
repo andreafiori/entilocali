@@ -79,6 +79,7 @@ class ContrattiPubbliciOperatoriInsertController extends SetupAbstractController
                     'lang' => $this->params()->fromRoute('lang'),
                 )),
                 'backToSummaryText'     => "Elenco aziende",
+                'insertAgainLabel'      => "Inserisci un'altra azienda",
             ));
 
         } catch(\Exception $e) {

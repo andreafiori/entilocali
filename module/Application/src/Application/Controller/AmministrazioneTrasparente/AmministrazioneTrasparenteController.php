@@ -24,10 +24,6 @@ class AmministrazioneTrasparenteController extends SetupAbstractController
         $templateDir = $this->layout()->getVariable('templateDir');
         $basicLayout = $this->layout()->getVariable('amministrazione_trasparente_basiclayout');
 
-        $sottosezioneId = $this->layout()->getVariable('amministrazione_trasparente_sottosezione_id');
-        $sezioneId = $this->layout()->getVariable('amministrazione_trasparente_sezione_id');
-
-        // TODO: get form search result, set a session, back to previous page
         $formSearch = new ContenutiFormSearch();
         $formSearch->addAnno();
         $formSearch->addCheckExpired();
@@ -40,8 +36,7 @@ class AmministrazioneTrasparenteController extends SetupAbstractController
             array(
                 'attivo'                => 1,
                 'profonditaDa'          => $profondita,
-                'sezioneId'             => $sezioneId,
-                'languageAbbreviation'  => 'it', // Italian as first language
+                'languageAbbreviation'  => 'it',
                 'isAmmTrasparente'      => 1,
                 'orderBy'               => 'sottosezioni.posizione ASC',
             )
@@ -50,11 +45,11 @@ class AmministrazioneTrasparenteController extends SetupAbstractController
         $contenutiRecords = $helper->recoverWrapperRecords(
             new ContenutiGetterWrapper(new ContenutiGetter($em)),
             array(
-                'sottosezione'  => $profondita,
-                'attivo'        => 1,
-                'noscaduti'     => 1,
-                'sezioneId'     => $sezioneId,
-                'orderBy'       => 'contenuti.posizione ASC'
+                'sottosezione'      => $profondita,
+                'attivo'            => 1,
+                'noscaduti'         => 1,
+                'isAmmTrasparente'  => 1,
+                'orderBy'           => 'contenuti.posizione ASC'
             )
         );
 
@@ -62,7 +57,6 @@ class AmministrazioneTrasparenteController extends SetupAbstractController
             'form'                      => $formSearch,
             'sottoSezioni'              => $sottosezioniRecords,
             'contenuti'                 => !empty($contenutiRecords) ? $contenutiRecords : null,
-            'ammTraspSottoSezioneId'    => $sezioneId,
             'templatePartial'           => 'amministrazione-trasparente/amministrazione-trasparente.phtml',
         ));
 

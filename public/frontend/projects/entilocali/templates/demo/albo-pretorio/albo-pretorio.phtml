@@ -151,7 +151,9 @@
             <ul class="no-bullet">
             <?php foreach($row['attachments'] as $attachment): ?>
                 <li>
-                    <a href="<?php echo $this->publicDirRelativePath ?>/common/icons/attachments/<?php echo $attachment['image'] ?>" title="Scarica allegato <?php echo $attachment['title'] ?> (<?php echo $attachment['size'] ?> Kb)">
+                    <a href="<?php echo $this->url('attachments-sthree-download', array(
+                        'type'  => 'contenuti',
+                        'id'    => $attachment['id'])); ?>" title="Scarica allegato <?php echo $attachment['title'] ?> (<?php echo $attachment['size'] ?> Kb)">
                         <img src="<?php echo $this->publicDirRelativePath ?>/common/icons/attachments/<?php echo $attachment['image'] ?>" alt="Icona per <?php echo $attachment['title'] ?> (<?php echo $attachment['size'] ?> Kb)">
                         <?php echo $attachment['title'] ?>
                     </a>

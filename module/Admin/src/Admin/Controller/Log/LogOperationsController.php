@@ -51,12 +51,4 @@ class LogOperationsController extends SetupAbstractController
     {
 
     }
-
-    /**
-     * TODO: set search session and redirect to summary
-     */
-    public function setsearchsessionAction()
-    {
-
-    }
 }
