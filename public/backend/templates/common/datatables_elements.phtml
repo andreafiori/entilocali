@@ -30,9 +30,9 @@
                         <?php elseif($record['type']=='image'): ?>
                             <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
                                 <?php if (isset($record['href'])): ?>
-                                <a href="<?php echo $record['href'] ?>" title="<?php echo $record['title'] ?>">
+                                <a href="<?php echo $record['href'] ?>" title="<?php echo $record['title'] ?>"<?php if (isset($record['target'])): ?> target="<?php echo $record['target'] ?>"<?php endif; ?>>
                                 <?php endif; ?>
-                                    <img src="<?php echo $record['src'] ?>" alt="<?php echo $record['title'] ?>">
+                                    <img src="<?php echo $record['src'] ?>" alt="<?php echo $record['title'] ?>" class="<?php echo $record['img-class'] ?>">
                                 <?php if (isset($record['href'])): ?>
                                 </a>
                                 <?php endif; ?>
@@ -116,7 +116,7 @@
                             </td>
                         <?php elseif($record['type']=='link'): ?>
                             <td<?php echo isset($record['class']) ? ' class="'.$record['class'].'"' : '' ?>>
-                                <a href="<?php echo $record['href'] ?>" title="<?php echo isset($record['title']) ? $record['title'] : $record['label'] ?>">
+                                <a href="<?php echo $record['href'] ?>" title="<?php echo isset($record['title']) ? $record['title'] : $record['label'] ?>"<?php if (isset($record['target'])): ?> target="<?php echo $record['target'] ?>"<?php endif; ?>>
                                     <?php echo utf8_encode($record['label']) ?>
                                 </a>
                             </td>

@@ -50,7 +50,7 @@ class PhotoFormController extends SetupAbstractController
             );
 
             $form = new PostsForm();
-            $form->addUploadImageRequired();
+            (!empty($recordFromDb)) ? $form->addUploadImage() : $form->addUploadImageRequired();
             $form->addTitle();
             $form->addMainFields();
             $form->addCategory($categoriesRecordsForDropDown);

@@ -5,6 +5,8 @@ namespace Application\Controller;
 use ModelModule\Model\HomePage\HomePageGetter;
 use ModelModule\Model\HomePage\HomePageGetterWrapper;
 use ModelModule\Model\HomePage\HomePageHelper;
+use ModelModule\Model\Log\LogWriter;
+use ModelModule\Model\Modules\ModulesContainer;
 use ModelModule\Model\NullException;
 
 class IndexController extends SetupAbstractController
@@ -16,6 +18,7 @@ class IndexController extends SetupAbstractController
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
         $lang = $this->layout()->getVariable('lang');
+        $configurations = $this->layout()->getVariable('configurations');
 
         try {
 
@@ -48,10 +51,20 @@ class IndexController extends SetupAbstractController
             }
 
         } catch(NullException $e) {
-
+            $logWriter = new LogWriter($em->getConnection());
+            $logWriter->writeLog(array(
+                'user_id'       => 0,
+                'module_id'     => ModulesContainer::contenuti_id,
+                'message'       => "Errore visualizzazione home page",
+                'description'   => $e->getMessage(),
+                'reference_id'  => 0,
+                'type'          => 'error',
+                'backend'       => 0,
+            ));
         }
 
-        $this->layout()->setVariables( array(
+        $this->layout()->setVariables(array(
+            'configuraitions'   => $configurations,
             'homepage'          => !empty($homePageElements) ? $homePageElements : null,
             'templatePartial'   => 'homepage/homepage.phtml',
         ));

@@ -18,7 +18,7 @@ class TicketsSummaryController extends SetupAbstractController
 
         $translator = $this->getServiceLocator()->get('translator');
 
-        $wrapper = new TicketsGetterWrapper( new TicketsGetter($em) );
+        $wrapper = new TicketsGetterWrapper(new TicketsGetter($em));
         $wrapper->setInput(array(
             'orderBy' => 't.id DESC',
         ));
@@ -36,8 +36,8 @@ class TicketsSummaryController extends SetupAbstractController
                     isset($record['subject']) ? $record['subject'] : null,
                     isset($record['priority']) ? $record['priority'] : null,
                     isset($record['createDate']) ? $record['createDate'] : null,
-                    'Risolvi',
-                    'Rispondi',
+                    //'Risolvi',
+                    //'Rispondi',
                 );
             }
         }
@@ -49,7 +49,9 @@ class TicketsSummaryController extends SetupAbstractController
                 "Oggetto",
                 "Messaggio",
                 "Priorit&agrave;",
-                "Creato il"
+                "Creato il",
+                //"&nbsp;",
+                //"&nbsp;",
             ),
             'paginator'         => $wrapper->getPaginator(),
             'records'           => $arrayToReturn,

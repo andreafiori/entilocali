@@ -52,7 +52,7 @@ class ZfcmsTickets
     /**
      * @var string
      *
-     * @ORM\Column(name="status", type="string", length=100, nullable=false)
+     * @ORM\Column(name="status", type="string", length=100, nullable=true)
      */
     private $status;
 

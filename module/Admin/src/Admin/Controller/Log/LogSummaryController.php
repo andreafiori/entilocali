@@ -42,10 +42,12 @@ class LogSummaryController extends SetupAbstractController
             'templatePartial'   => 'datatable/datatable_logs.phtml'
         ));
 
-        $this->layout()->setTemplate($mainLayout);
+       $this->layout()->setTemplate($mainLayout);
     }
 
     /**
+     * Format log recordset rows
+     *
      * @param array $records
      * @return array
      */
@@ -60,7 +62,7 @@ class LogSummaryController extends SetupAbstractController
                     $row['message'],
                     $row['name'].' '.$row['surname'],
                     $row['type'],
-                    $row['backend'],
+                    ($row['backend']==1) ? 'Admin area' : 'Sito pubblico',
                     array(
                         'type'      => 'deleteButton',
                         'href'      => '#',

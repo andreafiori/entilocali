@@ -6,10 +6,6 @@ use ModelModuleTest\TestSuite;
 use ModelModule\Model\Log\LogGetter;
 use ModelModule\Model\Log\LogGetterWrapper;
 
-/**
- * @author Andrea Fiori
- * @since  17 August 2014
- */
 class LogGetterWrapperTest extends TestSuite
 {
     /**

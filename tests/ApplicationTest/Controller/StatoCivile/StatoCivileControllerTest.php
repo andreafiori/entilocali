@@ -6,10 +6,6 @@ use ModelModuleTest\TestSuite;
 use Application\Controller\StatoCivile\StatoCivileController;
 use ServiceLocatorFactory\ServiceLocatorFactory;
 
-/**
- * @author Andrea Fiori
- * @since  18 April 2015
- */
 class StatoCivileControllerTest extends TestSuite
 {
     /**

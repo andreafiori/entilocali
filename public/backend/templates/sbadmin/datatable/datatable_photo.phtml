@@ -1,0 +1,83 @@
+<?php echo $this->render($this->formDataCommonPath.'breadcrumb.phtml'); ?>
+
+<?php if (empty($records)): ?>
+    <div class="alert alert-warning">
+        <?php if ($this->messageTitle): ?>
+            <h1><?php echo $this->messageTitle ?></h1>
+        <?php else: ?>
+            <h1>Nessun dato in archivio</h1>
+        <?php endif; ?>
+
+        <?php if ($this->messageDescription): ?>
+            <p><?php echo $this->messageDescription ?></p>
+        <?php else: ?>
+            <p>Nessun dato da elencare &egrave; stato trovato.</p>
+        <?php endif; ?>
+    </div>
+<?php else: ?>
+
+    <div class="tab-pane active" id="home">
+
+        <h3><?php echo $this->tableTitle ?></h3>
+
+        <p><?php echo $this->tableDescription ?></p>
+
+        <?php if (!empty($this->formLanguage)): ?>
+            <br>
+        <?php endif; ?>
+
+        <?php
+
+        echo $this->partial($this->formDataCommonPath.'_formdata_language.phtml', array(
+            'formLanguage' => $this->formLanguage,
+            'formAction' => $this->formLanguageAction,
+        ));
+
+        $this->formSearch->prepare();
+
+        $form = $this->formSearch;
+
+        $form->prepare();
+
+        $form->setAttribute('action',   '#');
+        $form->setAttribute('method',   'multipart/form-data');
+        $form->setAttribute('role',     'form');
+        $form->setAttribute('class',    'form-horizontal');
+        $form->setAttribute('id',       'frmSearchExport');
+
+        $form->get('testo')->setAttribute('class', 'form-control');
+        $form->get('category')->setAttribute('class', 'form-control');
+        $form->get('search')->setAttribute('class', 'btn btn-primary');
+
+        echo $this->form()->openTag($form);
+
+        ?>
+
+        <div class="form-group">
+            <label for="<?php echo $form->get('testo')->getAttribute('id'); ?>" class="col-sm-2 control-label"><?php echo $this->formLabel($form->get('testo')) ?></label>
+            <div class="col-sm-4">
+                <?php echo $this->formElement($form->get('testo')); ?>
+            </div>
+
+            <label for="<?php echo $form->get('category')->getAttribute('id'); ?>" class="col-sm-2 control-label"><?php echo $this->formLabel($form->get('category')) ?></label>
+            <div class="col-sm-4">
+                <?php echo $this->formElement($form->get('category')); ?>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">&nbsp;</label>
+            <div class="col-sm-2">
+                <?php echo $this->formElement($form->get('search')); ?>
+            </div>
+        </div>
+
+        <?php echo $this->form()->closeTag(); ?>
+
+        <br>
+
+        <?php echo $this->render($this->formDataCommonPath.'datatables_elements.phtml'); ?>
+
+    </div>
+<?php
+endif;

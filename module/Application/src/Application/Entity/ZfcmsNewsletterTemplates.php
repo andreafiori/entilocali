@@ -15,7 +15,7 @@ class ZfcmsNewsletterTemplates
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -38,44 +38,16 @@ class ZfcmsNewsletterTemplates
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=150, nullable=false)
+     * @ORM\Column(name="description", type="text", length=65535, nullable=false)
      */
     private $description;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="format", type="string", nullable=false)
+     * @ORM\Column(name="format", type="string", length=50, nullable=false)
      */
     private $format;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="creation_date", type="datetime", nullable=false)
-     */
-    private $creationDate;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="position", type="bigint", nullable=false)
-     */
-    private $position;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="language_id", type="bigint", nullable=false)
-     */
-    private $languageId;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="channel_id", type="bigint", nullable=false)
-     */
-    private $channelId;
 
 
 
@@ -179,97 +151,5 @@ class ZfcmsNewsletterTemplates
     public function getFormat()
     {
         return $this->format;
-    }
-
-    /**
-     * Set creationDate
-     *
-     * @param \DateTime $creationDate
-     * @return ZfcmsNewsletterTemplates
-     */
-    public function setCreationDate($creationDate)
-    {
-        $this->creationDate = $creationDate;
-    
-        return $this;
-    }
-
-    /**
-     * Get creationDate
-     *
-     * @return \DateTime 
-     */
-    public function getCreationDate()
-    {
-        return $this->creationDate;
-    }
-
-    /**
-     * Set position
-     *
-     * @param integer $position
-     * @return ZfcmsNewsletterTemplates
-     */
-    public function setPosition($position)
-    {
-        $this->position = $position;
-    
-        return $this;
-    }
-
-    /**
-     * Get position
-     *
-     * @return integer 
-     */
-    public function getPosition()
-    {
-        return $this->position;
-    }
-
-    /**
-     * Set languageId
-     *
-     * @param integer $languageId
-     * @return ZfcmsNewsletterTemplates
-     */
-    public function setLanguageId($languageId)
-    {
-        $this->languageId = $languageId;
-    
-        return $this;
-    }
-
-    /**
-     * Get languageId
-     *
-     * @return integer 
-     */
-    public function getLanguageId()
-    {
-        return $this->languageId;
-    }
-
-    /**
-     * Set channelId
-     *
-     * @param integer $channelId
-     * @return ZfcmsNewsletterTemplates
-     */
-    public function setChannelId($channelId)
-    {
-        $this->channelId = $channelId;
-    
-        return $this;
-    }
-
-    /**
-     * Get channelId
-     *
-     * @return integer 
-     */
-    public function getChannelId()
-    {
-        return $this->channelId;
     }
 }

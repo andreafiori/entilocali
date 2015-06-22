@@ -5,12 +5,12 @@ namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ZfcmsNewsletters
+ * ZfcmsNewsletter
  *
- * @ORM\Table(name="zfcms_newsletters", uniqueConstraints={@ORM\UniqueConstraint(name="titlo", columns={"title"})}, indexes={@ORM\Index(name="sent", columns={"sent"})})
+ * @ORM\Table(name="zfcms_newsletter", uniqueConstraints={@ORM\UniqueConstraint(name="titlo", columns={"title"})}, indexes={@ORM\Index(name="sent", columns={"sent"}), @ORM\Index(name="fk_newsletter_template_id", columns={"template_id"})})
  * @ORM\Entity
  */
-class ZfcmsNewsletters
+class ZfcmsNewsletter
 {
     /**
      * @var integer
@@ -36,11 +36,25 @@ class ZfcmsNewsletters
     private $messageText;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="message_sent", type="text", length=65535, nullable=false)
+     */
+    private $messageSent;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="create_date", type="datetime", nullable=false)
      */
     private $createDate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="last_update", type="datetime", nullable=false)
+     */
+    private $lastUpdate;
 
     /**
      * @var string
@@ -50,11 +64,21 @@ class ZfcmsNewsletters
     private $format;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="sent", type="string", length=25, nullable=false)
+     * @ORM\Column(name="sent", type="integer", nullable=false)
      */
     private $sent;
+
+    /**
+     * @var \Application\Entity\ZfcmsNewsletterTemplates
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsNewsletterTemplates")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="template_id", referencedColumnName="id")
+     * })
+     */
+    private $template;
 
 
 
@@ -72,7 +96,7 @@ class ZfcmsNewsletters
      * Set title
      *
      * @param string $title
-     * @return ZfcmsNewsletters
+     * @return ZfcmsNewsletter
      */
     public function setTitle($title)
     {
@@ -95,7 +119,7 @@ class ZfcmsNewsletters
      * Set messageText
      *
      * @param string $messageText
-     * @return ZfcmsNewsletters
+     * @return ZfcmsNewsletter
      */
     public function setMessageText($messageText)
     {
@@ -115,10 +139,33 @@ class ZfcmsNewsletters
     }
 
     /**
+     * Set messageSent
+     *
+     * @param string $messageSent
+     * @return ZfcmsNewsletter
+     */
+    public function setMessageSent($messageSent)
+    {
+        $this->messageSent = $messageSent;
+    
+        return $this;
+    }
+
+    /**
+     * Get messageSent
+     *
+     * @return string 
+     */
+    public function getMessageSent()
+    {
+        return $this->messageSent;
+    }
+
+    /**
      * Set createDate
      *
      * @param \DateTime $createDate
-     * @return ZfcmsNewsletters
+     * @return ZfcmsNewsletter
      */
     public function setCreateDate($createDate)
     {
@@ -138,10 +185,33 @@ class ZfcmsNewsletters
     }
 
     /**
+     * Set lastUpdate
+     *
+     * @param \DateTime $lastUpdate
+     * @return ZfcmsNewsletter
+     */
+    public function setLastUpdate($lastUpdate)
+    {
+        $this->lastUpdate = $lastUpdate;
+    
+        return $this;
+    }
+
+    /**
+     * Get lastUpdate
+     *
+     * @return \DateTime 
+     */
+    public function getLastUpdate()
+    {
+        return $this->lastUpdate;
+    }
+
+    /**
      * Set format
      *
      * @param string $format
-     * @return ZfcmsNewsletters
+     * @return ZfcmsNewsletter
      */
     public function setFormat($format)
     {
@@ -163,8 +233,8 @@ class ZfcmsNewsletters
     /**
      * Set sent
      *
-     * @param string $sent
-     * @return ZfcmsNewsletters
+     * @param integer $sent
+     * @return ZfcmsNewsletter
      */
     public function setSent($sent)
     {
@@ -176,10 +246,33 @@ class ZfcmsNewsletters
     /**
      * Get sent
      *
-     * @return string 
+     * @return integer 
      */
     public function getSent()
     {
         return $this->sent;
+    }
+
+    /**
+     * Set template
+     *
+     * @param \Application\Entity\ZfcmsNewsletterTemplates $template
+     * @return ZfcmsNewsletter
+     */
+    public function setTemplate(\Application\Entity\ZfcmsNewsletterTemplates $template = null)
+    {
+        $this->template = $template;
+    
+        return $this;
+    }
+
+    /**
+     * Get template
+     *
+     * @return \Application\Entity\ZfcmsNewsletterTemplates 
+     */
+    public function getTemplate()
+    {
+        return $this->template;
     }
 }

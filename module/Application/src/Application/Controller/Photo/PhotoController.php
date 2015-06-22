@@ -2,6 +2,8 @@
 
 namespace Application\Controller\Photo;
 
+use ModelModule\Model\Posts\PostsCategoriesGetter;
+use ModelModule\Model\Posts\PostsCategoriesGetterWrapper;
 use ModelModule\Model\Posts\PostsControllerHelper;
 use ModelModule\Model\Posts\PostsGetter;
 use ModelModule\Model\Posts\PostsGetterWrapper;
@@ -30,6 +32,10 @@ class PhotoController extends SetupAbstractController
             ),
             $page,
             null
+        );
+        $categoriesRecords = $helper->recoverWrapperRecords(
+            new PostsCategoriesGetterWrapper(new PostsCategoriesGetter($em)),
+            array('moduleCode' => 'photo', 'orderBy' => 'category.name', 'fields' => 'category.id, category.name')
         );
 
         $paginator = $wrapper->getPaginator();

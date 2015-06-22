@@ -5,7 +5,7 @@
             <?php echo $this->formBreadCrumbCategory ?>
         </a>
     </li>
-    <li><a href="#" title="Torna all'articolo">Articolo</a></li>
+    <li><a href="javascript:void(0)" title="Torna all'articolo">Articolo</a></li>
     <li class="active">Gestione files allegati</li>
 </ul>
 
@@ -14,17 +14,17 @@
 <p><?php echo $this->translate('Gestione files allegati.') ?></p>
 
 <div>
-    <a href="<?php echo $this->url('admin/attachments-form', array('lang' => 'it', 'module' => $this->moduleCode, 'referenceId' => $this->referenceId)); ?>" class="btn btn-default" title="Inserisci nuovo file">
+    <a href="<?php echo $this->url('admin/attachments-form', array('lang' => $this->params()->fromRoute('lang'), 'module' => $this->moduleCode, 'referenceId' => $this->referenceId)); ?>" class="btn btn-default" title="Inserisci nuovo file">
         <i class="fa fa-paperclip"></i> Nuovo file
     </a>
 
     <?php if (count($this->attachmentsList)>1): ?>
-    <a href="<?php echo $this->url('admin/attachments-positions', array('lang' => 'it', 'module' => $this->moduleCode, 'referenceId' => $this->referenceId)); ?>" class="btn btn-default" title="Posizioni file allegati">
+    <a href="<?php echo $this->url('admin/attachments-positions', array('lang' => $this->params()->fromRoute('lang'), 'module' => $this->moduleCode, 'referenceId' => $this->referenceId)); ?>" class="btn btn-default" title="Posizioni file allegati">
         <i class="fa fa-gear"></i> Posizioni
     </a>
     <?php endif; ?>
 
-    <a href="#" class="btn btn-default" title="Sezione allegati di grandi dimensioni">
+    <a href="<?php echo $this->url('admin/attachments-form-big-files', array('lang' => $this->params()->fromRoute('lang'), 'module' => $this->moduleCode, 'referenceId' => $this->referenceId) ); ?>" class="btn btn-default" title="Allegati di grandi dimensioni">
         <i class="fa fa-paperclip"></i> Allegati di grandi dimensioni
     </a>
 </div>
@@ -40,12 +40,12 @@
 
     <?php else: ?>
         <div>&nbsp;</div>
-        <form action="#" method="post" enctype="multipart/form-data">
+
         <div class="table-responsive">
             <table border="0" class="table table-bordered" width="100%">
             <thead>
             <tr>
-                <th>&nbsp;</th>
+                <!-- <th>&nbsp;</th> -->
                 <th><?php echo $this->translate('Titolo') ?></th>
                 <th><?php echo $this->translate('Date') ?></th>
                 <th><?php echo $this->translate('Inserito da') ?></th>
@@ -66,7 +66,11 @@
             <tbody>
             <?php foreach($this->attachmentsList as $record): ?>
             <tr>
-                <td><input type="checkbox" id="chk<?php echo $record['id'] ?>" name="attachmentId[]" value="<?php echo $record['id'] ?>"></td>
+                <!--
+                <td>
+                    <input type="checkbox" id="chk<?php echo $record['id'] ?>" name="attachmentId[]" value="<?php echo $record['id'] ?>">
+                </td>
+                -->
                 <td><?php echo isset($record['title']) ? $record['title'] : null ?><br>(<?php echo $record['size'] ?> Kb)</td>
                 <td>
                     <strong>Inserito il:</strong> <?php echo $record['insertDate']->format('Y-m-d H:i:s') ?><br><br>
@@ -77,23 +81,40 @@
                 <?php if ($this->alboRettificaColumnDisplay): ?>
                     <!-- Albo pretorio rettifica coluumn -->
                     <td>
-                        <a href="#" title="Rettifica atto" class="btn btn-default"><i class="fa fa-power-off"></i></a>
+                        <a href="#" title="Rettifica atto" class="btn btn-default">
+                            <i class="fa fa-power-off"></i>
+                        </a>
                     </td>
                 <?php endif; ?>
 
                 <?php if ($this->attiConcessioneCatColumnDisplay): ?>
                     <td>
                         <?php
-                        echo $this->partial($this->formDataCommonPath.'formdata_form_elements.phtml', array(
-                                'form'                  => $this->attiConcessioneColumnDisplayForm,
-                                'formAction'            => $this->formAction,
-                                'formTitle'             => $this->formTitle,
-                                'formDescription'       => $this->formDescription,
-                                'formControlSpanWidth'  => $this->formControlSpanWidth,
-                                'formLabelSpanWidth'    => $this->formLabelSpanWidth,
-                            )
-                        );
+
+                        $form = $this->attiConcessioneColumnDisplayForm;
+                        $form->prepare();
+
+                        $form->setAttribute('action',   $this->url('admin/attachments-operations', array(
+                            'lang'      => $this->params()->fromRoute('lang'),
+                            'action'    => 'updatecolumnattachment'
+                        )));
+                        $form->setAttribute('method',   'post');
+                        $form->setAttribute('role',     'form');
+                        $form->setAttribute('id',       'atti-concessione-colonna-form');
+
+                        $form->get('attiConcessioneColonna')->setAttribute('class', 'form-control');
+                        $form->get('sbmt')->setAttribute('class', 'btn btn-primary');
+
+                        $form->setData($record);
+
+                        echo $this->form()->openTag($form);
+
                         ?>
+                        <?php echo $this->formElement($form->get('attiConcessioneColonna')); ?>
+                        <?php echo $this->formElement($form->get('id')); ?>
+                        <?php echo $this->formElement($form->get('sbmt')); ?>
+
+                        <?php echo $this->form()->closeTag(); ?>
                     </td>
                 <?php endif; ?>
 
@@ -102,16 +123,18 @@
                 <td><a href="<?php echo $this->url('attachments-sthree-download', array('lang' => 'it', 'type' => $this->attachmentType, 'id' => $record['id']) ); ?>" class="btn btn-default" title="Scarica file"><i class="fa fa-download"></i></a></td>
             </tr>
             <?php endforeach; ?>
+            <!--
             <tr>
                 <td colspan="10">
                     <a href="#" class="open-deleteModal btn btn-danger" title="<?php echo $this->translate('Elimina file selezionati') ?>"><i class="fa fa-trash-o"></i> <?php echo $this->translate('Elimina file\s selezionato\i') ?></a>
                     <a href="#" class="btn btn-primary" title="<?php echo $this->translate('Scarica tutti gli allegati') ?>"><i class="fa fa-download"></i> <?php echo $this->translate('Scarica tutti gli allegati') ?></a>
                 </td>
             </tr>
+            -->
             </tbody>
         </table>
         </div>
-        </form>
+
     <?php endif; ?>
 </div>
 

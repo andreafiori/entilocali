@@ -87,6 +87,7 @@ class PostsControllerHelper extends ControllerHelperAbstract
             'subtitle'      => $formData->subtitle,
             'description'   => $formData->description,
             'slug'          => Slugifier::slugify($formData->title),
+            'seo_title'     => $formData->title,
             'last_update'   => date("Y-m-d H:i:s"),
         );
 

@@ -28,6 +28,9 @@ class PostsFormInputFilter implements InputFilterAwareInterface
 
     protected $inputFilter;
 
+    /**
+     * @param array $data
+     */
     public function exchangeArray($data)
     {
         $this->id    		    = (isset($data['id'])) ? $data['id'] : null;

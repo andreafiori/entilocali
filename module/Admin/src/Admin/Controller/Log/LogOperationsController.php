@@ -4,6 +4,7 @@ namespace Admin\Controller\Log;
 
 use Application\Controller\SetupAbstractController;
 use ModelModule\Model\Database\DbTableContainer;
+use ModelModule\Model\Log\LogControllerHelper;
 
 class LogOperationsController extends SetupAbstractController
 {
@@ -24,31 +25,38 @@ class LogOperationsController extends SetupAbstractController
              */
             $connection = $em->getConnection();
 
-            $dbPlatform = $connection->getDatabasePlatform();
+            $helper = new LogControllerHelper();
+            $helper->setConnection($connection);
 
-            $connection->beginTransaction();
             try {
+                $helper->getConnection()->beginTransaction();
+                $helper->deleteAll();
+                $helper->getConnection()->commit();
 
-                $connection->query('SET FOREIGN_KEY_CHECKS=0');
-
-                $q = $dbPlatform->getTruncateTableSql(DbTableContainer::logs);
-
-                $connection->executeUpdate($q);
-                $connection->query('SET FOREIGN_KEY_CHECKS=1');
-                $connection->commit();
+                if (is_object($this->getRequest()->getHeader('Referer'))) {
+                    return $this->redirect()->toUrl( $this->getRequest()->getHeader('Referer')->getUri() );
+                }
 
             } catch (\Exception $e) {
-                $connection->rollback();
-            }
+                try {
+                    $helper->getConnection()->rollBack();
+                } catch(\Doctrine\DBAL\ConnectionException $exDb) {
 
+                }
+            }
         }
+
+        return $this->redirectForUnvalidAccess();
     }
 
-    /**
-     * TODO: Delete single log
-     */
     public function deletesingleAction()
     {
+        $helper = new LogControllerHelper();
 
+        if (is_object($this->getRequest()->getHeader('Referer'))) {
+            return $this->redirect()->toUrl( $this->getRequest()->getHeader('Referer')->getUri() );
+        }
+
+        return $this->redirectForUnvalidAccess();
     }
 }

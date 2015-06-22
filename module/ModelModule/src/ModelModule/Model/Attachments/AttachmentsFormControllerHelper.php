@@ -140,6 +140,9 @@ class AttachmentsFormControllerHelper extends AttachmentsFormControllerHelperAbs
         return $this->attachmentsForm;
     }
 
+    /**
+     * @throws NullException
+     */
     private function assertAttachmentsForm()
     {
         if (!$this->getAttachmentsForm()) {
@@ -147,13 +150,15 @@ class AttachmentsFormControllerHelper extends AttachmentsFormControllerHelperAbs
         }
     }
 
+    /**
+     * @param $formData
+     * @throws NullException
+     */
     public function buildForm($formData)
     {
         $this->assertAttachmentsForm();
 
         $form = $this->getAttachmentsForm();
-
-        // (!empty($formData)) ? $form->addInputFileNotRequired() : $form->addInputFile();
 
         if (empty($formData)) {
             $form->addInputFile();

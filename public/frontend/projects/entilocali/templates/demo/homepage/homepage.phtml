@@ -5,21 +5,36 @@ if ($this->homepage):
     foreach($this->homepage as $key => $value):
 
         if ($key == 'blogs'):
+            $basePath = (substr($this->basePath(), -1) == '/') ? $this->basePath() : $this->basePath().'/';
             ?>
+            <h3>Blogs</h3>
             <div class="row">
                 <?php foreach($value as $content): ?>
-                    <div class="large-12 column">
-                        <div>
-                            <a class="alignleft" href="#" title="">
-                                <img class="media-object" data-src="holder.js/64x64" alt="64x64" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjZWVlIi8+PHRleHQgdGV4dC1hbmNob3I9Im1pZGRsZSIgeD0iMzIiIHk9IjMyIiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+NjR4NjQ8L3RleHQ+PC9zdmc+" style="width: 64px; height: 64px;">
-                            </a>
-                            <div class="media-body">
-                                <h4 class="media-heading"><?php echo $content['title']; ?></h4>
-                                <div><?php echo $this->TextShortener($content['description'], 30, 30); ?></div>
-                                <div><a href="#" class="btn btn-primary" role="button">Leggi</a></div>
+                    <?php
+                    $linkDetails = $this->url('main/blogs-details', array(
+                        'lang'      => $lang,
+                        'category'  => $content['categories'][0]['name'],
+                        'title'     => \ModelModule\Model\Slugifier::slugify($content['title']),
+                    ));
+                    ?>
+                    <div class="large-12 columns">
+                        <div class="panel">
+                            <div class="row">
+                                <div class="large-2 small-12 columns">
+                                    <a href="<?php echo $linkDetails ?>" title="<?php echo $this->translate("Leggi blog post").' '.$content['title'] ?>">
+                                    <img src="<?php echo $basePath.$this->configurations['media_dir'].$this->configurations['media_project'].'blogs/thumbs/'.$content['image'] ?>" alt="">
+                                    </a>
+                                </div>
+                                <div class="large-10 small-12 columns">
+                                    <h4><?php echo $content['title']; ?></h4>
+                                    <!-- <div>Pubblicato in: <a href="#" title="Leggi posts <?php echo $content['categories'][0]['name']; ?>"><?php echo $content['categories'][0]['name']; ?></a></div> -->
+                                    <?php echo $this->TextShortener($content['description'], 30, 30); ?>
+                                    <a href="<?php echo $linkDetails ?>" title="Clicca per leggere il post">Leggi</a>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 <?php  endforeach; ?>
             </div>
             <hr class="hidden">
@@ -27,13 +42,18 @@ if ($this->homepage):
         elseif ($key == 'contenuti'):
             ?>
             <h3>In evidenza</h3>
-            <?php foreach($value as $record): ?>
             <div>
-                <a href="<?php echo $this->url('main/contenuti', array('lang' => $lang, 'subsectionid' => $record['sottosezione'])) ?>" title="Vai alla pagina <?php echo $record['titolo'] ?>">
-                    <?php echo $record['titolo'] ?>
-                </a>
-            </div>
+                <ul>
+            <?php foreach($value as $record): ?>
+                <li>
+                    <a href="<?php echo $this->url('main/contenuti', array('lang' => $lang, 'subsectionid' => $record['sottosezione'])) ?>" title="Vai alla pagina <?php echo $record['titolo'] ?>">
+                        <?php echo $record['titolo'] ?>
+                    </a>
+                </li>
         <?php endforeach; ?>
+                </ul>
+            </div>
+            <hr>
         <?php
         elseif ($key == 'contents'):
             ?>
@@ -71,46 +91,36 @@ if ($this->homepage):
             <?php endforeach; ?>
             </div>
             <hr class="hidden">
-        <?php
-
-        elseif ($key == 'albo-pretorio'):
-            ?>
+        <?php elseif ($key == 'albo-pretorio'): ?>
             <h3>Albo pretorio</h3>
+            <ul>
             <?php foreach($value as $record): ?>
-            <div>
-                <?php echo ucfirst($record['titolo']) ?>
-            </div>
-        <?php endforeach ?>
-
+                <li><?php echo ucfirst($record['titolo']) ?></li>
+            <?php endforeach ?>
+            </ul>
             <hr>
-        <?php
-        elseif ($key == 'stato-civile'):
-            ?>
+        <?php elseif ($key == 'stato-civile'): ?>
             <h3>Stato civile</h3>
             <?php foreach($value as $record): ?>
             <div>
                 <?php echo ucfirst($record['titolo']) ?>
             </div>
-        <?php endforeach ?>
-
+            <?php endforeach ?>
             <hr>
-        <?php
-        elseif ($key == 'atti-concessione'):
-            ?>
+        <?php elseif ($key == 'atti-concessione'): ?>
             <h3>Atti di concessione</h3>
-
             <?php foreach($value as $record): ?>
-            <div><?php echo ucfirst($record['titolo']) ?></div>
-        <?php endforeach ?>
-
+                <div><?php echo ucfirst($record['titolo']) ?></div>
+            <?php endforeach ?>
             <hr>
-        <?php
-        elseif ($key == 'freeText'):
+        <?php elseif ($key == 'freeText'):
+
             if ( !empty($value) ):
                 foreach($value as $record):
                     echo $record['freeText']."<br>";
                 endforeach;
             endif;
+
         endif;
 
     endforeach;

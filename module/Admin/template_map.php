@@ -4,9 +4,6 @@ return array(
     'admin/albo-pretorio-relata-pdf/index' => __DIR__ . '/view/admin/albo-pretorio-relata-pdf/index.phtml',
     'admin/auth/login'                     => __DIR__ . '/view/admin/auth/login.phtml',
     'admin/empty'                          => __DIR__ . '/view/admin/empty.phtml',
-    'admin/formpost-empty'                 => __DIR__ . '/view/admin/formpost-empty.phtml',
     'admin/index/index'                    => __DIR__ . '/view/admin/index/index.phtml',
-    'admin/invio-ente-terzo-empty'         => __DIR__ . '/view/admin/invio-ente-terzo-empty.phtml',
-    'admin/pdf/generatepdf'                => __DIR__ . '/view/admin/pdf/generatepdf.phtml',
     'admin/success/index'                  => __DIR__ . '/view/admin/success/index.phtml',
 );

@@ -6,6 +6,7 @@ use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
 use Zend\Http\PhpEnvironment\Request as PhpEnviromentRequest;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
+use Zend\Http\Header\Referer;
 use Zend\Permissions\Acl\Acl;
 use Zend\Session\Container as SessionContainer;
 use ModelModule\Model\NullException;
@@ -333,5 +334,17 @@ abstract class TestSuite extends \PHPUnit_Framework_TestCase
         $session->offsetSet('userDetails', $userDetails);
 
         return $session;
+    }
+
+    /**
+     * @return Referer
+     */
+    protected function recoverRefererSample()
+    {
+        $referer = new Referer();
+
+        $referer->setUri('/myApp/myUri');
+
+        return $referer;
     }
 }

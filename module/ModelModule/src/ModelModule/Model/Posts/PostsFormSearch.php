@@ -11,17 +11,16 @@ class PostsFormSearch extends Form
     /**
      * @inheritdoc
      */
-    public function __construct($name = null)
+    public function __construct($name = null, $options = array())
     {
-        parent::__construct($name);
+        parent::__construct($name, $options);
 
         $this->add(array(
             'name' => 'testo',
             'type' => 'Zend\Form\Element\Text',
             'attributes' => array(
-                'id' => 'testo',
+                'id'          => 'testo',
                 'placeholder' => 'Testo...',
-                'required'    => 'required',
                 'title'       => 'Digita il testo da cercare'
             ),
             'options' => array(
@@ -35,6 +34,9 @@ class PostsFormSearch extends Form
         ));
     }
 
+    /**
+     * @param array $categories
+     */
     public function addCategories($categories)
     {
         $this->add(array(

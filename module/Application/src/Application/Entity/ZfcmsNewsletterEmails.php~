@@ -59,6 +59,13 @@ class ZfcmsNewsletterEmails
     /**
      * @var string
      *
+     * @ORM\Column(name="confirm_code", type="string", length=150, nullable=false)
+     */
+    private $confirmCode;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="status", type="string", length=50, nullable=false)
      */
     private $status;

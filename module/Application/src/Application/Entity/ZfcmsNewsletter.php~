@@ -1,0 +1,84 @@
+<?php
+
+namespace Application\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ZfcmsNewsletter
+ *
+ * @ORM\Table(name="zfcms_newsletter", uniqueConstraints={@ORM\UniqueConstraint(name="titlo", columns={"title"})}, indexes={@ORM\Index(name="sent", columns={"sent"}), @ORM\Index(name="fk_newsletter_template_id", columns={"template_id"})})
+ * @ORM\Entity
+ */
+class ZfcmsNewsletter
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=100, nullable=false)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="message_text", type="text", length=65535, nullable=false)
+     */
+    private $messageText;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="message_sent", type="text", length=65535, nullable=false)
+     */
+    private $messageSent;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="create_date", type="datetime", nullable=false)
+     */
+    private $createDate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="last_update", type="datetime", nullable=false)
+     */
+    private $lastUpdate;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="format", type="string", length=40, nullable=false)
+     */
+    private $format;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="sent", type="integer", nullable=false)
+     */
+    private $sent;
+
+    /**
+     * @var \Application\Entity\ZfcmsNewsletterTemplates
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsNewsletterTemplates")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="template_id", referencedColumnName="id")
+     * })
+     */
+    private $template;
+
+
+}

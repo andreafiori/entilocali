@@ -5,10 +5,6 @@ namespace AdminTest\Controller\Attachments;
 use Admin\Controller\Attachments\AttachmentsFormController;
 use ModelModuleTest\TestSuite;
 
-/**
- * @author Andrea Fiori
- * @since  28 April 2015
- */
 class AttachmentsFormControllerTest extends TestSuite
 {
     /**

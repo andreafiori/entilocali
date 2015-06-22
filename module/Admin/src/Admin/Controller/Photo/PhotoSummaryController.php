@@ -7,6 +7,7 @@ use ModelModule\Model\Posts\CategoriesGetterWrapper;
 use ModelModule\Model\Posts\PostsCategoriesGetter;
 use ModelModule\Model\Posts\PostsCategoriesGetterWrapper;
 use ModelModule\Model\Posts\PostsControllerHelper;
+use ModelModule\Model\Posts\PostsFormSearch;
 use ModelModule\Model\Posts\PostsGetter;
 use ModelModule\Model\Posts\PostsGetterWrapper;
 use Application\Controller\SetupAbstractController;
@@ -64,6 +65,10 @@ class PhotoSummaryController extends SetupAbstractController
             $postsRecord['categories'] = $wrapper->getRecords();
         }
 
+        $form = new PostsFormSearch();
+        $form->addCategories( $helper->formatForDropwdown($categoriesRecords, 'id', 'name') );
+        $form->addSubmitButton();
+
         $paginator = $wrapperPosts->getPaginator();
 
         $postsRecords = $wrapperPosts->setupRecords();
@@ -82,8 +87,8 @@ class PhotoSummaryController extends SetupAbstractController
                 "&nbsp;",
                 "&nbsp;",
             ),
-            'formSearch'        => '',
-            'templatePartial'   => self::summaryTemplate
+            'formSearch'        => $form,
+            'templatePartial'   => 'datatable/datatable_photo.phtml',
         ));
 
         $this->layout()->setTemplate($mainLayout);
@@ -113,14 +118,15 @@ class PhotoSummaryController extends SetupAbstractController
 
             $recordsToReturn[] = array(
                 array(
-                    'type'  => 'image',
-                    'src'   => $imageThumbsPath,
-                    'href'  => $imageBigPath,
-                    'title' => 'Image desc',
+                    'type'      => 'image',
+                    'src'       => $imageThumbsPath,
+                    'href'      => $imageBigPath,
+                    'title'     => 'Miniatura foto per '.$record['title'],
+                    'img-class' => 'img-thumbnail',
+                    'target'    => 'blank',
                 ),
                 $record['title'],
                 $categoryToPrint,
-                //'', TAGS ROW...
                 $record['userName'].' '.$record['userSurname'],
                 "<strong>Inserito il:</strong> ".date("d-m-Y", strtotime($record['createDate'])).
                 "<br><br><strong>Ultima modifica:</strong> ".date("d-m-Y", strtotime($record['lastUpdate'])),

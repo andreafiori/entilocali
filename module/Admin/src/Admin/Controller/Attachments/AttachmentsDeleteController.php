@@ -43,7 +43,7 @@ class AttachmentsDeleteController extends SetupAbstractController
             $helper->setConnection($connection);
             $helper->getConnection()->beginTransaction();
             $helper->setLoggedUser($userDetails);
-            // $helper->delete($inputFilter);
+            // $helper->delete();
             $helper->getConnection()->commit();
 
             $logWriter = new LogWriter($connection);
@@ -73,7 +73,7 @@ class AttachmentsDeleteController extends SetupAbstractController
             $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
                 'module_id'     => ModulesContainer::contenuti_id,
-                'message'       => "Errore eliminazione file allegato ",
+                'message'       => "Errore eliminazione file allegato",
                 'type'          => 'error',
                 'description'   => $e->getMessage(),
                 'reference_id'  => $id,

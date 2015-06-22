@@ -19,7 +19,6 @@ class EntiTerziForm extends Form
                         'options' => array('label' => '* Nome'),
                         'attributes' => array(
                                     'required' => 'required',
-                                    'class' => 'form-control',
                                     'placeholder' => 'Nome...',
                                     'title' => 'Inserisci il nome',
                                     'id' => 'nome',
@@ -32,7 +31,6 @@ class EntiTerziForm extends Form
                         'options' => array( 'label' => '* Email' ),
                         'attributes' => array(
                                     'required'      => 'required',
-                                    'class'         => 'form-control',
                                     'placeholder'   => 'Email...',
                                     'title'         => 'Inserisci email ente terzo',
                                     'id'            => 'email',

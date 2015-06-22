@@ -15,31 +15,38 @@ class AttiConcessioneColumnDisplayForm extends Form
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
-            'name' => 'mese',
+            'name' => 'attiConcessioneColonna',
             'attributes' => array(
-                'title' => 'Visualizza allegati nella colonna...',
-                'id'    => 'mese'
+                'title'     => 'Visualizza allegati nella colonna...',
+                'id'        => 'attiConcessioneColonna',
+                'required'  => 'required'
             ),
             'options' => array(
                 'label' => '',
                 'empty_option' => 'Nessuna',
                 'value_options' => array(
-                    '1' => 'Progetto - Capitolato - Contratto - Curriculum',
-                    '2' => "Norma o Titolo a base dell'attribuzione",
+                    1 => 'Progetto - Capitolato - Contratto - Curriculum',
+                    2 => "Norma o Titolo a base dell'attribuzione",
                 ),
             )
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'id',
+            'attributes' => array('class' => 'hiddenField')
         ));
     }
 
     public function addSubmitButton()
     {
         $this->add(array(
-                'name' => 'send',
+                'name' => 'sbmt',
                 'type'  => 'submit',
                 'attributes' => array(
                     'label' => '&nbsp;',
                     'value' => 'OK',
-                    'id' => 'send'
+                    'id' => 'sbmt'
                 ))
         );
     }

@@ -11,6 +11,8 @@ use Zend\InputFilter\InputFilterAwareInterface;
 class AttachmentsControllerHelper extends ControllerHelperAbstract
 {
     /**
+     * Insert attachment file into db
+     *
      * @param InputFilterAwareInterface $formData
      * @param int $mimeId
      * @return int
@@ -23,7 +25,7 @@ class AttachmentsControllerHelper extends ControllerHelperAbstract
 
         $userDetails = $this->getLoggedUser();
 
-        return $this->getConnection()->insert(
+        $this->getConnection()->insert(
             DbTableContainer::attachments,
             array(
                 'name'                      => $formData->attachmentFile['name'],
@@ -36,12 +38,15 @@ class AttachmentsControllerHelper extends ControllerHelperAbstract
                 'user_id'                   => $userDetails->id,
             )
         );
+
+        return $this->getConnection()->lastInsertId();
     }
 
     /**
+     * Insert attachment options into db
+     *
      * @param InputFilterAwareInterface $formData
      * @param $lastInsertId
-     * @throws \ModelModule\Model\NullException
      */
     public function insertAttachmentsOptions(InputFilterAwareInterface $formData, $lastInsertId)
     {
@@ -51,15 +56,17 @@ class AttachmentsControllerHelper extends ControllerHelperAbstract
             DbTableContainer::attachmentsOption,
             array(
                 'title' => $formData->title,
-                'description' => $formData->description,
-                'expire_date' => date("Y-m-d H:i:s"),
+                'description'   => $formData->description,
+                'expire_date'   => date("Y-m-d H:i:s"),
                 'attachment_id' => $lastInsertId,
-                'language_id' => 1,
+                'language_id'   => 1,
             )
         );
     }
 
     /**
+     * Insert attachment relation into db
+     *
      * @param InputFilterAwareInterface $formData
      * @param $lastInsertId
      * @return int
@@ -107,30 +114,93 @@ class AttachmentsControllerHelper extends ControllerHelperAbstract
         return $this->getConnection()->update(
             DbTableContainer::attachmentsOption,
             array(
-                'title' => $formData->title,
-                'description' => $formData->description,
-                'expire_date' => $formData->expireDate,
+                'title'         => $formData->title,
+                'description'   => $formData->description,
+                'expire_date'   => $formData->expireDate,
             ),
             array('id' => $formData->attachmenOptionId),
             array('limit' => 1)
         );
     }
 
+    /**
+     * Update atti concessione colonna display value
+     *
+     * @param int $id
+     * @param int $attiConcessioneColonna
+     *
+     * @return int
+     */
+    public function updateAttiConcessioneColonna($id, $attiConcessioneColonna)
+    {
+        $this->assertConnection();
+
+        return $this->getConnection()->update(
+            DbTableContainer::attachments,
+            array(
+                'atti_concessione_colonna' => $attiConcessioneColonna
+            ),
+            array('id' => $id),
+            array('limit' => 1)
+        );
+    }
+
+    /**
+     * Delete attachment record from db
+     *
+     * @param int $id
+     * @return int
+     */
     public function deteteAttachments($id)
     {
         $this->assertConnection();
 
+        return $this->getConnection()->delete(
+            DbTableContainer::attachments,
+            array('id' => $id),
+            array('limit' => 1)
+        );
     }
 
-    public function deteteAttachmentsOptions($id)
+    /**
+     * Delete attachment options from db
+     *
+     * @param int $attachmentOptionId
+     *
+     * @return int
+     */
+    public function deteteAttachmentsOptions($attachmentOptionId)
     {
         $this->assertConnection();
 
+        return $this->getConnection()->delete(
+            DbTableContainer::attachmentsOption,
+            array('id' => $attachmentOptionId),
+            array('limit' => 1)
+        );
     }
 
-    public function deteteAttachmentsRelations($id)
+    /**
+     * Delete attachment relation from db
+     *
+     * @param int $attachmentId
+     * @param int $referenceId
+     * @param int $moduleId
+     *
+     * @return int
+     */
+    public function deteteAttachmentsRelations($attachmentId, $referenceId, $moduleId)
     {
         $this->assertConnection();
 
+        return $this->getConnection()->delete(
+            DbTableContainer::attachmentsRelations,
+            array(
+                'attachment_id' => $attachmentId,
+                'reference_id'  => $referenceId,
+                'module_id'     => $moduleId,
+            ),
+            array('limit' => 1)
+        );
     }
 }

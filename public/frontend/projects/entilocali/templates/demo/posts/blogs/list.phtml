@@ -26,10 +26,9 @@ if ($this->formSearch):
 
     $form->get('search')->setAttribute('class', 'button button-tiny tiny');
     $form->get('testo')->setAttributes(array(
-            'placeholder' => $this->translate('Cerca').'...',
-            'title' => $this->translate('Digita il testo da cercare'),
-        )
-    );
+        'placeholder' => $this->translate('Cerca').'...',
+        'title' => $this->translate('Digita il testo da cercare'),
+    ));
     $form->get('category')->setOptions(array('empty_option'  => $this->translate('Seleziona')));
     $form->get('category')->setAttributes(array('title' => $this->translate('Seleziona categoria')));
     $form->get('search')->setAttributes(array('value' => $this->translate('Cerca')));

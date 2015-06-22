@@ -515,19 +515,21 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                         <a href="#" class="dropdown-collapse" title="Newsletter"><i class="fa fa-newspaper-o fa-fw"></i> <span class="side-menu-title">Newsletter</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <?php if ($acl->hasResource('newsletter_add')): ?>
-                                <li><a href="#" title="Nuova newsletter">Nuova</a></li>
+                                <li><a href="<?php echo $this->url('admin/newsletter-form', array('lang' => $lang, 'languageSelection' => $languageSelection)); ?>" title="Nuova newsletter">Nuova</a></li>
                             <?php endif; ?>
+
                             <?php if ($acl->hasResource('newsletter_update')): ?>
-                                <li><a href="#" title="Gestione newsletter">Gestione</a></li>
+                                <li><a href="<?php echo $this->url('admin/newsletter-summary', array('lang' => $lang, 'languageSelection' => $languageSelection)); ?>" title="Gestione newsletter">Gestione</a></li>
                             <?php endif; ?>
-                            <?php //if ($acl->hasResource('newsletter_update')): ?>
+
+                            <?php if ($acl->hasResource('newsletter_update')): ?>
                             <!-- Utenti iscritti e utenti "solo email" -->
                             <li>
                                 <a href="#" title="Elenco iscritti">
                                     Iscritti
                                 </a>
                             </li>
-                            <?php //endif; ?>
+                            <?php endif; ?>
                             <!-- Newsletter templates -->
                             <?php if ($acl->hasResource('newsletter_templates_add') or $acl->hasResource('newsletter_templates_update')): ?>
                                 <li>

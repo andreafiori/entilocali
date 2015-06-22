@@ -8,10 +8,13 @@ return array(
             /* Attachment Files */
             'Admin\Controller\Attachments\AttachmentsSummary'                   => 'Admin\Controller\Attachments\AttachmentsSummaryController',
             'Admin\Controller\Attachments\AttachmentsForm'                      => 'Admin\Controller\Attachments\AttachmentsFormController',
+            'Admin\Controller\Attachments\AttachmentsFormBigFiles'              => 'Admin\Controller\Attachments\AttachmentsFormBigFilesController',
+            'Admin\Controller\Attachments\AttachmentsOperations'                => 'Admin\Controller\Attachments\AttachmentsOperationsController',
             'Admin\Controller\Attachments\AttachmentsPositions'                 => 'Admin\Controller\Attachments\AttachmentsPositionsController',
             'Admin\Controller\Attachments\AttachmentsPositionsUpdate'           => 'Admin\Controller\Attachments\AttachmentsPositionsUpdateController',
             'Admin\Controller\Attachments\AttachmentsInsert'                    => 'Admin\Controller\Attachments\AttachmentsInsertController',
             'Admin\Controller\Attachments\AttachmentsUpdate'                    => 'Admin\Controller\Attachments\AttachmentsUpdateController',
+            'Admin\Controller\Attachments\AttachmentsDelete'                    => 'Admin\Controller\Attachments\AttachmentsDeleteController',
 
             /* Contenuti, Amministrazione trasparente */
             'Admin\Controller\Contenuti\ContenutiSummary'                       => 'Admin\Controller\Contenuti\ContenutiSummaryController',
@@ -161,6 +164,13 @@ return array(
 
             /* Contacts */
             'Admin\Controller\Contacts\ContactsSummary'               => 'Admin\Controller\Contacts\ContactsSummaryController',
+
+            /* Newsletter */
+            'Admin\Controller\Newsletter\NewsletterForm'              => 'Admin\Controller\Newsletter\NewsletterFormController',
+            'Admin\Controller\Newsletter\NewsletterSummary'           => 'Admin\Controller\Newsletter\NewsletterSummaryController',
+            'Admin\Controller\Newsletter\NewsletterInsert'            => 'Admin\Controller\Newsletter\NewsletterInsertController',
+            'Admin\Controller\Newsletter\NewsletterUpdate'            => 'Admin\Controller\Newsletter\NewsletterUpdateController',
+            'Admin\Controller\Newsletter\NewsletterDelete'            => 'Admin\Controller\Newsletter\NewsletterDeleteController',
 
             /* Logs */
             'Admin\Controller\Log\LogSummary'                         => 'Admin\Controller\Log\LogSummaryController',
@@ -630,7 +640,7 @@ return array(
                                 'attachmentId'  => '[0-9]+',
                             ),
                             'defaults' => array(
-                                'controller' => 'Admin\Controller\Attachments\AttachmentsForm',
+                                'controller' => 'Admin\Controller\Attachments\AttachmentsFormBigFiles',
                                 'action'     => 'index',
                             ),
                         ),
@@ -673,6 +683,19 @@ return array(
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Attachments\AttachmentsDelete',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'attachments-operations' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'attachments/operations/:action[/]',
+                            'constraints' => array(
+                                'action' => '[a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Attachments\AttachmentsOperations',
                                 'action'     => 'index',
                             ),
                         ),
@@ -924,9 +947,9 @@ return array(
                         'options' => array(
                             'route' => 'stato-civile-sezioni/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
                             'constraints' => array(
-                                'order_by' => '[a-zA-Z0-9_-]*',
-                                'order' => '[a-zA-Z0-9_-]*',
-                                'page'     => '[0-9]+',
+                                'order_by'  => '[a-zA-Z0-9_-]*',
+                                'order'     => '[a-zA-Z0-9_-]*',
+                                'page'      => '[0-9]+',
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\StatoCivile\Sezioni\StatoCivileSezioniSummary',
@@ -996,6 +1019,16 @@ return array(
                             'route' => 'atti-concessione/form/update[/]',
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\AttiConcessione\AttiConcessioneUpdate',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'atti-concessione-delete' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'atti-concessione/form/update[/]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\AttiConcessione\AttiConcessioneDelete',
                                 'action'     => 'index',
                             ),
                         ),
@@ -1525,6 +1558,54 @@ return array(
                             ),
                         ),
                     ),
+                    'newsletter-form' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'newsletter/form[/][:id[/]]',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Newsletter\NewsletterForm',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'newsletter-summary' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'newsletter/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
+                            'constraints' => array(
+                                'order_by'  => '[a-zA-Z0-9_-]*',
+                                'order'     => '[a-zA-Z0-9_-]*',
+                                'page'      => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Newsletter\NewsletterSummary',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'newsletter-insert' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'newsletter/form/insert[/]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Newsletter\NewsletterInsert',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'newsletter-update' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'newsletter/form/update[/]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Newsletter\NewsletterUpdate',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
                     'migrazione' => array(
                         'type' => 'Segment',
                         'options' => array(
@@ -1855,14 +1936,15 @@ return array(
             'admin/admin/index'                             => __DIR__ . '../../view/admin/index.phtml',
 
             /* Attachment files */
-            'admin/attachments-summary/index'               => __DIR__ . '/../view/admin/empty.phtml',
-            'admin/attachments-form/index'                  => __DIR__ . '/../view/admin/empty.phtml',
-            'admin/attachments-positions/index'             => __DIR__ . '/../view/admin/empty.phtml',
-            'admin/attachments-positions-update/index'      => __DIR__ . '/../view/admin/empty.phtml',
-            'admin/attachments-insert/index'                => __DIR__ . '/../view/admin/empty.phtml',
-            'admin/attachments-update/index'                => __DIR__ . '/../view/admin/empty.phtml',
-            'admin/attachments-delete/index'                => __DIR__ . '/../view/admin/empty.phtml',
-            'admin/attachments-form-update/index'           => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/attachments-summary/index'                       => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/attachments-form/index'                          => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/attachments-positions/index'                     => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/attachments-positions-update/index'              => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/attachments-insert/index'                        => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/attachments-update/index'                        => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/attachments-delete/index'                        => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/attachments-form-update/index'                   => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/attachments-operations/updatecolumnattachment'   => __DIR__ . '/../view/admin/empty.phtml',
 
             'admin/admin/formpost'                          => __DIR__ . '../../view/admin/formpost-empty.phtml',
 
@@ -2014,6 +2096,18 @@ return array(
             'admin/tickets-form/index'                      => __DIR__ . '/../view/admin/empty.phtml',
             'admin/tickets-insert/index'                    => __DIR__ . '/../view/admin/empty.phtml',
             'admin/tickets-summary/index'                   => __DIR__ . '/../view/admin/empty.phtml',
+
+            /* Logs */
+            'admin/log-summary/index'                       => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/log-operations/deleteall'                => __DIR__ . '/../view/admin/empty.phtml',
+
+            /* Newsletter */
+            'admin/newsletter-form/index'                    => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/newsletter-summary/index'                 => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/newsletter-insert/index'                  => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/newsletter-update/index'                  => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/newsletter-templates-form/index'          => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/newsletter-templates-summary/index'       => __DIR__ . '/../view/admin/empty.phtml',
 
             'admin/'                                        => __DIR__ . '/../view/admin/empty.phtml',
 

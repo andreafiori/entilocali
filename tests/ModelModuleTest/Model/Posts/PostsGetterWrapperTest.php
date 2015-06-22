@@ -2,9 +2,9 @@
 
 namespace ModelModuleTest\Model\Posts;
 
-use ModelModuleTest\TestSuite;
 use ModelModule\Model\Posts\PostsGetter;
 use ModelModule\Model\Posts\PostsGetterWrapper;
+use ModelModuleTest\TestSuite;
 
 class PostsGetterWrapperTest extends TestSuite
 {
@@ -37,5 +37,23 @@ class PostsGetterWrapperTest extends TestSuite
     public function testSetupQueryBuilder()
     {
         $this->assertNull( $this->objectWrapper->setupQueryBuilder() );
+    }
+
+    public function testSddCategorySlugToRecordset()
+    {
+        $records = $this->objectWrapper->addCategorySlugToRecordset(
+            array(
+                array(
+                    'title' => 'my 1st post title',
+                    'categoryName' => 'my post category',
+                ),
+                array(
+                    'title' => 'my 2st post title',
+                    'categoryName' => 'second category',
+                ),
+            )
+        );
+
+        $this->assertEquals($records[0]['categorySlug'], 'my-post-category');
     }
 }

@@ -158,14 +158,15 @@ class BlogsSummaryController extends SetupAbstractController
 
                 $recordsToReturn[] = array(
                     ($record['image']) ? array(
-                        'type'  => 'image',
-                        'src'   => $imageThumbsPath,
-                        'href'  => $imageBigPath,
-                        'title' => 'Image desc',
+                        'type'      => 'image',
+                        'src'       => $imageThumbsPath,
+                        'href'      => $imageBigPath,
+                        'title'     => 'Image desc',
+                        'img-class' => 'img-thumbnail',
+                        'target'    => 'blank',
                     ) : '&nbsp;',
                     $record['title'],
                     $categoryToPrint,
-                    // TAGS ROW...
                     $record['userName'].' '.$record['userSurname'],
                     "<strong>Inserito il:</strong> ".date("d-m-Y", strtotime($record['createDate'])).
                     "<br><br><strong>Ultima modifica:</strong> ".date("d-m-Y", strtotime($record['lastUpdate'])),

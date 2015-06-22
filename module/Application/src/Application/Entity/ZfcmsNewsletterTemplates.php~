@@ -15,7 +15,7 @@ class ZfcmsNewsletterTemplates
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -38,44 +38,16 @@ class ZfcmsNewsletterTemplates
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=150, nullable=false)
+     * @ORM\Column(name="description", type="text", length=65535, nullable=false)
      */
     private $description;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="format", type="string", nullable=false)
+     * @ORM\Column(name="format", type="string", length=50, nullable=false)
      */
     private $format;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="creation_date", type="datetime", nullable=false)
-     */
-    private $creationDate;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="position", type="bigint", nullable=false)
-     */
-    private $position;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="language_id", type="bigint", nullable=false)
-     */
-    private $languageId;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="channel_id", type="bigint", nullable=false)
-     */
-    private $channelId;
 
 
 }

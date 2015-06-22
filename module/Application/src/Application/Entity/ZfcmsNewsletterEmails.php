@@ -59,6 +59,13 @@ class ZfcmsNewsletterEmails
     /**
      * @var string
      *
+     * @ORM\Column(name="confirm_code", type="string", length=150, nullable=false)
+     */
+    private $confirmCode;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="status", type="string", length=50, nullable=false)
      */
     private $status;
@@ -188,6 +195,29 @@ class ZfcmsNewsletterEmails
     public function getActivationDate()
     {
         return $this->activationDate;
+    }
+
+    /**
+     * Set confirmCode
+     *
+     * @param string $confirmCode
+     * @return ZfcmsNewsletterEmails
+     */
+    public function setConfirmCode($confirmCode)
+    {
+        $this->confirmCode = $confirmCode;
+    
+        return $this;
+    }
+
+    /**
+     * Get confirmCode
+     *
+     * @return string 
+     */
+    public function getConfirmCode()
+    {
+        return $this->confirmCode;
     }
 
     /**
