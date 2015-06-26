@@ -154,11 +154,19 @@ class AttiConcessioneSummaryController extends SetupAbstractController
                         $row['importo'],
                         $row['titolo'],
                         '<strong>Data inserimento:</strong> '.$row['dataInserimento'].' <br><br><strong>Scadenza:</strong> '.$row['scadenza'].'<br><br> <strong>Inserito da:</strong> '.$row['name'].' '.$row['surname'],
+
                         /* Icon home page */
+
                         /* Icon edit */
                         array(
                             'type'      => 'updateButton',
-                            'href'      => $this->url()->fromRoute('admin/atti-concessione-form', array('lang' => 'it', 'id' => $row['id']) ),
+                            'href'      => $this->url()->fromRoute(
+                                'admin/atti-concessione-form',
+                                array(
+                                    'lang' => 'it',
+                                    'id' => $row['id']
+                                )
+                            ),
                             'title'     => 'Modifica'
                         ),
                         array(

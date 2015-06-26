@@ -121,7 +121,7 @@ $shareExportView = $this->partial('frontend/projects/entilocali/templates/'.$thi
                 <th scope="col"><b>Anno</b></th>
                 <th scope="col"><b>Beneficiario CF/PIVA</b></th>
                 <th scope="col"><b>Importo</b></th>
-                <th scope="col"><b>Modalità Assegnazione</b></th>
+                <th scope="col"><b>Modalit&agrave; Assegnazione</b></th>
                 <th scope="col"><b>Ufficio e responsabile del servizio</b></th>
                 <th scope="col"><b>Norma o titolo a base dell'attribuzione</b></th>
                 <th scope="col"><b>Progetto</b><br><b>Capitolato</b><br><b>Contratto</b><br><b>Curriculum</b></th>
@@ -130,12 +130,12 @@ $shareExportView = $this->partial('frontend/projects/entilocali/templates/'.$thi
             <tbody>
             <?php foreach($this->paginator as $key => $row): ?>
                 <tr>
-                    <td><?php echo utf8_encode($row['progressivo']) ?></td>
-                    <td><?php echo utf8_encode($row['anno']) ?></td>
-                    <td><?php echo utf8_encode($row['beneficiario']) ?></td>
-                    <td>&euro; <?php echo utf8_encode($row['importo']) ?></td>
-                    <td><?php echo utf8_encode($row['nomemodAssegnazione']) ?></td>
-                    <td><?php echo utf8_encode($row['nomeSezione']).'<br><br>'.utf8_encode($row['nomeResponsabileProc']) ?></td>
+                    <td><a href="<?php echo $this->url('atti-concessione-details', array('id' => $row['id'])); ?>" title="Dettagli atti concessione <?php echo $row['progressivo'] ?>"><?php echo $row['progressivo'] ?></a> </td>
+                    <td><?php echo $row['anno'] ?></td>
+                    <td><?php echo $row['beneficiario'] ?></td>
+                    <td>&euro; <?php echo $row['importo'] ?></td>
+                    <td><?php echo $row['nomemodAssegnazione'] ?></td>
+                    <td><?php echo $row['nomeSezione'].'<br><br>'.$row['nomeResponsabileProc'] ?></td>
                     <td>
                         <?php echo utf8_encode($row['titolo']) ?>
                         <?php if (isset($row['attachments'])): ?>
@@ -179,15 +179,6 @@ $shareExportView = $this->partial('frontend/projects/entilocali/templates/'.$thi
         <?php
 
         echo $shareExportView;
-
-        if ( count($this->paginator) > 1 ):
-            echo $this->paginationControl(
-                $this->paginator,
-                'sliding',
-                'application/pagination/foundation.phtml',
-                array('route' => 'atti-concessione')
-            );
-        endif;
 
     else:
         ?>

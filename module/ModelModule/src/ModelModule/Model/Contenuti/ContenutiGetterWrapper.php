@@ -44,6 +44,7 @@ class ContenutiGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setLingua( $this->getInput('lingua', 1) );
         $this->objectGetter->setInHome( $this->getInput('inhome', 1) );
         $this->objectGetter->setLanguageAbbreviation( $this->getInput('languageAbbreviation', 1) );
+        $this->objectGetter->setFreeSearch( $this->getInput('freeSearch', 1) );
         $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
         $this->objectGetter->setGroupBy( $this->getInput('groupBy', 1) );
         $this->objectGetter->setLimit( $this->getInput('limit', 1) );

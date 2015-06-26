@@ -13,8 +13,8 @@
                 <ul class="clearing-thumbs" data-clearing>
             <?php foreach($this->records as $record): ?>
                 <li style="min-height: 15em">
-                    <a href="<?php echo $this->basePath().'/'.$this->directoryBig.$record['image'] ?>" class="th" role="button" aria-label="Miniatura <?php echo $record['title'] ?>">
-                        <img aria-hidden="true" src="<?php echo $this->basePath().'/'.$this->directoryThumb.$record['image'] ?>" alt="Miniatura <?php echo $record['title'] ?>">
+                    <a href="<?php echo $this->publicDirRelativePath.'/'.$this->directoryBig.$record['image'] ?>" class="th" role="button" aria-label="Miniatura <?php echo $record['title'] ?>">
+                        <img aria-hidden="true" src="<?php echo $this->publicDirRelativePath.'/'.$this->directoryThumb.$record['image'] ?>" alt="Miniatura <?php echo $record['title'] ?>">
                     </a>
                     <br>
 

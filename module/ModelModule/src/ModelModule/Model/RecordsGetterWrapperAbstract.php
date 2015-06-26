@@ -302,6 +302,8 @@ abstract class RecordsGetterWrapperAbstract
     }
 
     /**
+     * Add attachment records to the input recordset
+     *
      * @param mixed $records
      * @param array $input
      * @return bool

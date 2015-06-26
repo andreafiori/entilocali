@@ -42,7 +42,10 @@ class HomePageBlocksPositionsController extends SetupAbstractController
                 'formBreadCrumbCategory' => array(
                     array(
                         'label' => 'Gestione home page',
-                        'href' => '#',
+                        'href'  => $this->url()->fromRoute('admin/homepage-management', array(
+                            'lang'  => $this->params()->fromRoute('lang'),
+                            'title' => 'Vai alla gestione home page',
+                        )),
                         'title' => 'Vai alla gestione home page',
                     ),
                 ),

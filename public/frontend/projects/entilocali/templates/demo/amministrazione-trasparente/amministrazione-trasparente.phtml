@@ -17,7 +17,7 @@ $shareExportIcons = $this->partial('frontend/projects/entilocali/templates/'.$th
     <ul class="breadcrumbs">
         <li><a href="<?php echo $this->basepath() ?>" title="Torna all'home page">Home</a></li>
         <li>
-            <a href="<?php echo $this->url('amministrazione-trasparente', array('profondita' => $this->ammTraspSottoSezioneId)) ?>" title="Vai all'indice di amministrazione trasparente">
+            <a href="<?php echo $this->url('amministrazione-trasparente', array('profondita' => $this->params()->fromRoute('profondita'))) ?>" title="Vai all'indice di amministrazione trasparente">
                 Amministrazione trasparente
             </a>
         </li>

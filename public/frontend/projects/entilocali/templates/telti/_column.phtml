@@ -12,12 +12,12 @@
                 ?>
                 <h2 class="sezioniTitle">
                     <?php if ($sezione['image']!=''): ?>
-                        <img src="<?php echo $this->publicDirRelativePath ?>/common/icons/<?php echo $sezione['image'] ?>" alt="Icona per <?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?>">
+                        <!-- <img src="<?php echo $this->publicDirRelativePath ?>/common/icons/<?php echo $sezione['image'] ?>" alt="Icona per <?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?>"> -->
                     <?php endif; ?>
 
                     <?php if ($sezione['url']!=''): ?>
-                        <a href="<?php echo htmlentities($sezione['url']) ?>" title="<?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?> [<?php echo $this->translate("Apre in un'altra finestra"); ?>]" target="_blank">
-                            <img src="<?php echo $this->publicDirRelativePath ?>/frontend/projects/entilocali/templates/telti/assets/images/external-link-icon.gif" alt="<?php echo $this->translate("Apre in un'altra finestra"); ?>">
+                        <a href="<?php echo htmlentities($sezione['url']) ?>" title="<?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?> [apre in un'altra pagina]" target="_blank">
+                            <img src="<?php echo $this->publicDirRelativePath ?>/frontend/projects/entilocali/templates/telti/assets/images/external-link-icon.gif" alt="Apre in un'altra finestra">
                             <?php echo strtoupper(html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8')); ?>
                         </a>
                     <?php else: ?>
@@ -82,7 +82,7 @@
                     <li><a href="<?php echo $this->url('main/blogs-categories', array('lang' => $this->lang, 'category' => 'rassegna-stampa')) ?>" title="Leggi elenco articoli 'Rassegna stampa'">Rassegna stampa</a></li>
                 </ul>
                 <?php
-                break;
+            break;
 
             case('community'):
                 ?>
@@ -102,14 +102,12 @@
                             <input type="submit" id="loginButton" name="login" value="Accedi" title="Clicca per accedere all'area riservata" class="button tiny">
                         </label>
 
-                        <div>&raquo; <a href="<?php echo $this->url('registrazione', array()); ?>" title="Registrati come nuovo utente"><?php echo $this->translate('Registrati'); ?></a></div>
-                        <div>&raquo; <a href="<?php echo $this->url('recupero-password', array()); ?>" title="Recupero password area riservata">
-                                <?php echo $this->translate('Recupero password'); ?></a>
-                        </div>
+                        <div>&raquo; <a href="<?php echo $this->url('registrazione', array()); ?>" title="Registrati come nuovo utente">Registrati</a></div>
+                        <div>&raquo; <a href="<?php echo $this->url('recupero-password', array()); ?>" title="Recupero password area riservata">Recupero password</a></div>
                     </fieldset>
                 </form>
                 <?php
-            break;
+                break;
 
         endswitch;
 

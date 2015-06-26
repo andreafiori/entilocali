@@ -135,6 +135,8 @@ class ContenutiSummaryController extends SetupAbstractController
     }
 
     /**
+     * Format records to show the on table summary
+     *
      * @param array|null $records
      * @return array
      */
@@ -144,6 +146,7 @@ class ContenutiSummaryController extends SetupAbstractController
         $languageSelection      = $this->params()->fromRoute('languageSelection');
         $modulename             = $this->params()->fromRoute('modulename');
         $isAmmTrasparente       = ($modulename!='contenuti') ? 1 : 0;
+        $userDetails            = $this->layout()->getVariable('userDetails');
 
         $arrayToReturn = array();
         if ($records) {
@@ -199,6 +202,56 @@ class ContenutiSummaryController extends SetupAbstractController
                     );
                 }
 
+                if ($userDetails->acl->hasResource("contenuti_update")) {
+                    $updateButton = array(
+                        'type' => 'updateButton',
+                        'href' => $this->url()->fromRoute('admin/contenuti-form', array(
+                                'lang'              => $lang,
+                                'modulename'        => $modulename,
+                                'languageSelection' => $languageSelection,
+                                'id'                => $row['id'],
+                                'previouspage'      => $this->params()->fromRoute('page'),
+                            )
+                        ),
+                        'title' => 'Modifica contenuto'
+                    );
+                }
+
+                if ($userDetails->acl->hasResource("contenuti_delete")) {
+                    $deleteButton = array(
+                        'type' => 'deleteButton',
+                        'href' => $this->url()->fromRoute('admin/contenuti-operations', array(
+                            'lang'                  => $this->params()->fromRoute('lang'),
+                            'languageSelection'     => $languageSelection,
+                            'action'                => 'delete',
+                            'modulename'            => $modulename,
+                            'id'                    => $row['id']
+                        )),
+                        'data-id' => $row['id'],
+                        'title'   => 'Elimina articolo'
+                    );
+                }
+
+                if ($userDetails->acl->hasResource("contenuti_homepage")) {
+                    $homePageButton = array(
+                        'type'  => $row['home']==1 ? 'homepagePutButton' : 'homepageDelButton',
+                        'href'  => $homePutRemoveLink,
+                        'value' => $row['home']==1 ? 'homepagePutButton' : 'homepageDelButton',
+                    );
+                }
+
+                if ($userDetails->acl->hasResource("contenuti_attachments")) {
+                    $attachmentButton = array(
+                        'type' => 'attachButton',
+                        'href' => $this->url()->fromRoute('admin/attachments-summary', array(
+                            'lang'              => $lang,
+                            'module'            => $modulename,
+                            'referenceId'       => $row['id'],
+                        )),
+                        'attachmentsFilesCount' => isset($row['attachments']) ? count($row['attachments']) : 0,
+                    );
+                }
+
                 $arrayToReturn[] = array(
                     $row['nomeSezione'],
                     $row['nomeSottosezione'],
@@ -213,51 +266,16 @@ class ContenutiSummaryController extends SetupAbstractController
                         'title'     => $row['attivo']==1 ? 'Nascondi contenuto sul sito' : 'Mostra contenuto sul sito',
                     ),
                     /* Edit button */
-                    array(
-                        'type' => 'updateButton',
-                        'href' => $this->url()->fromRoute('admin/contenuti-form', array(
-                                'lang'              => $lang,
-                                'modulename'        => $modulename,
-                                'languageSelection' => $languageSelection,
-                                'id'                => $row['id'],
-                                'previouspage'      => $this->params()->fromRoute('page'),
-                            )
-                        ),
-                        'title' => 'Modifica contenuto'
-                    ),
+                    !empty($updateButton) ? $updateButton : null,
                     /* Delete button */
-                    array(
-                        'type' => 'deleteButton',
-                        'href' => $this->url()->fromRoute('admin/contenuti-operations', array(
-                            'lang'                  => $this->params()->fromRoute('lang'),
-                            'languageSelection'  => $languageSelection,
-                            'action'                => 'delete',
-                            'modulename'            => $modulename,
-                            'id'                    => $row['id']
-                        )),
-                        'data-id' => $row['id'],
-                        'title'   => 'Elimina contenuto'
-                    ),
+                    !empty($deleteButton) ? $deleteButton : null,
                     /* Homepage button */
-                    array(
-                        'type'      => $row['home']==1 ? 'homepagePutButton' : 'homepageDelButton',
-                        'href'      => $homePutRemoveLink,
-                        'value'     => $row['home']==1 ? 'homepagePutButton' : 'homepageDelButton',
-                    ),
+                    !empty($homePageButton) ? $homePageButton : null,
                     /* Attachment button */
-                    array(
-                        'type' => 'attachButton',
-                        'href' => $this->url()->fromRoute('admin/attachments-summary', array(
-                            'lang'              => $lang,
-                            'module'            => $modulename,
-                            'referenceId'       => $row['id'],
-                        )),
-                        'attachmentsFilesCount' => isset($row['attachments']) ? count($row['attachments']) : 0,
-                    ),
+                    !empty($attachmentButton) ? $attachmentButton : null,
                     /* Tabella gestione "tabellare" amm. trasparente */
                     !empty($tableButton) ? $tableButton : null,
                 );
-
             }
         }
 

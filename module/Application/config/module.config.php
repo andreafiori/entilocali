@@ -30,6 +30,7 @@ return array(
             'Application\Controller\Blogs\BlogsExportSingle'                                => 'Application\Controller\Blogs\BlogsExportSingleController',
             'Application\Controller\Photo\Photo'                                            => 'Application\Controller\Photo\PhotoController',
             'Application\Controller\CookieWarning'                                          => 'Application\Controller\CookieWarningController',
+            'Application\Controller\SearchEngine\SearchEngine'                              => 'Application\Controller\SearchEngine\SearchEngineController',
         ),
     ),
     'router' => array(
@@ -187,6 +188,20 @@ return array(
                                                 'may_terminate' => true,
                                             ),
                                             */
+                                            'search-engine' => array(
+                                                'type'    => 'segment',
+                                                'options' => array(
+                                                    'route' => 'motore/ricerca/risultati[/]',
+                                                    'constraints' => array(
+
+                                                    ),
+                                                    'defaults' => array(
+                                                        'controller' => 'Application\Controller\SearchEngine\SearchEngine',
+                                                        'action'     => 'index',
+                                                    ),
+                                                ),
+                                                'may_terminate' => true,
+                                            ),
                                         ),
                                     ),
                                     'notfound' => array(
@@ -454,8 +469,22 @@ return array(
                                                         ),
                                         ),
                                     ),
-                                    'atti-concessione-export-single' => array(
+                                    'atti-concessione-details' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                            'route'    => '/atti-concessione/atti/dettagli/:id[/]',
+                                            'constraints' => array(
+                                                'id' => '[0-9]+',
+                                            ),
+                                            'defaults' => array(
+                                                'controller' => 'Application\Controller\AttiConcessione\AttiConcessione',
+                                                'action'     => 'details',
+                                            ),
+                                        ),
+                                        'may_terminate' => true,
+                                    ),
+                                    'atti-concessione-export-single' => array(
+                                        'type' => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
                                             'route'    => '/atti-concessione/export/single/:action/:id[/]',
                                             'constraints' => array(
@@ -480,6 +509,20 @@ return array(
                                                             'controller' => 'Application\Controller\ContrattiPubblici\ContrattiPubblici',
                                                             'action'    => 'index',
                                                         ),
+                                        ),
+                                        'may_terminate' => true,
+                                    ),
+                                    'contratti-pubblici-details' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                            'route'    => '/contratti-pubblici/bandi-e-contratti/dettagli/:id[/]',
+                                            'constraints' => array(
+                                                'id' => '[0-9]+',
+                                            ),
+                                            'defaults' => array(
+                                                'controller' => 'Application\Controller\ContrattiPubblici\ContrattiPubblici',
+                                                'action'     => 'details',
+                                            ),
                                         ),
                                         'may_terminate' => true,
                                     ),
@@ -508,20 +551,6 @@ return array(
                                             'defaults' => array(
                                                 'controller' => 'Application\Controller\ContrattiPubblici\ContrattiPubbliciExportSingle',
                                                 'action'     => 'index',
-                                            ),
-                                        ),
-                                        'may_terminate' => true,
-                                    ),
-                                    'contratti-pubblici-details' => array(
-                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
-                                        'options' => array(
-                                            'route'    => '/contratti-pubblici/bandi-e-contratti/dettagli/:id[/]',
-                                            'constraints' => array(
-                                                'id' => '[0-9]+',
-                                            ),
-                                            'defaults' => array(
-                                                'controller' => 'Application\Controller\ContrattiPubblici\ContrattiPubblici',
-                                                'action'    => 'index',
                                             ),
                                         ),
                                         'may_terminate' => true,
@@ -579,7 +608,7 @@ return array(
                                                         ),
                                                         'defaults' => array(
                                                             'controller' => 'Application\Controller\Users\UsersRecoverPassword',
-                                                            'action'    => 'index',
+                                                            'action'     => 'index',
                                                         ),
                                         ),
                                         'may_terminate' => true,
@@ -654,27 +683,6 @@ return array(
                                                 'options' => array(
                                                 ),
                                             ),
-                                        ),
-                                    ),
-                                    'ricerca' => array(
-                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
-                                        'options' => array(
-                                                        'route'    => '/ricerca/risultati[/][:action][/]',
-                                                        'constraints' => array(
-
-                                                        ),
-                                                        'defaults' => array(
-                                                            'controller' => 'Application\Controller\Index',
-                                                            'action'    => 'index',
-                                                        ),
-                                        ),
-                                        'may_terminate' => true,
-                                        'child_routes' => array(
-                                                        'default' => array(
-                                                                        'type'    => 'Wildcard',
-                                                                        'options' => array(
-                                                                        ),
-                                                        ),
                                         ),
                                     ),
                                     'cookie-warning-confirm' => array(
@@ -758,14 +766,17 @@ return array(
                         'application/feed/index'                        => __DIR__ . '/../view/application/index/index.phtml',
                         'application/amministrazione-trasparente/index' => __DIR__ . '/../view/empty.phtml',
                         'application/contratti-pubblici/index'          => __DIR__ . '/../view/empty.phtml',
+                        'application/contratti-pubblici/details'        => __DIR__ . '/../view/empty.phtml',
                         'application/albo-pretorio/index'               => __DIR__ . '/../view/empty.phtml',
+                        'application/albo-pretorio/details'             => __DIR__ . '/../view/empty.phtml',
                         'application/stato-civile/index'                => __DIR__ . '/../view/empty.phtml',
                         'application/stato-civile-export-single/csv'    => __DIR__ . '/../view/empty.phtml',
                         'application/stato-civile-export-single/txt'    => __DIR__ . '/../view/empty.phtml',
                         'application/stato-civile-export-single/pdf'    => __DIR__ . '/../view/empty.phtml',
                         'application/stato-civile-export-single/json'   => __DIR__ . '/../view/empty.phtml',
                         'application/atti-concessione/index'            => __DIR__ . '/../view/empty.phtml',
-                        'application/atti-concessione-export-single/index' => __DIR__ . '/../view/empty.phtml',
+                        'application/atti-concessione/details'          => __DIR__ . '/../view/empty.phtml',
+                        'application/atti-concessione-export-single/index'  => __DIR__ . '/../view/empty.phtml',
                         'application/contenuti/index'                   => __DIR__ . '/../view/empty.phtml',
                         'application/contenuti-export/csv'              => __DIR__ . '/../view/empty.phtml',
                         'application/contenuti-export/pdf'              => __DIR__ . '/../view/empty.phtml',
@@ -778,6 +789,7 @@ return array(
                         'application/users-recover-password/index'      => __DIR__ . '/../view/empty.phtml',
                         'application/cookie-warning/confirm'            => __DIR__ . '/../view/empty.phtml',
                         'application/password-preview/index'            => __DIR__ . '/../view/empty.phtml',
+                        'application/search-engine/index'               => __DIR__ . '/../view/empty.phtml',
                         'error/404'                                     => __DIR__ . '/../view/error/notfound.phtml',
                         'error/index'                                   => __DIR__ . '/../view/error/index.phtml',
                         'error/dbconnection'                            => __DIR__ . '/../view/error/dbconnection.phtml',

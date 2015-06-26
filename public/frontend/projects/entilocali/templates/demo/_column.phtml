@@ -1,4 +1,3 @@
-
 <div class="templateColumn">
     <?php
 
@@ -17,7 +16,7 @@
 
                     <?php if ($sezione['url']!=''): ?>
                         <a href="<?php echo htmlentities($sezione['url']) ?>" title="<?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?> [apre in un'altra pagina]" target="_blank">
-                            <img src="<?php echo $this->publicDirRelativePath ?>/frontend/projects/entilocali/templates/telti/assets/images/external-link-icon.gif" alt="Apre in un'altra finestra">
+                            <img src="<?php echo $this->publicDirRelativePath ?>/frontend/projects/entilocali/templates/demo/assets/images/external-link-icon.gif" alt="Apre in un'altra finestra">
                             <?php echo strtoupper(html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8')); ?>
                         </a>
                     <?php else: ?>
@@ -37,7 +36,7 @@
                             ?>
                             <li><a href="<?php echo htmlentities($sottoSezione['url']) ?>"<?php if (isset($target)): ?> target="<?php echo $target ?>"<?php endif ?> title="<?php echo isset($sottoSezione['urlTitle']) ? utf8_encode($sottoSezione['urlTitle']) : 'Vai alla sezione '.utf8_encode($sottoSezione['nomeSottoSezione']) ?>">
                                     <?php if (isset($target)): ?>
-                                        <img src="<?php echo $this->publicDirRelativePath ?>/frontend/projects/entilocali/templates/telti/assets/images/external-link-icon.gif" alt="Apre in un'altra finestra">
+                                        <img src="<?php echo $this->publicDirRelativePath ?>/frontend/projects/entilocali/templates/demo/assets/images/external-link-icon.gif" alt="Apre in un'altra finestra">
                                     <?php endif ?>
                                     <?php echo utf8_encode($sottoSezione['nomeSottoSezione']) ?>
                                 </a>
@@ -73,6 +72,7 @@
                 break;
 
             case("blogs"):
+                // TODO: get categories from a query result
                 ?>
                 <h2 class="sezioniTitle">BLOGS</h2>
 
@@ -88,7 +88,9 @@
                 ?>
                 <form action="#" method="post" id="frmCommunity">
                     <fieldset>
-                        <legend><img src="<?php echo $this->publicDirRelativePath ?>/common/icons/<?php echo $sezione['image'] ?>" alt="Icona per <?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?>"> <?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?></legend>
+                        <legend>
+                            <!-- <img src="<?php echo $this->publicDirRelativePath ?>/common/icons/<?php echo $sezione['image'] ?>" alt="Icona per <?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?>"> --> <?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?>
+                        </legend>
 
                         <label for="username">Nome utente
                             <input type="text" placeholder="Nome utente..." id="username" required="required" title="Inserisci nome utente">

@@ -1,0 +1,113 @@
+<ul class="breadcrumbs">
+    <li><a href="<?php echo $this->basepath() ?>" title="Torna all'home page">Home</a></li>
+    <li><a href="<?php echo $this->url('contratti-pubblici') ?>" title="Torna all'elenco bandi di gara e contratti">bandi di gara e contratti</a></li>
+    <li class="current">Dettagli</li>
+</ul>
+
+<?php if (count($this->records)): ?>
+
+    <?php $row = $this->records[0] ?>
+
+    <article>
+
+    <h2 class="text-center">Dettagli bando di gara</h2>
+
+    <fieldset>
+        <legend>Bando</legend>
+        <p><strong>Oggetto del bando:</strong> <?php echo $row['titolo'] ?></p>
+        <p><strong>CIG:</strong> <?php echo $row['cig'] ?></p>
+        <p><strong>Anno:</strong> <?php echo $row['anno'] ?></p>
+    </fieldset>
+
+    <fieldset>
+        <legend>Struttura proponente</legend>
+        <p><strong>CF:</strong> <?php ?></p>
+        <p><strong>Str. prop:</strong> <?php echo utf8_encode($row['nomeSettore']) ?></p>
+        <p><strong>Resp.</strong> <?php echo utf8_encode($row['responsabileUsersName'].' '.$row['responsabileUsersSurname']) ?></p>
+        <p><strong>Resp. Proc.</strong> <?php echo utf8_encode($row['responsabileUsersName'].' '.$row['responsabileUsersSurname'])?></p>
+    </fieldset>
+
+    <fieldset>
+        <legend>Procedura di scelta del contraente</legend>
+        <p><?php echo $row['nomeScelta'] ?></p>
+    </fieldset>
+
+    <fieldset>
+        <legend>Operatori invitati a presentare le offerte</legend>
+        <?php if (!empty($row['operatori'])): ?>
+            <?php foreach($row['operatori'] as $operatore): ?>
+                <ul>
+                    <li><strong>CF-PI:</strong> <?php echo $operatore['cf'] ?></li>
+                    <li><strong>Nome e Ragione sociale:</strong> <?php echo $operatore['nome'].' '.$operatore['ragioneSociale'] ?></li>
+                </ul>
+                <br>
+            <?php endforeach ?>
+        <?php else: ?>
+            <p>Nessun operatore</p>
+        <?php endif; ?>
+    </fieldset>
+
+    <fieldset>
+        <legend>Aggiudicatario</legend>
+        <?php if (!empty($row['operatori-aggiudicatari'])): ?>
+            <?php foreach($row['operatori-aggiudicatari'] as $operatore): ?>
+                <ul>
+                    <li><strong>CF-PI:</strong> <?php echo $operatore['cf'] ?></li>
+                    <li><strong>Nome e Ragione sociale:</strong> <?php echo $operatore['nome'].' '.$operatore['ragioneSociale'] ?></li>
+                </ul>
+                <br>
+            <?php endforeach ?>
+        <?php else: ?>
+            <p>Nessun aggiudicatario</p>
+        <?php endif; ?>
+    </fieldset>
+
+    <fieldset>
+        <legend>Importi</legend>
+        <p><strong>Importo di aggiudicazione:</strong> <?php echo $row['importoAggiudicazione'] + 0 ?> &euro;</p>
+        <p><strong>Importo liquidato:</strong> <?php echo $row['importoLiquidato'] + 0 ?> &euro;</p>
+    </fieldset>
+
+    <fieldset>
+        <legend>Tempi di completamento</legend>
+        <p><strong>Inizio lavori:</strong> <?php echo  $row['dataInizioLavori']->format("m d Y") ?></p>
+        <p><strong>Fine lavori:</strong> <?php echo $row['dataFineLavori']->format("m d Y") ?></p>
+    </fieldset>
+
+    <?php if (!empty($row['attachments'])): ?>
+    <fieldset>
+        <legend>Allegati</legend>
+        <ul class="no-bullet">
+            <?php foreach($row['attachments'] as $attachment): ?>
+                <li>
+                    <a href="<?php echo $this->url('attachments-sthree-download', array('type' => 'contratti-pubblici', 'id' => $attachment['id'])); ?>" title="Scarica allegato <?php echo $attachment['title'] ?> (<?php echo $attachment['size'] ?> Kb)">
+                        <img src="<?php echo $this->publicDirRelativePath ?>/common/icons/attachments/<?php echo $attachment['image'] ?>" alt="Icona per <?php echo $attachment['title'] ?> (<?php echo $attachment['size'] ?> Kb)">
+                        <?php echo $attachment['title'] ?>
+                    </a>
+                </li>
+            <?php endforeach ?>
+        </ul>
+    </fieldset>
+    <?php endif; ?>
+
+    </article>
+
+    <?php
+
+    echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
+        'exportTxtUrl'          => $this->url('contratti-pubblici-export-single', array('lang' => 'it', 'modulename' => 'contratti-pubblici', 'action' => 'txt', 'id' => $row['id'])),
+        //'exportCsvUrl'          => '',
+        //'exportPdfUrl'          => $this->url('contratti-pubblici-export-single', array('lang' => 'it', 'modulename' => 'contratti-pubblici', 'action' => 'pdf', 'id' => $row['id'])),
+        //'exportXMLUrl'          => '',
+        //'exportJSONUrl'         => $this->url('contratti-pubblici-export-single', array('lang' => 'it', 'modulename' => 'contratti-pubblici', 'action' => 'json', 'id' => $row['id'])),
+        'twitterShareText'      => $this->sitename.' - Bandi di gara e contratti',
+        'publicDirRelativePath' => $this->publicDirRelativePath,
+    ));;
+
+else:
+    ?>
+    <div class="panel info">
+        <h3>Bando di gara non trovato</h3>
+        <p>Impossibile visualizzare i dati richiesti</p>
+    </div>
+<?php endif; ?>

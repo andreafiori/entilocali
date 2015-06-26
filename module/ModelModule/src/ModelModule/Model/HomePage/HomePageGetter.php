@@ -6,11 +6,16 @@ use ModelModule\Model\QueryBuilderHelperAbstract;
 
 class HomePageGetter extends QueryBuilderHelperAbstract
 {
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
     public function setMainQuery()
     {
         $this->setSelectQueryFields("DISTINCT(homePage.id) AS id, homePage.title, homePage.referenceId,
-                                    homePage.freeText, homePage.position,
+                                    homePage.freeText, homePage.position, IDENTITY(homePage.language) AS languageId,
+                                    IDENTITY(homePage.block) AS blockId,
                                     homePageBlocks.note,
+
                                     modules.id, modules.name AS moduleName, modules.code AS moduleCode
                                     ");
 
@@ -61,7 +66,7 @@ class HomePageGetter extends QueryBuilderHelperAbstract
     }
 
     /**
-     * @param $onylActive
+     * @param int $onylActive
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function setOnlyActiveModules($onylActive)
@@ -74,7 +79,7 @@ class HomePageGetter extends QueryBuilderHelperAbstract
     }
 
     /**
-     * @param $lingua
+     * @param int $lingua
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function setLanguage($language)
@@ -88,12 +93,28 @@ class HomePageGetter extends QueryBuilderHelperAbstract
     }
 
     /**
+     * Set reference ID for a module element (no foreign key)
+     *
+     * @param int $referenceId
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setReferenceId($referenceId)
+    {
+        if ( is_numeric($referenceId) ) {
+            $this->getQueryBuilder()->andWhere('homePage.referenceId = :referenceId ');
+            $this->getQueryBuilder()->setParameter('referenceId', $referenceId);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
      * @param string $abbreviation
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function setLanguageAbbreviation($abbreviation)
     {
-        if ( !empty($abbreviation) ) {
+        if (!empty($abbreviation)) {
             $this->getQueryBuilder()->andWhere('languages.abbreviation1 = :languageAbbreviation ');
             $this->getQueryBuilder()->setParameter('languageAbbreviation', $abbreviation);
         }

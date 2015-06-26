@@ -215,6 +215,8 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
     }
 
     /**
+     * Set user ID
+     *
      * @param int $id
      * @return \Doctrine\ORM\QueryBuilder
      */
@@ -229,6 +231,8 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
     }
 
     /**
+     * Set flag amministrazione trasparente
+     *
      * @param int $isAmmTrasparente
      * @return \Doctrine\ORM\QueryBuilder
      */
@@ -310,7 +314,7 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
     {
         if (!empty($search)) {
             $this->getQueryBuilder()->andWhere(' ( contenuti.titolo LIKE :freeSearch OR contenuti.testo LIKE :freeSearch
-            OR sezione.nome LIKE :freeSearch ) ');
+            OR sezione.nome LIKE :freeSearch OR sottosez.nome LIKE :freeSearch ) ');
             $this->getQueryBuilder()->setParameter('freeSearch', $search);
         }
 

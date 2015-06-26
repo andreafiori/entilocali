@@ -51,6 +51,7 @@ class IndexController extends SetupAbstractController
             }
 
         } catch(NullException $e) {
+
             $logWriter = new LogWriter($em->getConnection());
             $logWriter->writeLog(array(
                 'user_id'       => 0,

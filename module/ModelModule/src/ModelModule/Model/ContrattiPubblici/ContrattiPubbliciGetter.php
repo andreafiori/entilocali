@@ -6,6 +6,9 @@ use ModelModule\Model\QueryBuilderHelperAbstract;
 
 class ContrattiPubbliciGetter extends QueryBuilderHelperAbstract
 {
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
     public function setMainQuery()
     {
         $this->setSelectQueryFields('DISTINCT(cc.id) AS id, cc.beneficiario, cc.titolo,
@@ -29,7 +32,7 @@ class ContrattiPubbliciGetter extends QueryBuilderHelperAbstract
                                 ->from('Application\Entity\ZfcmsComuniContratti', 'cc')
                                 ->join('cc.scContr', 'csc')
                                 ->join('cc.utente', 'users')
-                                ->join('cc.settore', 'settore')
+                                ->leftJoin('cc.settore', 'settore')
                                 ->join('cc.respProc', 'responsabile')
                                 ->join('responsabile.user', 'responsabileUsers')
                                 ->where('
@@ -45,6 +48,8 @@ class ContrattiPubbliciGetter extends QueryBuilderHelperAbstract
     }
 
     /**
+     * Set ID
+     *
      * @param number|array $id
      * @return \Doctrine\ORM\QueryBuilder
      */
@@ -64,16 +69,66 @@ class ContrattiPubbliciGetter extends QueryBuilderHelperAbstract
     }
 
     /**
+     * Set User ID
+     *
      * @param number|array $id
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function setUtente($id)
+    public function setUserId($userId)
     {
-        if ( is_numeric($id) ) {
-            $this->getQueryBuilder()->andWhere('cc.utente = :utente ');
-            $this->getQueryBuilder()->setParameter('utente', $id);
+        if ( is_numeric($userId) ) {
+            $this->getQueryBuilder()->andWhere('cc.utente = :userId ');
+            $this->getQueryBuilder()->setParameter('userId', $userId);
         }
         
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * Not expired
+     *
+     * @param int $noScaduti
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setNoScaduti($noScaduti)
+    {
+        if ($noScaduti == 1) {
+            $this->getQueryBuilder()->andWhere("( cc.scadenza > '".date("Y-m-d H:i:s")."'
+            OR cc.scadenza = '0000-00-00 00:00:00') ");
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * Only expired
+     *
+     * @param int $siScaduti
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setScaduti($siScaduti)
+    {
+        if ($siScaduti == 1) {
+            $this->getQueryBuilder()->andWhere("( cc.scadenza < '".date("Y-m-d H:i:s")."'
+            OR cc.scadenza != '0000-00-00 00:00:00') ");
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * Set free text for research
+     *
+     * @param string $search
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setFreeSearch($search)
+    {
+        if (!empty($search)) {
+            $this->getQueryBuilder()->andWhere(' ( cc.titolo LIKE :freeSearch ) ');
+            $this->getQueryBuilder()->setParameter('freeSearch', $search);
+        }
+
         return $this->getQueryBuilder();
     }
 }

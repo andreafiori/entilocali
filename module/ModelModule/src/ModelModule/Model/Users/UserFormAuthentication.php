@@ -2,15 +2,12 @@
 
 namespace ModelModule\Model\Users;
 
-/**
- * @author Andrea Fiori
- * @since  25 June 2014
- */
-class UserFormAuthentication extends \Zend\Form\Form
+use Zend\Form\Form;
+
+class UserFormAuthentication extends Form
 {
     /**
-     * @param type $name
-     * @param type $options
+     * @inheritdoc
      */
     public function __construct($name = null, $options = array())
     {
@@ -20,11 +17,10 @@ class UserFormAuthentication extends \Zend\Form\Form
                     'name' => 'username',
                     'type' => 'Text',
                     'attributes' => array(
-                                    'required' => 'required',
-                                    'class' => 'form-control',
-                                    'placeholder' => 'Email o nome utente...',
-                                    'title' => 'Inserisci email o nome utente',
-                                    'id' => 'username',
+                                    'required'      => 'required',
+                                    'placeholder'   => 'Email o nome utente...',
+                                    'title'         => 'Inserisci email o nome utente',
+                                    'id'            => 'username',
                     )
         ));
         
@@ -32,12 +28,18 @@ class UserFormAuthentication extends \Zend\Form\Form
                     'name' => 'password',
                     'type' => 'Password',
                     'attributes' => array(
-                                    'required' => 'required',
-                                    'class' => 'form-control',
-                                    'placeholder' => 'Password...',
-                                    'title' => 'Inserisci la password',
-                                    'id' => 'password',
+                                    'required'      => 'required',
+                                    'placeholder'   => 'Password...',
+                                    'title'         => 'Inserisci la password',
+                                    'id'            => 'password',
                     )
         ));
+
+        /*
+        $this->add(array(
+            'name' => 'csrf',
+            'type' => 'Zend\Form\Element\Csrf',
+        ));
+        */
     }
 }

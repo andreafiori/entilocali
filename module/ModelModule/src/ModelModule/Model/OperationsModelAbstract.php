@@ -181,6 +181,8 @@ abstract class OperationsModelAbstract
     }
 
     /**
+     * Recover a wrapper with paginator set
+     *
      * @param \ModelModule\Model\RecordsGetterWrapperAbstract $wrapper
      * @param array $input
      * @param int $page

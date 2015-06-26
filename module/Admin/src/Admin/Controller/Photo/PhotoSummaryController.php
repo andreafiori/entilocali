@@ -14,6 +14,9 @@ use Application\Controller\SetupAbstractController;
 
 class PhotoSummaryController extends SetupAbstractController
 {
+    /**
+     * @throws \ModelModule\Model\NullException
+     */
     public function indexAction()
     {
         $mainLayout = $this->initializeAdminArea();
@@ -75,7 +78,7 @@ class PhotoSummaryController extends SetupAbstractController
 
         $this->layout()->setVariables(array(
             'tableTitle'        => 'Foto',
-            'tableDescription'  => $paginator->getTotalItemCount().' foto in archivio',
+            'tableDescription'  => $paginator->getTotalItemCount().' foto in archivio.',
             'paginator'         => $paginator,
             'records'           => $this->formatColumnRecords($postsRecords),
             'columns' => array(
@@ -95,6 +98,8 @@ class PhotoSummaryController extends SetupAbstractController
     }
 
     /**
+     * Format recordset for table summary
+     *
      * @param mixed $records
      * @return array
      */
@@ -113,7 +118,7 @@ class PhotoSummaryController extends SetupAbstractController
                 $categoryToPrint .= $category['name']."<br>";
             }
 
-            $imageThumbsPath = $this->layout()->getVariable('basePath').$configurations['media_dir'].$configurations['media_project'].'photo/thumbs/'.$record['image'];
+            $imageThumbsPath = $this->layout()->getVariable('publicDirRelativePath').'/'.$configurations['media_dir'].$configurations['media_project'].'photo/thumbs/'.$record['image'];
             $imageBigPath = str_replace('thumbs', 'big', $imageThumbsPath);
 
             $recordsToReturn[] = array(
@@ -138,11 +143,11 @@ class PhotoSummaryController extends SetupAbstractController
                         'formtype'          => 'photo',
                         'id'                => $record['id']
                     )),
-                    'title' => 'Modifica'
+                    'title' => 'Modifica foto'
                 ),
                 array(
                     'type'      => 'deleteButton',
-                    'title'     => 'Elimina',
+                    'title'     => 'Elimina foto',
                     'href'      => $this->url()->fromRoute('admin/photo-delete', array(
                         'lang'              => $lang,
                         'languageSelection' => $languageSelection,

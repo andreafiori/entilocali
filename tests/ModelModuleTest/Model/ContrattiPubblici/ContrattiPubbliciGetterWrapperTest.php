@@ -4,14 +4,10 @@ namespace ModelModuleTest\Model\ContrattiPubblici;
 
 use ModelModule\Model\ContrattiPubblici\Operatori\OperatoriAggiudicatariGetter;
 use ModelModule\Model\ContrattiPubblici\Operatori\OperatoriAggiudicatariGetterWrapper;
-use ModelModuleTest\TestSuite;
 use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciGetter;
 use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciGetterWrapper;
+use ModelModuleTest\TestSuite;
 
-/**
- * @author Andrea Fiori
- * @since  18 August 2014
- */
 class ContrattiPubbliciGetterWrapperTest extends TestSuite
 {
     /**
@@ -39,6 +35,8 @@ class ContrattiPubbliciGetterWrapperTest extends TestSuite
             new OperatoriAggiudicatariGetterWrapper(new OperatoriAggiudicatariGetter($this->getEntityManagerMock()))
         );
 
+        $this->objectWrapper->setEntityManager($this->getEntityManagerMock());
+
         $records = $this->objectWrapper->addListaPartecipanti(array(
             array(
                 'id'            => 1,
@@ -51,6 +49,5 @@ class ContrattiPubbliciGetterWrapperTest extends TestSuite
         ));
 
         $this->assertArrayHasKey('operatori', $records[0]);
-        $this->assertArrayHasKey('aggiudicatario', $records[0]);
     }
 }

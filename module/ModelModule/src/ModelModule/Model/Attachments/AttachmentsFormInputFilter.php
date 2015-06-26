@@ -99,7 +99,7 @@ class AttachmentsFormInputFilter implements InputFilterAwareInterface
             $inputFilter->add(
                 $factory->createInput(array(
                     'name'     => 'description',
-                    'required' => true,
+                    'required' => false,
                     'filters'  => array(
                         array('name' => 'StripTags'),
                         array('name' => 'StringTrim'),
@@ -111,7 +111,7 @@ class AttachmentsFormInputFilter implements InputFilterAwareInterface
                             'options' => array(
                                 'encoding' => 'UTF-8',
                                 'min'      => 1,
-                                'max'      => 255,
+                                'max'      => 230,
                             ),
                         ),
                     ),

@@ -16,21 +16,18 @@
 
 <p>Documento generato il <?php echo date("d-m-Y") ?></p>
 
+<br>
 
+<p><b>Numero \ Anno:</b> <?php echo $this->record['progressivo'] ?> / <?php echo $this->record['anno'] ?></p>
+<p><b>Beneficiario CF/PIVA:</b> <?php echo $this->record['beneficiario'] ?></p>
+<p><b>Importo:</b> <?php echo $this->record['importo'] ?> &euro;</p>
+<p><b>Modalit&agrave; Assegnazione</b> <?php echo $this->record['nomemodAssegnazione'] ?></p>
+<p><b>Ufficio e responsabile del servizio</b> <?php echo $this->record['nomeSezione'].' '.$this->record['nomeResponsabileProc'] ?></p>
+<p><b>Norma o titolo a base dell'attribuzione</b> <?php echo $this->record['titolo'] ?>
 
-<h2><?php echo $this->record['titolo'] ?></h2>
+<br><br>
 
-<p><strong>Numero / anno:</strong> <?php echo $this->record['numeroAtto'] ?> / <?php echo $this->record['anno'] ?></p>
-
-<p><strong>Pubblicato il:</strong> <?php echo $this->record['dataPubblicare']->format('d-m-Y H:i:s') ?></p>
-
-<p><strong>Scadenza:</strong> <?php echo $this->record['dataScadenza']->format('d-m-Y H:i:s') ?></p>
-
-<p><strong>Sezione:</strong> <?php echo $this->record['nomeSezione'] ?></p>
-
-<?php if ( !empty($this->record['note']) ): ?>
-    <p><strong>Note:</strong> <?php echo $this->record['note'] ?></p>
-<?php endif; ?>
+<p><?php echo date("Y").' '.$this->sitename ?></p>
 
 </body>
 </html>

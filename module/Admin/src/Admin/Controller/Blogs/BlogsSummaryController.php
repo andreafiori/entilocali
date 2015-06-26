@@ -153,7 +153,7 @@ class BlogsSummaryController extends SetupAbstractController
                     $categoryToPrint .= $category['name']."<br>";
                 }
 
-                $imageThumbsPath = $this->layout()->getVariable('basePath').$configurations['media_dir'].$configurations['media_project'].'blogs/thumbs/'.$record['image'];
+                $imageThumbsPath = $this->layout()->getVariable('publicDirRelativePath').'/'.$configurations['media_dir'].$configurations['media_project'].'blogs/thumbs/'.$record['image'];
                 $imageBigPath = str_replace('thumbs', 'big', $imageThumbsPath);
 
                 $recordsToReturn[] = array(

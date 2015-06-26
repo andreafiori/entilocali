@@ -24,6 +24,8 @@ class OperatoriAggiudicatariGetter extends QueryBuilderHelperAbstract
     }
 
     /**
+     * Set contratto ID
+     *
      * @param number|array $id
      * @return \Doctrine\ORM\QueryBuilder
      */

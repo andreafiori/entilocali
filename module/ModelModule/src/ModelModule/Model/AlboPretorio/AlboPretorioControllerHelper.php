@@ -4,13 +4,14 @@ namespace ModelModule\Model\AlboPretorio;
 
 use ModelModule\Model\Database\DbTableContainer;
 use ModelModule\Model\NullException;
-use ModelModule\Model\StatoCivile\StatoCivileFormInputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use ModelModule\Model\ControllerHelperAbstract;
 
 class AlboPretorioControllerHelper extends ControllerHelperAbstract
 {
     /**
+     * Recover progressivo number
+     *
      * @param AlboPretorioArticoliGetterWrapper $wrapper
      * @return int
      */
@@ -32,6 +33,8 @@ class AlboPretorioControllerHelper extends ControllerHelperAbstract
     }
 
     /**
+     * Insert articolo into db
+     *
      * @param AlboPretorioArticoliFormInputFilter $inputFilter
      * @return int
      * @throws NullException
@@ -44,7 +47,7 @@ class AlboPretorioControllerHelper extends ControllerHelperAbstract
 
         $userDetails = $this->getLoggedUser();
 
-        return $this->getConnection()->insert(
+        $this->getConnection()->insert(
             DbTableContainer::alboArticoli,
             array(
                 'utente_id'             => $userDetails->id,
@@ -68,9 +71,13 @@ class AlboPretorioControllerHelper extends ControllerHelperAbstract
                 'fonte_url'             => $inputFilter->fonteUrl,
             )
         );
+
+        return $this->getConnection()->lastInsertId();
     }
 
     /**
+     * Update articolo into db
+     *
      * @param AlboPretorioArticoliFormInputFilter $inputFilter
      * @return int
      * @throws NullException
@@ -99,6 +106,8 @@ class AlboPretorioControllerHelper extends ControllerHelperAbstract
             'note'                  => isset($inputFilter->note) ? $inputFilter->note : null,
         );
 
+        /* NOTA: numero e anno non modificabili */
+        /*
         if (!empty($inputFilter->numeroAtto)) {
             $arrayUpdate['numero_atto'] = $inputFilter->numeroAtto;
         }
@@ -106,6 +115,7 @@ class AlboPretorioControllerHelper extends ControllerHelperAbstract
         if (!empty($inputFilter->anno)) {
             $arrayUpdate['anno'] = $inputFilter->anno;
         }
+        */
 
         return $this->getConnection()->update(
             DbTableContainer::alboArticoli,
@@ -115,6 +125,8 @@ class AlboPretorioControllerHelper extends ControllerHelperAbstract
     }
 
     /**
+     * Delete articolo from db
+     *
      * @param int $id
      * @return int
      * @throws \Doctrine\DBAL\Exception\InvalidArgumentException
@@ -131,6 +143,8 @@ class AlboPretorioControllerHelper extends ControllerHelperAbstract
     }
 
     /**
+     * Check articolo is not annulled
+     *
      * @param array $sezioniRecords
      * @throws NullException
      */

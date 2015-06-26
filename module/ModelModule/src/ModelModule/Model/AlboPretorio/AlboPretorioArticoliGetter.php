@@ -10,7 +10,8 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
     {
         $this->setSelectQueryFields("DISTINCT(alboArticoli.id) AS id, alboArticoli.numeroProgressivo, alboArticoli.numeroAtto,
                 alboArticoli.anno, alboArticoli.titolo,
-                alboArticoli.dataPubblicare, alboArticoli.dataAttivazione, alboArticoli.oraAttivazione, alboArticoli.dataScadenza,
+                alboArticoli.dataPubblicare, alboArticoli.dataAttivazione, alboArticoli.dataRettifica,
+                alboArticoli.oraAttivazione, alboArticoli.dataScadenza,
                 alboArticoli.enteTerzo,
                 alboArticoli.attivo,
                 alboArticoli.checkRettifica,
@@ -31,7 +32,7 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
                                 ->from('Application\Entity\ZfcmsComuniAlboArticoli', 'alboArticoli')
                                 ->join('alboArticoli.sezione', 'aps')
                                 ->join('alboArticoli.utente', 'u')
-                                ->join('u.settore', 'settoreUtente')
+                                ->leftJoin('u.settore', 'settoreUtente')
                                 ->where('alboArticoli.sezione = aps.id AND u.settore = settoreUtente.id ');
         
         return $this->getQueryBuilder();
@@ -211,6 +212,8 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
     }
 
     /**
+     * Set text search
+     *
      * @param string $search
      * @return \Doctrine\ORM\QueryBuilder
      */

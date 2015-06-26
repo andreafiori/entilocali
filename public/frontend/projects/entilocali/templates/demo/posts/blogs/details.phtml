@@ -22,7 +22,7 @@
             <div class="large-12 columns">
                 <?php if ($this->record['image']!=''): ?>
                     <a href="<?php echo $this->basePath.$this->mediaDir.$this->mediaProject.'blogs/big/'.$this->record['image'] ?>">
-                        <img src="<?php echo $this->basePath.$this->mediaDir.$this->mediaProject.'blogs/big/'.$this->record['image'] ?>" alt="Immagine per <?php echo $this->record['title'] ?>" class="left imageLeft">
+                        <img src="<?php echo $this->publicDirRelativePath.'/'.$this->mediaDir.$this->mediaProject.'blogs/big/'.$this->record['image'] ?>" alt="Immagine per <?php echo $this->record['title'] ?>" class="th left imageLeft">
                     </a>
                 <?php endif; ?>
                 <?php echo $this->record['description'] ?>

@@ -26,10 +26,9 @@ if ($this->formSearch):
 
     $form->get('search')->setAttribute('class', 'button button-tiny tiny');
     $form->get('testo')->setAttributes(array(
-            'placeholder' => $this->translate('Cerca').'...',
-            'title' => $this->translate('Digita il testo da cercare'),
-        )
-    );
+        'placeholder' => $this->translate('Cerca').'...',
+        'title' => $this->translate('Digita il testo da cercare'),
+    ));
     $form->get('category')->setOptions(array('empty_option'  => $this->translate('Seleziona')));
     $form->get('category')->setAttributes(array('title' => $this->translate('Seleziona categoria')));
     $form->get('search')->setAttributes(array('value' => $this->translate('Cerca')));
@@ -73,7 +72,7 @@ if ($this->formSearch):
 
     <?php foreach($this->records as $key => $row): ?>
 
-        <?php $linkDetails = $this->url('main/posts-blogs-details', array('lang' => $this->lang, 'category' => $row['categorySlug'], 'title' => $row['slug'])) ?>
+        <?php $linkDetails = $this->url('main/blogs-details', array('lang' => $this->lang, 'category' => $row['categorySlug'], 'title' => $row['slug'])) ?>
 
         <div class="row">
             <h2>
@@ -89,9 +88,15 @@ if ($this->formSearch):
             <?php endif; ?>
 
             <div class="large-3 columns">
+                <?php if ($row['image']!=''): ?>
                 <a href="<?php echo $linkDetails ?>" title="Continua a leggere <?php echo $row['title'] ?>">
-                    <img src="http://placehold.it/160x120&amp;text=immagine" alt="Placeholder image for <?php echo $row['title'] ?>">
+                    <img src="<?php echo $this->basePath.$this->mediaDir.$this->mediaProject.'blogs/thumbs/'.$row['image'] ?>" alt="Placeholder image for <?php echo $row['title'] ?>">
                 </a>
+                <?php else: ?>
+                <a href="<?php echo $linkDetails ?>" title="Continua a leggere <?php echo $row['title'] ?>">
+                    <img src="http://placehold.it/160x120&amp;text=Nessuna foto" alt="Nessuna immagine per <?php echo $row['title'] ?>">
+                </a>
+                <?php endif; ?>
             </div>
 
             <div class="large-9 columns">
@@ -103,7 +108,13 @@ if ($this->formSearch):
 
             <?php
             echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
-                'twitterShareText' => urlencode($row['title']),
+                'exportTxtUrl'          => $this->url('main/blogs-export-single', array('action' => 'txt', 'lang' => $this->params()->fromRoute('lang'), 'id' => $row['id'])),
+                'exportCsvUrl'          => $this->url('main/blogs-export-single', array('action' => 'csv', 'lang' => $this->params()->fromRoute('lang'), 'id' => $row['id'])),
+                'exportPdfUrl'          => $this->url('main/blogs-export-single', array('action' => 'pdf', 'lang' => $this->params()->fromRoute('lang'), 'id' => $row['id'])),
+                'exportXMLUrl'          => $this->url('main/blogs-export-single', array('action' => 'xml', 'lang' => $this->params()->fromRoute('lang'), 'id' => $row['id'])),
+                'exportJSONUrl'         => $this->url('main/blogs-export-single', array('action' => 'json', 'lang' => $this->params()->fromRoute('lang'), 'id' => $row['id'])),
+                'twitterShareText'      => urlencode($this->record['title']),
+                'currentUrl'            => $this->currentUrl,
                 'publicDirRelativePath' => $this->publicDirRelativePath,
             ));
             ?>
@@ -128,7 +139,7 @@ if ( count($this->paginator) > 1 ):
         'application/pagination/foundation.phtml',
         array(
             'category'  => $this->category,
-            'route'     => 'posts-blogs-categories'
+            'route'     => 'blogs-categories'
         )
     );
 

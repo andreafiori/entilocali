@@ -2,6 +2,7 @@
 
 namespace Application\Controller;
 
+use ModelModule\Model\SearchEngine\SearchEngineForm;
 use ModelModule\Model\Sezioni\SezioniGetter;
 use ModelModule\Model\Sezioni\SezioniGetterWrapper;
 use ModelModule\Model\SetupAbstractControllerHelper;
@@ -171,6 +172,7 @@ abstract class SetupAbstractController extends AbstractActionController
             'lang'                          => (isset($lang)) ? $lang : 'it',
             'isMultiLanguage'               => isset($configurations['isMultiLanguage']) ? 1 : 0,
             'defaultLanguageId'             => 1,
+            'searchEngineForm'              => new SearchEngineForm(),
             'defaultLanguageAbbreviation'   => 'it',
         ));
 

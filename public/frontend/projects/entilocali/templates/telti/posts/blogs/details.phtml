@@ -1,27 +1,48 @@
 <ul class="breadcrumbs">
     <li><a href="<?php echo $this->url('main', array('lang'=>$this->lang)); ?>" title="Torna alla home page">Home</a> <span class="divider"></span></li>
 
-    <li><a href="<?php echo $this->url('main/posts-blogs-categories', array('lang' => $this->lang, 'category' => $this->categorySlug)) ?>" title="Vai a <?php echo $this->categoryName; ?>"><?php echo $this->categoryName; ?></a></li>
+    <li><a href="<?php echo $this->url('main/blogs-categories', array('lang' => $this->lang, 'category' => $this->categorySlug)) ?>" title="Vai a <?php echo $this->categoryName; ?>"><?php echo $this->categoryName; ?></a></li>
 
     <li class="current"><?php echo $this->title ?></li>
 </ul>
 
 <?php if (!empty($this->record)): ?>
 
-    <h3><?php echo $this->record['title'] ?></h3>
+    <article>
 
-    <?php if (!empty($this->record['subtitle'])): ?>
-        <div>
-            <h4><?php echo $this->record['subtitle'] ?></h4>
+        <h3><?php echo $this->record['title'] ?></h3>
+
+        <?php if (!empty($this->record['subtitle'])): ?>
+            <div>
+                <h4><?php echo $this->record['subtitle'] ?></h4>
+            </div>
+        <?php endif; ?>
+
+        <div class="row">
+            <div class="large-12 columns">
+                <?php if ($this->record['image']!=''): ?>
+                    <a href="<?php echo $this->basePath.$this->mediaDir.$this->mediaProject.'blogs/big/'.$this->record['image'] ?>">
+                        <img src="<?php echo $this->basePath.$this->mediaDir.$this->mediaProject.'blogs/big/'.$this->record['image'] ?>" alt="Immagine per <?php echo $this->record['title'] ?>" class="left imageLeft">
+                    </a>
+                <?php endif; ?>
+                <?php echo $this->record['description'] ?>
+            </div>
         </div>
-    <?php endif; ?>
 
-    <?php echo $this->record['description'] ?>
+    </article>
+
+    <br>
 
     <?php
 
     echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml', array(
-        'twitterShareText' => urlencode($this->record['title']),
+        'exportTxtUrl'          => $this->url('main/blogs-export-single', array('action' => 'txt', 'lang' => $this->params()->fromRoute('lang'), 'id' => $this->record['id'])),
+        'exportCsvUrl'          => '',
+        'exportPdfUrl'          => $this->url('main/blogs-export-single', array('action' => 'pdf', 'lang' => $this->params()->fromRoute('lang'), 'id' => $this->record['id'])),
+        'exportXMLUrl'          => $this->url('main/blogs-export-single', array('action' => 'xml', 'lang' => $this->params()->fromRoute('lang'), 'id' => $this->record['id'])),
+        'exportJSONUrl'         => $this->url('main/blogs-export-single', array('action' => 'json', 'lang' => $this->params()->fromRoute('lang'), 'id' => $this->record['id'])),
+        'twitterShareText'      => urlencode($this->record['title']),
+        'currentUrl'            => $this->currentUrl,
         'publicDirRelativePath' => $this->publicDirRelativePath,
     ));
 
@@ -29,7 +50,7 @@
 
 <?php else: ?>
 
-    <div alert-box danger>
+    <div class="alert-box danger">
         <h3>Nessun post trovato</h3>
         <p>Si &egrave; verificao un errore di selezione dati</p>
     </div>

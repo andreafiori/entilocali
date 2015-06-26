@@ -2,7 +2,8 @@
 return array(
     'controllers' => array(
         'invokables' => array(
-            'Auth\Controller\Auth' => 'Auth\Controller\AuthController',
+            'Auth\Controller\Auth'              => 'Auth\Controller\AuthController',
+            'Auth\Controller\RecoverPassword'   => 'Auth\Controller\RecoverPasswordController',
         ),
     ),
     'router' => array(
@@ -29,6 +30,19 @@ return array(
                             'defaults' => array(
                             ),
                         ),
+                    ),
+                ),
+            ),
+            'recover-password' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/auth/recover/password/:action[/]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Auth\Controller\RecoverPassword',
+                        'action'     => 'index',
                     ),
                 ),
             ),

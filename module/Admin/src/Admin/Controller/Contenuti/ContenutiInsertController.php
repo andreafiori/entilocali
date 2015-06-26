@@ -30,7 +30,8 @@ class ContenutiInsertController extends SetupAbstractController
         }
 
         $modulename = $this->params()->fromRoute('modulename');
-        $modulenameLabel = str_replace("-", " ", $modulename);
+
+        /* $modulenameLabel = str_replace("-", " ", $modulename); */
 
         $inputFilter = new ContenutiFormInputFilter();
 
@@ -66,8 +67,7 @@ class ContenutiInsertController extends SetupAbstractController
                 'module_id'     => ModulesContainer::contenuti_id,
                 'message'       => "Inserito nuovo contenuto ".$inputFilter->titolo,
                 'type'          => 'info',
-                'reference_id'  => $lastInsertId,
-                'backend'       => 1,
+                'reference_id'  => $lastInsertId, 'backend' => 1,
             ));
 
             $this->layout()->setVariables(array(

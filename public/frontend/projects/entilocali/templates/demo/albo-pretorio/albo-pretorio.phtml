@@ -124,24 +124,30 @@
 
 </div>
 
-<?php foreach($this->paginator as $key => $row): ?>
-
-    <div<?php if ($row['annullato'] == 1): ?> class="panel"<?php endif; ?>>
+<?php
+foreach($this->paginator as $key => $row):
+$linkDetails = $this->url('albo-pretorio-details', array('id' => $row['id']));
+?>
+<article>
+    <div<?php if ($row['annullato']==1 or $row['checkRettifica']==1): ?> class="panel"<?php endif; ?>>
 
     <?php if ($row['annullato'] == 1): ?>
-        <h3>Atto annullato il <span class="redString"><?php echo date("d-m-Y", strtotime($row['dataAnnullamento'])) ?></span></h3>
+        <h3><span class="redString">Atto annullato il <?php echo date("d m Y", strtotime($row['dataAnnullamento'])) ?></span></h3>
 
-        <blockquote>
+        <h4><a href="<?php echo $linkDetails ?>" title="Vai ai dettagli atto albo pretorio <?php echo $row['titolo'] ?>"><?php echo $row['titolo'] ?></a></h4>
+    <?php elseif ($row['checkRettifica']==1): ?>
+        <h3><span class="blueString">Atto rettificato il <?php echo date("d m Y", strtotime($row['dataRettifica'])) ?></span></h3>
 
-        <h4><?php echo $row['titolo'] ?></h4>
+        <h4><a href="<?php echo $linkDetails ?>" title="Vai ai dettagli atto albo pretorio <?php echo $row['titolo'] ?>"><?php echo $row['titolo'] ?></a></h4>
+
     <?php else: ?>
-        <h3><?php echo $row['titolo'] ?></h3>
+        <h3><a href="<?php echo $linkDetails ?>" title="Vai ai dettagli atto albo pretorio <?php echo $row['titolo'] ?>"><?php echo $row['titolo'] ?></a></h3>
     <?php endif; ?>
 
     <p><strong>Rep.:</strong> <?php echo $row['numeroProgressivo'] ?> / <?php echo $row['numeroAtto'] ?></p>
-    <p><strong>Pubblicato il:</strong> <?php echo $row['dataAttivazione'] ?> / <strong>Ore:</strong> <?php echo $row['oraAttivazione'] ?></p>
+    <p><strong>Pubblicato il:</strong> <?php echo date("m d Y", strtotime($row['dataAttivazione'])) ?>. <strong>Ore:</strong> <?php echo date("H:i", strtotime($row['oraAttivazione'])) ?></p>
     <?php if ($row['dataScadenza']!='0000-00-00 00:00:00'): ?>
-    <p><strong>Scadenza:</strong> <?php echo $row['dataScadenza'] ?></p>
+    <p><strong>Scadenza:</strong> <?php echo date("m d Y", strtotime($row['dataScadenza'])); ?></p>
     <?php endif; ?>
     <p><strong>Sezione:</strong> <?php echo $row['nomeSezione'] ?></p>
 
@@ -151,9 +157,7 @@
             <ul class="no-bullet">
             <?php foreach($row['attachments'] as $attachment): ?>
                 <li>
-                    <a href="<?php echo $this->url('attachments-sthree-download', array(
-                        'type'  => 'contenuti',
-                        'id'    => $attachment['id'])); ?>" title="Scarica allegato <?php echo $attachment['title'] ?> (<?php echo $attachment['size'] ?> Kb)">
+                    <a href="<?php echo $this->url('attachments-sthree-download', array('type' => 'albo-pretorio', 'id' => $attachment['id'])); ?>" title="Scarica allegato <?php echo $attachment['title'] ?> (<?php echo $attachment['size'] ?> Kb)">
                         <img src="<?php echo $this->publicDirRelativePath ?>/common/icons/attachments/<?php echo $attachment['image'] ?>" alt="Icona per <?php echo $attachment['title'] ?> (<?php echo $attachment['size'] ?> Kb)">
                         <?php echo $attachment['title'] ?>
                     </a>
@@ -178,14 +182,9 @@
 
     ?>
 
-    <?php if ($row['annullato'] == 1): ?>
-        </blockquote>
-    <?php endif; ?>
-
     </div>
 
-    <?php if ($row['annullato'] != 1): ?><hr><?php endif; ?>
-
+</article>
 <?php endforeach; ?>
 
 <?php

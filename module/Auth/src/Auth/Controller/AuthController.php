@@ -5,6 +5,7 @@ namespace Auth\Controller;
 use ModelModule\Model\Log\LogWriter;
 use ModelModule\Model\Modules\ModulesContainer;
 use ModelModule\Model\SetupAbstractControllerHelper;
+use ModelModule\Model\Users\UserFormAuthenticationInputFilter;
 use Zend\View\Model\ViewModel;
 use Zend\Session\Container as SessionContainer;
 use Zend\Permissions\Acl\Acl;
@@ -29,6 +30,8 @@ class AuthController extends SetupAbstractController
     private $sessionStorage;
     
     /**
+     * Form login
+     *
      * @return \Zend\View\Model\ViewModel
      */
     public function indexAction()
@@ -67,12 +70,13 @@ class AuthController extends SetupAbstractController
     }
 
     /**
+     * Form login user authentication
+     *
      * @return Redirect
      * @throws Exception
      */
     public function authenticateAction()
     {
-        $form       = new UserFormAuthentication();
         $redirect   = 'login';
         $request    = $this->getRequest();
         $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
@@ -80,9 +84,15 @@ class AuthController extends SetupAbstractController
         $appServiceLoader = $this->recoverAppServiceLoader();
 
         $configurations = $appServiceLoader->recoverService('configurations');
+
+        $formValidator = new UserFormAuthenticationInputFilter();
+
+        $form = new UserFormAuthentication();
+        $form->setInputFilter($formValidator->getInputFilter());
         
         if ($request->isPost()) {
             $form->setData($request->getPost());
+
             if ($form->isValid()) {
                 // Check authentication...
                 $this->getAuthService()->getAdapter()
@@ -208,12 +218,12 @@ class AuthController extends SetupAbstractController
                         ));
 
                     } else {
-                        $this->flashmessenger()->addMessage( print_r("Nome utente e\o password non validi", 1) );
+                        $this->flashmessenger()->addMessage( print_r("Nome utente e \ o password non validi", 1) );
                     }
                 }
             } else {
-
-                $sessionContainer = new Container();
+                // var_dump($form->getInputFilter()->getMessages()); exit;
+                $sessionContainer = new SessionContainer();
 
                 $loginFailures = $sessionContainer->offsetGet('loginFailures');
 

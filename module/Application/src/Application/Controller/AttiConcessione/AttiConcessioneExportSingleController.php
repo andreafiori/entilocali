@@ -7,6 +7,8 @@ use DOMPDFModule\View\Model\PdfModel;
 use ModelModule\Model\AttiConcessione\AttiConcessioneControllerHelper;
 use ModelModule\Model\AttiConcessione\AttiConcessioneGetter;
 use ModelModule\Model\AttiConcessione\AttiConcessioneGetterWrapper;
+use ModelModule\Model\Slugifier;
+use Zend\View\Model\JsonModel;
 
 class AttiConcessioneExportSingleController extends SetupAbstractController
 {
@@ -76,14 +78,17 @@ class AttiConcessioneExportSingleController extends SetupAbstractController
         $content = '';
         $content .= $this->layout()->getVariable('sitename').PHP_EOL;
         $content .= PHP_EOL;
-        $content .= "Albo pretorio".PHP_EOL;
+        $content .= "Atti di concessione".PHP_EOL;
         $content .= PHP_EOL;
 
         foreach($records as $record) {
             $content .= $record['titolo'].PHP_EOL;
-            $content .= 'Numero \ Anno: '.$record['numeroAtto'].' \ '.$record['anno'].PHP_EOL;
-            $content .= 'Sezione: '.$record['nomeSezione'].PHP_EOL;
-            $content .= "Scadenza: ".$record['dataScadenza']->format("d-m-Y").PHP_EOL;
+            $content .= 'Numero \ Anno: '.$record['progressivo'].' \ '.$record['anno'].PHP_EOL;
+            $content .= 'Beneficiario CF / PIVA: '.$record['beneficiario'].PHP_EOL;
+            $content .= 'Importo: '.$record['importo'].PHP_EOL;
+            $content .= 'Modalit&agrave; Assegnazione: '.$record['nomemodAssegnazione'].PHP_EOL;
+            $content .= 'Ufficio e responsabile del servizio: '.$record['nomeSezione'].' '.$record['nomeResponsabileProc'].PHP_EOL;
+            $content .= "Norma o titolo a base dell'attribuzione: ".$record['titolo'].PHP_EOL;
         }
         $content .= " ".PHP_EOL;
         $content .= date("Y").' '.$this->layout()->getVariable('sitename');
@@ -111,9 +116,9 @@ class AttiConcessioneExportSingleController extends SetupAbstractController
 
         $id = $this->params()->fromRoute('id');
 
-        $helper = new AlboPretorioControllerHelper();
+        $helper = new AttiConcessioneControllerHelper();
         $wrapper = $helper->recoverWrapperById(
-            new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter($em)),
+            new AttiConcessioneGetterWrapper(new AttiConcessioneGetter($em)),
             array('id' => $id, 'limit' => 1),
             $id
         );
@@ -127,10 +132,12 @@ class AttiConcessioneExportSingleController extends SetupAbstractController
         $record = $records[0];
 
         return new JsonModel(array(
-            'Titolo'        => $record['titolo'],
-            'Numero \ Anno' => $record['numeroAtto'].' \ '.$record['anno'],
-            'Scadenza'      => $record['dataScadenza']->format("d-m-Y"),
-            'Sezione'       => $record['nomeSezione'],
+            'Numero \ Anno'                             => $record['progressivo'].' \ '.$record['anno'],
+            'Beneficiario CF / PIVA'                    => $record['beneficiario'],
+            'Importo'                                   => $record['importo'],
+            'Modalit&agrave; Assegnazione'              => $record['nomemodAssegnazione'],
+            'Ufficio e responsabile del servizio'       => $record['nomeSezione'].' '.$record['nomeResponsabileProc'],
+            "Norma o titolo a base dell'attribuzione"   => $record['titolo'],
         ));
     }
 }

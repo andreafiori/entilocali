@@ -18,22 +18,25 @@ class EntiTerziForm extends Form
                         'type' => 'Text',
                         'options' => array('label' => '* Nome'),
                         'attributes' => array(
-                                    'required' => 'required',
-                                    'placeholder' => 'Nome...',
-                                    'title' => 'Inserisci il nome',
-                                    'id' => 'nome',
+                                    'required'      => 'required',
+                                    'placeholder'   => 'Nome...',
+                                    'title'         => 'Inserisci il nome',
+                                    'id'            => 'nome',
+                                    'maxlength'     => 230,
                         )
         ));
 
         $this->add(array(
-                        'name' => 'email',
-                        'type' => 'Email',
+                        'name' => 'freeText',
+                        'type' => 'Textarea',
                         'options' => array( 'label' => '* Email' ),
                         'attributes' => array(
                                     'required'      => 'required',
-                                    'placeholder'   => 'Email...',
-                                    'title'         => 'Inserisci email ente terzo',
-                                    'id'            => 'email',
+                                    'placeholder'   => 'Testo...',
+                                    'title'         => 'Inserisci testo libero home page',
+                                    'id'            => 'freeText',
+                                    'maxlength'     => 230,
+                                    'class'         => 'wysiwyg',
                         )
         ));
 

@@ -1974,6 +1974,7 @@ return array(
             'admin/albo-pretorio-update/index'              => __DIR__ . '/../view/admin/empty.phtml',
             'admin/albo-pretorio-delete/index'              => __DIR__ . '/../view/admin/empty.phtml',
             'admin/albo-pretorio-pdf/relata'                => __DIR__ . '../../view/admin/albo-pretorio-pdf/relata.phtml',
+            'admin/albo-pretorio-form-rettifica/index'      => __DIR__ . '/../view/admin/empty.phtml',
             'admin/albo-pretorio-sezioni-form/index'        => __DIR__ . '/../view/admin/empty.phtml',
             'admin/albo-pretorio-sezioni-insert/index'      => __DIR__ . '/../view/admin/empty.phtml',
             'admin/albo-pretorio-sezioni-update/index'      => __DIR__ . '/../view/admin/empty.phtml',

@@ -3,17 +3,11 @@
     <head>
     <meta charset="utf-8">
     <title><?php echo $this->sitename ?> <?php echo $this->translate('Area riservata'); ?></title>
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <?php
-    echo $this->headLink(array(
-                'rel' => 'shortcut icon',
-                'type' => 'image/vnd.microsoft.icon',
-                'href' => $this->basePath() . '/favicon.ico'
-                )
-            )->prependStylesheet($this->publicDirRelativePath.'/common/bootstrap3/css/bootstrap.min.css')
-             ->prependStylesheet($this->publicDirRelativePath.'/common/font-awesome/css/font-awesome.min.css')
+    echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/favicon.ico'))
+              ->prependStylesheet($this->publicDirRelativePath.'/common/bootstrap3/css/bootstrap.min.css')
+              ->prependStylesheet($this->publicDirRelativePath.'/common/font-awesome/css/font-awesome.min.css')
     ?>
     <style>
     body {
@@ -61,8 +55,8 @@
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
     </head>
 <body>
@@ -107,24 +101,37 @@ $element->setAttribute('class','form-control');
 echo $this->formInput($element);
 
 ?>
+<div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" title="Clicca per accedere all'area riservata">Accedi</button>
+</div>
 
-<button class="btn btn-lg btn-primary btn-block" type="submit" title="Accedi all'area riservata">Accedi</button>
+<br>
+
+<div>
+    <strong>
+    <a href="<?php echo $this->url('recover-password', array('action' => 'index')) ?>" title="Recupero password area riservata">
+        &raquo; Recupero password
+    </a>
+    </strong>
+</div>
+<br>
+
+<div>
+    <strong>
+    <a href="<?php echo $this->url('main') ?>" title="Torna al sito web">
+        &raquo; Torna al sito web
+    </a>
+    </strong>
+</div>
 
 </div>
 </form>
 
-<p>&nbsp;</p>
-
-<div class="row">
-    <div class="col-md-6">&nbsp;</div>
-    <div class="col-md-2"><a href="#" class="btn btn btn-warning btn-block" title="Recupero password">Recupero password</a></div>
-    <!-- <div class="col-md-2"><a href="#" class="btn btn btn-info btn-block" data-toggle="modal" data-target="#infoModal" title=""><i class="fa fa-info"></i> Informazioni</a></div> -->
-    <div class="col-md-2"><a href="<?php echo $this->url('main') ?>" class="btn btn btn-default btn-block" title="Torna al sito web">Torna al sito web</a></div>
-</div>
-
-<p>&nbsp;</p>
-    
 <?php
+
+/*
+ * TODO: optimize and translate messages...
+ *
 if ($this->messages) {
     ?>
     <div class="alert alert-info">
@@ -141,6 +148,8 @@ if ($this->messages) {
     </div>
     <?php
 }
+*/
+
 ?>
 </div>
 

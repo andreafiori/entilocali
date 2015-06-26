@@ -24,41 +24,54 @@ class AmministrazioneTrasparenteController extends SetupAbstractController
         $templateDir = $this->layout()->getVariable('templateDir');
         $basicLayout = $this->layout()->getVariable('amministrazione_trasparente_basiclayout');
 
-        $formSearch = new ContenutiFormSearch();
-        $formSearch->addAnno();
-        $formSearch->addCheckExpired();
-        $formSearch->addSubmitButton();
-        $formSearch->setData( array('anno' => date("Y")) );
+        try {
+            $helper = new ContenutiControllerHelper();
+            $sottosezioniRecords = $helper->recoverWrapperRecords(
+                new SottoSezioniGetterWrapper(new SottoSezioniGetter($em)),
+                array(
+                    'attivo'                => 1,
+                    'profonditaDa'          => $profondita,
+                    'languageAbbreviation'  => 'it',
+                    'isAmmTrasparente'      => 1,
+                    'orderBy'               => 'sottosezioni.posizione ASC',
+                )
+            );
 
-        $helper = new ContenutiControllerHelper();
-        $sottosezioniRecords = $helper->recoverWrapperRecords(
-            new SottoSezioniGetterWrapper(new SottoSezioniGetter($em)),
-            array(
-                'attivo'                => 1,
-                'profonditaDa'          => $profondita,
-                'languageAbbreviation'  => 'it',
-                'isAmmTrasparente'      => 1,
-                'orderBy'               => 'sottosezioni.posizione ASC',
-            )
-        );
+            $contenutiRecords = $helper->recoverWrapperRecords(
+                new ContenutiGetterWrapper(new ContenutiGetter($em)),
+                array(
+                    'sottosezione'      => $profondita,
+                    'attivo'            => 1,
+                    'noscaduti'         => 1,
+                    'isAmmTrasparente'  => 1,
+                    'orderBy'           => 'contenuti.posizione ASC'
+                )
+            );
+            $helper->checkRecords($contenutiRecords, "I dati relativi all'articolo richiesto non sono stati trovati");
 
-        $contenutiRecords = $helper->recoverWrapperRecords(
-            new ContenutiGetterWrapper(new ContenutiGetter($em)),
-            array(
-                'sottosezione'      => $profondita,
-                'attivo'            => 1,
-                'noscaduti'         => 1,
-                'isAmmTrasparente'  => 1,
-                'orderBy'           => 'contenuti.posizione ASC'
-            )
-        );
+            $formSearch = new ContenutiFormSearch();
+            $formSearch->addAnno();
+            $formSearch->addCheckExpired();
+            $formSearch->addSubmitButton();
+            $formSearch->setData( array('anno' => date("Y")) );
 
-        $this->layout()->setVariables(array(
-            'form'                      => $formSearch,
-            'sottoSezioni'              => $sottosezioniRecords,
-            'contenuti'                 => !empty($contenutiRecords) ? $contenutiRecords : null,
-            'templatePartial'           => 'amministrazione-trasparente/amministrazione-trasparente.phtml',
-        ));
+            $this->layout()->setVariables(array(
+                'form'                      => $formSearch,
+                'sottoSezioni'              => $sottosezioniRecords,
+                'contenuti'                 => !empty($contenutiRecords) ? $contenutiRecords : null,
+                'templatePartial'           => 'amministrazione-trasparente/amministrazione-trasparente.phtml',
+            ));
+
+        } catch(\Exception $e) {
+
+            $this->layout()->setVariables(array(
+                'messageTitle'      => 'Nessun articolo trovato',
+                'messageText'       => 'Impossibile visualizzare i dati per la richiesta effettuata',
+                'moduleLabel'       => 'Amministrazione trasparente',
+                'templatePartial'   => 'message.phtml',
+            ));
+
+        }
 
         $this->layout()->setTemplate(isset($basicLayout) ? $templateDir.$basicLayout : $mainLayout);
     }

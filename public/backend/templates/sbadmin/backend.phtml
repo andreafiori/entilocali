@@ -276,7 +276,9 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                         <ul class="nav nav-second-level">
                             <li><a href="<?php echo $this->url('admin/albo-pretorio-form', array('lang' => $lang) ); ?>" title="Nuovo atto">Nuovo atto</a></li>
                             <li><a href="<?php echo $this->url('admin/albo-pretorio-summary', array('lang' => $lang)); ?>" title="Gestione">Gestione</a></li>
+                            <!--
                             <li><a href="#" title="Elenco atti ufficiali">Atti ufficiali</a></li>
+                            -->
                             <!-- Sezioni -->
                             <?php if ($acl->hasResource('albo_pretorio_sezioni_add') or $acl->hasResource('albo_pretorio_sezioni_update')): ?>
                             <li>

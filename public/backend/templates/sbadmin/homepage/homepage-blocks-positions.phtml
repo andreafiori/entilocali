@@ -1,6 +1,6 @@
 <ul class="breadcrumb">
-    <li><a href="<?php echo $this->url('admin', array('lang'=>'it')); ?>" title="Home page">Home</a></li>
-    <li class="active">Gestione home page</li>
+    <li><a href="<?php echo $this->url('admin', array('lang' => 'it')); ?>" title="Home page">Home</a></li>
+    <li class="active"><a href="<?php echo $this->url('admin/homepage-management', array('lang' => $this->params()->fromRoute('lang')) ); ?>"" title="Gestione home page">Gestione home page</a></li>
     <li class="active">Posizioni moduli</li>
 </ul>
 

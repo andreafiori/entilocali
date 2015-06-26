@@ -18,6 +18,7 @@ class HomePageHelper extends ControllerHelperAbstract
 
     private $classMap = array(
         'contenuti'                     => '\ModelModule\Model\Contenuti\ContenutiHomePageBuilder',
+        'amministrazione-trasparente'   => '\ModelModule\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteHomePageBuilder',
         'albo-pretorio'                 => '\ModelModule\Model\AlboPretorio\AlboPretorioHomePageBuilder',
         'stato-civile'                  => '\ModelModule\Model\StatoCivile\StatoCivileHomePageBuilder',
         'atti-concessione'              => '\ModelModule\Model\AttiConcessione\AttiConcessioneHomePageBuilder',

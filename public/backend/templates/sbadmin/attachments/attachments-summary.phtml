@@ -65,6 +65,9 @@
             </thead>
             <tbody>
             <?php foreach($this->attachmentsList as $record): ?>
+                <?php
+                $expireDate = $record['expireDate']->format('Y-m-d H:i:s');
+                ?>
             <tr>
                 <!--
                 <td>
@@ -74,14 +77,13 @@
                 <td><?php echo isset($record['title']) ? $record['title'] : null ?><br>(<?php echo $record['size'] ?> Kb)</td>
                 <td>
                     <strong>Inserito il:</strong> <?php echo $record['insertDate']->format('Y-m-d H:i:s') ?><br><br>
-                    <strong>Scadenza:</strong> <?php echo $record['expireDate']->format('Y-m-d H:i:s') ?>
+                    <strong>Scadenza:</strong> <?php echo $expireDate ?>
                 </td>
                 <td><?php echo $record['username'].' '.$record['surname'] ?></td>
 
                 <?php if ($this->alboRettificaColumnDisplay): ?>
-                    <!-- Albo pretorio rettifica coluumn -->
                     <td>
-                        <a href="#" title="Rettifica atto" class="btn btn-default">
+                        <a href="javascript:void(0)" title="Rettifica atto albo pretorio" class="btn btn-default">
                             <i class="fa fa-power-off"></i>
                         </a>
                     </td>

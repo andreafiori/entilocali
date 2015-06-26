@@ -33,17 +33,19 @@ class BlogsHomePageBuilder extends HomePageBuilderAbstract
 
         $recordsWithAttachments = $wrapper->addAttachmentsFromRecords($wrapper->getRecords());
 
-        //$recordsWithCategories = $wrapper->addCategorySlugToRecordset($recordsWithAttachments);
-        foreach($recordsWithAttachments as &$postsRecord) {
-            $wrapper = new PostsGetterWrapper(new PostsGetter($em));
-            $wrapper->setInput(array(
-                'fields'     => 'c.id, c.name',
-                'id'         => $postsRecord['id'],
-                'orderBy'    => 'c.name',
-            ));
-            $wrapper->setupQueryBuilder();
+        /* $recordsWithCategories = $wrapper->addCategorySlugToRecordset($recordsWithAttachments); */
+        if (!empty($recordsWithAttachments)) {
+            foreach($recordsWithAttachments as &$postsRecord) {
+                $wrapper = new PostsGetterWrapper(new PostsGetter($em));
+                $wrapper->setInput(array(
+                    'fields'     => 'c.id, c.name',
+                    'id'         => $postsRecord['id'],
+                    'orderBy'    => 'c.name',
+                ));
+                $wrapper->setupQueryBuilder();
 
-            $postsRecord['categories'] = $wrapper->getRecords();
+                $postsRecord['categories'] = $wrapper->getRecords();
+            }
         }
 
         return $recordsWithAttachments;

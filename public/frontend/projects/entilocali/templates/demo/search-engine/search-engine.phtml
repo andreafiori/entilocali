@@ -1,0 +1,53 @@
+<ul class="breadcrumbs">
+    <li>
+        <a href="<?php echo $this->basepath() ?>/" title="Torna all'home page">Home</a>
+    </li>
+    <li class="current">Ricerca</li>
+</ul>
+
+<?php if ( empty($this->records) ): ?>
+    <div class="panel info">
+        <h2>Nessun risultato trovato</h2>
+        <p>Il motore di ricerca interno non ha trovato nessun risultato per la ricerca effettuata.</p>
+    </div>
+<?php elseif (!empty($this->records['contenuti'])): ?>
+    <h3>Articoli \ contenuti</h3>
+    <ul>
+        <?php foreach($this->records['contenuti'] as $record): ?>
+            <li style="margin: 12px 0">
+                <a href="javascript:void(0)" title="Vai alla pagina <?php echo $record['titolo'] ?>"
+                    ><?php echo $record['titolo'] ?>
+                </a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+    <p class="text-right">
+        &raquo; <a href="#" title="Visualizza elenco risultati articoli">
+            <?php echo $this->records['contenuti-count'] ?> risultati trovati
+        </a>
+    </p>
+<?php elseif (!empty($this->records['stato-civile'])): ?>
+    <h3>Stato civile</h3>
+    <ul class="no-bullet">
+    <?php foreach($this->records['stato-civile'] as $record): ?>
+        <li><a href="#" title="Consulta l'atto stato civile <?php echo $record['titolo'] ?>"><?php echo $record['titolo'] ?></a></li>
+    <?php endforeach; ?>
+    </ul>
+    <p class="text-right">
+        &raquo; <a href="#" title="Visualizza elenco risultati articoli">
+            <?php echo $this->records['stato-civile-count'] ?> risultati trovati
+        </a>
+    </p>
+<?php elseif (!empty($this->records['atti-concessione'])): ?>
+    <h3>Atti di concessione</h3>
+    <ul class="no-bullet">
+        <?php foreach($this->records['atti-concessione'] as $record): ?>
+            <li><a href="#" title="Consulta l'atto concessione <?php echo $record['titolo'] ?>"><?php echo $record['titolo'] ?></a></li>
+        <?php endforeach; ?>
+    </ul>
+    <p class="text-right">
+        &raquo; <a href="#" title="Visualizza elenco risultati articoli">
+            <?php echo $this->records['atti-concessione-count'] ?> risultati trovati
+        </a>
+    </p>
+<?php endif; ?>

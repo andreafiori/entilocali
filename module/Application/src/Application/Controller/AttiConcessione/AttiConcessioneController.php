@@ -80,13 +80,64 @@ class AttiConcessioneController extends SetupAbstractController
         } catch(NullException $e) {
 
             $this->layout()->setVariables(array(
-                'messageType'                   => 'secondary',
-                'messageText'                   => "Si &egrave; verificato un problema o un'assenza di dati necessari wper visualizzare la pagina richiesta",
-                'templatePartial'               => 'atti-concessione/atti-concessione.phtml',
+                'messageType'       => 'secondary',
+                'messageText'       => "Si &egrave; verificato un problema o una mancanza di dati necessari per visualizzare la pagina richiesta",
+                'templatePartial'   => 'atti-concessione/atti-concessione.phtml',
             ));
 
         }
 
         $this->layout()->setTemplate(isset($basicLayout) ? $templateDir.$basicLayout : $mainLayout);
+    }
+
+    /**
+     * Atto concessione details
+     */
+    public function detailsAction()
+    {
+        $mainLayout = $this->initializeFrontendWebsite();
+
+        $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+
+        $id = $this->params()->fromRoute('id');
+
+        try {
+
+            $helper = new AttiConcessioneControllerHelper();
+            $wrapper = $helper->recoverWrapperById(
+                new AttiConcessioneGetterWrapper(new AttiConcessioneGetter($em)),
+                array('id' => $id, 'limit' => 1),
+                $id
+            );
+            $attoRecord = $wrapper->getRecords();
+            $helper->checkRecords($attoRecord, 'Nessun atto di concessione trovato');
+            $wrapper->setEntityManager($em);
+            $records = $wrapper->addAttachmentsFromRecords(
+                $attoRecord,
+                array(
+                    'moduleId'  => ModulesContainer::atti_concessione,
+                    'noScaduti' => 1,
+                    'orderBy'   => 'ao.position'
+                )
+            );
+
+            $this->layout()->setVariables(array(
+                'records'           => $records,
+                'templatePartial'   => 'atti-concessione/atti-concessione-details.phtml'
+            ));
+
+        } catch(\Exception $e) {
+
+            $this->layout()->setVariables(array(
+                'messageType'       => 'secondary',
+                'moduleLabel'       => "Atti di concessione",
+                'messageTitle'      => "Nessun atto di concessione trovato",
+                'messageText'       => "Impossibile visualizzare i dati richiesti",
+                'templatePartial'   => 'message.phtml',
+            ));
+
+        }
+
+        $this->layout()->setTemplate($mainLayout);
     }
 }

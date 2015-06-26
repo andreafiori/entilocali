@@ -62,7 +62,8 @@ class AttachmentsForm extends Form
                                     'placeholder'   => 'Descrizione...',
                                     'title'         => 'Inserisci descrizione file allegato',
                                     'rows'          => 8,
-                                    'cols'          => 35
+                                    'cols'          => 35,
+                                    'maxlength'     => 230
                         )
         ));
         

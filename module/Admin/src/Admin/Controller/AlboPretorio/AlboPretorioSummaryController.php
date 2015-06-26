@@ -177,8 +177,8 @@ class AlboPretorioSummaryController extends SetupAbstractController
                             $arrayLine[] = array(
                                 'type'      => 'alboRettificaButton',
                                 'data-form-action' => $this->url()->fromRoute('admin/albo-pretorio-form-rettifica', array(
-                                    'lang'      => $lang,
-                                    'id'        => $record['id'],
+                                    'lang'  => $lang,
+                                    'id'    => $record['id'],
                                 )),
                                 'title'     => 'Rettifica articolo',
                                 'data-id'   => $record['id'],

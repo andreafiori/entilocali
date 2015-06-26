@@ -6,10 +6,6 @@ use Zend\Captcha;
 use Zend\Form\Element;
 use Zend\Form\Form;
 
-/**
- * @author Andrea Fiori
- * @since  19 June 2014
- */
 class CreateAccountForm extends Form
 {
     /**

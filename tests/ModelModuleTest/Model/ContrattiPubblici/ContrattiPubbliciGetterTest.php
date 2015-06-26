@@ -2,13 +2,9 @@
 
 namespace ModelModuleTest\Model\ContrattiPubblici;
 
-use ModelModuleTest\TestSuite;
 use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciGetter;
+use ModelModuleTest\TestSuite;
 
-/**
- * @author Andrea Fiori
- * @since  17 August 2014
- */
 class ContrattiPubbliciGetterTest extends TestSuite
 {
     /**
@@ -36,7 +32,7 @@ class ContrattiPubbliciGetterTest extends TestSuite
         
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('id'));
     }
-    
+
     public function testSetIdWithArrayInInput()
     {
         $this->objectGetter->setId( array(1,2,3) );
@@ -44,10 +40,29 @@ class ContrattiPubbliciGetterTest extends TestSuite
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('id'));
     }
 
-    public function testSetUtente()
+    public function testSetUserId()
     {
-        $this->objectGetter->setUtente(11);
+        $this->objectGetter->setUserId(11);
 
-        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('utente'));
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('userId'));
     }
+
+    public function testSetFreeSearch()
+    {
+        $this->objectGetter->setFreeSearch('my free text search test');
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('freeSearch'));
+    }
+
+    /*
+    public function testSetNoScaduti()
+    {
+       $this->objectGetter->setNoScaduti(1);
+    }
+
+    public function testSetScaduti()
+    {
+       $this->objectGetter->setNoScaduti(1);
+    }
+    */
 }

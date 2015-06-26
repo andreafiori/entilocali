@@ -10,6 +10,9 @@ use ModelModule\Model\AlboPretorio\AlboPretorioSezioniGetter;
 use ModelModule\Model\AlboPretorio\AlboPretorioSezioniGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
+/**
+ * Render form rettifica after a POST request
+ */
 class AlboPretorioFormRettificaController extends SetupAbstractController
 {
     public function indexAction()
@@ -49,7 +52,9 @@ class AlboPretorioFormRettificaController extends SetupAbstractController
 
                 $this->layout()->setVariables(array(
                         'form'                          => $form,
-                        'formAction'                    => 'albo-pretorio/update/'.$articoloRecord[0]['id'],
+                        'formAction'                    => $this->url()->fromRoute('admin/albo-pretorio-update', array(
+                            'lang' => $lang
+                        )),
                         'formTitle'                     => $articoloRecord[0]['titolo'],
                         'formDescription'               => "Compila i dati relativi all'atto da inserire sull'albo pretorio",
                         'templatePartial'               => self::formTemplate,
@@ -71,6 +76,7 @@ class AlboPretorioFormRettificaController extends SetupAbstractController
                 $this->layout()->setTemplate($mainLayout);
 
             } catch(\Exception $e) {
+
                 $this->layout()->setVariables(array(
                         'messageType'       => 'warning',
                         'messageTitle'      => 'Errore verificato',
@@ -91,8 +97,13 @@ class AlboPretorioFormRettificaController extends SetupAbstractController
                     )
                 );
             }
+
         } else {
-            return $this->redirect()->toRoute('admin/albo-pretorio-summary', array('lang' => $this->params()->fromRoute('lang')));
+
+            return $this->redirect()->toRoute('admin/albo-pretorio-summary', array(
+                'lang' => $this->params()->fromRoute('lang')
+            ));
+
         }
     }
 }

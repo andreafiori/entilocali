@@ -98,10 +98,12 @@ class AlboPretorioFormController extends SetupAbstractController
             $message = $e->getParams();
 
             $this->layout()->setVariables(array(
-                'messageType'     => $message['type'],
-                'messageTitle'    => $message['title'],
-                'messageText'     => $message['text'],
-                'templatePartial' => 'message.phtml',
+                'messageType'               => $message['type'] ? $message['type'] : 'warning',
+                'messageTitle'              => $message['title'] ? $message['title'] : 'Problema verificato',
+                'messageText'               => $message['text'] ? $message['text'] : $e->getMessage(),
+                'showBreadCrumb'            => 1,
+                'formBreadCrumbCategory'    => 'Albo pretorio',
+                'templatePartial'           => 'message.phtml',
             ));
         }
 

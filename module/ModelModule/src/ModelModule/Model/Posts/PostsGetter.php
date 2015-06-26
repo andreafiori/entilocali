@@ -194,6 +194,8 @@ class PostsGetter extends QueryBuilderHelperAbstract
     }
 
     /**
+     * Set module code
+     *
      * @param string $moduleCode
      * @return \Doctrine\ORM\QueryBuilder
      */
@@ -216,6 +218,23 @@ class PostsGetter extends QueryBuilderHelperAbstract
         if ($noScaduti == 1) {
             $this->getQueryBuilder()->andWhere("( p.expireDate > '".date("Y-m-d H:i:s")."'
             OR p.dataScadenza = '0000-00-00 00:00:00' ) ");
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * Set text search
+     *
+     * @param string $search
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setFreeSearch($search)
+    {
+        if (!empty($search)) {
+            $this->getQueryBuilder()->andWhere(' ( p.title LIKE :freeSearch OR p.description LIKE :freeSearch
+            OR c.name LIKE :freeSearch) ');
+            $this->getQueryBuilder()->setParameter('freeSearch', $search);
         }
 
         return $this->getQueryBuilder();

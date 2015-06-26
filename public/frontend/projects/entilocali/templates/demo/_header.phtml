@@ -21,7 +21,7 @@
 <script src="<?php echo $this->publicDirRelativePath ?>/common/foundation/js/vendor/modernizr.js"></script>
 
 <!--[if lt IE 9]>
-    <link rel="stylesheet" href="<?php echo $publicDir ?>/common/foundation/css/ie.css">
+    <link rel="stylesheet" href="<?php echo $this->publicDirRelativePath ?>/common/foundation/css/ie.css">
 <![endif]-->
 
 <style>
@@ -63,6 +63,10 @@ table { width: 100% }
 
 .redString {
     color: #d14;
+}
+
+.blueString {
+    color: #000080;
 }
 
 .imageLeft {
@@ -122,12 +126,7 @@ aside h2 {
 
 <body>
 
-<noscript>
-    Javascript &egrave; stato disattivato. Per un migliore utilizzo del sito si prega di attivare Javascrip sul browser in uso.
-</noscript>
-
 <?php if ($this->passwordPreviewArea): ?>
-    <!-- Preview area alert -->
     <div class="alert-box info text-center" id="previewAreaAlert">
         <strong>Anteprima <?php echo $this->sitename ?>.
             <a href="<?php echo $this->url('password-preview-logout', array('action' => 'logout')); ?>" title="Uscita area risevata">Uscita</a>
@@ -137,11 +136,7 @@ aside h2 {
 <?php endif; ?>
 
 <?php if ($this->cookieWarning!=1): ?>
-    <!-- Cookie Warning -->
-    <div class="alert-box secondary text-center cookieWarning" id="previewAreaAlert">
-        <!-- <form action="#" method="post" id="frmCookieWarning"> -->
-        Il sito <?php echo $this->sitename ?> utilizza cookies di sessione; consulta la nostra <a href="#" title="Leggi la nostra privacy policy">privacy policy</a>.
-        <a href="<?php echo $this->url('cookie-warning-confirm', array('action' => 'confirm')); ?>" class="button tiny">OK ho capito</a> <a href="#" class="button warning tiny">Maggiori informazioni</a>
-        <!-- </form> -->
+    <div class="alert-box secondary text-center cookieWarning" id="previewAreaAlert">Questo sito utilizza cookie di sessione e di profilazione di terze parti per le sue funzionalit&agrave;. Se vuoi saperne di pi&ugrave; o negare il consenso a tutti o ad alcuni cookie, consulta la nostra <a href="#" title="Leggi la privacy policy">privacy policy</a>. Continuando la navigazione o chiudendo questo avviso, acconsenti all'utilizzo dei cookie. <a href="<?php echo $this->url('cookie-warning-confirm', array('action' => 'confirm')); ?>" class="button tiny">OK ho capito</a> <a href="#" class="button warning tiny">Maggiori informazioni</a>
     </div>
 <?php endif; ?>
+

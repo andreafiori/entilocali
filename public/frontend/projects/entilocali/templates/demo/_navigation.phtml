@@ -5,7 +5,6 @@
 <div class="large-12 columns">
     
     <div class="large-12 columns">
-        
         <ul class="inline-list right">
             <li>
                 <a href="#mainContents" accesskey="x" class="button small" title="<?php echo $this->translate('Salta ai contenuti'); ?>">
@@ -13,14 +12,13 @@
                 </a>
             </li>
         </ul>
-        
         <h1>
             <a href="<?php echo $this->basepath() ?>/" title="Torna alla home page di <?php echo $this->sitename ?>">
                 <?php echo $this->sitename ?>
             </a>
         </h1>
-        
     </div>
+
 </div>
 
 <hr class="hidden">
@@ -73,14 +71,45 @@
 
                 <li class="has-form">
                     <div class="row collapse">
-                        <div class="large-8 small-9 columns">
-                            <input type="text" name="search" placeholder="<?php echo $this->translate('Cerca'); ?>...">
+                        <?php
+
+                        /* Search engine form */
+                        $form = $this->searchEngineForm;
+                        $form->prepare();
+
+                        $formAction = $this->url('main/search-engine', array(
+                            'lang' => $this->params()->fromRoute('lang') ? $this->params()->fromRoute('lang') : 'it',
+                        ));
+
+                        $formId = !empty($this->formId) ? $this->formId : 'searchEngineForm';
+
+                        $form->setAttributes(array(
+                            'action'    => $formAction,
+                            'method'    => 'post',
+                            'name'      => $formId,
+                            'id'        => $formId,
+                            'role'      => 'form',
+                        ));
+
+                        echo $this->form()->openTag($form);
+
+                        ?>
+                        <div class="large-8 columns">
+                            <label for="searchtext">
+                                <?php echo $this->formElement($form->get('searchtext')); ?>
+                            </label>
+                            <label>
+                                <?php echo $this->formElement($form->get('csrf')); ?>
+                            </label>
                         </div>
-                        <div class="large-4 small-3 columns">
-                            <a href="#" class="alert button expand" title="<?php echo $this->translate('Cerca sul sito'); ?>">
+                        <div class="large-4 columns">
+                            <button type="submit" class="alert button expand" title="<?php echo $this->translate('Cerca sul sito'); ?>">
                                 <?php echo $this->translate('Cerca'); ?>
-                            </a>
+                            </button>
                         </div>
+
+                        <?php echo $this->form()->closeTag(); ?>
+
                     </div>
                 </li>
 

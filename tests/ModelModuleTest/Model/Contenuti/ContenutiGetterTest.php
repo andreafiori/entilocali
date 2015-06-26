@@ -5,10 +5,6 @@ namespace ModelModuleTest\Model\Contenuti;
 use ModelModuleTest\TestSuite;
 use ModelModule\Model\Contenuti\ContenutiGetter;
 
-/**
- * @author Andrea Fiori
- * @since  11 January 2015
- */
 class ContenutiGetterTest extends TestSuite
 {
     /**
@@ -159,5 +155,12 @@ class ContenutiGetterTest extends TestSuite
         $this->objectGetter->setInHome(1);
 
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('inhome'));
+    }
+
+    public function testSetFreeSearch()
+    {
+        $this->objectGetter->setFreeSearch('my free search text test');
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('freeSearch'));
     }
 }

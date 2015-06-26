@@ -1,11 +1,12 @@
 <?php
 $lang = $this->params()->fromRoute('lang') ? $this->params()->fromRoute('lang') : 'it';
+
 if ($this->homepage):
 
     foreach($this->homepage as $key => $value):
 
         if ($key == 'blogs'):
-            $basePath = (substr($this->basePath(), -1) == '/') ? $this->basePath() : $this->basePath().'/';
+            $basePath = (substr($this->publicDirRelativePath, -1) == '/') ? $this->publicDirRelativePath : $this->publicDirRelativePath.'/';
             ?>
             <h3>Blogs</h3>
             <div class="row">
@@ -22,11 +23,15 @@ if ($this->homepage):
                             <div class="row">
                                 <div class="large-2 small-12 columns">
                                     <a href="<?php echo $linkDetails ?>" title="<?php echo $this->translate("Leggi blog post").' '.$content['title'] ?>">
-                                    <img src="<?php echo $basePath.$this->configurations['media_dir'].$this->configurations['media_project'].'blogs/thumbs/'.$content['image'] ?>" alt="">
+                                        <img src="<?php echo $basePath.$this->configurations['media_dir'].$this->configurations['media_project'].'blogs/thumbs/'.$content['image'] ?>" alt="Miniatura per <?php echo $content['title'] ?>" class="th">
                                     </a>
                                 </div>
                                 <div class="large-10 small-12 columns">
-                                    <h4><?php echo $content['title']; ?></h4>
+                                    <h4>
+                                        <a href="<?php echo $linkDetails ?>" title="<?php echo $this->translate("Leggi blog post").' '.$content['title'] ?>">
+                                        <?php echo $content['title']; ?>
+                                        </a>
+                                    </h4>
                                     <!-- <div>Pubblicato in: <a href="#" title="Leggi posts <?php echo $content['categories'][0]['name']; ?>"><?php echo $content['categories'][0]['name']; ?></a></div> -->
                                     <?php echo $this->TextShortener($content['description'], 30, 30); ?>
                                     <a href="<?php echo $linkDetails ?>" title="Clicca per leggere il post">Leggi</a>
@@ -34,29 +39,70 @@ if ($this->homepage):
                             </div>
                         </div>
                     </div>
-
                 <?php  endforeach; ?>
             </div>
+
             <hr class="hidden">
-        <?php
-        elseif ($key == 'contenuti'):
+
+        <?php elseif ($key == 'photo'):
+            $basePath = (substr($this->publicDirRelativePath, -1) == '/') ? $this->publicDirRelativePath : $this->publicDirRelativePath.'/';
             ?>
+            <h3>Foto</h3>
+            <ul class="clearing-thumbs" data-clearing>
+                <?php foreach($value as $content): ?>
+                    <?php
+                    $thumbPath = $basePath.$this->configurations['media_dir'].$this->configurations['media_project'].'photo/thumbs/'.$content['image'];
+                    $bigImagePath = $basePath.$this->configurations['media_dir'].$this->configurations['media_project'].'photo/big/'.$content['image'];
+                    $linkDetails = $this->url('main/photo-gallery', array(
+                        'lang'      => $lang,
+                        'category'  => $content['categories'][0]['name'],
+                        'title'     => \ModelModule\Model\Slugifier::slugify($content['title']),
+                    ));
+                    ?>
+                    <li>
+                    <a href="<?php echo $bigImagePath ?>" title="<?php echo $content['title'] ?>">
+                        <img src="<?php echo $thumbPath ?>" alt="Miniatura per <?php echo $content['title'] ?>" class="th">
+                    </a>
+                    </li>
+                <?php  endforeach; ?>
+            </ul>
+
+            <hr class="hidden">
+
+        <?php elseif ($key == 'contenuti'): ?>
             <h3>In evidenza</h3>
             <div>
                 <ul>
-            <?php foreach($value as $record): ?>
+                <?php foreach($value as $record): ?>
                 <li>
                     <a href="<?php echo $this->url('main/contenuti', array('lang' => $lang, 'subsectionid' => $record['sottosezione'])) ?>" title="Vai alla pagina <?php echo $record['titolo'] ?>">
                         <?php echo $record['titolo'] ?>
                     </a>
                 </li>
-        <?php endforeach; ?>
+                <?php endforeach; ?>
                 </ul>
             </div>
-            <hr>
-        <?php
-        elseif ($key == 'contents'):
-            ?>
+            <hr class="hidden">
+        <?php elseif ($key == 'amministrazione-trasparente'): ?>
+            <h3>Amministrazione trasparente</h3>
+            <div>
+                <ul>
+                    <?php foreach($value as $record): ?>
+                        <li>
+                            <a href="<?php echo $this->url('amministrazione-trasparente', array(
+                                'lang'          => $lang,
+                                'profondita'    => $record['sottosezione'],
+                                'id'            => $record['id'],
+                            ));
+                            ?>" title="Vai alla pagina <?php echo $record['titolo'] ?>">
+                                <?php echo $record['titolo'] ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+            <hr class="hidden">
+        <?php elseif ($key == 'contents'): ?>
             <div class="row">
             <?php
 
@@ -95,10 +141,26 @@ if ($this->homepage):
             <h3>Albo pretorio</h3>
             <ul>
             <?php foreach($value as $record): ?>
-                <li><?php echo ucfirst($record['titolo']) ?></li>
+                <li>
+                    <a href="<?php echo $this->url('albo-pretorio-details', array('id' => $record['id'])) ?>" title="<?php echo ucfirst($record['titolo']) ?>">
+                        <?php echo ucfirst($record['titolo']) ?>
+                    </a>
+                </li>
             <?php endforeach ?>
             </ul>
-            <hr>
+            <hr class="hidden">
+        <?php elseif ($key == 'contratti-pubblici'): ?>
+            <h3>Bandi di gara e contratti</h3>
+            <ul>
+            <?php foreach($value as $record): ?>
+                <li>
+                    <a href="<?php echo $this->url('contratti-pubblici-details', array('id' => $record['id'])) ?>" title="<?php echo ucfirst($record['titolo']) ?>">
+                        <?php echo ucfirst($record['titolo']) ?>
+                    </a>
+                </li>
+            <?php endforeach ?>
+            </ul>
+            <hr class="hidden">
         <?php elseif ($key == 'stato-civile'): ?>
             <h3>Stato civile</h3>
             <?php foreach($value as $record): ?>
@@ -106,18 +168,27 @@ if ($this->homepage):
                 <?php echo ucfirst($record['titolo']) ?>
             </div>
             <?php endforeach ?>
-            <hr>
+            <hr class="hidden">
         <?php elseif ($key == 'atti-concessione'): ?>
             <h3>Atti di concessione</h3>
+            <ul>
             <?php foreach($value as $record): ?>
-                <div><?php echo ucfirst($record['titolo']) ?></div>
+                <li>
+                    <a href="<?php echo $this->url('atti-concessione-details', array('lang' => 'it', 'id' => $record['id'])) ?>" title="Dettagli atto <?php echo ucfirst($record['titolo']) ?>">
+                        <?php echo ucfirst($record['titolo']) ?>
+                    </a>
+                </li>
             <?php endforeach ?>
-            <hr>
+            </ul>
+
+            <hr class="hidden">
         <?php elseif ($key == 'freeText'):
 
             if ( !empty($value) ):
                 foreach($value as $record):
-                    echo $record['freeText']."<br>";
+                    ?>
+                    <div><?php echo $record['freeText'] ?></div>
+                    <?php
                 endforeach;
             endif;
 

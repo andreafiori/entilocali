@@ -106,14 +106,20 @@ class AlboPretorioOperationsController extends SetupAbstractController
                     'module_id'     => 3,
                     'reference_id'  => $record[0]['id'],
                 ));
-
-                // TODO: redidrect to a message page and show an error message
             }
 
             return $this->redirectToSummary();
         }
 
         return $this->redirectToSummary();
+    }
+
+    /**
+     * TODO: Active atto albo after attchment file rettifica button cliok
+     */
+    public function rettificaAction()
+    {
+
     }
 
     /**

@@ -15,7 +15,7 @@ use Zend\Session\Container as SessionContainer;
 class Module implements AutoloaderProviderInterface, ConfigProviderInterface
 {
     /**
-     * {@inheritDoc}
+     * @param MvcEvent $e
      */
     public function onBootstrap(MvcEvent $e)
     {

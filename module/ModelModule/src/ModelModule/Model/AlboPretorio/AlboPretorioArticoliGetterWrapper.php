@@ -4,10 +4,6 @@ namespace ModelModule\Model\AlboPretorio;
 
 use ModelModule\Model\RecordsGetterWrapperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  08 July 2014
- */
 class AlboPretorioArticoliGetterWrapper extends RecordsGetterWrapperAbstract
 {
     /**

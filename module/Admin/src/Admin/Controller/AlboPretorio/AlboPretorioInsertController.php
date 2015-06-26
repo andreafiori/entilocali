@@ -66,7 +66,7 @@ class AlboPretorioInsertController extends SetupAbstractController
             $helper->insert($inputFilter);
             $lastInsertId = $helper->getConnection()->lastInsertId();
 
-                // TODO: insert in home page if homepage == 1, facebook post if faceboo == 1 and all settings about fb are ok
+            // TODO: insert in home page if homepage == 1, facebook post if faceboo == 1 and all settings about fb are ok
 
             $helper->getConnection()->commit();
 
@@ -74,7 +74,7 @@ class AlboPretorioInsertController extends SetupAbstractController
             $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
                 'module_id'     => ModulesContainer::albo_pretorio_id,
-                'message'       => "Inserita nuovo atto albo pretorio ".$inputFilter->titolo. " ID: ".$lastInsertId,
+                'message'       => "Inserito nuovo atto albo pretorio ".$inputFilter->titolo,
                 'type'          => 'info',
                 'reference_id'  => $lastInsertId,
                 'backend'       => 1,

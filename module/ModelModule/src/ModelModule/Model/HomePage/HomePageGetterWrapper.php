@@ -28,12 +28,17 @@ class HomePageGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setId($this->getInput('id', 1));
         $this->objectGetter->setLanguage($this->getInput('language', 1));
         $this->objectGetter->setLanguageAbbreviation($this->getInput('languageAbbreviation', 1));
+        $this->objectGetter->setModuleCode($this->getInput('moduleCode', 1));
+        $this->objectGetter->setOnlyActiveModules($this->getInput('onlyActiveModules', 1));
+        $this->objectGetter->setReferenceId($this->getInput('referenceId', 1));
         $this->objectGetter->setOrderBy($this->getInput('orderBy', 1));
         $this->objectGetter->setGroupBy($this->getInput('groupBy', 1));
         $this->objectGetter->setLimit($this->getInput('limit', 1));
     }
 
     /**
+     * Regroup records per module code
+     *
      * @param array $records
      * @return array
      */

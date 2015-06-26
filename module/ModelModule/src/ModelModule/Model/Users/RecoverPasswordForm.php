@@ -4,10 +4,6 @@ namespace ModelModule\Model\Users;
 
 use Zend\Form\Form;
 
-/**
- * @author Andrea Fiori
- * @since  19 June 2014
- */
 class RecoverPasswordForm extends Form
 {
     /**
@@ -19,9 +15,9 @@ class RecoverPasswordForm extends Form
         
         $this->add(array(
             'name' => 'email',
-            'type' => 'Zend\Form\Element\Text', 
+            'type' => 'Zend\Form\Element\Email',
             'attributes' => array(
-                'placeholder'   => 'Inserisci email...',
+                'placeholder'   => 'Email...',
                 'title'         => 'Inserisci email per richiedere il recupero password',
                 'required'      => 'required',
                 'id'            => 'email'
@@ -31,6 +27,14 @@ class RecoverPasswordForm extends Form
             ), 
         ));
 
+        $this->add(array(
+            'name' => 'csrf',
+            'type' => 'Zend\Form\Element\Csrf',
+        ));
+    }
+
+    public function addSubmitButton()
+    {
         $this->add(array(
             'name' => 'submitbutton',
             'attributes' => array(

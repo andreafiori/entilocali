@@ -1,0 +1,55 @@
+<ul class="breadcrumbs">
+    <li><a href="<?php echo $this->basepath() ?>" title="Torna all'home page">Home</a></li>
+    <li><a href="<?php echo $this->url('albo-pretorio') ?>" title="Torna all'elenco atti albo pretorio">Albo pretorio</a></li>
+    <li class="current">Dettagli</li>
+</ul>
+
+<?php if (count($this->records)): ?>
+
+    <?php $row = $this->records[0] ?>
+
+    <h2><?php echo $row['titolo'] ?></h2>
+
+    <p><strong>Rep.:</strong> <?php echo $row['numeroProgressivo'] ?> / <?php echo $row['numeroAtto'] ?></p>
+    <p><strong>Pubblicato il:</strong> <?php echo $row['dataAttivazione']->format("m d Y") ?>. <strong>Ore:</strong> <?php echo $row['oraAttivazione']->format("H:i") ?></p>
+    <?php if ($row['dataScadenza']->format("Y-m-d H:i:s")!='0000-00-00 00:00:00'): ?>
+        <p><strong>Scadenza:</strong> <?php echo $row['dataScadenza']->format("d m Y") ?></p>
+    <?php endif; ?>
+    <p><strong>Sezione:</strong> <?php echo $row['nomeSezione'] ?></p>
+
+    <?php if (isset($row['attachments'])): ?>
+        <div>
+            <p><strong>Allegati:</strong></p>
+            <ul class="no-bullet">
+                <?php foreach($row['attachments'] as $attachment): ?>
+                    <li>
+                        <a href="<?php echo $this->url('attachments-sthree-download', array('type' => 'albo-pretorio', 'id' => $attachment['id'])); ?>" title="Scarica allegato <?php echo $attachment['title'] ?> (<?php echo $attachment['size'] ?> Kb)">
+                            <img src="<?php echo $this->publicDirRelativePath ?>/common/icons/attachments/<?php echo $attachment['image'] ?>" alt="Icona per <?php echo $attachment['title'] ?> (<?php echo $attachment['size'] ?> Kb)">
+                            <?php echo $attachment['title'] ?>
+                        </a>
+                    </li>
+                <?php endforeach ?>
+            </ul>
+        </div>
+    <?php endif;?>
+    <?php
+
+    echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
+        'exportTxtUrl'          => $this->url('albo-pretorio-export-single', array('lang' => 'it', 'modulename' => 'albo-pretorio', 'action' => 'txt', 'id' => $row['id'])),
+        'exportCsvUrl'          => '',
+        'exportPdfUrl'          => $this->url('albo-pretorio-export-single', array('lang' => 'it', 'modulename' => 'albo-pretorio', 'action' => 'pdf', 'id' => $row['id'])),
+        'exportXMLUrl'          => '',
+        'exportJSONUrl'         => $this->url('albo-pretorio-export-single', array('lang' => 'it', 'modulename' => 'albo-pretorio', 'action' => 'json', 'id' => $row['id'])),
+        'twitterShareText'      => $this->sitename.' - Atti di concessione',
+        'publicDirRelativePath' => $this->publicDirRelativePath,
+    ));;
+
+
+
+else:
+    ?>
+    <div class="panel info">
+        <h3>Nessun atto di concessione in archivio</h3>
+        <p>Nessun articolo presente in archivio</p>
+    </div>
+<?php endif; ?>

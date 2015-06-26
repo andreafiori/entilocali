@@ -6,6 +6,9 @@ use ModelModule\Model\Sezioni\SezioniGetterWrapper;
 use ModelModule\Service\AppServiceLoader;
 use Zend\Session\Container;
 
+/**
+ * TODO: transform into abstract class, replace usages
+ */
 class SetupAbstractControllerHelper extends OperationsModelAbstract
 {
     private $adminArea;
@@ -73,6 +76,8 @@ class SetupAbstractControllerHelper extends OperationsModelAbstract
     }
 
     /**
+     * Recover configurations array (records from database)
+     *
      * @param string $key
      * @param int $noArray
      * @return string|null
@@ -101,6 +106,8 @@ class SetupAbstractControllerHelper extends OperationsModelAbstract
     }
 
     /**
+     * Set session container
+     *
      * @param Container $sessionContainer
      */
     public function setSessionContainer(Container $sessionContainer)
@@ -109,6 +116,8 @@ class SetupAbstractControllerHelper extends OperationsModelAbstract
     }
 
     /**
+     * Recover session container
+     *
      * @return mixed
      */
     public function getSessionContainer()

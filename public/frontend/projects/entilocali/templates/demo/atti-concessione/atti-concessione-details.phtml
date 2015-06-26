@@ -1,0 +1,67 @@
+<ul class="breadcrumbs">
+    <li><a href="<?php echo $this->basepath() ?>" title="Torna all'home page">Home</a></li>
+    <li><a href="<?php echo $this->url('atti-concessione') ?>" title="Torna all'elenco atti di concessione">Atti di concessione</a></li>
+    <li class="current">Dettagli</li>
+</ul>
+
+<?php if (count($this->records)): ?>
+
+    <?php $row = $this->records[0] ?>
+
+    <h2 class="text-center">Dettagli atto di concessione</h2>
+
+    <p><b>Numero \ Anno:</b> <?php echo $row['progressivo'] ?> / <?php echo $row['anno'] ?></p>
+    <p><b>Beneficiario CF/PIVA:</b> <?php echo $row['beneficiario'] ?></p>
+    <p><b>Importo:</b> <?php echo $row['importo'] ?> &euro;</p>
+    <p><b>Modalit&agrave; Assegnazione</b> <?php echo $row['nomemodAssegnazione'] ?></p>
+    <p><b>Ufficio e responsabile del servizio</b> <?php echo $row['nomeSezione'].' '.$row['nomeResponsabileProc'] ?></p>
+    <p><b>Norma o titolo a base dell'attribuzione</b> <?php echo $row['titolo'] ?>
+        <?php if (isset($row['attachments'])): ?>
+            <br>
+            <?php
+            echo $this->partial(
+                $this->templateDir.'atti-concessione/_atti-attachments.phtml',
+                array(
+                    'attachments' => $row['attachments'],
+                    'publicDirRelativePath' => $this->publicDirRelativePath,
+                    'attiConcessioneColonna' => 2,
+                )
+            );
+            ?>
+        <?php endif; ?></p>
+
+        <p>
+            <b>Progetto</b> / <b>Capitolato</b> / <b>Contratto</b> / <b>Curriculum</b> <?php if (isset($row['attachments'])): ?>
+            <?php
+            echo $this->partial(
+                $this->templateDir.'atti-concessione/_atti-attachments.phtml',
+                array(
+                    'attachments' => $row['attachments'],
+                    'publicDirRelativePath'     => $this->publicDirRelativePath,
+                    'attiConcessioneColonna'    => 1,
+                )
+            );
+            ?>
+            <?php endif; ?>
+        </p>
+
+    <?php
+
+    echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
+        'exportTxtUrl'          => $this->url('atti-concessione-export-single', array('lang' => 'it', 'modulename' => 'atti-concessione', 'action' => 'txt', 'id' => $row['id'])),
+        'exportCsvUrl'          => '',
+        'exportPdfUrl'          => $this->url('atti-concessione-export-single', array('lang' => 'it', 'modulename' => 'atti-concessione', 'action' => 'pdf', 'id' => $row['id'])),
+        'exportXMLUrl'          => '',
+        'exportJSONUrl'         => $this->url('atti-concessione-export-single', array('lang' => 'it', 'modulename' => 'atti-concessione', 'action' => 'json', 'id' => $row['id'])),
+        'twitterShareText'      => $this->sitename.' - Atti di concessione',
+        'publicDirRelativePath' => $this->publicDirRelativePath,
+    ));;
+
+else:
+    ?>
+    <div class="panel info">
+        <h3>Nessun atto di concessione in archivio</h3>
+        <p>Nessun articolo presente in archivio</p>
+    </div>
+<?php endif; ?>
+

@@ -118,30 +118,48 @@ $shareIconsView = $this->partial('frontend/projects/entilocali/templates/'.$this
             <?php foreach($this->records as $key => $row): ?>
             <tr>
                 <td>
-                    <strong>Oggetto del bando:</strong> <?php echo utf8_encode($row['titolo']) ?><br><br>
+                    <strong>Oggetto del bando:</strong> <a href="<?php echo $this->url('contratti-pubblici-details', array('id' => $row['id'])) ?>" title="Vai ai dettagli bando <?php echo $row['titolo']; ?>"><?php echo $row['titolo'] ?></a> <br><br>
                     <strong>CIG:</strong> <?php echo $row['cig'] ?><br><br>
                     <strong>Anno:</strong> <?php echo $row['anno'] ?>
                 </td>
                 <td>
                     <strong>CF:</strong> <br><br>
-                    <strong>Str. prop:</strong> <?php echo utf8_encode($row['nomeSettore']) ?><br><br>
-                    <strong>Resp.</strong> <?php echo utf8_encode($row['responsabileUsersName'].' '.$row['responsabileUsersSurname']) ?><br><br>
-                    <strong>Resp. Proc.</strong> <?php echo utf8_encode($row['responsabileUsersName'].' '.$row['responsabileUsersSurname'])?>
+                    <strong>Str. prop:</strong> <?php echo $row['nomeSettore'] ?><br><br>
+                    <strong>Resp.</strong> <?php echo $row['responsabileUsersName'].' '.$row['responsabileUsersSurname'] ?><br><br>
+                    <strong>Resp. Proc.</strong> <?php echo $row['responsabileUsersName'].' '.$row['responsabileUsersSurname'] ?>
                 </td>
-                <td><?php echo utf8_encode($row['nomeScelta']) ?></td>
-                <!-- TODO: operatori invitati a partecipare -->
+                <td><?php echo $row['nomeScelta'] ?></td>
                 <td>
-                    <strong>CF-PI:</strong> <br><br>
-                    <strong>Nome e Ragione sociale:</strong>
+                    <!-- Elenco aziende \ operatori invitati a partecipare -->
+                    <?php if (!empty($row['operatori'])): ?>
+                        <?php foreach($row['operatori'] as $operatore): ?>
+                            <ul>
+                                <li><strong>CF-PI:</strong> <?php echo $operatore['cf'] ?></li>
+                                <li><strong>Nome e Ragione sociale:</strong> <?php echo $operatore['nome'].' '.$operatore['ragioneSociale'] ?></li>
+                            </ul>
+                            <br>
+                        <?php endforeach ?>
+                    <?php else: ?>
+                        <p>Nessun operatore</p>
+                    <?php endif; ?>
                 </td>
-                <!-- TODO: List Aggiudicatario -->
                 <td>
-                    <strong>CF-PI:</strong> <br><br>
-                    <strong>Nome e ragione sociale:</strong>
+                    <!-- Elenco aggiudicatari -->
+                    <?php if (!empty($row['operatori-aggiudicatari'])): ?>
+                        <?php foreach($row['operatori-aggiudicatari'] as $operatore): ?>
+                            <ul>
+                                <li><strong>CF-PI:</strong> <?php echo $operatore['cf'] ?></li>
+                                <li><strong>Nome e Ragione sociale:</strong> <?php echo $operatore['nome'].' '.$operatore['ragioneSociale'] ?></li>
+                            </ul>
+                            <br>
+                        <?php endforeach ?>
+                    <?php else: ?>
+                        <p>Nessun aggiudicatario</p>
+                    <?php endif; ?>
                 </td>
                 <td>
-                    <strong>Importo di aggiudicazione:</strong> <?php echo utf8_encode($row['importoAggiudicazione']) ?> &euro;<br><br>
-                    <strong>Importo liquidato:</strong> <?php echo utf8_encode($row['importoLiquidato']) ?> &euro;
+                    <strong>Importo di aggiudicazione:</strong> <?php echo $row['importoAggiudicazione'] + 0 ?> &euro;<br><br>
+                    <strong>Importo liquidato:</strong> <?php echo $row['importoLiquidato'] + 0 ?> &euro;
                 </td>
                 <td>
                     <strong>Inizio lavori:</strong> <?php $temp2 = explode("-", $row['dataInizioLavori']); echo $temp2[2]."-".$temp2[1]."-".$temp2[0]; ?><br><br>

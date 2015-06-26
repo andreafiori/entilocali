@@ -1,38 +1,255 @@
+<?php $lang = $this->params()->fromRoute('lang') ? $this->params()->fromRoute('lang') : 'it'; ?>
+
 <ul class="breadcrumb">
-    <li><a href="<?php echo $this->url('admin', array('lang' => 'it')); ?>" title="Home page">Home</a></li>
+    <li><a href="<?php echo $this->url('admin', array('lang' => $this->params()->fromRoute('lang'))); ?>" title="Home page">Home</a></li>
     <li class="active">Gestione home page</li>
 </ul>
 
 <h2>Gestione home page</h2>
 
 <p>
-    <a href="<?php echo $this->url('admin/homepage-blocks-positions', array('lang' => 'it') ); ?>" class="btn btn-default" title="Gestione posizione blocchi">
+    <a href="<?php echo $this->url('admin/homepage-blocks-positions', array('lang' => $this->params()->fromRoute('lang')) ); ?>" class="btn btn-default" title="Gestione posizione blocchi">
         <i class="fa fa-cog"></i> Posizioni blocchi
     </a>
+
+    <!--
+    <a href="#" class="btn btn-primary" title="Aggiungi testo libero">
+        Aggiungi testo libero
+    </a>
+    -->
 </p>
 
-<div class="alert alert-warning">
-    <h4>Sezione in costruzione</h4>
-    <p>Questa sezione &egrave; progettata per gestire gli elementi all'interno dei singoli blocchi (moduli) visualizzati e ordinabili in home page</p>
-</div>
+<?php if (!empty($this->records)): ?>
 
-<?php //var_dump($this->records) ?>
+    <p>Consulta e gestisci i vari elementi presenti in home page.</p>
 
-<!--
-<table class="table table-bordered">
-    <thead>
-    <tr>
-        <th scope="col">Modulo</th>
-    </tr>
-    </thead>
-    <tbody>
-    <?php foreach($this->records as $record): ?>
-    <tr>
-        <td><?php echo $record['moduleName'] ?></td>
-        <td><?php echo $record['title'] ?></td>
-        <td><a href="" class="btn btn-primary">Modifica</a></td>
-    </tr>
-    <?php endforeach; ?>
-    </tbody>
-</table>
--->
+    <?php if (!empty($this->records['contenuti'])): ?>
+        <h3>Contenuti</h3>
+        <table class="table table-hover" width="100%">
+            <tbody>
+            <?php foreach($this->records['contenuti'] as $record): ?>
+                <?php
+                $linkDetails = $this->url('admin/contenuti-form', array(
+                    'lang'              => $lang,
+                    'modulename'        => 'contenuti',
+                    'languageSelection' => isset($languageSelection) ? $languageSelection : $lang,
+                    'id'                => $record['id'],
+                ));
+                ?>
+            <tr>
+                <td><a href="<?php echo $linkDetails ?>" title="Modifica contenuto <?php echo $record['titolo'] ?>"><?php echo $record['titolo'] ?></a></td>
+                <td><div class="text-right"><a href="#" title="Elimina contenuto dalla home page" class="btn btn-danger">Elimina</a></div></td>
+            </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php endif; ?>
+
+    <?php if (!empty($this->records['amministrazione-trasparente'])): ?>
+        <h3>Amministrazione trasparente</h3>
+        <table class="table table-hover" width="100%">
+            <tbody>
+            <?php foreach($this->records['amministrazione-trasparente'] as $record): ?>
+                <?php
+                $linkDetails = $this->url('admin/contenuti-form', array(
+                    'lang'              => $lang,
+                    'modulename'        => 'amministrazione-trasparente',
+                    'languageSelection' => 'it',
+                    'id'                => $record['id'],
+                ));
+                ?>
+                <tr>
+                    <td><a href="#" title="Modifica articolo <?php echo $record['titolo'] ?>"><?php echo $record['titolo'] ?></a></td>
+                    <td>
+                        <div class="text-right">
+                            <a href="#" class="btn btn-danger" title="Elimina dalla home page">Elimina</a>
+                        </div>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php endif; ?>
+
+    <?php if (!empty($this->records['blogs'])): ?>
+        <?php
+        $basePath = (substr($this->publicDirRelativePath, -1) == '/') ? $this->publicDirRelativePath : $this->publicDirRelativePath.'/';
+        $thumbPath = $basePath.$this->configurations['media_dir'].$this->configurations['media_project'].'blogs/thumbs/';
+        ?>
+        <h3>Blogs</h3>
+
+        <div class="row">
+            <?php foreach($this->records['blogs'] as $record): ?>
+                <?php
+                $linkDetails = $this->url('admin/blogs-form', array(
+                    'lang'              => !empty($lang) ? $lang : 'it',
+                    'languageSelection' => isset($languageSelection) ? $languageSelection : $lang,
+                    'formtype'          => 'blogs',
+                    'id'                => $record['id'],
+                ));
+                ?>
+                <div class="col-md-3 portfolio-item">
+                    <div style="min-height: 180px;">
+                    <a href="<?php echo $linkDetails ?>" title="Modifica post <?php echo $record['title'] ?>">
+                        <img src="<?php echo $thumbPath.$record['image'] ?>" alt="Miniatura post <?php echo $record['title'] ?>" class="thumbnail">
+                    </a>
+                    <h4>
+                        <a href="<?php echo $linkDetails ?>" title="Modifica post <?php echo $record['title'] ?>">
+                            <?php echo $record['title'] ?>
+                        </a>
+                    </h4>
+                    </div>
+                    <p><a href="#" title="Elimina post dalla home page" class="btn-sm btn-danger">Elimina</a></p>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if (!empty($this->records['photo'])): ?>
+        <?php
+        $basePath = (substr($this->publicDirRelativePath, -1) == '/') ? $this->publicDirRelativePath : $this->publicDirRelativePath.'/';
+        ?>
+        <h3>Foto</h3>
+
+        <div class="row">
+            <?php foreach($this->records['photo'] as $record): ?>
+                <?php
+                $linkDetails = $this->url('admin/blogs-form', array(
+                    'lang'              => !empty($lang) ? $lang : 'it',
+                    'languageSelection' => isset($languageSelection) ? $languageSelection : $lang,
+                    'formtype'          => 'blogs',
+                    'id'                => $record['id'],
+                ));
+                ?>
+            <div class="col-md-3 portfolio-item">
+                <div style="min-height: 180px;">
+                <a href="<?php echo $linkDetails ?>" title="">
+                    <img src="<?php echo $basePath.$this->configurations['media_dir'].$this->configurations['media_project'].'photo/thumbs/'.$record['image'] ?>" alt="Miniatura per <?php echo $record['title'] ?>" class="thumbnail">
+                </a>
+                <h4>
+                    <a href="<?php echo $linkDetails ?>" title="<?php echo $record['title'] ?>"><?php echo $record['title'] ?></a>
+                </h4>
+
+                <p><a href="#" title="Elimina foto dalla home page" class="btn-sm btn-danger">Elimina</a></p>
+                </div>
+            </div>
+            <?php endforeach; ?>
+        </div>
+
+    <?php endif; ?>
+
+    <?php if (!empty($this->records['stato-civile'])): ?>
+        <h3><i class="fa fa-institution fa-fw"></i> Stato civile</h3>
+        <table class="table table-hover" width="100%">
+            <tbody>
+            <?php foreach($this->records['stato-civile'] as $record): ?>
+                <tr>
+                    <td><?php echo $record['titolo'] ?></td>
+                    <td><div class="text-right"><a href="#" class="btn btn-danger">Elimina</a></div></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php endif; ?>
+
+    <?php if (!empty($this->records['albo-pretorio'])): ?>
+        <h3>Albo pretorio</h3>
+        <table class="table table-hover" width="100%">
+            <tbody>
+            <?php foreach($this->records['albo-pretorio'] as $record): ?>
+                <tr>
+                    <td><a href="<?php echo $this->url('admin/albo-pretorio-form', array(
+                        'lang'  => $lang,
+                        'id'    => $record['id'],
+                    )) ?>" title="<?php echo $record['titolo'] ?>"><?php echo $record['titolo'] ?></a></td>
+                    <td><div class="text-right"><a href="#" class="btn btn-danger">Elimina</a></div></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php endif; ?>
+
+    <?php if (!empty($this->records['contratti-pubblici'])): ?>
+        <h3>Contratti pubblici</h3>
+        <table class="table table-hover" width="100%">
+            <tbody>
+            <?php foreach($this->records['contratti-pubblici'] as $record): ?>
+                <tr>
+                    <td><a href="<?php echo $this->url('admin/contratti-pubblici-form', array(
+                        'lang'  => $lang,
+                        'id'    => $record['id'],
+                    )) ?>" title="<?php echo $record['titolo'] ?>"><?php echo $record['titolo'] ?></a></td>
+                    <td>
+                        <div class="text-right">
+                            <a href="#" class="btn btn-danger">Elimina</a>
+                        </div>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php endif; ?>
+
+    <?php if (!empty($this->records['atti-concessione'])): ?>
+        <?php
+        $linkDetails = $this->url('admin/atti-concessione-form',
+            array(
+                'lang'  => 'it',
+                'id'    => $record['id']
+            )
+        );
+        ?>
+        <h3>Atti concessione</h3>
+        <table class="table table-hover" width="100%">
+            <tbody>
+            <?php foreach($this->records['atti-concessione'] as $record): ?>
+                <tr>
+                    <td>
+                        <a href="<?php echo $linkDetails ?>" title="Vai alla modifica atto <?php echo $record['titolo'] ?>"><?php echo $record['titolo'] ?></a>
+                    </td>
+                    <td>
+                        <div class="text-right">
+                            <a href="<?php echo $linkDetails ?>" title="Elimina atto dalla home page" class="btn btn-danger">Elimina</a>
+                        </div>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php endif; ?>
+
+    <?php if (!empty($this->records['freeText'])): ?>
+    <h3>Testo libero</h3>
+    <table class="table table-hover" width="100%">
+        <tbody>
+        <?php foreach($this->records['freeText'] as $record): ?>
+            <tr>
+                <td>
+                    <?php echo $record['freeText'] ?>
+                </td>
+                <td>
+                    <div class="text-right">
+                        <a href="#" class="btn btn-primary" title="Modifica testo libero home page">
+                            Modifica
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <div class="text-right">
+                        <a href="#" class="btn btn-danger" title="Elimina testo libero della home page">
+                            Elimina
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+    <?php endif; ?>
+
+<?php else: ?>
+    <div class="alert alert-warning">
+        <h3>Nessun elemento in home page</h3>
+        <p>&Egrave; necessario aggiungere qualche elemento in home page o la stessa apparir&agrave; vuota</p>
+    </div>
+<?php endif; ?>
