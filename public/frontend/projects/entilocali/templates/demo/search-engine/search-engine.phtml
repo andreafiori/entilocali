@@ -10,7 +10,9 @@
         <h2>Nessun risultato trovato</h2>
         <p>Il motore di ricerca interno non ha trovato nessun risultato per la ricerca effettuata.</p>
     </div>
-<?php elseif (!empty($this->records['contenuti'])): ?>
+<?php endif; ?>
+
+<?php if (!empty($this->records['contenuti'])): ?>
     <h3>Articoli \ contenuti</h3>
     <ul>
         <?php foreach($this->records['contenuti'] as $record): ?>
@@ -22,32 +24,78 @@
         <?php endforeach; ?>
     </ul>
     <p class="text-right">
-        &raquo; <a href="#" title="Visualizza elenco risultati articoli">
-            <?php echo $this->records['contenuti-count'] ?> risultati trovati
+        <a href="#" title="Visualizza elenco risultati">
+            &raquo; <?php echo $this->records['contenuti-count'] ?> risultati trovati
         </a>
     </p>
-<?php elseif (!empty($this->records['stato-civile'])): ?>
+<?php endif; ?>
+
+<?php if (!empty($this->records['stato-civile'])): ?>
     <h3>Stato civile</h3>
     <ul class="no-bullet">
     <?php foreach($this->records['stato-civile'] as $record): ?>
-        <li><a href="#" title="Consulta l'atto stato civile <?php echo $record['titolo'] ?>"><?php echo $record['titolo'] ?></a></li>
+        <li><a href="<?php echo $this->url('stato-civile-details', array('id' => $record['id'])) ?>" title="Consulta l'atto stato civile <?php echo $record['titolo'] ?>"><?php echo $record['titolo'] ?></a></li>
     <?php endforeach; ?>
     </ul>
     <p class="text-right">
-        &raquo; <a href="#" title="Visualizza elenco risultati articoli">
-            <?php echo $this->records['stato-civile-count'] ?> risultati trovati
+        <a href="<?php echo $this->url('atti-concessione-details', array('id' => $record['id'])) ?>" title="Visualizza elenco risultati articoli">
+            &raquo; <?php echo $this->records['stato-civile-count'] ?> risultati trovati
         </a>
     </p>
-<?php elseif (!empty($this->records['atti-concessione'])): ?>
+<?php endif; ?>
+
+<?php if (!empty($this->records['atti-concessione'])): ?>
     <h3>Atti di concessione</h3>
     <ul class="no-bullet">
         <?php foreach($this->records['atti-concessione'] as $record): ?>
-            <li><a href="#" title="Consulta l'atto concessione <?php echo $record['titolo'] ?>"><?php echo $record['titolo'] ?></a></li>
+            <li><a href="<?php echo $this->url('atti-concessione-details', array('id' => $record['id'])) ?>" title="Consulta l'atto concessione <?php echo $record['titolo'] ?>"><?php echo $record['titolo'] ?></a></li>
         <?php endforeach; ?>
     </ul>
     <p class="text-right">
-        &raquo; <a href="#" title="Visualizza elenco risultati articoli">
-            <?php echo $this->records['atti-concessione-count'] ?> risultati trovati
+        <a href="#" title="Visualizza elenco risultati">
+            &raquo; <?php echo $this->records['atti-concessione-count'] ?> risultati trovati
+        </a>
+    </p>
+<?php endif; ?>
+
+<?php if (!empty($this->records['albo-pretorio'])): ?>
+    <h3>Albo pretorio</h3>
+    <ul class="no-bullet">
+        <?php foreach($this->records['albo-pretorio'] as $record): ?>
+            <li><a href="<?php echo $this->url('albo-pretorio-details', array('id' => $record['id'])) ?>" title="Consulta i dettagli dell'atto albo pretorio <?php echo $record['titolo'] ?>"><?php echo $record['titolo'] ?></a></li>
+        <?php endforeach; ?>
+    </ul>
+    <p class="text-right">
+        <a href="#" title="Visualizza elenco risultati completo">
+            &raquo; <?php echo $this->records['albo-pretorio-count'] ?> risultati trovati
+        </a>
+    </p>
+<?php endif; ?>
+
+<?php if (!empty($this->records['blogs'])): ?>
+    <h3>Blogs</h3>
+    <ul class="no-bullet">
+        <?php foreach($this->records['blogs'] as $record): ?>
+            <li><a href="<?php //echo $this->url('main/blogs-details', array('lang' => 'it', 'category' => '', 'title' => $record['slug'])) ?>" title="Leggi il post <?php echo $record['title'] ?>"><?php echo $record['title'] ?></a></li>
+        <?php endforeach; ?>
+    </ul>
+    <p class="text-right">
+        <a href="#" title="Visualizza elenco risultati">
+            &raquo; <?php echo $this->records['blogs-count'] ?> risultati trovati
+        </a>
+    </p>
+<?php endif; ?>
+
+<?php if (!empty($this->records['photo'])): ?>
+    <h3>Foto</h3>
+    <ul class="no-bullet">
+        <?php foreach($this->records['photo'] as $record): ?>
+            <li><a href="<?php //echo $this->url('main/blogs-details', array('lang' => 'it', 'category' => '', 'title' => $record['slug'])) ?>" title="Leggi il post <?php echo $record['title'] ?>"><?php echo $record['title'] ?></a></li>
+        <?php endforeach; ?>
+    </ul>
+    <p class="text-right">
+        <a href="#" title="Visualizza elenco risultati">
+            &raquo; <?php echo $this->records['photo-count'] ?> risultati trovati
         </a>
     </p>
 <?php endif; ?>

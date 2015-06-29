@@ -5,6 +5,9 @@ namespace ModelModule\Model\Posts;
 use ModelModule\Model\QueryBuilderHelperAbstract;
 use ModelModule\Model\Slugifier;
 
+/**
+ * NOTE: DO NOT ADD CATEGORY fields on main selection
+ */
 class PostsGetter extends QueryBuilderHelperAbstract
 {
     /**
@@ -17,7 +20,6 @@ class PostsGetter extends QueryBuilderHelperAbstract
                                     p.image, p.title, p.subtitle, p.description, p.slug, p.seoTitle,
                                     p.seoDescription, p.seoKeywords, p.status,
 
-                                    c.name AS categoryName, c.templateFile, c.slug AS categorySlug,
                                     IDENTITY(r.module) AS moduleId,
 
                                     users.name AS userName, users.surname AS userSurname
@@ -232,9 +234,10 @@ class PostsGetter extends QueryBuilderHelperAbstract
     public function setFreeSearch($search)
     {
         if (!empty($search)) {
-            $this->getQueryBuilder()->andWhere(' ( p.title LIKE :freeSearch OR p.description LIKE :freeSearch
-            OR c.name LIKE :freeSearch) ');
-            $this->getQueryBuilder()->setParameter('freeSearch', $search);
+            $search = strtolower($search);
+
+            $this->getQueryBuilder()->andWhere(' ( LOWER(p.title) LIKE :freeSearch OR LOWER(p.description) LIKE :freeSearch ) ');
+            $this->getQueryBuilder()->setParameter('freeSearch', "%$search%");
         }
 
         return $this->getQueryBuilder();

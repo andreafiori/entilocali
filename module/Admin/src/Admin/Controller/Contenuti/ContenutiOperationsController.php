@@ -3,7 +3,6 @@
 namespace Admin\Controller\Contenuti;
 
 use ModelModule\Model\Contenuti\ContenutiFormSearch;
-use ModelModule\Model\Contenuti\ContenutiOperationsModel;
 use Application\Controller\SetupAbstractController;
 use Zend\Session\Container as SessionContainer;
 
@@ -19,7 +18,7 @@ class ContenutiOperationsController extends SetupAbstractController
         if ($this->getRequest()->isPost()) {
             return $this->redirect()->toRoute('admin/contenuti-summary', array(
                 'lang'              => $this->params()->fromRoute('lang'),
-                'languageSelection' => $this->params()->fromPost('languageSelection'),
+                'languageSelection' => $this->params()->fromRoute('languageSelection'),
                 'page'              => $this->params()->fromRoute('page'),
                 'modulename'        => $this->params()->fromRoute('modulename'),
             ));
@@ -42,8 +41,8 @@ class ContenutiOperationsController extends SetupAbstractController
             $formSearch->addInHome();
             $formSearch->addCheckExpired();
 
-            $sessioContainer = new SessionContainer();
-            $sessioContainer->offsetSet('contenutiSummarySearch', array(
+            $sessionContainer = new SessionContainer();
+            $sessionContainer->offsetSet('contenutiSummarySearch', array(
                 'testo'         => $this->params()->fromPost('testo'),
                 'sottosezioni'  => $this->params()->fromPost('sottosezioni'),
                 'inhome'        => $this->params()->fromPost('inhome'),

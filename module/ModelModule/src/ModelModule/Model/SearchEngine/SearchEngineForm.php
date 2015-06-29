@@ -4,6 +4,9 @@ namespace ModelModule\Model\SearchEngine;
 
 use Zend\Form\Form;
 
+/**
+ * Search engine form
+ */
 class SearchEngineForm extends Form
 {
     /**
@@ -28,6 +31,11 @@ class SearchEngineForm extends Form
         $this->add(array(
             'name' => 'csrf',
             'type' => 'Zend\Form\Element\Csrf',
+            'options' => array(
+                'csrf_options' => array(
+                    'timeout' => 3200
+                )
+            )
         ));
     }
 }

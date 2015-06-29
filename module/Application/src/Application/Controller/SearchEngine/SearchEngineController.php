@@ -40,7 +40,7 @@ class SearchEngineController extends SearchEngineAbstractController
                 'messageType'       => 'info',
                 'moduleLabel'       => 'Ricerca',
                 'messageTitle'      => 'Richiesta non valida',
-                'messageText'       => 'La richiesta effettuata non &egrave; considerata valida',
+                'messageText'       => 'La richiesta effettuata non &egrave; considerata valida, riprovare',
                 'templatePartial'   => 'message.phtml',
             ));
 

@@ -19,6 +19,8 @@ class ContenutiSummaryControllerTest extends TestSuite
         $this->controller = new ContenutiSummaryController();
         $this->controller->setEvent($this->event);
         $this->controller->setServiceLocator($this->getServiceManager());
+
+        $this->setupUserSession($this->recoverUserDetails());
     }
 
     public function testIndexActionIsAccessible()

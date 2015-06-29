@@ -134,4 +134,22 @@ class AttiConcessioneGetter extends QueryBuilderHelperAbstract
 
         return $this->getQueryBuilder();
     }
+
+    /**
+     * Set free search
+     *
+     * @param string $search
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setFreeSearch($search)
+    {
+        if (!empty($search)) {
+            $search = strtolower($search);
+
+            $this->getQueryBuilder()->andWhere(' ( LOWER(atti.beneficiario) LIKE :freeSearch OR LOWER(atti.titolo) LIKE :freeSearch ) ');
+            $this->getQueryBuilder()->setParameter('freeSearch', "%$search%");
+        }
+
+        return $this->getQueryBuilder();
+    }
 }

@@ -11,6 +11,9 @@ use ModelModule\Model\Users\Settori\UsersSettoriGetterWrapper;
 use Application\Controller\SetupAbstractController;
 use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciFormSearch;
 
+/**
+ * Contratti pubblici list
+ */
 class ContrattiPubbliciSummaryController extends SetupAbstractController
 {
     public function indexAction()
@@ -21,6 +24,8 @@ class ContrattiPubbliciSummaryController extends SetupAbstractController
 
         $page       = $this->params()->fromRoute('page');
         $perPage    = $this->params()->fromRoute('perpage');
+
+        $userDetails    = $this->layout()->getVariable('userDetails');
 
         $helper = new ContrattiPubbliciControllerHelper();
         $wrapper = $helper->recoverWrapperRecordsPaginator(
@@ -97,15 +102,15 @@ class ContrattiPubbliciSummaryController extends SetupAbstractController
                     "Operatori invitati a presentare le offerte",
                     */
                     "Tempi",
-                    "&nbsp;",
-                    "&nbsp;",
-                    "&nbsp;",
+                    ($userDetails->acl->hasResource("contratti_pubblici_operatori_management")) ? "&nbsp;" : null,
+                    ($userDetails->acl->hasResource("contratti_pubblici_update")) ? "&nbsp;" : null,
+                    ($userDetails->acl->hasResource("contratti_pubblici_delete")) ? "&nbsp;" : null,
                     "&nbsp;",
                     "&nbsp;",
                 ),
                 'paginator'         => $paginator,
                 'records'           => $paginatorRecords,
-                'templatePartial'   => 'datatable/datatable_contratti_pubblici.phtml'
+                'templatePartial'   => 'datatable/datatable_contratti_pubblici.phtml',
             )
         );
 
@@ -118,11 +123,22 @@ class ContrattiPubbliciSummaryController extends SetupAbstractController
          */
         private function formatArticoliRecords($records)
         {
-            $lang = $this->params()->fromRoute('lang');
+            $lang           = $this->params()->fromRoute('lang');
+            $userDetails    = $this->layout()->getVariable('userDetails');
 
             $arrayToReturn = array();
             if ($records) {
                 foreach($records as $key => $row) {
+
+                    if ($userDetails->acl->hasResource("contratti_pubblici_delete")) {
+                        $deleteButton = array(
+                            'type'      => 'deleteButton',
+                            'href'      => '#',
+                            'title'     => 'Elimina',
+                            'data-id'   => $row['id']
+                        );
+                    }
+
                     $arrayToReturn[] = array(
                         "<strong>CIG:</strong> ".$row['cig']."<br><br><strong>Oggetto del bando</strong>: ".$row['titolo']."<br><br><strong>Anno:</strong> ".$row['anno']."<br><br> <strong>Data contratto:</strong> ".$row['dataInserimento'],
                         "<strong>CF:</strong> <br><br><strong>Str. prop.:</strong> ".$row['nomeSettore']."<br><br> <strong>Resp. Proc.:</strong> ".$row['responsabileUsersName'],
@@ -147,12 +163,7 @@ class ContrattiPubbliciSummaryController extends SetupAbstractController
                             ),
                             'title'     => 'Modifica'
                         ),
-                        array(
-                            'type'      => 'deleteButton',
-                            'href'      => '#',
-                            'title'     => 'Elimina',
-                            'data-id'   => $row['id']
-                        ),
+                        !empty($deleteButton) ? $deleteButton : null,
                         array(
                             'type'      => 'homepageDelButton',
                             'href'      => '#',

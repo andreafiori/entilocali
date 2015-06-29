@@ -58,12 +58,23 @@ class UsersRolesUpdateController extends SetupAbstractController
             $helper->setLoggedUser($userDetails);
             $helper->update($inputFilter);
             $helper->getConnection()->commit();
+            $helper->deleteRolePermissions($inputFilter->id);
+
+            if ($inputFilter->adminAccess==1 and empty($inputFilter->permissions)) {
+                throw new NullException("Aggiungere almeno un permesso al ruolo");
+            }
+
+            if (!empty($inputFilter->permissions)) {
+                foreach($inputFilter->permissions as $key => $value) {
+                    $helper->insertPermissionRelation($inputFilter->id, $value);
+                }
+            }
 
             $logWriter = new LogWriter($connection);
             $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
                 'module_id'     => ModulesContainer::contenuti_id,
-                'message'       => "Aggiornato ruolo utente ".$inputFilter->name,
+                'message'       => "Aggiornato ruolo ".$inputFilter->name,
                 'type'          => 'info',
                 'reference_id'  => $inputFilter->id,
                 'backend'       => 1,

@@ -17,9 +17,9 @@ class SearchEngineControllerHelper extends ControllerHelperAbstract
      */
     public function setupSearchRecordsWithPaginator(RecordsGetterWrapperAbstract $wrapper, $moduleCode)
     {
-        $contenutiRecords = $wrapper->setupRecords();
-        if (count($contenutiRecords)) {
-            $this->searchRecords[$moduleCode] = $contenutiRecords;
+        $records = $wrapper->setupRecords();
+        if (count($records)) {
+            $this->searchRecords[$moduleCode] = $records;
             $this->searchRecords[$moduleCode.'-count'] = $wrapper->getPaginator()->getTotalItemCount();
         }
 

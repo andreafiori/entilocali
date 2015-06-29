@@ -5,10 +5,14 @@ return array(
     ),
     /* Contenuti */
     'admin/contenuti-summary' => array(
-        'resources' => array('contenuti_add', 'contenuti_update', 'contenuti_viewall')
+        'resources' => array('contenuti_add', 'contenuti_update')
     ),
     'admin/contenuti-form' => array(
         'resources' => array('contenuti_add', 'contenuti_update')
+    ),
+    /* Amministrazione trasparente */
+    'admin/amministrazione-trasparente-tabella' => array(
+        'resources' => array('amministrazione_trsparente_tabelle')
     ),
     /* Blogs */
     'admin/blogs-summary' => array(
@@ -81,6 +85,9 @@ return array(
     'admin/contratti-pubblici-operatori-form' => array(
         'resources' => array('contratti_pubblici_operatori_add', 'contratti_pubblici_operatori_update')
     ),
+    'admin/contratti-pubblici-aggiudicatari-operations' => array(
+        'resources' => array('contratti_pubblici_operatori_management')
+    ),
     /* Contratti pubblici, scelta contraente */
     'contratti-pubblici-scelta-contraente' => array(
         'resources' => array(
@@ -129,12 +136,17 @@ return array(
     'admin/sottosezioni-form' => array(
         'resources' => array( 'contenuti_sezioni_add', 'contenuti_sezioni_update' )
     ),
-    /* Logs */
-    'admin/log-summary' => array(
-
-    ),
     /* Home page */
     'admin/homepage-management' => array(
+        'resources' => array('homepage_management')
+    ),
+    'admin/homepage-blocks-positions' => array(
+        'resources' => array('homepage_positions')
+    ),
+    'admin/home-page/insert' => array(
+        'resources' => array('homepage_management')
+    ),
+    'admin/home-page/delete' => array(
         'resources' => array('homepage_management')
     ),
     'admin/homepage-blocks-positions' => array(

@@ -770,6 +770,7 @@ return array(
                         'application/albo-pretorio/index'               => __DIR__ . '/../view/empty.phtml',
                         'application/albo-pretorio/details'             => __DIR__ . '/../view/empty.phtml',
                         'application/stato-civile/index'                => __DIR__ . '/../view/empty.phtml',
+                        'application/stato-civile/details'              => __DIR__ . '/../view/empty.phtml',
                         'application/stato-civile-export-single/csv'    => __DIR__ . '/../view/empty.phtml',
                         'application/stato-civile-export-single/txt'    => __DIR__ . '/../view/empty.phtml',
                         'application/stato-civile-export-single/pdf'    => __DIR__ . '/../view/empty.phtml',

@@ -45,5 +45,7 @@ class SezioniOperationsController extends SetupAbstractController
                 'page'              => $this->params()->fromRoute('page'),
             ));
         }
+
+        return $this->redirect()->toRoute('main');
     }
 }

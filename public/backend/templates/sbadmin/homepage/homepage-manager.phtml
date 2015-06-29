@@ -6,17 +6,14 @@
 </ul>
 
 <h2>Gestione home page</h2>
-
 <p>
     <a href="<?php echo $this->url('admin/homepage-blocks-positions', array('lang' => $this->params()->fromRoute('lang')) ); ?>" class="btn btn-default" title="Gestione posizione blocchi">
-        <i class="fa fa-cog"></i> Posizioni blocchi
+        <i class="fa fa-wrench"></i> Posizioni blocchi
     </a>
 
-    <!--
-    <a href="#" class="btn btn-primary" title="Aggiungi testo libero">
-        Aggiungi testo libero
+    <a href="#" class="btn btn-default" title="Gestione posizione blocchi">
+        <i class="fa fa-cog"></i> Opzioni
     </a>
-    -->
 </p>
 
 <?php if (!empty($this->records)): ?>
@@ -38,7 +35,7 @@
                 ?>
             <tr>
                 <td><a href="<?php echo $linkDetails ?>" title="Modifica contenuto <?php echo $record['titolo'] ?>"><?php echo $record['titolo'] ?></a></td>
-                <td><div class="text-right"><a href="#" title="Elimina contenuto dalla home page" class="btn btn-danger">Elimina</a></div></td>
+                <td><div class="text-right"><a href="<?php echo $this->url('admin/homepage-management-delete', array('lang' => $lang, 'id' => $record['homepageId'])); ?>" title="Elimina contenuto dalla home page" class="btn btn-danger">Elimina</a></div></td>
             </tr>
             <?php endforeach; ?>
             </tbody>
@@ -54,15 +51,15 @@
                 $linkDetails = $this->url('admin/contenuti-form', array(
                     'lang'              => $lang,
                     'modulename'        => 'amministrazione-trasparente',
-                    'languageSelection' => 'it',
+                    'languageSelection' => isset($languageSelection) ? $languageSelection : $lang,
                     'id'                => $record['id'],
                 ));
                 ?>
                 <tr>
-                    <td><a href="#" title="Modifica articolo <?php echo $record['titolo'] ?>"><?php echo $record['titolo'] ?></a></td>
+                    <td><a href="<?php echo $linkDetails ?>" title="Modifica articolo <?php echo $record['titolo'] ?>"><?php echo $record['titolo'] ?></a></td>
                     <td>
                         <div class="text-right">
-                            <a href="#" class="btn btn-danger" title="Elimina dalla home page">Elimina</a>
+                            <a href="<?php echo $this->url('admin/homepage-management-delete', array('lang' => $lang, 'id' => $record['homepageId'])); ?>" class="btn btn-danger" title="Elimina articolo dalla home page">Elimina</a>
                         </div>
                     </td>
                 </tr>
@@ -99,7 +96,7 @@
                         </a>
                     </h4>
                     </div>
-                    <p><a href="#" title="Elimina post dalla home page" class="btn-sm btn-danger">Elimina</a></p>
+                    <p><a href="<?php echo $this->url('admin/homepage-management-delete', array('lang' => $lang, 'id' => $record['homepageId'])); ?>" title="Elimina post dalla home page" class="btn-sm btn-danger">Elimina</a></p>
                 </div>
             <?php endforeach; ?>
         </div>
@@ -114,10 +111,10 @@
         <div class="row">
             <?php foreach($this->records['photo'] as $record): ?>
                 <?php
-                $linkDetails = $this->url('admin/blogs-form', array(
+                $linkDetails = $this->url('admin/photo-form', array(
                     'lang'              => !empty($lang) ? $lang : 'it',
                     'languageSelection' => isset($languageSelection) ? $languageSelection : $lang,
-                    'formtype'          => 'blogs',
+                    'formtype'          => 'photo',
                     'id'                => $record['id'],
                 ));
                 ?>
@@ -130,7 +127,7 @@
                     <a href="<?php echo $linkDetails ?>" title="<?php echo $record['title'] ?>"><?php echo $record['title'] ?></a>
                 </h4>
 
-                <p><a href="#" title="Elimina foto dalla home page" class="btn-sm btn-danger">Elimina</a></p>
+                <p><a href="<?php echo $this->url('admin/homepage-management-delete', array('lang' => $lang, 'id' => $record['homepageId'])); ?>" title="Elimina foto dalla home page" class="btn-sm btn-danger">Elimina</a></p>
                 </div>
             </div>
             <?php endforeach; ?>
@@ -145,7 +142,7 @@
             <?php foreach($this->records['stato-civile'] as $record): ?>
                 <tr>
                     <td><?php echo $record['titolo'] ?></td>
-                    <td><div class="text-right"><a href="#" class="btn btn-danger">Elimina</a></div></td>
+                    <td><div class="text-right"><a href="<?php echo $this->url('admin/homepage-management-delete', array('lang' => $lang, 'id' => $record['homepageId'])); ?>" class="btn btn-danger">Elimina</a></div></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
@@ -162,7 +159,7 @@
                         'lang'  => $lang,
                         'id'    => $record['id'],
                     )) ?>" title="<?php echo $record['titolo'] ?>"><?php echo $record['titolo'] ?></a></td>
-                    <td><div class="text-right"><a href="#" class="btn btn-danger">Elimina</a></div></td>
+                    <td><div class="text-right"><a href="<?php echo $this->url('admin/homepage-management-delete', array('lang' => $lang, 'id' => $record['homepageId'])); ?>" title="Elimina atto dalla home page" class="btn btn-danger">Elimina</a></div></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
@@ -181,7 +178,7 @@
                     )) ?>" title="<?php echo $record['titolo'] ?>"><?php echo $record['titolo'] ?></a></td>
                     <td>
                         <div class="text-right">
-                            <a href="#" class="btn btn-danger">Elimina</a>
+                            <a href="<?php echo $this->url('admin/homepage-management-delete', array('lang' => $lang, 'id' => $record['homepageId'])); ?>" title="Elimina bando dalla home page" class="btn btn-danger">Elimina</a>
                         </div>
                     </td>
                 </tr>
@@ -209,7 +206,7 @@
                     </td>
                     <td>
                         <div class="text-right">
-                            <a href="<?php echo $linkDetails ?>" title="Elimina atto dalla home page" class="btn btn-danger">Elimina</a>
+                            <a href="<?php echo $this->url('admin/homepage-management-delete', array('lang' => $lang, 'id' => $record['homepageId'])); ?>" title="Elimina atto dalla home page" class="btn btn-danger">Elimina</a>
                         </div>
                     </td>
                 </tr>
@@ -236,7 +233,7 @@
                 </td>
                 <td>
                     <div class="text-right">
-                        <a href="#" class="btn btn-danger" title="Elimina testo libero della home page">
+                        <a href="<?php echo $this->url('admin/homepage-management-delete', array('lang' => $lang, 'id' => $record['homepageId'])); ?>" class="btn btn-danger" title="Elimina testo libero della home page">
                             Elimina
                         </a>
                     </div>
@@ -245,6 +242,10 @@
         <?php endforeach; ?>
         </tbody>
     </table>
+    <?php else: ?>
+        <a href="#" class="btn btn-primary" title="Aggiungi testo libero">
+            Aggiungi testo libero
+        </a>
     <?php endif; ?>
 
 <?php else: ?>

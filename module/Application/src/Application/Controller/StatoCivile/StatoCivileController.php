@@ -103,10 +103,9 @@ class StatoCivileController extends SetupAbstractController
             array('id' => $id, 'limit' => 1),
             $id
         );
-
         $wrapper->setEntityManager($em);
         $articoloRecord = $wrapper->addAttachmentsToPaginatorRecords(
-            $wrapper->setupRecords(),
+            $wrapper->getRecords(),
             array('moduleId' => ModulesContainer::stato_civile_id)
         );
 

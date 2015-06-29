@@ -194,6 +194,16 @@ return array(
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
+                    'not-authorized' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'not-authorized/warning/message[/]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Admin',
+                                'action'     => 'notauthorized',
+                            ),
+                        ),
+                    ),
                     'configurations-form' => array(
                         'type'    => 'Segment',
                         'options' => array(
@@ -260,6 +270,29 @@ return array(
                             ),
                         ),
                     ),
+                    'homepage-management-insert' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'homepage/management/element/insert[/]',
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\HomePage\HomePage',
+                                'action'     => 'insertelement',
+                            ),
+                        ),
+                    ),
+                    'homepage-management-delete' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'homepage/management/element/delete/:id[/]',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\HomePage\HomePage',
+                                'action'     => 'delete',
+                            ),
+                        ),
+                    ),
                     'homepage-positions' => array(
                         'type' => 'Segment',
                         'options' => array(
@@ -290,9 +323,6 @@ return array(
                         'type' => 'Segment',
                         'options' => array(
                             'route' => 'homepage/blocks/positions/update[/]',
-                            'constraints' => array(
-
-                            ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\HomePage\HomePageBlocksPositions',
                                 'action'     => 'update',
@@ -1932,8 +1962,7 @@ return array(
         'display_not_found_reason' => true,
         'display_exceptions' => true,
         'template_map' => array(
-            'admin/admin/login'                             => __DIR__ . '../../view/admin/auth/login.phtml',
-            'admin/admin/index'                             => __DIR__ . '../../view/admin/index.phtml',
+            'admin/admin/index'                                     => __DIR__ . '../../view/admin/index.phtml',
 
             /* Attachment files */
             'admin/attachments-summary/index'                       => __DIR__ . '/../view/admin/empty.phtml',

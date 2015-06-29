@@ -6,10 +6,15 @@ use Application\Controller\SetupAbstractController;
 use ModelModule\Model\Log\LogWriter;
 use ModelModule\Model\Modules\ModulesContainer;
 use ModelModule\Model\NullException;
+use ModelModule\Model\Users\Roles\UsersRolesControllerHelper;
 use ModelModule\Model\Users\Roles\UsersRolesForm;
 use ModelModule\Model\Users\Roles\UsersRolesFormInputFilter;
-use ModelModule\Model\Users\UsersControllerHelper;
+use ModelModule\Model\Users\Roles\UsersRolesGetter;
+use ModelModule\Model\Users\Roles\UsersRolesGetterWrapper;
 
+/**
+ * User Role insert controller
+ */
 class UsersRolesInsertController extends SetupAbstractController
 {
     public function indexAction()
@@ -43,7 +48,7 @@ class UsersRolesInsertController extends SetupAbstractController
 
         $userDetails = $this->recoverUserDetails();
 
-        $helper = new UsersControllerHelper();
+        $helper = new UsersRolesControllerHelper();
         $helper->setConnection($connection);
         $helper->getConnection()->beginTransaction();
 
@@ -56,8 +61,26 @@ class UsersRolesInsertController extends SetupAbstractController
             $inputFilter->exchangeArray( $form->getData() );
 
             $helper->setLoggedUser($userDetails);
+
+            $userRoleRecord = $helper->recoverWrapperRecords(
+                new UsersRolesGetterWrapper(new UsersRolesGetter($em)),
+                array('name' => $inputFilter->name)
+            );
+            if (!empty($userRoleRecord)) {
+                throw new NullException("Il nome ruolo inserito &egrave; gi&agrave; presente in archivio");
+            }
+
             $lastInsertId = $helper->insert($inputFilter);
-            $helper->getConnection()->commit();
+
+            if ($inputFilter->adminAccess==1 and empty($inputFilter->permissions)) {
+                throw new NullException("Aggiungere almeno un permesso al ruolo");
+            }
+
+            if (!empty($inputFilter->permissions)) {
+                foreach($inputFilter->permissions as $key => $value) {
+                    $helper->insertPermissionRelation($lastInsertId, $value);
+                }
+            }
 
             $logWriter = new LogWriter($connection);
             $logWriter->writeLog(array(
@@ -75,10 +98,12 @@ class UsersRolesInsertController extends SetupAbstractController
                 'messageText'                => 'I dati sono stati processati correttamente dal sistema',
                 'showLinkResetFormAndShowIt' => 1,
                 'backToSummaryLink'     => $this->url()->fromRoute('admin/users-roles-summary', array(
-                    'lang'              => $this->params()->fromRoute('lang'),
+                    'lang' => $this->params()->fromRoute('lang'),
                 )),
                 'backToSummaryText'     => "Elenco ruoli",
             ));
+
+            $helper->getConnection()->commit();
 
         } catch(\Exception $e) {
 

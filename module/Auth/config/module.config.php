@@ -36,9 +36,10 @@ return array(
             'recover-password' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/auth/recover/password/:action[/]',
+                    'route' => '/auth/recover/password/:action[/:confirmcode][/]',
                     'constraints' => array(
                         'action' => '[a-zA-Z0-9_-]*',
+                        'confirmcode' => '[a-zA-Z0-9_-]*',
                     ),
                     'defaults' => array(
                         'controller' => 'Auth\Controller\RecoverPassword',
@@ -51,6 +52,9 @@ return array(
     'view_manager' => array(
         'template_path_stack' => array(
             'Auth' => __DIR__ . '/../view',
+        ),
+        'template_map' => array(
+            'auth/recover-password/sendrecoverrequest' => __DIR__ . '/../view/auth/auth/empty.phtml',
         ),
     ),
 );

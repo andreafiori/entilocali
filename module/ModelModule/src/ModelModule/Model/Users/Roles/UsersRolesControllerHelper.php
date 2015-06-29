@@ -9,6 +9,8 @@ use Zend\InputFilter\InputFilterAwareInterface;
 class UsersRolesControllerHelper extends ControllerHelperAbstract
 {
     /**
+     * Insert a new user role
+     *
      * @param InputFilterAwareInterface $formData
      *
      * @return int
@@ -17,9 +19,10 @@ class UsersRolesControllerHelper extends ControllerHelperAbstract
     {
         $this->assertConnection();
 
-        return $this->getConnection()->insert(
+        $this->getConnection()->insert(
             DbTableContainer::usersRoles,
             array(
+                'code'          => str_replace(' ', '', $formData->name),
                 'name'          => $formData->name,
                 'description'   => $formData->description,
                 'admin_access'  => $formData->adminAccess,
@@ -28,9 +31,13 @@ class UsersRolesControllerHelper extends ControllerHelperAbstract
                 'last_update'   => date("Y-m-d H:i:s"),
             )
         );
+
+        return $this->getConnection()->lastInsertId();
     }
 
     /**
+     * Update role record
+     *
      * @param InputFilterAwareInterface $formData
      *
      * @return int
@@ -55,9 +62,11 @@ class UsersRolesControllerHelper extends ControllerHelperAbstract
     /**
      * Delete permission relation on database
      *
-     * @param $roleId
+     * @param int $roleId
+     *
+     * @return bool
      */
-    public function deleteAllRolePermissions($roleId)
+    public function deleteRolePermissions($roleId)
     {
         $this->assertConnection();
 
@@ -67,6 +76,8 @@ class UsersRolesControllerHelper extends ControllerHelperAbstract
             array('role_id' => $roleId)
         );
         $this->getConnection()->query('SET FOREIGN_KEY_CHECKS=1');
+
+        return true;
     }
 
     /**
@@ -74,6 +85,7 @@ class UsersRolesControllerHelper extends ControllerHelperAbstract
      *
      * @param int $roleId
      * @param int $permissionId
+     *
      * @return int
      */
     public function insertPermissionRelation($roleId, $permissionId)

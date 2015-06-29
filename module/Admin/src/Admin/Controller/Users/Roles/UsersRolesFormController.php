@@ -24,85 +24,93 @@ class UsersRolesFormController extends SetupAbstractController
 
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-
-        $helper = new UsersRolesControllerHelper();
-        $roleRecord = $helper->recoverWrapperRecordsById(
-            new UsersRolesGetterWrapper(new UsersRolesGetter($em)),
-            array('id' => $id, 'limit' => 1),
-            $id
-        );
-        $permissionsWrapper = $helper->recoverWrapper(
-            new UsersRolesPermissionsGetterWrapper(new UsersRolesPermissionsGetter($em)),
-            array()
-        );
-        $permissionsRecords = $permissionsWrapper->getRecords();
-
-        $acl = new Acl();
-        $form = new UsersRolesForm();
-
-        if ( !empty($roleRecord) ) {
-
-            $acl->addRole($roleRecord[0]['name']);
-
-            $permissionsCurrentRoles = new UsersRolesPermissionsRelationsGetterWrapper(
-                new UsersRolesPermissionsRelationsGetter($em)
+        try {
+            $helper = new UsersRolesControllerHelper();
+            $roleRecord = $helper->recoverWrapperRecordsById(
+                new UsersRolesGetterWrapper(new UsersRolesGetter($em)),
+                array('id' => $id, 'limit' => 1),
+                $id
             );
-            $permissionsCurrentRoles->setInput(array(
-                'roleId'  => $roleRecord[0]['id'],
-                'orderBy' => 'permission.position',
-            ));
-            $permissionsCurrentRoles->setupQueryBuilder();
+            $permissionsWrapper = $helper->recoverWrapper(
+                new UsersRolesPermissionsGetterWrapper(new UsersRolesPermissionsGetter($em)),
+                array()
+            );
+            $allPermissionsRecords = $permissionsWrapper->getRecords();
+            $helper->checkRecords($allPermissionsRecords, 'Permessi utente non presenti in archivio');
 
-            if (!empty($permissionsCurrentRolesRecords)) {
-                $permissionsCurrentRolesRecords = $permissionsCurrentRoles->getRecords();
-                foreach($permissionsCurrentRolesRecords as $currentRolesRecord) {
-                    $acl->addResource($currentRolesRecord['flag']);
-                    $acl->allow($roleRecord[0]['name'], $currentRolesRecord['flag']);
+            $acl = new Acl();
+            $form = new UsersRolesForm();
+
+            if ( !empty($roleRecord) ) {
+
+                $acl->addRole($roleRecord[0]['name']);
+
+                $currentRolesPermissionsRecords = $helper->recoverWrapperRecords(
+                    new UsersRolesPermissionsRelationsGetterWrapper( new UsersRolesPermissionsRelationsGetter($em)),
+                    array(
+                        'roleId'  => $roleRecord[0]['id'],
+                        'orderBy' => 'permission.position',
+                    )
+                );
+
+                if (!empty($currentRolesPermissionsRecords)) {
+                    $permissions = array();
+                    foreach ($currentRolesPermissionsRecords as $permission) {
+                        $permissions[$permission['flag']] = $permission['permissionId'];
+
+                        $acl->addResource($permission['flag']);
+                        $acl->allow($roleRecord[0]['name'], $permission['flag']);
+                    }
+
+                    $roleRecord[0]['permissions'] = $permissions;
                 }
+
+                $formAction      = $this->url()->fromRoute('admin/users-roles-update', array(
+                    'lang' => $lang
+                ));
+                $formTitle       = 'Modifica ruolo utente';
+                $formDescription = 'Modifica dati relativi al ruolo';
+
+                $form->setData($roleRecord[0]);
+
+            } else {
+                $formTitle       = 'Nuovo ruolo utente';
+                $formDescription = 'Creazione nuovo ruolo utente';
+                $formAction      =  $this->url()->fromRoute('admin/users-roles-insert', array(
+                    'lang' => $lang
+                ));
             }
 
-            $formAction      = $this->url()->fromRoute('admin/users-roles-update', array(
-                'lang' => $lang
+            $this->layout()->setVariables(array(
+                'form'                          => $form,
+                'formAction'                    => $formAction,
+                'formTitle'                     => $formTitle,
+                'formDescription'               => $formDescription,
+                'roleName'                      => isset($roleRecord[0]['name']) ? $roleRecord[0]['name'] : null,
+                'roleId'                        => isset($roleRecord[0]['id']) ? $roleRecord[0]['id'] : null,
+                'permissions'                   => $permissionsWrapper->sortPerGroup($allPermissionsRecords),
+                'acl'                           => $acl,
+                'formDataCommonPath'            => 'backend/templates/common/',
+                'adminAccess'                   => isset($roleRecord[0]['adminAccess']) ? $roleRecord[0]['adminAccess'] : null,
+                'formBreadCrumbTitle'           => 'Modifica',
+                'formBreadCrumbCategory' => array(
+                    array(
+                        'label' => 'Utenti',
+                        'href'  =>  $this->url()->fromRoute('admin/users-summary', array('lang' => $lang) ),
+                        'title' => 'Elenco utenti',
+                    ),
+                    array(
+                        'label' => 'Ruoli',
+                        'href'  =>  $this->url()->fromRoute('admin/users-roles-summary', array('lang' => $lang)),
+                        'title' => 'Elenco ruoli',
+                    ),
+                ),
+                'showRolePermissionsTemplate'   => 1,
+                'templatePartial'               => self::formTemplate,
             ));
-            $formTitle       = 'Modifica ruolo utente';
-            $formDescription = 'Modifica dati relativi al ruolo';
+        } catch(\Exception $e) {
 
-            $form->setData($roleRecord[0]);
-        } else {
-            $formTitle       = 'Nuovo ruolo utente';
-            $formDescription = 'Creazione nuovo ruolo utente';
-            $formAction      =  $this->url()->fromRoute('admin/users-roles-insert', array(
-                'lang' => $lang
-            ));
         }
-
-        $this->layout()->setVariables(array(
-            'form'                          => $form,
-            'formAction'                    => $formAction,
-            'formTitle'                     => $formTitle,
-            'formDescription'               => $formDescription,
-            'roleName'                      => isset($roleRecord[0]['name']) ? $roleRecord[0]['name'] : null,
-            'roleId'                        => isset($roleRecord[0]['id']) ? $roleRecord[0]['id'] : null,
-            'permissions'                   => $permissionsWrapper->sortPerGroup($permissionsRecords),
-            'acl'                           => $acl,
-            'formDataCommonPath'            => 'backend/templates/common/',
-            'adminAccess'                   => isset($roleRecord[0]['adminAccess']) ? $roleRecord[0]['adminAccess'] : null,
-            'formBreadCrumbTitle'           => 'Modifica',
-            'formBreadCrumbCategory' => array(
-                array(
-                    'label' => 'Utenti',
-                    'href'  =>  $this->url()->fromRoute('admin/users-summary', array('lang' => $lang) ),
-                    'title' => 'Elenco utenti',
-                ),
-                array(
-                    'label' => 'Ruoli',
-                    'href'  =>  $this->url()->fromRoute('admin/users-roles-summary', array('lang' => $lang)),
-                    'title' => 'Elenco ruoli',
-                ),
-            ),
-            'showRolePermissionsTemplate'   => 1,
-            'templatePartial'               => self::formTemplate,
-        ));
 
         $this->layout()->setTemplate($mainLayout);
     }

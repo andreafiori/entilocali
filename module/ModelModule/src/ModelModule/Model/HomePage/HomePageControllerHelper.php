@@ -26,6 +26,8 @@ class HomePageControllerHelper extends ControllerHelperAbstract
                 'block_id'      => $blockId,
             )
         );
+
+        return $this->getConnection()->lastInsertId();
     }
 
     /**
@@ -35,6 +37,10 @@ class HomePageControllerHelper extends ControllerHelperAbstract
     {
         $this->assertConnection();
 
-
+        return $this->getConnection()->delete(
+            DbTableContainer::homepage,
+            array('id' => $homePageId),
+            array('limit' => 1)
+        );
     }
 }

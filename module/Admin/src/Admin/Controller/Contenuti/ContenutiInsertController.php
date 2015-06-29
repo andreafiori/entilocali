@@ -65,19 +65,20 @@ class ContenutiInsertController extends SetupAbstractController
             $helper->writeLog(array(
                 'user_id'       => $userDetails->id,
                 'module_id'     => ModulesContainer::contenuti_id,
-                'message'       => "Inserito nuovo contenuto ".$inputFilter->titolo,
+                'message'       => "Inserito nuovo contenuto \ articolo ".$inputFilter->titolo,
                 'type'          => 'info',
                 'reference_id'  => $lastInsertId, 'backend' => 1,
             ));
 
             $this->layout()->setVariables(array(
                 'messageType'                   => 'success',
-                'messageTitle'                  => 'Contenuto inserito correttamente',
+                'messageTitle'                  => 'Articolo inserito correttamente',
                 'messageText'                   => 'I dati sono stati processati correttamente dal sistema',
                 'showLinkResetFormAndShowIt'    => 1,
                 'backToSummaryLink' => $this->url()->fromRoute('admin/'.$modulename.'-summary', array(
                     'lang'              => $this->params()->fromRoute('lang'),
                     'languageSelection' => $this->params()->fromRoute('languageSelection'),
+                    'modulename'        => $modulename,
                 )),
                 'backToSummaryText'             => "Elenco contenuti",
                 'insertAgainLabel'              => "Inserisci un altro articolo \ contenuto",
@@ -104,7 +105,7 @@ class ContenutiInsertController extends SetupAbstractController
 
             $this->layout()->setVariables(array(
                 'messageType'           => 'danger',
-                'messageTitle'          => 'Errore aggiornamento contenuto',
+                'messageTitle'          => 'Errore inserimento contenuto \ articolo',
                 'messageText'           => $e->getMessage(),
                 'form'                  => $form,
                 'formInputFilter'       => $inputFilter->getInputFilter(),

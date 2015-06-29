@@ -70,4 +70,21 @@ class AdminController extends SetupAbstractController
 
         $this->layout()->setTemplate($mainLayout);
     }
+
+    /**
+     * NOT Authorized page
+     */
+    public function notauthorizedAction()
+    {
+        $mainLayout = $this->initializeAdminArea();
+
+        $this->layout()->setVariables(array(
+            'templatePartial' => 'not-authorized.phtml',
+        ));
+
+        /* Set not authorized HTTP status code */
+        $this->getResponse()->setStatusCode(401);
+
+        $this->layout()->setTemplate($mainLayout);
+    }
 }

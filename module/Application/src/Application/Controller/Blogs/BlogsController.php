@@ -31,8 +31,8 @@ class BlogsController extends SetupAbstractController
         $categoriesRecords = $helper->recoverWrapperRecords(
             new PostsCategoriesGetterWrapper(new PostsCategoriesGetter($em)),
             array(
-                'languageAbbr' => $lang,
-                'orderBy' => '',
+                'languageAbbr'  => $lang,
+                'orderBy'       => '',
             )
         );
         $categoriesRecordsForDropDown = $helper->formatForDropwdown($categoriesRecords, 'id', 'name');
@@ -83,6 +83,11 @@ class BlogsController extends SetupAbstractController
         $this->layout()->setTemplate($mainLayout);
     }
 
+    /**
+     * Blog post details
+     *
+     * @throws \ModelModule\Model\NullException
+     */
     public function detailsAction()
     {
         $mainLayout = $this->initializeFrontendWebsite();

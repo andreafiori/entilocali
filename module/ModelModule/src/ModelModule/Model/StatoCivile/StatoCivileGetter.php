@@ -106,13 +106,15 @@ class StatoCivileGetter extends QueryBuilderHelperAbstract
     }
     
     /**
+     * Free text search
+     *
      * @param string $text
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function setTextSearch($text)
     {
-        if ($text) {
-            $this->getQueryBuilder()->andWhere('sca.titolo LIKE :textSearch ');
+        if (!empty($text)) {
+            $this->getQueryBuilder()->andWhere('LOWER(sca.titolo) LIKE LOWER( :textSearch ) ');
             $this->getQueryBuilder()->setParameter('textSearch', "%$text%");
         }
         
@@ -120,6 +122,8 @@ class StatoCivileGetter extends QueryBuilderHelperAbstract
     }
 
     /**
+     * Set not expired condition
+     *
      * @param int $noScaduti
      * @return \Doctrine\ORM\QueryBuilder
      */

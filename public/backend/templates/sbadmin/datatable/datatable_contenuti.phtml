@@ -123,6 +123,12 @@
 
 if (!empty($this->records)):
     echo $this->render('backend/templates/common/datatables_zend_pagination.phtml');
+else:
+    ?>
+    <div class="alert alert-warning">
+        <h3>Nessun articolo trovato</h3>
+    </div>
+    <?php
 endif;
 
 ?>

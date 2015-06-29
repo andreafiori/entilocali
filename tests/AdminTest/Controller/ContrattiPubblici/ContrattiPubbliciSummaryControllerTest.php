@@ -19,6 +19,8 @@ class ContrattiPubbliciSummaryControllerTest extends TestSuite
         $this->controller = new ContrattiPubbliciSummaryController();
         $this->controller->setEvent($this->event);
         $this->controller->setServiceLocator($this->getServiceManager());
+
+        $this->setupUserSession($this->recoverUserDetails());
     }
 
     public function testIndexAction()

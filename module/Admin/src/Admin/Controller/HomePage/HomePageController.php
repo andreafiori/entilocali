@@ -8,6 +8,9 @@ use ModelModule\Model\HomePage\HomePageGetterWrapper;
 use Application\Controller\SetupAbstractController;
 use ModelModule\Model\HomePage\HomePageHelper;
 
+/**
+ * Home Page Management Controller
+ */
 class HomePageController extends SetupAbstractController
 {
     public function indexAction()
@@ -53,12 +56,14 @@ class HomePageController extends SetupAbstractController
                 $record = array_merge(
                     $record,
                     array(
+                        'homepageId'    => $value[$i]['homepageId'],
                         'languageId'    => $value[$i]['languageId'],
                         'referenceId'   => $value[$i]['referenceId'],
                         'moduleName'    => $value[$i]['moduleName'],
-                        'moduleName'    => $value[$i]['blockId']
+                        'blockId'       => $value[$i]['blockId']
                     )
                 );
+                $i++;
             }
 
             $homePageElements[$key] = $records;
@@ -71,5 +76,39 @@ class HomePageController extends SetupAbstractController
         ));
 
         $this->layout()->setTemplate($mainLayout);
+    }
+
+    /**
+     * Insert an element via GET, using only requested data
+     */
+    public function insertAction()
+    {
+
+    }
+
+    /**
+     * Delete element from home page
+     *
+     * @return \Zend\Http\Response
+     */
+    public function deleteAction()
+    {
+        $id = $this->params()->fromRoute('id');
+
+        /**
+         * @var \Doctrine\ORM\EntityManager $em
+         */
+        $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+
+        $helper = new HomePageControllerHelper();
+        $helper->setConnection($em->getConnection());
+        $helper->deleteFromHomeById($id);
+
+        $referer = $this->getRequest()->getHeader('Referer');
+        if ( is_object($referer) ) {
+            return $this->redirect()->toUrl( $referer->getUri() );
+        }
+
+        return $this->redirect()->toRoute('main');
     }
 }

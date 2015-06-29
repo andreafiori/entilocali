@@ -3,12 +3,11 @@
         <li><a href="" title="Home page">Home</a></li>
         <li><a href="<?php echo $this->url('admin/contratti-pubblici-summary', array('lang' => $this->params()->fromRoute('lang'))); ?>">Contratti pubblici</a></li>
         <li><a href="<?php echo $this->url('admin/contratti-pubblici-form', array('lang' => $this->params()->fromRoute('lang'), 'id' => $this->params()->fromRoute('id'))); ?>">Bando</a></li>
-        <li class="active">Partecipanti a aggiudicatari</li>
+        <li class="active">Partecipanti e aggiudicatari</li>
     </ul>
 
     <h3 class="text-center"><?php echo $this->contratto[0]['titolo'] ?></h3>
 
-    <!-- Operatori aggiudicatari -->
     <h3>Operatori aggiudicatari</h3>
     <p>Elenco operatori aggiudicatari</p>
     <?php if (!empty($this->operatoriAggiudicatari)): ?>
@@ -29,12 +28,12 @@
             <td><?php echo $partecipante['nome'] ?></td>
             <td><?php echo $partecipante['gruppo'] ?></td>
             <td>&nbsp;</td>
-            <td><?php echo $partecipante['membro'] ?></td>
+            <td><?php echo $partecipante['membro'] + 0 ?></td>
             <td>
                 <form role="form" action="<?php echo $this->url('admin/contratti-pubblici-aggiudicatari-operations', array(
                     'lang' => $this->params()->fromRoute('lang'),
                     'id' => $this->params()->fromRoute('id'),
-                    'action' => 'removeaggiudicatari'
+                    'action' => 'removeaggiudicatario'
                 )); ?>" method="post">
                     <input type="hidden" value="<?php echo $partecipante['idPartecipante'] ?>" name="removeAggiudicatario">
                     <input type="hidden" value="<?php echo $partecipante['id'] ?>" name="idContratto">
@@ -49,7 +48,6 @@
     <div class="alert alert-warning"><strong><i class="fa fa-warning"></i> Nessun operatore aggiudicatario</strong></div>
     <?php endif; ?>
 
-    <!-- Operatori ammessi alla gara -->
     <h3>Elenco degli operatori invitati a presentare offerte</h3>
     <?php if (!empty($this->operatoriPartecipanti)): ?>
         <table width="100%" class="table table-bordered">
@@ -67,11 +65,92 @@
                 <td><?php echo $partecipante['cf'] ?></td>
                 <td><?php echo $partecipante['ragioneSociale'] ?></td>
                 <td><?php echo $partecipante['nome'] ?></td>
-                <td><?php echo $partecipante['gruppo'] ?></td>
-                <td>&nbsp;</td>
-                <td><?php echo $partecipante['membro'] ?></td>
                 <td>
+                    <?php
+                    /* Form Numero Gruppo */
+                    $form = $this->formGruppo;
 
+                    $form->setAttribute('action',   $this->url('admin/contratti-pubblici-aggiudicatari-operations', array(
+                        'lang'      => $this->params()->fromRoute('lang'),
+                        'id'        => $this->params()->fromRoute('id'),
+                        'action'    => 'updategruppo'
+                    )));
+                    $form->setAttribute('method',   'post');
+                    $form->setAttribute('role',     'form');
+                    $form->setAttribute('class',    'form-horizontal');
+                    $form->setAttribute('id',       'frmGruppo');
+
+                    $form->get('gruppo')->setAttribute('class', 'form-control');
+                    $form->get('okGroup')->setAttribute('class', 'btn btn-primary');
+
+                    $form->prepare();
+                    $form->setData(array(
+                        'contrattoId'       => $this->params()->fromRoute('id'),
+                        'partecipanteId'    => $partecipante['idPartecipante'],
+                        'relationId'        => $partecipante['idRelation'],
+                        'gruppo'            => isset($partecipante['gruppo']) ? $partecipante['gruppo'] : 0,
+                    ));
+                    echo $this->form()->openTag($form);
+                    ?>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <?php echo $this->formElement($form->get('partecipanteId')); ?>
+                            <?php echo $this->formElement($form->get('contrattoId')); ?>
+                            <?php echo $this->formElement($form->get('relationId')); ?>
+
+                            <?php echo $this->formElement($form->get('gruppo')); ?>
+                        </div>
+                        <div class="col-sm-4">
+                            <?php echo $this->formElement($form->get('okGroup')); ?>
+                        </div>
+                    </div>
+                    <?php echo $this->form()->closeTag(); ?>
+                </td>
+                <?php if ($partecipante['gruppo']!=0 and $partecipante['gruppo']!=''): ?>
+                <td>
+                    <?php
+                    /* Form Selezione Ruolo (categoria) */
+                    $form = $this->formRuolo;
+
+                    $form->setAttribute('action',   $this->url('admin/contratti-pubblici-aggiudicatari-operations', array(
+                        'lang'      => $this->params()->fromRoute('lang'),
+                        'id'        => $this->params()->fromRoute('id'),
+                        'action'    => 'updateruolo'
+                    )));
+                    $form->setAttribute('method',   'post');
+                    $form->setAttribute('role',     'form');
+                    $form->setAttribute('class',    'form-horizontal');
+                    $form->setAttribute('id',       'frmRuolo');
+
+                    $form->get('ruolo')->setAttribute('class', 'form-control');
+                    $form->get('okRole')->setAttribute('class', 'btn btn-primary');
+
+                    $form->prepare();
+                    $form->setData(array(
+                        'relationId'    => $partecipante['idRelation'],
+                        'ruolo'         => $partecipante['stato']
+                    ));
+
+                    echo $this->form()->openTag($form);
+
+                    ?>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <?php echo $this->formElement($form->get('relationId')); ?>
+
+                            <?php echo $this->formElement($form->get('ruolo')); ?>
+                        </div>
+                        <div class="col-sm-2">
+                            <?php echo $this->formElement($form->get('okRole')); ?>
+                        </div>
+                    </div>
+                    <?php echo $this->form()->closeTag(); ?>
+                </td>
+                <?php else: ?>
+                <td>Nessuno</td>
+                <?php endif; ?>
+                <td><?php echo ($partecipante['membro']!=0) ? $partecipante['membro'] + 0 : 'No' ?></td>
+                <td>
                     <form role="form" action="<?php echo $this->url('admin/contratti-pubblici-aggiudicatari-operations', array(
                         'lang' => $this->params()->fromRoute('lang'),
                         'id' => $this->params()->fromRoute('id'),

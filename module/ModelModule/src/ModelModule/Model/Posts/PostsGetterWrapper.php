@@ -41,6 +41,7 @@ class PostsGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setNoScaduti( $this->getInput('noScaduti', 1) );
         $this->objectGetter->setLanguageId($language ? $language : 1);
         $this->objectGetter->setLanguageAbbreviation( $this->getInput('languageAbbr', 1) );
+        $this->objectGetter->setFreeSearch( $this->getInput('freeSearch', 1) );
         $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
         $this->objectGetter->setLimit( $this->getInput('limit', 1) );
 

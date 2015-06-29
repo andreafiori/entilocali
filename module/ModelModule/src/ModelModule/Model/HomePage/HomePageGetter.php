@@ -11,7 +11,7 @@ class HomePageGetter extends QueryBuilderHelperAbstract
      */
     public function setMainQuery()
     {
-        $this->setSelectQueryFields("DISTINCT(homePage.id) AS id, homePage.title, homePage.referenceId,
+        $this->setSelectQueryFields("DISTINCT(homePage.id) AS id, homePage.id AS homepageId, homePage.title, homePage.referenceId,
                                     homePage.freeText, homePage.position, IDENTITY(homePage.language) AS languageId,
                                     IDENTITY(homePage.block) AS blockId,
                                     homePageBlocks.note,

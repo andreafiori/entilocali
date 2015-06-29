@@ -17,6 +17,9 @@ use ModelModule\Model\StatoCivile\StatoCivileGetter;
 use ModelModule\Model\StatoCivile\StatoCivileGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
+/**
+ * TODO: let the selection add attachments and other related records
+ */
 abstract class SearchEngineAbstractController extends SetupAbstractController
 {
     /**
@@ -108,7 +111,7 @@ abstract class SearchEngineAbstractController extends SetupAbstractController
                 $page,
                 $perPage
             ),
-            'blogs'
+            'photo'
         );
 
         return $helper;

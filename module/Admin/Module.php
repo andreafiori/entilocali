@@ -84,7 +84,10 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
 
                         /* No permissions, redirect... */
                         if ($allowed==0) {
-                            $url = $e->getRouter()->assemble(array('action' => 'index', 'lang' => 'it'), array('name' => 'admin'));
+                            $url = $e->getRouter()->assemble(
+                                array('lang' => 'it'),
+                                array('name' => 'admin/not-authorized')
+                            );
 
                             $response = $e->getResponse();
                             $response->getHeaders()->addHeaderLine('Location', $url);

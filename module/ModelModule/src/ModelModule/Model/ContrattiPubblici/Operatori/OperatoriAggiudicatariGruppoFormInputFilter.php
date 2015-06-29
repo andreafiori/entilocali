@@ -1,35 +1,30 @@
 <?php
 
-namespace ModelModule\Model\Users\Roles;
+namespace ModelModule\Model\ContrattiPubblici\Operatori;
 
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
-/**
- * Form Roles Validator
- */
-class UsersRolesFormInputFilter implements InputFilterAwareInterface
+class OperatoriAggiudicatariGruppoFormInputFilter implements InputFilterAwareInterface
 {
-    public $id;
-    public $name;
-    public $description;
-    public $adminAccess;
-    public $permissions;
+    public $gruppo;
+    public $partecipanteId;
+    public $contrattoId;
+    public $csrf;
 
-    protected $inputFilter;
+    private $inputFilter;
 
     /**
      * @param array $data
      */
     public function exchangeArray(array $data)
     {
-        $this->id           = (isset($data['id']))          ? $data['id']          : null;
-        $this->name         = (isset($data['name']))        ? $data['name']        : null;
-        $this->description  = (isset($data['description'])) ? $data['description'] : null;
-        $this->adminAccess  = (isset($data['adminAccess'])) ? $data['adminAccess'] : null;
-        $this->permissions  = (isset($data['permissions'])) ? $data['permissions'] : null;
+        $this->gruppo           = (isset($data['gruppo']))          ? $data['gruppo']           : null;
+        $this->contrattoId      = (isset($data['contrattoId']))     ? $data['contrattoId']      : null;
+        $this->partecipanteId   = (isset($data['partecipanteId']))  ? $data['partecipanteId']   : null;
+        $this->csrf             = (isset($data['csrf']))            ? $data['csrf']             : null;
     }
 
     /**
@@ -38,7 +33,7 @@ class UsersRolesFormInputFilter implements InputFilterAwareInterface
      */
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
-        throw new \Exception("Not used");
+        throw new \Exception("This method is unused");
     }
 
     /**
@@ -46,8 +41,7 @@ class UsersRolesFormInputFilter implements InputFilterAwareInterface
      */
     public function getInputFilter()
     {
-        if (!$this->inputFilter)
-        {
+        if (!$this->inputFilter) {
             $inputFilter = new InputFilter();
 
             $inputFilter->add(array(
@@ -59,11 +53,10 @@ class UsersRolesFormInputFilter implements InputFilterAwareInterface
             ));
 
             $inputFilter->add(array(
-                'name'     => 'name',
+                'name'     => 'gruppo',
                 'required' => true,
                 'filters'  => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
+                    array('name' => 'Int'),
                 ),
                 'validators' => array(
                     array(
@@ -71,34 +64,29 @@ class UsersRolesFormInputFilter implements InputFilterAwareInterface
                         'options' => array(
                             'encoding' => 'UTF-8',
                             'min'      => 1,
-                            'max'      => 255,
+                            'max'      => 20,
                         ),
                     ),
                 ),
             ));
 
             $inputFilter->add(array(
-                'name'     => 'description',
-                'required' => false,
+                'name'     => 'csrf',
+                'required' => true,
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
                 ),
-            ));
-
-            $inputFilter->add(array(
-                'name'     => 'adminAccess',
-                'required' => false,
-                'filters'  => array(
-                    array('name' => 'Int'),
-                ),
-            ));
-
-            $inputFilter->add(array(
-                'name'     => 'permissions',
-                'required' => false,
-                'filters'  => array(
-                    array('name' => 'StringTrim'),
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => 1,
+                            'max'      => 100,
+                        ),
+                    ),
                 ),
             ));
 

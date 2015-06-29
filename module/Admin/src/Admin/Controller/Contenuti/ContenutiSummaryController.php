@@ -32,7 +32,7 @@ class ContenutiSummaryController extends SetupAbstractController
         $modulename             = $this->params()->fromRoute('modulename');
         $isAmmTrasparente       = ($modulename!='contenuti') ? 1 : 0;
 
-        $sessionContainer    = new SessionContainer();
+        $sessionContainer = new SessionContainer();
         $sessionSearch = $sessionContainer->offsetGet('contenutiSummarySearch');
 
         $helper = new ContenutiControllerHelper();
@@ -55,6 +55,9 @@ class ContenutiSummaryController extends SetupAbstractController
                         'utente'                => ($userRole=='WebMaster') ? null : $userId,
                         'languageAbbreviation'  => $languageSelection,
                         'isAmmTrasparente'      => $isAmmTrasparente,
+                        'inhome'                => isset($sessionSearch['inhome']) ? $sessionSearch['inhome'] : null,
+                        'sottosezione'          => isset($sessionSearch['sottosezioni']) ? $sessionSearch['sottosezioni'] : null,
+                        'freeSearch'            => isset($sessionSearch['testo']) ? $sessionSearch['testo'] : null,
                         'orderBy'               => 'contenuti.id DESC',
                     ),
                     !empty($sessionSearch) ? $sessionSearch : array()
@@ -123,11 +126,11 @@ class ContenutiSummaryController extends SetupAbstractController
                 'Date',
                 'Inserito da',
                 "&nbsp;",
-                "&nbsp;",
-                "&nbsp;",
-                "&nbsp;",
-                "&nbsp;",
-                ($isAmmTrasparente == 1) ? "&nbsp;" : null,
+                ($userDetails->acl->hasResource("contenuti_update")) ? "&nbsp;" : null,
+                ($userDetails->acl->hasResource("contenuti_delete")) ? "&nbsp;" : null,
+                ($userDetails->acl->hasResource("contenuti_homepage")) ? "&nbsp;" : null,
+                ($userDetails->acl->hasResource("contenuti_attachments")) ? "&nbsp;" : null,
+                ($isAmmTrasparente == 1 and $userDetails->acl->hasResource("amministrazione_trsparente_tabelle")) ? "&nbsp;" : null,
             ),
         ));
 
@@ -190,7 +193,7 @@ class ContenutiSummaryController extends SetupAbstractController
                     ));
                 }
 
-                if ($isAmmTrasparente==1) {
+                if ($isAmmTrasparente == 1 and $userDetails->acl->hasResource("amministrazione_trsparente_tabelle")) {
                     $tableButton = array(
                         'type' => 'tableButton',
                         'href' => $this->url()->fromRoute('admin/amministrazione-trasparente-tabella', array(
@@ -256,7 +259,7 @@ class ContenutiSummaryController extends SetupAbstractController
                     $row['nomeSezione'],
                     $row['nomeSottosezione'],
                     !empty($row['titolo']) ? $row['titolo'] : '&nbsp;',
-                    'Inserimento: '.$row['dataInserimento']."<br><br>Scadenza: ".$row['dataScadenza'],
+                    '<strong>Inserimento:</strong> '.date("d-m-Y H:i", strtotime($row['dataInserimento']))."<br><br><strong>Scadenza:</strong> ".date("d-m-Y H:i", strtotime($row['dataScadenza'])),
                     $row['name'].' '.$row['surname'],
                     /* Enable \ Disable button */
                     array(

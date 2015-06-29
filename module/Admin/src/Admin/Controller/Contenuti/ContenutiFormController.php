@@ -39,9 +39,10 @@ class ContenutiFormController extends SetupAbstractController
             $contenutiRecords = $helper->recoverWrapperRecordsById(
                 new ContenutiGetterWrapper(new ContenutiGetter($em)),
                 array(
-                    'id'     => $id,
-                    'limit'  => 1,
-                    'utente' => ($userDetails->role=='WebMaster') ? null : $userDetails->id
+                    'id'                => $id,
+                    'isAmmTrasparente'  => ($modulename!='contenuti') ? 1 : 0,
+                    'utente'            => ($userDetails->role=='WebMaster') ? null : $userDetails->id,
+                    'limit'             => 1,
                 ),
                 $id
             );

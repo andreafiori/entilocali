@@ -220,8 +220,10 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
     public function setFreeSearch($search)
     {
         if (!empty($search)) {
-            $this->getQueryBuilder()->andWhere(' ( alboArticoli.titolo LIKE :freeSearch OR aps.nome LIKE :freeSearch ) ');
-            $this->getQueryBuilder()->setParameter('freeSearch', $search);
+            $search = strtolower($search);
+
+            $this->getQueryBuilder()->andWhere(' ( LOWER(alboArticoli.titolo) LIKE :freeSearch OR LOWER(aps.nome) LIKE :freeSearch ) ');
+            $this->getQueryBuilder()->setParameter('freeSearch', "%$search%");
         }
 
         return $this->getQueryBuilder();

@@ -7,6 +7,9 @@ use ModelModule\Model\ContrattiPubblici\Operatori\OperatoriAggiudicatariControll
 
 class OperatoriAggiudicatariOperationsController extends SetupAbstractController
 {
+    /**
+     * @return mixed
+     */
     public function addoperatoreAction()
     {
         $request = $this->getRequest();
@@ -79,6 +82,9 @@ class OperatoriAggiudicatariOperationsController extends SetupAbstractController
         }
     }
 
+    /**
+     * @return mixed
+     */
     public function removeAggiudicatarioAction()
     {
         $request = $this->getRequest();
@@ -114,10 +120,9 @@ class OperatoriAggiudicatariOperationsController extends SetupAbstractController
     }
 
     /**
-     * Remove single partecipante
+     * Remove single partecipante and redirect to summary
      *
      * @return \Zend\Http\Response
-     * @throws \Doctrine\DBAL\Exception\InvalidArgumentException
      */
     public function removepartecipanteAction()
     {
@@ -129,14 +134,8 @@ class OperatoriAggiudicatariOperationsController extends SetupAbstractController
             return $this->redirect()->toRoute('main');
         }
 
-        /**
-         * @var \Doctrine\ORM\EntityManager $em
-         */
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-        /**
-         * @var \Doctrine\DBAL\Connection $connection
-         */
         $connection = $em->getConnection();
 
         $helper = new OperatoriAggiudicatariControllerHelper();
@@ -151,5 +150,74 @@ class OperatoriAggiudicatariOperationsController extends SetupAbstractController
         } catch(\Exception $e) {
             // TODO: render message template with error...
         }
+    }
+
+    /**
+     * Update gruppo and redirect
+     *
+     * @return mixed
+     */
+    public function updateGruppoAction()
+    {
+        $request = $this->getRequest();
+
+        $post = array_merge_recursive( $request->getPost()->toArray(), $request->getFiles()->toArray() );
+
+        if (!($request->isXmlHttpRequest() or $request->isPost())) {
+            return $this->redirect()->toRoute('main');
+        }
+
+        $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+
+        $connection = $em->getConnection();
+
+        try {
+            $helper = new OperatoriAggiudicatariControllerHelper();
+            $helper->setEntityManager($em);
+            $helper->setConnection($connection);
+            $helper->updateGruppo($post['gruppo'], $post['relationId']);
+
+            $referer = $this->getRequest()->getHeader('Referer');
+            if ($referer) {
+                return $this->redirect()->toUrl( $referer->getUri() );
+            }
+
+        } catch(\Exception $e) {
+
+        }
+
+        return $this->redirect()->toRoute('main');
+    }
+
+    public function updateRuoloAction()
+    {
+        $request = $this->getRequest();
+
+        $post = array_merge_recursive( $request->getPost()->toArray(), $request->getFiles()->toArray() );
+
+        if (!($request->isXmlHttpRequest() or $request->isPost())) {
+            return $this->redirect()->toRoute('main');
+        }
+
+        $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+
+        $connection = $em->getConnection();
+
+        try {
+            $helper = new OperatoriAggiudicatariControllerHelper();
+            $helper->setEntityManager($em);
+            $helper->setConnection($connection);
+            $helper->updateRole($post['ruolo'], $post['relationId']);
+
+            $referer = $this->getRequest()->getHeader('Referer');
+            if ($referer) {
+                return $this->redirect()->toUrl( $referer->getUri() );
+            }
+
+        } catch(\Exception $e) {
+
+        }
+
+        return $this->redirect()->toRoute('main');
     }
 }

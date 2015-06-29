@@ -69,4 +69,49 @@ class OperatoriAggiudicatariControllerHelper extends ControllerHelperAbstract
         );
     }
 
+    /**
+     * Update gruppo (number)
+     *
+     * @param int $gruppo
+     * @param int $relationId
+     *
+     * @return int
+     */
+    public function updateGruppo($gruppo, $relationId)
+    {
+        $this->assertConnection();
+
+        return $this->getConnection()->update(
+            DbTableContainer::contrattiRelations,
+            array(
+                'gruppo' => $gruppo,
+            ),
+            array(
+                'id' => $relationId,
+            )
+        );
+    }
+
+    /**
+     * Update role
+     *
+     * @param int $role
+     * @param int $relationId
+     *
+     * @return int
+     */
+    public function updateRole($role, $relationId)
+    {
+        $this->assertConnection();
+
+        return $this->getConnection()->update(
+            DbTableContainer::contrattiRelations,
+            array(
+                'stato' => $role,
+            ),
+            array(
+                'id' => $relationId,
+            )
+        );
+    }
 }

@@ -8,6 +8,9 @@ use ModelModule\Model\NullException;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\Session\Container as SessionContainer;
 
+/**
+ * User Controller Helper
+ */
 class UsersControllerHelper extends ControllerHelperAbstract
 {
     /**
@@ -38,6 +41,7 @@ class UsersControllerHelper extends ControllerHelperAbstract
      * Encode password joining salt and password
      *
      * @param string $password
+     *
      * @return array
      */
     public function encodePassword($password)
@@ -51,6 +55,8 @@ class UsersControllerHelper extends ControllerHelperAbstract
     }
 
     /**
+     * Insert a new user encoding the password
+     *
      * @param InputFilterAwareInterface $formData
      *
      * @return int
@@ -74,13 +80,17 @@ class UsersControllerHelper extends ControllerHelperAbstract
             'create_date'   => date("Y-m-d H:i:s"),
         );
 
-        return $this->getConnection()->insert(
+        $this->getConnection()->insert(
             DbTableContainer::users,
             $arrayInsert
         );
+
+        return $this->getConnection()->lastInsertId();
     }
 
     /**
+     * Update user
+     *
      * @param InputFilterAwareInterface $formData
      *
      * @return int
@@ -117,6 +127,27 @@ class UsersControllerHelper extends ControllerHelperAbstract
             DbTableContainer::users,
             $arrayToUpdate,
             array('id' => $formData->id),
+            array('limit' => 1)
+        );
+    }
+
+    /**
+     * Update confirm code
+     *
+     * @param int $userId
+     * @param string $confirmCode
+     * @return int
+     */
+    public function updateConfirmCode($userId, $confirmCode)
+    {
+        $this->assertConnection();
+
+        return $this->getConnection()->update(
+            DbTableContainer::users,
+            array(
+                'confirm_code' => $confirmCode
+            ),
+            array('id' => $userId),
             array('limit' => 1)
         );
     }

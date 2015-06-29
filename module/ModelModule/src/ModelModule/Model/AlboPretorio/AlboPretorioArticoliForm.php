@@ -7,6 +7,20 @@ use Zend\Form\Form;
 
 class AlboPretorioArticoliForm extends Form
 {
+    public function addCig()
+    {
+        $this->add(array(
+            'name' => 'cig',
+            'type' => 'Text',
+            'options' => array('label' => '* <abbr title="Codice Identificativo di Gara">CIG</abbr>'),
+            'attributes' => array(
+                'id'            => 'cig',
+                'title'         => 'Inserisci Codice Identificativo di Gara',
+                'placeholder'   => 'CIG',
+            ),
+        ));
+    }
+
     public function addTitolo()
     {
         $this->add(array(

@@ -115,14 +115,6 @@ class AlboPretorioOperationsController extends SetupAbstractController
     }
 
     /**
-     * TODO: Active atto albo after attchment file rettifica button cliok
-     */
-    public function rettificaAction()
-    {
-
-    }
-
-    /**
      * @return Redirect
      */
     private function redirectToSummary()

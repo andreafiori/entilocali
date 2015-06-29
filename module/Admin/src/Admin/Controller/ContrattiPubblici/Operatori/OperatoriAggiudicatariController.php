@@ -7,6 +7,8 @@ use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciGetter;
 use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciGetterWrapper;
 use ModelModule\Model\ContrattiPubblici\Operatori\OperatoriAggiudicatariGetter;
 use ModelModule\Model\ContrattiPubblici\Operatori\OperatoriAggiudicatariGetterWrapper;
+use ModelModule\Model\ContrattiPubblici\Operatori\OperatoriAggiudicatariGruppoForm;
+use ModelModule\Model\ContrattiPubblici\Operatori\OperatoriAggiudicatariRuoloForm;
 use ModelModule\Model\ContrattiPubblici\Operatori\OperatoriControllerHelper;
 use ModelModule\Model\ContrattiPubblici\Operatori\OperatoriGetter;
 use ModelModule\Model\ContrattiPubblici\Operatori\OperatoriGetterWrapper;
@@ -40,9 +42,17 @@ class OperatoriAggiudicatariController extends SetupAbstractController
             array('excludeId' => $helper->gatherPartecipantiId($partecipantiRecords))
         );
 
+        $formGruppo = new OperatoriAggiudicatariGruppoForm();
+        $formGruppo->addSubmitButton();
+
+        $formRuolo = new OperatoriAggiudicatariRuoloForm();
+        $formRuolo->addSubmitButton();
+
         $this->layout()->setVariables(array(
             'contratto'                 => $contrattoRecord,
             'operatori'                 => $operatori,
+            'formGruppo'                => $formGruppo,
+            'formRuolo'                 => $formRuolo,
             'operatoriPartecipanti'     => $partecipanti,
             'operatoriAggiudicatari'    => $aggiudicatari,
             'templatePartial'           => 'contratti-pubblici/contratti-pubblici-aggiudicatari.phtml',

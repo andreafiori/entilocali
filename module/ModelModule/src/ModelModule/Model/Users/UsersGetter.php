@@ -148,4 +148,20 @@ class UsersGetter extends QueryBuilderHelperAbstract
 
         return $this->getQueryBuilder();
     }
+
+    /**
+     * Set search by email OR username
+     *
+     * @param string $emailUsername
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setEmailUsersname($emailUsername)
+    {
+        if (!empty($emailUsername)) {
+            $this->getQueryBuilder()->andWhere(" (u.email = :emailUsername OR u.username =  :emailUsername) ");
+            $this->getQueryBuilder()->setParameter('emailUsername', $emailUsername);
+        }
+
+        return $this->getQueryBuilder();
+    }
 }

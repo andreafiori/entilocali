@@ -4,7 +4,7 @@
         <tr>
             <?php foreach($this->columns as $column): ?>
 
-                <?php if (empty($column)) break; /* no empty elements... */ ?>
+                <?php if (empty($column)) continue; /* no empty elements... */ ?>
 
                 <?php if ( is_array($column) ): ?>
                     <th style="width: <?php echo $column['width'] ?>"><?php echo $column['label'] ?></th>
@@ -20,7 +20,7 @@
             <tr class="odd gradeX<?php if (isset($records['style'])): if ($records['style']=='hidden'): ?> info<?php endif; endif; ?>">
                 <?php foreach($records as $key => $record): ?>
 
-                    <?php if (empty($record)) break; /* no empty elements... */ ?>
+                    <?php if (empty($record)) continue; /* no empty elements... */ ?>
 
                     <?php if (is_array($record)): ?>
                         <?php if ($record['type']=='updateButton'): ?>
