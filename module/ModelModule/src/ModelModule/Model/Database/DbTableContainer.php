@@ -10,7 +10,6 @@ class DbTableContainer
 {
     const attachments                       = 'zfcms_attachments';
     const attachmentsMimeType               = 'zfcms_attachments_mimetype';
-    const attachmentsOption                 = 'zfcms_attachments_options';
     const attachmentsRelations              = 'zfcms_attachments_relations';
 
     const alboArticoli                      = 'zfcms_comuni_albo_articoli';
@@ -97,4 +96,46 @@ class DbTableContainer
     const usersRespProc                     = 'zfcms_users_resp_proc';
 
     const usersTodo                         = 'zfcms_users_todo';
+
+    /**
+     * Recover main table from module code
+     *
+     * @param string $moduleCode
+     *
+     * @return int|bool
+     */
+    public static function recoverMainTableFromModuleCode($moduleCode)
+    {
+        switch($moduleCode) {
+            default: case("amministrazione-trasparente"):
+                return self::contenuti;
+            break;
+
+            case("albo-pretorio"):
+                return self::alboArticoli;
+            break;
+
+            case("atti-concessione"):
+                return self::attiConcessione;
+            break;
+
+            case("contratti-pubblici"):
+                return self::contratti;
+            break;
+
+            case("stato-civile"):
+                return self::statoCivileArticoli;
+            break;
+
+            case("blogs"):
+                return self::posts;
+            break;
+
+            case("photo"):
+                return self::posts;
+            break;
+        }
+
+        return false;
+    }
 }

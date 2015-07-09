@@ -2,8 +2,6 @@
 
 namespace ModelModuleTest\Model;
 
-use ModelModule\Model\HomePage\HomePageBlocksGetter;
-use ModelModule\Model\HomePage\HomePageBlocksGetterWrapper;
 use ModelModule\Model\Users\UsersGetter;
 use ModelModule\Model\Users\UsersGetterWrapper;
 use ModelModuleTest\TestSuite;
@@ -45,34 +43,11 @@ class ControllerHelperAbstractTest extends TestSuite
         $this->assertTrue( is_array($this->helper->getUsersGetterWrapperRecords()) );
     }
 
-    public function testSetHomePageBlocksGetterWrapper()
-    {
-        $this->helper->setHomePageBlocksGetterWrapper(
-            new HomePageBlocksGetterWrapper(new HomePageBlocksGetter($this->getEntityManagerMock()))
-        );
-
-        $this->assertInstanceOf(
-            '\ModelModule\Model\HomePage\HomePageBlocksGetterWrapper',
-            $this->helper->getHomePageBlocksGetterWrapper()
-        );
-    }
-
-    public function testSetupHomePageBlocksRecords()
-    {
-        $this->helper->setHomePageBlocksGetterWrapper(
-            new HomePageBlocksGetterWrapper(new HomePageBlocksGetter($this->getEntityManagerMock()))
-        );
-
-        $this->helper->setupHomePageBlocksRecords();
-
-        $this->assertTrue( is_array($this->helper->getHomePageBlocksRecords()) );
-    }
-
     /**
      * @expectedException \Exception
      */
-    public function testCheckHomePageBlocksRecords()
+    public function testCheckRecordsetThrowsException()
     {
-        $this->helper->checkHomePageBlocksRecords();
+        $this->helper->checkRecordset(array());
     }
 }

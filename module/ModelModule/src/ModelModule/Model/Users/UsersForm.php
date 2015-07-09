@@ -175,14 +175,13 @@ class UsersForm extends Form
             'type' => 'Zend\Form\Element\Select',
             'name' => 'settoreId',
             'options' => array(
-                'label' => '* Settore',
-                'empty_option' => 'Seleziona',
+                'label'         => 'Settore',
+                'empty_option'  => 'Seleziona',
                 'value_options' => $records,
             ),
             'attributes' => array(
-                'title'     => 'Seleziona settore',
-                'id'        => 'settoreId',
-                'required'  => 'required'
+                'title' => 'Seleziona settore',
+                'id'    => 'settoreId',
             )
         ));
     }

@@ -40,7 +40,7 @@ class ModalitaAssegnazioneSummaryController extends SetupAbstractController
                 ),
                 'formBreadCrumbCategory' => array(
                     array(
-                        'href'  => $this->url()->fromRoute('admin/users-resp-proc-management', array(
+                        'href'  => $this->url()->fromRoute('admin/users-responsabili-procedimento', array(
                             'lang' => $this->params()->fromRoute('lang')
                         )),
                         'label' => 'Atti di concessione',

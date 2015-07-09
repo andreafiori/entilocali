@@ -13,9 +13,9 @@ class ModalitaAssegnazioneFormController extends SetupAbstractController
     {
         $mainLayout = $this->initializeAdminArea();
 
-        $id             = $this->params()->fromRoute('id');
-        $em             = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
-        $form           = new AttiConcessioneModalitaAssegnazioneForm();
+        $id     = $this->params()->fromRoute('id');
+        $em     = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+        $form   = new AttiConcessioneModalitaAssegnazioneForm();
 
         try {
 
@@ -30,15 +30,19 @@ class ModalitaAssegnazioneFormController extends SetupAbstractController
 
             $modalitaRecords = $wrapper->getRecords();
 
-            if ( !empty($articoliRecords) ) {
+            if ( !empty($modalitaRecords) ) {
 
                 $form->setData($modalitaRecords[0]);
 
-                $formAction = 'atti-concessione-modalita-assegnazione/update/'.$modalitaRecords[0]['id'];
+                $formAction = $this->url()->fromRoute('admin/atti-concessione-modalita-assegnazione-update', array(
+                    'lang' => $this->params()->fromRoute('lang')
+                ));
                 $formTitle = 'Modifica assegnazione atti concessione';
 
             } else {
-                $formAction = 'atti-concessione-modalita-assegnazione/insert/';
+                $formAction = $this->url()->fromRoute('admin/atti-concessione-modalita-assegnazione-insert', array(
+                    'lang' => $this->params()->fromRoute('lang')
+                ));
                 $formTitle  = 'Nuova modalit&agrave; assegnazione atti concessione';
             }
 
@@ -51,7 +55,7 @@ class ModalitaAssegnazioneFormController extends SetupAbstractController
                 'formBreadCrumbTitle'           => 'Modalit&agrave; assegnazione',
                 'formBreadCrumbCategory' => array(
                     array(
-                        'href'  => $this->url()->fromRoute('admin/users-resp-proc-management', array(
+                        'href'  => $this->url()->fromRoute('admin/users-responsabili-procedimento', array(
                             'lang' => $this->params()->fromRoute('lang')
                         )),
                         'label' => 'Atti di concessione',

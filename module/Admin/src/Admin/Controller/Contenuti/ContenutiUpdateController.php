@@ -10,6 +10,9 @@ use ModelModule\Model\Modules\ModulesContainer;
 use Application\Controller\SetupAbstractController;
 use ModelModule\Model\NullException;
 
+/**
+ * Update a new Contenuto on db and log operation
+ */
 class ContenutiUpdateController extends SetupAbstractController
 {
     /**

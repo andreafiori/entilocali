@@ -54,7 +54,7 @@ class ZfcmsConfig
      *
      * @ORM\Column(name="is_always_allowed", type="bigint", nullable=false)
      */
-    private $isAlwaysAllowed;
+    private $isAlwaysAllowed = '1';
 
     /**
      * @var integer
@@ -68,7 +68,7 @@ class ZfcmsConfig
      *
      * @ORM\Column(name="channel_id", type="bigint", nullable=true)
      */
-    private $channelId;
+    private $channelId = '1';
 
     /**
      * @var \Application\Entity\ZfcmsLanguages
@@ -82,3 +82,4 @@ class ZfcmsConfig
 
 
 }
+

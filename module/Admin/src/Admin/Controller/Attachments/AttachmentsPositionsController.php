@@ -30,7 +30,7 @@ class AttachmentsPositionsController extends SetupAbstractController
             $helper->setupAttachmentsRecords( array(
                     'moduleId'      => $moduleCode,
                     'referenceId'   => $referenceId,
-                    'orderBy'       => 'ao.position'
+                    'orderBy'       => 'a.position'
                 )
             );
             $helper->setModuleCode($moduleCode);

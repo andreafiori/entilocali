@@ -9,6 +9,9 @@ use ModelModule\Model\Posts\PostsGetter;
 use ModelModule\Model\Posts\PostsGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
+/**
+ * Photo Frontend Controller
+ */
 class PhotoController extends SetupAbstractController
 {
     public function indexAction()
@@ -45,6 +48,7 @@ class PhotoController extends SetupAbstractController
         $this->layout()->setVariables(array(
             'directoryThumb'        => $directoryThumb,
             'directoryBig'          => $directoryBig,
+            'categoriesRecords'     => $categoriesRecords,
             'records'               => $records,
             'paginator'             => $paginator,
             'item_count'            => $paginator->getTotalItemCount(),
@@ -54,6 +58,9 @@ class PhotoController extends SetupAbstractController
         $this->layout()->setTemplate($mainLayout);
     }
 
+    /**
+     * Photo details
+     */
     public function details()
     {
 

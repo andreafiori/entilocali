@@ -2,8 +2,8 @@
 
 namespace ModelModuleTest\Model\AlboPretorio;
 
-use ModelModuleTest\TestSuite;
 use ModelModule\Model\AlboPretorio\AlboPretorioArticoliGetter;
+use ModelModuleTest\TestSuite;
 
 class AlboPretorioArticoliGetterTest extends TestSuite
 {

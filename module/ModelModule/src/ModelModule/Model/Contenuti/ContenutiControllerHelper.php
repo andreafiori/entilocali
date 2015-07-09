@@ -25,7 +25,7 @@ class ContenutiControllerHelper extends ContenutiControllerHelperAbstract
         $arrayUpdate = array(
             'sottosezione_id'   => $inputFilter->sottosezione,
             'titolo'            => $inputFilter->titolo,
-            'sommario'          => strip_tags($inputFilter->sommario),
+            'sommario'          => $inputFilter->sommario,
             'testo'             => $inputFilter->testo,
             'data_inserimento'  => $inputFilter->dataInserimento,
             'data_scadenza'     => $inputFilter->dataScadenza,
@@ -54,7 +54,7 @@ class ContenutiControllerHelper extends ContenutiControllerHelperAbstract
         $arrayUpdate = array(
             'sottosezione_id'   => $inputFilter->sottosezione,
             'titolo'            => $inputFilter->titolo,
-            'sommario'          => strip_tags($inputFilter->sommario),
+            'sommario'          => $inputFilter->sommario,
             'testo'             => $inputFilter->testo,
             'data_inserimento'  => $inputFilter->dataInserimento,
             'data_scadenza'     => $inputFilter->dataScadenza,

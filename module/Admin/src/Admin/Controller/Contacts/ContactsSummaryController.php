@@ -6,6 +6,9 @@ use ModelModule\Model\Contacts\ContactsGetter;
 use ModelModule\Model\Contacts\ContactsGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
+/**
+ * Contacts index messages list
+ */
 class ContactsSummaryController extends SetupAbstractController
 {
     public function indexAction()
@@ -16,11 +19,13 @@ class ContactsSummaryController extends SetupAbstractController
 
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-        $wrapper = new ContactsGetterWrapper( new ContactsGetter($em) );
-        $wrapper->setInput( array('orderBy' => 'ret.id DESC') );
-        $wrapper->setupQueryBuilder();
-        $wrapper->setupPaginator( $wrapper->setupQuery($em) );
-        $wrapper->setupPaginatorCurrentPage($page);
+        $helper = new ContactsControllerHelper();
+        $wrapper = $helper->recoverWrapperRecordsPaginator(
+            new ContactsGetterWrapper(new ContactsGetter($em)),
+            array('orderBy' => 'ret.id DESC'),
+            $page,
+            null
+        );
 
         $paginatorRecords = $wrapper->setupRecords();
 

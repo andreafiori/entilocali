@@ -13,6 +13,9 @@ use ModelModule\Model\Languages\LanguagesGetterWrapper;
 use ModelModule\Model\Languages\LanguagesFormSearch;
 use Application\Controller\SetupAbstractController;
 
+/**
+ * Sottosezioni index
+ */
 class SottoSezioniSummaryController extends SetupAbstractController
 {
     public function indexAction()

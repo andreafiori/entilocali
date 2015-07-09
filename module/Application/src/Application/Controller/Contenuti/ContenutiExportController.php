@@ -9,6 +9,9 @@ use Application\Controller\SetupAbstractController;
 use Zend\Session\Container as SessionContainer;
 use ModelModule\Model\Export\CsvExportHelper;
 
+/**
+ * Generic Contenuti export
+ */
 class ContenutiExportController extends SetupAbstractController
 {
     public function csvAction()
@@ -73,5 +76,10 @@ class ContenutiExportController extends SetupAbstractController
         }
 
         return $this->redirectForUnvalidAccess();
+    }
+
+    public function pdfAction()
+    {
+
     }
 }

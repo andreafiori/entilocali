@@ -26,12 +26,14 @@ class UsersGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setMainQuery();
         
         $this->objectGetter->setId( $this->getInput('id', 1) );
+        $this->objectGetter->setExcludeId( $this->getInput('excludeId', 1) );
         $this->objectGetter->setSurname( $this->getInput('surname', 1) );
         $this->objectGetter->setEmail( $this->getInput('email', 1) );
         $this->objectGetter->setUsername( $this->getInput('username', 1) );
         $this->objectGetter->setPassword( $this->getInput('password', 1) );
         $this->objectGetter->setStatus( $this->getInput('status', 1) );
         $this->objectGetter->setRoleName( $this->getInput('roleName', 1) );
+        $this->objectGetter->setExcludeRoleName( $this->getInput('excludeRoleName', 1) );
         $this->objectGetter->setEmailUsersname( $this->getInput('emailUsername', 1) );
         $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
         $this->objectGetter->setGroupBy( $this->getInput('groupBy', 1) );

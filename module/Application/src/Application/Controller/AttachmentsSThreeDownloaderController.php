@@ -13,10 +13,6 @@ class AttachmentsSThreeDownloaderController extends SetupAbstractController
         $type = $this->params()->fromRoute('type');
         $id = $this->params()->fromRoute('id');
 
-        if (!isset($type) or !isset($id)) {
-            return false;
-        }
-
         $appServiceLoader = $this->recoverAppServiceLoader();
         $configurations = $appServiceLoader->recoverService('configurations');
 
@@ -31,7 +27,7 @@ class AttachmentsSThreeDownloaderController extends SetupAbstractController
         $attachmentRecord = $wrapper->getRecords();
 
         if ( empty($attachmentRecord) ) {
-            return false;
+            return $this->redirect()->toRoute('notfound', array('lang' => 'it'));
         }
 
         $bucketDir = $type.'/';
@@ -43,7 +39,7 @@ class AttachmentsSThreeDownloaderController extends SetupAbstractController
         $sthreeFile = $s3->getObject($configurations['amazon_s3_bucket'], $bucketDir.$filename);
 
         if ( empty($sthreeFile->body) ) {
-            return false;
+            return $this->redirect()->toRoute('notfound', array('lang' => 'it'));
         }
 
         $response = $this->getResponse();

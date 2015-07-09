@@ -18,13 +18,15 @@ class SceltaContraenteControllerHelper extends ControllerHelperAbstract
     {
         $this->assertConnection();
 
-        return $this->getConnection()->insert(
+        $this->getConnection()->insert(
             DbTableContainer::contrattiSceltaContraente,
             array(
                 'nome_scelta'   => $formData->nomeScelta,
                 'attivo'        => $formData->attivo,
             )
         );
+
+        return $this->getConnection()->lastInsertId();
     }
 
     /**

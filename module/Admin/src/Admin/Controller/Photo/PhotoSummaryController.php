@@ -26,73 +26,86 @@ class PhotoSummaryController extends SetupAbstractController
         $page       = $this->params()->fromRoute('page');
         $perPage    = $this->params()->fromRoute('perpage');
 
-        $helper = new PostsControllerHelper();
-        $categoriesRecords = $helper->recoverWrapperRecords(
-            new PostsCategoriesGetterWrapper(new PostsCategoriesGetter($em)),
-            array(
-                'fields'        => 'category.id, category.name',
-                'orderBy'       => 'category.name',
-                'moduleCode'    => 'photo',
-            )
-        );
-        $helper->checkRecords($categoriesRecords, 'Nessuna categoria presente');
-        $wrapperPosts = $helper->recoverWrapperRecordsPaginator(
-            new PostsGetterWrapper(new PostsGetter($em)),
-            array(
-                'moduleCode' => 'photo',
-                'userId'     => null,
-                'orderBy'    => 'p.id DESC',
-                'fields'     => 'DISTINCT(p.id) AS id, p.lastUpdate,
+        try {
+
+            $helper = new PostsControllerHelper();
+            $categoriesRecords = $helper->recoverWrapperRecords(
+                new PostsCategoriesGetterWrapper(new PostsCategoriesGetter($em)),
+                array(
+                    'fields'        => 'category.id, category.name',
+                    'orderBy'       => 'category.name',
+                    'moduleCode'    => 'photo',
+                )
+            );
+            $helper->checkRecords($categoriesRecords, 'Nessuna categoria foto presente. Aggiungere almeno una categoria');
+            $wrapperPosts = $helper->recoverWrapperRecordsPaginator(
+                new PostsGetterWrapper(new PostsGetter($em)),
+                array(
+                    'moduleCode' => 'photo',
+                    'userId'     => null,
+                    'orderBy'    => 'p.id DESC',
+                    'fields'     => 'DISTINCT(p.id) AS id, p.lastUpdate,
                                     p.createDate, p.expireDate, p.hasAttachments,
                                     p.image, p.title, p.subtitle, p.description, p.slug, p.seoTitle,
                                     p.seoDescription, p.seoKeywords,
                                     users.name AS userName, users.surname AS userSurname'
-            ),
-            $page,
-            $perPage
-        );
+                ),
+                $page,
+                $perPage
+            );
 
-        /* Add categories to the recordset */
-        $postsRecords = $wrapperPosts->setupRecords();
-        $helper->checkRecords($postsRecords, 'Nessuna foto in archivio');
+            /* Add categories to the recordset */
+            $postsRecords = $wrapperPosts->setupRecords();
+            $helper->checkRecords($postsRecords, 'Nessuna foto in archivio');
 
-        foreach($postsRecords as &$postsRecord) {
-            $wrapper = new PostsGetterWrapper(new PostsGetter($em));
-            $wrapper->setInput(array(
-                'fields'     => 'c.id, c.name',
-                'id'         => $postsRecord['id'],
-                'orderBy'    => 'c.name',
+            foreach($postsRecords as &$postsRecord) {
+                $wrapper = new PostsGetterWrapper(new PostsGetter($em));
+                $wrapper->setInput(array(
+                    'fields'     => 'c.id, c.name',
+                    'id'         => $postsRecord['id'],
+                    'orderBy'    => 'c.name',
+                ));
+                $wrapper->setupQueryBuilder();
+
+                $postsRecord['categories'] = $wrapper->getRecords();
+            }
+
+            $form = new PostsFormSearch();
+            $form->addCategories( $helper->formatForDropwdown($categoriesRecords, 'id', 'name') );
+            $form->addSubmitButton();
+
+            $paginator = $wrapperPosts->getPaginator();
+
+            $postsRecords = $wrapperPosts->setupRecords();
+
+            $this->layout()->setVariables(array(
+                'tableTitle'        => 'Foto',
+                'tableDescription'  => $paginator->getTotalItemCount().' foto in archivio.',
+                'paginator'         => $paginator,
+                'records'           => $this->formatColumnRecords($postsRecords),
+                'columns' => array(
+                    'Foto',
+                    "Titolo",
+                    "Categorie",
+                    "Inserito da",
+                    "Date",
+                    "&nbsp;",
+                    "&nbsp;",
+                ),
+                'formSearch'        => $form,
+                'templatePartial'   => 'datatable/datatable_photo.phtml',
             ));
-            $wrapper->setupQueryBuilder();
 
-            $postsRecord['categories'] = $wrapper->getRecords();
+        } catch(\Exception $e) {
+
+            $this->layout()->setVariables(array(
+                'messageType'       => 'warning',
+                'messageTitle'      => 'Errore verificato',
+                'messageText'       => $e->getMessage(),
+                'templatePartial'   => 'message.phtml'
+            ));
+
         }
-
-        $form = new PostsFormSearch();
-        $form->addCategories( $helper->formatForDropwdown($categoriesRecords, 'id', 'name') );
-        $form->addSubmitButton();
-
-        $paginator = $wrapperPosts->getPaginator();
-
-        $postsRecords = $wrapperPosts->setupRecords();
-
-        $this->layout()->setVariables(array(
-            'tableTitle'        => 'Foto',
-            'tableDescription'  => $paginator->getTotalItemCount().' foto in archivio.',
-            'paginator'         => $paginator,
-            'records'           => $this->formatColumnRecords($postsRecords),
-            'columns' => array(
-                'Foto',
-                "Titolo",
-                "Categorie",
-                "Inserito da",
-                "Date",
-                "&nbsp;",
-                "&nbsp;",
-            ),
-            'formSearch'        => $form,
-            'templatePartial'   => 'datatable/datatable_photo.phtml',
-        ));
 
         $this->layout()->setTemplate($mainLayout);
     }

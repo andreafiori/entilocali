@@ -27,6 +27,7 @@ class StatoCivileGetterWrapper extends RecordsGetterWrapperAbstract
 
         $this->objectGetter->setId( $this->getInput('id', 1) );
         $this->objectGetter->setProgressivo( $this->getInput('progressivo', 1) );
+        $this->objectGetter->setMese( $this->getInput('mese', 1) );
         $this->objectGetter->setAnno( $this->getInput('anno', 1) );
         $this->objectGetter->setSezioneId( $this->getInput('sezioneId', 1) );
         $this->objectGetter->setNoScaduti($this->getInput('noScaduti', 1));

@@ -5,11 +5,14 @@
         </a>
     </li>
     <li>
-        <a href="#" title="Torna alla gestione sottosezioni">
+        <a href="<?php echo $this->url('admin/sottosezioni-summary', array('lang' => $this->params()->fromRoute('lang'), 'modulename' => $this->params()->fromRoute('modulename'), 'languageSelection' => $this->params()->fromRoute('languageSelection'))); ?>" title="Torna alla gestione sottosezioni">
             Sottosezioni
         </a>
     </li>
-    <li><a href="#" title="<?php echo $this->records[0]['nomeSezione'] ?>"><?php echo $this->records[0]['nomeSezione'] ?></a>
+    <li>
+        <a href="<?php echo $this->url('admin/sottosezioni-form', array('lang' => $this->params()->fromRoute('lang'), 'modulename' => $this->params()->fromRoute('modulename'), 'languageSelection' => $this->params()->fromRoute('languageSelection'), 'id' => $this->params()->fromRoute('id'))); ?>" title="<?php echo $this->records[0]['nomeSezione'] ?>">
+            <?php echo $this->records[0]['nomeSezione'] ?>
+        </a>
     </li>
     <li class="active">Posizioni</li>
 </ul>

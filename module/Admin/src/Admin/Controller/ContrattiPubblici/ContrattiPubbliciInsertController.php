@@ -10,8 +10,14 @@ use ModelModule\Model\Modules\ModulesContainer;
 use ModelModule\Model\Log\LogWriter;
 use Application\Controller\SetupAbstractController;
 
+/**
+ * Contratti Pubblici Insert into db Controller
+ */
 class ContrattiPubbliciInsertController extends SetupAbstractController
 {
+    /**
+     * @return \Zend\Http\Response
+     */
     public function indexAction()
     {
         /**
@@ -56,15 +62,13 @@ class ContrattiPubbliciInsertController extends SetupAbstractController
             $inputFilter->exchangeArray( $form->getData() );
 
             $helper->setLoggedUser($userDetails);
-            $helper->insert($inputFilter);
-            $lastInsertId = $helper->getConnection()->lastInsertId();
-            $helper->getConnection()->commit();
+            $lastInsertId = $helper->insert($inputFilter);
 
             $logWriter = new LogWriter($connection);
             $logWriter->writeLog(array(
                 'type'          => 'info',
                 'user_id'       => $userDetails->id,
-                'module_id'     => ModulesContainer::contenuti_id,
+                'module_id'     => ModulesContainer::contratti_pubblici_id,
                 'message'       => "Inserito il bando di gara ".$inputFilter->titolo,
                 'reference_id'  => $lastInsertId,
                 'backend'       => 1,
@@ -76,16 +80,18 @@ class ContrattiPubbliciInsertController extends SetupAbstractController
                 'messageText'                => 'I dati sono stati processati correttamente dal sistema',
                 'showLinkResetFormAndShowIt' => 1,
                 'backToSummaryLink'          => $this->url()->fromRoute('admin/contratti-pubblici-summary', array(
-                    'lang' => $this->params()->fromRoute('lang'),
+                    'lang' => 'it',
                 )),
                 'backToSummaryText'     => "Elenco bandi di gara e contratti",
                 'attachmentsLink' => $this->url()->fromRoute('admin/attachments-summary', array(
-                    'lang'          => $this->params()->fromRoute('languageSelection'),
+                    'lang'          => 'it',
                     'module'        => 'contratti-pubblici',
                     'referenceId'   => $lastInsertId,
                 )),
-                'insertAgainLabel'      => "Inserisci un altro bando foto",
+                'insertAgainLabel'      => "Inserisci un altro bando di gara",
             ));
+
+            $helper->getConnection()->commit();
 
         } catch(\Exception $e) {
 
@@ -98,16 +104,16 @@ class ContrattiPubbliciInsertController extends SetupAbstractController
             $logWriter = new LogWriter($connection);
             $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
-                'module_id'     => ModulesContainer::contenuti_id,
+                'module_id'     => ModulesContainer::contratti_pubblici_id,
                 'message'       => "Errore inserimento nuovo bando di gara: ".$inputFilter->titolo,
                 'type'          => 'error',
-				'description'   => $e->getMessage(),
+				'description'   => "Si &egrave; verificato un errore nell'inserimento del nuovo bando di gara: ".$e->getMessage(),
                 'backend'       => 1,
             ));
 
             $this->layout()->setVariables(array(
                 'messageType'           => 'danger',
-                'messageTitle'          => 'Errore inserimento nuovo bando di gara: '.$inputFilter->titolo.' - '.$e->getMessage(),
+                'messageTitle'          => 'Errore inserimento nuovo bando di gara: '.$inputFilter->titolo,
                 'messageText'           => 'Messaggio generato: '.$e->getMessage(),
                 'form'                  => $form,
                 'formInputFilter'       => $inputFilter->getInputFilter(),

@@ -124,21 +124,21 @@ class ZfcmsComuniSottosezioni
      *
      * @ORM\Column(name="show_to_all", type="integer", nullable=false)
      */
-    private $showToAll;
+    private $showToAll = '0';
 
     /**
      * @var string
      *
      * @ORM\Column(name="template_type", type="string", length=50, nullable=false)
      */
-    private $templateType;
+    private $templateType = '0';
 
     /**
      * @var string
      *
      * @ORM\Column(name="template_file", type="string", length=50, nullable=false)
      */
-    private $templateFile;
+    private $templateFile = '0';
 
     /**
      * @var \Application\Entity\ZfcmsComuniSottosezioni
@@ -172,3 +172,4 @@ class ZfcmsComuniSottosezioni
 
 
 }
+

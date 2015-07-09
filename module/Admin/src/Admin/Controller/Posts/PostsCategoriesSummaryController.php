@@ -30,12 +30,14 @@ class PostsCategoriesSummaryController extends SetupAbstractController
             $page,
             null
         );
+        $paginator = $wrapper->getPaginator();
         $records = $wrapper->setupRecords();
 
         $columnRecords = array();
         foreach($records as $record) {
             $columnRecords[] = array(
                 $record['name'],
+                $record['description'],
                 $record['createDate'],
                 array(
                     'type' => 'updateButton',
@@ -52,21 +54,22 @@ class PostsCategoriesSummaryController extends SetupAbstractController
                     'type'      => 'deleteButton',
                     'href'      => '#',
                     'data-id'   => $record['id'],
-                    'title'     => 'Elimina'
+                    'title'     => 'Elimina categoria blog'
                 )
             );
         }
 
         $this->layout()->setVariables(array(
                 'tableTitle' => 'Categorie ',
-                'tableDescription' => $wrapper->getPaginator()->getTotalItemCount().' categorie in archivio',
+                'tableDescription' => $paginator->getTotalItemCount().' categorie in archivio',
                 'columns' => array(
                     "Nome",
+                    "Descrizione",
                     "Data creazione",
                     "&nbsp;",
                     "&nbsp;"
                 ),
-                'paginator'         => $wrapper->getPaginator(),
+                'paginator'         => $paginator,
                 'records'           => $columnRecords,
                 'formBreadCrumbCategory' => array(
                     array(

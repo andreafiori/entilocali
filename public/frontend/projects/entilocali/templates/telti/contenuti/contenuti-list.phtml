@@ -1,0 +1,70 @@
+<?php if (!empty($this->records)): ?>
+
+    <ul class="breadcrumbs">
+        <li><a href="<?php echo $this->url('main', array('lang' => $this->lang)); ?>" title="Torna all'home page">Home</a></li>
+        <li class="current"><?php echo $this->records[0]['nomeSezione'] ?></li>
+        <li class="current"><?php echo html_entity_decode($this->records[0]['nomeSottosezione'], ENT_COMPAT, 'UTF-8') ?></li>
+    </ul>
+
+    <?php foreach($this->records as $record): ?>
+
+        <div class="contentTitle">
+            <h2><?php echo $record['titolo'] ?></h2>
+        </div>
+
+        <?php if (isset($record['sommario'])): ?>
+        <div>
+            <p><strong><?php echo $record['sommario'] ?></strong></p>
+        </div>
+        <?php endif; ?>
+
+        <div>
+            <?php echo $record['testo']; ?>
+        </div>
+
+        <?php if (!empty($record['attachments'])): ?>
+            <h3><?php echo $this->translate('Allegati') ?></h3>
+            <?php foreach($record['attachments'] as $attachment): ?>
+                <div>
+                    <a href="<?php echo $this->url('attachments-sthree-download', array(
+                        'type'  => 'contenuti',
+                        'id'    => $attachment['id'])); ?>" title="Scarica allegato <?php echo $attachment['name'] ?>">
+                        <img src="<?php echo $this->publicDirRelativePath ?>/common/icons/attachments/<?php echo $attachment['image']; ?>" alt="Icon tipo file per <?php echo $attachment['name'] ?>">
+                        <?php echo $attachment['name'] ?>
+                    </a> (<?php echo $attachment['size'] ?> Kb)
+                </div>
+            <?php endforeach ?>
+        <?php endif; ?>
+
+        <br>
+
+        <?php if (isset($record['sotto_sezioni'])): ?>
+            <h4><?php echo $this->translate('Sotto sezioni') ?></h4>
+            <ul>
+                <?php foreach($record['sotto_sezioni'] as $sottoSezione): ?>
+                    <li><a href="<?php echo $this->url('main/contenuti', array('lang' => $this->lang, 'subsectionid' => $sottoSezione['idSottoSezione'])) ?>" title="Consulta la sottosezione di  <?php echo $record['titolo'] ?> <?php echo $sottoSezione['nomeSottoSezione'] ?>"><?php echo $sottoSezione['nomeSottoSezione'] ?></a></li>
+                <?php endforeach ?>
+            </ul>
+        <?php endif; ?>
+
+        <?php
+        echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml',array(
+            'exportTxtUrl'          => $this->url('main/contenuti-export-single', array('lang' => $this->lang, 'modulename' => 'contenuti', 'action' => 'txt', 'id' => $record['id'])),
+            'exportCsvUrl'          => '',
+            'exportPdfUrl'          => $this->url('main/contenuti-export-single', array('lang' => $this->lang, 'modulename' => 'contenuti', 'action' => 'pdf', 'id' => $record['id'])),
+            'exportXMLUrl'          => '',
+            'exportJSONUrl'         => $this->url('main/contenuti-export-single', array('lang' => $this->lang, 'modulename' => 'contenuti', 'action' => 'json', 'id' => $record['id'])),
+            'twitterShareText'      => urlencode($record['titolo']),
+            'publicDirRelativePath' => $this->publicDirRelativePath,
+        ));
+        ?>
+
+        <hr>
+    <?php endforeach; ?>
+
+<?php else: ?>
+    <div class="panel callout">
+        <h2><?php echo $this->translate('Nessun testo presente in questa pagina') ?></h2>
+        <p><?php echo $this->translate('La pagina corrente &egrave; attualmente in costruzione') ?></p>
+    </div>
+<?php endif; ?>

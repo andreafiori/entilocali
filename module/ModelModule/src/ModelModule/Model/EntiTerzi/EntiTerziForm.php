@@ -4,6 +4,9 @@ namespace ModelModule\Model\EntiTerzi;
 
 use Zend\Form\Form;
 
+/**
+ * Enti Terzi Form
+ */
 class EntiTerziForm extends Form
 {
     /**
@@ -27,16 +30,15 @@ class EntiTerziForm extends Form
         ));
 
         $this->add(array(
-                        'name' => 'freeText',
-                        'type' => 'Textarea',
+                        'name' => 'email',
+                        'type' => 'Text',
                         'options' => array( 'label' => '* Email' ),
                         'attributes' => array(
                                     'required'      => 'required',
-                                    'placeholder'   => 'Testo...',
-                                    'title'         => 'Inserisci testo libero home page',
-                                    'id'            => 'freeText',
+                                    'placeholder'   => 'Email...',
+                                    'title'         => 'Inserisci email',
+                                    'id'            => 'email',
                                     'maxlength'     => 230,
-                                    'class'         => 'wysiwyg',
                         )
         ));
 

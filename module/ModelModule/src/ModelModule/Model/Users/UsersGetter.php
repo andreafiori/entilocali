@@ -31,7 +31,10 @@ class UsersGetter extends QueryBuilderHelperAbstract
     }
 
     /**
+     * Set ID
+     *
      * @param number|array $id
+     *
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function setId($id)
@@ -44,6 +47,28 @@ class UsersGetter extends QueryBuilderHelperAbstract
         if (is_array($id)) {
             $this->getQueryBuilder()->andWhere('u.id IN ( :id ) ');
             $this->getQueryBuilder()->setParameter('id', $id);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * Set IDs to exclude
+     *
+     * @param number|array $id
+     *
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setExcludeId($id)
+    {
+        if ( is_numeric($id) ) {
+            $this->getQueryBuilder()->andWhere('u.id != :excludeId ');
+            $this->getQueryBuilder()->setParameter('excludeId', $id);
+        }
+
+        if (is_array($id)) {
+            $this->getQueryBuilder()->andWhere('u.id NOT IN ( :excludeId ) ');
+            $this->getQueryBuilder()->setParameter('excludeId', $id);
         }
 
         return $this->getQueryBuilder();
@@ -144,6 +169,25 @@ class UsersGetter extends QueryBuilderHelperAbstract
         if (!empty($roleName)) {
             $this->getQueryBuilder()->andWhere("role.name = :roleName ");
             $this->getQueryBuilder()->setParameter('roleName', $roleName);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param string|array $roleName
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setExcludeRoleName($roleName)
+    {
+        if ( is_string($roleName) ) {
+            $this->getQueryBuilder()->andWhere("role.name != :excludeRoleName ");
+            $this->getQueryBuilder()->setParameter('excludeRoleName', $roleName);
+        }
+
+        if ( is_array($roleName) ) {
+            $this->getQueryBuilder()->andWhere("role.name NOT IN ( :excludeRoleName ) ");
+            $this->getQueryBuilder()->setParameter('excludeRoleName', $roleName);
         }
 
         return $this->getQueryBuilder();

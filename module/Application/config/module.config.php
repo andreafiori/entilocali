@@ -8,27 +8,35 @@ return array(
             'Application\Controller\Index'                                                  => 'Application\Controller\IndexController',
             'Application\Controller\AttachmentsSThreeDownloader'                            => 'Application\Controller\AttachmentsSThreeDownloaderController',
             'Application\Controller\PasswordPreview'                                        => 'Application\Controller\PasswordPreviewController',
-            'Application\Controller\Faq\Faq'                                                => 'Application\Controller\Faq\FaqController',
+            /* 'Application\Controller\Faq\Faq'                                                => 'Application\Controller\Faq\FaqController', */
             'Application\Controller\AlboPretorio\AlboPretorio'                              => 'Application\Controller\AlboPretorio\AlboPretorioController',
+            'Application\Controller\AlboPretorio\AlboPretorioSearch'                        => 'Application\Controller\AlboPretorio\AlboPretorioSearchController',
             'Application\Controller\AlboPretorio\AlboPretorioExportSingle'                  => 'Application\Controller\AlboPretorio\AlboPretorioExportSingleController',
             'Application\Controller\AttiConcessione\AttiConcessione'                        => 'Application\Controller\AttiConcessione\AttiConcessioneController',
+            'Application\Controller\AttiConcessione\AttiConcessioneSearch'                  => 'Application\Controller\AttiConcessione\AttiConcessioneSearchController',
             'Application\Controller\AttiConcessione\AttiConcessioneExportSingle'            => 'Application\Controller\AttiConcessione\AttiConcessioneExportSingleController',
+            'Application\Controller\Contacts\Contacts'                                      => 'Application\Controller\Contacts\ContactsController',
             'Application\Controller\Contenuti\Contenuti'                                    => 'Application\Controller\Contenuti\ContenutiController',
+            'Application\Controller\Contenuti\ContenutiSearch'                              => 'Application\Controller\Contenuti\ContenutiSearchController',
             'Application\Controller\Contenuti\ContenutiExport'                              => 'Application\Controller\Contenuti\ContenutiExportController',
             'Application\Controller\Contenuti\ContenutiExportSingle'                        => 'Application\Controller\Contenuti\ContenutiExportSingleController',
             'Application\Controller\StatoCivile\StatoCivile'                                => 'Application\Controller\StatoCivile\StatoCivileController',
+            'Application\Controller\StatoCivile\StatoCivileSearch'                          => 'Application\Controller\StatoCivile\StatoCivileSearchController',
             'Application\Controller\StatoCivile\StatoCivileExport'                          => 'Application\Controller\StatoCivile\StatoCivileExportController',
             'Application\Controller\StatoCivile\StatoCivileExportSingle'                    => 'Application\Controller\StatoCivile\StatoCivileExportSingleController',
             'Application\Controller\AmministrazioneTrasparente\AmministrazioneTrasparente'  => 'Application\Controller\AmministrazioneTrasparente\AmministrazioneTrasparenteController',
             'Application\Controller\ContrattiPubblici\ContrattiPubblici'                    => 'Application\Controller\ContrattiPubblici\ContrattiPubbliciController',
+            'Application\Controller\ContrattiPubblici\ContrattiPubbliciSearch'              => 'Application\Controller\ContrattiPubblici\ContrattiPubbliciSearchController',
             'Application\Controller\ContrattiPubblici\ContrattiPubbliciExportSingle'        => 'Application\Controller\ContrattiPubblici\ContrattiPubbliciExportSingleController',
             'Application\Controller\CssStyleSwitch'                                         => 'Application\Controller\CssStyleSwitchController',
             'Application\Controller\Users\UsersCreateAccount'                               => 'Application\Controller\Users\UsersCreateAccountController',
             'Application\Controller\Users\UsersRecoverPassword'                             => 'Application\Controller\Users\UsersRecoverPasswordController',
             'Application\Controller\Blogs\Blogs'                                            => 'Application\Controller\Blogs\BlogsController',
+            'Application\Controller\Blogs\BlogsSearch'                                      => 'Application\Controller\Blogs\BlogsSearchController',
             'Application\Controller\Blogs\BlogsExport'                                      => 'Application\Controller\Blogs\BlogsExportController',
             'Application\Controller\Blogs\BlogsExportSingle'                                => 'Application\Controller\Blogs\BlogsExportSingleController',
             'Application\Controller\Photo\Photo'                                            => 'Application\Controller\Photo\PhotoController',
+            'Application\Controller\Photo\PhotoSearch'                                      => 'Application\Controller\Photo\PhotoSearchController',
             'Application\Controller\CookieWarning'                                          => 'Application\Controller\CookieWarningController',
             'Application\Controller\SearchEngine\SearchEngine'                              => 'Application\Controller\SearchEngine\SearchEngineController',
         ),
@@ -96,13 +104,35 @@ return array(
                                             'contenuti-search' => array(
                                                 'type' => 'Zend\Mvc\Router\Http\Segment',
                                                 'options' => array(
-                                                    'route'    => 'contenuti/export/:action[/]',
+                                                    'route'    => 'contenuti/form/ricerca/:action[/]',
                                                     'constraints' => array(
                                                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                                     ),
                                                     'defaults' => array(
-                                                        'controller' => 'Application\Controller\Contenuti\Contenuti',
+                                                        'controller' => 'Application\Controller\Contenuti\ContenutiSearch',
                                                         'action'     => 'index',
+                                                    ),
+                                                ),
+                                                'may_terminate' => true,
+                                            ),
+                                            'contatti' => array(
+                                                'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                                'options' => array(
+                                                    'route'    => 'contatti/form/messaggio[/]',
+                                                    'defaults' => array(
+                                                        'controller' => 'Application\Controller\Contacts\Contacts',
+                                                        'action'     => 'index',
+                                                    ),
+                                                ),
+                                                'may_terminate' => true,
+                                            ),
+                                            'contatti-send' => array(
+                                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                                'options' => array(
+                                                    'route'    => 'contatti/form/invio-messaggio/invio[/]',
+                                                    'defaults' => array(
+                                                        'controller' => 'Application\Controller\Contacts\Contacts',
+                                                        'action'     => 'send',
                                                     ),
                                                 ),
                                                 'may_terminate' => true,
@@ -232,7 +262,7 @@ return array(
                                     'attachments-sthree-download' => array(
                                                 'type'    => 'segment',
                                                 'options' => array(
-                                                    'route'    => '/attachments/download/single/:type/:id/',
+                                                    'route'    => '/attachments/download/single/:type/:id[/]',
                                                     'constraints' => array(
                                                         'type'  => '[a-zA-Z][a-zA-Z0-9_-]*',
                                                         'id'      => '[0-9]+',
@@ -334,6 +364,34 @@ return array(
                                         ),
                                         'may_terminate' => true,
                                     ),
+                                    'albo-pretorio-search' => array(
+                                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                            'route'    => '/albo-pretorio/atti/form/:action[/]',
+                                            'constraints' => array(
+                                                'action'    => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                            ),
+                                            'defaults' => array(
+                                                'controller'    => 'Application\Controller\AlboPretorio\AlboPretorioSearch',
+                                                'action'        => 'index',
+                                            ),
+                                        ),
+                                        'may_terminate' => true,
+                                    ),
+                                    'albo-pretorio-export' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                            'route'    => '/albo-pretorio/export/multi/:action[/]',
+                                            'constraints' => array(
+                                                'action'    => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                            ),
+                                            'defaults' => array(
+                                                'controller' => 'Application\Controller\AlboPretorio\AlboPretorioExport',
+                                                'action'     => 'index',
+                                            ),
+                                        ),
+                                        'may_terminate' => true,
+                                    ),
                                     'albo-pretorio-export-single' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
@@ -374,11 +432,25 @@ return array(
                                         'options' => array(
                                             'route'    => '/stato-civile/atti/dettagli/:id[/]',
                                             'constraints' => array(
-                                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                'id' => '[0-9]+',
                                             ),
                                             'defaults' => array(
                                                 'controller' => 'Application\Controller\StatoCivile\StatoCivile',
                                                 'action'     => 'details'
+                                            ),
+                                        ),
+                                        'may_terminate' => true,
+                                    ),
+                                    'stato-civile-search' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                            'route'    => '/stato-civile/atti/form/ricerca/:action[/]',
+                                            'constraints' => array(
+                                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                            ),
+                                            'defaults' => array(
+                                                'controller' => 'Application\Controller\StatoCivile\StatoCivileSearch',
+                                                'action' => 'index',
                                             ),
                                         ),
                                         'may_terminate' => true,
@@ -483,6 +555,20 @@ return array(
                                         ),
                                         'may_terminate' => true,
                                     ),
+                                    'atti-concessione-search' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                            'route' => '/atti-concessione/atti/form/ricerca/:action[/]',
+                                            'constraints' => array(
+                                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                            ),
+                                            'defaults' => array(
+                                                'controller' => 'Application\Controller\AttiConcessione\AttiConcessioneSearch',
+                                                'action'     => 'index',
+                                            ),
+                                        ),
+                                        'may_terminate' => true,
+                                    ),
                                     'atti-concessione-export-single' => array(
                                         'type' => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
@@ -526,6 +612,20 @@ return array(
                                         ),
                                         'may_terminate' => true,
                                     ),
+                                    'contratti-pubblici-search' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                            'route'    => '/contratti-pubblici/bandi-e-contratti/form/ricerca/:action',
+                                            'constraints' => array(
+                                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                            ),
+                                            'defaults' => array(
+                                                'controller' => 'Application\Controller\ContrattiPubblici\ContrattiPubbliciSearch',
+                                                'action'     => 'index',
+                                            ),
+                                        ),
+                                        'may_terminate' => true,
+                                    ),
                                     'contratti-pubblici-export' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
@@ -554,28 +654,6 @@ return array(
                                             ),
                                         ),
                                         'may_terminate' => true,
-                                    ),
-                                    'contatti' => array(
-                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
-                                        'options' => array(
-                                                        'route'    => '/contatti/form/invia-messaggio[/][:action[/]]',
-                                                        'constraints' => array(
-
-                                                        ),
-                                                        'defaults' => array(
-                                                            'controller' => 'Application\Controller\Index',
-                                                            'action'    => 'index',
-                                                        ),
-                                        ),
-                                        'may_terminate' => true,
-                                        'child_routes' => array(
-                                                        'default' => array(
-                                                            'type'    => 'Wildcard',
-                                                            'options' => array(
-
-                                                            ),
-                                                        ),
-                                        ),
                                     ),
                                     'newsletter' => array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
@@ -745,9 +823,10 @@ return array(
         'locale' => 'it_IT',
         'translation_file_patterns' => array(
             array(
-                'type'     => 'gettext',
-                'base_dir' => __DIR__ . '/../language',
-                'pattern'  => '%s.mo',
+                'type'          => 'gettext',
+                'base_dir'      => __DIR__ . '/../language',
+                'pattern'       => '%s.mo',
+                'text_domain'   => __NAMESPACE__,
             ),
         ),
     ),
@@ -762,20 +841,27 @@ return array(
                         'application/index/index'                       => __DIR__ . '/../view/application/index/index.phtml',
                         'application/pagination'                        => __DIR__ . '/../view/application/pagination/numbers.phtml',
                         'application/index/notfound'                    => __DIR__ . '/../view/empty.phtml',
+                        'application/contacts/index'                    => __DIR__ . '/../view/empty.phtml',
+                        'application/contacts/send'                     => __DIR__ . '/../view/empty.phtml',
                         'layout/layout'                                 => __DIR__ . '/../view/layout/layout.phtml',
                         'application/feed/index'                        => __DIR__ . '/../view/application/index/index.phtml',
                         'application/amministrazione-trasparente/index' => __DIR__ . '/../view/empty.phtml',
+                        'application/amministrazione-trasparente-search/index' => __DIR__ . '/../view/empty.phtml',
                         'application/contratti-pubblici/index'          => __DIR__ . '/../view/empty.phtml',
                         'application/contratti-pubblici/details'        => __DIR__ . '/../view/empty.phtml',
+                        'application/contratti-pubblici-search/index'  => __DIR__ . '/../view/empty.phtml',
                         'application/albo-pretorio/index'               => __DIR__ . '/../view/empty.phtml',
+                        'application/albo-pretorio-search/index'        => __DIR__ . '/../view/empty.phtml',
                         'application/albo-pretorio/details'             => __DIR__ . '/../view/empty.phtml',
                         'application/stato-civile/index'                => __DIR__ . '/../view/empty.phtml',
+                        'application/stato-civile-search/index'         => __DIR__ . '/../view/empty.phtml',
                         'application/stato-civile/details'              => __DIR__ . '/../view/empty.phtml',
                         'application/stato-civile-export-single/csv'    => __DIR__ . '/../view/empty.phtml',
                         'application/stato-civile-export-single/txt'    => __DIR__ . '/../view/empty.phtml',
                         'application/stato-civile-export-single/pdf'    => __DIR__ . '/../view/empty.phtml',
                         'application/stato-civile-export-single/json'   => __DIR__ . '/../view/empty.phtml',
                         'application/atti-concessione/index'            => __DIR__ . '/../view/empty.phtml',
+                        'application/atti-concessione-search/index'     => __DIR__ . '/../view/empty.phtml',
                         'application/atti-concessione/details'          => __DIR__ . '/../view/empty.phtml',
                         'application/atti-concessione-export-single/index'  => __DIR__ . '/../view/empty.phtml',
                         'application/contenuti/index'                   => __DIR__ . '/../view/empty.phtml',

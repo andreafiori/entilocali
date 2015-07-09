@@ -57,16 +57,10 @@ class AlboPretorioInsertController extends SetupAbstractController
 
             $inputFilter->exchangeArray( $form->getData() );
 
-            $numeroProgressivo = $helper->recoverNumeroProgressivo(
-                new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter($em))
-            );
-            $inputFilter->numeroProgressivo = $numeroProgressivo;
-
             $helper->setLoggedUser($userDetails);
-            $helper->insert($inputFilter);
-            $lastInsertId = $helper->getConnection()->lastInsertId();
+            $lastInsertId = $helper->insert($inputFilter);
 
-            // TODO: insert in home page if homepage == 1, facebook post if faceboo == 1 and all settings about fb are ok
+            // TODO: insert in home page if homepage == 1, facebook post if facebook == 1 and all settings about fb are ok
 
             $helper->getConnection()->commit();
 

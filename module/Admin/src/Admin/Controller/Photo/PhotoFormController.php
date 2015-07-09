@@ -26,9 +26,9 @@ class PhotoFormController extends SetupAbstractController
         $configurations = $this->layout()->getVariable('configurations');
 
         $helper = new PostsControllerHelper();
-        $helper->checkMediaDir($configurations);
-        $helper->checkMediaProject($configurations);
-        $helper->checkMediaSubDir($configurations);
+        //$helper->checkMediaDir($configurations);
+        //$helper->checkMediaProject($configurations);
+        //$helper->checkMediaSubDir($configurations);
 
         try{
 

@@ -326,7 +326,7 @@ abstract class RecordsGetterWrapperAbstract
             $attachments->setupQueryBuilder();
 
             $attachmentsRecords = $attachments->getRecords();
-
+            
             if (!empty($attachmentsRecords)) {
                 $value['attachments'] = $attachmentsRecords;
             }

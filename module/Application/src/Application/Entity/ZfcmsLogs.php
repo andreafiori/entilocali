@@ -26,7 +26,7 @@ class ZfcmsLogs
      *
      * @ORM\Column(name="datetime", type="datetime", nullable=false)
      */
-    private $datetime;
+    private $datetime = '2015-01-01 01:00:00';
 
     /**
      * @var string
@@ -88,7 +88,7 @@ class ZfcmsLogs
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -99,6 +99,7 @@ class ZfcmsLogs
      * Set datetime
      *
      * @param \DateTime $datetime
+     *
      * @return ZfcmsLogs
      */
     public function setDatetime($datetime)
@@ -111,7 +112,7 @@ class ZfcmsLogs
     /**
      * Get datetime
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDatetime()
     {
@@ -122,6 +123,7 @@ class ZfcmsLogs
      * Set message
      *
      * @param string $message
+     *
      * @return ZfcmsLogs
      */
     public function setMessage($message)
@@ -134,7 +136,7 @@ class ZfcmsLogs
     /**
      * Get message
      *
-     * @return string 
+     * @return string
      */
     public function getMessage()
     {
@@ -145,6 +147,7 @@ class ZfcmsLogs
      * Set description
      *
      * @param string $description
+     *
      * @return ZfcmsLogs
      */
     public function setDescription($description)
@@ -157,7 +160,7 @@ class ZfcmsLogs
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -168,6 +171,7 @@ class ZfcmsLogs
      * Set type
      *
      * @param string $type
+     *
      * @return ZfcmsLogs
      */
     public function setType($type)
@@ -180,7 +184,7 @@ class ZfcmsLogs
     /**
      * Get type
      *
-     * @return string 
+     * @return string
      */
     public function getType()
     {
@@ -191,6 +195,7 @@ class ZfcmsLogs
      * Set backend
      *
      * @param integer $backend
+     *
      * @return ZfcmsLogs
      */
     public function setBackend($backend)
@@ -203,7 +208,7 @@ class ZfcmsLogs
     /**
      * Get backend
      *
-     * @return integer 
+     * @return integer
      */
     public function getBackend()
     {
@@ -214,6 +219,7 @@ class ZfcmsLogs
      * Set referenceId
      *
      * @param integer $referenceId
+     *
      * @return ZfcmsLogs
      */
     public function setReferenceId($referenceId)
@@ -226,7 +232,7 @@ class ZfcmsLogs
     /**
      * Get referenceId
      *
-     * @return integer 
+     * @return integer
      */
     public function getReferenceId()
     {
@@ -237,6 +243,7 @@ class ZfcmsLogs
      * Set module
      *
      * @param \Application\Entity\ZfcmsModules $module
+     *
      * @return ZfcmsLogs
      */
     public function setModule(\Application\Entity\ZfcmsModules $module = null)
@@ -249,7 +256,7 @@ class ZfcmsLogs
     /**
      * Get module
      *
-     * @return \Application\Entity\ZfcmsModules 
+     * @return \Application\Entity\ZfcmsModules
      */
     public function getModule()
     {
@@ -260,6 +267,7 @@ class ZfcmsLogs
      * Set user
      *
      * @param \Application\Entity\ZfcmsUsers $user
+     *
      * @return ZfcmsLogs
      */
     public function setUser(\Application\Entity\ZfcmsUsers $user = null)
@@ -272,7 +280,7 @@ class ZfcmsLogs
     /**
      * Get user
      *
-     * @return \Application\Entity\ZfcmsUsers 
+     * @return \Application\Entity\ZfcmsUsers
      */
     public function getUser()
     {

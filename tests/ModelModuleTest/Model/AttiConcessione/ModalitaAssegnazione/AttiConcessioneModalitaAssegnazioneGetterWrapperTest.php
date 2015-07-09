@@ -6,10 +6,6 @@ use ModelModuleTest\TestSuite;
 use ModelModule\Model\AttiConcessione\ModalitaAssegnazione\AttiConcessioneModalitaAssegnazioneGetter;
 use ModelModule\Model\AttiConcessione\ModalitaAssegnazione\AttiConcessioneModalitaAssegnazioneGetterWrapper;
 
-/**
- * @author Andrea Fiori
- * @since  30 March 2015
- */
 class AttiConcessioneModalitaAssegnazioneGetterWrapperTest extends TestSuite
 {
     /**

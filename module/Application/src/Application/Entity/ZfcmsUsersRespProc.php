@@ -43,7 +43,7 @@ class ZfcmsUsersRespProc
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -54,6 +54,7 @@ class ZfcmsUsersRespProc
      * Set attivo
      *
      * @param integer $attivo
+     *
      * @return ZfcmsUsersRespProc
      */
     public function setAttivo($attivo)
@@ -66,7 +67,7 @@ class ZfcmsUsersRespProc
     /**
      * Get attivo
      *
-     * @return integer 
+     * @return integer
      */
     public function getAttivo()
     {
@@ -77,6 +78,7 @@ class ZfcmsUsersRespProc
      * Set user
      *
      * @param \Application\Entity\ZfcmsUsers $user
+     *
      * @return ZfcmsUsersRespProc
      */
     public function setUser(\Application\Entity\ZfcmsUsers $user = null)
@@ -89,7 +91,7 @@ class ZfcmsUsersRespProc
     /**
      * Get user
      *
-     * @return \Application\Entity\ZfcmsUsers 
+     * @return \Application\Entity\ZfcmsUsers
      */
     public function getUser()
     {

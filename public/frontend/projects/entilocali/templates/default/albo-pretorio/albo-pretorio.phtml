@@ -1,0 +1,169 @@
+<ul class="breadcrumb">
+    <li><a href="<?php echo $this->basepath() ?>" title="Home page">Home</a> <span class="divider"></span></li>
+    <li class="active">Albo pretorio</li>
+</ul>
+
+<?php if (count($this->paginator)): ?>
+
+<h1>Albo pretorio</h1>
+ 
+<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" title="Ricerca atti nell'albo pretorio">
+          &raquo; Ricerca
+        </a>
+      </h4>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in">
+    <div class="panel-body">
+    <?php
+    
+    $form = $this->form;
+    $form->prepare();
+
+    $form->setAttribute('action',   $this->serverUrl(true));
+    $form->setAttribute('method',   'post');
+    $form->setAttribute('role',     'form');
+    $form->setAttribute('class',    'form-horizontal');
+    $form->setAttribute('id',       'albo-pretorio-search-form');
+    
+    echo $this->form()->openTag($this->form);
+    
+    $form->get('numero_progressivo')->setAttribute('class','form-control');
+    $form->get('numero_atto')->setAttribute('class','form-control');
+    $form->get('testo')->setAttribute('class','form-control');
+    $form->get('sezione')->setAttribute('class', 'form-control');
+    $form->get('settore')->setAttribute('class', 'form-control');
+    $form->get('mese')->setAttribute('class', 'form-control');
+    $form->get('anno')->setAttribute('class', 'form-control');
+    $form->get('search')->setAttribute('class', 'btn btn-primary');
+    
+    ?>
+    <fieldset>
+        <legend>Ricerca atti nell'albo</legend>
+        
+        <div class="form-group">
+            <label for="<?php echo $form->get('numero_progressivo')->getAttribute('id'); ?>" class="col-sm-2 control-label">N.ro repertorio:</label>
+            <div class="col-sm-2">
+                <?php echo $this->formElement($form->get('numero_progressivo')); ?>
+            </div>
+            
+            <div class="col-sm-2">
+                <label for="<?php echo $form->get('numero_atto')->getAttribute('id'); ?>" class="widthAll">N.ro atto:</label>
+            </div>
+            
+            <div class="col-sm-2">
+                <?php echo $this->formElement($form->get('numero_atto')); ?>
+            </div>
+            
+            <div class="col-sm-2">
+                &nbsp;
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="<?php echo $form->get('testo')->getAttribute('id'); ?>" class="col-sm-2 control-label"><?php echo $this->formLabel($form->get('testo')) ?>:</label>
+            <div class="col-sm-8">
+                <?php echo $this->formElement($form->get('testo')); ?>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="<?php echo $form->get('mese')->getAttribute('id'); ?>" class="col-sm-2 control-label">Atti a partire da:</label>
+            <div class="col-sm-4">
+                <?php echo $this->formElement($form->get('mese')); ?>
+            </div>
+
+            <div class="col-sm-4">
+                <?php echo $this->formElement($form->get('anno')); ?>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="<?php echo $form->get('sezione')->getAttribute('id'); ?>" class="col-sm-2 control-label"><?php echo $this->formLabel($form->get('sezione')) ?>:</label>
+            <div class="col-sm-8">
+                <?php echo $this->formElement($form->get('sezione')); ?>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="<?php echo $form->get('settore')->getAttribute('id'); ?>" class="col-sm-2 control-label"><?php echo $this->formLabel($form->get('settore')) ?>:</label>
+            <div class="col-sm-8">
+                <?php echo $this->formElement($form->get('settore')); ?>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-2 control-label">&nbsp;</label>
+            <div class="col-sm-8"><?php echo $this->formElement($form->get('expired')); ?>
+            <label for="<?php echo $form->get('expired')->getAttribute('id'); ?>" style="width: 80%"> <?php echo $this->formLabel($form->get('expired')) ?></label>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="col-sm-2 control-label">&nbsp;</label>
+            <div class="col-sm-4">
+                <?php echo $this->formElement($form->get('csrf')); ?>
+                <?php echo $this->formElement($form->get('search')); ?>
+            </div>
+        </div>
+
+    </fieldset><?php
+    
+    echo $this->form()->closeTag();
+    ?>
+
+            </div>
+        </div>
+    </div>
+    
+    <div>&nbsp;</div>
+
+    <div class="alert alert-info">Per aprire i file firmati digitalmente scaricare il software ArubaSign:<br>
+        <ul class="list-unstyled">
+            <li><i class="fa fa-windows"></i> <a href="http://www.kronoweb.it/download/ArubaSign/ArubaSign2_3_5_WINDOWS.exe" title="Software per PC">Versione per PC (17,5MB)</a></li>
+            <li><i class="fa fa-linux"></i> Versione per Linux <a href="#" title="ArubaSign per Linux 32bit">(32 bit)</a> - <a href="#" title="ArubaSign per Linux 64bit">(64 bit)</a></li>
+            <li><i class="fa fa-apple"></i> <a href="http://www.kronoweb.it/download/ArubaSign/ArubaSign2_1_5MAC.zip" title="Software per MAC">Versione per MAC (31,2MB)</a></li>
+        </ul>
+        <br>
+        Si consiglia di visionare l'albo pretorio per tutta la durata della pubblicazione in quanto potrebbero verificarsi modifiche che verranno segnalate tramite rettifiche e/o annullamenti degli atti.
+    </div>
+
+</div>
+
+<?php foreach($this->paginator as $key => $row): ?>
+
+    <h1><?php echo $row['titolo'] ?></h1>
+
+    <p><strong>Rep.:</strong> <?php echo $row['numeroProgressivo'] ?> / <?php echo $row['numeroAtto'] ?></p>
+    <p><strong>Pubblicato il:</strong> <?php echo $row['dataAttivazione'] ?> / <strong>Ore:</strong> <?php echo $row['oraAttivazione'] ?></p>
+    <p><strong>Scadenza:</strong> <?php echo $row['dataScadenza'] ?></p>
+    <p><strong>Sezione:</strong> <?php echo $row['nome'] ?></p>
+    <!-- TODO:
+        <p><strong>Allegati:</strong></p>
+        <p>[PDF] provvedimento_unico n. 1 del 17 04 2014 .pdf (48 KB)</p>
+    -->
+    <hr>
+<?php endforeach; ?>
+
+<?php
+    if ( count($this->paginator) > 1 ):
+        echo $this->paginationControl(
+            $this->paginator,
+            'sliding',
+            'application/pagination/bootstrap.phtml',
+            array(
+                'route' => 'albo-pretorio'
+            )
+        );
+    endif;
+else:
+    ?>
+    <div class="alert alert-warning">
+        <h1>Nessun articolo in archivio</h1>
+        <p>Nessun articolo dell'albo pretorio risulta presente in archivio</p>
+    </div>
+    <?php
+endif;

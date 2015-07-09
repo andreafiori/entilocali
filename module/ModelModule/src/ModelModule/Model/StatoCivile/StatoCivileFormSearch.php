@@ -5,7 +5,7 @@ namespace ModelModule\Model\StatoCivile;
 use Zend\Form\Form;
 
 /**
- * Stato civile common form search
+ * Stato civile form search
  */
 class StatoCivileFormSearch extends Form
 {
@@ -98,7 +98,7 @@ class StatoCivileFormSearch extends Form
         if (empty($years)) {
             $years = array();
             for($i = date("Y"); $i<date("Y")+5; $i++) {
-                $years[] = $i;
+                $years[$i] = $i;
             }
         }
 

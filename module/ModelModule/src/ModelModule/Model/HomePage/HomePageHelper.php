@@ -45,7 +45,7 @@ class HomePageHelper extends ControllerHelperAbstract
     }
 
     /**
-     * @param $key
+     * @param string $key
      * @return mixed
      */
     public function recoverClassMapKey($key)
@@ -85,6 +85,8 @@ class HomePageHelper extends ControllerHelperAbstract
 
     /**
      * @param array $input
+     *
+     * @return \ModelModule\Model\QueryBuilderHelperAbstract
      */
     public function setupHomePageRecords($input = array())
     {
@@ -96,10 +98,10 @@ class HomePageHelper extends ControllerHelperAbstract
 
         $homePageRecords = $wrapper->getRecords();
         if (!empty($homePageRecords)) {
-            $this->setHomePageRecords(
-                $wrapper->formatPerModuleCode($homePageRecords)
-            );
+            $this->setHomePageRecords( $wrapper->formatPerModuleCode($homePageRecords) );
         }
+
+        return $homePageRecords;
     }
 
     /**
@@ -120,33 +122,26 @@ class HomePageHelper extends ControllerHelperAbstract
 
     /**
      * Attach referenceIDs into the existing home page recordset
+     *
+     * @param array $homePageRecords
+     * @return mixed
      */
-    public function gatherReferenceIds()
+    public function gatherReferenceIds($homePageRecords)
     {
-        $this->assertHomePageRecords();
+        if (!empty($homePageRecords)) {
 
-        $homePageRecords = $this->getHomePageRecords();
-        foreach($homePageRecords as $key => $values) {
-            foreach($values as $value) {
-                if (isset($value['referenceId'])) {
-                    $homePageRecords[$key]['referenceIds'][] = $value['referenceId'];
+            foreach($homePageRecords as $key => $values) {
+                foreach($values as $value) {
+                    if (isset($value['referenceId'])) {
+                        $homePageRecords[$key]['referenceIds'][] = $value['referenceId'];
+                    }
                 }
             }
+
+            $this->issetReferenceIds = 1;
         }
 
-        $this->issetReferenceIds = 1;
-
-        $this->setHomePageRecords($homePageRecords);
-    }
-
-    /**
-     * @throws NullException
-     */
-    private function assertHomePageRecords()
-    {
-        if (!$this->getHomePageRecords()) {
-            throw new NullException("HomePageRecords are not set");
-        }
+        return $homePageRecords;
     }
 
     /**
@@ -156,17 +151,6 @@ class HomePageHelper extends ControllerHelperAbstract
     {
         if (!$this->issetReferenceIds) {
             throw new NullException("Reference IDs are not set");
-        }
-    }
-
-    /**
-     * @throws NullException
-     */
-    public function checkHomePageRecords()
-    {
-        $homePageRecords = $this->getHomePageRecords();
-        if (empty($homePageRecords)) {
-            throw new NullException("Home page records are empty");
         }
     }
 
@@ -182,6 +166,8 @@ class HomePageHelper extends ControllerHelperAbstract
     }
 
     /**
+     * Check if the module code exists into the class ma
+     *
      * @param string $key
      * @throws NullException
      */
@@ -195,14 +181,15 @@ class HomePageHelper extends ControllerHelperAbstract
     /**
      * @throws NullException
      */
-    public function checkClassMapFromRecords()
+    public function checkClassMapFromRecords($records)
     {
         $this->assertIssetReferenceIds();
 
-        $records = $this->getHomePageRecords();
-        foreach($records as $key => $value) {
-            $this->checkClassMapKey($key);
-            $this->checkClassMapObjectExists($key);
+        if (!empty($records)) {
+            foreach($records as $key => $value) {
+                $this->checkClassMapKey($key);
+                $this->checkClassMapObjectExists($key);
+            }
         }
     }
 }

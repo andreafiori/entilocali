@@ -2,6 +2,7 @@
 
 namespace Admin\Controller\Contenuti;
 
+use Application\Controller\Contenuti\ContenutiSearchController;
 use ModelModule\Model\Contenuti\ContenutiFormSearch;
 use Application\Controller\SetupAbstractController;
 use Zend\Session\Container as SessionContainer;
@@ -16,9 +17,10 @@ class ContenutiOperationsController extends SetupAbstractController
     public function changesummarylangAction()
     {
         if ($this->getRequest()->isPost()) {
+            $languageSelection = $this->params()->fromPost('lingua');
             return $this->redirect()->toRoute('admin/contenuti-summary', array(
                 'lang'              => $this->params()->fromRoute('lang'),
-                'languageSelection' => $this->params()->fromRoute('languageSelection'),
+                'languageSelection' => $languageSelection ? $languageSelection : 'it',
                 'page'              => $this->params()->fromRoute('page'),
                 'modulename'        => $this->params()->fromRoute('modulename'),
             ));
@@ -28,9 +30,10 @@ class ContenutiOperationsController extends SetupAbstractController
     }
 
     /**
-     * TODO: delete this, use the common controller to post search both from frontend and admin area (same form)
-     *
+     * TODO: delete this method, use ContenutiSearchController
      * Set session search for the summary
+     *
+     * @return mixed
      */
     public function summarysearchAction()
     {
@@ -41,19 +44,17 @@ class ContenutiOperationsController extends SetupAbstractController
             $formSearch->addInHome();
             $formSearch->addCheckExpired();
 
-            $sessionContainer = new SessionContainer();
-            $sessionContainer->offsetSet('contenutiSummarySearch', array(
+            $sessioContainer = new SessionContainer();
+            $sessioContainer->offsetSet(ContenutiSearchController::sessionIdentifier, array(
                 'testo'         => $this->params()->fromPost('testo'),
                 'sottosezioni'  => $this->params()->fromPost('sottosezioni'),
                 'inhome'        => $this->params()->fromPost('inhome'),
             ));
 
-            return $this->redirect()->toRoute('admin/contenuti-summary', array(
-                'lang'              => $this->params()->fromRoute('lang'),
-                'languageSelection' => $this->params()->fromRoute('languageSelection'),
-                'modulename'        => $this->params()->fromRoute('modulename'),
-                'page'              => $this->params()->fromRoute('page'),
-            ));
+            $referer = $this->getRequest()->getHeader('Referer');
+            if ( is_object($referer) ) {
+                return $this->redirect()->toUrl( $referer->getUri() );
+            }
         }
 
         return $this->redirect()->toRoute('main');

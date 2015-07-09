@@ -42,17 +42,37 @@ class OperatoriForm extends Form
                                         'required'    => 'required'
                         ),
         ));
-        
+
         $this->add(array(
-                        'name' => 'ragioneSociale',
-                        'type' => 'Text',
-                        'options' => array( 'label' => '* Ragione sociale' ),
-                        'attributes' => array(
-                                        'id'            => 'ragioneSociale',
-                                        'placeholder'   => 'Ragione sociale...',
-                                        'title'         => 'Inserisci ragione sociale',
-                                        'required'      => 'required'
-                        ),
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'ragioneSociale',
+            'options' => array(
+                'label'         => '* Ragione sociale',
+                'empty_option'  => 'Seleziona',
+                'value_options' => array(
+                    array('label' => 'Societa di persone', 'options' =>
+                        array(
+                            'S.S'       => 'S.S Societa semplice',
+                            'S.n.c.'    => 'S.n.c. Societa nome collettivo',
+                            'S.a.s.'    => 'S.a.s. Societa in accomandita semplice'
+                        )
+                    ),
+                    array('label' => 'Societa di capitali', 'options' =>
+                        array(
+                            'S.r.l.'    => 'S.r.l. responsabilita limitata',
+                            'S.r.l.s.'  => 'S.r.l.s.',
+                            'S.r.l.u.'  => 'S.r.l.u.',
+                            'S.p.a.'    => 'S.p.a. per azioni',
+                            'S.a.p.a.'  => 'S.a.p.a.',
+                        )
+                    ),
+                ),
+            ),
+            'attributes' => array(
+                'title'     => 'Seleziona ragione sociale',
+                'id'        => 'sezione',
+                'required'  => 'required',
+            )
         ));
     }
 }

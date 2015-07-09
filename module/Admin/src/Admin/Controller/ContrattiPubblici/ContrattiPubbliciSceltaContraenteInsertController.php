@@ -10,6 +10,9 @@ use ModelModule\Model\Modules\ModulesContainer;
 use ModelModule\Model\Log\LogWriter;
 use Application\Controller\SetupAbstractController;
 
+/**
+ * Insert Scelta Contraente contratti pubblici into db
+ */
 class ContrattiPubbliciSceltaContraenteInsertController extends SetupAbstractController
 {
     public function indexAction()
@@ -56,9 +59,7 @@ class ContrattiPubbliciSceltaContraenteInsertController extends SetupAbstractCon
             $inputFilter->exchangeArray( $form->getData() );
 
             $helper->setLoggedUser($userDetails);
-            $helper->insert($inputFilter);
-            $lastInsertId = $helper->getConnection()->lastInsertId();
-            $helper->getConnection()->commit();
+            $lastInsertId = $helper->insert($inputFilter);
 
             $logWriter = new LogWriter($connection);
             $logWriter->writeLog(array(
@@ -75,11 +76,13 @@ class ContrattiPubbliciSceltaContraenteInsertController extends SetupAbstractCon
                 'messageTitle'               => 'Voce scelta contraente inserita correttamente',
                 'messageText'                => 'I dati sono stati processati correttamente dal sistema',
                 'showLinkResetFormAndShowIt' => 1,
-                'backToSummaryLink'     => $this->url()->fromRoute('admin/contratti-pubblici-scelta-conctraente-summary', array(
+                'backToSummaryLink'     => $this->url()->fromRoute('admin/contratti-pubblici-scelta-contraente-summary', array(
                     'lang' => $this->params()->fromRoute('lang'),
                 )),
                 'backToSummaryText'     => "Elenco voci scelta contraente",
             ));
+
+            $helper->getConnection()->commit();
 
         } catch(\Exception $e) {
 

@@ -5,11 +5,11 @@
         </a>
     </li>
     <li>
-        <a href="<?php echo $this->url('admin/'.$this->params()->fromRoute('modulename').'-form',
+        <a href="<?php echo $this->url('admin/sottosezioni-form',
             array(
-                'lang' => $this->params()->fromRoute('lang'),
+                'lang'              => $this->params()->fromRoute('lang'),
                 'languageSelection' => $this->params()->fromRoute('languageSelection'),
-                'modulename' => $this->params()->fromRoute('modulename')
+                'modulename'        => $this->params()->fromRoute('modulename')
             )) ?>" title="Elenco">
             <?php echo ucfirst(str_replace('-', ' ', $this->params()->fromRoute('modulename'))) ?>
         </a>
@@ -23,7 +23,7 @@
 <?php if (empty($records)): ?>
     <div class="alert alert-warning" style="margin: 0; padding-top: 0">
         <h3>Nessuna sottosezione</h3>
-        <p>Nessuna sottosezione inserita in archivio.</p>
+        <p>Nessuna sottosezione in archivio.</p>
     </div>
 <?php else: ?>
 

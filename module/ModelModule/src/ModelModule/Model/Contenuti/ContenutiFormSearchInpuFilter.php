@@ -7,6 +7,9 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
+/**
+ * Contenuti Form Search validator
+ */
 class ContenutiFormSearchInpuFilter implements InputFilterAwareInterface
 {
     public $testo;
@@ -29,8 +32,8 @@ class ContenutiFormSearchInpuFilter implements InputFilterAwareInterface
         $this->testo                    = (isset($data['testo']))            ? $data['testo'] : null;
         $this->searchSubsection         = (isset($data['searchSubsection'])) ? $data['searchSubsection'] : null;
         $this->sezioni                  = (isset($data['sezioni'])) ? $data['sezioni'] : null;
-        $this->sottosezioni             = (isset($data['sezioni'])) ? $data['sezioni'] : null;
-        $this->utente                   = (isset($data['sezioni'])) ? $data['sezioni'] : null;
+        $this->sottosezioni             = (isset($data['sottosezioni'])) ? $data['sottosezioni'] : null;
+        $this->utente                   = (isset($data['utente'])) ? $data['utente'] : null;
         $this->inhome                   = (isset($data['inhome'])) ? $data['inhome'] : null;
         $this->csrf                     = (isset($data['csrf'])) ? $data['csrf'] : null;
     }
@@ -62,27 +65,48 @@ class ContenutiFormSearchInpuFilter implements InputFilterAwareInterface
             ));
 
             $inputFilter->add(array(
-                'name'     => 'titolo',
-                'required' => true,
+                'name'     => 'anno',
+                'required' => false,
+                'filters'  => array(
+                    array('name' => 'Int'),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'testo',
+                'required' => false,
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 255,
-                        ),
-                    ),
+                    array('name' => 'HtmlEntities'),
                 ),
             ));
 
             $inputFilter->add(array(
                 'name'     => 'sezione',
                 'required' => true,
+                'options' => array(
+                    'disable_inarray_validator' => false
+                ),
+                'filters'  => array(
+                    array('name' => 'Int'),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'sottosezioni',
+                'required' => false,
+                'options' => array(
+                    'disable_inarray_validator' => false
+                ),
+                'filters'  => array(
+                    array('name' => 'Int'),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'searchSubsection',
+                'required' => false,
                 'options' => array(
                     'disable_inarray_validator' => false
                 ),
@@ -106,6 +130,32 @@ class ContenutiFormSearchInpuFilter implements InputFilterAwareInterface
                             'max' => '2060',
                         ),
                     ),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'inhome',
+                'required' => false,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'utente',
+                'required' => false,
+                'filters'  => array(
+                    array('name' => 'Int'),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'csrf',
+                'required' => false,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
                 ),
             ));
 

@@ -48,7 +48,7 @@ class AlboPretorioInsertControllerTest extends InsertUpdateTestSuite
     }
 
     /**
-     * @param $formDataSample
+     * @param array $formDataSample
      * @return AlboPretorioArticoliForm
      */
     protected function setupForm($formDataSample)

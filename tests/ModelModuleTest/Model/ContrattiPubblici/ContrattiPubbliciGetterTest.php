@@ -33,6 +33,20 @@ class ContrattiPubbliciGetterTest extends TestSuite
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('id'));
     }
 
+    public function testSetAnno()
+    {
+        $this->objectGetter->setAnno(2015);
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('anno'));
+    }
+
+    public function testSetImporto()
+    {
+        $this->objectGetter->setImporto(1230);
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('importo'));
+    }
+
     public function testSetIdWithArrayInInput()
     {
         $this->objectGetter->setId( array(1,2,3) );

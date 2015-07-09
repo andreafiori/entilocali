@@ -22,7 +22,7 @@ $shareExportIcons = $this->partial('frontend/projects/entilocali/templates/'.$th
             </a>
         </li>
         <?php if (isset($this->contenuti[0]['titolo'])): ?>
-            <li class="current"><?php echo (!empty($titolo)) ? utf8_encode($titolo) : 'Nessun p' ?></li>
+            <li class="current"><?php echo (!empty($titolo)) ? $titolo : 'Nessun p' ?></li>
         <?php endif ?>
     </ul>
 
@@ -88,14 +88,35 @@ echo $this->form()->openTag($this->form);
 
 <?php if (!empty($this->contenuti)): ?>
     <?php foreach($this->contenuti as $contenuto): ?>
-        <h3><?php echo utf8_encode($contenuto['titolo']) ?> (Anno <?php echo $contenuto['annoammtrasp'] ?>)</h3>
+        <article>
 
-        <div><?php echo utf8_encode($contenuto['sommario']) ?></div>
+        <h3><?php echo $contenuto['titolo'] ?> (Anno <?php echo $contenuto['annoammtrasp'] ?>)</h3>
 
-        <div><?php echo utf8_encode($contenuto['testo']) ?></div>
+        <div><?php echo $contenuto['sommario'] ?></div>
+
+        <div><?php echo $contenuto['testo'] ?></div>
+
+        <?php if (!empty($contenuto['attachments'])): ?>
+            <h4><?php echo $this->translate('Allegati') ?></h4>
+            <ul class="no-bullet">
+            <?php foreach($contenuto['attachments'] as $attachment): ?>
+                <li>
+                    <a href="<?php echo $this->url('attachments-sthree-download', array(
+                        'type'  => 'amministrazione-trasparente',
+                        'id'    => $attachment['id'])); ?>" title="Scarica allegato <?php echo $attachment['name'] ?>">
+                        <img src="<?php echo $this->publicDirRelativePath ?>/common/icons/attachments/<?php echo $attachment['image']; ?>" alt="Icon tipo file per <?php echo $attachment['name'] ?>">
+                        <?php echo $attachment['title'] ?>
+                    </a> (<?php echo $attachment['size'] ?> Kb)
+                </li>
+            <?php endforeach ?>
+            </ul>
+        <?php endif; ?>
 
         <br>
+
         <?php echo $shareExportIcons ?>
+
+        </article>
     <?php endforeach; ?>
 <?php endif; ?>
 

@@ -69,8 +69,7 @@ class PostsCategoriesInsertController extends SetupAbstractController
             $helper->checkRecords($languageRecords,'Nessun dato relativo alle lingue');
             $inputFilter->languageId = $languageRecords[0]['id'];
             $inputFilter->moduleId = ModulesContainer::recoverIdFromModuleCode($this->params()->fromRoute('formtype'));
-            $helper->insert($inputFilter);
-            $lastInsertId = $helper->getConnection()->lastInsertId();
+            $lastInsertId = $helper->insert($inputFilter);
             $helper->getConnection()->commit();
 
             $logWriter = new LogWriter($connection);

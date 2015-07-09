@@ -31,6 +31,7 @@
                 'formAction'   => $this->url('admin/sezioni-operations', array(
                     'lang'              => $this->params()->fromRoute('lang'),
                     'languageSelection' => $this->params()->fromRoute('languageSelection'),
+                    'modulename'        => $this->params()->fromRoute('modulename'),
                     'action'            => 'changepositionslang',
                     'previouspage'      => $this->params()->fromRoute('page'),
                 )),
@@ -55,6 +56,10 @@
                     </li>
                 <?php endforeach ?>
             </ul>
+        <?php else: ?>
+            <div class="alert alert-warning">
+                <h4>Nessuna sezione</h4>
+            </div>
         <?php endif; ?>
     </div>
 
@@ -68,8 +73,11 @@
                     </li>
                 <?php endforeach ?>
             </ul>
+        <?php else: ?>
+            <div class="alert alert-warning">
+                <h4>Nessuna sezione</h4>
+            </div>
         <?php endif; ?>
-
     </div>
 </div>
 

@@ -10,6 +10,9 @@ use ModelModule\Model\Sezioni\SottoSezioniForm;
 use ModelModule\Model\Sezioni\SottoSezioniFormInputFilter;
 use Application\Controller\SetupAbstractController;
 
+/**
+ * SottoSezioni Insert into db, log and show result message
+ */
 class SottoSezioniInsertController extends SetupAbstractController
 {
     public function indexAction()
@@ -56,14 +59,14 @@ class SottoSezioniInsertController extends SetupAbstractController
             $inputFilter->exchangeArray( $form->getData() );
 
             $helper->setLoggedUser($userDetails);
-            $lastInsertId = $helper->insert($inputFilter);
+            $lastInsertId = $helper->insert($inputFilter, $this->params()->fromRoute('modulename'));
             $helper->getConnection()->commit();
 
             $logWriter = new LogWriter($connection);
             $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
-                'module_id'     => ModulesContainer::albo_pretorio_id,
-                'message'       => "Inserita nuova sezione ".$inputFilter->nomeSottoSezione. " ID: ".$lastInsertId,
+                'module_id'     => ModulesContainer::contenuti_id,
+                'message'       => "Inserita nuova sezione ".$inputFilter->nomeSottoSezione,
                 'type'          => 'info',
                 'reference_id'  => $lastInsertId,
                 'backend'       => 1,

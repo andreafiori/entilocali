@@ -33,7 +33,7 @@ class ZfcmsTags
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -44,6 +44,7 @@ class ZfcmsTags
      * Set name
      *
      * @param string $name
+     *
      * @return ZfcmsTags
      */
     public function setName($name)
@@ -56,7 +57,7 @@ class ZfcmsTags
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {

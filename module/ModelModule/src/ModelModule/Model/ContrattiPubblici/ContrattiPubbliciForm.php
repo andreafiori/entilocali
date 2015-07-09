@@ -6,6 +6,9 @@ use Zend\Form\Element;
 use Zend\Form\Form;
 use Zend\Captcha;
 
+/**
+ * Contratti Pubblici Admin Form
+ */
 class ContrattiPubbliciForm extends Form
 {
     /**
@@ -30,8 +33,9 @@ class ContrattiPubbliciForm extends Form
             'attributes' => array(
                 'id'            => 'cig',
                 'title'         => 'Inserisci Codice Identificativo di Gara',
-                'placeholder'   => 'CIG',
-                'required'      => 'required'
+                'placeholder'   => 'CIG...',
+                'required'      => 'required',
+                'maxlength'     => 10,
             ),
         ));
 
@@ -43,7 +47,8 @@ class ContrattiPubbliciForm extends Form
                 'id' => 'titolo',
                 'title'       => "Inserisci l'oggetto del bando",
                 'placeholder' => 'Oggetto...',
-                'required'    => 'required'
+                'required'    => 'required',
+                'maxlength'   => 230,
             ),
         ));
     }
@@ -63,11 +68,13 @@ class ContrattiPubbliciForm extends Form
         $this->add(array(
             'name' => 'numeroDetermina',
             'type' => 'Text',
-            'options' => array('label' => 'Numero'),
+            'options' => array('label' => '* Numero'),
             'attributes' => array(
                 'id'            => 'numeroDetermina',
                 'title'         => "Inserisci numero determina",
-                'placeholder'   => 'Numero...',
+                'placeholder'   => 'Nr...',
+                'maxlength'     => 50,
+                'required'      => 'required',
             ),
         ));
 
@@ -75,12 +82,13 @@ class ContrattiPubbliciForm extends Form
             'type' => 'Date',
             'name' => 'dataDetermina',
             'options' => array(
-                'label' => 'Data determina',
+                'label'  => '* Data determina',
                 'format' => 'Y-m-d',
             ),
             'attributes' => array(
                 'id'        => 'dataDetermina',
                 'title'     => "Seleziona data determina",
+                'required'  => "required",
             )
         ));
     }
@@ -100,7 +108,7 @@ class ContrattiPubbliciForm extends Form
         $this->add(array(
             'name' => 'importoAggiudicazione',
             'type' => 'Text',
-            'options' => array('label' => '* Importo aggiudicazione (Euro): &euro;'),
+            'options' => array('label' => '* Importo aggiudicazione (Euro): '),
             'attributes' => array(
                 'id' => 'importoAggiudicazione',
                 'title'         => "Inserisci l'importo aggiudicazione",
@@ -112,12 +120,12 @@ class ContrattiPubbliciForm extends Form
         $this->add(array(
             'name' => 'importoLiquidato',
             'type' => 'Text',
-            'options' => array('label' => 'Importo delle somme liquidate (Euro): &euro;'),
+            'options' => array('label' => '* Somme liquidate (Euro): '),
             'attributes' => array(
-                'id' => 'importoLiquidato',
-                'title' => "Inserisci l'importo somme liquidate",
-                'placeholder' => 'Importo somme liquidate...',
-                'required' => 'required'
+                'id'            => 'importoLiquidato',
+                'title'         => "Inserisci l'importo somme liquidate",
+                'placeholder'   => 'Importo somme liquidate...',
+                'required'      => 'required'
             ),
         ));
     }
@@ -144,7 +152,7 @@ class ContrattiPubbliciForm extends Form
             'type' => 'Zend\Form\Element\Select',
             'name' => 'settoreId',
             'options' => array(
-                'label'         => 'Settore',
+                'label'         => '* Settore',
                 'empty_option'  => 'Seleziona',
                 'value_options' => $records,
             ),
@@ -167,8 +175,8 @@ class ContrattiPubbliciForm extends Form
             'type' => 'Zend\Form\Element\Select',
             'name' => 'respProcId',
             'options' => array(
-                'label' => 'Responsabile',
-                'empty_option' => 'Seleziona',
+                'label'         => '* Responsabile',
+                'empty_option'  => 'Seleziona',
                 'value_options' => $records,
             ),
             'attributes' => array(
@@ -194,7 +202,7 @@ class ContrattiPubbliciForm extends Form
         $this->add(array(
             'name' => 'numeroOfferte',
             'type' => 'Text',
-            'options' => array('label' => 'Numero di offerte ammesse'),
+            'options' => array('label' => '* Numero di offerte ammesse'),
             'attributes' => array(
                 'id'            => 'numeroOfferte',
                 'title'         => "Inserisci numero di offerte ammesse",
@@ -282,7 +290,7 @@ class ContrattiPubbliciForm extends Form
             'type' => 'DateTime',
             'name' => 'dataInserimento',
             'options' => array(
-                'label' => 'Data inserimento: l\'articolo sarà visibile sul sito a partire da questa data',
+                'label' => "* Data inserimento (l'articolo sar&agrave; visibile sul sito a partire da questa data)",
                 'format' => 'Y-m-d H:i:s',
             ),
             'attributes' => array(
@@ -307,7 +315,7 @@ class ContrattiPubbliciForm extends Form
             'name' => 'struttura_label',
             'attributes' => array(
                 'id'    => 'struttura_label',
-                'value' => "Data di scadenza:  5 Anni a partire dall'anno successivo a quello di inserimento",
+                'value' => "Data di scadenza fissata a 5 anni a partire dall'anno successivo a quello di inserimento",
                 'type'  => 'PlainText'
             ),
         ));

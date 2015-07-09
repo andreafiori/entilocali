@@ -7,6 +7,9 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
+/**
+ * Modalita Assegnazione Form validator
+ */
 class AttiConcessioneModalitaAssegnazioneFormInputFilter implements InputFilterAwareInterface
 {
     public $id;

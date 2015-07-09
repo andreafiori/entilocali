@@ -10,6 +10,7 @@ use ModelModule\Model\AlboPretorio\AlboPretorioArticoliGetterWrapper;
 use ModelModule\Model\AlboPretorio\AlboPretorioSezioniGetter;
 use ModelModule\Model\AlboPretorio\AlboPretorioSezioniGetterWrapper;
 use Application\Controller\SetupAbstractController;
+use Zend\Session\Container as SessionContainer;
 
 class AlboPretorioController extends SetupAbstractController
 {
@@ -21,6 +22,9 @@ class AlboPretorioController extends SetupAbstractController
 
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
+        $sessionContainer = new SessionContainer();
+        $sessionSearch = $sessionContainer->offsetGet(AlboPretorioSearchController::sessionIdentifier);
+
         try {
 
             $helper = new AlboPretorioControllerHelper();
@@ -30,7 +34,17 @@ class AlboPretorioController extends SetupAbstractController
             );
             $articoliWrapper = $helper->recoverWrapperRecordsPaginator(
                 new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter($em)),
-                array('orderBy' => 'alboArticoli.id DESC', 'pubblicare' => 1),
+                array(
+                    'freeSearch'        => isset($sessionSearch['testo']) ? $sessionSearch['testo'] : null,
+                    'sezioneId'         => isset($sessionSearch['sezine']) ? $sessionSearch['sezine'] : null,
+                    'numeroProgressivo' => isset($sessionSearch['numero_progressivo']) ? $sessionSearch['numero_progressivo'] : null,
+                    'numeroAtto'        => isset($sessionSearch['numero_atto']) ? $sessionSearch['numero_atto'] : null,
+                    'mese'              => isset($sessionSearch['mese']) ? $sessionSearch['mese'] : null,
+                    'anno'              => isset($sessionSearch['anno']) ? $sessionSearch['anno'] : null,
+                    'noScaduti'         => 1,
+                    'orderBy'           => 'alboArticoli.id DESC',
+                    'pubblicare'        => 1
+                ),
                 $page,
                 null
             );
@@ -42,7 +56,7 @@ class AlboPretorioController extends SetupAbstractController
                 array(
                     'moduleId'  => ModulesContainer::albo_pretorio_id,
                     'noScaduti' => 1,
-                    'orderBy'   => 'ao.position'
+                    'orderBy'   => 'a.position'
                 )
             );
 
@@ -50,12 +64,25 @@ class AlboPretorioController extends SetupAbstractController
             $formSearch->addYears();
             $formSearch->addSezioni( $helper->formatForDropwdown($sezioniRecords, 'id', 'nome') );
             $formSearch->addCheckExpired();
-            $formSearch->addCsrf();
             $formSearch->addSubmitButton();
 
+            if (!empty($sessionSearch)) {
+                $formSearch->setData(array(
+                    'numero_progressivo'    => $sessionSearch['numero_progressivo'],
+                    'numero_atto'           => $sessionSearch['numero_atto'],
+                    'mese'                  => $sessionSearch['mese'],
+                    'anno'                  => $sessionSearch['anno'],
+                    'sezione'               => $sessionSearch['sezione'],
+                    'testo'                 => $sessionSearch['testo'],
+                    'expired'               => $sessionSearch['expired'],
+                ));
+            }
+
             $this->layout()->setVariables(array(
+                'sessionSearch'     => $sessionSearch,
                 'form'              => $formSearch,
                 'paginator'         => $articoliWrapper->getPaginator(),
+                'emptyRecords'      => count($mainRecords),
                 'records'           => $mainRecords,
                 'templatePartial'   => 'albo-pretorio/albo-pretorio.phtml',
             ));
@@ -101,7 +128,7 @@ class AlboPretorioController extends SetupAbstractController
                 array(
                     'moduleId'  => ModulesContainer::albo_pretorio_id,
                     'noScaduti' => 1,
-                    'orderBy'   => 'ao.position'
+                    'orderBy'   => 'a.position'
                 )
             );
 
@@ -114,9 +141,9 @@ class AlboPretorioController extends SetupAbstractController
 
             $this->layout()->setVariables(array(
                 'messageType'       => 'secondary',
-                'moduleLabel'       => "Atti di concessione",
-                'messageTitle'      => "Nessun atto di concessione trovato",
-                'messageText'       => "Impossibile visualizzare i dati richiesti",
+                'moduleLabel'       => "Albo pretorio",
+                'messageTitle'      => "Nessun albo pretorio trovato",
+                'messageText'       => "Impossibile visualizzare i dati richiesti sul sito pubblico",
                 'templatePartial'   => 'message.phtml',
             ));
 

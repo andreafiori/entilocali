@@ -7,6 +7,9 @@ use ModelModule\Model\Users\UsersGetter;
 use ModelModule\Model\Users\UsersGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
+/**
+ * Users data summary. Users with WebMasters role cannot see other users
+ */
 class UsersSummaryController extends SetupAbstractController
 {
     public function indexAction()
@@ -15,13 +18,19 @@ class UsersSummaryController extends SetupAbstractController
 
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-        $page       = $this->params()->fromRoute('page');
-        $perPage    = $this->params()->fromRoute('perpage');
+        $page    = $this->params()->fromRoute('page');
+        $perPage = $this->params()->fromRoute('perpage');
+
+        $userDetails = $this->layout()->getVariable('userDetails');
+        $userRole    = isset($userDetails->role) ? $userDetails->role : '';
 
         $helper = new UsersControllerHelper();
         $wrapper = $helper->recoverWrapperRecordsPaginator(
             new UsersGetterWrapper(new UsersGetter($em)),
-            array('orderBy' => 'u.id DESC'),
+            array(
+                'excludeRoleName' => ($userRole=='WebMaster') ? null : 'WebMaster',
+                'orderBy' => 'u.id DESC'
+            ),
             $page,
             $perPage
         );
@@ -33,11 +42,11 @@ class UsersSummaryController extends SetupAbstractController
         $paginatorRecords = $wrapper->setupRecords();
 
         $this->layout()->setVariables(array(
-            'tableTitle' => 'Utenti',
-            'tableDescription' => $paginatorCount.' utenti in archivio',
-            'paginator'   => $paginator,
-            'columns'     => array(
-                "Nome e Cognome",
+            'tableTitle'        => 'Utenti',
+            'tableDescription'  => $paginatorCount.' utenti in archivio',
+            'paginator'         => $paginator,
+            'columns'           => array(
+                "Nome e cognome",
                 "Email",
                 "Ruolo",
                 "Settore",
@@ -55,6 +64,8 @@ class UsersSummaryController extends SetupAbstractController
     }
 
     /**
+     * Format users column data
+     *
      * @param array $records
      * @return array
      */

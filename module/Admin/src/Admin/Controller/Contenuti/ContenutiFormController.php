@@ -31,7 +31,7 @@ class ContenutiFormController extends SetupAbstractController
                 array(
                     'showToAll'             => ($userDetails->role == 'WebMaster') ? null : 1,
                     'languageAbbreviation'  => $languageSelection,
-                    'isAmmTrasparente'      => ($modulename!='contenuti') ? 1 : null,
+                    'isAmmTrasparente'      => ($modulename!='contenuti') ? 1 : 0,
                 )
             );
             $helper->checkRecords($sottoSezioniRecords, 'Nessuna sottosezione presente');
@@ -73,7 +73,7 @@ class ContenutiFormController extends SetupAbstractController
 
                 $submitButtonValue      = 'Modifica';
                 $formTitle              = 'Modifica artciolo';
-                $formDescription        = "Modifica i dati relativi all'articolo. Massimo 255 caratteri per i campi testo. Utilizzare testi brevi e concisi. <strong>Evitare copia \ incolla da file word</strong> o pagine web che potrebbero danneggiare il layout della pagina.";
+                $formDescription        = "Modifica i dati relativi all'articolo. Massimo 255 caratteri per i campi testo. Utilizzare testi brevi e concisi. Evitare copia \ incolla da file word o pagine web che potrebbero pregiudicare l’accessibilità del sito web.";
                 $formAction             = $this->url()->fromRoute('admin/contenuti-update', array(
                     'lang'              => $this->params()->fromRoute('lang'),
                     'languageSelection' => $languageSelection,
@@ -91,7 +91,7 @@ class ContenutiFormController extends SetupAbstractController
                 $form->addSocial();
 
                 $formTitle              = 'Nuovo articolo';
-                $formDescription        = "Inserisci i dati relativi all'articolo. Massimo 255 caratteri per i campi testo. Utilizzare testi brevi e concisi. <strong>Evitare copia \ incolla da file word</strong> o pagine web che potrebbero danneggiare il layout della pagina.";
+                $formDescription        = "Inserisci i dati relativi all'articolo. Massimo 255 caratteri per i campi testo. Utilizzare testi brevi e concisi. Evitare copia \ incolla da file word o pagine web che potrebbero pregiudicare l’accessibilità del sito web.";
                 $submitButtonValue      = 'Inserisci';
                 $formAction             = $this->url()->fromRoute('admin/contenuti-insert', array(
                     'lang'              => $this->params()->fromRoute('lang'),

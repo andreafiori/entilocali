@@ -47,6 +47,23 @@ abstract class InsertUpdateTestSuite extends TestSuite
     public function testFormSampleDataIsValid()
     {
         $form = $this->setupForm($this->formDataSample);
+        $form->prepare();
+
+        try {
+            $csrf = $form->get('csrf');
+            if ($csrf) {
+                $params = new \Zend\Stdlib\Parameters(
+                    array_merge(
+                        $this->formDataSample,
+                        array('csrf' => $form->get('csrf')->getValue() )
+                    )
+                );
+
+                $form->setData($params);
+            }
+        } catch(\Zend\Form\Exception\InvalidElementException $e) {
+
+        }
 
         if (is_object($form)) {
             $isValidForm = $form->isValid();

@@ -23,92 +23,74 @@ class HomePageController extends SetupAbstractController
 
         $lang = $this->layout()->getVariable('lang');
 
-        $helper = new HomePageHelper();
-        $helper->setHomePageGetterWrapper( new HomePageGetterWrapper(new HomePageGetter($em)) );
-        $helper->setupHomePageRecords(array(
-            'onlyActiveModules'     => 1,
-            'orderBy'               => 'homePageBlocks.position ASC',
-            'languageAbbreviation'  => $lang
-        ));
-        $helper->gatherReferenceIds();
-        $helper->checkHomePageRecords();
+        try{
+            $helper = new HomePageHelper();
+            $homePageWrapper = $helper->recoverWrapper(
+                new HomePageGetterWrapper(new HomePageGetter($em)),
+                array(
+                    'onlyActiveModules'     => 1,
+                    'orderBy'               => 'homePageBlocks.position ASC',
+                    'languageAbbreviation'  => $lang
+                )
+            );
+            $homePageRecords = $homePageWrapper->getRecords();
+            $helper->checkRecords($homePageRecords, 'Nessun elemento in home page');
 
-        $sortedHomePageRecords = $helper->getHomePageRecords();
+            $sortedHomePageRecordsPerModuleCode = $helper->gatherReferenceIds(
+                $homePageWrapper->formatPerModuleCode($homePageRecords)
+            );
 
-        $helper->checkClassMapFromRecords();
+            $helper->checkClassMapFromRecords($sortedHomePageRecordsPerModuleCode);
 
-        $homePageElements = array();
+            $homePageElements = array();
+            foreach($sortedHomePageRecordsPerModuleCode as $key => $value) {
+                $obj = $helper->recoverClassMapKey($key);
 
-        foreach($sortedHomePageRecords as $key => $value) {
-            $obj = $helper->recoverClassMapKey($key);
+                /**
+                 * @var \ModelModule\Model\HomePage\HomePageBuilderAbstract $builder
+                 */
+                $builder = new $obj();
+                $builder->setEntityManager($em);
+                $builder->setModuleRelatedRecords($value);
 
-            /**
-             * @var \ModelModule\Model\HomePage\HomePageBuilderAbstract $builder
-             */
-            $builder = new $obj();
-            $builder->setEntityManager($em);
-            $builder->setModuleRelatedRecords($value);
+                $records  = $builder->recoverHomePageElements($value);
 
-            $records  = $builder->recoverHomePageElements($value);
+                $i = 0;
+                foreach($records as &$record) {
+                    $record = array_merge(
+                        $record,
+                        array(
+                            'homepageId'    => $value[$i]['homepageId'],
+                            'languageId'    => $value[$i]['languageId'],
+                            'referenceId'   => $value[$i]['referenceId'],
+                            'moduleName'    => $value[$i]['moduleName'],
+                            'blockId'       => $value[$i]['blockId']
+                        )
+                    );
+                    $i++;
+                }
 
-            $i = 0;
-            foreach($records as &$record) {
-                $record = array_merge(
-                    $record,
-                    array(
-                        'homepageId'    => $value[$i]['homepageId'],
-                        'languageId'    => $value[$i]['languageId'],
-                        'referenceId'   => $value[$i]['referenceId'],
-                        'moduleName'    => $value[$i]['moduleName'],
-                        'blockId'       => $value[$i]['blockId']
-                    )
-                );
-                $i++;
+                $homePageElements[$key] = $records;
             }
 
-            $homePageElements[$key] = $records;
-        }
+            $this->layout()->setVariables(array(
+                'configurations'    => $configurations,
+                'records'           => !empty($homePageElements) ? $homePageElements : null,
+                'templatePartial'   => 'homepage/homepage-manager.phtml',
+            ));
 
-        $this->layout()->setVariables(array(
-            'configurations'    => $configurations,
-            'records'           => !empty($homePageElements) ? $homePageElements : null,
-            'templatePartial'   => 'homepage/homepage-manager.phtml',
-        ));
+        } catch(\Exception $e) {
+
+            $this->layout()->setVariables(array(
+                    'messageType'       => 'warning',
+                    'messageTitle'      => 'Problema verificato',
+                    'messageText'       => $e->getMessage(),
+                    'templatePartial'   => 'message.phtml'
+                )
+            );
+
+        }
 
         $this->layout()->setTemplate($mainLayout);
-    }
-
-    /**
-     * Insert an element via GET, using only requested data
-     */
-    public function insertAction()
-    {
-
-    }
-
-    /**
-     * Delete element from home page
-     *
-     * @return \Zend\Http\Response
-     */
-    public function deleteAction()
-    {
-        $id = $this->params()->fromRoute('id');
-
-        /**
-         * @var \Doctrine\ORM\EntityManager $em
-         */
-        $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
-
-        $helper = new HomePageControllerHelper();
-        $helper->setConnection($em->getConnection());
-        $helper->deleteFromHomeById($id);
-
-        $referer = $this->getRequest()->getHeader('Referer');
-        if ( is_object($referer) ) {
-            return $this->redirect()->toUrl( $referer->getUri() );
-        }
-
-        return $this->redirect()->toRoute('main');
     }
 }

@@ -2,14 +2,10 @@
 
 namespace ApplicationTest\Controller\AttiConcessione;
 
-use ModelModuleTest\TestSuite;
 use Application\Controller\AttiConcessione\AttiConcessioneController;
 use ServiceLocatorFactory\ServiceLocatorFactory;
+use ModelModuleTest\TestSuite;
 
-/**
- * @author Andrea Fiori
- * @since  15 April 2015
- */
 class AttiConcessioneControllerTest extends TestSuite
 {
     /**

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ZfcmsAttachments
  *
- * @ORM\Table(name="zfcms_attachments", indexes={@ORM\Index(name="mime_id", columns={"mime_id"}), @ORM\Index(name="user_id", columns={"user_id"})})
+ * @ORM\Table(name="zfcms_attachments", indexes={@ORM\Index(name="mime_id", columns={"mime_id"}), @ORM\Index(name="user_id", columns={"user_id"}), @ORM\Index(name="fk_attach_language", columns={"language_id"})})
  * @ORM\Entity
  */
 class ZfcmsAttachments
@@ -24,23 +24,37 @@ class ZfcmsAttachments
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="title", type="string", length=230, nullable=false)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", length=65535, nullable=false)
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=250, nullable=false)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="size", type="text", length=65535, nullable=false)
+     * @ORM\Column(name="size", type="string", length=250, nullable=false)
      */
     private $size;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="state", type="string", length=50, nullable=true)
+     * @ORM\Column(name="status", type="string", length=100, nullable=true)
      */
-    private $state;
+    private $status;
 
     /**
      * @var \DateTime
@@ -48,6 +62,20 @@ class ZfcmsAttachments
      * @ORM\Column(name="insert_date", type="datetime", nullable=false)
      */
     private $insertDate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="expire_date", type="datetime", nullable=false)
+     */
+    private $expireDate;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="position", type="integer", nullable=false)
+     */
+    private $position;
 
     /**
      * @var integer
@@ -59,6 +87,13 @@ class ZfcmsAttachments
     /**
      * @var integer
      *
+     * @ORM\Column(name="atti_concessione_category", type="integer", nullable=false)
+     */
+    private $attiConcessioneCategory;
+
+    /**
+     * @var integer
+     *
      * @ORM\Column(name="albo_rettificato", type="integer", nullable=false)
      */
     private $alboRettificato;
@@ -66,9 +101,19 @@ class ZfcmsAttachments
     /**
      * @var integer
      *
-     * @ORM\Column(name="albo_id", type="bigint", nullable=true)
+     * @ORM\Column(name="albo_id", type="bigint", nullable=false)
      */
     private $alboId;
+
+    /**
+     * @var \Application\Entity\ZfcmsLanguages
+     *
+     * @ORM\ManyToOne(targetEntity="Application\Entity\ZfcmsLanguages")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="language_id", referencedColumnName="id")
+     * })
+     */
+    private $language;
 
     /**
      * @var \Application\Entity\ZfcmsAttachmentsMimetype
@@ -92,3 +137,4 @@ class ZfcmsAttachments
 
 
 }
+

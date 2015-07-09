@@ -105,7 +105,10 @@ class StatoCivileForm extends Form
                                 'required'    => 'required',
                         )
         ));
+    }
 
+    public function addHome()
+    {
         $this->add(array(
             'type' => 'Zend\Form\Element\Checkbox',
             'name' => 'homepageFlag',
@@ -120,7 +123,10 @@ class StatoCivileForm extends Form
                 'unchecked_value'    => 0
             )
         ));
+    }
 
+    public function addBoxNotize()
+    {
         $this->add(array(
             'type' => 'Zend\Form\Element\Checkbox',
             'name' => 'boxNotizie',

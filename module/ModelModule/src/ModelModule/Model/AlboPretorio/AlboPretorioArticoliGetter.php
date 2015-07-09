@@ -58,12 +58,14 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
     }
     
     /**
+     * Set numero progressivo
+     *
      * @param int $numeroProgressivo
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function setNumeroProgressivo($numeroProgressivo)
     {
-        if ( is_numeric($numeroProgressivo) ) {
+        if ( is_numeric($numeroProgressivo) and $numeroProgressivo!=0 ) {
             $this->getQueryBuilder()->andWhere('alboArticoli.numeroProgressivo = :numeroProgressivo ');
             $this->getQueryBuilder()->setParameter('numeroProgressivo', $numeroProgressivo);
         }
@@ -72,6 +74,8 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
     }
     
     /**
+     * Set numero atto
+     *
      * @param int $numeroAtto
      * @return \Doctrine\ORM\QueryBuilder
      */
@@ -100,12 +104,14 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
     }
     
     /**
+     * Set anno
+     *
      * @param int $anno
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function setAnno($anno)
     {
-        if ( is_numeric($anno) ) {
+        if ( is_numeric($anno) and $anno != 0 ) {
             $this->getQueryBuilder()->andWhere('alboArticoli.anno = :anno ');
             $this->getQueryBuilder()->setParameter('anno', $anno);
         }
@@ -114,6 +120,8 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
     }
     
     /**
+     * Set data scadenza
+     *
      * @param \DateTime|string $dataScadenza
      * @return \Doctrine\ORM\QueryBuilder
      */
@@ -128,6 +136,8 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
     }
     
     /**
+     * Set sezione ID
+     *
      * @param int $id
      * @return \Doctrine\ORM\QueryBuilder
      */
@@ -142,6 +152,8 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
     }
     
     /**
+     * Set user ID
+     *
      * @param int $id
      * @return \Doctrine\ORM\QueryBuilder
      */
@@ -224,6 +236,19 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
 
             $this->getQueryBuilder()->andWhere(' ( LOWER(alboArticoli.titolo) LIKE :freeSearch OR LOWER(aps.nome) LIKE :freeSearch ) ');
             $this->getQueryBuilder()->setParameter('freeSearch', "%$search%");
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param int $inHome
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setHome($inHome)
+    {
+        if ($inHome == 1) {
+            $this->getQueryBuilder()->andWhere("alboArticoli.home = 1 ");
         }
 
         return $this->getQueryBuilder();

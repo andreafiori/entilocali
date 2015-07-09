@@ -54,7 +54,7 @@ class ZfcmsNewsletterTemplates
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -65,6 +65,7 @@ class ZfcmsNewsletterTemplates
      * Set name
      *
      * @param string $name
+     *
      * @return ZfcmsNewsletterTemplates
      */
     public function setName($name)
@@ -77,7 +78,7 @@ class ZfcmsNewsletterTemplates
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -88,6 +89,7 @@ class ZfcmsNewsletterTemplates
      * Set filename
      *
      * @param string $filename
+     *
      * @return ZfcmsNewsletterTemplates
      */
     public function setFilename($filename)
@@ -100,7 +102,7 @@ class ZfcmsNewsletterTemplates
     /**
      * Get filename
      *
-     * @return string 
+     * @return string
      */
     public function getFilename()
     {
@@ -111,6 +113,7 @@ class ZfcmsNewsletterTemplates
      * Set description
      *
      * @param string $description
+     *
      * @return ZfcmsNewsletterTemplates
      */
     public function setDescription($description)
@@ -123,7 +126,7 @@ class ZfcmsNewsletterTemplates
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -134,6 +137,7 @@ class ZfcmsNewsletterTemplates
      * Set format
      *
      * @param string $format
+     *
      * @return ZfcmsNewsletterTemplates
      */
     public function setFormat($format)
@@ -146,7 +150,7 @@ class ZfcmsNewsletterTemplates
     /**
      * Get format
      *
-     * @return string 
+     * @return string
      */
     public function getFormat()
     {

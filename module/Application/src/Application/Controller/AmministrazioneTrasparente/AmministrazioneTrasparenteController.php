@@ -6,11 +6,14 @@ use ModelModule\Model\Contenuti\ContenutiControllerHelper;
 use ModelModule\Model\Contenuti\ContenutiFormSearch;
 use ModelModule\Model\Contenuti\ContenutiGetter;
 use ModelModule\Model\Contenuti\ContenutiGetterWrapper;
+use ModelModule\Model\Modules\ModulesContainer;
 use ModelModule\Model\Sezioni\SottoSezioniGetter;
 use ModelModule\Model\Sezioni\SottoSezioniGetterWrapper;
 use Application\Controller\SetupAbstractController;
-use ModelModule\Model\AmministrazioneTrasparente\AmministrazioneTrasparenteFormSearch;
 
+/**
+ * Amministrazione trasparente frontend controller
+ */
 class AmministrazioneTrasparenteController extends SetupAbstractController
 {
     public function indexAction()
@@ -37,7 +40,7 @@ class AmministrazioneTrasparenteController extends SetupAbstractController
                 )
             );
 
-            $contenutiRecords = $helper->recoverWrapperRecords(
+            $wrapperContenuti = $helper->recoverWrapper(
                 new ContenutiGetterWrapper(new ContenutiGetter($em)),
                 array(
                     'sottosezione'      => $profondita,
@@ -45,6 +48,16 @@ class AmministrazioneTrasparenteController extends SetupAbstractController
                     'noscaduti'         => 1,
                     'isAmmTrasparente'  => 1,
                     'orderBy'           => 'contenuti.posizione ASC'
+                )
+            );
+            $wrapperContenuti->setEntityManager($em);
+            $contenutiRecords = $wrapperContenuti->addAttachmentsFromRecords(
+                $wrapperContenuti->getRecords(),
+                array(
+                    'moduleId'              => ModulesContainer::amministrazione_trasparente_id,
+                    'noscaduti'             => 1,
+                    'languageAbbreviation'  => 'it',
+                    'orderBy'               => 'a.position'
                 )
             );
             $helper->checkRecords($contenutiRecords, "I dati relativi all'articolo richiesto non sono stati trovati");
@@ -71,6 +84,7 @@ class AmministrazioneTrasparenteController extends SetupAbstractController
                 'templatePartial'   => 'message.phtml',
             ));
 
+            // TODO: log error
         }
 
         $this->layout()->setTemplate(isset($basicLayout) ? $templateDir.$basicLayout : $mainLayout);

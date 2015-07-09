@@ -7,6 +7,24 @@ use Zend\Form\Form;
 class ContrattiPubbliciFormSearch extends Form
 {
     /**
+     * @inheritdoc
+     */
+    public function __construct($name = null, $options = null)
+    {
+        parent::__construct($name, $options);
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Csrf',
+            'name' => 'csrf',
+            'options' => array(
+                'csrf_options' => array(
+                    'timeout' => 3200
+                )
+            )
+        ));
+    }
+
+    /**
      * @param array $arrayYears
      */
     public function addYears(array $arrayYears)
@@ -60,7 +78,7 @@ class ContrattiPubbliciFormSearch extends Form
     {
         $this->add(array(
                         'type' => 'Zend\Form\Element\Select',
-                        'name' => 'ufficio',
+                        'name' => 'settore',
                         'options' => array(
                                'label' => 'Ufficio e responsabile servizio',
                                'value_options'  => $arrayOfValues,
@@ -68,11 +86,66 @@ class ContrattiPubbliciFormSearch extends Form
                         ),
                         'attributes' => array(
                                 'title' => 'Seleziona ufficio e responsabile servizio',
-                                'id'    => 'ufficio'
+                                'id'    => 'settore'
                         )
         ));
     }
-    
+
+    public function addAttivo()
+    {
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Checkbox',
+            'name' => 'attivo',
+            'attributes' => array(
+                'title'  => 'Spunta casella per cercare fra i bandi attivi',
+                'id'     => 'expired'
+            ),
+            'options' => array(
+                'label'              => 'Cerca bandi attivi e visibili sul sito pubblico',
+                'use_hidden_element' => false,
+                'checked_value'      => 1,
+                'unchecked_value'    => 0
+            )
+        ));
+    }
+
+    public function addCheckExpired()
+    {
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Checkbox',
+            'name' => 'expired',
+            'attributes' => array(
+                'title'  => 'Spunta casella per cercare fra i documenti scaduti',
+                'id'     => 'expired'
+            ),
+            'options' => array(
+                'label'              => 'Cerca anche nei documenti scaduti',
+                'use_hidden_element' => false,
+                'checked_value'      => 1,
+                'unchecked_value'    => 0
+            )
+        ));
+    }
+
+    public function addInHome()
+    {
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Checkbox',
+            'name' => 'inhome',
+            'options' => array(
+                'label'              => 'in home page',
+                'use_hidden_element' => false,
+                'checked_value'      => 1,
+                'unchecked_value'    => 0,
+            ),
+            'required' => false,
+            'attributes' => array(
+                'id'    => 'inhome',
+                'title' => "Presente in home page"
+            )
+        ));
+    }
+
     public function addSubmit()
     {
         $this->add(array(

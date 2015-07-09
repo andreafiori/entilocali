@@ -13,13 +13,11 @@ $shareIconsView = $this->partial('frontend/projects/entilocali/templates/'.$this
     <li class="current">Bandi di gara e contratti</li>
 </ul>
 
-<?php if (count($this->paginator)): ?>
 <div class="text-center">
-    <h1>Bandi di gara e contratti</h1>
+    <h2>Bandi di gara e contratti</h2>
 </div>
 
-<p><?php echo $this->paginator_total_item_count ?> bandi in archivio</p>
-
+<?php if ($this->emptyRecords > 0): ?>
 <fieldset>
         <legend>Ricerca atti di concessione</legend>
     <?php
@@ -28,7 +26,7 @@ $shareIconsView = $this->partial('frontend/projects/entilocali/templates/'.$this
 
     $form->prepare();
 
-    $form->setAttribute('action', $this->url('contratti-pubblici'));
+    $form->setAttribute('action', $this->url('contratti-pubblici-search', array('action' => 'index')));
     $form->setAttribute('method', 'post');
     $form->setAttribute('role', 'form');
     $form->setAttribute('id',   'contrattiPubbliciSearchForm');
@@ -75,27 +73,38 @@ $shareIconsView = $this->partial('frontend/projects/entilocali/templates/'.$this
 
     <div class="row">
         <div class="large-3 columns">
-            <label for="<?php echo $form->get('ufficio')->getAttribute('id'); ?>">
-                <?php echo $form->get('ufficio')->getLabel() ?>:
+            <label for="<?php echo $form->get('settore')->getAttribute('id'); ?>">
+                <?php echo $form->get('settore')->getLabel() ?>:
             </label>
         </div>
         <div class="large-9 columns">
-            <?php echo $this->formElement($form->get('ufficio')); ?>
+            <?php echo $this->formElement($form->get('settore')); ?>
         </div>
     </div>
 
     <div class="row">
         <div class="large-2 columns">&nbsp;</div>
-        <div class="large-10 columns">
+        <div class="large-4 columns">
             <label for="<?php echo $form->get('search')->getAttribute('id'); ?>">
                 <?php echo $form->get('search')->getLabel() ?>
+                <?php echo $this->formElement($form->get('csrf')); ?>
                 <?php echo $this->formElement($form->get('search')); ?>
+
+                <?php if ($this->sessionSearch): ?>
+                    <a href="<?php echo $this->url('contratti-pubblici-search', array('action' => 'unsetsearch')) ?>" class="button tiny alert" title="Azzera sessione di ricerca">Azzera ricerca</a>
+                <?php endif; ?>
             </label>
         </div>
+        <div class="large-4 columns">&nbsp;</div>
     </div>
 
     <?php echo $this->form()->closeTag(); ?>
 </fieldset>
+<?php endif; ?>
+
+<?php if (count($this->paginator)): ?>
+
+<p><?php echo $this->paginator_total_item_count ?> bandi in archivio</p>
 
 <?php echo $shareIconsView; ?>
 
@@ -209,9 +218,9 @@ $shareIconsView = $this->partial('frontend/projects/entilocali/templates/'.$this
 
 else:
     ?>
-    <div>
-        <h1>Nessun bando in archivio</h1>
-        <p>Nessun bando in archivio</p>
+    <div class="panel info">
+        <h2>Nessun bando di gara</h2>
+        <p>Nessun bando trovato o presente in archivio</p>
     </div>
     <?php
 endif;

@@ -125,6 +125,7 @@ abstract class OperationsModelAbstract
     /**
      * @param \ModelModule\Model\RecordsGetterWrapperAbstract $wrapper
      * @param array $input
+     *
      * @return array
      */
     public function recoverWrapperRecords($wrapper, $input)
@@ -140,6 +141,7 @@ abstract class OperationsModelAbstract
      * @param \ModelModule\Model\RecordsGetterWrapperAbstract $wrapper
      * @param array $input
      * @param int $id
+     *
      * @return \ModelModule\Model\RecordsGetterWrapperAbstract|bool
      */
     public function recoverWrapperById($wrapper, $input, $id)
@@ -235,6 +237,18 @@ abstract class OperationsModelAbstract
     public function checkRecords($records, $message ='Empty records')
     {
         if ( empty($records) ) {
+            throw new NullException($message);
+        }
+    }
+
+    /**
+     * @param array|null $records
+     * @param string $message
+     * @throws NullException
+     */
+    public function checkRecordsAreEmpty($records, $message ='Not empty records')
+    {
+        if ( !empty($records) ) {
             throw new NullException($message);
         }
     }

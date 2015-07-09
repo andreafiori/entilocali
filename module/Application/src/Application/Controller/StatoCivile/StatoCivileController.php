@@ -10,7 +10,11 @@ use ModelModule\Model\StatoCivile\StatoCivileGetterWrapper;
 use ModelModule\Model\StatoCivile\Sezioni\StatoCivileSezioniGetter;
 use ModelModule\Model\StatoCivile\Sezioni\StatoCivileSezioniGetterWrapper;
 use ModelModule\Model\StatoCivile\StatoCivileControllerHelper;
+use Zend\Session\Container as SessionContainer;
 
+/**
+ * Stato Civile Frontend Controller
+ */
 class StatoCivileController extends SetupAbstractController
 {
     public function indexAction()
@@ -22,6 +26,9 @@ class StatoCivileController extends SetupAbstractController
         $page = $this->params()->fromRoute('page');
         $perPage = $this->params()->fromRoute('perpage');
 
+        $sessionContainer = new SessionContainer();
+        $sessionSearch = $sessionContainer->offsetGet(StatoCivileSearchController::sessionIdentifier);
+
         try {
 
             $helper = new StatoCivileControllerHelper();
@@ -29,6 +36,7 @@ class StatoCivileController extends SetupAbstractController
                 new StatoCivileSezioniGetterWrapper(new StatoCivileSezioniGetter($em)),
                 array()
             );
+            $helper->checkRecords($sezioniRecords, 'Nessuna sezione stato civile in archivio');
             $sezioniRecordsForDropdown = $helper->formatForDropwdown(
                 $sezioniRecords,
                 'id',
@@ -38,10 +46,10 @@ class StatoCivileController extends SetupAbstractController
                 new StatoCivileGetterWrapper(new StatoCivileGetter($em)),
                 array_merge(
                     array(
-                        'textSearch' => $this->params()->fromPost('testo'),
-                        'anno'       => $this->params()->fromPost('anno'),
-                        'mese'       => $this->params()->fromPost('mese'),
-                        'sezione'    => $this->params()->fromPost('sezione')
+                        'textSearch' => isset($sessionSearch['testo']) ? $sessionSearch['testo'] : null,
+                        'mese'       => isset($sessionSearch['mese']) ? $sessionSearch['mese'] : null,
+                        'anno'       => isset($sessionSearch['anno']) ? $sessionSearch['anno'] : null,
+                        'sezione'    => isset($sessionSearch['sezine']) ? $sessionSearch['sezine'] : null,
                     ),
                     array(
                         'attivo'    => 1,
@@ -59,6 +67,7 @@ class StatoCivileController extends SetupAbstractController
                 array(
                     'moduleId'  => ModulesContainer::stato_civile_id,
                     'noScaduti' => 1,
+                    'orderBy'   => 'a.position'
                 )
             );
 
@@ -71,13 +80,21 @@ class StatoCivileController extends SetupAbstractController
             $form->addAnni();
             $form->addCheckExpired();
             $form->addSubmitButton();
+            $form->setData(array(
+                'testo'             => isset($sessionSearch['testo']) ? $sessionSearch['testo'] : null,
+                'mese'              => isset($sessionSearch['mese']) ? $sessionSearch['mese'] : null,
+                'anno'              => isset($sessionSearch['anno']) ? $sessionSearch['anno'] : null,
+                'sezione'           => isset($sessionSearch['sezione']) ? $sessionSearch['sezione'] : null,
+            ));
 
         } catch(\Exception $e) {
-
+            $paginator = null;
         }
 
         $this->layout()->setVariables(array(
+            'sessionSearch'     => $sessionSearch,
             'paginator'         => !empty($paginator) ? $paginator : null,
+            'emptyRecords'      => count($paginator),
             'records'           => !empty($paginator) ? $paginator : null,
             'form'              => !empty($form) ? $form : null,
             'templatePartial'   => 'stato-civile/stato-civile.phtml',

@@ -11,7 +11,11 @@ use ModelModule\Model\Users\Settori\UsersSettoriGetterWrapper;
 use Application\Controller\SetupAbstractController;
 use ModelModule\Model\AttiConcessione\AttiConcessioneFormSearch;
 use ModelModule\Model\NullException;
+use Zend\Session\Container as SessionContainer;
 
+/**
+ * Atti Concessione frontend controller
+ */
 class AttiConcessioneController extends SetupAbstractController
 {
     public function indexAction()
@@ -25,6 +29,9 @@ class AttiConcessioneController extends SetupAbstractController
         $templateDir = $this->layout()->getVariable('templateDir');
 
         $basicLayout = $this->layout()->getVariable('atti_concessione_basiclayout');
+
+        $sessionContainer = new SessionContainer();
+        $sessionSearch = $sessionContainer->offsetGet(AttiConcessioneSearchController::sessionIdentifier);
 
         try {
             $helper = new AttiConcessioneControllerHelper();
@@ -41,7 +48,15 @@ class AttiConcessioneController extends SetupAbstractController
 
             $wrapperArticoli = $helper->recoverWrapperRecordsPaginator(
                 new AttiConcessioneGetterWrapper(new AttiConcessioneGetter($em)),
-                array('orderBy' => 'atti.id DESC', 'attivo' => 1),
+                array(
+                    'anno'                  => isset($sessionSearch['anno']) ? $sessionSearch['anno'] : null,
+                    'codice'                => isset($sessionSearch['codice']) ? $sessionSearch['codice'] : null,
+                    'beneficiarioSearch'    => isset($sessionSearch['beneficiario']) ? $sessionSearch['beneficiario'] : null,
+                    'importo'               => isset($sessionSearch['importo']) ? $sessionSearch['importo'] : null,
+                    'settore'               => isset($sessionSearch['settore']) ? $sessionSearch['settore'] : null,
+                    'attivo'                => 1,
+                    'orderBy'               => 'atti.id DESC',
+                ),
                 $page,
                 null
             );
@@ -57,7 +72,7 @@ class AttiConcessioneController extends SetupAbstractController
                 array(
                     'moduleId'  => ModulesContainer::atti_concessione,
                     'noScaduti' => 1,
-                    'orderBy'   => 'ao.position'
+                    'orderBy'   => 'a.position'
                 )
             );
 
@@ -66,12 +81,22 @@ class AttiConcessioneController extends SetupAbstractController
             $form->addMainElements();
             $form->addUfficio( $helper->formatForDropwdown($settoriRecords, 'id', 'nome') );
             $form->addSubmitSearchButton();
+            if (!empty($sessionSearch)) {
+                $form->setData(array(
+                    'anno'          => $sessionSearch['anno'],
+                    'codice'        => $sessionSearch['codice'],
+                    'beneficiario'  => $sessionSearch['beneficiario'],
+                    'importo'       => $sessionSearch['importo'],
+                    'settore'       => $sessionSearch['settore'],
+                ));
+            }
 
             $articoliPaginator = $wrapperArticoli->getPaginator();
 
             $this->layout()->setVariables(array(
                 'records'                       => $articoliRecords,
                 'form'                          => $form,
+                'sessionSearch'                 => $sessionSearch,
                 'paginator'                     => $articoliPaginator,
                 'paginator_total_item_count'    => $articoliPaginator->getTotalItemCount(),
                 'templatePartial'               => 'atti-concessione/atti-concessione.phtml',

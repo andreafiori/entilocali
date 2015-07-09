@@ -30,7 +30,7 @@
                         'type'  => 'contenuti',
                         'id'    => $attachment['id'])); ?>" title="Scarica allegato <?php echo $attachment['name'] ?>">
                         <img src="<?php echo $this->publicDirRelativePath ?>/common/icons/attachments/<?php echo $attachment['image']; ?>" alt="Icon tipo file per <?php echo $attachment['name'] ?>">
-                        <?php echo $attachment['name'] ?>
+                        <?php echo $attachment['title'] ?>
                     </a> (<?php echo $attachment['size'] ?> Kb)
                 </div>
             <?php endforeach ?>

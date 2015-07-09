@@ -23,35 +23,41 @@ class IndexController extends SetupAbstractController
         try {
 
             $helper = new HomePageHelper();
-            $helper->setHomePageGetterWrapper( new HomePageGetterWrapper(new HomePageGetter($em)) );
-            $helper->setupHomePageRecords(array(
-                'onlyActiveModules'     => 1,
-                'orderBy'               => 'homePageBlocks.position ASC',
-                'languageAbbreviation'  => $lang
-            ));
-            $helper->gatherReferenceIds();
-            $helper->checkHomePageRecords();
+            $homePageWrapper = $helper->recoverWrapper(
+                new HomePageGetterWrapper(new HomePageGetter($em)),
+                array(
+                    'onlyActiveModules'     => 1,
+                    'orderBy'               => 'homePageBlocks.position ASC',
+                    'languageAbbreviation'  => $lang
+                )
+            );
+            $homePageRecords = $homePageWrapper->getRecords();
+            $helper->checkRecords($homePageRecords, 'Nessun elemento in home page');
 
-            $sortedHomePageRecords = $helper->getHomePageRecords();
+            $sortedHomePageRecordsPerModuleCode = $helper->gatherReferenceIds(
+                $homePageWrapper->formatPerModuleCode($homePageRecords)
+            );
 
-            $helper->checkClassMapFromRecords();
+            $helper->checkClassMapFromRecords($sortedHomePageRecordsPerModuleCode);
 
             $homePageElements = array();
-            foreach($sortedHomePageRecords as $key => $value) {
+            foreach($sortedHomePageRecordsPerModuleCode as $key => $value) {
                 $obj = $helper->recoverClassMapKey($key);
 
-                /**
-                 * @var \ModelModule\Model\HomePage\HomePageBuilderAbstract $builder
-                 */
-                $builder = new $obj();
-                $builder->setEntityManager($em);
-                $builder->setModuleRelatedRecords($value);
+                if (!empty($obj)) {
 
-                $homePageElements[$key] = $builder->recoverHomePageElements();
+                    /**
+                     * @var \ModelModule\Model\HomePage\HomePageBuilderAbstract $builder
+                     */
+                    $builder = new $obj();
+                    $builder->setEntityManager($em);
+                    $builder->setModuleRelatedRecords($value);
+
+                    $homePageElements[$key] = $builder->recoverHomePageElements();
+                }
             }
 
         } catch(NullException $e) {
-
             $logWriter = new LogWriter($em->getConnection());
             $logWriter->writeLog(array(
                 'user_id'       => 0,

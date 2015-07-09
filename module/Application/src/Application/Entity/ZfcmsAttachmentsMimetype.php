@@ -40,7 +40,7 @@ class ZfcmsAttachmentsMimetype
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -51,6 +51,7 @@ class ZfcmsAttachmentsMimetype
      * Set image
      *
      * @param string $image
+     *
      * @return ZfcmsAttachmentsMimetype
      */
     public function setImage($image)
@@ -63,7 +64,7 @@ class ZfcmsAttachmentsMimetype
     /**
      * Get image
      *
-     * @return string 
+     * @return string
      */
     public function getImage()
     {
@@ -74,6 +75,7 @@ class ZfcmsAttachmentsMimetype
      * Set mimetype
      *
      * @param string $mimetype
+     *
      * @return ZfcmsAttachmentsMimetype
      */
     public function setMimetype($mimetype)
@@ -86,7 +88,7 @@ class ZfcmsAttachmentsMimetype
     /**
      * Get mimetype
      *
-     * @return string 
+     * @return string
      */
     public function getMimetype()
     {

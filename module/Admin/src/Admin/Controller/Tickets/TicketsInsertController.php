@@ -88,9 +88,9 @@ class TicketsInsertController extends SetupAbstractController
             /* Send email */
             $message = new Message();
             $message->addTo('a.fiori@cheapnet.it')
-                ->addFrom('noreply@comune.it')
-                ->setSubject('Nuova richiesta di assistenza da '.$configurations['sitename'])
-                ->setBody($inputFilter->message);
+                    ->addFrom('noreply@comune.it')
+                    ->setSubject('Nuova richiesta di assistenza da '.$configurations['sitename'])
+                    ->setBody($inputFilter->message);
 
             $transport = new SendmailTransport();
             $transport->send($message);
@@ -110,7 +110,7 @@ class TicketsInsertController extends SetupAbstractController
                 'messageTitle'               => 'Nuova richiesta assistenza inviata correttamente',
                 'messageText'                => 'Riceverete una risposta nel pi&ugrave; breve tempo possibile',
                 'showLinkResetFormAndShowIt' => 1,
-                'backToSummaryLink' => $this->url()->fromRoute('admin/ticket-summary', array(
+                'backToSummaryLink' => $this->url()->fromRoute('admin/tickets-summary', array(
                     'lang' => $this->params()->fromRoute('lang'),
                 )),
                 'backToSummaryText'     => "Elenco richieste",

@@ -5,8 +5,7 @@ namespace ModelModule\Model\AttiConcessione\ModalitaAssegnazione;
 use Zend\Form\Form;
 
 /**
- * @author Andrea Fiori
- * @since  30 March 2015
+ * \Modalita Assegnazione admin form
  */
 class AttiConcessioneModalitaAssegnazioneForm extends Form
 {
@@ -35,6 +34,16 @@ class AttiConcessioneModalitaAssegnazioneForm extends Form
             'options' => array(
                 'label' => 'Nome',
             ),
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Csrf',
+            'name' => 'csrf',
+            'options' => array(
+                'csrf_options' => array(
+                    'timeout' => 3200
+                )
+            )
         ));
     }
 }

@@ -27,7 +27,7 @@ class ModulesGetter extends QueryBuilderHelperAbstract
     public function setStatus($status)
     {
         if ( is_numeric($status) ) {
-            $this->getQueryBuilder()->andWhere('m.status = :status ');
+            $this->getQueryBuilder()->andWhere('module.status = :status ');
             $this->getQueryBuilder()->setParameter('status', $status);
         }
 

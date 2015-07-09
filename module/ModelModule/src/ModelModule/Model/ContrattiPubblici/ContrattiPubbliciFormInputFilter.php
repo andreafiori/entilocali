@@ -7,9 +7,13 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
+/**
+ * Contratti Pubblici Admin Form Validator
+ */
 class ContrattiPubbliciFormInputFilter implements InputFilterAwareInterface
 {
     public $id;
+    public $beneficiario;
     public $titolo;
     public $numeroDetermina;
     public $dataDetermina;
@@ -47,7 +51,6 @@ class ContrattiPubbliciFormInputFilter implements InputFilterAwareInterface
         $this->dataDetermina            = (isset($data['dataDetermina']))           ? $data['dataDetermina']   : null;
         $this->importoAggiudicazione    = (isset($data['importoAggiudicazione']))   ? $data['importoAggiudicazione'] : null;
         $this->importoLiquidato         = (isset($data['importoLiquidato']))        ? $data['importoLiquidato'] : null;
-        /* $this->operatori             = (isset($data['operatori']))               ? $data['operatori'] : null; */
         $this->numeroOfferte            = (isset($data['numeroOfferte']))           ? $data['numeroOfferte']   : null;
         $this->dataInizioLavori         = (isset($data['dataInizioLavori']))        ? $data['dataInizioLavori']   : null;
         $this->dataFineLavori           = (isset($data['dataFineLavori']))          ? $data['dataFineLavori']   : null;
@@ -58,10 +61,8 @@ class ContrattiPubbliciFormInputFilter implements InputFilterAwareInterface
         $this->scadenza                 = (isset($data['scadenza']))                ? $data['scadenza']   : null;
         $this->modalitaAssegnazione     = (isset($data['modalitaAssegnazione']))    ? $data['modalitaAssegnazione']   : null;
         $this->cig                      = (isset($data['cig']))                     ? $data['cig']   : null;
-        /* $homepage; */
-        /* $dataUltimoAggiornamento; */
-        $this->utenteId                 = (isset($data['utenteId;']))               ? $data['utenteId;']            : null;
-        $this->settoreId                = (isset($data['settoreId;']))              ? $data['settoreId;']           : null;
+        $this->utenteId                 = (isset($data['utenteId']))               ? $data['utenteId']            : null;
+        $this->settoreId                = (isset($data['settoreId']))              ? $data['settoreId']           : null;
         $this->sceltaContraenteId       = (isset($data['sceltaContraenteId']))      ? $data['sceltaContraenteId']   : null;
         $this->respProcId               = (isset($data['respProcId']))              ? $data['respProcId']           : null;
         $this->dataInserimento          = (isset($data['dataInserimento']))         ? $data['dataInserimento']      : null;
@@ -107,9 +108,22 @@ class ContrattiPubbliciFormInputFilter implements InputFilterAwareInterface
                         'options' => array(
                             'encoding' => 'UTF-8',
                             'min'      => 1,
-                            'max'      => 11,
+                            'max'      => 10,
                         ),
                     ),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'beneficiario',
+                'required' => false,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                    array('name' => 'HtmlEntities'),
+                ),
+                'validators' => array(
+
                 ),
             ));
 
@@ -135,7 +149,7 @@ class ContrattiPubbliciFormInputFilter implements InputFilterAwareInterface
 
             $inputFilter->add(array(
                 'name'     => 'numeroDetermina',
-                'required' => false,
+                'required' => true,
                 'filters'  => array(
                     array('name' => 'Int'),
                 ),
@@ -143,7 +157,7 @@ class ContrattiPubbliciFormInputFilter implements InputFilterAwareInterface
 
             $inputFilter->add(array(
                 'name'     => 'dataDetermina',
-                'required' => false,
+                'required' => true,
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
@@ -196,7 +210,23 @@ class ContrattiPubbliciFormInputFilter implements InputFilterAwareInterface
 
             $inputFilter->add(array(
                 'name'     => 'numeroOfferte',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'Int'),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'modalitaAssegnazione',
                 'required' => false,
+                'filters'  => array(
+                    array('name' => 'Int'),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'settoreId',
+                'required' => true,
                 'filters'  => array(
                     array('name' => 'Int'),
                 ),
@@ -206,7 +236,8 @@ class ContrattiPubbliciFormInputFilter implements InputFilterAwareInterface
                 'name'     => 'dataInizioLavori',
                 'required' => true,
                 'filters'  => array(
-
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
                 ),
                 'validators' => array(
 
@@ -217,7 +248,8 @@ class ContrattiPubbliciFormInputFilter implements InputFilterAwareInterface
                 'name'     => 'dataFineLavori',
                 'required' => true,
                 'filters'  => array(
-
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
                 ),
                 'validators' => array(
 

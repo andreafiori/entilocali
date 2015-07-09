@@ -152,4 +152,18 @@ class AttiConcessioneGetter extends QueryBuilderHelperAbstract
 
         return $this->getQueryBuilder();
     }
+
+    /**
+     * @param int $settoreId
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setSettoreId($settoreId)
+    {
+        if ( !empty($settoreId) ) {
+            $this->getQueryBuilder()->andWhere('atti.settore = :settoreId ');
+            $this->getQueryBuilder()->setParameter('settoreId', $settoreId);
+        }
+
+        return $this->getQueryBuilder();
+    }
 }

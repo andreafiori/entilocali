@@ -131,6 +131,7 @@ foreach ($this->form as $element):
                     <?php if (isset($attributes['id'])): ?> id="<?php echo $attributes['id'] ?>"<?php endif; ?>
                     value="<?php echo $element->getValue() ?>"
                     <?php if (isset($attributes['readonly'])): ?> readonly="readonly"<?php endif; ?>
+                    <?php if (isset($attributes['maxlength'])): ?> maxlength="<?php echo $attributes['maxlength'] ?>"<?php endif; ?>
                     <?php if (isset($attributes['required'])): ?> required="required"<?php endif; ?>>
         </div>
     </div>

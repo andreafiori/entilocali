@@ -54,7 +54,7 @@ class ZfcmsConfig
      *
      * @ORM\Column(name="is_always_allowed", type="bigint", nullable=false)
      */
-    private $isAlwaysAllowed;
+    private $isAlwaysAllowed = '1';
 
     /**
      * @var integer
@@ -68,7 +68,7 @@ class ZfcmsConfig
      *
      * @ORM\Column(name="channel_id", type="bigint", nullable=true)
      */
-    private $channelId;
+    private $channelId = '1';
 
     /**
      * @var \Application\Entity\ZfcmsLanguages
@@ -85,7 +85,7 @@ class ZfcmsConfig
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -96,6 +96,7 @@ class ZfcmsConfig
      * Set name
      *
      * @param string $name
+     *
      * @return ZfcmsConfig
      */
     public function setName($name)
@@ -108,7 +109,7 @@ class ZfcmsConfig
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -119,6 +120,7 @@ class ZfcmsConfig
      * Set value
      *
      * @param string $value
+     *
      * @return ZfcmsConfig
      */
     public function setValue($value)
@@ -131,7 +133,7 @@ class ZfcmsConfig
     /**
      * Get value
      *
-     * @return string 
+     * @return string
      */
     public function getValue()
     {
@@ -142,6 +144,7 @@ class ZfcmsConfig
      * Set note
      *
      * @param string $note
+     *
      * @return ZfcmsConfig
      */
     public function setNote($note)
@@ -154,7 +157,7 @@ class ZfcmsConfig
     /**
      * Get note
      *
-     * @return string 
+     * @return string
      */
     public function getNote()
     {
@@ -165,6 +168,7 @@ class ZfcmsConfig
      * Set isBackend
      *
      * @param integer $isBackend
+     *
      * @return ZfcmsConfig
      */
     public function setIsBackend($isBackend)
@@ -177,7 +181,7 @@ class ZfcmsConfig
     /**
      * Get isBackend
      *
-     * @return integer 
+     * @return integer
      */
     public function getIsBackend()
     {
@@ -188,6 +192,7 @@ class ZfcmsConfig
      * Set isAlwaysAllowed
      *
      * @param integer $isAlwaysAllowed
+     *
      * @return ZfcmsConfig
      */
     public function setIsAlwaysAllowed($isAlwaysAllowed)
@@ -200,7 +205,7 @@ class ZfcmsConfig
     /**
      * Get isAlwaysAllowed
      *
-     * @return integer 
+     * @return integer
      */
     public function getIsAlwaysAllowed()
     {
@@ -211,6 +216,7 @@ class ZfcmsConfig
      * Set moduleId
      *
      * @param integer $moduleId
+     *
      * @return ZfcmsConfig
      */
     public function setModuleId($moduleId)
@@ -223,7 +229,7 @@ class ZfcmsConfig
     /**
      * Get moduleId
      *
-     * @return integer 
+     * @return integer
      */
     public function getModuleId()
     {
@@ -234,6 +240,7 @@ class ZfcmsConfig
      * Set channelId
      *
      * @param integer $channelId
+     *
      * @return ZfcmsConfig
      */
     public function setChannelId($channelId)
@@ -246,7 +253,7 @@ class ZfcmsConfig
     /**
      * Get channelId
      *
-     * @return integer 
+     * @return integer
      */
     public function getChannelId()
     {
@@ -257,6 +264,7 @@ class ZfcmsConfig
      * Set language
      *
      * @param \Application\Entity\ZfcmsLanguages $language
+     *
      * @return ZfcmsConfig
      */
     public function setLanguage(\Application\Entity\ZfcmsLanguages $language = null)
@@ -269,7 +277,7 @@ class ZfcmsConfig
     /**
      * Get language
      *
-     * @return \Application\Entity\ZfcmsLanguages 
+     * @return \Application\Entity\ZfcmsLanguages
      */
     public function getLanguage()
     {

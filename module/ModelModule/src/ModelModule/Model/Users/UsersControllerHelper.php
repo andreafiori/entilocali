@@ -67,17 +67,20 @@ class UsersControllerHelper extends ControllerHelperAbstract
 
         $encodedPassword = $this->encodePassword($formData->password);
 
+        $today = date("Y-m-d H:i:s");
+
         $arrayInsert = array(
-            'name'          => $formData->name,
-            'surname'       => $formData->surname,
-            'email'         => $formData->email,
-            'username'      => $formData->username,
-            'password'      => $encodedPassword['password'],
-            'salt'          => $encodedPassword['salt'],
-            'role_id'       => $formData->roleId,
-            'settore_id'    => $formData->settoreId,
-            'last_update'   => date("Y-m-d H:i:s"),
-            'create_date'   => date("Y-m-d H:i:s"),
+            'name'                  => $formData->name,
+            'surname'               => $formData->surname,
+            'email'                 => $formData->email,
+            'username'              => $formData->username,
+            'password'              => $encodedPassword['password'],
+            'salt'                  => $encodedPassword['salt'],
+            'password_last_update'  => $today,
+            'role_id'               => $formData->roleId,
+            'settore_id'            => !empty($formData->settoreId) ? $formData->settoreId : null,
+            'last_update'           => $today,
+            'create_date'           => $today,
         );
 
         $this->getConnection()->insert(
@@ -104,6 +107,7 @@ class UsersControllerHelper extends ControllerHelperAbstract
             'surname'       => $formData->surname,
             'email'         => $formData->email,
             'username'      => $formData->username,
+            'settore_id'    => !empty($formData->settoreId) ? $formData->settoreId : null,
             'last_update'   => date("Y-m-d H:i:s"),
         );
 
@@ -117,10 +121,6 @@ class UsersControllerHelper extends ControllerHelperAbstract
 
         if (!empty($formData->roleId)) {
             $arrayToUpdate['role_id'] = $formData->roleId;
-        }
-
-        if (!empty($formData->settore_id)) {
-            $arrayToUpdate['settore_id'] = $formData->settore_id;
         }
 
         return $this->getConnection()->update(
@@ -164,12 +164,17 @@ class UsersControllerHelper extends ControllerHelperAbstract
         return $userDetails;
     }
 
+    /**
+     * TODO: delete user, delete roles, delete or annull association (maybe assign all to the first webmaster)....
+     */
     public function delete()
     {
-        // TODO: delete user, delete roles, delete every association....
+
     }
 
     /**
+     * Format Users for a dropdown form control
+     *
      * @param $recordset
      * @param $idFieldName
      * @return array|bool
@@ -188,5 +193,21 @@ class UsersControllerHelper extends ControllerHelperAbstract
         }
 
         return false;
+    }
+
+    /**
+     * @param array $records
+     * @return array
+     */
+    public function gatherIdsFromRecordset($records, $idField = 'userId')
+    {
+        $container = array();
+        foreach($records as $record) {
+            if (isset($record[$idField])) {
+                $container[] = $record[$idField];
+            }
+        }
+
+        return $container;
     }
 }

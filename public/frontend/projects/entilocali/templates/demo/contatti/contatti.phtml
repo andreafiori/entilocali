@@ -1,16 +1,16 @@
 <ul class="breadcrumbs">
-    <li><a href="<?php echo $this->basepath() ?>" title="Home page">Home</a></li>
+    <li><a href="<?php echo $this->basepath() ?>" title="Torna alla home page">Home</a></li>
     <li class="current">Contatti</li>
 </ul>
 
 <?php if (!$this->form): ?>
-<div class="alert alert-danger">
+<div class="panel info">
     <h1>Form contatti non rilevato</h1>
     <p>&Egrave; stato rilevato un errore per cui il form contatti non &egrave; presente. Ci scusiamo per il momentaneo disagio.</p>
 </div>
 <?php else: ?>
 
-    <h1>Invia un messaggio</h1>
+    <h2>Invia un messaggio</h2>
     
     <p>Compila i campi del form per contattarci. Tutti i campi sono obbligatori.</p>
     
@@ -21,30 +21,32 @@
     $form = $this->form;
     $form->prepare();
 
-    $form->setAttribute('action', $this->basepath().'/contatti/invia-messaggio/');
+    $form->setAttribute('action', $this->url('main/contatti-send', array('lang' => $this->params()->fromRoute('lang') )));
     $form->setAttribute('method', 'post');
-    $form->setAttribute('role', 'form');   
+    $form->setAttribute('role', 'form');
 
     $formLabel = $this->plugin('formLabel');
     
     echo $this->form()->openTag($this->form);
     
     foreach ($this->form as $element):
+
         $attributes = $element->getAttributes();
+
         echo $this->formElementErrors($element);
+
         if ($attributes['name'] == 'csrf'):
             echo $this->formElement($element);
         elseif ($attributes['type'] == 'submit'):
         ?>
         <div class="row">
-            <label for="<?php echo $attributes['id'] ?>">&nbsp;</label>
-            <div>
-            <?php
-            $element->setAttribute('class', 'button');
-            $element->setAttribute('title', 'Clicca per inviare il messaggio');
-            echo $this->formElement($element);
-            ?>
-            </div>
+            <label for="<?php echo $attributes['id'] ?>">
+                <?php
+                $element->setAttribute('class', 'button small');
+                $element->setAttribute('title', 'Clicca per inviare il messaggio');
+                echo $this->formElement($element);
+                ?>
+            </label>
         </div>
         <?php
         else:
@@ -60,9 +62,16 @@
         <?php
         endif;
     endforeach;
+        ?>
+        <div class="form-group">
+            <div class="col-sm-10">
+                * <?php echo $this->translate('Campi obbligatori') ?>
+            </div>
+        </div>
+        <?php
        
     echo $this->form()->closeTag();
-    
+
     ?>
     </fieldset>
     <?php

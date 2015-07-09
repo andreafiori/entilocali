@@ -58,7 +58,7 @@ class AttachmentsUpdateController extends SetupAbstractController
             $helper->setConnection($connection);
             $helper->getConnection()->beginTransaction();
             $helper->setLoggedUser($userDetails);
-            $helper->updateOptions($inputFilter);
+            //$helper->updateOptions($inputFilter);
             $helper->getConnection()->commit();
 
             $logWriter = new LogWriter($connection);

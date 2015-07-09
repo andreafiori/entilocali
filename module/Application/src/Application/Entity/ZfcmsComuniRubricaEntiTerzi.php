@@ -54,7 +54,7 @@ class ZfcmsComuniRubricaEntiTerzi
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -65,6 +65,7 @@ class ZfcmsComuniRubricaEntiTerzi
      * Set nome
      *
      * @param string $nome
+     *
      * @return ZfcmsComuniRubricaEntiTerzi
      */
     public function setNome($nome)
@@ -77,7 +78,7 @@ class ZfcmsComuniRubricaEntiTerzi
     /**
      * Get nome
      *
-     * @return string 
+     * @return string
      */
     public function getNome()
     {
@@ -88,6 +89,7 @@ class ZfcmsComuniRubricaEntiTerzi
      * Set email
      *
      * @param string $email
+     *
      * @return ZfcmsComuniRubricaEntiTerzi
      */
     public function setEmail($email)
@@ -100,7 +102,7 @@ class ZfcmsComuniRubricaEntiTerzi
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -111,6 +113,7 @@ class ZfcmsComuniRubricaEntiTerzi
      * Set insertDate
      *
      * @param \DateTime $insertDate
+     *
      * @return ZfcmsComuniRubricaEntiTerzi
      */
     public function setInsertDate($insertDate)
@@ -123,7 +126,7 @@ class ZfcmsComuniRubricaEntiTerzi
     /**
      * Get insertDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getInsertDate()
     {
@@ -134,6 +137,7 @@ class ZfcmsComuniRubricaEntiTerzi
      * Set lastUpdate
      *
      * @param \DateTime $lastUpdate
+     *
      * @return ZfcmsComuniRubricaEntiTerzi
      */
     public function setLastUpdate($lastUpdate)
@@ -146,7 +150,7 @@ class ZfcmsComuniRubricaEntiTerzi
     /**
      * Get lastUpdate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getLastUpdate()
     {

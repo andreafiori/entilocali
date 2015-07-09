@@ -4,28 +4,32 @@ namespace ModelModule\Model\Attachments;
 
 use ModelModule\Model\QueryBuilderHelperAbstract;
 
+/**
+ * Attachments Getter
+ */
 class AttachmentsGetter extends QueryBuilderHelperAbstract
 {
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
     public function setMainQuery()
     {
-        $this->setSelectQueryFields('DISTINCT(a.id) AS id, a.name, a.size, a.state, a.insertDate, a.attiConcessioneColonna,
-                                      ao.id AS attachmenOptionId, ao.title, ao.description, ao.expireDate, ao.position,
+        $this->setSelectQueryFields('DISTINCT(a.id) AS id, a.name, a.size, a.status, a.insertDate,
+                                      a.attiConcessioneColonna, a.title, a.description, a.expireDate, a.position,
                                       am.image, am.mimetype,
-
-                                      u.name AS username, u.surname
+                                      u.name AS username, u.surname,
+                                      mods.code AS moduleCode
                                     ');
-        
+
         $this->getQueryBuilder()->select( $this->getSelectQueryFields() )
-                                ->add('from', '
-                                       Application\Entity\ZfcmsAttachments a, 
-                                       Application\Entity\ZfcmsAttachmentsOptions ao, 
-                                       Application\Entity\ZfcmsAttachmentsRelations ar,
-                                       Application\Entity\ZfcmsAttachmentsMimeType am,
-                                       Application\Entity\ZfcmsLanguages languages,
-                                       Application\Entity\ZfcmsUsers u
-                                ')
-                                ->where('ao.attachment = a.id AND ar.attachment = a.id
-                                            AND a.user = u.id AND a.mime = am.id AND ao.language = languages.id
+                                ->add('from', 'Application\Entity\ZfcmsAttachmentsRelations ar')
+                                ->join('ar.module', 'mods')
+                                ->join('ar.attachment', 'a')
+                                ->join('a.user', 'u')
+                                ->join('a.mime', 'am')
+                                ->join('a.language', 'languages')
+                                ->where('a.user = u.id AND a.mime = am.id AND a.language = languages.id
+                                            AND ar.module = mods.id
                                         ');
 
         return $this->getQueryBuilder();
@@ -99,8 +103,8 @@ class AttachmentsGetter extends QueryBuilderHelperAbstract
     public function setNoScaduti($noScaduti)
     {
         if ($noScaduti == 1) {
-            $this->getQueryBuilder()->andWhere("( ao.expireDate > '".date("Y-m-d H:i:s")."'
-            OR ao.expireDate = '0000-00-00 00:00:00' ) ");
+            $this->getQueryBuilder()->andWhere("( a.expireDate > '".date("Y-m-d H:i:s")."'
+            OR a.expireDate = '0000-00-00 00:00:00' ) ");
         }
 
         return $this->getQueryBuilder();

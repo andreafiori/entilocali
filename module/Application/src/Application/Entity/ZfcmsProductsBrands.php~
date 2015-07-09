@@ -54,14 +54,14 @@ class ZfcmsProductsBrands
      *
      * @ORM\Column(name="status", type="string", length=50, nullable=false)
      */
-    private $status;
+    private $status = 'si';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="position", type="integer", nullable=false)
      */
-    private $position;
+    private $position = '0';
 
     /**
      * @var string
@@ -93,3 +93,4 @@ class ZfcmsProductsBrands
 
 
 }
+

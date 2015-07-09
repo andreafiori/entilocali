@@ -4,6 +4,9 @@ namespace ModelModule\Model\Contenuti;
 
 use Zend\Form\Form;
 
+/**
+ * Contenuti Form Search
+ */
 class ContenutiFormSearch extends Form
 {
     /**
@@ -51,6 +54,7 @@ class ContenutiFormSearch extends Form
         $this->add(array(
             'type' => 'Zend\Form\Element\Checkbox',
             'name' => 'searchSubsection',
+            'required' => false,
             'options' => array(
                 'label' => 'Cerca nelle sottosezioni',
                 'use_hidden_element' => false,
@@ -64,7 +68,7 @@ class ContenutiFormSearch extends Form
     }
 
     /**
-     * @param $sezioni
+     * @param array $sezioni
      */
     public function addSezioni($sezioni)
     {
@@ -84,7 +88,7 @@ class ContenutiFormSearch extends Form
     }
 
     /**
-     * @param $sottoSezioni
+     * @param array $sottoSezioni
      */
     public function addSottosezioni($sottoSezioni)
     {
@@ -119,7 +123,6 @@ class ContenutiFormSearch extends Form
             'attributes' => array(
                 'title'     => 'Seleziona utente',
                 'id'        => 'utente',
-                'required'  => 'required'
             )
         ));
     }
@@ -135,6 +138,7 @@ class ContenutiFormSearch extends Form
                 'checked_value'      => 1,
                 'unchecked_value'    => 0,
             ),
+            'required' => false,
             'attributes' => array(
                 'id'    => 'inhome',
                 'title' => "Presente in home page"

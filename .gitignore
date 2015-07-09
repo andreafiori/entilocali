@@ -11,6 +11,7 @@ zftool.phar
 data
 docs
 tests/reports
+tests/mailoutput
 vendor/
 config/development.config.php
 config/autoload/local.php

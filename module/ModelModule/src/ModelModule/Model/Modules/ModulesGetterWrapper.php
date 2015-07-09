@@ -31,4 +31,24 @@ class ModulesGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setGroupBy($this->getInput('grouoBy',1));
         $this->objectGetter->setLimit($this->getInput('limit',1));
     }
+
+    /**
+     * @param mixed $recordset
+     * @return array|bool
+     */
+    public function recoverModuleCodeOnly($recordset)
+    {
+        if (!empty($recordset)) {
+            $container = array();
+            foreach($recordset as $record) {
+                if (isset($record['code'])) {
+                    $container[] = $record['code'];
+                }
+            }
+
+            return $container;
+        }
+
+        return false;
+    }
 }

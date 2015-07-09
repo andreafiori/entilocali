@@ -11,6 +11,9 @@ use ModelModule\Model\AlboPretorio\AlboPretorioSezioniGetterWrapper;
 use Application\Controller\SetupAbstractController;
 use ModelModule\Model\NullException;
 
+/**
+ * Albo Pretorio admin forms
+ */
 class AlboPretorioFormController extends SetupAbstractController
 {
     public function indexAction()
@@ -40,7 +43,8 @@ class AlboPretorioFormController extends SetupAbstractController
             $helper->checkArticoloIsNotAnnulled($articoliRecords);
 
             $numeroProgressivo = $helper->recoverNumeroProgressivo(
-                new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter($em))
+                new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter($em)),
+                date("Y")
             );
 
             $form = new AlboPretorioArticoliForm();
@@ -69,9 +73,7 @@ class AlboPretorioFormController extends SetupAbstractController
                     'numeroAtto' => $numeroProgressivo,
                 ));
 
-                $formAction = $this->url()->fromRoute('admin/albo-pretorio-insert', array(
-                    'lang' => $lang
-                ));
+                $formAction = $this->url()->fromRoute('admin/albo-pretorio-insert', array('lang' => $lang));
                 $formTitle  = 'Nuovo atto';
                 $submitButtonValue = 'Inserisci';
             }
@@ -82,16 +84,14 @@ class AlboPretorioFormController extends SetupAbstractController
                 'formTitle'                     => $formTitle,
                 'formDescription'               => "Compila i dati relativi all'atto da inserire sull'albo pretorio",
                 'submitButtonValue'             => $submitButtonValue,
+                'templatePartial'               => self::formTemplate,
                 'formBreadCrumbCategory'        => array(
                     array(
                         'label' => 'Albo pretorio',
-                        'href'  => $this->url()->fromRoute('admin/albo-pretorio-summary', array(
-                            'lang' => $lang
-                        )),
+                        'href'  => $this->url()->fromRoute('admin/albo-pretorio-summary', array('lang' => $lang)),
                         'title' => "'Torna all'elenco atti albo pretorio",
                     )
                 ),
-                'templatePartial'               => self::formTemplate,
             ));
 
         } catch(NullException $e) {

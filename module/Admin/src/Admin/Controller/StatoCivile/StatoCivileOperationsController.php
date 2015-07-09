@@ -5,6 +5,9 @@ namespace Admin\Controller\StatoCivile;
 use ModelModule\Model\Database\DbTableContainer;
 use Application\Controller\SetupAbstractController;
 
+/**
+ * Stato Civile additional Operations Controller
+ */
 class StatoCivileOperationsController extends SetupAbstractController
 {
     /**

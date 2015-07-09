@@ -12,6 +12,9 @@ use ModelModule\Model\Posts\PostsFormInputFilter;
 use ModelModule\Model\Languages\LanguagesGetter;
 use ModelModule\Model\Languages\LanguagesGetterWrapper;
 
+/**
+ * Create a thumbnail, upload big picture, insert photo form data into db
+ */
 class PhotoInsertController extends SetupAbstractController
 {
     public function indexAction()
@@ -58,6 +61,7 @@ class PhotoInsertController extends SetupAbstractController
 
             $inputFilter->exchangeArray( $form->getData() );
 
+            $publicDirPath = $helper->recoverPublicDirPath($this->layout()->getVariable('isPublicDirOnRoot'));
             $mediaDir = $helper->checkMediaDir($configurations);
             $mediaProject = $helper->checkMediaProject($configurations);
             $helper->checkMediaSubDir($configurations);
@@ -84,16 +88,21 @@ class PhotoInsertController extends SetupAbstractController
                 $thumbWitdth = isset($configurations['photo_image_width']) ? $configurations['photo_image_width'] : 160;
                 $thumbHeight = isset($configurations['photo_image_height']) ? $configurations['photo_image_height'] : 130;
 
+                $thumbPath  = str_replace("//", '/', $publicDirPath.$mediaDir.$mediaProject.'/photo/thumbs/'.$newFilename);
+                $bigPicturePath = str_replace("//", '/', $publicDirPath.$mediaDir.$mediaProject.'/photo/big/'.$newFilename);
+
+                /* Create thumb image */
                 $imagine = new \Imagine\Gd\Imagine();
                 $imagine->open($inputFilter->image['tmp_name'])
                     ->thumbnail(
                         new \Imagine\Image\Box($thumbWitdth, $thumbHeight),
                         \Imagine\Image\ImageInterface::THUMBNAIL_INSET
                     )
-                    ->save($mediaDir.$mediaProject.'/photo/thumbs/'.$newFilename)
+                    ->save($thumbPath)
                 ;
 
-                move_uploaded_file($inputFilter->image['tmp_name'], $mediaDir.$mediaProject.'/photo/big/'.$newFilename);
+                /* Upload "big" image */
+                move_uploaded_file($inputFilter->image['tmp_name'], $bigPicturePath);
             }
 
             $helper->updateImage($lastInsertId, $newFilename);
@@ -101,7 +110,6 @@ class PhotoInsertController extends SetupAbstractController
             foreach($inputFilter->categories as $category) {
                 $helper->insertRelation($inputFilter, $lastInsertId, $category);
             }
-            $helper->getConnection()->commit();
 
             $logWriter = new LogWriter($connection);
             $logWriter->writeLog(array(
@@ -125,6 +133,8 @@ class PhotoInsertController extends SetupAbstractController
                 'insertAgainLabel'      => "Inserisci un'altra foto",
                 'backToSummaryText'     => "Elenco foto",
             ));
+
+            $helper->getConnection()->commit();
 
         } catch(\Exception $e) {
 

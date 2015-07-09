@@ -7,6 +7,9 @@ use ModelModule\Model\AlboPretorio\AlboPretorioSezioniGetter;
 use ModelModule\Model\AlboPretorio\AlboPretorioSezioniGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
+/**
+ * Albo Pretorio Sezioni index
+ */
 class AlboPretorioSezioniSummaryController extends SetupAbstractController
 {
     public function indexAction()
@@ -46,7 +49,7 @@ class AlboPretorioSezioniSummaryController extends SetupAbstractController
                 'formBreadCrumbCategory' => array(
                     array(
                       'label' => 'Albo pretorio',
-                      'href'  =>  $this->url()->fromRoute('admin/albo-pretorio-sezioni-summary',
+                      'href'  =>  $this->url()->fromRoute('admin/albo-pretorio-summary',
                           array('lang' => $lang)
                       ),
                       'title' => 'Albo pretorio',
@@ -82,13 +85,13 @@ class AlboPretorioSezioniSummaryController extends SetupAbstractController
                             'lang'  => 'it',
                             'id'    => $record['id']
                         )),
-                        'title'     => 'Modifica'
+                        'title'     => 'Modifica ente terzo'
                     ),
                     array(
                         'type'      => 'deleteButton',
                         'href'      => '#',
                         'data-id'   => $record['id'],
-                        'title'     => 'Elimina'
+                        'title'     => 'Elimina ente terzo'
                     ),
                 );
             }

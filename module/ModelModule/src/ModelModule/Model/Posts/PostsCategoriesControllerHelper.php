@@ -20,7 +20,7 @@ class PostsCategoriesControllerHelper extends ControllerHelperAbstract
 
         $slug = Slugifier::slugify($formData->name);
 
-        return $this->getConnection()->insert(
+        $this->getConnection()->insert(
             DbTableContainer::postsCategories,
             array(
                 'name'              => $formData->name,
@@ -40,6 +40,8 @@ class PostsCategoriesControllerHelper extends ControllerHelperAbstract
                 'position'          => isset($formData->position) ? $formData->position : 1,
             )
         );
+
+        return $this->getConnection()->lastInsertId();
     }
 
     /**

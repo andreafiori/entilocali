@@ -10,6 +10,9 @@ use ModelModule\Model\Users\UsersControllerHelper;
 use ModelModule\Model\Users\UsersGetter;
 use ModelModule\Model\Users\UsersGetterWrapper;
 
+/**
+ * Users responsabili procedimento
+ */
 class UsersRespProcController extends SetupAbstractController
 {
     public function indexAction()
@@ -18,47 +21,59 @@ class UsersRespProcController extends SetupAbstractController
 
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-        $helper = new UsersControllerHelper();
-        $userRecords = $helper->recoverWrapperRecords(
-            new UsersGetterWrapper(new UsersGetter($em)),
-            array(
-                'fields'      => 'u.id, u.name, u.surname',
-                'adminAccess' => 1,
-                'orderBy'     => 'u.surname'
-            )
-        );
-        $usersForDropDown = $helper->formatForDropwdown(
-            $userRecords,
-            'id',
-            'name'
-        );
+        try {
 
-        $usersRespProcRecords = $helper->recoverWrapperRecords(
-            new UsersRespProcGetterWrapper(new UsersRespProcGetter($em)),
-            array(
-                'orderBy' => 'u.surname'
-            )
-        );
+            $helper = new UsersControllerHelper();
+            $usersRespProcRecords = $helper->recoverWrapperRecords(
+                new UsersRespProcGetterWrapper(new UsersRespProcGetter($em)),
+                array('orderBy' => 'u.surname')
+            );
+            $idsToExclude = $helper->gatherIdsFromRecordset($usersRespProcRecords);
 
-        $form = new UsersRespProcForm();
-        $form->addUsers($usersForDropDown);
-
-        $this->layout()->setVariables(array(
-            'form'                   => $form,
-            'usersRespProc'          => $usersRespProcRecords,
-            'formDataCommonPath'     => 'backend/templates/common/',
-            'formBreadCrumbCategory' => array(
+            $userRecords = $helper->recoverWrapperRecords(
+                new UsersGetterWrapper(new UsersGetter($em)),
                 array(
-                    'href' => $this->url()->fromRoute('admin/users-responsabili-procedimento', array(
-                        'lang' => $this->params()->fromRoute('lang')
-                    )),
-                    'label' => 'Atti di concessione',
-                    'title' => 'Elenco atti di concessione',
+                    'fields'      => 'u.id, u.name, u.surname',
+                    'adminAccess' => 1,
+                    'excludeId'   => $idsToExclude,
+                    'orderBy'     => 'u.surname'
+                )
+            );
+
+            if (!empty($userRecords)) {
+                $usersForDropDown = $helper->formatForDropwdown(
+                    $userRecords,
+                    'id',
+                    'name'
+                );
+            } else {
+                $usersForDropDown = array();
+            }
+
+            $form = new UsersRespProcForm();
+            $form->addUsers($usersForDropDown);
+
+            $this->layout()->setVariables(array(
+                'form'                   => $form,
+                'usersRespProc'          => $usersRespProcRecords,
+                'usersForDropDown'       => $usersForDropDown,
+                'formDataCommonPath'     => 'backend/templates/common/',
+                'formBreadCrumbCategory' => array(
+                    array(
+                        'href' => $this->url()->fromRoute('admin/users-responsabili-procedimento', array(
+                            'lang' => $this->params()->fromRoute('lang')
+                        )),
+                        'label' => 'Atti di concessione',
+                        'title' => 'Elenco atti di concessione',
+                    ),
                 ),
-            ),
-            'formBreadCrumbTitle'    => 'Responsabili procedimento',
-            'templatePartial'        => 'users/resp-proc-management.phtml'
-        ));
+                'formBreadCrumbTitle'    => 'Responsabili procedimento',
+                'templatePartial'        => 'users/resp-proc-management.phtml'
+            ));
+
+        } catch(\Exception $e) {
+
+        }
 
         $this->layout()->setTemplate($mainLayout);
     }

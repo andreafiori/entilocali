@@ -102,6 +102,13 @@ class PostsControllerHelper extends ControllerHelperAbstract
         );
     }
 
+    /**
+     * @param int $id
+     * @param string $imagFileName
+     *
+     * @return int
+     *
+     */
     public function updateImage($id, $imagFileName)
     {
         $this->assertConnection();
@@ -146,6 +153,21 @@ class PostsControllerHelper extends ControllerHelperAbstract
     }
 
     /**
+     * Recover public direcotry path
+     *
+     * @param int|null $isPublicDirOnRoot
+     * @return string
+     */
+    public function recoverPublicDirPath($isPublicDirOnRoot)
+    {
+        if ($isPublicDirOnRoot) {
+            return '../public/';
+        }
+
+        return 'public/';
+    }
+
+    /**
      * @param PostsGetterWrapper $wrapper
      * @param $input
      * @return array
@@ -163,6 +185,8 @@ class PostsControllerHelper extends ControllerHelperAbstract
     }
 
     /**
+     * Check media directory
+     *
      * @param array $configurations
      * @throws NullException
      */
@@ -172,14 +196,18 @@ class PostsControllerHelper extends ControllerHelperAbstract
             throw new NullException("La cartella di destinazione delle immagini non esiste o non &egrave; stata configurata");
         }
 
+        /*
         if (!file_exists($configurations['media_dir'])) {
             mkdir($configurations['media_dir']);
         }
+        */
 
         return $configurations['media_dir'];
     }
 
     /**
+     * Check project (name) media directory
+     *
      * @param array $configurations
      * @return mixed
      * @throws NullException
@@ -192,9 +220,11 @@ class PostsControllerHelper extends ControllerHelperAbstract
             throw new NullException("La cartella di destinazione del progetto corrente non esiste o non &egrave; stata configurata");
         }
 
+        /*
         if (!file_exists($configurations['media_dir'].$configurations['media_project'])) {
             mkdir($configurations['media_dir'].$configurations['media_project']);
         }
+        */
 
         return $configurations['media_project'];
     }
@@ -217,12 +247,13 @@ class PostsControllerHelper extends ControllerHelperAbstract
             $prefixDir.'\photo\big'
         );
 
+        /*
         foreach($dirToCheck as $directory) {
             if (!file_exists($directory)) {
                 mkdir($directory, 0777, true);
             }
         }
-
+        */
         return true;
     }
 }

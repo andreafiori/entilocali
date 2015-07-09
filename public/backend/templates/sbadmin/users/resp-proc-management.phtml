@@ -38,11 +38,10 @@ if (!isset($this->formLabelSpanWidth)): $this->formLabelSpanWidth = 2; endif;
     </div>
 <?php endif; ?>
 
+<?php if (!empty($this->usersForDropDown)): ?>
 <h3>Aggiungi utente</h3>
 
 <p>Aggiungi un utente all'elenco responsabili procedimento.</p>
-
-<!-- Form aggiungi agli utenti -->
 <div>
     <?php
 
@@ -89,7 +88,12 @@ if (!isset($this->formLabelSpanWidth)): $this->formLabelSpanWidth = 2; endif;
 
     ?>
 </div>
-
+<?php else: ?>
+    <div class="alert alert-warning">
+        <h3>Impossibile aggiungere un altro utente</h3>
+        <p>Tutti gli utenti sono stati aggiunti all'elenco responsabili di procedimento.</p>
+    </div>
+<?php endif; ?>
 
 <!-- Delete Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="ConfirmDeleteModal" aria-hidden="true">

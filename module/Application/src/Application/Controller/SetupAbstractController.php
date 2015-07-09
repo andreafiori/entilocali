@@ -2,15 +2,18 @@
 
 namespace Application\Controller;
 
+use ModelModule\Model\Modules\ModulesGetter;
+use ModelModule\Model\Modules\ModulesGetterWrapper;
+use ModelModule\Model\NullException;
 use ModelModule\Model\SearchEngine\SearchEngineForm;
 use ModelModule\Model\Sezioni\SezioniGetter;
 use ModelModule\Model\Sezioni\SezioniGetterWrapper;
 use ModelModule\Model\SetupAbstractControllerHelper;
-use ModelModule\Setup\UserInterfaceConfigurations;
 use ModelModule\Model\Log\LogWriter;
-use ModelModule\Service\AppServiceLoader;
 use ModelModule\Model\Config\ConfigGetter;
 use ModelModule\Model\Config\ConfigGetterWrapper;
+use ModelModule\Service\AppServiceLoader;
+use ModelModule\Setup\UserInterfaceConfigurations;
 use Zend\Mvc\MvcEvent;
 use Zend\Session\Container as SessionContainer;
 use Zend\View\Model\ViewModel;
@@ -49,7 +52,7 @@ abstract class SetupAbstractController extends AbstractActionController
         $uri                = $request->getUri();
         $basePath           = sprintf('%s://%s%s', $uri->getScheme(), $uri->getHost(), $request->getBaseUrl().'/');
         $cookieWarning      = $sessionContainer->offsetGet($configurations['sitename']);
-        $lang               = $this->params()->fromRoute('lang');
+        $lang               = $this->params()->fromRoute('lang') ? $this->params()->fromRoute('lang') : 'it';
         $serviceLocator     = $this->getServiceLocator();
 
         $helper = new SetupAbstractControllerHelper();
@@ -58,7 +61,19 @@ abstract class SetupAbstractController extends AbstractActionController
         $helper->setupZf2appDir();
         $helper->setupAppDirRelativePath();
 
-        $templateBackend = $configurations['template_backend'];
+        try {
+
+            $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+            $wrapperModules = $helper->recoverWrapper(
+                new ModulesGetterWrapper(new ModulesGetter($em)),
+                array('status' => 1, 'fields' => 'module.code, module.name')
+            );
+            $modulesRecords = $wrapperModules->recoverModuleCodeOnly($wrapperModules->getRecords());
+            $helper->checkRecords($modulesRecords, "Nessun dato relativo all'elenco moduli");
+
+        } catch(NullException $e) {
+
+        }
 
         /**
          * @var \Zend\Mvc\I18n\Translator $translator
@@ -69,6 +84,8 @@ abstract class SetupAbstractController extends AbstractActionController
             $translator->addTranslationFile('phparray', './module/Application/language/form.array.'.$lang.'.php');
         }
         $serviceLocator->get('ViewHelperManager')->get('translate')->setTranslator($translator);
+
+        $templateBackend = $configurations['template_backend'];
 
         $this->layout()->setVariables(array_merge(
             $configurations,
@@ -86,6 +103,7 @@ abstract class SetupAbstractController extends AbstractActionController
                 'isMultiLanguage'               => isset($configurations['isMultiLanguage']) ? 1 : 0,
                 'defaultLanguageId'             => 1,
                 'defaultLanguageAbbreviation'   => 'it',
+                'modulesRecords'                => $modulesRecords,
             )
         ));
 
@@ -110,11 +128,11 @@ abstract class SetupAbstractController extends AbstractActionController
             exit;
         }
 
-        $serviceLocator = $this->getServiceLocator();
-        $request = $this->getRequest();
-        $uri = $request->getUri();
-        $cookieWarningSession = $sessionContainer->offsetGet('cookie-warning');
-        $lang = $this->params()->fromRoute('lang');
+        $serviceLocator         = $this->getServiceLocator();
+        $request                = $this->getRequest();
+        $uri                    = $request->getUri();
+        $cookieWarningSession   = $sessionContainer->offsetGet('cookie-warning');
+        $lang                   = $this->params()->fromRoute('lang') ? $this->params()->fromRoute('lang') : 'it';
 
         $helper = new SetupAbstractControllerHelper();
         $helper->setConfigurations($configurations);
@@ -136,7 +154,7 @@ abstract class SetupAbstractController extends AbstractActionController
         $helper->setSezioniRecords( $helper->getSezioniGetterWrapper()->formatRecordsPerColumn($sottosezioniRecords) );
         $helper->setupServer();
         $helper->setupFrontendTemplatePath();
-        $helper->setupPhpRenderer( $this->getServiceLocator() );
+        $helper->setupPhpRenderer($this->getServiceLocator());
         $helper->setupZf2appDir();
         $helper->setupAppDirRelativePath();
 

@@ -131,10 +131,10 @@ return array(
     ),
     /* Sottosezioni */
     'admin/sottosezioni-summary' => array(
-        'resources' => array( 'contenuti_sezioni_update' )
+        'resources' => array('contenuti_sezioni_update')
     ),
     'admin/sottosezioni-form' => array(
-        'resources' => array( 'contenuti_sezioni_add', 'contenuti_sezioni_update' )
+        'resources' => array('contenuti_sezioni_add', 'contenuti_sezioni_update')
     ),
     /* Home page */
     'admin/homepage-management' => array(
@@ -155,6 +155,9 @@ return array(
     /* Users: form check is not here for letting users update its own data */
     'admin/users-summary' => array(
         'resources' => array('users_update')
+    ),
+    'admin/users-form' => array(
+        // No permission set: the user must be able to update its own data
     ),
     'admin/users-insert' => array(
         'resources' => array('users_add')

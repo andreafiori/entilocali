@@ -5,7 +5,7 @@
 
 <div style="padding: 1%; margin: 0" class="alert alert-<?php if ($this->messageType) echo $this->messageType; else echo "info"; ?>" id="formdataresultmessage">
 
-    <h1><?php echo $this->messageTitle ?></h1>
+    <h2><?php echo $this->messageTitle ?></h2>
 
     <div><?php echo $this->messageText ?></div>
 
@@ -16,7 +16,7 @@
     <div>
         <ul>
             <?php foreach($this->messageList as $message): ?>
-            <li><?php echo $message ?></li>
+            <li><?php echo $this->translate($message) ?></li>
             <?php endforeach; ?>
         </ul>
     </div>
@@ -29,11 +29,14 @@
         if ( !empty($invalidInputs) ):
             ?>
             <h4>Campi non validi:</h4>
+            <ul>
             <?php
             foreach($invalidInputs as $key => $value):
-                echo $key."<br>";
+                ?><li><?php echo $key ?></li>
+            <?php
             endforeach;
             ?>
+            </ul>
             <br>
             <?php
         endif;
@@ -41,7 +44,7 @@
     <?php endif; ?>
 
     <?php if (!empty($this->form)): ?>
-        <!-- Form Errors -->
+
         <?php foreach ($this->form as $element): ?>
             <?php
             $elementError = $this->formElementerrors($element);
@@ -49,16 +52,28 @@
                 if (!isset($printDebugFormRow)):
                     $printDebugFormRow = 1;
                 endif;
-                echo $element->getName().' '.$elementError;
             endif;
             ?>
         <?php endforeach; ?>
 
-        <?php
-        if (isset($printDebugFormRow)):
-            ?><br><?php
-        endif;
-        ?>
+        <?php if (isset($printDebugFormRow)): ?>
+            <h4>Ulteriori messaggi di errore</h4>
+            <ul>
+            <?php foreach ($this->form as $element): ?>
+                <?php
+                $elementError = $this->formElementerrors($element);
+                if (!empty($elementError)):
+                    echo '<li>Campo: <strong>'.$element->getName().'</strong> - <strong>'.$this->translate(strip_tags($elementError)).'</strong></li>';
+                endif;
+                ?>
+            <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
+
+        <?php if (isset($printDebugFormRow)): ?>
+            <br>
+        <?php endif; ?>
+
     <?php endif; ?>
 
     <?php if ($this->messageShowFormLink): ?>
@@ -86,7 +101,7 @@
         <div id="attachmentsManagementLink">
             <p>
                 <a href="<?php echo $this->attachmentsLink ?>" title="Vai alla gestione allegati">
-                    <i class="fa fa-paperclip"></i> Allegati
+                    <i class="fa fa-paperclip"></i> <?php echo ($this->attachmentsLabel) ? $this->attachmentsLabel : 'Allegati' ?>
                 </a>
             </p>
         </div>
@@ -118,6 +133,15 @@
         <div id="showFormContainer">
             &raquo; <a href="<?php echo $urlRedirect ?>" title="Torna all'elenco \ riepilogo dati">Torna all'elenco</a>
         </div>
+    <?php endif; ?>
+
+    <?php if ($this->previousPageLink): ?>
+        <!-- Link to previous page -->
+        <p>
+            <a href="<?php echo $this->previousPageLink ?>"  title="Torna indietro">
+                <?php echo ($this->previousPageLabel) ? $this->previousPageLabel : 'Torna indietro' ?>
+            </a>
+        </p>
     <?php endif; ?>
 </div>
 

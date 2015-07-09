@@ -39,6 +39,20 @@ class UsersGetterTest extends TestSuite
         
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('id'));
     }
+
+    public function testSetExcludeId()
+    {
+        $this->objectGetter->setExcludeId(11);
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('excludeId'));
+    }
+
+    public function testSetExcludeIdArray()
+    {
+        $this->objectGetter->setExcludeId( array(1,2,3) );
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('excludeId'));
+    }
     
     public function testSetSurname()
     {
@@ -80,5 +94,33 @@ class UsersGetterTest extends TestSuite
         $this->objectGetter->setStatus('active');
  
         $this->assertNotEmpty( $this->objectGetter->getQueryBuilder()->getParameter('status') );
+    }
+
+    public function testSetRoleName()
+    {
+        $this->objectGetter->setRoleName('WebMaster');
+
+        $this->assertNotEmpty( $this->objectGetter->getQueryBuilder()->getParameter('roleName') );
+    }
+
+    public function testSetExcludeRoleName()
+    {
+        $this->objectGetter->setExcludeRoleName('WebMaster');
+
+        $this->assertNotEmpty( $this->objectGetter->getQueryBuilder()->getParameter('excludeRoleName') );
+    }
+
+    public function testSetExcludeRoleNameArray()
+    {
+        $this->objectGetter->setExcludeRoleName(array('WebMaster', 'SuperAdmin'));
+
+        $this->assertNotEmpty( $this->objectGetter->getQueryBuilder()->getParameter('excludeRoleName') );
+    }
+
+    public function testSetEmailUsersname()
+    {
+        $this->objectGetter->setEmailUsersname('myUserNameTest');
+
+        $this->assertNotEmpty( $this->objectGetter->getQueryBuilder()->getParameter('emailUsername') );
     }
 }

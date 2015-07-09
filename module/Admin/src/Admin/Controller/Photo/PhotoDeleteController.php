@@ -52,6 +52,13 @@ class PhotoDeleteController extends SetupAbstractController
             );
             $helper->checkRecords('Dati post corrente non trovati');
 
+            $isPublicDirOnRoot = $this->layout()->getVariable('isPublicDirOnRoot');
+            if ($isPublicDirOnRoot) {
+                $publicDirPath = '../public/';
+            } else {
+                $publicDirPath = 'public/';
+            }
+
             /* Delete images from file system */
             $currentImage = isset($records[0]['image']) ? $records[0]['image'] : null;
             if ($currentImage) {
@@ -59,8 +66,8 @@ class PhotoDeleteController extends SetupAbstractController
                 $mediaProject = $helper->checkMediaProject($configurations);
 
                 /* Delete old image */
-                $oldImageThumbPath = $mediaDir.$mediaProject.'/photo/thumbs/'.$currentImage;
-                $oldImageBigPath = $mediaDir.$mediaProject.'/photo/big/'.$currentImage;
+                $oldImageThumbPath = $publicDirPath.$mediaDir.$mediaProject.'/photo/thumbs/'.$currentImage;
+                $oldImageBigPath = $publicDirPath.$mediaDir.$mediaProject.'/photo/big/'.$currentImage;
                 if (file_exists($oldImageThumbPath) and $currentImage!='') {
                     unlink($oldImageThumbPath);
                 }
@@ -111,7 +118,7 @@ class PhotoDeleteController extends SetupAbstractController
 
             $this->layout()->setVariables(array(
                 'messageType'           => 'danger',
-                'messageTitle'          => 'Errore eliminazione photo',
+                'messageTitle'          => 'Errore eliminazione foto',
                 'messageText'           => $e->getMessage(),
                 'messageShowFormLink'   => 1,
                 'messageShowForm'       => "Torna all'elenco posts",

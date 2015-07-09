@@ -76,4 +76,18 @@ class AlboPretorioOperationsControllerTest extends TestSuite
 
         $this->assertEquals(302, $this->controller->getResponse()->getStatusCode());
     }
+
+    public function testPublishArticle()
+    {
+        $this->helper->setConnection($this->getConnectionMock());
+
+        $this->assertTrue( $this->helper->publishArticle(12) );
+    }
+
+    public function testAnnullArticle()
+    {
+        $this->helper->setConnection($this->getConnectionMock());
+
+        $this->assertTrue( $this->helper->annullArticle(12) );
+    }
 }

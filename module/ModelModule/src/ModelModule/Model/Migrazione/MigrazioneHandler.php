@@ -2,17 +2,10 @@
 
 namespace ModelModule\Model\Migrazione;
 
-use ModelModule\Model\Logs\LogWriter;
 use ModelModule\Model\Database\Redbean\RedbeanHelper;
 use ModelModule\Model\NullException;
-use ModelModule\Model\RouterManagers\RouterManagerAbstract;
-use ModelModule\Model\RouterManagers\RouterManagerInterface;
 use ModelModule\Model\Database\Redbean\R;
 
-/**
- * @author Andrea Fiori
- * @since  21 February 2015
- */
 class MigrazioneHandler extends RouterManagerAbstract implements RouterManagerInterface
 {
     private $arrayMap = array(

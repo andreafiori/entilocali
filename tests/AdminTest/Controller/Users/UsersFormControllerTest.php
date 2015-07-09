@@ -21,7 +21,7 @@ class UsersFormControllerTest extends TestSuite
         $this->controller->setServiceLocator($this->getServiceManager());
     }
 
-    public function testIndexAction()
+    public function testIndexActionReturnsRedirect()
     {
         $this->setupUserSession($this->recoverUserDetails());
 
@@ -29,6 +29,6 @@ class UsersFormControllerTest extends TestSuite
 
         $this->controller->dispatch($this->request);
 
-        $this->assertEquals(200, $this->controller->getResponse()->getStatusCode());
+        $this->assertEquals(302, $this->controller->getResponse()->getStatusCode());
     }
 }

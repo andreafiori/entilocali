@@ -77,21 +77,25 @@ class ContrattiPubbliciFormController extends SetupAbstractController
                     'lang' => $lang
                 ));
                 $formTitle = 'Modifica bando';
+                $formDescription = '&Egrave; consigliabile inserire testi brevi sul tema trattato, possibilmente in minuscolo.';
 
                 $form->setData($contrattoRecord[0]);
             } else {
 
                 $form->setData( array("dataInserimento" => date("Y-m-d H:i:s")) );
 
-                $formAction = $this->url()->fromRoute('admin/contratti-pubblici-insert', array('lang' => $lang));
+                $formAction = $this->url()->fromRoute('admin/contratti-pubblici-insert', array(
+                    'lang' => $lang
+                ));
                 $formTitle = 'Nuovo bando';
+                $formDescription = "Il bando verr&agrave; inserito come <strong>disattivato</strong>. Occorrer&agrave; attivare lo stesso dall'elenco.";
             }
 
             $this->layout()->setVariables(array(
                 'form'                       => $form,
                 'formAction'                 => $formAction,
                 'formTitle'                  => $formTitle,
-                'formDescription'            => '&Egrave; consigliabile inserire testi brevi sul tema trattato, possibilmente in minuscolo.',
+                'formDescription'            => $formDescription,
                 'formBreadCrumbCategory'     => 'Contratti pubblici',
                 'formBreadCrumbCategoryLink' => $this->url()->fromRoute('admin/contratti-pubblici-summary', array(
                     'lang' => $lang

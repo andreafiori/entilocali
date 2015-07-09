@@ -6,12 +6,19 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
+/**
+ * Enti Terzi Form Validator
+ */
 class EntiTerziFormInputFilter implements InputFilterAwareInterface
 {
     public $id;
     public $nome;
     public $email;
+    public $csrf;
 
+    /**
+     * @var InputFilter
+     */
     private $inputFilter;
 
     /**
@@ -22,6 +29,7 @@ class EntiTerziFormInputFilter implements InputFilterAwareInterface
         $this->id    = (isset($data['id']))    ? $data['id']     : null;
         $this->nome  = (isset($data['nome']))  ? $data['nome']   : null;
         $this->email = (isset($data['email'])) ? $data['email']  : null;
+        $this->csrf  = (isset($data['csrf']))  ? $data['csrf']   : null;
     }
 
     /**
@@ -39,6 +47,7 @@ class EntiTerziFormInputFilter implements InputFilterAwareInterface
     public function getInputFilter()
     {
         if (!$this->inputFilter) {
+
             $inputFilter = new InputFilter();
 
             $inputFilter->add(array(

@@ -47,28 +47,29 @@ class ZfcmsNewsletterEmails
      *
      * @ORM\Column(name="insert_date", type="datetime", nullable=false)
      */
-    private $insertDate;
+    private $insertDate = '2008-01-01 01:01:01';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="activation_date", type="datetime", nullable=false)
      */
-    private $activationDate;
+    private $activationDate = '2008-01-01 01:01:01';
 
     /**
      * @var string
      *
      * @ORM\Column(name="confirm_code", type="string", length=150, nullable=false)
      */
-    private $confirmCode;
+    private $confirmCode = '2008-01-01 01:01:01';
 
     /**
      * @var string
      *
      * @ORM\Column(name="status", type="string", length=50, nullable=false)
      */
-    private $status;
+    private $status = '0';
 
 
 }
+

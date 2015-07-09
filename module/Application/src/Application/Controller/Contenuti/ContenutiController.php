@@ -10,6 +10,9 @@ use ModelModule\Model\Sezioni\SottoSezioniGetter;
 use ModelModule\Model\Sezioni\SottoSezioniGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
+/**
+ * Contenuti Controller for the public website
+ */
 class ContenutiController extends SetupAbstractController
 {
     public function indexAction()
@@ -20,6 +23,9 @@ class ContenutiController extends SetupAbstractController
 
         $lang = $this->params()->fromRoute('lang');
 
+        /**
+         * @var \Doctrine\ORM\EntityManager $em
+         */
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
         $ammTraspSezioneId = $this->layout()->getVariable('amministrazione_trasparente_sezione_id');
@@ -40,8 +46,10 @@ class ContenutiController extends SetupAbstractController
         $records = $wrapper->addAttachmentsFromRecords(
             $wrapper->getRecords(),
             array(
-                'moduleId'    => 2,
-                'noscaduti'   => 1,
+                'moduleId'              => ModulesContainer::contenuti_id,
+                'noscaduti'             => 1,
+                'languageAbbreviation'  => $lang,
+                'orderBy'               => 'a.position'
             )
         );
 

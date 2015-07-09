@@ -15,7 +15,7 @@ use ModelModule\Model\NullException;
 use Application\Controller\SetupAbstractController;
 
 /**
- * Attachment data insert and storage
+ * Attachments insert into db and storage
  */
 class AttachmentsInsertController extends SetupAbstractController
 {
@@ -67,7 +67,6 @@ class AttachmentsInsertController extends SetupAbstractController
 
             $helper->setLoggedUser($userDetails);
 
-            /* Check S3 keys */
             $configurations = $this->layout()->getVariable('configurations');
             $s3AccessKey = isset($configurations['amazon_s3_accesskey']) ? $configurations['amazon_s3_accesskey'] : null;
             $s3SecretKey = isset($configurations['amazon_s3_secretkey']) ? $configurations['amazon_s3_secretkey'] : null;
@@ -78,29 +77,18 @@ class AttachmentsInsertController extends SetupAbstractController
             $s3Helper->setS3Directory($inputFilter->s3_directory);
             $s3Helper->setS3( new S3($s3AccessKey, $s3SecretKey) );
 
-            /* Recover MIME */
             $mimeRecords = $helper->recoverWrapperRecords(
                 new AttachmentsMimetypeGetterWrapper(new AttachmentsMimetypeGetter($em)),
-                array(
-                    'mimetype' => $inputFilter->attachmentFile['type'],
-                    'limit'    => 1,
-                )
+                array('mimetype' => $inputFilter->attachmentFile['type'], 'limit' => 1)
             );
             $helper->checkRecords($mimeRecords, "Il tipo di file inserito non &egrave; supportato. Per ulteriori informazioni contattare l'amministrazione");
 
-            $helper->insertAttachments($inputFilter, $mimeRecords[0]['id']);
-            $lastInsertId = $helper->getConnection()->lastInsertId();
+            $lastInsertId = $helper->insertAttachments($inputFilter, $mimeRecords[0]['id']);
             $attachmentFileName = $s3Helper->assignFileName($inputFilter->attachmentFile['name'], $lastInsertId);
             $helper->updateAttachmentsFilename($lastInsertId, $attachmentFileName);
-            $helper->insertAttachmentsOptions($inputFilter, $lastInsertId);
             $helper->insertAttachmentsRelations($inputFilter, $lastInsertId);
 
-            $s3Helper->upload(
-                $inputFilter->attachmentFile['tmp_name'],
-                $attachmentFileName
-            );
-
-            $helper->getConnection()->commit();
+            $s3Helper->upload($inputFilter->attachmentFile['tmp_name'], $attachmentFileName);
 
             $logWriter = new LogWriter($connection);
             $logWriter->writeLog(array(
@@ -119,7 +107,15 @@ class AttachmentsInsertController extends SetupAbstractController
                 'showLinkResetFormAndShowIt' => 1,
                 'backToSummaryText'          => "Elenco file allegati",
                 'insertAgainLabel'           => "Inserisci un altro file allegato",
+                'attachmentsLabel'           => 'Elenco allegati',
+                'attachmentsLink' => $this->url()->fromRoute('admin/attachments-summary', array(
+                    'lang'          => $this->params()->fromRoute('lang'),
+                    'module'        => $moduleCode,
+                    'referenceId'   => $inputFilter->referenceId,
+                )),
             ));
+
+            $helper->getConnection()->commit();
 
         } catch(\Exception $e) {
 

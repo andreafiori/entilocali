@@ -56,9 +56,10 @@ class ContrattiPubbliciOperatoriInsertController extends SetupAbstractController
             $inputFilter->exchangeArray( $form->getData() );
 
             $helper->setLoggedUser($userDetails);
-            $helper->insert($inputFilter);
-            $lastInsertId = $helper->getConnection()->lastInsertId();
-            $helper->getConnection()->commit();
+            if (!$helper->isValidCodiceFiscale($inputFilter->cf) and !$helper->isValidPartitaIVA($inputFilter->cf)) {
+                throw new NullException("Codice fiscale o Partita IVA non valido");
+            }
+            $lastInsertId = $helper->insert($inputFilter);
 
             $logWriter = new LogWriter($connection);
             $logWriter->writeLog(array(
@@ -81,6 +82,8 @@ class ContrattiPubbliciOperatoriInsertController extends SetupAbstractController
                 'backToSummaryText'     => "Elenco aziende",
                 'insertAgainLabel'      => "Inserisci un'altra azienda",
             ));
+
+            $helper->getConnection()->commit();
 
         } catch(\Exception $e) {
 

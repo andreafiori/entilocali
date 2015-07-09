@@ -102,7 +102,6 @@ UPDATE zfcms_comuni_sezioni SET is_amm_trasparente = 1 where id = 14;
     */
 
 	
-	
 
 -- Migrazione atti di concessione
 	-- Articoli
@@ -141,19 +140,16 @@ select nome, 1, 117 from zfcms_comuni_concessione_settori
 -- Migrazione Stato Civile
 	-- Articoli
 
+
+
+-- TODO: Migrazione eventi
 	
 
-
--- Migrazione eventi
-	
-
--- Migrazione galleria fotografica
+-- TODO: Migrazione galleria fotografica
 
 
--- Migrazione link esterni ?!
-	
 
--- Delete OLD tables
+-- Delete tables OLD CMS
 -- DROP TABLE IF EXISTS `albo_allegati`, `albo_articoli`, `albo_sezioni`, `ammaperta_allegati`, `ammaperta_articoli`, `ammaperta_resp_proc`, `ammaperta_sezioni`, `backup`, `categorie_link`, `categorie_photo`, `config`, `contatti`, `contatti_dett`, `contenuti`, `contenuti_allegati`, `contpub_allegati`, `contpub_cf`, `contpub_data`, `contpub_partecipanti`, `contpub_part_cig`, `contpub_resp_proc`, `contpub_sc_contr`, `contpub_sezioni`, `eventi`, `eventi_allegati`, `forum`, `forum_mex`, `forum_topic`, `lingue`, `link`, `log`, `mimetype`, `moduli`, `permessi_utente`, `photogallery`, `rubrica_et`, `sezioni`, `sottosezioni`, `statocivile_allegati`, `statocivile_articoli`, `statocivile_sezioni`, `temi`, `ticket`, `ticket_allegati`, `ticket_impostazioni`, `ticket_mex`, `ticket_topic`, `utenti`;
 
 -- Enable foreign checks

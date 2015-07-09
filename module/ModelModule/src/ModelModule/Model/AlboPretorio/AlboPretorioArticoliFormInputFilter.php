@@ -12,12 +12,6 @@ class AlboPretorioArticoliFormInputFilter implements InputFilterAwareInterface
     public $id;
     public $titolo;
     public $sezione;
-
-    /**
-     * Numero progressivo aggiunto SOLO al momento dell'inserimento nel db
-     *
-     * @var int $numeroProgressivo
-     */
     public $numeroProgressivo;
 
     public $numeroAtto;
@@ -68,8 +62,8 @@ class AlboPretorioArticoliFormInputFilter implements InputFilterAwareInterface
      */
     public function getInputFilter()
     {
-        if (!$this->inputFilter)
-        {
+        if (!$this->inputFilter) {
+
             $inputFilter = new InputFilter();
 
             $inputFilter->add(array(
@@ -172,7 +166,6 @@ class AlboPretorioArticoliFormInputFilter implements InputFilterAwareInterface
                 'required' => false,
                 'filters'  => array(
                     array('name' => 'Int'),
-                    array('name' => 'HtmlEntities'),
                 ),
             ));
 

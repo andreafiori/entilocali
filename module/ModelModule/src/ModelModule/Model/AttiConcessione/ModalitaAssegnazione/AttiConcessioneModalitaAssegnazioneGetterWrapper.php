@@ -4,10 +4,6 @@ namespace ModelModule\Model\AttiConcessione\ModalitaAssegnazione;
 
 use ModelModule\Model\RecordsGetterWrapperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  30 March 2015
- */
 class AttiConcessioneModalitaAssegnazioneGetterWrapper  extends RecordsGetterWrapperAbstract
 {
     /**

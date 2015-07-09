@@ -24,6 +24,8 @@ class AttachmentsSummaryController extends SetupAbstractController
 
         $em          = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
+        $userDetails = $this->layout()->getVariable('userDetails');
+
         try {
             $helper = new AttachmentsFormControllerHelper();
             $helper->setModulesGetterWrapper( new ModulesGetterWrapper(new ModulesGetter($em)) );
@@ -32,7 +34,7 @@ class AttachmentsSummaryController extends SetupAbstractController
             $helper->setupAttachmentsRecords( array(
                     'moduleId'      => ModulesContainer::recoverIdFromModuleCode($moduleCode),
                     'referenceId'   => $referenceId,
-                    'orderBy'       => 'ao.position'
+                    'orderBy'       => 'a.position'
                 )
             );
             $helper->setModuleCode($moduleCode);

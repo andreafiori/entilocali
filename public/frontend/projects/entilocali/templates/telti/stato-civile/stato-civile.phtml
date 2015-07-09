@@ -1,11 +1,11 @@
 <ul class="breadcrumbs">
-    <li><a href="<?php echo $this->basepath() ?>" title="Home page">Home</a></li>
+    <li><a href="<?php echo $this->basepath() ?>" title="Torna alla home page">Home</a></li>
     <li class="current">Stato civile</li>
 </ul>
 
-<?php if (count($this->paginator)): ?>
+<?php if ($this->emptyRecords > 0): ?>
 
-<h1 class="text-center">Pubblicazioni stato civile</h1>
+<h2 class="text-center">Pubblicazioni stato civile</h2>
 
 <div>
     <?php
@@ -13,7 +13,7 @@
     $form = $this->form;
     $form->prepare();
 
-    $form->setAttribute('action', $this->serverUrl(true) );
+    $form->setAttribute('action', $this->url('stato-civile-search', array('action' => 'index')));
     $form->setAttribute('method', 'post');
     $form->setAttribute('id', 'stato-civile-search-form');
 
@@ -64,11 +64,16 @@
         </div>
 
         <div class="row">
-            <div class="large-12 columns">
-            <label aria-label="Cerca" for="search">
-                <?php echo $this->formElement($form->get('search')); ?>
-            </label>
+            <div class="large-4 columns">
+                <label aria-label="Cerca" for="search">
+                    <?php echo $this->formElement($form->get('csrf')); ?>
+                    <?php echo $this->formElement($form->get('search')); ?>
+                    <?php if ($this->sessionSearch): ?>
+                        <a href="<?php echo $this->url('stato-civile-search', array('action' => 'unsetsearch')) ?>" class="button tiny alert" title="Azzera sessione di ricerca">Azzera ricerca</a>
+                    <?php endif; ?>
+                </label>
             </div>
+            <div class="large-8 columns">&nbsp;</div>
         </div>
 
     </fieldset>
@@ -89,6 +94,9 @@
     </div>
 
 </div>
+<?php endif; ?>
+
+<?php if (count($this->paginator)): ?>
 
 <?php foreach($this->paginator as $key => $row): ?>
 <article>
@@ -151,9 +159,9 @@
     endif;
 else:
     ?>
-    <div class="alert-box info">
-        <h1>Nessun dato in archivio</h1>
-        <p>Nessun atto sullo stato civile si trova in archivio</p>
+    <div class="panel info">
+        <h2>Nessun atto stato civile</h2>
+        <p>Nessun atto trovato o presente in archivio</p>
     </div>
     <?php
 endif;

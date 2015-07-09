@@ -6,30 +6,27 @@ use Zend\Form\Form;
 use Zend\Captcha;
 use Zend\Form\Element;
 
-/**
- * @author Andrea Fiori
- * @since  20 April 2014
- */
 class ContactsForm extends Form 
 {
     /**
      * @inheritdoc
      */
-    public function __construct($name = null) 
+    public function __construct($name = null, $options = null)
     {
         parent::__construct($name);
-                
+
         $this->add(array( 
             'name' => 'nome', 
             'type' => 'Zend\Form\Element\Text', 
             'attributes' => array( 
-                'placeholder' => 'Inserisci nome...',
-                'title' => 'Inserisci nome',
-                'required' => 'required',
-                'id' => 'nome'
-            ), 
+                'placeholder' => 'Nome...',
+                'title'     => 'Inserisci nome',
+                'required'  => 'required',
+                'id'        => 'nome',
+                'maxlength' => 200,
+            ),
             'options' => array( 
-                'label' => 'Nome', 
+                'label' => '* Nome',
             ), 
         ));
  
@@ -37,13 +34,14 @@ class ContactsForm extends Form
             'name' => 'cognome', 
             'type' => 'Zend\Form\Element\Text', 
             'attributes' => array( 
-                'placeholder' => 'Inserisci cognome...', 
-                'title' => 'Inserisci cognome', 
-                'required' => 'required',
-                 'id' => 'cognome'
-            ), 
+                'placeholder'   => 'Cognome...',
+                'title'         => 'Inserisci cognome',
+                'required'      => 'required',
+                 'id'           => 'cognome',
+                'maxlength'     => 200,
+            ),
             'options' => array( 
-                'label' => 'Cognome', 
+                'label' => '* Cognome',
             ), 
         )); 
         
@@ -51,13 +49,14 @@ class ContactsForm extends Form
             'name' => 'email', 
             'type' => 'Zend\Form\Element\Email',
             'attributes' => array( 
-                'placeholder'   => 'Inserisci indirizzo email...', 
+                'placeholder'   => 'Email...',
                 'title'         => 'Inserisci indirizzo email', 
                 'required'      => 'required',
-                'id'            => 'email'
+                'id'            => 'email',
+                'maxlength'     => 200,
             ), 
             'options' => array(
-                'label' => 'Email', 
+                'label' => '* Email',
             ),
         ));
  
@@ -70,10 +69,11 @@ class ContactsForm extends Form
                 'required'      => 'required',
                 'rows'          => 8,
                 'cols'          => 35,
-                'id'            => 'messaggio'
+                'id'            => 'messaggio',
+                'maxlength'     => 200,
             ), 
             'options' => array(
-                'label' => 'Messaggio',
+                'label' => '* Messaggio',
             ), 
         ));
         
@@ -102,7 +102,7 @@ class ContactsForm extends Form
                 'attributes' => array(
                     'label' => '&nbsp;',
                     'value' => 'Invia',
-                    'id' => 'send'
+                    'id'    => 'send'
                 ))
         );
     }

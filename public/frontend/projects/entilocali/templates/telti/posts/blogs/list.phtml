@@ -5,7 +5,7 @@
         </a>
         <span class="divider"></span>
     </li>
-    <li><?php echo $this->categoryName ?></li>
+    <li class="current"><?php echo $this->categoryName ?></li>
 </ul>
 
 <?php
@@ -72,25 +72,20 @@ if ($this->formSearch):
 
     <?php foreach($this->records as $key => $row): ?>
 
-        <?php $linkDetails = $this->url('main/blogs-details', array('lang' => $this->lang, 'category' => $row['categorySlug'], 'title' => $row['slug'])) ?>
+        <?php
+        $linkDetails = $this->url('main/blogs-details', array(
+            'lang'      => $this->lang,
+            'category'  => $this->params()->fromRoute('category'),
+            'title'     => $row['slug'],
+        ));
+        ?>
 
         <div class="row">
-            <h2>
-                <a href="<?php echo $linkDetails ?>" title="Continua a leggere <?php echo $row['title'] ?>">
-                    <?php echo $row['title'] ?>
-                </a>
-            </h2>
-
-            <?php if (!empty($row['subtitle'])): ?>
-                <div>
-                    <h4><?php echo $row['subtitle'] ?></h4>
-                </div>
-            <?php endif; ?>
 
             <div class="large-3 columns">
                 <?php if ($row['image']!=''): ?>
                 <a href="<?php echo $linkDetails ?>" title="Continua a leggere <?php echo $row['title'] ?>">
-                    <img src="<?php echo $this->basePath.$this->mediaDir.$this->mediaProject.'blogs/thumbs/'.$row['image'] ?>" alt="Placeholder image for <?php echo $row['title'] ?>">
+                    <img src="<?php echo $this->publicDirRelativePath.'/'.$this->mediaDir.$this->mediaProject.'blogs/thumbs/'.$row['image'] ?>" alt="Placeholder image for <?php echo $row['title'] ?>" class="th">
                 </a>
                 <?php else: ?>
                 <a href="<?php echo $linkDetails ?>" title="Continua a leggere <?php echo $row['title'] ?>">
@@ -100,10 +95,25 @@ if ($this->formSearch):
             </div>
 
             <div class="large-9 columns">
+                <h3>
+                    <a href="<?php echo $linkDetails ?>" title="Continua a leggere <?php echo $row['title'] ?>">
+                        <?php echo $row['title'] ?>
+                    </a>
+                </h3>
+
+                <?php if (!empty($row['subtitle'])): ?>
+                    <div>
+                        <h4><?php echo $row['subtitle'] ?></h4>
+                    </div>
+                <?php endif; ?>
+
+                <div id="blogArticleDescription">
                 <?php echo $this->TextShortener(strip_tags($row['description']), 50, 100, '...'); ?>
+
                 <a href="<?php echo $linkDetails ?>" title="Continua a leggere <?php echo $row['title'] ?>">
                     <?php echo $this->translate('Leggi tutto'); ?>
                 </a>
+                </div>
             </div>
 
             <?php
@@ -121,13 +131,13 @@ if ($this->formSearch):
 
         </div>
 
-        <hr>
+        <hr class="hidden">
 
     <?php endforeach; ?>
 <?php else: ?>
     <h2><?php echo $this->translate('Nessun post presente') ?></h2>
 
-    <p><?php echo $this->translate('Nessun post trovato in archivio per la categoria selezionata') ?></p>
+    <p><?php echo $this->translate('Nessun post in archivio per la categoria selezionata') ?></p>
 <?php endif; ?>
 <?php
 

@@ -60,6 +60,8 @@ class PhotoUpdateController extends SetupAbstractController
             $helper->getConnection()->beginTransaction();
             $helper->setLoggedUser($userDetails);
 
+            $publicDirPath = $helper->recoverPublicDirPath($this->layout()->getVariable('isPublicDirOnRoot'));
+
             if ($inputFilter->image) {
                 $records = $helper->recoverWrapperRecordsById(
                     new PostsGetterWrapper(new PostsGetter($em)),
@@ -73,8 +75,8 @@ class PhotoUpdateController extends SetupAbstractController
                 $mediaProject = $helper->checkMediaProject($configurations);
 
                 /* Delete old image */
-                $oldImageThumbPath = $mediaDir.$mediaProject.'/photo/thumbs/'.$currentImage;
-                $oldImageBigPath = $mediaDir.$mediaProject.'/photo/big/'.$currentImage;
+                $oldImageThumbPath = $publicDirPath.$mediaDir.$mediaProject.'photo/thumbs/'.$currentImage;
+                $oldImageBigPath = $publicDirPath.$mediaDir.$mediaProject.'photo/big/'.$currentImage;
                 if (file_exists($oldImageThumbPath) and $currentImage!='') {
                     unlink($oldImageThumbPath);
                 }
@@ -93,10 +95,10 @@ class PhotoUpdateController extends SetupAbstractController
                         new \Imagine\Image\Box($thumbWitdth, $thumbHeight),
                         \Imagine\Image\ImageInterface::THUMBNAIL_INSET
                     )
-                    ->save($mediaDir.$mediaProject.'/photo/thumbs/'.$newFilename)
+                    ->save($publicDirPath.$mediaDir.$mediaProject.'/photo/thumbs/'.$newFilename)
                 ;
 
-                move_uploaded_file($inputFilter->image['tmp_name'], $mediaDir.$mediaProject.'/photo/big/'.$newFilename);
+                move_uploaded_file($inputFilter->image['tmp_name'], $publicDirPath.$mediaDir.$mediaProject.'/photo/big/'.$newFilename);
 
                 $inputFilter->image = $newFilename;
             }

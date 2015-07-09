@@ -26,14 +26,14 @@ class ZfcmsUsersApiKeys
      *
      * @ORM\Column(name="key", type="string", length=150, nullable=false)
      */
-    private $key;
+    private $key = '0';
 
     /**
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=150, nullable=false)
      */
-    private $email;
+    private $email = '0';
 
     /**
      * @var integer
@@ -58,3 +58,4 @@ class ZfcmsUsersApiKeys
 
 
 }
+

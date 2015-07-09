@@ -54,14 +54,14 @@ class ZfcmsProducts
      *
      * @ORM\Column(name="insert_date", type="datetime", nullable=false)
      */
-    private $insertDate;
+    private $insertDate = '2013-01-01 01:01:00';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="expire_date", type="datetime", nullable=false)
      */
-    private $expireDate;
+    private $expireDate = '2013-01-01 01:01:00';
 
     /**
      * @var string
@@ -82,49 +82,49 @@ class ZfcmsProducts
      *
      * @ORM\Column(name="amount", type="integer", nullable=false)
      */
-    private $amount;
+    private $amount = '1';
 
     /**
      * @var string
      *
      * @ORM\Column(name="price", type="decimal", precision=60, scale=2, nullable=false)
      */
-    private $price;
+    private $price = '0.00';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="disponibilita", type="integer", nullable=false)
      */
-    private $disponibilita;
+    private $disponibilita = '0';
 
     /**
      * @var string
      *
      * @ORM\Column(name="iva", type="decimal", precision=10, scale=0, nullable=false)
      */
-    private $iva;
+    private $iva = '15';
 
     /**
      * @var string
      *
      * @ORM\Column(name="discount", type="decimal", precision=10, scale=0, nullable=false)
      */
-    private $discount;
+    private $discount = '0';
 
     /**
      * @var string
      *
      * @ORM\Column(name="shipping", type="decimal", precision=10, scale=2, nullable=false)
      */
-    private $shipping;
+    private $shipping = '0.00';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="marca", type="integer", nullable=false)
      */
-    private $marca;
+    private $marca = '0';
 
     /**
      * @var string
@@ -138,14 +138,14 @@ class ZfcmsProducts
      *
      * @ORM\Column(name="status", type="string", length=50, nullable=false)
      */
-    private $status;
+    private $status = 'si';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="position", type="integer", nullable=false)
      */
-    private $position;
+    private $position = '0';
 
     /**
      * @var string
@@ -173,28 +173,28 @@ class ZfcmsProducts
      *
      * @ORM\Column(name="model_id", type="integer", nullable=false)
      */
-    private $modelId;
+    private $modelId = '0';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="user_id", type="bigint", nullable=false)
      */
-    private $userId;
+    private $userId = '0';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="company_id", type="bigint", nullable=false)
      */
-    private $companyId;
+    private $companyId = '0';
 
 
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -205,6 +205,7 @@ class ZfcmsProducts
      * Set imageThumb
      *
      * @param string $imageThumb
+     *
      * @return ZfcmsProducts
      */
     public function setImageThumb($imageThumb)
@@ -217,7 +218,7 @@ class ZfcmsProducts
     /**
      * Get imageThumb
      *
-     * @return string 
+     * @return string
      */
     public function getImageThumb()
     {
@@ -228,6 +229,7 @@ class ZfcmsProducts
      * Set imageBig
      *
      * @param string $imageBig
+     *
      * @return ZfcmsProducts
      */
     public function setImageBig($imageBig)
@@ -240,7 +242,7 @@ class ZfcmsProducts
     /**
      * Get imageBig
      *
-     * @return string 
+     * @return string
      */
     public function getImageBig()
     {
@@ -251,6 +253,7 @@ class ZfcmsProducts
      * Set code
      *
      * @param string $code
+     *
      * @return ZfcmsProducts
      */
     public function setCode($code)
@@ -263,7 +266,7 @@ class ZfcmsProducts
     /**
      * Get code
      *
-     * @return string 
+     * @return string
      */
     public function getCode()
     {
@@ -274,6 +277,7 @@ class ZfcmsProducts
      * Set codeSeller
      *
      * @param string $codeSeller
+     *
      * @return ZfcmsProducts
      */
     public function setCodeSeller($codeSeller)
@@ -286,7 +290,7 @@ class ZfcmsProducts
     /**
      * Get codeSeller
      *
-     * @return string 
+     * @return string
      */
     public function getCodeSeller()
     {
@@ -297,6 +301,7 @@ class ZfcmsProducts
      * Set insertDate
      *
      * @param \DateTime $insertDate
+     *
      * @return ZfcmsProducts
      */
     public function setInsertDate($insertDate)
@@ -309,7 +314,7 @@ class ZfcmsProducts
     /**
      * Get insertDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getInsertDate()
     {
@@ -320,6 +325,7 @@ class ZfcmsProducts
      * Set expireDate
      *
      * @param \DateTime $expireDate
+     *
      * @return ZfcmsProducts
      */
     public function setExpireDate($expireDate)
@@ -332,7 +338,7 @@ class ZfcmsProducts
     /**
      * Get expireDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getExpireDate()
     {
@@ -343,6 +349,7 @@ class ZfcmsProducts
      * Set name
      *
      * @param string $name
+     *
      * @return ZfcmsProducts
      */
     public function setName($name)
@@ -355,7 +362,7 @@ class ZfcmsProducts
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -366,6 +373,7 @@ class ZfcmsProducts
      * Set description
      *
      * @param string $description
+     *
      * @return ZfcmsProducts
      */
     public function setDescription($description)
@@ -378,7 +386,7 @@ class ZfcmsProducts
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -389,6 +397,7 @@ class ZfcmsProducts
      * Set amount
      *
      * @param integer $amount
+     *
      * @return ZfcmsProducts
      */
     public function setAmount($amount)
@@ -401,7 +410,7 @@ class ZfcmsProducts
     /**
      * Get amount
      *
-     * @return integer 
+     * @return integer
      */
     public function getAmount()
     {
@@ -412,6 +421,7 @@ class ZfcmsProducts
      * Set price
      *
      * @param string $price
+     *
      * @return ZfcmsProducts
      */
     public function setPrice($price)
@@ -424,7 +434,7 @@ class ZfcmsProducts
     /**
      * Get price
      *
-     * @return string 
+     * @return string
      */
     public function getPrice()
     {
@@ -435,6 +445,7 @@ class ZfcmsProducts
      * Set disponibilita
      *
      * @param integer $disponibilita
+     *
      * @return ZfcmsProducts
      */
     public function setDisponibilita($disponibilita)
@@ -447,7 +458,7 @@ class ZfcmsProducts
     /**
      * Get disponibilita
      *
-     * @return integer 
+     * @return integer
      */
     public function getDisponibilita()
     {
@@ -458,6 +469,7 @@ class ZfcmsProducts
      * Set iva
      *
      * @param string $iva
+     *
      * @return ZfcmsProducts
      */
     public function setIva($iva)
@@ -470,7 +482,7 @@ class ZfcmsProducts
     /**
      * Get iva
      *
-     * @return string 
+     * @return string
      */
     public function getIva()
     {
@@ -481,6 +493,7 @@ class ZfcmsProducts
      * Set discount
      *
      * @param string $discount
+     *
      * @return ZfcmsProducts
      */
     public function setDiscount($discount)
@@ -493,7 +506,7 @@ class ZfcmsProducts
     /**
      * Get discount
      *
-     * @return string 
+     * @return string
      */
     public function getDiscount()
     {
@@ -504,6 +517,7 @@ class ZfcmsProducts
      * Set shipping
      *
      * @param string $shipping
+     *
      * @return ZfcmsProducts
      */
     public function setShipping($shipping)
@@ -516,7 +530,7 @@ class ZfcmsProducts
     /**
      * Get shipping
      *
-     * @return string 
+     * @return string
      */
     public function getShipping()
     {
@@ -527,6 +541,7 @@ class ZfcmsProducts
      * Set marca
      *
      * @param integer $marca
+     *
      * @return ZfcmsProducts
      */
     public function setMarca($marca)
@@ -539,7 +554,7 @@ class ZfcmsProducts
     /**
      * Get marca
      *
-     * @return integer 
+     * @return integer
      */
     public function getMarca()
     {
@@ -550,6 +565,7 @@ class ZfcmsProducts
      * Set note
      *
      * @param string $note
+     *
      * @return ZfcmsProducts
      */
     public function setNote($note)
@@ -562,7 +578,7 @@ class ZfcmsProducts
     /**
      * Get note
      *
-     * @return string 
+     * @return string
      */
     public function getNote()
     {
@@ -573,6 +589,7 @@ class ZfcmsProducts
      * Set status
      *
      * @param string $status
+     *
      * @return ZfcmsProducts
      */
     public function setStatus($status)
@@ -585,7 +602,7 @@ class ZfcmsProducts
     /**
      * Get status
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
@@ -596,6 +613,7 @@ class ZfcmsProducts
      * Set position
      *
      * @param integer $position
+     *
      * @return ZfcmsProducts
      */
     public function setPosition($position)
@@ -608,7 +626,7 @@ class ZfcmsProducts
     /**
      * Get position
      *
-     * @return integer 
+     * @return integer
      */
     public function getPosition()
     {
@@ -619,6 +637,7 @@ class ZfcmsProducts
      * Set seoTitle
      *
      * @param string $seoTitle
+     *
      * @return ZfcmsProducts
      */
     public function setSeoTitle($seoTitle)
@@ -631,7 +650,7 @@ class ZfcmsProducts
     /**
      * Get seoTitle
      *
-     * @return string 
+     * @return string
      */
     public function getSeoTitle()
     {
@@ -642,6 +661,7 @@ class ZfcmsProducts
      * Set seoKeywords
      *
      * @param string $seoKeywords
+     *
      * @return ZfcmsProducts
      */
     public function setSeoKeywords($seoKeywords)
@@ -654,7 +674,7 @@ class ZfcmsProducts
     /**
      * Get seoKeywords
      *
-     * @return string 
+     * @return string
      */
     public function getSeoKeywords()
     {
@@ -665,6 +685,7 @@ class ZfcmsProducts
      * Set seoDescription
      *
      * @param string $seoDescription
+     *
      * @return ZfcmsProducts
      */
     public function setSeoDescription($seoDescription)
@@ -677,7 +698,7 @@ class ZfcmsProducts
     /**
      * Get seoDescription
      *
-     * @return string 
+     * @return string
      */
     public function getSeoDescription()
     {
@@ -688,6 +709,7 @@ class ZfcmsProducts
      * Set modelId
      *
      * @param integer $modelId
+     *
      * @return ZfcmsProducts
      */
     public function setModelId($modelId)
@@ -700,7 +722,7 @@ class ZfcmsProducts
     /**
      * Get modelId
      *
-     * @return integer 
+     * @return integer
      */
     public function getModelId()
     {
@@ -711,6 +733,7 @@ class ZfcmsProducts
      * Set userId
      *
      * @param integer $userId
+     *
      * @return ZfcmsProducts
      */
     public function setUserId($userId)
@@ -723,7 +746,7 @@ class ZfcmsProducts
     /**
      * Get userId
      *
-     * @return integer 
+     * @return integer
      */
     public function getUserId()
     {
@@ -734,6 +757,7 @@ class ZfcmsProducts
      * Set companyId
      *
      * @param integer $companyId
+     *
      * @return ZfcmsProducts
      */
     public function setCompanyId($companyId)
@@ -746,7 +770,7 @@ class ZfcmsProducts
     /**
      * Get companyId
      *
-     * @return integer 
+     * @return integer
      */
     public function getCompanyId()
     {

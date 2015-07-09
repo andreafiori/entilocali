@@ -73,7 +73,7 @@ class SezioniInsertController extends SetupAbstractController
             $this->layout()->setVariables(array(
                 'messageType'                => 'success',
                 'messageTitle'               => 'Sezione inserita correttamente',
-                'messageText'                => 'I dati sono stati processati correttamente dal sistema',
+                'messageText'                => 'Inserire almeno una sottosezione relativa o la stessa non sar&agrave; visibile sul sito web.',
                 'showLinkResetFormAndShowIt' => 1,
                 'backToSummaryLink'     => $this->url()->fromRoute('admin/sezioni-summary', array(
                     'lang'              => $this->params()->fromRoute('lang'),

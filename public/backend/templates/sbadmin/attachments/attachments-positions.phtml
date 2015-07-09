@@ -28,8 +28,8 @@
         <?php if (!empty($this->records)): ?>
             <ul class="attachPositionsColumn" style="margin-left: 0; padding: 0">
                 <?php foreach($this->records as $record): ?>
-                    <li class="positionMove list-group-item list-group-item-info" id="oggettoItem_<?php echo $record['attachmenOptionId'] ?>">
-                        <span class="trascinabile"><?php echo $record['title']; ?></span>
+                    <li class="positionMove list-group-item list-group-item-info" id="oggettoItem_<?php echo $record['id'] ?>">
+                        <span class="trascinabile"><?php echo $record['title']; ?> (<?php echo $record['size']; ?> Kb)</span>
                     </li>
                 <?php endforeach ?>
             </ul>

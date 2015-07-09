@@ -55,8 +55,12 @@ class ContrattiPubbliciOperatoriUpdateController extends SetupAbstractController
             $helper->setConnection($connection);
             $helper->getConnection()->beginTransaction();
             $helper->setLoggedUser($userDetails);
+
+            if (!$helper->isValidCodiceFiscale($inputFilter->cf) and !$helper->isValidPartitaIVA($inputFilter->cf)) {
+                throw new NullException("Codice fiscale o Partita IVA non valido");
+            }
+
             $helper->update($inputFilter);
-            $helper->getConnection()->commit();
 
             $logWriter = new LogWriter($connection);
             $logWriter->writeLog(array(
@@ -79,6 +83,8 @@ class ContrattiPubbliciOperatoriUpdateController extends SetupAbstractController
                 )),
                 'backToSummaryText'     => "Elenco aziende",
             ));
+
+            $helper->getConnection()->commit();
 
             $this->layout()->setTemplate($this->layout()->getVariable('templateDir').'message.phtml');
 

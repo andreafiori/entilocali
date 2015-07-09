@@ -26,7 +26,7 @@ class ZfcmsComuniContenuti
      *
      * @ORM\Column(name="anno", type="integer", nullable=false)
      */
-    private $anno;
+    private $anno = '0';
 
     /**
      * @var integer
@@ -61,35 +61,35 @@ class ZfcmsComuniContenuti
      *
      * @ORM\Column(name="data_inserimento", type="datetime", nullable=false)
      */
-    private $dataInserimento;
+    private $dataInserimento = '0000-00-00 00:00:00';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="data_scadenza", type="datetime", nullable=false)
      */
-    private $dataScadenza;
+    private $dataScadenza = '0000-00-00 00:00:00';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="data_invio_regione", type="datetime", nullable=false)
      */
-    private $dataInvioRegione;
+    private $dataInvioRegione = '0000-00-00 00:00:00';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="data_ultimo_aggiornamento", type="datetime", nullable=false)
      */
-    private $dataUltimoAggiornamento;
+    private $dataUltimoAggiornamento = '0000-00-00 00:00:00';
 
     /**
      * @var integer
      *
      * @ORM\Column(name="attivo", type="integer", nullable=false)
      */
-    private $attivo;
+    private $attivo = '1';
 
     /**
      * @var integer
@@ -117,14 +117,14 @@ class ZfcmsComuniContenuti
      *
      * @ORM\Column(name="pub_albo_comune", type="datetime", nullable=false)
      */
-    private $pubAlboComune;
+    private $pubAlboComune = '0000-00-00 00:00:00';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="data_rettifica", type="datetime", nullable=false)
      */
-    private $dataRettifica;
+    private $dataRettifica = '0000-00-00 00:00:00';
 
     /**
      * @var string
@@ -152,7 +152,7 @@ class ZfcmsComuniContenuti
      *
      * @ORM\Column(name="annoammtrasp", type="integer", nullable=false)
      */
-    private $annoammtrasp;
+    private $annoammtrasp = '2015';
 
     /**
      * @var string
@@ -218,3 +218,4 @@ class ZfcmsComuniContenuti
 
 
 }
+

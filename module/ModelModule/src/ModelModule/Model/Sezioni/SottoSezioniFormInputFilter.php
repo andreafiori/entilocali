@@ -8,6 +8,9 @@ use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\Validator\File\Size;
 
+/**
+ * SottoSezioni Admin Form Valildator
+ */
 class SottoSezioniFormInputFilter implements InputFilterAwareInterface
 {
     public $idSottoSezione;

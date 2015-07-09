@@ -35,8 +35,15 @@ class HomePageBlocksGetterTest extends TestSuite
 
     public function testSetIdWithArrayInInput()
     {
-        $this->objectGetter->setId( array(1,2,3) );
+        $this->objectGetter->setId( array(1, 2, 3) );
 
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('id'));
+    }
+
+    public function testSetModuleId()
+    {
+        $this->objectGetter->setModuleId(3);
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('moduleId'));
     }
 }

@@ -5,10 +5,6 @@ namespace ModelModuleTest\Model\AttiConcessione;
 use ModelModuleTest\TestSuite;
 use ModelModule\Model\AttiConcessione\AttiConcessioneGetter;
 
-/**
- * @author Andrea Fiori
- * @since  20 December 2014
- */
 class AttiConcessioneGetterTest extends TestSuite
 {
     /**
@@ -77,5 +73,12 @@ class AttiConcessioneGetterTest extends TestSuite
         $this->objectGetter->setProgressivo(12);
 
         $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('progressivo'));
+    }
+
+    public function testSetSettoreId()
+    {
+        $this->objectGetter->setSettoreId(12);
+
+        $this->assertNotEmpty($this->objectGetter->getQueryBuilder()->getParameter('settoreId'));
     }
 }

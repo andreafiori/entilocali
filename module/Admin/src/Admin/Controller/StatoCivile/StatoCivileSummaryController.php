@@ -11,6 +11,9 @@ use ModelModule\Model\StatoCivile\StatoCivileControllerHelper;
 use Zend\Session\Container as SessionContainer;
 use Application\Controller\SetupAbstractController;
 
+/**
+ * Stato Civile atti index list
+ */
 class StatoCivileSummaryController extends SetupAbstractController
 {
     public function indexAction()
@@ -21,6 +24,8 @@ class StatoCivileSummaryController extends SetupAbstractController
 
         $page = $this->params()->fromRoute('page');
         $perPage = $this->params()->fromRoute('perpage');
+
+        $userDetails = $this->layout()->getVariable('userDetails');
 
         $sessionContainer = new SessionContainer();
         try {
@@ -145,6 +150,7 @@ class StatoCivileSummaryController extends SetupAbstractController
         private function formatRecords($records)
         {
             $lang = $this->params()->fromRoute('lang');
+            $userDetails = $this->layout()->getVariable('userDetails');
 
             if (!$records) {
                 return false;
@@ -152,6 +158,30 @@ class StatoCivileSummaryController extends SetupAbstractController
 
             $recordsToReturn = array();
             foreach($records as $record) {
+
+                if ($userDetails->acl->hasResource("stato_civile_home")) {
+                    if ($record['homepageFlag']==0) {
+                        $homePageButtonLink = $this->url()->fromRoute('admin/homepage-management-insert', array(
+                            'lang'          => $lang,
+                            'referenceid'   => $record['id'],
+                            'modulecode'    => 'stato-civile',
+                            'languageid'    => 1,
+                        ));
+                    } else {
+                        $homePageButtonLink = $this->url()->fromRoute('admin/homepage-management-delete', array(
+                            'lang'          => $lang,
+                            'referenceid'   => $record['id'],
+                            'modulecode'    => 'stato-civile',
+                            'languageid'    => 1,
+                        ));
+                    }
+
+                    $homePageButton = array(
+                        'type'  => $record['homepageFlag']==1 ? 'homepagePutButton' : 'homepageDelButton',
+                        'href'  => $homePageButtonLink,
+                        'value' => $record['homepageFlag']==1 ? 'homepagePutButton' : 'homepageDelButton',
+                    );
+                }
 
                 if ( $record['attivo']==0) {
                     $linkActiveDisable = $this->url()->fromRoute('admin/stato-civile-operations', array(
@@ -186,10 +216,9 @@ class StatoCivileSummaryController extends SetupAbstractController
                     array(
                         'type'      => 'updateButton',
                         'href'      => $this->url()->fromRoute('admin/stato-civile-form', array(
-                                'lang'  => $lang,
-                                'id'    => $record['id'],
-                            )
-                        ),
+                            'lang'  => $lang,
+                            'id'    => $record['id'],
+                        )),
                         'title' => 'Modifica atto'
                     ),
                     array(
@@ -212,11 +241,7 @@ class StatoCivileSummaryController extends SetupAbstractController
                         )),
                         'attachmentsFilesCount' => isset($record['attachments']) ? count($record['attachments']) : 0,
                     ),
-                    array(
-                        'type'      => 'homepageDelButton',
-                        'href'      => '#',
-                        'value'     => 'homepageDelButton',
-                    ),
+                    isset($homePageButton) ? $homePageButton : null,
                     array(
                         'type' => 'enteterzoButton',
                         'href' => $this->url()->fromRoute('admin/invio-ente-terzo', array(

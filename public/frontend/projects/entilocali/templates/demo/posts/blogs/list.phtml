@@ -72,7 +72,13 @@ if ($this->formSearch):
 
     <?php foreach($this->records as $key => $row): ?>
 
-        <?php $linkDetails = $this->url('main/blogs-details', array('lang' => $this->lang, 'category' => $row['categorySlug'], 'title' => $row['slug'])) ?>
+        <?php
+        $linkDetails = $this->url('main/blogs-details', array(
+            'lang'      => $this->lang,
+            'category'  => $this->params()->fromRoute('category'),
+            'title'     => $row['slug'],
+        ));
+        ?>
 
         <div class="row">
 
@@ -101,10 +107,13 @@ if ($this->formSearch):
                     </div>
                 <?php endif; ?>
 
+                <div id="blogArticleDescription">
                 <?php echo $this->TextShortener(strip_tags($row['description']), 50, 100, '...'); ?>
+
                 <a href="<?php echo $linkDetails ?>" title="Continua a leggere <?php echo $row['title'] ?>">
                     <?php echo $this->translate('Leggi tutto'); ?>
                 </a>
+                </div>
             </div>
 
             <?php

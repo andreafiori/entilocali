@@ -77,7 +77,7 @@ class SezioniFormController extends SetupAbstractController
             'form'                          => $form,
             'formAction'                    => $formAction,
             'formTitle'                     => $formTitle,
-            'formDescription'               => 'Le sezioni rappresentano i blocchi principali sui quali costruire le basi dei contenuti',
+            'formDescription'               => 'Le sezioni rappresentano i blocchi principali sui quali costruire le basi degli articoli. <strong>ATTENZIONE:</strong> se non sono presenti sottosezioni e\o relativi articoli, le sezioni non saranno visibili sul sito pubblico.',
             'submitButtonValue'             => $submitButtonValue,
             'formBreadCrumbCategory'        => array(
                 array(

@@ -17,6 +17,7 @@ class ContrattiPubbliciGetter extends QueryBuilderHelperAbstract
                 cc.progressivo, cc.anno, cc.dataInserimento, cc.oraInserimento, cc.attivo, cc.scadenza, cc.cig,
                 cc.numeroOfferte, IDENTITY(cc.respProc) AS respProcId, IDENTITY(cc.settore) AS settoreId,
                 IDENTITY(cc.scContr) AS sceltaContraenteId, IDENTITY(cc.utente) AS contrattiUtenteId,
+                cc.homepage,
 
                 csc.nomeScelta,
 
@@ -48,8 +49,6 @@ class ContrattiPubbliciGetter extends QueryBuilderHelperAbstract
     }
 
     /**
-     * Set ID
-     *
      * @param number|array $id
      * @return \Doctrine\ORM\QueryBuilder
      */
@@ -65,6 +64,50 @@ class ContrattiPubbliciGetter extends QueryBuilderHelperAbstract
             $this->getQueryBuilder()->setParameter('id', $id);
         }
         
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param number|array $cig
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setCig($cig)
+    {
+        if ( !empty($cig) ) {
+            $this->getQueryBuilder()->andWhere('cc.cig = :cig ');
+            $this->getQueryBuilder()->setParameter('cig', $cig);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param number|array $anno
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setAnno($anno)
+    {
+        if ( is_numeric($anno) and $anno!=0 ) {
+            $this->getQueryBuilder()->andWhere('cc.anno = :anno ');
+            $this->getQueryBuilder()->setParameter('anno', $anno);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * Set importi condition. TODO: set an interval value using BETWEEN
+     *
+     * @param number|array $anno
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setImporto($importo)
+    {
+        if ( !empty($importo) ) {
+            $this->getQueryBuilder()->andWhere(' (cc.importoAggiudicazione = :importo OR cc.importoLiquidato = :importo) ');
+            $this->getQueryBuilder()->setParameter('importo', $importo);
+        }
+
         return $this->getQueryBuilder();
     }
 
@@ -85,7 +128,23 @@ class ContrattiPubbliciGetter extends QueryBuilderHelperAbstract
     }
 
     /**
-     * Not expired
+     * Set Settore ID
+     *
+     * @param number|array $id
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setSettoreId($id)
+    {
+        if ( is_numeric($id) ) {
+            $this->getQueryBuilder()->andWhere('cc.settore = :settoreId ');
+            $this->getQueryBuilder()->setParameter('settoreId', $id);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * Set Not expired
      *
      * @param int $noScaduti
      * @return \Doctrine\ORM\QueryBuilder

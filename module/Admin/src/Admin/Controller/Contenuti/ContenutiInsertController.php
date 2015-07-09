@@ -10,6 +10,9 @@ use ModelModule\Model\Modules\ModulesContainer;
 use Application\Controller\SetupAbstractController;
 use ModelModule\Model\NullException;
 
+/**
+ * Insert a new Contenuto into db and log operation
+ */
 class ContenutiInsertController extends SetupAbstractController
 {
     public function indexAction()
@@ -57,7 +60,6 @@ class ContenutiInsertController extends SetupAbstractController
             $helper->setLoggedUser($userDetails);
             $helper->getConnection()->beginTransaction();
             $lastInsertId = $helper->insert($inputFilter);
-            $helper->getConnection()->commit();
 
             // TODO: insert in home, update home field if home is selected
 
@@ -75,7 +77,7 @@ class ContenutiInsertController extends SetupAbstractController
                 'messageTitle'                  => 'Articolo inserito correttamente',
                 'messageText'                   => 'I dati sono stati processati correttamente dal sistema',
                 'showLinkResetFormAndShowIt'    => 1,
-                'backToSummaryLink' => $this->url()->fromRoute('admin/'.$modulename.'-summary', array(
+                'backToSummaryLink' => $this->url()->fromRoute('admin/contenuti-summary', array(
                     'lang'              => $this->params()->fromRoute('lang'),
                     'languageSelection' => $this->params()->fromRoute('languageSelection'),
                     'modulename'        => $modulename,
@@ -88,6 +90,8 @@ class ContenutiInsertController extends SetupAbstractController
                     'referenceId'   => $lastInsertId,
                 )),
             ));
+
+            $helper->getConnection()->commit();
 
             $this->layout()->setTemplate($this->layout()->getVariable('templateDir').'message.phtml');
 

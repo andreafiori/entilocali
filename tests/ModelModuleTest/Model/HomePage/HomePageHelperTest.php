@@ -88,16 +88,14 @@ class HomePageHelperTest extends TestSuite
             new HomePageGetterWrapper( new HomePageGetter($this->getEntityManagerMock()) )
         );
         $this->helper->setHomePageRecords($this->homePageRecordsSample);
-        $this->helper->gatherReferenceIds();
+        $this->helper->gatherReferenceIds(array(
+            array(
+                'id'            => 1,
+                'reference_id'  => 1,
+                'block_id'      => 2,
+            )
+        ));
 
         $this->assertTrue( is_array($this->helper->getHomePageRecords()) );
-    }
-
-    /**
-     * @expectedException \Exception
-     */
-    public function testCheckHomePageRecordsThrowsException()
-    {
-        $this->helper->checkHomePageRecords();
     }
 }

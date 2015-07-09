@@ -2,6 +2,7 @@
 
 namespace Admin\Controller\Contenuti;
 
+use Application\Controller\Contenuti\ContenutiSearchController;
 use ModelModule\Model\Contenuti\ContenutiControllerHelper;
 use ModelModule\Model\Contenuti\ContenutiFormSearch;
 use ModelModule\Model\Contenuti\ContenutiGetter;
@@ -15,6 +16,9 @@ use ModelModule\Model\Sezioni\SottoSezioniGetterWrapper;
 use Application\Controller\SetupAbstractController;
 use Zend\Session\Container as SessionContainer;
 
+/**
+ * Contenuti Summary index
+ */
 class ContenutiSummaryController extends SetupAbstractController
 {
     public function indexAction()
@@ -33,7 +37,7 @@ class ContenutiSummaryController extends SetupAbstractController
         $isAmmTrasparente       = ($modulename!='contenuti') ? 1 : 0;
 
         $sessionContainer = new SessionContainer();
-        $sessionSearch = $sessionContainer->offsetGet('contenutiSummarySearch');
+        $sessionSearch = $sessionContainer->offsetGet(ContenutiSearchController::sessionIdentifier);
 
         $helper = new ContenutiControllerHelper();
 
@@ -81,8 +85,8 @@ class ContenutiSummaryController extends SetupAbstractController
             $paginatorRecords = $wrapper->addAttachmentsToPaginatorRecords(
                 $wrapper->setupRecords(),
                 array(
-                    'moduleId'  => ($modulename!='contenuti') ? ModulesContainer::contenuti_id : ModulesContainer::amministrazione_trasparente_id,
-                    'orderBy'   => 'ao.position'
+                    'moduleId'  => ($modulename=='contenuti') ? ModulesContainer::contenuti_id : ModulesContainer::amministrazione_trasparente_id,
+                    'orderBy'   => 'a.position'
                 )
             );
 
@@ -119,6 +123,7 @@ class ContenutiSummaryController extends SetupAbstractController
             'templatePartial'       => 'datatable/datatable_contenuti.phtml',
             'formSearch'            => (!empty($formSearch)) ? $formSearch : null,
             'formLanguage'          => isset($formLanguage) ? $formLanguage : null,
+            'sessionSearch'         => isset($sessionSearch) ? $sessionSearch : null,
             'columns' => array(
                 "Sezione",
                 "Sotto sezione",
@@ -143,7 +148,7 @@ class ContenutiSummaryController extends SetupAbstractController
      * @param array|null $records
      * @return array
      */
-    private function formatRecordsToShowOnTable($records)
+    private function formatRecordsToShowOnTable($records, $languageId = 1)
     {
         $lang                   = $this->params()->fromRoute('lang');
         $languageSelection      = $this->params()->fromRoute('languageSelection');
@@ -175,21 +180,18 @@ class ContenutiSummaryController extends SetupAbstractController
 
                 /* Home page put \ remove link */
                 if ($row['home']==1) {
-                    $homePutRemoveLink = $this->url()->fromRoute('admin/contenuti-homeputremove', array(
-                            'lang'              => $lang,
-                            'action'            => 'remove',
-                            'languageSelection' => $languageSelection,
-                            'modulename'        => $modulename,
-                            'id'                => $row['id']
-                        )
-                    );
+                    $homePutRemoveLink = $this->url()->fromRoute('admin/homepage-management-delete', array(
+                        'lang'          => $lang,
+                        'referenceid'   => $row['id'],
+                        'modulecode'    => $modulename,
+                        'languageid'    => $languageId, // TODO: detect language ID!!!
+                    ));
                 } else {
-                    $homePutRemoveLink = $this->url()->fromRoute('admin/contenuti-homeputremove', array(
-                        'lang'              => $lang,
-                        'action'            => 'put',
-                        'languageSelection' => $languageSelection,
-                        'modulename'        => $modulename,
-                        'id'                => $row['id']
+                    $homePutRemoveLink = $this->url()->fromRoute('admin/homepage-management-insert', array(
+                        'lang'          => $lang,
+                        'referenceid'   => $row['id'],
+                        'modulecode'    => $modulename,
+                        'languageid'    => $languageId, // TODO: detect language ID!!!
                     ));
                 }
 

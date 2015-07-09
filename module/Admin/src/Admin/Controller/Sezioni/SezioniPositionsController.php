@@ -10,6 +10,9 @@ use ModelModule\Model\Languages\LanguagesGetterWrapper;
 use ModelModule\Model\Languages\LanguagesFormSearch;
 use Application\Controller\SetupAbstractController;
 
+/**
+ * Sezioni Positions columns
+ */
 class SezioniPositionsController extends SetupAbstractController
 {
     public function indexAction()
@@ -21,15 +24,15 @@ class SezioniPositionsController extends SetupAbstractController
         $configurations = $this->layout()->getVariable('configurations');
 
         $languageSelection = $this->params()->fromRoute('languageSelection');
+        $moduleName = $this->params()->fromRoute('moduleName');
 
         $helper = new SezioniControllerHelper();
-        $helper->setSezioniGetterWrapper(new SezioniGetterWrapper(new SezioniGetter($em)));
 
         $wrapper = $helper->recoverWrapper(
-            $helper->getSezioniGetterWrapper(),
+            new SezioniGetterWrapper(new SezioniGetter($em)),
             array(
                 'fields'                => 'sezioni.id, sezioni.nome, sezioni.colonna, sezioni.posizione',
-                'blocco'                => 1,
+                /* 'blocco'             => 1, */
                 'attivo'                => 1,
                 'languageAbbreviation'  => $languageSelection,
                 'orderBy'               => 'sezioni.posizione'
@@ -48,9 +51,10 @@ class SezioniPositionsController extends SetupAbstractController
         }
 
         $this->layout()->setVariables(array(
+            'moduleName'        => $moduleName,
             'records'           => $wrapper->formatRecordsPerColumn($wrapper->getRecords()),
             'templatePartial'   => 'sezioni/sezioni-posizioni.phtml',
-            'formLanguage'      => $formLanguage,
+            'formLanguage'      => isset($formLanguage) ? $formLanguage : null,
         ));
 
         $this->layout()->setTemplate($mainLayout);

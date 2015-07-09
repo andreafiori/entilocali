@@ -10,12 +10,11 @@ class StatoCivileGetter extends QueryBuilderHelperAbstract
     {
         $this->setSelectQueryFields("DISTINCT(sca.id) AS id, sca.titolo, sca.progressivo,
                                     sca.anno, sca.data, sca.homepageFlag, sca.boxNotizie,
-
-                                    scs.id AS sezioneId, sca.scadenza, scs.nome AS nomeSezione, sca.attivo,
+                                    scs.id AS sezioneId, IDENTITY(sca.sezione) AS sezione,
+                                    sca.scadenza, scs.nome AS nomeSezione, sca.attivo,
 
                                     ( SELECT CONCAT(u.name, ' ', u.surname) FROM Application\Entity\ZfcmsUsers u
                                     WHERE u.id = sca.utente ) AS user_name_surname
-
                                     ");
 
         $this->getQueryBuilder()->select($this->getSelectQueryFields())
@@ -63,14 +62,28 @@ class StatoCivileGetter extends QueryBuilderHelperAbstract
         
         return $this->getQueryBuilder();
     }
-    
+
     /**
-     * @param number $anno
+     * @param int $mese
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setMese($mese)
+    {
+        if ( is_numeric($mese) and $mese != 0) {
+            $this->getQueryBuilder()->andWhere('MONTH(sca.data) = :mese ');
+            $this->getQueryBuilder()->setParameter('mese', $mese);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param int $anno
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function setAnno($anno)
     {
-        if ( is_numeric($anno) ) {
+        if ( is_numeric($anno) and $anno != 0) {
             $this->getQueryBuilder()->andWhere('sca.anno = :anno ');
             $this->getQueryBuilder()->setParameter('anno', $anno);
         }

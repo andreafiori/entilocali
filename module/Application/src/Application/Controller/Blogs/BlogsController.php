@@ -56,7 +56,7 @@ class BlogsController extends SetupAbstractController
                 'moduleId'              => ModulesContainer::blogs,
                 'noScaduti'             => 1,
                 'languageAbbreviation'  => $lang,
-                'orderBy'               => 'ao.position'
+                'orderBy'               => 'a.position'
             )
         );
 
@@ -114,7 +114,7 @@ class BlogsController extends SetupAbstractController
 
         if (!empty($records)) {
             $singleRecord = $records[0];
-            $categoryName = $singleRecord['categoryName'];
+            $categoryName = $this->params()->fromRoute('category');
             $title        = $singleRecord['title'];
         }
 

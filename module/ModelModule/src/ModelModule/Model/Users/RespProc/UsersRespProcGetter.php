@@ -13,7 +13,7 @@ class UsersRespProcGetter extends QueryBuilderHelperAbstract
     {
         $this->setSelectQueryFields('respProc.id,
 
-                                    u.name, u.surname,
+                                    u.id AS userId, u.name, u.surname,
 
                                     settore.nome AS nomeSettore
                                     ');

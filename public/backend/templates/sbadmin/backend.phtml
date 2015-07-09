@@ -109,7 +109,7 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
+                <span class="sr-only">Cambia navigazione</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -117,7 +117,7 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
             <a class="navbar-brand" href="<?php echo $this->url('admin', array('lang' => $lang)); ?>" title="<?php echo $this->sitename ?> - area riservata"><?php echo $this->sitename ?></a>
 
             <div class="menu-toggler sidebar-toggler" title="Riduci \ espandi men&ugrave;">
-                <span class="sr-only">Toggle navigation</span>
+                <span class="sr-only">Cambia navigazione</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -142,6 +142,7 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                         <li><a href="<?php echo $this->url('admin/migrazione', array('lang' => $lang)); ?>" title="Tool migrazione dati">Migrazione dati</a></li>
                         -->
                         <?php endif; ?>
+                        <!-- <li><a href="#" title="Elenco e configurazione moduli">Moduli</a></li> -->
                     </ul>
                 </li>
                 <?php endif; ?>
@@ -270,7 +271,7 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                     </li>
 
                     <!-- Albo pretorio -->
-                    <?php if ($acl->hasResource('albo_pretorio_add') or $acl->hasResource('albo_pretorio_supdate')): ?>
+                    <?php if (($acl->hasResource('albo_pretorio_add') or $acl->hasResource('albo_pretorio_supdate')) and in_array('albo-pretorio', $this->modulesRecords)): ?>
                     <li>
                         <a href="#" class="dropdown-collapse" title="Menu albo pretorio"><i class="fa fa-table fa-fw"></i> <span class="side-menu-title">Albo pretorio</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -304,7 +305,7 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                     <?php endif; ?>
 
                     <!-- Stato civile -->
-                    <?php if ($acl->hasResource('stato_civile_add') or $acl->hasResource('stato_civile_update')): ?>
+                    <?php if (($acl->hasResource('stato_civile_add') or $acl->hasResource('stato_civile_update')) and in_array('stato-civile', $this->modulesRecords)): ?>
                     <li>
                         <a href="#" class="dropdown-collapse"><i class="fa fa-institution fa-fw"></i> <span class="side-menu-title">Stato civile</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -337,7 +338,7 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                     <?php endif; ?>
 
                     <!-- Amministrazione trasparente -->
-                    <?php if ($acl->hasResource('amministrazione_trsparente_add') or $acl->hasResource('amministrazione_trsparente_update')): ?>
+                    <?php if (($acl->hasResource('amministrazione_trsparente_add') or $acl->hasResource('amministrazione_trsparente_update')) and in_array('amministrazione-trasparente', $this->modulesRecords)): ?>
                     <li>
                         <a href="#" class="dropdown-collapse"><i class="fa fa-laptop fa-fw"></i> <span class="side-menu-title">Amm. trasparente</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -360,8 +361,8 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                             <li>
                                 <a href="#" class="dropdown-collapse" title="Gestione sottosezioni amministrazione trasparente">Sottosezioni <span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
-                                    <li><a href="#" title="Inserisci nuova sottosezione">Nuova</a></li>
-                                    <li><a href="#" title="Gestione">Gestione</a></li>
+                                    <li><a href="<?php echo $this->url('admin/sottosezioni-form', array('lang' => $lang, 'modulename' => 'amministrazione-trasparente', 'languageSelection' => $languageSelection)); ?>" title="Inserisci nuova sottosezione">Nuova</a></li>
+                                    <li><a href="<?php echo $this->url('admin/sottosezioni-summary', array('lang' => $lang, 'modulename' => 'amministrazione-trasparente', 'languageSelection' => $languageSelection)); ?>" title="Gestione sottosezioni">Gestione</a></li>
                                 </ul>
                             </li>
 
@@ -370,7 +371,7 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                     <?php endif; ?>
 
                     <!-- Atti di concessione -->
-                    <?php if ($acl->hasResource('atti_concessione_add') or $acl->hasResource('atti_concessione_update')): ?>
+                    <?php if (($acl->hasResource('atti_concessione_add') or $acl->hasResource('atti_concessione_update')) and in_array('atti-concessione', $this->modulesRecords)): ?>
                     <li>
                         <a href="#" class="dropdown-collapse"><i class="fa fa-list-alt fa-fw"></i> <span class="side-menu-title">Atti di concessione</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -399,7 +400,7 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                     <?php endif; ?>
 
                     <!-- Contratti pubblici -->
-                    <?php if ($acl->hasResource('contratti_pubblici_add') or $acl->hasResource('contratti_pubblici_update')): ?>
+                    <?php if ($acl->hasResource('contratti_pubblici_add') or $acl->hasResource('contratti_pubblici_update') and in_array('contratti-pubblici', $this->modulesRecords)): ?>
                     <li>
                         <a href="#" class="dropdown-collapse"><i class="fa fa-edit fa-fw"></i> <span class="side-menu-title">Contratti pubblici</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -435,7 +436,7 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                     <?php endif; ?>
 
                     <!-- Blogs -->
-                    <?php if ($acl->hasResource('blogs_add') or $acl->hasResource('blogs_update')): ?>
+                    <?php if ($acl->hasResource('blogs_add') or $acl->hasResource('blogs_update') and in_array('blogs', $this->modulesRecords)): ?>
                     <li>
                         <a href="#" class="dropdown-collapse"><i class="fa fa-list-alt fa-fw"></i> <span class="side-menu-title">Blogs</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -477,7 +478,7 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                     <?php endif; ?>
 
                     <!-- Photo -->
-                    <?php if ($acl->hasResource('photo_add') or $acl->hasResource('photo_update')): ?>
+                    <?php if ($acl->hasResource('photo_add') or $acl->hasResource('photo_update') and in_array('photo', $this->modulesRecords)): ?>
                     <li>
                         <a href="#" class="dropdown-collapse"><i class="fa fa-camera fa-fw"></i> <span class="side-menu-title">Foto</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -512,7 +513,7 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                     <?php endif; ?>
 
                     <!-- Newsletter -->
-                    <?php if ($acl->hasResource('newsletter_add') or $acl->hasResource('newsletter_update')): ?>
+                    <?php if (($acl->hasResource('newsletter_add') or $acl->hasResource('newsletter_update')) and in_array('newsletter', $this->modulesRecords)): ?>
                     <li>
                         <a href="#" class="dropdown-collapse" title="Newsletter"><i class="fa fa-newspaper-o fa-fw"></i> <span class="side-menu-title">Newsletter</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">

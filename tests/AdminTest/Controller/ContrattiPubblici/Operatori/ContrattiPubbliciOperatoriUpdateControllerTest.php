@@ -2,7 +2,6 @@
 
 namespace AdminTest\Controller\ContrattiPubblici\Operatori;
 
-use Admin\Controller\ContrattiPubblici\Operatori\ContrattiPubbliciOperatoriInsertController;
 use Admin\Controller\ContrattiPubblici\Operatori\ContrattiPubbliciOperatoriUpdateController;
 use ModelModule\Model\ContrattiPubblici\Operatori\OperatoriForm;
 use ModelModule\Model\ContrattiPubblici\Operatori\OperatoriFormInputFilter;
@@ -27,7 +26,7 @@ class ContrattiPubbliciOperatoriUpdateControllerTest extends InsertUpdateTestSui
             'id'                => '',
             'nome'              => 'Azienda test',
             'cf'                => 'FCZ104AM120M',
-            'ragioneSociale'    => 'Spa',
+            'ragioneSociale'    => 'S.p.a.',
         );
     }
 
@@ -40,6 +39,11 @@ class ContrattiPubbliciOperatoriUpdateControllerTest extends InsertUpdateTestSui
         $this->assertFalse($form->isValid());
     }
 
+    /**
+     * @param array $formDataSample
+     *
+     * @return OperatoriForm
+     */
     protected function setupForm($formDataSample)
     {
         $form = new OperatoriForm();

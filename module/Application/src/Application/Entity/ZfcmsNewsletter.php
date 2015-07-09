@@ -85,7 +85,7 @@ class ZfcmsNewsletter
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -96,6 +96,7 @@ class ZfcmsNewsletter
      * Set title
      *
      * @param string $title
+     *
      * @return ZfcmsNewsletter
      */
     public function setTitle($title)
@@ -108,7 +109,7 @@ class ZfcmsNewsletter
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -119,6 +120,7 @@ class ZfcmsNewsletter
      * Set messageText
      *
      * @param string $messageText
+     *
      * @return ZfcmsNewsletter
      */
     public function setMessageText($messageText)
@@ -131,7 +133,7 @@ class ZfcmsNewsletter
     /**
      * Get messageText
      *
-     * @return string 
+     * @return string
      */
     public function getMessageText()
     {
@@ -142,6 +144,7 @@ class ZfcmsNewsletter
      * Set messageSent
      *
      * @param string $messageSent
+     *
      * @return ZfcmsNewsletter
      */
     public function setMessageSent($messageSent)
@@ -154,7 +157,7 @@ class ZfcmsNewsletter
     /**
      * Get messageSent
      *
-     * @return string 
+     * @return string
      */
     public function getMessageSent()
     {
@@ -165,6 +168,7 @@ class ZfcmsNewsletter
      * Set createDate
      *
      * @param \DateTime $createDate
+     *
      * @return ZfcmsNewsletter
      */
     public function setCreateDate($createDate)
@@ -177,7 +181,7 @@ class ZfcmsNewsletter
     /**
      * Get createDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreateDate()
     {
@@ -188,6 +192,7 @@ class ZfcmsNewsletter
      * Set lastUpdate
      *
      * @param \DateTime $lastUpdate
+     *
      * @return ZfcmsNewsletter
      */
     public function setLastUpdate($lastUpdate)
@@ -200,7 +205,7 @@ class ZfcmsNewsletter
     /**
      * Get lastUpdate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getLastUpdate()
     {
@@ -211,6 +216,7 @@ class ZfcmsNewsletter
      * Set format
      *
      * @param string $format
+     *
      * @return ZfcmsNewsletter
      */
     public function setFormat($format)
@@ -223,7 +229,7 @@ class ZfcmsNewsletter
     /**
      * Get format
      *
-     * @return string 
+     * @return string
      */
     public function getFormat()
     {
@@ -234,6 +240,7 @@ class ZfcmsNewsletter
      * Set sent
      *
      * @param integer $sent
+     *
      * @return ZfcmsNewsletter
      */
     public function setSent($sent)
@@ -246,7 +253,7 @@ class ZfcmsNewsletter
     /**
      * Get sent
      *
-     * @return integer 
+     * @return integer
      */
     public function getSent()
     {
@@ -257,6 +264,7 @@ class ZfcmsNewsletter
      * Set template
      *
      * @param \Application\Entity\ZfcmsNewsletterTemplates $template
+     *
      * @return ZfcmsNewsletter
      */
     public function setTemplate(\Application\Entity\ZfcmsNewsletterTemplates $template = null)
@@ -269,7 +277,7 @@ class ZfcmsNewsletter
     /**
      * Get template
      *
-     * @return \Application\Entity\ZfcmsNewsletterTemplates 
+     * @return \Application\Entity\ZfcmsNewsletterTemplates
      */
     public function getTemplate()
     {

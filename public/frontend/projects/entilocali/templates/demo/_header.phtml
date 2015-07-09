@@ -76,6 +76,9 @@ table { width: 100% }
 aside h2 {
     font-size: 100%;
 }
+#blogArticleDescription {
+    word-break: break-all;
+}
 </style>
 
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -126,6 +129,12 @@ aside h2 {
 
 <body>
 
+<noscript>
+    <div>
+        <strong>Javascript disabilitato!</strong> Attivare il supporto Javascript sul browser in uso per una migliore navigazione sul sito.
+    </div>
+</noscript>
+
 <?php if ($this->passwordPreviewArea): ?>
     <div class="alert-box info text-center" id="previewAreaAlert">
         <strong>Anteprima <?php echo $this->sitename ?>.
@@ -136,7 +145,15 @@ aside h2 {
 <?php endif; ?>
 
 <?php if ($this->cookieWarning!=1): ?>
-    <div class="alert-box secondary text-center cookieWarning" id="previewAreaAlert">Questo sito utilizza cookie di sessione e di profilazione di terze parti per le sue funzionalit&agrave;. Se vuoi saperne di pi&ugrave; o negare il consenso a tutti o ad alcuni cookie, consulta la nostra <a href="#" title="Leggi la privacy policy">privacy policy</a>. Continuando la navigazione o chiudendo questo avviso, acconsenti all'utilizzo dei cookie. <a href="<?php echo $this->url('cookie-warning-confirm', array('action' => 'confirm')); ?>" class="button tiny">OK ho capito</a> <a href="#" class="button warning tiny">Maggiori informazioni</a>
+    <div class="alert-box secondary cookieWarning" id="previewAreaAlert">
+        <div class="row fullWidth">
+            <div class="large-8 columns">
+                Questo sito utilizza cookie di sessione e di profilazione di terze parti per le sue funzionalit&agrave;. Se vuoi saperne di pi&ugrave; o negare il consenso a tutti o ad alcuni cookie, consulta la nostra <a href="#" title="Leggi la privacy policy">privacy policy</a>. Continuando la navigazione o chiudendo questo avviso, acconsenti all'utilizzo dei cookie.
+            </div>
+            <div class="large-4 columns">
+                <a href="<?php echo $this->url('cookie-warning-confirm', array('action' => 'confirm')); ?>" class="button tiny">OK</a>
+                <a href="#" title="Maggiori informazioni sulla privacy policy" class="button warning tiny">Maggiori informazioni</a>
+            </div>
+        </div>
     </div>
 <?php endif; ?>
-

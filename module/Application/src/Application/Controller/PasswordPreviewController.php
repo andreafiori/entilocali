@@ -8,8 +8,7 @@ use Zend\Session\Container as SessionContainer;
 use Zend\View\Model\ViewModel;
 
 /**
- * @author Andrea Fiori
- * @since  26 February 2015
+ * Preview password area controller
  */
 class PasswordPreviewController extends SetupAbstractController
 {

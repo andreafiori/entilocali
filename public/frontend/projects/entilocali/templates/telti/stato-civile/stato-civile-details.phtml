@@ -8,10 +8,46 @@
     <h2>Atto stato civile non trovato</h2>
     <p>Impossibile mostrare i dati dell'atto richiesto</p>
 <?php else: ?>
-    <h2><?php echo ""; ?></h2>
-    <div>
+    <article>
+        <div>
+            <h2><?php echo $this->records['titolo'] ?></h2>
+            <div><strong>Numero \ Anno:</strong> <?php echo $this->records['progressivo']." / ".$this->records['anno']; ?></div>
+            <div><strong>Scadenza:</strong> <?php echo $this->records['scadenza']->format("m d Y"); ?></div>
+            <div><strong>Sezione:</strong> <?php echo $this->records['nomeSezione'] ?></div>
 
-    </div>
-    <!-- TODO: show Share and export -->
+            <?php if (isset($this->records['attachments'])): ?>
+                <div>
+                    <br>
+                    <p><strong>Allegati:</strong></p>
+                    <ul class="no-bullet">
+                        <?php foreach($this->records['attachments'] as $attachment): ?>
+                            <li>
+                                <a href="<?php echo $this->url('attachments-sthree-download', array('type' => 'stato-civile', 'id' => $attachment['id'])); ?>" title="Scarica allegato <?php echo $attachment['title'] ?> (<?php echo $attachment['size'] ?> Kb)">
+                                    <img src="<?php echo $this->publicDirRelativePath ?>/common/icons/attachments/<?php echo $attachment['image'] ?>" alt="Icona per <?php echo $attachment['title'] ?> (<?php echo $attachment['size'] ?> Kb)">
+                                    <?php echo $attachment['title'] ?>
+                                </a>
+                            </li>
+                        <?php endforeach ?>
+                    </ul>
+                </div>
+            <?php endif;?>
+
+            <?php
+
+            /* Share and export icons */
+            echo $this->partial('frontend/projects/entilocali/templates/'.$this->template_frontend.'_share.phtml', array(
+                'exportTxtUrl'          => $this->url('stato-civile-export-single', array('action' => 'txt', 'id' => $this->records['id'])),
+                'exportCsvUrl'          => $this->url('stato-civile-export-single', array('action' => 'csv', 'id' => $this->records['id'])),
+                'exportPdfUrl'          => $this->url('stato-civile-export-single', array('action' => 'pdf', 'id' => $this->records['id'])),
+                'exportXMLUrl'          => $this->url('stato-civile-export-single', array('action' => 'xml', 'id' => $this->records['id'])),
+                'exportJSONUrl'         => $this->url('stato-civile-export-single', array('action' => 'json', 'id' => $this->records['id'])),
+                'twitterShareText'      => urlencode($this->records['titolo']),
+                'publicDirRelativePath' => $this->publicDirRelativePath,
+                'currentUrl'            => $this->currentUrl,
+            ));
+
+            ?>
+        </div>
+    </article>
 <?php endif; ?>
 

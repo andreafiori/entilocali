@@ -24,7 +24,7 @@
     </a>
     <?php endif; ?>
 
-    <a href="<?php echo $this->url('admin/attachments-form-big-files', array('lang' => $this->params()->fromRoute('lang'), 'module' => $this->moduleCode, 'referenceId' => $this->referenceId) ); ?>" class="btn btn-default" title="Allegati di grandi dimensioni">
+    <a href="#<?php // echo $this->url('admin/attachments-form-big-files', array('lang' => $this->params()->fromRoute('lang'), 'module' => $this->moduleCode, 'referenceId' => $this->referenceId) ); ?>" class="btn btn-default" title="Allegati di grandi dimensioni">
         <i class="fa fa-paperclip"></i> Allegati di grandi dimensioni
     </a>
 </div>
@@ -67,8 +67,12 @@
             <?php foreach($this->attachmentsList as $record): ?>
                 <?php
                 $expireDate = $record['expireDate']->format('Y-m-d H:i:s');
+                if ($expireDate=='-0001-11-30 00:00:00') {
+                    $expireDate = 'Nessuna';
+                }
                 ?>
             <tr>
+                <!-- Checkbox selezione allegati multipli -->
                 <!--
                 <td>
                     <input type="checkbox" id="chk<?php echo $record['id'] ?>" name="attachmentId[]" value="<?php echo $record['id'] ?>">
@@ -121,7 +125,7 @@
                 <?php endif; ?>
 
                 <td><a href="<?php echo $this->url('admin/attachments-form', array('lang' => 'it', 'module' => $this->moduleCode, 'referenceId' => $this->referenceId, 'attachmentId' => $record['id'])); ?>" class="btn btn-primary" title="<?php echo $this->translate('Modifica file allegato') ?>"><i class="fa fa-pencil"></i></a></td>
-                <td><a href="#deleteModal" data-action="<?php echo $this->currentUrl ?>" class="open-deleteModal btn btn-danger" data-id="<?php echo $record['id'] ?>" title="<?php echo $this->translate('Elimina file allegato') ?>"><i class="fa fa-remove"></i> </a></td>
+                <td><a href="#deleteModal" data-action="<?php echo $this->url('admin/attachments-delete', array('lang' => 'it', 'modulename' => $this->moduleCode, 'referenceid' => $this->referenceId)); ?>" class="open-deleteModal btn btn-danger" data-id="<?php echo $record['id'] ?>" title="<?php echo $this->translate('Elimina file allegato') ?>"><i class="fa fa-remove"></i> </a></td>
                 <td><a href="<?php echo $this->url('attachments-sthree-download', array('lang' => 'it', 'type' => $this->attachmentType, 'id' => $record['id']) ); ?>" class="btn btn-default" title="Scarica file"><i class="fa fa-download"></i></a></td>
             </tr>
             <?php endforeach; ?>

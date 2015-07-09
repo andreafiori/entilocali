@@ -16,7 +16,7 @@ class SottosezioniControllerHelper extends ContenutiControllerHelperAbstract
      * @return int
      * @throws NullException
      */
-    public function insert(InputFilterAwareInterface $formData)
+    public function insert(InputFilterAwareInterface $formData, $moduleCode)
     {
         $this->assertConnection();
 
@@ -24,21 +24,25 @@ class SottosezioniControllerHelper extends ContenutiControllerHelperAbstract
 
         $userDetails = $this->getLoggedUser();
 
-        return $this->getConnection()->insert(
+        $this->getConnection()->insert(
             DbTableContainer::sottosezioni,
             array(
-                'nome'              => $formData->nomeSottoSezione,
-                'sezione_id'        => $formData->sezione,
-                'url'               => $formData->url,
-                'url_title'         => $formData->urlTitle,
-                'posizione'         => $formData->posizione,
-                'attivo'            => $formData->attivo,
-                'profondita_da'     => 0,
-                'profondita_a'      => '',
-                'slug'              => Slugifier::slugify($formData->nomeSottoSezione),
-                'utente_id'         => $userDetails->id,
+                'nome'                  => $formData->nomeSottoSezione,
+                'sezione_id'            => $formData->sezione,
+                'url'                   => $formData->url,
+                'url_title'             => $formData->urlTitle,
+                'posizione'             => $formData->posizione,
+                'attivo'                => $formData->attivo,
+                'profondita_da'         => null,
+                'profondita_a'          => 0,
+                'posizione'             => 1,
+                'is_amm_trasparente'    => ($moduleCode!='contenuti') ? 1 : 0,
+                'slug'                  => Slugifier::slugify($formData->nomeSottoSezione),
+                'utente_id'             => $userDetails->id,
             )
         );
+
+        return $this->getConnection()->lastInsertId();
     }
     
     /**

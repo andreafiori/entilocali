@@ -113,11 +113,17 @@ class AttiConcessioneSummaryController extends SetupAbstractController
                 )
             );
 
-            $this->layout()->setTemplate($mainLayout);
-
         } catch(\Exception $e) {
-
+            $this->layout()->setVariables(array(
+                    'messageType'       => 'warning',
+                    'messageTitle'      => 'Problema verificato',
+                    'messageText'       => $e->getMessage(),
+                    'templatePartial'   => 'message.phtml'
+                )
+            );
         }
+
+        $this->layout()->setTemplate($mainLayout);
     }
 
         /**

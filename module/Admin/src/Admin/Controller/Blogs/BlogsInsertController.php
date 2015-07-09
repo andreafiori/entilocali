@@ -58,6 +58,7 @@ class BlogsInsertController extends SetupAbstractController
 
             $inputFilter->exchangeArray( $form->getData() );
 
+            $publicDirPath = $helper->recoverPublicDirPath($this->layout()->getVariable('isPublicDirOnRoot'));
             $mediaDir = $helper->checkMediaDir($configurations);
             $mediaProject = $helper->checkMediaProject($configurations);
             $helper->checkMediaSubDir($configurations);
@@ -90,18 +91,18 @@ class BlogsInsertController extends SetupAbstractController
                             new \Imagine\Image\Box($thumbWitdth, $thumbHeight),
                             \Imagine\Image\ImageInterface::THUMBNAIL_INSET
                         )
-                        ->save($mediaDir.$mediaProject.'/blogs/thumbs/'.$newFilename)
+                        ->save($publicDirPath.$mediaDir.$mediaProject.'/blogs/thumbs/'.$newFilename)
                 ;
 
-                move_uploaded_file($inputFilter->image['tmp_name'], $mediaDir.$mediaProject.'/blogs/big/'.$newFilename);
+                move_uploaded_file($inputFilter->image['tmp_name'], $publicDirPath.$mediaDir.$mediaProject.'/blogs/big/'.$newFilename);
+
+                $helper->updateImage($lastInsertId, $newFilename);
             }
 
-            $helper->updateImage($lastInsertId, $newFilename);
             /* Insert Relations */
             foreach($inputFilter->categories as $category) {
                 $helper->insertRelation($inputFilter, $lastInsertId, $category);
             }
-            $helper->getConnection()->commit();
 
             $logWriter = new LogWriter($connection);
             $logWriter->writeLog(array(
@@ -130,6 +131,8 @@ class BlogsInsertController extends SetupAbstractController
                 )),
                 'insertAgainLabel'           => "Inserisci un altro post",
             ));
+
+            $helper->getConnection()->commit();
 
         } catch(\Exception $e) {
 

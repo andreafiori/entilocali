@@ -6,7 +6,7 @@
     </a>
 </p>
 
-<div id="frmFrmSearchExport" style="display: block">
+<div id="frmFrmSearchExport" style="display: <?php echo ($this->sessionSearch) ? 'block' : 'none' ?>">
 
     <br>
 
@@ -14,7 +14,7 @@
 
     $form = $this->formSearch;
 
-    $form->setAttribute('action',   $this->url('admin/contratti-pubblici-summary', array('lang'=>'it')));
+    $form->setAttribute('action',   $this->url('contratti-pubblici-search', array('action' => 'index')));
     $form->setAttribute('method',   'post');
     $form->setAttribute('role',     'form');
     $form->setAttribute('class',    'form-horizontal');
@@ -23,7 +23,7 @@
     $form->get('cig')->setAttribute('class', 'form-control');
     $form->get('importo')->setAttribute('class', 'form-control');
     $form->get('anno')->setAttribute('class', 'form-control');
-    $form->get('ufficio')->setAttribute('class', 'form-control');
+    $form->get('settore')->setAttribute('class', 'form-control');
     $form->get('search')->setAttribute('class', 'btn btn-primary');
     $form->prepare();
 
@@ -56,11 +56,11 @@
             <?php echo $this->formElement($form->get('anno')); ?>
         </div>
 
-        <label class="col-sm-4 control-label" for="<?php echo $form->get('ufficio')->getAttribute('id') ?>">
-            <?php echo $this->formLabel($form->get('ufficio')) ?>
+        <label class="col-sm-4 control-label" for="<?php echo $form->get('settore')->getAttribute('id') ?>">
+            <?php echo $this->formLabel($form->get('settore')) ?>
         </label>
         <div class="col-sm-4">
-            <?php echo $this->formElement($form->get('ufficio')); ?>
+            <?php echo $this->formElement($form->get('settore')); ?>
         </div>
     </div>
 
@@ -68,12 +68,16 @@
         <label class="col-sm-2 control-label" for="<?php echo $form->get('search')->getAttribute('id') ?>">
             &nbsp;
         </label>
-        <div class="col-sm-2">
+        <div class="col-sm-4">
+            <?php echo $this->formElement($form->get('csrf')); ?>
             <?php echo $this->formElement($form->get('search')); ?>
-            <button type="reset" class="btn btn-danger">Reset</button>
+
+            <?php if ($this->sessionSearch): ?>
+                <a href="<?php echo $this->url('contratti-pubblici-search', array('action' => 'unsetsearch')) ?>" class="btn btn-danger" title="Azzera sessione di ricerca sugli atti dell'albo pretorio">Azzera ricerca</a>
+            <?php endif; ?>
         </div>
 
-        <div class="col-sm-8">
+        <div class="col-sm-6">
             <!--
             Esporta:
             <button type="button" class="btn btn-success"><i class="fa fa-file-excel-o"></i> CSV</button>

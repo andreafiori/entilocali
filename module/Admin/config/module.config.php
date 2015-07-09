@@ -16,11 +16,10 @@ return array(
             'Admin\Controller\Attachments\AttachmentsUpdate'                    => 'Admin\Controller\Attachments\AttachmentsUpdateController',
             'Admin\Controller\Attachments\AttachmentsDelete'                    => 'Admin\Controller\Attachments\AttachmentsDeleteController',
 
-            /* Contenuti, Amministrazione trasparente */
+            /* Contenuti AND Amministrazione trasparente */
             'Admin\Controller\Contenuti\ContenutiSummary'                       => 'Admin\Controller\Contenuti\ContenutiSummaryController',
             'Admin\Controller\Contenuti\ContenutiForm'                          => 'Admin\Controller\Contenuti\ContenutiFormController',
             'Admin\Controller\Contenuti\ContenutiEnableDisable'                 => 'Admin\Controller\Contenuti\ContenutiEnableDisableController',
-            'Admin\Controller\Contenuti\ContenutiHomeputremove'                 => 'Admin\Controller\Contenuti\ContenutiHomeputremoveController',
             'Admin\Controller\Contenuti\ContenutiOperations'                    => 'Admin\Controller\Contenuti\ContenutiOperationsController',
             'Admin\Controller\Contenuti\ContenutiInsert'                        => 'Admin\Controller\Contenuti\ContenutiInsertController',
             'Admin\Controller\Contenuti\ContenutiUpdate'                        => 'Admin\Controller\Contenuti\ContenutiUpdateController',
@@ -60,14 +59,15 @@ return array(
             'Admin\Controller\AttiConcessione\AttiConcessioneUpdate'            => 'Admin\Controller\AttiConcessione\AttiConcessioneUpdateController',
             'Admin\Controller\AttiConcessione\ModalitaAssegnazioneForm'         => 'Admin\Controller\AttiConcessione\ModalitaAssegnazioneFormController',
             'Admin\Controller\AttiConcessione\ModalitaAssegnazioneSummary'      => 'Admin\Controller\AttiConcessione\ModalitaAssegnazioneSummaryController',
-            'Admin\Controller\AttiConcessione\ModalitaAssegnazioneInsert'       => 'Admin\Controller\AttiConcessione\ModalitaAssegnazioneInsert', // to create
-            'Admin\Controller\AttiConcessione\ModalitaAssegnazioneUpdate'       => 'Admin\Controller\AttiConcessione\ModalitaAssegnazioneUpdate', // to create
+            'Admin\Controller\AttiConcessione\ModalitaAssegnazioneInsert'       => 'Admin\Controller\AttiConcessione\ModalitaAssegnazioneInsertController',
+            'Admin\Controller\AttiConcessione\ModalitaAssegnazioneUpdate'       => 'Admin\Controller\AttiConcessione\ModalitaAssegnazioneUpdateController',
 
             /* Contratti Pubblici */
             'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSummary'                    => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSummaryController',
             'Admin\Controller\ContrattiPubblici\ContrattiPubbliciForm'                       => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciFormController',
             'Admin\Controller\ContrattiPubblici\ContrattiPubbliciInsert'                     => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciInsertController',
             'Admin\Controller\ContrattiPubblici\ContrattiPubbliciUpdate'                     => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciUpdateController',
+            'Admin\Controller\ContrattiPubblici\ContrattiPubbliciOperations'                 => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciOperationsController',
             'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSceltaContraenteForm'       => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSceltaContraenteFormController',
             'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSceltaContraenteSummary'    => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSceltaContraenteSummaryController',
             'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSceltaContraenteInsert'     => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciSceltaContraenteInsertController',
@@ -103,7 +103,7 @@ return array(
             'Admin\Controller\Photo\PhotoUpdate'                      => 'Admin\Controller\Photo\PhotoUpdateController',
             'Admin\Controller\Photo\PhotoDelete'                      => 'Admin\Controller\Photo\PhotoDeleteController',
 
-            /* Posts Categories (generic) */
+            /* Posts Categories (generic for photo, blogs new contents and videos) */
             'Admin\Controller\Posts\PostsCategoriesForm'             => 'Admin\Controller\Posts\PostsCategoriesFormController',
             'Admin\Controller\Posts\PostsCategoriesInsert'           => 'Admin\Controller\Posts\PostsCategoriesInsertController',
             'Admin\Controller\Posts\PostsCategoriesUpdate'           => 'Admin\Controller\Posts\PostsCategoriesUpdateController',
@@ -156,6 +156,7 @@ return array(
             /* Gestione home page */
             'Admin\Controller\HomePage\HomePageBlocksPositions'       => 'Admin\Controller\HomePage\HomePageBlocksPositionsController',
             'Admin\Controller\HomePage\HomePage'                      => 'Admin\Controller\HomePage\HomePageController',
+            'Admin\Controller\HomePage\HomePagePutRemove'             => 'Admin\Controller\HomePage\HomePagePutRemoveController',
 
             /* Tickets */
             'Admin\Controller\Tickets\TicketsForm'                    => 'Admin\Controller\Tickets\TicketsFormController',
@@ -273,33 +274,37 @@ return array(
                     'homepage-management-insert' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => 'homepage/management/element/insert[/]',
+                            'route' => 'homepage/management/element/insert/:modulecode/:referenceid[/][:languageid[/]]',
+                            'constraints' => array(
+                                'referenceid'   => '[0-9]+',
+                                'modulecode'    => '[a-zA-Z0-9_-]*',
+                                'languageid'    => '[0-9]+',
+                            ),
                             'defaults' => array(
-                                'controller' => 'Admin\Controller\HomePage\HomePage',
-                                'action'     => 'insertelement',
+                                'controller' => 'Admin\Controller\HomePage\HomePagePutRemove',
+                                'action'     => 'put',
                             ),
                         ),
                     ),
                     'homepage-management-delete' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route' => 'homepage/management/element/delete/:id[/]',
+                            'route' => 'homepage/management/element/delete/:modulecode/:referenceid[/][:languageid[/]]',
                             'constraints' => array(
-                                'id' => '[0-9]+',
+                                'referenceid'   => '[0-9]+',
+                                'modulecode'    => '[a-zA-Z0-9_-]*',
+                                'languageid'    => '[0-9]+',
                             ),
                             'defaults' => array(
-                                'controller' => 'Admin\Controller\HomePage\HomePage',
-                                'action'     => 'delete',
+                                'controller' => 'Admin\Controller\HomePage\HomePagePutRemove',
+                                'action'     => 'remove',
                             ),
                         ),
                     ),
                     'homepage-positions' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route'       => 'homepage/management/positions[/]',
-                            'constraints' => array(
-
-                            ),
+                            'route' => 'homepage/management/positions[/]',
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\HomePage\HomePage',
                                 'action'     => 'index',
@@ -309,10 +314,7 @@ return array(
                     'homepage-blocks-positions' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route'       => 'homepage/blocks/positions[/]',
-                            'constraints' => array(
-
-                            ),
+                            'route' => 'homepage/blocks/positions[/]',
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\HomePage\HomePageBlocksPositions',
                                 'action'     => 'index',
@@ -341,21 +343,6 @@ return array(
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Contenuti\ContenutiOperations',
-                            ),
-                        ),
-                    ),
-                    'contenuti-homeputremove' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => 'common/:modulename/lang/:languageSelection/homepage/management/:action/:id[/]',
-                            'constraints' => array(
-                                'action'            => '[a-zA-Z0-9_-]*',
-                                'modulename'        => '[a-zA-Z0-9_-]*',
-                                'languageSelection' => '[a-z]{2}',
-                                'id'                => '[0-9]+',
-                            ),
-                            'defaults' => array(
-                                'controller' => 'Admin\Controller\Contenuti\ContenutiHomeputremove',
                             ),
                         ),
                     ),
@@ -706,10 +693,10 @@ return array(
                     'attachments-delete' => array(
                         'type' => 'Segment',
                         'options' => array(
-                            'route'       => 'attachments/form/delete/:modulename[/][:id[/]]',
+                            'route' => 'attachments/form/delete/:modulename/:referenceid[/]',
                             'constraints' => array(
                                 'modulename'    => '[a-zA-Z0-9_-]*',
-                                'id'            => '[0-9]+',
+                                'referenceid'   => '[0-9]+',
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\Attachments\AttachmentsDelete',
@@ -762,9 +749,6 @@ return array(
                         'type'    => 'Segment',
                         'options' => array(
                             'route' => 'albo-pretorio/atti/form/insert[/]',
-                            'constraints' => array(
-
-                            ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\AlboPretorio\AlboPretorioInsert',
                                 'action'     => 'index',
@@ -775,9 +759,6 @@ return array(
                         'type'    => 'Segment',
                         'options' => array(
                             'route' => 'albo-pretorio/atti/form/update[/]',
-                            'constraints' => array(
-
-                            ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\AlboPretorio\AlboPretorioUpdate',
                                 'action'     => 'index',
@@ -867,10 +848,11 @@ return array(
                     'albo-pretorio-operations' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route' => 'albo-pretorio/operations/[:action[/]][:id[/]]',
+                            'route' => 'albo-pretorio/operations/[:action[/]][:id[/]][:anno[/]]',
                             'constraints' => array(
                                 'action'     => '[a-zA-Z0-9_-]*',
                                 'id'         => '[0-9]+',
+                                'anno'       => '[0-9]+',
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\AlboPretorio\AlboPretorioOperations',
@@ -1176,6 +1158,19 @@ return array(
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciUpdate',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'contratti-pubblici-operations' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'contratti-pubblici/operations/:action/[:id[/]]',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\ContrattiPubblici\ContrattiPubbliciOperations',
                                 'action'     => 'index',
                             ),
                         ),
@@ -1962,7 +1957,11 @@ return array(
         'display_not_found_reason' => true,
         'display_exceptions' => true,
         'template_map' => array(
-            'admin/admin/index'                                     => __DIR__ . '../../view/admin/index.phtml',
+            'admin/'                                        => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/admin/index'                             => __DIR__ . '/../view/admin/index.phtml',
+            'admin/form-data-post/index'                    => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/configurations-form/index'               => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/admin/migrazione'                        => __DIR__ . '/../view/migrazione.phtml',
 
             /* Attachment files */
             'admin/attachments-summary/index'                       => __DIR__ . '/../view/admin/empty.phtml',
@@ -1977,15 +1976,13 @@ return array(
 
             'admin/admin/formpost'                          => __DIR__ . '../../view/admin/formpost-empty.phtml',
 
-            /* Contenuti */
+            /* Contenuti AND Amministrazione trasparente */
             'admin/contenuti-summary/index'                 => __DIR__ . '/../view/admin/empty.phtml',
             'admin/contenuti-form/index'                    => __DIR__ . '/../view/admin/empty.phtml',
             'admin/contenuti-insert/index'                  => __DIR__ . '/../view/admin/empty.phtml',
             'admin/contenuti-update/index'                  => __DIR__ . '/../view/admin/empty.phtml',
             'admin/contenuti-enabledisable/enable'          => __DIR__ . '/../view/admin/empty.phtml',
             'admin/contenuti-enabledisable/disable'         => __DIR__ . '/../view/admin/empty.phtml',
-            'admin/contenuti-homeputremove/put'             => __DIR__ . '/../view/admin/empty.phtml',
-            'admin/contenuti-homeputremove/remove'          => __DIR__ . '/../view/admin/empty.phtml',
             'admin/contenuti-operations/insert'             => __DIR__ . '/../view/admin/empty.phtml',
             'admin/contenuti-operations/update'             => __DIR__ . '/../view/admin/empty.phtml',
             'admin/contenuti-operations/delete'             => __DIR__ . '/../view/admin/empty.phtml',
@@ -1994,16 +1991,15 @@ return array(
             'admin/contenuti-tabella-form/index'            => __DIR__ . '/../view/admin/empty.phtml',
             'admin/contenuti-tabella-update/index'          => __DIR__ . '/../view/admin/empty.phtml',
 
-            /* Amministrazione trasparente */
-
             /* Albo pretorio */
             'admin/albo-pretorio-summary/index'             => __DIR__ . '/../view/admin/empty.phtml',
             'admin/albo-pretorio-form/index'                => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/albo-pretorio-form-rettifica/index'      => __DIR__ . '/../view/admin/empty.phtml',
             'admin/albo-pretorio-insert/index'              => __DIR__ . '/../view/admin/empty.phtml',
             'admin/albo-pretorio-update/index'              => __DIR__ . '/../view/admin/empty.phtml',
             'admin/albo-pretorio-delete/index'              => __DIR__ . '/../view/admin/empty.phtml',
             'admin/albo-pretorio-pdf/relata'                => __DIR__ . '../../view/admin/albo-pretorio-pdf/relata.phtml',
-            'admin/albo-pretorio-form-rettifica/index'      => __DIR__ . '/../view/admin/empty.phtml',
+            'admin/albo-pretorio-operations/active'         => __DIR__ . '/../view/admin/empty.phtml',
             'admin/albo-pretorio-sezioni-form/index'        => __DIR__ . '/../view/admin/empty.phtml',
             'admin/albo-pretorio-sezioni-insert/index'      => __DIR__ . '/../view/admin/empty.phtml',
             'admin/albo-pretorio-sezioni-update/index'      => __DIR__ . '/../view/admin/empty.phtml',
@@ -2139,26 +2135,11 @@ return array(
             'admin/newsletter-templates-form/index'          => __DIR__ . '/../view/admin/empty.phtml',
             'admin/newsletter-templates-summary/index'       => __DIR__ . '/../view/admin/empty.phtml',
 
-            'admin/'                                        => __DIR__ . '/../view/admin/empty.phtml',
-
-            'admin/form-data-post/index'                    => __DIR__ . '/../view/admin/empty.phtml',
-            'admin/admin/migrazione'                        => __DIR__ . '/../view/migrazione.phtml',
-
-            'admin/configurations-form/index'               => __DIR__ . '/../view/migrazione.phtml',
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view/',
             __DIR__ . '../../public',
             __DIR__ . '../../../public',
         ),
-    ),
-    /* Backend Router Class Map */
-    'be_router' => array(
-        /* "admin/migrazione"                           => 'ModelModule\Model\Migrazione\MigrazioneHandler', */
-    ),
-    /* FormData CRUD Class Map */
-    'formdata_crud_classmap' => array(
-        'users-roles' => 'ModelModule\Model\Users\Roles\UsersRolesCrudHandler',
-        'users-todo'  => 'ModelModule\Model\Users\Roles\UsersTodoCrudHandler',
     ),
 );

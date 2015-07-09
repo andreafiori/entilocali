@@ -6,6 +6,24 @@ use Zend\Form\Form;
 
 class AttiConcessioneFormSearch extends Form
 {
+    /**
+     * @inheritdoc
+     */
+    public function __construct($name = null, $options = null)
+    {
+        parent::__construct($name);
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Csrf',
+            'name' => 'csrf',
+            'options' => array(
+                'csrf_options' => array(
+                    'timeout' => 3200
+                )
+            )
+        ));
+    }
+
     public function addAnno($years)
     {
         if (empty($years)) {

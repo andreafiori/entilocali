@@ -33,21 +33,21 @@ class ZfcmsPosts
      *
      * @ORM\Column(name="create_date", type="datetime", nullable=true)
      */
-    private $createDate;
+    private $createDate = '2015-01-01 01:01:01';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="expire_date", type="datetime", nullable=true)
      */
-    private $expireDate;
+    private $expireDate = '2015-01-01 01:01:01';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="last_update", type="datetime", nullable=true)
      */
-    private $lastUpdate;
+    private $lastUpdate = '2015-01-01 01:01:01';
 
     /**
      * @var string
@@ -96,7 +96,7 @@ class ZfcmsPosts
      *
      * @ORM\Column(name="position", type="bigint", nullable=true)
      */
-    private $position;
+    private $position = '1';
 
     /**
      * @var string
@@ -190,3 +190,4 @@ class ZfcmsPosts
 
 
 }
+

@@ -9,6 +9,8 @@ use ModelModule\Model\Users\UsersControllerHelper;
 use ModelModule\Model\Users\UsersForm;
 use ModelModule\Model\Users\UsersFormInputFilter;
 use ModelModule\Model\Log\LogWriter;
+use ModelModule\Model\Users\UsersGetter;
+use ModelModule\Model\Users\UsersGetterWrapper;
 
 class UsersInsertController extends SetupAbstractController
 {
@@ -56,8 +58,14 @@ class UsersInsertController extends SetupAbstractController
             $inputFilter->exchangeArray( $form->getData() );
 
             $helper->setLoggedUser($userDetails);
+
+            $userEmail = $helper->recoverWrapperRecords(
+                new UsersGetterWrapper(new UsersGetter($em)),
+                array('email' => $inputFilter->email, 'limit' => 1)
+            );
+            $helper->checkRecordsAreEmpty($userEmail, 'Esiste un utente registrato con questa email');
+
             $lastInsertId = $helper->insert($inputFilter);
-            $helper->getConnection()->commit();
 
             $logWriter = new LogWriter($connection);
             $logWriter->writeLog(array(
@@ -82,6 +90,8 @@ class UsersInsertController extends SetupAbstractController
                 'backToSummaryText'     => "Elenco utenti",
             ));
 
+            $helper->getConnection()->commit();
+
         } catch(\Exception $e) {
 
             try {
@@ -94,7 +104,7 @@ class UsersInsertController extends SetupAbstractController
             $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
                 'module_id'     => ModulesContainer::contenuti_id,
-                'message'       => "Errore inserimento nuovo utente: ".$inputFilter->name.' '.$inputFilter->surname,
+                'message'       => "Errore creazione nuovo utente: ".$inputFilter->name.' '.$inputFilter->surname,
                 'type'          => 'error',
                 'description'   => $e->getMessage(),
                 'backend'       => 1,
@@ -102,7 +112,7 @@ class UsersInsertController extends SetupAbstractController
 
             $this->layout()->setVariables(array(
                 'messageType'           => 'danger',
-                'messageTitle'          => 'Errore inserimento nuovo utente',
+                'messageTitle'          => 'Errore creazione nuovo utente',
                 'messageText'           => 'Messaggio generato: '.$e->getMessage(),
                 'form'                  => $form,
                 'formInputFilter'       => $inputFilter->getInputFilter(),

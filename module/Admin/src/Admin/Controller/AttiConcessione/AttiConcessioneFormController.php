@@ -14,6 +14,9 @@ use ModelModule\Model\Users\Settori\UsersSettoriGetter;
 use ModelModule\Model\Users\Settori\UsersSettoriGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
+/**
+ * Atti Concessione Form Admin Controller
+ */
 class AttiConcessioneFormController extends SetupAbstractController
 {
     public function indexAction()
@@ -52,8 +55,8 @@ class AttiConcessioneFormController extends SetupAbstractController
                 ),
                 array()
             );
+            $helper->checkRecords($modalitaAssegnazioneRecords, 'Nessuna modalit&agrave; di assegnazione presente');
             $modAssegnForDropdown = $helper->formatForDropwdown($modalitaAssegnazioneRecords, 'id', 'nome');
-
             $attiRecords = $helper->recoverWrapperRecordsById(
                 new AttiConcessioneGetterWrapper(new AttiConcessioneGetter($em)),
                 array('aa.id' => $id, 'limit' => 1),
@@ -105,7 +108,7 @@ class AttiConcessioneFormController extends SetupAbstractController
 
             $this->layout()->setVariables(array(
                 'messageType'       => 'danger',
-                'messageTitle'      => 'Errore o problema verificato',
+                'messageTitle'      => 'Problema verificato',
                 'messageText'       => $e->getMessage(),
                 'templatePartial'   => 'message.phtml',
             ));

@@ -6,10 +6,6 @@ use ModelModuleTest\TestSuite;
 use ServiceLocatorFactory\ServiceLocatorFactory;
 use Application\Controller\AlboPretorio\AlboPretorioController;
 
-/**
- * @author Andrea Fiori
- * @since  15 April 2015
- */
 class AlboPretorioControllerTest extends TestSuite
 {
     protected $controller;

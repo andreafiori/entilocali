@@ -6,9 +6,14 @@ use ModelModule\Model\ControllerHelperAbstract;
 use ModelModule\Model\Database\DbTableContainer;
 use Zend\InputFilter\InputFilterAwareInterface;
 
+/**
+ * Operatori Controller Helper
+ */
 class OperatoriControllerHelper extends ControllerHelperAbstract
 {
     /**
+     * Insert azienda into db
+     *
      * @param InputFilterAwareInterface $formData
      * @return int
      */
@@ -16,17 +21,21 @@ class OperatoriControllerHelper extends ControllerHelperAbstract
     {
         $this->assertConnection();
 
-        return $this->getConnection()->insert(
+        $this->getConnection()->insert(
             DbTableContainer::contrattiPartecipanti,
             array(
                 'nome'              => $formData->nome,
                 'cf'                => $formData->cf,
-                'ragione_sociale'    => $formData->ragioneSociale,
+                'ragione_sociale'   => $formData->ragioneSociale,
             )
         );
+
+        return $this->getConnection()->lastInsertId();
     }
 
     /**
+     * Update partecipante into db
+     *
      * @param InputFilterAwareInterface $formData
      * @return int
      * @throws \ModelModule\Model\NullException
@@ -42,13 +51,13 @@ class OperatoriControllerHelper extends ControllerHelperAbstract
                 'cf'                => $formData->cf,
                 'ragione_sociale'    => $formData->ragioneSociale,
             ),
-            array(
-                'id' => $formData->id
-            )
+            array('id' => $formData->id)
         );
     }
 
     /**
+     * Format Operatori Partecipanti
+     *
      * @param array $recordset
      * @param int $excludeAggiudicatari
      * @return array|bool
@@ -59,23 +68,25 @@ class OperatoriControllerHelper extends ControllerHelperAbstract
             return false;
         }
 
-        $aggiudicatari = array();
+        $partecipanti = array();
         foreach($recordset as $record) {
             if ($excludeAggiudicatari) {
                 if ($record['aggiudicatario']!=1) {
-                    $aggiudicatari[] = $record;
+                    $partecipanti[] = $record;
                 }
             } else {
                 if ($record['aggiudicatario']==1) {
-                    $aggiudicatari[] = $record;
+                    $partecipanti[] = $record;
                 }
             }
         }
 
-        return $aggiudicatari;
+        return $partecipanti;
     }
 
     /**
+     * Gather operatori partecipanti IDs
+     *
      * @param array $recordset
      * @return array|bool
      */
@@ -93,5 +104,35 @@ class OperatoriControllerHelper extends ControllerHelperAbstract
         }
 
         return $container;
+    }
+
+    /**
+     * Check if Codice Fiscale is valid
+     *
+     * @param string $cf
+     * @return bool
+     */
+    public function isValidCodiceFiscale($cf)
+    {
+        if (preg_match("/^[a-z]{6}[0-9]{2}[a-z][0-9]{2}[a-z][0-9]{3}[a-z]$/i", $cf)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if Partita IVA is valid
+     *
+     * @param string $partitaIva
+     * @return bool
+     */
+    public function isValidPartitaIVA($partitaIva)
+    {
+        if (preg_match("/^[0-9]{11}$/i", $partitaIva)) {
+            return true;
+        }
+
+        return false;
     }
 }

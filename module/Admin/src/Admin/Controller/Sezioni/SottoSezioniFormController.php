@@ -75,16 +75,31 @@ class SottoSezioniFormController extends SetupAbstractController
                 'form'                          => $form,
                 'formAction'                    => $formAction,
                 'formTitle'                     => $formTitle,
-                'formDescription'               => 'Dati relativi alle sottosezioni',
+                'formDescription'               => 'Dati relativi alla sottosezione',
                 'submitButtonValue'             => $submitButtonValue,
                 'formBreadCrumbTitle'           => $formBreadCrumbTitle,
                 'formBreadCrumbCategory'        => 'Sottosezioni',
-                'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/sottosezioni-summary', array(
-                    'lang'               => $lang,
-                    'languageSelection'  => $languageSelection,
-                    'modulename'         => $modulename,
-                    'previouspage'       => $page,
-                )),
+                'formBreadCrumbCategory'        => array(
+                    array(
+                        'href' => $this->url()->fromRoute('admin/contenuti-summary', array(
+                            'lang'               => $lang,
+                            'languageSelection'  => $languageSelection,
+                            'modulename'         => $modulename,
+                            'previouspage'       => $page,
+                        )),
+                        'label' => ucfirst($modulename),
+                        'title' => 'Elenco '.$modulename,
+                    ),
+                    array(
+                        'href' => $this->url()->fromRoute('admin/sottosezioni-summary', array(
+                            'lang'              => $lang,
+                            'modulename'        => 'amministrazione-trasparente',
+                            'languageSelection' => $languageSelection
+                        )),
+                        'label' => 'Sottosezioni',
+                        'title' => 'Sezioni '.$modulename,
+                    ),
+                ),
                 'templatePartial'               => self::formTemplate,
             ));
 

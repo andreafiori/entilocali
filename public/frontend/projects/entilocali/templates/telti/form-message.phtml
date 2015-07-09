@@ -1,0 +1,12 @@
+<ul class="breadcrumbs">
+    <li><a href="<?php echo $this->basepath() ?>/" title="Torna all'home page">Home</a></li>
+    <?php if ($this->moduleLabel and $this->moduleUrl): ?>
+    <li><a href="<?php echo $this->moduleUrl ?>" title="Torna a <?php echo $this->moduleLabel ?>"><?php echo $this->moduleLabel ?></a></li>
+    <?php endif; ?>
+    <li class="current">Errore verificato</li>
+</ul>
+
+<div class="panel info">
+    <h2>Errori nel modulo compilato</h2>
+    <a href="<?php echo $this->refererUrl ?>" title="Torna indietro">&laquo; Torna indietro e controlla nuovamente i dati</a>
+</div>

@@ -64,7 +64,6 @@ class AttiConcessioneInsertController extends SetupAbstractController
             );
 
             $lastInsertId = $helper->insert($inputFilter);
-            $helper->getConnection()->commit();
 
             $logWriter = new LogWriter($connection);
             $logWriter->writeLog(array(
@@ -82,13 +81,15 @@ class AttiConcessioneInsertController extends SetupAbstractController
                 'messageText'                => 'I dati sono stati processati correttamente dal sistema',
                 'showLinkResetFormAndShowIt' => 1,
                 'backToSummaryLink'     => $this->url()->fromRoute('admin/atti-concessione-summary', array(
-                    'lang'              => $this->params()->fromRoute('lang'),
-                    'languageSelection' => $this->params()->fromRoute('languageSelection'),
-                    'modulename'        => $this->params()->fromRoute('modulename'),
+                    'lang'              => 'it',
+                    'languageSelection' => 'it',
+                    'modulename'        => 'atti-concessione',
                 )),
                 'backToSummaryText'     => "Elenco atti",
                 'insertAgainLabel'      => "Inserisci un altro atto",
             ));
+
+            $helper->getConnection()->commit();
 
         } catch(\Exception $e) {
 

@@ -9,7 +9,7 @@ class TicketsForm extends Form
     /**
      * @inheritdoc
      */
-    public function __construct($name = null)
+    public function __construct($name = null, $options = null)
     {
         parent::__construct($name);
         

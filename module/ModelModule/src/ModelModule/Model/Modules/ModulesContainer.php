@@ -2,6 +2,9 @@
 
 namespace ModelModule\Model\Modules;
 
+/**
+ * Stati module IDs
+ */
 class ModulesContainer
 {
     const contenuti_id                      = 2;
@@ -23,7 +26,9 @@ class ModulesContainer
     const newsletter                        = 6;
 
     /**
-     * @param $moduleCode
+     * Recover module ID from a module code string
+     *
+     * @param string $moduleCode
      * @return int
      */
     public static function recoverIdFromModuleCode($moduleCode)

@@ -21,14 +21,13 @@ if ($printOk==1):
         ?>
             <li>
                 <a href="<?php echo $this->url('attachments-sthree-download', array(
-                    'lang' => 'it',
-                    'type' => 'atti-concessione',
-                    'id' => $attachment['id'])
+                    'lang'  => 'it',
+                    'type'  => 'atti-concessione',
+                    'id'    => $attachment['id'])
                     ) ?>" title="Scarica allegato <?php echo $attachment['title'] ?> (<?php echo $attachment['size'] ?> Kb)">
                     <?php if (file_exists($icon)): ?>
-                    <img src="<?php echo $this->publicDirRelativePath ?>/common/icons/attachments/<?php echo $attachment['image'] ?>" alt="Icona per <?php echo $attachment['title'] ?>
+                    <img src="<?php echo $this->publicDirRelativePath ?>/common/icons/attachments/<?php echo $attachment['image'] ?>" alt="Icona per <?php echo $attachment['title'] ?>">
                      <?php endif; ?>
-                    (<?php echo $attachment['size'] ?> Kb)">
                     <?php echo $attachment['title'] ?> (<?php echo round($attachment['size'] / 1024 / 1024,2) ?> Mb)
                 </a>
             </li>

@@ -7,6 +7,9 @@ use ModelModule\Model\ContrattiPubblici\ContrattiPubbliciControllerHelper;
 use ModelModule\Model\ContrattiPubblici\Operatori\OperatoriGetter;
 use ModelModule\Model\ContrattiPubblici\Operatori\OperatoriGetterWrapper;
 
+/**
+ * Contratti Pubblici Operatori List index
+ */
 class ContrattiPubbliciOperatoriSummaryController extends SetupAbstractController
 {
     public function indexAction()

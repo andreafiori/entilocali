@@ -14,7 +14,11 @@ class TicketsFormInputFilter implements InputFilterAwareInterface
     public $subject;
     public $message;
     public $priority;
+    public $csrf;
 
+    /**
+     * @var InputFilter
+     */
     protected $inputFilter;
 
     /**
@@ -24,8 +28,9 @@ class TicketsFormInputFilter implements InputFilterAwareInterface
     {
         $this->id               = (isset($data['id']))              ? $data['id']               : null;
         $this->subject          = (isset($data['subject']))         ? $data['subject']          : null;
-        $this->message          = (isset($data['message']))         ? $data['message']      : null;
+        $this->message          = (isset($data['message']))         ? $data['message']          : null;
         $this->priority         = (isset($data['priority']))        ? $data['priority']         : null;
+        $this->csrf             = (isset($data['csrf']))            ? $data['csrf']             : null;
     }
 
     /**

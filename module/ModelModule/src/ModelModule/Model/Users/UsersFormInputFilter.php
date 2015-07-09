@@ -7,6 +7,9 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
+/**
+ * Users form validator
+ */
 class UsersFormInputFilter implements InputFilterAwareInterface
 {
     public $id;
@@ -181,7 +184,7 @@ class UsersFormInputFilter implements InputFilterAwareInterface
 
             $inputFilter->add(array(
                 'name'     => 'settoreId',
-                'required' => true,
+                'required' => false,
                 'filters'  => array(
                     array('name' => 'Int'),
                 ),

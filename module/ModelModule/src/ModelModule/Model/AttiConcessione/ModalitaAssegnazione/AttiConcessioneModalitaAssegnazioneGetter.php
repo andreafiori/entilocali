@@ -4,10 +4,6 @@ namespace ModelModule\Model\AttiConcessione\ModalitaAssegnazione;
 
 use ModelModule\Model\QueryBuilderHelperAbstract;
 
-/**
- * @author Andrea Fiori
- * @since  30 March 2015
- */
 class AttiConcessioneModalitaAssegnazioneGetter extends QueryBuilderHelperAbstract
 {
     /**

@@ -47,35 +47,35 @@ class ZfcmsNewsletterEmails
      *
      * @ORM\Column(name="insert_date", type="datetime", nullable=false)
      */
-    private $insertDate;
+    private $insertDate = '2008-01-01 01:01:01';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="activation_date", type="datetime", nullable=false)
      */
-    private $activationDate;
+    private $activationDate = '2008-01-01 01:01:01';
 
     /**
      * @var string
      *
      * @ORM\Column(name="confirm_code", type="string", length=150, nullable=false)
      */
-    private $confirmCode;
+    private $confirmCode = '2008-01-01 01:01:01';
 
     /**
      * @var string
      *
      * @ORM\Column(name="status", type="string", length=50, nullable=false)
      */
-    private $status;
+    private $status = '0';
 
 
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -86,6 +86,7 @@ class ZfcmsNewsletterEmails
      * Set nickname
      *
      * @param string $nickname
+     *
      * @return ZfcmsNewsletterEmails
      */
     public function setNickname($nickname)
@@ -98,7 +99,7 @@ class ZfcmsNewsletterEmails
     /**
      * Get nickname
      *
-     * @return string 
+     * @return string
      */
     public function getNickname()
     {
@@ -109,6 +110,7 @@ class ZfcmsNewsletterEmails
      * Set email
      *
      * @param string $email
+     *
      * @return ZfcmsNewsletterEmails
      */
     public function setEmail($email)
@@ -121,7 +123,7 @@ class ZfcmsNewsletterEmails
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -132,6 +134,7 @@ class ZfcmsNewsletterEmails
      * Set format
      *
      * @param string $format
+     *
      * @return ZfcmsNewsletterEmails
      */
     public function setFormat($format)
@@ -144,7 +147,7 @@ class ZfcmsNewsletterEmails
     /**
      * Get format
      *
-     * @return string 
+     * @return string
      */
     public function getFormat()
     {
@@ -155,6 +158,7 @@ class ZfcmsNewsletterEmails
      * Set insertDate
      *
      * @param \DateTime $insertDate
+     *
      * @return ZfcmsNewsletterEmails
      */
     public function setInsertDate($insertDate)
@@ -167,7 +171,7 @@ class ZfcmsNewsletterEmails
     /**
      * Get insertDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getInsertDate()
     {
@@ -178,6 +182,7 @@ class ZfcmsNewsletterEmails
      * Set activationDate
      *
      * @param \DateTime $activationDate
+     *
      * @return ZfcmsNewsletterEmails
      */
     public function setActivationDate($activationDate)
@@ -190,7 +195,7 @@ class ZfcmsNewsletterEmails
     /**
      * Get activationDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getActivationDate()
     {
@@ -201,6 +206,7 @@ class ZfcmsNewsletterEmails
      * Set confirmCode
      *
      * @param string $confirmCode
+     *
      * @return ZfcmsNewsletterEmails
      */
     public function setConfirmCode($confirmCode)
@@ -213,7 +219,7 @@ class ZfcmsNewsletterEmails
     /**
      * Get confirmCode
      *
-     * @return string 
+     * @return string
      */
     public function getConfirmCode()
     {
@@ -224,6 +230,7 @@ class ZfcmsNewsletterEmails
      * Set status
      *
      * @param string $status
+     *
      * @return ZfcmsNewsletterEmails
      */
     public function setStatus($status)
@@ -236,7 +243,7 @@ class ZfcmsNewsletterEmails
     /**
      * Get status
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {

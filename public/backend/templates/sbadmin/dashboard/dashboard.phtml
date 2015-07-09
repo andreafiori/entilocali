@@ -1,7 +1,7 @@
 <h2><?php echo $this->sitename ?> - Area di amministrazione</h2>
 
 <div class="alert alert-warning">
-    <p><i class="fa fa-exclamation-triangle"></i> <strong>Versione beta test</strong>. Lavoriamo per aggiornare periodicamente quest'area e proporre nuove funzionalit&agrave;.</p>
+    <p><i class="fa fa-exclamation-triangle"></i> <strong>Versione beta-dev</strong>. Lavoriamo per aggiornare periodicamente quest'area e proporre nuove funzionalit&agrave;.</p>
 </div>
 
 <?php if ($this->showPasswordNotSecureWarning): ?>
@@ -101,7 +101,7 @@
                     </div>
                 </div>
             </div>
-            <a href="#" title="Elenco richieste di assistenza">
+            <a href="<?php echo $this->url('admin/tickets-summary', array('lang' => 'it')) ?>" title="Elenco richieste di assistenza">
                 <div class="panel-footer">
                     <span class="pull-left">Visualizza richieste</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -157,7 +157,7 @@
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu pull-right" role="menu">
-                            <li><a href="#">Visualizza tutte</a></li>
+                            <li><a href="<?php echo $this->url('admin/log-summary', array('lang' => 'it')); ?>">Visualizza tutte</a></li>
                         </ul>
                     </div>
                 </div>

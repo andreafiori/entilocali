@@ -4,6 +4,9 @@ namespace ModelModule\Model\AlboPretorio;
 
 use Zend\Form\Form as ZendForm;
 
+/**
+ * Albo Pretorio form search
+ */
 class AlboPretorioFormSearch extends ZendForm
 {
     /**
@@ -83,6 +86,16 @@ class AlboPretorioFormSearch extends ZendForm
                 ),
              )
         ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Csrf',
+            'name' => 'csrf',
+            'options' => array(
+                'csrf_options' => array(
+                    'timeout' => 3200
+                )
+            )
+        ));
     }
 
     /**
@@ -119,7 +132,7 @@ class AlboPretorioFormSearch extends ZendForm
         if (!is_array($years)) {
             $years = array();
             for($i = date("Y")-3; $i < date("Y")+5; $i++) {
-                $years[] = $i;
+                $years[$i] = $i;
             }
         }
 
@@ -169,33 +182,36 @@ class AlboPretorioFormSearch extends ZendForm
                 'label' => 'Ordina per',
                 'empty_option' => 'Seleziona',
                 'value_options' => array(
-                    'aa.anno'   => 'Anno',
-                    'aa.numeroAtto' => 'Numero Progressivo',
-                    'aa.titolo' => 'Titolo',
-                    'aa.dataAttivazione' => 'Data Attivazione',
-                    'aa.dataScadenza' => 'Data Scadenza',
-                    'aps.nome'  => 'Sezione',
-                    'aps.nome'  => 'Settore',
+                    'aa.anno'               => 'Anno',
+                    'aa.numeroAtto'         => 'Numero Progressivo',
+                    'aa.titolo'             => 'Titolo',
+                    'aa.dataAttivazione'    => 'Data Attivazione',
+                    'aa.dataScadenza'       => 'Data Scadenza',
+                    'aps.nome'              => 'Sezione',
+                    'aps.nome'              => 'Settore',
                 ),
             )
         ));
     }
 
-    public function addCsrf()
+    public function addHomePage()
     {
         $this->add(array(
-            'type' => 'Zend\Form\Element\Csrf',
-            'name' => 'csrf',
+            'type' => 'Zend\Form\Element\Checkbox',
+            'name' => 'home',
             'options' => array(
-                'csrf_options' => array(
-                    'timeout' => 600
-                )
-            )
+                'label' => 'In home page',
+                'use_hidden_element' => true,
+                'checked_value'     => '1',
+                'unchecked_value'   => '',
+            ),
+            'attributes' => array('id' => 'home')
         ));
     }
 
     /**
-     * @inheritdoc
+     * @param string $name
+     * @param string $label
      */
     public function addSubmitButton($name = null, $label = null)
     {

@@ -4,10 +4,6 @@ namespace ModelModule\Model\EntiTerzi;
 
 use Zend\Form\Form;
 
-/**
- * @author Andrea Fiori
- * @since  22 September 2014
- */
 class InvioEnteTerzoForm extends Form
 {
     /**
@@ -23,7 +19,7 @@ class InvioEnteTerzoForm extends Form
                         'options' => array( 'label' => "* Indirizzo email ente" ),
                         'attributes' => array(
                                         'required'      => 'required',
-                                        'placeholder'   => 'Email ente...',
+                                        'placeholder'   => 'Email...',
                                         'title'         => 'Inserisci indirizzo email ente a cui inviare',
                                         'id'            => 'emailEnte',
                         )

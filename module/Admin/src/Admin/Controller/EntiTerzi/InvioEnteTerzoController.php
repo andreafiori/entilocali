@@ -24,59 +24,67 @@ class InvioEnteTerzoController extends SetupAbstractController
         $lang           = $this->params()->fromRoute('lang');
         $moduleCode     = $this->params()->fromRoute('module');
 
-        switch($moduleCode) {
-            default:
-                throw new NullException("Codice modulo non valido");
-            break;
+        try {
 
-            case("albo-pretorio"):
-                $recordsGetter = new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter($em));
-                $recordsGetter->setInput( array('id' => $id, 'limit' => 1) );
-                $recordsGetter->setupQueryBuilder();
+            switch($moduleCode) {
 
-                $moduleName = 'Albo pretorio';
+                default:
+                    throw new NullException("Codice modulo non valido");
+                    break;
 
-                $record = $recordsGetter->getRecords();
+                case("albo-pretorio"):
+                    $recordsGetter = new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter($em));
+                    $recordsGetter->setInput( array('id' => $id, 'limit' => 1) );
+                    $recordsGetter->setupQueryBuilder();
 
-                $titolo = $record[0]['titolo'];
-            break;
+                    $moduleName = 'Albo pretorio';
 
-            case("stato-civile"):
-                $recordsGetter = new StatoCivileGetterWrapper( new StatoCivileGetter($em) );
-                $recordsGetter->setInput(array("id" => $id, 'limit' => 1));
-                $recordsGetter->setupQueryBuilder();
+                    $record = $recordsGetter->getRecords();
 
-                $moduleName = 'Stato civile';
+                    $titolo = $record[0]['titolo'];
+                    break;
 
-                $record = $recordsGetter->getRecords();
+                case("stato-civile"):
+                    $recordsGetter = new StatoCivileGetterWrapper( new StatoCivileGetter($em) );
+                    $recordsGetter->setInput(array("id" => $id, 'limit' => 1));
+                    $recordsGetter->setupQueryBuilder();
 
-                $titolo = $record[0]['titolo'];
-            break;
+                    $moduleName = 'Stato civile';
+
+                    $record = $recordsGetter->getRecords();
+
+                    $titolo = $record[0]['titolo'];
+                    break;
+            }
+
+            $wrapper = new EntiTerziGetterWrapper(new EntiTerziGetter($em));
+            $wrapper->setupQueryBuilder();
+
+            $entiTerziRecords = $wrapper->getRecords();
+
+            $form = new InvioEnteTerzoForm();
+            $form->addContatti($entiTerziRecords);
+
+            $this->layout()->setVariables(array(
+                'formDataCommonPath' => 'backend/templates/common/',
+                'form'               => $form,
+                'formAction'         => $this->url()->fromRoute('admin/invio-ente-terzo-inviomail', array(
+                    'lang'           => $lang,
+                    'modulename'     => $moduleCode,
+                    'id'             => $record[0]['id'],
+                )),
+                'moduleName'         => $moduleName,
+                'moduleCode'         => $moduleCode,
+                'titolo'             => $titolo,
+                'rubricaEntiTerzi'   => $entiTerziRecords,
+                'templatePartial'    => 'invio-ente-terzo/invio-ente-terzo.phtml',
+            ));
+
+            $this->layout()->setTemplate($mainLayout);
+
+        } catch(\Exception $e) {
+
         }
-
-        $wrapper = new EntiTerziGetterWrapper(new EntiTerziGetter($em));
-        $wrapper->setupQueryBuilder();
-
-        $entiTerziRecords = $wrapper->getRecords();
-
-        $form = new InvioEnteTerzoForm();
-        $form->addContatti($entiTerziRecords);
-
-        $this->layout()->setVariables(array(
-            'formDataCommonPath' => 'backend/templates/common/',
-            'form'               => $form,
-            'formAction'         => $this->url()->fromRoute('admin/invio-ente-terzo-inviomail', array(
-                'lang'           => $lang,
-                'modulename'     => $moduleCode,
-                'id'             => $record[0]['id'],
-            )),
-            'moduleName'         => $moduleName,
-            'titolo'             => $titolo,
-            'rubricaEntiTerzi'   => $entiTerziRecords,
-            'templatePartial'    => 'invio-ente-terzo/invio-ente-terzo.phtml',
-        ));
-
-        $this->layout()->setTemplate($mainLayout);
     }
 
     public function inviomailAction()

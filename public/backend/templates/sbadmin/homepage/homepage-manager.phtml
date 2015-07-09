@@ -29,13 +29,13 @@
                 $linkDetails = $this->url('admin/contenuti-form', array(
                     'lang'              => $lang,
                     'modulename'        => 'contenuti',
-                    'languageSelection' => isset($languageSelection) ? $languageSelection : $lang,
+                    'languageSelection' => isset($languageScdelection) ? $languageSelection : $lang,
                     'id'                => $record['id'],
                 ));
                 ?>
             <tr>
                 <td><a href="<?php echo $linkDetails ?>" title="Modifica contenuto <?php echo $record['titolo'] ?>"><?php echo $record['titolo'] ?></a></td>
-                <td><div class="text-right"><a href="<?php echo $this->url('admin/homepage-management-delete', array('lang' => $lang, 'id' => $record['homepageId'])); ?>" title="Elimina contenuto dalla home page" class="btn btn-danger">Elimina</a></div></td>
+                <td><div class="text-right"><a href="<?php echo $this->url('admin/homepage-management-delete', array('lang' => $lang, 'homepageid' => $record['homepageId'], 'referenceid' => $record['referenceId'], 'modulecode' => 'contenuti')); ?>" title="Elimina contenuto dalla home page" class="btn btn-danger">Elimina</a></div></td>
             </tr>
             <?php endforeach; ?>
             </tbody>
@@ -59,7 +59,7 @@
                     <td><a href="<?php echo $linkDetails ?>" title="Modifica articolo <?php echo $record['titolo'] ?>"><?php echo $record['titolo'] ?></a></td>
                     <td>
                         <div class="text-right">
-                            <a href="<?php echo $this->url('admin/homepage-management-delete', array('lang' => $lang, 'id' => $record['homepageId'])); ?>" class="btn btn-danger" title="Elimina articolo dalla home page">Elimina</a>
+                            <a href="<?php echo $this->url('admin/homepage-management-delete', array('lang' => $lang, 'homepageid' => $record['homepageId'], 'referenceid' => $record['referenceId'], 'modulecode' => 'amministrazione-trasparente')); ?>" class="btn btn-danger" title="Elimina articolo dalla home page">Elimina</a>
                         </div>
                     </td>
                 </tr>
@@ -96,7 +96,7 @@
                         </a>
                     </h4>
                     </div>
-                    <p><a href="<?php echo $this->url('admin/homepage-management-delete', array('lang' => $lang, 'id' => $record['homepageId'])); ?>" title="Elimina post dalla home page" class="btn-sm btn-danger">Elimina</a></p>
+                    <p><a href="<?php echo $this->url('admin/homepage-management-delete', array('lang' => $lang, 'homepageid' => $record['homepageId'], 'referenceid' => $record['referenceId'], 'modulecode' => 'blogs')); ?>" title="Elimina post dalla home page" class="btn-sm btn-danger">Elimina</a></p>
                 </div>
             <?php endforeach; ?>
         </div>
@@ -127,7 +127,7 @@
                     <a href="<?php echo $linkDetails ?>" title="<?php echo $record['title'] ?>"><?php echo $record['title'] ?></a>
                 </h4>
 
-                <p><a href="<?php echo $this->url('admin/homepage-management-delete', array('lang' => $lang, 'id' => $record['homepageId'])); ?>" title="Elimina foto dalla home page" class="btn-sm btn-danger">Elimina</a></p>
+                <p><a href="<?php echo $this->url('admin/homepage-management-delete', array('lang' => $lang, 'homepageid' => $record['homepageId'], 'referenceid' => $record['referenceId'], 'modulecode' => 'photo')); ?>" title="Elimina foto dalla home page" class="btn-sm btn-danger">Elimina</a></p>
                 </div>
             </div>
             <?php endforeach; ?>
@@ -136,13 +136,13 @@
     <?php endif; ?>
 
     <?php if (!empty($this->records['stato-civile'])): ?>
-        <h3><i class="fa fa-institution fa-fw"></i> Stato civile</h3>
+        <h3>Stato civile</h3>
         <table class="table table-hover" width="100%">
             <tbody>
             <?php foreach($this->records['stato-civile'] as $record): ?>
                 <tr>
-                    <td><?php echo $record['titolo'] ?></td>
-                    <td><div class="text-right"><a href="<?php echo $this->url('admin/homepage-management-delete', array('lang' => $lang, 'id' => $record['homepageId'])); ?>" class="btn btn-danger">Elimina</a></div></td>
+                    <td><a href="<?php echo $this->url('admin/stato-civile-form', array('lang' => $lang, 'id' => $record['referenceId'])); ?>" title=""><?php echo $record['titolo'] ?></a></td>
+                    <td><div class="text-right"><a href="<?php echo $this->url('admin/homepage-management-delete', array('lang' => $lang, 'homepageid' => $record['homepageId'], 'referenceid' => $record['referenceId'], 'modulecode' => 'stato-civile')); ?>" class="btn btn-danger">Elimina</a></div></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
@@ -159,7 +159,7 @@
                         'lang'  => $lang,
                         'id'    => $record['id'],
                     )) ?>" title="<?php echo $record['titolo'] ?>"><?php echo $record['titolo'] ?></a></td>
-                    <td><div class="text-right"><a href="<?php echo $this->url('admin/homepage-management-delete', array('lang' => $lang, 'id' => $record['homepageId'])); ?>" title="Elimina atto dalla home page" class="btn btn-danger">Elimina</a></div></td>
+                    <td><div class="text-right"><a href="<?php echo $this->url('admin/homepage-management-delete', array('lang' => $lang, 'homepageid' => $record['homepageId'], 'referenceid' => $record['referenceId'], 'modulecode' => 'albo-pretorio')); ?>" title="Elimina atto dalla home page" class="btn btn-danger">Elimina</a></div></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
@@ -178,7 +178,7 @@
                     )) ?>" title="<?php echo $record['titolo'] ?>"><?php echo $record['titolo'] ?></a></td>
                     <td>
                         <div class="text-right">
-                            <a href="<?php echo $this->url('admin/homepage-management-delete', array('lang' => $lang, 'id' => $record['homepageId'])); ?>" title="Elimina bando dalla home page" class="btn btn-danger">Elimina</a>
+                            <a href="<?php echo $this->url('admin/homepage-management-delete', array('lang' => $lang, 'homepageid' => $record['homepageId'], 'referenceid' => $record['referenceId'], 'modulecode' => 'contratti-pubblici')); ?>" title="Elimina bando dalla home page" class="btn btn-danger">Elimina</a>
                         </div>
                     </td>
                 </tr>
@@ -206,7 +206,7 @@
                     </td>
                     <td>
                         <div class="text-right">
-                            <a href="<?php echo $this->url('admin/homepage-management-delete', array('lang' => $lang, 'id' => $record['homepageId'])); ?>" title="Elimina atto dalla home page" class="btn btn-danger">Elimina</a>
+                            <a href="<?php echo $this->url('admin/homepage-management-delete', array('lang' => $lang, 'homepageid' => $record['homepageId'], 'referenceid' => $record['referenceId'], 'modulecode' => 'atti-concessione')); ?>" title="Elimina atto dalla home page" class="btn btn-danger">Elimina</a>
                         </div>
                     </td>
                 </tr>
@@ -233,7 +233,7 @@
                 </td>
                 <td>
                     <div class="text-right">
-                        <a href="<?php echo $this->url('admin/homepage-management-delete', array('lang' => $lang, 'id' => $record['homepageId'])); ?>" class="btn btn-danger" title="Elimina testo libero della home page">
+                        <a href="<?php echo $this->url('admin/homepage-management-delete', array('lang' => $lang, 'homepageid' => $record['homepageId'], 'referenceid' => $record['referenceId'], 'modulecode' => 'freetext')); ?>" class="btn btn-danger" title="Elimina testo libero della home page">
                             Elimina
                         </a>
                     </div>
@@ -243,7 +243,7 @@
         </tbody>
     </table>
     <?php else: ?>
-        <a href="#" class="btn btn-primary" title="Aggiungi testo libero">
+        <a href="javascript:void(0)" class="btn btn-primary" title="Aggiungi testo libero">
             Aggiungi testo libero
         </a>
     <?php endif; ?>

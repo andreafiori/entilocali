@@ -26,7 +26,7 @@ class ZfcmsUsersTodo
      *
      * @ORM\Column(name="task_name", type="string", length=50, nullable=true)
      */
-    private $taskName;
+    private $taskName = '0';
 
     /**
      * @var string
@@ -40,14 +40,14 @@ class ZfcmsUsersTodo
      *
      * @ORM\Column(name="state", type="string", length=50, nullable=true)
      */
-    private $state;
+    private $state = '0';
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="expiredate", type="datetime", nullable=true)
      */
-    private $expiredate;
+    private $expiredate = '2013-01-01 01:01:01';
 
     /**
      * @var \Application\Entity\ZfcmsUsers
@@ -64,7 +64,7 @@ class ZfcmsUsersTodo
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -75,6 +75,7 @@ class ZfcmsUsersTodo
      * Set taskName
      *
      * @param string $taskName
+     *
      * @return ZfcmsUsersTodo
      */
     public function setTaskName($taskName)
@@ -87,7 +88,7 @@ class ZfcmsUsersTodo
     /**
      * Get taskName
      *
-     * @return string 
+     * @return string
      */
     public function getTaskName()
     {
@@ -98,6 +99,7 @@ class ZfcmsUsersTodo
      * Set description
      *
      * @param string $description
+     *
      * @return ZfcmsUsersTodo
      */
     public function setDescription($description)
@@ -110,7 +112,7 @@ class ZfcmsUsersTodo
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -121,6 +123,7 @@ class ZfcmsUsersTodo
      * Set state
      *
      * @param string $state
+     *
      * @return ZfcmsUsersTodo
      */
     public function setState($state)
@@ -133,7 +136,7 @@ class ZfcmsUsersTodo
     /**
      * Get state
      *
-     * @return string 
+     * @return string
      */
     public function getState()
     {
@@ -144,6 +147,7 @@ class ZfcmsUsersTodo
      * Set expiredate
      *
      * @param \DateTime $expiredate
+     *
      * @return ZfcmsUsersTodo
      */
     public function setExpiredate($expiredate)
@@ -156,7 +160,7 @@ class ZfcmsUsersTodo
     /**
      * Get expiredate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getExpiredate()
     {
@@ -167,6 +171,7 @@ class ZfcmsUsersTodo
      * Set user
      *
      * @param \Application\Entity\ZfcmsUsers $user
+     *
      * @return ZfcmsUsersTodo
      */
     public function setUser(\Application\Entity\ZfcmsUsers $user = null)
@@ -179,7 +184,7 @@ class ZfcmsUsersTodo
     /**
      * Get user
      *
-     * @return \Application\Entity\ZfcmsUsers 
+     * @return \Application\Entity\ZfcmsUsers
      */
     public function getUser()
     {

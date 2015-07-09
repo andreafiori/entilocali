@@ -25,8 +25,8 @@ class ContrattiPubbliciOperatoriInsertControllerTest extends InsertUpdateTestSui
         $this->formDataSample = array(
             'id'                => '',
             'nome'              => 'Azienda test',
-            'cf'                => 'FCZ104AM120M',
-            'ragioneSociale'    => 'Spa',
+            'cf'                => 'FRINDR82M10A290M',
+            'ragioneSociale'    => 'S.p.a.',
         );
     }
 
@@ -39,6 +39,10 @@ class ContrattiPubbliciOperatoriInsertControllerTest extends InsertUpdateTestSui
         $this->assertFalse($form->isValid());
     }
 
+    /**
+     * @param array $formDataSample
+     * @return OperatoriForm
+     */
     protected function setupForm($formDataSample)
     {
         $form = new OperatoriForm();
