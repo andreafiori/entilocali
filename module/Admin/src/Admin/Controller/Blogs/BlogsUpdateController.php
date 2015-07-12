@@ -69,6 +69,7 @@ class BlogsUpdateController extends SetupAbstractController
                 $helper->checkRecords('Dati post corrente non trovati');
                 $currentImage = isset($records[0]['image']) ? $records[0]['image'] : null;
 
+                $publicDirPath = $helper->recoverPublicDirPath($this->layout()->getVariable('isPublicDirOnRoot'));
                 $mediaDir = $helper->checkMediaDir($configurations);
                 $mediaProject = $helper->checkMediaProject($configurations);
 
@@ -84,7 +85,7 @@ class BlogsUpdateController extends SetupAbstractController
                 $imagePathInfo = pathinfo($inputFilter->image['name']);
                 $newFilename = $inputFilter->id.'_'.uniqid().'.'.$imagePathInfo['extension'];
                 $thumbWitdth = isset($configurations['blogs_image_width']) ? $configurations['blogs_image_width'] : 160;
-                $thumbHeight = isset($configurations['blogs_image_height']) ? $configurations['blogs_image_height'] : 130;
+                $thumbHeight = isset($configurations['blogs_image_height']) ? $configurations['blogs_image_height'] : 130;0;
 
                 $imagine = new \Imagine\Gd\Imagine();
                 $imagine->open($inputFilter->image['tmp_name'])
@@ -92,10 +93,10 @@ class BlogsUpdateController extends SetupAbstractController
                         new \Imagine\Image\Box($thumbWitdth, $thumbHeight),
                         \Imagine\Image\ImageInterface::THUMBNAIL_INSET
                     )
-                    ->save($mediaDir.$mediaProject.'/blogs/thumbs/'.$newFilename)
+                    ->save($publicDirPath.$mediaDir.$mediaProject.'/blogs/thumbs/'.$newFilename)
                 ;
 
-                move_uploaded_file($inputFilter->image['tmp_name'], $mediaDir.$mediaProject.'/blogs/big/'.$newFilename);
+                move_uploaded_file($inputFilter->image['tmp_name'], $publicDirPath.$mediaDir.$mediaProject.'/blogs/big/'.$newFilename);
 
                 $inputFilter->image = $newFilename;
             }

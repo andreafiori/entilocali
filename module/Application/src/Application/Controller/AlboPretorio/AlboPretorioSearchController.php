@@ -32,13 +32,14 @@ class AlboPretorioSearchController extends SearchControllerAbstract
             $formSearch = new AlboPretorioFormSearch();
             $formSearch->setBindOnValidate(false);
             $formSearch->addYears();
-            /* $formSearch->addSezioni( $helper->formatForDropwdown($sezioniRecords, 'id', 'nome') ); */
             $formSearch->addCheckExpired();
             $formSearch->addSubmitButton();
             $formSearch->addResetButton();
-            $formSearch->addCsrf();
             $formSearch->setInputFilter($inputFilter->getInputFilter());
+            $formSearch->addHomePage();
+
             $formSearch->setData($post);
+
             if ($formSearch->isValid()) {
                 $inputFilter->exchangeArray( $formSearch->getData() );
 
@@ -52,6 +53,7 @@ class AlboPretorioSearchController extends SearchControllerAbstract
                     'mese'               => $inputFilter->mese,
                     'anno'               => $inputFilter->anno,
                     'sezione'            => $inputFilter->sezione,
+                    'home'               => $inputFilter->home,
                     'expired'            => $inputFilter->expired,
                 ));
 

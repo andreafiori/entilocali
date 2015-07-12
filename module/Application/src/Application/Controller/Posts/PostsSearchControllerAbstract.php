@@ -1,18 +1,18 @@
 <?php
 
-namespace Application\Controller\Contenuti;
+namespace Application\Controller\Posts;
 
+use Admin\src\Admin\Model\Posts\PostsFormSearchInputFilter;
 use Application\Controller\SearchControllerAbstract;
-use ModelModule\Model\Contenuti\ContenutiFormSearch;
-use ModelModule\Model\Contenuti\ContenutiFormSearchInpuFilter;
+use ModelModule\Model\Posts\PostsFormSearch;
 use Zend\Session\Container as SessionContainer;
 
 /**
- * Contenuti Search Controller
+ * Generic posts abstract form searchx
  */
-class ContenutiSearchController extends SearchControllerAbstract
+abstract class PostsSearchControllerAbstract extends SearchControllerAbstract
 {
-    const sessionIdentifier = 'contenutiSessionSearch';
+    /* const sessionIdentifier = 'postsSessionSearch'; */
 
     /**
      * Set search session
@@ -25,26 +25,27 @@ class ContenutiSearchController extends SearchControllerAbstract
 
             $request = $this->getRequest();
 
-            $post = $request->getPost()->toArray();
+            $post = array_merge_recursive( $request->getPost()->toArray(), $request->getFiles()->toArray() );
 
-            $inputFilter = new ContenutiFormSearchInpuFilter();
+            $inputFilter = new PostsFormSearchInputFilter();
 
-            $formSearch = new ContenutiFormSearch();
-            $formSearch->addAnno();
-            //$formSearch->addInHome();
-            //$formSearch->addSottosezioni();
-            $formSearch->addCheckExpired();
+            $formSearch = new PostsFormSearch();
 
+            $formSearch->setInputFilter($inputFilter->getInputFilter());
             $formSearch->setData($post);
+
+            $currentClass = get_class( $this );
+            $sessionIdentifier = $currentClass::sessionIdentifier;
 
             if ($formSearch->isValid()) {
                 $inputFilter->exchangeArray( $formSearch->getData() );
 
+                $formSearch->setData($post);
+
                 $sessioContainer = new SessionContainer();
-                $sessioContainer->offsetSet(self::sessionIdentifier, array(
+                $sessioContainer->offsetSet($sessionIdentifier, array(
                     'testo'         => $inputFilter->testo,
-                    'sottosezioni'  => $inputFilter->sottosezioni,
-                    'inhome'        => $inputFilter->inhome,
+                    'categories'    => $inputFilter->category,
                 ));
 
                 $referer = $this->getRequest()->getHeader('Referer');
@@ -54,14 +55,13 @@ class ContenutiSearchController extends SearchControllerAbstract
             }
 
             $mainLayout = $this->initializeFrontendWebsite();
-            $moduleUrl = $this->url()->fromRoute('main', array('lang' => 'it'));
+
             $referer = $this->getRequest()->getHeader('Referer');
-            $refererUrl = (is_object($referer)) ? $referer->getUri() : $moduleUrl;
+
             $this->layout()->setVariables(array(
                 'formMessages'      => $formSearch->getMessages(),
-                'refererUrl'        => $refererUrl,
-                'moduleUrl'         => $moduleUrl,
-                'moduleLabel'       => "Contenuti",
+                'refererUrl'       => is_object($referer) ? $referer->getUri() : null,
+                'moduleLabel'       => "Posts",
                 'templatePartial'   => 'form-message.phtml',
             ));
 

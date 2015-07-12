@@ -2,6 +2,7 @@
 
 namespace Admin\Controller\Blogs;
 
+use Application\Controller\Posts\BlogsSearchController;
 use ModelModule\Model\Languages\LanguagesFormSearch;
 use ModelModule\Model\Languages\LanguagesGetter;
 use ModelModule\Model\Languages\LanguagesGetterWrapper;
@@ -13,7 +14,11 @@ use ModelModule\Model\Posts\PostsGetter;
 use ModelModule\Model\Posts\PostsGetterWrapper;
 use Application\Controller\SetupAbstractController;
 use ModelModule\Model\Modules\ModulesContainer;
+use Zend\Session\Container as SessionContainer;
 
+/**
+ * Blogs posts list index
+ */
 class BlogsSummaryController extends SetupAbstractController
 {
     public function indexAction()
@@ -28,28 +33,35 @@ class BlogsSummaryController extends SetupAbstractController
         $page               = $this->params()->fromRoute('page');
         $perPage            = $this->params()->fromRoute('perpage');
 
+        $sessionContainer = new SessionContainer();
+        $sessionSearch = $sessionContainer->offsetGet(BlogsSearchController::sessionIdentifier);
+
         try {
             $helper = new PostsControllerHelper();
             $categoriesRecords = $helper->recoverWrapperRecords(
                 new PostsCategoriesGetterWrapper(new PostsCategoriesGetter($entityManager)),
                 array(
-                    'fields'        => 'category.id, category.name',
-                    'orderBy'       => 'category.name',
-                    'moduleCode'    => 'blogs',
+                    'fields'                => 'category.id, category.name',
+                    'orderBy'               => 'category.name',
+                    'languageAbbreviation'  => $languageSelection ? $languageSelection : 'it',
+                    'moduleCode'            => 'blogs',
                 )
             );
             $helper->checkRecords($categoriesRecords, 'Nessuna categoria presente');
             $wrapperBlogPosts = $helper->recoverWrapperRecordsPaginator(
                 new PostsGetterWrapper(new PostsGetter($entityManager)),
                 array(
-                    'moduleCode' => 'blogs',
-                    'userId'     => null,
-                    'orderBy'    => 'p.id DESC',
-                    'fields'     => 'DISTINCT(p.id) AS id, p.lastUpdate,
-                                    p.createDate, p.expireDate, p.hasAttachments,
-                                    p.image, p.title, p.subtitle, p.description, p.slug, p.seoTitle,
-                                    p.seoDescription, p.seoKeywords,
-                                    users.name AS userName, users.surname AS userSurname'
+                    'moduleCode'            => 'blogs',
+                    'userId'                => null,
+                    'orderBy'               => 'p.id DESC',
+                    'languageAbbr'          => $languageSelection ? $languageSelection : 'it',
+                    'freeSearch'            => isset($sessionSearch['testo']) ? $sessionSearch['testo'] : null,
+                    'categoryId'            => isset($sessionSearch['category']) ? $sessionSearch['category'] : null,
+                    'fields'                => 'DISTINCT(p.id) AS id, p.lastUpdate,
+                                                p.createDate, p.expireDate, p.hasAttachments,
+                                                p.image, p.title, p.subtitle, p.description, p.slug, p.seoTitle,
+                                                p.seoDescription, p.seoKeywords,
+                                                users.name AS userName, users.surname AS userSurname'
                 ),
                 $page,
                 $perPage
@@ -59,13 +71,11 @@ class BlogsSummaryController extends SetupAbstractController
             $postsRecords = $wrapperBlogPosts->setupRecords();
             $helper->checkRecords($postsRecords, 'Nessun blog post in archivio');
 
-            /* Add attachment files to the recordset */
+            /* Add attachments files to the recordset */
             $wrapperBlogPosts->setEntityManager($entityManager);
             $postsRecords = $wrapperBlogPosts->addAttachmentsFromRecords(
 				$postsRecords,
-				array(
-					'moduleId' => ModulesContainer::blogs,
-				)
+				array('moduleId' => ModulesContainer::blogs)
 			);
 
             foreach($postsRecords as &$postsRecord) {
@@ -96,6 +106,7 @@ class BlogsSummaryController extends SetupAbstractController
             $form = new PostsFormSearch();
             $form->addCategories( $helper->formatForDropwdown($categoriesRecords, 'id', 'name') );
             $form->addSubmitButton();
+            $form->setData( isset($sessionSearch) ? $sessionSearch : array() );
 
             $this->layout()->setVariables(array(
                 'tableTitle'        => 'Blogs',
@@ -114,6 +125,7 @@ class BlogsSummaryController extends SetupAbstractController
                 'records'           => $this->formatColumnRecords($postsRecords),
                 'formSearch'        => $form,
                 'formLanguage'      => !empty($formLanguage) ? $formLanguage : null,
+                'sessionSearch'      => $sessionSearch,
                 'formLanguageAction' => $this->url()->fromRoute('admin/blogs-operations', array(
                     'action'            => 'switchlanguage',
                     'lang'              => $lang,

@@ -2,9 +2,9 @@
 
 namespace AdminTest\Controller\AlboPretorio;
 
-use ModelModuleTest\TestSuite;
 use Admin\Controller\AlboPretorio\AlboPretorioOperationsController;
 use Zend\Http\Request;
+use ModelModuleTest\TestSuite;
 
 class AlboPretorioOperationsControllerTest extends TestSuite
 {
@@ -44,9 +44,7 @@ class AlboPretorioOperationsControllerTest extends TestSuite
 
         $this->setupUserSession($this->recoverUserDetails());
 
-        $this->request->setMethod(Request::METHOD_POST)->getPost()->fromArray(array(
-            'publishId' => 1
-        ));
+        $this->request->setMethod(Request::METHOD_POST)->getPost()->fromArray( array('publishId' => 1) );
 
         $this->controller->dispatch($this->request);
 
@@ -75,19 +73,5 @@ class AlboPretorioOperationsControllerTest extends TestSuite
         $this->controller->dispatch($this->request);
 
         $this->assertEquals(302, $this->controller->getResponse()->getStatusCode());
-    }
-
-    public function testPublishArticle()
-    {
-        $this->helper->setConnection($this->getConnectionMock());
-
-        $this->assertTrue( $this->helper->publishArticle(12) );
-    }
-
-    public function testAnnullArticle()
-    {
-        $this->helper->setConnection($this->getConnectionMock());
-
-        $this->assertTrue( $this->helper->annullArticle(12) );
     }
 }

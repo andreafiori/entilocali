@@ -7,6 +7,9 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
+/**
+ *  Posts Form Validator
+ */
 class PostsFormSearchInputFilter implements InputFilterAwareInterface
 {
     public $testo;
@@ -20,18 +23,9 @@ class PostsFormSearchInputFilter implements InputFilterAwareInterface
      */
     public function exchangeArray($data)
     {
-        $this->id    		    = (isset($data['id']))              ? $data['id'] : null;
-        $this->image    		= (isset($data['image']))           ? $data['image'] : null;
-        $this->title 	 		= (isset($data['title']))           ? $data['title'] : null;
-        $this->subtitle 	    = (isset($data['subtitle']))        ? $data['subtitle'] : null;
-        $this->description  	= (isset($data['description']))     ? $data['description'] : null;
-        $this->seoUrl           = (isset($data['seoUrl']))          ? $data['seoUrl']  : null;
-        $this->expireDate  	    = (isset($data['expireDate']))      ? $data['expireDate'] : null;
-        $this->seoKeywords  	= (isset($data['seoKeywords']))     ? $data['seoKeywords'] : null;
-        $this->seoDescription  	= (isset($data['seoDescription']))  ? $data['seoDescription'] : null;
-        $this->status  	        = (isset($data['status']))          ? $data['status'] : null;
-        $this->categories       = (isset($data['categories']))      ? $data['categories'] : null;
-        $this->csrf             = (isset($data['csrf']))            ? $data['csrf'] : null;
+        $this->testo     = (isset($data['testo']))           ? $data['testo'] : null;
+        $this->category  = (isset($data['category']))        ? $data['category'] : null;
+        $this->csrf      = (isset($data['csrf']))            ? $data['csrf'] : null;
     }
 
     /**
@@ -55,13 +49,34 @@ class PostsFormSearchInputFilter implements InputFilterAwareInterface
             $factory = new InputFactory();
 
             $inputFilter->add($factory->createInput([
-                'name' => 'Testo',
+                'name' => 'testo',
                 'required' => true,
                 'filters' => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
                 ),
                 'validators' => array(
+
+                ),
+            ]));
+
+            $inputFilter->add($factory->createInput(array(
+                'name'     => 'category',
+                'required' => false,
+                'filters'  => array(
+                    array('name' => 'Int'),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput([
+                'name' => 'csrf',
+                'required' => true,
+                'filters' => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+
                 ),
             ]));
 

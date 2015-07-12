@@ -236,4 +236,22 @@ class AlboPretorioControllerHelper extends ControllerHelperAbstract
 
         return 1;
     }
+
+    /**
+     * @param array $sessionSearch
+     * @return array
+     */
+    public function recoverArrayQuerySearch($sessionSearch)
+    {
+        return array(
+            'freeSearch'        => isset($sessionSearch['testo']) ? $sessionSearch['testo'] : null,
+            'sezioneId'         => isset($sessionSearch['sezine']) ? $sessionSearch['sezine'] : null,
+            'numeroProgressivo' => isset($sessionSearch['numero_progressivo']) ? $sessionSearch['numero_progressivo'] : null,
+            'numeroAtto'        => isset($sessionSearch['numero_atto']) ? $sessionSearch['numero_atto'] : null,
+            'mese'              => isset($sessionSearch['mese']) ? $sessionSearch['mese'] : null,
+            'anno'              => isset($sessionSearch['anno']) ? $sessionSearch['anno'] : null,
+            'home'              => isset($sessionSearch['home']) ? $sessionSearch['home'] : null,
+            'orderBy'           => 'alboArticoli.id DESC'
+        );
+    }
 }

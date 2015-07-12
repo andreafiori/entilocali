@@ -5,6 +5,9 @@ namespace Application\Controller\SearchEngine;
 use ModelModule\Model\SearchEngine\SearchEngineFormInputFilter;
 use ModelModule\Model\SearchEngine\SearchEngineForm;
 
+/**
+ * Search Engine Controller on public website
+ */
 class SearchEngineController extends SearchEngineAbstractController
 {
     public function indexAction()

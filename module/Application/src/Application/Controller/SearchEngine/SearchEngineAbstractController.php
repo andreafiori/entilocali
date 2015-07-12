@@ -26,6 +26,10 @@ abstract class SearchEngineAbstractController extends SetupAbstractController
      * Following POST request, return the recrds
      *
      * @param $post
+     * @param int $page
+     * @param null $perPage
+     *
+     * @return SearchEngineControllerHelper
      */
     protected function recoverSearchRecords($post, $page = 1, $perPage = null)
     {
@@ -39,11 +43,21 @@ abstract class SearchEngineAbstractController extends SetupAbstractController
         $helper->setupSearchRecordsWithPaginator(
             $helper->recoverWrapperRecordsPaginator(
                 new ContenutiGetterWrapper(new ContenutiGetter($em)),
-                array('freeSearch' => $post['searchtext']),
+                array('freeSearch' => $post['searchtext'], 'isAmmTrasparente' => 0),
                 $page,
                 $perPage
             ),
-            'contenuti' /* NOTE: same as Amm. Trasparente */
+            'contenuti'
+        );
+
+        $helper->setupSearchRecordsWithPaginator(
+            $helper->recoverWrapperRecordsPaginator(
+                new ContenutiGetterWrapper(new ContenutiGetter($em)),
+                array('freeSearch' => $post['searchtext'], 'isAmmTrasparente' => 1),
+                $page,
+                $perPage
+            ),
+            'amministrazione-trasparente'
         );
 
         $helper->setupSearchRecordsWithPaginator(

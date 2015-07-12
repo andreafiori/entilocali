@@ -6,6 +6,9 @@ use Zend\Captcha;
 use Zend\Form\Element;
 use Zend\Form\Form;
 
+/**
+ * Common form search for blogs, photo etc.
+ */
 class PostsFormSearch extends Form
 {
     /**

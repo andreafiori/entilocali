@@ -10,6 +10,9 @@ use Zend\Validator\File\Count;
 use Zend\Validator\File\Size;
 use Zend\Validator\File\MimeType;
 
+/**
+ * Posts Common Admin Form Validator
+ */
 class PostsFormInputFilter implements InputFilterAwareInterface
 {
     public $id;

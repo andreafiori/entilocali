@@ -19,6 +19,7 @@ class AlboPretorioFormSearchInputFilter implements InputFilterAwareInterface
     public $anno;
     public $sezione;
     public $expired;
+    public $home;
     public $csrf;
 
     protected $inputFilter;
@@ -35,6 +36,7 @@ class AlboPretorioFormSearchInputFilter implements InputFilterAwareInterface
         $this->anno                 = (isset($data['anno'])) ? $data['anno'] : null;
         $this->sezione              = (isset($data['sezione'])) ? $data['sezione'] : null;
         $this->expired              = (isset($data['expired'])) ? $data['expired'] : null;
+        $this->home                 = (isset($data['home'])) ? $data['home'] : null;
         $this->csrf                 = (isset($data['csrf'])) ? $data['csrf'] : null;
     }
 
@@ -119,6 +121,14 @@ class AlboPretorioFormSearchInputFilter implements InputFilterAwareInterface
 
             $inputFilter->add(array(
                 'name'     => 'expired',
+                'required' => false,
+                'filters'  => array(
+                    array('name' => 'Int'),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'home',
                 'required' => false,
                 'filters'  => array(
                     array('name' => 'Int'),

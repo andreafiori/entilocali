@@ -13,12 +13,12 @@
 <?php endif; ?>
 
 <?php if (!empty($this->records['contenuti'])): ?>
-    <h3>Articoli \ contenuti</h3>
+    <h3>Articoli e contenuti</h3>
     <ul>
         <?php foreach($this->records['contenuti'] as $record): ?>
             <li style="margin: 12px 0">
-                <a href="javascript:void(0)" title="Vai alla pagina <?php echo $record['titolo'] ?>"
-                    ><?php echo $record['titolo'] ?>
+                <a href="<?php echo $this->url('main/contenuti', array('lang' => 'it', 'subsectionid' => $record['sottosezione'])) ?>" title="Vai alla pagina <?php echo $record['titolo'] ?>">
+                    <?php echo $record['titolo'] ?>
                 </a>
             </li>
         <?php endforeach; ?>
@@ -26,6 +26,24 @@
     <p class="text-right">
         <a href="#" title="Visualizza elenco risultati">
             &raquo; <?php echo $this->records['contenuti-count'] ?> risultati trovati
+        </a>
+    </p>
+<?php endif; ?>
+
+<?php if (!empty($this->records['amministrazione-trasparente'])): ?>
+    <h3>Amministrazione-trasparente</h3>
+    <ul>
+        <?php foreach($this->records['amministrazione-trasparente'] as $record): ?>
+            <li style="margin: 12px 0">
+                <a href="<?php echo $this->url('main/contenuti', array('lang' => 'it', 'subsectionid' => $record['sottosezione'])) ?>" title="Vai alla pagina <?php echo $record['titolo'] ?>">
+                    <?php echo $record['titolo'] ?>
+                </a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+    <p class="text-right">
+        <a href="#" title="Visualizza elenco risultati">
+            &raquo; <?php echo $this->records['amministrazione-trasparente-count'] ?> risultati trovati
         </a>
     </p>
 <?php endif; ?>

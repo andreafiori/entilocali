@@ -32,9 +32,9 @@ return array(
             'Application\Controller\Users\UsersCreateAccount'                               => 'Application\Controller\Users\UsersCreateAccountController',
             'Application\Controller\Users\UsersRecoverPassword'                             => 'Application\Controller\Users\UsersRecoverPasswordController',
             'Application\Controller\Blogs\Blogs'                                            => 'Application\Controller\Blogs\BlogsController',
-            'Application\Controller\Blogs\BlogsSearch'                                      => 'Application\Controller\Blogs\BlogsSearchController',
             'Application\Controller\Blogs\BlogsExport'                                      => 'Application\Controller\Blogs\BlogsExportController',
             'Application\Controller\Blogs\BlogsExportSingle'                                => 'Application\Controller\Blogs\BlogsExportSingleController',
+            'Application\Controller\Posts\BlogsSearch'                                      => 'Application\Controller\Posts\BlogsSearchController',
             'Application\Controller\Photo\Photo'                                            => 'Application\Controller\Photo\PhotoController',
             'Application\Controller\Photo\PhotoSearch'                                      => 'Application\Controller\Photo\PhotoSearchController',
             'Application\Controller\CookieWarning'                                          => 'Application\Controller\CookieWarningController',
@@ -218,13 +218,36 @@ return array(
                                                 'may_terminate' => true,
                                             ),
                                             */
+                                            'blogs-search' => array(
+                                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                                'options' => array(
+                                                    'route'    => 'posts/blogs/form/ricerca/:action[/]',
+                                                    'constraints' => array(
+                                                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                    ),
+                                                    'defaults' => array(
+                                                        'controller' => 'Application\Controller\Posts\BlogsSearch',
+                                                    ),
+                                                ),
+                                                'may_terminate' => true,
+                                            ),
+                                            'photo-search' => array(
+                                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                                'options' => array(
+                                                    'route'    => 'posts/photo/form/ricerca/:action[/]',
+                                                    'constraints' => array(
+                                                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                    ),
+                                                    'defaults' => array(
+                                                        'controller' => 'Application\Controller\Posts\PhotoSearch',
+                                                    ),
+                                                ),
+                                                'may_terminate' => true,
+                                            ),
                                             'search-engine' => array(
                                                 'type'    => 'segment',
                                                 'options' => array(
                                                     'route' => 'motore/ricerca/risultati[/]',
-                                                    'constraints' => array(
-
-                                                    ),
                                                     'defaults' => array(
                                                         'controller' => 'Application\Controller\SearchEngine\SearchEngine',
                                                         'action'     => 'index',
@@ -302,6 +325,7 @@ return array(
                                                 ),
                                                 'may_terminate' => true,
                                     ),
+                                    /*
                                     'document-export' => array(
                                                     'type'    => 'segment',
                                                     'options' => array(
@@ -330,6 +354,7 @@ return array(
                                                 ),
                                                 'may_terminate' => true,
                                     ),
+                                    */
                                     'albo-pretorio' => array(
                                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                                         'options' => array(

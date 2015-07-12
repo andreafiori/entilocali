@@ -26,6 +26,11 @@ class AttachmentsFormController extends SetupAbstractController
         $attachmentId       = $this->params()->fromRoute('attachmentId');
 
         try {
+
+            if (!function_exists('curl_version')) {
+                throw new NullException("L'estensione PHP CURL non &egrave; installata nel server in uso");
+            }
+
             $helper = new AttachmentsFormControllerHelper();
             $helper->setModulesGetterWrapper( new ModulesGetterWrapper(new ModulesGetter($em)) );
             $helper->setupModuleRecords($moduleCode);
@@ -107,7 +112,7 @@ class AttachmentsFormController extends SetupAbstractController
             $this->layout()->setVariables(array(
                 'templatePartial'   => 'message.phtml',
                 'messageType'       => 'danger',
-                'messageTitle'      => 'Si &egrave; verificato un errore!',
+                'messageTitle'      => 'Si &egrave; verificato un errore',
                 'messageText'       => $e->getMessage(),
             ));
         }

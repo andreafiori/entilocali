@@ -3,6 +3,7 @@
 namespace Admin\Controller\Contenuti;
 
 use Application\Controller\Contenuti\ContenutiSearchController;
+use Application\Controller\Posts\PostsSearchController;
 use ModelModule\Model\Contenuti\ContenutiControllerHelper;
 use ModelModule\Model\Contenuti\ContenutiFormSearch;
 use ModelModule\Model\Contenuti\ContenutiGetter;
@@ -146,6 +147,7 @@ class ContenutiSummaryController extends SetupAbstractController
      * Format records to show the on table summary
      *
      * @param array|null $records
+     *
      * @return array
      */
     private function formatRecordsToShowOnTable($records, $languageId = 1)
@@ -204,6 +206,7 @@ class ContenutiSummaryController extends SetupAbstractController
                             'id'                => $row['id']
                         )),
                         'attachmentsFilesCount' => isset($row['attachments']) ? count($row['attachments']) : 0,
+                        'class' => $row['tabella']=='' ? 'icon-gray' : null,
                     );
                 }
 

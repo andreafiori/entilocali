@@ -5,7 +5,7 @@ namespace ModelModule\Model\AlboPretorio;
 use Zend\Form\Form as ZendForm;
 
 /**
- * Albo Pretorio form search
+ * Albo Pretorio common form search
  */
 class AlboPretorioFormSearch extends ZendForm
 {

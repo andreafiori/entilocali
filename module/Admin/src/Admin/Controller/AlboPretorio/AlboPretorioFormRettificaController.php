@@ -17,7 +17,7 @@ class AlboPretorioFormRettificaController extends SetupAbstractController
 {
     public function indexAction()
     {
-        if ($this->getServiceLocator()->get('request')->isPost()) {
+        if ($this->getRequest()->isPost()) {
 
             $mainLayout = $this->initializeAdminArea();
 

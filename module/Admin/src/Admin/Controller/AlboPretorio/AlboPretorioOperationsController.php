@@ -124,11 +124,11 @@ class AlboPretorioOperationsController extends SetupAbstractController
 
                 $this->log(array(
                     'user_id'       => $userDetails->id,
-                    'message'       => "Errore pubblicazione atto albo pretorio ".$record[0]['titolo'].' Messaggio generato: '.$e->getMessage(),
+                    'message'       => "Errore pubblicazione atto albo pretorio ".$attoRecord[0]['titolo'].' Messaggio generato: '.$e->getMessage(),
                     'type'          => 'error',
                     'backend'       => 1,
                     'module_id'     => ModulesContainer::albo_pretorio_id,
-                    'reference_id'  => $record[0]['id'],
+                    'reference_id'  => $attoRecord[0]['id'],
                 ));
 
                 // TODO: redirect to a message page and show an error message

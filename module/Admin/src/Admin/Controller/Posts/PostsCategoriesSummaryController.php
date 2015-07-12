@@ -37,7 +37,7 @@ class PostsCategoriesSummaryController extends SetupAbstractController
         foreach($records as $record) {
             $columnRecords[] = array(
                 $record['name'],
-                $record['description'],
+                ($record['description'] != '') ? $record['description'] : '&nbsp;',
                 $record['createDate'],
                 array(
                     'type' => 'updateButton',

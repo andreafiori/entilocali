@@ -14,6 +14,7 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
             contenuti.attivo, contenuti.home, contenuti.annoammtrasp, contenuti.slug,
             IDENTITY(contenuti.sottosezione) AS sottosezione,
             IDENTITY(contenuti.utente) AS utente,
+            contenuti.tabella,
 
             sezione.nome AS nomeSezione,
 
@@ -313,9 +314,25 @@ class ContenutiGetter extends QueryBuilderHelperAbstract
     public function setFreeSearch($search)
     {
         if (!empty($search)) {
-            $this->getQueryBuilder()->andWhere(' ( contenuti.titolo LIKE :freeSearch OR contenuti.testo LIKE :freeSearch
-            OR sezione.nome LIKE :freeSearch OR sottosez.nome LIKE :freeSearch ) ');
-            $this->getQueryBuilder()->setParameter('freeSearch', $search);
+            $search = strtolower($search);
+
+            $this->getQueryBuilder()->andWhere(' ( LOWER(contenuti.titolo) LIKE :freeSearch OR LOWER(contenuti.testo) LIKE :freeSearch
+            OR LOWER(sezione.nome) LIKE :freeSearch OR LOWER(sottosez.nome) LIKE :freeSearch ) ');
+            $this->getQueryBuilder()->setParameter('freeSearch', "%".$search."%");
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param int $tabella
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setTabellaNotNull($tabella)
+    {
+        if ( is_numeric($tabella))  {
+            $this->getQueryBuilder()->andWhere('contenuti.tabella = :tabellaNotNull ');
+            $this->getQueryBuilder()->setParameter('tabellaNotNull', $tabella);
         }
 
         return $this->getQueryBuilder();

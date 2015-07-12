@@ -33,16 +33,7 @@ class AlboPretorioSummaryController extends SetupAbstractController
         $sessionSearch = $sessionContainer->offsetGet(AlboPretorioSearchController::sessionIdentifier);
 
         try {
-            $arraySearch = array(
-                'freeSearch'        => isset($sessionSearch['testo']) ? $sessionSearch['testo'] : null,
-                'sezioneId'         => isset($sessionSearch['sezine']) ? $sessionSearch['sezine'] : null,
-                'numeroProgressivo' => isset($sessionSearch['numero_progressivo']) ? $sessionSearch['numero_progressivo'] : null,
-                'numeroAtto'        => isset($sessionSearch['numero_atto']) ? $sessionSearch['numero_atto'] : null,
-                'mese'              => isset($sessionSearch['mese']) ? $sessionSearch['mese'] : null,
-                'anno'              => isset($sessionSearch['anno']) ? $sessionSearch['anno'] : null,
-                'home'              => isset($sessionSearch['home']) ? $sessionSearch['heom'] : null,
-                'orderBy'           => 'alboArticoli.id DESC'
-            );
+            $arraySearch = $helper->recoverArrayQuerySearch($sessionSearch);
             $sezioniRecords = $helper->recoverWrapperRecords(
                 new AlboPretorioSezioniGetterWrapper(new AlboPretorioSezioniGetter($em)),
                 array('orderBy' => 'aps.nome ASC')

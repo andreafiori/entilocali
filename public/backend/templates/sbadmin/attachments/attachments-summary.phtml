@@ -1,5 +1,10 @@
+<?php
+$lang = $this->params()->fromRoute('lang');
+$languageSelection = $this->params()->fromRoute('languageSelection');
+$currentLanguage = isset($languageSelection) ? $languageSelection : $lang;
+?>
 <ul class="breadcrumb">
-    <li><a href="<?php echo $this->url('admin', array('lang' => 'it')); ?>" title="Home page">Home</a> <span class="divider"></span></li>
+    <li><a href="<?php echo $this->url('admin', array('lang' => $currentLanguage)); ?>" title="Home page">Home</a> <span class="divider"></span></li>
     <li class="active">
         <a href="<?php echo $this->formBreadCrumbCategoryLink ?>" title="<?php echo $this->formBreadCrumbCategory ?>">
             <?php echo $this->formBreadCrumbCategory ?>
@@ -14,21 +19,20 @@
 <p><?php echo $this->translate('Gestione files allegati.') ?></p>
 
 <div>
-    <a href="<?php echo $this->url('admin/attachments-form', array('lang' => $this->params()->fromRoute('lang'), 'module' => $this->moduleCode, 'referenceId' => $this->referenceId)); ?>" class="btn btn-default" title="Inserisci nuovo file">
+    <a href="<?php echo $this->url('admin/attachments-form', array('lang' => $lang, 'module' => $this->moduleCode, 'referenceId' => $this->referenceId)); ?>" class="btn btn-default" title="Inserisci nuovo file">
         <i class="fa fa-paperclip"></i> Nuovo file
     </a>
 
     <?php if (count($this->attachmentsList)>1): ?>
-    <a href="<?php echo $this->url('admin/attachments-positions', array('lang' => $this->params()->fromRoute('lang'), 'module' => $this->moduleCode, 'referenceId' => $this->referenceId)); ?>" class="btn btn-default" title="Posizioni file allegati">
+    <a href="<?php echo $this->url('admin/attachments-positions', array('lang' => $lang, 'module' => $this->moduleCode, 'referenceId' => $this->referenceId)); ?>" class="btn btn-default" title="Posizioni file allegati">
         <i class="fa fa-gear"></i> Posizioni
     </a>
     <?php endif; ?>
 
-    <a href="#<?php // echo $this->url('admin/attachments-form-big-files', array('lang' => $this->params()->fromRoute('lang'), 'module' => $this->moduleCode, 'referenceId' => $this->referenceId) ); ?>" class="btn btn-default" title="Allegati di grandi dimensioni">
+    <a href="#<?php // echo $this->url('admin/attachments-form-big-files', array('lang' =>$ lang, 'module' => $this->moduleCode, 'referenceId' => $this->referenceId) ); ?>" class="btn btn-default" title="Allegati di grandi dimensioni">
         <i class="fa fa-paperclip"></i> Allegati di grandi dimensioni
     </a>
 </div>
-
 
 <div>
     <?php if (!isset($this->attachmentsList) or empty($this->attachmentsList)): ?>
@@ -70,6 +74,7 @@
                 if ($expireDate=='-0001-11-30 00:00:00') {
                     $expireDate = 'Nessuna';
                 }
+                $downloadLink = $this->url('attachments-sthree-download', array('lang' => $currentLanguage, 'type' => $this->attachmentType, 'id' => $record['id']) );
                 ?>
             <tr>
                 <!-- Checkbox selezione allegati multipli -->
@@ -78,7 +83,7 @@
                     <input type="checkbox" id="chk<?php echo $record['id'] ?>" name="attachmentId[]" value="<?php echo $record['id'] ?>">
                 </td>
                 -->
-                <td><?php echo isset($record['title']) ? $record['title'] : null ?><br>(<?php echo $record['size'] ?> Kb)</td>
+                <td><a href="<?php echo $downloadLink ?>" title="Scarica file"><?php echo isset($record['title']) ? $record['title'] : null ?><br>(<?php echo $record['size'] ?> Kb)</a></td>
                 <td>
                     <strong>Inserito il:</strong> <?php echo $record['insertDate']->format('Y-m-d H:i:s') ?><br><br>
                     <strong>Scadenza:</strong> <?php echo $expireDate ?>
@@ -101,7 +106,7 @@
                         $form->prepare();
 
                         $form->setAttribute('action',   $this->url('admin/attachments-operations', array(
-                            'lang'      => $this->params()->fromRoute('lang'),
+                            'lang'      => $lang,
                             'action'    => 'updatecolumnattachment'
                         )));
                         $form->setAttribute('method',   'post');
@@ -124,9 +129,9 @@
                     </td>
                 <?php endif; ?>
 
-                <td><a href="<?php echo $this->url('admin/attachments-form', array('lang' => 'it', 'module' => $this->moduleCode, 'referenceId' => $this->referenceId, 'attachmentId' => $record['id'])); ?>" class="btn btn-primary" title="<?php echo $this->translate('Modifica file allegato') ?>"><i class="fa fa-pencil"></i></a></td>
-                <td><a href="#deleteModal" data-action="<?php echo $this->url('admin/attachments-delete', array('lang' => 'it', 'modulename' => $this->moduleCode, 'referenceid' => $this->referenceId)); ?>" class="open-deleteModal btn btn-danger" data-id="<?php echo $record['id'] ?>" title="<?php echo $this->translate('Elimina file allegato') ?>"><i class="fa fa-remove"></i> </a></td>
-                <td><a href="<?php echo $this->url('attachments-sthree-download', array('lang' => 'it', 'type' => $this->attachmentType, 'id' => $record['id']) ); ?>" class="btn btn-default" title="Scarica file"><i class="fa fa-download"></i></a></td>
+                <td><a href="<?php echo $this->url('admin/attachments-form', array('lang' => $currentLanguage, 'module' => $this->moduleCode, 'referenceId' => $this->referenceId, 'attachmentId' => $record['id'])); ?>" class="btn btn-primary" title="<?php echo $this->translate('Modifica file allegato') ?>"><i class="fa fa-pencil"></i></a></td>
+                <td><a href="#deleteModal" data-action="<?php echo $this->url('admin/attachments-delete', array('lang' => $currentLanguage, 'modulename' => $this->moduleCode, 'referenceid' => $this->referenceId)); ?>" class="open-deleteModal btn btn-danger" data-id="<?php echo $record['id'] ?>" title="<?php echo $this->translate('Elimina file allegato') ?>"><i class="fa fa-remove"></i> </a></td>
+                <td><a href="<?php echo $downloadLink; ?>" class="btn btn-default" title="Scarica file"><i class="fa fa-download"></i></a></td>
             </tr>
             <?php endforeach; ?>
             <!--
