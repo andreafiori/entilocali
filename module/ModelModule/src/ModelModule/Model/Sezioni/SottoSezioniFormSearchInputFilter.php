@@ -1,22 +1,25 @@
 <?php
 
-namespace ModelModule\Model\Contenuti;
+namespace ModelModule\Model\Sezioni;
 
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
+use Zend\Validator\File\Size;
 
 /**
- * Contenuti Tabella Form Controller
+ * SottoSezioni Form Search Validator
  */
-class ContenutiTabellaFormInputFilter implements InputFilterAwareInterface
+class SottoSezioniFormSearchInputFilter implements InputFilterAwareInterface
 {
-    public $id;
-    public $tabella;
-    public $titolo;
+    public $testo;
+    public $sezioni;
     public $csrf;
 
+    /**
+     * @var InputFilter
+     */
     protected $inputFilter;
 
     /**
@@ -24,10 +27,9 @@ class ContenutiTabellaFormInputFilter implements InputFilterAwareInterface
      */
     public function exchangeArray(array $data)
     {
-        $this->id               = (isset($data['id']))      ? $data['id']         : null;
-        $this->tabella          = (isset($data['tabella'])) ? $data['tabella']    : null;
-        $this->titolo           = (isset($data['titolo']))  ? $data['titolo']     : null;
-        $this->csrf             = (isset($data['csrf']))    ? $data['csrf']       : null;
+        $this->testo    = (isset($data['testo']))   ? $data['testo']    : null;
+        $this->sezioni  = (isset($data['sezioni'])) ? $data['sezioni']  : null;
+        $this->csrf     = (isset($data['csrf']))    ? $data['csrf']     : null;
     }
 
     /**
@@ -36,7 +38,7 @@ class ContenutiTabellaFormInputFilter implements InputFilterAwareInterface
      */
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
-        throw new \Exception("This method is unused");
+        throw new \Exception("Not used");
     }
 
     /**
@@ -44,45 +46,36 @@ class ContenutiTabellaFormInputFilter implements InputFilterAwareInterface
      */
     public function getInputFilter()
     {
-        if (!$this->inputFilter) {
-
+        if (!$this->inputFilter)
+        {
             $inputFilter = new InputFilter();
 
             $factory = new InputFactory();
 
             $inputFilter->add(array(
-                'name' => 'id',
+                'name'     => 'sezioni',
                 'required' => false,
                 'filters'  => array(
                     array('name' => 'Int'),
                 ),
             ));
 
-            $inputFilter->add(array(
-                'name'     => 'titolo',
-                'required' => true,
-                'filters'  => array(
+            $inputFilter->add($factory->createInput([
+                'name' => 'testo',
+                'required' => false,
+                'filters' => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
                     array('name' => 'HtmlEntities'),
-                ),
-            ));
-
-            $inputFilter->add($factory->createInput([
-                'name' => 'tabella',
-                'required' => false,
-                'filters' => array(
-
                 ),
             ]));
 
             $inputFilter->add(array(
-                'name'     => 'csrf',
+                'name' => 'csrf',
                 'required' => true,
-                'filters' => array(
+                'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
-                    array('name' => 'HtmlEntities'),
                 ),
             ));
 

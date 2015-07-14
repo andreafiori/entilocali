@@ -213,6 +213,10 @@ class AlboPretorioSummaryController extends SetupAbstractController
                         $rowClass = 'rowNew';
                     }
 
+                    if ($record['checkRettifica']==1) {
+                        $rowClass = 'rowAzure';
+                    }
+
                     $scadenzaString = ($record['dataScadenza']=='0000-00-00 00:00:00') ? 'Nessuna' : date("d-m-Y", strtotime($record['dataScadenza']));
                     $pubblicareString = ($record['pubblicare']==1) ? date("d-m-Y", strtotime($record['dataPubblicare'])) : 'non ancora pubblicato';
                     $attivareString = ($record['attivo']==1) ? date("d-m-Y", strtotime($record['dataAttivazione'])).' '.$record['oraAttivazione'] : 'Non ancora attivato';

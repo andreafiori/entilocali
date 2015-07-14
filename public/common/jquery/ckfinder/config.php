@@ -1,4 +1,5 @@
 <?php
+// session_start();
 /*
  * ### CKFinder : Configuration File - Basic Instructions
  *
@@ -24,13 +25,13 @@ function CheckAuthentication()
 	// "anyone" to upload and list the files in your server. You must implement
 	// some kind of session validation here. Even something very simple as...
 
-	// return isset($_SESSION['IsAuthorized']) && $_SESSION['IsAuthorized'];
+	// return isset($_SESSION['Default']['ckFinderUploadDir']) && $_SESSION['Default']['ckFinderUploadDir'];
 
 	// ... where $_SESSION['IsAuthorized'] is set to "true" as soon as the
 	// user logs in your system. To be able to use session variables don't
 	// forget to add session_start() at the top of this file.
 
-	return false;
+	return true;
 }
 
 // LicenseKey : Paste your license key here. If left blank, CKFinder will be
@@ -60,7 +61,9 @@ Examples:
 
 ATTENTION: The trailing slash is required.
 */
-$baseUrl = '/ckfinder/userfiles/';
+
+// $baseUrl = isset($_SESSION['Default']['ckFinderUploadDir']) ? $_SESSION['Default']['ckFinderUploadDir'] : '/userfiles/ckfinder/';
+$baseUrl = '/userfiles/ckfinder/';
 
 /*
 $baseDir : the path to the local directory (in the server) which points to the

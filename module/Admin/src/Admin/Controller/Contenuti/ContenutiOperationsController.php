@@ -7,6 +7,9 @@ use ModelModule\Model\Contenuti\ContenutiFormSearch;
 use Application\Controller\SetupAbstractController;
 use Zend\Session\Container as SessionContainer;
 
+/**
+ * Contenuti additional Operations Controller
+ */
 class ContenutiOperationsController extends SetupAbstractController
 {
     /**
@@ -31,6 +34,7 @@ class ContenutiOperationsController extends SetupAbstractController
 
     /**
      * TODO: delete this method, use ContenutiSearchController
+     *
      * Set session search for the summary
      *
      * @return mixed

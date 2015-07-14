@@ -213,12 +213,12 @@ if (!$this->form):
                 <?php foreach($this->CKEditorField as $ckEditorField): ?>
                 /* CKEditor and CKFinder integration (multiple) */
                 var editor = CKEDITOR.replace( '<?php echo $ckEditorField ?>', {
-                    filebrowserBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html',
-                    filebrowserImageBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html?type=Images',
-                    filebrowserFlashBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html?type=Flash',
-                    filebrowserUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-                    filebrowserImageUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-                    filebrowserFlashUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
+                    filebrowserBrowseUrl : '<?php echo $this->publicDirRelativePath ?>/common/jquery/ckfinder/ckfinder.html',
+                    filebrowserImageBrowseUrl : '<?php echo $this->publicDirRelativePath ?>/common/jquery/ckfinder/ckfinder.html?type=Images',
+                    filebrowserFlashBrowseUrl : '<?php echo $this->publicDirRelativePath ?>/common/jquery/ckfinder/ckfinder.html?type=Flash',
+                    filebrowserUploadUrl : '<?php echo $this->publicDirRelativePath ?>/common/jquery/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+                    filebrowserImageUploadUrl : '<?php echo $this->publicDirRelativePath ?>/common/jquery/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+                    filebrowserFlashUploadUrl : '<?php echo $this->publicDirRelativePath ?>/common/jquery/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
                     /*, filebrowserWindowWidth : '1000', filebrowserWindowHeight : '700' */
                 });
                 CKFinder.setupCKEditor( editor, '../' );
@@ -226,12 +226,12 @@ if (!$this->form):
             <?php elseif(is_string($this->CKEditorField)): ?>
             /* CKEditor and CKFinder integration (single) */
             var editor = CKEDITOR.replace( '<?php echo $this->CKEditorField ?>', {
-                filebrowserBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html',
-                filebrowserImageBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html?type=Images',
-                filebrowserFlashBrowseUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/ckfinder.html?type=Flash',
-                filebrowserUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-                filebrowserImageUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-                filebrowserFlashUploadUrl : '<?php echo $this->basepath() ?>/public/backend/javascript/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
+                filebrowserBrowseUrl : '<?php echo $this->publicDirRelativePath ?>/common/jquery/ckfinder/ckfinder.html',
+                filebrowserImageBrowseUrl : '<?php echo $this->publicDirRelativePath ?>/common/jquery/ckfinder/ckfinder.html?type=Images',
+                filebrowserFlashBrowseUrl : '<?php echo $this->publicDirRelativePath ?>/common/jquery/ckfinder/ckfinder.html?type=Flash',
+                filebrowserUploadUrl : '<?php echo $this->publicDirRelativePath ?>/common/jquery/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+                filebrowserImageUploadUrl : '<?php echo $this->publicDirRelativePath ?>/common/jquery/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+                filebrowserFlashUploadUrl : '<?php echo $this->publicDirRelativePath ?>/common/jquery/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
                 /*, filebrowserWindowWidth : '1000', filebrowserWindowHeight : '700' */
             });
             CKFinder.setupCKEditor( editor, '../' );

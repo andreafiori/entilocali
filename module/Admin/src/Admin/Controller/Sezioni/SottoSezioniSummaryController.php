@@ -12,9 +12,10 @@ use ModelModule\Model\Languages\LanguagesGetter;
 use ModelModule\Model\Languages\LanguagesGetterWrapper;
 use ModelModule\Model\Languages\LanguagesFormSearch;
 use Application\Controller\SetupAbstractController;
+use Zend\Session\Container as SessionContainer;
 
 /**
- * Sottosezioni index
+ * Sottosezioni list index
  */
 class SottoSezioniSummaryController extends SetupAbstractController
 {
@@ -30,6 +31,9 @@ class SottoSezioniSummaryController extends SetupAbstractController
         $languageSelection      = $this->params()->fromRoute('languageSelection');
         $modulename             = $this->params()->fromRoute('modulename');
 
+        $sessionContainer = new SessionContainer();
+        $sessionSearch = $sessionContainer->offsetGet(SottoSezioniSearchController::sessionIdentifier);
+
         $helper = new SezioniControllerHelper();
 
         try {
@@ -38,6 +42,7 @@ class SottoSezioniSummaryController extends SetupAbstractController
                 array(
                     'isAmmTrasparente'      => ($modulename=='amministrazione-trasparente') ?  1 : 0,
                     'languageAbbreviation'  => $languageSelection,
+                    'freeSearch'            => isset($sessionSearch['testo']) ? $sessionSearch['testo'] : null,
                 ),
                 $page,
                 null
@@ -65,6 +70,7 @@ class SottoSezioniSummaryController extends SetupAbstractController
             $formSearch = new SottoSezioniFormSearch();
             $formSearch->addSezioni( $helper->formatForDropwdown($sezioniRecords, 'id', 'nome') );
             $formSearch->addSubmitButton();
+            $formSearch->setData(!empty($sessionSearch) ? $sessionSearch : array());
 
             $this->layout()->setVariables(array(
                 'tableTitle'        => 'Sottosezioni '.ucfirst(str_replace('-', ' ', $modulename)),
@@ -76,6 +82,7 @@ class SottoSezioniSummaryController extends SetupAbstractController
                     "&nbsp;",
                     "&nbsp;",
                 ),
+                'sessionSearch'     => $sessionSearch,
                 'formLanguage'      => isset($formLanguage) ? $formLanguage : null,
                 'paginator'         => $wrapper->getPaginator(),
                 'records'           => $this->formatRecordsToShowOnTable($wrapper->setupRecords()),

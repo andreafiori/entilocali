@@ -40,6 +40,15 @@ class ContenutiTabellaUpdateControllerTest extends TestSuite
         $this->assertFalse( $form->isValid() );
     }
 
+    public function testFormSampleWithEmptyTabella()
+    {
+        $this->formDataSample['tabella'] = '';
+
+        $form = $this->setupForm($this->formDataSample);
+
+        $this->assertFalse( $form->isValid() );
+    }
+
     /**
      * @param array $formDataSample
      * @return ContenutiTabellaForm

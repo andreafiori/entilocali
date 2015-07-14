@@ -10,6 +10,9 @@ return array(
     'admin/contenuti-form' => array(
         'resources' => array('contenuti_add', 'contenuti_update')
     ),
+    'admin/contenuti-delete' => array(
+        'resources' => array('contenuti_delete')
+    ),
     /* Amministrazione trasparente */
     'admin/amministrazione-trasparente-tabella' => array(
         'resources' => array('amministrazione_trsparente_tabelle')

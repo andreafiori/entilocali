@@ -101,7 +101,7 @@ class AlboPretorioOperationsController extends SetupAbstractController
                     $attoRecord[0]['anno']
                 );
 
-                $helper->publiscdhArticle($id, $numeroProgressivo);
+                $helper->publishArticle($id, $numeroProgressivo);
 
                 $helper->getConnection()->commit();
 

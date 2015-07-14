@@ -127,20 +127,21 @@ return array(
             'Admin\Controller\Sezioni\SottoSezioniPositions'          => 'Admin\Controller\Sezioni\SottoSezioniPositionsController',
             'Admin\Controller\Sezioni\SottoSezioniPositionsUpdate'    => 'Admin\Controller\Sezioni\SottoSezioniPositionsUpdateController',
             'Admin\Controller\Sezioni\SottoSezioniOperations'         => 'Admin\Controller\Sezioni\SottoSezioniOperationsController',
+            'Admin\Controller\Sezioni\SottoSezioniSearch'             => 'Admin\Controller\Sezioni\SottoSezioniSearchController',
 
             /* Users */
             'Admin\Controller\Users\UsersSummary'                     => 'Admin\Controller\Users\UsersSummaryController',
             'Admin\Controller\Users\UsersForm'                        => 'Admin\Controller\Users\UsersFormController',
             'Admin\Controller\Users\UsersInsert'                      => 'Admin\Controller\Users\UsersInsertController',
             'Admin\Controller\Users\UsersUpdate'                      => 'Admin\Controller\Users\UsersUpdateController',
-            'Admin\Controller\Users\UsersDelete'                      => 'Admin\Controller\Users\UsersDeleteController', // to create
+            'Admin\Controller\Users\UsersDelete'                      => 'Admin\Controller\Users\UsersDeleteController',
 
             /* Users Roles */
             'Admin\Controller\Users\Roles\UsersRolesForm'             => 'Admin\Controller\Users\Roles\UsersRolesFormController',
             'Admin\Controller\Users\Roles\UsersRolesSummary'          => 'Admin\Controller\Users\Roles\UsersRolesSummaryController',
-            'Admin\Controller\Users\Roles\UsersRolesInsert'           => 'Admin\Controller\Users\Roles\UsersRolesInsertController', // to create
-            'Admin\Controller\Users\Roles\UsersRolesUpdate'           => 'Admin\Controller\Users\Roles\UsersRolesUpdateController', // to create
-            'Admin\Controller\Users\Roles\UsersRolesDelete'           => 'Admin\Controller\Users\Roles\UsersRolesDeleteController', // to create
+            'Admin\Controller\Users\Roles\UsersRolesInsert'           => 'Admin\Controller\Users\Roles\UsersRolesInsertController',
+            'Admin\Controller\Users\Roles\UsersRolesUpdate'           => 'Admin\Controller\Users\Roles\UsersRolesUpdateController',
+            'Admin\Controller\Users\Roles\UsersRolesDelete'           => 'Admin\Controller\Users\Roles\UsersRolesDeleteController',
 
             /* Users Settori */
             'Admin\Controller\Users\Settori\SettoriSummary'           => 'Admin\Controller\Users\Settori\SettoriSummaryController',
@@ -160,7 +161,7 @@ return array(
 
             /* Tickets */
             'Admin\Controller\Tickets\TicketsForm'                    => 'Admin\Controller\Tickets\TicketsFormController',
-            'Admin\Controller\Tickets\TicketsInsert'                    => 'Admin\Controller\Tickets\TicketsInsertController',
+            'Admin\Controller\Tickets\TicketsInsert'                  => 'Admin\Controller\Tickets\TicketsInsertController',
             'Admin\Controller\Tickets\TicketsSummary'                 => 'Admin\Controller\Tickets\TicketsSummaryController',
 
             /* Contacts */
@@ -423,6 +424,20 @@ return array(
                             ),
                         ),
                     ),
+                    'contenuti-delete' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => 'common/form/:modulename/lang/:languageSelection/delete[/]',
+                            'constraints' => array(
+                                'languageSelection' => '[a-z]{2}',
+                                'modulename'        => '(contenuti|amministrazione-trasparente)',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Contenuti\ContenutiDelete',
+                                'action'     => 'index',
+                            ),
+                        ),
+                    ),
                     'amministrazione-trasparente-tabella' => array(
                         'type' => 'Segment',
                         'options' => array(
@@ -521,6 +536,21 @@ return array(
                                 'action'     => 'index',
                             ),
                         ),
+                    ),
+                    'sottosezioni-search' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                        'options' => array(
+                            'route' => 'sottosezioni/:modulename/lang/:languageSelection/form/ricerca/:action[/]',
+                            'constraints' => array(
+                                'languageSelection' => '[a-z]{2}',
+                                'modulename'        => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action'            => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Sezioni\SottoSezioniSearch',
+                            ),
+                        ),
+                        'may_terminate' => true,
                     ),
                     'sottosezioni-form' => array(
                         'type' => 'Segment',

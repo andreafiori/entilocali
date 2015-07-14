@@ -89,4 +89,24 @@ class ContenutiControllerHelper extends ContenutiControllerHelperAbstract
             array('id' => $inputFilter->id)
         );
     }
+
+    /**
+     * @param int $id
+     *
+     * @return bool
+     */
+    public function delete($id)
+    {
+        $this->assertConnection();
+
+        $this->getConnection()->query('SET FOREIGN_KEY_CHECKS=0');
+        $this->getConnection()->delete(
+            DbTableContainer::contenuti,
+            array('id' => $id),
+            array('limit' => 1)
+        );
+        $this->getConnection()->query('SET FOREIGN_KEY_CHECKS=1');
+
+        return true;
+    }
 }

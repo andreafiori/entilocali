@@ -109,9 +109,7 @@ class AttachmentsControllerHelper extends ControllerHelperAbstract
 
         return $this->getConnection()->update(
             DbTableContainer::attachments,
-            array(
-                'atti_concessione_colonna' => $attiConcessioneColonna
-            ),
+            array('atti_concessione_colonna' => $attiConcessioneColonna),
             array('id' => $id),
             array('limit' => 1)
         );

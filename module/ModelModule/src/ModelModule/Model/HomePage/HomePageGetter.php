@@ -52,7 +52,7 @@ class HomePageGetter extends QueryBuilderHelperAbstract
     }
 
     /**
-     * @param $moduleCode
+     * @param string $moduleCode
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function setModuleCode($moduleCode)
@@ -60,6 +60,20 @@ class HomePageGetter extends QueryBuilderHelperAbstract
         if ( is_string($moduleCode) ) {
             $this->getQueryBuilder()->andWhere('modules.code = :moduleCode ');
             $this->getQueryBuilder()->setParameter('moduleCode', $moduleCode);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param int $moduleId
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setModuleId($moduleId)
+    {
+        if ( is_numeric($moduleId) ) {
+            $this->getQueryBuilder()->andWhere('modules.id = :moduleId ');
+            $this->getQueryBuilder()->setParameter('moduleId', $moduleId);
         }
 
         return $this->getQueryBuilder();

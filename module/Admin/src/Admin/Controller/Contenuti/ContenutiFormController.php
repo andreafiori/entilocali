@@ -72,7 +72,7 @@ class ContenutiFormController extends SetupAbstractController
                 $form->setData($contenutiRecords[0]);
 
                 $submitButtonValue      = 'Modifica';
-                $formTitle              = 'Modifica artciolo';
+                $formTitle              = 'Modifica articolo';
                 $formDescription        = "Modifica i dati relativi all'articolo. Massimo 255 caratteri per i campi testo. Utilizzare testi brevi e concisi. Evitare copia \ incolla da file word o pagine web che potrebbero pregiudicare l’accessibilità del sito web.";
                 $formAction             = $this->url()->fromRoute('admin/contenuti-update', array(
                     'lang'              => $this->params()->fromRoute('lang'),

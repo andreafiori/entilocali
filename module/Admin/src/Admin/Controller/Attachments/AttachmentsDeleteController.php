@@ -61,13 +61,6 @@ class AttachmentsDeleteController extends SetupAbstractController
 
             $configurations = $this->layout()->getVariable('configurations');
 
-            $s3Helper = new S3Helper();
-            $s3Helper->setAccessKey($configurations['amazon_s3_accesskey']);
-            $s3Helper->setSecretKey($configurations['amazon_s3_secretkey']);
-            $s3Helper->setBucket( isset($configurations['amazon_s3_bucket']) ? $configurations['amazon_s3_bucket'] : null );
-            $s3Helper->setS3Directory( $this->params()->fromRoute('modulename') );
-            $s3Helper->setS3( new S3($configurations['amazon_s3_accesskey'], $configurations['amazon_s3_secretkey']) );
-
             $s3 = new S3($configurations['amazon_s3_accesskey'], $configurations['amazon_s3_secretkey']);
             $s3->deleteObject(
                 $configurations['amazon_s3_bucket'],

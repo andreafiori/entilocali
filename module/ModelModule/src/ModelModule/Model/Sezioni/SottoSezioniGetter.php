@@ -219,4 +219,23 @@ class SottoSezioniGetter extends QueryBuilderHelperAbstract
 
         return $this->getQueryBuilder();
     }
+
+    /**
+     * Free text research
+     *
+     * @param string $search
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setFreeSearch($search)
+    {
+        if (!empty($search)) {
+            $search = strtolower($search);
+
+            $this->getQueryBuilder()->andWhere(' ( LOWER(sottosezioni.nome) LIKE :freeSearch OR
+            LOWER(sezioni.nome) LIKE :freeSearch ) ');
+            $this->getQueryBuilder()->setParameter('freeSearch', "%".$search."%");
+        }
+
+        return $this->getQueryBuilder();
+    }
 }

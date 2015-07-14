@@ -19,21 +19,13 @@
     </li>
 </ul>
 
+<div id="searchButtonContainer">
+    <a href="javascript:void(0)" id="lnkSearchExport" class="btn btn-primary">
+        <i class="fa fa-search"></i> <?php echo $this->translate('Ricerca'); ?>
+    </a>
+</div>
 
-<?php if (empty($records)): ?>
-    <div class="alert alert-warning" style="margin: 0; padding-top: 0">
-        <h3>Nessuna sottosezione</h3>
-        <p>Nessuna sottosezione in archivio.</p>
-    </div>
-<?php else: ?>
-
-    <div id="searchButtonContainer">
-        <a href="javascript:void(0)" id="lnkSearchExport" class="btn btn-primary">
-            <i class="fa fa-search"></i> <?php echo $this->translate('Ricerca'); ?>
-        </a>
-    </div>
-
-    <div id="frmFrmSearchExport" style="display: block">
+<div id="frmFrmSearchExport" style="display: <?php echo ($this->sessionSearch) ? 'block' : 'none' ?>">
     <?php if ($this->formLanguage): ?>
         <br>
         <?php
@@ -51,7 +43,12 @@
 
     $form = $this->formSearch;
 
-    $form->setAttribute('action',   '#');
+    $form->setAttribute('action',   $this->url('admin/sottosezioni-search', array(
+        'lang'              => $this->params()->fromRoute('lang'),
+        'languageSelection' => $this->params()->fromRoute('languageSelection'),
+        'modulename'        => $this->params()->fromRoute('modulename'),
+        'action'            => 'index'
+    )));
     $form->setAttribute('method',   'post');
     $form->setAttribute('role',     'form');
     $form->setAttribute('class',    'form-horizontal');
@@ -65,38 +62,59 @@
 
     echo $this->form()->openTag($form);
     ?>
-        <h4 class="text-center">Ricerca sottosezioni</h4>
+    <h4 class="text-center">Ricerca sottosezioni</h4>
 
-        <div class="form-group">
-            <label class="col-sm-2 control-label" for="<?php echo $form->get('testo')->getAttribute('id') ?>">
-                <?php echo $this->formLabel($form->get('testo')) ?>
-            </label>
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="<?php echo $form->get('testo')->getAttribute('id') ?>">
+            <?php echo $this->formLabel($form->get('testo')) ?>
+        </label>
 
-            <div class="col-sm-4">
-                <?php echo $this->formElement($form->get('testo')); ?>
-            </div>
-
-            <label class="col-sm-2 control-label" for="<?php echo $form->get('sezioni')->getAttribute('id') ?>">
-                <?php echo $this->formLabel($form->get('sezioni')) ?>
-            </label>
-            <div class="col-sm-4">
-                <?php echo $this->formElement($form->get('sezioni')); ?>
-            </div>
+        <div class="col-sm-4">
+            <?php echo $this->formElement($form->get('testo')); ?>
         </div>
 
-        <div class="form-group">
-            <div class="col-sm-2">
-                &nbsp;
-            </div>
-
-            <div class="col-sm-2">
-                <?php echo $this->formElement($form->get('search')); ?>
-            </div>
+        <label class="col-sm-2 control-label" for="<?php echo $form->get('sezioni')->getAttribute('id') ?>">
+            <?php echo $this->formLabel($form->get('sezioni')) ?>
+        </label>
+        <div class="col-sm-4">
+            <?php echo $this->formElement($form->get('sezioni')); ?>
         </div>
-
     </div>
-    <?php
-    echo $this->form()->closeTag();
+
+    <div class="form-group">
+        <div class="col-sm-2">
+            &nbsp;
+        </div>
+
+        <div class="col-sm-10">
+            <?php echo $this->formElement($form->get('csrf')); ?>
+            <?php echo $this->formElement($form->get('search')); ?>
+
+            <?php if ($this->sessionSearch): ?>
+                <a href="<?php echo $this->url('admin/sottosezioni-search', array(
+                    'action'              => 'unsetsearch',
+                    'lang'                => $this->params()->fromRoute('lang'),
+                    'languageSelection'   => $this->params()->fromRoute('languageSelection'),
+                    'modulename'          => $this->params()->fromRoute('modulename'),
+
+                )) ?>" class="btn btn-danger" title="Azzera sessione di ricerca">Azzera ricerca</a>
+            <?php endif; ?>
+        </div>
+    </div>
+
+</div>
+<?php echo $this->form()->closeTag(); ?>
+
+<div>&nbsp;</div>
+
+<?php if (empty($records)): ?>
+    <div class="alert alert-warning" style="margin: 0; padding-top: 0">
+        <h3>Nessuna sottosezione</h3>
+        <p>Nessuna sottosezione trovata o presente in archivio.</p>
+    </div>
+<?php else: ?>
+
+<?php
 
     echo $this->render($this->formDataCommonPath.'datatables_elements.phtml');
 

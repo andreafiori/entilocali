@@ -87,7 +87,7 @@
                 <?php echo $this->formElement($form->get('search')); ?>
 
                 <?php if ($this->sessionSearch): ?>
-                    <a href="<?php echo $this->url('main/contenuti-search', array('action' => 'unsetsearch', 'lang' => $this->params()->fromRoute('lang'))) ?>" class="btn btn-danger" title="Azzera sessione di ricerca sugli atti dell'albo pretorio">Azzera ricerca</a>
+                    <a href="<?php echo $this->url('main/contenuti-search', array('action' => 'unsetsearch', 'lang' => $this->params()->fromRoute('lang'))) ?>" class="btn btn-danger" title="Azzera sessione di ricerca">Azzera ricerca</a>
                 <?php endif; ?>
             </div>
 

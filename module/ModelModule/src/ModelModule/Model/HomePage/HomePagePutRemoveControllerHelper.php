@@ -4,7 +4,6 @@ namespace ModelModule\Model\HomePage;
 
 use ModelModule\Model\ControllerHelperAbstract;
 use ModelModule\Model\Database\DbTableContainer;
-use ModelModule\Model\NullException;
 
 /**
  * HomePage Put and Remove elements Helper

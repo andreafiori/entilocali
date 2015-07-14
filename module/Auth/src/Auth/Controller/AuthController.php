@@ -85,6 +85,12 @@ class AuthController extends SetupAbstractController
 
         $configurations = $appServiceLoader->recoverService('configurations');
 
+        $helper = new SetupAbstractControllerHelper();
+        $helper->setConfigurations($configurations);
+        $helper->setRequest($request);
+        $helper->setupZf2appDir();
+        $helper->setupAppDirRelativePath();
+
         $formValidator = new UserFormAuthenticationInputFilter();
 
         $form = new UserFormAuthentication();
@@ -186,6 +192,8 @@ class AuthController extends SetupAbstractController
                             throw new NullException('Site name is not set. Cannot complete the login');
                         }
 
+                        $ckFinderUploadDir = $helper->getAppDirRelativePath().'/public/'.$configurations['media_dir'].$configurations['media_project'].'ckfinder_files';
+
                         $userDetails = new \stdClass();
                         $userDetails->sitename              = $sitename;
                         $userDetails->id                    = $records['id'];
@@ -197,9 +205,10 @@ class AuthController extends SetupAbstractController
                         $userDetails->passwordLastUpdate    = $records['passwordLastUpdate'];
                         $userDetails->role                  = $records['roleName'];
 
-                        // Set user session values
+                        /* Set user session values */
                         $sessionContainer = new SessionContainer();
                         $sessionContainer->offsetSet('userDetails', $userDetails);
+                        $sessionContainer->offsetSet('ckFinderUploadDir', $ckFinderUploadDir);
 
                         /* Regenerate Session ID after login */
                         $manager = new \Zend\Session\SessionManager;
@@ -222,7 +231,7 @@ class AuthController extends SetupAbstractController
                     }
                 }
             } else {
-                // var_dump($form->getInputFilter()->getMessages()); exit;
+
                 $sessionContainer = new SessionContainer();
 
                 $loginFailures = $sessionContainer->offsetGet('loginFailures');

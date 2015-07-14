@@ -25,6 +25,11 @@ class SottoSezioniFormSearch extends Form
                 'label' => 'Testo',
             )
         ));
+
+        $this->add(array(
+            'name' => 'csrf',
+            'type' => 'Zend\Form\Element\Csrf',
+        ));
     }
 
     /**

@@ -3,8 +3,6 @@
 namespace Admin\Controller\Contenuti;
 
 use ModelModule\Model\Contenuti\ContenutiControllerHelper;
-use ModelModule\Model\Contenuti\ContenutiForm;
-use ModelModule\Model\Contenuti\ContenutiFormInputFilter;
 use ModelModule\Model\Contenuti\ContenutiTabellaForm;
 use ModelModule\Model\Contenuti\ContenutiTabellaFormInputFilter;
 use ModelModule\Model\Log\LogWriter;
@@ -12,6 +10,9 @@ use ModelModule\Model\Modules\ModulesContainer;
 use Application\Controller\SetupAbstractController;
 use ModelModule\Model\NullException;
 
+/**
+ * Contenuti Tabella Update Controller
+ */
 class ContenutiTabellaUpdateController extends SetupAbstractController
 {
     /**
@@ -62,8 +63,8 @@ class ContenutiTabellaUpdateController extends SetupAbstractController
             $logWriter = new LogWriter($connection);
             $logWriter->writeLog(array(
                 'user_id'       => $userDetails->id,
-                'module_id'     => ModulesContainer::contenuti_id,
-                'message'       => "Aggiornata tabella contenuto ".$inputFilter->titolo,
+                'module_id'     => ModulesContainer::amministrazione_trasparente_id,
+                'message'       => "Aggiornata tabella articolo ".$inputFilter->titolo,
                 'type'          => 'info',
                 'reference_id'  => $inputFilter->id,
                 'backend'       => 1,
@@ -71,10 +72,10 @@ class ContenutiTabellaUpdateController extends SetupAbstractController
 
             $this->layout()->setVariables(array(
                 'messageType'           => 'success',
-                'messageTitle'          => 'Contenuto aggiornato correttamente',
+                'messageTitle'          => 'Articolo aggiornato correttamente',
                 'messageText'           => 'I dati sono stati processati correttamente dal sistema',
                 'messageShowFormLink'   => 1,
-                'messageShowForm'       => 'Torna al contenuto',
+                'messageShowForm'       => "Torna alla tabella artcolo",
             ));
 
             $this->layout()->setTemplate($this->layout()->getVariable('templateDir').'message.phtml');
@@ -84,7 +85,7 @@ class ContenutiTabellaUpdateController extends SetupAbstractController
             $logWriter = new LogWriter($connection);
             $logWriter->writeLog(array(
                 'user_id'       => isset($userDetails->id) ? $userDetails->id : null,
-                'module_id'     => ModulesContainer::contenuti_id,
+                'module_id'     => ModulesContainer::amministrazione_trasparente_id,
                 'message'       => "Errore aggiornamento tabella articolo amm. trasparente ",
                 'type'          => 'error',
                 'description'   => $e->getMessage(),

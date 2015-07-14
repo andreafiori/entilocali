@@ -228,10 +228,9 @@ class ContenutiSummaryController extends SetupAbstractController
                 if ($userDetails->acl->hasResource("contenuti_delete")) {
                     $deleteButton = array(
                         'type' => 'deleteButton',
-                        'href' => $this->url()->fromRoute('admin/contenuti-operations', array(
+                        'href' => $this->url()->fromRoute('admin/contenuti-delete', array(
                             'lang'                  => $this->params()->fromRoute('lang'),
                             'languageSelection'     => $languageSelection,
-                            'action'                => 'delete',
                             'modulename'            => $modulename,
                             'id'                    => $row['id']
                         )),
