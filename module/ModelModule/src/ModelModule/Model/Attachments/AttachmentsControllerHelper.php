@@ -35,7 +35,7 @@ class AttachmentsControllerHelper extends ControllerHelperAbstract
                 'description'               => $formData->description,
                 'name'                      => $formData->attachmentFile['name'],
                 'size'                      => $formData->attachmentFile['size'],
-                'status'                    => null,
+                'status'                    => $formData->status,
                 'insert_date'               => date("Y-m-d H:i:s"),
                 'expire_date'               => $formData->expireDate,
                 'position'                  => 0,
@@ -43,7 +43,7 @@ class AttachmentsControllerHelper extends ControllerHelperAbstract
                 'atti_concessione_category' => 0,
                 'albo_rettificato'          => 0,
                 'albo_id'                   => 0,
-                'language_id'               => 1,
+                'language_id'               => 1, // TODO: pass the languageId from reference
                 'mime_id'                   => $mimeId,
                 'user_id'                   => $userDetails->id,
             )
@@ -111,6 +111,26 @@ class AttachmentsControllerHelper extends ControllerHelperAbstract
             DbTableContainer::attachments,
             array('atti_concessione_colonna' => $attiConcessioneColonna),
             array('id' => $id),
+            array('limit' => 1)
+        );
+    }
+
+    /**
+     * @param InputFilterAwareInterface $formData
+     * @return int
+     */
+    public function updateAttachment(InputFilterAwareInterface $formData)
+    {
+        $this->assertConnection();
+
+        return $this->getConnection()->update(
+            DbTableContainer::attachments,
+            array(
+                'title'         => $formData->title,
+                'description'   => $formData->description,
+                'status'        => $formData->status,
+            ),
+            array('id' => $formData->id),
             array('limit' => 1)
         );
     }

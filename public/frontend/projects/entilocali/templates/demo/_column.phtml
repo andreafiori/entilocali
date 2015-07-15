@@ -16,7 +16,7 @@
 
                         <?php if ($sezione['url']!=''): ?>
                             <a href="<?php echo htmlentities($sezione['url']) ?>" title="<?php echo strtoupper( html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8') ); ?> [apre in un'altra pagina]" target="_blank">
-                                <img src="<?php echo $this->publicDirRelativePath ?>/frontend/projects/entilocali/templates/demo/assets/images/external-link-icon.gif" alt="Apre in un'altra finestra">
+                                <img src="<?php echo $this->publicDirRelativePath ?>/frontend/projects/entilocali/templates/<?php echo $this->template_frontend ?>assets/images/external-link-icon.gif" alt="Apre in un'altra finestra">
                                 <?php echo strtoupper(html_entity_decode($sezione['nome'], ENT_COMPAT, 'UTF-8')); ?>
                             </a>
                         <?php else: ?>
@@ -36,7 +36,7 @@
                                 ?>
                                 <li><a href="<?php echo htmlentities($sottoSezione['url']) ?>"<?php if (isset($target)): ?> target="<?php echo $target ?>"<?php endif ?> title="<?php echo isset($sottoSezione['urlTitle']) ? utf8_encode($sottoSezione['urlTitle']) : 'Vai alla sezione '.utf8_encode($sottoSezione['nomeSottoSezione']) ?>">
                                         <?php if (isset($target)): ?>
-                                            <img src="<?php echo $this->publicDirRelativePath ?>/frontend/projects/entilocali/templates/demo/assets/images/external-link-icon.gif" alt="Apre in un'altra finestra">
+                                            <img src="<?php echo $this->publicDirRelativePath ?>/frontend/projects/entilocali/templates/<?php echo $this->template_frontend ?>assets/images/external-link-icon.gif" alt="Apre in un'altra finestra">
                                         <?php endif ?>
                                         <?php echo utf8_encode($sottoSezione['nomeSottoSezione']) ?>
                                     </a>

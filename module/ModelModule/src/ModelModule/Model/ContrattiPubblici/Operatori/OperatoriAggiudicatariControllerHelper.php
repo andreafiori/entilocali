@@ -5,6 +5,9 @@ namespace ModelModule\Model\ContrattiPubblici\Operatori;
 use ModelModule\Model\ControllerHelperAbstract;
 use ModelModule\Model\Database\DbTableContainer;
 
+/**
+ * Aziende Operatori Aggiudicatari Controller Helper
+ */
 class OperatoriAggiudicatariControllerHelper extends ControllerHelperAbstract
 {
     /**
@@ -12,6 +15,7 @@ class OperatoriAggiudicatariControllerHelper extends ControllerHelperAbstract
      *
      * @param int $partecipanteId
      * @param int $contrattoId
+     *
      * @return int
      */
     public function addOperatore($partecipanteId, $contrattoId)
@@ -48,24 +52,21 @@ class OperatoriAggiudicatariControllerHelper extends ControllerHelperAbstract
     }
 
     /**
-     * Update aggiudicatario
+     * Update aggiudicatario flag
      *
+     * @param int $relationId
      * @param int $aggiudicatarioValue
+     *
      * @return int
      */
-    public function updateAggiudicatario($relationId, $contrattoId, $aggiudicatarioValue = 1)
+    public function updateAggiudicatario($relationId, $aggiudicatarioValue)
     {
         $this->assertConnection();
 
         return $this->getConnection()->update(
             DbTableContainer::contrattiRelations,
-            array(
-                'aggiudicatario' => $aggiudicatarioValue,
-            ),
-            array(
-                'id'            => $relationId,
-                'contratto_id'  => $contrattoId
-            )
+            array('aggiudicatario' => $aggiudicatarioValue),
+            array('id' => $relationId)
         );
     }
 

@@ -27,10 +27,10 @@ class AlboPretorioControllerHelper extends ControllerHelperAbstract
 
         $userDetails = $this->getLoggedUser();
 
-        if ( is_numeric($inputFilter->numeroGiorniScadenza) ) {
+        if ( is_numeric($inputFilter->numeroGiorniScadenza) and $inputFilter->numeroGiorniScadenza > 0) {
             $dataScadenza = date("Y-m-d H:i:s", strtotime(date("Y-m-d H:i:s"). ' + '.$inputFilter->numeroGiorniScadenza.' days'));
         } else {
-            $dataScadenza = $inputFilter->dataScadenza;
+            $dataScadenza = (!$inputFilter->dataScadenza) ? '0000-00-00 00:00:00' : $inputFilter->dataScadenza;
         }
 
         $this->getConnection()->insert(

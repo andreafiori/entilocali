@@ -12,6 +12,9 @@ use ModelModule\Model\AlboPretorio\AlboPretorioSezioniGetterWrapper;
 use Application\Controller\SetupAbstractController;
 use Zend\Session\Container as SessionContainer;
 
+/**
+ * AlboPretorio Frontend Controller
+ */
 class AlboPretorioController extends SetupAbstractController
 {
     public function indexAction()
@@ -42,8 +45,8 @@ class AlboPretorioController extends SetupAbstractController
                     'mese'              => isset($sessionSearch['mese']) ? $sessionSearch['mese'] : null,
                     'anno'              => isset($sessionSearch['anno']) ? $sessionSearch['anno'] : null,
                     'noScaduti'         => 1,
-                    'orderBy'           => 'alboArticoli.id DESC',
-                    'pubblicare'        => 1
+                    'pubblicare'        => 1,
+                    'orderBy'           => 'alboArticoli.numeroProgressivo DESC',
                 ),
                 $page,
                 null
@@ -56,6 +59,7 @@ class AlboPretorioController extends SetupAbstractController
                 array(
                     'moduleId'  => ModulesContainer::albo_pretorio_id,
                     'noScaduti' => 1,
+                    'status'    => 1,
                     'orderBy'   => 'a.position'
                 )
             );

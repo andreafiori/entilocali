@@ -42,10 +42,11 @@
                                 <a href="#alboRevisionModal" data-action="<?php echo $record['data-form-action'] ?>" data-id="<?php echo $record['data-id'] ?>" class="open-alboRevisionModal btn btn-lg" title="Rettifica articolo"><i class="fa fa-edit"></i> </a>
                             </td>
                         <?php elseif($record['type']=='alboAnnulledButton'): ?>
-                            <td colspan="4" valign="middle" class="text-center<?php echo isset($record['class']) ? ' '.$record['class'] : '' ?>">
+                            <td colspan="6" valign="middle" class="text-center<?php echo isset($record['class']) ? ' '.$record['class'] : '' ?>">
                                 <h4>ARTICOLO ANNULLATO</h4>
                             </td>
                             <!-- hidden fields to avoid js datatable error... -->
+                            <td style="display: none">&nbsp;</td>
                             <td style="display: none">&nbsp;</td>
                             <td style="display: none">&nbsp;</td>
                             <td style="display: none">&nbsp;</td>

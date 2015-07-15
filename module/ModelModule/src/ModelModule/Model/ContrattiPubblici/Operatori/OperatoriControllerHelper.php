@@ -47,9 +47,9 @@ class OperatoriControllerHelper extends ControllerHelperAbstract
         return $this->getConnection()->update(
             DbTableContainer::contrattiPartecipanti,
             array(
-                'nome'              => $formData->nome,
-                'cf'                => $formData->cf,
-                'ragione_sociale'    => $formData->ragioneSociale,
+                'nome'            => $formData->nome,
+                'cf'              => $formData->cf,
+                'ragione_sociale' => $formData->ragioneSociale,
             ),
             array('id' => $formData->id)
         );

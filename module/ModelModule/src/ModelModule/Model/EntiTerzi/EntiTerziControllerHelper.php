@@ -6,6 +6,9 @@ use ModelModule\Model\ControllerHelperAbstract;
 use ModelModule\Model\Database\DbTableContainer;
 use Zend\InputFilter\InputFilterAwareInterface;
 
+/**
+ * Enti Terzi Controller Helper
+ */
 class EntiTerziControllerHelper extends ControllerHelperAbstract
 {
     /**
@@ -16,7 +19,7 @@ class EntiTerziControllerHelper extends ControllerHelperAbstract
     {
         $this->assertConnection();
 
-        return $this->getConnection()->insert(
+        $this->getConnection()->insert(
             DbTableContainer::entiTerzi,
             array(
                 'nome'        => $formData->nome,
@@ -25,6 +28,8 @@ class EntiTerziControllerHelper extends ControllerHelperAbstract
                 'last_update' => date("Y-m-d H:i:s"),
             )
         );
+
+        return $this->getConnection()->lastInsertId();
     }
 
     /**

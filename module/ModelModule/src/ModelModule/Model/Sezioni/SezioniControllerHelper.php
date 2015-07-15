@@ -14,7 +14,6 @@ class SezioniControllerHelper extends ContenutiControllerHelperAbstract
     /**
      * @param InputFilterAwareInterface $inputFilter
      * @return int
-     * @throws NullException
      */
     public function insert(InputFilterAwareInterface $inputFilter)
     {
@@ -24,7 +23,7 @@ class SezioniControllerHelper extends ContenutiControllerHelperAbstract
 
         $userDetails = $this->getLoggedUser();
 
-        return $this->getConnection()->insert(DbTableContainer::sezioni, array(
+        $this->getConnection()->insert(DbTableContainer::sezioni, array(
             'nome'                  => $inputFilter->nome,
             'colonna'               => $inputFilter->colonna,
             'posizione'             => ($inputFilter->posizione) ? $inputFilter->posizione : 1,
@@ -37,6 +36,8 @@ class SezioniControllerHelper extends ContenutiControllerHelperAbstract
             'utente_id'             => $userDetails->id,
             'is_amm_trasparente'    => $inputFilter->isAmmTrasparente,
         ));
+
+        return $this->getConnection()->lastInsertId();
     }
     
     /**

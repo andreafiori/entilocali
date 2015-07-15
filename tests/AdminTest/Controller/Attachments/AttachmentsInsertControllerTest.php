@@ -42,6 +42,7 @@ class AttachmentsInsertControllerTest extends InsertUpdateTestSuite
             'moduleId'          => 2,
             'attachmenOptionId' => 2,
             'referenceId'       => 2,
+            'status'            => 1,
         );
     }
 

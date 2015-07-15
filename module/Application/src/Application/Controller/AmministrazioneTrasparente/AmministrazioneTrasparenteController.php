@@ -56,6 +56,7 @@ class AmministrazioneTrasparenteController extends SetupAbstractController
                 array(
                     'moduleId'              => ModulesContainer::amministrazione_trasparente_id,
                     'noscaduti'             => 1,
+                    'status'                => 1,
                     'languageAbbreviation'  => 'it',
                     'orderBy'               => 'a.position'
                 )

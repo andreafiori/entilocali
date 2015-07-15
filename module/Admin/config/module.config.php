@@ -57,6 +57,7 @@ return array(
             'Admin\Controller\AttiConcessione\AttiConcessioneSummary'           => 'Admin\Controller\AttiConcessione\AttiConcessioneSummaryController',
             'Admin\Controller\AttiConcessione\AttiConcessioneInsert'            => 'Admin\Controller\AttiConcessione\AttiConcessioneInsertController',
             'Admin\Controller\AttiConcessione\AttiConcessioneUpdate'            => 'Admin\Controller\AttiConcessione\AttiConcessioneUpdateController',
+            'Admin\Controller\AttiConcessione\AttiConcessioneDelete'            => 'Admin\Controller\AttiConcessione\AttiConcessioneDeleteController',
             'Admin\Controller\AttiConcessione\ModalitaAssegnazioneForm'         => 'Admin\Controller\AttiConcessione\ModalitaAssegnazioneFormController',
             'Admin\Controller\AttiConcessione\ModalitaAssegnazioneSummary'      => 'Admin\Controller\AttiConcessione\ModalitaAssegnazioneSummaryController',
             'Admin\Controller\AttiConcessione\ModalitaAssegnazioneInsert'       => 'Admin\Controller\AttiConcessione\ModalitaAssegnazioneInsertController',
@@ -961,9 +962,6 @@ return array(
                         'type' => 'Segment',
                         'options' => array(
                             'route' => 'stato-civile/atti/form/delete[/]',
-                            'constraints' => array(
-
-                            ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\StatoCivile\StatoCivileDelete',
                                 'action'     => 'index',
@@ -1068,7 +1066,7 @@ return array(
                     'atti-concessione-delete' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route' => 'atti-concessione/form/update[/]',
+                            'route' => 'atti-concessione/form/delete[/]',
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\AttiConcessione\AttiConcessioneDelete',
                                 'action'     => 'index',
@@ -1080,9 +1078,9 @@ return array(
                         'options' => array(
                             'route' => 'atti-concessione/summary[/][page/:page[/]][/order_by/:order_by][/:order[/]]',
                             'constraints' => array(
-                                'order_by' => '[a-zA-Z0-9_-]*',
-                                'order' => '[a-zA-Z0-9_-]*',
-                                'page'     => '[0-9]+',
+                                'order_by'  => '[a-zA-Z0-9_-]*',
+                                'order'     => '[a-zA-Z0-9_-]*',
+                                'page'      => '[0-9]+',
                             ),
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\AttiConcessione\AttiConcessioneSummary',

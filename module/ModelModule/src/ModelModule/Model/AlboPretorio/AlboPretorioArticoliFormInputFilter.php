@@ -7,13 +7,14 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
+/**
+ * Albo Pretorio Articoli Form Validator
+ */
 class AlboPretorioArticoliFormInputFilter implements InputFilterAwareInterface
 {
     public $id;
     public $titolo;
     public $sezione;
-    public $numeroProgressivo;
-
     public $numeroAtto;
     public $anno;
     public $enteTerzo;
@@ -25,6 +26,9 @@ class AlboPretorioArticoliFormInputFilter implements InputFilterAwareInterface
     public $userId;
     public $checkRettifica;
 
+    /**
+     * @var InputFilter
+     */
     protected $inputFilter;
 
     /**
@@ -175,7 +179,6 @@ class AlboPretorioArticoliFormInputFilter implements InputFilterAwareInterface
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
-                    array('name' => 'HtmlEntities'),
                 ),
                 'validators' => array(
                     array(

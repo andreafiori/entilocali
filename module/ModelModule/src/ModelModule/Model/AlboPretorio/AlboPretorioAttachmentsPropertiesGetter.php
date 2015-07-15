@@ -11,6 +11,7 @@ class AlboPretorioAttachmentsPropertiesGetter extends AttachmentPropertiesGetter
     {
         $this->setupAttachmentRelatedRecords(array(
             'id'        => $this->getAttachmentsReferenceId(),
+            'annullato' => 0,
             'fields'    => 'alboArticoli.id, alboArticoli.titolo'
         ));
 

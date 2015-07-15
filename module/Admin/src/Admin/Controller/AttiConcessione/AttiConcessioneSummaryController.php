@@ -177,7 +177,9 @@ class AttiConcessioneSummaryController extends SetupAbstractController
                         ),
                         array(
                             'type'      => 'deleteButton',
-                            'href'      => '#',
+                            'href'      => $this->url()->fromRoute('admin/atti-concessione-delete', array(
+                                'lang' => $this->params()->fromRoute('lang'),
+                            )),
                             'title'     => 'Elimina',
                             'data-id'   => $row['id'],
                         ),

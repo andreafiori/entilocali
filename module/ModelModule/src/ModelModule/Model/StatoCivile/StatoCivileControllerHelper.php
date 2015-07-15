@@ -6,6 +6,9 @@ use ModelModule\Model\ControllerHelperAbstract;
 use ModelModule\Model\Database\DbTableContainer;
 use Zend\InputFilter\InputFilterAwareInterface;
 
+/**
+ * Stato Civile Controller Helper
+ */
 class StatoCivileControllerHelper extends ControllerHelperAbstract
 {
     /**
@@ -31,8 +34,8 @@ class StatoCivileControllerHelper extends ControllerHelperAbstract
 
     /**
      * @param InputFilterAwareInterface $formData
+     *
      * @return int
-     * @throws \ModelModule\Model\NullException
      */
     public function insert(InputFilterAwareInterface $formData)
     {
@@ -42,7 +45,7 @@ class StatoCivileControllerHelper extends ControllerHelperAbstract
 
         $userDetails = $this->getLoggedUser();
 
-        return $this->getConnection()->insert(
+        $this->getConnection()->insert(
             DbTableContainer::statoCivileArticoli,
             array(
                 'titolo'                => $formData->titolo,
@@ -56,12 +59,14 @@ class StatoCivileControllerHelper extends ControllerHelperAbstract
                 'sezione_id'            => $formData->sezione,
             )
         );
+
+        return $this->getConnection()->lastInsertId();
     }
 
     /**
      * @param InputFilterAwareInterface $formData
+     *
      * @return int
-     * @throws \ModelModule\Model\NullException
      */
     public function update(InputFilterAwareInterface $formData)
     {
@@ -91,11 +96,16 @@ class StatoCivileControllerHelper extends ControllerHelperAbstract
         );
     }
 
+    /**
+     * @param int $id
+     *
+     * @return int
+     */
     public function delete($id)
     {
         return $this->getConnection()->delete(
             DbTableContainer::statoCivileArticoli,
-            array('id'    => $id),
+            array('id' => $id),
             array('limit' => 1)
         );
     }

@@ -168,12 +168,12 @@ class AlboPretorioArticoliGetter extends QueryBuilderHelperAbstract
     }
     
     /**
-     * @param string $annulled
+     * @param int $annulled
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function setAnnullato($annulled)
     {
-        if ( !empty($annulled) ) {
+        if ( is_numeric($annulled) ) {
             $this->getQueryBuilder()->andWhere('alboArticoli.annullato = :annullato ');
             $this->getQueryBuilder()->setParameter('annullato', $annulled);
         }

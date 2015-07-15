@@ -19,13 +19,15 @@ class AlboPretorioSezioniControllerHelper extends ControllerHelperAbstract
     {
         $this->assertConnection();
 
-        return $this->getConnection()->insert(
+        $this->getConnection()->insert(
             DbTableContainer::alboSezioni,
             array(
                 'nome'   => $formData->nome,
                 'attivo' => $formData->attivo,
             )
         );
+
+        return $this->getConnection()->lastInsertId();
     }
 
     /**

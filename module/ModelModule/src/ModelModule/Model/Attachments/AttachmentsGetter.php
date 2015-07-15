@@ -5,7 +5,7 @@ namespace ModelModule\Model\Attachments;
 use ModelModule\Model\QueryBuilderHelperAbstract;
 
 /**
- * Attachments Getter
+ * Attachments Records Getter
  */
 class AttachmentsGetter extends QueryBuilderHelperAbstract
 {
@@ -133,6 +133,20 @@ class AttachmentsGetter extends QueryBuilderHelperAbstract
         if (!empty($langAbbr)) {
             $this->getQueryBuilder()->andWhere('languages.abbreviation1 = :languageAbbr ');
             $this->getQueryBuilder()->setParameter('languageAbbr', $langAbbr);
+        }
+
+        return $this->getQueryBuilder();
+    }
+
+    /**
+     * @param string $status
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function setStatus($status)
+    {
+        if ( isset($status) ) {
+            $this->getQueryBuilder()->andWhere('a.status = :status ');
+            $this->getQueryBuilder()->setParameter('status', $status);
         }
 
         return $this->getQueryBuilder();

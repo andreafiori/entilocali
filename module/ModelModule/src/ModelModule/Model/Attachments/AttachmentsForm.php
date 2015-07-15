@@ -66,6 +66,24 @@ class AttachmentsForm extends Form
                                     'maxlength'     => 230
                         )
         ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'status',
+            'options' => array(
+                'label' => '* Stato',
+                'empty_option' => 'Seleziona',
+                'value_options' => array(
+                    1 => 'Attivo',
+                    0 => 'Nascosto',
+                ),
+            ),
+            'attributes' => array(
+                'title'     => 'Seleziona stato',
+                'id'        => 'attivo',
+                'required'  => 'required'
+            )
+        ));
         
         $this->add(array(
                         'type' => 'DateTime',

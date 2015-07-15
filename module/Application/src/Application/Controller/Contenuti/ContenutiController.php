@@ -48,6 +48,7 @@ class ContenutiController extends SetupAbstractController
             array(
                 'moduleId'              => ModulesContainer::contenuti_id,
                 'noscaduti'             => 1,
+                'status'                => 1,
                 'languageAbbreviation'  => $lang,
                 'orderBy'               => 'a.position'
             )

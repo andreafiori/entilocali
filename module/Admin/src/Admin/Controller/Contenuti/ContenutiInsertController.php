@@ -7,10 +7,12 @@ use ModelModule\Model\Contenuti\ContenutiForm;
 use ModelModule\Model\Contenuti\ContenutiFormInputFilter;
 use ModelModule\Model\Log\LogWriter;
 use ModelModule\Model\Modules\ModulesContainer;
-use Application\Controller\SetupAbstractController;
 use ModelModule\Model\NullException;
+use Application\Controller\SetupAbstractController;
 
 /**
+ * TODO: insert in home, update home field if home is selected
+ *
  * Insert a new Contenuto into db and log operation
  */
 class ContenutiInsertController extends SetupAbstractController
@@ -61,8 +63,6 @@ class ContenutiInsertController extends SetupAbstractController
             $helper->getConnection()->beginTransaction();
             $lastInsertId = $helper->insert($inputFilter);
 
-            // TODO: insert in home, update home field if home is selected
-
             $helper->setLogWriter(new LogWriter($connection));
             $helper->writeLog(array(
                 'user_id'       => $userDetails->id,
@@ -86,7 +86,7 @@ class ContenutiInsertController extends SetupAbstractController
                 'insertAgainLabel'              => "Inserisci un altro articolo \ contenuto",
                 'attachmentsLink' => $this->url()->fromRoute('admin/attachments-summary', array(
                     'lang'          => $this->params()->fromRoute('languageSelection'),
-                    'module'        => 'contenuti',
+                    'module'        => $modulename,
                     'referenceId'   => $lastInsertId,
                 )),
             ));

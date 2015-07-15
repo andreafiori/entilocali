@@ -6,18 +6,21 @@ use ModelModule\Model\ControllerHelperAbstract;
 use ModelModule\Model\Database\DbTableContainer;
 use Zend\InputFilter\InputFilterAwareInterface;
 
+/**
+ * Stato Civile Sezioni Controller Helper
+ */
 class StatoCivileSezioniControllerHelper extends ControllerHelperAbstract
 {
     /**
      * @param InputFilterAwareInterface $formData
+     *
      * @return int
-     * @throws \ModelModule\Model\NullException
      */
     public function insert(InputFilterAwareInterface $formData)
     {
         $this->assertConnection();
 
-        return $this->getConnection()->insert(
+        $this->getConnection()->insert(
             DbTableContainer::statoCivileSezioni,
             array(
                 'nome'                         => $formData->nome,
@@ -26,12 +29,14 @@ class StatoCivileSezioniControllerHelper extends ControllerHelperAbstract
                 'data_ultimo_aggiornamento'    => date("Y-m-d H:i:s"),
             )
         );
+
+        return $this->getConnection()->lastInsertId();
     }
 
     /**
      * @param InputFilterAwareInterface $formData
+     *
      * @return int
-     * @throws \ModelModule\Model\NullException
      */
     public function update(InputFilterAwareInterface $formData)
     {
@@ -49,6 +54,11 @@ class StatoCivileSezioniControllerHelper extends ControllerHelperAbstract
         );
     }
 
+    /**
+     * @param int $id
+     *
+     * @return int
+     */
     public function delete($id)
     {
         $this->assertConnection();

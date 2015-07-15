@@ -63,10 +63,13 @@ return array(
         'resources' => array('stato_civile_add', 'stato_civile_update')
     ),
     'admin/stato-civile-insert' => array(
-        'resources' => array('stato_civile_add',)
+        'resources' => array('stato_civile_add')
     ),
     'admin/stato-civile-update' => array(
-        'resources' => array('stato_civile_update',)
+        'resources' => array('stato_civile_update')
+    ),
+    'admin/stato-civile-delete' => array(
+        'resources' => array('stato_civile_delete')
     ),
     /* Stato civile sezioni */
     'admin/stato-civile-sezioni-summary' => array(
@@ -81,6 +84,15 @@ return array(
     ),
     'admin/contratti-pubblici-form' => array(
         'resources' => array('contratti_pubblici_add', 'contratti_pubblici_update')
+    ),
+    'admin/contratti-pubblici-insert' => array(
+        'resources' => array('contratti_pubblici_add')
+    ),
+    'admin/contratti-pubblici-update' => array(
+        'resources' => array('contratti_pubblici_update')
+    ),
+    'admin/contratti-pubblici-delete' => array(
+        'resources' => array('contratti_pubblici_delete')
     ),
     'admin/contratti-pubblici-operatori-summary' => array(
         'resources' => array('contratti_pubblici_operatori_add', 'contratti_pubblici_operatori_update')
@@ -104,8 +116,17 @@ return array(
     'admin/atti-concessione-form' => array(
         'resources' => array('atti_concessione_add', 'atti_concessione_update')
     ),
+    'admin/atti-concessione-insert' => array(
+        'resources' => array('atti_concessione_add')
+    ),
+    'admin/atti-concessioneupdate' => array(
+        'resources' => array('atti_concessione_update')
+    ),
+    'admin/atti-concessione-delete' => array(
+        'resources' => array('atti_concessione_delete')
+    ),
     'admin/atti-concessione-mod-assign' => array(
-        'resources' => array('atti_concessione_mod-assign_add', 'atti_concessione_update')
+        'resources' => array('atti_concessione_mod-assign_add', 'atti_concessione_mod-assign_update')
     ),
     /* Responsabili procedimento */
     'admin/users-resp-proc-management' => array(

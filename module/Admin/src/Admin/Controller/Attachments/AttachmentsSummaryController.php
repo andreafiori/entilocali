@@ -12,6 +12,9 @@ use ModelModule\Model\Attachments\AttachmentsGetterWrapper;
 use ModelModule\Model\NullException;
 use Application\Controller\SetupAbstractController;
 
+/**
+ * TODO: refactor and simplify model helper
+ */
 class AttachmentsSummaryController extends SetupAbstractController
 {
     public function indexAction()
@@ -24,19 +27,16 @@ class AttachmentsSummaryController extends SetupAbstractController
 
         $em          = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
-        $userDetails = $this->layout()->getVariable('userDetails');
-
         try {
             $helper = new AttachmentsFormControllerHelper();
             $helper->setModulesGetterWrapper( new ModulesGetterWrapper(new ModulesGetter($em)) );
             $helper->setupModuleRecords($moduleCode);
             $helper->setAttachmentsGetterWrapper( new AttachmentsGetterWrapper(new AttachmentsGetter($em)) );
             $helper->setupAttachmentsRecords( array(
-                    'moduleId'      => ModulesContainer::recoverIdFromModuleCode($moduleCode),
-                    'referenceId'   => $referenceId,
-                    'orderBy'       => 'a.position'
-                )
-            );
+                'moduleId'      => ModulesContainer::recoverIdFromModuleCode($moduleCode),
+                'referenceId'   => $referenceId,
+                'orderBy'       => 'a.position'
+            ));
             $helper->setModuleCode($moduleCode);
             $helper->checkModuleRecords();
             $helper->setupPropertiesGetterClassPath();
@@ -55,9 +55,17 @@ class AttachmentsSummaryController extends SetupAbstractController
                 $attiConcessioneColumnDisplayForm->addSubmitButton();
             }
 
+            $attachmentsRecords = $helper->getAttachmentRecords();
+            $attachmentsRelatedRecords = $helper->getPropertiesGetterClassInstance()->getAttachmentsRelatedRecords();
+
+            if (empty($attachmentsRelatedRecords)) {
+                throw new NullException("Nessun dato relativo all'articolo a cui allegare il file &egrave; stato trovato");
+            }
+
             $this->layout()->setVariables( array(
                     'hideBreadcrumb'                    => 1,
-                    'attachmentsList'                   => $helper->getAttachmentRecords(),
+                    'attachmentsList'                   => $attachmentsRecords,
+                    'attachmentsListCount'              => count($attachmentsRecords),
                     'articleTitle'                      => $helper->getPropertiesGetterClassInstance()->getAttachmentFormTitle(),
                     'attachmentType'                    => $helper->getModuleCode(),
                     'moduleCode'                        => $moduleCode,
@@ -73,15 +81,13 @@ class AttachmentsSummaryController extends SetupAbstractController
                     'templatePartial'                   => 'attachments/attachments-summary.phtml',
                 )
             );
-
         } catch(NullException $e) {
             $this->layout()->setVariables( array(
-                    'templatePartial'   => 'message.phtml',
-                    'messageType'       => 'danger',
-                    'messageTitle'      => 'Si &egrave; verificato un errore',
-                    'messageText'       => $e->getMessage(),
-                )
-            );
+                'templatePartial'   => 'message.phtml',
+                'messageType'       => 'danger',
+                'messageTitle'      => 'Problema verificato',
+                'messageText'       => $e->getMessage(),
+            ));
         }
 
         $this->layout()->setTemplate($mainLayout);

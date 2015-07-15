@@ -31,6 +31,7 @@ class AttachmentsGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setNoScaduti( $this->getInput('noScaduti', 1) );
         $this->objectGetter->setLanguageId( $this->getInput('languageId', 1) );
         $this->objectGetter->setLanguageAbbreviation( $this->getInput('languageAbbreviation', 1) );
+        $this->objectGetter->setStatus( $this->getInput('status', 1) );
         $this->objectGetter->setOrderBy( $this->getInput('orderBy', 1) );
         $this->objectGetter->setLimit( $this->getInput('limit', 1) );
         $this->objectGetter->setGroupBy( $this->getInput('groupBy', 1) );

@@ -11,6 +11,9 @@ use ModelModule\Model\Attachments\AttachmentsGetterWrapper;
 use ModelModule\Model\NullException;
 use Application\Controller\SetupAbstractController;
 
+/**
+ * Attachments Form Controller Admin
+ */
 class AttachmentsFormController extends SetupAbstractController
 {
     public function indexAction()
@@ -39,7 +42,6 @@ class AttachmentsFormController extends SetupAbstractController
                 $helper->setupAttachmentsRecords(array(
                     'moduleId'      => $moduleCode,
                     'referenceId'   => $referenceId,
-                    'status'        => 1,
                     'attachmentId'  => $attachmentId,
                 ));
             }
@@ -89,7 +91,7 @@ class AttachmentsFormController extends SetupAbstractController
             $this->layout()->setVariables(array(
                     'form'                       => $helper->getAttachmentsForm(),
                     'formTitle'                  => $formTitle,
-                    'formDescription'            => 'La dimensione del file non deve superare i <strong>10MB</strong>.',
+                    'formDescription'            => 'La dimensione del file non deve superare i <strong>20 MB</strong>.',
                     'formAction'                 => $formAction,
                     'hideBreadcrumb'             => 1,
                     'attachmentsList'            => $helper->getAttachmentRecords(),

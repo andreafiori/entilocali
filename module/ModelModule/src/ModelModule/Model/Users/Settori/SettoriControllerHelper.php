@@ -6,16 +6,18 @@ use ModelModule\Model\Database\DbTableContainer;
 use ModelModule\Model\Users\UsersControllerHelper;
 use Zend\InputFilter\InputFilterAwareInterface;
 
+/**
+ * Users Settori Controller Helper
+ */
 class SettoriControllerHelper extends UsersControllerHelper
 {
     /**
      * @param InputFilterAwareInterface $inputFilter
      * @return int
-     * @throws \ModelModule\Model\NullException
      */
     public function insert(InputFilterAwareInterface $inputFilter)
     {
-        //$this->assertConnection();
+        $this->assertConnection();
         $this->assertEntityManager();
 
         return $this->getEntityManager()->getConnection()->insert(
@@ -30,7 +32,6 @@ class SettoriControllerHelper extends UsersControllerHelper
     /**
      * @param InputFilterAwareInterface $inputFilter
      * @return int
-     * @throws NullException
      */
     public function update(InputFilterAwareInterface $inputFilter)
     {

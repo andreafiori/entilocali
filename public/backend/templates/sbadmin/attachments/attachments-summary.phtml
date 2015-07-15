@@ -2,6 +2,7 @@
 $lang = $this->params()->fromRoute('lang');
 $languageSelection = $this->params()->fromRoute('languageSelection');
 $currentLanguage = isset($languageSelection) ? $languageSelection : $lang;
+$moduleCodeForArticleRoute = ($this->moduleCode != 'amministrazione-trasparente') ? $this->moduleCode : 'contenuti';
 ?>
 <ul class="breadcrumb">
     <li><a href="<?php echo $this->url('admin', array('lang' => $currentLanguage)); ?>" title="Home page">Home</a> <span class="divider"></span></li>
@@ -10,7 +11,7 @@ $currentLanguage = isset($languageSelection) ? $languageSelection : $lang;
             <?php echo $this->formBreadCrumbCategory ?>
         </a>
     </li>
-    <li><a href="javascript:void(0)" title="Torna all'articolo">Articolo</a></li>
+    <li><a href="<?php echo $this->url('admin/'.$moduleCodeForArticleRoute.'-form', array('lang' => $lang, 'modulename' => $this->moduleCode, 'formtype' => 'blogs', 'languageSelection' => $lang, 'id' => $this->referenceId)); ?>" title="Torna all'articolo">Articolo</a></li>
     <li class="active">Gestione files allegati</li>
 </ul>
 
@@ -45,6 +46,8 @@ $currentLanguage = isset($languageSelection) ? $languageSelection : $lang;
     <?php else: ?>
         <div>&nbsp;</div>
 
+        <p><?php echo $this->attachmentsListCount ?> allegati presenti.</p>
+
         <div class="table-responsive">
             <table border="0" class="table table-bordered" width="100%">
             <thead>
@@ -62,6 +65,8 @@ $currentLanguage = isset($languageSelection) ? $languageSelection : $lang;
                     <th><?php echo $this->translate('Visualizza nella colonna') ?></th>
                 <?php endif; ?>
 
+                <th>Stato</th>
+                <th>Percorso link</th>
                 <th>&nbsp;</th>
                 <th>&nbsp;</th>
                 <th>&nbsp;</th>
@@ -70,13 +75,22 @@ $currentLanguage = isset($languageSelection) ? $languageSelection : $lang;
             <tbody>
             <?php foreach($this->attachmentsList as $record): ?>
                 <?php
+
                 $expireDate = $record['expireDate']->format('Y-m-d H:i:s');
                 if ($expireDate=='-0001-11-30 00:00:00') {
                     $expireDate = 'Nessuna';
                 }
-                $downloadLink = $this->url('attachments-sthree-download', array('lang' => $currentLanguage, 'type' => $this->attachmentType, 'id' => $record['id']) );
+
+                $downloadLink = $this->serverUrl( $this->url('attachments-sthree-download', array(
+                    'lang' => $currentLanguage,
+                    'type' => $this->attachmentType,
+                    'id'   => $record['id'],
+                )));
+
+                $downloadLinkToPrint = preg_replace('#^http(s)?://#', '', $downloadLink);
+
                 ?>
-            <tr>
+            <tr<?php if ($record['status']==0): echo ' class="rowHidden"'; endif; ?>>
                 <!-- Checkbox selezione allegati multipli -->
                 <!--
                 <td>
@@ -129,6 +143,14 @@ $currentLanguage = isset($languageSelection) ? $languageSelection : $lang;
                     </td>
                 <?php endif; ?>
 
+                <td>
+                    <?php if ($record['status']==1):  ?>
+                        <div>Attivo</div>
+                    <?php else: ?>
+                        <div><strong><span class="redstring">Nascosto</span></strong></div>
+                    <?php endif; ?>
+                </td>
+                <td><?php echo $downloadLinkToPrint ?></td>
                 <td><a href="<?php echo $this->url('admin/attachments-form', array('lang' => $currentLanguage, 'module' => $this->moduleCode, 'referenceId' => $this->referenceId, 'attachmentId' => $record['id'])); ?>" class="btn btn-primary" title="<?php echo $this->translate('Modifica file allegato') ?>"><i class="fa fa-pencil"></i></a></td>
                 <td><a href="#deleteModal" data-action="<?php echo $this->url('admin/attachments-delete', array('lang' => $currentLanguage, 'modulename' => $this->moduleCode, 'referenceid' => $this->referenceId)); ?>" class="open-deleteModal btn btn-danger" data-id="<?php echo $record['id'] ?>" title="<?php echo $this->translate('Elimina file allegato') ?>"><i class="fa fa-remove"></i> </a></td>
                 <td><a href="<?php echo $downloadLink; ?>" class="btn btn-default" title="Scarica file"><i class="fa fa-download"></i></a></td>

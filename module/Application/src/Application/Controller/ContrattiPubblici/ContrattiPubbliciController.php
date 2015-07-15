@@ -54,6 +54,7 @@ class ContrattiPubbliciController extends SetupAbstractController
                 array(
                     'moduleId'  => ModulesContainer::contratti_pubblici_id,
                     'noScaduti' => 1,
+                    'status'    => 1,
                     'orderBy'   => 'a.position'
                 )
             );

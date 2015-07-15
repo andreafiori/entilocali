@@ -5,6 +5,9 @@ namespace Admin\Controller\ContrattiPubblici\Operatori;
 use Application\Controller\SetupAbstractController;
 use ModelModule\Model\ContrattiPubblici\Operatori\OperatoriAggiudicatariControllerHelper;
 
+/**
+ * Aziende OperatoriAggiudicatari Operations Controller
+ */
 class OperatoriAggiudicatariOperationsController extends SetupAbstractController
 {
     /**
@@ -46,6 +49,8 @@ class OperatoriAggiudicatariOperationsController extends SetupAbstractController
     }
 
     /**
+     * TODO: render message template with error
+     *
      * @return \Zend\Http\Response
      */
     public function addaggiudicatarioAction()
@@ -73,16 +78,18 @@ class OperatoriAggiudicatariOperationsController extends SetupAbstractController
 
             $helper->setEntityManager($em);
             $helper->setConnection($connection);
-            $helper->updateAggiudicatario($post['idRelation'], $post['idContratto']);
+            $helper->updateAggiudicatario($post['idRelation'], 1);
 
             return $this->redirect()->toUrl( $this->getRequest()->getHeader('Referer')->getUri() );
 
         } catch(\Exception $e) {
-            // TODO: render message template with error...
+
         }
     }
 
     /**
+     * TODO: render message template with error
+     *
      * @return mixed
      */
     public function removeAggiudicatarioAction()
@@ -110,16 +117,18 @@ class OperatoriAggiudicatariOperationsController extends SetupAbstractController
 
             $helper->setEntityManager($em);
             $helper->setConnection($connection);
-            $helper->deleteRelation(isset($post['idRelation']) ? $post['idRelation'] : null);
+            $helper->updateAggiudicatario($post['idRelation'], 0);
 
             return $this->redirect()->toUrl( $this->getRequest()->getHeader('Referer')->getUri() );
 
         } catch(\Exception $e) {
-            // TODO: render message template with error...
+
         }
     }
 
     /**
+     * TODO: render message template with error
+     *
      * Remove single partecipante and redirect to summary
      *
      * @return \Zend\Http\Response
@@ -148,7 +157,7 @@ class OperatoriAggiudicatariOperationsController extends SetupAbstractController
             return $this->redirect()->toUrl( $this->getRequest()->getHeader('Referer')->getUri() );
 
         } catch(\Exception $e) {
-            // TODO: render message template with error...
+
         }
     }
 
@@ -189,6 +198,9 @@ class OperatoriAggiudicatariOperationsController extends SetupAbstractController
         return $this->redirect()->toRoute('main');
     }
 
+    /**
+     * @return \Zend\Http\Response
+     */
     public function updateRuoloAction()
     {
         $request = $this->getRequest();

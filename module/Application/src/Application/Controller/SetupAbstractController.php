@@ -87,11 +87,21 @@ abstract class SetupAbstractController extends AbstractActionController
 
         $templateBackend = $configurations['template_backend'];
 
+        $appDirRelativePathRoot = $helper->getAppDirRelativePath();
+
+        if (isset($configurations['isPublicDirOnRoot']) and $configurations['isPublicDirOnRoot'] == 1) {
+            $appDirRelativePath = $appDirRelativePathRoot.'/'.$configurations['zf2appDir'];
+        } else {
+            $appDirRelativePath = $appDirRelativePathRoot;
+        }
+
         $this->layout()->setVariables(array_merge(
             $configurations,
             array(
                 'configurations'                => $configurations,
-                'publicDirRelativePath'         => $helper->getAppDirRelativePath().'/public',
+                'appDirRelativePathRoot'        => $appDirRelativePathRoot,
+                'appDirRelativePath'            => $appDirRelativePath,
+                'publicDirRelativePath'         => $appDirRelativePathRoot.'/public',
                 'baseUrl'                       => sprintf($basePath.'admin/main/'.$this->params()->fromRoute('lang').'/'),
                 'basePath'                      => $basePath,
                 'userDetails'                   => $sessionContainer->offsetGet('userDetails'),
@@ -182,7 +192,6 @@ abstract class SetupAbstractController extends AbstractActionController
             'preloadResponse'               => isset($input['preloadResponse']) ? $input['preloadResponse'] : null,
             'currentUrl'                    => "http://".$serverVars["SERVER_NAME"].$serverVars["REQUEST_URI"],
             'currentDateTime'               => date("Y-m-d H:i:s"),
-            'template_frontend'             => $configurations['template_frontend'],
             'cssName'                       => $sessionContainer->offSetGet('cssName'),
             'passwordPreviewArea'           => $this->hasPasswordPreviewArea($configurations),
             'renderer'                      => $helper->getPhpRenderer(),

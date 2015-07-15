@@ -7,6 +7,9 @@ use ModelModule\Model\Attachments\AttachmentsControllerHelper;
 use ModelModule\Model\AttiConcessione\AttiConcessioneColumnDisplayForm;
 use ModelModule\Model\AttiConcessione\AttiConcessioneColumnDisplayFormInputFilter;
 
+/**
+ * Attachments Operations Controller
+ */
 class AttachmentsOperationsController extends SetupAbstractController
 {
     public function updatecolumnattachmentAction()

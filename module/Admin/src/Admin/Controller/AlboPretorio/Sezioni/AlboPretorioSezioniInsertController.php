@@ -10,6 +10,9 @@ use ModelModule\Model\Log\LogWriter;
 use ModelModule\Model\NullException;
 use Application\Controller\SetupAbstractController;
 
+/**
+ * Albo Pretorio Sezioni Insert Controller
+ */
 class AlboPretorioSezioniInsertController extends SetupAbstractController
 {
     public function indexAction()

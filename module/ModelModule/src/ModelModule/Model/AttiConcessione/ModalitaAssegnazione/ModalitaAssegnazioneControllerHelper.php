@@ -14,6 +14,7 @@ class ModalitaAssegnazioneControllerHelper  extends ControllerHelperAbstract
      * Insert modalita assegnazione into db
      *
      * @param $formData
+     *
      * @return string
      */
     public function insert($formData)

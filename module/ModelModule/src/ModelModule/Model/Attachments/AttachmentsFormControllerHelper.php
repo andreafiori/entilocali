@@ -92,7 +92,7 @@ class AttachmentsFormControllerHelper extends AttachmentsFormControllerHelperAbs
     }
 
     /**
-     * @return \Admin\Model\Attachments\AttachmentPropertiesGetterChildAbstract
+     * @return \ModelModule\Model\Attachments\AttachmentPropertiesGetterChildAbstract
      */
     public function getPropertiesGetterClassInstance()
     {

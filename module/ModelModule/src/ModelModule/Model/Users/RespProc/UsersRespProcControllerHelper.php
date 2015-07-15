@@ -17,13 +17,15 @@ class UsersRespProcControllerHelper extends ControllerHelperAbstract
     {
         $this->assertConnection();
 
-        return $this->getConnection()->insert(
+        $this->getConnection()->insert(
             DbTableContainer::usersRespProc,
             array(
                 'user_id'   => $userId,
                 'attivo'    => 1,
             )
         );
+
+        return $this->getConnection()->lastInsertId();
     }
 
     /**

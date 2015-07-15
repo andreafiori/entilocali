@@ -7,7 +7,7 @@ nbproject
 .settings
 composer.lock
 public/frontend/media/
-zftool.phar
+zftool.pha
 data
 docs
 tests/reports

@@ -85,12 +85,15 @@ class AlboPretorioSummaryController extends SetupAbstractController
                 $alboStatisticsRecords = $helper->recoverWrapperRecords(
                     new AlboPretorioArticoliGetterWrapper(new AlboPretorioArticoliGetter($em)),
                     array_merge($arraySearch, array(
-                        'fields'=> '
-                            (SELECT COUNT(alboArt.id) FROM Application\Entity\ZfcmsComuniAlboArticoli alboArt WHERE alboArt.attivo = 0) AS disattivati,
-                            (SELECT COUNT(aArt.id) FROM Application\Entity\ZfcmsComuniAlboArticoli aArt WHERE aArt.annullato = 1) AS annullati,
-                            (SELECT COUNT(aa.id) FROM Application\Entity\ZfcmsComuniAlboArticoli aa WHERE aa.pubblicare = 0) AS nonPubblicati,
-                            (SELECT COUNT(aHome.id) FROM Application\Entity\ZfcmsComuniAlboArticoli aHome WHERE aHome.pubblicare = 0) AS inHome
-                        ',
+                        'fields'=> "
+                            (SELECT COUNT(alboArt.id) FROM Application\\Entity\\ZfcmsComuniAlboArticoli alboArt WHERE alboArt.attivo = 0) AS disattivati,
+                            (SELECT COUNT(aArt.id) FROM Application\\Entity\\ZfcmsComuniAlboArticoli aArt WHERE aArt.annullato = 1) AS annullati,
+                            (SELECT COUNT(aa.id) FROM Application\\Entity\\ZfcmsComuniAlboArticoli aa WHERE aa.pubblicare = 0) AS nonPubblicati,
+                            (SELECT COUNT(aHome.id) FROM Application\\Entity\\ZfcmsComuniAlboArticoli aHome WHERE aHome.pubblicare = 0) AS inHome,
+                            (SELECT COUNT(aRet.id) FROM Application\\Entity\\ZfcmsComuniAlboArticoli aRet WHERE aRet.checkRettifica = 1) AS rettificati,
+                            (SELECT COUNT(aScad.id) FROM Application\\Entity\\ZfcmsComuniAlboArticoli aScad WHERE ( alboArticoli.dataScadenza > '".date("Y-m-d H:i:s")."'
+            OR alboArticoli.dataScadenza = '0000-00-00 00:00:00')  ) AS scaduti
+                        ",
                         'limit' => 1
                     ))
                 );
@@ -98,6 +101,8 @@ class AlboPretorioSummaryController extends SetupAbstractController
                 $tableDescription .= $alboStatisticsRecords[0]['disattivati'].' disattivati';
                 $tableDescription .= ', '.$alboStatisticsRecords[0]['annullati'].' annullati';
                 $tableDescription .= ', '.$alboStatisticsRecords[0]['nonPubblicati'].' non pubblicati';
+                $tableDescription .= ', '.$alboStatisticsRecords[0]['rettificati'].' rettificati';
+                $tableDescription .= ', '.$alboStatisticsRecords[0]['scaduti'].' scaduti';
                 $tableDescription .= ', '.$alboStatisticsRecords[0]['inHome'].' presenti in home page';
             }
 
@@ -152,44 +157,7 @@ class AlboPretorioSummaryController extends SetupAbstractController
             if ($records) {
                 foreach($records as $key => $record) {
 
-                    /* Attachments button check */
-                    if ($userDetails->acl->hasResource("albo_pretorio_attachments")) {
-                        $attachmentsButton = array(
-                            'type'  => 'attachButton',
-                            'href'  => $this->url()->fromRoute('admin/attachments-summary', array(
-                                'lang'          => $lang,
-                                'module'        => $modulePrefixLink,
-                                'referenceId'   => $record['id'],
-                            )),
-                            'attachmentsFilesCount' => isset($record['attachments']) ? count($record['attachments']) : 0,
-                        );
-                    }
 
-                    /* Home page button check */
-                    if ($userDetails->acl->hasResource("albo_pretorio_homepage") and $record['attivo']==1) {
-                        if ($record['home']==0) {
-                            $homePutRemoveLink = $this->url()->fromRoute('admin/homepage-management-insert', array(
-                                'lang'          => $lang,
-                                'referenceid'   => $record['id'],
-                                'modulecode'    => 'albo-pretorio',
-                                'languageid'    => 1,
-                            ));
-                        } else {
-                            $homePutRemoveLink = $this->url()->fromRoute('admin/homepage-management-delete', array(
-                                'lang'          => $lang,
-                                'referenceid'   => $record['id'],
-                                'modulecode'    => 'albo-pretorio',
-                                'languageid'    => 1,
-                            ));
-                        }
-
-                        $homePageButton = array(
-                            'type'  => $record['home']==1 ? 'homepagePutButton' : 'homepageDelButton',
-                            'href'  => $homePutRemoveLink,
-                        );
-                    } else {
-                        $homePageButton = '&nbsp;';
-                    }
 
                     /* Unused delete button */
                     if ($userDetails->acl->hasResource("albo_pretorio_delete")) {
@@ -204,10 +172,28 @@ class AlboPretorioSummaryController extends SetupAbstractController
                         );
                     }
 
-                    $rowClass = '';
-                    if ($record['attivo']==0 and $record['annullato']==1) {
-                        $rowClass = 'rowHidden';
+                    if ($record['dataScadenza']!='0000-00-00 00:00:00') {
+                        $scaduto = strtotime($record['dataScadenza']) < strtotime(date("Y-m-d H:i:s"));
+                    } else {
+                        $scaduto = '';
                     }
+
+                    $scadenzaString = ($record['dataScadenza']=='0000-00-00 00:00:00') ? 'Nessuna' : date("d-m-Y H:i:s", strtotime($record['dataScadenza']));
+                    $pubblicareString = ($record['pubblicare']==1) ? date("d-m-Y", strtotime($record['dataPubblicare'])) : 'non ancora pubblicato';
+                    $attivareString = ($record['attivo']==1) ? date("d-m-Y", strtotime($record['dataAttivazione'])).' '.$record['oraAttivazione'] : 'Non ancora attivato';
+                    $rettificaString = ($record['checkRettifica']==1) ? date("d-m-Y", strtotime($record['dataRettifica'])) : null;
+                    if (!empty($scaduto)) {
+                        $dateString = '<strong>Scadenza: <span class="redstring">'.$scadenzaString.'</span></strong>';
+                    } else {
+                        $dateString = '<strong>Scadenza:</strong> '.$scadenzaString;
+                    }
+                    $dateString .= '<br><br><strong>Pubblicazione:</strong> '.$pubblicareString;
+                    $dateString .= '<br><br><strong>Attivazione:</strong> '.$attivareString;
+                    if ($rettificaString != null) {
+                        $dateString .= '<br><br><strong>Rettifica:</strong> '.$rettificaString;
+                    }
+
+                    $rowClass = '';
 
                     if (($record['attivo']==1 or $record['attivo']==0) and $record['pubblicare']==0 and $record['annullato']==0) {
                         $rowClass = 'rowNew';
@@ -217,17 +203,9 @@ class AlboPretorioSummaryController extends SetupAbstractController
                         $rowClass = 'rowAzure';
                     }
 
-                    $scadenzaString = ($record['dataScadenza']=='0000-00-00 00:00:00') ? 'Nessuna' : date("d-m-Y", strtotime($record['dataScadenza']));
-                    $pubblicareString = ($record['pubblicare']==1) ? date("d-m-Y", strtotime($record['dataPubblicare'])) : 'non ancora pubblicato';
-                    $attivareString = ($record['attivo']==1) ? date("d-m-Y", strtotime($record['dataAttivazione'])).' '.$record['oraAttivazione'] : 'Non ancora attivato';
-                    $rettificaString = ($record['checkRettifica']==1) ? date("d-m-Y", strtotime($record['dataRettifica'])) : null;
-                    $dateString = '<strong>Scadenza:</strong> '.$scadenzaString;
-                    $dateString .= '<br><br><strong>Pubblicazione:</strong> '.$pubblicareString;
-                    $dateString .= '<br><br><strong>Attivazione:</strong> '.$attivareString;
-                    if ($rettificaString != null) {
-                        $dateString .= '<br><br><strong>Rettifica:</strong> '.$rettificaString;
+                    if (!empty($scaduto) or $record['annullato']==1) {
+                        $rowClass = 'rowHidden';
                     }
-
 
                     $arrayLine = array(
                         array(
@@ -257,18 +235,63 @@ class AlboPretorioSummaryController extends SetupAbstractController
                         ),
                     );
 
-                    /* Attachment button */
-                    $arrayLine[] = isset($attachmentsButton) ? $attachmentsButton : null;
+                    /* Attachments button check */
+                    if ($record['annullato']==0 and $userDetails->acl->hasResource("albo_pretorio_attachments")) {
+                        $attachmentsButton = array(
+                            'type'  => 'attachButton',
+                            'href'  => $this->url()->fromRoute('admin/attachments-summary', array(
+                                'lang'          => $lang,
+                                'module'        => $modulePrefixLink,
+                                'referenceId'   => $record['id'],
+                            )),
+                            'attachmentsFilesCount' => isset($record['attachments']) ? count($record['attachments']) : 0,
+                        );
+                    }
 
-                    /* Homepage button */
-                    $arrayLine[] = isset($homePageButton) ? $homePageButton : null;
+                    /* Home page button check */
+                    if ($userDetails->acl->hasResource("albo_pretorio_homepage")) {
+                        if ($record['home']==0) {
+                            $homePutRemoveLink = $this->url()->fromRoute('admin/homepage-management-insert', array(
+                                'lang'          => $lang,
+                                'referenceid'   => $record['id'],
+                                'modulecode'    => 'albo-pretorio',
+                                'languageid'    => 1,
+                            ));
+                        } else {
+                            $homePutRemoveLink = $this->url()->fromRoute('admin/homepage-management-delete', array(
+                                'lang'          => $lang,
+                                'referenceid'   => $record['id'],
+                                'modulecode'    => 'albo-pretorio',
+                                'languageid'    => 1,
+                            ));
+                        }
+
+                        $homePageButton = array(
+                            'type'  => $record['home']==1 ? 'homepagePutButton' : 'homepageDelButton',
+                            'href'  => $homePutRemoveLink,
+                        );
+                    } else {
+                        $homePageButton = '&nbsp;';
+                    }
+
 
                     if ($record['annullato']) {
+
+                        /* Homepage button */
+                        $arrayLine[] = isset($homePageButton) ? $homePageButton : null;
+
                         $arrayLine[] = array(
                             'type'  => 'alboAnnulledButton',
                             'class' => $rowClass,
                         );
+
                     } else {
+
+                        /* Homepage button */
+                        $arrayLine[] = isset($homePageButton) ? $homePageButton : null;
+
+                        /* Attachment button */
+                        $arrayLine[] = isset($attachmentsButton) ? $attachmentsButton : null;
 
                         /* Rettifica button */
                         if ($record['pubblicare']==1 and $record['annullato']==0) {

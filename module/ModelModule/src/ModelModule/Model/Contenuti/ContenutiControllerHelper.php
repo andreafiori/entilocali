@@ -7,13 +7,16 @@ use Zend\InputFilter\InputFilterAwareInterface;
 use ModelModule\Model\Database\DbTableContainer;
 use ModelModule\Model\Slugifier;
 
+/**
+ * Contenuti Controller Helper
+ */
 class ContenutiControllerHelper extends ContenutiControllerHelperAbstract
 {
     /**
      * @param InputFilterAwareInterface $inputFilter
      * @param string $moduleName
+     *
      * @return int
-     * @throws NullException
      */
     public function insert(InputFilterAwareInterface $inputFilter, $moduleName = 'contenuti')
     {
@@ -36,10 +39,12 @@ class ContenutiControllerHelper extends ContenutiControllerHelperAbstract
             'utente_id'         => $userDetails->id
         );
 
-        return $this->getConnection()->insert(
+        $this->getConnection()->insert(
             DbTableContainer::contenuti,
             $arrayUpdate
         );
+
+        return $this->getConnection()->lastInsertId();
     }
 
     /**

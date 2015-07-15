@@ -7,6 +7,9 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
+/**
+ * Attachments Admin Form Validator
+ */
 class AttachmentsFormInputFilter implements InputFilterAwareInterface
 {
     public $id;
@@ -19,7 +22,11 @@ class AttachmentsFormInputFilter implements InputFilterAwareInterface
     public $userId;
     public $attachmenOptionId;
     public $referenceId;
-    
+    public $status;
+
+    /**
+     * @var InputFilter
+     */
     protected $inputFilter;
 
     /**
@@ -27,6 +34,7 @@ class AttachmentsFormInputFilter implements InputFilterAwareInterface
      */
     public function exchangeArray($data)
     {
+        $this->id                   = (isset($data['id']))                  ? $data['id']                : null;
         $this->title                = (isset($data['title']))               ? $data['title']             : null;
         $this->description          = (isset($data['description']))         ? $data['description']       : null;
         $this->attachmentFile       = (isset($data['attachmentFile']))      ? $data['attachmentFile']    : null;
@@ -36,11 +44,11 @@ class AttachmentsFormInputFilter implements InputFilterAwareInterface
         $this->userId               = (isset($data['userId']))              ? $data['userId']            : null;
         $this->attachmenOptionId    = (isset($data['attachmenOptionId']))   ? $data['attachmenOptionId'] : null;
         $this->referenceId          = (isset($data['referenceId']))         ? $data['referenceId']       : null;
+        $this->status               = (isset($data['status']))              ? $data['status']            : null;
     }
 
     /**
-     * @param InputFilterInterface $inputFilter
-     * @throws \Exception
+     * @inheritdoc
      */
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
@@ -180,6 +188,14 @@ class AttachmentsFormInputFilter implements InputFilterAwareInterface
 
             $inputFilter->add(array(
                 'name'     => 'attachmenOptionId',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'Int'),
+                ),
+            ));
+
+            $inputFilter->add(array(
+                'name'     => 'status',
                 'required' => true,
                 'filters'  => array(
                     array('name' => 'Int'),

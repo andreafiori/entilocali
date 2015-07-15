@@ -20,14 +20,15 @@ use ModelModule\Model\Log\LogWriter;
 use ModelModule\Model\Modules\ModulesContainer;
 
 /**
- * TODO: delete from contenuti, delete attachments (if there some), attachments_options, attachments_relation
+ * Delete from contenuti, delete attachments, attachments_relation, delete from home page
  */
 class ContenutiDeleteController extends SetupAbstractController
 {
+    /**
+     * @return \Zend\Http\Response
+     */
     public function indexAction()
     {
-        $id = $this->params()->fromPost('id');
-
         /**
          * @var \Doctrine\ORM\EntityManager $em
          */
@@ -58,7 +59,6 @@ class ContenutiDeleteController extends SetupAbstractController
 
         try {
 
-
             $contentRecord = $helper->recoverWrapperRecordsById(
                 new ContenutiGetterWrapper(new ContenutiGetter($em)),
                 array('id' => $post['deleteId'], 'limit' => 1),
@@ -70,7 +70,6 @@ class ContenutiDeleteController extends SetupAbstractController
             $helper->delete($post['deleteId']);
             $helper->getConnection()->commit();
 
-            /* Delte Attachments files */
             $attachmentsHelper = new AttachmentsControllerHelper();
             $attachmentsHelper->setConnection($connection);
             $attachmentsRecords = $helper->recoverWrapperRecords(
@@ -95,7 +94,6 @@ class ContenutiDeleteController extends SetupAbstractController
 
             }
 
-            /* Delete from home page */
             $homeHelper = new HomePagePutRemoveControllerHelper();
             $homePageRecords = $homeHelper->recoverWrapperRecords(
                 new HomePageGetterWrapper(new HomePageGetter($em)),
@@ -132,7 +130,7 @@ class ContenutiDeleteController extends SetupAbstractController
                 'module_id'     => ModulesContainer::recoverIdFromModuleCode($this->params()->fromRoute('modulename')),
                 'message'       => "Eliminato articolo ".$contentRecord[0]['titolo'],
                 'type'          => 'info',
-                'reference_id'  => $id,
+                'reference_id'  => $post['deleteId'],
                 'backend'       => 1,
             ));
 
@@ -144,7 +142,7 @@ class ContenutiDeleteController extends SetupAbstractController
         } catch(\Exception $e) {
 
             try {
-                // $helper->getConnection()->rollBack();
+                $helper->getConnection()->rollBack();
             } catch(\Doctrine\DBAL\ConnectionException $dbEx) {
 
             }
@@ -156,7 +154,7 @@ class ContenutiDeleteController extends SetupAbstractController
                 'message'       => "Errore eliminazione file articolo ",
                 'type'          => 'error',
                 'description'   => $e->getMessage(),
-                'reference_id'  => $id,
+                'reference_id'  => $post['deleteId'],
                 'backend'       => 1,
             ));
 

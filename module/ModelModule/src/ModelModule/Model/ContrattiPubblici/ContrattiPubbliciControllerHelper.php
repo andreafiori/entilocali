@@ -6,10 +6,13 @@ use ModelModule\Model\ControllerHelperAbstract;
 use ModelModule\Model\Database\DbTableContainer;
 use Zend\InputFilter\InputFilterAwareInterface;
 
+/**
+ * Contratti Pubblici Controller Helper
+ */
 class ContrattiPubbliciControllerHelper extends ControllerHelperAbstract
 {
     /**
-     * Insert contratto into db
+     * Insert contratto using validated form object
      *
      * @param InputFilterAwareInterface $formData
      * @return int
@@ -87,6 +90,41 @@ class ContrattiPubbliciControllerHelper extends ControllerHelperAbstract
     }
 
     /**
+     * Delete Contratto
+     *
+     * @param int $id
+     * @return int
+     */
+    public function delete($id)
+    {
+        $this->assertConnection();
+
+        return $this->getConnection()->delete(
+            DbTableContainer::contratti,
+            array('id' => $id),
+            array('limit' => 1)
+        );
+    }
+
+    /**
+     * Delete Contratto relations and partecipanti by Contratti ID
+     *
+     * @param int $id
+     *
+     * @return int
+     */
+    public function deleteContrattiRelationsByContractId($id)
+    {
+        $this->assertConnection();
+
+        return $this->getConnection()->delete(
+            DbTableContainer::contrattiRelations,
+            array('contratto_id' => $id),
+            array('limit' => 1)
+        );
+    }
+
+    /**
      * Update attivo flag to hide or show contratto on public website
      *
      * @param int $id
@@ -104,6 +142,13 @@ class ContrattiPubbliciControllerHelper extends ControllerHelperAbstract
         );
     }
 
+    /**
+     * Update home page flag
+     *
+     * @param int $id
+     * @param int $home
+     * @return int
+     */
     public function updateHome($id, $home = 0)
     {
         $this->assertConnection();
@@ -111,13 +156,16 @@ class ContrattiPubbliciControllerHelper extends ControllerHelperAbstract
         return $this->getConnection()->update(
             DbTableContainer::contratti,
             array('home' => $home),
-            array('id'    => $id),
+            array('id' => $id),
             array('limit' => 1)
         );
     }
 
     /**
+     * Format users with id => name+surname gathered in a record
+     *
      * @param array $recordset
+     *
      * @return array|null
      */
     public function formatUsersRespProcRecords($recordset)
@@ -136,13 +184,5 @@ class ContrattiPubbliciControllerHelper extends ControllerHelperAbstract
         }
 
         return null;
-    }
-
-    public function checkUsersRespProcRecords()
-    {
-        $records = $this->getUsersRespProcRecords();
-        if ( empty($records) ) {
-            throw new NullException();
-        }
     }
 }

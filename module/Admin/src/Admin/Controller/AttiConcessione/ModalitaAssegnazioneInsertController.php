@@ -59,8 +59,7 @@ class ModalitaAssegnazioneInsertController extends SetupAbstractController
             $inputFilter->exchangeArray( $form->getData() );
 
             $helper->setLoggedUser($userDetails);
-            $helper->insert($inputFilter);
-            $lastInsertId = $helper->getConnection()->lastInsertId();
+            $lastInsertId = $helper->insert($inputFilter);
             $helper->getConnection()->commit();
 
             $logWriter = new LogWriter($connection);

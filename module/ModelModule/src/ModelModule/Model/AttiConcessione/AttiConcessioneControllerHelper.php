@@ -6,10 +6,14 @@ use ModelModule\Model\ControllerHelperAbstract;
 use ModelModule\Model\Database\DbTableContainer;
 use Zend\InputFilter\InputFilterAwareInterface;
 
+/**
+ * AttiConcessione Main Controller Helper
+ */
 class AttiConcessioneControllerHelper extends ControllerHelperAbstract
 {
     /**
      * @param InputFilterAwareInterface $formData
+     *
      * @return int
      */
     public function insert(InputFilterAwareInterface $formData)
@@ -20,7 +24,7 @@ class AttiConcessioneControllerHelper extends ControllerHelperAbstract
 
         $userDetails = $this->getLoggedUser();
 
-        return $this->getConnection()->insert(
+        $this->getConnection()->insert(
             DbTableContainer::attiConcessione,
             array(
                 'titolo'                => $formData->titolo,
@@ -36,10 +40,13 @@ class AttiConcessioneControllerHelper extends ControllerHelperAbstract
                 'utente_id'             => $userDetails->id,
             )
         );
+
+        return $this->getConnection()->lastInsertId();
     }
 
     /**
      * @param AttiConcessioneGetterWrapper $wrapper
+     *
      * @return int
      */
     public function recoverNumeroProgressivo(AttiConcessioneGetterWrapper $wrapper, $anno)
@@ -61,6 +68,7 @@ class AttiConcessioneControllerHelper extends ControllerHelperAbstract
 
     /**
      * @param InputFilterAwareInterface $formData
+     *
      * @return int
      */
     public function update(InputFilterAwareInterface $formData)
@@ -91,7 +99,28 @@ class AttiConcessioneControllerHelper extends ControllerHelperAbstract
     }
 
     /**
+     * @param int $id
+     *
+     * @return bool
+     */
+    public function delete($id)
+    {
+        $this->assertConnection();
+
+        $this->getConnection()->query('SET FOREIGN_KEY_CHECKS=0');
+        $this->getConnection()->delete(
+            DbTableContainer::attiConcessione,
+            array('id' => $id),
+            array('limit' => 1)
+        );
+        $this->getConnection()->query('SET FOREIGN_KEY_CHECKS=1');
+
+        return true;
+    }
+
+    /**
      * @param $recordset
+     *
      * @return array
      */
     public function formatResponsabiliForDropdown($recordset)
@@ -114,6 +143,7 @@ class AttiConcessioneControllerHelper extends ControllerHelperAbstract
 
     /**
      * @param array $years
+     *
      * @return array
      */
     public function formatYears($years)

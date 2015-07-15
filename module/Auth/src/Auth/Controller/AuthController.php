@@ -243,7 +243,7 @@ class AuthController extends SetupAbstractController
                 }
             }
         }
-        
+
         return $this->redirect()->toRoute($redirect, array("lang" => 'it'));
     }
 

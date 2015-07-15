@@ -72,6 +72,7 @@ class AttiConcessioneController extends SetupAbstractController
                 array(
                     'moduleId'  => ModulesContainer::atti_concessione,
                     'noScaduti' => 1,
+                    'status'    => 1,
                     'orderBy'   => 'a.position'
                 )
             );
@@ -142,6 +143,7 @@ class AttiConcessioneController extends SetupAbstractController
                 array(
                     'moduleId'  => ModulesContainer::atti_concessione,
                     'noScaduti' => 1,
+                    'status'    => 1,
                     'orderBy'   => 'ao.position'
                 )
             );

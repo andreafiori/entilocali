@@ -44,6 +44,7 @@ abstract class RecordsGetterWrapperAbstract
     /**
      * @param string $key
      * @param bool|array
+     *
      * @return mixed
      */
     public function getInput($key = null, $noArray = null)

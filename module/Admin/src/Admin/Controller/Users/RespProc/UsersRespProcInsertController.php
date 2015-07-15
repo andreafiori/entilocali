@@ -8,6 +8,9 @@ use ModelModule\Model\Log\LogWriter;
 use ModelModule\Model\Modules\ModulesContainer;
 use ModelModule\Model\Users\RespProc\UsersRespProcControllerHelper;
 
+/**
+ *  Responsabile Procedimento Insert Controller
+ */
 class UsersRespProcInsertController extends SetupAbstractController
 {
     public function indexAction()
@@ -35,7 +38,7 @@ class UsersRespProcInsertController extends SetupAbstractController
         $helper = new UsersRespProcControllerHelper();
         $helper->setConnection($connection);
         $helper->getConnection()->beginTransaction();
-        $helper->insert($post['user']);
+        $lastInsertId =$helper->insert($post['user']);
         $helper->getConnection()->commit();
 
         $logWriter = new LogWriter($connection);
@@ -44,6 +47,7 @@ class UsersRespProcInsertController extends SetupAbstractController
             'module_id'     => ModulesContainer::atti_concessione,
             'message'       => "Inserito nuovo responsabile di procedimento, utente ".$userDetails->id,
             'type'          => 'info',
+            'reference_id'  => $lastInsertId,
             'backend'       => 1,
         ));
 

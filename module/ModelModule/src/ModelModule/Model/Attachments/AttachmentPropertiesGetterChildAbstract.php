@@ -39,7 +39,7 @@ abstract class AttachmentPropertiesGetterChildAbstract
     }
 
     /**
-     * @return mixed
+     * @return \ModelModule\Model\RecordsGetterWrapperAbstract
      */
     public function getAttachmentsRelatedWrapper()
     {
