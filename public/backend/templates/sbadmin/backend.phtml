@@ -151,11 +151,9 @@ $languageSelection = (!empty($languageSelectionFromRoute)) ? $languageSelectionF
                         </li>
                         <li><a href="<?php echo $this->url('admin/log-summary', array('lang' => $lang)); ?>" title="Logs applicazione">Logs</a></li>
                         <?php if (in_array($this->userDetails->role, array('WebMaster'))): ?>
-                        <!--
                         <li><a href="<?php echo $this->url('admin/migrazione', array('lang' => $lang)); ?>" title="Tool migrazione dati">Migrazione dati</a></li>
-                        -->
+                        <li><a href="#" title="Elenco e configurazione moduli">Moduli</a></li>
                         <?php endif; ?>
-                        <!-- <li><a href="#" title="Elenco e configurazione moduli">Moduli</a></li> -->
                     </ul>
                 </li>
                 <?php endif; ?>

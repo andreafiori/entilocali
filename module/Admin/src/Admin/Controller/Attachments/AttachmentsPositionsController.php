@@ -56,7 +56,7 @@ class AttachmentsPositionsController extends SetupAbstractController
                 'formBreadCrumbCategory'            => $helper->getPropertiesGetterClassInstance()->getBreadcrumbModule(),
                 'formBreadCrumbCategoryLink'        => $this->url()->fromRoute(
                     $helper->getPropertiesGetterClassInstance()->getBreadcrumbRoute(),
-                    array('lang' => $lang)
+                    array('lang' => $lang, 'modulename' => $moduleCode, 'languageSelection' => $lang)
                 ),
                 'records'                           => $attachmentRecord,
                 'templatePartial'                   => 'attachments/attachments-positions.phtml',

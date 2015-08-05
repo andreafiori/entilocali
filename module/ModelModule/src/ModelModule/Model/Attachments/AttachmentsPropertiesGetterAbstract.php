@@ -8,7 +8,7 @@ use ModelModule\Model\RecordsGetterWrapperAbstract;
 abstract class AttachmentsPropertiesGetterAbstract
 {
     /**
-     * @var \Application\Model\RecordsGetterWrapperAbstract
+     * @var \ModelModule\Model\RecordsGetterWrapperAbstract
      */
     protected $objectWrapper;
 

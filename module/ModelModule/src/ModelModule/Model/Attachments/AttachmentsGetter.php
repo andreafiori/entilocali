@@ -139,12 +139,12 @@ class AttachmentsGetter extends QueryBuilderHelperAbstract
     }
 
     /**
-     * @param string $status
+     * @param mixed $status
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function setStatus($status)
     {
-        if ( isset($status) ) {
+        if ( !empty($status) ) {
             $this->getQueryBuilder()->andWhere('a.status = :status ');
             $this->getQueryBuilder()->setParameter('status', $status);
         }

@@ -29,4 +29,20 @@ class AttachmentsDeleteControllerTest extends TestSuite
 
         $this->assertEquals(302, $this->controller->getResponse()->getStatusCode());
     }
+
+    public function testIndexActionReturnsRedirect()
+    {
+        $this->routeMatch->setParam('action', 'index');
+        $this->routeMatch->setParam('languageSelection', 'it');
+
+        $this->setupUserSession($this->recoverUserDetails());
+
+        $this->request->setMethod(Request::METHOD_POST)->getPost()->fromArray(array(
+            'deleteId' => 1,
+        ));
+
+        $this->controller->dispatch($this->request);
+
+        $this->assertEquals(302, $this->controller->getResponse()->getStatusCode());
+    }
 }

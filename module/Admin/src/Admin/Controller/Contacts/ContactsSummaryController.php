@@ -2,6 +2,7 @@
 
 namespace Admin\Controller\Contacts;
 
+use ModelModule\Model\Contacts\ContactsControllerHelper;
 use ModelModule\Model\Contacts\ContactsGetter;
 use ModelModule\Model\Contacts\ContactsGetterWrapper;
 use Application\Controller\SetupAbstractController;

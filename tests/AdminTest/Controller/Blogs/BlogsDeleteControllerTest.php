@@ -22,7 +22,7 @@ class BlogsDeleteControllerTest extends TestSuite
         $this->controller->setServiceLocator($this->getServiceManager());
     }
 
-    public function testIndexAction()
+    public function testIndexActionIsNotDirectlyAccessible()
     {
         $this->routeMatch->setParam('action', 'index');
 

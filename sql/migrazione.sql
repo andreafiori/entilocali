@@ -56,13 +56,18 @@ UPDATE zfcms_comuni_sezioni SET is_amm_trasparente = 1 where id = 14;
 
 	
 	-- Albo pretorio Articoli
-	TRUNCATE table zfcms_comuni_albo_articoli;
-	INSERT INTO zfcms_comuni_albo_articoli (id, utente_id, sezione_id, numero_progressivo, numero_atto, anno, data_attivazione, ora_attivazione, data_pubblicare, ora_pubblicare, scadenza, data_scadenza, titolo, attivo, pubblicare, annullato, rettifica_id, data_invio_regione, anno_atto, home, ente_terzo, fonte_url, note, data_rettifica, check_rettifica)
-	 (SELECT * FROM albo_articoli);
+  INSERT INTO zfcms_comuni_albo_articoli (id, utente_id, sezione_id, numero_progressivo, numero_atto, anno,
+	data_attivazione, ora_attivazione, data_pubblicare, ora_pubblicare, scadenza, data_scadenza, titolo, attivo,
+	pubblicare, annullato, rettifica_id, data_invio_regione, anno_atto, home, ente_terzo, fonte_url, note, data_rettifica,
+	check_rettifica)
+	 ( SELECT id, id_utente, id_sezione, numero_progressivo, numero_atto, anno, data_attivazione, ora_attivazione, data_pubblicare,
+	 ora_pubblicare, scadenza, data_scadenza, titolo, attivo,
+	pubblicare, annullato, '0', data_invio_regione, anno_atto, home, ente_terzo, fonte_url, note, data_rettifica,
+	check_rettifica FROM albo_articoli);
 
 	-- Albo pretorio Sezioni
-	TRUNCATE table zfcms_comuni_albo_sezioni;
-	INSERT INTO zfcms_comuni_albo_sezioni (SELECT * FROM albo_sezioni);
+	INSERT INTO zfcms_comuni_albo_sezioni (id, nome, attivo, dest, del, det, esi, con)
+	(SELECT id, nome, attivo, dest, del, det, esi, con FROM albo_sezioni);
 
 
 -- Migrazione contratti pubblici

@@ -7,8 +7,11 @@ nbproject
 .settings
 composer.lock
 public/frontend/media/
-zftool.pha
+public/migrazione_allegati/
+zftool.phar
 data
+data/cache/*
+!data/cache/.gitkeep
 docs
 tests/reports
 tests/mailoutput
@@ -16,6 +19,3 @@ vendor/
 config/development.config.php
 config/autoload/local.php
 config/autoload/*.local.php
-!vendor/README.md
-data/cache/*
-!data/cache/.gitkeep

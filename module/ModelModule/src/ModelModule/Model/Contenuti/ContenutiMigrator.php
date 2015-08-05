@@ -2,44 +2,73 @@
 
 namespace ModelModule\Model\Contenuti;
 
-use ModelModule\Model\Amazon\S3\S3;
-use ModelModule\Model\Migrazione\MigratorAbstract;
-use ModelModule\Model\Slugifier;
+use ModelModule\Model\Amazon\S3\S3Helper;
+use ModelModule\Model\Database\Redbean\RedbeanHelperAbstract;
+use ModelModule\Model\Modules\ModulesContainer;
 
-class ContenutiMigrator extends MigratorAbstract
+class ContenutiMigrator extends RedbeanHelperAbstract
 {
-    public function migrate()
+    const tempDir = 'contenuti/';
+
+    /**
+     * @return bool
+     */
+    public function deleteAllTempFile()
     {
-        $this->assertRedbeanHelper();
-
-        $contentsMigrated = $this->getRedbeanHelper()->executeQuery("TRUNCATE table zfcms_comuni_contenuti;
-        INSERT INTO zfcms_comuni_contenuti
-        (id, sottosezione_id, anno, numero, titolo, sommario, testo,
-        data_inserimento, data_scadenza, data_invio_regione, attivo, home, evidenza, utente_id,
-        rss, pub_albo_comune, data_rettifica, path, tabella, check_atti, annoammtrasp)
-        (SELECT * FROM contenuti);");
-
-        // Fix contents
-        $records = $this->getRedbeanHelper()->getRecord("SELECT * FROM zfcms_comuni_contenuti WHERE titolo!='' ");
-
-        foreach($records as $record) {
-            $this->getRedbeanHelper()->executeQuery("UPDATE zfcms_comuni_contenuti SET
-            slug = '".Slugifier::slugify($record['titolo'])."',
-            titolo = '".htmlentities(addslashes($record['titolo']))."' WHERE id = '".$record['id']."'
-             ");
-        }
+        return $this->deleteAllDirTempFile(self::tempDir);
     }
 
-    public function log()
+    /**
+     * @return array
+     */
+    public function recoverAllegati()
     {
-        $this->assertLogWriter();
+        return $this->getRecords("SELECT contenuti_allegati.id, contenuti_allegati.id_contenuti, nome FROM contenuti_allegati, mimetype WHERE (id_mime = mimetype.id) ");
+    }
 
-        $this->getLogWriter()->writeLog(array(
-            'user_id'   => $this->getUserDetailsKey('id'),
-            'module_id' => 2,
-            'message'   => $this->getUserDetailsKey('name').' '.$this->getUserDetailsKey('surname')." ha effettuato la <strong>migrazione contenuti</strong> dal database vecchio CMS ",
-            'type'      => 'info',
-            'backend'   => 1,
-        ));
+    /**
+     * @param int $id
+     * @return array
+     */
+    public function recoverSingleAllegati($id)
+    {
+        return $this->getRecords("SELECT contenuti_allegati.id, nome, contenuti_allegati.dati, mimetype FROM contenuti_allegati, mimetype WHERE (id_mime = mimetype.id) AND contenuti_allegati.id = '".$id."' ");
+    }
+
+    /**
+     * @param array $attachmentRecords
+     * @return bool
+     * @throws \ModelModule\Model\NullException
+     */
+    public function migrateAttachments($attachmentRecords)
+    {
+        if (empty($attachmentRecords)) {
+            return false;
+        }
+
+        $s3Helper = new S3Helper();
+
+        // $this->truncateAttachmentsTables();
+        // $this->deleteAllTempFile();
+
+        foreach($attachmentRecords as $attachment) {
+
+            $newAttachmentFilename = $s3Helper->assignFileName($attachment['nome'], $attachment['id']);
+
+            $insertAttach = $this->insertAttachment($newAttachmentFilename, $attachment);
+            $this->checkRedBeanQueryResult($insertAttach);
+
+            $lastID = $this->recoverLastInsertId();
+
+            $this->checkRedBeanQueryResult(
+                $this->insertAttachmentRelation($lastID, $attachment['id_contenuti'], ModulesContainer::contenuti_id)
+            );
+
+            $singleAttachment = $this->recoverSingleAllegati($attachment['id']);
+
+            $this->saveFileToFileSystem(self::tempDir, $newAttachmentFilename, $singleAttachment[0]['dati']);
+        }
+
+        return true;
     }
 }

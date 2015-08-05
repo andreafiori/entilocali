@@ -159,6 +159,7 @@ return array(
             'Admin\Controller\HomePage\HomePageBlocksPositions'       => 'Admin\Controller\HomePage\HomePageBlocksPositionsController',
             'Admin\Controller\HomePage\HomePage'                      => 'Admin\Controller\HomePage\HomePageController',
             'Admin\Controller\HomePage\HomePagePutRemove'             => 'Admin\Controller\HomePage\HomePagePutRemoveController',
+            'Admin\Controller\HomePage\HomePageFreeTextForm'          => 'Admin\Controller\HomePage\HomePageFreeTextFormController',
 
             /* Tickets */
             'Admin\Controller\Tickets\TicketsForm'                    => 'Admin\Controller\Tickets\TicketsFormController',
@@ -178,6 +179,12 @@ return array(
             /* Logs */
             'Admin\Controller\Log\LogSummary'                         => 'Admin\Controller\Log\LogSummaryController',
             'Admin\Controller\Log\LogOperations'                      => 'Admin\Controller\Log\LogOperationsController',
+
+            /* Migrazione */
+            'Admin\Controller\Migrazione\Migrazione'                 => 'Admin\Controller\Migrazione\MigrazioneController',
+            'Admin\Controller\Contenuti\ContenutiMigrator'           => 'Admin\Controller\Contenuti\ContenutiMigratorController',
+            'Admin\Controller\StatoCivile\StatoCivileMigrator'       => 'Admin\Controller\StatoCivile\StatoCivileMigratorController',
+            'Admin\Controller\AlboPretorio\AlboPretorioMigrator'     => 'Admin\Controller\AlboPretorio\AlboPretorioMigratorController',
         ),
     ),
     'router' => array(
@@ -330,6 +337,20 @@ return array(
                             'defaults' => array(
                                 'controller' => 'Admin\Controller\HomePage\HomePageBlocksPositions',
                                 'action'     => 'update',
+                            ),
+                        ),
+                    ),
+                    'homepage-freetext-form' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route' => 'homepage/freetext/form/lang/:languageselection[/][:id[/]]',
+                            'constraints' => array(
+                                'id'                    => '[0-9]+',
+                                'languageselection'     => '[a-z]{2}',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\HomePage\HomePageFreeTextForm',
+                                'action'     => 'index',
                             ),
                         ),
                     ),
@@ -1667,8 +1688,60 @@ return array(
 
                             ),
                             'defaults' => array(
-                                'controller' => 'Admin\Controller\Admin',
+                                'controller' => 'Admin\Controller\Migrazione\Migrazione',
                                 'action'     => 'index',
+                            ),
+                        ),
+                    ),
+                    'migrazione-contenuti' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route'       => 'migrazione/tool/contenuti/:action[/]',
+                            'constraints' => array(
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Contenuti\ContenutiMigrator',
+
+                            ),
+                        ),
+                    ),
+                    'migrazione-sezioni' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route'       => 'migrazione/tool/sezioni/:action[/]',
+                            'constraints' => array(
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\Sezioni\ContenutiMigrator',
+
+                            ),
+                        ),
+                    ),
+                    'migrazione-statocivile' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route'       => 'migrazione/tool/statocivile/:action[/]',
+                            'constraints' => array(
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\StatoCivile\StatoCivileMigrator',
+
+                            ),
+                        ),
+                    ),
+                    'migrazione-albopretorio' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route'       => 'migrazione/tool/albopretorio/:action[/]',
+                            'constraints' => array(
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                'controller' => 'Admin\Controller\AlboPretorio\AlboPretorioMigrator',
+
                             ),
                         ),
                     ),
@@ -1989,7 +2062,7 @@ return array(
             'admin/admin/index'                             => __DIR__ . '/../view/admin/index.phtml',
             'admin/form-data-post/index'                    => __DIR__ . '/../view/admin/empty.phtml',
             'admin/configurations-form/index'               => __DIR__ . '/../view/admin/empty.phtml',
-            'admin/admin/migrazione'                        => __DIR__ . '/../view/migrazione.phtml',
+            'admin/migrazione/index'                        => __DIR__ . '/../view/admin/empty.phtml',
 
             /* Attachment files */
             'admin/attachments-summary/index'                       => __DIR__ . '/../view/admin/empty.phtml',

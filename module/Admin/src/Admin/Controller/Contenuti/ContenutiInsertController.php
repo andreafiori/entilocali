@@ -36,8 +36,6 @@ class ContenutiInsertController extends SetupAbstractController
 
         $modulename = $this->params()->fromRoute('modulename');
 
-        /* $modulenameLabel = str_replace("-", " ", $modulename); */
-
         $inputFilter = new ContenutiFormInputFilter();
 
         $form = new ContenutiForm();

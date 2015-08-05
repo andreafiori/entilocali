@@ -4,9 +4,13 @@ namespace Admin\Controller\HomePage;
 
 use Application\Controller\SetupAbstractController;
 use ModelModule\Model\HomePage\HomePageControllerHelper;
+use ModelModule\Model\HomePage\HomePageFreeTextForm;
 use ModelModule\Model\HomePage\HomePageGetter;
 use ModelModule\Model\HomePage\HomePageGetterWrapper;
 
+/**
+ * HomePage Free Text Form
+ */
 class HomePageFreeTextFormController extends SetupAbstractController
 {
     public function indexAction()
@@ -15,21 +19,23 @@ class HomePageFreeTextFormController extends SetupAbstractController
 
         $id = $this->params()->fromRoute('id');
         $lang = $this->params()->fromRoute('lang');
+        $languageselection = $this->params()->fromRoute('languageselection');
 
         $em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 
         $helper = new HomePageControllerHelper();
-        $entiTerziRecords = $helper->recoverWrapperRecords(
+        $records = $helper->recoverWrapperRecords(
             new HomePageGetterWrapper(new HomePageGetter($em)),
             array(
-                'languageAbbreviation' => '',
+                'languageAbbreviation'  => $languageselection,
+                'id'                    => $id,
             )
         );
 
-        $form = new EntiTerziForm();
+        $form = new HomePageFreeTextForm();
 
-        if (!empty($entiTerziRecords)) {
-            $form->setData($entiTerziRecords[0]);
+        if (!empty($records)) {
+            $form->setData($records[0]);
 
             $submitButtonValue  = 'Modifica';
             $formTitle          = 'Modifica testo libero';
@@ -50,8 +56,8 @@ class HomePageFreeTextFormController extends SetupAbstractController
                 'form'                          => $form,
                 'formAction'                    => $formAction,
                 'submitButtonValue'             => $submitButtonValue,
-                'formBreadCrumbCategory'        => 'Enti terzi',
-                'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/enti-terzi-summary', array(
+                'formBreadCrumbCategory'        => 'Gestione home page',
+                'formBreadCrumbCategoryLink'    => $this->url()->fromRoute('admin/homepage-management', array(
                     'lang' => $lang
                 )),
                 'templatePartial'               => self::formTemplate,

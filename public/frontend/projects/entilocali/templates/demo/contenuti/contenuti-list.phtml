@@ -26,9 +26,7 @@
             <h3><?php echo $this->translate('Allegati') ?></h3>
             <?php foreach($record['attachments'] as $attachment): ?>
                 <div>
-                    <a href="<?php echo $this->url('attachments-sthree-download', array(
-                        'type'  => 'contenuti',
-                        'id'    => $attachment['id'])); ?>" title="Scarica allegato <?php echo $attachment['name'] ?>">
+                    <a href="<?php echo $this->url('attachments-sthree-download', array('type' => 'contenuti', 'id' => $attachment['id'])); ?>" title="Scarica allegato <?php echo $attachment['name'] ?>">
                         <img src="<?php echo $this->publicDirRelativePath ?>/common/icons/attachments/<?php echo $attachment['image']; ?>" alt="Icon tipo file per <?php echo $attachment['name'] ?>">
                         <?php echo $attachment['title'] ?>
                     </a> (<?php echo $attachment['size'] ?> Kb)

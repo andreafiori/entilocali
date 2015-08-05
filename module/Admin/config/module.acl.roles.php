@@ -173,9 +173,6 @@ return array(
     'admin/home-page/delete' => array(
         'resources' => array('homepage_management')
     ),
-    'admin/homepage-blocks-positions' => array(
-        'resources' => array('homepage_positions')
-    ),
     /* Users: form check is not here for letting users update its own data */
     'admin/users-summary' => array(
         'resources' => array('users_update')

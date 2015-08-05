@@ -11,7 +11,7 @@ use ModelModule\Model\Sezioni\SottoSezioniGetterWrapper;
 use Application\Controller\SetupAbstractController;
 
 /**
- * Contenuti Controller for the public website
+ * Contenuti Frontend Controller
  */
 class ContenutiController extends SetupAbstractController
 {
@@ -34,11 +34,11 @@ class ContenutiController extends SetupAbstractController
         $wrapper = $helper->recoverWrapper(
             new ContenutiGetterWrapper(new ContenutiGetter($em)),
             array(
-                'noscaduti'     => 1,
-                'attivo'        => 1,
-                'modulo'        => ModulesContainer::contenuti_id,
-                'sottosezione' => $subsectionid,
-                'languageAbbreviation' => $lang,
+                'noscaduti'             => 1,
+                'attivo'                => 1,
+                'modulo'                => ModulesContainer::contenuti_id,
+                'sottosezione'          => $subsectionid,
+                'languageAbbreviation'  => $lang,
             )
         );
         $wrapper->setEntityManager($em);

@@ -6,6 +6,9 @@ use ModelModule\Model\Amazon\S3\S3;
 use ModelModule\Model\Attachments\AttachmentsGetter;
 use ModelModule\Model\Attachments\AttachmentsGetterWrapper;
 
+/**
+ * Attachments AWS S3 Frontend Download file Controller
+ */
 class AttachmentsSThreeDownloaderController extends SetupAbstractController
 {
     public function indexAction()

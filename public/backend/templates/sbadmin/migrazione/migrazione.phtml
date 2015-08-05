@@ -3,85 +3,149 @@
     <li class="active">Migrazione</li>
 </ul>
 
-<?php if (isset($this->msg)): ?>
-<div class="alert alert-<?php echo isset($this->msgType) ? $this->msgType : 'info' ?>">
-    <div><?php echo $this->msg ?></div>
-    <div><a href="<?php echo $this->url('admin/migrazione', array('lang'=>'it')); ?>" title="Nuova operazione migrazione">Esegui un'altra operazione</a></div>
+<h2>Migrazione dati vecchio CMS enti locali</h2>
+
+<p>Migrazione dati dal <strong>database vecchio CMS enti locali</strong>.</p>
+
+<div class="alert alert-warning">
+    <p><strong>Attenzione: i dati dei moduli attualmente presenti veranno eliminati.</strong></p>
+    <p>Assicurarsi che le <strong>tabelle del vecchio database</strong> siano presenti per il relativo modulo che si vuole migrare</p>
 </div>
-<?php else: ?>
-    <h1>Tool di migrazione dati</h1>
 
-    <p>Migrazione dati dalla <strong>versione precedente</strong> del database.</p>
+<div class="row">
+    <div class="col-md-6">
+        <h4>Sezioni e sottosezioni</h4>
+        <ul>
+            <li><a href="#" title="">Sezioni</a></li>
+            <li><a href="#" title="">Sottosezioni</a></li>
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <h4>Contenuti</h4>
+        <ul>
+            <li><a href="<?php echo $this->url('admin/migrazione-contenuti', array('lang' => 'it', 'action' => 'index')); ?>" title="">Articoli</a></li>
+            <li><a href="<?php echo $this->url('admin/migrazione-contenuti', array('lang' => 'it', 'action' => 'attachments')); ?>" title="">
+                    <i class="fa fa-paperclip"></i> Allegati</a>
+            </li>
+        </ul>
 
-    <p>&Egrave; possibile selezionare pi&ugrave; moduli tenendo premuto il <strong>tasto Ctrl</strong>.</p>
+        <h4>Amministrazione trasparente</h4>
+        <ul>
+            <li><a href="#" title="Migrazione Allegati Amm.Trasparente">
+                    <i class="fa fa-paperclip"></i> Allegati</a>
+            </li>
+        </ul>
+    </div>
+</div>
 
-    <p><strong>Attenzione: i dati attualmente presenti nei moduli verranno eliminati.</strong></p>
+<div class="row">
+    <div class="col-md-6">
+        <h4>Albo pretorio</h4>
+        <ul>
+            <li><a href="<?php echo $this->url('admin/migrazione-albopretorio', array('lang' => 'it', 'action' => 'index')); ?>" title="">Articoli</a></li>
+            <li><a href="<?php echo $this->url('admin/migrazione-albopretorio', array('lang' => 'it', 'action' => 'sezioni')); ?>"" title="">Sezioni</a></li>
+            <li><a href="<?php echo $this->url('admin/migrazione-albopretorio', array('lang' => 'it', 'action' => 'attachments')); ?>" title=""><i class="fa fa-paperclip"></i> Allegati</a></li>
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <h4>Stato Civile</h4>
+        <ul>
+            <li><a href="<?php echo $this->url('admin/migrazione-statocivile', array('lang' => 'it', 'action' => 'index')); ?>" title="">Atti</a></li>
+            <li><a href="<?php echo $this->url('admin/migrazione-statocivile', array('lang' => 'it', 'action' => 'sezioni')); ?>" title="">Sezioni</a></li>
+            <li><a href="<?php echo $this->url('admin/migrazione-statocivile', array('lang' => 'it', 'action' => 'attachments')); ?>" title=""><i class="fa fa-paperclip"></i> Allegati</a></li>
+        </ul>
+    </div>
+</div>
 
-    <form role="form" action="" method="post" class="form-horizontal">
-        <div>
-            <select name="migrationoldcms[]" multiple="multiple" class="form-control" size="12">
-                <option value="albo-pretorio">Albo pretorio</option>
-                <option value="amministrazione-trasparente">Amministrazione trasparente</option>
-                <option value="atti-concessione">Atti di concessione</option>
-                <option value="contratti-pubblici">Contratti pubblici</option>
-                <option value="contratti-pubblici-allegati">Contratti pubblici (Allegati)</option>
-                <option value="configurazioni">Configurazioni</option>
-                <option value="contenuti">Contenuti</option>
-                <option value="contenuti-allegati">Contenuti (Allegati)</option>
-                <option value="enti-terzi">Enti terzi</option>
-                <option value="eventi">Eventi (blogs)</option>
-                <option value="foto">Foto</option>
-                <option value="moduli">Moduli (elenco)</option>
-                <option value="event">Newsletter</option>
-                <option value="sezioni">Sezioni</option>
-                <option value="sotto-sezioni">Sotto-sezioni</option>
-                <option value="stato-civile">Stato civile</option>
-                <option value="stato-civile-allegati">Stato civile (Allegati)</option>
-                <option value="utenti">Utenti</option>
-            </select>
-        </div>
-        <br>
-        <div>
-            <input type="submit" name="migrateoldcmsbutton" value="Procedi" class="btn btn-primary">
-        </div>
-    </form>
 
-    <h3>Elimina tabelle database versione precedente</h3>
-    <p>Attenzione: prima di procedere con l'eliminazione delle tabelle del vecchio CMS, assicurarsi che TUTTI precedenti siano stati importati.</p>
+<div class="row">
+    <div class="col-md-6">
+        <h4>Atti di concessione</h4>
+        <ul>
+            <li><a href="#" title="">Atti</a></li>
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <h4>Contratti pubblici</h4>
+        <ul>
+            <li><a href="#" title="">Bandi</a></li>
+            <li><a href="#" title=""><i class="fa fa-paperclip"></i> Allegati</a></li>
+        </ul>
+    </div>
+</div>
 
-    <!-- Button trigger modal -->
-    <a href="#myModal" class="btn btn-danger" data-toggle="modal">
-        Conferma cancellazione
-    </a>
+<div class="row">
+    <div class="col-md-12">
+        <h4>Enti Terzi</h4>
+        <ul>
+            <li><a href="#" title="Migrazione enti terzi">Enti Terzi</a></li>
+        </ul>
+    </div>
+</div>
 
-    <br>
-    <br>
+<div class="row">
+    <div class="col-md-6">
+        <h4>Blogs</h4>
+        <ul>
+            <li><a href="#" title="Migrazione eventi">Eventi</a></li>
+            <li><a href="#" title=""><i class="fa fa-paperclip"></i> Allegati</a></li>
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <h4>Foto</h4>
+        <ul>
+            <li><a href="#" title="Migrazione foto del precedente archivio">Foto</a></li>
+            <li><a href="#" title="">Categorie</a></li>
+        </ul>
+    </div>
+</div>
 
-    <!-- Modal Delete old CMS db tables -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content panel-danger">
+<div class="row">
+    <div class="col-md-12">
+        <h4>Utenti</h4>
+        <ul>
+            <li><a href="#" title="Migrazione elenco utenti principale">Utenti</a></li>
+            <li><a href="#" title="">Responsabili procedimento</a></li>
+            <li><a href="#" title="">Settori</a></li>
+        </ul>
+    </div>
+</div>
 
-                <div class="modal-header panel-heading">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="deleteModalLabel"><strong>Conferma eliminazione?</strong></h4>
+<h3>Elimina tabelle database versione precedente</h3>
+
+<p>Attenzione: prima di procedere con l'eliminazione delle tabelle del vecchio CMS, assicurarsi che TUTTI precedenti siano stati importati.</p>
+
+<a href="#myModal" class="btn btn-danger" data-toggle="modal">
+    Conferma cancellazione
+</a>
+
+<br>
+<br>
+
+<!-- Modal delete old CMS db tables -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content panel-danger">
+
+            <div class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="deleteModalLabel"><strong>Conferma eliminazione?</strong></h4>
+            </div>
+
+            <form action="" method="post" id="deleteOldCMSFormMigration" role="form">
+                <div class="modal-body">
+                    <p><strong>Attenzione:</strong> le tabelle della versione precedente del database verranno eliminate definitivamente.</p>
+
+                    <input type="hidden" name="deleteId" id="deleteId" value="" />
                 </div>
 
-                <form action="" method="post" id="deleteOldCMSFormMigration" role="form">
-                    <div class="modal-body">
-                        <p><strong>Attenzione:</strong> le tabelle della versione precedente del database verranno eliminate definitivamente.</p>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
+                    <button type="submit" name="btnconfirmdeleteoldcmstables" class="btn btn-danger">Conferma</button>
+                </div>
+            </form>
 
-                        <input type="hidden" name="deleteId" id="deleteId" value="" />
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
-                        <button type="submit" name="btnconfirmdeleteoldcmstables" class="btn btn-danger">Conferma</button>
-                    </div>
-                </form>
-
-            </div>
         </div>
     </div>
+</div>
 
-<?php endif; ?>

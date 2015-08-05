@@ -247,7 +247,6 @@ return array(
     'ModelModule\Model\Attachments\AttachmentsFormControllerHelper'                                             => __DIR__ . '/src/ModelModule/Model/Attachments/AttachmentsFormControllerHelper.php',
     'ModelModule\Model\Attachments\AttachmentsControllerHelper'                                                 => __DIR__ . '/src/ModelModule/Model/Attachments/AttachmentsControllerHelper.php',
     'ModelModule\Model\Attachments\AttachmentsForm'                                                             => __DIR__ . '/src/ModelModule/Model/Attachments/AttachmentsForm.php',
-    'ModelModule\Model\Attachments\AttachmentsFormSelectionAbstract'                                            => __DIR__ . '/src/ModelModule/Model/Attachments/AttachmentsFormSelectionAbstract.php',
     'ModelModule\Model\Attachments\AttachmentsMimetypeGetter'                                                   => __DIR__ . '/src/ModelModule/Model/Attachments/AttachmentsMimetypeGetter.php',
     'ModelModule\Model\Attachments\AttachmentsMimetypeGetterWrapper'                                            => __DIR__ . '/src/ModelModule/Model/Attachments/AttachmentsMimetypeGetterWrapper.php',
     'ModelModule\Model\Attachments\AttachmentsPropertiesGetterAbstract'                                         => __DIR__ . '/src/ModelModule/Model/Attachments/AttachmentsPropertiesGetterAbstract.php',

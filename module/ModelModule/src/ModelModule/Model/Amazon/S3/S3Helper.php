@@ -4,9 +4,6 @@ namespace ModelModule\Model\Amazon\S3;
 
 use Zend\InputFilter\InputFilterAwareInterface;
 
-/**
- * Set S3 to upload a file
- */
 class S3Helper
 {
     private $s3;
@@ -24,9 +21,9 @@ class S3Helper
     }
 
     /**
-     * @param $fileData
-     * @param $filename
-     * @param $lastId
+     * @param string $fileData
+     * @param string $filename
+     * @param int $lastId
      * @return bool
      * @throws NullException
      */
@@ -65,7 +62,7 @@ class S3Helper
     }
 
     /**
-     * @param $accessKey
+     * @param string  $accessKey
      *
      * @throws NullException
      */
@@ -136,8 +133,8 @@ class S3Helper
     }
 
     /**
-     * @param $filename
-     * @param $id
+     * @param string $filename
+     * @param int $id
      * @return mixed|string
      */
     public function assignFileName($filename, $id)

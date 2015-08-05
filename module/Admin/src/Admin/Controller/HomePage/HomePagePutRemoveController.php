@@ -99,7 +99,6 @@ class HomePagePutRemoveController extends SetupAbstractController
         }
     }
 
-
     /**
      * Delete element from home page: recover blockID, remove record from homepage, update related module home flag
      *
