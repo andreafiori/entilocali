@@ -1,0 +1,15 @@
+<ul class="breadcrumbs">
+    <li><a href="<?php echo $this->url('main', array()) ?>" title="Vai alla home page">Home</a></li>
+    <li><a href="<?php echo $this->url('autocertificazioni', array()) ?>" title="Torna all'elenco autocertificazioni">Autocertificazioni</a></li>
+    <li class="current"><a href="#" title="Servizi sociali">Servizi sociali</a></li>
+</ul>
+
+<?php echo $this->partial($this->templateDir.'autocertificazioni/_autocertificazioniMenu.phtml', array('current' => 'servizi-sociali')); ?>
+
+<h4>Gruppo Servizi Sociali</h4>
+
+<p>Selezionare un modello da compilare:</p>
+
+<ul>
+    <li><a href="#" title="RICHIESTA ASSEGNO ECONOMICO">RICHIESTA ASSEGNO ECONOMICO</a></li>
+</ul>

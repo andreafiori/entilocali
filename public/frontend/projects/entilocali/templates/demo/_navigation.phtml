@@ -52,6 +52,11 @@
                 <?php if (!$this->cssName or $this->cssName == 'default'): ?>
                     <li class="divider"></li>
                 <?php endif; ?>
+                <li>
+                    <a href="<?php echo $this->url('amministrazione-trasparente', array('profondita' => 200)) ?>" title="Articoli amministrazione trasparente">
+                        Amministrazione trasparente
+                    </a>
+                </li>
                 <li><a href="<?php echo $this->url('contratti-pubblici') ?>" title="Elenco bandi di gara e contratti">Bandi e contratti</a></li>
                 <?php if (!$this->cssName or $this->cssName == 'default'): ?>
                     <li class="divider"></li>
@@ -60,11 +65,8 @@
                 <?php if (!$this->cssName or $this->cssName == 'default'): ?>
                     <li class="divider"></li>
                 <?php endif; ?>
-                <li>
-                    <a href="<?php echo $this->url('amministrazione-trasparente', array('profondita' => 200)) ?>" title="Articoli amministrazione trasparente">
-                        Amministrazione trasparente
-                    </a>
-                </li>
+
+                <li><a href="<?php echo $this->url('autocertificazioni', array()) ?>" title="Elenco autocertificazioni">Autocertificazioni</a></li>
             </ul>
 
             <ul class="right">
@@ -123,6 +125,7 @@
                     </ul>
                 </li>
 
+                <!--
                 <li class="has-dropdown">
                     <a href="#" title="<?php echo $this->translate('Altri moduli') ?>"><?php echo $this->translate('Altri moduli') ?></a>
                     <ul class="dropdown">
@@ -145,7 +148,7 @@
                         </li>
                     </ul>
                 </li>
-
+                -->
             </ul>
 
         </section>

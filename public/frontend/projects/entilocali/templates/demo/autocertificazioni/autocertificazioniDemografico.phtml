@@ -1,0 +1,42 @@
+<ul class="breadcrumbs">
+    <li><a href="<?php echo $this->url('main', array()) ?>" title="Vai alla home page">Home</a></li>
+    <li>
+        <a href="<?php echo $this->url('autocertificazioni', array('current' => 'demografico')) ?>" title="Torna all'elenco autocertificazioni">
+            Autocertificazioni
+        </a>
+    </li>
+    <li class="current">Demografico</li>
+</ul>
+
+<?php echo $this->partial($this->templateDir.'autocertificazioni/_autocertificazioniMenu.phtml', array('current' => 'demografico')); ?>
+
+<h4>Gruppo Demografici</h4>
+
+<p>Selezionare un modello da compilare:</p>
+
+<ul>
+    <li><a href="#<?php // echo $this->url('autocertificazioni/demografico-form', array('action' => 'dichiarazioneresidenza1')) ?>" title="DICHIARAZIONE DI RESIDENZA ALLEGATO 1">DICHIARAZIONE DI RESIDENZA ALLEGATO 1</a></li>
+    <li><a href="#<?php // echo $this->url('autocertificazioni/demografico-form', array('action' => 'dichiarazioneresidenza2')) ?>" title="DICHIARAZIONE DI RESIDENZA ALLEGATO 2">DICHIARAZIONE DI RESIDENZA ALLEGATO 2</a></li>
+    <li><a href="<?php echo $this->url('autocertificazioni/demografico-form', array('action' => 'dichiarazioneattonotorieta1')) ?>" title="DICHIARAZIONE SOSTITUTIVA DELL'ATTO DI NOTORIET&Agrave; (Art. 5 e 47 D.P.R. 445 del 28/12/2000)">DICHIARAZIONE SOSTITUTIVA DELL'ATTO DI NOTORIET&Agrave; <br>
+        (Art. 5 e 47 D.P.R. 445 del 28/12/2000)</a></li>
+    <li><a href="<?php echo $this->url('autocertificazioni/demografico-form', array('action' => 'dichiarazioneattonotorieta2')) ?>" title="DICHIARAZIONE SOSTITUTIVA DELL'ATTO DI NOTORIET&Agrave; (Art. 46 D.P.R. 445 del 28 dicembre 2000)">DICHIARAZIONE SOSTITUTIVA DELL'ATTO DI NOTORIET&Agrave; <br>
+        (Art. 46 D.P.R. 445 del 28 dicembre 2000)</a></li>
+    <li><a href="#" title="DOMANDA DI ASSENSO ALL'ESPATRIO DI MINORE">DOMANDA DI ASSENSO ALL'ESPATRIO DI MINORE</a></li>
+    <li><a href="#" title="AUTOCERTIFICAZIONE STATO DI FAMIGLIA E RESIDENZA ALL'ATTO DEL DECESSO">AUTOCERTIFICAZIONE STATO DI FAMIGLIA E RESIDENZA ALL'ATTO DEL DECESSO<br>
+    <li><a href="#" title="ADICHIARAZIONE SOSTITUTIVA DI CERTIFICAZIONE (Art. 46, D.P.R. 28 DICEMBRE 2000, n. 445)">ADICHIARAZIONE SOSTITUTIVA DI CERTIFICAZIONE<br>
+        (Art. 46, D.P.R. 28 DICEMBRE 2000, n. 445)</a></li>
+    <li><a href="#" title="DICHIARAZIONE DI TRASFERIMENTO DI RESIDENZA ALL'ESTERO">DICHIARAZIONE DI TRASFERIMENTO DI RESIDENZA ALL'ESTERO</a></li>
+    <li><a href="#" title="DICHIARAZIONE SOSTITUTIVA DI CERTIFICAZIONI (Art. 5 e 46 D.P.R. 445 del 28/12/2000)">DICHIARAZIONE SOSTITUTIVA DI CERTIFICAZIONI<br>
+        (Art. 5 e 46 D.P.R. 445 del 28/12/2000)</a></li>
+    <li><a href="#" title="RICHIESTA PER L'OTTENIMENTO DELL'ATTESTAZIONE DEL DIRITTO DI SOGGIORNO PERMANENTE DOPO 5 ANNI DI SOGGIORNO">RICHIESTA PER L'OTTENIMENTO DELL'ATTESTAZIONE DEL DIRITTO DI SOGGIORNO PERMANENTE
+        DOPO 5 ANNI DI SOGGIORNO (art. 14-16-18 del Decreto Legislativo n. 30 del 6 febbraio 2007)</a></li>
+    <li><a href="#" title="TESSERA REGIONALE CACCIA">TESSERA REGIONALE CACCIA</a></li>
+    <li><a href="#" title="DOMANDA DI INSERIMENTO NELL'ALBO DEI PRESIDENTI DEI SEGGI ELETTORALI">DOMANDA DI INSERIMENTO NELL'ALBO DEI PRESIDENTI DEI SEGGI ELETTORALI</a></li>
+    <li><a href="#" title="RICHIESTA DI INCLUSIONE ALL'ALBO DELLE PERSONE IDONEE ALL'UFFICIO DI SCRUTATORE - (Legge 30-4-99, n.120)">RICHIESTA DI INCLUSIONE ALL'ALBO DELLE PERSONE IDONEE ALL'UFFICIO DI SCRUTATORE - (Legge 30-4-99, n.120)</a></li>
+    <li><a href="#" title="DICHIARAZIONE DI CITTADINANZA">DICHIARAZIONE DI CITTADINANZA</a></li>
+    <li><a href="#" title="DICHIARAZIONE DI ESISTENZA IN VITA">DICHIARAZIONE DI ESISTENZA IN VITA</a></li>
+    <li><a href="#" title="DICHIARAZIONE DI NASCITA DEL FIGLIO">DICHIARAZIONE DI NASCITA DEL FIGLIO</a></li>
+    <li><a href="#" title="DICHIARAZIONE DI STATO CIVILE">DICHIARAZIONE DI STATO CIVILE</a></li>
+    <li><a href="#" title="DICHIARAZIONE DI STATO DI FAMIGLIA">DICHIARAZIONE DI STATO DI FAMIGLIA</a></li>
+    <li><a href="#" title="DICHIARAZIONE SOSTITUTIVA DI CERTIFICAZIONI">DICHIARAZIONE SOSTITUTIVA DI CERTIFICAZIONI</a></li>
+</ul>

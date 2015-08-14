@@ -1,0 +1,133 @@
+<ul class="breadcrumbs">
+    <li><a href="<?php echo $this->url('main', array()) ?>" title="Vai alla home page">Home</a></li>
+    <li>
+        <a href="<?php echo $this->url('autocertificazioni', array('current' => 'demografico')) ?>" title="Torna all'elenco autocertificazioni">
+            Autocertificazioni
+        </a>
+    </li>
+    <li><a href="<?php echo $this->url('autocertificazioni/demografico', array()); ?>" title="Vai al gruppo autocertificazioni demografico">Demografico</a></li>
+    <li class="current">Dichiarazione di residenza</li>
+</ul>
+
+<h3>DICHIARAZIONE DI RESIDENZA</h3>
+
+<div>
+    <fieldset>
+        <legend>Compila i dati del form</legend>
+        <?php
+
+        $form = $this->form;
+        $form->prepare();
+
+        $form->setAttribute('action',   $this->url('albo-pretorio-search', array('action' => 'index')));
+        $form->setAttribute('method',   'post');
+        $form->setAttribute('role',     'form');
+        $form->setAttribute('id',       'albo-pretorio-search-form');
+
+        //$form->get('search')->setAttribute('class', 'button button-tiny tiny');
+
+        echo $this->form()->openTag($form);
+
+        ?>
+        <div class="row">
+
+            <div class="large-12 columns">
+                <?php echo $this->formElement($form->get('scelta')); ?>
+            </div>
+        </div>
+
+        <p>Il \ la sottoscritto\a</p>
+
+        <div class="row">
+            <div class="large-4 columns">
+                <label for="<?php echo $form->get('nome')->getAttribute('id'); ?>">
+                    <?php echo $form->get('nome')->getLabel() ?>:
+                </label>
+            </div>
+            <div class="large-8 columns">
+                <?php echo $this->formElement($form->get('nome')); ?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-4 columns">
+                <label for="<?php echo $form->get('cognome')->getAttribute('id'); ?>">
+                    <?php echo $form->get('cognome')->getLabel() ?>:
+                </label>
+            </div>
+            <div class="large-8 columns">
+                <?php echo $this->formElement($form->get('cognome')); ?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-4 columns">
+                <label for="<?php echo $form->get('datanascita')->getAttribute('id'); ?>">
+                    <?php echo $form->get('datanascita')->getLabel() ?>:
+                </label>
+            </div>
+            <div class="large-8 columns">
+                <?php echo $this->formElement($form->get('datanascita')); ?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-4 columns">
+                <label for="<?php echo $form->get('luogonascita')->getAttribute('id'); ?>">
+                    <?php echo $form->get('luogonascita')->getLabel() ?>:
+                </label>
+            </div>
+            <div class="large-8 columns">
+                <?php echo $this->formElement($form->get('luogonascita')); ?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-4 columns">
+                <label for="<?php echo $form->get('sesso')->getAttribute('id'); ?>">
+                    <?php echo $form->get('sesso')->getLabel() ?>:
+                </label>
+            </div>
+            <div class="large-8 columns">
+                <?php echo $this->formElement($form->get('sesso')); ?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-4 columns">
+                <label for="<?php echo $form->get('statocivile')->getAttribute('id'); ?>">
+                    <?php echo $form->get('statocivile')->getLabel() ?>:
+                </label>
+            </div>
+            <div class="large-8 columns">
+                <?php echo $this->formElement($form->get('statocivile')); ?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-4 columns">
+                <label for="<?php echo $form->get('cf')->getAttribute('id'); ?>">
+                    <?php echo $form->get('cittadinanza')->getLabel() ?>:
+                </label>
+            </div>
+            <div class="large-8 columns">
+                <?php echo $this->formElement($form->get('cittadinanza')); ?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-4 columns">
+                <label for="<?php echo $form->get('cf')->getAttribute('id'); ?>">
+                    <?php echo $form->get('cf')->getLabel() ?>:
+                </label>
+            </div>
+            <div class="large-8 columns">
+                <?php echo $this->formElement($form->get('cf')); ?>
+            </div>
+        </div>
+
+        <?php echo $this->formElement($form->get('csrf')); ?>
+        <?php // echo $this->formElement($form->get('search')); ?>
+
+        <?php echo $this->form()->closeTag($form); ?>
+</div>

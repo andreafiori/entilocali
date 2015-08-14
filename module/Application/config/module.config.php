@@ -8,7 +8,7 @@ return array(
             'Application\Controller\Index'                                                  => 'Application\Controller\IndexController',
             'Application\Controller\AttachmentsSThreeDownloader'                            => 'Application\Controller\AttachmentsSThreeDownloaderController',
             'Application\Controller\PasswordPreview'                                        => 'Application\Controller\PasswordPreviewController',
-            /* 'Application\Controller\Faq\Faq'                                                => 'Application\Controller\Faq\FaqController', */
+            /* 'Application\Controller\Faq\Faq'                                             => 'Application\Controller\Faq\FaqController', */
             'Application\Controller\AlboPretorio\AlboPretorio'                              => 'Application\Controller\AlboPretorio\AlboPretorioController',
             'Application\Controller\AlboPretorio\AlboPretorioSearch'                        => 'Application\Controller\AlboPretorio\AlboPretorioSearchController',
             'Application\Controller\AlboPretorio\AlboPretorioExportSingle'                  => 'Application\Controller\AlboPretorio\AlboPretorioExportSingleController',
@@ -39,6 +39,11 @@ return array(
             'Application\Controller\Photo\PhotoSearch'                                      => 'Application\Controller\Photo\PhotoSearchController',
             'Application\Controller\CookieWarning'                                          => 'Application\Controller\CookieWarningController',
             'Application\Controller\SearchEngine\SearchEngine'                              => 'Application\Controller\SearchEngine\SearchEngineController',
+            'Application\Controller\Autocertificazioni\Autocertificazioni'                  => 'Application\Controller\Autocertificazioni\AutocertificazioniController',
+            'Application\Controller\Autocertificazioni\AutocertificazioniDemografico'       => 'Application\Controller\Autocertificazioni\AutocertificazioniDemograficoController',
+            'Application\Controller\Autocertificazioni\AutocertificazioniPoliziaMunicipale' => 'Application\Controller\Autocertificazioni\AutocertificazioniPoliziaMunicipaleController',
+            'Application\Controller\Autocertificazioni\AutocertificazioniServiziSociali'    => 'Application\Controller\Autocertificazioni\AutocertificazioniServiziSocialiController',
+            'Application\Controller\Autocertificazioni\AutocertificazioniUfficioTecnico'    => 'Application\Controller\Autocertificazioni\AutocertificazioniUfficioTecnicoController',
         ),
     ),
     'router' => array(
@@ -814,21 +819,131 @@ return array(
                                         'type'    => 'Zend\Mvc\Router\Http\Segment',
                                         'options' => array(
                                             'route'    => '/cookie/warning/deny[/]',
-                                            'constraints' => array(
-
-                                            ),
                                             'defaults' => array(
                                                 'controller' => 'Application\Controller\CookieWarning',
                                                 'action'    => 'deny',
                                             ),
                                         ),
                                         'may_terminate' => true,
+                                    ),
+                                    'autocertificazioni' => array(
+                                        'type'    => 'Zend\Mvc\Router\Http\Segment',
+                                        'options' => array(
+                                            'route' => '/moduli/autocertificazioni[/]',
+                                            'defaults' => array(
+                                                'controller' => 'Application\Controller\Autocertificazioni\Autocertificazioni',
+                                                'action' => 'index'
+                                            ),
+                                        ),
+                                        'may_terminate' => true,
                                         'child_routes' => array(
-                                            'default' => array(
-                                                'type'    => 'Wildcard',
+                                            'demografico' => array(
+                                                'type' => 'Zend\Mvc\Router\Http\Segment',
                                                 'options' => array(
-
+                                                    'route'    => 'demografici/elenco[/]',
+                                                    'constraints' => array(
+                                                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                    ),
+                                                    'defaults' => array(
+                                                        'controller' => 'Application\Controller\Autocertificazioni\Autocertificazioni',
+                                                        'action'     => 'demografico',
+                                                    ),
                                                 ),
+                                                'may_terminate' => true,
+                                            ),
+                                            'demografico-form' => array(
+                                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                                'options' => array(
+                                                    'route' => 'demografici/forms/:action[/]',
+                                                    'constraints' => array(
+                                                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                    ),
+                                                    'defaults' => array(
+                                                        'controller' => 'Application\Controller\Autocertificazioni\AutocertificazioniDemografico',
+                                                    ),
+                                                ),
+                                                'may_terminate' => true,
+                                            ),
+                                            'poliziamunicipale' => array(
+                                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                                'options' => array(
+                                                    'route'    => 'polizia/municipale/elenco[/]',
+                                                    'constraints' => array(
+                                                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                    ),
+                                                    'defaults' => array(
+                                                        'controller' => 'Application\Controller\Autocertificazioni\Autocertificazioni',
+                                                        'action'     => 'poliziamunicipale',
+                                                    ),
+                                                ),
+                                                'may_terminate' => true,
+                                            ),
+                                            'poliziamunicipale-form' => array(
+                                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                                'options' => array(
+                                                    'route' => 'polizia/municipale/forms/:action[/]',
+                                                    'constraints' => array(
+                                                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                    ),
+                                                    'defaults' => array(
+                                                        'controller' => 'Application\Controller\Autocertificazioni\AutocertificazioniPoliziaMunicipale',
+                                                    ),
+                                                ),
+                                                'may_terminate' => true,
+                                            ),
+                                            'servizisociali' => array(
+                                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                                'options' => array(
+                                                    'route' => 'servizi/sociali/elenco[/]',
+                                                    'constraints' => array(
+                                                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                    ),
+                                                    'defaults' => array(
+                                                        'controller' => 'Application\Controller\Autocertificazioni\Autocertificazioni',
+                                                        'action'     => 'servizisociali',
+                                                    ),
+                                                ),
+                                                'may_terminate' => true,
+                                            ),
+                                            'servizisociali-form' => array(
+                                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                                'options' => array(
+                                                    'route' => 'servizi/sociali/forms/:action[/]',
+                                                    'constraints' => array(
+                                                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                    ),
+                                                    'defaults' => array(
+                                                        'controller' => 'Application\Controller\Autocertificazioni\AutocertificazioniServiziSocialiController',
+                                                    ),
+                                                ),
+                                                'may_terminate' => true,
+                                            ),
+                                            'ufficiotecnico' => array(
+                                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                                'options' => array(
+                                                    'route' => 'ufficio/tecnico/elenco[/]',
+                                                    'constraints' => array(
+                                                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                    ),
+                                                    'defaults' => array(
+                                                        'controller' => 'Application\Controller\Autocertificazioni\Autocertificazioni',
+                                                        'action'     => 'ufficiotecnico',
+                                                    ),
+                                                ),
+                                                'may_terminate' => true,
+                                            ),
+                                            'ufficiotecnico-form' => array(
+                                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                                'options' => array(
+                                                    'route' => 'ufficio/tecnico/forms/:action[/]',
+                                                    'constraints' => array(
+                                                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                    ),
+                                                    'defaults' => array(
+                                                        'controller' => 'Application\Controller\Autocertificazioni\AutocertificazioniUfficioTecnico',
+                                                    ),
+                                                ),
+                                                'may_terminate' => true,
                                             ),
                                         ),
                                     ),
@@ -862,49 +977,54 @@ return array(
                     'not_found_template'       => 'error/404',
                     'exception_template'       => 'error/index',
                     'template_map' => array(
-                        'application/home-page/index'                   => __DIR__ . '/../view/empty.phtml',
-                        'application/index/index'                       => __DIR__ . '/../view/application/index/index.phtml',
-                        'application/pagination'                        => __DIR__ . '/../view/application/pagination/numbers.phtml',
-                        'application/index/notfound'                    => __DIR__ . '/../view/empty.phtml',
-                        'application/contacts/index'                    => __DIR__ . '/../view/empty.phtml',
-                        'application/contacts/send'                     => __DIR__ . '/../view/empty.phtml',
-                        'layout/layout'                                 => __DIR__ . '/../view/layout/layout.phtml',
-                        'application/feed/index'                        => __DIR__ . '/../view/application/index/index.phtml',
-                        'application/amministrazione-trasparente/index' => __DIR__ . '/../view/empty.phtml',
-                        'application/amministrazione-trasparente-search/index' => __DIR__ . '/../view/empty.phtml',
-                        'application/contratti-pubblici/index'          => __DIR__ . '/../view/empty.phtml',
-                        'application/contratti-pubblici/details'        => __DIR__ . '/../view/empty.phtml',
-                        'application/contratti-pubblici-search/index'  => __DIR__ . '/../view/empty.phtml',
-                        'application/albo-pretorio/index'               => __DIR__ . '/../view/empty.phtml',
-                        'application/albo-pretorio-search/index'        => __DIR__ . '/../view/empty.phtml',
-                        'application/albo-pretorio/details'             => __DIR__ . '/../view/empty.phtml',
-                        'application/stato-civile/index'                => __DIR__ . '/../view/empty.phtml',
-                        'application/stato-civile-search/index'         => __DIR__ . '/../view/empty.phtml',
-                        'application/stato-civile/details'              => __DIR__ . '/../view/empty.phtml',
-                        'application/stato-civile-export-single/csv'    => __DIR__ . '/../view/empty.phtml',
-                        'application/stato-civile-export-single/txt'    => __DIR__ . '/../view/empty.phtml',
-                        'application/stato-civile-export-single/pdf'    => __DIR__ . '/../view/empty.phtml',
-                        'application/stato-civile-export-single/json'   => __DIR__ . '/../view/empty.phtml',
-                        'application/atti-concessione/index'            => __DIR__ . '/../view/empty.phtml',
-                        'application/atti-concessione-search/index'     => __DIR__ . '/../view/empty.phtml',
-                        'application/atti-concessione/details'          => __DIR__ . '/../view/empty.phtml',
-                        'application/atti-concessione-export-single/index'  => __DIR__ . '/../view/empty.phtml',
-                        'application/contenuti/index'                   => __DIR__ . '/../view/empty.phtml',
-                        'application/contenuti-export/csv'              => __DIR__ . '/../view/empty.phtml',
-                        'application/contenuti-export/pdf'              => __DIR__ . '/../view/empty.phtml',
-                        'application/contenuti-export/txt'              => __DIR__ . '/../view/empty.phtml',
-                        'application/blogs/index'                       => __DIR__ . '/../view/empty.phtml',
-                        'application/photo/index'                       => __DIR__ . '/../view/empty.phtml',
-                        'application/blogs/details'                     => __DIR__ . '/../view/empty.phtml',
-                        'application/css-style-switch/index'            => __DIR__ . '/../view/empty.phtml',
-                        'application/users-create-account/index'        => __DIR__ . '/../view/empty.phtml',
-                        'application/users-recover-password/index'      => __DIR__ . '/../view/empty.phtml',
-                        'application/cookie-warning/confirm'            => __DIR__ . '/../view/empty.phtml',
-                        'application/password-preview/index'            => __DIR__ . '/../view/empty.phtml',
-                        'application/search-engine/index'               => __DIR__ . '/../view/empty.phtml',
-                        'error/404'                                     => __DIR__ . '/../view/error/notfound.phtml',
-                        'error/index'                                   => __DIR__ . '/../view/error/index.phtml',
-                        'error/dbconnection'                            => __DIR__ . '/../view/error/dbconnection.phtml',
+                        'application/home-page/index'                           => __DIR__ . '/../view/empty.phtml',
+                        'application/index/index'                               => __DIR__ . '/../view/application/index/index.phtml',
+                        'application/pagination'                                => __DIR__ . '/../view/application/pagination/numbers.phtml',
+                        'application/index/notfound'                            => __DIR__ . '/../view/empty.phtml',
+                        'application/contacts/index'                            => __DIR__ . '/../view/empty.phtml',
+                        'application/contacts/send'                             => __DIR__ . '/../view/empty.phtml',
+                        'layout/layout'                                         => __DIR__ . '/../view/layout/layout.phtml',
+                        'application/feed/index'                                => __DIR__ . '/../view/application/index/index.phtml',
+                        'application/amministrazione-trasparente/index'         => __DIR__ . '/../view/empty.phtml',
+                        'application/amministrazione-trasparente-search/index'  => __DIR__ . '/../view/empty.phtml',
+                        'application/contratti-pubblici/index'                  => __DIR__ . '/../view/empty.phtml',
+                        'application/contratti-pubblici/details'                => __DIR__ . '/../view/empty.phtml',
+                        'application/contratti-pubblici-search/index'           => __DIR__ . '/../view/empty.phtml',
+                        'application/albo-pretorio/index'                       => __DIR__ . '/../view/empty.phtml',
+                        'application/albo-pretorio-search/index'                => __DIR__ . '/../view/empty.phtml',
+                        'application/albo-pretorio/details'                     => __DIR__ . '/../view/empty.phtml',
+                        'application/stato-civile/index'                        => __DIR__ . '/../view/empty.phtml',
+                        'application/stato-civile-search/index'                 => __DIR__ . '/../view/empty.phtml',
+                        'application/stato-civile/details'                      => __DIR__ . '/../view/empty.phtml',
+                        'application/stato-civile-export-single/csv'            => __DIR__ . '/../view/empty.phtml',
+                        'application/stato-civile-export-single/txt'            => __DIR__ . '/../view/empty.phtml',
+                        'application/stato-civile-export-single/pdf'            => __DIR__ . '/../view/empty.phtml',
+                        'application/stato-civile-export-single/json'           => __DIR__ . '/../view/empty.phtml',
+                        'application/atti-concessione/index'                    => __DIR__ . '/../view/empty.phtml',
+                        'application/atti-concessione-search/index'             => __DIR__ . '/../view/empty.phtml',
+                        'application/atti-concessione/details'                  => __DIR__ . '/../view/empty.phtml',
+                        'application/atti-concessione-export-single/index'      => __DIR__ . '/../view/empty.phtml',
+                        'application/contenuti/index'                           => __DIR__ . '/../view/empty.phtml',
+                        'application/contenuti-export/csv'                      => __DIR__ . '/../view/empty.phtml',
+                        'application/contenuti-export/pdf'                      => __DIR__ . '/../view/empty.phtml',
+                        'application/contenuti-export/txt'                      => __DIR__ . '/../view/empty.phtml',
+                        'application/blogs/index'                               => __DIR__ . '/../view/empty.phtml',
+                        'application/photo/index'                               => __DIR__ . '/../view/empty.phtml',
+                        'application/blogs/details'                             => __DIR__ . '/../view/empty.phtml',
+                        'application/css-style-switch/index'                    => __DIR__ . '/../view/empty.phtml',
+                        'application/users-create-account/index'                => __DIR__ . '/../view/empty.phtml',
+                        'application/users-recover-password/index'              => __DIR__ . '/../view/empty.phtml',
+                        'application/cookie-warning/confirm'                    => __DIR__ . '/../view/empty.phtml',
+                        'application/password-preview/index'                    => __DIR__ . '/../view/empty.phtml',
+                        'application/search-engine/index'                       => __DIR__ . '/../view/empty.phtml',
+                        'application/autocertificazioni/index'                  => __DIR__ . '/../view/empty.phtml',
+                        'application/autocertificazioni/demografico'            => __DIR__ . '/../view/empty.phtml',
+                        'application/autocertificazioni/poliziamunicipale'      => __DIR__ . '/../view/empty.phtml',
+                        'application/autocertificazioni/servizisociali'         => __DIR__ . '/../view/empty.phtml',
+                        'application/autocertificazioni/ufficiotecnico'         => __DIR__ . '/../view/empty.phtml',
+                        'error/404'                                             => __DIR__ . '/../view/error/notfound.phtml',
+                        'error/index'                                           => __DIR__ . '/../view/error/index.phtml',
+                        'error/dbconnection'                                    => __DIR__ . '/../view/error/dbconnection.phtml',
                     ),
                     'template_path_stack' => array(
                                     __DIR__ . '/../view',

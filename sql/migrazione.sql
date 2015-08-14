@@ -3,8 +3,7 @@ SET foreign_key_checks = 0;
 
 -- Sezioni
 TRUNCATE table zfcms_comuni_sezioni;
-INSERT INTO zfcms_comuni_sezioni (id, nome, colonna, posizione, link_macro, lingua, blocco, modulo_id
-, attivo, url, css_id
+INSERT INTO zfcms_comuni_sezioni (id, nome, colonna, posizione, link_macro, lingua, blocco, modulo_id, attivo, url, css_id
 -- , image, slug, title, utente_id, seo_title, seo_description, seo_keywords
 ) (SELECT * FROM sezioni);
 
@@ -94,7 +93,6 @@ UPDATE zfcms_comuni_sezioni SET is_amm_trasparente = 1 where id = 14;
     INSERT INTO zfcms_comuni_contratti_resp_proc (SELECT * FROM contpub_resp_proc)
     */
 
-
     -- Scelta contraente
     TRUNCATE table zfcms_comuni_contratti_sc_contr;
     INSERT INTO zfcms_comuni_contratti_sc_contr (SELECT * FROM contpub_sc_contr)
@@ -106,7 +104,6 @@ UPDATE zfcms_comuni_sezioni SET is_amm_trasparente = 1 where id = 14;
     (SELECT * FROM contpub_sezioni)
     */
 
-	
 
 -- Migrazione atti di concessione
 	-- Articoli
@@ -130,28 +127,25 @@ update zfcms_comuni_concessione set importo = REPLACE(importo, '  iva esclusa', 
 	TRUNCATE table zfcms_comuni_concessione_settori;
 	INSERT INTO zfcms_comuni_concessione_settori (SELECT * FROM  ammaperta_sezioni);
 	*/
-	insert into zfcms_users_settori (nome, stato, responsabile_user_id)
-select nome, 1, 117 from zfcms_comuni_concessione_settori
+	insert into zfcms_users_settori (nome, stato, responsabile_user_id) select nome, 1, 117 from zfcms_comuni_concessione_settori
 	
 	-- Responsabili procedura
 
 	-- TODO: allegati, contratti codice fiscale (CF)
 	
 
-
 -- Migrazione Rubrica enti terzi
+
 
 
 -- Migrazione Stato Civile
 	-- Articoli
 
 
-
 -- TODO: Migrazione eventi
 	
 
 -- TODO: Migrazione galleria fotografica
-
 
 
 -- Delete tables OLD CMS

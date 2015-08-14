@@ -1,0 +1,35 @@
+<div class="alert-box secondary">
+    <div><strong>Sezione in costruzione</strong></div>
+</div>
+
+<h2>Modulistica</h2>
+
+<p>Selezionare un gruppo:</p>
+
+<ul class="inline-list">
+    <?php if ($this->current == 'demografico'): ?>
+        <li><strong>Demografico</strong></li>
+    <?php else: ?>
+        <li><a href="<?php echo $this->url('autocertificazioni/demografico', array()); ?>" title="Elenco autocertificazioni demografico">Demografico</a></li>
+    <?php endif; ?>
+
+    <?php if ($this->current == 'polizia-municipale'): ?>
+        <li><strong>Polizia Municipale</strong></li>
+    <?php else: ?>
+        <li><a href="<?php echo $this->url('autocertificazioni/poliziamunicipale', array()); ?>" title="Elenco autocertificazioni polizia municipale">Polizia Municipale</a></li>
+    <?php endif; ?>
+
+    <?php if ($this->current == 'servizi-sociali'): ?>
+        <li><strong>Servizi sociali</strong></li>
+    <?php else: ?>
+        <li><a href="<?php echo $this->url('autocertificazioni/servizisociali', array()); ?>" title="Elenco autocertificazioni servizi sociali">Servizi Sociali</a></li>
+    <?php endif; ?>
+
+    <?php if ($this->current == 'ufficio-tecnico'): ?>
+        <li><strong>Ufficio Tecnico</strong></li>
+    <?php else: ?>
+        <li><a href="<?php echo $this->url('autocertificazioni/ufficiotecnico', array()); ?>" title="Elenco autocertificazioni ufficio tecnico">Ufficio Tecnico</a></li>
+    <?php endif; ?>
+</ul>
+
+<hr class="hidden">
