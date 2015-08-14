@@ -19,10 +19,10 @@
         $form = $this->form;
         $form->prepare();
 
-        $form->setAttribute('action',   $this->url('albo-pretorio-search', array('action' => 'index')));
+        $form->setAttribute('action',   $this->url('autocertificazioni/demografico-form-result', array('action' => 'dichiarazioneresidenza1')) );
         $form->setAttribute('method',   'post');
         $form->setAttribute('role',     'form');
-        $form->setAttribute('id',       'albo-pretorio-search-form');
+        $form->setAttribute('id',       'dichiarazione-form');
 
         //$form->get('search')->setAttribute('class', 'button button-tiny tiny');
 

@@ -4,6 +4,7 @@ namespace Application\Controller\Autocertificazioni;
 
 use Application\Controller\SetupAbstractController;
 use ModelModule\Model\Autocertificazioni\Demografico\DichiarazioneAttoNotorieta1Form;
+use ModelModule\Model\Autocertificazioni\Demografico\DichiarazioneAttoNotorieta2Form;
 use ModelModule\Model\Autocertificazioni\Demografico\DichiarazioneResidenzaForm;
 
 /**
@@ -12,7 +13,7 @@ use ModelModule\Model\Autocertificazioni\Demografico\DichiarazioneResidenzaForm;
 class AutocertificazioniDemograficoController extends SetupAbstractController
 {
     /**
-     * Dichiarazioen residenza 1 form
+     * Dichiarazione residenza 1 form
      */
     public function dichiarazioneresidenza1Action()
     {
@@ -22,15 +23,14 @@ class AutocertificazioniDemograficoController extends SetupAbstractController
 
         $this->layout()->setVariables(array(
             'form'            => $form,
-            'templatePartial' => 'autocertificazioni/forms/demografico/dichiarazione-residenza1-form.phtml',
+            'templatePartial' => 'autocertificazioni/forms/demografico/dichiarazione-residenza1.phtml',
         ));
 
         $this->layout()->setTemplate($mainLayout);
     }
 
-
     /**
-     * Dichiarazioen residenza 2 form
+     * Dichiarazione residenza 2 form
      */
     public function dichiarazioneresidenza2Action()
     {
@@ -40,7 +40,7 @@ class AutocertificazioniDemograficoController extends SetupAbstractController
 
         $this->layout()->setVariables(array(
             'form'            => $form,
-            'templatePartial' => 'autocertificazioni/forms/demografico/dichiarazione-residenza2-form.phtml',
+            'templatePartial' => 'autocertificazioni/forms/demografico/dichiarazione-residenza2.phtml',
         ));
 
         $this->layout()->setTemplate($mainLayout);
@@ -57,7 +57,7 @@ class AutocertificazioniDemograficoController extends SetupAbstractController
 
         $this->layout()->setVariables(array(
             'form'            => $form,
-            'templatePartial' => 'autocertificazioni/forms/demografico/dichiarazione-sostitutiva-notorieta1-form.phtml',
+            'templatePartial' => 'autocertificazioni/forms/demografico/dichiarazione-sostitutiva-notorieta1.phtml',
         ));
 
         $this->layout()->setTemplate($mainLayout);
@@ -74,7 +74,41 @@ class AutocertificazioniDemograficoController extends SetupAbstractController
 
         $this->layout()->setVariables(array(
             'form'            => $form,
-            'templatePartial' => 'autocertificazioni/forms/demografico/dichiarazione-sostitutiva-notorieta2-form.phtml',
+            'templatePartial' => 'autocertificazioni/forms/demografico/dichiarazione-sostitutiva-notorieta2.phtml',
+        ));
+
+        $this->layout()->setTemplate($mainLayout);
+    }
+
+    /**
+     * Dichiarazione espatrio minore
+     */
+    public function dichiarazioneespatriominoreAction()
+    {
+        $mainLayout = $this->initializeFrontendWebsite();
+
+        $form = new DichiarazioneAttoNotorieta2Form();
+
+        $this->layout()->setVariables(array(
+            'form'            => $form,
+            'templatePartial' => 'autocertificazioni/forms/demografico/dichiarazione-espatrio-minore.phtml',
+        ));
+
+        $this->layout()->setTemplate($mainLayout);
+    }
+
+    /**
+     * AUTOCERTIFICAZIONE STATO DI FAMIGLIA E RESIDENZA ALL’ATTO DEL DECESSO
+     */
+    public function statofamigliaAction()
+    {
+        $mainLayout = $this->initializeFrontendWebsite();
+
+        $form = new DichiarazioneAttoNotorieta2Form();
+
+        $this->layout()->setVariables(array(
+            'form'            => $form,
+            'templatePartial' => '',
         ));
 
         $this->layout()->setTemplate($mainLayout);

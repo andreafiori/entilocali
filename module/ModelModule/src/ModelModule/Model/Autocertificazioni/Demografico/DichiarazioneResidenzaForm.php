@@ -2,9 +2,9 @@
 
 namespace ModelModule\Model\Autocertificazioni\Demografico;
 
-use Zend\Form\Form;
+use ModelModule\Model\Autocertificazioni\AutocertificazioniFormAbstract;
 
-class DichiarazioneResidenzaForm extends Form
+class DichiarazioneResidenzaForm extends AutocertificazioniFormAbstract
 {
     /**
      * @inheritdoc
@@ -25,69 +25,6 @@ class DichiarazioneResidenzaForm extends Form
                     '4' => "Dichiarazione di cambiamento di abitazione nell'ambito dello stesso comune",
                     '5' => "Iscrizione per altro motivo. Specificare il motivo",
                 ),
-            ),
-        ));
-
-        $this->add(array(
-            'name' => 'nome',
-            'type' => 'Text',
-            'options' => array('label' => '* Nome'),
-            'attributes' => array(
-                'id'            => 'nome',
-                'title'         => 'Inserisci nome',
-                'placeholder'   => 'Nome...',
-                'maxlength'     => '200',
-            ),
-        ));
-
-        $this->add(array(
-            'name' => 'cognome',
-            'type' => 'Text',
-            'options' => array('label' => '* Cognome'),
-            'attributes' => array(
-                'id'            => 'cognome',
-                'title'         => 'Inserisci cognome',
-                'placeholder'   => 'Cognome...',
-                'maxlength'     => '200',
-            ),
-        ));
-
-        $this->add(array(
-            'name' => 'datanascita',
-            'type' => 'Text',
-            'options' => array('label' => 'Data di nascita'),
-            'attributes' => array(
-                'id'            => 'datanascita',
-                'title'         => 'Inserisci data nascita',
-                'placeholder'   => 'Data...',
-                'maxlength'     => '100',
-            ),
-        ));
-
-        $this->add(array(
-            'name' => 'luogonascita',
-            'type' => 'Text',
-            'options' => array('label' => 'Luogo di nascita'),
-            'attributes' => array(
-                'id'            => 'luogonascita',
-                'title'         => 'Inserisci luogoo di nascita',
-                'placeholder'   => 'Luogo...',
-                'maxlength'     => '220',
-            ),
-        ));
-
-        $this->add(array(
-            'type' => 'Zend\Form\Element\Radio',
-            'name' => 'sesso',
-            'options' => array(
-                'label' => 'Sesso',
-                'value_options' => array(
-                    'M' => 'M',
-                    'F' => "F",
-                ),
-            ),
-            'attributes' => array(
-                'value' => 'M',
             ),
         ));
 

@@ -1,0 +1,222 @@
+<ul class="breadcrumbs">
+    <li><a href="<?php echo $this->url('main', array()) ?>" title="Vai alla home page">Home</a></li>
+    <li>
+        <a href="<?php echo $this->url('autocertificazioni', array('current' => 'demografico')) ?>" title="Torna all'elenco autocertificazioni">
+            Autocertificazioni
+        </a>
+    </li>
+    <li><a href="<?php echo $this->url('autocertificazioni/demografico', array()); ?>" title="Vai all'elenco autocertificazioni gruppo demografico">Demografico</a></li>
+    <li class="current">DICHIARAZIONE SOSTITUTIVA DELL'ATTO DI NOTORIET&Agrave;</li>
+</ul>
+
+<h3>DICHIARAZIONE SOSTITUTIVA DELL'ATTO DI NOTORIET&Agrave; (Art. 46 D.P.R. 445 del 28 dicembre 2000)</h3>
+
+<div>
+    <fieldset>
+        <legend>Compila i dati del form</legend>
+        <?php
+
+        $form = $this->form;
+        $form->prepare();
+
+        $form->setAttribute('action',    $this->url('autocertificazioni/demografico-form-result', array('action' => 'dichiarazioneattonotorieta2')) );
+        $form->setAttribute('method',   'post');
+        $form->setAttribute('role',     'form');
+        $form->setAttribute('id',       'dichiarazione-form');
+
+        $form->get('submit')->setAttribute('class', 'button button-tiny tiny');
+
+        echo $this->form()->openTag($form);
+
+        ?>
+        <p>Il \ la sottoscritto\a</p>
+
+        <div class="row">
+            <div class="large-4 columns">
+                <label for="<?php echo $form->get('cognome')->getAttribute('id'); ?>">
+                    <?php echo $form->get('cognome')->getLabel() ?>:
+                </label>
+            </div>
+            <div class="large-8 columns">
+                <?php echo $this->formElement($form->get('cognome')); ?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-4 columns">
+                <label for="<?php echo $form->get('nome')->getAttribute('id'); ?>">
+                    <?php echo $form->get('nome')->getLabel() ?>:
+                </label>
+            </div>
+            <div class="large-8 columns">
+                <?php echo $this->formElement($form->get('nome')); ?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-4 columns">
+                <label for="<?php echo $form->get('sesso')->getAttribute('id'); ?>">
+                    <?php echo $form->get('sesso')->getLabel() ?>:
+                </label>
+            </div>
+            <div class="large-8 columns">
+                <?php echo $this->formElement($form->get('sesso')); ?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-4 columns">
+                <label for="<?php echo $form->get('stato_nascita')->getAttribute('id'); ?>">
+                    <?php echo $form->get('stato_nascita')->getLabel() ?>:
+                </label>
+            </div>
+            <div class="large-8 columns">
+                <?php echo $this->formElement($form->get('stato_nascita')); ?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-4 columns">
+                <label for="<?php echo $form->get('provincia_nascita')->getAttribute('id'); ?>">
+                    <?php echo $form->get('provincia_nascita')->getLabel() ?>:
+                </label>
+            </div>
+            <div class="large-8 columns">
+                <?php echo $this->formElement($form->get('provincia_nascita')); ?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-4 columns">
+                <label for="<?php echo $form->get('luogo_nascita')->getAttribute('id'); ?>">
+                    <?php echo $form->get('luogo_nascita')->getLabel() ?>:
+                </label>
+            </div>
+            <div class="large-8 columns">
+                <?php echo $this->formElement($form->get('luogo_nascita')); ?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-4 columns">
+                <label for="<?php echo $form->get('data_nascita')->getAttribute('id'); ?>">
+                    <?php echo $form->get('data_nascita')->getLabel() ?>:
+                </label>
+            </div>
+            <div class="large-8 columns">
+                <?php echo $this->formElement($form->get('data_nascita')); ?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-4 columns">
+                <label for="<?php echo $form->get('luogo_residenza')->getAttribute('id'); ?>">
+                    <?php echo $form->get('luogo_residenza')->getLabel() ?>:
+                </label>
+            </div>
+            <div class="large-8 columns">
+                <?php echo $this->formElement($form->get('luogo_residenza')); ?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-4 columns">
+                <label for="<?php echo $form->get('provincia_residenza')->getAttribute('id'); ?>">
+                    <?php echo $form->get('provincia_residenza')->getLabel() ?>:
+                </label>
+            </div>
+            <div class="large-8 columns">
+                <?php echo $this->formElement($form->get('provincia_residenza')); ?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-4 columns">
+                <label for="<?php echo $form->get('indirizzo_residenza')->getAttribute('id'); ?>">
+                    <?php echo $form->get('indirizzo_residenza')->getLabel() ?>:
+                </label>
+            </div>
+            <div class="large-8 columns">
+                <?php echo $this->formElement($form->get('indirizzo_residenza')); ?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-4 columns">
+                <label for="<?php echo $form->get('numero_residenza')->getAttribute('id'); ?>">
+                    <?php echo $form->get('numero_residenza')->getLabel() ?>:
+                </label>
+            </div>
+            <div class="large-8 columns">
+                <?php echo $this->formElement($form->get('numero_residenza')); ?>
+            </div>
+        </div>
+        
+        <p>consapevole delle sanzioni penali, nel caso di dichiarazioni non veritiere, di formazione o uso di atti falsi, richiamate dall'art. 76 del D.P.R. 445 del 28 dicembre 2000</p>
+
+        <div class="row">
+            <div class="large-4 columns">
+                <label for="<?php echo $form->get('dichiara')->getAttribute('id'); ?>">
+                    <?php echo $form->get('dichiara')->getLabel() ?>:
+                </label>
+            </div>
+            <div class="large-8 columns">
+                <?php echo $this->formElement($form->get('dichiara')); ?>
+            </div>
+        </div>
+
+        <p>
+            Dichiaro di essere informato, ai sensi e per gli effetti di cui all'art.10 della legge 675/96 che i dati personali raccolti saranno trattati, anche con strumenti informatici, esclusivamente nell'ambito del procedimento per il quale la presente dichiarazione viene resa
+        </p>
+
+        <div class="row">
+            <div class="large-2 columns">
+                <label for="<?php echo $form->get('luogodichiarazione')->getAttribute('id'); ?>">
+                    <?php echo $form->get('luogodichiarazione')->getLabel() ?>:
+                </label>
+            </div>
+            <div class="large-4 columns">
+                <?php echo $this->formElement($form->get('luogodichiarazione')); ?>
+            </div>
+
+            <div class="large-2 columns">
+                <label for="<?php echo $form->get('datadichiarazione')->getAttribute('id'); ?>">
+                    <?php echo $form->get('datadichiarazione')->getLabel() ?>:
+                </label>
+            </div>
+            <div class="large-4 columns">
+                <?php echo $this->formElement($form->get('datadichiarazione')); ?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-4 columns">
+                <label for="<?php echo $form->get('firma')->getAttribute('id'); ?>">
+                    <?php echo $form->get('firma')->getLabel() ?>:
+                </label>
+            </div>
+            <div class="large-8 columns">
+                <?php echo $this->formElement($form->get('firma')); ?>
+            </div>
+        </div>
+
+        <div>
+            Ai sensi dell'art. 38, D.P.R. 445 del 28 dicembre 2000, la dichiarazione pu&ograve; essere:
+            <ul>
+                <li>sottoscritta in presenza del dipendente addetto;</li>
+                <li>sottoscritta e inviata (all'ufficio competente) per posta, via fax o tramite incaricato allegando la fotocopia non autenticata di un documento di identit&agrave;.</li>
+            </ul>
+        </div>
+
+        <div class="row">
+            <div class="large-4 columns">
+                &nbsp;
+            </div>
+            <div class="large-8 columns">
+                <?php echo $this->formElement($form->get('csrf')); ?>
+                <?php echo $this->formElement($form->get('submit')); ?>
+            </div>
+        </div>
+
+        <?php echo $this->form()->closeTag($form); ?>
+</div>

@@ -182,13 +182,15 @@ abstract class SetupAbstractController extends AbstractActionController
         }
         $serviceLocator->get('ViewHelperManager')->get('translate')->setTranslator($translator);
 
+        $templateDir = 'frontend/projects/'.$configurations['project_frontend'].'templates/'.$configurations['template_frontend'];
+
         $this->layout()->setVariables($configurations);
         $this->layout()->setVariables( array(
             'basePath'                      => sprintf('%s://%s%s', $uri->getScheme(), $uri->getHost(), $request->getBaseUrl().'/'),
             'publicDirRelativePath'         => $helper->getAppDirRelativePath().'/public',
             'configurations'                => $configurations,
             'sezioni'                       => $helper->getSezioniRecords(),
-            'templateDir'                   => 'frontend/projects/'.$configurations['project_frontend'].'templates/'.$configurations['template_frontend'],
+            'templateDir'                   => $templateDir,
             'preloadResponse'               => isset($input['preloadResponse']) ? $input['preloadResponse'] : null,
             'currentUrl'                    => "http://".$serverVars["SERVER_NAME"].$serverVars["REQUEST_URI"],
             'currentDateTime'               => date("Y-m-d H:i:s"),
@@ -203,7 +205,7 @@ abstract class SetupAbstractController extends AbstractActionController
             'defaultLanguageAbbreviation'   => 'it',
         ));
 
-        return 'frontend/projects/'.$configurations['project_frontend'].'templates/'.$configurations['template_frontend'] .'layout.phtml';
+        return $templateDir.'layout.phtml';
     }
 
     /**

@@ -44,6 +44,7 @@ return array(
             'Application\Controller\Autocertificazioni\AutocertificazioniPoliziaMunicipale' => 'Application\Controller\Autocertificazioni\AutocertificazioniPoliziaMunicipaleController',
             'Application\Controller\Autocertificazioni\AutocertificazioniServiziSociali'    => 'Application\Controller\Autocertificazioni\AutocertificazioniServiziSocialiController',
             'Application\Controller\Autocertificazioni\AutocertificazioniUfficioTecnico'    => 'Application\Controller\Autocertificazioni\AutocertificazioniUfficioTecnicoController',
+            'Application\Controller\Autocertificazioni\AutocertificazioniDemograficoFormResult' => 'Application\Controller\Autocertificazioni\AutocertificazioniDemograficoFormResultController',
         ),
     ),
     'router' => array(
@@ -864,6 +865,19 @@ return array(
                                                 ),
                                                 'may_terminate' => true,
                                             ),
+                                            'demografico-form-result' => array(
+                                                'type' => 'Zend\Mvc\Router\Http\Segment',
+                                                'options' => array(
+                                                    'route' => 'demografici/forms/result/:action[/]',
+                                                    'constraints' => array(
+                                                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                                    ),
+                                                    'defaults' => array(
+                                                        'controller' => 'Application\Controller\Autocertificazioni\AutocertificazioniDemograficoFormResult',
+                                                    ),
+                                                ),
+                                                'may_terminate' => true,
+                                            ),
                                             'poliziamunicipale' => array(
                                                 'type' => 'Zend\Mvc\Router\Http\Segment',
                                                 'options' => array(
@@ -1022,6 +1036,10 @@ return array(
                         'application/autocertificazioni/poliziamunicipale'      => __DIR__ . '/../view/empty.phtml',
                         'application/autocertificazioni/servizisociali'         => __DIR__ . '/../view/empty.phtml',
                         'application/autocertificazioni/ufficiotecnico'         => __DIR__ . '/../view/empty.phtml',
+                        'application/autocertificazioni-demografico/dichiarazioneresidenza1' => __DIR__ . '/../view/empty.phtml',
+                        'application/autocertificazioni-demografico/dichiarazioneresidenza2' => __DIR__ . '/../view/empty.phtml',
+                        'application/autocertificazioni-demografico/dichiarazioneattonotorieta1' => __DIR__ . '/../view/empty.phtml',
+                        'application/autocertificazioni-demografico/dichiarazioneattonotorieta2' => __DIR__ . '/../view/empty.phtml',
                         'error/404'                                             => __DIR__ . '/../view/error/notfound.phtml',
                         'error/index'                                           => __DIR__ . '/../view/error/index.phtml',
                         'error/dbconnection'                                    => __DIR__ . '/../view/error/dbconnection.phtml',
