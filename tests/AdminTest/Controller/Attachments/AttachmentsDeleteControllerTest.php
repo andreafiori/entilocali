@@ -4,6 +4,7 @@ namespace AdminTest\Controller\Attachments;
 
 use Admin\Controller\Attachments\AttachmentsDeleteController;
 use ModelModuleTest\TestSuite;
+use Zend\Http\Request;
 
 class AttachmentsDeleteControllerTest extends TestSuite
 {
@@ -30,7 +31,7 @@ class AttachmentsDeleteControllerTest extends TestSuite
         $this->assertEquals(302, $this->controller->getResponse()->getStatusCode());
     }
 
-    public function testIndexActionReturnsRedirect()
+    public function testIndexActionIsOkAfterPOST()
     {
         $this->routeMatch->setParam('action', 'index');
         $this->routeMatch->setParam('languageSelection', 'it');
@@ -38,11 +39,11 @@ class AttachmentsDeleteControllerTest extends TestSuite
         $this->setupUserSession($this->recoverUserDetails());
 
         $this->request->setMethod(Request::METHOD_POST)->getPost()->fromArray(array(
-            'deleteId' => 1,
+            'deleteId' => 1
         ));
 
         $this->controller->dispatch($this->request);
 
-        $this->assertEquals(302, $this->controller->getResponse()->getStatusCode());
+        $this->assertEquals(200, $this->controller->getResponse()->getStatusCode());
     }
 }

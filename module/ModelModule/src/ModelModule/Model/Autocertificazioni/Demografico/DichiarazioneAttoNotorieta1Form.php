@@ -13,7 +13,6 @@ class DichiarazioneAttoNotorieta1Form extends AutocertificazioniFormAbstract
     {
         parent::__construct($name, $options);
 
-        /* Genitore */
         $this->add(array(
             'name' => 'cognomegenitore',
             'type' => 'Text',
@@ -182,26 +181,6 @@ class DichiarazioneAttoNotorieta1Form extends AutocertificazioniFormAbstract
                 'title'         => 'Data',
                 'placeholder'   => 'Data...',
                 'maxlength'     => '100',
-            ),
-        ));
-
-        /* CSRF */
-        $this->add(array(
-            'type' => 'Zend\Form\Element\Csrf',
-            'name' => 'csrf',
-            'options' => array(
-                'csrf_options' => array(
-                    'timeout' => 3200
-                )
-            )
-        ));
-
-        $this->add(array(
-            'name' => 'submit',
-            'type' => 'Submit',
-            'attributes' => array(
-                'value' => 'Compila modello',
-                'id' => 'submit',
             ),
         ));
     }

@@ -29,7 +29,6 @@ class ContenutiGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setMainQuery();
 
         $this->objectGetter->setId( $this->getInput('id', 1) );
-        $this->objectGetter->setSottosezione( $this->getInput('sottosezione', 1) );
         $this->objectGetter->setNumero( $this->getInput('numero', 1) );
         $this->objectGetter->setAnno( $this->getInput('anno', 1) );
         $this->objectGetter->setModulo( $this->getInput('modulo', 1) );
@@ -38,6 +37,7 @@ class ContenutiGetterWrapper extends RecordsGetterWrapperAbstract
         $this->objectGetter->setUtente( $this->getInput('utente', 1) );
         $this->objectGetter->setIsAmmTrasparente( $this->getInput('isAmmTrasparente', 1) );
         $this->objectGetter->setExcludeSezioneId( $this->getInput('excludeSezioneId', 1) );
+        $this->objectGetter->setSottosezione( $this->getInput('sottosezione', 1) );
         $this->objectGetter->setExcludeSottoSezioneId( $this->getInput('excludeSottoSezioneId', 1) );
         $this->objectGetter->setSezioneId( $this->getInput('sezioneId', 1) );
         $this->objectGetter->setShowToAll( $this->getInput('showToAll', 1) );

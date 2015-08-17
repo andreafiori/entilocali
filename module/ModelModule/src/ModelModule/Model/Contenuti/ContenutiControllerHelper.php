@@ -2,7 +2,6 @@
 
 namespace ModelModule\Model\Contenuti;
 
-use ModelModule\Model\NullException;
 use Zend\InputFilter\InputFilterAwareInterface;
 use ModelModule\Model\Database\DbTableContainer;
 use ModelModule\Model\Slugifier;
@@ -13,6 +12,8 @@ use ModelModule\Model\Slugifier;
 class ContenutiControllerHelper extends ContenutiControllerHelperAbstract
 {
     /**
+     * Insert contenuto on db
+     *
      * @param InputFilterAwareInterface $inputFilter
      * @param string $moduleName
      *
@@ -48,9 +49,11 @@ class ContenutiControllerHelper extends ContenutiControllerHelperAbstract
     }
 
     /**
+     * Update contenuto on db
+     *
      * @param InputFilterAwareInterface $inputFilter
+     *
      * @return int
-     * @throws NullException
      */
     public function update(InputFilterAwareInterface $inputFilter)
     {
@@ -81,7 +84,10 @@ class ContenutiControllerHelper extends ContenutiControllerHelperAbstract
     }
 
     /**
+     * Update contenuti tabella field
+     *
      * @param InputFilterAwareInterface $inputFilter
+     *
      * @return int
      */
     public function updateTabella(InputFilterAwareInterface $inputFilter)
@@ -96,6 +102,8 @@ class ContenutiControllerHelper extends ContenutiControllerHelperAbstract
     }
 
     /**
+     * Delete contenuto from db
+     *
      * @param int $id
      *
      * @return bool

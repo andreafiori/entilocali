@@ -163,19 +163,5 @@ class DichiarazioneResidenzaForm extends AutocertificazioniFormAbstract
                 ),
             )
         ));
-
-        // Patente tipo, Numero
-
-        $this->add(array(
-            'type' => 'Zend\Form\Element\Csrf',
-            'name' => 'csrf',
-            'options' => array(
-                'csrf_options' => array(
-                    'timeout' => 3200
-                )
-            )
-        ));
-
-
     }
 }

@@ -1040,6 +1040,8 @@ return array(
                         'application/autocertificazioni-demografico/dichiarazioneresidenza2' => __DIR__ . '/../view/empty.phtml',
                         'application/autocertificazioni-demografico/dichiarazioneattonotorieta1' => __DIR__ . '/../view/empty.phtml',
                         'application/autocertificazioni-demografico/dichiarazioneattonotorieta2' => __DIR__ . '/../view/empty.phtml',
+                        'application/autocertificazioni-demografico/dichiarazioneespatriominore' => __DIR__ . '/../view/empty.phtml',
+                        'application/autocertificazioni-demografico/statofamilgia' => __DIR__ . '/../view/empty.phtml',
                         'error/404'                                             => __DIR__ . '/../view/error/notfound.phtml',
                         'error/index'                                           => __DIR__ . '/../view/error/index.phtml',
                         'error/dbconnection'                                    => __DIR__ . '/../view/error/dbconnection.phtml',

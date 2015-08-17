@@ -6,6 +6,7 @@ use Application\Controller\SetupAbstractController;
 use ModelModule\Model\Autocertificazioni\Demografico\DichiarazioneAttoNotorieta1Form;
 use ModelModule\Model\Autocertificazioni\Demografico\DichiarazioneAttoNotorieta2Form;
 use ModelModule\Model\Autocertificazioni\Demografico\DichiarazioneResidenzaForm;
+use ModelModule\Model\Autocertificazioni\Demografico\DomandaEspatrioMinoreForm;
 
 /**
  * Autocertificazioni view forms demografico
@@ -87,7 +88,7 @@ class AutocertificazioniDemograficoController extends SetupAbstractController
     {
         $mainLayout = $this->initializeFrontendWebsite();
 
-        $form = new DichiarazioneAttoNotorieta2Form();
+        $form = new DomandaEspatrioMinoreForm();
 
         $this->layout()->setVariables(array(
             'form'            => $form,
@@ -108,7 +109,7 @@ class AutocertificazioniDemograficoController extends SetupAbstractController
 
         $this->layout()->setVariables(array(
             'form'            => $form,
-            'templatePartial' => '',
+            'templatePartial' => 'autocertificazioni/forms/demografico/',
         ));
 
         $this->layout()->setTemplate($mainLayout);

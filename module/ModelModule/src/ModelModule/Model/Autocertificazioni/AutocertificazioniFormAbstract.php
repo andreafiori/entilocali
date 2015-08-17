@@ -199,5 +199,24 @@ abstract class AutocertificazioniFormAbstract extends Form
                 'maxlength'     => '180',
             ),
         ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Csrf',
+            'name' => 'csrf',
+            'options' => array(
+                'csrf_options' => array(
+                    'timeout' => 5600
+                )
+            )
+        ));
+
+        $this->add(array(
+            'name' => 'submit',
+            'type' => 'Submit',
+            'attributes' => array(
+                'value' => 'Compila modello',
+                'id' => 'submit',
+            ),
+        ));
     }
 }
